@@ -20,7 +20,8 @@ export function validateVideoSpec(spec) {
   const warnings = [];
   if (spec?.spec !== VIDEO_SPEC) errors.push(`spec: "${VIDEO_SPEC}"`);
   for (const key of Object.keys(spec ?? {})) if (!TOP.includes(key)) warnings.push(`${key}: a video spec takes no ${key}, left out`);
-  if (typeof spec?.name !== "string" || !/^[\w.-]+$/.test(spec.name)) errors.push("name: the video's file name, without its ending");
+  if (typeof spec?.name !== "string" || !/^[\w.-]+(\/[\w.-]+)*$/.test(spec.name) || spec.name.split("/").includes(".."))
+    errors.push("name: the video's file name, without its ending, in a folder if you like (videos/tour)");
   const size = spec?.size ?? [960, 540];
   if (!Array.isArray(size) || size.length !== 2 || !size.every((v) => Number.isInteger(v) && v >= 64 && v <= 1920 && v % 2 === 0)) errors.push("size: [width, height], even numbers from 64 to 1920");
   if (spec?.fps !== undefined && !(spec.fps >= 5 && spec.fps <= 60)) errors.push("fps: 5 to 60");

@@ -759,11 +759,13 @@ function build(folders, args) {
     return buildVideoSpec(spec, {
       model: (name) => readModel(folders, name).src,
       map: (name) => readFileSync(pathOf(folders, name)),
-      folders: [folders.models, ...(folders.wads ?? [])].filter(Boolean),
+      // the work folder too: a map built there wears its own .wad, which lies beside it
+      folders: [folders.work, folders.models, ...(folders.wads ?? [])].filter(Boolean),
       preview: args.preview !== false,
     }).then(({ report, files }) => {
       const lines = reportLines(report);
-      mkdirSync(folders.work, { recursive: true });
+      if (!report.ok && !files.sheet) return [text(lines.join("\n"))];
+      mkdirSync(dirname(join(folders.work, `${spec.name}.spec.json`)), { recursive: true });
       writeFileSync(join(folders.work, `${spec.name}.spec.json`), `${JSON.stringify(spec, null, 2)}\n`);
       if (files.video) {
         const file = join(folders.work, `${spec.name}.${files.format}`);
