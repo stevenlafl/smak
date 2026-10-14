@@ -1,0 +1,372 @@
+{
+ "spec": "smak.model/1",
+ "name": "market_stall.mdl",
+ "kind": "prop",
+ "size": {
+  "height": 92
+ },
+ "texture": {
+  "width": 512,
+  "height": 512
+ },
+ "materials": {
+  "planks": {
+   "base": "wood",
+   "tone": [
+    0.5,
+    0.36,
+    0.22
+   ]
+  },
+  "red_cloth": {
+   "base": "cloth",
+   "tone": [
+    0.62,
+    0.12,
+    0.1
+   ]
+  }
+ },
+ "prefabs": {
+  "crate": {
+   "spec": "smak.model/1",
+   "kind": "piece",
+   "materials": {
+    "slats": {
+     "base": "wood",
+     "tone": [
+      0.6,
+      0.47,
+      0.3
+     ],
+     "seed": 5
+    }
+   },
+   "parts": [
+    {
+     "id": "box",
+     "kind": "box",
+     "material": "slats",
+     "size": [
+      10,
+      10,
+      7
+     ]
+    },
+    {
+     "id": "lid_band",
+     "kind": "box",
+     "material": "iron",
+     "size": [
+      10.4,
+      1.2,
+      7.4
+     ],
+     "at": [
+      0,
+      0,
+      -0.2
+     ]
+    }
+   ]
+  }
+ },
+ "parts": [
+  {
+   "id": "counter",
+   "kind": "box",
+   "material": "planks",
+   "size": [
+    20,
+    60,
+    32
+   ],
+   "at": [
+    12,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "front_post",
+   "kind": "box",
+   "material": "planks",
+   "size": [
+    2.6,
+    2.6,
+    76.6
+   ],
+   "at": [
+    22,
+    31,
+    0
+   ],
+   "mirror": "y"
+  },
+  {
+   "id": "back_post",
+   "kind": "box",
+   "material": "planks",
+   "size": [
+    2.6,
+    2.6,
+    92.3
+   ],
+   "at": [
+    -16,
+    31,
+    0
+   ],
+   "mirror": "y"
+  },
+  {
+   "id": "beam",
+   "kind": "box",
+   "material": "planks",
+   "size": [
+    2.6,
+    65,
+    2.6
+   ],
+   "at": [
+    22,
+    0,
+    73.6
+   ]
+  },
+  {
+   "id": "awning",
+   "kind": "leaf",
+   "material": "red_cloth",
+   "rows": [
+    [
+     [
+      -17,
+      -34,
+      92
+     ],
+     [
+      -17,
+      -17,
+      92.0
+     ],
+     [
+      -17,
+      0,
+      92.0
+     ],
+     [
+      -17,
+      17,
+      92.0
+     ],
+     [
+      -17,
+      34,
+      92
+     ]
+    ],
+    [
+     [
+      -4,
+      -34,
+      87
+     ],
+     [
+      -4,
+      -17,
+      83.8
+     ],
+     [
+      -4,
+      0,
+      82.5
+     ],
+     [
+      -4,
+      17,
+      83.8
+     ],
+     [
+      -4,
+      34,
+      87
+     ]
+    ],
+    [
+     [
+      10,
+      -34,
+      81.5
+     ],
+     [
+      10,
+      -17,
+      78.3
+     ],
+     [
+      10,
+      0,
+      77.0
+     ],
+     [
+      10,
+      17,
+      78.3
+     ],
+     [
+      10,
+      34,
+      81.5
+     ]
+    ],
+    [
+     [
+      23,
+      -34,
+      76.2
+     ],
+     [
+      23,
+      -17,
+      74.6
+     ],
+     [
+      23,
+      0,
+      73.95
+     ],
+     [
+      23,
+      17,
+      74.6
+     ],
+     [
+      23,
+      34,
+      76.2
+     ]
+    ]
+   ]
+  },
+  {
+   "id": "lantern",
+   "kind": "prefab",
+   "file": "lantern.json",
+   "attach": {
+    "to": "beam",
+    "toAt": "bottom",
+    "at": "top",
+    "offset": [
+     0,
+     0,
+     0.4
+    ]
+   }
+  },
+  {
+   "id": "sword",
+   "kind": "kit:sword",
+   "options": {
+    "seed": 3,
+    "pommel": {
+     "profile": [
+      [
+       0,
+       0.45
+      ],
+      [
+       0.8,
+       0.8
+      ],
+      [
+       1.6,
+       0.5
+      ]
+     ]
+    },
+    "grip": {
+     "profile": [
+      [
+       1.4,
+       0.55
+      ],
+      [
+       6.5,
+       0.6
+      ]
+     ],
+     "wrap": "leather"
+    },
+    "guard": {
+     "x": 6.8,
+     "sections": [
+      [
+       -2.6,
+       0.3,
+       0.25
+      ],
+      [
+       0,
+       0.45,
+       0.4
+      ],
+      [
+       2.6,
+       0.3,
+       0.25
+      ]
+     ]
+    },
+    "blade": {
+     "x0": 7.2,
+     "x1": 34,
+     "half": {
+      "taper": [
+       1.1,
+       0.95
+      ]
+     },
+     "section": "diamond"
+    }
+   },
+   "rotate": [
+    90,
+    0,
+    0
+   ],
+   "attach": {
+    "to": "counter",
+    "offset": [
+     0,
+     -6,
+     -0.2
+    ]
+   }
+  },
+  {
+   "id": "crate",
+   "kind": "prefab",
+   "prefab": "crate",
+   "attach": {
+    "to": "counter",
+    "offset": [
+     0,
+     18,
+     -0.2
+    ]
+   }
+  },
+  {
+   "id": "barrel",
+   "kind": "prefab",
+   "file": "../01-model-barrel/spec.json",
+   "scale": 0.6,
+   "at": [
+    30,
+    -24,
+    0
+   ]
+  }
+ ]
+}

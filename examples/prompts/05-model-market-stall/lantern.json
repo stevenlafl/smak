@@ -1,0 +1,171 @@
+{
+ "spec": "smak.model/1",
+ "name": "lantern.mdl",
+ "kind": "piece",
+ "texture": {
+  "width": 256,
+  "height": 256
+ },
+ "materials": {
+  "cast": {
+   "base": "iron",
+   "tone": [
+    0.16,
+    0.16,
+    0.17
+   ],
+   "rust": 0.1
+  },
+  "lit_glass": {
+   "base": "glass",
+   "tone": [
+    1.0,
+    0.82,
+    0.38
+   ],
+   "flags": [
+    "fullbright"
+   ]
+  }
+ },
+ "parts": [
+  {
+   "id": "chain",
+   "kind": "cylinder",
+   "material": "cast",
+   "radius": 0.35,
+   "height": 5,
+   "sides": 6,
+   "at": [
+    0,
+    0,
+    -5
+   ]
+  },
+  {
+   "id": "roof",
+   "kind": "cylinder",
+   "material": "cast",
+   "radius": 6.4,
+   "top": 0.3,
+   "height": 4,
+   "sides": 4,
+   "rotate": [
+    45,
+    0,
+    0
+   ],
+   "attach": {
+    "to": "chain",
+    "toAt": "bottom",
+    "at": "top",
+    "offset": [
+     0,
+     0,
+     0.3
+    ]
+   }
+  },
+  {
+   "id": "top_plate",
+   "kind": "box",
+   "material": "cast",
+   "size": [
+    9,
+    9,
+    1
+   ],
+   "attach": {
+    "to": "roof",
+    "toAt": "bottom",
+    "at": "top",
+    "offset": [
+     0,
+     0,
+     0.2
+    ]
+   }
+  },
+  {
+   "id": "glass",
+   "kind": "box",
+   "material": "lit_glass",
+   "size": [
+    7,
+    7,
+    9
+   ],
+   "attach": {
+    "to": "top_plate",
+    "toAt": "bottom",
+    "at": "top",
+    "offset": [
+     0,
+     0,
+     0.3
+    ]
+   }
+  },
+  {
+   "id": "bottom_plate",
+   "kind": "box",
+   "material": "cast",
+   "size": [
+    9,
+    9,
+    1
+   ],
+   "attach": {
+    "to": "glass",
+    "toAt": "bottom",
+    "at": "top",
+    "offset": [
+     0,
+     0,
+     0.3
+    ]
+   }
+  },
+  {
+   "id": "frame_post",
+   "kind": "box",
+   "material": "cast",
+   "size": [
+    1.2,
+    1.2,
+    9.6
+   ],
+   "attach": {
+    "to": "glass",
+    "toAt": "centre",
+    "at": "centre",
+    "offset": [
+     3.5,
+     3.5,
+     0
+    ]
+   },
+   "repeat": {
+    "count": 4,
+    "around": "glass"
+   }
+  },
+  {
+   "id": "drop",
+   "kind": "sphere",
+   "material": "cast",
+   "radius": 1,
+   "sides": 8,
+   "attach": {
+    "to": "bottom_plate",
+    "toAt": "bottom",
+    "at": "top",
+    "offset": [
+     0,
+     0,
+     0.3
+    ]
+   }
+  }
+ ]
+}

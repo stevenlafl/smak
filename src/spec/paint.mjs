@@ -96,7 +96,8 @@ export function colourAt(material, x, y, light = 1) {
     case "cloth":
     case "rope": {
       // a weave: threads across each way
-      const weave = 0.9 + 0.08 * Math.sin(x * 9) * Math.sin(y * 9) + 0.18 * (grain(x * 0.5, y * 0.5) - 0.5);
+      // threads too fine to draw at a model's few pixels a unit: a soft mottle, and folds across it
+      const weave = 0.92 + 0.03 * Math.sin(x * 9) * Math.sin(y * 9) + 0.16 * (grain(x * 0.5, y * 0.5) - 0.5) + 0.06 * Math.sin(y * 1.3 + 3 * grain(x * 0.2, y * 0.2));
       return shade(tone, weave * light);
     }
     case "stone":

@@ -473,12 +473,14 @@ export function shape(width, height) {
    * other, `g` >= 0 the half thickness). Side A (g) goes in `zoneA` and side B (-g) in `zoneB`,
    * laid flat: `u = zone.x + (s - s0) * px`, `v = zone.yc - t * px`.
    * `at(s, t, g)` places the point (x, y, z unless told).
+   * `ends`: true closes the first and the last section, where they have a size (a bar's two tips, a blade's
+   * base): left open, an end that does not come to a point is a slot into the plate.
    */
   const plate = (
     stations,
     zoneA,
     zoneB,
-    { px = 48, s0 = stations[0].s, at = (s, t, g) => [s, t, g], part = 0 } = {},
+    { px = 48, s0 = stations[0].s, at = (s, t, g) => [s, t, g], part = 0, ends = false } = {},
   ) => {
     const pixelOf = (zone, s, t) => [zone.x + (s - s0) * px, zone.yc - t * px];
     const faceOf = (zone, sign) =>
@@ -502,6 +504,23 @@ export function shape(width, height) {
         for (let k = 0; k + 1 < corners[i].length; k++)
           quad(corners[i][k], corners[i + 1][k], corners[i + 1][k + 1], corners[i][k + 1], inside);
       }
+    }
+    if (!ends) return;
+    for (const which of [0, stations.length - 1]) {
+      const station = stations[which];
+      // the section's outline: side A along it, then side B back, without the points where the two meet
+      const front = station.pts.map(([t, g]) => V(at(station.s, t, g), pixelOf(zoneA, station.s, t), part));
+      const back = station.pts
+        .map(([t, g]) => V(at(station.s, t, -g), pixelOf(zoneB, station.s, t), part))
+        .filter((_, k) => station.pts[k][1] !== 0)
+        .reverse();
+      const outline = [...front, ...back];
+      // a point inside the plate, a little in from this end
+      const next = stations[which ? which - 1 : 1];
+      const middleT = (station.pts[0][0] + station.pts.at(-1)[0]) / 2;
+      const inside = at(station.s + (next.s - station.s) * 0.01, middleT, 0);
+      const centre = V(at(station.s, middleT, 0), pixelOf(zoneA, station.s, middleT), part);
+      for (let k = 0; k < outline.length; k++) tri(outline[k], outline[(k + 1) % outline.length], centre, inside);
     }
   };
   // ── since 0.6.0: surfaces that know where they are, and what is built on them ──

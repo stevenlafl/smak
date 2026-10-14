@@ -20,8 +20,12 @@ import { posed, render } from "./render.mjs";
 import { FRONT } from "./mesh.mjs";
 import { sub, dot, cross } from "./vec.mjs";
 
-/** Points nearer than this (units) are one point. */
-const WELD = 0.01;
+/**
+ * Points nearer than this (units) are one point: far over the noise of a model's numbers (a millionth of a
+ * unit), and under the narrowest a part is made (a blade's tip: there, a weld of 0.01 joined points that
+ * were apart and made edges of three triangles that are not).
+ */
+const WELD = 0.002;
 /** A piece further than this (units) from every other piece is floating. */
 const GAP = 0.25;
 /** A closed piece whose volume is under this share of its box's is a sheet of two faces back to back. */
@@ -92,6 +96,60 @@ function inside(point, shell, tris) {
   }
   return crossings % 2 === 1;
 }
+
+/**
+ * An open edge whose middle has at least this winding number about the other shells is inside them; one
+ * over FLUSH_WINDING and within FLUSH of another shell's face lies on that face.
+ */
+const BURIED_WINDING = 0.6;
+const FLUSH_WINDING = 0.4;
+const FLUSH = 0.01;
+
+/**
+ * The generalised winding number of a point about some shells' triangles (Jacobson and others, 2013): the
+ * solid angle they cover seen from it, over the whole sphere's. 1 deep inside a closed shell, 0 outside, and
+ * between for shells that are open: a point inside a tube near one of its open ends has about a half.
+ */
+function winding(point, shells, tris) {
+  let total = 0;
+  for (const shell of shells) {
+    const { mn, mx } = shell.bounds;
+    // a shell whose box is far from the point covers little of its sky: it is still counted, cheaply enough
+    for (const i of shell.members) {
+      const [a, b, c] = tris[i].p.map((q) => sub(q, point));
+      const la = Math.hypot(...a);
+      const lb = Math.hypot(...b);
+      const lc = Math.hypot(...c);
+      const det = dot(a, cross(b, c));
+      const div = la * lb * lc + dot(a, b) * lc + dot(b, c) * la + dot(c, a) * lb;
+      total += 2 * Math.atan2(det, div);
+    }
+    void mn;
+    void mx;
+  }
+  return total / (4 * Math.PI);
+}
+
+/** Whether the segment from `a` to `b` passes through the triangle [p, q, r]. */
+function segmentCrosses(a, b, [p, q, r]) {
+  const d = sub(b, a);
+  const e1 = sub(q, p);
+  const e2 = sub(r, p);
+  const h = cross(d, e2);
+  const det = dot(e1, h);
+  if (Math.abs(det) < 1e-12) return false;
+  const s = sub(a, p);
+  const u = dot(s, h) / det;
+  if (u < 0 || u > 1) return false;
+  const k = cross(s, e1);
+  const v = dot(d, k) / det;
+  if (v < 0 || u + v > 1) return false;
+  const t = dot(e2, k) / det;
+  return t >= 0 && t <= 1;
+}
+/** Whether two triangles cut through each other: an edge of one through the other. */
+const trianglesCross = (A, B) =>
+  [0, 1, 2].some((k) => segmentCrosses(A[k], A[(k + 1) % 3], B) || segmentCrosses(B[k], B[(k + 1) % 3], A));
 
 /** How far apart two boxes are (0 when they touch or overlap). */
 const boxGap = (a, b) =>
@@ -222,7 +280,7 @@ export function shapeSoundness(list, { weld = WELD, gap = GAP, front = 1, allow 
       for (const [i, j] of paired) join(i, j);
       if (round.length > 2) count.touching++;
     } else if (round.length === 2) loose.push({ kind: "flipped", tri: round[0].tri, with: round[1].tri });
-    else loose.push({ kind: "crowded", tri: round[0].tri });
+    else loose.push({ kind: "crowded", tri: round[0].tri, all: round.map((r) => r.tri) });
   }
   for (const fault of loose) if (fault.kind === "flipped") join(fault.tri, fault.with);
   const tallies = { open: new Map(), crowded: new Map(), flipped: new Map() };
@@ -232,6 +290,7 @@ export function shapeSoundness(list, { weld = WELD, gap = GAP, front = 1, allow 
     tally.set(find(fault.tri), (tally.get(find(fault.tri)) ?? 0) + 1);
   }
   const { open: openOf, flipped: flippedOf, crowded: crowdedOf } = tallies;
+  const unpaired = new Set(loose.filter((fault) => fault.kind === "crowded").flatMap((fault) => fault.all.map(find)));
   // the shells: triangles joined across the edges they pair at, each closed or not, with its volume
   const shellOf = new Map();
   tris.forEach((_, i) => {
@@ -245,7 +304,8 @@ export function shapeSoundness(list, { weld = WELD, gap = GAP, front = 1, allow 
     const volume =
       (front * members.reduce((sum, i) => sum + dot(tris[i].p[0], cross(tris[i].p[1], tris[i].p[2])), 0)) / 6;
     const size = bounds.mx.map((v, k) => Math.max(v - bounds.mn[k], weld));
-    const closed = !openOf.get(root);
+    // a shell cut off along an edge whose triangles did not pair is no closed solid, whatever its volume
+    const closed = !openOf.get(root) && !unpaired.has(root);
     return {
       members,
       closed,
@@ -263,10 +323,26 @@ export function shapeSoundness(list, { weld = WELD, gap = GAP, front = 1, allow 
   const shellIndex = new Map();
   shells.forEach((shell) => shell.members.forEach((i) => shellIndex.set(i, shell)));
   count.buried = 0;
+  // the shapes an open edge may be buried in when no closed solid holds it: open shells too (a grip turned
+  // with no ends, whose ends go into a pommel and a guard), asked by their winding number
+  for (const shell of shells) shell.bounds ??= boxOf(shell.members.flatMap((i) => tris[i].p));
   for (const fault of loose) {
     if (fault.kind !== "open") continue;
     const own = shellIndex.get(fault.tri);
-    if (solids.some((solid) => solid !== own && inside(fault.mid, solid, tris))) {
+    const around = winding(fault.mid, shells.filter((shell) => shell !== own), tris);
+    // inside a closed solid; inside open ones; or lying on another part's face (a blade butted flush against
+    // its guard: the edge is covered by that face, and its winding is a half)
+    const held =
+      solids.some((solid) => solid !== own && inside(fault.mid, solid, tris)) ||
+      around > BURIED_WINDING ||
+      (around > FLUSH_WINDING &&
+        shells.some((shell) => shell !== own && shell.members.some((i) => toTriangle(fault.mid, tris[i].p) <= FLUSH)));
+    if (!held) own.firstOpen = own.firstOpen ?? fault.mid;
+    if (!held && process.env.SMAK_SOUND_DEBUG) {
+      const away = Math.min(...shells.filter((shell) => shell !== own).flatMap((shell) => shell.members.map((i) => toTriangle(fault.mid, tris[i].p))));
+      console.error("open", fault.mid.map(round2).join(" "), "winding", around.toFixed(3), "nearest face", away.toFixed(4), tris[fault.tri].t.name);
+    }
+    if (held) {
       own.open--;
       count.open--;
       count.buried++;
@@ -303,6 +379,7 @@ export function shapeSoundness(list, { weld = WELD, gap = GAP, front = 1, allow 
       sheet: list.every((shell) => shell.sheet),
       open: list.reduce((n, shell) => n + shell.open, 0),
       crowded: list.reduce((n, shell) => n + shell.crowded, 0),
+      openAt: list.find((shell) => shell.firstOpen)?.firstOpen?.map(round2),
       flipped: list.reduce((n, shell) => n + shell.flipped, 0),
       insideOut: list.filter((shell) => shell.closed && !shell.sheet && shell.volume < 0).length,
       volume: round2(list.reduce((v, shell) => v + shell.volume, 0)),
@@ -330,6 +407,14 @@ export function shapeSoundness(list, { weld = WELD, gap = GAP, front = 1, allow 
       const sunk = (from, to) =>
         pointsOf(from).some((point) => to.solids.some((solid) => inside(point, solid, tris)));
       if (sunk(piece, other) || sunk(other, piece)) {
+        nearest = 0;
+        continue;
+      }
+      // two surfaces that cut through each other touch, though no corner of either is near the other's faces
+      const near = (from, to) => trianglesOf(from).filter((t) => boxGap(boxOf(t), to.bounds) <= gap);
+      const mine = near(piece, other);
+      const theirs = near(other, piece);
+      if (mine.some((A) => theirs.some((B) => boxGap(boxOf(A), boxOf(B)) === 0 && trianglesCross(A, B)))) {
         nearest = 0;
         continue;
       }
@@ -363,7 +448,7 @@ export function shapeSoundness(list, { weld = WELD, gap = GAP, front = 1, allow 
   const openPieces = pieces.filter((p) => p.open && !allowed(p));
   if (openPieces.length)
     faults.push(
-      `${openPieces.reduce((n, p) => n + p.open, 0)} open edges, in ${openPieces.length} pieces (${named(openPieces)}): holes, or a shape left open with no inside, which shows nothing from where it is open`,
+      `${openPieces.reduce((n, p) => n + p.open, 0)} open edges, in ${openPieces.length} pieces (${named(openPieces)}; the first at ${openPieces[0].openAt?.join(" ")}): holes, or a shape left open with no inside, which shows nothing from where it is open`,
     );
   const crowded = pieces.filter((p) => p.crowded);
   if (count.crowded)

@@ -219,6 +219,7 @@ export function sword(spec) {
     px: bladePx,
     s0: blade.x0,
     at: (s, across, height) => [s, across + curve(alongBlade(s)), height],
+    ends: true,
   });
   if (blade.glow) for (const triangle of mesh.tris.slice(beforeBlade)) triangle.glow = true;
   if (blade.bright) for (const triangle of mesh.tris.slice(beforeBlade)) triangle.bright = true;
@@ -439,7 +440,7 @@ export function sword(spec) {
       })),
       guardZones.A,
       guardZones.B,
-      { px: guardPx, s0: firstY, at: (s, across, height) => [guard.x + across + sweep(s), s, height] },
+      { px: guardPx, s0: firstY, at: (s, across, height) => [guard.x + across + sweep(s), s, height], ends: true },
     );
     for (const [zone, side] of [
       [guardZones.A, 1],
@@ -496,7 +497,9 @@ export function sword(spec) {
       sides: part.sides ?? 8,
       flatten: part.flatten ?? 1,
       px: pixelsPerUnit,
-      caps: [cap ?? false, false],
+      // both ends closed: an end that goes into the guard or the pommel is hidden there only while the part
+      // is thinner than what it goes into, and is a hole where it is not
+      caps: [cap ?? true, true],
       twist: part.sides === 4 ? Math.PI / 4 : 0, // a square part stands on a face, not on an edge
     });
     canvas.zone(zone, (u, v) => paint(u / pixelsPerUnit, v / zone.h, run));
