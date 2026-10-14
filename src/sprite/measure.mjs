@@ -11,6 +11,12 @@
 //
 //   measureSprite(spr) -> { frames, size, wrap, jitter, border: { max, mean }, envelope: { peakAt, first, last }, dark }
 // `spr` as readSpr gives it.
+//
+//   measureSheet(picture, { size, format, cols, cell, tint }) -> { frames, dark, border: { max, mean }, lab }
+// the same measures read off a contact sheet as sheetOf draws one (a reference picture): MEASURES ONLY, its
+// pixels are never kept (research/asset-reproduction-failures.md, section 7).
+import { toLab } from "../spec/colours.mjs";
+import { DARK, GREY, cellOf } from "./draw.mjs";
 
 const lum = (r, g, b) => (0.299 * r + 0.587 * g + 0.114 * b) / 255;
 
@@ -119,4 +125,78 @@ export function againstClass(measured, name) {
       const ok = v >= lo && v <= hi;
       return { measure: k, value: v, range: [lo, hi], ok, words: ok ? "" : hints[k][v < lo ? 0 : 1] };
     });
+}
+
+/** Where a sheet writes a frame's number, from its cell's corner: the band behind the digits (render.mjs's label). */
+const NUMBER = { x: 4, y: 4, high: 14, digit: 8, colour: [235, 235, 235] };
+
+/** The mean CIELAB of a picture's pixels that differ from its ground: the judge's mean colour. */
+export function meanLab(picture, ground) {
+  let s = [0, 0, 0];
+  let n = 0;
+  for (let i = 0; i < picture.rgba.length; i += 4) {
+    const c = [picture.rgba[i], picture.rgba[i + 1], picture.rgba[i + 2]];
+    if (ground && c.every((v, k) => Math.abs(v - ground[k]) < 4)) continue;
+    const lab = toLab(c.map((v) => v / 255));
+    s = s.map((v, k) => v + lab[k]);
+    n++;
+  }
+  return n ? s.map((v) => v / n) : null;
+}
+
+/**
+ * A contact sheet measured as measureSprite measures a sprite: `size` the frame's [w, h], `format` the
+ * sprite's, `cols` and `cell` as the sheet was drawn with (8 and 128). Each frame is read at the middle of
+ * each of its enlarged pixels, its number's band left out; its energy is the light over the dark ground
+ * (additive), the colour itself (normal, alpha test), or how far it is from the grey toward `tint` (index
+ * alpha). A cell counts as a frame when its number is written in it.
+ */
+export function measureSheet(picture, { size: [w, h], format = "additive", cols = 8, cell = 128, tint = [1, 1, 1] }) {
+  const k = cellOf([w, h], cell);
+  const [cw, ch] = [w * k, h * k];
+  if (picture.width % cw || picture.height % ch) return { error: `the picture (${picture.width}x${picture.height}) is not a grid of ${cw}x${ch} cells: a ${w}x${h} sprite drawn ${cols} to a row at cell ${cell}` };
+  const ground = format === "additive" ? DARK : GREY;
+  const at = (x, y) => [0, 1, 2].map((j) => picture.rgba[(y * picture.width + x) * 4 + j]);
+  const toward = lum(...tint.map((v) => v * 255)) - lum(...ground);
+  const energy = (c) => {
+    if (format === "additive") return lum(...c.map((v, j) => Math.max(0, v - ground[j])));
+    if (format === "index alpha") return Math.min(1, Math.max(0, (lum(...c) - lum(...ground)) / (toward || 1)));
+    if (format === "alpha test" && c.every((v, j) => v === ground[j])) return 0;
+    return lum(...c);
+  };
+  let frames = 0;
+  let dark = 0;
+  let all = 0;
+  let borderMax = 0;
+  let borderSum = 0;
+  let borderN = 0;
+  const across = Math.min(cols, picture.width / cw);
+  for (let row = 0; row < picture.height / ch; row++)
+    for (let col = 0; col < across; col++) {
+      const left = col * cw;
+      const top = row * ch;
+      // the frame's number, in the label's light grey within the band at the cell's corner
+      const digits = String(row * across + col).length;
+      const band = { x1: NUMBER.x + NUMBER.digit * digits + 2, y1: NUMBER.y + NUMBER.high };
+      let numbered = false;
+      for (let y = NUMBER.y; y < band.y1 && !numbered; y++)
+        for (let x = NUMBER.x; x < band.x1 && !numbered; x++) numbered = x < cw && y < ch && at(left + x, top + y).every((v, j) => v === NUMBER.colour[j]);
+      if (!numbered) continue;
+      frames++;
+      for (let fy = 0; fy < h; fy++)
+        for (let fx = 0; fx < w; fx++) {
+          const x = fx * k + (k >> 1);
+          const y = fy * k + (k >> 1);
+          if (x >= NUMBER.x - 2 && x < band.x1 && y >= NUMBER.y - 2 && y < band.y1) continue;
+          const e = energy(at(left + x, top + y));
+          all++;
+          if (e < 0.03) dark++;
+          if (fx < 2 || fy < 2 || fx >= w - 2 || fy >= h - 2) {
+            borderMax = Math.max(borderMax, e);
+            borderSum += e;
+            borderN++;
+          }
+        }
+    }
+  return { frames, dark: round(dark / (all || 1), 2), border: { max: round(borderMax), mean: round(borderSum / (borderN || 1)) }, lab: meanLab(picture, ground) };
 }

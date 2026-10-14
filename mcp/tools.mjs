@@ -740,7 +740,8 @@ function build(folders, args) {
   }
   if (spec?.spec === "smak.sprite/1") {
     // sprites: each under work:<its name> (sprites/...spr), with its contact sheet and an animated picture
-    const { report, files } = buildSpriteSpec(spec);
+    // a reference picture (the agent's input sheet) is read for its measures only, from the work or models folder
+    const { report, files } = buildSpriteSpec(spec, { readPicture: (name) => smak.unpng(readFileSync(pathOf(folders, name))) });
     const lines = reportLines(report);
     const first = spec.name ?? spec.sprites?.[0]?.name ?? "sprite";
     const base = first.replace(/\.spr$/i, "").replace(/[^\w-]+/g, "_");

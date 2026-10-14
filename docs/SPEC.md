@@ -458,11 +458,34 @@ measured against Half-Life's own of its kind, and drawn as a sheet of its frames
 | `frames`, `loop`, `fps` | A loop of `frames` is written with its first frame again at the end, as the engine wraps; an `env_sprite` changes frame at most 10 times a second |
 | `type`, `format` | `parallel` (unless told: faces the camera), `upright`, `facing upright`, `oriented`, `parallel oriented`; `additive` (unless told: black is clear), `index alpha` (coverage, tinted by `colour`), `alpha test` (holes), `normal` |
 | `origin` | `centre` (unless told), `bottom` (a flame on its base), or `[x, y]` pixels |
-| `layers` | Each `{ kind, gain, env: { attack, decay }, ... }`: `glow` (`radius`, `core`, `colour`, `at`), `flare` (`streaks: [{ angle, length, width }]`), `fire` (`ramp`: fire, blue, green; `width`, `rise`, `turbulence`), `smoke` (`density`, `spread`, `colour`), `explosion` (`growth`, `cool`, `turbulence`), `sparks` (`count`, `speed`, `gravity`, `trail`), `ring` (`from`, `to`, `width`), `beam` (`core`, `noise`). Coordinates run -1 to 1 across the longer side; `v` is up |
+| `layers` | Each `{ kind, gain, env: { attack, decay }, ... }`, summed: the kinds below. Coordinates run -1 to 1 across the longer side; `v` is up |
 | `finish` | `edge`: pixels faded at the border (2) |
+| `reference` | A contact sheet of the sprite this one reproduces (the picture given as input), `"pictures/frames.png"` or `{ picture, cell, cols }` as it was drawn (128 and 8): the report measures this sprite against it. Measures only: nothing of it goes into a frame |
+
+| Layer | Its own fields |
+| --- | --- |
+| `glow` | `radius`, `core`, `colour`, `at`; `falloff`: `smooth` (unless told: cut to nothing between 0.55 and 1 of `radius`) or `power` (`1 / (1 + (r / core)^power)`, `power` 2, eased to nothing only at `reach`, 1.5: past a square frame's corner, so a lens's glow fills its frame) |
+| `flare` | `core`, `colour`, `at`, `streaks: [{ angle, length, width, half, gain, taper, blur, haze }]` (`half`: out from the core along `angle` only); for every streak unless it says, `taper` (that many times its width wider toward its middle: a wedge), `blur` (a Gaussian across, the light spread and not lost), `haze` (a faint glow four times as wide under the arm); `rays: { count (48), length (0.9), jitter (0.5), width (0.012), gain (0.5) }`: many thin half streaks round it of seeded lengths, a lens flare's fine rays |
+| `fire` | `ramp`, `width`, `rise`, `turbulence`, `height`; `taper` (0.65: how much narrower at its top; 0 no cone), `tongues` (0 to 1: noise four times as tall as wide, rising with the flame and cut at a level that climbs with height, so it parts into licks with dark between) |
+| `smoke` | `density`, `spread`, `colour`, `rise` |
+| `explosion` | `ramp`, `growth`, `cool`, `turbulence`: a ball, unlit |
+| `billow` | A lit cloud: `count` (24) spheres in a disc of `spread` (0.5) about `at`, each `size` (0.3) or so, carried out as it grows (`growth`), rising (`rise` 0.25) and drifting (`drift` 0.12); their front joined smoothly (`blend` 0.4; 0 a crease), its edge lumpy (`lumps` 0.4), lit from the top left (`light`), coloured by heat times light through `ramp` (`blast`), a white middle early (`hot`: 0.4 of its life), cooling (`cool`); `dissolve` (0.7) breaks it into wisps as it ages; `debris: { count, speed, gravity, trail }` throws flecks. Under `index alpha` its light is in its coverage (a puff keeps its shading) |
+| `blobs` | `count` (9) soft discs placed afresh every frame round a core (`radius` 0.32, `spread` 0.6, `core` 0.4, `soft` 0.5): sparks' flicker, nothing to follow from frame to frame |
+| `sparks` | `count`, `speed`, `gravity`, `trail`, `colour` |
+| `ring` | `from`, `to`, `width`, `colour` |
+| `beam` | `core`, `noise`, `colour`; `profile`: `round` (unless told) or `flat` (full across `core` of the width, then soft shoulders `shoulder`, 0.3, wide); `streaks` (0 to 1: mottling that changes across the beam and hardly along it, still tiling end to end) |
+
+`ramp` (on `fire`, `explosion` and `billow`; on `glow`, `flare`, `beam` and `blobs` it colours the light by its
+own brightness, a white middle to a dark rim, in place of `colour`): `fire`, `blue`, `green`, `blast` (white,
+cream, tan, brown: an explosion's smoke) and `muzzle` (white, peach, tan), or a list of `[heat, [r, g, b]]`
+stops. `blast` and `muzzle` are the mean colours of Half-Life's own explosion and muzzle flash at each tenth of
+brightness.
 
 The report gives each sprite's colours, the border's light, how it starts and ends, how smoothly a loop wraps
 and how much it flickers, each against Half-Life's own of its class, and the render mode to place it with.
+With a `reference`, it gives the judge's measures of both, each read off a sheet of the same drawing: mean
+colour (delta E; 15 or under is near), the share that is dark (within 0.05 is near), the border's light and the
+frame count, with a note for each that is off.
 FAULTs: a loop that jumps at its wrap, a one-shot that does not end dark, light at the border.
 
 ## A video

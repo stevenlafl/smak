@@ -318,7 +318,8 @@ async function judgeMap(map, leg, copyFile, { decoy } = {}) {
 
 /** A single room the size of the original's floor, with one place to start: the decoy that must fail. */
 function roomDecoy(map) {
-  const out = join(HERE, map.id, "judge", "decoy-room");
+  // built apart from judge/decoy-room, which the judging clears before it draws
+  const out = join(HERE, map.id, "judge", "decoy-room-built");
   mkdirSync(out, { recursive: true });
   const bounds = JSON.parse(smak("map-info", join(GAME, map.file), "--json")).bounds;
   const size = [Math.min(4000, bounds.maxs[0] - bounds.mins[0] - 64), Math.min(4000, bounds.maxs[1] - bounds.mins[1] - 64), 256];

@@ -1,0 +1,165 @@
+// Sprites' layers past the first round: a glow with no hard cut, a flare's wedges, blur, haze and rays, a flat
+// beam with streaks that still tiles, a fire with no cone and with tongues, the blast and muzzle ramps, a lit
+// billow and a cluster of blobs; and a sprite measured against a reference sheet (measures, never pixels).
+// Every new field left out builds what it built before.
+import { writeFileSync } from "node:fs";
+import { join } from "node:path";
+import * as smak from "../src/index.mjs";
+import { framesOf, RAMP_NAMES, LAYER_KINDS } from "../src/sprite/effects.mjs";
+import { measureSprite, measureSheet } from "../src/sprite/measure.mjs";
+import { sheetOf } from "../src/sprite/draw.mjs";
+import { buildSpriteSpec, validateSpriteSpec } from "../src/spec/sprite.mjs";
+import { test, sure, near, tmp } from "./helper.mjs";
+
+const lum = (f, x, y) => {
+  const i = (y * f.width + x) * 3;
+  return 0.299 * f.rgb[i] + 0.587 * f.rgb[i + 1] + 0.114 * f.rgb[i + 2];
+};
+const one = (layer, size = [64, 64], more = {}) => framesOf({ size, frames: 1, layers: [layer], ...more })[0];
+const same = (a, b) => a.rgb.every((v, i) => v === b.rgb[i]) && a.a.every((v, i) => v === b.a[i]);
+const spec = (sprite) => ({ spec: "smak.sprite/1", sprites: [{ name: "sprites/t.spr", size: [32, 32], ...sprite }] });
+
+test("sprite layers: every new field at its default builds what the layer built before", () => {
+  const flare = { kind: "flare", streaks: [{ angle: 30, length: 0.8, width: 0.03 }] };
+  sure(same(one(flare), one({ ...flare, taper: 0, blur: 0, haze: 0 })), "a flare with taper, blur and haze at 0");
+  sure(same(one({ kind: "glow" }), one({ kind: "glow", falloff: "smooth" })), "a glow's smooth falloff");
+  const fire = { kind: "fire" };
+  const loop = (layer) => framesOf({ size: [32, 64], frames: 4, loop: true, layers: [layer] });
+  sure(loop(fire).every((f, n) => same(f, loop({ ...fire, taper: 0.65, tongues: 0 })[n])), "a fire's taper of 0.65 and no tongues");
+  sure(same(one({ kind: "beam" }, [32, 64]), one({ kind: "beam", profile: "round", streaks: 0 }, [32, 64])), "a round beam with no streaks");
+  sure(["blast", "muzzle"].every((r) => RAMP_NAMES.includes(r)) && ["billow", "blobs"].every((k) => LAYER_KINDS.includes(k)), `${RAMP_NAMES} ${LAYER_KINDS}`);
+});
+
+test("a glow with a power falloff has no hard cut: lit past its radius, eased to nothing at its reach", () => {
+  const smooth = one({ kind: "glow", radius: 0.5, core: 0.2 }, [64, 64], { edge: 0 });
+  const power = one({ kind: "glow", radius: 0.5, core: 0.2, falloff: "power" }, [64, 64], { edge: 0 });
+  // 0.6 out from the middle along x: past the smooth glow's radius
+  const x = 32 + Math.round(0.6 * 32);
+  sure(lum(smooth, x, 32) === 0 && lum(power, x, 32) > 0.05, `at 0.6: smooth ${lum(smooth, x, 32)}, power ${lum(power, x, 32)}`);
+  const short = one({ kind: "glow", core: 0.2, falloff: "power", reach: 0.5 }, [64, 64], { edge: 0 });
+  sure(lum(short, x, 32) === 0, `reach 0.5: nothing at 0.6 (${lum(short, x, 32)})`);
+});
+
+test("a flare's streaks: a taper makes a wedge, blur spreads without losing light, a half streak has no tail, rays are many", () => {
+  const arm = (more) => one({ kind: "flare", core: 0.01, streaks: [{ angle: 0, length: 0.9, width: 0.03, ...more }] }, [64, 64], { edge: 0 });
+  // the width lit across the arm at a point: rows over a tenth of the peak
+  const width = (f, x) => {
+    let n = 0;
+    for (let y = 0; y < 64; y++) if (lum(f, x, y) > 0.1) n++;
+    return n;
+  };
+  const plain = arm({});
+  const wedge = arm({ taper: 3 });
+  sure(width(wedge, 36) > width(plain, 36) + 2 && width(wedge, 36) > width(wedge, 56), `wedge near the core ${width(wedge, 36)}, near its tip ${width(wedge, 56)}, plain ${width(plain, 36)}`);
+  const across = (f, x) => Array.from({ length: 64 }, (_, y) => lum(f, x, y)).reduce((s, v) => s + v, 0);
+  const blurred = arm({ blur: 0.06 });
+  near(across(blurred, 44), across(plain, 44), 0.25 * across(plain, 44), "the light across a blurred arm");
+  sure(width(blurred, 44) > width(plain, 44), `blurred wider: ${width(blurred, 44)} against ${width(plain, 44)}`);
+  const hazy = arm({ haze: 0.2 });
+  sure(lum(hazy, 44, 24) > lum(plain, 44, 24), "a haze lights beside the arm");
+  const half = arm({ half: true });
+  sure(lum(half, 12, 32) < 0.01 && lum(half, 52, 32) > 0.05, `a half streak: behind ${lum(half, 12, 32)}, ahead ${lum(half, 52, 32)}`);
+  // rays: the ring at 0.35 crossed by many lit spokes
+  const rayed = one({ kind: "flare", core: 0.01, streaks: [], rays: { count: 40, length: 0.9, jitter: 0.3 } }, [128, 128], { edge: 0 });
+  let spokes = 0;
+  let was = false;
+  for (let k = 0; k < 720; k++) {
+    const a = (k / 720) * 2 * Math.PI;
+    const on = lum(rayed, Math.round(64 + 22 * Math.cos(a)), Math.round(64 + 22 * Math.sin(a))) > 0.03;
+    if (on && !was) spokes++;
+    was = on;
+  }
+  sure(spokes >= 25, `${spokes} rays crossed at 0.35`);
+});
+
+test("a flat beam with streaks: lit across its core, mottled across and not along, its ends still meeting", () => {
+  const f = one({ kind: "beam", profile: "flat", core: 0.5, noise: 0, streaks: 1, colour: [1, 1, 1] }, [32, 64], { use: "beam", edge: 0 });
+  const flat = one({ kind: "beam", profile: "flat", core: 0.5, noise: 0, colour: [1, 1, 1] }, [32, 64], { use: "beam", edge: 0 });
+  sure([12, 16, 20].every((x) => lum(flat, x, 30) > 0.99), "flat across its core");
+  let acrossStep = 0;
+  let alongStep = 0;
+  for (let y = 0; y < 63; y++) for (let x = 8; x < 23; x++) {
+    acrossStep += Math.abs(lum(f, x + 1, y) - lum(f, x, y));
+    alongStep += Math.abs(lum(f, x, y + 1) - lum(f, x, y));
+  }
+  sure(acrossStep > 2 * alongStep, `streaks change across (${acrossStep.toFixed(1)}) more than along (${alongStep.toFixed(1)})`);
+  // the last row and the first meet as two rows next to each other do
+  let seam = 0;
+  for (let x = 0; x < 32; x++) seam += Math.abs(lum(f, x, 63) - lum(f, x, 0));
+  sure(seam <= (alongStep / 63) * 2.5, `the ends meet: ${seam.toFixed(2)} against a step of ${(alongStep / 63).toFixed(2)}`);
+});
+
+test("a fire with no taper is as wide at its top as at its foot; tongues part it into licks; its loop still closes", () => {
+  const litAcross = (f, y) => Array.from({ length: f.width }, (_, x) => lum(f, x, y)).filter((v) => v > 0.03).length;
+  const fire = (more) => framesOf({ size: [32, 96], frames: 8, loop: true, layers: [{ kind: "fire", width: 0.9, ...more }], edge: 0 });
+  const cone = fire({})[0];
+  const straight = fire({ taper: 0 })[0];
+  sure(litAcross(straight, 40) > litAcross(cone, 40), `at two fifths up: straight ${litAcross(straight, 40)}, cone ${litAcross(cone, 40)}`);
+  const licks = fire({ taper: 0, tongues: 1 });
+  const dark = (frames) => frames.reduce((s, f) => s + f.rgb.filter((v, i) => i % 3 === 0 && v < 0.03).length, 0);
+  sure(dark(licks) > dark(fire({ taper: 0 })), "tongues leave dark between them");
+  const bytes = buildSpriteSpec({ spec: "smak.sprite/1", name: "sprites/f.spr", size: [32, 96], frames: 12, loop: true, class: "fire loop", layers: [{ kind: "fire", taper: 0, tongues: 0.6 }] });
+  sure(bytes.report.ok, bytes.report.faults.join(" | "));
+  const m = measureSprite(smak.maps.readSpr(bytes.files[0].bytes), { loop: true });
+  sure(m.wrap < 2.5, `the loop wraps at ${m.wrap} of its mean step`);
+});
+
+test("a billow is a lit cloud: grows, burns white early and cools through the blast ramp, lit from the top left, ends dark", () => {
+  const frames = framesOf({ size: [64, 64], frames: 12, layers: [{ kind: "billow", spread: 0.4, dissolve: 0, env: { decay: 0.3 } }] });
+  const mean = (f) => f.rgb.reduce((s, v) => s + v, 0) / f.rgb.length;
+  const lit = (f) => f.a.filter((v) => v > 0.1).length;
+  sure(lit(frames[6]) > 2 * lit(frames[0]), `it grows: ${lit(frames[0])} to ${lit(frames[6])} pixels`);
+  // white early (blue as high as red), tan late (blue well under red)
+  const tint = (f) => {
+    let r = 0;
+    let b = 0;
+    for (let i = 0; i < f.rgb.length; i += 3) if (f.a[i / 3] > 0.5) (r += f.rgb[i]), (b += f.rgb[i + 2]);
+    return b / (r || 1);
+  };
+  sure(tint(frames[1]) > 0.8 && tint(frames[8]) < 0.6, `blue over red: early ${tint(frames[1]).toFixed(2)}, late ${tint(frames[8]).toFixed(2)}`);
+  sure(mean(frames.at(-1)) < 0.1 * Math.max(...frames.map(mean)), "it ends dark");
+  // the light: the cloud's upper left brighter than its lower right
+  const f = frames[8];
+  const quarter = (x0, y0) => {
+    let s = 0;
+    let n = 0;
+    for (let y = y0; y < y0 + 16; y++) for (let x = x0; x < x0 + 16; x++) if (f.a[y * 64 + x] > 0.5) (s += lum(f, x, y)), n++;
+    return s / (n || 1);
+  };
+  sure(quarter(18, 18) > quarter(30, 30), `upper left ${quarter(18, 18).toFixed(2)}, lower right ${quarter(30, 30).toFixed(2)}`);
+  // under index alpha a puff keeps its shading in its coverage
+  const puff = buildSpriteSpec(spec({ size: [32, 48], frames: 8, format: "index alpha", class: "smoke puff", layers: [{ kind: "billow", hot: 0, size: 0.3, spread: 0.3, env: { decay: 0.4 } }] }));
+  const shown = smak.maps.readSpr(puff.files[0].bytes).frames[4].pixels.filter((p) => p > 40);
+  sure(new Set(shown).size > 20, `${new Set(shown).size} levels of coverage inside the puff`);
+});
+
+test("blobs are placed afresh every frame: they flicker as sparks do and keep a dark border", () => {
+  const r = buildSpriteSpec(spec({ frames: 10, class: "sparks", layers: [{ kind: "blobs", ramp: "blue" }] }));
+  const m = measureSprite(smak.maps.readSpr(r.files[0].bytes));
+  sure(m.jitter > 1.5 && m.border.mean < 0.01, `jitter ${m.jitter}, border ${m.border.mean}`);
+});
+
+test("a sprite against its reference sheet: itself measures the same; another is told how far off; a bad one is refused", () => {
+  const sprite = { size: [32, 64], frames: 6, loop: true, class: "fire loop", layers: [{ kind: "fire" }] };
+  const made = buildSpriteSpec(spec(sprite));
+  const back = smak.maps.readSpr(made.files[0].bytes);
+  const file = join(tmp, "reference-sheet.png");
+  const picture = sheetOf(back, { cols: 8, cell: 128 });
+  writeFileSync(file, smak.png(picture.width, picture.height, picture.rgba));
+  // the sheet's measures are the sprite's own
+  const read = measureSheet(picture, { size: [32, 64] });
+  const own = measureSprite(back, { loop: true });
+  sure(read.frames === back.frames.length && Math.abs(read.dark - own.dark) <= 0.05, `sheet ${JSON.stringify(read)}, sprite dark ${own.dark}`);
+  const again = buildSpriteSpec(spec({ ...sprite, reference: file }));
+  const m = again.report.reference["sprites/t.spr"];
+  sure(m.colourDeltaE === 0 && m.dark[0] === m.dark[1] && m.frames[0] === m.frames[1] && again.report.ok, JSON.stringify(m));
+  sure(again.files[0].bytes.equals(made.files[0].bytes), "a reference changes nothing that is made");
+  const other = buildSpriteSpec(spec({ ...sprite, reference: { picture: file, cell: 128 }, layers: [{ kind: "fire", ramp: "blue", width: 0.2 }] }));
+  const off = other.report.reference["sprites/t.spr"];
+  sure(off.colourDeltaE > 15 && other.report.notes.some((n) => /colour is .* from its reference's/.test(n)) && other.report.notes.some((n) => /more of it is dark/.test(n)), `${JSON.stringify(off)} ${other.report.notes.join(" | ")}`);
+  const missing = buildSpriteSpec(spec({ ...sprite, reference: join(tmp, "no-such.png") }));
+  sure(missing.report.warnings.some((w) => /could not be read/.test(w)) && missing.files.length === 1, missing.report.warnings.join(" | "));
+  const wrongGrid = buildSpriteSpec(spec({ ...sprite, size: [48, 48], reference: file }));
+  sure(wrongGrid.report.warnings.some((w) => /not a grid of/.test(w)), wrongGrid.report.warnings.join(" | "));
+  sure(validateSpriteSpec(spec({ ...sprite, reference: 3 })).errors.some((e) => /reference/.test(e)), "a reference that is no path");
+});

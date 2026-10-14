@@ -2,19 +2,22 @@
 // written, read back, measured against Half-Life's own of its kind, and drawn (research/sprite-generation.md).
 //
 //   validateSpriteSpec(spec) -> { errors, warnings }
-//   buildSpriteSpec(spec) -> { report, files: [{ name, bytes, sheet, animation }] }
+//   buildSpriteSpec(spec, { readPicture }) -> { report, files: [{ name, bytes, sheet, animation }] }
 //
-// One sprite, or a set: `sprites: [...]` with the spec's own fields as their defaults.
+// One sprite, or a set: `sprites: [...]` with the spec's own fields as their defaults. A sprite that names a
+// `reference` (a contact sheet of the one it reproduces) is measured against it as the judge measures: mean
+// colour, dark share, border, frame count. Measures only: no pixel of the reference goes into a frame.
+import { readFileSync } from "node:fs";
 import { framesOf, LAYER_KINDS, RAMP_NAMES } from "../sprite/effects.mjs";
 import { quantiseFrames } from "../sprite/palette.mjs";
 import { writeSpr } from "../sprite/spr.mjs";
 import { readSpr, SPRITE_TYPES, SPRITE_FORMATS } from "../maps/sprites.mjs";
-import { measureSprite, againstClass, SPRITE_CLASSES } from "../sprite/measure.mjs";
+import { measureSprite, measureSheet, againstClass, SPRITE_CLASSES } from "../sprite/measure.mjs";
 import { sheetOf, animationOf } from "../sprite/draw.mjs";
-import { png } from "../image.mjs";
+import { png, unpng } from "../image.mjs";
 
 export const SPRITE_SPEC = "smak.sprite/1";
-const FIELDS = ["spec", "name", "use", "class", "size", "frames", "loop", "fps", "type", "format", "origin", "seed", "layers", "finish", "colour", "sprites", "note"];
+const FIELDS = ["spec", "name", "use", "class", "size", "frames", "loop", "fps", "type", "format", "origin", "seed", "layers", "finish", "colour", "reference", "sprites", "note"];
 const USES = ["env_sprite", "env_glow", "tempent", "beam", "hud"];
 /** The widest a frame is drawn as painted, and the widest at all (GoldSrc shrinks past `gl_max_size`). */
 const SIDE_WARN = 256;
@@ -24,6 +27,8 @@ const WRAP_MOST = 2.5;
 /** The classes that play once and must end dark. */
 const ONE_SHOTS = new Set(["explosion", "smoke puff", "sparks", "ring"]);
 const isNumber = (v) => typeof v === "number" && Number.isFinite(v);
+/** Where a reproduction is told it is off its reference: the judge's bars (research/asset-reproduction-failures.md, 3). */
+const REFERENCE_BARS = { colour: 15, dark: 0.05 };
 
 /** The sprites of a spec, each with the spec's own fields as its defaults. */
 const spritesOf = (spec) => (spec.sprites?.length ? spec.sprites.map((s) => ({ ...spec, sprites: undefined, ...s })) : [spec]);
@@ -52,6 +57,10 @@ export function validateSpriteSpec(spec) {
         if (!LAYER_KINDS.includes(layer?.kind)) errors.push(`${at}.layers[${k}].kind: one of ${LAYER_KINDS.join(", ")}`);
         if (layer?.ramp !== undefined && typeof layer.ramp === "string" && !RAMP_NAMES.includes(layer.ramp)) errors.push(`${at}.layers[${k}].ramp: one of ${RAMP_NAMES.join(", ")}, or a list of [heat, [r, g, b]] stops`);
       });
+    const ref = s.reference;
+    if (ref !== undefined && typeof ref !== "string" && typeof ref?.picture !== "string") errors.push(`${at}.reference: a contact sheet's path, or { picture, cell, cols } (as it was drawn: 128 and 8)`);
+    else if (ref?.cell !== undefined && !(Number.isInteger(ref.cell) && ref.cell >= 8)) errors.push(`${at}.reference.cell: the sheet's cell in pixels (128)`);
+    else if (ref?.cols !== undefined && !(Number.isInteger(ref.cols) && ref.cols >= 1)) errors.push(`${at}.reference.cols: frames a row of the sheet (8)`);
   });
   return { errors, warnings };
 }
@@ -63,7 +72,34 @@ function originOf(origin, w, h) {
   return { left: -(w >> 1), up: h >> 1 };
 }
 
-export function buildSpriteSpec(spec) {
+/**
+ * A sprite measured against its reference, each the same way off a sheet of the same drawing: { facts, notes,
+ * measured } or { error }. `readPicture(path)` gives the picture ({ width, height, rgba }).
+ */
+function againstReference(name, ref, back, s, readPicture) {
+  const { picture: path, cell = 128, cols = 8 } = typeof ref === "string" ? { picture: ref } : ref;
+  let picture;
+  try {
+    picture = readPicture(path);
+  } catch (error) {
+    return { error: `${name}: its reference ${path} could not be read (${error.message.split("\n")[0]})` };
+  }
+  const how = { size: s.size, format: s.format ?? "additive", cols, cell, tint: s.colour ?? [1, 1, 1] };
+  const theirs = measureSheet(picture, how);
+  if (theirs.error) return { error: `${name}: its reference ${path}: ${theirs.error}` };
+  const ours = measureSheet(sheetOf(back, { cols, cell }), how);
+  const colour = theirs.lab && ours.lab ? Math.round(Math.hypot(...theirs.lab.map((v, j) => v - ours.lab[j])) * 10) / 10 : null;
+  const measured = { reference: path, colourDeltaE: colour, dark: [theirs.dark, ours.dark], border: { max: [theirs.border.max, ours.border.max], mean: [theirs.border.mean, ours.border.mean] }, frames: [theirs.frames, ours.frames] };
+  const facts = [`${name} against its reference (${path}, measured, nothing copied; the reference's, then this one's): mean colour delta E ${colour ?? "none"}, dark ${theirs.dark} and ${ours.dark}, border brightest ${theirs.border.max} and ${ours.border.max} (mean ${theirs.border.mean} and ${ours.border.mean}), frames ${theirs.frames} and ${ours.frames}`];
+  const notes = [];
+  if (colour !== null && colour > REFERENCE_BARS.colour) notes.push(`${name}: its colour is ${colour} from its reference's (delta E; the bar is ${REFERENCE_BARS.colour}): a ramp or a colour nearer the reference's`);
+  const darker = ours.dark - theirs.dark;
+  if (Math.abs(darker) > REFERENCE_BARS.dark) notes.push(`${name}: ${darker > 0 ? "more" : "less"} of it is dark than of its reference (${ours.dark} against ${theirs.dark}): the effect ${darker > 0 ? "covers too little of its frame" : "covers too much of its frame"}`);
+  if (ours.frames !== theirs.frames) notes.push(`${name}: ${ours.frames} frames against its reference's ${theirs.frames}`);
+  return { facts, notes, measured };
+}
+
+export function buildSpriteSpec(spec, { readPicture = (path) => unpng(readFileSync(path)) } = {}) {
   const { errors, warnings } = validateSpriteSpec(spec);
   const report = { ok: false, errors, warnings, faults: [], notes: [], facts: [] };
   if (errors.length) return { report, files: [] };
@@ -94,6 +130,15 @@ export function buildSpriteSpec(spec) {
     }
     const mode = format === "index alpha" ? "4 (Solid)" : format === "alpha test" ? "0 (Normal)" : use === "env_glow" ? "3 (Glow)" : "5 (Additive)";
     report.notes.push(`${s.name}: placed as ${use === "env_glow" ? "an env_glow" : use === "env_sprite" ? "an env_sprite" : `a ${use}`}, render mode ${mode}${s.fps ? `, framerate ${s.fps}` : ""}`);
+    if (s.reference !== undefined) {
+      const against = againstReference(s.name, s.reference, back, s, readPicture);
+      if (against.error) report.warnings.push(against.error);
+      else {
+        report.facts.push(...against.facts);
+        report.notes.push(...against.notes);
+        (report.reference ??= {})[s.name] = against.measured;
+      }
+    }
     const sheet = sheetOf(back);
     files.push({ name: s.name, bytes, sheet: png(sheet.width, sheet.height, sheet.rgba), sheetPicture: sheet, animation: animationOf(back, { fps: s.fps ?? 10, loop }) });
   }

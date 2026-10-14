@@ -140,6 +140,20 @@ makes them is in `docs/SPEC.md`, "A sound"; why each rule is so, in `research/so
 | `fft(re, im)`, `spectrum(x, rate, size)` | A radix-2 FFT in place; a sound's power by bin, frame by frame. |
 | `buildSoundSpec(spec, { games })`, `validateSoundSpec(spec)` | A sound spec built: `{ report, files: [{ name, bytes }], picture }` (what the tool `build` does with one). |
 
+## Sprites (`src/sprite/`, `src/spec/sprite.mjs`)
+
+Not exported from the index: import the modules. The spec and its layers are in `docs/SPEC.md`, "A sprite"; why
+each rule is so, in `research/sprite-generation.md`; how the layers were tuned, in `research/sprite-layers-results.md`.
+
+| Function | Does |
+| --- | --- |
+| `framesOf({ size, frames, loop, layers, seed, edge, use })` (`effects.mjs`) | The frames in full colour and coverage, before any palette: `[{ width, height, rgb, a }]`. `LAYER_KINDS`, `RAMP_NAMES` list what a layer and a ramp may be. |
+| `quantiseFrames(frames, format, { colour })` (`palette.mjs`), `writeSpr(...)` (`spr.mjs`) | One palette for the frames as the format reads it; the file. |
+| `measureSprite(spr, { loop })` (`measure.mjs`) | `{ frames, size, wrap, jitter, border, envelope, dark }` of a sprite as `readSpr` gives it; `againstClass(m, name)` and `SPRITE_CLASSES` hold it against Half-Life's own of a kind. |
+| `measureSheet(picture, { size, format, cols, cell, tint })`, `meanLab(picture, ground)` (`measure.mjs`) | The same measures read off a contact sheet as `sheetOf` draws one (`{ frames, dark, border, lab }`), and a picture's mean colour off its ground: a reference measured, never copied. |
+| `sheetOf(spr, { cols, cell })`, `animationOf(spr, { fps, cell, loop })` (`draw.mjs`) | The contact sheet the agent reads, and an animated PNG. |
+| `buildSpriteSpec(spec, { readPicture })`, `validateSpriteSpec(spec)` | A sprite spec built: `{ report, files: [{ name, bytes, sheet, animation }] }`; `readPicture(path)` reads a `reference` (unless told, the file at that path). |
+
 ## Whole models
 
 `writeMdl({ name, bones, sequences, textures, skins, bodyparts, hitboxes, attachments, controllers, eyes, min, max, bbmin, bbmax })`

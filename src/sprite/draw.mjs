@@ -3,12 +3,14 @@
 // with each frame's number: the contact sheet the agent reads. And an animated PNG of it for the person.
 //
 //   sheetOf(spr, { cols, cell }) -> { width, height, rgba }
+//   cellOf(size, cell) -> the whole times a frame of `size` is enlarged in a sheet's cell
 //   animationOf(spr, { fps, cell }) -> PNG bytes (animated)
 import { tile } from "../render.mjs";
 import { apng } from "../image.mjs";
 
-const DARK = [20, 22, 26];
-const GREY = [110, 112, 116];
+/** The grounds a sprite is drawn over: dark for an additive one, a mid grey for the others. */
+export const DARK = [20, 22, 26];
+export const GREY = [110, 112, 116];
 
 /** One frame as the engine would show it over its ground, enlarged `k` times: { width, height, rgba }. */
 function shown(spr, frame, k, size) {
@@ -37,10 +39,11 @@ function shown(spr, frame, k, size) {
   return { width: w * k, height: h * k, rgba };
 }
 
+export const cellOf = ([w, h], cell) => Math.max(1, Math.floor(cell / Math.max(w, h)));
 const fit = (spr, cell) => {
   const w = Math.max(...spr.frames.map((f) => f.width));
   const h = Math.max(...spr.frames.map((f) => f.height));
-  return { size: [w, h], k: Math.max(1, Math.floor(cell / Math.max(w, h))) };
+  return { size: [w, h], k: cellOf([w, h], cell) };
 };
 
 export function sheetOf(spr, { cols = 8, cell = 128 } = {}) {

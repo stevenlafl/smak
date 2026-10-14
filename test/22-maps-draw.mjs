@@ -724,7 +724,7 @@ await testAsync("the MCP server lists, describes, checks and draws maps", "mcp: 
   });
   const tools = (await server.request("tools/list")).result.tools;
   sure(
-    tools.map((tool) => tool.name).join() === "guide,models,info,check,render,build,entities",
+    tools.map((tool) => tool.name).join() === "guide,models,info,check,render,build,decompile,entities",
     "a map needed a tool of its own",
   );
   // the descriptions of all the tools: a guard against creep, not a hard limit. Claude Code loads a server's
