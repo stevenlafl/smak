@@ -498,7 +498,8 @@ FAULTs: a loop that jumps at its wrap, a one-shot that does not end dark, light 
   material than the theme's (a lining 8 thick inside the rock).
 - `water: 32` or `{ depth, material }`: water over its floor, swum in or waded; a `!` texture.
 - `light`: `"auto"` (one lamp for each 256 x 256 of floor, hung no higher than 192 over it; unless told),
-  `"none"`, or `{ count, brightness, color }`. A floor lit under 24 of 255 after the compile is a fault.
+  `"none"`, or `{ count, brightness, color }`. A floor lit under 24 of 255 after the compile is a fault, unless
+  the room says `dark: true` (meant so: a cellar, a dim corridor, a copy of a map that is dark there).
 - `test: true`: a room only for trying a module alone (a stretch of street before a shop), left out when
   the module is included.
 
@@ -569,8 +570,10 @@ the wall itself (`[dx, dy]` with `dx` half the room's length).
 }
 ```
 
-A piece is `{ box: [min, max] }`, `{ wedge: [min, max], high: "+x" }` (a ramp) or `{ cylinder: { centre:
-[x, y], radius, from, to, sides } }`, in units from the point on the floor where it is put, with a
+A piece is `{ box: [min, max] }`, `{ wedge: [min, max], high: "+x" }` (a ramp), `{ cylinder: { centre:
+[x, y], radius, from, to, sides } }` or `{ prism: { outline: [[x, y], ...], from, to } }` (a convex outline
+stood up: a corner cut at 45 degrees, an octagon's wall, a slanted pillar's foot; put in the world with
+`as: "world"` it shapes the room itself), in units from the point on the floor where it is put, with a
 `texture` that is a word of `theme`, `textures` or a base. A prefab may instead be a `.map` file (`file`),
 as Hammer's are: its brushes and its entities (a candle's light) moved and turned as one; its textures
 named `SM_` and a word of the spec's materials (`SM_FURNITURE`). `furniture: [{ prefab: "table", room:

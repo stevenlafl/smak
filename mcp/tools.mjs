@@ -228,6 +228,34 @@ function mapInfo(file, full) {
   if (shown.length < bsp.entities.length)
     lines.push(`  and ${bsp.entities.length - shown.length} more: \`full\` lists all, with their keys`);
   lines.push(`TEXTURES (${bsp.textures.length}): ${textures.join(", ")}`);
+  if (full) {
+    // which texture covers how much of the world's faces, the most first, and where each is mostly
+    const area = new Map();
+    const world = bsp.models[0];
+    for (let f = world.firstFace; f < world.firstFace + world.faceCount; f++) {
+      const name = maps.faceTexture(bsp, f).name;
+      const corners = maps.facePolygon(bsp, f);
+      let a = [0, 0, 0];
+      for (let i = 1; i + 1 < corners.length; i++) {
+        const u = corners[i].map((v, k) => v - corners[0][k]);
+        const w = corners[i + 1].map((v, k) => v - corners[0][k]);
+        a = a.map((s, k) => s + [u[1] * w[2] - u[2] * w[1], u[2] * w[0] - u[0] * w[2], u[0] * w[1] - u[1] * w[0]][k] / 2);
+      }
+      const size = Math.hypot(...a);
+      const n = maps.faceNormal(bsp, f);
+      const facing = Math.abs(n[2]) > 0.7 ? (n[2] > 0 ? "floors" : "ceilings") : "walls";
+      const entry = area.get(name) ?? { total: 0, walls: 0, floors: 0, ceilings: 0 };
+      entry.total += size;
+      entry[facing] += size;
+      area.set(name, entry);
+    }
+    const all = [...area.values()].reduce((s, e) => s + e.total, 0) || 1;
+    const shares = [...area].sort((a, b) => b[1].total - a[1].total).map(([name, e]) => {
+      const where = ["walls", "floors", "ceilings"].filter((k) => e[k] / e.total > 0.25).join(" and ");
+      return `${name} ${((100 * e.total) / all).toFixed(1)}% (${where})`;
+    });
+    lines.push(`TEXTURES BY AREA of the world's faces: ${shares.join(", ")}`);
+  }
   if (wanted.textures.length)
     lines.push(
       `${wanted.textures.length} are WANTED from .wad files: ${wanted.wads.join(", ") || "none listed"}`,
@@ -417,7 +445,8 @@ const KINDS = {
 
 // ── render, of a map ───────────────────────────────────────────────────────
 /** Where a map's .wad files are looked for: beside it, then in the models folder. */
-const mapFolders = (folders, file) => [dirname(file), folders.models].filter(Boolean);
+// the map's own folder, the models folder, and the game's folders the server was given (its .wad files)
+const mapFolders = (folders, file) => [dirname(file), folders.models, ...(folders.wads ?? [])].filter(Boolean);
 
 /** Where a map view is taken from, as a call says it: "x y z", or an entity's number or class. */
 function standOf(map, at) {
@@ -452,6 +481,7 @@ const MAP_KINDS = {
       height: size,
       z: args.z ?? undefined,
       heights: args.heights === true,
+      grid: args.grid,
       legend: args.legend === true,
       reach: args.reach === true ? true : undefined,
     };
@@ -938,6 +968,7 @@ export function toolsFor(folders, { allowRun = true } = {}) {
           from: { type: "string", description: 'section: one end of its line, "x y"' },
           to: { type: "string", description: "section: the other" },
           heights: { type: "boolean", description: "plan: floor heights written" },
+          grid: { type: "number", description: "plan: a line every so many units, with its coordinate" },
           legend: { type: "boolean", description: "plan: entities listed" },
           reach: { type: "boolean", description: "plan, storeys: the walk test tinted" },
           zoom: { type: "number" },

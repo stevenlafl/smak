@@ -1677,6 +1677,7 @@ async function mapPlan({ command, file, flags, listed }) {
       slice: flags.slice,
       area: area && { min: [area[0], area[1]], max: [area[2], area[3]] },
       heights: flags.heights === true ? true : undefined,
+      grid: flags.grid === undefined ? undefined : Number(flags.grid) || 256,
       legend: flags.legend === true ? true : undefined,
     }),
   };

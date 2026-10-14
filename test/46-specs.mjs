@@ -456,6 +456,31 @@ test("a model spec's round parts are shaded round whatever their sides: an 8-sid
   sure(round === 18 && flat === 10, `round ${round} normals (18 wanted), flat ${flat} (10)`);
 });
 
+test("a map spec's prism pieces cut a room's corner at 45 degrees, turned with their prefab; a plan's grid", () => {
+  const out = mkdtempSync(join(tmpdir(), "smak-prism-"));
+  const { report, files } = buildMapSpec(
+    {
+      spec: "smak.map/1",
+      name: "oct",
+      rooms: [{ id: "hall", size: [512, 512, 192], dark: true }],
+      prefabs: { corner: { pieces: [{ prism: { outline: [[0, 0], [128, 0], [0, 128]], from: 0, to: 192 } }] } },
+      furniture: [{ prefab: "corner", room: "hall", at: [-256, -256], as: "world" }, { prefab: "corner", room: "hall", at: [256, -256], rotate: 90, as: "world" }],
+      entities: [{ class: "info_player_start", room: "hall", at: "centre" }],
+    },
+    { out, compilers: { found: false, message: "no compilers in this test" } },
+  );
+  sure(report.errors.length === 0, report.errors.join("; "));
+  // the source plan: rock in the two front corners, floor in the back ones
+  const map = smak.maps.readMap(readFileSync(files.map, "utf8"));
+  const plan = smak.maps.planOfSource(map, { scale: 1, grid: 128 });
+  const at = (x, y) => {
+    const [px, py] = [Math.round((x - plan.facts.x0) * plan.facts.scale), Math.round((plan.facts.y0 - y) * plan.facts.scale)];
+    return [...plan.rgba.subarray((py * plan.width + px) * 4, (py * plan.width + px) * 4 + 3)];
+  };
+  const same = (a, b) => a.every((v, i) => Math.abs(v - b[i]) < 8);
+  sure(same(at(-240, -240), at(240, -240)) && !same(at(-240, -240), at(-200, 200)) && same(at(-200, 200), at(100, 100)), `rock cut in at both front corners: ${at(-240, -240)} ${at(240, -240)} against floor ${at(-200, 200)} ${at(100, 100)}`);
+});
+
 test("colours in words: the XKCD names with their modifiers, and a colour as it shows in a picture", async () => {
   const { colourFromWords } = await import("../src/spec/colours.mjs");
   const { toLab } = await import("../src/spec/colours.mjs");

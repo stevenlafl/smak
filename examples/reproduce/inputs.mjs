@@ -5,7 +5,7 @@
 //
 // A model: <id>/input/sides.png (six sides, one scale), <id>/input/<angle>.png (four close angles) and
 // <id>/input/size.txt (its size in units, as a person would say it with the pictures).
-// A map: <id>/input/plan.png (from above, floor heights and the entities), storeys.png, section-x.png and
+// A map: <id>/input/plan.png (from above, floor heights, the entities and a grid of coordinates), storeys.png, section-x.png and
 // section-y.png (cut through its middle each way), views.png (from inside at a player's eye).
 import { execFileSync } from "node:child_process";
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -40,7 +40,7 @@ for (const map of SUBJECTS.maps.filter((m) => chosen(m.id))) {
   const out = join(HERE, map.id, "input");
   mkdirSync(out, { recursive: true });
   const game = ["--game", GAME];
-  smak("map-plan", bsp, "-o", join(out, "plan.png"), "--heights", "--legend", ...game);
+  smak("map-plan", bsp, "-o", join(out, "plan.png"), "--heights", "--legend", "--grid", "256", ...game);
   smak("map-storeys", bsp, "-o", join(out, "storeys.png"), ...game);
   // sections through the middle of the map's box, each way
   const { mins, maxs } = JSON.parse(smak("map-info", bsp, "--json")).bounds;

@@ -11,7 +11,7 @@
 // docs/SPEC.md is the guide. Axes as every map's: +x east, +y north, +z up, a unit about an inch.
 import { writeFileSync, mkdirSync, readFileSync, existsSync } from "node:fs";
 import { join, resolve, dirname, basename } from "node:path";
-import { carve, box, cylinder, wedge, stairs as stairBrushes, light, sunLight, textureLights, playerStart, pointEntity, brushEntity, writeMap, readMap, subtract, moved, shapeOf } from "../maps/source.mjs";
+import { carve, box, cylinder, wedge, prism, stairs as stairBrushes, light, sunLight, textureLights, playerStart, pointEntity, brushEntity, writeMap, readMap, subtract, moved, shapeOf } from "../maps/source.mjs";
 import { checkPlan } from "../maps/plan.mjs";
 import { definitionsOf } from "../maps/fgd.mjs";
 import { reachOf } from "../maps/reach.mjs";
@@ -29,7 +29,7 @@ import { buildSoundSpec } from "./sound.mjs";
 
 export const MAP_SPEC = "smak.map/1";
 const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "replace", "sounds", "fgd", "wads", "compile", "detail", "note"];
-const ROOM = ["id", "size", "at", "place", "floor", "sky", "surfaces", "light", "water", "test", "building", "note"];
+const ROOM = ["id", "size", "at", "place", "floor", "sky", "surfaces", "light", "water", "test", "building", "dark", "note"];
 const LINK = ["between", "kind", "width", "height", "along", "sill", "stairs", "door", "glass", "side", "material", "note"];
 const PLACES = ["east_of", "west_of", "north_of", "south_of", "above", "below", "in"];
 const LINK_KINDS = ["door", "opening", "window", "stairs"];
@@ -507,7 +507,13 @@ function placedPrefab(prefab, at, quarters, textureOf) {
       const c = turn([centre[0], centre[1], 0]);
       return cylinder("z", [c[0], c[1]], radius, at[2] + from, at[2] + to, texture, { sides });
     }
-    throw new Error(`a prefab's piece is a box [min, max], a wedge [min, max] with high, or a cylinder { centre, radius, from, to }`);
+    if (piece.prism) {
+      // a convex outline (x, y from the prefab's point) stood up from `from` to `to`: a 45-degree wall, a
+      // corner cut off, an octagon's side, a slanted pillar's foot
+      const { outline, from, to } = piece.prism;
+      return prism("z", outline.map(([x, y]) => turn([x, y, 0]).slice(0, 2)), at[2] + from, at[2] + to, texture);
+    }
+    throw new Error(`a prefab's piece is a box [min, max], a wedge [min, max] with high, a cylinder { centre, radius, from, to } or a prism { outline: [[x, y], ...], from, to }`);
   });
 }
 
@@ -975,7 +981,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       ? // a brush's corners, worked out from its planes (the three points a plane is written by lie anywhere on it)
         readMap(readFileSync(resolve(folder ?? ".", prefab.file), "utf8")).brushes.flatMap((b) => shapeOf(b).corners)
       : prefab.pieces.flatMap((piece) =>
-          piece.box ?? piece.wedge ?? (piece.cylinder ? [[piece.cylinder.centre[0] - piece.cylinder.radius, piece.cylinder.centre[1] - piece.cylinder.radius], [piece.cylinder.centre[0] + piece.cylinder.radius, piece.cylinder.centre[1] + piece.cylinder.radius]] : []),
+          piece.box ?? piece.wedge ?? piece.prism?.outline ?? (piece.cylinder ? [[piece.cylinder.centre[0] - piece.cylinder.radius, piece.cylinder.centre[1] - piece.cylinder.radius], [piece.cylinder.centre[0] + piece.cylinder.radius, piece.cylinder.centre[1] + piece.cylinder.radius]] : []),
         );
     return { min: [0, 1].map((k) => Math.min(...points.map((p) => p[k]))), max: [0, 1].map((k) => Math.max(...points.map((p) => p[k]))) };
   };
@@ -1200,7 +1206,9 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         // building standing in another is a room of its own, and is
         const part = rooms.get(room.name)?.building ? null : rooms.get(room.name)?.spec.place?.in;
         if (room.dark && part) report.facts.push(`${room.name} (part of ${part}) has its floor lit ${Math.round(room.mean)}: not held to the dark line, being the floor of another room's part (under water, as a rule)`);
-        else if (room.dark) report.faults.push(`${room.name} is dark: its floor's light is ${Math.round(room.mean)} of 255 (under ${24})`);
+        // a room meant to be dark (`dark: true`: a cellar, a dim corridor the original has) is told, not faulted
+        else if (room.dark && rooms.get(room.name)?.spec.dark === true) report.facts.push(`${room.name} is dark, as meant: its floor's light is ${Math.round(room.mean)} of 255`);
+        else if (room.dark) report.faults.push(`${room.name} is dark: its floor's light is ${Math.round(room.mean)} of 255 (under ${24}); \`dark: true\` on a room meant to be so`);
       }
       const walked = reachOf(bsp);
       if (walked.unreached.length + walked.stuck.length) report.faults.push(...walked.warnings.map((line) => `walk of the compiled map: ${line}`));

@@ -2048,6 +2048,35 @@ function floorHeights(canvas, bottom, cut) {
 }
 
 /** Writes the heights `floorHeights` found, each centred on its point, none over another. */
+/**
+ * A grid over a plan: a faint line every `step` units, each with its coordinate written at the plan's top (x)
+ * and left (y), so a place is read off the picture in units, not measured against the scale bar.
+ */
+function drawGrid(canvas, frame, step, foot) {
+  const high = canvas.height - foot;
+  const blend = (i) => {
+    for (let k = 0; k < 3; k++) canvas.rgba[i + k] = Math.round(canvas.rgba[i + k] * 0.6 + GRID_INK[k] * 0.4);
+  };
+  const x0 = frame.x0;
+  const x1 = frame.x0 + canvas.width / frame.scale;
+  const y1 = frame.y0;
+  const y0 = frame.y0 - high / frame.scale;
+  for (let x = Math.ceil(x0 / step) * step; x <= x1; x += step) {
+    const px = Math.round((x - x0) * frame.scale);
+    if (px < 0 || px >= canvas.width) continue;
+    for (let py = 0; py < high; py++) blend((py * canvas.width + px) * 4);
+    label(canvas, String(x), px + 2, 2, 1, GRID_INK);
+  }
+  for (let y = Math.ceil(y0 / step) * step; y <= y1; y += step) {
+    const py = Math.round((y1 - y) * frame.scale);
+    if (py < 0 || py >= high) continue;
+    for (let px = 0; px < canvas.width; px++) blend((py * canvas.width + px) * 4);
+    label(canvas, String(y), 2, py + 2, 1, GRID_INK);
+  }
+}
+/** The grid's colour on a plan. */
+const GRID_INK = [150, 170, 200];
+
 function writeHeights(canvas, heights) {
   const taken = [];
   for (const { at, words } of heights) {
@@ -2186,6 +2215,8 @@ const frameFacts = (frame) => ({
  *   legend         true: the list of the entities beside the plan, 300 pixels wider: each class with the
  *                  numbers of its entities (`12=keeper`: one with a targetname)
  *   heights        true: each floor's height is written on it (`z 64`), where the floor is large enough
+ *   grid           a length (256): a faint line every so many units, its x written along the top and its y down
+ *                  the left, so a place is read off the plan in units
  *   reach          what `reachOf` gave for this map (or true: it is run now): the floors are drawn grey,
  *                  tinted green where they were walked and red where there is room to stand and no way
  *                  was found; the ways asked for
@@ -2260,6 +2291,7 @@ export function planOf(bsp, options = {}) {
         )
       : [];
   const heights = options.heights ? floorHeights(canvas, frame.height - PLAN_FOOT, cutMask) : [];
+  if (options.grid) drawGrid(canvas, frame, options.grid, PLAN_FOOT);
   writeHeights(canvas, heights);
   const figured = figuredFor(scene, options);
   const { marks, labels } =
@@ -2497,6 +2529,7 @@ export function planOfSource(map, options = {}) {
   }
   if (reach) drawReach(canvas, frame, reach, cut, cutMask);
   const heights = options.heights ? floorHeights(canvas, frame.height - PLAN_FOOT, cutMask) : [];
+  if (options.grid) drawGrid(canvas, frame, options.grid, PLAN_FOOT);
   writeHeights(canvas, heights);
 
   const outlineOf = (thing) =>
