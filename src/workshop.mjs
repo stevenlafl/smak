@@ -1090,10 +1090,14 @@ export function shape(width, height) {
 
     // the section stood on the surface at every place of the path
     const onSurface = places.map((place) => surface.at(...place).p);
+    // a path that comes back to where it began (a band once round) is one loop: its ends are one section
+    const loop = places.length > 2 && apart(onSurface[0], onSurface.at(-1)) < SAME_PLACE;
+    const before = (j) => (j > 0 ? j - 1 : loop ? places.length - 2 : 0);
+    const after = (j) => (j < places.length - 1 ? j + 1 : loop ? 1 : places.length - 1);
     const surfaceNormals = [];
     const sections = places.map(([s, angle], j) => {
       const here = onto(surface, s, angle);
-      const tangent = unit(sub(onSurface[Math.min(places.length - 1, j + 1)], onSurface[Math.max(0, j - 1)]));
+      const tangent = unit(sub(onSurface[after(j)], onSurface[before(j)]));
       const side = unit(cross(here.n, tangent));
       // how much of its full section it has here, by each end: 0 at the end itself, 1 once it has grown
       const grown = [0, 1].map((end) =>
@@ -1115,6 +1119,7 @@ export function shape(width, height) {
         );
       });
     });
+    if (loop) sections.at(-1).forEach((corner, c) => (corner.p = [...sections[0][c].p]));
     for (let j = 0; j + 1 < sections.length; j++)
       for (let c = 0; c + 1 < section.length; c++) {
         const a = sections[j][c];

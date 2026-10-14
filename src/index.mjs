@@ -10,6 +10,7 @@ export * from "./items.mjs";
 export * from "./render.mjs";
 export * from "./icon.mjs";
 export * from "./check.mjs";
+export * from "./sound.mjs";
 export * from "./layout.mjs";
 export * from "./place.mjs";
 export * from "./wear.mjs";
