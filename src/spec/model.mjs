@@ -39,7 +39,7 @@ const CHARACTER_FINISH = { wear: 0.15, grime: 0.3 };
 export const MODEL_SPEC = "smak.model/1";
 /** Each kind of part with the fields it takes beside the ones every part takes. */
 const KINDS = {
-  box: ["size"],
+  box: ["size", "panels"],
   cylinder: ["radius", "height", "sides", "top"],
   sphere: ["radius", "sides"],
   turn: ["rings", "caps", "sides", "lining", "axis"],
@@ -189,6 +189,25 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
     const positive = (key, value = part[key]) => {
       if (!isNumber(value) || value <= 0) errors.push(`${label}.${key}: a number over 0, not ${JSON.stringify(value)}`);
     };
+    // panels: painted on a box's faces
+    if (part.panels !== undefined) {
+      if (!Array.isArray(part.panels)) errors.push(`${label}.panels: a list of { face, at, size, shape, style, edge, material }`);
+      else
+        part.panels.forEach((panel, k) => {
+          const where = `${label}.panels[${k}]`;
+          if (BOX_FACES[panel?.face ?? "front"] === undefined) errors.push(`${where}.face: one of ${Object.keys(BOX_FACES).join(", ")}`);
+          if (!Array.isArray(panel?.at) || panel.at.length !== 2 || !panel.at.every(isNumber)) errors.push(`${where}.at: [x, y], its middle in units from the face's bottom left as one facing it sees it`);
+          if (!Array.isArray(panel?.size) || panel.size.length !== 2 || !panel.size.every((v) => isNumber(v) && v > 0)) errors.push(`${where}.size: [width, height] in units, over 0`);
+          if (panel?.shape !== undefined && !["rect", "round", "ellipse"].includes(panel.shape)) errors.push(`${where}.shape: rect, round or ellipse`);
+          if (panel?.style !== undefined && !["inset", "raised", "flat"].includes(panel.style)) errors.push(`${where}.style: inset, raised or flat`);
+          if (typeof panel?.material === "string" && spec.materials?.[panel.material] === undefined)
+            try {
+              materialOf(panel.material);
+            } catch {
+              errors.push(`${where}.material: "${panel.material}" is neither in the spec's materials nor a base`);
+            }
+        });
+    }
     // marks: painted on a turned part's surface, as a ridge is built on it
     if (part.marks !== undefined) {
       if (!["turn", "cylinder", "sphere", "tube"].includes(part.kind))
@@ -454,6 +473,9 @@ function buildPart(part, M, S, zone, px, material, hostSurface, capZones = []) {
         // side face's picture runs up the face from its top row, so the letters are drawn turned over.
         for (const print of [part.print ?? []].flat())
           if (BOX_FACES[print.face ?? "front"] === f) paintWords(S, cell, print, material, px, f !== 1, f === 4 || f === 3);
+        // panels painted on a face: a drawer, a door, a slot, a pull, in relief that is only paint
+        const onFace = (part.panels ?? []).filter((panel) => BOX_FACES[panel.face ?? "front"] === f);
+        if (onFace.length) paintPanels(S, cell, onFace, material, px, f !== 1, f === 4 || f === 3, faceSize(part.size, f));
         const pixel = [
           [cell.x, cell.y],
           [cell.x + cell.w, cell.y],
@@ -569,7 +591,9 @@ function piecesOf(given, context) {
       const start = M.tris.length;
       const host = ON_SURFACE.has(part.kind) ? built.get(part.on.part) : null;
       const capZones = [0, 1].map((end) => zones[`${part.id}#cap${end}`]);
-      const made = buildPart(part, M, S, zones[part.id], zones.px, materialFor(part), host?.made, capZones);
+      // a panel's own material, resolved as a part's is
+      const panels = part.panels?.map((panel) => (panel.material ? { ...panel, material: materialFor({ material: panel.material }) } : panel));
+      const made = buildPart(panels ? { ...part, panels } : part, M, S, zones[part.id], zones.px, materialFor(part), host?.made, capZones);
       built.set(part.id, { made, mesh: meshes.length, range: [start, M.tris.length], host: host ? part.on.part : null });
     }
     meshes.push({ tris: M.tris, image: S.image(), flags, name: `sheet${n}` });
@@ -1016,6 +1040,62 @@ function paintWords(S, cell, { text, ink = [0.05, 0.05, 0.05], size = 0.6 }, mat
     const mx = Math.floor(across ? cell.w - 1 - u - x0 : u - x0);
     const my = Math.floor(flip ? cell.h - 1 - v - y0 : v - y0);
     return mask.at(mx, my) ? ink : under(u, v);
+  }, 0);
+}
+
+/** A box face's width and height in units, as a viewer facing it sees them. */
+function faceSize([x, y, z], f) {
+  return f <= 1 ? [x, y] : f <= 3 ? [x, z] : [y, z];
+}
+
+/**
+ * Panels painted on a box face, in the face's own units as a viewer facing it sees them: `at` [x, y] the
+ * panel's middle from the face's bottom left, `size` [w, h], `shape` rect (unless told), round (corners of
+ * `radius`) or ellipse, `style` inset (unless told: a drawer front's gap, a recess), raised (a plate, a pull)
+ * or flat (a painted patch), `edge` the bevel's width (0.4), and `material` (the box's own unless told:
+ * a resolved material). Later panels go over earlier ones. The bevel is painted lit from the top left.
+ */
+function paintPanels(S, cell, panels, material, px, flip, across, [fw, fh]) {
+  const under = zonePainter(material, cell, px);
+  const kx = cell.w / fw;
+  const ky = cell.h / fh;
+  const fills = panels.map((panel) => (panel.material ? zonePainter(panel.material, cell, px) : null));
+  S.zone(cell, (u, v) => {
+    // the point in face units, x to the right and y up as the viewer sees the face
+    const x = ((across ? cell.w - 1 - u : u) + 0.5) / kx;
+    const y = fh - ((flip ? cell.h - 1 - v : v) + 0.5) / ky;
+    let colour = under(u, v);
+    panels.forEach((panel, i) => {
+      const [cx, cy] = panel.at;
+      const [w, h] = panel.size;
+      const dx = x - cx;
+      const dy = y - cy;
+      // how far inside the shape's edge the point is, in units (under 0: outside)
+      let inside;
+      if (panel.shape === "ellipse") {
+        const r = Math.hypot(dx / (w / 2), dy / (h / 2));
+        inside = (1 - r) * Math.min(w, h) / 2;
+      } else {
+        const radius = panel.shape === "round" ? Math.min(panel.radius ?? Math.min(w, h) / 4, w / 2, h / 2) : 0;
+        const qx = Math.abs(dx) - (w / 2 - radius);
+        const qy = Math.abs(dy) - (h / 2 - radius);
+        inside = radius - (Math.hypot(Math.max(qx, 0), Math.max(qy, 0)) + Math.min(Math.max(qx, qy), 0));
+      }
+      if (inside < 0) return;
+      const edge = panel.edge ?? 0.4;
+      const base = fills[i] ? fills[i](u, v) : colour;
+      const style = panel.style ?? "inset";
+      let shade = 1;
+      if (style !== "flat" && inside < edge) {
+        // on the bevel: which way it faces, from the nearest side of the shape (left or top lit)
+        const nx = Math.abs(dx) / (w / 2);
+        const ny = Math.abs(dy) / (h / 2);
+        const lit = nx > ny ? (dx < 0 ? 1 : -1) : dy > 0 ? 1 : -1;
+        shade = 1 + (style === "inset" ? -lit : lit) * 0.35;
+      } else if (style === "inset") shade = 0.92;
+      colour = base.map((c) => Math.max(0, Math.min(1, c * shade)));
+    });
+    return colour;
   }, 0);
 }
 

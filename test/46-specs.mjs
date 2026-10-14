@@ -309,6 +309,30 @@ test("a model spec's print: words on a box's face, in their ink, over its materi
   sure(red > 40 && cream > 1000 && other < cream * 0.15, `red letters on cream: ${red} red, ${cream} cream, ${other} other`);
 });
 
+test("a model spec's panels: drawers and pulls painted on a box's face, in relief that costs no triangle", () => {
+  const box = (panels) => ({ spec: "smak.model/1", name: "cab.mdl", kind: "prop", finish: false, materials: { paint: { base: "paint", tone: [0.6, 0.6, 0.6] } }, parts: [{ id: "body", kind: "box", size: [20, 20, 40], material: "paint", panels }] });
+  const plain = buildModelSpec(box([]));
+  const drawer = buildModelSpec(box([{ face: "front", at: [10, 30], size: [16, 12], edge: 1 }, { face: "front", at: [10, 32], size: [4, 2], style: "raised", material: { base: "paint", tone: [0.95, 0.1, 0.1] } }]));
+  sure(drawer.report.ok && Object.values(drawer.report.parts)[0].tris === 12, `still a box of 12 triangles: ${JSON.stringify(drawer.report.parts)}`);
+  // the front: the red pull high up (the panel's y counts up from the face's bottom), nothing red on the back
+  const red = (mdl, yaw) => {
+    const front = smak.render(mdl, { seq: 0, yaw, pitch: 0, width: 100, height: 200, light: false });
+    let top = 0;
+    let bottom = 0;
+    for (let i = 0; i < front.rgba.length; i += 4)
+      if (front.rgba[i] > 180 && front.rgba[i + 1] < 80) (i / 4 / 100 < 100 ? top++ : bottom++);
+    return { top, bottom };
+  };
+  const f = red(drawer.mdl, 0);
+  const b = red(drawer.mdl, 180);
+  sure(f.top > 20 && f.bottom === 0 && b.top + b.bottom === 0, `the pull on the front's upper half: front ${JSON.stringify(f)}, back ${JSON.stringify(b)}`);
+  // the drawer's bevel darkens part of the face against the plain box
+  const grey = (mdl) => smak.render(mdl, { seq: 0, yaw: 0, pitch: 0, width: 100, height: 200, light: false }).rgba.reduce((s, v, i) => (i % 4 === 0 && v > 20 && v < 120 ? s + 1 : s), 0);
+  sure(grey(drawer.mdl) > grey(plain.mdl) + 50, `a bevel's shadow: ${grey(drawer.mdl)} dark dots against ${grey(plain.mdl)}`);
+  const bad = validateModelSpec(box([{ face: "side", at: [1], size: [0, 2] }]));
+  sure(bad.errors.length >= 3, bad.errors.join("; "));
+});
+
 test("a model spec's marks: stripes painted on a turned part, on its side only, round it as a ring; none on a box", () => {
   const post = (marks) => ({ spec: "smak.model/1", name: "post.mdl", kind: "prop", finish: false, materials: { fur: { base: "paint", tone: [0.95, 0.55, 0.12] } }, parts: [{ id: "post", kind: "cylinder", radius: 6, height: 30, sides: 16, material: "fur", marks }] });
   const dark = (spec) => {

@@ -119,6 +119,15 @@ A `box` may carry words on a face: `"print": { "text": "NOODLES", "face": "front
 "size": 0.6 }` (or a list of them), in plain capitals and digits as large as the face holds (`size`: the
 share of its height), over its material. `face`: `front`, `back`, `left`, `right`, `top`.
 
+A box may carry painted **panels** on its faces: `"panels": [{ "face": "front", "at": [11, 29], "size":
+[20, 17] }, { "face": "front", "at": [11, 32], "size": [5, 2], "shape": "round", "style": "raised",
+"material": "chrome" }]`: a drawer's front, a door, a slot, a vent, a pull, a screen. `at` is the panel's middle
+and `size` its width and height, in units from the face's bottom left as one facing it sees it; `shape` rect
+(unless told), round (corners of `radius`) or ellipse; `style` inset (unless told: a gap, a recess), raised
+(a plate, a pull) or flat (a painted patch); `edge` the bevel's width (0.4); `material` its own (the box's
+unless told). The bevel is painted lit from the top left, so it reads as relief, and costs no triangle.
+Later panels go over earlier ones.
+
 A turned part (`turn`, `cylinder`, `sphere`, `tube`) may carry painted **marks**: `"marks": [{ "path": [[0.2,
 130], [0.2, 230]], "width": 1.1, "material": "stripe", "ends": "point" }]`. A path is a ridge's (`s` 0 to 1
 along the part, the angle in degrees round it; `[[0.5, 0], [0.5, 360]]` is a ring round it); `width` in
@@ -127,10 +136,23 @@ units; `material` a word of `materials` or a base (near-black unless told); `end
 
 **Shape or paint.** Build it (`ridge`, `band`, `boss`, a part of its own) when it changes the outline: it
 stands off the surface by a unit or more on a thing a player's size, it is seen edge-on (a brim, an ear, a
-collar), or it moves on a bone of its own. Paint it (`marks`, `print`) when it lies on the surface: stripes,
-spots, a painted line, a seam, a label, a rivet seen from two steps away. A built ridge 0.3 high changes
+collar), or it moves on a bone of its own. Paint it (`marks`, `print`, `panels`) when it lies on the
+surface or stands off it by less than a unit: stripes, spots, a painted line, a seam, a label, a drawer's
+front, a pull, a vent, a rivet seen from two steps away. A built ridge 0.3 high changes
 nothing the engine's flat light shows, and costs triangles, normals (2048 a body) and a part that can come
 apart. Holes in a thin sheet (a fence, a net, a grate) are a third way: a `mesh` material, see-through.
+
+**How many triangles.** Half-Life's own models, counted (the first frame of each, by kind):
+
+| Kind | A quarter have under | Half under | Three quarters under |
+| --- | --- | --- | --- |
+| Pickup lying in the world (`w_`) | | 28 | 104 |
+| Prop, plant, creature, person | 60 | 176 | 576 |
+| Weapon in another player's hands (`p_`) | 88 | 142 | 187 |
+| First-person weapon with its arms (`v_`) | 523 | 615 | 832 |
+
+A crate there is 26 triangles, its planks and bands painted on; a can, 28; a large monster, 500 to 1,000.
+Build to that: the shape in triangles, the detail in the picture.
 
 Parts should touch: the check calls a part more than 0.25 units from every other **floating**. Let parts
 sink a little into what they stand on (an `offset` of `[0, 0, -0.5]`), the way a real thing is made: a part
