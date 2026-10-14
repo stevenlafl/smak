@@ -2595,6 +2595,17 @@ const COMMANDS = {
          with --models, the model the mod gives an entity that names none, a monster's from its script; map-section, map-storeys
          and map-openings take it too)`,
   },
+  "map-sweep": {
+    run: async ({ file, flags }) => {
+      const { sweepOf } = await import("../src/maps/sweep.mjs");
+      const swept = sweepOf(readFileSync(existing(file)));
+      if (flags.json) console.log(JSON.stringify(swept, null, 1));
+      else for (const line of swept.facts) console.log(line);
+    },
+    own: true,
+    help: `  map-sweep <bsp> [--json]           what a player walking it would find wrong: drops that hurt (over ${210} units: Half-Life's
+                                            safe fall) and lights in mid-air (nothing solid within 32), each with its place`,
+  },
   "map-reach": {
     run: mapReach,
     own: true,

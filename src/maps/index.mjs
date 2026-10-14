@@ -3,6 +3,7 @@
 // both drawn.
 //   import { maps } from "smak";       maps.readBsp(bytes)
 export * from "./lumps.mjs";
+export * from "./sweep.mjs";
 export * from "./miptex.mjs";
 export * from "./wad.mjs";
 export * from "./entities.mjs";

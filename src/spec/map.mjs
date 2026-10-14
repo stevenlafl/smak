@@ -21,6 +21,7 @@ import { readBsp } from "../maps/bsp.mjs";
 import { lightReport } from "../maps/light.mjs";
 import { makeSky, skyFiles, SKY_KEYS } from "../maps/sky.mjs";
 import { PRECACHES_MODEL } from "../maps/entities.mjs";
+import { sweepOf, SAFE_DROP, LIGHT_REACH } from "../maps/sweep.mjs";
 import { planOfSource, planOf, drawMap, sectionOf } from "../maps/draw.mjs";
 import { tile, label, render } from "../render.mjs";
 import { png } from "../image.mjs";
@@ -1168,6 +1169,14 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     // a prop's footprint: its model's, turned as it faces (a facing that names a room counts as unturned)
     (thing) => turnedPrint(modelPrints[thing.model] ?? { min: [-16, -16], max: [16, 16] }, isNumber(thing.facing) ? thing.facing : FACINGS[thing.facing] ?? 0),
   );
+  // a lamp is never in mid-air: one that hangs below the ceiling gets a shade over it and a rod up to the ceiling
+  // (Steven's play-test: "random lights in the middle of the air"; src/maps/sweep.mjs finds them in any map)
+  const hang = (room, [x, y, z]) => {
+    if (room.max[2] - z <= LAMP_UNDER + 8 || room.spec.sky) return;
+    const shade = box([x - 6, y - 6, z + 4], [x + 6, y + 6, z + 8], textureOf("furniture"));
+    const rod = box([x - 1, y - 1, z + 8], [x + 1, y + 1, room.max[2]], textureOf("furniture"));
+    entities.push(brushEntity("func_detail", [shade, rod], {}));
+  };
   // the entities
   place(spec.entities, "entities", (thing, room, at) => {
     const yaw = yawOf(room, thing.facing, at);
@@ -1177,7 +1186,10 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       const start = playerStart(at, yaw, thing.class);
       Object.assign(start, keys);
       entities.push(start);
-    } else if (thing.class === "light") entities.push(light([at[0], at[1], at[2] + (thing.height ?? 96)], keys));
+    } else if (thing.class === "light") {
+      entities.push(light([at[0], at[1], at[2] + (thing.height ?? 96)], keys));
+      hang(room, [at[0], at[1], at[2] + (thing.height ?? 96)]);
+    }
     else entities.push(pointEntity(thing.class, at, { angles: [0, yaw, 0], ...keys }));
   });
   // sounds: each made into sound/<map>/ beside the map and played where it is put by an ambient_generic: its
@@ -1223,6 +1235,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       // hung under the ceiling, but no higher than LAMP_HIGHEST over the floor: in a tall room it lights the floor
       const lampZ = Math.min(room.max[2] - LAMP_UNDER, room.min[2] + LAMP_HIGHEST);
       entities.push(light([Math.round(cx), Math.round(cy), lampZ], { brightness: options.brightness ?? LAMP_BRIGHTNESS, color: options.color ?? [255, 240, 220] }));
+      hang(room, [Math.round(cx), Math.round(cy), lampZ]);
     }
   }
   if (sunny) {
@@ -1343,6 +1356,11 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       }
       const walked = reachOf(bsp);
       if (walked.unreached.length + walked.stuck.length) report.faults.push(...walked.warnings.map((line) => `walk of the compiled map: ${line}`));
+      // what a player would find walking it: drops that hurt, lights in mid-air
+      const swept = sweepOf(bsp, { reach: walked });
+      report.facts.push(...swept.facts.map((line) => `sweep: ${line}`));
+      if (swept.floating.length) report.faults.push(`sweep: ${swept.floating.length} lights hang in the air with nothing within ${LIGHT_REACH} of them: put each on a wall or under a ceiling`);
+      if (swept.drops.length) warnings.push(`sweep: ${swept.drops.length} places a player can step off and fall far enough to be hurt (more than ${SAFE_DROP}), the farthest ${swept.drops[0].fall} at ${swept.drops[0].at.join(" ")}: mean each, or rail it`);
       // a night map's sky drawn dark: without the game's own sky pictures the views fill it with a day's blue
       const drawing = { folders: [out, dirname(out), ...gameWads.map((file) => dirname(file))], models: true, ...(spec.night && typeof spec.sky !== "object" ? { sky: [10, 12, 22] } : {}) };
       save("plan", planOf(bsp, drawing));

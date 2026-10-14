@@ -370,6 +370,11 @@ export async function judgeMap(map, leg, copyFile, { decoy } = {}) {
     alignment: { move, note: "the reproduction is this far from where the original has the same floor" },
     entities: ents,
     walkTest: { unreachedInReproduction: unreached, unreachedInOriginal: a.reach.unreached?.length ?? 0 },
+    // what a player walking each finds (src/maps/sweep.mjs): drops that hurt, lights in mid-air, the original's beside
+    sweep: Object.fromEntries([["original", original, a], ["reproduction", copy, b]].map(([name, bytes, floor]) => {
+      const swept = maps.sweepOf(bytes, { reach: floor.reach });
+      return [name, { hurtingDrops: swept.drops.length, lightsInMidAir: swept.floating.length }];
+    })),
     checkErrors,
   };
   const caps = {

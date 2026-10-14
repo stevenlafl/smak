@@ -344,6 +344,27 @@ test("a model spec's leaf drops the points that lie on the line between their ne
   sure(report.facts.some((f) => /^12 triangles/.test(f)), report.facts.filter((f) => /triangles/.test(f)).join("; "));
 });
 
+test("a lamp is never in mid-air: one hung below a tall room's ceiling has a shade and a rod up to it", () => {
+  // Steven's play-test of frenzy_pictures: "random lights in the middle of the air"
+  const spec = { spec: "smak.map/1", name: "tall", rooms: [{ id: "hall", size: [256, 256, 480] }], entities: [{ class: "info_player_start", room: "hall", at: "centre" }, { class: "light", room: "hall", at: "corner ne" }] };
+  const { files } = buildMapSpec(spec, { out: join(folder, "tall"), compilers: { found: false, message: "" } });
+  const map = smak.maps.readMap(readFileSync(files.map, "utf8"));
+  const lights = map.entities.filter((e) => e.classname === "light");
+  const rods = map.entities.filter((e) => e.classname === "func_detail").flatMap((e) => e.brushes);
+  const top = Math.max(...map.brushes.flatMap((b) => b.faces.flatMap((f) => f.points.map((p) => p[2]))));
+  for (const l of lights) {
+    const [x, y, z] = l.origin.split(" ").map(Number);
+    const hung = rods.some((b) => {
+      const ps = b.faces.flatMap((f) => f.points);
+      const lo = [0, 1, 2].map((k) => Math.min(...ps.map((p) => p[k])));
+      const hi = [0, 1, 2].map((k) => Math.max(...ps.map((p) => p[k])));
+      return lo[0] <= x && x <= hi[0] && lo[1] <= y && y <= hi[1] && lo[2] >= z && lo[2] - z < 12;
+    });
+    sure(hung, `the light at ${l.origin} has no shade just over it`);
+  }
+  sure(lights.length >= 2 && rods.length >= 2 * lights.length && top > 400, `${lights.length} lights, ${rods.length} brushes hung`);
+});
+
 test("an entity that loads a model it does not name: refused by the spec, by both writers, and found in a map", () => {
   // frenzy_plans: eight env_glow with no sprite stopped the game on load (PF_precache_model_I: Bad string '')
   const spec = { spec: "smak.map/1", name: "glow", rooms: [{ id: "a", size: [256, 256, 128] }], entities: [{ class: "info_player_start", room: "a", at: "centre" }, { class: "env_glow", room: "a", at: "corner ne" }] };

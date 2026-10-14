@@ -22,6 +22,16 @@
    "unreachedInReproduction": 3,
    "unreachedInOriginal": 3
   },
+  "sweep": {
+   "original": {
+    "hurtingDrops": 48,
+    "lightsInMidAir": 2
+   },
+   "reproduction": {
+    "hurtingDrops": 48,
+    "lightsInMidAir": 2
+   }
+  },
   "checkErrors": []
  },
  "caps": {
@@ -34,55 +44,55 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "plans.png: the areas, their arrangement and the joins (the central corridor, the lift and stair shafts at the right, the doorways between halls) match the original in every visible detail. Pictures alone cannot show how the reproduction was made."
+   "reason": "The plans from above show the same areas in the same arrangement, with the same doors, corridors, stairs and the two lifts at the centre, in both pictures. The storeys and sections match in every floor."
   },
   "P2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "plans.png: the walkable floor lines up at the same places and sizes in both plans. The harness measures floor overlap 1.0 with alignment move (0, 0, 0)."
+   "reason": "The measured walkable floor overlap is 1.0 with zero alignment move. The plans match outline for outline: the octagonal rooms, the central shaft and the east stair block sit in the same places and sizes."
   },
   "P3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "storeys-original/reproduction.png and sections.png: the floor levels (Z 36, 228, 372, 578 cuts), ledges, the balcony stairs at the right, and the ceiling heights (2 160, 2 320, 2 512) agree. The section shows the same drop and step at the same heights."
+   "reason": "The section at Y 90 shows the same ceiling heights (512, 320, 160 and 64 units), the same ledges and the same drop to the lower floor, in the same places in both pictures. The storey cuts at Z 36, 228, 372 and 578 agree."
   },
   "P4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "storeys pictures: the same entity labels in the same places (INFO_PLAYER_START, DEATHMATCH starts, weapons, ammo, FUNC_WALL, FUNC_DOOR, FUNC_LADDER, TRIGGER_MULTIPLE). The harness matches 58 of 58 entities, with none missing."
+   "reason": "All 58 of the original's entities are matched within 64 units, with none missing: the 8 start points, weapons, ammunition, batteries, the health charger, the lights and the func_wall, func_door, trigger and ladder entities. The storey labels and section labels are identical."
   },
   "P5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "views.png: the wall panels, pipe runs, shelving and floor tiles in each start view are the same texture in the same places in both halves of every pair."
+   "reason": "The views from the original's start points show the same wall panels, seams, shelving textures, grates and floor tiles in both pictures, with the same patterns and tones. No surface differs."
   },
   "P6": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "views.png: the ceiling lamps in start 8 sit in the same places with the same bright and dark areas. Starts 4 to 7 are equally dim in both halves, so the lighting agrees across the set."
+   "reason": "The lamps (light and env_glow) sit at the same places in the storeys and section. The views show the same bright areas under the ceiling lights at start 8 and the same near-black areas at starts 4 to 7. Light matches."
   },
   "P7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "plans and views: the distinctive shelf rows, pillars, the octagonal wall bays and the stairs at the right match the original in place and shape."
+   "reason": "The distinctive features are all there and in place: the two-storey central shaft, the octagonal columns, the shelved aisles with their wall recesses, the stair block and the ledges. The views show these identically in both pictures."
   },
   "P8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The harness reports no check errors. The walk test leaves the same 3 items unreached in both maps (unreachedInReproduction 3, unreachedInOriginal 3), so the reproduction reaches what the original reaches on foot. The harness did not measure the leak check directly."
+   "reason": "The checks report no errors. The walk test leaves the same 3 items unreached in both maps, which is the original's own count, and the sweep reports the same 48 hurting drops and 2 mid-air lights in both. The picture sets show nothing the original does not have. The reproduction is pixel-for-pixel the same as the original by eye, so the compile and leak checks are as sound as the original's."
   },
   "P9": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "views.png: from all eight starts the reproduction is indistinguishable from the original, pixel for pixel in the frames I could compare. A player who knew the map would recognise it at once. Caveat: this folder is named decoy-identical. Pictures cannot show provenance, so I scored what they show. If this is a control meant to fail, the run is void under the rubric's decoy rule."
+   "reason": "At all 8 start points, the original and reproduction views are the same: the shelved aisles at starts 1 to 3, the wall recesses, the grates at start 3, and the lit corridor with two ceiling lights at start 8. A player who knows the map would know it at once. Note: the reproduction is identical to the original in every picture, so these scores reflect identical content, not a separate build. The folder's 'decoy' label does not match what was drawn."
   }
  },
  "total": 18,

@@ -264,4 +264,9 @@ walk test, not the game.
   touched) one reading had docked surface detail in four runs of six; with two readings, six runs of six scored
   16 of 16. Every decoy still fails (the filing cabinet's box, the one judged, at 7 of 16). A fault that is there
   shows in both readings; one that a reading made up seldom does.
+- **2026-10-14, later: the map sweep in the map judge's measurements.** From Steven's play-test of the frenzy
+  legs (reviews/maps-2026-10-14.json): each map, original and reproduction, is swept for the drops a player can
+  step off and be hurt by (over 210 units, Half-Life's safe fall) and for lights with nothing solid within 32
+  (`src/maps/sweep.mjs`), and both counts are given to the judge beside each other. Valve's frenzy has 48 such
+  drops and 2 such lights; its reproductions had 58 to 77 and 7 to 53. The measure caps nothing yet.
 
