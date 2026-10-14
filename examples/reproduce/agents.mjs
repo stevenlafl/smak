@@ -25,6 +25,9 @@ export async function runAgent({ prompt, read = null, server = null, files = {},
   if (server) {
     const extra = ["--work", work, "--no-run"];
     if (server.models) extra.push("--models", server.models);
+    // a blind test's originals: fitted into but never shown (hide), or never read (refuse)
+    for (const file of server.hide ?? []) extra.push("--hide", file);
+    for (const file of server.refuse ?? []) extra.push("--refuse", file);
     if (server.wads) {
       extra.push("--wads", GAME);
       if (existsSync(SDHLT)) extra.push("--compilers", SDHLT);
