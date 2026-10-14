@@ -12,14 +12,17 @@ stdout, one message a line) is written out in `protocol.mjs`.
 ## Starting it
 
 ```
-node mcp/server.mjs --models <folder> --work <folder> [--no-run]
+node mcp/server.mjs --models <folder> --work <folder> [--no-run] [--compilers <folder>] [--fgd <file> ...] [--wads <folder> ...]
 ```
 
 |            |                                                                                                                              |
 | ---------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | `--models` | The files to work from: a mod's `models` folder, say, or its `maps` folder (or the mod's own folder, for both). Only ever read. May be left out when everything is made from nothing. |
 | `--work`   | Where everything made is written (models, pictures, kept scripts). Made when it is not there.                                |
-| `--no-run` | Without the tool `run`: the server can then only read, check and draw.                                                       |
+| `--no-run` | Without the tool `run`: the server can then only read, check, draw and build from specs (which runs no code of the client's). |
+| `--compilers` | The map compilers' folder (SDHLT or VHLT), for `build` of a map. `VHLT_DIR` and the PATH are looked in unless told.         |
+| `--fgd`    | An entity definitions file: the game's `.fgd` (Half-Life's is in the SDK, `Hammer Editor/fgd/half-life/halflife.fgd`) and the compilers' own (`sdhlt.fgd`). `build` holds a map's entities against them; `entities` lists them. Again for more. |
+| `--wads`   | A game folder whose `.wad` files a map spec's `wads` name (`valve`, a mod's folder). Again for more.                            |
 
 A client starts it itself; you only tell it how.
 
@@ -60,8 +63,8 @@ Every other tool takes a file only from inside `--models` or `--work`, and refus
 
 ## The tools
 
-Few on purpose: a client is sent every tool's description in every conversation (about 1100 tokens for all
-six, maps included), so the long guidance stays behind `guide` and is read only when a task needs it.
+Few on purpose: a client is sent every tool's description in every conversation (about 1300 tokens for all
+eight, maps included), so the long guidance stays behind `guide` and is read only when a task needs it.
 
 | Tool     | What it does                                                                                                                                                      | Arguments                                                                                                                                                           |
 | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -70,6 +73,8 @@ six, maps included), so the long guidance stays behind `guide` and is read only 
 | `info`   | What a model holds: bones, bodies with their body numbers, textures, animations. Of a map (`.bsp`): its size, entities, textures, light; of a `.map` or a `.wad`, what is in it. | `model`, `full` (bone places, events, attachments; a map: every entity with its keys)                                                                               |
 | `check`  | The errors and warnings an engine would have with a model or a compiled map; of a `.map`, what its plan has wrong before a compile. With `walk`, a map's walk test: what a player cannot reach on foot, what stands in something solid, the openings. With `against`, a map's entities held against its mod: classes, keys, values, names, the mod's rules. | `model`, `engine` (`goldsrc`, `xash`), `walk`, `goal` (entities to tell the walk to, `"9, keeper"`), `doors` (`open`, `closed`), `against` (files of the folders, with commas: `.fgd` files, what `smak map-learn` wrote, a profile that is a `.json` file; or `goldsrc`. A profile that is a module is code: `run`)                                      |
 | `render` | A picture of a model or a map, returned as an image. A map's kinds are `plan` (from above, every entity marked with its pixel), `view` (from inside), `views`, `section` (a side cut along a line), `storeys` (a plan for each storey) and `openings` (a view through each doorway). | `model`, `kind` (`view`, `sheet`, `strip`, `uv`; a map: `plan`, `view`, `views`, `section`, `storeys`, `openings`), `body`, `seq`, `frame`, `side` or `yaw` / `pitch`, `zoom`, `dist`, `first`, `count`, `texture`, `at`, `z`, `from` and `to` (a section's ends, `"x y"`), `heights`, `legend`, `reach` (a plan), `size` |
+| `build`  | A model or a map from a spec (`docs/SPEC.md`, `guide { doc: "spec" }`): what a person's words, or drawing, are turned into. Built, checked (holes, gaps, faces turned inwards, parts floating apart; a map's leaks, walk, light, entities against the FGD), compiled, drawn. Says `OK` or what to fix, and what changed since the last build of the same name. Writes the result and its spec to the work folder. Runs no code of the client's. | `spec` (an object, JSON text, or a `.json` file of the folders), `reference` (a PNG drawn beside the result), `focus` (a model's parts to see close) |
+| `entities` | The entity classes of the server's FGDs, a line each; with `class`, its keys, types, defaults, choices and flags by name. | `match`, `class` |
 | `run`    | Runs an ES module with Node in the work folder, with the kit importable. Returns what it printed, the files it wrote, and up to three of its PNG files as images. | `script`, `show`, `timeout` (seconds; 120 unless told, 600 at most), `name` (keep the script as `<name>.mjs`), `edits` (change a kept script in place)              |
 
 A map's `.wad` files are looked for beside it and in the models folder; when that folder is the game's own
@@ -114,6 +119,18 @@ characters a stream (its start and its end are kept), without the lines of a sta
 
 What a person might ask, and the calls a client makes for it.
 
+> A cyberpunk noodle bar for my map: a counter with stools, a neon sign of a bowl, lanterns.
+
+1. `guide { doc: "spec" }` → how a spec is written; `examples/prompts/13-map-noodle-bar` is this very case.
+2. `entities { match: "light" }`, `entities { class: "func_breakable" }` → the classes and keys to use.
+3. `build { spec: {...} }` → `NOT OK`, `FAULT walk: ... the health kit ... only by a jump`: the counter too
+   high. Change it, `build` again → `OK`, the plan and the views.
+4. > Looks good, now add a second fridge next to the first.
+
+   `build` with the fridge given an `id` and a new one `at: { beside: "fridge", side: "west" }` → `CHANGED
+   ... things added: furniture fridge #2 ...; 21 rooms and things are where they were`.
+
+
 > Make me a small wooden barrel prop with two iron hoops.
 
 1. `guide` → the list of sections and the table of what the kit can do.
@@ -143,7 +160,9 @@ What a person might ask, and the calls a client makes for it.
 | `protocol.mjs` | JSON-RPC over two streams: `initialize`, `ping`, `tools/list`, `tools/call`, and a call taken back. |
 | `folders.mjs`  | The rule that a named file is inside `--models` or `--work`.                                        |
 | `guide.mjs`    | The guide and the reference cut at their headings, read from the kit's own files each time.         |
-| `tools.mjs`    | The tools: their descriptions as a client is told them, and `models`, `info`, `check`, `render`.    |
+| `tools.mjs`    | The tools: their descriptions as a client is told them, and `models`, `info`, `check`, `render`, `build`, `entities`. |
 | `run.mjs`      | The tool `run`: the link to the kit, the child process, its time limit, what it wrote.              |
 
-The cases that start the server and speak to it are in `test/16-mcp.mjs`.
+The cases that start the server and speak to it are in `test/16-mcp.mjs`, `test/22-maps-draw.mjs` and
+`test/46-specs.mjs`; `examples/prompts/run.mjs` builds every worked case through it, and
+`examples/prompts/blind.mjs` hands a case's words to a fresh agent that has nothing else.

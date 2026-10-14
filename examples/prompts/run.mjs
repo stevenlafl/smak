@@ -13,6 +13,7 @@
 // (a fresh temporary folder unless told); --compilers the map compilers' folder (SDHLT), else VHLT_DIR, else
 // ../SDHLT/tools beside the kit. --fgd: an entity definitions file the maps are held against (again for
 // more); unless told, Half-Life's from the SDK in the Steam folder and SDHLT's own, where they are.
+// --blind <case> builds what blind.mjs's agent made for that case into its blind/result/ instead.
 // It ends with code 1 when any case's checks do not pass.
 import { spawn } from "node:child_process";
 import { createInterface } from "node:readline";
@@ -32,6 +33,9 @@ const option = (name) => {
   return value;
 };
 const work = option("--work") ?? mkdtempSync(join(tmpdir(), "smak-prompts-"));
+// --blind <case>: build what a blind run's agent made (blind.mjs), not the case's own spec
+const blind = option("--blind");
+if (blind) words.push(blind);
 // the map compilers: as told, or VHLT_DIR, or SDHLT built beside the kit (git clone of seedee/SDHLT next
 // to smak, built with cmake: its programs land in SDHLT/tools)
 const beside = join(HERE, "..", "..", "..", "SDHLT", "tools");
@@ -105,6 +109,10 @@ async function buildOnce(label, spec, out, extra = {}) {
 }
 
 for (const name of cases) {
+  if (blind) {
+    await buildOnce(`${name} (blind)`, `models:${name}/blind/spec.json`, join(HERE, name, "blind", "result"));
+    continue;
+  }
   const args = {};
   if (existsSync(join(HERE, name, "drawing.png"))) args.reference = `models:${name}/drawing.png`;
   // a close look at parts too small to judge in the sheet, as the case's focus.json lists them

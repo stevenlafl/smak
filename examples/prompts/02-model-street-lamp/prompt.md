@@ -44,3 +44,13 @@
 2. Built clean. The sheet (picture-1) shows the stepped base, the tapered post with its ball, the arm to
    +x and the lantern on its chain; the close look (picture-2, `focus.json`) shows the square frame, the
    glowing glass on four sides and the pointed roof.
+
+## Blind run
+
+`blind.mjs`: the prompt alone, handed to a fresh agent with nothing but the MCP server (no shell, no files,
+none of these specs). It read the guide three times, built twice, and finished in 49 seconds and 6 turns
+(blind/run.json). Its spec (blind/spec.json), built again (blind/result/), passes every check, and against
+this rubric: a stepped base of three hard-edged steps, a tapered post with its ball (109 tall), a curved arm,
+the lantern on a chain of two links with a ring, a square frame with yellow `fullbright` glass on four sides,
+a pointed roof with a finial: **16 of 16**. Its answer (blind/answer.md) says what it could not do (the
+glass lights nothing round it: a `light` entity in the map is wanted for that).

@@ -48,3 +48,13 @@
    hatch side by side in the north wall, the door east to the bedroom, the bed against its east wall, the
    shelves and the headcrab in the pantry and the start in the south-east corner. The views (picture-2)
    show the plank floor and the brick fireplace, the bed, and the shelves.
+
+## Blind run
+
+`blind.mjs`: the prompt alone, handed to a fresh agent with nothing but the MCP server. It read the guide six
+times, asked `entities` once, built three times, and finished in 77 seconds and 12 turns (blind/run.json).
+Its spec (blind/spec.json), built again (blind/result/), passes every check: the three rooms of the sizes
+asked, a brick fireplace in the middle of the west wall glowing (a texture light of its own choosing) with an
+orange light, the door and the step of 16 to the bedroom, the bed against its east wall, the pantry's
+opening and hatch side by side, its shelves and the headcrab, plank floors, the start in the south-east
+corner facing west, every room lit (204, 167, 137). Against this rubric: **16 of 16**.

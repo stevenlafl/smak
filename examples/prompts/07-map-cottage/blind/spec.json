@@ -1,0 +1,369 @@
+{
+  "spec": "smak.map/1",
+  "name": "cottage",
+  "theme": {
+    "floor": "planks",
+    "wall": "plaster",
+    "ceiling": "darkwood",
+    "door": "wood",
+    "furniture": "wood"
+  },
+  "textures": {
+    "hearthbrick": {
+      "base": "brick"
+    },
+    "fire": {
+      "base": "flame",
+      "flags": [
+        "fullbright"
+      ]
+    },
+    "bedding": {
+      "base": "cloth",
+      "tone": [
+        0.7,
+        0.6,
+        0.45
+      ]
+    }
+  },
+  "rooms": [
+    {
+      "id": "main",
+      "size": [
+        384,
+        320,
+        128
+      ]
+    },
+    {
+      "id": "bedroom",
+      "size": [
+        256,
+        320,
+        128
+      ],
+      "place": {
+        "east_of": "main"
+      },
+      "floor": 16
+    },
+    {
+      "id": "pantry",
+      "size": [
+        384,
+        160,
+        128
+      ],
+      "place": {
+        "north_of": "main"
+      }
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "main",
+        "bedroom"
+      ],
+      "kind": "door"
+    },
+    {
+      "between": [
+        "main",
+        "pantry"
+      ],
+      "kind": "opening",
+      "along": 0.3
+    },
+    {
+      "between": [
+        "main",
+        "pantry"
+      ],
+      "kind": "window",
+      "along": 0.6
+    }
+  ],
+  "prefabs": {
+    "fireplace": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -48,
+              -48,
+              0
+            ],
+            [
+              -16,
+              -32,
+              64
+            ]
+          ],
+          "texture": "hearthbrick"
+        },
+        {
+          "box": [
+            [
+              -48,
+              32,
+              0
+            ],
+            [
+              -16,
+              48,
+              64
+            ]
+          ],
+          "texture": "hearthbrick"
+        },
+        {
+          "box": [
+            [
+              -48,
+              -48,
+              64
+            ],
+            [
+              -16,
+              48,
+              80
+            ]
+          ],
+          "texture": "hearthbrick"
+        },
+        {
+          "box": [
+            [
+              -48,
+              -40,
+              80
+            ],
+            [
+              -24,
+              40,
+              128
+            ]
+          ],
+          "texture": "hearthbrick"
+        },
+        {
+          "box": [
+            [
+              -48,
+              -32,
+              0
+            ],
+            [
+              -16,
+              32,
+              4
+            ]
+          ],
+          "texture": "hearthbrick"
+        },
+        {
+          "box": [
+            [
+              -42,
+              -14,
+              4
+            ],
+            [
+              -26,
+              14,
+              14
+            ]
+          ],
+          "texture": "fire"
+        }
+      ]
+    },
+    "bed": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -44,
+              -28,
+              0
+            ],
+            [
+              40,
+              28,
+              18
+            ]
+          ],
+          "texture": "furniture"
+        },
+        {
+          "box": [
+            [
+              -42,
+              -26,
+              18
+            ],
+            [
+              38,
+              26,
+              26
+            ]
+          ],
+          "texture": "bedding"
+        },
+        {
+          "box": [
+            [
+              40,
+              -28,
+              0
+            ],
+            [
+              46,
+              28,
+              44
+            ]
+          ],
+          "texture": "furniture"
+        }
+      ]
+    },
+    "shelves": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -160,
+              -8,
+              0
+            ],
+            [
+              -156,
+              8,
+              96
+            ]
+          ],
+          "texture": "furniture"
+        },
+        {
+          "box": [
+            [
+              -2,
+              -8,
+              0
+            ],
+            [
+              2,
+              8,
+              96
+            ]
+          ],
+          "texture": "furniture"
+        },
+        {
+          "box": [
+            [
+              156,
+              -8,
+              0
+            ],
+            [
+              160,
+              8,
+              96
+            ]
+          ],
+          "texture": "furniture"
+        },
+        {
+          "box": [
+            [
+              -160,
+              -8,
+              30
+            ],
+            [
+              160,
+              8,
+              33
+            ]
+          ],
+          "texture": "furniture"
+        },
+        {
+          "box": [
+            [
+              -160,
+              -8,
+              60
+            ],
+            [
+              160,
+              8,
+              63
+            ]
+          ],
+          "texture": "furniture"
+        },
+        {
+          "box": [
+            [
+              -160,
+              -8,
+              93
+            ],
+            [
+              160,
+              8,
+              96
+            ]
+          ],
+          "texture": "furniture"
+        }
+      ]
+    }
+  },
+  "furniture": [
+    {
+      "prefab": "fireplace",
+      "room": "main",
+      "at": "against west"
+    },
+    {
+      "prefab": "bed",
+      "room": "bedroom",
+      "at": "against east"
+    },
+    {
+      "prefab": "shelves",
+      "room": "pantry",
+      "at": "against north"
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "main",
+      "at": "corner se",
+      "facing": "west"
+    },
+    {
+      "class": "light",
+      "room": "main",
+      "at": [
+        -172,
+        0
+      ],
+      "z": 32,
+      "_light": "255 130 40 250",
+      "style": 6
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "pantry",
+      "at": "centre",
+      "facing": "south"
+    }
+  ]
+}
