@@ -7,17 +7,21 @@
 //   info    what is in a model, a map or a texture file
 //   check   whether an engine will take a model or a map
 //   render  a picture of a model or a map
-//   run     a script over the kit (see run.mjs): the tool everything that makes or changes a model goes by
+//   build   a model or a map from a spec (docs/SPEC.md): what a person's words are turned into, built,
+//           checked and drawn, with no code of the client's run
+//   run     a script over the kit (see run.mjs): everything that makes or changes a model in other ways
 //
 // There is no tool for each thing the kit does (paint, turn, putBody...): those take functions, and a
 // function is written in a script.
-import { existsSync, readFileSync } from "node:fs";
-import { basename, dirname } from "node:path";
+import { existsSync, readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { basename, dirname, join } from "node:path";
 import * as smak from "../src/index.mjs";
 import * as maps from "../src/maps/index.mjs";
 import { text, image } from "./protocol.mjs";
 import { filesUnder, pathOf } from "./folders.mjs";
 import { guide } from "./guide.mjs";
+import { buildModelSpec } from "../src/spec/model.mjs";
+import { buildMapSpec } from "../src/spec/map.mjs";
 import { run, pictureWithin, TIMEOUT_SECONDS, OUTPUT_MOST, SHOWN_MOST, PICTURE_MOST } from "./run.mjs";
 
 /** A picture's longer side in pixels when the call does not say: of one view, and of several in one. */
@@ -589,6 +593,94 @@ function render(folders, args) {
   return [text(`${basename(file)} ${kind}: ${shown}; ${drawn.width}x${drawn.height}`), image(bytes)];
 }
 
+// ── build ──────────────────────────────────────────────────────────────────
+/** A picture given as the person's drawing or reference, `height` pixels high: { width, height, rgba }. */
+function scaledTo(picture, height) {
+  const k = height / picture.height;
+  const width = Math.max(1, Math.round(picture.width * k));
+  const rgba = new Uint8Array(width * height * 4);
+  for (let y = 0; y < height; y++)
+    for (let x = 0; x < width; x++) {
+      const from = (Math.min(picture.height - 1, Math.floor(y / k)) * picture.width + Math.min(picture.width - 1, Math.floor(x / k))) * 4;
+      rgba.set(picture.rgba.subarray(from, from + 4), (y * width + x) * 4);
+    }
+  return { width, height, rgba };
+}
+/** Two pictures side by side, the first scaled to the second's height: a drawing beside what was built. */
+function besideOf(first, second) {
+  const left = scaledTo(first, second.height);
+  const width = left.width + 8 + second.width;
+  const rgba = new Uint8Array(width * second.height * 4).fill(255);
+  for (let y = 0; y < second.height; y++) {
+    rgba.set(left.rgba.subarray(y * left.width * 4, (y + 1) * left.width * 4), y * width * 4);
+    rgba.set(second.rgba.subarray(y * second.width * 4, (y + 1) * second.width * 4), (y * width + left.width + 8) * 4);
+  }
+  return { width, height: second.height, rgba };
+}
+
+/** A report as lines: its verdict first, then what is wrong, then what was found. */
+function reportLines(report) {
+  const lines = [report.ok ? "OK: built, and every check passed" : "NOT OK: fix what is below and build again"];
+  for (const [label, list] of [["ERROR", report.errors], ["FAULT", report.faults], ["WARN", report.warnings], ["note", report.notes ?? []], ["fact", report.facts]])
+    for (const line of list) lines.push(`${label}  ${line}`);
+  if (report.parts && Object.keys(report.parts).length) {
+    lines.push("PARTS: id, triangles, from x y z to x y z");
+    for (const [id, part] of Object.entries(report.parts)) lines.push(`  ${id} ${part.tris} ${part.from.join(" ")} to ${part.to.join(" ")}`);
+  }
+  if (report.rooms && Object.keys(report.rooms).length) {
+    lines.push("ROOMS: id, from x y z to x y z, floor light");
+    for (const [id, room] of Object.entries(report.rooms)) lines.push(`  ${id} ${room.min.join(" ")} to ${room.max.join(" ")}${room.light === undefined ? "" : `, light ${room.light}`}`);
+  }
+  return lines;
+}
+
+/**
+ * A model or a map from a spec, written to the work folder with the spec beside it, and a report: whether
+ * every check passed, what is wrong, what each part or room came to; with pictures. `reference`: a PNG of the
+ * work or models folder (the person's drawing or picture) drawn beside the result.
+ */
+function build(folders, args) {
+  const given = args.spec;
+  const fromFile = typeof given === "string" && !given.trim().startsWith("{");
+  const spec = typeof given === "string" ? JSON.parse(fromFile ? readFileSync(pathOf(folders, given), "utf8") : given) : given;
+  const folder = fromFile ? dirname(pathOf(folders, given)) : folders.work;
+  const reference = args.reference ? smak.unpng(readFileSync(pathOf(folders, args.reference))) : null;
+  const pictures = [];
+  const show = (picture) => pictures.push(image(pictureWithin(smak.png(picture.width, picture.height, picture.rgba))));
+  if (spec?.spec === "smak.map/1") {
+    const name = spec.name ?? "specmap";
+    const out = join(folders.work, name);
+    mkdirSync(out, { recursive: true });
+    writeFileSync(join(out, `${name}.spec.json`), `${JSON.stringify(spec, null, 2)}\n`);
+    const { report, files } = buildMapSpec(spec, { out, compilers: folders.compilers, folder });
+    const lines = reportLines(report);
+    lines.push(`written: ${Object.values(files).map((file) => `work:${file.slice(folders.work.length + 1)}`).join(", ")}`);
+    const plan = files.plan ?? files["plan-source"];
+    if (plan) {
+      const drawn = smak.unpng(readFileSync(plan));
+      show(reference ? besideOf(reference, drawn) : drawn);
+    }
+    if (files.views) show(smak.unpng(readFileSync(files.views)));
+    return [text(lines.join("\n")), ...pictures];
+  }
+  if (spec?.spec !== "smak.model/1")
+    throw new Error('spec: a model spec ("spec": "smak.model/1") or a map spec ("spec": "smak.map/1"); guide { doc: "spec" } says how to write one');
+  const { mdl, report } = buildModelSpec(spec, { folder });
+  const lines = reportLines(report);
+  if (mdl) {
+    const name = spec.name ?? "model.mdl";
+    const base = name.replace(/\.mdl$/i, "");
+    writeFileSync(join(folders.work, name), mdl);
+    writeFileSync(join(folders.work, `${base}.spec.json`), `${JSON.stringify(spec, null, 2)}\n`);
+    const six = smak.sheet(mdl, { seq: 0, size: 256 });
+    writeFileSync(join(folders.work, `${base}-sheet.png`), smak.png(six.width, six.height, six.rgba));
+    lines.push(`written: work:${name} (${mdl.length} bytes), work:${base}.spec.json, work:${base}-sheet.png`);
+    show(six);
+    if (reference) show(besideOf(reference, smak.render(mdl, { seq: 0, yaw: args.yaw ?? 35, pitch: args.pitch ?? 20, width: 512, height: 512 })));
+  }
+  return [text(lines.join("\n")), ...pictures];
+}
+
 // ── the tools as a client is told of them ──────────────────────────────────
 const MODEL = { type: "string", description: "path under the work or models folder" };
 const object = (properties, required = []) => ({ type: "object", properties, required });
@@ -700,6 +792,21 @@ export function toolsFor(folders, { allowRun = true } = {}) {
         ["model"],
       ),
       call: (args) => render(folders, args),
+    },
+    {
+      name: "build",
+      description:
+        'A model or a map from a spec (JSON; guide { doc: "spec" } says how to write one from a person\'s words or drawing): built, checked for holes, gaps, faces turned inwards, leaks and reach, compiled and drawn. Returns OK or what to fix, and pictures. Runs no code of the client\'s.',
+      inputSchema: object(
+        {
+          spec: { description: "the spec as an object or JSON text, or a .json file under the work or models folder" },
+          reference: { type: "string", description: "a PNG of the person's (a drawing, a picture), drawn beside the result" },
+          yaw: { type: "number", description: "with reference: the model's side shown beside it (35)" },
+          pitch: { type: "number" },
+        },
+        ["spec"],
+      ),
+      call: (args) => build(folders, args),
     },
     {
       name: "run",

@@ -4,7 +4,8 @@
 // headings, so that what the guide says tomorrow is what this hands out tomorrow.
 //
 //   the documents   AGENTS.md ("guide"), docs/API.md ("api"), docs/ENGINES.md ("engines"), docs/MAPS.md
-//                   ("maps"), docs/MAPS-MAKING.md ("maps-making"), and every example and kit by its path
+//                   ("maps"), docs/MAPS-MAKING.md ("maps-making"), docs/SPEC.md ("spec"), and every example and
+//                   kit by its path
 //                   ("examples/01-new-model.mjs", "kits/swordkit.mjs")
 //   a section       a heading of a document and what is under it, up to the next heading of any depth
 import { readFileSync, readdirSync } from "node:fs";
@@ -21,6 +22,7 @@ const DOCUMENTS = {
   engines: "docs/ENGINES.md",
   maps: "docs/MAPS.md",
   "maps-making": "docs/MAPS-MAKING.md",
+  spec: "docs/SPEC.md",
 };
 /** The folders whose modules are documents too, each by its path. */
 const CODE_FOLDERS = ["examples", "kits"];
@@ -171,7 +173,7 @@ function found(sections, words) {
 
 /**
  * What the tool `guide` answers with, as text.
- *   doc    which document: "guide" (AGENTS.md, unless told), "api", "engines", "maps", "maps-making", or a
+ *   doc    which document: "guide" (AGENTS.md, unless told), "api", "engines", "maps", "maps-making", "spec", or a
  *          module's path
  *   topic  the sections wanted, by number or by title; without it, the list of the document's sections
  *          (for a module: its opening comment; with "code", all of it)

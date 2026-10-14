@@ -1,0 +1,17 @@
+{
+  "spec": "smak.model/1",
+  "name": "barrel.mdl",
+  "kind": "prop",
+  "size": { "height": 40 },
+  "materials": {
+    "oak": { "base": "wood" },
+    "hoop": { "base": "iron", "rust": 0.2 }
+  },
+  "parts": [
+    { "id": "body", "kind": "turn", "material": "oak", "sides": 16,
+      "rings": [[0, 10.5], [5, 11.8], [12, 12.8], [20, 13.2], [28, 12.8], [35, 11.8], [40, 10.5]],
+      "caps": [true, true] },
+    { "id": "hoop_low", "kind": "band", "material": "hoop", "on": { "part": "body", "s": 0.14 }, "width": 2.2, "height": 0.45 },
+    { "id": "hoop_high", "kind": "band", "material": "hoop", "on": { "part": "body", "s": 0.86 }, "width": 2.2, "height": 0.45 }
+  ]
+}
