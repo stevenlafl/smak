@@ -75,6 +75,8 @@ export async function runAgent({ prompt, read = null, server = null, files = {},
     seconds: Math.round((Date.now() - began) / 1000),
     turns: result.num_turns,
     cost: result.total_cost_usd,
+    // what it used, as the session counts it: the CLI's cost under-reported Haiku 5.5 forty times over (round 8)
+    tokens: result.usage ? { input: result.usage.input_tokens, cacheWrite: result.usage.cache_creation_input_tokens, cacheRead: result.usage.cache_read_input_tokens, output: result.usage.output_tokens } : null,
     error: run.error?.message ?? (run.status ? `exit ${run.status}` : null),
     work,
     folder,
