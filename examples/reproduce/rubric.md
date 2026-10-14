@@ -230,12 +230,14 @@ walk test, not the game.
   on M3, M4 and M6 only, and turned three of Opus's passes into fails; with Opus on the close calls, all eight
   came out as Opus had them, with four Opus judgements in place of eight. Decoys are judged the same way and
   must still fail. Results judged on Opus alone before this date keep their scores.
-- **2026-10-14, later: a person's review of a close call.** Steven compared the battery that Haiku failed (14 of
-  16) and Opus passed with the original, from three quarters and from above, and judged it a pass: "it looks
-  perfect... It looks even better than Valve's", the textures at its top not quite matching (M5, which is not a
-  must-have and was scored 1). On that leg the close call to Opus agreed with the person, so
-  the close-call rule stays. Disagreements between the two judges go to Steven as a person before any rule
-  is changed for them.
+- **2026-10-14, later: a person's reviews of the close calls; Haiku's verdict stands.** Steven reviewed round 7
+  blind (pictures only, the judges' words after his verdict; examples/reproduce/reviews/). The battery he put at
+  about 95%, its top's textures and a 7-sided cylinder (the original's 8) short of it; the headcrab at 80%, its
+  claws missing and seams showing, "needs work to be perfect"; and he holds the rubric's stricter reading right:
+  "Textures matter a lot". On both, Haiku failed and Opus passed, so close calls are no longer handed to Opus
+  (`closeCall` only with SMAK_OPUS_CLOSE_CALLS set). His forklift notes (the lift shifted in the side view, the
+  back's slopes built as blocks, a half-sphere helmet) agree with its measured fail. Neither judge saw the missing
+  claws or the cylinder's sides. Read so, props from pictures pass 1 of 5 in round 7 (the filing cabinet).
 - **2026-10-14, the houses' floor measure, after Kaupo's first judging.** P2 had compared the key's rooms with
   every floor the walk test reached, and Kaupo scored 0.18 with 0 of 9 doors. Four faults of the measure, not
   the house, were found, and the measure now: takes only floor indoors (the nearest ceiling over it is not the
