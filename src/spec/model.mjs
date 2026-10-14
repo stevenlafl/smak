@@ -9,6 +9,7 @@
 // placed by saying where it sits on another part rather than by world numbers. docs/SPEC.md is the guide.
 // The checks that follow every build: the engine's (`check`), the shape's (`shapeSoundness`: holes, faces
 // turned inwards, parts floating apart) and the pictures' (`seeThrough`).
+import { boneIn, otherSideOf } from "../biped.mjs";
 import { readFileSync, existsSync } from "node:fs";
 import { resolve, dirname, join } from "node:path";
 import { shape, sheet, allot } from "../workshop.mjs";
@@ -794,7 +795,7 @@ function piecesOf(given, context) {
     }
   }
   /** a bone's name for the other side: Bip01 L Arm for Bip01 R Arm */
-  const otherSide = (name) => (name ? name.replace(/(^|\s)L(\s|$)/, "$1\u0000$2").replace(/(^|\s)R(\s|$)/, "$1L$2").replace("\u0000", "R") : name);
+  const otherSide = otherSideOf;
   // copies, after every part is in its place: mirrored, then repeated round an axis
   for (const part of spec.parts) {
     if (ON_SURFACE.has(part.kind) || (!part.mirror && !part.repeat)) continue;
@@ -869,7 +870,28 @@ export function buildModelSpec(spec, { folder, prefabs = {}, games = [], readPic
       errors.push(`base: ${error.message}`);
       return { mdl: null, report };
     }
-    report.facts.push(`base ${skeleton.file}: ${skeleton.joints.size} bones, ${sequencesOf(skeleton.src).length} animations; its joints as it stands in ${JSON.stringify(skeleton.pose)}: ${[...skeleton.joints].filter(([n]) => !/Finger|Toe0|Toe1|Toe2|Bip01$/.test(n)).map(([n, p]) => `${n} ${p.map((v) => Math.round(v)).join(" ")}`).join("; ")}`);
+    // a bone named in another language of 3ds Max's Biped than the base's ("Bip01 Head" on a base whose head is
+    // "Bip01 Testa") is that bone: the names are put in the base's own words before anything is built
+    const names = [...skeleton.joints.keys()];
+    const own = (bone) => boneIn(bone, names) ?? bone;
+    const renamed = [];
+    spec = {
+      ...spec,
+      parts: spec.parts.map((part) => {
+        const out = { ...part };
+        if (typeof part.bone === "string") out.bone = own(part.bone);
+        if (typeof part.attach?.bone === "string") out.attach = { ...part.attach, bone: own(part.attach.bone) };
+        if (part.span) {
+          const bones = (part.span.bones ?? part.span).map(own);
+          out.span = Array.isArray(part.span) ? bones : { ...part.span, bones };
+        }
+        for (const [was, now] of [[part.bone, out.bone], [part.attach?.bone, out.attach?.bone], ...(part.span ? (part.span.bones ?? part.span).map((b, i) => [b, (out.span.bones ?? out.span)[i]]) : [])])
+          if (was && was !== now && !renamed.includes(`${was} -> ${now}`)) renamed.push(`${was} -> ${now}`);
+        return out;
+      }),
+    };
+    if (renamed.length) report.notes.push(`bones named as the base names them: ${renamed.join(", ")}`);
+    report.facts.push(`base ${skeleton.file}: ${skeleton.joints.size} bones, ${sequencesOf(skeleton.src).length} animations; its joints as it stands in ${JSON.stringify(skeleton.pose)}: ${[...skeleton.joints].filter(([n]) => !/Finger|Dito|Toe0|Toe1|Toe2|Bip01$/.test(n)).map(([n, p]) => `${n} ${p.map((v) => Math.round(v)).join(" ")}`).join("; ")}`);
   }
   let pieces;
   try {

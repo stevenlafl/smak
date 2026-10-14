@@ -92,6 +92,15 @@ Each returns a new file in which nothing else has changed. `MOTION`, `HITGROUP` 
 format's numbers by name (`ACTIVITY` only those read off Half-Life's own models: 1 `ACT_IDLE`, 3 `ACT_WALK`,
 4 `ACT_RUN`, 30 `ACT_MELEE_ATTACK1`, 36 `ACT_DIESIMPLE`...).
 
+## A model's contract with a mod (`src/contract.mjs`, `src/biped.mjs`)
+
+| Function | Gives |
+| --- | --- |
+| `contractOf(b)` | What a mod's code may ask of the model by name or number: `{ bones, sequences: [{ name, activity }], attachments: [{ bone }], bodyparts: [{ name, bodies }], hitgroups, controllers }` |
+| `compareContract(reference, made)` | `{ faults, notes }`: what `made` breaks of `reference`'s contract (a bone, an animation or its number or activity, an attachment's bone, a bodypart's bodies), and what it has beyond it. `smak contract <mdl> --against ref.mdl` prints it |
+| `boneIn(name, names)` | The name among `names` that is the 3ds Max Biped bone `name` stands for, in English, Italian (`Bip01 Testa`, `Bip01 SX Mano`) or the older limb names (`Bip01 L Arm1`); null when none is |
+| `otherSideOf(name)` | The bone on the other side: `L` and `R`, `SX` and `DX` |
+
 ## Animations written as poses (`src/animate.mjs`, exported as `animate`)
 
 A pose is `{ q, p }`: for each bone a turn and a place, plain data that no call changes.

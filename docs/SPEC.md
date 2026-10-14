@@ -189,6 +189,11 @@ a part that comes apart in any of them is a fault (`in run2 frame 11: ... thumb_
 - `bone`: the bone a part placed by `at` hangs on (a rib built in the chest's space).
 - Left and right are given apart, each on its own side's bones; `mirror: "y"` of a part on a middle bone
   copies it across, and a mirrored part on an `L` bone hangs its copy on the `R` one.
+- Bones may be named in English or as the base names them. 3ds Max's Biped names its bones in the language
+  it ran in: The Specialists' own player (`player/gordon/gordon.mdl` of the `ts` folder, every stunt in
+  it) says `Bip01 Testa`, `Bip01 SX Mano`, `Bip01 Dorso1`, `Bip01 Dito mano DX0` where Half-Life's says
+  `Bip01 Head`, `Bip01 L Hand`, `Bip01 Spine1`, `Bip01 R Finger0`, and Half-Life's older limbs (`Bip01 L
+  Arm1`, the upper arm) are the newer `UpperArm`. A name is turned into the base's own (the report notes it).
 - A joint that bends far (an elbow, a knee) wants a sphere on it, or a limb part with `over`: two boxes
   that meet end to end open a gap as soon as it bends.
 - GoldSrc holds 2048 points and 2048 normals a body: a character of many round parts wants few `sides`

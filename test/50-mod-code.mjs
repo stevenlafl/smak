@@ -5,11 +5,13 @@
 //   writeFgd: an FGD read back is the same classes, keys, types, defaults, choices and flags; the code's keys
 //   join an FGD's, and an FGD's whole number is made a fraction where the code reads one
 //   `smak map-fgd`
+//   boneIn: a Biped bone named in English, Italian or the older limb names found as the base names it
 // Where goldsrc.net's mod-ts source is on the machine, its classes are read too (none of it is kept here).
 import { writeFileSync, mkdirSync, readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { homedir } from "node:os";
 import * as maps from "../src/maps/index.mjs";
+import { boneIn, otherSideOf } from "../src/biped.mjs";
 import { test, sure, tmp, runSmak } from "./helper.mjs";
 
 const folder = join(tmp, "modcode");
@@ -120,4 +122,14 @@ test("definitionsOfCode: The Specialists' source, where it is on the machine", (
   sure(Object.keys(ts.classes).length > 150 && ts.classes.ts_groundweapon?.keys.tsweaponid?.type === "integer");
   sure(ts.classes.ts_emitter.keys.epshigh?.type === "float", "the emitter's keys, read in its helper");
   sure(!ts.classes.info_node, "a class whose line is commented out is not there");
+});
+
+test("boneIn: 3ds Max Biped's bones in English, Italian and the older limb names, and their other side", () => {
+  const italian = ["Bip01 Testa", "Bip01 SX Mano", "Bip01 Dorso1", "Bip01 Dito mano DX01", "Bip01 SX Braccio superiore", "Bip01 DX Polpaccio", "Bip01 SX Clavicola"];
+  const english = ["Bip01 Head", "Bip01 L Hand", "Bip01 Spine1", "Bip01 R Finger01", "Bip01 L Arm1", "Bip01 R Leg1", "Bip01 L Arm"];
+  sure(english.map((n) => boneIn(n, italian)).join() === italian.join(), english.map((n) => boneIn(n, italian)).join());
+  sure(italian.map((n) => boneIn(n, english)).join() === english.join(), italian.map((n) => boneIn(n, english)).join());
+  sure(boneIn("Bip01 L UpperArm", english) === "Bip01 L Arm1" && boneIn("bip01 head", english) === "Bip01 Head");
+  sure(boneIn("Bip01 Tail", english) === null);
+  sure(otherSideOf("Bip01 Dito mano SX0") === "Bip01 Dito mano DX0" && otherSideOf("Bip01 L Arm1") === "Bip01 R Arm1" && otherSideOf("Bip01 Spine") === "Bip01 Spine");
 });

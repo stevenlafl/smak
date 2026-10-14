@@ -16,6 +16,7 @@ import { runAgent } from "./agents.mjs";
 import { measureModel } from "./judge.mjs";
 import { tile, render, framing, strip } from "../../src/render.mjs";
 import { sequences } from "../../src/index.mjs";
+import { contractOf, compareContract } from "../../src/contract.mjs";
 import { buildModelSpec } from "../../src/spec/model.mjs";
 
 const ROOT = join(HERE, "held");
@@ -23,7 +24,10 @@ const RUBRIC = readFileSync(join(HERE, "rubric.md"), "utf8");
 const words = process.argv.slice(2);
 const step = words.shift();
 const again = words.includes("--again") && words.splice(words.indexOf("--again"), 1);
-const KINDS = ["weapons", "characters"];
+const KINDS = ["weapons", "characters", "players"];
+/** The Specialists, a mod whose code uses its player models' bones and animations by name and number. */
+const TS = join(GAME, "..", "ts");
+const TS_BASE = "player/gordon/gordon.mdl";
 const kinds = KINDS.filter((k) => !words.some((w) => KINDS.includes(w)) || words.includes(k));
 const named = words.filter((w) => !KINDS.includes(w));
 const LEGS = ["pictures", "words"];
@@ -40,12 +44,18 @@ const SUBJECTS = {
     { id: "zombie", file: "models/zombie.mdl", motion: "walk" },
     { id: "houndeye", file: "models/houndeye.mdl", motion: "run" },
   ],
+  players: [
+    { id: "seal", file: "models/player/seal/seal.mdl", motion: "run", stunt: "dive_f", root: TS, base: TS_BASE },
+    { id: "merc", file: "models/player/merc/merc.mdl", motion: "run", stunt: "dive_f", root: TS, base: TS_BASE },
+  ],
 };
-const LINEUP_EXTRAS = { weapons: ["models/w_357.mdl", "models/w_rpg.mdl", "models/w_crossbow.mdl", "models/w_9mmAR.mdl"], characters: ["models/gman.mdl", "models/hgrunt.mdl", "models/islave.mdl", "models/bullsquid.mdl"] };
+const LINEUP_EXTRAS = { weapons: ["models/w_357.mdl", "models/w_rpg.mdl", "models/w_crossbow.mdl", "models/w_9mmAR.mdl"], characters: ["models/gman.mdl", "models/hgrunt.mdl", "models/islave.mdl", "models/bullsquid.mdl"], players: ["models/player/gordon/gordon.mdl", "models/player/agent/agent.mdl", "models/player/castor/castor.mdl", "models/player/terror/terror.mdl", "models/player/terrorist/terrorist.mdl"] };
 const chosen = (kind) => SUBJECTS[kind].filter((s) => !named.length || named.includes(s.id));
 const folderOf = (kind, id) => join(ROOT, kind, id);
 const round = (v) => Math.round(v * 10) / 10;
-const game = (file) => readModel(join(GAME, file));
+const game = (file, root = GAME) => readModel(join(root, file));
+/** A subject's own game folder: Half-Life's, or a mod's. */
+const rootOf = (s) => s.root ?? GAME;
 
 /** A model's animation by a word in its name, or its first. */
 function animation(src, pattern) {
@@ -67,7 +77,7 @@ function firstPerson(src) {
 function inputs(kind, s) {
   const out = join(folderOf(kind, s.id), "input");
   mkdirSync(out, { recursive: true });
-  const main = game(s.file);
+  const main = game(s.file, rootOf(s));
   const pictures = picturesOf(main, { size: 512 });
   const sides = pictures.filter((p) => SIDES.some(([n]) => n === p.name));
   savePng(join(out, "sides.png"), tile(sides.map((p) => p.picture), 3, sides.map((p) => p.name)));
@@ -84,6 +94,10 @@ function inputs(kind, s) {
   } else {
     savePng(join(out, "motion.png"), strip(main, { seq: animation(main, new RegExp(`^${s.motion}`)), count: 8, cols: 4, view: "side", ground: true, width: 256, height: 256 }));
     facts = `It is ${facts} motion.png shows it ${s.motion === "run" ? "running" : "walking"}, frame by frame from the side.`;
+    if (s.stunt) {
+      savePng(join(out, "stunt.png"), strip(main, { seq: animation(main, new RegExp(`^${s.stunt}`)), count: 8, cols: 4, view: "side", ground: true, width: 256, height: 256 }));
+      facts += " stunt.png shows it diving forward, frame by frame from the side.";
+    }
   }
   writeFileSync(join(out, "facts.txt"), `${facts}\n`);
   return out;
@@ -93,7 +107,9 @@ function inputs(kind, s) {
 
 const RULES = "Do not name the game, the file, the series or the company. Reply with the description alone, plain text.";
 const DESCRIBE = (kind, dir) =>
-  kind === "weapons"
+  kind === "players"
+    ? `You are looking at pictures of one player model of a video game, in ${dir}: sides.png (six sides, one scale), four close angles, motion.png (it running, frame by frame) and stunt.png (it diving); facts.txt gives its size. Someone who will never see them must make it again from your words: describe its build and proportions, its head and face, its clothes, gear and skin, every part and its colours and materials, and its markings. At most 450 words.`
+    : kind === "weapons"
     ? `You are looking at pictures of one weapon of a video game, in ${dir}: the model that lies in the world (sides.png, all to one scale, and four close angles), the player's first-person view of it in the hands (first-person.png, and first-person-attack.png frame by frame), and the model another player holds (in-hand.png); facts.txt gives its size. Someone who will never see them must make it again from your words, and will be judged against it in all three: describe its shape, every part with its size against the whole, its colours and materials, its markings and wear, how it sits in the hands and which end points away, and how it moves in its attack. At most 450 words.`
     : `You are looking at pictures of one character of a video game, in ${dir}: sides.png (six sides, one scale), four close angles, and motion.png (it moving, frame by frame); facts.txt gives its size. Someone who will never see them must make it again from your words: describe its build and proportions, its head and face, its clothes or skin, every part and its colours and materials, its markings, and how it moves. At most 450 words.`;
 
@@ -101,6 +117,8 @@ function reproducePrompt(kind, s, given) {
   const judged = "It will be judged side by side with the original, from the same cameras and at the same scale, to high standards, by someone who sees only the two sets of pictures.";
   if (kind === "weapons")
     return `Make this weapon for the GoldSrc engine with a model spec of kind "held" with weapon: { like: "${s.like}" } (guide { doc: "spec" }, "A weapon in place of a game's"): it is fitted into the game's own v_${s.like}.mdl, p_${s.like}.mdl and w_${s.like}.mdl, keeping their hands and animations, and replaces the weapon in them. Make it as close to the original as you can: its shape, size, parts, colours and markings, held the way the original is, in all three views. Name the spec ${s.id}.mdl. ${judged} Build until the build says OK.\n\n${given}`;
+  if (kind === "players")
+    return `Make this player model for The Specialists, a GoldSrc mod, with a model spec of kind "character" (guide { doc: "spec" }, "A character on a game's skeleton") on the mod's own player, ${s.base}: its skeleton and its 171 animations (every stunt, dive, roll and wall jump), which the mod's code plays by name and by number and whose bones, attachments and bodyparts it uses. Keep all of that as it is, and give the spec contract: { file: "${s.base}" } so the build checks it. Make the body as close to the original as you can: its build and proportions, every part, its colours and markings, standing as the original stands in the first frame of its first animation. Name it ${s.id}.mdl. ${judged} Build until the build says OK.\n\n${given}`;
   return `Make this character for the GoldSrc engine with a model spec of kind "character" (guide { doc: "spec" }, "A character on a game's skeleton"), on a skeleton of the game's models (player/gordon/gordon.mdl, or another that suits it; its own is not available), keeping that skeleton's animations. Make it as close to the original as you can: its build and proportions, every part, its colours and markings, standing as the original stands in the first frame of its first animation. Name it ${s.id}.mdl. ${judged} Build until the build says OK.\n\n${given}`;
 }
 
@@ -124,7 +142,7 @@ async function reproduce(kind, s, leg) {
   } else given = `The original, as someone who has seen it describes it:\n\n${readFileSync(join(base, "words.md"), "utf8")}`;
   const hidden = kind === "weapons" ? s.files : [s.file];
   const kit = execFileSync("git", ["-C", HERE, "rev-parse", "--short", "HEAD"], { encoding: "utf8" }).trim();
-  const r = await runAgent({ prompt: reproducePrompt(kind, s, given), read: leg === "pictures" ? input : null, server: { wads: true, hide: hidden, refuse: hidden }, files, hours: 1.5 });
+  const r = await runAgent({ prompt: reproducePrompt(kind, s, given), read: leg === "pictures" ? input : null, server: { wads: true, games: s.root ? [s.root] : [], hide: hidden, refuse: hidden }, files, hours: 1.5 });
   mkdirSync(out, { recursive: true });
   writeFileSync(join(out, "answer.md"), `${r.answer.trim()}\n`);
   const all = [];
@@ -160,12 +178,12 @@ const ITEMS = ["M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8"];
 const MUST = ["M1", "M2", "M3", "M4", "M6", "M8"];
 
 async function lineup(kind, s, copy, dir) {
-  const files = [...SUBJECTS[kind].map((x) => x.file), ...LINEUP_EXTRAS[kind]].filter((f) => existsSync(join(GAME, f)));
+  const files = [...SUBJECTS[kind].map((x) => x.file), ...LINEUP_EXTRAS[kind]].filter((f) => existsSync(join(rootOf(s), f)));
   let seed = [...s.id].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
   const order = files.map((f) => ({ f, k: (seed = (seed * 1103515245 + 12345) >>> 0) })).sort((a, b) => a.k - b.k).map((x) => x.f);
   const letters = "ABCDEFGHIJKLMNOP";
   const shots = order.map((f) => {
-    const src = game(f);
+    const src = game(f, rootOf(s));
     return render(src, { ...POSE, view: "orbit", within: framing(src, [POSE]), yaw: 35, pitch: 20, width: 256, height: 256 });
   });
   mkdirSync(join(dir, "lineup"), { recursive: true });
@@ -180,7 +198,7 @@ async function judgeOne(kind, s, leg, built, { decoy } = {}) {
   const dir = join(folderOf(kind, s.id), "judge", decoy ? "decoy" : leg);
   rmSync(dir, { recursive: true, force: true });
   mkdirSync(dir, { recursive: true });
-  const original = game(s.file);
+  const original = game(s.file, rootOf(s));
   const copy = readModel(join(built, basename(s.file).replace(/^.*\//, "")));
   const { measured, caps, pictures } = measureModel(original, copy);
   // the pictures: the sides and angles of the measured model, original beside copy
@@ -200,17 +218,25 @@ async function judgeOne(kind, s, leg, built, { decoy } = {}) {
     extra = `${dir}/first-person.png (the player's view, ORIGINAL left, REPRODUCTION right), ${dir}/first-person-attack.png (the attack frame by frame, the ORIGINAL's above) and ${dir}/in-hand.png (the model another player holds, ORIGINAL left). The world model (w_) is the one measured and drawn in compare-sides.png and compare-angles.png.`;
     item = "W1";
   } else {
-    const motionOf = (src) => strip(src, { seq: animation(src, new RegExp(`^${s.motion}`)), count: 8, cols: 4, view: "side", ground: true, width: 192, height: 192 });
+    const motionOf = (src, name = s.motion) => strip(src, { seq: animation(src, new RegExp(`^${name}`)), count: 8, cols: 4, view: "side", ground: true, width: 192, height: 192 });
     savePng(join(dir, "motion.png"), tile([motionOf(original), motionOf(copy)], 1, [`ORIGINAL ${s.motion}`, `REPRODUCTION ${s.motion}`]));
     extra = `${dir}/motion.png (the ORIGINAL ${s.motion === "run" ? "running" : "walking"} above, the REPRODUCTION below, frame by frame from the side).`;
+    if (s.stunt) {
+      savePng(join(dir, "stunt.png"), tile([motionOf(original, s.stunt), motionOf(copy, s.stunt)], 1, ["ORIGINAL forward dive", "REPRODUCTION forward dive"]));
+      extra += ` ${dir}/stunt.png (a forward dive, the ORIGINAL above).`;
+      // the contract the mod's code relies on: the base's, measured
+      const faults = compareContract(contractOf(game(join("models", s.base), rootOf(s))), contractOf(copy)).faults;
+      measured.contract = faults.length ? faults : "keeps every bone, animation, attachment and bodypart of the base";
+      caps.C2 = faults.length ? 0 : 2;
+    }
     item = "C1";
   }
   const line = await lineup(kind, s, copy, dir);
-  const items = [...ITEMS, item];
+  const items = [...ITEMS, item, ...(s.stunt ? ["C2"] : [])];
   const r = await runAgent({
     read: dir,
     hours: 0.5,
-    prompt: `You are an independent judge. A reproduction was made of a game ${kind === "weapons" ? "weapon" : "character"} by someone who could not open the original's files. Judge it strictly by the rubric below (the "Models" table, the "Weapons, characters and creatures" section, "Passing" and "Keeping the judge honest"). A measured item may score lower than its measurement allows, never higher.\n\nThe pictures: ${dir}/compare-sides.png and ${dir}/compare-angles.png (each view twice, the same camera and scale, ORIGINAL left, REPRODUCTION right), ${extra} Look at every picture closely.\n\nThe measurements:\n${JSON.stringify(measured, null, 1)}\n\nFor M6, judge only whether a player would take it for the original; the line-up is run separately.\n\nScore every item, ${items.join(", ")}, 0, 1 or 2, each with a reason. Reply with JSON alone: {${items.map((i) => `"${i}": { "score": 0, "reason": "..." }`).join(", ")}}\n\nTHE RUBRIC\n${RUBRIC}`,
+    prompt: `You are an independent judge. A reproduction was made of a game ${kind === "weapons" ? "weapon" : kind === "players" ? "player model" : "character"} by someone who could not open the original's files. Judge it strictly by the rubric below (the "Models" table, the "Weapons, characters and creatures" section, "Passing", "Keeping the judge honest" and the "Amendments"). A measured item may score lower than its measurement allows, never higher.\n\nThe pictures: ${dir}/compare-sides.png and ${dir}/compare-angles.png (each view twice, the same camera and scale, ORIGINAL left, REPRODUCTION right), ${extra} Look at every picture closely.\n\nThe measurements:\n${JSON.stringify(measured, null, 1)}\n\nFor M6, judge only whether a player would take it for the original; the line-up is run separately.\n\nScore every item, ${items.join(", ")}, 0, 1 or 2, each with a reason. Reply with JSON alone: {${items.map((i) => `"${i}": { "score": 0, "reason": "..." }`).join(", ")}}\n\nTHE RUBRIC\n${RUBRIC}`,
   });
   let judged = null;
   try {
@@ -224,7 +250,7 @@ async function judgeOne(kind, s, leg, built, { decoy } = {}) {
     scores[i] = { judge: given, cap: capped[i] ?? null, score: Math.min(given, capped[i] ?? 2), reason: judged[i]?.reason ?? "" };
   }
   const total = items.reduce((t, i) => t + scores[i].score, 0);
-  const passes = [...MUST, item].every((i) => scores[i].score === 2) && total >= 0.85 * 2 * items.length;
+  const passes = [...MUST, item, ...(s.stunt ? ["C2"] : [])].every((i) => scores[i].score === 2) && total >= 0.85 * 2 * items.length;
   return { kind, subject: s.id, leg: decoy ? "decoy: box" : leg, measured, caps: capped, lineup: line, scores, total, of: 2 * items.length, passes };
 }
 
@@ -232,7 +258,7 @@ async function judgeOne(kind, s, leg, built, { decoy } = {}) {
 function decoyOf(kind, s) {
   const dir = join(folderOf(kind, s.id), "judge", "decoy-built");
   mkdirSync(dir, { recursive: true });
-  const { size } = boxOf(game(s.file));
+  const { size } = boxOf(game(s.file, rootOf(s)));
   const { mdl } = buildModelSpec({ spec: "smak.model/1", name: "decoy.mdl", kind: "prop", parts: [{ id: "box", kind: "box", size: size.map((v) => Math.max(v, 0.5)), material: { base: "paint", tone: [0.5, 0.5, 0.5] } }] });
   if (kind === "weapons") {
     // the weapon's place in v_ and p_ taken by the same box: the game's files with the box swapped in

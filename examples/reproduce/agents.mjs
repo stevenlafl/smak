@@ -8,9 +8,9 @@ import { tmpdir } from "node:os";
 import { KIT, GAME, SDHLT, STEAM } from "./lib.mjs";
 
 /**
- * Runs one agent. `prompt`; `read`: a folder it may read (pictures), or null; `server`: null, or { wads, models }
- * (wads: true gives the game's folder for .wad textures; models: a folder its tools may read, such as one
- * holding a compiled map); `files`: { "path in the work folder": "file to copy there" }; `hours`. Resolves to { answer, seconds, turns, cost, error, work, folder }.
+ * Runs one agent. `prompt`; `read`: a folder it may read (pictures), or null; `server`: null, or { wads, games,
+ * models, hide, refuse } (wads: true gives the game's folder for .wad textures and skeletons, with `games`, a
+ * mod's folders, before it; models: a folder its tools may read, such as one holding a compiled map); `files`: { "path in the work folder": "file to copy there" }; `hours`. Resolves to { answer, seconds, turns, cost, error, work, folder }.
  */
 export async function runAgent({ prompt, read = null, server = null, files = {}, hours = 1, model }) {
   const folder = mkdtempSync(join(tmpdir(), "smak-repro-"));
@@ -29,7 +29,8 @@ export async function runAgent({ prompt, read = null, server = null, files = {},
     for (const file of server.hide ?? []) extra.push("--hide", file);
     for (const file of server.refuse ?? []) extra.push("--refuse", file);
     if (server.wads) {
-      extra.push("--wads", GAME);
+      // a mod's game folder first (its models and skeletons), then Half-Life's
+      for (const game of [...(server.games ?? []), GAME]) extra.push("--wads", game);
       if (existsSync(SDHLT)) extra.push("--compilers", SDHLT);
       for (const fgd of [join(STEAM, "Half-Life SDK/Hammer Editor/fgd/half-life/halflife.fgd"), join(SDHLT, "sdhlt.fgd")]) if (existsSync(fgd)) extra.push("--fgd", fgd);
     }

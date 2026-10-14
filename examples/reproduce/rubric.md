@@ -141,3 +141,11 @@ walk test, not the game.
   Round 2 was judged again under it; round 1 keeps the scores it was given at the time. Views where the original shows nothing (an open underside
   from below) are left out of the mean, as "inside the shared outline" always said; the harness had counted
   them as 100.
+- **2026-10-14, a mod's player models (Steven's request, before any was built).** Mods use a player model's
+  bones, animations, attachments and bodyparts by name and number from their code (The Specialists turns
+  "Bip01 Dorso" to aim and plays "dive_f_" with a weapon's suffix). Two of The Specialists' own players, seal
+  and merc, are reproduced in both legs on its canonical player (player/gordon/gordon.mdl, 171 animations with
+  every stunt), whose contract the mod's code relies on. Each is scored on M1 to M8, C1 and **C2, its
+  contract (must-have)**: a 2 keeps every bone, animation (at its number, with its activity), attachment (on
+  its bone) and bodypart of the base (`compareContract`, measured: any fault caps C2 at 0). C1 is judged on
+  its run and on a stunt (a forward dive), each beside the original's.
