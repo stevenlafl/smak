@@ -18,6 +18,8 @@ const SAME_RING = 1e-6;
 const AT_AN_END = 1e-9;
 /** Two places along a path nearer than this are one. */
 const SAME_PLACE = 1e-6;
+/** A ridge's end grows to its section over its length; a place within this share of that is close enough. */
+const NEAR_GROW = 0.15;
 /** The step, as a share of a surface's length and in radians, by which its slope at a point is measured. */
 const SLOPE_STEP = 1e-4;
 /** A surface whose two slopes at a point span less than this has no way of stepping over it there. */
@@ -1074,7 +1076,10 @@ export function shape(width, height) {
     for (const end of [0, 1]) {
       const want = end ? lengths.at(-1) - grow[1] : grow[0];
       const j = lengths.findIndex((v) => v > want - SAME_PLACE);
-      if (!grow[end] || j < 1 || Math.abs(lengths[j] - want) < SAME_PLACE) continue;
+      // a place already near it (a ring's cut) serves: one put a hair from it makes a sliver that folds over
+      // where the surface bends at that ring
+      const near = lengths.findIndex((v) => Math.abs(v - want) < Math.max(SAME_PLACE, NEAR_GROW * grow[end]));
+      if (!grow[end] || j < 1 || near >= 0) continue;
       const t = (want - lengths[j - 1]) / (lengths[j] - lengths[j - 1]);
       places.splice(j, 0, [
         places[j - 1][0] + (places[j][0] - places[j - 1][0]) * t,
@@ -1146,8 +1151,11 @@ export function shape(width, height) {
         const e = sections[j + 1][c + 1];
         const f = sections[j][c + 1];
         const out = plus(surfaceNormals[j], surfaceNormals[j + 1]);
-        put(a, b, e, wrong(a, b, e, out));
-        put(a, e, f, wrong(a, e, f, out));
+        // one turn for the whole quad, from its diagonals: two triangles of one quad asked apart can come
+        // out turned apart where the surface bends sharply under them
+        const flip = dot(cross(sub(e.p, a.p), sub(f.p, b.p)), out) < 0;
+        put(a, b, e, flip);
+        put(a, e, f, flip);
       }
     // an end that is cut: its section closed, facing away from the ridge
     for (const end of [0, 1])

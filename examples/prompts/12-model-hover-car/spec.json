@@ -1,0 +1,37 @@
+{
+  "spec": "smak.model/1",
+  "name": "hover_car.mdl",
+  "kind": "prop",
+  "size": { "length": 110 },
+  "texture": { "width": 512, "height": 256 },
+  "materials": {
+    "body_paint": { "base": "paint", "tone": [0.1, 0.08, 0.15] },
+    "trim": { "base": "steel", "tone": [0.25, 0.26, 0.3], "rust": 0 },
+    "canopy_glass": { "base": "glass", "tone": [0.12, 0.22, 0.3] },
+    "blue": { "base": "neon", "tone": [0.15, 0.55, 1.0] },
+    "white_light": { "base": "neon", "tone": [1.0, 0.98, 0.9] },
+    "red_light": { "base": "neon", "tone": [1.0, 0.08, 0.06] },
+    "magenta": { "base": "neon", "tone": [1.0, 0.1, 0.8] }
+  },
+  "parts": [
+    { "id": "body", "kind": "turn", "material": "body_paint", "axis": "x", "sides": 20, "at": [0, 0, 9],
+      "rings": [[-52, [12, 4.5]], [-50, [17, 6.5]], [-30, [19, 7.5]], [10, [19, 7.5]], [35, [16.5, 6]], [48, [11, 4]], [55, [4, 2]]],
+      "caps": [true, true] },
+    { "id": "stripe_left", "kind": "ridge", "material": "magenta", "on": { "part": "body", "path": [[0.12, 9], [0.82, 9]] }, "width": 0.8, "height": 0.2 },
+    { "id": "stripe_right", "kind": "ridge", "material": "magenta", "on": { "part": "body", "path": [[0.12, 171], [0.82, 171]] }, "width": 0.8, "height": 0.2 },
+    { "id": "canopy", "kind": "turn", "material": "canopy_glass", "axis": "x", "sides": 16, "at": [0, 0, 9],
+      "rings": [{ "s": -26, "r": [6, 1], "off": [0, 5] }, { "s": -16, "r": [12, 6.5], "off": [0, 5] }, { "s": 6, "r": [12.5, 7], "off": [0, 5] }, { "s": 20, "r": [9, 4], "off": [0, 5] }, { "s": 27, "r": [4, 1], "off": [0, 5] }],
+      "caps": [true, true] },
+    { "id": "pod_front", "kind": "turn", "material": "trim", "axis": "x", "sides": 12, "at": [33, 15, 4.2],
+      "rings": [[-8, [3, 2.6]], [-6, [4, 3.4]], [6, [4, 3.4]], [8, [3, 2.6]]], "mirror": "y" },
+    { "id": "ring_front", "kind": "band", "material": "blue", "on": { "part": "pod_front", "s": 0.5 }, "width": 2.2, "height": 0.35 },
+    { "id": "pod_back", "kind": "turn", "material": "trim", "axis": "x", "sides": 12, "at": [-33, 15, 4.2],
+      "rings": [[-8, [3, 2.6]], [-6, [4, 3.4]], [6, [4, 3.4]], [8, [3, 2.6]]], "mirror": "y" },
+    { "id": "ring_back", "kind": "band", "material": "blue", "on": { "part": "pod_back", "s": 0.5 }, "width": 2.2, "height": 0.35 },
+    { "id": "underglow", "kind": "box", "material": "blue", "size": [64, 16, 0.6], "at": [0, 0, 1.6] },
+    { "id": "headlight", "kind": "box", "material": "white_light", "size": [2, 5, 1.6], "at": [50.8, 6, 8.4], "rotate": [-25, 0, 0], "mirror": "y" },
+    { "id": "tail_light", "kind": "box", "material": "red_light", "size": [1.2, 26, 1.6], "at": [-52.1, 0, 9.4] },
+    { "id": "strut", "kind": "box", "material": "trim", "size": [1.4, 1.4, 4.2], "at": [-45, 10, 14.2], "mirror": "y" },
+    { "id": "spoiler", "kind": "box", "material": "body_paint", "size": [7, 32, 0.9], "at": [-45, 0, 18.1] }
+  ]
+}

@@ -73,7 +73,7 @@ turned by `rotate`, then moved to its place. **Build things upright**: a post, a
 | `tube` | `path: [[x, y, z, r], ...]` (a bent pipe, an arm, a horn, a rope; r 0 at an end makes a point), `sides` (8) | as the path's numbers say |
 | `leaf` | `width`, `height`, `bend` (how far its middle bulges), or `rows` of points | a sheet seen from both sides, in the x-z plane: a flag, a sign, a pane, a sail |
 | `band` | `on: { part, s }`, `width`, `height` | a hoop round a turned part (`s` 0 at its first ring, 1 at its last). Moves with that part |
-| `boss` | `on: { part, s, angle }`, `radius`, `height` | a round stud (a rivet, a knob, a gem) on a turned part; `angle` in degrees round it (0 faces +x) |
+| `boss` | `on: { part, s, angle }`, `radius`, `height` | a round stud (a rivet, a knob, a gem) on a turned part; `angle` in degrees round it: for a part along `z`, 0 faces +x and 90 +y; along `x`, 0 faces +y and 90 +z (up); along `y`, 0 faces +z and 90 +x |
 | `ridge` | `on: { part, path: [[s, angle], ...] }`, `width`, `height` | a raised line along a turned part |
 | `studs` | `on: { part, path }`, `count`, `radius`, `height` | a row of studs along that path |
 | `kit:sword`, `kit:axe`, `kit:blunt`, `kit:bow` | `options`: the kit's own (its header in `kits/`; a blade's `half` as `{ "taper": [base, tip] }`) | lying along +x, grip at the origin |
