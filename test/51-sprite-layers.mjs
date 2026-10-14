@@ -6,7 +6,7 @@ import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import * as smak from "../src/index.mjs";
 import { framesOf, RAMP_NAMES, LAYER_KINDS } from "../src/sprite/effects.mjs";
-import { measureSprite, measureSheet } from "../src/sprite/measure.mjs";
+import { measureSprite, measureSheet, shapeOverlap } from "../src/sprite/measure.mjs";
 import { sheetOf } from "../src/sprite/draw.mjs";
 import { buildSpriteSpec, validateSpriteSpec } from "../src/spec/sprite.mjs";
 import { test, sure, near, tmp } from "./helper.mjs";
@@ -162,4 +162,15 @@ test("a sprite against its reference sheet: itself measures the same; another is
   const wrongGrid = buildSpriteSpec(spec({ ...sprite, size: [48, 48], reference: file }));
   sure(wrongGrid.report.warnings.some((w) => /not a grid of/.test(w)), wrongGrid.report.warnings.join(" | "));
   sure(validateSpriteSpec(spec({ ...sprite, reference: 3 })).errors.some((e) => /reference/.test(e)), "a reference that is no path");
+});
+
+test("shapeOverlap: a sprite's shape against its reference's at its edge, body and core", () => {
+  const disc = (r, core) => Float32Array.from({ length: 32 * 32 }, (_, i) => {
+    const d = Math.hypot((i % 32) - 15.5, Math.floor(i / 32) - 15.5);
+    return d < r ? (d < core ? 0.9 : 0.2) : 0;
+  });
+  const same = shapeOverlap([disc(12, 4)], [disc(12, 4)]);
+  sure(same.mean === 1 && same.levels.every((v) => v === 1), JSON.stringify(same));
+  const wideCore = shapeOverlap([disc(12, 4)], [disc(12, 10)]);
+  sure(wideCore.levels[0] === 1 && wideCore.levels[2] < 0.3 && wideCore.mean < 0.8, `a core too wide shows at the core: ${JSON.stringify(wideCore)}`);
 });

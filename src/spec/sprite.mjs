@@ -12,7 +12,7 @@ import { framesOf, LAYER_KINDS, RAMP_NAMES } from "../sprite/effects.mjs";
 import { quantiseFrames } from "../sprite/palette.mjs";
 import { writeSpr } from "../sprite/spr.mjs";
 import { readSpr, SPRITE_TYPES, SPRITE_FORMATS } from "../maps/sprites.mjs";
-import { measureSprite, measureSheet, againstClass, SPRITE_CLASSES } from "../sprite/measure.mjs";
+import { measureSprite, measureSheet, shapeOverlap, SHAPE_LEVELS, againstClass, SPRITE_CLASSES } from "../sprite/measure.mjs";
 import { sheetOf, animationOf } from "../sprite/draw.mjs";
 import { png, unpng } from "../image.mjs";
 
@@ -28,7 +28,7 @@ const WRAP_MOST = 2.5;
 const ONE_SHOTS = new Set(["explosion", "smoke puff", "sparks", "ring"]);
 const isNumber = (v) => typeof v === "number" && Number.isFinite(v);
 /** Where a reproduction is told it is off its reference: the judge's bars (research/asset-reproduction-failures.md, 3). */
-const REFERENCE_BARS = { colour: 15, dark: 0.05 };
+const REFERENCE_BARS = { shape: 0.7, colour: 15, dark: 0.05 };
 
 /** The sprites of a spec, each with the spec's own fields as its defaults. */
 const spritesOf = (spec) => (spec.sprites?.length ? spec.sprites.map((s) => ({ ...spec, sprites: undefined, ...s })) : [spec]);
@@ -89,13 +89,41 @@ function againstReference(name, ref, back, s, readPicture) {
   if (theirs.error) return { error: `${name}: its reference ${path}: ${theirs.error}` };
   const ours = measureSheet(sheetOf(back, { cols, cell }), how);
   const colour = theirs.lab && ours.lab ? Math.round(Math.hypot(...theirs.lab.map((v, j) => v - ours.lab[j])) * 10) / 10 : null;
-  const measured = { reference: path, colourDeltaE: colour, dark: [theirs.dark, ours.dark], border: { max: [theirs.border.max, ours.border.max], mean: [theirs.border.mean, ours.border.mean] }, frames: [theirs.frames, ours.frames] };
+  const shape = shapeOverlap(theirs.masks, ours.masks);
+  const measured = { reference: path, colourDeltaE: colour, dark: [theirs.dark, ours.dark], border: { max: [theirs.border.max, ours.border.max], mean: [theirs.border.mean, ours.border.mean] }, frames: [theirs.frames, ours.frames], shape: { mean: shape.mean, frames: shape.frames } };
   const facts = [`${name} against its reference (${path}, measured, nothing copied; the reference's, then this one's): mean colour delta E ${colour ?? "none"}, dark ${theirs.dark} and ${ours.dark}, border brightest ${theirs.border.max} and ${ours.border.max} (mean ${theirs.border.mean} and ${ours.border.mean}), frames ${theirs.frames} and ${ours.frames}`];
   const notes = [];
   if (colour !== null && colour > REFERENCE_BARS.colour) notes.push(`${name}: its colour is ${colour} from its reference's (delta E; the bar is ${REFERENCE_BARS.colour}): a ramp or a colour nearer the reference's`);
   const darker = ours.dark - theirs.dark;
   if (Math.abs(darker) > REFERENCE_BARS.dark) notes.push(`${name}: ${darker > 0 ? "more" : "less"} of it is dark than of its reference (${ours.dark} against ${theirs.dark}): the effect ${darker > 0 ? "covers too little of its frame" : "covers too much of its frame"}`);
   if (ours.frames !== theirs.frames) notes.push(`${name}: ${ours.frames} frames against its reference's ${theirs.frames}`);
+  // the shape, frame by frame: the lit pixels of each against the reference's at the same point of its play
+  if (theirs.masks[0]?.length === ours.masks[0]?.length) {
+    facts.push(`${name}: its shape against its reference's, frame by frame (at its faint edge, its body and its core, the share of pixels lit in both: ${shape.levels.join(", ")}): mean ${shape.mean}; ${shape.frames.join(" ")}`);
+    if (shape.mean < REFERENCE_BARS.shape) {
+      const [w] = s.size ?? [Math.sqrt(ours.masks[0].length)];
+      const extent = (mask) => {
+        let [x0, y0, x1, y1] = [Infinity, Infinity, -1, -1];
+        mask.forEach((v, i) => {
+          if (!v) return;
+          const x = i % w;
+          const y = Math.floor(i / w);
+          [x0, y0, x1, y1] = [Math.min(x0, x), Math.min(y0, y), Math.max(x1, x), Math.max(y1, y)];
+        });
+        return x1 < 0 ? "nothing lit" : `columns ${x0}-${x1}, rows ${y0}-${y1}`;
+      };
+      // where each is lit at its core, the level where shapes most often part
+      const core = (mask) => {
+        const lit = mask.map((v) => (v >= SHAPE_LEVELS[2] ? 1 : 0));
+        return extent(lit);
+      };
+      const shown = (shape.worst.length ? shape.worst : [0]).slice(0, 4).map((i) => {
+        const j = Math.min(theirs.masks.length - 1, Math.round((i / Math.max(1, ours.masks.length - 1)) * (theirs.masks.length - 1)));
+        return `frame ${i}: the reference lit at ${extent(theirs.masks[j].map((v) => (v >= SHAPE_LEVELS[0] ? 1 : 0)))} (its core at ${core(theirs.masks[j])}), this one at ${extent(ours.masks[i].map((v) => (v >= SHAPE_LEVELS[0] ? 1 : 0)))} (core ${core(ours.masks[i])})`;
+      });
+      notes.push(`${name}: its shape fills its frames otherwise than its reference's (overlap ${shape.mean}; the bar is ${REFERENCE_BARS.shape}). ${shown.join("; ")}`);
+    }
+  }
   return { facts, notes, measured };
 }
 

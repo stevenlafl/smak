@@ -166,6 +166,8 @@ export function measureSheet(picture, { size: [w, h], format = "additive", cols 
   };
   let frames = 0;
   let dark = 0;
+  // each frame's brightness by sprite pixel (the effect's energy, 0 to 1): its shape at any level of light
+  const masks = [];
   let all = 0;
   let borderMax = 0;
   let borderSum = 0;
@@ -183,6 +185,8 @@ export function measureSheet(picture, { size: [w, h], format = "additive", cols 
         for (let x = NUMBER.x; x < band.x1 && !numbered; x++) numbered = x < cw && y < ch && at(left + x, top + y).every((v, j) => v === NUMBER.colour[j]);
       if (!numbered) continue;
       frames++;
+      const mask = new Float32Array(w * h);
+      masks.push(mask);
       for (let fy = 0; fy < h; fy++)
         for (let fx = 0; fx < w; fx++) {
           const x = fx * k + (k >> 1);
@@ -191,6 +195,7 @@ export function measureSheet(picture, { size: [w, h], format = "additive", cols 
           const e = energy(at(left + x, top + y));
           all++;
           if (e < 0.03) dark++;
+          mask[fy * w + fx] = e;
           if (fx < 2 || fy < 2 || fx >= w - 2 || fy >= h - 2) {
             borderMax = Math.max(borderMax, e);
             borderSum += e;
@@ -198,5 +203,42 @@ export function measureSheet(picture, { size: [w, h], format = "additive", cols 
           }
         }
     }
-  return { frames, dark: round(dark / (all || 1), 2), border: { max: round(borderMax), mean: round(borderSum / (borderN || 1)) }, lab: meanLab(picture, ground) };
+  return { frames, dark: round(dark / (all || 1), 2), border: { max: round(borderMax), mean: round(borderSum / (borderN || 1)) }, lab: meanLab(picture, ground), masks };
+}
+
+/** The levels of light a shape is compared at: its faint edge, its body, its core. */
+export const SHAPE_LEVELS = [0.03, 0.15, 0.4];
+
+/**
+ * How two sheets' shapes agree, frame by frame (`masks` of `measureSheet`, one sprite size): each frame of
+ * `ours` set against the frame of `theirs` at the same share of the way through, at each level of
+ * SHAPE_LEVELS the share of pixels over it in both of those over it in either, and the frame's overlap the
+ * mean of the levels where either has any. `{ mean, frames: [overlap a frame], levels: [mean at each level],
+ * worst: [frame numbers under 0.6] }`: a core too wide or too narrow shows at the higher levels.
+ */
+export function shapeOverlap(theirs, ours) {
+  if (!theirs.length || !ours.length) return { mean: 0, frames: [], levels: [], worst: [] };
+  const atLevels = ours.map((mine, i) => {
+    const other = theirs[Math.min(theirs.length - 1, Math.round((i / Math.max(1, ours.length - 1)) * (theirs.length - 1)))];
+    return SHAPE_LEVELS.map((level) => {
+      let both = 0;
+      let either = 0;
+      for (let j = 0; j < mine.length; j++) {
+        const a = mine[j] >= level;
+        const b = other[j] >= level;
+        if (a && b) both++;
+        if (a || b) either++;
+      }
+      return either ? both / either : null;
+    });
+  });
+  const frames = atLevels.map((ls) => {
+    const some = ls.filter((v) => v !== null);
+    return some.length ? round(some.reduce((a, b) => a + b, 0) / some.length, 2) : 1;
+  });
+  const levels = SHAPE_LEVELS.map((_, k) => {
+    const some = atLevels.map((ls) => ls[k]).filter((v) => v !== null);
+    return some.length ? round(some.reduce((a, b) => a + b, 0) / some.length, 2) : null;
+  });
+  return { mean: round(frames.reduce((a, b) => a + b, 0) / frames.length, 2), frames, levels, worst: frames.map((v, i) => [v, i]).filter(([v]) => v < 0.6).map(([, i]) => i) };
 }
