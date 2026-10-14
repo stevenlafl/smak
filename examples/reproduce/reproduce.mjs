@@ -71,6 +71,34 @@ so the build tool's \`reference\` can put the plan beside yours (reference: "wor
       files: Object.fromEntries(readdirSync(input).filter((f) => f.endsWith(".png")).map((f) => [`pictures/${f}`, join(input, f)])),
     };
   if (leg === "words") return { prompt: `${ask}\n\nThe original, as someone who has seen it describes it:\n\n${readFileSync(join(HERE, map.id, "words.md"), "utf8")}` };
+  // plans: the floor plans and sections alone, as an architect's drawings give a building: no view from inside
+  if (leg === "plans") {
+    const drawings = ["plan.png", "storeys.png", "section-x.png", "section-y.png"];
+    return {
+      prompt: `${ask}
+
+The original, in floor plans: ${input}/plan.png (from above, floor heights written on the floors, every entity marked
+with its number and class and listed beside it; the scale bar is 256 units, with a grid every 256), ${input}/storeys.png
+(a plan of each storey), section-x.png and section-y.png (cut upright through the middle, west to east and south to
+north). There is no picture from inside: the textures and the light are yours to choose from what the plan's
+colours and the sections show. The same drawings are in the server's work folder under pictures/ (reference:
+"work:pictures/plan.png").`,
+      read: input,
+      files: Object.fromEntries(drawings.map((f) => [`pictures/${f}`, join(input, f)])),
+    };
+  }
+  // decompile: the compiled map, with the server's decompile tool to make it source again (reported apart:
+  // it starts from the original's own brushes)
+  if (leg === "decompile")
+    return {
+      prompt: `${ask}
+
+The original is the compiled map models:${basename(map.file)}. The server's decompile tool makes it brush source
+again (a .map in the work folder, compiled again where the compilers are). Use it, check what came back against
+the original (info, render, check), and mend what the decompile lost until the result matches it.`,
+      models: join(GAME, map.file, ".."),
+      only: basename(map.file),
+    };
   // bsp: the compiled map, alone in the server's models folder
   return {
     prompt: `${ask}

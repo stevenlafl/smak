@@ -889,6 +889,44 @@ function build(folders, args) {
  * that class's keys with their types, defaults and choices: what a map spec's entities and their `keys` are
  * written from, never from memory.
  */
+/**
+ * decompile: a compiled map made back into brush source (bsp2map's way: src/maps/decompile.mjs), written to
+ * the work folder with a .wad of the textures it keeps inside it, and compiled again where the compilers are.
+ * The way to a map one can only read compiled: change the source, then compile it.
+ */
+function decompileTool(folders, { map, name, compile = true } = {}) {
+  const file = pathOf(folders, map);
+  if (!isCompiledMap(file)) throw new Error("decompile: map is a compiled map (.bsp) of the models or work folder");
+  const called = (name ?? basename(file).replace(/\.bsp$/i, "")).replace(/[^\w-]/g, "_");
+  const out = join(folders.work, called);
+  mkdirSync(out, { recursive: true });
+  const result = maps.decompile(readFileSync(file), { name: called, folders: folders.wads ?? [] });
+  const mapFile = join(out, `${called}.map`);
+  writeFileSync(mapFile, result.map);
+  const lines = [maps.decompileSummary(result), ...result.warnings.map((w) => `WARN  ${w}`)];
+  const wads = [];
+  if (result.wad) {
+    const wadFile = join(out, result.wad.name);
+    writeFileSync(wadFile, result.wad.bytes);
+    wads.push(wadFile);
+  }
+  for (const place of folders.wads ?? []) wads.push(...["halflife.wad", "decals.wad", "liquids.wad", "xeno.wad"].map((w) => join(place, w)).filter((w) => existsSync(w)));
+  lines.push(`written: work:${called}/${called}.map${result.wad ? `, work:${called}/${result.wad.name}` : ""}`);
+  const pictures = [];
+  if (compile) {
+    const compiled = maps.compileMap(mapFile, { wads, compilers: folders.compilers, out: join(out, `${called}.bsp`) });
+    if (compiled.bsp) {
+      lines.push(`compiled: work:${called}/${called}.bsp`);
+      const again = readFileSync(compiled.bsp);
+      const f = maps.textureFidelity(readFileSync(file), again);
+      lines.push(`against the original: ${maps.fidelityLine(f)}`);
+      const plan = maps.planOf(maps.readBsp(again), { heights: true });
+      pictures.push(image(smak.png(plan.width, plan.height, plan.rgba)));
+    } else lines.push(...compiled.errors.map((e) => `ERROR ${e}`));
+  }
+  return [text(lines.join("\n")), ...pictures];
+}
+
 function entities(folders, { match, class: one } = {}) {
   if (!folders.fgd?.length) return [text("no FGD was given to the server (--fgd): ask the person for the game's .fgd")];
   const definitions = maps.definitionsOf(...folders.fgd);
@@ -1038,6 +1076,12 @@ export function toolsFor(folders, { allowRun = true } = {}) {
         ["spec"],
       ),
       call: (args) => build(folders, args),
+    },
+    {
+      name: "decompile",
+      description: "A compiled map (.bsp) made back into brush source in the work folder, with a .wad of the textures it carries, and compiled again (compile: false skips it). Read the .map, change it, and compile it with a map spec's source or by hand.",
+      inputSchema: object({ map: { type: "string" }, name: { type: "string" }, compile: { type: "boolean" } }, ["map"]),
+      call: (args) => decompileTool(folders, args),
     },
     {
       name: "entities",

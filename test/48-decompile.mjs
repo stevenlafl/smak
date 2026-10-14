@@ -16,7 +16,8 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { homedir } from "node:os";
 import * as maps from "../src/maps/index.mjs";
-import { test, sure, HERE, tmp, runSmak, runRefused, SMAK_CLI } from "./helper.mjs";
+import { test, testAsync, sure, HERE, tmp, runSmak, runRefused, SMAK_CLI } from "./helper.mjs";
+import { toolsFor } from "../mcp/tools.mjs";
 
 const FIXTURES = join(HERE, "fixtures");
 const folder = join(tmp, "decompile");
@@ -173,6 +174,17 @@ if (compilers.found)
   });
 else
   console.log(`skip  compiled: the decompiled rooms compile again\n      skipped: no compilers (name the folder of VHLT in ${maps.COMPILERS_VARIABLE} to run it)`); // prettier-ignore
+
+await testAsync("the MCP tool decompile: the .map and its .wad in the work folder, and compiled again where it can be", "decompile tool", async () => {
+  const work = join(folder, "tool");
+  mkdirSync(work, { recursive: true });
+  writeFileSync(join(work, "tworooms.bsp"), original);
+  const tool = toolsFor({ work, compilers }).find((each) => each.name === "decompile");
+  const answer = await tool.call({ map: "tworooms.bsp", name: "rooms", compile: compilers.found });
+  const words = answer.find((piece) => piece.type === "text").text;
+  sure(existsSync(join(work, "rooms", "rooms.map")) && /written: work:rooms\/rooms\.map/.test(words), words);
+  if (compilers.found) sure(/compiled: work:rooms\/rooms\.bsp/.test(words) && /against the original/.test(words), words);
+});
 
 // Half-Life's frenzy, decompiled by goldsrc.net's bsp2map.py (2026-10-14), less its first line (which names
 // the program): this hash. The port wrote the same text for all 126 maps of the game's valve folder.
