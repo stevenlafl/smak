@@ -78,3 +78,7 @@ before anything was built: the room 9 cells wide, the entrance under its east en
    rooms' views (the stairs up, the stairwell in the bedroom floor), picture-3 the section through the
    stairs, picture-4 the props: three barrels in the kitchen, a table and its benches before the bar with
    the barkeep behind it, and upstairs two beds against the east wall with the round table between them.
+4. Built again after the kit learned to call out furniture standing in a wall (case 13's revision 03): it
+   first called the beds 58 into the bedroom floor's east wall, which was the check's own slip (a `.map`
+   prefab's footprint taken from the points its planes are written by); measured by the brushes' corners,
+   the beds stand against the wall, clean.

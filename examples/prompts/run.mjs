@@ -106,7 +106,7 @@ for (const name of cases) {
   // the build then says what changed since the one before
   const revisions = join(HERE, name, "revisions");
   if (existsSync(revisions))
-    for (const file of readdirSync(revisions).filter((f) => /^\d\d-.*\.json$/.test(f)).sort()) {
+    for (const file of readdirSync(revisions).filter((f) => /^\d\d-.*\.json$/.test(f) && !f.endsWith(".focus.json")).sort()) {
       const focus = file.replace(/\.json$/, ".focus.json");
       const more = existsSync(join(revisions, focus)) ? { focus: JSON.parse(readFileSync(join(revisions, focus), "utf8")) } : {};
       await buildOnce(`${name} / ${file.replace(/\.json$/, "")}`, `models:${name}/revisions/${file}`, join(revisions, `result-${file.replace(/\.json$/, "")}`), more);

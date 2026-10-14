@@ -50,3 +50,8 @@
 3. Clean. The sheet (picture-1) shows the cross of feet, the turned pedestal and the round top; the close
    look (picture-2) the pewter tankard with its handle and the candle burning in its brass dish, on
    opposite sides of the top.
+
+## Revisions
+
+The person's follow-up requests on this model are in `revisions/`: a second tankard beside the first, then
+the candle twice as tall; each scored on doing the change and leaving the rest as it was (the change report).
