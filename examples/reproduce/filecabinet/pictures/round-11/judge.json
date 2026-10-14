@@ -1,0 +1,187 @@
+{
+ "subject": "filecabinet",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 1,
+   "left/right": 1,
+   "top/below": 1
+  },
+  "size": {
+   "original": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "reproduction": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "offShare": [
+    0.001,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 3.9,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 3.8,
+     "shared": 1
+    },
+    {
+     "view": "left",
+     "deltaE": 4,
+     "shared": 0.989
+    },
+    {
+     "view": "back",
+     "deltaE": 4.2,
+     "shared": 1
+    },
+    {
+     "view": "right",
+     "deltaE": 4.3,
+     "shared": 0.989
+    },
+    {
+     "view": "top",
+     "deltaE": 4.2,
+     "shared": 0.986
+    },
+    {
+     "view": "below",
+     "deltaE": 4.2,
+     "shared": 0.986
+    },
+    {
+     "view": "front-left",
+     "deltaE": 3.5,
+     "shared": 0.998
+    },
+    {
+     "view": "front-right",
+     "deltaE": 3.7,
+     "shared": 0.999
+    },
+    {
+     "view": "back-left",
+     "deltaE": 3.8,
+     "shared": 0.996
+    },
+    {
+     "view": "back-right",
+     "deltaE": 3.7,
+     "shared": 0.999
+    }
+   ]
+  },
+  "triangles": {
+   "original": 14,
+   "reproduction": 24
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "I",
+  "right": "I",
+  "letters": {
+   "A": "models/w_longjump.mdl",
+   "B": "models/w_security.mdl",
+   "C": "models/w_battery.mdl",
+   "D": "models/forklift.mdl",
+   "E": "models/w_medkit.mdl",
+   "F": "models/mbarrel.mdl",
+   "G": "models/w_9mmclip.mdl",
+   "H": "models/headcrab.mdl",
+   "I": "models/filecabinet.mdl",
+   "J": "models/can.mdl"
+  },
+  "answer": "I",
+  "ended": "success"
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "All six views (front, back, left, right, top, below) and the four angles show the same outline as the original. The measured silhouette overlap is 1 in front/back, left/right and top/below. Nothing sticks out or is missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 28.8 x 22.6 x 62.4 for both, so every dimension is within 10% (off-share 0.001 at most)."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Parts counted in the original: a top, three drawers with recessed handles, the dark seams between drawers, and a kick plinth at the base. The reproduction has all of them in the same places and number: three drawers, three handles, the plinth, and the same top lip in the front-left and front-right angles. No round parts, so no side count to check."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured colour difference is 3.9 (under 15) with every view's shared outline at 0.98 or more. Both are painted steel in the same grey, and the front drawers match in colour and finish."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original's left side (front-left and back-left angles, and the left view) has diagonal streaked or brushed markings across the whole face. The reproduction there is a soft mottled texture with a faint vertical panel near the front corner. The drawers' bevels and the handles' sharpness are close to the original's. The striations are the clear miss."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Side by side at game size the reproduction reads as the same cabinet, but a close comparison shows the left face in the front-left and back-left angles lacks the original's streaked texture and reads as a different finish. The line-up is scored separately."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The drawers face the front in both, the cabinet stands upright, and the plinth sits at the base in the same way in the front, back and below views."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The harness reports no check errors. The reproduction has 24 triangles against the original's 14, under twice the original's count. Nothing looks open, inside out or floating in any view."
+  }
+ },
+ "total": 14,
+ "of": 16,
+ "passes": false,
+ "readings": [
+  {
+   "M1": 2,
+   "M2": 2,
+   "M3": 2,
+   "M4": 2,
+   "M5": 1,
+   "M6": 1,
+   "M7": 2,
+   "M8": 2
+  },
+  {
+   "M1": 2,
+   "M2": 2,
+   "M3": 2,
+   "M4": 2,
+   "M5": 1,
+   "M6": 1,
+   "M7": 2,
+   "M8": 2
+  }
+ ]
+}

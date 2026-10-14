@@ -1,0 +1,187 @@
+{
+ "subject": "medkit",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.99,
+   "left/right": 0.989,
+   "top/below": 0.988
+  },
+  "size": {
+   "original": [
+    34.6,
+    26.4,
+    6.8
+   ],
+   "reproduction": [
+    34.6,
+    26.3,
+    6.8
+   ],
+   "offShare": [
+    0.002,
+    0.004,
+    0.004
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 10,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 13.1,
+     "shared": 0.967
+    },
+    {
+     "view": "left",
+     "deltaE": 8.8,
+     "shared": 0.971
+    },
+    {
+     "view": "back",
+     "deltaE": 9,
+     "shared": 0.967
+    },
+    {
+     "view": "right",
+     "deltaE": 7.2,
+     "shared": 0.97
+    },
+    {
+     "view": "top",
+     "deltaE": 7.2,
+     "shared": 0.986
+    },
+    {
+     "view": "below",
+     "deltaE": null,
+     "shared": 0
+    },
+    {
+     "view": "front-left",
+     "deltaE": 14.1,
+     "shared": 0.989
+    },
+    {
+     "view": "front-right",
+     "deltaE": 12.6,
+     "shared": 0.99
+    },
+    {
+     "view": "back-left",
+     "deltaE": 9.8,
+     "shared": 0.989
+    },
+    {
+     "view": "back-right",
+     "deltaE": 8.5,
+     "shared": 0.989
+    }
+   ]
+  },
+  "triangles": {
+   "original": 99,
+   "reproduction": 156
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "G",
+  "right": "G",
+  "letters": {
+   "A": "models/headcrab.mdl",
+   "B": "models/can.mdl",
+   "C": "models/w_9mmclip.mdl",
+   "D": "models/w_longjump.mdl",
+   "E": "models/mbarrel.mdl",
+   "F": "models/w_battery.mdl",
+   "G": "models/w_medkit.mdl",
+   "H": "models/forklift.mdl",
+   "I": "models/filecabinet.mdl",
+   "J": "models/w_security.mdl"
+  },
+  "answer": "G",
+  "ended": "success"
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Silhouette overlap is 0.99 or better in all six views and the four close angles show the same outline. The strap's torn edges are inside the outline and do not change the silhouette, so no part sticks out or is missing at the outline level."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size 34.6 x 26.3 x 6.8 against the original's 34.6 x 26.4 x 6.8, all within 10%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original's parts are the octagonal body, the top red-cross label, the front panel with screen, gauges and red and green lights, the side dials (two per side in the left and right views), and one continuous strap loop. The body, panel and dials are present and placed. The strap is fragmented in the reproduction (gaps in the front-left, front-right and back-left views, a missing chunk in the right view), and the back view shows dark triangular holes in the body's lower right face. Those are wrong shapes for the strap and body."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The white body, grey-silver panels, dark screen and red markings match the original. The strap keeps the same grey-brown checker material. The measured colour difference is 10 on average, and the worst view is 14.1, under 15. The white patches on the strap read as missing strap faces showing the body behind, which is geometry (charged to M1 and M3), not colour."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The 'FIRST AID' lettering, the red cross on top, the red arrows and small red text on the sides, and the top panel's dark gauge and screen detail are all in their places at similar sharpness."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Side by side at game size the body reads as the original, but the torn and holed strap in the four angled views and the dark holes in the back view show it is a reproduction. A player would see the strap damage at normal viewing distance."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front panel faces the front in both models, the body is upright, and both sit at the same height in the front and side views, so they stand on the origin the same way."
+  },
+  "M8": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "SMAK's check reports no errors and the triangle count (156 against 99) is under twice the original's. But the strap has open, missing faces, and the back face has triangular holes, so 'nothing open' fails. The underside view also shows a closed plate where the original shows nothing, which I did not charge because it is unclear whether the original's underside is open."
+  }
+ },
+ "total": 13,
+ "of": 16,
+ "passes": false,
+ "readings": [
+  {
+   "M1": 1,
+   "M2": 2,
+   "M3": 1,
+   "M4": 2,
+   "M5": 2,
+   "M6": 1,
+   "M7": 2,
+   "M8": 1
+  },
+  {
+   "M1": 2,
+   "M2": 2,
+   "M3": 1,
+   "M4": 1,
+   "M5": 1,
+   "M6": 1,
+   "M7": 2,
+   "M8": 1
+  }
+ ]
+}

@@ -25,31 +25,31 @@
    ]
   },
   "colour": {
-   "meanDeltaE": 10,
+   "meanDeltaE": 12.8,
    "byView": [
     {
      "view": "front",
-     "deltaE": 13.1,
+     "deltaE": 13.9,
      "shared": 0.967
     },
     {
      "view": "left",
-     "deltaE": 8.8,
+     "deltaE": 11.3,
      "shared": 0.971
     },
     {
      "view": "back",
-     "deltaE": 9,
+     "deltaE": 12.6,
      "shared": 0.967
     },
     {
      "view": "right",
-     "deltaE": 7.2,
-     "shared": 0.97
+     "deltaE": 9.2,
+     "shared": 0.971
     },
     {
      "view": "top",
-     "deltaE": 7.2,
+     "deltaE": 11.6,
      "shared": 0.986
     },
     {
@@ -59,23 +59,23 @@
     },
     {
      "view": "front-left",
-     "deltaE": 14.1,
+     "deltaE": 15.3,
      "shared": 0.989
     },
     {
      "view": "front-right",
-     "deltaE": 12.6,
-     "shared": 0.99
+     "deltaE": 13.7,
+     "shared": 0.991
     },
     {
      "view": "back-left",
-     "deltaE": 9.8,
+     "deltaE": 15.2,
      "shared": 0.989
     },
     {
      "view": "back-right",
-     "deltaE": 8.5,
-     "shared": 0.989
+     "deltaE": 12.7,
+     "shared": 0.988
     }
    ]
   },
@@ -111,55 +111,55 @@
  },
  "scores": {
   "M1": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Silhouette overlap is 0.99 or better in all six views and the four close angles show the same outline. The strap's torn edges are inside the outline and do not change the silhouette, so no part sticks out or is missing at the outline level."
+   "score": 1,
+   "reason": "Box outline matches in all six views and the top, and the measured overlap is 0.99. The strap is torn in the reproduction: in the front, left, back-left and back-right views it has gaps and jagged edges, with white patches where the original's continuous strap loop is. Parts stick out or are missing at the strap, so the outline fails in those views."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured size 34.6 x 26.3 x 6.8 against the original's 34.6 x 26.4 x 6.8, all within 10%."
+   "reason": "Measured 34.6 x 26.3 x 6.8 against the original's 34.6 x 26.4 x 6.8, all within 0.4%."
   },
   "M3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The original's parts are the octagonal body, the top red-cross label, the front panel with screen, gauges and red and green lights, the side dials (two per side in the left and right views), and one continuous strap loop. The body, panel and dials are present and placed. The strap is fragmented in the reproduction (gaps in the front-left, front-right and back-left views, a missing chunk in the right view), and the back view shows dark triangular holes in the body's lower right face. Those are wrong shapes for the strap and body."
+   "reason": "Original parts: octagonal box, red cross and FIRST AID lettering on top, recessed control panel with dark screen, red and green buttons, top dial, two side dials on the dark side panels, red arrows on the sides, and a continuous carry strap loop. The reproduction has all of these in place except the strap, which has holes and gaps (front-left, back-right) and missing sections. The strap is a named component with the wrong shape, so M3 is capped at 1."
   },
   "M4": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "The white body, grey-silver panels, dark screen and red markings match the original. The strap keeps the same grey-brown checker material. The measured colour difference is 10 on average, and the worst view is 14.1, under 15. The white patches on the strap read as missing strap faces showing the body behind, which is geometry (charged to M1 and M3), not colour."
+   "score": 1,
+   "reason": "The white box colour, the red cross and the grey panel match, and the measured mean delta E of 12.8 is under 15. The strap region is wrong, though: where the original shows dark camouflage strap, the reproduction shows white patches (front-left, back-left, back-right), so those regions have the wrong colour and material."
   },
   "M5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The 'FIRST AID' lettering, the red cross on top, the red arrows and small red text on the sides, and the top panel's dark gauge and screen detail are all in their places at similar sharpness."
+   "reason": "Red cross, FIRST AID lettering on top and sides, red arrows, panel lines and the dial and screen details are all present in their places at a similar sharpness. Nothing is added or lost apart from the strap's wrong surface, which M4 and M8 cover."
   },
   "M6": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Side by side at game size the body reads as the original, but the torn and holed strap in the four angled views and the dark holes in the back view show it is a reproduction. A player would see the strap damage at normal viewing distance."
+   "reason": "Side by side at the angle views, the torn strap with holes and white patches shows at once, so a player would not take the reproduction for the original. The box body itself is convincing. Scored 1 and held there, not 0, since at game size the fault may be less visible."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The front panel faces the front in both models, the body is upright, and both sit at the same height in the front and side views, so they stand on the origin the same way."
+   "reason": "The front is the original's front, with the control panel and buttons at the same place on top and the same upright stance, sitting on its base in every view."
   },
   "M8": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "SMAK's check reports no errors and the triangle count (156 against 99) is under twice the original's. But the strap has open, missing faces, and the back face has triangular holes, so 'nothing open' fails. The underside view also shows a closed plate where the original shows nothing, which I did not charge because it is unclear whether the original's underside is open."
+   "reason": "checkErrors is empty and the reproduction has 156 triangles against the original's 99, under the 2x limit. The strap, though, shows holes and white patches in the views, which means open or inside-out faces where it should be closed. The 'below' view also shows a closed white underside where the original shows nothing, which needs checking."
   }
  },
- "total": 13,
+ "total": 11,
  "of": 16,
  "passes": false,
  "readings": [
@@ -167,18 +167,18 @@
    "M1": 1,
    "M2": 2,
    "M3": 1,
-   "M4": 2,
+   "M4": 1,
    "M5": 2,
    "M6": 1,
    "M7": 2,
    "M8": 1
   },
   {
-   "M1": 2,
+   "M1": 1,
    "M2": 2,
    "M3": 1,
    "M4": 1,
-   "M5": 1,
+   "M5": 2,
    "M6": 1,
    "M7": 2,
    "M8": 1

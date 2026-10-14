@@ -1,0 +1,187 @@
+{
+ "subject": "battery",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.988,
+   "left/right": 0.992,
+   "top/below": 0.999
+  },
+  "size": {
+   "original": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "reproduction": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "offShare": [
+    0,
+    0.001,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 7.1,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 6.7,
+     "shared": 0.99
+    },
+    {
+     "view": "left",
+     "deltaE": 7.3,
+     "shared": 0.992
+    },
+    {
+     "view": "back",
+     "deltaE": 6.3,
+     "shared": 0.99
+    },
+    {
+     "view": "right",
+     "deltaE": 6.7,
+     "shared": 0.992
+    },
+    {
+     "view": "top",
+     "deltaE": 8.4,
+     "shared": 0.998
+    },
+    {
+     "view": "below",
+     "deltaE": 3.5,
+     "shared": 0.573
+    },
+    {
+     "view": "front-left",
+     "deltaE": 8.1,
+     "shared": 0.99
+    },
+    {
+     "view": "front-right",
+     "deltaE": 7.9,
+     "shared": 0.99
+    },
+    {
+     "view": "back-left",
+     "deltaE": 7.9,
+     "shared": 0.987
+    },
+    {
+     "view": "back-right",
+     "deltaE": 7.7,
+     "shared": 0.989
+    }
+   ]
+  },
+  "triangles": {
+   "original": 116,
+   "reproduction": 88
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "B",
+  "right": "B",
+  "letters": {
+   "A": "models/w_security.mdl",
+   "B": "models/w_battery.mdl",
+   "C": "models/w_longjump.mdl",
+   "D": "models/filecabinet.mdl",
+   "E": "models/can.mdl",
+   "F": "models/forklift.mdl",
+   "G": "models/w_medkit.mdl",
+   "H": "models/w_9mmclip.mdl",
+   "I": "models/headcrab.mdl",
+   "J": "models/mbarrel.mdl"
+  },
+  "answer": "**B**",
+  "ended": "success"
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Overall outlines match (measured overlap 0.988 to 0.999 in every view, and the body is the same octagonal prism). The top assembly's outline differs: the yellow striped cap sits at a different tilt and height. In the left and right views it is centred and upright in the original but leans off-centre in the reproduction, and in the front-right angle the original's cap stands up while the reproduction's lies flatter, so the outline at the top is wrong."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Size matches exactly: 10.3 x 10.3 x 18.4 for both, with an off-share of 0.001 on the width."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The parts are present: octagonal body, two side panels, four corner lights on the top rim, a central front and back light, three green screens per side, the hazard band, the grey gear cap and the yellow cap. The yellow cap's shape is wrong. In the original it is a flat-faced striped block with square ends; in the reproduction it is a rounded, bent cylinder with a curved top (back view, right view, front-right angle). A wrong-shaped component caps M3 at 1."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured colour difference inside the shared outline is 7.1 mean (CIE76), well under 15, and every view is 8.4 or lower. Metal is grey-beige, the hazard stripes are yellow, the screens are green, and the light indicators are red in both. The screen centres are paler in the reproduction, but that is glow, which M5 covers."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The hazard stripes, panel lines and the mottled screen texture are in place. But the reproduction's top rim shows a fuzzy, noisy white smear along its edge (front-right and back-right angles), which the original does not have, and its screen centres are washed out and less mottled than the original's glow."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Side by side at this size, the body reads as the original, but the top cap is visibly a different shape and angle (front-right and back-right), and the fuzzy rim is visible even at this scale. A player would likely notice the difference on the top of the battery."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front is the original's front in the front view (centre light above the screen, side panels on either side, hazard band below), it stands upright on the same base, and the underside matches."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK checkErrors is empty. The reproduction has 88 triangles against the original's 116, well under twice. Its underside shows the same open bottom ring as the original, with nothing floating or inside out in these views."
+  }
+ },
+ "total": 12,
+ "of": 16,
+ "passes": false,
+ "readings": [
+  {
+   "M1": 1,
+   "M2": 2,
+   "M3": 1,
+   "M4": 2,
+   "M5": 1,
+   "M6": 1,
+   "M7": 2,
+   "M8": 2
+  },
+  {
+   "M1": 1,
+   "M2": 2,
+   "M3": 1,
+   "M4": 2,
+   "M5": 1,
+   "M6": 1,
+   "M7": 2,
+   "M8": 2
+  }
+ ]
+}

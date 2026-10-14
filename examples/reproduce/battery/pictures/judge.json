@@ -25,56 +25,56 @@
    ]
   },
   "colour": {
-   "meanDeltaE": 7.1,
+   "meanDeltaE": 6.7,
    "byView": [
     {
      "view": "front",
-     "deltaE": 6.7,
+     "deltaE": 6,
      "shared": 0.99
     },
     {
      "view": "left",
-     "deltaE": 7.3,
+     "deltaE": 6.4,
      "shared": 0.992
     },
     {
      "view": "back",
-     "deltaE": 6.3,
+     "deltaE": 5.9,
      "shared": 0.99
     },
     {
      "view": "right",
-     "deltaE": 6.7,
+     "deltaE": 6.6,
      "shared": 0.992
     },
     {
      "view": "top",
-     "deltaE": 8.4,
+     "deltaE": 7.6,
      "shared": 0.998
     },
     {
      "view": "below",
-     "deltaE": 3.5,
+     "deltaE": 5.3,
      "shared": 0.573
     },
     {
      "view": "front-left",
-     "deltaE": 8.1,
+     "deltaE": 7.3,
      "shared": 0.99
     },
     {
      "view": "front-right",
-     "deltaE": 7.9,
+     "deltaE": 7.5,
      "shared": 0.99
     },
     {
      "view": "back-left",
-     "deltaE": 7.9,
+     "deltaE": 7.3,
      "shared": 0.987
     },
     {
      "view": "back-right",
-     "deltaE": 7.7,
+     "deltaE": 7.3,
      "shared": 0.989
     }
    ]
@@ -106,60 +106,60 @@
    "I": "models/headcrab.mdl",
    "J": "models/mbarrel.mdl"
   },
-  "answer": "**B**",
+  "answer": "B",
   "ended": "success"
  },
  "scores": {
   "M1": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Overall outlines match (measured overlap 0.988 to 0.999 in every view, and the body is the same octagonal prism). The top assembly's outline differs: the yellow striped cap sits at a different tilt and height. In the left and right views it is centred and upright in the original but leans off-centre in the reproduction, and in the front-right angle the original's cap stands up while the reproduction's lies flatter, so the outline at the top is wrong."
+   "score": 2,
+   "reason": "All six views and all four angles have the original's outline. Measured overlap is 0.988 to 0.999, and every top part sits within the original's silhouette in each view."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Size matches exactly: 10.3 x 10.3 x 18.4 for both, with an off-share of 0.001 on the width."
+   "reason": "Measured size is 10.3 x 10.3 x 18.4 for both original and reproduction, so every dimension is within 10%."
   },
   "M3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The parts are present: octagonal body, two side panels, four corner lights on the top rim, a central front and back light, three green screens per side, the hazard band, the grey gear cap and the yellow cap. The yellow cap's shape is wrong. In the original it is a flat-faced striped block with square ends; in the reproduction it is a rounded, bent cylinder with a curved top (back view, right view, front-right angle). A wrong-shaped component caps M3 at 1."
+   "reason": "The original's parts are the yellow striped top block, a grey cylindrical cap with a rim, a grey plinth on top, four red warning lights, two white side panels on each face, six or eight body faces with green glass, the yellow hazard band and a dark base. The reproduction has all of them except that the top block differs in shape and placement: it is a tilted wedge at the front-left and a flatter slab at the back, and the cap's rim is less defined. The top assembly is the part that is wrong."
   },
   "M4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured colour difference inside the shared outline is 7.1 mean (CIE76), well under 15, and every view is 8.4 or lower. Metal is grey-beige, the hazard stripes are yellow, the screens are green, and the light indicators are red in both. The screen centres are paler in the reproduction, but that is glow, which M5 covers."
+   "reason": "Mean colour difference is 6.7 (under 15), and the yellow hazard bands, grey metal, cream panels, red lights and green glass read as the same colours and materials in every view."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The hazard stripes, panel lines and the mottled screen texture are in place. But the reproduction's top rim shows a fuzzy, noisy white smear along its edge (front-right and back-right angles), which the original does not have, and its screen centres are washed out and less mottled than the original's glow."
+   "reason": "The hazard stripes on the top block run diagonally in the reproduction and vertically on the original's drum. The top rim shows a jagged, noisy white glossy patch in the front-right and back-left views that the original does not have. The green glass mottling and the hazard band are close to the original."
   },
   "M6": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Side by side at this size, the body reads as the original, but the top cap is visibly a different shape and angle (front-right and back-right), and the fuzzy rim is visible even at this scale. A player would likely notice the difference on the top of the battery."
+   "reason": "Side by side, the body, glass and hazard band look like the original, but the top assembly is visibly different in every angle view (block tilt, stripe direction, glossy white patch). A player who knows the prop would see the difference at game size."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The front is the original's front in the front view (centre light above the screen, side panels on either side, hazard band below), it stands upright on the same base, and the underside matches."
+   "reason": "The front is on the same face as the original (red light and white panels in the same place), the prop stands upright, and the base sits in the same place in the below view."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "SMAK checkErrors is empty. The reproduction has 88 triangles against the original's 116, well under twice. Its underside shows the same open bottom ring as the original, with nothing floating or inside out in these views."
+   "reason": "checkErrors is empty; the reproduction has 88 triangles against the original's 116 (under twice); the silhouette and below views show no open or floating parts."
   }
  },
- "total": 12,
+ "total": 13,
  "of": 16,
  "passes": false,
  "readings": [
@@ -174,7 +174,7 @@
    "M8": 2
   },
   {
-   "M1": 1,
+   "M1": 2,
    "M2": 2,
    "M3": 1,
    "M4": 2,
