@@ -163,6 +163,9 @@ function leastSquares(rows) {
   return a.map((row, i) => row[k] / row[i]);
 }
 
+/** The faces a view must see squarely for its light to be fitted and divided out. */
+const LIGHT_FIT_LEAST = 60;
+
 /** How many texels a picture's colour is spread past the edge of what the triangles cover. */
 const BLEED = 3;
 
@@ -259,7 +262,10 @@ export function paintProjections(meshes, views) {
         const c = colourAtPicture(v.picture, px, py);
         rows.push([1, dot(n, right), dot(n, up), dot(n, v.back), 0.3 * c[0] + 0.59 * c[1] + 0.11 * c[2]]);
       }
-      v.light = rows.length >= 12 ? leastSquares(rows) : null;
+      // a few large faces differ by their paint (a battery's teal glass beside its grey metal), and four numbers
+      // fitted to them take that paint for light; only many small faces show the light itself. Steven's blind A/B
+      // (2026-10-14): de-lit was closer on the headcrab (106 to 212 faces a view), not on the battery (14 to 41)
+      v.light = rows.length >= LIGHT_FIT_LEAST ? leastSquares(rows) : null;
     }
   const lightOf = (v, n) => {
     if (!v.light) return 1;
