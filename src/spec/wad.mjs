@@ -8,7 +8,7 @@
 // A texture: { name (15 letters at most: `{` first for one with holes, `!` for a liquid, `+0` an animation's
 // frame), size: [width, height] (multiples of 16, 512 at most), material (a word of `materials` or a base),
 // panels (as a box face's, in texels from the bottom left), print (words, as a box face's), grime (0 to 1: dirt
-// gathered toward its foot) }.
+// gathered toward its foot), wear ({ stains, streaks, cracks, scratches, speckle } 0 to 1: weather.mjs) }.
 import { writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 import { sheet as workshopSheet, fbm } from "../workshop.mjs";
@@ -17,10 +17,11 @@ import { png } from "../image.mjs";
 import { writeWad } from "../maps/wad.mjs";
 import { materialOf, surfacePicture } from "./paint.mjs";
 import { paintPanels, paintWords } from "./faces.mjs";
+import { weather, WEAR_LAYERS } from "./weather.mjs";
 
 export const WAD_SPEC = "smak.wad/1";
 const TOP = ["spec", "name", "materials", "textures", "preview", "note"];
-const FIELDS = ["name", "size", "material", "panels", "print", "grime", "note"];
+const FIELDS = ["name", "size", "material", "panels", "print", "grime", "wear", "note"];
 const isNumber = (v) => typeof v === "number" && Number.isFinite(v);
 /** The largest side a texture of GoldSrc's is drawn at as painted. */
 const SIDE_MOST = 512;
@@ -52,6 +53,14 @@ export function validateWadSpec(spec) {
       errors.push(error.message);
     }
     if (texture?.grime !== undefined && !(isNumber(texture.grime) && texture.grime >= 0 && texture.grime <= 1)) errors.push(`${at}.grime: 0 to 1`);
+    if (texture?.wear !== undefined) {
+      if (typeof texture.wear !== "object" || Array.isArray(texture.wear)) errors.push(`${at}.wear: { ${WEAR_LAYERS.join(", ")} } each 0 to 1, and seed`);
+      else
+        for (const [key, value] of Object.entries(texture.wear))
+          if (key === "seed") continue;
+          else if (!WEAR_LAYERS.includes(key)) warnings.push(`${at}.wear.${key}: no such layer (${WEAR_LAYERS.join(", ")}), left out`);
+          else if (!(isNumber(value) && value >= 0 && value <= 1)) errors.push(`${at}.wear.${key}: 0 to 1`);
+    }
     for (const [k, panel] of (texture?.panels ?? []).entries())
       if (!Array.isArray(panel?.at) || !Array.isArray(panel?.size)) errors.push(`${at}.panels[${k}]: { at: [x, y], size: [w, h], shape, style, edge, material }`);
   });
@@ -103,6 +112,7 @@ function paintTexture(texture, materials) {
         for (let c = 0; c < 3; c++) image.rgb[i + c] = Math.round(image.rgb[i + c] * Math.max(0, k));
       }
   }
+  if (texture.wear) weather(image, texture.wear);
   return image;
 }
 

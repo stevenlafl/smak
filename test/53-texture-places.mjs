@@ -4,10 +4,12 @@
 //   a material seen under a known light: the paint is the colour divided by it, channel by channel
 //   the build tool's wad preview `each`: every texture of the spec from the judge's camera, and what it reports
 //   the renderer's scene is kept by the textures given, not their names: two sets of one name draw apart
+//   a texture's wear: finer detail and spread than a plain fill, and no seam where it repeats
 import { readFileSync, mkdirSync, copyFileSync } from "node:fs";
 import { join } from "node:path";
 import * as smak from "../src/index.mjs";
 import { materialOf } from "../src/spec/paint.mjs";
+import { buildWadSpec } from "../src/spec/wad.mjs";
 import { toolsFor } from "../mcp/tools.mjs";
 import { test, testAsync, sure, HERE, tmp } from "./helper.mjs";
 
@@ -78,4 +80,31 @@ await testAsync("the wad preview says when the map keeps its own copy of a textu
   const spec = { spec: "smak.wad/1", name: "rooms.wad", textures: [{ name: "smakwall", size: [64, 64], material: "stone" }], preview: { map: "tworooms.bsp", each: true } };
   const words = (await toolsFor({ work }).find((tool) => tool.name === "build").call({ spec: JSON.stringify(spec) })).find((piece) => piece.type === "text").text;
   sure(/the map keeps its own smakwall inside it/.test(words), words);
+});
+
+test("a texture's wear: detail and spread as a used wall has them, and no seam where it repeats", () => {
+  const base = { base: "plaster", tone: [0.45, 0.43, 0.4] };
+  const out = join(tmp, "wear");
+  buildWadSpec({ spec: "smak.wad/1", name: "wear.wad", textures: [{ name: "plain", size: [128, 64], material: base }, { name: "worn", size: [128, 64], material: base, wear: { stains: 0.6, streaks: 0.5, cracks: 0.6, scratches: 0.4, speckle: 0.8 } }] }, { out });
+  const [plain, worn] = smak.maps.readWad(readFileSync(join(out, "wear.wad"))).textures;
+  const lum = (t, x, y) => {
+    const c = t.pixels[((y + t.height) % t.height) * t.width + ((x + t.width) % t.width)] * 3;
+    return 0.3 * t.palette[c] + 0.59 * t.palette[c + 1] + 0.11 * t.palette[c + 2];
+  };
+  const detail = (t) => {
+    let d = 0;
+    for (let y = 0; y < t.height; y++) for (let x = 0; x < t.width; x++) d += Math.abs(4 * lum(t, x, y) - lum(t, x - 1, y) - lum(t, x + 1, y) - lum(t, x, y - 1) - lum(t, x, y + 1));
+    return d / (t.width * t.height);
+  };
+  sure(detail(worn) > 3 * detail(plain) && detail(worn) > 20, `${detail(plain)} against ${detail(worn)}`);
+  // the step across the picture's edges against the steps inside it
+  const step = (t, x) => {
+    let d = 0;
+    for (let y = 0; y < t.height; y++) d += Math.abs(lum(t, x + 1, y) - lum(t, x, y));
+    return d / t.height;
+  };
+  let inside = 0;
+  for (let x = 0; x < worn.width - 1; x++) inside += step(worn, x);
+  inside /= worn.width - 1;
+  sure(step(worn, worn.width - 1) < 1.5 * inside, `across the edge ${step(worn, worn.width - 1)}, inside ${inside}`);
 });

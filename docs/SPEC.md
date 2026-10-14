@@ -408,7 +408,11 @@ it (its volume, its pitch, the map's room): say so, and the person listens in th
 ```
 
 Each texture is a material laid seamlessly (one texel a unit, as a map draws it), with `panels` and `print`
-as a box face has them (in texels from the bottom left) and `grime` (0 to 1) gathered toward its foot. A name
+as a box face has them (in texels from the bottom left) and `grime` (0 to 1) gathered toward its foot. `wear`
+makes it a used surface and not a fill: `{ "stains": 0.6, "streaks": 0.5, "cracks": 0.4, "scratches": 0.3,
+"speckle": 0.8 }`, each 0 to 1 (`seed` another pattern), every layer tiling with the texture. A game's concrete
+has a texel's own grain all over it (`speckle`) and blotches (`stains`); its machinery, streaks and scratches.
+A plain fill reads as flat beside it. A name
 is one word of 15 letters at most and its first letters mean what a map's do (`{` holes, `!` a liquid, `+0` an
 animation's first frame, `-0` the first of random tiles); sides are multiples of 16, 512 at most. The build
 writes the .wad and a sheet of its textures. With `preview.map`, a compiled map of the models or work folder is
