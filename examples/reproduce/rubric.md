@@ -72,6 +72,6 @@ walk test, not the game.
   grain: an original whose every region kept its exact colour but lost its grain scored 10 to 14, against the
   pass line of 15. Grain is M5's item. From this date M4's measurement smooths both pictures over 7 x 7 dots
   (at the judge's 384-dot pictures), inside each outline, before the difference is taken; the line stays 15.
-  Every round was measured again the same way. Views where the original shows nothing (an open underside
+  Round 2 was judged again under it; round 1 keeps the scores it was given at the time. Views where the original shows nothing (an open underside
   from below) are left out of the mean, as "inside the shared outline" always said; the harness had counted
   them as 100.
