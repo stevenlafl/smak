@@ -253,3 +253,38 @@ if (compilers.found)
     sure(report.rooms.low.light > 24 && report.rooms.high.light > 24, JSON.stringify(report.rooms));
   });
 else console.log(`skip  a map spec compiled\n      skipped: no compilers (name the folder of VHLT or SDHLT in ${COMPILERS_VARIABLE} to run it)`);
+
+test("the compilers' tool textures as SDHLT has them: SKIP leaks, NOCLIP seals, SOLIDHINT is solid to a body", () => {
+  const { box, carve, playerStart, pointEntity } = smak.maps;
+  // a sealed room, then the same room with its east wall a brush of one tool texture
+  const roomWith = (east) => {
+    const walls = smak.maps.hollow([0, 0, 0], [256, 256, 128], 16, "WALL");
+    walls[3] = box([256, -16, -16], [272, 272, 144], east);
+    return { brushes: walls, entities: [playerStart([64, 128, 0], 0)] };
+  };
+  sure(smak.maps.checkPlan(roomWith("SKIP")).leak, "a wall of SKIP seals nothing");
+  sure(!smak.maps.checkPlan(roomWith("NOCLIP")).leak, "a wall of NOCLIP seals (hull 0 keeps it)");
+  sure(!smak.maps.checkPlan(roomWith("SOLIDHINT")).leak, "a wall of SOLIDHINT seals");
+  // a SOLIDHINT brush across the room stops a body: what is behind it is not reached on foot
+  const map = {
+    brushes: [...carve([{ min: [0, 0, 0], max: [512, 256, 128] }], 16, "WALL"), box([248, 0, 0], [264, 256, 128], "SOLIDHINT")],
+    entities: [playerStart([64, 128, 0], 0), pointEntity("item_battery", [448, 128, 0])],
+  };
+  sure(smak.maps.reachOf(map).unreached.length === 1, "behind a SOLIDHINT wall is not walked to");
+});
+
+test("the compilers' chart of the engine's limits is read; a map spec's furniture is func_detail unless told", async () => {
+  const { limitsOf } = await import("../src/maps/compile.mjs");
+  const limits = limitsOf("* AllocBlock 5/64\n * worldleaves 771/8192\nclipnodes      2113/32767  16904/262136 (6.4%)");
+  sure(limits.allocblock.used === 5 && limits.worldleaves.most === 8192 && limits.clipnodes.used === 2113, JSON.stringify(limits));
+  const spec = (as) => ({
+    spec: "smak.map/1",
+    name: `detail_${as}`,
+    rooms: [{ id: "room", size: [256, 256, 128] }],
+    furniture: [{ box: [32, 32, 32], room: "room", at: [64, 64], ...(as ? { as } : {}) }],
+    entities: [{ class: "info_player_start", room: "room", at: "centre" }],
+  });
+  const text = (as) => readFileSync(buildMapSpec(spec(as), { out: join(folder, `detail_${as}`), compilers: { found: false, message: "none" } }).files.map, "utf8");
+  sure(/"classname" "func_detail"/.test(text()), "unless told, furniture is func_detail");
+  sure(!/func_detail/.test(text("world")), "as: world keeps it in the world");
+});

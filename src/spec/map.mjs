@@ -27,7 +27,7 @@ import { wadCatalog, pickTexture } from "./wads.mjs";
 import { buildModelSpec, validateModelSpec } from "./model.mjs";
 
 export const MAP_SPEC = "smak.map/1";
-const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "fgd", "wads", "note"];
+const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "fgd", "wads", "compile", "detail", "note"];
 const ROOM = ["id", "size", "at", "place", "floor", "sky", "surfaces", "light", "water", "test", "note"];
 const LINK = ["between", "kind", "width", "height", "along", "sill", "stairs", "door", "glass", "note"];
 const PLACES = ["east_of", "west_of", "north_of", "south_of", "above", "below", "in"];
@@ -56,6 +56,27 @@ const FACINGS = { east: 0, north: 90, west: 180, south: 270 };
 const isNumber = (v) => typeof v === "number" && Number.isFinite(v);
 const snap = (v, grid) => Math.round(v / grid) * grid;
 const mid = (room) => room.min.map((v, k) => (v + room.max[k]) / 2);
+
+/**
+ * What a spec's `compile` asks of the compilers: { quality: "draft" | "normal" | "final", threads, light: {
+ * bounce, ao, extra, softShadows }, hulls: { large: false, crouch: false }, clipEconomy: true }.
+ */
+function compileOptions(asked = {}) {
+  const rad = [];
+  const light = asked.light ?? {};
+  if (asked.quality === "final" || light.extra) rad.push("-extra");
+  if (light.bounce !== undefined) rad.push("-bounce", light.bounce);
+  if (light.ao) rad.push("-ao");
+  if (light.softShadows) rad.push("-pcf", light.softShadows);
+  const bsp = [];
+  if (asked.hulls?.large === false) bsp.push("-nohull2");
+  if (asked.hulls?.crouch === false) bsp.push("-nohull3");
+  return {
+    fast: asked.quality === "draft",
+    ...(asked.threads !== undefined ? { threads: asked.threads } : {}),
+    args: { hlrad: rad, hlbsp: bsp, hlcsg: asked.clipEconomy ? ["-clipeconomy"] : [] },
+  };
+}
 
 /** Pictures one under another, each named in its top left corner, on a dark ground. */
 function stacked(pictures, names) {
@@ -759,7 +780,14 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   const wordOfTexture = new Map([...Object.keys(materials), ...Object.keys(MATERIALS)].map((word) => [textureName(word), word]));
   // a prefab's brushes go into the world, or into a brush entity when it says so (a crate that breaks, a
   // pane of glass, detail that should not cut the world: func_breakable, func_wall, func_illusionary...)
-  const putPrefab = (prefab, at, quarters, where, entity = prefab.entity) => {
+  // furniture is func_detail unless told (`as: "world"`, or an entity of its own): it then cuts no portal, and
+  // a map of furnished rooms is seen through in hundredths of a second where it took minutes (measured:
+  // research/compiler-features.md). It seals nothing, which furniture inside a carved room never has to
+  const detailed = (thing, prefab) => {
+    const asked = thing?.as ?? prefab.as ?? (spec.detail === false ? "world" : "detail");
+    return asked === "detail" ? { class: "func_detail" } : null;
+  };
+  const putPrefab = (prefab, at, quarters, where, entity = prefab.entity ?? detailed(null, prefab)) => {
     const target = entity ? [] : brushes;
     const done = () => {
       if (!entity) return;
@@ -797,7 +825,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     "furniture",
     (thing, room, at, i) => {
       const prefab = prefabOf(thing);
-      putPrefab(prefab, at, Math.round((thing.rotate ?? 0) / 90), `furniture[${i}]`, thing.entity ?? prefab.entity);
+      putPrefab(prefab, at, Math.round((thing.rotate ?? 0) / 90), `furniture[${i}]`, thing.entity ?? prefab.entity ?? detailed(thing, prefab));
     },
     (thing) => turnedPrint(prefabPrint(prefabOf(thing)), 90 * Math.round((thing.rotate ?? 0) / 90)),
   );
@@ -953,7 +981,10 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     report.facts.push(`not compiled: ${found.message}`);
     report.faults.push("not compiled: the compilers were not found, so the leak test of the compiler and the light could not run");
   } else {
-    const result = compileMap(mapFile, { wads: [wadFile, ...gameWads], compilers: found, out: join(out, `${name}.bsp`) });
+    const result = compileMap(mapFile, { wads: [wadFile, ...gameWads], compilers: found, out: join(out, `${name}.bsp`), ...compileOptions(spec.compile) });
+    const limits = Object.entries(result.limits ?? {}).filter(([n]) => ["allocblock", "worldleaves", "worldfaces", "clipnodes", "models", "planes"].includes(n));
+    if (limits.length) report.facts.push(`the engine's limits: ${limits.map(([n, l]) => `${n} ${l.used} of ${l.most}`).join(", ")}`);
+    warnings.push(...result.warnings.filter((w) => /near the engine's limit/.test(w)));
     if (!result.bsp) report.faults.push(...result.errors);
     else {
       files.bsp = result.bsp;

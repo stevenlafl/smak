@@ -178,6 +178,8 @@ under a housing shows only from below); with `reference`, the person's picture b
 | `fgd` | Entity definitions to hold the entities against, beside the server's own (`--fgd`) |
 | `night` | true: a dark sky, a dim moon and the sky's own light far under it; the views draw the sky dark |
 | `sky`, `sun` | The sky's name (`desert`) and the sun's `{ pitch, yaw, brightness, color }`, for rooms under the sky |
+| `compile` | How the compilers run: `{ quality: "draft" \| "normal" \| "final", threads, light: { bounce, ao, extra, softShadows }, hulls: { large: false, crouch: false }, clipEconomy: true }`. Every program gets all the machine's threads unless told |
+| `detail` | `false` keeps furniture in the world; unless told, furniture is `func_detail` (below) |
 
 ### Rooms
 
@@ -247,7 +249,11 @@ as Hammer's are: its brushes and its entities (a candle's light) moved and turne
 named `SM_` and a word of the spec's materials (`SM_FURNITURE`). `furniture: [{ prefab: "table", room:
 "hall", at: "centre", rotate: 90 }]` puts one (turned by a multiple of 90). `entity: "func_breakable"` (or
 `{ class, keys... }`) makes its brushes a brush entity: a crate that breaks (`material: 1`, wood), a
-`func_wall`, a `func_illusionary`.
+`func_wall`, a `func_illusionary`. Unless told, furniture is a `func_detail`: it cuts no portals, so a
+furnished map is seen through by `hlvis` in hundredths of a second where it took minutes; it still stops a
+player, and it seals nothing (it never has to: the rooms' rock does). `as: "world"` keeps a piece in the
+world. The report carries the compilers' own chart of the engine's limits (`allocblock 3 of 64`,
+`worldleaves`, `worldfaces`, `clipnodes`), and warns from three quarters of any.
 
 ### Modules
 

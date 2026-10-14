@@ -89,9 +89,13 @@ export function classUnder(list, classname) {
 /** Brush entities a body climbs or swims up through: a ladder, and water that is an entity. */
 const LADDERS = /^func_ladder$/;
 const WATERS = /^func_water$/;
-/** Textures that make a brush nothing to a body; `clip` stops every body but the point. */
+/**
+ * Textures that make a brush nothing to a body; `clip` stops every body but the point. SOLIDHINT is not one:
+ * it seals every hull (measured with SDHLT: research/compiler-features.md); NOCLIP and NULLNOCLIP take a
+ * brush's clip hulls away, so a body passes them.
+ */
 const NOTHING_TO_A_BODY =
-  /^(origin|hint|skip|aaatrigger|contentwater|contentempty|boundingbox|noclip|solidhint)$/i;
+  /^(origin|hint|skip|aaatrigger|contentwater|contentempty|boundingbox|noclip|nullnoclip)$/i;
 const CLIP = /^clip/i;
 const LIQUID = /^(!|\*|water)/i;
 const SKY = /^sky/i;

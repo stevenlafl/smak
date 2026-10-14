@@ -29,7 +29,7 @@ import {
 } from "node:fs";
 import { join, resolve, dirname, basename, delimiter } from "node:path";
 import { fileURLToPath } from "node:url";
-import { tmpdir } from "node:os";
+import { tmpdir, availableParallelism } from "node:os";
 import { readMap } from "./source.mjs";
 import { TIMED_OUT, COULD_NOT_RUN } from "./compile-run.mjs";
 
@@ -238,6 +238,21 @@ function leakSentence(leak) {
   return `the map LEAKS: the space the entities are in is open to the void outside, through a gap between world brushes or because an entity is outside the map.${from}${out}${near} Close the gap with world brushes (brush entities seal nothing) and compile again`;
 }
 
+/** A share of an engine's limit from which a map is said to be near it. */
+const NEAR_LIMIT = 0.75;
+/**
+ * The engine's limits as the compilers' charts give them: `* AllocBlock 5/64`, `* worldleaves 771/8192`,
+ * `* worldfaces 2791/32768`, and the lumps' rows (`models 2/512 ...`). The last of each name: { name: { used, most } }.
+ */
+export function limitsOf(text) {
+  const limits = {};
+  for (const match of text.matchAll(/^\s*\*?\s*([A-Za-z]+)\s+(\d+)\s*\/\s*(\d+)/gm)) {
+    const [, name, used, most] = match;
+    if (Number(most) > 0) limits[name.toLowerCase()] = { used: Number(used), most: Number(most) };
+  }
+  return limits;
+}
+
 /**
  * The compilers' own .wad, kept beside them: the pictures of ORIGIN, CLIP, NULL, HINT, SKIP and the like.
  * VHLT's is zhlt.wad, SDHLT's sdhlt.wad.
@@ -374,6 +389,9 @@ function runTool(tool, file, args, workFolder, timeout, { progress = false, port
  *                nothing is seen until all four have ended
  *   keep         true keeps the folder the work was done in (the .pts of a leak, the .prt, the .log) and
  *                returns it as `work`
+ *   threads      how many threads each program uses (all the machine's, unless told; 0 leaves the program to
+ *                choose, which for SDHLT on Linux is one)
+ *   args         more for each program, `{ hlrad: ["-extra", "-bounce", 8], hlcsg: [...] }`, before the map's name
  *
  * It returns `{ bsp, logs, errors, warnings, facts, leak, portals, work }` (`facts`: what is to be known of a
  * result that is no fault: that a draft's light has no bounces). `bsp` is the path of the result, or null
@@ -398,6 +416,8 @@ export function compileMap(mapFile, options = {}) {
     timeout,
     progress = false,
     keep = false,
+    threads = availableParallelism(),
+    args: more = {},
   } = options;
   const result = { bsp: null, logs: [], errors: [], warnings: [], facts: [], leak: null, portals: null, work: null }; // prettier-ignore
   // what a draft is: said with its result, since its light is not the map's
@@ -439,11 +459,15 @@ export function compileMap(mapFile, options = {}) {
 
   const included =
     wadinclude === true ? ownWads.map((wad) => basename(wad).replace(/\.wad$/i, "")) : wadinclude || [];
+  // every program told how many threads to use: SDHLT on Linux uses one unless told (its threads.h), which
+  // made a hlvis of minutes into one of over ten (research/compiler-features.md)
+  const threading = threads ? ["-threads", String(threads)] : [];
+  const extra = (tool) => [more[tool] ?? []].flat().map(String);
   const steps = [
-    { tool: "hlcsg", args: [...included.flatMap((wad) => ["-wadinclude", wad]), base] },
-    { tool: "hlbsp", args: [base] },
-    vis && { tool: "hlvis", args: [...(fast ? ["-fast"] : []), base] },
-    light && { tool: "hlrad", args: [...(fast ? ["-fast"] : []), base] },
+    { tool: "hlcsg", args: [...threading, ...included.flatMap((wad) => ["-wadinclude", wad]), ...extra("hlcsg"), base] },
+    { tool: "hlbsp", args: [...threading, ...extra("hlbsp"), base] },
+    vis && { tool: "hlvis", args: [...threading, ...(fast ? ["-fast"] : []), ...extra("hlvis"), base] },
+    light && { tool: "hlrad", args: [...threading, ...(fast ? ["-fast"] : []), ...extra("hlrad"), base] },
   ].filter(Boolean);
   const limitFor = (tool) => (typeof timeout === "number" ? timeout : (timeout?.[tool] ?? TIMEOUTS[tool]));
 
@@ -479,6 +503,10 @@ export function compileMap(mapFile, options = {}) {
       }
     }
   }
+  // what the compilers say of the engine's limits (SDHLT prints a chart after each program): the last of each
+  result.limits = limitsOf(result.logs.map((log) => log.text).join("\n"));
+  for (const [name, { used, most }] of Object.entries(result.limits))
+    if (used / most >= NEAR_LIMIT) result.warnings.push(`${name} ${used} of ${most}: near the engine's limit`);
   if (!result.errors.length && !existsSync(`${base}.bsp`))
     result.errors.push("compileMap: the compilers ended well and left no .bsp: read their logs");
   if (!result.errors.length) {
