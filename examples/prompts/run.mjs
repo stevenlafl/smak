@@ -7,7 +7,8 @@
 // A case is a folder NN-name holding prompt.md (the person's words, the rubric and its score), spec.json
 // (what the words were turned into), and maybe drawing.png (a drawing or a picture the person gave) and
 // prefab specs the spec names by file. With no case named, all of them. --work is where the server writes
-// (a fresh temporary folder unless told); --compilers the map compilers' folder (SDHLT), else VHLT_DIR.
+// (a fresh temporary folder unless told); --compilers the map compilers' folder (SDHLT), else VHLT_DIR, else
+// ../SDHLT/tools beside the kit.
 // It ends with code 1 when any case's checks do not pass.
 import { spawn } from "node:child_process";
 import { createInterface } from "node:readline";
@@ -27,7 +28,10 @@ const option = (name) => {
   return value;
 };
 const work = option("--work") ?? mkdtempSync(join(tmpdir(), "smak-prompts-"));
-const compilers = option("--compilers") ?? process.env.VHLT_DIR;
+// the map compilers: as told, or VHLT_DIR, or SDHLT built beside the kit (git clone of seedee/SDHLT next
+// to smak, built with cmake: its programs land in SDHLT/tools)
+const beside = join(HERE, "..", "..", "..", "SDHLT", "tools");
+const compilers = option("--compilers") ?? process.env.VHLT_DIR ?? (existsSync(beside) ? beside : undefined);
 const cases = readdirSync(HERE)
   .filter((name) => /^\d\d-/.test(name) && existsSync(join(HERE, name, "spec.json")))
   .filter((name) => !words.length || words.some((word) => name.startsWith(word)))

@@ -1,0 +1,52 @@
+{
+  "spec": "smak.map/1",
+  "name": "cottage",
+  "theme": { "floor": "stone", "wall": "plaster", "ceiling": "planks", "door": "darkwood", "furniture": "wood" },
+  "textures": {
+    "brick": { "base": "brick" },
+    "boards": { "base": "planks" },
+    "linen": { "base": "cloth", "tone": [0.78, 0.74, 0.62] }
+  },
+  "prefabs": {
+    "fireplace": { "pieces": [
+      { "box": [[0, -48, 0], [32, 48, 6]], "texture": "brick" },
+      { "box": [[0, -56, 0], [32, -40, 64]], "texture": "brick" },
+      { "box": [[0, 40, 0], [32, 56, 64]], "texture": "brick" },
+      { "box": [[0, -60, 64], [36, 60, 76]], "texture": "brick" },
+      { "box": [[0, -44, 76], [24, 44, 160]], "texture": "brick" }
+    ] },
+    "bed": { "pieces": [
+      { "box": [[-84, -34, 0], [0, 34, 16]], "texture": "furniture" },
+      { "box": [[-82, -31, 16], [-6, 31, 24]], "texture": "linen" },
+      { "box": [[-6, -34, 0], [0, 34, 40]], "texture": "furniture" }
+    ] },
+    "shelves": { "pieces": [
+      { "box": [[-160, -16, 20], [160, 0, 24]], "texture": "furniture" },
+      { "box": [[-160, -16, 52], [160, 0, 56]], "texture": "furniture" },
+      { "box": [[-160, -16, 84], [160, 0, 88]], "texture": "furniture" },
+      { "box": [[-164, -16, 0], [-160, 0, 96]], "texture": "furniture" },
+      { "box": [[-2, -16, 0], [2, 0, 96]], "texture": "furniture" },
+      { "box": [[160, -16, 0], [164, 0, 96]], "texture": "furniture" }
+    ] }
+  },
+  "rooms": [
+    { "id": "main", "size": [384, 320, 160], "surfaces": { "floor": "boards" } },
+    { "id": "bedroom", "size": [256, 320, 144], "place": { "east_of": "main" }, "floor": 16 },
+    { "id": "pantry", "size": [384, 160, 128], "place": { "north_of": "main" } }
+  ],
+  "links": [
+    { "between": ["main", "bedroom"], "kind": "door" },
+    { "between": ["main", "pantry"], "kind": "opening", "along": 0.3 },
+    { "between": ["main", "pantry"], "kind": "window", "along": 0.7, "width": 64, "height": 40, "sill": 40 }
+  ],
+  "furniture": [
+    { "prefab": "fireplace", "room": "main", "at": [-192, 0] },
+    { "prefab": "bed", "room": "bedroom", "at": [128, 0] },
+    { "prefab": "shelves", "room": "pantry", "at": [0, 80] }
+  ],
+  "entities": [
+    { "class": "info_player_start", "room": "main", "at": "corner se", "facing": "west" },
+    { "class": "light", "room": "main", "at": [-172, 0], "height": 20, "keys": { "color": [255, 130, 40], "brightness": 180 } },
+    { "class": "monster_headcrab", "room": "pantry", "at": [60, -16], "facing": "south" }
+  ]
+}

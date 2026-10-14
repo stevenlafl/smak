@@ -378,7 +378,7 @@ export function buildMapSpec(spec, { out, compilers, folder } = {}) {
     hole.min[along] = w0;
     hole.max[along] = w0 + width;
     holes.push(hole);
-    report.facts.push(`links[${i}]: a ${kind} ${width} wide and ${height} high from ${a.id} to ${b.id} at ${along === 0 ? "x" : "y"} ${w0} to ${w0 + width}`);
+    report.facts.push(`links[${i}]: ${kind === "opening" ? "an" : "a"} ${kind} ${width} wide and ${height} high from ${a.id} to ${b.id} at ${along === 0 ? "x" : "y"} ${w0} to ${w0 + width}`);
     if (kind !== "window" && floorHigh - floorLow > STEP) {
       // stairs in the lower room, up to the doorway's floor, against the wall it is in
       const lower = a.min[2] < b.min[2] ? a : b;
