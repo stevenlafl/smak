@@ -5,8 +5,11 @@
 //   node examples/prompts/run.mjs [case ...] [--work <folder>] [--compilers <folder>]
 //
 // A case is a folder NN-name holding prompt.md (the person's words, the rubric and its score), spec.json
-// (what the words were turned into), and maybe drawing.png (a drawing or a picture the person gave) and
-// prefab specs the spec names by file. With no case named, all of them. --work is where the server writes
+// (what the words were turned into), and maybe drawing.png (a drawing or a picture the person gave),
+// focus.json (parts of a model to see close) and prefab specs the spec names by file. Its revisions/
+// folder holds the person's follow-up requests ("looks good, now add a fridge..."): NN-name.md (the words,
+// the rubric, the score) and NN-name.json (the spec as changed), built in order after the case, each one's
+// report saying what changed since the build before (result-NN-name/). With no case named, all of them. --work is where the server writes
 // (a fresh temporary folder unless told); --compilers the map compilers' folder (SDHLT), else VHLT_DIR, else
 // ../SDHLT/tools beside the kit. --fgd: an entity definitions file the maps are held against (again for
 // more); unless told, Half-Life's from the SDK in the Steam folder and SDHLT's own, where they are.
@@ -69,16 +72,16 @@ const request = (method, params) =>
 await request("initialize", { protocolVersion: "2025-06-18", capabilities: {}, clientInfo: { name: "prompts", version: "1" } });
 
 let failed = 0;
-for (const name of cases) {
-  const args = { spec: `models:${name}/spec.json` };
-  if (existsSync(join(HERE, name, "drawing.png"))) args.reference = `models:${name}/drawing.png`;
-  // a close look at parts too small to judge in the sheet, as the case's focus.json lists them
-  if (existsSync(join(HERE, name, "focus.json"))) args.focus = JSON.parse(readFileSync(join(HERE, name, "focus.json"), "utf8"));
+let built = 0;
+/**
+ * One build through the server, its report and pictures written to `out`: { ok, said }. `spec` is a path of
+ * the models folder (this one), `extra` more of the tool's arguments.
+ */
+async function buildOnce(label, spec, out, extra = {}) {
   const began = Date.now();
-  const answer = await request("tools/call", { name: "build", arguments: args });
+  const answer = await request("tools/call", { name: "build", arguments: { spec, ...extra } });
   const result = answer.result ?? { content: [{ type: "text", text: `ERROR ${answer.error?.message}` }], isError: true };
   const said = result.content.filter((piece) => piece.type === "text").map((piece) => piece.text).join("\n");
-  const out = join(HERE, name, "result");
   rmSync(out, { recursive: true, force: true });
   mkdirSync(out, { recursive: true });
   writeFileSync(join(out, "report.txt"), `${said}\n`);
@@ -86,9 +89,29 @@ for (const name of cases) {
     .filter((piece) => piece.type === "image")
     .forEach((piece, i) => writeFileSync(join(out, `picture-${i + 1}.png`), Buffer.from(piece.data, "base64")));
   const ok = !result.isError && said.startsWith("OK");
+  built++;
   if (!ok) failed++;
-  console.log(`${ok ? "ok  " : "FAIL"}  ${name}  (${((Date.now() - began) / 1000).toFixed(1)} s)${ok ? "" : `\n${said.split("\n").filter((line) => /^(NOT OK|ERROR|FAULT)/.test(line)).join("\n")}`}`);
+  const changes = said.split("\n").filter((line) => line.startsWith("CHANGED")).map((line) => `      ${line}`);
+  console.log(`${ok ? "ok  " : "FAIL"}  ${label}  (${((Date.now() - began) / 1000).toFixed(1)} s)${ok ? "" : `\n${said.split("\n").filter((line) => /^(NOT OK|ERROR|FAULT)/.test(line)).join("\n")}`}${changes.length ? `\n${changes.join("\n")}` : ""}`);
+  return { ok, said };
+}
+
+for (const name of cases) {
+  const args = {};
+  if (existsSync(join(HERE, name, "drawing.png"))) args.reference = `models:${name}/drawing.png`;
+  // a close look at parts too small to judge in the sheet, as the case's focus.json lists them
+  if (existsSync(join(HERE, name, "focus.json"))) args.focus = JSON.parse(readFileSync(join(HERE, name, "focus.json"), "utf8"));
+  await buildOnce(name, `models:${name}/spec.json`, join(HERE, name, "result"), args);
+  // the person's follow-up requests, each a spec of its own built after the last in the same work folder:
+  // the build then says what changed since the one before
+  const revisions = join(HERE, name, "revisions");
+  if (existsSync(revisions))
+    for (const file of readdirSync(revisions).filter((f) => /^\d\d-.*\.json$/.test(f)).sort()) {
+      const focus = file.replace(/\.json$/, ".focus.json");
+      const more = existsSync(join(revisions, focus)) ? { focus: JSON.parse(readFileSync(join(revisions, focus), "utf8")) } : {};
+      await buildOnce(`${name} / ${file.replace(/\.json$/, "")}`, `models:${name}/revisions/${file}`, join(revisions, `result-${file.replace(/\.json$/, "")}`), more);
+    }
 }
 child.stdin.end();
-console.log(`\n${cases.length - failed} of ${cases.length} cases pass their checks; the server wrote to ${work}`);
+console.log(`\n${built - failed} of ${built} builds (${cases.length} cases and their revisions) pass their checks; the server wrote to ${work}`);
 process.exit(failed ? 1 : 0);

@@ -724,12 +724,13 @@ await testAsync("the MCP server lists, describes, checks and draws maps", "mcp: 
   });
   const tools = (await server.request("tools/list")).result.tools;
   sure(
-    tools.map((tool) => tool.name).join() === "guide,models,info,check,render",
+    tools.map((tool) => tool.name).join() === "guide,models,info,check,render,build,entities",
     "a map needed a tool of its own",
   );
-  // what every conversation pays for: the descriptions of all the tools, kept short
+  // what every conversation pays for: the descriptions of all the tools, kept short (4200 for the five that
+  // read and draw; build and entities, which make from a spec without running code, add about 770)
   sure(
-    JSON.stringify(tools).length < 4200,
+    JSON.stringify(tools).length < 5000,
     `the tools are described in ${JSON.stringify(tools).length} characters`,
   );
 

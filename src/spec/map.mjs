@@ -176,6 +176,8 @@ export function withIncludes(spec, folder = ".") {
     const named = (thing) => ({
       ...thing,
       room: id(thing.room),
+      ...(thing.id && !thing.class ? { id: id(thing.id) } : {}),
+      ...(thing.at && typeof thing.at === "object" && thing.at.beside ? { at: { ...thing.at, beside: id(thing.at.beside) } } : {}),
       ...(typeof thing.facing === "string" && ids.has(thing.facing) ? { facing: id(thing.facing) } : {}),
       ...(typeof thing.at === "string" && /^near /.test(thing.at) && ids.has(thing.at.slice(5)) ? { at: `near ${id(thing.at.slice(5))}` } : {}),
     });
@@ -651,11 +653,43 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [] } = {}) {
     const o = mid(other);
     return Math.round((Math.atan2(o[1] - point[1], o[0] - point[0]) * 180) / Math.PI);
   };
-  const place = (list, what, each) =>
+  // where each thing with an `id` stands, in plan: { min: [x, y], max: [x, y] }; what `beside` goes by
+  const footprints = new Map();
+  const counted = {};
+  report.placed = [];
+  /** a thing put `beside` another: against the named side of its footprint, `gap` from it, lined up with its middle */
+  const besideOf = (at, own) => {
+    const other = footprints.get(at.beside);
+    if (!other) throw new Error(`beside "${at.beside}": no furniture, prop or entity of that id put before this one (${[...footprints.keys()].join(", ") || "none has an id"})`);
+    const side = at.side ?? "east";
+    const gap = at.gap ?? 4;
+    const middle = [(other.min[0] + other.max[0]) / 2, (other.min[1] + other.max[1]) / 2];
+    const ownMiddle = [(own.min[0] + own.max[0]) / 2, (own.min[1] + own.max[1]) / 2];
+    if (side === "east") return [other.max[0] + gap - own.min[0], middle[1] - ownMiddle[1]];
+    if (side === "west") return [other.min[0] - gap - own.max[0], middle[1] - ownMiddle[1]];
+    if (side === "north") return [middle[0] - ownMiddle[0], other.max[1] + gap - own.min[1]];
+    if (side === "south") return [middle[0] - ownMiddle[0], other.min[1] - gap - own.max[1]];
+    throw new Error(`beside: side is east, west, north or south, not ${side}`);
+  };
+  /** the corners of a footprint turned by `degrees` about its origin, and the box round them */
+  const turnedPrint = ({ min, max }, degrees) => {
+    const [c, s] = [Math.cos((degrees * Math.PI) / 180), Math.sin((degrees * Math.PI) / 180)];
+    const corners = [[min[0], min[1]], [max[0], min[1]], [min[0], max[1]], [max[0], max[1]]].map(([x, y]) => [x * c - y * s, x * s + y * c]);
+    return { min: [0, 1].map((k) => Math.min(...corners.map((p) => p[k]))), max: [0, 1].map((k) => Math.max(...corners.map((p) => p[k]))) };
+  };
+  const place = (list, what, each, printOf = () => ({ min: [-16, -16], max: [16, 16] })) =>
     (list ?? []).forEach((thing, i) => {
       try {
         const room = rooms.get(thing.room);
-        const xy = pointIn(room, thing.at);
+        const own = printOf(thing);
+        const xy = thing.at && typeof thing.at === "object" && !Array.isArray(thing.at) ? besideOf(thing.at, own) : pointIn(room, thing.at);
+        if (thing.id) footprints.set(thing.id, { min: [xy[0] + own.min[0], xy[1] + own.min[1]], max: [xy[0] + own.max[0], xy[1] + own.max[1]] });
+        // what was put where, under a name that stays the same from build to build: its kind and what it is,
+        // with its count among those (the second table of the room)
+        const name = thing.prefab ?? thing.model ?? thing.class ?? (thing.box ? `box ${thing.box.join("x")}` : what);
+        // (not its id: giving a thing an id, to put another beside it, is no change to the thing)
+        const key = `${what} ${name} #${(counted[`${what} ${name}`] = (counted[`${what} ${name}`] ?? 0) + 1)}`;
+        report.placed.push({ key, id: thing.id, what, name, room: room.id, at: [Math.round(xy[0]), Math.round(xy[1]), Math.round(room.min[2] + (thing.z ?? 0))], turn: thing.rotate ?? thing.facing ?? 0 });
         each(thing, room, [xy[0], xy[1], room.min[2] + (thing.z ?? 0)], i);
       } catch (error) {
         errors.push(`${what}[${i}]: ${error.message}`);
@@ -689,10 +723,26 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [] } = {}) {
     entities.push(...placed.entities);
     done();
   };
-  place(spec.furniture, "furniture", (thing, room, at, i) => {
-    const prefab = thing.prefab ? prefabs[thing.prefab] : { pieces: [{ box: [[-thing.box[0] / 2, -thing.box[1] / 2, 0], [thing.box[0] / 2, thing.box[1] / 2, thing.box[2]]], texture: thing.texture ?? "furniture" }] };
-    putPrefab(prefab, at, Math.round((thing.rotate ?? 0) / 90), `furniture[${i}]`, thing.entity ?? prefab.entity);
-  });
+  const prefabOf = (thing) =>
+    thing.prefab ? prefabs[thing.prefab] : { pieces: [{ box: [[-thing.box[0] / 2, -thing.box[1] / 2, 0], [thing.box[0] / 2, thing.box[1] / 2, thing.box[2]]], texture: thing.texture ?? "furniture" }] };
+  /** a prefab's footprint in its own space: the box round its pieces, or round its .map's brushes */
+  const prefabPrint = (prefab) => {
+    const points = prefab.file
+      ? readMap(readFileSync(resolve(folder ?? ".", prefab.file), "utf8")).brushes.flatMap((b) => b.faces.flatMap((f) => f.points))
+      : prefab.pieces.flatMap((piece) =>
+          piece.box ?? piece.wedge ?? (piece.cylinder ? [[piece.cylinder.centre[0] - piece.cylinder.radius, piece.cylinder.centre[1] - piece.cylinder.radius], [piece.cylinder.centre[0] + piece.cylinder.radius, piece.cylinder.centre[1] + piece.cylinder.radius]] : []),
+        );
+    return { min: [0, 1].map((k) => Math.min(...points.map((p) => p[k]))), max: [0, 1].map((k) => Math.max(...points.map((p) => p[k]))) };
+  };
+  place(
+    spec.furniture,
+    "furniture",
+    (thing, room, at, i) => {
+      const prefab = prefabOf(thing);
+      putPrefab(prefab, at, Math.round((thing.rotate ?? 0) / 90), `furniture[${i}]`, thing.entity ?? prefab.entity);
+    },
+    (thing) => turnedPrint(prefabPrint(prefabOf(thing)), 90 * Math.round((thing.rotate ?? 0) / 90)),
+  );
   for (const mark of marks) {
     if (!mark.meaning.prefab) continue;
     const room = [...rooms.values()].find((r) => mark.x > r.min[0] && mark.x < r.max[0] && mark.y > r.min[1] && mark.y < r.max[1]);
@@ -713,6 +763,8 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [] } = {}) {
   mkdirSync(join(out, "models"), { recursive: true });
   const modelFiles = {};
   const modelHeights = {};
+  /** each model's footprint in its own space, for `beside` */
+  const modelPrints = {};
   for (const [modelName, given] of Object.entries(spec.models ?? {})) {
     const modelSpec = given.file ? JSON.parse(readFileSync(resolve(folder ?? ".", given.file), "utf8")) : given;
     const built = buildModelSpec({ ...modelSpec, name: `${modelName}.mdl` }, { folder });
@@ -725,14 +777,22 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [] } = {}) {
     files[`model ${modelName}`] = file;
     modelFiles[modelName] = `models/${modelName}.mdl`;
     modelHeights[modelName] = Number(/([\d.]+) high \(z\)/.exec(built.report.facts[0])?.[1] ?? 32);
+    const parts = Object.values(built.report.parts);
+    modelPrints[modelName] = { min: [0, 1].map((k) => Math.min(...parts.map((part) => part.from[k]))), max: [0, 1].map((k) => Math.max(...parts.map((part) => part.to[k]))) };
     report.facts.push(`models.${modelName}: built and sound (${built.report.facts[0]})`);
   }
   const propsAt = [];
-  place(spec.props, "props", (thing, room, at) => {
-    propsAt.push({ room: room.id, at, half: modelHeights[thing.model] ? modelHeights[thing.model] / 2 : 16 });
-    const model = modelFiles[thing.model] ?? thing.model;
-    entities.push(pointEntity(thing.class ?? "cycler_sprite", at, { model, angles: [0, yawOf(room, thing.facing, at), 0], ...(thing.keys ?? {}) }));
-  });
+  place(
+    spec.props,
+    "props",
+    (thing, room, at) => {
+      propsAt.push({ room: room.id, at, half: modelHeights[thing.model] ? modelHeights[thing.model] / 2 : 16 });
+      const model = modelFiles[thing.model] ?? thing.model;
+      entities.push(pointEntity(thing.class ?? "cycler_sprite", at, { model, angles: [0, yawOf(room, thing.facing, at), 0], ...(thing.keys ?? {}) }));
+    },
+    // a prop's footprint: its model's, turned as it faces (a facing that names a room counts as unturned)
+    (thing) => turnedPrint(modelPrints[thing.model] ?? { min: [-16, -16], max: [16, 16] }, isNumber(thing.facing) ? thing.facing : FACINGS[thing.facing] ?? 0),
+  );
   // the entities
   place(spec.entities, "entities", (thing, room, at) => {
     const yaw = yawOf(room, thing.facing, at);

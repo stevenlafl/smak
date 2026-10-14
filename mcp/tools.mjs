@@ -22,6 +22,7 @@ import { filesUnder, pathOf } from "./folders.mjs";
 import { guide } from "./guide.mjs";
 import { buildModelSpec } from "../src/spec/model.mjs";
 import { buildMapSpec } from "../src/spec/map.mjs";
+import { summaryOf, changesOf } from "../src/spec/changes.mjs";
 import { run, pictureWithin, TIMEOUT_SECONDS, OUTPUT_MOST, SHOWN_MOST, PICTURE_MOST } from "./run.mjs";
 
 /** A picture's longer side in pixels when the call does not say: of one view, and of several in one. */
@@ -618,6 +619,19 @@ function besideOf(first, second) {
   return { width, height: second.height, rgba };
 }
 
+/**
+ * Against the last build of the same name in `folder`: what changed, as lines ("CHANGED ..."), and the new
+ * summary kept for the next. A first build says nothing.
+ */
+function changedSince(folder, base, kind, spec, report) {
+  const file = join(folder, `${base}.built.json`);
+  const now = summaryOf(kind, spec, report);
+  const before = existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : null;
+  writeFileSync(file, `${JSON.stringify(now, null, 1)}\n`);
+  if (!before || before.kind !== kind) return [];
+  return changesOf(before, now).lines.map((line) => `CHANGED since the last build of ${base}: ${line}`);
+}
+
 /** A report as lines: its verdict first, then what is wrong, then what was found. */
 function reportLines(report) {
   const lines = [report.ok ? "OK: built, and every check passed" : "NOT OK: fix what is below and build again"];
@@ -654,6 +668,7 @@ function build(folders, args) {
     writeFileSync(join(out, `${name}.spec.json`), `${JSON.stringify(spec, null, 2)}\n`);
     const { report, files } = buildMapSpec(spec, { out, compilers: folders.compilers, folder, fgd: folders.fgd ?? [] });
     const lines = reportLines(report);
+    if (report.rooms && Object.keys(report.rooms).length) lines.splice(1, 0, ...changedSince(out, name, "map", spec, report));
     lines.push(`written: ${Object.values(files).map((file) => `work:${file.slice(folders.work.length + 1)}`).join(", ")}`);
     const plan = files.plan ?? files["plan-source"];
     if (plan) {
@@ -675,11 +690,12 @@ function build(folders, args) {
     const base = name.replace(/\.mdl$/i, "");
     writeFileSync(join(folders.work, name), mdl);
     writeFileSync(join(folders.work, `${base}.spec.json`), `${JSON.stringify(spec, null, 2)}\n`);
+    lines.splice(1, 0, ...changedSince(folders.work, base, "model", spec, report));
     const six = smak.sheet(mdl, { seq: 0, size: 256 });
     writeFileSync(join(folders.work, `${base}-sheet.png`), smak.png(six.width, six.height, six.rgba));
     lines.push(`written: work:${name} (${mdl.length} bytes), work:${base}.spec.json, work:${base}-sheet.png`);
     show(six);
-    if (reference) show(besideOf(reference, smak.render(mdl, { seq: 0, yaw: args.yaw ?? 35, pitch: args.pitch ?? 20, width: 512, height: 512 })));
+    if (reference) show(besideOf(reference, smak.render(mdl, { seq: 0, yaw: 35, pitch: 20, width: 512, height: 512 })));
     // a close look at the parts asked for, from two sides: what a sheet of the whole is too small to show
     const focus = [args.focus ?? []].flat().filter(Boolean);
     if (focus.length) {
@@ -840,14 +856,12 @@ export function toolsFor(folders, { allowRun = true } = {}) {
     {
       name: "build",
       description:
-        'A model or a map from a spec (JSON; guide { doc: "spec" } says how to write one from a person\'s words or drawing): built, checked for holes, gaps, faces turned inwards, leaks and reach, compiled and drawn. Returns OK or what to fix, and pictures. Runs no code of the client\'s.',
+        'A model or map from a JSON spec (guide { doc: "spec" }): built, checked (holes, gaps, leaks, reach, light), compiled, drawn. Says OK or what to fix, and what changed since the last build.',
       inputSchema: object(
         {
-          spec: { description: "the spec as an object or JSON text, or a .json file under the work or models folder" },
-          reference: { type: "string", description: "a PNG of the person's (a drawing, a picture), drawn beside the result" },
-          yaw: { type: "number", description: "with reference: the model's side shown beside it (35)" },
-          focus: { type: "array", items: { type: "string" }, description: "a model's part ids to see close: from the front, the back and below" },
-          pitch: { type: "number" },
+          spec: { description: "the spec, or a .json file of the folders" },
+          reference: { type: "string", description: "a PNG drawn beside the result" },
+          focus: { type: "array", items: { type: "string" }, description: "model parts to see close" },
         },
         ["spec"],
       ),
@@ -855,12 +869,8 @@ export function toolsFor(folders, { allowRun = true } = {}) {
     },
     {
       name: "entities",
-      description:
-        "The entity classes of the game's FGD (and the compilers'): a line each; with class, its keys, types, defaults, choices and flags. Write a map's entities from these, never from memory.",
-      inputSchema: object({
-        match: { type: "string", description: "only classes whose name or description holds this" },
-        class: { type: "string", description: "one class: its keys" },
-      }),
+      description: "The FGD's entity classes; with class, its keys, choices and flags. Write entities from these.",
+      inputSchema: object({ match: { type: "string" }, class: { type: "string" } }),
       call: (args) => entities(folders, args),
     },
     {
