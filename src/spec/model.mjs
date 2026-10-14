@@ -553,6 +553,42 @@ function zoneSizeOf(part, hostOf) {
  * part on its surface needs ({ surface, from, to }: the turned surface and its first and last ring's s) and
  * its axis's two ends.
  */
+/**
+ * A leaf's grid with the columns of points left out that every row keeps within LEAF_TOLERANCE of the line
+ * between the columns kept either side of them (Douglas-Peucker, across the rows at once): the outline as the
+ * game shows it, and a triangle of each side for a quad saved. The same rule as a ring's sides, half a unit off its
+ * circle on a prop: this is a quarter.
+ */
+const LEAF_TOLERANCE = 0.25;
+function leanerRows(rows) {
+  const n = rows[0].length;
+  if (n <= 2 || rows.some((row) => row.length !== n)) return rows;
+  const off = (p, a, b) => {
+    const ab = [0, 1, 2].map((k) => b[k] - a[k]);
+    const ap = [0, 1, 2].map((k) => p[k] - a[k]);
+    const l2 = ab[0] ** 2 + ab[1] ** 2 + ab[2] ** 2 || 1;
+    const t = Math.max(0, Math.min(1, (ap[0] * ab[0] + ap[1] * ab[1] + ap[2] * ab[2]) / l2));
+    return Math.hypot(...[0, 1, 2].map((k) => ap[k] - t * ab[k]));
+  };
+  const keep = new Set([0, n - 1]);
+  const split = (i, j) => {
+    let worst = -1;
+    let at = -1;
+    for (let k = i + 1; k < j; k++) {
+      const d = Math.max(...rows.map((row) => off(row[k], row[i], row[j])));
+      if (d > worst) [worst, at] = [d, k];
+    }
+    if (worst > LEAF_TOLERANCE) {
+      keep.add(at);
+      split(i, at);
+      split(at, j);
+    }
+  };
+  split(0, n - 1);
+  const kept = [...keep].sort((a, b) => a - b);
+  return rows.map((row) => kept.map((k) => row[k]));
+}
+
 function buildPart(part, M, S, zone, px, material, hostSurface, capZones = []) {
   for (const capZone of capZones) if (capZone) S.zone(capZone, zonePainter(material, capZone, px), 2);
   const painterRound = ["turn", "cylinder", "sphere", "superquadric", "tube"].includes(part.kind) ? "v" : null;
@@ -636,11 +672,12 @@ function buildPart(part, M, S, zone, px, material, hostSurface, capZones = []) {
     }
     case "leaf": {
       const bend = part.bend ?? 0;
-      const rows = part.rows ?? [0, 0.5, 1].map((t) =>
+      const given = part.rows ?? [0, 0.5, 1].map((t) =>
         [-0.5, 0, 0.5].map((u) => [u * part.width, bend * (1 - 4 * u * u) * Math.sin(Math.PI * t), t * part.height]),
       );
+      const rows = part.rows ? leanerRows(given) : given;
       M.leaf(rows, zone, { name: part.id });
-      return {};
+      return { leaner: given[0].length - rows[0].length };
     }
     case "band": {
       const { surface, from, to } = hostSurface;
@@ -687,6 +724,7 @@ function kitPiece(part) {
  */
 function piecesOf(given, context) {
   const warnings = [];
+  const facts = [];
   const spec = context.skeleton ? { ...given, parts: given.parts.map((part) => (part.span ? atSpanLength(part, context.skeleton) : part)) } : given;
   const prefabs = { ...context.prefabs, ...(spec.prefabs ?? {}) };
   const byId = new Map(spec.parts.map((part) => [part.id, part]));
@@ -725,6 +763,7 @@ function piecesOf(given, context) {
       const panels = part.panels?.map((panel) => (panel.material ? { ...panel, material: materialFor({ material: panel.material }) } : panel));
       const made = buildPart(panels ? { ...part, panels } : part, M, S, zones[part.id], zones.px, materialFor(part), host?.made, capZones);
       built.set(part.id, { made, mesh: meshes.length, range: [start, M.tris.length], host: host ? part.on.part : null });
+      if (made.leaner) facts.push(`${part.id}: ${made.leaner} of its grid's ${part.rows[0].length} columns of points left out, each within ${LEAF_TOLERANCE} of the line through its neighbours`);
     }
     meshes.push({ tris: M.tris, image: S.image(), flags, name: `sheet${n}` });
     // marks painted on the parts that have them, in each part's own space, before it is placed
@@ -959,7 +998,7 @@ function piecesOf(given, context) {
       }
     }
   }
-  return { meshes, warnings };
+  return { meshes, warnings, facts };
 }
 
 /**
@@ -1129,6 +1168,7 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, hide =
     return { mdl: null, report };
   }
   warnings.push(...pieces.warnings);
+  report.facts.push(...(pieces.facts ?? []));
   const { meshes } = pieces;
   // parts painted into what they sit on: built, baked into the faces under them, and left out
   const baked = spec.parts.filter((part) => part.paint === true).map((part) => part.id);

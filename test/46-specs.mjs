@@ -335,6 +335,15 @@ test("a map spec's doors: one on hinges, one that slides all the way up, and the
   sure(under, `solid under the doorway at ${x}, ${y}`);
 });
 
+test("a model spec's leaf drops the points that lie on the line between their neighbours, and keeps a bend", () => {
+  const row = (z) => [[0, 0, z], [2, 0.05, z], [4, 0.1, z], [6, 0, z], [8, 3, z], [10, 0, z]];
+  const spec = { spec: "smak.model/1", name: "l.mdl", kind: "piece", parts: [{ id: "sheet", kind: "leaf", material: "cloth", rows: [row(0), row(4)] }] };
+  const { report } = buildModelSpec(spec);
+  // the three nearly straight ones from 0 to 6 go, the peak at 8 stays: 6 columns become 4, 3 quads a side
+  sure(report.facts.some((f) => /sheet: 2 of its grid's 6 columns of points left out/.test(f)), report.facts.filter((f) => /sheet/.test(f)).join("; "));
+  sure(report.facts.some((f) => /^12 triangles/.test(f)), report.facts.filter((f) => /triangles/.test(f)).join("; "));
+});
+
 test("a map spec keeps its ways through at ease: no furniture in front of a door, no wall too short for one", () => {
   const spec = (furniture, size = [256, 256, 128]) => ({
     spec: "smak.map/1", name: "ways",
