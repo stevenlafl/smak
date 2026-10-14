@@ -1,0 +1,163 @@
+{
+ "subject": "battery",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.999,
+   "left/right": 1,
+   "top/below": 1
+  },
+  "size": {
+   "original": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "reproduction": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "offShare": [
+    0,
+    0,
+    0.001
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 7.2,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 7,
+     "shared": 0.999
+    },
+    {
+     "view": "left",
+     "deltaE": 7.3,
+     "shared": 1
+    },
+    {
+     "view": "back",
+     "deltaE": 7,
+     "shared": 0.999
+    },
+    {
+     "view": "right",
+     "deltaE": 7.1,
+     "shared": 1
+    },
+    {
+     "view": "top",
+     "deltaE": 6.9,
+     "shared": 1
+    },
+    {
+     "view": "below",
+     "deltaE": 3.9,
+     "shared": 0.575
+    },
+    {
+     "view": "front-left",
+     "deltaE": 8.3,
+     "shared": 0.997
+    },
+    {
+     "view": "front-right",
+     "deltaE": 8.2,
+     "shared": 0.998
+    },
+    {
+     "view": "back-left",
+     "deltaE": 7.9,
+     "shared": 0.998
+    },
+    {
+     "view": "back-right",
+     "deltaE": 8.1,
+     "shared": 0.998
+    }
+   ]
+  },
+  "triangles": {
+   "original": 116,
+   "reproduction": 260
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 1
+ },
+ "lineup": {
+  "picked": "B",
+  "right": "B",
+  "letters": {
+   "A": "models/w_security.mdl",
+   "B": "models/w_battery.mdl",
+   "C": "models/w_longjump.mdl",
+   "D": "models/filecabinet.mdl",
+   "E": "models/can.mdl",
+   "F": "models/forklift.mdl",
+   "G": "models/w_medkit.mdl",
+   "H": "models/w_9mmclip.mdl",
+   "I": "models/headcrab.mdl",
+   "J": "models/mbarrel.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The outline matches in all six views. Measured overlap is 0.999 front/back and 1.0 left/right and top/below. Nothing sticks out or is missing: the octagonal body, the chamfered dark base, the tilted yellow-striped flap and the round cap on top all line up with the original."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length, width and height are 10.3 x 10.3 x 18.4 in both, an exact match (offShare at most 0.001)."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "All the parts are there, the right number of each, in the right places and shapes: four green glass panels on the faces, four white side lights on the corners, the small red/orange lamp above each panel, the yellow hazard band, the dark chamfered base, the white rim at the top, the round cap with its centre hole and the tilted striped flap on its block. From below, the original's underside is open and shows the background through the frame. The reproduction shows a grey surface there instead, probably the inside of the lid. That only shows from directly underneath and is not a new part."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured mean deltaE is 7.2, every view under 8.5. Each region keeps the original's colour and material: worn tan-grey metal, glowing teal glass, yellow-on-dark hazard stripes, grey metal on top, near-black base."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The markings are all there and in place: hazard stripes, panel glow, red lamps, white lights, rim. But the texture is visibly softer and blurrier than the original's, most of all on the body's wear streaks. On the top parts (the flap's block and the cap's base, clearest in the front-left, front-right and top views) the texture is patchy and smeared, with stray yellow and grey blotches where the original is clean grey metal with crisp stripes."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "At the size the game shows it, the reproduction reads as the same battery: same shape, glowing teal panels, hazard band and top fittings. Only the softer texture and the smeared top parts differ, and neither shows at play distance."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "It is upright and faces the same way: the flap is top-left in the front view and top-right in the back view, as in the original. It sits on its base at the same height in every side view."
+  },
+  "M8": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "SMAK's check passes with no errors, and nothing is floating or inside out. But it has 260 triangles against the original's 116, more than twice (the limit is 232), so it fails the triangle limit."
+  }
+ },
+ "total": 14,
+ "of": 16,
+ "passes": false
+}

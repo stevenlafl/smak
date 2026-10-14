@@ -1,19 +1,14 @@
-I built `work:forklift.mdl` and the last build says **OK**, with every check passing. It's the right size: 187 long, 61 wide and 113.4 high, standing on the floor.
+I built `forklift.mdl` and the last build says OK: every check passes. It's 186.3 units long, 60 wide and 113.4 high, against the 186.6 × 60 × 113.4 you asked for (0.3 short on length).
 
-**How it's made:** 28 parts made of boxes, rounded blocks, cylinders and tubes, placed using measurements I took off the reference sheet (about 2.15 pixels per unit):
-- **Lift:** the forks, the fork uprights, the carriage plate, the mast rails and the cap on top of the mast.
-- **Truck:** the red chassis and front fenders, the rounded white front body, the steering column and wheel, the white middle body and rear hood, the back bumper, and four tyres.
-- **Seat and roof cage:** a black seat and seat back, the roof, and its posts (the front ones slanted).
-- **Driver:** a seated figure with a yellow hard hat, head, torso, arms, legs and boots.
+**How it's made:** 35 pieces cover the forks, the full-width carriage plate, the two mast rails with a top plate, the red chassis and side skirts, and four tyres. The white body is three pieces (the front cowl, the rear counterweight and its raised top hump), with a dark rear bumper behind them. Then come the seat cushion and backrest, the roof with two upright back posts and two slanted front posts, the steering column and wheel, and the driver: body, head, yellow hard hat, arms, legs and boots. All ten of your pictures (the six sides and the four close angles) are laid onto the shape as its texture. That carries the colours and markings: the "HAIHAN" stripe, the "2.2" decal, the rear grille, the chain on the mast, the roof's tread pattern, and the driver's green overalls.
 
-All 10 of your pictures are projected onto it for colour and markings: the six flat sides and the four close angles. That carries over the red and white paint, the HAIHAN and "2.2 LITER" lettering, the orange chain on the mast, the rear lights and plate, the mesh on the roof and the driver's green overalls.
+**What I checked:** I compared the six sides against `sides.png`, and the front-left and back-right angles against your pictures. The outline, the proportions and the colours line up.
 
-**How it compares:**
-- I put my renders next to the references for the side, below, front-left, front-right and back-left views. The outlines, the positions of the parts and the colours line up closely.
-- The underside was the one obvious mismatch. The original is open underneath, so from below you see up into the cab and the driver. My first build showed a solid red chassis bottom there; I changed the chassis base colour to dark grey, and now the picture's view of the driver comes through as it does in the original.
+**What doesn't match:**
+- **Driver:** the body is simpler and a bit blockier than in the original.
+- **Gaps behind the carriage plate:** the original has some openings there; on mine it's a solid plate with those openings painted on.
+- **Front cowl:** it's one rounded block, so the slanted dark dashboard comes from the texture rather than the shape.
 
-**What isn't the same:**
-- My rear hood, front body and the driver's limbs are simpler shapes than the original's. Up close the driver is lumpier, though at the judging distance the outlines match.
-- It's 1,448 triangles. That's well within what the engine allows, but the build warns that it's more than most Half-Life props of this size. Most of it goes on the rounded parts, the wheels and the driver.
+**Triangle count:** it's 880. The build warns about that, because most Half-Life props this size have fewer than 288. It's within what the engine can handle. Getting near 288 would mean painting on the driver's limbs, the steering wheel and the posts instead of building them, which would cost outline detail at the close angles. I kept the detail.
 
-Files are in the work folder: `forklift.mdl`, `forklift.spec.json` and `forklift-sheet.png`.
+The model and its spec are in the work folder as `forklift.mdl` and `forklift.spec.json`.

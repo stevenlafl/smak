@@ -112,49 +112,49 @@
    "judge": 0,
    "cap": 0,
    "score": 0,
-   "reason": "The reproduction is a plain rectangular box that fills the whole bounding box. Measured silhouette overlap is 0.642 front/back, 0.31 left/right and 0.579 top/below, all under 0.80. In the side views the original has an open frame: a mast at one end, forks sticking out low along the floor, a cab cage and wheels with space between them. The box fills the full rectangle, so it has bulk where the original has none (above the forks, around the cage). In the top and below views the box has no fork tines and no narrow mast."
+   "reason": "The reproduction is a single solid rectangular box. The measured silhouette overlap is 0.642 front/back, 0.31 left/right and 0.579 top/below, all well under 0.80. The side views fill the whole bounding rectangle, where the original shows the open mast, the overhead guard, the gap under the body between the wheels and the thin forks reaching forward. Top and below are solid rectangles, where the original has two separate fork tines and a narrow mast."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured extents are identical: 186.6 x 60 x 113.4 for both, with 0 off-share on every axis, which is inside 10% of length, width and height."
+   "reason": "Length, width and height (186.6 x 60 x 113.4) match the original exactly. The measured off-share is 0 on every axis."
   },
   "M3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "None of the original's parts are there. Missing: the two forks, the mast with its lift chains, the overhead guard and cage, the four wheels, the red chassis, the white engine body with its rear grille, the seat and steering wheel, and the seated driver in the yellow hard hat and green overalls. The reproduction is one six-sided box."
+   "reason": "None of the original's parts are there: no wheels (four, with hubs), no forks, no mast with lift chains, no overhead guard, no seat or steering wheel, no rear counterweight or engine grille, no driver in green overalls and yellow hard hat. It is one undivided box."
   },
   "M4": {
    "judge": 0,
    "cap": 1,
    "score": 0,
-   "reason": "Measured mean colour difference is 25 (CIE76 delta E), and every view is over 15 (21.6 to 29.2). The box is uniform grey concrete or stone everywhere. The original has white painted body panels, a red chassis band, black rubber tyres, a dark metal mast and forks, and a green and yellow driver. None of these regions has its colour or material."
+   "reason": "Measured mean deltaE is 25, against a pass line of 15 (21.6 to 29.2 per view). The whole box is one flat mid-grey concrete-like material. The original has a white and grey painted body, a red lower chassis band, a black mast and forks, black tyres and the driver's green clothing and yellow helmet. None of these regions has its colour or material."
   },
   "M5": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The original's surface detail is all missing: the 'HAIMAN' lettering on the red side band, the '2.2' capacity marking on the body side, the rear grille slats, the mesh roof of the overhead guard and the chain detail on the mast. The box carries only a generic mottled grey texture with lighter edge trim, which belongs to nothing on the original."
+   "reason": "None of the original's surface detail is there: the 'HANAN' lettering on the red band, the '2.2' capacity marking on the body side, the rear grille slats, the mesh roof of the overhead guard, the dark front plate on the mast. The box has only a generic grey stone grain with lighter edge trim, which does not belong to the original."
   },
   "M6": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Side by side at game size, no player would take a grey block for a forklift with a driver. It reads as a crate or a wall block, with nothing in its outline, colour or parts that suggests the original."
+   "reason": "At game size, no player would take a plain grey block for a forklift with a driver. The two look nothing alike in any view."
   },
   "M7": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The box sits in the original's exact bounds, upright and resting on the same floor plane as the original's wheels and forks, so its placing on the origin matches. It has no front, though. All four sides look the same, so nothing shows that its front is where the original's forks face."
+   "reason": "It sits upright on the same bounding box and footprint as the original, so it stands on its origin as the original does. But a symmetric box has no front: there is no mast end or counterweight end to show it faces the original's way."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The harness reports no check errors for GoldSrc. 12 triangles is well under twice the original's 749. The box is closed, faces outward and rests on the ground, with nothing floating."
+   "reason": "SMAK's check reports no errors. It has 12 triangles against the original's 749, far under twice. The box is closed, faces outward and rests on the ground, with nothing floating."
   }
  },
  "total": 5,

@@ -1,0 +1,35 @@
+{
+  "spec": "smak.map/1",
+  "name": "compile_probe",
+  "wads": [
+    "halflife.wad"
+  ],
+  "theme": {
+    "floor": {
+      "texture": "crete2_flr01"
+    },
+    "wall": {
+      "texture": "c3a1b_w1"
+    },
+    "ceiling": {
+      "texture": "babtech_ceil01"
+    }
+  },
+  "rooms": [
+    {
+      "id": "hall",
+      "size": [
+        256,
+        256,
+        128
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "hall",
+      "at": "centre"
+    }
+  ]
+}

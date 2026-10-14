@@ -1,18 +1,20 @@
-I've built `work:medkit.mdl`. The build says **OK** with every check passing, and the engine check says it fits GoldSrc: 488 triangles, one 512x512 texture, one bone.
+`medkit.mdl` is built, the build says **OK** and the engine check says "fit for goldsrc". It's in the server's work folder as `work:medkit.mdl`, with its spec at `work:medkit.spec.json`.
 
-**Size:** 34.6 long, 26.6 wide (26.4 asked; the strap's outward tilt adds 0.2) and 6.8 high, standing on the floor. Each view's outline matches its picture at 0.99 or better (1.0 is a perfect match).
+**Size:** 34.3 long, 26.2 wide and 6.7 high, against the 34.6 × 26.4 × 6.8 you asked for, so within about 1%.
 
-**How it's made:**
-- **Case outline:** carved from your six views, cropped to leave the strap out. The chamfered corners, sloped top edges and the slight tilt toward the back all come from the pictures.
-- **Screen slot:** carving can't make a hollow, so I built the case in pieces to leave a real recess at the front. It has a steep wall with the knobs on it and a screen floor that slopes down toward the back. From the two front angles you now see mostly the knob face and only a thin strip of screen, as in your pictures.
-- **Strap:** a thin band 3.5 high that follows the loop from the top view and ends at the black side panels. It's tilted slightly outward so it shows as a thin line from above.
-- **Colours and markings:** your pictures are projected onto it as its texture. That covers the "FIRST AID" text and red cross, the arrows on the sides, the screen with its red and green buttons, the knob panels and the strap. "FIRST AID" only came out readable once I raised the texture to 512x512, which GoldSrc draws as painted.
+**Shape:**
+- **Case:** carved from your side pictures, so it has the chamfered corners and the sloped top edges. It's three pieces: the back block plus a left and right arm. That leaves the open well at the front where the screen sits sunken, as in the original. A single carved block would have filled the well in.
+- **Well floor:** a dark block 4.2 high carrying the screen and the red and green buttons.
+- **Strap:** a ribbon 3.4 high standing on the floor, following the loop's path from the top view. It's a thin sheet seen from both sides.
 
-I put each of the four angle views beside my render of the same angle, and they line up closely, including the slot.
+**Colours and markings:** all of them are projected from your pictures onto the case: the red cross, "FIRST AID", the red arrows on the sides, the black speaker panels, and the screen and buttons. The strap takes its mottled grey-brown from the four straight views only. When the angled views also landed on it, they left white dashes.
 
-**Where it differs:**
-- **Underside:** your "below" picture is empty because the original has no bottom faces. The build rejects an open bottom as a fault, so I painted the bottom close to the backdrop colour. From below it shows as a faint dark shape where the original shows nothing; in the game the bottom lies on the floor.
-- **Slot side walls:** they're upright, where the original's lean outward a little.
-- **Triangle count:** the build warns that 488 triangles is high for a pickup this size, where Half-Life's median is 62. It's a warning, not a fault. I kept the count for a tighter outline; trimming the carved pieces would get it under 300 at some cost to the outline.
+**Engine limits:** 206 triangles on one 512×512 texture (512 is GoldSrc's largest texture side). The build warns that this is above Half-Life's usual count for a prop this size (three quarters are under 156). That's a warning, not a fault.
 
-The spec is saved beside the model as `work:medkit.spec.json`.
+**How it compares at your camera angles:**
+- The outlines of the carved pieces match each of their views at 0.96 to 1.0, where 1.0 is exact.
+- The four close angles look very close to the originals.
+- The original's strap looks a bit wider in the angled views. It may lean outward a little; mine stands straight up.
+- The original's well has a grey sloped flap on its inner left wall. Mine shows that only as painted texture, not as a shape.
+
+**One workaround:** your "below" picture is empty, which means the original has no bottom faces. The kit can't leave a carved part open at the bottom, so I painted the bottom faces a slate close to the picture background. From below it now nearly vanishes rather than showing a grey plate. In a game the bottom would be an opaque dark plate, but nobody sees the underside of a pickup lying on the floor.

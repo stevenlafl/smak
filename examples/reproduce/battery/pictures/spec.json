@@ -3,26 +3,36 @@
   "name": "battery.mdl",
   "kind": "prop",
   "size": {
+    "height": 18.4,
     "length": 10.3,
-    "width": 10.3,
-    "height": 18.4
+    "width": 10.3
   },
+  "smooth": 80,
   "texture": {
     "width": 512,
     "height": 512
   },
-  "smooth": 80,
   "finish": false,
+  "materials": {
+    "hollow": {
+      "base": "paint",
+      "seen": [
+        0.22,
+        0.235,
+        0.275
+      ]
+    }
+  },
   "parts": [
     {
       "id": "battery",
       "kind": "carved",
+      "material": "hollow",
       "size": [
         10.3,
         10.3,
         18.4
       ],
-      "material": "metal",
       "sheet": "work:pictures/sides.png",
       "pictures": [
         {
@@ -47,7 +57,7 @@
         }
       ],
       "cells": 128,
-      "triangles": 260
+      "triangles": 150
     }
   ],
   "project": [

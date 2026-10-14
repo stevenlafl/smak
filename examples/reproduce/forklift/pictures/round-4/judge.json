@@ -1,0 +1,163 @@
+{
+ "subject": "forklift",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.918,
+   "left/right": 0.739,
+   "top/below": 0.905
+  },
+  "size": {
+   "original": [
+    186.6,
+    60,
+    113.4
+   ],
+   "reproduction": [
+    187,
+    61,
+    113.4
+   ],
+   "offShare": [
+    0.002,
+    0.017,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 7.1,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 6.5,
+     "shared": 0.899
+    },
+    {
+     "view": "left",
+     "deltaE": 7.2,
+     "shared": 0.744
+    },
+    {
+     "view": "back",
+     "deltaE": 6.1,
+     "shared": 0.921
+    },
+    {
+     "view": "right",
+     "deltaE": 7.4,
+     "shared": 0.726
+    },
+    {
+     "view": "top",
+     "deltaE": 5.3,
+     "shared": 0.899
+    },
+    {
+     "view": "below",
+     "deltaE": 4.7,
+     "shared": 0.751
+    },
+    {
+     "view": "front-left",
+     "deltaE": 8.4,
+     "shared": 0.799
+    },
+    {
+     "view": "front-right",
+     "deltaE": 8.3,
+     "shared": 0.804
+    },
+    {
+     "view": "back-left",
+     "deltaE": 8.8,
+     "shared": 0.832
+    },
+    {
+     "view": "back-right",
+     "deltaE": 8.6,
+     "shared": 0.83
+    }
+   ]
+  },
+  "triangles": {
+   "original": 749,
+   "reproduction": 1448
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 1,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "B",
+  "right": "B",
+  "letters": {
+   "A": "models/w_battery.mdl",
+   "B": "models/forklift.mdl",
+   "C": "models/can.mdl",
+   "D": "models/filecabinet.mdl",
+   "E": "models/w_security.mdl",
+   "F": "models/w_longjump.mdl",
+   "G": "models/w_9mmclip.mdl",
+   "H": "models/headcrab.mdl",
+   "I": "models/w_medkit.mdl",
+   "J": "models/mbarrel.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "The left/right silhouette overlap is 0.739, below the 0.80 line, so this cannot be a 2. In the side views the rear counterweight has a square, boxy end where the original's is rounded. The driver's head and hard hat also have a different outline. Front/back (0.918) and top/below (0.905) are fine."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured size is 187 x 61 x 113.4 against 186.6 x 60 x 113.4. Every axis is within 2%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "All the parts are there: the mast with its two uprights, the carriage backplate, two forks, the overhead guard, the seat, the steering wheel, four wheels, the rear grille, the counterweight and the seated driver. Two are the wrong shape. The driver's yellow hard hat and head are deformed: in the front, back and close views the hat reads as a split, horned shape and the face is lost. The counterweight is a square block instead of the original's rounded rear, which shows from below and in the back-left and back-right views."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The colours match region by region: white body, red lower frame and wheel arches, dark grey and black mast and forks, the driver's green coveralls and yellow hat, black tyres. The measured mean colour difference is 7.1 (worst view 8.8), under 15."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The HAIHAN lettering, the '2.2' capacity marking and the grille are all on the sides in the right places. The rear counterweight and the front carriage backplate are blotchy and smeared where the original has clean panels and shading. This shows in the back view and in the back-left and back-right views."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Placed side by side, it reads as the same forklift with the same colours and markings. But the driver's deformed hard hat with no face, and the boxy square rear in place of the rounded counterweight, stand out next to the original in the close views and the back views. A player would notice them."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The forks point the same way as the original's, the model is upright, and it sits on the ground at the same height in every view."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The check reports no errors. It has 1448 triangles, under the limit of 1498 (twice the original's 749). Nothing is visibly open, inside out or floating."
+  }
+ },
+ "total": 12,
+ "of": 16,
+ "passes": false
+}

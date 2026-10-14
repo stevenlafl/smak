@@ -1,20 +1,21 @@
-I built `headcrab.mdl` and the last build came back OK with every check passing. Saved in the work folder as `work:headcrab.mdl`, with its spec in `work:headcrab.spec.json`.
+I built `headcrab.mdl` (in the work folder) and the last build says **OK** with every check passed.
 
-**How it's built:** the body is one shape cut from the outlines of all 10 pictures you gave (the six sides and the four close angles). It's then painted by laying those same pictures onto it, so the colours and surface markings come straight from the original. The shell, the red leg tips, the dark claws and the mouth with its teeth underneath all came across that way. Its outline matches the original's at 0.988 to 0.991 in every view, where 1.0 would be an exact match.
+**How it's made**
+- **Body:** one carved shape, cut from the outlines in all 10 of your pictures (the six sides plus the four close angles). This gives the shell, the long front legs, the short back legs and the bent forelimbs in one piece.
+- **Claws:** carving loses parts that thin, so I added the four black hooked claw tips separately. The front ones point back along the floor and the back ones point forward and out, placed by measuring the pictures.
+- **Colours and markings:** all 10 pictures are laid straight onto the body as its texture, on a 512×512 sheet. That carries the pale cream dome, the brown ribbed back and sides, the red legs, and the toothed mouth with its red surround underneath. The claws are left plain near-black.
 
-**Size:**
+**How it measures up**
+
 ```
-            asked   built
-length      25.9    25.7
-width       19.2    18.3
-height      13.2    13.2
+                 asked    built
+length (units)   25.9     25.9
+width            19.2     19.0
+height           13.2     13.1
 ```
-It stands on the floor.
 
-**Two changes along the way:**
-- I turned off the kit's extra paint effects (shading, wear, dirt), because the pictures already carry the original's own lighting.
-- Thin dark lines showed on the pale shell where the painted patches meet. They came from the default wood material showing through at those edges. Giving the part a tan base colour fixed them.
+- **Outline match per view:** 0.97 to 0.98 (front 0.98, left 0.979, back 0.98, top 0.978, the four angles 0.971 to 0.976).
+- **Holes:** none. The pictures see through the model at 0.00% of its dots.
+- **Triangles:** 514 (450 body, 64 claws), under the 600 limit I set. That's heavy next to Half-Life's props, which are usually under 156, but within what its creatures use (three quarters are under 576). I spent them on purpose to keep the leg outlines and the claws close.
 
-**Where it still differs:**
-- **Mouth from the back:** it reads darker and murkier than in the original's back view. The cut-out shape fills in the hollow under the body, so the teeth don't sit as far back as they should. From below, the mouth matches well.
-- **Triangle count:** it's 1000 triangles, and the build warns that's more than most Half-Life props of this size. It's still within the engine's limits. I couldn't compare it to the real `headcrab.mdl` because there's no copy of it on this machine. If you want it lighter, I can rebuild it at about 500 triangles, at some cost to the thin legs and claws.
+Side by side, the six sides and the yaw 215 view look right to me: the dome profile, the hook of the front legs, the back pattern and the mouth underneath all match. Up close, the shell's surface shows a few faint triangle edges. That comes from cutting the shape down to 450 triangles.

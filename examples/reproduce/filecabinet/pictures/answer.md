@@ -1,13 +1,11 @@
-I built `filecabinet.mdl` and the build says OK, with every check passed. It's in the server's work folder, with the spec saved beside it as `filecabinet.spec.json`.
+I built `filecabinet.mdl` and the build says OK, with every check passed. It's in the server's work folder (`work:filecabinet.mdl`), and the spec is next to it as `work:filecabinet.spec.json`.
 
-**What it is:**
-- **Shape:** one box exactly 28.8 long, 22.6 wide and 62.4 high, standing on the floor. It's 12 triangles. The Half-Life filing cabinet it copies is also a plain box with all its detail painted on, so the outline matches from every side. The only shape difference I could see is that in the front-left picture the base may stick out a little past the body. I didn't build that, because the straight-on front view shows the base no wider than the body.
-- **Surfaces:** the six straight-on views from `sides.png` are projected onto the box as its texture. That carries the three drawers with their pulls, the base strip along the bottom, the stepped lines near the front of the left side and the mottled grey on the other sides.
+**What it is:** one box, 28.8 long × 22.6 wide × 62.4 high, standing on the floor. That's 12 triangles. Every view of the original shows a plain box outline, so the drawers, pulls, base plinth and side seams are all painted on, not modelled. Half-Life's own filing cabinet is built the same way, and the outlines match from all six sides.
 
-**One problem I fixed:** my first try used the kit's steel material. Its bluish tint used up the colour palette and the texture came out blotchy and much too contrasty. A neutral grey (0.32) fixed that. I also turned off the kit's painted finish, since the pictures already have the original's lighting in them.
+**Surfaces:** the six straight views from `sides.png` are projected onto the box as its texture. The three drawers with their frames and pulls, the plinth line at the bottom, the darker blotches on the sides and back, and the step in the left side's pattern all come straight from the original. I turned off the kit's painted finish (wear, grime, light) because it put light patches on the edges that the original doesn't have.
 
-**How I checked it:** I rendered it from the front-left (yaw 35) and back-right (yaw 215) angles and compared them by eye with your pictures. Shape, drawers, pulls and base all line up. Two differences are left:
-- Mine is a little darker overall.
-- The mottling on the sides looks a bit grainier than the original's smoother patches.
+**What I tried and dropped:** I also projected the four angled pictures. They smeared the side faces into vertical noise, so the final build uses only the six straight views.
 
-I didn't project the four angled pictures as well, and I didn't render the back-left or front-right views.
+**Where it still differs:**
+- **Blotchier texture:** the grey mottling is harder-edged and higher in contrast than the original's soft mottling. Lowering the texture from 512 to 256 dots didn't change it, and I found no setting in the kit to soften it. From the cameras the judge uses, this is the most visible difference.
+- **Wasted texture space:** the 512×256 texture leaves about half its width unused.

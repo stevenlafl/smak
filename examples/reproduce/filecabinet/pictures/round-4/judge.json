@@ -1,0 +1,163 @@
+{
+ "subject": "filecabinet",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 1,
+   "left/right": 1,
+   "top/below": 1
+  },
+  "size": {
+   "original": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "reproduction": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "offShare": [
+    0.001,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 2.1,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 2.2,
+     "shared": 1
+    },
+    {
+     "view": "left",
+     "deltaE": 2.1,
+     "shared": 0.986
+    },
+    {
+     "view": "back",
+     "deltaE": 2.3,
+     "shared": 1
+    },
+    {
+     "view": "right",
+     "deltaE": 2.3,
+     "shared": 0.986
+    },
+    {
+     "view": "top",
+     "deltaE": 2.3,
+     "shared": 0.986
+    },
+    {
+     "view": "below",
+     "deltaE": 2.3,
+     "shared": 0.986
+    },
+    {
+     "view": "front-left",
+     "deltaE": 1.7,
+     "shared": 1
+    },
+    {
+     "view": "front-right",
+     "deltaE": 1.9,
+     "shared": 1
+    },
+    {
+     "view": "back-left",
+     "deltaE": 1.8,
+     "shared": 1
+    },
+    {
+     "view": "back-right",
+     "deltaE": 2,
+     "shared": 1
+    }
+   ]
+  },
+  "triangles": {
+   "original": 14,
+   "reproduction": 12
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "I",
+  "right": "I",
+  "letters": {
+   "A": "models/w_longjump.mdl",
+   "B": "models/w_security.mdl",
+   "C": "models/w_battery.mdl",
+   "D": "models/forklift.mdl",
+   "E": "models/w_medkit.mdl",
+   "F": "models/mbarrel.mdl",
+   "G": "models/w_9mmclip.mdl",
+   "H": "models/headcrab.mdl",
+   "I": "models/filecabinet.mdl",
+   "J": "models/can.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured silhouette overlap is 1.0 in front/back, left/right and top/below. Every view shows the same tall rectangular block with no part sticking out or missing; the four angled views match outline for outline."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The reproduction measures 28.8 x 22.6 x 62.4, the same as the original, so every off-share is 0.001 or less."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Like the original, it is a single box with the parts painted on the front: three stacked drawer fronts of matching size and spacing, each with a dark cup handle centred near its top, plus the lighter kick strip at the base. Nothing is missing, extra or misplaced."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are the same mid-grey painted metal, darker on the drawer faces and nearly black on the handles. Measured mean deltaE is 2.1, well under 15, and no view is above 2.3."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The front detail matches: drawer bevels, handles and the base strip are there at similar sharpness. The sides, back and top are plainer than the original. The original's large dark blotches of wear (back, right and top views) are much fainter, and the left side has lost the original's diagonal streaks (front-left and back-left angles). In the left view the original's nested stepped edge lines near the front edge are reduced to one thin vertical line."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "At the size the game shows it, the front is effectively identical (three drawers, handles, base strip, same grey). The sides are more even in tone, but a player side by side would still take it for the original cabinet."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The drawers face the same way as the original's in the front and angled views. It is upright and stands on its base at the same height, since the outlines line up exactly in every view."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's check reports no errors. It has 12 triangles against the original's 14, well under twice. It is a closed box with the base on the ground, nothing open, inside out or floating."
+  }
+ },
+ "total": 15,
+ "of": 16,
+ "passes": true
+}

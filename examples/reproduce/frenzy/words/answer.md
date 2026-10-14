@@ -1,20 +1,26 @@
-I've built frenzy_copy, and the final build says OK: it compiles with no leak, and the walk test reaches all 64 spawns and pickups on foot from the 15 places to start. I had no original to compare against, though. There's no frenzy.bsp in the models folder, so I built it from your description alone and haven't put the two side by side.
+frenzy_copy is built and the build says OK: it compiled with no leak, all 64 weapons, ammo and items are reachable on foot from the 15 starts, and the GoldSrc check reports it fit for the engine.
+
+**What I built from**
+
+The original frenzy.bsp isn't in the game or work folders, so I built from your description alone. Where it was vague or contradicted itself, I chose. For example, the NE annex overlapped the east wing's NE pit, so I put the annex beside the pit. I have nothing to compare against, so I can't say how close it comes to the original; that is what the side-by-side judging will show.
 
 **What's in it**
-- **Size and levels:** it spans x −1480 to 944 and y −990 to 1040. The floors are at z 0, 160 and 320, with ledges at 512 and a roof light well at about 600–680 above the bridge.
-- **Spine:** a ground corridor 224 wide, the z 320 corridor (ceiling 448) running the full length, a bridge where it crosses the atrium, and hazard-striped ceiling beams. At the south tip, two func_ladders with thin func_walls beside them climb from the ground stub through a hatch to z 320.
-- **Atrium:** x −890 to −40, y −300 to 300, open to 600. It has the bridge, chamfered corner bays, z 160 shelves on both sides, z 320 balconies joined to the bridge by walkways along the atrium's north and south ends, the z 512 ledges, and the health charger on the east wall with spawn 60 facing it.
-- **Wings:** z 160 mezzanines, four pits down to z 0 (each with a 64×64 pillar), and ground rooms under the middle bands. The two west doors are func_door, each opened by a trigger_multiple. The outer walls lean in, and beams cross under the 470 ceiling.
-- **Ring and annex:** a ground ring corridor about 128 wide with chamfered corners. The NE annex is 300 high, with a 12-step stair rising south to a z 120 landing, then a walkway up to the east mezzanine. Eight orange lights and eight env_glow sprites light it.
-- **Entities:** every spawn, weapon, ammo and item you listed is placed at your coordinates or as close as the rooms allow.
-- **Textures:** all from halflife.wad except the ladders. Walls are CRETE3_WALL01, floors GRATE_RUST (dark brown grating), and the spine floor METAL_BORD03. A band of LAB1_COMP1 racks at 40–110 and a yellow C1A3YELLOW base stripe run along the corridors. halflife.wad has no ladder texture, so the build made a plain one for the two ladders in the map's own .wad.
-- **Light:** dim and cold almost everywhere (floors at about 75–110 of 255), and brightest in the atrium (186). The annex is warm orange but dim (74).
+- **Layout:** a 2400 × 2030 octagonal complex with chamfered corners. The spine runs the full length with a z 320 corridor, a bridge across the atrium, and the ladder at the south tip.
+- **Atrium:** balconies at z 320, ledges at z 512, a raised light well, four angled func_wall bays, and the 64-wide service stair stepping 0 → 160 → 320.
+- **Wings:**
+  - Both have a z 160 mezzanine, two pits with a pillar each, and a ground room under the middle band.
+  - The west wing has two doors (46, 47) to the ring corridor, each opened by its trigger (92, 93).
+  - The east wing has an east ring under the mezzanine.
+- **Ring corridor:** runs at z 0 all the way round, with diagonal corners.
+- **NE annex:** roof at 300, a 12-step stair to a z 120 landing and on up to the mezzanine, and 8 orange lights with glow sprites.
+- **Entities:** every spawn, weapon, ammo and item at the position you gave, plus the health charger.
+- **Look:** grey concrete walls with a band of computer racks and a yellow base stripe, brown floors and grating, blue-grey plates on the spine, hazard-trimmed ceiling beams and fluorescent strip panels, all from halflife.wad.
 
-**Where it will differ from the original**
-- **Entity numbers are offset by 19.** The kit writes brush entities (func_walls, ladders, doors, charger, triggers) before point entities, so the player start is 20 instead of 1, spawn 32 is 37, and so on. The brush entities do keep the original's order among themselves.
-- **I added stairs** from each pit up to z 160, plus the balcony walkways. The description never says how players get up to the mezzanines or balconies, and without them the gauss, tripmines and long jump couldn't be reached.
-- **I narrowed the east wing** to x −272 to 524 so the annex (x 540 to 944) doesn't overlap it.
-- **I guessed the shapes** of the bays, the low func_wall boxes (3, 12), the railings (2, 4, 5, 6) and the band-edge plates (7, 14, 15) from short phrases.
-- **I treated the pillars' "64 × 128"** as 64 square and 160 tall, reaching the mezzanine floor.
+**Where it differs from the original**
+- **Entity numbers:** the 14 deathmatch spawns have the original numbers (32–45 and 60), and the 8 annex lights and glows sit in 16–31 and in the numbers left spare, as in the original. The player start is 25, not 1, because the kit always numbers brush entities first.
+- **Extra lights:** the original's corridors seem to be lit by the fluorescent textures themselves, which I couldn't do here. I lit them with 60 extra cold-coloured light entities, numbered after the original's 93.
+- **Not modelled:** the inward-leaning upper wing walls and the rounded frames around the rack band. The kit has no shape for a wall that overhangs as it rises.
+- **Red railing by spawn 35:** halflife.wad has no railing texture, so the kit made one into `frenzy_copy.wad`. That wad has to ship beside the map.
+- **Not tested in a game:** the doors opening, the triggers, the ladder and the charger only show in a game. The kit's walk test is geometry only.
 
-The doors, triggers and ladders pass the kit's geometry checks, but whether the doors open and the ladders climb only shows in the game: run `map frenzy_copy`. The files are in `work/frenzy_copy/`: the .bsp, the .map source, the map's own .wad and the plan and view pictures.
+Files are in `work/frenzy_copy/`: `frenzy_copy.bsp` goes in `valve/maps/` and `frenzy_copy.wad` in `valve/`. Load it with `map frenzy_copy`.

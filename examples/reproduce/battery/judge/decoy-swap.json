@@ -25,31 +25,31 @@
    ]
   },
   "colour": {
-   "meanDeltaE": 32,
+   "meanDeltaE": 32.2,
    "byView": [
     {
      "view": "front",
-     "deltaE": 35.4,
+     "deltaE": 35.9,
      "shared": 0.12
     },
     {
      "view": "left",
-     "deltaE": 33.1,
+     "deltaE": 33.2,
      "shared": 0.092
     },
     {
      "view": "back",
-     "deltaE": 32.6,
+     "deltaE": 32.7,
      "shared": 0.12
     },
     {
      "view": "right",
-     "deltaE": 33.7,
+     "deltaE": 33.8,
      "shared": 0.092
     },
     {
      "view": "top",
-     "deltaE": 28,
+     "deltaE": 28.1,
      "shared": 0.155
     },
     {
@@ -59,7 +59,7 @@
     },
     {
      "view": "front-left",
-     "deltaE": 34.1,
+     "deltaE": 34.3,
      "shared": 0.092
     },
     {
@@ -69,19 +69,19 @@
     },
     {
      "view": "back-left",
-     "deltaE": 32.7,
+     "deltaE": 33.1,
      "shared": 0.092
     },
     {
      "view": "back-right",
-     "deltaE": 32.5,
+     "deltaE": 32.7,
      "shared": 0.092
     }
    ]
   },
   "triangles": {
    "original": 116,
-   "reproduction": 84
+   "reproduction": 12
   },
   "checkErrors": []
  },
@@ -112,52 +112,52 @@
    "judge": 0,
    "cap": 0,
    "score": 0,
-   "reason": "The original is a short, chamfered canister with a cap assembly on top. The reproduction is a tall rectangular filing cabinet. Silhouette overlap is 0.12 front/back, 0.094 left/right and 0.158 top/below, far below 0.80 in every view. No outline matches."
+   "reason": "The outline is wrong in every view. Silhouette overlap is 0.12 front/back, 0.094 left/right and 0.158 top/below, far below the 0.80 line. The original is a short, squat canister with a stepped cap and a fitting on top. The reproduction is a tall rectangular box with a flat top, about 3.4 times the original's height. It has none of the canister's bevelled corners or the cap."
   },
   "M2": {
    "judge": 0,
    "cap": 0,
    "score": 0,
-   "reason": "The original measures 10.3 x 10.3 x 18.4. The reproduction measures 28.8 x 22.6 x 62.4, which is 180%, 119% and 239% over on the three axes. All three are far outside 10%."
+   "reason": "All three dimensions are far outside 10%. Length is 28.8 against 10.3 (+180%), width is 22.6 against 10.3 (+119%) and height is 62.4 against 18.4 (+239%)."
   },
   "M3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "None of the original's parts are there: the green glowing glass window on each side, the corner posts, the yellow and black hazard band at the base, the cap with its valve and yellow lever, and the dark underside plate with its marking. The reproduction has three drawers with handles instead, and the original has neither."
+   "reason": "None of the original's parts are there. The original has a glowing green glass window on each side, a yellow-and-black hazard-striped band at the base, a grey cap on top with a round fitting and a yellow lever, orange tabs, and side clips. The reproduction instead shows three filing drawers with pull handles on the front face. These are drawn into the texture on a single box and belong to a different object."
   },
   "M4": {
    "judge": 0,
    "cap": 0,
    "score": 0,
-   "reason": "The reproduction is all dark grey painted metal. It lacks the original's green glow panels, tan and grey metal frame, yellow and black stripes, and silver cap. Mean deltaE is 32, more than twice the line of 15, and every view is above 23."
+   "reason": "The measured mean colour difference is 32.2, more than double the 15 line. The reproduction is uniform dark grey painted metal. The original's glowing teal glass, yellow hazard stripes, tan/olive body and light grey cap are all missing."
   },
   "M5": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The original's hazard stripes, glowing glass texture, orange indicator lights, cap hardware and underside marking are all missing. The reproduction's drawer seams and grime belong to a different object."
+   "reason": "None of the original's surface detail is there: the glowing green panels, the diagonal hazard stripes, the orange markings, the cap's machined fitting and the bottom panel's cyan marking. The reproduction shows drawer outlines and grime that the original does not have."
   },
   "M6": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Side by side, a player would see a filing cabinet next to a small glowing energy canister. Nobody would take one for the other."
+   "reason": "No player would mistake it for the original. It is clearly a three-drawer filing cabinet, while the original is a small glowing energy cell. The two differ in object type, scale and colour."
   },
   "M7": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "It stands upright on its base at the origin, as the original does. The original's 'front' is one of four near-identical glass faces, so the facing can't be confirmed against any matching feature. Because the reproduction is a different object, its facing and placement can't be called right to a close look."
+   "reason": "It is upright and stands on the ground plane with its drawer face toward the front camera. However, it is a different object, so its front cannot correspond to the original's front, which is a glowing window. Its footprint is also far wider than the original's, so it is not placed on the origin the way the original is."
   },
   "M8": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The check passes with no errors, and 84 triangles is within twice the original's 116. Nothing looks open, inside out or floating. It is held at 1 because it is not a usable stand-in for this prop in the game: its footprint is nearly three times the original's in length, which would collide and clip wherever the original is placed."
+   "score": 2,
+   "reason": "The harness check reports no errors. It has 12 triangles against the original's 116, well under twice. The box is closed, the right way out and resting on the ground in every view, with nothing floating."
   }
  },
- "total": 2,
+ "total": 3,
  "of": 16,
  "passes": false
 }
