@@ -170,7 +170,8 @@ own).
   `west` (for rooms north or south): those sides even. A number: so many units from the other's least side.
 - `floor`: its floor this much over the room it is placed against (under 0: lower).
 - `sky: true`: open to the sky (a yard, a street). It is lit by the sun, not by lamps.
-- `surfaces: { floor: "grass" }`: a floor or ceiling of another material than the theme's.
+- `surfaces: { floor: "grass", walls: "tile" }`: a floor, a ceiling or walls of another material than the
+  theme's (a lining 8 thick inside the rock; rooms side by side need `wall` of 16 or more for two linings).
 - `light`: `"auto"` (one lamp for each 256 x 256 of floor; unless told), `"none"`, or `{ count, brightness,
   color }`.
 

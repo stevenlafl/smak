@@ -1,0 +1,2311 @@
+{
+ "spec": "smak.map/1",
+ "name": "cyberpunk_city",
+ "night": true,
+ "sun": {
+  "brightness": 14
+ },
+ "sky": "night",
+ "theme": {
+  "floor": {
+   "base": "asphalt"
+  },
+  "wall": {
+   "base": "brick",
+   "tone": [
+    0.28,
+    0.2,
+    0.18
+   ]
+  },
+  "ceiling": {
+   "base": "metal",
+   "tone": [
+    0.1,
+    0.1,
+    0.11
+   ]
+  },
+  "door": "metal",
+  "furniture": {
+   "base": "metal",
+   "tone": [
+    0.25,
+    0.27,
+    0.3
+   ]
+  }
+ },
+ "textures": {
+  "pink_sign": {
+   "base": "neon",
+   "tone": [
+    1,
+    0.2,
+    0.75
+   ],
+   "glow": 500
+  },
+  "purple_sign": {
+   "base": "neon",
+   "tone": [
+    0.65,
+    0.25,
+    1
+   ],
+   "glow": 500
+  },
+  "green_sign": {
+   "base": "neon",
+   "tone": [
+    0.3,
+    1,
+    0.45
+   ],
+   "glow": 500
+  },
+  "magenta_board": {
+   "base": "neon",
+   "tone": [
+    1,
+    0.1,
+    0.85
+   ],
+   "glow": 220
+  },
+  "cyan_board": {
+   "base": "neon",
+   "tone": [
+    0.1,
+    0.85,
+    1
+   ],
+   "glow": 220
+  },
+  "window": {
+   "base": "neon",
+   "tone": [
+    1,
+    0.78,
+    0.45
+   ],
+   "glow": 90
+  },
+  "grate": {
+   "base": "iron",
+   "tone": [
+    0.18,
+    0.18,
+    0.2
+   ]
+  },
+  "dumpster": {
+   "base": "paint",
+   "tone": [
+    0.12,
+    0.28,
+    0.16
+   ]
+  },
+  "counter": {
+   "base": "darkwood"
+  },
+  "mailbox": {
+   "base": "brass",
+   "tone": [
+    0.5,
+    0.42,
+    0.25
+   ]
+  },
+  "concrete": {
+   "base": "plaster",
+   "tone": [
+    0.4,
+    0.4,
+    0.38
+   ]
+  },
+  "crate": {
+   "base": "wood",
+   "tone": [
+    0.5,
+    0.38,
+    0.24
+   ],
+   "seed": 9
+  },
+  "glass": {
+   "base": "glass",
+   "tone": [
+    0.55,
+    0.75,
+    0.8
+   ]
+  }
+ },
+ "include": [
+  {
+   "spec": "../13-map-noodle-bar/spec.json",
+   "as": "noodle",
+   "place": {
+    "north_of": "street",
+    "align": 96
+   }
+  },
+  {
+   "spec": "../14-map-arcade/spec.json",
+   "as": "arcade",
+   "place": {
+    "north_of": "street",
+    "align": 640
+   }
+  },
+  {
+   "spec": "../16-map-cyber-clinic/spec.json",
+   "as": "clinic",
+   "place": {
+    "north_of": "street",
+    "align": 1216
+   }
+  },
+  {
+   "spec": "../15-map-sewer/spec.json",
+   "as": "sewer",
+   "place": {
+    "south_of": "alley"
+   }
+  }
+ ],
+ "models": {
+  "neon_lamp": {
+   "file": "../11-model-neon-lamp/spec.json"
+  },
+  "hover_car": {
+   "file": "../12-model-hover-car/spec.json"
+  }
+ },
+ "prefabs": {
+  "sign_noodle": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -96,
+       -4,
+       0
+      ],
+      [
+       96,
+       0,
+       28
+      ]
+     ],
+     "texture": "pink_sign"
+    }
+   ]
+  },
+  "sign_arcade": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -96,
+       -4,
+       0
+      ],
+      [
+       96,
+       0,
+       28
+      ]
+     ],
+     "texture": "purple_sign"
+    }
+   ]
+  },
+  "sign_clinic": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -80,
+       -4,
+       0
+      ],
+      [
+       80,
+       0,
+       28
+      ]
+     ],
+     "texture": "green_sign"
+    }
+   ]
+  },
+  "north_windows": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -862,
+       -2,
+       210
+      ],
+      [
+       -834,
+       0,
+       246
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -766,
+       -2,
+       210
+      ],
+      [
+       -738,
+       0,
+       246
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -670,
+       -2,
+       210
+      ],
+      [
+       -642,
+       0,
+       246
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -382,
+       -2,
+       210
+      ],
+      [
+       -354,
+       0,
+       246
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -286,
+       -2,
+       210
+      ],
+      [
+       -258,
+       0,
+       246
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -190,
+       -2,
+       210
+      ],
+      [
+       -162,
+       0,
+       246
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -94,
+       -2,
+       210
+      ],
+      [
+       -66,
+       0,
+       246
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       482,
+       -2,
+       210
+      ],
+      [
+       510,
+       0,
+       246
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       578,
+       -2,
+       210
+      ],
+      [
+       606,
+       0,
+       246
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -766,
+       -2,
+       290
+      ],
+      [
+       -738,
+       0,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -670,
+       -2,
+       290
+      ],
+      [
+       -642,
+       0,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -382,
+       -2,
+       290
+      ],
+      [
+       -354,
+       0,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -286,
+       -2,
+       290
+      ],
+      [
+       -258,
+       0,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -190,
+       -2,
+       290
+      ],
+      [
+       -162,
+       0,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -94,
+       -2,
+       290
+      ],
+      [
+       -66,
+       0,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       2,
+       -2,
+       290
+      ],
+      [
+       30,
+       0,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       98,
+       -2,
+       290
+      ],
+      [
+       126,
+       0,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       194,
+       -2,
+       290
+      ],
+      [
+       222,
+       0,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       290,
+       -2,
+       290
+      ],
+      [
+       318,
+       0,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       386,
+       -2,
+       290
+      ],
+      [
+       414,
+       0,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       482,
+       -2,
+       290
+      ],
+      [
+       510,
+       0,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       578,
+       -2,
+       290
+      ],
+      [
+       606,
+       0,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       674,
+       -2,
+       290
+      ],
+      [
+       702,
+       0,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -862,
+       -2,
+       370
+      ],
+      [
+       -834,
+       0,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -766,
+       -2,
+       370
+      ],
+      [
+       -738,
+       0,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -670,
+       -2,
+       370
+      ],
+      [
+       -642,
+       0,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -574,
+       -2,
+       370
+      ],
+      [
+       -546,
+       0,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -286,
+       -2,
+       370
+      ],
+      [
+       -258,
+       0,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -190,
+       -2,
+       370
+      ],
+      [
+       -162,
+       0,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -94,
+       -2,
+       370
+      ],
+      [
+       -66,
+       0,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       2,
+       -2,
+       370
+      ],
+      [
+       30,
+       0,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       98,
+       -2,
+       370
+      ],
+      [
+       126,
+       0,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       386,
+       -2,
+       370
+      ],
+      [
+       414,
+       0,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       482,
+       -2,
+       370
+      ],
+      [
+       510,
+       0,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       578,
+       -2,
+       370
+      ],
+      [
+       606,
+       0,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       674,
+       -2,
+       370
+      ],
+      [
+       702,
+       0,
+       406
+      ]
+     ],
+     "texture": "window"
+    }
+   ]
+  },
+  "south_windows": {
+   "pieces": [
+    {
+     "box": [
+      [
+       834,
+       0,
+       210
+      ],
+      [
+       862,
+       2,
+       246
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       738,
+       0,
+       210
+      ],
+      [
+       766,
+       2,
+       246
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       642,
+       0,
+       210
+      ],
+      [
+       670,
+       2,
+       246
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       354,
+       0,
+       210
+      ],
+      [
+       382,
+       2,
+       246
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       258,
+       0,
+       210
+      ],
+      [
+       286,
+       2,
+       246
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       162,
+       0,
+       210
+      ],
+      [
+       190,
+       2,
+       246
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       66,
+       0,
+       210
+      ],
+      [
+       94,
+       2,
+       246
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -510,
+       0,
+       210
+      ],
+      [
+       -482,
+       2,
+       246
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -606,
+       0,
+       210
+      ],
+      [
+       -578,
+       2,
+       246
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       738,
+       0,
+       290
+      ],
+      [
+       766,
+       2,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       642,
+       0,
+       290
+      ],
+      [
+       670,
+       2,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       354,
+       0,
+       290
+      ],
+      [
+       382,
+       2,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       258,
+       0,
+       290
+      ],
+      [
+       286,
+       2,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       162,
+       0,
+       290
+      ],
+      [
+       190,
+       2,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       66,
+       0,
+       290
+      ],
+      [
+       94,
+       2,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -30,
+       0,
+       290
+      ],
+      [
+       -2,
+       2,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -126,
+       0,
+       290
+      ],
+      [
+       -98,
+       2,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -222,
+       0,
+       290
+      ],
+      [
+       -194,
+       2,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -318,
+       0,
+       290
+      ],
+      [
+       -290,
+       2,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -414,
+       0,
+       290
+      ],
+      [
+       -386,
+       2,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -510,
+       0,
+       290
+      ],
+      [
+       -482,
+       2,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -606,
+       0,
+       290
+      ],
+      [
+       -578,
+       2,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -702,
+       0,
+       290
+      ],
+      [
+       -674,
+       2,
+       326
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       834,
+       0,
+       370
+      ],
+      [
+       862,
+       2,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       738,
+       0,
+       370
+      ],
+      [
+       766,
+       2,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       642,
+       0,
+       370
+      ],
+      [
+       670,
+       2,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       546,
+       0,
+       370
+      ],
+      [
+       574,
+       2,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       258,
+       0,
+       370
+      ],
+      [
+       286,
+       2,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       162,
+       0,
+       370
+      ],
+      [
+       190,
+       2,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       66,
+       0,
+       370
+      ],
+      [
+       94,
+       2,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -30,
+       0,
+       370
+      ],
+      [
+       -2,
+       2,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -126,
+       0,
+       370
+      ],
+      [
+       -98,
+       2,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -414,
+       0,
+       370
+      ],
+      [
+       -386,
+       2,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -510,
+       0,
+       370
+      ],
+      [
+       -482,
+       2,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -606,
+       0,
+       370
+      ],
+      [
+       -578,
+       2,
+       406
+      ]
+     ],
+     "texture": "window"
+    },
+    {
+     "box": [
+      [
+       -702,
+       0,
+       370
+      ],
+      [
+       -674,
+       2,
+       406
+      ]
+     ],
+     "texture": "window"
+    }
+   ]
+  },
+  "fire_escape": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -48,
+       -40,
+       0
+      ],
+      [
+       48,
+       0,
+       4
+      ]
+     ],
+     "texture": "grate"
+    },
+    {
+     "box": [
+      [
+       -48,
+       -40,
+       4
+      ],
+      [
+       48,
+       -38,
+       36
+      ]
+     ],
+     "texture": "grate"
+    },
+    {
+     "box": [
+      [
+       -48,
+       -40,
+       4
+      ],
+      [
+       -46,
+       0,
+       36
+      ]
+     ],
+     "texture": "grate"
+    },
+    {
+     "box": [
+      [
+       46,
+       -40,
+       4
+      ],
+      [
+       48,
+       0,
+       36
+      ]
+     ],
+     "texture": "grate"
+    }
+   ]
+  },
+  "billboard_magenta": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -136,
+       0,
+       -8
+      ],
+      [
+       136,
+       6,
+       136
+      ]
+     ],
+     "texture": "grate"
+    },
+    {
+     "box": [
+      [
+       -128,
+       6,
+       0
+      ],
+      [
+       128,
+       8,
+       128
+      ]
+     ],
+     "texture": "magenta_board"
+    }
+   ]
+  },
+  "billboard_cyan": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -136,
+       0,
+       -8
+      ],
+      [
+       136,
+       6,
+       136
+      ]
+     ],
+     "texture": "grate"
+    },
+    {
+     "box": [
+      [
+       -128,
+       6,
+       0
+      ],
+      [
+       128,
+       8,
+       128
+      ]
+     ],
+     "texture": "cyan_board"
+    }
+   ]
+  },
+  "dumpster": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -36,
+       -22,
+       0
+      ],
+      [
+       36,
+       22,
+       40
+      ]
+     ],
+     "texture": "dumpster"
+    },
+    {
+     "wedge": [
+      [
+       -38,
+       -24,
+       40
+      ],
+      [
+       38,
+       24,
+       46
+      ]
+     ],
+     "high": "-y",
+     "texture": "dumpster"
+    }
+   ]
+  },
+  "pawn_counter": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -128,
+       -16,
+       0
+      ],
+      [
+       128,
+       16,
+       30
+      ]
+     ],
+     "texture": "counter"
+    },
+    {
+     "box": [
+      [
+       -132,
+       -20,
+       30
+      ],
+      [
+       132,
+       20,
+       34
+      ]
+     ],
+     "texture": "counter"
+    }
+   ]
+  },
+  "pawn_shelf": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -150,
+       -10,
+       0
+      ],
+      [
+       150,
+       10,
+       4
+      ]
+     ],
+     "texture": "counter"
+    },
+    {
+     "box": [
+      [
+       -150,
+       -10,
+       48
+      ],
+      [
+       150,
+       10,
+       52
+      ]
+     ],
+     "texture": "counter"
+    },
+    {
+     "box": [
+      [
+       -150,
+       -10,
+       96
+      ],
+      [
+       150,
+       10,
+       100
+      ]
+     ],
+     "texture": "counter"
+    },
+    {
+     "box": [
+      [
+       -154,
+       -10,
+       0
+      ],
+      [
+       -150,
+       10,
+       100
+      ]
+     ],
+     "texture": "counter"
+    },
+    {
+     "box": [
+      [
+       150,
+       -10,
+       0
+      ],
+      [
+       154,
+       10,
+       100
+      ]
+     ],
+     "texture": "counter"
+    },
+    {
+     "box": [
+      [
+       -120,
+       -6,
+       52
+      ],
+      [
+       -96,
+       6,
+       70
+      ]
+     ],
+     "texture": "grate"
+    },
+    {
+     "box": [
+      [
+       -40,
+       -6,
+       52
+      ],
+      [
+       -10,
+       6,
+       66
+      ]
+     ],
+     "texture": "mailbox"
+    },
+    {
+     "box": [
+      [
+       60,
+       -6,
+       4
+      ],
+      [
+       96,
+       6,
+       30
+      ]
+     ],
+     "texture": "grate"
+    }
+   ]
+  },
+  "mailboxes": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -64,
+       -8,
+       24
+      ],
+      [
+       64,
+       0,
+       88
+      ]
+     ],
+     "texture": "mailbox"
+    },
+    {
+     "box": [
+      [
+       -64,
+       -9,
+       54
+      ],
+      [
+       64,
+       -8,
+       56
+      ]
+     ],
+     "texture": "grate"
+    },
+    {
+     "box": [
+      [
+       -1,
+       -9,
+       24
+      ],
+      [
+       1,
+       -8,
+       88
+      ]
+     ],
+     "texture": "grate"
+    }
+   ]
+  },
+  "lift_door": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -36,
+       -4,
+       0
+      ],
+      [
+       36,
+       0,
+       96
+      ]
+     ],
+     "texture": "grate"
+    },
+    {
+     "box": [
+      [
+       -1,
+       -5,
+       0
+      ],
+      [
+       1,
+       -4,
+       96
+      ]
+     ],
+     "texture": "concrete"
+    }
+   ]
+  },
+  "crate_stack": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -32,
+       -16,
+       0
+      ],
+      [
+       0,
+       16,
+       32
+      ]
+     ],
+     "texture": "crate"
+    },
+    {
+     "box": [
+      [
+       0,
+       -16,
+       0
+      ],
+      [
+       32,
+       16,
+       32
+      ]
+     ],
+     "texture": "crate"
+    },
+    {
+     "box": [
+      [
+       -16,
+       -16,
+       32
+      ],
+      [
+       16,
+       16,
+       64
+      ]
+     ],
+     "texture": "crate"
+    }
+   ]
+  }
+ },
+ "rooms": [
+  {
+   "id": "street",
+   "size": [
+    1792,
+    448,
+    512
+   ],
+   "sky": true,
+   "light": "none"
+  },
+  {
+   "id": "pawnshop",
+   "size": [
+    384,
+    256,
+    144
+   ],
+   "place": {
+    "south_of": "street",
+    "align": 96
+   },
+   "light": {
+    "count": 1,
+    "brightness": 120,
+    "color": [
+     255,
+     200,
+     140
+    ]
+   }
+  },
+  {
+   "id": "alley",
+   "size": [
+    160,
+    512,
+    512
+   ],
+   "place": {
+    "south_of": "street",
+    "align": 560
+   },
+   "sky": true,
+   "light": {
+    "count": 3,
+    "brightness": 110,
+    "color": [
+     150,
+     170,
+     255
+    ]
+   }
+  },
+  {
+   "id": "lobby",
+   "size": [
+    256,
+    256,
+    160
+   ],
+   "place": {
+    "south_of": "street",
+    "align": 1200
+   },
+   "surfaces": {
+    "floor": "concrete"
+   },
+   "light": {
+    "count": 1,
+    "brightness": 130,
+    "color": [
+     230,
+     240,
+     255
+    ]
+   }
+  }
+ ],
+ "links": [
+  {
+   "between": [
+    "street",
+    "noodle_shop"
+   ],
+   "kind": "opening",
+   "width": 192,
+   "height": 112
+  },
+  {
+   "between": [
+    "street",
+    "arcade_hall"
+   ],
+   "kind": "opening",
+   "width": 128,
+   "height": 112
+  },
+  {
+   "between": [
+    "street",
+    "clinic_waiting"
+   ],
+   "kind": "door"
+  },
+  {
+   "between": [
+    "street",
+    "pawnshop"
+   ],
+   "kind": "door"
+  },
+  {
+   "between": [
+    "street",
+    "lobby"
+   ],
+   "kind": "door"
+  },
+  {
+   "between": [
+    "street",
+    "alley"
+   ],
+   "kind": "opening",
+   "width": 128,
+   "height": 160
+  },
+  {
+   "between": [
+    "alley",
+    "sewer_access"
+   ],
+   "kind": "door"
+  },
+  {
+   "between": [
+    "street",
+    "pawnshop"
+   ],
+   "kind": "window",
+   "along": 0.2,
+   "width": 96,
+   "height": 56,
+   "sill": 32,
+   "glass": true
+  }
+ ],
+ "furniture": [
+  {
+   "prefab": "sign_noodle",
+   "room": "street",
+   "at": [
+    -576,
+    224
+   ],
+   "z": 124
+  },
+  {
+   "prefab": "sign_arcade",
+   "room": "street",
+   "at": [
+    0,
+    224
+   ],
+   "z": 124
+  },
+  {
+   "prefab": "sign_clinic",
+   "room": "street",
+   "at": [
+    480,
+    224
+   ],
+   "z": 124
+  },
+  {
+   "prefab": "north_windows",
+   "room": "street",
+   "at": [
+    0,
+    224
+   ]
+  },
+  {
+   "prefab": "south_windows",
+   "room": "street",
+   "at": [
+    0,
+    -224
+   ]
+  },
+  {
+   "prefab": "fire_escape",
+   "room": "street",
+   "at": [
+    -300,
+    224
+   ],
+   "z": 196
+  },
+  {
+   "prefab": "fire_escape",
+   "room": "street",
+   "at": [
+    260,
+    224
+   ],
+   "z": 276
+  },
+  {
+   "prefab": "fire_escape",
+   "room": "street",
+   "at": [
+    700,
+    224
+   ],
+   "z": 196
+  },
+  {
+   "prefab": "fire_escape",
+   "room": "street",
+   "at": [
+    0,
+    -224
+   ],
+   "z": 276,
+   "rotate": 180
+  },
+  {
+   "prefab": "billboard_magenta",
+   "room": "street",
+   "at": [
+    -560,
+    -224
+   ],
+   "z": 300
+  },
+  {
+   "prefab": "billboard_cyan",
+   "room": "street",
+   "at": [
+    420,
+    -224
+   ],
+   "z": 300
+  },
+  {
+   "prefab": "dumpster",
+   "room": "alley",
+   "at": [
+    40,
+    60
+   ]
+  },
+  {
+   "prefab": "pawn_counter",
+   "room": "pawnshop",
+   "at": [
+    0,
+    -40
+   ]
+  },
+  {
+   "prefab": "pawn_shelf",
+   "room": "pawnshop",
+   "at": [
+    0,
+    -114
+   ]
+  },
+  {
+   "prefab": "mailboxes",
+   "room": "lobby",
+   "at": [
+    -127,
+    40
+   ],
+   "rotate": 90
+  },
+  {
+   "prefab": "lift_door",
+   "room": "lobby",
+   "at": [
+    40,
+    -128
+   ],
+   "rotate": 180
+  },
+  {
+   "prefab": "crate_stack",
+   "room": "alley",
+   "at": [
+    -36,
+    -120
+   ],
+   "rotate": 90,
+   "entity": {
+    "class": "func_breakable",
+    "material": 1,
+    "health": 40
+   }
+  }
+ ],
+ "props": [
+  {
+   "model": "neon_lamp",
+   "room": "street",
+   "at": [
+    -680,
+    184
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "neon_lamp",
+   "room": "street",
+   "at": [
+    -120,
+    184
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "neon_lamp",
+   "room": "street",
+   "at": [
+    700,
+    184
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "neon_lamp",
+   "room": "street",
+   "at": [
+    -620,
+    -184
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "neon_lamp",
+   "room": "street",
+   "at": [
+    200,
+    -184
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "neon_lamp",
+   "room": "street",
+   "at": [
+    760,
+    -184
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "hover_car",
+   "room": "street",
+   "at": [
+    180,
+    150
+   ],
+   "facing": "east"
+  },
+  {
+   "model": "hover_car",
+   "room": "street",
+   "at": [
+    -260,
+    -20
+   ],
+   "z": 300,
+   "facing": 200
+  }
+ ],
+ "entities": [
+  {
+   "class": "info_player_start",
+   "room": "street",
+   "at": [
+    -840,
+    0
+   ],
+   "facing": "east"
+  },
+  {
+   "class": "light",
+   "room": "street",
+   "at": [
+    -680,
+    154
+   ],
+   "height": 122,
+   "keys": {
+    "color": [
+     120,
+     230,
+     255
+    ],
+    "brightness": 150
+   }
+  },
+  {
+   "class": "light",
+   "room": "street",
+   "at": [
+    -120,
+    154
+   ],
+   "height": 122,
+   "keys": {
+    "color": [
+     120,
+     230,
+     255
+    ],
+    "brightness": 150
+   }
+  },
+  {
+   "class": "light",
+   "room": "street",
+   "at": [
+    700,
+    154
+   ],
+   "height": 122,
+   "keys": {
+    "color": [
+     120,
+     230,
+     255
+    ],
+    "brightness": 150
+   }
+  },
+  {
+   "class": "light",
+   "room": "street",
+   "at": [
+    -620,
+    -154
+   ],
+   "height": 122,
+   "keys": {
+    "color": [
+     120,
+     230,
+     255
+    ],
+    "brightness": 150
+   }
+  },
+  {
+   "class": "light",
+   "room": "street",
+   "at": [
+    200,
+    -154
+   ],
+   "height": 122,
+   "keys": {
+    "color": [
+     120,
+     230,
+     255
+    ],
+    "brightness": 150
+   }
+  },
+  {
+   "class": "light",
+   "room": "street",
+   "at": [
+    760,
+    -154
+   ],
+   "height": 122,
+   "keys": {
+    "color": [
+     120,
+     230,
+     255
+    ],
+    "brightness": 150
+   }
+  },
+  {
+   "class": "weapon_9mmhandgun",
+   "room": "pawnshop",
+   "at": [
+    -40,
+    -26
+   ],
+   "z": 34
+  },
+  {
+   "class": "weapon_357",
+   "room": "pawnshop",
+   "at": [
+    40,
+    -26
+   ],
+   "z": 34
+  },
+  {
+   "class": "monster_barney",
+   "room": "lobby",
+   "at": [
+    60,
+    -20
+   ],
+   "facing": "north"
+  }
+ ]
+}

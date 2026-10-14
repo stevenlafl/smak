@@ -27,7 +27,7 @@ import { buildModelSpec, validateModelSpec } from "./model.mjs";
 export const MAP_SPEC = "smak.map/1";
 const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "note"];
 const ROOM = ["id", "size", "at", "place", "floor", "sky", "surfaces", "light", "water", "test", "note"];
-const LINK = ["between", "kind", "width", "height", "along", "sill", "stairs", "door", "note"];
+const LINK = ["between", "kind", "width", "height", "along", "sill", "stairs", "door", "glass", "note"];
 const PLACES = ["east_of", "west_of", "north_of", "south_of", "above", "below", "in"];
 const LINK_KINDS = ["door", "opening", "window", "stairs"];
 /** Sizes by the words of MAPS-MAKING.md, "Units and sizes". */
@@ -141,8 +141,8 @@ export function withIncludes(spec, folder = ".") {
     const innerTheme = { ...hostTheme, ...(inner.theme ?? {}) };
     // the module's own words for materials, kept under its own names
     for (const [word, material] of Object.entries(inner.textures ?? {})) out.textures[id(word)] = material;
-    for (const face of ["floor", "ceiling", "door", "furniture"]) out.textures[id(face)] = innerTheme[face];
-    const word = (w) => (inner.textures?.[w] !== undefined || ["floor", "ceiling", "door", "furniture"].includes(w) ? id(w) : w);
+    for (const face of ["floor", "ceiling", "wall", "door", "furniture"]) out.textures[id(face)] = innerTheme[face];
+    const word = (w) => (inner.textures?.[w] !== undefined || ["floor", "ceiling", "wall", "door", "furniture"].includes(w) ? id(w) : w);
     // the rooms a module has only to be tried alone (a stretch of street before a shop) stay out
     const tried = new Set(inner.rooms.filter((room) => room.test).map((room) => room.id));
     inner.rooms = inner.rooms.filter((room) => !room.test);
@@ -154,6 +154,8 @@ export function withIncludes(spec, folder = ".") {
         if (surfaces[face]) surfaces[face] = word(surfaces[face]);
         else if (JSON.stringify(innerTheme[face]) !== JSON.stringify(hostTheme[face])) surfaces[face] = id(face);
       }
+      if (surfaces.walls) surfaces.walls = word(surfaces.walls);
+      else if (JSON.stringify(innerTheme.wall) !== JSON.stringify(hostTheme.wall)) surfaces.walls = id("wall");
       const placed = { ...room, id: id(room.id), surfaces };
       if (room.water?.material) placed.water = { ...room.water, material: word(room.water.material) };
       if (k === 0) {
@@ -530,6 +532,23 @@ export function buildMapSpec(given, { out, compilers, folder } = {}) {
         cuts.push({ name: `${a.id} to ${b.id}`, from: axis === 0 ? [ends[0], middle] : [middle, ends[0]], to: axis === 0 ? [ends[1], middle] : [middle, ends[1]] });
       }
     } else if (kind !== "window" && floorHigh !== floorLow) report.facts.push(`links[${i}]: a step of ${floorHigh - floorLow} from ${a.id} to ${b.id}`);
+    if (kind === "window" && link.glass) {
+      // a pane: a breakable brush 2 thick in the middle of the wall, half see-through, that shatters as glass
+      const glass = typeof link.glass === "object" ? link.glass : {};
+      const pane = { min: [...hole.min], max: [...hole.max] };
+      const middle = (from.max[axis] + to.min[axis]) / 2;
+      pane.min[axis] = middle - 1;
+      pane.max[axis] = middle + 1;
+      entities.push(
+        brushEntity("func_breakable", [box(pane.min, pane.max, textureOf(glass.material ?? "glass"))], {
+          rendermode: 2,
+          renderamt: glass.alpha ?? 90,
+          material: 0,
+          health: glass.health ?? 20,
+          ...(glass.keys ?? {}),
+        }),
+      );
+    }
     if (kind === "door") {
       const leaf = { min: [...hole.min], max: [...hole.max] };
       const middle = (from.max[axis] + to.min[axis]) / 2;
@@ -540,9 +559,9 @@ export function buildMapSpec(given, { out, compilers, folder } = {}) {
   });
 
   // ── rooms: carved in one block, lined where they wear another texture ──
-  // A floor or a ceiling of its own is a lining: the room is carved LINING further that way, and a slab of
-  // the other texture fills what was carved, so its face is where the room's was. A way through it (a
-  // stair's shaft) is cut out of the slab.
+  // A floor, a ceiling or walls of its own are a lining: the room is carved LINING further that way, and a
+  // slab of the other texture fills what was carved, so its face is where the room's was. A way through it
+  // (a stair's shaft, a doorway) is cut out of the slab.
   const boxes = [];
   const linings = [];
   for (const room of rooms.values()) {
@@ -550,14 +569,32 @@ export function buildMapSpec(given, { out, compilers, folder } = {}) {
     const surfaces = { ...(room.spec.surfaces ?? {}) };
     if (room.spec.sky) surfaces.ceiling = "sky";
     for (const [face, word] of Object.entries(surfaces)) {
-      if (!["floor", "ceiling"].includes(face)) {
-        warnings.push(`rooms ${room.id}.surfaces.${face}: only floor and ceiling take a texture of their own; walls wear the theme's`);
+      if (!["floor", "ceiling", "walls"].includes(face)) {
+        warnings.push(`rooms ${room.id}.surfaces.${face}: a room's surfaces are floor, ceiling and walls`);
         continue;
       }
-      const z = face === "floor" ? [room.min[2] - LINING, room.min[2]] : [room.max[2], room.max[2] + LINING];
-      if (face === "floor") carved.min[2] -= LINING;
-      else carved.max[2] += LINING;
-      let pieces = [{ min: [room.min[0], room.min[1], z[0]], max: [room.max[0], room.max[1], z[1]] }];
+      let pieces;
+      if (face === "walls") {
+        // four slabs round the room, each LINING thick, the room carved out to their backs: its walls wear the
+        // texture whatever the rock round it wears (a module's own walls, kept in a larger map)
+        for (const k of [0, 1]) {
+          carved.min[k] -= LINING;
+          carved.max[k] += LINING;
+        }
+        const [x0, y0, z0] = room.min;
+        const [x1, y1, z1] = room.max;
+        pieces = [
+          { min: [x0 - LINING, y0 - LINING, z0], max: [x0, y1 + LINING, z1] },
+          { min: [x1, y0 - LINING, z0], max: [x1 + LINING, y1 + LINING, z1] },
+          { min: [x0, y0 - LINING, z0], max: [x1, y0, z1] },
+          { min: [x0, y1, z0], max: [x1, y1 + LINING, z1] },
+        ];
+      } else {
+        const z = face === "floor" ? [room.min[2] - LINING, room.min[2]] : [room.max[2], room.max[2] + LINING];
+        if (face === "floor") carved.min[2] -= LINING;
+        else carved.max[2] += LINING;
+        pieces = [{ min: [room.min[0], room.min[1], z[0]], max: [room.max[0], room.max[1], z[1]] }];
+      }
       for (const hole of holes) pieces = pieces.flatMap((piece) => subtract(piece, hole));
       const texture = textureOf(word);
       linings.push(...pieces.map((piece) => box(piece.min, piece.max, texture)));
@@ -628,20 +665,32 @@ export function buildMapSpec(given, { out, compilers, folder } = {}) {
   const prefabs = spec.prefabs ?? {};
   // a texture a prefab's .map names, as the word of the spec it was made from: SM_FURNITURE is "furniture"
   const wordOfTexture = new Map([...Object.keys(materials), ...Object.keys(MATERIALS)].map((word) => [textureName(word), word]));
-  const putPrefab = (prefab, at, quarters, where) => {
-    if (!prefab.file) return void brushes.push(...placedPrefab(prefab, at, quarters, textureOf));
+  // a prefab's brushes go into the world, or into a brush entity when it says so (a crate that breaks, a
+  // pane of glass, detail that should not cut the world: func_breakable, func_wall, func_illusionary...)
+  const putPrefab = (prefab, at, quarters, where, entity = prefab.entity) => {
+    const target = entity ? [] : brushes;
+    const done = () => {
+      if (!entity) return;
+      const { class: classname, ...keys } = typeof entity === "string" ? { class: entity } : entity;
+      entities.push(brushEntity(classname, target, keys));
+    };
+    if (!prefab.file) {
+      target.push(...placedPrefab(prefab, at, quarters, textureOf));
+      return done();
+    }
     const placed = prefabFromMap(resolve(folder ?? ".", prefab.file), at, quarters);
     for (const name of placed.textures) {
       const word = wordOfTexture.get(name.toUpperCase());
       if (!word) throw new Error(`${where}: its .map wears ${name}, which is no material of the spec (its textures are SM_ and a word of theme, textures or a base)`);
       textureOf(word);
     }
-    brushes.push(...placed.brushes);
+    target.push(...placed.brushes);
     entities.push(...placed.entities);
+    done();
   };
   place(spec.furniture, "furniture", (thing, room, at, i) => {
     const prefab = thing.prefab ? prefabs[thing.prefab] : { pieces: [{ box: [[-thing.box[0] / 2, -thing.box[1] / 2, 0], [thing.box[0] / 2, thing.box[1] / 2, thing.box[2]]], texture: thing.texture ?? "furniture" }] };
-    putPrefab(prefab, at, Math.round((thing.rotate ?? 0) / 90), `furniture[${i}]`);
+    putPrefab(prefab, at, Math.round((thing.rotate ?? 0) / 90), `furniture[${i}]`, thing.entity ?? prefab.entity);
   });
   for (const mark of marks) {
     if (!mark.meaning.prefab) continue;
@@ -796,7 +845,8 @@ export function buildMapSpec(given, { out, compilers, folder } = {}) {
       }
       const walked = reachOf(bsp);
       if (walked.unreached.length + walked.stuck.length) report.faults.push(...walked.warnings.map((line) => `walk of the compiled map: ${line}`));
-      const drawing = { folders: [out, dirname(out)], models: true };
+      // a night map's sky drawn dark: without the game's own sky pictures the views fill it with a day's blue
+      const drawing = { folders: [out, dirname(out)], models: true, ...(spec.night ? { sky: [10, 12, 22] } : {}) };
       save("plan", planOf(bsp, drawing));
       // a view of every room, from a corner by its walls looking across it to the far corner
       const viewSpots = [];

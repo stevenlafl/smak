@@ -1,0 +1,48 @@
+OK: built, and every check passed
+WARN  13 brushes have planes written with points off the grid of 1: where two such brushes should share a plane a crack can open, and the compiler may complain. Round them (a builder's snap option, or snapped) where they have to meet others: world brush 351 at -717.88 334.12 0; world brush 352 at -712.21 336.5 20; world brush 353 at -661.88 334.12 0; world brush 354 at -656.21 336.5 20; world brush 355 at -605.88 334.12 0; world brush 356 at -600.21 336.5 20; world brush 357 at -549.88 334.12 0; world brush 358 at -544.21 336.5 20; and 5 more
+WARN  the middle of noodle_shop is not walked to (furniture there, or the room is shut off)
+WARN  the middle of clinic_surgery is not walked to (furniture there, or the room is shut off)
+WARN  the middle of sewer_channel is not walked to (furniture there, or the room is shut off)
+fact  links[0]: an opening 192 wide and 112 high from street to noodle_shop at x -672 to -480
+fact  links[1]: an opening 128 wide and 112 high from street to arcade_hall at x -64 to 64
+fact  links[2]: a door 64 wide and 96 high from street to clinic_waiting at x 448 to 512
+fact  links[3]: a door 64 wide and 96 high from street to pawnshop at x -640 to -576
+fact  links[4]: a door 64 wide and 96 high from street to lobby at x 400 to 464
+fact  links[5]: an opening 128 wide and 160 high from street to alley at x -320 to -192
+fact  links[6]: a door 64 wide and 96 high from alley to sewer_access at x -288 to -224
+fact  links[7]: a window 96 wide and 56 high from street to pawnshop at x -768 to -672
+fact  links[8]: a door 64 wide and 96 high from noodle_shop to noodle_store at x -480 to -416
+fact  links[9]: a door 64 wide and 96 high from arcade_hall to arcade_closet at x 192 to 256
+fact  links[10]: a door 64 wide and 96 high from clinic_waiting to clinic_surgery at x 528 to 592
+fact  links[11]: an opening 96 wide and 96 high from sewer_access to sewer_drain at y -960 to -864
+fact  links[11]: stairs of 14 steps in sewer_drain up to the way at 0
+fact  links[12]: an opening 96 wide and 96 high from sewer_drain to sewer_hideout at x 448 to 544
+fact  links[13]: an opening 128 wide and 96 high from sewer_drain to sewer_culvert at y -864 to -736
+fact  models.neon_lamp: built and sound (328 triangles in 2 textures; 44.4 long (x), 12 wide (y), 127.8 high (z))
+fact  models.hover_car: built and sound (1228 triangles in 2 textures; 107.7 long (x), 38.7 wide (y), 20.5 high (z))
+fact  models.noodle_noodle_sign: built and sound (288 triangles in 2 textures; 3.4 long (x), 64 wide (y), 44 high (z))
+fact  models.noodle_paper_lantern: built and sound (248 triangles in 2 textures; 12 long (x), 12 wide (y), 28.4 high (z))
+fact  texture lights: SM_PINK_SIGN, SM_PURPLE_SIGN, SM_GREEN_SIGN, SM_WINDOW, SM_MAGENTA_BOAR, SM_CYAN_BOARD, SM_NOODLE_PINK, SM_ARCADE_SCREE, SM_ARCADE_MARQU, SM_ARCADE_STRIP, SM_ARCADE_LEDS, SM_CLINIC_VEND, SM_CLINIC_MONIT, SM_CLINIC_JARS, SM_SEWER_SCREEN, SM_SEWER_STATUS
+fact  15 rooms, 14 ways through, 485 brushes, 65 entities
+fact  walked from 1 places to start: 1 info_player_start
+fact  all 21 entities a player goes to are reached on foot
+fact  no one-way place: from all the floor walked there is a way back to a place to start
+fact  the walk reaches 86.5 in 100 of the floor a standing player fits on (1724096 of 1993216 square units, on the grid of 8)
+fact  compiled: /tmp/smak-prompts-qKPAty/cyberpunk_city/cyberpunk_city.bsp; the floors' light by room: street 80, pawnshop 36, alley 39, lobby 47, noodle_shop 57, noodle_store 45, arcade_hall 41, arcade_closet 47, clinic_waiting 120, clinic_surgery 218, sewer_access 32, sewer_drain 37, sewer_channel 0, sewer_hideout 33, sewer_culvert 32, elsewhere 11
+ROOMS: id, from x y z to x y z, floor light
+  street -896 -224 0 to 896 224 512, light 80
+  pawnshop -800 -496 0 to -416 -240 144, light 36
+  alley -336 -752 0 to -176 -240 512, light 39
+  lobby 304 -496 0 to 560 -240 160, light 47
+  noodle_shop -800 240 0 to -352 496 160, light 57
+  noodle_store -544 512 0 to -352 640 128, light 45
+  arcade_hall -256 240 0 to 256 624 176, light 41
+  arcade_closet 64 640 0 to 256 800 128, light 47
+  clinic_waiting 320 240 0 to 640 496 144, light 120
+  clinic_surgery 288 512 0 to 672 832 176, light 218
+  sewer_access -352 -960 0 to -160 -768 160, light 32
+  sewer_drain -144 -960 -224 to 752 -640 128, light 37
+  sewer_channel -112 -848 -288 to 720 -752 -224, light 0
+  sewer_hideout 304 -624 -224 to 688 -304 -64, light 33
+  sewer_culvert 768 -880 -224 to 1152 -720 -96, light 32
+written: work:cyberpunk_city/models/neon_lamp.mdl, work:cyberpunk_city/models/hover_car.mdl, work:cyberpunk_city/models/noodle_noodle_sign.mdl, work:cyberpunk_city/models/noodle_paper_lantern.mdl, work:cyberpunk_city/cyberpunk_city.wad, work:cyberpunk_city/cyberpunk_city.map, work:cyberpunk_city/cyberpunk_city-plan-source.png, work:cyberpunk_city/cyberpunk_city.bsp, work:cyberpunk_city/cyberpunk_city-plan.png, work:cyberpunk_city/cyberpunk_city-views.png, work:cyberpunk_city/cyberpunk_city-views-bright.png, work:cyberpunk_city/cyberpunk_city-props.png, work:cyberpunk_city/cyberpunk_city-sections.png
