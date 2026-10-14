@@ -424,7 +424,7 @@ test("a map spec is built without compilers: lined rooms (the crash of case 9), 
       spec: "smak.map/1",
       name: "lined",
       night: true,
-      textures: { pink: { base: "neon", tone: [1, 0.2, 0.7] } },
+      textures: { pink: { base: "neon", tone: [1, 0.2, 0.7] }, fence: { base: "mesh", tone: [0.5, 0.5, 0.5], cell: 6 } },
       rooms: [
         { id: "yard", size: [384, 256, 256], sky: true, surfaces: { floor: "grass", walls: "brick" } },
         { id: "pool", size: [256, 256, 128], place: { north_of: "yard" }, water: 32 },
@@ -433,6 +433,7 @@ test("a map spec is built without compilers: lined rooms (the crash of case 9), 
       furniture: [
         { box: [32, 32, 32], room: "yard", at: [100, 0], entity: { class: "func_breakable", material: 1 } },
         { box: [64, 4, 16], room: "yard", at: [0, -124], z: 96, texture: "pink" },
+        { box: [96, 2, 48], room: "yard", at: [-120, -60], texture: "fence" },
       ],
       entities: [{ class: "info_player_start", room: "yard", at: "centre" }],
       models: { post: { spec: "smak.model/1", parts: [{ id: "post", kind: "cylinder", radius: 2, height: 40 }] } },
@@ -448,10 +449,18 @@ test("a map spec is built without compilers: lined rooms (the crash of case 9), 
   const text = readFileSync(files.map, "utf8");
   sure(/"classname" "func_breakable"[\s\S]*"rendermode" "2"/.test(text), "a glass pane, a func_breakable half see-through");
   sure(/"material" "1"/.test(text), "the crate a breakable of wood");
+  sure(/"classname" "func_wall"\n"rendermode" "4"\n"renderamt" "255"[^}]*\{\n[^}]*\{SM_FENCE/.test(text), "a fence of mesh, a func_wall in render mode 4");
   sure(/!SM_WATER/.test(text) && /"classname" "info_texlights"[\s\S]*"SM_PINK"/.test(text), "water, and the neon a texture light");
   sure(/"_diffuse_light"/.test(text), "a night sky's own light under the moon's");
   const wad = smak.maps.readWad(readFileSync(files.wad));
-  sure(["SM_GRASS", "SM_BRICK", "!SM_WATER", "SM_PINK", "SKY"].every((name) => wad.textures.some((t) => t.name.toUpperCase() === name)), `the wad: ${wad.textures.map((t) => t.name)}`);
+  sure(["SM_GRASS", "SM_BRICK", "!SM_WATER", "SM_PINK", "SKY", "{SM_FENCE"].every((name) => wad.textures.some((t) => t.name.toUpperCase() === name)), `the wad: ${wad.textures.map((t) => t.name)}`);
+  // the fence's holes are the last colour of its palette, and they are most of it
+  const fence = wad.textures.find((t) => t.name.toUpperCase() === "{SM_FENCE");
+  const holes = fence.pixels.filter((i) => i === 255).length / fence.pixels.length;
+  sure(holes > 0.4 && holes < 0.9, `a fence is mostly holes: ${holes}`);
+  // chain-link's cords run on the diagonals: the diagonal through a crossing is all cord, as a square grid's is not
+  const solid = (picture) => Array.from({ length: 32 }, (_, i) => picture.rgba[(i * picture.width + i) * 4 + 3]).every((a) => a === 255);
+  sure(solid(surfacePicture({ base: "mesh", cell: 6, weave: "diamond" }, 128)) && !solid(surfacePicture({ base: "mesh", cell: 6 }, 128)), "a diamond weave");
   // a map's picture tiles: its left column follows on from its right
   const picture = surfacePicture(materialOf("brick"), 64);
   const step = (x0, x1) => Math.abs(picture.rgb[(10 * 64 + x0) * 3] - picture.rgb[(10 * 64 + x1) * 3]);

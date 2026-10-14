@@ -199,7 +199,8 @@ player sees it. `examples/prompts/22-weapon-wrench` is a worked one.
 `base` is one of: `wood`, `darkwood`, `planks`, `iron`, `steel`, `brass`, `gold`, `copper`, `leather`,
 `cloth`, `rope`, `stone`, `brick`, `plaster`, `tile`, `metal`, `grass`, `dirt`, `glass`, `flame`, `neon`,
 `hazard` (stripes of its tone and black), `asphalt`, `water`, `paint`, `bone`, `mesh` (a net, a wire fence,
-a grille: cords in its tone with holes between, seen through as in the game; `cell` the holes' size, 2). `tone: [r, g, b]` (0 to 1)
+a grille: cords in its tone with holes between, seen through as in the game; `cell` the holes' size, 2;
+`weave: "diamond"` runs the cords on the diagonals, as chain-link's do). `tone: [r, g, b]` (0 to 1)
 changes its colour; `rust` (0 to 1) a metal's rust; `flags: ["fullbright"]` makes it shine in the dark
 (`flame` and `neon` are so already; such parts get a texture of their own).
 
@@ -438,7 +439,10 @@ as Hammer's are: its brushes and its entities (a candle's light) moved and turne
 named `SM_` and a word of the spec's materials (`SM_FURNITURE`). `furniture: [{ prefab: "table", room:
 "hall", at: "centre", rotate: 90 }]` puts one (turned by a multiple of 90). `entity: "func_breakable"` (or
 `{ class, keys... }`) makes its brushes a brush entity: a crate that breaks (`material: 1`, wood), a
-`func_wall`, a `func_illusionary`. Unless told, furniture is a `func_detail`: it cuts no portals, so a
+`func_wall`, a `func_illusionary`. Furniture wearing a `mesh` (a chain-link fence: a box 2 thick in
+`{ "base": "mesh", "cell": 6, "weave": "diamond" }`) or a game's `{` texture is a `func_wall` in render mode
+4 unless told, the only way the game draws its holes; its texture is named with `{` (`{SM_CHAIN_LINK`).
+Unless told, other furniture is a `func_detail`: it cuts no portals, so a
 furnished map is seen through by `hlvis` in hundredths of a second where it took minutes; it still stops a
 player, and it seals nothing (it never has to: the rooms' rock does). `as: "world"` keeps a piece in the
 world. The report carries the compilers' own chart of the engine's limits (`allocblock 3 of 64`,

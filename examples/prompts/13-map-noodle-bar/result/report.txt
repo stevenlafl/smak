@@ -1,7 +1,4 @@
 OK: built, and every check passed
-CHANGED since the last build of noodle_bar: things taken away: furniture fridge #2; sounds ambient_generic #1; sounds ambient_generic #2
-CHANGED since the last build of noodle_bar: things moved or turned: furniture stove #1 from -188 72 0 to -96 108 0, turned 90 to 0; furniture shelf #1 from -96 116 0 to -188 80 0, turned 0 to 90
-CHANGED since the last build of noodle_bar: 19 rooms and things are where they were
 WARN  13 brushes have planes written with points off the grid of 1: where two such brushes should share a plane a crack can open, and the compiler may complain. Round them (a builder's snap option, or snapped) where they have to meet others: brush 0 of entity 3 (func_detail) at -141.88 -33.88 0; brush 1 of entity 3 (func_detail) at -136.21 -31.5 20; brush 0 of entity 4 (func_detail) at -85.88 -33.88 0; brush 1 of entity 4 (func_detail) at -80.21 -31.5 20; brush 0 of entity 5 (func_detail) at -29.88 -33.88 0; brush 1 of entity 5 (func_detail) at -24.21 -31.5 20; brush 0 of entity 6 (func_detail) at 26.12 -33.88 0; brush 1 of entity 6 (func_detail) at 31.79 -31.5 20; and 5 more
 WARN  the middle of shop is not walked to (furniture there, or the room is shut off)
 fact  links[0]: an opening 192 wide and 112 high from shop to street at x -96 to 96
@@ -15,8 +12,8 @@ fact  walked from 1 places to start: 1 info_player_start
 fact  all 4 entities a player goes to are reached on foot
 fact  no one-way place: from all the floor walked there is a way back to a place to start
 fact  the walk reaches 83 in 100 of the floor a standing player fits on (221568 of 267072 square units, on the grid of 8)
-fact  the engine's limits: models 2 of 512, planes 380 of 32768, worldfaces 442 of 32768, clipnodes 313 of 32767, worldleaves 177 of 8192, allocblock 1 of 64
-fact  compiled: /tmp/claude-1000/-media-Data3-Packages-smak/50cffc54-6c07-4d66-acee-62220e174352/scratchpad/w13/noodle_bar/noodle_bar.bsp; the floors' light by room: shop 54, store 46, street 44
+fact  the engine's limits: models 2 of 512, planes 380 of 32768, worldfaces 441 of 32768, clipnodes 317 of 32767, worldleaves 178 of 8192, allocblock 1 of 64
+fact  compiled: /tmp/smak-prompts-0JYds7/noodle_bar/noodle_bar.bsp; the floors' light by room: shop 54, store 46, street 44
 ROOMS: id, from x y z to x y z, floor light
   shop -224 -128 0 to 224 128 160, light 54
   store 32 144 0 to 224 272 128, light 46

@@ -16,7 +16,7 @@ reads before writing a spec of its own (`docs/SPEC.md` is the reference).
 | 22 to 27, 37 | Weapons: a wrench for the crowbar, a six-shooter for the .357, a drainpipe launcher, a tin-can bomb, a lunchbox mine, a pipe shotgun, a broom that sweeps | a weapon fitted into the game's v_, p_ and w_ files, its hands and animations kept; parts on the game's moving bones (a drum that swings out, a pin pulled, a pump) |
 | 28 | A furnishings set in a showroom | 26 models made to be placed many times (a home's, a park's, shops'), each built and checked, shown one by one in the map's gallery; nets of `mesh` |
 | 29 to 31 | Houses: a ranch, a brick two-storey, a bungalow with a garage | a building standing in the open: its shell, a gable roof, doors and windows to the outside by side; five furnished rooms |
-| 32 to 34 | Shops, a park, a building site | a row of five furnished shops with lit signs; courts laid out of slabs and lines; house frames as brush prefabs |
+| 32 to 34 | Shops, a park, a building site | a row of five furnished shops with lit signs; courts laid out of slabs and lines, then fenced in see-through chain-link; house frames as brush prefabs |
 | 35 | The neighbourhood, in four seasons | six modules on a street; the seasons as change requests by `replace` (every lawn to snow, every tree bare), swaps told as swaps |
 | 38 | The wrench's sounds | six sounds under the crowbar's names, made from layers and held against the game's own of their kinds by measure and spectrogram |
 

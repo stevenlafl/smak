@@ -1,0 +1,624 @@
+{
+ "spec": "smak.map/1",
+ "name": "park",
+ "textures": {
+  "lawn": {
+   "base": "grass"
+  },
+  "court_asphalt": {
+   "base": "asphalt",
+   "tone": [
+    0.25,
+    0.25,
+    0.27
+   ]
+  },
+  "court_green": {
+   "base": "paint",
+   "tone": [
+    0.2,
+    0.45,
+    0.3
+   ]
+  },
+  "line": {
+   "base": "paint",
+   "tone": [
+    0.95,
+    0.95,
+    0.95
+   ]
+  },
+  "path": {
+   "base": "dirt",
+   "tone": [
+    0.6,
+    0.52,
+    0.4
+   ]
+  },
+  "chain_link": {
+   "base": "mesh",
+   "tone": [
+    0.32,
+    0.34,
+    0.33
+   ],
+   "cell": 6,
+   "weave": "diamond"
+  }
+ },
+ "sun": {
+  "pitch": -50,
+  "yaw": 35,
+  "brightness": 300
+ },
+ "models": {
+  "basketball_hoop": {
+   "file": "../../28-map-furnishings/basketball_hoop.json"
+  },
+  "tennis_net": {
+   "file": "../../28-map-furnishings/tennis_net.json"
+  },
+  "swing_set": {
+   "file": "../../28-map-furnishings/swing_set.json"
+  },
+  "bench": {
+   "file": "../../28-map-furnishings/bench.json"
+  },
+  "tree_summer": {
+   "file": "../../28-map-furnishings/tree_summer.json"
+  },
+  "bush": {
+   "file": "../../28-map-furnishings/bush.json"
+  }
+ },
+ "rooms": [
+  {
+   "id": "park",
+   "size": [
+    2048,
+    1280,
+    320
+   ],
+   "sky": true,
+   "surfaces": {
+    "floor": "lawn"
+   },
+   "light": "none"
+  },
+  {
+   "id": "street",
+   "size": [
+    256,
+    1280,
+    320
+   ],
+   "place": {
+    "west_of": "park"
+   },
+   "sky": true,
+   "surfaces": {
+    "floor": "asphalt"
+   },
+   "light": "none",
+   "test": true
+  }
+ ],
+ "links": [
+  {
+   "between": [
+    "street",
+    "park"
+   ],
+   "kind": "opening",
+   "width": 384,
+   "height": 160
+  }
+ ],
+ "props": [
+  {
+   "model": "basketball_hoop",
+   "room": "park",
+   "at": [
+    -820,
+    -300
+   ],
+   "facing": "east"
+  },
+  {
+   "model": "basketball_hoop",
+   "room": "park",
+   "at": [
+    -220,
+    -300
+   ],
+   "facing": "west"
+  },
+  {
+   "model": "tennis_net",
+   "room": "park",
+   "at": [
+    520,
+    -180
+   ],
+   "facing": "east"
+  },
+  {
+   "model": "swing_set",
+   "room": "park",
+   "at": [
+    -520,
+    350
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "bench",
+   "room": "park",
+   "at": [
+    -260,
+    90
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "bench",
+   "room": "park",
+   "at": [
+    100,
+    90
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "bench",
+   "room": "park",
+   "at": [
+    -60,
+    -90
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "bench",
+   "room": "park",
+   "at": [
+    -260,
+    450
+   ],
+   "facing": "east"
+  },
+  {
+   "model": "tree_summer",
+   "room": "park",
+   "at": [
+    -900,
+    500
+   ]
+  },
+  {
+   "model": "tree_summer",
+   "room": "park",
+   "at": [
+    -700,
+    520
+   ]
+  },
+  {
+   "model": "tree_summer",
+   "room": "park",
+   "at": [
+    200,
+    480
+   ]
+  },
+  {
+   "model": "tree_summer",
+   "room": "park",
+   "at": [
+    450,
+    520
+   ]
+  },
+  {
+   "model": "tree_summer",
+   "room": "park",
+   "at": [
+    800,
+    450
+   ]
+  },
+  {
+   "model": "tree_summer",
+   "room": "park",
+   "at": [
+    -900,
+    -560
+   ]
+  },
+  {
+   "model": "tree_summer",
+   "room": "park",
+   "at": [
+    900,
+    -520
+   ]
+  },
+  {
+   "model": "tree_summer",
+   "room": "park",
+   "at": [
+    150,
+    250
+   ]
+  },
+  {
+   "model": "bush",
+   "room": "park",
+   "at": [
+    -860,
+    120
+   ]
+  },
+  {
+   "model": "bush",
+   "room": "park",
+   "at": [
+    -80,
+    560
+   ]
+  },
+  {
+   "model": "bush",
+   "room": "park",
+   "at": [
+    300,
+    300
+   ]
+  },
+  {
+   "model": "bush",
+   "room": "park",
+   "at": [
+    880,
+    150
+   ]
+  }
+ ],
+ "furniture": [
+  {
+   "box": [
+    576,
+    320,
+    2
+   ],
+   "room": "park",
+   "at": [
+    -520,
+    -300
+   ],
+   "z": 0,
+   "texture": "court_asphalt"
+  },
+  {
+   "box": [
+    576,
+    4,
+    0.5
+   ],
+   "room": "park",
+   "at": [
+    -520,
+    -458
+   ],
+   "z": 2,
+   "texture": "line"
+  },
+  {
+   "box": [
+    576,
+    4,
+    0.5
+   ],
+   "room": "park",
+   "at": [
+    -520,
+    -142
+   ],
+   "z": 2,
+   "texture": "line"
+  },
+  {
+   "box": [
+    4,
+    320,
+    0.5
+   ],
+   "room": "park",
+   "at": [
+    -806,
+    -300
+   ],
+   "z": 2,
+   "texture": "line"
+  },
+  {
+   "box": [
+    4,
+    320,
+    0.5
+   ],
+   "room": "park",
+   "at": [
+    -234,
+    -300
+   ],
+   "z": 2,
+   "texture": "line"
+  },
+  {
+   "box": [
+    4,
+    320,
+    0.5
+   ],
+   "room": "park",
+   "at": [
+    -520,
+    -300
+   ],
+   "z": 2,
+   "texture": "line"
+  },
+  {
+   "box": [
+    96,
+    4,
+    0.5
+   ],
+   "room": "park",
+   "at": [
+    -760,
+    -300
+   ],
+   "z": 2,
+   "texture": "line"
+  },
+  {
+   "box": [
+    96,
+    4,
+    0.5
+   ],
+   "room": "park",
+   "at": [
+    -280,
+    -300
+   ],
+   "z": 2,
+   "texture": "line"
+  },
+  {
+   "box": [
+    720,
+    448,
+    2
+   ],
+   "room": "park",
+   "at": [
+    520,
+    -180
+   ],
+   "z": 0,
+   "texture": "court_green"
+  },
+  {
+   "box": [
+    720,
+    4,
+    0.5
+   ],
+   "room": "park",
+   "at": [
+    520,
+    -402
+   ],
+   "z": 2,
+   "texture": "line"
+  },
+  {
+   "box": [
+    720,
+    4,
+    0.5
+   ],
+   "room": "park",
+   "at": [
+    520,
+    42
+   ],
+   "z": 2,
+   "texture": "line"
+  },
+  {
+   "box": [
+    4,
+    448,
+    0.5
+   ],
+   "room": "park",
+   "at": [
+    162,
+    -180
+   ],
+   "z": 2,
+   "texture": "line"
+  },
+  {
+   "box": [
+    4,
+    448,
+    0.5
+   ],
+   "room": "park",
+   "at": [
+    878,
+    -180
+   ],
+   "z": 2,
+   "texture": "line"
+  },
+  {
+   "box": [
+    4,
+    340,
+    0.5
+   ],
+   "room": "park",
+   "at": [
+    340,
+    -180
+   ],
+   "z": 2,
+   "texture": "line"
+  },
+  {
+   "box": [
+    4,
+    340,
+    0.5
+   ],
+   "room": "park",
+   "at": [
+    700,
+    -180
+   ],
+   "z": 2,
+   "texture": "line"
+  },
+  {
+   "box": [
+    360,
+    4,
+    0.5
+   ],
+   "room": "park",
+   "at": [
+    520,
+    -180
+   ],
+   "z": 2,
+   "texture": "line"
+  },
+  {
+   "box": [
+    1500,
+    64,
+    1
+   ],
+   "room": "park",
+   "at": [
+    -140,
+    0
+   ],
+   "z": 0,
+   "texture": "path"
+  },
+  {
+   "box": [
+    64,
+    600,
+    1
+   ],
+   "room": "park",
+   "at": [
+    -140,
+    300
+   ],
+   "z": 0,
+   "texture": "path"
+  },
+  {
+   "box": [
+    736,
+    2,
+    120
+   ],
+   "room": "park",
+   "at": [
+    520,
+    52
+   ],
+   "z": 0,
+   "texture": "chain_link"
+  },
+  {
+   "box": [
+    736,
+    2,
+    120
+   ],
+   "room": "park",
+   "at": [
+    520,
+    -412
+   ],
+   "z": 0,
+   "texture": "chain_link"
+  },
+  {
+   "box": [
+    2,
+    464,
+    120
+   ],
+   "room": "park",
+   "at": [
+    888,
+    -180
+   ],
+   "z": 0,
+   "texture": "chain_link"
+  },
+  {
+   "box": [
+    2,
+    372,
+    120
+   ],
+   "room": "park",
+   "at": [
+    152,
+    -226
+   ],
+   "z": 0,
+   "texture": "chain_link"
+  },
+  {
+   "box": [
+    2,
+    12,
+    120
+   ],
+   "room": "park",
+   "at": [
+    152,
+    46
+   ],
+   "z": 0,
+   "texture": "chain_link"
+  }
+ ],
+ "entities": [
+  {
+   "class": "info_player_start",
+   "room": "street",
+   "at": [
+    0,
+    0
+   ],
+   "facing": "east"
+  }
+ ]
+}

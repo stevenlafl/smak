@@ -42,7 +42,7 @@ export const MATERIALS = {
   snow: { tone: [0.92, 0.94, 0.97], what: "snow lying on the ground or a roof" },
   siding: { tone: [0.82, 0.84, 0.8], what: "a house's outside: painted clapboards, laid level (maps: the walls of a building)" },
   shingles: { tone: [0.3, 0.27, 0.25], what: "a roof: rows of shingles, staggered (maps: a building's roof)" },
-  mesh: { tone: [0.12, 0.12, 0.12], what: "a net, a wire fence, a grille: a grid of cords in its tone with holes between (masked: seen through). `cell`: the holes' size in units (2)" },
+  mesh: { tone: [0.12, 0.12, 0.12], what: "a net, a wire fence, a grille: a grid of cords in its tone with holes between (masked: seen through). `cell`: the holes' size in units (2); `weave: \"diamond\"` a chain-link's diagonal cords" },
 };
 /** The colour that stands for a hole in a masked picture until it is made a texture (`HOLE_RGB`). */
 export const HOLE_RGB = [1, 0, 1];
@@ -67,6 +67,7 @@ export function materialOf(given, where = "material") {
     flags: material.flags ?? BASE_FLAGS[material.base] ?? [],
     glow: material.glow,
     ...(material.cell !== undefined ? { cell: material.cell } : {}),
+    ...(material.weave !== undefined ? { weave: material.weave } : {}),
   };
 }
 
@@ -92,7 +93,9 @@ export function colourAt(material, x, y, light = 1, px = 8) {
       const cell = Math.max(material.cell ?? 2, 4.5 / px);
       const cord = Math.max(cell * 0.2, 1.5 / px);
       const on = (a) => ((a % cell) + cell) % cell < cord;
-      return on(x) || on(y) ? shade(tone, light) : HOLE_RGB;
+      // a diamond weave (chain-link) runs its cords along the diagonals
+      const [a, b] = material.weave === "diamond" ? [x + y, x - y] : [x, y];
+      return on(a) || on(b) ? shade(tone, light) : HOLE_RGB;
     }
     case "wood":
     case "darkwood":
@@ -207,6 +210,22 @@ export function zonePainter(material, zone, px, { round = null } = {}) {
  * the material's own grain, made to tile. Returns { width, height, rgb }.
  */
 export function surfacePicture(given, size = 64) {
+  // a mesh (a fence, a grille): cords and holes laid exactly on the tile, one texel a unit, the holes as
+  // see-through pixels (rgba): no seamless blending, which would mix the holes into the cords
+  if ((typeof given === "string" ? given : given.base) === "mesh") {
+    const material = materialOf(given);
+    // the cell made to divide the picture, so that it tiles (a diagonal weave too: x + y comes round with x)
+    const cells = Math.max(1, Math.round(size / Math.max(material.cell ?? 2, 4.5)));
+    const fitted = { ...material, cell: size / cells };
+    const rgba = new Uint8Array(size * size * 4);
+    for (let y = 0; y < size; y++)
+      for (let x = 0; x < size; x++) {
+        const c = colourAt(fitted, x, y, 0.9 + 0.2 * (fbm(x * 0.3, y * 0.3, material.seed, 2) - 0.5), 1);
+        const hole = c.every((v, i) => v === HOLE_RGB[i]);
+        rgba.set(hole ? [0, 0, 0, 0] : [...c.map((v) => Math.round(Math.min(1, v) * 255)), 255], (y * size + x) * 4);
+      }
+    return { width: size, height: size, rgba };
+  }
   const material = materialOf(given);
   const { base, tone, seed: s } = material;
   const rgb = new Uint8Array(size * size * 3);

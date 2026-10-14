@@ -103,8 +103,8 @@ function stacked(pictures, names) {
  * The texture names a spec's materials take: SM_ and the word, 15 letters at most, as a .wad holds them; a
  * liquid's begins with ! (the compilers make what wears it water), the sky's is `sky`.
  */
-const textureName = (key, liquid = false) =>
-  key === "sky" ? "sky" : `${liquid ? "!" : ""}SM_${key}`.toUpperCase().replace(/[^!A-Z0-9_]/g, "").slice(0, 15);
+const textureName = (key, liquid = false, holed = false) =>
+  key === "sky" ? "sky" : `${liquid ? "!" : holed ? "{" : ""}SM_${key}`.toUpperCase().replace(/[^!{A-Z0-9_]/g, "").slice(0, 15);
 /** A texture light's brightness for a material that glows, unless it says (`glow`). */
 const GLOW = 600;
 /** A map whose darkest room's floor is lit under this gets its views drawn again three times as bright. */
@@ -540,6 +540,8 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   const used = new Map();
   /** a texture name for a word of the spec (a key of theme/textures, or a base material) */
   const liquids = new Set();
+  /** materials with holes: their textures begin with {, and what wears them is drawn in render mode 4 */
+  const meshed = new Set();
   // a game's own textures: named (`{ texture: "C1A0_LABW4" }`) or picked by words and a colour
   // (`{ pick: { words: ["brick"], tone: [r, g, b], else: <a material> } }`) from the .wad files given; a pick
   // that finds nothing is a gap, made from its `else` into the map's own .wad and told
@@ -579,6 +581,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     picked.set(word, name);
     return name;
   };
+  const nameOfKey = (key) => textureName(key, liquids.has(key), meshed.has(key));
   const textureOf = (word, { liquid = false } = {}) => {
     if (word === "sky") return used.set("sky", { base: "glass", tone: spec.night ? [0.05, 0.06, 0.1] : [0.45, 0.6, 0.85] }) && "sky";
     let material = materials[word] ?? word;
@@ -593,7 +596,11 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     const key = materials[word] !== undefined ? word : `${typeof material === "string" ? material : material.base}`;
     used.set(key, material);
     if (liquid) liquids.add(key);
-    return textureName(key, liquid);
+    // a mesh (a fence, a grille) is a texture with holes: its name begins with {, and what wears it is a
+    // brush entity drawn in render mode 4, or the holes show as a colour
+    const holed = (typeof material === "string" ? material : material.base) === "mesh";
+    if (holed) meshed.add(key);
+    return textureName(key, liquid, holed);
   };
   let themeNames;
   try {
@@ -929,7 +936,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   // furniture: brush prefabs, or plain boxes
   const prefabs = spec.prefabs ?? {};
   // a texture a prefab's .map names, as the word of the spec it was made from: SM_FURNITURE is "furniture"
-  const wordOfTexture = new Map([...Object.keys(materials), ...Object.keys(MATERIALS)].map((word) => [textureName(word), word]));
+  const wordOfTexture = new Map([...Object.keys(materials), ...Object.keys(MATERIALS)].flatMap((word) => [[textureName(word), word], [textureName(word, false, true), word]]));
   // a prefab's brushes go into the world, or into a brush entity when it says so (a crate that breaks, a
   // pane of glass, detail that should not cut the world: func_breakable, func_wall, func_illusionary...)
   // furniture is func_detail unless told (`as: "world"`, or an entity of its own): it then cuts no portal, and
@@ -979,7 +986,10 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     "furniture",
     (thing, room, at, i) => {
       const prefab = prefabOf(thing);
-      putPrefab(prefab, at, Math.round((thing.rotate ?? 0) / 90), `furniture[${i}]`, thing.entity ?? prefab.entity ?? detailed(thing, prefab));
+      // a texture with holes ({: a mesh, a fence, or a game's grate) has them only on a brush entity in render mode 4
+      const holed = (prefab.pieces ?? []).some((piece) => textureOf(piece.texture ?? "furniture").startsWith("{"));
+      const seeThrough = holed ? { class: "func_wall", rendermode: 4, renderamt: 255 } : null;
+      putPrefab(prefab, at, Math.round((thing.rotate ?? 0) / 90), `furniture[${i}]`, thing.entity ?? prefab.entity ?? seeThrough ?? detailed(thing, prefab));
       // a prefab is looked at as a prop is (a slab or a line on the floor is not: it is the floor)
       if (thing.prefab) propsAt.push({ room: room.id, at, half: 32 });
     },
@@ -1127,7 +1137,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   // ── the files: the .wad of its pictures, and the .map ──
   mkdirSync(out, { recursive: true });
   const wadFile = join(out, `${name}.wad`);
-  writeFileSync(wadFile, writeWad([...used.entries()].map(([key, material]) => ({ name: textureName(key, liquids.has(key)), image: surfacePicture(material, key === "sky" ? 64 : 128) }))));
+  writeFileSync(wadFile, writeWad([...used.entries()].map(([key, material]) => ({ name: nameOfKey(key), image: surfacePicture(material, key === "sky" ? 64 : 128) }))));
   files.wad = wadFile;
   const gameWads = [...new Set(gameTextures.values())];
   const map = { worldspawn: { wad: [wadFile, ...gameWads], message: spec.note ?? name, skyname: spec.sky ?? "desert" }, brushes, entities };
@@ -1138,7 +1148,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   for (const room of rooms.values()) report.rooms[room.id] = { min: room.min, max: room.max };
 
   // ── checked before any compile: the plan, and the walk ──
-  const textures = [...[...used.keys()].map((key) => textureName(key, liquids.has(key))), ...gameTextures.keys()];
+  const textures = [...[...used.keys()].map(nameOfKey), ...gameTextures.keys()];
   // the entities held against the game's entity definitions (its FGD, and the compilers' own), when given
   const fgds = [...[fgd].flat(), ...[spec.fgd ?? []].flat().map((file) => resolve(folder ?? ".", file))];
   const definitions = fgds.length ? definitionsOf(...fgds) : undefined;
