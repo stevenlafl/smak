@@ -12,7 +12,7 @@
 // to look in; the whole unless told), rect: [x0, y0, x1, y1] (where the model's outline lies in the picture;
 // found unless told: the largest patch that is not background and every patch a hundredth its size or more,
 // leaving out a caption in the area's top left corner), parts: [ids] (only these parts take it) }. The background is the picture's transparent pixels, or
-// those of the commonest colour along the area's border.
+// those of the commonest colour along the area's border; for colour, only those of it joined to the border.
 
 const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
 const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
@@ -63,6 +63,36 @@ export function foregroundOf(picture, [x0, y0, x1, y1]) {
       const background = clear ? c[3] < 128 : Math.abs(c[0] - bg[0]) <= BACKGROUND_NEAR && Math.abs(c[1] - bg[1]) <= BACKGROUND_NEAR && Math.abs(c[2] - bg[2]) <= BACKGROUND_NEAR;
       if (!background) mask[y * width + x] = 1;
     }
+  return mask;
+}
+
+/**
+ * foregroundOf's mask with the background reached from the area's border only: a dot of the background's colour
+ * that no run of background dots joins to the border is the thing (a dark patch of grey paint on a grey ground).
+ * For colours laid on the shape; an outline that has to keep its holes goes by foregroundOf.
+ */
+export function enclosedForegroundOf(picture, [x0, y0, x1, y1]) {
+  const width = picture.width;
+  const mask = foregroundOf(picture, [x0, y0, x1, y1]);
+  const outside = new Uint8Array(mask.length);
+  const stack = [];
+  const seed = (x, y) => {
+    const i = y * width + x;
+    if (!mask[i] && !outside[i]) (outside[i] = 1), stack.push(i);
+  };
+  for (let x = x0; x < x1; x++) (seed(x, y0), seed(x, y1 - 1));
+  for (let y = y0; y < y1; y++) (seed(x0, y), seed(x1 - 1, y));
+  while (stack.length) {
+    const j = stack.pop();
+    const jx = j % width;
+    const jy = (j - jx) / width;
+    for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+      const nx = jx + dx;
+      const ny = jy + dy;
+      if (nx >= x0 && ny >= y0 && nx < x1 && ny < y1) seed(nx, ny);
+    }
+  }
+  for (let y = y0; y < y1; y++) for (let x = x0; x < x1; x++) mask[y * width + x] = outside[y * width + x] ? 0 : 1;
   return mask;
 }
 
@@ -120,8 +150,8 @@ export function paintProjections(meshes, views) {
     const { picture } = view;
     const { back, right, up } = viewAxes(view.yaw, view.pitch);
     const area = view.area ?? [0, 0, picture.width, picture.height];
-    const mask = foregroundOf(picture, area);
-    const rect = view.rect ?? outlineBox(mask, picture.width, area);
+    const mask = enclosedForegroundOf(picture, area);
+    const rect = view.rect ?? outlineBox(foregroundOf(picture, area), picture.width, area);
     if (!rect) return null;
     // the model's outline box in this view, in units across (right) and up
     const across = all.flat().map((p) => dot(p, right));
@@ -184,20 +214,26 @@ export function paintProjections(meshes, views) {
           const w0 = 1 - w1 - w2;
           if (w0 < -0.02 || w1 < -0.02 || w2 < -0.02) continue;
           const q = [0, 1, 2].map((k) => p[0][k] * w0 + p[1][k] * w1 + p[2][k] * w2);
-          let sum = [0, 0, 0];
+          // the pictures' dots of the thing first; where none sees this texel, any dot the model covers (a speck
+          // of the ground's colour on the outline's edge is still the thing's)
+          let sum;
           let weight = 0;
-          for (const v of takers) {
-            const [px, py] = v.toPicture(q);
-            const ix = Math.floor(px);
-            const iy = Math.floor(py);
-            if (ix < 0 || iy < 0 || ix >= v.picture.width || iy >= v.picture.height) continue;
-            const at = iy * v.picture.width + ix;
-            if (!v.mask[at] || dot(q, v.back) < v.depth[at] - v.slack) continue;
-            const w = dot(n, v.back) ** SHARPNESS;
-            const c = colourAt(v, px, py);
-            sum = sum.map((s, k) => s + c[k] * w);
-            weight += w;
-            v.seen++;
+          for (const masked of [true, false]) {
+            sum = [0, 0, 0];
+            for (const v of takers) {
+              const [px, py] = v.toPicture(q);
+              const ix = Math.floor(px);
+              const iy = Math.floor(py);
+              if (ix < 0 || iy < 0 || ix >= v.picture.width || iy >= v.picture.height) continue;
+              const at = iy * v.picture.width + ix;
+              if ((masked && !v.mask[at]) || dot(q, v.back) < v.depth[at] - v.slack) continue;
+              const w = dot(n, v.back) ** SHARPNESS;
+              const c = colourAt(v, px, py);
+              sum = sum.map((s, k) => s + c[k] * w);
+              weight += w;
+              v.seen++;
+            }
+            if (weight) break;
           }
           if (!weight) continue;
           const i = (y * width + x) * 3;

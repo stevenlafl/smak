@@ -491,6 +491,32 @@ test("a model spec's project: a person's picture of the front laid onto the face
   sure(l[0] > 150 && l[2] < 80 && r[2] > 150 && r[0] < 80 && b[1] > 150 && b[0] < 80, `front left ${l}, front right ${r}, back ${b}`);
 });
 
+test("a model spec's project: a patch of the ground's colour inside the outline, and a speck of it on its edge, are the thing's", () => {
+  // the box's front grey, a dark patch near the ground's colour in its middle and a speck of it at its foot: the
+  // filing cabinet's blotches, which were masked out as ground and left to the material's paint
+  const W = 200;
+  const H = 300;
+  const rgba = new Uint8Array(W * H * 4);
+  for (let y = 0; y < H; y++)
+    for (let x = 0; x < W; x++) {
+      const inside = x >= 50 && x < 150 && y >= 50 && y < 250;
+      const patch = (x >= 60 && x < 140 && y >= 90 && y < 210) || (x >= 90 && x < 110 && y >= 240 && y < 250);
+      rgba.set([...(!inside ? [58, 62, 70] : patch ? [66, 68, 72] : [120, 120, 120]), 255], (y * W + x) * 4);
+    }
+  const folder = mkdtempSync(join(tmpdir(), "smak-project-"));
+  writeFileSync(join(folder, "front.png"), smak.png(W, H, rgba));
+  const spec = { spec: "smak.model/1", name: "p.mdl", kind: "prop", finish: false, parts: [{ id: "b", kind: "box", size: [10, 10, 20], material: { base: "paint", tone: [0.1, 0.8, 0.1] } }], project: [{ picture: "front.png", view: "front" }] };
+  const { mdl } = buildModelSpec(spec, { folder });
+  const front = smak.render(mdl, { seq: 0, yaw: 0, pitch: 0, width: 100, height: 100, light: false });
+  const green = [];
+  for (let y = 0; y < 100; y++)
+    for (let x = 0; x < 100; x++) {
+      const [r, g, b] = front.rgba.subarray((y * 100 + x) * 4, (y * 100 + x) * 4 + 3);
+      if (g > 150 && r < 80 && b < 80) green.push(`${x},${y}`);
+    }
+  sure(!green.length, `${green.length} dots of the material's green on the front: ${green.slice(0, 6).join(" ")}`);
+});
+
 await testAsync("a sprite spec: a looping flame and a one-shot fireball, written, read back, measured against the game's kinds", "build: sprite", async () => {
   const work = mkdtempSync(join(tmpdir(), "smak-sprite-"));
   const spec = {

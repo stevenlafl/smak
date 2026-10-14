@@ -342,7 +342,10 @@ photographed), they can be its texture, as they are, on the shape you built:
 - `parts`: only these parts take it.
 
 Each texel takes the colour of the pictures that see it, weighted by how squarely each does, where nothing of
-the model hides it from that view; a texel no picture sees keeps its material. The picture's own light comes
+the model hides it from that view. Only the ground joined to the picture's border is ground: a dark patch of
+the ground's colour inside the outline is the thing's, and a texel whose dot is ground still takes the dot's
+colour when no other picture sees it, so the thing's own blotches and specks come as the picture has them. A
+texel no picture sees keeps its material. The picture's own light comes
 with it, so the finish is not painted over what it covers. The shape decides how well it fits: the outline in
 each view must match the picture's, faces should be square to the views (an eight-sided column with flats to
 the front, not a corner), and a part the pictures show stands where they show it.
