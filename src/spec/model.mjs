@@ -498,8 +498,9 @@ function kitPiece(part) {
  * warnings }. Each mesh is { tris, image, flags, name } with every triangle's part named (`part` on its first
  * corner's triangle record). Used for a model, and for a prefab inside another.
  */
-function piecesOf(spec, context) {
+function piecesOf(given, context) {
   const warnings = [];
+  const spec = context.skeleton ? { ...given, parts: given.parts.map((part) => (part.span ? atSpanLength(part, context.skeleton) : part)) } : given;
   const prefabs = { ...context.prefabs, ...(spec.prefabs ?? {}) };
   const byId = new Map(spec.parts.map((part) => [part.id, part]));
   const materialFor = (part) => {
@@ -597,8 +598,28 @@ function piecesOf(spec, context) {
     if (anchor && typeof anchor === "object") {
       const { surface, from, to } = entry.made;
       if (!surface) throw new Error(`${id}: { s, angle } is a place on a turned part; ${id} is not one`);
-      const local = surface.at(from + anchor.s * (to - from), degrees(anchor.angle ?? 0), anchor.out ?? 0).p;
-      return placed.get(id).transform(local);
+      // the point on the surface as placed, then `out` along the placed surface's own normal: a part laid
+      // along a limb is stretched along its length, which turns a normal taken before it (a squat torso's,
+      // stretched 25 times, looked nearly straight up, and 5 units out went 80 up)
+      const { transform } = placed.get(id);
+      const s = from + anchor.s * (to - from);
+      const a = degrees(anchor.angle ?? 0);
+      const on = surface.at(s, a, 0);
+      const p0 = transform(on.p);
+      const out = anchor.out ?? 0;
+      if (!out) return p0;
+      const step = Math.max(1e-3, (to - from) * 1e-3);
+      const alongS = transform(surface.at(s + (s + step <= to ? step : -step), a, 0).p).map((v, k) => (v - p0[k]) * (s + step <= to ? 1 : -1));
+      const round = transform(surface.at(s, a + 1e-3, 0).p).map((v, k) => v - p0[k]);
+      let normal = [alongS[1] * round[2] - alongS[2] * round[1], alongS[2] * round[0] - alongS[0] * round[2], alongS[0] * round[1] - alongS[1] * round[0]];
+      // turned away from the middle of its ring (the mean of the ring's points round the axis, placed): a
+      // step "out" taken before the stretch is mostly a step along the axis, and cannot say which way is out
+      const ring = Array.from({ length: 8 }, (_, k) => transform(surface.at(s, (k * Math.PI) / 4, 0).p));
+      const middle = [0, 1, 2].map((k) => ring.reduce((sum, q) => sum + q[k], 0) / ring.length);
+      const outward = p0.map((v, k) => v - middle[k]);
+      if (normal[0] * outward[0] + normal[1] * outward[1] + normal[2] * outward[2] < 0) normal = normal.map((v) => -v);
+      const length = Math.hypot(...normal) || 1;
+      return p0.map((v, k) => v + (normal[k] / length) * out);
     }
     if (anchor === "start" || anchor === "end") {
       const ends = entry.made.ends;
@@ -895,6 +916,29 @@ export function buildModelSpec(spec, { folder, prefabs = {}, games = [] } = {}) 
   const files = spec.weapon ? weaponViews(spec, meshes, { folder, games, report }) : [];
   report.ok = !errors.length && !report.faults.length;
   return { mdl, report, files };
+}
+
+/**
+ * A part laid along a limb, made at the limb's length (from joint to joint, and `over` past each end) before
+ * it is built: a cylinder's height, a box's height, a turned part's rings spread along it. Built short and
+ * stretched after, what stands on its surface (a band, a ridge, a point `out` from it) was stretched with it,
+ * and its picture was a patch for a part one unit long. A sphere or a tube is left to be stretched.
+ */
+function atSpanLength(part, skeleton) {
+  if (part.span.keep) return part;
+  const [a, b] = (part.span.bones ?? part.span).map((name) => skeleton.joints.get(name));
+  if (!a || !b) return part;
+  const length = Math.hypot(...a.map((v, k) => b[k] - v)) + 2 * (part.span.over ?? 0);
+  if (part.kind === "cylinder") return { ...part, height: length };
+  if (part.kind === "box") return { ...part, size: [part.size[0], part.size[1], length] };
+  if (part.kind === "turn" && (part.axis ?? "z") === "z") {
+    const sOf = (ring) => (Array.isArray(ring) ? ring[0] : ring.s);
+    const s0 = Math.min(...part.rings.map(sOf));
+    const s1 = Math.max(...part.rings.map(sOf));
+    const k = length / (s1 - s0 || 1);
+    return { ...part, rings: part.rings.map((ring) => (Array.isArray(ring) ? [(ring[0] - s0) * k, ...ring.slice(1)] : { ...ring, s: (ring.s - s0) * k })) };
+  }
+  return part;
 }
 
 /** The size of a picture of its own for zones of these sizes: 256 square, or 512 by less for a long one. */

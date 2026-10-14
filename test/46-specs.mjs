@@ -8,6 +8,7 @@ import * as smak from "../src/index.mjs";
 import { buildModelSpec, validateModelSpec } from "../src/spec/model.mjs";
 import { buildMapSpec, layoutOf, withIncludes } from "../src/spec/map.mjs";
 import { materialOf, surfacePicture } from "../src/spec/paint.mjs";
+import { changesOf } from "../src/spec/changes.mjs";
 import { sword, taper } from "../kits/swordkit.mjs";
 import { definitionsOf } from "../src/maps/fgd.mjs";
 import { findCompilers, COMPILERS_VARIABLE } from "../src/maps/compile.mjs";
@@ -181,6 +182,28 @@ test("a character spec: a place on a part laid along a limb is where the part we
   );
   const patch = report.parts.patch;
   sure(patch && Math.abs(patch.from[2] - 4.75) <= 0.1 && Math.abs(patch.from[0] - 1) <= 0.1, `the patch halfway up the sleeve, on its front: ${JSON.stringify(patch)}`);
+  // a part laid along a limb is made at the limb's length, not stretched to it: a band on it keeps its own
+  // width and stays closed, and a point `out` from it goes out along its true normal (the cat's belly and
+  // stripes). The sleeve's rings are given from 0 to 1 and the cuff's from 0 to 1, as a spec may.
+  const banded = buildModelSpec(
+    {
+      spec: "smak.model/1",
+      name: "banded.mdl",
+      kind: "character",
+      base: { file: "limb.mjs".replace("mjs", "mdl") },
+      parts: [
+        { id: "sleeve", kind: "turn", rings: [[0, 2], [0.5, 2.5], [1, 2]], sides: 10, span: { bones: ["root", "tip"], over: 1 } },
+        { id: "cuff", kind: "band", on: { part: "sleeve", s: 0.5 }, width: 1, height: 0.2 },
+        { id: "pin", kind: "box", size: [0.5, 0.5, 0.5], attach: { to: "sleeve", toAt: { s: 0.5, angle: 0, out: -1 }, at: "centre" } },
+      ],
+    },
+    { folder },
+  ).report;
+  sure(banded.ok, `a band on a spanned part: ${[...banded.errors, ...banded.faults]}`);
+  const cuff = banded.parts.cuff;
+  sure(cuff.to[2] - cuff.from[2] < 1.5, `the band 1 wide, not stretched with the sleeve: ${JSON.stringify(cuff)}`);
+  const pin = banded.parts.pin;
+  sure(pin.from[0] > 1 && pin.to[0] < 2, `the pin 1 in from the sleeve's front (2.5), not off along its length: ${JSON.stringify(pin)}`);
 });
 
 test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ files, the gloved hands kept", () => {
@@ -291,6 +314,30 @@ test("a mesh material: a net is a masked texture with holes, seen through by des
   sure(holes > 0.3 && holes < 0.95, `the net's picture is masked, with holes: ${(holes * 100).toFixed(0)}% of it`);
 });
 
+test("a change request's report: added, taken away, moved, swapped where it stood, recoloured, and the rest left", () => {
+  const thing = (key, room, at, what = "props") => [key, { key, what, room, at, turn: 0 }];
+  const before = {
+    kind: "map",
+    materials: { lawn: { base: "grass" } },
+    rooms: { yard: { min: [0, 0, 0], max: [512, 512, 256] } },
+    things: Object.fromEntries([thing("props tree_summer #1", "yard", [100, 100, 0]), thing("props bench #1", "yard", [200, 50, 0]), thing("props bush #1", "yard", [300, 300, 0]), thing("props lamp #1", "yard", [400, 400, 0])]),
+  };
+  const after = {
+    kind: "map",
+    materials: { lawn: { base: "snow" } },
+    rooms: before.rooms,
+    things: Object.fromEntries([thing("props tree_winter #1", "yard", [100, 100, 0]), thing("props bench #1", "yard", [260, 50, 0]), thing("props lamp #1", "yard", [400, 400, 0]), thing("props swing #1", "yard", [50, 450, 0])]),
+  };
+  const { lines, changed, still } = changesOf(before, after);
+  const text = lines.join("\n");
+  sure(/things swapped where they stood: props tree_summer #1 for props tree_winter #1 in yard at 100 100 0/.test(text), text);
+  sure(/things added: props swing #1/.test(text) && !/things added:[^\n]*tree_winter/.test(text), text);
+  sure(/things taken away: props bush #1$/m.test(text), text);
+  sure(/things moved or turned: props bench #1 from 200 50 0 to 260 50 0/.test(text), text);
+  sure(/materials changed: lawn/.test(text), text);
+  sure(changed === 5 && still === 2, `5 changes (swap, add, take away, move, recolour), the room and the lamp left: ${changed} ${still}`);
+});
+
 test("a map spec is laid out by words, its rooms in rooms, its modules taken in with their ids and their walls", () => {
   const spec = {
     spec: "smak.map/1",
@@ -385,6 +432,47 @@ test("a map spec's building stands in the open: a shell of its own material, a g
   sure(/all \d+ entities a player goes to are reached on foot/.test(report.facts.join("\n")), "the kitchen is walked into from the yard, through the front door");
   const text = readFileSync(files.map, "utf8");
   sure(/SM_OUTSIDE/.test(text) && /SM_ROOF/.test(text), "its outside and its roof wear their own textures");
+  // taken into a larger map as a module: its theme's words, a theme word naming its own texture, and its
+  // doors' material come with it under its prefix
+  writeFileSync(join(folder, "house-module.json"), JSON.stringify({ ...spec, theme: { door: "oak", outside: "blue" }, textures: { oak: { base: "wood" }, blue: { base: "siding", tone: [0.5, 0.6, 0.9] } } }));
+  const town = buildMapSpec(
+    {
+      spec: "smak.map/1",
+      name: "town",
+      rooms: [{ id: "road", size: [1024, 256, 320], sky: true }],
+      include: [{ spec: "house-module.json", as: "h", place: { north_of: "road" } }],
+      links: [{ between: ["h_yard", "road"], kind: "opening" }],
+      entities: [{ class: "info_player_start", room: "road", at: "centre" }],
+    },
+    { out: join(folder, "town"), folder, compilers: { found: false, message: "" } },
+  );
+  sure(town.report.errors.length === 0, town.report.errors.join("; "));
+  const townText = readFileSync(town.files.map, "utf8");
+  sure(/"classname" "func_door"\n(?:"[^\n]*\n)*\{\n[^\n]*SM_H_OAK/.test(townText) && /SM_H_BLUE/.test(townText), "the module's door and outside are its own");
+  // the same town in winter: a word replaced in every module, a model for every prop of another
+  const cone = { spec: "smak.model/1", parts: [{ id: "cone", kind: "cylinder", radius: 8, top: 0.5, height: 30 }] };
+  const ball = { spec: "smak.model/1", parts: [{ id: "ball", kind: "sphere", radius: 10 }] };
+  writeFileSync(join(folder, "house-trees.json"), JSON.stringify({ ...JSON.parse(readFileSync(join(folder, "house-module.json"))), models: { tree: ball }, props: [{ model: "tree", room: "yard", at: [-400, -350] }] }));
+  const winter = buildMapSpec(
+    {
+      spec: "smak.map/1",
+      name: "winter",
+      rooms: [{ id: "road", size: [1024, 256, 320], sky: true }],
+      include: [{ spec: "house-trees.json", as: "h", place: { north_of: "road" } }],
+      links: [{ between: ["h_yard", "road"], kind: "opening" }],
+      entities: [{ class: "info_player_start", room: "road", at: "centre" }],
+      models: { bare: cone },
+      replace: { textures: { outside: { base: "snow" } }, models: { tree: "bare" } },
+    },
+    { out: join(folder, "winter"), folder, compilers: { found: false, message: "" } },
+  ).report;
+  sure(winter.errors.length === 0, winter.errors.join("; "));
+  sure(winter.facts.includes("replaced outside: h_outside") && winter.facts.includes("replaced the model tree by bare: 1 props"), winter.facts.join(" | "));
+  sure(winter.placed.some((thing) => thing.name === "bare") && !winter.placed.some((thing) => /tree/.test(thing.name)), "the tree is the bare one");
+  const wrong = buildMapSpec({ spec: "smak.map/1", name: "w2", rooms: [{ id: "road", size: [512, 256, 320], sky: true }], entities: [{ class: "info_player_start", room: "road", at: "centre" }], replace: { textures: { lawn: { base: "snow" } }, models: { tree: "bare" } } }, { out: join(folder, "w2"), compilers: { found: false, message: "" } }).report;
+  sure(wrong.errors.some((e) => /replace.textures.lawn: no texture/.test(e)) && wrong.errors.some((e) => /replace.models.tree: "bare" is none of the spec's models/.test(e)), wrong.errors.join("; "));
+  const wad = smak.maps.readWad(readFileSync(town.files.wad));
+  sure(wad.textures.some((tx) => tx.name.toUpperCase() === "SM_H_BLUE"), `the module's own texture is made: ${wad.textures.map((tx) => tx.name)}`);
   const out = buildMapSpec({ ...spec, rooms: [spec.rooms[0], { ...spec.rooms[1], place: { in: "yard", offset: [900, 256], stand: true } }, spec.rooms[2]] }, { out: join(folder, "house2"), compilers: { found: false, message: "" } }).report;
   sure(out.errors.some((e) => /the building's walls .* reach out of yard/.test(e)), out.errors.join("; "));
   const inside = buildMapSpec({ ...spec, props: [{ model: "bush", room: "yard", at: [-200, -200] }], models: { bush: { spec: "smak.model/1", parts: [{ id: "bush", kind: "sphere", radius: 10 }] } } }, { out: join(folder, "house4"), compilers: { found: false, message: "" } }).report;

@@ -51,8 +51,25 @@ export function changesOf(before, after) {
     const rooms = compare(before.rooms ?? {}, after.rooms ?? {}, describeRoom, (a, b) => apart(a.min, b.min) > MOVED || apart(a.max, b.max) > MOVED);
     const describeThing = (key, thing) => `${key} in ${thing.room} at ${thing.at.join(" ")}`;
     describeThing.move = (was, now) => `from ${was.at.join(" ")} to ${now.at.join(" ")}${was.turn !== now.turn ? `, turned ${was.turn} to ${now.turn}` : ""}`;
-    const things = compare(before.things ?? {}, after.things ?? {}, describeThing, (a, b) => apart(a.at, b.at) > MOVED || a.turn !== b.turn || a.room !== b.room);
+    const was = before.things ?? {};
+    const now = after.things ?? {};
+    const things = compare(was, now, describeThing, (a, b) => apart(a.at, b.at) > MOVED || a.turn !== b.turn || a.room !== b.room);
+    // a thing taken away and another put where it stood, in the same room: one swapped for the other (every
+    // summer tree for a winter one), said so, and not as so many added and taken away
+    const swapped = [];
+    const addedKeys = Object.keys(now).filter((key) => !(key in was));
+    for (const goneKey of [...things.gone]) {
+      const old = was[goneKey];
+      const match = addedKeys.find((key) => now[key].room === old.room && now[key].what === old.what && apart(now[key].at, old.at) <= MOVED);
+      if (!match) continue;
+      addedKeys.splice(addedKeys.indexOf(match), 1);
+      things.gone.splice(things.gone.indexOf(goneKey), 1);
+      things.added.splice(things.added.indexOf(describeThing(match, now[match])), 1);
+      swapped.push(`${goneKey} for ${match} in ${old.room} at ${old.at.join(" ")}`);
+      changed -= 1;
+    }
     lines.push(
+      ...said(swapped, "things swapped where they stood"),
       ...said(rooms.added, "rooms added"),
       ...said(rooms.gone, "rooms taken away"),
       ...said(rooms.shifted, "rooms moved or resized"),

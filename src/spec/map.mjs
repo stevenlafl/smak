@@ -27,9 +27,9 @@ import { wadCatalog, pickTexture } from "./wads.mjs";
 import { buildModelSpec, validateModelSpec } from "./model.mjs";
 
 export const MAP_SPEC = "smak.map/1";
-const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "fgd", "wads", "compile", "detail", "note"];
+const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "replace", "fgd", "wads", "compile", "detail", "note"];
 const ROOM = ["id", "size", "at", "place", "floor", "sky", "surfaces", "light", "water", "test", "building", "note"];
-const LINK = ["between", "kind", "width", "height", "along", "sill", "stairs", "door", "glass", "side", "note"];
+const LINK = ["between", "kind", "width", "height", "along", "sill", "stairs", "door", "glass", "side", "material", "note"];
 const PLACES = ["east_of", "west_of", "north_of", "south_of", "above", "below", "in"];
 const LINK_KINDS = ["door", "opening", "window", "stairs"];
 /** Sizes by the words of MAPS-MAKING.md, "Units and sizes". */
@@ -170,7 +170,9 @@ export function withIncludes(spec, folder = ".") {
     const innerTheme = { ...hostTheme, ...(inner.theme ?? {}) };
     // the module's own words for materials, kept under its own names
     for (const [word, material] of Object.entries(inner.textures ?? {})) out.textures[id(word)] = material;
-    for (const face of THEME_FACES) out.textures[id(face)] = innerTheme[face];
+    // a theme word naming one of the module's own textures names it under its prefix
+    for (const face of THEME_FACES)
+      out.textures[id(face)] = typeof innerTheme[face] === "string" && inner.textures?.[innerTheme[face]] !== undefined ? id(innerTheme[face]) : innerTheme[face];
     const word = (w) => (inner.textures?.[w] !== undefined || THEME_FACES.includes(w) ? id(w) : w);
     // the rooms a module has only to be tried alone (a stretch of street before a shop) stay out
     const tried = new Set(inner.rooms.filter((room) => room.test).map((room) => room.id));
@@ -209,7 +211,8 @@ export function withIncludes(spec, folder = ".") {
       }
       out.rooms.push(placed);
     });
-    for (const link of inner.links ?? []) out.links.push({ ...link, between: link.between.map(id) });
+    // a module's doors are of its own door material
+    for (const link of inner.links ?? []) out.links.push({ ...link, between: link.between.map(id), ...(link.kind === "door" ? { material: word(link.material ?? "door") } : {}) });
     // a thing's `facing` and `at: "near <room>"` may name a room of the module
     const ids = new Set(inner.rooms.map((room) => room.id));
     const named = (thing) => ({
@@ -376,6 +379,42 @@ export function layoutOf(spec) {
   return { rooms, errors, marks: drawn?.marks ?? [], wall };
 }
 
+/**
+ * A spec with its `replace` done: `{ textures: { lawn: <a material> }, models: { tree_summer: "tree_winter" } }`
+ * swaps every texture (and theme word) and every prop's model of that name, or of that name under a module's
+ * prefix (`ranch_lawn`, `park_tree_summer`): the same town in winter, every tree bare. A model put in place
+ * of another is one of the spec's own `models`. Models no prop uses any more are left out. Returns { spec,
+ * facts, errors }.
+ */
+function replacedIn(spec) {
+  const asked = spec.replace;
+  if (!asked) return { spec, facts: [], errors: [] };
+  const facts = [];
+  const errors = [];
+  const matches = (name, word) => name === word || String(name).endsWith(`_${word}`);
+  const out = { ...spec, textures: { ...(spec.textures ?? {}) }, theme: { ...(spec.theme ?? {}) }, models: { ...(spec.models ?? {}) } };
+  for (const [word, material] of Object.entries(asked.textures ?? {})) {
+    const names = [...Object.keys(out.textures), ...Object.keys(out.theme)].filter((name) => matches(name, word));
+    for (const name of names) (name in out.textures ? out.textures : out.theme)[name] = material;
+    if (!names.length) errors.push(`replace.textures.${word}: no texture or theme word of that name, nor of a module's`);
+    else facts.push(`replaced ${word}: ${names.join(", ")}`);
+  }
+  out.props = (spec.props ?? []).map((thing) => {
+    const word = Object.keys(asked.models ?? {}).find((w) => matches(thing.model, w));
+    return word ? { ...thing, model: asked.models[word] } : thing;
+  });
+  for (const [word, model] of Object.entries(asked.models ?? {})) {
+    const count = (spec.props ?? []).filter((thing) => matches(thing.model, word)).length;
+    if (!out.models[model]) errors.push(`replace.models.${word}: "${model}" is none of the spec's models`);
+    else if (!count) errors.push(`replace.models.${word}: no prop is that model, nor a module's of that name`);
+    else facts.push(`replaced the model ${word} by ${model}: ${count} props`);
+  }
+  const used = new Set(out.props.map((thing) => thing.model));
+  for (const name of Object.keys(out.models)) if (!used.has(name)) delete out.models[name];
+  delete out.replace;
+  return { spec: out, facts, errors };
+}
+
 /** How two boxes lie: the axis of the rock between them and its two faces, or null when they are not side by side. */
 function sharedWall(a, b, wall) {
   for (let axis = 0; axis < 3; axis++) {
@@ -470,8 +509,11 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   } catch (error) {
     return { report: { ok: false, errors: [error.message], faults: [], warnings: [], facts: [], rooms: {} }, files: {}, map: null };
   }
+  const replaced = replacedIn(spec);
+  spec = replaced.spec;
   const { errors, warnings } = validateMapSpec(spec);
-  const report = { ok: false, errors, faults: [], warnings, facts: [], rooms: {} };
+  errors.push(...replaced.errors);
+  const report = { ok: false, errors, faults: [], warnings, facts: [...replaced.facts], rooms: {} };
   const files = {};
   if (errors.length) return { report, files, map: null };
   const name = spec.name ?? "specmap";
@@ -671,7 +713,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       const middle = (from.max[axis] + to.min[axis]) / 2;
       leaf.min[axis] = middle - 4;
       leaf.max[axis] = middle + 4;
-      entities.push(brushEntity("func_door", [box(leaf.min, leaf.max, textureOf("door"))], { angle: -1, speed: 120, wait: 4, lip: 8, ...(link.door ?? {}) }));
+      entities.push(brushEntity("func_door", [box(leaf.min, leaf.max, textureOf(link.material ?? "door"))], { angle: -1, speed: 120, wait: 4, lip: 8, ...(link.door ?? {}) }));
     }
   });
 

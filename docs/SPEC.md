@@ -313,7 +313,8 @@ open room with `stand: true`, and the rooms placed against that one (`east_of`, 
 stacked) with the wall's rock between them, and the link goes through that rock:
 
 - `opening` (unless told): a way through, 64 wide and 96 high unless told.
-- `door`: the same with a door in it (a `func_door` that slides up; `door: { keys }` for more).
+- `door`: the same with a door in it (a `func_door` that slides up; `door: { keys }` for more; `material`
+  for its own, the theme's `door` unless told).
 - `window`: 48 by 48, `sill` (40) over the higher floor. Nothing walks through a window. `glass: true` (or
   `{ alpha, health, material }`) glazes it: a `func_breakable` pane, half see-through, that shatters.
 - `stairs`: for rooms stacked one above the other: a stair in the lower room up through a hole in the
@@ -376,6 +377,15 @@ places them against it; its `test` rooms and its starts are left out; its materi
 come with it, and its rooms keep their own floors, ceilings and walls. The larger map links to it by the
 prefixed ids: `{ "between": ["street", "noodle_shop"], "kind": "opening" }`. Make a module's first room
 the one that meets the larger map, with the way in on the side the larger map will be.
+
+### The same map, changed everywhere: `replace`
+
+`"replace": { "textures": { "lawn": { "base": "snow" } }, "models": { "tree_summer": "tree_winter" } }`
+swaps every texture (and theme word) of that name, and every prop of that model, in the map and in every
+module it takes in (`ranch_lawn`, `park_tree_summer`): the same town in winter, every tree bare. A model put
+in place of another is one of the spec's own `models`. The report says what each replaced, and the change
+report tells a thing swapped where it stood as one (`things swapped where they stood: ...`). The seasons
+of `examples/prompts/35-map-neighbourhood` are worked ones.
 
 ### A game's textures
 

@@ -39,6 +39,7 @@ export const MATERIALS = {
   paint: { tone: [0.6, 0.15, 0.12], what: "a painted surface in its tone: a sign, a cart" },
   bone: { tone: [0.86, 0.82, 0.7], what: "bone, ivory, a skull" },
   rope: { tone: [0.62, 0.52, 0.34], what: "rope, twine, straw" },
+  snow: { tone: [0.92, 0.94, 0.97], what: "snow lying on the ground or a roof" },
   siding: { tone: [0.82, 0.84, 0.8], what: "a house's outside: painted clapboards, laid level (maps: the walls of a building)" },
   shingles: { tone: [0.3, 0.27, 0.25], what: "a roof: rows of shingles, staggered (maps: a building's roof)" },
   mesh: { tone: [0.12, 0.12, 0.12], what: "a net, a wire fence, a grille: a grid of cords in its tone with holes between (masked: seen through). `cell`: the holes' size in units (2)" },
