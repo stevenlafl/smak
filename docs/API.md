@@ -601,7 +601,10 @@ change a model call it themselves: use it on files that came from elsewhere.
 `import { maps } from "smak"` (or `"smak/maps"`, or `./smak/src/maps/index.mjs`). Their functions are listed in
 two documents of their own: `docs/MAPS.md` (a compiled map read and checked, its entities, textures and `.wad`
 files, its pictures: `drawMap`, `planOf`, `viewsOf`, `compareOf`, `drawSource`, `planOfSource`, `sectionOf`, `storeysOf`,
-`openingViews`, what they draw of the game's files: `figuresOf`, `spritesOf`, `readSpr`, `skyOf`, `readTga`,
+`openingViews`, what they draw of the game's files: `figuresOf`, `spritesOf`, `readSpr`, `skyOf`, `readTga`, a
+sky made from words: `makeSky(desc)` → `{ sides, mean }` (six sides drawn from the way out of the eye, so they
+meet with no seam; `SKY_DAY`, `SKY_NIGHT`, `SKY_KEYS`), `skyFiles(name, sides)` (the `gfx/env/<name><side>.tga`
+files), `writeTga`, `wayOfSide`,
 the walk test: `reachOf`, `spaceOf`, `restOf`, `storeyCuts`, a map in numbers: `measure`, `measureTable`, a
 compiled map decompiled into a `.map` and its recompile measured against it: `decompile(bytes, { name, folders })`
 → `{ map, facts, warnings, wad }`, `textureFidelity(original, recompiled)`, `lightParity(original, recompiled)`,

@@ -626,7 +626,7 @@ command line: `smak video spec.json -o folder [--preview] [--models folder]`.
 | `wads` | A game's .wad files to take textures from: `["halflife.wad"]`, found by name in the game's folder |
 | `fgd` | Entity definitions to hold the entities against, beside the server's own (`--fgd`) |
 | `night` | true: a dark sky, a dim moon and the sky's own light far under it; the views draw the sky dark |
-| `sky`, `sun` | The sky's name (`desert`) and the sun's `{ pitch, yaw, brightness, color }`, for rooms under the sky |
+| `sky`, `sun` | The sky: the name of one of the game's (`desert`), or the words of one to make (below, "A sky of its own"); and the sun's `{ pitch, yaw, brightness, color }`, for rooms under the sky |
 | `compile` | How the compilers run: `{ quality: "draft" \| "normal" \| "final", threads, light: { bounce, ao, extra, softShadows }, hulls: { large: false, crouch: false }, clipEconomy: true }`. Every program gets all the machine's threads unless told |
 | `detail` | `false` keeps furniture in the world; unless told, furniture is `func_detail` (below) |
 | `sounds` | `[{ spec, room, at, z, volume, radius }]`: sounds made with the map (`spec`: a sound spec, or `{ file }`) and played where they are put by an `ambient_generic`: `volume` 1 to 10, `radius` `everywhere`, `small`, `medium` or `large`; looped when the sound loops (a hum, a fire), once otherwise. The files go under `sound/<map name>/` beside the map, and its `ambient_generic` names them there: copy that folder into `<mod>/sound/` |
@@ -697,6 +697,10 @@ stacked) with the wall's rock between them, and the link goes through that rock:
   lower room, up to the opening. The lower room must reach as high as the opening (its ceiling over the
   higher floor by the opening's height).
 - `along`: where on the shared wall, 0 to 1 (0.5, the middle).
+- A way a player walks through is never narrower than they pass at ease: an opening or a sliding door 48, a door
+  on hinges 56 (its leaf stands in the way when open). A narrower `width` (a house's drawing gives 36) is widened
+  and the report says so; a shared wall too short to hold it is a fault: make the rooms share more wall, or leave
+  the way out. 32, a player's own width, is a squeeze the game may not let through.
 
 ### Where things go in a room
 
@@ -706,7 +710,10 @@ against the side of a thing put before it, by both their real footprints, lined 
 `facing`: `north`, `east`, `south`, `west`, degrees (0 east, 90 north), or a room's id (looking towards
 it). `z`: over the floor. `id` names a thing for `beside` (an entity's `id` is also its `targetname`).
 
-Furniture and props must stay in their room: one that reaches into a wall is a fault. A thing put
+Furniture and props must stay in their room: one that reaches into a wall is a fault. The floor 40 deep on
+each side of a door or an opening is kept clear: furniture standing there, between a step over its floor and
+a player's head, that leaves less than 48 of its width free is a fault (steps up to it, a slab, a hedge beside
+a wide opening are not). A thing put
 `against` a wall stands 48 from it; a prefab whose origin is its back (a shelf, a bed's headboard) is put at
 the wall itself (`[dx, dy]` with `dx` half the room's length).
 
@@ -765,6 +772,22 @@ in place of another is one of the spec's own `models`. The report says what each
 report tells a thing swapped where it stood as one (`things swapped where they stood: ...`). The seasons
 of `examples/prompts/35-map-neighbourhood` are worked ones.
 
+### A sky of its own
+
+`"sky": { "zenith": [0.2, 0.4, 0.8], "horizon": [0.75, 0.8, 0.9], "clouds": { "cover": 0.5 }, "hills": { "height": 5 } }`
+makes the map's sky: six sides of 256, each pixel the colour along its way out of the eye (so the sides meet
+with no seam), written as the game's own are (24-bit `.tga`) into `gfx/env/<map name>/` beside the map, and
+named by the map's `skyname`. Copy that folder into `<mod>/gfx/env/`. Every word is optional:
+
+- `zenith`, `horizon`, `ground`: the colour overhead, at the horizon and below it (0 to 1); `haze` (0 to 1) how
+  far up the horizon's colour reaches.
+- `sun`: `{ size, glow, colour }` (degrees), and `yaw` and `pitch` as the light's (the map's `sun` unless told,
+  so the sun stands where the map's light comes from); `false` for none.
+- `clouds`: `{ cover (0 to 1), colour, scale, seed }`, or `false`. They lie on a plane overhead, so they grow
+  small and thin toward the horizon.
+- `hills`: `{ height (degrees), colour, roughness, seed }`: a far skyline all round.
+- `stars` (0 to 1); `night: true` (the map's `night` unless told) starts from a dark sky, a moon and stars.
+
 ### A game's textures
 
 Name the game's .wad files in `wads` and give a material as a texture of them:
@@ -818,6 +841,10 @@ and pass the picture as `reference`: it is then drawn beside the plan of the res
 - `FAULT walk: ... not reached on foot ...`, `... stand in something solid ...`, `... one-way ...`: the
   walk test's own sentences, each saying why (no way in, a step too high, a gap of 28 where 32 is wanted).
 - `FAULT ... reaches N into <room>'s <side> wall`: furniture or a prop standing in a wall.
+- `FAULT furniture[n] ... stands in front of links[m]`: in the way of a door or an opening; move it aside.
+- `FAULT links[n]: the wall ... share is N long`: too short for a way a player passes at ease.
+- `FAULT N ways a player walks through are under 48 wide`: furniture, or walls, too close together where the
+  walk test goes through; each is named by its place.
 - `FAULT ... is dark`: a room whose floor is lit under 24 of 255 after the compile.
 - `ERROR links[n]: ... not side by side`: the two rooms of a link do not share a wall.
 - `fact <word>: picked ... / a GAP ...`: where each game texture came from.

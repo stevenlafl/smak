@@ -19,6 +19,7 @@ import { writeWad } from "../maps/wad.mjs";
 import { compileMap, findCompilers } from "../maps/compile.mjs";
 import { readBsp } from "../maps/bsp.mjs";
 import { lightReport } from "../maps/light.mjs";
+import { makeSky, skyFiles, SKY_KEYS } from "../maps/sky.mjs";
 import { planOfSource, planOf, drawMap, sectionOf } from "../maps/draw.mjs";
 import { tile, label, render } from "../render.mjs";
 import { png } from "../image.mjs";
@@ -269,6 +270,10 @@ export function validateMapSpec(spec) {
   if (!spec || typeof spec !== "object") return { errors: ["the spec is not an object"], warnings };
   if (spec.spec !== MAP_SPEC) errors.push(`spec: "${MAP_SPEC}" says what this is; it has ${JSON.stringify(spec.spec)}`);
   for (const key of Object.keys(spec)) if (!TOP.includes(key)) warnings.push(`${key}: not a field of a map spec, left out`);
+  if (spec.sky !== undefined && typeof spec.sky !== "string") {
+    if (!spec.sky || typeof spec.sky !== "object" || Array.isArray(spec.sky)) errors.push("sky: the name of a sky of the game's (desert), or the words of one to make ({ zenith, horizon, clouds, sun, hills ... })");
+    else for (const key of Object.keys(spec.sky)) if (!SKY_KEYS.includes(key)) errors.push(`sky: ${key} is none of ${SKY_KEYS.join(", ")}`);
+  }
   if (spec.name !== undefined && !/^[a-z0-9_]{1,31}$/i.test(spec.name))
     errors.push(`name: the map's name, letters, digits and _ (it is typed in the console: map <name>)`);
   if (!Array.isArray(spec.rooms) || !spec.rooms.length) {
@@ -1246,7 +1251,26 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   writeFileSync(wadFile, writeWad([...used.entries()].map(([key, material]) => ({ name: nameOfKey(key), image: surfacePicture(material, key === "sky" ? 64 : 128) }))));
   files.wad = wadFile;
   const gameWads = [...new Set(gameTextures.values())];
-  const map = { worldspawn: { wad: [wadFile, ...gameWads], message: spec.note ?? name, skyname: spec.sky ?? "desert" }, brushes, entities };
+  // a sky of the map's own, made from its words, in gfx/env/<map>/ as its models are in models/<map>/; its sun where
+  // the map's light comes from, and dark when the map is
+  let skyname = spec.sky ?? "desert";
+  if (spec.sky && typeof spec.sky === "object") {
+    try {
+      const sun = spec.sky.sun === false ? false : { ...Object.fromEntries(["yaw", "pitch"].filter((key) => spec.sun?.[key] !== undefined).map((key) => [key, spec.sun[key]])), ...(spec.sky.sun ?? {}) };
+      const made = makeSky({ night: Boolean(spec.night), ...spec.sky, sun });
+      skyname = `${name}/sky`;
+      for (const file of skyFiles(skyname, made.sides)) {
+        const path = join(out, file.name);
+        mkdirSync(dirname(path), { recursive: true });
+        writeFileSync(path, file.bytes);
+        files[`sky ${basename(file.name)}`] = path;
+      }
+      report.facts.push(`sky: made, gfx/env/${skyname}*.tga (six sides of ${made.sides[0].width}), its mean colour ${made.mean.join(" ")}: copy gfx/env/${name}/ into the mod's gfx/env/`);
+    } catch (error) {
+      errors.push(error.message);
+    }
+  }
+  const map = { worldspawn: { wad: [wadFile, ...gameWads], message: spec.note ?? name, skyname }, brushes, entities };
   const mapFile = join(out, `${name}.map`);
   writeFileSync(mapFile, writeMap(map));
   files.map = mapFile;
@@ -1317,7 +1341,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       const walked = reachOf(bsp);
       if (walked.unreached.length + walked.stuck.length) report.faults.push(...walked.warnings.map((line) => `walk of the compiled map: ${line}`));
       // a night map's sky drawn dark: without the game's own sky pictures the views fill it with a day's blue
-      const drawing = { folders: [out, dirname(out), ...gameWads.map((file) => dirname(file))], models: true, ...(spec.night ? { sky: [10, 12, 22] } : {}) };
+      const drawing = { folders: [out, dirname(out), ...gameWads.map((file) => dirname(file))], models: true, ...(spec.night && typeof spec.sky !== "object" ? { sky: [10, 12, 22] } : {}) };
       save("plan", planOf(bsp, drawing));
       // a view of every room, from a corner by its walls looking across it to the far corner
       const viewSpots = [];

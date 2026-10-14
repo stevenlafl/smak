@@ -63,6 +63,7 @@ const areas = [
   "52-sound-shape", // sounds shaped to a curve, squashed to a crest, a crack after it, grains at a period, a picture read back
   "19-example-and-kit-faults", // the examples' wrong arguments and refused models; the kits' fittings and rings
   "54-carve", // fewer triangles by quadric error (a sphere, a box, a sheet's border), a shape carved from its outlines
+  "55-sky", // skies made from words: written as the game's Targa files, read back with no seam, made by a map spec
 ];
 
 // one after another: each file runs its cases as it is loaded, and the servers' cases wait for their answers
