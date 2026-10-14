@@ -8,7 +8,7 @@
 // is handed { command, file, rest, flags, src }, and COMMANDS, after them, maps a command's name to its
 // function and to its lines of the help.
 import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from "node:fs";
-import { join, dirname, basename, resolve } from "node:path";
+import { join, dirname, basename, resolve, relative } from "node:path";
 import { pathToFileURL } from "node:url";
 import * as smak from "../src/index.mjs";
 
@@ -138,6 +138,8 @@ const LISTED_FLAGS = [
   "expect",
   "expect-not",
   "put",
+  "wads",
+  "focus",
 ];
 // `map-entities` and `map-plan` print no more lines than this of one list unless told all of it is wanted
 const MARKS_PRINTED = 40;
@@ -1188,14 +1190,34 @@ async function edit({ file, flags }) {
 
 // ── the MCP server ─────────────────────────────────────────────────────────
 /** mcp: the kit as an MCP server on stdin and stdout, until the client closes stdin (see mcp/README.md). */
-async function mcp({ flags }) {
+async function mcp({ flags, listed }) {
   const { start } = await import("../mcp/server.mjs");
   try {
-    await start({ models: flags.models, work: flags.work, run: flags.run !== false });
+    await start({ models: flags.models, work: flags.work, run: flags.run !== false, compilers: flags.compilers, fgd: listed?.fgd ?? [], wads: listed?.wads ?? [] });
   } catch (error) {
     fail(`mcp: ${error.message}`);
   }
   process.exit(0);
+}
+
+/** A spec built as the MCP tool `build` builds it, into the folder of -o: what it said, and its pictures. */
+async function buildSpec({ command, file, flags, listed }) {
+  const out = need(command, flags.o, "-o <folder>");
+  mkdirSync(out, { recursive: true });
+  const { toolsFor } = await import("../mcp/tools.mjs");
+  const folders = { work: resolve(out), models: dirname(resolve(file)), compilers: flags.compilers, fgd: listed.fgd ?? [], wads: listed.wads ?? [] };
+  const build = toolsFor(folders, { allowRun: false }).find((tool) => tool.name === "build");
+  const args = { spec: `models:${basename(file)}` };
+  if (flags.reference) args.reference = `models:${relative(dirname(resolve(file)), resolve(flags.reference))}`;
+  if (listed.focus?.length) args.focus = listed.focus;
+  const answer = await build.call(args);
+  const said = answer.filter((piece) => piece.type === "text").map((piece) => piece.text).join("\n");
+  writeFileSync(join(out, "report.txt"), `${said}\n`);
+  answer
+    .filter((piece) => piece.type === "image")
+    .forEach((piece, i) => writeFileSync(join(out, `picture-${i + 1}.png`), Buffer.from(piece.data, "base64")));
+  console.log(said);
+  if (!said.startsWith("OK")) process.exit(1);
 }
 
 // ── maps ───────────────────────────────────────────────────────────────────
@@ -2571,9 +2593,17 @@ const COMMANDS = {
   play <session> --attach --close                                        the session ended
 `,
   },
+  build: {
+    run: buildSpec,
+    own: true,
+    help: `  build <spec.json> -o <folder> [--compilers <folder>] [--fgd <file> ...] [--wads <folder> ...] [--reference x.png] [--focus part ...]
+                                            a model or a map from a spec (docs/SPEC.md): built, checked, compiled and drawn, as the MCP
+                                            tool build does it; the result, its spec, report.txt and the pictures go to the folder, and
+                                            a second build there says what changed. Exit code 1 unless it says OK`,
+  },
   mcp: {
     run: mcp,
-    help: `  mcp --work <folder> [--models <folder>] [--no-run]
+    help: `  mcp --work <folder> [--models <folder>] [--no-run] [--compilers <folder>] [--fgd <file> ...] [--wads <folder> ...]
                                             an MCP server on stdin and stdout, for a client with no shell (mcp/README.md);
                                             --no-run: without the tool that runs scripts`,
   },
@@ -2593,7 +2623,7 @@ if (!command || command === "help" || flags.help) {
   process.exit(0);
 }
 // the MCP server is given folders by flags, not a file
-if (command === "mcp") await mcp({ flags });
+if (command === "mcp") await mcp({ flags, listed });
 if (!file) fail(HELP);
 const entry = Object.hasOwn(COMMANDS, command) ? COMMANDS[command] : null;
 // `address: true`: what follows the command is a page's address, not a file
