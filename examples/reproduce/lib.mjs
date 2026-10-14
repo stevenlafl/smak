@@ -139,14 +139,54 @@ function lab([r, g, b]) {
 }
 
 /**
- * M4: the mean colour difference (CIE76 ΔE) between two pictures of one view, over the dots both models cover
+ * M4: the mean colour difference (CIE76 ΔE) between two pictures of one view, each smoothed first (the grain
+ * left to M5), over the dots both models cover
  * (each drawn on its own background colour, which is left out), and the share of dots both cover.
  */
-export function colourDifference(a, b, background = [58, 62, 70]) {
+/**
+ * A picture smoothed over (2r + 1)^2 dots, inside the thing only (its background dots neither taken nor
+ * changed): colour without the grain of the texture, which is M5's to judge (rubric amendment 2026-10-14).
+ */
+function smoothed(p, r, isBg) {
+  const { width, height, rgba } = p;
+  const out = new Uint8Array(rgba);
+  for (let y = 0; y < height; y++)
+    for (let x = 0; x < width; x++) {
+      const i = (y * width + x) * 4;
+      if (isBg(rgba, i)) continue;
+      let s0 = 0;
+      let s1 = 0;
+      let s2 = 0;
+      let n = 0;
+      for (let dy = -r; dy <= r; dy++)
+        for (let dx = -r; dx <= r; dx++) {
+          const xx = x + dx;
+          const yy = y + dy;
+          if (xx < 0 || yy < 0 || xx >= width || yy >= height) continue;
+          const j = (yy * width + xx) * 4;
+          if (isBg(rgba, j)) continue;
+          s0 += rgba[j];
+          s1 += rgba[j + 1];
+          s2 += rgba[j + 2];
+          n++;
+        }
+      out[i] = s0 / n;
+      out[i + 1] = s1 / n;
+      out[i + 2] = s2 / n;
+    }
+  return { width, height, rgba: out };
+}
+
+/** How far each picture is smoothed before its colours are compared (at the judge's 384-dot pictures). */
+export const COLOUR_SMOOTH = 3;
+
+export function colourDifference(a0, b0, background = [58, 62, 70]) {
   let sum = 0;
   let n = 0;
   let either = 0;
   const isBg = (p, i) => Math.abs(p[i] - background[0]) < 3 && Math.abs(p[i + 1] - background[1]) < 3 && Math.abs(p[i + 2] - background[2]) < 3;
+  const a = smoothed(a0, COLOUR_SMOOTH, isBg);
+  const b = smoothed(b0, COLOUR_SMOOTH, isBg);
   for (let i = 0; i < a.rgba.length; i += 4) {
     const ia = !isBg(a.rgba, i);
     const ib = !isBg(b.rgba, i);

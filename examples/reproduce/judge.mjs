@@ -46,7 +46,10 @@ export function measureModel(original, copy) {
   const pa = picturesOf(original, { within: { ...framing(original, [POSE]), far }, size: 384, views });
   const pb = picturesOf(copy, { within: { ...framing(copy, [POSE]), far }, size: 384, views });
   const colour = pa.map((p, i) => ({ view: p.name, ...colourDifference(p.picture, pb[i].picture) }));
-  const meanDeltaE = Math.round((10 * colour.reduce((s, c) => s + (c.deltaE ?? 100), 0)) / colour.length) / 10;
+  // over the views where the two share an outline: a view the original shows nothing in (an open underside
+  // seen from below) has no colour to compare, by the rubric's own words ("inside the shared outline")
+  const compared = colour.filter((c) => c.deltaE !== null);
+  const meanDeltaE = compared.length ? Math.round((10 * compared.reduce((s, c) => s + c.deltaE, 0)) / compared.length) / 10 : 100;
   const fitO = fitness(original);
   const fitC = fitness(copy);
   const measured = {

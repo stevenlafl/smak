@@ -64,3 +64,14 @@ original does not have (surface detail on a plain prop) is scored 2 when the rep
 
 Animations, sounds, how a model sits in a hand, and how a map plays with people in it: the kit's pictures and
 walk test, not the game.
+
+## Amendments
+
+- **2026-10-14, M4 measured on smoothed pictures (Steven's decision).** After rounds 1 and 2, the failure
+  research (research/repeated-failures.md) found that M4's per-dot colour difference also counts the texture's
+  grain: an original whose every region kept its exact colour but lost its grain scored 10 to 14, against the
+  pass line of 15. Grain is M5's item. From this date M4's measurement smooths both pictures over 7 x 7 dots
+  (at the judge's 384-dot pictures), inside each outline, before the difference is taken; the line stays 15.
+  Every round was measured again the same way. Views where the original shows nothing (an open underside
+  from below) are left out of the mean, as "inside the shared outline" always said; the harness had counted
+  them as 100.
