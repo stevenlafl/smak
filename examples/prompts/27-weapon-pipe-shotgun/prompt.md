@@ -30,7 +30,8 @@ repository.
   `shoot_big` and 4.2 in `pump`, exactly as the game's does. The game's arm texture is `HAND_ForeArm1`,
   which the kit did not know for a hand until this case.
 - The barrel is a lined turn open at the muzzle (as case 24's pipe), the magazine a thinner turn under
-  it, held by two clamps; the receiver, the stock, the butt pad and the grip are boxes.
+  it, held by two clamps. The stock is one turn along x whose rings drop and widen towards the butt
+  (`off`), its front ring inside the receiver; the guard and the trigger rise into the receiver.
 
 ## Iterations
 
@@ -38,3 +39,9 @@ repository.
    are now told by `forearm` too (not by `hand`, which the .357's `Pythonhandle` grip would match).
 2. The pistol grip was inside the stock, which ran under the receiver: the stock shortened, the grip
    lowered under it.
+3. Steven saw that the stock did not meet the receiver cleanly. It was a box pitched 8 degrees ending short
+   of the receiver: a step and a gap, with the grip a block under the joint; and the close view showed the
+   trigger guard's ends an inch under the receiver. No check said so: each touched something (the grip,
+   the trigger), and the floating check asks only that a part touch some other. The stock is now one turn
+   that runs into the receiver, the guard and the trigger rise into it; drawn close, they meet.
+
