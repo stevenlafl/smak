@@ -3,8 +3,8 @@
  "leg": "pictures",
  "measured": {
   "silhouetteOverlap": {
-   "front/back": 0.988,
-   "left/right": 0.994,
+   "front/back": 0.998,
+   "left/right": 1,
    "top/below": 1
   },
   "size": {
@@ -21,67 +21,67 @@
    "offShare": [
     0,
     0,
-    0
+    0.001
    ]
   },
   "colour": {
-   "meanDeltaE": 7,
+   "meanDeltaE": 7.5,
    "byView": [
     {
      "view": "front",
-     "deltaE": 7,
-     "shared": 0.987
+     "deltaE": 7.6,
+     "shared": 0.997
     },
     {
      "view": "left",
-     "deltaE": 7.1,
-     "shared": 0.995
-    },
-    {
-     "view": "back",
-     "deltaE": 6.9,
-     "shared": 0.987
-    },
-    {
-     "view": "right",
-     "deltaE": 6.7,
-     "shared": 0.995
-    },
-    {
-     "view": "top",
-     "deltaE": 6.2,
+     "deltaE": 7.3,
      "shared": 0.999
     },
     {
+     "view": "back",
+     "deltaE": 7.5,
+     "shared": 0.997
+    },
+    {
+     "view": "right",
+     "deltaE": 7.6,
+     "shared": 0.999
+    },
+    {
+     "view": "top",
+     "deltaE": 7.1,
+     "shared": 0.997
+    },
+    {
      "view": "below",
-     "deltaE": 3.6,
-     "shared": 0.585
+     "deltaE": 3.9,
+     "shared": 0.579
     },
     {
      "view": "front-left",
-     "deltaE": 8.3,
-     "shared": 0.981
+     "deltaE": 8.7,
+     "shared": 0.995
     },
     {
      "view": "front-right",
-     "deltaE": 8.3,
-     "shared": 0.979
+     "deltaE": 8.5,
+     "shared": 0.996
     },
     {
      "view": "back-left",
-     "deltaE": 8,
-     "shared": 0.981
+     "deltaE": 8.4,
+     "shared": 0.995
     },
     {
      "view": "back-right",
-     "deltaE": 8.2,
-     "shared": 0.979
+     "deltaE": 8.4,
+     "shared": 0.995
     }
    ]
   },
   "triangles": {
    "original": 116,
-   "reproduction": 156
+   "reproduction": 140
   },
   "checkErrors": []
  },
@@ -114,49 +114,49 @@
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Silhouette overlap is 0.988 front/back, 0.994 left/right and 1.0 top/below. The outline matches in all six views: the octagonal body with its chamfered dark base, the raised top plate, the round cap on one side and the angled yellow-striped tab on the other. Nothing sticks out and nothing is missing."
+   "reason": "Measured overlap is 0.998 or more in every view. All six views show the original's outline: the eight-sided box with bevelled top and bottom edges, the round cap and the tilted yellow tab on top, and the raised block in the side views. Nothing sticks out and nothing is missing."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured size is 10.3 x 10.3 x 18.4 for both, with no axis off (offShare 0, 0, 0)."
+   "reason": "Measured 10.3 x 10.3 x 18.4 against 10.3 x 10.3 x 18.4. The share outside the original's bounds is 0.001 at most."
   },
   "M3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Every part is there and in place. Four teal glow windows sit on the main faces, and four white inset panels sit on the corner faces. Each top corner has its small red/orange light. The yellow-black hazard band runs round the bottom and the dark bevelled foot is under it. On top, the round cap is on one side and the tilted yellow-striped tab on the other, the same way round as the original in every view. From below, the dark rim, the yellow stub and the teal sliver match."
+   "reason": "Every component is there, in the right number and place. There are four glowing teal panels, one per side, and four white side lights on the corner faces. Each top edge has a small red/orange light. The yellow-black hazard band runs round the base, with the dark bevelled foot below. On top are the round grey cap and the yellow-striped tab tilted at the same angle and corner. The underside shows the same small tab and teal sliver."
   },
   "M4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Mean deltaE is 7.0, with no view over 8.3, all under 15. The regions keep their colours: weathered tan-grey painted metal, teal glow, yellow hazard paint, white panels, red lights, light-grey top plate. The reproduction's body is a little browner and grimier, but it is the same colour family."
+   "reason": "Mean delta E is 7.5 (the worst view, front-left, is 8.7), well under 15. The regions keep their colours: grimy tan-grey painted metal, teal glowing panels, yellow hazard paint, white lights, a dark base. The reproduction's body is slightly lighter and washed out, but it is still the same colour."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The markings are all there and in place: the hazard chevrons, the glow speckle, the red lights and the panel borders. Three things differ. The reproduction's wear is heavier and browner, most of all along the top rim and the upper body edges (top view, front-left and back-right angles), where the original is cleaner and greyer. The white corner panels show a vertical seam line the original does not have (right view, front-right and back-right angles). The teal glow is a little dimmer and flatter at its centre than the original's bright core."
+   "reason": "The markings are all in place: the hazard stripes, panel frames, red lights and wear. The texture on top is blurrier and noisier than the original's. In the top view and the three-quarter views, the rim around the cap and the striped tab look smeared, and the stripes on the tab are less crisp. The grime on the body is also softer than the original's sharper grain."
   },
   "M6": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Side by side at game size, a player would take it for the original. The shape, the top details, the glow windows and the hazard band all read the same. Only the slightly dirtier finish tells them apart, and only on a close look."
+   "reason": "At the size the game shows it, a player would take it for the original battery. The shape, the glowing panels, the hazard band and the top details all match. The only differences are slightly softer texture on top and a lighter body tone, which you only notice up close."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "It faces the same way in every view: the cap and tab are on the same sides in front, back, left, right and all four angles. It stands upright on its base like the original, at the same height."
+   "reason": "Same front as the original (the yellow tab is at the front-left of the top in the front view), upright, and it sits on its base at the same height as the original in every side view."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "SMAK's check reports no errors. The reproduction has 156 triangles against the original's 116, under the 232 limit. Nothing looks open, inside out or floating; the top parts sit on the plate."
+   "reason": "There are no check errors. It has 140 triangles against the original's 116, under twice the original (232). Nothing in the pictures is floating, open or inside out."
   }
  },
  "total": 15,
@@ -164,8 +164,58 @@
  "passes": true,
  "first": {
   "model": "haiku",
-  "total": 14,
-  "passes": false
+  "total": 13,
+  "passes": false,
+  "scores": {
+   "M1": {
+    "judge": 2,
+    "cap": 2,
+    "score": 2,
+    "reason": "All six views match the original's outline. Measured overlap is 0.998 to 1.0 in every pair, and the top fin, grey cap and side-panel bulges sit in the same places in both. The top assembly is a little blockier in the reproduction, but nothing sticks out or is missing."
+   },
+   "M2": {
+    "judge": 2,
+    "cap": 2,
+    "score": 2,
+    "reason": "Measured size is 10.3 x 10.3 x 18.4 for both, with an off-share of 0.001 on height. Every dimension is well within 10%."
+   },
+   "M3": {
+    "judge": 1,
+    "cap": null,
+    "score": 1,
+    "reason": "Every part is present: two white side panels, the front glass, the red lights, the hazard stripe band, the grey dome and the yellow top fin. The top assembly is wrong in shape, though. In the top view the original's yellow striped block and diagonal fin read as one solid piece, while the reproduction shows a thinner wedge and a flatter grey box, and the front and angle views show the fin shorter and less defined."
+   },
+   "M4": {
+    "judge": 2,
+    "cap": 2,
+    "score": 2,
+    "reason": "Measured colour difference is 7.5 (CIE76) against the pass line of 15, with 0.995 to 0.999 shared pixels in the side and angle views. Metal is grey-tan in both, the hazard stripes are yellow and the glass is green. The glass centre is paler and whiter in the reproduction, but it is still the same colour family."
+   },
+   "M5": {
+    "judge": 1,
+    "cap": null,
+    "score": 1,
+    "reason": "The hazard stripes are softer and less crisp in the reproduction than in the original, and the glass mottling is smoother. The red lights and panel edges are there and in place. The top panel lines and wear on the grey cap are fainter."
+   },
+   "M6": {
+    "judge": 1,
+    "cap": null,
+    "score": 1,
+    "reason": "Side by side at game size the two look like the same object, but on a close look the reproduction is clearly off. The top assembly differs (the yellow fin reads as a thin wedge, the grey cap is flatter), and the glass is paler in the centre. A player would probably notice the difference rather than take it for the original."
+   },
+   "M7": {
+    "judge": 2,
+    "cap": null,
+    "score": 2,
+    "reason": "The front is the original's front (red light and glass panel face the same way), upright in all views. The below view shows the same base and footprint, so it stands on its origin as the original does."
+   },
+   "M8": {
+    "judge": 2,
+    "cap": 2,
+    "score": 2,
+    "reason": "checkErrors is empty. Triangles are 140 against the original's 116, well under the 2x limit. The below view shows a closed base with no open or floating parts, and the views show no inside-out faces."
+   }
+  }
  },
  "judgedBy": "opus"
 }

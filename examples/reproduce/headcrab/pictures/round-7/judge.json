@@ -1,0 +1,165 @@
+{
+ "subject": "headcrab",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.972,
+   "left/right": 0.935,
+   "top/below": 0.941
+  },
+  "size": {
+   "original": [
+    25.9,
+    19.2,
+    13.2
+   ],
+   "reproduction": [
+    25.8,
+    18.7,
+    13.1
+   ],
+   "offShare": [
+    0.003,
+    0.024,
+    0.005
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 8.7,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 10.6,
+     "shared": 0.972
+    },
+    {
+     "view": "left",
+     "deltaE": 10,
+     "shared": 0.936
+    },
+    {
+     "view": "back",
+     "deltaE": 7.3,
+     "shared": 0.972
+    },
+    {
+     "view": "right",
+     "deltaE": 8.8,
+     "shared": 0.936
+    },
+    {
+     "view": "top",
+     "deltaE": 7.2,
+     "shared": 0.941
+    },
+    {
+     "view": "below",
+     "deltaE": 9.5,
+     "shared": 0.942
+    },
+    {
+     "view": "front-left",
+     "deltaE": 10.3,
+     "shared": 0.945
+    },
+    {
+     "view": "front-right",
+     "deltaE": 8.6,
+     "shared": 0.946
+    },
+    {
+     "view": "back-left",
+     "deltaE": 7.7,
+     "shared": 0.943
+    },
+    {
+     "view": "back-right",
+     "deltaE": 7.1,
+     "shared": 0.944
+    }
+   ]
+  },
+  "triangles": {
+   "original": 478,
+   "reproduction": 364
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "G",
+  "right": "G",
+  "letters": {
+   "A": "models/filecabinet.mdl",
+   "B": "models/can.mdl",
+   "C": "models/mbarrel.mdl",
+   "D": "models/w_medkit.mdl",
+   "E": "models/w_battery.mdl",
+   "F": "models/w_security.mdl",
+   "G": "models/headcrab.mdl",
+   "H": "models/forklift.mdl",
+   "I": "models/w_9mmclip.mdl",
+   "J": "models/w_longjump.mdl"
+  },
+  "answer": "G",
+  "ended": "success"
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "All six views (front/back, left/right, top/below) and the four close angles share the original's outline. Measured overlap is 0.935 to 0.972, above the 0.80 line. The head dome, the two front legs, the rear legs and the spread of the feet all sit where the original's do, and no part sticks out or is missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 25.8 x 18.7 x 13.1 against the original's 25.9 x 19.2 x 13.2. The largest difference is 2.6% (height), so all three dimensions are within 10%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The parts are all present and counted correctly: dome, four visible legs with red tips and claws, two eye marks on the front. The underside is wrong, though. In the Below view the original has a wide, red-fleshed mouth cavity filling the lower centre, with a full ring of teeth. The reproduction's mouth is smaller, framed by brown shell, and the red flesh around it is reduced. The back shell's crest is also simpler than the original's."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured mean colour difference inside the shared outline is 8.7 (CIE76), well under 15, and no view is above 10.6. The pale dome, the brown shell and the red legs are the same colours and materials as the original."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original's ribbed, banded back shell (Back and Back-left views) has much less contrast in the reproduction, where it is nearly flat brown. The teeth and mouth lack the original's sharpness. Thin light dashed lines run along seams in Left, Front-left and Front. The original has no such marks."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "At the size shown, it reads as a headcrab, but not as the original. The back shell is smooth where the original is ribbed and banded. The underside mouth is smaller and less red. The dashed light seam lines on the Left, Front-left and Front views give it away. A player would not take it for the original side by side."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front faces the same way as the original in the Front view (mouth and eye marks on the front). It is upright, and the feet touch the ground at the same points in the Left and Right views."
+  },
+  "M8": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The SMAK checks report no errors, and at 364 triangles against the original's 478 it is well under the twice-the-original cap. However, the light dashed lines along seams in the Left, Front-left and Front views look like small gaps where the background shows through. That would mean an open edge, so 'nothing open' cannot be confirmed from the pictures."
+  }
+ },
+ "total": 12,
+ "of": 16,
+ "passes": false
+}

@@ -1,0 +1,171 @@
+{
+ "subject": "battery",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.988,
+   "left/right": 0.994,
+   "top/below": 1
+  },
+  "size": {
+   "original": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "reproduction": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "offShare": [
+    0,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 7,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 7,
+     "shared": 0.987
+    },
+    {
+     "view": "left",
+     "deltaE": 7.1,
+     "shared": 0.995
+    },
+    {
+     "view": "back",
+     "deltaE": 6.9,
+     "shared": 0.987
+    },
+    {
+     "view": "right",
+     "deltaE": 6.7,
+     "shared": 0.995
+    },
+    {
+     "view": "top",
+     "deltaE": 6.2,
+     "shared": 0.999
+    },
+    {
+     "view": "below",
+     "deltaE": 3.6,
+     "shared": 0.585
+    },
+    {
+     "view": "front-left",
+     "deltaE": 8.3,
+     "shared": 0.981
+    },
+    {
+     "view": "front-right",
+     "deltaE": 8.3,
+     "shared": 0.979
+    },
+    {
+     "view": "back-left",
+     "deltaE": 8,
+     "shared": 0.981
+    },
+    {
+     "view": "back-right",
+     "deltaE": 8.2,
+     "shared": 0.979
+    }
+   ]
+  },
+  "triangles": {
+   "original": 116,
+   "reproduction": 156
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "B",
+  "right": "B",
+  "letters": {
+   "A": "models/w_security.mdl",
+   "B": "models/w_battery.mdl",
+   "C": "models/w_longjump.mdl",
+   "D": "models/filecabinet.mdl",
+   "E": "models/can.mdl",
+   "F": "models/forklift.mdl",
+   "G": "models/w_medkit.mdl",
+   "H": "models/w_9mmclip.mdl",
+   "I": "models/headcrab.mdl",
+   "J": "models/mbarrel.mdl"
+  },
+  "answer": "B",
+  "ended": "success"
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Silhouette overlap is 0.988 front/back, 0.994 left/right and 1.0 top/below. The outline matches in all six views: the octagonal body with its chamfered dark base, the raised top plate, the round cap on one side and the angled yellow-striped tab on the other. Nothing sticks out and nothing is missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured size is 10.3 x 10.3 x 18.4 for both, with no axis off (offShare 0, 0, 0)."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Every part is there and in place. Four teal glow windows sit on the main faces, and four white inset panels sit on the corner faces. Each top corner has its small red/orange light. The yellow-black hazard band runs round the bottom and the dark bevelled foot is under it. On top, the round cap is on one side and the tilted yellow-striped tab on the other, the same way round as the original in every view. From below, the dark rim, the yellow stub and the teal sliver match."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mean deltaE is 7.0, with no view over 8.3, all under 15. The regions keep their colours: weathered tan-grey painted metal, teal glow, yellow hazard paint, white panels, red lights, light-grey top plate. The reproduction's body is a little browner and grimier, but it is the same colour family."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The markings are all there and in place: the hazard chevrons, the glow speckle, the red lights and the panel borders. Three things differ. The reproduction's wear is heavier and browner, most of all along the top rim and the upper body edges (top view, front-left and back-right angles), where the original is cleaner and greyer. The white corner panels show a vertical seam line the original does not have (right view, front-right and back-right angles). The teal glow is a little dimmer and flatter at its centre than the original's bright core."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Side by side at game size, a player would take it for the original. The shape, the top details, the glow windows and the hazard band all read the same. Only the slightly dirtier finish tells them apart, and only on a close look."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "It faces the same way in every view: the cap and tab are on the same sides in front, back, left, right and all four angles. It stands upright on its base like the original, at the same height."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's check reports no errors. The reproduction has 156 triangles against the original's 116, under the 232 limit. Nothing looks open, inside out or floating; the top parts sit on the plate."
+  }
+ },
+ "total": 15,
+ "of": 16,
+ "passes": true,
+ "first": {
+  "model": "haiku",
+  "total": 14,
+  "passes": false
+ },
+ "judgedBy": "opus"
+}

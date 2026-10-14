@@ -3,9 +3,9 @@
  "leg": "pictures",
  "measured": {
   "silhouetteOverlap": {
-   "front/back": 0.992,
-   "left/right": 0.991,
-   "top/below": 0.989
+   "front/back": 0.943,
+   "left/right": 0.96,
+   "top/below": 0.898
   },
   "size": {
    "original": [
@@ -14,43 +14,43 @@
     6.8
    ],
    "reproduction": [
-    34.6,
+    34.5,
     26.4,
     6.8
    ],
    "offShare": [
     0.002,
-    0.003,
+    0.002,
     0.004
    ]
   },
   "colour": {
-   "meanDeltaE": 9,
+   "meanDeltaE": 8.5,
    "byView": [
     {
      "view": "front",
-     "deltaE": 9.5,
-     "shared": 0.975
+     "deltaE": 9.1,
+     "shared": 0.917
     },
     {
      "view": "left",
-     "deltaE": 7.1,
-     "shared": 0.979
+     "deltaE": 7.8,
+     "shared": 0.93
     },
     {
      "view": "back",
-     "deltaE": 6.8,
-     "shared": 0.975
+     "deltaE": 8.8,
+     "shared": 0.917
     },
     {
      "view": "right",
-     "deltaE": 5.5,
-     "shared": 0.979
+     "deltaE": 6.1,
+     "shared": 0.93
     },
     {
      "view": "top",
-     "deltaE": 6.9,
-     "shared": 0.987
+     "deltaE": 7.1,
+     "shared": 0.9
     },
     {
      "view": "below",
@@ -59,29 +59,29 @@
     },
     {
      "view": "front-left",
-     "deltaE": 13.7,
-     "shared": 0.992
+     "deltaE": 10.2,
+     "shared": 0.914
     },
     {
      "view": "front-right",
-     "deltaE": 13.8,
-     "shared": 0.992
+     "deltaE": 9.7,
+     "shared": 0.908
     },
     {
      "view": "back-left",
-     "deltaE": 9.6,
-     "shared": 0.993
+     "deltaE": 8.8,
+     "shared": 0.938
     },
     {
      "view": "back-right",
-     "deltaE": 8,
-     "shared": 0.991
+     "deltaE": 8.5,
+     "shared": 0.916
     }
    ]
   },
   "triangles": {
    "original": 99,
-   "reproduction": 156
+   "reproduction": 360
   },
   "checkErrors": []
  },
@@ -89,77 +89,10 @@
   "M1": 2,
   "M2": 2,
   "M4": 2,
-  "M8": 2
+  "M8": 0
  },
- "lineup": {
-  "picked": "G",
-  "right": "G",
-  "letters": {
-   "A": "models/headcrab.mdl",
-   "B": "models/can.mdl",
-   "C": "models/w_9mmclip.mdl",
-   "D": "models/w_longjump.mdl",
-   "E": "models/mbarrel.mdl",
-   "F": "models/w_battery.mdl",
-   "G": "models/w_medkit.mdl",
-   "H": "models/forklift.mdl",
-   "I": "models/filecabinet.mdl",
-   "J": "models/w_security.mdl"
-  },
-  "answer": "G",
-  "ended": "success"
- },
- "scores": {
-  "M1": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "Top, front, back, left and right outlines match the original closely (silhouette overlap 0.989 to 0.992). The mismatch is in the below view: the original draws nothing from underneath, but the reproduction shows a closed octagonal bottom with a strap loop. That is a visible part the original does not show from that side."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Measured size is 34.6 x 26.4 x 6.8 for both, with offShare of 0.002 to 0.004, so every dimension is well within 10%."
-  },
-  "M3": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The box, red cross, FIRST AID lettering, dark screen panel, red and green buttons, side dials and the strap are all present. The strap's route differs: in the front-right and back-right angles the reproduction's loop sits lower and tighter, with a visible gap where it meets the box, and the top view's left-hand loop is more compressed than the original's."
-  },
-  "M4": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Mean colour difference is 9.0, under the 15 line. Per view it runs from 5.5 to 13.8. White shell, red cross and lettering, dark screen and grey-brown checkered strap all read as the same colours and materials in every view."
-  },
-  "M5": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "The red arrows on the sides, the FIRST AID lettering, the panel lines and the checkered strap texture are all in their places. Sharpness is similar at the shown size."
-  },
-  "M6": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "At the shown size the top and side views are very close to the original, but in the front-left, front-right and back-right angles the strap path and its loop visibly differ, and the reproduction has a closed underside where the original shows none. A player comparing them side by side would likely spot the difference."
-  },
-  "M7": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "The front is the original's front (the panel and cross face forward), the kit stands upright and its silhouette and placement match in the front and side views."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The SMAK check reports no errors. The reproduction has 156 triangles against the original's 99, within the 198 limit. Nothing appears floating or inside out. The strap loop has an open gap where it passes the box, but that reads as the gap in a real loop, not a hole in the mesh."
-  }
- },
- "total": 13,
- "of": 16,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M8"
+ ]
 }

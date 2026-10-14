@@ -1,24 +1,24 @@
-I built `forklift.mdl` and the build says **OK**: every check passed.
+I've built `forklift.mdl` in the work folder. The build says OK, and the engine check says "fit for goldsrc".
 
-**Size:** 186.3 long, 60 wide and 113.4 high, standing on the floor. You asked for 186.6 long, so it's 0.3 units short; the other two match exactly.
+**What it is:** 916 triangles on one bone, with one 512×512 texture. It measures 186.6 long, 60 wide and 113.4 high, standing on the floor. Every part is built to measurements taken from the reference views:
+- **Body:** a white counterweight with the raised grille block, red side skirts with the HAIHAN lettering, the front fenders, a white cowl with a sloped nose, and the black steering shroud and dash.
+- **Wheels:** large front wheels on the outside. The rear wheels sit inboard, as they do in the original (the view from below shows this).
+- **Mast and forks:** the mast with its top cap and crossbar, the black carriage plate, and the two forks tilted slightly upward.
+- **Overhead guard:** a narrow roof grate on vertical rear posts and slanted front posts.
+- **Driver:** green overalls, arms reaching to the steering wheel, legs down to the boots on the floor, and a yellow hard hat.
 
-**Parts:** I built 28 parts, 39 pieces counting mirrored copies:
-- **Lifting gear:** two forks with their upright shanks, the carriage plate, the two mast uprights with a crossbar, and the mast's top plate.
-- **Body:** a red chassis, a white front cowl and black dashboard, red front fenders, and a white rear body with the vented hood.
-- **Wheels:** wide front wheels at ±30 and a narrower pair at the rear.
-- **Cab:** the overhead guard (slanted front posts, upright rear posts, dark roof), a black seat and seat back, a console, the steering column and wheel.
-- **Driver:** green overalls (torso, arms, legs), a head, a yellow hard hat and boots.
+**Colours and markings:** all ten reference pictures are painted onto the shape, so the "2.2" decal, the HAIHAN lettering, the vents, the rear lights and plate, the mast chain and the roof grate come from the original. The hard hat is the one exception. It's plain yellow paint, because the pictures smeared background colour onto its top.
 
-I measured every size and position from your pictures, about 2.16 pixels to the unit. From the top view, the rear body is narrower (about ±23) than the front fenders and wheels (±30), so I built it that way.
+**How the outline matches the pictures** (1.0 would be a perfect overlap):
 
-**Colours and markings:** all ten of your pictures (the six sides and the four close angles) are projected onto the shape as its texture. The red and white paint, the "HAIHAN" lettering, the "2.2 LITER" label, the vents, the mast's orange chain stripe and the tyres and hubs all come straight from them.
+```
+front 0.91   left 0.77   back 0.95   right 0.76   top 0.92   below 0.85
+yaw 35: 0.82   yaw -35: 0.80   yaw 145: 0.84   yaw 215: 0.83
+```
 
-**Where it falls short:**
-- **Driver and cab:** the driver is rough box-and-tube shapes, so close up from behind the texture there looks muddy. Green from the overalls also smears onto the inside of the cowl.
-- **Rounding:** the cowl's rounded front and the rear body's curves are plain boxes, so those outlines are squarer than yours.
-- **Triangle count:** 824. The build warns about this but doesn't fail on it: three quarters of Half-Life's props have fewer than 576, and props this size usually have about 288. Most of it is in the wheels and the driver. I can bring it down if it needs to fit the usual Half-Life range.
+**What could still be called out:**
+- **Left and right side scores:** these are the lowest and come from the thin parts (forks, posts, mast), where being one cell off counts heavily. When I compared the side views at full size they line up closely.
+- **The view from below:** the original's underside is open, so you can see the driver from below. Mine is solid, with that view painted on, so it looks right but the outline differs a little.
+- **Triangle count:** the build warns that 916 is above most Half-Life props this size (half have under 288). That's a warning, not a fault, and well within the engine's limits. Most of it goes on the wheels and the driver's limbs.
 
-Files are in the work folder:
-- forklift.mdl
-- forklift.spec.json
-- forklift-sheet.png
+To measure the references more closely, I built four throwaway flat models that just carry the pictures: `refleft.mdl`, `reffront.mdl`, `refback.mdl`, `reftop.mdl` and `refbelow.mdl`. They're still in the work folder, because none of my tools can delete files, so you can remove them by hand.

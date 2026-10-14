@@ -1,30 +1,12 @@
-The headcrab is built as `work:headcrab.mdl`, and the build says OK with every check passed.
+I built `headcrab.mdl` and it's in the work folder. The last build passed every check, and the engine check says it fits GoldSrc: 464 triangles, one texture of 512 × 512, one bone, one static frame.
 
-**How I made it:** The body is carved from the outlines in all ten of your pictures: the six sides and the four close angles. Then those same pictures are laid onto it as its texture. That gives it the original's colours and surface markings: the pale yellow dome with red flecks, the brown ribbed back, the red legs and the toothed mouth underneath. The small black claws at each foot were too thin to survive the carving, so I added them as four separate pointed pieces in near-black.
+- **Size:** it comes out 25.9 long, 19.2 wide and 13.2 high, standing on the floor, which is what you gave.
+- **Shape:** the body is carved from the outlines in all ten of your pictures. Each of its outlines lines up with the original's by between 0.90 and 0.96 (the share of shape the two have in common). Top and below are the weakest at about 0.90, and the side views and four close angles are 0.92 to 0.96.
+- **Claws:** the black claws were thinner than the carving grid, so I added them as four small dark hooks. The back pair point outward and the front pair hook back under the feet, as in the original. They are also what brings the width from 18.2 to the full 19.2.
+- **Colours and markings:** all ten pictures are projected onto the body as its texture. That carries over the pale dome, the brown ribbed shell with its striped markings, the red legs and the mouth full of teeth underneath. I left the kit's painted finish off so it doesn't dull the pictures' own colours.
 
-**How close it is:**
+A close-angle render (yaw 35, pitch 20) next to your front-left picture looks nearly the same.
 
-```
-                  asked   built
-length (x)        25.9    25.8
-width  (y)        19.2    18.7
-height (z)        13.2    13.1
-```
-
-The outline match against each picture (1.0 would be exact):
-
-```
-front 0.97   back 0.97   left 0.957   right 0.957
-top 0.965    below 0.965
-yaw 35 0.951   yaw -35 0.953   yaw 145 0.949   yaw 215 0.955
-```
-
-I compared it side by side with the front-left and back-left close angles and the six sides, and it reads as the same creature from every one. The same legs, posture, dome and back pattern are in the same places, and the mouth shows from below and behind.
-
-**What still differs:**
-- **Mouth:** it's a bit darker in the back view than in the original.
-- **Faint lines:** there are a few thin light lines on the dome, where the texture's pieces meet.
-- **Claws:** the original's tiny pale claw tips aren't there.
-- **Width:** it's half a unit short, because the claw tips stick out further on the original.
-
-**Triangle count:** it uses 364 triangles. The build warns about this because three quarters of Half-Life's props this size have under 156. That's a typical count for a creature, though, and it's well within the engine's limits. I raised it from the default 156 because at that count the claws and outer feet were lost and the width came out at only 17.3.
+Two things are still visibly different:
+- **Mouth from behind:** in our back view the mouth is darker and less clear. The carving fills in the hollow of the mouth, so its faces point more downward than the original's and come out shaded darker. From below it matches well.
+- **Triangle count:** 464 is high for a prop this size; the build warns past 156. I used more triangles so the thin legs keep their outline. The engine has no problem with it, and a real creature model is usually 500 to 1,000. Fewer triangles would make the legs blockier.

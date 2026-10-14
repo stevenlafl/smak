@@ -1,0 +1,171 @@
+{
+ "subject": "filecabinet",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 1,
+   "left/right": 1,
+   "top/below": 1
+  },
+  "size": {
+   "original": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "reproduction": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "offShare": [
+    0.001,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 2.7,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 2.7,
+     "shared": 1
+    },
+    {
+     "view": "left",
+     "deltaE": 2.8,
+     "shared": 0.986
+    },
+    {
+     "view": "back",
+     "deltaE": 2.9,
+     "shared": 1
+    },
+    {
+     "view": "right",
+     "deltaE": 2.9,
+     "shared": 0.986
+    },
+    {
+     "view": "top",
+     "deltaE": 2.9,
+     "shared": 0.986
+    },
+    {
+     "view": "below",
+     "deltaE": 3,
+     "shared": 0.991
+    },
+    {
+     "view": "front-left",
+     "deltaE": 2.5,
+     "shared": 0.998
+    },
+    {
+     "view": "front-right",
+     "deltaE": 2.5,
+     "shared": 0.999
+    },
+    {
+     "view": "back-left",
+     "deltaE": 2.6,
+     "shared": 0.999
+    },
+    {
+     "view": "back-right",
+     "deltaE": 2.5,
+     "shared": 0.999
+    }
+   ]
+  },
+  "triangles": {
+   "original": 14,
+   "reproduction": 12
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "I",
+  "right": "I",
+  "letters": {
+   "A": "models/w_longjump.mdl",
+   "B": "models/w_security.mdl",
+   "C": "models/w_battery.mdl",
+   "D": "models/forklift.mdl",
+   "E": "models/w_medkit.mdl",
+   "F": "models/mbarrel.mdl",
+   "G": "models/w_9mmclip.mdl",
+   "H": "models/headcrab.mdl",
+   "I": "models/filecabinet.mdl",
+   "J": "models/can.mdl"
+  },
+  "answer": "I",
+  "ended": "success"
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured silhouette overlap is 1.00 in front/back, left/right and top/below. In every side and angle view the reproduction has the same tall rectangular block on a slightly inset plinth. Nothing sticks out and nothing is missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both measure 28.8 x 22.6 x 62.4. The largest axis difference is 0.1%, well inside 10%."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "There are three drawers on the front, stacked at the same spacing, each with a raised bevelled face and a small dark recessed pull centred near its top. The kick plate and base strip run across the bottom of the front, back and sides as in the original. The plain sides, back and top match. No component is missing or added."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The whole body is the original's mid-grey painted metal with darker grey mottling, and the pulls are near black, as in the original. Measured mean colour difference is 2.7 (worst view 3.0), far under 15."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The mottled paint, the faint stencil marks on the sides and back, the drawer bevels, the pull recesses and the base strip are all in place at similar sharpness. The left side differs. In the original's front-left and back-left views that face shows diagonal, grainy stretched-texture streaks over its rear part. The reproduction has straight vertical stripes there instead, plus a lighter vertical band near the back edge in the back-left view, so the left face reads differently up close."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "At the size the game shows a filing cabinet, the reproduction is indistinguishable from the original side by side. Outline, drawer layout, pulls, colour and mottling all match, and the left-face streak difference only shows on close inspection."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The drawers face the same front view as the original's. The cabinet is upright and stands on its base, and the top and below views line up with the original's footprint, the same way round."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's check reports no errors. It uses 12 triangles against the original's 14, well under twice. It is a closed box with no visible holes, inside-out faces or floating parts in any view."
+  }
+ },
+ "total": 15,
+ "of": 16,
+ "passes": true,
+ "first": {
+  "model": "haiku",
+  "total": 14,
+  "passes": false
+ },
+ "judgedBy": "opus"
+}
