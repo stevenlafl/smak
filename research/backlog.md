@@ -2,7 +2,8 @@
 
 Every concrete recommendation or build item from the reports in `research/`, checked against the code, docs and
 git history: first as of 2026-10-14 (commit 7acbcac), brought up to date the same day after the sprite,
-video, repeated-failure and map-failure work (commit 13c7c25). This is the one list to work from: when an item
+video, repeated-failure and map-failure work (commit 13c7c25), and again after the asset and held-model
+failure research and the work on them (commit 877280e). This is the one list to work from: when an item
 is built, declined or changed, update its row here, and add rows when a new report lands. Background,
 measurements and sources stay in the reports themselves.
 
@@ -135,7 +136,7 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | 2. QEM decimator in Node (attributes, crease penalty, boundary planes, link and flip checks, staged), with chart-locked mode (Sander et al.) | OPEN | No reducer in `src/` |
 | 3. Normals codebook (or crease angle raised until a body fits 2048 normals) | PARTLY | A spec's `smooth` angle per part trades normals by hand (commit 8769256); no automatic codebook |
 | 4. BVH ray caster and AO / cavity bake from an outside dense mesh | OPEN | `finish` paints light, wear and grime from the spec's own shape, with no rays and no outside mesh |
-| 5. Silhouette pose fit of a photo (mask render, chamfer cost, Nelder-Mead or CMA-ES) | OPEN | `project` takes the view as given (`view`, `yaw`, `pitch`) and only finds the outline's box |
+| 5. Silhouette pose fit of a photo (mask render, chamfer cost, Nelder-Mead or CMA-ES) | PARTLY | A character's stance fitted to its pictures' outlines (`pose.fit`, `src/spec/posefit.mjs`, coordinate descent, commit 877280e). Missing: a prop's camera fit to a photo; CMA-ES |
 | 6. Projective texture with visibility, MRF labels, seam levelling, symmetry fill, push-pull | PARTLY | `src/spec/project.mjs` (commit fcfcc0f): straight-on pictures blended by how squarely they see, with a depth test. Missing: per-face labels, seam levelling, mirror fill, push-pull for the unseen, perspective cameras |
 | 7. View-based or photo-based charting, small charts merged, mirrored charts, LSCM | OPEN | Measured in Python only (`charts_by_view.py`) |
 | 8. Handle removal (voxel closing) before reduction | OPEN | Measured in Python only (`charts_closing.py`) |
@@ -221,13 +222,13 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | 3. The harness's empty views; M4 on smoothed pictures; the angle pictures' yaw and pitch in the prompt | DONE | Steven's amendment in `examples/reproduce/rubric.md`; `lib.mjs`, `judge.mjs`, `reproduce.mjs` (commits 88a7ce2, 7846e1f) |
 | 4. A `views` part kind: carved hull, Node reducer, then `project` | OPEN | The carving was measured in Python (headcrab 0.75 to 0.95 overlap); needs the Node reducer (FM 2) |
 | 5. `seen` colours, the XKCD names with modifiers, warmer metal defaults | DONE | `src/spec/colours.mjs`, `materialOf` (commit 601def7) |
-| 6. Painted part shapes (cup pull, vent, grille, screen, hex nut, knob) and built ones (wheel, rail, leg, strap, superquadric, cut) | OPEN | |
+| 6. Painted part shapes (cup pull, vent, grille, screen, hex nut, knob) and built ones (wheel, rail, leg, strap, superquadric, cut) | PARTLY | `superquadric` part kind (commit fd5dea0). Missing: the painted shapes, wheel, rail, leg, strap, cut |
 | 7. `project` divides out the pictures' light per surface direction | OPEN | |
 | 8. A spec `wear` layer list over accessibility and dust masks; the "too clean" ratios in the harness | OPEN | |
 | 9. RANSAC planes and cylinders on a carved hull | OPEN | After 4 |
 | Learned primitive fitting (Tulsiani, Paschalidou, CSGNet) | DECLINED | The report: needs training and a GPU; the agent is the fitter |
 
-## map-reproduction-failures.md (what the map reproductions failed on, round 1)
+## map-reproduction-failures, AF asset-reproduction-failures, HF held-reproduction-failures.md (what the map reproductions failed on, round 1)
 
 | Item | Status | Where / what is missing |
 | --- | --- | --- |
@@ -237,10 +238,44 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | 4. A labelled grid on the plan, storeys and sections | PARTLY | `grid` on plans (`planOf`, `planOfSource`, `map-plan --grid`, the render tool), and the reproduction's map inputs. Missing: storeys and sections |
 | 5. Polygon room outlines and `prism` / `solid` pieces | PARTLY | Prefab `prism` pieces. Missing: a room with a polygon outline, `solid` pieces |
 | 6. The calibrated texture-light values by default | OPEN | Being ported with bsp2map; the report's SDHLT light anomaly is unexplained |
-| 7. A texture-identification tool (surface patches matched against a `.wad` in texture space) | OPEN | Measured: 62% right first, 71% in the top 20 |
+| 7. A texture-identification tool (surface patches matched against a `.wad` in texture space) | PARTLY | `matchTextures` and the `info` tool's `like` and `rect` (commit 5a2aedd): a view patch by its colour histogram with the brightness divided out, 5 of frenzy's 25 first, 9 in the first 8. Missing: the report's texture-space matching (62% first) |
 | 8. Measurements for P5, P6 and P9 given to the judge (texture match, light, SSIM of views) | OPEN | |
-| 9. Port bsp2map (Steven agreed); a "bsp + decompiler" leg beside the bsp leg | PARTLY | Being ported into `src/maps/decompile.mjs`; SDHLT copies reconciled (both carry both of Steven's fixes) |
+| 9. Port bsp2map (Steven agreed); a "bsp + decompiler" leg beside the bsp leg | DONE | `src/maps/decompile.mjs` (the same text as bsp2map on all 126 maps), `smak map-decompile`, the MCP `decompile` tool, the `decompile` and `plans` legs in `examples/reproduce/subjects.json` (commit fefe723) |
 | 10. Later: a plan tracer, text-to-texture search | OPEN | |
+
+## asset-reproduction-failures.md (sprites, sounds and textures, round 1)
+
+| Item | Status | Where / what is missing |
+| --- | --- | --- |
+| H1 to H5: lit faces, flat sheets, facts to the words leg, class ranges to the sound judge, the scene cache by texture | DONE | `examples/reproduce/assets.mjs`, `maps.texturePlaces`, `src/maps/draw.mjs`; rubric amendment (commits 29eee74, fb5aabd) |
+| 2. A place preview per texture; paint under the map's light | DONE | `preview.each`, `material.seen: { colour, light }` (commit fb5aabd) |
+| 3. Size parameters for tile, brick, metal, planks, hazard | DONE | `cell`, `course`, `length`, `board`, `stripe`, `angle` (commit fb5aabd) |
+| 4. Sprite fill options, the `blast` and `muzzle` ramps | DONE | `src/sprite/effects.mjs` (commit 603c920; `research/sprite-layers-results.md`) |
+| 5. Spectral noise, a limiter, `post` layers, periodic particles | DONE | `src/audio/spectral.mjs`, `synth.mjs` (commit ee496d7; `research/sound-shape-results.md`: the limiter at Valve's crest costs the spectrum) |
+| 6. The judge's measures in the sprite and sound build reports | DONE | `reference` and `picture` in those specs (commits 603c920, ee496d7) |
+| 7. A texture weathering stack | DONE | `wear` (`src/spec/weather.mjs`, commit e4b217e) |
+| 8. `audio.fromPicture` to a draft spec | DONE | `src/audio/picture.mjs` (commit ee496d7) |
+| 9. Sprite `billow` and `blobs` | DONE | Commit 603c920. Missing: steam1's column of wisps, fire's heat that falls with height |
+| 10. Texture relief: pipes, bars, louvres, rivets, seams, lamps | DONE | `src/spec/relief.mjs` (commit 17f9552) |
+| 11. Room early reflections; statistics matching for textures | OPEN | |
+| Read-back of pictures into pixels (sprites, textures) or samples | DECLINED until Steven decides | Section 7: measures and drafts are in; texels and samples are copying |
+
+## held-reproduction-failures.md (weapons and characters, round 1)
+
+| Item | Status | Where / what is missing |
+| --- | --- | --- |
+| 1. Weapon placement by the old pair's registration; "as drawn" in the spec's axes | PARTLY | "as drawn" keeps the built axes (commit e2caa54, `src/fit.mjs`); a hidden `v_` weapon at 0.56 of its size, the median (commit ee496d7). Missing: the registration, which reads the hidden files: Steven's decision |
+| 2. A character's floor | DONE | `floor` (commit ee496d7) |
+| 3. Budgets for every kind | PARTLY | A character warned past twice its base's body (commit b5f8c0a); a prop's report gives Half-Life's triangles for its size (commit 904eebe). Missing: per weapon file, fewer sides in `p_` and `w_` |
+| 4. The three small bugs | DONE | The caption finder, `at: "start"` on a bone (commit 7a67d94), "as drawn" (above) |
+| 5. Texture layout: sorted packing, a part's texels weight | DONE | `allot` tallest first, `texels` (commit aa674fe). Missing: a default texture size from the area |
+| 6. A character's `pose`, keys and `fit` | DONE | `pose.keys`, `pose.fit` (commits 62a1607, 877280e). Missing: CMA-ES, joint limits by bone |
+| 7. Per-view parts and chrome for weapons | DONE | A part's `views`, `weapon.chrome` (commit 269dd89) |
+| 8. Superquadric parts, then a skin round a chain of joints | PARTLY | `superquadric` (commit fd5dea0). Missing: the skin |
+| 9. A monster's activities against its base; motion refitted from the motion pictures | OPEN | |
+| 10. Carved hull for characters | OPEN | After the Node QEM |
+| 11. A creature's own skeleton and gait in a spec | OPEN | |
+| The pictures leg's `project` hands back Valve's own texture | DECLINED until Steven decides | Section 6: copying by the section-7 line |
 
 ## Open, by priority
 
@@ -252,11 +287,12 @@ map-reproduction-failures.
 1. Words-to-box before the cut-out (Grounding DINO or OWLv2, Apache 2.0), to pick one subject of several (FM 1, PE). (The BiRefNet switch is done.)
 2. Two doc lines on SDHLT's faults (`-subdivide 512`, `%NAME`), and SPLITFACE in `SEALS_NOTHING` (CF).
 3. Run `soundness` and `seeThrough` from `check` (MCP and command line) on any model (GR).
-4. Finish the bsp2map port; the "bsp + decompiler" leg; the calibrated texture lights (MF 6, 9).
+4. The calibrated texture lights by default (MF 6).
 4a. Judge measurements for maps: texture match, light parity, view SSIM (MF 8).
 4b. A map spec's `sprites` field; `sprite-make` from PNG frames; worked sprite and video cases (SP 2, 7; DV 5).
 4c. The `views` part kind with the Node reducer (RF 4, FM 2).
-4d. A texture-identification tool for maps (MF 7); polygon room outlines (MF 5).
+4d. Texture-space matching for the identification tool (MF 7); polygon room outlines (MF 5).
+4e. The held list's open items: a weapon's per-file budgets and sides, the joint-chain skin, a monster's activities against its base, its motion from pictures (HF 3, 8, 9); room early reflections and texture statistics matching (AF 11).
 5. Quantise palettes in OKLab with k-means refinement (IR 2, FM).
 6. Map graph measures: loops, dead ends, choke points, depth, fill, light rhythm, against stock maps (IR 3).
 7. `NULL` on hidden furniture faces and piece textures by face (CF 6).
@@ -287,7 +323,7 @@ map-reproduction-failures.
 32. The photo benchmark: cut-outs, generators (TripoSG, Hunyuan3D-2.1, SPAR3D, 2mv), reduction, charts, texture, bake, each measured (PE, FM experiments, L3).
 33. Node QEM reducer with chart-locked mode, handle removal first, normals codebook (FM 2, 3, 8).
 34. BVH and AO / cavity bake from a dense mesh (FM 4).
-35. Silhouette pose fit, then MRF labels, seam levelling, symmetry fill and push-pull in `project` (FM 5, 6).
+35. A prop's camera fit to a photo; MRF labels, seam levelling, symmetry fill and push-pull in `project` (FM 5, 6).
 36. View-based and mirrored charts with LSCM (FM 7).
 37. De-lighting (spherical harmonics, multi-view median) (FM).
 38. Smooth characters (`blob`: smooth union, SQM mesh, heat-cut bones); record the short-legs rule (IR 8).
@@ -297,7 +333,7 @@ map-reproduction-failures.
 42. Hunyuan3D-2 paint after `libhipblaslt-dev`; image-driven reduction stage; LLaMA-Mesh (FM 9, 10, L3).
 43. Wave Function Collapse dressing; exemplar texture synthesis (IR 10, 11).
 44. JSON Patch edits; `smak play` recording audio (GR, SG).
-45. Painted part shapes and built part kinds (wheel, rail, leg, strap, superquadric, cut) (RF 6).
-46. `project` divides out the pictures' light; a spec `wear` layer list and the "too clean" ratios (RF 7, 8).
+45. Painted part shapes and built part kinds (wheel, rail, leg, strap, cut) (RF 6).
+46. `project` divides out the pictures' light; a model spec `wear` layer list and the "too clean" ratios (RF 7, 8).
 47. Sprites: re-measuring the game's sprites by a research script, `picture` and `shape` layers, `.spr` in `info` and `render`, fluid smoke, decals, HUD sheets (SP).
 48. Map pictures: the grid on storeys and sections; per-face textures of a `.bsp`; a plan tracer; text-to-texture search (MF 2, 4, 10).
