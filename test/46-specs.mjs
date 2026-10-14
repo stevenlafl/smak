@@ -170,6 +170,46 @@ test("a character spec: a place on a part laid along a limb is where the part we
   sure(patch && Math.abs(patch.from[2] - 4.75) <= 0.1 && Math.abs(patch.from[0] - 1) <= 0.1, `the patch halfway up the sleeve, on its front: ${JSON.stringify(patch)}`);
 });
 
+test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ files, the gloved hands kept", () => {
+  // a stand-in for a game's files: a first-person model of a glove and a stick, and a world one of the stick
+  const meshOn = (build, name) => {
+    const M = W.shape(64, 64);
+    build(M);
+    return { tris: M.tris.map((t) => t.map((c) => ({ ...c, bone: "hand" }))), texture: indexed(W.sheet(64, 64).image(), name) };
+  };
+  const stick = () => meshOn((M) => M.lathe([[0, 0.5], [12, 0.5]], Z, { sides: 6, caps: [true, true] }), "stick.bmp");
+  const glove = meshOn((M) => M.lathe([[-3, 1.5], [0, 1.5]], Z, { sides: 6, caps: [true, true] }), "rubbergloveCHROME.bmp");
+  const fileOf = (meshes) =>
+    buildMdl({
+      name: "x.mdl",
+      bones: [{ name: "hand", parent: -1 }],
+      bodyparts: [{ name: "studio", models: [{ name: "stick_reference", meshes }] }],
+      sequences: [{ name: "idle", fps: 10, frames: [[[0, 0, 0, 0, 0, 0]]] }, { name: "attack", fps: 10, frames: [[[0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0.5, 0]]] }],
+    });
+  mkdirSync(folder, { recursive: true });
+  writeFileSync(join(folder, "v_stick.mdl"), fileOf([glove, stick()]));
+  writeFileSync(join(folder, "p_stick.mdl"), fileOf([stick()]));
+  const spec = {
+    spec: "smak.model/1",
+    name: "rod.mdl",
+    kind: "held",
+    weapon: { like: "stick", views: ["v", "p"] },
+    parts: [{ id: "rod", kind: "box", material: "steel", size: [10, 1, 1] }],
+  };
+  const { report, files } = buildModelSpec(spec, { folder });
+  sure(report.ok && files.length === 2, `two files: ${[...report.errors, ...report.faults]}`);
+  const v = files.find((f) => f.name === "v_stick.mdl");
+  const meshes = smak.readMdl(v.mdl).bodyparts[0].models[0].meshes;
+  const gloveMesh = meshes.find((m) => /glove/i.test(m.texture.name));
+  const rodMesh = meshes.find((m) => m.numtris && !/glove/i.test(m.texture.name));
+  sure(gloveMesh?.numtris === glove.tris.length, `the glove is kept as it was: ${gloveMesh?.numtris} of ${glove.tris.length}`);
+  sure(rodMesh?.numtris === 12 && rodMesh.texture.name === "rod_v.bmp", `the rod in the stick's place: ${rodMesh?.numtris} triangles on ${rodMesh?.texture.name}`);
+  sure(smak.sequences(v.mdl).length === 2, "the game's animations kept");
+  sure(/v_stick\.mdl \(first person\)/.test(report.facts.join("\n")), "the report says what each file became");
+  const missing = buildModelSpec({ ...spec, weapon: { like: "spear" } }, { folder }).report;
+  sure(!missing.ok && /v_spear\.mdl is neither beside the spec nor in the game folders/.test(missing.errors.join()), missing.errors.join());
+});
+
 test("a map spec is laid out by words, its rooms in rooms, its modules taken in with their ids and their walls", () => {
   const spec = {
     spec: "smak.map/1",

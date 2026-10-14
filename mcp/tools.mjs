@@ -683,7 +683,7 @@ function build(folders, args) {
   }
   if (spec?.spec !== "smak.model/1")
     throw new Error('spec: a model spec ("spec": "smak.model/1") or a map spec ("spec": "smak.map/1"); guide { doc: "spec" } says how to write one');
-  const { mdl, report } = buildModelSpec(spec, { folder, games: folders.wads ?? [] });
+  const { mdl, report, files = [] } = buildModelSpec(spec, { folder, games: folders.wads ?? [] });
   const lines = reportLines(report);
   if (mdl) {
     const name = spec.name ?? "model.mdl";
@@ -702,6 +702,33 @@ function build(folders, args) {
       if (moving >= 0) show(smak.strip(mdl, { seq: moving, count: 8, cols: 4, view: "side", width: 192, height: 192 }));
     }
     if (reference) show(besideOf(reference, smak.render(mdl, { seq: 0, yaw: 35, pitch: 20, width: 512, height: 512 })));
+    // a weapon: its files in the game's names, in a folder of their own; the game's first-person view beside
+    // the new one, the other views, and its attack as the player sees it
+    if (files.length) {
+      const out = join(folders.work, `${base}_weapon`);
+      mkdirSync(out, { recursive: true });
+      for (const file of files) writeFileSync(join(out, file.name), file.mdl);
+      lines.push(`written: ${files.map((file) => `work:${base}_weapon/${file.name}`).join(", ")} (the game's names: they take the place of its own when installed in <mod>/models)`);
+      const views = [];
+      const labels = [];
+      for (const file of files) {
+        const first = file.view === "v";
+        const draw = (src) => smak.render(src, { seq: 0, frame: 0, width: 320, height: 320, ...(first ? { view: "first" } : { yaw: 35, pitch: 20 }) });
+        if (first) {
+          views.push(draw(file.original));
+          labels.push(`the game's ${file.name}`);
+        }
+        views.push(draw(file.mdl));
+        labels.push(file.name);
+      }
+      show(smak.tile(views, views.length, labels));
+      const v = files.find((file) => file.view === "v");
+      if (v) {
+        const list = smak.sequences(v.mdl);
+        const attack = list.findIndex((seq) => /attack|fire|shoot|swing|hit|throw|stab|slash/i.test(seq.name));
+        show(smak.strip(v.mdl, { seq: attack >= 0 ? attack : Math.min(1, list.length - 1), count: 8, cols: 4, view: "first", width: 192, height: 192 }));
+      }
+    }
     // a close look at the parts asked for, from two sides: what a sheet of the whole is too small to show
     const focus = [args.focus ?? []].flat().filter(Boolean);
     if (focus.length) {

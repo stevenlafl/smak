@@ -162,7 +162,8 @@ export function boneNearest(corners, point, otherwise) {
 
 /**
  * Returns a copy of a model with a new piece where one of its submodels shows an old one.
- *   body     the number the game gives the model to show that submodel (of the first bodypart)
+ *   body     the number the game gives the model to show that submodel
+ *   bodypart the bodypart that holds it (0 unless told: a launcher's rocket and its tube may be apart)
  *   pick     (mesh) -> true for the meshes that are the old piece (default: all but the hands' and arms',
  *            told by their texture's name)
  *   piece    { tris, haft, rig, bones } as the kits make it
@@ -185,6 +186,7 @@ export function swapMesh(
   src,
   {
     body = 0,
+    bodypart = 0,
     pick = (mesh) => !HANDS.test(mesh.texture.name),
     piece,
     texture,
@@ -194,7 +196,7 @@ export function swapMesh(
   },
 ) {
   // `bone`: the one that carries the old piece; `original`: the old piece's triangles in that bone's space
-  const { info, j: modelNumber, model, meshes, rest, bone, original } = measure(src, body, pick, name);
+  const { info, j: modelNumber, model, meshes, rest, bone, original } = measure(src, body, pick, name, bodypart);
 
   // the fit: from the piece's space to the old piece's own axes (`frame`), or none when placed by bone
   const laid = place === "fit";
@@ -232,9 +234,9 @@ export function swapMesh(
   );
 
   const mesh = meshOf(original, tris, texture, bone);
-  const first = { bodypart: 0, model: modelNumber, mesh: meshes[0].k };
+  const first = { bodypart, model: modelNumber, mesh: meshes[0].k };
   let mdl = replaceMesh(src, first, mesh, texture);
-  for (const { k } of meshes.slice(1)) mdl = emptyMesh(mdl, { bodypart: 0, model: modelNumber, mesh: k });
+  for (const { k } of meshes.slice(1)) mdl = emptyMesh(mdl, { bodypart, model: modelNumber, mesh: k });
 
   const newBox = box(uniq(tris));
   const oldBox = box(uniq(original));

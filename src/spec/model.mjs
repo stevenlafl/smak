@@ -12,7 +12,8 @@
 import { readFileSync, existsSync } from "node:fs";
 import { resolve, dirname, join } from "node:path";
 import { shape, sheet, allot } from "../workshop.mjs";
-import { buildMdl } from "../build.mjs";
+import { buildMdl, swapMesh } from "../build.mjs";
+import { HANDS } from "../fit.mjs";
 import { indexed, shrink } from "../image.mjs";
 import { check } from "../check.mjs";
 import { readMdl, bones as bonesOf, sequences as sequencesOf, withTextures, addMesh, replaceMesh, inverse34, apply34 } from "../mdl.mjs";
@@ -54,7 +55,7 @@ const ON_SURFACE = new Set(["band", "boss", "ridge", "studs"]);
 /** The anchors every part has: the middles of the faces of its box, and its middle. */
 const BOX_ANCHORS = ["top", "bottom", "front", "back", "left", "right", "centre"];
 /** The fields a spec takes at its top. */
-const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "note"];
+const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "weapon", "note"];
 /** A texture's side unless told; a kit's picture is made this much smaller (the kits paint at 1024 wide). */
 const SHEET_SIZE = 256;
 const KIT_SHRINK = 2;
@@ -105,6 +106,16 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
     errors.push(`kind: "prop" (stands on the floor), "held" (lies along +x, its grip at the origin), "piece" (as built) or "character" (a body on a base model's skeleton): not ${JSON.stringify(spec.kind)}`);
   if (spec.base !== undefined && typeof (spec.base?.file ?? spec.base) !== "string")
     errors.push(`base: { file: "player/gordon/gordon.mdl", bodypart, bodies, pose }: the model whose skeleton and animations the parts are put on`);
+  if (spec.weapon !== undefined) {
+    const w = spec.weapon;
+    if (typeof w?.like !== "string" || !/^[\w-]+$/.test(w.like))
+      errors.push(`weapon.like: the game's weapon it takes the place of, as its files are named ("crowbar" for v_crowbar.mdl, p_crowbar.mdl, w_crowbar.mdl)`);
+    if (w?.views !== undefined && (!Array.isArray(w.views) || !w.views.length || w.views.some((v) => !WEAPON_VIEWS[v])))
+      errors.push(`weapon.views: some of "v" (first person), "p" (in another player's hands), "w" (lying in the world)`);
+    if (w?.size !== undefined && !["old", "own"].includes(w.size)) errors.push(`weapon.size: "old" (stretched to the old one's length) or "own" (the size it was built at, its grip where the old grip was)`);
+    if (w?.rig !== undefined && !["carry", "nearest"].includes(w.rig)) errors.push(`weapon.rig: "carry" (on the bone that carried the old one) or "nearest" (each corner on the bone of the old one's nearest corner: a slide, a drum that turns)`);
+    if ((spec.kind ?? "held") !== "held") errors.push(`kind: a weapon is "held": built lying along +x, its grip at the low-x end`);
+  }
   for (const [name, material] of Object.entries(spec.materials ?? {}))
     try {
       materialOf(material, `materials.${name}`);
@@ -847,8 +858,72 @@ export function buildModelSpec(spec, { folder, prefabs = {}, games = [] } = {}) 
   const seen = seeThrough(mdl);
   report.faults.push(...seen.faults);
   report.facts.push(`the pictures see through it at ${(seen.share * 100).toFixed(2)}% of its dots`);
+  const files = spec.weapon ? weaponViews(spec, meshes, { folder, games, report }) : [];
   report.ok = !errors.length && !report.faults.length;
-  return { mdl, report };
+  return { mdl, report, files };
+}
+
+// ── a weapon in the game's own files ───────────────────────────────────────
+/** The views a weapon has: each file's prefix and how much smaller its picture is. */
+const WEAPON_VIEWS = { v: { shrink: 1, what: "first person" }, p: { shrink: 2, what: "in a player's hands" }, w: { shrink: 4, what: "lying in the world" } };
+
+/**
+ * A held piece put in place of a game's weapon, in each of its files (v_, p_, w_ and the `like` name): in the
+ * bodypart that holds most of the old weapon, every submodel of it that shows one, fitted over the old one
+ * by `swapMesh`. The hands, the bones, the animations, the events and the attachments are the game's own and
+ * untouched; the files keep the game's names, so that the game loads them with no code (AGENTS.md, rule 8).
+ * Returns [{ name, mdl, view }]; what each became goes in the report.
+ */
+function weaponViews(spec, meshes, { folder, games, report }) {
+  const { like, views = ["v", "p", "w"], size = "old", rig = "carry" } = spec.weapon;
+  if (meshes.length !== 1) {
+    report.errors.push(`weapon: a weapon wears one picture, and this one has ${meshes.length} (${meshes.map((m) => m.name).join(", ")}): a glowing or see-through material gets a picture of its own; leave such parts out of a weapon`);
+    return [];
+  }
+  const piece = {
+    tris: meshes[0].tris.map((t) => t.map((c) => ({ p: c.p, uv: c.uv, group: c.group, smooth: c.smooth }))),
+    rig: rig === "nearest" ? "nearest" : undefined,
+  };
+  const files = [];
+  for (const view of views) {
+    const fileName = `${view}_${like}.mdl`;
+    const place = [resolve(folder ?? ".", fileName), ...games.map((game) => join(game, "models", fileName))].find((p) => existsSync(p));
+    if (!place) {
+      report.errors.push(`weapon: ${fileName} is neither beside the spec nor in the game folders given (${games.join(", ") || "none"})`);
+      continue;
+    }
+    let mdl = readFileSync(place);
+    const textures = place.replace(/\.mdl$/i, "t.mdl");
+    if (existsSync(textures) && !readMdl(mdl).textures.length) mdl = withTextures(mdl, readFileSync(textures));
+    const original = mdl;
+    const info = readMdl(mdl);
+    const weaponTris = (model) => model.meshes.filter((m) => m.texture && !HANDS.test(m.texture.name)).reduce((n, m) => n + m.numtris, 0);
+    const counts = info.bodyparts.map((part) => part.models.reduce((n, model) => n + weaponTris(model), 0));
+    const bodypart = counts.indexOf(Math.max(...counts));
+    if (counts[bodypart] === 0) {
+      report.errors.push(`weapon: ${fileName} shows no weapon apart from its hands`);
+      continue;
+    }
+    const texture = indexed(shrink(meshes[0].image, WEAPON_VIEWS[view].shrink), `${spec.name.replace(/\.mdl$/i, "").slice(0, 20)}_${view}.bmp`);
+    const part = info.bodyparts[bodypart];
+    const done = [];
+    for (const [j, model] of part.models.entries()) {
+      if (!weaponTris(model)) continue;
+      try {
+        const swapped = swapMesh(mdl, { body: j * part.base, bodypart, piece, texture, size, name: fileName });
+        mdl = swapped.mdl;
+        const r = swapped.report;
+        done.push(`${r.model} on ${r.bone} (${r.was} triangles were there; laid ${r.turn}, ${size === "own" ? "at its own size" : `scaled ${r.scale.toFixed(2)}`}, ${r.left.toFixed(2)} off the old outline)`);
+      } catch (error) {
+        report.errors.push(`weapon: ${fileName}, ${model.name}: ${error.message}`);
+      }
+    }
+    const engine = check(mdl, "goldsrc");
+    report.errors.push(...engine.errors.map((e) => `${fileName}: ${e}`));
+    report.facts.push(`${fileName} (${WEAPON_VIEWS[view].what}), from ${place}: ${done.join("; ")}; its ${sequencesOf(mdl).length} animations and ${info.bones.length} bones are the game's`);
+    files.push({ name: fileName, mdl, view, original });
+  }
+  return files;
 }
 
 // ── a body on a base model's skeleton ──────────────────────────────────────

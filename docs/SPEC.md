@@ -60,6 +60,7 @@ pictures of the result, from a barrel to a city of four shops and a sewer; read 
 | `name` | The file: letters, digits, `_ . -`, ending `.mdl` |
 | `kind` | `prop` (stands on the floor: its lowest point is put at z 0), `held` or `piece` (left where it was built), `character` (a body on a game model's skeleton, below) |
 | `base` | For a character: `{ file }`, the game's model whose skeleton and animations it keeps |
+| `weapon` | For a weapon: `{ like: "crowbar" }`, the game's weapon whose v_, p_ and w_ files it takes the place of (below) |
 | `size` | What the person asked for: `{ height, length, width }` (any of them). Off by more than 10% is warned of, more than 25% is a fault |
 | `texture` | `{ width, height }` of the shared picture (256 x 256 unless told; 512 x 256 for a larger thing) |
 | `materials` | Names for materials the parts share: `{ "oak": { "base": "wood", "tone": [r, g, b] } }`. A part may also name a base itself (`"material": "iron"`) |
@@ -141,6 +142,28 @@ a part that comes apart in any of them is a fault (`in run2 frame 11: ... thumb_
   (6 for a limb, 4 or 5 for a finger). The check says when it is over.
 
 `examples/prompts/19-model-robot-player` and `20-model-skeleton-player` are two worked ones.
+
+### A weapon in place of a game's
+
+A weapon is a `held` model (built lying along +x, its grip at the low-x end) with `weapon: { like, views,
+size, rig }`: the build fits it over the game's own weapon in each of its files, `v_<like>.mdl` (first
+person, with the hands), `p_<like>.mdl` (in another player's hands) and `w_<like>.mdl` (lying in the world),
+found in the game's `models` folder. Each keeps its hands, bones, animations, events and attachments; only
+the weapon's meshes are replaced (the hands are told by their textures' names: gloves, sleeves, arms).
+The files keep the game's names, so the game loads them in place of its own with no code (a weapon under a
+new name needs the mod's code). They are written in `work:<name>_weapon/`.
+
+- `like`: the game's weapon, as its files are named: `crowbar`, `357`, `rpg`, `tripmine`.
+- `views`: `["v", "p", "w"]` unless told.
+- `size`: `"old"` (unless told) stretches it to the old one's length; `"own"` keeps the length it was built at,
+  its grip where the old grip was.
+- `rig`: `"carry"` (unless told) hangs it all on the bone that carried the old one; `"nearest"` gives each
+  corner the bone of the old one's nearest corner, so that a part over a slide or a drum moves with it.
+- One picture: a weapon's parts share one texture, so leave out `neon`, `flame` and `glass` (each of those
+  is a picture of its own).
+
+The pictures: the game's first-person view beside the new one, the other views, and the attack as the
+player sees it. `examples/prompts/22-weapon-wrench` is a worked one.
 
 ### Materials
 

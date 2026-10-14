@@ -5,7 +5,9 @@ import { readMdl, readMesh, restPose, mul34, apply34, inverse34 } from "./mdl.mj
 import { sub, dot, cross, box, out, into, uniq, mainAxes } from "./vec.mjs";
 
 // The hands' own meshes, which a view model's submodel may hold next to the weapon.
-export const HANDS = /hands|arms|body/i;
+// the meshes of a first-person model that are its hands and sleeves, by their texture's name: Half-Life's
+// are GLOVED_sleeve, rubbergloveCHROME, GLOVED_knuckle and GLOVE_handpak
+export const HANDS = /hands|arms|body|glove|sleeve|knuckle|handpak/i;
 
 /**
  * One submodel's weapon, measured: the meshes `pick` chooses, the bone that carries most
