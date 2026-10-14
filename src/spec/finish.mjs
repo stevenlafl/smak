@@ -13,7 +13,7 @@
 //
 // The spec says how much of each, 0 to 1: `finish: { light, wear, grime, vary }` for the whole, `false` for
 // none, and a part's own `finish` (a number each, or `false`) over that. Glowing and see-through parts
-// (fullbright or additive) are left as they are.
+// (fullbright, additive or masked) are left as they are.
 
 import { fbm3, step } from "../workshop.mjs";
 
@@ -31,8 +31,8 @@ const SAMPLE = 0.5;
 /** How far up (units, and a share of the height) a standing thing is dirtied from the floor. */
 const GROUND = 2;
 const GROUND_SHARE = 0.08;
-/** The flags of a texture painted as it is: fullbright, additive. */
-const AS_IS = 4 | 32;
+/** The flags of a texture painted as it is: fullbright, additive, and masked (its holes are a colour to keep). */
+const AS_IS = 4 | 32 | 64;
 
 const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
 const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];

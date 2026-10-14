@@ -1,0 +1,155 @@
+{
+ "spec": "smak.model/1",
+ "name": "bathtub.mdl",
+ "kind": "prop",
+ "texture": {
+  "width": 256,
+  "height": 256
+ },
+ "materials": {
+  "porcelain": {
+   "base": "paint",
+   "tone": [
+    0.95,
+    0.95,
+    0.94
+   ]
+  },
+  "steel": {
+   "base": "steel"
+  },
+  "water_tile": {
+   "base": "paint",
+   "tone": [
+    0.55,
+    0.7,
+    0.8
+   ]
+  }
+ },
+ "parts": [
+  {
+   "id": "floor",
+   "kind": "box",
+   "material": "porcelain",
+   "size": [
+    60,
+    30,
+    3
+   ],
+   "at": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "side_l",
+   "kind": "box",
+   "material": "porcelain",
+   "size": [
+    60,
+    3,
+    17
+   ],
+   "at": [
+    0,
+    13.5,
+    3
+   ]
+  },
+  {
+   "id": "side_r",
+   "kind": "box",
+   "material": "porcelain",
+   "size": [
+    60,
+    3,
+    17
+   ],
+   "at": [
+    0,
+    -13.5,
+    3
+   ]
+  },
+  {
+   "id": "end_head",
+   "kind": "box",
+   "material": "porcelain",
+   "size": [
+    3,
+    24,
+    17
+   ],
+   "at": [
+    28.5,
+    0,
+    3
+   ]
+  },
+  {
+   "id": "end_foot",
+   "kind": "box",
+   "material": "porcelain",
+   "size": [
+    3,
+    24,
+    17
+   ],
+   "at": [
+    -28.5,
+    0,
+    3
+   ]
+  },
+  {
+   "id": "water",
+   "kind": "box",
+   "material": "water_tile",
+   "size": [
+    54.2,
+    24.2,
+    9
+   ],
+   "at": [
+    0,
+    0,
+    3
+   ]
+  },
+  {
+   "id": "tap",
+   "kind": "box",
+   "material": "steel",
+   "size": [
+    2,
+    2,
+    6
+   ],
+   "at": [
+    -28,
+    0,
+    20
+   ]
+  },
+  {
+   "id": "spout",
+   "kind": "box",
+   "material": "steel",
+   "size": [
+    4,
+    1.5,
+    1.5
+   ],
+   "at": [
+    -26,
+    0,
+    24
+   ]
+  }
+ ],
+ "size": {
+  "height": 26
+ }
+}

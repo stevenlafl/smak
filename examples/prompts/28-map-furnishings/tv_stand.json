@@ -1,0 +1,163 @@
+{
+ "spec": "smak.model/1",
+ "name": "tv_stand.mdl",
+ "kind": "prop",
+ "texture": {
+  "width": 256,
+  "height": 256
+ },
+ "materials": {
+  "wood": {
+   "base": "darkwood"
+  },
+  "black": {
+   "base": "paint",
+   "tone": [
+    0.07,
+    0.07,
+    0.08
+   ]
+  },
+  "console": {
+   "base": "paint",
+   "tone": [
+    0.85,
+    0.85,
+    0.88
+   ]
+  },
+  "screen": {
+   "base": "paint",
+   "tone": [
+    0.12,
+    0.18,
+    0.28
+   ]
+  }
+ },
+ "parts": [
+  {
+   "id": "stand",
+   "kind": "box",
+   "material": "wood",
+   "size": [
+    16,
+    46,
+    20
+   ],
+   "at": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "shelf_gap",
+   "kind": "box",
+   "material": "black",
+   "size": [
+    0.5,
+    40,
+    7
+   ],
+   "at": [
+    8.1,
+    0,
+    3
+   ]
+  },
+  {
+   "id": "console",
+   "kind": "box",
+   "material": "console",
+   "size": [
+    8,
+    12,
+    2.5
+   ],
+   "at": [
+    3,
+    -10,
+    3.5
+   ]
+  },
+  {
+   "id": "tv_foot",
+   "kind": "box",
+   "material": "black",
+   "size": [
+    8,
+    14,
+    1
+   ],
+   "at": [
+    0,
+    0,
+    20
+   ]
+  },
+  {
+   "id": "tv_neck",
+   "kind": "box",
+   "material": "black",
+   "size": [
+    2,
+    3,
+    4
+   ],
+   "at": [
+    -1,
+    0,
+    21
+   ]
+  },
+  {
+   "id": "tv",
+   "kind": "box",
+   "material": "black",
+   "size": [
+    2.5,
+    44,
+    26
+   ],
+   "at": [
+    0,
+    0,
+    24.5
+   ]
+  },
+  {
+   "id": "screen",
+   "kind": "box",
+   "material": "screen",
+   "size": [
+    0.3,
+    41.5,
+    23.5
+   ],
+   "at": [
+    1.35,
+    0,
+    25.75
+   ]
+  },
+  {
+   "id": "remote",
+   "kind": "box",
+   "material": "black",
+   "size": [
+    5,
+    1.6,
+    0.8
+   ],
+   "at": [
+    4,
+    14,
+    20
+   ]
+  }
+ ],
+ "size": {
+  "height": 51
+ }
+}

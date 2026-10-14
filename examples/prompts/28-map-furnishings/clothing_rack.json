@@ -1,0 +1,283 @@
+{
+ "spec": "smak.model/1",
+ "name": "clothing_rack.mdl",
+ "kind": "prop",
+ "texture": {
+  "width": 256,
+  "height": 256
+ },
+ "materials": {
+  "chrome": {
+   "base": "steel"
+  },
+  "shirt0": {
+   "base": "cloth",
+   "tone": [
+    0.7,
+    0.15,
+    0.15
+   ]
+  },
+  "shirt1": {
+   "base": "cloth",
+   "tone": [
+    0.2,
+    0.3,
+    0.6
+   ]
+  },
+  "shirt2": {
+   "base": "cloth",
+   "tone": [
+    0.9,
+    0.9,
+    0.85
+   ]
+  },
+  "shirt3": {
+   "base": "cloth",
+   "tone": [
+    0.25,
+    0.45,
+    0.25
+   ]
+  }
+ },
+ "parts": [
+  {
+   "id": "foot_l",
+   "kind": "box",
+   "material": "chrome",
+   "size": [
+    20,
+    2,
+    2
+   ],
+   "at": [
+    0,
+    24,
+    0
+   ]
+  },
+  {
+   "id": "foot_r",
+   "kind": "box",
+   "material": "chrome",
+   "size": [
+    20,
+    2,
+    2
+   ],
+   "at": [
+    0,
+    -24,
+    0
+   ]
+  },
+  {
+   "id": "post_l",
+   "kind": "cylinder",
+   "material": "chrome",
+   "radius": 0.8,
+   "height": 56,
+   "sides": 8,
+   "at": [
+    0,
+    24,
+    1
+   ]
+  },
+  {
+   "id": "post_r",
+   "kind": "cylinder",
+   "material": "chrome",
+   "radius": 0.8,
+   "height": 56,
+   "sides": 8,
+   "at": [
+    0,
+    -24,
+    1
+   ]
+  },
+  {
+   "id": "rail",
+   "kind": "turn",
+   "material": "chrome",
+   "axis": "y",
+   "sides": 8,
+   "rings": [
+    [
+     0,
+     0.7
+    ],
+    [
+     50,
+     0.7
+    ]
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "at": [
+    0,
+    -25,
+    56
+   ]
+  },
+  {
+   "id": "shirt_0",
+   "kind": "box",
+   "material": "shirt0",
+   "size": [
+    12,
+    1.2,
+    20
+   ],
+   "at": [
+    0,
+    -20.0,
+    35.6
+   ]
+  },
+  {
+   "id": "shirt_1",
+   "kind": "box",
+   "material": "shirt1",
+   "size": [
+    12,
+    1.2,
+    20
+   ],
+   "at": [
+    0,
+    -15.8,
+    35.6
+   ]
+  },
+  {
+   "id": "shirt_2",
+   "kind": "box",
+   "material": "shirt2",
+   "size": [
+    12,
+    1.2,
+    20
+   ],
+   "at": [
+    0,
+    -11.6,
+    35.6
+   ]
+  },
+  {
+   "id": "shirt_3",
+   "kind": "box",
+   "material": "shirt3",
+   "size": [
+    12,
+    1.2,
+    20
+   ],
+   "at": [
+    0,
+    -7.399999999999999,
+    35.6
+   ]
+  },
+  {
+   "id": "shirt_4",
+   "kind": "box",
+   "material": "shirt0",
+   "size": [
+    12,
+    1.2,
+    20
+   ],
+   "at": [
+    0,
+    -3.1999999999999993,
+    35.6
+   ]
+  },
+  {
+   "id": "shirt_5",
+   "kind": "box",
+   "material": "shirt1",
+   "size": [
+    12,
+    1.2,
+    20
+   ],
+   "at": [
+    0,
+    1.0,
+    35.6
+   ]
+  },
+  {
+   "id": "shirt_6",
+   "kind": "box",
+   "material": "shirt2",
+   "size": [
+    12,
+    1.2,
+    20
+   ],
+   "at": [
+    0,
+    5.200000000000003,
+    35.6
+   ]
+  },
+  {
+   "id": "shirt_7",
+   "kind": "box",
+   "material": "shirt3",
+   "size": [
+    12,
+    1.2,
+    20
+   ],
+   "at": [
+    0,
+    9.400000000000002,
+    35.6
+   ]
+  },
+  {
+   "id": "shirt_8",
+   "kind": "box",
+   "material": "shirt0",
+   "size": [
+    12,
+    1.2,
+    20
+   ],
+   "at": [
+    0,
+    13.600000000000001,
+    35.6
+   ]
+  },
+  {
+   "id": "shirt_9",
+   "kind": "box",
+   "material": "shirt1",
+   "size": [
+    12,
+    1.2,
+    20
+   ],
+   "at": [
+    0,
+    17.800000000000004,
+    35.6
+   ]
+  }
+ ],
+ "size": {
+  "height": 57
+ }
+}

@@ -1,0 +1,205 @@
+{
+ "spec": "smak.model/1",
+ "name": "sofa.mdl",
+ "kind": "prop",
+ "texture": {
+  "width": 256,
+  "height": 256
+ },
+ "materials": {
+  "fabric": {
+   "base": "cloth",
+   "tone": [
+    0.35,
+    0.45,
+    0.55
+   ]
+  },
+  "cushion": {
+   "base": "cloth",
+   "tone": [
+    0.38,
+    0.48,
+    0.58
+   ]
+  },
+  "pillow": {
+   "base": "cloth",
+   "tone": [
+    0.8,
+    0.6,
+    0.25
+   ]
+  },
+  "wood": {
+   "base": "darkwood"
+  }
+ },
+ "parts": [
+  {
+   "id": "base",
+   "kind": "box",
+   "material": "fabric",
+   "size": [
+    34,
+    80,
+    14
+   ],
+   "at": [
+    0,
+    0,
+    2
+   ]
+  },
+  {
+   "id": "back",
+   "kind": "box",
+   "material": "fabric",
+   "size": [
+    9,
+    80,
+    18
+   ],
+   "at": [
+    -12.5,
+    0,
+    14
+   ]
+  },
+  {
+   "id": "arm_l",
+   "kind": "box",
+   "material": "fabric",
+   "size": [
+    34,
+    7,
+    10
+   ],
+   "at": [
+    0,
+    36.5,
+    14
+   ]
+  },
+  {
+   "id": "arm_r",
+   "kind": "box",
+   "material": "fabric",
+   "size": [
+    34,
+    7,
+    10
+   ],
+   "at": [
+    0,
+    -36.5,
+    14
+   ]
+  },
+  {
+   "id": "cushion_l",
+   "kind": "box",
+   "material": "cushion",
+   "size": [
+    24,
+    32,
+    5
+   ],
+   "at": [
+    4,
+    -16.5,
+    15.5
+   ]
+  },
+  {
+   "id": "cushion_r",
+   "kind": "box",
+   "material": "cushion",
+   "size": [
+    24,
+    32,
+    5
+   ],
+   "at": [
+    4,
+    16.5,
+    15.5
+   ]
+  },
+  {
+   "id": "pillow",
+   "kind": "box",
+   "material": "pillow",
+   "size": [
+    5,
+    14,
+    12
+   ],
+   "at": [
+    -6,
+    26,
+    20.5
+   ],
+   "rotate": [
+    0,
+    -12,
+    25
+   ]
+  },
+  {
+   "id": "leg_0",
+   "kind": "cylinder",
+   "material": "wood",
+   "radius": 1,
+   "height": 2.2,
+   "sides": 8,
+   "at": [
+    14,
+    37,
+    0
+   ]
+  },
+  {
+   "id": "leg_1",
+   "kind": "cylinder",
+   "material": "wood",
+   "radius": 1,
+   "height": 2.2,
+   "sides": 8,
+   "at": [
+    14,
+    -37,
+    0
+   ]
+  },
+  {
+   "id": "leg_2",
+   "kind": "cylinder",
+   "material": "wood",
+   "radius": 1,
+   "height": 2.2,
+   "sides": 8,
+   "at": [
+    -14,
+    37,
+    0
+   ]
+  },
+  {
+   "id": "leg_3",
+   "kind": "cylinder",
+   "material": "wood",
+   "radius": 1,
+   "height": 2.2,
+   "sides": 8,
+   "at": [
+    -14,
+    -37,
+    0
+   ]
+  }
+ ],
+ "size": {
+  "height": 32
+ }
+}

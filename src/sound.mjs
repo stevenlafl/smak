@@ -536,7 +536,8 @@ export function seeThrough(src, { seq = 0, frame = 0, body = 0, size = 160, leas
   for (const [yaw, pitch] of SIDES) {
     const options = { seq, frame, body, yaw, pitch, width: size, height: size, background: KEY, light: false };
     const front = render(src, options).rgba;
-    const both = render(src, { ...options, cull: false }).rgba;
+    // a masked texture's holes (a net's) show its far side on purpose: only other faces are asked of
+    const both = render(src, { ...options, cull: "solid" }).rgba;
     let dots = 0;
     for (let i = 0; i < front.length; i += 4) {
       const empty = (rgba) =>

@@ -235,7 +235,8 @@ function cutNear(polygon, near) {
  *               model so that a foot under it is seen crossed. Only a level orbit view has such a line
  *               (pitch 0: "side", "front"); any other is refused
  *   width, height, background [r, g, b], light (false: the texture as it is), cull (false: both sides of
- *   every triangle)
+ *   every triangle; "solid": both sides of every triangle but a masked one's, whose holes show its far side
+ *   on purpose: a net)
  *   seq, frame, pose, body, skin   as in posed
  *   parts       only these bodyparts are drawn (their numbers), and the picture is framed by them alone: the
  *               weapon of a first-person file without the arms that hold it
@@ -284,7 +285,7 @@ export function render(src, opts = {}) {
     const flags = tex?.flags ?? 0;
     const picture = tex ? pictureOf(tex) : null;
     // seen from behind?
-    if (cull) {
+    if (cull === true || (cull === "solid" && flags & 64)) {
       const facing = cross(sub(t.c[1].p, t.c[0].p), sub(t.c[2].p, t.c[0].p)).map((v) => v * FRONT);
       const toEye = perspective ? sub(eye, t.c[0].p) : forward.map((v) => -v);
       if (dot(facing, toEye) <= 0) return;

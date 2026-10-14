@@ -14,7 +14,7 @@ import { resolve, dirname, join } from "node:path";
 import { shape, sheet, allot } from "../workshop.mjs";
 import { buildMdl, swapMesh } from "../build.mjs";
 import { HANDS } from "../fit.mjs";
-import { indexed, shrink } from "../image.mjs";
+import { indexed, shrink, masked } from "../image.mjs";
 import { check } from "../check.mjs";
 import { readMdl, bones as bonesOf, sequences as sequencesOf, withTextures, addMesh, replaceMesh, inverse34, apply34 } from "../mdl.mjs";
 import { posed } from "../render.mjs";
@@ -26,7 +26,7 @@ import { sword, taper } from "../../kits/swordkit.mjs";
 import { axe } from "../../kits/axekit.mjs";
 import { blunt } from "../../kits/bluntkit.mjs";
 import { bow } from "../../kits/bowkit.mjs";
-import { materialOf, flagsOf, zonePainter } from "./paint.mjs";
+import { materialOf, flagsOf, zonePainter, HOLE_RGB } from "./paint.mjs";
 import { paintFinish, FINISH } from "./finish.mjs";
 
 /** A character's finish unless told: cloth and skin do not rub bright as metal and wood do. */
@@ -376,8 +376,14 @@ function zoneSizeOf(part, hostOf) {
         length += Math.hypot(...[0, 1, 2].map((k) => part.path[i][k] - part.path[i - 1][k]));
       return [Math.max(1, length), 2 * Math.PI * Math.max(...part.path.map((q) => q[3]), 0.1)];
     }
-    case "leaf":
-      return part.rows ? [8, 8] : [part.width, part.height];
+    case "leaf": {
+      if (!part.rows) return [part.width, part.height];
+      // a grid's real size, as the workshop's leaf lays it: across its zone from row to row, and down it
+      // along a row
+      const along = (line) => line.slice(1).reduce((sum, p, i) => sum + Math.hypot(...[0, 1, 2].map((k) => p[k] - line[i][k])), 0);
+      const rows = part.rows;
+      return [Math.max(...rows[0].map((_, j) => along(rows.map((row) => row[j]))), 1), Math.max(...rows.map(along), 1)];
+    }
     case "band":
       return [2 * Math.PI * widestOf(turnedOf(hostOf(part)).rings), (part.width ?? 0.5) * 2];
     case "ridge":
@@ -513,9 +519,10 @@ function piecesOf(spec, context) {
   /** every placed triangle: { p: [a, b, c] (corners, each with uv), part, mesh } */
   const meshes = [];
   [...sheets.entries()].forEach(([flags, parts], n) => {
-    const width = n ? SHEET_SIZE : (size.width ?? SHEET_SIZE);
-    const height = n ? SHEET_SIZE : (size.height ?? SHEET_SIZE);
     const sizes = Object.fromEntries(parts.map((part) => [part.id, zoneSizeOf(part, (p) => byId.get(p.on.part))]));
+    // the first sheet is the size the spec gives; a sheet of its own (a net, a flame) takes the shape of its
+    // largest part: a long net a long picture, or its holes are coarser than its cords
+    const [width, height] = n ? sheetShape(Object.values(sizes)) : [size.width ?? SHEET_SIZE, size.height ?? SHEET_SIZE];
     // a turned part's closed ends are painted as discs of their own: a table's top shows its grain across it
     for (const part of parts) for (const [end, size] of capDiscs(part)) sizes[`${part.id}#cap${end}`] = [size, size];
     const zones = allot(width, height, sizes, { gap: 4 });
@@ -826,7 +833,7 @@ export function buildModelSpec(spec, { folder, prefabs = {}, games = [] } = {}) 
 
   // written: one bone, one still animation
   const textures = meshes.map((mesh, n) => {
-    const texture = indexed(mesh.image, `${base.slice(0, 40)}_${mesh.name}.bmp`.slice(0, 63));
+    const texture = pictureTexture(mesh.image, `${base.slice(0, 40)}_${mesh.name}.bmp`.slice(0, 63), mesh.flags);
     texture.flags = mesh.flags;
     return texture;
   });
@@ -888,6 +895,30 @@ export function buildModelSpec(spec, { folder, prefabs = {}, games = [] } = {}) 
   const files = spec.weapon ? weaponViews(spec, meshes, { folder, games, report }) : [];
   report.ok = !errors.length && !report.faults.length;
   return { mdl, report, files };
+}
+
+/** The size of a picture of its own for zones of these sizes: 256 square, or 512 by less for a long one. */
+function sheetShape(sizes) {
+  const [w, h] = sizes.reduce((a, b) => (b[0] * b[1] > a[0] * a[1] ? b : a));
+  const long = Math.max(w, h) / Math.max(Math.min(w, h), 1e-6);
+  if (long < 2) return [SHEET_SIZE, SHEET_SIZE];
+  const short = Math.min(512, Math.max(64, 2 ** Math.ceil(Math.log2((512 / long) * 1.6))));
+  return w >= h ? [512, short] : [short, 512];
+}
+
+/**
+ * A picture made a texture: a masked one (a net, a fence) has its holes, painted in HOLE_RGB, made the
+ * engine's hole (palette index 255); any other is cut to 256 colours.
+ */
+function pictureTexture(image, name, flags = 0) {
+  if (!(flags & 64)) return indexed(image, name);
+  const hole = HOLE_RGB.map((v) => Math.round(v * 255));
+  const rgba = new Uint8Array(image.width * image.height * 4);
+  for (let i = 0; i < image.width * image.height; i++) {
+    const isHole = image.rgb[i * 3] === hole[0] && image.rgb[i * 3 + 1] === hole[1] && image.rgb[i * 3 + 2] === hole[2];
+    rgba.set([image.rgb[i * 3], image.rgb[i * 3 + 1], image.rgb[i * 3 + 2], isHole ? 0 : 255], i * 4);
+  }
+  return masked({ width: image.width, height: image.height, rgba }, name);
 }
 
 // ── a weapon in the game's own files ───────────────────────────────────────

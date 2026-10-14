@@ -679,6 +679,7 @@ function build(folders, args) {
     if (files["views-bright"]) show(smak.unpng(readFileSync(files["views-bright"])));
     if (files.sections) show(smak.unpng(readFileSync(files.sections)));
     if (files.props) show(smak.unpng(readFileSync(files.props)));
+    if (files.models) show(smak.unpng(readFileSync(files.models)));
     return [text(lines.join("\n")), ...pictures];
   }
   if (spec?.spec !== "smak.model/1")

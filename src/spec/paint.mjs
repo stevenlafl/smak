@@ -39,9 +39,12 @@ export const MATERIALS = {
   paint: { tone: [0.6, 0.15, 0.12], what: "a painted surface in its tone: a sign, a cart" },
   bone: { tone: [0.86, 0.82, 0.7], what: "bone, ivory, a skull" },
   rope: { tone: [0.62, 0.52, 0.34], what: "rope, twine, straw" },
+  mesh: { tone: [0.12, 0.12, 0.12], what: "a net, a wire fence, a grille: a grid of cords in its tone with holes between (masked: seen through). `cell`: the holes' size in units (2)" },
 };
+/** The colour that stands for a hole in a masked picture until it is made a texture (`HOLE_RGB`). */
+export const HOLE_RGB = [1, 0, 1];
 /** The flags a base has unless told. */
-const BASE_FLAGS = { flame: ["fullbright"], neon: ["fullbright"] };
+const BASE_FLAGS = { flame: ["fullbright"], neon: ["fullbright"], mesh: ["masked"] };
 /** The texture flags by name, as `render`'s TEXTURE has them. */
 export const FLAG_BITS = { flat: 1, chrome: 2, fullbright: 4, additive: 32, masked: 64 };
 
@@ -60,6 +63,7 @@ export function materialOf(given, where = "material") {
     seed: material.seed ?? 1,
     flags: material.flags ?? BASE_FLAGS[material.base] ?? [],
     glow: material.glow,
+    ...(material.cell !== undefined ? { cell: material.cell } : {}),
   };
 }
 
@@ -76,10 +80,17 @@ const toned = (colour, base, tone) => colour.map((v, i) => v * (tone[i] / (MATER
  * The colour of a material at a point given in units on its surface: `x` along, `y` across, `light` the
  * painted light (1 plain). The same point always has the same colour.
  */
-export function colourAt(material, x, y, light = 1) {
+export function colourAt(material, x, y, light = 1, px = 8) {
   const { base, tone, rust, seed: s } = material;
   const grain = (a, b, n = 3) => fbm(a, b, s, n);
   switch (base) {
+    case "mesh": {
+      // cords at least a texel and a half wide, holes at least three texels, however coarse the picture
+      const cell = Math.max(material.cell ?? 2, 4.5 / px);
+      const cord = Math.max(cell * 0.2, 1.5 / px);
+      const on = (a) => ((a % cell) + cell) % cell < cord;
+      return on(x) || on(y) ? shade(tone, light) : HOLE_RGB;
+    }
     case "wood":
     case "darkwood":
     case "planks":
@@ -169,7 +180,7 @@ export function zonePainter(material, zone, px, { round = null } = {}) {
   return (u, v) => {
     const turnShare = round === "v" ? v / zone.h : round === "u" ? u / zone.w : null;
     const light = turnShare === null ? 1 : 0.84 + 0.22 * Math.cos(2 * Math.PI * (turnShare - 0.22));
-    return colourAt(material, u / px, v / px, light);
+    return colourAt(material, u / px, v / px, light, px);
   };
 }
 

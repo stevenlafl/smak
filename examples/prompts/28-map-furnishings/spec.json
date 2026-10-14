@@ -1,0 +1,372 @@
+{
+ "spec": "smak.map/1",
+ "name": "furnishings",
+ "theme": {
+  "floor": "tile",
+  "wall": "plaster",
+  "ceiling": "plaster"
+ },
+ "sun": {
+  "pitch": -50,
+  "yaw": 35,
+  "brightness": 300
+ },
+ "models": {
+  "armchair": {
+   "file": "armchair.json"
+  },
+  "basketball_hoop": {
+   "file": "basketball_hoop.json"
+  },
+  "bathtub": {
+   "file": "bathtub.json"
+  },
+  "bed": {
+   "file": "bed.json"
+  },
+  "bench": {
+   "file": "bench.json"
+  },
+  "bush": {
+   "file": "bush.json"
+  },
+  "checkout_counter": {
+   "file": "checkout_counter.json"
+  },
+  "clothing_rack": {
+   "file": "clothing_rack.json"
+  },
+  "coffee_table": {
+   "file": "coffee_table.json"
+  },
+  "dresser": {
+   "file": "dresser.json"
+  },
+  "electronics_shelf": {
+   "file": "electronics_shelf.json"
+  },
+  "fridge": {
+   "file": "fridge.json"
+  },
+  "grocery_shelf": {
+   "file": "grocery_shelf.json"
+  },
+  "gun_case": {
+   "file": "gun_case.json"
+  },
+  "potted_plant": {
+   "file": "potted_plant.json"
+  },
+  "sink_cabinet": {
+   "file": "sink_cabinet.json"
+  },
+  "sofa": {
+   "file": "sofa.json"
+  },
+  "stove": {
+   "file": "stove.json"
+  },
+  "swing_set": {
+   "file": "swing_set.json"
+  },
+  "tennis_net": {
+   "file": "tennis_net.json"
+  },
+  "toilet": {
+   "file": "toilet.json"
+  },
+  "tree_fall": {
+   "file": "tree_fall.json"
+  },
+  "tree_spring": {
+   "file": "tree_spring.json"
+  },
+  "tree_summer": {
+   "file": "tree_summer.json"
+  },
+  "tree_winter": {
+   "file": "tree_winter.json"
+  },
+  "tv_stand": {
+   "file": "tv_stand.json"
+  }
+ },
+ "rooms": [
+  {
+   "id": "hall",
+   "size": [
+    1280,
+    768,
+    192
+   ]
+  },
+  {
+   "id": "yard",
+   "size": [
+    1280,
+    768,
+    320
+   ],
+   "place": {
+    "north_of": "hall"
+   },
+   "sky": true,
+   "surfaces": {
+    "floor": "grass"
+   }
+  }
+ ],
+ "links": [
+  {
+   "between": [
+    "hall",
+    "yard"
+   ],
+   "kind": "opening",
+   "width": 128,
+   "height": 112
+  }
+ ],
+ "props": [
+  {
+   "model": "fridge",
+   "room": "hall",
+   "at": [
+    -560,
+    -280
+   ],
+   "facing": "east"
+  },
+  {
+   "model": "stove",
+   "room": "hall",
+   "at": [
+    -500,
+    -280
+   ],
+   "facing": "east"
+  },
+  {
+   "model": "sink_cabinet",
+   "room": "hall",
+   "at": [
+    -440,
+    -280
+   ],
+   "facing": "east"
+  },
+  {
+   "model": "sofa",
+   "room": "hall",
+   "at": [
+    -240,
+    -260
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "armchair",
+   "room": "hall",
+   "at": [
+    -120,
+    -260
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "coffee_table",
+   "room": "hall",
+   "at": [
+    -200,
+    -170
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "tv_stand",
+   "room": "hall",
+   "at": [
+    -200,
+    -60
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "bed",
+   "room": "hall",
+   "at": [
+    80,
+    -250
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "dresser",
+   "room": "hall",
+   "at": [
+    190,
+    -280
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "toilet",
+   "room": "hall",
+   "at": [
+    360,
+    -290
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "bathtub",
+   "room": "hall",
+   "at": [
+    470,
+    -270
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "potted_plant",
+   "room": "hall",
+   "at": [
+    560,
+    -290
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "grocery_shelf",
+   "room": "hall",
+   "at": [
+    -520,
+    200
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "electronics_shelf",
+   "room": "hall",
+   "at": [
+    -400,
+    200
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "checkout_counter",
+   "room": "hall",
+   "at": [
+    -240,
+    200
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "clothing_rack",
+   "room": "hall",
+   "at": [
+    -60,
+    220
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "gun_case",
+   "room": "hall",
+   "at": [
+    120,
+    220
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "tree_summer",
+   "room": "yard",
+   "at": [
+    -400,
+    -200
+   ]
+  },
+  {
+   "model": "tree_fall",
+   "room": "yard",
+   "at": [
+    -200,
+    -200
+   ]
+  },
+  {
+   "model": "tree_spring",
+   "room": "yard",
+   "at": [
+    0,
+    -200
+   ]
+  },
+  {
+   "model": "tree_winter",
+   "room": "yard",
+   "at": [
+    200,
+    -200
+   ]
+  },
+  {
+   "model": "bush",
+   "room": "yard",
+   "at": [
+    400,
+    -200
+   ]
+  },
+  {
+   "model": "bench",
+   "room": "yard",
+   "at": [
+    -400,
+    120
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "swing_set",
+   "room": "yard",
+   "at": [
+    -160,
+    140
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "basketball_hoop",
+   "room": "yard",
+   "at": [
+    100,
+    180
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "tennis_net",
+   "room": "yard",
+   "at": [
+    380,
+    40
+   ],
+   "facing": "east"
+  }
+ ],
+ "entities": [
+  {
+   "class": "info_player_start",
+   "room": "hall",
+   "at": [
+    0,
+    0
+   ],
+   "facing": "north"
+  }
+ ]
+}

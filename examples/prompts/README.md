@@ -14,6 +14,7 @@ reads before writing a spec of its own (`docs/SPEC.md` is the reference).
 | 18 | A Black Mesa lab | the game's own textures picked from its `.wad` files by words and colour, and the one it lacks made |
 | 19 to 21 | Player models: a truck robot, a skeleton, a cowboy | a body built on Gordon's own skeleton and animations, held together in a run, a walk, a crouch and a jump; dozens of thin bones each spanned joint to joint |
 | 22 to 27 | Weapons: a wrench for the crowbar, a six-shooter for the .357, a drainpipe launcher, a tin-can bomb, a lunchbox mine, a pipe shotgun | a weapon fitted into the game's v_, p_ and w_ files, its hands and animations kept; parts on the game's moving bones (a drum that swings out, a pin pulled, a pump) |
+| 28 | A furnishings set in a showroom | 26 models made to be placed many times (a home's, a park's, shops'), each built and checked, shown one by one in the map's gallery; nets of `mesh` |
 
 ## How a case is made and judged
 

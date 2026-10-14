@@ -272,6 +272,25 @@ test("a model spec's finish: a box's edges worn lighter than its middle, its foo
   sure(/finish: false \(none\), or \{ light, wear, grime, vary \}/.test(wrong.errors.join()), wrong.errors.join());
 });
 
+test("a mesh material: a net is a masked texture with holes, seen through by design and not as a fault", () => {
+  const { mdl, report } = buildModelSpec({
+    spec: "smak.model/1",
+    name: "net.mdl",
+    kind: "prop",
+    materials: { cord: { base: "mesh", tone: [0.1, 0.1, 0.1], cell: 2 } },
+    parts: [
+      { id: "post", kind: "cylinder", material: "steel", radius: 1, height: 40 },
+      { id: "net", kind: "leaf", material: "cord", rows: [[[0, 0, 0], [0, 40, 0]], [[0, 0, 30], [0, 40, 30]]] },
+      { id: "basket", kind: "turn", material: "cord", sides: 12, rings: [[0, 4], [8, 6]], caps: [false, false], open: true, at: [10, 20, 20] },
+    ],
+  });
+  sure(report.ok, `a net and a basket of mesh: ${[...report.errors, ...report.faults]}`);
+  const net = smak.readMdl(mdl).textures.find((tex) => tex.flags & 64);
+  const pixels = smak.textureOf(mdl, net.name).pixels;
+  const holes = pixels.filter((i) => i === 255).length / pixels.length;
+  sure(holes > 0.3 && holes < 0.95, `the net's picture is masked, with holes: ${(holes * 100).toFixed(0)}% of it`);
+});
+
 test("a map spec is laid out by words, its rooms in rooms, its modules taken in with their ids and their walls", () => {
   const spec = {
     spec: "smak.map/1",
@@ -318,9 +337,14 @@ test("a map spec is built without compilers: lined rooms (the crash of case 9), 
         { box: [64, 4, 16], room: "yard", at: [0, -124], z: 96, texture: "pink" },
       ],
       entities: [{ class: "info_player_start", room: "yard", at: "centre" }],
+      models: { post: { spec: "smak.model/1", parts: [{ id: "post", kind: "cylinder", radius: 2, height: 40 }] } },
+      props: [{ model: "post", room: "yard", at: [-100, 60] }],
     },
     { out, compilers: { found: false, message: "no compilers in this test" } },
   );
+  // the models it builds, drawn one by one and named
+  const gallery = smak.unpng(readFileSync(files.models));
+  sure(gallery.width === 192 && gallery.height === 192, `a gallery of its models: ${gallery.width}x${gallery.height}`);
   sure(report.errors.length === 0, report.errors.join("; "));
   sure(report.faults.length === 1 && /not compiled/.test(report.faults[0]), `only the compile is wanting: ${report.faults}`);
   const text = readFileSync(files.map, "utf8");

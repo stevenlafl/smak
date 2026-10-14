@@ -20,7 +20,7 @@ import { compileMap, findCompilers } from "../maps/compile.mjs";
 import { readBsp } from "../maps/bsp.mjs";
 import { lightReport } from "../maps/light.mjs";
 import { planOfSource, planOf, drawMap, sectionOf } from "../maps/draw.mjs";
-import { tile, label } from "../render.mjs";
+import { tile, label, render } from "../render.mjs";
 import { png } from "../image.mjs";
 import { materialOf, surfacePicture, MATERIALS } from "./paint.mjs";
 import { wadCatalog, pickTexture } from "./wads.mjs";
@@ -851,6 +851,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   const modelHeights = {};
   /** each model's footprint in its own space, for `beside` */
   const modelPrints = {};
+  const gallery = [];
   for (const [modelName, given] of Object.entries(spec.models ?? {})) {
     const modelSpec = given.file ? JSON.parse(readFileSync(resolve(folder ?? ".", given.file), "utf8")) : given;
     const built = buildModelSpec({ ...modelSpec, name: `${modelName}.mdl` }, { folder });
@@ -866,6 +867,15 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     const parts = Object.values(built.report.parts);
     modelPrints[modelName] = { min: [0, 1].map((k) => Math.min(...parts.map((part) => part.from[k]))), max: [0, 1].map((k) => Math.max(...parts.map((part) => part.to[k]))) };
     report.facts.push(`models.${modelName}: built and sound (${built.report.facts[0]})`);
+    gallery.push({ name: modelName, mdl: built.mdl });
+  }
+  // every model the map builds, each from its front three-quarter, named: a map's views show them too small
+  // to judge
+  if (gallery.length) {
+    const views = gallery.map(({ mdl }) => render(mdl, { seq: 0, yaw: 35, pitch: 20, width: 192, height: 192 }));
+    const sheet = tile(views, Math.min(6, views.length), gallery.map(({ name }) => name));
+    files.models = join(out, `${spec.name}-models.png`);
+    writeFileSync(files.models, png(sheet.width, sheet.height, sheet.rgba));
   }
   const propsAt = [];
   place(

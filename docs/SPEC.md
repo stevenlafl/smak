@@ -176,7 +176,8 @@ player sees it. `examples/prompts/22-weapon-wrench` is a worked one.
 
 `base` is one of: `wood`, `darkwood`, `planks`, `iron`, `steel`, `brass`, `gold`, `copper`, `leather`,
 `cloth`, `rope`, `stone`, `brick`, `plaster`, `tile`, `metal`, `grass`, `dirt`, `glass`, `flame`, `neon`,
-`hazard` (stripes of its tone and black), `asphalt`, `water`, `paint`, `bone`. `tone: [r, g, b]` (0 to 1)
+`hazard` (stripes of its tone and black), `asphalt`, `water`, `paint`, `bone`, `mesh` (a net, a wire fence,
+a grille: cords in its tone with holes between, seen through as in the game; `cell` the holes' size, 2). `tone: [r, g, b]` (0 to 1)
 changes its colour; `rust` (0 to 1) a metal's rust; `flags: ["fullbright"]` makes it shine in the dark
 (`flame` and `neon` are so already; such parts get a texture of their own).
 
@@ -408,4 +409,5 @@ and pass the picture as `reference`: it is then drawn beside the plan of the res
 The pictures: the plan of the result (every entity marked with its number and class; beside the person's
 drawing when one is given); a view of every room from high in its south-west corner, looking down across
 it, lit by the map's own light; the same three times as bright when the map is dark; a section through
-every staircase; and a view at a man's height towards each room's props.
+every staircase; a view at a man's height towards each room's props; and every model the map builds, one
+by one and named, close enough to judge.
