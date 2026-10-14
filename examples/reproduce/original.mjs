@@ -4,6 +4,7 @@
 // own of its kind, and the mod as a whole on O1 to O4. A plain mod the harness makes itself is the decoy.
 //
 //   node examples/reproduce/original.mjs make [--again]     the maker's run: original/made/ (out of git)
+//   node examples/reproduce/original.mjs collect             what the last run made, taken again from its work folder
 //   node examples/reproduce/original.mjs judge [made|decoy]  original/judge/<which>/...json and scores.md
 //
 // The made files are the maker's, built over the game's own (the crowbar's and the headcrab's files): kept out
@@ -85,18 +86,29 @@ async function make() {
   const kit = execFileSync("git", ["-C", HERE, "rev-parse", "--short", "HEAD"], { encoding: "utf8" }).trim();
   const r = await runAgent({ prompt: makePrompt(), server: { wads: true }, hours: 10 });
   writeFileSync(join(ROOT, "answer.md"), `${r.answer.trim()}\n`);
+  const { found } = collect(r.work);
+  writeFileSync(join(ROOT, "run.json"), `${JSON.stringify({ kit, seconds: r.seconds, turns: r.turns, cost: r.cost, error: r.error, ended: r.ended, found, missing: LOOKED_FOR.filter((f) => !found.includes(f)), folder: r.folder }, null, 1)}\n`);
+  console.log(`made in ${r.seconds} s, ${r.turns} turns: ${found.length} of ${LOOKED_FOR.length} files${r.error ? ` (${r.error})` : ""}`);
+}
+
+
+/** What the maker made, from its work folder: each file looked for (the newest of that path, or of that name),
+ * every .wad beside them, and its specs. `node original.mjs collect` does it again from the last run's folder. */
+function collect(work) {
+  const out = join(ROOT, "made");
   // what it made: each file looked for, the newest of that path (or of that name) in the work folder; and its specs
   const all = [];
   const look = (dir) => {
     for (const e of readdirSync(dir, { withFileTypes: true })) {
       const p = join(dir, e.name);
       if (e.isDirectory()) look(p);
-      else all.push({ p, rel: p.slice(r.work.length + 1), name: e.name, at: statSync(p).mtimeMs });
+      else all.push({ p, rel: p.slice(work.length + 1), name: e.name, at: statSync(p).mtimeMs });
     }
   };
-  look(r.work);
+  look(work);
   const newest = (test) => all.filter(test).sort((a, b) => b.at - a.at)[0];
   rmSync(out, { recursive: true, force: true });
+  mkdirSync(out, { recursive: true });
   const found = [];
   for (const want of LOOKED_FOR) {
     const f = newest((x) => x.rel === want || x.rel.endsWith(`/${want}`)) ?? newest((x) => x.name === basename(want));
@@ -109,8 +121,7 @@ async function make() {
   for (const f of all.filter((x) => x.name.endsWith(".wad") && !found.includes(x.name))) copyFileSync(f.p, join(out, f.name));
   mkdirSync(join(ROOT, "specs"), { recursive: true });
   for (const f of all.filter((x) => x.name.endsWith(".spec.json"))) copyFileSync(f.p, join(ROOT, "specs", f.name));
-  writeFileSync(join(ROOT, "run.json"), `${JSON.stringify({ kit, seconds: r.seconds, turns: r.turns, cost: r.cost, error: r.error, ended: r.ended, found, missing: LOOKED_FOR.filter((f) => !found.includes(f)), folder: r.folder }, null, 1)}\n`);
-  console.log(`made in ${r.seconds} s, ${r.turns} turns: ${found.length} of ${LOOKED_FOR.length} files${r.error ? ` (${r.error})` : ""}`);
+  return { found };
 }
 
 // ── Half-Life's own, to set beside ─────────────────────────────────────────
@@ -493,6 +504,12 @@ function decoy() {
 }
 
 if (step === "make") await make();
+else if (step === "collect") {
+  const run = JSON.parse(readFileSync(join(ROOT, "run.json"), "utf8"));
+  const { found } = collect(join(run.folder, "work"));
+  writeFileSync(join(ROOT, "run.json"), `${JSON.stringify({ ...run, found, missing: LOOKED_FOR.filter((f) => !found.includes(f)) }, null, 1)}\n`);
+  console.log(`${found.length} of ${LOOKED_FOR.length} files`);
+}
 else if (step === "decoy") decoy();
 else if (step === "judge") {
   const which = words.find((w) => ["made", "decoy"].includes(w)) ?? "made";
