@@ -1092,6 +1092,9 @@ if (compilers.found)
     );
     sure(report.ok, [...report.errors, ...report.faults].join(" | "));
     sure(report.rooms.low.light > 24 && report.rooms.high.light > 24, JSON.stringify(report.rooms));
+    // and swept: no light in mid-air, no solid in mid-air
+    const swept = report.facts.filter((f) => /^sweep:/.test(f)).join(" | ");
+    sure(/0 lights with nothing solid/.test(swept) && /0 pieces of solid that touch nothing/.test(swept), swept);
   });
 else console.log(`skip  a map spec compiled\n      skipped: no compilers (name the folder of VHLT or SDHLT in ${COMPILERS_VARIABLE} to run it)`);
 

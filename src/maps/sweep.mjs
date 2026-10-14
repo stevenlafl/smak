@@ -1,7 +1,7 @@
 // A map swept for what a player would find wrong by walking it, with no game and no AI: the deterministic checks
 // Steven's play-test of the frenzy reproductions asked for (examples/reproduce/reviews/maps-2026-10-14.json).
 //
-//   sweepOf(bsp, { reach }) -> { drops, floating, facts }
+//   sweepOf(bsp, { reach }) -> { drops, floating, islands, facts }
 //
 // drops: places a player walks to and can step off, falling further than Half-Life's safe fall (580 units a
 // second, sv_gravity 800: about 210 units), each with the floor walked from and the one landed on. floating:
@@ -67,11 +67,13 @@ export function sweepOf(bytes, { reach = null } = {}) {
     if (!near) floating.push({ number, classname: valueOf(entity, "classname"), at: o.map(Math.round) });
   });
 
+  const islands = islandsOf(bsp);
   const facts = [
     `${drops.length} places a player can step off and fall more than ${SAFE_DROP} (hurt)${drops.length ? `: ${drops.slice(0, 6).map((d) => `${d.fall} down at ${d.at.join(" ")}`).join("; ")}` : ""}`,
     `${floating.length} lights with nothing solid within ${LIGHT_REACH} of them${floating.length ? `: ${floating.slice(0, 8).map((f) => `${f.number} at ${f.at.join(" ")}`).join("; ")}` : ""}`,
   ];
-  return { drops, floating, facts };
+  facts.push(`${islands.length} pieces of solid that touch nothing (floating in the air)${islands.length ? `: ${islands.slice(0, 6).map((i) => `${i.from.join(" ")} to ${i.to.join(" ")}`).join("; ")}` : ""}`);
+  return { drops, floating, islands, facts };
 }
 
 /** The highest floor under a point a body would land on, found by going down through open space; null: none. */
@@ -79,3 +81,52 @@ function lowestOpenFloor(solid, x, y, from, bottom) {
   for (let z = from; z > bottom; z -= 4) if (solid([x, y, z - 4])) return z;
   return null;
 }
+
+/** Solid is sampled on a grid this fine; an island of fewer cells is a thin brush the grid caught alone. */
+const ISLAND_CELL = 16;
+const ISLAND_LEAST = 8;
+/**
+ * The world's solid pieces that touch nothing: cells of ISLAND_CELL joined face to face that never reach the map's
+ * outer shell. Valve's frenzy has none of 8 cells or more; a slab or a wall left in the air is one.
+ */
+export function islandsOf(bsp) {
+  const { mins, maxs } = bsp.models[0];
+  const c = ISLAND_CELL;
+  const n = [0, 1, 2].map((k) => Math.ceil((maxs[k] - mins[k]) / c) + 2);
+  const at = (i, j, k) => [mins[0] + (i - 0.5) * c, mins[1] + (j - 0.5) * c, mins[2] + (k - 0.5) * c];
+  const index = (i, j, k) => (k * n[1] + j) * n[0] + i;
+  const solid = new Uint8Array(n[0] * n[1] * n[2]);
+  for (let k = 0; k < n[2]; k++)
+    for (let j = 0; j < n[1]; j++)
+      for (let i = 0; i < n[0]; i++) {
+        const inside = i > 0 && j > 0 && k > 0 && i < n[0] - 1 && j < n[1] - 1 && k < n[2] - 1;
+        solid[index(i, j, k)] = !inside || contentsAt(bsp, at(i, j, k)) === CONTENTS.SOLID ? 1 : 0;
+      }
+  const seen = new Uint8Array(solid.length);
+  const islands = [];
+  for (let s = 0; s < solid.length; s++) {
+    if (!solid[s] || seen[s]) continue;
+    const stack = [s];
+    seen[s] = 1;
+    let size = 0;
+    let outer = false;
+    const lo = [Infinity, Infinity, Infinity];
+    const hi = [-Infinity, -Infinity, -Infinity];
+    while (stack.length) {
+      const q = stack.pop();
+      size++;
+      const ijk = [q % n[0], Math.floor(q / n[0]) % n[1], Math.floor(q / (n[0] * n[1]))];
+      if (ijk.some((v, a) => v === 0 || v === n[a] - 1)) outer = true;
+      ijk.forEach((v, a) => ((lo[a] = Math.min(lo[a], v)), (hi[a] = Math.max(hi[a], v))));
+      for (const d of [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]]) {
+        const m = ijk.map((v, a) => v + d[a]);
+        if (m.some((v, a) => v < 0 || v >= n[a])) continue;
+        const o = index(...m);
+        if (solid[o] && !seen[o]) (seen[o] = 1), stack.push(o);
+      }
+    }
+    if (!outer && size >= ISLAND_LEAST) islands.push({ cells: size, from: at(...lo).map((v) => Math.round(v - c / 2)), to: at(...hi).map((v) => Math.round(v + c / 2)) });
+  }
+  return islands.sort((a, b) => b.cells - a.cells);
+}
+

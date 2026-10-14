@@ -1437,6 +1437,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       // what a player would find walking it: drops that hurt, lights in mid-air
       const swept = sweepOf(bsp, { reach: walked });
       report.facts.push(...swept.facts.map((line) => `sweep: ${line}`));
+      if (swept.islands.length) report.faults.push(`sweep: ${swept.islands.length} pieces of solid touch nothing, floating in the air: ${swept.islands.slice(0, 4).map((i) => `${i.from.join(" ")} to ${i.to.join(" ")}`).join("; ")}: rest each on something, or take it out`);
       if (swept.floating.length) report.faults.push(`sweep: ${swept.floating.length} lights hang in the air with nothing within ${LIGHT_REACH} of them: put each on a wall or under a ceiling`);
       if (swept.drops.length) warnings.push(`sweep: ${swept.drops.length} places a player can step off and fall far enough to be hurt (more than ${SAFE_DROP}), the farthest ${swept.drops[0].fall} at ${swept.drops[0].at.join(" ")}: mean each, or rail it`);
       // a night map's sky drawn dark: without the game's own sky pictures the views fill it with a day's blue

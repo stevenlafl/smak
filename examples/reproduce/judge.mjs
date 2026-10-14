@@ -373,7 +373,7 @@ export async function judgeMap(map, leg, copyFile, { decoy } = {}) {
     // what a player walking each finds (src/maps/sweep.mjs): drops that hurt, lights in mid-air, the original's beside
     sweep: Object.fromEntries([["original", original, a], ["reproduction", copy, b]].map(([name, bytes, floor]) => {
       const swept = maps.sweepOf(bytes, { reach: floor.reach });
-      return [name, { hurtingDrops: swept.drops.length, lightsInMidAir: swept.floating.length }];
+      return [name, { hurtingDrops: swept.drops.length, lightsInMidAir: swept.floating.length, solidInMidAir: swept.islands.length }];
     })),
     checkErrors,
   };

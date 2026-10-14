@@ -860,7 +860,8 @@ and pass the picture as `reference`: it is then drawn beside the plan of the res
   with less than half of what they stand on under them (on an edge or a corner when almost none): line each up
   with what holds it, unless it overhangs on purpose (a shelf, a balcony).
 - `fact sweep: ...` (after the compile): the drops a player can step off and be hurt by (over 210 units, a
-  warning: mean it or rail it) and lights with nothing solid within 32 (a fault). Every lamp the spec hangs below a
+  warning: mean it or rail it), lights with nothing solid within 32 (a fault), and solid that touches nothing,
+  floating in the air (a fault: a slab or a wall left between carved rooms). Every lamp the spec hangs below a
   ceiling has a rod and a shade, so none floats; `smak map-sweep <bsp>` sweeps any map.
 - `FAULT links[n]: the wall ... share is N long`: too short for a way a player passes at ease.
 - `FAULT N ways a player walks through are under 48 wide`: furniture, or walls, too close together where the
