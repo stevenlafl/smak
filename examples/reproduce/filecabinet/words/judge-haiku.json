@@ -1,0 +1,163 @@
+{
+ "subject": "filecabinet",
+ "leg": "words",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 1,
+   "left/right": 1,
+   "top/below": 1
+  },
+  "size": {
+   "original": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "reproduction": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "offShare": [
+    0.001,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 6.8,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 6.5,
+     "shared": 1
+    },
+    {
+     "view": "left",
+     "deltaE": 6.2,
+     "shared": 0.986
+    },
+    {
+     "view": "back",
+     "deltaE": 6.9,
+     "shared": 1
+    },
+    {
+     "view": "right",
+     "deltaE": 7.1,
+     "shared": 0.986
+    },
+    {
+     "view": "top",
+     "deltaE": 3.4,
+     "shared": 0.986
+    },
+    {
+     "view": "below",
+     "deltaE": 15.7,
+     "shared": 0.986
+    },
+    {
+     "view": "front-left",
+     "deltaE": 5.1,
+     "shared": 1
+    },
+    {
+     "view": "front-right",
+     "deltaE": 5.6,
+     "shared": 0.999
+    },
+    {
+     "view": "back-left",
+     "deltaE": 5.4,
+     "shared": 0.999
+    },
+    {
+     "view": "back-right",
+     "deltaE": 5.6,
+     "shared": 1
+    }
+   ]
+  },
+  "triangles": {
+   "original": 14,
+   "reproduction": 12
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "F",
+  "right": "F",
+  "letters": {
+   "A": "models/w_longjump.mdl",
+   "B": "models/headcrab.mdl",
+   "C": "models/w_medkit.mdl",
+   "D": "models/w_security.mdl",
+   "E": "models/forklift.mdl",
+   "F": "models/filecabinet.mdl",
+   "G": "models/w_9mmclip.mdl",
+   "H": "models/mbarrel.mdl",
+   "I": "models/w_battery.mdl",
+   "J": "models/can.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "All six views match the original's outline. The measured silhouette overlap is 1.0 in front/back, left/right and top/below, and the front-left, front-right, back-left and back-right angles show the same tall box with the same plinth footprint. Nothing sticks out or is missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 28.8 x 22.6 x 62.4 in both, with an off-share of 0.001 on the first axis. Each dimension is well within 10%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The three drawers, their recessed fronts and the pulls are all present in the right places (front view). The side faces are wrong: the original's left side has an inset panel on its right half with horizontal reveal lines (left view, front-left angle), but the reproduction has vertical ribs running the full width of that face. The base plinth is also reproduced as a dark recessed band instead of the original's lighter separate plinth strip (front, left, right views)."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The mean colour difference is 6.8, under the line. Region by region, though, the plinth is wrong: it is a light metal edge on the original (front, left, back, right) and near-black on the reproduction. The underside is also much darker in the reproduction (below view, delta E 15.7). The metal body grey itself is close."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original's side faces carry a diagonal wood-grain-like texture and a bevelled edge on the drawer fronts, visible in the front-left and back-left angles. The reproduction has vertical stripes on the left side and a flatter, blotchier body. The drawer-front bevels are close, but the side grain is not in the same place or direction."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Side by side at the game's size, the front and the overall box read as the same cabinet, but the side faces (vertical ribs against the original's grain) and the dark plinth and underside give it away at a second look. A player would likely notice the difference, so it is not a clear pass."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front with three drawers faces the front view's direction. The cabinet stands upright and sits on its base, with the plinth at the bottom in the same place as the original."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The reproduction's check errors list is empty and its triangle count is 12 against the original's 14, well under twice. The renders show closed boxes with no open faces or floating parts from any side."
+  }
+ },
+ "total": 12,
+ "of": 16,
+ "passes": false
+}

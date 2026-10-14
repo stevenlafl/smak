@@ -1,0 +1,163 @@
+{
+ "subject": "filecabinet",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 1,
+   "left/right": 1,
+   "top/below": 1
+  },
+  "size": {
+   "original": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "reproduction": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "offShare": [
+    0.001,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 4,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 3.8,
+     "shared": 1
+    },
+    {
+     "view": "left",
+     "deltaE": 5.6,
+     "shared": 0.986
+    },
+    {
+     "view": "back",
+     "deltaE": 4.1,
+     "shared": 1
+    },
+    {
+     "view": "right",
+     "deltaE": 4.2,
+     "shared": 0.986
+    },
+    {
+     "view": "top",
+     "deltaE": 4.1,
+     "shared": 0.986
+    },
+    {
+     "view": "below",
+     "deltaE": 4,
+     "shared": 0.986
+    },
+    {
+     "view": "front-left",
+     "deltaE": 3.5,
+     "shared": 0.999
+    },
+    {
+     "view": "front-right",
+     "deltaE": 3.4,
+     "shared": 0.999
+    },
+    {
+     "view": "back-left",
+     "deltaE": 3.7,
+     "shared": 0.999
+    },
+    {
+     "view": "back-right",
+     "deltaE": 3.5,
+     "shared": 0.999
+    }
+   ]
+  },
+  "triangles": {
+   "original": 14,
+   "reproduction": 12
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "I",
+  "right": "I",
+  "letters": {
+   "A": "models/w_longjump.mdl",
+   "B": "models/w_security.mdl",
+   "C": "models/w_battery.mdl",
+   "D": "models/forklift.mdl",
+   "E": "models/w_medkit.mdl",
+   "F": "models/mbarrel.mdl",
+   "G": "models/w_9mmclip.mdl",
+   "H": "models/headcrab.mdl",
+   "I": "models/filecabinet.mdl",
+   "J": "models/can.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "All six views match the original's outline. The harness measures silhouette overlap of 1.0 in every view, and nothing sticks out or is missing in the side-by-side pictures."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Size is 28.8 x 22.6 x 62.4 for both original and reproduction, with an off-share of 0.001, well inside 10%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The three drawers, their handles and the plinth are all there in the right places. The left and right sides are wrong: the original's left side has a recessed, stepped panel with trim, while the reproduction shows a flat face with a single raised vertical strip. The gaps between drawers also look wider in the reproduction's front-right view."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Mean colour difference is 4 (CIE76), well under 15, so the average tone matches. The material reads wrong, though: the original is smooth, even painted metal, while the reproduction is mottled with light, blotchy patches on every face, as if dirty or corroded. That is clearly off on the front, left, back and top."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original's drawer bevels and side panel grooves are only partly there (the front drawers have a frame, the sides do not). The reproduction adds blotchy wear and speckle the original lacks, and its panel lines are softer and in different places on the left and right sides."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Side by side, the mottled light blotches on every face make the reproduction easy to tell apart from the original's smooth grey finish, even though the shape and layout match. A player would not take it for the original at the game's size."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The drawer fronts face the front in both, the cabinet stands upright, and the base sits on the origin the same way as the original in the front and angle views."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The harness reports no check errors. The reproduction has 12 triangles against the original's 14, well under twice that. Nothing in the pictures looks open, inside out or floating."
+  }
+ },
+ "total": 12,
+ "of": 16,
+ "passes": false
+}

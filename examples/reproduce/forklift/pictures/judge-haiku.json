@@ -1,0 +1,163 @@
+{
+ "subject": "forklift",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.892,
+   "left/right": 0.718,
+   "top/below": 0.781
+  },
+  "size": {
+   "original": [
+    186.6,
+    60,
+    113.4
+   ],
+   "reproduction": [
+    186.3,
+    60,
+    113.4
+   ],
+   "offShare": [
+    0.001,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 8.9,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 6.2,
+     "shared": 0.882
+    },
+    {
+     "view": "left",
+     "deltaE": 9.2,
+     "shared": 0.733
+    },
+    {
+     "view": "back",
+     "deltaE": 7.7,
+     "shared": 0.898
+    },
+    {
+     "view": "right",
+     "deltaE": 9.9,
+     "shared": 0.741
+    },
+    {
+     "view": "top",
+     "deltaE": 5.7,
+     "shared": 0.787
+    },
+    {
+     "view": "below",
+     "deltaE": 7,
+     "shared": 0.653
+    },
+    {
+     "view": "front-left",
+     "deltaE": 10.6,
+     "shared": 0.777
+    },
+    {
+     "view": "front-right",
+     "deltaE": 10.7,
+     "shared": 0.781
+    },
+    {
+     "view": "back-left",
+     "deltaE": 11.1,
+     "shared": 0.805
+    },
+    {
+     "view": "back-right",
+     "deltaE": 10.6,
+     "shared": 0.803
+    }
+   ]
+  },
+  "triangles": {
+   "original": 749,
+   "reproduction": 880
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 1,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "B",
+  "right": "B",
+  "letters": {
+   "A": "models/w_battery.mdl",
+   "B": "models/forklift.mdl",
+   "C": "models/can.mdl",
+   "D": "models/filecabinet.mdl",
+   "E": "models/w_security.mdl",
+   "F": "models/w_longjump.mdl",
+   "G": "models/w_9mmclip.mdl",
+   "H": "models/headcrab.mdl",
+   "I": "models/w_medkit.mdl",
+   "J": "models/mbarrel.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "Measured silhouette overlap is 0.718 in left/right and 0.781 in top/below, both under the 0.80 line. In the LEFT and RIGHT views the reproduction's body and overhead guard sit differently against the mast, and the front black panel reads as a squarer block. Front/back (0.892) and the angle views are close."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 186.3 x 60 x 113.4 against the original's 186.6 x 60 x 113.4, an offset of 0.1% on length, zero on height and width. Each is well within 10%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Driver, overhead guard, mast with chains, forks, wheels, seat and the white and red body are all present in the right places. The front black panel is wrong: the original has a framed panel with two vertical bars and a recess (FRONT view, FRONT-LEFT and FRONT-RIGHT angles), while the reproduction shows a solid dark block with the bars only at the edges."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Mean delta E is 8.9, under 15, and the red chassis and yellow hard hat match. Visually the white body is greyer and blotchier than the original's clean white (LEFT, RIGHT, BACK views), and the front panel's dark grey is a different tone and texture, so it is not clearly the same colour and material in each region."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The '22' number, the HAHAN lettering and the hood stripes are all there in their places. The reproduction's panel lines, vents and grille are less crisp, and the white surfaces look smeared with grain, so the detail is not at a similar sharpness."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Side by side at game size it reads as a forklift in the same livery, but the greyer body, the blocky dark front panel and the lighter underside (BELOW view) make it clearly off from the original. A player would not take it for the original at a glance."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front faces the same way in both (FRONT view, the panel facing the viewer in FRONT-LEFT and FRONT-RIGHT). It stands upright, and its wheels and forks sit on the same ground line in the LEFT and RIGHT views, so it stands on its origin as the original does."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK checkErrors is empty. Triangles are 880 against the original's 749, under the 2x limit of 1498. The side and angle views show no floating parts, and the forks and wheels touch the ground line."
+  }
+ },
+ "total": 11,
+ "of": 16,
+ "passes": false
+}

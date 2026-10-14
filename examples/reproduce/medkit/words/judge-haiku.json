@@ -1,0 +1,163 @@
+{
+ "subject": "medkit",
+ "leg": "words",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.962,
+   "left/right": 0.903,
+   "top/below": 0.839
+  },
+  "size": {
+   "original": [
+    34.6,
+    26.4,
+    6.8
+   ],
+   "reproduction": [
+    34.6,
+    26.6,
+    6.8
+   ],
+   "offShare": [
+    0.001,
+    0.004,
+    0.005
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 16.9,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 16,
+     "shared": 0.959
+    },
+    {
+     "view": "left",
+     "deltaE": 16.3,
+     "shared": 0.897
+    },
+    {
+     "view": "back",
+     "deltaE": 13.5,
+     "shared": 0.959
+    },
+    {
+     "view": "right",
+     "deltaE": 19.4,
+     "shared": 0.897
+    },
+    {
+     "view": "top",
+     "deltaE": 18,
+     "shared": 0.829
+    },
+    {
+     "view": "below",
+     "deltaE": null,
+     "shared": 0
+    },
+    {
+     "view": "front-left",
+     "deltaE": 17.2,
+     "shared": 0.786
+    },
+    {
+     "view": "front-right",
+     "deltaE": 18.1,
+     "shared": 0.821
+    },
+    {
+     "view": "back-left",
+     "deltaE": 16.9,
+     "shared": 0.858
+    },
+    {
+     "view": "back-right",
+     "deltaE": 16.4,
+     "shared": 0.856
+    }
+   ]
+  },
+  "triangles": {
+   "original": 99,
+   "reproduction": 224
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 1,
+  "M8": 1
+ },
+ "lineup": {
+  "picked": "A",
+  "right": "A",
+  "letters": {
+   "A": "models/w_medkit.mdl",
+   "B": "models/w_security.mdl",
+   "C": "models/mbarrel.mdl",
+   "D": "models/forklift.mdl",
+   "E": "models/w_longjump.mdl",
+   "F": "models/can.mdl",
+   "G": "models/filecabinet.mdl",
+   "H": "models/w_9mmclip.mdl",
+   "I": "models/headcrab.mdl",
+   "J": "models/w_battery.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Measured overlaps all clear 0.80 (front/back 0.962, left/right 0.903, top 0.839), but the strap is wrong in the side views. In the reproduction's left and right views (bottom edge) it reads as a stepped, blocky wedge of stacked boxes, where the original's is a flat band. The top view's strap loop also sits wider and rounder than the original's."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Size is 34.6 x 26.6 x 6.8 against the original's 34.6 x 26.4 x 6.8: length, width and height are all within 1%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The parts are present but several are wrong in shape and position. On the original's top-front, a large tilted dark glass panel with two round gauges is missing; the reproduction has a flat top control strip with green/red LEDs and a green screen instead. On the sides, the original has two round dark dials near the lower front, while the reproduction has plain black rectangles. The strap is there and in place."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "Measured mean colour difference is 16.9 (CIE76), over the limit of 15. The white body reads greyer and warmer in the reproduction, the strap is greyer, and the original's dark glass display is replaced by a bright green screen."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The red cross, the 'FIRST AID' lettering and the red arrows are all present and in roughly the right places. The original's worn, grainy finish is missing: the reproduction's surfaces are smooth and the lettering is crisper than the original's."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Side by side at game size it reads as the same kind of object, but a player would likely notice the different top panel, the green screen where the original has dark glass, the round dials replaced by rectangles, the greyer body and the blockier strap. It would not be taken for the original."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front faces the same way as the original's (the display sits at the top-front and the strap hangs below both faces). It is upright and stands on the same base. The reproduction adds a closed underside where the original's is open, which does not change the facing."
+  },
+  "M8": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "The reproduction has 224 triangles against the original's 99, a ratio of 2.26, which is over the limit of twice the original's count. The mesh is closed with nothing floating, and the SMAK check result is not given in the measurements, so only the triangle count is scored against it."
+  }
+ },
+ "total": 10,
+ "of": 16,
+ "passes": false
+}

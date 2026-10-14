@@ -1,0 +1,163 @@
+{
+ "subject": "headcrab",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.976,
+   "left/right": 0.948,
+   "top/below": 0.95
+  },
+  "size": {
+   "original": [
+    25.9,
+    19.2,
+    13.2
+   ],
+   "reproduction": [
+    25.9,
+    19,
+    13.1
+   ],
+   "offShare": [
+    0.001,
+    0.008,
+    0.006
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 8.7,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 10.4,
+     "shared": 0.977
+    },
+    {
+     "view": "left",
+     "deltaE": 10.2,
+     "shared": 0.948
+    },
+    {
+     "view": "back",
+     "deltaE": 7.6,
+     "shared": 0.977
+    },
+    {
+     "view": "right",
+     "deltaE": 8.6,
+     "shared": 0.948
+    },
+    {
+     "view": "top",
+     "deltaE": 7.1,
+     "shared": 0.951
+    },
+    {
+     "view": "below",
+     "deltaE": 9.5,
+     "shared": 0.951
+    },
+    {
+     "view": "front-left",
+     "deltaE": 10.3,
+     "shared": 0.956
+    },
+    {
+     "view": "front-right",
+     "deltaE": 8.4,
+     "shared": 0.959
+    },
+    {
+     "view": "back-left",
+     "deltaE": 7.9,
+     "shared": 0.958
+    },
+    {
+     "view": "back-right",
+     "deltaE": 7.2,
+     "shared": 0.959
+    }
+   ]
+  },
+  "triangles": {
+   "original": 478,
+   "reproduction": 514
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "G",
+  "right": "G",
+  "letters": {
+   "A": "models/filecabinet.mdl",
+   "B": "models/can.mdl",
+   "C": "models/mbarrel.mdl",
+   "D": "models/w_medkit.mdl",
+   "E": "models/w_battery.mdl",
+   "F": "models/w_security.mdl",
+   "G": "models/headcrab.mdl",
+   "H": "models/forklift.mdl",
+   "I": "models/w_9mmclip.mdl",
+   "J": "models/w_longjump.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "All six views (front, back, left, right, top, below) and the four close angles have the original's outline with no part missing or sticking out. The measured overlap is 0.948 to 0.976, above the 0.80 line. Leg spread, the dome and the claw tips line up in every view."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 25.9 x 19.0 x 13.1 against the original's 25.9 x 19.2 x 13.2, an offset of 0.8% or less on each axis, well within 10%."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "All parts are present in the right number and places: four legs (two forelegs with claws, two hind legs), the pale dome, the underside mouth with teeth, and the two eyes on the underside. The mouth in the reproduction is slightly less defined than the original's, but its shape and position are right."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured mean colour difference is 8.7 (CIE76, under 15) and no view is above 10.4. The pale dome, the brown carapace and the red legs each read as the same colour and material as the original."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The back carapace's chevron striations are softer and less crisp in the reproduction (back and back-left/back-right views). The red veining on the dome is also softer. A dashed dark seam runs across the top of the dome in front-left and front-right, which the original does not show."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Side by side the two read as close relatives, but the dashed seam line across the dome in front-left and front-right, the softer back striations, and the less defined underside mouth make the reproduction clearly distinguishable from the original at this scale. A player would not take it for the original on close inspection."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front is the original's front: the mouth and eyes sit on the underside, the legs spread the same way, and the body stands upright on the same legs in the front and left views."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The harness's SMAK check reports no errors. Triangles are 514 against the original's 478, well under twice. The renders show a closed, solid body with no visible holes or floating parts. The dashed seam on the dome looks like a surface line rather than an open gap, though the pictures alone cannot confirm it is closed."
+  }
+ },
+ "total": 14,
+ "of": 16,
+ "passes": false
+}

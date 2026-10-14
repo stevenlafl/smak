@@ -1,0 +1,163 @@
+{
+ "subject": "battery",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.998,
+   "left/right": 0.999,
+   "top/below": 1
+  },
+  "size": {
+   "original": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "reproduction": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "offShare": [
+    0,
+    0,
+    0.001
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 7.2,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 7,
+     "shared": 0.993
+    },
+    {
+     "view": "left",
+     "deltaE": 7.2,
+     "shared": 0.994
+    },
+    {
+     "view": "back",
+     "deltaE": 7,
+     "shared": 0.993
+    },
+    {
+     "view": "right",
+     "deltaE": 7.4,
+     "shared": 0.992
+    },
+    {
+     "view": "top",
+     "deltaE": 6.8,
+     "shared": 1
+    },
+    {
+     "view": "below",
+     "deltaE": 3.7,
+     "shared": 0.636
+    },
+    {
+     "view": "front-left",
+     "deltaE": 8.3,
+     "shared": 0.995
+    },
+    {
+     "view": "front-right",
+     "deltaE": 8.2,
+     "shared": 0.994
+    },
+    {
+     "view": "back-left",
+     "deltaE": 8.1,
+     "shared": 0.995
+    },
+    {
+     "view": "back-right",
+     "deltaE": 8.3,
+     "shared": 0.994
+    }
+   ]
+  },
+  "triangles": {
+   "original": 116,
+   "reproduction": 150
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "B",
+  "right": "B",
+  "letters": {
+   "A": "models/w_security.mdl",
+   "B": "models/w_battery.mdl",
+   "C": "models/w_longjump.mdl",
+   "D": "models/filecabinet.mdl",
+   "E": "models/can.mdl",
+   "F": "models/forklift.mdl",
+   "G": "models/w_medkit.mdl",
+   "H": "models/w_9mmclip.mdl",
+   "I": "models/headcrab.mdl",
+   "J": "models/mbarrel.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "All six views match the original's outline. The harness measures silhouette overlap at 0.998 (front/back), 0.999 (left/right) and 1 (top/below). The top assembly sits in the same place in every view, and nothing sticks out or is missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 10.3 x 10.3 x 18.4 for both original and reproduction (offShare 0, 0, 0.001), so every dimension is well within 10%."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Every component is present in the right place: the two white side light panels on each face, the red corner lights, the four-sided glass panel, the yellow hazard band around the base, the grey cylinder on top and the yellow striped block on top. In the top view the cylinder and the striped block fall at the same spots as in the original. The top stack is a little more angular in the reproduction, but nothing is wrong or missing."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mean colour difference is 7.2 (CIE76), well under 15, and every view is 6.8 to 8.3. Glass is teal, the hazard stripes are yellow and the body is painted grey-beige metal, all matching the original's colours and materials."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The markings are present and in place, but the reproduction is softer and blotchier than the original. The yellow hazard stripes have blurred edges, the glass has a more mottled grain and the grey top plate loses the original's crisp seams and weathering."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Side by side at game size, the reproduction is close but a careful player would still tell it apart. The top of the reproduction (clearly in front-right and back-right) looks rougher and more mottled than the original's crisp grey plate and striped block, and the hazard stripes and glass are softer. The shape and colour are right, but the surface finish is visibly different."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front is the original's front (the front view silhouette matches and the red lamp and glass panel sit in the same place). It is upright, and the base sits on the origin the same way, as the below view shows."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The harness reports no checkErrors. The reproduction has 150 triangles against the original's 116, well inside the 2x limit. The below view shows a closed, correctly oriented base with no visible holes, inverted faces or floating parts."
+  }
+ },
+ "total": 14,
+ "of": 16,
+ "passes": false
+}

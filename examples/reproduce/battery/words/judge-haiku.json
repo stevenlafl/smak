@@ -1,0 +1,163 @@
+{
+ "subject": "battery",
+ "leg": "words",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.947,
+   "left/right": 0.935,
+   "top/below": 0.986
+  },
+  "size": {
+   "original": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "reproduction": [
+    10.5,
+    10.5,
+    18.4
+   ],
+   "offShare": [
+    0.023,
+    0.023,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 22.3,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 23.2,
+     "shared": 0.94
+    },
+    {
+     "view": "left",
+     "deltaE": 24.4,
+     "shared": 0.93
+    },
+    {
+     "view": "back",
+     "deltaE": 23.1,
+     "shared": 0.94
+    },
+    {
+     "view": "right",
+     "deltaE": 24.4,
+     "shared": 0.93
+    },
+    {
+     "view": "top",
+     "deltaE": 22.8,
+     "shared": 0.979
+    },
+    {
+     "view": "below",
+     "deltaE": 12.8,
+     "shared": 0.563
+    },
+    {
+     "view": "front-left",
+     "deltaE": 22.7,
+     "shared": 0.921
+    },
+    {
+     "view": "front-right",
+     "deltaE": 23.4,
+     "shared": 0.928
+    },
+    {
+     "view": "back-left",
+     "deltaE": 22.7,
+     "shared": 0.921
+    },
+    {
+     "view": "back-right",
+     "deltaE": 23.1,
+     "shared": 0.928
+    }
+   ]
+  },
+  "triangles": {
+   "original": 116,
+   "reproduction": 556
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 1,
+  "M8": 0
+ },
+ "lineup": {
+  "picked": "D",
+  "right": "D",
+  "letters": {
+   "A": "models/headcrab.mdl",
+   "B": "models/w_9mmclip.mdl",
+   "C": "models/w_longjump.mdl",
+   "D": "models/w_battery.mdl",
+   "E": "models/forklift.mdl",
+   "F": "models/w_medkit.mdl",
+   "G": "models/mbarrel.mdl",
+   "H": "models/can.mdl",
+   "I": "models/w_security.mdl",
+   "J": "models/filecabinet.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Measured overlaps (0.935 to 0.986) pass the 0.80 line, and the octagonal prism body matches in every view. But the top parts stick out wrongly. In the left and right views the original has a wide yellow-striped block with a grey hub on top, and the reproduction has only a thin yellow spike with small grey blocks. The front and back views show the same mismatch: the original's yellow block is a chunky angled box, the reproduction's is a thin striped slat."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 10.5 x 10.5 x 18.4 against the original's 10.3 x 10.3 x 18.4, off by 2% on width and depth and exact on height. Within 10% on all three."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Most components are present in the right places: four green side panels, two white vent slats per face, red warning lights on top, a hazard band at the base and a top hub. But the shapes are wrong. The original's green panels are large noisy crystal-like faces, and the reproduction's are small framed panels with an oval glow inside. The original's top has a chunky yellow-striped block and a grey hub (in the top view, offset to the left); the reproduction's top has a thin spike and a hub placed on the right."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "Beige-grey metal and teal green are in the right family, so the colours are roughly right. But the measured mean colour difference inside the shared outline is 22.3 (CIE76), above the line of 15. The green panels are the clearest material mismatch: the original's are grainy crystal and the reproduction's are smooth with an oval light. The yellow hazard stripes are also a different pattern and colour mix."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original's surface detail is not reproduced. The noisy crystal texture of the green panels, the worn and scuffed yellow-black stripe paint, and the panel wear are replaced with clean chevrons and a smooth oval glow. The reproduction's lettering-like frame detail around the panels is also absent from the original."
+  },
+  "M6": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Side by side, the difference is obvious at once. The green panels are framed ovals in the reproduction and large crystal faces in the original, the top parts differ in shape, and the hazard stripes look different. A player would not take the reproduction for the original."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front is the original's front: in the front and back views the top parts and the side vents sit in the same places. The prism stands upright, and the base sits at the same height in every view (bottom edge at the same pixel row as the original), so it stands on its origin as the original does."
+  },
+  "M8": {
+   "judge": 1,
+   "cap": 0,
+   "score": 0,
+   "reason": "SMAK's checks pass with no errors, nothing is visibly open or inside out, and the solid underside (the original is open in its centre) does not break anything. But the reproduction has 556 triangles against the original's 116, about 4.8 times, which is well over the 2x limit."
+  }
+ },
+ "total": 8,
+ "of": 16,
+ "passes": false
+}
