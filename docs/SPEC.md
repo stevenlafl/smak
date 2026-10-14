@@ -70,6 +70,7 @@ pictures of the result, from a barrel to a city of four shops and a sewer; read 
 | `finish` | What a painter adds over the materials, read from the shape (below): `{ light, wear, grime, vary }`, each 0 to 1, or `false` for none. A part may have its own |
 | `project` | The person's pictures of the thing laid onto it as its texture (below, "Pictures projected onto it") |
 | `smooth` | The angle (degrees) under which faces are shaded as one surface: 40 unless told; a round part (turn, cylinder, sphere, tube of 5 sides or more) is shaded round across its own sides unless told, so 8 sides read round. A part may have its own. A tube of 4 meets itself at 90 degrees and is shaded flat, each face with normals of its own: a rib cost 104 normals for 44 points. Over its faces' angle (100 for 4 sides) it is shaded round with a normal a point: the engine holds 2048 normals a body |
+| `contract` | `{ file }`: a model whose contract with a mod's code this one must keep: every bone, every animation at the same number with its activity, its attachments on the same bones, its bodyparts with as many bodies. A model built for a mod on another's skeleton (a player of The Specialists, whose code plays its dives and rolls by name) is checked against it; what it breaks is a FAULT. `smak contract <mdl> [--against ref.mdl]` shows one |
 | `budget` | The most triangles the model may have: over it is a FAULT. Without one, a prop over 576 is warned of. The report lists the heaviest parts and the thin boxes that could be painted |
 
 ### Axes, and which way is up

@@ -490,6 +490,20 @@ test("a blind test's original may be refused: a character may not take its skele
   sure(refused.report.errors.some((e) => /may not be used here \(a blind test's original\)/.test(e)), refused.report.errors.join("; "));
 });
 
+test("a model's contract: a reference's bones, animations and bodyparts kept, or each lack a fault", async () => {
+  const { contractOf, compareContract } = await import("../src/contract.mjs");
+  const folder = mkdtempSync(join(tmpdir(), "smak-contract-"));
+  const part = { id: "a", kind: "box", size: [4, 4, 4] };
+  const { mdl } = buildModelSpec({ spec: "smak.model/1", name: "ref.mdl", kind: "prop", parts: [part] });
+  writeFileSync(join(folder, "ref.mdl"), mdl);
+  const kept = buildModelSpec({ spec: "smak.model/1", name: "copy.mdl", kind: "prop", parts: [part], contract: { file: "ref.mdl" } }, { folder });
+  sure(kept.report.ok && kept.report.facts.some((f) => /contract of ref\.mdl is kept/.test(f)), [...kept.report.errors, ...kept.report.faults].join("; "));
+  // a reference with an animation and a bone the model lacks
+  const ref = contractOf(mdl);
+  const broken = compareContract({ ...ref, bones: [...ref.bones, "Bip01 Dorso"], sequences: [{ name: "dive_f_akimbo", activity: 0 }, ...ref.sequences] }, contractOf(mdl));
+  sure(broken.faults.some((f) => /bones of the reference are missing: Bip01 Dorso/.test(f)) && broken.faults.some((f) => /animations are missing: dive_f_akimbo/.test(f)) && broken.faults.some((f) => /another number/.test(f)), broken.faults.join("; "));
+});
+
 test("colours in words: the XKCD names with their modifiers, and a colour as it shows in a picture", async () => {
   const { colourFromWords } = await import("../src/spec/colours.mjs");
   const { toLab } = await import("../src/spec/colours.mjs");

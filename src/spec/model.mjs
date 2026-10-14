@@ -32,6 +32,7 @@ import { materialOf, flagsOf, zonePainter, colourAt, HOLE_RGB } from "./paint.mj
 import { paintFinish, FINISH } from "./finish.mjs";
 import { paintMarks } from "./marks.mjs";
 import { bakeParts } from "./bake.mjs";
+import { contractOf, compareContract } from "../contract.mjs";
 import { paintPanels, paintWords, faceSize } from "./faces.mjs";
 import { paintProjections, VIEW_NAMES } from "./project.mjs";
 import { unpng } from "../image.mjs";
@@ -66,7 +67,7 @@ const ON_SURFACE = new Set(["band", "boss", "ridge", "studs"]);
 /** The anchors every part has: the middles of the faces of its box, and its middle. */
 const BOX_ANCHORS = ["top", "bottom", "front", "back", "left", "right", "centre"];
 /** The fields a spec takes at its top. */
-const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "weapon", "finish", "smooth", "project", "budget", "note"];
+const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "weapon", "finish", "smooth", "project", "budget", "contract", "note"];
 /** A texture's side unless told; a kit's picture is made this much smaller (the kits paint at 1024 wide). */
 const SHEET_SIZE = 256;
 const KIT_SHRINK = 2;
@@ -1054,6 +1055,18 @@ export function buildModelSpec(spec, { folder, prefabs = {}, games = [], readPic
   report.faults.push(...seen.faults);
   report.facts.push(`the pictures see through it at ${(seen.share * 100).toFixed(2)}% of its dots`);
   const files = spec.weapon ? weaponViews(spec, meshes, { folder, games, report, hide }) : [];
+  // the contract a mod's code holds the model to: a reference's bones, animations, attachments, bodyparts
+  if (spec.contract) {
+    try {
+      const reference = readContractFile(spec.contract.file, folder, games, refuse);
+      const { faults, notes } = compareContract(contractOf(reference), contractOf(mdl));
+      report.faults.push(...faults.map((f) => `contract of ${spec.contract.file}: ${f}`));
+      report.notes.push(...notes.map((n) => `contract of ${spec.contract.file}: ${n}`));
+      if (!faults.length) report.facts.push(`the contract of ${spec.contract.file} is kept: its bones, animations in their order, attachments and bodyparts`);
+    } catch (error) {
+      errors.push(`contract: ${error.message}`);
+    }
+  }
   report.ok = !errors.length && !report.faults.length;
   return { mdl, report, files };
 }
@@ -1311,6 +1324,15 @@ function weaponViews(spec, meshes, { folder, games, report, hide = [] }) {
  * games' folders (`<game>/models/<file>`), its textures from <name>t.mdl when they are there. Returns
  * { src, file, joints: Map(bone name -> [x, y, z] in model space as it stands in `pose`), pose, bodypart, bodies }.
  */
+/** A reference model's bytes for a contract: beside the spec or in the game folders, unless refused. */
+function readContractFile(file, folder, games, refuse = []) {
+  if (refuse.some((name) => name.replace(/^models\//, "") === file.replace(/^models\//, ""))) throw new Error(`${file} may not be used here (a blind test's original)`);
+  const places = [resolve(folder ?? ".", file), ...games.flatMap((game) => [join(game, "models", file), join(game, file)])];
+  const found = places.find((place) => existsSync(place));
+  if (!found) throw new Error(`${file} is neither beside the spec nor in the game folders given`);
+  return readFileSync(found);
+}
+
 function skeletonOf(given, folder, games, refuse = []) {
   const options = typeof given === "string" ? { file: given } : given;
   // a file this build may not read (the model a blind test reproduces): its skeleton would be the original's

@@ -1221,6 +1221,37 @@ async function buildSpec({ command, file, flags, listed }) {
 }
 
 /**
+ * contract: what a mod's code asks of a model by name or number (its bones, animations in their order with
+ * their activities, attachments, bodyparts, hit groups, controllers), or with --against what it breaks of a
+ * reference's.
+ */
+async function contractCommand({ file, flags }) {
+  const { contractOf, compareContract } = await import("../src/contract.mjs");
+  const made = contractOf(readModelWithTextures(file));
+  if (flags.against) {
+    const { faults, notes } = compareContract(contractOf(readModelWithTextures(existing(flags.against))), made);
+    for (const f of faults) console.log(`FAULT ${f}`);
+    for (const n of notes) console.log(`note  ${n}`);
+    if (!faults.length) console.log(`${basename(file)} keeps the contract of ${basename(flags.against)}`);
+    if (faults.length) process.exit(1);
+    return;
+  }
+  if (flags.json) return console.log(JSON.stringify(made, null, 2));
+  console.log(`BONES (${made.bones.length}): ${made.bones.join(", ")}`);
+  console.log(`ANIMATIONS (${made.sequences.length}), by number: ${made.sequences.map((s, i) => `${i} ${s.name}${s.activity ? ` (activity ${s.activity})` : ""}`).join(", ")}`);
+  console.log(`ATTACHMENTS (${made.attachments.length}): ${made.attachments.map((a, i) => `${i} on ${a.bone}`).join(", ")}`);
+  console.log(`BODYPARTS: ${made.bodyparts.map((b) => `${b.name} (${b.bodies} bodies)`).join(", ")}`);
+  console.log(`HIT GROUPS: ${made.hitgroups.join(", ") || "none"}; CONTROLLERS: ${made.controllers.map((c) => c.bone).join(", ") || "none"}`);
+}
+/** A model read with its <name>t.mdl textures, as the other model commands read it. */
+const readModelWithTextures = (file) => {
+  let src = readFileSync(file);
+  const side = file.replace(/\.mdl$/i, "t.mdl");
+  if (src.length > 184 && !src.readInt32LE(180) && existsSync(side)) src = smak.withTextures(src, readFileSync(side));
+  return src;
+};
+
+/**
  * video: a smak.video/1 spec made into a video (MP4 with ffmpeg, a GIF without), or with --preview its contact
  * sheet only. Its models and maps are found in --models, or beside the spec; the map's textures in --wads.
  */
@@ -2663,6 +2694,13 @@ const COMMANDS = {
                                             a model or a map from a spec (docs/SPEC.md): built, checked, compiled and drawn, as the MCP
                                             tool build does it; the result, its spec, report.txt and the pictures go to the folder, and
                                             a second build there says what changed. Exit code 1 unless it says OK`,
+  },
+  contract: {
+    run: contractCommand,
+    help: `  contract <mdl> [--json] [--against reference.mdl]
+                                            what a mod's code asks of a model by name or number: bones, animations in their
+                                            order with activities, attachments, bodyparts, hit groups; --against: what the model
+                                            breaks of a reference's (exit code 1 when it breaks any)`,
   },
   video: {
     run: videoSpec,
