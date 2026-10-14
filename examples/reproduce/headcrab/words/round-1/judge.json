@@ -1,0 +1,163 @@
+{
+ "subject": "headcrab",
+ "leg": "words",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.801,
+   "left/right": 0.6,
+   "top/below": 0.662
+  },
+  "size": {
+   "original": [
+    25.9,
+    19.2,
+    13.2
+   ],
+   "reproduction": [
+    26,
+    19.2,
+    13.1
+   ],
+   "offShare": [
+    0.002,
+    0.002,
+    0.009
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 26,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 26.7,
+     "shared": 0.802
+    },
+    {
+     "view": "left",
+     "deltaE": 25.2,
+     "shared": 0.6
+    },
+    {
+     "view": "back",
+     "deltaE": 27.5,
+     "shared": 0.802
+    },
+    {
+     "view": "right",
+     "deltaE": 25.1,
+     "shared": 0.6
+    },
+    {
+     "view": "top",
+     "deltaE": 23.6,
+     "shared": 0.664
+    },
+    {
+     "view": "below",
+     "deltaE": 27.4,
+     "shared": 0.664
+    },
+    {
+     "view": "front-left",
+     "deltaE": 25.6,
+     "shared": 0.537
+    },
+    {
+     "view": "front-right",
+     "deltaE": 25.2,
+     "shared": 0.537
+    },
+    {
+     "view": "back-left",
+     "deltaE": 26.4,
+     "shared": 0.527
+    },
+    {
+     "view": "back-right",
+     "deltaE": 26.8,
+     "shared": 0.527
+    }
+   ]
+  },
+  "triangles": {
+   "original": 478,
+   "reproduction": 904
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 1,
+  "M2": 2,
+  "M4": 0,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "D",
+  "right": "D",
+  "letters": {
+   "A": "models/w_medkit.mdl",
+   "B": "models/mbarrel.mdl",
+   "C": "models/can.mdl",
+   "D": "models/headcrab.mdl",
+   "E": "models/w_battery.mdl",
+   "F": "models/filecabinet.mdl",
+   "G": "models/w_security.mdl",
+   "H": "models/forklift.mdl",
+   "I": "models/w_9mmclip.mdl",
+   "J": "models/w_longjump.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "The overall mass and footprint match: front/back overlap is 0.801. The side and top views fall well short of 0.80 (left/right 0.60, top/below 0.662). The main cause is the front legs. In the original they reach forward and down from the underside of the body, low along the ground, ending in clawed red forearms. In the reproduction they rise from the top of the body, run forward as a high horizontal arch over the dome, then drop straight down as thick red posts (left/right views and all four angled views). The body is also a rounder, taller shell with a ball-like dome, not the original's flatter, wedge-shaped body."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 26 x 19.2 x 13.1 against the original's 25.9 x 19.2 x 13.2, so every dimension is within 1%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The parts are there: the shell, the pale front dome, two long front legs, two short rear legs and claws. Several are the wrong shape or in the wrong place. The front legs are the overhead arch described under M1, not low reaching forelegs. The original's large toothed mouth on the underside, also seen through the rear in the back view, is missing. In its place the reproduction has a small fringe of teeth along the lower rim and a ring of white dots on the belly (below view). The pale dome is a separate ball sitting on the front, where the original has a pale face blended into the body."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 0,
+   "score": 0,
+   "reason": "The palette is broadly right: tan/brown shell, cream dome, red legs and claws. The measured mean colour difference is 26, well over the limit of 15. The reproduction's shell is a flat light tan where the original's is a darker, mottled brown-ochre. Its legs are flat saturated red, where the original's are mixed red and brown with tan upper segments. The underside is wrong: broad red stripes on tan, where the original has a red-and-cream flesh mouth."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The shell's rib markings are hinted at with coarse, blocky dark stripes, but none of the original's fine segmented chitin texture is there. The original's mottled red speckling on the dome is reduced to a few pixels. The detailed mouth with rows of teeth on the underside is absent. The red belly stripes and the dotted ring were added and are not in the original."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "At game size it reads as a tan crab-like creature with a pale dome and red legs, so it is recognisably the same kind of thing. A player would not take it for the original side by side. The tall arched front legs, the blocky flat texturing and the ball-shaped dome all make it clearly different."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Upright, with the pale dome and long legs pointing the same way as the original's front in every view. It stands on its feet at the same base line as the original."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "There are no check errors, and its 904 triangles are under twice the original's 478 (956). The legs are attached to the body, and the renders show nothing floating or inside out."
+  }
+ },
+ "total": 10,
+ "of": 16,
+ "passes": false
+}

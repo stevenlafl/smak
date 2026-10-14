@@ -1,0 +1,163 @@
+{
+ "subject": "battery",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.976,
+   "left/right": 0.982,
+   "top/below": 0.996
+  },
+  "size": {
+   "original": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "reproduction": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "offShare": [
+    0.001,
+    0.001,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 11.9,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 9,
+     "shared": 0.969
+    },
+    {
+     "view": "left",
+     "deltaE": 9.6,
+     "shared": 0.973
+    },
+    {
+     "view": "back",
+     "deltaE": 10.1,
+     "shared": 0.969
+    },
+    {
+     "view": "right",
+     "deltaE": 9.8,
+     "shared": 0.973
+    },
+    {
+     "view": "top",
+     "deltaE": 10.3,
+     "shared": 0.995
+    },
+    {
+     "view": "below",
+     "deltaE": 23.1,
+     "shared": 0.574
+    },
+    {
+     "view": "front-left",
+     "deltaE": 11.6,
+     "shared": 0.962
+    },
+    {
+     "view": "front-right",
+     "deltaE": 11.7,
+     "shared": 0.959
+    },
+    {
+     "view": "back-left",
+     "deltaE": 12.1,
+     "shared": 0.963
+    },
+    {
+     "view": "back-right",
+     "deltaE": 12,
+     "shared": 0.959
+    }
+   ]
+  },
+  "triangles": {
+   "original": 116,
+   "reproduction": 216
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "B",
+  "right": "B",
+  "letters": {
+   "A": "models/w_security.mdl",
+   "B": "models/w_battery.mdl",
+   "C": "models/w_longjump.mdl",
+   "D": "models/filecabinet.mdl",
+   "E": "models/can.mdl",
+   "F": "models/forklift.mdl",
+   "G": "models/w_medkit.mdl",
+   "H": "models/w_9mmclip.mdl",
+   "I": "models/headcrab.mdl",
+   "J": "models/mbarrel.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured overlap is 0.976 front/back, 0.982 left/right and 0.996 top/below, all well above 0.80. Every view has the original's outline: the chamfered octagonal body, the tapered black base, and the top cap with its raised disc and angled yellow tab in the same place. Nothing sticks out and nothing is missing. The cap stack is slightly flatter in the angled views, but it does not change the outline."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both measure 10.3 x 10.3 x 18.4, and off-share is 0.001 at most. All three dimensions match."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "All the parts are there in the right places: four glowing teal panels (one per face), white lamp strips on the four chamfered corners, the orange-red indicator above each panel, the hazard-stripe band, the black tapered base, and on top the raised round disc and the angled yellow-striped tab. Up close the top disc in the reproduction looks a little lower and sits on extra stacked plates (front-left and front-right views), but it is the same part with nearly the same shape."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The mean colour difference is 11.9, under 15, and every side and angled view is 9 to 12 with the same grey painted metal, teal glow, yellow-and-grey hazard band and black base. The underside is clearly off, though. Seen from below, the original is a black octagonal rim around an open interior. The reproduction shows grey square corners around a black octagonal plate. That view measures deltaE 23.1 with only 0.574 shared, so the bottom region does not have the original's colour."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The markings sit in the same places at a similar sharpness: the noisy teal glow on the panels, the diagonal yellow hazard stripes, the red-orange indicator lights, the white corner lamps, the grime on the grey metal and the yellow stripes on the top tab. There are a few faint white streaks along the side edges of the reproduction's front and back views, which are minor."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Side by side at the size the game shows it, a player would take this for the original battery. Shape, glow panels, hazard band and top cap all read the same. The differences (a flatter top cap, the underside) are too small to notice at that size or are hidden from a normal view."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "It is upright, the yellow tab is on the same side in every view so the front matches the original's front, and it stands on its base at the same height as the original."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The check reports no errors. It has 216 triangles against the original's 116, under the limit of 232. Nothing is floating or inside out. The underside is closed, where the original's is open."
+  }
+ },
+ "total": 15,
+ "of": 16,
+ "passes": false
+}

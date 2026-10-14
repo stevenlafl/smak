@@ -1,0 +1,163 @@
+{
+ "subject": "headcrab",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.804,
+   "left/right": 0.75,
+   "top/below": 0.792
+  },
+  "size": {
+   "original": [
+    25.9,
+    19.2,
+    13.2
+   ],
+   "reproduction": [
+    26.3,
+    19,
+    13.3
+   ],
+   "offShare": [
+    0.016,
+    0.01,
+    0.006
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 15.2,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 16.9,
+     "shared": 0.805
+    },
+    {
+     "view": "left",
+     "deltaE": 13.5,
+     "shared": 0.754
+    },
+    {
+     "view": "back",
+     "deltaE": 11.7,
+     "shared": 0.805
+    },
+    {
+     "view": "right",
+     "deltaE": 12.6,
+     "shared": 0.754
+    },
+    {
+     "view": "top",
+     "deltaE": 12.9,
+     "shared": 0.794
+    },
+    {
+     "view": "below",
+     "deltaE": 13.7,
+     "shared": 0.794
+    },
+    {
+     "view": "front-left",
+     "deltaE": 17.6,
+     "shared": 0.721
+    },
+    {
+     "view": "front-right",
+     "deltaE": 16.6,
+     "shared": 0.721
+    },
+    {
+     "view": "back-left",
+     "deltaE": 17.9,
+     "shared": 0.709
+    },
+    {
+     "view": "back-right",
+     "deltaE": 18.7,
+     "shared": 0.709
+    }
+   ]
+  },
+  "triangles": {
+   "original": 478,
+   "reproduction": 592
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 1,
+  "M2": 2,
+  "M4": 1,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "G",
+  "right": "G",
+  "letters": {
+   "A": "models/filecabinet.mdl",
+   "B": "models/can.mdl",
+   "C": "models/mbarrel.mdl",
+   "D": "models/w_medkit.mdl",
+   "E": "models/w_battery.mdl",
+   "F": "models/w_security.mdl",
+   "G": "models/headcrab.mdl",
+   "H": "models/forklift.mdl",
+   "I": "models/w_9mmclip.mdl",
+   "J": "models/w_longjump.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "Measured overlap is 0.804 front/back, but 0.75 left/right and 0.792 top/below are under 0.80. In the left and right views the body is a slab with a flat bottom and a blunt back that runs further back than the original's rounded, tapering body. The rear legs are straight vertical posts against the back corners, where the original's are bent and tucked in. The front legs are straight rods, missing the original's raised, elbowed upper segment."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 26.3 x 19.0 x 13.3 against 25.9 x 19.2 x 13.2. Every dimension is within 2%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "All the parts are there: the domed shell, the mouth with teeth on the underside, two long front legs, two rear legs, and the claw tips. The shapes are off, though. The rear legs are plain rectangular columns with no joint, seen in the back and back-left/right views. The front legs are thin straight segments with no elbow; in the side views the upper segment is a flat strip. The underside is a flat plate instead of the original's rounded belly."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "Measured mean deltaE (colour difference) is 15.2, above the 15 limit, and worst on the angled views (16.6 to 18.7). The regions have the right colours: a cream dome, a brown ribbed carapace, red legs and a red mouth. But the rear legs and the flanks of the body read as flat tan where the original is dark ribbed brown."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The ribbed carapace on the back, the red mottling on the dome and the toothed mouth below are all in place. The rear legs and the side faces show stretched, smeared texture with the ribbing and dark banding lost, seen in the back and back-left/right views. The dome's pink speckling is blurrier than the original's."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From the front, top and below it reads as the original. From the side and the back angles, the boxy body and the post-like rear legs stand out next to the original's rounded, crouched crab, so a player looking side by side would see they differ."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front is the original's front: the dome faces the same way and the mouth is underneath. It is upright and stands on the ground plane on its leg tips as the original does."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The check reports no errors, and 592 triangles is under twice the original's 478 (956). Nothing in the pictures looks floating or inside out, though the thin flat strips on the front legs could be single-sided."
+  }
+ },
+ "total": 11,
+ "of": 16,
+ "passes": false
+}

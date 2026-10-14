@@ -1,0 +1,163 @@
+{
+ "subject": "forklift",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.904,
+   "left/right": 0.765,
+   "top/below": 0.894
+  },
+  "size": {
+   "original": [
+    186.6,
+    60,
+    113.4
+   ],
+   "reproduction": [
+    186.6,
+    60,
+    113.4
+   ],
+   "offShare": [
+    0,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 14,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 11.2,
+     "shared": 0.902
+    },
+    {
+     "view": "left",
+     "deltaE": 15.4,
+     "shared": 0.776
+    },
+    {
+     "view": "back",
+     "deltaE": 13,
+     "shared": 0.91
+    },
+    {
+     "view": "right",
+     "deltaE": 14.5,
+     "shared": 0.759
+    },
+    {
+     "view": "top",
+     "deltaE": 8.7,
+     "shared": 0.886
+    },
+    {
+     "view": "below",
+     "deltaE": 8.7,
+     "shared": 0.736
+    },
+    {
+     "view": "front-left",
+     "deltaE": 15.6,
+     "shared": 0.791
+    },
+    {
+     "view": "front-right",
+     "deltaE": 15.2,
+     "shared": 0.794
+    },
+    {
+     "view": "back-left",
+     "deltaE": 19.4,
+     "shared": 0.801
+    },
+    {
+     "view": "back-right",
+     "deltaE": 18.2,
+     "shared": 0.798
+    }
+   ]
+  },
+  "triangles": {
+   "original": 749,
+   "reproduction": 1092
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 1,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "B",
+  "right": "B",
+  "letters": {
+   "A": "models/w_battery.mdl",
+   "B": "models/forklift.mdl",
+   "C": "models/can.mdl",
+   "D": "models/filecabinet.mdl",
+   "E": "models/w_security.mdl",
+   "F": "models/w_longjump.mdl",
+   "G": "models/w_9mmclip.mdl",
+   "H": "models/headcrab.mdl",
+   "I": "models/w_medkit.mdl",
+   "J": "models/mbarrel.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "The left/right silhouette overlap is 0.765, under the 0.80 needed for a 2. Front/back (0.904) and top/below (0.894) pass. In the side views the original's body slopes down from the seat to a rounded front cowl near the mast. The reproduction's body is a tall rectangular box with a flat top and square front corners, so it bulges above the original outline over the front wheel and at the rear top corner. The rear counterweight is also squarer than the original's rounded back."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured size is 186.6 x 60 x 113.4 for both, an exact match on length, width and height, with no off share."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Every component is there in the right number and place: the mast with two uprights, the fork carriage and two forks, the overhead guard on four posts, the seated driver with a yellow hard hat, the steering wheel, four wheels, the rear counterweight with its grille and the step. The body shell is the wrong shape. The original's front cowl is a rounded, sloped panel curving down to the floor by the mast (seen side-on and in the front-left and front-right views). The reproduction makes it a vertical box panel, and the rear hood is a flat-topped box instead of a rounded one. The mast uprights are also narrower, with spaced orange dots in place of the original's continuous ladder strip."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The mean colour difference (deltaE) is 14, just under 15, and the main regions match: a white/grey painted body, a red lower skirt, a black mast, guard and forks, the green driver and the yellow helmet. The underside is wrong, though. In the below view the original's chassis is dark grey/black, while the reproduction's is solid red. The back-left (19.4) and back-right (18.2) views are well over 15, where the reproduction's rear body is brighter white with harsher black streaks than the original's soft grey."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The HAIHAN lettering on the red skirt, the 2.2 decal, the rear grille vents, the side vents and the worn black mast texture are all there in roughly the right places. The textures are stretched and smeared across the new box faces: the cowl front in the front-left and front-right views shows streaky, distorted panels, and the 2.2 decal sits on a flat vertical face instead of the sloped hood. The mast's lit stripe is broken into separate orange dots, and the white panels are noisier than the original's clean shading."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "At game size it reads as the same white-and-red forklift with the same driver, mast and guard. Side by side, though, the boxy flat-topped body and the square front cowl are clearly visible against the original's rounded, sloping shell, especially in the side and three-quarter views. A player comparing the two would see that they are different models."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The forks face the same way as the original's, the model is upright, and the wheels sit on the same ground line with the same footprint and the same placement relative to the origin in every view."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's check reports no errors. The reproduction has 1092 triangles against the original's 749, under twice the original (1498). Nothing in the views looks open, inside out or floating."
+  }
+ },
+ "total": 11,
+ "of": 16,
+ "passes": false
+}
