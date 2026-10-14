@@ -107,6 +107,7 @@ node bin/smak.mjs pieces <mdl> [--body n]          its loose pieces, each with i
 node bin/smak.mjs view <folder|mdl> [more ...]     the viewer, for the person: two models side by side in the browser
 node bin/smak.mjs mcp --work <dir> [--models <dir>]  the kit as an MCP server, for a client with no shell (mcp/README.md)
 node bin/smak.mjs edit <folder|mdl>                the editor, for the person: animations, events and textures by hand
+node bin/smak.mjs video <spec.json> -o dir [--preview]   a video of models and maps from a shot list (docs/SPEC.md, "A video")
 ```
 
 For maps (their recipes are under "Maps"):

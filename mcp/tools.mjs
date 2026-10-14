@@ -24,6 +24,7 @@ import { buildModelSpec } from "../src/spec/model.mjs";
 import { buildSoundSpec } from "../src/spec/sound.mjs";
 import { buildWadSpec } from "../src/spec/wad.mjs";
 import { buildSpriteSpec } from "../src/spec/sprite.mjs";
+import { buildVideoSpec } from "../src/spec/video.mjs";
 import { buildMapSpec } from "../src/spec/map.mjs";
 import { summaryOf, changesOf } from "../src/spec/changes.mjs";
 import { run, pictureWithin, TIMEOUT_SECONDS, OUTPUT_MOST, SHOWN_MOST, PICTURE_MOST } from "./run.mjs";
@@ -718,6 +719,25 @@ function build(folders, args) {
     if (files.models) show(smak.unpng(readFileSync(files.models)));
     return [text(lines.join("\n")), ...pictures];
   }
+  if (spec?.spec === "smak.video/1") {
+    // a video of the folders' models and maps: a contact sheet first (preview, unless told), the video when asked
+    return buildVideoSpec(spec, {
+      model: (name) => readModel(folders, name).src,
+      map: (name) => readFileSync(pathOf(folders, name)),
+      folders: [folders.models, ...(folders.wads ?? [])].filter(Boolean),
+      preview: args.preview !== false,
+    }).then(({ report, files }) => {
+      const lines = reportLines(report);
+      mkdirSync(folders.work, { recursive: true });
+      writeFileSync(join(folders.work, `${spec.name}.spec.json`), `${JSON.stringify(spec, null, 2)}\n`);
+      if (files.video) {
+        const file = join(folders.work, `${spec.name}.${files.format}`);
+        writeFileSync(file, files.video);
+        lines.push(`written: work:${spec.name}.${files.format} (${(files.video.length / 1e6).toFixed(2)} MB)`);
+      } else lines.push("a preview: look at the frames, then build again with preview: false to make the video");
+      return [text(lines.join("\n")), image(pictureWithin(files.sheet))];
+    });
+  }
   if (spec?.spec === "smak.sprite/1") {
     // sprites: each under work:<its name> (sprites/...spr), with its contact sheet and an animated picture
     const { report, files } = buildSpriteSpec(spec);
@@ -776,7 +796,7 @@ function build(folders, args) {
     return [text(lines.join("\n")), ...pictures];
   }
   if (spec?.spec !== "smak.model/1")
-    throw new Error('spec: a model spec ("spec": "smak.model/1"), a map spec ("smak.map/1"), a sound spec ("smak.sound/1"), a textures spec ("smak.wad/1") or a sprite spec ("smak.sprite/1"); guide { doc: "spec" } says how to write one');
+    throw new Error('spec: a model spec ("spec": "smak.model/1"), a map spec ("smak.map/1"), a sound spec ("smak.sound/1"), a textures spec ("smak.wad/1"), a sprite spec ("smak.sprite/1") or a video spec ("smak.video/1"); guide { doc: "spec" } says how to write one');
   const { mdl, report, files = [] } = buildModelSpec(spec, { folder, games: folders.wads ?? [], readPicture: (name) => smak.unpng(readFileSync(pathOf(folders, name))) });
   const lines = reportLines(report);
   if (mdl) {
@@ -989,12 +1009,13 @@ export function toolsFor(folders, { allowRun = true } = {}) {
     {
       name: "build",
       description:
-        'A model, map or sound from a JSON spec (guide { doc: "spec" }): built, checked (holes, leaks, reach, light; a sound against the game\'s), compiled, drawn. Says OK or what to fix, and what changed since the last build.',
+        'A model, map, textures, sound, sprite or video from a JSON spec (guide { doc: "spec" }): built, checked (holes, leaks, reach, light; a sound or sprite against the game\'s; a video\'s smoothness), compiled, drawn. Says OK or what to fix, and what changed since the last build.',
       inputSchema: object(
         {
           spec: { description: "the spec, or a .json file of the folders" },
           reference: { type: "string", description: "a PNG drawn beside the result" },
           focus: { type: "array", items: { type: "string" }, description: "model parts to see close" },
+          preview: { type: "boolean", description: "a video: false renders and encodes it (default: a contact sheet)" },
         },
         ["spec"],
       ),

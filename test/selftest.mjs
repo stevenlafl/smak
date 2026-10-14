@@ -55,6 +55,7 @@ const areas = [
   "44-maps-measure", // a map in numbers (widths, headroom, sight) and beside others; maps at one scale; views from starts together, a view of one colour left out
   "46-specs", // models and maps from specs (the tool build): the shape's soundness, layout by words, modules, linings, water, glass
   "47-audio", // sounds: a GoldSrc file written and read, measured, checked, made from a spec, built by the tool
+  "49-video", // video: a camera path at an even speed, shots made into frames, a GIF of our own, built by the tool
   "19-example-and-kit-faults", // the examples' wrong arguments and refused models; the kits' fittings and rings
 ];
 

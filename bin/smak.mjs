@@ -1220,6 +1220,27 @@ async function buildSpec({ command, file, flags, listed }) {
   if (!said.startsWith("OK")) process.exit(1);
 }
 
+/**
+ * video: a smak.video/1 spec made into a video (MP4 with ffmpeg, a GIF without), or with --preview its contact
+ * sheet only. Its models and maps are found in --models, or beside the spec; the map's textures in --wads.
+ */
+async function videoSpec({ command, file, flags, listed }) {
+  const out = need(command, flags.o, "-o <folder>");
+  mkdirSync(out, { recursive: true });
+  const { toolsFor } = await import("../mcp/tools.mjs");
+  const models = resolve(flags.models ?? dirname(resolve(file)));
+  const folders = { work: resolve(out), models, wads: listed.wads ?? [] };
+  const build = toolsFor(folders, { allowRun: false }).find((tool) => tool.name === "build");
+  const spec = JSON.parse(readFileSync(file, "utf8"));
+  const answer = await build.call({ spec, preview: flags.preview === true });
+  const said = answer.filter((piece) => piece.type === "text").map((piece) => piece.text).join("\n");
+  answer
+    .filter((piece) => piece.type === "image")
+    .forEach((piece) => writeFileSync(join(out, `${spec.name}-sheet.png`), Buffer.from(piece.data, "base64")));
+  console.log(said);
+  if (!said.startsWith("OK")) process.exit(1);
+}
+
 // ── maps ───────────────────────────────────────────────────────────────────
 // A map command reads its own file: a compiled map (.bsp), brush source (.map) or a texture file (.wad).
 const { maps } = smak;
@@ -2113,6 +2134,38 @@ function mapCompile({ command, file, flags, listed }) {
   process.exit(result.bsp ? 0 : 1);
 }
 
+// ── map-decompile ──────────────────────────────────────────────────────────
+/**
+ * map-decompile: a compiled map made back into brush source. The .wad files its worldspawn lists are kept
+ * where they are found: in the --game folders, and in the folder its maps/ folder is in (`valve` for
+ * valve/maps/x.bsp). What it carries inside it that none of them has is written beside the .map as
+ * <name>_dc.wad, already named in the `wad` key.
+ */
+function mapDecompile({ command, file, flags, listed }) {
+  const to = need(command, flags.o, "-o out.map");
+  if (isSource(file)) fail(`${command}: a compiled map (.bsp) is what is decompiled, not ${basename(file)}`);
+  const name = basename(file).replace(/\.bsp$/i, "");
+  const folders = [...new Set([...(listed.game ?? []).map(existingFolder), dirname(dirname(resolve(file)))])];
+  const started = performance.now();
+  const result = maps.decompile(readFileSync(file), {
+    name,
+    folders,
+    canon: flags.canon !== false,
+    tips: flags.tips !== false,
+    cuts: flags.cuts !== false,
+    merge: flags.merge !== false,
+  });
+  save(to, result.map);
+  console.log(`      ${maps.decompileSummary(result)}`);
+  if (result.wad) {
+    const wadFile = join(dirname(to), result.wad.name);
+    save(wadFile, result.wad.bytes);
+    console.log(`      ${result.wad.textures.length} textures it carries inside it, in none of its .wad files: ${wadFile}`); // prettier-ignore
+  }
+  for (const warning of result.warnings) console.log(`WARN  ${warning}`);
+  console.log(`${to}: decompiled in ${((performance.now() - started) / 1000).toFixed(1)} s`);
+}
+
 // ── play ───────────────────────────────────────────────────────────────────
 /**
  * play: a map seen in the game itself, in a browser build of the engine at an address. The steps are checked
@@ -2568,6 +2621,15 @@ const COMMANDS = {
                                             for hlcsg and hlbsp, 900 for hlvis and hlrad). --progress: what the compilers print is
                                             handed on as they work, on standard error (so by itself, to a terminal)`,
   },
+  "map-decompile": {
+    run: mapDecompile,
+    own: true,
+    help: `  map-decompile <bsp> -o out.map [--game <folder> ...] [--no-canon] [--no-tips] [--no-cuts] [--no-merge]
+                                            a compiled map made back into brush source (Valve 220): a brush for each solid region of
+                                            its tree, every face wearing the texture it wore. Its .wad files are kept where found
+                                            (--game, and the folder above its maps/); what it carries inside it that none has goes to
+                                            <name>_dc.wad beside the .map. --no-*: one of its rules off, to see what that rule does`,
+  },
   play: {
     run: playMap,
     own: true,
@@ -2601,6 +2663,13 @@ const COMMANDS = {
                                             a model or a map from a spec (docs/SPEC.md): built, checked, compiled and drawn, as the MCP
                                             tool build does it; the result, its spec, report.txt and the pictures go to the folder, and
                                             a second build there says what changed. Exit code 1 unless it says OK`,
+  },
+  video: {
+    run: videoSpec,
+    own: true,
+    help: `  video <spec.json> -o <folder> [--preview] [--models <folder>] [--wads <folder> ...]
+                                            a video of models and maps from a smak.video/1 spec (docs/SPEC.md): shots drawn and
+                                            checked for smoothness, MP4 with ffmpeg (a GIF without); --preview: a contact sheet only`,
   },
   mcp: {
     run: mcp,

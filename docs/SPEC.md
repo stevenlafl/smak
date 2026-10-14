@@ -439,6 +439,41 @@ The report gives each sprite's colours, the border's light, how it starts and en
 and how much it flickers, each against Half-Life's own of its class, and the render mode to place it with.
 FAULTs: a loop that jumps at its wrap, a one-shot that does not end dark, light at the border.
 
+## A video
+
+A video of the kit's models and maps, for sharing: shots one after another, each a camera move drawn frame by
+frame and checked for smoothness, previewed as a contact sheet before it is made.
+
+```json
+{
+  "spec": "smak.video/1",
+  "name": "showcase",
+  "size": [960, 540], "fps": 30,
+  "shots": [
+    { "kind": "title", "seconds": 2, "text": "LAMP POST" },
+    { "kind": "turntable", "model": "lamp.mdl", "seconds": 6, "pitch": 10, "caption": "lamp, 210 triangles" },
+    { "kind": "flyover", "map": "square.bsp", "seconds": 8, "height": 600, "turns": 0.5 },
+    { "kind": "walk", "map": "square.bsp", "from": "info_player_start", "to": "weapon_shotgun", "speed": 200 }
+  ]
+}
+```
+
+| kind | what it draws | fields |
+| --- | --- | --- |
+| `title` | words on a plain ground | `text`, `seconds` |
+| `turntable` | the model turning on the spot, at one scale over the shot | `model`, `seq` (played as it turns), `turns` (1), `from` (20), `pitch`, `zoom`, `body`, `skin` |
+| `sheet` | the six-sided sheet, playing an animation | `model`, `seq` |
+| `animations` | animations one after another, from one camera | `model`, `seqs`, `each` (seconds), `view` (`side` with `ground`) |
+| `flyover` | the map from above, circling its middle | `map`, `height` (400), `turns` (0.5), `from`, `fov` |
+| `walk` | through the map at a player's eye, along the walk test's way | `map`, `from` and `to` (entities by class, name or number), `speed` (160), `eye` (64) |
+| `path` | a camera along keys, eased at its ends | `map`, `keys: [{ t, at, look ([x, y, z] or ahead), fov }]` |
+
+Every shot takes `seconds` (unless its path says), `caption`, and for a map `brightness`, `fov`, `entities`.
+`build` gives a contact sheet of four frames a shot unless told `preview: false`; then it draws every frame,
+tells each shot's change from frame to frame (a FAULT for a frame that jumps, or an eye in a wall) and writes
+`work:<name>.mp4` (H.264, through ffmpeg) or a GIF (`format: "gif"`, or when there is no ffmpeg). On the
+command line: `smak video spec.json -o folder [--preview] [--models folder]`.
+
 ## A map
 
 ```json
