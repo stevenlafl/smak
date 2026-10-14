@@ -138,7 +138,11 @@ makes them is in `docs/SPEC.md`, "A sound"; why each rule is so, in `research/so
 | `CLASSES`, `rangesOf(name)`, `scoreAgainst(features, name)` | What the game's own sounds of each kind measure (numbers, not files), their ranges widened, and a sound held against them: `{ score, of, lines }`, each feature 2 in range, 1 near, 0 off, the ones off in words. |
 | `soundPicture([{ name, x, rate, loop }], { width = 640 })` | Each sound's waveform over its spectrogram, one under another at one time scale. |
 | `fft(re, im)`, `spectrum(x, rate, size)` | A radix-2 FFT in place; a sound's power by bin, frame by frame. |
-| `buildSoundSpec(spec, { games })`, `validateSoundSpec(spec)` | A sound spec built: `{ report, files: [{ name, bytes }], picture }` (what the tool `build` does with one). |
+| `shapedNoise(shape, n, rate, random, { iterations })`, `shapeAt(shape, t)`, `curveAt(curve, f)` | Noise of `n` samples whose spectrum is a curve `[[Hz, dB], ...]` or a moving `{ keys: [{ at, curve }] }` (frames of 512, a hop of 128, random phases, then `iterations` of Griffin-Lim); 0 dB is the kit's white noise. A shape's curve at a time; a curve's dB at a frequency. |
+| `limitTo(x, after, { crest, release = 0.002 }, rate)` | A look-ahead peak limiter: `x` (at full scale) squashed until it, made up and with `after` added, has that crest in dB. |
+| `fromPicture(png, { points = 16, iterations = 32, name, length, rate, row })` | A sound's picture (as `soundPicture` draws it) read to a draft spec: `{ spec, measures, lines, onsets }`, a noise layer with a moving shape, its envelope's points and a `modes` layer a tone line. Numbers, never samples. |
+| `pictureMeasures(png, { length, rate, row })`, `readSoundPicture(png, options)` | What a judge measures of a sound, read off its picture: `{ length, rate, loop, peak, crest (about, within 3 dB), t20, centroid, bands, onsets, onsetTimes, levels }`; the picture decoded: its outline, its frames' dB by bin. |
+| `buildSoundSpec(spec, { games, folder, readPicture })`, `validateSoundSpec(spec)` | A sound spec built: `{ report, files: [{ name, bytes }], picture }` (what the tool `build` does with one). A spec's `picture` is read by `readPicture(name)`, from `folder` unless given. |
 
 ## Sprites (`src/sprite/`, `src/spec/sprite.mjs`)
 

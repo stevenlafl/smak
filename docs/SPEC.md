@@ -189,6 +189,9 @@ a part that comes apart in any of them is a fault (`in run2 frame 11: ... thumb_
 - `bone`: the bone a part placed by `at` hangs on (a rib built in the chest's space).
 - Left and right are given apart, each on its own side's bones; `mirror: "y"` of a part on a middle bone
   copies it across, and a mirrored part on an `L` bone hangs its copy on the `R` one.
+- `floor`: where its feet stand. A player model's origin is the middle of its hull, so its feet are at -36; a
+  monster's origin is its feet, at 0. A monster made on a player's skeleton (Gordon's) gives `"floor": 0`, and
+  every animation is lifted so that it stands on the floor and not sunk to its hips; a player keeps -36.
 - Bones may be named in English or as the base names them. 3ds Max's Biped names its bones in the language
   it ran in: The Specialists' own player (`player/gordon/gordon.mdl` of the `ts` folder, every stunt in
   it) says `Bip01 Testa`, `Bip01 SX Mano`, `Bip01 Dorso1`, `Bip01 Dito mano DX0` where Half-Life's says
@@ -359,32 +362,58 @@ told), checked as the engine needs them, and measured against the game's own sou
 | `seed` | Every random choice: the same spec makes the same bytes |
 | `length`, `pitch` | Seconds (unless told, the longest layer's end); a pitch in percent |
 | `layers` | Each `{ id, kind, at (s), length (s), gain (dB), env, filter }` (below) |
-| `finish` | `room: { decay, wet, tone }` (keep it short: the map's `env_sound` adds the room), then `saturate` (a drive, 1 to 8: what makes a shot loud, its room's tail squashed up to its blast), `peak` (dBFS, -0.5) |
+| `finish` | `room: { decay, wet, tone }` (keep it short: the map's `env_sound` adds the room), then `saturate` (a drive, 1 to 8: what makes a shot loud, its room's tail squashed up to its blast), then `limit: { crest, release }` (a peak limiter squashing the mix until its peak over its RMS is `crest` dB: Valve's weapons are 6 to 10, steps 15 to 21; `release` 0.002 s), `peak` (dBFS, -0.5) |
 | `loop` | `true` or `{ crossfade }`: a cue point at its start, its seam crossfaded; the engine loops it |
 | `variants` | More files from the same layers: `{ name, seed, pitch, gain }` (`cbar_hit2`, `pl_step1` to `4`) |
 | `reference` | The game's files to draw beside it (unless told, the first of its class), read from the game folders the server was given and never copied |
+| `picture` | A picture of the sound it is to be, as the kit draws one (a waveform over a spectrogram, its length in its label): `"sound.png"`, or `{ file, length, rate, row }` when its label or marks cannot be read. The report then gives the numbers read off it beside the made sound's (below) |
 | `sounds` | A set: a list of sounds, the spec's other fields their defaults |
 
 The kinds of layer:
 
 | kind | fields | what it is |
 | --- | --- | --- |
-| `noise` | `color`: `white`, `pink`, `brown` | a hiss, a whoosh, a blast, a scrape: shaped by its filters |
+| `noise` | `color`: `white`, `pink`, `brown`; or `shape` (below), `iterations` | a hiss, a whoosh, a blast, a scrape: shaped by its filters, or by a curve as steep as it says |
 | `tone` | `f`, `wave` (`sine`, `square`, `saw`, `triangle`), `sweep: { to, time }` | a boom that falls (`f` 140, `to` 45), a beep |
 | `fm` | `f`, `ratio`, `index`, `indexDecay` | a bell, a metallic ring, a machine |
 | `modes` | `f` and `ratios` (`bar`, `clamped`, `plate`, `bell`, `tube`, or a list), `gains`, `decay` (s to -60 dB), `damping`, `detune`; or `modes: [{ f, gain, decay }]` | a struck thing ringing: a wrench, a bell, a casing, a plate |
-| `particles` | `count` or `rate` (a second), `band: [lo, hi]` Hz, `grain` (s) | gravel, a rattle, debris, crackle |
+| `particles` | `count` or `rate` (a second), `band: [lo, hi]` Hz, `grain` (s); or `every` (s) and `jitter` (0 to 1 of `every`) | gravel, a rattle, debris, crackle; with `every`, a train of pulses: a door's stop, a ratchet |
 
 `env`: `{ attack, hold, decay }` in seconds (`decay` to -60 dB), `{ shape: "bell", decay }` (a swell up and
 down, a swing's whoosh), or `points: [[t, dB], ...]`. `filter`: a list of `{ type: lowpass | highpass |
 bandpass | peak | notch, f, q, gain, sweep: { to, time } }`. A layer's `at` puts it later: a pump is two
-clacks 0.2 apart, a step a heel and a toe.
+clacks 0.2 apart, a step a heel and a toe. Any layer also takes `drive` (1 to 20: that layer saturated
+alone, at its own peak) and `post: true` (added after the finish's saturation and limiter, its `gain` in dB of
+the squashed body's peak: a crack of 1 to 3 ms of white noise high-passed at 2 kHz keeps its onset that way).
+
+A noise layer's `shape` is its spectrum, made in the frequency domain where the biquads cannot reach (their
+skirts leak into each other): `[[Hz, dB], ...]`, straight between its points on a log scale of frequency
+and held past its ends, 0 dB everywhere being the white noise of `color: "white"`; or a shape that moves,
+`{ keys: [{ at, curve }] }`, each point's dB going straight from one key to the next (`at` in seconds from the
+layer's start). `iterations` (0 to 200, 0 unless told; 32 is plenty) makes the frames' phases agree, so the
+sound's spectrogram follows the curve closer; a long sound takes a second or more for it. The `env` still
+gives its loudness.
+
+```json
+{ "id": "blast", "kind": "noise", "iterations": 32, "env": { "points": [[0, 0], [0.4, -3], [1.0, -40]] },
+  "shape": { "keys": [{ "at": 0, "curve": [[60, -12], [300, 0], [1200, -2], [4000, -14], [11000, -30]] },
+                      { "at": 0.5, "curve": [[60, -6], [300, 0], [1200, -8], [4000, -26], [11000, -45]] }] } }
+```
+
+**From a picture.** `audio.fromPicture(png)` reads a sound's picture as the kit draws it (its label gives the
+length, its marks the rate) and returns a draft spec of tens of numbers: one noise layer whose `shape` moves
+through keys read off the spectrogram (where it starts, its loudest, and as it falls by 6, 12, 20, 30 and 45
+dB), its `env` points, and a `modes` layer for each tone line it finds, with its level and decay. Edit it:
+add a crack, a `limit` at the crest wanted, and change what the picture cannot say. It never gives samples:
+a picture inverted to sound is a traced copy of the recording it was drawn from.
 
 What the report says of a sound: each file's rate, length, peak, RMS and crest; its attack, T20 and T40
 (seconds to -20 and -40 dB), centroid (Hz: bright or dark), flatness (0 a pure tone, 1 white noise),
 onsets, and its power in five bands; then, with a `class`, how many of its features are in the range of
 the game's own of that kind, and each one off in words with which way to go (`centroid 881 Hz (1074 to
-1654): too dark: more 600 to 5000 Hz`). `FAULT`s are what the engine would do wrong: clipping, an offset,
+1654): too dark: more 600 to 5000 Hz`); with a `picture`, the numbers read off it beside its own: length,
+centroid and the band most off (each with how far off), T20 against its class's range (or the picture's own
+within a quarter), crest (the picture's is read off its outline, within 3 dB) and onsets. `FAULT`s are what the engine would do wrong: clipping, an offset,
 silence before it starts (it plays late), an end that clicks, a loop with no cue or a seam that jumps. The
 picture is each file's waveform over its spectrogram (log frequency, 50 Hz at the bottom), the game's own
 of its kind under them at the same time scale. What it cannot say is how it sounds, or how the game plays

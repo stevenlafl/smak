@@ -12,7 +12,7 @@ import { join, basename, dirname } from "node:path";
 import { tmpdir } from "node:os";
 import { execFileSync } from "node:child_process";
 import { HERE, KIT, GAME, savePng, besides } from "./lib.mjs";
-import { runAgent } from "./agents.mjs";
+import { runAgent, runJudge } from "./agents.mjs";
 import * as smak from "../../src/index.mjs";
 import { tile } from "../../src/render.mjs";
 import { sheetOf } from "../../src/sprite/draw.mjs";
@@ -338,7 +338,7 @@ async function judgeOne(kind, subject, leg, copyFile, { decoy } = {}) {
   const head = `You are an independent judge. A ${kind === "textures" ? "set of replacement textures" : kind === "sounds" ? "replacement sound" : "reproduction of a sprite"} was made of a game's own by someone who could not open the original's files. Judge it strictly by the rubric below (the "${TITLE[kind]}" table, and "Passing" and "Keeping the judge honest"). A measured item may score lower than its measurement allows, never higher.`;
   if (kind === "textures") {
     const m = measureTexturesCopy(original, copy, dir);
-    const r = await runAgent({
+    const r = await runJudge({
       read: dir,
       hours: 1,
       prompt: `${head}\n\nThe pictures: ${m.pictures}. Look at every picture closely.\n\nThe measurements, texture by texture (deltaE: the mean colour of its view, original against replacement; flatDeltaE: the same of the textures themselves, flat; present and sizeKept: the replacement has the name and its size):\n${JSON.stringify(m.rows)}\n\nScore EVERY texture, items ${items.join(", ")}, 0, 1 or 2 each with a reason. Reply with JSON alone: { "<texture name>": { ${items.map((i) => `"${i}": { "score": 0, "reason": "..." }`).join(", ")} }, ... }\n\nTHE RUBRIC\n${RUBRIC}`,
@@ -352,7 +352,7 @@ async function judgeOne(kind, subject, leg, copyFile, { decoy } = {}) {
     return { kind, subject: subject.id, leg: decoy ? `decoy: ${decoy}` : leg, textures: results, passed, of: results.length, passes: passed >= 0.8 * results.length, total: passed, error: Object.keys(judged).length ? undefined : "the judge's answer was not JSON" };
   }
   const m = kind === "sprites" ? measureSpriteCopy(original, copy, dir) : measureSoundCopy(original, copy, dir, subject);
-  const r = await runAgent({
+  const r = await runJudge({
     read: dir,
     hours: 0.5,
     prompt: `${head}\n\nThe pictures: ${m.pictures}. Look closely.\n\nThe measurements:\n${JSON.stringify(m.measured, null, 1)}\n\n${kind === "sounds" ? "You cannot listen: judge S1 and S4 from the pictures and features, and say so in their reasons.\n\n" : ""}Score every item, ${items.join(", ")}, 0, 1 or 2, each with a reason. Reply with JSON alone: {${items.map((i) => `"${i}": { "score": 0, "reason": "..." }`).join(", ")}}\n\nTHE RUBRIC\n${RUBRIC}`,

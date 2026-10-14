@@ -12,7 +12,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSy
 import { join, basename } from "node:path";
 import { execFileSync } from "node:child_process";
 import { HERE, GAME, POSE, SIDES, ANGLES, readModel, boxOf, picturesOf, savePng, besides } from "./lib.mjs";
-import { runAgent } from "./agents.mjs";
+import { runAgent, runJudge } from "./agents.mjs";
 import { measureModel } from "./judge.mjs";
 import { tile, render, framing, strip } from "../../src/render.mjs";
 import { sequences } from "../../src/index.mjs";
@@ -119,7 +119,7 @@ function reproducePrompt(kind, s, given) {
     return `Make this weapon for the GoldSrc engine with a model spec of kind "held" with weapon: { like: "${s.like}" } (guide { doc: "spec" }, "A weapon in place of a game's"): it is fitted into the game's own v_${s.like}.mdl, p_${s.like}.mdl and w_${s.like}.mdl, keeping their hands and animations, and replaces the weapon in them. Make it as close to the original as you can: its shape, size, parts, colours and markings, held the way the original is, in all three views. Name the spec ${s.id}.mdl. ${judged} Build until the build says OK.\n\n${given}`;
   if (kind === "players")
     return `Make this player model for The Specialists, a GoldSrc mod, with a model spec of kind "character" (guide { doc: "spec" }, "A character on a game's skeleton") on the mod's own player, ${s.base}: its skeleton and its 171 animations (every stunt, dive, roll and wall jump), which the mod's code plays by name and by number and whose bones, attachments and bodyparts it uses. Keep all of that as it is, and give the spec contract: { file: "${s.base}" } so the build checks it. Make the body as close to the original as you can: its build and proportions, every part, its colours and markings, standing as the original stands in the first frame of its first animation. Name it ${s.id}.mdl. ${judged} Build until the build says OK.\n\n${given}`;
-  return `Make this character for the GoldSrc engine with a model spec of kind "character" (guide { doc: "spec" }, "A character on a game's skeleton"), on a skeleton of the game's models (player/gordon/gordon.mdl, or another that suits it; its own is not available), keeping that skeleton's animations. Make it as close to the original as you can: its build and proportions, every part, its colours and markings, standing as the original stands in the first frame of its first animation. Name it ${s.id}.mdl. ${judged} Build until the build says OK.\n\n${given}`;
+  return `Make this character for the GoldSrc engine with a model spec of kind "character" (guide { doc: "spec" }, "A character on a game's skeleton"), on a skeleton of the game's models (player/gordon/gordon.mdl, or another that suits it; its own is not available), keeping that skeleton's animations. It is a monster, which stands with its feet at its origin: give the spec "floor": 0. Make it as close to the original as you can: its build and proportions, every part, its colours and markings, standing as the original stands in the first frame of its first animation. Name it ${s.id}.mdl. ${judged} Build until the build says OK.\n\n${given}`;
 }
 
 async function describe(kind, s) {
@@ -233,7 +233,7 @@ async function judgeOne(kind, s, leg, built, { decoy } = {}) {
   }
   const line = await lineup(kind, s, copy, dir);
   const items = [...ITEMS, item, ...(s.stunt ? ["C2"] : [])];
-  const r = await runAgent({
+  const r = await runJudge({
     read: dir,
     hours: 0.5,
     prompt: `You are an independent judge. A reproduction was made of a game ${kind === "weapons" ? "weapon" : kind === "players" ? "player model" : "character"} by someone who could not open the original's files. Judge it strictly by the rubric below (the "Models" table, the "Weapons, characters and creatures" section, "Passing", "Keeping the judge honest" and the "Amendments"). A measured item may score lower than its measurement allows, never higher.\n\nThe pictures: ${dir}/compare-sides.png and ${dir}/compare-angles.png (each view twice, the same camera and scale, ORIGINAL left, REPRODUCTION right), ${extra} Look at every picture closely.\n\nThe measurements:\n${JSON.stringify(measured, null, 1)}\n\nFor M6, judge only whether a player would take it for the original; the line-up is run separately.\n\nScore every item, ${items.join(", ")}, 0, 1 or 2, each with a reason. Reply with JSON alone: {${items.map((i) => `"${i}": { "score": 0, "reason": "..." }`).join(", ")}}\n\nTHE RUBRIC\n${RUBRIC}`,

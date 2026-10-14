@@ -13,7 +13,7 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync
 import { join, dirname } from "node:path";
 import { execFileSync } from "node:child_process";
 import { HERE, KIT, SUBJECTS, GAME, POSE, SIDES, ANGLES, readModel, boxOf, picturesOf, savePng, besides, silhouettes, colourDifference, fitness } from "./lib.mjs";
-import { runAgent } from "./agents.mjs";
+import { runAgent, runJudge } from "./agents.mjs";
 import { framing, tile, render } from "../../src/render.mjs";
 import { buildModelSpec } from "../../src/spec/model.mjs";
 import { maps, unpng } from "../../src/index.mjs";
@@ -153,7 +153,7 @@ async function judgeModel(model, leg, copyFile, { decoy } = {}) {
   const { measured, caps, pictures } = measureModel(original, copy);
   comparePictures(dir, pictures);
   const line = await lineup(join(dir, "lineup"), copy, model.file);
-  const r = await runAgent({ read: dir, hours: 0.5, prompt: judgePrompt("model", dir, measured) });
+  const r = await runJudge({ read: dir, hours: 0.5, prompt: judgePrompt("model", dir, measured) });
   const settled = settle("model", r.answer, caps, { M6: line.picked === line.right ? 2 : 1 });
   return { subject: model.id, leg: decoy ? `decoy: ${decoy}` : leg, measured, caps, lineup: line, ...settled };
 }
@@ -312,7 +312,7 @@ async function judgeMap(map, leg, copyFile, { decoy } = {}) {
   }
   savePng(join(dir, "views.png"), tile(pairs, 2, starts.map((e, n) => `start ${n + 1}: ORIGINAL | REPRODUCTION`)));
   for (const f of readdirSync(dir)) if (/^v\d+[ab]\.png$|^section-/.test(f)) rmSync(join(dir, f));
-  const r = await runAgent({ read: dir, hours: 0.75, prompt: judgePrompt("map", dir, measured) });
+  const r = await runJudge({ read: dir, hours: 0.75, prompt: judgePrompt("map", dir, measured) });
   return { subject: map.id, leg: decoy ? `decoy: ${decoy}` : leg, measured, caps, ...settle("map", r.answer, caps) };
 }
 

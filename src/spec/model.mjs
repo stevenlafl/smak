@@ -68,7 +68,7 @@ const ON_SURFACE = new Set(["band", "boss", "ridge", "studs"]);
 /** The anchors every part has: the middles of the faces of its box, and its middle. */
 const BOX_ANCHORS = ["top", "bottom", "front", "back", "left", "right", "centre"];
 /** The fields a spec takes at its top. */
-const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "weapon", "finish", "smooth", "project", "budget", "contract", "note"];
+const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "weapon", "finish", "smooth", "project", "budget", "contract", "floor", "note"];
 /** A texture's side unless told; a kit's picture is made this much smaller (the kits paint at 1024 wide). */
 const SHEET_SIZE = 256;
 const KIT_SHRINK = 2;
@@ -128,6 +128,8 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
   };
   finishErrors(spec.finish, "finish");
   if (spec.budget !== undefined && !(Number.isInteger(spec.budget) && spec.budget > 0)) errors.push("budget: the most triangles the model may have, a whole number");
+  if (spec.floor !== undefined && !(typeof spec.floor === "number" && Number.isFinite(spec.floor))) errors.push("floor: where its feet stand, 0 for a monster (its origin at its feet) or -36 for a player (its origin the middle of its hull)");
+  if (spec.floor !== undefined && !spec.base) errors.push("floor: a character's, on a base model's skeleton: give the spec a base");
   for (const [where, value] of [["smooth", spec.smooth], ...(spec.parts ?? []).map((part, i) => [`parts[${i}] (${part?.id}).smooth`, part?.smooth])])
     if (value !== undefined && !(isNumber(value) && value >= 0 && value <= 180)) errors.push(`${where}: the angle in degrees (0 to 180) under which faces are shaded as one smooth surface`);
   for (const [i, part] of (spec.parts ?? []).entries()) finishErrors(part?.finish, `parts[${i}] (${part?.id}).finish`);
@@ -1029,6 +1031,17 @@ export function buildModelSpec(spec, { folder, prefabs = {}, games = [], readPic
       errors.push(`putting the body into the base: ${error.message}`);
       return { mdl: null, report };
     }
+    // where its feet stand: a player's origin is the middle of its hull (feet at -36), a monster's its feet (0).
+    // A monster made on a player's skeleton is lifted, every animation's root moved by the difference
+    if (spec.floor !== undefined) {
+      const low = Math.min(...[...skeleton.joints.values()].map((p) => p[2]));
+      const baseFloor = low < -18 ? -36 : 0;
+      const lift = spec.floor - baseFloor;
+      if (lift) {
+        mdl = liftRoot(mdl, lift);
+        report.facts.push(`floor: the base's feet are at ${baseFloor}; every animation lifted ${lift} to stand them at ${spec.floor}`);
+      }
+    }
     // the shape held in the poses the game shows it in: a limb that comes apart when it runs shows here
     // a written triangle is told back to its part by the pixels its corners sit on: each part has its own zone
     const partAt = new Map();
@@ -1212,6 +1225,13 @@ const WEAPON_VIEWS = { v: { shrink: 1, what: "first person" }, p: { shrink: 2, w
  * untouched; the files keep the game's names, so that the game loads them with no code (AGENTS.md, rule 8).
  * Returns [{ name, mdl, view }]; what each became goes in the report.
  */
+/**
+ * How long a first-person (v_) weapon is drawn against its world (w_) model: the median of Half-Life's 13
+ * weapons that have both (0.29 for the RPG to 0.97 for the MP5; research/held-reproduction-failures.md, Table
+ * 3a). Used where the file's own weapon may not be measured (a blind test's hidden original).
+ */
+const V_TO_W = 0.56;
+
 function weaponViews(spec, meshes, { folder, games, report, hide = [] }) {
   const { like, views = ["v", "p", "w"], size = "old", rig = "carry", turn } = spec.weapon;
   if (meshes.length !== 1) {
@@ -1266,8 +1286,10 @@ function weaponViews(spec, meshes, { folder, games, report, hide = [] }) {
     for (const [j, model] of part.models.entries()) {
       if (!weaponTris(model)) continue;
       try {
-        // a hidden file's weapon lends nothing of its own shape: the piece keeps the size it was built at
-        const swapped = swapMesh(mdl, { body: j * part.base, bodypart, piece, texture, size: hidden(fileName) ? "own" : size, turn: typeof turn === "object" && turn ? turn[view] : turn, name: fileName });
+        // a hidden file's weapon lends nothing of its own shape: the piece keeps the size it was built at, and in
+        // first person the size the game's own weapons are drawn at against their world models (V_TO_W)
+        const shown = hidden(fileName) && view === "v" ? { ...piece, tris: piece.tris.map((t) => t.map((c) => ({ ...c, p: c.p.map((v) => v * V_TO_W) }))) } : piece;
+        const swapped = swapMesh(mdl, { body: j * part.base, bodypart, piece: shown, texture, size: hidden(fileName) ? "own" : size, turn: typeof turn === "object" && turn ? turn[view] : turn, name: fileName });
         mdl = swapped.mdl;
         const r = swapped.report;
         const others = r.bones.filter((b) => b !== r.bone);
@@ -1376,6 +1398,20 @@ function skeletonOf(given, folder, games, refuse = []) {
 }
 
 /** The meshes (in model space, each corner with its bone's name) put into the base in place of its bodies. */
+/** Every animation's root bones moved `lift` units up, blend by blend: the whole model stands higher. */
+function liftRoot(src, lift) {
+  const roots = bonesOf(src).map((bone, i) => (bone.parent < 0 ? i : -1)).filter((i) => i >= 0);
+  let mdl = src;
+  sequencesOf(src).forEach((seq, i) => {
+    if (seq.group) return;
+    const blends = Array.from({ length: Math.max(1, seq.blends ?? 1) }, (_, b) =>
+      readSequence(mdl, i, b).frames.map((frame) => frame.map((v, bone) => (roots.includes(bone) ? [v[0], v[1], v[2] + lift, v[3], v[4], v[5]] : v))),
+    );
+    mdl = replaceSequence(mdl, i, blends.length > 1 ? { blends } : { frames: blends[0] });
+  });
+  return mdl;
+}
+
 function intoBase(skeleton, meshes, textures) {
   let mdl = skeleton.src;
   const info = readMdl(mdl);

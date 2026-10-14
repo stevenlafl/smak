@@ -1,9 +1,12 @@
-// Sounds made from layers, in plain arithmetic: noise through filters, tones that sweep, FM, a struck
-// thing's modes, a cloud of small particles, a short room, saturation, and a finish. Every random choice comes
-// from a seed, so a spec gives the same samples every time. research/sound-generation.md, section 4, has the
-// blocks and the recipes.
+// Sounds made from layers, in plain arithmetic: noise through filters or shaped to a curve, tones that sweep,
+// FM, a struck thing's modes, a cloud of small particles or a train of them, a short room, saturation, a
+// limiter, and a finish. Every random choice comes from a seed, so a spec gives the same samples every time.
+// research/sound-generation.md, section 4, has the blocks and the recipes; research/sound-shape-results.md the
+// shaped noise and the limiter.
 //
 //   render(sound, { rate }) -> Float32Array: `sound` is { length, seed, layers, finish, loop }, as a sound spec has it
+
+import { shapedNoise } from "./spectral.mjs";
 
 /** A seeded random number maker, 0 to 1. */
 export function seeded(seed = 1) {
@@ -109,6 +112,8 @@ function noiseSource(color = "white", random) {
   };
 }
 
+const peakOf = (x) => x.reduce((m, v) => Math.max(m, Math.abs(v)), 0);
+
 /** One layer's samples, from its own start: a Float32Array of `seconds`. */
 function layerSamples(layer, seconds, rate, random) {
   const n = Math.max(1, Math.round(seconds * rate));
@@ -117,6 +122,12 @@ function layerSamples(layer, seconds, rate, random) {
   const env = (t) => envelopeAt(layer.env, t);
   switch (layer.kind) {
     case "noise": {
+      if (layer.shape) {
+        // its spectrum given as a curve: made in the frequency domain, then filtered and enveloped as any noise
+        const shaped = shapedNoise(layer.shape, n, rate, random, { iterations: layer.iterations ?? 0 });
+        for (let i = 0; i < n; i++) out[i] = filter(shaped[i], i / rate) * env(i / rate);
+        break;
+      }
       const source = noiseSource(layer.color, random);
       for (let i = 0; i < n; i++) {
         const t = i / rate;
@@ -169,11 +180,13 @@ function layerSamples(layer, seconds, rate, random) {
       break;
     }
     case "particles": {
-      // small bursts at random times through the layer's length: gravel, rattles, debris, crackle
-      const count = layer.count ?? Math.round((layer.rate ?? 30) * seconds);
+      // small bursts at random times through the layer's length: gravel, rattles, debris, crackle; or, with
+      // `every`, one each `every` seconds, moved by up to `jitter` of that: a door's stop, a ratchet, a train
+      const count = layer.every ? Math.ceil(seconds / layer.every) : (layer.count ?? Math.round((layer.rate ?? 30) * seconds));
       const [lo, hi] = layer.band ?? [1500, 4000];
       for (let p = 0; p < count; p++) {
-        const start = Math.floor(random() * n);
+        const start = layer.every ? Math.round((p + (random() - 0.5) * (layer.jitter ?? 0)) * layer.every * rate) : Math.floor(random() * n);
+        if (start < 0 || start >= n) continue;
         const f = lo + random() * (hi - lo);
         const grain = Math.round((layer.grain ?? 0.003) * rate);
         const band = biquad("bandpass", f, rate, 2);
@@ -185,6 +198,12 @@ function layerSamples(layer, seconds, rate, random) {
     }
     default:
       throw new Error(`a layer is noise, tone, fm, modes or particles, not ${layer.kind}`);
+  }
+  // its own drive: this layer saturated alone, at its own peak, so that the others keep their edges
+  if (layer.drive) {
+    const top = peakOf(out) || 1;
+    const d = layer.drive;
+    for (let i = 0; i < n; i++) out[i] = (top * Math.tanh((out[i] / top) * d)) / Math.tanh(d);
   }
   return out;
 }
@@ -210,7 +229,6 @@ function withRoom(x, { decay = 0.3, wet = 0.15, tone = 4000 } = {}, rate, random
   return out;
 }
 
-const peakOf = (x) => x.reduce((m, v) => Math.max(m, Math.abs(v)), 0);
 function normalise(x, dB) {
   const g = 10 ** (dB / 20) / (peakOf(x) || 1);
   for (let i = 0; i < x.length; i++) x[i] *= g;
@@ -222,6 +240,63 @@ function normalise(x, dB) {
  * finished: `saturate` (a drive, tanh), `room`, `peak` (dBFS, -0.5 unless told), a DC block, a trim of
  * silence at the end and a 5 ms fade (one-shots), or a crossfaded seam (`loop`).
  */
+/**
+ * A look-ahead peak limiter (Zölzer, DAFX, chapter 4): the gain at each sample the least that keeps the next
+ * 2 ms under the ceiling, falling at once and coming back over `release` seconds (0.002 unless told: Valve's
+ * weapons are clipped near square, and a slow release of 0.05 squashed the head of a copy of their envelope
+ * and moved its T20 out of range, research/sound-shape-results.md); the body made up to full
+ * scale again and `after` (the later layers) added. The ceiling is found by halving until the sum's crest
+ * (peak over RMS, dB) is `crest`; a mix already under it is left as it is.
+ */
+export function limitTo(x, after, { crest, release = 0.002 }, rate) {
+  const ahead = Math.max(1, Math.round(0.002 * rate));
+  const back = Math.exp(-1 / (Math.max(1e-4, release) * rate));
+  const n = x.length;
+  const wanted = new Float32Array(n);
+  const gain = new Float32Array(n);
+  const out = new Float32Array(n);
+  const squash = (ceiling) => {
+    for (let i = 0; i < n; i++) wanted[i] = Math.min(1, ceiling / (Math.abs(x[i]) || 1e-12));
+    // the least over the 2 ms ahead, by a queue of rising values
+    const queue = new Int32Array(n);
+    let head = 0;
+    let tail = 0;
+    for (let i = n - 1; i >= 0; i--) {
+      while (tail > head && wanted[queue[tail - 1]] >= wanted[i]) tail--;
+      queue[tail++] = i;
+      while (queue[head] > i + ahead) head++;
+      gain[i] = wanted[queue[head]];
+    }
+    let g = 1;
+    for (let i = 0; i < n; i++) {
+      g = gain[i] < g ? gain[i] : gain[i] + (g - gain[i]) * back;
+      out[i] = (x[i] * g) / ceiling + (after ? after[i] : 0);
+    }
+    return crestOf(out);
+  };
+  if (squash(1) <= crest) return out;
+  let lo = Math.log(1e-3);
+  let hi = 0;
+  for (let step = 0; step < 24; step++) {
+    const mid = (lo + hi) / 2;
+    if (squash(Math.exp(mid)) > crest) hi = mid;
+    else lo = mid;
+  }
+  squash(Math.exp(lo));
+  return out;
+}
+
+/** Peak over RMS, in dB. */
+function crestOf(x) {
+  let peak = 0;
+  let squares = 0;
+  for (const v of x) {
+    peak = Math.max(peak, Math.abs(v));
+    squares += v * v;
+  }
+  return 20 * Math.log10((peak || 1e-12) / Math.sqrt(squares / (x.length || 1) || 1e-24));
+}
+
 /** How long a layer takes to die away when it is not told: its envelope's attack, hold and decay (to -60 dB). */
 function naturalLength(layer) {
   if (layer.length) return layer.length;
@@ -236,6 +311,9 @@ export function render(sound, { rate = 22050 } = {}) {
   const length = sound.length ?? Math.max(...sound.layers.map((l) => (l.at ?? 0) + naturalLength(l)));
   const pitch = 1 + (sound.pitch ?? 0) / 100;
   let mix = new Float32Array(Math.round(length * rate));
+  // the layers that come after the finish's saturation and limiter: a crack that keeps its onset
+  const posts = sound.layers.some((layer) => layer.post);
+  let after = posts ? new Float32Array(mix.length) : null;
   sound.layers.forEach((layer, k) => {
     const own = seeded((sound.seed ?? 1) * 7919 + k * 104729);
     const seconds = Math.max(0.001, Math.min(layer.length ?? length - (layer.at ?? 0), length - (layer.at ?? 0)));
@@ -245,12 +323,13 @@ export function render(sound, { rate = 22050 } = {}) {
     for (let i = 0; i < fade; i++) samples[samples.length - 1 - i] *= i / fade;
     const gain = 10 ** ((layer.gain ?? 0) / 20);
     const at = Math.round((layer.at ?? 0) * rate);
+    const into = layer.post ? after : mix;
     for (let i = 0; i < mix.length - at; i++) {
       // a pitch other than 1 plays the layer faster or slower, read between its samples
       const s = i * pitch;
       const j = Math.floor(s);
       if (j + 1 >= samples.length) break;
-      mix[at + i] += (samples[j] + (samples[j + 1] - samples[j]) * (s - j)) * gain;
+      into[at + i] += (samples[j] + (samples[j + 1] - samples[j]) * (s - j)) * gain;
     }
   });
   const finish = { peak: -0.5, ...(sound.finish ?? {}) };
@@ -262,15 +341,31 @@ export function render(sound, { rate = 22050 } = {}) {
     const d = finish.saturate;
     for (let i = 0; i < mix.length; i++) mix[i] = Math.tanh(mix[i] * d) / Math.tanh(d);
   }
-  // a DC block: a one-pole high-pass at 25 Hz
-  const r = 1 - (2 * Math.PI * 25) / rate;
-  let lastIn = 0;
-  let lastOut = 0;
-  for (let i = 0; i < mix.length; i++) {
-    const v = mix[i] - lastIn + r * lastOut;
-    [lastIn, lastOut] = [mix[i], v];
-    mix[i] = v;
+  // a DC block: a one-pole high-pass at 25 Hz; before the limiter when there is one, so that the crest it
+  // reaches is the file's (a block after it moved a squashed shot's peaks by 3 dB)
+  const blockDc = (x) => {
+    const r = 1 - (2 * Math.PI * 25) / rate;
+    let lastIn = 0;
+    let lastOut = 0;
+    for (let i = 0; i < x.length; i++) {
+      const v = x[i] - lastIn + r * lastOut;
+      [lastIn, lastOut] = [x[i], v];
+      x[i] = v;
+    }
+  };
+  if (finish.limit || posts) {
+    blockDc(mix);
+    // at full scale, so that a later layer's `gain` is in dB of the body's peak
+    normalise(mix, 0);
+    if (after) {
+      const longer = new Float32Array(mix.length);
+      longer.set(after.subarray(0, mix.length));
+      after = longer;
+    }
+    if (finish.limit) mix = limitTo(mix, after, finish.limit, rate);
+    else for (let i = 0; i < mix.length; i++) mix[i] += after[i];
   }
+  if (!(finish.limit || posts)) blockDc(mix);
   normalise(mix, finish.peak);
   if (sound.loop) {
     // the last `crossfade` seconds laid over the first, faded across: the seam is continuous

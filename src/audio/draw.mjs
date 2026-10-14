@@ -3,6 +3,7 @@
 // made sound and the game's of its kind are seen together. research/sound-generation.md, section 5.5.
 //
 //   soundPicture([{ name, x, rate, loop }], { width }) -> { width, height, rgba }
+//   PICTURE, levelOf(r, g, b)                         -> its layout; a spectrogram colour back to its level
 
 import { spectrum } from "./measure.mjs";
 import { label } from "../render.mjs";
@@ -10,6 +11,18 @@ import { label } from "../render.mjs";
 const WAVE = 70;
 const SPEC = 150;
 const LOWEST = 50;
+/** The picture's layout, for reading one back (`fromPicture`): rows, the frame, the depth of its colours (dB). */
+export const PICTURE = { wave: WAVE, spectrogram: SPEC, gap: 4, lowest: LOWEST, frame: 512, depth: 80, waveColour: [90, 160, 255], ground: [18, 20, 26] };
+
+/** A spectrogram's colour, 0 (80 dB under the loudest bin, or less) to 1 (the loudest). */
+const colourOf = (v) => [Math.round(255 * Math.min(1, v * 1.5)), Math.round(255 * Math.max(0, v * 1.6 - 0.6)), Math.round(110 * Math.max(0, 1 - v * 2))];
+
+/** A spectrogram's colour back to its level, 0 to 1; null for a colour it does not use (a mark, a line). */
+export function levelOf(r, g, b) {
+  const v = g > 0 ? (g / 255 + 0.6) / 1.6 : r / 382.5;
+  const [cr, cg, cb] = colourOf(Math.min(1, v));
+  return Math.abs(cr - r) <= 2 && Math.abs(cg - g) <= 2 && Math.abs(cb - b) <= 2 ? Math.min(1, v) : null;
+}
 
 /** One row: { name, x, rate, loop }, drawn over `seconds` (the longest of the set) across `width`. */
 function rowPicture({ name, x, rate, loop }, width, seconds) {
@@ -53,7 +66,7 @@ function rowPicture({ name, x, rate, loop }, width, seconds) {
       const f = LOWEST * (rate / 2 / LOWEST) ** (1 - py / SPEC);
       const k = Math.min(frame.length - 1, Math.round((f * size) / rate));
       const v = Math.max(0, Math.min(1, (10 * Math.log10(frame[k] / top + 1e-12) + 80) / 80));
-      put(px, WAVE + py, [Math.round(255 * Math.min(1, v * 1.5)), Math.round(255 * Math.max(0, v * 1.6 - 0.6)), Math.round(110 * Math.max(0, 1 - v * 2))]);
+      put(px, WAVE + py, colourOf(v));
     }
   }
   // 100 Hz, 1 kHz, 5 kHz marked down the side

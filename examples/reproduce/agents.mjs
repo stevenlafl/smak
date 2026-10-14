@@ -68,6 +68,9 @@ export async function runAgent({ prompt, read = null, server = null, files = {},
   const result = messages.find((m) => m.type === "result") ?? {};
   return {
     answer: result.result ?? run.stderr ?? "(no answer)",
+    // how the session ended (success, error_max_turns, error_during_execution...), and what it said on stderr
+    ended: result.subtype ?? null,
+    stderr: run.stderr.slice(-2000),
     seconds: Math.round((Date.now() - began) / 1000),
     turns: result.num_turns,
     cost: result.total_cost_usd,
@@ -75,4 +78,18 @@ export async function runAgent({ prompt, read = null, server = null, files = {},
     work,
     folder,
   };
+}
+
+/**
+ * A judge: runAgent until its answer holds a JSON object, three tries at most, a minute apart. A judge whose
+ * session ended with nothing said (round 3 lost nine judgements so) is asked again, not scored as a fault.
+ */
+export async function runJudge(options) {
+  let last;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    last = await runAgent(options);
+    if (/\{[\s\S]*\}/.test(last.answer ?? "")) return { ...last, attempts: attempt };
+    if (attempt < 3) await new Promise((wake) => setTimeout(wake, 60_000));
+  }
+  return { ...last, attempts: 3 };
 }
