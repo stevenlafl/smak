@@ -63,7 +63,7 @@ const KINDS = {
   prefab: ["prefab", "spec", "file", "scale"],
 };
 /** The fields every part takes. */
-const COMMON = ["id", "kind", "material", "at", "attach", "rotate", "mirror", "repeat", "open", "loose", "bone", "span", "finish", "smooth", "print", "marks", "paint", "texels", "note"];
+const COMMON = ["id", "kind", "material", "at", "attach", "rotate", "mirror", "repeat", "open", "loose", "bone", "span", "finish", "smooth", "print", "marks", "paint", "texels", "views", "note"];
 /** The kinds that sit on another part's surface, and move with it. */
 const ON_SURFACE = new Set(["band", "boss", "ridge", "studs"]);
 /** The anchors every part has: the middles of the faces of its box, and its middle. */
@@ -157,6 +157,8 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
     const turnOk = (v) => v === undefined || ["as drawn", "x", "y", "z"].includes(v);
     if (!(turnOk(w?.turn) || (w?.turn && typeof w.turn === "object" && Object.values(w.turn).every(turnOk))))
       errors.push(`weapon.turn: "as drawn", "x", "y" or "z" (the fit's turn, where its outline cannot choose), or one a view: { "v": "z", "p": "as drawn" }`);
+    if (w?.chrome !== undefined && (!Array.isArray(w.chrome) || w.chrome.some((v) => !WEAPON_VIEWS[v])))
+      errors.push(`weapon.chrome: the files whose weapon shines as chrome (the engine's reflection, as Valve's first-person weapons do): ["v"]`);
     if ((spec.kind ?? "held") !== "held") errors.push(`kind: a weapon is "held": built lying along +x, its grip at the low-x end`);
     for (const [n, sound] of (Array.isArray(w?.sounds) ? w.sounds : w?.sounds === undefined ? [] : [null]).entries())
       if (!sound || typeof sound.spec !== "object" || (sound.event && (typeof sound.event.sequence !== "string" || !isNumber(sound.event.frame))))
@@ -262,6 +264,8 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
             }
         });
     }
+    if (part.views !== undefined && (!spec.weapon || !Array.isArray(part.views) || !part.views.length || part.views.some((v) => !WEAPON_VIEWS[v])))
+      errors.push(`${label}.views: a weapon's part, in some of its files only: "v" (first person), "p" (in another player's hands), "w" (lying in the world); a stock behind the camera is ["p", "w"]`);
     if (part.texels !== undefined && !(isNumber(part.texels) && part.texels >= 0.25 && part.texels <= 8))
       errors.push(`${label}.texels: how finely it is painted against the rest, 0.25 to 8 (2: a face twice as fine as the body)`);
     switch (part.kind) {
@@ -1309,6 +1313,8 @@ function weaponViews(spec, meshes, { folder, games, report, hide = [] }) {
   const partNumber = (id) => Math.max(0, named.indexOf(boneOfPart.get(String(id).split(".")[0])));
   const piece = {
     tris: meshes[0].tris.map((t, i) => t.map((c) => ({ p: c.p, uv: c.uv, group: c.group, smooth: c.smooth, part: partNumber(meshes[0].partOf[i]) }))),
+    // the views each triangle's part is in: a stock left out of first person, a sight only there
+    views: meshes[0].tris.map((_, i) => spec.parts.find((part) => part.id === String(meshes[0].partOf[i]).split(".")[0])?.views ?? null),
     rig: rig === "nearest" ? "nearest" : undefined,
     bones: named,
   };
@@ -1345,6 +1351,10 @@ function weaponViews(spec, meshes, { folder, games, report, hide = [] }) {
       continue;
     }
     const texture = indexed(shrink(meshes[0].image, WEAPON_VIEWS[view].shrink), `${spec.name.replace(/\.mdl$/i, "").slice(0, 20)}_${view}.bmp`);
+    // chrome: the engine's reflection over the picture (flag 2), as Valve's first-person weapons have it
+    if (spec.weapon.chrome?.includes(view)) texture.flags = (texture.flags ?? 0) | 2;
+    // the parts this file shows: those of no `views`, and those that name it
+    const inView = { ...piece, tris: piece.tris.filter((_, i) => !piece.views[i] || piece.views[i].includes(view)) };
     const part = info.bodyparts[bodypart];
     const done = [];
     for (const [j, model] of part.models.entries()) {
@@ -1352,7 +1362,7 @@ function weaponViews(spec, meshes, { folder, games, report, hide = [] }) {
       try {
         // a hidden file's weapon lends nothing of its own shape: the piece keeps the size it was built at, and in
         // first person the size the game's own weapons are drawn at against their world models (V_TO_W)
-        const shown = hidden(fileName) && view === "v" ? { ...piece, tris: piece.tris.map((t) => t.map((c) => ({ ...c, p: c.p.map((v) => v * V_TO_W) }))) } : piece;
+        const shown = hidden(fileName) && view === "v" ? { ...inView, tris: inView.tris.map((t) => t.map((c) => ({ ...c, p: c.p.map((v) => v * V_TO_W) }))) } : inView;
         const swapped = swapMesh(mdl, { body: j * part.base, bodypart, piece: shown, texture, size: hidden(fileName) ? "own" : size, turn: typeof turn === "object" && turn ? turn[view] : turn, name: fileName });
         mdl = swapped.mdl;
         const r = swapped.report;

@@ -228,6 +228,10 @@ new name needs the mod's code). They are written in `work:<name>_weapon/`.
   its grip where the old grip was.
 - `rig`: `"carry"` (unless told) hangs it all on the bone that carried the old one; `"nearest"` gives each
   corner the bone of the old one's nearest corner, so that a part over a slide or a drum moves with it.
+- A part may be in some of the files only: `"views": ["p", "w"]` leaves it out of first person (a stock behind
+  the camera, as Valve's own first-person weapons leave theirs out), `["v"]` keeps it there alone (a sight).
+- `chrome: ["v"]` gives the weapon's picture in those files the engine's chrome (a moving reflection over it), as
+  Valve's first-person weapons have it.
 - A part that moves names the game's bone it moves with: `"bone": "cylinder_spin"` (a revolver's drum),
   `"hammer"`, `"trigger"`. `smak info` on the game's `v_` file lists its bones. A file without that bone
   (the `p_` and `w_` ones have few) keeps the part on the bone that carried the old weapon.

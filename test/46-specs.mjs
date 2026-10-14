@@ -301,6 +301,13 @@ test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ file
   sure(onBone.has(0) && onBone.has(1), `the rod on the hand and the knob on the slide: bones ${[...onBone]}`);
   sure(smak.sequences(v.mdl).length === 2, "the game's animations kept");
   sure(/v_stick\.mdl \(first person\)/.test(report.facts.join("\n")), "the report says what each file became");
+  // a part in some files only, and chrome in first person: the knob left out of p_, the v_ picture flagged
+  const split = buildModelSpec({ ...spec, weapon: { ...spec.weapon, chrome: ["v"] }, parts: [spec.parts[0], { ...spec.parts[1], views: ["v"] }] }, { folder });
+  sure(split.report.ok, [...split.report.errors, ...split.report.faults].join("; "));
+  const trisIn = (name) => smak.readMdl(split.files.find((f) => f.name === name).mdl).bodyparts[0].models[0].meshes.filter((m) => /^rod_/.test(m.texture?.name ?? "")).reduce((n, m) => n + m.numtris, 0);
+  sure(trisIn("v_stick.mdl") === 24 && trisIn("p_stick.mdl") === 12, `the knob in v_ only: ${trisIn("v_stick.mdl")} and ${trisIn("p_stick.mdl")}`);
+  const flagOf = (name) => smak.readMdl(split.files.find((f) => f.name === name).mdl).textures.find((t) => /^rod_/.test(t.name)).flags;
+  sure((flagOf("v_stick.mdl") & 2) === 2 && (flagOf("p_stick.mdl") & 2) === 0, `chrome in v_ only: ${flagOf("v_stick.mdl")}, ${flagOf("p_stick.mdl")}`);
   // the turn told, where the outline cannot choose
   const turned = buildModelSpec({ ...spec, weapon: { ...spec.weapon, turn: { v: "z" } } }, { folder }).report;
   sure(/v_stick\.mdl[^\n]*laid turned about z/.test(turned.facts.join("\n")), `the turn told is the turn taken: ${turned.facts.join(" | ")}`);
