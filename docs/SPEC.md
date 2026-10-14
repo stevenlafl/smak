@@ -159,6 +159,9 @@ new name needs the mod's code). They are written in `work:<name>_weapon/`.
   its grip where the old grip was.
 - `rig`: `"carry"` (unless told) hangs it all on the bone that carried the old one; `"nearest"` gives each
   corner the bone of the old one's nearest corner, so that a part over a slide or a drum moves with it.
+- A part that moves names the game's bone it moves with: `"bone": "cylinder_spin"` (a revolver's drum),
+  `"hammer"`, `"trigger"`. `smak info` on the game's `v_` file lists its bones. A file without that bone
+  (the `p_` and `w_` ones have few) keeps the part on the bone that carried the old weapon.
 - One picture: a weapon's parts share one texture, so leave out `neon`, `flame` and `glass` (each of those
   is a picture of its own).
 

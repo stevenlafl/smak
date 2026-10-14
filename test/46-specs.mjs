@@ -182,9 +182,12 @@ test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ file
   const fileOf = (meshes) =>
     buildMdl({
       name: "x.mdl",
-      bones: [{ name: "hand", parent: -1 }],
+      bones: [{ name: "hand", parent: -1 }, { name: "slide", parent: 0 }],
       bodyparts: [{ name: "studio", models: [{ name: "stick_reference", meshes }] }],
-      sequences: [{ name: "idle", fps: 10, frames: [[[0, 0, 0, 0, 0, 0]]] }, { name: "attack", fps: 10, frames: [[[0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0.5, 0]]] }],
+      sequences: [
+        { name: "idle", fps: 10, frames: [[[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]]] },
+        { name: "attack", fps: 10, frames: [[[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0.5, 0], [-2, 0, 0, 0, 0, 0]]] },
+      ],
     });
   mkdirSync(folder, { recursive: true });
   writeFileSync(join(folder, "v_stick.mdl"), fileOf([glove, stick()]));
@@ -194,7 +197,10 @@ test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ file
     name: "rod.mdl",
     kind: "held",
     weapon: { like: "stick", views: ["v", "p"] },
-    parts: [{ id: "rod", kind: "box", material: "steel", size: [10, 1, 1] }],
+    parts: [
+      { id: "rod", kind: "box", material: "steel", size: [10, 1, 1] },
+      { id: "knob", kind: "box", material: "steel", size: [1, 1.4, 1.4], at: [5, 0, 0.5], bone: "slide" },
+    ],
   };
   const { report, files } = buildModelSpec(spec, { folder });
   sure(report.ok && files.length === 2, `two files: ${[...report.errors, ...report.faults]}`);
@@ -203,7 +209,10 @@ test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ file
   const gloveMesh = meshes.find((m) => /glove/i.test(m.texture.name));
   const rodMesh = meshes.find((m) => m.numtris && !/glove/i.test(m.texture.name));
   sure(gloveMesh?.numtris === glove.tris.length, `the glove is kept as it was: ${gloveMesh?.numtris} of ${glove.tris.length}`);
-  sure(rodMesh?.numtris === 12 && rodMesh.texture.name === "rod_v.bmp", `the rod in the stick's place: ${rodMesh?.numtris} triangles on ${rodMesh?.texture.name}`);
+  sure(rodMesh?.numtris === 24 && rodMesh.texture.name === "rod_v.bmp", `the rod in the stick's place: ${rodMesh?.numtris} triangles on ${rodMesh?.texture.name}`);
+  // the knob names the game's bone it moves with: its corners are on it, the rod's on the hand
+  const onBone = new Set(smak.posed(v.mdl, {}).tris.filter((t) => t.tex?.name === "rod_v.bmp").flatMap((t) => t.c.map((c) => c.bone)));
+  sure(onBone.has(0) && onBone.has(1), `the rod on the hand and the knob on the slide: bones ${[...onBone]}`);
   sure(smak.sequences(v.mdl).length === 2, "the game's animations kept");
   sure(/v_stick\.mdl \(first person\)/.test(report.facts.join("\n")), "the report says what each file became");
   const missing = buildModelSpec({ ...spec, weapon: { like: "spear" } }, { folder }).report;

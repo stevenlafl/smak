@@ -249,7 +249,8 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
     }
     if (part.span !== undefined && (!spec.base || !Array.isArray(part.span?.bones ?? part.span) || (part.span.bones ?? part.span).length !== 2))
       errors.push(`${label}.span: [from bone, to bone] (or { bones, over, keep }) of the spec's base model: the part laid along that limb`);
-    if ((part.bone !== undefined || part.span !== undefined) && !spec.base) errors.push(`${label}: bone and span are a base model's bones: give the spec a base`);
+    if (part.span !== undefined && !spec.base) errors.push(`${label}: span is along a base model's bones: give the spec a base`);
+    if (part.bone !== undefined && !spec.base && !spec.weapon) errors.push(`${label}: bone is a base model's or a weapon's: give the spec a base or a weapon`);
     if (part.at !== undefined && !isPoint(part.at)) errors.push(`${label}.at: [x, y, z], where its own origin goes`);
     if ([part.at, part.attach, part.span].filter((v) => v !== undefined).length > 1) errors.push(`${label}: at, attach or span, one of them`);
     if (part.rotate !== undefined && (!Array.isArray(part.rotate) || part.rotate.length !== 3 || !part.rotate.every(isNumber)))
@@ -880,9 +881,15 @@ function weaponViews(spec, meshes, { folder, games, report }) {
     report.errors.push(`weapon: a weapon wears one picture, and this one has ${meshes.length} (${meshes.map((m) => m.name).join(", ")}): a glowing or see-through material gets a picture of its own; leave such parts out of a weapon`);
     return [];
   }
+  // a part may name the game's bone it moves with (a revolver's drum on cylinder_spin): the piece's `bones`,
+  // by part number, 0 the bone that carried the old weapon. A file without that bone keeps it on that one.
+  const boneOfPart = new Map(spec.parts.filter((part) => part.bone).map((part) => [part.id, part.bone]));
+  const named = [undefined, ...new Set(boneOfPart.values())];
+  const partNumber = (id) => Math.max(0, named.indexOf(boneOfPart.get(String(id).split(".")[0])));
   const piece = {
-    tris: meshes[0].tris.map((t) => t.map((c) => ({ p: c.p, uv: c.uv, group: c.group, smooth: c.smooth }))),
+    tris: meshes[0].tris.map((t, i) => t.map((c) => ({ p: c.p, uv: c.uv, group: c.group, smooth: c.smooth, part: partNumber(meshes[0].partOf[i]) }))),
     rig: rig === "nearest" ? "nearest" : undefined,
+    bones: named,
   };
   const files = [];
   for (const view of views) {
@@ -913,7 +920,8 @@ function weaponViews(spec, meshes, { folder, games, report }) {
         const swapped = swapMesh(mdl, { body: j * part.base, bodypart, piece, texture, size, name: fileName });
         mdl = swapped.mdl;
         const r = swapped.report;
-        done.push(`${r.model} on ${r.bone} (${r.was} triangles were there; laid ${r.turn}, ${size === "own" ? "at its own size" : `scaled ${r.scale.toFixed(2)}`}, ${r.left.toFixed(2)} off the old outline)`);
+        const others = r.bones.filter((b) => b !== r.bone);
+        done.push(`${r.model} on ${r.bone}${others.length ? ` and ${others.join(", ")}` : ""} (${r.was} triangles were there; laid ${r.turn}, ${size === "own" ? "at its own size" : `scaled ${r.scale.toFixed(2)}`}, ${r.left.toFixed(2)} off the old outline)`);
       } catch (error) {
         report.errors.push(`weapon: ${fileName}, ${model.name}: ${error.message}`);
       }
