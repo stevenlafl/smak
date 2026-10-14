@@ -852,7 +852,8 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       }
       for (const hole of holes) pieces = pieces.flatMap((piece) => subtract(piece, hole));
       // a lined wall's picture stands on its room's floor, as the rock's does (source.mjs onFloor)
-      const texture = face === "walls" ? onFloor(textureOf(word), room.min[2]) : textureOf(word);
+      const walls = face === "walls" ? { east: onFloor(textureOf(word), room.min[2], room.min[1]), west: onFloor(textureOf(word), room.min[2], room.min[1]), north: onFloor(textureOf(word), room.min[2], room.min[0]), south: onFloor(textureOf(word), room.min[2], room.min[0]) } : null;
+      const texture = walls ? { top: textureOf(word), bottom: textureOf(word), sides: textureOf(word), ...walls } : textureOf(word);
       linings.push(...pieces.map((piece) => box(piece.min, piece.max, texture)));
     }
     boxes.push(carved);
