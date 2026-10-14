@@ -59,11 +59,12 @@ test("a profile names the classes a player leaves a map by: floor one is reached
     told.oneWay.length === 0 && new RegExp(`or to a way out \\(\\d+ ${WAY_OUT}\\)`).test(told.facts.join()),
     `${told.warnings.join(" | ")} ${told.facts.join(" | ")}`,
   );
-  // the kit's own profile has none but Half-Life's: the same map is as it was
+  // Half-Life's own profile leaves by its level changes only: the same map, with no level change, is as it was
   sure(
-    maps.GOLDSRC.exits.length === 0 && maps.reachOf(map, { mod: maps.GOLDSRC }).oneWay.length === 1,
+    maps.GOLDSRC.exits.join() === "trigger_changelevel" && maps.reachOf(map, { mod: maps.GOLDSRC }).oneWay.length === 1,
     "goldsrc",
   );
+  sure(maps.reachOf(pitHall([leave("trigger_changelevel", { map: "next" })]), { mod: maps.GOLDSRC }).oneWay.length === 0, "a level change is Half-Life's way out");
   // a class written as switched off is another class, and no way out
   const off = maps.reachOf(pitHall([leave(`disabled_${WAY_OUT}`)]), { mod });
   sure(off.oneWay.length === 1, "a way out that is switched off is none");

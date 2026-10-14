@@ -11,6 +11,8 @@
 // turned inwards, parts floating apart) and the pictures' (`seeThrough`).
 import { boneIn, otherSideOf } from "../biped.mjs";
 import { fitPose } from "./posefit.mjs";
+import { carve, masksFromPicture, sheetViews } from "./carve.mjs";
+import { sub, cross } from "../vec.mjs";
 import { readFileSync, existsSync } from "node:fs";
 import { resolve, dirname, join } from "node:path";
 import { shape, sheet, allot } from "../workshop.mjs";
@@ -50,6 +52,7 @@ const KINDS = {
   cylinder: ["radius", "height", "sides", "top"],
   sphere: ["radius", "sides"],
   superquadric: ["size", "round", "sides"],
+  carved: ["size", "sheet", "pictures", "cells", "triangles"],
   turn: ["rings", "caps", "sides", "lining", "axis"],
   tube: ["path", "sides", "caps"],
   leaf: ["width", "height", "rows", "bend"],
@@ -285,6 +288,14 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
     if (part.texels !== undefined && !(isNumber(part.texels) && part.texels >= 0.25 && part.texels <= 8))
       errors.push(`${label}.texels: how finely it is painted against the rest, 0.25 to 8 (2: a face twice as fine as the body)`);
     switch (part.kind) {
+      case "carved":
+        if (!isPoint(part.size) || part.size.some((v) => v <= 0))
+          errors.push(`${label}.size: [x, y, z], the thing's length, width and height in units: its outlines are stretched to it`);
+        if (typeof part.sheet !== "string" && !(Array.isArray(part.pictures) && part.pictures.length))
+          errors.push(`${label}: sheet (a picture of six sides laid as the kit's sheets are: front, left, back; right, top, below) or pictures ([{ picture, view or yaw and pitch, area, rect }])`);
+        if (part.triangles !== undefined && !(Number.isInteger(part.triangles) && part.triangles >= 12)) errors.push(`${label}.triangles: how many it is reduced to, 12 or more`);
+        if (part.cells !== undefined && !(Number.isInteger(part.cells) && part.cells >= 16 && part.cells <= 256)) errors.push(`${label}.cells: cells on its longest side, 16 to 256 (64)`);
+        break;
       case "superquadric":
         if (!isPoint(part.size) || part.size.some((v) => v <= 0))
           errors.push(`${label}.size: [x, y, z], three numbers over 0 (its length, width and height)`);
@@ -495,6 +506,12 @@ function zoneSizeOf(part, hostOf) {
       const [x, y, z] = part.size;
       return [Math.max(1, z), Math.max(1, 2 * (x + y))];
     }
+    case "carved": {
+      // six patches, one for each way a face can look, three across and two down
+      const [x, y, z] = part.size;
+      const most = Math.max(x, y, z);
+      return [3 * most, 2 * most];
+    }
     case "cylinder":
     case "sphere":
     case "turn": {
@@ -567,6 +584,30 @@ function buildPart(part, M, S, zone, px, material, hostSurface, capZones = []) {
         M.quad(...face.map((c, k) => M.V(corner(c), pixel[k])), inside);
       });
       return { ends: [anchorOfBox(boxOf([corner(0), corner(7)]), "bottom"), anchorOfBox(boxOf([corner(0), corner(7)]), "top")] };
+    }
+    case "carved": {
+      // the carved hull's triangles, each laid flat on the patch of the zone for the way it most faces: seen
+      // from that side, as a picture of that side would paint it (project paints it from the pictures)
+      const most = Math.max(...part.size);
+      const cellW = zone.w / 3;
+      const cellH = zone.h / 2;
+      const [X, Y, Z] = part.size;
+      const lo = [-X / 2, -Y / 2, 0];
+      const flat = (p, axis) => (axis === 0 ? [p[1] - lo[1], Z - p[2]] : axis === 1 ? [p[0] - lo[0], Z - p[2]] : [p[0] - lo[0], p[1] - lo[1]]);
+      for (const t of part.carvedTris) {
+        const n = cross(sub(t[1].p, t[0].p), sub(t[2].p, t[0].p));
+        const axis = [0, 1, 2].reduce((a, k) => (Math.abs(n[k]) > Math.abs(n[a]) ? k : a), 0);
+        const cell = axis * 2 + (n[axis] < 0 ? 1 : 0);
+        const [cx, cy] = [zone.x + (cell % 3) * cellW, zone.y + Math.floor(cell / 3) * cellH];
+        const corner = (c) => {
+          const [u, v] = flat(c.p, axis);
+          return M.V(c.p, [cx + 1 + (u / most) * (cellW - 2), cy + 1 + (v / most) * (cellH - 2)]);
+        };
+        // its own winding, as carved (outwards): `inside` only breaks a tie
+        const mid = [0, 1, 2].map((k) => (t[0].p[k] + t[1].p[k] + t[2].p[k]) / 3);
+        M.tri(corner(t[0]), corner(t[1]), corner(t[2]), mid.map((v, k) => v - n[k]));
+      }
+      return { ends: [[0, 0, 0], [0, 0, Z]] };
     }
     case "cylinder":
     case "sphere":
@@ -1001,6 +1042,32 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, hide =
     if (renamed.length) report.notes.push(`bones named as the base names them: ${renamed.join(", ")}`);
     report.facts.push(`base ${skeleton.file}: ${skeleton.joints.size} bones, ${sequencesOf(skeleton.src).length} animations; its joints as it stands in ${JSON.stringify(skeleton.pose)}: ${[...skeleton.joints].filter(([n]) => !/Finger|Dito|Toe0|Toe1|Toe2|Bip01$/.test(n)).map(([n, p]) => `${n} ${p.map((v) => Math.round(v)).join(" ")}`).join("; ")}`);
   }
+  // carved parts: their hull worked out from their pictures before anything is built (carve.mjs)
+  if (spec.parts.some((part) => part.kind === "carved")) {
+    const readCarved = readPicture ?? ((name) => unpng(readFileSync(resolve(folder ?? ".", name.replace(/^(work|models):/, "")))));
+    try {
+      spec = {
+        ...spec,
+        parts: spec.parts.map((part) => {
+          if (part.kind !== "carved") return part;
+          const views = [];
+          if (part.sheet) views.push(...sheetViews(readCarved(part.sheet)).filter((v) => v.rect));
+          for (const view of part.pictures ?? []) {
+            const picture = readCarved(view.picture);
+            const [yaw, pitch] = typeof view.view === "string" ? VIEW_NAMES[view.view] : [view.yaw ?? 0, view.pitch ?? 0];
+            const area = view.area ?? [0, 0, picture.width, picture.height];
+            views.push({ ...masksFromPicture(picture, area, view.rect), yaw, pitch, name: view.view ?? `yaw ${yaw}` });
+          }
+          const hull = carve(views, { size: part.size, cells: part.cells ?? 64, target: part.triangles ?? 400 });
+          report.facts.push(`${part.id}: carved from ${views.length} views at ${part.cells ?? 64} cells, ${hull.tris.length} triangles; each view's outline against its own: ${Object.entries(hull.report.overlapByView ?? {}).map(([k, v]) => `${k} ${v}`).join(", ")}`);
+          return { ...part, carvedTris: hull.tris };
+        }),
+      };
+    } catch (error) {
+      errors.push(`carved: ${error.message}`);
+      return { mdl: null, report };
+    }
+  }
   let pieces;
   try {
     pieces = piecesOf(spec, { folder, prefabs, skeleton });
@@ -1073,7 +1140,8 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, hide =
   }
 
   // the shape's soundness, part by part, before it is written
-  const allow = spec.parts.filter((part) => part.open || part.loose).map((part) => part.id);
+  // a carved hull may come apart where its outlines do (a creature's claws): its pieces are what was seen
+  const allow = spec.parts.filter((part) => part.open || part.loose || part.kind === "carved").map((part) => part.id);
   allow.push(...(spec.allow?.open ?? []), ...(spec.allow?.floating ?? []));
   const sound = shapeSoundness(
     meshes.flatMap((mesh) => mesh.tris.map((t, i) => ({ p: t.map((c) => c.p), name: mesh.partOf[i] }))),
