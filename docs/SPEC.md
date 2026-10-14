@@ -655,7 +655,8 @@ command line: `smak video spec.json -o folder [--preview] [--models folder]`.
 - `floor`: its floor this much over the room it is placed against (under 0: lower).
 - `sky: true`: open to the sky (a yard, a street). It is lit by the sun (or the moon), not by lamps.
 - `surfaces: { floor: "grass", ceiling: "planks", walls: "tile" }`: a floor, a ceiling or walls of another
-  material than the theme's (a lining 8 thick inside the rock).
+  material than the theme's (a lining 8 thick inside the rock). A wall's picture stands on its room's floor, as
+  a mapper lines it up: a texture's bands and panels sit at the same height over the floor in every room.
 - `water: 32` or `{ depth, material }`: water over its floor, swum in or waded; a `!` texture.
 - `light`: `"auto"` (one lamp for each 256 x 256 of floor, hung no higher than 192 over it; unless told),
   `"none"`, or `{ count, brightness, color }`. A floor lit under 24 of 255 after the compile is a fault, unless

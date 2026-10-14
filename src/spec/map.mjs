@@ -11,7 +11,7 @@
 // docs/SPEC.md is the guide. Axes as every map's: +x east, +y north, +z up, a unit about an inch.
 import { writeFileSync, mkdirSync, readFileSync, existsSync } from "node:fs";
 import { join, resolve, dirname, basename } from "node:path";
-import { carve, box, cylinder, wedge, prism, stairs as stairBrushes, light, sunLight, textureLights, playerStart, pointEntity, brushEntity, writeMap, readMap, subtract, moved, shapeOf } from "../maps/source.mjs";
+import { carve, box, cylinder, wedge, prism, stairs as stairBrushes, light, sunLight, textureLights, playerStart, pointEntity, brushEntity, writeMap, readMap, subtract, moved, shapeOf, onFloor } from "../maps/source.mjs";
 import { checkPlan } from "../maps/plan.mjs";
 import { definitionsOf } from "../maps/fgd.mjs";
 import { reachOf } from "../maps/reach.mjs";
@@ -851,7 +851,8 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         pieces = [{ min: [room.min[0], room.min[1], z[0]], max: [room.max[0], room.max[1], z[1]] }];
       }
       for (const hole of holes) pieces = pieces.flatMap((piece) => subtract(piece, hole));
-      const texture = textureOf(word);
+      // a lined wall's picture stands on its room's floor, as the rock's does (source.mjs onFloor)
+      const texture = face === "walls" ? onFloor(textureOf(word), room.min[2]) : textureOf(word);
       linings.push(...pieces.map((piece) => box(piece.min, piece.max, texture)));
     }
     boxes.push(carved);

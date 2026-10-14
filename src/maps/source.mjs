@@ -959,8 +959,37 @@ export function carve(rooms, wall, texture) {
   let rock = [{ min, max }];
   for (const room of rooms) rock = rock.flatMap((piece) => subtract(piece, room));
   const wears = roomTextures(texture);
-  const everywhere = { top: wears.floor, bottom: wears.ceiling, sides: wears.wall };
-  return rock.map((piece) => box(piece.min, piece.max, everywhere));
+  // a wall's picture stands on the floor of the room it faces, as a mapper lines it up: its bands, its skirting
+  // and its seams then fall where they were painted to, whatever the room's height (Steven's play-test of the
+  // frenzy reproductions: "texture alignment is off")
+  const sides = (piece) =>
+    Object.fromEntries(
+      [["east", 0, 1], ["west", 0, -1], ["north", 1, 1], ["south", 1, -1]].map(([name, axis, sign]) => {
+        const at = sign > 0 ? piece.max[axis] : piece.min[axis];
+        const across = [0, 1, 2].filter((k) => k !== axis);
+        let best = null;
+        let most = 0;
+        for (const room of rooms) {
+          if (Math.abs((sign > 0 ? room.min[axis] : room.max[axis]) - at) > 1e-6) continue;
+          const shared = across.reduce((area, k) => area * Math.max(0, Math.min(piece.max[k], room.max[k]) - Math.max(piece.min[k], room.min[k])), 1);
+          if (shared > most) [best, most] = [room, shared];
+        }
+        return [name, best ? onFloor(wears.wall, best.min[2]) : wears.wall];
+      }),
+    );
+  return rock.map((piece) => box(piece.min, piece.max, { top: wears.floor, bottom: wears.ceiling, sides: wears.wall, ...sides(piece) }));
+}
+
+/**
+ * A wall's texture lined up so that its bottom edge stands on a floor at `z`: its vertical offset (texels down
+ * the wall from z = 0) moved to `z` in its own scale. A texture given by direction or by rule is left as it is.
+ */
+export function onFloor(texture, z) {
+  const fit = typeof texture === "string" ? { name: texture } : texture;
+  if (!fit || typeof fit !== "object" || typeof fit.name !== "string") return texture;
+  const scale = Array.isArray(fit.scale) ? fit.scale[1] : (fit.scale ?? 1);
+  const offset = fit.offset ?? [0, 0];
+  return { ...fit, offset: [offset[0], offset[1] + z / scale] };
 }
 
 // ── brushes changed ─────────────────────────────────────────────────────────

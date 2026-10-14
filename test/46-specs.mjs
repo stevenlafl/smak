@@ -389,6 +389,25 @@ test("a map spec's glow is on what it shines from: one in the air is a fault, on
   sure(faults(240).length === 0, "16 under the ceiling");
 });
 
+test("a wall's texture stands on the floor of the room it faces, whatever that floor's height", () => {
+  // Steven's play-test of the frenzy reproductions: "texture alignment is off"; a mapper lines a wall up with its floor
+  const brushes = smak.maps.carve([{ min: [0, 0, 0], max: [256, 256, 128] }, { min: [272, 0, 40], max: [528, 256, 168] }], 16, { floor: "F", ceiling: "C", wall: "W" });
+  // the wall faces that look into a room: a face of a piece of rock whose box ends at the room's side, beside it
+  const facing = (room, x, sign) =>
+    brushes.flatMap((b) => {
+      const c = smak.maps.shapeOf(b).corners;
+      const lo = [0, 1, 2].map((k) => Math.min(...c.map((p) => p[k])));
+      const hi = [0, 1, 2].map((k) => Math.max(...c.map((p) => p[k])));
+      if ((sign > 0 ? hi[0] : lo[0]) !== x || hi[2] <= room.min[2] || lo[2] >= room.max[2]) return [];
+      return b.faces.filter((f) => f.texture === "W" && Math.abs(f.v[2] + 1) < 1e-9 && f.points.every((p) => Math.abs(p[0] - x) < 1e-6)).map((f) => f.v[3]);
+    });
+  // the first room's east wall faces it (floor 0); the second room's west wall faces it (floor 40)
+  const first = facing({ min: [0, 0, 0], max: [256, 256, 128] }, 256, -1);
+  const second = facing({ min: [272, 0, 40], max: [528, 256, 168] }, 272, 1);
+  sure(first.length && first.every((o) => o === 0), `the first room's wall: ${first}`);
+  sure(second.length && second.every((o) => o === 40), `the second room's wall: ${second}`);
+});
+
 test("a lamp is never in mid-air: one hung below a tall room's ceiling has a shade and a rod up to it", () => {
   // Steven's play-test of frenzy_pictures: "random lights in the middle of the air"
   const spec = { spec: "smak.map/1", name: "tall", rooms: [{ id: "hall", size: [256, 256, 480] }], entities: [{ class: "info_player_start", room: "hall", at: "centre" }, { class: "light", room: "hall", at: "corner ne" }] };
