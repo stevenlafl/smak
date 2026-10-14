@@ -77,6 +77,19 @@ test("soundness: what touches is no fault: stacked boxes, a band sunk in its bar
 
   const leaf = soundness(modelOf((M) => M.leaf([[[0, 0, 0], [0, 4, 0], [0, 8, 0]], [[0, 0, 6], [0, 4, 6], [0, 8, 6]]], Z)));
   sure(leaf.faults.length === 0 && /thin sheets/.test(leaf.notes.join()), `a leaf: ${leaf.faults}`);
+
+  // a stock that stops 0.4 short of its receiver, both on a grip that touches each: no part floats, and the
+  // open joint is named to be looked at (the pipe shotgun of case 27)
+  const boxAt = (name, [x0, y0, z0], [x1, y1, z1]) => {
+    const s = W.shape(64, 64);
+    const c = (i) => [i & 1 ? x1 : x0, i & 2 ? y1 : y0, i & 4 ? z1 : z0];
+    for (const face of [[0, 1, 3, 2], [4, 5, 7, 6], [0, 1, 5, 4], [2, 3, 7, 6], [0, 2, 6, 4], [1, 3, 7, 5]])
+      s.quad(...face.map((k) => s.V(c(k), [0, 0])), [(x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2]);
+    return s.tris.map((tri) => ({ p: tri.map((c) => c.p), name }));
+  };
+  const joint = shapeSoundness([...boxAt("stock", [0, -1, 0], [8, 1, 2]), ...boxAt("receiver", [8.4, -1, 0], [14, 1, 2]), ...boxAt("grip", [6, -0.5, -4], [10, 0.5, 0.2])]);
+  sure(joint.faults.length === 0, `nothing floats: ${joint.faults}`);
+  sure(/1 pairs of parts nearly touch and do not: receiver and stock 0\.4 apart/.test(joint.notes.join()), `the open joint is named: ${joint.notes}`);
 });
 
 test("the sword kit's pieces are closed: its blade, its bar guard and its turned parts have no open end", () => {

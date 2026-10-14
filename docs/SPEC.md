@@ -187,6 +187,10 @@ changes its colour; `rust` (0 to 1) a metal's rust; `flags: ["fullbright"]` make
   point.
 - `FAULT ... turned the wrong way` / `... inside out`: faces that look inwards.
 - `FAULT ... float apart`: a part that touches nothing; move it onto what it should sit on.
+- `note ... nearly touch and do not`: two parts within 0.6 of each other, not touching. A row of things
+  (teeth, nails) is so on purpose; a joint meant to close (a stock against its receiver, a guard against
+  its frame) is open by a sliver, which no fault catches when each part touches something else. Look at
+  each pair close (`focus`) and sink one into the other where they were meant to meet.
 - `FAULT the pictures look through the model`: seen from outside, the inside shows somewhere.
 - `FAULT height ... where the spec asks`: the size is not what was asked.
 - `fact from the lowest part up`: each part's height from and to. A roof under a floor is a stack built

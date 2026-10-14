@@ -101,6 +101,8 @@ function inside(point, shell, tris) {
  * An open edge whose middle has at least this winding number about the other shells is inside them; one
  * over FLUSH_WINDING and within FLUSH of another shell's face lies on that face.
  */
+/** Two parts this close (units) that do not touch may have been meant to: a note, past the weld's tolerance (`gap`). */
+const NEAR_MISS = 0.6;
 const BURIED_WINDING = 0.6;
 const FLUSH_WINDING = 0.4;
 const FLUSH = 0.01;
@@ -394,12 +396,16 @@ export function shapeSoundness(list, { weld = WELD, gap = GAP, front = 1, allow 
   // how far each piece is from the nearest other: by their boxes, then point to triangle where the boxes are near
   const pointsOf = (piece) => piece.members.flatMap((i) => tris[i].p);
   const trianglesOf = (piece) => piece.members.map((i) => tris[i].p);
+  // two parts closer than NEAR_MISS that do not touch: a joint that was meant to close and did not (a stock
+  // ending short of its receiver), which the floating check passes when each touches something else
+  const reach = Math.max(gap, NEAR_MISS);
+  const nearMisses = [];
   for (const piece of pieces) {
     let nearest = Infinity;
     for (const other of pieces) {
       if (other === piece) continue;
       const apart = boxGap(piece.bounds, other.bounds);
-      if (apart > gap) {
+      if (apart > reach) {
         nearest = Math.min(nearest, apart);
         continue;
       }
@@ -419,18 +425,24 @@ export function shapeSoundness(list, { weld = WELD, gap = GAP, front = 1, allow 
         continue;
       }
       let least = Infinity;
+      let leastAt = null;
       for (const [from, to] of [
         [piece, other],
         [other, piece],
       ]) {
-        const near = trianglesOf(to).filter((t) => boxGap(boxOf(t), from.bounds) <= gap);
+        const near = trianglesOf(to).filter((t) => boxGap(boxOf(t), from.bounds) <= reach);
         for (const point of pointsOf(from)) {
-          for (const t of near) least = Math.min(least, toTriangle(point, t));
+          for (const t of near) {
+            const d = toTriangle(point, t);
+            if (d < least) [least, leastAt] = [d, point];
+          }
           if (least <= gap) break;
         }
         if (least <= gap) break;
       }
       nearest = Math.min(nearest, least);
+      if (least > gap && least <= NEAR_MISS && piece.name !== other.name && piece.name < other.name)
+        nearMisses.push({ a: piece.name, b: other.name, d: round2(least), at: leastAt.map(round2) });
     }
     piece.apart = pieces.length > 1 ? round2(nearest) : 0;
   }
@@ -467,6 +479,16 @@ export function shapeSoundness(list, { weld = WELD, gap = GAP, front = 1, allow 
         .slice(0, NAMED_MOST)
         .map((p) => `${p.name} ${p.apart} units away`)
         .join(", ")}`,
+    );
+  const misses = nearMisses.filter((m) => !allow.includes(m.a) && !allow.includes(m.b));
+  // a note, not a fault: parts set side by side on purpose (teeth, nails, an eye by a nose) are as near; only
+  // a picture tells a joint left open from a row of things. The report names them to be looked at close.
+  if (misses.length)
+    notes.push(
+      `${misses.length} pairs of parts nearly touch and do not: ${misses
+        .slice(0, NAMED_MOST)
+        .map((m) => `${m.a} and ${m.b} ${m.d} apart at ${m.at.join(" ")}`)
+        .join(", ")}${misses.length > NAMED_MOST ? ` and ${misses.length - NAMED_MOST} more` : ""}: where one was meant to meet the other, the joint is open by a sliver (look close: focus on them); sink one into the other`,
     );
   const sheets = pieces.filter((p) => p.sheet);
   if (count.buried) notes.push(`${count.buried} open edges are buried inside another closed part (a ridge's or a band's feet): not seen`);
