@@ -13,7 +13,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSy
 import { join, basename } from "node:path";
 import { execFileSync } from "node:child_process";
 import { HERE, GAME, SDHLT, savePng } from "./lib.mjs";
-import { runAgent, runJudge } from "./agents.mjs";
+import { runAgent, runJudge, failedByMeasure } from "./agents.mjs";
 import { floorOf, alignMaps, entitiesOf } from "./judge.mjs";
 import * as smak from "../../src/index.mjs";
 import { tile } from "../../src/render.mjs";
@@ -209,6 +209,8 @@ async function judgeHouse(house, file, { decoy = false } = {}) {
     P4: doorShare >= 0.8 && windowShare >= 0.8 ? 2 : doorShare >= 0.5 ? 1 : 0,
     P8: check.errors.length ? 0 : reach.unreached.length ? 1 : 2,
   };
+  const failed = failedByMeasure(caps, MUST);
+  if (failed.length) return { house, decoy, measured, caps, passes: false, failedByMeasure: failed, total: 0, of: 2 * ITEMS.length };
   const given = givenOf(house).map((f) => join(ROOT, house, "input", f));
   // DRY=1: the measures and pictures alone, every judge's score a 1, with no agent run
   const r = process.env.DRY ? { answer: JSON.stringify(Object.fromEntries(ITEMS.map((i) => [i, { score: 1, reason: "dry run" }]))) } : await runJudge({

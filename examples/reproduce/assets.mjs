@@ -12,7 +12,7 @@ import { join, basename, dirname } from "node:path";
 import { tmpdir } from "node:os";
 import { execFileSync } from "node:child_process";
 import { HERE, KIT, GAME, savePng, besides } from "./lib.mjs";
-import { runAgent, runJudge } from "./agents.mjs";
+import { runAgent, runJudge, failedByMeasure } from "./agents.mjs";
 import * as smak from "../../src/index.mjs";
 import { tile } from "../../src/render.mjs";
 import { sheetOf } from "../../src/sprite/draw.mjs";
@@ -359,6 +359,8 @@ async function judgeOne(kind, subject, leg, copyFile, { decoy } = {}) {
     return { kind, subject: subject.id, leg: decoy ? `decoy: ${decoy}` : leg, textures: results, passed, of: results.length, passes: passed >= 0.8 * results.length, total: passed, error: Object.keys(judged).length ? undefined : "the judge's answer was not JSON" };
   }
   const m = kind === "sprites" ? measureSpriteCopy(original, copy, dir) : measureSoundCopy(original, copy, dir, subject);
+  const failed = failedByMeasure(m.caps, MUST[kind]);
+  if (failed.length) return { kind, subject: subject.id, leg: decoy ? `decoy: ${decoy}` : leg, measured: m.measured, caps: m.caps, passes: false, failedByMeasure: failed, total: 0, of: 2 * ITEMS[kind].length };
   const r = await runJudge({
     read: dir,
     hours: 0.5,

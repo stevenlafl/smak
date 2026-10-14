@@ -12,7 +12,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSy
 import { join, basename } from "node:path";
 import { execFileSync } from "node:child_process";
 import { HERE, GAME, POSE, SIDES, ANGLES, readModel, boxOf, picturesOf, savePng, besides } from "./lib.mjs";
-import { runAgent, runJudge } from "./agents.mjs";
+import { runAgent, runJudge, JUDGE_MODEL, failedByMeasure } from "./agents.mjs";
 import { measureModel } from "./judge.mjs";
 import { tile, render, framing, strip } from "../../src/render.mjs";
 import { sequences } from "../../src/index.mjs";
@@ -196,7 +196,7 @@ async function lineup(kind, s, copy, dir) {
   mkdirSync(join(dir, "lineup"), { recursive: true });
   savePng(join(dir, "lineup", "lineup.png"), tile(shots, 4, order.map((_, i) => letters[i])));
   savePng(join(dir, "lineup", "mystery.png"), render(copy, { ...POSE, view: "orbit", within: framing(copy, [POSE]), yaw: 35, pitch: 20, width: 384, height: 384 }));
-  const r = await runAgent({ read: join(dir, "lineup"), hours: 0.25, prompt: `${dir}/lineup/mystery.png shows a model made to copy one of the game models in ${dir}/lineup/lineup.png (labelled ${letters.slice(0, order.length).split("").join(", ")}). Which one is it a copy of? Reply with the one letter alone.` });
+  const r = await runAgent({ model: JUDGE_MODEL, read: join(dir, "lineup"), hours: 0.25, prompt: `${dir}/lineup/mystery.png shows a model made to copy one of the game models in ${dir}/lineup/lineup.png (labelled ${letters.slice(0, order.length).split("").join(", ")}). Which one is it a copy of? Reply with the one letter alone.` });
   const picked = (r.answer.match(/\b([A-P])\b/) ?? [])[1] ?? null;
   return { picked, right: letters[order.indexOf(s.file)] };
 }
@@ -238,8 +238,11 @@ async function judgeOne(kind, s, leg, built, { decoy } = {}) {
     }
     item = "C1";
   }
-  const line = await lineup(kind, s, copy, dir);
   const items = [...ITEMS, item, ...(s.stunt ? ["C2"] : [])];
+  // failed already by a measure of a must-have item: no line-up and no judge are asked
+  const failed = failedByMeasure(caps, [...MUST, item, ...(s.stunt ? ["C2"] : [])]);
+  if (failed.length) return { kind, subject: s.id, leg: decoy ? "decoy: box" : leg, measured, caps, passes: false, failedByMeasure: failed, total: 0, of: 2 * items.length };
+  const line = await lineup(kind, s, copy, dir);
   const r = await runJudge({
     read: dir,
     hours: 0.5,

@@ -13,7 +13,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSy
 import { join, basename, dirname } from "node:path";
 import { execFileSync } from "node:child_process";
 import { HERE, GAME, SDHLT, POSE, readModel, boxOf, picturesOf, savePng, besides, SIDES } from "./lib.mjs";
-import { runAgent, runJudge } from "./agents.mjs";
+import { runAgent, runJudge, failedByMeasure } from "./agents.mjs";
 import * as smak from "../../src/index.mjs";
 import { tile, render, framing, strip } from "../../src/render.mjs";
 import { contractOf, compareContract } from "../../src/contract.mjs";
@@ -184,6 +184,8 @@ const band = (ok, near) => (ok ? 2 : near ? 1 : 0);
 /** One judge's scores held to the caps; passed by the rubric's "Passing". */
 async function judge(kind, label, dir, pictures, measured, caps = {}) {
   const items = ITEMS[kind];
+  const failed = failedByMeasure(caps, MUST[kind]);
+  if (failed.length) return { kind, label, measured, caps, passes: false, failedByMeasure: failed, total: 0, of: 2 * items.length };
   // DRY=1: the harness alone, every judge's score a 1, to test the pictures and measures with no agent run
   const r = process.env.DRY ? { answer: JSON.stringify(Object.fromEntries(items.map((i) => [i, { score: 1, reason: "dry run" }]))) } : await runJudge({
     read: dir,

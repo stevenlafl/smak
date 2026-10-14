@@ -2,7 +2,8 @@
 // SMAK MCP server, with or without the game's .wad folder; reading one folder of pictures), and nothing of
 // this kit's folders, Valve's files or this session. Used by describe.mjs, reproduce.mjs and judge.mjs.
 import { spawn } from "node:child_process";
-import { mkdtempSync, mkdirSync, writeFileSync, existsSync, copyFileSync } from "node:fs";
+import { mkdtempSync, mkdirSync, writeFileSync, existsSync, copyFileSync, readFileSync, readdirSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { join, dirname } from "node:path";
 import { tmpdir } from "node:os";
 import { KIT, GAME, SDHLT, STEAM } from "./lib.mjs";
@@ -84,11 +85,51 @@ export async function runAgent({ prompt, read = null, server = null, files = {},
  * A judge: runAgent until its answer holds a JSON object, three tries at most, a minute apart. A judge whose
  * session ended with nothing said (round 3 lost nine judgements so) is asked again, not scored as a fault.
  */
+/**
+ * The model the judges run on: Haiku unless SMAK_JUDGE_MODEL says otherwise (Steven, 2026-10-14: judging on Opus
+ * cost a percent of his plan a minute). Scoring pictures against a fixed rubric, its numbers given, is a far
+ * smaller task than building; calibrate.mjs measures how far its scores stand from Opus's on judged rounds.
+ */
+export const JUDGE_MODEL = process.env.SMAK_JUDGE_MODEL || "haiku";
+
+/**
+ * The must-have items a measurement already holds under 2: an asset with any fails whatever a judge says, so no
+ * judge is asked (unless SMAK_JUDGE_ALL is set) and the result says which measure failed it.
+ */
+export function failedByMeasure(caps, must) {
+  if (process.env.SMAK_JUDGE_ALL) return [];
+  return must.filter((item) => caps[item] !== undefined && caps[item] !== null && caps[item] < 2);
+}
+
+/** Where a judge's answers are kept by what it was asked: the same prompt and pictures, the same answer. */
+const JUDGED = join(KIT, "examples", "reproduce", ".judged");
+/** A key for a judge's question: its model, its prompt and every picture of the folder it reads. */
+function judgedKey(options) {
+  const hash = createHash("sha256").update(JUDGE_MODEL).update(options.model ?? "").update(options.prompt ?? "");
+  const look = (dir) => {
+    if (!dir || !existsSync(dir)) return;
+    for (const e of readdirSync(dir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
+      const p = join(dir, e.name);
+      if (e.isDirectory()) look(p);
+      else if (/\.png$/i.test(e.name)) hash.update(e.name).update(readFileSync(p));
+    }
+  };
+  look(options.read);
+  return hash.digest("hex");
+}
+
 export async function runJudge(options) {
+  const key = judgedKey(options);
+  const kept = join(JUDGED, `${key}.json`);
+  if (existsSync(kept)) return { ...JSON.parse(readFileSync(kept, "utf8")), reused: true };
   let last;
   for (let attempt = 1; attempt <= 3; attempt++) {
-    last = await runAgent(options);
-    if (/\{[\s\S]*\}/.test(last.answer ?? "")) return { ...last, attempts: attempt };
+    last = await runAgent({ model: JUDGE_MODEL, ...options });
+    if (/\{[\s\S]*\}/.test(last.answer ?? "")) {
+      mkdirSync(JUDGED, { recursive: true });
+      writeFileSync(kept, JSON.stringify({ answer: last.answer, ended: last.ended, model: JUDGE_MODEL }));
+      return { ...last, attempts: attempt };
+    }
     if (attempt < 3) await new Promise((wake) => setTimeout(wake, 60_000));
   }
   return { ...last, attempts: 3 };
