@@ -1,0 +1,298 @@
+{
+ "spec": "smak.model/1",
+ "name": "pipeshotgun.mdl",
+ "kind": "held",
+ "texture": {
+  "width": 512,
+  "height": 256
+ },
+ "materials": {
+  "pipe": {
+   "base": "steel",
+   "tone": [
+    0.42,
+    0.43,
+    0.44
+   ]
+  },
+  "steel": {
+   "base": "steel"
+  },
+  "wood": {
+   "base": "wood",
+   "tone": [
+    0.55,
+    0.38,
+    0.22
+   ]
+  },
+  "rubber": {
+   "base": "paint",
+   "tone": [
+    0.07,
+    0.07,
+    0.07
+   ]
+  },
+  "brass": {
+   "base": "brass"
+  }
+ },
+ "weapon": {
+  "like": "shotgun",
+  "size": "old"
+ },
+ "parts": [
+  {
+   "id": "stock",
+   "kind": "box",
+   "material": "wood",
+   "size": [
+    7.6,
+    1.4,
+    2.4
+   ],
+   "rotate": [
+    0,
+    8,
+    0
+   ],
+   "at": [
+    4.0,
+    0,
+    -2.6
+   ]
+  },
+  {
+   "id": "butt",
+   "kind": "box",
+   "material": "rubber",
+   "size": [
+    0.8,
+    1.6,
+    3.4
+   ],
+   "rotate": [
+    0,
+    8,
+    0
+   ],
+   "at": [
+    0.1,
+    0,
+    -2.8
+   ]
+  },
+  {
+   "id": "receiver",
+   "kind": "box",
+   "material": "pipe",
+   "size": [
+    6.0,
+    1.6,
+    2.4
+   ],
+   "at": [
+    11.5,
+    0,
+    -1.4
+   ]
+  },
+  {
+   "id": "grip",
+   "kind": "box",
+   "material": "wood",
+   "size": [
+    1.5,
+    1.2,
+    3.6
+   ],
+   "rotate": [
+    0,
+    -18,
+    0
+   ],
+   "at": [
+    8.9,
+    0,
+    -5.0
+   ]
+  },
+  {
+   "id": "barrel",
+   "kind": "turn",
+   "material": "pipe",
+   "axis": "x",
+   "sides": 12,
+   "rings": [
+    [
+     0,
+     0.75
+    ],
+    [
+     18,
+     0.75
+    ]
+   ],
+   "caps": [
+    false,
+    true
+   ],
+   "lining": {
+    "inset": 0.22
+   },
+   "rotate": [
+    180,
+    0,
+    0
+   ],
+   "at": [
+    32.3,
+    0,
+    0.2
+   ]
+  },
+  {
+   "id": "magazine",
+   "kind": "turn",
+   "material": "pipe",
+   "axis": "x",
+   "sides": 10,
+   "rings": [
+    [
+     0,
+     0.55
+    ],
+    [
+     14,
+     0.55
+    ]
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "at": [
+    14.3,
+    0,
+    -1.2
+   ]
+  },
+  {
+   "id": "clamp_1",
+   "kind": "band",
+   "material": "steel",
+   "on": {
+    "part": "barrel",
+    "s": 0.7
+   },
+   "width": 0.5,
+   "height": 0.15
+  },
+  {
+   "id": "clamp_2",
+   "kind": "band",
+   "material": "steel",
+   "on": {
+    "part": "barrel",
+    "s": 0.09999999999999998
+   },
+   "width": 0.5,
+   "height": 0.15
+  },
+  {
+   "id": "pump",
+   "kind": "turn",
+   "material": "wood",
+   "axis": "x",
+   "sides": 10,
+   "rings": [
+    [
+     0,
+     0.85
+    ],
+    [
+     0.3,
+     1.0
+    ],
+    [
+     5.2,
+     1.0
+    ],
+    [
+     5.5,
+     0.85
+    ]
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "at": [
+    18.5,
+    0,
+    -1.2
+   ],
+   "bone": "Bone01"
+  },
+  {
+   "id": "guard",
+   "kind": "tube",
+   "material": "steel",
+   "sides": 5,
+   "path": [
+    [
+     9.6,
+     0,
+     -2.6,
+     0.15
+    ],
+    [
+     10.0,
+     0,
+     -3.6,
+     0.15
+    ],
+    [
+     11.4,
+     0,
+     -3.6,
+     0.15
+    ],
+    [
+     11.8,
+     0,
+     -2.6,
+     0.15
+    ]
+   ]
+  },
+  {
+   "id": "trigger",
+   "kind": "box",
+   "material": "steel",
+   "size": [
+    0.3,
+    0.3,
+    0.9
+   ],
+   "at": [
+    10.8,
+    0,
+    -3.5
+   ]
+  },
+  {
+   "id": "bead",
+   "kind": "sphere",
+   "material": "brass",
+   "radius": 0.18,
+   "sides": 6,
+   "at": [
+    31.9,
+    0,
+    0.85
+   ]
+  }
+ ]
+}

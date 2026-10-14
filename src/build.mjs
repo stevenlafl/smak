@@ -173,6 +173,8 @@ export function boneNearest(corners, point, otherwise) {
  *              of turning it the one whose outline follows the old one's best
  *            "bone": its points are already where they must be, in the space of the bone that carries the old
  *              piece
+ *   turn     with "fit": the one of the four turns to take ("as drawn", "x", "y", "z") where the outline
+ *            cannot tell them apart (a box, a can): unless told, the one whose outline follows best
  *   size     "old" (default): the piece is stretched to the old one's length, whatever size it was drawn at
  *            "own": it was drawn in the game's units and keeps its size; the end it starts at (its lowest x:
  *              the grip, the butt) stays where the old one's was, so the hand still holds it
@@ -192,6 +194,7 @@ export function swapMesh(
     texture,
     place = "fit",
     size = "old",
+    turn = null,
     name = "",
   },
 ) {
@@ -205,7 +208,7 @@ export function swapMesh(
     ? original.map((tri) => tri.map((c) => ({ p: into(frame, c.p), mesh: c.mesh, bone: c.bone })))
     : original;
   let fit = laid
-    ? bestTurn(piece.tris, inAxes, piece.haft)
+    ? bestTurn(piece.tris, inAxes, piece.haft, turn)
     : { k: 1, name: "as given", left: 0, at: (p) => p };
   if (laid && size === "own") fit = atOwnSize(fit, piece.tris);
 

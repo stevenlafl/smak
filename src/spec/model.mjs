@@ -114,6 +114,9 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
       errors.push(`weapon.views: some of "v" (first person), "p" (in another player's hands), "w" (lying in the world)`);
     if (w?.size !== undefined && !["old", "own"].includes(w.size)) errors.push(`weapon.size: "old" (stretched to the old one's length) or "own" (the size it was built at, its grip where the old grip was)`);
     if (w?.rig !== undefined && !["carry", "nearest"].includes(w.rig)) errors.push(`weapon.rig: "carry" (on the bone that carried the old one) or "nearest" (each corner on the bone of the old one's nearest corner: a slide, a drum that turns)`);
+    const turnOk = (v) => v === undefined || ["as drawn", "x", "y", "z"].includes(v);
+    if (!(turnOk(w?.turn) || (w?.turn && typeof w.turn === "object" && Object.values(w.turn).every(turnOk))))
+      errors.push(`weapon.turn: "as drawn", "x", "y" or "z" (the fit's turn, where its outline cannot choose), or one a view: { "v": "z", "p": "as drawn" }`);
     if ((spec.kind ?? "held") !== "held") errors.push(`kind: a weapon is "held": built lying along +x, its grip at the low-x end`);
   }
   for (const [name, material] of Object.entries(spec.materials ?? {}))
@@ -876,7 +879,7 @@ const WEAPON_VIEWS = { v: { shrink: 1, what: "first person" }, p: { shrink: 2, w
  * Returns [{ name, mdl, view }]; what each became goes in the report.
  */
 function weaponViews(spec, meshes, { folder, games, report }) {
-  const { like, views = ["v", "p", "w"], size = "old", rig = "carry" } = spec.weapon;
+  const { like, views = ["v", "p", "w"], size = "old", rig = "carry", turn } = spec.weapon;
   if (meshes.length !== 1) {
     report.errors.push(`weapon: a weapon wears one picture, and this one has ${meshes.length} (${meshes.map((m) => m.name).join(", ")}): a glowing or see-through material gets a picture of its own; leave such parts out of a weapon`);
     return [];
@@ -917,7 +920,7 @@ function weaponViews(spec, meshes, { folder, games, report }) {
     for (const [j, model] of part.models.entries()) {
       if (!weaponTris(model)) continue;
       try {
-        const swapped = swapMesh(mdl, { body: j * part.base, bodypart, piece, texture, size, name: fileName });
+        const swapped = swapMesh(mdl, { body: j * part.base, bodypart, piece, texture, size, turn: typeof turn === "object" && turn ? turn[view] : turn, name: fileName });
         mdl = swapped.mdl;
         const r = swapped.report;
         const others = r.bones.filter((b) => b !== r.bone);

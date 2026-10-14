@@ -1,0 +1,322 @@
+{
+ "spec": "smak.model/1",
+ "name": "lunchmine.mdl",
+ "kind": "held",
+ "texture": {
+  "width": 256,
+  "height": 256
+ },
+ "materials": {
+  "red": {
+   "base": "paint",
+   "tone": [
+    0.62,
+    0.1,
+    0.08
+   ]
+  },
+  "black": {
+   "base": "paint",
+   "tone": [
+    0.06,
+    0.06,
+    0.06
+   ]
+  },
+  "steel": {
+   "base": "steel"
+  },
+  "tape": {
+   "base": "cloth",
+   "tone": [
+    0.6,
+    0.61,
+    0.62
+   ]
+  },
+  "battery": {
+   "base": "paint",
+   "tone": [
+    0.15,
+    0.25,
+    0.6
+   ]
+  },
+  "led": {
+   "base": "paint",
+   "tone": [
+    0.95,
+    0.12,
+    0.08
+   ]
+  }
+ },
+ "weapon": {
+  "like": "tripmine",
+  "views": [
+   "v",
+   "p"
+  ],
+  "turn": {
+   "v": "as drawn"
+  }
+ },
+ "parts": [
+  {
+   "id": "box",
+   "kind": "box",
+   "material": "red",
+   "size": [
+    5.0,
+    6.5,
+    3.2
+   ]
+  },
+  {
+   "id": "lid",
+   "kind": "turn",
+   "material": "red",
+   "axis": "y",
+   "sides": 12,
+   "rings": [
+    [
+     0,
+     [
+      1.6,
+      2.5
+     ]
+    ],
+    [
+     6.5,
+     [
+      1.6,
+      2.5
+     ]
+    ]
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "attach": {
+    "to": "box",
+    "toAt": "top",
+    "at": "centre",
+    "offset": [
+     0,
+     0,
+     -0.4
+    ]
+   }
+  },
+  {
+   "id": "handle",
+   "kind": "tube",
+   "material": "black",
+   "sides": 5,
+   "path": [
+    [
+     0,
+     -1.6,
+     0,
+     0.25
+    ],
+    [
+     0,
+     -1.4,
+     1.0,
+     0.25
+    ],
+    [
+     0,
+     1.4,
+     1.0,
+     0.25
+    ],
+    [
+     0,
+     1.6,
+     0,
+     0.25
+    ]
+   ],
+   "attach": {
+    "to": "lid",
+    "toAt": "top",
+    "at": "bottom",
+    "offset": [
+     0,
+     0,
+     -0.4
+    ]
+   }
+  },
+  {
+   "id": "latch",
+   "kind": "box",
+   "material": "steel",
+   "size": [
+    0.3,
+    1.0,
+    0.8
+   ],
+   "attach": {
+    "to": "box",
+    "toAt": "front",
+    "at": "back",
+    "offset": [
+     -0.1,
+     0,
+     1.0
+    ]
+   }
+  },
+  {
+   "id": "tape_band",
+   "kind": "box",
+   "material": "tape",
+   "size": [
+    5.2,
+    1.4,
+    3.4
+   ],
+   "attach": {
+    "to": "box",
+    "toAt": "centre",
+    "at": "centre"
+   }
+  },
+  {
+   "id": "battery",
+   "kind": "box",
+   "material": "battery",
+   "size": [
+    0.4,
+    2.4,
+    1.4
+   ],
+   "attach": {
+    "to": "box",
+    "toAt": "front",
+    "at": "back",
+    "offset": [
+     -0.1,
+     -1.8,
+     -0.5
+    ]
+   }
+  },
+  {
+   "id": "led",
+   "kind": "turn",
+   "material": "led",
+   "axis": "x",
+   "sides": 8,
+   "rings": [
+    [
+     0,
+     0.35
+    ],
+    [
+     0.3,
+     0.35
+    ]
+   ],
+   "caps": [
+    true,
+    0.25
+   ],
+   "attach": {
+    "to": "box",
+    "toAt": "front",
+    "at": "back",
+    "offset": [
+     -0.05,
+     1.8,
+     0.8
+    ]
+   }
+  },
+  {
+   "id": "wire_red",
+   "kind": "tube",
+   "material": "led",
+   "sides": 5,
+   "path": [
+    [
+     0,
+     0,
+     0,
+     0.1
+    ],
+    [
+     0.5,
+     0.6,
+     0.3,
+     0.1
+    ],
+    [
+     0.3,
+     1.8,
+     0.9,
+     0.1
+    ],
+    [
+     0,
+     3.4,
+     1.0,
+     0.1
+    ]
+   ],
+   "attach": {
+    "to": "battery",
+    "toAt": "front",
+    "at": "start",
+    "offset": [
+     -0.05,
+     0.2,
+     0
+    ]
+   }
+  },
+  {
+   "id": "wire_spool",
+   "kind": "turn",
+   "material": "steel",
+   "axis": "y",
+   "sides": 10,
+   "rings": [
+    [
+     0,
+     0.9
+    ],
+    [
+     0.15,
+     0.6
+    ],
+    [
+     1.1,
+     0.6
+    ],
+    [
+     1.25,
+     0.9
+    ]
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "attach": {
+    "to": "box",
+    "toAt": "left",
+    "at": "right",
+    "offset": [
+     0,
+     -0.1,
+     0.4
+    ]
+   }
+  }
+ ]
+}

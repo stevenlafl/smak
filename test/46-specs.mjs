@@ -215,6 +215,9 @@ test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ file
   sure(onBone.has(0) && onBone.has(1), `the rod on the hand and the knob on the slide: bones ${[...onBone]}`);
   sure(smak.sequences(v.mdl).length === 2, "the game's animations kept");
   sure(/v_stick\.mdl \(first person\)/.test(report.facts.join("\n")), "the report says what each file became");
+  // the turn told, where the outline cannot choose
+  const turned = buildModelSpec({ ...spec, weapon: { ...spec.weapon, turn: { v: "z" } } }, { folder }).report;
+  sure(/v_stick\.mdl[^\n]*laid turned about z/.test(turned.facts.join("\n")), `the turn told is the turn taken: ${turned.facts.join(" | ")}`);
   const missing = buildModelSpec({ ...spec, weapon: { like: "spear" } }, { folder }).report;
   sure(!missing.ok && /v_spear\.mdl is neither beside the spec nor in the game folders/.test(missing.errors.join()), missing.errors.join());
 });

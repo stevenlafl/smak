@@ -81,7 +81,7 @@ turned by `rotate`, then moved to its place. **Build things upright**: a post, a
 | `box` | `size: [x, y, z]` | centred on x and y, from z 0 up to z |
 | `cylinder` | `radius`, `height`, `top` (radius at the top: a cone or a taper), `sides` (16) | along z from 0 to `height`, both ends closed |
 | `sphere` | `radius`, `sides` | from z 0 to `2 * radius` |
-| `turn` | `rings: [[s, r], ...]` (s along the axis, growing; r its radius, `[ra, rb]` an oval, 0 makes a point; `{ s, r, crease: true }` a hard edge, `{ s, r, off: [a, b] }` its middle moved off the axis), `caps: [start, end]` (true: flat; a number: a dome that high; false: open, which needs `open: true` or a `lining`), `lining: { inset }` (an inside: a cup, a bowl, a helmet; the rings then run from the open rim), `axis` (`z`), `sides` (16) | along its axis from its first ring |
+| `turn` | `rings: [[s, r], ...]` (s along the axis, growing; r its radius, `[ra, rb]` an oval, 0 makes a point; `{ s, r, crease: true }` a hard edge, `{ s, r, off: [a, b] }` its middle moved off the axis), `caps: [start, end]` (true: flat; a number: a dome that high; false: open, which needs `open: true` or a `lining`), `lining: { inset }` (an inside: a cup, a bowl, a helmet, a pipe; the rings then run from the open rim, so the first ring is the open end and `caps` is `[false, ...]`: a pipe open at its front is built from the front back, `rotate: [180, 0, 0]`), `axis` (`z`), `sides` (16) | along its axis from its first ring |
 | `tube` | `path: [[x, y, z, r], ...]` (a bent pipe, an arm, a horn, a rope, a rim round a circle; r 0 at an end makes a point), `sides` (8) | as the path's numbers say |
 | `leaf` | `width`, `height`, `bend` (how far its middle bulges), or `rows` of points (a grid: a sagging awning) | a sheet seen from both sides, in the x-z plane: a flag, a sign, a pane, a sail |
 | `band` | `on: { part, s }`, `width`, `height` | a hoop round a turned part (`s` 0 at its first ring, 1 at its last). Moves with that part |
@@ -162,6 +162,9 @@ new name needs the mod's code). They are written in `work:<name>_weapon/`.
 - A part that moves names the game's bone it moves with: `"bone": "cylinder_spin"` (a revolver's drum),
   `"hammer"`, `"trigger"`. `smak info` on the game's `v_` file lists its bones. A file without that bone
   (the `p_` and `w_` ones have few) keeps the part on the bone that carried the old weapon.
+- `turn`: where the fit cannot tell which way round the piece goes (a box, a can are the same outline every
+  way), `"as drawn"`, `"x"`, `"y"` or `"z"`, or one a view (`{ "v": "as drawn" }`). Unless told, the one
+  whose outline follows the old weapon's best. Draw it and look at which face the player sees.
 - One picture: a weapon's parts share one texture, so leave out `neon`, `flame` and `glass` (each of those
   is a picture of its own).
 

@@ -6,8 +6,9 @@ import { sub, dot, cross, box, out, into, uniq, mainAxes } from "./vec.mjs";
 
 // The hands' own meshes, which a view model's submodel may hold next to the weapon.
 // the meshes of a first-person model that are its hands and sleeves, by their texture's name: Half-Life's
-// are GLOVED_sleeve, rubbergloveCHROME, GLOVED_knuckle and GLOVE_handpak
-export const HANDS = /hands|arms|body|glove|sleeve|knuckle|handpak/i;
+// are GLOVED_sleeve, rubbergloveCHROME, GLOVED_knuckle, GLOVE_handpak and HAND_ForeArm1 (not "hand" alone:
+// the .357's grip is Pythonhandle)
+export const HANDS = /hands|arms|forearm|body|glove|sleeve|knuckle|handpak/i;
 
 /**
  * One submodel's weapon, measured: the meshes `pick` chooses, the bone that carries most
@@ -190,7 +191,7 @@ const TURNS = [
  * round, the one whose outline follows the original's best. Returns the placing and what
  * is left over between the two outlines, in units.
  */
-export function bestTurn(piece, original, haft = false) {
+export function bestTurn(piece, original, haft = false, only = null) {
   if (haft) {
     const fit = onHaft(piece, original);
     if (fit) return fit;
@@ -203,7 +204,8 @@ export function bestTurn(piece, original, haft = false) {
   const theirBox = box(theirs.flat());
   const theirOutline = profile(theirs, theirBox.mn[0], theirBox.mx[0]);
   let best = null;
-  for (const { about, turn } of TURNS) {
+  // `only`: the one turn to take ("as drawn", "x", "y", "z"), when the outline cannot tell (a box)
+  for (const { about, turn } of TURNS.filter((t) => !only || (t.about ?? "as drawn") === only)) {
     const name = about ? `turned about ${about}` : "as drawn";
     const turned = mine.map((tri) => tri.map(turn));
     const laid = overlay(turned.flat(), theirs.flat());

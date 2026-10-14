@@ -1,0 +1,277 @@
+{
+ "spec": "smak.model/1",
+ "name": "canbomb.mdl",
+ "kind": "held",
+ "texture": {
+  "width": 256,
+  "height": 256
+ },
+ "materials": {
+  "can": {
+   "base": "steel",
+   "tone": [
+    0.7,
+    0.7,
+    0.68
+   ]
+  },
+  "tape": {
+   "base": "paint",
+   "tone": [
+    0.06,
+    0.06,
+    0.07
+   ]
+  },
+  "label": {
+   "base": "cloth",
+   "tone": [
+    0.78,
+    0.68,
+    0.45
+   ]
+  },
+  "nail": {
+   "base": "steel",
+   "tone": [
+    0.5,
+    0.5,
+    0.52
+   ]
+  },
+  "brass": {
+   "base": "brass"
+  },
+  "fuse": {
+   "base": "rope",
+   "tone": [
+    0.12,
+    0.1,
+    0.08
+   ]
+  }
+ },
+ "weapon": {
+  "like": "grenade",
+  "size": "old"
+ },
+ "parts": [
+  {
+   "id": "can",
+   "kind": "turn",
+   "material": "can",
+   "sides": 14,
+   "rings": [
+    {
+     "s": 0,
+     "r": 1.25,
+     "crease": true
+    },
+    [
+     0.12,
+     1.35
+    ],
+    [
+     3.5,
+     1.35
+    ],
+    {
+     "s": 3.62,
+     "r": 1.25,
+     "crease": true
+    }
+   ],
+   "caps": [
+    true,
+    -0.12
+   ]
+  },
+  {
+   "id": "label",
+   "kind": "band",
+   "material": "label",
+   "on": {
+    "part": "can",
+    "s": 0.5
+   },
+   "width": 2.5,
+   "height": 0.05
+  },
+  {
+   "id": "tape_1",
+   "kind": "band",
+   "material": "tape",
+   "on": {
+    "part": "can",
+    "s": 0.3
+   },
+   "width": 0.5,
+   "height": 0.12
+  },
+  {
+   "id": "tape_2",
+   "kind": "band",
+   "material": "tape",
+   "on": {
+    "part": "can",
+    "s": 0.7
+   },
+   "width": 0.5,
+   "height": 0.12
+  },
+  {
+   "id": "nails",
+   "kind": "studs",
+   "material": "nail",
+   "on": {
+    "part": "can",
+    "path": [
+     [
+      0.07,
+      0
+     ],
+     [
+      0.07,
+      330
+     ]
+    ]
+   },
+   "count": 12,
+   "radius": 0.13,
+   "height": 0.14
+  },
+  {
+   "id": "cap",
+   "kind": "turn",
+   "material": "brass",
+   "sides": 8,
+   "rings": [
+    [
+     0,
+     0.45
+    ],
+    [
+     0.6,
+     0.45
+    ]
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "attach": {
+    "to": "can",
+    "toAt": "top",
+    "at": "bottom",
+    "offset": [
+     0,
+     0,
+     -0.1
+    ]
+   }
+  },
+  {
+   "id": "fuse",
+   "kind": "tube",
+   "material": "fuse",
+   "sides": 5,
+   "path": [
+    [
+     0,
+     0,
+     0,
+     0.13
+    ],
+    [
+     0.3,
+     0.2,
+     0.8,
+     0.13
+    ],
+    [
+     0.9,
+     0.5,
+     1.3,
+     0.12
+    ],
+    [
+     1.5,
+     0.4,
+     1.4,
+     0.11
+    ]
+   ],
+   "attach": {
+    "to": "cap",
+    "toAt": "top",
+    "at": "start",
+    "offset": [
+     0,
+     0,
+     -0.15
+    ]
+   }
+  },
+  {
+   "id": "pull_ring",
+   "kind": "tube",
+   "material": "nail",
+   "sides": 5,
+   "bone": "Bone04",
+   "path": [
+    [
+     0,
+     0,
+     0,
+     0.1
+    ],
+    [
+     0,
+     0.6,
+     0.5,
+     0.1
+    ],
+    [
+     0,
+     1.2,
+     0.55,
+     0.1
+    ],
+    [
+     0,
+     1.6,
+     0.0,
+     0.1
+    ],
+    [
+     0,
+     1.2,
+     -0.55,
+     0.1
+    ],
+    [
+     0,
+     0.6,
+     -0.5,
+     0.1
+    ],
+    [
+     0,
+     0.05,
+     -0.05,
+     0.1
+    ]
+   ],
+   "attach": {
+    "to": "cap",
+    "toAt": "left",
+    "at": "right",
+    "offset": [
+     0,
+     -0.1,
+     0
+    ]
+   }
+  }
+ ]
+}
