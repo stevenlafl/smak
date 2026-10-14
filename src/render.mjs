@@ -558,7 +558,7 @@ const SIX_VIEWS = [
  */
 export function sheet(src, opts = {}) {
   const size = opts.size ?? 384;
-  const within = framing(src, [opts]);
+  const within = opts.within ?? framing(src, [opts]);
   return tile(
     SIX_VIEWS.map(([, yaw, pitch]) =>
       render(src, { ...opts, view: "orbit", within, yaw, pitch, width: size, height: size }),
