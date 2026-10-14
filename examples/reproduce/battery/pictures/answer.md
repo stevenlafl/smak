@@ -1,21 +1,23 @@
-I've built `battery.mdl` in the work folder. The build says OK and every check passed.
+`battery.mdl` is built and the final build passes every check ("OK: built, and every check passed"). It's in the server's work folder as `work:battery.mdl`, with its spec next to it as `work:battery.spec.json`.
 
-**Size:** 10.3 long, 10.3 wide and 18.4 high, standing at z 0, which is exactly what you gave. It has 216 triangles and one 512×512 texture.
+**Size and shape**
+- It comes out at exactly 10.3 long, 10.3 wide and 18.4 high, standing on z 0.
+- It has 244 triangles and one 512 × 512 texture, well inside the engine's limits.
+- **Body:** an eight-sided column with short corner cuts of about 1.5 units, measured off the top and below views. It has a sloped bottom edge, a sloped top edge, and a flat top.
+  - The kit's round shapes can only make even eight-sided columns, with corner cuts about twice as big, so I built the body as one sheet from rings of points.
+  - A sheet that closes all the way round gets flagged as inside out, so the bottom is a separate plate.
+- **Top parts:** four red lamps (one in the middle of each side, flush with the walls as the top view shows), the eight-sided nut on its plate on the +y side, and the yellow striped plate at 45° on its grey block on the −y side. That plate's top sets the 18.4 height.
+- **Colours and markings:** all ten pictures are laid onto the shape: the six sides plus the four close angles. That gives it the teal screens, white corner panels, yellow-and-grey hazard band, dirt and lamp colours straight from the original.
 
-**Shape:**
-- **Body:** a square column with narrow cut-off corners. The kit can't make an irregular eight-sided column, so I made it from two crossed boxes plus four thin boxes turned 45° to form the corner faces. This keeps the outline right from the top and from the quarter views.
-- **Base:** a dark tapered foot underneath.
-- **Top:** a sloped shoulder, then a grey deck with the eight-sided nut on a square block toward the left (+y) side. The yellow-striped handle leans on its plate toward the right (-y) side, as the front and top pictures show.
+**How it compares**
+I rendered my model from the front-right, back-right and below cameras and compared each with the matching original picture. The outline, the parts on top, the screens and the band line up closely. The three-quarter view on the build's sheet looks the same as well.
 
-**Colours and markings:** I projected the six pictures from `sides.png` onto the shape, so the textures come from the original itself. That covers the teal glowing windows, the white panels on the corners, the red-orange lights on the shoulder, the yellow and grey hazard band, the stripes on the handle, the nut's ring and the dark underside. The build found no spot where the pictures see through the model.
+**One trade-off you should know about: the bottom.** The original's bottom is open: from below you see the background through it, plus the underside of the handle and a teal sliver. To match that picture, I made the bottom a flat plate painted the background's blue-grey, with the below picture laid onto it.
+- **In the judging pictures** it looks like the original.
+- **In the game** it shows as a solid blue-grey plate with those marks painted on, not a hole.
 
-**Checked side by side:** I compared it against the six-side sheet and the front-left picture. I also rendered our model from a back-right camera myself (yaw 225°, pitch 25°) and compared that by eye with `back-right.png`. The parts sit and lean the same way in all of them. I didn't make our own renders for the front-right and back-left angles.
+If you'd rather have a plain dark bottom that makes sense in the game, it's a one-line change to that plate's material.
 
-The one visible difference is the block under the nut: it's a little lower and plainer than in the original. Its notches come only from the projected picture, not from the shape.
-
-The build also gave three notes that small parts nearly touch but don't, each 0.3 units apart: the deck and the nut, the nut's block and the shoulder, and the handle plate and the shoulder. Each of those parts still touches another part, so these are notes, not failures.
-
-Files are in the work folder:
-- `battery.mdl`
-- `battery.spec.json`
-- `battery-sheet.png`
+**Notes from the last build (not faults)**
+- The shell and the bottom plate are two-sided sheets, on purpose.
+- One lamp sits 0.5 units from the nut. They aren't meant to touch.

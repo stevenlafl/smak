@@ -1,0 +1,163 @@
+{
+ "subject": "medkit",
+ "leg": "decoy: box",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.855,
+   "left/right": 0.769,
+   "top/below": 0.582
+  },
+  "size": {
+   "original": [
+    34.6,
+    26.4,
+    6.8
+   ],
+   "reproduction": [
+    34.6,
+    26.4,
+    6.8
+   ],
+   "offShare": [
+    0,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 23.9,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 16.1,
+     "shared": 0.861
+    },
+    {
+     "view": "left",
+     "deltaE": 19.1,
+     "shared": 0.771
+    },
+    {
+     "view": "back",
+     "deltaE": 33.2,
+     "shared": 0.861
+    },
+    {
+     "view": "right",
+     "deltaE": 22.1,
+     "shared": 0.771
+    },
+    {
+     "view": "top",
+     "deltaE": 28.4,
+     "shared": 0.589
+    },
+    {
+     "view": "below",
+     "deltaE": null,
+     "shared": 0
+    },
+    {
+     "view": "front-left",
+     "deltaE": 20.4,
+     "shared": 0.624
+    },
+    {
+     "view": "front-right",
+     "deltaE": 20.7,
+     "shared": 0.617
+    },
+    {
+     "view": "back-left",
+     "deltaE": 28.2,
+     "shared": 0.585
+    },
+    {
+     "view": "back-right",
+     "deltaE": 27,
+     "shared": 0.586
+    }
+   ]
+  },
+  "triangles": {
+   "original": 99,
+   "reproduction": 12
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 0,
+  "M2": 2,
+  "M4": 1,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "C",
+  "right": "C",
+  "letters": {
+   "A": "models/w_longjump.mdl",
+   "B": "models/can.mdl",
+   "C": "models/w_medkit.mdl",
+   "D": "models/forklift.mdl",
+   "E": "models/headcrab.mdl",
+   "F": "models/w_battery.mdl",
+   "G": "models/mbarrel.mdl",
+   "H": "models/w_9mmclip.mdl",
+   "I": "models/w_security.mdl",
+   "J": "models/filecabinet.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 0,
+   "score": 0,
+   "reason": "The overall block matches the original's extent, but the outline is a plain rectangle in every view. Silhouette overlap is 0.769 left/right and 0.582 top/below, both under 0.80. From above, the original's chamfered octagonal case corners are missing, and so is the carry-strap loop that sticks out past the case's left, right and bottom edges. In the front, left and right views the original's sloped, bevelled upper edges are drawn as square corners."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured length, width and height are 34.6 x 26.4 x 6.8 for both, with 0 share off on every axis."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Only a single solid box is there. It has none of the original's parts: the chamfered case body, the fabric carry strap looping off one side, the recessed device panel with its screen, the red and green buttons and the round dial set into the top, or the side port/speaker recesses visible in the left and right views."
+  },
+  "M4": {
+   "judge": 0,
+   "cap": 1,
+   "score": 0,
+   "reason": "The whole box is a uniform mid-grey stone/concrete-like material, with a darker grey underside. The original is a white painted or plastic case with red markings, a dark grey/black device panel and a brown-tan cloth strap. None of those regions has the right colour or material. Measured mean deltaE is 23.9, against a pass line of 15, and reaches 33.2 on the back."
+  },
+  "M5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "None of the original's surface detail is there: the red cross and FIRST AID lettering on top and back, the red arrows and small text along the sides, the screen and indicator lights on the panel, and the strap's woven texture. The reproduction has only a faint mottled grey grain with light edge lines."
+  },
+  "M6": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "At game size a player would see a grey slab, not the white first-aid kit with a red cross and a strap. It would not be taken for the original."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "It lies flat and upright on the same footprint and height as the original. Nothing marks a front, though: no panel, lettering or strap side, so whether its front matches the original's front cannot be told."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The check reports no errors. It has 12 triangles against the original's 99, well under twice that. The box is closed, faces outward and rests on the ground plane, with nothing floating."
+  }
+ },
+ "total": 5,
+ "of": 16,
+ "passes": false
+}

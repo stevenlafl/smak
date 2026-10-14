@@ -1,0 +1,163 @@
+{
+ "subject": "battery",
+ "leg": "decoy: swap-filecabinet",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.12,
+   "left/right": 0.094,
+   "top/below": 0.158
+  },
+  "size": {
+   "original": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "reproduction": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "offShare": [
+    1.796,
+    1.194,
+    2.391
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 32,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 35.4,
+     "shared": 0.12
+    },
+    {
+     "view": "left",
+     "deltaE": 33.1,
+     "shared": 0.092
+    },
+    {
+     "view": "back",
+     "deltaE": 32.6,
+     "shared": 0.12
+    },
+    {
+     "view": "right",
+     "deltaE": 33.7,
+     "shared": 0.092
+    },
+    {
+     "view": "top",
+     "deltaE": 28,
+     "shared": 0.155
+    },
+    {
+     "view": "below",
+     "deltaE": 23.9,
+     "shared": 0.092
+    },
+    {
+     "view": "front-left",
+     "deltaE": 34.1,
+     "shared": 0.092
+    },
+    {
+     "view": "front-right",
+     "deltaE": 34.2,
+     "shared": 0.092
+    },
+    {
+     "view": "back-left",
+     "deltaE": 32.7,
+     "shared": 0.092
+    },
+    {
+     "view": "back-right",
+     "deltaE": 32.5,
+     "shared": 0.092
+    }
+   ]
+  },
+  "triangles": {
+   "original": 116,
+   "reproduction": 84
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 0,
+  "M2": 0,
+  "M4": 0,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": null,
+  "right": "J",
+  "letters": {
+   "A": "models/w_security.mdl",
+   "B": "models/can.mdl",
+   "C": "models/w_medkit.mdl",
+   "D": "models/w_longjump.mdl",
+   "E": "models/headcrab.mdl",
+   "F": "models/mbarrel.mdl",
+   "G": "models/forklift.mdl",
+   "H": "models/w_9mmclip.mdl",
+   "I": "models/filecabinet.mdl",
+   "J": "models/w_battery.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The original is a short, chamfered canister with a cap assembly on top. The reproduction is a tall rectangular filing cabinet. Silhouette overlap is 0.12 front/back, 0.094 left/right and 0.158 top/below, far below 0.80 in every view. No outline matches."
+  },
+  "M2": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The original measures 10.3 x 10.3 x 18.4. The reproduction measures 28.8 x 22.6 x 62.4, which is 180%, 119% and 239% over on the three axes. All three are far outside 10%."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "None of the original's parts are there: the green glowing glass window on each side, the corner posts, the yellow and black hazard band at the base, the cap with its valve and yellow lever, and the dark underside plate with its marking. The reproduction has three drawers with handles instead, and the original has neither."
+  },
+  "M4": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The reproduction is all dark grey painted metal. It lacks the original's green glow panels, tan and grey metal frame, yellow and black stripes, and silver cap. Mean deltaE is 32, more than twice the line of 15, and every view is above 23."
+  },
+  "M5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The original's hazard stripes, glowing glass texture, orange indicator lights, cap hardware and underside marking are all missing. The reproduction's drawer seams and grime belong to a different object."
+  },
+  "M6": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Side by side, a player would see a filing cabinet next to a small glowing energy canister. Nobody would take one for the other."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "It stands upright on its base at the origin, as the original does. The original's 'front' is one of four near-identical glass faces, so the facing can't be confirmed against any matching feature. Because the reproduction is a different object, its facing and placement can't be called right to a close look."
+  },
+  "M8": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The check passes with no errors, and 84 triangles is within twice the original's 116. Nothing looks open, inside out or floating. It is held at 1 because it is not a usable stand-in for this prop in the game: its footprint is nearly three times the original's in length, which would collide and clip wherever the original is placed."
+  }
+ },
+ "total": 2,
+ "of": 16,
+ "passes": false
+}

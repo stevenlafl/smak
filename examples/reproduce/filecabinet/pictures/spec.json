@@ -15,9 +15,9 @@
     "steel": {
       "base": "metal",
       "tone": [
-        0.36,
-        0.36,
-        0.36
+        0.33,
+        0.33,
+        0.33
       ]
     }
   },
@@ -27,13 +27,103 @@
       "id": "cabinet",
       "kind": "box",
       "size": [
-        28.8,
+        27.8,
         22.6,
         62.4
       ],
       "material": "steel",
       "at": [
+        -0.5,
         0,
+        0
+      ]
+    },
+    {
+      "id": "stile_right",
+      "kind": "box",
+      "size": [
+        1.1,
+        1.45,
+        62.4
+      ],
+      "material": "steel",
+      "at": [
+        13.85,
+        -10.575,
+        0
+      ]
+    },
+    {
+      "id": "stile_left",
+      "kind": "box",
+      "size": [
+        1.1,
+        1.45,
+        62.4
+      ],
+      "material": "steel",
+      "at": [
+        13.85,
+        10.575,
+        0
+      ]
+    },
+    {
+      "id": "rail_top",
+      "kind": "box",
+      "size": [
+        1.1,
+        19.7,
+        1.6
+      ],
+      "material": "steel",
+      "at": [
+        13.85,
+        0,
+        60.8
+      ]
+    },
+    {
+      "id": "rail_upper",
+      "kind": "box",
+      "size": [
+        1.1,
+        19.7,
+        1.1
+      ],
+      "material": "steel",
+      "at": [
+        13.85,
+        0,
+        42.3
+      ]
+    },
+    {
+      "id": "rail_lower",
+      "kind": "box",
+      "size": [
+        1.1,
+        19.7,
+        2.1
+      ],
+      "material": "steel",
+      "at": [
+        13.85,
+        0,
+        23.4
+      ]
+    },
+    {
+      "id": "plinth",
+      "kind": "box",
+      "size": [
+        1.1,
+        19.7,
+        6.6
+      ],
+      "material": "steel",
+      "at": [
+        13.85,
         0,
         0
       ]
@@ -43,6 +133,12 @@
     {
       "picture": "work:pictures/sides.png",
       "view": "front",
+      "area": [
+        0,
+        0,
+        512,
+        512
+      ],
       "rect": [
         182,
         53,
@@ -53,18 +149,30 @@
     {
       "picture": "work:pictures/sides.png",
       "view": "left",
+      "area": [
+        512,
+        0,
+        1024,
+        512
+      ],
       "rect": [
-        675,
+        674,
         53,
-        861,
+        862,
         459
       ]
     },
     {
       "picture": "work:pictures/sides.png",
       "view": "back",
+      "area": [
+        1024,
+        0,
+        1536,
+        512
+      ],
       "rect": [
-        1207,
+        1206,
         53,
         1354,
         459
@@ -73,8 +181,14 @@
     {
       "picture": "work:pictures/sides.png",
       "view": "right",
+      "area": [
+        0,
+        512,
+        512,
+        1024
+      ],
       "rect": [
-        163,
+        162,
         565,
         350,
         971
@@ -83,21 +197,33 @@
     {
       "picture": "work:pictures/sides.png",
       "view": "top",
+      "area": [
+        512,
+        512,
+        1024,
+        1024
+      ],
       "rect": [
-        695,
+        694,
         675,
         842,
-        861
+        862
       ]
     },
     {
       "picture": "work:pictures/sides.png",
       "view": "below",
+      "area": [
+        1024,
+        512,
+        1536,
+        1024
+      ],
       "rect": [
-        1207,
+        1206,
         675,
         1354,
-        861
+        862
       ]
     }
   ]

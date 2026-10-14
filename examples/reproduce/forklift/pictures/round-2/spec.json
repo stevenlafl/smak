@@ -1,0 +1,683 @@
+{
+  "spec": "smak.model/1",
+  "name": "forklift.mdl",
+  "kind": "prop",
+  "size": {
+    "length": 186.6,
+    "width": 60,
+    "height": 113.4
+  },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "materials": {
+    "black": {
+      "base": "iron",
+      "tone": [
+        0.18,
+        0.18,
+        0.19
+      ],
+      "rust": 0
+    },
+    "white": {
+      "base": "paint",
+      "tone": [
+        0.85,
+        0.85,
+        0.86
+      ]
+    },
+    "red": {
+      "base": "paint",
+      "tone": [
+        0.65,
+        0.1,
+        0.1
+      ]
+    },
+    "rubber": {
+      "base": "paint",
+      "tone": [
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    "overalls": {
+      "base": "cloth",
+      "tone": [
+        0.2,
+        0.45,
+        0.2
+      ]
+    },
+    "skin": {
+      "base": "leather",
+      "tone": [
+        0.8,
+        0.6,
+        0.5
+      ]
+    },
+    "helmet": {
+      "base": "paint",
+      "tone": [
+        0.95,
+        0.8,
+        0.1
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "carriage",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        5,
+        60,
+        51
+      ],
+      "at": [
+        14,
+        0,
+        1
+      ]
+    },
+    {
+      "id": "fork",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        77.3,
+        7,
+        2.5
+      ],
+      "at": [
+        54.65,
+        19.7,
+        0
+      ],
+      "mirror": "y"
+    },
+    {
+      "id": "fork_shank",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        2.5,
+        7,
+        32
+      ],
+      "at": [
+        17,
+        19.7,
+        0
+      ],
+      "mirror": "y"
+    },
+    {
+      "id": "mast_rail",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        13,
+        4,
+        111
+      ],
+      "at": [
+        7,
+        16,
+        0
+      ],
+      "mirror": "y"
+    },
+    {
+      "id": "mast_top",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        21.6,
+        40,
+        2.4
+      ],
+      "at": [
+        6.8,
+        0,
+        111
+      ]
+    },
+    {
+      "id": "mast_mount",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        10,
+        44,
+        26
+      ],
+      "at": [
+        -4,
+        0,
+        12
+      ]
+    },
+    {
+      "id": "frame",
+      "kind": "box",
+      "material": "red",
+      "size": [
+        62,
+        48,
+        17
+      ],
+      "at": [
+        -40,
+        0,
+        9
+      ]
+    },
+    {
+      "id": "fender",
+      "kind": "box",
+      "material": "red",
+      "size": [
+        19,
+        58,
+        12
+      ],
+      "at": [
+        -20.5,
+        0,
+        14
+      ]
+    },
+    {
+      "id": "cowl",
+      "kind": "box",
+      "material": "white",
+      "size": [
+        24,
+        60,
+        34
+      ],
+      "at": [
+        -18,
+        0,
+        22
+      ]
+    },
+    {
+      "id": "deck",
+      "kind": "box",
+      "material": "white",
+      "size": [
+        26,
+        42,
+        16
+      ],
+      "at": [
+        -58,
+        0,
+        24
+      ]
+    },
+    {
+      "id": "counterweight",
+      "kind": "box",
+      "material": "white",
+      "size": [
+        23.3,
+        48,
+        43
+      ],
+      "at": [
+        -81.65,
+        0,
+        13.6
+      ]
+    },
+    {
+      "id": "wheel_front",
+      "kind": "cylinder",
+      "material": "rubber",
+      "radius": 10.2,
+      "height": 8,
+      "rotate": [
+        0,
+        0,
+        90
+      ],
+      "at": [
+        -6.5,
+        30,
+        10.2
+      ],
+      "mirror": "y"
+    },
+    {
+      "id": "wheel_rear",
+      "kind": "cylinder",
+      "material": "rubber",
+      "radius": 9.3,
+      "height": 7,
+      "rotate": [
+        0,
+        0,
+        90
+      ],
+      "at": [
+        -78.4,
+        25,
+        9.3
+      ],
+      "mirror": "y"
+    },
+    {
+      "id": "seat_back",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        5,
+        30,
+        22
+      ],
+      "at": [
+        -67.5,
+        0,
+        40
+      ]
+    },
+    {
+      "id": "seat",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        16,
+        30,
+        5
+      ],
+      "at": [
+        -59,
+        0,
+        39.5
+      ]
+    },
+    {
+      "id": "guard_roof",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        46,
+        34,
+        2.4
+      ],
+      "at": [
+        -51.8,
+        0,
+        96
+      ]
+    },
+    {
+      "id": "guard_post_rear",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        2,
+        2,
+        40.5
+      ],
+      "at": [
+        -73.5,
+        16,
+        56
+      ],
+      "mirror": "y"
+    },
+    {
+      "id": "guard_post_front",
+      "kind": "tube",
+      "material": "black",
+      "sides": 4,
+      "path": [
+        [
+          -30,
+          16,
+          97,
+          1
+        ],
+        [
+          -20,
+          16,
+          55,
+          1
+        ]
+      ],
+      "mirror": "y"
+    },
+    {
+      "id": "steering_column",
+      "kind": "tube",
+      "material": "black",
+      "sides": 4,
+      "path": [
+        [
+          -24,
+          0,
+          55,
+          0.8
+        ],
+        [
+          -37,
+          0,
+          62,
+          0.8
+        ]
+      ]
+    },
+    {
+      "id": "steering_wheel",
+      "kind": "cylinder",
+      "material": "black",
+      "radius": 4.5,
+      "height": 1,
+      "sides": 10,
+      "rotate": [
+        0,
+        -40,
+        0
+      ],
+      "at": [
+        -37,
+        0,
+        61.5
+      ]
+    },
+    {
+      "id": "torso",
+      "kind": "turn",
+      "material": "overalls",
+      "sides": 10,
+      "rings": [
+        [
+          0,
+          [
+            7,
+            11
+          ]
+        ],
+        [
+          14,
+          [
+            7,
+            12
+          ]
+        ],
+        [
+          24,
+          [
+            6,
+            13
+          ]
+        ],
+        [
+          28,
+          [
+            4,
+            7
+          ]
+        ]
+      ],
+      "at": [
+        -59,
+        0,
+        42
+      ]
+    },
+    {
+      "id": "head",
+      "kind": "sphere",
+      "material": "skin",
+      "radius": 4.5,
+      "sides": 10,
+      "at": [
+        -58.5,
+        0,
+        68.5
+      ]
+    },
+    {
+      "id": "helmet",
+      "kind": "turn",
+      "material": "helmet",
+      "sides": 10,
+      "rings": [
+        [
+          0,
+          5.6
+        ],
+        [
+          1,
+          5.6
+        ],
+        [
+          3.5,
+          4.6
+        ],
+        [
+          5.5,
+          2.2
+        ],
+        [
+          6,
+          0
+        ]
+      ],
+      "caps": [
+        true,
+        false
+      ],
+      "at": [
+        -58.5,
+        0,
+        74.5
+      ]
+    },
+    {
+      "id": "thigh",
+      "kind": "tube",
+      "material": "overalls",
+      "path": [
+        [
+          -58,
+          6,
+          46,
+          4
+        ],
+        [
+          -41,
+          6,
+          48,
+          3.5
+        ]
+      ],
+      "mirror": "y"
+    },
+    {
+      "id": "shin",
+      "kind": "tube",
+      "material": "overalls",
+      "path": [
+        [
+          -41,
+          6,
+          48,
+          3.2
+        ],
+        [
+          -32.5,
+          6,
+          28,
+          2.6
+        ]
+      ],
+      "mirror": "y"
+    },
+    {
+      "id": "boot",
+      "kind": "box",
+      "material": "leather",
+      "size": [
+        7,
+        4,
+        3.5
+      ],
+      "at": [
+        -31,
+        6,
+        25.5
+      ],
+      "mirror": "y"
+    },
+    {
+      "id": "upper_arm",
+      "kind": "tube",
+      "material": "overalls",
+      "path": [
+        [
+          -58,
+          11,
+          66,
+          2.6
+        ],
+        [
+          -50,
+          11,
+          56,
+          2.4
+        ]
+      ],
+      "mirror": "y"
+    },
+    {
+      "id": "forearm",
+      "kind": "tube",
+      "material": "overalls",
+      "path": [
+        [
+          -50,
+          11,
+          56,
+          2.3
+        ],
+        [
+          -38,
+          4.5,
+          62,
+          1.8
+        ]
+      ],
+      "mirror": "y"
+    }
+  ],
+  "project": [
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "front",
+      "area": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "rect": [
+        192,
+        131,
+        322,
+        377
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "left",
+      "area": [
+        512,
+        0,
+        1024,
+        512
+      ],
+      "rect": [
+        570,
+        131,
+        972,
+        377
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "back",
+      "area": [
+        1024,
+        0,
+        1536,
+        512
+      ],
+      "rect": [
+        1213,
+        131,
+        1345,
+        377
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "right",
+      "area": [
+        0,
+        512,
+        512,
+        1024
+      ],
+      "rect": [
+        52,
+        643,
+        454,
+        890
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "top",
+      "area": [
+        512,
+        512,
+        1024,
+        1024
+      ],
+      "rect": [
+        702,
+        563,
+        834,
+        972
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "below",
+      "area": [
+        1024,
+        512,
+        1536,
+        1024
+      ],
+      "rect": [
+        1213,
+        563,
+        1346,
+        972
+      ]
+    }
+  ]
+}

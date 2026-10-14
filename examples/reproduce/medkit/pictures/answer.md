@@ -1,21 +1,17 @@
-Alright, `medkit.mdl` is built and the build says OK, with every check passed. It's in the server's work folder as `work:medkit.mdl`, and the spec is next to it as `work:medkit.spec.json`.
+I've built `work:medkit.mdl` and the build says **OK**. The engine check says it's fit for GoldSrc: 180 triangles, one 512×256 texture, one bone.
 
-**What it is**
-- **Size:** 34.7 long, 26.8 wide, 6.8 high, standing on the floor. You asked for 34.6 × 26.4 × 6.8, so the width is off by 0.4.
-- **Case:** an irregular octagon 23 × 23 with 4.3-unit corner cuts and a bevelled top, measured off the top view. I placed the sides by hand because the round-shape tools can only make a regular octagon, and its corner cuts were visibly too big.
-- **Front recess:** a V-shaped trough. The knob panel slopes to face the front and the screen with its buttons slopes up to the front lip, facing back. That matches the corner pictures: from the front you see the big knob panel and only a sliver of green screen, and from the back you see the screen.
-- **Strap:** a thin brown band 3.4 high. It leaves the case sides about 11 units back from the front and loops out in front, following the uneven path in the top view.
-- **Markings and colours:** your five straight-on pictures are projected onto it as its texture. That covers the red cross and FIRST AID, the arrows and small print on the sides, the knob plates where the strap attaches, the device panel and the checkered strap.
-- **Size in the engine:** 260 triangles and one 512×256 texture, well inside the limits.
+**Shape**
+- **Case:** 23 × 23 units with small corners cut off at 45°. The walls are upright up to z 4, then slope inward 3 units to a flat top at z 6.8. The kit's round parts can only make an eight-sided shape with equal sides, which would have made the cut corners too large. So I built the case from flat sheets placed point by point, which keeps the original's small corners.
+- **Front well:** built as a real hollow, not just painted on. It's 11 units wide with a floor at z 4, a slanted back wall carrying the dials, and side walls. That keeps the dark notch in the outline from the front and the grey inner wall in the angled views.
+- **Strap:** a loop 3.6 units high. It starts at the middle of each side, runs past the front and swings off to one side. It leans in slightly so it shows as a thin line from above, as in the original's top view.
+- **Size:** 34.6 long, 26.3 wide, 6.8 high, matching the size you gave.
 
-**How it compares:** I drew it from the six sides and from the four corner angles of your pictures, and the outline, proportions, recess and markings line up with the originals at each one.
+**Colours and markings**
+All nine of your pictures are painted onto the shape. That covers the red cross, "FIRST AID", the arrow markings, the screen with its red and green buttons, the black side panels with their round knobs, and the strap's woven pattern. The four angled views are left off the upright walls, because there they smeared strap colour onto the case. One fix mattered here: the kit was taking the "FRONT", "LEFT" and other labels on the sheet as part of the object, which shifted those four views out of line. I gave it the object's exact position in each view, and the side panels then landed in the right place.
 
 **Where it still differs**
-- **Underneath:** the original's "below" picture is empty because it has no bottom faces. Mine has a plain dark-grey bottom, because an open bottom fails the build's see-through check. So the below view won't match.
-- **Two faces per sheet:** the case walls and the strap are thin sheets with a face on each side. They look solid from outside but use twice the triangles.
-- **Small differences:**
-  - The original's top dips slightly toward the back; mine is flat.
-  - The strap's top edge is plain cloth colour, so it's a bit paler than the original's.
-  - The fine print on the sides is blurrier, because the texture has fewer pixels for the sides.
+- **From below:** the original shows nothing, because it has no bottom faces. The build won't pass with the underside open (it fails the see-through check), and leaving only the inside faces showed a mirrored copy of the top. So I added a dark grey bottom plate, which is close to the background colour. That panel will still look different side by side.
+- **Front view:** the slopes on either side of the dials look wider and shallower in your front picture than in your back picture. Seen straight on with no perspective, those two outlines should mirror each other, so I followed the back view and the four angled views. My front view's slopes are narrower than in your front picture.
+- **Small paint flaws:** a few spots on the strap picked up colour from the case, where my strap doesn't sit exactly where the original's does.
 
-One thing to watch if you reuse the side-by-side picture: the auto-fit counted the "FRONT"/"LEFT" captions as part of the object and stretched each picture off position. I gave each view's outline rectangle by hand in the spec to fix that.
+The spec is at `work:medkit.spec.json` if you want to rebuild or tweak it.

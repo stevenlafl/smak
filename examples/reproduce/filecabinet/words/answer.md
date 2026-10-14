@@ -1,13 +1,16 @@
-The cabinet is built as `work:filecabinet.mdl`. The build reports OK with every check passed, and I looked over the six-side sheet and a close three-quarter view.
+I built `filecabinet.mdl` and the build says OK, with every check passing. It's in the work folder, next to its spec (`filecabinet.spec.json`) and a six-view sheet.
 
-**Shape:** it's 28.8 deep, 22.6 wide and 62.4 high, made of 24 triangles. The body is one sharp-cornered box. The plinth is a 3.4-high band around the bottom that stands 0.05 proud of the body. Everything else is painted onto the texture rather than modelled, because none of it sticks out by a unit or more.
+**Shape:** one box, exactly 28.8 deep × 22.6 wide × 62.4 high, standing on the floor. It has sharp corners and a flat top, and it's 12 triangles. All the detail is painted into a 512×512 texture rather than built, which is how Half-Life's own crates and cabinets are made.
 
-**Front:** three drawer fronts, each 19.5 by 17.3, with 1.5 of body showing at each side. The spacing is 1.7 above the top drawer, 1.2 gaps between drawers and 3 above the plinth. Each drawer is a raised bevelled panel lit from the top left, with a dark recessed outline and a dark shadow line beneath. Each has a black cup pull, 6 by 3, set a little above the drawer's middle, with a lighter rim on top and a dark curved scoop below.
+**Paint:** I checked each item below in the renders.
+- **Body:** dark charcoal paint with cloudy darker patches and specks. There's more grime near the floor, and edges are rubbed slightly lighter. Everything is grey; no colour or glow.
+- **Plinth:** a darker band 3.4 high on all four sides, with a thin bright line along its top.
+- **Top:** the same mottled grey, with a light line along the front edge.
+- **Drawers:** three identical raised panels, 19.5 × 17.3, centred. Each has a lighter top and left edge, a dark outline all round and a shadow line beneath it. I used 17.3 rather than "about 17" so the stated gaps add up to exactly 62.4: 3.4 plinth, 3 of body, the three drawers with 1.2 gaps, and 1.7 at the top.
+- **Pulls:** a black cup pull, 6 × 3, on each drawer, centred and a little above the middle, with a lighter rim on top and a dark curved scoop below.
+- **Left side:** nested vertical stripes in slightly different greys over the front 13 units (45% of the depth), plain mottle behind them.
+- **Right side and back:** plain mottled charcoal with the plinth band.
 
-**Finish:** mottled charcoal metal with dark blotches and specks, heavier grime near the floor, and a slightly darker plinth with a bright line along its top edge on all four sides. The back and right side are plain. On the left side, the front 13 units (about 45% of the depth) carry fine vertical lines in lighter and darker greys.
-
-**Two differences from the original:**
-- **Drawer height:** I used 17.3 instead of 17. With your other spacings, 17 adds up to 61.5 high rather than 62.4, so I let the drawers take up the extra.
-- **Underside:** the kit can only paint panels on the front, back, sides and top, so the underside has no lighter strip along its front edge. It's plain mottled grey.
-
-**Not confirmed in a picture:** the thin light line along the top's front edge. It's in the spec, but too faint to make out in the renders. The edge it sits on comes from a red test strip I placed on the top earlier, not from seeing the line itself.
+**Two things that may differ from the original:**
+- **Underside:** it's plain mottled grey with no lighter strip along the front edge. The kit's painted panels only go on the front, back, sides and top.
+- **Plinth:** it's painted flush, not built standing out. The description allows either.

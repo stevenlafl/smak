@@ -1,0 +1,112 @@
+{
+ "subject": "frenzy",
+ "leg": "decoy: room",
+ "measured": {
+  "floorOverlap": 0.287,
+  "alignment": {
+   "move": [
+    -160,
+    16,
+    -16
+   ],
+   "note": "the reproduction is this far from where the original has the same floor"
+  },
+  "entities": {
+   "original": 58,
+   "reproduction": 1,
+   "matched": 0,
+   "share": 0,
+   "missing": [
+    "info_player_start at 240 -320 64",
+    "info_player_deathmatch at -384 992 384",
+    "weapon_rpg at -384 928 336",
+    "info_player_deathmatch at -440 -992 384",
+    "info_player_deathmatch at -552 -632 224",
+    "info_player_deathmatch at -416 544 64",
+    "info_player_deathmatch at -416 352 64",
+    "info_player_deathmatch at -432 -384 64",
+    "info_player_deathmatch at -912 -768 64",
+    "info_player_deathmatch at 160 -768 64",
+    "info_player_deathmatch at 656 -16 64",
+    "info_player_deathmatch at 608 496 224",
+    "info_player_deathmatch at 448 0 224",
+    "info_player_deathmatch at 288 0 64",
+    "info_player_deathmatch at -1152 0 64",
+    "weapon_gauss at -832 0 176",
+    "weapon_tripmine at -816 272 176",
+    "weapon_tripmine at -816 -288 176",
+    "ammo_gaussclip at 600 344 176",
+    "ammo_gaussclip at 600 376 176"
+   ]
+  },
+  "walkTest": {
+   "unreachedInReproduction": 0,
+   "unreachedInOriginal": 3
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "P2": 0,
+  "P4": 0,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The original has an octagonal ring of four quadrant rooms, a central north-south corridor, a central pit at z 0 under upper walkways, side halls on the west, a stair annex on the east, and towers to the north and south, joined by doors, ladders, stairs and corridors. The reproduction is one empty rectangular room, 2400 x 2048 units, with no areas, corridors, stairs or ladders."
+  },
+  "P2": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "Measured floor overlap is 0.287, far under 0.70. The reproduction's single slab covers the original's bounding box but none of its shapes: the octagon, the cross-shaped hub, the central corridor, the annex. All the empty ground between the original's areas is floor in the reproduction."
+  },
+  "P3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The original's section and storeys show floors at z 0, 160, 320 and 512, ledges, stairs in the east annex, ladders in the central tower, and a ceiling of up to about 640. The reproduction has one floor at z 0 and a flat ceiling at about 288. None of the levels, stairs, ledges or drops are there."
+  },
+  "P4": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "Measured: 0 of 58 entities matched (share 0). The reproduction has one info_player_deathmatch in the room's centre. The original's info_player_start, its other spawn points, weapons (gauss, rpg, tripmines, mp5, shotgun, hornetgun and others), ammunition, battery, longjump, func_door, func_wall, ladders, triggers and the health charger are all missing."
+  },
+  "P5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The original wears dark grey concrete panels with machinery or bookshelf window insets, olive trim and tiled corridor floors. The reproduction wears a sandy beige floor, plain cream walls and a radial wooden-plank ceiling. No surface matches."
+  },
+  "P6": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The original is dark with local lamps: env_glow and lights in the east annex, a fluorescent fixture in the central corridor (start 8), and very dark rooms at starts 5 to 7. The reproduction is lit evenly by a 9 x 9 grid of lights and shows bright cream walls everywhere, so its bright and dark areas are nothing like the original's."
+  },
+  "P7": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "None of the original's landmarks are there: the central corridor with its ceiling light, the window insets along the walls, the pillars and pit outline in the hub, the stair annex, the ladders, the grates seen at start 3. The reproduction is a bare box."
+  },
+  "P8": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "It seems to compile without errors (checkErrors is empty) and its one start walks to everywhere. But the map has no weapons or items at all, so it can't meet 'every place to start reaches every weapon and item, as the original's do'. The original has dozens of weapons and items for its starts to reach."
+  },
+  "P9": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "In all eight view pairs, the original shows dark concrete halls with machinery windows and a lit tiled corridor (start 8). The reproduction shows a bright beige room with a wooden ceiling, or blackness outside the room at starts 2 and 3. No player would recognise the place."
+  }
+ },
+ "total": 1,
+ "of": 18,
+ "passes": false
+}

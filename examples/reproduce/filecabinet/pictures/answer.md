@@ -1,15 +1,18 @@
-I built `filecabinet.mdl` and it's in the work folder. The build says OK, and the engine check says it fits GoldSrc's limits: 12 triangles, one 512×512 texture, one bone.
+`filecabinet.mdl` is built and the build reports OK, with every check passing. It's 28.8 long, 22.6 wide and 62.4 high, standing on the floor, and it's 84 triangles on a single 512×512 texture.
 
-**What it is:** a single box with the original's six straight-on pictures projected onto it as the texture. Its size matches what you gave exactly: 28.8 front to back, 22.6 side to side and 62.4 high, standing on the floor. From every side the original's outline is a plain rectangle. The drawers, handles and base strip are all painted on, not built as separate parts, so I made it one box too.
+**How it's made**
+- **Shape:** a main box for the body. Across the front there's a frame 1 unit deep: two side strips, a top rail, two rails between the drawers and a solid base strip. The three drawer fronts sit 1 unit back inside it, so from the angled cameras they read as recessed the way the original's do. I took the drawer sizes and the rail heights from the front picture (6.5 pixels to a unit).
+- **Surface:** the six straight-on views in `sides.png` are projected onto it as its texture, each with its outline set by hand. That carries over the grey mottled steel, the drawer bevels and pulls, the line where the base strip meets the body, and the stepped stripes on the left side.
 
-**How it compares:**
-- **Front:** the three drawer fronts with their bevelled edges and dark pull handles line up with the original.
-- **Back, right, top and below:** the mottled grey steel comes through, along with the lighter line along the base.
-- **Left side:** the original has odd stepped bands across the front ~13 units of that side, which look like a stretched texture in the original model. They're carried over too, but they show more faintly than in the original.
-- **Corner views:** I rendered the front-left and back-right corners and they read the same as `front-left.png` and `back-right.png`.
+**How it compares**
+- **Straight-on views:** the front, sides, top and bottom match the originals closely in outline and tone.
+- **Front-left, front-right and back-right:** these match well.
+- **Back-left (yaw 145):** this is the one visible mismatch. My back face renders darker and flatter than the original's. The texture there is fine. The renderer lights my flat box faces from the camera's left, and the original seems to light its front and back faces more brightly from every angle. I tried smoothed corner shading to get closer, but it put diagonal gradients across the straight-on views, so I took it out.
 
-**Limits:**
-- The base strip and the drawer fronts are painted, not modelled. In the original's corner shots the base looks like it might stick out a hair, but its straight-on views show no step in the outline, so I left it flush.
-- The engine's own lighting isn't shown in these pictures; the tool draws a plain stand-in. It hasn't been looked at in the game.
+**Two things I tried and dropped**
+- Giving the colour as "seen" (as read off the pictures) roughly tripled the texture's contrast.
+- A darker base colour also made the result too contrasty.
 
-The spec is saved next to the model as `filecabinet.spec.json` if you want to rebuild or tweak it.
+The final version uses a plain mid-grey base colour (0.33), which gave the right contrast.
+
+The files are in the work folder: `filecabinet.mdl`, `filecabinet.spec.json` and `filecabinet-sheet.png`.

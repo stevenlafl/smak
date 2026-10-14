@@ -1,0 +1,163 @@
+{
+ "subject": "filecabinet",
+ "leg": "words",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.999,
+   "left/right": 1,
+   "top/below": 0.979
+  },
+  "size": {
+   "original": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "reproduction": [
+    28.9,
+    22.7,
+    62.4
+   ],
+   "offShare": [
+    0.005,
+    0.004,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 9.8,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 8.6,
+     "shared": 0.999
+    },
+    {
+     "view": "left",
+     "deltaE": 9.2,
+     "shared": 0.999
+    },
+    {
+     "view": "back",
+     "deltaE": 10.4,
+     "shared": 0.999
+    },
+    {
+     "view": "right",
+     "deltaE": 10.3,
+     "shared": 0.999
+    },
+    {
+     "view": "top",
+     "deltaE": 5.8,
+     "shared": 0.971
+    },
+    {
+     "view": "below",
+     "deltaE": 21.3,
+     "shared": 0.968
+    },
+    {
+     "view": "front-left",
+     "deltaE": 7.4,
+     "shared": 0.999
+    },
+    {
+     "view": "front-right",
+     "deltaE": 8.1,
+     "shared": 0.999
+    },
+    {
+     "view": "back-left",
+     "deltaE": 8.4,
+     "shared": 0.999
+    },
+    {
+     "view": "back-right",
+     "deltaE": 8.5,
+     "shared": 0.999
+    }
+   ]
+  },
+  "triangles": {
+   "original": 14,
+   "reproduction": 24
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "F",
+  "right": "F",
+  "letters": {
+   "A": "models/w_longjump.mdl",
+   "B": "models/headcrab.mdl",
+   "C": "models/w_medkit.mdl",
+   "D": "models/w_security.mdl",
+   "E": "models/forklift.mdl",
+   "F": "models/filecabinet.mdl",
+   "G": "models/w_9mmclip.mdl",
+   "H": "models/mbarrel.mdl",
+   "I": "models/w_battery.mdl",
+   "J": "models/can.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Silhouette overlap is 0.999 front/back, 1.0 left/right and 0.979 top/below, all well above 0.80. The outline is the same tall box with a base plinth in every view, and nothing sticks out or is missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 28.9 x 22.7 x 62.4 against 28.8 x 22.6 x 62.4. Every axis is within 0.5%."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Three stacked drawers with one centred handle each, and the base plinth, all in the original's places with matching drawer proportions and gaps. The handles are slightly squarer slot pulls than the original's cup pulls and the drawer bevels are flatter, but every component is there, in the right number and position."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Measured mean deltaE of 9.8 is under 15, but by eye the colour is clearly off. The original is a light-to-mid mottled grey painted metal. The reproduction is a much darker charcoal on every face: the back and right sides in the side views and all four angle views are clearly darker. The plinth is near black where the original's is a light grey with a bright top edge. The underside is almost black against the original's mid grey (deltaE 21.3 in the below view). It is the same hue family but not what one would call the same colour."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original has blotchy grime and stains across the sides, back and top, plus bright worn edges on the plinth and corners. The reproduction is mostly flat, uniform charcoal with only faint wear. The vertical stripe band on the left side sits at the opposite end of the face (left in the reproduction, right in the original's left view). The raised bevel shading on the drawer fronts is also weaker than the original's."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Shape, drawers and handles read as the same cabinet. Side by side, though, the reproduction is clearly darker and cleaner than the original's lighter, grimy grey, most of all on the plain back and sides seen in the back-left and back-right angles. A player comparing the two would notice it is a different, darker cabinet."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The drawers face the same front in every view, the model is upright, and it stands on its base the same way as the original in all angle views."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "No check errors. 24 triangles against the original's 14, inside the 2x limit of 28. Nothing is open, inside out or floating in any view."
+  }
+ },
+ "total": 13,
+ "of": 16,
+ "passes": false
+}

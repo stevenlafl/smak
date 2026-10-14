@@ -1,0 +1,105 @@
+{
+ "subject": "frenzy",
+ "leg": "pictures",
+ "measured": {
+  "floorOverlap": 0.644,
+  "alignment": {
+   "move": [
+    0,
+    -16,
+    -16
+   ],
+   "note": "the reproduction is this far from where the original has the same floor"
+  },
+  "entities": {
+   "original": 58,
+   "reproduction": 58,
+   "matched": 45,
+   "share": 0.776,
+   "missing": [
+    "info_player_deathmatch at -440 -992 384",
+    "info_player_deathmatch at -416 352 64",
+    "weapon_tripmine at -816 272 176",
+    "weapon_tripmine at -816 -288 176",
+    "ammo_gaussclip at -48 144 16",
+    "ammo_buckshot at -48 -144 16",
+    "ammo_ARgrenades at -664 152 336",
+    "ammo_ARgrenades at -664 -152 336",
+    "ammo_ARgrenades at 640 448 16",
+    "ammo_buckshot at -208 -184 336",
+    "ammo_gaussclip at -208 184 336",
+    "weapon_snark at 752 536 8",
+    "ammo_ARgrenades at -344 0 176"
+   ]
+  },
+  "walkTest": {
+   "unreachedInReproduction": 0,
+   "unreachedInOriginal": 3
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "P2": 1,
+  "P4": 1,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The overall arrangement is the original's: an octagonal ring with a north-south central corridor through the middle, a western room with two doors, an eastern annex reached through a curved passage with stairs, and two lower spawn alcoves on the south. The middle is wrong, though. The original has two elongated hexagonal sunken areas on either side of the central corridor, joined into the H-shaped inner rooms by angled passages. The reproduction swaps them for two plain rectangles and squares off the inner rooms. The eastern annex is a blocky rectangle where the original has a curved corridor bending north-east. The diagonal corner rooms of the ring also have a different outline."
+  },
+  "P2": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "Measured floor overlap is 0.644, under the 0.70 needed for a 2. The reproduction's footprint is 2944 x 2480 against the original's 2432 x 2080, about 20% too big on both axes. The ring and the annex extend well past the original's edges, the reproduction's central corridor runs further south, and the central sunken areas are a different size and shape."
+  },
+  "P3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The section at the same cut agrees closely. Both have the ground floor at z 0, the z 160 walkway with the gauss spot, z 320 ledges on both sides of the centre, z 512 high ledges, the same ceiling step over the centre, and the raised eastern spawn ledge with a drop below it. The storeys agree too, with the same heights in matching places (central corridor up to 320, ring at 0 and 160). The heights are right. The only offsets are where the plan's oversizing moves things sideways, and P2 already counts that."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "Measured match is 0.776, under the 0.80 needed for a 2. Of 58 entities, 13 are missing from their places: two info_player_deathmatch (at -440 -992 384 and -416 352 64), both weapon_tripmine at x -816 z 176, the weapon_snark in the east annex, and several ammo_ARgrenades, ammo_gaussclip and ammo_buckshot near the centre and on the z 336 ledges. The classes and counts are right otherwise, including the func_walls, func_doors, func_ladders and the healthcharger."
+  },
+  "P5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The walls are the main thing a player sees, and they are wrong. The original's are grey concrete with long recessed computer-bank window panels and yellow-brown trim (starts 1, 2, 3 and 8). The reproduction uses concrete with a green lower band and a green pipe rail everywhere, and has no computer-bank panels at all. Only the tiled floor and the concrete ceiling are close."
+  },
+  "P6": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The original is dim to near-black at starts 4 to 7, with one fluorescent fixture visible in the start 8 corridor, and its storeys show only a few lights, mostly with env_glow in the east annex. The reproduction scatters dozens of light entities through every room and corridor (storeys show more than 30 of them) and lights everywhere evenly, so the original's dark areas are gone."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The square pillars in the inner rooms, the central corridor and the annex stairs are there. Missing are the original's most distinctive feature, the computer-bank window panels along the walls; the ceiling fluorescent fixtures; the vent grates at the base of the walls in start 3 (the reproduction has a grate set high on the wall instead); and the hexagonal sunken areas on either side of the centre."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The check reports no errors. The walk test leaves nothing unreached in the reproduction: every start reaches every weapon and item. The original has 3 unreached."
+  },
+  "P9": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Not one of the 8 start-point pairs looks like the same place. Starts 1 to 3 in the original face computer-bank walls; the reproduction faces plain green-banded concrete. Starts 4 to 7 in the original are dark walls up close; the reproduction shows brightly lit corridors and pillars. Start 8 is a corridor lined with computer banks under a fluorescent fixture in the original, and a plain green-banded corridor in the reproduction. A player who knows the map would not recognise these views."
+  }
+ },
+ "total": 8,
+ "of": 18,
+ "passes": false
+}

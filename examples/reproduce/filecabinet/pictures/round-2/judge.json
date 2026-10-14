@@ -1,0 +1,163 @@
+{
+ "subject": "filecabinet",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 1,
+   "left/right": 1,
+   "top/below": 1
+  },
+  "size": {
+   "original": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "reproduction": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "offShare": [
+    0.001,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 2.7,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 2.5,
+     "shared": 1
+    },
+    {
+     "view": "left",
+     "deltaE": 3.6,
+     "shared": 0.986
+    },
+    {
+     "view": "back",
+     "deltaE": 3,
+     "shared": 1
+    },
+    {
+     "view": "right",
+     "deltaE": 3,
+     "shared": 0.986
+    },
+    {
+     "view": "top",
+     "deltaE": 2.9,
+     "shared": 0.986
+    },
+    {
+     "view": "below",
+     "deltaE": 2.9,
+     "shared": 0.986
+    },
+    {
+     "view": "front-left",
+     "deltaE": 2.3,
+     "shared": 1
+    },
+    {
+     "view": "front-right",
+     "deltaE": 2.3,
+     "shared": 0.999
+    },
+    {
+     "view": "back-left",
+     "deltaE": 2.4,
+     "shared": 0.999
+    },
+    {
+     "view": "back-right",
+     "deltaE": 2.5,
+     "shared": 1
+    }
+   ]
+  },
+  "triangles": {
+   "original": 14,
+   "reproduction": 12
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "I",
+  "right": "I",
+  "letters": {
+   "A": "models/w_longjump.mdl",
+   "B": "models/w_security.mdl",
+   "C": "models/w_battery.mdl",
+   "D": "models/forklift.mdl",
+   "E": "models/w_medkit.mdl",
+   "F": "models/mbarrel.mdl",
+   "G": "models/w_9mmclip.mdl",
+   "H": "models/headcrab.mdl",
+   "I": "models/filecabinet.mdl",
+   "J": "models/can.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured silhouette overlap is 1.00 in front/back, left/right and top/below. Every side and angle view shows the same tall rectangular box with the same plinth line, and nothing sticks out or is missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 28.8 x 22.6 x 62.4 for both models, so all three dimensions match exactly."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Like the original, it has three stacked drawers on the front, each with one centred dark pull handle, sitting on a recessed base or kick plinth. The drawers have the same sizes and spacing, and the sides, back and top are plain."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mean delta E is 2.7, well under 15, and no view is above 3.6. Both are the same mid-grey painted metal with darker blotches, and the drawer faces and black handles match."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Most detail is in place: the drawer bevels, the handle recesses, the plinth line, and the mottled paint on the back, right and top. In the front-left view, though, the original's left side has fine diagonal streaks across the whole panel, and the reproduction's left side is smooth with only a few vertical lines near the front edge. The reproduction also adds dark specks along the bottom edge of the plinth that the original doesn't have, most visible on the right of the front view and in all four angle views."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Side by side at game size it reads as the same three-drawer grey file cabinet: same shape, same drawer layout, same handles, same colour. The left-side streaks and the speckling at the base are too small to notice at the size the game shows it."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The drawers face the same way as the original's (front view), it stands upright, and its base sits at the same place. The silhouettes and offShare (about 0.001) show it is positioned on its origin the same way."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "No check errors. It has 12 triangles against the original's 14, well under twice. It is a closed box with nothing inside out or floating in any view."
+  }
+ },
+ "total": 15,
+ "of": 16,
+ "passes": true
+}

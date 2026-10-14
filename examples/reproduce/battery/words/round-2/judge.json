@@ -1,0 +1,163 @@
+{
+ "subject": "battery",
+ "leg": "words",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.945,
+   "left/right": 0.953,
+   "top/below": 1
+  },
+  "size": {
+   "original": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "reproduction": [
+    10.4,
+    10.4,
+    18.4
+   ],
+   "offShare": [
+    0.01,
+    0.01,
+    0.001
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 23,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 23.2,
+     "shared": 0.944
+    },
+    {
+     "view": "left",
+     "deltaE": 24,
+     "shared": 0.953
+    },
+    {
+     "view": "back",
+     "deltaE": 23.8,
+     "shared": 0.944
+    },
+    {
+     "view": "right",
+     "deltaE": 24.9,
+     "shared": 0.953
+    },
+    {
+     "view": "top",
+     "deltaE": 24.3,
+     "shared": 0.998
+    },
+    {
+     "view": "below",
+     "deltaE": 18.2,
+     "shared": 0.581
+    },
+    {
+     "view": "front-left",
+     "deltaE": 22.4,
+     "shared": 0.927
+    },
+    {
+     "view": "front-right",
+     "deltaE": 23.5,
+     "shared": 0.934
+    },
+    {
+     "view": "back-left",
+     "deltaE": 22.5,
+     "shared": 0.927
+    },
+    {
+     "view": "back-right",
+     "deltaE": 23.5,
+     "shared": 0.934
+    }
+   ]
+  },
+  "triangles": {
+   "original": 116,
+   "reproduction": 472
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 1,
+  "M8": 0
+ },
+ "lineup": {
+  "picked": "D",
+  "right": "D",
+  "letters": {
+   "A": "models/headcrab.mdl",
+   "B": "models/w_9mmclip.mdl",
+   "C": "models/w_longjump.mdl",
+   "D": "models/w_battery.mdl",
+   "E": "models/forklift.mdl",
+   "F": "models/w_medkit.mdl",
+   "G": "models/mbarrel.mdl",
+   "H": "models/can.mdl",
+   "I": "models/w_security.mdl",
+   "J": "models/filecabinet.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured overlaps (0.945, 0.953, 1.0) clear 0.80, but the outlines still differ in every side view. On the original the base chamfers inward to a narrower black foot and the top edge is rounded. The reproduction's black base drops straight down at full width and its top is a flat-edged cap. On top, the original's lever is a broad tilted plate on a raised block; the reproduction's is a thin rod in the front and back views."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Reproduction is 10.4 x 10.4 x 18.4 against the original's 10.3 x 10.3 x 18.4, within 1% on every axis."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Most parts are there and in place: four glowing windows, a red indicator light above each, the white panels at the corners, and the hex nut and lever on top. The original's inward-tapered foot is missing. The top differs too: the original has a large raised block holding a wide yellow-striped lever plate, while the reproduction has a small plate with a thin stick lever. Seen from below, the original has an open underside with a hollow rim; the reproduction is a solid black panel."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "Measured mean colour difference (Delta E) is 23, above the line of 15. The original body is a warm, grimy brown-grey metal. The reproduction's body is a cleaner, lighter grey with an almost white top cap. The hazard band is yellow blocks on grey in the original and black-and-yellow diagonal stripes in the reproduction. The teal glow is roughly right."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The windows glow in both, but the original's is a noisy, cloudy teal texture and the reproduction's is a clean, crisp oval. The original's hazard band is broken, worn yellow blocks; the reproduction's is a sharp, regular black/yellow chevron. The original has heavy dark wear and grime streaks on the body that the reproduction mostly lacks. The red lights and corner panels match."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "It reads as the same kind of object: a teal-glowing battery canister with a hazard band and a nut and lever on top. Side by side, though, a player would see the lighter, cleaner body, the oval glows, the black-and-yellow stripes and the straight-sided base, so they would not take it for the original."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Upright, with the front matching: lever on the left and nut on the right in the front and top views, as in the original. It stands on its base the same way."
+  },
+  "M8": {
+   "judge": 1,
+   "cap": 0,
+   "score": 0,
+   "reason": "The check reports no errors and nothing looks open, inside out or floating. But it uses 472 triangles against the original's 116, about 4 times as many, past the limit of twice."
+  }
+ },
+ "total": 9,
+ "of": 16,
+ "passes": false
+}

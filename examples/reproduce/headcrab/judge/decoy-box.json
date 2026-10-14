@@ -1,0 +1,163 @@
+{
+ "subject": "headcrab",
+ "leg": "decoy: box",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.694,
+   "left/right": 0.508,
+   "top/below": 0.436
+  },
+  "size": {
+   "original": [
+    25.9,
+    19.2,
+    13.2
+   ],
+   "reproduction": [
+    25.9,
+    19.2,
+    13.2
+   ],
+   "offShare": [
+    0,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 37.6,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 41,
+     "shared": 0.704
+    },
+    {
+     "view": "left",
+     "deltaE": 41.1,
+     "shared": 0.511
+    },
+    {
+     "view": "back",
+     "deltaE": 36.8,
+     "shared": 0.704
+    },
+    {
+     "view": "right",
+     "deltaE": 39.2,
+     "shared": 0.511
+    },
+    {
+     "view": "top",
+     "deltaE": 36.6,
+     "shared": 0.443
+    },
+    {
+     "view": "below",
+     "deltaE": 34,
+     "shared": 0.443
+    },
+    {
+     "view": "front-left",
+     "deltaE": 38,
+     "shared": 0.381
+    },
+    {
+     "view": "front-right",
+     "deltaE": 38.7,
+     "shared": 0.381
+    },
+    {
+     "view": "back-left",
+     "deltaE": 35.3,
+     "shared": 0.341
+    },
+    {
+     "view": "back-right",
+     "deltaE": 35.3,
+     "shared": 0.341
+    }
+   ]
+  },
+  "triangles": {
+   "original": 478,
+   "reproduction": 12
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 0,
+  "M2": 2,
+  "M4": 0,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": null,
+  "right": "G",
+  "letters": {
+   "A": "models/filecabinet.mdl",
+   "B": "models/w_battery.mdl",
+   "C": "models/w_longjump.mdl",
+   "D": "models/w_9mmclip.mdl",
+   "E": "models/w_medkit.mdl",
+   "F": "models/mbarrel.mdl",
+   "G": "models/headcrab.mdl",
+   "H": "models/w_security.mdl",
+   "I": "models/forklift.mdl",
+   "J": "models/can.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The reproduction is a plain rectangular box. Measured overlap is 0.694 front/back, 0.508 left/right and 0.436 top/below, so every view is below 0.80. The original's legs are missing: the two long red forelegs reaching forward in the top, below and side views, and the clawed hind legs. Its rounded domed carapace and tapered body are also missing. The box fills the whole bounding box where the original is mostly empty space between its legs."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 25.9 x 19.2 x 13.2 for both, so length, width and height all match exactly."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "None of the original's parts are there. It has no legs at all, where the original has two long red forelegs with black claw tips and two shorter clawed hind legs. There is no domed pale carapace and no toothed mouth on the underside, which shows clearly in the below and back views. It is one undivided box."
+  },
+  "M4": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "Measured mean deltaE is 37.6 (34 to 41.1 per view), far over 15. The reproduction is uniform grey concrete or metal. The original is a pale yellow-cream fleshy carapace with brown ribbed shell sides, bright red legs and a dark red mouth."
+  },
+  "M5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The original's surface detail is missing: the ribbed brown shell striations on the back and sides, the mottled pink veining on the pale dome, the teeth and gore around the mouth underneath, and the black claw tips. The box carries only a generic grey mottled texture with bevelled edge highlights that the original does not have."
+  },
+  "M6": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "No player would take a grey box for this creature. The original is a brown and cream four-legged crab-like creature with red legs, and the reproduction is a featureless grey block at any viewing size."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "It sits on the same bounds as the original (offShare 0 on every axis) and is upright, but as a symmetric box it has no front, so the original's facing, with its forelegs pointing forward, is not reproduced."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The check reports no errors and it has 12 triangles against the original's 478, well under twice. It is a closed box, not inside out, and rests on the same footprint without floating."
+  }
+ },
+ "total": 5,
+ "of": 16,
+ "passes": false
+}

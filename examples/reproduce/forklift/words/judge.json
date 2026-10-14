@@ -3,9 +3,9 @@
  "leg": "words",
  "measured": {
   "silhouetteOverlap": {
-   "front/back": 0.667,
-   "left/right": 0.53,
-   "top/below": 0.622
+   "front/back": 0.664,
+   "left/right": 0.559,
+   "top/below": 0.6
   },
   "size": {
    "original": [
@@ -15,73 +15,73 @@
    ],
    "reproduction": [
     186.6,
-    61,
+    60.6,
     113.4
    ],
    "offShare": [
     0,
-    0.017,
+    0.01,
     0
    ]
   },
   "colour": {
-   "meanDeltaE": 25.8,
+   "meanDeltaE": 25.9,
    "byView": [
     {
      "view": "front",
-     "deltaE": 21.7,
-     "shared": 0.664
+     "deltaE": 23.3,
+     "shared": 0.627
     },
     {
      "view": "left",
-     "deltaE": 31.4,
-     "shared": 0.535
+     "deltaE": 29.1,
+     "shared": 0.565
     },
     {
      "view": "back",
-     "deltaE": 25.8,
-     "shared": 0.676
+     "deltaE": 30.5,
+     "shared": 0.669
     },
     {
      "view": "right",
-     "deltaE": 30.6,
-     "shared": 0.516
+     "deltaE": 27.8,
+     "shared": 0.543
     },
     {
      "view": "top",
-     "deltaE": 35.7,
-     "shared": 0.624
+     "deltaE": 37.4,
+     "shared": 0.608
     },
     {
      "view": "below",
-     "deltaE": 18.2,
-     "shared": 0.503
+     "deltaE": 16.5,
+     "shared": 0.483
     },
     {
      "view": "front-left",
-     "deltaE": 22.1,
-     "shared": 0.681
+     "deltaE": 21.4,
+     "shared": 0.664
     },
     {
      "view": "front-right",
-     "deltaE": 21.9,
-     "shared": 0.682
+     "deltaE": 20.9,
+     "shared": 0.667
     },
     {
      "view": "back-left",
-     "deltaE": 25.6,
-     "shared": 0.628
+     "deltaE": 26.2,
+     "shared": 0.604
     },
     {
      "view": "back-right",
-     "deltaE": 25.1,
-     "shared": 0.624
+     "deltaE": 25.8,
+     "shared": 0.601
     }
    ]
   },
   "triangles": {
    "original": 749,
-   "reproduction": 1978
+   "reproduction": 1576
   },
   "checkErrors": []
  },
@@ -92,7 +92,7 @@
   "M8": 1
  },
  "lineup": {
-  "picked": "C",
+  "picked": null,
   "right": "C",
   "letters": {
    "A": "models/can.mdl",
@@ -109,52 +109,52 @@
  },
  "scores": {
   "M1": {
-   "judge": 0,
+   "judge": 1,
    "cap": 0,
    "score": 0,
-   "reason": "Measured silhouette overlap is 0.667 front/back, 0.53 left/right and 0.622 top/below. A 2 needs 0.80 in every view, and all three are far below it. In the side views the original's guard slopes forward from the mast to a post behind the seat. The reproduction's is a square box frame, and its body is a tall rectangular block where the original's is a lower, rounded hood and counterweight. From the front, the original has a large dark carriage and backrest plate filling the lower half. The reproduction has only a short dark carriage at the bottom, with open uprights above it. From below, the original is an open frame with the driver visible through it. The reproduction is a closed flat floor plate."
+   "reason": "The measured silhouette overlap is under 0.80 in every view (front/back 0.664, left/right 0.559, top/below 0.6). In the side views the original's body is low, with a sloped rear engine cover and a cowl dropping toward the mast. The reproduction's body is a tall, flat-topped box running nearly the full height of the seat back, so the rear stands well above the original's. From the front and back the reproduction is a full-width rectangle, where the original has a narrow mast and a carriage plate in front of a rounded counterweight. From above, the original's body narrows and is rounded at the rear, while the reproduction's is a plain rectangle. The overall layout (mast, overhead guard and forks at the front, wheels at the corners) is the same."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured 186.6 x 61 x 113.4 against 186.6 x 60 x 113.4. Only width differs (off by 1.7%), well within 10%."
+   "reason": "Measured 186.6 x 60.6 x 113.4 against 186.6 x 60 x 113.4. Every axis is within 1%, well inside 10%."
   },
   "M3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The main parts are there: mast, two forks, overhead guard, four wheels, seat, steering wheel, a seated driver in a hard hat, and the counterweight body. Several are the wrong shape or missing. The front carriage and backrest is a small block, not the original's tall dark plate. The guard is a level box, not the original's frame with a dark roof panel that slopes back. The counterweight has a flat back with one black slot, not the original's rounded rear with a louvred grille and lamps. The louvred vent at the rear of the side panels is missing. The body is a solid box with no cut-out sloping down to the front wheels."
+   "reason": "The main components are present: the mast with two uprights, two forks, the overhead guard, four wheels, the seated driver in a hard hat, a steering wheel and a seat. Several are missing or the wrong shape. The original's solid dark carriage plate with its central cutout, seen from the front, is replaced by an open grey frame. The rear grille and vent panels on the counterweight are missing, and the reproduction has a flat panel with a slot and a dark plate instead. The original's front cowl and dash, sloping down in front of the driver, is missing; the reproduction has a flat white deck. The driver sits upright instead of leaning forward to the wheel. The overhead guard's posts lean differently, and the original's mast-top crossbar and cap are reduced to a simple frame."
   },
   "M4": {
    "judge": 1,
    "cap": 0,
    "score": 0,
-   "reason": "Measured mean deltaE is 25.8, above the 15 line, with the top view at 35.7 and the sides at 31.4 and 30.6. The overall scheme is right: white or grey body, red lower band, black mast and guard, green driver, yellow hat. But the reproduction's body is flat bright white where the original's is a dirty grey-white. Its mast uprights are orange-rust where the original's are dark grey-black with rust streaks. Its guard roof is see-through mesh where the original's is a dark solid panel."
+   "reason": "The measured mean deltaE (CIE76 colour difference) is 25.9, over the line of 15, with the top view the worst at 37.4. The regions are roughly the original's: a light body, a red lower band, a dark mast and forks, a green driver and a yellow hat. But the reproduction's body is bright flat white where the original's is a dirtier pinkish grey. The front carriage is mid grey where the original's is near black. The red band runs much taller on the reproduction's sides and rear corners. From above, the original's dark seat and engine area are replaced by white panels."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Some markings are there: HAIHAN lettering on the red band and a 2.2 badge near the rear of the side panel. They are blocky and pixelated next to the original's thin italic lettering. The original's louvred rear grille, side vents, panel lines, dirty wear and the worn texture on the carriage plate are missing or replaced by flat white faces with a black slot. The red stripe is a plain block of red, where on the original it follows the shape of the bodywork."
+   "reason": "The markings are present but wrong in size and style. The original carries a small italic HAIHAN on a thin red stripe low on the sides; the reproduction has huge blocky white HAIHAN lettering in an outlined box that fills the red band. The '2.2 LITER' badge is there, but smaller and placed higher at the rear. The original's grille slats, rear vents, wear and grime on the counterweight, and the orange detailing on the mast are missing or reduced to a few flat marks. The reproduction's surfaces are cleaner and flatter."
   },
   "M6": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "At game size it reads as the same kind of object, a white and red forklift with a green-clad driver. Side by side, though, a player would see a different machine. The front is open where the original has a large dark carriage plate. The guard is a box cage, not the original's sloped frame with a dark roof. The body is a bright white brick, not the original's rounded grimy hood and counterweight."
+   "reason": "At game size it reads as the same kind of thing: a red and white forklift with a green-clad driver in a yellow hard hat. Side by side, though, a player would not take it for the original. The tall boxy body, the oversized white HAIHAN panel, the bright white finish and the grey open carriage in place of the dark plate all show at a glance, from every angle."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Forks and mast face the same way as the original's in every view, and the model is upright. The wheels sit on the same ground line as the original's, with the forks at floor level."
+   "reason": "The front, with mast and forks, faces the same way as the original's in every view. It is upright, its wheels stand on the same ground plane, and the forks lie at floor level as in the original."
   },
   "M8": {
    "judge": 1,
    "cap": 1,
    "score": 1,
-   "reason": "SMAK's check reports no errors, and nothing in the pictures looks open, inside out or floating. But the reproduction has 1978 triangles against the original's 749. That is 2.64 times the original's count, over the limit of twice (1498)."
+   "reason": "SMAK's check reports no errors, and nothing looks open, inside out or floating. But it has 1576 triangles, more than twice the original's 749 (the limit is 1498)."
   }
  },
  "total": 8,
