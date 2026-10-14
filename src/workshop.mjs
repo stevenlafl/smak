@@ -1359,11 +1359,11 @@ export function shape(width, height) {
  * unit. Do it once and keep the zones in the script: a part made larger later would move the others.
  */
 export function allot(width, height, parts, { gap = 6 } = {}) {
-  const list = Object.entries(parts).map(([name, [long, wide, weight = 1]]) => ({
-    name,
-    w: long * Math.sqrt(weight),
-    h: wide * Math.sqrt(weight),
-  }));
+  // laid tallest first, row by row (shelf packing): a row is as high as its first zone, and the short zones
+  // after it fill rows of their own height instead of each standing in a tall one's row
+  const list = Object.entries(parts)
+    .map(([name, [long, wide, weight = 1]]) => ({ name, w: long * Math.sqrt(weight), h: wide * Math.sqrt(weight) }))
+    .sort((a, b) => b.h - a.h);
   /** the zones at `px` pixels a unit, laid in rows; null when they do not all fit */
   const placeAt = (px) => {
     const out = { px };

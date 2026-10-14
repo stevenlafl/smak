@@ -97,6 +97,10 @@ turned by `rotate`, then moved to its place. **Build things upright**: a post, a
 | `kit:sword`, `kit:axe`, `kit:blunt`, `kit:bow` | `options`: the kit's own (its header in `kits/`; a blade's `half` as `{ "taper": [base, tip] }`) | lying along +x, grip at the origin |
 | `prefab` | `prefab` (a name of `prefabs`), `spec` (one given here) or `file` (a .json beside this spec: another case's model, reused), `scale` | the prefab as it was built |
 
+Every part takes `texels`: how finely its picture is painted against the others' (1). A face, a badge or a
+label at 2 gets twice the texels a unit of the body does; a sole or an inside that is hardly seen at 0.5 half.
+Half-Life's characters give their faces two to three times the body's.
+
 ### Placing a part
 
 A part is placed in one of two ways, then copied when asked:

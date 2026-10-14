@@ -238,6 +238,24 @@ test("a superquadric: a rounded block and an egg at their sizes, a wrong round r
   sure(bad.errors.some((e) => /round/.test(e)), bad.errors.join("; "));
 });
 
+test("a part's texels: twice as finely painted as its twin, and the zones laid tallest first", () => {
+  const { mdl, report } = buildModelSpec({ spec: "smak.model/1", name: "tx.mdl", kind: "prop", parts: [
+    { id: "body", kind: "box", size: [4, 4, 4], at: [0, 0, 0] },
+    { id: "face", kind: "box", size: [4, 4, 4], at: [0, 0, 4], texels: 2 },
+  ] });
+  sure(report.ok, [...report.errors, ...report.faults].join("; "));
+  // the span of texture each part's triangles cover, in pixels across
+  const spans = { low: [], high: [] };
+  for (const t of smak.posed(mdl, {}).tris) {
+    const z = t.c.reduce((sum, c) => sum + c.p[2], 0) / 3;
+    // the faces at z 4 (the body's top, the face's foot) could be either's: left out
+    if (Math.abs(z - 4) > 0.01) spans[z < 4 ? "low" : "high"].push(...t.c.map((c) => c.u));
+  }
+  const width = (us) => Math.max(...us) - Math.min(...us);
+  const ratio = width(spans.high) / width(spans.low);
+  sure(ratio > 1.7 && ratio < 2.3, `the face's zone ${ratio.toFixed(2)} times as wide`);
+});
+
 test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ files, the gloved hands kept", () => {
   // a stand-in for a game's files: a first-person model of a glove and a stick, and a world one of the stick
   const meshOn = (build, name) => {

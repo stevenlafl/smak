@@ -63,7 +63,7 @@ const KINDS = {
   prefab: ["prefab", "spec", "file", "scale"],
 };
 /** The fields every part takes. */
-const COMMON = ["id", "kind", "material", "at", "attach", "rotate", "mirror", "repeat", "open", "loose", "bone", "span", "finish", "smooth", "print", "marks", "paint", "note"];
+const COMMON = ["id", "kind", "material", "at", "attach", "rotate", "mirror", "repeat", "open", "loose", "bone", "span", "finish", "smooth", "print", "marks", "paint", "texels", "note"];
 /** The kinds that sit on another part's surface, and move with it. */
 const ON_SURFACE = new Set(["band", "boss", "ridge", "studs"]);
 /** The anchors every part has: the middles of the faces of its box, and its middle. */
@@ -262,6 +262,8 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
             }
         });
     }
+    if (part.texels !== undefined && !(isNumber(part.texels) && part.texels >= 0.25 && part.texels <= 8))
+      errors.push(`${label}.texels: how finely it is painted against the rest, 0.25 to 8 (2: a face twice as fine as the body)`);
     switch (part.kind) {
       case "superquadric":
         if (!isPoint(part.size) || part.size.some((v) => v <= 0))
@@ -639,7 +641,8 @@ function piecesOf(given, context) {
   /** every placed triangle: { p: [a, b, c] (corners, each with uv), part, mesh } */
   const meshes = [];
   [...sheets.entries()].forEach(([flags, parts], n) => {
-    const sizes = Object.fromEntries(parts.map((part) => [part.id, zoneSizeOf(part, (p) => byId.get(p.on.part))]));
+    // a part's `texels` weighs its share of the picture: a face at 2 is painted twice as finely as the body
+    const sizes = Object.fromEntries(parts.map((part) => [part.id, [...zoneSizeOf(part, (p) => byId.get(p.on.part)).slice(0, 2), (part.texels ?? 1) ** 2]]));
     // the first sheet is the size the spec gives; a sheet of its own (a net, a flame) takes the shape of its
     // largest part: a long net a long picture, or its holes are coarser than its cords
     const [width, height] = n ? sheetShape(Object.values(sizes)) : [size.width ?? SHEET_SIZE, size.height ?? SHEET_SIZE];
