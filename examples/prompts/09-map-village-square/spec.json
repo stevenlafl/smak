@@ -1,0 +1,35 @@
+{
+  "spec": "smak.map/1",
+  "name": "village_square",
+  "theme": { "floor": "stone", "wall": "plaster", "ceiling": "planks", "door": "darkwood" },
+  "textures": { "cobbles": { "base": "stone", "tone": [0.46, 0.44, 0.4], "seed": 11 }, "inn_floor": { "base": "planks" } },
+  "sun": { "pitch": -55, "yaw": 40, "brightness": 300 },
+  "models": {
+    "street_lamp": { "file": "../02-model-street-lamp/spec.json" },
+    "barrel": { "file": "../01-model-barrel/spec.json" },
+    "handcart": { "file": "../04-model-handcart/spec.json" }
+  },
+  "rooms": [
+    { "id": "square", "size": [640, 512, 384], "sky": true, "surfaces": { "floor": "cobbles" } },
+    { "id": "inn", "size": [512, 320, 160], "place": { "north_of": "square" }, "surfaces": { "floor": "inn_floor" } },
+    { "id": "smithy", "size": [320, 384, 224], "place": { "east_of": "square", "align": "south" } },
+    { "id": "gatehouse", "size": [256, 192, 160], "place": { "south_of": "square" } }
+  ],
+  "links": [
+    { "between": ["square", "inn"], "kind": "door" },
+    { "between": ["square", "smithy"], "kind": "opening", "width": 128, "height": 128, "along": 0.25 },
+    { "between": ["square", "gatehouse"], "kind": "opening", "width": 128, "height": 128 }
+  ],
+  "props": [
+    { "model": "street_lamp", "room": "square", "at": [-64, 216], "facing": "south" },
+    { "model": "street_lamp", "room": "square", "at": [64, 216], "facing": "south" },
+    { "model": "barrel", "room": "square", "at": [-150, 236] },
+    { "model": "barrel", "room": "square", "at": [-180, 236] },
+    { "model": "barrel", "room": "square", "at": [-165, 210] },
+    { "model": "handcart", "room": "square", "at": [0, -40], "facing": 20 }
+  ],
+  "entities": [
+    { "class": "info_player_start", "room": "gatehouse", "at": "centre", "facing": "north" },
+    { "class": "monster_barney", "room": "inn", "at": [80, -110], "facing": "south" }
+  ]
+}

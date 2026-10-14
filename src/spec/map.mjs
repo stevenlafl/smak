@@ -435,9 +435,13 @@ export function buildMapSpec(spec, { out, compilers, folder } = {}) {
   });
 
   // ── rooms: carved in one block, lined where they wear another texture ──
-  const boxes = [...rooms.values()].map(({ min, max }) => ({ min, max }));
+  // A floor or a ceiling of its own is a lining: the room is carved LINING further that way, and a slab of
+  // the other texture fills what was carved, so its face is where the room's was. A way through it (a
+  // stair's shaft) is cut out of the slab.
+  const boxes = [];
   const linings = [];
   for (const room of rooms.values()) {
+    const carved = { min: [...room.min], max: [...room.max] };
     const surfaces = { ...(room.spec.surfaces ?? {}) };
     if (room.spec.sky) surfaces.ceiling = "sky";
     for (const [face, word] of Object.entries(surfaces)) {
@@ -446,20 +450,14 @@ export function buildMapSpec(spec, { out, compilers, folder } = {}) {
         continue;
       }
       const z = face === "floor" ? [room.min[2] - LINING, room.min[2]] : [room.max[2], room.max[2] + LINING];
-      const lining = { min: [room.min[0], room.min[1], z[0]], max: [room.max[0], room.max[1], z[1]] };
-      // the room is carved past it, so the lining is the face; what goes through it (a stair's shaft) is cut out
-      const carved = face === "floor" ? { min: [...room.min], max: [...room.max] } : null;
-      const index = boxes.findIndex((b) => b.min === room.min);
-      const grown = { min: [...boxes[index].min], max: [...boxes[index].max] };
-      if (face === "floor") grown.min[2] -= LINING;
-      else grown.max[2] += LINING;
-      boxes[index] = grown;
-      void carved;
-      let pieces = [lining];
+      if (face === "floor") carved.min[2] -= LINING;
+      else carved.max[2] += LINING;
+      let pieces = [{ min: [room.min[0], room.min[1], z[0]], max: [room.max[0], room.max[1], z[1]] }];
       for (const hole of holes) pieces = pieces.flatMap((piece) => subtract(piece, hole));
       const texture = textureOf(word);
       linings.push(...pieces.map((piece) => box(piece.min, piece.max, texture)));
     }
+    boxes.push(carved);
   }
   const rock = carve([...boxes, ...holes], wall, themeNames);
   brushes.unshift(...rock);
@@ -566,7 +564,9 @@ export function buildMapSpec(spec, { out, compilers, folder } = {}) {
     modelFiles[modelName] = `models/${modelName}.mdl`;
     report.facts.push(`models.${modelName}: built and sound (${built.report.facts[0]})`);
   }
+  const propsAt = [];
   place(spec.props, "props", (thing, room, at) => {
+    propsAt.push({ room: room.id, at });
     const model = modelFiles[thing.model] ?? thing.model;
     entities.push(pointEntity(thing.class ?? "cycler_sprite", at, { model, angles: [0, yawOf(room, thing.facing, at), 0], ...(thing.keys ?? {}) }));
   });
@@ -673,6 +673,23 @@ export function buildMapSpec(spec, { out, compilers, folder } = {}) {
         return drawMap(bsp, { ...drawing, from, yaw, pitch, width: 320, height: 240 });
       });
       save("views", tile(views, Math.min(4, views.length), [...rooms.keys()]));
+      // a room with props: a larger view at a man's height, from across the room towards them
+      const propRooms = [...rooms.values()].filter((room) => propsAt.some((prop) => prop.room === room.id));
+      if (propRooms.length) {
+        const looks = propRooms.map((room) => {
+          const mine = propsAt.filter((prop) => prop.room === room.id);
+          const centre = [0, 1].map((k) => mine.reduce((sum, prop) => sum + prop.at[k], 0) / mine.length);
+          const c = mid(room);
+          // stand on the far side of the room's middle from them, a little way in from the wall
+          const away = [c[0] - centre[0], c[1] - centre[1]];
+          const length = Math.hypot(...away) || 1;
+          const reach = Math.min(room.max[0] - room.min[0], room.max[1] - room.min[1]) * 0.42;
+          const from = [c[0] + (away[0] / length) * reach, c[1] + (away[1] / length) * reach, room.min[2] + 72];
+          const yaw = Math.round((Math.atan2(centre[1] - from[1], centre[0] - from[0]) * 180) / Math.PI);
+          return drawMap(bsp, { ...drawing, from, yaw, pitch: -6, width: 640, height: 360 });
+        });
+        save("props", stacked(looks, propRooms.map((room) => `${room.id}: its props`)));
+      }
       // a side section through each staircase: the steps, the floors and the headroom, which no plan shows
       if (cuts.length)
         save("sections", stacked(cuts.map((cut) => sectionOf(bsp, { from: cut.from, to: cut.to, width: 640 })), cuts.map((cut) => cut.name)));
