@@ -160,10 +160,10 @@ const STRICT_ON = ["M3", "M4", "M6"];
  * would bring the total to the bar. Off when the judge is Opus.
  */
 export function closeCall(settled) {
-  // off unless asked (SMAK_OPUS_CLOSE_CALLS): Steven, reviewing the battery Haiku failed and Opus passed, sided
-  // with Haiku ("it is missing small features like some of the top elements, and it's cylindrical rather than
-  // square with beveled edges"), so a close call is not handed to a lenienter judge
-  if (!process.env.SMAK_OPUS_CLOSE_CALLS) return false;
+  // Steven, looking at the battery Haiku failed (14) and Opus passed beside the original, judged it a pass
+  // ("it looks perfect... even better than Valve's"): on that one Haiku's strictness was wrong. SMAK_NO_CLOSE_CALLS
+  // leaves Haiku's scores standing
+  if (process.env.SMAK_NO_CLOSE_CALLS) return false;
   if (JUDGE_MODEL === "opus" || settled.passes || !settled.scores) return false;
   const held = ([item, s]) => STRICT_ON.includes(item) && s.score < 2 && s.judge < (s.cap ?? 2);
   const entries = Object.entries(settled.scores);

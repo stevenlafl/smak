@@ -230,13 +230,12 @@ walk test, not the game.
   on M3, M4 and M6 only, and turned three of Opus's passes into fails; with Opus on the close calls, all eight
   came out as Opus had them, with four Opus judgements in place of eight. Decoys are judged the same way and
   must still fail. Results judged on Opus alone before this date keep their scores.
-- **2026-10-14, later: Haiku's verdict stands; no close calls to Opus (Steven's review).** Steven looked at the
-  battery that Haiku failed (14 of 16) and Opus passed, and sided with Haiku: "it is missing small features like
-  some of the top elements, and it's cylindrical rather than square with beveled edges". A person agreeing with
-  the stricter judge means handing its close calls to a lenienter one inflates passes. From now Haiku's scores
-  stand (`closeCall` only with SMAK_OPUS_CLOSE_CALLS set). Read so, the rebuilt round 5 and round 6 of props from
-  pictures pass 0 of 5 each: every pass in them was an Opus close call over a Haiku 14 or 12. Further
-  disagreements go to Steven, as a person, before any rule is made of them.
+- **2026-10-14, later: a person's review of a close call.** Steven compared the battery that Haiku failed (14 of
+  16) and Opus passed with the original, from three quarters and from above, and judged it a pass: "it looks
+  perfect... It looks even better than Valve's", the textures at its top not quite matching (M5, which is not a
+  must-have and was scored 1). On that leg the close call to Opus agreed with the person, so
+  the close-call rule stays. Disagreements between the two judges go to Steven as a person before any rule
+  is changed for them.
 - **2026-10-14, the houses' floor measure, after Kaupo's first judging.** P2 had compared the key's rooms with
   every floor the walk test reached, and Kaupo scored 0.18 with 0 of 9 doors. Four faults of the measure, not
   the house, were found, and the measure now: takes only floor indoors (the nearest ceiling over it is not the
