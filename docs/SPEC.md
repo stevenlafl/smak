@@ -166,6 +166,15 @@ new name needs the mod's code). They are written in `work:<name>_weapon/`.
 - `turn`: where the fit cannot tell which way round the piece goes (a box, a can are the same outline every
   way), `"as drawn"`, `"x"`, `"y"` or `"z"`, or one a view (`{ "v": "as drawn" }`). Unless told, the one
   whose outline follows the old weapon's best. Draw it and look at which face the player sees.
+- `animations`: animations of its own in place of the game's, in the first-person file, where the game's
+  do not fit what it is (a broom sweeps where a crowbar chops):
+  `[{ "replace": "attack1", "from": "idle1", "frames": 11, "fps": 22, "keys": [{ "at": 0 }, { "at": 3,
+  "turn": { "Bip01 R Arm1": { "y": 40, "z": -20 } }, "ease": "out" }, ...] }]`. Each takes the place of
+  the game's animation of that name, so its number stays and the game's code plays it; the keys turn bones
+  about the model's axes (+x forward, +y left, +z up, from the eye) as they stand in the `from` frame, and
+  the frames between are eased. Keep its length: the game times its hits by it, and the report warns past a
+  quarter off. Its events stay as they were. Draw it (the build shows the first attack) and look where the
+  weapon goes on the screen.
 - One picture: a weapon's parts share one texture, so leave out `neon`, `flame` and `glass` (each of those
   is a picture of its own).
 

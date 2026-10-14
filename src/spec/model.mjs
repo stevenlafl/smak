@@ -16,7 +16,8 @@ import { buildMdl, swapMesh } from "../build.mjs";
 import { HANDS } from "../fit.mjs";
 import { indexed, shrink, masked } from "../image.mjs";
 import { check } from "../check.mjs";
-import { readMdl, bones as bonesOf, sequences as sequencesOf, withTextures, addMesh, replaceMesh, inverse34, apply34 } from "../mdl.mjs";
+import { readMdl, bones as bonesOf, sequences as sequencesOf, withTextures, addMesh, replaceMesh, inverse34, apply34, readSequence, replaceSequence } from "../mdl.mjs";
+import * as A from "../animate.mjs";
 import { posed } from "../render.mjs";
 import { meshOf } from "../mesh.mjs";
 import { putBody } from "../bodies.mjs";
@@ -129,6 +130,9 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
     if (!(turnOk(w?.turn) || (w?.turn && typeof w.turn === "object" && Object.values(w.turn).every(turnOk))))
       errors.push(`weapon.turn: "as drawn", "x", "y" or "z" (the fit's turn, where its outline cannot choose), or one a view: { "v": "z", "p": "as drawn" }`);
     if ((spec.kind ?? "held") !== "held") errors.push(`kind: a weapon is "held": built lying along +x, its grip at the low-x end`);
+    for (const [n, anim] of (Array.isArray(w?.animations) ? w.animations : w?.animations === undefined ? [] : [null]).entries())
+      if (!anim || typeof anim.replace !== "string" || !Array.isArray(anim.keys) || !anim.keys.some((key) => key?.at === 0) || anim.keys.some((key) => !isNumber(key?.at)))
+        errors.push(`weapon.animations[${n}]: { replace: "<the game's animation>", from, frames, fps, keys: [{ at, turn: { bone: { x, y, z } }, move: { bone: [x, y, z] }, ease }] }, a key at frame 0`);
   }
   for (const [name, material] of Object.entries(spec.materials ?? {}))
     try {
@@ -1027,6 +1031,32 @@ function weaponViews(spec, meshes, { folder, games, report }) {
         report.errors.push(`weapon: ${fileName}, ${model.name}: ${error.message}`);
       }
     }
+    // the weapon's own animations, in place of the game's in the first-person file (by name: its number stays,
+    // and the game's code goes on playing it)
+    if (view === "v")
+      for (const [n, anim] of (spec.weapon.animations ?? []).entries()) {
+        try {
+          const list = sequencesOf(mdl);
+          const old = list.find((seq) => seq.name === anim.replace);
+          if (!old) throw new Error(`no animation ${anim.replace} in ${fileName}: it has ${list.map((seq) => seq.name).join(", ")}`);
+          const rig = A.rigOf(mdl);
+          const from = typeof anim.from === "object" ? anim.from : { seq: anim.from ?? anim.replace, frame: 0 };
+          const base = A.poseOfValues(rig, readSequence(mdl, from.seq).frames[from.frame ?? 0]);
+          const keys = anim.keys.map((key) => {
+            const changes = {};
+            for (const [bone, turn] of Object.entries(key.turn ?? {})) changes[bone] = { ...(changes[bone] ?? {}), turn };
+            for (const [bone, move] of Object.entries(key.move ?? {})) changes[bone] = { ...(changes[bone] ?? {}), move };
+            return { at: key.at, ease: key.ease, pose: A.turnedInPose(rig, base, changes) };
+          });
+          const count = anim.frames ?? old.frames;
+          mdl = replaceSequence(mdl, anim.replace, { frames: A.animate(rig, { frames: count, keys }), fps: anim.fps ?? old.fps });
+          report.facts.push(`${fileName}: ${anim.replace} made anew, ${count} frames at ${anim.fps ?? old.fps} a second (it had ${old.frames} at ${old.fps}), from ${from.seq} frame ${from.frame ?? 0}`);
+          if (Math.abs(count / (anim.fps ?? old.fps) - old.frames / old.fps) > 0.25 * (old.frames / old.fps))
+            report.warnings.push(`weapon.animations[${n}]: ${anim.replace} lasts ${(count / (anim.fps ?? old.fps)).toFixed(2)} s where the game's lasted ${(old.frames / old.fps).toFixed(2)} s: the game times things by it (AGENTS.md, rule 3)`);
+        } catch (error) {
+          report.errors.push(`weapon.animations[${n}]: ${error.message}`);
+        }
+      }
     const engine = check(mdl, "goldsrc");
     report.errors.push(...engine.errors.map((e) => `${fileName}: ${e}`));
     report.facts.push(`${fileName} (${WEAPON_VIEWS[view].what}), from ${place}: ${done.join("; ")}; its ${sequencesOf(mdl).length} animations and ${info.bones.length} bones are the game's`);

@@ -254,6 +254,21 @@ test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ file
   // the turn told, where the outline cannot choose
   const turned = buildModelSpec({ ...spec, weapon: { ...spec.weapon, turn: { v: "z" } } }, { folder }).report;
   sure(/v_stick\.mdl[^\n]*laid turned about z/.test(turned.facts.join("\n")), `the turn told is the turn taken: ${turned.facts.join(" | ")}`);
+  // an animation of its own in place of the game's, by name: the same place in the list, made from keys
+  const animated = buildModelSpec(
+    { ...spec, weapon: { ...spec.weapon, animations: [{ replace: "attack", from: "idle", frames: 5, fps: 10, keys: [{ at: 0 }, { at: 2, turn: { hand: { z: 40 } } }, { at: 4 }] }] } },
+    { folder },
+  );
+  sure(animated.report.ok, [...animated.report.errors, ...animated.report.faults].join("; "));
+  const swung = animated.files.find((f) => f.name === "v_stick.mdl").mdl;
+  const list = smak.sequences(swung);
+  sure(list.map((s) => s.name).join() === "idle,attack" && list[1].frames === 5 && list[1].fps === 10, `attack replaced where it was: ${JSON.stringify(list)}`);
+  const middle = smak.readSequence(swung, "attack").frames[2][0];
+  sure(Math.abs(Math.abs(middle[5]) - (40 * Math.PI) / 180) < 0.02, `the hand turned 40 degrees in the middle: ${middle}`);
+  const rig = smak.animate.rigOf(swung);
+  const values = smak.readSequence(swung, "attack").frames[2];
+  const back = smak.animate.valuesOf(rig, smak.animate.poseOfValues(rig, values));
+  sure(back.every((bone, i) => bone.every((v, k) => Math.abs(v - values[i][k]) < 1e-3)), "a frame's numbers made a pose and back are the same");
   const missing = buildModelSpec({ ...spec, weapon: { like: "spear" } }, { folder }).report;
   sure(!missing.ok && /v_spear\.mdl is neither beside the spec nor in the game folders/.test(missing.errors.join()), missing.errors.join());
 });

@@ -178,6 +178,35 @@ export function poseOf(rig, changes = {}, base = rig.rest) {
   return pose;
 }
 
+/** A pose from a frame's numbers: `values[bone] = [x, y, z, about x, about y, about z]`, a frame of `readSequence`. */
+export function poseOfValues(rig, values) {
+  if (values.length !== rig.bones.length) throw new Error(`poseOfValues: ${values.length} bones' values for a skeleton of ${rig.bones.length}`);
+  return { q: values.map((v) => qunit(qofAngles(v.slice(3, 6)))), p: values.map((v) => v.slice(0, 3)) };
+}
+
+/**
+ * `base` with some bones changed as `poseOf` changes them, but each `turn` about the model's axes as the bone
+ * stands in `base`, not as it stands at rest, and each `move` in the model's axes as its parent stands there:
+ * what a key of an animation made from a frame of another is (a first-person model's hands are far from their
+ * rest in every frame).
+ */
+export function turnedInPose(rig, base, changes = {}) {
+  const world = worldOf(rig, base);
+  const pose = { q: base.q.map((q) => [...q]), p: base.p.map((p) => [...p]) };
+  for (const [name, change] of Object.entries(changes)) {
+    const i = rig.index(name);
+    if (change.turn !== undefined) {
+      const w = world[i].q;
+      pose.q[i] = qunit(qmul(pose.q[i], qmul(qconj(w), qmul(turnOf(change.turn, name), w))));
+    }
+    if (change.move !== undefined) {
+      const parent = rig.bones[i].parent < 0 ? [1, 0, 0, 0] : world[rig.bones[i].parent].q;
+      pose.p[i] = add(pose.p[i], qturn(qconj(parent), change.move));
+    }
+  }
+  return pose;
+}
+
 /** Where every bone is in the model, in a pose: `[{ q, p }]`, its turn and its place. */
 export function worldOf(rig, pose) {
   const world = [];

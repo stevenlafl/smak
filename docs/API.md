@@ -105,6 +105,8 @@ A pose is `{ q, p }`: for each bone a turn and a place, plain data that no call 
 | `between(a, b, t)` | The pose a part of the way from one to another, each bone by its shortest turn |
 | `animate(rig, { frames, loops, keys: [{ at, pose, ease }], each })` | Frames for `addSequence`, `replaceSequence`, `writeMdl`. `ease`: `smooth`, `linear`, `in`, `out`, how a key is arrived at. `loops`: the last frame is the first again. `each(pose, frame, part)` returns the frame's pose |
 | `valuesOf(rig, pose)` | One frame: `[x, y, z, about x, about y, about z]` a bone |
+| `poseOfValues(rig, values)` | A pose from one frame's numbers (a frame of `readSequence`): the other way |
+| `turnedInPose(rig, base, { bone: { turn, move } })` | As `poseOf`, but each turn about the model's axes as the bone stands in `base` and not at rest: keys made on a frame of another animation (a first-person model's hands are far from their rest) |
 | `worldOf(rig, pose)` | Each bone's turn and place in the model |
 | `matricesOf(rig, pose)` | The pose as bone matrices: `render(mdl, { pose: matricesOf(rig, pose) })` draws it |
 | `track(rig, frames, bone, at)` | Where a point of a bone is, frame by frame |
