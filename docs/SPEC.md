@@ -69,7 +69,8 @@ pictures of the result, from a barrel to a city of four shops and a sewer; read 
 | `allow` | `{ open: [ids], floating: [ids] }`: parts open or apart on purpose (a part can say `open: true` or `loose: true` itself) |
 | `finish` | What a painter adds over the materials, read from the shape (below): `{ light, wear, grime, vary }`, each 0 to 1, or `false` for none. A part may have its own |
 | `project` | The person's pictures of the thing laid onto it as its texture (below, "Pictures projected onto it") |
-| `smooth` | The angle (degrees) under which faces are shaded as one surface: 40 unless told. A part may have its own. A thin round part of few sides (a tube of 4 meets itself at 90 degrees) is shaded flat, each face with normals of its own: a rib cost 104 normals for 44 points. Over its faces' angle (100 for 4 sides) it is shaded round with a normal a point: the engine holds 2048 normals a body |
+| `smooth` | The angle (degrees) under which faces are shaded as one surface: 40 unless told; a round part (turn, cylinder, sphere, tube of 5 sides or more) is shaded round across its own sides unless told, so 8 sides read round. A part may have its own. A tube of 4 meets itself at 90 degrees and is shaded flat, each face with normals of its own: a rib cost 104 normals for 44 points. Over its faces' angle (100 for 4 sides) it is shaded round with a normal a point: the engine holds 2048 normals a body |
+| `budget` | The most triangles the model may have: over it is a FAULT. Without one, a prop over 576 is warned of. The report lists the heaviest parts and the thin boxes that could be painted |
 
 ### Axes, and which way is up
 
@@ -120,6 +121,11 @@ A `box` may carry words on a face: `"print": { "text": "NOODLES", "face": "front
 "size": 0.6 }` (or a list of them), in plain capitals and digits as large as the face holds (`size`: the
 share of its height), over its material. `face`: `front`, `back`, `left`, `right`, `top`.
 
+Any part may be **painted, not built**: `"paint": true`. It is built and placed as any part, then baked into
+the faces it sits on (within 1.5 units of them): their texels take its colour where a short ray out from them
+meets it, its own faces' turn shading it so an edge still reads, and its triangles are left out. A strap, a
+drawer's front, a vent's slats, a plate, a pull: whatever stands off a surface by less than it shows.
+
 A box may carry painted **panels** on its faces: `"panels": [{ "face": "front", "at": [11, 29], "size":
 [20, 17] }, { "face": "front", "at": [11, 32], "size": [5, 2], "shape": "round", "style": "raised",
 "material": "chrome" }]`: a drawer's front, a door, a slot, a vent, a pull, a screen. `at` is the panel's middle
@@ -142,6 +148,10 @@ surface or stands off it by less than a unit: stripes, spots, a painted line, a 
 front, a pull, a vent, a rivet seen from two steps away. A built ridge 0.3 high changes
 nothing the engine's flat light shows, and costs triangles, normals (2048 a body) and a part that can come
 apart. Holes in a thin sheet (a fence, a net, a grate) are a third way: a `mesh` material, see-through.
+
+**How many sides.** A round part's sides show only in its outline: an n-sided ring strays from its circle by
+`r * (1 - cos(180 / n))`. Take the fewest that keep that under half a unit on a prop (a quarter on what a
+player holds): 8 for a radius of 6, 6 for a pipe seen only lengthways, more only for a wheel seen side-on.
 
 **How many triangles.** Half-Life's own models, counted (the first frame of each, by kind):
 

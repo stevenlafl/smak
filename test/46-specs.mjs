@@ -428,6 +428,34 @@ await testAsync("a textures spec: a .wad of named textures, seamless, with panel
   sure(bad.errors.length >= 2, bad.errors.join("; "));
 });
 
+test("a model spec's paint: drawers and pulls built, then baked into the box under them: their colours, no triangles", () => {
+  const spec = (paint) => ({ spec: "smak.model/1", name: "cab.mdl", kind: "prop", budget: 30, finish: false, parts: [
+    { id: "body", kind: "box", size: [20, 20, 40], material: { base: "paint", tone: [0.5, 0.5, 0.5] } },
+    { id: "pull", kind: "box", size: [0.8, 6, 2], material: { base: "paint", tone: [0.95, 0.1, 0.1] }, paint, attach: { to: "body", toAt: "front", at: "back", offset: [0, 0, 8] } },
+  ] });
+  const built = buildModelSpec(spec(false));
+  const painted = buildModelSpec(spec(true));
+  sure(painted.report.ok && painted.report.facts.some((f) => /painted, not built: pull \(12 triangles left out/.test(f)), [...painted.report.errors, ...painted.report.faults, ...painted.report.facts].join("; "));
+  sure(built.report.faults.length === 0 && /24 triangles of a budget of 30/.test(built.report.facts.join(" ")), built.report.facts.join("; "));
+  // the red pull on the front of the 12-triangle box
+  const front = smak.render(painted.mdl, { seq: 0, yaw: 0, pitch: 0, width: 100, height: 200, light: false });
+  let red = 0;
+  for (let i = 0; i < front.rgba.length; i += 4) if (front.rgba[i] > 180 && front.rgba[i + 1] < 60) red++;
+  sure(red > 15, `the pull painted on the front: ${red} red dots`);
+  // over a budget is a fault
+  const over = buildModelSpec({ ...spec(false), budget: 20 });
+  sure(over.report.faults.some((f) => /^over budget: 24 triangles of a budget of 20/.test(f)), over.report.faults.join("; "));
+});
+
+test("a model spec's round parts are shaded round whatever their sides: an 8-sided post has a normal a corner", () => {
+  const post = (smooth) => buildModelSpec({ spec: "smak.model/1", name: "post.mdl", kind: "prop", finish: false, parts: [{ id: "post", kind: "cylinder", radius: 4, height: 30, sides: 8, material: "paint", ...(smooth === undefined ? {} : { smooth }) }] });
+  const normals = (mdl) => smak.readMdl(mdl).bodyparts[0].models[0].numnorms;
+  const round = normals(post().mdl);
+  const flat = normals(post(10).mdl);
+  // round: one normal at each of its 16 corners and one a cap; flat: one a face (8 round it and the 2 caps)
+  sure(round === 18 && flat === 10, `round ${round} normals (18 wanted), flat ${flat} (10)`);
+});
+
 test("a model spec's marks: stripes painted on a turned part, on its side only, round it as a ring; none on a box", () => {
   const post = (marks) => ({ spec: "smak.model/1", name: "post.mdl", kind: "prop", finish: false, materials: { fur: { base: "paint", tone: [0.95, 0.55, 0.12] } }, parts: [{ id: "post", kind: "cylinder", radius: 6, height: 30, sides: 16, material: "fur", marks }] });
   const dark = (spec) => {

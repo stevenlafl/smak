@@ -31,6 +31,7 @@ import { bow } from "../../kits/bowkit.mjs";
 import { materialOf, flagsOf, zonePainter, colourAt, HOLE_RGB } from "./paint.mjs";
 import { paintFinish, FINISH } from "./finish.mjs";
 import { paintMarks } from "./marks.mjs";
+import { bakeParts } from "./bake.mjs";
 import { paintPanels, paintWords, faceSize } from "./faces.mjs";
 import { paintProjections, VIEW_NAMES } from "./project.mjs";
 import { unpng } from "../image.mjs";
@@ -59,16 +60,18 @@ const KINDS = {
   prefab: ["prefab", "spec", "file", "scale"],
 };
 /** The fields every part takes. */
-const COMMON = ["id", "kind", "material", "at", "attach", "rotate", "mirror", "repeat", "open", "loose", "bone", "span", "finish", "smooth", "print", "marks", "note"];
+const COMMON = ["id", "kind", "material", "at", "attach", "rotate", "mirror", "repeat", "open", "loose", "bone", "span", "finish", "smooth", "print", "marks", "paint", "note"];
 /** The kinds that sit on another part's surface, and move with it. */
 const ON_SURFACE = new Set(["band", "boss", "ridge", "studs"]);
 /** The anchors every part has: the middles of the faces of its box, and its middle. */
 const BOX_ANCHORS = ["top", "bottom", "front", "back", "left", "right", "centre"];
 /** The fields a spec takes at its top. */
-const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "weapon", "finish", "smooth", "project", "note"];
+const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "weapon", "finish", "smooth", "project", "budget", "note"];
 /** A texture's side unless told; a kit's picture is made this much smaller (the kits paint at 1024 wide). */
 const SHEET_SIZE = 256;
 const KIT_SHRINK = 2;
+/** Three quarters of Half-Life's props, plants, creatures and people have fewer triangles than this (docs/SPEC.md). */
+const PROP_BUDGET = 576;
 /** How far the size may be off what the spec asks before it is warned of, and before it is an error. */
 const SIZE_WARN = 0.1;
 const SIZE_ERROR = 0.25;
@@ -122,6 +125,7 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
       errors.push(`${where}: false (none), or { ${Object.keys(FINISH).join(", ")} }, each 0 to 1`);
   };
   finishErrors(spec.finish, "finish");
+  if (spec.budget !== undefined && !(Number.isInteger(spec.budget) && spec.budget > 0)) errors.push("budget: the most triangles the model may have, a whole number");
   for (const [where, value] of [["smooth", spec.smooth], ...(spec.parts ?? []).map((part, i) => [`parts[${i}] (${part?.id}).smooth`, part?.smooth])])
     if (value !== undefined && !(isNumber(value) && value >= 0 && value <= 180)) errors.push(`${where}: the angle in degrees (0 to 180) under which faces are shaded as one smooth surface`);
   for (const [i, part] of (spec.parts ?? []).entries()) finishErrors(part?.finish, `parts[${i}] (${part?.id}).finish`);
@@ -875,9 +879,26 @@ export function buildModelSpec(spec, { folder, prefabs = {}, games = [], readPic
   }
   warnings.push(...pieces.warnings);
   const { meshes } = pieces;
+  // parts painted into what they sit on: built, baked into the faces under them, and left out
+  const baked = spec.parts.filter((part) => part.paint === true).map((part) => part.id);
+  if (baked.length) {
+    const { texels, removed } = bakeParts(meshes, baked, { reach: 1.5 });
+    report.facts.push(`painted, not built: ${baked.join(", ")} (${removed} triangles left out, ${texels} texels painted)`);
+    if (!texels) warnings.push(`paint: ${baked.join(", ")} found nothing within 1.5 units under them to be painted on: they are gone`);
+  }
   // a part's own smoothing angle, or the spec's, on every corner that has none of its own: a low-sided round
   // part (a sphere of 6, a finger of 4) shaded round, and its normals shared, which the engine counts
-  const smoothOf = new Map(spec.parts.map((part) => [part.id, part.smooth ?? spec.smooth]));
+  // a round part (turn, cylinder, sphere, tube) is shaded smooth across its own sides whatever their count:
+  // an 8-sided one's faces meet at 45 degrees, over the 40 a flat part creases at, and shaded flat it pushed
+  // builders to 16 sides; under 90 degrees, so its caps keep their edge (research/repeated-failures.md, 5)
+  const ROUND = { turn: 16, cylinder: 16, sphere: 16, tube: 8 };
+  const roundAngle = (part) => {
+    const sides = part.sides ?? ROUND[part.kind];
+    return ROUND[part.kind] && sides >= 5 ? Math.min(85, 360 / sides + 5) : undefined;
+  };
+  const smoothOf = new Map(
+    spec.parts.map((part) => [part.id, part.smooth ?? (roundAngle(part) !== undefined ? Math.max(spec.smooth ?? 40, roundAngle(part)) : spec.smooth)]),
+  );
   for (const mesh of meshes)
     mesh.tris.forEach((t, i) => {
       const angle = smoothOf.get(String(mesh.partOf?.[i] ?? "").split(".")[0]);
@@ -928,6 +949,17 @@ export function buildModelSpec(spec, { folder, prefabs = {}, games = [], readPic
     { front: 1, allow: allow.flatMap((id) => [id, ...Object.keys(report.parts).filter((p) => p.startsWith(`${id}.`))]) },
   );
   report.faults.push(...sound.faults);
+
+  // the triangle budget: the spec's own, or (for a prop) three quarters of Half-Life's props are under 576
+  const byPart = new Map();
+  for (const mesh of meshes) mesh.partOf?.forEach((id) => byPart.set(String(id).split(".")[0], (byPart.get(String(id).split(".")[0]) ?? 0) + 1));
+  const triangles = meshes.reduce((sum, mesh) => sum + mesh.tris.length, 0);
+  const heaviest = [...byPart].sort((a, b) => b[1] - a[1]).slice(0, 6).map(([id, n]) => `${id} ${n}`).join(", ");
+  const thin = spec.parts.filter((part) => part.kind === "box" && part.paint !== true && Math.min(...part.size) < 1).map((part) => part.id);
+  const budgetLine = `${triangles} triangles${spec.budget ? ` of a budget of ${spec.budget}` : ""}; the most in ${heaviest}${thin.length ? `; ${thin.length} boxes under a unit thick could be panels or paint: true (${thin.slice(0, 8).join(", ")}${thin.length > 8 ? " ..." : ""})` : ""}`;
+  if (spec.budget && triangles > spec.budget) report.faults.push(`over budget: ${budgetLine}`);
+  else if (!spec.budget && kind === "prop" && triangles > PROP_BUDGET) warnings.push(`${budgetLine}: three quarters of Half-Life's props have fewer than ${PROP_BUDGET}; give the spec a budget, and paint what lies on a surface`);
+  else report.facts.push(budgetLine);
   report.notes.push(...sound.notes);
   report.edges = sound.edges;
 
