@@ -308,6 +308,7 @@ export function shapeSoundness(list, { weld = WELD, gap = GAP, front = 1, allow 
       mx: bounds.mx.map(round2),
       members,
       bounds,
+      solids: list.filter((shell) => shell.closed && !shell.sheet && shell.volume > 0),
     };
   });
 
@@ -321,6 +322,13 @@ export function shapeSoundness(list, { weld = WELD, gap = GAP, front = 1, allow 
       const apart = boxGap(piece.bounds, other.bounds);
       if (apart > gap) {
         nearest = Math.min(nearest, apart);
+        continue;
+      }
+      // a point of one inside a closed part of the other: they are sunk into each other, and touch
+      const sunk = (from, to) =>
+        pointsOf(from).some((point) => to.solids.some((solid) => inside(point, solid, tris)));
+      if (sunk(piece, other) || sunk(other, piece)) {
+        nearest = 0;
         continue;
       }
       let least = Infinity;
@@ -385,7 +393,7 @@ export function shapeSoundness(list, { weld = WELD, gap = GAP, front = 1, allow 
     notes,
     triangles: tris.length,
     edges: count,
-    pieces: pieces.map(({ members, bounds, ...rest }) => rest),
+    pieces: pieces.map(({ members, bounds, solids, ...rest }) => rest),
     box: { mn: whole.mn.map(round2), mx: whole.mx.map(round2) },
   };
 }

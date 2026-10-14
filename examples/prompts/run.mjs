@@ -11,7 +11,7 @@
 // It ends with code 1 when any case's checks do not pass.
 import { spawn } from "node:child_process";
 import { createInterface } from "node:readline";
-import { readdirSync, existsSync, mkdirSync, writeFileSync, mkdtempSync, rmSync } from "node:fs";
+import { readdirSync, existsSync, mkdirSync, writeFileSync, readFileSync, mkdtempSync, rmSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
@@ -58,6 +58,8 @@ let failed = 0;
 for (const name of cases) {
   const args = { spec: `models:${name}/spec.json` };
   if (existsSync(join(HERE, name, "drawing.png"))) args.reference = `models:${name}/drawing.png`;
+  // a close look at parts too small to judge in the sheet, as the case's focus.json lists them
+  if (existsSync(join(HERE, name, "focus.json"))) args.focus = JSON.parse(readFileSync(join(HERE, name, "focus.json"), "utf8"));
   const began = Date.now();
   const answer = await request("tools/call", { name: "build", arguments: args });
   const result = answer.result ?? { content: [{ type: "text", text: `ERROR ${answer.error?.message}` }], isError: true };

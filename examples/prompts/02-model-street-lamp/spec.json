@@ -1,0 +1,38 @@
+{
+  "spec": "smak.model/1",
+  "name": "street_lamp.mdl",
+  "kind": "prop",
+  "size": { "height": 110 },
+  "texture": { "width": 512, "height": 256 },
+  "materials": {
+    "cast": { "base": "iron", "tone": [0.16, 0.16, 0.17], "rust": 0.1 },
+    "lit_glass": { "base": "glass", "tone": [1.0, 0.82, 0.38], "flags": ["fullbright"] }
+  },
+  "parts": [
+    { "id": "base", "kind": "turn", "material": "cast", "sides": 16,
+      "rings": [[0, 10], { "s": 3, "r": 10, "crease": true }, { "s": 3.6, "r": 7.5, "crease": true }, { "s": 6, "r": 7.5, "crease": true }, { "s": 6.6, "r": 4.5, "crease": true }, [10, 3.2]],
+      "caps": [true, true] },
+    { "id": "post", "kind": "cylinder", "material": "cast", "radius": 2.4, "top": 1.6, "height": 96, "sides": 12,
+      "attach": { "to": "base", "offset": [0, 0, -0.5] } },
+    { "id": "top_ball", "kind": "sphere", "material": "cast", "radius": 2.2, "sides": 12,
+      "attach": { "to": "post", "offset": [0, 0, -0.8] } },
+    { "id": "arm", "kind": "tube", "material": "cast", "sides": 8,
+      "path": [[0, 0, 0, 1.1], [5, 0, 3.5, 1.0], [12, 0, 5.5, 0.9], [20, 0, 5.5, 0.8]],
+      "attach": { "to": "post", "toAt": { "s": 0.9, "angle": 0, "out": -0.6 }, "at": "start" } },
+    { "id": "chain", "kind": "cylinder", "material": "cast", "radius": 0.35, "height": 5, "sides": 6,
+      "attach": { "to": "arm", "toAt": "end", "at": "top", "offset": [0, 0, 0.4] } },
+    { "id": "roof", "kind": "cylinder", "material": "cast", "radius": 6.4, "top": 0.3, "height": 4, "sides": 4, "rotate": [45, 0, 0],
+      "attach": { "to": "chain", "toAt": "bottom", "at": "top", "offset": [0, 0, 0.3] } },
+    { "id": "top_plate", "kind": "box", "material": "cast", "size": [9, 9, 1],
+      "attach": { "to": "roof", "toAt": "bottom", "at": "top", "offset": [0, 0, 0.2] } },
+    { "id": "glass", "kind": "box", "material": "lit_glass", "size": [7, 7, 9],
+      "attach": { "to": "top_plate", "toAt": "bottom", "at": "top", "offset": [0, 0, 0.3] } },
+    { "id": "bottom_plate", "kind": "box", "material": "cast", "size": [9, 9, 1],
+      "attach": { "to": "glass", "toAt": "bottom", "at": "top", "offset": [0, 0, 0.3] } },
+    { "id": "frame_post", "kind": "box", "material": "cast", "size": [1.2, 1.2, 9.6],
+      "attach": { "to": "glass", "toAt": "centre", "at": "centre", "offset": [3.5, 3.5, 0] },
+      "repeat": { "count": 4, "around": "glass" } },
+    { "id": "drop", "kind": "sphere", "material": "cast", "radius": 1, "sides": 8,
+      "attach": { "to": "bottom_plate", "toAt": "bottom", "at": "top", "offset": [0, 0, 0.3] } }
+  ]
+}

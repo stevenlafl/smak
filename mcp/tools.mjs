@@ -677,6 +677,20 @@ function build(folders, args) {
     lines.push(`written: work:${name} (${mdl.length} bytes), work:${base}.spec.json, work:${base}-sheet.png`);
     show(six);
     if (reference) show(besideOf(reference, smak.render(mdl, { seq: 0, yaw: args.yaw ?? 35, pitch: args.pitch ?? 20, width: 512, height: 512 })));
+    // a close look at the parts asked for, from two sides: what a sheet of the whole is too small to show
+    const focus = [args.focus ?? []].flat().filter(Boolean);
+    if (focus.length) {
+      const boxes = focus.map((id) => {
+        const part = report.parts[id] ?? Object.entries(report.parts).find(([key]) => key.startsWith(`${id}.`))?.[1];
+        if (!part) throw new Error(`focus: no part ${id}; the parts are ${Object.keys(report.parts).join(", ")}`);
+        return part;
+      });
+      const mn = [0, 1, 2].map((k) => Math.min(...boxes.map((b) => b.from[k])));
+      const mx = [0, 1, 2].map((k) => Math.max(...boxes.map((b) => b.to[k])));
+      const within = { mid: mn.map((v, k) => (v + mx[k]) / 2), far: Math.max(0.5, Math.hypot(...mx.map((v, k) => v - mn[k])) / 2) };
+      const views = [[35, 20], [215, 20]].map(([yaw, pitch]) => smak.render(mdl, { seq: 0, yaw, pitch, within, width: 384, height: 384 }));
+      show(smak.tile(views, 2, [`${focus.join(", ")} from the front`, "from the back"]));
+    }
   }
   return [text(lines.join("\n")), ...pictures];
 }
@@ -802,6 +816,7 @@ export function toolsFor(folders, { allowRun = true } = {}) {
           spec: { description: "the spec as an object or JSON text, or a .json file under the work or models folder" },
           reference: { type: "string", description: "a PNG of the person's (a drawing, a picture), drawn beside the result" },
           yaw: { type: "number", description: "with reference: the model's side shown beside it (35)" },
+          focus: { type: "array", items: { type: "string" }, description: "a model's part ids to see close, from two sides" },
           pitch: { type: "number" },
         },
         ["spec"],
