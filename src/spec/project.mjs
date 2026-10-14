@@ -142,6 +142,27 @@ export function outlineBox(mask, width, [x0, y0, x1, y1]) {
   return [Math.min(...kept.map((p) => p.x0)), Math.min(...kept.map((p) => p.y0)), Math.max(...kept.map((p) => p.x1)) + 1, Math.max(...kept.map((p) => p.y1)) + 1];
 }
 
+/** A picture's colour at a point, nearest pixel. */
+function colourAtPicture(picture, x, y) {
+  const i = Math.min(picture.width - 1, Math.max(0, Math.floor(x))) + Math.min(picture.height - 1, Math.max(0, Math.floor(y))) * picture.width;
+  return picture.rgba ? [picture.rgba[i * 4], picture.rgba[i * 4 + 1], picture.rgba[i * 4 + 2]] : [picture.rgb[i * 3], picture.rgb[i * 3 + 1], picture.rgb[i * 3 + 2]];
+}
+
+/** Least squares: rows of [x1 ... xk, y], the k coefficients (normal equations, Gaussian elimination). */
+function leastSquares(rows) {
+  const k = rows[0].length - 1;
+  const a = Array.from({ length: k }, () => new Array(k + 1).fill(0));
+  for (const r of rows) for (let i = 0; i < k; i++) { for (let j = 0; j < k; j++) a[i][j] += r[i] * r[j]; a[i][k] += r[i] * r[k]; }
+  for (let i = 0; i < k; i++) {
+    let p = i;
+    for (let j = i + 1; j < k; j++) if (Math.abs(a[j][i]) > Math.abs(a[p][i])) p = j;
+    [a[i], a[p]] = [a[p], a[i]];
+    if (Math.abs(a[i][i]) < 1e-9) return null;
+    for (let j = 0; j < k; j++) if (j !== i) { const f = a[j][i] / a[i][i]; for (let m = i; m <= k; m++) a[j][m] -= f * a[i][m]; }
+  }
+  return a.map((row, i) => row[k] / row[i]);
+}
+
 /** How many texels a picture's colour is spread past the edge of what the triangles cover. */
 const BLEED = 3;
 
@@ -217,6 +238,37 @@ export function paintProjections(meshes, views) {
     const extent = Math.max(a1 - a0, h1 - h0);
     return { view, picture, back, toPicture, depth, mask, rect, slack: extent * 0.01 + 0.05, parts: view.parts ? new Set(view.parts) : null, seen: 0 };
   });
+  // the light each picture carries, as a function of the way a surface faces in that view: brightness fitted
+  // to the face's direction (right, up, toward the camera) over the triangles it sees squarely; a texel's colour
+  // is divided by it, relative to a face seen head-on, so the game's own light is not laid over a second shading
+  if (process.env.SMAK_DELIGHT !== "0")
+    for (const v of prepared) {
+      if (!v) continue;
+      const { right, up } = viewAxes(v.view.yaw, v.view.pitch);
+      const rows = [];
+      for (const tri of all) {
+        const n = unit(cross(sub(tri[1], tri[0]), sub(tri[2], tri[0])));
+        if (dot(n, v.back) < 0.3) continue;
+        const mid = [0, 1, 2].map((k) => (tri[0][k] + tri[1][k] + tri[2][k]) / 3);
+        const [px, py] = v.toPicture(mid);
+        const ix = Math.floor(px);
+        const iy = Math.floor(py);
+        if (ix < 0 || iy < 0 || ix >= v.picture.width || iy >= v.picture.height) continue;
+        const at = iy * v.picture.width + ix;
+        if (!v.mask[at] || dot(mid, v.back) < v.depth[at] - v.slack) continue;
+        const c = colourAtPicture(v.picture, px, py);
+        rows.push([1, dot(n, right), dot(n, up), dot(n, v.back), 0.3 * c[0] + 0.59 * c[1] + 0.11 * c[2]]);
+      }
+      v.light = rows.length >= 12 ? leastSquares(rows) : null;
+    }
+  const lightOf = (v, n) => {
+    if (!v.light) return 1;
+    const { right, up } = viewAxes(v.view.yaw, v.view.pitch);
+    const [c0, cr, cu, cb] = v.light;
+    const head = c0 + cb;
+    const here = c0 + cr * dot(n, right) + cu * dot(n, up) + cb * dot(n, v.back);
+    return head > 1 && here > 1 ? Math.max(0.6, Math.min(1.6, here / head)) : 1;
+  };
   const colourAt = (v, x, y) => {
     const { picture } = v;
     const i = Math.min(picture.width - 1, Math.max(0, Math.floor(x))) + Math.min(picture.height - 1, Math.max(0, Math.floor(y))) * picture.width;
@@ -271,7 +323,8 @@ export function paintProjections(meshes, views) {
             for (const v of seeing.filter((v) => dot(n, v.back) >= best * SQUARE_SHARE)) {
               const [px, py] = v.toPicture(q);
               const w = dot(n, v.back) ** SHARPNESS;
-              const c = colourAt(v, px, py);
+              const shade = lightOf(v, n);
+              const c = colourAt(v, px, py).map((value) => Math.min(255, value / shade));
               sum = sum.map((s, k) => s + c[k] * w);
               weight += w;
               v.seen++;
