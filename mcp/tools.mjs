@@ -690,8 +690,8 @@ function build(folders, args) {
       const mn = [0, 1, 2].map((k) => Math.min(...boxes.map((b) => b.from[k])));
       const mx = [0, 1, 2].map((k) => Math.max(...boxes.map((b) => b.to[k])));
       const within = { mid: mn.map((v, k) => (v + mx[k]) / 2), far: Math.max(0.5, Math.hypot(...mx.map((v, k) => v - mn[k])) / 2) };
-      const views = [[35, 20], [215, 20]].map(([yaw, pitch]) => smak.render(mdl, { seq: 0, yaw, pitch, within, width: 384, height: 384 }));
-      show(smak.tile(views, 2, ["front", "back"]));
+      const views = [[35, 20], [215, 20], [35, -35]].map(([yaw, pitch]) => smak.render(mdl, { seq: 0, yaw, pitch, within, width: 320, height: 320 }));
+      show(smak.tile(views, 3, ["front", "back", "from below"]));
     }
   }
   return [text(lines.join("\n")), ...pictures];
@@ -818,7 +818,7 @@ export function toolsFor(folders, { allowRun = true } = {}) {
           spec: { description: "the spec as an object or JSON text, or a .json file under the work or models folder" },
           reference: { type: "string", description: "a PNG of the person's (a drawing, a picture), drawn beside the result" },
           yaw: { type: "number", description: "with reference: the model's side shown beside it (35)" },
-          focus: { type: "array", items: { type: "string" }, description: "a model's part ids to see close, from two sides" },
+          focus: { type: "array", items: { type: "string" }, description: "a model's part ids to see close: from the front, the back and below" },
           pitch: { type: "number" },
         },
         ["spec"],

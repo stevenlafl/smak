@@ -11,7 +11,7 @@
 // docs/SPEC.md is the guide. Axes as every map's: +x east, +y north, +z up, a unit about an inch.
 import { writeFileSync, mkdirSync, readFileSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
-import { carve, box, cylinder, wedge, stairs as stairBrushes, light, sunLight, playerStart, pointEntity, brushEntity, writeMap, readMap, subtract, moved } from "../maps/source.mjs";
+import { carve, box, cylinder, wedge, stairs as stairBrushes, light, sunLight, textureLights, playerStart, pointEntity, brushEntity, writeMap, readMap, subtract, moved } from "../maps/source.mjs";
 import { checkPlan } from "../maps/plan.mjs";
 import { reachOf } from "../maps/reach.mjs";
 import { writeWad } from "../maps/wad.mjs";
@@ -25,10 +25,10 @@ import { materialOf, surfacePicture, MATERIALS } from "./paint.mjs";
 import { buildModelSpec, validateModelSpec } from "./model.mjs";
 
 export const MAP_SPEC = "smak.map/1";
-const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "note"];
-const ROOM = ["id", "size", "at", "place", "floor", "sky", "surfaces", "light", "note"];
+const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "note"];
+const ROOM = ["id", "size", "at", "place", "floor", "sky", "surfaces", "light", "water", "test", "note"];
 const LINK = ["between", "kind", "width", "height", "along", "sill", "stairs", "door", "note"];
-const PLACES = ["east_of", "west_of", "north_of", "south_of", "above", "below"];
+const PLACES = ["east_of", "west_of", "north_of", "south_of", "above", "below", "in"];
 const LINK_KINDS = ["door", "opening", "window", "stairs"];
 /** Sizes by the words of MAPS-MAKING.md, "Units and sizes". */
 const PLAYER = { wide: 32, high: 72 };
@@ -68,8 +68,14 @@ function stacked(pictures, names) {
   return out;
 }
 
-/** The texture names a spec's materials take: SM_ and the word, 15 letters at most, as a .wad holds them. */
-const textureName = (key) => (key === "sky" ? "sky" : `SM_${key}`.toUpperCase().replace(/[^A-Z0-9_]/g, "").slice(0, 15));
+/**
+ * The texture names a spec's materials take: SM_ and the word, 15 letters at most, as a .wad holds them; a
+ * liquid's begins with ! (the compilers make what wears it water), the sky's is `sky`.
+ */
+const textureName = (key, liquid = false) =>
+  key === "sky" ? "sky" : `${liquid ? "!" : ""}SM_${key}`.toUpperCase().replace(/[^!A-Z0-9_]/g, "").slice(0, 15);
+/** A texture light's brightness for a material that glows, unless it says (`glow`). */
+const GLOW = 600;
 
 /**
  * The rooms of a layout drawing: rows of text, a character a cell of `cell` units, each letter the key gives
@@ -103,6 +109,85 @@ export function readLayout(layout) {
     if (room) room.cells++;
   }
   return { rooms, marks, cell };
+}
+
+/**
+ * A map spec with the modules it includes taken in: each module is a map spec of its own (a shop, a
+ * sewer), built and checked alone, and put in the larger map as Hammer's prefabs are, a group: its rooms,
+ * links, furniture, props and entities come in with their ids (and its prefabs' and models' names)
+ * prefixed by the include's `as` and an underscore, its first room placed by the include's `place` or
+ * `at`, the rest where the module places them against it. Its places to start are left out: the larger
+ * map has its own. Its theme's floor and ceiling are given to its rooms as their own surfaces where the
+ * larger map's differ; its walls wear the larger map's. A module may include modules of its own.
+ * `include: [{ spec: "noodle_bar.json", as: "noodle", place: { north_of: "street", align: 64 } }]`. The
+ * larger map's links name a module's rooms by their prefixed ids (`noodle_shop`).
+ */
+export function withIncludes(spec, folder = ".") {
+  if (!spec?.include?.length) return spec;
+  const out = { ...spec, rooms: [...(spec.rooms ?? [])], links: [...(spec.links ?? [])], entities: [...(spec.entities ?? [])] };
+  for (const key of ["furniture", "props"]) out[key] = [...(spec[key] ?? [])];
+  for (const key of ["prefabs", "models", "textures"]) out[key] = { ...(spec[key] ?? {}) };
+  const hostTheme = { floor: "stone", wall: "plaster", ceiling: "planks", door: "metal", furniture: "darkwood", ...(spec.theme ?? {}) };
+  for (const [n, given] of spec.include.entries()) {
+    const file = resolve(folder, given.spec);
+    const inner = withIncludes(JSON.parse(readFileSync(file, "utf8")), dirname(file));
+    const as = given.as ?? `m${n}`;
+    const id = (name) => `${as}_${name}`;
+    const here = dirname(file);
+    if (inner.layout) throw new Error(`include[${n}]: ${given.spec} is drawn with a layout; a module is placed by words (place, at)`);
+    const innerTheme = { ...hostTheme, ...(inner.theme ?? {}) };
+    // the module's own words for materials, kept under its own names
+    for (const [word, material] of Object.entries(inner.textures ?? {})) out.textures[id(word)] = material;
+    for (const face of ["floor", "ceiling", "door", "furniture"]) out.textures[id(face)] = innerTheme[face];
+    const word = (w) => (inner.textures?.[w] !== undefined || ["floor", "ceiling", "door", "furniture"].includes(w) ? id(w) : w);
+    // the rooms a module has only to be tried alone (a stretch of street before a shop) stay out
+    const tried = new Set(inner.rooms.filter((room) => room.test).map((room) => room.id));
+    inner.rooms = inner.rooms.filter((room) => !room.test);
+    inner.links = (inner.links ?? []).filter((link) => !link.between.some((r) => tried.has(r)));
+    for (const key of ["entities", "furniture", "props"]) inner[key] = (inner[key] ?? []).filter((thing) => !tried.has(thing.room));
+    inner.rooms.forEach((room, k) => {
+      const surfaces = { ...(room.surfaces ?? {}) };
+      for (const face of ["floor", "ceiling"]) {
+        if (surfaces[face]) surfaces[face] = word(surfaces[face]);
+        else if (JSON.stringify(innerTheme[face]) !== JSON.stringify(hostTheme[face])) surfaces[face] = id(face);
+      }
+      const placed = { ...room, id: id(room.id), surfaces };
+      if (room.water?.material) placed.water = { ...room.water, material: word(room.water.material) };
+      if (k === 0) {
+        delete placed.place;
+        delete placed.at;
+        if (given.place) placed.place = given.place;
+        if (given.at) placed.at = given.at;
+      } else if (room.place) {
+        const way = PLACES.find((w) => room.place[w] !== undefined);
+        placed.place = { ...room.place, [way]: id(room.place[way]) };
+      }
+      out.rooms.push(placed);
+    });
+    for (const link of inner.links ?? []) out.links.push({ ...link, between: link.between.map(id) });
+    // a thing's `facing` and `at: "near <room>"` may name a room of the module
+    const ids = new Set(inner.rooms.map((room) => room.id));
+    const named = (thing) => ({
+      ...thing,
+      room: id(thing.room),
+      ...(typeof thing.facing === "string" && ids.has(thing.facing) ? { facing: id(thing.facing) } : {}),
+      ...(typeof thing.at === "string" && /^near /.test(thing.at) && ids.has(thing.at.slice(5)) ? { at: `near ${id(thing.at.slice(5))}` } : {}),
+    });
+    for (const thing of inner.entities ?? [])
+      if (!/^info_player_/.test(thing.class)) out.entities.push({ ...named(thing), ...(thing.id ? { id: id(thing.id) } : {}) });
+    for (const [name, prefab] of Object.entries(inner.prefabs ?? {}))
+      out.prefabs[id(name)] = prefab.file
+        ? { ...prefab, file: resolve(here, prefab.file) }
+        : { ...prefab, pieces: prefab.pieces.map((piece) => ({ ...piece, texture: word(piece.texture ?? "furniture") })) };
+    for (const [name, model] of Object.entries(inner.models ?? {}))
+      out.models[id(name)] = model.file ? { ...model, file: resolve(here, model.file) } : model;
+    for (const thing of inner.furniture ?? [])
+      out.furniture.push({ ...named(thing), ...(thing.prefab ? { prefab: id(thing.prefab) } : { texture: word(thing.texture ?? "furniture") }) });
+    for (const thing of inner.props ?? [])
+      out.props.push({ ...named(thing), model: inner.models?.[thing.model] ? id(thing.model) : thing.model });
+  }
+  delete out.include;
+  return out;
 }
 
 /** What is wrong with a map spec before anything is built: { errors, warnings }, each with its path. */
@@ -226,6 +311,9 @@ export function layoutOf(spec) {
       if (way === "south_of") min = [across(0), other.min[1] - gap - size[1], floor];
       if (way === "above") min = [across(0), across(1), other.max[2] + gap];
       if (way === "below") min = [across(0), across(1), other.min[2] - gap - size[2]];
+      // inside another room, `offset` [x, y] from its least corner: the two are one space (a channel sunk in
+      // a tunnel's floor, a raised dais)
+      if (way === "in") min = [other.min[0] + (room.place.offset?.[0] ?? 0), other.min[1] + (room.place.offset?.[1] ?? 0), floor];
     }
     rooms.set(room.id, { id: room.id, min, max: min.map((v, k) => v + size[k]), spec: room });
   }
@@ -319,7 +407,13 @@ function placedPrefab(prefab, at, quarters, textureOf) {
  * every model it puts in, and <name>.bsp when the compilers are found (`compilers`: what findCompilers gave,
  * or a folder). Returns { report, files, map }: report is { ok, errors, faults, warnings, facts, rooms }.
  */
-export function buildMapSpec(spec, { out, compilers, folder } = {}) {
+export function buildMapSpec(given, { out, compilers, folder } = {}) {
+  let spec;
+  try {
+    spec = withIncludes(given, folder ?? ".");
+  } catch (error) {
+    return { report: { ok: false, errors: [error.message], faults: [], warnings: [], facts: [], rooms: {} }, files: {}, map: null };
+  }
   const { errors, warnings } = validateMapSpec(spec);
   const report = { ok: false, errors, faults: [], warnings, facts: [], rooms: {} };
   const files = {};
@@ -333,13 +427,15 @@ export function buildMapSpec(spec, { out, compilers, folder } = {}) {
   const materials = { ...theme, ...(spec.textures ?? {}) };
   const used = new Map();
   /** a texture name for a word of the spec (a key of theme/textures, or a base material) */
-  const textureOf = (word) => {
-    if (word === "sky") return used.set("sky", { base: "glass", tone: [0.45, 0.6, 0.85] }) && "sky";
+  const liquids = new Set();
+  const textureOf = (word, { liquid = false } = {}) => {
+    if (word === "sky") return used.set("sky", { base: "glass", tone: spec.night ? [0.05, 0.06, 0.1] : [0.45, 0.6, 0.85] }) && "sky";
     const material = materials[word] ?? word;
     materialOf(material, `texture ${word}`);
     const key = materials[word] !== undefined ? word : `${typeof material === "string" ? material : material.base}`;
     used.set(key, material);
-    return textureName(key);
+    if (liquid) liquids.add(key);
+    return textureName(key, liquid);
   };
   let themeNames;
   try {
@@ -463,6 +559,12 @@ export function buildMapSpec(spec, { out, compilers, folder } = {}) {
       linings.push(...pieces.map((piece) => box(piece.min, piece.max, texture)));
     }
     boxes.push(carved);
+    // water: a liquid brush over the room's floor, `depth` deep (it seals nothing, and is swum in)
+    if (room.spec.water) {
+      const water = typeof room.spec.water === "number" ? { depth: room.spec.water } : room.spec.water;
+      const texture = textureOf(water.material ?? "water", { liquid: true });
+      brushes.push(box(room.min, [room.max[0], room.max[1], room.min[2] + water.depth], texture));
+    }
   }
   const rock = carve([...boxes, ...holes], wall, themeNames);
   brushes.unshift(...rock);
@@ -606,14 +708,27 @@ export function buildMapSpec(spec, { out, compilers, folder } = {}) {
   }
   if (sunny) {
     const sky = [...rooms.values()].find((room) => room.spec.sky);
-    entities.push(sunLight([...mid(sky).slice(0, 2), sky.max[2] - 32], { pitch: -60, yaw: 30, brightness: 280, color: [255, 245, 225], ...(spec.sun ?? {}) }));
+    const sun = spec.night ? { pitch: -70, yaw: 30, brightness: 60, color: [140, 160, 255] } : { pitch: -60, yaw: 30, brightness: 280, color: [255, 245, 225] };
+    entities.push(sunLight([...mid(sky).slice(0, 2), sky.max[2] - 32], { ...sun, ...(spec.sun ?? {}) }));
   }
 
+  // materials that glow: a texture light each, so that the faces wearing them shine (neon, a lit window)
+  const glowing = Object.fromEntries(
+    [...used.entries()]
+      .map(([key, given]) => [key, materialOf(given)])
+      .filter(([, material]) => material.flags.includes("fullbright"))
+      .map(([key, material]) => [textureName(key), [...material.tone.map((v) => Math.round(v * 255)), material.glow ?? GLOW]]),
+  );
+  if (Object.keys(glowing).length) {
+    const first = [...rooms.values()][0];
+    entities.push(textureLights([...mid(first).slice(0, 2), first.min[2] + 32], glowing));
+    report.facts.push(`texture lights: ${Object.keys(glowing).join(", ")}`);
+  }
   if (errors.length) return { report, files, map: null };
   // ── the files: the .wad of its pictures, and the .map ──
   mkdirSync(out, { recursive: true });
   const wadFile = join(out, `${name}.wad`);
-  writeFileSync(wadFile, writeWad([...used.entries()].map(([key, material]) => ({ name: textureName(key), image: surfacePicture(material, key === "sky" ? 64 : 128) }))));
+  writeFileSync(wadFile, writeWad([...used.entries()].map(([key, material]) => ({ name: textureName(key, liquids.has(key)), image: surfacePicture(material, key === "sky" ? 64 : 128) }))));
   files.wad = wadFile;
   const map = { worldspawn: { wad: [wadFile], message: spec.note ?? name, skyname: spec.sky ?? "desert" }, brushes, entities };
   const mapFile = join(out, `${name}.map`);
@@ -623,7 +738,7 @@ export function buildMapSpec(spec, { out, compilers, folder } = {}) {
   for (const room of rooms.values()) report.rooms[room.id] = { min: room.min, max: room.max };
 
   // ── checked before any compile: the plan, and the walk ──
-  const textures = [...used.keys()].map(textureName);
+  const textures = [...used.keys()].map((key) => textureName(key, liquids.has(key)));
   const plan = checkPlan(map, { textures });
   report.faults.push(...plan.errors);
   warnings.push(...plan.warnings);

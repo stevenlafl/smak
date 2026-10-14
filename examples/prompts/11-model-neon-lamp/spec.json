@@ -1,0 +1,41 @@
+{
+  "spec": "smak.model/1",
+  "name": "neon_lamp.mdl",
+  "kind": "prop",
+  "size": { "height": 128 },
+  "texture": { "width": 512, "height": 256 },
+  "materials": {
+    "gunmetal": { "base": "iron", "tone": [0.2, 0.21, 0.23], "rust": 0.15 },
+    "grime": { "base": "iron", "tone": [0.13, 0.13, 0.14], "rust": 0.05 },
+    "rubber": { "base": "leather", "tone": [0.07, 0.07, 0.08] },
+    "stripes": { "base": "hazard" },
+    "cyan": { "base": "neon", "tone": [0.2, 0.95, 1.0] },
+    "pink": { "base": "neon", "tone": [1.0, 0.18, 0.72] }
+  },
+  "parts": [
+    { "id": "plinth", "kind": "cylinder", "material": "gunmetal", "radius": 8.5, "top": 7.6, "height": 8, "sides": 4, "rotate": [45, 0, 0], "at": [0, 0, 0] },
+    { "id": "bolt", "kind": "cylinder", "material": "grime", "radius": 0.7, "height": 0.9, "sides": 6,
+      "attach": { "to": "plinth", "offset": [3.9, 3.9, -0.3] }, "repeat": { "count": 4, "around": "plinth" } },
+    { "id": "pole", "kind": "cylinder", "material": "grime", "radius": 1.6, "top": 1.4, "height": 118, "sides": 6,
+      "attach": { "to": "plinth", "offset": [0, 0, -0.5] } },
+    { "id": "hazard_band", "kind": "band", "material": "stripes", "on": { "part": "pole", "s": 0.03 }, "width": 3.2, "height": 0.3 },
+    { "id": "arm", "kind": "tube", "material": "grime", "sides": 6,
+      "path": [[0, 0, 0, 0.7], [8, 0, 3.5, 0.6], [22, 0, 5, 0.55]],
+      "attach": { "to": "pole", "toAt": { "s": 0.97, "angle": 0, "out": -0.4 }, "at": "start" } },
+    { "id": "housing", "kind": "box", "material": "gunmetal", "size": [16, 3.4, 2.2],
+      "attach": { "to": "arm", "toAt": "end", "at": "back", "offset": [-0.6, 0, -0.3] } },
+    { "id": "light_bar", "kind": "box", "material": "cyan", "size": [14, 2.2, 0.6],
+      "attach": { "to": "housing", "toAt": "bottom", "at": "top", "offset": [0, 0, 0.2] } },
+    { "id": "frame", "kind": "box", "material": "gunmetal", "size": [1.2, 10.5, 16.5],
+      "attach": { "to": "pole", "toAt": { "s": 0.5, "angle": 0, "out": -0.3 }, "at": "back" } },
+    { "id": "ad_panel", "kind": "box", "material": "pink", "size": [0.5, 8.8, 14.2],
+      "attach": { "to": "frame", "toAt": "front", "at": "back", "offset": [-0.25, 0, 0.6] } },
+    { "id": "ad_strip", "kind": "box", "material": "cyan", "size": [0.5, 8.8, 0.7],
+      "attach": { "to": "frame", "toAt": "front", "at": "back", "offset": [-0.2, 0, -7.2] } },
+    { "id": "junction_box", "kind": "box", "material": "gunmetal", "size": [3, 4, 5],
+      "attach": { "to": "pole", "toAt": { "s": 0.9, "angle": 180, "out": -0.3 }, "at": "front" } },
+    { "id": "cable", "kind": "tube", "material": "rubber", "sides": 6,
+      "path": [[0, 0, 0.6, 0.45], [0.75, 0, -6, 0.45], [0.75, 0, -98, 0.45], [1.8, 0, -104.6, 0.45]],
+      "attach": { "to": "junction_box", "toAt": "bottom", "at": "start" } }
+  ]
+}

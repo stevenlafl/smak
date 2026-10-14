@@ -32,17 +32,22 @@ export const MATERIALS = {
   dirt: { tone: [0.4, 0.3, 0.2], what: "bare earth, a path (maps)" },
   glass: { tone: [0.55, 0.7, 0.75], what: "a pane; with fullbright, a lit window" },
   flame: { tone: [1, 0.7, 0.25], what: "a flame or a glowing coal: fullbright on its own" },
+  neon: { tone: [1, 0.2, 0.75], what: "a lit tube or sign in its tone: fullbright; in a map it shines (a texture light)" },
+  water: { tone: [0.12, 0.2, 0.22], what: "maps: a room's water (`water`), swum in" },
+  asphalt: { tone: [0.16, 0.16, 0.18], what: "maps: a wet road, dark and speckled" },
+  hazard: { tone: [0.9, 0.72, 0.1], what: "stripes of its tone and black, on a slant: a warning band" },
   paint: { tone: [0.6, 0.15, 0.12], what: "a painted surface in its tone: a sign, a cart" },
   bone: { tone: [0.86, 0.82, 0.7], what: "bone, ivory, a skull" },
   rope: { tone: [0.62, 0.52, 0.34], what: "rope, twine, straw" },
 };
 /** The flags a base has unless told. */
-const BASE_FLAGS = { flame: ["fullbright"] };
+const BASE_FLAGS = { flame: ["fullbright"], neon: ["fullbright"] };
 /** The texture flags by name, as `render`'s TEXTURE has them. */
 export const FLAG_BITS = { flat: 1, chrome: 2, fullbright: 4, additive: 32, masked: 64 };
 
 /** A material as an object, from a word or an object; refuses a base it does not know, in words. */
 export function materialOf(given, where = "material") {
+  // `glow` (a map's texture light: how bright a lit face shines a unit of its area) is passed on as it is
   const material = typeof given === "string" ? { base: given } : { ...given };
   if (!material.base || !MATERIALS[material.base])
     throw new Error(
@@ -54,6 +59,7 @@ export function materialOf(given, where = "material") {
     rust: material.rust ?? (material.base === "iron" ? 0.3 : 0),
     seed: material.seed ?? 1,
     flags: material.flags ?? BASE_FLAGS[material.base] ?? [],
+    glow: material.glow,
   };
 }
 
@@ -117,6 +123,26 @@ export function colourAt(material, x, y, light = 1) {
     case "bone": {
       const k = 0.95 + 0.1 * (grain(x * 0.5, y * 0.5) - 0.5);
       return shade(mix(tone, [0.6, 0.52, 0.38], 0.3 * step(0.55, 0.8, grain(x * 1.5, y * 1.5))), k * light);
+    }
+    case "neon": {
+      // a tube's bright core fading to its tone at the edges of each stroke
+      const core = 0.5 + 0.5 * Math.cos(y * 2.4);
+      return mix(tone, [1, 1, 1], 0.45 * core * core);
+    }
+    case "water": {
+      const ripple = 0.85 + 0.25 * (grain(x * 0.15, y * 0.4) - 0.5) + 0.1 * Math.sin(x * 0.6 + 4 * grain(x * 0.05, y * 0.05));
+      return shade(tone, ripple * light);
+    }
+    case "hazard": {
+      // stripes a unit and a half wide on a slant, worn at their edges
+      const band = ((x + y) / 1.5) % 2;
+      const black = band >= 0 && band < 1;
+      const k = 0.9 + 0.2 * (grain(x * 0.6, y * 0.6) - 0.5);
+      return shade(black ? [0.06, 0.06, 0.06] : tone, k * light);
+    }
+    case "asphalt": {
+      const k = 0.85 + 0.25 * (noise(x * 3, y * 3, s) - 0.5) + 0.3 * step(0.62, 0.72, grain(x * 0.08, y * 0.08));
+      return shade(tone, k * light);
     }
     case "glass": {
       const k = 0.9 + 0.2 * bell(((x + y) % 6) - 3, 0.8);

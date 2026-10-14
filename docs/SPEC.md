@@ -164,6 +164,8 @@ own).
 - `place`: one of `east_of`, `west_of`, `north_of`, `south_of` (side by side, `wall` of rock between),
   `above`, `below` (stacked, the rock between is the floor of the upper). The first room needs none: it
   stands at the origin. `at: [x, y, z]` puts a room's least corner anywhere instead.
+- `in`: inside another room, `offset: [x, y]` from its least corner, `floor` from its floor: the two are one
+  space (a channel sunk in a tunnel's floor, a raised dais, a balcony).
 - `align`: `centre` (unless told), or `north`, `south` (for rooms east or west of each other), `east`,
   `west` (for rooms north or south): those sides even. A number: so many units from the other's least side.
 - `floor`: its floor this much over the room it is placed against (under 0: lower).
