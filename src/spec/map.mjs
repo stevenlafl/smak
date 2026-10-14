@@ -41,6 +41,7 @@ const LINING = 8;
 const LAMP_AREA = 256 * 256;
 const LAMP_UNDER = 24;
 const LAMP_BRIGHTNESS = 250;
+const LAMP_HIGHEST = 192;
 /** How far from a wall an entity is put by "against" and "corner". */
 const INSET = 48;
 /** The rise and the depth of a stair's step that a link of stairs is built with. */
@@ -225,7 +226,8 @@ export function validateMapSpec(spec) {
         errors.push(`${at}.size: a room drawn in the layout takes its height here (a number), its floor plan from the drawing`);
     } else if (!Array.isArray(size) || size.length !== 3 || !size.every((v) => isNumber(v) && v > 0))
       errors.push(`${at}.size: [x, y, z] in units, each over 0 (a room ${DOOR.width * 4} x ${DOOR.width * 4} x 160 is middling)`);
-    else if (size[0] < PLAYER.wide || size[1] < PLAYER.wide || size[2] < PLAYER.high)
+    // a room inside another is part of its space (a channel sunk in a floor): it need not hold a player itself
+    else if (!room.place?.in && (size[0] < PLAYER.wide || size[1] < PLAYER.wide || size[2] < PLAYER.high))
       errors.push(`${at}.size: a player is 32 wide and 72 tall; ${size.join(" x ")} does not hold one`);
     if (room?.place) {
       const ways = PLACES.filter((w) => room.place[w] !== undefined);
@@ -707,7 +709,9 @@ export function buildMapSpec(given, { out, compilers, folder } = {}) {
     for (let i = 0; i < count; i++) {
       const cx = room.min[0] + (size[0] * ((i % across) + 0.5)) / across;
       const cy = room.min[1] + (size[1] * (Math.floor(i / across) + 0.5)) / down;
-      entities.push(light([Math.round(cx), Math.round(cy), room.max[2] - LAMP_UNDER], { brightness: options.brightness ?? LAMP_BRIGHTNESS, color: options.color ?? [255, 240, 220] }));
+      // hung under the ceiling, but no higher than LAMP_HIGHEST over the floor: in a tall room it lights the floor
+      const lampZ = Math.min(room.max[2] - LAMP_UNDER, room.min[2] + LAMP_HIGHEST);
+      entities.push(light([Math.round(cx), Math.round(cy), lampZ], { brightness: options.brightness ?? LAMP_BRIGHTNESS, color: options.color ?? [255, 240, 220] }));
     }
   }
   if (sunny) {
@@ -786,7 +790,9 @@ export function buildMapSpec(given, { out, compilers, folder } = {}) {
         // lightReport also tells of the floor in no room given ("elsewhere"): a stair's top, a ledge
         if (!report.rooms[room.name]) continue;
         report.rooms[room.name].light = Math.round(room.mean);
-        if (room.dark) report.faults.push(`${room.name} is dark: its floor's light is ${Math.round(room.mean)} of 255 (under ${24})`);
+        const part = rooms.get(room.name)?.spec.place?.in;
+        if (room.dark && part) report.facts.push(`${room.name} (part of ${part}) has its floor lit ${Math.round(room.mean)}: not held to the dark line, being the floor of another room's part (under water, as a rule)`);
+        else if (room.dark) report.faults.push(`${room.name} is dark: its floor's light is ${Math.round(room.mean)} of 255 (under ${24})`);
       }
       const walked = reachOf(bsp);
       if (walked.unreached.length + walked.stuck.length) report.faults.push(...walked.warnings.map((line) => `walk of the compiled map: ${line}`));

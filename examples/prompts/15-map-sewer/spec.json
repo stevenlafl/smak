@@ -1,0 +1,663 @@
+{
+ "spec": "smak.map/1",
+ "name": "sewer",
+ "theme": {
+  "floor": {
+   "base": "stone",
+   "tone": [
+    0.36,
+    0.37,
+    0.36
+   ]
+  },
+  "wall": {
+   "base": "stone",
+   "tone": [
+    0.3,
+    0.32,
+    0.32
+   ]
+  },
+  "ceiling": {
+   "base": "stone",
+   "tone": [
+    0.22,
+    0.23,
+    0.23
+   ]
+  },
+  "door": "metal",
+  "furniture": {
+   "base": "metal",
+   "tone": [
+    0.3,
+    0.32,
+    0.34
+   ]
+  }
+ },
+ "textures": {
+  "concrete": {
+   "base": "plaster",
+   "tone": [
+    0.5,
+    0.5,
+    0.48
+   ]
+  },
+  "sewage": {
+   "base": "water",
+   "tone": [
+    0.1,
+    0.16,
+    0.13
+   ]
+  },
+  "crate": {
+   "base": "wood",
+   "tone": [
+    0.45,
+    0.34,
+    0.22
+   ]
+  },
+  "mattress": {
+   "base": "cloth",
+   "tone": [
+    0.35,
+    0.33,
+    0.3
+   ]
+  },
+  "screen": {
+   "base": "neon",
+   "tone": [
+    0.3,
+    0.9,
+    1.0
+   ],
+   "glow": 300
+  },
+  "status": {
+   "base": "neon",
+   "tone": [
+    1.0,
+    0.55,
+    0.1
+   ],
+   "glow": 200
+  },
+  "rust": {
+   "base": "iron",
+   "tone": [
+    0.3,
+    0.22,
+    0.16
+   ]
+  }
+ },
+ "prefabs": {
+  "steps_up_west": {
+   "pieces": [
+    {
+     "box": [
+      [
+       0,
+       0,
+       0
+      ],
+      [
+       16,
+       96,
+       48
+      ]
+     ],
+     "texture": "floor"
+    },
+    {
+     "box": [
+      [
+       16,
+       0,
+       0
+      ],
+      [
+       32,
+       96,
+       32
+      ]
+     ],
+     "texture": "floor"
+    },
+    {
+     "box": [
+      [
+       32,
+       0,
+       0
+      ],
+      [
+       48,
+       96,
+       16
+      ]
+     ],
+     "texture": "floor"
+    }
+   ]
+  },
+  "steps_up_east": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -16,
+       0,
+       0
+      ],
+      [
+       0,
+       96,
+       48
+      ]
+     ],
+     "texture": "floor"
+    },
+    {
+     "box": [
+      [
+       -32,
+       0,
+       0
+      ],
+      [
+       -16,
+       96,
+       32
+      ]
+     ],
+     "texture": "floor"
+    },
+    {
+     "box": [
+      [
+       -48,
+       0,
+       0
+      ],
+      [
+       -32,
+       96,
+       16
+      ]
+     ],
+     "texture": "floor"
+    }
+   ]
+  },
+  "bridge": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -24,
+       -56,
+       -6
+      ],
+      [
+       24,
+       56,
+       0
+      ]
+     ],
+     "texture": "rust"
+    },
+    {
+     "box": [
+      [
+       -24,
+       -48,
+       0
+      ],
+      [
+       -21,
+       48,
+       36
+      ]
+     ],
+     "texture": "rust"
+    },
+    {
+     "box": [
+      [
+       21,
+       -48,
+       0
+      ],
+      [
+       24,
+       48,
+       36
+      ]
+     ],
+     "texture": "rust"
+    }
+   ]
+  },
+  "duct": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -430,
+       -12,
+       0
+      ],
+      [
+       430,
+       12,
+       24
+      ]
+     ],
+     "texture": "furniture"
+    }
+   ]
+  },
+  "mattress": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -40,
+       -24,
+       0
+      ],
+      [
+       40,
+       24,
+       10
+      ]
+     ],
+     "texture": "mattress"
+    }
+   ]
+  },
+  "crate_desk": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -48,
+       -18,
+       0
+      ],
+      [
+       -16,
+       18,
+       30
+      ]
+     ],
+     "texture": "crate"
+    },
+    {
+     "box": [
+      [
+       16,
+       -18,
+       0
+      ],
+      [
+       48,
+       18,
+       30
+      ]
+     ],
+     "texture": "crate"
+    },
+    {
+     "box": [
+      [
+       -52,
+       -20,
+       30
+      ],
+      [
+       52,
+       20,
+       32
+      ]
+     ],
+     "texture": "crate"
+    },
+    {
+     "box": [
+      [
+       -36,
+       4,
+       32
+      ],
+      [
+       -12,
+       8,
+       50
+      ]
+     ],
+     "texture": "screen"
+    },
+    {
+     "box": [
+      [
+       12,
+       4,
+       32
+      ],
+      [
+       36,
+       8,
+       50
+      ]
+     ],
+     "texture": "screen"
+    }
+   ]
+  },
+  "generator": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -28,
+       -20,
+       0
+      ],
+      [
+       28,
+       20,
+       40
+      ]
+     ],
+     "texture": "furniture"
+    },
+    {
+     "box": [
+      [
+       -20,
+       -21,
+       26
+      ],
+      [
+       -12,
+       -20,
+       34
+      ]
+     ],
+     "texture": "status"
+    },
+    {
+     "box": [
+      [
+       -24,
+       -16,
+       40
+      ],
+      [
+       -8,
+       -4,
+       52
+      ]
+     ],
+     "texture": "rust"
+    }
+   ]
+  }
+ },
+ "rooms": [
+  {
+   "id": "access",
+   "size": [
+    192,
+    192,
+    160
+   ],
+   "surfaces": {
+    "floor": "concrete"
+   },
+   "light": {
+    "count": 1,
+    "brightness": 90,
+    "color": [
+     200,
+     220,
+     255
+    ]
+   }
+  },
+  {
+   "id": "drain",
+   "size": [
+    896,
+    320,
+    352
+   ],
+   "place": {
+    "east_of": "access",
+    "align": "south"
+   },
+   "floor": -224,
+   "light": {
+    "count": 6,
+    "brightness": 130,
+    "color": [
+     110,
+     220,
+     200
+    ]
+   }
+  },
+  {
+   "id": "channel",
+   "size": [
+    832,
+    96,
+    64
+   ],
+   "place": {
+    "in": "drain",
+    "offset": [
+     32,
+     112
+    ]
+   },
+   "floor": -64,
+   "water": {
+    "depth": 48,
+    "material": "sewage"
+   },
+   "light": "none"
+  },
+  {
+   "id": "hideout",
+   "size": [
+    384,
+    320,
+    160
+   ],
+   "place": {
+    "north_of": "drain",
+    "align": 448
+   },
+   "light": {
+    "count": 1,
+    "brightness": 110,
+    "color": [
+     255,
+     220,
+     170
+    ]
+   }
+  },
+  {
+   "id": "culvert",
+   "size": [
+    384,
+    160,
+    128
+   ],
+   "place": {
+    "east_of": "drain"
+   },
+   "water": {
+    "depth": 36,
+    "material": "sewage"
+   },
+   "light": {
+    "count": 1,
+    "brightness": 110,
+    "color": [
+     110,
+     220,
+     200
+    ]
+   }
+  }
+ ],
+ "links": [
+  {
+   "between": [
+    "access",
+    "drain"
+   ],
+   "kind": "opening",
+   "width": 96,
+   "along": 0.0
+  },
+  {
+   "between": [
+    "drain",
+    "hideout"
+   ],
+   "kind": "opening",
+   "width": 96
+  },
+  {
+   "between": [
+    "drain",
+    "culvert"
+   ],
+   "kind": "opening",
+   "width": 128,
+   "height": 96
+  }
+ ],
+ "furniture": [
+  {
+   "prefab": "steps_up_west",
+   "room": "channel",
+   "at": [
+    -416,
+    -48
+   ]
+  },
+  {
+   "prefab": "steps_up_east",
+   "room": "channel",
+   "at": [
+    416,
+    -48
+   ]
+  },
+  {
+   "prefab": "bridge",
+   "room": "drain",
+   "at": [
+    0,
+    0
+   ]
+  },
+  {
+   "prefab": "duct",
+   "room": "drain",
+   "at": [
+    0,
+    -144
+   ],
+   "z": 256
+  },
+  {
+   "prefab": "duct",
+   "room": "drain",
+   "at": [
+    0,
+    144
+   ],
+   "z": 256
+  },
+  {
+   "prefab": "mattress",
+   "room": "hideout",
+   "at": [
+    -120,
+    100
+   ]
+  },
+  {
+   "prefab": "crate_desk",
+   "room": "hideout",
+   "at": [
+    100,
+    110
+   ]
+  },
+  {
+   "prefab": "generator",
+   "room": "hideout",
+   "at": [
+    140,
+    -80
+   ]
+  }
+ ],
+ "entities": [
+  {
+   "class": "info_player_start",
+   "room": "access",
+   "at": "corner nw",
+   "facing": "east"
+  },
+  {
+   "class": "monster_zombie",
+   "room": "drain",
+   "at": [
+    60,
+    -110
+   ],
+   "facing": "east"
+  },
+  {
+   "class": "monster_zombie",
+   "room": "drain",
+   "at": [
+    220,
+    110
+   ],
+   "facing": "west"
+  },
+  {
+   "class": "weapon_shotgun",
+   "room": "hideout",
+   "at": [
+    80,
+    104
+   ],
+   "z": 32
+  },
+  {
+   "class": "monster_headcrab",
+   "room": "culvert",
+   "at": [
+    60,
+    0
+   ]
+  }
+ ]
+}
