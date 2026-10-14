@@ -1,0 +1,163 @@
+{
+ "subject": "battery",
+ "leg": "decoy: box",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.889,
+   "left/right": 0.882,
+   "top/below": 0.959
+  },
+  "size": {
+   "original": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "reproduction": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "offShare": [
+    0,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 27.9,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 30.9,
+     "shared": 0.89
+    },
+    {
+     "view": "left",
+     "deltaE": 31,
+     "shared": 0.882
+    },
+    {
+     "view": "back",
+     "deltaE": 30.4,
+     "shared": 0.89
+    },
+    {
+     "view": "right",
+     "deltaE": 30.9,
+     "shared": 0.882
+    },
+    {
+     "view": "top",
+     "deltaE": 16.3,
+     "shared": 0.959
+    },
+    {
+     "view": "below",
+     "deltaE": 27.2,
+     "shared": 0.558
+    },
+    {
+     "view": "front-left",
+     "deltaE": 28.1,
+     "shared": 0.739
+    },
+    {
+     "view": "front-right",
+     "deltaE": 28.3,
+     "shared": 0.738
+    },
+    {
+     "view": "back-left",
+     "deltaE": 27.8,
+     "shared": 0.739
+    },
+    {
+     "view": "back-right",
+     "deltaE": 27.7,
+     "shared": 0.738
+    }
+   ]
+  },
+  "triangles": {
+   "original": 116,
+   "reproduction": 12
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 0,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "E",
+  "right": "G",
+  "letters": {
+   "A": "models/w_longjump.mdl",
+   "B": "models/w_medkit.mdl",
+   "C": "models/w_security.mdl",
+   "D": "models/headcrab.mdl",
+   "E": "models/filecabinet.mdl",
+   "F": "models/can.mdl",
+   "G": "models/w_battery.mdl",
+   "H": "models/forklift.mdl",
+   "I": "models/mbarrel.mdl",
+   "J": "models/w_9mmclip.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured overlaps pass the line (0.889 front/back, 0.882 left/right, 0.959 top/below), but parts are missing in every view. The reproduction is a plain rectangular box. The original's chamfered vertical corners (octagonal from top and below) are filled out square. The cap on top is missing: the raised rim, the round knob at one side and the tilted yellow-striped lever at the other, which stick up above the body in front, back, left and right. The bevelled base is also missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 10.3 x 10.3 x 18.4, identical to the original on all three axes (0% off)."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "None of the original's parts are there. Missing: the four green glowing glass panels on the sides, the white side indicators at the corners, the red lamps at the top centre of each face, the top cap with its round knob and yellow-striped lever, the bevelled dark base, and the octagonal chamfered body. It is a single plain box."
+  },
+  "M4": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "Measured mean deltaE is 27.9, well over 15. The whole box is one flat grey mottled concrete-like material. The original has cyan-green glowing glass, tan/brown worn painted metal, yellow hazard stripes, red lamps, a black base and white-grey trim. None of these regions has its colour or material."
+  },
+  "M5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "None of the original's surface detail is there: the yellow-and-black hazard stripes around the lower band, the glow on the glass panels, the red indicator lamps, panel frames and wear. The reproduction shows only uniform grey mottling with light edge lines."
+  },
+  "M6": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "At game size a player would never take a plain grey block for this tan battery with glowing green panels, a striped band and a top fitting. It reads as a different object."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "It stands upright on its origin over the same footprint and height. But the box has no front at all: nothing marks the original's front face, the lever side, or the cap's orientation, so facing can't be confirmed."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "There are no check errors and 12 triangles against the original's 116, well under twice. The box is closed, faces outward and rests on the ground with nothing floating."
+  }
+ },
+ "total": 6,
+ "of": 16,
+ "passes": false
+}

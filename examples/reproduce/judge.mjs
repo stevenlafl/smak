@@ -18,6 +18,7 @@ import { framing, tile, render } from "../../src/render.mjs";
 import { buildModelSpec } from "../../src/spec/model.mjs";
 import { maps, unpng } from "../../src/index.mjs";
 import { buildMapSpec } from "../../src/spec/map.mjs";
+import { findCompilers } from "../../src/maps/compile.mjs";
 
 const words = process.argv.slice(2);
 const again = words.includes("--again") && words.splice(words.indexOf("--again"), 1);
@@ -323,8 +324,9 @@ function roomDecoy(map) {
   const size = [Math.min(4000, bounds.maxs[0] - bounds.mins[0] - 64), Math.min(4000, bounds.maxs[1] - bounds.mins[1] - 64), 256];
   const { files } = buildMapSpec(
     { spec: "smak.map/1", name: "decoy_room", wads: ["halflife.wad"], rooms: [{ id: "hall", size, at: [bounds.mins[0] + 32, bounds.mins[1] + 32, bounds.mins[2] + 16] }], entities: [{ class: "info_player_deathmatch", room: "hall", at: "centre" }] },
-    { out, compilers: { folder: join(KIT, "..", "SDHLT", "tools") }, wads: [GAME] },
+    { out, compilers: findCompilers({ folder: join(KIT, "..", "SDHLT", "tools") }), wads: [GAME] },
   );
+  if (!files.bsp) throw new Error("the room decoy did not compile");
   return files.bsp;
 }
 
@@ -362,7 +364,15 @@ async function main() {
   await Promise.all(
     Array.from({ length: Math.min(4, queue.length) }, async () => {
       while (queue.length) {
-        const [file, result] = await queue.shift()();
+        // one job's failure is its own: told, and the others go on
+      let file;
+      let result;
+      try {
+        [file, result] = await queue.shift()();
+      } catch (error) {
+        console.log(`a judgement failed: ${error.message.split("\n")[0]}`);
+        continue;
+      }
         writeFileSync(file, `${JSON.stringify(result, null, 1)}\n`);
         results.push(result);
         console.log(`${result.subject} ${result.leg}: ${result.error ?? `${result.total} of ${result.of}, ${result.passes ? "PASSES" : "fails"}`}`);

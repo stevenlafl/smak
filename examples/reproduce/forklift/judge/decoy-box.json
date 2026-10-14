@@ -1,0 +1,163 @@
+{
+ "subject": "forklift",
+ "leg": "decoy: box",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.642,
+   "left/right": 0.31,
+   "top/below": 0.579
+  },
+  "size": {
+   "original": [
+    186.6,
+    60,
+    113.4
+   ],
+   "reproduction": [
+    186.6,
+    60,
+    113.4
+   ],
+   "offShare": [
+    0,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 25,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 24.2,
+     "shared": 0.637
+    },
+    {
+     "view": "left",
+     "deltaE": 26.8,
+     "shared": 0.317
+    },
+    {
+     "view": "back",
+     "deltaE": 24.9,
+     "shared": 0.647
+    },
+    {
+     "view": "right",
+     "deltaE": 27.5,
+     "shared": 0.308
+    },
+    {
+     "view": "top",
+     "deltaE": 29.2,
+     "shared": 0.588
+    },
+    {
+     "view": "below",
+     "deltaE": 21.6,
+     "shared": 0.488
+    },
+    {
+     "view": "front-left",
+     "deltaE": 22.3,
+     "shared": 0.418
+    },
+    {
+     "view": "front-right",
+     "deltaE": 26,
+     "shared": 0.421
+    },
+    {
+     "view": "back-left",
+     "deltaE": 24.8,
+     "shared": 0.406
+    },
+    {
+     "view": "back-right",
+     "deltaE": 22.5,
+     "shared": 0.404
+    }
+   ]
+  },
+  "triangles": {
+   "original": 749,
+   "reproduction": 12
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 0,
+  "M2": 2,
+  "M4": 1,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "E",
+  "right": "G",
+  "letters": {
+   "A": "models/w_security.mdl",
+   "B": "models/w_9mmclip.mdl",
+   "C": "models/can.mdl",
+   "D": "models/w_battery.mdl",
+   "E": "models/filecabinet.mdl",
+   "F": "models/w_medkit.mdl",
+   "G": "models/forklift.mdl",
+   "H": "models/w_longjump.mdl",
+   "I": "models/headcrab.mdl",
+   "J": "models/mbarrel.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "Measured overlap is 0.642 front/back, 0.31 left/right and 0.579 top/below, all well under 0.80. The reproduction is a solid rectangular block filling the bounding box. The original's open outline is missing: the mast and the overhead guard with open sides, the forks sticking out in front (the long thin tines in the side and below views), the gap under the body between the wheels, and the open cab. In the side views the box fills the whole empty area above and in front of the body."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length, width and height are 186.6 x 60 x 113.4 in both models. The measured off-share is 0 on every axis."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "None of the original's parts are there: no four wheels, mast with lift chains, forks, carriage plate, overhead guard, seat, steering wheel, seated driver in green coveralls and yellow hard hat, rear counterweight or engine grille. It is one plain block of 12 triangles."
+  },
+  "M4": {
+   "judge": 0,
+   "cap": 1,
+   "score": 0,
+   "reason": "Measured mean deltaE is 25, against the 15 line, and every view is 21.6 or more. The whole box is one flat mid-grey. The original has a white/light-grey painted body, red lower panels, black mast and guard, black tyres, a green driver and a yellow hat."
+  },
+  "M5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The original's markings are all missing: the red 'HANIAN' lettering on the side panels, the '2.2' capacity decal, the engine grille slats, the mesh texture on the overhead guard, the lift-chain detail on the mast and the wear on the carriage. The box shows only a faint generic grey grain with a lighter edge trim."
+  },
+  "M6": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "At any size the game shows it, a player sees a grey slab, not a forklift. Nothing about the shape, colour or parts suggests the original."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "It sits in the same bounds as the original, upright and resting on the ground plane where the original's wheels touch. A symmetric box has no front, though, so the original's front (forks and mast at one end, counterweight at the other) can't be matched."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "There are no check errors, and the 12 triangles are far below twice the original's 749. The box is closed, faces outward and rests on the ground with nothing floating."
+  }
+ },
+ "total": 5,
+ "of": 16,
+ "passes": false
+}

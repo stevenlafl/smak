@@ -13,7 +13,7 @@ import { execFileSync } from "node:child_process";
 import { join, basename } from "node:path";
 import { tmpdir } from "node:os";
 import { mkdtempSync } from "node:fs";
-import { HERE, SUBJECTS, GAME } from "./lib.mjs";
+import { HERE, SUBJECTS, GAME, ANGLES } from "./lib.mjs";
 import { runAgent } from "./agents.mjs";
 
 const words = process.argv.slice(2);
@@ -38,8 +38,10 @@ marks, prefabs), keep within the engine's limits, and build until the build says
     return {
       prompt: `${ask}
 
-The original, in pictures: ${input}/sides.png (front, left, back, right, top and below, all to one scale),
-${input}/front-left.png, front-right.png, back-left.png and back-right.png. The same pictures are in the
+The original, in pictures: ${input}/sides.png (front, left, back, right, top and below, all to one scale,
+each a 512-dot square of the sheet in that order, three across), and four close angles with no perspective,
+${ANGLES.map(([name, yaw, pitch]) => `${input}/${name}.png (yaw ${yaw}, pitch ${pitch})`).join(", ")}, the yaw and pitch
+as \`render\` and \`project\` take them. The same pictures are in the
 server's work folder under pictures/, so the build tool's \`reference\` can put one beside your result
 (reference: "work:pictures/sides.png"). Its size: ${readFileSync(join(input, "size.txt"), "utf8").trim()}`,
       read: input,
