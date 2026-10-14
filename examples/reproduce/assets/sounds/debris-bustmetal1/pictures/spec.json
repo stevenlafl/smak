@@ -6,127 +6,162 @@
   "bits": 8,
   "seed": 7,
   "length": 0.87,
+  "picture": "pictures/sound.png",
   "layers": [
-    {
-      "id": "hit",
-      "kind": "noise",
-      "color": "white",
-      "env": {
-        "attack": 0.001,
-        "decay": 0.08
-      },
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 120
-        }
-      ],
-      "gain": -2
-    },
     {
       "id": "crash",
       "kind": "noise",
-      "color": "white",
+      "iterations": 32,
       "env": {
-        "attack": 0.002,
-        "hold": 0.06,
-        "decay": 1
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.08,
+            -2
+          ],
+          [
+            0.25,
+            -12
+          ],
+          [
+            0.55,
+            -26
+          ],
+          [
+            0.78,
+            -42
+          ],
+          [
+            0.87,
+            -60
+          ]
+        ]
       },
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 450
-        },
-        {
-          "type": "peak",
-          "f": 1600,
-          "q": 0.5,
-          "gain": 3
-        }
-      ],
-      "gain": -6
+      "shape": {
+        "keys": [
+          {
+            "at": 0,
+            "curve": [
+              [
+                60,
+                -16
+              ],
+              [
+                200,
+                -8
+              ],
+              [
+                600,
+                0
+              ],
+              [
+                2000,
+                -2
+              ],
+              [
+                4000,
+                -6
+              ],
+              [
+                5500,
+                -10
+              ]
+            ]
+          },
+          {
+            "at": 0.5,
+            "curve": [
+              [
+                60,
+                -24
+              ],
+              [
+                200,
+                -14
+              ],
+              [
+                600,
+                -3
+              ],
+              [
+                2000,
+                0
+              ],
+              [
+                4000,
+                -6
+              ],
+              [
+                5500,
+                -10
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
-      "id": "body",
-      "kind": "noise",
-      "color": "brown",
-      "env": {
-        "attack": 0.002,
-        "hold": 0.04,
-        "decay": 0.5
-      },
-      "filter": [
-        {
-          "type": "bandpass",
-          "f": 300,
-          "q": 0.7
-        }
-      ],
-      "gain": -9
-    },
-    {
-      "id": "plate",
+      "id": "ring",
       "kind": "modes",
-      "f": 610,
+      "f": 530,
       "ratios": "plate",
-      "decay": 1,
-      "damping": 0.9,
-      "detune": 0.15,
+      "decay": 0.6,
+      "damping": 1.2,
+      "detune": 0.04,
       "gain": -10
     },
     {
-      "id": "plateb",
-      "kind": "modes",
-      "f": 890,
-      "ratios": "plate",
-      "decay": 0.95,
-      "damping": 0.9,
-      "detune": 0.15,
-      "gain": -11
-    },
-    {
-      "id": "plate2",
+      "id": "ring2",
       "kind": "modes",
       "f": 1270,
       "ratios": "bell",
-      "decay": 0.9,
-      "damping": 1,
-      "detune": 0.15,
-      "gain": -11
-    },
-    {
-      "id": "plate3",
-      "kind": "modes",
-      "f": 2050,
-      "ratios": "tube",
-      "decay": 0.8,
+      "decay": 0.5,
       "damping": 1.2,
-      "detune": 0.15,
-      "gain": -12
+      "detune": 0.03,
+      "gain": -9
     },
     {
-      "id": "rattle",
+      "id": "bits",
       "kind": "particles",
-      "rate": 110,
+      "rate": 60,
       "band": [
-        1000,
+        800,
         5000
       ],
-      "grain": 0.004,
+      "grain": 0.006,
+      "length": 0.6,
       "env": {
-        "attack": 0.001,
-        "hold": 0.1,
-        "decay": 0.75
+        "attack": 0.002,
+        "decay": 0.6
       },
       "gain": -8
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ],
+      "env": {
+        "decay": 0.01
+      },
+      "length": 0.02,
+      "post": true,
+      "gain": -2
     }
   ],
   "finish": {
-    "saturate": 3,
-    "room": {
-      "decay": 0.3,
-      "wet": 0.12
-    },
-    "peak": -0.5
+    "saturate": 1.5,
+    "limit": {
+      "crest": 12,
+      "release": 0.002
+    }
   }
 }

@@ -1,28 +1,23 @@
-The build says OK. It's at `work:sound/weapons/357_shot1.wav`, and putting it in `<mod>/sound/weapons/` makes it play instead of the original.
+`weapons/357_shot1.wav` is built and the build says OK. It's 1.06 s, 22,050 Hz, 8-bit mono, plays once, and passed every engine check. It also landed inside the range of the game's own gunshots on all 22 measured features.
 
-**What it is:** 22,050 Hz, 8-bit mono, 1.06 s long, plays once (no loop).
-- **Opening:** a 2 ms high click, about 5 ms of near silence, then the blast at full scale.
-- **0 to 0.44 s:** loud white, pink and brown noise driven hard by the saturation stage, so it's a dense, clipped wall of sound. The highs start about 7 kHz.
-- **From 0.44 s:** a steady, roughly exponential decay. A lowpass filter sweeps down to 400–600 Hz, so the mids and highs die first and the tail is dark low rumble. It's about −60 dB by 1.0 s, followed by a near-silent tail.
+What it does:
+- **Start:** a click of high-passed noise about 2 ms long, a near-silent gap, then the blast at 8 ms.
+- **Loudness:** heavily overdriven (saturation at 8, the top of the scale) and pinned near full scale until about 0.45 s. Then it decays roughly exponentially: down 20 dB at 0.57 s, down 40 dB at 0.83 s, near silence at 1.0 s, with a quiet tail to the end.
+- **Spectrum:** broadband noise heaviest in the low end, plus a faint falling 100→50 Hz layer for the boom. The highs roll off first, so the last few tenths of a second are low rumble. There's no audible pitch.
 
-**Measured:**
+Measured:
+
 ```
-peak            -0.3 dBFS
-RMS             -10.2 dB
-T20 / T40       0.58 s / 0.74 s   (time to fall 20 / 40 dB)
-centroid        791 Hz            (overall brightness)
-flatness        0.125             (0 = pure tone, 1 = white noise)
-onsets          1
-bands <150 Hz   39.6%
-      150-600   27.8%
-      600-2k    20.8%
-      2k-5k     9.3%
-      >5k       2.5%
-vs game gunshots: 22 of 22 features in range
+peak        -0.6 dBFS
+RMS         -8.6 dB
+crest        8.0 dB   (Valve's weapons: 6 to 10)
+centroid    1018 Hz   (gunshot range 421 to 1258)
+flatness    0.194     (range 0 to 0.2)
+power       <150 Hz 23%, 150-600 37%, 600-2k 26%, 2k-5k 10%, >5k 4%
 ```
 
-**What I couldn't check:**
-- **No side-by-side with the original.** The build drew no reference beside mine, so I matched your description and the game's general gunshot ranges, not the real `357_shot1.wav`.
-- **The attack time reads 95 ms.** That's probably the time to the loudest point inside the clipped section, since the sound starts at once. But the drawing will show it, so it's worth a look.
-- **The click might not stand out.** The report counts one onset, which probably means the click and the blast were heard as a single hit. On a waveform plot the click may only show as a sliver before the blast.
-- **How it sounds.** I can't hear it, and its volume and the room around it in the game aren't checked either. Listen to it in the game.
+There are two gaps against the description:
+- **The click doesn't show up as a separate hit.** The report counts 0 onsets and gives the attack as 10 ms. The click is in the file, but the measurement doesn't separate it from the blast, and it may not stand out in the drawing either.
+- **The bass boom is a faint tone layer** (12 dB down). The class check wanted the sound less noisy than pure noise. You may be able to see it as a line at the bottom of the spectrogram.
+
+None of this says how it sounds in the game. That depends on the revolver's volume, the map's room (`env_sound`) and the mix, so it needs a listen in-game. The file is at `work:sound/weapons/357_shot1.wav`; copy it to `<mod>/sound/weapons/` to replace the original.

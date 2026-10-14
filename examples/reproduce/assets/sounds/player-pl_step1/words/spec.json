@@ -8,167 +8,252 @@
   "seed": 7,
   "layers": [
     {
-      "id": "heel_thump",
+      "id": "heel",
       "kind": "noise",
-      "color": "pink",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 70
-        },
-        {
-          "type": "bandpass",
-          "f": 320,
-          "q": 0.7
-        }
-      ],
+      "iterations": 32,
       "env": {
-        "attack": 0.0005,
-        "hold": 0.006,
-        "decay": 0.08
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.018,
+            -2
+          ],
+          [
+            0.04,
+            -14
+          ],
+          [
+            0.07,
+            -30
+          ],
+          [
+            0.1,
+            -48
+          ]
+        ]
       },
-      "gain": 0
+      "shape": {
+        "keys": [
+          {
+            "at": 0,
+            "curve": [
+              [
+                50,
+                -3
+              ],
+              [
+                90,
+                0
+              ],
+              [
+                400,
+                0
+              ],
+              [
+                700,
+                -9
+              ],
+              [
+                1500,
+                -15
+              ],
+              [
+                3000,
+                -11
+              ],
+              [
+                4500,
+                -13
+              ],
+              [
+                5500,
+                -22
+              ]
+            ]
+          },
+          {
+            "at": 0.06,
+            "curve": [
+              [
+                50,
+                -2
+              ],
+              [
+                90,
+                0
+              ],
+              [
+                300,
+                -1
+              ],
+              [
+                600,
+                -10
+              ],
+              [
+                1500,
+                -22
+              ],
+              [
+                4500,
+                -32
+              ],
+              [
+                5500,
+                -42
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
-      "id": "heel_body",
-      "kind": "modes",
-      "f": 230,
-      "ratios": "plate",
-      "decay": 0.06,
-      "damping": 1.5,
-      "detune": 0.03,
-      "gain": -9
-    },
-    {
-      "id": "heel_low",
-      "kind": "noise",
-      "color": "brown",
-      "filter": [
-        {
-          "type": "bandpass",
-          "f": 160,
-          "q": 0.7
-        }
-      ],
-      "env": {
-        "attack": 0.0005,
-        "hold": 0.005,
-        "decay": 0.06
-      },
-      "gain": -6
-    },
-    {
-      "id": "heel_click",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 2000
-        },
-        {
-          "type": "lowpass",
-          "f": 4800
-        }
-      ],
-      "env": {
-        "attack": 0.0003,
-        "hold": 0.004,
-        "decay": 0.03
-      },
-      "gain": -5
-    },
-    {
-      "id": "heel_scuff",
+      "id": "scuff",
       "kind": "particles",
-      "count": 8,
+      "count": 6,
       "band": [
-        1500,
-        4500
+        1800,
+        5000
       ],
-      "grain": 0.003,
-      "length": 0.03,
-      "gain": -7
+      "grain": 0.0015,
+      "length": 0.022,
+      "gain": -6
     },
     {
       "id": "toe",
       "kind": "noise",
-      "color": "pink",
       "at": 0.08,
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 120
-        },
-        {
-          "type": "bandpass",
-          "f": 380,
-          "q": 0.7
-        }
-      ],
+      "iterations": 32,
+      "gain": -12,
       "env": {
-        "attack": 0.0005,
-        "hold": 0.003,
-        "decay": 0.05
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.006,
+            -3
+          ],
+          [
+            0.02,
+            -20
+          ],
+          [
+            0.04,
+            -45
+          ]
+        ]
       },
-      "gain": -11
+      "shape": {
+        "keys": [
+          {
+            "at": 0,
+            "curve": [
+              [
+                50,
+                -3
+              ],
+              [
+                100,
+                0
+              ],
+              [
+                450,
+                -1
+              ],
+              [
+                800,
+                -9
+              ],
+              [
+                1500,
+                -15
+              ],
+              [
+                3000,
+                -12
+              ],
+              [
+                4500,
+                -15
+              ],
+              [
+                5500,
+                -25
+              ]
+            ]
+          },
+          {
+            "at": 0.03,
+            "curve": [
+              [
+                50,
+                -2
+              ],
+              [
+                120,
+                0
+              ],
+              [
+                400,
+                -5
+              ],
+              [
+                1000,
+                -18
+              ],
+              [
+                4500,
+                -36
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
-      "id": "toe_click",
+      "id": "grit",
       "kind": "noise",
       "color": "white",
-      "at": 0.08,
+      "length": 0.27,
+      "gain": -38,
       "filter": [
         {
           "type": "highpass",
-          "f": 2000
+          "f": 150
         },
         {
           "type": "lowpass",
-          "f": 4500
-        }
-      ],
-      "env": {
-        "attack": 0.0005,
-        "hold": 0.002,
-        "decay": 0.02
-      },
-      "gain": -17
-    },
-    {
-      "id": "tail",
-      "kind": "noise",
-      "color": "pink",
-      "at": 0.1,
-      "length": 0.17,
-      "filter": [
-        {
-          "type": "bandpass",
-          "f": 500,
-          "q": 0.5
+          "f": 3500
         }
       ],
       "env": {
         "points": [
           [
             0,
-            -34
+            0
           ],
           [
             0.12,
-            -43
+            -4
           ],
           [
-            0.17,
-            -56
+            0.27,
+            -40
           ]
         ]
-      },
-      "gain": 0
+      }
     }
   ],
   "finish": {
-    "saturate": 1.4,
+    "limit": {
+      "crest": 17,
+      "release": 0.002
+    },
     "peak": -0.5
   }
 }

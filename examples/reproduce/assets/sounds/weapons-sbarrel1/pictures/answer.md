@@ -1,19 +1,21 @@
-The new `weapons/sbarrel1.wav` (the double-barrel shotgun shot) is built and the build says OK. It's 1.04 s long, 22050 Hz, 8-bit mono and plays once, the same as the original. All 22 of its measured features fall inside the range of the game's own gunshot sounds, and the build found no engine faults.
+The build says OK and every engine check passed. The file is `work:sound/weapons/sbarrel1.wav` (22050 Hz, 8-bit mono, 1.04 s, played once). Put it in `<mod>/sound/weapons/` and the game plays it instead of the original, with no code change.
 
-How it compares with the original's pictures:
-- **Envelope:** both start at full level with no gap. The blast stays clipped hard for about the first 0.3 s, then dies away to near silence by about 0.8 s. It drops 20 dB in 0.61 s and 40 dB in 0.89 s.
-- **Spectrum:** broadband like the original, with a heavy low end. The midrange and highs are full through the blast and darken in the tail. Its brightness centre is 781 Hz.
+How it measures against the original's picture, as the build reported it:
 
-| Band | Share of power |
-| --- | --- |
-| under 150 Hz | 42.8% |
-| 150 to 600 Hz | 24.2% |
-| 600 Hz to 2 kHz | 21% |
-| 2 to 5 kHz | 9.5% |
-| over 5 kHz | 2.5% |
+```
+                    original (picture)   mine
+length              1.04 s               1.04 s
+centroid            615 Hz               676 Hz (10% off)
+bands, worst        -                    1.2 points off (600-2k)
+crest               ~11.2 dB             11.5 dB
+T20 (to -20 dB)     0.46-1.01 s window   0.77 s
+onsets              1                    0
+```
 
-- **Character:** the sound is layered. There's a sharp crack, a mid-band noise blast and a falling low boom with rumble under it. A short ring adds a bit of tone, and a burst of crackle gives the dense streaks seen in the original. Heavy saturation and a short room tail finish it.
+**How it's built:** It's a dark, wide-band blast that stays clipped flat out to about 0.4 s and then dies away by about 1 s, matching the original's outline. The high end fades out first, as in the original. A dip at about 0.03 s followed by a second crack gives the double-barrel hit you can see near the start of the original. Underneath is a low boom falling from 100 Hz to 45 Hz.
 
-It took five builds. The first was too dark and the second too bright and noisy. On the third and fourth, the ring and the room tail stretched the file to 1.07 s. The fifth trimmed it back to 1.04 s and brought the low end into range.
+**What's still off:**
+- **Second shot not detected:** The meter counts 0 onsets against the original's 1, so it doesn't pick up that second shot as a separate hit. You can see the dip in the picture, but when I made the cracks louder the limiter flattened the whole sound, so I kept them as they are.
+- **Slightly quiet:** It's 0.4 dB under the quietest of the game's own gunshots (RMS -12.1 dBFS, range -11.7 to -4.5). That's 21 of 22 features in range. Pushing it into range wrecked the envelope, so I traded that for the better match to the original.
 
-The checks can't tell how it sounds, only how it measures. They also can't tell how the game plays it: its volume, its pitch, or the room effect the map adds. Listen to it in the game. The file is at `work:sound/weapons/sbarrel1.wav`; put it in `<mod>/sound/weapons/` and it replaces the original.
+These are measurements only. Nobody has listened to it or tried it in the game, where the volume and the map's room will change how it sounds, so give it a listen in game.

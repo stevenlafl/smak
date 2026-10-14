@@ -1,23 +1,23 @@
-I've built `sprites/fire.spr`, and the build says OK with every check passed. It's written to the work folder with a sheet image and an animated preview beside it.
+The sprite builds with every check passing. It's at `work:sprites/fire.spr`, with `fire-sheet.png` and `fire-animated.png` beside it.
 
+**What it is:**
 ```
-Field         Value
-------------  ------------------------------------------------------------
-Size          32x96 per frame
-Frames        a loop of 15; the first frame is repeated at the end, as the engine wraps, so the file holds 16
-Type          upright (faces the viewer but stays upright)
-Format        additive (black is clear)
-Origin        bottom (the flame stands on its base)
-Rate          10 fps; placed as an env_sprite, render mode 5 (Additive)
-Colours       161 in the palette; nothing lost to quantising worth noting
-Border light  0 brightest at the edge, with a 3 px soft fade
+size        32x96, 15 frames in a loop (16 written: the engine wants frame 0 again at the end)
+type        parallel oriented
+format      additive (render mode 5), placed as an env_sprite at 10 fps
+origin      bottom (the flame stands on its base)
+colours     173, nothing lost when reduced to the palette
+border      0 (no light at the frame's edge)
+dark share  0.82 of the pixels
+loop wrap   0.79 (smooth, no jump at the wrap)
+vs Half-Life's own fire loops: 5 of 5 measures in range
 ```
 
-It measured within range on all 5 of the build's comparisons against Half-Life's own fire loops. The loop's wrap and frame-to-frame flicker both checked out, with no jump.
+The flame is a single fire layer. Its colour ramp runs black → dark rust → red-brown → orange → yellow-orange, with no blue and no smoke. It's wide at the base and narrows into ragged, flickering tongues ("tongues" 0.9, "turbulence" 0.9), and the outer 4 pixels fade out so the base and edges are soft.
 
-**What it looks like:** an orange flame that fills most of the width in the lower part and narrows upward, with a soft faded base. It's bright yellow-orange low down and fades through orange to dim red at the edges and tips. The flame flickers and sways in place from frame to frame.
+**Where it may still differ from the original:**
+- **Core too pale:** in the build's small preview the middle of the flame looks pale yellow-white, not saturated orange. I lowered the gain and capped the top of the ramp at yellow-orange, but the preview didn't visibly change between those last tries, so I can't tell whether the sprite really is that pale or the preview is just washing it out.
+- **Size and shape:** at that preview size the flame looks a bit narrower and more pointed than "fills most of the width at its base".
+- **Frame rate:** 10 fps is a guess because the description doesn't give one. It's also the most an env_sprite will play.
 
-**Where it falls short of the description:**
-- **Tongues:** the outline reads more as a smooth teardrop or cone than as two or three separate ragged tongues. Raising turbulence from 0.6 to 1.0 made almost no visible difference, and the guide documents no other fire setting for splitting the flame.
-- **White-hot core:** I tried a glow layer at the base for the near-white core. It blew out into a flat white disc even at low gain, so I dropped it. The brightest spot is yellow-orange rather than near-white.
-- **Tip height:** I only saw the frames on the small contact sheet, so I haven't measured exactly how far below the top edge the tips end. The render tool won't open .spr files.
+I had no picture of the original, so the build only compared it against Half-Life's own fire sprites, not against the one it's meant to copy.

@@ -1,0 +1,107 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-357_shot1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 1.064,
+   "peak": 0,
+   "rms": -8.5,
+   "crest": 8.5,
+   "dc": -0.0012,
+   "clipped": 265,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.748,
+   "t40": 1.003,
+   "centroid": 937,
+   "rolloff": 1658,
+   "flatness": 0.11,
+   "bands": {
+    "<150": 20.3,
+    "150-600": 27.5,
+    "600-2k": 43.9,
+    "2k-5k": 6.7,
+    ">5k": 1.6
+   },
+   "onsets": 3
+  },
+  "reproduction": {
+   "length": 1.064,
+   "peak": -0.6,
+   "rms": -9,
+   "crest": 8.4,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0,
+   "peakAt": 0,
+   "t20": 0.773,
+   "t40": 1.028,
+   "centroid": 1039,
+   "rolloff": 2003,
+   "flatness": 0.166,
+   "bands": {
+    "<150": 29.9,
+    "150-600": 26.3,
+    "600-2k": 28.7,
+    "2k-5k": 11.9,
+    ">5k": 3.2
+   },
+   "onsets": 0
+  },
+  "lengthOff": 0,
+  "centroidOff": 0.109,
+  "bandsOffMost": 15.2,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 1,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only, since I cannot listen. Both are loud broadband bursts about 1.06 s long that decay into a tail, so it reads as some kind of blast. But the original opens with a sharp crack: a narrow broadband column in the spectrogram in the first ~0.03 s, and 3 measured onsets. The reproduction starts at full level with no separate transient (0 onsets, peakAt 0). Its waveform also pulses at regular short intervals across the first ~0.5 s, which is closer to a rumble or flutter than a revolver shot. It is plausibly a gunshot, but the crack that identifies it is missing."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length matches (1.064 s vs 1.064 s). Attack is 0 vs 0.005 s and decay time to -20 dB (T20) is 0.773 vs 0.748 s (3% off), so both are well inside a gunshot's range. One thing the measurement misses: in the picture, the original stays near full level until about 0.42 s, while the reproduction starts to fall at about 0.25-0.3 s. Its slightly slower tail makes up for this in T20, so I don't hold it against the item."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "The spectral centroid passes (1039 vs 937 Hz, 10.9% off, under 20%). Band shares fail the 10-point limit: 600 Hz-2 kHz is 28.7% vs 43.9% (15.2 points off), and below 150 Hz is 29.9% vs 20.3% (9.6 points, just inside). 2-5 kHz is nearly double (11.9% vs 6.7%). The original's energy is centred in the low mids. The reproduction moves that energy into the sub-bass and upper mids, which the spectrogram confirms: brighter at the bottom and upper rows, a weaker middle."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only, since I cannot listen. Onsets don't match: 3 in the original, none in the reproduction, so the opening crack and the hits inside it are gone. Spectral flatness (how noise-like vs tonal it is) is 0.166 vs 0.11, about 50% noisier. The reproduction also adds a regular amplitude pulsing that the original's denser, irregular body doesn't have. Neither shows any pitch movement, which matches. It is still a noisy decaying burst, but its character is clearly off."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono 8-bit PCM at 22050 Hz, which the engine plays. 0 clipped samples (the original has 265), DC offset 0, peak -0.6 dB, same name. It's a one-shot, so no loop cue is needed, and none was added."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

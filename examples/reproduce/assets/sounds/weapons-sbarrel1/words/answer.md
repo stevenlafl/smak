@@ -1,29 +1,35 @@
-The new `weapons/sbarrel1.wav` builds OK and every check passed. All 22 measured features fall inside the range of the game's own gunshot sounds. It's written to `work:sound/weapons/sbarrel1.wav`, and if you drop it into `<mod>/sound/weapons/` it plays in the original's place with no code change.
-
-One thing to know before judging it: I couldn't compare it against the original. The server has no game folders set up, so the build couldn't read the original sbarrel1.wav or draw it alongside. Everything below is checked against your description and the game's general gunshot range, not the original file.
+The shotgun blast builds OK and every check passed. It's written to `work:sound/weapons/sbarrel1.wav`, so it replaces the game's file when you put it in `<mod>/sound/weapons/`.
 
 ```
-                     Description                Built
-Format               22050 Hz 8-bit mono        22050 Hz 8-bit mono, no loop
-Length               1.04 s                     1.043 s
-Attack               full scale in a few ms     5 ms
-Down 20 dB / 40 dB   falling 0.3-0.6 s,         0.55 s / 0.79 s
-                     silent by end
-Peak / RMS / crest   clipped, saturated         -0.6 dBFS / -10.5 dB / 9.9 dB
-Centroid             low-mid, dark              556 Hz
-Flatness             all noise, no pitch        0.071 (game's range 0-0.2)
-Power <150 Hz                                   33.9%
-Power 150-600 Hz     most energy 50-500 Hz      40.9%
-Power 600 Hz-2 kHz                              20.5%
-Power 2-5 kHz                                   3.2%
-Power >5 kHz         attack only, to ~9 kHz     1.5%
+                     made                 original (as described)
+format               22050 Hz 8-bit mono  22050 Hz 8-bit mono, played once
+length               1.04 s               1.04 s
+peak / RMS / crest   -0.6 / -10.6 / 10 dB clipped, saturated attack
+attack               10 ms                full scale in the first few ms
+T20 / T40            0.53 s / 0.96 s      falls 0.3-0.6 s, quiet rumble after
+centroid             827 Hz               mostly 50-500 Hz
+power <150 Hz        19.7%
+power 150-600 Hz     42.6%
+power 600-2k Hz      28.1%
+power 2k-5k Hz        7.5%
+power >5k Hz          2.0%                noise up to 8-10 kHz in the attack only
+gunshot class range  22 of 22 in range
 ```
 
-**How it's built:**
-- **Blast:** a sharp burst of full-band noise up to 9.5 kHz, plus a high-passed noise crack that's gone by about 0.4 s. The highs die first.
-- **Body:** pink noise boosted around 250 Hz and 1 kHz. Its low-pass slides from 2.2 kHz down to 350 Hz over 0.6 s, which darkens the tail. Its level dips and recovers twice between 0.3 and 0.6 s for the ragged echo bursts.
-- **Low end:** a sine thump falling from 120 Hz to 55 Hz, and a brown-noise rumble under 400 Hz that fades smoothly to the end.
-- **Secondary pops:** six faint particle pops in the first 0.3 s.
-- **Finish:** heavy saturation (drive 6), which keeps the first quarter-second clipped and crackling, and a short dull room. Writing it at 8-bit gives the grit.
+(T20 and T40 are the seconds it takes to fall by 20 dB and 40 dB.)
 
-The spectrogram shows the shape you described: a dense, saturated start whose highs drop out by about 0.3 s, a darkening fall, and a low tail fading into silence. The tool can't tell how it sounds or how the game plays it (volume, pitch, the map's room), so it still needs a listen in the game. If you set up the game folders, I can rebuild it with the original drawn beside it for a real side-by-side.
+**How it's made:**
+- **Main blast:** saturated noise whose spectrum changes over time. The first 0.25 s is held hot and reaches up to about 10 kHz. It then drops away until about 0.6 s and ends as a low-passed rumble that's still fading at 1.04 s.
+- **Low-end thump:** a sine that drops from 100 Hz to 45 Hz.
+- **Echo pops:** a few faint bursts in the first 0.3 s.
+- **Crack:** a 3 ms click at the very start.
+- **Finish:** saturation, then a limiter set to a 10 dB crest so the attack sounds clipped. The 8-bit file adds the grit.
+
+In the spectrogram, the highs die off by about 0.3 s and the lows hang on to the end. There's no tone, no pitch and no mechanical clicks.
+
+**Where it differs from the description:**
+- The attack measures 10 ms, a little slower than "the first few milliseconds".
+- The tool counts 2 onsets (separate hits), which are the faint echo pops.
+- Its energy centre is 827 Hz. That's brighter than "mostly 50-500 Hz" suggests, but I went this way because the darker version I built first was below the range of the game's gunshots.
+
+I didn't have the original to compare against, so these numbers are only checked against the description. How it sounds and how loud it plays in game can only be judged by listening in the game.

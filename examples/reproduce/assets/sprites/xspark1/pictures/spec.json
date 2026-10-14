@@ -3,113 +3,123 @@
   "sprites": [
     {
       "name": "sprites/xspark1.spr",
-      "class": "glow",
-      "use": "env_sprite",
       "size": [
         32,
         32
       ],
       "frames": 11,
-      "loop": false,
       "fps": 10,
       "type": "parallel",
       "format": "additive",
+      "reference": "pictures/frames.png",
       "finish": {
-        "edge": 2
+        "edge": 3
       },
       "layers": [
         {
-          "kind": "smoke",
-          "colour": [
-            0,
-            0.6,
-            0.85
-          ],
-          "density": 0.6,
+          "kind": "glow",
+          "radius": 0.6,
+          "core": 0.07,
+          "falloff": "power",
+          "power": 1.8,
+          "reach": 0.7,
+          "gain": 1,
+          "ramp": [
+            [
+              0,
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            [
+              0.5,
+              [
+                5,
+                25,
+                35
+              ]
+            ],
+            [
+              1,
+              [
+                10,
+                45,
+                60
+              ]
+            ]
+          ]
+        },
+        {
+          "kind": "blobs",
+          "count": 8,
+          "radius": 0.32,
+          "spread": 0.7,
+          "core": 0.3,
+          "soft": 1,
+          "gain": 0.06,
+          "ramp": [
+            [
+              0,
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            [
+              0.5,
+              [
+                3,
+                15,
+                24
+              ]
+            ],
+            [
+              1,
+              [
+                6,
+                28,
+                42
+              ]
+            ]
+          ]
+        },
+        {
+          "kind": "blobs",
+          "count": 8,
+          "radius": 0.34,
           "spread": 0.9,
-          "gain": 0.7
-        },
-        {
-          "kind": "glow",
-          "colour": [
-            0,
-            0.55,
-            0.8
-          ],
-          "at": [
-            0.4,
-            0.4
-          ],
-          "radius": 0.4,
-          "core": 0.3,
-          "gain": 0.5
-        },
-        {
-          "kind": "glow",
-          "colour": [
-            0,
-            0.55,
-            0.8
-          ],
-          "at": [
-            -0.45,
-            0.3
-          ],
-          "radius": 0.4,
-          "core": 0.3,
-          "gain": 0.5
-        },
-        {
-          "kind": "glow",
-          "colour": [
-            0,
-            0.55,
-            0.8
-          ],
-          "at": [
-            -0.35,
-            -0.45
-          ],
-          "radius": 0.4,
-          "core": 0.3,
-          "gain": 0.5
-        },
-        {
-          "kind": "glow",
-          "colour": [
-            0,
-            0.55,
-            0.8
-          ],
-          "at": [
-            0.45,
-            -0.3
-          ],
-          "radius": 0.4,
-          "core": 0.3,
-          "gain": 0.5
-        },
-        {
-          "kind": "glow",
-          "colour": [
-            0.05,
-            0.75,
-            1
-          ],
-          "radius": 0.7,
-          "core": 0.35,
-          "gain": 0.85
-        },
-        {
-          "kind": "glow",
-          "colour": [
-            0.9,
-            1,
-            1
-          ],
-          "radius": 0.42,
-          "core": 0.5,
-          "gain": 1
+          "core": 0.1,
+          "soft": 1,
+          "gain": 0.035,
+          "ramp": [
+            [
+              0,
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            [
+              0.5,
+              [
+                2,
+                10,
+                18
+              ]
+            ],
+            [
+              1,
+              [
+                4,
+                20,
+                32
+              ]
+            ]
+          ]
         }
       ]
     }

@@ -31,31 +31,40 @@
   "reproduction": {
    "length": 0.69,
    "peak": -0.6,
-   "rms": -10.8,
-   "crest": 10.2,
+   "rms": -13,
+   "crest": 12.4,
    "dc": 0,
    "clipped": 0,
    "lead": 0,
    "tail": 0.005,
    "attack": 0,
-   "peakAt": 0.04,
-   "t20": 0.404,
-   "t40": 0.649,
-   "centroid": 919,
-   "rolloff": 1658,
-   "flatness": 0.333,
+   "peakAt": 0,
+   "t20": 0.384,
+   "t40": 0.673,
+   "centroid": 1158,
+   "rolloff": 1873,
+   "flatness": 0.371,
    "bands": {
-    "<150": 6.7,
-    "150-600": 49.6,
-    "600-2k": 31.1,
-    "2k-5k": 12,
-    ">5k": 0.6
+    "<150": 1.3,
+    "150-600": 27.1,
+    "600-2k": 58.1,
+    "2k-5k": 12.8,
+    ">5k": 0.7
    },
    "onsets": 0
   },
+  "envelope": {
+   "class": "metal hit",
+   "t20Range": [
+    0.24,
+    0.7
+   ],
+   "t20": 0.384,
+   "inRange": true
+  },
   "lengthOff": 0.006,
-  "centroidOff": 0.316,
-  "bandsOffMost": 42.8,
+  "centroidOff": 0.138,
+  "bandsOffMost": 20.3,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -74,34 +83,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged from the pictures and features only; I could not listen. The original has a sharp hit, then a dense noisy body that decays smoothly into a long ringing tail. One steady tonal line runs through the whole spectrogram, which reads as a metal resonance. The reproduction is a noise burst with the same overall length, but it holds level for about 0.3 s and then drops off in a sudden step. Its energy sits in the low mids (49.6% in 150-600 Hz against 6.8%), and its tonal line sits elsewhere, closer to the bottom of the plot. That reads more like a dull thud or scrape than a crowbar ringing off metal. It is there but clearly off."
+   "reason": "Judged from the pictures and features only; I could not listen. The original is a crowbar-on-metal strike: a dense broadband hit with several partials, which fades steadily from about 0.3 s into a long ring, with one strong tonal line held all the way through. The reproduction keeps a tonal line at about the same height, but otherwise it is a flat, unchanging block of broadband noise. It holds steady for about 0.32 s and then drops off a cliff, which looks like gated noise more than a struck object. Its flatness (0.371 against 0.215) says it is much noisier than the original. A player might hear it as some impact, but not clearly as the same metal strike."
   },
   "S2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Length matches (0.69 s against 0.694 s, 0.6% off) and attack is close (0 against 0.005 s). Decay is off: T20 is 0.404 s against 0.559 s, about 28% short. The shape is wrong too. The original's waveform tapers gradually, while the reproduction keeps a flat block of energy and then drops abruptly at about 0.31 s, visible as a hard edge in both its waveform and its spectrogram."
+   "reason": "The measurements pass: length 0.69 s against 0.694 s, and T20 0.384 s is inside the metal-hit range of 0.24 to 0.7 s. The waveform shows what the measurements miss. The original swells to its peak at 0.03 s and then fades gradually. The reproduction starts at full level at 0 s (attack 0, peakAt 0), holds a flat plateau, and steps down abruptly at about 0.32 s into a faint tail. That is a hold-and-cut, not the original's attack and decay, so this scores below what the measurement allows."
   },
   "S3": {
-   "judge": 0,
+   "judge": 1,
    "cap": 0,
    "score": 0,
-   "reason": "Measured fail. The centroid is 919 Hz against 1343 Hz, 31.6% off where the limit is 20%. Band shares are far outside 10 points: 150-600 Hz is 49.6 against 6.8 (42.8 points) and 600-2k is 31.1 against 73.8 (42.7 points). The original's energy is concentrated in 600 Hz to 2 kHz, but the reproduction's has moved down into the low mids."
+   "reason": "The centroid is within 20% (1158 Hz against 1343 Hz, 13.8% off), but the band shares are not within 10 points. The 150-600 Hz band has 27.1% against 6.8% (20.3 points over), and the 600-2k band has 58.1% against 73.8% (15.7 points under). The reproduction's energy sits too low, in the low-mids, and it lacks the original's concentration at 600 Hz to 2 kHz."
   },
   "S4": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "Judged from the pictures and features only; I could not listen. Onsets: the original has 1 distinct strike, but the reproduction has 0 detected, and its start is a noise block rather than a hit. Flatness is 0.333 against 0.215, so it is noisier and less tonal than the original's ringing metal. Its tonal line is at a different frequency, and the hard cutoff at about 0.31 s has no counterpart in the original's smooth ring-out."
+   "score": 1,
+   "reason": "Judged from the pictures and features only; I could not listen. One strong tonal line is kept at about the original's height. Otherwise the character is off. No onset is detected (0 against the original's 1), so the hit has no transient. Flatness is 0.371 against 0.215, so it is much more noise and much less ring. The original's partials fade and change over time, while the reproduction's spectrogram stays static and then cuts out all at once."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The file is mono, 8-bit PCM at 11025 Hz, the same format as the original. It has no clipped samples, a DC offset of 0, and the same name (weapons/cbar_hit1). It is a one-shot like the original, so no loop cue is needed. No engine faults were reported."
+   "reason": "Mono PCM at 11025 Hz, 8-bit, the same as the original's format. No clipped samples, DC 0, same file name. The original has no loop, so no cue is needed."
   }
  },
- "total": 4,
+ "total": 5,
  "of": 10,
  "passes": false
 }

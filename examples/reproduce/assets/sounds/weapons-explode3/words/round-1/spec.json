@@ -1,0 +1,171 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/explode3.wav",
+  "class": "explosion",
+  "rate": 22050,
+  "bits": 8,
+  "seed": 7,
+  "length": 1.3,
+  "layers": [
+    {
+      "id": "boom",
+      "kind": "noise",
+      "color": "brown",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 300
+        },
+        {
+          "type": "highpass",
+          "f": 45
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            2
+          ],
+          [
+            0.4,
+            0
+          ],
+          [
+            0.8,
+            -9
+          ],
+          [
+            1.1,
+            -23
+          ],
+          [
+            1.3,
+            -50
+          ]
+        ]
+      },
+      "gain": -6
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 700,
+          "q": 0.4
+        },
+        {
+          "type": "lowpass",
+          "f": 6000,
+          "sweep": {
+            "to": 600,
+            "time": 1.1
+          }
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            2
+          ],
+          [
+            0.4,
+            0
+          ],
+          [
+            0.8,
+            -12
+          ],
+          [
+            1.1,
+            -28
+          ],
+          [
+            1.3,
+            -60
+          ]
+        ]
+      },
+      "gain": 6
+    },
+    {
+      "id": "hiss",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2500
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -2
+          ],
+          [
+            0.35,
+            -5
+          ],
+          [
+            0.7,
+            -26
+          ],
+          [
+            1,
+            -50
+          ],
+          [
+            1.3,
+            -70
+          ]
+        ]
+      },
+      "gain": -12
+    },
+    {
+      "id": "crackle",
+      "kind": "particles",
+      "rate": 250,
+      "band": [
+        300,
+        2500
+      ],
+      "grain": 0.004,
+      "env": {
+        "points": [
+          [
+            0,
+            2
+          ],
+          [
+            0.4,
+            0
+          ],
+          [
+            0.8,
+            -16
+          ],
+          [
+            1.1,
+            -36
+          ],
+          [
+            1.3,
+            -60
+          ]
+        ]
+      },
+      "gain": 5
+    }
+  ],
+  "finish": {
+    "saturate": 8,
+    "peak": -0.5
+  }
+}

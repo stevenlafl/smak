@@ -1,24 +1,18 @@
-The build says OK. `player/pl_metal1.wav` is written to the work folder at `sound/player/pl_metal1.wav`. It's 0.58 s, 11025 Hz, 8-bit mono, plays once, and passes every engine check. Against the game's own metal footstep sounds, all 22 measured features are in range.
+The build says OK. It's at `work:sound/player/pl_metal1.wav` (11025 Hz, 8-bit, mono, one-shot). All engine checks passed, and all 22 measured features fall in the range of the game's own metal footsteps.
+
+Compared with what the build measured off the original's picture:
 
 ```
-feature        value
-length         0.58 s
-peak / RMS     -1.1 / -14.5 dBFS
-T20 / T40      0.41 / 0.47 s   (time to fall 20 / 40 dB)
-centroid       358 Hz          (spectral centre of mass)
-<150 Hz        34.9 %
-150-600 Hz     50.0 %
-600-2k Hz      13.4 %
-2k-5k Hz       1.7 %
+                     original (picture)    mine
+length               0.58 s                0.58 s
+centroid             ~361 Hz               409 Hz (13% brighter)
+T20 (time to -20 dB) 0.315-0.525 s         0.409 s
+crest                ~16.3 dB              16.0 dB
+widest band gap      -                     6.4 points (600 Hz-2 kHz)
 ```
 
-How it matches the original's picture:
-- **Sound:** a dense, noisy metal scuff that's strongest in the bass. The highs die off over the first third and the low-mid ring carries on to the end. It's built from brown, pink and white noise layers, a short rattle of grains, and a quiet inharmonic metal ring.
-- **Two hits:** a heel strike at 0 s and a toe strike at 0.175 s, the same spot as the spike in the original's waveform.
+**How it's built:** most of the sound is a noise body that starts broadband and gets darker as it decays, like the original's spectrogram. On top of that are a soft heel hit at 0, light scuff grains over the first 0.22 s, a sharper toe hit at 0.175 s for the spike in the original's waveform, and a very quiet low ring of metal modes for a little tone.
 
-Where it falls short:
-- **Toe spike:** the detector found no separate onsets, so the toe hit is blended into the body. The original's spike stands out more clearly.
-- **Fullness:** the waveform looks a bit fuller and more even than the original's, which is sparser and spikier.
-- **Comparison:** the build drew only my sound, not the original next to it, so I compared by eye against `input/sound.png`. The tool also can't tell how it sounds or how loud the game plays it, so it still needs a listen in-game next to the original.
+**Trade-off:** one build hit the centroid exactly (360 Hz), but its 600 Hz–2 kHz band was 10 points low and outside the game's range. I kept the final version because every band is within 6.4 points, at the cost of being 13% brighter.
 
-To use it, drop it into `<mod>/sound/player/pl_metal1.wav`.
+These numbers only describe the drawing and the measurements. How it actually sounds, and how loud it is in the game against a map's room, needs someone to listen in-game.

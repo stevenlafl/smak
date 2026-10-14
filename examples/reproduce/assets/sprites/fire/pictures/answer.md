@@ -1,17 +1,24 @@
-I built `sprites/fire.spr` in the work folder, and the final build says OK with every check passed. It's 32x96 with 15 frames, type parallel oriented and format additive, all matching the original. It plays at 10 frames per second with its base at the bottom, and it's placed as an env_sprite with render mode 5 (Additive).
+I built `sprites/fire.spr` and the build says OK, with every check passing. It's a 32x96 parallel oriented additive sprite with 15 frames that loops at 10 frames a second, with its origin at the base of the flame.
 
-Getting exactly 15 frames needed a workaround. The tool writes a loop with its first frame repeated at the end, so I asked for a 14-frame loop. Frame 14 is therefore a copy of frame 0, so the cycle has 14 distinct frames, not 15 like the original.
+The build measured it against your contact sheet:
 
-The spec has two layers:
-- **Flame:** a wide, very ragged fire layer filling most of the frame, turned down a bit so it's less bright.
-- **Glow:** a small orange glow in the lower middle, for the bright area low in the flame.
+```
+                         original   mine
+mean colour (delta E)       -       4.1   (15 or under counts as near)
+share that is dark         0.38     0.44
+border, brightest pixel    0.275    0.119
+border, mean               0.028    0.010
+frames                      15       15
+```
 
-The tool scored it within range of Half-Life's own fire loops on all 5 of its measures. There's no light at the border, and the loop doesn't jump where it wraps.
+How it compares by eye:
+- **Same:** a wide orange flame that fills most of the frame, brightest at the bottom middle and fading to dim licks at the top.
+- **Different:** mine is a bit whiter-hot at the base. It also covers a little less of the frame (44% dark against 38%), so the sides are slightly emptier.
 
-Next to the original, mine still differs in two ways:
-- **Core colour:** its brightest part is a little paler and nearer white, where the original stays orange-red throughout.
-- **Shape:** it narrows to a point at the top, while the original stays wider and more column-like with loose tongues of flame.
+I couldn't close those last two gaps:
+- **Covering more of the frame:** making the flame any wider, or brighter, pushes light onto the frame's border, and the build fails that as a fault.
+- **Less white at the base:** I tried my own colour ramp to tone it down, and it moved the colour further from yours (delta E 10). So I kept the built-in fire ramp and added a faint orange glow, which gave the closest colour.
 
-I tried one more tweak to warm up the core, but it turned the core grey, so I went back to the build before it.
+**The loop:** the tool writes the first frame again at the end of a loop, so the engine wraps smoothly. To land on exactly 15 frames I asked for a loop of 14, which means frame 14 repeats frame 0.
 
-The sheet of frames and an animated preview are saved beside the sprite.
+The sprite is at `work:sprites/fire.spr`, with `fire-sheet.png` (all frames) and `fire-animated.png` beside it.

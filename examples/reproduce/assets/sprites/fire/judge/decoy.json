@@ -72,34 +72,34 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The original is a flame: an orange-red fire tongue, brightest at its base, flickering upward over 15 frames. The reproduction is one flat, even light-grey rectangle (frame 0) with no flame, glow or other effect in it. It is not the same effect."
+   "reason": "The original is a flame: 15 frames of orange-yellow fire tongues, bright at the base, narrowing and flickering upward, on black. The reproduction's single frame is a flat, even light grey that fills the whole 32x96 frame. It has no flame shape and nothing that reads as fire, glow or any other effect."
   },
   "R2": {
-   "judge": 0,
+   "judge": 1,
    "cap": 2,
-   "score": 0,
-   "reason": "The frame size matches the original's 32 x 96, but the reproduction has no effect shape. In the original the flame sits on a black background and fades out toward the edges (border max 0.275, mean 0.028). The reproduction fills the whole frame evenly right to its edges (border max and mean 0.784), so the shape and fill of the original are missing entirely."
+   "score": 1,
+   "reason": "The frame size matches (32x96). But the effect does not fill the frame the way the original's does. The original's flame sits in the lower and middle part with tapering tips, and its edges are mostly dark (border mean 0.028, max 0.275). The reproduction is lit edge to edge (border max and mean both 0.784), with no shape at all."
   },
   "R3": {
    "judge": 0,
    "cap": 0,
    "score": 0,
-   "reason": "The original's colours are orange, red and yellow on black, as additive blending shows them. The reproduction is uniform pale grey with no dark areas (dark 0 against the original's 0.42). The measured mean colour difference is 64.3, far over the pass line of 15."
+   "reason": "The measured mean colour difference is 64.3, far beyond the pass line of 15. The original is orange and yellow fire on black (dark fraction 0.42). The reproduction is a uniform pale grey with no dark area (dark 0)."
   },
   "R4": {
    "judge": 0,
    "cap": 0,
    "score": 0,
-   "reason": "The reproduction has 1 frame against the original's 15, well outside 25%. It has no motion at all, so the original's flicker and its loop (wrap 1.13, jitter 1.51) are missing, and the reproduction's wrap and jitter measure null."
+   "reason": "The reproduction has 1 frame against the original's 15, far outside 25%. So there is no motion at all: none of the original's flicker and rise (jitter 1.51), no loop (wrap null against the original's 1.13), and a flat envelope (first and last both 1, against peak at 0.07 and last 0.84)."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Its type (parallel oriented) and format (additive) match the original's, and the harness read it back as written. I could not check the name from what I was given, and nothing shown contradicts it."
+   "reason": "Type (parallel oriented) and format (additive) match the original, and the harness read the file back at the right size. Nothing in what I was given contradicts the name. This is the only item it gets right."
   }
  },
- "total": 2,
+ "total": 3,
  "of": 10,
  "passes": false
 }

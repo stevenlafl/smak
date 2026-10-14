@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "laserbeam",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     32,
+     64
+    ],
+    "border": {
+     "max": 1,
+     "mean": 0.261
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.02,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     32,
+     64
+    ],
+    "border": {
+     "max": 1,
+     "mean": 0.102
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.44,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 14.1
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are a vertical beam: a bright white core running the full 64-dot height with bluish-grey falloff to the sides. A player would call it the same laser beam effect."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frame size matches at 32x64, but the beam fills the frame differently. In the original the white core takes up most of the width (about columns 8 to 24) and fades softly with streaky glow right out to both edges; only 2% of it is dark. In the reproduction the core is a narrow strip of about 8 dots in the middle, with mostly black on both sides: 44% of it is dark, against the original's 2%, and its average brightness at the border is 0.102 against the original's 0.261. Additively blended, the reproduction draws a much thinner beam. The original's vertical mottling in the glow is also gone; the reproduction's falloff is smooth."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured mean colour difference is 14.1, under the line of 15. Both have a white core with a cool blue-grey edge. Most of the gap comes from the narrower, darker beam, which is already marked down under R2, not from a different hue."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are one frame and static (the brightest frame is frame 0 in both, and both start and end at full brightness), so there is no loop or fade to match."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Same type (parallel) and format (additive), same size, and it read back as one 32x64 frame, matching the original."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

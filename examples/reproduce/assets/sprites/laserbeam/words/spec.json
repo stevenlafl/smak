@@ -12,34 +12,38 @@
       "frames": 1,
       "type": "parallel",
       "format": "additive",
-      "origin": "centre",
       "layers": [
         {
           "kind": "beam",
-          "core": 0.34,
-          "noise": 0.75,
+          "profile": "flat",
+          "core": 0.12,
+          "shoulder": 0.07,
+          "noise": 0.04,
           "colour": [
-            0.84,
-            0.86,
-            0.91
+            255,
+            255,
+            255
           ],
           "at": [
-            -0.02,
+            -0.04,
             0
           ]
         },
         {
           "kind": "beam",
-          "core": 0.24,
-          "noise": 0,
+          "profile": "flat",
+          "core": 0.08,
+          "shoulder": 0.27,
+          "noise": 0.6,
+          "streaks": 0.9,
+          "gain": 0.36,
           "colour": [
-            1,
-            1,
-            1
+            195,
+            205,
+            230
           ],
-          "gain": 0.7,
           "at": [
-            -0.06,
+            0.012,
             0
           ]
         }

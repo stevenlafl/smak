@@ -1,0 +1,212 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/cbar_hit1.wav",
+  "class": "metal hit",
+  "rate": 11025,
+  "bits": 8,
+  "length": 0.69,
+  "seed": 7,
+  "layers": [
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "env": {
+        "decay": 0.03
+      },
+      "gain": -2
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 90
+        },
+        {
+          "type": "peak",
+          "f": 300,
+          "q": 0.7,
+          "gain": 8
+        },
+        {
+          "type": "lowpass",
+          "f": 4800
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.12,
+            -2
+          ],
+          [
+            0.2,
+            -1
+          ],
+          [
+            0.27,
+            0
+          ],
+          [
+            0.305,
+            -2
+          ],
+          [
+            0.315,
+            -11
+          ],
+          [
+            0.45,
+            -26
+          ],
+          [
+            0.69,
+            -58
+          ]
+        ]
+      },
+      "gain": -2
+    },
+    {
+      "id": "mid",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1000,
+          "q": 0.8
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.2,
+            -2
+          ],
+          [
+            0.28,
+            0
+          ],
+          [
+            0.305,
+            -2
+          ],
+          [
+            0.315,
+            -12
+          ],
+          [
+            0.69,
+            -45
+          ]
+        ]
+      },
+      "gain": -8
+    },
+    {
+      "id": "hiss",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -2
+          ],
+          [
+            0.2,
+            -6
+          ],
+          [
+            0.28,
+            -5
+          ],
+          [
+            0.305,
+            -8
+          ],
+          [
+            0.315,
+            -20
+          ],
+          [
+            0.69,
+            -60
+          ]
+        ]
+      },
+      "gain": -14
+    },
+    {
+      "id": "chatter",
+      "kind": "particles",
+      "rate": 120,
+      "band": [
+        200,
+        5000
+      ],
+      "grain": 0.004,
+      "length": 0.31,
+      "env": {
+        "points": [
+          [
+            0,
+            -3
+          ],
+          [
+            0.2,
+            0
+          ],
+          [
+            0.29,
+            0
+          ],
+          [
+            0.31,
+            -30
+          ]
+        ]
+      },
+      "gain": -8
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "modes": [
+        {
+          "f": 1010,
+          "gain": 1,
+          "decay": 1.6
+        },
+        {
+          "f": 3020,
+          "gain": 0.2,
+          "decay": 0.9
+        }
+      ],
+      "gain": -14
+    }
+  ],
+  "finish": {
+    "saturate": 2.2,
+    "peak": -0.5
+  }
+}

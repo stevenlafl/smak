@@ -1,0 +1,152 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/sbarrel1.wav",
+  "class": "gunshot",
+  "rate": 22050,
+  "bits": 8,
+  "seed": 7,
+  "length": 1.005,
+  "layers": [
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        },
+        {
+          "type": "lowpass",
+          "f": 7000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "hold": 0.06,
+        "decay": 0.35
+      },
+      "gain": -4
+    },
+    {
+      "id": "blast",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1000,
+          "q": 0.5
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "hold": 0.25,
+        "decay": 0.8
+      },
+      "gain": 0
+    },
+    {
+      "id": "mid",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 250
+        },
+        {
+          "type": "lowpass",
+          "f": 4000
+        }
+      ],
+      "env": {
+        "attack": 0.002,
+        "hold": 0.3,
+        "decay": 0.75
+      },
+      "gain": -2
+    },
+    {
+      "id": "boom",
+      "kind": "tone",
+      "f": 110,
+      "wave": "sine",
+      "sweep": {
+        "to": 50,
+        "time": 0.4
+      },
+      "env": {
+        "attack": 0.002,
+        "hold": 0.2,
+        "decay": 0.7
+      },
+      "gain": -8
+    },
+    {
+      "id": "rumble",
+      "kind": "noise",
+      "color": "brown",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 500
+        }
+      ],
+      "env": {
+        "attack": 0.005,
+        "hold": 0.3,
+        "decay": 0.85
+      },
+      "gain": -9
+    },
+    {
+      "id": "body",
+      "kind": "modes",
+      "length": 0.7,
+      "modes": [
+        {
+          "f": 180,
+          "gain": 0,
+          "decay": 0.5
+        },
+        {
+          "f": 430,
+          "gain": -5,
+          "decay": 0.4
+        },
+        {
+          "f": 770,
+          "gain": -8,
+          "decay": 0.3
+        }
+      ],
+      "gain": -10
+    },
+    {
+      "id": "crackle",
+      "kind": "particles",
+      "rate": 90,
+      "band": [
+        500,
+        6000
+      ],
+      "grain": 0.003,
+      "length": 0.7,
+      "env": {
+        "attack": 0.001,
+        "hold": 0.3,
+        "decay": 0.5
+      },
+      "gain": -3
+    }
+  ],
+  "finish": {
+    "room": {
+      "decay": 0.45,
+      "wet": 0.2
+    },
+    "saturate": 7,
+    "peak": -0.5
+  }
+}

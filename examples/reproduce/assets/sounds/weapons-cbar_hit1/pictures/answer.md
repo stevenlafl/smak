@@ -1,28 +1,25 @@
-The new crowbar hit is done and the build says OK. It's at `work:sound/weapons/cbar_hit1.wav`; put it in `<mod>/sound/weapons/` and the game plays it in place of the original, no code needed.
+The build says OK: `weapons/cbar_hit1.wav` is in the work folder at `sound/weapons/cbar_hit1.wav`. It's 11025 Hz, 8-bit mono, 0.69 s, and every engine check passed. Drop it into `<mod>/sound/weapons/` and the game plays it in place of the crowbar's own hit, with no code change.
 
-**Format:** it matches the original: 11025 Hz, 8-bit, mono, 0.69 s, played once. The engine checks found nothing wrong: no clipping, no silence at the start, no click at the end.
-
-**Measured against the game's own metal-hit sounds:** all 22 features are in range.
+Measured against the original's picture:
 
 ```
-feature            this build      game's range
-RMS (loudness)     -10.6 dBFS      -12.9 to -5.7
-crest (spikiness)  10.0 dB         5.3 to 12.5
-centroid (bright)  1342 Hz         1074 to 1654
-flatness (noise)   0.181           0.16 to 0.28
-600-2000 Hz power  69.7%           63.7 to 83.8
-2-5 kHz power      10.7%           3.7 to 24.6
-time to -20 dB     0.364 s
-time to -40 dB     0.673 s
+               original (read off picture)   mine
+length         0.69 s                        0.69 s
+centroid       1467 Hz                       1435 Hz   (2% off)
+crest          ~9.8 dB (+/-3)                10.0 dB
+T20            0.24-0.7 s (class range)      0.474 s
+bands          -                             6.3 points off at most (600-2k Hz)
+onsets         0                             0
 ```
 
-**How it's shaped:** I matched it to the original's picture:
-- **Start:** a sharp crack, with no attack time.
-- **Body:** dense, rattly metallic noise centered near 1 kHz, held for about 0.3 s with a slight swell around 0.25 s. Some low end sits under it, like the original.
-- **Tail:** it drops at about 0.32 s into a fading tail that runs to the end, with a faint ring at about 720 Hz throughout.
+What it's made of: a shaped noise body that stays loud for about 0.3 s, drops sharply around 0.33 s and then fades out. Its top end darkens over time, as in the original. On top of that are a band-limited rattle, a 20 ms strike and a 1060 Hz sine ring, which draws as the same tone line the original shows. The whole thing runs through light saturation.
 
-**Where it differs from the original:**
-- **The ring is fainter.** In the original's spectrogram the ring line is plainly visible. Making it that loud pushed my noise flatness and mid-band power out of the game's range, so I kept it lower. Side by side, my line shows up less.
-- **The ring pitch is a guess.** I read about 720 Hz off the picture's scale, and that reading could be off.
+Two things to know:
+- **Noisiness:** it scores 21 of 22 against the game's metal hits. The one miss is that it's a bit noisier than the class: spectral flatness (0 is a pure tone, 1 is white noise) is 0.35 against a range of 0.16 to 0.28. The picture doesn't give the original's own flatness, so I can't tell whether the original sits in that range too. Turning the ring up fixes the score, but then the tone line drowns the noise and the bands go off.
+- **The `modes` layer misbehaved:**
+  - Changing the layer gain from -6 to -5 dB gave identical output.
+  - Quieter overtones (per-mode gains of -12 and -18 dB) came out louder than the main tone.
+  
+  I switched the ring to a plain `tone` layer, which behaved as expected. It may be a smak bug worth a look.
 
-All of this is from measurements and pictures, so I haven't heard it. Someone should listen to it in the game, where the code's volume and pitch and the map's room sound also change it.
+The build can't check how it sounds or how it sits in-game (volume, pitch as the code plays it, the map's room), so it needs a listen in the game.

@@ -72,31 +72,31 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The original is a muzzle flash: a bright orange-white core with five tapering star rays on black. The reproduction is one flat grey square with no shape, glow or flash in it, so it is no effect at all."
+   "reason": "The original is a muzzle flash: a warm orange-white five-pointed starburst with a bright core and soft rays on black, in both frames. The reproduction's single frame is a flat, even light grey from edge to edge, with no core, no rays and no flash shape. It does not show the same effect."
   },
   "R2": {
-   "judge": 1,
+   "judge": 0,
    "cap": 2,
-   "score": 1,
-   "reason": "The frame size matches at 64x64. The fill is wrong: the reproduction is uniform grey to the edges (border mean 0.784, dark share 0), while the original is a centred five-pointed star with black borders (border max 0.02, dark share 0.76). The star shape and the dark surround are both missing."
+   "score": 0,
+   "reason": "The frame size matches at 64 x 64, but the original's starburst sits in the centre and its edges are black (border max 0.02, mean 0, dark 0.76). The reproduction fills the whole frame right to the edge (border max and mean 0.784, dark 0), so the effect fills the frame nothing like the original's does."
   },
   "R3": {
    "judge": 0,
    "cap": 0,
    "score": 0,
-   "reason": "The measured mean colour difference is 59.5, far over the line of 15. The reproduction is a neutral light grey, but the original is a warm orange-white flash on black."
+   "reason": "The measured mean colour difference is 59.5, far over the pass line of 15. The original is warm orange and white on black, while the reproduction is a neutral pale grey with no warm hue anywhere."
   },
   "R4": {
    "judge": 0,
    "cap": 1,
    "score": 0,
-   "reason": "The reproduction has 1 frame against the original's 2, a 50% shortfall, which is outside the 25% allowed. The original flickers between two slightly different star poses, and the single static grey frame has no motion at all."
+   "reason": "The original has 2 frames and the reproduction has 1, which is 50% off and outside the 25% allowed. The original flickers between two slightly different starbursts (envelope 0.95 then 1). The reproduction has no motion, so there is no flicker and no loop."
   },
   "R5": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The type (parallel) and format (additive) match the original. But the content is an opaque grey fill, which under additive blending lightens the whole quad instead of showing a flash on black. Same name and read-back are not shown as confirmed, so this can't be scored as right to a close look."
+   "score": 2,
+   "reason": "The measured type (parallel) and format (additive) match the original's, and the harness read both values back from the written file. The name was not shown to me separately. The file sits under the original's name, muzzleflash1, and I see nothing wrong with it."
   }
  },
  "total": 2,

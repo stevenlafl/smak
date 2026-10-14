@@ -31,31 +31,37 @@
   "reproduction": {
    "length": 7.31,
    "peak": -1.1,
-   "rms": -28.5,
-   "crest": 27.4,
+   "rms": -24.9,
+   "crest": 23.8,
    "dc": 0,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
-   "attack": 1.831,
-   "peakAt": 1.841,
-   "t20": 4.18,
-   "t40": 5.473,
-   "centroid": 869,
-   "rolloff": 980,
-   "flatness": 0.115,
+   "attack": 1.856,
+   "peakAt": 1.866,
+   "t20": 4.34,
+   "t40": 5.373,
+   "centroid": 859,
+   "rolloff": 1206,
+   "flatness": 0.111,
    "bands": {
-    "<150": 4.1,
-    "150-600": 18.1,
-    "600-2k": 73.3,
-    "2k-5k": 4.4,
+    "<150": 0.2,
+    "150-600": 23.8,
+    "600-2k": 72.4,
+    "2k-5k": 3.5,
     ">5k": 0.1
    },
-   "onsets": 3
+   "onsets": 4
+  },
+  "envelope": {
+   "class": "loop drips",
+   "t20Range": null,
+   "t20": 4.34,
+   "inRange": true
   },
   "lengthOff": 0.001,
-  "centroidOff": 0.036,
-  "bandsOffMost": 5.1,
+  "centroidOff": 0.024,
+  "bandsOffMost": 1,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -71,37 +77,37 @@
  },
  "scores": {
   "S1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Judged from the pictures and features only; I could not listen. Both files have drips at the same five moments (about 0, 1.85, 3.65, 4.0 and 5.8 s). In the original, each drip is a splash with a broad, ringing tail in the mid bands that lasts close to a second, and there is room tone between the drips. That reads as water dripping in a reverberant space. In the reproduction, each drip is a broadband click plus one steady sine-like tone line (the thin horizontal line in its spectrogram). The tone dies within a few tenths of a second, and between drips there is only an even noise floor. It is still recognisably drips, but dry, electronic-looking plinks rather than the original's echoing drips in a room, so a close look does not call it the same event."
+   "score": 2,
+   "reason": "I can't listen, so this is judged from the pictures and features only. Both are a sparse run of water drips with a sharp transient and a decaying ring, and the four main drips fall at the same times in both (about 0, 1.86, 3.65 to 3.95 and 5.78 s). Both sit mostly in the 600 Hz to 2 kHz band. It reads as the same event."
   },
   "S2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Length is within 25%: 7.31 s against 7.306 s. The decay is clearly off, though. T20 (time to fall 20 dB after the peak) is 4.18 s against 0.434 s, and T40 is 5.47 s against 1.48 s, roughly ten times and four times the original's. The loudest drip has also moved: the peak is at 1.84 s instead of 5.83 s, so the attack time is 1.83 s against 5.78 s. The pictures show the opposite of what the numbers suggest at first: each of the reproduction's drips decays much faster than the original's long, ringing tails. Either way, the measured decay is not close to the original's, and no range is given for this class of sound that would cover it."
+   "reason": "Length matches (7.31 s against 7.306 s). The harness reports inRange true, but the class 'loop drips' has no T20 range (t20Range null). Under the 2026-10-14 amendment, S2 then falls back to the original's own decay within a quarter or 0.05 s. The original's T20 is 0.434 s and the reproduction's is 4.34 s, which caps S2 at 1. The waveforms agree: each drip in the reproduction keeps a long tail, about 0.4 to 0.5 s, where the original's spike falls almost at once into low noise. The loudest drip also moved from 5.83 s to 1.87 s, so attack and peakAt differ."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Centroid (the spectrum's centre of mass) is 869 Hz against 839 Hz, 3.6% off, inside 20%. The largest gap in any band's share is 5.1 points: 150-600 Hz is 18.1 against 23.2, inside 10. As in the original, 600-2k holds most of the energy (73.3 against 72.3). Rolloff (the frequency below which most of the energy sits) is 980 Hz against 1066 Hz. The difference in how the energy is arranged, thin tone lines here against diffuse ringing there, is scored under S4."
+   "reason": "Measured: centroid 859 Hz against 839 Hz (2.4% off). Every band's share is within 1 point (<150 0.2/1.2, 150-600 23.8/23.2, 600-2k 72.4/72.3, 2k-5k 3.5/2.5, >5k 0.1/0.7). Rolloff is 1206 Hz against 1066 Hz. All within limits."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged from the pictures and features only; I could not listen. The drips land at the same times as the original's; the onset counter counts 3 against 4, but the waveforms show five events in each. Flatness (how noise-like it is) is close, 0.115 against 0.095. The character differs, though. Each of the original's drips has several partials and a long, ringing tail with room reverberation. Each of the reproduction's is a click plus a single steady sine tone with a short decay, and there is no ambience between drips. Neither shows clear pitch movement."
+   "reason": "I can't listen, so this is judged from the pictures and features. Onsets match (4 and 4, at the same times), and flatness is close (0.111 against 0.095). The texture differs, though. The original's spectrogram shows several steady horizontal tonal lines in the upper half that run through and between the drips, a resonant ring. The reproduction has broad noisy bursts that fade diagonally, with only a single tonal line. It also adds a faint second burst after each drip (about 1.1, 3.0, 4.4 and 6.9 s), seen as thin vertical stripes and small blips in the waveform, which the original does not have."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Mono PCM at 11025 Hz, 8 bits, matching the original's format. Nothing is clipped, DC is 0, the peak is -1.1 dB, the name is the same, and the harness reported no engine faults. The measurements do not say whether the original has a loop cue, and with no engine fault reported there is nothing to mark down."
+   "reason": "Mono 8-bit PCM at 11025 Hz, the same as the original. No clipping, DC 0, same name, no engine faults reported. The measurements don't show whether a loop cue is present. With engineFaults empty, I take it as matching the original."
   }
  },
- "total": 7,
+ "total": 8,
  "of": 10,
  "passes": false
 }

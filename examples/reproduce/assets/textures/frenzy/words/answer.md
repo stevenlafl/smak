@@ -1,15 +1,35 @@
-The build says OK: `frenzy_new.wad` holds all 25 textures under their original names and exact sizes, and the map preview draws it wearing them. It's at `work:frenzy_new/frenzy_new.wad`, with a contact sheet beside it at `frenzy_new-textures.png`.
+I've built all 25 textures into one spec, `frenzy_new.wad`. The final build says **OK** with every check passed. Each texture has the original's exact name and size, and the map preview shows the map wearing ours.
 
-**What I checked:**
-- I looked at the contact sheet and at six in-map views. The layouts read as the descriptions say: the machinery bays with the olive or mustard stripes, the castellated seams, the 8x8 floor grids, the lattice grate, the pipe bundle, and the 45° hazard bands.
-- The special kinds are kept. The `+0~` light faces and `+0~generic86` are fullbright, and `+a~fifties_lgt2` is the dimmer grey "off" frame. `-0genpipe1` keeps its random-tile name.
-- `black`, `yellow` and `c2a4x_glu` are flat single values (0,0,0 / 255,255,0 / 0,0,255).
-- Edge-to-edge features like the grout, beams, pipes and the `c3a1_w2` seam are placed so they line up when the texture repeats. The build reported no tiling problems, but I didn't zoom into the repeats to confirm by eye.
+**Files** (in the work folder):
+- `work:frenzy_new/frenzy_new.wad`
+- `work:frenzy_new/frenzy_new.spec.json`, the spec, so it can be rebuilt
+- `work:frenzy_new/frenzy_new-textures.png`, a sheet of all 25
 
-**Things to know before judging:**
-- **`c3a1b_w2` had no description** in your list, so it's a guess: the same family as `c3a1b_w3` (grey-blue concrete panel, raised top band, side seams, drip stains), plus the olive stripe. If you have a description, I'll redo it.
-- **Six textures the map uses aren't in your list**, so they're still drawn flat: `+0medkit`, `c2a3rustdoor1`, `medkitedge1`, `{grate4a`, `{ladder1`, `{rail1b`. The build OK covers the 25 you listed; the map isn't fully covered yet.
-- **Detail is limited by what the spec can express.** Textures are built only from a base material, rectangle/rounded/ellipse patches, and grime. Patches can't be rotated, so the diagonal braces in `silo2_wetdr` and the hazard bands in `tnnl_brd1` are stepped in 2-3 px stairs. The tool's own hazard material only makes ~2 px stripes, not the 8 px bands described. The water stains on `c3a1b_w3` are oval patches and look a bit blobby up close.
-- **Two tool quirks:** keys the tool doesn't know (like `rotate` on a patch) are dropped without a warning. Rendering a single texture straight from the .wad (`render kind: uv`) crashes with an offset-out-of-range error, so I could only see each texture at contact-sheet size.
+**Kinds kept:**
+- **Lights:** `+0~fifts_lght01`, `+0~fifties_lgt2`, `+a~fifties_lgt2` and `+0~generic86` keep their `~` light names and are set to shine in the dark. `+a~fifties_lgt2` is the same 16x64 size as its `+0` frame.
+- **Random tiles:** `-0genpipe1` keeps its name.
+- **Holes:** none of the 25 is a `{` holed texture, so there were no holes to keep.
 
-I also made two small test wads while working out the hazard stripes (`work:hz_test/`). They can be deleted.
+**How I built the harder ones:**
+- **c3a1b_w2:** The tool's `bars` grille blacks out everything behind it. So I drew the dim olive and tan machinery first, then laid the 9 vertical and 4 horizontal bars over it as raised strips.
+- **c3a1b_w1 and c3a1b_w1a:** These follow the band layout from top to bottom. The window has rounded corners, khaki, olive and cream pipe rows and white gauges. The mullion is at two thirds on w1 and central on w1a. Below that come the ledge, the olive or cream stripe, the base with its vent grilles, and the hazard band on w1a.
+- **tnnl_flr7 and tnnl_flr7c:** 16 tiles of 30 px each, set on a paler fill so the gaps read as 2 px light grout lines.
+- **c2a4x_glu:** The wedge and its navy edge are built from stacked 2 px columns, so its diagonal steps slightly.
+
+**Where it falls short of the descriptions:**
+- **tnnl_brd1:** The dark stripes are black rather than dark olive-grey. The tool's hazard material only pairs its colour with black.
+- **c3a1_w3a:** The cracks are spread over the whole wall. I couldn't confine them to the upper half, and they're dark lines rather than slightly lighter ones.
+- **c3a2a_tnk1b:** The darker blue swirls are hard-edged ovals over a blotchy blue, not soft clouds.
+- **babtech_ceil01:** The beige, sage and pinkish patches are small rectangles. The cracks form a fairly regular network rather than wandering fissures.
+- **Preview pictures:** For `babtech_ceil01` and `yellow`, the preview's camera shows mostly the surrounding corridor rather than the texture close up.
+- **Colours:** I used the RGB values from the descriptions as the paint colours. I had no originals to measure, so I haven't checked how either set reads under the map's light.
+
+**Not included:** The map also uses 12 textures that weren't on your list:
+- `+0medkit`, `+amedkit` and `medkitedge1`
+- `c2a3rustdoor1`
+- `{grate4a`, `{ladder1` and `{rail1b`
+- `aaatrigger`
+- `-1genpipe1` and `-2genpipe1`
+- `+a~fifts_lght01` and `+a~generic86`
+
+The preview reports six of them as drawn flat: the medkit pair, the rust door, and the grate, ladder and rail. I can add any of them if you want the whole set. The two missing `+a` light frames and the other two `genpipe1` tiles would complete those animations and random tiles.

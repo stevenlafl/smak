@@ -47,19 +47,19 @@
     ],
     "border": {
      "max": 1,
-     "mean": 0.102
+     "mean": 0.235
     },
     "envelope": {
      "peakAt": 0,
      "first": 1,
      "last": 1
     },
-    "dark": 0.4,
+    "dark": 0.19,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 14.9
+  "meanColourDeltaE": 11.6
  },
  "caps": {
   "R2": 2,
@@ -72,31 +72,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are the same effect: a vertical beam with a bright white core running the full 64-unit height and a grey glow falling off to each side."
+   "reason": "Both show the same effect: a vertical laser beam with a bright white core running the full height of the frame and a cooler halo on either side."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frame size matches (32 x 64), but the effect does not fill it the way the original does. The original's grey, streaky haze reaches nearly to the left and right edges (dark 0.02, border mean 0.261), so the core looks wide and the edges stay lit. The reproduction's core is narrower and its smooth falloff leaves dark bands down both sides (dark 0.4, border mean 0.102). The beam reads thinner, with black edges the original does not have."
+   "reason": "The frame size matches (32x64). The beam fills it differently, though. In the original a soft grey-blue halo with mottled streaks fades gradually to the side edges and leaves almost nothing dark (dark 0.02). In the reproduction the white core is wider, its sides drop off sharply, it has thin blue lines at the edges, and the outer columns are near-black (dark 0.19). The original's streaky texture along its length is also missing."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean colour difference is 14.9, just under the line of 15. Both are a white core in a neutral-to-slightly-cool grey glow, so the hues agree. The reproduction is darker toward the sides, but that is the shape problem already scored under R2. The original's faint bluish tint in its haze is barely visible and not enough to lower this."
+   "reason": "The mean colour difference is 11.6, under 15. The palette is the same white core with a cool grey-blue tint. The difference in how far the halo spreads is counted under R2, not here."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are a single static frame (envelope peak at 0, first 1, last 1), so there is no motion or loop to match. The frame counts are the same."
+   "reason": "Both have 1 frame and are static. The envelope matches (peak at 0, first 1, last 1). There is no loop or one-shot to close."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are parallel type with additive format, the same as the original, and the harness read it back as written."
+   "reason": "The type (parallel) and format (additive) are the same as the original's, and the size is 32x64 as written."
   }
  },
  "total": 9,

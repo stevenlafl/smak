@@ -32,30 +32,39 @@
    "length": 0.873,
    "peak": -10.5,
    "rms": -15.2,
-   "crest": 4.7,
-   "dc": -0.0014,
+   "crest": 4.8,
+   "dc": 0,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
    "attack": 0,
-   "peakAt": 0.549,
-   "t20": 0.324,
-   "t40": 0.324,
-   "centroid": 2788,
-   "rolloff": 4727,
-   "flatness": 0.967,
+   "peakAt": 0.434,
+   "t20": 0.439,
+   "t40": 0.439,
+   "centroid": 2750,
+   "rolloff": 4673,
+   "flatness": 0.965,
    "bands": {
-    "<150": 2.1,
-    "150-600": 8.2,
-    "600-2k": 25.3,
-    "2k-5k": 54.6,
-    ">5k": 9.7
+    "<150": 2.2,
+    "150-600": 8.1,
+    "600-2k": 26.2,
+    "2k-5k": 54,
+    ">5k": 9.5
    },
-   "onsets": 0
+   "onsets": 1
+  },
+  "envelope": {
+   "class": "none: the original's own decay",
+   "t20Range": [
+    0.329,
+    0.549
+   ],
+   "t20": 0.439,
+   "inRange": true
   },
   "lengthOff": 0,
-  "centroidOff": 0.417,
-  "bandsOffMost": 21.7,
+  "centroidOff": 0.397,
+  "bandsOffMost": 20.8,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -74,31 +83,31 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "I judged this from the picture and features only, without listening. The original is a metal debris bust: a sharp hit (attack 0.025 s, peak at 0.075 s) that decays over about 0.75 s, with most of its energy in 600 Hz to 5 kHz. The reproduction is steady broadband noise at one level from start to end (crest factor 4.7, flatness 0.967). It has no hit and no decay, so it is not the same event and reads as static or hiss."
+   "reason": "Judged from the pictures and features only, since I cannot listen. The original is a metal debris break: a hard transient at the start (peak at 0.075 s) and then a long ringing decay, with energy in 600 Hz to 5 kHz and visible streaks across the spectrogram. The reproduction is steady broadband hiss for the whole 0.87 s. Its waveform is flat, its spectrogram is uniform yellow, and its flatness is 0.965. No impact and no metal can be seen. It is not the same event."
   },
   "S2": {
    "judge": 0,
    "cap": 2,
    "score": 0,
-   "reason": "The length matches (0.873 s), but the envelope is wrong. The original has a 0.025 s attack and a long decay (T20 0.439 s, T40 0.629 s, 0.105 s quiet tail). The reproduction's waveform is a flat block with attack 0, its peak at 0.549 s, and the same value for T20 and T40 (0.324 s), which is the measurement showing no real decay. A sound with no decay shape is a miss on the envelope, not just off from it."
+   "reason": "The length matches (0.873 s both). The measured T20 of 0.439 s falls in range, but that comes from the flat signal: T20 and T40 are both 0.439 s, which is just half the length, and peakAt is 0.434 s. The waveform shows no attack and no decay at all. The amplitude stays constant to the end, while the original falls away from about 0.07 s to near silence by 0.77 s and has a 0.105 s silent tail. The envelope is missing, so this scores below what the measurement would allow."
   },
   "S3": {
    "judge": 0,
    "cap": 0,
    "score": 0,
-   "reason": "The centroid is 2788 Hz against 1968 Hz, 41.7% off when the limit is 20%. The 600-2k band holds 25.3% against 47% (21.7 points off) and the 2k-5k band holds 54.6% against 41.3% (13.3 points off), both over the 10-point limit. The spectrogram shows the reproduction bright and flat across every frequency for the whole length, where the original is weighted to the mids and fades. The spectrum shows a shape that is wrong, not one that is close."
+   "reason": "The centroid is 2750 Hz against 1968 Hz, which is 39.7% off (limit 20%). The 600-2k band is 26.2% against 47% (20.8 points off) and the 2k-5k band is 54% against 41.3% (12.7 points off). Both are over the 10-point limit. The >5k band is 9.5% against 2.7% and rolloff is 4673 Hz against 3241 Hz. The spectrum is too bright and too flat."
   },
   "S4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "I judged this from the picture and features only, without listening. Flatness is 0.967 against 0.569: the original has tonal, resonant metal content (horizontal partial lines in its spectrogram) and the reproduction is near-white noise. The original has its impact transient at the start and the reproduction has no transient at all. Neither shows pitch movement, but the original's partials fade over time and nothing in the reproduction changes."
+   "reason": "Judged from the pictures and features only, since I cannot listen. The original has a strong initial hit followed by ringing with some tonal content (flatness 0.569, crest 12.7). The reproduction has no visible hit: crest is 4.8, and its single counted onset is the start of the noise. It is pure noise (flatness 0.965) with no tonal streaks and no change over time."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Mono 16-bit PCM at 11025 Hz under the same name, with no clipping and a negligible DC offset (-0.0014). The original has no loop, so no cue point is needed."
+   "reason": "Mono 16-bit PCM at 11025 Hz, which the engine plays. No clipping, DC is 0, and the name is the same. The original is a one-shot with no loop cue, and none was added."
   }
  },
  "total": 2,

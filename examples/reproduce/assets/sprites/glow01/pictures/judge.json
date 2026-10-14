@@ -54,12 +54,12 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.44,
+    "dark": 0.43,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 0.6
+  "meanColourDeltaE": 7.9
  },
  "caps": {
   "R2": 2,
@@ -72,31 +72,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are the same effect: a soft, neutral white radial glow with a bright point at the centre, fading to black on a dark field."
+   "reason": "Both sheets show a soft white-grey radial glow with a small bright centre fading into the dark. It is the same effect."
   },
   "R2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both frames are 64x64. The glow is centred and reaches to about the same radius in both, and the dark share is close (0.44 against 0.47). Looked at closely, the reproduction's middle band is a little brighter and its edge reads as a slightly firmer circle than the original's gentler fade. That difference is too small to count as clearly off."
+   "reason": "Both frames are 64x64. The glow is centred and fills the frame the same way, with a bright core and a falloff that reaches near the edges. The border is clean in both (max 0), and the dark share is close (0.43 against 0.47). The reproduction's outer halo ends in a slightly more visible circular edge than the original's smoother fade, but this is only noticeable on close inspection and does not change the shape or how it fills the frame."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are neutral grey to white with no tint. The measured mean colour difference is 0.6, far under the line of 15."
+   "reason": "Both are neutral white to grey on black as the engine blends them. The measured mean colour difference is 7.9, under the 15 line. The reproduction's core is slightly brighter, which stays within the measurement."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "One frame in each, a still glow with no motion to match. The envelope is the same (peak at frame 0, first 1, last 1), and wrap and jitter are null in both."
+   "reason": "Both have 1 frame and are a static glow, with the envelope peak at frame 0 and first and last both at 1. There is no loop or one-shot to match, and none is added."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type parallel and format additive match the original, and the harness read the file back with the same size and frame count. The same-name part of this item can't be checked from what I was given; nothing points to a mismatch."
+   "reason": "The type (parallel) and format (additive) match the original's, and the harness read the reproduction back at the same size and frame count."
   }
  },
  "total": 10,

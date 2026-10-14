@@ -72,34 +72,34 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The original is a cyan-white glowing energy burst with soft, lumpy edges that flicker. The reproduction is one flat, uniform pale grey square with no glow, sparks or shape, so it is not the same effect."
+   "reason": "The original is a cyan-white electric spark glow: a white-hot core with lumpy blue-cyan lobes that shift from frame to frame. The reproduction is one frame of flat, uniform light grey that fills the whole 32x32 square, with no core, no falloff and no lobes. It reads as no effect at all, and certainly not as sparks or a glow."
   },
   "R2": {
-   "judge": 0,
+   "judge": 1,
    "cap": 2,
-   "score": 0,
-   "reason": "The frame size matches at 32x32, but the effect doesn't fill the frame the way the original's does. The original glows in the centre and fades to dark at the edges (border max 0.145, mean 0.004). The reproduction fills the whole frame edge to edge (border max and mean 0.784) and has no shape at all."
+   "score": 1,
+   "reason": "The frame size matches (32x32). The fill is wrong, though. The original's glow sits in the centre and fades to black at the edges (border max 0.145, mean 0.004). The reproduction is bright all the way to every edge (border max and mean 0.784), so it draws as a hard-edged square instead of a soft spark."
   },
   "R3": {
    "judge": 0,
    "cap": 0,
    "score": 0,
-   "reason": "The original is saturated cyan with white-hot centres on black, while the reproduction is flat light grey. The measured mean colour difference is 45, three times the line of 15."
+   "reason": "The measured mean colour difference is 45, three times the line of 15. The original is cyan to blue with a white core. The reproduction is a neutral pale grey with no hue."
   },
   "R4": {
    "judge": 0,
    "cap": 0,
    "score": 0,
-   "reason": "The reproduction has 1 frame against the original's 11, far outside 25%. With one static frame it has none of the original's flicker or jitter (jitter 1.51, wrap 1.61 in the original; both null in the reproduction) and no looping cycle."
+   "reason": "The reproduction has 1 frame against the original's 11, so it is far outside 25%. It has no motion at all, where the original flickers and jitters (jitter 1.51, wrap 1.61) as a looping cycle. The reproduction's wrap and jitter are null."
   },
   "R5": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "It is parallel and additive like the original, but a single uniform frame does not stand in as the original's sprite. The measurements don't confirm the name or that the file reads back as written, so this can't be scored 2."
+   "score": 2,
+   "reason": "Its type (parallel) and format (additive) match the original's, and the harness read it back with those values. Nothing in the measurements shows a problem with its name or the read-back."
   }
  },
- "total": 1,
+ "total": 3,
  "of": 10,
  "passes": false
 }

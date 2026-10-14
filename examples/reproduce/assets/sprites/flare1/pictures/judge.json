@@ -54,12 +54,12 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.48,
+    "dark": 0.4,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 8.2
+  "meanColourDeltaE": 10
  },
  "caps": {
   "R2": 2,
@@ -72,31 +72,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are the same effect: a round pinkish-white flare glow with fine radial streaks spreading out from a bright core."
+   "reason": "Both frames are the same effect: a round flare glow with a white-hot centre and a pink halo that fades into black. The reproduction's star-point spikes are a variation on the original's fine radial streaks. Both read as a light flare."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Frame size matches (64x64), but the effect doesn't fill the frame the way the original does. The original's glow fades softly and reaches almost to the frame edges, with a faint halo still visible in the corners. The reproduction's core is a hard-edged white disc and its glow drops off sooner, leaving more of the frame dark (measured dark share 0.48 against the original's 0.39). The outer ring of the frame is visibly emptier, and the core reads as a solid disc rather than a soft bloom."
+   "reason": "The frame size matches (64x64) and the dark share is nearly the same (0.39 against 0.40), so the glow covers the same area. How it fills that area is clearly different, though. In the original the glow fades smoothly and evenly from the centre out to the edge, with faint radial streaks. In the reproduction the bright core is a larger flat disc with a hard rim at about half the frame's radius. It also has distinct spikes at the top, bottom and diagonals that reach toward the corners, and the original has none."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured mean colour difference is 8.2, under the 15 line. Both show the same white core with a pink-violet tint in the rays and halo when blended additively. The reproduction's rays are a little more magenta, but they would still be called the same colour."
+   "reason": "The measured mean colour difference is 10, under the line of 15. The core is white and the halo pink, as in the original. The reproduction's rim leans slightly more violet and saturated than the original's paler pink-grey, but it is still the same colour family."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are single, still frames (1 vs 1), so there is no motion, loop or one-shot to match. The envelopes are identical (peakAt 0, first 1, last 1)."
+   "reason": "Both have one frame (envelope peakAt 0, first 1, last 1) and no motion, so the frame count and motion match."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type (parallel) and format (additive) match the original, and the harness read back size and frame count as written."
+   "reason": "Both are parallel and additive at 64x64, the same type and format as the original. The reproduction was read back with those values."
   }
  },
  "total": 9,

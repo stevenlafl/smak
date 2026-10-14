@@ -1,31 +1,30 @@
-I built `items/smallmedkit1.wav` and the build says OK with every check passed. It's 0.76 s long, mono, 8-bit at 22050 Hz, and the file is at `work:sound/items/smallmedkit1.wav`. Drop it into `<mod>/sound/items/` and the game plays it instead of the original.
+The sound builds OK and passes every check. It's written to `work:sound/items/smallmedkit1.wav` as 22050 Hz, 8-bit mono, 0.76 s and plays once. Copy it to `<mod>/sound/items/` and the game will play it instead of the original.
 
-**I couldn't compare it with the original.** The server has no game folders set up, so the reference build found no `items/smallmedkit1.wav` to draw beside mine. Everything below is built from your description and checked only against my own picture and numbers.
+I couldn't compare it with the original. The server wasn't given any game folders, so the first build warned that the reference `items/smallmedkit1.wav` wasn't found. The spec is built only from your description, and I checked it against the drawn waveform and spectrogram, not against the real file.
 
-How it's built, section by section:
-
-```
-Time (s)    Part                      Layers
-0.00-0.26   three buzz pulses         270 Hz square tones at 0.00-0.035, 0.05-0.15, 0.17-0.26,
-                                      all at the same level, low-passed at 5 kHz, sharp edges;
-                                      a short burst of white noise at each start for the click
-0.26-0.52   quiet handling            pink noise centred near 1.5 kHz, about 16 dB under the
-                                      pulses (roughly 1/6 of their level, a bit louder than
-                                      your 1/10); 6 soft ticks; one sharp high click at 0.40
-0.52-0.76   spray hiss                white noise kept to 4.5-10.5 kHz, boosted around 7.5 kHz,
-                                      steady level, cut off hard at the end with no fade
-```
-
-Measured on the result:
+How it's built:
 
 ```
-Peak               -0.6 dBFS
-RMS (average)      -11.9 dB
-Centroid           3158 Hz (where the energy averages out across frequency)
-Flatness           0.226 (0 = pure tone, 1 = white noise)
-Power by band      <150 Hz 0%, 150-600 Hz 50%, 600 Hz-2 kHz 9%, 2-5 kHz 6%, >5 kHz 35%
+time (s)       part      how it's made
+0.00-0.035     pulse 1   270 Hz square wave, low-passed at 4 kHz, hard on and off
+0.05-0.15      pulse 2   same
+0.17-0.26      pulse 3   same; short white-noise bursts at each edge for the click and smear
+0.26-0.52      handling  pink noise band-passed around 1.5 kHz, about 16 dB under the pulses,
+                         plus 6 soft ticks (1-5 kHz) and a sharp click at 0.40
+0.52-0.76      spray     shaped noise, flat 5.5-9.5 kHz, falling to -35 dB toward 200 Hz;
+                         starts in 3 ms and is cut off at the end
 ```
 
-On the waveform and spectrogram the three pulses carry clean harmonic stripes, the middle is low and sparse with the click at 0.40, and the hiss is a solid bright band from 0.52 s to the end. That matches your outline. The last build turned up the middle section 4 to 5 dB from the first try so it wouldn't sit too far down.
+Measured on the final build:
 
-The tool can't tell how it actually sounds, or how loud and at what pitch the game will play it, so give it a listen in the game. If the game folder is set up on the server, I can rebuild with the original drawn beside it and match it more closely.
+```
+peak     -0.6 dBFS (decibels below full scale)
+RMS      -10.8 dB (average loudness)
+crest    10.2 dB (peak over average)
+centroid 1741 Hz (balance point of the spectrum)
+power    150-600 Hz 67.5%, 600-2k 11.7%, 2k-5k 3.9%, >5k 16.8%
+```
+
+In the drawing, the three pulses look about equal, with dropouts between them. The handling section is faint, the click at 0.40 s shows clearly, and the hiss comes in at full level and holds to the end.
+
+Between the two builds I raised the handling section and the click a little because the first one looked too faint. The 270 Hz pitch and the exact handling level are my guesses from your description. The tool can't tell how it sounds, or how loud and at what pitch the game plays it, so it needs a listen in the game.

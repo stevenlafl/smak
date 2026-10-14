@@ -1,29 +1,25 @@
-I built `doors/doormove1.wav` and the build says OK with every engine check passing. It's 11025 Hz, 8-bit mono, 5.04 s long and plays once with no loop. Put it in `<mod>/sound/doors/` and it plays in the original's place.
+The build says OK on all checks. The file is `work:sound/doors/doormove1.wav`: 11025 Hz, 8-bit, mono, 5.04 s, played once. Copy it into `<mod>/sound/doors/` and the game plays it in place of the original.
 
-I couldn't compare it directly against the original. The server has no game folders configured, so it couldn't load the real `doors/doormove1.wav` to draw beside mine. I matched it to your description instead.
+I couldn't put the two side by side. The original isn't in any game folder the server can read, so the only thing I could compare against was your description.
 
-**How it's built:**
-- **Grinding body:** pink noise boosted around 500 Hz and kept roughly between 180 Hz and 2.2 kHz.
-- **Grain:** a steady stream of tiny particles (300 per second, 250 Hz to 3 kHz) gives the gritty texture.
-- **Low rumble:** brown noise under 150 Hz. It stays quiet through the body and comes up about 14 dB at 4.1 s.
-- **End rattle:** band-passed noise from 4.08 s that pulses about every 60 ms, then fades.
-- **Squeals:** four soft sine sweeps from 300 to 600 Hz, each about a second long, starting at 0.3, 1.55, 2.8 and 3.9 s.
-- **Shape:** a 0.1 s fade-in, then a level body with small ripples. It swells to its loudest from 4.1 to 4.6 s, is down to about -30 dB by 4.9 s, and is silent by 5.04 s. A light saturation is applied at the end.
+**How it's built, against your description:**
+- **Grind:** shaped noise across 100 Hz to 4 kHz, strongest from 200 Hz to 1.5 kHz, with a dull top. Fine grit on top gives the small grainy ripples.
+- **Envelope:** fades in over 0.1 s with no hit, holds level to 4.0 s, swells from 4.1 to 4.6 s, then dies out by about 4.9 s with a short soft tail.
+- **Low rumble:** a quiet layer under 150 Hz that comes up about 11 dB in the final section.
+- **Rattle:** a train of pulses about 32 ms apart from 4.05 to 4.8 s, the shudder at the end of travel.
+- **Squeals:** four soft tones rising from 300 to about 600 Hz, each about 1 s long, starting at 0.3, 1.5, 2.8 and 3.9 s. They show as faint rising lines on the spectrogram.
 
-**What it measures:**
-- Peak is -1 dBFS (decibels below full scale) and average loudness is -14.8 dBFS.
-- Crest factor (peak over average) is 13.8 dB.
-- Spectral centroid, the balance point of its frequencies, is 621 Hz.
+**Measured:**
 
 ```
-<150 Hz   150-600   600-2k   2k-5k
- 22.3%     42.8%     30%      4.9%
+peak       -0.6 dBFS
+RMS        -12.5 dBFS
+crest      11.9 dB
+centroid   722 Hz
+bands      <150 Hz 22%  |  150-600 Hz 33%  |  600 Hz-2 kHz 40%  |  2-5 kHz 5.5%
 ```
 
-Most of the energy is between 150 Hz and 2 kHz, as described. The low band's share comes mostly from the end swell.
-
-In the drawing, the swell and rattle at 4.1 to 4.6 s and the rising squeal arcs are both visible.
-
-The kit has no door class to measure against, so I used the closest one, "loop machine". It puts 10 of 20 features in range. The ones off are its length, how bright it is, how noisy it is and its band balance. Those game sounds are short, tonal hums, so I didn't change this one to match them.
-
-The tool can't tell how it sounds, so give it a listen in the game, on a door that uses this sound.
+**Caveats:**
+- **"Loop machine" mismatches:** there's no door class, so the report measured it against the game's "loop machine" sounds. It flags length, brightness and band balance as off from those. I left those alone, because following them would move it away from your description.
+- **Rattle vs. limiter:** I added a peak limiter to tame the spikiness the report flagged in the previous build. It also flattened the end's beating a little. If the side-by-side shows the rattle less pulsing than the original's, lowering the limiter's setting or taking it out brings the beats back.
+- **Not heard:** none of this tells you how it sounds or how the game plays it (volume, pitch, the map's room). It needs a listen in the game.

@@ -46,20 +46,20 @@
      32
     ],
     "border": {
-     "max": 0.097,
-     "mean": 0.003
+     "max": 0.136,
+     "mean": 0.004
     },
     "envelope": {
-     "peakAt": 0.5,
-     "first": 0.95,
-     "last": 0.95
+     "peakAt": 0.3,
+     "first": 0.93,
+     "last": 0.94
     },
-    "dark": 0.49,
-    "wrap": 1.09,
-    "jitter": 1.63
+    "dark": 0.46,
+    "wrap": 0.89,
+    "jitter": 1.79
    }
   },
-  "meanColourDeltaE": 9
+  "meanColourDeltaE": 8.3
  },
  "caps": {
   "R2": 2,
@@ -72,34 +72,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Same effect: a cyan-blue additive spark glow with a white-hot core and soft lobes around it, in every frame of both sheets."
+   "reason": "Same effect: a flickering cyan-white spark glow with a hot white core and a soft blue halo, fixed in place in every frame, as in the original."
   },
   "R2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Frames are 32x32 as in the original, but the glow fills them differently. The original's lobes are irregular, uneven blobs that change position from frame to frame and reach the frame edges unevenly (border max 0.145; frames 4, 5, 7 and 10 spread wide to one side). The reproduction is a neat, symmetric four-lobed clover centred in every frame. It is smaller and more regular, and its round core is clearly separated from the lobes, where the original's core merges into a ragged mass."
+   "score": 2,
+   "reason": "Frames are 32x32 like the original's. The glow fills them about the same way (dark share 0.46 in both, border max 0.136 against 0.145, border mean 0.004 in both). One small difference: the original's halo is a cluster of soft round puffs, while the reproduction's is a bit more compact with jagged, finger-like lobes (frames 2, 3, 6). The extent and fill still match."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured mean colour difference is 9, under the 15 line. Both are cyan to white with a blue edge as the engine blends them. The reproduction leans slightly more blue in its lobes, which is still the same colour."
+   "reason": "Measured mean colour difference is 8.3, under 15. Both show the same white core fading through cyan to dark blue. The reproduction's core and inner cyan are slightly brighter and more saturated, but a player would call them the same colour."
   },
   "R4": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "11 frames, matching the original, and the envelope is close to flat in both, so the loop closes. But the kind of motion is off. The original flickers: every frame shows a different shape of the lobes (frames 0 to 10 shift, rotate and spread). The reproduction's frames are almost identical clovers, with only small changes in a faint smudge below the glow. Its peak also sits mid-loop (peakAt 0.5 against 1). The jitter measure (1.63 against 1.51) passes, but the pictures show the shape-changing flicker is mostly gone, so the score is held below the measurement."
+   "score": 2,
+   "reason": "Same frame count (11). Both have the same kind of motion: a steady-brightness flicker whose halo shape shifts from frame to frame, with no growth or fade (envelope first 0.93 and last 0.94 against 0.94 and 1). The loop closes: the step from the last frame back to the first (0.89) is smaller than the average step between frames (jitter 1.79), and the original's equivalents are 1.61 and 1.51. The reproduction's frame-to-frame jitter is a little higher than the original's, but it is the same kind of flicker."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type parallel and format additive match the original; size and frame count read back as written."
+   "reason": "Type (parallel) and format (additive) match the original's, read back from the file. Size and frame count also match."
   }
  },
- "total": 8,
+ "total": 10,
  "of": 10,
- "passes": false
+ "passes": true
 }

@@ -1,0 +1,107 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-357_shot1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 1.064,
+   "peak": 0,
+   "rms": -8.5,
+   "crest": 8.5,
+   "dc": -0.0012,
+   "clipped": 265,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.748,
+   "t40": 1.003,
+   "centroid": 937,
+   "rolloff": 1658,
+   "flatness": 0.11,
+   "bands": {
+    "<150": 20.3,
+    "150-600": 27.5,
+    "600-2k": 43.9,
+    "2k-5k": 6.7,
+    ">5k": 1.6
+   },
+   "onsets": 3
+  },
+  "reproduction": {
+   "length": 1.06,
+   "peak": -0.3,
+   "rms": -10.2,
+   "crest": 9.8,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.095,
+   "peakAt": 0.249,
+   "t20": 0.584,
+   "t40": 0.738,
+   "centroid": 791,
+   "rolloff": 1529,
+   "flatness": 0.125,
+   "bands": {
+    "<150": 39.6,
+    "150-600": 27.8,
+    "600-2k": 20.8,
+    "2k-5k": 9.3,
+    ">5k": 2.5
+   },
+   "onsets": 1
+  },
+  "lengthOff": 0.004,
+  "centroidOff": 0.156,
+  "bandsOffMost": 23.1,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 0,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only, since I cannot listen. Both are broadband noise bursts about 1.06 s long that fade out, so the result reads roughly as a blast. But the original is a .357 shot: it starts at full, clipped level at 0 s (peak at 0.015 s), with a bright vertical transient line in the spectrogram at the very start. The reproduction has no such crack. Its waveform starts at about half level, swells to a peak at 0.249 s, and pulses regularly through the body, which looks more like a rumble or roll than a single gunshot."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Length is within 25% (1.06 vs 1.064 s, off by 0.4%). Decay is close enough: T20 is 0.584 vs 0.748 s, about 22% shorter. Attack is far outside a gunshot's range: 0.095 s against the original's 0.005 s (19 times slower), and the peak comes at 0.249 s instead of 0.015 s. The swell is plain in the reproduction's waveform."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": 0,
+   "score": 0,
+   "reason": "The centroid is within 20% (791 vs 937 Hz, off by 15.6%). Two bands miss the 10-point limit: <150 Hz is 39.6% vs 20.3% (+19.3) and 600-2k is 20.8% vs 43.9% (-23.1). The original's energy sits mainly in the 600-2k mid band. The reproduction's is weighted toward the low end, which shows in its spectrogram as a hotter bottom row throughout."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only, since I cannot listen. Noisiness matches (flatness 0.125 vs 0.11). Onsets do not: 1 vs 3. The original's sharp initial strike and the following hits are missing. The reproduction instead has a regular periodic pulsing in its waveform, from about 0.1 to 0.6 s, that the original's dense, smoothly decaying body does not have. Neither shows any clear pitch movement."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file is mono 8-bit PCM at 22050 Hz with the same name. There is no clipping (0 clipped samples, peak -0.3 dB), no DC offset (0), and no engine faults. The original is a one-shot with no loop cue, so none is needed."
+  }
+ },
+ "total": 5,
+ "of": 10,
+ "passes": false
+}

@@ -31,31 +31,40 @@
   "reproduction": {
    "length": 1.039,
    "peak": -10.5,
-   "rms": -15.2,
-   "crest": 4.7,
-   "dc": -0.0019,
+   "rms": -15.3,
+   "crest": 4.8,
+   "dc": 0.0018,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
-   "attack": 0,
-   "peakAt": 0.504,
-   "t20": 0.539,
-   "t40": 0.539,
-   "centroid": 5500,
+   "attack": 0.005,
+   "peakAt": 0.589,
+   "t20": 0.454,
+   "t40": 0.454,
+   "centroid": 5487,
    "rolloff": 9345,
-   "flatness": 0.987,
+   "flatness": 0.988,
    "bands": {
-    "<150": 1,
-    "150-600": 4.4,
-    "600-2k": 12.7,
+    "<150": 1.1,
+    "150-600": 4.5,
+    "600-2k": 13,
     "2k-5k": 27.4,
-    ">5k": 54.5
+    ">5k": 54.1
    },
-   "onsets": 0
+   "onsets": 2
+  },
+  "envelope": {
+   "class": "gunshot",
+   "t20Range": [
+    0.458,
+    1.013
+   ],
+   "t20": 0.454,
+   "inRange": false
   },
   "lengthOff": 0,
-  "centroidOff": 8.106,
-  "bandsOffMost": 53.2,
+  "centroidOff": 8.084,
+  "bandsOffMost": 52.8,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -65,7 +74,7 @@
   }
  },
  "caps": {
-  "S2": 2,
+  "S2": 1,
   "S3": 0,
   "S5": 2
  },
@@ -74,31 +83,31 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Judged from the picture and features only, since I cannot listen. The original is one sharp blast: a hit at the start (peak at 0.015 s), most of its energy below 600 Hz, then a long fading tail, which fits a shotgun barrel firing. The reproduction is steady broadband noise with no event in it. Its waveform is flat from 0 to 1.04 s and its spectrogram is evenly bright at all frequencies, with 54.5% of the energy above 5 kHz. It does not read as a shot or as any other event."
+   "reason": "Judged only from the picture and features, since I cannot listen. The original is a shotgun blast: a hard transient at 0 s, a dense burst that peaks at 0.015 s, then a long decaying tail with most of its energy below 600 Hz (69.6%). The reproduction is a steady broadband hiss at one level from 0 to 1.04 s, with no transient and no decay. Its energy sits above 2 kHz (81.5%). It does not read as a gunshot or any other impact event."
   },
   "S2": {
    "judge": 0,
-   "cap": 2,
+   "cap": 1,
    "score": 0,
-   "reason": "The length matches (1.039 s in both), but the reproduction has no envelope. Its waveform holds the same level from start to end, with no attack transient and no decay; the original peaks at 0.015 s and fades out over about 1 s (t20 0.614, t40 0.958). The reproduction's measured t20/t40 of 0.539 is a number taken from steady noise, not a decay, and the picture shows none. Its peak at 0.504 s is mid-noise, not an onset. With attack and decay both missing, this scores 0 even though the length is right."
+   "reason": "Length matches (1.039 s, 0% off), but there is no envelope. The waveform is a flat block at one level all the way through, with no attack peak and no decay. peakAt is 0.589 s against the original's 0.015 s. Crest is 4.8 against 8.3. The measured T20 of 0.454 s is outside the gunshot range of 0.458 to 1.013 s, which caps this item at 1. The picture shows the decay is missing entirely, not just off, so it scores 0."
   },
   "S3": {
    "judge": 0,
    "cap": 0,
    "score": 0,
-   "reason": "Measured centroid is 5500 Hz against the original's 604 Hz, about 8.1x off where 20% is allowed. The largest band difference is 53.2 points: the reproduction has 1% below 150 Hz where the original has 31.7%, 4.4% in 150-600 Hz against 37.9%, and 54.5% above 5 kHz against 1.3%. Every band is outside 10 points except 600-2k (12.7 vs 24.4, still 11.7 off). The spectrogram shows this too: the original is bright at the bottom and darkens toward the top, while the reproduction is bright all the way up."
+   "reason": "The centroid is 5487 Hz against 604 Hz, 808% off where the limit is 20%. The band shares are inverted. Below 150 Hz: 1.1 vs 31.7. 150-600 Hz: 4.5 vs 37.9. Above 5 kHz: 54.1 vs 1.3. The largest band difference is 52.8 points where the limit is 10. The spectrogram is uniformly bright from top to bottom for the whole length. The original's is bright in the low end and darkens at the top and over time."
   },
   "S4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Judged from the picture and features only, since I cannot listen. The original has 1 onset and is tonal and rumbly (flatness 0.081), with energy dropping out of the high bands over time. The reproduction has 0 onsets and is almost pure white noise (flatness 0.987), with no change across its length. Neither the hit, the tone/noise balance, nor the movement in the spectrum matches."
+   "reason": "Judged from the picture and features, since I cannot listen. Flatness is 0.988 (pure noise) against the original's 0.081 (strongly tonal and resonant, low-heavy). The harness counts 2 onsets against the original's 1, but the waveform shows no distinct hit anywhere: it never starts with a strike, and the original's single blast is absent. The original's spectrum darkens from the top down over time, and none of that change is present."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Mono 16-bit PCM at 22050 Hz with the same name, no clipped samples, and negligible DC (-0.0019). The original shows no loop, so no cue is needed. The file is valid for the engine; this item does not judge whether it is the right sound."
+   "reason": "Mono, 16-bit PCM at 22050 Hz, the same name. No clipping (0 clipped samples, peak -10.5 dBFS). DC is negligible (0.0018). The original is a one-shot with no loop cue, and none is needed. No engine faults reported."
   }
  },
  "total": 2,

@@ -29,33 +29,42 @@
    "onsets": 2
   },
   "reproduction": {
-   "length": 5.039,
-   "peak": -1,
-   "rms": -14.8,
-   "crest": 13.8,
-   "dc": 0,
+   "length": 5.042,
+   "peak": -0.6,
+   "rms": -12.5,
+   "crest": 11.9,
+   "dc": -0.0001,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.015,
-   "attack": 4.285,
-   "peakAt": 4.355,
-   "t20": 0.449,
-   "t40": 0.569,
-   "centroid": 621,
-   "rolloff": 1163,
-   "flatness": 0.088,
+   "tail": 0.005,
+   "attack": 4.101,
+   "peakAt": 4.495,
+   "t20": 0.274,
+   "t40": 0.439,
+   "centroid": 722,
+   "rolloff": 1335,
+   "flatness": 0.147,
    "bands": {
-    "<150": 22.3,
-    "150-600": 42.8,
-    "600-2k": 30,
-    "2k-5k": 4.9,
+    "<150": 21.7,
+    "150-600": 32.6,
+    "600-2k": 40.3,
+    "2k-5k": 5.5,
     ">5k": 0
    },
-   "onsets": 4
+   "onsets": 3
   },
-  "lengthOff": 0,
-  "centroidOff": 0.002,
-  "bandsOffMost": 8.8,
+  "envelope": {
+   "class": "none: the original's own decay",
+   "t20Range": [
+    0.386,
+    0.643
+   ],
+   "t20": 0.274,
+   "inRange": false
+  },
+  "lengthOff": 0.001,
+  "centroidOff": 0.161,
+  "bandsOffMost": 11.9,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -65,43 +74,43 @@
   }
  },
  "caps": {
-  "S2": 2,
-  "S3": 2,
+  "S2": 1,
+  "S3": 1,
   "S5": 2
  },
  "scores": {
   "S1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "I couldn't listen, so this is judged from the pictures and features. Both sounds are a door's movement lasting about 5 seconds: a steady mechanical rumble with a rising tonal sweep that repeats about every 1.1 s, then a louder end-of-travel burst at about 4.2 to 4.6 s that dies away. The reproduction's sweeps are fainter, but it is the same event."
+   "score": 1,
+   "reason": "Judged from the picture and features only; I cannot listen. Both are about 5 s of sustained mechanical noise that swells near the end (around 4.0 to 4.6 s) and then cuts off, which fits a door moving. The original's spectrogram has clear structure: rising pitched sweeps at about 0.3, 1.5, 2.7 and 3.3 s over a grainy, banded grind, and a run of separate rattling pulses near 4.2 to 4.6 s. The reproduction's spectrogram is an almost even broadband wash. Its sweeps are only faint thin lines, and the end is one dense swell instead of pulses. It reads closer to shaped hiss than to the original's grinding mechanism, so it is clearly off from the same event."
   },
   "S2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Length is 5.039 s against 5.037 s (0% off). Attack is 4.285 against 4.25 and the peak comes at 4.355 s against 4.425 s. T20 is 0.449 s against 0.514 s (about 13% shorter) and T40 is 0.569 s against 0.579 s. All of these are close, and the late peak followed by a short decay matches the original."
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "The length is right (5.042 s against 5.037 s, 0.1% off), and the attack and peak timing are close (peak at 4.50 s against 4.43 s). But T20, the decay time, is 0.274 s, outside the original's own range of 0.386 to 0.643 s (inRange false). That caps S2 at 1. The picture agrees: the reproduction's fade after the final swell is shorter and steeper than the original's tapering tail."
   },
   "S3": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Centroid is 621 Hz against 622 Hz (0.2% off). The largest band gap is 8.8 points (<150 Hz: 22.3 against 31.1), which is inside the 10-point limit. 150-600 Hz is +7.6 points and the other bands are within 1.6. This is a pass, though a narrow one: the reproduction is thinner in the lowest band, and its rolloff is lower (1163 Hz against 1421 Hz)."
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "The centroid is 722 Hz against 622 Hz, 16.1% off, which is inside 20%. But the 600-2k band is 40.3% against 28.4%, 11.9 points off, which is over the 10-point limit. The <150 band is also 9.4 points short (21.7% against 31.1%). The reproduction moves energy from the low end into the upper mids, and its spectrogram is evenly bright where the original's is darker and more textured above the low band."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "I couldn't listen, so this is judged from the pictures and features. The tone/noise balance is off: the reproduction's flatness is 0.088 against the original's 0.158, about half. The onset count is off too, 4 against 2. The pitch movement is there, but the original's rising sweeps (at about 0.2, 1.4, 2.6 and 3.8 s) are bright and well defined, while the reproduction's are faint lines buried in broadband noise. At the end, the original's burst (about 4.1 to 4.6 s) is a train of separate pulses, a rattle or clunk with a clear periodic beat in the waveform. The reproduction's is a smooth swell with no pulses."
+   "reason": "Judged from the picture and features only; I cannot listen. Flatness is close (0.147 against 0.158), so the balance of noise to tone is about right. The onsets are 3 against 2. The original's pitch movement (strong rising squeal arcs) is there only very faintly in the reproduction. The original's discrete rattling pulses near the end, visible as a comb in its waveform, are replaced by a smooth dense swell. The reproduction's waveform is also more even and louder throughout (RMS -12.5 dB against -17.1 dB), which loses the original's grainy variation."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The file is 11025 Hz, 8-bit mono PCM with the same name. Nothing is clipped (peak -1 dBFS) and DC is 0. The engine reported no faults. The measurements don't report a loop cue for either file, and nothing suggests the original has one that the reproduction lacks."
+   "reason": "The format matches the original: mono PCM, 11025 Hz, 8 bits, same name. No clipping (peak -0.6 dB), DC is negligible (-0.0001), and there are no engine faults. Nothing shows the original has a loop cue for the reproduction to keep."
   }
  },
- "total": 9,
+ "total": 6,
  "of": 10,
- "passes": true
+ "passes": false
 }

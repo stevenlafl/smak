@@ -1,21 +1,27 @@
-The build says OK and every check passed. The file is at `work:sound/items/smallmedkit1.wav`: 0.76 s, 22050 Hz, 8-bit mono, played once. Because it has the game's own name, it replaces the original when you drop it in `<mod>/sound/items/`.
+I made `items/smallmedkit1.wav` and the build says OK with every check passed. It's 22050 Hz, 8-bit mono, 0.76 s, and the file is at `work:sound/items/smallmedkit1.wav`. To make the game play it instead of the original, put it in `<mod>/sound/items/`.
 
-It follows the same events as the original:
+Here's how it measures against the original's picture:
 
 ```
-0.00-0.26 s  three ~600 Hz beeps: a short one, then two longer ones. Rounded swells,
-             faint upper harmonics, a small click at the first and third beep's start
-0.27-0.52 s  quiet handling: a soft mid-range rustle with small crackles and two
-             snaps, at 0.27 s and 0.40 s
-0.52-0.76 s  loud spray hiss, mostly above ~4 kHz with a little low body, held to the
-             end and faded in the last 15 ms
+measure          made        original (read off its picture)
+length           0.76 s      0.76 s
+centroid         1941 Hz     1936 Hz
+band shares      150-600 13.8%, 600-2k 64.3%, 2k-5k 5.8%, >5k 16%
+                 all within 1.3 points of the original
+crest            10.6 dB     about 11.5 dB (picture reading is only good to 3 dB)
+T20              0.654 s     its range is 0.41 to 0.683 s
+onsets           1           1
 ```
 
-Measured: peak -0.6 dBFS (decibels below full scale), RMS (average level) -11.8 dB, crest 11.2 dB. Most of the energy sits at 600 Hz-2 kHz (55%), with 21% above 5 kHz.
+T20 is the time for the sound to drop 20 dB, and crest is how far the peak sits above the average level. The band shares are how the sound's power splits between frequency ranges.
 
-Side by side with the original's picture, the timing, beep pitch, three-part shape and the spray's band all line up. A few differences remain:
-- My beeps are cleaner tones than the original's, which look a bit buzzier.
-- The original's spray looks a little louder against its beeps than mine does.
-- The original's middle section has more varied mid-range texture.
+It follows the original's three parts:
+- **0 to 0.26 s:** a short quiet beep and then two loud ones, all at about 604 Hz. They have a faint overtone, clicks between them and some low noise underneath.
+- **0.27 to 0.52 s:** a quiet rustle with scattered crackle and one tick at 0.40 s.
+- **0.52 s to the end:** a loud hiss with most of its energy above 3.5 kHz, plus a little low end.
 
-I wasn't given the original's measured numbers, only its picture, so the comparison is by eye. The tool also can't judge how it actually sounds or how it plays in the game, so it still needs a listen in-game.
+Two differences show up in the pictures:
+- **Beep pitch:** I picked 604 Hz by measurement, not by ear. It sits right on the 600 Hz band edge, so I nudged it until the low and mid band shares matched. On the picture it looks the same as the original's line, but the real tone could be a few Hz off.
+- **Beep texture and ending:** the original's beeps have a choppy texture in their waveform that mine don't. My hiss also fades over its last 50 ms or so, while the original's stays loud almost to the end. I did that to keep the decay time in range.
+
+The checks only see the numbers and the picture, not how it sounds or how the game plays it (volume, pitch, the map's room), so it needs a listen in-game.

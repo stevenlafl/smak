@@ -46,20 +46,20 @@
      96
     ],
     "border": {
-     "max": 0.071,
-     "mean": 0.002
+     "max": 0.119,
+     "mean": 0.01
     },
     "envelope": {
-     "peakAt": 0.57,
-     "first": 0.78,
-     "last": 0.78
+     "peakAt": 0.64,
+     "first": 0.87,
+     "last": 0.87
     },
-    "dark": 0.65,
-    "wrap": 0.79,
-    "jitter": 1.59
+    "dark": 0.48,
+    "wrap": 0.85,
+    "jitter": 1.56
    }
   },
-  "meanColourDeltaE": 6.8
+  "meanColourDeltaE": 4.1
  },
  "caps": {
   "R2": 2,
@@ -72,31 +72,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are a flame: an orange fire tongue on black, drawn additively. A player would call the reproduction the same effect."
+   "reason": "Both are the same effect: a looping orange flame rising from the bottom of a tall frame. A player would call both a fire."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frame size is right (32x96). The fill is not. The original's flame spreads across the frame in wispy streaks and reaches the edges (border max 0.275, mean 0.028). The reproduction is a narrow cone that tapers to a point, with a wide dark margin on each side (border max 0.071, mean 0.002) and more of the frame left dark (0.65 against 0.42). Its upper half is a thin spike where the original has broad flame tongues (frames 0-14 of both sheets), and frame 2 has a dark gap low in the flame that the original never shows."
+   "reason": "The frame size matches at 32x96, but the flame fills it differently. The original's flame is several separate pointed tongues with dark gaps between them, narrowing toward the top, and it reaches the frame edges more (border max 0.275 vs 0.119). The reproduction's flame is one soft, blurred column that stays wide and bright across the bottom of every frame (most visible in 0, 7, 8 and 14), with smudged tips and no distinct tongues. The effect is there but its shape inside the frame is clearly off."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean colour difference is 6.8, under the line of 15. Both flames are orange to red-orange over black. The reproduction's cores run a little more pale yellow and tan than the original's saturated orange, but a player would call them the same colours."
+   "reason": "The measured mean colour difference is 4.1, well under 15. Both flames are orange on black as the engine blends them, and the darkness is close (0.42 vs 0.48). The reproduction's base runs hotter, more yellow-white than the original's orange, but it is still what one would call the same colour."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both have 15 frames, and both are looping flickers. Jitter is about the same (1.59 against 1.51). The reproduction's loop closes at least as smoothly (wrap 0.79 against 1.13), and its brightness is the same at the start and end (0.78 and 0.78), as the original's nearly is (0.9 and 0.84). It differs in where it is brightest (peakAt 0.57 against 0.07), and it pulses as a blob rather than sending up streaky tongues. That difference in brightness pattern and look still counts as the same kind of motion for a looping fire, so this scores 2."
+   "reason": "Both have 15 frames. Both flicker in place rather than growing or fading, and both loop: first and last brightness are 0.90/0.84 vs 0.87/0.87, wrap is 1.13 vs 0.85, jitter is 1.51 vs 1.56. The brightness peak falls in a different place (0.07 vs 0.64), but in a looping flicker that position doesn't matter. The reproduction's flicker is a softer wobble than the original's shifting tongues, which is a shape issue already marked down under R2."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The type (parallel oriented), format (additive), frame size and frame count all match the original as read back from the file."
+   "reason": "Type and format match exactly as read back: parallel oriented, additive, 32x96, 15 frames."
   }
  },
  "total": 9,

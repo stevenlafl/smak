@@ -1,0 +1,185 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/cbar_hit1.wav",
+  "class": "metal hit",
+  "rate": 11025,
+  "bits": 8,
+  "seed": 3,
+  "length": 0.69,
+  "layers": [
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1800
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.08
+      },
+      "gain": -6
+    },
+    {
+      "id": "air",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 2800,
+          "q": 0.7
+        }
+      ],
+      "env": {
+        "attack": 0.002,
+        "hold": 0.28,
+        "decay": 0.3
+      },
+      "gain": -11
+    },
+    {
+      "id": "low",
+      "kind": "noise",
+      "color": "brown",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 350,
+          "q": 0.8
+        }
+      ],
+      "env": {
+        "attack": 0.002,
+        "hold": 0.25,
+        "decay": 0.3
+      },
+      "gain": -7
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1000,
+          "q": 0.7
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.12,
+            -3
+          ],
+          [
+            0.24,
+            -1
+          ],
+          [
+            0.29,
+            -2
+          ],
+          [
+            0.34,
+            -14
+          ],
+          [
+            0.45,
+            -30
+          ],
+          [
+            0.69,
+            -60
+          ]
+        ]
+      },
+      "gain": 0
+    },
+    {
+      "id": "tail",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1000,
+          "q": 1
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.25,
+            -14
+          ],
+          [
+            0.32,
+            -11
+          ],
+          [
+            0.6,
+            -24
+          ],
+          [
+            0.69,
+            -34
+          ]
+        ]
+      },
+      "gain": 0
+    },
+    {
+      "id": "rattle",
+      "kind": "particles",
+      "rate": 600,
+      "band": [
+        400,
+        3000
+      ],
+      "grain": 0.004,
+      "env": {
+        "attack": 0.002,
+        "hold": 0.3,
+        "decay": 0.3
+      },
+      "gain": -4
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "modes": [
+        {
+          "f": 720,
+          "gain": 0,
+          "decay": 2
+        },
+        {
+          "f": 1430,
+          "gain": -12,
+          "decay": 0.8
+        }
+      ],
+      "gain": -20.5
+    }
+  ],
+  "finish": {
+    "saturate": 2.5,
+    "room": {
+      "decay": 0.2,
+      "wet": 0.1
+    }
+  }
+}

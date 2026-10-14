@@ -1,23 +1,23 @@
-I built `sprites/glow01.spr` and the build says OK with every check passing. Next to the original picture, the two look very close.
+`sprites/glow01.spr` is built, and the build says OK with every check passing. It's in the work folder with `-sheet.png` and `-animated.png` beside it.
 
-**What it is:** a plain white glow, 64x64, 1 frame, type parallel, format additive. There's no animation since it's a single frame. The build placed it as an `env_glow` with render mode 3 (Glow).
+It's a 64x64 sprite with 1 frame, type parallel and format additive, as specified. It's a soft white-grey glow: a small bright white core fading into a wide grey haze that reaches most of the frame and goes fully dark before the border.
 
-**How it matches the original:**
-- **Shape:** a small, soft white peak in the middle, with a smooth grey halo fading out to about the frame's edge.
-- **Colour:** pure white and grey, no tint. 46 palette colours, and almost nothing was lost when the image was reduced to that palette (0.0043).
-- **Border:** fully dark (brightest border pixel is 0), so no visible square edge in game.
-- It's in range for Half-Life's own glow sprites.
+How it compares to the original, as the build measured it:
 
-**What's left:** going by eye, the original's halo might be a touch brighter in the middle distance. I stopped there because the difference was hard to see.
-
-The final spec is two glow layers:
-
-```json
-{"spec":"smak.sprite/1","sprites":[{"name":"sprites/glow01.spr","use":"env_glow","class":"glow","size":[64,64],"frames":1,"type":"parallel","format":"additive","layers":[
-  {"kind":"glow","radius":1.0,"core":0.38,"colour":[1,1,1],"gain":0.65},
-  {"kind":"glow","radius":0.5,"core":0.05,"colour":[1,1,1],"gain":1.2}]}]}
+```
+measure                         original   mine    bar
+mean colour (delta E)           -          7.9     15 or under is near
+share of frame that's dark      0.47       0.42    within 0.05 is near
+border brightness (brightest)   0          0       -
+frames                          1          1       -
 ```
 
-A layer's `colour` takes values from 0 to 1, not 0 to 255, and the spec guide doesn't say so. My early builds used `[255,255,255]`, which multiplied the brightness 255 times. That's why they came out as solid white discs.
+The build also checks it against Half-Life's own glow sprites, and it's within their range.
 
-The sprite is at `work:sprites/glow01.spr`, with `-sheet.png` and `-animated.png` beside it.
+It has two layers:
+- **Core:** pure white with a power falloff (core 0.1, power 1.6, gain 0.8).
+- **Haze:** pale grey-blue with a smooth falloff (radius 1.1, core 0.4, gain 0.38).
+
+The build also set it up for an `env_glow` entity, which places it with render mode 3 (Glow). I picked that because it's a glow; it doesn't change anything in the file.
+
+The first few builds came out as a solid white disc because I gave colours on a 0 to 255 scale, and the spec wants 0 to 1. I also tried a narrower haze (radius 1.06). It left too much of the frame dark (0.52 against 0.47), so I went back to the 1.1 version above.

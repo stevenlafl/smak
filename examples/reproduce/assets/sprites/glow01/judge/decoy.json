@@ -72,34 +72,34 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The original is a soft radial glow: a small bright white-grey core in the centre that fades smoothly to dark toward the edges (dark share 0.47). The reproduction is one flat, even light-grey fill across the whole frame, with no core and no falloff. It is not a glow or any other recognisable effect."
+   "reason": "The original is a soft white radial glow: a bright point in the centre fading smoothly to black at the edges. The reproduction is one flat, even light-grey field that fills the whole 64x64 frame. It has no centre, no falloff and no glow shape, so a player would not see the same effect."
   },
   "R2": {
-   "judge": 1,
+   "judge": 0,
    "cap": 2,
-   "score": 1,
-   "reason": "The frame size matches (64x64 in both). The fill is wrong. The original's light is concentrated in the centre and its edges are black (border max 0 and mean 0). The reproduction fills the frame edge to edge at uniform brightness (border max and mean 0.784, dark share 0). So its shape is a hard square where the original's is a round glow that fades out."
+   "score": 0,
+   "reason": "The frame size is right (64x64, as the original). The effect does not fill it the way the original's does. The original's glow fades to nothing well inside the frame (measured border max 0 and mean 0, 47% of the frame dark). The reproduction is lit edge to edge at the same level (measured border max 0.784 and mean 0.784, 0% dark). It shows a hard square with no shape in it, not a glow."
   },
   "R3": {
    "judge": 0,
    "cap": 0,
    "score": 0,
-   "reason": "The measured mean colour difference is 56.4 CIE76 delta E, far over the limit of 15. The reproduction is an even pale grey everywhere, while the original is mostly dark with a white-grey centre."
+   "reason": "The measured mean colour difference is 56.4 (CIE76 delta E), far over the pass line of 15. The original is mostly dark with a white core. The reproduction is uniformly light grey across the frame, so as the engine blends it, it is far too bright overall."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are single still frames (1 frame each, envelope peak at frame 0, first and last 1). The original has no motion, so there is nothing to loop or fade out, and the reproduction adds no wrong motion."
+   "reason": "Both have one frame, peak at frame 0, and envelope first 1 and last 1. Each is a static single-frame sprite with no motion to match, and there is no loop or one-shot ending to get wrong."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Same type (parallel) and same format (additive) as the original, and the file reads back at 64x64 with 1 frame. The name can't be checked from the materials given, and nothing contradicts it."
+   "reason": "Both are type parallel and format additive at the same size, as the measurements report, and the file read back as written. Nothing in the measures shows a different name or format."
   }
  },
- "total": 5,
+ "total": 4,
  "of": 10,
  "passes": false
 }

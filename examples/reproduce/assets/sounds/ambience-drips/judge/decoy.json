@@ -31,30 +31,36 @@
   "reproduction": {
    "length": 7.306,
    "peak": -10.5,
-   "rms": -15.3,
+   "rms": -15.2,
    "crest": 4.8,
-   "dc": -0.0015,
+   "dc": -0.0002,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
-   "attack": 0.04,
-   "peakAt": 4.46,
-   "t20": 2.849,
-   "t40": 2.849,
-   "centroid": 2758,
+   "attack": 0.05,
+   "peakAt": 5.343,
+   "t20": 1.966,
+   "t40": 1.966,
+   "centroid": 2771,
    "rolloff": 4694,
    "flatness": 0.997,
    "bands": {
-    "<150": 2.6,
-    "150-600": 8.3,
-    "600-2k": 25.2,
+    "<150": 2.4,
+    "150-600": 8.2,
+    "600-2k": 25.5,
     "2k-5k": 54.5,
-    ">5k": 9.3
+    ">5k": 9.4
    },
-   "onsets": 3
+   "onsets": 2
+  },
+  "envelope": {
+   "class": "loop drips",
+   "t20Range": null,
+   "t20": 1.966,
+   "inRange": true
   },
   "lengthOff": 0,
-  "centroidOff": 2.287,
+  "centroidOff": 2.303,
   "bandsOffMost": 52,
   "engineFaults": [
    "it is to loop and has no cue point: the engine plays it once"
@@ -76,34 +82,34 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Judged from the picture and features only; I cannot listen. The original (ambience/drips.wav) has four separate drip events, at about 0, 2.4, 4.8 and 7.6 s on the time axis. Each is a sharp hit with a ringing decay that stays mostly between 150 Hz and 2 kHz. The reproduction is steady broadband noise across the whole 7.31 s, with no events in its waveform or spectrogram. It does not show the same event: it reads as hiss, not dripping water."
+   "reason": "Judged from the pictures and features only, since I cannot listen. The original shows four separate drip events: sharp transients near 0.0, 1.8, 3.5-3.9 and 5.8 s, each decaying into a band centred on 600-2k Hz. The reproduction is a constant broadband hiss across the whole 7.31 s, with a flat waveform and a uniform spectrogram. No drips can be seen, so it is not the same event."
   },
   "S2": {
-   "judge": 0,
+   "judge": 1,
    "cap": 2,
-   "score": 0,
-   "reason": "Only the length matches (7.306 s in both). The envelope is wrong. The original's waveform has four spiky transients, each decaying quickly (T20, the time to fall 20 dB, is 0.434 s; crest factor 26.9 dB). The reproduction's waveform is a flat band at constant level from start to end: crest factor 4.8 dB, T20 and T40 both 2.849 s, and an attack of 0.04 s that belongs to no event. Its decay is far outside the range for a drip, so this item is 0, not 1."
+   "score": 1,
+   "reason": "Length matches exactly (7.306 s, lengthOff 0). The envelope does not. The original's waveform has four fast attacks, each followed by a short decay (T20 0.434 s). The reproduction's waveform is a flat band at one level from start to end, with no attacks or decays. Its measured T20 of 1.966 s is more than four times the original's. The harness marked it in range, but the class has no T20 range (t20Range null). Under the amendment, the original's own decay within a quarter then applies, roughly 0.33-0.54 s, and 1.966 s falls outside it. That caps S2 at 1."
   },
   "S3": {
    "judge": 0,
    "cap": 0,
    "score": 0,
-   "reason": "Measured: the spectral centroid is 2758 Hz against the original's 839 Hz, 229% off where the limit is 20%. The worst band is off by 52 points where the limit is 10. The original puts 72.3% of its energy in 600 Hz to 2 kHz and 23.2% in 150 to 600 Hz. The reproduction puts 54.5% in 2 to 5 kHz and 9.3% above 5 kHz, which shows as the yellow wash filling the whole height of its spectrogram."
+   "reason": "The centroid is 2771 Hz against the original's 839 Hz, about 230% off where the limit is 20%. Rolloff is 4694 Hz against 1066 Hz. The band shares miss by up to 52 points: 600-2k is 25.5% against 72.3%, 2k-5k is 54.5% against 2.5%, 150-600 is 8.2% against 23.2%, and >5k is 9.4% against 0.7%. In the spectrogram the energy is spread evenly up to the top, while the original's sits in the low-mid bands."
   },
   "S4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Judged from the picture and features only; I cannot listen. Spectral flatness is 0.997 in the reproduction, which is white noise, against 0.095 in the tonal, resonant original. In the original's spectrogram each drip shows banded resonances around 400 Hz to 1.5 kHz; none of that is in the reproduction. The detector counts 3 onsets in the reproduction against 4 in the original, but no hits are visible anywhere in its waveform or spectrogram, so those counts are not drip onsets."
+   "reason": "Judged from the pictures and features only, since I cannot listen. Onsets: the reproduction has 2, likely spurious since the waveform is flat, against the original's 4 clear drip hits. Flatness is 0.997, which is white noise, against the original's tonal, resonant 0.095. The resonant streaks that show in the original's spectrogram after each drip are missing. Crest factor is 4.8 dB against 26.9 dB."
   },
   "S5": {
    "judge": 1,
    "cap": 0,
    "score": 0,
-   "reason": "The format is valid: mono 16-bit PCM at 11025 Hz, nothing clipped, DC offset -0.0015 (negligible), same file name. But the harness reports an engine fault: the sound is meant to loop and has no cue point, so the engine plays it once. The rubric requires a loop's cue where the original has one, so this cannot score 2."
+   "reason": "The format is valid: mono 16-bit PCM at 11025 Hz under the same name, with no clipping and negligible DC (-0.0002). But the harness reports an engine fault: the sound is meant to loop and has no cue point, so the engine plays it only once. A loop's cue is required where the original has one, so this is not a 2."
   }
  },
- "total": 0,
+ "total": 1,
  "of": 10,
  "passes": false
 }

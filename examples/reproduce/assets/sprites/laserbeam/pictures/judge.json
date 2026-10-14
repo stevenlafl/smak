@@ -47,19 +47,19 @@
     ],
     "border": {
      "max": 1,
-     "mean": 0.102
+     "mean": 0.279
     },
     "envelope": {
      "peakAt": 0,
      "first": 1,
      "last": 1
     },
-    "dark": 0.44,
+    "dark": 0.06,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 14.1
+  "meanColourDeltaE": 9.6
  },
  "caps": {
   "R2": 2,
@@ -72,31 +72,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are a vertical beam: a bright white core running the full 64-dot height with bluish-grey falloff to the sides. A player would call it the same laser beam effect."
+   "reason": "Both are a vertical additive beam: a bright white core running the full 64-dot height, with darker bluish-grey falloff toward the left and right edges. A player would call it the same laser beam effect."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frame size matches at 32x64, but the beam fills the frame differently. In the original the white core takes up most of the width (about columns 8 to 24) and fades softly with streaky glow right out to both edges; only 2% of it is dark. In the reproduction the core is a narrow strip of about 8 dots in the middle, with mostly black on both sides: 44% of it is dark, against the original's 2%, and its average brightness at the border is 0.102 against the original's 0.261. Additively blended, the reproduction draws a much thinner beam. The original's vertical mottling in the glow is also gone; the reproduction's falloff is smooth."
+   "reason": "The frame size matches (32 x 64), but the beam fills it differently. The original's white core is narrower, with soft, streaky grey falloff on both sides, and it looks the same all the way down, which a beam sprite needs because it repeats along its length. The reproduction's white core is much wider, its edges are harder (a sharp dark band at the left edge), and its right edge has a curved, lens-shaped bulge or notch at about mid-height that the original does not have. That bulge breaks the even look along the length and would show as a repeating mark where the beam tiles. The mean border brightness is close (0.279 against 0.261), but the shape inside the frame is clearly off."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean colour difference is 14.1, under the line of 15. Both have a white core with a cool blue-grey edge. Most of the gap comes from the narrower, darker beam, which is already marked down under R2, not from a different hue."
+   "reason": "The measured mean colour difference is 9.6, under the line of 15. Both are a white core with cool blue-grey edges. The reproduction is a little whiter overall because its core is wider, and its share of dark dots is somewhat higher (0.06 against 0.02), but the colours are the same family as the engine blends them."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are one frame and static (the brightest frame is frame 0 in both, and both start and end at full brightness), so there is no loop or fade to match."
+   "reason": "Both have one frame and no motion: the envelope peaks at frame 0, first and last are 1, and wrap and jitter are null in both. The single static frame matches the original."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Same type (parallel) and format (additive), same size, and it read back as one 32x64 frame, matching the original."
+   "reason": "Both are type parallel and format additive, and the reproduction's measures were read back from the file with the same size and frame count. Nothing indicates a different name."
   }
  },
  "total": 9,

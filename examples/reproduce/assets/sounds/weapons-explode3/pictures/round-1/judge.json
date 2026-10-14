@@ -1,0 +1,107 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-explode3",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 1.301,
+   "peak": -0.4,
+   "rms": -6.2,
+   "crest": 5.7,
+   "dc": -0.0048,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.254,
+   "t20": 0.893,
+   "t40": 1.028,
+   "centroid": 616,
+   "rolloff": 947,
+   "flatness": 0.097,
+   "bands": {
+    "<150": 36.4,
+    "150-600": 37.6,
+    "600-2k": 19.5,
+    "2k-5k": 4.6,
+    ">5k": 1.9
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 1.3,
+   "peak": -0.6,
+   "rms": -9.2,
+   "crest": 8.6,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.12,
+   "peakAt": 0.499,
+   "t20": 0.708,
+   "t40": 0.793,
+   "centroid": 659,
+   "rolloff": 1184,
+   "flatness": 0.094,
+   "bands": {
+    "<150": 39.8,
+    "150-600": 32.7,
+    "600-2k": 18.8,
+    "2k-5k": 7.1,
+    ">5k": 1.6
+   },
+   "onsets": 0
+  },
+  "lengthOff": 0.001,
+  "centroidOff": 0.07,
+  "bandsOffMost": 4.9,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the pictures and features only; I could not listen. Both are broadband, low-heavy noise that fades over about 1.3 s, which fits an explosion. The original, though, opens with a saturated blast at 0 s (attack 0.005 s, one onset) and then decays. The reproduction has no opening blast: its waveform stays at about the same jagged level for the first half and peaks at 0.499 s (attack 0.12 s, 0 onsets). Without the initial bang it reads more like a rolling rumble than the same detonation."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Length is right (1.300 s against 1.301 s). The attack is outside any explosion's range: 0.12 s against the original's 0.005 s, with the peak at 0.499 s instead of 0.254 s. The decay is also faster than the original's: T20 is 0.708 s against 0.893 s (21% shorter), and T40 is 0.793 s against 1.028 s. On average it is 3 dB quieter (RMS -9.2 against -6.2) and lacks the original's dense, full-scale first half."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The centroid is 659 Hz against 616 Hz (7% off), and the largest band difference is 4.9 points (150-600 Hz: 32.7 against 37.6), so every band is within 10 points. The spectrograms show the same low-weighted broadband energy and the same high-frequency fall-off toward the end."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the pictures and features only; I could not listen. Noisiness matches (flatness 0.094 against 0.097), and neither shows any pitch movement. The onsets do not match: the original has one hard hit at the start, while the reproduction has none (onsets 0, attack 0.12 s). It also has a higher crest (8.6 against 5.7), from scattered spikes over a lower body rather than the original's sustained saturated blast."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono PCM at 22050 Hz, 8-bit, with no clipped samples and a DC offset of 0. The name is the same. Neither original nor reproduction has a loop cue, which is right for a one-shot explosion. No engine faults were reported."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

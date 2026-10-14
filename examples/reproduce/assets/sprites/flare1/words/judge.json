@@ -54,16 +54,16 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.53,
+    "dark": 0.44,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 19.6
+  "meanColourDeltaE": 8.5
  },
  "caps": {
   "R2": 2,
-  "R3": 1,
+  "R3": 2,
   "R4": 2,
   "R5": 2
  },
@@ -72,34 +72,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are the same effect: a single round glow, a white-hot centre fading out through pinkish-lavender, with fine radial streaks around it."
+   "reason": "Both are the same effect: a single round light flare with a white-hot core, a soft glow and faint streaks radiating out to the edges."
   },
   "R2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The frame is the right size (64 x 64) and the edges are clean (border 0), but the glow doesn't fill the frame the way the original's does. The original's bright core and pink halo reach most of the way to the edges. The reproduction's core is noticeably smaller and its halo fades out sooner, leaving more of the frame black (dark share 0.53 against the original's 0.39)."
+   "score": 2,
+   "reason": "Both are 64x64 with the glow centred, the core about the same diameter and the halo fading toward the edges with no border (border max 0 in both). The reproduction falls off a little faster (dark 0.44 against 0.39), but the effect fills the frame much as the original's does."
   },
   "R3": {
    "judge": 1,
-   "cap": 1,
+   "cap": 2,
    "score": 1,
-   "reason": "The hues are close: a white core and pink-violet edges in both. But the measured mean colour difference is 19.6, above the line of 15, so this can't score 2. In the picture, the original's wide pink-white halo shows up in the reproduction as a thinner, dimmer violet ring with more black around it."
+   "reason": "The measured mean colour difference is 8.5, inside the line of 15, but on close inspection the hue is off. The original's halo is a warm rose-pink fading to mauve. The reproduction's halo leans clearly violet or lavender, most visibly in the ring around the white core and in the outer streaks. A player would call it a purple flare, not a pink one."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The original has 1 frame and so does the reproduction. Neither moves, and the frame counts and brightness peak (peakAt 0, first 1, last 1) match exactly, so there is no loop or one-shot ending to get wrong."
+   "reason": "Both have one static frame (envelope first 1, last 1, peak at 0), so the frame count and the motion (none) match exactly."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The type (parallel) and format (additive) match the original's, and the harness read back the reproduction's frame count and size the same way."
+   "reason": "Both are parallel type in additive format at 64x64 with 1 frame, read back by the harness the same as the original."
   }
  },
- "total": 8,
+ "total": 9,
  "of": 10,
  "passes": false
 }

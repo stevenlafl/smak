@@ -1,24 +1,22 @@
-The build says OK and every engine check passed. The file is `work:sound/weapons/cbar_hit1.wav`. Copy it to `<mod>/sound/weapons/` and the game plays it in place of the original crowbar hit.
+The build says OK: `weapons/cbar_hit1.wav` is in the work folder at `sound/weapons/cbar_hit1.wav`. It's 0.69 s, 11025 Hz, 8-bit mono, plays once, and every engine check passed.
 
-**What it measures:**
+**How it matches the description:**
+- **Onset:** it starts at full scale with no fade-in (attack 0 ms). A 3 ms high-passed noise crack, added after the saturation, gives the sharp first strike.
+- **0 to 0.3 s:** dense noise with a rough chatter of short random pulses about 18 ms apart. It swells slightly from 0.2 to 0.3 s.
+- **At 0.31 s:** the level drops sharply to about a third, then dies off exponentially to near silence (T40, the time to fall 40 dB, is 0.67 s). It doesn't cut off.
+- **Spectrum:** most of the noise is in the low mids (150 to 600 Hz is 27% of the power), with hiss up to about 5.5 kHz. The lows and highs fade faster than the middle.
+- **Ring:** a steady 1010 Hz line runs the whole length and is what's left in the tail. A fainter partial sits near 2990 Hz. The pitch doesn't move.
+
+**Where it sits outside the game's other metal hits:** it matches 18 of the 22 features the kit measures against them. The other 4 are close misses, and I left them on purpose to follow your description:
 
 ```
-format      11025 Hz, 8-bit, mono, 0.69 s, no loop
-peak / RMS  -0.6 dBFS / -10.8 dBFS (crest 10.2 dB)
-attack      0 ms (starts at full scale)
-decay       T20 0.40 s, T40 0.65 s (seconds to -20 and -40 dB)
-bands       <150 6.7% | 150-600 49.6% | 600-2k 31.1% | 2k-5k 12% | >5k 0.6%
+feature          this sound   game's metal hits
+150-600 Hz band  27.1%        0 to 16.8%
+600-2k band      58.1%        63.7 to 83.8%
+flatness         0.371        0.16 to 0.28
+RMS              -13 dBFS     -12.9 to -5.7
 ```
 
-**How it lines up with the description:**
-- **Start:** a white-noise crack with no fade-in.
-- **First 0.3 s:** low-mid noise peaking around 300 Hz, plus a separate layer of short rattle grains. The level swells slightly from 0.2 to 0.3 s.
-- **At about 0.31 s:** the level drops abruptly by about 10 dB, which is roughly a third. In the drawing that's the visible step in the waveform.
-- **Tail:** it fades exponentially to near silence. The lows and highs die faster than the middle.
-- **Ring:** a steady 1010 Hz tone runs through the whole sound and is the main thing left in the tail. There's a fainter partial at 3020 Hz, and the pitch doesn't move.
+Flatness runs from 0 (a pure tone) to 1 (white noise). The first three are off because you described the loud part as noisy and heaviest in the low mids. The RMS (average loudness) is a tenth of a dB below the range. If you'd rather match the class, I can turn up the 1 kHz ring and the 600 Hz to 2 kHz band.
 
-**Two caveats:**
-- **The original wasn't drawn beside it.** The server has no game folders set up, so I built from the description alone and can't confirm the match by sight.
-- **6 of 22 measures fall outside the range of the game's typical metal hits.** It's darker (centroid 919 Hz against 1074 to 1654) and heavier at 150-600 Hz. That's on purpose: the description says the original is heaviest at 100-600 Hz, so I followed the description over the general class average. If the side-by-side shows the original is brighter, I'd move energy from the body layer to the 1 kHz band.
-
-I can't hear the result, so it still needs a listen in the game. I also left a scratch file, `work:sound/test/a.wav`, from tracking down a bug: the per-mode gains in a `modes` layer are linear amplitudes, not dB, so `"gain": -10` had made the 3 kHz partial swamp everything. It's safe to delete.
+The report can't say how it sounds or how the game plays it (its volume and the map's room), so it needs a listen in the game. While debugging I also wrote a scratch file, `sound/test/ring.wav`, to the work folder, and these tools can't delete it. Remove it so it doesn't get copied into the mod.

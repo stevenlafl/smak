@@ -12,6 +12,7 @@
       "frames": 16,
       "loop": false,
       "fps": 15,
+      "type": "parallel oriented",
       "format": "index alpha",
       "colour": [
         1,
@@ -19,75 +20,33 @@
         1
       ],
       "finish": {
-        "edge": 5
+        "edge": 4
       },
       "layers": [
         {
-          "kind": "glow",
-          "at": [
-            -0.06,
-            -0.3
-          ],
-          "radius": 0.06,
-          "core": 0.6,
+          "kind": "billow",
           "colour": [
             1,
             1,
             1
           ],
-          "gain": 1,
+          "at": [
+            -0.04,
+            -0.4
+          ],
+          "count": 24,
+          "spread": 0.26,
+          "size": 0.25,
+          "growth": 1.05,
+          "rise": 1.3,
+          "drift": 0.03,
+          "lumps": 0.5,
+          "blend": 0.4,
+          "hot": 0.5,
+          "dissolve": 0.75,
           "env": {
             "attack": 0,
-            "decay": 1
-          }
-        },
-        {
-          "kind": "explosion",
-          "growth": 0.36,
-          "cool": 1,
-          "turbulence": 1,
-          "gain": 1,
-          "at": [
-            -0.05,
-            -0.25
-          ],
-          "env": {
-            "attack": 0.05,
             "decay": 0.95
-          }
-        },
-        {
-          "kind": "glow",
-          "at": [
-            0,
-            0.25
-          ],
-          "radius": 0.4,
-          "core": 0.2,
-          "colour": [
-            1,
-            1,
-            1
-          ],
-          "gain": 0.5,
-          "env": {
-            "attack": 0.55,
-            "decay": 0.45
-          }
-        },
-        {
-          "kind": "smoke",
-          "density": 1,
-          "spread": 0.45,
-          "colour": [
-            1,
-            1,
-            1
-          ],
-          "gain": 1.6,
-          "env": {
-            "attack": 0.35,
-            "decay": 0.65
           }
         }
       ]

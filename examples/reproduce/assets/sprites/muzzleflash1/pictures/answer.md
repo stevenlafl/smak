@@ -1,11 +1,21 @@
-I built `sprites/muzzleflash1.spr` and the final build says OK with every check passing. It's in the work folder, with `-sheet.png` and `-animated.png` beside it.
+The sprite is done and the build says OK with every check passed. It's at `work:sprites/muzzleflash1.spr`, with a `-sheet.png` and an `-animated.png` beside it.
 
-- **What it is:** a muzzle flash. It's a five-armed star: a soft white-hot centre with warm orange arms that fade out toward the tips. The arms point up, right, lower-right, lower-left and left, at about the same angles as the original's.
-- **Size and format:** 64x64, 2 frames, parallel, additive, as you specified. It's placed as a temporary effect, so the game draws it in its additive render mode (mode 5).
-- **Border:** the edge is fully dark, so no hard square shows in-game.
+**What it is:** a five-armed, star-shaped muzzle flash with a white-hot middle. The arms fade through peach to tan as they reach toward the edge of the frame. It's set up as a temporary effect (a tempent, which is how the game spawns muzzle flashes), drawn additively (render mode 5) at 10 frames a second.
 
-**Frames:** my two frames are identical. In the original picture they look the same too, so I didn't build in any rotation or flicker between them. If the original's second frame actually differs slightly, that's where a side-by-side check would catch a difference.
+**How I made it:** a small soft glow for the middle, plus five thin arms at 72° apart (88°, 162°, 235°, 305°, 15°) that taper slightly toward their tips. Both get their colour from the `muzzle` ramp, which is the average colour of Half-Life's own muzzle flash.
 
-**What was harder than it looked:** the kit's flare effect only draws arms that run both ways through the middle, so it gives an even number of arms. To get five single arms, I made each arm its own half-length flare, set off from the centre. Then I lowered the brightness until the arms stopped blowing out to solid white.
+**Against the original** (the build's own measurements):
 
-**How it compares:** next to the original, the shape, arm length and colours match closely. The original's arms may taper a little more toward the tips than mine.
+```
+                          original   mine
+size                      64x64      64x64
+frames                    2          2
+type / format             parallel / additive, same on both
+share of frame dark       0.76       0.77
+brightest border pixel    0.02       0
+mean colour difference    delta E 2.8 (15 or under counts as near)
+```
+
+It took four builds. The first had a fat middle and wide wedge-shaped arms. The second was too thin. The third added a faint haze under the arms, which filled the frame far too much. The fourth is what's written.
+
+My two frames are identical. The original's two look almost identical in its picture too, so I didn't add any change between them. If the judge spots a small difference there, that's where it would come from.

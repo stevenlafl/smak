@@ -1,27 +1,14 @@
-I built `sprites/flare1.spr` and the build said **OK** with every check passing. It's in the work folder, with `-sheet.png` and `-animated.png` beside it.
+I built `sprites/flare1.spr` and the build says OK with every check passing. I haven't compared it against the original, because no copy of it was available to me.
 
-What it is:
-- **Size and frames:** one 64×64 frame, no animation, centred.
-- **Type and format:** `parallel`, so it always faces the viewer, and `additive`, so black is clear.
-- **Use:** I set it up as an `env_glow`, so the tool placed it with render mode 3 (Glow). Any flicker or pulsing has to come from the engine.
-- **Shape:**
-  - A white core about a third of the frame wide. It's fully bright in the middle and has no hard edge.
-  - A broad halo that fades smoothly almost to the frame's edges.
-  - The last 3 pixels at the edge are faded to black. The border measured 0, so no square outline shows.
-- **Colours:** warm pinkish-white around the core, then dusty rose-mauve, then dark violet-grey before black. The palette came out at 104 colours.
-- **Rays:** 36 thin rays every 10°, alternating long/short and wide/narrow, at low strength. The glow looks slightly grainy, like a sunburst, with no strong spikes or cross.
+**How it matches the description**
+- **Size and timing:** 64x64, 1 frame, no animation. Any flicker has to come from the engine.
+- **Type and format:** parallel (always faces the viewer) and additive, so black is clear. The build places it as an `env_glow` in render mode 3 (Glow).
+- **Core:** a soft, saturated white disc in the dead centre, about 0.3 of the frame wide, with no hard edge.
+- **Halo:** falls off smoothly from warm white to a dusty rose-mauve, then to dark violet-grey, then to black. It reaches close to the frame's edges.
+- **Edges:** the outer 3 pixels are faded to black, and the build measures the border's light at 0, so no square outline shows.
+- **Rays:** 56 faint radial rays of slightly varied lengths, spread evenly round the circle. They give a low-contrast, grainy sunburst look with no dominant spikes or cross.
 
-Checks:
-- The tool measured it against Half-Life's own flare sprite and it came out in range.
-- The drawn result matches the description. The rays are faint and spread evenly all the way round.
+**A quirk of the tool**
+The build seems to scale brightness up a long way before clipping. A layer's gain on its own changed almost nothing, and only the gains between layers mattered. The ray layer ended up at a gain of 0.0015; anything near 0.01 gave hard spikes. If someone edits the spec later, change the gains in very small steps.
 
-One thing to know: the guide doesn't document the units for `colour` or whether the ray layer accepts one, so I found them by testing. Colours are on a 0 to 1 scale; a first try on 0 to 255 came out as a flat, overblown disc. The rays took the colour I gave them in the render, but the tool never said it reads that field.
-
-Final layers in the spec:
-```
-glow   radius 1.1   colour 0.60 0.45 0.62   gain 1.7   (outer mauve halo)
-glow   radius 0.65  colour 1.00 0.82 0.90   gain 0.7   (warm pink mid)
-glow   radius 0.3   core 0.3   white        gain 1.0   (core)
-flare  36 rays, length 0.65-0.85, width 0.015-0.02, gain 0.12
-finish edge 3
-```
+The spec is saved as `sprites_flare1.spec.json` in the work folder, beside the `.spr` and its sheet and animated pictures.

@@ -3,8 +3,8 @@
   "sprites": [
     {
       "name": "sprites/glow01.spr",
-      "use": "env_glow",
       "class": "glow",
+      "use": "env_glow",
       "size": [
         64,
         64
@@ -16,8 +16,10 @@
       "layers": [
         {
           "kind": "glow",
-          "radius": 1,
-          "core": 0.3,
+          "falloff": "power",
+          "core": 0.3125,
+          "power": 2,
+          "reach": 0.97,
           "colour": [
             1,
             1,

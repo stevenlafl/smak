@@ -13,7 +13,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 6.1
+    "deltaE": 1.3,
+    "flatDeltaE": 4.1
    },
    "caps": {
     "T2": 2,
@@ -21,43 +22,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "The original is a dark, cracked concrete wall. The replacement is a nearly black flat surface with no concrete grain or cracks, so it does not read as concrete."
+     "score": 2,
+     "reason": "Both are cracked grey concrete or plaster walls."
     },
     "T2": {
-     "judge": 1,
+     "judge": 2,
      "cap": 2,
-     "score": 1,
-     "reason": "The measured deltaE of 6.1 is within the line, but in the close picture the replacement is clearly darker (near black) than the original's mid-dark grey."
+     "score": 2,
+     "reason": "The larger of view and flat delta E is 4.1, under 15."
     },
     "T3": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "The original's crack lines and surface structure are gone, so nothing lines up with the original's features."
+     "reason": "The original has a dense web of fine crazing over the whole face. The replacement has a few long, sparse crack lines, so the crack scale is far larger."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "It is flat with no visible seam where it repeats."
+     "reason": "No seam is visible where it repeats, flat or in the view."
     },
     "T5": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "It is featureless and smeared next to the original's sharp cracked concrete. All detail is lost."
+     "score": 1,
+     "reason": "The original's mottled colour and fine cracking are replaced by a plain flat grey with thin drawn lines, so it is less detailed and less believable."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and size 256x208 are kept, and it is a plain texture with no prefix."
+     "reason": "The name and the 256x208 size are kept. The name has no prefix meaning to keep."
     }
    },
-   "total": 7,
+   "total": 10,
    "of": 12,
    "passes": false
   },
@@ -71,10 +72,11 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 9.3
+    "deltaE": 11,
+    "flatDeltaE": 34.7
    },
    "caps": {
-    "T2": 2,
+    "T2": 0,
     "T6": 2
    },
    "scores": {
@@ -82,37 +84,37 @@
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "The original is grey concrete with a horizontal seam. The replacement is a flat dark blue-grey surface that does not read as concrete."
+     "reason": "In the view it still reads as a grey concrete wall. Flat, it is near-white with blue speckle and looks more like snow or ice than concrete."
     },
     "T2": {
      "judge": 1,
-     "cap": 2,
-     "score": 1,
-     "reason": "The measured deltaE of 9.3 passes, but the close picture shows the replacement much darker and bluer than the original's grey."
+     "cap": 0,
+     "score": 0,
+     "reason": "The flat delta E is 34.7, far over 15. The replacement is much lighter and bluer."
     },
     "T3": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "The horizontal seam across the original's upper third is missing."
+     "reason": "The original's strong seam near the top and its stained top band are missing. The replacement has a single line at mid-height."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "It is flat with no visible repeat seam."
+     "reason": "No repeat seam is visible."
     },
     "T5": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "It has no concrete grain or detail at all and looks smeared next to the original."
+     "score": 1,
+     "reason": "It is covered in coloured per-pixel noise the original does not have, and it has none of the original's stains or wear."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and size 256x160 are kept."
+     "reason": "The name and the 256x160 size are kept."
     }
    },
    "total": 7,
@@ -129,51 +131,52 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 16.9
+    "deltaE": 2.5,
+    "flatDeltaE": 2.8
    },
    "caps": {
-    "T2": 1,
+    "T2": 2,
     "T6": 2
    },
    "scores": {
     "T1": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "Both are metal wall panels with vertical seams. The original is grimy blue-grey with zipper-notched seams; the replacement is a clean pale-blue panel with riveted lines and an added top trim band."
+     "score": 2,
+     "reason": "Both are blue-grey metal wall panels with a top band and a fastened edge strip on the left."
     },
     "T2": {
-     "judge": 1,
-     "cap": 1,
-     "score": 1,
-     "reason": "The measured deltaE is 16.9, over 15. The replacement is lighter and bluer."
+     "judge": 2,
+     "cap": 2,
+     "score": 2,
+     "reason": "The delta E is 2.8."
     },
     "T3": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "The original has two seams near the left and right edges. The replacement has three vertical lines at different positions plus a top band, so the seam spacing does not match."
+     "score": 2,
+     "reason": "The top band and left edge strip are where the original has them, so the panels line up the same in the view."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No visible repeat seam."
+     "reason": "No seam shows between the repeats in the view."
     },
     "T5": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Flat vector-like fill. The original's stains, scratches and weathering are all lost."
+     "score": 1,
+     "reason": "The original's blue scratches and grime are reduced to soft vertical streaks, so it is less detailed. The original's notched edge became plain rivets."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and size 128x160 are kept."
+     "reason": "The name and the 128x160 size are kept."
     }
    },
-   "total": 7,
+   "total": 11,
    "of": 12,
    "passes": false
   },
@@ -187,51 +190,52 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 21.6
+    "deltaE": 4.5,
+    "flatDeltaE": 3.6
    },
    "caps": {
-    "T2": 1,
+    "T2": 2,
     "T6": 2
    },
    "scores": {
     "T1": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "It keeps the wall with machinery windows, a green stripe and a floor vent, but the windows hold flat yellow boxes instead of the original's pipes and machinery."
+     "score": 2,
+     "reason": "Both are a lab wall with two windows onto machinery, a centre seam, a green stripe and a floor vent."
     },
     "T2": {
-     "judge": 1,
-     "cap": 1,
-     "score": 1,
-     "reason": "The measured deltaE is 21.6, over 15. The upper wall blows out to white where the original is grey concrete."
+     "judge": 2,
+     "cap": 2,
+     "score": 2,
+     "reason": "The delta E is 4.5."
     },
     "T3": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "The window band, stripe and vent are at roughly the original heights, but the window ends and the crack seam sit at different horizontal positions."
+     "score": 2,
+     "reason": "The windows, seam, stripe and vent are at the original's positions."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No visible repeat seam."
+     "reason": "It lines up across repeats in the view."
     },
     "T5": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Cartoon-flat. The original's detailed machinery and grime are replaced by plain colour blocks."
+     "score": 1,
+     "reason": "The original's detailed green machinery behind the windows became flat beige bars. The vent is a crude black comb, and the crack is drawn in heavy black."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and size 128x160 are kept."
+     "reason": "The name and the 128x160 size are kept."
     }
    },
-   "total": 7,
+   "total": 11,
    "of": 12,
    "passes": false
   },
@@ -245,51 +249,52 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 24.1
+    "deltaE": 5.2,
+    "flatDeltaE": 4.7
    },
    "caps": {
-    "T2": 1,
+    "T2": 2,
     "T6": 2
    },
    "scores": {
     "T1": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "It is a tiled floor, but it reads as purple bathroom tile rather than the original's worn grey concrete tile."
+     "score": 2,
+     "reason": "Both are a grey tiled floor."
     },
     "T2": {
-     "judge": 1,
-     "cap": 1,
-     "score": 1,
-     "reason": "The measured deltaE is 24.1, well over 15. The replacement is lavender/purple where the original is grey."
+     "judge": 2,
+     "cap": 2,
+     "score": 2,
+     "reason": "The delta E is 5.2."
     },
     "T3": {
-     "judge": 0,
+     "judge": 2,
      "cap": null,
-     "score": 0,
-     "reason": "The grid is about 2.5 times finer than the original's tile spacing (about 10 tiles across the view against about 4)."
+     "score": 2,
+     "reason": "Both have a 4x4 tile grid at the same spacing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No visible repeat seam."
+     "reason": "The grid continues across repeats with no seam."
     },
     "T5": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "A clean synthetic grid with a noisy overlay. The original's worn concrete surface is not reproduced."
+     "score": 1,
+     "reason": "The grout lines are bright lavender and hard-edged where the original's are soft and subtle. The tile faces are uniform noise instead of the original's soft mottling."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and size 128x128 are kept."
+     "reason": "The name and the 128x128 size are kept."
     }
    },
-   "total": 6,
+   "total": 11,
    "of": 12,
    "passes": false
   },
@@ -303,7 +308,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 0
+    "deltaE": 10.6,
+    "flatDeltaE": 7.6
    },
    "caps": {
     "T2": 2,
@@ -311,43 +317,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "Both views are entirely black, so the material cannot be confirmed from the pictures."
+     "score": 2,
+     "reason": "Both are pale grey-blue concrete."
     },
     "T2": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Measured deltaE is 0."
+     "reason": "The view delta E is 10.6, under 15."
     },
     "T3": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "No layout is visible in either picture to confirm."
+     "score": 2,
+     "reason": "The original has no panels or seams, and the replacement adds none."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam is visible."
+     "reason": "No repeat seam is visible."
     },
     "T5": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "Nothing is visible to compare, so it cannot be confirmed at least as good."
+     "reason": "It is uniform grain noise without the original's blotches, stains and pocks, so it is visibly flatter and noisier."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and size 96x96 are kept."
+     "reason": "The name and the 96x96 size are kept."
     }
    },
-   "total": 9,
+   "total": 11,
    "of": 12,
    "passes": false
   },
@@ -361,51 +367,52 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 23.2
+    "deltaE": 4.7,
+    "flatDeltaE": 4.7
    },
    "caps": {
-    "T2": 1,
+    "T2": 2,
     "T6": 2
    },
    "scores": {
     "T1": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "It is a tiled floor, but it reads as clean beige bathroom tile rather than the original's grimy brown concrete tile."
+     "score": 2,
+     "reason": "Both are a brown tiled floor."
     },
     "T2": {
-     "judge": 1,
-     "cap": 1,
-     "score": 1,
-     "reason": "The measured deltaE is 23.2, over 15. The replacement is lighter beige where the original is a dirty brown-olive."
+     "judge": 2,
+     "cap": 2,
+     "score": 2,
+     "reason": "The delta E is 4.7."
     },
     "T3": {
-     "judge": 0,
+     "judge": 2,
      "cap": null,
-     "score": 0,
-     "reason": "The grid is about 2.5 times finer than the original's large tiles."
+     "score": 2,
+     "reason": "The 4x4 grid matches the original's spacing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No visible repeat seam."
+     "reason": "No repeat seam is visible."
     },
     "T5": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Flat synthetic grid. The original's dirt and wear are lost."
+     "score": 1,
+     "reason": "The original's greenish mottling and grime are lost. The tan grout lines are too regular and too bright."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and size 128x128 are kept."
+     "reason": "The name and the 128x128 size are kept."
     }
    },
-   "total": 6,
+   "total": 11,
    "of": 12,
    "passes": false
   },
@@ -419,7 +426,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 0.4
+    "deltaE": 2.4,
+    "flatDeltaE": 6.6
    },
    "caps": {
     "T2": 2,
@@ -430,37 +438,37 @@
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "The original is a rusty metal door with prominent crossbars. The replacement is a near-black panel grid where the bars barely read."
+     "reason": "Both are a barred metal door or grate, but the original's wet rusted metal reads as a clean grey lattice in the replacement."
     },
     "T2": {
-     "judge": 2,
+     "judge": 1,
      "cap": 2,
-     "score": 2,
-     "reason": "Measured deltaE is 0.4, and the overall darkness matches."
+     "score": 1,
+     "reason": "The delta E of 6.6 passes, but it misses the hue: the original is rust brown and the replacement is neutral grey and black."
     },
     "T3": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "The original's vertical bars at irregular spacing and its horizontal braces become an even grid of four rows, so the bar positions differ."
+     "reason": "The bar count and spacing differ. The original has many closely spaced verticals and riveted crossbars. The replacement has two verticals and three plain bars."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No visible repeat seam."
+     "reason": "No repeat seam is visible."
     },
     "T5": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Low contrast and smeared. The original's rust, bolts and bar relief are gone."
+     "score": 1,
+     "reason": "It is flat and synthetic, with none of the original's rust, wetness or shading."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and size 192x128 are kept."
+     "reason": "The name and the 192x128 size are kept."
     }
    },
    "total": 8,
@@ -477,51 +485,52 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 20.2
+    "deltaE": 6.2,
+    "flatDeltaE": 4.4
    },
    "caps": {
-    "T2": 1,
+    "T2": 2,
     "T6": 2
    },
    "scores": {
     "T1": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "The wall with machinery windows and a yellow stripe is kept, but the windows show flat yellow boxes instead of machinery."
+     "score": 2,
+     "reason": "Both are a lab wall with machinery windows, a yellow stripe and a floor vent."
     },
     "T2": {
-     "judge": 1,
-     "cap": 1,
-     "score": 1,
-     "reason": "The measured deltaE is 20.2, over 15. The upper wall blows out to white where the original is grey concrete."
+     "judge": 2,
+     "cap": 2,
+     "score": 2,
+     "reason": "The delta E is 6.2."
     },
     "T3": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "The window band, stripe and vents are at about the right heights, but the window widths and the seam and crack positions differ."
+     "score": 2,
+     "reason": "The windows, stripe and vent are in the original's places and line up in the view."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No visible repeat seam."
+     "reason": "No seam shows between repeats in the view."
     },
     "T5": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Cartoon-flat. The original's machinery detail and concrete grime are lost."
+     "score": 1,
+     "reason": "The machinery behind the windows is simplified to beige bars. The vent is a crude black comb, and the crack is only partial."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and size 128x160 are kept."
+     "reason": "The name and the 128x160 size are kept."
     }
    },
-   "total": 7,
+   "total": 11,
    "of": 12,
    "passes": false
   },
@@ -535,7 +544,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 1.9
+    "deltaE": 1.9,
+    "flatDeltaE": 3.5
    },
    "caps": {
     "T2": 2,
@@ -543,43 +553,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "Pipes on a wall, but they run vertically where the original's brass pipes run horizontally with elbows and valves."
+     "score": 2,
+     "reason": "Both are a wall of brass and grey pipes on black."
     },
     "T2": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Measured deltaE is 1.9."
+     "reason": "The delta E is 3.5."
     },
     "T3": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "The pipe runs are rotated 90 degrees and spaced differently, so they will not continue across neighbouring faces as the original's do."
+     "score": 1,
+     "reason": "The original packs pipes densely, with elbows, tees, valves and a wheel. The replacement has sparse straight pipes at a wider spacing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No visible repeat seam."
+     "reason": "The pipes run continuously across edges in the view."
     },
     "T5": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Flat lines without the original's joints, elbows, valves and shading."
+     "score": 1,
+     "reason": "It is much plainer than the original, with no bends, valves or shading. The tiles -1 and -2 are nearly identical, where the original's differ."
     },
     "T6": {
-     "judge": 1,
+     "judge": 2,
      "cap": 2,
-     "score": 1,
-     "reason": "Name and size 64x128 are kept, but the pictures cannot confirm that the -0 random-tiling group's other members (-1..) are kept."
+     "score": 2,
+     "reason": "The name, the 64x128 size and the random set (-0, -1, -2) are all kept."
     }
    },
-   "total": 6,
+   "total": 10,
    "of": 12,
    "passes": false
   },
@@ -593,51 +603,52 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 8.5
+    "deltaE": 7,
+    "flatDeltaE": 17.2
    },
    "caps": {
-    "T2": 2,
+    "T2": 1,
     "T6": 2
    },
    "scores": {
     "T1": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "A vent panel is present, but the original's golden metal with horizontal slats and a band reads in the replacement as dark olive panelling with added panel lines."
+     "score": 2,
+     "reason": "Both are a yellow reactor panel with a louvre."
     },
     "T2": {
      "judge": 1,
-     "cap": 2,
+     "cap": 1,
      "score": 1,
-     "reason": "The measured deltaE of 8.5 passes, but in the close picture the replacement is visibly darker and more olive than the original's gold."
+     "reason": "The flat delta E is 17.2, over 15."
     },
     "T3": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "The vent sits at about the original's place, but extra panel seams that the original lacks are added."
+     "reason": "The original has a wide louvre over a smooth curved bottom band. The replacement adds a grid of square panels with vertical seams the original does not have."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No visible repeat seam."
+     "reason": "No repeat seam is visible."
     },
     "T5": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Flat and dull. The original's metallic sheen and slat shading are lost."
+     "score": 1,
+     "reason": "It is flat, with none of the original's curvature and shading, and has drawn black panel lines."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and size 128x64 are kept."
+     "reason": "The name and the 128x64 size are kept."
     }
    },
-   "total": 7,
+   "total": 9,
    "of": 12,
    "passes": false
   },
@@ -651,51 +662,52 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 20.8
+    "deltaE": 5,
+    "flatDeltaE": 4.8
    },
    "caps": {
-    "T2": 1,
+    "T2": 2,
     "T6": 2
    },
    "scores": {
     "T1": {
-     "judge": 0,
+     "judge": 2,
      "cap": null,
-     "score": 0,
-     "reason": "The original is a concrete wall with a large grated vent window at the top. The replacement is a plain grey wall with no grate."
+     "score": 2,
+     "reason": "Both are a lab wall with grilles over concrete."
     },
     "T2": {
-     "judge": 1,
-     "cap": 1,
-     "score": 1,
-     "reason": "The measured deltaE is 20.8, over 15."
+     "judge": 2,
+     "cap": 2,
+     "score": 2,
+     "reason": "The delta E is 5."
     },
     "T3": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "The grate and the trim line below it are missing, and a vertical seam the original lacks is added."
+     "score": 1,
+     "reason": "The original has two rounded window openings with a framed pillar between them. The replacement is one continuous square mesh with larger cells, and the window frames are gone."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No visible repeat seam."
+     "reason": "No repeat seam is visible."
     },
     "T5": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Featureless. All of the original's grate and concrete detail is gone."
+     "score": 1,
+     "reason": "The machinery behind the mesh is reduced to tan blocks, and the lower crack is missing."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and size 128x160 are kept."
+     "reason": "The name and the 128x160 size are kept."
     }
    },
-   "total": 5,
+   "total": 10,
    "of": 12,
    "passes": false
   },
@@ -709,7 +721,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 18.8
+    "deltaE": 11.4,
+    "flatDeltaE": 18.9
    },
    "caps": {
     "T2": 1,
@@ -717,43 +730,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "The original is grey concrete trim. The replacement renders as a black surface."
+     "score": 1,
+     "reason": "The original is a horizontally banded trim strip (grey, tan and brown). The replacement is a row of brown block tiles."
     },
     "T2": {
-     "judge": 0,
+     "judge": 1,
      "cap": 1,
-     "score": 0,
-     "reason": "The measured deltaE is 18.8, over 15, and the close picture shows black against light grey. The colour is wrong."
+     "score": 1,
+     "reason": "The flat delta E is 18.9, over 15."
     },
     "T3": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "None of the original's concrete pattern is visible."
+     "reason": "The original's horizontal bands became vertical blocks, so the pattern does not line up with the original's."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No visible repeat seam."
+     "reason": "No repeat seam beyond its own blocks."
     },
     "T5": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Black and featureless where the original is detailed concrete."
+     "score": 1,
+     "reason": "In the view it is blocky and checkered where the original is a smooth gradient band."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and size 192x32 are kept."
+     "reason": "The name and the 192x32 size are kept."
     }
    },
-   "total": 4,
+   "total": 7,
    "of": 12,
    "passes": false
   },
@@ -767,7 +780,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 1.1
+    "deltaE": 0,
+    "flatDeltaE": 0
    },
    "caps": {
     "T2": 2,
@@ -778,37 +792,37 @@
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Plain black in both, and the views are identical."
+     "reason": "Both are plain black."
     },
     "T2": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Measured deltaE is 1.1."
+     "reason": "The delta E is 0."
     },
     "T3": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat colour, so there is nothing to misplace."
+     "reason": "There is no pattern in either."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat, no seam."
+     "reason": "It is uniform."
     },
     "T5": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Indistinguishable from the original."
+     "reason": "It is identical to the original."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and size 32x32 are kept."
+     "reason": "The name and the 32x32 size are kept."
     }
    },
    "total": 12,
@@ -825,7 +839,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 0.9
+    "deltaE": 0,
+    "flatDeltaE": 4.3
    },
    "caps": {
     "T2": 2,
@@ -833,43 +848,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "The view shows only the blue glow and shape, identical in both, so the concrete floor surface cannot be confirmed."
+     "score": 2,
+     "reason": "Both are a concrete floor."
     },
     "T2": {
-     "judge": 2,
+     "judge": 1,
      "cap": 2,
-     "score": 2,
-     "reason": "Measured deltaE is 0.9."
+     "score": 1,
+     "reason": "The delta E of 4.3 passes, but flat the original is warm tan-brown and the replacement is neutral grey. The in-map view is drawn in flat blue, so it shows nothing."
     },
     "T3": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "The texture's layout is not distinguishable in the picture."
+     "score": 2,
+     "reason": "There is no pattern to keep."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam is visible."
+     "reason": "No repeat seam is visible."
     },
     "T5": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "Not visible enough to confirm it is as sharp and detailed."
+     "reason": "It is fine uniform noise without the original's blotchy, worn variation."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and size 128x128 are kept."
+     "reason": "The name and the 128x128 size are kept."
     }
    },
-   "total": 9,
+   "total": 10,
    "of": 12,
    "passes": false
   },
@@ -883,51 +898,52 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 4.2
+    "deltaE": 0.3,
+    "flatDeltaE": 21.6
    },
    "caps": {
-    "T2": 2,
+    "T2": 1,
     "T6": 2
    },
    "scores": {
     "T1": {
-     "judge": 2,
+     "judge": 1,
      "cap": null,
-     "score": 2,
-     "reason": "A light's bright white face in both."
+     "score": 1,
+     "reason": "It reads as a light panel, but it is a blank white rectangle with none of the original's fluorescent tubes."
     },
     "T2": {
-     "judge": 2,
-     "cap": 2,
-     "score": 2,
-     "reason": "Measured deltaE is 4.2."
+     "judge": 1,
+     "cap": 1,
+     "score": 1,
+     "reason": "The flat delta E is 21.6, over 15."
     },
     "T3": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "The original's small marks along the right edge and its bottom bar are missing. The replacement is uniform white."
+     "reason": "The frame border is kept, but the six vertical tubes and their end caps are gone."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No visible seam."
+     "reason": "It is a single light face with no repeat issue."
     },
     "T5": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "Pure white with the original's fixture details lost."
+     "reason": "It is featureless next to the original's detailed tubes. Lit in the map, both blow out to white."
     },
     "T6": {
-     "judge": 1,
+     "judge": 2,
      "cap": 2,
-     "score": 1,
-     "reason": "Name and size 64x80 are kept and it is lit, but the pictures cannot confirm the +0 animation's other frames."
+     "score": 2,
+     "reason": "The name and the 64x80 size are kept, the +0/+a frames are present (lit and off), and the face is lit."
     }
    },
-   "total": 9,
+   "total": 8,
    "of": 12,
    "passes": false
   },
@@ -941,7 +957,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 8.5
+    "deltaE": 3.5,
+    "flatDeltaE": 12
    },
    "caps": {
     "T2": 2,
@@ -949,43 +966,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "A yellow and black hazard band, but it reads as a fine checker more than the original's broad diagonal stripes."
+     "score": 2,
+     "reason": "Both are a yellow and grey hazard-stripe trim."
     },
     "T2": {
-     "judge": 1,
+     "judge": 2,
      "cap": 2,
-     "score": 1,
-     "reason": "The measured deltaE of 8.5 passes, but in the close picture the replacement is visibly darker, with more black than yellow."
+     "score": 2,
+     "reason": "The flat delta E is 12, under 15."
     },
     "T3": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "The stripes are several times finer than the original's broad stripes."
+     "score": 1,
+     "reason": "The stripes are much narrower: about seven bands where the original has four over the same trim in the view."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No visible repeat seam."
+     "reason": "The stripes continue across repeats."
     },
     "T5": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "The fine stripes alias into a busy pattern at game size."
+     "score": 2,
+     "reason": "It is clean and as sharp as the original."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and size 16x128 are kept."
+     "reason": "The name and the 16x128 size are kept."
     }
    },
-   "total": 7,
+   "total": 11,
    "of": 12,
    "passes": false
   },
@@ -999,7 +1016,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 7.2
+    "deltaE": 6.1,
+    "flatDeltaE": 12
    },
    "caps": {
     "T2": 2,
@@ -1007,43 +1025,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "A step edge in both, but the original's dark riveted metal reads in the replacement as flat brown bands."
+     "score": 2,
+     "reason": "Both are a concrete step edge."
     },
     "T2": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Measured deltaE is 7.2, and the tone is broadly similar."
+     "reason": "The flat delta E is 12."
     },
     "T3": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "The original's row of rivets and its tread pattern are missing."
+     "reason": "The replacement adds a row of rivet dots the original's flat strip does not have. In the view, the original's row of raised bumps along the steps is missing from the replacement."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No visible repeat seam."
+     "reason": "No repeat seam is visible."
     },
     "T5": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Blocky and flat. The original's rivets and metal detail are lost."
+     "score": 1,
+     "reason": "It has plain bands and loses the original's warm, worn surface."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and size 128x16 are kept."
+     "reason": "The name and the 128x16 size are kept."
     }
    },
-   "total": 8,
+   "total": 10,
    "of": 12,
    "passes": false
   },
@@ -1057,51 +1075,52 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 1.1
+    "deltaE": 1.4,
+    "flatDeltaE": 29.3
    },
    "caps": {
-    "T2": 2,
+    "T2": 0,
     "T6": 2
    },
    "scores": {
     "T1": {
-     "judge": 2,
+     "judge": 1,
      "cap": null,
-     "score": 2,
-     "reason": "A light strip's lit face in both."
+     "score": 1,
+     "reason": "The original off frame shows two dim tubes. The replacement is a plain white strip."
     },
     "T2": {
-     "judge": 2,
-     "cap": 2,
-     "score": 2,
-     "reason": "Measured deltaE is 1.1."
+     "judge": 1,
+     "cap": 0,
+     "score": 0,
+     "reason": "The flat delta E is 29.3. The off frame is far too bright."
     },
     "T3": {
-     "judge": 2,
+     "judge": 1,
      "cap": null,
-     "score": 2,
-     "reason": "The bright strips and the dark bar sit in the same places."
+     "score": 1,
+     "reason": "The frame edge is kept, but the twin tubes are missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No visible seam."
+     "reason": "No repeat issue."
     },
     "T5": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "Flat white. The original's pixel glints and the texture on the dark bar are gone."
+     "reason": "It is featureless next to the original's tubes."
     },
     "T6": {
-     "judge": 2,
+     "judge": 1,
      "cap": 2,
-     "score": 2,
-     "reason": "Name and size 16x64 are kept, and its +a face is lit as the original's is."
+     "score": 1,
+     "reason": "The name and the 16x64 size are kept, but the off frame is as bright as the lit one, so switching the light changes nothing."
     }
    },
-   "total": 11,
+   "total": 6,
    "of": 12,
    "passes": false
   },
@@ -1115,10 +1134,11 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 24.7
+    "deltaE": 0.6,
+    "flatDeltaE": 9.8
    },
    "caps": {
-    "T2": 1,
+    "T2": 2,
     "T6": 2
    },
    "scores": {
@@ -1126,40 +1146,40 @@
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "The original's face is lit across its whole visible area. In the replacement the upper-left half is dark grey panelling, so it only partly reads as a light."
+     "reason": "It is a light face but a plain white strip, with no tubes."
     },
     "T2": {
-     "judge": 1,
-     "cap": 1,
-     "score": 1,
-     "reason": "The measured deltaE is 24.7, over 15."
+     "judge": 2,
+     "cap": 2,
+     "score": 2,
+     "reason": "The flat delta E is 9.8."
     },
     "T3": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "The lit area covers about half of what the original's does."
+     "reason": "The frame edge is kept, but the two vertical tubes are missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No visible seam."
+     "reason": "No repeat issue."
     },
     "T5": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "Flat white. The original's lavender glint pattern is gone."
+     "reason": "It is featureless next to the original's tubes, though both blow out to white in the map."
     },
     "T6": {
-     "judge": 1,
+     "judge": 2,
      "cap": 2,
-     "score": 1,
-     "reason": "Name and size 16x64 are kept, but the face is not fully lit as the original's is, and the other animation frames are unconfirmed."
+     "score": 2,
+     "reason": "The name and the 16x64 size are kept, the animation frames are present, and the face is lit."
     }
    },
-   "total": 7,
+   "total": 9,
    "of": 12,
    "passes": false
   },
@@ -1173,10 +1193,11 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 23.1
+    "deltaE": 5.1,
+    "flatDeltaE": 9.8
    },
    "caps": {
-    "T2": 1,
+    "T2": 2,
     "T6": 2
    },
    "scores": {
@@ -1184,40 +1205,40 @@
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "A small square light face in both."
+     "reason": "Both are a small square light with a frame."
     },
     "T2": {
-     "judge": 1,
-     "cap": 1,
-     "score": 1,
-     "reason": "The measured deltaE is 23.1, over 15. The rim is yellow where the original's is orange."
+     "judge": 2,
+     "cap": 2,
+     "score": 2,
+     "reason": "The flat delta E is 9.8."
     },
     "T3": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "The same nested square with a white centre."
+     "reason": "The frame and the centre are in the same proportions."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No visible seam."
+     "reason": "No repeat issue."
     },
     "T5": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "Hard flat bands replace the original's orange-to-white glow gradient."
+     "reason": "The centre is a flat square with a hard border, with none of the original's radial glow gradient."
     },
     "T6": {
-     "judge": 1,
+     "judge": 2,
      "cap": 2,
-     "score": 1,
-     "reason": "Name and size 16x16 are kept and it is lit, but the +0 animation's other frames are unconfirmed."
+     "score": 2,
+     "reason": "The name and the 16x16 size are kept, the +a off frame is darker, and the face is lit."
     }
    },
-   "total": 9,
+   "total": 11,
    "of": 12,
    "passes": false
   },
@@ -1231,51 +1252,52 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 3.9
+    "deltaE": 3.9,
+    "flatDeltaE": 34.8
    },
    "caps": {
-    "T2": 2,
+    "T2": 0,
     "T6": 2
    },
    "scores": {
     "T1": {
-     "judge": 1,
+     "judge": 0,
      "cap": null,
-     "score": 1,
-     "reason": "The view shows mostly blue glow. The original's long blue bar below the horizon is mostly missing in the replacement, so the material cannot be confirmed as the same."
+     "score": 0,
+     "reason": "The original is a plain blue surface, like water or a tank's fill. The replacement is grey riveted metal plates."
     },
     "T2": {
-     "judge": 2,
-     "cap": 2,
-     "score": 2,
-     "reason": "Measured deltaE is 3.9."
+     "judge": 0,
+     "cap": 0,
+     "score": 0,
+     "reason": "The flat delta E is 34.8: grey against blue."
     },
     "T3": {
-     "judge": 1,
+     "judge": 0,
      "cap": null,
-     "score": 1,
-     "reason": "The blue strip that runs across the original's view appears in the replacement only as short fragments."
+     "score": 0,
+     "reason": "It adds a 2x2 plate grid with seams and rivets, which the original has none of."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No visible seam."
+     "reason": "No repeat seam beyond its own plates."
     },
     "T5": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "Too little is visible to confirm it is at least as good, and the visible strip differs."
+     "reason": "It is sharp, but it adds detail the original does not have."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and size 64x64 are kept."
+     "reason": "The name and the 64x64 size are kept."
     }
    },
-   "total": 9,
+   "total": 5,
    "of": 12,
    "passes": false
   },
@@ -1289,51 +1311,52 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 1
+    "deltaE": 2.9,
+    "flatDeltaE": 39.8
    },
    "caps": {
-    "T2": 2,
+    "T2": 0,
     "T6": 2
    },
    "scores": {
     "T1": {
-     "judge": 1,
+     "judge": 0,
      "cap": null,
-     "score": 1,
-     "reason": "The views are identical blue shapes on black, and the texture itself cannot be made out."
+     "score": 0,
+     "reason": "The original is a pale blue mottled surface. The replacement is brown, dirt-like mottling, a different material."
     },
     "T2": {
-     "judge": 2,
-     "cap": 2,
-     "score": 2,
-     "reason": "Measured deltaE is 1.0."
+     "judge": 0,
+     "cap": 0,
+     "score": 0,
+     "reason": "The flat delta E is 39.8: brown against pale blue."
     },
     "T3": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "Layout not distinguishable in the picture."
+     "score": 2,
+     "reason": "Neither has a structured pattern."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam is visible."
+     "reason": "No repeat seam is visible."
     },
     "T5": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "Not visible enough to confirm."
+     "reason": "It is believable as itself, but it is the wrong surface."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and size 64x64 are kept."
+     "reason": "The name and the 64x64 size are kept."
     }
    },
-   "total": 9,
+   "total": 7,
    "of": 12,
    "passes": false
   },
@@ -1347,10 +1370,11 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 2.9
+    "deltaE": 1.8,
+    "flatDeltaE": 26.1
    },
    "caps": {
-    "T2": 2,
+    "T2": 0,
     "T6": 2
    },
    "scores": {
@@ -1358,37 +1382,37 @@
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "The original is a mottled, weathered concrete ceiling. The replacement is a smooth dark grey ceiling with drawn crack lines."
+     "reason": "The original is grey, vertically streaked concrete. The replacement is beige flagstone with cracks."
     },
     "T2": {
      "judge": 1,
-     "cap": 2,
-     "score": 1,
-     "reason": "The measured deltaE of 2.9 passes, but the close picture shows the ceiling visibly darker and flatter than the original's light mottled grey."
+     "cap": 0,
+     "score": 0,
+     "reason": "The flat delta E is 26.1, over 15."
     },
     "T3": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "The original's mottled patches and cracks are replaced by a few thin crack lines at different places."
+     "reason": "It adds a crack network and pastel green, orange and pink blobs. The original has only vertical streaks."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No visible repeat seam."
+     "reason": "No repeat seam is visible in the hallway view."
     },
     "T5": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Smooth and flat. The original's weathering detail is lost."
+     "score": 1,
+     "reason": "The coloured blobs look artificial and are not in the original."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and size 64x64 are kept."
+     "reason": "The name and the 64x64 size are kept."
     }
    },
    "total": 7,
@@ -1405,48 +1429,49 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 2.5
+    "deltaE": 1.1,
+    "flatDeltaE": 15.8
    },
    "caps": {
-    "T2": 2,
+    "T2": 1,
     "T6": 2
    },
    "scores": {
     "T1": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "It is on the hanging lamp in both, but the original's lamp shows white and the replacement's shows saturated yellow."
+     "score": 2,
+     "reason": "Both are a plain yellow fill."
     },
     "T2": {
      "judge": 1,
-     "cap": 2,
+     "cap": 1,
      "score": 1,
-     "reason": "The measured deltaE of 2.5 passes, but on the lamp the close picture clearly shows yellow against the original's white."
+     "reason": "The flat delta E is 15.8, over 15. It is a darker mustard than the original's pale yellow."
     },
     "T3": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat colour, so there is nothing to misplace."
+     "reason": "There is no pattern in either."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat, no seam."
+     "reason": "No repeat seam is visible."
     },
     "T5": {
-     "judge": 2,
+     "judge": 1,
      "cap": null,
-     "score": 2,
-     "reason": "Flat colour in both, and nothing is smeared."
+     "score": 1,
+     "reason": "It has blocky blotches where the original is a clean flat colour."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and size 16x16 are kept."
+     "reason": "The name and the 16x16 size are kept."
     }
    },
    "total": 10,

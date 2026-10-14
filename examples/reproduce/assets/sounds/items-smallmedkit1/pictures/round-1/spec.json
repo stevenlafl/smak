@@ -1,0 +1,285 @@
+{
+  "spec": "smak.sound/1",
+  "name": "items/smallmedkit1.wav",
+  "bits": 8,
+  "length": 0.76,
+  "seed": 2,
+  "layers": [
+    {
+      "id": "beep1",
+      "kind": "tone",
+      "f": 600,
+      "wave": "triangle",
+      "at": 0,
+      "length": 0.04,
+      "gain": -4,
+      "env": {
+        "points": [
+          [
+            0,
+            -20
+          ],
+          [
+            0.012,
+            0
+          ],
+          [
+            0.025,
+            -1
+          ],
+          [
+            0.04,
+            -40
+          ]
+        ]
+      }
+    },
+    {
+      "id": "beep2",
+      "kind": "tone",
+      "f": 600,
+      "wave": "triangle",
+      "at": 0.05,
+      "length": 0.098,
+      "gain": 0,
+      "env": {
+        "points": [
+          [
+            0,
+            -20
+          ],
+          [
+            0.015,
+            0
+          ],
+          [
+            0.075,
+            -1
+          ],
+          [
+            0.098,
+            -40
+          ]
+        ]
+      }
+    },
+    {
+      "id": "beep3",
+      "kind": "tone",
+      "f": 600,
+      "wave": "triangle",
+      "at": 0.168,
+      "length": 0.096,
+      "gain": 0,
+      "env": {
+        "points": [
+          [
+            0,
+            -20
+          ],
+          [
+            0.012,
+            0
+          ],
+          [
+            0.075,
+            -1
+          ],
+          [
+            0.096,
+            -40
+          ]
+        ]
+      }
+    },
+    {
+      "id": "click1",
+      "kind": "noise",
+      "at": 0.008,
+      "length": 0.02,
+      "gain": -12,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1200,
+          "q": 0.7
+        }
+      ],
+      "env": {
+        "decay": 0.015
+      }
+    },
+    {
+      "id": "click3",
+      "kind": "noise",
+      "at": 0.165,
+      "length": 0.02,
+      "gain": -12,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1200,
+          "q": 0.7
+        }
+      ],
+      "env": {
+        "decay": 0.015
+      }
+    },
+    {
+      "id": "handle",
+      "kind": "particles",
+      "at": 0.27,
+      "length": 0.25,
+      "rate": 50,
+      "band": [
+        300,
+        4000
+      ],
+      "grain": 0.004,
+      "gain": -12
+    },
+    {
+      "id": "rustle",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0.27,
+      "length": 0.25,
+      "gain": -18,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1000,
+          "q": 0.5
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -2
+          ],
+          [
+            0.12,
+            0
+          ],
+          [
+            0.25,
+            -4
+          ]
+        ]
+      }
+    },
+    {
+      "id": "snap1",
+      "kind": "noise",
+      "at": 0.272,
+      "length": 0.015,
+      "gain": -3,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 900,
+          "q": 0.8
+        }
+      ],
+      "env": {
+        "decay": 0.01
+      }
+    },
+    {
+      "id": "snap2",
+      "kind": "noise",
+      "at": 0.4,
+      "length": 0.015,
+      "gain": -2,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 800,
+          "q": 0.8
+        }
+      ],
+      "env": {
+        "decay": 0.01
+      }
+    },
+    {
+      "id": "spray",
+      "kind": "noise",
+      "at": 0.52,
+      "length": 0.24,
+      "gain": -7,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 3800
+        },
+        {
+          "type": "peak",
+          "f": 6500,
+          "q": 0.7,
+          "gain": 4
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -20
+          ],
+          [
+            0.006,
+            0
+          ],
+          [
+            0.225,
+            -1
+          ],
+          [
+            0.24,
+            -30
+          ]
+        ]
+      }
+    },
+    {
+      "id": "sprayLow",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0.52,
+      "length": 0.24,
+      "gain": -25,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 700,
+          "q": 0.5
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -20
+          ],
+          [
+            0.006,
+            0
+          ],
+          [
+            0.225,
+            0
+          ],
+          [
+            0.24,
+            -30
+          ]
+        ]
+      }
+    }
+  ],
+  "finish": {
+    "peak": -0.5
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/steam1.spr",
+      "class": "smoke puff",
+      "use": "tempent",
+      "size": [
+        32,
+        48
+      ],
+      "frames": 16,
+      "loop": false,
+      "fps": 15,
+      "type": "parallel oriented",
+      "format": "index alpha",
+      "finish": {
+        "edge": 5
+      },
+      "layers": [
+        {
+          "kind": "explosion",
+          "growth": 0.3,
+          "cool": 0,
+          "env": {
+            "attack": 0,
+            "decay": 0.6
+          }
+        },
+        {
+          "kind": "smoke",
+          "density": 1.5,
+          "spread": 0.6,
+          "gain": 1,
+          "env": {
+            "attack": 0.4,
+            "decay": 0.6
+          }
+        }
+      ]
+    }
+  ]
+}

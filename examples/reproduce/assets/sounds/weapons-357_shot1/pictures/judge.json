@@ -29,33 +29,42 @@
    "onsets": 3
   },
   "reproduction": {
-   "length": 1.064,
+   "length": 1.06,
    "peak": -0.6,
-   "rms": -9,
-   "crest": 8.4,
+   "rms": -11.3,
+   "crest": 10.7,
    "dc": 0,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.005,
+   "tail": 0.01,
    "attack": 0,
-   "peakAt": 0,
-   "t20": 0.773,
-   "t40": 1.028,
-   "centroid": 1039,
-   "rolloff": 2003,
-   "flatness": 0.166,
+   "peakAt": 0.05,
+   "t20": 0.609,
+   "t40": 0.898,
+   "centroid": 959,
+   "rolloff": 1593,
+   "flatness": 0.102,
    "bands": {
-    "<150": 29.9,
-    "150-600": 26.3,
-    "600-2k": 28.7,
-    "2k-5k": 11.9,
-    ">5k": 3.2
+    "<150": 21.6,
+    "150-600": 22.8,
+    "600-2k": 45.5,
+    "2k-5k": 8.6,
+    ">5k": 1.5
    },
    "onsets": 0
   },
-  "lengthOff": 0,
-  "centroidOff": 0.109,
-  "bandsOffMost": 15.2,
+  "envelope": {
+   "class": "gunshot",
+   "t20Range": [
+    0.458,
+    1.013
+   ],
+   "t20": 0.609,
+   "inRange": true
+  },
+  "lengthOff": 0.004,
+  "centroidOff": 0.023,
+  "bandsOffMost": 4.7,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -66,7 +75,7 @@
  },
  "caps": {
   "S2": 2,
-  "S3": 1,
+  "S3": 2,
   "S5": 2
  },
  "scores": {
@@ -74,34 +83,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged from the picture and features only, since I cannot listen. Both are loud broadband bursts about 1.06 s long that decay into a tail, so it reads as some kind of blast. But the original opens with a sharp crack: a narrow broadband column in the spectrogram in the first ~0.03 s, and 3 measured onsets. The reproduction starts at full level with no separate transient (0 onsets, peakAt 0). Its waveform also pulses at regular short intervals across the first ~0.5 s, which is closer to a rumble or flutter than a revolver shot. It is plausibly a gunshot, but the crack that identifies it is missing."
+   "reason": "Judged from the pictures and features only; I could not listen. It reads as a gunshot-class event: a broadband burst that decays over about 1 s with low-mid weight, and its centroid and bands are close to the original's. But the original's defining crack is missing. At 0 to 0.03 s the original's spectrogram has bright full-height vertical streaks, and its waveform is a dense, saturated (265 clipped samples) body out to about 0.4 s. The reproduction's spectrogram fades in smoothly with no impulsive column at the start. Its peak comes at 0.05 s instead of 0.015 s, and no onsets were detected. Taken as a whole it looks more like a shaped noise blast than a revolver's sharp report, so I can't call it the same event to a close look."
   },
   "S2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Length matches (1.064 s vs 1.064 s). Attack is 0 vs 0.005 s and decay time to -20 dB (T20) is 0.773 vs 0.748 s (3% off), so both are well inside a gunshot's range. One thing the measurement misses: in the picture, the original stays near full level until about 0.42 s, while the reproduction starts to fall at about 0.25-0.3 s. Its slightly slower tail makes up for this in T20, so I don't hold it against the item."
+   "reason": "Measured: the length is 1.06 s against 1.064 s, 0.4% off, well within 25%. T20 is 0.609 s, inside the gunshot class's range of 0.458 to 1.013 s. Attack is 0 s against 0.005 s. The decay is faster than the original's own (T20 0.748 s, T40 0.898 s against 1.003 s), but the class range governs, and the waveforms taper over a similar span."
   },
   "S3": {
-   "judge": 1,
-   "cap": 1,
-   "score": 1,
-   "reason": "The spectral centroid passes (1039 vs 937 Hz, 10.9% off, under 20%). Band shares fail the 10-point limit: 600 Hz-2 kHz is 28.7% vs 43.9% (15.2 points off), and below 150 Hz is 29.9% vs 20.3% (9.6 points, just inside). 2-5 kHz is nearly double (11.9% vs 6.7%). The original's energy is centred in the low mids. The reproduction moves that energy into the sub-bass and upper mids, which the spectrogram confirms: brighter at the bottom and upper rows, a weaker middle."
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: the centroid is 959 Hz against 937 Hz, 2.3% off, within 20%. The largest band-share gap is 4.7 points (150-600 Hz: 22.8 against 27.5), within 10. Rolloff is 1593 Hz against 1658 Hz. The spectrograms put energy in the same places, with the heaviest energy low and the high band fading by about 0.6 s."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged from the picture and features only, since I cannot listen. Onsets don't match: 3 in the original, none in the reproduction, so the opening crack and the hits inside it are gone. Spectral flatness (how noise-like vs tonal it is) is 0.166 vs 0.11, about 50% noisier. The reproduction also adds a regular amplitude pulsing that the original's denser, irregular body doesn't have. Neither shows any pitch movement, which matches. It is still a noisy decaying burst, but its character is clearly off."
+   "reason": "Judged from the pictures and features only; I could not listen. Flatness matches (0.102 against 0.11), so the noise-versus-tone character agrees. The onsets do not: the original has 3 detected onsets and visible separate broadband transients in its first tens of milliseconds, while the reproduction has 0 and a smooth spectrogram onset. The original's spectrogram is also grainier, with streaks that vary from frame to frame through the body. The reproduction's is a smooth gradient, and its waveform's first 0.4 s shows a regular sawtooth-like pattern of spikes, not the original's irregular saturated mass. Neither picture shows pitch movement."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Mono 8-bit PCM at 22050 Hz, which the engine plays. 0 clipped samples (the original has 265), DC offset 0, peak -0.6 dB, same name. It's a one-shot, so no loop cue is needed, and none was added."
+   "reason": "Measured: mono PCM at 22050 Hz, 8 bits, a format the engine plays. No clipped samples (the original has 265), DC is 0, the name is the same, and there are no engine faults. A one-shot gunshot has no loop cue, and nothing suggests the original has one."
   }
  },
- "total": 7,
+ "total": 8,
  "of": 10,
  "passes": false
 }

@@ -10,129 +10,65 @@
         64
       ],
       "frames": 2,
+      "fps": 10,
       "type": "parallel",
       "format": "additive",
+      "reference": "pictures/frames.png",
       "layers": [
         {
-          "kind": "flare",
-          "at": [
-            0,
-            0.43
-          ],
-          "colour": [
-            230,
-            150,
-            80
-          ],
-          "radius": 0.01,
-          "core": 0,
-          "gain": 0.012,
-          "streaks": [
-            {
-              "angle": 90,
-              "length": 0.48,
-              "width": 0.045
-            }
-          ]
+          "kind": "glow",
+          "radius": 0.22,
+          "core": 0.05,
+          "ramp": "muzzle",
+          "gain": 0.9
         },
         {
           "kind": "flare",
-          "at": [
-            0.43,
-            0.11
-          ],
-          "colour": [
-            230,
-            150,
-            80
-          ],
-          "radius": 0.01,
-          "core": 0,
-          "gain": 0.012,
+          "core": 0.05,
+          "ramp": "muzzle",
+          "gain": 0.9,
           "streaks": [
+            {
+              "angle": 88,
+              "length": 0.9,
+              "width": 0.04,
+              "half": true,
+              "taper": 1.4,
+              "blur": 0.03
+            },
+            {
+              "angle": 162,
+              "length": 0.9,
+              "width": 0.04,
+              "half": true,
+              "taper": 1.4,
+              "blur": 0.03
+            },
+            {
+              "angle": 235,
+              "length": 0.9,
+              "width": 0.04,
+              "half": true,
+              "taper": 1.4,
+              "blur": 0.03
+            },
+            {
+              "angle": 305,
+              "length": 0.9,
+              "width": 0.04,
+              "half": true,
+              "taper": 1.4,
+              "blur": 0.03
+            },
             {
               "angle": 15,
-              "length": 0.48,
-              "width": 0.045
+              "length": 0.9,
+              "width": 0.04,
+              "half": true,
+              "taper": 1.4,
+              "blur": 0.03
             }
           ]
-        },
-        {
-          "kind": "flare",
-          "at": [
-            0.28,
-            -0.33
-          ],
-          "colour": [
-            230,
-            150,
-            80
-          ],
-          "radius": 0.01,
-          "core": 0,
-          "gain": 0.012,
-          "streaks": [
-            {
-              "angle": -50,
-              "length": 0.48,
-              "width": 0.045
-            }
-          ]
-        },
-        {
-          "kind": "flare",
-          "at": [
-            -0.28,
-            -0.33
-          ],
-          "colour": [
-            230,
-            150,
-            80
-          ],
-          "radius": 0.01,
-          "core": 0,
-          "gain": 0.012,
-          "streaks": [
-            {
-              "angle": -130,
-              "length": 0.48,
-              "width": 0.045
-            }
-          ]
-        },
-        {
-          "kind": "flare",
-          "at": [
-            -0.42,
-            0.11
-          ],
-          "colour": [
-            230,
-            150,
-            80
-          ],
-          "radius": 0.01,
-          "core": 0,
-          "gain": 0.012,
-          "streaks": [
-            {
-              "angle": 165,
-              "length": 0.48,
-              "width": 0.045
-            }
-          ]
-        },
-        {
-          "kind": "glow",
-          "radius": 0.25,
-          "core": 0.02,
-          "colour": [
-            255,
-            215,
-            160
-          ],
-          "gain": 0.3
         }
       ]
     }

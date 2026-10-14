@@ -1,0 +1,185 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/357_shot1.wav",
+  "class": "gunshot",
+  "rate": 22050,
+  "bits": 8,
+  "seed": 7,
+  "length": 1.06,
+  "layers": [
+    {
+      "id": "click",
+      "kind": "noise",
+      "color": "white",
+      "length": 0.002,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1000
+        }
+      ],
+      "env": {
+        "attack": 0,
+        "hold": 0.0015,
+        "decay": 0.002
+      },
+      "gain": 6
+    },
+    {
+      "id": "blast",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.007,
+      "length": 1.053,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.44,
+            -1
+          ],
+          [
+            0.58,
+            -16
+          ],
+          [
+            0.72,
+            -30
+          ],
+          [
+            0.88,
+            -46
+          ],
+          [
+            1,
+            -58
+          ],
+          [
+            1.053,
+            -62
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 7000,
+          "sweep": {
+            "to": 600,
+            "time": 0.7
+          }
+        }
+      ],
+      "gain": -5
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0.007,
+      "length": 1.053,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.44,
+            0
+          ],
+          [
+            0.62,
+            -12
+          ],
+          [
+            0.8,
+            -26
+          ],
+          [
+            0.95,
+            -44
+          ],
+          [
+            1,
+            -52
+          ],
+          [
+            1.053,
+            -60
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2500,
+          "sweep": {
+            "to": 400,
+            "time": 0.7
+          }
+        },
+        {
+          "type": "peak",
+          "f": 900,
+          "q": 0.7,
+          "gain": 4
+        }
+      ],
+      "gain": 0
+    },
+    {
+      "id": "boom",
+      "kind": "noise",
+      "color": "brown",
+      "at": 0.007,
+      "length": 1.053,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.44,
+            0
+          ],
+          [
+            0.65,
+            -12
+          ],
+          [
+            0.85,
+            -26
+          ],
+          [
+            1,
+            -46
+          ],
+          [
+            1.053,
+            -56
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 300
+        },
+        {
+          "type": "highpass",
+          "f": 50
+        }
+      ],
+      "gain": -9
+    }
+  ],
+  "finish": {
+    "saturate": 8,
+    "peak": -0.3
+  }
+}

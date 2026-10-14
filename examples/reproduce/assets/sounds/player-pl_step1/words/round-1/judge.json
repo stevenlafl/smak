@@ -1,0 +1,107 @@
+{
+ "kind": "sounds",
+ "subject": "player-pl_step1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 0.266,
+   "peak": -0.1,
+   "rms": -21.1,
+   "crest": 21,
+   "dc": -0.0043,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.005,
+   "t20": 0.09,
+   "t40": 0.264,
+   "centroid": 853,
+   "rolloff": 2326,
+   "flatness": 0.27,
+   "bands": {
+    "<150": 26.8,
+    "150-600": 48.3,
+    "600-2k": 8.5,
+    "2k-5k": 15.1,
+    ">5k": 1.4
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.267,
+   "peak": -0.6,
+   "rms": -20.2,
+   "crest": 19.7,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.025,
+   "attack": 0,
+   "peakAt": 0,
+   "t20": 0.085,
+   "t40": 0.14,
+   "centroid": 965,
+   "rolloff": 2692,
+   "flatness": 0.286,
+   "bands": {
+    "<150": 23.1,
+    "150-600": 44.2,
+    "600-2k": 14.7,
+    "2k-5k": 17.8,
+    ">5k": 0.2
+   },
+   "onsets": 0
+  },
+  "lengthOff": 0.004,
+  "centroidOff": 0.131,
+  "bandsOffMost": 6.2,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "I could not listen, so this comes from the picture and the features only. Both are a short footstep on a hard floor. Each has a sharp low-frequency impact at 0 s, then a ringing decay, then a smaller second impact (heel then toe) at about 0.08 to 0.09 s. Most of the energy sits below 600 Hz in both (original 75%, reproduction 67%). It reads as the same event."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The length is 0.267 s against 0.266 s (0.4% off). The attack is 0 in both. T20 is 0.085 s against 0.09 s, the same short percussive decay. One thing the measurement misses: the original keeps a quiet noise floor to the end (t40 0.264 s, and its later spectrogram columns stay lit). The reproduction drops away sooner (t40 0.14 s, the last columns dark, a 0.025 s silent tail). This is 40 dB below the peak, near the 8-bit noise floor, so it does not change the envelope that S2 grades."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The centroid is 965 Hz against 853 Hz (13% off, the limit is 20%). The band most off is 600-2k at 14.7 against 8.5 (6.2 points, the limit is 10). The others are <150 Hz at 23.1 vs 26.8, 150-600 Hz at 44.2 vs 48.3, 2k-5k at 17.8 vs 15.1 and >5k at 0.2 vs 1.4. The reproduction is a little brighter in the mids and has almost nothing above 5 kHz, but every band is within its limit."
+  },
+  "S4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "I could not listen, so this comes from the picture and the features only. Both have the same two-impact pattern: a big first hit and a smaller second hit at about a third of the length. The onset counter finds 0 in both. Flatness is 0.286 against 0.27, the same noisy, untonal impact. Neither has any pitch movement. Two small differences: the reproduction's second hit is a little broader and earlier, and its late noise fades out sooner than the original's."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "It is a mono PCM file at 11025 Hz and 8 bits, under the same name. The peak is -0.6 dB with no clipped samples and a DC offset of 0. The original has no loop, so no cue is needed."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

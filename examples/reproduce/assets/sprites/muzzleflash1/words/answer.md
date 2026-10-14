@@ -1,34 +1,11 @@
-I built `sprites/muzzleflash1.spr` and the build says OK with every check passed.
+I built `sprites/muzzleflash1.spr` and the build says OK, with every check passed. It's 64x64 with 2 frames, type parallel, format additive. It gets placed as a tempent with render mode 5 (Additive) at 20 frames per second, so the two frames flicker as a loop. I set it to be placed as a tempent because the guide lists a muzzle flash under that use.
 
-**What it is:**
+**What it looks like:**
+- **Core:** a near-white, warm core about 11 px across in the centre, with a faint haze around it.
+- **Rays:** five thin, soft rays. One points up (about 90°), two point sideways a little above horizontal (about 12° and 167°), and two point down at roughly 7 and 5 o'clock (about 240° and 300°). Each ray is about 3–4 px wide at the base and tapers to a soft point 27–29 px from the centre. The edge of the frame stays dark.
+- **Colour:** it uses the kit's `muzzle` colour ramp, which is the average colour of Half-Life's own muzzle flash at each brightness level. That gives white in the middle, then peach, then tan at the ends of the rays. Measured against Half-Life's own flare sprite, it falls within range.
+- **The two frames:** the core is the same size and brightness in both. Only the rays change: each one moves by about 3° and gets longer or shorter by 1–2 px.
 
-```
-size          64x64
-frames        2 (no repeated wrap frame, so it has exactly the original's 2)
-type          parallel (always faces the viewer)
-format        additive (black is transparent), render mode 5
-placed as     tempent (temporary effect), 20 fps
-colours       254 in the palette, quantising loss 0.0005
-border        0 (no light reaches the edge)
-```
+The spec format has no setting for making one frame different from the next. To get two different frames, I drew two stars and gave each a brightness envelope (the `env` setting, which sets how bright a layer is over time) so that each star shows in only one frame. I tested this first with two single-ray stars, and the frames came out cleanly separate.
 
-**Shape:** a soft near-white core about 10 to 11 pixels across, with a faint amber haze around it. Five tapering rays come out of it:
-
-```
-ray          frame 0 (angle, length)    frame 1
-up           92 deg, ~27.5 px           90 deg, ~26.5 px
-left         163 deg, ~25.5 px          166 deg, ~27 px
-right        17 deg, ~26.5 px           14 deg, ~25.5 px
-down-left    237 deg, ~27 px            240 deg, ~27.5 px
-down-right   304 deg, ~26 px            301 deg, ~27 px
-```
-
-Angles run counter-clockwise from pointing right. Each ray is about 3 to 4 px wide at the base and fades to a soft tip about 28 to 29 px from the centre, leaving a few pixels of margin. Along each ray the colour goes cream, pale gold, amber-orange, then dim brownish orange at the tip. Between the two frames the core and haze don't change; only the rays move by 2 to 3 degrees and change length by a pixel or so, which gives the shimmer.
-
-**How it's built:** the kit's own `flare` layer can only draw rays that go both ways from the centre, which gives a 10-point star. So I built each ray from a chain of 10 small glows. Each glow is set to show in only one frame, which is how the two frames get different rays. I flattened the top of each glow so the rays look smooth rather than beaded.
-
-**Other things to know:**
-- `render` can't draw `.spr` files: it fails with an offset error. The only pictures I had to check against were the build's own frame sheet, and both frames look as described.
-- While testing I left a scratch `sprites/test.spr` in the work folder. These tools can't delete files, so you'll need to remove it yourself.
-
-The output is `work:sprites/muzzleflash1.spr`, with `-sheet.png` and `-animated.png` previews next to it.
+That test left a file, `sprites/test.spr`, in the work folder. These tools can't delete it, so you can remove it by hand.

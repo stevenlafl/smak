@@ -1,18 +1,18 @@
-`sprites/zerogxplode.spr` is built and the build says OK. It matches most of the description, but it doesn't have the narrower top lobe you described: the cloud comes out round, not mushroom-shaped.
+I built `sprites/zerogxplode.spr` and the build says OK. All checks passed, and it scores 5 of 5 in range against Half-Life's own explosion.
 
-**What it is:** 64x64, 15 frames, played once at 15 fps. Type is parallel (always faces the camera), format is additive, origin at the centre, placed as a temporary effect with render mode 5 (Additive). The build measured it against Half-Life's own explosions and all 5 of its checks are in range, with no light at the border. It quantised to 254 colours.
+**Facts:** 64x64, 15 frames, played once at 15 fps, type parallel, format additive (placed as a temporary effect with render mode 5, additive). The border stays dark and the last frame ends black.
 
-**Frame by frame:**
-- **Frame 0:** a small white-hot dot with an orange rim.
-- **Frames 1 to 3:** it bursts into a white blob with an orange-red edge. By frame 3 it's about 40 to 45 px across.
-- **Frames 4 to 7:** it grows into a lumpy cloud almost filling the frame. The white cools to cream and yellow and the edges turn golden-orange.
-- **Frames 8 to 11:** a turbulent amber cloud, mottled and browner at the rim, with faint specks.
-- **Frames 12 and 13:** it fades to dark brown.
-- **Frame 14:** fully black.
+**How it plays, frame by frame:**
+- **Frame 0:** a small white-hot blob a little left of centre.
+- **Frames 1 to 3:** it bursts into a lumpy white blob with a dark tan edge, sitting upper-centre.
+- **Frames 4 to 7:** two billow layers grow into the mushroom shape: a narrower bright lobe on top and a wider mass below. The white cools to cream and pale yellow, and the lower parts go golden-orange.
+- **Frames 8 to 11:** a full billowing cloud, nearly filling the frame. The top lobe stays the brightest and the bottom darkens to amber and brown, with dissolving puffs and debris specks low on the left and right.
+- **Frames 12 to 14:** the bottom breaks up first and the upper lobe fades last.
 
-**Where it falls short:**
-- **No mushroom shape:** I tested whether a layer's position setting can move an explosion off-centre, using a throwaway sprite. It can't, so I couldn't stack a smaller, brighter lobe on top. Because of that the brightness is centred instead of brightest in the upper lobe, and there's no ragged lower-left edge.
-- **Frame 14 is black, not a faint brown smudge:** I kept the default that a one-shot sprite ends dark, since the build flags a one-shot that doesn't end dark as a fault.
-- **The sparks barely show:** the debris specks are faint and spread all around instead of flying to the left and lower left.
+**Where it falls short of the description:**
+- **Frame 0** is about 12 to 14 pixels wide, not the 8 described. It has no separate orange rim or specks around it. I tried adding a separate glow for the opening flash, but its brightness didn't change over time, so it stayed on through every frame. I dropped it.
+- **Frame 14** is fully black, not a faint brown smudge. The last visible bit of the upper lobe is in frame 13. The kit treats a one-shot that doesn't end dark as a fault, so I didn't push past that.
+- **The debris specks** are faint and land low on both sides, not mainly to the left and lower left. The early sparks don't stand out much.
+- **Measurements:** I had no picture of the original, so the build couldn't compare it directly. The match comes from the written description and Half-Life's own explosion.
 
-That throwaway test sprite, `sprites/attest.spr`, is still in the work folder and none of the tools here can delete it, so please remove it yourself. The finished sprite is at `work:sprites/zerogxplode.spr`, with `-sheet.png` (all frames) and `-animated.png` beside it.
+The sprite is at `work:sprites/zerogxplode.spr`, with a contact sheet and an animated preview saved next to it.

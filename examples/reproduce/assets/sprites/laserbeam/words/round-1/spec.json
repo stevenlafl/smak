@@ -1,0 +1,49 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/laserbeam.spr",
+      "use": "beam",
+      "class": "beam",
+      "size": [
+        32,
+        64
+      ],
+      "frames": 1,
+      "type": "parallel",
+      "format": "additive",
+      "origin": "centre",
+      "layers": [
+        {
+          "kind": "beam",
+          "core": 0.34,
+          "noise": 0.75,
+          "colour": [
+            0.84,
+            0.86,
+            0.91
+          ],
+          "at": [
+            -0.02,
+            0
+          ]
+        },
+        {
+          "kind": "beam",
+          "core": 0.24,
+          "noise": 0,
+          "colour": [
+            1,
+            1,
+            1
+          ],
+          "gain": 0.7,
+          "at": [
+            -0.06,
+            0
+          ]
+        }
+      ]
+    }
+  ]
+}

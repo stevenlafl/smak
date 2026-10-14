@@ -1,19 +1,27 @@
-I've built `frenzy_new.wad` from one smak.wad/1 spec, and the last build says **OK** with every check passing. It holds all 37 textures the map uses, each under its original name and size. With the preview, the map draws entirely in ours and nothing is reported missing.
+The build says OK. `work:frenzy_new/frenzy_new.wad` (spec saved beside it as `frenzy_new.spec.json`) holds all 25 textures you listed, each under its original name and size. It also has the four sibling frames the map uses: `+a~fifts_lght01`, `+a~generic86`, `-1genpipe1` and `-2genpipe1`. Without them the game would mix our first frames with the stock later ones. I checked every texture in its own camera view against your picture, over seven map previews.
 
-The map wants 12 more textures than your list of 25: the off frames (`+a~fifts_lght01`, `+a~generic86`, `+amedkit`), the pipe variants `-1genpipe1` and `-2genpipe1`, plus `+0medkit`, `medkitedge1`, `c2a3rustdoor1`, `{grate4a`, `{ladder1`, `{rail1b` and `aaatrigger`. Without them the map would still use the game's versions for those, so I made them too. None of these 12 has a picture, so I drew them from what Half-Life's own textures look like, not from a reference.
+**How I lined them up:** I ran two builds with coloured bands to find which rows and columns each camera actually sees. I couldn't read those positions off the pictures alone. The bands showed:
+- c3a1b_w2 and c3a2b_reac2c are drawn mirrored on screen.
+- -0genpipe1 and silo2_wetdr are drawn turned.
+- The face scale doesn't always match the "texels across" figure the report gives.
 
-**Kinds kept:**
-- **Animations:** each `+0`/`+a` pair is an on and an off frame. The on frames of the lights and the health charger light are fullbright.
-- **Random tiles:** `-0`/`-1`/`-2genpipe1` all have the same pipes, with the vertical runs and valves in different places.
-- **Holes:** the `{` textures have real see-through holes.
+So the windows, grates, cracked pillar, louvre, bracket, grille window, seams and beam grid now sit where the originals put them in each view. Nothing is drawn across a texture's edge, so every texture tiles without a seam.
 
-**Seams:** anything that crosses a tile edge is split into two halves, since panels don't wrap. In `c3a1b_w1`/`w1a` that's the crack, the vent and the groove under the pillar between windows, so the walls repeat without a seam.
+**What each one is:**
+- **c3a1b_w1 / w1a:** concrete with rounded machinery windows, a ledge, a green or yellow stripe and a floor grate. w1 also has a jagged crack down the pillar.
+- **c3a1b_w2:** a barred window over machinery, with a ledge and plain concrete below.
+- **c3a1b_w3:** blue-grey streaked concrete with a top band and a notched seam.
+- **c3a1_w3a, c3a1_w2, c3a1b_w7:** dark cracked concrete, grainy concrete with a groove, and pale speckled concrete.
+- **tnnl_flr7 / 7c:** grey and brown floor tiles in a 32-texel grid with light joints.
+- **-0genpipe1:** brass and dark pipes on black, with a bent connector and a red tag.
+- **c3a2b_reac2c:** olive-yellow reactor panel with a louvre, rivets and a bracket.
+- **tnnl_brd1:** soft yellow and olive diagonal stripes, 9 texels apart. I first drew the stripes as raised relief, but that shaded them near-black, so they're flat stepped panels now.
+- **silo2_wetdr:** a dark rusted beam grid.
+- **Lights:** the `~` lights are white faces with thin coloured frames. generic86 has an orange and yellow ring. The `+a` frames are dimmed versions.
+- **The rest:** c3a2_bth1 is blotchy brown rust, crete4_stp01 is a dark step face with a lip and bolts, and babtech_ceil01 is cracked plaster with coloured blotches.
 
-Where to look first when judging:
-
-1. **The originals are in-game screenshots, not texture dumps.** Colours and scale are read off the screenshots, so they include the map's lighting, and the scale is estimated. That affected the floor grid most: I chose 16-texel tiles for the two `tnnl_flr7` floors.
-2. **I read `black`, `c2a4x_glu` and `c3a2a_tnk1b` as glowing blue.** In their screenshots the logo letters and tank bands are saturated flat blue. So `c2a4x_glu` is solid bright blue and `c3a2a_tnk1b` is blue glow bands on near-black. If those surfaces are actually grey under blue light, these two are wrong.
-3. **`c3a1b_w7` is near-black** because its picture is fully black.
-4. **The `{` textures are rougher than the rest.** The kit ignores panels on mesh textures, so they're plain grids. `{ladder1` is one rail and one rung per 32-texel tile. `{rail1b` is a 16-texel grid so it tiles cleanly across 48x32, not the original's bar layout.
-
-Files are in the work folder: `frenzy_new/frenzy_new.wad` and the contact sheet `frenzy_new/frenzy_new-textures.png`. I checked it with the build's contact sheet, its six map views and two close renders of the corridor walls. I haven't run it in the game.
+**Things to know before judging:**
+- **Four views can't show the texture.** black, crete2_flr01, c3a2a_tnk1b and c2a4x_glu sit on faces whose light is pure blue, so the original and ours both draw the same blue there. I made those textures from what the names suggest: black, concrete floor, tank metal, grime.
+- **Two small offsets remain.** c3a1_w2's groove is about 18 pixels lower than the original's in its view, and c3a1b_w3's seam sits about 10 pixels left.
+- **One reading I couldn't confirm.** The grey band on the `+a~fifties_lgt2` view looks like the fixture's own side face rather than part of the texture, so that texture is plain white.
+- **Six textures aren't in the .wad.** You didn't list `+0medkit`, `c2a3rustdoor1`, `medkitedge1`, `{grate4a`, `{ladder1` and `{rail1b` and gave no pictures of them, so the map still takes them from halflife.wad. I can make them if you want "every texture" to cover those too.

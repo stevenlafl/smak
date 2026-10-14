@@ -1,0 +1,117 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/xspark1.spr",
+      "class": "glow",
+      "use": "env_sprite",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 11,
+      "loop": false,
+      "fps": 10,
+      "type": "parallel",
+      "format": "additive",
+      "finish": {
+        "edge": 2
+      },
+      "layers": [
+        {
+          "kind": "smoke",
+          "colour": [
+            0,
+            0.6,
+            0.85
+          ],
+          "density": 0.6,
+          "spread": 0.9,
+          "gain": 0.7
+        },
+        {
+          "kind": "glow",
+          "colour": [
+            0,
+            0.55,
+            0.8
+          ],
+          "at": [
+            0.4,
+            0.4
+          ],
+          "radius": 0.4,
+          "core": 0.3,
+          "gain": 0.5
+        },
+        {
+          "kind": "glow",
+          "colour": [
+            0,
+            0.55,
+            0.8
+          ],
+          "at": [
+            -0.45,
+            0.3
+          ],
+          "radius": 0.4,
+          "core": 0.3,
+          "gain": 0.5
+        },
+        {
+          "kind": "glow",
+          "colour": [
+            0,
+            0.55,
+            0.8
+          ],
+          "at": [
+            -0.35,
+            -0.45
+          ],
+          "radius": 0.4,
+          "core": 0.3,
+          "gain": 0.5
+        },
+        {
+          "kind": "glow",
+          "colour": [
+            0,
+            0.55,
+            0.8
+          ],
+          "at": [
+            0.45,
+            -0.3
+          ],
+          "radius": 0.4,
+          "core": 0.3,
+          "gain": 0.5
+        },
+        {
+          "kind": "glow",
+          "colour": [
+            0.05,
+            0.75,
+            1
+          ],
+          "radius": 0.7,
+          "core": 0.35,
+          "gain": 0.85
+        },
+        {
+          "kind": "glow",
+          "colour": [
+            0.9,
+            1,
+            1
+          ],
+          "radius": 0.42,
+          "core": 0.5,
+          "gain": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,20 +1,28 @@
-The build says OK, and the sound is written to `work:sound/player/pl_step1.wav`. To make the game play it instead of the original, put it at `<mod>/sound/player/pl_step1.wav`.
+I built `player/pl_step1.wav` and the build says **OK**. The engine checks all passed, and all 22 measured features fall within the range of the game's own concrete footsteps. It took three builds: the first two were in range on only 19 and then 17 of the 22.
 
-**What it is:** 11025 Hz, 8-bit, mono, 0.267 s long, no loop. The build passed every engine check: no clipping, offset, silence before it starts, or click at the end. It's built in three parts:
-- **Heel strike at 0 s:** starts instantly. It's a pink-noise thump around 320 Hz, a short ringing body at about 230 Hz, a low layer near 160 Hz, and a 2–4.8 kHz click with a few scuff grains for the jagged rattle. It falls off fast.
-- **Toe tap at 0.08 s:** about 11 dB below the heel (roughly a quarter as loud), with a smaller click on top. It dies within about 20 ms.
-- **Tail from 0.1 s to the end:** faint grit that fades away.
+**The file:** 0.27 s, 11025 Hz, 8-bit, mono, plays once. Its peak is -0.6 dBFS and its peak-to-average ratio (crest) is 17 dB.
 
-**How it measures:**
+**How the description maps onto the layers:**
+- **Heel strike:** starts instantly (0 ms attack). Its loudest part is in the first ~18 ms, it's down to about a fifth by 0.04 s, and it's gone by 0.1 s. The spectrum is brightest when it lands and darkens as it decays.
+- **Scuff:** a few short spikes at 1.8 to 5 kHz in the first 22 ms. These are the jagged rattle and give the click its edge.
+- **Toe tap:** arrives at 0.08 s, 12 dB under the heel (about a quarter as loud), and dies in about 20 ms. Its spectrum also darkens as it fades.
+- **Tail:** faint grit from 0.1 s that fades out by 0.27 s.
+
+**Where the energy sits:**
 
 ```
-attack 0 ms | to -20 dB 0.085 s | to -40 dB 0.14 s | centroid 965 Hz | flatness 0.29 (noise, no pitch)
-power: <150 Hz 23% | 150-600 44% | 600-2k 15% | 2k-5k 18% | >5k 0%
+band        share
+<150 Hz     18.4%
+150-600     57.6%   (the thump)
+600-2k      12.9%
+2k-5k       10.9%   (presence)
+>5k          0.3%
 ```
 
-Against the game's own concrete footsteps, all 22 measured features are in range.
+The average brightness (centroid) is 688 Hz, and the noisiness (flatness) is 0.24, so it reads as noise with no pitch.
 
-**What I couldn't check:**
-- **No side-by-side with the actual original.** The server wasn't given any game folders, so the build couldn't load the real `pl_step1.wav`. I matched it to your description and to the game's concrete-step statistics. If you give the server your Half-Life folder, I can rebuild with the original drawn next to it for a direct comparison.
-- **The toe tap's strength:** I set it from the layer gains, not from a measurement of the finished file.
-- **How it sounds:** the build can't judge that, or how it plays in the game with the map's room effects. You'll need to listen to it in-game.
+**Two things to check by eye:**
+- The report counted 0 onsets, so its detector doesn't count the toe tap as a second hit. It shows clearly in the waveform, though.
+- In the waveform the toe peak looks closer to a third of the heel's than a quarter. If the side-by-side comparison is strict on that, the fix is 2 to 3 dB less gain on the toe.
+
+The file is in `work:sound/player/pl_step1.wav`. To replace the game's sound, put it in `<mod>/sound/player/`. The tools can't tell how it sounds or how it plays in a map's room, so it's worth listening to in the game.

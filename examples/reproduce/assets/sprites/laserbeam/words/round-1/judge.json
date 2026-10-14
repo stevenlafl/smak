@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "laserbeam",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     32,
+     64
+    ],
+    "border": {
+     "max": 1,
+     "mean": 0.261
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.02,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     32,
+     64
+    ],
+    "border": {
+     "max": 1,
+     "mean": 0.102
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.4,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 14.9
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are the same effect: a vertical beam with a bright white core running the full 64-unit height and a grey glow falling off to each side."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frame size matches (32 x 64), but the effect does not fill it the way the original does. The original's grey, streaky haze reaches nearly to the left and right edges (dark 0.02, border mean 0.261), so the core looks wide and the edges stay lit. The reproduction's core is narrower and its smooth falloff leaves dark bands down both sides (dark 0.4, border mean 0.102). The beam reads thinner, with black edges the original does not have."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured mean colour difference is 14.9, just under the line of 15. Both are a white core in a neutral-to-slightly-cool grey glow, so the hues agree. The reproduction is darker toward the sides, but that is the shape problem already scored under R2. The original's faint bluish tint in its haze is barely visible and not enough to lower this."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are a single static frame (envelope peak at 0, first 1, last 1), so there is no motion or loop to match. The frame counts are the same."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are parallel type with additive format, the same as the original, and the harness read it back as written."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

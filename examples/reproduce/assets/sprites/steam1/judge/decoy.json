@@ -72,31 +72,31 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The original is a puff of white smoke or steam (frames 0-15): it starts as a small dot, billows into a bright cloud, then rises and thins out into wisps. The reproduction's single frame is a flat grey field. No smoke, glow or effect of any kind shows in it."
+   "reason": "The original is a puff of white steam: it starts as a small dot (frame 0), swells into a bright billowing cloud (frames 2-7), then thins, rises and breaks into wisps (frames 8-15). The reproduction's single frame is a flat grey field with nothing visible in it, so it has no steam, glow or other effect at all."
   },
   "R2": {
    "judge": 0,
    "cap": 2,
    "score": 0,
-   "reason": "The frame size matches the original's (32x48). Nothing fills it, though. The original's cloud grows to fill most of the frame by frames 5-8 and then rises toward the top. The reproduction's frame is uniformly empty, with border max 0.004 against the original's 0.341."
+   "reason": "The frame size matches at 32x48, but nothing fills the frame. The original's cloud takes up most of the frame at its peak and sits in the lower part as it rises. The reproduction's frame is empty: its border measure is a uniform 0.004 everywhere and no shape can be seen."
   },
   "R3": {
    "judge": 0,
    "cap": 0,
    "score": 0,
-   "reason": "The original blends to bright white and light grey smoke. The reproduction shows only the flat grey background, with no white areas at all. The measured mean colour difference is 33.4, well over the line of 15."
+   "reason": "The measured mean colour difference is 33.4, more than twice the limit of 15. The original blends to bright white-grey steam over the background, and the reproduction shows nothing but the background."
   },
   "R4": {
    "judge": 0,
    "cap": 0,
    "score": 0,
-   "reason": "The reproduction has 1 frame against the original's 16, far outside 25%. It has no motion. The original grows, rises and fades over its frames (envelope peaks at 0.4, first 0.04, last 0.03, ending dark as a one-shot). The reproduction has a constant envelope (first 1, last 1), so wrap and jitter cannot be measured."
+   "reason": "The reproduction has 1 frame against the original's 16, far outside 25%. The original is a one-shot that grows, peaks at 0.4 of its length (envelope first 0.04, last 0.03) and fades nearly dark while it rises and drifts (jitter 1.1). The reproduction has no motion and no envelope (peak at 0, first and last both 1), so it has no growth, no rise and no fade to dark."
   },
   "R5": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The type (parallel oriented) and format (index alpha) match the original's. The judge was not shown the sprite's name, so the same-name requirement cannot be confirmed. It also read back as a single frame with no content, which is not a sprite that does the original's job in the game."
+   "reason": "The type (parallel oriented) and format (index alpha) match the original's. Nothing given here shows that the name is the same or that the file reads back as written, so the item cannot be confirmed at 2. Its content also fails every other item."
   }
  },
  "total": 1,

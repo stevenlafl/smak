@@ -37,7 +37,7 @@
     48
    ],
    "frames": 16,
-   "type": "parallel",
+   "type": "parallel oriented",
    "format": "index alpha",
    "measures": {
     "frames": 16,
@@ -46,60 +46,60 @@
      48
     ],
     "border": {
-     "max": 0.188,
-     "mean": 0.005
+     "max": 0.184,
+     "mean": 0.003
     },
     "envelope": {
      "peakAt": 0.47,
-     "first": 0.01,
+     "first": 0.14,
      "last": 0
     },
-    "dark": 0.6,
-    "wrap": 0.92,
-    "jitter": 1.1
+    "dark": 0.73,
+    "wrap": 0.61,
+    "jitter": 1.35
    }
   },
-  "meanColourDeltaE": 5.2
+  "meanColourDeltaE": 4.5
  },
  "caps": {
   "R2": 2,
   "R3": 2,
   "R4": 2,
-  "R5": 0
+  "R5": 2
  },
  "scores": {
   "R1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Both are a white puff that swells and fades, so the effect is broadly steam. But the reproduction's puff is a smooth, hard-edged round or teardrop disc (frames 1-10), which reads more like a soft glowing orb than steam. The original is a lumpy, billowing cloud with ragged edges that breaks into wisps (frames 3-14). The reproduction has none of that."
+   "score": 2,
+   "reason": "Both are the same effect: a white steam puff that starts as a small dot, swells into a cloud and thins away. The reproduction's cloud looks lumpier, almost rocky, where the original's is soft, but anyone would still call it a steam or smoke puff."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frame size matches at 32x48. The fill differs: the original's cloud is irregular and sits off-centre, with a wispy tail trailing from its base to the bottom of the frame, while the reproduction is a near-symmetric round disc spanning the frame width with only a faint thin column under it. The measured border max is 0.188 against the original's 0.341, and the border mean is 0.005 against 0.002, so the fill against the edges is not the original's."
+   "reason": "The frames are the original's size (32 x 48), but the cloud does not fill them the way the original's does. In the original, frames 8 to 12 are a tall plume with a rounded, wispy top and a narrow stem trailing down to the bottom of the frame. In the reproduction, frames 7 to 11 are a broad block whose top is cut off flat against the top edge, with no stem. Frame 0 also starts bigger than the original's tiny dot (first-frame envelope 0.14 against 0.04)."
   },
   "R3": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The measured mean colour difference is 5.2, under the line of 15. Both are white to light grey over the background, and the dark measure is close (0.60 against 0.64)."
-  },
-  "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frame count matches (16) and the envelope roughly agrees: it grows from a dot, peaks near 0.47 against the original's 0.4, and fades out as a one-shot. The kind of motion is off, though. The original's cloud rises and dissipates, breaking up into drifting wisps (frames 10-15, with a faint wisp still in frame 15, last 0.03). The reproduction just swells in place and fades evenly as a uniform disc to a blank frame 15 (last 0). The wrap measure differs widely too, 0.92 against 0.5."
+   "reason": "The measured mean colour difference is 4.5 (CIE76 delta E), well under the line of 15, but the frames look clearly different. In frames 3 to 10 the original's core is near-white and bright. The reproduction's cloud is a duller light grey with no bright core, most visibly in frames 5 to 10, where it reads as grey smoke rather than white steam. The mean colour misses this difference in brightness."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both have 16 frames and follow the same one-shot arc: the cloud grows, peaks at about the middle (peak at 0.47 against 0.4) and fades to nothing, ending dark (last-frame envelope 0 against 0.03). The rise is weaker, and the cloud breaks up into speckled blotches where the original thins into wisps, but it is the same kind of motion."
   },
   "R5": {
-   "judge": 1,
-   "cap": 0,
-   "score": 0,
-   "reason": "The format matches (index alpha), but the type does not. The original is 'parallel oriented' and the reproduction is 'parallel', so the engine will orient it differently in the world."
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Same type (parallel oriented), same format (index alpha) and same frame count and size as the original, as read back."
   }
  },
- "total": 5,
+ "total": 8,
  "of": 10,
  "passes": false
 }

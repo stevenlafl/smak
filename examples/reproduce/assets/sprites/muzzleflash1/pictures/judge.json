@@ -54,16 +54,16 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.82,
+    "dark": 0.77,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 26.3
+  "meanColourDeltaE": 2.8
  },
  "caps": {
   "R2": 2,
-  "R3": 0,
+  "R3": 2,
   "R4": 2,
   "R5": 2
  },
@@ -72,34 +72,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Same effect: a five-armed star-shaped muzzle flash with a bright white-hot core and warm orange arms, in both frames."
+   "reason": "Both are the same effect: a five-pointed star muzzle flash with a hot white-orange core and warm orange arms that fade out at the tips."
   },
   "R2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Frames are 64x64 like the original's, and the arms reach about as far toward the edges. The fill is clearly off, though. The original's arms are broad and soft and sit in a diffuse glow. The reproduction's arms are thin and sharp-edged, and its white core is larger and hard-edged, so more of the frame stays dark (dark share 0.82 against 0.76)."
+   "score": 2,
+   "reason": "Both are 64x64 with 2 frames. The star fills the frame the same way in both: the arms nearly reach the edges, the corners stay dark (dark share 0.76 vs 0.77) and the border is empty (max 0 vs 0.02). The reproduction's core is a slightly rounder, crisper white blob and its arms are a little smoother than the original's grainy, feathered ones. That is a small detail, and the overall shape and size still match."
   },
   "R3": {
-   "judge": 1,
-   "cap": 0,
-   "score": 0,
-   "reason": "The measured mean colour difference is 26.3, well over the 15 line, so this cannot score 2. The hues are related (white core, warm arms), but the reproduction's arms are a saturated yellow-orange and it has no hazy glow around the star. The original's arms are a duller tan-orange with a soft halo."
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The mean colour difference is 2.8, well under 15. The core and arms are the same warm orange-white. The original's arms have a slight pinkish, grainy tint that the reproduction smooths over, but a player would call it the same colour."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Two frames, as in the original. The motion is the same kind: the star turns slightly from one frame to the next at a steady brightness (envelope 1 to 1 against 0.95 to 1, a negligible difference). This is a flash whose frames are picked in turn, with no one-shot fade to match."
+   "reason": "Both have 2 frames, and both make the same kind of motion: a near-flat two-frame flicker of the same star with the arms shifted slightly. The envelopes differ a little. The original is brightest in frame 1 (frame 0 at 0.95), while the reproduction is equal in both frames (1, 1). That gap of under 5% is too small to see when the engine plays it. Neither sprite is a fading one-shot that has to end dark, and neither is a loop that has to close."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Same type (parallel) and format (additive) as the original, read back as 64x64 with 2 frames."
+   "reason": "Both are parallel and additive, so the type and format match the original's. The measurements read back as written."
   }
  },
- "total": 7,
+ "total": 10,
  "of": 10,
- "passes": false
+ "passes": true
 }

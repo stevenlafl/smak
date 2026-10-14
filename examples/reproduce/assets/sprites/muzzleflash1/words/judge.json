@@ -54,16 +54,16 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.86,
+    "dark": 0.72,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 37.2
+  "meanColourDeltaE": 4.3
  },
  "caps": {
   "R2": 2,
-  "R3": 0,
+  "R3": 2,
   "R4": 2,
   "R5": 2
  },
@@ -72,34 +72,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Same effect: in both frames of both sprites, a five-armed star-shaped muzzle flash with a hot white-yellow core and orange arms fading out toward the tips, on black for additive blending."
+   "reason": "Both are the same effect: a muzzle flash drawn as a five-pointed star with a white-hot core and warm orange rays that blur outward on a dark background. Both frames point their rays the same way: up, upper-left, upper-right, lower-left, lower-right."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Frames are the original's 64 x 64, and the arms reach about the same distance toward the edges. But the effect fills the frame differently. The original's arms are broad, soft and blurred, with a small core. The reproduction's arms are thin and sharp-edged, with a larger, harder white core. The measured dark share is 0.86 against the original's 0.76, so noticeably less of the frame is lit."
+   "reason": "The frames are the original's size (64x64, measured). The effect does not fill them the same way. The original's rays are thicker and blurrier and reach almost to the frame edges; the top ray gets within about 5 of 128 px of the top in the picture. The reproduction's rays are thinner, taper sooner and stop shorter, around 10 px from the top. The reproduction also has a faint round halo around the star, behind the rays, which the original does not have; you can see it in both frames as a soft disc between the arms. Dark area is 0.72 against 0.76, which fits that added glow."
   },
   "R3": {
-   "judge": 1,
-   "cap": 0,
-   "score": 0,
-   "reason": "The measured mean colour difference is 37.2, far over the 15 line, so this cannot be a 2. The hues are in the same family (white core, orange arms). The reproduction is clearly off, though: its core is a brighter, whiter blow-out and its arm tips are a more saturated orange. The original's arms are a duller, softer peach-orange."
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured mean colour difference is 4.3, well under the 15 line. Both show the same white core fading to a warm orange-tan along the rays as the engine blends them additively."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both have 2 frames, the brightness peaks at frame 1 in both, and neither has wrap or jitter. Both are a two-frame flicker of the star with slight changes in the arms between frames. The original's frame 0 is a little dimmer (0.95) where the reproduction's two frames are equally bright (1, 1), a small difference within the same kind of motion. Neither ends dark, which suits a looping flash."
+   "reason": "Both have 2 frames, the same count. Like the original, the reproduction's two frames are slight variants of one star, a flicker between them, which is how this parallel sprite is shown. The envelope peaks at frame 1 in both. In the original, frame 0 is a little dimmer (0.95 against 1); in the reproduction both frames are 1. The original has no loop to close and does not end dark, and the reproduction matches it."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Same type (parallel) and same format (additive), 64 x 64 with 2 frames, matching the original as read back."
+   "reason": "The original is a parallel sprite in additive format, and the reproduction is too, at the same size and frame count, as measured from the file read back."
   }
  },
- "total": 7,
+ "total": 9,
  "of": 10,
  "passes": false
 }

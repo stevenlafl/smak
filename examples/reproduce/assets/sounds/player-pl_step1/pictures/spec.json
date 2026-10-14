@@ -6,172 +6,191 @@
   "bits": 8,
   "seed": 1,
   "length": 0.27,
+  "picture": "pictures/sound.png",
   "layers": [
     {
       "id": "heel",
       "kind": "noise",
-      "color": "pink",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 110
-        },
-        {
-          "type": "peak",
-          "f": 350,
-          "q": 0.9,
-          "gain": 2
-        },
-        {
-          "type": "lowpass",
-          "f": 700
-        }
-      ],
+      "iterations": 32,
       "env": {
-        "attack": 0.001,
-        "decay": 0.075
+        "attack": 0.0005,
+        "hold": 0.003,
+        "decay": 0.06
       },
-      "gain": 0
+      "shape": [
+        [
+          60,
+          -9
+        ],
+        [
+          150,
+          -3
+        ],
+        [
+          220,
+          0
+        ],
+        [
+          550,
+          0
+        ],
+        [
+          750,
+          -10
+        ],
+        [
+          1500,
+          -18
+        ],
+        [
+          2500,
+          -11
+        ],
+        [
+          4000,
+          -13
+        ],
+        [
+          5500,
+          -20
+        ]
+      ]
     },
     {
       "id": "thud",
-      "kind": "noise",
-      "color": "brown",
-      "filter": [
+      "kind": "modes",
+      "modes": [
         {
-          "type": "lowpass",
-          "f": 160
+          "f": 110,
+          "gain": -3,
+          "decay": 0.06
+        },
+        {
+          "f": 240,
+          "gain": 0,
+          "decay": 0.05
         }
       ],
-      "env": {
-        "attack": 0.001,
-        "decay": 0.06
-      },
-      "gain": -14
+      "gain": -18
     },
     {
-      "id": "grit",
+      "id": "crack",
       "kind": "noise",
       "color": "white",
+      "length": 0.003,
+      "env": {
+        "attack": 0.0002,
+        "decay": 0.003
+      },
       "filter": [
         {
           "type": "highpass",
-          "f": 2400
-        },
-        {
-          "type": "lowpass",
-          "f": 4500
+          "f": 2000
         }
       ],
-      "env": {
-        "attack": 0.0005,
-        "decay": 0.04
-      },
-      "gain": -15
-    },
-    {
-      "id": "crackle",
-      "kind": "particles",
-      "rate": 150,
-      "band": [
-        2000,
-        4500
-      ],
-      "grain": 0.002,
-      "at": 0.002,
-      "length": 0.25,
-      "env": {
-        "decay": 0.2
-      },
-      "gain": -19
+      "post": true,
+      "gain": -8
     },
     {
       "id": "toe",
       "kind": "noise",
-      "color": "pink",
-      "at": 0.087,
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 110
-        },
-        {
-          "type": "peak",
-          "f": 350,
-          "q": 0.9,
-          "gain": 2
-        },
-        {
-          "type": "lowpass",
-          "f": 700
-        }
-      ],
+      "at": 0.088,
+      "iterations": 32,
       "env": {
         "attack": 0.001,
         "decay": 0.045
       },
-      "gain": -10
-    },
-    {
-      "id": "toegrit",
-      "kind": "noise",
-      "color": "white",
-      "at": 0.087,
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 2400
-        }
+      "shape": [
+        [
+          60,
+          -9
+        ],
+        [
+          200,
+          0
+        ],
+        [
+          550,
+          0
+        ],
+        [
+          900,
+          -11
+        ],
+        [
+          1500,
+          -17
+        ],
+        [
+          3000,
+          -12
+        ],
+        [
+          5500,
+          -20
+        ]
       ],
-      "env": {
-        "attack": 0.0005,
-        "decay": 0.025
-      },
-      "gain": -22
+      "gain": -14
     },
     {
       "id": "tail",
       "kind": "noise",
-      "color": "white",
       "at": 0.01,
       "length": 0.26,
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 150
-        },
-        {
-          "type": "lowpass",
-          "f": 800
-        }
-      ],
       "env": {
         "points": [
           [
             0,
-            -30
+            -25
           ],
           [
-            0.1,
-            -36
-          ],
-          [
-            0.2,
-            -40
+            0.12,
+            -28
           ],
           [
             0.26,
-            -60
+            -34
           ]
         ]
       },
-      "gain": 0
+      "shape": [
+        [
+          60,
+          -8
+        ],
+        [
+          250,
+          0
+        ],
+        [
+          550,
+          0
+        ],
+        [
+          900,
+          -9
+        ],
+        [
+          1500,
+          -15
+        ],
+        [
+          3000,
+          -11
+        ],
+        [
+          5500,
+          -18
+        ]
+      ],
+      "gain": -8
     }
   ],
   "finish": {
-    "room": {
-      "decay": 0.12,
-      "wet": 0.07
-    }
+    "limit": {
+      "crest": 21.5,
+      "release": 0.002
+    },
+    "peak": -0.5
   }
 }

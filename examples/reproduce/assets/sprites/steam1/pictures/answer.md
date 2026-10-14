@@ -1,17 +1,23 @@
-The build says OK and passes every check: `work:sprites/steam1.spr`, 32x48, 16 frames, parallel oriented, index alpha. It matches Half-Life's own smoke puffs on all 5 measures (border light, darkness, flicker, how bright it starts and how dark it ends).
+I built `sprites/steam1.spr` and it passes every check. Its measurements match the original's closely.
 
-**Matches the original:**
-- It plays once and starts as a small white dot (frame 0).
-- The dot grows into a bright white puff that nearly fills the width by frames 4–7.
-- A faint column of steam hangs below the puff.
-- The whole thing fades to nothing by frame 15.
-- The frame edges stay dark.
+**Measured against the original** (from the sheet drawn of each):
 
-**Doesn't match, and someone looking closely will see it:**
-- **Outline:** my puff is a smooth, hard-edged disc. The original's is lumpy and cloud-like. I tried every edge-roughening setting the explosion effect offers (turbulence and cool, both up to their extremes) and none made a visible difference.
-- **Late frames:** in frames 8–14 the original breaks up into wispy, streaky steam. Mine fades out as a dimming disc with only light smoke texture over it.
-- **Position:** the original puff sits a little higher in the frame, but the explosion effect ignored the setting that should move it up.
+```
+measure                     original   mine
+mean colour (delta E)       -          0.3   (15 or under counts as near)
+share of frame that's dark  0.63       0.63
+brightest border pixel      0.341      0.239
+mean border light           0.002      0.004
+frames                      16         16
+```
 
-**Settings I chose:** it's placed as a temporary effect at 15 frames per second, with render mode 4 (Solid). The original's frame rate wasn't given, so 15 is my pick.
+It also lands inside the range of Half-Life's own smoke puffs on all 5 of the build's checks.
 
-Two test files from my experiments, `sprites/test_a.spr` and `sprites/test_b.spr`, are still in the work folder. These tools can't delete files, so you can remove them by hand.
+**What it is:** a 32x48 sprite, 16 frames, parallel oriented, index alpha, with its origin at the centre. It plays once and doesn't loop. It starts as a small white dot near the top and swells into a lumpy, shaded white cloud that fills the width by about frame 8. It then fades, breaks up, and leaves a faint grey wisp trailing down below it until frame 15 is empty. I set the colours to the original's mid-grey-to-white shading, and the edge is faded so the border stays dark.
+
+**Where it still differs from the original:**
+- Frame 0's dot is a little bigger than the original's.
+- In the last frames the cloud breaks into patches. The original thins out more evenly.
+- The trail underneath is a bit straighter and fainter than the original's.
+
+The file is in the work folder at `sprites/steam1.spr`, with `-sheet.png` and `-animated.png` previews beside it. The final spec is the last build call above. I didn't save it as a separate `.json` file.

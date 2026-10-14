@@ -13,7 +13,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 2.8
+    "deltaE": 2.9,
+    "flatDeltaE": 9.7
    },
    "caps": {
     "T2": 2,
@@ -24,40 +25,40 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Original is a dark cracked concrete wall. The replacement is a flat grey gradient with no concrete material at all."
+     "reason": "The original is a cracked purple-grey plaster or concrete wall covered in fine crack lines. The replacement is one flat mid-grey with no material at all (flat-1, top left)."
     },
     "T2": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Measured deltaE 2.8 (under 15). The mean dark grey matches."
+     "reason": "Measured max(deltaE 2.9, flatDeltaE 9.7) = 9.7, under 15. The flat grey sits close to the original's mean, which is dark grey in the view."
     },
     "T3": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "The original's cracks and surface structure are gone. The replacement has nothing to line up."
+     "score": 1,
+     "reason": "The original has no panels or seams, but its crack network is its pattern on the wall, and the replacement has none of it."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "A flat fill shows no seam where it repeats."
+     "reason": "One flat colour, so there is no step at the repeat edges."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Smeared to a single tone. All of the original's grain and cracking is lost."
+     "reason": "All detail is gone: no cracks, no grain, no colour variation. On the wall (textures-1) it is a smooth gradient beside the textured original."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and 256x208 size kept. The plain name carries no special kind."
+     "reason": "Name and size 256x208 kept. It is a plain texture with no special kind."
     }
    },
-   "total": 6,
+   "total": 7,
    "of": 12,
    "passes": false
   },
@@ -71,7 +72,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 3.5
+    "deltaE": 3.6,
+    "flatDeltaE": 4.4
    },
    "caps": {
     "T2": 2,
@@ -82,37 +84,37 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Original is a speckled concrete wall with a horizontal seam line. The replacement is flat grey."
+     "reason": "The original is a speckled grey concrete wall with a horizontal seam and a darker band at the top. The replacement is flat grey and reads as no material."
     },
     "T2": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Measured deltaE 3.5."
+     "reason": "Measured max(3.6, 4.4) = 4.4, under 15."
     },
     "T3": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "The horizontal seam near the top of the original is missing."
+     "reason": "The original's horizontal seam line and top band (flat-1, textures-1) are missing, so the seams no longer line up across the map's walls."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no repeat seam."
+     "reason": "A flat colour tiles without a seam."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "No speckle or detail. Plainly worse than the original."
+     "reason": "No speckle, seam or stains. It is a blank surface beside the detailed original."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and 256x160 size kept."
+     "reason": "Name and size 256x160 kept. It is a plain texture."
     }
    },
    "total": 6,
@@ -129,7 +131,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 6.5
+    "deltaE": 6.6,
+    "flatDeltaE": 6.7
    },
    "caps": {
     "T2": 2,
@@ -140,37 +143,37 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Original is a blue-grey metal/concrete panel with zig-zag vertical seams and streaks. The replacement is a flat grey gradient."
+     "reason": "The original is a blue-grey stained metal or concrete panel with notched edge seams. The replacement is flat grey."
     },
     "T2": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Measured deltaE 6.5."
+     "reason": "Measured max(6.6, 6.7) = 6.7, under 15."
     },
     "T3": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "The zig-zag panel seams at the left and right and the bottom trim line are all missing."
+     "reason": "The notched vertical seams at the panel edges and the top rail (textures-1 row 2 left) are missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "No streaking, stains or seams. Featureless."
+     "reason": "The stains, streaks and edge notches are all lost. The wall is a smooth gradient."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and 128x160 size kept."
+     "reason": "Name and size 128x160 kept. It is a plain texture."
     }
    },
    "total": 6,
@@ -187,7 +190,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 18.7
+    "deltaE": 18.6,
+    "flatDeltaE": 12.8
    },
    "caps": {
     "T2": 1,
@@ -198,37 +202,37 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Original is a wall with window recesses full of green and yellow machinery, a green stripe and a floor vent. The replacement is plain pale grey."
+     "reason": "The original is a wall section with machinery windows, a green stripe and a floor vent. The replacement is flat grey, with no windows, stripe or vent."
     },
     "T2": {
      "judge": 1,
      "cap": 1,
      "score": 1,
-     "reason": "Measured deltaE 18.7, over 15. The replacement is much paler and loses the green stripe."
+     "reason": "Measured max(18.6, 12.8) = 18.6, over 15. The green stripe and dark machinery colours are missing."
     },
     "T3": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Machinery windows, stripe, zig-zag seam and vent grille are all absent, so the band layout down the map's walls is lost."
+     "reason": "The window openings, centre seam, stripe band and vent are all missing, so the map's wall bands no longer line up."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "All of the original's detail is gone."
+     "reason": "Blank. On the wall (textures-1) it washes out to a glare where the original shows detailed machinery."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and 128x160 size kept."
+     "reason": "Name and size 128x160 kept. It is a plain texture."
     }
    },
    "total": 5,
@@ -245,7 +249,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 10.6
+    "deltaE": 11.3,
+    "flatDeltaE": 9.3
    },
    "caps": {
     "T2": 2,
@@ -256,37 +261,37 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Original is a pale tiled floor with a grid of lines. The replacement is flat lavender-grey with no tiles."
+     "reason": "The original is a grey tiled floor on a regular grid. The replacement is flat grey with no tiles."
     },
     "T2": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Measured deltaE 10.6."
+     "reason": "Measured max(11.3, 9.3) = 11.3, under 15."
     },
     "T3": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "The tile grid spacing is missing entirely."
+     "reason": "The 4x4 tile grid lines (flat-1, textures-1 row 3) are missing entirely."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "No tile lines or surface grain."
+     "reason": "The tile joints and mottling are lost. The floor is blank."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and 128x128 size kept."
+     "reason": "Name and size 128x128 kept. It is a plain texture."
     }
    },
    "total": 6,
@@ -303,7 +308,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 0
+    "deltaE": 5.2,
+    "flatDeltaE": 4.2
    },
    "caps": {
     "T2": 2,
@@ -311,43 +317,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 1,
+     "judge": 0,
      "cap": null,
-     "score": 1,
-     "reason": "Both views are fully black, so what the texture is cannot be confirmed from the pictures."
+     "score": 0,
+     "reason": "The original is a mottled pale blue-grey concrete. The replacement is flat grey, which has no material to call concrete."
     },
     "T2": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Measured deltaE 0."
+     "reason": "Measured max(5.2, 4.2) = 5.2, under 15."
     },
     "T3": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "Nothing is visible in the original's view to check panel spacing against."
+     "score": 2,
+     "reason": "The original has no panels, seams or tiles (uniform grain), and the replacement adds no wrong layout."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam visible."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
-     "judge": 1,
+     "judge": 0,
      "cap": null,
-     "score": 1,
-     "reason": "The view is black on both sides, so quality cannot be confirmed as at least equal."
+     "score": 0,
+     "reason": "The concrete grain and speckle are all lost. It is a smooth wash beside the original's texture."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and 96x96 size kept."
+     "reason": "Name and size 96x96 kept. It is a plain texture."
     }
    },
-   "total": 9,
+   "total": 8,
    "of": 12,
    "passes": false
   },
@@ -361,7 +367,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 24.4
+    "deltaE": 24.6,
+    "flatDeltaE": 24
    },
    "caps": {
     "T2": 1,
@@ -372,13 +379,13 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Original is a brown-green tiled tunnel floor with a grid. The replacement is flat pale grey-white."
+     "reason": "The original is a brown, dirty tiled floor on a grid. The replacement is flat grey."
     },
     "T2": {
      "judge": 1,
      "cap": 1,
      "score": 1,
-     "reason": "Measured deltaE 24.4. The brown has become near-white."
+     "reason": "Measured max(24.6, 24) = 24.6, over 15. Grey replaces the original's brown."
     },
     "T3": {
      "judge": 0,
@@ -390,19 +397,19 @@
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "No tiles, stains or grain."
+     "reason": "The grime, tile joints and colour variation are all lost."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and 128x128 size kept."
+     "reason": "Name and size 128x128 kept. It is a plain texture."
     }
    },
    "total": 5,
@@ -419,10 +426,11 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 21.8
+    "deltaE": 22,
+    "flatDeltaE": 43.1
    },
    "caps": {
-    "T2": 1,
+    "T2": 0,
     "T6": 2
    },
    "scores": {
@@ -430,40 +438,40 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Original is a dark riveted metal door/grate with beams. The replacement is flat light grey."
+     "reason": "The original is a dark rusted metal door or grate with a frame and crossbars. The replacement is flat mid-grey."
     },
     "T2": {
-     "judge": 1,
-     "cap": 1,
-     "score": 1,
-     "reason": "Measured deltaE 21.8. The replacement is far lighter than the dark original."
+     "judge": 0,
+     "cap": 0,
+     "score": 0,
+     "reason": "Measured max(22, 43.1) = 43.1, far over 15. Mid grey replaces near-black rusty brown."
     },
     "T3": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "The beam and panel framework is missing."
+     "reason": "The bar grid and frame (flat-1, bottom right) are missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "No structure or wear."
+     "reason": "All structure and rust detail is lost."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and 192x128 size kept."
+     "reason": "Name and size 192x128 kept. It is a plain texture."
     }
    },
-   "total": 5,
+   "total": 4,
    "of": 12,
    "passes": false
   },
@@ -477,7 +485,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 18.9
+    "deltaE": 19.5,
+    "flatDeltaE": 11.4
    },
    "caps": {
     "T2": 1,
@@ -488,37 +497,37 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Original is a wall with machinery windows, a yellow stripe, vents and a hazard strip. The replacement is plain pale grey-white."
+     "reason": "The original is a wall with machinery windows, a yellow stripe and a vent. The replacement is flat grey."
     },
     "T2": {
      "judge": 1,
      "cap": 1,
      "score": 1,
-     "reason": "Measured deltaE 18.9."
+     "reason": "Measured max(19.5, 11.4) = 19.5, over 15."
     },
     "T3": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Windows, stripe, seams and vents are absent, so the wall's banding is lost."
+     "reason": "The windows, centre seam, yellow band and vent (textures-2 top left) are missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "All detail is gone."
+     "reason": "Blank, and it washes out to glare on the wall."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and 128x160 size kept."
+     "reason": "Name and size 128x160 kept. It is a plain texture."
     }
    },
    "total": 5,
@@ -535,7 +544,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 27.2
+    "deltaE": 26.3,
+    "flatDeltaE": 41.3
    },
    "caps": {
     "T2": 0,
@@ -546,37 +556,37 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Original is a wall of brass pipes and valves beside a concrete pillar. The replacement is flat grey."
+     "reason": "The original is a dense bank of brass and grey pipes with valves on black. The replacement tiles are flat grey and pale grey, with no pipes."
     },
     "T2": {
-     "judge": 1,
+     "judge": 0,
      "cap": 0,
      "score": 0,
-     "reason": "Measured deltaE 27.2. The dark pipe wall has become light grey."
+     "reason": "Measured max(26.3, 41.3) = 41.3, far over 15. Grey and pale grey replace dark pipes on black."
     },
     "T3": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Pipe runs and their spacing are missing."
+     "reason": "The pipe runs, elbows and valve wheel are missing, so nothing lines up across tiles."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "Each tile is a flat colour, so no seam within a tile."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "No pipes or valves. Featureless."
+     "reason": "All pipe detail is lost (flat-2, textures-2)."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name (with its '-0' random-tiling prefix) and 64x128 size kept. A flat fill is valid for each tile variant."
+     "reason": "Name and size 64x128 kept. The random set's tiles -0, -1 and -2 are all present (flat-2)."
     }
    },
    "total": 4,
@@ -593,10 +603,11 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 22
+    "deltaE": 23.2,
+    "flatDeltaE": 61.8
    },
    "caps": {
-    "T2": 1,
+    "T2": 0,
     "T6": 2
    },
    "scores": {
@@ -604,40 +615,40 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Original is a yellow-brown slatted reactor panel. The replacement is flat dark grey."
+     "reason": "The original is a bright yellow industrial panel with louvres and a riveted rail. The replacement is flat grey."
     },
     "T2": {
-     "judge": 1,
-     "cap": 1,
-     "score": 1,
-     "reason": "Measured deltaE 22. The yellow-brown is lost to grey."
+     "judge": 0,
+     "cap": 0,
+     "score": 0,
+     "reason": "Measured max(23.2, 61.8) = 61.8, far over 15. Grey replaces saturated yellow."
     },
     "T3": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "The horizontal slats and the panel break are missing."
+     "reason": "The louvre slats, rail and rivets are missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "No slats or shading."
+     "reason": "All detail is lost."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and 128x64 size kept."
+     "reason": "Name and size 128x64 kept. It is a plain texture."
     }
    },
-   "total": 5,
+   "total": 4,
    "of": 12,
    "passes": false
   },
@@ -651,7 +662,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 11.8
+    "deltaE": 13,
+    "flatDeltaE": 12
    },
    "caps": {
     "T2": 2,
@@ -662,37 +674,37 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Original is a concrete wall with a large barred grate window. The replacement is flat grey-olive."
+     "reason": "The original is a concrete wall with two barred grille windows and a centre seam. The replacement is flat grey."
     },
     "T2": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Measured deltaE 11.8."
+     "reason": "Measured max(13, 12) = 13, under 15."
     },
     "T3": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "The grate window and its bars are missing."
+     "reason": "The grille openings and seam (flat-2, textures-2) are missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "No grate or concrete grain."
+     "reason": "The bars, concrete grain and seam are all lost."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and 128x160 size kept."
+     "reason": "Name and size 128x160 kept. It is a plain texture."
     }
    },
    "total": 6,
@@ -709,10 +721,11 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 1.5
+    "deltaE": 33.2,
+    "flatDeltaE": 32.2
    },
    "caps": {
-    "T2": 2,
+    "T2": 0,
     "T6": 2
    },
    "scores": {
@@ -720,40 +733,40 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Original is a mottled grey concrete trim/ceiling face. The replacement is flat grey."
+     "reason": "The original is a thin orange-brown and grey trim strip. The replacement is flat grey."
     },
     "T2": {
-     "judge": 2,
-     "cap": 2,
-     "score": 2,
-     "reason": "Measured deltaE 1.5."
+     "judge": 0,
+     "cap": 0,
+     "score": 0,
+     "reason": "Measured max(33.2, 32.2) = 33.2, over 15. Grey replaces orange-brown."
     },
     "T3": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "The original's blocky mottled pattern is gone, so there is nothing to keep spacing with."
+     "reason": "The trim's coloured bands are missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "No surface variation."
+     "reason": "All detail is lost."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and 192x32 size kept."
+     "reason": "Name and size 192x32 kept. It is a plain texture."
     }
    },
-   "total": 6,
+   "total": 4,
    "of": 12,
    "passes": false
   },
@@ -767,7 +780,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 70.3
+    "deltaE": 85.1,
+    "flatDeltaE": 53.6
    },
    "caps": {
     "T2": 0,
@@ -775,40 +789,40 @@
    },
    "scores": {
     "T1": {
-     "judge": 1,
+     "judge": 0,
      "cap": null,
-     "score": 1,
-     "reason": "Original is a plain black fill. The replacement is a plain fill but deep blue, so a player would see a blue surface where there was black."
+     "score": 0,
+     "reason": "The original is pure black (a void or shadow fill). The replacement is mid grey, so a player would not call it black."
     },
     "T2": {
      "judge": 0,
      "cap": 0,
      "score": 0,
-     "reason": "Measured deltaE 70.3: black became blue."
+     "reason": "Measured max(85.1, 53.6) = 85.1, far over 15."
     },
     "T3": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "The original is plain, and the replacement adds no pattern."
+     "reason": "The original has no layout, and the replacement adds none."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "Equally plain, but the wrong colour reads as a defect in place."
+     "score": 2,
+     "reason": "The original is a flat colour, and the replacement is just as flat with nothing smeared or noisy. Its colour fault is T2's."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and 32x32 size kept."
+     "reason": "Name and size 32x32 kept. It is a plain texture."
     }
    },
    "total": 8,
@@ -825,10 +839,11 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 16
+    "deltaE": 0,
+    "flatDeltaE": 8.1
    },
    "caps": {
-    "T2": 1,
+    "T2": 2,
     "T6": 2
    },
    "scores": {
@@ -836,40 +851,40 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Named a concrete floor. Neither view shows it clearly; the visible strip of the replacement is a plain flat fill with no concrete."
+     "reason": "The original is a mottled brown concrete floor. The replacement is flat grey."
     },
     "T2": {
-     "judge": 1,
-     "cap": 1,
-     "score": 1,
-     "reason": "Measured deltaE 16, over 15."
+     "judge": 2,
+     "cap": 2,
+     "score": 2,
+     "reason": "Measured max(0, 8.1) = 8.1, under 15. The view is tinted blue in both, so flatDeltaE decides."
     },
     "T3": {
-     "judge": 0,
+     "judge": 2,
      "cap": null,
-     "score": 0,
-     "reason": "A flat fill keeps none of the floor's slabs or seams."
+     "score": 2,
+     "reason": "The original is uniform grain with no seams or tiles, and the replacement adds no wrong layout."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "No concrete grain. Featureless."
+     "reason": "The concrete mottling is lost (flat-3, top left)."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and 128x128 size kept."
+     "reason": "Name and size 128x128 kept. It is a plain texture."
     }
    },
-   "total": 5,
+   "total": 8,
    "of": 12,
    "passes": false
   },
@@ -883,7 +898,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 4.2
+    "deltaE": 0.3,
+    "flatDeltaE": 11.5
    },
    "caps": {
     "T2": 2,
@@ -891,43 +907,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 2,
+     "judge": 1,
      "cap": null,
-     "score": 2,
-     "reason": "Both read as a bright white light face."
+     "score": 1,
+     "reason": "In the view it reads as a white glowing panel, as the original does. Flat, though, the original is a fixture with seven fluorescent tubes in a dark frame, and the replacement is an empty grey square."
     },
     "T2": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Measured deltaE 4.2."
+     "reason": "Measured max(0.3, 11.5) = 11.5, under 15."
     },
     "T3": {
-     "judge": 1,
+     "judge": 0,
      "cap": null,
-     "score": 1,
-     "reason": "The original's frame strip along the bottom and the small blue marks at the right edge are missing."
+     "score": 0,
+     "reason": "The tube spacing, the frame and the end caps are missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
-     "judge": 1,
+     "judge": 0,
      "cap": null,
-     "score": 1,
-     "reason": "Close, but it loses the original's frame edge and marks."
+     "score": 0,
+     "reason": "The tubes, frame and caps are all lost."
     },
     "T6": {
-     "judge": 1,
+     "judge": 2,
      "cap": 2,
-     "score": 1,
-     "reason": "Name and 64x80 size kept and the face is lit. There is no evidence of the +0 animation frames, and a flat fill cannot show a lit/unlit change."
+     "score": 2,
+     "reason": "Name and size 64x80 kept. Both animation frames +0 and +a are present (grey and pale grey), and the face shows lit in the view."
     }
    },
-   "total": 9,
+   "total": 7,
    "of": 12,
    "passes": false
   },
@@ -941,10 +957,11 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 15
+    "deltaE": 15.3,
+    "flatDeltaE": 27.9
    },
    "caps": {
-    "T2": 2,
+    "T2": 0,
     "T6": 2
    },
    "scores": {
@@ -952,40 +969,40 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Original is a trim strip with a yellow-black hazard stripe beside grey concrete. The replacement is flat beige-grey."
+     "reason": "The original is a yellow and grey diagonal hazard-stripe trim. The replacement is flat grey with no stripes."
     },
     "T2": {
-     "judge": 2,
-     "cap": 2,
-     "score": 2,
-     "reason": "Measured deltaE 15.0, at the line, so kept at 2."
+     "judge": 1,
+     "cap": 0,
+     "score": 0,
+     "reason": "Measured max(15.3, 27.9) = 27.9, over 15."
     },
     "T3": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "The hazard stripe band and its diagonals are missing."
+     "reason": "The diagonal stripes at their spacing are missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "No stripe or grain."
+     "reason": "All stripe detail is lost."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and 16x128 size kept."
+     "reason": "Name and size 16x128 kept. It is a plain texture."
     }
    },
-   "total": 6,
+   "total": 4,
    "of": 12,
    "passes": false
   },
@@ -999,10 +1016,11 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 10.9
+    "deltaE": 10.8,
+    "flatDeltaE": 21.8
    },
    "caps": {
-    "T2": 2,
+    "T2": 1,
     "T6": 2
    },
    "scores": {
@@ -1010,37 +1028,37 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Original is a dark concrete step face with a lip and studs. The replacement is flat olive-grey."
+     "reason": "The original is a brownish concrete step edge. The replacement is flat grey."
     },
     "T2": {
-     "judge": 2,
-     "cap": 2,
-     "score": 2,
-     "reason": "Measured deltaE 10.9."
+     "judge": 1,
+     "cap": 1,
+     "score": 1,
+     "reason": "Measured max(10.8, 21.8) = 21.8, over 15."
     },
     "T3": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "The step lip and stud row are missing, so the stair edges no longer read."
+     "score": 1,
+     "reason": "The step-face texture's grain rows are gone. The steps read as plain bands (textures-3)."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "No detail."
+     "reason": "The concrete grain is lost."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and 128x16 size kept."
+     "reason": "Name and size 128x16 kept. It is a plain texture."
     }
    },
    "total": 6,
@@ -1057,7 +1075,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 2.7
+    "deltaE": 2.8,
+    "flatDeltaE": 3
    },
    "caps": {
     "T2": 2,
@@ -1065,43 +1084,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 2,
+     "judge": 1,
      "cap": null,
-     "score": 2,
-     "reason": "Both read as a lit white tube light strip."
+     "score": 1,
+     "reason": "It reads as a white light strip in the view. Flat, though, the original's twin tubes in a frame are a plain grey bar."
     },
     "T2": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Measured deltaE 2.7."
+     "reason": "Measured max(2.8, 3) = 3, under 15."
     },
     "T3": {
-     "judge": 1,
+     "judge": 0,
      "cap": null,
-     "score": 1,
-     "reason": "The original's tube edges and pale blue-green banding along the strip are lost to pure white."
+     "score": 0,
+     "reason": "The twin-tube layout and frame are missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
-     "judge": 1,
+     "judge": 0,
      "cap": null,
-     "score": 1,
-     "reason": "Loses the tube's tint and edge detail."
+     "score": 0,
+     "reason": "The tube and frame detail is lost."
     },
     "T6": {
-     "judge": 1,
+     "judge": 2,
      "cap": 2,
-     "score": 1,
-     "reason": "Name and 16x64 size kept and the face is lit. There is no evidence of the +a alternate frame, and a flat fill cannot carry the switched-off state."
+     "score": 2,
+     "reason": "Name and size 16x64 kept. It is the animation's +a frame, present, and lit in the view."
     }
    },
-   "total": 9,
+   "total": 7,
    "of": 12,
    "passes": false
   },
@@ -1115,51 +1134,52 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 4.5
+    "deltaE": 2.6,
+    "flatDeltaE": 18.8
    },
    "caps": {
-    "T2": 2,
+    "T2": 1,
     "T6": 2
    },
    "scores": {
     "T1": {
-     "judge": 2,
-     "cap": null,
-     "score": 2,
-     "reason": "Both read as a bright white light face."
-    },
-    "T2": {
-     "judge": 2,
-     "cap": 2,
-     "score": 2,
-     "reason": "Measured deltaE 4.5."
-    },
-    "T3": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "The original's speckled tube edge and lavender banding are gone."
+     "reason": "It reads as a white light in the view. Flat, the twin fluorescent tubes are a plain grey bar."
+    },
+    "T2": {
+     "judge": 1,
+     "cap": 1,
+     "score": 1,
+     "reason": "Measured max(2.6, 18.8) = 18.8, over 15."
+    },
+    "T3": {
+     "judge": 0,
+     "cap": null,
+     "score": 0,
+     "reason": "The two tubes and the frame are missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
-     "judge": 1,
+     "judge": 0,
      "cap": null,
-     "score": 1,
-     "reason": "Loses the tube detail and tint."
+     "score": 0,
+     "reason": "The tube detail is lost."
     },
     "T6": {
-     "judge": 1,
+     "judge": 2,
      "cap": 2,
-     "score": 1,
-     "reason": "Name and 16x64 size kept and the face is lit. There is no evidence of animation frames."
+     "score": 2,
+     "reason": "Name and size 16x64 kept. Frames +0 and +a are present, lit in the view."
     }
    },
-   "total": 9,
+   "total": 6,
    "of": 12,
    "passes": false
   },
@@ -1173,10 +1193,11 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 4.2
+    "deltaE": 30.8,
+    "flatDeltaE": 27.9
    },
    "caps": {
-    "T2": 2,
+    "T2": 0,
     "T6": 2
    },
    "scores": {
@@ -1184,40 +1205,40 @@
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "Original is a glowing yellow-orange lamp with a white core. The replacement is a plain white square: still a light, but a different-looking one."
+     "reason": "It glows white in the view. Flat, though, the original is a square lamp, a cream glow in a brown frame, and the replacement is flat grey."
     },
     "T2": {
-     "judge": 2,
-     "cap": 2,
-     "score": 2,
-     "reason": "Measured deltaE 4.2."
+     "judge": 0,
+     "cap": 0,
+     "score": 0,
+     "reason": "Measured max(30.8, 27.9) = 30.8, over 15. In the view the original's yellow rim is lost to plain white."
     },
     "T3": {
-     "judge": 1,
+     "judge": 0,
      "cap": null,
-     "score": 1,
-     "reason": "The orange and yellow rim around the white core is missing."
+     "score": 0,
+     "reason": "The square frame around the glow is missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "The coloured glow gradient is lost. Plainly worse."
+     "reason": "The glow gradient and frame are lost."
     },
     "T6": {
-     "judge": 1,
+     "judge": 2,
      "cap": 2,
-     "score": 1,
-     "reason": "Name and 16x16 size kept and the face is lit. There is no evidence of animation frames."
+     "score": 2,
+     "reason": "Name and size 16x16 kept. Frames +0 and +a are present (grey and pale), lit in the view."
     }
    },
-   "total": 7,
+   "total": 5,
    "of": 12,
    "passes": false
   },
@@ -1231,7 +1252,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 38.9
+    "deltaE": 36.7,
+    "flatDeltaE": 32.9
    },
    "caps": {
     "T2": 0,
@@ -1242,40 +1264,40 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "The original's surface shows dark/black under the blue light. The replacement is a flat saturated blue. Not the same material."
+     "reason": "The original is a teal-blue liquid or tank surface. The replacement is flat grey."
     },
     "T2": {
      "judge": 0,
      "cap": 0,
      "score": 0,
-     "reason": "Measured deltaE 38.9."
+     "reason": "Measured max(36.7, 32.9) = 36.7, over 15."
     },
     "T3": {
-     "judge": 0,
+     "judge": 2,
      "cap": null,
-     "score": 0,
-     "reason": "The original's panel band and dark structure are replaced by a uniform fill."
+     "score": 2,
+     "reason": "The original is near-uniform noise with no layout, and the replacement adds none."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "No detail, and the wrong colour."
+     "score": 1,
+     "reason": "The original's fine ripple noise is lost. It was little detail to begin with, but the replacement is flatter than the original."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and 64x64 size kept."
+     "reason": "Name and size 64x64 kept. It is a plain texture."
     }
    },
-   "total": 4,
+   "total": 7,
    "of": 12,
    "passes": false
   },
@@ -1289,7 +1311,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 66
+    "deltaE": 34,
+    "flatDeltaE": 25
    },
    "caps": {
     "T2": 0,
@@ -1300,40 +1323,40 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Original reads black in its view. The replacement is a flat saturated blue."
+     "reason": "The original is a pale blue icy or glassy surface with faint crack lines. The replacement is flat grey."
     },
     "T2": {
      "judge": 0,
      "cap": 0,
      "score": 0,
-     "reason": "Measured deltaE 66."
+     "reason": "Measured max(34, 25) = 34, over 15."
     },
     "T3": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "A flat fill keeps none of the original's layout."
+     "score": 1,
+     "reason": "The original's faint crack network is gone."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Featureless and the wrong colour."
+     "reason": "The crack and mottle detail is lost."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and 64x64 size kept."
+     "reason": "Name and size 64x64 kept. It is a plain texture."
     }
    },
-   "total": 4,
+   "total": 5,
    "of": 12,
    "passes": false
   },
@@ -1347,7 +1370,8 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 8
+    "deltaE": 7.8,
+    "flatDeltaE": 13.8
    },
    "caps": {
     "T2": 2,
@@ -1358,40 +1382,40 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Original is a mottled stained concrete ceiling. The replacement is flat beige-grey."
+     "reason": "The original is a grey streaked concrete ceiling. The replacement is flat grey with no material. The ceiling in textures-3 reads as plain plaster."
     },
     "T2": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Measured deltaE 8."
+     "reason": "Measured max(7.8, 13.8) = 13.8, under 15."
     },
     "T3": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "The ceiling's slab patches and staining pattern are missing."
+     "score": 1,
+     "reason": "The original's vertical streak pattern is gone."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "No grain or staining."
+     "reason": "The streaks and grain are lost. The ceiling is blank."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and 64x64 size kept."
+     "reason": "Name and size 64x64 kept. It is a plain texture."
     }
    },
-   "total": 6,
+   "total": 7,
    "of": 12,
    "passes": false
   },
@@ -1405,51 +1429,52 @@
     ],
     "present": true,
     "sizeKept": true,
-    "deltaE": 6.3
+    "deltaE": 6.3,
+    "flatDeltaE": 61.8
    },
    "caps": {
-    "T2": 2,
+    "T2": 0,
     "T6": 2
    },
    "scores": {
     "T1": {
-     "judge": 1,
+     "judge": 0,
      "cap": null,
-     "score": 1,
-     "reason": "A plain colour name. Neither view shows a yellow surface I can identify, so whether the replacement matches cannot be confirmed."
+     "score": 0,
+     "reason": "The original is a flat pale yellow. The replacement is mid grey, which a player would not call yellow."
     },
     "T2": {
-     "judge": 2,
-     "cap": 2,
-     "score": 2,
-     "reason": "Measured deltaE 6.3."
+     "judge": 0,
+     "cap": 0,
+     "score": 0,
+     "reason": "Measured max(6.3, 61.8) = 61.8, far over 15."
     },
     "T3": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "A plain-colour original. The flat replacement adds no pattern."
+     "reason": "The original has no layout, and the replacement adds none."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat fill, no seam."
+     "reason": "A flat colour, so no seam."
     },
     "T5": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "Not visible in the views, so it cannot be confirmed at least as good."
+     "score": 2,
+     "reason": "The original is a flat colour, and the replacement is equally flat with nothing smeared or noisy. Its colour fault is T2's."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name and 16x16 size kept."
+     "reason": "Name and size 16x16 kept. It is a plain texture."
     }
    },
-   "total": 10,
+   "total": 8,
    "of": 12,
    "passes": false
   }

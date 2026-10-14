@@ -1,23 +1,25 @@
-The build says OK: every engine check passed and all 20 measured features fall inside the range of the game's own drip loops. The file is `work:sound/ambience/drips.wav`. To use it, put it in `<mod>/sound/ambience/` and it plays in place of the original.
+The drip loop is built, and the build says OK with every engine check passing. It's at `work:sound/ambience/drips.wav`. Put it in `<mod>/sound/ambience/` and the game plays it in place of the original.
 
-**How it matches the original:**
-- **Format:** 11025 Hz, 8-bit, mono, 7.31 s, with a cue point at the start (the loop seam is crossfaded over 50 ms).
-- **Timing:** five drips at about the same times as the original's: 0.0, 1.84, a small one at 3.68, then 3.97 and 5.85 s. Each one wraps back cleanly at the loop.
-- **Each drip:** a sharp noise splash centred around 500 Hz, a little low body under it, a faint ring at about 500 and 850 Hz, and a noisy tail that dies away over about 1.6 s.
-- **Background:** a steady hiss under the whole loop, rolled off above 1.5 kHz, like the room tone in the original recording.
+**What it is:** 7.31 s long, 11025 Hz, 8-bit mono, with a cue point at its start so it loops, and the seam is crossfaded. It has five main drips at the same times as the original's (0, 1.87, 3.68, 3.98 and 5.84 s), with two of them close together just as in the original. Each one is a sharp splash followed by a ringing tail of about 1.5 s, with faint tone lines in it. There are also a few faint smaller drips and splashes in between, and a constant low rumble underneath.
 
+**Measured against the original's picture:**
 ```
-                 mine     game's drip loops
-centroid         869 Hz   671-1007
-flatness         0.115    0.05-0.15
-150-600 Hz       18.1%    13.2-33.2
-600-2k Hz        73.3%    62.3-82.3
-2k-5k Hz         4.4%     0-12.5
+               made      picture
+length         7.31 s    7.31 s
+centroid       859 Hz    795 Hz   (8% brighter)
+bands          within 1.7 points everywhere
+crest          23.8 dB   ~24.9 dB (the picture's is read off its outline, within 3 dB)
+onsets         4         8
 ```
+It also falls within the range of the game's own loop-drip sounds on all 20 measured features.
 
-**Where it still looks different side by side:**
-- **Top of the spectrum:** the original has more energy above about 2 kHz, including faint ringing lines in the drip tails. Mine is darker up there.
-- **Why I didn't fix it:** every time I added that high content, it dominated the moment the drip hits, and 7 or 8 of the 20 features went out of range. So I left it out.
-- **Drip tails:** in the original they stand out more against the background than mine do.
+**Where it's still off:**
+- **Onsets (separate hits the measurement detects):** it finds 4 where the original has 8. Raising the faint in-between drips by about 5 dB didn't get them counted.
+- **Those faint drips:** they show in the spectrogram as thin vertical stripes. The original has fainter versions of these, so mine may read a bit more artificial side by side.
+- **Late tails:** in the original, the top of the spectrogram stays a little brighter late in each tail than mine does.
 
-The build can't tell how it sounds or how the game plays it (volume, pitch, the map's room effects), so it needs a listen in-game.
+The numbers can't tell you how it actually sounds, or how loud and how roomy it will be once the map's `env_sound` adds its room. You'll need to listen in the game.
+
+**Two things to know:**
+- In a modes layer, each mode's `gain` acts as a linear amplitude, not decibels. I set them as decibels at first, which silenced the main tone, and fixed it.
+- I left a test file, `work:sound/test/t.wav`, from checking that. My tools can't delete it, so remove it by hand.

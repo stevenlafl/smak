@@ -1,0 +1,132 @@
+{
+  "spec": "smak.sound/1",
+  "name": "debris/bustmetal1.wav",
+  "class": "metal hit",
+  "rate": 11025,
+  "bits": 8,
+  "seed": 7,
+  "length": 0.87,
+  "layers": [
+    {
+      "id": "hit",
+      "kind": "noise",
+      "color": "white",
+      "env": {
+        "attack": 0.001,
+        "decay": 0.08
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 120
+        }
+      ],
+      "gain": -2
+    },
+    {
+      "id": "crash",
+      "kind": "noise",
+      "color": "white",
+      "env": {
+        "attack": 0.002,
+        "hold": 0.06,
+        "decay": 1
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 450
+        },
+        {
+          "type": "peak",
+          "f": 1600,
+          "q": 0.5,
+          "gain": 3
+        }
+      ],
+      "gain": -6
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "color": "brown",
+      "env": {
+        "attack": 0.002,
+        "hold": 0.04,
+        "decay": 0.5
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 300,
+          "q": 0.7
+        }
+      ],
+      "gain": -9
+    },
+    {
+      "id": "plate",
+      "kind": "modes",
+      "f": 610,
+      "ratios": "plate",
+      "decay": 1,
+      "damping": 0.9,
+      "detune": 0.15,
+      "gain": -10
+    },
+    {
+      "id": "plateb",
+      "kind": "modes",
+      "f": 890,
+      "ratios": "plate",
+      "decay": 0.95,
+      "damping": 0.9,
+      "detune": 0.15,
+      "gain": -11
+    },
+    {
+      "id": "plate2",
+      "kind": "modes",
+      "f": 1270,
+      "ratios": "bell",
+      "decay": 0.9,
+      "damping": 1,
+      "detune": 0.15,
+      "gain": -11
+    },
+    {
+      "id": "plate3",
+      "kind": "modes",
+      "f": 2050,
+      "ratios": "tube",
+      "decay": 0.8,
+      "damping": 1.2,
+      "detune": 0.15,
+      "gain": -12
+    },
+    {
+      "id": "rattle",
+      "kind": "particles",
+      "rate": 110,
+      "band": [
+        1000,
+        5000
+      ],
+      "grain": 0.004,
+      "env": {
+        "attack": 0.001,
+        "hold": 0.1,
+        "decay": 0.75
+      },
+      "gain": -8
+    }
+  ],
+  "finish": {
+    "saturate": 3,
+    "room": {
+      "decay": 0.3,
+      "wet": 0.12
+    },
+    "peak": -0.5
+  }
+}

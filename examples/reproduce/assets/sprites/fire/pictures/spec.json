@@ -14,26 +14,34 @@
       "type": "parallel oriented",
       "format": "additive",
       "origin": "bottom",
+      "reference": {
+        "picture": "pictures/frames.png",
+        "cell": 32,
+        "cols": 8
+      },
       "layers": [
         {
           "kind": "fire",
-          "width": 0.9,
-          "rise": 1,
-          "turbulence": 1.3,
-          "gain": 0.75
+          "ramp": "fire",
+          "width": 1.1,
+          "height": 1.95,
+          "taper": 0.15,
+          "tongues": 0.3,
+          "turbulence": 0.8,
+          "gain": 0.7
         },
         {
           "kind": "glow",
           "at": [
             0,
-            -0.5
+            -0.3
           ],
-          "radius": 0.3,
-          "gain": 0.15,
+          "radius": 0.9,
+          "gain": 0.12,
           "colour": [
-            1,
-            0.45,
-            0.15
+            0.8,
+            0.35,
+            0.12
           ]
         }
       ]

@@ -1,0 +1,107 @@
+{
+ "kind": "sounds",
+ "subject": "player-pl_step1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.266,
+   "peak": -0.1,
+   "rms": -21.1,
+   "crest": 21,
+   "dc": -0.0043,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.005,
+   "t20": 0.09,
+   "t40": 0.264,
+   "centroid": 853,
+   "rolloff": 2326,
+   "flatness": 0.27,
+   "bands": {
+    "<150": 26.8,
+    "150-600": 48.3,
+    "600-2k": 8.5,
+    "2k-5k": 15.1,
+    ">5k": 1.4
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.268,
+   "peak": -0.6,
+   "rms": -20.1,
+   "crest": 19.5,
+   "dc": -0.0001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.015,
+   "attack": 0,
+   "peakAt": 0.01,
+   "t20": 0.085,
+   "t40": 0.215,
+   "centroid": 901,
+   "rolloff": 2433,
+   "flatness": 0.257,
+   "bands": {
+    "<150": 26.1,
+    "150-600": 44.1,
+    "600-2k": 13.5,
+    "2k-5k": 15.2,
+    ">5k": 1.1
+   },
+   "onsets": 0
+  },
+  "lengthOff": 0.008,
+  "centroidOff": 0.056,
+  "bandsOffMost": 5,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the pictures and features only; I could not listen. Both are the same event, a short footstep on a hard floor. Each has a sharp heel strike at the start and a smaller second impact (the toe or the scuff) about 0.08 s in. After that both trail off into a low-level decay. Energy sits mostly below 600 Hz in both (75.1% in the original, 70.2% in the reproduction), with a smaller noisy 2-5 kHz part (15.1% vs 15.2%). That is the spectral shape of a boot on a hard floor."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 0.268 s against 0.266 s, 0.8% off. Attack is 0 in both, and the peak lands at 0.010 s vs 0.005 s. T20 (the time for the level to fall 20 dB) is 0.085 s vs 0.09 s, which is nearly the same. One small difference: T40 is 0.215 s vs 0.264 s, and there is a 0.015 s silent tail. So the reproduction's last third is a little quieter, which shows as darker last four spectrogram columns. That is not enough to move it out of the class's range."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid (the spectrum's centre of mass) is 901 Hz vs 853 Hz, 5.6% off. The largest band gap is 5 points, in 600 Hz-2 kHz (13.5 vs 8.5). The 150-600 Hz band is 4.2 points lower (44.1 vs 48.3). The other bands are within 0.7 points. Rolloff (the frequency below which most of the energy sits) is 2433 Hz vs 2326 Hz."
+  },
+  "S4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the pictures and features only; I could not listen. Both have the same two-impact structure, at the same times. Flatness (how noise-like the sound is) matches: 0.257 vs 0.27, both a mix of noise and body. Neither has a tonal line or pitch movement in the spectrogram, and the onset count agrees (0 in both). Minor differences: the original's first transient is a bit spikier, the reproduction's second impact at about 0.085 s is slightly stronger, and its tail fades sooner. None of these changes the character."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono PCM at 11025 Hz, 8 bits, matching the original's format. No clipped samples. DC (a constant offset in the signal) is -0.0001, effectively none. Peak is -0.6 dBFS (decibels below full scale). It keeps the same name. The original is a one-shot footstep with no loop cue, and the reproduction adds none. The harness reports no engine faults."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

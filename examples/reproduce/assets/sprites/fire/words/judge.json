@@ -37,7 +37,7 @@
     96
    ],
    "frames": 16,
-   "type": "upright",
+   "type": "parallel oriented",
    "format": "additive",
    "measures": {
     "frames": 16,
@@ -46,57 +46,57 @@
      96
     ],
     "border": {
-     "max": 0.009,
+     "max": 0,
      "mean": 0
     },
     "envelope": {
-     "peakAt": 0.53,
-     "first": 0.83,
-     "last": 0.83
+     "peakAt": 0.73,
+     "first": 0.88,
+     "last": 0.88
     },
-    "dark": 0.74,
-    "wrap": 0.69,
-    "jitter": 1.56
+    "dark": 0.82,
+    "wrap": 0.79,
+    "jitter": 1.75
    }
   },
-  "meanColourDeltaE": 12.5
+  "meanColourDeltaE": 57.4
  },
  "caps": {
   "R2": 2,
-  "R3": 2,
+  "R3": 0,
   "R4": 2,
-  "R5": 0
+  "R5": 2
  },
  "scores": {
   "R1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Both are a looping fire sprite: vertical tongues of flame, orange on black, drawn additively. A player would call it the same effect."
+   "score": 1,
+   "reason": "Both are a looping flame, but the original is a soft, wispy, ragged patch of orange fire with several tongues licking up. The reproduction is a single smooth, hard-edged cone with a white core, which reads as a candle or torch tongue rather than the same burning-fire effect."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frame size matches (32 x 96), but the effect does not fill the frame the way the original's does. The original's flame is wide and ragged. Its tongues reach the side edges (border max 0.275) and only 0.42 of the frame is dark. The reproduction is a narrow, smooth cone centred in the frame. It never touches the edges (border max 0.009) and 0.74 of the frame is dark. Every frame on the sheet shows this, for example frame 0 of each."
+   "reason": "Frame size matches (32x96). The fill does not. The original's flame spreads across most of the frame's width with soft edges that reach the border (border max 0.275, dark 0.42). The reproduction is a narrow, sharp-edged triangle on a mostly empty frame (border 0, dark 0.82), with none of the original's wide base or wisps on either side."
   },
   "R3": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "The measured mean colour difference is 12.5, under the 15 line, but up close the colours differ. The original is a dim red-orange with dark streaks running through the flame and no white-hot area. The reproduction has a bright yellow-white core at the base of every frame (clearest in frames 4, 7, 10 and 15) and fades smoothly to orange, without the original's dark streaks. The mean hides this shift in colour distribution."
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The measured mean colour difference is 57.4, far over the line of 15. The original is a dim, soft orange-red. The reproduction is mostly saturated white and yellow with orange only at the edges, so it is much brighter and hotter in colour."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "16 frames against 15 is within 25%. Both are flickering loops. Jitter is similar (1.56 against 1.51), and the first and last frames are about equally bright (0.83/0.83 against 0.90/0.84), so the loop closes (wrap 0.69 against 1.13). The brightness peak sits mid-cycle in the reproduction (0.53) and at the start in the original (0.07), but both vary over a similar range and neither is a one-shot."
+   "reason": "16 frames against 15, well within 25%. Both are flickering loops with nearly flat envelopes (first/last 0.90/0.84 against 0.88/0.88), and both close their loop (wrap 0.79 against 1.13), so the measures allow a 2. The peak frame falls in a different place (0.73 against 0.07), but with envelopes this flat that is not a real difference in motion. The reproduction's tip sways more stiffly than the original's turbulent flicker, but it is the same kind of motion."
   },
   "R5": {
-   "judge": 1,
-   "cap": 0,
-   "score": 0,
-   "reason": "The format matches (additive), but the type is wrong: the original is parallel oriented and the reproduction is upright. The engine will orient it differently in the world. The measurements say nothing about the name, so it cannot be confirmed."
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The type (parallel oriented) and format (additive) match the original's, as the harness read back from the file."
   }
  },
  "total": 6,

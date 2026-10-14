@@ -12,17 +12,30 @@
       "frames": 1,
       "type": "parallel",
       "format": "additive",
+      "reference": "pictures/frames.png",
       "layers": [
         {
           "kind": "beam",
-          "core": 0.3,
-          "noise": 0.5,
+          "profile": "round",
+          "core": 0.17,
           "colour": [
-            0.92,
-            0.94,
-            1
+            255,
+            255,
+            255
           ],
-          "gain": 1.6
+          "streaks": 0.3
+        },
+        {
+          "kind": "beam",
+          "profile": "round",
+          "core": 0.4,
+          "gain": 0.12,
+          "colour": [
+            140,
+            145,
+            165
+          ],
+          "streaks": 1
         }
       ]
     }

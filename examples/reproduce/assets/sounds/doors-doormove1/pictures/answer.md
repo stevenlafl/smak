@@ -1,21 +1,25 @@
-The sound is built and the build says OK with every check passed. It's at `work:sound/doors/doormove1.wav`, and because it keeps the game's name it plays in place of the original once it's put in `<mod>/sound/doors/`.
+I built `doors/doormove1.wav` at 11025 Hz, 8-bit, played once, and the build says OK. It's in the work folder as `sound/doors/doormove1.wav`. Copy it to `<mod>/sound/doors/` and the game plays it instead of the original.
+
+Here's how it measures against the picture of the original. I built it 5 times, and these are from the last build:
 
 ```
-                 original        mine
-length           5.04 s          5.045 s
-format           11025 Hz 8-bit  11025 Hz 8-bit mono
-peak / RMS       (not given)     -1.1 dBFS / -14.5 dBFS
-centroid         (not given)     453 Hz
-power by band    (not given)     <150 Hz 34%, 150-600 Hz 40%, 600-2k Hz 24%, 2-5k Hz 2%
+              made        original (read off its picture)
+length        5.00 s      5.04 s   (1% off)
+centroid      622 Hz      589 Hz   (6% off; centroid = how bright or dark)
+bands         2.1 points off at most (2-5 kHz)
+T20           0.424 s     in its range, 0.348 to 0.58 s (T20 = time to fall 20 dB)
+crest         13 dB       about 12.7 dB (peak over average loudness)
+onsets        5           7        (onsets = sharp attacks)
 ```
 
-I only had a picture of the original, not its numbers, so the left column is mostly blank. The match is by eye against the drawing:
+What it's made of:
+- **The slide:** a low grinding noise, darkest at the top end, with small swells in its loudness every 0.6 to 0.7 s.
+- **Squeaks:** three tones that rise from 230 to 340 Hz, at 0.15 s, 1.45 s and 2.75 s, matching the curved lines in the original's spectrogram.
+- **Clunks and rattle:** quiet low clunks and a faint higher rattle while it moves.
+- **The stop:** at 4.15 s, the noise swells, the spectrum gets darker, and a low thump falls from 75 to 58 Hz. Then it dies out by 5.0 s.
 
-- **The event:** a sliding door rumbling for about 4.1 s, then a heavier low knock as it stops at about 4.15 s, fading out by about 4.9 s.
-- **The body:** midrange-weighted noise with small rises and falls in level, plus a fine grit and a steady low rumble underneath.
-- **The squeaks:** four faint rising tones near 300→420 Hz, at about 0.15 s, 1.45 s, 2.75 s and 4.0 s. They sit where the curved streaks are in the original's spectrogram.
-- **The stop:** two low tones at 78 and 97 Hz. Played together they waver about 20 times a second, the same ripple the original's waveform shows there. A short rattle and a quiet metal ring go with them.
+There are two gaps against the original:
+- **Onsets:** mine has 5 sharp attacks and the original has 7.
+- **Squeaks:** mine show as thinner, cleaner lines than the original's fuzzy arcs.
 
-Side by side, mine is a bit more even and dense through the body than the original, whose waveform is more ragged. The squeak streaks are thinner than the original's softer, wider curves.
-
-Neither the build nor I can hear the result, so someone needs to listen to it in the game. The game's volume and pitch for door sounds and the map's room (its `env_sound`) will also change how it plays there.
+Both are small, but they're what a side-by-side look would catch. The numbers can't tell how it actually sounds, or how loud it plays in the game, so it needs a listen in a map.

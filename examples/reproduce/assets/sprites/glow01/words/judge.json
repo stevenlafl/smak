@@ -54,12 +54,12 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.43,
+    "dark": 0.59,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 1.9
+  "meanColourDeltaE": 1.1
  },
  "caps": {
   "R2": 2,
@@ -72,34 +72,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are a soft, round, white-grey radial glow centred in the frame on a dark background. It is the same effect."
+   "reason": "Both are a single soft white-grey radial glow on black, centred in the frame, with a bright core fading out smoothly. It is the same effect."
   },
   "R2": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Both frames are 64x64 (measured) and both borders are fully dark (max 0). The halo reaches about the same distance from the centre in each, and the dark share is close (0.43 vs 0.47). On a close look, the reproduction's bright core is a little wider and softer than the original's pinpoint centre. That is a small falloff difference, not a different fill."
+   "score": 1,
+   "reason": "The frame size matches (64x64). The glow does not fill the frame the way the original's does. The original's halo is wide and faint and reaches close to the frame edges, around a small pinpoint core. The reproduction's halo is tighter and ends well inside the edges, and its bright core is broader and blobbier. The measured dark share confirms this: 0.59 for the reproduction against 0.47 for the original, so noticeably more of the frame is empty."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Mean colour difference is 1.9 (measured), far under the 15 line. Both are neutral white to grey with no tint."
+   "reason": "The measured mean colour difference is 1.1, far under the line of 15. Both are neutral white-grey with no tint, as the engine blends them."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both have a single frame (measured), so there is no motion, loop or one-shot ending to match. The envelope is the same: peak at 0, first 1, last 1."
+   "reason": "Both have 1 frame (measured), so the static glow is the same. Envelope peak, first and last match (peakAt 0, first 1, last 1). There is no loop or one-shot to close."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type parallel and format additive in both, read back from the file as measured. The name is assumed to be glow01 because the harness pairs them under that name; no separate name check was given."
+   "reason": "The type (parallel) and format (additive) match the original's, and the size and frame count read back match. Nothing in the measurements or pictures points to a wrong name or a failed read-back."
   }
  },
- "total": 10,
+ "total": 9,
  "of": 10,
- "passes": true
+ "passes": false
 }

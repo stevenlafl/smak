@@ -1,0 +1,384 @@
+{
+  "spec": "smak.sound/1",
+  "name": "ambience/drips.wav",
+  "class": "loop drips",
+  "rate": 11025,
+  "bits": 8,
+  "seed": 7,
+  "length": 7.36,
+  "loop": {
+    "crossfade": 0.05
+  },
+  "layers": [
+    {
+      "id": "bed",
+      "kind": "noise",
+      "color": "pink",
+      "length": 7.36,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            7.36,
+            0
+          ]
+        ]
+      },
+      "gain": -25,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 1500
+        },
+        {
+          "type": "highpass",
+          "f": 60
+        }
+      ]
+    },
+    {
+      "id": "s1",
+      "kind": "noise",
+      "color": "white",
+      "at": 0,
+      "length": 0.6,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.25
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 520,
+          "q": 0.5
+        }
+      ],
+      "gain": 0
+    },
+    {
+      "id": "b1",
+      "kind": "noise",
+      "color": "brown",
+      "at": 0,
+      "length": 0.6,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.25
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 320,
+          "q": 0.7
+        }
+      ],
+      "gain": -8
+    },
+    {
+      "id": "r1",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0,
+      "length": 1.8,
+      "env": {
+        "attack": 0.01,
+        "decay": 1.6
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 600,
+          "q": 0.4
+        }
+      ],
+      "gain": -13
+    },
+    {
+      "id": "m1",
+      "kind": "modes",
+      "at": 0,
+      "modes": [
+        {
+          "f": 540,
+          "gain": 0,
+          "decay": 0.9
+        },
+        {
+          "f": 890,
+          "gain": -4,
+          "decay": 0.7
+        }
+      ],
+      "gain": -21
+    },
+    {
+      "id": "s2",
+      "kind": "noise",
+      "color": "white",
+      "at": 1.84,
+      "length": 0.6,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.25
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 500,
+          "q": 0.5
+        }
+      ],
+      "gain": 0
+    },
+    {
+      "id": "b2",
+      "kind": "noise",
+      "color": "brown",
+      "at": 1.84,
+      "length": 0.6,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.25
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 320,
+          "q": 0.7
+        }
+      ],
+      "gain": -8
+    },
+    {
+      "id": "r2",
+      "kind": "noise",
+      "color": "pink",
+      "at": 1.84,
+      "length": 1.8,
+      "env": {
+        "attack": 0.01,
+        "decay": 1.6
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 580,
+          "q": 0.4
+        }
+      ],
+      "gain": -13
+    },
+    {
+      "id": "m2",
+      "kind": "modes",
+      "at": 1.84,
+      "modes": [
+        {
+          "f": 510,
+          "gain": 0,
+          "decay": 0.9
+        },
+        {
+          "f": 820,
+          "gain": -4,
+          "decay": 0.7
+        }
+      ],
+      "gain": -21
+    },
+    {
+      "id": "s3",
+      "kind": "noise",
+      "color": "white",
+      "at": 3.68,
+      "length": 0.4,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.18
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 560,
+          "q": 0.5
+        }
+      ],
+      "gain": -5
+    },
+    {
+      "id": "r3",
+      "kind": "noise",
+      "color": "pink",
+      "at": 3.68,
+      "length": 0.5,
+      "env": {
+        "attack": 0.01,
+        "decay": 0.5
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 580,
+          "q": 0.4
+        }
+      ],
+      "gain": -16
+    },
+    {
+      "id": "s4",
+      "kind": "noise",
+      "color": "white",
+      "at": 3.97,
+      "length": 0.6,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.25
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 520,
+          "q": 0.5
+        }
+      ],
+      "gain": 0
+    },
+    {
+      "id": "b4",
+      "kind": "noise",
+      "color": "brown",
+      "at": 3.97,
+      "length": 0.6,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.25
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 320,
+          "q": 0.7
+        }
+      ],
+      "gain": -8
+    },
+    {
+      "id": "r4",
+      "kind": "noise",
+      "color": "pink",
+      "at": 3.97,
+      "length": 1.8,
+      "env": {
+        "attack": 0.01,
+        "decay": 1.6
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 600,
+          "q": 0.4
+        }
+      ],
+      "gain": -13
+    },
+    {
+      "id": "m4",
+      "kind": "modes",
+      "at": 3.97,
+      "modes": [
+        {
+          "f": 560,
+          "gain": 0,
+          "decay": 0.9
+        },
+        {
+          "f": 930,
+          "gain": -4,
+          "decay": 0.7
+        }
+      ],
+      "gain": -21
+    },
+    {
+      "id": "s5",
+      "kind": "noise",
+      "color": "white",
+      "at": 5.85,
+      "length": 0.6,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.25
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 520,
+          "q": 0.5
+        }
+      ],
+      "gain": 1
+    },
+    {
+      "id": "b5",
+      "kind": "noise",
+      "color": "brown",
+      "at": 5.85,
+      "length": 0.6,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.25
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 320,
+          "q": 0.7
+        }
+      ],
+      "gain": -7
+    },
+    {
+      "id": "r5",
+      "kind": "noise",
+      "color": "pink",
+      "at": 5.85,
+      "length": 1.51,
+      "env": {
+        "attack": 0.01,
+        "decay": 1.6
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 590,
+          "q": 0.4
+        }
+      ],
+      "gain": -13
+    },
+    {
+      "id": "m5",
+      "kind": "modes",
+      "at": 5.85,
+      "modes": [
+        {
+          "f": 530,
+          "gain": 0,
+          "decay": 0.9
+        },
+        {
+          "f": 870,
+          "gain": -4,
+          "decay": 0.7
+        }
+      ],
+      "gain": -21
+    }
+  ],
+  "finish": {
+    "peak": -1
+  }
+}

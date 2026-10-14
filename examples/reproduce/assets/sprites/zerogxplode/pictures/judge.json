@@ -46,20 +46,20 @@
      64
     ],
     "border": {
-     "max": 0.048,
+     "max": 0.144,
      "mean": 0
     },
     "envelope": {
-     "peakAt": 0.57,
-     "first": 0,
+     "peakAt": 0.5,
+     "first": 0.17,
      "last": 0
     },
-    "dark": 0.67,
-    "wrap": 0.49,
-    "jitter": 1.16
+    "dark": 0.71,
+    "wrap": 0.71,
+    "jitter": 1.38
    }
   },
-  "meanColourDeltaE": 12.5
+  "meanColourDeltaE": 4.3
  },
  "caps": {
   "R2": 2,
@@ -72,34 +72,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are a fireball explosion: a hot white-yellow core that grows and then fades into dim, smoky remains."
+   "reason": "Both are the same effect: a fireball explosion that starts as a white-hot core and burns down through orange to a dim brown before going dark."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frames are the right size (64x64), but the effect doesn't fill them the way the original's does. The original is a lumpy, off-centre, upward-reaching mass that grows into the top of the frame (border max 0.818) and leaves its remains low and to the left. The reproduction is a round, centred blob that never touches the edge (border max 0.048). Frames 5 to 10 show the difference most clearly. The original's scattered spark and debris flecks around the burst (frames 1 to 9) are also missing."
+   "reason": "Frame size matches (64x64, 15 frames). The effect does not fill the frames the way the original's does. The original starts as a tiny point in frame 0, then grows into a tall, irregular two-lobed plume with debris and sparks thrown out to the edges (border max 0.818). The reproduction is one compact rounded blob, already a sizeable disc in frame 0 and kept clear of the edges (border max 0.144). It has no ejecta in any frame and lacks the original's upper lobe (frames 7-12)."
   },
   "R3": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The measured mean colour difference of 12.5 is under 15, but the hue is visibly off. The original is cream-white to pale yellow, then tan and brown smoke (frames 6 to 14). The reproduction has a saturated red-orange rim from frame 1 onward and stays orange-red through frames 8 to 13. Frames 9 to 11 also have a grey-white core where the original is yellow-tan."
+   "score": 2,
+   "reason": "The measured mean colour difference is 4.3, under 15. Both go white, then peach and orange, then brown. The reproduction's middle and late frames (8-11) are a slightly flatter tan than the original's deeper orange-brown, but a player would call them the same colours."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frame count matches (15) and both end dark, but the timing and the kind of motion differ. The original is already a small flash in frame 0, bursts to full brightness by frames 2 to 4 (peakAt 0.36) and then cools and breaks up into drifting smoke patches. The reproduction is empty in frame 0 (first 0 against 0.08), swells steadily to peak late (peakAt 0.57), and dims as one uniform ball without breaking up."
+   "reason": "The frame count matches (15), and it is a one-shot that ends dark (last 0, original 0.03). The motion differs, though. The reproduction's brightness peaks at the middle of the run (0.5) where the original peaks earlier (0.36), and its opening frame is twice as bright (0.17 vs 0.08) because it starts as a full blob rather than a spark. The original's lower mass fades first while the upper lobe lingers and drifts up, ending as a small high puff (frames 11-14). The reproduction just darkens in place as one blob, with patchy dark holes (frames 10-12), and has no rise or break-up."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Its type (parallel) and format (additive) match the original's, and it has the same frame count and size (64x64). It was read back as written."
+   "reason": "The type (parallel) and format (additive) match the original, and the frame count and size read back as written."
   }
  },
- "total": 7,
+ "total": 8,
  "of": 10,
  "passes": false
 }

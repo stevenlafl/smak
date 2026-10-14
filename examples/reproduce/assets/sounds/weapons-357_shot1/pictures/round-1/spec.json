@@ -1,0 +1,142 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/357_shot1.wav",
+  "class": "gunshot",
+  "bits": 8,
+  "rate": 22050,
+  "seed": 7,
+  "length": 1.06,
+  "layers": [
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1000
+        }
+      ],
+      "env": {
+        "attack": 0.0003,
+        "hold": 0.02,
+        "decay": 0.06
+      },
+      "gain": 4
+    },
+    {
+      "id": "blast",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150
+        },
+        {
+          "type": "lowpass",
+          "f": 6000,
+          "sweep": {
+            "to": 1800,
+            "time": 0.9
+          }
+        },
+        {
+          "type": "peak",
+          "f": 1200,
+          "q": 0.7,
+          "gain": 6
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.42,
+            -1
+          ],
+          [
+            0.5,
+            -8
+          ],
+          [
+            0.65,
+            -17
+          ],
+          [
+            0.85,
+            -30
+          ],
+          [
+            1.06,
+            -48
+          ]
+        ]
+      },
+      "gain": 4
+    },
+    {
+      "id": "boom",
+      "kind": "tone",
+      "f": 100,
+      "wave": "sine",
+      "sweep": {
+        "to": 50,
+        "time": 0.3
+      },
+      "env": {
+        "attack": 0.001,
+        "hold": 0.3,
+        "decay": 0.5
+      },
+      "gain": -12
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "color": "brown",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 60
+        },
+        {
+          "type": "lowpass",
+          "f": 500
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.42,
+            -2
+          ],
+          [
+            0.7,
+            -22
+          ],
+          [
+            1.06,
+            -55
+          ]
+        ]
+      },
+      "gain": -6
+    }
+  ],
+  "finish": {
+    "saturate": 8,
+    "room": {
+      "decay": 0.12,
+      "wet": 0.1
+    },
+    "peak": -0.5
+  }
+}

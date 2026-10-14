@@ -1,0 +1,31 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/fire.spr",
+      "class": "fire loop",
+      "size": [
+        32,
+        96
+      ],
+      "frames": 15,
+      "loop": true,
+      "fps": 10,
+      "type": "upright",
+      "format": "additive",
+      "origin": "bottom",
+      "finish": {
+        "edge": 3
+      },
+      "layers": [
+        {
+          "kind": "fire",
+          "ramp": "fire",
+          "width": 0.65,
+          "rise": 0.82,
+          "turbulence": 1
+        }
+      ]
+    }
+  ]
+}

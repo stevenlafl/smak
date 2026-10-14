@@ -12,28 +12,80 @@
       "frames": 15,
       "type": "parallel",
       "format": "additive",
+      "reference": "pictures/frames.png",
       "layers": [
         {
-          "kind": "explosion",
-          "growth": 0.8,
-          "cool": 0.4,
-          "turbulence": 1.6,
-          "gain": 1.8,
-          "env": {
-            "attack": 0.01,
-            "decay": 0.7
-          }
-        },
-        {
-          "kind": "sparks",
-          "count": 30,
-          "speed": 1,
-          "gravity": 0,
-          "trail": 0.1,
-          "gain": 1.2,
+          "kind": "billow",
+          "count": 20,
+          "spread": 0.5,
+          "size": 0.32,
+          "growth": 0.9,
+          "rise": 0.25,
+          "drift": 0.15,
+          "blend": 0.6,
+          "lumps": 0.45,
+          "ramp": [
+            [
+              0,
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            [
+              0.2,
+              [
+                0.35,
+                0.16,
+                0.05
+              ]
+            ],
+            [
+              0.45,
+              [
+                0.75,
+                0.43,
+                0.16
+              ]
+            ],
+            [
+              0.65,
+              [
+                0.94,
+                0.75,
+                0.37
+              ]
+            ],
+            [
+              0.85,
+              [
+                1,
+                0.92,
+                0.67
+              ]
+            ],
+            [
+              1,
+              [
+                1,
+                1,
+                0.98
+              ]
+            ]
+          ],
+          "hot": 0.4,
+          "cool": 0.8,
+          "dissolve": 0.6,
+          "debris": {
+            "count": 30,
+            "speed": 0.9,
+            "gravity": 0,
+            "trail": 0
+          },
           "env": {
             "attack": 0,
-            "decay": 0.6
+            "decay": 0.35
           }
         }
       ]

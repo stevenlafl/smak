@@ -1,0 +1,107 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-sbarrel1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 1.039,
+   "peak": -0.4,
+   "rms": -8.7,
+   "crest": 8.3,
+   "dc": -0.0044,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.614,
+   "t40": 0.958,
+   "centroid": 604,
+   "rolloff": 991,
+   "flatness": 0.081,
+   "bands": {
+    "<150": 31.7,
+    "150-600": 37.9,
+    "600-2k": 24.4,
+    "2k-5k": 4.8,
+    ">5k": 1.3
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 1.042,
+   "peak": -0.6,
+   "rms": -11.7,
+   "crest": 11.2,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0,
+   "peakAt": 0,
+   "t20": 0.609,
+   "t40": 0.888,
+   "centroid": 781,
+   "rolloff": 1572,
+   "flatness": 0.103,
+   "bands": {
+    "<150": 42.8,
+    "150-600": 24.2,
+    "600-2k": 21,
+    "2k-5k": 9.5,
+    ">5k": 2.5
+   },
+   "onsets": 1
+  },
+  "lengthOff": 0.003,
+  "centroidOff": 0.293,
+  "bandsOffMost": 13.7,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 1,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "I can't listen, so this is judged only from the pictures and features. Both are a single gunshot blast: one onset at the start, a dense broadband burst, then a decay into a quiet tail that lasts about 1.04 s. Both are dark sounds with almost no energy above 5 kHz (1.3% and 2.5%). From the pictures this is the same event, a shotgun blast."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "On the measurements alone this would be a 2. The lengths are 1.039 s and 1.042 s, the attacks are 5 ms and 0 ms, and T20 is 0.614 s against 0.609 s. The measurements miss the body of the blast, though. In the original's waveform the loud part stays near full scale for about the first 0.25 s, a solid saturated block. The reproduction peaks in its first sample (peakAt 0 against 0.015) and falls straight away to a ragged level of about two thirds. Its RMS is 3 dB lower (-11.7 against -8.7 dB) and its crest factor is 2.9 dB higher (11.2 against 8.3). T40 also comes earlier (0.888 s against 0.958 s). The broad timing is right, but the sustained loud blast is clearly thinner."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "This fails the measured limits. The centroid is 781 Hz against 604 Hz, 29% off where the limit is 20%. Two bands are off by more than 10 points: 150-600 Hz is 24.2% against 37.9% (13.7 points), and below 150 Hz is 42.8% against 31.7% (11.1 points). The 2-5 kHz band is also about twice the original's (9.5% against 4.8%), and rolloff is 1572 Hz against 991 Hz. The original's energy sits in the low-mid body, while the reproduction has more sub-bass and more upper-mid and less low-mid. The overall shape is still in the same family, so it scores 1 rather than 0."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "I can't listen, so this is judged only from the pictures and features. Both have one onset and no pitch movement. Flatness is 0.103 against 0.081, so the reproduction is slightly noisier. The spectrograms differ in two places. In the first ~0.05 s the original shows several vertical broadband transient stripes, short repeated reports or mechanical clicks, which the reproduction lacks. In the first ~0.15 s the reproduction shows steady horizontal tonal lines in its lowest rows, a ringing tone the original does not have. These are clear differences in character."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file is mono PCM at 22050 Hz, 8-bit, with no clipped samples and DC at 0. It has the same name as the original. A one-shot blast has no loop cue, and the original has none, so none is needed. The engine reported no faults."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

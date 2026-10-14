@@ -46,20 +46,20 @@
      48
     ],
     "border": {
-     "max": 0.251,
+     "max": 0.239,
      "mean": 0.004
     },
     "envelope": {
      "peakAt": 0.4,
-     "first": 0.11,
+     "first": 0.06,
      "last": 0
     },
-    "dark": 0.6,
-    "wrap": 1.37,
-    "jitter": 1.2
+    "dark": 0.64,
+    "wrap": 0.51,
+    "jitter": 1.1
    }
   },
-  "meanColourDeltaE": 3
+  "meanColourDeltaE": 0.3
  },
  "caps": {
   "R2": 2,
@@ -69,34 +69,34 @@
  },
  "scores": {
   "R1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Both are a white puff that grows and fades, so the effect is roughly the same. But the original is a billowy steam cloud with a lumpy, soft edge (frames 2-7) that breaks into wisps. The reproduction is a hard-edged round disc in frames 0-6 and a smooth ball later (frames 7-14). A player would see a white ball, not steam."
+   "score": 2,
+   "reason": "Both are a puff of white steam that swells from a small dot into a billowing cloud and then thins out. A player would call it the same effect."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frames match the original's size (32x48). The way the effect fills them does not. From frame 8 on, the original's cloud stretches into a narrow column down to the bottom of the frame and thins at the top (frames 10-15). The reproduction stays one large round blob that fills the frame's width all the way to frame 14, with only faint streaks above and below."
+   "reason": "The frames are the original's 32 x 48 and the peak cloud fills them about as much (frames 5-7). From frame 8 on they differ. The original's cloud stretches into a tall, streaky column of wisps reaching the bottom of the frame (frames 9-14). The reproduction's stays one rounded blob in the upper part of the frame, with only a faint smear below, all the way to frame 13."
   },
   "R3": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "The measured mean colour difference is 3, well under 15. Both are white to grey on the engine's blend. The reproduction's flat, unshaded white is a shape and detail issue, not a colour one."
+   "score": 1,
+   "reason": "The measured mean colour difference is 0.3, so the average colour is right. Looking closely, the fading frames add colours the original lacks: dark specks darker than the background inside the cloud (frames 8-10), and mottled flat-grey patches with hard edges (frames 11-13). The original fades as soft white-grey wisps. The bright white peak frames have an embossed, hard-shaded look; the original's are soft."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frame count matches (16 vs 16). Both are one-shots that end dark: the measured last-frame brightness is 0.03 for the original and 0 for the reproduction, and the peak is at 0.4 in both. The kind of motion differs, though. The original grows, then breaks up and drifts into a thinning wispy column (frames 9-15). The reproduction grows as a solid disc and fades evenly as one round shape, with no break-up (frames 7-14). Its first frame is also brighter (first 0.11 vs 0.04), and the measured wrap is 1.37 against the original's 0.5."
+   "reason": "Both have 16 frames, peak at 0.4 of the way through (measured) and grow then fade. The measured last frame is 0 against the original's 0.03: the reproduction's frame 15 is empty, while the original's still shows a faint wisp, which is close enough for a one-shot. The kind of motion differs, though. The original rises and spreads into wisps as it fades (frames 8-15). The reproduction dissolves in place in blotchy, dithered patches (frames 10-14), and its cloud barely rises or changes shape."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The type matches (parallel oriented), and so do the format (index alpha), the size (32x48) and the frame count (16). The harness read it back as written."
+   "reason": "The type (parallel oriented) and format (index alpha) are both the original's, and the size and frame count read back the same as written."
   }
  },
  "total": 7,

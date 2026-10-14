@@ -1,29 +1,25 @@
-I built `ambience/drips.wav` and the build says OK. Every engine check passes, and all 20 of its measured features fall within the range of the game's own drip loops.
+I built `ambience/drips.wav` and the build says OK. It passes every engine check and has all 20 measured features inside the range of the game's own "loop drips" sounds.
+
+**The file:** 7.31 s, mono, 11025 Hz, 8-bit, with a cue point at its start so it loops. The seam is crossfaded over 0.05 s, so the last drip's tail runs into the loop point. Peak is -1.1 dBFS and RMS is -28.7 dBFS.
+
+**The drips:** five, at 0.05, 1.87, 3.69, 3.97 and 5.85 s. Their levels match the description: the first and last are loudest (0 dB), the second is -3 dB, and the double drip in the middle is -5 dB each. Each one is built from three parts:
+- **"Plip":** a few milliseconds of noise centred on 720 to 900 Hz.
+- **Tail:** a wet noise tail shaped to peak around 450 to 900 Hz. It is weaker from 1.2 to 2 kHz and faint above 3 kHz. It decays to -60 dB in 0.6 to 1.1 s.
+- **Ring:** faint sine tones that differ per drip, from 610 Hz to 1.95 kHz. Some glide up by about 10% over the first 0.1 s, like a drop's bubble.
+
+**The background:** a steady noise bed weighted below 200 Hz sits about 27 dB down, so the level never drops to silence between drips.
+
+**Measured:**
 
 ```
-                 Result             Original (as described)
-Format           11025 Hz 8-bit mono, loops from its start
-Length           7.31 s             7.31 s
-Drips at         0.05 1.87 3.69 3.97 5.85 s (same as the original)
-Loudness order   1 = 5 > 2 > 3 = 4  same
-Peak / RMS       -1.1 / -25.9 dBFS
-Attack           under 10 ms        a few ms
-Fade (T20/T40)   0.33 s / 1.45 s    0.5 to 1 s tail
-Centroid         920 Hz             strongest band 700-900 Hz
-Power <150 Hz    3.4%
-      150-600    19%
-      600-2k     75.2%
-      2k-5k      2.4%               faint above 3 kHz
-Flatness         0.064              mostly noise, a slight ring
+centroid         975 Hz
+flatness         0.138   (mostly noise, a slight ring)
+T20 / T40        0.25 s / 1.46 s   (time to fall 20 / 40 dB)
+power by band    <150 Hz 1.6%   150-600 17.2%   600-2k 77.1%   2k-5k 4.1%   >5k 0.1%
 ```
 
-How it's built:
-- **Each drip** has three noise parts: a 30 ms "plip" around 750 to 850 Hz, a wet tail that fades over 0.6 to 1 s, and a weaker layer around 400 Hz to give the tail some body.
-- **The ring** is a faint sine that glides up about 100 Hz over the first 0.1 s, like a drop's bubble, plus one or two ringing tones. All of these are tuned differently for each drip, between 620 Hz and 2 kHz.
-- **The background** is a steady low rumble under about 300 Hz plus a quiet mid hiss, so the gaps between drips never go silent. Both run the full length, and the last tail runs into the loop point.
+**Two things that could stand out side by side:**
+- The onset detector counts 4 onsets, not 5. It probably merges the double drip at 3.69 and 3.97 s, which are only 0.28 s apart. The spectrogram shows them as two separate strikes.
+- I wrote this from the description alone. I never had the original file to draw beside it, so how close the shape and colour of each tail are is a judgment call.
 
-**Weakest match:** The rings are fainter than the description may mean. When they were louder, the tool rated the sound too bright and too pure, so I turned them down until they are only just visible in the spectrogram. If they should stand out more, raise the ringing-tone layers a few dB and accept a slightly brighter reading.
-
-The tool can't tell me how it actually sounds or how it plays in a map, so it needs a listen in the game. The file goes in `<mod>/sound/ambience/drips.wav`.
-
-While testing I also wrote `work:sound/test/drips16.wav`, a 16-bit copy I used to rule out the 8-bit format as the cause of the brightness. It's scratch and can be deleted; none of these tools can delete files.
+The tool can't judge how it sounds to a person, or how loud and how pitched the game plays it in a map's room. Someone needs to listen to it in the game.
