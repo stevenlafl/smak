@@ -19,7 +19,7 @@ import { compileMap, findCompilers } from "../maps/compile.mjs";
 import { readBsp } from "../maps/bsp.mjs";
 import { lightReport } from "../maps/light.mjs";
 import { planOfSource, planOf, drawMap, sectionOf } from "../maps/draw.mjs";
-import { tile } from "../render.mjs";
+import { tile, label } from "../render.mjs";
 import { png } from "../image.mjs";
 import { materialOf, surfacePicture, MATERIALS } from "./paint.mjs";
 import { buildModelSpec, validateModelSpec } from "./model.mjs";
@@ -51,6 +51,22 @@ const FACINGS = { east: 0, north: 90, west: 180, south: 270 };
 const isNumber = (v) => typeof v === "number" && Number.isFinite(v);
 const snap = (v, grid) => Math.round(v / grid) * grid;
 const mid = (room) => room.min.map((v, k) => (v + room.max[k]) / 2);
+
+/** Pictures one under another, each named in its top left corner, on a dark ground. */
+function stacked(pictures, names) {
+  const width = Math.max(...pictures.map((p) => p.width));
+  const height = pictures.reduce((h, p) => h + p.height, 0);
+  const rgba = new Uint8Array(width * height * 4);
+  for (let i = 0; i < width * height; i++) rgba.set([24, 26, 30, 255], i * 4);
+  const out = { width, height, rgba };
+  let top = 0;
+  pictures.forEach((p, n) => {
+    for (let y = 0; y < p.height; y++) rgba.set(p.rgba.subarray(y * p.width * 4, (y + 1) * p.width * 4), ((top + y) * width) * 4);
+    label(out, names[n], 6, top + 6);
+    top += p.height;
+  });
+  return out;
+}
 
 /** The texture names a spec's materials take: SM_ and the word, 15 letters at most, as a .wad holds them. */
 const textureName = (key) => (key === "sky" ? "sky" : `SM_${key}`.toUpperCase().replace(/[^A-Z0-9_]/g, "").slice(0, 15));
@@ -331,6 +347,8 @@ export function buildMapSpec(spec, { out, compilers, folder } = {}) {
   // ── the ways through: doorways, windows, stairs, shafts between storeys ──
   const holes = [];
   const brushes = [];
+  /** where to cut the map upright to see each staircase: { name, from, to } in plan */
+  const cuts = [];
   const entities = [];
   (spec.links ?? []).forEach((link, i) => {
     const [a, b] = link.between.map((id) => rooms.get(id));
@@ -355,8 +373,9 @@ export function buildMapSpec(spec, { out, compilers, folder } = {}) {
         const sx = x0 + 16;
         const sy = y0 + 16;
         holes.push({ min: [sx, sy, lower.max[2]], max: [sx + run, sy + width, upper.min[2]] });
-        brushes.push(...stairBrushes([sx, sy, lower.min[2]], [sx + run, sy + width, upper.min[2]], "+x", textureOf("floor"), { steps: count, top: false }));
+        brushes.push(...stairBrushes([sx, sy, lower.min[2]], [sx + run, sy + width, upper.min[2]], "+x", textureOf("floor"), { steps: count, top: false, tread: TREAD }));
         report.facts.push(`links[${i}]: stairs of ${count} steps from ${lower.id} up to ${upper.id}, along x from ${sx} to ${sx + run}`);
+        cuts.push({ name: `${lower.id} up to ${upper.id}`, from: [lower.min[0] - 8, sy + width / 2], to: [lower.max[0] + 8, sy + width / 2] });
       } else errors.push(`links[${i}]: stairs from ${lower.id} to ${upper.id} need ${run + 32} x ${width} of floor both rooms share; they share ${x1 - x0} x ${y1 - y0}`);
       return;
     }
@@ -399,8 +418,11 @@ export function buildMapSpec(spec, { out, compilers, folder } = {}) {
       const high = `${toward > 0 ? "+" : "-"}${"xyz"[axis]}`;
       if (run > lower.max[axis] - lower.min[axis] - PLAYER.wide) errors.push(`links[${i}]: stairs up ${floorHigh - floorLow} need ${run} of ${lower.id}'s floor; it is ${lower.max[axis] - lower.min[axis]} long that way`);
       else {
-        brushes.push(...stairBrushes(min, max, high, textureOf("floor"), { steps: count, top: false }));
+        brushes.push(...stairBrushes(min, max, high, textureOf("floor"), { steps: count, top: false, tread: TREAD }));
         report.facts.push(`links[${i}]: stairs of ${count} steps in ${lower.id} up to the way at ${floorHigh}`);
+        const middle = w0 + width / 2;
+        const ends = [Math.min(a.min[axis], b.min[axis]) - 8, Math.max(a.max[axis], b.max[axis]) + 8];
+        cuts.push({ name: `${a.id} to ${b.id}`, from: axis === 0 ? [ends[0], middle] : [middle, ends[0]], to: axis === 0 ? [ends[1], middle] : [middle, ends[1]] });
       }
     } else if (kind !== "window" && floorHigh !== floorLow) report.facts.push(`links[${i}]: a step of ${floorHigh - floorLow} from ${a.id} to ${b.id}`);
     if (kind === "door") {
@@ -602,9 +624,10 @@ export function buildMapSpec(spec, { out, compilers, folder } = {}) {
   warnings.push(...plan.warnings);
   if (plan.leak) report.faults.push("the plan's flood finds a way out to the void: the map leaks");
   const walk = reachOf(map);
-  for (const entity of walk.unreached) report.faults.push(`not reached on foot: ${entity.classname} at ${entity.origin.join(" ")}: ${entity.why ?? entity.how}`);
-  for (const entity of walk.stuck) report.faults.push(`in something solid: ${entity.classname} at ${entity.origin.join(" ")}`);
-  for (const place of walk.oneWay) report.faults.push(`a one-way place at ${place.at.join(" ")}: ${place.entry ? `entered from ${place.entry.from.join(" ")}` : "no way back"}`);
+  // the walk test's own sentences: faults when it found an entity not reached, one in solid or a one-way
+  // place; otherwise what it says (an opening a player only just fits) is a warning
+  const walkFaults = walk.unreached.length + walk.stuck.length + walk.oneWay.length;
+  (walkFaults ? report.faults : warnings).push(...walk.warnings.map((line) => `walk: ${line}`));
   for (const room of rooms.values()) {
     const c = mid(room);
     if (!walk.on(c[0], c[1], room.max[2]).walked && !(room.spec.walk === false))
@@ -636,7 +659,7 @@ export function buildMapSpec(spec, { out, compilers, folder } = {}) {
         if (room.dark) report.faults.push(`${room.name} is dark: its floor's light is ${Math.round(room.mean)} of 255 (under ${24})`);
       }
       const walked = reachOf(bsp);
-      for (const entity of walked.unreached) report.faults.push(`compiled, not reached on foot: ${entity.classname} at ${entity.origin.join(" ")}`);
+      if (walked.unreached.length + walked.stuck.length) report.faults.push(...walked.warnings.map((line) => `walk of the compiled map: ${line}`));
       const drawing = { folders: [out, dirname(out)], models: true };
       save("plan", planOf(bsp, drawing));
       // a view of every room, from a corner by its walls looking across it to the far corner
@@ -650,6 +673,9 @@ export function buildMapSpec(spec, { out, compilers, folder } = {}) {
         return drawMap(bsp, { ...drawing, from, yaw, pitch, width: 320, height: 240 });
       });
       save("views", tile(views, Math.min(4, views.length), [...rooms.keys()]));
+      // a side section through each staircase: the steps, the floors and the headroom, which no plan shows
+      if (cuts.length)
+        save("sections", stacked(cuts.map((cut) => sectionOf(bsp, { from: cut.from, to: cut.to, width: 640 })), cuts.map((cut) => cut.name)));
       report.facts.push(`compiled: ${result.bsp}; the floors' light by room: ${lit.rooms.map((r) => `${r.name} ${Math.round(r.mean)}`).join(", ")}`);
     }
   }

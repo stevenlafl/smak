@@ -1,0 +1,146 @@
+{
+ "spec": "smak.map/1",
+ "name": "watchtower",
+ "theme": {
+  "floor": "stone",
+  "wall": "stone",
+  "ceiling": "planks"
+ },
+ "textures": {
+  "darkstone": {
+   "base": "stone",
+   "tone": [
+    0.33,
+    0.32,
+    0.3
+   ],
+   "seed": 7
+  }
+ },
+ "rooms": [
+  {
+   "id": "guardroom",
+   "size": [
+    320,
+    320,
+    160
+   ]
+  },
+  {
+   "id": "lookout",
+   "size": [
+    320,
+    320,
+    128
+   ],
+   "place": {
+    "above": "guardroom"
+   }
+  },
+  {
+   "id": "corridor",
+   "size": [
+    256,
+    128,
+    128
+   ],
+   "place": {
+    "east_of": "guardroom"
+   }
+  },
+  {
+   "id": "storeroom",
+   "size": [
+    256,
+    320,
+    144
+   ],
+   "place": {
+    "east_of": "corridor"
+   }
+  },
+  {
+   "id": "cellar",
+   "size": [
+    320,
+    320,
+    232
+   ],
+   "place": {
+    "east_of": "storeroom"
+   },
+   "floor": -96,
+   "surfaces": {
+    "floor": "darkstone"
+   },
+   "light": {
+    "count": 1,
+    "brightness": 110,
+    "color": [
+     255,
+     210,
+     160
+    ]
+   }
+  }
+ ],
+ "links": [
+  {
+   "between": [
+    "guardroom",
+    "lookout"
+   ],
+   "kind": "stairs",
+   "width": 96
+  },
+  {
+   "between": [
+    "guardroom",
+    "corridor"
+   ],
+   "kind": "opening",
+   "width": 96
+  },
+  {
+   "between": [
+    "corridor",
+    "storeroom"
+   ],
+   "kind": "opening",
+   "width": 96
+  },
+  {
+   "between": [
+    "storeroom",
+    "cellar"
+   ],
+   "kind": "opening",
+   "width": 96,
+   "along": 0.3
+  }
+ ],
+ "entities": [
+  {
+   "class": "info_player_start",
+   "room": "guardroom",
+   "at": "corner ne",
+   "facing": "west"
+  },
+  {
+   "class": "weapon_crossbow",
+   "room": "lookout",
+   "at": "corner ne"
+  },
+  {
+   "class": "item_battery",
+   "room": "storeroom",
+   "at": "centre"
+  },
+  {
+   "class": "monster_zombie",
+   "room": "cellar",
+   "at": "corner ne",
+   "facing": "west"
+  }
+ ]
+}

@@ -661,6 +661,7 @@ function build(folders, args) {
       show(reference ? besideOf(reference, drawn) : drawn);
     }
     if (files.views) show(smak.unpng(readFileSync(files.views)));
+    if (files.sections) show(smak.unpng(readFileSync(files.sections)));
     return [text(lines.join("\n")), ...pictures];
   }
   if (spec?.spec !== "smak.model/1")
