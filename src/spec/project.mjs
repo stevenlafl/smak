@@ -25,7 +25,7 @@ const unit = (a) => {
 const LEAST_FACING = 0.2;
 const SHARPNESS = 4;
 /** A view takes part in a texel's colour only if it faces the surface this share as squarely as the best view does. */
-const SQUARE_SHARE = Number(process.env.SMAK_SQUARE_SHARE ?? 0.8);
+const SQUARE_SHARE = Number(process.env.SMAK_SQUARE_SHARE ?? 0.95);
 /** A picture's dot is background within this of the background's colour, each channel (0 to 255). */
 const BACKGROUND_NEAR = 14;
 
