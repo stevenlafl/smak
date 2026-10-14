@@ -44,9 +44,51 @@ missing), 1 (there, clearly off) or 2 (right to a close look).
 | P8 | Works | yes | it compiles, does not leak, every place to start reaches every weapon and item on foot (as the original's do), within the engine's limits |
 | P9 | Visual fidelity | yes | the views from the original's places to start, taken from the same points in both maps, look like the same place: a player who knows the map would recognise it at once |
 
+## Textures, sounds and sprites (added 2026-10-14, before any of them was built)
+
+The same test for the other kinds of a mod's assets. A **texture** or a **sound** is replaced: a set of Valve's
+is made again under the same names, so the game takes ours in their place, and judged at least as good. A
+**sprite** is reproduced, as a model is. Legs: **pictures** (a texture's place in the map seen from inside, never
+the texture itself, which would be a copy; a sprite's frames as a contact sheet; a sound's waveform over its
+spectrogram) and **words** (another agent's description of those pictures). The judge sees the original and the
+replacement side by side, drawn and measured by the harness: textures each on its own and in the map's own
+views (the original map drawn wearing each .wad in turn), sounds as pictures and features (it cannot listen;
+that limit is said in every sound result), sprites as sheets and their measures.
+
+### Textures (each texture)
+
+| # | Item | Must | What a 2 is |
+| --- | --- | --- | --- |
+| T1 | What it is | yes | a player would call it the same thing: the same material and purpose (concrete wall panel, metal grate, tiled floor, a light's face) |
+| T2 | Colour | yes | its mean colour in the map's views within 15 (CIE76 delta E, measured over the faces that wear it, smoothed as M4 is) |
+| T3 | Layout and scale | yes | its panels, seams, bricks or tiles at the original's spacing on the wall, so the map's surfaces line up as they did |
+| T4 | Tiling | no | no seam where it repeats (measured: the step across its edges no larger than inside it) |
+| T5 | Quality | yes | side by side at the size the game shows it, at least as good: as sharp, as detailed, as believable, with nothing smeared or noisy that the original is not |
+| T6 | Kind kept | yes | its name and size exactly (the map's faces depend on both), and what its name means kept: a `{` texture with holes where the original has them, a `+0`..`+9` animation with its frames, a `!` liquid, a light's face lit |
+
+### Sounds (each sound)
+
+| # | Item | Must | What a 2 is |
+| --- | --- | --- | --- |
+| S1 | What it is | yes | from its picture and features, the same event (a crowbar striking metal, a shotgun's blast, a door's slide) |
+| S2 | Envelope | yes | its length within 25%, its attack and decay (T20) within the class's range (measured) |
+| S3 | Spectrum | yes | its centroid within 20% and each band's share within 10 points (measured) |
+| S4 | Character | no | the onsets (hits, clicks), the tone or noise (flatness) and any pitch movement match |
+| S5 | Fit for the game | yes | the file the engine plays: mono PCM at 11025, 22050 or 44100 Hz, 8 or 16 bits, no clipping, no DC, a loop's cue where the original has one, the same name |
+
+### Sprites (each sprite)
+
+| # | Item | Must | What a 2 is |
+| --- | --- | --- | --- |
+| R1 | What it is | yes | the same effect (a glow, a flame, an explosion, smoke, sparks, a beam) |
+| R2 | Shape and size | yes | its frames the original's size, the effect filling them as the original's does |
+| R3 | Colour | yes | the same colours as the engine blends them (measured: the frames' mean colour within 15, smoothed) |
+| R4 | Motion | yes | the same number of frames within 25%, the same kind of motion (grows, rises, flickers, fades), a loop that closes where the original loops and a one-shot that ends dark where it does (measured) |
+| R5 | Fit for the game | yes | the original's type and format (additive, index alpha, alpha test), the same name, read back as written |
+
 ## Passing
 
-A reproduction passes when **every must-have item scores 2 and the total is 85% or more**. An item the
+A reproduction (or a replacement) passes when **every must-have item scores 2 and the total is 85% or more**. An item the
 original does not have (surface detail on a plain prop) is scored 2 when the reproduction adds nothing wrong.
 
 ## Keeping the judge honest
