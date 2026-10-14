@@ -1,0 +1,2337 @@
+{
+ "spec": "smak.model/1",
+ "name": "cowboy_player.mdl",
+ "kind": "character",
+ "base": {
+  "file": "player/gordon/gordon.mdl"
+ },
+ "size": {
+  "height": 72
+ },
+ "texture": {
+  "width": 512,
+  "height": 512
+ },
+ "materials": {
+  "skin": {
+   "base": "paint",
+   "tone": [
+    0.76,
+    0.53,
+    0.38
+   ]
+  },
+  "hair": {
+   "base": "paint",
+   "tone": [
+    0.16,
+    0.1,
+    0.06
+   ]
+  },
+  "eyewhite": {
+   "base": "paint",
+   "tone": [
+    0.9,
+    0.88,
+    0.84
+   ]
+  },
+  "pupil": {
+   "base": "paint",
+   "tone": [
+    0.08,
+    0.06,
+    0.05
+   ]
+  },
+  "hat": {
+   "base": "cloth",
+   "tone": [
+    0.46,
+    0.31,
+    0.17
+   ]
+  },
+  "band": {
+   "base": "cloth",
+   "tone": [
+    0.13,
+    0.09,
+    0.07
+   ]
+  },
+  "bandana": {
+   "base": "cloth",
+   "tone": [
+    0.72,
+    0.1,
+    0.08
+   ]
+  },
+  "shirt": {
+   "base": "cloth",
+   "tone": [
+    0.64,
+    0.74,
+    0.86
+   ]
+  },
+  "vest": {
+   "base": "leather",
+   "tone": [
+    0.4,
+    0.24,
+    0.13
+   ]
+  },
+  "jeans": {
+   "base": "cloth",
+   "tone": [
+    0.2,
+    0.3,
+    0.55
+   ]
+  },
+  "chaps": {
+   "base": "leather",
+   "tone": [
+    0.55,
+    0.36,
+    0.2
+   ]
+  },
+  "boot": {
+   "base": "leather",
+   "tone": [
+    0.32,
+    0.19,
+    0.1
+   ]
+  },
+  "sole": {
+   "base": "leather",
+   "tone": [
+    0.15,
+    0.1,
+    0.06
+   ]
+  },
+  "belt": {
+   "base": "leather",
+   "tone": [
+    0.25,
+    0.15,
+    0.08
+   ]
+  },
+  "brass": {
+   "base": "brass"
+  },
+  "steel": {
+   "base": "steel"
+  },
+  "grip": {
+   "base": "darkwood"
+  }
+ },
+ "parts": [
+  {
+   "id": "head",
+   "kind": "turn",
+   "material": "skin",
+   "sides": 12,
+   "rings": [
+    [
+     0,
+     2.1
+    ],
+    [
+     1.2,
+     2.9
+    ],
+    [
+     3.2,
+     3.4
+    ],
+    [
+     5.4,
+     3.3
+    ],
+    [
+     7,
+     2.6
+    ]
+   ],
+   "caps": [
+    true,
+    1.4
+   ],
+   "attach": {
+    "bone": "Bip01 Head",
+    "at": "bottom",
+    "offset": [
+     0.7,
+     0,
+     -1.0
+    ]
+   }
+  },
+  {
+   "id": "hair",
+   "kind": "turn",
+   "material": "hair",
+   "sides": 12,
+   "rings": [
+    {
+     "s": 0,
+     "r": 3.15,
+     "off": [
+      -0.55,
+      0
+     ]
+    },
+    {
+     "s": 1.6,
+     "r": 3.55,
+     "off": [
+      -0.55,
+      0
+     ]
+    },
+    {
+     "s": 3.6,
+     "r": 3.45,
+     "off": [
+      -0.55,
+      0
+     ]
+    }
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "attach": {
+    "to": "head",
+    "toAt": "bottom",
+    "at": "bottom",
+    "offset": [
+     -0.55,
+     0,
+     2.6
+    ]
+   }
+  },
+  {
+   "id": "eye_left",
+   "kind": "box",
+   "material": "eyewhite",
+   "size": [
+    0.4,
+    0.8,
+    0.5
+   ],
+   "attach": {
+    "to": "head",
+    "toAt": {
+     "s": 0.6,
+     "angle": 22,
+     "out": -0.15
+    },
+    "at": "back"
+   }
+  },
+  {
+   "id": "pupil_left",
+   "kind": "box",
+   "material": "pupil",
+   "size": [
+    0.2,
+    0.38,
+    0.42
+   ],
+   "attach": {
+    "to": "eye_left",
+    "toAt": "front",
+    "at": "back",
+    "offset": [
+     -0.12,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "id": "brow_left",
+   "kind": "box",
+   "material": "hair",
+   "size": [
+    0.45,
+    1.1,
+    0.3
+   ],
+   "attach": {
+    "to": "head",
+    "toAt": {
+     "s": 0.69,
+     "angle": 22,
+     "out": -0.1
+    },
+    "at": "back"
+   }
+  },
+  {
+   "id": "ear_left",
+   "kind": "sphere",
+   "material": "skin",
+   "radius": 0.8,
+   "sides": 6,
+   "attach": {
+    "to": "head",
+    "toAt": {
+     "s": 0.5,
+     "angle": 90,
+     "out": -0.4
+    },
+    "at": "centre"
+   }
+  },
+  {
+   "id": "eye_right",
+   "kind": "box",
+   "material": "eyewhite",
+   "size": [
+    0.4,
+    0.8,
+    0.5
+   ],
+   "attach": {
+    "to": "head",
+    "toAt": {
+     "s": 0.6,
+     "angle": -22,
+     "out": -0.15
+    },
+    "at": "back"
+   }
+  },
+  {
+   "id": "pupil_right",
+   "kind": "box",
+   "material": "pupil",
+   "size": [
+    0.2,
+    0.38,
+    0.42
+   ],
+   "attach": {
+    "to": "eye_right",
+    "toAt": "front",
+    "at": "back",
+    "offset": [
+     -0.12,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "id": "brow_right",
+   "kind": "box",
+   "material": "hair",
+   "size": [
+    0.45,
+    1.1,
+    0.3
+   ],
+   "attach": {
+    "to": "head",
+    "toAt": {
+     "s": 0.69,
+     "angle": -22,
+     "out": -0.1
+    },
+    "at": "back"
+   }
+  },
+  {
+   "id": "ear_right",
+   "kind": "sphere",
+   "material": "skin",
+   "radius": 0.8,
+   "sides": 6,
+   "attach": {
+    "to": "head",
+    "toAt": {
+     "s": 0.5,
+     "angle": -90,
+     "out": -0.4
+    },
+    "at": "centre"
+   }
+  },
+  {
+   "id": "nose",
+   "kind": "turn",
+   "material": "skin",
+   "sides": 6,
+   "axis": "x",
+   "rings": [
+    [
+     0,
+     0.55
+    ],
+    [
+     0.6,
+     0.5
+    ],
+    [
+     1.1,
+     0.3
+    ]
+   ],
+   "caps": [
+    true,
+    0.2
+   ],
+   "attach": {
+    "to": "head",
+    "toAt": {
+     "s": 0.47,
+     "angle": 0,
+     "out": -0.4
+    },
+    "at": "back"
+   }
+  },
+  {
+   "id": "moustache",
+   "kind": "tube",
+   "material": "hair",
+   "sides": 6,
+   "path": [
+    [
+     -1.3,
+     2.3,
+     -1.7,
+     0.35
+    ],
+    [
+     -0.4,
+     1.7,
+     -0.5,
+     0.6
+    ],
+    [
+     0.2,
+     0.7,
+     0.0,
+     0.75
+    ],
+    [
+     0.35,
+     0,
+     0.1,
+     0.7
+    ],
+    [
+     0.2,
+     -0.7,
+     0.0,
+     0.75
+    ],
+    [
+     -0.4,
+     -1.7,
+     -0.5,
+     0.6
+    ],
+    [
+     -1.3,
+     -2.3,
+     -1.7,
+     0.35
+    ]
+   ],
+   "attach": {
+    "to": "head",
+    "toAt": {
+     "s": 0.37,
+     "angle": 0,
+     "out": 0.45
+    },
+    "at": "front"
+   }
+  },
+  {
+   "id": "mouth",
+   "kind": "box",
+   "material": "pupil",
+   "size": [
+    0.3,
+    1.3,
+    0.22
+   ],
+   "attach": {
+    "to": "head",
+    "toAt": {
+     "s": 0.27,
+     "angle": 0,
+     "out": -0.12
+    },
+    "at": "back"
+   }
+  },
+  {
+   "id": "crown_floor",
+   "kind": "cylinder",
+   "material": "hat",
+   "radius": 3.85,
+   "height": 0.4,
+   "sides": 14,
+   "attach": {
+    "to": "head",
+    "toAt": "top",
+    "at": "bottom",
+    "offset": [
+     0,
+     0,
+     -2.4
+    ]
+   }
+  },
+  {
+   "id": "crown",
+   "kind": "turn",
+   "material": "hat",
+   "sides": 14,
+   "rings": [
+    [
+     0,
+     [
+      3.8,
+      3.5
+     ]
+    ],
+    [
+     2.5,
+     [
+      3.6,
+      3.3
+     ]
+    ],
+    {
+     "s": 4.3,
+     "r": [
+      3.2,
+      2.9
+     ],
+     "crease": true
+    }
+   ],
+   "caps": [
+    false,
+    -1.0
+   ],
+   "open": true,
+   "attach": {
+    "to": "crown_floor",
+    "toAt": "top",
+    "at": "bottom",
+    "offset": [
+     0,
+     0,
+     -0.2
+    ]
+   }
+  },
+  {
+   "id": "brim",
+   "kind": "leaf",
+   "material": "hat",
+   "rows": [
+    [
+     [
+      3.7,
+      0.0,
+      0.0
+     ],
+     [
+      3.574,
+      0.88,
+      0.0
+     ],
+     [
+      3.204,
+      1.7,
+      0.0
+     ],
+     [
+      2.616,
+      2.404,
+      0.0
+     ],
+     [
+      1.85,
+      2.944,
+      0.0
+     ],
+     [
+      0.958,
+      3.284,
+      0.0
+     ],
+     [
+      0.0,
+      3.4,
+      0.0
+     ],
+     [
+      -0.958,
+      3.284,
+      0.0
+     ],
+     [
+      -1.85,
+      2.944,
+      0.0
+     ],
+     [
+      -2.616,
+      2.404,
+      0.0
+     ],
+     [
+      -3.204,
+      1.7,
+      0.0
+     ],
+     [
+      -3.574,
+      0.88,
+      0.0
+     ],
+     [
+      -3.7,
+      0.0,
+      0.0
+     ],
+     [
+      -3.574,
+      -0.88,
+      0.0
+     ],
+     [
+      -3.204,
+      -1.7,
+      0.0
+     ],
+     [
+      -2.616,
+      -2.404,
+      0.0
+     ],
+     [
+      -1.85,
+      -2.944,
+      0.0
+     ],
+     [
+      -0.958,
+      -3.284,
+      0.0
+     ],
+     [
+      -0.0,
+      -3.4,
+      0.0
+     ],
+     [
+      0.958,
+      -3.284,
+      0.0
+     ],
+     [
+      1.85,
+      -2.944,
+      0.0
+     ],
+     [
+      2.616,
+      -2.404,
+      0.0
+     ],
+     [
+      3.204,
+      -1.7,
+      0.0
+     ],
+     [
+      3.574,
+      -0.88,
+      0.0
+     ],
+     [
+      3.7,
+      -0.0,
+      0.0
+     ]
+    ],
+    [
+     [
+      4.82,
+      0.0,
+      -0.055
+     ],
+     [
+      4.656,
+      1.288,
+      -0.039
+     ],
+     [
+      4.174,
+      2.487,
+      0.021
+     ],
+     [
+      3.408,
+      3.518,
+      0.121
+     ],
+     [
+      2.41,
+      4.308,
+      0.233
+     ],
+     [
+      1.248,
+      4.805,
+      0.321
+     ],
+     [
+      0.0,
+      4.975,
+      0.354
+     ],
+     [
+      -1.248,
+      4.805,
+      0.321
+     ],
+     [
+      -2.41,
+      4.308,
+      0.233
+     ],
+     [
+      -3.408,
+      3.518,
+      0.121
+     ],
+     [
+      -4.174,
+      2.487,
+      0.021
+     ],
+     [
+      -4.656,
+      1.288,
+      -0.039
+     ],
+     [
+      -4.82,
+      0.0,
+      -0.055
+     ],
+     [
+      -4.656,
+      -1.288,
+      -0.039
+     ],
+     [
+      -4.174,
+      -2.487,
+      0.021
+     ],
+     [
+      -3.408,
+      -3.518,
+      0.121
+     ],
+     [
+      -2.41,
+      -4.308,
+      0.233
+     ],
+     [
+      -1.248,
+      -4.805,
+      0.321
+     ],
+     [
+      -0.0,
+      -4.975,
+      0.354
+     ],
+     [
+      1.248,
+      -4.805,
+      0.321
+     ],
+     [
+      2.41,
+      -4.308,
+      0.233
+     ],
+     [
+      3.408,
+      -3.518,
+      0.121
+     ],
+     [
+      4.174,
+      -2.488,
+      0.021
+     ],
+     [
+      4.656,
+      -1.288,
+      -0.039
+     ],
+     [
+      4.82,
+      -0.0,
+      -0.055
+     ]
+    ],
+    [
+     [
+      5.94,
+      0.0,
+      -0.22
+     ],
+     [
+      5.738,
+      1.695,
+      -0.169
+     ],
+     [
+      5.144,
+      3.275,
+      0.024
+     ],
+     [
+      4.2,
+      4.632,
+      0.341
+     ],
+     [
+      2.97,
+      5.672,
+      0.694
+     ],
+     [
+      1.537,
+      6.327,
+      0.97
+     ],
+     [
+      0.0,
+      6.55,
+      1.074
+     ],
+     [
+      -1.537,
+      6.327,
+      0.97
+     ],
+     [
+      -2.97,
+      5.672,
+      0.694
+     ],
+     [
+      -4.2,
+      4.632,
+      0.341
+     ],
+     [
+      -5.144,
+      3.275,
+      0.024
+     ],
+     [
+      -5.738,
+      1.695,
+      -0.169
+     ],
+     [
+      -5.94,
+      0.0,
+      -0.22
+     ],
+     [
+      -5.738,
+      -1.695,
+      -0.169
+     ],
+     [
+      -5.144,
+      -3.275,
+      0.024
+     ],
+     [
+      -4.2,
+      -4.632,
+      0.341
+     ],
+     [
+      -2.97,
+      -5.672,
+      0.694
+     ],
+     [
+      -1.537,
+      -6.327,
+      0.97
+     ],
+     [
+      -0.0,
+      -6.55,
+      1.074
+     ],
+     [
+      1.537,
+      -6.327,
+      0.97
+     ],
+     [
+      2.97,
+      -5.672,
+      0.694
+     ],
+     [
+      4.2,
+      -4.632,
+      0.341
+     ],
+     [
+      5.144,
+      -3.275,
+      0.024
+     ],
+     [
+      5.738,
+      -1.695,
+      -0.169
+     ],
+     [
+      5.94,
+      -0.0,
+      -0.22
+     ]
+    ],
+    [
+     [
+      6.9,
+      0.0,
+      -0.45
+     ],
+     [
+      6.665,
+      2.045,
+      -0.355
+     ],
+     [
+      5.976,
+      3.95,
+      -0.002
+     ],
+     [
+      4.879,
+      5.586,
+      0.574
+     ],
+     [
+      3.45,
+      6.842,
+      1.214
+     ],
+     [
+      1.786,
+      7.631,
+      1.712
+     ],
+     [
+      0.0,
+      7.9,
+      1.9
+     ],
+     [
+      -1.786,
+      7.631,
+      1.712
+     ],
+     [
+      -3.45,
+      6.842,
+      1.214
+     ],
+     [
+      -4.879,
+      5.586,
+      0.574
+     ],
+     [
+      -5.976,
+      3.95,
+      -0.002
+     ],
+     [
+      -6.665,
+      2.045,
+      -0.355
+     ],
+     [
+      -6.9,
+      0.0,
+      -0.45
+     ],
+     [
+      -6.665,
+      -2.045,
+      -0.355
+     ],
+     [
+      -5.976,
+      -3.95,
+      -0.002
+     ],
+     [
+      -4.879,
+      -5.586,
+      0.574
+     ],
+     [
+      -3.45,
+      -6.842,
+      1.214
+     ],
+     [
+      -1.786,
+      -7.631,
+      1.712
+     ],
+     [
+      -0.0,
+      -7.9,
+      1.9
+     ],
+     [
+      1.786,
+      -7.631,
+      1.712
+     ],
+     [
+      3.45,
+      -6.842,
+      1.214
+     ],
+     [
+      4.879,
+      -5.586,
+      0.574
+     ],
+     [
+      5.976,
+      -3.95,
+      -0.002
+     ],
+     [
+      6.665,
+      -2.045,
+      -0.355
+     ],
+     [
+      6.9,
+      -0.0,
+      -0.45
+     ]
+    ]
+   ],
+   "attach": {
+    "to": "crown_floor",
+    "toAt": "bottom",
+    "at": "bottom",
+    "offset": [
+     0,
+     0,
+     0.0
+    ]
+   }
+  },
+  {
+   "id": "hatband",
+   "kind": "band",
+   "material": "band",
+   "on": {
+    "part": "crown",
+    "s": 0.12
+   },
+   "width": 0.9,
+   "height": 0.15
+  },
+  {
+   "id": "neck",
+   "kind": "cylinder",
+   "material": "skin",
+   "radius": 1.9,
+   "height": 1,
+   "sides": 8,
+   "span": {
+    "bones": [
+     "Bip01 Neck",
+     "Bip01 Head"
+    ],
+    "over": 1.4
+   }
+  },
+  {
+   "id": "bandana",
+   "kind": "turn",
+   "material": "bandana",
+   "sides": 10,
+   "rings": [
+    [
+     0,
+     [
+      2.6,
+      2.8
+     ]
+    ],
+    [
+     1.4,
+     [
+      2.25,
+      2.4
+     ]
+    ]
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "attach": {
+    "bone": "Bip01 Neck",
+    "at": "centre",
+    "offset": [
+     0.1,
+     0,
+     0.1
+    ]
+   }
+  },
+  {
+   "id": "bandana_knot",
+   "kind": "tube",
+   "material": "bandana",
+   "sides": 5,
+   "path": [
+    [
+     0,
+     0,
+     0,
+     0.75
+    ],
+    [
+     0.35,
+     0,
+     -1.0,
+     0.6
+    ],
+    [
+     0.5,
+     0,
+     -2.4,
+     0
+    ]
+   ],
+   "attach": {
+    "to": "bandana",
+    "toAt": "front",
+    "at": "top",
+    "offset": [
+     -0.3,
+     0,
+     0.4
+    ]
+   }
+  },
+  {
+   "id": "hips",
+   "kind": "turn",
+   "material": "jeans",
+   "sides": 12,
+   "rings": [
+    [
+     0,
+     [
+      4.0,
+      6.2
+     ]
+    ],
+    [
+     4,
+     [
+      4.6,
+      6.8
+     ]
+    ],
+    [
+     8,
+     [
+      4.5,
+      6.6
+     ]
+    ],
+    [
+     10.5,
+     [
+      4.3,
+      6.4
+     ]
+    ]
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "attach": {
+    "bone": "Bip01 Pelvis",
+    "at": "bottom",
+    "offset": [
+     0.3,
+     0,
+     -3.2
+    ]
+   }
+  },
+  {
+   "id": "torso",
+   "kind": "turn",
+   "material": "vest",
+   "sides": 12,
+   "rings": [
+    [
+     0,
+     [
+      4.3,
+      6.3
+     ]
+    ],
+    [
+     0.35,
+     [
+      4.8,
+      7.3
+     ]
+    ],
+    [
+     0.75,
+     [
+      4.8,
+      7.6
+     ]
+    ],
+    [
+     0.92,
+     [
+      3.6,
+      6.4
+     ]
+    ],
+    [
+     1,
+     [
+      2.2,
+      3.2
+     ]
+    ]
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "span": {
+    "bones": [
+     "Bip01 Spine1",
+     "Bip01 Neck"
+    ],
+    "over": 2.0
+   }
+  },
+  {
+   "id": "shirt_front",
+   "kind": "box",
+   "material": "shirt",
+   "size": [
+    0.8,
+    2.6,
+    12.5
+   ],
+   "attach": {
+    "to": "torso",
+    "toAt": {
+     "s": 0.5,
+     "angle": 0,
+     "out": -0.45
+    },
+    "at": "back",
+    "offset": [
+     0,
+     0,
+     0.6
+    ]
+   }
+  },
+  {
+   "id": "collar",
+   "kind": "box",
+   "material": "shirt",
+   "size": [
+    0.8,
+    4.0,
+    1.4
+   ],
+   "attach": {
+    "to": "shirt_front",
+    "toAt": "top",
+    "at": "bottom",
+    "offset": [
+     0,
+     0,
+     -0.3
+    ]
+   }
+  },
+  {
+   "id": "button_1",
+   "kind": "box",
+   "material": "pupil",
+   "size": [
+    0.25,
+    0.45,
+    0.45
+   ],
+   "attach": {
+    "to": "shirt_front",
+    "toAt": "front",
+    "at": "back",
+    "offset": [
+     -0.08,
+     0,
+     -3.75
+    ]
+   }
+  },
+  {
+   "id": "button_2",
+   "kind": "box",
+   "material": "pupil",
+   "size": [
+    0.25,
+    0.45,
+    0.45
+   ],
+   "attach": {
+    "to": "shirt_front",
+    "toAt": "front",
+    "at": "back",
+    "offset": [
+     -0.08,
+     0,
+     -0.75
+    ]
+   }
+  },
+  {
+   "id": "button_3",
+   "kind": "box",
+   "material": "pupil",
+   "size": [
+    0.25,
+    0.45,
+    0.45
+   ],
+   "attach": {
+    "to": "shirt_front",
+    "toAt": "front",
+    "at": "back",
+    "offset": [
+     -0.08,
+     0,
+     2.25
+    ]
+   }
+  },
+  {
+   "id": "belt",
+   "kind": "band",
+   "material": "belt",
+   "on": {
+    "part": "hips",
+    "s": 0.86
+   },
+   "width": 1.8,
+   "height": 0.35
+  },
+  {
+   "id": "buckle",
+   "kind": "box",
+   "material": "brass",
+   "size": [
+    0.6,
+    2.4,
+    1.9
+   ],
+   "attach": {
+    "to": "hips",
+    "toAt": {
+     "s": 0.86,
+     "angle": 0,
+     "out": 0.25
+    },
+    "at": "back",
+    "offset": [
+     -0.1,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "id": "holster",
+   "kind": "box",
+   "material": "belt",
+   "size": [
+    2.6,
+    1.3,
+    5.6
+   ],
+   "attach": {
+    "to": "hips",
+    "toAt": {
+     "s": 0.6,
+     "angle": -90,
+     "out": 0
+    },
+    "at": "left",
+    "offset": [
+     0.4,
+     0.3,
+     -3.0
+    ]
+   }
+  },
+  {
+   "id": "revolver_frame",
+   "kind": "box",
+   "material": "steel",
+   "size": [
+    1.6,
+    0.9,
+    1.3
+   ],
+   "attach": {
+    "to": "holster",
+    "toAt": "top",
+    "at": "bottom",
+    "offset": [
+     0.1,
+     0,
+     -0.3
+    ]
+   }
+  },
+  {
+   "id": "revolver_grip",
+   "kind": "box",
+   "material": "grip",
+   "size": [
+    1.0,
+    0.8,
+    2.2
+   ],
+   "rotate": [
+    0,
+    -25,
+    0
+   ],
+   "attach": {
+    "to": "revolver_frame",
+    "toAt": "top",
+    "at": "bottom",
+    "offset": [
+     -0.5,
+     0,
+     -0.3
+    ]
+   }
+  },
+  {
+   "id": "revolver_hammer",
+   "kind": "box",
+   "material": "steel",
+   "size": [
+    0.4,
+    0.4,
+    0.6
+   ],
+   "attach": {
+    "to": "revolver_frame",
+    "toAt": "top",
+    "at": "bottom",
+    "offset": [
+     0.3,
+     0,
+     -0.1
+    ]
+   }
+  },
+  {
+   "id": "shoulder_left",
+   "kind": "sphere",
+   "material": "shirt",
+   "radius": 2.3,
+   "sides": 6,
+   "attach": {
+    "bone": "Bip01 L Arm1",
+    "at": "centre",
+    "offset": [
+     0,
+     -0.4,
+     -0.2
+    ]
+   }
+  },
+  {
+   "id": "sleeve_left",
+   "kind": "cylinder",
+   "material": "shirt",
+   "radius": 1.9,
+   "top": 1.75,
+   "height": 1,
+   "sides": 8,
+   "span": {
+    "bones": [
+     "Bip01 L Arm1",
+     "Bip01 L Arm2"
+    ],
+    "over": 0.8
+   }
+  },
+  {
+   "id": "cuff_left",
+   "kind": "sphere",
+   "material": "shirt",
+   "radius": 1.95,
+   "sides": 6,
+   "attach": {
+    "bone": "Bip01 L Arm2",
+    "at": "centre"
+   }
+  },
+  {
+   "id": "forearm_left",
+   "kind": "cylinder",
+   "material": "skin",
+   "radius": 1.45,
+   "top": 1.2,
+   "height": 1,
+   "sides": 8,
+   "span": {
+    "bones": [
+     "Bip01 L Arm2",
+     "Bip01 L Hand"
+    ],
+    "over": 0.6
+   }
+  },
+  {
+   "id": "wrist_left",
+   "kind": "sphere",
+   "material": "skin",
+   "radius": 1.2,
+   "sides": 6,
+   "attach": {
+    "bone": "Bip01 L Hand",
+    "at": "centre"
+   }
+  },
+  {
+   "id": "hand_left",
+   "kind": "box",
+   "material": "skin",
+   "size": [
+    3.0,
+    1.3,
+    1
+   ],
+   "span": {
+    "bones": [
+     "Bip01 L Hand",
+     "Bip01 L Finger12"
+    ],
+    "over": 0.5
+   }
+  },
+  {
+   "id": "thumb_left",
+   "kind": "cylinder",
+   "material": "skin",
+   "radius": 0.5,
+   "height": 1,
+   "sides": 6,
+   "span": {
+    "bones": [
+     "Bip01 L Finger0",
+     "Bip01 L Finger02"
+    ],
+    "over": 0.5
+   }
+  },
+  {
+   "id": "thigh_left",
+   "kind": "cylinder",
+   "material": "jeans",
+   "radius": 3.0,
+   "top": 2.4,
+   "height": 1,
+   "sides": 8,
+   "span": {
+    "bones": [
+     "Bip01 L Leg",
+     "Bip01 L Leg1"
+    ],
+    "over": 1.8
+   }
+  },
+  {
+   "id": "knee_left",
+   "kind": "sphere",
+   "material": "jeans",
+   "radius": 2.4,
+   "sides": 6,
+   "attach": {
+    "bone": "Bip01 L Leg1",
+    "at": "centre"
+   }
+  },
+  {
+   "id": "shin_left",
+   "kind": "cylinder",
+   "material": "jeans",
+   "radius": 2.25,
+   "top": 2.0,
+   "height": 1,
+   "sides": 8,
+   "span": {
+    "bones": [
+     "Bip01 L Leg1",
+     "Bip01 L Foot"
+    ],
+    "over": 0.5
+   }
+  },
+  {
+   "id": "chaps_thigh_left",
+   "kind": "turn",
+   "material": "chaps",
+   "sides": 8,
+   "rings": [
+    {
+     "s": 0,
+     "r": [
+      2.6,
+      3.2
+     ],
+     "off": [
+      0.8,
+      0
+     ]
+    },
+    {
+     "s": 1,
+     "r": [
+      2.1,
+      2.6
+     ],
+     "off": [
+      0.7,
+      0
+     ]
+    }
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "span": {
+    "bones": [
+     "Bip01 L Leg",
+     "Bip01 L Leg1"
+    ],
+    "over": 0.6
+   }
+  },
+  {
+   "id": "chaps_shin_left",
+   "kind": "turn",
+   "material": "chaps",
+   "sides": 8,
+   "rings": [
+    {
+     "s": 0,
+     "r": [
+      2.1,
+      2.4
+     ],
+     "off": [
+      0.6,
+      0
+     ]
+    },
+    {
+     "s": 1,
+     "r": [
+      1.8,
+      2.2
+     ],
+     "off": [
+      0.5,
+      0
+     ]
+    }
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "span": {
+    "bones": [
+     "Bip01 L Leg1",
+     "Bip01 L Foot"
+    ],
+    "over": 0.2
+   }
+  },
+  {
+   "id": "boot_shaft_left",
+   "kind": "turn",
+   "material": "boot",
+   "sides": 10,
+   "rings": [
+    [
+     0,
+     [
+      2.5,
+      2.5
+     ]
+    ],
+    [
+     5,
+     [
+      2.6,
+      2.6
+     ]
+    ],
+    {
+     "s": 7,
+     "r": [
+      2.9,
+      2.9
+     ],
+     "crease": true
+    }
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "attach": {
+    "bone": "Bip01 L Foot",
+    "at": "bottom",
+    "offset": [
+     0,
+     0,
+     -3.0
+    ]
+   }
+  },
+  {
+   "id": "boot_foot_left",
+   "kind": "turn",
+   "material": "boot",
+   "sides": 10,
+   "axis": "x",
+   "rings": [
+    [
+     0,
+     [
+      1.9,
+      1.6
+     ]
+    ],
+    [
+     2.5,
+     [
+      2.0,
+      1.7
+     ]
+    ],
+    [
+     5.5,
+     [
+      1.9,
+      1.3
+     ]
+    ],
+    [
+     7.6,
+     [
+      1.5,
+      1.0
+     ]
+    ],
+    [
+     8.8,
+     [
+      0.9,
+      0.6
+     ]
+    ]
+   ],
+   "caps": [
+    true,
+    0.5
+   ],
+   "attach": {
+    "to": "boot_shaft_left",
+    "toAt": "bottom",
+    "at": "bottom",
+    "offset": [
+     2.4,
+     0,
+     0.4
+    ]
+   }
+  },
+  {
+   "id": "heel_left",
+   "kind": "box",
+   "material": "sole",
+   "size": [
+    2.2,
+    2.6,
+    1.4
+   ],
+   "attach": {
+    "to": "boot_shaft_left",
+    "toAt": "bottom",
+    "at": "top",
+    "offset": [
+     -0.6,
+     0,
+     0.4
+    ]
+   }
+  },
+  {
+   "id": "sole_left",
+   "kind": "box",
+   "material": "sole",
+   "size": [
+    6.0,
+    3.4,
+    0.5
+   ],
+   "attach": {
+    "to": "boot_foot_left",
+    "toAt": "bottom",
+    "at": "top",
+    "offset": [
+     1.8,
+     0,
+     0.25
+    ]
+   }
+  },
+  {
+   "id": "spur_left",
+   "kind": "cylinder",
+   "material": "steel",
+   "radius": 0.35,
+   "height": 1.6,
+   "sides": 6,
+   "rotate": [
+    0,
+    90,
+    0
+   ],
+   "attach": {
+    "to": "boot_shaft_left",
+    "toAt": "back",
+    "at": "front",
+    "offset": [
+     0.3,
+     0,
+     -2.2
+    ]
+   }
+  },
+  {
+   "id": "rowel_left",
+   "kind": "turn",
+   "material": "steel",
+   "sides": 8,
+   "axis": "y",
+   "rings": [
+    [
+     0,
+     0.85
+    ],
+    [
+     0.25,
+     0.85
+    ]
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "attach": {
+    "to": "spur_left",
+    "toAt": "back",
+    "at": "centre"
+   }
+  },
+  {
+   "id": "shoulder_right",
+   "kind": "sphere",
+   "material": "shirt",
+   "radius": 2.3,
+   "sides": 6,
+   "attach": {
+    "bone": "Bip01 R Arm1",
+    "at": "centre",
+    "offset": [
+     0,
+     0.4,
+     -0.2
+    ]
+   }
+  },
+  {
+   "id": "sleeve_right",
+   "kind": "cylinder",
+   "material": "shirt",
+   "radius": 1.9,
+   "top": 1.75,
+   "height": 1,
+   "sides": 8,
+   "span": {
+    "bones": [
+     "Bip01 R Arm1",
+     "Bip01 R Arm2"
+    ],
+    "over": 0.8
+   }
+  },
+  {
+   "id": "cuff_right",
+   "kind": "sphere",
+   "material": "shirt",
+   "radius": 1.95,
+   "sides": 6,
+   "attach": {
+    "bone": "Bip01 R Arm2",
+    "at": "centre"
+   }
+  },
+  {
+   "id": "forearm_right",
+   "kind": "cylinder",
+   "material": "skin",
+   "radius": 1.45,
+   "top": 1.2,
+   "height": 1,
+   "sides": 8,
+   "span": {
+    "bones": [
+     "Bip01 R Arm2",
+     "Bip01 R Hand"
+    ],
+    "over": 0.6
+   }
+  },
+  {
+   "id": "wrist_right",
+   "kind": "sphere",
+   "material": "skin",
+   "radius": 1.2,
+   "sides": 6,
+   "attach": {
+    "bone": "Bip01 R Hand",
+    "at": "centre"
+   }
+  },
+  {
+   "id": "hand_right",
+   "kind": "box",
+   "material": "skin",
+   "size": [
+    3.0,
+    1.3,
+    1
+   ],
+   "span": {
+    "bones": [
+     "Bip01 R Hand",
+     "Bip01 R Finger12"
+    ],
+    "over": 0.5
+   }
+  },
+  {
+   "id": "thumb_right",
+   "kind": "cylinder",
+   "material": "skin",
+   "radius": 0.5,
+   "height": 1,
+   "sides": 6,
+   "span": {
+    "bones": [
+     "Bip01 R Finger0",
+     "Bip01 R Finger02"
+    ],
+    "over": 0.5
+   }
+  },
+  {
+   "id": "thigh_right",
+   "kind": "cylinder",
+   "material": "jeans",
+   "radius": 3.0,
+   "top": 2.4,
+   "height": 1,
+   "sides": 8,
+   "span": {
+    "bones": [
+     "Bip01 R Leg",
+     "Bip01 R Leg1"
+    ],
+    "over": 1.8
+   }
+  },
+  {
+   "id": "knee_right",
+   "kind": "sphere",
+   "material": "jeans",
+   "radius": 2.4,
+   "sides": 6,
+   "attach": {
+    "bone": "Bip01 R Leg1",
+    "at": "centre"
+   }
+  },
+  {
+   "id": "shin_right",
+   "kind": "cylinder",
+   "material": "jeans",
+   "radius": 2.25,
+   "top": 2.0,
+   "height": 1,
+   "sides": 8,
+   "span": {
+    "bones": [
+     "Bip01 R Leg1",
+     "Bip01 R Foot"
+    ],
+    "over": 0.5
+   }
+  },
+  {
+   "id": "chaps_thigh_right",
+   "kind": "turn",
+   "material": "chaps",
+   "sides": 8,
+   "rings": [
+    {
+     "s": 0,
+     "r": [
+      2.6,
+      3.2
+     ],
+     "off": [
+      0.8,
+      0
+     ]
+    },
+    {
+     "s": 1,
+     "r": [
+      2.1,
+      2.6
+     ],
+     "off": [
+      0.7,
+      0
+     ]
+    }
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "span": {
+    "bones": [
+     "Bip01 R Leg",
+     "Bip01 R Leg1"
+    ],
+    "over": 0.6
+   }
+  },
+  {
+   "id": "chaps_shin_right",
+   "kind": "turn",
+   "material": "chaps",
+   "sides": 8,
+   "rings": [
+    {
+     "s": 0,
+     "r": [
+      2.1,
+      2.4
+     ],
+     "off": [
+      0.6,
+      0
+     ]
+    },
+    {
+     "s": 1,
+     "r": [
+      1.8,
+      2.2
+     ],
+     "off": [
+      0.5,
+      0
+     ]
+    }
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "span": {
+    "bones": [
+     "Bip01 R Leg1",
+     "Bip01 R Foot"
+    ],
+    "over": 0.2
+   }
+  },
+  {
+   "id": "boot_shaft_right",
+   "kind": "turn",
+   "material": "boot",
+   "sides": 10,
+   "rings": [
+    [
+     0,
+     [
+      2.5,
+      2.5
+     ]
+    ],
+    [
+     5,
+     [
+      2.6,
+      2.6
+     ]
+    ],
+    {
+     "s": 7,
+     "r": [
+      2.9,
+      2.9
+     ],
+     "crease": true
+    }
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "attach": {
+    "bone": "Bip01 R Foot",
+    "at": "bottom",
+    "offset": [
+     0,
+     0,
+     -3.0
+    ]
+   }
+  },
+  {
+   "id": "boot_foot_right",
+   "kind": "turn",
+   "material": "boot",
+   "sides": 10,
+   "axis": "x",
+   "rings": [
+    [
+     0,
+     [
+      1.9,
+      1.6
+     ]
+    ],
+    [
+     2.5,
+     [
+      2.0,
+      1.7
+     ]
+    ],
+    [
+     5.5,
+     [
+      1.9,
+      1.3
+     ]
+    ],
+    [
+     7.6,
+     [
+      1.5,
+      1.0
+     ]
+    ],
+    [
+     8.8,
+     [
+      0.9,
+      0.6
+     ]
+    ]
+   ],
+   "caps": [
+    true,
+    0.5
+   ],
+   "attach": {
+    "to": "boot_shaft_right",
+    "toAt": "bottom",
+    "at": "bottom",
+    "offset": [
+     2.4,
+     0,
+     0.4
+    ]
+   }
+  },
+  {
+   "id": "heel_right",
+   "kind": "box",
+   "material": "sole",
+   "size": [
+    2.2,
+    2.6,
+    1.4
+   ],
+   "attach": {
+    "to": "boot_shaft_right",
+    "toAt": "bottom",
+    "at": "top",
+    "offset": [
+     -0.6,
+     0,
+     0.4
+    ]
+   }
+  },
+  {
+   "id": "sole_right",
+   "kind": "box",
+   "material": "sole",
+   "size": [
+    6.0,
+    3.4,
+    0.5
+   ],
+   "attach": {
+    "to": "boot_foot_right",
+    "toAt": "bottom",
+    "at": "top",
+    "offset": [
+     1.8,
+     0,
+     0.25
+    ]
+   }
+  },
+  {
+   "id": "spur_right",
+   "kind": "cylinder",
+   "material": "steel",
+   "radius": 0.35,
+   "height": 1.6,
+   "sides": 6,
+   "rotate": [
+    0,
+    90,
+    0
+   ],
+   "attach": {
+    "to": "boot_shaft_right",
+    "toAt": "back",
+    "at": "front",
+    "offset": [
+     0.3,
+     0,
+     -2.2
+    ]
+   }
+  },
+  {
+   "id": "rowel_right",
+   "kind": "turn",
+   "material": "steel",
+   "sides": 8,
+   "axis": "y",
+   "rings": [
+    [
+     0,
+     0.85
+    ],
+    [
+     0.25,
+     0.85
+    ]
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "attach": {
+    "to": "spur_right",
+    "toAt": "back",
+    "at": "centre"
+   }
+  }
+ ]
+}

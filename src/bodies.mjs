@@ -9,7 +9,7 @@ import {
   replaceMesh,
   addMesh,
   addModel,
-  emptyMesh,
+  clearModel,
   bones,
   boneParents,
   restPose,
@@ -521,14 +521,14 @@ export function putBody(
     mdl = replaceMesh(addModel(src, bodypart, name), { bodypart, model: number, mesh: 0 }, mesh, given);
   } else {
     // its first mesh takes the triangles, its other meshes are emptied
+    // emptied first, points and normals too: the old body's would still count against the engine's limits
     const old = part.models[number];
     mdl = replaceMesh(
-      old.meshes.length ? src : addMesh(src, { bodypart, model: number }),
+      old.meshes.length ? clearModel(src, { bodypart, model: number }) : addMesh(src, { bodypart, model: number }),
       { bodypart, model: number, mesh: 0 },
       mesh,
       given,
     );
-    for (let k = 1; k < old.meshes.length; k++) mdl = emptyMesh(mdl, { bodypart, model: number, mesh: k });
     if (old.meshes.some((m) => m.numtris && m.texture?.name === given.name)) {
       const moved = layoutMoved(src, mdl, {
         body: number * part.base,

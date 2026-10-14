@@ -58,7 +58,8 @@ pictures of the result, from a barrel to a city of four shops and a sewer; read 
 | Field | |
 | --- | --- |
 | `name` | The file: letters, digits, `_ . -`, ending `.mdl` |
-| `kind` | `prop` (stands on the floor: its lowest point is put at z 0), `held` or `piece` (left where it was built) |
+| `kind` | `prop` (stands on the floor: its lowest point is put at z 0), `held` or `piece` (left where it was built), `character` (a body on a game model's skeleton, below) |
+| `base` | For a character: `{ file }`, the game's model whose skeleton and animations it keeps |
 | `size` | What the person asked for: `{ height, length, width }` (any of them). Off by more than 10% is warned of, more than 25% is a fault |
 | `texture` | `{ width, height }` of the shared picture (256 x 256 unless told; 512 x 256 for a larger thing) |
 | `materials` | Names for materials the parts share: `{ "oak": { "base": "wood", "tone": [r, g, b] } }`. A part may also name a base itself (`"material": "iron"`) |
@@ -114,6 +115,32 @@ A part is placed in one of two ways, then copied when asked:
 Parts should touch: the check calls a part more than 0.25 units from every other **floating**. Let parts
 sink a little into what they stand on (an `offset` of `[0, 0, -0.5]`), the way a real thing is made: a part
 sunk into another, or cutting through it, touches it.
+
+### A character on a game's skeleton
+
+A player model or a monster is a body put on a model the game already has, so that it keeps that model's
+bones and every animation: `"kind": "character"`, `"base": { "file": "player/gordon/gordon.mdl" }` (found
+in the game's `models` folder). The parts are placed in model space as the base stands in its first
+animation's first frame (the report's `fact base ...` lists every joint there; the pose is not symmetric:
+Gordon's right hand holds a gun forward), each corner hung on one bone, and the body replaces each of the
+base's bodies. Then the report holds it in that pose, the middle of a run, a walk, a crouch and a jump:
+a part that comes apart in any of them is a fault (`in run2 frame 11: ... thumb_left 0.28 units away`).
+
+- `span: { bones: [a, b], over }`: laid along a limb from joint `a` to joint `b`, its own z stretched to
+  their distance and `over` units past each end (so that the joints overlap and stay closed when they bend),
+  its x towards the front. A cylinder, a box or a turn: an upper arm, a thigh, the chest from `Spine1` to
+  `Neck`. It hangs on `a`.
+- `attach: { bone, at, offset }`: its anchor `at` (`centre` unless told) on that bone's joint: a head, a
+  hand, a foot, a knob at a knee. Parts attached to it hang on its bone.
+- `bone`: the bone a part placed by `at` hangs on (a rib built in the chest's space).
+- Left and right are given apart, each on its own side's bones; `mirror: "y"` of a part on a middle bone
+  copies it across, and a mirrored part on an `L` bone hangs its copy on the `R` one.
+- A joint that bends far (an elbow, a knee) wants a sphere on it, or a limb part with `over`: two boxes
+  that meet end to end open a gap as soon as it bends.
+- GoldSrc holds 2048 points and 2048 normals a body: a character of many round parts wants few `sides`
+  (6 for a limb, 4 or 5 for a finger). The check says when it is over.
+
+`examples/prompts/19-model-robot-player` and `20-model-skeleton-player` are two worked ones.
 
 ### Materials
 

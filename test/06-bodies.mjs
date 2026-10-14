@@ -66,6 +66,13 @@ test("putBody: a body from triangles, new or in place, and a warning when its pi
     console.warn = realWarn;
   }
 
+  // in place, the body keeps none of the old one's points or normals: only the new mesh's count against
+  // the engine's 2048 a submodel
+  const placed = smak.readMdl(inPlace.mdl).bodyparts[0].models[0];
+  sure(
+    placed.numverts === inPlace.report.verts && placed.numnorms === inPlace.report.norms,
+    `a body put in place has the new mesh's points and normals alone: ${placed.numverts} points for ${inPlace.report.verts}, ${placed.numnorms} normals for ${inPlace.report.norms}`,
+  );
   // in place, the new shape lies elsewhere on the picture the old one was painted for: that is said
   sure(
     inPlace.warnings.length === 1 &&

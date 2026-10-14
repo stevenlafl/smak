@@ -141,6 +141,35 @@ test("a model spec: repeat turns the part itself to `start` and copies it round 
   sure(report.parts["cap.knob"] && report.parts["cap.knob"].from[1] < -2 && report.parts["cap.knob"].to[1] > 2, "the prefab mirrored to both sides");
 });
 
+test("a character spec: a place on a part laid along a limb is where the part went (the cowboy's shirt)", () => {
+  // a base of two bones, the second 10 up the first: a limb along z from 0 to 10
+  const M = W.shape(64, 64);
+  M.lathe([[0, 1], [2, 1]], Z, { sides: 6, caps: [true, true], at: upright });
+  const base = buildMdl({
+    name: "limb.mdl",
+    bones: [{ name: "root", parent: -1 }, { name: "tip", parent: 0 }],
+    bodyparts: [{ name: "body", models: [{ name: "t", meshes: [{ tris: M.tris.map((t) => t.map((c) => ({ ...c, bone: "root" }))), texture: indexed(W.sheet(64, 64).image(), "t.bmp") }] }] }],
+    sequences: [{ name: "idle", fps: 10, frames: [[[0, 0, 0, 0, 0, 0], [0, 0, 10, 0, 0, 0]]] }],
+  });
+  mkdirSync(folder, { recursive: true });
+  writeFileSync(join(folder, "limb.mdl"), base);
+  const { report } = buildModelSpec(
+    {
+      spec: "smak.model/1",
+      name: "sleeve.mdl",
+      kind: "character",
+      base: { file: "limb.mdl" },
+      parts: [
+        { id: "sleeve", kind: "turn", rings: [[0, 1], [1, 1]], sides: 8, span: { bones: ["root", "tip"] } },
+        { id: "patch", kind: "box", size: [0.5, 0.5, 0.5], attach: { to: "sleeve", toAt: { s: 0.5, angle: 0 }, at: "back" } },
+      ],
+    },
+    { folder },
+  );
+  const patch = report.parts.patch;
+  sure(patch && Math.abs(patch.from[2] - 4.75) <= 0.1 && Math.abs(patch.from[0] - 1) <= 0.1, `the patch halfway up the sleeve, on its front: ${JSON.stringify(patch)}`);
+});
+
 test("a map spec is laid out by words, its rooms in rooms, its modules taken in with their ids and their walls", () => {
   const spec = {
     spec: "smak.map/1",

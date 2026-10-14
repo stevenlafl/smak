@@ -603,11 +603,13 @@ function piecesOf(spec, context) {
       const zs = pointsOf(list).map((p) => p[2]);
       const [z0, z1] = [Math.min(...zs), Math.max(...zs)];
       const stretch = part.span.keep ? 1 : (length + 2 * over) / (z1 - z0 || 1);
-      move(list, (p) => {
+      const laid = (p) => {
         const h = (p[2] - z0) * stretch - (part.span.keep ? 0 : over);
         return [0, 1, 2].map((k) => a[k] + x[k] * p[0] + y[k] * p[1] + z[k] * h);
-      });
-      placed.set(part.id, { transform: (p) => p });
+      };
+      move(list, laid);
+      // a place on its surface, or its ends, go where the part went
+      placed.set(part.id, { transform: (p) => laid(turnPoint(turn, p)) });
       continue;
     }
     let shift = [0, 0, 0];

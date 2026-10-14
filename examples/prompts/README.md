@@ -12,7 +12,7 @@ reads before writing a spec of its own (`docs/SPEC.md` is the reference).
 | 06 to 10 | Maps: a guard room, a cottage, a watchtower, a village square, a tavern | brush prefabs, doors and steps and hatches, storeys and stairs and cellars, open sky and model props, a layout drawing and `.map` prefabs |
 | 11 to 17 | A cyberpunk city in pieces | a neon lamp and a hover car (models); a noodle bar, an arcade, a sewer with its waterway, a cyber-clinic (map modules, each alone); the city that includes them all (17) |
 | 18 | A Black Mesa lab | the game's own textures picked from its `.wad` files by words and colour, and the one it lacks made |
-| 19, 20 | Player models: a truck robot, a skeleton | a body built on Gordon's own skeleton and animations, held together in a run, a walk, a crouch and a jump; dozens of thin bones each spanned joint to joint |
+| 19 to 21 | Player models: a truck robot, a skeleton, a cowboy | a body built on Gordon's own skeleton and animations, held together in a run, a walk, a crouch and a jump; dozens of thin bones each spanned joint to joint |
 
 ## How a case is made and judged
 

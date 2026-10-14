@@ -11,7 +11,7 @@
 //               frameValues events attachments hitboxes boneControllers drawnCorners
 //   posing      restPose poseAt poseBetween poseOf boneMatrices
 //               (matrices: 3 rows of 4, bone space -> model space)
-//   meshes      replaceMesh addMesh addModel emptyMesh filterMesh
+//   meshes      replaceMesh addMesh addModel emptyMesh clearModel filterMesh
 //   pictures    retexture replaceTexture withTextures
 //   animations  replaceSequence addSequence setEvents addBones
 //   a monster's setHitboxes autoHitboxes setAttachments setBoneControllers
@@ -735,6 +735,24 @@ export function emptyMesh(src, where) {
   const mesh = readMdl(src).bodyparts[where.bodypart].models[where.model].meshes[where.mesh];
   file.head.writeInt32LE(0, mesh.at + MESH.numtris);
   file.head.writeInt32LE(file.add(Buffer.alloc(NO_COMMANDS)), mesh.at + MESH.triindex);
+  return engineLayout(file.whole());
+}
+
+/**
+ * Returns a copy of the file with a submodel emptied: its meshes keep their places and textures with no
+ * triangles, and its points and normals are gone, so that what replaceMesh puts in next counts alone
+ * against the engine's 2048 a submodel. Use it only where every mesh of the submodel is given anew.
+ */
+export function clearModel(src, where) {
+  const file = growing(Buffer.from(src));
+  const model = readMdl(src).bodyparts[where.bodypart].models[where.model];
+  for (const mesh of model.meshes) {
+    file.head.writeInt32LE(0, mesh.at + MESH.numtris);
+    file.head.writeInt32LE(file.add(Buffer.alloc(NO_COMMANDS)), mesh.at + MESH.triindex);
+    file.head.writeInt32LE(0, mesh.at + MESH.numnorms);
+  }
+  file.head.writeInt32LE(0, model.at + MODEL.numverts);
+  file.head.writeInt32LE(0, model.at + MODEL.numnorms);
   return engineLayout(file.whole());
 }
 
