@@ -10,7 +10,7 @@
 // The checks that follow every build: the engine's (`check`), the shape's (`shapeSoundness`: holes, faces
 // turned inwards, parts floating apart) and the pictures' (`seeThrough`).
 import { boneIn, otherSideOf } from "../biped.mjs";
-import { fitPose } from "./posefit.mjs";
+import { fitPose, fitMotion } from "./posefit.mjs";
 import { carve, masksFromPicture, sheetViews } from "./carve.mjs";
 import { sub, cross } from "../vec.mjs";
 import { readFileSync, existsSync } from "node:fs";
@@ -73,7 +73,7 @@ const ON_SURFACE = new Set(["band", "boss", "ridge", "studs"]);
 /** The anchors every part has: the middles of the faces of its box, and its middle. */
 const BOX_ANCHORS = ["top", "bottom", "front", "back", "left", "right", "centre"];
 /** The fields a spec takes at its top. */
-const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "weapon", "finish", "smooth", "project", "budget", "contract", "floor", "pose", "note"];
+const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "weapon", "finish", "smooth", "project", "budget", "contract", "floor", "pose", "motion", "note"];
 /** A texture's side unless told; a kit's picture is made this much smaller (the kits paint at 1024 wide). */
 const SHEET_SIZE = 256;
 const KIT_SHRINK = 2;
@@ -146,6 +146,11 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
   finishErrors(spec.finish, "finish");
   if (spec.budget !== undefined && !(Number.isInteger(spec.budget) && spec.budget > 0)) errors.push("budget: the most triangles the model may have, a whole number");
   if (spec.floor !== undefined && !(typeof spec.floor === "number" && Number.isFinite(spec.floor))) errors.push("floor: where its feet stand, 0 for a monster (its origin at its feet) or -36 for a player (its origin the middle of its hull)");
+  if (spec.motion !== undefined) {
+    if (!spec.base) errors.push("motion: a character's, on a base model's skeleton: give the spec a base");
+    if (!Array.isArray(spec.motion) || !spec.motion.every((m) => typeof m?.seq === "string" && typeof m?.fit?.picture === "string"))
+      errors.push(`motion: [{ seq: "run", fit: { picture: "pictures/motion.png", count: 8, cols: 4, view: "left" } }]: an animation of the base fitted to a strip of pictures of the original doing it`);
+  }
   if (spec.pose !== undefined) {
     const keys = spec.pose?.keys;
     if (!spec.base) errors.push("pose: a character's, on a base model's skeleton: give the spec a base");
@@ -965,6 +970,28 @@ function piecesOf(given, context) {
  * cannot read at all; every other fault is in the report.
  */
 export function buildModelSpec(spec, options = {}) {
+  const built = buildPosed(spec, options);
+  if (!spec?.motion?.length || !built.mdl) return built;
+  // each animation named fitted to its strip of pictures, frame by frame (posefit.mjs), and written in its place
+  const read = options.readPicture ?? ((name) => unpng(readFileSync(resolve(options.folder ?? ".", name.replace(/^(work|models):/, "")))));
+  let { mdl } = built;
+  for (const [n, m] of spec.motion.entries()) {
+    try {
+      const list = sequencesOf(mdl);
+      const seq = list.findIndex((s) => s.name === m.seq);
+      if (seq < 0) throw new Error(`no animation ${m.seq} in the base: it has ${list.map((s) => s.name).join(", ")}`);
+      const fit = fitMotion(mdl, { seq, picture: read(m.fit.picture), count: m.fit.count ?? 8, cols: m.fit.cols ?? 4, view: m.fit.view ?? "left" });
+      mdl = replaceSequence(mdl, seq, { frames: fit.frames });
+      built.report.facts.push(`motion[${n}]: ${m.seq} fitted to ${m.fit.picture} (its cycle matched from the strip's frame ${fit.offset}): the outlines' overlap ${fit.before} as it was, ${fit.after} fitted`);
+    } catch (error) {
+      built.report.errors.push(`motion[${n}]: ${error.message}`);
+      built.report.ok = false;
+    }
+  }
+  return { ...built, mdl };
+}
+
+function buildPosed(spec, options = {}) {
   // a stance fitted to the pictures: built once as it stands, its first frame fitted to the outlines of the
   // views (spec.project's, or pose.fit's own), then built again in that stance; the keys given win over it
   if (!spec?.pose?.fit) return buildOnce(spec, options);

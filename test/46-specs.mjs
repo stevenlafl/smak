@@ -268,6 +268,22 @@ test("a character spec: a place on a part laid along a limb is where the part we
   const said = fitted.report.facts.find((f) => /pose fitted/.test(f)) ?? "";
   const [before, after] = (said.match(/overlap ([\d.]+) as built, ([\d.]+) fitted/) ?? []).slice(1).map(Number);
   sure(fitted.report.ok && after > before + 0.05, `the fitted outline closer: ${said.slice(0, 200)}`);
+  // motion: a three-frame run of the same leg, fitted to a strip of the swung leg's run
+  const runLeg = buildMdl({
+    name: "runleg.mdl",
+    bones: [{ name: "Bip01", parent: -1 }, { name: "Bip01 L Thigh", parent: 0, pos: [0, 0, 40] }, { name: "Bip01 L Calf", parent: 1, pos: [0, 0, -20] }],
+    bodyparts: [{ name: "body", models: [{ name: "b", meshes: [{ tris: [], texture: indexed(W.sheet(16, 16).image(), "b.bmp") }] }] }],
+    sequences: [{ name: "run", fps: 10, frames: [0, 1, 2].map(() => [[0, 0, 0, 0, 0, 0], [0, 0, 40, 0, 0, 0], [0, 0, -20, 0, 0, 0]]) }],
+  });
+  writeFileSync(join(folder, "runleg.mdl"), runLeg);
+  const runSpec = (extra) => ({ ...legSpec(undefined), base: { file: "runleg.mdl" }, ...extra });
+  const swungRun = buildModelSpec(runSpec({ pose: { keys: { "Bip01 L Thigh": { turn: { y: -40 } } } } }), { folder });
+  const strip = smak.strip(swungRun.mdl, { seq: 0, count: 3, cols: 3, view: "side", ground: true, width: 192, height: 192 });
+  writeFileSync(join(folder, "motion.png"), smak.png(strip.width, strip.height, strip.rgba));
+  const moved = buildModelSpec(runSpec({ motion: [{ seq: "run", fit: { picture: "motion.png", count: 3, cols: 3 } }] }), { folder });
+  const line = moved.report.facts.find((f) => /^motion\[0\]/.test(f)) ?? "";
+  const [was, now] = (line.match(/overlap ([\d.]+) as it was, ([\d.]+) fitted/) ?? []).slice(1).map(Number);
+  sure(moved.report.ok && now > was + 0.05 && smak.sequences(moved.mdl)[0].frames === 3, `the run fitted to its strip: ${line.slice(0, 200)} ${moved.report.errors}`);
 });
 
 test("a superquadric: a rounded block and an egg at their sizes, a wrong round refused", () => {

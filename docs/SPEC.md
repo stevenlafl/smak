@@ -209,6 +209,12 @@ a part that comes apart in any of them is a fault (`in run2 frame 11: ... thumb_
   built again in it. Only forward and back swings of the hips, knees, spine and arms, and the upper arms a
   little out, are tried. The report gives the outlines' overlap before and after and the keys it chose, to
   keep or change; `keys` given beside `fit` win over it.
+- `motion`: an animation of the base fitted to a strip of pictures of the original doing it, as the kit's
+  `strip` draws one from the side with the floor as a line: `"motion": [{ "seq": "run2", "fit": { "picture":
+  "pictures/motion.png", "count": 8, "cols": 4 } }]`. The strip's cycle is matched to the animation's (it may
+  start at another point of the stride), each of its frames fitted by the pose's swings, and the swings spread
+  over every frame, round the loop. The animation keeps its number, length and travel. Seen from the side,
+  arms over the body barely change the outline: legs and lean are what it finds.
 - `floor`: where its feet stand. A player model's origin is the middle of its hull, so its feet are at -36; a
   monster's origin is its feet, at 0. A monster made on a player's skeleton (Gordon's) gives `"floor": 0`, and
   every animation is lifted so that it stands on the floor and not sunk to its hips; a player keeps -36.

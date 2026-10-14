@@ -38,6 +38,13 @@ function targetOf(view) {
   const { picture } = view;
   const area = view.area ?? [0, 0, picture.width, picture.height];
   const mask = foregroundOf(picture, area);
+  // a strip's floor: a line drawn right across the area, which is no part of the thing
+  if (view.ground)
+    for (let y = area[1]; y < area[3]; y++) {
+      let lit = 0;
+      for (let x = area[0]; x < area[2]; x++) lit += mask[y * picture.width + x];
+      if (lit > (area[2] - area[0]) * 0.8) for (let x = area[0]; x < area[2]; x++) mask[y * picture.width + x] = 0;
+    }
   const rect = view.rect ?? outlineBox(mask, picture.width, area);
   if (!rect) return null;
   const [x0, y0, x1, y1] = rect;
@@ -100,11 +107,24 @@ function overlap(a, b) {
 export function fitPose(src, views, { swings = SWINGS } = {}) {
   const targets = views.map(targetOf).filter(Boolean);
   if (!targets.length) throw new Error("fitPose: no outline was found in any of the pictures: give each view its rect");
+  const { keys, before, after, tried } = fitFrame(src, targets, { swings, seq: 0, frame: 0 });
+  return { keys, before, after, tried };
+}
+
+/** The swings of `swings` this skeleton has, by its own bones' names. */
+function usableSwings(src, swings) {
   const names = bonesOf(src).map((b) => b.name);
   const usable = swings.map(([bone, axis, lo, hi]) => [boneIn(bone, names), axis, lo, hi]).filter(([bone]) => bone);
-  if (!usable.length) throw new Error(`fitPose: none of the Biped's limbs is in this skeleton (${names.slice(0, 8).join(", ")} ...)`);
+  // no swings asked: only the outline as it stands is scored
+  if (!usable.length && swings.length) throw new Error(`fitPose: none of the Biped's limbs is in this skeleton (${names.slice(0, 8).join(", ")} ...)`);
+  return usable;
+}
+
+/** One frame of an animation fitted to outlines: { angles (by swing), keys, before, after, tried }. */
+function fitFrame(src, targets, { swings = SWINGS, seq = 0, frame = 0 } = {}) {
+  const usable = usableSwings(src, swings);
   const rig = A.rigOf(src);
-  const base = A.poseOfValues(rig, readSequence(src, 0).frames[0]);
+  const base = A.poseOfValues(rig, readSequence(src, seq).frames[frame]);
   const angles = usable.map(() => 0);
   let tried = 0;
   const score = (values) => {
@@ -139,5 +159,52 @@ export function fitPose(src, views, { swings = SWINGS } = {}) {
         }
     }
   }
-  return { keys: best.keys, before: Math.round(first.mean * 1000) / 1000, after: Math.round(best.mean * 1000) / 1000, tried };
+  return { angles, keys: best.keys, before: Math.round(first.mean * 1000) / 1000, after: Math.round(best.mean * 1000) / 1000, tried, score };
+}
+
+/**
+ * An animation (`seq`, a run or a walk) fitted to a strip of pictures of the original doing it (`picture`, its
+ * frames `count` in a grid `cols` across, each seen from `view`, the floor drawn as a line), as `strip` draws
+ * them. The original's cycle may start at another point of the stride: of the strip's frames taken round by
+ * each offset, the one whose outlines the animation already fits best is matched. Each matched frame is fitted
+ * by the same swings as a pose; the swings found are spread over every frame of the animation, round the loop,
+ * and written into it. `{ frames (the animation's new values, for replaceSequence), offset, before, after }`.
+ */
+export function fitMotion(src, { seq, picture, count = 8, cols = 4, view = "left", swings = SWINGS }) {
+  const [yaw, pitch] = { left: [90, 0], right: [270, 0], front: [0, 0], back: [180, 0] }[view] ?? [90, 0];
+  const cell = Math.floor(picture.width / cols);
+  const rows = Math.ceil(count / cols);
+  const cellH = Math.floor(picture.height / rows);
+  const targets = Array.from({ length: count }, (_, i) => targetOf({ picture, yaw, pitch, ground: true, area: [(i % cols) * cell, Math.floor(i / cols) * cellH, (i % cols) * cell + cell, Math.floor(i / cols) * cellH + cellH] }));
+  if (targets.some((t) => !t)) throw new Error("fitMotion: a frame of the strip shows nothing: give the strip's count and cols as it was drawn");
+  const n = readSequence(src, seq).frames.length;
+  const ours = Array.from({ length: count }, (_, i) => Math.round((i * (n - 1)) / Math.max(1, count - 1)));
+  // the offset round the cycle at which the animation as it is fits the strip best
+  let offset = 0;
+  let bestStart = -1;
+  for (let o = 0; o < count; o++) {
+    let sum = 0;
+    for (let i = 0; i < count; i++) sum += fitFrame(src, [targets[(i + o) % count]], { swings: [], seq, frame: ours[i] }).before;
+    if (sum > bestStart) [bestStart, offset] = [sum, o];
+  }
+  const fits = ours.map((frame, i) => fitFrame(src, [targets[(i + offset) % count]], { swings, seq, frame }));
+  const usable = usableSwings(src, swings);
+  const rig = A.rigOf(src);
+  const values = readSequence(src, seq).frames;
+  const frames = values.map((frame, f) => {
+    // where this frame falls between the fitted ones, round the loop
+    const at = (f / Math.max(1, n - 1)) * (count - 1);
+    const i = Math.min(count - 2, Math.floor(at));
+    const t = at - i;
+    const keys = {};
+    usable.forEach(([bone, axis], k) => {
+      const angle = fits[i].angles[k] * (1 - t) + fits[i + 1].angles[k] * t;
+      if (!angle) return;
+      keys[bone] ??= { turn: {} };
+      keys[bone].turn[axis] = angle;
+    });
+    return A.valuesOf(rig, A.turnedInPose(rig, A.poseOfValues(rig, frame), keys));
+  });
+  const mean = (list, key) => Math.round((list.reduce((a, f) => a + f[key], 0) / list.length) * 1000) / 1000;
+  return { frames, offset, before: mean(fits, "before"), after: mean(fits, "after") };
 }
