@@ -264,6 +264,7 @@ export function carve(views, { size, cells = 64, target, smooth = SMOOTHING } = 
 
   // how well the result's outline meets each mask
   const overlapByView = {};
+  const lost = [];
   for (const v of prepared) {
     const { width, height, data } = v.mask;
     const drawn = new Uint8Array(width * height);
@@ -290,8 +291,46 @@ export function carve(views, { size, cells = 64, target, smooth = SMOOTHING } = 
       either += drawn[i] | data[i];
     }
     overlapByView[v.name] = Math.round((1000 * both) / (either || 1)) / 1000;
+    // what the picture shows and the carve lost, piece by piece: the thin ones (under two cells across) are what
+    // a hull of cells cannot hold, a claw, an antenna, a strap; each is to be made a part of its own
+    const perUnit = Math.max(...[[1, 0, 0], [0, 1, 0], [0, 0, 1]].map((d) => Math.hypot(...v.map(d).map((c, k) => c - v.map([0, 0, 0])[k]))));
+    const seen = new Uint8Array(width * height);
+    for (let i = 0; i < data.length; i++) {
+      if (!data[i] || drawn[i] || seen[i]) continue;
+      const piece = [i];
+      seen[i] = 1;
+      for (let k = 0; k < piece.length; k++) {
+        const j = piece[k];
+        const [x, y] = [j % width, Math.floor(j / width)];
+        for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+          const [nx, ny] = [x + dx, y + dy];
+          if (nx < 0 || ny < 0 || nx >= width || ny >= height) continue;
+          const o = ny * width + nx;
+          if (data[o] && !drawn[o] && !seen[o]) (seen[o] = 1), piece.push(o);
+        }
+      }
+      const xs = piece.map((j) => j % width);
+      const ys = piece.map((j) => Math.floor(j / width));
+      const length = Math.hypot(Math.max(...xs) - Math.min(...xs) + 1, Math.max(...ys) - Math.min(...ys) + 1) / perUnit;
+      const across = piece.length / perUnit ** 2 / Math.max(length, 1e-6);
+      if (length < 1.5 * h || across > 2 * h) continue;
+      // a rim the reduced hull sits a pixel inside hugs the outline all along; a lost part sticks out of it
+      const reach = Math.max(1, Math.ceil(2 * h * perUnit));
+      const far = piece.some((j) => {
+        const [x, y] = [j % width, Math.floor(j / width)];
+        for (let dy = -reach; dy <= reach; dy++)
+          for (let dx = -reach; dx <= reach; dx++) {
+            const [nx, ny] = [x + dx, y + dy];
+            if (nx >= 0 && ny >= 0 && nx < width && ny < height && drawn[ny * width + nx]) return false;
+          }
+        return true;
+      });
+      if (!far) continue;
+      lost.push({ view: v.name, length: Math.round(length * 10) / 10, across: Math.round(across * 100) / 100, at: [Math.round(xs.reduce((a, b) => a + b, 0) / xs.length), Math.round(ys.reduce((a, b) => a + b, 0) / ys.length)] });
+    }
   }
-  return { tris, report: { cells: n, kept, triangles: tris.length, surfaced, reduced, empty, overlapByView } };
+  lost.sort((a, b) => b.length - a.length);
+  return { tris, report: { cells: n, kept, triangles: tris.length, surfaced, reduced, empty, overlapByView, lost } };
 }
 
 /** A background whose border dots are this share or more of one colour is a drawn one, not a photograph's. */

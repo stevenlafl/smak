@@ -180,6 +180,23 @@ test("carve: a model the kit draws, carved from its sheet of sides and an angle,
   near(spanOf(ps, 0)[1] - spanOf(ps, 0)[0], 24, 0.6, "its length");
 });
 
+test("carve: a thin spike the cells cannot hold is reported lost, with its view and length; a plain block loses none", () => {
+  // a block 16 x 16 x 20 with a spike a fifth of a unit across standing 6 out of its front, at mid height: 22 long
+  // in all; 5 dots a unit, so the block is 80 dots wide in each picture and the spike 30 long and one dot across
+  const front = drawnMask(100, 120, (x, y) => x >= 10 && x < 90 && y >= 10 && y < 110);
+  const side = (spike) => drawnMask(130, 120, (x, y) => (x >= 10 && x < 90 && y >= 10 && y < 110) || (spike && x >= 90 && x < 120 && y >= 60 && y < 61));
+  const top = (spike) => drawnMask(130, 100, (x, y) => (x >= 10 && x < 90 && y >= 10 && y < 90) || (spike && x >= 90 && x < 120 && y >= 50 && y < 51));
+  const of = (spike) => [
+    { mask: front, yaw: 0, pitch: 0, name: "front" },
+    { mask: side(spike), yaw: 90, pitch: 0, name: "left" },
+    { mask: top(spike), yaw: 0, pitch: 90, name: "top" },
+  ];
+  const none = carve(of(false), { size: [16, 16, 20], cells: 40 }).report.lost;
+  sure(none.length === 0, JSON.stringify(none));
+  const lost = carve(of(true), { size: [22, 16, 20], cells: 40 }).report.lost;
+  sure(lost.some((l) => (l.view === "left" || l.view === "top") && l.length > 4 && l.across < 0.5), JSON.stringify(lost));
+});
+
 test("carve: a side drawn empty is left out, and the side opposite carves for it; an empty picture refused", () => {
   const side = drawnMask(64, 64, (x, y) => x >= 8 && x <= 56 && y >= 8 && y <= 56);
   const nothing = drawnMask(64, 64, () => false);

@@ -1157,6 +1157,9 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, hide =
           }
           if (hull.finer) report.notes.push(`${part.id}: carved again at ${hull.cells} cells for its thin parts (its worst view's outline ${hull.finer[0]} at 64, ${hull.finer[1]} at ${hull.cells})`);
           report.facts.push(`${part.id}: carved from ${views.length} views at ${hull.cells ?? part.cells ?? 64} cells, ${hull.tris.length} triangles; each view's outline against its own: ${Object.entries(hull.report.overlapByView ?? {}).map(([k, v]) => `${k} ${v}`).join(", ")}`);
+          const lost = hull.report.lost ?? [];
+          if (lost.length)
+            warnings.push(`${part.id}: the carve lost ${lost.length} thin piece${lost.length > 1 ? "s" : ""} the pictures show, thinner than its cells (${(Math.max(...part.size) / (hull.cells ?? part.cells ?? 64)).toFixed(2)} units) can hold: ${lost.slice(0, 6).map((l) => `${l.view} view, ${l.length} long and ${l.across} across, near pixel ${l.at.join(" ")} of that view`).join("; ")}. Make each a part of its own (a tube, a leaf, a box) where the picture has it`);
           return { ...part, carvedTris: hull.tris };
         }),
       };
