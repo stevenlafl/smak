@@ -66,16 +66,29 @@ Not the cause of the low coverage, checked: the dense mesh is not hollow (98% of
 outside, 100 directions); the hidden-surface test's tolerance (0.01 to 0.08 of the size changes little); the
 mirror's axis (the width, right).
 
-## What is still wrong, and the next experiments
+## What is still wrong
 
-1. **The roof and underside**: no photo sees them. Fill from the nearest seen surface across the mesh (a
-   diffusion over it), or the paint's own colour with SMAK's finish, rather than one median colour.
-2. **Reflections baked in**: a photo's reflections of trees and sky show on the bonnet and glass. De-lighting
-   (in `3d-fidelity-methods.md`).
-3. **The underside's fins**: shape errors of the generator where the photo shows nothing; cut what lies under
-   the wheels' bottom, or take a better generator.
-4. **Which method wins**: one car is not enough. A set of test objects (a car, a barrel, a lamp post, a chair,
-   a statue, a fire hydrant, a character, a rock), each from text and from real photos, run through every
-   method (`to_prop.py`, `photo_texture.py`, `photo_charts.py`, and the reduction methods above), scored by
-   chart count, texel use, area from photos, and the image error between a render from each photo's camera and
-   the photo inside its cut-out. A method is retired only when every object prefers another.
+1. **The roof and underside**: no photo sees them; one median colour stands in.
+2. **Reflections baked in**: trees and sky on the bonnet and glass.
+3. **The underside's fins**: the generator's guess where no photo looks.
+4. **Small charts in an unwrap**: the generated car has 32 tunnels (genus 32) that topology-kept reduction keeps,
+   and 27% of its edges fold over 60 degrees; xatlas's options do not help (`3d-fidelity-methods.md`, 6.1).
+
+## The plan
+
+Decided by a benchmark, not by one car (Steven, 2026-10-14): every method stays until each test object prefers
+another. The objects: the car (two photos), a barrel, a lamp post, a chair, a statue, a fire hydrant, a
+character and a rock, each from text and, where a free photo exists, from real photos.
+
+| Stage | Options compared | Measure (`3d-fidelity-methods.md`, 7) |
+| --- | --- | --- |
+| Cut-out | BRIA RMBG-2.0 (as run), BiRefNet (MIT), Grounding DINO or OWLv2 then SAM 2 | mask IoU against hand masks, edge F-score |
+| Generator | Hunyuan3D-2mini, TripoSG, Hunyuan3D-2.1 shape, SPAR3D | silhouette IoU from the input view, genus, folds after reduction, time, memory |
+| Reduction | fast-simplification, quadric in halves (pymeshlab, GPL-3.0), a quadric reducer in Node with crease and silhouette weights, each with and without closing the tunnels first | two-way Hausdorff, silhouette IoU over 20 views, bad edges, fits one submodel |
+| Charts | xatlas, photo charts (this experiment), view-based charts with small ones merged, mirrored charts | chart count, texel use, stretch |
+| Texture | per-texel blend, best photo per face with seams levelled, symmetry fill, fill across the surface for the unseen | LPIPS and SSIM of a render from each photo's camera against the photo, inside its cut-out |
+| Bake | none, ambient occlusion, plus cavity | image error of the textured low model, unlit, against the dense mesh lit |
+
+What becomes part of the kit (Node, no dependencies) is what wins: by the report's order, the reducer, a normals
+codebook (1,500 triangles hit the 2,048-normal limit before the point limit), the bake, the camera fit, the
+projection and the charts. The generators and cut-outs stay an optional Python step outside it.
