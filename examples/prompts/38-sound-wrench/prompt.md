@@ -50,3 +50,12 @@ game's" by the numbers, not "sounds right": the person listens in the game.
    0.6). The kit now fades every layer's end and gives a layer the length its own envelope takes to die (a
    test in `test/47-audio.mjs`).
 
+## Blind run
+
+`blind.mjs`: the prompt alone, to a fresh agent with nothing but the MCP server. It read the guide three times and
+built six times, in 90 seconds and 10 turns, ending with all six files passing every check and, against
+the game's own: the wall hits 21 and 19 of 22, the body hits 17, 18 and 16, the miss 19. Its answer says what
+it could not check, and where its sounds still differ (a little purer than the game's, the thuds a little
+dark), from the report's words alone. The runner did not keep its spec: a sound build wrote none beside its
+files, as a model's and a map's do; it does now (a test), so the next blind run keeps it.
+

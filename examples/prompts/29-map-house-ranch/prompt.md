@@ -51,3 +51,13 @@ where a house has siding.
 3. The map's views showed the house's outside only by chance: the kit now draws each building from the
    corner of its open room on its front's side, where its front door is.
 
+## Blind run
+
+`blind.mjs`: the prompt alone, to a fresh agent with nothing but the MCP server. It read the guide six times, asked
+`entities` once, built three times, in 294 seconds and 17 turns. Its spec, built again, passes every check:
+a pale blue clapboard house with a grey gable roof standing on its lawn (a building, from the guide), a
+driveway through a hedge, the five rooms and a hall it added, every one furnished: having none of case 28's
+models, it made the furniture as brush prefabs of its own (26 pieces: a TV, a sofa, beds, a tub, a fridge
+...), trees and bushes as blocks. Its lot's walls wear grass, which reads oddly from inside the yard; no item
+of the rubric says otherwise. Against this rubric: **12 of 12**.
+

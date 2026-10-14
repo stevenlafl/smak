@@ -94,4 +94,5 @@ await testAsync("the tool build makes sounds: the files under work:sound/, their
   sure(/^OK/.test(text) && /written: work:sound\/weapons\/cbar_hit1.wav, work:sound\/weapons\/cbar_hit2.wav/.test(text), text);
   sure(existsSync(join(work, "sound", "weapons", "cbar_hit2.wav")) && A.readWav(readFileSync(join(work, "sound", "weapons", "cbar_hit1.wav"))).rate === 22050, "the files are there");
   sure(out.some((part) => part.type === "image"), "and the picture");
+  sure(existsSync(join(work, "weapons_cbar_hit1.spec.json")), "and its spec beside them, as a model's and a map's");
 });

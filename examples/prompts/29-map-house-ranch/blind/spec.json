@@ -1,0 +1,2040 @@
+{
+  "spec": "smak.map/1",
+  "name": "ranch_house",
+  "theme": {
+    "floor": "floorboards",
+    "wall": "wallpaper",
+    "ceiling": "ceiling",
+    "outside": "siding_blue",
+    "roof": "roof_grey",
+    "door": "door_wood",
+    "furniture": "wood"
+  },
+  "textures": {
+    "floorboards": {
+      "base": "planks",
+      "tone": [
+        0.62,
+        0.45,
+        0.3
+      ]
+    },
+    "wallpaper": {
+      "base": "plaster",
+      "tone": [
+        0.9,
+        0.87,
+        0.78
+      ]
+    },
+    "ceiling": {
+      "base": "plaster",
+      "tone": [
+        0.95,
+        0.95,
+        0.93
+      ]
+    },
+    "siding_blue": {
+      "base": "siding",
+      "tone": [
+        0.62,
+        0.76,
+        0.9
+      ]
+    },
+    "roof_grey": {
+      "base": "shingles",
+      "tone": [
+        0.45,
+        0.46,
+        0.48
+      ]
+    },
+    "door_wood": {
+      "base": "wood",
+      "tone": [
+        0.95,
+        0.95,
+        0.92
+      ]
+    },
+    "wood": {
+      "base": "wood"
+    },
+    "darkwood": {
+      "base": "darkwood"
+    },
+    "sofa_cloth": {
+      "base": "cloth",
+      "tone": [
+        0.45,
+        0.5,
+        0.35
+      ]
+    },
+    "chair_cloth": {
+      "base": "cloth",
+      "tone": [
+        0.7,
+        0.4,
+        0.3
+      ]
+    },
+    "screen": {
+      "base": "glass",
+      "tone": [
+        0.08,
+        0.08,
+        0.1
+      ]
+    },
+    "black": {
+      "base": "paint",
+      "tone": [
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    "white": {
+      "base": "paint",
+      "tone": [
+        0.93,
+        0.93,
+        0.9
+      ]
+    },
+    "steel": {
+      "base": "steel"
+    },
+    "leaves": {
+      "base": "grass",
+      "tone": [
+        0.25,
+        0.5,
+        0.2
+      ]
+    },
+    "pot": {
+      "base": "paint",
+      "tone": [
+        0.7,
+        0.4,
+        0.25
+      ]
+    },
+    "bark": {
+      "base": "darkwood",
+      "tone": [
+        0.4,
+        0.3,
+        0.2
+      ]
+    },
+    "bedding": {
+      "base": "cloth",
+      "tone": [
+        0.85,
+        0.85,
+        0.9
+      ]
+    },
+    "kid_bedding": {
+      "base": "cloth",
+      "tone": [
+        0.9,
+        0.6,
+        0.3
+      ]
+    },
+    "kitchen_tile": {
+      "base": "tile",
+      "tone": [
+        0.9,
+        0.9,
+        0.85
+      ]
+    },
+    "bath_tile": {
+      "base": "tile",
+      "tone": [
+        0.7,
+        0.85,
+        0.95
+      ]
+    },
+    "lawn": {
+      "base": "grass"
+    },
+    "road": {
+      "base": "asphalt"
+    },
+    "concrete": {
+      "base": "stone",
+      "tone": [
+        0.7,
+        0.7,
+        0.68
+      ]
+    },
+    "rope": {
+      "base": "rope"
+    },
+    "hedge": {
+      "base": "grass",
+      "tone": [
+        0.2,
+        0.42,
+        0.18
+      ]
+    }
+  },
+  "wall": 16,
+  "rooms": [
+    {
+      "id": "yard",
+      "size": [
+        1280,
+        1152,
+        480
+      ],
+      "sky": true,
+      "surfaces": {
+        "floor": "lawn",
+        "walls": "hedge"
+      }
+    },
+    {
+      "id": "street",
+      "size": [
+        1280,
+        384,
+        480
+      ],
+      "sky": true,
+      "test": true,
+      "place": {
+        "south_of": "yard"
+      },
+      "surfaces": {
+        "floor": "road",
+        "walls": "concrete"
+      }
+    },
+    {
+      "id": "living",
+      "size": [
+        320,
+        256,
+        120
+      ],
+      "floor": 8,
+      "place": {
+        "in": "yard",
+        "offset": [
+          352,
+          288
+        ],
+        "stand": true
+      },
+      "building": {
+        "walls": "outside",
+        "roof": {
+          "material": "roof_grey",
+          "pitch": 30,
+          "overhang": 16
+        }
+      }
+    },
+    {
+      "id": "kitchen",
+      "size": [
+        224,
+        256,
+        120
+      ],
+      "place": {
+        "east_of": "living"
+      },
+      "surfaces": {
+        "floor": "kitchen_tile"
+      }
+    },
+    {
+      "id": "hall",
+      "size": [
+        560,
+        64,
+        120
+      ],
+      "place": {
+        "north_of": "living",
+        "align": "west"
+      }
+    },
+    {
+      "id": "bedroom",
+      "size": [
+        224,
+        192,
+        120
+      ],
+      "place": {
+        "north_of": "hall",
+        "align": "west"
+      }
+    },
+    {
+      "id": "bath",
+      "size": [
+        128,
+        192,
+        120
+      ],
+      "place": {
+        "east_of": "bedroom",
+        "align": "south"
+      },
+      "surfaces": {
+        "floor": "bath_tile",
+        "walls": "bath_tile"
+      }
+    },
+    {
+      "id": "kids_room",
+      "size": [
+        176,
+        192,
+        120
+      ],
+      "place": {
+        "east_of": "bath",
+        "align": "south"
+      }
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "living",
+        "yard"
+      ],
+      "side": "south",
+      "kind": "door",
+      "along": 0.3
+    },
+    {
+      "between": [
+        "living",
+        "yard"
+      ],
+      "side": "south",
+      "kind": "window",
+      "along": 0.75,
+      "width": 112,
+      "height": 64,
+      "sill": 32,
+      "glass": true
+    },
+    {
+      "between": [
+        "living",
+        "yard"
+      ],
+      "side": "west",
+      "kind": "window",
+      "glass": true
+    },
+    {
+      "between": [
+        "living",
+        "kitchen"
+      ],
+      "kind": "opening",
+      "width": 128
+    },
+    {
+      "between": [
+        "living",
+        "hall"
+      ],
+      "kind": "opening",
+      "along": 0.5
+    },
+    {
+      "between": [
+        "kitchen",
+        "yard"
+      ],
+      "side": "east",
+      "kind": "door",
+      "along": 0.3
+    },
+    {
+      "between": [
+        "kitchen",
+        "yard"
+      ],
+      "side": "east",
+      "kind": "window",
+      "along": 0.78,
+      "glass": true
+    },
+    {
+      "between": [
+        "kitchen",
+        "yard"
+      ],
+      "side": "south",
+      "kind": "window",
+      "glass": true
+    },
+    {
+      "between": [
+        "hall",
+        "bedroom"
+      ],
+      "kind": "door"
+    },
+    {
+      "between": [
+        "hall",
+        "bath"
+      ],
+      "kind": "door"
+    },
+    {
+      "between": [
+        "hall",
+        "kids_room"
+      ],
+      "kind": "door"
+    },
+    {
+      "between": [
+        "bedroom",
+        "yard"
+      ],
+      "side": "north",
+      "kind": "window",
+      "glass": true
+    },
+    {
+      "between": [
+        "bedroom",
+        "yard"
+      ],
+      "side": "west",
+      "kind": "window",
+      "glass": true
+    },
+    {
+      "between": [
+        "kids_room",
+        "yard"
+      ],
+      "side": "north",
+      "kind": "window",
+      "glass": true
+    },
+    {
+      "between": [
+        "kids_room",
+        "yard"
+      ],
+      "side": "east",
+      "kind": "window",
+      "glass": true
+    },
+    {
+      "between": [
+        "yard",
+        "street"
+      ],
+      "kind": "opening",
+      "along": 0.5,
+      "width": 1248,
+      "height": 480
+    }
+  ],
+  "prefabs": {
+    "sofa": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -40,
+              -18,
+              0
+            ],
+            [
+              40,
+              18,
+              16
+            ]
+          ],
+          "texture": "sofa_cloth"
+        },
+        {
+          "box": [
+            [
+              -40,
+              10,
+              16
+            ],
+            [
+              40,
+              18,
+              34
+            ]
+          ],
+          "texture": "sofa_cloth"
+        },
+        {
+          "box": [
+            [
+              -40,
+              -18,
+              16
+            ],
+            [
+              -34,
+              10,
+              24
+            ]
+          ],
+          "texture": "sofa_cloth"
+        },
+        {
+          "box": [
+            [
+              34,
+              -18,
+              16
+            ],
+            [
+              40,
+              10,
+              24
+            ]
+          ],
+          "texture": "sofa_cloth"
+        }
+      ]
+    },
+    "armchair": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -18,
+              -18,
+              0
+            ],
+            [
+              18,
+              18,
+              16
+            ]
+          ],
+          "texture": "chair_cloth"
+        },
+        {
+          "box": [
+            [
+              -18,
+              10,
+              16
+            ],
+            [
+              18,
+              18,
+              34
+            ]
+          ],
+          "texture": "chair_cloth"
+        },
+        {
+          "box": [
+            [
+              -18,
+              -18,
+              16
+            ],
+            [
+              -12,
+              10,
+              24
+            ]
+          ],
+          "texture": "chair_cloth"
+        },
+        {
+          "box": [
+            [
+              12,
+              -18,
+              16
+            ],
+            [
+              18,
+              10,
+              24
+            ]
+          ],
+          "texture": "chair_cloth"
+        }
+      ]
+    },
+    "tv": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -28,
+              -9,
+              0
+            ],
+            [
+              28,
+              9,
+              20
+            ]
+          ],
+          "texture": "darkwood"
+        },
+        {
+          "box": [
+            [
+              -24,
+              -2,
+              20
+            ],
+            [
+              24,
+              3,
+              50
+            ]
+          ],
+          "texture": "black"
+        },
+        {
+          "box": [
+            [
+              -22,
+              -3,
+              22
+            ],
+            [
+              22,
+              -2,
+              48
+            ]
+          ],
+          "texture": "screen"
+        }
+      ]
+    },
+    "coffee_table": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -22,
+              -14,
+              14
+            ],
+            [
+              22,
+              14,
+              16
+            ]
+          ],
+          "texture": "wood"
+        },
+        {
+          "box": [
+            [
+              -20,
+              -12,
+              0
+            ],
+            [
+              -18,
+              -10,
+              14
+            ]
+          ],
+          "texture": "wood"
+        },
+        {
+          "box": [
+            [
+              18,
+              -12,
+              0
+            ],
+            [
+              20,
+              -10,
+              14
+            ]
+          ],
+          "texture": "wood"
+        },
+        {
+          "box": [
+            [
+              -20,
+              10,
+              0
+            ],
+            [
+              -18,
+              12,
+              14
+            ]
+          ],
+          "texture": "wood"
+        },
+        {
+          "box": [
+            [
+              18,
+              10,
+              0
+            ],
+            [
+              20,
+              12,
+              14
+            ]
+          ],
+          "texture": "wood"
+        }
+      ]
+    },
+    "plant": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -7,
+              -7,
+              0
+            ],
+            [
+              7,
+              7,
+              14
+            ]
+          ],
+          "texture": "pot"
+        },
+        {
+          "box": [
+            [
+              -12,
+              -12,
+              14
+            ],
+            [
+              12,
+              12,
+              38
+            ]
+          ],
+          "texture": "leaves"
+        },
+        {
+          "box": [
+            [
+              -7,
+              -7,
+              38
+            ],
+            [
+              7,
+              7,
+              48
+            ]
+          ],
+          "texture": "leaves"
+        }
+      ]
+    },
+    "fridge": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -16,
+              -14,
+              0
+            ],
+            [
+              16,
+              14,
+              74
+            ]
+          ],
+          "texture": "white"
+        },
+        {
+          "box": [
+            [
+              10,
+              -15,
+              30
+            ],
+            [
+              12,
+              -14,
+              50
+            ]
+          ],
+          "texture": "steel"
+        }
+      ]
+    },
+    "sink": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -24,
+              -12,
+              0
+            ],
+            [
+              24,
+              12,
+              34
+            ]
+          ],
+          "texture": "wood"
+        },
+        {
+          "box": [
+            [
+              -12,
+              -8,
+              34
+            ],
+            [
+              12,
+              6,
+              35
+            ]
+          ],
+          "texture": "steel"
+        },
+        {
+          "box": [
+            [
+              -1,
+              7,
+              34
+            ],
+            [
+              1,
+              10,
+              44
+            ]
+          ],
+          "texture": "steel"
+        }
+      ]
+    },
+    "stove": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -15,
+              -12,
+              0
+            ],
+            [
+              15,
+              12,
+              34
+            ]
+          ],
+          "texture": "white"
+        },
+        {
+          "box": [
+            [
+              -12,
+              -9,
+              34
+            ],
+            [
+              12,
+              9,
+              35
+            ]
+          ],
+          "texture": "black"
+        },
+        {
+          "box": [
+            [
+              -15,
+              9,
+              34
+            ],
+            [
+              15,
+              12,
+              42
+            ]
+          ],
+          "texture": "white"
+        }
+      ]
+    },
+    "kitchen_table": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -24,
+              -18,
+              26
+            ],
+            [
+              24,
+              18,
+              28
+            ]
+          ],
+          "texture": "wood"
+        },
+        {
+          "box": [
+            [
+              -22,
+              -16,
+              0
+            ],
+            [
+              -20,
+              -14,
+              26
+            ]
+          ],
+          "texture": "wood"
+        },
+        {
+          "box": [
+            [
+              20,
+              -16,
+              0
+            ],
+            [
+              22,
+              -14,
+              26
+            ]
+          ],
+          "texture": "wood"
+        },
+        {
+          "box": [
+            [
+              -22,
+              14,
+              0
+            ],
+            [
+              -20,
+              16,
+              26
+            ]
+          ],
+          "texture": "wood"
+        },
+        {
+          "box": [
+            [
+              20,
+              14,
+              0
+            ],
+            [
+              22,
+              16,
+              26
+            ]
+          ],
+          "texture": "wood"
+        }
+      ]
+    },
+    "chair": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -8,
+              -8,
+              16
+            ],
+            [
+              8,
+              8,
+              18
+            ]
+          ],
+          "texture": "wood"
+        },
+        {
+          "box": [
+            [
+              -8,
+              6,
+              18
+            ],
+            [
+              8,
+              8,
+              36
+            ]
+          ],
+          "texture": "wood"
+        },
+        {
+          "box": [
+            [
+              -7,
+              -7,
+              0
+            ],
+            [
+              -5,
+              -5,
+              16
+            ]
+          ],
+          "texture": "wood"
+        },
+        {
+          "box": [
+            [
+              5,
+              -7,
+              0
+            ],
+            [
+              7,
+              -5,
+              16
+            ]
+          ],
+          "texture": "wood"
+        },
+        {
+          "box": [
+            [
+              -7,
+              5,
+              0
+            ],
+            [
+              -5,
+              7,
+              16
+            ]
+          ],
+          "texture": "wood"
+        },
+        {
+          "box": [
+            [
+              5,
+              5,
+              0
+            ],
+            [
+              7,
+              7,
+              16
+            ]
+          ],
+          "texture": "wood"
+        }
+      ]
+    },
+    "double_bed": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -32,
+              -44,
+              0
+            ],
+            [
+              32,
+              44,
+              14
+            ]
+          ],
+          "texture": "darkwood"
+        },
+        {
+          "box": [
+            [
+              -30,
+              -42,
+              14
+            ],
+            [
+              30,
+              40,
+              22
+            ]
+          ],
+          "texture": "bedding"
+        },
+        {
+          "box": [
+            [
+              -26,
+              26,
+              22
+            ],
+            [
+              26,
+              38,
+              26
+            ]
+          ],
+          "texture": "white"
+        },
+        {
+          "box": [
+            [
+              -32,
+              40,
+              14
+            ],
+            [
+              32,
+              44,
+              38
+            ]
+          ],
+          "texture": "darkwood"
+        }
+      ]
+    },
+    "single_bed": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -20,
+              -40,
+              0
+            ],
+            [
+              20,
+              40,
+              12
+            ]
+          ],
+          "texture": "wood"
+        },
+        {
+          "box": [
+            [
+              -18,
+              -38,
+              12
+            ],
+            [
+              18,
+              36,
+              20
+            ]
+          ],
+          "texture": "kid_bedding"
+        },
+        {
+          "box": [
+            [
+              -14,
+              24,
+              20
+            ],
+            [
+              14,
+              34,
+              24
+            ]
+          ],
+          "texture": "white"
+        },
+        {
+          "box": [
+            [
+              -20,
+              36,
+              12
+            ],
+            [
+              20,
+              40,
+              32
+            ]
+          ],
+          "texture": "wood"
+        }
+      ]
+    },
+    "dresser": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -24,
+              -10,
+              0
+            ],
+            [
+              24,
+              10,
+              36
+            ]
+          ],
+          "texture": "wood"
+        },
+        {
+          "box": [
+            [
+              -22,
+              -11,
+              26
+            ],
+            [
+              22,
+              -10,
+              33
+            ]
+          ],
+          "texture": "darkwood"
+        },
+        {
+          "box": [
+            [
+              -22,
+              -11,
+              15
+            ],
+            [
+              22,
+              -10,
+              22
+            ]
+          ],
+          "texture": "darkwood"
+        },
+        {
+          "box": [
+            [
+              -22,
+              -11,
+              4
+            ],
+            [
+              22,
+              -10,
+              11
+            ]
+          ],
+          "texture": "darkwood"
+        }
+      ]
+    },
+    "toilet": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -7,
+              -12,
+              0
+            ],
+            [
+              7,
+              6,
+              15
+            ]
+          ],
+          "texture": "white"
+        },
+        {
+          "box": [
+            [
+              -9,
+              -14,
+              15
+            ],
+            [
+              9,
+              6,
+              17
+            ]
+          ],
+          "texture": "white"
+        },
+        {
+          "box": [
+            [
+              -9,
+              6,
+              0
+            ],
+            [
+              9,
+              12,
+              30
+            ]
+          ],
+          "texture": "white"
+        }
+      ]
+    },
+    "tub": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -36,
+              -16,
+              0
+            ],
+            [
+              36,
+              16,
+              4
+            ]
+          ],
+          "texture": "white"
+        },
+        {
+          "box": [
+            [
+              -36,
+              -16,
+              4
+            ],
+            [
+              36,
+              -12,
+              20
+            ]
+          ],
+          "texture": "white"
+        },
+        {
+          "box": [
+            [
+              -36,
+              12,
+              4
+            ],
+            [
+              36,
+              16,
+              20
+            ]
+          ],
+          "texture": "white"
+        },
+        {
+          "box": [
+            [
+              -36,
+              -12,
+              4
+            ],
+            [
+              -32,
+              12,
+              20
+            ]
+          ],
+          "texture": "white"
+        },
+        {
+          "box": [
+            [
+              32,
+              -12,
+              4
+            ],
+            [
+              36,
+              12,
+              20
+            ]
+          ],
+          "texture": "white"
+        },
+        {
+          "box": [
+            [
+              30,
+              8,
+              20
+            ],
+            [
+              33,
+              10,
+              28
+            ]
+          ],
+          "texture": "steel"
+        }
+      ]
+    },
+    "tree": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -7,
+              -7,
+              0
+            ],
+            [
+              7,
+              7,
+              104
+            ]
+          ],
+          "texture": "bark"
+        },
+        {
+          "box": [
+            [
+              -56,
+              -56,
+              96
+            ],
+            [
+              56,
+              56,
+              176
+            ]
+          ],
+          "texture": "leaves"
+        },
+        {
+          "box": [
+            [
+              -36,
+              -36,
+              176
+            ],
+            [
+              36,
+              36,
+              216
+            ]
+          ],
+          "texture": "leaves"
+        }
+      ]
+    },
+    "bush": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -16,
+              -16,
+              0
+            ],
+            [
+              16,
+              16,
+              26
+            ]
+          ],
+          "texture": "hedge"
+        },
+        {
+          "box": [
+            [
+              -11,
+              -11,
+              26
+            ],
+            [
+              11,
+              11,
+              32
+            ]
+          ],
+          "texture": "hedge"
+        }
+      ]
+    },
+    "bench": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -32,
+              -9,
+              15
+            ],
+            [
+              32,
+              9,
+              18
+            ]
+          ],
+          "texture": "wood"
+        },
+        {
+          "box": [
+            [
+              -32,
+              7,
+              18
+            ],
+            [
+              32,
+              9,
+              34
+            ]
+          ],
+          "texture": "wood"
+        },
+        {
+          "box": [
+            [
+              -30,
+              -8,
+              0
+            ],
+            [
+              -27,
+              8,
+              15
+            ]
+          ],
+          "texture": "iron"
+        },
+        {
+          "box": [
+            [
+              27,
+              -8,
+              0
+            ],
+            [
+              30,
+              8,
+              15
+            ]
+          ],
+          "texture": "iron"
+        }
+      ]
+    },
+    "swing_set": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -66,
+              -26,
+              0
+            ],
+            [
+              -62,
+              -22,
+              96
+            ]
+          ],
+          "texture": "steel"
+        },
+        {
+          "box": [
+            [
+              -66,
+              22,
+              0
+            ],
+            [
+              -62,
+              26,
+              96
+            ]
+          ],
+          "texture": "steel"
+        },
+        {
+          "box": [
+            [
+              62,
+              -26,
+              0
+            ],
+            [
+              66,
+              -22,
+              96
+            ]
+          ],
+          "texture": "steel"
+        },
+        {
+          "box": [
+            [
+              62,
+              22,
+              0
+            ],
+            [
+              66,
+              26,
+              96
+            ]
+          ],
+          "texture": "steel"
+        },
+        {
+          "box": [
+            [
+              -66,
+              -26,
+              96
+            ],
+            [
+              -62,
+              26,
+              100
+            ]
+          ],
+          "texture": "steel"
+        },
+        {
+          "box": [
+            [
+              62,
+              -26,
+              96
+            ],
+            [
+              66,
+              26,
+              100
+            ]
+          ],
+          "texture": "steel"
+        },
+        {
+          "box": [
+            [
+              -66,
+              -2,
+              100
+            ],
+            [
+              66,
+              2,
+              104
+            ]
+          ],
+          "texture": "steel"
+        },
+        {
+          "box": [
+            [
+              -40,
+              -1,
+              24
+            ],
+            [
+              -39,
+              1,
+              100
+            ]
+          ],
+          "texture": "rope"
+        },
+        {
+          "box": [
+            [
+              -21,
+              -1,
+              24
+            ],
+            [
+              -20,
+              1,
+              100
+            ]
+          ],
+          "texture": "rope"
+        },
+        {
+          "box": [
+            [
+              -42,
+              -7,
+              22
+            ],
+            [
+              -18,
+              7,
+              24
+            ]
+          ],
+          "texture": "black"
+        },
+        {
+          "box": [
+            [
+              20,
+              -1,
+              24
+            ],
+            [
+              21,
+              1,
+              100
+            ]
+          ],
+          "texture": "rope"
+        },
+        {
+          "box": [
+            [
+              39,
+              -1,
+              24
+            ],
+            [
+              40,
+              1,
+              100
+            ]
+          ],
+          "texture": "rope"
+        },
+        {
+          "box": [
+            [
+              18,
+              -7,
+              22
+            ],
+            [
+              42,
+              7,
+              24
+            ]
+          ],
+          "texture": "black"
+        }
+      ]
+    },
+    "driveway": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -72,
+              -264,
+              0
+            ],
+            [
+              72,
+              264,
+              1
+            ]
+          ],
+          "texture": "concrete"
+        }
+      ]
+    },
+    "front_hedge_west": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -456,
+              -12,
+              0
+            ],
+            [
+              456,
+              12,
+              36
+            ]
+          ],
+          "texture": "hedge"
+        }
+      ]
+    },
+    "front_hedge_east": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -72,
+              -12,
+              0
+            ],
+            [
+              72,
+              12,
+              36
+            ]
+          ],
+          "texture": "hedge"
+        }
+      ]
+    }
+  },
+  "furniture": [
+    {
+      "prefab": "tv",
+      "room": "living",
+      "at": [
+        -149,
+        50
+      ],
+      "rotate": 90
+    },
+    {
+      "prefab": "sofa",
+      "room": "living",
+      "at": [
+        40,
+        50
+      ],
+      "rotate": 270
+    },
+    {
+      "prefab": "coffee_table",
+      "room": "living",
+      "at": [
+        -55,
+        50
+      ],
+      "rotate": 90
+    },
+    {
+      "prefab": "armchair",
+      "room": "living",
+      "at": [
+        -40,
+        -60
+      ],
+      "rotate": 270
+    },
+    {
+      "prefab": "plant",
+      "room": "living",
+      "at": [
+        -140,
+        108
+      ]
+    },
+    {
+      "prefab": "fridge",
+      "room": "kitchen",
+      "at": [
+        -90,
+        112
+      ]
+    },
+    {
+      "prefab": "sink",
+      "room": "kitchen",
+      "at": [
+        -40,
+        114
+      ]
+    },
+    {
+      "prefab": "stove",
+      "room": "kitchen",
+      "at": [
+        10,
+        114
+      ]
+    },
+    {
+      "prefab": "kitchen_table",
+      "room": "kitchen",
+      "at": [
+        -30,
+        -50
+      ]
+    },
+    {
+      "prefab": "chair",
+      "room": "kitchen",
+      "at": [
+        -30,
+        -82
+      ],
+      "rotate": 180
+    },
+    {
+      "prefab": "chair",
+      "room": "kitchen",
+      "at": [
+        -30,
+        -18
+      ]
+    },
+    {
+      "prefab": "double_bed",
+      "room": "bedroom",
+      "at": [
+        -20,
+        50
+      ]
+    },
+    {
+      "prefab": "dresser",
+      "room": "bedroom",
+      "at": [
+        100,
+        -30
+      ],
+      "rotate": 270
+    },
+    {
+      "prefab": "tub",
+      "room": "bath",
+      "at": [
+        -20,
+        78
+      ]
+    },
+    {
+      "prefab": "toilet",
+      "room": "bath",
+      "at": [
+        50,
+        -10
+      ],
+      "rotate": 270
+    },
+    {
+      "prefab": "single_bed",
+      "room": "kids_room",
+      "at": [
+        30,
+        54
+      ]
+    },
+    {
+      "prefab": "dresser",
+      "room": "kids_room",
+      "at": [
+        -76,
+        -30
+      ],
+      "rotate": 90
+    },
+    {
+      "prefab": "tree",
+      "room": "yard",
+      "at": [
+        -460,
+        -360
+      ]
+    },
+    {
+      "prefab": "tree",
+      "room": "yard",
+      "at": [
+        480,
+        440
+      ]
+    },
+    {
+      "prefab": "bush",
+      "room": "yard",
+      "at": [
+        -244,
+        -330
+      ]
+    },
+    {
+      "prefab": "bush",
+      "room": "yard",
+      "at": [
+        -148,
+        -330
+      ]
+    },
+    {
+      "prefab": "bench",
+      "room": "yard",
+      "at": [
+        -340,
+        470
+      ]
+    },
+    {
+      "prefab": "swing_set",
+      "room": "yard",
+      "at": [
+        20,
+        450
+      ]
+    },
+    {
+      "prefab": "driveway",
+      "room": "yard",
+      "at": [
+        384,
+        -312
+      ]
+    },
+    {
+      "prefab": "front_hedge_west",
+      "room": "yard",
+      "at": [
+        -168,
+        -562
+      ]
+    },
+    {
+      "prefab": "front_hedge_east",
+      "room": "yard",
+      "at": [
+        552,
+        -562
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "street",
+      "at": [
+        384,
+        -60
+      ],
+      "facing": "yard"
+    }
+  ]
+}

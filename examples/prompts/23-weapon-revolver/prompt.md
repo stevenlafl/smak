@@ -40,3 +40,12 @@ Built on Half-Life's own `v_357.mdl`, `p_357.mdl` and `w_357.mdl`: the results s
    the frame and back, and the game's own speedloader's bullets go into it, as into the Python's; in the
    firing animation the game's own cylinder barely turns (0.17), and so does this one.
 
+## Blind run
+
+`blind.mjs`: the prompt alone, handed to a fresh agent with nothing but the MCP server. It read the guide six
+times, built seven times and drew eight pictures, in 196 seconds and 27 turns (blind/run.json). Its spec
+(blind/spec.json), built again (blind/result/, local), passes every check, and it found the moving parts from
+the guide alone: the drum and its six flutes on `cylinder_spin`, the hammer on `hammer`, the trigger on
+`trigger`. A blued frame, a fluted cylinder, a long barrel with a blade sight and an ejector, a walnut grip
+curving down and back, a guard. Against this rubric: **12 of 12**.
+

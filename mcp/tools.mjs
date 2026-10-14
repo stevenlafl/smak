@@ -688,6 +688,11 @@ function build(folders, args) {
     // sounds: each file under work:sound/, as the game's own folder has them; the picture of them all
     const { report, files, picture } = buildSoundSpec(spec, { games: folders.wads ?? [] });
     const lines = reportLines(report);
+    // the spec kept beside what it made, as a model's and a map's are (named after its first sound)
+    const first = spec.name ?? spec.sounds?.[0]?.name ?? "sound";
+    const base = first.replace(/\.wav$/i, "").replace(/[^\w-]+/g, "_");
+    mkdirSync(folders.work, { recursive: true });
+    writeFileSync(join(folders.work, `${base}.spec.json`), `${JSON.stringify(spec, null, 2)}\n`);
     for (const file of files) {
       const path = join(folders.work, "sound", file.name);
       mkdirSync(dirname(path), { recursive: true });
@@ -705,6 +710,7 @@ function build(folders, args) {
     const name = spec.name ?? "model.mdl";
     const base = name.replace(/\.mdl$/i, "");
     writeFileSync(join(folders.work, name), mdl);
+    mkdirSync(folders.work, { recursive: true });
     writeFileSync(join(folders.work, `${base}.spec.json`), `${JSON.stringify(spec, null, 2)}\n`);
     lines.splice(1, 0, ...changedSince(folders.work, base, "model", spec, report));
     const six = smak.sheet(mdl, { seq: 0, size: 256 });
