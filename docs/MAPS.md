@@ -21,8 +21,8 @@ writeFileSync("gatecity_moved.bsp", maps.withEntities(bytes, moved));          /
 This page covers reading a compiled map, its textures and `.wad` files, changing its entities, and drawing
 it ("Pictures", which also draws brush source). Writing brush source (`.map`) and compiling it are the other
 half of `src/maps/`, in `docs/MAPS-MAKING.md`. The command line has a command for most of this: `smak map-info`,
-`map-check`, `map-entities`, `map-set`, `map-plan`, `map-view`, `map-views`, `map-reach`, `map-section`,
-`map-storeys`, `map-openings`, `map-textures`, `wad`, `wad-make` and `map-compile` (`node bin/smak.mjs help`;
+`map-check`, `map-entities`, `map-set`, `map-plan`, `map-view`, `map-views`, `map-compare`, `map-reach`, `map-section`,
+`map-storeys`, `map-openings`, `map-measure`, `map-textures`, `wad`, `wad-make` and `map-compile` (`node bin/smak.mjs help`;
 `AGENTS.md` has them with their recipes).
 
 ## What a compiled map is
@@ -254,7 +254,8 @@ console.log(view.facts.notes, view.facts.missing, view.facts.brightness);
 | --- | --- |
 | `drawMap(bsp, { from, to | yaw, pitch, fov, width, height, light, brightness, textures, folders, entities, labels, bodies, models, modelScale, sprites, sky })` |\| yaw, pitch, fov, width, height, light, brightness, textures, folders, entities, labels, bodies, models, sky })` | A view from a point inside the map, 640 x 480: textured, lit by the map's own lightmaps, `{` textures with their holes where the game gives them, liquids of the world letting the bottom show, brush entities where their `origin` puts them, and what stands (a start, a monster, an NPC) as the box it moves with, at its true size. With `folders`: the sky as its own picture and each sprite as its first frame; with `models` too, each named model with its textures. Without `from`: from the first place to start, at eye height, the way it faces. |
 | `planOf(bsp, { z, slice, scale, width, height, area, entities, labels, legend, heights, reach, only, ... })` | The map from straight above, `+y` up the picture and `+x` to its right: floors (their texture's mean colour under the map's light), walls as lines, every point entity a dot in the colour of its kind (with the outline of its box, when it stands), every brush entity outlined, a scale bar and a north arrow. With `z`: a cut at that height, what is solid there filled in one colour (a storey's floor plan, doorways open). `heights`: each floor's height written on it. `legend`: the entities listed beside it. `reach`: the walk test tinted on it. |
-| `viewsOf(bsp, { count, at, width, height, cols, ... })` | Several views in one picture, each named in its corner: from the places to start, and from the middle of the largest rooms looking four ways. An overview in one call. |
+| `viewsOf(bsp, { count, at, width, height, cols, ... })` | Several views in one picture, each named in its corner: from the places to start, and from the middle of the largest rooms looking four ways. An overview in one call. Places to start that stand together (each within 256 units of another: a row of them for many players, one for each map a player arrives from) are one group and get ONE view, from the first, named `1 ms_player_spawn +5`, with the others' boxes left out of it (`facts.starts`). A view that is nearly one colour (nine tenths of it, and not for want of light) is left out and the next largest room shown in its place (`facts.dropped`, and a note); with no room left, it stays and is said. `at`: views of your own, drawn as asked. |
+| `compareOf([{ map, name, z, ... }], { scale, cols, width, height, entities, ... })` | Several maps from above in ONE picture at ONE scale, each under its name and the size of its world (`3424 x 1760 x 384  cut at z 100`), with one scale bar under them all: is the new map the size of the game's? Each entry is a compiled map or source, or an object with what its own plan takes (`z`: the height ITS plan is cut at, unset for one seen from above; `slice`, `area`, `heights`, `reach`). Without `scale`: the largest at which all fit 1920 x 1080. No entity is marked unless `entities` says. `facts.maps`: each plan's `left`, `top`, `x0`, `y0`, so that a point is at pixel `(left + (x - x0) * scale, top + (y0 - y) * scale)`. |
 | `drawSource(map, { from, to \| yaw, pitch, ... })` | A view of brush source (what `writeMap` takes and `readMap` gives), with no compile: each face one flat colour by its texture's name, shaded by the way it looks, its edges drawn. |
 | `planOfSource(map, { z, scale, area, entities, labels })` | The plan of brush source: a cut through its brushes at `z` (the first start's height unless told), entities marked as on `planOf`. |
 | `viewFrom(bspOrMap, which)` | `{ from, yaw, pitch, name }` for a view from an entity: its number, or a classname. A place to start is looked from 28 over its origin, a player's eyes. |
@@ -395,12 +396,13 @@ const plan = maps.planOfSource(map, { reach, heights: true, legend: true });    
 
 | Function | Gives |
 | --- | --- |
-| `reachOf(bspOrMap, { from, step, jump, speed, gravity, slopes, exits, doors, open, shut, bodies, to, cell, touch, hang, widest })` | `{ warnings, facts, starts, entities, unreached, stuck, hanging, oneWay, leaps, steep, openings, routes, doors, cell, area, walked(x, y, under), stands(x, y, under), jumped(x, y, under), trapped(x, y, under) }` |
+| `reachOf(bspOrMap, { from, mod, step, jump, speed, gravity, slopes, exits, markers, wiring, off, doors, walls, open, shut, bodies, to, cell, touch, hang, widest, parts })` | `{ warnings, facts, starts, entities, unreached, stuck, hanging, oneWay, leaps, steep, openings, routes, doors, cell, area, share, standable, parts, patches, walked(x, y, under), on(x, y, under), stands(x, y, under), jumped(x, y, under), trapped(x, y, under) }` |
 | `storeyCuts(bspOrMap, { cell, over, least })` | `[{ z, floors: [lowest, highest], area }]`: the heights to cut a map at so that every floor a player fits on is seen in one of the cuts, the highest first |
-| `spaceOf(bspOrMap, { doors, open, shut })` | `{ min, max, doors, areas, blocked(x, y, body), climbs(x, y, body), cut(x, y), sees(from, to) }`: the solid space, asked along upright lines. `blocked` gives `[[from, to, slant]]`: `slant` is how the top of each stretch lies, the z of its normal (1 for a level floor) |
+| `spaceOf(bspOrMap, { doors, walls, open, shut, off, mod })` | `{ min, max, doors, areas, ladders, blocked(x, y, body), climbs(x, y, body), cut(x, y), sees(from, to) }`: the solid space, asked along upright lines. `blocked` gives `[[from, to, slant]]`: `slant` is how the top of each stretch lies, the z of its normal (1 for a level floor). `body` is one of `BODIES` or its name (`"point"`, `"standing"`, `"large"`, `"crouching"`); anything else is refused in a sentence. `areas` has every brush entity's box with `solid` (its class stops a body) and `gives` (its class gives way) |
 | `restOf(space, feet, body)` | `{ fits, floor, hang, stretch }`: whether a body fits with its feet at a point, the floor it would rest on and how far over it it hangs |
 | `bodyFor(classname, targetname, bodies)` | `{ body, feet, mins, maxs }`: the box an entity stands in, or null |
-| `BODIES`, `START_CLASSES`, `EXIT_CLASSES`, `JUMP_HEIGHT` (45), `CROUCH_JUMP_HEIGHT` (63), `JUMP_REACH` (215), `RUN_SPEED` (320), `GRAVITY` (800), `STEEP` (0.7) | The four boxes (`point`, `standing`, `large`, `crouching`), told about the feet; the classes that are a place to start, and a way out of a map; the engine's numbers for a jump, a run and a slope |
+| `bodyOf(body, what)` | the body a caller means: one of `BODIES`, its name, or `{ half, height }` (one of a hull's size is that hull); anything else is refused in a sentence that begins with `what` |
+| `BODIES`, `START_CLASSES`, `EXIT_CLASSES`, `GIVES_WAY`, `JUMP_HEIGHT` (45), `CROUCH_JUMP_HEIGHT` (63), `JUMP_REACH` (215), `RUN_SPEED` (320), `GRAVITY` (800), `STEEP` (0.7) | The four boxes (`point`, `standing`, `large`, `crouching`), told about the feet; the classes that are a place to start, a way out of a map, and a wall that gives way (`func_breakable`, `func_wall_toggle`, `func_pushable`); the engine's numbers for a jump, a run and a slope |
 
 **How.** The map is laid under a grid of 8 units. At each place of it, the heights at which a standing player
 fits are worked out: in source, every solid brush grown by the player's box, as the compilers grow their clip
@@ -411,7 +413,24 @@ down a slope too steep to stand on and never up one, with room for the whole bod
 `trigger_teleport` it walks into carries it to where its `target` is. Doors (`func_door`,
 `func_door_rotating`, `momentary_door`) are open unless `doors: "closed"`; `open` names more brush entities to
 take as not there (a wall that breaks), `shut` doors to take as closed (one that wants a key), each by number,
-classname or targetname. Every other brush entity that is solid in the game is a wall.
+classname or targetname. What breaks, is switched on and off by name, or is pushed aside (`func_breakable`,
+`func_wall_toggle`, `func_pushable`: `GIVES_WAY`) is a wall unless `walls: "gone"`, which takes them all away
+(`shut` keeps those it names); a `func_wall_toggle` whose spawnflag 1 is set starts off (the SDK's
+SF_WALL_START_OFF) and is not there either way. Every other brush entity that is solid in the game is a wall.
+
+**Ladders off the grid.** A ladder is often a brush 2 thick with a solid brush of rungs before it, in a shaft
+a body fits in over a few units only (one in Master Sword's edanasewers is 3 wide), and no place of a grid of 8
+is in it. So a ladder is also asked along upright lines a unit apart all about it: each stretch a body's feet
+may be at there while its box touches the ladder is a shaft, from its floor to the ladder's top or the
+ceiling, and a body gets on it from the places of the grid about it and off onto any floor there a step over
+its top at the most. A hatch over the shaft closes it. A fact counts the ladders whose shafts led to floor
+walked to no other way, and the one-way places know them: a pit left by such a ladder is none.
+
+**Teleports.** A `trigger_teleport` that is walked into carries the walk, and every other way it tries (a
+jump, crouching, open air), to the entity its `target` names. Where a teleport puts a player is not counted
+among the entities a player goes to (unless `markers` names it). One that leads nowhere (no entity of that
+name, or no room for a standing player there) is a warning. A teleport with a `master` is taken as working,
+as a door is taken as open.
 
 **What it says**, in `warnings`:
 
@@ -442,6 +461,41 @@ And in `facts`: where it walked from, the openings (the narrow places of the wal
 sides: a gate, a doorway, a gap between two trunks), the floor walked in square units, how much of it is too
 steep to stand on, the longest walk, the walk to each entity of `to` (with its `routes`: the way as points,
 which a plan with `reach` draws), and which doors were taken as open.
+
+**How much of the floor is walked, and why the rest is not.** Every place of the grid is asked, and each
+stretch of heights a standing player fits in there over a floor not too steep to stand on is a `cell` x
+`cell` of floor: `standable` is all of it in square units and `share` the part the walk reaches (a fact says
+it: "the walk reaches 27.3 in 100 of the floor a standing player fits on"). The tops of walls and crates are
+floor too: a map walked whole comes to a little less than 1. What is not walked to is put in parts, floor a
+body steps about in: those under 4096 square units are counted (`patches`), the larger told (`parts`, the
+largest first, 40 at the most), each with `at`, `area`, `floors`, `nearest` (the walked floor nearest it,
+within 384) and `how`, what it takes, found by trying in turn:
+
+| `how` | | `why` says |
+| --- | --- | --- |
+| `jump` | a jump of 45 gets there | where the way leaves the walked floor: "at -208 -1816 64 the floor rises 32", or the jump across a gap |
+| `crouch-jump` | a jump with the legs drawn up (63) | the same |
+| `crouch` | only a crouching body fits | where the way is too low, and how high it is there |
+| `wall` | brush entities are in the way (`behind`: their numbers) | each by name and where it is, and what takes it away: `walls: "gone"` or `open` for what gives way, `open` for any other, "a door taken as closed" |
+| `air` | open air leads to it and no floor does (a ledge too high, a gap too narrow) | how near the walked floor comes |
+| `none` | walled off | "no opening leads to it", and how near the walked floor comes |
+
+The ways through brush entities are tried first with only what the game takes away gone (the doors taken as
+closed and `GIVES_WAY`), then with every brush entity gone; the way named is the one through the fewest of
+them (a step into one costs more than any walk is long), and it may pass through one a longer way goes round.
+An entity that is not reached and is behind brush entities has them in `behind` too, named after its reason
+("no opening leads to it: behind 74 func_wall_toggle "freetogo" at ..."). When the parts a jump reaches come to
+a tenth of the floor, a fact says the map is meant to be jumped through and that `jump: true` walks it so;
+when brush entities stand before a twentieth, a fact says `open` and `walls: "gone"` take them away.
+`parts: false` looks at none of it, and is a little quicker. On Master Sword's demontemple the walk on foot
+reaches 27.3 in 100 of the floor: the largest part (994496 square units) is "only by a jump: at -208 -1816 64
+the floor rises 32", the temple's great steps; with `jump: true` it reaches 62.3, and with `walls: "gone"` as
+well, 99.1. Its seals and keys (`func_breakable`, `func_wall_toggle`) are named before the boss's room.
+
+**A profile's lists.** With `mod`, the profile's `exits`, `markers`, `wiring` and `off` (and the classes of
+its `doors`) are used as if given; a list given by name is ADDED to the profile's and never takes from it. To
+walk without one of the profile's, hand over the profile without it: `mod: { ...profile, wiring: [] }`.
+`spaceOf` takes `mod` too, for its `off` and `doors`.
 
 **Jumps.** `jump: true` makes jumps part of the walk: up a ledge of 45 (`jump: 63`: with the legs drawn up
 too), and across a gap, as one arc at a run. What only a jump reaches is told apart: an entity's `how` is
@@ -491,6 +545,58 @@ reaches 4 more entities and 13 in 100 more floor (roofs, banks, the tops of wall
 jumping player gets into and not out of. Nobody looked at any of these in the game: some are surely as the
 map means them, and some may be the test's own misses. **None of it was measured against the game**: it is
 geometry, with the engine's numbers.
+
+## A map in numbers (`src/maps/measure.mjs`)
+
+A new map is judged against one the game already has before anyone plays it: a map whose middling place is
+half as wide as the game's, or whose corridors are lower, reads cramped in the game however well it compiles.
+`measure(map, options)` gives those numbers for brush source or a compiled map; `measureTable(list)` lays
+several maps' side by side, a measure a line and a map a column. `smak map-measure a.bsp [b.bsp ...]` prints
+the one or the other (`--json`: the numbers themselves); `smak map-compare a.bsp b.bsp -o same.png` draws them
+at one scale (`compareOf`, above).
+
+```js
+const game = maps.measure(maps.readBsp(readFileSync("demontemple.bsp")), { mod, every: true, name: "demontemple" });
+const ours = maps.measure(maps.readBsp(readFileSync("barrowroad.bsp")), { mod, every: true, name: "barrow road" });
+console.log(maps.measureTable([game, ours]).join("\n"));
+```
+
+**How a place is measured.** The floor is looked over on a grid (`grid`, 32). At each place sixteen level
+lines go out, one every 22.5 degrees, 60 over the floor (a little under a player's eyes, at 64, and off the
+heights maps are built at: a line at 64 runs along the top of every bench 64 high), each as far as it goes
+before something solid (found to within a unit, 3000 at the most).
+- **width**: the narrowest of the eight lines THROUGH the place (one way and the opposite, added): 128
+  anywhere in a corridor 128 wide, and in a room its lesser side.
+- **sight**: the longest of the sixteen.
+- **headroom**: from the floor to the first thing solid over it.
+
+**Which floor.** Unless told, the floor the walk test gets to from the places to start (with what `reachOf`
+takes: `mod`, `exits`, `off`, `open`, `shut`, `doors`, `from`, `jump`, `cell`; `open`, `shut`, `doors` and `off`
+are the lines' too), every walked floor where several lie one over another. `every: true` (`--every`) takes
+every place a player fits whether walked to or not: each gap of 72 or more between two solids, on a floor that
+can be stood on, under 1200 high (`tallest`). That is the measure of the building, for a map the walk test
+gets to only part of (a teleport, a lift, a door a script opens); a warning says when the walk got to under
+half of what fits.
+
+**What comes back**: `places` and `area`; `footprint` (the box about the floor seen from above, and the
+share of it that has floor); `floors` (`lowest`, `highest`, the fullest heights, and `stacked.most`: how many
+floors lie one over another at the most); `width` (median, quartiles, nine tenths, and the share of the floor
+in each band of `bands`: under 176, 176 to 352, 352 and over); `headroom` (the same, and in corridors, under
+the first band, and in rooms); `sight` (the same, and the share of places that see beyond `sight`, 700);
+`openings` (the walk test's narrow places: their count and widths); `facts` and `warnings` as sentences.
+`places: true` hands back every place with its numbers.
+
+**What it is worth.** Lines sixteen ways miss what lies between them: a width may be a little over the true one
+where a place's narrowest way lies at a slant between two lines, and a sight is never over the true longest.
+In the corner of a room the line that cuts the corner off is short, so a room's corners count as narrow floor
+(about seven places a square corner on a grid of 32): the bands are for one map beside another, measured the
+same way, more than for each by itself. 176 and 352 are this kit's own lines, no engine's. Measured on three
+maps (two drafts of one new map for Master Sword, and the game's own `demontemple`), the same
+settings as an agent's one-off sampler (lines 60 over the floor, found to within 16, one floor a place) gave
+its numbers to the place and the unit; to within a unit the widths come out some 10 wider (the sampler's
+coarser search reads a 352 hall as 340), which on the old Barrow Road moves 8 in 100 of the floor into the band
+of 352 and over. demontemple measured whole (`every`): 5893 places, width median 256, headroom 192, sight
+median 708; the walk test reaches 1523 of them.
 
 ## Checking (`src/maps/check.mjs`)
 

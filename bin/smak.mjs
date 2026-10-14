@@ -104,6 +104,20 @@ const VALUE_FLAGS = [
   "timeout",
   "dark",
   "rooms",
+  "grid",
+  "bands",
+  "sight",
+  "eye",
+  "precision",
+  "names",
+  "fit",
+  "origin",
+  "axis",
+  "grip",
+  "as",
+  "only",
+  "save-pictures",
+  "fps",
 ];
 // the flags of the map commands that may be given more than once: each time adds to a list
 const LISTED_FLAGS = [
@@ -864,6 +878,159 @@ function obj({ command, file, flags }) {
   process.exit(errors ? 1 : 0);
 }
 
+// ── a model from another tool's file ───────────────────────────────────────
+/** What `import` and `item` hand the readers and the makers, from the flags. */
+const importAsked = (flags) =>
+  defined({
+    up: flags.up,
+    scale: numberOf(flags, "scale"),
+    fit: numberOf(flags, "fit"),
+    origin: flags.origin,
+    turn: numberOf(flags, "turn"),
+    maxTextureSize: numberOf(flags, "max-texture"),
+  });
+/** The pictures a file carries inside it, written out as the files they are: for one that is not read (a JPEG). */
+function savePictures(read, folder) {
+  read.images.forEach((image, i) => {
+    const ending = /png/i.test(image.mime) ? "png" : /jpe?g/i.test(image.mime) ? "jpg" : "bin";
+    const to = join(folder, `${String(i).padStart(2, "0")}_${fileNameOf(basename(image.name || "picture"))}.${ending}`);
+    save(to, image.bytes);
+    console.log(`  ${to}  ${image.bytes.length} bytes`);
+  });
+  if (!read.images.length) console.log("  the file carries no pictures inside it");
+}
+/** One line of the table `import` prints of a folder. */
+const importRow = (row) =>
+  row.error
+    ? `FAIL  ${row.file}: ${row.error}`
+    : `${String(row.triangles).padStart(9)} ${String(row.points).padStart(6)} ${String(row.meshes).padStart(6)} ${`${row.pictures}/${row.materials}`.padStart(8)}  ${row.size.join(" x ").padEnd(24)} ${row.file}${row.bones ? `  [${row.bones} bones, ${row.animations} animations: not in a prop]` : ""}${row.heavy ? "  HEAVY" : ""}`;
+/** The lines `import` and `obj` end with: what each engine makes of a model. Returns how many errors. */
+function sayChecks(mdl) {
+  const told = new Set();
+  let errors = 0;
+  for (const engine of ENGINES) {
+    const checked = smak.check(mdl, engine);
+    errors += checked.errors.length;
+    for (const line of [
+      ...checked.warnings.map((warning) => `WARN  ${warning}`),
+      ...checked.errors.map((error) => `ERROR ${error}`),
+    ]) {
+      if (!told.has(line)) console.log(line);
+      told.add(line);
+    }
+  }
+  return errors;
+}
+/**
+ * import: a model file of another tool (.fbx, .glb, .gltf, .obj) looked into and, with -o, made into a prop;
+ * a folder of them, with -o a folder, made into props with a contact sheet and a table.
+ */
+function imported({ command, file, flags }) {
+  const asked = importAsked(flags);
+  if (statSync(file).isDirectory()) {
+    const to = need(command, flags.o, "-o <folder>: where the models of a folder go");
+    console.log("triangles points meshes pictures  size (units, x y z)      file");
+    const done = smak.importFolder(file, to, {
+      ...asked,
+      texture: flags.texture,
+      size: numberOf(flags, "size"),
+      only: flags.only ? String(flags.only).toLowerCase().split(",") : null,
+      said: (row) => console.log(importRow(row)),
+    });
+    const made = done.rows.filter((row) => !row.error);
+    // a picture made smaller is what nearly every bought picture needs: counted, not said file by file
+    const routine = /larger than \d+: made \d+x\d+$/;
+    for (const row of made)
+      for (const warning of row.warnings) if (!routine.test(warning)) console.log(`WARN  ${row.file}: ${warning}`);
+    const smaller = made.filter((row) => row.warnings.some((warning) => routine.test(warning))).length;
+    if (smaller) console.log(`${smaller} models have a picture larger than the engine draws, made smaller (import.json says which)`);
+    for (const row of made) if (row.heavy) console.log(`HEAVY ${row.file}: ${row.heavy}`);
+    save(join(to, "import.json"), JSON.stringify(done.rows, null, 1));
+    console.log(
+      `${made.length} models in ${to}, ${made.reduce((sum, row) => sum + row.triangles, 0)} triangles; ${made.filter((row) => row.missing).length} with a material that found no picture; ${made.filter((row) => row.heavy).length} heavy; ${done.failed} failed`,
+    );
+    for (const sheet of done.sheets) console.log(`${sheet}: the models drawn from three quarters, with their textures`);
+    console.log(`${join(to, "import.json")}: the table`);
+    process.exit(done.failed ? 1 : 0);
+  }
+  const read = smak.readModelFile(file, asked);
+  const summary = smak.importSummary(read);
+  if (flags.json && !flags.o) {
+    console.log(JSON.stringify({ file, format: read.format, version: read.version, axes: read.axes, unit: read.unit, ...summary.totals, meshes: read.meshes, materials: read.materials.map(({ name, colour, picture, image }) => ({ name, colour, picture, inside: image !== undefined })), nodes: read.nodes.map(({ name, parent, kind }) => ({ name, parent, kind })), joints: read.joints, animations: read.animations.map(({ name, duration, nodes }) => ({ name, duration, nodes: nodes.length })), warnings: read.warnings }, null, 1)); // prettier-ignore
+    return;
+  }
+  console.log(`${file}:`);
+  for (const line of summary.lines) console.log(/^WARN/.test(line) ? line : `  ${line}`);
+  const found = smak.picturesOf(file, read, { texture: flags.texture });
+  console.log("pictures:");
+  for (const line of found.lines) console.log(`  ${line}`);
+  if (flags["save-pictures"]) savePictures(read, flags["save-pictures"]);
+  if (!flags.o) {
+    if (summary.totals.triangles) console.log(`as a prop (-o out.mdl): ${smak.importScale(read, asked).said}`);
+    return;
+  }
+  const to = flags.o;
+  const name = flags.name === undefined ? basename(to) : String(flags.name);
+  const made = flags.anim
+    ? smak.importRigged(read, {
+        ...asked,
+        name,
+        pictures: found.pictures,
+        animations: flags.anim === true ? undefined : String(flags.anim).split(","),
+        fps: numberOf(flags, "fps"),
+      })
+    : smak.importModel(read, { ...asked, name, pictures: found.pictures });
+  save(to, made.mdl);
+  const { report } = made;
+  const size = report.box.mx.map((v, axis) => (v - report.box.mn[axis]).toFixed(1)).join(" x ");
+  console.log(
+    `${to}: "${report.name}", ${made.mdl.length} bytes, ${report.triangles} triangles on ${report.points} points${report.bodyparts > 1 ? ` in ${report.bodyparts} bodyparts` : ""}`,
+  );
+  console.log(`  size: ${report.scale.said}`);
+  console.log(
+    `  ${size} units (x y z), from ${report.box.mn.map((v) => v.toFixed(1)).join(" ")} to ${report.box.mx.map((v) => v.toFixed(1)).join(" ")}; ${report.bones ? `${report.bones.length} bones` : "one bone (root), one animation (idle)"}`,
+  );
+  for (const texture of report.textures)
+    console.log(
+      `  ${texture.name.padEnd(24)} ${texture.width}x${texture.height}  ${texture.material ? `material ${texture.material}` : "the faces without a material"}: ${texture.from}`,
+    );
+  for (const sequence of report.sequences ?? [])
+    console.log(`  animation ${sequence.name}: ${sequence.frames} frames at ${sequence.fps} a second`);
+  for (const warning of made.warnings) console.log(`WARN  ${warning}`);
+  if (report.heavy) console.log(`WARN  ${report.heavy}`);
+  const errors = sayChecks(made.mdl);
+  if (flags.pictures) {
+    const picture = smak.sheet(made.mdl, defined({ size: numberOf(flags, "size") }));
+    const sheetFile = `${to.replace(/\.mdl$/i, "")}.png`;
+    save(sheetFile, smak.png(picture.width, picture.height, picture.rgba));
+    console.log(`  ${sheetFile}: six views of it`);
+  }
+  console.log(errors ? `${errors} errors: not fit for the game` : "fit for goldsrc and xash");
+  process.exit(errors ? 1 : 0);
+}
+/**
+ * A bought model as the piece `item` adds: read, its pictures found, laid along the axes a piece is drawn
+ * in (`importPiece`), with what was taken for granted printed. Returns { piece, texture }.
+ */
+function boughtPiece({ command, file, flags, family, name }) {
+  const read = smak.readModelFile(file, importAsked(flags));
+  // for a bought model --texture is the file of its picture, not the name it has in the game's files
+  const given = flags.texture === undefined ? undefined : existing(String(flags.texture));
+  const found = smak.picturesOf(file, read, { texture: given });
+  const piece = smak.importPiece(read, {
+    pictures: found.pictures,
+    as: flags.as ?? (family.how === "shield" ? "shield" : "auto"),
+    ...defined({ axis: flags.axis, grip: flags.grip }),
+    flip: Boolean(flags.flip),
+  });
+  console.log(
+    `${command}: ${basename(file)}: ${piece.tris.length} triangles, a picture of ${piece.image.width}x${piece.image.height}, held as ${piece.as}`,
+  );
+  for (const line of found.lines) console.log(`      ${line}`);
+  for (const line of piece.assumed) console.log(`      assumed: ${line}`);
+  return { piece, texture: smak.pieceTexture(piece, `${name}.bmp`) };
+}
+
 // ── an item added to a family of a mod's models ────────────────────────────
 /**
  * item: a piece, made by a module, added as new submodels to every file a family of the mod's profile shows
@@ -879,7 +1046,9 @@ async function item({ command, file, flags, listed }) {
   if (!family) fail(`${command}: the profile has no family ${flags.family}: ${known}`);
   const to = need(command, flags.o, "-o <folder>");
   const name = need(command, flags.name, "--name <the word its submodels are named with>");
-  const module = await import(pathToFileURL(resolve(existing(file))).href);
+  // a bought model (.fbx, .glb, .gltf, .obj) is its own piece; anything else is a module that makes one
+  const bought = smak.MODEL_FILE.test(file) ? boughtPiece({ command, file, flags, family, name }) : null;
+  const module = bought ? { piece: bought.piece } : await import(pathToFileURL(resolve(existing(file))).href);
   const maker = module.default ?? module.piece;
   const piece = typeof maker === "function" ? await maker() : maker;
   if (!piece?.tris && typeof piece?.shield !== "function")
@@ -896,7 +1065,7 @@ async function item({ command, file, flags, listed }) {
   const began = new Map();
   const result = smak.addItem(
     (path) => began.get(path) ?? began.set(path, read(path)).get(path),
-    { name, piece, texture: flags.texture ?? `${name}.bmp` },
+    { name, piece, texture: bought?.texture ?? flags.texture ?? `${name}.bmp` },
     family,
     { reference: own, existing: "same" },
   );
@@ -957,8 +1126,11 @@ function sayScripts(placed, { all = true } = {}) {
   for (const warning of placed.warnings) console.log(`WARN  ${warning}`);
   return placed.warnings.length;
 }
-/** The scripts of some folders placed against a profile's pack, with the maps that may name them. */
-function placeScripts(mod, folders, mapFiles, shippedFolder) {
+/**
+ * The scripts of some folders placed against a profile's pack, with the maps that may name them; `only`:
+ * the maps looked at, when a script named by nothing is to be warned of only when it is theirs.
+ */
+function placeScripts(mod, folders, mapFiles, shippedFolder, only) {
   const pack = mod.scriptPack;
   const ours = new Map();
   for (const folder of folders) for (const [name, script] of pack.loose(folder)) ours.set(name, script);
@@ -969,6 +1141,7 @@ function placeScripts(mod, folders, mapFiles, shippedFolder) {
     maps: given,
     rules: pack,
     mapNames: [...(pack.maps?.() ?? []), ...given.map((map) => map.name)],
+    ...(only ? { only } : {}),
   });
 }
 /**
@@ -1130,6 +1303,8 @@ function reachOptions(flags, listed) {
   const gravity = numberOf(flags, "gravity");
   for (const [name, value] of Object.entries({ speed, gravity }))
     if (value !== undefined && !(value > 0)) fail(`--${name}: a number over 0, not ${value}`);
+  if (flags.walls !== undefined && flags.walls !== "standing" && flags.walls !== "gone")
+    fail(`--walls: standing or gone, not ${flags.walls}`);
   return defined({
     bodies,
     from: listed.start?.map(entityName),
@@ -1138,6 +1313,8 @@ function reachOptions(flags, listed) {
     shut: listed.shut?.map(entityName),
     exits: listed.exit?.map(entityName),
     doors: flags.doors,
+    walls: flags.walls,
+    parts: flags.parts === false ? false : undefined,
     jump,
     speed,
     gravity,
@@ -1284,13 +1461,15 @@ async function mapCheck({ file, flags, listed }) {
   for (const warning of report.warnings) console.log(`WARN  ${warning}`);
   for (const error of report.errors) console.log(`ERROR ${error}`);
   // the script folders given, against the game's pack: one of ours that replaces nothing and is named by
-  // nothing is laid over the pack for no one (`smak scripts` lists them all)
+  // nothing is laid over the pack for no one (`smak scripts` lists them all). Of this map's own only, unless
+  // --all: a script of another map is named by that map, which is not looked at here
   let unnamed = 0;
-  if (listed.scripts?.length && against.mod?.scriptPack)
-    unnamed = sayScripts(
-      placeScripts(against.mod, listed.scripts, [file], flags.shipped && existingFolder(flags.shipped)),
-      { all: false },
-    );
+  if (listed.scripts?.length && against.mod?.scriptPack) {
+    const only = flags.all === true ? undefined : [mapForScripts(file).name];
+    const placed = placeScripts(against.mod, listed.scripts, [file], flags.shipped && existingFolder(flags.shipped), only); // prettier-ignore
+    for (const fact of placed.facts.slice(1)) console.log(`      ${fact}`);
+    unnamed = sayScripts(placed, { all: false });
+  }
   const warned = report.warnings.length + unnamed ? `, with ${report.warnings.length + unnamed} warnings` : "";
   const fitFor = source ? "to compile" : `for ${engine}`;
   console.log(
@@ -1480,7 +1659,7 @@ async function mapPlan({ command, file, flags, listed }) {
     }),
   };
   const map = readEither(file);
-  if (flags.reach === true) options.reach = maps.reachOf(map, reachOptions(flags, listed));
+  if (flags.reach === true) options.reach = maps.reachOf(map, { ...reachOptions(flags, listed), ...defined({ mod: options.mod }) }); // prettier-ignore
   const picture = isSource(file) ? maps.planOfSource(map, options) : maps.planOf(map, options);
   const { facts } = picture;
   const scale = Math.round(facts.scale * 1000) / 1000;
@@ -1645,7 +1824,7 @@ async function mapStoreys({ command, file, flags, listed }) {
     ...defined({ mod: await profileOf(flags, listed) }),
     ...defined({ z: cuts, cols: numberOf(flags, "cols"), doors: flags.doors }),
   };
-  if (flags.reach === true) options.reach = maps.reachOf(map, reachOptions(flags, listed));
+  if (flags.reach === true) options.reach = maps.reachOf(map, { ...reachOptions(flags, listed), ...defined({ mod: options.mod }) }); // prettier-ignore
   const picture = maps.storeysOf(map, options);
   savePicture(to, picture, `${picture.facts.storeys.length} storeys side by side, the highest first`);
   for (const storey of picture.facts.storeys)
@@ -1656,11 +1835,12 @@ async function mapStoreys({ command, file, flags, listed }) {
 async function mapOpenings({ command, file, flags, listed }) {
   const to = need(command, flags.o, "-o out.png");
   const map = readEither(file);
-  const reach = maps.reachOf(map, reachOptions(flags, listed));
+  const mod = await profileOf(flags, listed);
+  const reach = maps.reachOf(map, { ...reachOptions(flags, listed), ...defined({ mod }) });
   const picture = maps.openingViews(map, {
     ...pictureOptions(file, flags, listed),
     ...figureOptions(flags, listed),
-    ...defined({ mod: await profileOf(flags, listed) }),
+    ...defined({ mod }),
     ...defined({
       count: numberOf(flags, "count"),
       cols: numberOf(flags, "cols"),
@@ -1765,6 +1945,105 @@ function mapLight({ command, file, flags }) {
   for (const warning of report.warnings) console.log(`WARN  ${warning}`);
 }
 
+// ── map-measure, map-compare ───────────────────────────────────────────────
+/**
+ * A name for each of several maps: those of --names (a,b,c), or each file's own name without its ending,
+ * with its folder before it where two files are named alike.
+ */
+function namesOf(command, files, flags) {
+  if (flags.names !== undefined) {
+    const names = String(flags.names).split(",").map((name) => name.trim()); // prettier-ignore
+    if (names.length !== files.length || names.some((name) => !name))
+      fail(`${command}: --names is a name for each map with commas between (${files.length} of them), not ${flags.names}`); // prettier-ignore
+    return names;
+  }
+  const own = files.map((each) => basename(each).replace(/\.(bsp|map)$/i, ""));
+  return own.map((name, nth) =>
+    own.filter((other) => other === name).length > 1 ? `${basename(dirname(files[nth]))}/${name}` : name,
+  );
+}
+/**
+ * map-measure: a map in numbers (how wide its floor is, how high, how far one sees, how much of its
+ * footprint is floor), or several maps' numbers side by side.
+ */
+async function mapMeasure({ command, file, rest, flags, listed }) {
+  const files = [file, ...rest.map(existing)];
+  const names = namesOf(command, files, flags);
+  const bands = flags.bands === undefined ? undefined : String(flags.bands).split(",").map(Number);
+  if (bands && !bands.every((each, nth) => each > (bands[nth - 1] ?? 0)))
+    fail(`--bands: the widths that part the floor, rising, with commas between (176,352), not ${flags.bands}`); // prettier-ignore
+  const lengths = Object.fromEntries(
+    ["grid", "sight", "eye", "precision"].map((name) => [name, numberOf(flags, name)]),
+  );
+  for (const [name, value] of Object.entries(lengths))
+    if (value !== undefined && !(value > 0)) fail(`--${name}: a length in units, over 0, not ${value}`);
+  const options = {
+    ...reachOptions(flags, listed),
+    ...defined({ mod: await profileOf(flags, listed), bands, ...lengths }),
+    every: flags.every === true,
+  };
+  const measured = files.map((each, nth) => {
+    try {
+      return { file: each, ...maps.measure(readEither(each), { ...options, name: names[nth] }) };
+    } catch (error) {
+      return fail(`${command}: ${each}: ${sayOf(error)}`);
+    }
+  });
+  if (flags.json) {
+    console.log(JSON.stringify(measured.length === 1 ? measured[0] : measured, null, 2));
+    return;
+  }
+  if (measured.length === 1) {
+    for (const fact of measured[0].facts) console.log(`      ${fact}`);
+    for (const warning of measured[0].warnings) console.log(`WARN  ${warning}`);
+    return;
+  }
+  for (const line of maps.measureTable(measured)) console.log(line);
+  for (const each of measured)
+    for (const warning of each.warnings) console.log(`WARN  ${each.name}: ${warning}`);
+}
+/**
+ * map-compare: several maps from above at one scale in one picture. --z is one height for them all, or one
+ * for each map in the order given, with `-` for a map that is seen from above.
+ */
+async function mapCompare({ command, file, rest, flags, listed }) {
+  const to = need(command, flags.o, "-o out.png");
+  const files = [file, ...rest.map(existing)];
+  const names = namesOf(command, files, flags);
+  const cuts = flags.z === undefined ? [] : String(flags.z).split(",").map((word) => word.trim()); // prettier-ignore
+  const badCut = cuts.find((word) => word !== "-" && (word === "" || Number.isNaN(Number(word))));
+  if (badCut !== undefined || (cuts.length > 1 && cuts.length !== files.length))
+    fail(`--z: one height for every map, or one for each of the ${files.length} with commas between and - for a map seen from above (100,100,-), not ${flags.z}`); // prettier-ignore
+  const cutOf = (nth) => {
+    const word = cuts.length === 1 ? cuts[0] : cuts[nth];
+    return word === undefined || word === "-" ? undefined : Number(word);
+  };
+  const options = {
+    ...pictureOptions(file, flags, listed),
+    ...figureOptions(flags, listed),
+    ...defined({ mod: await profileOf(flags, listed) }),
+    ...defined({ scale: numberOf(flags, "scale"), cols: numberOf(flags, "cols"), slice: flags.slice }),
+  };
+  if ("cols" in options && !(Number.isInteger(options.cols) && options.cols >= 1))
+    fail(`--cols: a whole number from 1, not ${options.cols}`);
+  // each map's own folder is looked in for its .wad files, after the game's
+  options.folders = [...new Set([...options.folders, ...files.map((each) => dirname(each))])];
+  const picture = maps.compareOf(
+    files.map((each, nth) => ({ map: readEither(each), name: names[nth], ...defined({ z: cutOf(nth) }) })),
+    options,
+  );
+  const { facts } = picture;
+  savePicture(
+    to,
+    picture,
+    `${facts.maps.length} maps at one scale, ${Math.round(facts.scale * 1000) / 1000} pixels a unit; +y is up the picture and +x to its right; the bar is ${facts.bar} units`,
+  );
+  for (const each of facts.maps)
+    console.log(
+      `      ${each.name}: ${each.size.join(" x ")} units, ${each.z === null ? "seen from above" : `cut at z ${each.z}`}; its plan ${each.width}x${each.height} at pixel ${each.left},${each.top}`,
+    );
+}
+
 // ── map-compile ────────────────────────────────────────────────────────────
 /**
  * --timeout as `compileMap` takes it: seconds for every program ("600"), or for some by name
@@ -1803,10 +2082,7 @@ function mapCompile({ command, file, flags, listed }) {
     console.log(
       `      ${log.tool}  ${log.seconds.toFixed(1)} s  ${log.code === 0 ? "ended" : log.code === null ? "stopped" : `code ${log.code}`}`,
     );
-  if (result.portals)
-    console.log(
-      `      portals  ${result.portals.portals} between ${result.portals.leaves} leaves (hlvis's work: a full one foretold at ${result.portals.seconds} s or more)`,
-    );
+  if (result.portals) console.log(`      portals  ${maps.portalsLine(result)}`);
   for (const fact of result.facts) console.log(`      ${fact}`);
   for (const warning of result.warnings) console.log(`WARN  ${warning}`);
   for (const error of result.errors) console.log(`ERROR ${error}`);
@@ -1822,7 +2098,7 @@ function mapCompile({ command, file, flags, listed }) {
  */
 async function playMap({ command, file: url, flags, listed }) {
   const { playOf, playPartOf, messagesOf, playwrightFrom, browserDriver, playSession, patternOf } = smak.play;
-  const { serveSession, attachSession, closeSession, sessionState, expectationLine, SESSION_PORT } =
+  const { serveSession, attachSession, closeSession, sessionState, expectationLine, fightLine, SESSION_PORT } =
     smak.play;
   /** The steps of a file, or the command stopped: a file that is not there, or is no JSON. */
   const stepsOf = (file) => {
@@ -1838,6 +2114,7 @@ async function playMap({ command, file: url, flags, listed }) {
     console.log(`${run.pictures.length} pictures in ${run.out}${run.sheet ? `, all of them in ${run.sheet}` : ""}`); // prettier-ignore
     for (const picture of run.pictures) console.log(`  ${picture}`);
     console.log(`what the game said: ${run.logFile}${run.linesFile ? ` (and ${run.linesFile})` : ""}`);
+    for (const fight of run.fights ?? []) console.log(fightLine(fight));
     const failed = run.expectations.filter((each) => !each.passed);
     if (run.expectations.length) {
       for (const each of run.expectations) console.log(expectationLine(each));
@@ -1847,6 +2124,7 @@ async function playMap({ command, file: url, flags, listed }) {
   };
   /** A run that stopped, printed; false. */
   const stopped = (error) => {
+    for (const fight of error.fights ?? []) console.error(fightLine(fight));
     for (const each of error.expectations ?? []) console.error(expectationLine(each));
     if (error.sheet) console.error(`the pictures up to there: ${error.sheet}`);
     if (error.logFile) console.error(`what the game said up to there: ${error.logFile}`);
@@ -2037,6 +2315,24 @@ const COMMANDS = {
                                             --turn: degrees about the upright axis; --ground: its lowest point at z = 0;
                                             --centre: its middle at the origin. One bone, one still animation: a prop the game can load`,
   },
+  import: {
+    run: imported,
+    own: true,
+    folder: true,
+    help: `  import <file.fbx|.glb|.gltf|.obj> [-o out.mdl] [--scale 1] [--fit <units>] [--origin base|centre] [--turn 0] [--texture pic.png]
+                                            a model of another tool: what is in it (meshes, triangles, materials and their
+                                            pictures, bones, animations, axes, units, box); with -o, a prop: one bone, one still
+                                            animation, its pictures found beside it, cut to 256 colours and within the engine's
+                                            size. --scale: times its true size (39.37 units a metre); --fit: its longest side
+                                            that many units; --origin base: standing on z = 0, centre: about its middle;
+                                            --pictures: six views beside the .mdl; --save-pictures <folder>: the pictures inside
+                                            the file, as they are; --json. With --anim [name,...]  [--fps 30]: a model with the
+                                            file's skeleton and animations, each point on the bone that weighs most on it
+  import <folder> -o <folder> [--only fbx,glb] [--fit n] ...
+                                            every model under a folder as a prop, by the same paths, with sheet.png (each one
+                                            drawn with its textures), a table (import.json) and HEAVY against what GoldSrc
+                                            would not draw at its ease (docs/IMPORT.md)`,
+  },
   item: {
     run: item,
     own: true,
@@ -2045,7 +2341,10 @@ const COMMANDS = {
                                             piece ({ tris, image }) or a function that makes it; the family (which files, bodyparts,
                                             bones, the game's own thing each is laid on) is one of the profile's \`items\`. Each file is
                                             read from --base when it is there, else from the game; written under -o with what the
-                                            item's script is to say (docs/ITEMS.md). Exit code 1 when a check fails`,
+                                            item's script is to say (docs/ITEMS.md). Exit code 1 when a check fails.
+                                            <piece.mjs> may be a bought model instead (.fbx, .glb, .gltf, .obj): --texture is then
+                                            its picture's file (found beside it unless told), and how it lies is found or told:
+                                            [--as haft|plain|shield] [--axis x|y|z|-x..] [--grip low|high] [--flip] (docs/IMPORT.md)`,
   },
   scripts: {
     run: scripts,
@@ -2081,13 +2380,14 @@ const COMMANDS = {
     run: mapCheck,
     own: true,
     help: `  map-check <bsp|map> [--engine goldsrc|xash] [--game <folder> ...] [--mod <profile.mjs|.json|goldsrc>] [--fgd <file.fgd> ...]
-                            [--learned <file> ...] [--wad <file.wad> ...] [--cache <file>] [--scripts <folder> ...]
+                            [--learned <file> ...] [--wad <file.wad> ...] [--cache <file>] [--scripts <folder> ...] [--all]
                                             what an engine would refuse (exit code 1 on an error); with --game (the mod's folder,
                                             then valve), its .wad files and textures are looked for there. A .map: its plan, before
                                             any compile. With --mod (a mod's profile), --fgd or --learned (what map-learn wrote): its
                                             entities against the mod: a class or a key that does not exist, a value of the wrong
                                             kind, a name nothing answers to, the mod's rules, the files it names (--scripts: folders of
-                                            scripts of your own, for a profile whose mod names scripts)`,
+                                            scripts of your own, for a profile whose mod names scripts: of those named by nothing,
+                                            this map's own are warned of, and every one with --all)`,
   },
   "map-learn": {
     run: mapLearn,
@@ -2132,6 +2432,8 @@ const COMMANDS = {
     run: mapViews,
     own: true,
     help: `  map-views <bsp> -o out.png [--count 8] [--cols 4]   several views in one picture: from the places to start and the largest rooms
+                                            (places to start that stand together get one view between them; a view that is nearly
+                                            one colour is left out for the next largest room, and that is said)
         (the three take --width --height --game <folder> --wad <file.wad> --no-light --light steady|all --brightness 1.55 --entities all|models|game|none (game: only what is drawn by its model or sprite, no boxes);
          an entity that stands is drawn as the box it moves with: --body <class|targetname>=large|standing|crouching says which;
          --models draws the models that are named, from the --game folders, textured, in the body, skin, sequence, scale and
@@ -2145,16 +2447,22 @@ const COMMANDS = {
     run: mapReach,
     own: true,
     help: `  map-reach <bsp|map> [-o plan.png] [--mod <profile>] [--start <n|class> ...] [--goal <n|class> ...] [--jump [45|63]] [--doors open|closed]
-                              [--open <n|class|name> ...] [--shut <n|class|name> ...] [--body name=large ...] [--cell 8] [--json]
+                              [--open <n|class|name> ...] [--shut <n|class|name> ...] [--walls standing|gone] [--body name=large ...]
+                              [--cell 8] [--no-parts] [--json]
                                             the walk test: where a standing player gets on foot from the places to start (steps of 18,
-                                            any drop). Says which entities are not reached and what it would take, which stand in
-                                            something solid or hang, the openings with their width and height, the walk to each --goal,
-                                            and the one-way places: floor a player gets into and not out of (--exit <n|class|name>:
-                                            a way out of the map). A slope too steep to stand on is slid down, never walked up
+                                            any drop; ladders, liquids and teleports carry it on). Says which entities are not reached
+                                            and what it would take, which stand in something solid or hang, the openings with their
+                                            width and height, the walk to each --goal, and the one-way places: floor a player gets into
+                                            and not out of (--exit <n|class|name>: a way out of the map). How much of the floor a
+                                            player fits on is walked to, and each part that is not with what it takes: a jump,
+                                            crouching, the brush entities in the way by name, open air (--no-parts: not looked at).
+                                            Doors are open (--doors closed: not); what breaks or is switched off is a wall (--walls
+                                            gone: not). A slope too steep to stand on is slid down, never walked up
                                             (--no-slopes: walked like any floor). --jump: jumps are part of the walk, up 45 and across
                                             a gap as far as a run carries (--speed 320 --gravity 800), and what only a jump reaches is
                                             told apart. With -o: the plan with the walked floor green, the rest red, floor only a jump
-                                            reaches blue and one-way places amber. Exit code 1 on a fault`,
+                                            reaches blue and one-way places amber. With --mod, the profile's exits, markers, wiring and
+                                            off are used, and --exit adds to them. Exit code 1 on a fault`,
   },
   "map-section": {
     run: mapSection,
@@ -2200,6 +2508,30 @@ const COMMANDS = {
                                             (--rooms: { "name": { "min": [x, y, z], "max": [x, y, z] } }) or as the dark stretches
                                             of floor. The game lights what stands in a room by the floor under it. --walked: only
                                             floor the walk test gets to. A draft's light (--fast) has no bounces: it is darker`,
+  },
+  "map-measure": {
+    run: mapMeasure,
+    own: true,
+    help: `  map-measure <bsp|map> [more maps ...] [--every] [--grid 32] [--bands 176,352] [--sight 700] [--names a,b,...] [--json]
+                              [--mod <profile>] [--exit <n|class|name> ...] [--open ...] [--shut ...] [--doors open|closed] [--start ...]
+                                            a map in numbers, to lay beside another's: at every place of its floor (a grid of 32) the
+                                            width (the narrowest of eight lines through the place), the headroom and how far one sees;
+                                            then the share of the floor by width (under 176, 176 to 352, 352 and over: --bands),
+                                            medians and quartiles, the headroom of corridors and of rooms, the share of places that
+                                            see beyond --sight, the openings, the floors' heights and how many lie one over another,
+                                            the footprint and the share of it that is floor. Several maps: a table, a map a column.
+                                            The floor is what the walk test gets to (with what map-reach takes); --every: every place
+                                            a player fits, walked to or not, for a map the walk gets to only part of`,
+  },
+  "map-compare": {
+    run: mapCompare,
+    own: true,
+    help: `  map-compare <bsp|map> <bsp|map> [more ...] -o out.png [--scale px] [--z 100,100,-] [--names a,b,...] [--cols n] [--no-slice]
+                                            the maps from above at ONE scale in one picture, each under its name and the size of its
+                                            world, with one scale bar: is the new map the size of the game's? --z: the height a plan
+                                            is cut at, one for all or one for each map in order, - for a map seen from above. Without
+                                            --scale: the largest at which all fit 1920 x 1080 (--width --height). No entity is marked
+                                            unless --entities says (with what map-plan takes: --game, --mod, --no-light ...)`,
   },
   "map-compile": {
     run: mapCompile,

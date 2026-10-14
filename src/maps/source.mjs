@@ -731,12 +731,27 @@ function ringPieces({ centre, radius, outer, angles, pieces, snap }, from, to, t
  * "+y", "-y"), each a box that stands on the floor of the flight. `steps` is how many; without it there are
  * as many as keep each no taller than `rise` (16 unless told). A step taller than 18 is refused: a player
  * walks up 18 at most. It returns the list of brushes.
+ *
+ * As it always was, the highest step is level with the top of the box: where the upper floor goes on from
+ * the box's high side, that step is only more floor, and the run is shared among all the steps, so that a
+ * run that is no multiple of their number puts their edges off the grid. Two options change that, and only
+ * a flight that asks is changed:
+ *   top: false   no step level with the top: the last riser climbs onto the upper floor at the box's high
+ *                side, and each step is a slab of its own tread (it does not run on under the next)
+ *   tread        how deep each step is, in units: the steps are laid from the high side down, each that
+ *                deep, so that they stay on the grid whatever the box's run; what the box has over is
+ *                floor. A run too short for them is refused. With `top: false` and no tread, the run is
+ *                shared among the steps there are. A slab of `top: false` stands on the box's floor
+ * With `top: false` the highest step comes first in the list.
  */
-export function stairs(min, max, high, texture, { steps, rise = 16 } = {}) {
+export function stairs(min, max, high, texture, { steps, rise = 16, top = true, tread } = {}) {
   const side = SIDES[high];
   if (!side) throw new Error(`stairs: the high side is "+x", "-x", "+y" or "-y", not ${high}`);
   for (let i = 0; i < 3; i++)
     if (!(max[i] > min[i])) throw new Error(`stairs: no size along ${AXIS_NAMES[i]}`);
+  if (typeof top !== "boolean") throw new Error(`stairs: top is true or false, not ${JSON.stringify(top)}`);
+  if (tread !== undefined && !(typeof tread === "number" && tread > 0))
+    throw new Error(`stairs: tread is how deep a step is, in units over 0, not ${JSON.stringify(tread)}`);
   const height = max[2] - min[2];
   const count = steps ?? Math.ceil(height / rise);
   if (!(count >= 1) || !Number.isInteger(count))
@@ -745,7 +760,34 @@ export function stairs(min, max, high, texture, { steps, rise = 16 } = {}) {
     throw new Error(
       `stairs: ${count} steps of ${mapNumber(height / count)} each: a player walks up ${STEP_HEIGHT} at most, so ${Math.ceil(height / STEP_HEIGHT)} steps or more`,
     );
-  const run = (max[side.axis] - min[side.axis]) / count;
+  // the steps there are: one fewer where the upper floor is the last of them
+  const made = top ? count : count - 1;
+  const length = max[side.axis] - min[side.axis];
+  if (tread !== undefined && tread * made > length)
+    throw new Error(
+      `stairs: ${made} steps of ${mapNumber(tread)} are ${mapNumber(tread * made)} long, and the box runs ${mapNumber(length)} towards ${high}`,
+    );
+  if (!top || tread !== undefined) {
+    const deep = tread ?? length / made;
+    const edge = side.sign > 0 ? max[side.axis] : min[side.axis];
+    const brushes = [];
+    // from the high side down: the step under the upper floor's edge first
+    for (let step = made; step >= 1; step--) {
+      const low = [...min];
+      const upper = [...max];
+      upper[2] = min[2] + (height * step) / count;
+      // as ever, a flight with its top step is stacked, each on the one under it; a slab stands on the floor
+      if (top) low[2] = min[2] + (height * (step - 1)) / count;
+      // without its top step a step is a slab of its own tread; with it, as ever, it runs on to the high side
+      const front = edge - side.sign * (made - step + 1) * deep;
+      const back = top ? edge : edge - side.sign * (made - step) * deep;
+      low[side.axis] = Math.min(front, back);
+      upper[side.axis] = Math.max(front, back);
+      brushes.push(box(low, upper, texture));
+    }
+    return top ? brushes.reverse() : brushes;
+  }
+  const run = length / count;
   const brushes = [];
   for (let step = 0; step < count; step++) {
     const low = [...min];

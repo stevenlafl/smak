@@ -410,6 +410,12 @@ export const ITEM_FAMILIES = {
 // So the message itself is read. A script's `consolemsg` and the game's own notes are TextMsg, the SDK's.
 // HP and MP are a short and a byte that is 1 for the most the player can have.
 //
+// THE "GRAPHICS TEST". The first time a player enters after the game has started, his script puts a picture
+// over the middle of the screen for ten seconds ("We will now test your system for compatability with
+// advanced OpenGL features": player/player_cl_effects_special, bloom_check, asked at post_first_join), and
+// then sets the client's cvar ms_didbloomcheck to 1 so as not to show it again; a browser's game keeps no
+// configuration, so every start shows it once. The cvar is set before the click that enters: no picture.
+//
 // SAYING. An NPC hears local speech only. `say <text>` speaks in the player's current way, which the
 // command `setsay` moves on by one each time it is given (all, near, the party: client/MasterSword/
 // HUDMisc.cpp, UserCmd_ChangeSayType), so "setsay, say" spoke near once and to the party the next time.
@@ -420,6 +426,17 @@ export const ITEM_FAMILIES = {
 // GOING TO A PLACE. The game has no command for it; `trial goto` is the command of a helper script for the
 // local game (trial/commands, in the repository this profile was written in: it also gives items and
 // skills). A map without that script refuses a `goto` step in a sentence, since the place is read back.
+//
+// FIGHTING. The left button held CHARGES a blow and does not strike: a blow is the button pressed and let go
+// (a tap), and a wall that breaks is broken by taps. Where an enemy is, the game tells nobody: `trial
+// nearest` of the same helper script asks the player's own script for the living things that hold him for
+// an enemy and answers with the nearest: the middle of its box, how far, how many there are within the
+// radius asked and how many within 128 of him. Health is given back by `trial heal`. The lines a fight is
+// counted by, as the game writes them (seen 2026-10-13):
+//   You attack the Living Dead. (72/12) HIT! 8.9 slash damage.      You attack the Living Dead. (11/12) MISS!
+//   The Enraged Skeleton attacks you. (62/30) HIT! 9.2 slash damage.
+//   You've slain the Awakened Guardian          <the character> has fallen!          HP 313, MaxHP 318
+// A fallen player rises where the map begins, by himself, his health whole.
 const HUD = { box: 0, event: 1, tipPart: 2, tip: 3, speech: 4 };
 const tipParts = [];
 /** The strings of a message's bytes from `from` on, each ended by a 0. */
@@ -428,8 +445,11 @@ const stringsFrom = (bytes, from) =>
     .split("\0")
     .map((text) => text.replace(/\|/g, "\n"));
 /** A box, a tip: its title and its text on one line, the text's own lines parted by " | ". */
-const boxLine = (title, text) =>
-  `${title.trim()}: ${text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean).join(" | ")}`; // prettier-ignore
+const boxLine = (title, text) => {
+  const said = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean).join(" | "); // prettier-ignore
+  // a box with no title (a map's ms_text has none) is its text alone
+  return title.trim() ? `${title.trim()}: ${said}` : said;
+};
 /** HUDInfoMsg read: the lines the player is shown. */
 export function hudInfoLines(bytes) {
   const kind = bytes[0];
@@ -453,11 +473,31 @@ const amountLine = (name) => (bytes) => `${bytes[2] ? "Max" : ""}${name} ${bytes
 const SPEECH_NEAR = 1;
 
 const PLAY = {
-  enter: [{ click: [512, 330], every: 1000, until: "^Welcome to Master Sword", within: 60000 }],
+  enter: [
+    { command: "ms_didbloomcheck 1", wait: 0 },
+    { click: [512, 330], every: 1000, until: "^Welcome to Master Sword", within: 60000 },
+  ],
   say: [`cmd say_text ${SPEECH_NEAR} {text}`],
   loads: 90000,
   loaded: "Custom resource propagation complete",
   goto: ["trial goto {x} {y} {z}"],
+  heal: ["trial heal"],
+  target: {
+    commands: ["trial nearest {radius}"],
+    answer:
+      /^TRIAL nearest (?<id>\S+) hp (?<hp>\S+) at \((?<x>[-\d.]+),(?<y>[-\d.]+),(?<z>[-\d.]+)\) far (?<far>\S+) count (?<count>\d+) close (?<close>\d+) name (?<name>.*)$/,
+    none: /^TRIAL nearest none/,
+  },
+  fight: {
+    attack: [{ tap: "left", ms: 200, every: 700 }],
+    dealt: /^You attack .*HIT! ([\d.]+)/,
+    missed: /^You attack .*MISS!/,
+    taken: / attacks you\..*HIT! ([\d.]+)/,
+    slain: /^You've slain (.*)$/,
+    died: / has fallen!$/,
+    health: /^HP (\d+)$/,
+    maxHealth: /^MaxHP (\d+)$/,
+  },
   messages: {
     HUDInfoMsg: hudInfoLines,
     TextMsg: "textmsg",

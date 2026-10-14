@@ -224,7 +224,10 @@ export default () => ({
   sure(/^WARN {2}2 scripts are new/m.test(runSmak("scripts", oursFolder, "--mod", profile, "--shipped", shippedFolder)), "without the map"); // prettier-ignore
   const json = JSON.parse(runSmak("scripts", oursFolder, mapFile, "--mod", profile, "--shipped", shippedFolder, "--json")); // prettier-ignore
   sure(json.scripts.length === 4 && json.warnings.length === 1, "as JSON");
-  // map-check, given the folder of scripts, says it of this map
+  // map-check, given the folder of scripts, says it of this map's own only (world/server/maps is no map's:
+  // another map may name it), and of every one with --all (test 45 has a map's own warned of)
   const checked = runSmak("map-check", mapFile, "--mod", profile, "--scripts", oursFolder, "--shipped", shippedFolder); // prettier-ignore
-  sure(/^WARN {2}1 scripts are new .*world\/server\/maps/m.test(checked), checked);
+  sure(!/^WARN {2}\d+ scripts are new/m.test(checked) && /1 more scripts are new and named by nothing, and are no part of yard/.test(checked), checked); // prettier-ignore
+  const all = runSmak("map-check", mapFile, "--mod", profile, "--scripts", oursFolder, "--shipped", shippedFolder, "--all"); // prettier-ignore
+  sure(/^WARN {2}1 scripts are new .*world\/server\/maps/m.test(all), all);
 });

@@ -3,7 +3,8 @@
 //
 //   drawMap(bsp, options)        a view from a point inside a compiled map, textured and lit by its lightmaps
 //   planOf(bsp, options)         the map from above: floors, walls, every entity marked, a scale and north
-//   viewsOf(bsp, options)        several views in one picture: from each start, and from the largest rooms
+//   viewsOf(bsp, options)        several views in one picture: from the places to start, and from the largest rooms
+//   compareOf(maps, options)     several maps from above at ONE scale in one picture, each with its name and size
 //   drawSource(map, options)     a view of brush source (what `writeMap` takes), before any compile
 //   planOfSource(map, options)   its plan: a cut through the brushes at a height
 //   viewFrom(bspOrMap, which)    where an entity stands and the way it looks, for a view from it
@@ -193,6 +194,30 @@ const CELL_HEIGHT = 240;
 const VIEWS_COLUMNS = 4;
 /** The four ways a room is looked at from its middle (yaw, degrees). */
 const FOUR_WAYS = [0, 90, 180, 270];
+/**
+ * `viewsOf`: places to start that stand within this many units of another are one group, and one view is
+ * taken for them all. A map a player arrives in from several others has a place for each arrival, and a map
+ * for many players a row of them, a body's width apart: a view from each is the same picture over and over.
+ */
+const STARTS_TOGETHER = 256;
+/**
+ * A view is nearly one colour, and shows nothing of the map, when this share of its pixels is within
+ * `ONE_COLOUR_NEAR` levels a channel of its commonest colour: the eye a hand's width from a wall, or
+ * behind the box of a thing that stands before it. A dark view is not judged by this: it is the map's
+ * light, and has its own sentence.
+ */
+const ONE_COLOUR_SHARE = 0.9;
+const ONE_COLOUR_NEAR = 12;
+/** The rooms `viewsOf` keeps beside those it shows, to take the place of a view that was left out. */
+const ROOMS_SPARE = 4;
+/**
+ * `compareOf`: the picture all the plans are fitted into unless a scale is told, the band over each plan
+ * for its name and its size, and the gap between two plans (pixels).
+ */
+const COMPARE_WIDE = 1920;
+const COMPARE_HIGH = 1080;
+const COMPARE_HEAD = 38;
+const COMPARE_GAP = 8;
 /** A leaf under this height or width is no room to stand in. */
 const ROOM_LEAST = 64;
 /**
@@ -1083,10 +1108,13 @@ const firstStart = (things) => things.find((thing) => thing.kind === "start" && 
 /**
  * The point entities a view marks: those with a body (`"models"`), every one (`"all"`), only those drawn
  * as the game shows them, by their model or their sprite (`"game"`: no box stands in for anything), or none.
+ * `unmarked`: the numbers of entities that are left out whatever they are.
  */
-function markedThings(things, entities, figures, sprites) {
+function markedThings(things, entities, figures, sprites, unmarked) {
   if (entities === false || entities === "none") return [];
-  const points = things.filter((thing) => thing.model === null && thing.origin);
+  const points = things.filter(
+    (thing) => thing.model === null && thing.origin && !unmarked?.includes(thing.number),
+  );
   if (entities === "game")
     return points.filter((thing) => figures.get(thing.number)?.surfaces || sprites?.has(thing.number));
   return entities === "all" ? points : points.filter((thing) => hasBody(thing) || figures.has(thing.number));
@@ -1313,6 +1341,9 @@ function marksNote(marked) {
  *                 only what is drawn as the game shows it, by its model or its sprite, and no box for
  *                 anything else (with `labels: false`, a picture to lay beside a screenshot); false: none.
  *                 `labels: false` leaves the words out
+ *   unmarked      a list of entity numbers that are not drawn whatever `entities` says: a view from one
+ *                 of several places to start that stand together leaves out the others' boxes, which a
+ *                 body's width before the eye would be all the picture shows
  *   bodies        `{ name: "large" | "standing" | "crouching" | { half, height, feet } }`: the box a thing
  *                 moves with, by classname or targetname, where its class does not say (`bodyFor`)
  *   models        true: an entity whose `model` key names a .mdl is drawn as that model, read from
@@ -1402,7 +1433,13 @@ export function drawMap(bsp, options = {}) {
   const marked = drawMarks(
     canvas,
     view,
-    markedThings(scene.things, options.entities ?? "models", figured.figures, figured.sprites),
+    markedThings(
+      scene.things,
+      options.entities ?? "models",
+      figured.figures,
+      figured.sprites,
+      options.unmarked,
+    ),
     table,
     {
       labels: options.labels,
@@ -1526,17 +1563,78 @@ function largestRooms(bsp, count) {
 
 // ── several views in one picture ────────────────────────────────────────────
 /**
+ * The places to start gathered: each group is the starts that stand within `STARTS_TOGETHER` units of
+ * another of the group (so a row of them is one group, however long). `[[thing, ...]]`, the groups in the
+ * order of their first entity, and each group's entities in the map's order.
+ */
+function startGroups(starts) {
+  const group = starts.map((_, nth) => nth);
+  const of = (nth) => (group[nth] === nth ? nth : (group[nth] = of(group[nth])));
+  for (let one = 0; one < starts.length; one++)
+    for (let other = one + 1; other < starts.length; other++)
+      if (Math.hypot(...sub(starts[one].origin, starts[other].origin)) <= STARTS_TOGETHER)
+        group[Math.max(of(one), of(other))] = Math.min(of(one), of(other));
+  const groups = new Map();
+  starts.forEach((start, nth) => {
+    if (!groups.has(of(nth))) groups.set(of(nth), []);
+    groups.get(of(nth)).push(start);
+  });
+  return [...groups.values()];
+}
+
+/**
+ * Whether a picture is nearly one colour: `{ share, colour }` when `ONE_COLOUR_SHARE` of its pixels or
+ * more are within `ONE_COLOUR_NEAR` levels a channel of its commonest colour, else null. The commonest
+ * colour is looked for with each channel cut to 32 steps.
+ */
+function oneColourOf(picture) {
+  const pixels = picture.width * picture.height;
+  const counts = new Map();
+  let commonest = 0;
+  let most = 0;
+  for (let pixel = 0; pixel < pixels; pixel++) {
+    const key =
+      ((picture.rgba[pixel * 4] >> 3) << 10) |
+      ((picture.rgba[pixel * 4 + 1] >> 3) << 5) |
+      (picture.rgba[pixel * 4 + 2] >> 3);
+    const counted = (counts.get(key) ?? 0) + 1;
+    counts.set(key, counted);
+    if (counted > most) [commonest, most] = [key, counted];
+  }
+  const colour = [(commonest >> 10) & 31, (commonest >> 5) & 31, commonest & 31].map((step) => step * 8 + 4);
+  let near = 0;
+  for (let pixel = 0; pixel < pixels; pixel++)
+    if (
+      colour.every((value, channel) => Math.abs(picture.rgba[pixel * 4 + channel] - value) <= ONE_COLOUR_NEAR)
+    )
+      near++;
+  const share = Math.round((near / pixels) * 100) / 100;
+  return share >= ONE_COLOUR_SHARE ? { share, colour } : null;
+}
+
+/**
  * Several views of a compiled map in one picture, each named in its corner with where it was taken from: an
  * overview in one call.
  *
- *   count          how many cells (8): from each place to start, looking the way it faces (half the cells at
- *                  the most), then from the middle of the largest rooms, each looked at four ways
+ *   count          how many cells (8): from the places to start, looking the way each faces (half the cells
+ *                  at the most), then from the middle of the largest rooms, each looked at four ways.
+ *                  Places to start that stand together (each within 256 units of another) are one group and
+ *                  get ONE view, from the first of them (named `1 info_player_start +5`: five more stand
+ *                  with it), with the others' boxes left out of it: a body's width before the eye, the
+ *                  box of the next place to start is all a view would show
  *   at             instead: the places yourself, `[{ from, yaw, pitch, to, name }]`, an entity's number or a
- *                  classname in place of any of them
+ *                  classname in place of any of them. These are drawn as asked, whatever they show
  *   width, height  one cell (320 x 240); `cols` cells in a row (4)
  *   and what `drawMap` takes (light, brightness, textures, folders, entities, fov).
  *
+ * A view that is nearly one colour (nine tenths of it within a few levels of its commonest colour, and not
+ * for want of light: the eye against a wall, or behind the box of a thing that stands before it) shows
+ * nothing of the map. It is left out, the next largest room is looked at in its place, and `facts.dropped`
+ * says so; where the map has no room left to show instead, it stays, and a note says what it is.
+ *
  * Returns `{ width, height, rgba, facts }`; `facts.views` is `[{ name, from, yaw, pitch, faces, pixels }]`,
+ * `facts.starts` `[{ view (its name), numbers (the entities of the group) }]` for the views from places
+ * to start, `facts.dropped` `[{ name, from, yaw, share, colour, replacedBy }]` for the views left out,
  * `facts.missing` and `facts.notes` as `drawMap` gives.
  */
 export function viewsOf(bsp, options = {}) {
@@ -1546,27 +1644,87 @@ export function viewsOf(bsp, options = {}) {
   const width = sideOf(options.width, CELL_WIDTH, "width");
   const height = sideOf(options.height, CELL_HEIGHT, "height");
   const scene = sceneOf(bsp, options);
+  const own = [];
   let stands;
+  let spare = [];
   if (options.at) {
     const asked = Array.isArray(options.at) ? options.at : [options.at];
     stands = asked.map((each) => (typeof each === "object" ? each : viewFrom(bsp, each)));
   } else {
-    const starts = scene.things.filter((thing) => thing.kind === "start" && thing.origin);
-    const fromStarts = starts
-      .slice(0, Math.max(1, Math.floor(count / 2)))
-      .map((thing) => viewFrom(bsp, thing.number));
-    const rooms = largestRooms(bsp, Math.max(1, Math.floor((count - fromStarts.length) / FOUR_WAYS.length)));
-    const fromRooms = rooms.flatMap((room) =>
-      FOUR_WAYS.map((yaw) => ({ from: room.at, yaw, pitch: 0, name: `room ${pointText(room.at)}` })),
-    );
-    stands = [...fromStarts, ...fromRooms].slice(0, Math.max(count, 1));
+    const groups = startGroups(scene.things.filter((thing) => thing.kind === "start" && thing.origin));
+    const most = Math.max(1, Math.floor(count / 2));
+    const fromStarts = groups.slice(0, most).map((group) => ({
+      ...viewFrom(bsp, group[0].number),
+      unmarked: group.slice(1).map((thing) => thing.number),
+      group: group.map((thing) => thing.number),
+    }));
+    const together = groups.filter((group) => group.length > 1);
+    if (together.length)
+      own.push(
+        `places to start stand together (each within ${STARTS_TOGETHER} units of another): ${together.map((group) => `${group.length} about ${pointText(group[0].origin)} (entities ${group.map((thing) => thing.number).join(", ")})`).join("; ")}. One view is taken for each such group, from its first (its name says how many more stand with it: +5 for five), with the others' boxes left out of it`,
+      );
+    if (groups.length > most)
+      own.push(
+        `${groups.length - most} more places to start (or groups of them) have no view: \`count\` gives them half its cells at the most`,
+      );
+    const wanted = Math.max(1, Math.floor((count - fromStarts.length) / FOUR_WAYS.length));
+    const rooms = largestRooms(bsp, wanted + ROOMS_SPARE);
+    const waysOf = (room) =>
+      FOUR_WAYS.map((yaw) => ({ from: room.at, yaw, pitch: 0, name: `room ${pointText(room.at)}` }));
+    stands = [...fromStarts, ...rooms.slice(0, wanted).flatMap(waysOf)].slice(0, Math.max(count, 1));
+    spare = rooms.slice(wanted).flatMap(waysOf);
   }
   if (!stands.length) throw new Error("viewsOf: the map has no place to start and no open room: give `at`");
-  const drawn = stands.map((stand) => drawMap(bsp, { ...options, ...stand, to: stand.to, width, height }));
-  const names = stands.map(
-    (stand, nth) => `${stand.name ?? `at ${pointText(stand.from)}`} yaw ${drawn[nth].facts.yaw}`,
-  );
-  const columns = options.cols ?? Math.min(VIEWS_COLUMNS, stands.length);
+  const draw = (stand) => drawMap(bsp, { ...options, ...stand, to: stand.to, width, height });
+  const nameOf = (stand, picture) =>
+    `${stand.name ?? `at ${pointText(stand.from)}`}${stand.group?.length > 1 ? ` +${stand.group.length - 1}` : ""} yaw ${picture.facts.yaw}`;
+  /** What makes a view show nothing of the map: nearly one colour, and not because the map is dark there. */
+  const flatOf = (picture) =>
+    scene.lit && options.light !== false && picture.facts.brightness < DARK_VIEW
+      ? null
+      : oneColourOf(picture);
+  const shown = [];
+  const dropped = [];
+  for (const stand of stands) {
+    const picture = draw(stand);
+    const flat = options.at ? null : flatOf(picture);
+    if (!flat) {
+      shown.push({ stand, picture });
+      continue;
+    }
+    // the next room that shows something takes its place; with none left, the view stays and is said
+    let instead = null;
+    while (spare.length && !instead) {
+      const next = spare.shift();
+      const other = draw(next);
+      if (!flatOf(other)) instead = { stand: next, picture: other };
+    }
+    const told = `${nameOf(stand, picture)} (${Math.round(flat.share * 100)} in 100 of it about the colour ${flat.colour.join(" ")})`;
+    if (!instead) {
+      shown.push({ stand, picture });
+      own.push(
+        `the view ${told} is nearly one colour, and the map has no other room to show in its place: it is drawn all the same`,
+      );
+      continue;
+    }
+    shown.push(instead);
+    dropped.push({
+      name: nameOf(stand, picture),
+      from: picture.facts.from,
+      yaw: picture.facts.yaw,
+      share: flat.share,
+      colour: flat.colour,
+      replacedBy: nameOf(instead.stand, instead.picture),
+      told,
+    });
+  }
+  if (dropped.length)
+    own.push(
+      `${dropped.length} views were nearly one colour and are left out, each with the next largest room in its place: ${dropped.map((each) => `${each.told}, replaced by ${each.replacedBy}`).join("; ")}. Such a view is taken with the eye against a wall, or behind the box of a thing that stands before it`,
+    );
+  const drawn = shown.map((each) => each.picture);
+  const names = shown.map((each) => nameOf(each.stand, each.picture));
+  const columns = options.cols ?? Math.min(VIEWS_COLUMNS, shown.length);
   const picture = tile(drawn, columns, names);
   const facts = {
     views: drawn.map((each, nth) => ({
@@ -1577,9 +1735,13 @@ export function viewsOf(bsp, options = {}) {
       faces: each.facts.faces,
       pixels: each.facts.pixels,
     })),
+    starts: shown
+      .map((each, nth) => ({ view: names[nth], numbers: each.stand.group }))
+      .filter((each) => each.numbers),
+    dropped: dropped.map(({ told: _told, ...each }) => each),
     light: drawn[0].facts.light,
     missing: drawn[0].facts.missing,
-    notes: viewsNotes(drawn.map((each) => each.facts)),
+    notes: [...viewsNotes(drawn.map((each) => each.facts)), ...own],
   };
   return { ...picture, facts };
 }
@@ -1950,9 +2112,9 @@ function drawReach(canvas, frame, reach, cutHeight, cut) {
   }
 }
 
-/** The walk test a plan is to show: the one handed over, or (`reach: true`) one made now. */
+/** The walk test a plan is to show: the one handed over, or (`reach: true`) one made now, with the profile's lists. */
 const reachFor = (map, options) =>
-  options.reach === true ? reachOf(map, { bodies: options.bodies }) : (options.reach ?? null);
+  options.reach === true ? reachOf(map, { bodies: options.bodies, mod: options.mod }) : (options.reach ?? null);
 const REACH_NOTE =
   "the walk test is tinted on it: the floors are grey, green where a player walks to from the places to start, red where there is room to stand and no way was found, blue where only a jump leads, amber where a player gets in and not out again (a one-way place); o1, o2 ... are the openings";
 
@@ -2371,6 +2533,202 @@ export function planOfSource(map, options = {}) {
   };
   const picture = pictureOf(canvas);
   return { ...(options.legend ? withLegend(picture, marks) : picture), facts };
+}
+
+// ── several maps at one scale ───────────────────────────────────────────────
+/** The box of a map's world, `{ min, max }`: a compiled map's own, or that of the source's sound brushes. */
+function worldBoxOf(map) {
+  if (isCompiled(map)) {
+    const bounds = worldBounds(map);
+    return { min: bounds.mins, max: bounds.maxs };
+  }
+  const shapes = (map.brushes ?? [])
+    .flat()
+    .map((brush) => shapeOf(brush))
+    .filter((shape) => shape.corners.length && Number.isFinite(shape.volume));
+  if (!shapes.length) return null;
+  return {
+    min: [0, 1, 2].map((axis) => Math.min(...shapes.map((shape) => shape.min[axis]))),
+    max: [0, 1, 2].map((axis) => Math.max(...shapes.map((shape) => shape.max[axis]))),
+  };
+}
+
+/**
+ * Several maps from above in ONE picture and at ONE scale, side by side: the picture that shows whether a
+ * new map is the size of one the game has, which two plans each fitted to its own picture never do. Over
+ * each plan stand its name and the size of its world; under them all, one scale bar.
+ *
+ *   list      the maps, each a compiled map or brush source, or `{ map, name, z, slice, area, only,
+ *             heights, reach }` with what its own plan takes: `z` above all, the height ITS plan is cut at
+ *             (a map under one roof is cut under it, a map whose rooms have no roof over them is seen
+ *             from above). A name stands over its plan (`map 1`, `map 2` ... without one)
+ *   scale     pixels a unit, for all of them. Without it: the largest at which they all fit a picture
+ *             1920 by 1080 (`width`, `height`: another)
+ *   cols      how many plans in a row (all of them, unless told)
+ *   entities  false (unless told): no entity is marked, since a plan this small is read for its shape.
+ *             `"models"`, `"all"` and `labels` as `planOf` takes them
+ *   and `light`, `brightness`, `textures`, `folders`, `mod`, `bodies` as `planOf` takes them, for every map.
+ *
+ * Returns `{ width, height, rgba, facts }`. `facts`: `{ scale, bar (the scale bar's length in units), maps:
+ * [{ name, size: [x, y, z] (its world, in units), z (its cut, or null), left, top, width, height (where its
+ * plan lies in the picture, in pixels), x0, y0 }], notes }`. A point (x, y) of a map is at pixel
+ * (left + (x - x0) * scale, top + (y0 - y) * scale).
+ */
+export function compareOf(list, options = {}) {
+  if (!Array.isArray(list) || !list.length)
+    throw new Error("compareOf: a list of maps, each a compiled map, brush source or `{ map, name, z }`");
+  const isMap = (map) => isCompiled(map) || Array.isArray(map?.brushes);
+  const entries = list.map((each, nth) => {
+    const entry = isMap(each) ? { map: each } : each;
+    if (!isMap(entry?.map))
+      throw new Error(
+        `compareOf: entry ${nth + 1} is no map: a compiled map (what \`readBsp\` gives), brush source, or \`{ map, name, z }\` with one of them`,
+      );
+    const box = worldBoxOf(entry.map);
+    if (!box) throw new Error(`compareOf: entry ${nth + 1} has no brush of the world to draw`);
+    const { map, name = `map ${nth + 1}`, ...own } = entry;
+    // what its plan shows: the part asked for, or all of its world
+    const shown = own.area ?? box;
+    const size = box.max.map((value, axis) => Math.round(value - box.min[axis]));
+    // the words over its plan take room too: a plan narrower than they are is given their width
+    const letters = Math.max(String(name).length, `${size.join(" x ")}  seen from above  source`.length);
+    return {
+      map,
+      name: String(name),
+      own,
+      box,
+      size,
+      wide: shown.max[0] - shown.min[0],
+      deep: shown.max[1] - shown.min[1],
+      words: letters * LETTER_WIDE * 2 + 12,
+    };
+  });
+  const { scale: asked, cols, width, height, legend: _legend, ...shared } = options;
+  if (asked !== undefined && !(asked > 0)) throw new Error(`scale: pixels a unit, over 0, not ${asked}`);
+  const columns = cols ?? entries.length;
+  if (!Number.isInteger(columns) || columns < 1) throw new Error(`cols: a whole number from 1, not ${cols}`);
+  const rows = [];
+  for (let nth = 0; nth < entries.length; nth += columns) rows.push(entries.slice(nth, nth + columns));
+  const sum = (values) => values.reduce((total, value) => total + value, 0);
+  // the largest scale at which every row fits across and the rows fit down
+  const around = 2 * PLAN_MARGIN;
+  const most = [sideOf(width, COMPARE_WIDE, "width"), sideOf(height, COMPARE_HIGH, "height")];
+  const fitting = Math.min(
+    ...rows.map(
+      (row) =>
+        (most[0] - row.length * around - (row.length - 1) * COMPARE_GAP) / sum(row.map((each) => each.wide)),
+    ),
+    (most[1] - PLAN_FOOT - rows.length * (around + COMPARE_HEAD)) /
+      sum(rows.map((row) => Math.max(...row.map((each) => each.deep)))),
+  );
+  /** How wide the picture comes out at a scale: its widest row, each plan no narrower than its words. */
+  const wideAt = (perUnit) =>
+    Math.max(
+      ...rows.map(
+        (row) =>
+          sum(row.map((each) => Math.max(each.wide * perUnit + around, each.words))) +
+          (row.length - 1) * COMPARE_GAP,
+      ),
+    );
+  let scale = asked ?? fitting;
+  // where the words are wider than the plans, a smaller scale still, as far as that helps
+  for (let tries = 0; asked === undefined && tries < 60 && scale > 0 && wideAt(scale) > most[0]; tries++)
+    scale *= 0.96;
+  if (!(scale > 0))
+    throw new Error(
+      `compareOf: ${entries.length} maps do not fit a picture ${most[0]} by ${most[1]}: a larger \`width\` and \`height\`, more \`cols\`, or a \`scale\``,
+    );
+  for (const each of entries)
+    for (const [side, units] of [["wide", each.wide], ["deep", each.deep]]) // prettier-ignore
+      if (units * scale + around + PLAN_FOOT > SIDE_MOST)
+        throw new Error(
+          `scale: at ${scale} pixels a unit ${each.name} (${Math.round(units)} units ${side}) would be ${Math.ceil(units * scale + around)} pixels, and a plan's side is ${SIDE_MOST} at the most: a smaller scale`,
+        );
+
+  // each plan at that scale, its own foot cut off: one bar under them all says the scale. With no entity
+  // marked, no sprite is read for a mark either
+  const unmarked = (shared.entities ?? false) === false ? { entities: false, sprites: false } : {};
+  const plans = entries.map((each) => {
+    const plan = (isCompiled(each.map) ? planOf : planOfSource)(each.map, {
+      labels: false,
+      ...shared,
+      ...unmarked,
+      ...each.own,
+      scale,
+      width: undefined,
+      height: undefined,
+      legend: false,
+    });
+    const cut = plan.facts.z === null ? "seen from above" : `cut at z ${plan.facts.z}`;
+    const words = `${each.size.join(" x ")}  ${cut}${isCompiled(each.map) ? "" : "  source"}`;
+    return {
+      ...each,
+      plan,
+      words,
+      high: plan.height - PLAN_FOOT,
+      // a plan narrower than its own words is given their width
+      cell: Math.max(plan.width, Math.max(each.name.length, words.length) * LETTER_WIDE * 2 + 12),
+    };
+  });
+  const laid = [];
+  let top = 0;
+  let wide = 0;
+  for (let nth = 0; nth < plans.length; nth += columns) {
+    const row = plans.slice(nth, nth + columns);
+    let left = 0;
+    for (const each of row) {
+      laid.push({ ...each, left, top: top + COMPARE_HEAD });
+      left += each.cell + COMPARE_GAP;
+    }
+    wide = Math.max(wide, left - COMPARE_GAP);
+    top += COMPARE_HEAD + Math.max(...row.map((each) => each.high)) + COMPARE_GAP;
+  }
+  const canvas = newCanvas(
+    Math.max(wide, 2 * PLAN_MARGIN + BAR_MOST),
+    top - COMPARE_GAP + PLAN_FOOT,
+    [20, 22, 26],
+  );
+  for (const each of laid) {
+    for (let row = 0; row < each.high; row++)
+      canvas.rgba.set(
+        each.plan.rgba.subarray(row * each.plan.width * 4, (row + 1) * each.plan.width * 4),
+        ((each.top + row) * canvas.width + each.left) * 4,
+      );
+    label(canvas, each.name, each.left + 6, each.top - COMPARE_HEAD + 4, 2, PLAN_COLOURS.ink);
+    label(canvas, each.words, each.left + 6, each.top - COMPARE_HEAD + 20, 2, HEIGHT_INK);
+  }
+  // the one scale: the longest round length that fits
+  const bar = BAR_LENGTHS.filter((units) => units * scale <= BAR_MOST).at(-1) ?? BAR_LENGTHS[0];
+  const barY = canvas.height - PLAN_FOOT + 24;
+  const barEnd = PLAN_MARGIN + Math.round(bar * scale);
+  line(canvas, [PLAN_MARGIN, barY], [barEnd, barY], PLAN_COLOURS.ink);
+  line(canvas, [PLAN_MARGIN, barY - 4], [PLAN_MARGIN, barY + 4], PLAN_COLOURS.ink);
+  line(canvas, [barEnd, barY - 4], [barEnd, barY + 4], PLAN_COLOURS.ink);
+  label(
+    canvas,
+    `${bar} units  every map at ${Math.round(scale * 1000) / 1000} pixels a unit`,
+    barEnd + 10,
+    barY - 5,
+    2,
+    PLAN_COLOURS.ink,
+  );
+  const facts = {
+    scale,
+    bar,
+    maps: laid.map((each) => ({
+      name: each.name,
+      size: each.size,
+      z: each.plan.facts.z,
+      left: each.left,
+      top: each.top,
+      width: each.plan.width,
+      height: each.high,
+      x0: each.plan.facts.x0,
+      y0: each.plan.facts.y0,
+    })),
+    notes: [...new Set(laid.flatMap((each) => each.plan.facts.notes ?? []))],
+  };
+  return { ...pictureOf(canvas), facts };
 }
 
 // ── a side section ──────────────────────────────────────────────────────────

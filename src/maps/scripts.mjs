@@ -16,6 +16,9 @@
 //     started(name, { maps })   a sentence when the game itself runs or lists the script, whoever names it
 //                       ("the game runs it when the map orchard starts"); null when it does not.
 //                       `maps`: the names of the maps there are
+//     mapOf(name, { maps })   the map a script belongs to, or null for one of no map's: unless given, the
+//                       first folder of its name when a map of that name is known (`orchard/keeper` is the
+//                       orchard's), which is how a GoldSrc mod that names scripts by path keeps a map's own
 //   }
 // A script's name is its path as the game compares it (the profile's to say: lower case, `/`, no ending).
 
@@ -37,8 +40,11 @@ const wordsOf = (text) => text.replace(COMMENT, "").toLowerCase().split(BETWEEN_
  *   shipped   a Map from the name of each script the game ships to its text
  *   maps      [{ name, entities: [keys, ...] }]: the maps whose entities may name a script, each entity as
  *             a plain object of its keys
- *   rules     the mod's (above): ofEntity, words, aliases, started
- *   mapNames  the names of every map there is (unless told: those of `maps`), for `started`
+ *   rules     the mod's (above): ofEntity, words, aliases, started, mapOf
+ *   mapNames  the names of every map there is (unless told: those of `maps`), for `started` and `mapOf`
+ *   only      the names of the maps being looked at, when not all of them are: a script named by nothing is
+ *             warned of only when it is one of theirs (`mapOf`), or named by one of theirs that nothing names
+ *             either; the rest are counted in a fact. Every script is placed all the same
  * A script is LIVE when the game has a reason to read it: every script the game ships (ours in its place,
  * where we replace one); a new one that a map's entity names, that the game itself runs or lists, or that
  * a live script's text names. The rest of ours are named by nothing.
@@ -51,7 +57,7 @@ const wordsOf = (text) => text.replace(COMMENT, "").toLowerCase().split(BETWEEN_
  * What it cannot see: a name put together while the game runs (two words joined, a name in a variable set
  * by a map's parameter). A script reached only so is said to be named by nothing: a warning, not an error.
  */
-export function scriptsPlaced({ ours, shipped, maps = [], rules = {}, mapNames }) {
+export function scriptsPlaced({ ours, shipped, maps = [], rules = {}, mapNames, only }) {
   const words = rules.words ?? wordsOf;
   const aliasesOf = (name) => [name, ...(rules.aliases?.(name) ?? [])];
   const fresh = [...ours.keys()].filter((name) => !shipped.has(name));
@@ -120,9 +126,19 @@ export function scriptsPlaced({ ours, shipped, maps = [], rules = {}, mapNames }
     `${scripts.length} scripts of ours against the ${shipped.size} the game ships: ${count("replaces")} take a game script's place, ${count("named")} are new and named, ${count("unnamed")} are new and named by nothing`,
   ];
   const warnings = [];
-  if (dead.length)
+  // looking at some maps only: the dead scripts that are theirs, and those that only theirs name
+  const known = new Set(names.map((name) => String(name).toLowerCase()));
+  const mapOf = rules.mapOf ?? ((name) => (name.includes("/") && known.has(name.split("/")[0]) ? name.split("/")[0] : null)); // prettier-ignore
+  const looked = only ? new Set([only].flat().map((name) => String(name).toLowerCase())) : null;
+  const theirs = (name) => looked.has(String(mapOf(name, { maps: names }) ?? "").toLowerCase());
+  const warned = looked ? dead.filter((name) => theirs(name) || dead.some((other) => theirs(other) && namedIn(ours.get(other).text, other).has(name))) : dead; // prettier-ignore
+  if (looked && warned.length < dead.length)
+    facts.push(
+      `${dead.length - warned.length} more scripts are new and named by nothing, and are no part of ${[...looked].join(", ")}: not warned of here (all of them are when every map is looked at)`,
+    );
+  if (warned.length)
     warnings.push(
-      `${dead.length} scripts are new (the game ships none of that name) and nothing names them: no map's entity, no script the game reads, and the game runs none of that name by itself. Laid over the game's pack they replace nothing and are never read: ${some(dead.map((name) => `${name}${ours.get(name).file ? ` (${ours.get(name).file})` : ""}${by.get(name).length ? `, named only by ${by.get(name).join("; ")}` : ""}`))}. A script meant to replace one of the game's is to have that one's path; a name made while the game runs is not seen here`,
+      `${warned.length} scripts are new (the game ships none of that name) and nothing names them: no map's entity, no script the game reads, and the game runs none of that name by itself. Laid over the game's pack they replace nothing and are never read: ${some(warned.map((name) => `${name}${ours.get(name).file ? ` (${ours.get(name).file})` : ""}${by.get(name).length ? `, named only by ${by.get(name).join("; ")}` : ""}`))}. A script meant to replace one of the game's is to have that one's path; a name made while the game runs is not seen here`,
     );
   return { scripts, warnings, facts };
 }

@@ -29,6 +29,37 @@ code never asks for one.
 `reach.walked(x, y, under)` is a **height**, and a floor at 0 is 0: compare with `null`, or ask
 `reach.on(x, y, under)`, which gives `{ floor, stands, walked, jumped, trapped }` as yes and no.
 
+**With `mod`, the profile's four lists are used without being given again** (`reachOf`, `spaceOf` for `off`,
+`smak map-reach --mod`, `openingViews` with `mod`): a list given by name is added to the
+profile's, never put in its place, so naming `wiring: ["ms_text"]` beside a profile that has it changes
+nothing. To walk without one of the profile's, hand over the profile without it (`mod: { ...profile, wiring:
+[] }`). The Barrow Road's walk gave its wiring again; the fourteen walks of its script come out the same
+without it.
+
+## The walk test: what carries it on, and why a part is not walked to
+
+What an agent rebuilding a map met: a body asked for by its name threw a TypeError; a temple walked "a
+third" with nothing to say why; a ladder in a shaft 3 wide was never climbed. Now (docs/MAPS.md, the walk
+test):
+
+- **A body by its name**: `space.blocked(x, y, "point")`, `restOf(space, feet, "crouching")`, `climbs` the
+  same; anything else is refused in a sentence that says what is wanted and what was given (`bodyOf`).
+- **What carries the walk on**: teleports (for every way tried, not the walk alone; the landing is no place
+  to go to; one that leads nowhere is a warning), ladders off the grid (asked along lines a unit apart), the
+  doors of every kind open unless told, and what breaks or is switched off (`func_breakable`,
+  `func_wall_toggle`, `func_pushable`) a wall unless `walls: "gone"`; a toggled wall that starts off is not
+  there.
+- **How much and why**: `share` and `standable` (the floor a standing player fits on, and the part walked),
+  and `parts`, each part of the floor not walked to with `how` (`jump`, `crouch-jump`, `crouch`, `wall`,
+  `air`, `none`), `why` (where the way leaves the walked floor, or the brush entities in the way, by name),
+  `nearest` and `behind`. A fact says when a map is meant to be jumped through. `parts: false` skips it.
+
+The share is counted on the walk's own grid: each place and each stretch of heights a standing player fits in
+there, over a floor not too steep to stand on. On Master Sword's maps, on foot with the profile: demontemple
+27.3 in 100 (62.3 with `jump: true`, 99.1 with `walls: "gone"` as well), edanasewers 52.9 before the ladders'
+shafts and 55.5 after (84.2 with jumps), cleicert_old 5.8 (92.4 with its toggled walls gone: the walk named
+them, "behind 72 func_wall_toggle "mainorb1" ..., then 74 func_wall_toggle "freetogo"").
+
 ## Scripts of one's own against the game's
 
 For a mod whose maps and scripts name scripts by path, and which lays one's scripts over its own pack: a
@@ -48,8 +79,12 @@ WARN  1 scripts are new (the game ships none of that name) and nothing names the
 A new script is live when a map's entity names it, when the game runs or lists it by itself, or when a live
 script's text names it (the game's own scripts, ours in their place, and every new one made live in turn).
 How scripts are named is the profile's `scriptPack` (`shipped`, `loose`, `ofEntity`, `aliases`, `started`:
-`src/maps/scripts.mjs`). `map-check --scripts <folder>` says the same of that map's folders. What it cannot
-see is a name put together while the game runs: a script reached only so is "named by nothing", a warning.
+`src/maps/scripts.mjs`). `map-check --scripts <folder>` says the same of that map's folders, and warns of a
+script named by nothing only when it is that map's own (under a folder of the map's name, or as the
+profile's `mapOf` says) or named only by one of its own: another map's script is named by that map, which
+is not looked at, and is counted in a fact instead. `--all` warns of every one, as `smak scripts` does
+(`scriptsPlaced({ ..., only: ["yard"] })` in a script). What it cannot see is a name put together while the
+game runs: a script reached only so is "named by nothing", a warning.
 
 ## A compile that is seen, and stopped
 
@@ -62,8 +97,11 @@ New:
   and `--timeout 600` or `--timeout hlvis=600,hlrad=1200` sets the times in seconds.
 - `result.portals`: `{ leaves, portals, seconds }`, read from the `.prt` hlbsp leaves. The portals are
   hlvis's work. Measured: 5088 portals, 219 seconds of full hlvis on 12 threads; 269 portals, 0.01. The
-  time is taken to grow with the square of the count (the least it does), so `seconds` is a floor. From
-  4000 portals, or when the floor passes hlvis's time, a warning says so **before** hlvis begins.
+  time is taken to grow with the square of the count, so `seconds` is a GUESS from one map, and no floor:
+  595 portals were guessed at 3 seconds and took a tenth of one. The summary says what a full hlvis took
+  once it has run, and a guess only from 60 seconds on, called a guess (`portalsLine(result)`); under that
+  it counts the portals and foretells nothing. From 4000 portals, or when the guess passes hlvis's time, a
+  warning says so **before** hlvis begins.
 - `result.facts`: a draft (`fast`) says what it is: hlrad bounced no light (its own log: `bounces 0` where
   the full compile has 8), so what no lamp sees directly is black.
 - the summary and the command print each program's seconds, "stopped" for one that was, and the portals.

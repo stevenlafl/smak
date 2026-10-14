@@ -55,7 +55,7 @@ test("what a compile says of itself: seconds, a program that was stopped, the po
   });
   const lines = summary.split("\n");
   sure(lines[0] === "hlcsg  0.2 s  ended" && lines[2] === "hlvis  480.0 s  stopped", lines.slice(0, 3).join(" | "));
-  sure(lines[3] === "portals: 5088 between 1395 leaves (hlvis's work: a full one foretold at 219 s or more)", lines[3]);
+  sure(lines[3] === "portals: 5088 between 1395 leaves (hlvis's work: a full one is guessed at about 219 s, from one map measured)", lines[3]);
   sure(lines[4] === "a draft (fast): hlrad bounced no light" && /^error: hlvis did not finish/.test(lines[5]), lines[4]);
   sure(lines.at(-1) === "not compiled", lines.at(-1));
   // an older result, with neither portals nor facts, is still summed up

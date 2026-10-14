@@ -53,6 +53,18 @@ const NEVER_SOLID =
   /^(trigger_|msarea_|mstrig_|func_illusionary$|func_ladder$|func_water$|func_monsterclip$|func_buyzone$|func_bomb_target$|func_friction$|func_mortar_field$|env_)/;
 /** Brush entities that open: taken as open unless told. */
 export const DOORS = /^(func_door|func_door_rotating|momentary_door)$/;
+/**
+ * Brush entities that are a wall until the game takes them away: one that breaks, one that is switched on
+ * and off by name, one that is pushed aside (the Half-Life SDK's dlls/func_break.cpp and bmodels.cpp). They
+ * are walls unless told (`walls: "gone"`, or `open` by name).
+ */
+export const GIVES_WAY = /^(func_breakable|func_wall_toggle|func_pushable)$/;
+/**
+ * A `func_wall_toggle` whose spawnflags have this bit is not there when the map begins (the SDK's
+ * dlls/bmodels.cpp: SF_WALL_START_OFF is 1, and CFuncWallToggle::Spawn turns such a wall off).
+ */
+const TOGGLE = "func_wall_toggle";
+const STARTS_OFF = 1;
 
 /**
  * Whether a classname is one of a list of names, each the whole name or with `*` for any letters; and, when
@@ -125,6 +137,32 @@ function joined(stretches, touching) {
     } else out.push(next);
   }
   return out;
+}
+
+// ── a body as it is asked for ───────────────────────────────────────────────
+/**
+ * The body a caller means: one of `BODIES`, the name of one ("point", "standing", "large", "crouching"),
+ * or a box of its own `{ half, height }` (one of exactly a hull's size is that hull). Anything else is
+ * refused in a sentence. `what` names the asker in that sentence.
+ */
+export function bodyOf(body = BODIES.standing, what = "body") {
+  if (typeof body === "string" && Object.hasOwn(BODIES, body)) return BODIES[body];
+  if (body && typeof body === "object" && body.half > 0 && body.height > 0) {
+    if (Number.isInteger(body.hull) || body.hull === null) return body;
+    return (
+      Object.values(BODIES).find((each) => each.half === body.half && each.height === body.height) ?? {
+        name: "own",
+        words: "a box of its own",
+        ...body,
+        hull: null,
+      }
+    );
+  }
+  throw new Error(
+    `${what}: one of maps.BODIES, its name (${Object.keys(BODIES)
+      .map((name) => `"${name}"`)
+      .join(", ")}) or a box { half, height }, not ${JSON.stringify(body) ?? String(body)}`,
+  );
 }
 
 // ── which body a thing has ──────────────────────────────────────────────────
@@ -243,13 +281,14 @@ function lineCrosses(solid, from, to) {
 }
 
 /** The space of brush source. */
-function sourceSpace(map, { doors, open, shut, off }) {
+function sourceSpace(map, { doors, walls, open, shut, off }) {
   if (!Array.isArray(map?.brushes))
     throw new Error(
       "the map's source is { worldspawn, brushes, entities }: what `writeMap` takes and `readMap` gives",
     );
   const solids = [];
   const climbs = [];
+  const ladders = [];
   const doorList = [];
   const areas = [];
   const keep = (brush, matter) => {
@@ -276,16 +315,22 @@ function sourceSpace(map, { doors, open, shut, off }) {
       return;
     }
     const isDoor = DOORS.test(classname);
-    const held = named.some((name) => open.includes(name));
+    const gives = givesWay(classname, entity.spawnflags, walls);
+    const held = gives.gone || named.some((name) => open.includes(name));
     const kept = named.some((name) => shut.includes(name));
     const isOpen = !kept && (held || (isDoor && doors !== "closed"));
-    areas.push({ number, classname, targetname: entity.targetname, min, max, door: isDoor, open: isOpen });
+    const solid = !NEVER_SOLID.test(classname) && !LADDERS.test(classname) && !WATERS.test(classname);
+    areas.push({
+      ...{ number, classname, targetname: entity.targetname, min, max, door: isDoor, open: isOpen },
+      ...{ solid, gives: gives.class },
+    });
     if (isDoor || held)
       doorList.push({ number, classname, targetname: entity.targetname, min, max, open: isOpen });
-    if (LADDERS.test(classname)) climbs.push({ kind: "ladder", min, max });
-    else if (WATERS.test(classname)) for (const shape of real) climbs.push({ ...shape, kind: "liquid" });
-    else if (!NEVER_SOLID.test(classname) && !isOpen)
-      for (const shape of real) if (shape.matter !== "liquid") solids.push(shape);
+    if (LADDERS.test(classname)) {
+      climbs.push({ kind: "ladder", min, max });
+      ladders.push({ number, min, max });
+    } else if (WATERS.test(classname)) for (const shape of real) climbs.push({ ...shape, kind: "liquid" });
+    else if (solid && !isOpen) for (const shape of real) if (shape.matter !== "liquid") solids.push(shape);
   });
   const world = map.brushes.flat().map((brush) => (brush?.faces ? shapeOf(brush) : null));
   const sound = world.filter((shape) => shape && shape.corners.length && Number.isFinite(shape.volume));
@@ -312,7 +357,9 @@ function sourceSpace(map, { doors, open, shut, off }) {
     max,
     doors: doorList,
     areas,
-    blocked(x, y, body = BODIES.standing) {
+    ladders,
+    blocked(x, y, body) {
+      body = bodyOf(body, "blocked");
       const stretches = [];
       for (const solid of near(x, y)) {
         if (solid.matter === "clip" && body.hull === 0) continue;
@@ -321,7 +368,8 @@ function sourceSpace(map, { doors, open, shut, off }) {
       }
       return joined(stretches, false);
     },
-    climbs(x, y, body = BODIES.standing) {
+    climbs(x, y, body) {
+      body = bodyOf(body, "climbs");
       const stretches = [];
       for (const climb of climbs) {
         if (climb.kind === "liquid") {
@@ -430,7 +478,7 @@ function eitherSide(front, back, strict) {
 }
 
 /** The space of a compiled map. */
-function compiledSpace(bsp, { doors, open, shut, off }) {
+function compiledSpace(bsp, { doors, walls, open, shut, off }) {
   const { mins, maxs } = worldBounds(bsp);
   const low = mins[2] - 128;
   const high = maxs[2] + 128;
@@ -454,18 +502,33 @@ function compiledSpace(bsp, { doors, open, shut, off }) {
       return;
     }
     const isDoor = DOORS.test(classname);
-    const held = named.some((name) => open.includes(name));
+    const gives = givesWay(classname, valueOf(entity, "spawnflags"), walls);
+    const held = gives.gone || named.some((name) => open.includes(name));
     const kept = named.some((name) => shut.includes(name));
     const isOpen = !kept && (held || (isDoor && doors !== "closed"));
-    areas.push({ number, classname, targetname, min, max, door: isDoor, open: isOpen });
+    const solid = !NEVER_SOLID.test(classname) && !LADDERS.test(classname) && !WATERS.test(classname);
+    areas.push({ number, classname, targetname, min, max, door: isDoor, open: isOpen, solid, gives: gives.class }); // prettier-ignore
     if (isDoor || held) doorList.push({ number, classname, targetname, min, max, open: isOpen });
-    if (LADDERS.test(classname)) ladders.push({ min, max });
+    if (LADDERS.test(classname)) ladders.push({ number, min, max });
     else if (WATERS.test(classname)) waters.push({ min, max });
-    else if (!NEVER_SOLID.test(classname) && !isOpen)
-      others.push({ model: bsp.models[model], origin, min, max });
+    else if (solid && !isOpen) others.push({ model: bsp.models[model], origin, min, max });
   });
   const worldLiquid = bsp.leaves.some((leaf) => isLiquid(leaf.contents));
   const world = bsp.models[0];
+  // the solid brush entities sorted into squares, each with those whose box, grown by the largest body,
+  // touches it: a place asks only those near it (a map may have hundreds)
+  const buckets = new Map();
+  const reachMost = BODIES.large.half + 1;
+  const bucketOf = (value) => Math.floor(value / BUCKET);
+  for (const other of others)
+    for (let i = bucketOf(other.min[0] - reachMost); i <= bucketOf(other.max[0] + reachMost); i++)
+      for (let j = bucketOf(other.min[1] - reachMost); j <= bucketOf(other.max[1] + reachMost); j++) {
+        const key = i * 65536 + j;
+        if (!buckets.has(key)) buckets.set(key, []);
+        buckets.get(key).push(other);
+      }
+  const none = [];
+  const near = (x, y) => buckets.get(bucketOf(x) * 65536 + bucketOf(y)) ?? none;
   /** The stretches a tree stops a body in, over a list of pieces. */
   const stopped = (pieces, shift) =>
     pieces
@@ -477,7 +540,9 @@ function compiledSpace(bsp, { doors, open, shut, off }) {
     max: [...maxs],
     doors: doorList,
     areas,
-    blocked(x, y, body = BODIES.standing) {
+    ladders,
+    blocked(x, y, body) {
+      body = bodyOf(body, "blocked");
       if (body.hull === null)
         throw new Error(
           "a compiled map holds only its four hulls: a body of its own size cannot be asked of it",
@@ -492,7 +557,7 @@ function compiledSpace(bsp, { doors, open, shut, off }) {
         cutUpright(bsp, nodes, world.headNodes[hull], x, y, low, high, point, point),
         feet,
       );
-      for (const other of others) {
+      for (const other of near(x, y)) {
         if (
           x < other.min[0] - body.half ||
           x > other.max[0] + body.half ||
@@ -515,7 +580,8 @@ function compiledSpace(bsp, { doors, open, shut, off }) {
       }
       return joined(stretches, true);
     },
-    climbs(x, y, body = BODIES.standing) {
+    climbs(x, y, body) {
+      body = bodyOf(body, "climbs");
       const stretches = [];
       for (const ladder of ladders)
         if (
@@ -582,6 +648,17 @@ function compiledSpace(bsp, { doors, open, shut, off }) {
 const listOf = (value) => (value === undefined ? [] : Array.isArray(value) ? value : [value]);
 
 /**
+ * Whether a brush entity is of a class that gives way (`class`), and whether it is taken as gone without
+ * being named (`gone`): with `walls: "gone"`, every one; and always a `func_wall_toggle` that starts off,
+ * which is not there when the map begins.
+ */
+function givesWay(classname, spawnflags, walls) {
+  const ofClass = GIVES_WAY.test(classname);
+  const startsOff = classname === TOGGLE && (Number(spawnflags) & STARTS_OFF) === STARTS_OFF;
+  return { class: ofClass, gone: ofClass && (walls === "gone" || startsOff) };
+}
+
+/**
  * The solid space of a map: brush source or a compiled map.
  *
  *   doors     "open" (unless told): a brush entity that opens (`func_door`, `func_door_rotating`,
@@ -589,13 +666,23 @@ const listOf = (value) => (value === undefined ? [] : Array.isArray(value) ? val
  *   open      more brush entities to take as not there, by number, classname or targetname (a wall that
  *             breaks, a gate a script lifts)
  *   shut      doors to take as closed all the same, named the same way (a door that needs a key)
+ *   walls     "standing" (unless told): a brush entity that gives way in the game (`GIVES_WAY`: a
+ *             `func_breakable`, a `func_wall_toggle`, a `func_pushable`) is a wall where it stands.
+ *             "gone": each is taken as not there, as a door is taken as open; `shut` names those to
+ *             keep. A `func_wall_toggle` that starts off (spawnflag 1) is not there either way: it is
+ *             not there when the map begins
+ *   mod       a mod's profile (mod.mjs): its `off` and the classes of its `doors` are taken with what is
+ *             given here by name
  *   off       classnames that are an entity switched off, each a name or with `*` for any letters (a mod's
  *             `disabled_*`): the engine makes no entity of a class the game does not have, so a brush
  *             entity of such a class stops nothing. Its box is still among `areas`, with `off: true`
  *
  * It returns
  *   { compiled, min, max, doors: [{ number, classname, targetname, min, max, open }],
- *     areas: [{ number, classname, targetname, min, max, door, open, off }]   every brush entity's box,
+ *     areas: [{ number, classname, targetname, min, max, door, open, off, solid, gives }]   every brush
+ *                           entity's box; `solid`: its class stops a body when it is not open; `gives`:
+ *                           its class is one that gives way,
+ *     ladders: [{ number, min, max }]   the boxes of the ladders,
  *     blocked(x, y, body)   the stretches of height `[[from, to, slant]]`, upwards, at which the body's
  *                           FEET cannot be at (x, y): inside the floor, and so near under a ceiling that its
  *                           head is in it. Between two stretches it fits; it stands on the top of one, and
@@ -605,13 +692,23 @@ const listOf = (value) => (value === undefined ? [] : Array.isArray(value) ? val
  *                           "solid", "sky" or "liquid" (the world only: for a side section),
  *     sees(from, to) }      whether the straight line between two points touches nothing solid
  *
- * `body` is one of `BODIES` (the standing player unless told). What stops a body: the world's brushes
+ * `body` is one of `BODIES` or its name, "point", "standing", "large" or "crouching" (the standing player
+ * unless told); anything else is refused in a sentence (`bodyOf`). What stops a body: the world's brushes
  * (`clip` too, but for the point; liquids and the compilers' marks do not), and every brush entity but
  * triggers, ladders, water, `func_illusionary` and the like, and but the doors that are open.
  */
-export function spaceOf(map, { doors = "open", open, shut, off } = {}) {
+export function spaceOf(map, { doors = "open", walls = "standing", open, shut, off, mod } = {}) {
   if (doors !== "open" && doors !== "closed") throw new Error(`doors: "open" or "closed", not ${doors}`);
-  const options = { doors, open: listOf(open), shut: listOf(shut), off: listOf(off) };
+  if (walls !== "standing" && walls !== "gone")
+    throw new Error(`walls: "standing" or "gone", not ${JSON.stringify(walls) ?? String(walls)}`);
+  const options = { doors, walls, open: listOf(open), shut: listOf(shut), off: listOf(off) };
+  // a profile's part, for a caller that hands it over as it is (the walk test and the pictures have taken
+  // theirs out already, with `withMod`): its switched-off names, and the classes of its own that open
+  if (mod && typeof mod === "object") {
+    options.off = [...listOf(mod.off), ...options.off];
+    if (doors !== "closed")
+      options.open = [...listOf(mod.doors).filter((name) => !DOORS.test(name)), ...options.open];
+  }
   return isCompiled(map) ? compiledSpace(map, options) : sourceSpace(map, options);
 }
 
@@ -621,7 +718,8 @@ export function spaceOf(map, { doors = "open", open, shut, off } = {}) {
  * `[from, to]` of heights it is stopped in (it fits again with its feet at `to`). `floor` is the height it
  * would come to rest at if it fell (null: nothing under it), `hang` how far over that its feet are.
  */
-export function restOf(space, feet, body = BODIES.standing) {
+export function restOf(space, feet, body) {
+  body = bodyOf(body, "restOf");
   const stretches = space.blocked(feet[0], feet[1], body);
   const inside = stretches.find(
     (stretch) => feet[2] > stretch[0] + ON_FACE && feet[2] < stretch[1] - ON_FACE,

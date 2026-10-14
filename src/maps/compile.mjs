@@ -71,11 +71,16 @@ const RUNNER_SLACK = 15_000;
  * leaves of the map, each of which a full hlvis holds against the others it may see through.
  * What was measured (VHLT v34, 12 threads, 2026-10): a map of 5088 portals between 1395 leaves took a full
  * hlvis 219 seconds; one of 269 portals between 115 leaves, 0.01. Two maps are no curve: the time is taken
- * to grow with the square of the count, which is the least it does (every portal against every other), so
- * what is foretold is a floor and no promise. From MANY_PORTALS a full hlvis is minutes, and it is said.
+ * to grow with the square of the count (every portal against every other). That is a guess and no floor:
+ * a map of 595 portals was guessed at 3 seconds and took a tenth of one (the Barrow Road, 2026-10-13),
+ * since what a portal sees matters as much as how many there are. So a guess is said only from GUESS_FROM
+ * seconds, where it tells minutes from seconds; under it the portals are counted and nothing is foretold,
+ * and once hlvis has run, what it took is said instead. From MANY_PORTALS a full hlvis is minutes, and it
+ * is said before hlvis begins.
  */
 const VIS_MEASURED = { portals: 5088, seconds: 219 };
 const MANY_PORTALS = 4000;
+const GUESS_FROM = 60;
 /** The compilers print in the machine's old code page; latin1 keeps every byte. */
 const LOG_ENCODING = "latin1";
 /** How much a program may print before it is cut off. */
@@ -257,8 +262,8 @@ function withWads(mapText, wadFiles) {
 
 /**
  * The portals hlbsp left for hlvis: `{ leaves, portals }` from the first two numbers of its .prt file, or
- * null when there is none (a leak, or a map never cut). `seconds` is the least a full hlvis is foretold to
- * take (see VIS_MEASURED).
+ * null when there is none (a leak, or a map never cut). `seconds` is what a full hlvis is guessed to take
+ * from one map measured (see VIS_MEASURED): a guess, said only from GUESS_FROM seconds.
  */
 function portalsOf(workBase) {
   if (!existsSync(`${workBase}.prt`)) return null;
@@ -321,7 +326,7 @@ function runTool(tool, file, args, workFolder, timeout, { progress = false, port
     errors.push(
       `${tool} did not finish in ${Math.round(timeout / 1000)} seconds and was STOPPED: nothing was written where the .bsp goes${
         tool === "hlvis" && portals
-          ? `. It had ${portals.portals} portals between ${portals.leaves} leaves to work through, foretold at ${portals.seconds} seconds or more`
+          ? `. It had ${portals.portals} portals between ${portals.leaves} leaves to work through${portals.seconds >= GUESS_FROM ? `, guessed at about ${portals.seconds} seconds` : ""}`
           : ""
       }. Give it longer (timeout: { ${tool}: milliseconds }), or fast: true for a draft${tool === "hlvis" ? "; or give it less to do: world brushes that only decorate made func_detail, hint brushes" : ""}`,
     );
@@ -457,7 +462,7 @@ export function compileMap(mapFile, options = {}) {
       const left = result.portals;
       const limit = Math.round(limitFor("hlvis") / 1000);
       if (left && vis && !fast && (left.portals >= MANY_PORTALS || left.seconds > limit)) {
-        const said = `hlbsp left ${left.portals} portals between ${left.leaves} leaves: a full hlvis is foretold at ${left.seconds} seconds or more (a map of ${VIS_MEASURED.portals} portals took ${VIS_MEASURED.seconds}, and the time grows at least with the square of the count)${left.seconds > limit ? `, which is more than the ${limit} it is given: it would be stopped` : ""}. Fewer portals: make func_detail of world brushes that only decorate, keep large rooms apart by bends and doors; or fast: true for a draft`;
+        const said = `hlbsp left ${left.portals} portals between ${left.leaves} leaves: a full hlvis is guessed at about ${left.seconds} seconds (a map of ${VIS_MEASURED.portals} portals took ${VIS_MEASURED.seconds}, and the time is taken to grow with the square of the count: a guess from one map)${left.seconds > limit ? `, which is more than the ${limit} it is given: it would be stopped` : ""}. Fewer portals: make func_detail of world brushes that only decorate, keep large rooms apart by bends and doors; or fast: true for a draft`;
         result.warnings.push(said);
         if (progress === true || typeof progress === "number") writeSync(progress === true ? 2 : progress, `smak: ${said}\n`);
       }
@@ -478,6 +483,24 @@ export function compileMap(mapFile, options = {}) {
 }
 
 /**
+ * The portals hlbsp left hlvis, as the end of a line: how many, and what hlvis made of them. What a full
+ * hlvis TOOK, when it ran to its end; a guess at what it would take only where the guess is minutes
+ * (GUESS_FROM seconds and more), and is said to be one; else nothing more. Null when there were none.
+ */
+export function portalsLine(result) {
+  const { portals } = result;
+  if (!portals) return null;
+  const vis = (result.logs ?? []).find((log) => log.tool === "hlvis");
+  const full = vis && vis.code === 0 && !(vis.args ?? []).includes("-fast");
+  const work = full
+    ? `: a full one took ${vis.seconds.toFixed(1)} s`
+    : portals.seconds >= GUESS_FROM
+      ? `: a full one is guessed at about ${portals.seconds} s, from one map measured`
+      : "";
+  return `${portals.portals} between ${portals.leaves} leaves (hlvis's work${work})`;
+}
+
+/**
  * What a compile said, in a few lines for a person or a log: each program with its time and how it ended,
  * then the errors, the leak and the warnings.
  */
@@ -486,10 +509,8 @@ export function compileSummary(result) {
     (log) =>
       `${log.tool}  ${log.seconds.toFixed(1)} s  ${log.code === 0 ? "ended" : log.code === null ? "stopped" : `code ${log.code}`}`,
   );
-  if (result.portals)
-    lines.push(
-      `portals: ${result.portals.portals} between ${result.portals.leaves} leaves (hlvis's work: a full one foretold at ${result.portals.seconds} s or more)`,
-    );
+  const portals = portalsLine(result);
+  if (portals) lines.push(`portals: ${portals}`);
   for (const fact of result.facts ?? []) lines.push(fact);
   for (const error of result.errors) lines.push(`error: ${error}`);
   for (const warning of result.warnings) lines.push(`warning: ${warning}`);

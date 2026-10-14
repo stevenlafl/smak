@@ -78,7 +78,8 @@ import { valueOf } from "./entities.mjs";
  *   play        how the game is played by src/play.mjs, which has each field: no menu, `say`, cl_yawspeed 210
  *               (the SDK's cl_dll/input.cpp), the line a loaded map prints (the engine's "Custom resource
  *               propagation complete", engine/client/cl_parse.c), no command that puts the player at a place,
- *               and the SDK's two messages of text, TextMsg and SayText, read as the SDK writes them
+ *               and the SDK's two messages of text, TextMsg and SayText, read as the SDK writes them; the
+ *               eyes 28 above the origin, a blow struck with `+attack`, and no way to find an enemy
  */
 export const GOLDSRC = deepFrozen({
   name: "goldsrc",
@@ -130,6 +131,10 @@ export const GOLDSRC = deepFrozen({
     ...{ enter: [], say: ["say {text}"], loads: 45000, yawspeed: 210, screen: [1024, 768] },
     ...{ loaded: "Custom resource propagation complete", goto: null },
     messages: { TextMsg: "textmsg", SayText: "saytext" },
+    // the eyes 28 above the origin (VEC_VIEW of the SDK's dlls/util.h); a blow is +attack held a moment
+    // (cl_dll/input.cpp); the game itself says nothing of where an enemy is, of a hit or of a death
+    ...{ eye: 28, target: null, heal: null },
+    fight: { attack: [{ button: "attack", ms: 150, wait: 450 }] },
   },
 });
 

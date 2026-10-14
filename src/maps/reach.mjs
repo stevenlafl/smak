@@ -34,7 +34,27 @@
 // finding a way is a strong hint and no proof: an opening narrower than 32 and a cell together can fall
 // between two places of the grid when it is off the grid. A jump across a gap is tried along sixteen ways
 // only, and as one arc with nothing in its way. Nothing here was measured against the game: it is geometry.
-import { BODIES, START_CLASSES, spaceOf, restOf, bodyFor, pointOf, isCompiled, classUnder } from "./space.mjs";
+//
+// WHAT CARRIES THE WALK ON, besides steps. A `trigger_teleport` walked into, to where its `target` is. A
+// liquid, swum up through. A ladder: at the places of the grid (the flood's own `risen`), and, because a
+// ladder is often climbed in a shaft a few units wide that no place of the grid is in, along upright lines
+// a unit apart all about it (`shaftsOf`). Doors are open unless told; what breaks or is switched off is a
+// wall unless told (`walls: "gone"`).
+//
+// WHY A PART IS NOT WALKED TO. The floor a standing player fits on and the walk did not get to is put in
+// parts, and each is tried the ways an entity is: a jump, a jump with the legs drawn up, crouching, then
+// with every brush entity taken away (the ones in the way are named), then through open air. Each part says
+// which of these it takes, where that way leaves the walked floor, and how near the walked floor comes.
+import {
+  BODIES,
+  START_CLASSES,
+  spaceOf,
+  restOf,
+  bodyFor,
+  pointOf,
+  isCompiled,
+  classUnder,
+} from "./space.mjs";
 import { valueOf, originOf, brushModelOf, asObject } from "./entities.mjs";
 import { STEP_HEIGHT } from "./source.mjs";
 import { withMod } from "./mod.mjs";
@@ -129,6 +149,27 @@ const MOST_OPENINGS = 200;
 const OPENING_SIDES = 128;
 /** How many of one kind of fault are listed before the rest are counted. */
 const LISTED = 12;
+/**
+ * A part of the floor that is not walked to is told when it is this large at the least (square units: a
+ * square of 64); the smaller ones, the tops of crates and of walls, are counted. No more than this many are
+ * told.
+ */
+const PART_LEAST = 4096;
+const MOST_PARTS = 40;
+/** How many places of a part the nearest walked floor is looked for from. */
+const PART_SAMPLES = 12;
+/** How many of the brush entities in a way are named. */
+const BEHIND_LISTED = 4;
+/**
+ * What a walk through brush entities pays to step into one, in units of way: more than any walk is long, so
+ * that of two ways the one through fewer of them is taken, however much longer it is.
+ */
+const TOLL = 1e7;
+/**
+ * A ladder is asked along upright lines a unit apart, all about it; one so large that this would be more
+ * lines than this is asked along lines farther apart.
+ */
+const LADDER_LINES_MOST = 2500;
 /** The eight ways a flood steps in plan: the four straight ones first. */
 const WAYS = [
   [1, 0],
@@ -274,15 +315,40 @@ function gridOf(space, cell) {
  * of heights the body's feet may be at: `floor[spot]` (what it stands on) to `ceil[spot]` (as high as its
  * feet rise before its head is in the ceiling); `slant[spot]` is how its floor lies (the z of its normal:
  * 1 is level). `first[place]` is the first spot of a place and `count[place]` how many it has, upwards.
+ *
+ * `like`: `{ layer, differs }`, for the layer of a space that is another's but for some brush entities:
+ * `layer` is that other's, of the same body, and `differs[place]` is 1 where the two may differ. Elsewhere
+ * the other's spots are taken as they are, and the space is not asked again.
  */
-function layerOf(space, grid, body) {
+function layerOf(space, grid, body, like = null) {
   const first = new Int32Array(grid.places).fill(-1);
   const count = new Uint8Array(grid.places);
   const layer = { body, first, count, floor: [], ceil: [], place: [], slant: [] };
+  const climbsKept = [];
+  /**
+   * What a body climbs or swims up through at a place (`space.climbs`), asked once for every flood of the
+   * layer: ladders and liquids are what they are whatever brush entities are taken away.
+   */
+  layer.climbsOf = (placeNumber) =>
+    (climbsKept[placeNumber] ??= like
+      ? like.layer.climbsOf(placeNumber)
+      : space.climbs(grid.x(placeNumber), grid.y(placeNumber), body));
   /** The spots of a place: its first, after working them out if need be; -1 for a place off the grid. */
   layer.spots = (placeNumber) => {
     if (placeNumber < 0) return -1;
     if (first[placeNumber] >= 0) return first[placeNumber];
+    if (like && !like.differs[placeNumber]) {
+      const from = like.layer.spots(placeNumber);
+      first[placeNumber] = layer.floor.length;
+      count[placeNumber] = like.layer.count[placeNumber];
+      for (let spot = from; spot < from + count[placeNumber]; spot++) {
+        layer.floor.push(like.layer.floor[spot]);
+        layer.slant.push(like.layer.slant[spot]);
+        layer.ceil.push(like.layer.ceil[spot]);
+        layer.place.push(placeNumber);
+      }
+      return first[placeNumber];
+    }
     const stretches = space.blocked(grid.x(placeNumber), grid.y(placeNumber), body);
     first[placeNumber] = layer.floor.length;
     let made = 0;
@@ -318,18 +384,22 @@ function layerOf(space, grid, body) {
  * A flood over one body's spots. `walk`: `{ step, up (the most a step or a jump rises), fly (true: any
  * height, for the point: open air), links (true: each spot's four level neighbours are kept), slopes
  * (false: a floor too steep to stand on is walked like any other), leap (`{ launch, speed, gravity }`:
- * jumps across gaps are tried, `leaps()`) }`. It gives `{ far, from, links, leapt, seed(spot, far),
- * run(until), passes(spot, other), slides(spot), leaps(accept) }`: `far[spot]` is how far the walk to a
- * spot is (undefined: not reached), `from[spot]` the spot before it, `leapt[spot]` true for a spot got to
- * by a jump across. `run` stops at the first spot `until` takes, and `stopped` is then that spot.
+ * jumps across gaps are tried, `leaps()`), toll (`(spot, other) => units`: what a step from one spot to
+ * the next costs over its length) }`. It gives `{ far, from, links, leapt, climbed, seed(spot,
+ * far), run(until), passes(spot, other), slides(spot), leaps(accept) }`: `far[spot]` is how far the walk to
+ * a spot is (undefined: not reached), `from[spot]` the spot before it, `leapt[spot]` true for a spot got
+ * to by a jump across and `climbed[spot]` for one got to by a ladder's shaft. `run` stops at the first
+ * spot `until` takes, and `stopped` is then that spot.
  */
 function floodOf(space, grid, layer, walk) {
   const { cell, counts } = grid;
   const { floor, ceil, slant } = layer;
   const slopes = walk.slopes !== false && !walk.fly;
+  const toll = walk.toll ?? (() => 0);
   const far = [];
   const from = [];
   const leapt = [];
+  const climbed = [];
   const links = walk.links ? [] : null;
   const heap = heapOf();
   const done = [];
@@ -339,8 +409,7 @@ function floodOf(space, grid, layer, walk) {
   const risen = (spot) => {
     if (!space.hasClimbs) return floor[spot];
     let height = floor[spot];
-    const placeNumber = layer.place[spot];
-    for (const stretch of space.climbs(grid.x(placeNumber), grid.y(placeNumber), layer.body))
+    for (const stretch of layer.climbsOf(layer.place[spot]))
       if (stretch[0] <= height + walk.step && stretch[1] > height) height = Math.min(stretch[1], ceil[spot]);
     return height;
   };
@@ -385,13 +454,15 @@ function floodOf(space, grid, layer, walk) {
     from,
     links,
     leapt,
+    climbed,
     passes,
     slides,
-    seed(spot, distance = 0, before = -1, byLeap = false) {
+    seed(spot, distance = 0, before = -1, byLeap = false, byLadder = false) {
       if (spot < 0 || (far[spot] !== undefined && far[spot] <= distance)) return;
       far[spot] = distance;
       from[spot] = before;
       leapt[spot] = byLeap;
+      climbed[spot] = byLadder;
       heap.push(distance, spot);
     },
     run(until) {
@@ -430,13 +501,13 @@ function floodOf(space, grid, layer, walk) {
               level(viaI, beside) === other &&
               level(viaJ, beside) === other
             )
-              flood.seed(other, distance + cell * DIAGONAL, spot);
+              flood.seed(other, distance + cell * DIAGONAL + toll(spot, other), spot);
             continue;
           }
           const start = layer.spots(beside);
           for (let other = start; other < start + layer.count[beside]; other++) {
             if (floor[other] > most + HAIR) break;
-            if (passes(spot, other)) flood.seed(other, distance + cell, spot);
+            if (passes(spot, other)) flood.seed(other, distance + cell + toll(spot, other), spot);
           }
         }
       }
@@ -525,6 +596,48 @@ function landingsOf(grid, layer, spot, di, dj, leap, accept) {
     if (!count) break;
   }
   return found;
+}
+
+/**
+ * The shafts of a ladder, for one body: `[{ foot, top, places }]`. A shaft is a stretch of heights the
+ * body's feet may be at while its box touches the ladder: from the floor under it (`foot`) to the ladder's
+ * top or the ceiling (`top`), whichever is lower; `places` are the places of the grid within a cell of it,
+ * where a body gets on and off.
+ *
+ * The space is asked along upright lines a unit apart, all about the ladder, and not at the places of the
+ * grid alone: a ladder is often a brush 2 thick with a solid brush of rungs before it, in a shaft the body
+ * fits in over a width of a few units only (Master Sword's edanasewers has one of 3), and no place of a grid
+ * of 8 is in such a shaft. Lines that find the same stretch are one shaft.
+ */
+function shaftsOf(space, grid, layer, ladder) {
+  const { half, height } = layer.body;
+  const { cell } = grid;
+  // a box touches the ladder's when its middle is within its half and a unit of it, as `climbs` has it
+  const low = [0, 1].map((axis) => Math.floor(ladder.min[axis] - half - 1) + 1);
+  const high = [0, 1].map((axis) => Math.ceil(ladder.max[axis] + half + 1) - 1);
+  let apart = 1;
+  while (((high[0] - low[0]) / apart + 1) * ((high[1] - low[1]) / apart + 1) > LADDER_LINES_MOST) apart *= 2;
+  const shafts = new Map();
+  for (let y = low[1]; y <= high[1]; y += apart)
+    for (let x = low[0]; x <= high[0]; x += apart) {
+      const stretches = space.blocked(x, y, layer.body);
+      for (let index = 0; index < stretches.length; index++) {
+        const foot = stretches[index][1];
+        const ceiling = stretches[index + 1]?.[0] ?? Infinity;
+        // the body touches the ladder somewhere in this stretch, with its feet no higher than its top
+        if (foot >= ladder.max[2] || ceiling <= ladder.min[2] - height) continue;
+        const top = Math.min(ceiling, ladder.max[2]);
+        const key = `${Math.round(foot)} ${Math.round(top)}`;
+        if (!shafts.has(key)) shafts.set(key, { foot, top, places: new Set() });
+        const shaft = shafts.get(key);
+        for (const px of new Set([Math.floor(x / cell) * cell, Math.ceil(x / cell) * cell]))
+          for (const py of new Set([Math.floor(y / cell) * cell, Math.ceil(y / cell) * cell])) {
+            const placeNumber = grid.at(px, py);
+            if (placeNumber >= 0) shaft.places.add(placeNumber);
+          }
+      }
+    }
+  return [...shafts.values()];
 }
 
 /** The way to a spot, from where the flood began: `[[x, y, z]]`, the points in a line left out. */
@@ -769,6 +882,17 @@ const OTHER_WAYS = [
   { name: "crouch", body: "crouching", up: CROUCH_JUMP_HEIGHT, words: "only crouching (and jumping)" },
   { name: "air", body: "point", up: 0, fly: true, words: "by no way on foot, though open air leads to it" },
 ];
+/**
+ * The ways through: the walk with brush entities that stop a body taken away, and everything a player does
+ * (a jump with the legs drawn up, a jump across). First with those gone that the game itself takes away
+ * (the doors taken as closed, and what breaks or is switched off); then with every one gone. What such a
+ * walk reaches and the walk does not is behind a brush entity, and the ones its way passes through are
+ * named.
+ */
+const THROUGH = [
+  { name: "wall", key: "gives", body: "standing", up: CROUCH_JUMP_HEIGHT, leap: true, gone: "gives" },
+  { name: "wall", key: "all", body: "standing", up: CROUCH_JUMP_HEIGHT, leap: true, gone: "all" },
+];
 
 // ── the walk test ───────────────────────────────────────────────────────────
 /**
@@ -778,8 +902,11 @@ const OTHER_WAYS = [
  *             (where the FEET are; a point goes in the list: `from: [[96, 96, 0]]`). Without it: every place
  *             to start the map has (`START_CLASSES`, or the profile's)
  *   mod       the mod's profile (mod.mjs): its start classes, the box each of its classes moves with (from
- *             its FGD's `size(...)`, its `bodies`, its `origin`) and the classes that open. What is given
- *             here by name (`bodies`, `open`) stands over it
+ *             its FGD's `size(...)`, its `bodies`, its `origin`), the classes that open, and its `exits`,
+ *             `markers`, `wiring` and `off`. A box given here by name stands over the profile's
+ *             (`bodies`); a list given here is ADDED to the profile's (`open`, `exits`, `markers`,
+ *             `wiring`, `off`) and never takes from it: to walk without one of the profile's, hand over
+ *             the profile without it (`mod: { ...profile, wiring: [] }`)
  *   step      the tallest step walked up (18)
  *   jump      false (unless told): no jump. true or 45: jumps are part of the walk, up a ledge of 45 and
  *             across a gap as far as a run carries one (215 for the body's middle, landing level); 63: up
@@ -804,6 +931,11 @@ const OTHER_WAYS = [
  *             out nor, unreached, a warning
  *   doors     "open" (unless told) or "closed"; `open` and `shut`: brush entities taken as not there, and
  *             doors taken as closed, by number, classname or targetname (`spaceOf`)
+ *   walls     "standing" (unless told) or "gone": what breaks, is switched off by name or is pushed aside
+ *             (`GIVES_WAY` of space.mjs: `func_breakable`, `func_wall_toggle`, `func_pushable`) is a
+ *             wall where it stands, or is taken as not there (`spaceOf`). The walk with them gone is where
+ *             a player gets in the end; with them standing, where one gets before anything is broken
+ *   parts     false: the floor that is not walked to is not looked at (`share` is null, `parts` empty)
  *   bodies    `{ name: "large" | "standing" | "crouching" | { half, height, feet } }`: the box a thing moves
  *             with, by classname or targetname, where its class does not say (`bodyFor`)
  *   to        entities to tell the walk to, by number or classname: each gets a sentence and a `route`
@@ -815,8 +947,9 @@ const OTHER_WAYS = [
  * It returns
  *   { warnings, facts            sentences: what is wrong, and what was found
  *     starts                     [{ number, classname, origin, floor }]: where the walk began
- *     entities                   [{ number, classname, targetname, origin, reached, how, far, why, off }] for
- *                                every entity a player goes to. `how`: "walk", or what else it takes:
+ *     entities                   [{ number, classname, targetname, origin, reached, how, far, why, off,
+ *                                behind }] for every entity a player goes to. `behind`: the numbers of the
+ *                                brush entities in the way to one that is not reached (`why` names them). `how`: "walk", or what else it takes:
  *                                "jump", "crouch-jump", "crouch", "air" (open air leads to it, no way on
  *                                foot), "none" (walled off); `far`: the walk to it in units. With `jump`,
  *                                one that only a jump reaches is `reached` and its `how` is "jump"
@@ -835,6 +968,19 @@ const OTHER_WAYS = [
  *     routes                     [{ number, classname, far, points }] for the entities of `to`
  *     doors                      the doors, each with whether it was taken as open
  *     cell, area                 the grid walked on, and the floor walked in square units
+ *     share, standable           the part of the floor a standing player fits on that the walk reaches, 0
+ *                                to 1, and all that floor in square units. Counted on the grid: a place of
+ *                                it and a stretch of heights the body fits in there, over a floor that is
+ *                                not too steep to stand on, is one `cell` x `cell` of floor. The tops of
+ *                                walls and of crates are floor too: a map walked whole comes to less than 1
+ *     parts                      [{ at, area, floors: [lowest, highest], how, why, nearest: { at, away },
+ *                                behind }]: the floor that is not walked to, in parts of 4096 square units
+ *                                and more, the largest first. `how` is what it takes: "jump",
+ *                                "crouch-jump", "crouch", "wall" (brush entities are in the way: `behind`
+ *                                has their numbers), "air" or "none"; `why` says it in words, with where
+ *                                the way leaves the walked floor; `nearest` is the walked floor nearest
+ *                                the part (null: none within 384) and how far from it
+ *     patches                    { count, area }: the parts smaller than that, counted
  *     walked(x, y, under)        the floor a player walks at a place: the highest at or under the height
  *                                `under` (any, without it); null where none is walked. It is a HEIGHT, and a
  *                                floor at 0 is 0: ask `=== null`, or ask `on`
@@ -856,6 +1002,7 @@ export function reachOf(map, options = {}) {
     starts: startClasses = START_CLASSES,
     step = STEP_HEIGHT,
     doors = "open",
+    walls = "standing",
     open,
     shut,
     bodies = {},
@@ -888,7 +1035,7 @@ export function reachOf(map, options = {}) {
     const launch = Math.sqrt(2 * JUMP_GRAVITY * (height - drawnUp));
     return { up: (launch * launch) / (2 * gravity) + drawnUp, leap: { launch, speed, gravity } };
   };
-  const space = spaceOf(map, { doors, open, shut, off });
+  const space = spaceOf(map, { doors, walls, open, shut, off });
   const grid = gridOf(space, cell);
   const things = thingsOf(map);
   const warnings = [];
@@ -967,41 +1114,136 @@ export function reachOf(map, options = {}) {
       `walked from ${begun.length} places to start: ${[...counted].map(([classname, count]) => `${count} ${classname}`).join(", ")}`,
     );
 
-  // ── the walk, on through every teleport it comes to, and (with jumps) across every gap ──
+  // ── the walk, on through every teleport and up every ladder it comes to, and (with jumps) across gaps ──
   const areaOf = new Map(space.areas.map((area) => [area.number, area]));
-  /** Runs a flood to its end. Returns the teleports it took: `[{ number, area, landing }]`. */
-  const carry = (which) => {
+  const teleports = things.filter((thing) => thing.classname === TELEPORT && areaOf.has(thing.number));
+  /** Where a teleport puts a player: the first entity its `target` names. */
+  const targetOf = (thing) =>
+    things.find((other) => other.targetname && other.targetname === thing.keys.target);
+  const shaftsKept = new Map();
+  /** The shafts of every ladder of a space, for a layer of it: worked out once. */
+  const shaftsFor = (ofSpace, ofLayer) => {
+    if (!shaftsKept.has(ofLayer))
+      shaftsKept.set(
+        ofLayer,
+        (ofSpace.ladders ?? []).flatMap((ladder) =>
+          shaftsOf(ofSpace, grid, ofLayer, ladder).map((shaft) => ({ ...shaft, ladder })),
+        ),
+      );
+    return shaftsKept.get(ofLayer);
+  };
+  /**
+   * The ways the ladders' shafts give: `[[from, to, ladder]]`. A body gets ON a shaft from a spot `reached`
+   * takes, at a place about it, whose floor is no more than a step under the shaft's own and no higher than
+   * its top, and from which the ladder is taken hold of (`rise`: as high as the feet get there). It gets
+   * OFF onto any spot about the shaft whose floor is between a step under its foot and a step over its top.
+   */
+  const rungsOf = (ofSpace, ofLayer, reached, rise) => {
+    const found = [];
+    for (const shaft of shaftsFor(ofSpace, ofLayer)) {
+      const about = [];
+      for (const placeNumber of shaft.places) {
+        const start = ofLayer.spots(placeNumber);
+        for (let spot = start; spot < start + ofLayer.count[placeNumber]; spot++) about.push(spot);
+      }
+      const on = about.filter(
+        (spot) =>
+          reached(spot) &&
+          shaft.foot <= ofLayer.floor[spot] + step + HAIR &&
+          ofLayer.floor[spot] <= shaft.top &&
+          ofLayer.floor[spot] + rise + ofLayer.body.height > shaft.ladder.min[2],
+      );
+      if (!on.length) continue;
+      const onto = about.filter(
+        (spot) =>
+          ofLayer.floor[spot] <= shaft.top + step + HAIR && ofLayer.floor[spot] >= shaft.foot - step - HAIR,
+      );
+      for (const from of on) for (const to of onto) if (to !== from) found.push([from, to, shaft.ladder]);
+    }
+    return found;
+  };
+  /**
+   * Runs a flood to its end: through the teleports it comes to, up the ladders' shafts, across the gaps it
+   * jumps. `ofLayer` and `ofSpace` are the flood's own; `fly`: the flood is of open air (no ladder is
+   * wanted); `rise`: as high as its body gets its feet from a floor. It returns `{ hops, taken, ladders,
+   * dead }`: the teleports it took (`[{ number, area, landing }]`), their numbers, the numbers of the
+   * ladders whose shafts led to floor not got to before, and the teleports that lead nowhere.
+   */
+  const carry = (which, ofLayer = layer, ofSpace = space, { fly = false, rise = step } = {}) => {
     const hops = [];
     const taken = new Set();
+    const tried = new Set();
+    const ladders = new Set();
+    const dead = [];
     which.run();
     for (let again = true; again; ) {
       again = false;
-      for (const thing of things) {
-        if (thing.classname !== TELEPORT || taken.has(thing.number) || !areaOf.has(thing.number)) continue;
-        const spot = spotFor(space, grid, layer, which, thing, touch, areaOf.get(thing.number));
-        const target = things.find((other) => other.targetname && other.targetname === thing.keys.target);
-        if (spot < 0 || !target?.origin) continue;
+      for (const thing of teleports) {
+        if (tried.has(thing.number)) continue;
+        const area = areaOf.get(thing.number);
+        const spot = spotFor(ofSpace, grid, ofLayer, which, thing, touch, area, fly);
+        if (spot < 0) continue;
+        tried.add(thing.number);
+        const target = targetOf(thing);
+        if (!target?.origin) {
+          dead.push(`${named(thing)}: no entity with an origin is named ${JSON.stringify(thing.keys.target ?? "")}, its target`); // prettier-ignore
+          continue;
+        }
         taken.add(thing.number);
         const stands = bodyFor(target.classname, target.targetname, bodies) ?? { feet: 0 };
-        const landing = spotUnder(layer, [
+        const landing = spotUnder(ofLayer, [
           target.origin[0],
           target.origin[1],
           target.origin[2] - stands.feet,
         ]);
-        if (landing < 0) continue;
-        hops.push({ number: thing.number, area: areaOf.get(thing.number), landing });
+        if (landing < 0) {
+          dead.push(`${named(thing)}: at ${named(target)}, ${place(target.origin)}, ${ofLayer.body.words} has no room`); // prettier-ignore
+          continue;
+        }
+        hops.push({ number: thing.number, area, landing });
         if (which.far[landing] !== undefined) continue;
         which.seed(landing, which.far[spot], spot);
         again = true;
       }
+      if (!fly && ofSpace.ladders?.length) {
+        // of the ways onto one spot, the shortest
+        const best = new Map();
+        for (const [from, to, ladder] of rungsOf(
+          ofSpace,
+          ofLayer,
+          (spot) => which.far[spot] !== undefined,
+          rise,
+        )) {
+          if (which.far[to] !== undefined) continue;
+          const far = which.far[from] + Math.abs(ofLayer.floor[to] - ofLayer.floor[from]) + grid.cell;
+          if (!best.has(to) || far < best.get(to).far) best.set(to, { from, far, ladder });
+        }
+        for (const [to, { from, far, ladder }] of best) {
+          which.seed(to, far, from, false, true);
+          ladders.add(ladder.number);
+          again = true;
+        }
+      }
       if (which.leaps()) again = true;
       if (again) which.run();
     }
-    return { hops, taken };
+    return { hops, taken, ladders, dead };
   };
-  const { hops, taken } = carry(flood);
-  if (flood !== onFoot) carry(onFoot);
+  const carried = carry(flood, layer, space, { rise: up });
+  const { hops, taken } = carried;
+  if (flood !== onFoot) carry(onFoot, layer, space, { rise: step });
   if (taken.size) facts.push(`${taken.size} teleports were walked into and followed to where they lead`);
+  if (carried.ladders.size)
+    facts.push(
+      `${carried.ladders.size} ladders were climbed to floor that is walked to no other way: ${some(
+        things.filter((thing) => carried.ladders.has(thing.number)).map(named),
+        6,
+      )}`,
+    );
+  if (carried.dead.length)
+    warnings.push(`${carried.dead.length} teleports a player walks into lead nowhere: ${some(carried.dead)}`);
+  // where a teleport puts a player is no place one goes to: it is not counted, unless a marker names it
+  const landings = new Set(teleports.map((thing) => targetOf(thing)?.number));
 
   // ── the entities a player goes to ──
   // a way out is one of them whatever its class: a mod's own (a profile's `exits`) is no trigger_ by name
@@ -1031,6 +1273,7 @@ export function reachOf(map, options = {}) {
           ? (GONE_TO.test(thing.classname) && !FIRED_NOT_TOUCHED.test(thing.classname)) || isExit(thing)
           : !NOT_GONE_TO.test(thing.classname);
     if ((thing.brush ? !area : !thing.origin) || !(goneTo || marked)) continue;
+    if (landings.has(thing.number) && !marked) continue;
     // it is got to as its own class is: a trigger by walking into it
     const sought = under === null ? thing : { ...thing, classname: under };
     const spot = begun.length ? spotFor(space, grid, layer, flood, sought, touch, area) : -1;
@@ -1048,6 +1291,7 @@ export function reachOf(map, options = {}) {
       far: spot >= 0 ? Math.round(flood.far[spot]) : null,
       why: null,
       off: under !== null,
+      behind: [],
       spot,
       thing: sought,
       area,
@@ -1055,33 +1299,168 @@ export function reachOf(map, options = {}) {
   }
 
   // ── what is not reached, tried by other ways ──
+  const waysTried = new Map();
+  /**
+   * The walk by another way, made once: `{ way, layer, flood, space }`, or null for a way the walk itself
+   * has already (a jump, when jumps are part of it) and for one there is nothing to try (no brush entity
+   * to take away).
+   */
+  const tryWay = (way) => {
+    const name = way.key ?? way.name;
+    if (waysTried.has(name)) return waysTried.get(name);
+    let tried = null;
+    const wanted = way.fly || way.gone || way.body !== "standing" || way.up > up;
+    // the brush entities taken away: those that open, break or are switched off, or all that stop a body
+    const inTheWay = way.gone
+      ? space.areas.filter(
+          (each) => each.solid && !each.open && !each.off && (way.gone === "all" || each.door || each.gives),
+        )
+      : [];
+    if (begun.length && wanted && (!way.gone || inTheWay.length)) {
+      const waySpace = way.gone ? spaceOf(map, { off, open: inTheWay.map((each) => each.number) }) : space;
+      const key = way.gone ? `gone ${way.gone}` : way.body;
+      // with brush entities gone the space is as it was but about them: only there is it asked again
+      let like = null;
+      if (way.gone && !layers[key]) {
+        like = { layer, differs: new Uint8Array(grid.places) };
+        const wide = body.half + grid.cell;
+        for (const area of inTheWay)
+          for (
+            let y = Math.floor((area.min[1] - wide) / grid.cell) * grid.cell;
+            y <= area.max[1] + wide;
+            y += grid.cell // prettier-ignore
+          )
+            for (
+              let x = Math.floor((area.min[0] - wide) / grid.cell) * grid.cell;
+              x <= area.max[0] + wide;
+              x += grid.cell
+            ) {
+              // prettier-ignore
+              const placeNumber = grid.at(x, y);
+              if (placeNumber >= 0) like.differs[placeNumber] = 1;
+            }
+      }
+      layers[key] ??= layerOf(waySpace, grid, BODIES[way.body], like);
+      const wayLayer = layers[key];
+      const rise = Math.max(jumpOf(way.up || JUMP_HEIGHT).up, up);
+      // a spot of the way through at which the body does not fit as the map stands: it is in a brush entity
+      const stoppedAt = [];
+      const stopped = (spot) => {
+        stoppedAt[spot] ??= layer.spotAt(wayLayer.place[spot], wayLayer.floor[spot] + 2 * HAIR) < 0;
+        return stoppedAt[spot];
+      };
+      const wayFlood = floodOf(waySpace, grid, wayLayer, {
+        step,
+        up: rise,
+        fly: way.fly,
+        slopes,
+        links: Boolean(way.leap),
+        leap: way.leap ? jumpOf(JUMP_HEIGHT).leap : undefined,
+        toll: way.gone ? (spot, other) => (stopped(other) && !stopped(spot) ? TOLL : 0) : undefined,
+      });
+      for (const start of begun) {
+        const feet = [start.origin[0], start.origin[1], start.floor + (way.fly ? body.height / 2 : 0)];
+        wayFlood.seed(spotUnder(wayLayer, feet));
+      }
+      carry(wayFlood, wayLayer, waySpace, { fly: way.fly, rise });
+      tried = { way, layer: wayLayer, flood: wayFlood, space: waySpace, gone: inTheWay, stopped };
+    }
+    waysTried.set(name, tried);
+    return tried;
+  };
+  /**
+   * The brush entities the way to a spot of a walk through them passes through, the first met first:
+   * `{ areas, jumps }`; `jumps`: the way takes a jump too. Of the entities that were taken away, those
+   * whose box a spot of the way is in where the body does not fit as the map stands; and, where the way
+   * goes by a ladder, those in the ladder's shaft between the two floors.
+   */
+  const inTheWayTo = (tried, spot) => {
+    const chain = [];
+    for (let at = spot; at >= 0 && at !== undefined; at = tried.flood.from[at]) chain.push(at);
+    chain.reverse();
+    const areas = [];
+    let jumps = false;
+    chain.forEach((each, index) => {
+      const x = grid.x(tried.layer.place[each]);
+      const y = grid.y(tried.layer.place[each]);
+      const feet = tried.layer.floor[each];
+      const before = chain[index - 1];
+      if (before !== undefined && !tried.flood.climbed[each]) {
+        const stride = Math.hypot(
+          x - grid.x(tried.layer.place[before]),
+          y - grid.y(tried.layer.place[before]),
+        );
+        if (
+          tried.flood.leapt[each] ||
+          (stride <= grid.cell * 2 && feet - tried.layer.floor[before] > up + HAIR)
+        )
+          jumps = true;
+      }
+      const byLadder = before !== undefined && tried.flood.climbed[each];
+      if (!byLadder && !tried.stopped(each)) return;
+      // the box the body is in here; by a ladder, all it passes through from the spot before
+      const low = byLadder ? Math.min(feet, tried.layer.floor[before]) : feet;
+      const wide = body.half + (byLadder ? grid.cell : 0);
+      for (const area of tried.gone) {
+        if (areas.includes(area)) continue;
+        if (
+          x > area.min[0] - wide &&
+          x < area.max[0] + wide &&
+          y > area.min[1] - wide &&
+          y < area.max[1] + wide &&
+          low < area.max[2] &&
+          feet + body.height > area.min[2]
+        )
+          areas.push(area);
+      }
+    });
+    return { areas, jumps };
+  };
+  /**
+   * The brush entities in a way, in words: each with where it is, and what would take them away. The way is
+   * the shortest with them gone: it may pass through one that a longer way goes round.
+   */
+  const behindWords = ({ areas, jumps }) => {
+    const told = areas.slice(0, BEHIND_LISTED).map((area) => {
+      const middle = area.min.map((value, axis) => (value + area.max[axis]) / 2);
+      return `${named(area)} at ${place(middle)}${area.door ? " (a door taken as closed)" : ""}`;
+    });
+    const more = areas.length > BEHIND_LISTED ? `, and ${areas.length - BEHIND_LISTED} more` : "";
+    const walls = areas.filter((area) => !area.door);
+    const taken = !walls.length
+      ? ""
+      : walls.every((area) => area.gives)
+        ? ' (what breaks or is switched off is a wall unless told: `walls: "gone"`, or `open` by name)'
+        : " (a brush entity is a wall where it stands: `open` takes away those it names)";
+    return `behind ${told.join(", then ")}${more}${taken}${jumps ? "; and the way takes a jump" : ""}`;
+  };
+  /**
+   * What a walk through brush entities finds in the way to a thing: `find(tried)` gives the spot of that
+   * walk the thing is got to at, or -1. The ways through are tried in turn; null when none passes through
+   * any brush entity to get there.
+   */
+  const behindOf = (find) => {
+    for (const way of THROUGH) {
+      const tried = tryWay(way);
+      const spot = tried ? find(tried) : -1;
+      const found = spot >= 0 ? inTheWayTo(tried, spot) : null;
+      if (found?.areas.length) return found;
+    }
+    return null;
+  };
+
   let left = begun.length ? entities.filter((entity) => !entity.reached) : [];
   for (const way of OTHER_WAYS) {
     if (!left.length) break;
-    if (!way.fly && way.body === "standing" && way.up <= up) continue;
-    layers[way.body] ??= layerOf(space, grid, BODIES[way.body]);
-    const wayLayer = layers[way.body];
-    const wayFlood = floodOf(space, grid, wayLayer, {
-      step,
-      up: Math.max(jumpOf(way.up || JUMP_HEIGHT).up, up),
-      fly: way.fly,
-      slopes,
-      links: Boolean(way.leap),
-      leap: way.leap ? jumpOf(JUMP_HEIGHT).leap : undefined,
-    });
-    for (const start of begun) {
-      const feet = [start.origin[0], start.origin[1], start.floor + (way.fly ? body.height / 2 : 0)];
-      wayFlood.seed(spotUnder(wayLayer, feet));
-    }
-    wayFlood.run();
-    while (wayFlood.leaps()) wayFlood.run();
+    const tried = tryWay(way);
+    if (!tried) continue;
     for (const entity of left) {
-      const spot = spotFor(space, grid, wayLayer, wayFlood, entity.thing, touch, entity.area, way.fly);
+      const spot = spotFor(tried.space, grid, tried.layer, tried.flood, entity.thing, touch, entity.area, way.fly); // prettier-ignore
       if (spot < 0) continue;
       entity.how = way.name;
       const where = way.fly
-        ? nearestWalked(grid, layer, flood, entity.origin)
-        : leavesWalk(grid, layer, flood, wayLayer, wayFlood, spot, way, step);
+        ? nearWords(nearestWalked(grid, layer, flood, entity.origin), entity.origin)
+        : leavesWalk(grid, layer, flood, tried.layer, tried.flood, spot, way, step);
       entity.why = `${way.words}${where}`;
     }
     left = left.filter((entity) => entity.how === "none");
@@ -1091,6 +1470,18 @@ export function reachOf(map, options = {}) {
     entity.why = inSolid
       ? "it is inside something solid"
       : `no opening leads to it${space.doors.some((door) => !door.open) ? " (with the doors that are taken as closed)" : ""}`;
+  }
+  // what no floor leads to may be behind a brush entity: the walk with all of them gone says which
+  const walledOff = begun.length
+    ? entities.filter((entity) => !entity.reached && (entity.how === "none" || entity.how === "air"))
+    : [];
+  for (const entity of walledOff) {
+    const found = behindOf((tried) =>
+      spotFor(tried.space, grid, tried.layer, tried.flood, entity.thing, touch, entity.area),
+    );
+    if (!found) continue;
+    entity.behind = found.areas.map((area) => area.number);
+    entity.why = `${entity.why}: ${behindWords(found)}`;
   }
   // what is switched off is told apart: it is looked for, and its not being reached is no fault yet
   const switchedOff = entities.filter((entity) => entity.off);
@@ -1142,6 +1533,7 @@ export function reachOf(map, options = {}) {
         layers,
         flood,
         hops,
+        rungs: rungsOf(space, layer, (spot) => flood.far[spot] !== undefined, Math.max(up, jumpOf(CROUCH_JUMP_HEIGHT).up)), // prettier-ignore
         seeds: [
           ...begun.map((start) => start.spot),
           ...ways.flatMap((entity) =>
@@ -1169,6 +1561,170 @@ export function reachOf(map, options = {}) {
     facts.push(
       `about ${steepSpots * grid.cell * grid.cell} square units of the floor walked are too steep to stand on (a normal's z under ${STEEP}: steeper than 45.6 degrees): a player slides down them, and they are not walked up`,
     );
+
+  // ── the floor that is not walked to: how much, in which parts, and why each ──
+  let share = null;
+  let standable = null;
+  const parts = [];
+  const patches = { count: 0, area: 0 };
+  if (options.parts !== false && begun.length) {
+    const { counts } = grid;
+    const square = grid.cell * grid.cell;
+    // every place of the grid is asked now: the flood asked only those it came to
+    for (let placeNumber = 0; placeNumber < grid.places; placeNumber++) layer.spots(placeNumber);
+    const all = layer.floor.length;
+    const partOf = new Int32Array(all).fill(-1);
+    const found = [];
+    let stood = 0;
+    let got = 0;
+    for (let begin = 0; begin < all; begin++) {
+      // floor too steep to stand on is no floor to get to
+      if (flood.slides(begin)) continue;
+      stood++;
+      if (flood.far[begin] !== undefined) got++;
+      if (flood.far[begin] !== undefined || partOf[begin] >= 0) continue;
+      // a part: the spots a body steps between, level or a step apart
+      const spots = [begin];
+      partOf[begin] = found.length;
+      for (let at = 0; at < spots.length; at++) {
+        const spot = spots[at];
+        const placeNumber = layer.place[spot];
+        const i = placeNumber % counts[0];
+        const j = Math.floor(placeNumber / counts[0]);
+        for (let way = 0; way < 4; way++) {
+          const ni = i + WAYS[way][0];
+          const nj = j + WAYS[way][1];
+          if (ni < 0 || nj < 0 || ni >= counts[0] || nj >= counts[1]) continue;
+          const beside = ni + counts[0] * nj;
+          const start = layer.first[beside];
+          for (let other = start; other < start + layer.count[beside]; other++) {
+            if (partOf[other] >= 0 || flood.far[other] !== undefined || flood.slides(other)) continue;
+            if (Math.abs(layer.floor[other] - layer.floor[spot]) > step + HAIR) continue;
+            if (
+              Math.max(layer.floor[other], layer.floor[spot]) > Math.min(layer.ceil[other], layer.ceil[spot])
+            )
+              continue;
+            partOf[other] = found.length;
+            spots.push(other);
+          }
+        }
+      }
+      found.push(spots);
+    }
+    standable = stood * square;
+    share = stood ? got / stood : null;
+    found.sort((a, b) => b.length - a.length);
+    const least = Math.max(1, PART_LEAST / square);
+    const large = found.filter((spots) => spots.length >= least);
+    for (const spots of found) {
+      if (spots.length >= least) continue;
+      patches.count++;
+      patches.area += spots.length * square;
+    }
+    /**
+     * Of the spots of a part, the one another way gets to first: a spot of that way's own layer, or -1.
+     * `lift`: how far over the part's floor the way's body is looked for (open air: a body's middle).
+     */
+    const firstBy = (tried, spots, lift = 0) => {
+      let best = -1;
+      for (const spot of spots) {
+        let other = spot;
+        if (tried.layer !== layer) {
+          other = tried.layer.spotAt(layer.place[spot], layer.floor[spot] + lift, lift ? 0 : step);
+          if (other < 0) continue;
+          if (!lift && Math.abs(tried.layer.floor[other] - layer.floor[spot]) > step + HAIR) continue;
+        }
+        if (tried.flood.far[other] === undefined) continue;
+        if (best < 0 || tried.flood.far[other] < tried.flood.far[best]) best = other;
+      }
+      return best;
+    };
+    const air = OTHER_WAYS.find((way) => way.fly);
+    const shutDoors = space.doors.some((door) => !door.open);
+    /** What it takes to get to a part: `{ how, why, behind }`, by the ways an entity is tried, in turn. */
+    const whyOf = (spots) => {
+      for (const way of OTHER_WAYS) {
+        const tried = way.fly ? null : tryWay(way);
+        const first = tried ? firstBy(tried, spots) : -1;
+        if (first < 0) continue;
+        const where = leavesWalk(grid, layer, flood, tried.layer, tried.flood, first, way, step);
+        return { how: way.name, why: `${way.words}${where}`, behind: [] };
+      }
+      const between = behindOf((tried) => firstBy(tried, spots));
+      if (between)
+        return { how: "wall", why: behindWords(between), behind: between.areas.map((each) => each.number) };
+      const flown = tryWay(air);
+      if (flown && firstBy(flown, spots, body.height / 2) >= 0)
+        return { how: air.name, why: air.words, behind: [] };
+      return {
+        how: "none",
+        why: `no opening leads to it${shutDoors ? " (with the doors that are taken as closed)" : ""}`,
+        behind: [],
+      };
+    };
+    for (const spots of large.slice(0, MOST_PARTS)) {
+      const points = spots.map((spot) => pointOfSpot(grid, layer, spot));
+      const mean = [0, 1].map((axis) => points.reduce((sum, point) => sum + point[axis], 0) / points.length);
+      const at = points.reduce((best, point) =>
+        Math.hypot(point[0] - mean[0], point[1] - mean[1]) < Math.hypot(best[0] - mean[0], best[1] - mean[1])
+          ? point
+          : best,
+      );
+      const heights = points.map((point) => point[2]);
+      const floors = [heights.reduce((a, b) => Math.min(a, b)), heights.reduce((a, b) => Math.max(a, b))];
+      // the walked floor nearest it, looked for from some of its places
+      let nearest = null;
+      let nearestFrom = null;
+      const every = Math.max(1, Math.floor(points.length / PART_SAMPLES));
+      for (let index = 0; index < points.length; index += every) {
+        const near = nearestWalked(grid, layer, flood, points[index]);
+        if (near && (!nearest || near.away < nearest.away)) [nearest, nearestFrom] = [near, points[index]];
+      }
+      const told = whyOf(spots);
+      // where a way leaves the walked floor is said already; of the others, how near the walked floor comes
+      const near = told.how === "air" || told.how === "none" ? nearWords(nearest, nearestFrom ?? at) : "";
+      const area = spots.length * square;
+      parts.push({
+        at,
+        area,
+        floors,
+        how: told.how,
+        why: `${told.why}${near}`,
+        nearest: nearest && { at: nearest.at.map(Math.round), away: Math.round(nearest.away) },
+        behind: told.behind,
+        words: `about ${area} square units about ${place(at)} (floor z ${floors[0]}${floors[1] === floors[0] ? "" : ` to ${floors[1]}`}): ${told.why}${near}`,
+      });
+    }
+    /** A share as a sentence has it: so many in 100, to a tenth. */
+    const in100 = (value) => Math.round(value * 1000) / 10;
+    facts.push(
+      `the walk reaches ${in100(share ?? 0)} in 100 of the floor a standing player fits on (${got * square} of ${standable} square units, on the grid of ${grid.cell})`,
+    );
+    const smaller = patches.count
+      ? `${patches.count} patches under ${PART_LEAST} square units (${patches.area} in all: the tops of things, as a rule)`
+      : "";
+    if (large.length)
+      facts.push(
+        `${large.length} parts of that floor are not walked to${smaller ? `, and ${smaller}` : ""}; the largest first: ${some(
+          parts.map((part) => part.words),
+          6,
+        )}`,
+      );
+    else if (smaller) facts.push(`the floor that is not walked to is ${smaller}`);
+    // what the whole map is short of, said once: a map made to be jumped through, a map of walls that break
+    const areaBy = (...hows) =>
+      parts.reduce((sum, part) => sum + (hows.includes(part.how) ? part.area : 0), 0);
+    const byJump = areaBy("jump", "crouch-jump");
+    if (!jump && byJump >= standable / 10)
+      facts.push(
+        `about ${byJump} square units of it (${in100(byJump / standable)} in 100 of all the floor) are reached only by a jump: a player is meant to jump there, and \`jump: true\` makes jumps part of the walk`,
+      );
+    const byWall = areaBy("wall");
+    if (byWall >= standable / 20)
+      facts.push(
+        `about ${byWall} square units of it (${in100(byWall / standable)} in 100 of all the floor) are behind brush entities: \`open\` takes away those it names, \`walls: "gone"\` all that break or are switched off`,
+      );
+  }
 
   // ── bodies that do not fit where they stand, or hang ──
   const stuck = [];
@@ -1295,6 +1851,10 @@ export function reachOf(map, options = {}) {
     doors: space.doors,
     cell: grid.cell,
     area,
+    share,
+    standable,
+    parts: parts.map(({ words: _words, ...part }) => part),
+    patches,
     walked: (x, y, under) => floorAt(layer, x, y, under, isWalked),
     stands: (x, y, under) => floorAt(layer, x, y, under, null),
     jumped: (x, y, under) => floorAt(layer, x, y, under, isJumped),
@@ -1394,12 +1954,12 @@ function leapsOf(grid, layer, flood, onFoot) {
 /**
  * The one-way places of a walk: the floor that was reached and from which no seed (a place to start, a way
  * out) is reached back. The flood is run backwards from the seeds over the reached spots, by `rule` (the
- * most a player does to get out: steps, jumps up, slides), through the teleports that were taken (`hops`)
- * and across the gaps a jump clears (`leap`). What is left is tried once more by a crouching body, which
+ * most a player does to get out: steps, jumps up, slides), through the teleports that were taken (`hops`),
+ * by the ladders' shafts (`rungs`) and across the gaps a jump clears (`leap`). What is left is tried once more by a crouching body, which
  * gets out by ways a standing one does not fit. It returns `{ places, inside }`: `places` is `[{ at, area,
  * floors, entry, entities, words }]`, the largest first; `inside[spot]` is 1 for a spot of one.
  */
-function oneWayOf({ space, grid, layers, flood, hops, seeds, rule, leap, entities }) {
+function oneWayOf({ space, grid, layers, flood, hops, rungs = [], seeds, rule, leap, entities }) {
   const layer = layers.standing;
   const { counts, cell } = grid;
   const out = floodOf(space, grid, layer, { ...rule, links: false });
@@ -1440,6 +2000,8 @@ function oneWayOf({ space, grid, layers, flood, hops, seeds, rule, leap, entitie
     for (const hop of hops)
       if (back[hop.landing])
         for (const spot of spotsAbout(grid, layer, flood, hop.area, 0)) if (push(spot)) again = true;
+    // up or down a ladder's shaft to floor that has a way back
+    for (const [from, to] of rungs) if (back[to] && push(from)) again = true;
     if (again) continue;
     // what is left: a jump across a gap to floor that has a way back
     for (const spot of reached) {
@@ -1531,6 +2093,7 @@ function oneWayOf({ space, grid, layers, flood, hops, seeds, rule, leap, entitie
       const stride = Math.hypot(to[0] - from[0], to[1] - from[1]);
       entry = { from, to, drop: from[2] - to[2] };
       if (flood.leapt[first]) how = `, entered by a jump from ${place(from)}`;
+      else if (flood.climbed[first]) how = `, entered by a ladder at ${place(from)}`;
       else if (stride > cell * 2) how = `, entered through a teleport at ${place(from)}`;
       else if (out.slides(first)) how = `, entered down a slope too steep to climb at ${place(to)}`;
       else if (entry.drop > 0) how = `, entered by a drop of ${entry.drop} at ${place(to)}`;
@@ -1608,7 +2171,7 @@ function leapWords(begins, lands) {
   return `a jump of ${run} across a gap, ${ends} (${landing})`;
 }
 
-/** The walked floor nearest a point, in words: how far it is and where. */
+/** The walked floor nearest a point: `{ away, at }`, or null when none is within `NEAREST_WITHIN`. */
 function nearestWalked(grid, layer, flood, point) {
   let best = null;
   const rings = Math.ceil(NEAREST_WITHIN / grid.cell);
@@ -1624,6 +2187,11 @@ function nearestWalked(grid, layer, flood, point) {
         if (!best || away < best.away) best = { away, at: [x, y, layer.floor[spot]] };
       }
     }
+  return best;
+}
+
+/** The walked floor nearest a point, in words: how far it is and where. */
+function nearWords(best, point) {
   if (!best) return `: no walked floor is within ${NEAREST_WITHIN} of it`;
   const rise = Math.round(point[2] - best.at[2]);
   return `: the walked floor comes within ${Math.round(best.away)} of it, at ${place(best.at)}, ${Math.abs(rise)} ${rise < 0 ? "over" : "under"} it`;

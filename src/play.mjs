@@ -65,11 +65,18 @@ export { serveSession, attachSession, sessionState, closeSession, SESSION_PORT }
 /** What a step may do: one of these, or nothing but a wait and a picture. */
 const KINDS = [
   ...["command", "say", "walk", "turn", "button", "hold", "press", "click"],
-  ...["mouse", "mouseDown", "mouseUp", "look", "face", "goto", "where", "map", "expect", "expectNot"],
+  ...["mouse", "mouseDown", "mouseUp", "tap", "look", "face", "faceAt", "goto", "where", "map"],
+  ...["expect", "expectNot", "repeat", "fight"],
 ];
 /** What a step may hold beside its kind, and which kinds take `ms` and `to`. */
-const BESIDE = ["wait", "shot", "ms", "to", "until", "within", "every", "since"];
-const TAKES_MS = ["button", "hold", "mouse"];
+const BESIDE = ["wait", "shot", "ms", "to", "until", "within", "every", "since", "times", "for", "radius"];
+const TAKES_MS = ["button", "hold", "mouse", "tap"];
+/** The kinds that hold steps of their own and end by a line, a count or a time. */
+const LOOPS = ["repeat", "fight"];
+/** The lines of a fight a profile's `play.fight` may give the pattern of. */
+const FIGHT_LINES = ["dealt", "taken", "missed", "slain", "died", "health", "maxHealth"];
+/** What a `fight` step may say in its object. */
+const FIGHT = ["radius", "heal", "post", "attack", "chase", "quiet"];
 /** The kinds that only read: nothing is done to the game, so no wait follows them unless one is given. */
 const READS = ["where", "expect", "expectNot"];
 /** Where a walk goes, as the client library's buttons name it (the SDK's cl_dll/input.cpp). */
@@ -78,6 +85,16 @@ const WALKS = { forward: "forward", back: "back", left: "moveleft", right: "move
 const PAUSE = 1000;
 /** How long a key is held when a `hold` step does not say. */
 const HOLD = 1000;
+/** A tap of the mouse: how long its button is down, and from one tap's beginning to the next's. */
+const TAP = 200;
+const TAP_EVERY = 700;
+/** How far round the player a `fight` and a `faceAt: "target"` look for an enemy unless told. */
+const RADIUS = 768;
+/** Milliseconds a profile's `play.target` is given to answer. */
+const TARGET_WITHIN = 3000;
+/** Milliseconds a fallen player is given to rise, and a fight waits where it finds no enemy. */
+const RISES = 30000;
+const IDLE = 300;
 /** Milliseconds between the commands of one step, so that each is taken in a frame of its own. */
 const BETWEEN = 150;
 /** Milliseconds an `until` waits for its line unless the step says, and between two looks for it. */
@@ -93,8 +110,9 @@ const GOTO_WITHIN = 3000;
 const MAP_NAME = /^[A-Za-z0-9_][A-Za-z0-9_\-/.]*$/;
 const SHOT_NAME = /^[A-Za-z0-9_-]+$/;
 const BUTTON_NAME = /^[a-z][a-z0-9_]*$/;
-/** From where an expectation reads, beside a picture's name. */
+/** From where an expectation reads, beside a picture's name; and an `until`, which may also read "deed". */
 const SINCE = ["run", "map", "step"];
+const BEFORE = "deed";
 /** What a driver is: every one of these is called by `play`. */
 const DRIVER = ["ready", "command", "keyDown", "keyUp", "press", "click", "wait", "shot", "log", "close"];
 /** A run's own lines in what was heard: never matched by an `until` or an expectation. */
@@ -108,6 +126,8 @@ const shown = (value) => (value === undefined ? "nothing" : JSON.stringify(value
 const isCount = (value) => typeof value === "number" && Number.isFinite(value) && value >= 0;
 const isNumber = (value) => typeof value === "number" && Number.isFinite(value);
 const isText = (value) => typeof value === "string" && value.trim() !== "";
+/** An object without the fields that are undefined. */
+const defined = (fields) => Object.fromEntries(Object.entries(fields).filter(([, value]) => value !== undefined));
 
 // ── what the game says ──────────────────────────────────────────────────────
 /**
@@ -185,6 +205,25 @@ export const MESSAGE_READERS = {
  *   yawspeed   the game's cl_yawspeed, in degrees a second: what a `turn` is timed by where the driver
  *              cannot set the view
  *   screen     `[width, height]` of the page the `enter` steps' clicks were measured on
+ *   eye        how far the player's eyes are above his origin (28: the SDK's VEC_VIEW, dlls/util.h): what
+ *              `faceAt` aims from
+ *   target     how the nearest living enemy is found, or null where the game cannot say: either
+ *              `{ commands: ["nearest {radius}"], answer, none, within }`: console commands, the pattern of
+ *              the line that answers, with the named groups `x`, `y`, `z` (the place to aim at) and, if the
+ *              game says them, `id`, `name`, `hp`, `far`, `count` (the living enemies in the radius) and
+ *              `close` (those on the player, as the game counts that); `none` the pattern of the line that
+ *              says there is no enemy; `within` the milliseconds an answer is given (3000). Or a function
+ *              `({ radius, command, heard, view })` that resolves to `{ origin: [x, y, z], id, name, hp, far,
+ *              count, close }` or null: `command(text)` runs a console command, `heard(pattern, within)`
+ *              resolves to the match of the first line said from then on (or null), `view()` is the driver's
+ *   heal       how the player's health is given back in a test: console commands, or a function that gives
+ *              them; null where the game has no such command
+ *   fight      what a `fight` step does and reads: `{ attack, dealt, taken, missed, slain, died, health,
+ *              maxHealth }`. `attack`: the steps of one blow (`[{ tap: "left" }]`), done once a round. The
+ *              rest are patterns of the game's lines, each null where the game says no such thing: a hit the
+ *              player `dealt` and one he has `taken` (the first group the damage), a blow of his that
+ *              `missed`, an enemy `slain` (the first group its name), the player `died`, his `health` and the
+ *              most it can be, `maxHealth` (the first group the number)
  */
 export function playPartOf(mod) {
   const whole = modOf(mod) ?? GOLDSRC;
@@ -221,6 +260,42 @@ export function playPartOf(mod) {
     throw new Error(
       `mod: play.messages gives each message's name the way it is read: one of ${Object.keys(MESSAGE_READERS).join(", ")}, or a function of its bytes; not ${shown(part.messages)}`,
     );
+  if (!isNumber(part.eye))
+    throw new Error(`mod: play.eye is how far the eyes are above the player's origin, not ${shown(part.eye)}`);
+  part.heal ??= null;
+  if (part.heal !== null && !commands(part.heal))
+    throw new Error(
+      `mod: play.heal is a list of console commands that give the player's health back, or a function that gives them, not ${shown(part.heal)}`,
+    );
+  part.target ??= null;
+  if (part.target !== null && typeof part.target !== "function") {
+    const asked = part.target;
+    if (typeof asked !== "object" || Array.isArray(asked) || !commands(asked.commands) || asked.answer === undefined)
+      throw new Error(
+        `mod: play.target is { commands, answer, none } (console commands with {radius} in them, and the patterns of the lines that answer), or a function, not ${shown(asked)}`,
+      ); // prettier-ignore
+    const answer = patternOf(asked.answer, "mod: play.target.answer");
+    if (!["x", "y", "z"].every((name) => answer.source.includes(`(?<${name}>`)))
+      throw new Error(
+        `mod: play.target.answer names the place in the groups (?<x>...), (?<y>...) and (?<z>...), which ${answer} does not`,
+      );
+    const none = asked.none == null ? null : patternOf(asked.none, "mod: play.target.none");
+    if (asked.within !== undefined && !(isCount(asked.within) && asked.within > 0))
+      throw new Error(`mod: play.target.within is a number of milliseconds over 0, not ${shown(asked.within)}`);
+    part.target = { commands: asked.commands, answer, none, within: asked.within ?? TARGET_WITHIN };
+  }
+  if (whole.play?.fight !== undefined && (typeof whole.play.fight !== "object" || !whole.play.fight || Array.isArray(whole.play.fight))) // prettier-ignore
+    throw new Error(
+      `mod: play.fight is an object such as { attack: [{ tap: "left" }], dealt: "You hit .* for (\d+)" }, not ${shown(whole.play.fight)}`,
+    );
+  part.fight = { ...GOLDSRC.play.fight, ...whole.play?.fight };
+  const unknown = Object.keys(part.fight).filter((name) => name !== "attack" && !FIGHT_LINES.includes(name));
+  if (unknown.length)
+    throw new Error(`mod: play.fight has ${unknown.join(", ")}, which it does not read: attack, ${FIGHT_LINES.join(", ")}`); // prettier-ignore
+  if (!Array.isArray(part.fight.attack) || !part.fight.attack.length)
+    throw new Error(`mod: play.fight.attack is the steps of one blow, such as [{ tap: "left" }], not ${shown(part.fight.attack)}`); // prettier-ignore
+  for (const name of FIGHT_LINES)
+    part.fight[name] = part.fight[name] == null ? null : patternOf(part.fight[name], `mod: play.fight.${name}`);
   return part;
 }
 
@@ -269,14 +344,41 @@ function sayCommands(part, text, where) {
  *   { mouse: "left", ms: 2500 }       a button of the mouse held that long: left, right, middle
  *   { mouseDown: "left" }             a button of the mouse held until `{ mouseUp: "left" }` (or the run's
  *                                     end), while the steps between are done
+ *   { tap: "left", times: 3 }         a button of the mouse pressed and let go, `times` over (1), `every`
+ *                                     milliseconds from one tap to the next (700), down for `ms` (200). With
+ *                                     `until`, tapped again every that often until the line comes. A game
+ *                                     that charges a blow while the button is held swings on a tap only
+ *   { faceAt: [1872, 976, 40] }       the view turned to that place, yaw and pitch, from where the player's
+ *                                     eyes are; `faceAt: "target"` turns it to the nearest living enemy, found
+ *                                     as the profile's `play.target` finds one, within `radius` (768)
  *   { goto: [512, 96, 36] }           the player put at that place, by the profile's `play.goto`; the place
  *                                     is the middle of his box, 36 above the floor he stands on
  *   { where: "gate" }                 the player's place and view written into the log, under that name
  *   { map: "barrowroad" }             another map loaded in the same run, and entered as the profile says
  *   { expect: "HIT! .* holy" }        the run fails unless a line heard matches (a regular expression)
  *   { expectNot: "Script Error" }     the run fails if a line heard matches
+ *   { repeat: [steps], until: "x" }   the steps done again and again: until a line (`within`: 30000, and the
+ *                                     run stops when it never comes), `times` over, or `for` that many
+ *                                     milliseconds. With `until` and one of the other two the block ends at
+ *                                     whichever comes first, and a line that did not come stops nothing
+ *   { fight: { heal: 0.5 }, until: "x" }   the nearest enemy faced and struck, again and again, until a line
+ *                                     (`within`) or `for` a time, as `repeat` ends; `fight: true` for a plain
+ *                                     one. In the object: `radius` (768), `heal` (the share of his health
+ *                                     under which the player is healed by the profile's `play.heal`), `post`
+ *                                     ([x, y, z]: where he is put back when he has died and risen), `chase`
+ *                                     (a distance: he walks at an enemy farther off than that), `quiet`
+ *                                     (milliseconds: the fight is over when no enemy has been found for
+ *                                     that long, which stops nothing), `attack` (the steps of one blow,
+ *                                     for the profile's). What happened is written to the log as a line
+ *                                     of the kind "fight", and is the run's `fights`
  * and any step may also carry:
- *   until: "Skeleton .* dies"         after it, a line the game says is waited for (and not the clock)
+ *   until: "Skeleton .* dies"         after it, a line the game says is waited for (and not the clock). A
+ *                                     step that DOES a thing hears from when it began doing it; one that
+ *                                     only waits (`{ until }`, with a picture or not) hears from when the
+ *                                     last step that did a thing began, so that a line said while that
+ *                                     step was still at its work, or in the same instant as the line IT
+ *                                     waited for, is not missed, however many waits follow one deed. No
+ *                                     `until` stops at a line another `until` has stopped at
  *   within: 20000                     the longest `until` waits, in milliseconds (30000): past it the run
  *                                     stops and says what it waited for. With `expect`: how long the line
  *                                     is given to come (unless told: it has to be there already); with
@@ -285,7 +387,8 @@ function sayCommands(part, text, where) {
  *   since: "run"                      with `expect` and `expectNot`: the lines read are those since the
  *                                     run began ("run", as when nothing is said), since the map last
  *                                     loaded ("map"), since this step began ("step"), or since a picture
- *                                     of that name was taken
+ *                                     of that name was taken. With `until`: the same, and "deed" (since
+ *                                     the last step that did a thing began); unless told, as `until` says
  *   wait: 1500                        milliseconds waited after it (unless told: 1000 after a step that does
  *                                     something and has no `until`, none after one that only reads)
  *   shot: "gate"                      a picture taken after the wait: `NN_gate.png`, numbered as taken
@@ -297,10 +400,11 @@ function sayCommands(part, text, where) {
  *
  * Each action is `{ kind, wait, shot, step }` with its own fields: "command" `commands`; "button" `button`,
  * `ms` (and `turn`, the degrees, when it came of one); "hold" `key`, `ms`; "press" `key`; "click" `x`, `y`;
- * "mouse" `mouse`, `ms`; "mouseDown", "mouseUp" `mouse`; "look" `yaw`, `pitch` (one of them); "goto"
- * `commands`, `place`; "where" `name`; "map" `map`; "expect", "expectNot" `pattern`, `within`, `since`;
- * "wait" nothing more. One with `until` has `until` (a RegExp), `within` and `every` (or null) too. `step`
- * is the step as written.
+ * "mouse" `mouse`, `ms`; "mouseDown", "mouseUp" `mouse`; "tap" `mouse`, `ms`, `times`, `every`; "look" `yaw`,
+ * `pitch` (one of them); "faceAt" `place` (or `target: true` with `radius`); "goto" `commands`, `place`;
+ * "where" `name`; "map" `map`; "expect", "expectNot" `pattern`, `within`, `since`; "repeat" `actions`, `times`,
+ * `for`; "fight" `actions` (one blow), `radius`, `heal`, `post`, `chase`, `quiet`, `for`; "wait" nothing more. One with
+ * `until` has `until` (a RegExp), `within`, `every` (or null) and `since` too. `step` is the step as written.
  */
 export function playOf(steps, { mod, pause = PAUSE, what = "step" } = {}) {
   const part = playPartOf(mod);
@@ -347,13 +451,38 @@ function actionOf(step, where, part, pause) {
     refuse("has within, which goes with until, expect or expectNot only");
   if (step.within !== undefined && !(isCount(step.within) && step.within > 0))
     refuse(`waits within ${shown(step.within)}: a number of milliseconds over 0`);
-  if (step.every !== undefined && (step.until === undefined || !kind))
-    refuse("has every, which goes with until, on a step that does a thing to do again");
+  const loops = LOOPS.includes(kind);
+  if (step.every !== undefined && loops)
+    refuse(`has every and ${kind}: what is done again there is the ${kind === "repeat" ? "block" : "blow"} itself`);
+  if (step.every !== undefined && kind !== "tap" && (step.until === undefined || !kind))
+    refuse("has every, which goes with until, on a step that does a thing to do again, and with tap");
   if (step.every !== undefined && !(isCount(step.every) && step.every > 0))
     refuse(`does it again every ${shown(step.every)}: a number of milliseconds over 0`);
-  if (step.since !== undefined && !expects) refuse("has since, which goes with expect or expectNot only");
-  if (step.since !== undefined && !(SINCE.includes(step.since) || SHOT_NAME.test(String(step.since))))
-    refuse(`reads since ${shown(step.since)}: ${SINCE.join(", ")}, or the name of a picture taken before`);
+  if (step.since !== undefined && !expects && step.until === undefined)
+    refuse("has since, which goes with until, expect or expectNot only");
+  const sinces = expects || loops ? SINCE : [...SINCE, BEFORE];
+  if (step.since !== undefined && !(sinces.includes(step.since) || SHOT_NAME.test(String(step.since))))
+    refuse(`reads since ${shown(step.since)}: ${sinces.join(", ")}, or the name of a picture taken before`);
+  if (step.times !== undefined && kind !== "tap" && kind !== "repeat")
+    refuse("has times, which goes with tap or repeat only");
+  if (step.times !== undefined && !(Number.isInteger(step.times) && step.times > 0))
+    refuse(`does it ${shown(step.times)} times: a whole number over 0`);
+  if (step.for !== undefined && !loops) refuse("has for, which goes with repeat or fight only");
+  if (step.for !== undefined && !(isCount(step.for) && step.for > 0))
+    refuse(`goes on for ${shown(step.for)}: a number of milliseconds over 0`);
+  if (step.radius !== undefined && !(kind === "faceAt" && step.faceAt === "target"))
+    refuse('has radius, which goes with faceAt: "target" only (that of a fight is in its object)');
+  const far = (value, of) =>
+    isCount(value) && value > 0 ? value : refuse(`${of} ${shown(value)}: a distance in the map's units, over 0`);
+  const place = (value) => Array.isArray(value) && value.length === 3 && value.every(isNumber);
+  const finds = (does) =>
+    part.target ||
+    refuse(
+      `${does}, and the profile names no way to find one (play.target): the engine has none of its own. Face a place with faceAt: [x, y, z]`,
+    );
+  const quiets = kind === "fight" && step.fight?.quiet !== undefined;
+  if (loops && step.until === undefined && step.times === undefined && step.for === undefined && !quiets)
+    refuse(`${kind === "repeat" ? "repeats" : "fights"} without an end: until (a line), ${kind === "repeat" ? "times (a count) or for (milliseconds)" : "for (milliseconds) or quiet in its object"} says when it stops`); // prettier-ignore
   const pattern = (written, of) => {
     try {
       return patternOf(written, of);
@@ -420,8 +549,58 @@ function actionOf(step, where, part, pause) {
     Object.assign(action, { mouse: mouse(step.mouse), ms: held(step.ms, "holds the mouse's button for") });
   } else if (kind === "mouseDown" || kind === "mouseUp") {
     action.mouse = mouse(step[kind]);
+  } else if (kind === "tap") {
+    const every = step.every ?? TAP_EVERY;
+    const ms = held(step.ms ?? Math.min(TAP, every), "holds the mouse's button for");
+    if (ms > every) refuse(`holds the button ${ms} ms and taps every ${every}: a tap is over before the next`);
+    Object.assign(action, { mouse: mouse(step.tap), ms, times: step.times ?? 1, every });
+  } else if (kind === "faceAt") {
+    if (step.faceAt === "target") {
+      finds("faces the nearest enemy");
+      Object.assign(action, { target: true, radius: far(step.radius ?? RADIUS, "looks for an enemy within") });
+    } else if (place(step.faceAt)) action.place = [...step.faceAt];
+    else refuse(`faces ${shown(step.faceAt)}: [x, y, z], a place in the map's units, or "target" for the nearest enemy`); // prettier-ignore
+  } else if (kind === "repeat") {
+    if (!Array.isArray(step.repeat) || !step.repeat.length)
+      refuse(`repeats ${shown(step.repeat)}: a list of steps, such as [{ faceAt: "target" }, { tap: "left" }]`);
+    action.actions = step.repeat.map((each, index) => actionOf(each, `${where}.${index + 1}`, part, pause));
+    Object.assign(action, { times: step.times ?? null, for: step.for ?? null });
+  } else if (kind === "fight") {
+    const asked = step.fight === true ? {} : step.fight;
+    if (!asked || typeof asked !== "object" || Array.isArray(asked))
+      refuse(`fights ${shown(step.fight)}: true, or an object such as { heal: 0.5, radius: 600 }`);
+    const unknownHere = Object.keys(asked).filter((key) => !FIGHT.includes(key));
+    if (unknownHere.length) refuse(`fights with ${unknownHere.join(", ")}, which no fight has: ${FIGHT.join(", ")}`);
+    finds("fights the nearest enemy");
+    if (asked.heal !== undefined && !(isNumber(asked.heal) && asked.heal > 0 && asked.heal <= 1))
+      refuse(`heals under ${shown(asked.heal)}: a share of the player's health, over 0 and up to 1`);
+    if (asked.heal !== undefined && !(part.heal && part.fight.health))
+      refuse(
+        "heals, and the profile does not say how (play.heal) or by what line the player's health is known (play.fight.health)",
+      );
+    if (asked.post !== undefined && !place(asked.post))
+      refuse(`is held at ${shown(asked.post)}: post is [x, y, z], where the player is put back after a death`);
+    if (asked.post !== undefined && !part.goto)
+      refuse("has a post, and the profile names no command that puts the player at a place (play.goto)");
+    if (asked.attack !== undefined && !(Array.isArray(asked.attack) && asked.attack.length))
+      refuse(`strikes with ${shown(asked.attack)}: attack is the steps of one blow, such as [{ tap: "left" }]`);
+    action.actions = (asked.attack ?? part.fight.attack).map((each, index) =>
+      actionOf(each, `${where}'s blow, step ${index + 1}`, part, pause),
+    );
+    if (action.actions.some((each) => LOOPS.includes(each.kind) || each.until))
+      refuse("strikes with steps that wait or repeat: a blow is done and over");
+    Object.assign(action, {
+      radius: far(asked.radius ?? RADIUS, "looks for an enemy within"),
+      heal: asked.heal ?? null,
+      post: asked.post ? [...asked.post] : null,
+      chase: asked.chase === undefined ? null : far(asked.chase, "walks at an enemy farther than"),
+      quiet: asked.quiet === undefined ? null : held(asked.quiet, "is over when no enemy was found for"),
+      for: step.for ?? null,
+    });
+    if (action.post) action.back = commandsOf(part.goto, { x: action.post[0], y: action.post[1], z: action.post[2] }, action.post, "play.goto"); // prettier-ignore
+    if (action.heal !== null) action.heals = commandsOf(part.heal, {}, [], "play.heal");
   } else if (kind === "goto") {
-    if (!(Array.isArray(step.goto) && step.goto.length === 3 && step.goto.every(isNumber)))
+    if (!place(step.goto))
       refuse(`goes to ${shown(step.goto)}: [x, y, z], the middle of the player's box in the map's units`);
     if (!part.goto)
       refuse(
@@ -446,10 +625,14 @@ function actionOf(step, where, part, pause) {
   if (step.until !== undefined) {
     action.until = pattern(step.until, "waits until");
     action.within = step.within ?? WITHIN;
-    action.every = step.every ?? null;
+    // a tap is tapped again as often as it taps
+    action.every = loops ? null : kind === "tap" ? action.every : (step.every ?? null);
+    // a step that only waits hears from the last that did a thing: see `until` at the head of playOf
+    action.since = step.since ?? (kind ? "step" : BEFORE);
   }
-  const idle = !kind || READS.includes(kind) || kind === "map" || step.until !== undefined;
-  action.wait = step.wait ?? (idle ? 0 : pause);
+  const idle = !kind || READS.includes(kind) || kind === "map" || step.until !== undefined || loops;
+  // a tap is followed by what is left of its `every`, so that taps in steps of their own keep one time
+  action.wait = step.wait ?? (idle ? 0 : kind === "tap" ? action.every - action.ms : pause);
   action.shot = step.shot ?? null;
   action.step = step;
   return action;
@@ -465,8 +648,16 @@ function wantOf(action, driver) {
     return "sets the view, which this driver cannot (it has no look())";
   if (action.kind === "where" && !has("view"))
     return "asks where the player is, which this driver does not know (it has no view())";
-  if (["mouse", "mouseDown", "mouseUp"].includes(action.kind) && !has("mouseDown", "mouseUp"))
+  if (["mouse", "mouseDown", "mouseUp", "tap"].includes(action.kind) && !has("mouseDown", "mouseUp"))
     return "holds a button of the mouse, and this driver has no mouse (no mouseDown() and mouseUp())";
+  if ((action.kind === "faceAt" || action.kind === "fight") && !has("view", "look"))
+    return "turns the view to a place, which this driver cannot (it has no view() and look())";
+  if ((action.target || action.kind === "fight") && !has("lines"))
+    return "finds an enemy by what the game answers, and this driver hears nothing (it has no lines())";
+  for (const inner of action.actions ?? []) {
+    const want = wantOf(inner, driver);
+    if (want) return want;
+  }
   return null;
 }
 
@@ -507,8 +698,13 @@ const placeText = (origin) => (origin ? origin.map(rounded).join(" ") : "nowhere
  *     sheet         the contact sheet of them, `<out>/sheet.png`, or null
  *     steps         one for each thing done: { part: "load" | "enter" | "steps", index, kind, step, at, took,
  *                   picture, heard }: `at` and `took` in milliseconds from the run's start, `picture` its
- *                   file or null, `heard` the line an `until` waited for
+ *                   file or null, `heard` the line an `until` waited for. A step of a `repeat`'s block is
+ *                   there once for each time it was done, with `where` ("step 3.2") and its index in the block
  *     expectations  one for each `expect` and `expectNot`: { where, kind, pattern, passed, line }
+ *     fights        one for each `fight` step: { where, seconds, ended: "line" | "time" | "quiet", line, rounds, blows,
+ *                   dealt: { hits, sum, missed }, taken: { hits, sum }, heals, deaths, down (seconds dead),
+ *                   slain: [names], enemies: { asked, none, most, mean, closeMost, closeMean }, health:
+ *                   { least, most } }, counted by the profile's `play.fight` patterns
  *     passed        true when every expectation held
  *     lines         what was heard in the run: { at, kind, text }, `at` in milliseconds from its start and
  *                   `kind` "console", "error", a message's name, "where", or "play" for the run's own notes
@@ -553,17 +749,19 @@ export function playSession({ driver, mod, pause: sessionPause, tell: sessionTel
     }
   };
   const note = (kind, text) => heard.push({ at: Date.now(), kind, text });
-  /** The first line from `from` on that matches, and is not the run's own. */
-  const found = (pattern, from) => {
+  /** The first line from `from` on that matches, is not the run's own, and is none of `but` (a WeakSet). */
+  const found = (pattern, from, but) => {
     for (let at = from; at < heard.length; at++)
-      if (heard[at].kind !== OWN && pattern.test(heard[at].text)) return heard[at];
+      if (heard[at].kind !== OWN && !but?.has(heard[at]) && pattern.test(heard[at].text)) return heard[at];
     return null;
   };
+  /** The driver's own time where it keeps one (a test's fake), the clock's otherwise: milliseconds. */
+  const clock = () => (typeof driver.clock === "function" ? driver.clock() : Date.now());
   /** Waits until a line from `from` on matches: the line, or null when `within` ran out. */
-  const waitFor = async (pattern, from, within, every, again) => {
+  const waitFor = async (pattern, from, within, every, again, but) => {
     for (let waited = 0, last = 0; ; waited += POLL) {
       await listen();
-      const line = found(pattern, from);
+      const line = found(pattern, from, but);
       if (line || waited >= within) return line;
       if (every && waited - last >= every) {
         last = waited;
@@ -638,24 +836,32 @@ export function playSession({ driver, mod, pause: sessionPause, tell: sessionTel
     const expectations = [];
     const marks = new Map();
     const down = new Set();
+    const fights = [];
+    /** The lines an `until` of this run has stopped at: no other stops at one of them. */
+    const stoppedAt = new WeakSet();
     let first = heard.length;
     let mapFrom = first;
+    /** Where the last step that did a thing began: what "deed" reads from. */
+    let before = first;
     const picture = async (name) => {
       const file = join(out, `${String(pictures.length).padStart(2, "0")}_${name}.png`);
       await driver.shot(file);
       pictures.push(file);
+      // what was said before the picture is heard before it: "since the picture" is then from here
+      await listen();
       marks.set(name, heard.length);
       return file;
     };
     /** One thing done and written down: `does` does it, `shot` names the picture taken after it. */
-    const record = async (phase, index, kind, step, shot, does) => {
+    const record = async (phase, index, kind, step, shot, does, named) => {
       const at = Date.now() - began;
       let file = null;
       let line = null;
       const where =
-        phase === "load"
+        named ??
+        (phase === "load"
           ? "loading the map"
-          : `${phase === "enter" ? "the profile's enter step" : "step"} ${index + 1}`;
+          : `${phase === "enter" ? "the profile's enter step" : "step"} ${index + 1}`);
       try {
         line = (await does(where)) ?? null;
         if (shot) file = await picture(shot);
@@ -666,6 +872,7 @@ export function playSession({ driver, mod, pause: sessionPause, tell: sessionTel
       }
       const entry = { part: phase, index, kind, step, at, took: Date.now() - began - at, picture: file };
       if (line) entry.heard = line.text;
+      if (named) entry.where = named;
       done.push(entry);
       const said = lineOf(entry);
       note(OWN, said.trim());
@@ -685,9 +892,283 @@ export function playSession({ driver, mod, pause: sessionPause, tell: sessionTel
       // told at the run's end by whoever reports it, and kept in the log where it was asked
       note(OWN, expectationLine(entry));
     };
+    /** Where a step reads from, by its `since`; `from` is where the step itself began. */
+    const sinceOf = (since, from) => {
+      if (!SINCE.includes(since) && since !== BEFORE && !marks.has(since))
+        throw new Error(`play: no picture named ${shown(since)} was taken before, to read since`);
+      return since === "run" ? first : since === "map" ? mapFrom : since === "step" ? from : since === BEFORE ? Math.min(before, from) : marks.get(since); // prettier-ignore
+    };
+    /** The view turned to a place: yaw and pitch from where the player's eyes are. */
+    const aim = async ([x, y, z]) => {
+      const { origin } = await driver.view();
+      if (!origin) throw new Error("play: the view cannot be turned to a place: the player is nowhere yet");
+      const [dx, dy, dz] = [x - origin[0], y - origin[1], z - origin[2] - part.eye];
+      const flat = Math.hypot(dx, dy);
+      const to = { pitch: Math.max(-89, Math.min(89, (Math.atan2(dz, flat) * 180) / Math.PI)) };
+      // straight over or under him there is no way to turn to: the yaw stays
+      if (flat > 0.01) to.yaw = (Math.atan2(dy, dx) * 180) / Math.PI;
+      await driver.look(to);
+      return Math.hypot(flat, dz);
+    };
+    /** The nearest living enemy within `radius`, as the profile finds one, or null: `{ origin, ... }`. */
+    const targetOf = async (radius) => {
+      await listen();
+      const asked = heard.length;
+      if (typeof part.target === "function") {
+        const told = await part.target({
+          radius,
+          command: (text) => driver.command(text),
+          heard: async (pattern, within = TARGET_WITHIN) => {
+            const expression = patternOf(pattern, "play.target: heard");
+            const line = await waitFor(expression, asked, within);
+            return line ? expression.exec(line.text) : null;
+          },
+          view: () => driver.view(),
+        });
+        if (told == null) return null;
+        if (!(Array.isArray(told.origin) && told.origin.length === 3 && told.origin.every(isNumber)))
+          throw new Error(`play: the profile's play.target gave ${shown(told)}, where { origin: [x, y, z] } or null was wanted`); // prettier-ignore
+        return told;
+      }
+      const { commands, answer, none, within } = part.target;
+      const said = commandsOf(commands, { radius }, [radius], "play.target");
+      for (const [index, command] of said.entries()) {
+        if (index) await driver.wait(BETWEEN);
+        await driver.command(command);
+      }
+      const either = { test: (text) => answer.test(text) || Boolean(none?.test(text)) };
+      const line = await waitFor(either, asked, within);
+      if (!line)
+        throw new Error(
+          `play: the game did not answer ${shown(said.join("; "))} in ${rounded(within / 1000)} seconds (the profile's play.target): does this map have that command? ${lastLines(asked)}`,
+        );
+      const groups = answer.exec(line.text)?.groups;
+      if (!groups) return null;
+      const number = (text) => (text === undefined || text === "" || !Number.isFinite(Number(text)) ? undefined : Number(text)); // prettier-ignore
+      const origin = [groups.x, groups.y, groups.z].map(Number);
+      if (!origin.every(isNumber))
+        throw new Error(`play: the place of an enemy does not read as numbers in ${shown(line.text)} (the profile's play.target.answer)`); // prettier-ignore
+      return {
+        origin,
+        ...defined({ id: groups.id, name: groups.name }),
+        ...defined({ hp: number(groups.hp), far: number(groups.far), count: number(groups.count), close: number(groups.close) }), // prettier-ignore
+      };
+    };
+    /** Steps of a block done one after another, each written down; true to `ends` stops them. */
+    const block = async (actions, where, ends) => {
+      for (const [index, inner] of actions.entries()) {
+        const named = `${where}.${index + 1}`;
+        await record("steps", index, inner.kind, inner.step, inner.shot, () => act(inner, named), named);
+        if (await ends?.()) return true;
+      }
+      return false;
+    };
+    /**
+     * A block done again and again, as `repeat` and `fight` are: `round` does one pass and gives true when
+     * the pass itself ends it. Gives the line it ended at, or null; stops the run when only `within`
+     * bounded it and the line never came.
+     */
+    const again = async (action, where, from, round) => {
+      const began = clock();
+      // a time the caller set ends it quietly; the `within` of an `until` alone stops the run
+      const quiet = action.for !== null || (action.times ?? null) !== null;
+      const most = action.for ?? (action.until && !quiet ? action.within : Infinity);
+      const but = stoppedAt;
+      let line = null;
+      let passes = 0;
+      let over = false;
+      const ended = async () => {
+        if (action.until) {
+          await listen();
+          line = found(action.until, from, but);
+        }
+        return Boolean(line) || clock() - began >= most;
+      };
+      while (!(await ended())) {
+        const at = clock();
+        over = await round(ended, passes);
+        passes++;
+        if (over || line || (action.times && passes >= action.times)) break;
+        // a pass that took no time would never come to its end by the clock
+        if (clock() === at) await driver.wait(POLL);
+      }
+      if (line) stoppedAt.add(line);
+      else if (action.until && !quiet && !over)
+        throw new Error(
+          `play: the game never said ${action.until} in the ${rounded(action.within / 1000)} seconds its ${action.kind} was given (${passes} ${passes === 1 ? "pass" : "passes"}). ${lastLines(from)}`,
+        );
+      return { line, passes, over, took: clock() - began };
+    };
+    /** The last line heard that matches, back to `from`: its first group as a number, or null. */
+    const lastAmount = (pattern, from = 0) => {
+      if (!pattern) return null;
+      for (let at = heard.length - 1; at >= from; at--) {
+        const read = heard[at].kind === OWN ? null : pattern.exec(heard[at].text);
+        if (read) return Number(read[1]);
+      }
+      return null;
+    };
+    /** A fight: the nearest enemy faced and struck until its end, and what happened written down. */
+    const fight = async (action, where, from) => {
+      const lines = part.fight;
+      const tally = {
+        ...{ where, seconds: 0, ended: null, rounds: 0, blows: 0 },
+        ...{ dealt: { hits: 0, sum: 0, missed: 0 }, taken: { hits: 0, sum: 0 } },
+        ...{ heals: 0, deaths: 0, slain: [], down: 0 },
+        ...{ enemies: { asked: 0, none: 0, most: 0, sum: 0, closeMost: 0, closeSum: 0, closeAsked: 0 } },
+        ...{ health: { least: null, most: null } },
+      };
+      let read = from;
+      let fallen = null;
+      let alone = null;
+      let health = lastAmount(lines.health);
+      let most = lastAmount(lines.maxHealth) ?? health;
+      /** What was said since the last look, counted. */
+      const count = () => {
+        for (; read < heard.length; read++) {
+          const { kind, text } = heard[read];
+          if (kind === OWN) continue;
+          const amount = (pattern) => {
+            const got = pattern?.exec(text);
+            return got ? (Number.isFinite(Number(got[1])) ? Number(got[1]) : 0) : null;
+          };
+          const dealt = amount(lines.dealt);
+          const taken = amount(lines.taken);
+          if (dealt !== null) (tally.dealt.hits++, (tally.dealt.sum += dealt));
+          if (taken !== null) (tally.taken.hits++, (tally.taken.sum += taken));
+          if (lines.missed?.test(text)) tally.dealt.missed++;
+          const slain = lines.slain?.exec(text);
+          if (slain) tally.slain.push(slain[1] ?? text);
+          if (lines.died?.test(text) && fallen === null) {
+            tally.deaths++;
+            fallen = clock();
+          }
+          const now = amount(lines.health);
+          if (now !== null) {
+            health = now;
+            if (fallen === null || now > 0) tally.health.least = Math.min(tally.health.least ?? now, now);
+          }
+          const top = amount(lines.maxHealth);
+          if (top !== null) most = top;
+          if (health !== null) most = Math.max(most ?? health, health);
+        }
+      };
+      const done = async (inner) => {
+        for (const [index, command] of inner.entries()) {
+          if (index) await driver.wait(BETWEEN);
+          await driver.command(command);
+        }
+      };
+      const blow = async () => {
+        for (const [index, inner] of action.actions.entries()) await act(inner, `${where}'s blow, step ${index + 1}`);
+        tally.blows++;
+      };
+      const { line, over, took } = await again(action, where, from, async (ended) => {
+        tally.rounds++;
+        await listen();
+        count();
+        if (fallen !== null) {
+          // down: a game may want a button pressed to rise, so the blows go on; risen when his health is back
+          if (health !== null && health > 0 && lines.health) {
+            tally.down += clock() - fallen;
+            fallen = null;
+            if (action.back) {
+              await done(action.back);
+              await arrived(action.post);
+            }
+            note(OWN, `${where}: the player died and has risen${action.back ? `, and is put back at ${placeText(action.post)}` : ""}`); // prettier-ignore
+          } else if (clock() - fallen > RISES || !lines.health) {
+            // a game that does not say his health: taken to have risen where he fell, after a moment
+            tally.down += clock() - fallen;
+            fallen = null;
+            if (lines.health) throw new Error(`play: the player died in ${where} and had not risen ${rounded(RISES / 1000)} seconds after: the game never said his health again`); // prettier-ignore
+          } else {
+            await blow();
+            return false;
+          }
+        }
+        if (action.heal !== null && health !== null && most && health < action.heal * most) {
+          await done(action.heals);
+          tally.heals++;
+          // the game is given a moment to say his health again, so that one wound is healed once
+          const told = heard.length;
+          await waitFor(lines.health, told, 1000);
+          count();
+        }
+        const enemy = await targetOf(action.radius);
+        tally.enemies.asked++;
+        if (!enemy) {
+          tally.enemies.none++;
+          alone ??= clock();
+          if (action.quiet !== null && clock() - alone >= action.quiet) return true;
+          await driver.wait(IDLE);
+          return false;
+        }
+        alone = null;
+        const seen = enemy.count ?? 1;
+        tally.enemies.sum += seen;
+        tally.enemies.most = Math.max(tally.enemies.most, seen);
+        if (enemy.close !== undefined) {
+          tally.enemies.closeAsked++;
+          tally.enemies.closeSum += enemy.close;
+          tally.enemies.closeMost = Math.max(tally.enemies.closeMost, enemy.close);
+        }
+        const far = await aim(enemy.origin);
+        if (action.chase !== null && far > action.chase) {
+          // a step towards him, and the blow all the same: he may be in reach before it lands
+          await driver.command("+forward");
+          try {
+            await driver.wait(Math.min(600, Math.max(100, ((far - action.chase) / 200) * 1000)));
+          } finally {
+            await driver.command("-forward");
+          }
+          if (await ended()) return true;
+          await aim(enemy.origin);
+        }
+        await blow();
+        return false;
+      });
+      await listen();
+      count();
+      if (fallen !== null) tally.down += clock() - fallen;
+      tally.seconds = rounded(took / 1000);
+      tally.down = rounded(tally.down / 1000);
+      tally.ended = line ? "line" : over ? "quiet" : "time";
+      if (line) tally.line = line.text;
+      for (const side of [tally.dealt, tally.taken]) side.sum = rounded(side.sum);
+      const { asked, none, sum, closeAsked, closeSum, ...kept } = tally.enemies;
+      tally.enemies = {
+        ...{ asked, none, most: kept.most, mean: asked ? Math.round((sum / asked) * 100) / 100 : 0 },
+        ...(closeAsked ? { closeMost: kept.closeMost, closeMean: Math.round((closeSum / asked) * 100) / 100 } : {}),
+      };
+      tally.health.most = most ?? null;
+      fights.push(tally);
+      note("fight", fightLine(tally));
+      tell?.(fightLine(tally));
+      return line;
+    };
     /** One action done through the driver: what it does, its `until`, then its wait. */
     const act = async (action, where) => {
+      // what was said before the step is heard before it, so that "from this step on" is from here
+      await listen();
       const from = heard.length;
+      const hears = action.until ? sinceOf(action.since, from) : from;
+      // a step that only reads or waits moves nothing on: the waits after a step that did a thing all hear from it
+      if (!READS.includes(action.kind) && action.kind !== "wait") before = from;
+      if (action.kind === "repeat") {
+        const { line, passes } = await again(action, where, hears, async (ended) => {
+          await block(action.actions, where, ended);
+          return false;
+        });
+        note(OWN, `${where}: repeated ${passes} ${passes === 1 ? "time" : "times"}${line ? "" : action.until ? `, and the game did not say ${action.until}` : ""}`); // prettier-ignore
+        if (action.wait > 0) await driver.wait(action.wait);
+        return line;
+      }
+      if (action.kind === "fight") {
+        const line = await fight(action, where, hears);
+        if (action.wait > 0) await driver.wait(action.wait);
+        return line;
+      }
       const once = async () => {
         if (action.kind === "command" || action.kind === "goto")
           for (const [index, command] of action.commands.entries()) {
@@ -729,6 +1210,25 @@ export function playSession({ driver, mod, pause: sessionPause, tell: sessionTel
           } finally {
             await driver.mouseUp(action.mouse);
           }
+        } else if (action.kind === "tap") {
+          for (let tapped = 0; tapped < action.times; tapped++) {
+            if (tapped) await driver.wait(action.every - action.ms);
+            await driver.mouseDown(action.mouse);
+            try {
+              await driver.wait(action.ms);
+            } finally {
+              await driver.mouseUp(action.mouse);
+            }
+          }
+        } else if (action.kind === "faceAt") {
+          let place = action.place;
+          if (action.target) {
+            const enemy = await targetOf(action.radius);
+            if (!enemy)
+              throw new Error(`play: there is no living enemy within ${action.radius} of the player to face`);
+            place = enemy.origin;
+          }
+          await aim(place);
         } else if (action.kind === "mouseDown") {
           await driver.mouseDown(action.mouse);
           down.add(action.mouse);
@@ -754,11 +1254,12 @@ export function playSession({ driver, mod, pause: sessionPause, tell: sessionTel
       if (action.kind === "goto" && typeof driver.view === "function") await arrived(action.place);
       let line = null;
       if (action.until) {
-        line = await waitFor(action.until, from, action.within, action.every, once);
+        line = await waitFor(action.until, hears, action.within, action.every, once, stoppedAt);
         if (!line)
           throw new Error(
-            `play: the game never said ${action.until} in the ${rounded(action.within / 1000)} seconds it was given. ${lastLines(from)}`,
+            `play: the game never said ${action.until} in the ${rounded(action.within / 1000)} seconds it was given. ${lastLines(hears)}`,
           );
+        stoppedAt.add(line);
       }
       if (action.wait > 0) await driver.wait(action.wait);
       return line;
@@ -818,10 +1319,16 @@ export function playSession({ driver, mod, pause: sessionPause, tell: sessionTel
       mapFrom = first;
       // a game leaving a map may write its own files (a character saved as the server ends): the map is left
       // first, so that what is put is what the next map reads and not what the last one wrote over it
-      if (put.length && state.map !== null && typeof driver.leave === "function") {
+      // (a run that stays is not taken out of its map: what is put is read when the game next opens it)
+      if (put.length && !staying && state.map !== null && typeof driver.leave === "function") {
         await driver.leave();
         await driver.wait(LEAVES);
         state.entered = false;
+      }
+      if (put.length && staying) {
+        const said = "put while staying: the map is not left, and the game reads these files when it next opens them (a map, a script pack: at the next map)"; // prettier-ignore
+        note(OWN, said);
+        tell?.(said);
       }
       for (const each of put) {
         const bytes = each.bytes ?? readFileSync(each.file);
@@ -872,14 +1379,14 @@ export function playSession({ driver, mod, pause: sessionPause, tell: sessionTel
     const passed = !failure && expectations.every((each) => each.passed);
     const result = {
       ...{ map: state.map, out, took: Date.now() - began, passed },
-      ...{ pictures, sheet: sheetFile, steps: done, expectations },
+      ...{ pictures, sheet: sheetFile, steps: done, expectations, fights },
       ...{ logFile, linesFile: hears ? linesFile : null, resultFile: join(out, "result.json") },
     };
     writeFileSync(
       result.resultFile,
       JSON.stringify({ ...result, failure: failure ? failure.message : null }, null, 2),
     );
-    if (failure) throw Object.assign(failure, { pictures, logFile, sheet: sheetFile, expectations });
+    if (failure) throw Object.assign(failure, { pictures, logFile, sheet: sheetFile, expectations, fights });
     return { ...result, lines, log };
   }
 
@@ -906,7 +1413,9 @@ export function playSession({ driver, mod, pause: sessionPause, tell: sessionTel
  *            `shot(file)` writes a PNG of what the player sees, `log()` gives the console's lines and
  *            `close()` ends it. Each may be async. A driver may also have `lines(from)` (what it heard:
  *            `until` and the expectations need it), `view()` and `look({ yaw, pitch })` (`look`, `face`,
- *            `where`, an exact `turn`), `mouseDown(button)` and `mouseUp(button)`, and `put(path, bytes)` with `leave()`.
+ *            `where`, `faceAt`, `fight`, an exact `turn`), `mouseDown(button)` and `mouseUp(button)`,
+ *            `put(path, bytes)` with `leave()`, and `clock()` (its own time in milliseconds, where it is
+ *            not the clock's: a test's fake, by which `repeat` and `fight` then count their time).
  *            `browserDriver` makes the kit's own, which has them all
  *   map      the map's name, as `map <name>` takes it
  *   steps    what to do once in the game (`playOf` has the format)
@@ -942,10 +1451,34 @@ export async function play({ driver, mod, pause, tell, ...run } = {}) {
 }
 
 /** One thing done, as a line: when, how long, what, its picture and the line it waited for. */
-function lineOf({ part, kind, step, at, took, picture, heard }) {
+function lineOf({ part, kind, step, at, took, picture, heard, where }) {
   const seconds = (ms) => `${(ms / 1000).toFixed(1).padStart(6)} s`;
   const what = kind === "ready" ? "the engine is up" : JSON.stringify(step);
-  return `${seconds(at)} ${seconds(took)}  ${part === "enter" ? "enter  " : ""}${what}${heard ? `   heard: ${heard}` : ""}${picture ? `   -> ${picture}` : ""}`;
+  // a step of a block is said with its place in it: "1.2" is the second step of step 1's block
+  const of = part === "enter" ? "enter  " : where ? `${where.replace(/^step /, "")}  ` : "";
+  return `${seconds(at)} ${seconds(took)}  ${of}${what}${heard ? `   heard: ${heard}` : ""}${picture ? `   -> ${picture}` : ""}`;
+}
+
+/**
+ * A fight, as a line: how long, how it ended, the blows struck and landed, the hits taken, the heals, the
+ * deaths, who was slain, how many enemies there were at once and the least health seen.
+ */
+export function fightLine(fight) {
+  const { where, seconds, ended, line, rounds, blows, dealt, taken, heals, deaths, slain, enemies, health, down } = fight; // prettier-ignore
+  const rate = (sum) => (seconds > 0 ? (sum / seconds).toFixed(2) : "0.00");
+  const names = new Map();
+  for (const name of slain) names.set(name, (names.get(name) ?? 0) + 1);
+  const dead = [...names].map(([name, count]) => (count > 1 ? `${name} x${count}` : name)).join(", ");
+  return [
+    `fight (${where}): ${seconds} s, ended by ${ended === "line" ? `the line ${shown(line)}` : ended === "quiet" ? "no enemy being left" : "its time"}`,
+    `${blows} blows in ${rounds} rounds`,
+    `dealt ${dealt.hits} hits, ${dealt.sum} in all (${rate(dealt.hits)} hits a second), ${dealt.missed} missed`,
+    `taken ${taken.hits} hits, ${taken.sum} in all (${rate(taken.sum)} a second)`,
+    `${heals} ${heals === 1 ? "heal" : "heals"}, ${deaths} ${deaths === 1 ? "death" : "deaths"}${deaths ? ` (${down} s down)` : ""}`,
+    `slain ${slain.length}${dead ? `: ${dead}` : ""}`,
+    `enemies at once: ${enemies.most} at most, ${enemies.mean} on average${enemies.closeMost === undefined ? "" : `; on the player: ${enemies.closeMost} at most, ${enemies.closeMean} on average`}${enemies.none ? ` (none found in ${enemies.none} of ${enemies.asked} rounds)` : ""}`,
+    `health ${health.least ?? "not said"} at its least${health.most ? ` of ${health.most}` : ""}`,
+  ].join("; ");
 }
 
 /** An expectation, as a line: whether it held, what it was, where it was asked and the line that decided. */

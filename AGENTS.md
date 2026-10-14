@@ -173,6 +173,23 @@ not where the animated model had it. Draw, measure and paint in a pose the game 
 `{ seq: "idle", frame: 0 }`), use the same pose for every step of a job, and compare one picture at rest with
 one animated before trusting either.
 
+## Bought models (docs/IMPORT.md)
+
+`smak import <file>` first: it says the axes, units, size at true scale, meshes, materials and which picture
+it found for each. Readers give GoldSrc's axes (+x forward, +z up) in the file's units, with v counted from
+the top. Fit sizes (`--fit`): packs are not to scale. For a weapon use `smak item <file.fbx> --family ...`,
+read the `assumed:` lines, and look at `--pictures`; correct with `--axis/--grip/--flip/--as`. For a rigged
+file use `--anim`, then `smak strip`. A bone count over 128 is refused; one bone a point. Never copy a bought
+file into a repository: its licence almost always forbids it.
+
+## Testing in the game, and maps beside the game's
+
+- To test a fight, write `{ "fight": { "heal": 0.5, "post": [...] }, "until": "<the line that ends it>" }`,
+  not a loop outside: the summary line is the measure of difficulty.
+- A held mouse button charges in Master Sword: use `tap`.
+- `map-measure new.bsp game.bsp --every --mod <profile>` and `map-compare new.bsp game.bsp -o same.png --z
+  100,-` set a new map beside the game's.
+
 ## How a studio model is put together
 
 You need this model in your head; the API mirrors it exactly.

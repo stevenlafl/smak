@@ -3,6 +3,60 @@
 The newest first. A version that changes what a model's file looks like, or that a model made before needs
 mending for, says so under **Mind**.
 
+## 0.14.0 (2026-10-13)
+
+Bought models, and a fight played by one step. A person's folder of bought low-poly packs (some 1750 .fbx,
+1600 .glb, 1150 .obj) is now read whole; a bought mace, shield and bow went into a game's own weapon files with
+`check` clean, and a rigged zombie came in with its skeleton and both its animations. And the faults agents met
+building a second map with 0.13 are mended: a fight is one step, a wait no longer misses a line, a map is
+measured beside the game's.
+
+- **Bought models.** `readFbx` (binary FBX 7.0-7.7 with zlib arrays, and the text form) and `readGlb` (.glb,
+  .gltf with its .bin) read meshes, texture coordinates, normals, materials and their pictures, every node's
+  place, the file's axes and units, skins and animations into one shape, which `readObj` now shares through
+  `importedObj`. `importModel` makes a prop of it at its true size, or `fit`; `importPiece` makes a piece for
+  `addItem` (a haft, a shield, by outline; its grip found or told); `importRigged` makes a model with the
+  file's bones and animations, each point on its heaviest bone. `unjpeg` reads baseline JPEG. Commands:
+  `smak import <file|folder>` (what is in it; `-o` a prop; a folder: props, sheet.png, import.json; `--anim`),
+  and `smak item` takes a .fbx/.glb/.gltf/.obj in place of a piece module. Checked against Blender 5.2 and
+  against the same models shipped in two formats (docs/IMPORT.md).
+- **A fight played by one step, and steps that repeat.** `fight` faces the nearest living enemy (the
+  profile's new `play.target`: commands and the line that answers, or a function) and strikes
+  (`play.fight.attack`), heals under a share of health (`play.heal`), puts a fallen player back at `post`, and
+  ends by a line, a time, or when no enemy is left (`quiet`). What happened (seconds, blows, hits dealt and
+  taken with their sums, heals, deaths, the slain, enemies at once and on the player, the least health) is a
+  `fight` line of the log and `fights` in result.json. `repeat` runs a block until a line, a count or a time.
+  `faceAt` turns to a place, or to `"target"`. `tap` presses and lets go; a held button only charges a blow in
+  Master Sword. A wing of 14 monsters fought by an outside loop guessing where to face took about 14 minutes
+  and died 11 times; by one step file, 6 minutes and none.
+- **From where an `until` hears.** A step that does a thing hears from its own beginning; a wait hears from
+  the last step that did a thing, so a line said in the same instant as the one before, or during its wait,
+  is no longer missed. No `until` stops at a line another stopped at. `since` goes on `until` too (and
+  `"deed"`).
+- **A run that stays stays**: `stay` with `put` no longer leaves the map.
+- **The walk test says how much of the floor it walks, and why not the rest**: `reach.share`, `standable`,
+  and `parts` (each part not walked, `how`: jump, crouch-jump, crouch, wall, air, none; the brush entities in
+  the way by name; the walked floor nearest). Ladders off the grid are climbed, teleports followed by every
+  way it tries, `walls: "gone"` (`--walls`) for what breaks, toggles or is pushed. A body is asked for by name
+  (`bodyOf`). With `mod`, a list given adds to the profile's.
+- **A map in numbers, beside the game's** (`maps.measure`, `measureTable`, `smak map-measure`): width bands,
+  medians and quartiles, headroom of corridors and rooms, sight lines, openings, storeys, footprint and fill.
+  **Maps at one scale** (`maps.compareOf`, `smak map-compare`).
+- **Views from places to start**: starts that stand together get one view; a view nearly one colour is
+  dropped for the next room (`facts.dropped`).
+- **stairs** takes `top: false` and `tread`; the default is as before.
+- **A compile says what hlvis took**, and guesses only where the guess is a minute or more (`portalsLine`).
+- **map-check --scripts** warns of the checked map's own unnamed scripts only; `--all` of every one.
+- The Master Sword profile: no "Graphics test" box (`ms_didbloomcheck 1` before entering), a box with no
+  title read as its text, `eye`, `heal`, `target` (`trial nearest`), `fight`.
+- New: src/fbx.mjs, src/glb.mjs, src/import-*.mjs, src/maps/measure.mjs, docs/IMPORT.md, tests 34-39 and
+  41-45 with their fixtures (written in code: no bought file is in the kit).
+
+**Mind**: `until` hears from a step's beginning or from the last deed, and never matches a stopped-at line
+again: a run that relied on a stale line now behaves otherwise. `compileMap`'s words for the portals changed.
+`map-check --scripts` warns less unless `--all`. An imported rigged model has each point on one bone (it
+may crease at shared joints) and is no monster yet: no activities, events or travel are set.
+
 ## 0.13.0 (2026-10-13)
 
 A weapon in one recipe, a game that is heard, and the faults agents met building two maps. Three agents

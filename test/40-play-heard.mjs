@@ -180,7 +180,7 @@ test("a wrong new step is refused in a sentence that names it", () => {
     [[{ walk: 100, until: "" }], /step 1 waits until is a regular expression as text.*not ""/],
     [[{ walk: 100, within: 500 }], /has within, which goes with until, expect or expectNot only/],
     [[{ until: "x", every: 500 }], /has every, which goes with until, on a step that does a thing/],
-    [[{ walk: 100, since: "map" }], /has since, which goes with expect or expectNot only/],
+    [[{ walk: 100, since: "map" }], /has since, which goes with until, expect or expectNot only/],
     [[{ expect: "x", until: "y" }], /has until and expect: an expectation waits by its own within/],
     [[{ look: 10, walk: 100 }], /step 1 has walk and look: one thing a step/],
   ];

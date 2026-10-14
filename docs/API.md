@@ -550,9 +550,9 @@ change a model call it themselves: use it on files that came from elsewhere.
 
 `import { maps } from "smak"` (or `"smak/maps"`, or `./smak/src/maps/index.mjs`). Their functions are listed in
 two documents of their own: `docs/MAPS.md` (a compiled map read and checked, its entities, textures and `.wad`
-files, its pictures: `drawMap`, `planOf`, `viewsOf`, `drawSource`, `planOfSource`, `sectionOf`, `storeysOf`,
+files, its pictures: `drawMap`, `planOf`, `viewsOf`, `compareOf`, `drawSource`, `planOfSource`, `sectionOf`, `storeysOf`,
 `openingViews`, what they draw of the game's files: `figuresOf`, `spritesOf`, `readSpr`, `skyOf`, `readTga`,
-the walk test: `reachOf`, `spaceOf`, `restOf`, `storeyCuts`, and a map's entities against its
+the walk test: `reachOf`, `spaceOf`, `restOf`, `storeyCuts`, a map in numbers: `measure`, `measureTable`, and a map's entities against its
 mod: `checkEntities`, `definitionsOf`, `learnEntities`, `classesOfDll`, `GOLDSRC`, `loadMod`) and
 `docs/MAPS-MAKING.md` (brushes, entities, the `.map` file, the plan check, a mod's profile and the compile).
 

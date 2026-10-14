@@ -4,7 +4,7 @@ Tools for making and changing GoldSrc models (`.mdl`: Half-Life and its mods), b
 coding agent such as Claude Code. You say what you want; the agent writes small scripts with this kit, draws the
 result into pictures to check its own work, and hands you a `.mdl` to try in the game.
 
-Version 0.13.0. An early release, made for an agent to work. For the person it has two pages in the browser: a
+Version 0.14.0. An early release, made for an agent to work. For the person it has two pages in the browser: a
 **viewer** that shows any two models side by side, turning and playing their animations together, and an
 **editor** for touching up a model by hand (its animations, events and textures; not its shape), on a project
 file the agent can work on too (`editor/README.md`).
@@ -23,6 +23,8 @@ file the agent can work on too (`editor/README.md`).
   that shares its skeleton.
 - **Items**: adds a new weapon, shield or bow to the files a game already shows its kind from, as new
   submodels after the ones it has, laid on the game's own, with the numbers its script needs (`smak item`).
+- **Bought models**: an .fbx, .glb/.gltf or .obj made a prop, a weapon in a game's own files, or a model with
+  its skeleton and animations (`smak import`, `smak item mace.fbx ...`; docs/IMPORT.md).
 - **Checking**: tells whether a model stays inside what GoldSrc, or Xash3D, can load.
 - **Pictures**: draws any model from any side, or as the player sees a weapon, so the agent can see what it made.
 
@@ -119,6 +121,16 @@ body 0: `info` shows the body numbers, and `--body N` picks one.
   the game is the real test.
 - Many models give the left and right side of the body the same pixels of a texture. A mark painted on one side
   then shows on the other; the kit reports how much of each texture is shared.
+
+## What changed in 0.14.0
+
+- **Bought models** (`smak import`, docs/IMPORT.md): FBX, glTF and OBJ read whole, checked against Blender;
+  a prop, a weapon in a game's own files (`smak item mace.fbx --family ...`), or a model with its bones and
+  animations.
+- **A fight played and counted by one step** (`fight`, with `repeat`, `tap`, `faceAt`; docs/PLAY.md), and a
+  wait that no longer misses a line said in the same instant as the one before.
+- **A map beside the game's**: `map-measure` (a map in numbers), `map-compare` (maps at one scale), and why
+  the floor is not walked (`reach.share`, `reach.parts`).
 
 ## What changed in 0.13.0
 
