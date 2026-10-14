@@ -16,7 +16,7 @@ import {
   embeddedTexture,
   worldBounds,
 } from "./bsp.mjs";
-import { valueOf, brushModelOf, LONGEST_KEY, LONGEST_VALUE } from "./entities.mjs";
+import { valueOf, brushModelOf, LONGEST_KEY, LONGEST_VALUE, modelless } from "./entities.mjs";
 import { miptexHeader, enginePaletteAt, TEXTURE_GRID, MIP_LEVELS } from "./miptex.mjs";
 import { texturesFor } from "./wad.mjs";
 import { modOf } from "./mod.mjs";
@@ -376,6 +376,7 @@ function checkTextures(bsp, engine, folders, { errors, warnings, facts }) {
 }
 
 // ── entities ───────────────────────────────────────────────────────────────
+
 /**
  * The entities: a worldspawn first, brush entities on models the map has, and nothing the engine cannot read.
  */
@@ -392,6 +393,11 @@ function checkEntities(bsp, engine, { errors, warnings, facts }) {
       `the entity lump is ${bsp.lumps.entities.length} bytes: Xash refuses one under ${XASH_LEAST_ENTITY_BYTES}`,
     );
 
+  const empty = modelless(entities, valueOf);
+  if (empty.length)
+    errors.push(
+      `${empty.length} entities precache a model they do not name, and the map stops on load ("PF_precache_model_I: Bad string ''"): ${empty.slice(0, 8).map(({ entity, index }) => `${index} ${valueOf(entity, "classname")}`).join(", ")}: give each its model (a sprite for env_sprite and env_glow)`,
+    );
   const shown = new Set([0]);
   const nameless = [];
   const longKeys = [];

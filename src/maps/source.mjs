@@ -21,6 +21,7 @@
 // Axes and units are the game's: +x east, +y north, +z up; a unit is about an inch (a player is 72 tall).
 // A texture is named, never held: the names are looked up in the .wad files worldspawn's `wad` key lists.
 import { sub, dot, cross, unit } from "../vec.mjs";
+import { modelless } from "./entities.mjs";
 
 // ── constants ───────────────────────────────────────────────────────────────
 /** The format written and read: worldspawn's `mapversion`. */
@@ -1164,6 +1165,10 @@ export function writeMap({ worldspawn = {}, brushes = [], entities = [] }) {
   const { classname: _ignored, ...keys } = worldspawn;
   if (Array.isArray(keys.wad)) keys.wad = keys.wad.join(";");
   const world = entityBlock({ classname: "worldspawn", mapversion: MAP_VERSION, ...keys }, brushes.flat());
+  // a class that precaches its model, with none named, stops the map on load: no map is written with one
+  const empty = modelless(entities, (entity, key) => entity[key]);
+  if (empty.length)
+    throw new Error(`writeMap: ${empty.map(({ entity, index }) => `entity ${index + 1} (${entity.classname})`).join(", ")} precache a model and name none: the map would stop on load ("PF_precache_model_I: Bad string ''"). Give each its model (a sprite for env_sprite and env_glow)`);
   const others = entities.map(({ brushes: own, ...entityKeys }) => {
     if (!entityKeys.classname) throw new Error("writeMap: an entity with no classname");
     return entityBlock(entityKeys, own);

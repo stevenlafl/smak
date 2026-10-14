@@ -9,6 +9,7 @@ import { readFileSync } from "node:fs";
 import { dot, cross, sub } from "../vec.mjs";
 import { shapeOf, planesOf, offGrid, mapNumber } from "./source.mjs";
 import { START_CLASSES } from "./space.mjs";
+import { modelless } from "./entities.mjs";
 import { modOf } from "./mod.mjs";
 import { checkEntities as checkAgainstMod } from "./rules.mjs";
 
@@ -364,6 +365,11 @@ function checkTextures(listed, textures, { errors, facts }) {
 /** The entities: each with a classname, point entities with a place inside the range, keys the formats hold. */
 function checkEntities(map, { range, starts }, { errors, warnings, facts }, used) {
   const entities = map.entities ?? [];
+  const empty = modelless(entities, (entity, key) => entity[key]);
+  if (empty.length)
+    errors.push(
+      `${empty.length} entities precache a model they do not name, and the map would stop on load ("PF_precache_model_I: Bad string ''"): ${empty.slice(0, 8).map(({ entity, index }) => `entity ${index + 1} ${entity.classname}`).join(", ")}: give each its model (a sprite for env_sprite and env_glow)`,
+    );
   const noPlace = [];
   const outside = [];
   const badKeys = [];

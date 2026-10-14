@@ -206,6 +206,10 @@ function written(entity, newline) {
  * endings.
  */
 export function writeEntities(entities) {
+  // a class that precaches its model, with none named, stops the map on load: no entity lump is written with one
+  const empty = modelless(entities.filter(Array.isArray), valueOf);
+  if (empty.length)
+    throw new Error(`writeEntities: ${empty.map(({ entity }) => valueOf(entity, "classname")).join(", ")} precache a model and name none: the map would stop on load ("PF_precache_model_I: Bad string ''"). Give each its model (a sprite for env_sprite and env_glow)`);
   // how a new entity is set apart from the next: as the file's own are
   const model = entities.map((entity) => asRead.get(entity)).find(Boolean) ?? DEFAULT_STYLE;
   let text = "";
@@ -483,4 +487,17 @@ function refuseOverExtraLumps(bytes, lumps) {
     throw new Error(
       "this map has extra lumps after its own (BSPX), which Xash finds by where the last lump ends: entity text longer than the map's own cannot be put in without hiding them. Not done; keep the new text no longer than the old",
     );
+}
+
+/**
+ * The classes whose Spawn precaches their `model` key as it stands (Half-Life's dlls: CSprite for env_sprite and
+ * env_glow, CCyclerSprite, CGenericMonster, CFurniture): one without it precaches an empty name and the server
+ * stops on load ("Host_Error: PF_precache_model_I: Bad string ''"). cycler checks and removes itself.
+ */
+export const PRECACHES_MODEL = ["env_sprite", "env_glow", "cycler_sprite", "monster_generic", "monster_furniture"];
+/** The entities (a list, and how to read a key of one) whose class precaches a model they do not name. */
+export function modelless(entities, keyOf) {
+  return entities
+    .map((entity, index) => ({ entity, index }))
+    .filter(({ entity }) => PRECACHES_MODEL.includes(keyOf(entity, "classname")) && !keyOf(entity, "model"));
 }

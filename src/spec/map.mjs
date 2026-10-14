@@ -20,6 +20,7 @@ import { compileMap, findCompilers } from "../maps/compile.mjs";
 import { readBsp } from "../maps/bsp.mjs";
 import { lightReport } from "../maps/light.mjs";
 import { makeSky, skyFiles, SKY_KEYS } from "../maps/sky.mjs";
+import { PRECACHES_MODEL } from "../maps/entities.mjs";
 import { planOfSource, planOf, drawMap, sectionOf } from "../maps/draw.mjs";
 import { tile, label, render } from "../render.mjs";
 import { png } from "../image.mjs";
@@ -328,6 +329,8 @@ export function validateMapSpec(spec) {
     (list ?? []).forEach((thing, i) => {
       if (!known.has(thing?.room)) errors.push(`${what}[${i}].room: the id of the room it is in (${[...known].join(", ")})`);
       if (what === "entities" && typeof thing?.class !== "string") errors.push(`${what}[${i}].class: its classname`);
+      if (what === "entities" && PRECACHES_MODEL.includes(thing?.class) && !thing?.keys?.model)
+        errors.push(`${what}[${i}].keys.model: ${thing.class} loads the model it names when the map starts, and with none the map stops on load ("PF_precache_model_I: Bad string ''"): name one (a sprite for env_sprite and env_glow, "sprites/glow01.spr")`);
       if (what === "props" && !spec.models?.[thing?.model] && typeof thing?.model !== "string")
         errors.push(`${what}[${i}].model: a model of the spec's models, or a .mdl path the game has`);
       if (what === "furniture" && !spec.prefabs?.[thing?.prefab] && !Array.isArray(thing?.box))

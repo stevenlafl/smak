@@ -344,6 +344,30 @@ test("a model spec's leaf drops the points that lie on the line between their ne
   sure(report.facts.some((f) => /^12 triangles/.test(f)), report.facts.filter((f) => /triangles/.test(f)).join("; "));
 });
 
+test("an entity that loads a model it does not name: refused by the spec, by both writers, and found in a map", () => {
+  // frenzy_plans: eight env_glow with no sprite stopped the game on load (PF_precache_model_I: Bad string '')
+  const spec = { spec: "smak.map/1", name: "glow", rooms: [{ id: "a", size: [256, 256, 128] }], entities: [{ class: "info_player_start", room: "a", at: "centre" }, { class: "env_glow", room: "a", at: "corner ne" }] };
+  const built = buildMapSpec(spec, { out: join(folder, "glow"), compilers: { found: false, message: "" } });
+  sure(built.report.errors.some((e) => /entities\[1\]\.keys\.model: env_glow/.test(e)), built.report.errors.join("; "));
+  let refused = "";
+  try {
+    smak.maps.writeMap({ worldspawn: {}, brushes: [], entities: [{ classname: "env_sprite", origin: "0 0 0" }] });
+  } catch (error) {
+    refused = error.message;
+  }
+  sure(/writeMap: entity 1 \(env_sprite\) precache a model/.test(refused), refused || "writeMap wrote it");
+  refused = "";
+  try {
+    smak.maps.writeEntities([[["classname", "worldspawn"]], [["classname", "env_glow"], ["origin", "0 0 0"]]]);
+  } catch (error) {
+    refused = error.message;
+  }
+  sure(/writeEntities: env_glow precache a model/.test(refused), refused || "writeEntities wrote it");
+  // a source made elsewhere: the plan check names it
+  const plan = smak.maps.checkPlan({ worldspawn: {}, brushes: [], entities: [{ classname: "env_glow", origin: "0 0 0" }] }, { leak: false });
+  sure(plan.errors.some((e) => /precache a model they do not name/.test(e)), plan.errors.join("; "));
+});
+
 test("a map spec keeps its ways through at ease: no furniture in front of a door, no wall too short for one", () => {
   const spec = (furniture, size = [256, 256, 128]) => ({
     spec: "smak.map/1", name: "ways",
