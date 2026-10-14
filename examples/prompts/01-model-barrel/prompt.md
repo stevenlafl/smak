@@ -36,5 +36,8 @@ the report. It passes when every must-have item scores 2 and the total is at lea
    6.7 and 33.3 to 35.5. The sheet (result/picture-1.png) shows the bulge, the two hoops and the lid's
    grain from above.
 
+2. Built again after the kit painted a turned part's closed ends as discs of their own (found on case
+   03): the lids' grain now runs across them. Still clean.
+
 The rubric for this first case was written alongside its first build; for every later case it was written
 before the spec.

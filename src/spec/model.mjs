@@ -307,6 +307,16 @@ function turnedOf(part) {
 const widestOf = (rings) =>
   Math.max(...rings.map((ring) => [Array.isArray(ring) ? ring[1] : ring.r].flat()).flat().filter(isNumber), 0.1);
 
+/** The closed ends of a turned part that get a disc of the picture: [[end, diameter], ...]. */
+function capDiscs(part) {
+  if (!["turn", "cylinder"].includes(part.kind)) return [];
+  const { rings, caps } = turnedOf(part);
+  const radiusAt = (ring) => Math.max(...[Array.isArray(ring) ? ring[1] : ring.r].flat().filter(isNumber));
+  return [0, 1]
+    .filter((end) => caps[end] && radiusAt(end ? rings.at(-1) : rings[0]) > 0)
+    .map((end) => [end, 2 * radiusAt(end ? rings.at(-1) : rings[0])]);
+}
+
 /** How large a part's zone of the picture is, in units [long, wide], before it is built. */
 function zoneSizeOf(part, hostOf) {
   switch (part.kind) {
@@ -344,7 +354,8 @@ function zoneSizeOf(part, hostOf) {
  * part on its surface needs ({ surface, from, to }: the turned surface and its first and last ring's s) and
  * its axis's two ends.
  */
-function buildPart(part, M, S, zone, px, material, hostSurface) {
+function buildPart(part, M, S, zone, px, material, hostSurface, capZones = []) {
+  for (const capZone of capZones) if (capZone) S.zone(capZone, zonePainter(material, capZone, px), 2);
   const painterRound = ["turn", "cylinder", "sphere", "tube"].includes(part.kind) ? "v" : null;
   S.zone(zone, zonePainter(material, zone, px, { round: painterRound }), 2);
   switch (part.kind) {
@@ -378,7 +389,10 @@ function buildPart(part, M, S, zone, px, material, hostSurface) {
     case "turn": {
       const { rings, caps, sides } = turnedOf(part);
       const at = AXES[part.axis ?? "z"];
-      const options = { name: part.id, sides, caps, at };
+      const withZones = caps.map((cap, end) =>
+        !cap || !capZones[end] ? cap : cap === true ? { dome: 0, zone: capZones[end] } : isNumber(cap) ? { dome: cap, zone: capZones[end] } : { ...cap, zone: capZones[end] },
+      );
+      const options = { name: part.id, sides, caps: withZones, at };
       if (part.lining) options.lining = { inset: 0.4, cap: true, ...part.lining, zone };
       const surface = M.turn(rings, zone, options);
       const ss = rings.map((ring) => (Array.isArray(ring) ? ring[0] : ring.s));
@@ -464,13 +478,16 @@ function piecesOf(spec, context) {
     const width = n ? SHEET_SIZE : (size.width ?? SHEET_SIZE);
     const height = n ? SHEET_SIZE : (size.height ?? SHEET_SIZE);
     const sizes = Object.fromEntries(parts.map((part) => [part.id, zoneSizeOf(part, (p) => byId.get(p.on.part))]));
+    // a turned part's closed ends are painted as discs of their own: a table's top shows its grain across it
+    for (const part of parts) for (const [end, size] of capDiscs(part)) sizes[`${part.id}#cap${end}`] = [size, size];
     const zones = allot(width, height, sizes, { gap: 4 });
     const M = shape(width, height);
     const S = sheet(width, height);
     for (const part of parts) {
       const start = M.tris.length;
       const host = ON_SURFACE.has(part.kind) ? built.get(part.on.part) : null;
-      const made = buildPart(part, M, S, zones[part.id], zones.px, materialFor(part), host?.made);
+      const capZones = [0, 1].map((end) => zones[`${part.id}#cap${end}`]);
+      const made = buildPart(part, M, S, zones[part.id], zones.px, materialFor(part), host?.made, capZones);
       built.set(part.id, { made, mesh: meshes.length, range: [start, M.tris.length], host: host ? part.on.part : null });
     }
     meshes.push({ tris: M.tris, image: S.image(), flags, name: `sheet${n}` });
@@ -586,12 +603,16 @@ function piecesOf(spec, context) {
       const through = typeof part.repeat.around === "string" && byId.has(part.repeat.around)
         ? anchorOfBox(boxOf(pointsOf(trianglesOf(part.repeat.around))), "centre")
         : (part.repeat.through ?? [0, 0, 0]);
+      const round = (angle) => {
+        const [c, s] = [Math.cos(degrees(angle)), Math.sin(degrees(angle))];
+        return (p) => [through[0] + (p[0] - through[0]) * c - (p[1] - through[1]) * s, through[1] + (p[0] - through[0]) * s + (p[1] - through[1]) * c, p[2]];
+      };
+      // the part itself turned to the first place, then the copies round from it
+      if (start) move(list, round(start));
       const original = list;
       for (let k = 1; k < count; k++) {
-        const angle = degrees(start + (360 * k) / count);
-        const [c, s] = [Math.cos(angle), Math.sin(angle)];
         list = original;
-        copy((p) => [through[0] + (p[0] - through[0]) * c - (p[1] - through[1]) * s, through[1] + (p[0] - through[0]) * s + (p[1] - through[1]) * c, p[2]], false);
+        copy(round((360 * k) / count), false);
       }
     }
   }

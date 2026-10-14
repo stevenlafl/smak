@@ -1,0 +1,41 @@
+{
+  "spec": "smak.model/1",
+  "name": "tavern_table.mdl",
+  "kind": "prop",
+  "size": { "height": 37, "length": 48 },
+  "texture": { "width": 512, "height": 256 },
+  "materials": {
+    "oak": { "base": "darkwood" },
+    "pewter": { "base": "steel", "tone": [0.5, 0.52, 0.55] },
+    "brass": { "base": "brass" },
+    "wax": { "base": "plaster", "tone": [0.92, 0.88, 0.74] },
+    "fire": { "base": "flame" }
+  },
+  "parts": [
+    { "id": "pedestal", "kind": "turn", "material": "oak", "sides": 12, "at": [0, 0, 0],
+      "rings": [[0, 4.2], [3, 3.2], [8, 2.5], [11, 3.6], [14, 3.6], [17, 2.5], [24, 2.3], [26, 3.4], [28, 4.2]],
+      "caps": [true, true] },
+    { "id": "foot", "kind": "tube", "material": "oak", "sides": 8, "at": [0, 0, 0],
+      "path": [[1.2, 0, 5, 1.9], [7, 0, 3.4, 1.7], [13, 0, 1.6, 1.3], [17, 0, 1.1, 1.1]],
+      "repeat": { "count": 4, "through": [0, 0, 0], "start": 45 } },
+    { "id": "top", "kind": "turn", "material": "oak", "sides": 24,
+      "rings": [[0, 23], { "s": 0.5, "r": 23.8 }, { "s": 2.5, "r": 24 }, [3, 23.4]],
+      "caps": [true, true],
+      "attach": { "to": "pedestal", "offset": [0, 0, -0.5] } },
+    { "id": "tankard", "kind": "cylinder", "material": "pewter", "radius": 2.2, "top": 2.0, "height": 5.5, "sides": 12,
+      "attach": { "to": "top", "offset": [-10, 6, -0.3] } },
+    { "id": "handle", "kind": "tube", "material": "pewter", "sides": 6,
+      "path": [[0, 0, 0, 0.45], [1.8, 0, -0.4, 0.45], [2.2, 0, -2.6, 0.45], [0, 0, -3.3, 0.45]],
+      "attach": { "to": "tankard", "toAt": { "s": 0.82, "angle": 0, "out": -0.25 }, "at": "start" } },
+    { "id": "holder", "kind": "turn", "material": "brass", "sides": 12,
+      "rings": [[0, 2.4], { "s": 0.4, "r": 2.4, "crease": true }, [0.7, 1.2], [1.4, 1.0]],
+      "caps": [true, true],
+      "attach": { "to": "top", "offset": [9, -7, -0.3] } },
+    { "id": "candle", "kind": "cylinder", "material": "wax", "radius": 0.75, "height": 4, "sides": 10,
+      "attach": { "to": "holder", "offset": [0, 0, -0.3] } },
+    { "id": "flame", "kind": "turn", "material": "fire", "sides": 8,
+      "rings": [[0, 0.3], [0.5, 0.42], [1.3, 0.3], [2, 0]],
+      "caps": [true, false],
+      "attach": { "to": "candle", "offset": [0, 0, -0.15] } }
+  ]
+}

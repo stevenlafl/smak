@@ -689,7 +689,7 @@ function build(folders, args) {
       const mx = [0, 1, 2].map((k) => Math.max(...boxes.map((b) => b.to[k])));
       const within = { mid: mn.map((v, k) => (v + mx[k]) / 2), far: Math.max(0.5, Math.hypot(...mx.map((v, k) => v - mn[k])) / 2) };
       const views = [[35, 20], [215, 20]].map(([yaw, pitch]) => smak.render(mdl, { seq: 0, yaw, pitch, within, width: 384, height: 384 }));
-      show(smak.tile(views, 2, [`${focus.join(", ")} from the front`, "from the back"]));
+      show(smak.tile(views, 2, ["front", "back"]));
     }
   }
   return [text(lines.join("\n")), ...pictures];

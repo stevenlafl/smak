@@ -231,7 +231,7 @@ export function shapeSoundness(list, { weld = WELD, gap = GAP, front = 1, allow 
     const tally = tallies[fault.kind];
     tally.set(find(fault.tri), (tally.get(find(fault.tri)) ?? 0) + 1);
   }
-  const { open: openOf, flipped: flippedOf } = tallies;
+  const { open: openOf, flipped: flippedOf, crowded: crowdedOf } = tallies;
   // the shells: triangles joined across the edges they pair at, each closed or not, with its volume
   const shellOf = new Map();
   tris.forEach((_, i) => {
@@ -252,6 +252,7 @@ export function shapeSoundness(list, { weld = WELD, gap = GAP, front = 1, allow 
       sheet: closed && Math.abs(volume) < SHEET_SHARE * size[0] * size[1] * size[2],
       open: openOf.get(root) ?? 0,
       flipped: flippedOf.get(root) ?? 0,
+      crowded: crowdedOf.get(root) ?? 0,
       volume,
     };
   });
@@ -301,6 +302,7 @@ export function shapeSoundness(list, { weld = WELD, gap = GAP, front = 1, allow 
       closed: list.every((shell) => shell.closed),
       sheet: list.every((shell) => shell.sheet),
       open: list.reduce((n, shell) => n + shell.open, 0),
+      crowded: list.reduce((n, shell) => n + shell.crowded, 0),
       flipped: list.reduce((n, shell) => n + shell.flipped, 0),
       insideOut: list.filter((shell) => shell.closed && !shell.sheet && shell.volume < 0).length,
       volume: round2(list.reduce((v, shell) => v + shell.volume, 0)),
@@ -363,8 +365,9 @@ export function shapeSoundness(list, { weld = WELD, gap = GAP, front = 1, allow 
     faults.push(
       `${openPieces.reduce((n, p) => n + p.open, 0)} open edges, in ${openPieces.length} pieces (${named(openPieces)}): holes, or a shape left open with no inside, which shows nothing from where it is open`,
     );
+  const crowded = pieces.filter((p) => p.crowded);
   if (count.crowded)
-    faults.push(`${count.crowded} edges are shared by three triangles or more that do not pair into closed shells: faces given twice, or parts that cut through one another along an edge`);
+    faults.push(`${count.crowded} edges are shared by three triangles or more that do not pair into closed shells, in ${named(crowded)}: faces given twice, or copies of a part that begin at one point (move each copy's start off the others')`);
   const flipped = pieces.filter((p) => p.flipped);
   if (flipped.length)
     faults.push(`${count.flipped} edges have both their triangles going round them the same way, in ${named(flipped)}: some faces are turned the wrong way`);
