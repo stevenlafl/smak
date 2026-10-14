@@ -976,7 +976,9 @@ function decompileTool(folders, { map, name, compile = true } = {}) {
   lines.push(`written: work:${called}/${called}.map${result.wad ? `, work:${called}/${result.wad.name}` : ""}`);
   const pictures = [];
   if (compile) {
-    const compiled = maps.compileMap(mapFile, { wads, compilers: folders.compilers, out: join(out, `${called}.bsp`) });
+    // the server's compilers as the build tool finds them: a folder's name, or found where they lie
+    const compilers = typeof folders.compilers === "string" ? maps.findCompilers({ folder: folders.compilers }) : (folders.compilers ?? maps.findCompilers());
+    const compiled = maps.compileMap(mapFile, { wads, compilers, out: join(out, `${called}.bsp`) });
     if (compiled.bsp) {
       lines.push(`compiled: work:${called}/${called}.bsp`);
       const again = readFileSync(compiled.bsp);

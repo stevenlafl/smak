@@ -179,7 +179,8 @@ await testAsync("the MCP tool decompile: the .map and its .wad in the work folde
   const work = join(folder, "tool");
   mkdirSync(work, { recursive: true });
   writeFileSync(join(work, "tworooms.bsp"), original);
-  const tool = toolsFor({ work, compilers }).find((each) => each.name === "decompile");
+  // the compilers as the server is given them: a folder's name
+  const tool = toolsFor({ work, compilers: compilers.found ? compilers.folder : undefined }).find((each) => each.name === "decompile");
   const answer = await tool.call({ map: "tworooms.bsp", name: "rooms", compile: compilers.found });
   const words = answer.find((piece) => piece.type === "text").text;
   sure(existsSync(join(work, "rooms", "rooms.map")) && /written: work:rooms\/rooms\.map/.test(words), words);

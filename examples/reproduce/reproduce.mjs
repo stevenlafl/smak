@@ -168,7 +168,8 @@ async function runJob({ kind, subject, leg }) {
     }
   } else
     for (const ext of [".bsp", ".map", ".wad"]) {
-      const file = newest((n) => n.endsWith(ext));
+      // the map under the name asked for first: an agent's probes and test rooms are newer, and are not it
+      const file = newest((n) => n === `${subject.id}_copy${ext}`) ?? newest((n) => n.endsWith(ext));
       if (file) {
         copyFileSync(file.path, join(built, `${subject.id}_copy${ext}`));
         kept.push(file.name);
