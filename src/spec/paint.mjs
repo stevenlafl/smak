@@ -205,43 +205,43 @@ export function zonePainter(material, zone, px, { round = null } = {}) {
 }
 
 /**
- * A picture for a map's faces: `size` pixels a side (a multiple of 16), seamless when laid side by side, one
- * texel a unit as the map draws it. Bricks, tiles, planks and metal are laid in their courses; the rest are
- * the material's own grain, made to tile. Returns { width, height, rgb }.
+ * A picture for a map's faces: `size` pixels wide and `height` high (`size` unless told; multiples of 16), seamless
+ * when laid side by side, one texel a unit as the map draws it. Bricks, tiles, planks and metal are laid in their
+ * courses; the rest are the material's own grain, made to tile. Returns { width, height, rgb }.
  */
-export function surfacePicture(given, size = 64) {
+export function surfacePicture(given, size = 64, height = size) {
   // a mesh (a fence, a grille): cords and holes laid exactly on the tile, one texel a unit, the holes as
   // see-through pixels (rgba): no seamless blending, which would mix the holes into the cords
   if ((typeof given === "string" ? given : given.base) === "mesh") {
     const material = materialOf(given);
     // the cell made to divide the picture, so that it tiles (a diagonal weave too: x + y comes round with x)
-    const cells = Math.max(1, Math.round(size / Math.max(material.cell ?? 2, 4.5)));
-    const fitted = { ...material, cell: size / cells };
-    const rgba = new Uint8Array(size * size * 4);
-    for (let y = 0; y < size; y++)
+    const cells = Math.max(1, Math.round(Math.min(size, height) / Math.max(material.cell ?? 2, 4.5)));
+    const fitted = { ...material, cell: Math.min(size, height) / cells };
+    const rgba = new Uint8Array(size * height * 4);
+    for (let y = 0; y < height; y++)
       for (let x = 0; x < size; x++) {
         const c = colourAt(fitted, x, y, 0.9 + 0.2 * (fbm(x * 0.3, y * 0.3, material.seed, 2) - 0.5), 1);
         const hole = c.every((v, i) => v === HOLE_RGB[i]);
         rgba.set(hole ? [0, 0, 0, 0] : [...c.map((v) => Math.round(Math.min(1, v) * 255)), 255], (y * size + x) * 4);
       }
-    return { width: size, height: size, rgba };
+    return { width: size, height, rgba };
   }
   const material = materialOf(given);
   const { base, tone, seed: s } = material;
-  const rgb = new Uint8Array(size * size * 3);
+  const rgb = new Uint8Array(size * height * 3);
   // the grain made seamless: four copies of it, each shifted by a whole picture, faded into one another
   const seamless = (x, y) => {
     const a = x / size;
-    const b = y / size;
+    const b = y / height;
     const at = (dx, dy) => colourAt(material, x - dx, y - dy);
-    const c = [at(0, 0), at(size, 0), at(0, size), at(size, size)];
+    const c = [at(0, 0), at(size, 0), at(0, height), at(size, height)];
     return c[0].map(
       (_, i) =>
         c[0][i] * (1 - a) * (1 - b) + c[1][i] * a * (1 - b) + c[2][i] * (1 - a) * b + c[3][i] * a * b,
     );
   };
   const mortar = [0.6, 0.58, 0.54];
-  for (let y = 0; y < size; y++)
+  for (let y = 0; y < height; y++)
     for (let x = 0; x < size; x++) {
       let c = seamless(x, y);
       if (base === "brick") {
@@ -267,5 +267,5 @@ export function surfacePicture(given, size = 64) {
       }
       rgb.set(c.map((v) => Math.max(0, Math.min(255, Math.round(v * 255)))), (y * size + x) * 3);
     }
-  return { width: size, height: size, rgb };
+  return { width: size, height, rgb };
 }

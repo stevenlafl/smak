@@ -7,7 +7,7 @@ brushes or triangles: parts are placed by saying what they sit on, rooms by sayi
 Nothing in the kit reads the person's words itself.
 
 ```
-build { spec: {...} }                        a model or a map, from the spec given
+build { spec: {...} }                        a model, a map, its textures or a sound, from the spec given
 build { spec: "lamp.json" }                  the same, from a file of the work or models folder
 build { spec: {...}, reference: "x.png" }    the person's drawing or picture drawn beside the result
 build { spec: {...}, focus: ["lantern"] }    a model's parts seen close: from the front, the back, below
@@ -365,6 +365,32 @@ silence before it starts (it plays late), an end that clicks, a loop with no cue
 picture is each file's waveform over its spectrogram (log frequency, 50 Hz at the bottom), the game's own
 of its kind under them at the same time scale. What it cannot say is how it sounds, or how the game plays
 it (its volume, its pitch, the map's room): say so, and the person listens in the game.
+
+## Textures for maps (a .wad)
+
+```json
+{
+  "spec": "smak.wad/1",
+  "name": "lab.wad",
+  "materials": { "panel": { "base": "metal", "tone": [0.55, 0.57, 0.6] } },
+  "textures": [
+    { "name": "lab_wall1", "size": [128, 128], "material": "panel", "grime": 0.5,
+      "panels": [{ "at": [64, 96], "size": [112, 48], "edge": 2 }, { "at": [64, 30], "size": [112, 40], "style": "raised" }],
+      "print": { "text": "B-12", "size": 0.12, "ink": [0.8, 0.6, 0.1] } },
+    { "name": "{lab_grate", "size": [64, 64], "material": { "base": "mesh", "cell": 8 } }
+  ],
+  "preview": { "map": "models:lab.bsp", "views": 6 }
+}
+```
+
+Each texture is a material laid seamlessly (one texel a unit, as a map draws it), with `panels` and `print`
+as a box face has them (in texels from the bottom left) and `grime` (0 to 1) gathered toward its foot. A name
+is one word of 15 letters at most and its first letters mean what a map's do (`{` holes, `!` a liquid, `+0` an
+animation's first frame, `-0` the first of random tiles); sides are multiples of 16, 512 at most. The build
+writes the .wad and a sheet of its textures. With `preview.map`, a compiled map of the models or work folder is
+drawn wearing them: textures of the same names stand in for the game's, the way a mod replaces a game's look,
+and the report names the textures the map wears that the .wad does not have. `render` takes `wad` to draw any
+map wearing one.
 
 ## A map
 

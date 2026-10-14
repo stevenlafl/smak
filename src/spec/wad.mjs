@@ -1,0 +1,152 @@
+// A spec of textures for a map's .wad: each texture a seamless material with panels and words painted on it,
+// built into a .wad and drawn as a sheet. The .wad can stand in for a game's own: textures of the same names
+// take their place in any map that wears them (the MCP render tool's `wad`).
+//
+//   validateWadSpec(spec) -> { errors, warnings }
+//   buildWadSpec(spec, { out }) -> { report, files: { wad, sheet }, textures: [{ name, image }] }
+//
+// A texture: { name (15 letters at most: `{` first for one with holes, `!` for a liquid, `+0` an animation's
+// frame), size: [width, height] (multiples of 16, 512 at most), material (a word of `materials` or a base),
+// panels (as a box face's, in texels from the bottom left), print (words, as a box face's), grime (0 to 1: dirt
+// gathered toward its foot) }.
+import { writeFileSync, mkdirSync } from "node:fs";
+import { join } from "node:path";
+import { sheet as workshopSheet, fbm } from "../workshop.mjs";
+import { tile } from "../render.mjs";
+import { png } from "../image.mjs";
+import { writeWad } from "../maps/wad.mjs";
+import { materialOf, surfacePicture } from "./paint.mjs";
+import { paintPanels, paintWords } from "./faces.mjs";
+
+export const WAD_SPEC = "smak.wad/1";
+const TOP = ["spec", "name", "materials", "textures", "preview", "note"];
+const FIELDS = ["name", "size", "material", "panels", "print", "grime", "note"];
+const isNumber = (v) => typeof v === "number" && Number.isFinite(v);
+/** The largest side a texture of GoldSrc's is drawn at as painted. */
+const SIDE_MOST = 512;
+
+export function validateWadSpec(spec) {
+  const errors = [];
+  const warnings = [];
+  if (spec?.spec !== WAD_SPEC) errors.push(`spec: "${WAD_SPEC}"`);
+  for (const key of Object.keys(spec ?? {})) if (!TOP.includes(key)) warnings.push(`${key}: a wad spec takes no ${key}, left out`);
+  if (typeof spec?.name !== "string" || !/^[\w.-]+\.wad$/i.test(spec.name)) errors.push("name: the file, letters, digits and _ . -, ending .wad");
+  if (!Array.isArray(spec?.textures) || !spec.textures.length) {
+    errors.push("textures: a list of one texture at least");
+    return { errors, warnings };
+  }
+  const seen = new Set();
+  spec.textures.forEach((texture, i) => {
+    const at = `textures[${i}]${texture?.name ? ` (${texture.name})` : ""}`;
+    if (typeof texture?.name !== "string" || !texture.name || texture.name.length > 15 || /\s/.test(texture.name))
+      errors.push(`${at}.name: one word of 15 letters at most`);
+    else if (seen.has(texture.name.toLowerCase())) errors.push(`${at}.name: given twice`);
+    else seen.add(texture.name.toLowerCase());
+    for (const key of Object.keys(texture ?? {})) if (!FIELDS.includes(key)) warnings.push(`${at}.${key}: a texture takes no ${key}, left out`);
+    if (!Array.isArray(texture?.size) || texture.size.length !== 2 || !texture.size.every((v) => Number.isInteger(v) && v >= 16 && v <= SIDE_MOST && v % 16 === 0))
+      errors.push(`${at}.size: [width, height], each a multiple of 16 from 16 to ${SIDE_MOST}`);
+    try {
+      const given = texture?.material ?? "plaster";
+      materialOf(typeof given === "string" && spec.materials?.[given] !== undefined ? spec.materials[given] : given, `${at}.material`);
+    } catch (error) {
+      errors.push(error.message);
+    }
+    if (texture?.grime !== undefined && !(isNumber(texture.grime) && texture.grime >= 0 && texture.grime <= 1)) errors.push(`${at}.grime: 0 to 1`);
+    for (const [k, panel] of (texture?.panels ?? []).entries())
+      if (!Array.isArray(panel?.at) || !Array.isArray(panel?.size)) errors.push(`${at}.panels[${k}]: { at: [x, y], size: [w, h], shape, style, edge, material }`);
+  });
+  return { errors, warnings };
+}
+
+/** One texture's picture: { width, height, rgb } (rgba for one with holes). */
+function paintTexture(texture, materials) {
+  const resolve = (given) => materialOf(typeof given === "string" && materials?.[given] !== undefined ? materials[given] : given);
+  const material = resolve(texture.material ?? "plaster");
+  const [width, height] = texture.size;
+  const base = surfacePicture(material, width, height);
+  if (base.rgba) return base; // a mesh: its holes are its picture
+  const S = workshopSheet(width, height);
+  const cell = { x: 0, y: 0, w: width, h: height };
+  const at = (u, v) => {
+    const i = (Math.min(height - 1, Math.floor(v)) * width + Math.min(width - 1, Math.floor(u))) * 3;
+    return [base.rgb[i] / 255, base.rgb[i + 1] / 255, base.rgb[i + 2] / 255];
+  };
+  S.zone(cell, at, 0);
+  // panels and words over the base, read back from the sheet so that later ones go over earlier ones
+  const now = () => S.image();
+  if (texture.panels?.length) {
+    const was = now();
+    const under = (u, v) => {
+      const i = (Math.floor(v) * width + Math.floor(u)) * 3;
+      return [was.rgb[i] / 255, was.rgb[i + 1] / 255, was.rgb[i + 2] / 255];
+    };
+    const panels = texture.panels.map((panel) => (panel.material ? { ...panel, material: resolve(panel.material) } : panel));
+    paintPanels(S, cell, panels, material, 1, false, false, [width, height], { under });
+  }
+  for (const print of [texture.print ?? []].flat()) {
+    const was = now();
+    const under = (u, v) => {
+      const i = (Math.floor(v) * width + Math.floor(u)) * 3;
+      return [was.rgb[i] / 255, was.rgb[i + 1] / 255, was.rgb[i + 2] / 255];
+    };
+    paintWords(S, cell, print, material, 1, false, false, { under });
+  }
+  const image = now();
+  // grime: darker toward the foot, broken up by noise that tiles across the sides
+  if (texture.grime) {
+    for (let y = 0; y < height; y++)
+      for (let x = 0; x < width; x++) {
+        const low = (y / (height - 1)) ** 2;
+        const n = fbm(Math.cos((2 * Math.PI * x) / width) * 3, Math.sin((2 * Math.PI * x) / width) * 3 + y * 0.08, 5, 3);
+        const k = 1 - texture.grime * 0.55 * low * (0.4 + n);
+        const i = (y * width + x) * 3;
+        for (let c = 0; c < 3; c++) image.rgb[i + c] = Math.round(image.rgb[i + c] * Math.max(0, k));
+      }
+  }
+  return image;
+}
+
+const rgbaOf = (image) => {
+  if (image.rgba) return image;
+  const rgba = new Uint8Array(image.width * image.height * 4);
+  for (let i = 0; i < image.width * image.height; i++) rgba.set([image.rgb[i * 3], image.rgb[i * 3 + 1], image.rgb[i * 3 + 2], 255], i * 4);
+  return { width: image.width, height: image.height, rgba };
+};
+
+/** How large each texture is shown on the sheet: in a square this wide, enlarged by a whole number of times. */
+const SHOWN = 256;
+/** A picture enlarged by whole times (each texel a block, as the game draws it close) into a dark square. */
+function fitted(image, side) {
+  const k = Math.max(1, Math.floor(side / Math.max(image.width, image.height)));
+  const out = new Uint8Array(side * side * 4);
+  for (let i = 0; i < side * side; i++) out.set([34, 36, 40, 255], i * 4);
+  const ox = Math.floor((side - image.width * k) / 2);
+  const oy = Math.floor((side - image.height * k) / 2);
+  for (let y = 0; y < Math.min(side, image.height * k); y++)
+    for (let x = 0; x < Math.min(side, image.width * k); x++) {
+      const i = (Math.floor(y / k) * image.width + Math.floor(x / k)) * 4;
+      out.set(image.rgba.subarray(i, i + 4), ((oy + y) * side + ox + x) * 4);
+    }
+  return { width: side, height: side, rgba: out };
+}
+
+/** Builds a wad spec into `out`: the .wad and a sheet of its textures. */
+export function buildWadSpec(spec, { out }) {
+  const { errors, warnings } = validateWadSpec(spec);
+  const report = { ok: false, errors, warnings, faults: [], notes: [], facts: [] };
+  if (errors.length) return { report, files: {} };
+  const textures = spec.textures.map((texture) => ({ name: texture.name, image: paintTexture(texture, spec.materials) }));
+  mkdirSync(out, { recursive: true });
+  const wad = join(out, spec.name);
+  writeFileSync(wad, writeWad(textures));
+  const shown = tile(
+    textures.map((t) => fitted(rgbaOf(t.image), SHOWN)),
+    Math.min(6, textures.length),
+    textures.map((t) => `${t.name} ${t.image.width}x${t.image.height}`),
+  );
+  const sheetFile = join(out, spec.name.replace(/\.wad$/i, "-textures.png"));
+  writeFileSync(sheetFile, png(shown.width, shown.height, shown.rgba));
+  report.facts.push(`${textures.length} textures: ${textures.map((t) => `${t.name} ${t.image.width}x${t.image.height}`).join(", ")}`);
+  report.ok = true;
+  return { report, files: { wad, sheet: sheetFile }, textures };
+}

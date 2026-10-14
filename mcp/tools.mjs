@@ -22,6 +22,7 @@ import { filesUnder, pathOf } from "./folders.mjs";
 import { guide } from "./guide.mjs";
 import { buildModelSpec } from "../src/spec/model.mjs";
 import { buildSoundSpec } from "../src/spec/sound.mjs";
+import { buildWadSpec } from "../src/spec/wad.mjs";
 import { buildMapSpec } from "../src/spec/map.mjs";
 import { summaryOf, changesOf } from "../src/spec/changes.mjs";
 import { run, pictureWithin, TIMEOUT_SECONDS, OUTPUT_MOST, SHOWN_MOST, PICTURE_MOST } from "./run.mjs";
@@ -556,6 +557,8 @@ function renderMap(folders, file, args) {
   const asked = Math.round(args.size ?? (kind === "view" ? SIZE_ONE : SIZE_SEVERAL));
   const size = Math.min(PICTURE_MOST, Math.max(MAP_SIZE_LEAST, asked));
   const options = { folders: mapFolders(folders, file) };
+  // a .wad of one's own: its textures stand in for those of the same names, wherever the map finds them
+  if (args.wad) options.textures = smak.maps.readWad(readFileSync(pathOf(folders, args.wad))).textures;
   const picture = MAP_KINDS[kind](map, source, { ...args, options }, size);
   const bytes = pictureWithin(smak.png(picture.width, picture.height, picture.rgba));
   const drawn = smak.unpng(bytes);
@@ -684,6 +687,26 @@ function build(folders, args) {
     if (files.models) show(smak.unpng(readFileSync(files.models)));
     return [text(lines.join("\n")), ...pictures];
   }
+  if (spec?.spec === "smak.wad/1") {
+    // textures: the .wad and a sheet of them; with a map named, it drawn wearing them
+    const out = join(folders.work, spec.name?.replace(/\.wad$/i, "") ?? "textures");
+    const { report, files } = buildWadSpec(spec, { out });
+    const lines = reportLines(report);
+    if (report.ok) {
+      writeFileSync(join(out, `${basename(out)}.spec.json`), `${JSON.stringify(spec, null, 2)}\n`);
+      lines.push(`written: ${Object.values(files).map((file) => `work:${file.slice(folders.work.length + 1)}`).join(", ")}`);
+      show(smak.unpng(readFileSync(files.sheet)));
+      if (spec.preview?.map) {
+        const map = pathOf(folders, spec.preview.map);
+        const bsp = smak.maps.readBsp(readFileSync(map));
+        const views = smak.maps.viewsOf(bsp, { count: spec.preview.views ?? 6, folders: mapFolders(folders, map), textures: smak.maps.readWad(readFileSync(files.wad)).textures });
+        show(views);
+        const missing = views.facts?.missing ?? [];
+        if (missing.length) lines.push(`the map wears textures this .wad does not have (drawn flat): ${missing.join(", ")}`);
+      }
+    }
+    return [text(lines.join("\n")), ...pictures];
+  }
   if (spec?.spec === "smak.sound/1") {
     // sounds: each file under work:sound/, as the game's own folder has them; the picture of them all
     const { report, files, picture } = buildSoundSpec(spec, { games: folders.wads ?? [] });
@@ -703,7 +726,7 @@ function build(folders, args) {
     return [text(lines.join("\n")), ...pictures];
   }
   if (spec?.spec !== "smak.model/1")
-    throw new Error('spec: a model spec ("spec": "smak.model/1"), a map spec ("smak.map/1") or a sound spec ("smak.sound/1"); guide { doc: "spec" } says how to write one');
+    throw new Error('spec: a model spec ("spec": "smak.model/1"), a map spec ("smak.map/1"), a sound spec ("smak.sound/1") or a textures spec ("smak.wad/1"); guide { doc: "spec" } says how to write one');
   const { mdl, report, files = [] } = buildModelSpec(spec, { folder, games: folders.wads ?? [], readPicture: (name) => smak.unpng(readFileSync(pathOf(folders, name))) });
   const lines = reportLines(report);
   if (mdl) {
@@ -873,7 +896,7 @@ export function toolsFor(folders, { allowRun = true } = {}) {
     },
     {
       name: "render",
-      description: `A picture, as an image. Of a model: kind "view" (default; one side), "sheet" (six sides), "strip" (an animation's frames), "uv" (a texture with its triangles). Of a map (.bsp, .map): "plan" (default; from above, entities marked), "view" (from inside), "views" (several), "section" (a side cut), "storeys" (a plan each), "openings" (a view through each doorway).`,
+      description: `A picture. Of a model: kind "view" (default; one side), "sheet" (six sides), "strip" (an animation's frames), "uv" (a texture with its triangles). Of a map (.bsp, .map): "plan" (default; from above, entities marked), "view" (from inside), "views" (several), "section" (a side cut), "storeys" (a plan each), "openings" (through each doorway).`,
       inputSchema: object(
         {
           model: MODEL,
@@ -889,7 +912,7 @@ export function toolsFor(folders, { allowRun = true } = {}) {
           pitch: { type: "number", description: "degrees; 90 from above; map view: over 0 looks up" },
           at: {
             type: "string",
-            description: 'map view: the eye, "x y z" or an entity number or class (default: the first start)',
+            description: 'map view: the eye, "x y z" or an entity (default: the first start)',
           },
           z: { type: "number", description: "map plan: cut at this height" },
           from: { type: "string", description: 'section: one end of its line, "x y"' },
@@ -902,6 +925,7 @@ export function toolsFor(folders, { allowRun = true } = {}) {
           first: { type: "boolean", description: "as the player sees a v_ weapon" },
           count: { type: "number", description: `strip: frames drawn (${STRIP_COUNT}); map views: cells` },
           texture: { type: "string", description: "uv: name or number (0)" },
+          wad: { type: "string", description: "map: a .wad worn in the game's place" },
           size: {
             type: "number",
             description: `longer side in px: ${SIZE_ONE}, sheet and strip ${SIZE_SEVERAL}; ${PICTURE_MOST} at most`,

@@ -10,6 +10,7 @@ import { buildModelSpec, validateModelSpec } from "../src/spec/model.mjs";
 import { buildMapSpec, layoutOf, withIncludes } from "../src/spec/map.mjs";
 import { materialOf, surfacePicture } from "../src/spec/paint.mjs";
 import { changesOf } from "../src/spec/changes.mjs";
+import { validateWadSpec } from "../src/spec/wad.mjs";
 import { sword, taper } from "../kits/swordkit.mjs";
 import { definitionsOf } from "../src/maps/fgd.mjs";
 import { findCompilers, COMPILERS_VARIABLE } from "../src/maps/compile.mjs";
@@ -356,6 +357,35 @@ test("a model spec's project: a person's picture of the front laid onto the face
   const back = shot(180);
   const [l, r, b] = [at(front, 40, 50), at(front, 60, 50), at(back, 50, 50)];
   sure(l[0] > 150 && l[2] < 80 && r[2] > 150 && r[0] < 80 && b[1] > 150 && b[0] < 80, `front left ${l}, front right ${r}, back ${b}`);
+});
+
+await testAsync("a textures spec: a .wad of named textures, seamless, with panels and words; built through the server", "build: wad", async () => {
+  const work = mkdtempSync(join(tmpdir(), "smak-wad-"));
+  const spec = {
+    spec: "smak.wad/1",
+    name: "mine.wad",
+    materials: { conc: { base: "plaster", tone: [0.55, 0.55, 0.52] } },
+    textures: [
+      { name: "wall_a", size: [128, 64], material: "conc", grime: 0.5, panels: [{ at: [64, 32], size: [100, 40], style: "inset", edge: 2 }] },
+      { name: "{grate", size: [64, 64], material: { base: "mesh", cell: 6 } },
+    ],
+  };
+  const build = toolsFor({ work }).find((tool) => tool.name === "build");
+  const answer = await build.call({ spec: JSON.stringify(spec) });
+  const words = answer.find((piece) => piece.type === "text").text;
+  sure(/^OK/.test(words) && existsSync(join(work, "mine", "mine.wad")), words.slice(0, 300));
+  const wad = smak.maps.readWad(readFileSync(join(work, "mine", "mine.wad")));
+  sure(wad.textures.map((t) => `${t.name} ${t.width}x${t.height}`).join(", ") === "wall_a 128x64, {grate 64x64", wad.textures.map((t) => t.name).join());
+  // seamless across its sides: the left column follows on from the right where no panel is (the top row)
+  const wall = wad.textures[0];
+  const rgb = (x, y) => wall.palette.subarray(wall.pixels[y * 128 + x] * 3, wall.pixels[y * 128 + x] * 3 + 3);
+  const jump = Math.abs(rgb(0, 2)[0] - rgb(127, 2)[0]);
+  sure(jump < 40, `the left edge meets the right: a step of ${jump}`);
+  // the grate has holes: the last colour of its palette, much of it
+  const holes = wad.textures[1].pixels.filter((i) => i === 255).length / wad.textures[1].pixels.length;
+  sure(holes > 0.3, `a grate of holes: ${holes}`);
+  const bad = validateWadSpec({ spec: "smak.wad/1", name: "x.wad", textures: [{ name: "a name far too long", size: [100, 64] }] });
+  sure(bad.errors.length >= 2, bad.errors.join("; "));
 });
 
 test("a model spec's marks: stripes painted on a turned part, on its side only, round it as a ring; none on a box", () => {
