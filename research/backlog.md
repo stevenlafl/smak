@@ -133,11 +133,11 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | Item | Status | Where / what is missing |
 | --- | --- | --- |
 | 1. Cut-out with `birefnet-general` instead of rembg's default (BRIA RMBG-2.0, non-commercial); words-to-box step | PARTLY | `local-3d/scripts/hunyuan_mini_shape.py` names `birefnet-general` since 2026-10-14; the words-to-box step (Grounding DINO or OWLv2) is open |
-| 2. QEM decimator in Node (attributes, crease penalty, boundary planes, link and flip checks, staged), with chart-locked mode (Sander et al.) | OPEN | No reducer in `src/` |
+| 2. QEM decimator in Node (attributes, crease penalty, boundary planes, link and flip checks, staged), with chart-locked mode (Sander et al.) | PARTLY | `reduce` in `src/qem.mjs` (boundaries kept, `test/54-carve.mjs`). Missing: attributes, crease penalty, chart-locked mode |
 | 3. Normals codebook (or crease angle raised until a body fits 2048 normals) | PARTLY | A spec's `smooth` angle per part trades normals by hand (commit 8769256); no automatic codebook |
 | 4. BVH ray caster and AO / cavity bake from an outside dense mesh | OPEN | `finish` paints light, wear and grime from the spec's own shape, with no rays and no outside mesh |
 | 5. Silhouette pose fit of a photo (mask render, chamfer cost, Nelder-Mead or CMA-ES) | PARTLY | A character's stance fitted to its pictures' outlines (`pose.fit`, `src/spec/posefit.mjs`, coordinate descent, commit 877280e). Missing: a prop's camera fit to a photo; CMA-ES |
-| 6. Projective texture with visibility, MRF labels, seam levelling, symmetry fill, push-pull | PARTLY | `src/spec/project.mjs` (commit fcfcc0f): straight-on pictures blended by how squarely they see, with a depth test. Missing: per-face labels, seam levelling, mirror fill, push-pull for the unseen, perspective cameras |
+| 6. Projective texture with visibility, MRF labels, seam levelling, symmetry fill, push-pull | PARTLY | `src/spec/project.mjs`: straight-on pictures with a depth test; only the views within 0.95 of the squarest blend (headcrab local contrast 4.04 to 5.20, Valve's 6.00); ground only where joined to the border; colour bled three texels past every cut; 512 x 512 by default. Missing: per-face labels, seam levelling, mirror fill, push-pull for the unseen, perspective cameras, the last of the sharpness gap |
 | 7. View-based or photo-based charting, small charts merged, mirrored charts, LSCM | OPEN | Measured in Python only (`charts_by_view.py`) |
 | 8. Handle removal (voxel closing) before reduction | OPEN | Measured in Python only (`charts_closing.py`) |
 | 9. Image-driven last reduction stage | OPEN | Only if experiment 7.2 says it pays |
@@ -152,7 +152,7 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 
 | Item | Status | Where / what is missing |
 | --- | --- | --- |
-| 1. An independent judge that sees only pictures and the prompt | PARTLY | `examples/reproduce/judge.mjs` (commit 1387d2b): a fresh agent scores reproductions of Valve's models and maps against measurements, with box and other-subject decoys. Missing: it is not run on the 38 prompt cases, the judge is the same model family (Claude), no DSG questions from the prompt alone, no recognition-without-prompt step, no pairwise Bradley-Terry ranking, no calibration (Cohen's kappa) against Steven |
+| 1. An independent judge that sees only pictures and the prompt | PARTLY | `examples/reproduce/judge.mjs`: a fresh agent scores reproductions against measurements, with box and other-subject decoys; Haiku, two readings a model (each item the better), the identical-original control and its one-pixel `touched` form, the model prompt told to count small parts and tell paint from shape; Steven's blind reviews in `examples/reproduce/reviews/` (rubric amendments of 2026-10-14). Missing: run on the 38 prompt cases, a non-Claude judge, DSG questions from the prompt alone, recognition without the prompt, pairwise ranking, an agreement figure (Cohen's kappa) once enough reviews are in |
 | 2. Quantise in OKLab with k-means refinement | OPEN | `src/image.mjs` median cut in RGB |
 | 3. Map measures: loops, dead ends, choke points, depth, fill, light rhythm, held against stock maps | OPEN | |
 | 4. AO and curvature bakes into `finish` | OPEN | `grime` is still the 2-unit contact rule (`src/spec/finish.mjs`) |
@@ -220,7 +220,7 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | 1. A triangle budget as a fault, per-part triangles, `paint: true` | DONE | `src/spec/model.mjs`, `src/spec/bake.mjs` (commit 7846e1f) |
 | 2. Round parts shaded smooth by default; the sides rule | DONE | `smoothOf` in `src/spec/model.mjs`; `docs/SPEC.md` "How many sides" |
 | 3. The harness's empty views; M4 on smoothed pictures; the angle pictures' yaw and pitch in the prompt | DONE | Steven's amendment in `examples/reproduce/rubric.md`; `lib.mjs`, `judge.mjs`, `reproduce.mjs` (commits 88a7ce2, 7846e1f) |
-| 4. A `views` part kind: carved hull, Node reducer, then `project` | OPEN | The carving was measured in Python (headcrab 0.75 to 0.95 overlap); needs the Node reducer (FM 2) |
+| 4. A `views` part kind: carved hull, Node reducer, then `project` | DONE | Kind `carved` (`src/spec/carve.mjs`, `src/qem.mjs`), refined at 160 to 256 cells for thin parts; it now reports the thin pieces it lost (a headcrab's claws), view by view, for the maker to add as parts |
 | 5. `seen` colours, the XKCD names with modifiers, warmer metal defaults | DONE | `src/spec/colours.mjs`, `materialOf` (commit 601def7) |
 | 6. Painted part shapes (cup pull, vent, grille, screen, hex nut, knob) and built ones (wheel, rail, leg, strap, superquadric, cut) | PARTLY | `superquadric` part kind (commit fd5dea0). Missing: the painted shapes, wheel, rail, leg, strap, cut |
 | 7. `project` divides out the pictures' light per surface direction | OPEN | |
@@ -277,6 +277,18 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | 11. A creature's own skeleton and gait in a spec | OPEN | |
 | The pictures leg's `project` hands back Valve's own texture | DECLINED until Steven decides | Section 6: copying by the section-7 line |
 
+## Steven's blind reviews (examples/reproduce/reviews/, from 2026-10-14)
+
+| Item | Status | Where / what is missing |
+| --- | --- | --- |
+| A review page: a local server that queues judge disagreements, near-misses, a sample of passes and a decoy, shows original and copy turning side by side (as `smak view`), and takes his scores, tags and comments as data | OPEN | Agreed as the way to calibrate the judges; reviews so far go by PNG sheets and pasted notes |
+| Textures softer than Valve's on every prop | PARTLY | Seams, grazing smear and view blending fixed (FM 6); the 256-colour cut costs nothing (measured). Missing: the last sharpness gap (headcrab 5.20 against 6.00) |
+| Judges missed small parts (the headcrab's claws, a 7-sided cylinder for 8) | PARTLY | The prompt counts small parts; the carve reports thin pieces it lost. Missing: a measure of a round part's side count against the pictures |
+| A judge charges texture to shape | DONE | Prompt: paint differences are M4 or M5 |
+| Haiku makes up surface-detail faults on identical inputs | DONE | Two readings a model; controls 16 of 16 |
+| Forklift: the lift shifted in the side view, the back's slopes built as blocks, a half-sphere helmet; the medkit's strap route | OPEN | Maker faults the outline warning names; the strap route still wrong in three rounds |
+| Maps: Steven's checklist (model and player placement, textures, detailing, geometry, water) | OPEN | His review of the frenzy legs is pending; the map judge and measures follow from it |
+
 ## Open, by priority
 
 Most value for least work first. Each line names its report: CF compiler-features, GR generation-research,
@@ -290,8 +302,8 @@ map-reproduction-failures.
 4. The calibrated texture lights by default (MF 6).
 4a. Judge measurements for maps: texture match, light parity, view SSIM (MF 8).
 4b. A map spec's `sprites` field; `sprite-make` from PNG frames; worked sprite and video cases (SP 2, 7; DV 5).
-4c. The `views` part kind with the Node reducer (RF 4, FM 2).
-4d. Texture-space matching for the identification tool (MF 7); polygon room outlines (MF 5).
+4c. The review page for Steven, and the map checklist from his frenzy review (the reviews section above).
+4d. Texture-space matching for the identification tool (MF 7); polygon room outlines (MF 5); the views part kind is done (RF 4).
 4e. The held list's open items: a weapon's per-file budgets and sides, the joint-chain skin, a monster's activities against its base, its motion from pictures (HF 3, 8, 9); room early reflections and texture statistics matching (AF 11).
 5. Quantise palettes in OKLab with k-means refinement (IR 2, FM).
 6. Map graph measures: loops, dead ends, choke points, depth, fill, light rhythm, against stock maps (IR 3).
@@ -305,7 +317,7 @@ map-reproduction-failures.
 14. `.wav` in `info`, `check` and `render` (SG).
 15. Modal frequencies from a part's size and material (IR 6).
 16. Video: worker threads, a global-palette GIF with changed rectangles, wall clearance by distance (DV 3, 4).
-17. Judge: prompt-only DSG questions, a non-Claude VLM, recognition without the prompt, pairwise ranking, controls, run on the 38 cases, calibrated against Steven (IR 1).
+17. Judge: prompt-only DSG questions, a non-Claude VLM, recognition without the prompt, pairwise ranking, run on the 38 cases, an agreement figure against Steven's reviews (IR 1).
 18. AO and curvature bake, warm-cool light and value bands in `finish` (IR 4).
 19. Sound presets from the recipe table, each scored against its class as a test (SG).
 20. Footsteps with `materials.txt`, the per-weapon role table of code-named sounds, mod profiles naming sounds (SG).
@@ -321,7 +333,7 @@ map-reproduction-failures.
 30. A tracked build-error rate over a fixed set of good and broken specs (GR).
 31. Sound metrics CLAP, KAD, PAM and production quality with leave-one-out ranges; a MUSHRA page for Steven (IR 5, 7).
 32. The photo benchmark: cut-outs, generators (TripoSG, Hunyuan3D-2.1, SPAR3D, 2mv), reduction, charts, texture, bake, each measured (PE, FM experiments, L3).
-33. Node QEM reducer with chart-locked mode, handle removal first, normals codebook (FM 2, 3, 8).
+33. The QEM reducer's chart-locked mode, handle removal first, normals codebook (FM 2, 3, 8).
 34. BVH and AO / cavity bake from a dense mesh (FM 4).
 35. A prop's camera fit to a photo; MRF labels, seam levelling, symmetry fill and push-pull in `project` (FM 5, 6).
 36. View-based and mirrored charts with LSCM (FM 7).
