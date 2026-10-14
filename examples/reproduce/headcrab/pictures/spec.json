@@ -7,43 +7,22 @@
     "width": 19.2,
     "height": 13.2
   },
-  "smooth": 80,
   "texture": {
     "width": 512,
     "height": 512
   },
-  "materials": {
-    "flesh": {
-      "base": "leather",
-      "seen": [
-        0.75,
-        0.6,
-        0.35
-      ]
-    },
-    "claw": {
-      "base": "bone",
-      "tone": [
-        0.08,
-        0.06,
-        0.05
-      ]
-    }
-  },
+  "smooth": 80,
+  "budget": 600,
   "parts": [
     {
       "id": "body",
       "kind": "carved",
-      "material": "flesh",
-      "finish": false,
       "size": [
         25.9,
         19.2,
         13.2
       ],
       "sheet": "work:pictures/sides.png",
-      "cells": 160,
-      "triangles": 400,
       "pictures": [
         {
           "picture": "work:pictures/front-left.png",
@@ -65,63 +44,9 @@
           "yaw": 215,
           "pitch": 20
         }
-      ]
-    },
-    {
-      "id": "back_claw",
-      "kind": "tube",
-      "material": "claw",
-      "sides": 4,
-      "finish": false,
-      "path": [
-        [
-          -10.6,
-          7.6,
-          1.4,
-          0.45
-        ],
-        [
-          -10,
-          8.8,
-          0.6,
-          0.3
-        ],
-        [
-          -9.4,
-          9.6,
-          0.05,
-          0
-        ]
       ],
-      "mirror": "y"
-    },
-    {
-      "id": "front_claw",
-      "kind": "tube",
-      "material": "claw",
-      "sides": 4,
-      "finish": false,
-      "path": [
-        [
-          12.4,
-          6.6,
-          1,
-          0.4
-        ],
-        [
-          11.6,
-          6.8,
-          0.3,
-          0.25
-        ],
-        [
-          10.6,
-          7,
-          0.05,
-          0
-        ]
-      ],
-      "mirror": "y"
+      "cells": 160,
+      "triangles": 600
     }
   ],
   "project": [
@@ -133,9 +58,6 @@
         0,
         512,
         512
-      ],
-      "parts": [
-        "body"
       ]
     },
     {
@@ -146,9 +68,6 @@
         0,
         1024,
         512
-      ],
-      "parts": [
-        "body"
       ]
     },
     {
@@ -159,9 +78,6 @@
         0,
         1536,
         512
-      ],
-      "parts": [
-        "body"
       ]
     },
     {
@@ -172,9 +88,6 @@
         512,
         512,
         1024
-      ],
-      "parts": [
-        "body"
       ]
     },
     {
@@ -185,9 +98,6 @@
         512,
         1024,
         1024
-      ],
-      "parts": [
-        "body"
       ]
     },
     {
@@ -198,42 +108,27 @@
         512,
         1536,
         1024
-      ],
-      "parts": [
-        "body"
       ]
     },
     {
       "picture": "work:pictures/front-left.png",
       "yaw": 35,
-      "pitch": 20,
-      "parts": [
-        "body"
-      ]
+      "pitch": 20
     },
     {
       "picture": "work:pictures/front-right.png",
       "yaw": -35,
-      "pitch": 20,
-      "parts": [
-        "body"
-      ]
+      "pitch": 20
     },
     {
       "picture": "work:pictures/back-left.png",
       "yaw": 145,
-      "pitch": 20,
-      "parts": [
-        "body"
-      ]
+      "pitch": 20
     },
     {
       "picture": "work:pictures/back-right.png",
       "yaw": 215,
-      "pitch": 20,
-      "parts": [
-        "body"
-      ]
+      "pitch": 20
     }
   ]
 }

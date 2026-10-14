@@ -1,27 +1,19 @@
-`medkit.mdl` is in the server's work folder. The build says OK, and the engine check says it's fit for GoldSrc: one bone, one texture, 360 triangles.
+The model is built as `medkit.mdl` and passes the build (OK) and the engine-limits check ("fit for goldsrc"). It is at `work:medkit.mdl` in the SMAK work folder; I haven't copied it anywhere else.
 
-**How it's built**
-- **Case:** a sheet shaped from cross-sections running front to back. It has:
-  - straight sides with bevelled top edges and cut corners in plan;
-  - the open recess at the front, with a tall, steep back wall, a deep floor and a raised front lip;
-  - no bottom face, since the original shows nothing from below.
-- **Strap:** a ribbon 3.6 tall that leans slightly outward. It runs back along both sides of the case to about x −5.8 and loops out in front, following the outline in the top view.
-- **Colours and markings:** all nine reference pictures are laid on as the texture. That covers the red cross, the FIRST AID lettering, the arrow markings, the screen and buttons, the slots and knob, and the dark knob panels on the sides. The strap takes only the four side views and its webbing colour, because the top and angled views were putting white specks on it.
+**What I made**
 
-**Size:** 34.6 long, 26.4 wide, 6.8 high, standing at z 0, matching what you asked for.
+- **Body:** one carved part, cut from the outlines of all nine pictures: the five sheet views (front, left, back, right, top) and the four angle views. The strap is part of that outline, so the loop comes out as well. Size is 34.6 long, 26.3 wide, 6.8 high, standing on the floor, with 156 triangles.
+- **Markings and colours:** projected from the pictures themselves, so the red cross, the "FIRST AID" lettering, the dark dial panel and the checkered strap all come from the originals. Texture is 512 by 512.
+- **Outline match:** the silhouettes agree with the originals at 0.99 in every view. Measured against the picture outlines after projection, the figures are 0.93 to 0.98; the lowest is the top view. Nothing is under the 0.8 warning line.
 
-**How close the outline is.** This is how much of my model's outline and the original's overlap, view by view (1.0 would be a perfect match):
+**Choices I made**
 
-```
-front 0.90   left 0.93   back 0.95   right 0.90   top 0.86
-yaw 35 0.93  yaw -35 0.92  yaw 145 0.92  yaw 215 0.92
-```
+- I used one carved body rather than separate case and strap parts. A carved shape can't be painted on its own parts, and splitting it would have meant hand-building the strap loop, which I judged would be less faithful than the outlines.
+- I set the pictures' finish off, so the colours stay as the originals show them rather than getting extra shading.
+- I left out the sheet's "below" cell, which is blank in the original, so the underside is plain grey.
 
-I compared my renders against all four close angles. They line up in shape, strap path and markings. The differences I can see:
-- The back wall of the recess comes out lighter grey than the original's dark panel with slots.
-- The small arrow markings on the side bevels are a bit blurred where the views overlap.
-- The front view's sloped top corners are a touch steeper than the original's.
+**Known gaps, stated plainly**
 
-**What I tried first.** A shape carved straight from the pictures scored higher on outline (0.94 to 0.99). I dropped it because it fills in the recess and leaves white patches all over the strap, and both show badly from the angled views.
-
-**Triangle count.** 360 triangles earns a warning: typical Half-Life props this size have about 156 or fewer. It's well within engine limits. Most of the cost comes from the case sheet, which the kit always builds with two sides.
+- The underside is a guess: the original's below view is empty, so nothing in the pictures shows it.
+- In the front-left render, a few white flecks sit on the strap where the case's white paint spills onto texels it shares. Fixing that would need the strap as a separate part with its own picture, which I did not build.
+- The build warns that 156 triangles is above the median for props of this size (62). The guide says a copy over twice its original's count fails, and I can't count the original's triangles from pictures, so I can't say whether this is over that line.
