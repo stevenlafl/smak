@@ -29,42 +29,42 @@
    "byView": [
     {
      "view": "front",
-     "deltaE": 10.6,
+     "deltaE": 10.3,
      "shared": 0.963
     },
     {
      "view": "left",
-     "deltaE": 9.9,
+     "deltaE": 10.8,
      "shared": 0.96
     },
     {
      "view": "back",
-     "deltaE": 7.9,
+     "deltaE": 7,
      "shared": 0.963
     },
     {
      "view": "right",
-     "deltaE": 8.9,
-     "shared": 0.96
+     "deltaE": 9.3,
+     "shared": 0.961
     },
     {
      "view": "top",
-     "deltaE": 7.6,
+     "deltaE": 8.1,
      "shared": 0.932
     },
     {
      "view": "below",
      "deltaE": 10.1,
-     "shared": 0.932
+     "shared": 0.933
     },
     {
      "view": "front-left",
-     "deltaE": 10.4,
+     "deltaE": 11.1,
      "shared": 0.945
     },
     {
      "view": "front-right",
-     "deltaE": 8.7,
+     "deltaE": 8.2,
      "shared": 0.96
     },
     {
@@ -74,7 +74,7 @@
     },
     {
      "view": "back-right",
-     "deltaE": 7.7,
+     "deltaE": 7.6,
      "shared": 0.944
     }
    ]
@@ -114,108 +114,52 @@
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "All six views have the original's outline: dome body, forelegs reaching forward and down, hind legs splayed at the rear. Measured overlap is 0.961 front/back, 0.96 left/right and 0.933 top/below, all above 0.80. Nothing sticks out and nothing is missing in any view."
+   "reason": "Silhouette overlap is 0.93 to 0.97 in all ten views, above the 0.80 line. In the side and angle pictures the outlines match: the long forward claw in left and right, the dome, the rear legs, and the tips of both front claws in top and below. Nothing sticks out or is missing."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Length 26 vs 25.9, width 18.4 vs 19.2 (about 4% under) and height 13.1 vs 13.2. All three are within 10%."
+   "reason": "Measured size is 26.0 x 18.4 x 13.1 against the original's 25.9 x 19.2 x 13.2. The worst difference is the 19.2 to 18.4 side, at 4.2%, within 10%."
   },
   "M3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Every part is there in the right place and shape: the domed carapace, two forelegs with red, clawed tips, two hind legs with claws at the rear corners, and the underside mouth ringed with teeth (below and back views). The claw tips are slightly less sharp, but the count, placement and shape match."
+   "reason": "Both front claws (red with black tips), both rear legs, the pale dome, the head with two eyes and the open mouth are all present, in the same places, at the same count. The mouth's teeth are simpler than the original's, which is a surface-detail matter (M5), not a missing part."
   },
   "M4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Each region keeps the original's colour: a pale cream dome, a tan-brown ribbed shell and legs, red legs and claws, and a red flesh mouth. Mean measured deltaE is 9, under 15, and no view goes above 10.6."
+   "reason": "Mean colour difference is 9.0, under 15, and every view is under 12 (worst front-left at 11.1). The pale dome, the brown shell and the red claws match in hue and material."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The shell ribbing and the red leg markings are in place, but the dome shows visible dark seam lines that the original lacks: a diagonal crease in the top view and cracks across the dome in the front, front-left and front-right views. The mouth's teeth are blurrier than the original's in the back and below views."
+   "reason": "The back shell's ribbed markings are softer than the original's, most visibly in the back and back-left views. The mouth's teeth in below are less defined. A visible straight seam runs across the pale dome's edge in front-left and back-left, where the original has none."
   },
   "M6": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Side by side at game size, a player would take it for the headcrab. The overall shape, the pale dome, the red forelegs and the toothed underside all read the same. The seams on the dome only show on a close look."
+   "score": 1,
+   "reason": "At close view the dome seam in front-left and back-left and the softer shell ribbing show it is a copy. At game size the outline and colours are close enough that a player might pass it, but the close pictures show clearly off surface work. The line-up is judged separately."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "It faces the same way, with the forelegs forward in the left and right views and the mouth under the front. It is upright and stands on its feet at the same height as the original."
+   "reason": "The head and mouth face the same way as the original, the claws reach forward in left and right, and the body stands on the same legs and origin. The below view places the mouth and eyes at the top of the image as the original does."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "No check errors. It has 600 triangles against the original's 478, under the 956 limit. Nothing open, inside out or floating is visible in any view."
+   "reason": "checkErrors is empty, so SMAK's GoldSrc check passes. Triangles are 600 against the original's 478, 1.26 times, under the 2x limit. No open, inside-out or floating parts appear in any view."
   }
  },
- "total": 15,
+ "total": 14,
  "of": 16,
- "passes": true,
- "first": {
-  "model": "haiku",
-  "total": 14,
-  "passes": false,
-  "scores": {
-   "M1": {
-    "judge": 2,
-    "cap": 2,
-    "score": 2,
-    "reason": "All six views and the four angles have the original's outline. The measured overlap is 0.933 to 0.961, above the 0.80 line. Nothing sticks out or is missing: the dome, the two front red legs, the two rear legs and the lower jaw all sit where the original's do."
-   },
-   "M2": {
-    "judge": 2,
-    "cap": 2,
-    "score": 2,
-    "reason": "Measured size is 26.0 x 18.4 x 13.1 against the original's 25.9 x 19.2 x 13.2. The largest deviation is the height at 3.9%, inside the 10% limit."
-   },
-   "M3": {
-    "judge": 2,
-    "cap": null,
-    "score": 2,
-    "reason": "Every component is there in the right number and place: the domed back, the four legs (two long red forelegs, two shorter rear legs with dark claw tips), the eyes and the toothed mouth seen from below. The forelegs reach forward in the left and right views as in the original."
-   },
-   "M4": {
-    "judge": 2,
-    "cap": 2,
-    "score": 2,
-    "reason": "The measured mean colour difference is 9.0 (CIE76), under 15. The dome's cream, the brown carapace and the red legs read as the same colours and materials as the original in every view."
-   },
-   "M5": {
-    "judge": 1,
-    "cap": null,
-    "score": 1,
-    "reason": "Surface detail is softer than the original. The dome's veining and the carapace's ridged striping are blurred in the front, back and front-left views, and the front-left dome shows dark seam lines the original lacks. The mouth teeth and eyes are less crisp in the below view. Not a must-have."
-   },
-   "M6": {
-    "judge": 1,
-    "cap": null,
-    "score": 1,
-    "reason": "Side by side the reproduction is recognisably the headcrab but not the original. The dome looks smoother and flatter in the front-left and front-right views, the dark seam lines on the dome (front-left) do not appear on the original, and the mouth in the below view is less defined. A player could tell them apart at close look."
-   },
-   "M7": {
-    "judge": 2,
-    "cap": null,
-    "score": 2,
-    "reason": "The front faces the same way as the original: the mouth and eyes are towards the front in the below view, the body is upright in the left and right views, and the legs spread from the same base in the front view."
-   },
-   "M8": {
-    "judge": 2,
-    "cap": 2,
-    "score": 2,
-    "reason": "The harness reports no check errors. The reproduction has 600 triangles against the original's 478, about 1.26 times, under the 2x limit. The renders show no open, inside-out or floating parts."
-   }
-  }
- },
- "judgedBy": "opus"
+ "passes": false
 }

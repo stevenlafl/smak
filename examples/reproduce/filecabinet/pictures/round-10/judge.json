@@ -1,0 +1,165 @@
+{
+ "subject": "filecabinet",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 1,
+   "left/right": 1,
+   "top/below": 1
+  },
+  "size": {
+   "original": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "reproduction": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "offShare": [
+    0.001,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 3.9,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 3.8,
+     "shared": 1
+    },
+    {
+     "view": "left",
+     "deltaE": 4,
+     "shared": 0.989
+    },
+    {
+     "view": "back",
+     "deltaE": 4.2,
+     "shared": 1
+    },
+    {
+     "view": "right",
+     "deltaE": 4.3,
+     "shared": 0.989
+    },
+    {
+     "view": "top",
+     "deltaE": 4.2,
+     "shared": 0.986
+    },
+    {
+     "view": "below",
+     "deltaE": 4.2,
+     "shared": 0.986
+    },
+    {
+     "view": "front-left",
+     "deltaE": 3.5,
+     "shared": 0.998
+    },
+    {
+     "view": "front-right",
+     "deltaE": 3.7,
+     "shared": 0.999
+    },
+    {
+     "view": "back-left",
+     "deltaE": 3.8,
+     "shared": 0.996
+    },
+    {
+     "view": "back-right",
+     "deltaE": 3.7,
+     "shared": 0.999
+    }
+   ]
+  },
+  "triangles": {
+   "original": 14,
+   "reproduction": 24
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "I",
+  "right": "I",
+  "letters": {
+   "A": "models/w_longjump.mdl",
+   "B": "models/w_security.mdl",
+   "C": "models/w_battery.mdl",
+   "D": "models/forklift.mdl",
+   "E": "models/w_medkit.mdl",
+   "F": "models/mbarrel.mdl",
+   "G": "models/w_9mmclip.mdl",
+   "H": "models/headcrab.mdl",
+   "I": "models/filecabinet.mdl",
+   "J": "models/can.mdl"
+  },
+  "answer": "I",
+  "ended": "success"
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "All six sides (front, left, right, back, top, below) and all four angles show the same outline as the original, and the measured silhouette overlap is 1.0 in every view. Nothing sticks out or is missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 28.8 x 22.6 x 62.4 in both, with an off-share of 0.001 on length. Each dimension is well within 10%."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Three drawers stacked in the same places, each with its recessed frame and a dark pull handle, sit on the same plinth at the base. The front and front-left/front-right views match in count, position and shape."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mean colour difference is 3.9 (ΔE, well under 15), and every view shares 0.98 to 1.0 of its outline. The grey painted-metal tone and the darker recesses match the original."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original's side panels carry a diagonal brushed or striated texture and a vertical groove on the left and back-left faces (visible in front-left and back-left). The reproduction's sides are a smoother, blotchy grain with a plain vertical strip in place of those markings. Surface detail is not a must-have, but these are visibly different."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Front and front-right are very close and would pass at a glance. The left faces in front-left and back-left are the giveaway: the original's brushed striations and groove are absent, and the reproduction's side reads smooth and flatter. A player comparing them side by side would see the difference, so it is close but not the original."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The drawers face the same way as the original's front, the cabinet stands upright, and the plinth sits at the base in the same place in every view."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's checks report no errors. The reproduction has 24 triangles against the original's 14, which is within the 2x limit. Nothing is open, inside out or floating in the views."
+  }
+ },
+ "total": 14,
+ "of": 16,
+ "passes": false
+}

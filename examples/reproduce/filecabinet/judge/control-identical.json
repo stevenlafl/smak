@@ -1,0 +1,165 @@
+{
+ "subject": "filecabinet",
+ "leg": "decoy: identical",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 1,
+   "left/right": 1,
+   "top/below": 1
+  },
+  "size": {
+   "original": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "reproduction": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "offShare": [
+    0,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 0,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "left",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "back",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "right",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "top",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "below",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "front-left",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "front-right",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "back-left",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "back-right",
+     "deltaE": 0,
+     "shared": 1
+    }
+   ]
+  },
+  "triangles": {
+   "original": 14,
+   "reproduction": 14
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "F",
+  "right": "F",
+  "letters": {
+   "A": "models/w_security.mdl",
+   "B": "models/w_battery.mdl",
+   "C": "models/w_9mmclip.mdl",
+   "D": "models/headcrab.mdl",
+   "E": "models/mbarrel.mdl",
+   "F": "models/filecabinet.mdl",
+   "G": "models/can.mdl",
+   "H": "models/forklift.mdl",
+   "I": "models/w_medkit.mdl",
+   "J": "models/w_longjump.mdl"
+  },
+  "answer": "F",
+  "ended": "success"
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "All six views (front, back, left, right, top, below) and the four close angles show the same outline in both pictures. The harness silhouette overlap is 1.0 in every pair, and no part sticks out or is missing. This pair is pixel-identical, so it passes on the look of it, not because it matches a different subject."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 28.8 x 22.6 x 62.4 for both original and reproduction, with offShare 0 on all three axes, so each dimension is well within 10%."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Three drawers, each with its recessed panel and dark pull handle, sit at the same heights in the front view. The plinth at the base and the flat back, sides and top are present in both, with the same count and place."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Colour difference is 0 in all ten views (meanDeltaE 0). The painted grey metal with its mottled grain and the darker handles match the original's region by region."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The drawer panel lines and bevels, the handle recesses, the plinth edge, the mottling and the stains on the sides and top are all in their places, at the same sharpness as the original."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Side by side at the same scale, the two pictures cannot be told apart in any view. Only the side-by-side comparison was judged here; the line-up is run separately."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front is the original's front, with the drawers facing the same way. The model stands upright on the same base line in the front, side and back views, and sits at the same origin."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "checkErrors is empty, triangles are 14 against 14 for the original (well under twice), and no face is open, inside out or floating in any view."
+  }
+ },
+ "total": 16,
+ "of": 16,
+ "passes": true
+}

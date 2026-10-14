@@ -1,0 +1,165 @@
+{
+ "subject": "medkit",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.99,
+   "left/right": 0.989,
+   "top/below": 0.988
+  },
+  "size": {
+   "original": [
+    34.6,
+    26.4,
+    6.8
+   ],
+   "reproduction": [
+    34.6,
+    26.3,
+    6.8
+   ],
+   "offShare": [
+    0.002,
+    0.004,
+    0.004
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 9.8,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 12.2,
+     "shared": 0.967
+    },
+    {
+     "view": "left",
+     "deltaE": 8.8,
+     "shared": 0.971
+    },
+    {
+     "view": "back",
+     "deltaE": 9,
+     "shared": 0.967
+    },
+    {
+     "view": "right",
+     "deltaE": 7.3,
+     "shared": 0.971
+    },
+    {
+     "view": "top",
+     "deltaE": 7.2,
+     "shared": 0.986
+    },
+    {
+     "view": "below",
+     "deltaE": null,
+     "shared": 0
+    },
+    {
+     "view": "front-left",
+     "deltaE": 13.6,
+     "shared": 0.989
+    },
+    {
+     "view": "front-right",
+     "deltaE": 12.1,
+     "shared": 0.99
+    },
+    {
+     "view": "back-left",
+     "deltaE": 9.8,
+     "shared": 0.989
+    },
+    {
+     "view": "back-right",
+     "deltaE": 8.4,
+     "shared": 0.989
+    }
+   ]
+  },
+  "triangles": {
+   "original": 99,
+   "reproduction": 156
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "G",
+  "right": "G",
+  "letters": {
+   "A": "models/headcrab.mdl",
+   "B": "models/can.mdl",
+   "C": "models/w_9mmclip.mdl",
+   "D": "models/w_longjump.mdl",
+   "E": "models/mbarrel.mdl",
+   "F": "models/w_battery.mdl",
+   "G": "models/w_medkit.mdl",
+   "H": "models/forklift.mdl",
+   "I": "models/filecabinet.mdl",
+   "J": "models/w_security.mdl"
+  },
+  "answer": "G",
+  "ended": "success"
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Measured overlap is 0.988 to 0.99 in all six views, so the outline matches. The strap is torn in the reproduction: in front-left, front-right and back-right the strap has ragged notches and missing faces along its lower edge that the original's strap does not have. Those are parts missing from the outline, so M1 is not a 2."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Size is 34.6 x 26.3 x 6.8 against the original's 34.6 x 26.4 x 6.8, so every dimension is within 0.4%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The parts are all present: the white box, the top panel with its screen and red and green buttons, the side dials and the strap. The strap is not the right shape, though. It has holes and torn patches (front-left, front-right, left). The back face of the box has dark triangular openings in the back and back-right views where the original has a solid face."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured colour difference is 9.8 (under 15), with per-view values from 7.2 to 13.6. The white box, the red cross and lettering, the dark panel and the checkered grey-brown strap are the same colours and materials in both. Some strap patches read lighter, but within the measure they are the same colour."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The 'FIRST AID' lettering, the red cross, the side arrows, the panel and the strap check pattern are all in their places at similar sharpness. The strap's checker is broken by light patches and holes, and the back face has dark triangles where the original has none. Not a must item."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Side by side at game size, the two are recognisably the same box, but a player would notice the torn, holed strap in front-left, front-right and left, and the dark triangular openings on the back face in the back and back-right views. A player would not take it for the original."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front is the original's front: the top panel, the screen and the side dials are on the same faces. It sits upright in every view, with the 'FIRST AID' text reading the same way round from above. Its origin matches the original's in every view."
+  },
+  "M8": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The SMAK check reports no errors and the triangle count is 156 against the original's 99, which is 1.58 times and within the limit of 2 times. But the model is open: there are missing faces in the strap and in the back face, which show as holes. The below view draws a closed underside where the original draws nothing; that is not a fault by itself, and the harness excludes it from the colour mean."
+  }
+ },
+ "total": 11,
+ "of": 16,
+ "passes": false
+}

@@ -1,0 +1,165 @@
+{
+ "subject": "headcrab",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.961,
+   "left/right": 0.96,
+   "top/below": 0.933
+  },
+  "size": {
+   "original": [
+    25.9,
+    19.2,
+    13.2
+   ],
+   "reproduction": [
+    26,
+    18.4,
+    13.1
+   ],
+   "offShare": [
+    0.003,
+    0.039,
+    0.006
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 8.9,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 10.7,
+     "shared": 0.963
+    },
+    {
+     "view": "left",
+     "deltaE": 9.4,
+     "shared": 0.96
+    },
+    {
+     "view": "back",
+     "deltaE": 7.7,
+     "shared": 0.963
+    },
+    {
+     "view": "right",
+     "deltaE": 8.7,
+     "shared": 0.961
+    },
+    {
+     "view": "top",
+     "deltaE": 8,
+     "shared": 0.932
+    },
+    {
+     "view": "below",
+     "deltaE": 10,
+     "shared": 0.933
+    },
+    {
+     "view": "front-left",
+     "deltaE": 10.3,
+     "shared": 0.945
+    },
+    {
+     "view": "front-right",
+     "deltaE": 8.9,
+     "shared": 0.96
+    },
+    {
+     "view": "back-left",
+     "deltaE": 7.7,
+     "shared": 0.974
+    },
+    {
+     "view": "back-right",
+     "deltaE": 7.5,
+     "shared": 0.944
+    }
+   ]
+  },
+  "triangles": {
+   "original": 478,
+   "reproduction": 600
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "G",
+  "right": "G",
+  "letters": {
+   "A": "models/filecabinet.mdl",
+   "B": "models/can.mdl",
+   "C": "models/mbarrel.mdl",
+   "D": "models/w_medkit.mdl",
+   "E": "models/w_battery.mdl",
+   "F": "models/w_security.mdl",
+   "G": "models/headcrab.mdl",
+   "H": "models/forklift.mdl",
+   "I": "models/w_9mmclip.mdl",
+   "J": "models/w_longjump.mdl"
+  },
+  "answer": "G",
+  "ended": "success"
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Silhouette overlap is 0.93 to 0.97 in all six views (front/back 0.961, left/right 0.96, top/below 0.933), and the outlines look the same in the side, top and below views. Nothing sticks out or is missing beyond the head shading noted under M3."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size original 25.9 x 19.2 x 13.2 against reproduction 26 x 18.4 x 13.1. Off-shares are 0.3%, 3.9% and 0.6%, all within 10%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The parts are all present: the head dome, the mouth with teeth, the two front and two rear red legs with black claws, and the rim. The head shape is wrong, though. In the front-left and back-left views (compare-angles.png) the reproduction's dome has a flat, faceted block on its top-front edge where the original's head is a smooth round dome. The lower claw tips are also less defined in the side view."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mean colour difference is 8.9 (CIE76), under 15, and every view is between 7.5 and 10.7. The cream head, brown carapace, red legs and dark claws read as the same colours and materials in all views."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Surface detail is softer than the original. The veined, wrinkled texture on the dome is smoothed out, the teeth inside the mouth (front, back and below views) are blurred, and the carapace's ribbed lines are less crisp. The markings are roughly in place but not at the original's sharpness."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Side by side, the reproduction is recognisably a headcrab, but a player would likely notice the faceted flat block on the head in the angle views, the softer texture, and the less defined legs and claws. At game size it is close but not indistinguishable from the original."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Upright, with the mouth facing down and the legs under the body in the side and front views, matching the original's orientation in all six views. It stands on the same footing as the original."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The harness reports no check errors, and the reproduction has 600 triangles against the original's 478 (1.26 times, under the 2x limit). Nothing in the pictures looks open, inside out or floating."
+  }
+ },
+ "total": 13,
+ "of": 16,
+ "passes": false
+}

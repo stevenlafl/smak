@@ -1,0 +1,221 @@
+{
+ "subject": "filecabinet",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 1,
+   "left/right": 1,
+   "top/below": 1
+  },
+  "size": {
+   "original": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "reproduction": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "offShare": [
+    0.001,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 2.7,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 2.7,
+     "shared": 1
+    },
+    {
+     "view": "left",
+     "deltaE": 2.6,
+     "shared": 0.989
+    },
+    {
+     "view": "back",
+     "deltaE": 2.9,
+     "shared": 1
+    },
+    {
+     "view": "right",
+     "deltaE": 2.9,
+     "shared": 0.989
+    },
+    {
+     "view": "top",
+     "deltaE": 2.9,
+     "shared": 0.986
+    },
+    {
+     "view": "below",
+     "deltaE": 2.9,
+     "shared": 0.986
+    },
+    {
+     "view": "front-left",
+     "deltaE": 2.5,
+     "shared": 0.998
+    },
+    {
+     "view": "front-right",
+     "deltaE": 2.5,
+     "shared": 0.999
+    },
+    {
+     "view": "back-left",
+     "deltaE": 2.5,
+     "shared": 0.997
+    },
+    {
+     "view": "back-right",
+     "deltaE": 2.5,
+     "shared": 0.999
+    }
+   ]
+  },
+  "triangles": {
+   "original": 14,
+   "reproduction": 24
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "I",
+  "right": "I",
+  "letters": {
+   "A": "models/w_longjump.mdl",
+   "B": "models/w_security.mdl",
+   "C": "models/w_battery.mdl",
+   "D": "models/forklift.mdl",
+   "E": "models/w_medkit.mdl",
+   "F": "models/mbarrel.mdl",
+   "G": "models/w_9mmclip.mdl",
+   "H": "models/headcrab.mdl",
+   "I": "models/filecabinet.mdl",
+   "J": "models/can.mdl"
+  },
+  "answer": "I",
+  "ended": "success"
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Silhouette overlap is 1.00 in all three view pairs. The tall rectangular block with its slightly protruding plinth at the base matches the original in every view, and nothing sticks out or is missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 28.8 x 22.6 x 62.4 against the original's 28.8 x 22.6 x 62.4: identical on every axis."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Three drawers sit stacked on the front, each with a recessed panel and a dark pull handle centred in its upper half. The base plinth and plain back, sides and top are all there in the same places and shapes as the original's."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mid-grey painted metal throughout, with darker drawer pulls and the same mottled grey on the sides, back and top. Mean colour difference is 2.7 (CIE76 delta E), well under 15."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The front drawer bevels, handles, mottling on the back, right side and top, and the plinth line are all well matched. The left side is off: in the front-left and back-left views the original shows a band of fine diagonal, grain-like streaks along that face, while the reproduction shows smooth vertical shaded bands with no streaking."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "At game size a player would take it for the original side by side. Shape, drawers, handles, plinth and colour all match, and the left-side streak difference only shows on close inspection."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The drawers face front as in the original, the cabinet is upright, and it stands on its base at the same origin. All views line up exactly."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The check reports no errors. It has 24 triangles against the original's 14, under the 28 allowed. Nothing is visibly open, inside out or floating in any view."
+  }
+ },
+ "total": 15,
+ "of": 16,
+ "passes": true,
+ "first": {
+  "model": "haiku",
+  "total": 14,
+  "passes": false,
+  "scores": {
+   "M1": {
+    "judge": 2,
+    "cap": 2,
+    "score": 2,
+    "reason": "All six sides and all four angles have the original's outline. The measured silhouette overlap is 1.0 in every view, and nothing sticks out or is missing. The top and underside outlines match too."
+   },
+   "M2": {
+    "judge": 2,
+    "cap": 2,
+    "score": 2,
+    "reason": "The measured size is 28.8 x 22.6 x 62.4 for both, with an off-share of 0.001 on length. All three dimensions are within 10%."
+   },
+   "M3": {
+    "judge": 2,
+    "cap": null,
+    "score": 2,
+    "reason": "Three drawers stacked in the same places, each with a recessed frame and a centred pull handle, and the same plinth along the bottom. The front view and the front-left and front-right angles match part for part, with no missing or extra components."
+   },
+   "M4": {
+    "judge": 2,
+    "cap": 2,
+    "score": 2,
+    "reason": "The mean colour difference inside the shared outline is 2.5 to 2.9 across views, well under 15. The painted grey steel reads as the same material and tone in every view, including the top and underside."
+   },
+   "M5": {
+    "judge": 1,
+    "cap": null,
+    "score": 1,
+    "reason": "The original's side panels carry diagonal streaked grain, most visible at front-left (right flank) and back-left (left flank). The reproduction's sides are smooth with only faint vertical banding. The drawer faces and plinth detail are close, but the side grain is missing and clearly visible at the close angles."
+   },
+   "M6": {
+    "judge": 1,
+    "cap": null,
+    "score": 1,
+    "reason": "Side by side at the close angles, the smooth sides at front-left and back-left give it away: the original's streaked grain is absent. At the size the game shows, the cabinet would pass as the original. Because the close-angle difference is visible, this is scored 1. It is a must-have, so this item fails, and it is borderline for a close call."
+   },
+   "M7": {
+    "judge": 2,
+    "cap": null,
+    "score": 2,
+    "reason": "The front faces the front view's direction, with the three drawers on the front. The cabinet stands upright, and its base sits level with the original's in the front and side views."
+   },
+   "M8": {
+    "judge": 2,
+    "cap": 2,
+    "score": 2,
+    "reason": "checkErrors is empty, so no SMAK check fails. The reproduction has 24 triangles against the original's 14, which is under the 28-triangle cap (twice the original). The silhouettes show no open, inside-out or floating parts."
+   }
+  }
+ },
+ "judgedBy": "opus"
+}

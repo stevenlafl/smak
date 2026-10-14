@@ -1,0 +1,165 @@
+{
+ "subject": "battery",
+ "leg": "decoy: identical",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 1,
+   "left/right": 1,
+   "top/below": 1
+  },
+  "size": {
+   "original": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "reproduction": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "offShare": [
+    0,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 0,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "left",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "back",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "right",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "top",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "below",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "front-left",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "front-right",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "back-left",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "back-right",
+     "deltaE": 0,
+     "shared": 1
+    }
+   ]
+  },
+  "triangles": {
+   "original": 116,
+   "reproduction": 116
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "D",
+  "right": "D",
+  "letters": {
+   "A": "models/headcrab.mdl",
+   "B": "models/w_medkit.mdl",
+   "C": "models/can.mdl",
+   "D": "models/w_battery.mdl",
+   "E": "models/mbarrel.mdl",
+   "F": "models/w_longjump.mdl",
+   "G": "models/filecabinet.mdl",
+   "H": "models/w_9mmclip.mdl",
+   "I": "models/w_security.mdl",
+   "J": "models/forklift.mdl"
+  },
+  "answer": "D",
+  "ended": "success"
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "All six views (front, back, left, right, top, below) have the same outline in both pictures. The measured silhouette overlap is 1 for front/back, left/right and top/below, and no part sticks out or is missing (gear cap and striped cylinder on top, side lamps, base chamfer)."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 10.3 x 10.3 x 18.4 for both original and reproduction, with offShare 0 on all three axes, well within 10%."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Every component is present in the same places and shapes: the top gear cap, the striped cylinder with its angled tip, the two side lamps, the front and back red indicator lights, the glowing front and back panels, and the hazard-striped band at the base."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured mean colour difference is 0 in all ten views (shared outline 1 in each). The painted metal, the green glass panels, the yellow and black hazard stripes and the dark base all look the same colour and material."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The hazard stripes, the glow in the green panels, the red lights, the panel edges and the wear on the base are in the same places at the same sharpness in both pictures."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Side by side at the size shown, the reproduction is indistinguishable from the original in every view. The line-up is scored separately and is not scored here."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front (the red light and the two side lamps on the panel facing the camera) is the front, the object stands upright, and the top and below views match the original's footprint and origin placement."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The SMAK check errors list is empty. Triangles are 116 against 116 (well under twice). The below view shows the same underside as the original, with no sign of open, inside-out or floating faces."
+  }
+ },
+ "total": 16,
+ "of": 16,
+ "passes": true
+}

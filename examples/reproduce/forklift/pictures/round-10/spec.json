@@ -1,0 +1,654 @@
+{
+  "spec": "smak.model/1",
+  "name": "forklift.mdl",
+  "kind": "prop",
+  "size": {
+    "height": 113.4,
+    "length": 186.6,
+    "width": 60
+  },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "finish": false,
+  "materials": {
+    "red": {
+      "base": "paint",
+      "tone": [
+        0.6,
+        0.08,
+        0.06
+      ]
+    },
+    "white": {
+      "base": "paint",
+      "tone": [
+        0.88,
+        0.88,
+        0.86
+      ]
+    },
+    "dark": {
+      "base": "iron",
+      "tone": "dark grey"
+    },
+    "tyre": {
+      "base": "asphalt"
+    },
+    "steel": {
+      "base": "steel"
+    },
+    "green": {
+      "base": "cloth",
+      "tone": [
+        0.2,
+        0.45,
+        0.2
+      ]
+    },
+    "yellow": {
+      "base": "paint",
+      "tone": [
+        0.95,
+        0.8,
+        0.1
+      ]
+    },
+    "skin": {
+      "base": "cloth",
+      "tone": [
+        0.85,
+        0.66,
+        0.52
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "chassis",
+      "kind": "box",
+      "material": "red",
+      "size": [
+        94,
+        59.5,
+        22
+      ],
+      "at": [
+        -46,
+        0,
+        5
+      ]
+    },
+    {
+      "id": "body",
+      "kind": "box",
+      "material": "white",
+      "size": [
+        85,
+        59.5,
+        30
+      ],
+      "at": [
+        -50.5,
+        0,
+        27
+      ]
+    },
+    {
+      "id": "wheel_fl",
+      "kind": "cylinder",
+      "material": "tyre",
+      "radius": 10,
+      "height": 5,
+      "sides": 16,
+      "rotate": [
+        0,
+        0,
+        90
+      ],
+      "at": [
+        -6,
+        23.5,
+        10
+      ]
+    },
+    {
+      "id": "wheel_fr",
+      "kind": "cylinder",
+      "material": "tyre",
+      "radius": 10,
+      "height": 5,
+      "sides": 16,
+      "rotate": [
+        0,
+        0,
+        90
+      ],
+      "at": [
+        -6,
+        -18.5,
+        10
+      ]
+    },
+    {
+      "id": "wheel_rl",
+      "kind": "cylinder",
+      "material": "tyre",
+      "radius": 10,
+      "height": 5,
+      "sides": 16,
+      "rotate": [
+        0,
+        0,
+        90
+      ],
+      "at": [
+        -78,
+        23.5,
+        10
+      ]
+    },
+    {
+      "id": "wheel_rr",
+      "kind": "cylinder",
+      "material": "tyre",
+      "radius": 10,
+      "height": 5,
+      "sides": 16,
+      "rotate": [
+        0,
+        0,
+        90
+      ],
+      "at": [
+        -78,
+        -18.5,
+        10
+      ]
+    },
+    {
+      "id": "mast_l",
+      "kind": "box",
+      "material": "dark",
+      "size": [
+        16,
+        3.5,
+        113.4
+      ],
+      "at": [
+        8,
+        17,
+        0
+      ]
+    },
+    {
+      "id": "mast_r",
+      "kind": "box",
+      "material": "dark",
+      "size": [
+        16,
+        3.5,
+        113.4
+      ],
+      "at": [
+        8,
+        -17,
+        0
+      ]
+    },
+    {
+      "id": "mast_top",
+      "kind": "box",
+      "material": "dark",
+      "size": [
+        16,
+        36,
+        4
+      ],
+      "at": [
+        8,
+        0,
+        109.4
+      ]
+    },
+    {
+      "id": "carriage",
+      "kind": "box",
+      "material": "dark",
+      "size": [
+        3,
+        59,
+        52
+      ],
+      "at": [
+        17.5,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "fork_l",
+      "kind": "box",
+      "material": "steel",
+      "size": [
+        77,
+        5,
+        3.5
+      ],
+      "at": [
+        54.5,
+        19,
+        2
+      ]
+    },
+    {
+      "id": "fork_r",
+      "kind": "box",
+      "material": "steel",
+      "size": [
+        77,
+        5,
+        3.5
+      ],
+      "at": [
+        54.5,
+        -19,
+        2
+      ]
+    },
+    {
+      "id": "guard_roof",
+      "kind": "box",
+      "material": "dark",
+      "size": [
+        46,
+        30,
+        3
+      ],
+      "at": [
+        -51,
+        0,
+        95
+      ]
+    },
+    {
+      "id": "post_fl",
+      "kind": "tube",
+      "material": "dark",
+      "path": [
+        [
+          -28.7,
+          14,
+          96,
+          1.4
+        ],
+        [
+          -19,
+          14,
+          56,
+          1.4
+        ]
+      ],
+      "sides": 6
+    },
+    {
+      "id": "post_fr",
+      "kind": "tube",
+      "material": "dark",
+      "path": [
+        [
+          -28.7,
+          -14,
+          96,
+          1.4
+        ],
+        [
+          -19,
+          -14,
+          56,
+          1.4
+        ]
+      ],
+      "sides": 6
+    },
+    {
+      "id": "post_rl",
+      "kind": "tube",
+      "material": "dark",
+      "path": [
+        [
+          -74.5,
+          14,
+          96,
+          1.4
+        ],
+        [
+          -69,
+          14,
+          42,
+          1.4
+        ]
+      ],
+      "sides": 6
+    },
+    {
+      "id": "post_rr",
+      "kind": "tube",
+      "material": "dark",
+      "path": [
+        [
+          -74.5,
+          -14,
+          96,
+          1.4
+        ],
+        [
+          -69,
+          -14,
+          42,
+          1.4
+        ]
+      ],
+      "sides": 6
+    },
+    {
+      "id": "seat",
+      "kind": "box",
+      "material": "dark",
+      "size": [
+        16,
+        22,
+        6
+      ],
+      "at": [
+        -60,
+        0,
+        30
+      ]
+    },
+    {
+      "id": "seat_back",
+      "kind": "box",
+      "material": "dark",
+      "size": [
+        4,
+        22,
+        24
+      ],
+      "at": [
+        -68,
+        0,
+        36
+      ]
+    },
+    {
+      "id": "steer_column",
+      "kind": "tube",
+      "material": "dark",
+      "path": [
+        [
+          -44,
+          0,
+          36,
+          0.8
+        ],
+        [
+          -36,
+          0,
+          52,
+          0.8
+        ]
+      ],
+      "sides": 6
+    },
+    {
+      "id": "steer_wheel",
+      "kind": "box",
+      "material": "dark",
+      "size": [
+        2,
+        14,
+        12
+      ],
+      "at": [
+        -36,
+        0,
+        52
+      ]
+    },
+    {
+      "id": "torso",
+      "kind": "box",
+      "material": "green",
+      "size": [
+        14,
+        18,
+        26
+      ],
+      "at": [
+        -58,
+        0,
+        36
+      ]
+    },
+    {
+      "id": "neck",
+      "kind": "tube",
+      "material": "skin",
+      "path": [
+        [
+          -58,
+          0,
+          60,
+          1.5
+        ],
+        [
+          -57,
+          0,
+          72,
+          1.5
+        ]
+      ],
+      "sides": 6
+    },
+    {
+      "id": "head",
+      "kind": "sphere",
+      "material": "skin",
+      "radius": 4.6,
+      "at": [
+        -57,
+        0,
+        71.4
+      ],
+      "sides": 8
+    },
+    {
+      "id": "helmet",
+      "kind": "sphere",
+      "material": "yellow",
+      "radius": 5.4,
+      "at": [
+        -56.5,
+        0,
+        72.6
+      ],
+      "sides": 8
+    },
+    {
+      "id": "arm_l",
+      "kind": "tube",
+      "material": "green",
+      "path": [
+        [
+          -58,
+          9.5,
+          58,
+          2.5
+        ],
+        [
+          -40,
+          6,
+          53,
+          2.2
+        ]
+      ],
+      "sides": 6
+    },
+    {
+      "id": "arm_r",
+      "kind": "tube",
+      "material": "green",
+      "path": [
+        [
+          -58,
+          -9.5,
+          58,
+          2.5
+        ],
+        [
+          -40,
+          -6,
+          53,
+          2.2
+        ]
+      ],
+      "sides": 6
+    },
+    {
+      "id": "leg_l",
+      "kind": "tube",
+      "material": "green",
+      "path": [
+        [
+          -56,
+          7,
+          37,
+          3
+        ],
+        [
+          -38,
+          7,
+          30,
+          2.8
+        ],
+        [
+          -26,
+          7,
+          12,
+          2.5
+        ]
+      ],
+      "sides": 6
+    },
+    {
+      "id": "leg_r",
+      "kind": "tube",
+      "material": "green",
+      "path": [
+        [
+          -56,
+          -7,
+          37,
+          3
+        ],
+        [
+          -38,
+          -7,
+          30,
+          2.8
+        ],
+        [
+          -26,
+          -7,
+          12,
+          2.5
+        ]
+      ],
+      "sides": 6
+    }
+  ],
+  "project": [
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "front",
+      "area": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "left",
+      "area": [
+        512,
+        0,
+        1024,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "back",
+      "area": [
+        1024,
+        0,
+        1536,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "right",
+      "area": [
+        0,
+        512,
+        512,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "top",
+      "area": [
+        512,
+        512,
+        1024,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "below",
+      "area": [
+        1024,
+        512,
+        1536,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/front-left.png",
+      "yaw": 35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/front-right.png",
+      "yaw": -35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-left.png",
+      "yaw": 145,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-right.png",
+      "yaw": 215,
+      "pitch": 20
+    }
+  ]
+}

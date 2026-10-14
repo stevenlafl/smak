@@ -1,0 +1,91 @@
+{
+ "subject": "frenzy",
+ "leg": "decoy: identical",
+ "measured": {
+  "floorOverlap": 1,
+  "alignment": {
+   "move": [
+    0,
+    0,
+    0
+   ],
+   "note": "the reproduction is this far from where the original has the same floor"
+  },
+  "entities": {
+   "original": 58,
+   "reproduction": 58,
+   "matched": 58,
+   "share": 1,
+   "missing": []
+  },
+  "walkTest": {
+   "unreachedInReproduction": 3,
+   "unreachedInOriginal": 3
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "P2": 2,
+  "P4": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "plans.png: the areas, their arrangement and the joins (the central corridor, the lift and stair shafts at the right, the doorways between halls) match the original in every visible detail. Pictures alone cannot show how the reproduction was made."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "plans.png: the walkable floor lines up at the same places and sizes in both plans. The harness measures floor overlap 1.0 with alignment move (0, 0, 0)."
+  },
+  "P3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "storeys-original/reproduction.png and sections.png: the floor levels (Z 36, 228, 372, 578 cuts), ledges, the balcony stairs at the right, and the ceiling heights (2 160, 2 320, 2 512) agree. The section shows the same drop and step at the same heights."
+  },
+  "P4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "storeys pictures: the same entity labels in the same places (INFO_PLAYER_START, DEATHMATCH starts, weapons, ammo, FUNC_WALL, FUNC_DOOR, FUNC_LADDER, TRIGGER_MULTIPLE). The harness matches 58 of 58 entities, with none missing."
+  },
+  "P5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "views.png: the wall panels, pipe runs, shelving and floor tiles in each start view are the same texture in the same places in both halves of every pair."
+  },
+  "P6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "views.png: the ceiling lamps in start 8 sit in the same places with the same bright and dark areas. Starts 4 to 7 are equally dim in both halves, so the lighting agrees across the set."
+  },
+  "P7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "plans and views: the distinctive shelf rows, pillars, the octagonal wall bays and the stairs at the right match the original in place and shape."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The harness reports no check errors. The walk test leaves the same 3 items unreached in both maps (unreachedInReproduction 3, unreachedInOriginal 3), so the reproduction reaches what the original reaches on foot. The harness did not measure the leak check directly."
+  },
+  "P9": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "views.png: from all eight starts the reproduction is indistinguishable from the original, pixel for pixel in the frames I could compare. A player who knew the map would recognise it at once. Caveat: this folder is named decoy-identical. Pictures cannot show provenance, so I scored what they show. If this is a control meant to fail, the run is void under the rubric's decoy rule."
+  }
+ },
+ "total": 18,
+ "of": 18,
+ "passes": true
+}

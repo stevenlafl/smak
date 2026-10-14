@@ -1,0 +1,165 @@
+{
+ "subject": "battery",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.988,
+   "left/right": 0.992,
+   "top/below": 0.999
+  },
+  "size": {
+   "original": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "reproduction": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "offShare": [
+    0,
+    0.001,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 7,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 6.6,
+     "shared": 0.99
+    },
+    {
+     "view": "left",
+     "deltaE": 7.3,
+     "shared": 0.992
+    },
+    {
+     "view": "back",
+     "deltaE": 6.3,
+     "shared": 0.99
+    },
+    {
+     "view": "right",
+     "deltaE": 6.8,
+     "shared": 0.992
+    },
+    {
+     "view": "top",
+     "deltaE": 8.2,
+     "shared": 0.998
+    },
+    {
+     "view": "below",
+     "deltaE": 3.7,
+     "shared": 0.573
+    },
+    {
+     "view": "front-left",
+     "deltaE": 8.1,
+     "shared": 0.99
+    },
+    {
+     "view": "front-right",
+     "deltaE": 7.9,
+     "shared": 0.99
+    },
+    {
+     "view": "back-left",
+     "deltaE": 7.8,
+     "shared": 0.987
+    },
+    {
+     "view": "back-right",
+     "deltaE": 7.7,
+     "shared": 0.989
+    }
+   ]
+  },
+  "triangles": {
+   "original": 116,
+   "reproduction": 88
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "B",
+  "right": "B",
+  "letters": {
+   "A": "models/w_security.mdl",
+   "B": "models/w_battery.mdl",
+   "C": "models/w_longjump.mdl",
+   "D": "models/filecabinet.mdl",
+   "E": "models/can.mdl",
+   "F": "models/forklift.mdl",
+   "G": "models/w_medkit.mdl",
+   "H": "models/w_9mmclip.mdl",
+   "I": "models/headcrab.mdl",
+   "J": "models/mbarrel.mdl"
+  },
+  "answer": "B",
+  "ended": "success"
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "All six views keep the original's outline: an 8-sided body with the same tapered top and bottom, measured silhouette overlap 0.988 to 0.999. Nothing sticks out or is missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Size is 10.3 x 10.3 x 18.4 for both, off share 0.001 at most."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "All components are present: body, four glowing panels, two white side panels, the red lights, hazard stripes, the grey cap cylinder and the yellow striped block. The yellow block is wrong in shape and angle at the top. In front, left and back views the original's block leans at about 45 degrees and stands proud on the cap, while the reproduction's sits lower, flatter and more upright, and the top view shows the stripes running differently."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Colours and materials match region by region: beige-grey painted metal, green glow panels, yellow and black hazard paint, dark base. Mean delta E is 7.0 with every view under 8.2. The glow's centre is a little paler in the reproduction, still within the same colour."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Markings are in place, but the hazard stripes are softer and blurrier than the original's. The cap's edges show fuzzy, noisy shading in the front-right and back-right angles that the original does not have. Panel lines are less crisp."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "At picture size the two read as the same object. At the close angles the cap is clearly different: the yellow block's wedge angle is off, and the cap edges look fuzzy where the original is crisp. A player would notice on a close look, so it is not a pass."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front is the original's front (red light and the same panel layout face the front view). It is upright and sits on its base at the origin, as the original does."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The check reports no errors. 88 triangles against the original's 116 (limit 232). The underside is closed and dark as in the original, with no open or floating parts visible."
+  }
+ },
+ "total": 13,
+ "of": 16,
+ "passes": false
+}

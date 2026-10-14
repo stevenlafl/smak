@@ -7,7 +7,8 @@
 //   node examples/reproduce/judge.mjs [subject[:leg] ...] [--again]
 //
 // <id>/<leg>/judge.json: the measurements, the judge's scores and reasons, the capped scores, the total and
-// whether it passes. <id>/judge/: the pictures the judge saw (kept out of git: Valve's art is in them).
+// whether it passes. `identical` (or identical:<id>) judges each original against itself as a control:
+// <id>/judge/control-identical.json. <id>/judge/: the pictures the judge saw (kept out of git: Valve's art is in them).
 // scores.md: every result in one table.
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync } from "node:fs";
 import { join, dirname } from "node:path";
@@ -388,6 +389,16 @@ async function main() {
       const built = join(HERE, map.id, leg, "built", `${map.id}_copy.bsp`);
       if (chosen(map.id, leg) && existsSync(built)) jobs.push(() => judgeMap(map, leg, built).then((r) => [join(HERE, map.id, leg, "judge.json"), r]));
     }
+  // the control: the original judged against itself, told it is the reproduction. A fair judge gives it every
+  // point; what it takes off is the judge's own harshness, not any fault of a copy
+  // `identical` for every model, `identical:<id>` for one
+  const identical = words.filter((w) => /^identical(:|$)/.test(w)).map((w) => w.split(":")[1]);
+  if (identical.length)
+    for (const model of SUBJECTS.models.filter((m) => identical.includes(undefined) || identical.includes(m.id)))
+      jobs.push(() => judgeModel(model, "identical", join(GAME, model.file), { decoy: "identical" }).then((r) => [join(HERE, model.id, "judge", "control-identical.json"), r]));
+  if (identical.length)
+    for (const map of SUBJECTS.maps.filter((m) => identical.includes(undefined) || identical.includes(m.id)))
+      jobs.push(() => judgeMap(map, "identical", join(GAME, map.file), { decoy: "identical" }).then((r) => [join(HERE, map.id, "judge", "control-identical.json"), r]));
   // the decoys: a box for each model, a swapped reproduction, a room for each map
   if (!words.length || words.includes("decoys")) {
     for (const model of SUBJECTS.models) jobs.push(() => judgeModel(model, "box", boxDecoy(model), { decoy: "box" }).then((r) => [join(HERE, model.id, "judge", "decoy-box.json"), r]));
