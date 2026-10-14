@@ -221,3 +221,12 @@ walk test, not the game.
   format; a sound's length and rate). S2's decay range is the sound's class's where it is of one
   (`src/audio/classes.mjs`), else the original's own decay within a quarter or 0.05 s; outside it caps S2 at 1.
   Round 1 keeps the scores it was given.
+- **2026-10-14, who judges (Steven's decision: cost first).** Judging on Opus cost about a percent of Steven's
+  plan a minute. From this date: an asset whose measure already holds a must-have item under 2 fails with no
+  judge asked; the judge is Haiku; and a model Haiku fails only on M3, M4 or M6 (every must-have item short of
+  2 one of those, at 1 and held there by the judge, not a measure, and a point more on each would reach the
+  bar) is judged again by Opus, whose scores stand (`closeCall`, examples/reproduce/judge.mjs). On eight legs
+  Opus had judged (calibration-haiku.md), Haiku scored within 1 of Opus on every item and never above it, lower
+  on M3, M4 and M6 only, and turned three of Opus's passes into fails; with Opus on the close calls, all eight
+  came out as Opus had them, with four Opus judgements in place of eight. Decoys are judged the same way and
+  must still fail. Results judged on Opus alone before this date keep their scores.

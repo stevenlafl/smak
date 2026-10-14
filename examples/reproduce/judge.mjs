@@ -139,11 +139,28 @@ function settle(kind, answer, caps, extra = {}) {
   for (const item of items) {
     const given = Math.max(0, Math.min(2, Number(judged[item]?.score ?? 0)));
     const cap = Math.min(caps[item] ?? 2, extra[item] ?? 2);
-    scores[item] = { judge: given, cap: caps[item] ?? null, score: Math.min(given, cap), reason: judged[item]?.reason ?? "" };
+    scores[item] = { judge: given, cap: cap < 2 ? cap : (caps[item] ?? null), score: Math.min(given, cap), reason: judged[item]?.reason ?? "" };
   }
   const total = items.reduce((s, i) => s + scores[i].score, 0);
   const passes = must.every((i) => scores[i].score === 2) && total >= PASS_SHARE * 2 * items.length;
   return { scores, total, of: 2 * items.length, passes };
+}
+
+/** The items where Haiku scored under Opus on the calibration: a point lower on some legs, higher on none. */
+const STRICT_ON = ["M3", "M4", "M6"];
+/**
+ * Whether a cheap judge's fail is one Opus might pass: every must-have item short of 2 is one Haiku is strict on,
+ * at 1 and held there by the judge, not by a measure; and a point more on each strict item the judge held down
+ * would bring the total to the bar. Off when the judge is Opus.
+ */
+export function closeCall(settled) {
+  if (JUDGE_MODEL === "opus" || settled.passes || !settled.scores) return false;
+  const held = ([item, s]) => STRICT_ON.includes(item) && s.score < 2 && s.judge < (s.cap ?? 2);
+  const entries = Object.entries(settled.scores);
+  const mustShort = entries.filter(([item, s]) => MODEL_MUST.includes(item) && s.score < 2);
+  if (!mustShort.every((e) => held(e) && e[1].score === 1)) return false;
+  const raisable = entries.filter(held).length;
+  return raisable > 0 && settled.total + raisable >= PASS_SHARE * settled.of;
 }
 
 export async function judgeModel(model, leg, copyFile, { decoy } = {}) {
@@ -157,8 +174,15 @@ export async function judgeModel(model, leg, copyFile, { decoy } = {}) {
   const failed = failedByMeasure(caps, MODEL_MUST);
   if (failed.length) return { subject: model.id, leg: decoy ? `decoy: ${decoy}` : leg, measured, caps, passes: false, failedByMeasure: failed };
   const line = await lineup(join(dir, "lineup"), copy, model.file);
-  const r = await runJudge({ read: dir, hours: 0.5, prompt: judgePrompt("model", dir, measured) });
-  const settled = settle("model", r.answer, caps, { M6: line.picked === line.right ? 2 : 1 });
+  const prompt = judgePrompt("model", dir, measured);
+  const extra = { M6: line.picked === line.right ? 2 : 1 };
+  const r = await runJudge({ read: dir, hours: 0.5, prompt });
+  let settled = settle("model", r.answer, caps, extra);
+  // a close call on Haiku goes to Opus (calibration-haiku.md: Haiku stood a point under Opus on these, never over)
+  if (closeCall(settled)) {
+    const second = await runJudge({ read: dir, hours: 0.5, prompt, model: "opus" });
+    settled = { ...settle("model", second.answer, caps, extra), first: { model: JUDGE_MODEL, total: settled.total, passes: settled.passes }, judgedBy: "opus" };
+  }
   return { subject: model.id, leg: decoy ? `decoy: ${decoy}` : leg, measured, caps, lineup: line, ...settled };
 }
 
