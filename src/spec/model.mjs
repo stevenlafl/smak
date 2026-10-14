@@ -603,9 +603,16 @@ function piecesOf(spec, context) {
       const through = typeof part.repeat.around === "string" && byId.has(part.repeat.around)
         ? anchorOfBox(boxOf(pointsOf(trianglesOf(part.repeat.around))), "centre")
         : (part.repeat.through ?? [0, 0, 0]);
+      // about the axis named (z unless told) through `through`: the two other axes turn
+      const [a, b] = { z: [0, 1], x: [1, 2], y: [2, 0] }[part.repeat.axis ?? "z"];
       const round = (angle) => {
         const [c, s] = [Math.cos(degrees(angle)), Math.sin(degrees(angle))];
-        return (p) => [through[0] + (p[0] - through[0]) * c - (p[1] - through[1]) * s, through[1] + (p[0] - through[0]) * s + (p[1] - through[1]) * c, p[2]];
+        return (p) => {
+          const q = [...p];
+          q[a] = through[a] + (p[a] - through[a]) * c - (p[b] - through[b]) * s;
+          q[b] = through[b] + (p[a] - through[a]) * s + (p[b] - through[b]) * c;
+          return q;
+        };
       };
       // the part itself turned to the first place, then the copies round from it
       if (start) move(list, round(start));

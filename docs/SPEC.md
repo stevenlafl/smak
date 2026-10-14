@@ -95,8 +95,10 @@ A part is placed in one of two ways, then copied when asked:
   z (90 turns +x to +y), pitch about y (90 turns +x down to -z, so `[0, -90, 0]` stands a part made along
   x upright), roll about x.
 - `mirror: "y"` adds a copy on the other side (left for right, through y = 0); `"x"`, front for back.
-- `repeat: { count, around, start }` makes `count` of it round the upright axis through the middle of the
-  part `around` (or through `through: [x, y, z]`): spokes, chair legs, a crown's points.
+- `repeat: { count, around, start, axis }` makes `count` of it round an axis (`z`, upright, unless told;
+  `y` for a wheel facing sideways, `x`) through the middle of the part `around` (or through `through: [x,
+  y, z]`), the first turned `start` degrees: chair legs, a crown's points, a wheel's spokes. Copies of a
+  part must not all begin at one point: start each a little off the axis.
 
 Parts should touch: the check calls a part more than 0.25 units from every other **floating**. Let parts
 sink a little into what they stand on (an `offset` of `[0, 0, -0.5]`), the way a real thing is made.
