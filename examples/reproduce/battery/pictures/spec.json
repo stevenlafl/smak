@@ -7,57 +7,137 @@
     "length": 10.3,
     "width": 10.3
   },
-  "smooth": 80,
+  "smooth": 40,
   "texture": {
     "width": 512,
     "height": 512
   },
-  "finish": false,
-  "materials": {
-    "hollow": {
-      "base": "paint",
-      "seen": [
-        0.22,
-        0.235,
-        0.275
-      ]
-    }
-  },
   "parts": [
     {
-      "id": "battery",
+      "id": "body",
       "kind": "carved",
-      "material": "hollow",
       "size": [
         10.3,
         10.3,
-        18.4
-      ],
-      "sheet": "work:pictures/sides.png",
-      "pictures": [
-        {
-          "picture": "work:pictures/front-left.png",
-          "yaw": 35,
-          "pitch": 20
-        },
-        {
-          "picture": "work:pictures/front-right.png",
-          "yaw": -35,
-          "pitch": 20
-        },
-        {
-          "picture": "work:pictures/back-left.png",
-          "yaw": 145,
-          "pitch": 20
-        },
-        {
-          "picture": "work:pictures/back-right.png",
-          "yaw": 215,
-          "pitch": 20
-        }
+        15.9
       ],
       "cells": 128,
-      "triangles": 150
+      "pictures": [
+        {
+          "picture": "work:pictures/sides.png",
+          "view": "front",
+          "rect": [
+            137,
+            102,
+            375,
+            469
+          ]
+        },
+        {
+          "picture": "work:pictures/sides.png",
+          "view": "left",
+          "rect": [
+            649,
+            102,
+            887,
+            469
+          ]
+        },
+        {
+          "picture": "work:pictures/sides.png",
+          "view": "back",
+          "rect": [
+            1161,
+            102,
+            1399,
+            469
+          ]
+        },
+        {
+          "picture": "work:pictures/sides.png",
+          "view": "right",
+          "rect": [
+            137,
+            614,
+            375,
+            981
+          ]
+        },
+        {
+          "picture": "work:pictures/sides.png",
+          "view": "top",
+          "rect": [
+            649,
+            649,
+            887,
+            887
+          ]
+        }
+      ]
+    },
+    {
+      "id": "knob",
+      "kind": "cylinder",
+      "radius": 2.3,
+      "height": 1.5,
+      "sides": 8,
+      "at": [
+        0,
+        2.25,
+        15.6
+      ],
+      "rotate": [
+        22.5,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "tab_base",
+      "kind": "box",
+      "size": [
+        4.2,
+        2.8,
+        0.9
+      ],
+      "at": [
+        0,
+        -3.2,
+        15.6
+      ]
+    },
+    {
+      "id": "link",
+      "kind": "box",
+      "size": [
+        3.2,
+        2.6,
+        0.6
+      ],
+      "at": [
+        0,
+        -0.6,
+        15.6
+      ]
+    },
+    {
+      "id": "tab",
+      "kind": "box",
+      "size": [
+        2.8,
+        3,
+        0.9
+      ],
+      "at": [
+        0,
+        -2.45,
+        16.67
+      ],
+      "rotate": [
+        0,
+        0,
+        51
+      ]
     }
   ],
   "project": [

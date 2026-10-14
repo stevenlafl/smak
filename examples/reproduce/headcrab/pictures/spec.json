@@ -8,13 +8,19 @@
     "height": 13.2
   },
   "smooth": 80,
-  "finish": false,
   "texture": {
     "width": 512,
     "height": 512
   },
-  "budget": 600,
   "materials": {
+    "flesh": {
+      "base": "leather",
+      "seen": [
+        0.85,
+        0.78,
+        0.55
+      ]
+    },
     "claw": {
       "base": "bone",
       "tone": [
@@ -26,8 +32,10 @@
   },
   "parts": [
     {
-      "id": "crab",
+      "id": "body",
       "kind": "carved",
+      "material": "flesh",
+      "finish": false,
       "size": [
         25.9,
         19.2,
@@ -35,7 +43,7 @@
       ],
       "sheet": "work:pictures/sides.png",
       "cells": 160,
-      "triangles": 450,
+      "triangles": 300,
       "pictures": [
         {
           "picture": "work:pictures/front-left.png",
@@ -67,21 +75,21 @@
       "mirror": "y",
       "path": [
         [
-          12,
-          6.9,
+          12.2,
+          6.7,
           0.9,
-          0.4
+          0.35
         ],
         [
-          10.6,
-          6.9,
+          10.8,
+          6.7,
           0.35,
-          0.25
+          0.2
         ],
         [
-          9.3,
-          6.9,
-          0.1,
+          9.4,
+          6.7,
+          0.05,
           0
         ]
       ]
@@ -94,21 +102,21 @@
       "mirror": "y",
       "path": [
         [
-          -10.9,
-          8.6,
-          1,
-          0.4
+          -10.6,
+          9,
+          0.9,
+          0.35
         ],
         [
-          -9.8,
+          -9.6,
           9.1,
-          0.4,
-          0.25
+          0.35,
+          0.2
         ],
         [
-          -8.7,
-          9.5,
-          0.08,
+          -8.5,
+          9.2,
+          0.05,
           0
         ]
       ]
@@ -125,7 +133,7 @@
         512
       ],
       "parts": [
-        "crab"
+        "body"
       ]
     },
     {
@@ -138,7 +146,7 @@
         512
       ],
       "parts": [
-        "crab"
+        "body"
       ]
     },
     {
@@ -151,7 +159,7 @@
         512
       ],
       "parts": [
-        "crab"
+        "body"
       ]
     },
     {
@@ -164,7 +172,7 @@
         1024
       ],
       "parts": [
-        "crab"
+        "body"
       ]
     },
     {
@@ -177,7 +185,7 @@
         1024
       ],
       "parts": [
-        "crab"
+        "body"
       ]
     },
     {
@@ -190,7 +198,7 @@
         1024
       ],
       "parts": [
-        "crab"
+        "body"
       ]
     },
     {
@@ -198,7 +206,7 @@
       "yaw": 35,
       "pitch": 20,
       "parts": [
-        "crab"
+        "body"
       ]
     },
     {
@@ -206,7 +214,7 @@
       "yaw": -35,
       "pitch": 20,
       "parts": [
-        "crab"
+        "body"
       ]
     },
     {
@@ -214,7 +222,7 @@
       "yaw": 145,
       "pitch": 20,
       "parts": [
-        "crab"
+        "body"
       ]
     },
     {
@@ -222,7 +230,7 @@
       "yaw": 215,
       "pitch": 20,
       "parts": [
-        "crab"
+        "body"
       ]
     }
   ]

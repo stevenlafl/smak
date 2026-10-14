@@ -1,0 +1,165 @@
+{
+ "subject": "medkit",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.987,
+   "left/right": 0.975,
+   "top/below": 0.907
+  },
+  "size": {
+   "original": [
+    34.6,
+    26.4,
+    6.8
+   ],
+   "reproduction": [
+    34.3,
+    26.2,
+    6.7
+   ],
+   "offShare": [
+    0.009,
+    0.009,
+    0.004
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 7.5,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 6.8,
+     "shared": 0.989
+    },
+    {
+     "view": "left",
+     "deltaE": 7.8,
+     "shared": 0.985
+    },
+    {
+     "view": "back",
+     "deltaE": 7.4,
+     "shared": 0.989
+    },
+    {
+     "view": "right",
+     "deltaE": 6.6,
+     "shared": 0.985
+    },
+    {
+     "view": "top",
+     "deltaE": 6.7,
+     "shared": 0.899
+    },
+    {
+     "view": "below",
+     "deltaE": null,
+     "shared": 0
+    },
+    {
+     "view": "front-left",
+     "deltaE": 9,
+     "shared": 0.978
+    },
+    {
+     "view": "front-right",
+     "deltaE": 8.9,
+     "shared": 0.978
+    },
+    {
+     "view": "back-left",
+     "deltaE": 7.6,
+     "shared": 0.977
+    },
+    {
+     "view": "back-right",
+     "deltaE": 6.9,
+     "shared": 0.971
+    }
+   ]
+  },
+  "triangles": {
+   "original": 99,
+   "reproduction": 194
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "G",
+  "right": "G",
+  "letters": {
+   "A": "models/headcrab.mdl",
+   "B": "models/can.mdl",
+   "C": "models/w_9mmclip.mdl",
+   "D": "models/w_longjump.mdl",
+   "E": "models/mbarrel.mdl",
+   "F": "models/w_battery.mdl",
+   "G": "models/w_medkit.mdl",
+   "H": "models/forklift.mdl",
+   "I": "models/filecabinet.mdl",
+   "J": "models/w_security.mdl"
+  },
+  "answer": "G",
+  "ended": "success"
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Five of six views match closely (measured overlap front/back 0.987, left/right 0.975, top 0.907). The top view is off: the original's strap sticks out past the box at the left edge and below the lower-right corner, and the reproduction's strap does not show outside the box there. The angle views also show the strap running a shorter, different path. The strap is missing from the top outline, which the rubric counts as a part missing in a view."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 34.3 x 26.2 x 6.7 against the original's 34.6 x 26.4 x 6.8. Each dimension is within 1%, well inside 10%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The screen panel, dials, red and green lights, raised rim and the 'FIRST AID' lettering are all there in the right places. The strap's route is wrong: in the top view it is missing from the lower-left and lower-right where the original's strap hangs out, and in the front-left and back-left angles it sits closer to the box and runs a different path. The underside also differs: the original shows nothing from below, while the reproduction has a closed flat bottom."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured mean colour difference is 7.5 (under 15), with every view between 6.6 and 9.0. The white plastic, grey control panel, glass-like screen and checkered grey-brown strap all read as the same colours and materials side by side."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The red cross, the 'FIRST AID' lettering on top (reading upside-down from the top view in both), the red arrows on the sides and the red and green lights are all present in their places at similar sharpness. The screen's glossy highlight is missing, which is minor."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "At the size shown the two read as the same kit, and the front, the screen panel and the lettering match. In the angle views a player would notice the strap: the original's wraps wider and hangs lower, and the reproduction's sits tighter against the box with a different loop at the back. The top rim is also more sculpted in the reproduction. Not a pass by side-by-side inspection."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front is the original's front: the control panel faces the same way in the front view, and the top lettering reads the same way round. It lies flat on its base as the original does, with the same height in each view."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Triangle count is 194 against the original's 99, which is just under the twice-the-original limit (198). The harness reports no check errors. Nothing in the pictures looks open or inside out. The underside is closed in the reproduction, which the original's blank below view does not show, but that is not a fit fault. Floating could not be confirmed from the pictures alone; the strap route is the only doubt, and the check errors are empty."
+  }
+ },
+ "total": 13,
+ "of": 16,
+ "passes": false
+}

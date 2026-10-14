@@ -1,0 +1,171 @@
+{
+ "subject": "headcrab",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.976,
+   "left/right": 0.948,
+   "top/below": 0.95
+  },
+  "size": {
+   "original": [
+    25.9,
+    19.2,
+    13.2
+   ],
+   "reproduction": [
+    25.9,
+    19,
+    13.1
+   ],
+   "offShare": [
+    0.001,
+    0.008,
+    0.006
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 8.8,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 10.5,
+     "shared": 0.977
+    },
+    {
+     "view": "left",
+     "deltaE": 10.4,
+     "shared": 0.948
+    },
+    {
+     "view": "back",
+     "deltaE": 7.6,
+     "shared": 0.977
+    },
+    {
+     "view": "right",
+     "deltaE": 8.7,
+     "shared": 0.948
+    },
+    {
+     "view": "top",
+     "deltaE": 7.1,
+     "shared": 0.951
+    },
+    {
+     "view": "below",
+     "deltaE": 9.6,
+     "shared": 0.952
+    },
+    {
+     "view": "front-left",
+     "deltaE": 10.4,
+     "shared": 0.956
+    },
+    {
+     "view": "front-right",
+     "deltaE": 8.5,
+     "shared": 0.959
+    },
+    {
+     "view": "back-left",
+     "deltaE": 8,
+     "shared": 0.958
+    },
+    {
+     "view": "back-right",
+     "deltaE": 7.2,
+     "shared": 0.959
+    }
+   ]
+  },
+  "triangles": {
+   "original": 478,
+   "reproduction": 514
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "G",
+  "right": "G",
+  "letters": {
+   "A": "models/filecabinet.mdl",
+   "B": "models/can.mdl",
+   "C": "models/mbarrel.mdl",
+   "D": "models/w_medkit.mdl",
+   "E": "models/w_battery.mdl",
+   "F": "models/w_security.mdl",
+   "G": "models/headcrab.mdl",
+   "H": "models/forklift.mdl",
+   "I": "models/w_9mmclip.mdl",
+   "J": "models/w_longjump.mdl"
+  },
+  "answer": "G",
+  "ended": "success"
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Silhouette overlap is 0.976 front/back, 0.948 left/right and 0.95 top/below, all well above 0.80. In every view the outline matches the original: the domed body, the two long forelegs reaching forward and the two short hind legs, with nothing extra or missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 25.9 x 19.0 x 13.1 against the original's 25.9 x 19.2 x 13.2. Every axis is within 1%."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Every part of the original is there, in the right place and shape: the domed carapace, the two long red-tipped forelegs with black claws, the two short hind legs with claws, the ribbed brown back plates, and the toothed mouth on the underside and rear. The numbers and placement match in all ten views."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mean smoothed delta E is 8.8 (worst view 10.5, front), under 15. The regions keep the original's colours: a cream fleshy dome, brown ribbed shell, red leg tips and a red mouth."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The detail is mostly there but clearly softer. The dome's mottled flesh and pink veining are blurrier and flatter than the original's in the front and front-left/front-right views. Thin dark seam lines run across the dome in front-left and front-right that the original lacks. There is a stray dark rectangular mark on the right flank in the front view. The teeth are less crisp in the back view and from below."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "At the size the game shows it, side by side, a player would take it for the original headcrab. The pose, proportions, colours and mouth all read the same. The seams and softer dome only show on a close look."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Facing matches in every view: the forelegs point forward and the mouth faces down and back as in the original. It is upright and sits at the same height on its origin in the side views."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's check reports no errors. It has 514 triangles against the original's 478, well under twice. Nothing looks inside out or floating. The dark seam lines on the dome look like texture seams, not gaps showing the background."
+  }
+ },
+ "total": 15,
+ "of": 16,
+ "passes": true,
+ "first": {
+  "model": "haiku",
+  "total": 14,
+  "passes": false
+ },
+ "judgedBy": "opus"
+}

@@ -1,0 +1,169 @@
+{
+ "subject": "filecabinet",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 1,
+   "left/right": 1,
+   "top/below": 1
+  },
+  "size": {
+   "original": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "reproduction": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "offShare": [
+    0.001,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 2.8,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 2.9,
+     "shared": 1
+    },
+    {
+     "view": "left",
+     "deltaE": 2.6,
+     "shared": 0.986
+    },
+    {
+     "view": "back",
+     "deltaE": 3,
+     "shared": 1
+    },
+    {
+     "view": "right",
+     "deltaE": 2.9,
+     "shared": 0.986
+    },
+    {
+     "view": "top",
+     "deltaE": 3,
+     "shared": 0.986
+    },
+    {
+     "view": "below",
+     "deltaE": 2.9,
+     "shared": 0.986
+    },
+    {
+     "view": "front-left",
+     "deltaE": 2.6,
+     "shared": 0.999
+    },
+    {
+     "view": "front-right",
+     "deltaE": 2.6,
+     "shared": 0.999
+    },
+    {
+     "view": "back-left",
+     "deltaE": 2.6,
+     "shared": 0.998
+    },
+    {
+     "view": "back-right",
+     "deltaE": 2.6,
+     "shared": 0.999
+    }
+   ]
+  },
+  "triangles": {
+   "original": 14,
+   "reproduction": 12
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "I",
+  "right": "I",
+  "letters": {
+   "A": "models/w_longjump.mdl",
+   "B": "models/w_security.mdl",
+   "C": "models/w_battery.mdl",
+   "D": "models/forklift.mdl",
+   "E": "models/w_medkit.mdl",
+   "F": "models/mbarrel.mdl",
+   "G": "models/w_9mmclip.mdl",
+   "H": "models/headcrab.mdl",
+   "I": "models/filecabinet.mdl",
+   "J": "models/can.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Silhouette overlap measured 1.00 in front/back, left/right and top/below. In all six sides and four angles the outline matches the original's: a tall upright box with the plinth step at the foot, nothing added or missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 28.8 x 22.6 x 62.4 for both, with an off share of 0.001 or less on every axis."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front has three drawers stacked at the original's spacing and size. Each has a recessed dark pull handle centred near its top, and the plinth band at the foot is in the same place. The back and the other sides are plain, as in the original."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured mean deltaE is 2.8, and every view is between 2.6 and 3.0. Every region is the same mid-grey painted metal, with darker drawer frames and handles and a lighter plinth edge, the same as the original."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The front's drawer bevels and handle shading, the mottled grime on the back and right side, and the plinth highlight all match. The left side differs: in the front-left and back-left angles the original's left face carries fine diagonal streaks across most of its width, which the reproduction lacks. There that face shows soft vertical bands, with a hard vertical seam in the back-left angle. In the left view the darker stepped panel on the rear half is also softer and lacks the original's nested edge lines."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "At game size the two are effectively the same: the same three-drawer grey file cabinet, the same proportions, colour and handles. The only difference is the left-side streaking, which a player would not see in passing."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The drawers face the same way as the original's front. It is upright, and it sits on the same base: the plinth is at the bottom in every view, and the top and below views line up."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "There are no check errors. It has 12 triangles against the original's 14, well under twice. Nothing is open, inside out or floating in any view: the underside is closed in the below view, and the box sits on its plinth."
+  }
+ },
+ "total": 15,
+ "of": 16,
+ "passes": true,
+ "first": {
+  "model": "haiku",
+  "total": 14,
+  "passes": false
+ },
+ "judgedBy": "opus"
+}

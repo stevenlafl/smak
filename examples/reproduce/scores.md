@@ -12,6 +12,7 @@ Written by judge.mjs from every judge.json (rounds kept under each leg's round-<
 | 4 | filecabinet | pictures | 15 of 16 | yes | M1 2, M2 2, M3 2, M4 2, M5 1, M6 2, M7 2, M8 2 | 2c5b717 |
 | 5 | filecabinet | pictures | 15 of 16 | yes | M1 2, M2 2, M3 2, M4 2, M5 1, M6 2, M7 2, M8 2 | 713c64b |
 | 6 | filecabinet | pictures | 15 of 16 | yes | M1 2, M2 2, M3 2, M4 2, M5 1, M6 2, M7 2, M8 2 | 713c64b |
+| 7 | filecabinet | pictures | 15 of 16 | yes | M1 2, M2 2, M3 2, M4 2, M5 1, M6 2, M7 2, M8 2 | d644ebe |
 | 1 | filecabinet | words | 9 of 16 | no | M1 1, M2 2, M3 1, M4 1, M5 1, M6 1, M7 2, M8 0 |  |
 | 2 | filecabinet | words | 13 of 16 | no | M1 2, M2 2, M3 2, M4 1, M5 1, M6 1, M7 2, M8 2 | dac7582 |
 | 3 | filecabinet | words | 12 of 16 | no | M1 2, M2 2, M3 1, M4 1, M5 1, M6 1, M7 2, M8 2 | 13c7c25 |
@@ -22,6 +23,7 @@ Written by judge.mjs from every judge.json (rounds kept under each leg's round-<
 | 4 | battery | pictures | 14 of 16 | no | M1 2, M2 2, M3 2, M4 2, M5 1, M6 2, M7 2, M8 1 | 2c5b717 |
 | 5 | battery | pictures | 15 of 16 | yes | M1 2, M2 2, M3 2, M4 2, M5 1, M6 2, M7 2, M8 2 | 713c64b |
 | 6 | battery | pictures | 15 of 16 | yes | M1 2, M2 2, M3 2, M4 2, M5 1, M6 2, M7 2, M8 2 | 713c64b |
+| 7 | battery | pictures | 15 of 16 | yes | M1 2, M2 2, M3 2, M4 2, M5 1, M6 2, M7 2, M8 2 | d644ebe |
 | 1 | battery | words | 8 of 16 | no | M1 1, M2 2, M3 1, M4 0, M5 1, M6 1, M7 2, M8 0 |  |
 | 2 | battery | words | 9 of 16 | no | M1 1, M2 2, M3 1, M4 1, M5 1, M6 1, M7 2, M8 0 | dac7582 |
 | 3 | battery | words | 8 of 16 | no | M1 1, M2 2, M3 1, M4 0, M5 1, M6 1, M7 2, M8 0 | 2f681c2 |
@@ -32,6 +34,7 @@ Written by judge.mjs from every judge.json (rounds kept under each leg's round-<
 | 4 | medkit | pictures | 13 of 16 | no | M1 2, M2 2, M3 2, M4 2, M5 1, M6 2, M7 2, M8 0 | 2c5b717 |
 | 5 | medkit | pictures | 11 of 16 | no | M1 1, M2 2, M3 1, M4 2, M5 1, M6 1, M7 2, M8 1 | 713c64b |
 | 7 | medkit | pictures | 13 of 16 | no | M1 1, M2 2, M3 1, M4 2, M5 2, M6 1, M7 2, M8 2 | 713c64b |
+| 8 | medkit | pictures | 13 of 16 | no | M1 1, M2 2, M3 1, M4 2, M5 2, M6 1, M7 2, M8 2 | d644ebe |
 | 1 | medkit | words | 8 of 16 | no | M1 1, M2 2, M3 1, M4 0, M5 1, M6 1, M7 2, M8 0 |  |
 | 2 | medkit | words | 9 of 16 | no | M1 1, M2 2, M3 1, M4 1, M5 1, M6 1, M7 2, M8 0 | dac7582 |
 | 3 | medkit | words | 10 of 16 | no | M1 1, M2 2, M3 1, M4 1, M5 1, M6 1, M7 2, M8 1 | 1cf5cc0 |
@@ -51,12 +54,13 @@ Written by judge.mjs from every judge.json (rounds kept under each leg's round-<
 | 4 | headcrab | pictures | 13 of 16 | no | M1 2, M2 2, M3 1, M4 2, M5 1, M6 2, M7 2, M8 1 | 2c5b717 |
 | 5 | headcrab | pictures | 15 of 16 | yes | M1 2, M2 2, M3 2, M4 2, M5 1, M6 2, M7 2, M8 2 | 713c64b |
 | 6 | headcrab | pictures | 15 of 16 | yes | M1 2, M2 2, M3 2, M4 2, M5 1, M6 2, M7 2, M8 2 | 713c64b |
+| 7 | headcrab | pictures | 12 of 16 | no | M1 2, M2 2, M3 1, M4 2, M5 1, M6 1, M7 2, M8 1 | d644ebe |
 | 1 | headcrab | words | 10 of 16 | no | M1 1, M2 2, M3 1, M4 0, M5 1, M6 1, M7 2, M8 2 |  |
 | 2 | headcrab | words | 7 of 16 | no | M1 0, M2 2, M3 1, M4 1, M5 1, M6 0, M7 2, M8 0 | adc09ae |
 | 3 | headcrab | words | 9 of 16 | no | M1 0, M2 2, M3 1, M4 1, M5 1, M6 0, M7 2, M8 2 | 77643ac |
 | 4 | headcrab | words | 9 of 16 | no | M1 0, M2 2, M3 1, M4 1, M5 1, M6 1, M7 2, M8 1 | 2c5b717 |
 
-Latest round: 3 of 10 pass.
+Latest round: 2 of 10 pass.
 
 ## Maps
 

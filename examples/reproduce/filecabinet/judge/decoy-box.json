@@ -92,7 +92,7 @@
   "M8": 2
  },
  "lineup": {
-  "picked": null,
+  "picked": "B",
   "right": "B",
   "letters": {
    "A": "models/headcrab.mdl",
@@ -105,56 +105,58 @@
    "H": "models/can.mdl",
    "I": "models/w_longjump.mdl",
    "J": "models/w_9mmclip.mdl"
-  }
+  },
+  "answer": "B",
+  "ended": "success"
  },
  "scores": {
   "M1": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Outline is a plain rectangle that matches the original's overall box in all six views (measured overlap 1.0), but the original's recessed plinth at the bottom of the front, left, back and right views and its stepped drawer-face edges are missing, so the outline is not the original's."
+   "reason": "The reproduction is a plain rectangular box in all six views. The original's outline has a plinth at the base, a ledge visible in front, left, right, back and top, which the box lacks. The harness's 1.0 overlap comes from the bounding outline and misses that base step, so this is only partly right."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured size is 28.8 x 22.6 x 62.4 for both, with 0% off-share on each axis."
+   "reason": "Measured size is 28.8 x 22.6 x 62.4 for both, with 0% off in each axis."
   },
   "M3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "All three drawer fronts are missing, as are the three recessed drawer handles (front, front-left, front-right), the plinth at the base, and the two-tone recess between drawers. The reproduction is one solid block."
+   "reason": "The original has three drawers with three recessed drawer fronts and three pull handles on the front face, plus a base plinth. The reproduction has none of these: the front is a blank slab, so the drawers, handles and plinth are all missing."
   },
   "M4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The mean colour difference of 13.9 is under 15, but the regions do not match: the original's black drawer handles and dark drawer-gap recesses are rendered as flat grey, and the reproduction's top is noticeably lighter than the original's top face. The painted-metal body grey is roughly right."
+   "reason": "The original's painted grey metal is darker, with recessed drawer panels and a sheen on the edges. The reproduction is a lighter, blotchy grey texture on every face. The top view differs most (per-view delta E 20.8, over the 15 line), though the mean of 13.9 is under 15."
   },
   "M5": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The original's drawer seams, handle slots, plinth line and panel edges are absent. The reproduction shows only a uniform grain. (Not a must-have item, but nothing of the original's markings is there.)"
+   "reason": "The original's drawer seams, panel lines, handle shadows, edge highlights and wear are absent from the reproduction. Its faces show only a generic noise texture."
   },
   "M6": {
    "judge": 0,
-   "cap": 1,
+   "cap": null,
    "score": 0,
-   "reason": "Side by side, the reproduction is an obvious plain grey box with no drawers or handles. A player would not take it for a filing cabinet."
+   "reason": "Side by side, the reproduction reads at once as a grey box. The original is a three-drawer filing cabinet, so a player would not take it for the original."
   },
   "M7": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The reproduction stands upright on its origin, as the original does, but it has no front: none of its faces carries the drawer front, so the original's front cannot be identified."
+   "reason": "The reproduction stands upright on its base and looks upright in every view. It has no front face of its own, though: no drawers or handles mark which side is the front, so the original's front cannot be identified."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "checkErrors is empty. The reproduction has 12 triangles against the original's 14, well under the twice-original limit. A box is closed and has no open or inside-out faces."
+   "reason": "SMAK's check reports no errors. The reproduction has 12 triangles against the original's 14, within the 2x limit. The box is closed, with no open, inverted or floating faces visible in the below or angle views."
   }
  },
  "total": 7,

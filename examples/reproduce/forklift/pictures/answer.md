@@ -1,14 +1,24 @@
-I built `forklift.mdl` and the last build says OK: every check passes. It's 186.3 units long, 60 wide and 113.4 high, against the 186.6 × 60 × 113.4 you asked for (0.3 short on length).
+I built `forklift.mdl` and the build says **OK**: every check passed.
 
-**How it's made:** 35 pieces cover the forks, the full-width carriage plate, the two mast rails with a top plate, the red chassis and side skirts, and four tyres. The white body is three pieces (the front cowl, the rear counterweight and its raised top hump), with a dark rear bumper behind them. Then come the seat cushion and backrest, the roof with two upright back posts and two slanted front posts, the steering column and wheel, and the driver: body, head, yellow hard hat, arms, legs and boots. All ten of your pictures (the six sides and the four close angles) are laid onto the shape as its texture. That carries the colours and markings: the "HAIHAN" stripe, the "2.2" decal, the rear grille, the chain on the mast, the roof's tread pattern, and the driver's green overalls.
+**Size:** 186.3 long, 60 wide and 113.4 high, standing on the floor. You asked for 186.6 long, so it's 0.3 units short; the other two match exactly.
 
-**What I checked:** I compared the six sides against `sides.png`, and the front-left and back-right angles against your pictures. The outline, the proportions and the colours line up.
+**Parts:** I built 28 parts, 39 pieces counting mirrored copies:
+- **Lifting gear:** two forks with their upright shanks, the carriage plate, the two mast uprights with a crossbar, and the mast's top plate.
+- **Body:** a red chassis, a white front cowl and black dashboard, red front fenders, and a white rear body with the vented hood.
+- **Wheels:** wide front wheels at ±30 and a narrower pair at the rear.
+- **Cab:** the overhead guard (slanted front posts, upright rear posts, dark roof), a black seat and seat back, a console, the steering column and wheel.
+- **Driver:** green overalls (torso, arms, legs), a head, a yellow hard hat and boots.
 
-**What doesn't match:**
-- **Driver:** the body is simpler and a bit blockier than in the original.
-- **Gaps behind the carriage plate:** the original has some openings there; on mine it's a solid plate with those openings painted on.
-- **Front cowl:** it's one rounded block, so the slanted dark dashboard comes from the texture rather than the shape.
+I measured every size and position from your pictures, about 2.16 pixels to the unit. From the top view, the rear body is narrower (about ±23) than the front fenders and wheels (±30), so I built it that way.
 
-**Triangle count:** it's 880. The build warns about that, because most Half-Life props this size have fewer than 288. It's within what the engine can handle. Getting near 288 would mean painting on the driver's limbs, the steering wheel and the posts instead of building them, which would cost outline detail at the close angles. I kept the detail.
+**Colours and markings:** all ten of your pictures (the six sides and the four close angles) are projected onto the shape as its texture. The red and white paint, the "HAIHAN" lettering, the "2.2 LITER" label, the vents, the mast's orange chain stripe and the tyres and hubs all come straight from them.
 
-The model and its spec are in the work folder as `forklift.mdl` and `forklift.spec.json`.
+**Where it falls short:**
+- **Driver and cab:** the driver is rough box-and-tube shapes, so close up from behind the texture there looks muddy. Green from the overalls also smears onto the inside of the cowl.
+- **Rounding:** the cowl's rounded front and the rear body's curves are plain boxes, so those outlines are squarer than yours.
+- **Triangle count:** 824. The build warns about this but doesn't fail on it: three quarters of Half-Life's props have fewer than 576, and props this size usually have about 288. Most of it is in the wheels and the driver. I can bring it down if it needs to fit the usual Half-Life range.
+
+Files are in the work folder:
+- forklift.mdl
+- forklift.spec.json
+- forklift-sheet.png
