@@ -32,15 +32,15 @@ broom stays leaning up from the hand, more a swipe across than a sweep along the
   made anew from the crowbar's `idle1` frame, each with the same frames and rate as the one it replaces, by
   four keys: rest, low on one side, low on the other, rest. The first and third pairs sweep right to left,
   the second left to right.
-- The keys' turns were found by measuring, not by eye: a script turned the right arm and the hand about
-  the model's axes and projected the broom's head onto the first-person screen, and took the turns that
-  put it low right (40 about y, -20 about z) and low left (50 and 25). Guessed turns had swung it out of
-  view, or the wrong way.
+- The keys say where the broom's head is to be on the screen, not how to turn: `aim: [0.45, -0.35]` (low
+  on the right) and `[-0.45, -0.35]` (low on the left). The build finds the turns of the right arm and hand
+  that put the head there, and reports them.
 
 ## Iterations
 
 1. Guessed turns about z alone swung the broom from side to side held up out of view; with a tilt about y
-   added, it went below the screen. The kit has no way yet to say where the weapon is to be on the screen;
-   the turns were found by a search of the projection (kept with the person's scripts). The sweep now goes
-   low right, across, low left and back.
+   added, it went below the screen. A script that projected the broom's head onto the screen found the
+   turns, and the sweep went low right, across, low left and back.
+2. That search is now the kit's (`aim` in a key, a test in `test/46-specs.mjs`): the spec says where, as an
+   agent sees it, and not how many degrees.
 

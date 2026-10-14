@@ -131,8 +131,8 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
       errors.push(`weapon.turn: "as drawn", "x", "y" or "z" (the fit's turn, where its outline cannot choose), or one a view: { "v": "z", "p": "as drawn" }`);
     if ((spec.kind ?? "held") !== "held") errors.push(`kind: a weapon is "held": built lying along +x, its grip at the low-x end`);
     for (const [n, anim] of (Array.isArray(w?.animations) ? w.animations : w?.animations === undefined ? [] : [null]).entries())
-      if (!anim || typeof anim.replace !== "string" || !Array.isArray(anim.keys) || !anim.keys.some((key) => key?.at === 0) || anim.keys.some((key) => !isNumber(key?.at)))
-        errors.push(`weapon.animations[${n}]: { replace: "<the game's animation>", from, frames, fps, keys: [{ at, turn: { bone: { x, y, z } }, move: { bone: [x, y, z] }, ease }] }, a key at frame 0`);
+      if (!anim || typeof anim.replace !== "string" || !Array.isArray(anim.keys) || !anim.keys.some((key) => key?.at === 0) || anim.keys.some((key) => !isNumber(key?.at) || (key.aim !== undefined && !(Array.isArray(key.aim) && key.aim.length === 2 && key.aim.every(isNumber)))))
+        errors.push(`weapon.animations[${n}]: { replace: "<the game's animation>", from, frames, fps, keys: [{ at, turn: { bone: { x, y, z } }, move: { bone: [x, y, z] }, aim: [across, up], ease }] }, a key at frame 0`);
   }
   for (const [name, material] of Object.entries(spec.materials ?? {}))
     try {
@@ -954,6 +954,64 @@ function sheetShape(sizes) {
   return w >= h ? [512, short] : [short, 512];
 }
 
+/** How far round each turn is tried, and in what steps (degrees), when a key is aimed. */
+const AIM_RANGE = { y: [-60, 120], z: [-90, 90], hand: [-60, 60] };
+const AIM_STEPS = [10, 2.5];
+
+/**
+ * A first-person model's weapon aimed: what turns of the arm and the hand (about the model's axes as they
+ * stand in `base`) put the weapon's far end at a place on the screen, `[across, up]` as shares of the
+ * distance ahead (from the eye, +x forward: across 0.4 is to the right, up -0.3 low). `bones`: [arm, hand],
+ * the right arm's unless told. The far end is the weapon's corner farthest from the hand. Returns
+ * aim([across, up]) -> { pose, say }.
+ */
+function aimerOf(mdl, rig, base, bones = ["Bip01 R Arm1", "Bip01 R Hand"]) {
+  const [arm, hand] = bones;
+  const handAt = rig.index(hand);
+  const P = posed(mdl, { seq: 0, frame: 0 });
+  const into = inverse34(P.pose[handAt]);
+  let far = null;
+  let farthest = -1;
+  for (const t of P.tris)
+    if (t.tex && !HANDS.test(t.tex.name))
+      for (const c of t.c) {
+        const q = apply34(into, c.p);
+        const d = Math.hypot(...q);
+        if (d > farthest) [farthest, far] = [d, q];
+      }
+  const screen = (pose) => {
+    const { q, p } = A.worldOf(rig, pose)[handAt];
+    const [w, x, y, z] = q;
+    const [a, b, c] = far;
+    // the far end turned by the hand's turn (a quaternion) and carried to its place
+    const ix = w * a + y * c - z * b, iy = w * b + z * a - x * c, iz = w * c + x * b - y * a, iw = -x * a - y * b - z * c;
+    const at = [ix * w - iw * x - iy * z + iz * y, iy * w - iw * y - iz * x + ix * z, iz * w - iw * z - ix * y + iy * x].map((v, k) => v + p[k]);
+    return { at, across: -at[1] / at[0], up: at[2] / at[0] };
+  };
+  const poseOf = (y, z, h) => A.turnedInPose(rig, base, { [arm]: { turn: { y, z } }, [hand]: { turn: { y: h } } });
+  return ([across, up]) => {
+    let best = null;
+    const tryAt = (y, z, h) => {
+      const s = screen(poseOf(y, z, h));
+      if (s.at[0] <= 4) return;
+      const off = Math.hypot(s.across - across, s.up - up) + 0.002 * (Math.abs(y) + Math.abs(z) + Math.abs(h));
+      if (!best || off < best.off) best = { off, y, z, h, s };
+    };
+    const [coarse, fine] = AIM_STEPS;
+    for (let y = AIM_RANGE.y[0]; y <= AIM_RANGE.y[1]; y += coarse)
+      for (let z = AIM_RANGE.z[0]; z <= AIM_RANGE.z[1]; z += coarse)
+        for (let h = AIM_RANGE.hand[0]; h <= AIM_RANGE.hand[1]; h += coarse * 2) tryAt(y, z, h);
+    const { y: y0, z: z0, h: h0 } = best;
+    for (let y = y0 - coarse; y <= y0 + coarse; y += fine)
+      for (let z = z0 - coarse; z <= z0 + coarse; z += fine)
+        for (let h = h0 - coarse * 2; h <= h0 + coarse * 2; h += fine * 2) tryAt(y, z, h);
+    return {
+      pose: poseOf(best.y, best.z, best.h),
+      say: `${arm} turned ${best.y} about y and ${best.z} about z, ${hand} ${best.h} about y; the far end at ${best.s.across.toFixed(2)} ${best.s.up.toFixed(2)}`,
+    };
+  };
+}
+
 /**
  * A picture made a texture: a masked one (a net, a fence) has its holes, painted in HOLE_RGB, made the
  * engine's hole (palette index 255); any other is cut to 256 colours.
@@ -1042,7 +1100,13 @@ function weaponViews(spec, meshes, { folder, games, report }) {
           const rig = A.rigOf(mdl);
           const from = typeof anim.from === "object" ? anim.from : { seq: anim.from ?? anim.replace, frame: 0 };
           const base = A.poseOfValues(rig, readSequence(mdl, from.seq).frames[from.frame ?? 0]);
+          const aimer = anim.keys.some((key) => key.aim) ? aimerOf(mdl, rig, base, anim.bones) : null;
           const keys = anim.keys.map((key) => {
+            if (key.aim) {
+              const found = aimer(key.aim);
+              report.facts.push(`${fileName}: ${anim.replace} frame ${key.at} aimed at ${key.aim.join(" ")} (across, up): ${found.say}`);
+              return { at: key.at, ease: key.ease, pose: found.pose };
+            }
             const changes = {};
             for (const [bone, turn] of Object.entries(key.turn ?? {})) changes[bone] = { ...(changes[bone] ?? {}), turn };
             for (const [bone, move] of Object.entries(key.move ?? {})) changes[bone] = { ...(changes[bone] ?? {}), move };

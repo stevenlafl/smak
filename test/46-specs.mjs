@@ -265,6 +265,14 @@ test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ file
   sure(list.map((s) => s.name).join() === "idle,attack" && list[1].frames === 5 && list[1].fps === 10, `attack replaced where it was: ${JSON.stringify(list)}`);
   const middle = smak.readSequence(swung, "attack").frames[2][0];
   sure(Math.abs(Math.abs(middle[5]) - (40 * Math.PI) / 180) < 0.02, `the hand turned 40 degrees in the middle: ${middle}`);
+  // a key aimed: where on the first-person screen the weapon's far end is to be, the turns found for it
+  const aimed = buildModelSpec(
+    { ...spec, weapon: { ...spec.weapon, animations: [{ replace: "attack", from: "idle", frames: 3, keys: [{ at: 0 }, { at: 1, aim: [0, 0.3] }, { at: 2 }], bones: ["hand", "slide"] }] } },
+    { folder },
+  ).report;
+  const said = aimed.facts.find((f) => /attack frame 1 aimed at 0 0.3/.test(f)) ?? "";
+  const end = /the far end at (-?[\d.]+) (-?[\d.]+)/.exec(said);
+  sure(aimed.ok && end && Math.abs(Number(end[1])) < 0.05 && Math.abs(Number(end[2]) - 0.3) < 0.05, `the rod's end raised to 0.3 of the screen: ${said} ${aimed.errors}`);
   const rig = smak.animate.rigOf(swung);
   const values = smak.readSequence(swung, "attack").frames[2];
   const back = smak.animate.valuesOf(rig, smak.animate.poseOfValues(rig, values));

@@ -173,8 +173,10 @@ new name needs the mod's code). They are written in `work:<name>_weapon/`.
   the game's animation of that name, so its number stays and the game's code plays it; the keys turn bones
   about the model's axes (+x forward, +y left, +z up, from the eye) as they stand in the `from` frame, and
   the frames between are eased. Keep its length: the game times its hits by it, and the report warns past a
-  quarter off. Its events stay as they were. Draw it (the build shows the first attack) and look where the
-  weapon goes on the screen.
+  quarter off. Its events stay as they were. A key may say where the weapon is to be on the screen
+  instead of how to turn: `"aim": [across, up]`, shares of the distance ahead from the eye (`[0.45, -0.35]`
+  low on the right), and the build finds the turns of the arm and the hand (`bones`, the right arm's unless
+  told) that put the weapon's far end there, and says them. Draw it (the build shows the first attack).
 - One picture: a weapon's parts share one texture, so leave out `neon`, `flame` and `glass` (each of those
   is a picture of its own).
 
