@@ -13,6 +13,7 @@ import { writeFileSync, mkdirSync, readFileSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
 import { carve, box, cylinder, wedge, stairs as stairBrushes, light, sunLight, textureLights, playerStart, pointEntity, brushEntity, writeMap, readMap, subtract, moved } from "../maps/source.mjs";
 import { checkPlan } from "../maps/plan.mjs";
+import { definitionsOf } from "../maps/fgd.mjs";
 import { reachOf } from "../maps/reach.mjs";
 import { writeWad } from "../maps/wad.mjs";
 import { compileMap, findCompilers } from "../maps/compile.mjs";
@@ -25,7 +26,7 @@ import { materialOf, surfacePicture, MATERIALS } from "./paint.mjs";
 import { buildModelSpec, validateModelSpec } from "./model.mjs";
 
 export const MAP_SPEC = "smak.map/1";
-const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "note"];
+const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "fgd", "note"];
 const ROOM = ["id", "size", "at", "place", "floor", "sky", "surfaces", "light", "water", "test", "note"];
 const LINK = ["between", "kind", "width", "height", "along", "sill", "stairs", "door", "glass", "note"];
 const PLACES = ["east_of", "west_of", "north_of", "south_of", "above", "below", "in"];
@@ -413,7 +414,7 @@ function placedPrefab(prefab, at, quarters, textureOf) {
  * every model it puts in, and <name>.bsp when the compilers are found (`compilers`: what findCompilers gave,
  * or a folder). Returns { report, files, map }: report is { ok, errors, faults, warnings, facts, rooms }.
  */
-export function buildMapSpec(given, { out, compilers, folder } = {}) {
+export function buildMapSpec(given, { out, compilers, folder, fgd = [] } = {}) {
   let spec;
   try {
     spec = withIncludes(given, folder ?? ".");
@@ -800,7 +801,12 @@ export function buildMapSpec(given, { out, compilers, folder } = {}) {
 
   // ── checked before any compile: the plan, and the walk ──
   const textures = [...used.keys()].map((key) => textureName(key, liquids.has(key)));
-  const plan = checkPlan(map, { textures });
+  // the entities held against the game's entity definitions (its FGD, and the compilers' own), when given
+  const fgds = [...[fgd].flat(), ...[spec.fgd ?? []].flat().map((file) => resolve(folder ?? ".", file))];
+  const definitions = fgds.length ? definitionsOf(...fgds) : undefined;
+  const plan = checkPlan(map, { textures, definitions });
+  if (definitions) report.facts.push(`entities checked against ${definitions.from.join(", ")} (${Object.keys(definitions.classes).length} classes)`);
+  else warnings.push("no FGD given: the entities' classes and keys were not checked against the game's definitions");
   report.faults.push(...plan.errors);
   warnings.push(...plan.warnings);
   if (plan.leak) report.faults.push("the plan's flood finds a way out to the void: the map leaks");

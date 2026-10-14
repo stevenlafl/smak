@@ -22,7 +22,8 @@
 //   definitions   { from: [words], fgd: true, maps: 0, classes: { name: a class } }
 //   a class       { kind: "point" | "solid", defined: true, description, size: { mins, maxs } | null,
 //                   model, sprite, keys: { name: a key } }      with the keys of its bases among its own
-//   a key         { type, description, default, choices: ["0", "2"] | null, flags: [1, 256] | null }
+//   a key         { type, description, default, choices: ["0", "2"] | null, flags: [1, 256] | null,
+//                   labels: { "0": "None", "2": "Access denied" } (for choices and flags) }
 //
 // What a mod's FGD says is what its author wrote down, not what the game does: FGDs forget classes and keys,
 // and give a key a kind its values never have. `learnEntities` (learn.mjs) reads the same from the mod's own
@@ -162,6 +163,8 @@ function keyOf(reader) {
   if (reader.took(":")) reader.text();
   if (reader.took("=")) {
     const values = listedValues(reader);
+    // what each value or bit is called ("Texture", "Starts open"): what a person, or an agent, chooses by
+    key.labels = Object.fromEntries(values.filter((each) => each.text).map((each) => [each.value, each.text]));
     if (type === "flags") {
       key.flags = values.map((each) => Number(each.value)).filter(Number.isFinite);
       const on = values.filter((each) => Number(each.on)).reduce((sum, each) => sum + Number(each.value), 0);

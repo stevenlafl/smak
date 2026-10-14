@@ -652,7 +652,7 @@ function build(folders, args) {
     const out = join(folders.work, name);
     mkdirSync(out, { recursive: true });
     writeFileSync(join(out, `${name}.spec.json`), `${JSON.stringify(spec, null, 2)}\n`);
-    const { report, files } = buildMapSpec(spec, { out, compilers: folders.compilers, folder });
+    const { report, files } = buildMapSpec(spec, { out, compilers: folders.compilers, folder, fgd: folders.fgd ?? [] });
     const lines = reportLines(report);
     lines.push(`written: ${Object.values(files).map((file) => `work:${file.slice(folders.work.length + 1)}`).join(", ")}`);
     const plan = files.plan ?? files["plan-source"];
@@ -696,6 +696,33 @@ function build(folders, args) {
     }
   }
   return [text(lines.join("\n")), ...pictures];
+}
+
+// ── entities ───────────────────────────────────────────────────────────────
+/**
+ * The entity classes the server's FGDs define, a line each (point or brush, and what it is); with `class`,
+ * that class's keys with their types, defaults and choices: what a map spec's entities and their `keys` are
+ * written from, never from memory.
+ */
+function entities(folders, { match, class: one } = {}) {
+  if (!folders.fgd?.length) return [text("no FGD was given to the server (--fgd): ask the person for the game's .fgd")];
+  const definitions = maps.definitionsOf(...folders.fgd);
+  const classes = definitions.classes;
+  if (one) {
+    const found = classes[one];
+    if (!found) throw new Error(`no class ${one} in ${definitions.from.join(", ")}`);
+    const named = (about, values) => values.map((v) => (about.labels?.[v] ? `${v} ${about.labels[v]}` : `${v}`)).join(", ");
+    const keys = Object.entries(found.keys ?? {}).map(([key, about]) => {
+      const choices = about.choices ? `; choices ${named(about, about.choices)}` : about.flags?.length ? `; bits ${named(about, about.flags)}` : "";
+      return `  ${key} (${about.type ?? "string"})${about.default !== undefined ? ` default ${about.default}` : ""}${about.description ? `: ${about.description}` : ""}${choices}`;
+    });
+    return [text([`${one}: ${found.kind === "solid" ? "brush" : found.kind} entity${found.description ? `, ${found.description}` : ""}${found.size ? `; size ${JSON.stringify(found.size)}` : ""}`, ...keys].join("\n"))];
+  }
+  const wanted = String(match ?? "").toLowerCase();
+  const lines = Object.entries(classes)
+    .filter(([name, c]) => !wanted || name.includes(wanted) || String(c.description ?? "").toLowerCase().includes(wanted))
+    .map(([name, c]) => `  ${name} (${c.kind === "solid" ? "brush" : c.kind})${c.description ? `: ${c.description}` : ""}`);
+  return [text([`${lines.length} classes of ${definitions.from.join(", ")}${wanted ? ` holding "${wanted}"` : ""}; class: <name> for its keys`, ...lines].join("\n"))];
 }
 
 // ── the tools as a client is told of them ──────────────────────────────────
@@ -825,6 +852,16 @@ export function toolsFor(folders, { allowRun = true } = {}) {
         ["spec"],
       ),
       call: (args) => build(folders, args),
+    },
+    {
+      name: "entities",
+      description:
+        "The entity classes of the game's FGD (and the compilers'): a line each; with class, its keys, types, defaults, choices and flags. Write a map's entities from these, never from memory.",
+      inputSchema: object({
+        match: { type: "string", description: "only classes whose name or description holds this" },
+        class: { type: "string", description: "one class: its keys" },
+      }),
+      call: (args) => entities(folders, args),
     },
     {
       name: "run",

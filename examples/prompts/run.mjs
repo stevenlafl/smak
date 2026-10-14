@@ -8,13 +8,14 @@
 // (what the words were turned into), and maybe drawing.png (a drawing or a picture the person gave) and
 // prefab specs the spec names by file. With no case named, all of them. --work is where the server writes
 // (a fresh temporary folder unless told); --compilers the map compilers' folder (SDHLT), else VHLT_DIR, else
-// ../SDHLT/tools beside the kit.
+// ../SDHLT/tools beside the kit. --fgd: an entity definitions file the maps are held against (again for
+// more); unless told, Half-Life's from the SDK in the Steam folder and SDHLT's own, where they are.
 // It ends with code 1 when any case's checks do not pass.
 import { spawn } from "node:child_process";
 import { createInterface } from "node:readline";
 import { readdirSync, existsSync, mkdirSync, writeFileSync, readFileSync, mkdtempSync, rmSync } from "node:fs";
 import { join, dirname } from "node:path";
-import { tmpdir } from "node:os";
+import { tmpdir, homedir } from "node:os";
 import { fileURLToPath } from "node:url";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -32,6 +33,15 @@ const work = option("--work") ?? mkdtempSync(join(tmpdir(), "smak-prompts-"));
 // to smak, built with cmake: its programs land in SDHLT/tools)
 const beside = join(HERE, "..", "..", "..", "SDHLT", "tools");
 const compilers = option("--compilers") ?? process.env.VHLT_DIR ?? (existsSync(beside) ? beside : undefined);
+// the entity definitions the maps are held against: as told (--fgd, again for more), else Half-Life's from the
+// SDK where Steam keeps it and the compilers' own beside them
+const fgds = [];
+for (let at = words.indexOf("--fgd"); at >= 0; at = words.indexOf("--fgd")) fgds.push(words.splice(at, 2)[1]);
+if (!fgds.length) {
+  const sdk = join(homedir(), ".steam/steam/steamapps/common/Half-Life SDK/Hammer Editor/fgd/half-life/halflife.fgd");
+  const own = join(beside, "sdhlt.fgd");
+  for (const file of [sdk, own]) if (existsSync(file)) fgds.push(file);
+}
 const cases = readdirSync(HERE)
   .filter((name) => /^\d\d-/.test(name) && existsSync(join(HERE, name, "spec.json")))
   .filter((name) => !words.length || words.some((word) => name.startsWith(word)))
@@ -40,7 +50,7 @@ const cases = readdirSync(HERE)
 // the server, started as a client starts it
 const child = spawn(
   process.execPath,
-  [SERVER, "--models", HERE, "--work", work, "--no-run", ...(compilers ? ["--compilers", compilers] : [])],
+  [SERVER, "--models", HERE, "--work", work, "--no-run", ...(compilers ? ["--compilers", compilers] : []), ...fgds.flatMap((file) => ["--fgd", file])],
   { stdio: ["pipe", "pipe", "inherit"] },
 );
 const waiting = new Map();

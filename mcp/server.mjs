@@ -11,6 +11,8 @@
 //             started the server: without it the server can only read, draw and build from specs
 //   --compilers  the map compilers' folder (SDHLT or VHLT), for `build` of a map; VHLT_DIR and the PATH
 //             are looked in unless told
+//   --fgd     an entity definitions file (the game's .fgd; the compilers' own): `build` holds a map's
+//             entities against them, `entities` lists them. Given again for more than one
 //
 // The protocol is in protocol.mjs, the tools in tools.mjs (and run.mjs), the two folders' rule in
 // folders.mjs. Nothing is printed on stdout but the protocol's messages; what is worth saying goes to stderr.
@@ -25,7 +27,7 @@ import { KIT } from "./guide.mjs";
 /** What a client's model is told beside the tools, once. */
 const INSTRUCTIONS =
   "SMAK makes and changes GoldSrc studio models (.mdl) and maps. Call `guide` first and read only the sections the task needs. To make a model or a map from a person's words (or a drawing), read `guide { doc: \"spec\" }`, write a spec and `build` it; change models in other ways with `run`. Look at every result's pictures before reporting it.";
-const USAGE = "node mcp/server.mjs --models <dir> --work <dir> [--no-run] [--compilers <dir>]";
+const USAGE = "node mcp/server.mjs --models <dir> --work <dir> [--no-run] [--compilers <dir>] [--fgd <file> ...]";
 
 /** The server's flags read: { models, work, run }. `--name value`, and `--no-run`. */
 function parseArgs(argv) {
@@ -34,6 +36,7 @@ function parseArgs(argv) {
     const word = argv[i];
     if (word === "--no-run") flags.run = false;
     else if (word === "--models" || word === "--work" || word === "--compilers") flags[word.slice(2)] = argv[++i];
+    else if (word === "--fgd") (flags.fgd ??= []).push(argv[++i]);
     else throw new Error(`what is ${word}?`);
   }
   return flags;
@@ -43,9 +46,10 @@ function parseArgs(argv) {
  * Starts the server over the process's own stdin and stdout. Resolves when the client has closed stdin and
  * every call has been answered.
  */
-export function start({ models, work, run = true, compilers }) {
+export function start({ models, work, run = true, compilers, fgd = [] }) {
   const folders = openFolders({ models, work });
   folders.compilers = compilers;
+  folders.fgd = fgd;
   const { version } = JSON.parse(readFileSync(join(KIT, "package.json"), "utf8"));
   const log = (line) => process.stderr.write(`${line}\n`);
   log(
