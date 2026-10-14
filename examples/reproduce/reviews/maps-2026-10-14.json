@@ -1,0 +1,60 @@
+{
+ "reviewer": "Steven",
+ "at": "2026-10-14",
+ "blind": true,
+ "how": "played in Half-Life (valve/maps), against Valve's frenzy",
+ "maps": [
+  {
+   "map": "frenzy_pictures",
+   "from": "frenzy/pictures/built/frenzy_copy.bsp (round 4)",
+   "passes": false,
+   "notes": [
+    "texture alignment is off",
+    "some walls are not aligned to their floors: they overhang them",
+    "random lights in the middle of the air",
+    "the ladders lack the expected transparency and their alignment is off: they read as a vent, not a ladder texture",
+    "some walls are not connected to the floor at all, or only by a vertex, not by a face"
+   ]
+  },
+  {
+   "map": "frenzy_words",
+   "from": "frenzy/words/built/frenzy_copy.bsp (round 4)",
+   "passes": false,
+   "notes": [
+    "terrible, just awful: everything is floating everywhere and it is not even coherent",
+    "a random staircase in the middle with varying step sizes and no top area",
+    "no ladders",
+    "tons of places to just fall off and take damage",
+    "suggests a deterministic, non-AI bot or scanner that plays or sweeps a map for faults like these"
+   ]
+  },
+  {
+   "map": "frenzy_plans",
+   "from": "frenzy/plans/built/frenzy_copy.bsp (round 4)",
+   "passes": false,
+   "notes": [
+    "could not load: Host_Error: PF_precache_model_I: Bad string '' (eight env_glow with no sprite; fixed at the writers, commit 11bb8c9)"
+   ]
+  },
+  {
+   "map": "kaupo_house",
+   "from": "Steven's copy in valve/maps (hinged doors, thresholds filled; before the 48 and 56 widths)",
+   "passes": false,
+   "notes": [
+    "a doorway with a door is still too narrow: the door closes as he leaves and the tight squeeze triggers it again"
+   ]
+  }
+ ],
+ "checklist": [
+  "model placements",
+  "player placements",
+  "texture review, alignment to faces and to each other",
+  "adequate detailing",
+  "geometry: walls meet floors by faces, nothing floats, no overhangs",
+  "water",
+  "lights on something, not in mid-air",
+  "ladders that read as ladders, see-through, climbable",
+  "stairs with even steps that lead somewhere",
+  "no drops a player falls from and is hurt"
+ ]
+}
