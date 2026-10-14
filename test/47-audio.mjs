@@ -118,10 +118,10 @@ test("a map's sounds: made beside the map and played by an ambient_generic, loop
     { out, compilers: { found: false, message: "" } },
   );
   sure(report.errors.length === 0, report.errors.join("; "));
-  sure(existsSync(join(out, "sound", "ambience", "fridge_hum.wav")) && existsSync(join(out, "sound", "weapons", "cbar_hit1.wav")), "the files beside the map");
+  sure(existsSync(join(out, "sound", "humming", "ambience", "fridge_hum.wav")) && existsSync(join(out, "sound", "humming", "weapons", "cbar_hit1.wav")), "the files beside the map, in a folder of its name");
   const text = readFileSync(files.map, "utf8");
-  sure(/"classname" "ambient_generic"[^}]*"message" "ambience\/fridge_hum.wav"[^}]*"health" "6"[^}]*"spawnflags" "2"/.test(text), "the hum: looped (no flag 32), heard in a small radius, at 6");
-  sure(/"message" "weapons\/cbar_hit1.wav"[^}]*"spawnflags" "36"/.test(text), "the hit: not looped (32), a medium radius (4)");
+  sure(/"classname" "ambient_generic"[^}]*"message" "humming\/ambience\/fridge_hum.wav"[^}]*"health" "6"[^}]*"spawnflags" "2"/.test(text), "the hum: looped (no flag 32), heard in a small radius, at 6");
+  sure(/"message" "humming\/weapons\/cbar_hit1.wav"[^}]*"spawnflags" "36"/.test(text), "the hit: not looped (32), a medium radius (4)");
 });
 
 test("a weapon's sounds: made with it, one an animation plays written as its event 5004 at that frame", () => {

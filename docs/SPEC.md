@@ -619,7 +619,7 @@ command line: `smak video spec.json -o folder [--preview] [--models folder]`.
 | `entities` | What is in the rooms: the start, monsters, items, lights of your own |
 | `furniture` | Brush furniture put in rooms: a box, or a prefab of `prefabs` |
 | `prefabs` | `{ name: { pieces: [...] } }` or `{ name: { file: "table.map" } }`: brush furniture made once, put in many places |
-| `models` | `{ name: <a model spec> }` or `{ name: { file } }`: models built with the map, for `props` |
+| `models` | `{ name: <a model spec> }` or `{ name: { file } }`: models built with the map, for `props`. Each is written to `models/<map name>/<name>.mdl` beside the map, and its props name that path: copy the folder into `<mod>/models/` and the `.bsp` finds them, apart from the mod's own |
 | `props` | Models put in rooms: `{ model, room, at, facing, z }` |
 | `include` | Other map specs taken in as modules (below) |
 | `layout` | A drawing of the plan (below), in place of placing rooms by words |
@@ -629,7 +629,7 @@ command line: `smak video spec.json -o folder [--preview] [--models folder]`.
 | `sky`, `sun` | The sky's name (`desert`) and the sun's `{ pitch, yaw, brightness, color }`, for rooms under the sky |
 | `compile` | How the compilers run: `{ quality: "draft" \| "normal" \| "final", threads, light: { bounce, ao, extra, softShadows }, hulls: { large: false, crouch: false }, clipEconomy: true }`. Every program gets all the machine's threads unless told |
 | `detail` | `false` keeps furniture in the world; unless told, furniture is `func_detail` (below) |
-| `sounds` | `[{ spec, room, at, z, volume, radius }]`: sounds made with the map (`spec`: a sound spec, or `{ file }`) and played where they are put by an `ambient_generic`: `volume` 1 to 10, `radius` `everywhere`, `small`, `medium` or `large`; looped when the sound loops (a hum, a fire), once otherwise. The files go under `sound/` beside the map, for `<mod>/sound` |
+| `sounds` | `[{ spec, room, at, z, volume, radius }]`: sounds made with the map (`spec`: a sound spec, or `{ file }`) and played where they are put by an `ambient_generic`: `volume` 1 to 10, `radius` `everywhere`, `small`, `medium` or `large`; looped when the sound loops (a hum, a fire), once otherwise. The files go under `sound/<map name>/` beside the map, and its `ambient_generic` names them there: copy that folder into `<mod>/sound/` |
 
 ### Rooms
 

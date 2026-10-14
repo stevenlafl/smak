@@ -1116,8 +1116,9 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       }
   }
 
-  // models built from their specs, and put in as props
-  mkdirSync(join(out, "models"), { recursive: true });
+  // models built from their specs, and put in as props: in models/<map>/, so that the map's own go into a mod's
+  // folder beside the .bsp without crowding the game's models/
+  mkdirSync(join(out, "models", spec.name), { recursive: true });
   const modelFiles = {};
   const modelHeights = {};
   /** each model's footprint in its own space, for `beside` */
@@ -1130,10 +1131,10 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       errors.push(`models.${modelName}: ${[...built.report.errors, ...built.report.faults].join("; ")}`);
       continue;
     }
-    const file = join(out, "models", `${modelName}.mdl`);
+    const file = join(out, "models", spec.name, `${modelName}.mdl`);
     writeFileSync(file, built.mdl);
     files[`model ${modelName}`] = file;
-    modelFiles[modelName] = `models/${modelName}.mdl`;
+    modelFiles[modelName] = `models/${spec.name}/${modelName}.mdl`;
     modelHeights[modelName] = Number(/([\d.]+) high \(z\)/.exec(built.report.facts[0])?.[1] ?? 32);
     const parts = Object.values(built.report.parts);
     modelPrints[modelName] = { min: [0, 1].map((k) => Math.min(...parts.map((part) => part.from[k]))), max: [0, 1].map((k) => Math.max(...parts.map((part) => part.to[k]))) };
@@ -1171,7 +1172,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     } else if (thing.class === "light") entities.push(light([at[0], at[1], at[2] + (thing.height ?? 96)], keys));
     else entities.push(pointEntity(thing.class, at, { angles: [0, yaw, 0], ...keys }));
   });
-  // sounds: each made into sound/ beside the map and played where it is put by an ambient_generic: its
+  // sounds: each made into sound/<map>/ beside the map and played where it is put by an ambient_generic: its
   // volume, how far it is heard, and looped or not as the file is (a loop is a file with a cue point)
   const AMBIENT_RADIUS = { everywhere: 1, small: 2, medium: 4, large: 8 };
   for (const [n, given] of (spec.sounds ?? []).entries()) {
@@ -1184,7 +1185,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     for (const line of [...built.report.errors, ...built.report.faults]) errors.push(`sounds[${n}]: ${line}`);
     report.facts.push(...built.report.facts.filter((line) => /against the game's|Hz \d+-bit|: attack /.test(line)).map((line) => `sound ${line}`));
     for (const file of built.files) {
-      const path = join(out ?? ".", "sound", file.name);
+      const path = join(out ?? ".", "sound", spec.name, file.name);
       mkdirSync(dirname(path), { recursive: true });
       writeFileSync(path, file.bytes);
       files[`sound ${file.name}`] = path;
@@ -1192,7 +1193,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     const radius = AMBIENT_RADIUS[given.radius ?? "medium"];
     if (!radius) errors.push(`sounds[${n}].radius: ${Object.keys(AMBIENT_RADIUS).join(", ")}`);
     place([{ ...given, class: "ambient_generic" }], "sounds", (thing, room, at) => {
-      const name = sound.name ?? sound.sounds?.[0]?.name;
+      const name = `${spec.name}/${sound.name ?? sound.sounds?.[0]?.name}`;
       entities.push(pointEntity("ambient_generic", [at[0], at[1], at[2] + (given.z ?? 48)], { message: name, health: given.volume ?? 10, pitch: 100, pitchstart: 100, spawnflags: (radius ?? 4) | (sound.loop ? 0 : 32) }));
       report.facts.push(`sounds[${n}]: ${name} plays in ${room.id}${sound.loop ? ", looped" : " once (not looped)"}, heard ${given.radius ?? "medium"}`);
     });
