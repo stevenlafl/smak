@@ -178,6 +178,12 @@ new name needs the mod's code). They are written in `work:<name>_weapon/`.
   instead of how to turn: `"aim": [across, up]`, shares of the distance ahead from the eye (`[0.45, -0.35]`
   low on the right), and the build finds the turns of the arm and the hand (`bones`, the right arm's unless
   told) that put the weapon's far end there, and says them. Draw it (the build shows the first attack).
+- `sounds`: `[{ "spec": <a sound spec>, "event": { "sequence": "reload", "frame": 70 } }]`: its sounds (see
+  "A sound"), written under `sound/` with its files. Most of a weapon's sounds are played by the game's code
+  under fixed names (the crowbar's hit is `weapons/cbar_hit1.wav`, the .357's shot `weapons/357_shot1.wav`):
+  give the sound that name and the game plays it. One an animation plays (a reload's clicks) takes `event`:
+  the build writes event 5004 at that frame of the first-person file with the sound's path, keeping the
+  others, and warns when the sound runs on past the animation.
 - One picture: a weapon's parts share one texture, so leave out `neon`, `flame` and `glass` (each of those
   is a picture of its own).
 
@@ -331,6 +337,7 @@ it (its volume, its pitch, the map's room): say so, and the person listens in th
 | `sky`, `sun` | The sky's name (`desert`) and the sun's `{ pitch, yaw, brightness, color }`, for rooms under the sky |
 | `compile` | How the compilers run: `{ quality: "draft" \| "normal" \| "final", threads, light: { bounce, ao, extra, softShadows }, hulls: { large: false, crouch: false }, clipEconomy: true }`. Every program gets all the machine's threads unless told |
 | `detail` | `false` keeps furniture in the world; unless told, furniture is `func_detail` (below) |
+| `sounds` | `[{ spec, room, at, z, volume, radius }]`: sounds made with the map (`spec`: a sound spec, or `{ file }`) and played where they are put by an `ambient_generic`: `volume` 1 to 10, `radius` `everywhere`, `small`, `medium` or `large`; looped when the sound loops (a hum, a fire), once otherwise. The files go under `sound/` beside the map, for `<mod>/sound` |
 
 ### Rooms
 

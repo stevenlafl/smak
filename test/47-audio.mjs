@@ -5,6 +5,9 @@ import { join } from "node:path";
 import * as smak from "../src/index.mjs";
 import { test, testAsync, sure, tmp } from "./helper.mjs";
 import { toolsFor } from "../mcp/tools.mjs";
+import { buildMapSpec } from "../src/spec/map.mjs";
+import { buildModelSpec } from "../src/spec/model.mjs";
+import { writeFileSync, mkdirSync } from "node:fs";
 
 const { audio: A } = smak;
 const RATE = 22050;
@@ -96,3 +99,47 @@ await testAsync("the tool build makes sounds: the files under work:sound/, their
   sure(out.some((part) => part.type === "image"), "and the picture");
   sure(existsSync(join(work, "weapons_cbar_hit1.spec.json")), "and its spec beside them, as a model's and a map's");
 });
+
+const HUM = { spec: "smak.sound/1", name: "ambience/fridge_hum.wav", class: "loop machine", length: 2, loop: { crossfade: 0.25 }, layers: [{ kind: "tone", f: 60, env: { attack: 0.01, hold: 3 } }] };
+
+test("a map's sounds: made beside the map and played by an ambient_generic, looped or not as the file is", () => {
+  const out = join(tmp, "humming");
+  const { report, files } = buildMapSpec(
+    {
+      spec: "smak.map/1",
+      name: "humming",
+      rooms: [{ id: "shop", size: [256, 256, 128] }],
+      entities: [{ class: "info_player_start", room: "shop", at: "centre" }],
+      sounds: [
+        { spec: HUM, room: "shop", at: "corner ne", volume: 6, radius: "small" },
+        { spec: { ...HIT, variants: [] }, room: "shop", at: "corner sw" },
+      ],
+    },
+    { out, compilers: { found: false, message: "" } },
+  );
+  sure(report.errors.length === 0, report.errors.join("; "));
+  sure(existsSync(join(out, "sound", "ambience", "fridge_hum.wav")) && existsSync(join(out, "sound", "weapons", "cbar_hit1.wav")), "the files beside the map");
+  const text = readFileSync(files.map, "utf8");
+  sure(/"classname" "ambient_generic"[^}]*"message" "ambience\/fridge_hum.wav"[^}]*"health" "6"[^}]*"spawnflags" "2"/.test(text), "the hum: looped (no flag 32), heard in a small radius, at 6");
+  sure(/"message" "weapons\/cbar_hit1.wav"[^}]*"spawnflags" "36"/.test(text), "the hit: not looped (32), a medium radius (4)");
+});
+
+test("a weapon's sounds: made with it, one an animation plays written as its event 5004 at that frame", () => {
+  const folder = join(tmp, "sounding");
+  mkdirSync(folder, { recursive: true });
+  const stick = smak.workshop.shape(64, 64);
+  stick.lathe([[0, 0.5], [12, 0.5]], { x: 0, y: 0, w: 64, h: 64 }, { sides: 6, caps: [true, true] });
+  const tris = stick.tris.map((tri) => tri.map((c) => ({ ...c, bone: "hand" })));
+  writeFileSync(join(folder, "v_stick.mdl"), smak.buildMdl({ name: "x.mdl", bones: [{ name: "hand", parent: -1 }], bodyparts: [{ name: "studio", models: [{ name: "stick", meshes: [{ tris, texture: smak.indexed(smak.workshop.sheet(64, 64).image(), "stick.bmp") }] }] }], sequences: [{ name: "idle", fps: 10, frames: [[[0, 0, 0, 0, 0, 0]]] }, { name: "reload", fps: 10, frames: Array.from({ length: 20 }, () => [[0, 0, 0, 0, 0, 0]]) }] }));
+  const { report, files } = buildModelSpec(
+    { spec: "smak.model/1", name: "rod.mdl", kind: "held", weapon: { like: "stick", views: ["v"], sounds: [{ spec: { ...HIT, name: "weapons/rod_reload.wav", variants: [] }, event: { sequence: "reload", frame: 4 } }] }, parts: [{ id: "rod", kind: "box", material: "steel", size: [10, 1, 1] }] },
+    { folder },
+  );
+  sure(report.ok, [...report.errors, ...report.faults].join("; "));
+  sure(files.some((f) => f.name === "sound/weapons/rod_reload.wav" && f.bytes), "the sound's file with the models'");
+  const v = files.find((f) => f.name === "v_stick.mdl").mdl;
+  const played = smak.events(v, "reload");
+  sure(played.some((e) => e.event === 5004 && e.frame === 4 && e.options === "weapons/rod_reload.wav"), JSON.stringify(played));
+  sure(/reload plays weapons\/rod_reload.wav at frame 4 \(event 5004\), with 1.60 s of the animation left/.test(report.facts.join("\n")), report.facts.join(" | "));
+});
+

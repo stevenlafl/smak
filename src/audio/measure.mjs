@@ -203,11 +203,18 @@ export function checks(wav, { loop = false, oneShot = !loop } = {}) {
     else {
       const start = wav.cue[0];
       if (!(start < wav.x.length)) faults.push(`its cue point (${start}) is past its end`);
-      let steps = 0;
-      for (let i = 1; i < wav.x.length; i++) steps += Math.abs(wav.x[i] - wav.x[i - 1]);
-      const meanStep = steps / Math.max(1, wav.x.length - 1);
-      const seam = Math.abs(wav.x[start] - wav.x[wav.x.length - 1]);
-      if (seam > 2.5 * meanStep + 1e-4) faults.push(`its loop jumps by ${seam.toFixed(3)} at the seam, ${(seam / meanStep).toFixed(1)} times its mean step: a click every time round`);
+      // the seam held against the steps right beside it, not the sound's mean: a smooth seam at the steep
+      // part of a low hum takes a step three times the mean, and is no click
+      const x = wav.x;
+      const n = x.length;
+      const near = [];
+      for (let i = 1; i <= 3; i++) {
+        if (start + i < n) near.push(Math.abs(x[start + i] - x[start + i - 1]));
+        if (n - 1 - i >= 0) near.push(Math.abs(x[n - i] - x[n - 1 - i]));
+      }
+      const localStep = Math.max(...near, 1e-6);
+      const seam = Math.abs(x[start] - x[n - 1]);
+      if (seam > 2.5 * localStep + 1e-4) faults.push(`its loop jumps by ${seam.toFixed(3)} at the seam, ${(seam / localStep).toFixed(1)} times the steps beside it: a click every time round`);
     }
   } else if (wav.cue?.length) warnings.push("it has a cue point and is not to loop: the engine will loop it");
   return { faults, warnings, features: f };

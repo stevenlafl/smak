@@ -16,7 +16,8 @@ import { buildMdl, swapMesh } from "../build.mjs";
 import { HANDS } from "../fit.mjs";
 import { indexed, shrink, masked } from "../image.mjs";
 import { check } from "../check.mjs";
-import { readMdl, bones as bonesOf, sequences as sequencesOf, withTextures, addMesh, replaceMesh, inverse34, apply34, readSequence, replaceSequence } from "../mdl.mjs";
+import { readMdl, bones as bonesOf, sequences as sequencesOf, withTextures, addMesh, replaceMesh, inverse34, apply34, readSequence, replaceSequence, events as eventsOf, setEvents } from "../mdl.mjs";
+import { buildSoundSpec } from "./sound.mjs";
 import * as A from "../animate.mjs";
 import { posed } from "../render.mjs";
 import { meshOf } from "../mesh.mjs";
@@ -132,6 +133,9 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
     if (!(turnOk(w?.turn) || (w?.turn && typeof w.turn === "object" && Object.values(w.turn).every(turnOk))))
       errors.push(`weapon.turn: "as drawn", "x", "y" or "z" (the fit's turn, where its outline cannot choose), or one a view: { "v": "z", "p": "as drawn" }`);
     if ((spec.kind ?? "held") !== "held") errors.push(`kind: a weapon is "held": built lying along +x, its grip at the low-x end`);
+    for (const [n, sound] of (Array.isArray(w?.sounds) ? w.sounds : w?.sounds === undefined ? [] : [null]).entries())
+      if (!sound || typeof sound.spec !== "object" || (sound.event && (typeof sound.event.sequence !== "string" || !isNumber(sound.event.frame))))
+        errors.push(`weapon.sounds[${n}]: { spec: <a sound spec>, event: { sequence, frame } }: the event plays it at that frame of the first-person animation`);
     for (const [n, anim] of (Array.isArray(w?.animations) ? w.animations : w?.animations === undefined ? [] : [null]).entries())
       if (!anim || typeof anim.replace !== "string" || !Array.isArray(anim.keys) || !anim.keys.some((key) => key?.at === 0) || anim.keys.some((key) => !isNumber(key?.at) || (key.aim !== undefined && !(Array.isArray(key.aim) && key.aim.length === 2 && key.aim.every(isNumber)))))
         errors.push(`weapon.animations[${n}]: { replace: "<the game's animation>", from, frames, fps, keys: [{ at, turn: { bone: { x, y, z } }, move: { bone: [x, y, z] }, aim: [across, up], ease }] }, a key at frame 0`);
@@ -1065,6 +1069,17 @@ function weaponViews(spec, meshes, { folder, games, report }) {
     bones: named,
   };
   const files = [];
+  // the weapon's sounds, made first: their files go with the models', under sound/
+  const soundLengths = new Map();
+  for (const [n, { spec: sound }] of (spec.weapon.sounds ?? []).entries()) {
+    const built = buildSoundSpec(sound, { games });
+    for (const line of [...built.report.errors, ...built.report.faults]) report.errors.push(`weapon.sounds[${n}]: ${line}`);
+    report.facts.push(...built.report.facts.filter((line) => /against the game's|Hz \d+-bit/.test(line)).map((line) => `sound ${line}`));
+    for (const file of built.files) {
+      files.push({ name: `sound/${file.name}`, bytes: file.bytes, view: "sound" });
+      soundLengths.set(file.name, built.report.sounds[file.name].features.length);
+    }
+  }
   for (const view of views) {
     const fileName = `${view}_${like}.mdl`;
     const place = [resolve(folder ?? ".", fileName), ...games.map((game) => join(game, "models", fileName))].find((p) => existsSync(p));
@@ -1130,6 +1145,25 @@ function weaponViews(spec, meshes, { folder, games, report }) {
         } catch (error) {
           report.errors.push(`weapon.animations[${n}]: ${error.message}`);
         }
+      }
+    // the weapon's sounds that an animation plays: a 5004 event at its frame, the sound's path its text (the
+    // other events kept), and the sound held against the time left in the animation after that frame
+    if (view === "v")
+      for (const [n, { spec: sound, event }] of (spec.weapon.sounds ?? []).entries()) {
+        if (!event) continue;
+        const name = sound.name ?? sound.sounds?.[0]?.name;
+        const list = sequencesOf(mdl);
+        const seq = list.find((s) => s.name === event.sequence);
+        if (!seq) {
+          report.errors.push(`weapon.sounds[${n}].event: no animation ${event.sequence} in ${fileName}`);
+          continue;
+        }
+        const kept = eventsOf(mdl, event.sequence).filter((e) => !(e.event === 5004 && e.frame === event.frame));
+        mdl = setEvents(mdl, event.sequence, [...kept, { frame: event.frame, event: 5004, options: name }].sort((a, b) => a.frame - b.frame));
+        const left = (seq.frames - event.frame) / seq.fps;
+        report.facts.push(`${fileName}: ${event.sequence} plays ${name} at frame ${event.frame} (event 5004), with ${left.toFixed(2)} s of the animation left`);
+        const length = soundLengths.get(name);
+        if (length && length > left + 0.05) report.warnings.push(`${name} lasts ${length.toFixed(2)} s; ${event.sequence} has ${left.toFixed(2)} s left after frame ${event.frame}: it is cut off or runs on over what comes next`);
       }
     const engine = check(mdl, "goldsrc");
     report.errors.push(...engine.errors.map((e) => `${fileName}: ${e}`));

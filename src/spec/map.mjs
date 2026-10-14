@@ -25,9 +25,10 @@ import { png } from "../image.mjs";
 import { materialOf, surfacePicture, MATERIALS } from "./paint.mjs";
 import { wadCatalog, pickTexture } from "./wads.mjs";
 import { buildModelSpec, validateModelSpec } from "./model.mjs";
+import { buildSoundSpec } from "./sound.mjs";
 
 export const MAP_SPEC = "smak.map/1";
-const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "replace", "fgd", "wads", "compile", "detail", "note"];
+const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "replace", "sounds", "fgd", "wads", "compile", "detail", "note"];
 const ROOM = ["id", "size", "at", "place", "floor", "sky", "surfaces", "light", "water", "test", "building", "note"];
 const LINK = ["between", "kind", "width", "height", "along", "sill", "stairs", "door", "glass", "side", "material", "note"];
 const PLACES = ["east_of", "west_of", "north_of", "south_of", "above", "below", "in"];
@@ -157,7 +158,7 @@ export function readLayout(layout) {
 export function withIncludes(spec, folder = ".") {
   if (!spec?.include?.length) return spec;
   const out = { ...spec, rooms: [...(spec.rooms ?? [])], links: [...(spec.links ?? [])], entities: [...(spec.entities ?? [])] };
-  for (const key of ["furniture", "props"]) out[key] = [...(spec[key] ?? [])];
+  for (const key of ["furniture", "props", "sounds"]) out[key] = [...(spec[key] ?? [])];
   for (const key of ["prefabs", "models", "textures"]) out[key] = { ...(spec[key] ?? {}) };
   const hostTheme = { floor: "stone", wall: "plaster", ceiling: "planks", door: "metal", furniture: "darkwood", outside: "siding", roof: "shingles", ...(spec.theme ?? {}) };
   for (const [n, given] of spec.include.entries()) {
@@ -243,6 +244,9 @@ export function withIncludes(spec, folder = ".") {
     }
     for (const thing of inner.furniture ?? [])
       out.furniture.push({ ...named(thing), ...(thing.prefab ? { prefab: id(thing.prefab) } : { texture: word(thing.texture ?? "furniture") }) });
+    // its sounds, in its rooms, their spec files found from its folder
+    for (const sound of inner.sounds ?? [])
+      if (!tried.has(sound.room)) out.sounds.push({ ...named(sound), spec: sound.spec?.file ? { file: resolve(here, sound.spec.file) } : sound.spec });
     for (const thing of inner.props ?? [])
       out.props.push({ ...named(thing), model: inner.models?.[thing.model] ? modelName[thing.model] : thing.model });
   }
@@ -1052,6 +1056,32 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     } else if (thing.class === "light") entities.push(light([at[0], at[1], at[2] + (thing.height ?? 96)], keys));
     else entities.push(pointEntity(thing.class, at, { angles: [0, yaw, 0], ...keys }));
   });
+  // sounds: each made into sound/ beside the map and played where it is put by an ambient_generic: its
+  // volume, how far it is heard, and looped or not as the file is (a loop is a file with a cue point)
+  const AMBIENT_RADIUS = { everywhere: 1, small: 2, medium: 4, large: 8 };
+  for (const [n, given] of (spec.sounds ?? []).entries()) {
+    const sound = given.spec?.file ? JSON.parse(readFileSync(resolve(folder ?? ".", given.spec.file), "utf8")) : given.spec;
+    if (!sound) {
+      errors.push(`sounds[${n}]: { spec: <a sound spec, or { file }>, room, at, z, volume (1 to 10), radius: everywhere | small | medium | large }`);
+      continue;
+    }
+    const built = buildSoundSpec(sound, { games: [wads].flat() });
+    for (const line of [...built.report.errors, ...built.report.faults]) errors.push(`sounds[${n}]: ${line}`);
+    report.facts.push(...built.report.facts.filter((line) => /against the game's|Hz \d+-bit/.test(line)).map((line) => `sound ${line}`));
+    for (const file of built.files) {
+      const path = join(out ?? ".", "sound", file.name);
+      mkdirSync(dirname(path), { recursive: true });
+      writeFileSync(path, file.bytes);
+      files[`sound ${file.name}`] = path;
+    }
+    const radius = AMBIENT_RADIUS[given.radius ?? "medium"];
+    if (!radius) errors.push(`sounds[${n}].radius: ${Object.keys(AMBIENT_RADIUS).join(", ")}`);
+    place([{ ...given, class: "ambient_generic" }], "sounds", (thing, room, at) => {
+      const name = sound.name ?? sound.sounds?.[0]?.name;
+      entities.push(pointEntity("ambient_generic", [at[0], at[1], at[2] + (given.z ?? 48)], { message: name, health: given.volume ?? 10, pitch: 100, pitchstart: 100, spawnflags: (radius ?? 4) | (sound.loop ? 0 : 32) }));
+      report.facts.push(`sounds[${n}]: ${name} plays in ${room.id}${sound.loop ? ", looped" : " once (not looped)"}, heard ${given.radius ?? "medium"}`);
+    });
+  }
   // light: each room that asks lamps by its floor's area, a sun for rooms under the sky
   let sunny = false;
   for (const room of rooms.values()) {

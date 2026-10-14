@@ -729,11 +729,14 @@ function build(folders, args) {
     if (files.length) {
       const out = join(folders.work, `${base}_weapon`);
       mkdirSync(out, { recursive: true });
-      for (const file of files) writeFileSync(join(out, file.name), file.mdl);
+      for (const file of files) {
+        mkdirSync(dirname(join(out, file.name)), { recursive: true });
+        writeFileSync(join(out, file.name), file.mdl ?? file.bytes);
+      }
       lines.push(`written: ${files.map((file) => `work:${base}_weapon/${file.name}`).join(", ")} (the game's names: they take the place of its own when installed in <mod>/models)`);
       const views = [];
       const labels = [];
-      for (const file of files) {
+      for (const file of files.filter((f) => f.view !== "sound")) {
         const first = file.view === "v";
         const draw = (src) => smak.render(src, { seq: 0, frame: 0, width: 320, height: 320, ...(first ? { view: "first" } : { yaw: 35, pitch: 20 }) });
         if (first) {
@@ -911,7 +914,7 @@ export function toolsFor(folders, { allowRun = true } = {}) {
     {
       name: "build",
       description:
-        'A model, map or sound from a JSON spec (guide { doc: "spec" }): built, checked (holes, gaps, leaks, reach, light; a sound against the game\'s of its kind), compiled, drawn. Says OK or what to fix, and what changed since the last build.',
+        'A model, map or sound from a JSON spec (guide { doc: "spec" }): built, checked (holes, leaks, reach, light; a sound against the game\'s), compiled, drawn. Says OK or what to fix, and what changed since the last build.',
       inputSchema: object(
         {
           spec: { description: "the spec, or a .json file of the folders" },
