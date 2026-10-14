@@ -23,7 +23,8 @@ rock; you add what stands in them from a small vocabulary; you check, compile an
 - **A `.wad` file** with the textures the map names. A map only names its textures; the pictures are in a .wad
   (Half-Life's `valve/halflife.wad`, a mod's own, or one made with this kit: `writeWad` in `src/maps/wad.mjs`).
 - **The compilers, to compile**: VHLT, also known as Vluzacn's ZHLT v34 (`hlcsg`, `hlbsp`, `hlvis`, `hlrad` and
-  their `zhlt.wad`). They are an outside program and no part of this kit. The person installs them once and
+  their `zhlt.wad`), or SDHLT, seedee's fork of them that builds on Linux with CMake (`sdHLCSG`... and
+  `sdhlt.wad`, found under either name). They are an outside program and no part of this kit. The person installs them once and
   names their folder in the `VHLT_DIR` environment variable (or puts them on the PATH, or you pass
   `findCompilers({ folder })`). Without them the map is still written, read and checked; `compileMap` says in
   one sentence that it needs them. Ask the person where they are before assuming there are none.

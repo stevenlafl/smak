@@ -791,6 +791,12 @@ test("without the compilers, every function that needs them says so in one sente
   writeFileSync(join(empty, "hlcsg.exe"), "");
   const some = findCompilers({ folder: empty, env: {} });
   sure(!some.found && /has no hlbsp, hlvis, hlrad/.test(some.message), some.message);
+  // SDHLT's names, as its Linux build leaves them, are found as the four
+  const seedee = join(tmp, "sdhlt-names");
+  mkdirSync(seedee, { recursive: true });
+  for (const name of ["sdHLCSG", "sdHLBSP", "sdHLVIS", "sdHLRAD"]) writeFileSync(join(seedee, name), "");
+  const sdhlt = findCompilers({ folder: seedee, env: {} });
+  sure(sdhlt.found && sdhlt.tools.hlrad === join(seedee, "sdHLRAD"), JSON.stringify(sdhlt.tools));
   const mapFile = join(mapsFolder, "unbuilt.map");
   writeFileSync(mapFile, writeMap({ brushes: sealedRoom(), entities: roomEntities() }));
   const result = compileMap(mapFile, { compilers: none, wads: [wadFile] });
@@ -870,7 +876,8 @@ testCompiled("compiled: a sealed room becomes a .bsp, with no error, no leak and
     timeout: PATIENCE,
   });
   sure(carried.bsp && carried.logs.length === 2, carried.errors.join("; "));
-  const takenIn = /Including Wadfile: .*smak-maps\.wad/;
+  // VHLT says "Including Wadfile: ...smak-maps.wad"; SDHLT names it in its "Wadinclude list"
+  const takenIn = /Including Wadfile: .*smak-maps\.wad|Wadinclude list\s*\n-+\n(?:[^-\n].*\n)*smak-maps\s*\n/;
   sure(takenIn.test(carried.logs[0].text) && !takenIn.test(result.logs[0].text), "wadinclude");
   // the textures lump (the third of a .bsp's header) then holds the pictures themselves, and is larger
   const texturesLump = (file) => file.readInt32LE(8 + 2 * 8);

@@ -6,7 +6,8 @@
 //   hlrad   lights it: light entities, texture lights, the sky
 //
 // THE COMPILERS ARE NOT PART OF THIS KIT. They are an outside program the person installs once: VHLT, also
-// known as Vluzacn's ZHLT v34 (hlcsg, hlbsp, hlvis and hlrad, with their zhlt.wad). `findCompilers` looks for
+// known as Vluzacn's ZHLT v34 (hlcsg, hlbsp, hlvis and hlrad, with their zhlt.wad), or SDHLT, its fork that
+// builds on Linux (sdHLCSG... with their sdhlt.wad). `findCompilers` looks for
 // them in a folder you name, in the folder the VHLT_DIR environment variable names, and on the PATH, and
 // says in one sentence what is missing. Nothing here works without them, and each function says so.
 //
@@ -36,8 +37,12 @@ import { TIMED_OUT, COULD_NOT_RUN } from "./compile-run.mjs";
 export const COMPILERS = ["hlcsg", "hlbsp", "hlvis", "hlrad"];
 /** The environment variable that names the compilers' folder. */
 export const COMPILERS_VARIABLE = "VHLT_DIR";
-/** The names a compiler's file may have, most wanted first: `hlcsg` gives hlcsg_x64.exe, hlcsg.exe... */
-const FILE_NAMES = (tool) => [`${tool}_x64.exe`, `${tool}.exe`, `${tool}_x64`, tool];
+/**
+ * The names a compiler's file may have, most wanted first: `hlcsg` gives hlcsg_x64.exe, hlcsg.exe... and then
+ * SDHLT's (seedee's fork of VHLT v34, which builds on Linux): sdHLCSG_x64.exe, sdHLCSG.exe, sdHLCSG.
+ */
+const FILE_NAMES = (tool) =>
+  [tool, `sd${tool.toUpperCase()}`].flatMap((name) => [`${name}_x64.exe`, `${name}.exe`, `${name}_x64`, name]);
 /** What the compilers are, said wherever they are missing. */
 const WHAT_THEY_ARE =
   "the map compilers VHLT (Vluzacn's ZHLT v34: hlcsg, hlbsp, hlvis, hlrad), an outside program that is not part of this kit";
@@ -53,11 +58,12 @@ export const BAD_LINE = /\b(error|leak|warning: brush|no visibility|mixed face c
 const WARNING_LINE = /^\s*warning\b/i;
 /**
  * hlbsp's word for a leak (`Warning: === LEAK in hull 0 ===`), the lines of the explanation it prints after
- * it, which are no errors of their own, and the entity it names: `Entity light @ (  10, -20,  30)`.
+ * it, which are no errors of their own, and the entity it names: `Entity light @ (  10, -20,  30)` (VHLT),
+ * `Entity light at ( 10  -20   30)` (SDHLT).
  */
 const LEAK_FOUND = /===\s*leak\b/i;
 const LEAK_TALK = /\bleak\b|listed in the error|^error:?\s*$/i;
-const LEAK_ENTITY = /Entity\s+(\S+)\s*@\s*\(\s*(-?[\d.]+)\s*,\s*(-?[\d.]+)\s*,\s*(-?[\d.]+)\s*\)/i;
+const LEAK_ENTITY = /Entity\s+(\S+)\s*(?:@|at)\s*\(\s*(-?[\d.]+)\s*,?\s*(-?[\d.]+)\s*,?\s*(-?[\d.]+)\s*\)/i;
 /** hlcsg's words for a texture that is in none of the .wad files. */
 const MISSING_TEXTURE = /texture\s+(\S+)\s+not found/i;
 /** How long each program may run, in milliseconds, before it is stopped. */
@@ -232,8 +238,11 @@ function leakSentence(leak) {
   return `the map LEAKS: the space the entities are in is open to the void outside, through a gap between world brushes or because an entity is outside the map.${from}${out}${near} Close the gap with world brushes (brush entities seal nothing) and compile again`;
 }
 
-/** The compilers' own .wad, kept beside them: the pictures of ORIGIN, CLIP, NULL, HINT, SKIP and the like. */
-const TOOL_WAD = "zhlt.wad";
+/**
+ * The compilers' own .wad, kept beside them: the pictures of ORIGIN, CLIP, NULL, HINT, SKIP and the like.
+ * VHLT's is zhlt.wad, SDHLT's sdhlt.wad.
+ */
+const TOOL_WADS = ["zhlt.wad", "sdhlt.wad"];
 
 /** Where worldspawn's keys end in a map's text: at its first brush, or at its closing brace. */
 function worldHeadEnd(mapText) {
@@ -245,7 +254,7 @@ function worldHeadEnd(mapText) {
 
 /** The .wad files worldspawn's `wad` key lists in a map's text. */
 function wadsOf(mapText) {
-  const key = /^s*"wad"s+"([^"]*)"s*$/m.exec(mapText.slice(0, worldHeadEnd(mapText)));
+  const key = /^\s*"wad"\s+"([^"]*)"\s*$/m.exec(mapText.slice(0, worldHeadEnd(mapText)));
   return key ? key[1].split(";").filter(Boolean) : [];
 }
 
@@ -417,8 +426,10 @@ export function compileMap(mapFile, options = {}) {
   let mapText = readFileSync(mapFile, "utf8");
   // the compilers' own .wad goes with the others, or ORIGIN and CLIP would be textures found nowhere
   const listed = wadFiles.length ? [...wadFiles] : wadsOf(mapText);
-  const toolWad = join(found.folder ?? dirname(found.tools.hlcsg), TOOL_WAD);
-  const isToolWad = (wad) => basename(wad).toLowerCase() === TOOL_WAD;
+  const toolFolder = found.folder ?? dirname(found.tools.hlcsg);
+  const toolWad =
+    TOOL_WADS.map((name) => join(toolFolder, name)).find((file) => existsSync(file)) ?? join(toolFolder, TOOL_WADS[0]);
+  const isToolWad = (wad) => TOOL_WADS.includes(basename(wad).toLowerCase());
   const ownWads = listed.filter((wad) => !isToolWad(wad));
   if (existsSync(toolWad) && !listed.some(isToolWad)) listed.push(toolWad);
   if (listed.length) mapText = withWads(mapText, listed);
