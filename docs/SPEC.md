@@ -203,6 +203,11 @@ a part that comes apart in any of them is a fault (`in run2 frame 11: ... thumb_
   `x` over 0 out to the left). Every frame of the first animation is turned so (its number, length and
   activity kept), and the parts are placed as the base then stands. Turn the walking plane's joints (hips,
   knees, ankles, spine, upper arms, forearms) forward and back; a twist reads as wrong at once.
+  `"pose": { "fit": true }` finds the stance for you: the model is built, its first frame fitted to the
+  outlines of the spec's `project` pictures (or `fit`'s own list of views, as `project` takes them), and
+  built again in it. Only forward and back swings of the hips, knees, spine and arms, and the upper arms a
+  little out, are tried. The report gives the outlines' overlap before and after and the keys it chose, to
+  keep or change; `keys` given beside `fit` win over it.
 - `floor`: where its feet stand. A player model's origin is the middle of its hull, so its feet are at -36; a
   monster's origin is its feet, at 0. A monster made on a player's skeleton (Gordon's) gives `"floor": 0`, and
   every animation is lifted so that it stands on the floor and not sunk to its hips; a player keeps -36.

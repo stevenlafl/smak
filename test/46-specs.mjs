@@ -239,6 +239,35 @@ test("a character spec: a place on a part laid along a limb is where the part we
   const knob = turned.report.parts.knob;
   const mid = knob.from.map((v, k) => (v + knob.to[k]) / 2);
   sure(Math.abs(Math.abs(mid[0]) - 10) < 0.6 && Math.abs(mid[2]) < 0.6, `the tip's knob along x after the turn: ${mid.map((v) => v.toFixed(1))}`);
+  // a pose fitted to a picture: a Biped's thigh and calf, built upright, fitted to a side view of it with the
+  // thigh swung forward: the fit finds a swing and the outlines come closer
+  const leg = buildMdl({
+    name: "leg.mdl",
+    bones: [{ name: "Bip01", parent: -1 }, { name: "Bip01 L Thigh", parent: 0, pos: [0, 0, 40] }, { name: "Bip01 L Calf", parent: 1, pos: [0, 0, -20] }],
+    bodyparts: [{ name: "body", models: [{ name: "b", meshes: [{ tris: [], texture: indexed(W.sheet(16, 16).image(), "b.bmp") }] }] }],
+    sequences: [{ name: "idle", fps: 10, frames: [[[0, 0, 0, 0, 0, 0], [0, 0, 40, 0, 0, 0], [0, 0, -20, 0, 0, 0]]] }],
+  });
+  writeFileSync(join(folder, "leg.mdl"), leg);
+  const legSpec = (pose) => ({
+    spec: "smak.model/1",
+    name: "fitted.mdl",
+    kind: "character",
+    base: { file: "leg.mdl" },
+    pose,
+    parts: [
+      { id: "thigh", kind: "box", size: [4, 4, 20], material: "cloth", span: ["Bip01 L Thigh", "Bip01 L Calf"] },
+      { id: "calf", kind: "box", size: [3, 3, 18], material: "cloth", attach: { bone: "Bip01 L Calf", at: "top" } },
+      { id: "hips", kind: "box", size: [8, 10, 6], material: "cloth", at: [0, 0, 40] },
+    ],
+  });
+  const swung = buildModelSpec(legSpec({ keys: { "Bip01 L Thigh": { turn: { y: -40 } } } }), { folder });
+  sure(swung.report.ok, [...swung.report.errors, ...swung.report.faults].join("; "));
+  const side = smak.render(swung.mdl, { seq: 0, frame: 0, view: "side", width: 256, height: 256 });
+  writeFileSync(join(folder, "side.png"), smak.png(side.width, side.height, side.rgba));
+  const fitted = buildModelSpec({ ...legSpec({ fit: [{ picture: "side.png", view: "left" }] }) }, { folder });
+  const said = fitted.report.facts.find((f) => /pose fitted/.test(f)) ?? "";
+  const [before, after] = (said.match(/overlap ([\d.]+) as built, ([\d.]+) fitted/) ?? []).slice(1).map(Number);
+  sure(fitted.report.ok && after > before + 0.05, `the fitted outline closer: ${said.slice(0, 200)}`);
 });
 
 test("a superquadric: a rounded block and an egg at their sizes, a wrong round refused", () => {

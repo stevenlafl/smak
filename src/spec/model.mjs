@@ -10,6 +10,7 @@
 // The checks that follow every build: the engine's (`check`), the shape's (`shapeSoundness`: holes, faces
 // turned inwards, parts floating apart) and the pictures' (`seeThrough`).
 import { boneIn, otherSideOf } from "../biped.mjs";
+import { fitPose } from "./posefit.mjs";
 import { readFileSync, existsSync } from "node:fs";
 import { resolve, dirname, join } from "node:path";
 import { shape, sheet, allot } from "../workshop.mjs";
@@ -145,7 +146,12 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
   if (spec.pose !== undefined) {
     const keys = spec.pose?.keys;
     if (!spec.base) errors.push("pose: a character's, on a base model's skeleton: give the spec a base");
-    if (!keys || typeof keys !== "object" || Array.isArray(keys) || !Object.keys(keys).length)
+    if (spec.pose?.fit !== undefined && spec.pose.fit !== true && !Array.isArray(spec.pose.fit))
+      errors.push("pose.fit: true (fitted to the outlines of the spec's project pictures) or a list of views as project takes them");
+    if (spec.pose?.fit && !Array.isArray(spec.pose.fit) && !spec.project?.length) errors.push("pose.fit: true fits to the project pictures, and the spec has none: give fit a list of views");
+    if (keys === undefined && spec.pose?.fit) {
+      // fitted alone: no keys of its own
+    } else if (!keys || typeof keys !== "object" || Array.isArray(keys) || !Object.keys(keys).length)
       errors.push(`pose: { keys: { "<bone>": { turn: { x, y, z } } } }: degrees about the model's axes, as the bone stands in the first frame (a leg back: "Bip01 L Thigh": { turn: { y: 20 } })`);
     else
       for (const [bone, change] of Object.entries(keys))
@@ -917,7 +923,34 @@ function piecesOf(given, context) {
  * { ok, errors, faults, warnings, notes, facts, parts }; `ok` when nothing is wrong. Throws only for a spec it
  * cannot read at all; every other fault is in the report.
  */
-export function buildModelSpec(spec, { folder, prefabs = {}, games = [], readPicture, hide = [], refuse = [] } = {}) {
+export function buildModelSpec(spec, options = {}) {
+  // a stance fitted to the pictures: built once as it stands, its first frame fitted to the outlines of the
+  // views (spec.project's, or pose.fit's own), then built again in that stance; the keys given win over it
+  if (!spec?.pose?.fit) return buildOnce(spec, options);
+  const given = spec.pose.keys ?? null;
+  const first = buildOnce({ ...spec, pose: given ? { keys: given } : undefined }, options);
+  if (!first.mdl) return first;
+  const read = options.readPicture ?? ((name) => unpng(readFileSync(resolve(options.folder ?? ".", name.replace(/^(work|models):/, "")))));
+  const asked = Array.isArray(spec.pose.fit) ? spec.pose.fit : spec.project ?? [];
+  let fit;
+  try {
+    const views = asked.map((view) => {
+      const [yaw, pitch] = typeof view.view === "string" ? VIEW_NAMES[view.view] : [view.yaw ?? 0, view.pitch ?? 0];
+      return { picture: read(view.picture), yaw, pitch, area: view.area, rect: view.rect };
+    });
+    fit = fitPose(first.mdl, views);
+  } catch (error) {
+    first.report.errors.push(`pose.fit: ${error.message}`);
+    first.report.ok = false;
+    return first;
+  }
+  const keys = { ...fit.keys, ...(given ?? {}) };
+  const second = buildOnce({ ...spec, pose: { keys } }, options);
+  second.report.facts.push(`pose fitted to ${asked.length} views (their outlines' overlap ${fit.before} as built, ${fit.after} fitted, ${fit.tried} stances tried): "pose": { "keys": ${JSON.stringify(keys)} }`);
+  return second;
+}
+
+function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, hide = [], refuse = [] } = {}) {
   const { errors, warnings } = validateModelSpec(spec, { prefabs });
   const report = { ok: false, errors, faults: [], warnings, notes: [], facts: [], parts: {} };
   if (errors.length) return { mdl: null, report };

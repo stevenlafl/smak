@@ -40,7 +40,7 @@ export function viewAxes(yaw, pitch) {
 export const VIEW_NAMES = { front: [0, 0], left: [90, 0], back: [180, 0], right: [270, 0], top: [0, 90], below: [0, -90] };
 
 /** Which dots of a picture are the thing: a mask, 1 for the thing. */
-function foregroundOf(picture, [x0, y0, x1, y1]) {
+export function foregroundOf(picture, [x0, y0, x1, y1]) {
   const { width, rgb, rgba } = picture;
   const at = (x, y) => (rgba ? rgba.subarray((y * width + x) * 4, (y * width + x) * 4 + 4) : rgb.subarray((y * width + x) * 3, (y * width + x) * 3 + 3));
   // the background: the commonest colour along the area's border (a caption in a corner is not it)
@@ -67,7 +67,7 @@ function foregroundOf(picture, [x0, y0, x1, y1]) {
 }
 
 /** The outline's box in a mask: the largest patch, with every patch at least a tenth its size. */
-function outlineBox(mask, width, [x0, y0, x1, y1]) {
+export function outlineBox(mask, width, [x0, y0, x1, y1]) {
   const label = new Int32Array(mask.length);
   const patches = [];
   for (let y = y0; y < y1; y++)
