@@ -658,6 +658,7 @@ export function buildMapSpec(given, { out, compilers, folder } = {}) {
   // models built from their specs, and put in as props
   mkdirSync(join(out, "models"), { recursive: true });
   const modelFiles = {};
+  const modelHeights = {};
   for (const [modelName, given] of Object.entries(spec.models ?? {})) {
     const modelSpec = given.file ? JSON.parse(readFileSync(resolve(folder ?? ".", given.file), "utf8")) : given;
     const built = buildModelSpec({ ...modelSpec, name: `${modelName}.mdl` }, { folder });
@@ -669,11 +670,12 @@ export function buildMapSpec(given, { out, compilers, folder } = {}) {
     writeFileSync(file, built.mdl);
     files[`model ${modelName}`] = file;
     modelFiles[modelName] = `models/${modelName}.mdl`;
+    modelHeights[modelName] = Number(/([\d.]+) high \(z\)/.exec(built.report.facts[0])?.[1] ?? 32);
     report.facts.push(`models.${modelName}: built and sound (${built.report.facts[0]})`);
   }
   const propsAt = [];
   place(spec.props, "props", (thing, room, at) => {
-    propsAt.push({ room: room.id, at });
+    propsAt.push({ room: room.id, at, half: modelHeights[thing.model] ? modelHeights[thing.model] / 2 : 16 });
     const model = modelFiles[thing.model] ?? thing.model;
     entities.push(pointEntity(thing.class ?? "cycler_sprite", at, { model, angles: [0, yawOf(room, thing.facing, at), 0], ...(thing.keys ?? {}) }));
   });
@@ -708,7 +710,11 @@ export function buildMapSpec(given, { out, compilers, folder } = {}) {
   }
   if (sunny) {
     const sky = [...rooms.values()].find((room) => room.spec.sky);
-    const sun = spec.night ? { pitch: -70, yaw: 30, brightness: 60, color: [140, 160, 255] } : { pitch: -60, yaw: 30, brightness: 280, color: [255, 245, 225] };
+    // at night the moon, and the sky's own light (`_diffuse_light`, which the compiler takes from the sun's
+    // unless told) far dimmer than it: an open street under a night sky otherwise glows
+    const sun = spec.night
+      ? { pitch: -70, yaw: 30, brightness: 60, color: [140, 160, 255], _diffuse_light: [60, 70, 120, 6] }
+      : { pitch: -60, yaw: 30, brightness: 280, color: [255, 245, 225] };
     entities.push(sunLight([...mid(sky).slice(0, 2), sky.max[2] - 32], { ...sun, ...(spec.sun ?? {}) }));
   }
 
@@ -808,7 +814,10 @@ export function buildMapSpec(given, { out, compilers, folder } = {}) {
           const reach = Math.min(room.max[0] - room.min[0], room.max[1] - room.min[1]) * 0.42;
           const from = [c[0] + (away[0] / length) * reach, c[1] + (away[1] / length) * reach, room.min[2] + 72];
           const yaw = Math.round((Math.atan2(centre[1] - from[1], centre[0] - from[0]) * 180) / Math.PI);
-          return drawMap(bsp, { ...drawing, from, yaw, pitch: -6, width: 640, height: 360 });
+          // tilted towards their middle's height: lanterns under a ceiling as well as barrels on a floor
+          const high = mine.reduce((sum, prop) => sum + prop.at[2] + prop.half, 0) / mine.length;
+          const pitch = Math.round((Math.atan2(high - from[2], Math.hypot(centre[0] - from[0], centre[1] - from[1])) * 180) / Math.PI);
+          return drawMap(bsp, { ...drawing, from, yaw, pitch: Math.max(-30, Math.min(30, pitch)), width: 640, height: 360 });
         });
         save("props", stacked(looks, propRooms.map((room) => `${room.id}: its props`)));
       }

@@ -1,0 +1,1031 @@
+{
+ "spec": "smak.map/1",
+ "name": "noodle_bar",
+ "night": true,
+ "theme": {
+  "floor": {
+   "base": "tile",
+   "tone": [
+    0.2,
+    0.2,
+    0.22
+   ]
+  },
+  "wall": {
+   "base": "plaster",
+   "tone": [
+    0.42,
+    0.4,
+    0.36
+   ]
+  },
+  "ceiling": {
+   "base": "metal",
+   "tone": [
+    0.07,
+    0.07,
+    0.08
+   ]
+  },
+  "door": "metal",
+  "furniture": "darkwood"
+ },
+ "textures": {
+  "steel": {
+   "base": "metal",
+   "tone": [
+    0.55,
+    0.57,
+    0.6
+   ]
+  },
+  "pink": {
+   "base": "neon",
+   "tone": [
+    1,
+    0.2,
+    0.75
+   ],
+   "glow": 400
+  },
+  "crate": {
+   "base": "wood",
+   "tone": [
+    0.5,
+    0.38,
+    0.24
+   ]
+  },
+  "asphalt": {
+   "base": "asphalt"
+  },
+  "pot": {
+   "base": "metal",
+   "tone": [
+    0.3,
+    0.3,
+    0.32
+   ]
+  }
+ },
+ "models": {
+  "noodle_sign": {
+   "spec": "smak.model/1",
+   "kind": "piece",
+   "texture": {
+    "width": 256,
+    "height": 256
+   },
+   "materials": {
+    "pink": {
+     "base": "neon",
+     "tone": [
+      1,
+      0.2,
+      0.75
+     ]
+    },
+    "cyan": {
+     "base": "neon",
+     "tone": [
+      0.2,
+      0.95,
+      1
+     ]
+    },
+    "backing": {
+     "base": "iron",
+     "tone": [
+      0.08,
+      0.08,
+      0.09
+     ]
+    }
+   },
+   "parts": [
+    {
+     "id": "board",
+     "kind": "box",
+     "material": "backing",
+     "size": [
+      2,
+      64,
+      44
+     ],
+     "at": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "id": "bowl",
+     "kind": "tube",
+     "material": "pink",
+     "sides": 6,
+     "path": [
+      [
+       1.4,
+       -18.0,
+       16.0,
+       1.2
+      ],
+      [
+       1.4,
+       -17.39,
+       12.38,
+       1.2
+      ],
+      [
+       1.4,
+       -15.59,
+       9.0,
+       1.2
+      ],
+      [
+       1.4,
+       -12.73,
+       6.1,
+       1.2
+      ],
+      [
+       1.4,
+       -9.0,
+       3.88,
+       1.2
+      ],
+      [
+       1.4,
+       -4.66,
+       2.48,
+       1.2
+      ],
+      [
+       1.4,
+       -0.0,
+       2.0,
+       1.2
+      ],
+      [
+       1.4,
+       4.66,
+       2.48,
+       1.2
+      ],
+      [
+       1.4,
+       9.0,
+       3.88,
+       1.2
+      ],
+      [
+       1.4,
+       12.73,
+       6.1,
+       1.2
+      ],
+      [
+       1.4,
+       15.59,
+       9.0,
+       1.2
+      ],
+      [
+       1.4,
+       17.39,
+       12.38,
+       1.2
+      ],
+      [
+       1.4,
+       18.0,
+       16.0,
+       1.2
+      ]
+     ],
+     "at": [
+      0,
+      0,
+      4
+     ]
+    },
+    {
+     "id": "rim",
+     "kind": "tube",
+     "material": "pink",
+     "sides": 6,
+     "path": [
+      [
+       1.4,
+       -20,
+       16,
+       1.2
+      ],
+      [
+       1.4,
+       20,
+       16,
+       1.2
+      ]
+     ],
+     "at": [
+      0,
+      0,
+      4
+     ]
+    },
+    {
+     "id": "chopstick_a",
+     "kind": "tube",
+     "material": "cyan",
+     "sides": 6,
+     "path": [
+      [
+       1.4,
+       2,
+       18,
+       0.9
+      ],
+      [
+       1.4,
+       14,
+       38,
+       0.7
+      ]
+     ],
+     "at": [
+      0,
+      0,
+      4
+     ]
+    },
+    {
+     "id": "chopstick_b",
+     "kind": "tube",
+     "material": "cyan",
+     "sides": 6,
+     "path": [
+      [
+       1.4,
+       7,
+       18,
+       0.9
+      ],
+      [
+       1.4,
+       20,
+       36,
+       0.7
+      ]
+     ],
+     "at": [
+      0,
+      0,
+      4
+     ]
+    },
+    {
+     "id": "steam",
+     "kind": "tube",
+     "material": "cyan",
+     "sides": 6,
+     "path": [
+      [
+       1.4,
+       -8,
+       19,
+       0.6
+      ],
+      [
+       1.4,
+       -11,
+       24,
+       0.6
+      ],
+      [
+       1.4,
+       -6,
+       29,
+       0.6
+      ],
+      [
+       1.4,
+       -9,
+       34,
+       0.6
+      ]
+     ],
+     "at": [
+      0,
+      0,
+      4
+     ]
+    }
+   ]
+  },
+  "paper_lantern": {
+   "spec": "smak.model/1",
+   "kind": "piece",
+   "texture": {
+    "width": 128,
+    "height": 128
+   },
+   "materials": {
+    "paper": {
+     "base": "cloth",
+     "tone": [
+      0.95,
+      0.15,
+      0.08
+     ],
+     "flags": [
+      "fullbright"
+     ]
+    },
+    "cap": {
+     "base": "iron",
+     "tone": [
+      0.1,
+      0.1,
+      0.1
+     ]
+    }
+   },
+   "parts": [
+    {
+     "id": "cord",
+     "kind": "cylinder",
+     "material": "cap",
+     "radius": 0.25,
+     "height": 12,
+     "sides": 6,
+     "at": [
+      0,
+      0,
+      13
+     ]
+    },
+    {
+     "id": "top_cap",
+     "kind": "cylinder",
+     "material": "cap",
+     "radius": 2.6,
+     "height": 1,
+     "sides": 10,
+     "at": [
+      0,
+      0,
+      12.4
+     ]
+    },
+    {
+     "id": "globe",
+     "kind": "turn",
+     "material": "paper",
+     "sides": 12,
+     "rings": [
+      [
+       0,
+       2.4
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       6.5,
+       6
+      ],
+      [
+       11,
+       5
+      ],
+      [
+       13,
+       2.4
+      ]
+     ],
+     "caps": [
+      true,
+      true
+     ],
+     "at": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "id": "bottom_cap",
+     "kind": "cylinder",
+     "material": "cap",
+     "radius": 2.6,
+     "height": 1,
+     "sides": 10,
+     "at": [
+      0,
+      0,
+      -0.6
+     ]
+    },
+    {
+     "id": "tassel",
+     "kind": "cylinder",
+     "material": "paper",
+     "radius": 0.6,
+     "top": 0.2,
+     "height": 3,
+     "sides": 6,
+     "rotate": [
+      0,
+      180,
+      0
+     ],
+     "at": [
+      0,
+      0,
+      -0.4
+     ]
+    }
+   ]
+  }
+ },
+ "prefabs": {
+  "counter": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -144,
+       -16,
+       0
+      ],
+      [
+       144,
+       16,
+       30
+      ]
+     ],
+     "texture": "furniture"
+    },
+    {
+     "box": [
+      [
+       -148,
+       -20,
+       30
+      ],
+      [
+       148,
+       20,
+       34
+      ]
+     ],
+     "texture": "furniture"
+    },
+    {
+     "box": [
+      [
+       -140,
+       -18,
+       22
+      ],
+      [
+       140,
+       -16,
+       25
+      ]
+     ],
+     "texture": "pink"
+    }
+   ]
+  },
+  "stool": {
+   "pieces": [
+    {
+     "cylinder": {
+      "centre": [
+       0,
+       0
+      ],
+      "radius": 3,
+      "from": 0,
+      "to": 20,
+      "sides": 8
+     },
+     "texture": "steel"
+    },
+    {
+     "cylinder": {
+      "centre": [
+       0,
+       0
+      ],
+      "radius": 9,
+      "from": 20,
+      "to": 23,
+      "sides": 12
+     },
+     "texture": "furniture"
+    }
+   ]
+  },
+  "stove": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -48,
+       -16,
+       0
+      ],
+      [
+       48,
+       16,
+       36
+      ]
+     ],
+     "texture": "steel"
+    },
+    {
+     "cylinder": {
+      "centre": [
+       -30,
+       0
+      ],
+      "radius": 12,
+      "from": 36,
+      "to": 56,
+      "sides": 12
+     },
+     "texture": "pot"
+    },
+    {
+     "cylinder": {
+      "centre": [
+       0,
+       0
+      ],
+      "radius": 12,
+      "from": 36,
+      "to": 60,
+      "sides": 12
+     },
+     "texture": "pot"
+    },
+    {
+     "cylinder": {
+      "centre": [
+       30,
+       0
+      ],
+      "radius": 12,
+      "from": 36,
+      "to": 52,
+      "sides": 12
+     },
+     "texture": "pot"
+    }
+   ]
+  },
+  "fridge": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -20,
+       -16,
+       0
+      ],
+      [
+       20,
+       16,
+       88
+      ]
+     ],
+     "texture": "steel"
+    },
+    {
+     "box": [
+      [
+       -14,
+       -18,
+       40
+      ],
+      [
+       -10,
+       -16,
+       70
+      ]
+     ],
+     "texture": "pot"
+    }
+   ]
+  },
+  "shelf": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -40,
+       -8,
+       0
+      ],
+      [
+       -37,
+       8,
+       80
+      ]
+     ],
+     "texture": "furniture"
+    },
+    {
+     "box": [
+      [
+       37,
+       -8,
+       0
+      ],
+      [
+       40,
+       8,
+       80
+      ]
+     ],
+     "texture": "furniture"
+    },
+    {
+     "box": [
+      [
+       -40,
+       -8,
+       24
+      ],
+      [
+       40,
+       8,
+       27
+      ]
+     ],
+     "texture": "furniture"
+    },
+    {
+     "box": [
+      [
+       -40,
+       -8,
+       52
+      ],
+      [
+       40,
+       8,
+       55
+      ]
+     ],
+     "texture": "furniture"
+    },
+    {
+     "box": [
+      [
+       -40,
+       -8,
+       77
+      ],
+      [
+       40,
+       8,
+       80
+      ]
+     ],
+     "texture": "furniture"
+    },
+    {
+     "box": [
+      [
+       -30,
+       -6,
+       27
+      ],
+      [
+       -14,
+       6,
+       37
+      ]
+     ],
+     "texture": "crate"
+    },
+    {
+     "box": [
+      [
+       4,
+       -6,
+       55
+      ],
+      [
+       24,
+       6,
+       63
+      ]
+     ],
+     "texture": "crate"
+    }
+   ]
+  },
+  "crates": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -24,
+       -24,
+       0
+      ],
+      [
+       8,
+       8,
+       32
+      ]
+     ],
+     "texture": "crate"
+    },
+    {
+     "box": [
+      [
+       8,
+       -24,
+       0
+      ],
+      [
+       40,
+       8,
+       32
+      ]
+     ],
+     "texture": "crate"
+    },
+    {
+     "box": [
+      [
+       -8,
+       -20,
+       32
+      ],
+      [
+       20,
+       8,
+       56
+      ]
+     ],
+     "texture": "crate"
+    }
+   ]
+  }
+ },
+ "rooms": [
+  {
+   "id": "shop",
+   "size": [
+    448,
+    256,
+    160
+   ],
+   "light": {
+    "count": 2,
+    "brightness": 120,
+    "color": [
+     255,
+     190,
+     140
+    ]
+   }
+  },
+  {
+   "id": "store",
+   "size": [
+    192,
+    128,
+    128
+   ],
+   "place": {
+    "north_of": "shop",
+    "align": "east"
+   },
+   "light": {
+    "count": 1,
+    "brightness": 100,
+    "color": [
+     255,
+     200,
+     160
+    ]
+   }
+  },
+  {
+   "id": "street",
+   "size": [
+    640,
+    256,
+    320
+   ],
+   "place": {
+    "south_of": "shop"
+   },
+   "sky": true,
+   "surfaces": {
+    "floor": "asphalt"
+   },
+   "light": "none",
+   "test": true
+  }
+ ],
+ "links": [
+  {
+   "between": [
+    "shop",
+    "street"
+   ],
+   "kind": "opening",
+   "width": 192,
+   "height": 112
+  },
+  {
+   "between": [
+    "shop",
+    "store"
+   ],
+   "kind": "door",
+   "along": 0.5
+  }
+ ],
+ "furniture": [
+  {
+   "prefab": "counter",
+   "room": "shop",
+   "at": [
+    -32,
+    0
+   ]
+  },
+  {
+   "prefab": "stool",
+   "room": "shop",
+   "at": [
+    -144,
+    -36
+   ]
+  },
+  {
+   "prefab": "stool",
+   "room": "shop",
+   "at": [
+    -88,
+    -36
+   ]
+  },
+  {
+   "prefab": "stool",
+   "room": "shop",
+   "at": [
+    -32,
+    -36
+   ]
+  },
+  {
+   "prefab": "stool",
+   "room": "shop",
+   "at": [
+    24,
+    -36
+   ]
+  },
+  {
+   "prefab": "stool",
+   "room": "shop",
+   "at": [
+    80,
+    -36
+   ]
+  },
+  {
+   "prefab": "stove",
+   "room": "shop",
+   "at": [
+    -96,
+    108
+   ]
+  },
+  {
+   "prefab": "fridge",
+   "room": "shop",
+   "at": [
+    184,
+    108
+   ]
+  },
+  {
+   "prefab": "shelf",
+   "room": "shop",
+   "at": [
+    -188,
+    116
+   ],
+   "rotate": 90
+  },
+  {
+   "prefab": "crates",
+   "room": "store",
+   "at": [
+    40,
+    0
+   ]
+  }
+ ],
+ "props": [
+  {
+   "model": "noodle_sign",
+   "room": "shop",
+   "at": [
+    20,
+    127
+   ],
+   "z": 64,
+   "facing": "south"
+  },
+  {
+   "model": "paper_lantern",
+   "room": "shop",
+   "at": [
+    -120,
+    0
+   ],
+   "z": 135
+  },
+  {
+   "model": "paper_lantern",
+   "room": "shop",
+   "at": [
+    -32,
+    0
+   ],
+   "z": 135
+  },
+  {
+   "model": "paper_lantern",
+   "room": "shop",
+   "at": [
+    56,
+    0
+   ],
+   "z": 135
+  }
+ ],
+ "entities": [
+  {
+   "class": "info_player_start",
+   "room": "street",
+   "at": [
+    0,
+    -64
+   ],
+   "facing": "north"
+  },
+  {
+   "class": "monster_scientist",
+   "room": "shop",
+   "at": [
+    60,
+    56
+   ],
+   "facing": "south"
+  },
+  {
+   "class": "item_healthkit",
+   "room": "shop",
+   "at": [
+    -60,
+    -12
+   ],
+   "z": 34
+  },
+  {
+   "class": "light",
+   "room": "shop",
+   "at": [
+    20,
+    100
+   ],
+   "height": 96,
+   "keys": {
+    "color": [
+     255,
+     60,
+     190
+    ],
+    "brightness": 110
+   }
+  }
+ ],
+ "sun": {
+  "brightness": 16
+ }
+}
