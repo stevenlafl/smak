@@ -719,7 +719,9 @@ it). `z`: over the floor. `id` names a thing for `beside` (an entity's `id` is a
 Furniture and props must stay in their room: one that reaches into a wall is a fault. The floor 40 deep on
 each side of a door or an opening is kept clear: furniture standing there, between a step over its floor and
 a player's head, that leaves less than 48 of its width free is a fault (steps up to it, a slab, a hedge beside
-a wide opening are not). A thing put
+a wide opening are not). Nothing floats: each piece of furniture rests on its room's floor, stands against a
+wall (or a building standing in the room), reaches its ceiling, or touches a piece that does; one that touches
+none is a fault (flush means flush: a sign 2 off a wall floats). A thing put
 `against` a wall stands 48 from it; a prefab whose origin is its back (a shelf, a bed's headboard) is put at
 the wall itself (`[dx, dy]` with `dx` half the room's length).
 
@@ -848,6 +850,10 @@ and pass the picture as `reference`: it is then drawn beside the plan of the res
   walk test's own sentences, each saying why (no way in, a step too high, a gap of 28 where 32 is wanted).
 - `FAULT ... reaches N into <room>'s <side> wall`: furniture or a prop standing in a wall.
 - `FAULT furniture[n] ... stands in front of links[m]`: in the way of a door or an opening; move it aside.
+- `FAULT N pieces of furniture float`: touching no floor, wall, ceiling or other piece; each named with its height.
+- `fact sweep: ...` (after the compile): the drops a player can step off and be hurt by (over 210 units, a
+  warning: mean it or rail it) and lights with nothing solid within 32 (a fault). Every lamp the spec hangs below a
+  ceiling has a rod and a shade, so none floats; `smak map-sweep <bsp>` sweeps any map.
 - `FAULT links[n]: the wall ... share is N long`: too short for a way a player passes at ease.
 - `FAULT N ways a player walks through are under 48 wide`: furniture, or walls, too close together where the
   walk test goes through; each is named by its place.

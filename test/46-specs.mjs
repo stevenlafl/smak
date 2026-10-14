@@ -344,6 +344,21 @@ test("a model spec's leaf drops the points that lie on the line between their ne
   sure(report.facts.some((f) => /^12 triangles/.test(f)), report.facts.filter((f) => /triangles/.test(f)).join("; "));
 });
 
+test("a map spec's furniture never floats: on the floor, against a wall, under the ceiling or on another piece", () => {
+  // Steven's play-test of frenzy_words: "everything is floating everywhere"
+  const faults = (furniture) =>
+    buildMapSpec({ spec: "smak.map/1", name: "float", rooms: [{ id: "a", size: [512, 512, 256] }], entities: [{ class: "info_player_start", room: "a", at: [-200, -200] }], furniture }, { out: join(folder, "float"), compilers: { found: false, message: "" } }).report.faults.filter((f) => /float/.test(f));
+  const held = faults([
+    { box: [32, 32, 32], room: "a", at: [0, 0] },
+    { box: [32, 32, 32], room: "a", at: [0, 0], z: 32 },
+    { box: [16, 64, 16], room: "a", at: [248, 100], z: 120 },
+    { box: [64, 64, 8], room: "a", at: [100, 100], z: 248 },
+  ]);
+  sure(!held.length, held.join("; "));
+  const afloat = faults([{ box: [32, 32, 32], room: "a", at: [100, 0], z: 100 }]);
+  sure(afloat.some((f) => /furniture\[0\] \(box\) in a, 100 over its floor/.test(f)), afloat.join("; ") || "no fault");
+});
+
 test("a lamp is never in mid-air: one hung below a tall room's ceiling has a shade and a rod up to it", () => {
   // Steven's play-test of frenzy_pictures: "random lights in the middle of the air"
   const spec = { spec: "smak.map/1", name: "tall", rooms: [{ id: "hall", size: [256, 256, 480] }], entities: [{ class: "info_player_start", room: "hall", at: "centre" }, { class: "light", room: "hall", at: "corner ne" }] };
@@ -896,7 +911,7 @@ test("a map spec is built without compilers: lined rooms (the crash of case 9), 
       links: [{ between: ["yard", "pool"], kind: "opening" }, { between: ["yard", "pool"], kind: "window", along: 0.8, glass: true }],
       furniture: [
         { box: [32, 32, 32], room: "yard", at: [100, 0], entity: { class: "func_breakable", material: 1 } },
-        { box: [64, 4, 16], room: "yard", at: [0, -124], z: 96, texture: "pink" },
+        { box: [64, 4, 16], room: "yard", at: [0, -126], z: 96, texture: "pink" },
         { box: [96, 2, 48], room: "yard", at: [-120, -60], texture: "fence" },
       ],
       entities: [{ class: "info_player_start", room: "yard", at: "centre" }],

@@ -60,6 +60,8 @@ const LAMP_HIGHEST = 192;
 const INSET = 48;
 /** Furniture or a prop that reaches further than this past its room's walls is said to stand in them. */
 const INTO_WALL = 1;
+/** Pieces this near each other, or a room's face, touch. */
+const TOUCH = 1;
 /** The rise and the depth of a stair's step that a link of stairs is built with. */
 const RISE = 16;
 const TREAD = 24;
@@ -1083,6 +1085,8 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     }
     return Math.max(widest, hi - from);
   };
+  /** every piece of furniture's box in the map, and its room: none may float */
+  const furniturePieces = [];
   /** what stands in each room (props, prefabs): where to look at it from */
   const propsAt = [];
   place(
@@ -1100,9 +1104,30 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         way.in.push({ name: `furniture[${i}] (${thing.prefab ?? "box"})`, min: [at[0] + own.min[0], at[1] + own.min[1]], max: [at[0] + own.max[0], at[1] + own.max[1]] });
       // a prefab is looked at as a prop is (a slab or a line on the floor is not: it is the floor)
       if (thing.prefab) propsAt.push({ room: room.id, at, half: 32 });
+      const heights = prefabHeights(prefab);
+      furniturePieces.push({ name: `furniture[${i}] (${thing.prefab ?? "box"})`, room, min: [at[0] + own.min[0], at[1] + own.min[1], at[2] + Math.min(...heights.map((h) => h[0]))], max: [at[0] + own.max[0], at[1] + own.max[1], at[2] + Math.max(...heights.map((h) => h[1]))] });
     },
     (thing) => turnedPrint(prefabPrint(prefabOf(thing)), 90 * Math.round((thing.rotate ?? 0) / 90)),
   );
+  // nothing floats: a piece rests on its room's floor, stands against a wall, hangs from the ceiling, or touches a
+  // piece that does (Steven's play-test of frenzy_words: "everything is floating everywhere")
+  {
+    const touches = (a, b) => [0, 1, 2].every((k) => a.min[k] <= b.max[k] + TOUCH && b.min[k] <= a.max[k] + TOUCH);
+    // a building standing in the room is wall too: a sign on a shop's front is held by it
+    const onBuilding = ({ room, min, max }) => standing.some((b) => b.host === room.id && [0, 1].every((k) => min[k] <= b.max[k] + TOUCH && b.min[k] <= max[k] + TOUCH));
+    const onRoom = (piece) => {
+      const { room, min, max } = piece;
+      return min[2] <= room.min[2] + TOUCH || max[2] >= room.max[2] - TOUCH || [0, 1].some((k) => min[k] <= room.min[k] + TOUCH || max[k] >= room.max[k] - TOUCH) || onBuilding(piece);
+    };
+    const held = new Set(furniturePieces.filter(onRoom));
+    for (let grew = true; grew; ) {
+      grew = false;
+      for (const piece of furniturePieces) if (!held.has(piece) && [...held].some((other) => touches(piece, other))) (held.add(piece), (grew = true));
+    }
+    const floating = furniturePieces.filter((piece) => !held.has(piece));
+    if (floating.length)
+      report.faults.push(`${floating.length} pieces of furniture float, touching no floor, wall, ceiling or other piece: ${floating.slice(0, 8).map((p) => `${p.name} in ${p.room.id}, ${Math.round(p.min[2] - p.room.min[2])} over its floor`).join("; ")}: rest each on the floor, against a wall, under the ceiling, or on another piece`);
+  }
   // a way through keeps a stretch a player passes at ease clear in front of it (a wide one may have a hedge by it)
   for (const way of ways) {
     if (!way.in.length) continue;
