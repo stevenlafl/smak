@@ -52,3 +52,9 @@
    floor to the lookout's at 176 through the stairwell, and the 6 steps down from the storeroom's floor
    to the cellar's at -96. The plan (picture-1) and the views (picture-2) show the rooms in a line from
    west to east, the stairwell in the lookout's floor and the dark cellar with its zombie.
+
+## Blind run
+
+`blind.mjs`: the prompt alone, handed to a fresh agent with nothing but the MCP server (no shell, no files,
+none of these specs). It took 6 turns and 35 seconds (guide 3, build 2); its spec (blind/spec.json),
+built again (blind/result/), passes every check, and its pictures show the guard room with the start, the lookout above it up 11 steps, the corridor, the storeroom with the battery, the cellar 96 lower down 6 steps with its darker stone and the zombie (lit 31, the dimmest), wooden ceilings. Against this rubric: **16 of 16**.

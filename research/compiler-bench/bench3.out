@@ -1,0 +1,43 @@
+case | avgVisible | lightBytes | visBytes | csg s | bsp s | vis s | rad s
+R0 rad default | 4 | 128307 | 442 | 0.13 | 0.32 | 0.01 | 0.95
+R1 rad -extra | 4 | 128307 | 442 | 0.12 | 0.31 | 0.01 | 1.38
+R2 rad -chop 32 -texchop 16 | 4 | 128307 | 442 | 0.12 | 0.30 | 0.01 | 2.68
+R3 rad -chop 128 | 4 | 128307 | 442 | 0.12 | 0.31 | 0.01 | 0.64
+R4 rad -bounce 0 | 4 | 107925 | 442 | 0.13 | 0.32 | 0.01 | 0.38
+R5 rad -ao | 4 | 128307 | 442 | 0.11 | 0.32 | 0.01 | 1.01
+R6 rad -pcf 3 | 4 | 128307 | 442 | 0.12 | 0.32 | 0.01 | 1.05
+R7 rad -fast | 4 | 106260 | 442 | 0.11 | 0.31 | 0.01 | 0.28
+R8 vis -fast | 4 | 128307 | 442 | 0.09 | 0.32 | 0.01 | 0.77
+R9 vis -full | 4 | 128307 | 442 | 0.08 | 0.31 | 0.01 | 0.84
+Z0 studio shadow {} | 1 | 15102 | 1 | 0.01 | 0.01 | 0.01 | 0.10
+Z1 studio shadow {"zhlt_studioshadow":1} | 1 | 15102 | 1 | 0.01 | 0.01 | 0.01 | 0.10
+Z2 studio shadow {"zhlt_studioshadow":1,"zhlt_shadowmode":2} | 1 | 15102 | 1 | 0.01 | 0.01 | 0.01 | 0.10
+Z3 studio shadow {"zhlt_studioshadow":1,"zhlt_shadowmode":0} | 1 | 15102 | 1 | 0.01 | 0.01 | 0.01 | 0.10
+Z0 studio shadow {} {"under":175,"edge":170,"beside":166,"away":135} [
+  'ao studio shadowmode [           inherit ] [           inherit ]',
+  'opaque brush models  [                on ] [                on ]',
+  'opaque studio models [                on ] [                on ]',
+  'block opaque         [                on ] [                on ]',
+  '0 opaque models'
+]
+Z1 studio shadow {"zhlt_studioshadow":1} {"under":37,"edge":154,"beside":163,"away":134} [
+  'ao studio shadowmode [           inherit ] [           inherit ]',
+  'opaque brush models  [                on ] [                on ]',
+  'opaque studio models [                on ] [                on ]',
+  'block opaque         [                on ] [                on ]',
+  '0 opaque models'
+]
+Z2 studio shadow {"zhlt_studioshadow":1,"zhlt_shadowmode":2} {"under":37,"edge":154,"beside":163,"away":134} [
+  'ao studio shadowmode [           inherit ] [           inherit ]',
+  'opaque brush models  [                on ] [                on ]',
+  'opaque studio models [                on ] [                on ]',
+  'block opaque         [                on ] [                on ]',
+  '0 opaque models'
+]
+Z3 studio shadow {"zhlt_studioshadow":1,"zhlt_shadowmode":0} {"under":53,"edge":79,"beside":78,"away":69} [
+  'ao studio shadowmode [           inherit ] [           inherit ]',
+  'opaque brush models  [                on ] [                on ]',
+  'opaque studio models [                on ] [                on ]',
+  'block opaque         [                on ] [                on ]',
+  '0 opaque models'
+]

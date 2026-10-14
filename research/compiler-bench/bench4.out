@@ -1,0 +1,18 @@
+case | avgVisible | allocChart | models | leaves | faces | clipnodes | hull1 | planes | portals | luxels | blocks | floorMean | floorDark | csg s | bsp s | vis s | rad s
+U1 24 func_wall tables, own models | 1 | 2 | 25 | 650 | 1486 | 2130 | 6 | 107 | 0 | 28300 | 2 | 43 | 5823 | 0.05 | 0.14 | 0.01 | 0.49
+U2 24 func_wall tables, zhlt_usemodel | 1 | 2 | 2 | 29 | 152 | 106 | 6 | 107 | 0 | 19082 | 2 | 43 | 5823 | 0.02 | 0.01 | 0.01 | 0.23
+V0 terrain world (as T1) | 223 | 2 | 1 | 357 | 795 | 3150 | 1122 | 2338 | 1491 | 21979 | 2 | NaN | 0 | 0.08 | 0.76 | 4.18 | 0.47
+V1 terrain world, vis -maxdistance 512 | 223 | 2 | 1 | 357 | 795 | 3156 | 1122 | 2338 | 1498 | 22000 | 2 | NaN | 0 | 0.08 | 0.77 | 5.04 | 0.48
+W1 terrain sides SOLIDHINT | 192 | 2 | 1 | 268 | 577 | 3154 | 1119 | 2367 | 1002 | 19811 | 2 | NaN | 0 | 0.09 | 0.76 | 2.68 | 0.32
+W2 terrain sides BEVELHINT | 223 | 2 | 1 | 358 | 795 | 4511 | 1634 | 3067 | 1502 | 22000 | 2 | NaN | 0 | 0.11 | 0.61 | 5.09 | 0.46
+W3 terrain sides BEVEL | 225 | 2 | 1 | 358 | 795 | 4495 | 1630 | 3067 | 1511 | 22000 | 2 | NaN | 0 | 0.11 | 0.58 | 4.88 | 0.46
+W4 terrain sides NULL | 222 | 2 | 1 | 357 | 795 | 3165 | 1124 | 2338 | 1510 | 21979 | 2 | NaN | 0 | 0.08 | 0.75 | 4.35 | 0.46
+X0 func_wall furniture (as E) | 4 | 3 | 2 | 719 | 2059 | 2944 | 186 | 1382 | 4 | 42843 | 3 | 99 | 1272 | 0.09 | 0.39 | 0.01 | 0.65
+X1 func_wall furniture zhlt_lightflags 2 | 4 | 3 | 2 | 719 | 2059 | 2942 | 186 | 1382 | 4 | 42843 | 3 | 94 | 1330 | 0.09 | 0.38 | 0.01 | 0.71
+Y1 detail hall, bsp -subdivide 128 | 4 | 4 | 1 | 781 | 2467 | 2102 | 690 | 1292 | 4 | 45944 | 4 | 95 | 1481 | 0.09 | 0.32 | 0.01 | 0.66
+Y2 detail hall, bsp -subdivide 512 | 4 | 3 | 1 | 776 | 1777 | 2107 | 695 | 1292 | 4 | 40430 | 3 |  |  | 0.08 | 0.30 | 0.01 | 0.63
+Y2 detail hall, bsp -subdivide 512 [
+  'rad: 0 /  1777\r     1 /  1777Error:',
+  'rad: Error: Bad surface extents (30 x 16)',
+  "kit: a face's lightmap runs past the end of the map's light"
+]

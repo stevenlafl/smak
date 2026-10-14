@@ -9,12 +9,17 @@
 // placed by saying where it sits on another part rather than by world numbers. docs/SPEC.md is the guide.
 // The checks that follow every build: the engine's (`check`), the shape's (`shapeSoundness`: holes, faces
 // turned inwards, parts floating apart) and the pictures' (`seeThrough`).
-import { readFileSync } from "node:fs";
-import { resolve, dirname } from "node:path";
+import { readFileSync, existsSync } from "node:fs";
+import { resolve, dirname, join } from "node:path";
 import { shape, sheet, allot } from "../workshop.mjs";
 import { buildMdl } from "../build.mjs";
 import { indexed, shrink } from "../image.mjs";
 import { check } from "../check.mjs";
+import { readMdl, bones as bonesOf, sequences as sequencesOf, withTextures, addMesh, replaceMesh, inverse34, apply34 } from "../mdl.mjs";
+import { posed } from "../render.mjs";
+import { meshOf } from "../mesh.mjs";
+import { putBody } from "../bodies.mjs";
+import { soundness } from "../sound.mjs";
 import { shapeSoundness, seeThrough } from "../sound.mjs";
 import { sword, taper } from "../../kits/swordkit.mjs";
 import { axe } from "../../kits/axekit.mjs";
@@ -43,13 +48,13 @@ const KINDS = {
   prefab: ["prefab", "spec", "file", "scale"],
 };
 /** The fields every part takes. */
-const COMMON = ["id", "kind", "material", "at", "attach", "rotate", "mirror", "repeat", "open", "loose", "note"];
+const COMMON = ["id", "kind", "material", "at", "attach", "rotate", "mirror", "repeat", "open", "loose", "bone", "span", "note"];
 /** The kinds that sit on another part's surface, and move with it. */
 const ON_SURFACE = new Set(["band", "boss", "ridge", "studs"]);
 /** The anchors every part has: the middles of the faces of its box, and its middle. */
 const BOX_ANCHORS = ["top", "bottom", "front", "back", "left", "right", "centre"];
 /** The fields a spec takes at its top. */
-const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "note"];
+const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "note"];
 /** A texture's side unless told; a kit's picture is made this much smaller (the kits paint at 1024 wide). */
 const SHEET_SIZE = 256;
 const KIT_SHRINK = 2;
@@ -96,8 +101,10 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
     if (!TOP.includes(key)) warnings.push(`${key}: not a field of a model spec, left out.${nearest(key, TOP)}`);
   if (spec.name !== undefined && !/^[\w.-]+\.mdl$/i.test(spec.name))
     errors.push(`name: a file name ending .mdl, of letters, digits, _ . and -: not ${JSON.stringify(spec.name)}`);
-  if (spec.kind !== undefined && !["prop", "held", "piece"].includes(spec.kind))
-    errors.push(`kind: "prop" (stands on the floor), "held" (lies along +x, its grip at the origin) or "piece" (as built): not ${JSON.stringify(spec.kind)}`);
+  if (spec.kind !== undefined && !["prop", "held", "piece", "character"].includes(spec.kind))
+    errors.push(`kind: "prop" (stands on the floor), "held" (lies along +x, its grip at the origin), "piece" (as built) or "character" (a body on a base model's skeleton): not ${JSON.stringify(spec.kind)}`);
+  if (spec.base !== undefined && typeof (spec.base?.file ?? spec.base) !== "string")
+    errors.push(`base: { file: "player/gordon/gordon.mdl", bodypart, bodies, pose }: the model whose skeleton and animations the parts are put on`);
   for (const [name, material] of Object.entries(spec.materials ?? {}))
     try {
       materialOf(material, `materials.${name}`);
@@ -218,7 +225,9 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
           errors.push(`${label}.options: the kit's options, as its header in kits/ lists them`);
     }
     if (part.attach !== undefined) {
-      if (typeof part.attach?.to !== "string") errors.push(`${label}.attach.to: the id of the part it is put on`);
+      if (typeof part.attach?.bone === "string") {
+        if (!spec.base) errors.push(`${label}.attach.bone: a bone is a base model's: give the spec a base`);
+      } else if (typeof part.attach?.to !== "string") errors.push(`${label}.attach.to: the id of the part it is put on (or bone: a base model's bone)`);
       else before(part.attach.to, "attach.to");
       for (const key of ["at", "toAt"]) {
         const anchor = part.attach?.[key];
@@ -227,8 +236,11 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
       }
       if (part.attach?.offset !== undefined && !isPoint(part.attach.offset)) errors.push(`${label}.attach.offset: [x, y, z]`);
     }
+    if (part.span !== undefined && (!spec.base || !Array.isArray(part.span?.bones ?? part.span) || (part.span.bones ?? part.span).length !== 2))
+      errors.push(`${label}.span: [from bone, to bone] (or { bones, over, keep }) of the spec's base model: the part laid along that limb`);
+    if ((part.bone !== undefined || part.span !== undefined) && !spec.base) errors.push(`${label}: bone and span are a base model's bones: give the spec a base`);
     if (part.at !== undefined && !isPoint(part.at)) errors.push(`${label}.at: [x, y, z], where its own origin goes`);
-    if (part.at !== undefined && part.attach !== undefined) errors.push(`${label}: at or attach, not both`);
+    if ([part.at, part.attach, part.span].filter((v) => v !== undefined).length > 1) errors.push(`${label}: at, attach or span, one of them`);
     if (part.rotate !== undefined && (!Array.isArray(part.rotate) || part.rotate.length !== 3 || !part.rotate.every(isNumber)))
       errors.push(`${label}.rotate: [yaw, pitch, roll] in degrees (about z, then y, then x)`);
     if (part.mirror !== undefined && !["x", "y"].includes(part.mirror))
@@ -562,14 +574,49 @@ function piecesOf(spec, context) {
     }
     return anchorOfBox(boxOf(pointsOf(list)), anchor ?? "centre");
   };
+  const skeleton = context.skeleton;
+  const jointOf = (name, where) => {
+    const joint = skeleton?.joints.get(name);
+    if (!joint) throw new Error(`${where}: the base has no bone "${name}". Its bones: ${[...(skeleton?.joints.keys() ?? [])].join(", ")}`);
+    return joint;
+  };
   for (const part of spec.parts) {
     if (ON_SURFACE.has(part.kind)) continue;
     const list = trianglesOf(part.id);
     const turn = rotation(part.rotate);
     move(list, (p) => turnPoint(turn, p));
+    if (part.span) {
+      // laid along a limb: the part's own z (its length) from the first joint to the second, stretched to
+      // the distance between them (and `over` past each end), its x towards the front as near as it goes
+      const [fromBone, toBone] = part.span.bones ?? part.span;
+      const a = jointOf(fromBone, `${part.id}.span`);
+      const b = jointOf(toBone, `${part.id}.span`);
+      const over = part.span.over ?? 0;
+      const way = b.map((v, k) => v - a[k]);
+      const length = Math.hypot(...way);
+      const z = way.map((v) => v / (length || 1));
+      const front = Math.abs(z[0]) > 0.9 ? [0, 0, -1] : [1, 0, 0];
+      const along = front.map((v, k) => v - z[k] * (front[0] * z[0] + front[1] * z[1] + front[2] * z[2]));
+      const xLength = Math.hypot(...along);
+      const x = along.map((v) => v / xLength);
+      const y = [z[1] * x[2] - z[2] * x[1], z[2] * x[0] - z[0] * x[2], z[0] * x[1] - z[1] * x[0]];
+      const zs = pointsOf(list).map((p) => p[2]);
+      const [z0, z1] = [Math.min(...zs), Math.max(...zs)];
+      const stretch = part.span.keep ? 1 : (length + 2 * over) / (z1 - z0 || 1);
+      move(list, (p) => {
+        const h = (p[2] - z0) * stretch - (part.span.keep ? 0 : over);
+        return [0, 1, 2].map((k) => a[k] + x[k] * p[0] + y[k] * p[1] + z[k] * h);
+      });
+      placed.set(part.id, { transform: (p) => p });
+      continue;
+    }
     let shift = [0, 0, 0];
     if (part.at) shift = part.at;
-    else if (part.attach) {
+    else if (part.attach?.bone) {
+      const mine = anchorOfBox(boxOf(pointsOf(list)), part.attach.at ?? "centre");
+      const joint = jointOf(part.attach.bone, `${part.id}.attach.bone`);
+      shift = joint.map((v, k) => v - mine[k] + (part.attach.offset?.[k] ?? 0));
+    } else if (part.attach) {
       const mine = part.attach.at === "start" || part.attach.at === "end"
         ? turnPoint(turn, built.get(part.id).made.ends?.[part.attach.at === "start" ? 0 : 1] ?? [0, 0, 0])
         : anchorOfBox(boxOf(pointsOf(list)), part.attach.at ?? "bottom");
@@ -579,6 +626,31 @@ function piecesOf(spec, context) {
     move(list, (p) => p.map((v, k) => v + shift[k]));
     placed.set(part.id, { transform: (p) => turnPoint(turn, p).map((v, k) => v + shift[k]) });
   }
+  // on a skeleton, every corner hangs on a bone: the part's own (`bone`, its span's first, its attach's), or
+  // the bone whose joint is nearest the part's middle; what sits on a part hangs where that part hangs
+  if (skeleton) {
+    const boneOfPart = (part) => {
+      if (ON_SURFACE.has(part.kind)) return boneOfPart(byId.get(part.on.part));
+      if (part.bone) return jointOf(part.bone, `${part.id}.bone`) && part.bone;
+      if (part.span) return (part.span.bones ?? part.span)[0];
+      if (part.attach?.bone) return part.attach.bone;
+      if (part.attach?.to) return boneOfPart(byId.get(part.attach.to));
+      const middle = anchorOfBox(boxOf(pointsOf(trianglesOf(part.id))), "centre");
+      let best = null;
+      for (const [name, joint] of skeleton.joints) {
+        const d = Math.hypot(...joint.map((v, k) => v - middle[k]));
+        if (!best || d < best.d) best = { name, d };
+      }
+      return best.name;
+    };
+    for (const part of spec.parts) {
+      if (ON_SURFACE.has(part.kind)) continue;
+      const bone = boneOfPart(part);
+      for (const { mesh, i } of trianglesOf(part.id)) meshes[mesh].tris[i] = meshes[mesh].tris[i].map((c) => ({ ...c, bone }));
+    }
+  }
+  /** a bone's name for the other side: Bip01 L Arm for Bip01 R Arm */
+  const otherSide = (name) => (name ? name.replace(/(^|\s)L(\s|$)/, "$1\u0000$2").replace(/(^|\s)R(\s|$)/, "$1L$2").replace("\u0000", "R") : name);
   // copies, after every part is in its place: mirrored, then repeated round an axis
   for (const part of spec.parts) {
     if (ON_SURFACE.has(part.kind) || (!part.mirror && !part.repeat)) continue;
@@ -596,7 +668,11 @@ function piecesOf(spec, context) {
     };
     if (part.mirror) {
       const axis = part.mirror === "x" ? 0 : 1;
-      list = [...list, ...copy((p) => p.map((v, k) => (k === axis ? -v : v)), true)];
+      const added = copy((p) => p.map((v, k) => (k === axis ? -v : v)), true);
+      // a copy across y on a skeleton hangs on the other side's bone
+      if (skeleton && axis === 1)
+        for (const { mesh, i } of added) meshes[mesh].tris[i] = meshes[mesh].tris[i].map((c) => ({ ...c, bone: otherSide(c.bone) }));
+      list = [...list, ...added];
     }
     if (part.repeat) {
       const { count, start = 0 } = part.repeat;
@@ -633,15 +709,27 @@ function piecesOf(spec, context) {
  * { ok, errors, faults, warnings, notes, facts, parts }; `ok` when nothing is wrong. Throws only for a spec it
  * cannot read at all; every other fault is in the report.
  */
-export function buildModelSpec(spec, { folder, prefabs = {} } = {}) {
+export function buildModelSpec(spec, { folder, prefabs = {}, games = [] } = {}) {
   const { errors, warnings } = validateModelSpec(spec, { prefabs });
   const report = { ok: false, errors, faults: [], warnings, notes: [], facts: [], parts: {} };
   if (errors.length) return { mdl: null, report };
   const name = spec.name ?? "model.mdl";
   const base = name.replace(/\.mdl$/i, "");
+  // a base model: its skeleton, as it stands in `pose`, is what the parts are put on, and its file (with its
+  // animations, blends and all) is what the body is put into
+  let skeleton = null;
+  if (spec.base) {
+    try {
+      skeleton = skeletonOf(spec.base, folder, games);
+    } catch (error) {
+      errors.push(`base: ${error.message}`);
+      return { mdl: null, report };
+    }
+    report.facts.push(`base ${skeleton.file}: ${skeleton.joints.size} bones, ${sequencesOf(skeleton.src).length} animations; its joints as it stands in ${JSON.stringify(skeleton.pose)}: ${[...skeleton.joints].filter(([n]) => !/Finger|Toe0|Toe1|Toe2|Bip01$/.test(n)).map(([n, p]) => `${n} ${p.map((v) => Math.round(v)).join(" ")}`).join("; ")}`);
+  }
   let pieces;
   try {
-    pieces = piecesOf(spec, { folder, prefabs });
+    pieces = piecesOf(spec, { folder, prefabs, skeleton });
   } catch (error) {
     errors.push(error.message);
     return { mdl: null, report };
@@ -651,7 +739,7 @@ export function buildModelSpec(spec, { folder, prefabs = {} } = {}) {
   const all = meshes.flatMap((mesh) => mesh.tris);
   let box = boxOf(all.flatMap((t) => t.map((c) => c.p)));
   // a prop stands on the floor: its lowest point at z = 0
-  const kind = spec.kind ?? "prop";
+  const kind = spec.kind ?? (spec.base ? "character" : "prop");
   if (kind === "prop" && Math.abs(box.mn[2]) > 1e-6) {
     const lift = -box.mn[2];
     for (const mesh of meshes) mesh.tris = mesh.tris.map((t) => t.map((c) => ({ ...c, p: [c.p[0], c.p[1], c.p[2] + lift] })));
@@ -703,6 +791,19 @@ export function buildModelSpec(spec, { folder, prefabs = {} } = {}) {
     return texture;
   });
   let mdl;
+  if (skeleton) {
+    try {
+      mdl = intoBase(skeleton, meshes, textures);
+    } catch (error) {
+      errors.push(`putting the body into the base: ${error.message}`);
+      return { mdl: null, report };
+    }
+    // the shape held in the poses the game shows it in: a limb that comes apart when it runs shows here
+    for (const pose of posesOf(mdl)) {
+      const moving = soundness(mdl, pose).faults.filter((fault) => /float apart/.test(fault));
+      for (const fault of moving) report.faults.push(`in ${pose.label}: ${fault}`);
+    }
+  } else
   try {
     mdl = buildMdl({
       name,
@@ -735,4 +836,66 @@ export function buildModelSpec(spec, { folder, prefabs = {} } = {}) {
   report.facts.push(`the pictures see through it at ${(seen.share * 100).toFixed(2)}% of its dots`);
   report.ok = !errors.length && !report.faults.length;
   return { mdl, report };
+}
+
+// ── a body on a base model's skeleton ──────────────────────────────────────
+/**
+ * A base model read: its file, as `{ file, bodypart, bodies, pose }`, looked for beside the spec and in the
+ * games' folders (`<game>/models/<file>`), its textures from <name>t.mdl when they are there. Returns
+ * { src, file, joints: Map(bone name -> [x, y, z] in model space as it stands in `pose`), pose, bodypart, bodies }.
+ */
+function skeletonOf(given, folder, games) {
+  const options = typeof given === "string" ? { file: given } : given;
+  const places = [resolve(folder ?? ".", options.file), ...games.flatMap((game) => [join(game, "models", options.file), join(game, options.file)])];
+  const file = places.find((place) => existsSync(place));
+  if (!file) throw new Error(`${options.file} is neither beside the spec nor in the game folders given (${games.join(", ") || "none: --wads <game folder>"})`);
+  let src = readFileSync(file);
+  const textures = file.replace(/\.mdl$/i, "t.mdl");
+  if (existsSync(textures) && !readMdl(src).textures.length) src = withTextures(src, readFileSync(textures));
+  const pose = options.pose ?? { seq: 0, frame: 0 };
+  const matrices = posed(src, pose).pose;
+  const joints = new Map(bonesOf(src).map((bone, i) => [bone.name, apply34(matrices[i], [0, 0, 0])]));
+  const info = readMdl(src);
+  const bodypart = options.bodypart ?? 0;
+  const bodies = options.bodies ?? info.bodyparts[bodypart].models.map((_, k) => k * info.bodyparts[bodypart].base);
+  return { src, file, joints, pose, bodypart, bodies };
+}
+
+/** The meshes (in model space, each corner with its bone's name) put into the base in place of its bodies. */
+function intoBase(skeleton, meshes, textures) {
+  let mdl = skeleton.src;
+  const info = readMdl(mdl);
+  const boneNames = bonesOf(mdl).map((bone) => bone.name);
+  const intoBone = posed(mdl, skeleton.pose).pose.map(inverse34);
+  for (const body of skeleton.bodies) {
+    const corners = (mesh) => mesh.tris.map((t) => t.map((c) => ({ p: c.p, uv: c.uv, bone: c.bone, group: c.group, smooth: c.smooth })));
+    const first = putBody(mdl, { body, bodypart: skeleton.bodypart, tris: corners(meshes[0]), texture: textures[0], pose: skeleton.pose, bone: meshes[0].tris[0]?.[0].bone ?? 0, quiet: true });
+    mdl = first.mdl;
+    // the other textures' meshes after the first, in the same submodel
+    const model = Math.floor(body / info.bodyparts[skeleton.bodypart].base) % info.bodyparts[skeleton.bodypart].models.length;
+    for (let n = 1; n < meshes.length; n++) {
+      const where = { bodypart: skeleton.bodypart, model };
+      mdl = addMesh(mdl, where);
+      const count = readMdl(mdl).bodyparts[skeleton.bodypart].models[model].meshes.length;
+      const placedCorners = meshes[n].tris.map((t) =>
+        t.map((c) => {
+          const bone = boneNames.indexOf(c.bone);
+          return { p: c.p, uv: c.uv, bone, to: intoBone[bone], group: c.group, smooth: c.smooth };
+        }),
+      );
+      mdl = replaceMesh(mdl, { ...where, mesh: count - 1 }, meshOf(null, placedCorners, textures[n], placedCorners[0][0].bone), textures[n]);
+    }
+  }
+  return mdl;
+}
+
+/** The poses a character is held in: its first animation's first frame, and the middle of a run, a walk, a crouch, a jump. */
+function posesOf(mdl) {
+  const list = sequencesOf(mdl);
+  const poses = [{ seq: 0, frame: 0, label: `${list[0]?.name ?? "rest"} frame 0` }];
+  for (const word of ["run", "walk", "crouch", "jump"]) {
+    const n = list.findIndex((seq) => seq.name.toLowerCase().includes(word) && !seq.group);
+    if (n >= 0) poses.push({ seq: n, frame: Math.floor(list[n].frames / 2), label: `${list[n].name} frame ${Math.floor(list[n].frames / 2)}` });
+  }
+  return poses;
 }

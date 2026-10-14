@@ -65,3 +65,9 @@
    mattress and the generator, and the culvert to the east; the views three times as bright (picture-3)
    the stairs going down, the walkways and the water, the hideout's glowing screens; the section
    (picture-4) the 14 steps down 224 from the maintenance room to the drain.
+
+## Blind run
+
+`blind.mjs`: the prompt alone, handed to a fresh agent with nothing but the MCP server (no shell, no files,
+none of these specs). It took 31 turns and 292 seconds (guide 13, models 1, entities 4, build 7, info 4, render 1); its spec (blind/spec.json),
+built again (blind/result/), passes every check, and its pictures show the maintenance room, a stairwell of its own down 14 steps, a drain 900 long with a channel of dark water down it, steps out at both ends, a bridge, ducts, wall lamps, the hideout with its mattress, desk, generator and bulb, the culvert with water 36 deep and the headcrab; dark but over the line everywhere (27 to 41). Against this rubric: **16 of 16**.

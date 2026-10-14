@@ -47,3 +47,9 @@
    11.2 to 12.8, bed 12.6 to 14.6, the load and the boards above it). The sheet (picture-1) shows it on
    its wheels and leg with the bed level, the handles forward and the open front; the close look
    (picture-2) shows the iron rims, the hubs and the eight spokes, and the sack and the crate in the bed.
+
+## Blind run
+
+`blind.mjs`: the prompt alone, handed to a fresh agent with nothing but the MCP server (no shell, no files,
+none of these specs). It took 10 turns and 78 seconds (guide 7, build 2); its spec (blind/spec.json),
+built again (blind/result/), passes every check, and its pictures show the bed with its sides and back board and open front, two eight-spoke wheels with iron rims on an axle behind the middle, the long handles, the front leg, the sack and the crate in the bed. Against this rubric: **16 of 16**.

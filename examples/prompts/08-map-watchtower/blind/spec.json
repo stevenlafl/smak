@@ -1,0 +1,138 @@
+{
+  "spec": "smak.map/1",
+  "name": "watchtower",
+  "theme": {
+    "floor": "stone",
+    "wall": "stone",
+    "ceiling": "planks"
+  },
+  "textures": {
+    "darkstone": {
+      "base": "stone",
+      "tone": [
+        0.3,
+        0.3,
+        0.32
+      ]
+    }
+  },
+  "rooms": [
+    {
+      "id": "guard_room",
+      "size": [
+        320,
+        320,
+        160
+      ]
+    },
+    {
+      "id": "lookout",
+      "size": [
+        320,
+        320,
+        128
+      ],
+      "place": {
+        "above": "guard_room"
+      }
+    },
+    {
+      "id": "corridor",
+      "size": [
+        256,
+        128,
+        112
+      ],
+      "place": {
+        "east_of": "guard_room"
+      }
+    },
+    {
+      "id": "storeroom",
+      "size": [
+        256,
+        320,
+        160
+      ],
+      "place": {
+        "east_of": "corridor"
+      }
+    },
+    {
+      "id": "cellar",
+      "size": [
+        320,
+        320,
+        208
+      ],
+      "place": {
+        "east_of": "storeroom"
+      },
+      "floor": -96,
+      "surfaces": {
+        "floor": "darkstone",
+        "walls": "darkstone"
+      },
+      "light": {
+        "count": 1,
+        "brightness": 90
+      }
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "guard_room",
+        "lookout"
+      ],
+      "kind": "stairs"
+    },
+    {
+      "between": [
+        "guard_room",
+        "corridor"
+      ],
+      "kind": "opening",
+      "width": 96
+    },
+    {
+      "between": [
+        "corridor",
+        "storeroom"
+      ],
+      "kind": "opening",
+      "width": 96
+    },
+    {
+      "between": [
+        "storeroom",
+        "cellar"
+      ],
+      "kind": "opening"
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "guard_room",
+      "at": "corner nw",
+      "facing": "east"
+    },
+    {
+      "class": "weapon_crossbow",
+      "room": "lookout",
+      "at": "centre"
+    },
+    {
+      "class": "item_battery",
+      "room": "storeroom",
+      "at": "centre"
+    },
+    {
+      "class": "monster_zombie",
+      "room": "cellar",
+      "at": "corner ne",
+      "facing": "west"
+    }
+  ]
+}

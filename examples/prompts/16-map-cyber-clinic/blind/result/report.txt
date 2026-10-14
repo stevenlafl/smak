@@ -1,0 +1,18 @@
+OK: built, and every check passed
+WARN  15 brushes have planes written with points off the grid of 1: where two such brushes should share a plane a crack can open, and the compiler may complain. Round them (a builder's snap option, or snapped) where they have to meet others: world brush 64 at 10.39 302 0; world brush 70 at 20.33 304.42 128; world brush 71 at 16.63 302.89 126; world brush 86 at -79.76 458.24 32; world brush 87 at -43.76 458.24 32; world brush 88 at -7.05 458.95 32; world brush 89 at 28.24 458.24 32; world brush 90 at 64.24 458.24 32; and 7 more
+WARN  the middle of surgery is not walked to (furniture there, or the room is shut off)
+fact  links[0]: a door 64 wide and 96 high from street to waiting at x -32 to 32
+fact  links[1]: a door 64 wide and 96 high from waiting to surgery at x -32 to 32
+fact  texture lights: SM_VENDGLOW, SM_LAMPWHITE, SM_SCREENCYAN, SM_JARGREEN
+fact  3 rooms, 2 ways through, 98 brushes, 15 entities
+fact  entities checked against halflife.fgd, sdhlt.fgd (208 classes)
+fact  walked from 1 places to start: 1 info_player_start
+fact  all 5 entities a player goes to are reached on foot
+fact  no one-way place: from all the floor walked there is a way back to a place to start
+fact  the walk reaches 90.8 in 100 of the floor a standing player fits on (288832 of 318016 square units, on the grid of 8)
+fact  compiled: /tmp/smak-prompts-1z3FOb/cyberclinic/cyberclinic.bsp; the floors' light by room: waiting 168, surgery 209, street 57, elsewhere 13
+ROOMS: id, from x y z to x y z, floor light
+  waiting -160 -128 0 to 160 128 128, light 168
+  surgery -192 144 0 to 192 464 160, light 209
+  street -320 -400 0 to 320 -144 256, light 57
+written: work:cyberclinic/cyberclinic.wad, work:cyberclinic/cyberclinic.map, work:cyberclinic/cyberclinic-plan-source.png, work:cyberclinic/cyberclinic.bsp, work:cyberclinic/cyberclinic-plan.png, work:cyberclinic/cyberclinic-views.png, work:cyberclinic/cyberclinic-views-bright.png

@@ -1,0 +1,28 @@
+case | avgVisible | allocChart | leaves | faces | clipnodes | hull1 | hull2 | hull3 | portals | lightMin | lightMean | csg s | bsp s | vis s | rad s
+T1 terrain world | 226 | 2 | 357 | 795 | 3154 | 1119 | 916 | 1119 | 1512 |  |  | 0.11 | 0.76 | 9.63 | 0.57
+T2 terrain detail | 1 | 2 | 359 | 754 | 3153 | 1120 | 913 | 1120 | 0 |  |  | 0.08 | 0.75 | 0.01 | 0.60
+T3 terrain detail chopdown 1 | 1 | 2 | 359 | 795 | 3158 | 1125 | 915 | 1118 | 0 |  |  | 0.10 | 0.75 | 0.01 | 0.58
+T4 terrain detail cnl0 | 1 | 2 | 359 | 754 | 3155 | 1123 | 911 | 1121 | 0 |  |  | 0.09 | 0.75 | 0.01 | 0.63
+T5 terrain world, cliptype precise | 224 | 2 | 357 | 795 | 3896 | 1475 | 940 | 1481 | 1504 |  |  | 0.13 | 0.57 | 8.14 | 0.61
+T6 terrain world, cliptype smallest | 224 | 2 | 357 | 795 | 4870 | 1915 | 1066 | 1889 | 1503 |  |  | 0.12 | 0.80 | 7.51 | 0.70
+T7 terrain world maxnodesize 256 | 224 | 2 | 357 | 795 | 3150 | 1109 | 916 | 1125 | 1500 |  |  | 0.11 | 0.79 | 8.38 | 0.68
+T8 terrain world maxnodesize 4096 | 222 | 2 | 357 | 795 | 3150 | 1122 | 912 | 1116 | 1498 |  |  | 0.11 | 0.77 | 8.56 | 0.75
+L1 L-hall no hint | 8 | 2 | 20 | 167 | 106 | 41 | 32 | 33 | 44 |  |  | 0.02 | 0.01 | 0.01 | 0.22
+L2 L-hall hint | 9 | 2 | 21 | 167 | 103 | 39 | 31 | 33 | 45 |  |  | 0.02 | 0.01 | 0.01 | 0.22
+N1 dim floor plain | 1 | 1 | 2 | 30 | 18 | 6 | 6 | 6 | 0 |  |  | 0.02 | 0.01 | 0.01 | 0.11
+N2 dim floor %WOOD | 1 | 1 | 2 | 30 | 18 | 6 | 6 | 6 | 0 |  |  | 0.02 | 0.01 | 0.01 | 0.12
+N3 dim floor %20WOOD | 1 | 1 | 2 | 30 | 18 | 6 | 6 | 6 | 0 |  |  | 0.02 | 0.01 | 0.01 | 0.12
+N4 dim, info_minlights WOOD 0.3 | 1 | 1 | 2 | 30 | 18 | 6 | 6 | 6 | 0 |  |  | 0.02 | 0.01 | 0.01 | 0.12
+N5 dim, worldspawn _minlight 0.3 | 1 | 1 | 2 | 30 | 18 | 6 | 6 | 6 | 0 |  |  | 0.02 | 0.01 | 0.01 | 0.12
+N6 dim, -minlight 40 | 1 | 1 | 2 | 30 | 18 | 6 | 6 | 6 | 0 |  |  | 0.02 | 0.01 | 0.01 | 0.12
+T5 terrain world, cliptype precise [
+  'bsp: SolidBSP [hull 1] Warning: Ambiguous leafnode content ( EMPTY and SOLID ) at (752 624 82)-(848 640 83) in hull 1 of model 0 (entity: classname "worldspawn")',
+  'bsp: 500...1000...Warning: Ambiguous leafnode content ( EMPTY and SOLID ) at (336 48 71)-(400 64 71) in hull 1 of model 0 (entity: classname "worldspawn")',
+  'bsp: SolidBSP [hull 2] Warning: Ambiguous leafnode content ( EMPTY and SOLID ) at (494 704 49)-(512 751 53) in hull 2 of model 0 (entity: classname "worldspawn")',
+  'bsp: 500...Warning: Ambiguous leafnode content ( EMPTY and SOLID ) at (352 32 66)-(416 64 67) in hull 2 of model 0 (entity: classname "worldspawn")',
+  'bsp: SolidBSP [hull 3] Warning: Ambiguous leafnode content ( EMPTY and SOLID ) at (752 624 64)-(848 640 65) in hull 3 of model 0 (entity: classname "worldspawn")'
+]
+T6 terrain world, cliptype smallest [
+  'bsp: SolidBSP [hull 1] 500...1000...1500...2000...Warning: Ambiguous leafnode content ( EMPTY and SOLID ) at (112 208 76)-(147 240 77) in hull 1 of model 0 (entity: classname "worldspawn")',
+  'bsp: SolidBSP [hull 3] 500...1000...1500...2000...Warning: Ambiguous leafnode content ( EMPTY and SOLID ) at (112 208 58)-(147 240 59) in hull 3 of model 0 (entity: classname "worldspawn")'
+]

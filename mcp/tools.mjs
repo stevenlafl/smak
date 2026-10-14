@@ -683,7 +683,7 @@ function build(folders, args) {
   }
   if (spec?.spec !== "smak.model/1")
     throw new Error('spec: a model spec ("spec": "smak.model/1") or a map spec ("spec": "smak.map/1"); guide { doc: "spec" } says how to write one');
-  const { mdl, report } = buildModelSpec(spec, { folder });
+  const { mdl, report } = buildModelSpec(spec, { folder, games: folders.wads ?? [] });
   const lines = reportLines(report);
   if (mdl) {
     const name = spec.name ?? "model.mdl";
@@ -695,6 +695,12 @@ function build(folders, args) {
     writeFileSync(join(folders.work, `${base}-sheet.png`), smak.png(six.width, six.height, six.rgba));
     lines.push(`written: work:${name} (${mdl.length} bytes), work:${base}.spec.json, work:${base}-sheet.png`);
     show(six);
+    // a body on a base's skeleton: seen moving, a run (or a walk) from the side (a player model's z 0 is its middle: no floor line)
+    if (spec.base) {
+      const list = smak.sequences(mdl);
+      const moving = list.findIndex((seq) => /run|walk/i.test(seq.name) && !seq.group);
+      if (moving >= 0) show(smak.strip(mdl, { seq: moving, count: 8, cols: 4, view: "side", width: 192, height: 192 }));
+    }
     if (reference) show(besideOf(reference, smak.render(mdl, { seq: 0, yaw: 35, pitch: 20, width: 512, height: 512 })));
     // a close look at the parts asked for, from two sides: what a sheet of the whole is too small to show
     const focus = [args.focus ?? []].flat().filter(Boolean);

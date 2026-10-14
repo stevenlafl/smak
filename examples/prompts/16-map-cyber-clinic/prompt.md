@@ -53,3 +53,9 @@
 3. Clean. The views (picture-2) show the waiting room's dirty tiles, the bench, the desk with the doctor,
    the vending machine glowing orange, and the white surgery with the chair in its pool of light, the cyan
    monitors on their cart and the shelf of glowing green jars along the back wall.
+
+## Blind run
+
+`blind.mjs`: the prompt alone, handed to a fresh agent with nothing but the MCP server (no shell, no files,
+none of these specs). It took 20 turns and 228 seconds (guide 9, entities 3, build 5, info 1, render 1); its spec (blind/spec.json),
+built again (blind/result/), passes every check, and its pictures show the street door into the waiting room with its bench, desk and doctor and a glowing vending machine, the surgery behind it lined with clean tile, its chair under a spot lamp, the monitor cart, the jar shelf and the side table with the health kit; the surgery the brightest room (209). Against this rubric: **16 of 16**.

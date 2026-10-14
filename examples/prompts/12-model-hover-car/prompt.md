@@ -48,3 +48,9 @@
 3. Clean. The sheet (picture-1) shows the long rounded body, the canopy over the middle, the pods and
    their blue rings, the stripes and the spoiler; the close look (picture-2) the red tail bar, the white
    headlights, and from below the blue under-glow between the four pods.
+
+## Blind run
+
+`blind.mjs`: the prompt alone, handed to a fresh agent with nothing but the MCP server (no shell, no files,
+none of these specs). It took 7 turns and 79 seconds (guide 2, build 4); its spec (blind/spec.json),
+built again (blind/result/), passes every check, and its pictures show the long rounded body with its pointed nose and squared tail, the tinted canopy, four pods with glowing blue rings, the under-glow, white headlights, the red tail bar, magenta stripes down both sides and the spoiler on its struts. Against this rubric: **16 of 16**.

@@ -1,0 +1,828 @@
+{
+  "spec": "smak.map/1",
+  "name": "underground",
+  "theme": {
+    "floor": {
+      "base": "stone",
+      "tone": [
+        0.42,
+        0.42,
+        0.41
+      ]
+    },
+    "wall": {
+      "base": "plaster",
+      "tone": [
+        0.33,
+        0.36,
+        0.35
+      ]
+    },
+    "ceiling": {
+      "base": "stone",
+      "tone": [
+        0.36,
+        0.37,
+        0.37
+      ]
+    },
+    "door": {
+      "base": "metal",
+      "tone": [
+        0.4,
+        0.42,
+        0.44
+      ],
+      "rust": 0.4
+    }
+  },
+  "textures": {
+    "concrete": {
+      "base": "stone",
+      "tone": [
+        0.42,
+        0.42,
+        0.41
+      ]
+    },
+    "metal": {
+      "base": "metal",
+      "tone": [
+        0.4,
+        0.42,
+        0.44
+      ],
+      "rust": 0.3
+    },
+    "duct": {
+      "base": "steel",
+      "tone": [
+        0.5,
+        0.52,
+        0.54
+      ]
+    },
+    "crate": {
+      "base": "wood",
+      "tone": [
+        0.55,
+        0.45,
+        0.3
+      ]
+    },
+    "mattress": {
+      "base": "cloth",
+      "tone": [
+        0.45,
+        0.4,
+        0.32
+      ]
+    },
+    "screen": {
+      "base": "neon",
+      "tone": [
+        0.3,
+        0.85,
+        1
+      ]
+    },
+    "status": {
+      "base": "neon",
+      "tone": [
+        0.2,
+        1,
+        0.3
+      ]
+    },
+    "coldlamp": {
+      "base": "neon",
+      "tone": [
+        0.45,
+        0.9,
+        0.8
+      ]
+    },
+    "bulb": {
+      "base": "neon",
+      "tone": [
+        1,
+        0.85,
+        0.5
+      ]
+    },
+    "darkwater": {
+      "base": "water",
+      "tone": [
+        0.07,
+        0.14,
+        0.14
+      ]
+    }
+  },
+  "rooms": [
+    {
+      "id": "maintenance",
+      "size": [
+        192,
+        192,
+        128
+      ],
+      "light": {
+        "count": 1,
+        "brightness": 110,
+        "color": [
+          210,
+          215,
+          200
+        ]
+      }
+    },
+    {
+      "id": "stairwell",
+      "size": [
+        448,
+        96,
+        352
+      ],
+      "place": {
+        "east_of": "maintenance"
+      },
+      "floor": -224,
+      "light": {
+        "count": 2,
+        "brightness": 100,
+        "color": [
+          150,
+          210,
+          200
+        ]
+      }
+    },
+    {
+      "id": "drain",
+      "size": [
+        900,
+        256,
+        384
+      ],
+      "place": {
+        "east_of": "stairwell"
+      },
+      "floor": 0,
+      "light": "none"
+    },
+    {
+      "id": "channel",
+      "size": [
+        772,
+        96,
+        48
+      ],
+      "place": {
+        "in": "drain",
+        "offset": [
+          64,
+          80
+        ]
+      },
+      "floor": -48,
+      "water": {
+        "depth": 36,
+        "material": "darkwater"
+      },
+      "light": "none"
+    },
+    {
+      "id": "hideout",
+      "size": [
+        384,
+        320,
+        160
+      ],
+      "place": {
+        "north_of": "drain",
+        "align": 256
+      },
+      "floor": 0,
+      "light": "none"
+    },
+    {
+      "id": "culvert",
+      "size": [
+        384,
+        128,
+        104
+      ],
+      "place": {
+        "east_of": "drain"
+      },
+      "floor": 0,
+      "water": {
+        "depth": 36,
+        "material": "darkwater"
+      },
+      "light": {
+        "count": 1,
+        "brightness": 120,
+        "color": [
+          120,
+          200,
+          190
+        ]
+      }
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "maintenance",
+        "stairwell"
+      ],
+      "kind": "door"
+    },
+    {
+      "between": [
+        "stairwell",
+        "drain"
+      ],
+      "kind": "opening"
+    },
+    {
+      "between": [
+        "drain",
+        "hideout"
+      ],
+      "kind": "opening",
+      "along": 0.35
+    },
+    {
+      "between": [
+        "drain",
+        "culvert"
+      ],
+      "kind": "opening",
+      "width": 112,
+      "height": 96
+    }
+  ],
+  "prefabs": {
+    "bridge": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -24,
+              -64,
+              0
+            ],
+            [
+              24,
+              64,
+              4
+            ]
+          ],
+          "texture": "metal"
+        },
+        {
+          "box": [
+            [
+              -24,
+              -48,
+              4
+            ],
+            [
+              -22,
+              48,
+              40
+            ]
+          ],
+          "texture": "metal"
+        },
+        {
+          "box": [
+            [
+              22,
+              -48,
+              4
+            ],
+            [
+              24,
+              48,
+              40
+            ]
+          ],
+          "texture": "metal"
+        }
+      ]
+    },
+    "duct": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -440,
+              -16,
+              288
+            ],
+            [
+              440,
+              16,
+              320
+            ]
+          ],
+          "texture": "duct"
+        }
+      ]
+    },
+    "walllamp": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -12,
+              -3,
+              160
+            ],
+            [
+              12,
+              3,
+              168
+            ]
+          ],
+          "texture": "coldlamp"
+        }
+      ]
+    },
+    "steps": {
+      "pieces": [
+        {
+          "box": [
+            [
+              0,
+              -48,
+              0
+            ],
+            [
+              64,
+              48,
+              16
+            ]
+          ],
+          "texture": "concrete"
+        },
+        {
+          "box": [
+            [
+              0,
+              -48,
+              16
+            ],
+            [
+              32,
+              48,
+              32
+            ]
+          ],
+          "texture": "concrete"
+        }
+      ]
+    },
+    "mattress": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -40,
+              -24,
+              0
+            ],
+            [
+              40,
+              24,
+              10
+            ]
+          ],
+          "texture": "mattress"
+        }
+      ]
+    },
+    "desk": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -48,
+              -16,
+              0
+            ],
+            [
+              -16,
+              16,
+              32
+            ]
+          ],
+          "texture": "crate"
+        },
+        {
+          "box": [
+            [
+              16,
+              -16,
+              0
+            ],
+            [
+              48,
+              16,
+              32
+            ]
+          ],
+          "texture": "crate"
+        },
+        {
+          "box": [
+            [
+              -56,
+              -20,
+              32
+            ],
+            [
+              56,
+              20,
+              36
+            ]
+          ],
+          "texture": "crate"
+        },
+        {
+          "box": [
+            [
+              -40,
+              10,
+              36
+            ],
+            [
+              -10,
+              14,
+              58
+            ]
+          ],
+          "texture": "screen"
+        },
+        {
+          "box": [
+            [
+              6,
+              10,
+              36
+            ],
+            [
+              36,
+              14,
+              58
+            ]
+          ],
+          "texture": "screen"
+        }
+      ]
+    },
+    "generator": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -28,
+              -20,
+              0
+            ],
+            [
+              28,
+              20,
+              40
+            ]
+          ],
+          "texture": "metal"
+        },
+        {
+          "box": [
+            [
+              -20,
+              -14,
+              40
+            ],
+            [
+              20,
+              14,
+              48
+            ]
+          ],
+          "texture": "metal"
+        },
+        {
+          "box": [
+            [
+              16,
+              -21,
+              30
+            ],
+            [
+              22,
+              -20,
+              36
+            ]
+          ],
+          "texture": "status"
+        }
+      ]
+    },
+    "bulb": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -1,
+              -1,
+              148
+            ],
+            [
+              1,
+              1,
+              160
+            ]
+          ],
+          "texture": "metal"
+        },
+        {
+          "box": [
+            [
+              -3,
+              -3,
+              140
+            ],
+            [
+              3,
+              3,
+              148
+            ]
+          ],
+          "texture": "bulb"
+        }
+      ]
+    }
+  },
+  "furniture": [
+    {
+      "prefab": "bridge",
+      "room": "drain",
+      "at": [
+        0,
+        0
+      ]
+    },
+    {
+      "prefab": "duct",
+      "room": "drain",
+      "at": [
+        0,
+        108
+      ]
+    },
+    {
+      "prefab": "duct",
+      "room": "drain",
+      "at": [
+        0,
+        -108
+      ]
+    },
+    {
+      "prefab": "walllamp",
+      "room": "drain",
+      "at": [
+        -360,
+        -124
+      ]
+    },
+    {
+      "prefab": "walllamp",
+      "room": "drain",
+      "at": [
+        -180,
+        124
+      ]
+    },
+    {
+      "prefab": "walllamp",
+      "room": "drain",
+      "at": [
+        0,
+        -124
+      ]
+    },
+    {
+      "prefab": "walllamp",
+      "room": "drain",
+      "at": [
+        180,
+        124
+      ]
+    },
+    {
+      "prefab": "walllamp",
+      "room": "drain",
+      "at": [
+        360,
+        -124
+      ]
+    },
+    {
+      "prefab": "steps",
+      "room": "channel",
+      "at": [
+        -386,
+        0
+      ]
+    },
+    {
+      "prefab": "steps",
+      "room": "channel",
+      "at": [
+        386,
+        0
+      ],
+      "rotate": 180
+    },
+    {
+      "prefab": "mattress",
+      "room": "hideout",
+      "at": [
+        -130,
+        100
+      ]
+    },
+    {
+      "prefab": "desk",
+      "room": "hideout",
+      "at": [
+        60,
+        124
+      ]
+    },
+    {
+      "prefab": "generator",
+      "room": "hideout",
+      "at": [
+        130,
+        -100
+      ]
+    },
+    {
+      "prefab": "bulb",
+      "room": "hideout",
+      "at": [
+        -20,
+        0
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "maintenance",
+      "at": "against west",
+      "facing": "east"
+    },
+    {
+      "class": "light",
+      "room": "drain",
+      "at": [
+        -360,
+        -110
+      ],
+      "z": 54,
+      "keys": {
+        "_light": "110 210 190 130"
+      }
+    },
+    {
+      "class": "light",
+      "room": "drain",
+      "at": [
+        -180,
+        110
+      ],
+      "z": 54,
+      "keys": {
+        "_light": "110 210 190 130"
+      }
+    },
+    {
+      "class": "light",
+      "room": "drain",
+      "at": [
+        0,
+        -110
+      ],
+      "z": 54,
+      "keys": {
+        "_light": "110 210 190 130"
+      }
+    },
+    {
+      "class": "light",
+      "room": "drain",
+      "at": [
+        180,
+        110
+      ],
+      "z": 54,
+      "keys": {
+        "_light": "110 210 190 130"
+      }
+    },
+    {
+      "class": "light",
+      "room": "drain",
+      "at": [
+        360,
+        -110
+      ],
+      "z": 54,
+      "keys": {
+        "_light": "110 210 190 130"
+      }
+    },
+    {
+      "class": "monster_zombie",
+      "room": "drain",
+      "at": [
+        -200,
+        -88
+      ],
+      "facing": "east"
+    },
+    {
+      "class": "monster_zombie",
+      "room": "drain",
+      "at": [
+        260,
+        88
+      ],
+      "facing": "west"
+    },
+    {
+      "class": "light",
+      "room": "hideout",
+      "at": [
+        60,
+        92
+      ],
+      "z": -36,
+      "keys": {
+        "_light": "90 190 255 70"
+      }
+    },
+    {
+      "class": "light",
+      "room": "hideout",
+      "at": [
+        -20,
+        0
+      ],
+      "z": 36,
+      "keys": {
+        "_light": "255 200 130 70"
+      }
+    },
+    {
+      "class": "light",
+      "room": "hideout",
+      "at": [
+        130,
+        -128
+      ],
+      "z": -62,
+      "keys": {
+        "_light": "60 255 90 20"
+      }
+    },
+    {
+      "class": "weapon_shotgun",
+      "room": "hideout",
+      "at": [
+        60,
+        112
+      ],
+      "z": 36,
+      "facing": "east"
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "culvert",
+      "at": [
+        80,
+        0
+      ],
+      "facing": "west"
+    }
+  ]
+}

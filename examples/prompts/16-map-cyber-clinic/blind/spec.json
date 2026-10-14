@@ -1,0 +1,991 @@
+{
+  "spec": "smak.map/1",
+  "name": "cyberclinic",
+  "night": true,
+  "sun": {
+    "pitch": -60,
+    "yaw": 45,
+    "brightness": 45,
+    "color": [
+      140,
+      150,
+      210
+    ]
+  },
+  "theme": {
+    "floor": {
+      "base": "tile",
+      "tone": [
+        0.72,
+        0.74,
+        0.66
+      ]
+    },
+    "wall": {
+      "base": "tile",
+      "tone": [
+        0.72,
+        0.74,
+        0.66
+      ]
+    },
+    "ceiling": {
+      "base": "plaster",
+      "tone": [
+        0.7,
+        0.72,
+        0.66
+      ]
+    },
+    "door": {
+      "base": "steel"
+    },
+    "furniture": {
+      "base": "steel"
+    }
+  },
+  "textures": {
+    "cleantile": {
+      "base": "tile",
+      "tone": [
+        0.97,
+        0.97,
+        0.97
+      ]
+    },
+    "asphalt": {
+      "base": "asphalt"
+    },
+    "streetwall": {
+      "base": "brick",
+      "tone": [
+        0.35,
+        0.33,
+        0.38
+      ]
+    },
+    "bench": {
+      "base": "metal",
+      "tone": [
+        0.4,
+        0.42,
+        0.4
+      ],
+      "rust": 0.3
+    },
+    "desk": {
+      "base": "metal",
+      "tone": [
+        0.55,
+        0.6,
+        0.58
+      ]
+    },
+    "vendbody": {
+      "base": "metal",
+      "tone": [
+        0.25,
+        0.25,
+        0.3
+      ]
+    },
+    "vendglow": {
+      "base": "neon",
+      "tone": [
+        1,
+        0.3,
+        0.8
+      ]
+    },
+    "chair": {
+      "base": "leather",
+      "tone": [
+        0.2,
+        0.2,
+        0.22
+      ]
+    },
+    "steelwhite": {
+      "base": "steel",
+      "tone": [
+        0.9,
+        0.92,
+        0.95
+      ]
+    },
+    "lampwhite": {
+      "base": "neon",
+      "tone": [
+        1,
+        1,
+        1
+      ]
+    },
+    "screencyan": {
+      "base": "neon",
+      "tone": [
+        0.1,
+        0.95,
+        1
+      ]
+    },
+    "jargreen": {
+      "base": "neon",
+      "tone": [
+        0.2,
+        1,
+        0.35
+      ]
+    }
+  },
+  "rooms": [
+    {
+      "id": "waiting",
+      "size": [
+        320,
+        256,
+        128
+      ],
+      "light": {
+        "count": 2,
+        "brightness": 150,
+        "color": [
+          205,
+          255,
+          205
+        ]
+      }
+    },
+    {
+      "id": "surgery",
+      "size": [
+        384,
+        320,
+        160
+      ],
+      "place": {
+        "north_of": "waiting"
+      },
+      "surfaces": {
+        "floor": "cleantile",
+        "walls": "cleantile",
+        "ceiling": "cleantile"
+      },
+      "light": {
+        "count": 2,
+        "brightness": 130,
+        "color": [
+          255,
+          255,
+          255
+        ]
+      }
+    },
+    {
+      "id": "street",
+      "size": [
+        640,
+        256,
+        256
+      ],
+      "place": {
+        "south_of": "waiting"
+      },
+      "sky": true,
+      "test": true,
+      "surfaces": {
+        "floor": "asphalt",
+        "walls": "streetwall"
+      }
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "street",
+        "waiting"
+      ],
+      "kind": "door"
+    },
+    {
+      "between": [
+        "waiting",
+        "surgery"
+      ],
+      "kind": "door"
+    }
+  ],
+  "prefabs": {
+    "bench": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -12,
+              -72,
+              14
+            ],
+            [
+              12,
+              72,
+              18
+            ]
+          ],
+          "texture": "bench"
+        },
+        {
+          "box": [
+            [
+              -12,
+              -72,
+              18
+            ],
+            [
+              -8,
+              72,
+              40
+            ]
+          ],
+          "texture": "bench"
+        },
+        {
+          "box": [
+            [
+              -10,
+              -68,
+              0
+            ],
+            [
+              10,
+              -60,
+              14
+            ]
+          ],
+          "texture": "bench"
+        },
+        {
+          "box": [
+            [
+              -10,
+              60,
+              0
+            ],
+            [
+              10,
+              68,
+              14
+            ]
+          ],
+          "texture": "bench"
+        }
+      ]
+    },
+    "desk": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -12,
+              -56,
+              0
+            ],
+            [
+              12,
+              56,
+              40
+            ]
+          ],
+          "texture": "desk"
+        },
+        {
+          "box": [
+            [
+              -16,
+              -60,
+              40
+            ],
+            [
+              16,
+              60,
+              44
+            ]
+          ],
+          "texture": "desk"
+        }
+      ]
+    },
+    "vending": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -24,
+              -14,
+              0
+            ],
+            [
+              24,
+              16,
+              84
+            ]
+          ],
+          "texture": "vendbody"
+        },
+        {
+          "box": [
+            [
+              -20,
+              -16,
+              10
+            ],
+            [
+              20,
+              -14,
+              78
+            ]
+          ],
+          "texture": "vendglow"
+        }
+      ]
+    },
+    "opchair": {
+      "pieces": [
+        {
+          "cylinder": {
+            "centre": [
+              0,
+              0
+            ],
+            "radius": 12,
+            "from": 0,
+            "to": 4,
+            "sides": 12
+          },
+          "texture": "steelwhite"
+        },
+        {
+          "box": [
+            [
+              -5,
+              -5,
+              4
+            ],
+            [
+              5,
+              5,
+              22
+            ]
+          ],
+          "texture": "steelwhite"
+        },
+        {
+          "box": [
+            [
+              -28,
+              -14,
+              22
+            ],
+            [
+              20,
+              14,
+              30
+            ]
+          ],
+          "texture": "chair"
+        },
+        {
+          "wedge": [
+            [
+              20,
+              -14,
+              22
+            ],
+            [
+              40,
+              14,
+              52
+            ]
+          ],
+          "high": "+x",
+          "texture": "chair"
+        },
+        {
+          "box": [
+            [
+              -52,
+              -12,
+              16
+            ],
+            [
+              -28,
+              12,
+              22
+            ]
+          ],
+          "texture": "chair"
+        }
+      ]
+    },
+    "surglamp": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -2,
+              -2,
+              134
+            ],
+            [
+              2,
+              2,
+              160
+            ]
+          ],
+          "texture": "steelwhite"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              0,
+              0
+            ],
+            "radius": 22,
+            "from": 128,
+            "to": 134,
+            "sides": 16
+          },
+          "texture": "steelwhite"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              0,
+              0
+            ],
+            "radius": 18,
+            "from": 126,
+            "to": 128,
+            "sides": 16
+          },
+          "texture": "lampwhite"
+        }
+      ]
+    },
+    "cart": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -22,
+              -12,
+              0
+            ],
+            [
+              22,
+              12,
+              4
+            ]
+          ],
+          "texture": "steelwhite"
+        },
+        {
+          "box": [
+            [
+              -20,
+              -10,
+              4
+            ],
+            [
+              -18,
+              10,
+              34
+            ]
+          ],
+          "texture": "steelwhite"
+        },
+        {
+          "box": [
+            [
+              18,
+              -10,
+              4
+            ],
+            [
+              20,
+              10,
+              34
+            ]
+          ],
+          "texture": "steelwhite"
+        },
+        {
+          "box": [
+            [
+              -22,
+              -12,
+              34
+            ],
+            [
+              22,
+              12,
+              38
+            ]
+          ],
+          "texture": "steelwhite"
+        },
+        {
+          "box": [
+            [
+              -20,
+              -3,
+              38
+            ],
+            [
+              -2,
+              3,
+              54
+            ]
+          ],
+          "texture": "screencyan"
+        },
+        {
+          "box": [
+            [
+              2,
+              -3,
+              38
+            ],
+            [
+              20,
+              3,
+              54
+            ]
+          ],
+          "texture": "screencyan"
+        }
+      ]
+    },
+    "jarshelf": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -112,
+              -20,
+              0
+            ],
+            [
+              -108,
+              0,
+              88
+            ]
+          ],
+          "texture": "steelwhite"
+        },
+        {
+          "box": [
+            [
+              108,
+              -20,
+              0
+            ],
+            [
+              112,
+              0,
+              88
+            ]
+          ],
+          "texture": "steelwhite"
+        },
+        {
+          "box": [
+            [
+              -108,
+              -20,
+              28
+            ],
+            [
+              108,
+              0,
+              32
+            ]
+          ],
+          "texture": "steelwhite"
+        },
+        {
+          "box": [
+            [
+              -108,
+              -20,
+              60
+            ],
+            [
+              108,
+              0,
+              64
+            ]
+          ],
+          "texture": "steelwhite"
+        },
+        {
+          "box": [
+            [
+              -108,
+              -20,
+              84
+            ],
+            [
+              108,
+              0,
+              88
+            ]
+          ],
+          "texture": "steelwhite"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              -84,
+              -10
+            ],
+            "radius": 6,
+            "from": 32,
+            "to": 50,
+            "sides": 8
+          },
+          "texture": "jargreen"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              -48,
+              -10
+            ],
+            "radius": 6,
+            "from": 32,
+            "to": 52,
+            "sides": 8
+          },
+          "texture": "jargreen"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              -12,
+              -10
+            ],
+            "radius": 7,
+            "from": 32,
+            "to": 48,
+            "sides": 8
+          },
+          "texture": "jargreen"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              24,
+              -10
+            ],
+            "radius": 6,
+            "from": 32,
+            "to": 52,
+            "sides": 8
+          },
+          "texture": "jargreen"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              60,
+              -10
+            ],
+            "radius": 6,
+            "from": 32,
+            "to": 50,
+            "sides": 8
+          },
+          "texture": "jargreen"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              92,
+              -10
+            ],
+            "radius": 7,
+            "from": 32,
+            "to": 48,
+            "sides": 8
+          },
+          "texture": "jargreen"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              -90,
+              -10
+            ],
+            "radius": 6,
+            "from": 64,
+            "to": 80,
+            "sides": 8
+          },
+          "texture": "jargreen"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              -56,
+              -10
+            ],
+            "radius": 7,
+            "from": 64,
+            "to": 82,
+            "sides": 8
+          },
+          "texture": "jargreen"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              -20,
+              -10
+            ],
+            "radius": 6,
+            "from": 64,
+            "to": 80,
+            "sides": 8
+          },
+          "texture": "jargreen"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              16,
+              -10
+            ],
+            "radius": 6,
+            "from": 64,
+            "to": 82,
+            "sides": 8
+          },
+          "texture": "jargreen"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              52,
+              -10
+            ],
+            "radius": 7,
+            "from": 64,
+            "to": 80,
+            "sides": 8
+          },
+          "texture": "jargreen"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              88,
+              -10
+            ],
+            "radius": 6,
+            "from": 64,
+            "to": 82,
+            "sides": 8
+          },
+          "texture": "jargreen"
+        }
+      ]
+    },
+    "sidetable": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -14,
+              -12,
+              28
+            ],
+            [
+              14,
+              12,
+              32
+            ]
+          ],
+          "texture": "steelwhite"
+        },
+        {
+          "box": [
+            [
+              -2,
+              -2,
+              0
+            ],
+            [
+              2,
+              2,
+              28
+            ]
+          ],
+          "texture": "steelwhite"
+        },
+        {
+          "box": [
+            [
+              -10,
+              -10,
+              0
+            ],
+            [
+              10,
+              10,
+              2
+            ]
+          ],
+          "texture": "steelwhite"
+        }
+      ]
+    }
+  },
+  "furniture": [
+    {
+      "prefab": "bench",
+      "room": "waiting",
+      "at": [
+        -146,
+        -10
+      ]
+    },
+    {
+      "prefab": "desk",
+      "room": "waiting",
+      "at": [
+        72,
+        16
+      ]
+    },
+    {
+      "prefab": "vending",
+      "room": "waiting",
+      "at": [
+        -104,
+        110
+      ]
+    },
+    {
+      "prefab": "opchair",
+      "room": "surgery",
+      "at": [
+        0,
+        -8
+      ]
+    },
+    {
+      "prefab": "surglamp",
+      "room": "surgery",
+      "at": [
+        0,
+        -8
+      ]
+    },
+    {
+      "prefab": "cart",
+      "room": "surgery",
+      "at": [
+        0,
+        48
+      ]
+    },
+    {
+      "prefab": "sidetable",
+      "room": "surgery",
+      "at": [
+        8,
+        -60
+      ]
+    },
+    {
+      "prefab": "jarshelf",
+      "room": "surgery",
+      "at": [
+        0,
+        160
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "street",
+      "at": [
+        0,
+        -64
+      ],
+      "facing": "waiting"
+    },
+    {
+      "class": "monster_scientist",
+      "room": "waiting",
+      "at": [
+        124,
+        16
+      ],
+      "facing": "west"
+    },
+    {
+      "class": "item_healthkit",
+      "room": "surgery",
+      "at": [
+        8,
+        -60
+      ],
+      "z": 32
+    },
+    {
+      "class": "light",
+      "room": "waiting",
+      "at": [
+        -104,
+        64
+      ],
+      "z": -48,
+      "_light": "255 80 200 60"
+    },
+    {
+      "class": "light_spot",
+      "room": "surgery",
+      "at": [
+        0,
+        -8
+      ],
+      "z": 116,
+      "pitch": -90,
+      "_cone": 30,
+      "_cone2": 50,
+      "_light": "255 255 255 900"
+    },
+    {
+      "class": "light",
+      "room": "surgery",
+      "at": [
+        0,
+        28
+      ],
+      "z": -40,
+      "_light": "80 240 255 60"
+    },
+    {
+      "class": "light",
+      "room": "surgery",
+      "at": [
+        0,
+        128
+      ],
+      "z": -36,
+      "_light": "80 255 110 70"
+    }
+  ]
+}
