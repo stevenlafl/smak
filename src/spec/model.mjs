@@ -1088,8 +1088,31 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, hide =
           // unless told, as many triangles as three quarters of Half-Life's props of its size have under them:
           // a copy is judged against twice its original's, and the outline holds at that count
           const band = PROP_TRIANGLES.find((b) => Math.hypot(...part.size) < b.under);
-          const hull = carve(views, { size: part.size, cells: part.cells ?? 64, target: part.triangles ?? band.q3 });
-          report.facts.push(`${part.id}: carved from ${views.length} views at ${part.cells ?? 64} cells, ${hull.tris.length} triangles; each view's outline against its own: ${Object.entries(hull.report.overlapByView ?? {}).map(([k, v]) => `${k} ${v}`).join(", ")}`);
+          let hull = carve(views, { size: part.size, cells: part.cells ?? 64, target: part.triangles ?? band.q3 });
+          // unless the cells are told: thin parts (a fork's tips, a rail) lost between cells show as a view whose
+          // outline falls short of its own picture's, and the hull is carved again, finer
+          const worst = Math.min(...Object.values(hull.report.overlapByView ?? {}).filter((v) => typeof v === "number"));
+          // a carve shorter than its size on some axis has lost a thin part at its end (a fork's tip)
+          const extentOf = (tris) => [0, 1, 2].map((k) => {
+            const vs = tris.flatMap((t) => t.map((c) => c.p[k]));
+            return Math.max(...vs) - Math.min(...vs);
+          });
+          const short = extentOf(hull.tris).some((v, k) => v < part.size[k] * 0.95);
+          if (part.cells === undefined && (worst < 0.9 || short)) {
+            // finer and finer until nothing is lost at its ends (the parts thinner than a cell come back), a
+            // thing that intricate given twice the triangles unless they are told
+            let best = { hull, worst, cells: 64 };
+            for (const cells of [160, 208, 256]) {
+              const finer = carve(views, { size: part.size, cells, target: part.triangles ?? 2 * band.q3 });
+              const finerWorst = Math.min(...Object.values(finer.report.overlapByView ?? {}).filter((v) => typeof v === "number"));
+              const finerShort = extentOf(finer.tris).some((v, k) => v < part.size[k] * 0.95);
+              if (finerWorst >= best.worst || !finerShort) best = { hull: finer, worst: finerWorst, cells };
+              if (!finerShort && finerWorst >= 0.9) break;
+            }
+            if (best.cells !== 64) hull = { ...best.hull, finer: [worst, best.worst], cells: best.cells };
+          }
+          if (hull.finer) report.notes.push(`${part.id}: carved again at ${hull.cells} cells for its thin parts (its worst view's outline ${hull.finer[0]} at 64, ${hull.finer[1]} at ${hull.cells})`);
+          report.facts.push(`${part.id}: carved from ${views.length} views at ${hull.cells ?? part.cells ?? 64} cells, ${hull.tris.length} triangles; each view's outline against its own: ${Object.entries(hull.report.overlapByView ?? {}).map(([k, v]) => `${k} ${v}`).join(", ")}`);
           return { ...part, carvedTris: hull.tris };
         }),
       };
