@@ -1,0 +1,163 @@
+{
+ "subject": "battery",
+ "leg": "words",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.923,
+   "left/right": 0.917,
+   "top/below": 0.935
+  },
+  "size": {
+   "original": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "reproduction": [
+    11.1,
+    11.1,
+    18.4
+   ],
+   "offShare": [
+    0.078,
+    0.078,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 28,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 28.3,
+     "shared": 0.926
+    },
+    {
+     "view": "left",
+     "deltaE": 28.5,
+     "shared": 0.92
+    },
+    {
+     "view": "back",
+     "deltaE": 27.4,
+     "shared": 0.926
+    },
+    {
+     "view": "right",
+     "deltaE": 28.1,
+     "shared": 0.921
+    },
+    {
+     "view": "top",
+     "deltaE": 18.5,
+     "shared": 0.94
+    },
+    {
+     "view": "below",
+     "deltaE": 37.3,
+     "shared": 0.543
+    },
+    {
+     "view": "front-left",
+     "deltaE": 28,
+     "shared": 0.927
+    },
+    {
+     "view": "front-right",
+     "deltaE": 28.6,
+     "shared": 0.931
+    },
+    {
+     "view": "back-left",
+     "deltaE": 27.3,
+     "shared": 0.927
+    },
+    {
+     "view": "back-right",
+     "deltaE": 27.8,
+     "shared": 0.931
+    }
+   ]
+  },
+  "triangles": {
+   "original": 116,
+   "reproduction": 896
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 0,
+  "M8": 0
+ },
+ "lineup": {
+  "picked": "D",
+  "right": "D",
+  "letters": {
+   "A": "models/headcrab.mdl",
+   "B": "models/w_9mmclip.mdl",
+   "C": "models/w_longjump.mdl",
+   "D": "models/w_battery.mdl",
+   "E": "models/forklift.mdl",
+   "F": "models/w_medkit.mdl",
+   "G": "models/mbarrel.mdl",
+   "H": "models/can.mdl",
+   "I": "models/w_security.mdl",
+   "J": "models/filecabinet.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Overlap is 0.917 to 0.935 in every view, which clears the 0.80 bar, but parts of the outline differ. On top, the original has a large raised plate carrying the ring terminal and a wide yellow clip. The reproduction has only a small hex nut and a thin tab, so its top outline is much lower and narrower (clearest in the front, back, left and right views). The reproduction also has small orange nubs sticking out at the side corners that the original lacks, and its body is about 8% wider."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Height matches at 18.4. Length and width are 11.1 against 10.3, which is 7.8% over and inside the 10% limit."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The four glass panels, the white corner strips, the orange lamps, the hazard band, the dark base and both top fittings are all there. The top fittings are the wrong shape and size: the original has a big ring terminal on a raised housing and a broad yellow and grey clip, and the reproduction has a small hex nut and a narrow tab. The reproduction also adds orange nubs on the side corners. Its orange lamps sit lower on each face instead of on the top rim as in the original."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 0,
+   "score": 0,
+   "reason": "The measured mean colour difference (deltaE) is 28, well over the 15 a 2 needs, and 37.3 in the below view. The body is flat cool grey where the original is warm brownish worn metal. The glass is a flat bright mint where the original is a deep teal with a glowing centre. The hazard band is black and yellow where the original's is yellow on brown."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The reproduction has a hazard band, but as clean, even black and yellow diagonals instead of the original's irregular yellow brush marks on brown. The glass has none of the original's mottled glow with a bright centre. The metal has none of the original's grime and wear, and the reproduction is visibly cleaner and flatter everywhere."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "A player would see it as the same kind of thing: a glowing battery canister with four windows. Side by side, though, the flat mint glass, the clean grey body, the regular hazard stripes and the small top fittings make it plainly a different model, not the original."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Upright, and the front matches: in the front view both have the yellow tab at the top left and the terminal at the top right. Height and base placement match the original."
+  },
+  "M8": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "896 triangles against the original's 116, about 7.7 times as many and far over the 2x limit (232). SMAK's check reported no errors, and nothing looks open, inside out or floating."
+  }
+ },
+ "total": 8,
+ "of": 16,
+ "passes": false
+}

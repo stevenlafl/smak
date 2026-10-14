@@ -1,0 +1,163 @@
+{
+ "subject": "battery",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.947,
+   "left/right": 0.948,
+   "top/below": 0.934
+  },
+  "size": {
+   "original": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "reproduction": [
+    10.9,
+    10.9,
+    18.6
+   ],
+   "offShare": [
+    0.06,
+    0.06,
+    0.009
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 21,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 22.3,
+     "shared": 0.946
+    },
+    {
+     "view": "left",
+     "deltaE": 22,
+     "shared": 0.947
+    },
+    {
+     "view": "back",
+     "deltaE": 21.3,
+     "shared": 0.946
+    },
+    {
+     "view": "right",
+     "deltaE": 22.5,
+     "shared": 0.947
+    },
+    {
+     "view": "top",
+     "deltaE": 20.4,
+     "shared": 0.931
+    },
+    {
+     "view": "below",
+     "deltaE": 10.1,
+     "shared": 0.537
+    },
+    {
+     "view": "front-left",
+     "deltaE": 23.1,
+     "shared": 0.966
+    },
+    {
+     "view": "front-right",
+     "deltaE": 24.1,
+     "shared": 0.967
+    },
+    {
+     "view": "back-left",
+     "deltaE": 21.7,
+     "shared": 0.968
+    },
+    {
+     "view": "back-right",
+     "deltaE": 22.9,
+     "shared": 0.966
+    }
+   ]
+  },
+  "triangles": {
+   "original": 116,
+   "reproduction": 900
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 1,
+  "M8": 0
+ },
+ "lineup": {
+  "picked": "B",
+  "right": "B",
+  "letters": {
+   "A": "models/w_security.mdl",
+   "B": "models/w_battery.mdl",
+   "C": "models/w_longjump.mdl",
+   "D": "models/filecabinet.mdl",
+   "E": "models/can.mdl",
+   "F": "models/forklift.mdl",
+   "G": "models/w_medkit.mdl",
+   "H": "models/w_9mmclip.mdl",
+   "I": "models/headcrab.mdl",
+   "J": "models/mbarrel.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The outline matches in every view: the measured overlaps are 0.947 front/back, 0.948 left/right and 0.934 top/below, all above 0.80. It has the same eight-sided chamfered body, the dark tapered base, the shoulder bevel at the top, and the lever and round cap on top in the same places. The only extras are thin teal and orange edge strips on the corner chamfers (visible at the left and right edges in the front and side views), which add almost nothing to the outline."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length and width are 10.9 against 10.3 (about 6% over, measured offShare 0.06) and height is 18.6 against 18.4 (about 1%). All three are within 10%."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Every component is there, the right number of each and in the right place: a teal window on each of the four main faces, a white lamp panel on each corner chamfer, an orange light at the top centre of each face, a band of yellow hazard tabs around the lower body, the dark tapered base, and on top the yellow-striped hinged lever at one end and the round collared cap at the other on a raised block. The orange lights sit slightly lower than the original's, on the flat face rather than on the shoulder bevel, but are in the same place to a close look."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "The measured mean colour difference is 21 CIE76 delta E (about 20 to 24 in the side and angle views), which is over the 15 needed for a 2. The body is a clean, even grey where the original's is a grimy brown-grey metal. The windows are a flat teal in concentric bands, not the original's dark-to-bright teal glow. The yellow hazard tabs are cleaner and brighter."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The markings are there but drawn differently. The original's windows are a speckled energy texture glowing from the centre; the reproduction has clean nested rectangles. The original's hazard stripes are ragged, worn yellow chevrons; the reproduction's are evenly spaced clean slanted tabs. The original's dirt and wear on the body and top rim are missing."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From the shape and layout it reads as the same battery, but side by side the flat nested-rectangle windows and the clean grey body set it apart from the original's speckled glowing cells and weathered metal. A player would see they are not the same model."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "It stands upright with the same front: in the front view the lever is at the left end of the top and the cap at the right, as in the original, and each side view matches its own. The base sits at the same height in the frame, so it stands on its origin as the original does."
+  },
+  "M8": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "It has 900 triangles against the original's 116, about 7.8 times as many, which is far over the limit of 2 times (232). SMAK's check reported no errors, and nothing in the pictures is open, inside out or floating."
+  }
+ },
+ "total": 11,
+ "of": 16,
+ "passes": false
+}

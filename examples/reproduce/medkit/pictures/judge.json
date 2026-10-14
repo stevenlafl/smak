@@ -1,0 +1,163 @@
+{
+ "subject": "medkit",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.955,
+   "left/right": 0.964,
+   "top/below": 0.875
+  },
+  "size": {
+   "original": [
+    34.6,
+    26.4,
+    6.8
+   ],
+   "reproduction": [
+    34.7,
+    26.7,
+    6.8
+   ],
+   "offShare": [
+    0.002,
+    0.01,
+    0.011
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 23.6,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 14.7,
+     "shared": 0.956
+    },
+    {
+     "view": "left",
+     "deltaE": 13.5,
+     "shared": 0.964
+    },
+    {
+     "view": "back",
+     "deltaE": 11.8,
+     "shared": 0.956
+    },
+    {
+     "view": "right",
+     "deltaE": 13.4,
+     "shared": 0.964
+    },
+    {
+     "view": "top",
+     "deltaE": 18,
+     "shared": 0.869
+    },
+    {
+     "view": "below",
+     "deltaE": null,
+     "shared": 0
+    },
+    {
+     "view": "front-left",
+     "deltaE": 16.8,
+     "shared": 0.94
+    },
+    {
+     "view": "front-right",
+     "deltaE": 17.8,
+     "shared": 0.937
+    },
+    {
+     "view": "back-left",
+     "deltaE": 15.1,
+     "shared": 0.967
+    },
+    {
+     "view": "back-right",
+     "deltaE": 14.9,
+     "shared": 0.953
+    }
+   ]
+  },
+  "triangles": {
+   "original": 99,
+   "reproduction": 600
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 1,
+  "M8": 0
+ },
+ "lineup": {
+  "picked": "G",
+  "right": "G",
+  "letters": {
+   "A": "models/headcrab.mdl",
+   "B": "models/can.mdl",
+   "C": "models/w_9mmclip.mdl",
+   "D": "models/w_longjump.mdl",
+   "E": "models/mbarrel.mdl",
+   "F": "models/w_battery.mdl",
+   "G": "models/w_medkit.mdl",
+   "H": "models/forklift.mdl",
+   "I": "models/filecabinet.mdl",
+   "J": "models/w_security.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "All measured overlaps are 0.80 or more (front/back 0.955, left/right 0.964, top/below 0.875), and the bevelled box outline matches in the front, back, left and right views. But in the top view the original's strap hangs forward past the front edge of the box as a long drooping loop, and the reproduction shows no strap there at all, so a part is missing from that outline. That is why top/below scores lowest."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 34.7 x 26.7 x 6.8 against the original's 34.6 x 26.4 x 6.8. Every dimension is within about 1%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The main parts are there: a flat box with bevelled corners, a recessed front control panel with a screen and red and green buttons, black side panels with a round knob on left and right, and a carrying strap. The strap's shape is off, though. On the original it is a long, slack loop that drapes forward and down over the front (top view and front-left/front-right views). On the reproduction it is a tight, short band close to the box. The top of the original's front panel also has light grip/pill shapes beside its dial, and the reproduction has only a single dial. The reproduction also adds a closed underside with a large red cross and a black panel (below view), where the original's below view shows nothing."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "The regions have the right colours: a white painted case, a red cross and markings, a black and green panel, and a tan cloth strap. The measured mean colour difference is 23.6, above the 15 limit, and the top view (18), front-left (16.8) and front-right (17.8) views are worst. The reproduction's white is a flat, bright, clean white, where the original is a dirtier off-white with grey grime."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The reproduction has the red cross, the side arrows and the small red corner marks. The original's big red 'FIRST AID' lettering under the cross on the lid is missing; in its place is a tiny, faint, unreadable strip (top, back-left and back-right views). The red text that runs along the original's side arrows is missing too. All the grime and wear on the original's white case is absent, and the original's front panel shows a lit screen texture where the reproduction has flat green and red blocks."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "At game size it reads as the same kind of medkit with the same layout. Side by side, though, the reproduction's clean bright white, the missing large 'FIRST AID' lettering on the lid and the tight strap in place of the drooping loop give it away. A player looking at both would not take it for the original."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The control panel faces front on both, both are upright, and both sit on the same base plane. Front, back, left and right views line up at the same height and orientation."
+  },
+  "M8": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The reproduction has 600 triangles against the original's 99, more than six times as many, so it is well over the 2x limit. SMAK's check reported no errors (checkErrors is empty), and nothing looks open or floating."
+  }
+ },
+ "total": 9,
+ "of": 16,
+ "passes": false
+}

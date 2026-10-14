@@ -1,0 +1,163 @@
+{
+ "subject": "filecabinet",
+ "leg": "words",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.989,
+   "left/right": 0.967,
+   "top/below": 0.936
+  },
+  "size": {
+   "original": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "reproduction": [
+    30.5,
+    22.8,
+    62.4
+   ],
+   "offShare": [
+    0.061,
+    0.006,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 11.6,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 10.6,
+     "shared": 1
+    },
+    {
+     "view": "left",
+     "deltaE": 11.4,
+     "shared": 0.964
+    },
+    {
+     "view": "back",
+     "deltaE": 11.7,
+     "shared": 1
+    },
+    {
+     "view": "right",
+     "deltaE": 12,
+     "shared": 0.964
+    },
+    {
+     "view": "top",
+     "deltaE": 8.1,
+     "shared": 0.961
+    },
+    {
+     "view": "below",
+     "deltaE": 21.4,
+     "shared": 0.961
+    },
+    {
+     "view": "front-left",
+     "deltaE": 9.6,
+     "shared": 0.974
+    },
+    {
+     "view": "front-right",
+     "deltaE": 10.2,
+     "shared": 0.974
+    },
+    {
+     "view": "back-left",
+     "deltaE": 10.2,
+     "shared": 0.973
+    },
+    {
+     "view": "back-right",
+     "deltaE": 10.3,
+     "shared": 0.973
+    }
+   ]
+  },
+  "triangles": {
+   "original": 14,
+   "reproduction": 408
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 0
+ },
+ "lineup": {
+  "picked": "F",
+  "right": "F",
+  "letters": {
+   "A": "models/w_longjump.mdl",
+   "B": "models/headcrab.mdl",
+   "C": "models/w_medkit.mdl",
+   "D": "models/w_security.mdl",
+   "E": "models/forklift.mdl",
+   "F": "models/filecabinet.mdl",
+   "G": "models/w_9mmclip.mdl",
+   "H": "models/mbarrel.mdl",
+   "I": "models/w_battery.mdl",
+   "J": "models/can.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Measured overlap passes in every view (front/back 0.989, left/right 0.967, top/below 0.936), but parts stick out that the original lacks. In the left and right views, the reproduction's three drawer handles stand proud of the front face as nubs on the outline, and the top view shows a small tab off the front edge. The original's side outlines are clean rectangles. That protrusion is the 6.1% over-depth (offShare 0.061)."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 30.5 x 22.8 x 62.4 against the original's 28.8 x 22.6 x 62.4. The largest difference is 5.9%, in depth, which is within 10%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "It has the body, three drawers in the right places and a base plinth. The handles are the wrong shape: the original has a curved D/cup pull centred low on each drawer, and the reproduction has a flat rectangular slot that sits higher on the drawer and protrudes from the front. The drawer fronts are also flat inset panels with a thick frame, where the original's raised bevelled fronts have a dark gap between them."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The mean deltaE of 11.6 is under 15, but the reproduction is clearly darker. The original is a mid-grey painted metal, and the reproduction is a dark charcoal on every side, near black on the bottom (deltaE 21.4 below). The back and side panels are much darker than the original's lighter mottled grey. It's the same material type, but you wouldn't call it the same shade."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original's mottled wear on the sides and back is mostly lost in the darker texture. The reproduction adds detail the original doesn't have: vertical stripes running the full height of the left side only (visible in the left and back-left views), and a bright edge line around the top and base. The original's light trim line at the plinth is there, but it's rendered as a thin white line on a black base."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "At game size it reads as a three-drawer filing cabinet of the same form, but side by side it is visibly much darker, the handles are slots instead of cup pulls, and the left side is striped. A player would see it as a different cabinet, not the same prop."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The drawers face the same way as the original's front, it is upright, and it stands on its base at the same height range (62.4 tall, the bottom aligned in every side view)."
+  },
+  "M8": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "It has 408 triangles against the original's 14, about 29 times as many, far over the allowed double (28). The SMAK check reported no errors and nothing looks open or floating, but the triangle limit alone fails this item."
+  }
+ },
+ "total": 9,
+ "of": 16,
+ "passes": false
+}

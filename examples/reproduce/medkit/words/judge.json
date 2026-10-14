@@ -1,0 +1,163 @@
+{
+ "subject": "medkit",
+ "leg": "words",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.956,
+   "left/right": 0.879,
+   "top/below": 0.8
+  },
+  "size": {
+   "original": [
+    34.6,
+    26.4,
+    6.8
+   ],
+   "reproduction": [
+    34.5,
+    26.4,
+    6.8
+   ],
+   "offShare": [
+    0.005,
+    0.003,
+    0.008
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 28.1,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 21.5,
+     "shared": 0.961
+    },
+    {
+     "view": "left",
+     "deltaE": 20.6,
+     "shared": 0.883
+    },
+    {
+     "view": "back",
+     "deltaE": 12.8,
+     "shared": 0.961
+    },
+    {
+     "view": "right",
+     "deltaE": 21.9,
+     "shared": 0.883
+    },
+    {
+     "view": "top",
+     "deltaE": 21.8,
+     "shared": 0.794
+    },
+    {
+     "view": "below",
+     "deltaE": null,
+     "shared": 0
+    },
+    {
+     "view": "front-left",
+     "deltaE": 21.7,
+     "shared": 0.806
+    },
+    {
+     "view": "front-right",
+     "deltaE": 21.7,
+     "shared": 0.833
+    },
+    {
+     "view": "back-left",
+     "deltaE": 19.7,
+     "shared": 0.873
+    },
+    {
+     "view": "back-right",
+     "deltaE": 19.1,
+     "shared": 0.86
+    }
+   ]
+  },
+  "triangles": {
+   "original": 99,
+   "reproduction": 468
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 0,
+  "M8": 0
+ },
+ "lineup": {
+  "picked": "A",
+  "right": "A",
+  "letters": {
+   "A": "models/w_medkit.mdl",
+   "B": "models/w_security.mdl",
+   "C": "models/mbarrel.mdl",
+   "D": "models/forklift.mdl",
+   "E": "models/w_longjump.mdl",
+   "F": "models/can.mdl",
+   "G": "models/filecabinet.mdl",
+   "H": "models/w_9mmclip.mdl",
+   "I": "models/headcrab.mdl",
+   "J": "models/w_battery.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Measured overlap clears 0.80 in every view, but top/below only just makes it at 0.80, and the strap's outline is wrong. In the top view the original's strap is an uneven loop that hangs off the lower-left. The reproduction's is a symmetric V hanging below the case. In the left and right views the original's strap is a flat band of even height running the length of one side. The reproduction's tapers to a point. In the front view the original's strap is a thick band along the whole lower front, where the reproduction has a thin curved lip. The strap's outline is wrong in three views."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "34.5 x 26.4 x 6.8 against 34.6 x 26.4 x 6.8. Every axis is within 1%, and the off-share is under 1%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The parts are there: a bevelled white case, a red cross, FIRST AID lettering, a front control panel with a screen and red and green lights, a side dial and a strap. Several are off. In the original the control panel sits sunken in a bevelled recess cut into the top front corner, with angled walls visible in the front-left and front-right views. The reproduction's panel is a flat inset on the slope. The original has its round dial on one side only, at the front end of the left side, while the reproduction puts a dial on both sides. The strap is a thin tapered band, not the original's wide flat strap wrapped along the front and one side."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 0,
+   "score": 0,
+   "reason": "Measured mean deltaE is 28.1, far over the limit of 15. The front, left, right and top views are each about 21. The original's strap is coarse checkered brown and grey cloth, while the reproduction's is smooth olive-tan. The original body is a cool greyish white with mottling, while the reproduction is a warmer cream. The red cross and lettering match in hue."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The cross, the mirrored FIRST AID, the red arrows with small text on the sides and the panel lights are all present and roughly placed. Some markings are added or changed. The reproduction has bold red corner badges on all four top corners and a 'FIRST AID' banner on the sides, where the original has faint corner marks and small illegible text. The reproduction's markings are much crisper than the original's soft, blurry texture. Its panel layout is different too: a dark strip of white keys in front of the screen, where the original has a large dark screen with stacked red and green buttons to its right."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "At game size it reads as the same white first-aid case with a red cross and a strap. Side by side, though, the strap is clearly different: the original's is wide, checkered and fabric-like, the reproduction's thin, olive and pointed. The original's sunken dark panel is also missing, and the cream tone is warmer. A player comparing them would notice."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front is the same face in both, with the control panel and cross toward the viewer and the strap hanging toward the front in the top view. Both sit upright on the same base plane at the same height."
+  },
+  "M8": {
+   "judge": 1,
+   "cap": 0,
+   "score": 0,
+   "reason": "SMAK's check reports no errors and nothing is open or floating. However, the reproduction has 468 triangles against the original's 99, about 4.7 times the count, well over the 2x limit (198)."
+  }
+ },
+ "total": 8,
+ "of": 16,
+ "passes": false
+}
