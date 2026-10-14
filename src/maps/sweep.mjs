@@ -133,6 +133,45 @@ export function islandsOf(bsp) {
     }
     if (!outer && size >= ISLAND_LEAST) islands.push({ cells: size, from: at(...lo).map((v) => Math.round(v - c / 2)), to: at(...hi).map((v) => Math.round(v + c / 2)) });
   }
-  return islands.sort((a, b) => b.cells - a.cells);
+  // a post, a trunk or a leg thinner than the grid holds what stands on it: each island is looked at again,
+  // finely, in the space about it, and one whose solid reaches out of that space is held after all
+  return islands.filter((island) => !heldFinely(bsp, island)).sort((a, b) => b.cells - a.cells);
+}
+
+/** The finer grid an island is looked at again on, and how far about it. */
+const FINE_CELL = 2;
+const FINE_ROOM = 48;
+/** Whether the solid of an island, sampled every FINE_CELL, reaches the edge of the space FINE_ROOM about it. */
+function heldFinely(bsp, { from, to }) {
+  const c = FINE_CELL;
+  const lo = from.map((v) => v - FINE_ROOM);
+  const n = [0, 1, 2].map((k) => Math.ceil((to[k] + FINE_ROOM - lo[k]) / c));
+  const at = (i, j, k) => [lo[0] + (i + 0.5) * c, lo[1] + (j + 0.5) * c, lo[2] + (k + 0.5) * c];
+  const index = (i, j, k) => (k * n[1] + j) * n[0] + i;
+  const state = new Uint8Array(n[0] * n[1] * n[2]); // 0 unknown, 1 solid, 2 open
+  const isSolid = (i, j, k) => {
+    const q = index(i, j, k);
+    if (!state[q]) state[q] = contentsAt(bsp, at(i, j, k)) === CONTENTS.SOLID ? 1 : 2;
+    return state[q] === 1;
+  };
+  // start from the island's own middle cells
+  const stack = [];
+  const seen = new Uint8Array(state.length);
+  for (let k = 0; k < n[2]; k++)
+    for (let j = 0; j < n[1]; j++)
+      for (let i = 0; i < n[0]; i++) {
+        const p = at(i, j, k);
+        if ([0, 1, 2].every((a) => p[a] >= from[a] && p[a] <= to[a]) && isSolid(i, j, k)) (seen[index(i, j, k)] = 1), stack.push([i, j, k]);
+      }
+  while (stack.length) {
+    const [i, j, k] = stack.pop();
+    if (i === 0 || j === 0 || k === 0 || i === n[0] - 1 || j === n[1] - 1 || k === n[2] - 1) return true;
+    for (const [di, dj, dk] of [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]]) {
+      const m = [i + di, j + dj, k + dk];
+      const q = index(...m);
+      if (!seen[q] && isSolid(...m)) (seen[q] = 1), stack.push(m);
+    }
+  }
+  return false;
 }
 
