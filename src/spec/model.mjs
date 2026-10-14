@@ -799,8 +799,19 @@ export function buildModelSpec(spec, { folder, prefabs = {}, games = [] } = {}) 
       return { mdl: null, report };
     }
     // the shape held in the poses the game shows it in: a limb that comes apart when it runs shows here
+    // a written triangle is told back to its part by the pixels its corners sit on: each part has its own zone
+    const partAt = new Map();
+    meshes.forEach((mesh, n) =>
+      mesh.tris.forEach((t, i) =>
+        t.forEach((c) => partAt.set(`${textures[n].name}:${Math.round(c.uv[0] * textures[n].width)},${Math.round(c.uv[1] * textures[n].height)}`, mesh.partOf[i])),
+      ),
+    );
+    const names = (t) => {
+      const votes = t.c.map((c) => partAt.get(`${t.tex?.name}:${c.u},${c.v}`)).filter(Boolean);
+      return votes.find((id, k) => votes.indexOf(id) !== k) ?? votes[0] ?? t.tex?.name ?? "untextured";
+    };
     for (const pose of posesOf(mdl)) {
-      const moving = soundness(mdl, pose).faults.filter((fault) => /float apart/.test(fault));
+      const moving = soundness(mdl, { ...pose, names }).faults.filter((fault) => /float apart/.test(fault));
       for (const fault of moving) report.faults.push(`in ${pose.label}: ${fault}`);
     }
   } else
