@@ -130,7 +130,7 @@ export async function runJudge(options) {
     last = await runAgent({ model: JUDGE_MODEL, ...options });
     if (/\{[\s\S]*\}/.test(last.answer ?? "")) {
       mkdirSync(JUDGED, { recursive: true });
-      writeFileSync(kept, JSON.stringify({ answer: last.answer, ended: last.ended, model: JUDGE_MODEL }));
+      writeFileSync(kept, JSON.stringify({ answer: last.answer, ended: last.ended, model: options.model ?? JUDGE_MODEL }));
       return { ...last, attempts: attempt };
     }
     if (attempt < 3) await new Promise((wake) => setTimeout(wake, 60_000));

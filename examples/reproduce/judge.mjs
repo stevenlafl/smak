@@ -70,7 +70,7 @@ export function measureModel(original, copy) {
 }
 
 /** The judge's pictures: each view, the original beside the reproduction. */
-function comparePictures(dir, pictures) {
+export function comparePictures(dir, pictures) {
   mkdirSync(dir, { recursive: true });
   const pairs = pictures.original.map((p, i) => ({ name: p.name, pair: besides([p.picture, pictures.reproduction[i].picture]) }));
   const sides = pairs.filter((p) => SIDES.some(([n]) => n === p.name));
@@ -187,7 +187,7 @@ export async function judgeModel(model, leg, copyFile, { decoy } = {}) {
   // a close call on Haiku goes to Opus (calibration-haiku.md: Haiku stood a point under Opus on these, never over)
   if (closeCall(settled)) {
     const second = await runJudge({ read: dir, hours: 0.5, prompt, model: "opus" });
-    settled = { ...settle("model", second.answer, caps, extra), first: { model: JUDGE_MODEL, total: settled.total, passes: settled.passes }, judgedBy: "opus" };
+    settled = { ...settle("model", second.answer, caps, extra), first: { model: JUDGE_MODEL, total: settled.total, passes: settled.passes, scores: settled.scores }, judgedBy: "opus" };
   }
   return { subject: model.id, leg: decoy ? `decoy: ${decoy}` : leg, measured, caps, lineup: line, ...settled };
 }
