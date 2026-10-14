@@ -1,0 +1,85 @@
+{
+  "house": "Kaupo School Teacher's Cottage (HABS HI-614), 244 Piilani Highway, Kaupo, Maui County, HI",
+  "source": {
+    "item": "https://www.loc.gov/item/hi1133/",
+    "sheets": ["2. Floor plan", "3. East and south elevations", "4. West and north elevations", "5. Sections"],
+    "credit": "Historic American Buildings Survey, National Park Service; Library of Congress, Prints & Photographs Division"
+  },
+  "foot": 12,
+  "origin": "the corner of the house's outer box at the north-west side and the south-west (rear) end: x = 0 at the north-west outer face, y = 0 at the shed's rear outer face",
+  "compass": "the house stands about 45 degrees off the compass, as the photographs' captions say (front facade north-east). The sheet's north arrow points to its lower right. This key's x runs towards the south-east facade (sheet left) and y towards the north-east front (sheet down), so x is about east-south-east and y about north-north-east, x and y a right-handed pair as in the other keys. The sheets name the north-west side 'North elevation' and the south-west (rear) side 'West elevation'.",
+  "plans": [
+    { "storey": "main", "tif": "00002a.tif", "origin": [8875, 858], "pxPerFoot": 149.5, "x": "-u", "y": "+v" },
+    { "storey": "shed", "tif": "00002a.tif", "origin": [8875, 858], "pxPerFoot": 149.5, "x": "-u", "y": "+v" }
+  ],
+  "outside": { "outline": [[0, 8.57], [28.0, 8.57], [28.0, 42.57], [0, 42.57]], "note": "the main block 28'-0\" by 34'-0\" (written); the shed adds 11'-1 1/2\" by 8'-5 1/2\" (written) behind it, x 16.9 to 28.0, y 0 to 8.57" },
+  "storeys": [
+    { "name": "main", "floor": 0, "ceiling": 9.0 },
+    { "name": "shed", "floor": -3.9, "ceiling": 6.5 }
+  ],
+  "rooms": [
+    { "name": "Kitchen", "storey": "main", "written": "7' x 16'", "outline": [[12.95, 9.15], [27.6, 9.15], [27.6, 16.5], [12.95, 16.5]] },
+    { "name": "Living room", "storey": "main", "written": "16' x 18'", "outline": [[12.0, 16.55], [27.6, 16.55], [27.6, 36.65], [12.0, 36.65]] },
+    { "name": "Bedroom rear", "storey": "main", "written": "11' x 11'", "outline": [[0.1, 8.95], [11.95, 8.95], [11.95, 20.0], [0.1, 20.0]] },
+    { "name": "Closet rear", "storey": "main", "outline": [[9.15, 20.3], [11.95, 20.3], [11.95, 24.95], [9.15, 24.95]] },
+    { "name": "Bathroom", "storey": "main", "written": "7' x 9'", "outline": [[0.1, 20.35], [7.4, 20.35], [7.4, 30.6], [0.1, 30.6]] },
+    { "name": "Closet front", "storey": "main", "outline": [[9.15, 26.3], [11.95, 26.3], [11.95, 30.4], [9.15, 30.4]] },
+    { "name": "Bedroom front", "storey": "main", "written": "11' x 11'", "outline": [[0.1, 30.7], [11.95, 30.7], [11.95, 42.15], [0.1, 42.15]] },
+    { "name": "Lanai", "storey": "main", "written": "6' x 16'-6\"", "porch": true, "outline": [[12.0, 36.75], [27.6, 36.75], [27.6, 42.15], [12.0, 42.15]] },
+    { "name": "Shed", "storey": "shed", "outline": [[20.55, 0.15], [27.6, 0.15], [27.6, 8.4], [20.55, 8.4]] },
+    { "name": "Shed store", "storey": "shed", "outline": [[16.9, 0.15], [20.45, 0.15], [20.45, 5.4], [16.9, 5.4]] },
+    { "name": "Shower", "storey": "shed", "outline": [[17.2, 5.55], [20.0, 5.55], [20.0, 8.4], [17.2, 8.4]] }
+  ],
+  "doors": [
+    { "between": ["Kitchen", "outside"], "at": [27.75, 12.8], "width": 2.65, "note": "the back door, onto steps down on the south-east side" },
+    { "between": ["Living room", "Lanai"], "at": [14.3, 36.65], "width": 2.9, "note": "the front door" },
+    { "between": ["Living room", "Bedroom rear"], "at": [12.0, 18.8], "width": 2.7 },
+    { "between": ["Living room", "Bedroom front"], "at": [12.0, 32.35], "width": 2.7 },
+    { "between": ["Bedroom rear", "Closet rear"], "at": [10.3, 20.15], "width": 2.5 },
+    { "between": ["Bedroom rear", "Bathroom"], "at": [6.0, 20.15], "width": 2.6 },
+    { "between": ["Bedroom front", "Closet front"], "at": [10.3, 30.65], "width": 2.5 },
+    { "between": ["Bedroom front", "Bathroom"], "at": [6.0, 30.65], "width": 2.6 },
+    { "between": ["Shed", "Shed store"], "at": [20.5, 3.95], "width": 2.45 }
+  ],
+  "openings": [
+    { "between": ["Kitchen", "Living room"], "at": [16.1, 16.5], "width": 2.7, "note": "a cased opening, no door" },
+    { "between": ["Lanai", "outside"], "at": [14.3, 42.15], "width": 4.6, "note": "the head of the front steps, down 4'-4\" to the concrete slab" },
+    { "between": ["Shed", "outside"], "at": [27.75, 3.0], "width": 2.5, "uncertain": true, "note": "a gap in the shed's south-east wall between two posts, no door drawn" },
+    { "between": ["Shed store", "Shower"], "at": [18.6, 5.45], "width": 2.6, "uncertain": true }
+  ],
+  "windows": [
+    { "room": "Bedroom rear", "at": [4.3, 8.75], "width": 2.8 },
+    { "room": "Bedroom rear", "at": [7.75, 8.75], "width": 2.8 },
+    { "room": "Bedroom rear", "at": [0.0, 13.0], "width": 2.8 },
+    { "room": "Bedroom rear", "at": [0.0, 16.25], "width": 2.8 },
+    { "room": "Kitchen", "at": [14.93, 8.75], "width": 2.4 },
+    { "room": "Kitchen", "at": [19.4, 8.75], "width": 2.8, "note": "looks into the shed, whose roof is below it" },
+    { "room": "Kitchen", "at": [22.35, 8.75], "width": 2.8, "note": "looks into the shed" },
+    { "room": "Kitchen", "at": [25.3, 8.75], "width": 2.8, "note": "looks into the shed" },
+    { "room": "Living room", "at": [27.75, 20.4], "width": 2.7 },
+    { "room": "Living room", "at": [27.75, 23.85], "width": 2.7 },
+    { "room": "Living room", "at": [27.75, 29.55], "width": 2.4 },
+    { "room": "Living room", "at": [27.75, 32.8], "width": 2.7 },
+    { "room": "Living room", "at": [23.45, 36.65], "width": 3.0, "note": "onto the lanai" },
+    { "room": "Living room", "at": [20.15, 36.65], "width": 3.0, "note": "onto the lanai" },
+    { "room": "Bathroom", "at": [0.0, 28.4], "width": 2.9 },
+    { "room": "Bedroom front", "at": [0.0, 34.55], "width": 2.8 },
+    { "room": "Bedroom front", "at": [0.0, 37.8], "width": 2.8 },
+    { "room": "Bedroom front", "at": [4.3, 42.2], "width": 2.8 },
+    { "room": "Bedroom front", "at": [7.75, 42.2], "width": 2.8 }
+  ],
+  "stairs": [],
+  "steps": [
+    { "from": "outside", "to": "main", "at": [14.3, 46.4], "top": [14.3, 42.15], "width": 4.6, "rise": 4.33, "note": "the front steps up to the lanai (18'-4\" front steps to ridge less 14'-0\" floor to ridge)" },
+    { "from": "outside", "to": "main", "at": [30.5, 12.8], "top": [27.75, 12.8], "width": 2.8, "note": "the back steps up to the kitchen door, from the slab by the shed" }
+  ],
+  "notes": [
+    "Written on the sheets: the main block 28'-0\" by 34'-0\", the shed 11'-1 1/2\" by 8'-5 1/2\", the lanai 6'-0\" and 16'-0\", each room's nominal size, floor to plate 9'-0\", floor to ridge 14'-0\", front steps to ridge 18'-4\". Everything else measured off the 8-bit TIFF at 149.5 pixels a foot (3/8\" = 1'-0\"; the scale checked against the 28'-0\" and 34'-0\" strings to within 0.5%).",
+    "The walls are single board walls (1x6 tongue and groove on studs only at openings), about 0.1 ft thick, so the room outlines nearly touch. Outlines are the clear floor; built-in shelves are left out (the kitchen's 1 ft shelf strip on its north-west side, the bathroom's shelf on its south-east side, the shelves between the two closets).",
+    "The rooms' written sizes are nominal: measured clear sizes are kitchen 7.35 by 14.65 (16' with the shelf), living room 15.6 by 20.1 (the plan's 16' x 18' is the part beside the bedrooms), bedrooms 11.85 by 11.05 and 11.85 by 11.45, bathroom 7.3 by 10.25, lanai 15.6 by 5.4.",
+    "The ceiling is flat at the plate, 9'-0\" over the floor, in every room and over the lanai (sections A-A and B-B). The house stands on posts: the floor is 4'-4\" over the front slab and about 3.9 ft over the shed's concrete floor (measured off the west elevation). The shed's roof slopes from about 7.6 ft over its floor at the house wall to 6.5 at its outer edge.",
+    "The lanai is an open porch inside the main block's outline: walls of the house on two sides, open with a rail on the front, steps down at its north-west end.",
+    "Window and door positions are the middle of the opening between the posts drawn either side of it, measured to about +-0.2 ft; widths are between the posts. The north-west (sheet 'North elevation') side was checked against sheet 4: a pair of windows in each bedroom and one in the bathroom.",
+    "The shed is reached from outside only; whether its gap to the south-east is a doorway is not drawn (marked uncertain)."
+  ]
+}

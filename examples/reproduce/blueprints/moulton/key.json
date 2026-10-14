@@ -1,0 +1,96 @@
+{
+  "house": "John Moulton Homestead, House (HABS WY-152-A), Mormon Row, Kelly vicinity, Teton County, WY",
+  "source": {
+    "item": "https://www.loc.gov/item/wy0573/",
+    "sheets": ["1. Main & Second Floor Plans", "2. Elevations", "3. Basement Plan and Section"],
+    "credit": "Historic American Buildings Survey, National Park Service; Library of Congress, Prints & Photographs Division"
+  },
+  "foot": 12,
+  "origin": "the south-west corner of the house's outer box: x = 0 at the mud room's west outer face, y = 0 at the main block's south outer face",
+  "compass": "the sheets are drawn with west at the top: plan up is west, plan right is north, plan down is east (from sheet 2's elevations: the front door and porch steps are on the east elevation, the mud room's three windows on the west)",
+  "outside": { "outline": [[7.83, 0], [32.75, 0], [32.75, 30.08], [0, 30.08], [0, 7.0], [7.83, 7.0]], "note": "outer faces: 30'-1\" (y) by 32'-9\" (x) with the mud room, from the written dimension strings; the mud room is the part x < 7.83, y 7.0 to 23.0" },
+  "plans": [
+    { "storey": "basement", "tif": "00003a.tif", "origin": [3093, 2928], "pxPerFoot": 99.9, "x": "+v", "y": "+u" },
+    { "storey": "main", "tif": "00001a.tif", "origin": [3123, 2946.5], "pxPerFoot": 99.9, "x": "+v", "y": "+u" },
+    { "storey": "second", "tif": "00001a.tif", "origin": [8459, 2955], "pxPerFoot": 99.9, "x": "+v", "y": "+u" }
+  ],
+  "storeys": [
+    { "name": "basement", "floor": -7.43, "ceiling": 6.6 },
+    { "name": "main", "floor": 0, "ceiling": 7.75 },
+    { "name": "second", "floor": 8.77, "ceiling": 7.15 }
+  ],
+  "rooms": [
+    { "name": "Basement", "storey": "basement", "written": "10'-8\" x 15'-11\"", "outline": [[8.4, 0.7], [19.0, 0.7], [19.0, 16.7], [8.4, 16.7]] },
+
+    { "name": "Mud room", "storey": "main", "written": "14'-8\" x 7'-5\"", "outline": [[0.75, 7.65], [7.97, 7.65], [7.97, 22.23], [0.75, 22.23]] },
+    { "name": "Kitchen", "storey": "main", "written": "12'-8\" x 10'-9\"", "outline": [[8.45, 0.5], [19.1, 0.5], [19.1, 13.1], [8.45, 13.1]] },
+    { "name": "Stair", "storey": "main", "outline": [[8.3, 13.7], [15.95, 13.7], [15.95, 16.45], [8.3, 16.45]] },
+    { "name": "Lobby", "storey": "main", "outline": [[15.95, 13.1], [19.3, 13.1], [19.3, 22.3], [15.95, 22.3]] },
+    { "name": "Small room", "storey": "main", "written": "7'-1\" x 5'-0\"", "outline": [[8.66, 17.04], [15.45, 17.04], [15.45, 21.78], [8.66, 21.78]] },
+    { "name": "Bedroom NW", "storey": "main", "written": "10'-8\" x 7'-1\"", "outline": [[8.69, 22.48], [19.23, 22.48], [19.23, 29.31], [8.69, 29.31]] },
+    { "name": "Closet NW", "storey": "main", "outline": [[19.5, 22.4], [21.41, 22.4], [21.41, 25.25], [19.5, 25.25]] },
+    { "name": "Living room", "storey": "main", "written": "16'-5\" x 12'-5\"", "outline": [[19.73, 0.5], [32.05, 0.5], [32.05, 16.88], [19.73, 16.88]] },
+    { "name": "Bedroom NE", "storey": "main", "written": "10'-5\" x 11'-9\"", "outline": [[19.77, 17.47], [32.02, 17.47], [32.02, 29.23], [23.62, 29.23], [23.62, 25.55], [21.9, 25.55], [21.9, 21.8], [19.77, 21.8]] },
+    { "name": "Closet NE", "storey": "main", "outline": [[19.71, 25.65], [23.57, 25.65], [23.57, 29.3], [19.71, 29.3]] },
+
+    { "name": "Bedroom S", "storey": "second", "written": "11'-5\" x 12'-7\"", "outline": [[14.75, 0.85], [25.98, 0.85], [25.98, 13.28], [21.0, 13.28], [21.0, 12.0], [19.6, 12.0], [19.6, 10.0], [18.0, 10.0], [18.0, 10.6], [14.75, 10.6]] },
+    { "name": "Closet A", "storey": "second", "outline": [[14.75, 10.65], [17.95, 10.65], [17.95, 13.28], [14.75, 13.28]] },
+    { "name": "Closet B", "storey": "second", "outline": [[18.1, 12.0], [21.0, 12.0], [21.0, 13.28], [18.1, 13.28]] },
+    { "name": "Hall", "storey": "second", "outline": [[16.85, 13.95], [29.95, 13.95], [29.95, 17.35], [16.85, 17.35]] },
+    { "name": "Bedroom N", "storey": "second", "written": "11'-5\" x 11'-7\"", "outline": [[14.77, 18.04], [25.99, 18.04], [25.99, 29.5], [14.77, 29.5]] }
+  ],
+  "doors": [
+    { "between": ["Living room", "outside"], "at": [32.4, 15.21], "width": 2.75, "note": "front door, east; steps down outside" },
+    { "between": ["Mud room", "outside"], "at": [3.4, 22.65], "width": 2.75, "note": "north side, onto a stoop with steps; drawn swinging both ways (a door and a screen door)" },
+    { "between": ["Mud room", "Kitchen"], "at": [8.2, 9.6], "width": 2.6 },
+    { "between": ["Mud room", "Kitchen"], "at": [8.55, 12.1], "width": 1.5, "uncertain": true, "note": "a narrow double-acting door drawn through the thick old west wall; read as a door between the two, not certain" },
+    { "between": ["Mud room", "Stair"], "at": [8.15, 15.05], "width": 2.5, "note": "the foot of the stair up" },
+    { "between": ["Lobby", "Stair"], "at": [16.0, 14.9], "width": 2.2, "note": "the head of the stair down to the basement" },
+    { "between": ["Lobby", "Living room"], "at": [19.45, 14.9], "width": 2.4 },
+    { "between": ["Lobby", "Small room"], "at": [15.7, 19.65], "width": 2.5 },
+    { "between": ["Lobby", "Bedroom NE"], "at": [19.6, 19.7], "width": 2.6 },
+    { "between": ["Lobby", "Bedroom NW"], "at": [17.65, 22.35], "width": 2.5 },
+    { "between": ["Bedroom NW", "Closet NW"], "at": [19.35, 23.8], "width": 2.4, "note": "bifold" },
+    { "between": ["Bedroom NE", "Closet NE"], "at": [23.6, 27.45], "width": 3.3, "note": "a pair of doors" },
+
+    { "between": ["Hall", "Bedroom S"], "at": [22.3, 13.75], "width": 2.65 },
+    { "between": ["Hall", "Bedroom N"], "at": [19.5, 17.7], "width": 2.75 },
+    { "between": ["Bedroom S", "Closet A"], "at": [16.5, 10.65], "width": 2.0 },
+    { "between": ["Bedroom S", "Closet B"], "at": [20.95, 12.65], "width": 1.1, "uncertain": true, "note": "a small door drawn at the closet's corner by the hall wall" },
+    { "between": ["Hall", "north eave"], "at": [27.4, 17.65], "width": 1.6, "note": "a low door into the inaccessible eave space north of the hall, which is not a room of this key" }
+  ],
+  "openings": [
+    { "between": ["Kitchen", "Lobby"], "at": [17.55, 13.1], "width": 3.1, "note": "no wall or door is drawn between the kitchen and the lobby east of the stair" }
+  ],
+  "windows": [
+    { "room": "Mud room", "at": [0.35, 11.5], "width": 2.33 },
+    { "room": "Mud room", "at": [0.35, 15.0], "width": 2.33 },
+    { "room": "Mud room", "at": [0.35, 18.5], "width": 2.33 },
+    { "room": "Kitchen", "at": [8.2, 3.6], "width": 2.9 },
+    { "room": "Kitchen", "at": [12.7, 0.2], "width": 2.0 },
+    { "room": "Kitchen", "at": [15.2, 0.2], "width": 2.0 },
+    { "room": "Living room", "at": [26.38, 0.2], "width": 2.92 },
+    { "room": "Living room", "at": [32.4, 7.33], "width": 2.83 },
+    { "room": "Bedroom NE", "at": [32.4, 22.58], "width": 2.83 },
+    { "room": "Bedroom NE", "at": [27.25, 29.7], "width": 2.7 },
+    { "room": "Bedroom NW", "at": [13.85, 29.7], "width": 2.9 },
+    { "room": "Small room", "at": [8.2, 19.5], "width": 2.4, "note": "an inside window, from the small room into the mud room" },
+    { "room": "Bedroom S", "at": [20.35, 0.35], "width": 2.3 },
+    { "room": "Bedroom N", "at": [20.15, 29.95], "width": 2.4 },
+    { "room": "Hall", "at": [30.2, 15.75], "width": 2.5, "note": "in the east dormer" }
+  ],
+  "stairs": [
+    { "from": "main", "to": "second", "at": [8.7, 15.05], "top": [16.85, 15.1], "width": 2.75, "note": "one straight flight rising east from a landing by the mud room door; it arrives in the second floor hall" },
+    { "from": "basement", "to": "main", "at": [8.9, 15.05], "top": [15.95, 15.05], "width": 2.75, "note": "under the flight up, rising west to east; its head is the door from the lobby" }
+  ],
+  "notes": [
+    "Dimensions written on the sheets: the outer strings (30'-1\" on the west, east and second floor; 32'-9\" on the south) and each room's size. Everything else was measured off the 1-bit TIFF at 100 pixels a foot (the scale, checked against the dimension strings to within 1%).",
+    "Room outlines are the clear floor between the inner edges of the drawn wall lines, found by flood fill on the sheet; they agree with the written room sizes within 0.25 ft (the mud room measures 7.2 by 14.6 against 7'-5\" by 14'-8\").",
+    "Door and window positions are the middle of the opening on the wall's centre line; widths are the clear opening between jambs, from the dimension strings where the strings give them (front door, east and south windows, the mud room's windows) and measured elsewhere (about +-0.2 ft).",
+    "Heights are not written: measured off section A-A (sheet 3) at the same scale. Main floor to ceiling 7.75; main floor to second floor 8.77; second floor to its flat ceiling 7.15 (the bedrooms' outer parts are under the roof slope, closed off as inaccessible eaves); basement floor 7.43 below the main floor, its ceiling 6.6 over it.",
+    "The second floor plan carries no x string; it was placed by the hall's east wall and the stair in section A-A (x 29.95 and 16.85), to about +-0.25 ft.",
+    "The research note (research/blueprint-sources.md) says the mud room is on the north; the elevations put it on the west. This key follows the elevations.",
+    "Only the basement room is walkable below; the rest of the basement plan is marked inaccessible (crawl space). The west attic over the mud room and the eaves are inaccessible and not rooms here.",
+    "Two doors are marked uncertain: a 1.5 ft double-acting door between the mud room and kitchen, and a small closet door upstairs. A judge may leave them out of P4."
+  ]
+}

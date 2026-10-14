@@ -35,7 +35,7 @@ GoldSrc units are about an inch, so a dimension in feet times 12 is units: the M
 John Moulton Homestead, House, Mormon Row, Kelly vicinity, Grand Teton National Park, Teton County, WY.
 Drawn by Jeff Farnum, photographs by Arnold Thallheimer.
 
-The plan: a near-square block with a mud room added on the north. Main floor: living room 16'-5" x 12'-5",
+The plan: a near-square block with a mud room added on the west (the sheets are drawn with west at the top; the elevations say west). Main floor: living room 16'-5" x 12'-5",
 kitchen 12'-8" x 10'-9", two bedrooms (10'-5" x 11'-9", 10'-8" x 7'-1"), a small room 7'-1" x 5'-0", mud room
 14'-8" x 7'-5", a central lobby and closets: 6 rooms. Second floor: two bedrooms (11'-5" x 12'-7",
 11'-5" x 11'-7") off a hall, with inaccessible eaves on either side. One straight stair up from the lobby,
