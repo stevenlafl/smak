@@ -61,3 +61,11 @@
 4. Clean. The props' view (picture-3) shows the three red lanterns hanging from the black ceiling and the
    pink and cyan bowl-and-chopsticks sign; the views (picture-2) the counter's pink strip, the stools, the
    stove, the fridge and the shelf; the plan (picture-1) the whole module with the street in front.
+5. Built again after the kit learned to call out furniture that stands in a wall (found by revision 03):
+   the shelf, turned along the west wall at y 116, stood 28 into the north wall. Moved to y 80. Clean.
+
+## Revisions
+
+The person's follow-up requests on this map are in `revisions/`: a second fridge beside the first, the
+counter's strip blue, the stove and the shelf swapped. Each is scored on doing the change and leaving
+everything else as it was, by the build's change report.

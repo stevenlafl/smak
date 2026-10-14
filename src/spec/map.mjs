@@ -11,7 +11,7 @@
 // docs/SPEC.md is the guide. Axes as every map's: +x east, +y north, +z up, a unit about an inch.
 import { writeFileSync, mkdirSync, readFileSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
-import { carve, box, cylinder, wedge, stairs as stairBrushes, light, sunLight, textureLights, playerStart, pointEntity, brushEntity, writeMap, readMap, subtract, moved } from "../maps/source.mjs";
+import { carve, box, cylinder, wedge, stairs as stairBrushes, light, sunLight, textureLights, playerStart, pointEntity, brushEntity, writeMap, readMap, subtract, moved, shapeOf } from "../maps/source.mjs";
 import { checkPlan } from "../maps/plan.mjs";
 import { definitionsOf } from "../maps/fgd.mjs";
 import { reachOf } from "../maps/reach.mjs";
@@ -45,6 +45,8 @@ const LAMP_BRIGHTNESS = 250;
 const LAMP_HIGHEST = 192;
 /** How far from a wall an entity is put by "against" and "corner". */
 const INSET = 48;
+/** Furniture or a prop that reaches further than this past its room's walls is said to stand in them. */
+const INTO_WALL = 1;
 /** The rise and the depth of a stair's step that a link of stairs is built with. */
 const RISE = 16;
 const TREAD = 24;
@@ -684,6 +686,16 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [] } = {}) {
         const own = printOf(thing);
         const xy = thing.at && typeof thing.at === "object" && !Array.isArray(thing.at) ? besideOf(thing.at, own) : pointIn(room, thing.at);
         if (thing.id) footprints.set(thing.id, { min: [xy[0] + own.min[0], xy[1] + own.min[1]], max: [xy[0] + own.max[0], xy[1] + own.max[1]] });
+        // furniture and props must stay in their room: one that reaches into a wall stands half in the rock
+        if (what !== "entities") {
+          const reach = [
+            ["west", room.min[0] - (xy[0] + own.min[0])],
+            ["east", xy[0] + own.max[0] - room.max[0]],
+            ["south", room.min[1] - (xy[1] + own.min[1])],
+            ["north", xy[1] + own.max[1] - room.max[1]],
+          ].filter(([, by]) => by > INTO_WALL);
+          for (const [side, by] of reach) report.faults.push(`${what}[${i}] (${thing.prefab ?? thing.model ?? "box"}) reaches ${Math.round(by)} into ${room.id}'s ${side} wall: move or turn it`);
+        }
         // what was put where, under a name that stays the same from build to build: its kind and what it is,
         // with its count among those (the second table of the room)
         const name = thing.prefab ?? thing.model ?? thing.class ?? (thing.box ? `box ${thing.box.join("x")}` : what);
@@ -728,7 +740,8 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [] } = {}) {
   /** a prefab's footprint in its own space: the box round its pieces, or round its .map's brushes */
   const prefabPrint = (prefab) => {
     const points = prefab.file
-      ? readMap(readFileSync(resolve(folder ?? ".", prefab.file), "utf8")).brushes.flatMap((b) => b.faces.flatMap((f) => f.points))
+      ? // a brush's corners, worked out from its planes (the three points a plane is written by lie anywhere on it)
+        readMap(readFileSync(resolve(folder ?? ".", prefab.file), "utf8")).brushes.flatMap((b) => shapeOf(b).corners)
       : prefab.pieces.flatMap((piece) =>
           piece.box ?? piece.wedge ?? (piece.cylinder ? [[piece.cylinder.centre[0] - piece.cylinder.radius, piece.cylinder.centre[1] - piece.cylinder.radius], [piece.cylinder.centre[0] + piece.cylinder.radius, piece.cylinder.centre[1] + piece.cylinder.radius]] : []),
         );
