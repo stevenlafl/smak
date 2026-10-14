@@ -1,0 +1,32 @@
+{
+  "note": "The files the original-creation test looks for, fixed with the brief (2026-10-14): the maker is told these names, and the judge finds each asset by them.",
+  "maps": [
+    { "name": "fw_yard", "what": "the station's yard at dusk, open to the sky, a gatehouse door, drums, a pipe section; start by the gate, out by the pump house's double doors", "size": [1500, 1500], "next": "fw_pumphall" },
+    { "name": "fw_pumphall", "what": "the flooded hall: water deep enough to swim, three pumps, catwalks both sides joined by a bridge, ladders; the wrench on a catwalk, three crawlers in the water; out by a stair to a corridor", "long": 2500, "next": "fw_control", "items": ["weapon_crowbar", "monster_headcrab"] },
+    { "name": "fw_control", "what": "the control room over the hall: consoles under windows onto the hall, a lift down to the valve room with the main valve wheel; two crawlers", "items": ["monster_headcrab"] }
+  ],
+  "props": [
+    { "file": "models/fw_valvewheel.mdl", "what": "a valve wheel, red paint worn to steel at the rim", "size": { "across": 32 } },
+    { "file": "models/fw_drum.mdl", "what": "a rusted 55-gallon drum with a hazard stripe", "size": { "high": 34, "across": 23 } },
+    { "file": "models/fw_console.mdl", "what": "a control console, waist high, dials, two screens, a row of switches", "size": { "high": 40 } },
+    { "file": "models/fw_pipejunction.mdl", "what": "two pipes meeting at a flanged elbow, bolted" },
+    { "file": "models/fw_walllamp.mdl", "what": "a caged wall lamp with a sodium-orange glass" }
+  ],
+  "weapon": { "like": "crowbar", "what": "a pipe wrench: red-painted handle worn to bare iron, a heavy toothed jaw", "long": 18 },
+  "enemy": { "file": "models/headcrab.mdl", "like": "models/headcrab.mdl", "what": "a sludge crawler: low, wet, six-legged, the size of a headcrab, grey-green with a pale belly and a ring of teeth" },
+  "wad": { "file": "fw.wad", "least": 12, "what": "a concrete wall, a wet concrete floor, a steel grate with holes, a catwalk floor, a pipe-covered wall, a hazard-striped trim, a rusted steel plate, a control panel with dials, a sodium lamp's face (lit), the water, a sign reading PUMP 3, a door" },
+  "sprites": [
+    { "file": "sprites/fw_steam.spr", "what": "a steam puff that rises and thins, animated", "class": "smoke puff" },
+    { "file": "sprites/fw_glow.spr", "what": "a sodium lamp's glow", "class": "glow" },
+    { "file": "sprites/fw_spit.spr", "what": "a sludge spit that splashes, animated", "class": "explosion" }
+  ],
+  "sounds": [
+    { "file": "sound/weapons/cbar_hit1.wav", "what": "the wrench striking metal", "class": "metal hit" },
+    { "file": "sound/weapons/cbar_miss1.wav", "what": "the wrench's swing", "class": "swing" },
+    { "file": "sound/headcrab/hc_attack1.wav", "what": "the crawler's attack", "like": "sound/headcrab/hc_attack1.wav" },
+    { "file": "sound/headcrab/hc_pain1.wav", "what": "the crawler's pain", "like": "sound/headcrab/hc_pain1.wav" },
+    { "file": "sound/ambience/fw_pump.wav", "what": "a pump's droning loop", "class": "loop machine" },
+    { "file": "sound/ambience/fw_drips.wav", "what": "water dripping, a loop", "class": "loop drips" }
+  ],
+  "show": ["videos/fw_wrench.mp4", "videos/fw_crawler.mp4", "videos/fw_pumphall.mp4", "pictures/fw_props.png"]
+}
