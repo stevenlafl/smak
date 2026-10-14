@@ -102,7 +102,9 @@ function outlineBox(mask, width, [x0, y0, x1, y1]) {
   if (!patches.length) return null;
   // a caption sits in the area's top left corner; any other patch a hundredth the size of the largest or more
   // is part of the thing (a thin fitting apart from the body in the picture)
-  const caption = (p) => p.x0 <= x0 + 2 && p.y0 <= y0 + 2;
+  // (the kit's sheets draw their caption's band from 4 dots in, 14 high: a patch that starts within 8 dots of
+  // the corner and ends within 24 of its top is one)
+  const caption = (p) => p.x0 <= x0 + 8 && p.y0 <= y0 + 8 && p.y1 <= y0 + 24;
   const largest = Math.max(...patches.map((p) => p.n));
   const kept = patches.filter((p) => p.n >= largest / 100 && (p.n === largest || !caption(p)));
   return [Math.min(...kept.map((p) => p.x0)), Math.min(...kept.map((p) => p.y0)), Math.max(...kept.map((p) => p.x1)) + 1, Math.max(...kept.map((p) => p.y1)) + 1];

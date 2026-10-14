@@ -772,7 +772,10 @@ function piecesOf(given, context) {
     let shift = [0, 0, 0];
     if (part.at) shift = part.at;
     else if (part.attach?.bone) {
-      const mine = anchorOfBox(boxOf(pointsOf(list)), part.attach.at ?? "centre");
+      // its start or end (a turned part's first or last ring) on the joint, as for a part attached to a part
+      const mine = part.attach.at === "start" || part.attach.at === "end"
+        ? turnPoint(turn, built.get(part.id).made.ends?.[part.attach.at === "start" ? 0 : 1] ?? [0, 0, 0])
+        : anchorOfBox(boxOf(pointsOf(list)), part.attach.at ?? "centre");
       const joint = jointOf(part.attach.bone, `${part.id}.attach.bone`);
       shift = joint.map((v, k) => v - mine[k] + (part.attach.offset?.[k] ?? 0));
     } else if (part.attach) {

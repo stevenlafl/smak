@@ -206,6 +206,22 @@ test("a character spec: a place on a part laid along a limb is where the part we
   sure(cuff.to[2] - cuff.from[2] < 1.5, `the band 1 wide, not stretched with the sleeve: ${JSON.stringify(cuff)}`);
   const pin = banded.parts.pin;
   sure(pin.from[0] > 1 && pin.to[0] < 2, `the pin 1 in from the sleeve's front (2.5), not off along its length: ${JSON.stringify(pin)}`);
+  // a turned part's start on a bone's joint, and the whole stood higher by `floor`
+  const capped = buildModelSpec(
+    {
+      spec: "smak.model/1",
+      name: "capped.mdl",
+      kind: "character",
+      base: { file: "limb.mdl" },
+      floor: 10,
+      parts: [{ id: "cap", kind: "turn", rings: [[0, 1], [2, 1]], sides: 8, attach: { bone: "tip", at: "start" } }],
+    },
+    { folder },
+  );
+  sure(capped.report.ok, `a part's start on a bone: ${[...capped.report.errors, ...capped.report.faults]}`);
+  sure(capped.report.facts.some((f) => /floor: the base's feet are at 0; every animation lifted 10/.test(f)), capped.report.facts.join("; "));
+  const low = Math.min(...smak.posed(capped.mdl, { seq: 0, frame: 0 }).pose.map((m) => m[2][3]));
+  sure(Math.abs(low - 10) < 0.01, `the root at 10 after the lift: ${low}`);
 });
 
 test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ files, the gloved hands kept", () => {
