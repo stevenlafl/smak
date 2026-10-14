@@ -145,6 +145,34 @@ The decoy is the brief made plainly by the harness itself (each prop a box of it
 colour, each sound a hiss of its length, each sprite one disc, each map one room with the entities in it): it
 must fail.
 
+## Houses from their drawings (added 2026-10-14, before any of it was built)
+
+A map made from a real house's measured drawings and photographs: three houses of the Historic American
+Buildings Survey (`research/blueprint-sources.md`: a Wyoming homestead, a Hawaiian teacher's cottage, a Maine
+house with a kitchen wing), public domain. The maker sees the plan sheets (and the elevations and sections) and
+the photographs, and builds the house as a map a player walks through, its doors as doors that open and its
+windows as windows. One leg (the drawings and photos), iterations allowed.
+
+The **key** is written from the drawings before anything is built (`blueprints/<house>/key.json`): each room's
+outline in feet, with its storey and floor height, and each door and window with its wall and width. A foot is
+12 units. The judge sees the drawings, the photos, this rubric and the harness's pictures and measures, never a
+spec. Each house is scored on the Maps table, read against the house:
+
+| # | Read as | Measured |
+| --- | --- | --- |
+| P1 | the rooms the plans show, joined as they are | |
+| P2 | each room's size and place within 10% | the walkable floor against the key's rooms, aligned: 0.70 or more overlap, each storey |
+| P3 | the storeys, the stairs where the plans put them, ceiling heights from the sections | |
+| P4 | every door of the plans a door entity that opens (`func_door` or `func_door_rotating`), every window a window, at its place | 80% or more of the key's doors matched by a door entity within 24 units, and of its windows by an opening within 24 units |
+| P5 | the surfaces of the photos: their materials and colours | |
+| P6 | light as the photos show it: rooms lit by their windows and lamps | |
+| P7 | the house's details: a bay window, a porch, a fireplace, trim | |
+| P8 | compiles, does not leak, every room reached on foot from the start | as for any map |
+| P9 | from inside, at a photo's place, a player would know the room in the photo | |
+
+A house passes by "Passing" below. The decoy is the key's outer walls made one room with no inside walls, doors
+or windows: it must fail.
+
 ## Passing
 
 A reproduction (or a replacement) passes when **every must-have item scores 2 and the total is 85% or more**. An item the
