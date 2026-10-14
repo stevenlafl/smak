@@ -67,6 +67,7 @@ pictures of the result, from a barrel to a city of four shops and a sewer; read 
 | `parts` | The parts, each placed on one listed above it |
 | `prefabs` | `{ name: <another model spec> }`, for parts of kind `prefab` |
 | `allow` | `{ open: [ids], floating: [ids] }`: parts open or apart on purpose (a part can say `open: true` or `loose: true` itself) |
+| `finish` | What a painter adds over the materials, read from the shape (below): `{ light, wear, grime, vary }`, each 0 to 1, or `false` for none. A part may have its own |
 
 ### Axes, and which way is up
 
@@ -178,6 +179,24 @@ player sees it. `examples/prompts/22-weapon-wrench` is a worked one.
 `hazard` (stripes of its tone and black), `asphalt`, `water`, `paint`, `bone`. `tone: [r, g, b]` (0 to 1)
 changes its colour; `rust` (0 to 1) a metal's rust; `flags: ["fullbright"]` makes it shine in the dark
 (`flame` and `neon` are so already; such parts get a texture of their own).
+
+### The finish
+
+Over its material, each part's picture is painted from the shape itself, unless the spec says `"finish":
+false`:
+
+- `light` (0.3): the room's light painted in, gently: faces that look up lighter, down darker, as smooth as
+  the engine's shading. The engine lights a model softly and flatly; the form has to be in the picture.
+- `wear` (0.5): sharp edges (a box's corners, a rim, an end: faces meeting at more than 65 degrees, not the
+  facets of a round thing) rubbed lighter, broken up by noise in space.
+- `grime` (0.5): dirt in the corner where a part meets another at least half its size in front of it (a
+  barrel against a counter, a brim over a face), and on a `prop` near the floor.
+- `vary` (0.08): each part a little lighter or darker than the next, so that ten boxes of one material are
+  not one colour.
+
+A character's are gentler unless told (`wear` 0.15, `grime` 0.3): cloth and skin do not rub bright. A part's
+own `finish` (the same fields, or `false`) is over the spec's: a glass pane, a clean blade. Glowing and
+see-through materials are left as they are.
 
 ### What the report says of a model
 

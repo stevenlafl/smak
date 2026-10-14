@@ -235,6 +235,43 @@ test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ file
   sure(!missing.ok && /v_spear\.mdl is neither beside the spec nor in the game folders/.test(missing.errors.join()), missing.errors.join());
 });
 
+test("a model spec's finish: a box's edges worn lighter than its middle, its foot dirtier; none when told", () => {
+  const spec = (finish, partFinish) => ({
+    spec: "smak.model/1",
+    name: "crate.mdl",
+    kind: "prop",
+    ...(finish === undefined ? {} : { finish }),
+    materials: { flat: { base: "paint", tone: [0.5, 0.5, 0.5] } },
+    parts: [{ id: "crate", kind: "box", material: "flat", size: [16, 16, 16], ...(partFinish === undefined ? {} : { finish: partFinish }) }],
+  });
+  // the picture of the box's front face (+x), sampled at its middle, near its top edge and near its foot
+  const lightAt = (mdl) => {
+    const P = smak.posed(mdl, {});
+    const tex = smak.textureOf(mdl, smak.readMdl(mdl).textures[0].name);
+    const front = P.tris.filter((t) => t.c.every((c) => c.p[0] > 7.99));
+    const sample = (z) => {
+      // the texel of the front face nearest (8, 0, z), by its corners' places and texture places
+      const t = front.find((t) => { const zs = t.c.map((c) => c.p[2]); return z >= Math.min(...zs) && z <= Math.max(...zs); });
+      const [a, b, c] = t.c;
+      const solve = (q) => { const d = (b.p[1] - a.p[1]) * (c.p[2] - a.p[2]) - (c.p[1] - a.p[1]) * (b.p[2] - a.p[2]); const w1 = ((q[1] - a.p[1]) * (c.p[2] - a.p[2]) - (c.p[1] - a.p[1]) * (q[2] - a.p[2])) / d; const w2 = ((b.p[1] - a.p[1]) * (q[2] - a.p[2]) - (q[1] - a.p[1]) * (b.p[2] - a.p[2])) / d; return [1 - w1 - w2, w1, w2]; };
+      const w = solve([8, 0, z]);
+      const u = Math.round(a.u * w[0] + b.u * w[1] + c.u * w[2]);
+      const v = Math.round(a.v * w[0] + b.v * w[1] + c.v * w[2]);
+      const k = tex.pixels[v * tex.width + u] * 3;
+      return (tex.palette[k] + tex.palette[k + 1] + tex.palette[k + 2]) / 3;
+    };
+    return { middle: sample(8), edge: sample(15.9), foot: sample(1.5) };
+  };
+  const finished = lightAt(buildModelSpec(spec()).mdl);
+  sure(finished.edge > finished.middle + 8, `the top edge worn lighter than the middle: ${JSON.stringify(finished)}`);
+  sure(finished.foot < finished.middle, `the foot dirtier than the middle: ${JSON.stringify(finished)}`);
+  const plain = lightAt(buildModelSpec(spec(false)).mdl);
+  const partPlain = lightAt(buildModelSpec(spec(undefined, false)).mdl);
+  sure(Math.abs(plain.edge - plain.middle) < 6 && JSON.stringify(plain) === JSON.stringify(partPlain), `no finish, by the spec or by the part: ${JSON.stringify(plain)} ${JSON.stringify(partPlain)}`);
+  const wrong = validateModelSpec({ ...spec({ wear: 2 }) });
+  sure(/finish: false \(none\), or \{ light, wear, grime, vary \}/.test(wrong.errors.join()), wrong.errors.join());
+});
+
 test("a map spec is laid out by words, its rooms in rooms, its modules taken in with their ids and their walls", () => {
   const spec = {
     spec: "smak.map/1",

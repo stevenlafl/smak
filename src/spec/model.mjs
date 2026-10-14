@@ -27,6 +27,10 @@ import { axe } from "../../kits/axekit.mjs";
 import { blunt } from "../../kits/bluntkit.mjs";
 import { bow } from "../../kits/bowkit.mjs";
 import { materialOf, flagsOf, zonePainter } from "./paint.mjs";
+import { paintFinish, FINISH } from "./finish.mjs";
+
+/** A character's finish unless told: cloth and skin do not rub bright as metal and wood do. */
+const CHARACTER_FINISH = { wear: 0.15, grime: 0.3 };
 
 /** The spec's own name and version: written at its top, so that a later version can tell it apart. */
 export const MODEL_SPEC = "smak.model/1";
@@ -49,13 +53,13 @@ const KINDS = {
   prefab: ["prefab", "spec", "file", "scale"],
 };
 /** The fields every part takes. */
-const COMMON = ["id", "kind", "material", "at", "attach", "rotate", "mirror", "repeat", "open", "loose", "bone", "span", "note"];
+const COMMON = ["id", "kind", "material", "at", "attach", "rotate", "mirror", "repeat", "open", "loose", "bone", "span", "finish", "note"];
 /** The kinds that sit on another part's surface, and move with it. */
 const ON_SURFACE = new Set(["band", "boss", "ridge", "studs"]);
 /** The anchors every part has: the middles of the faces of its box, and its middle. */
 const BOX_ANCHORS = ["top", "bottom", "front", "back", "left", "right", "centre"];
 /** The fields a spec takes at its top. */
-const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "weapon", "note"];
+const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "weapon", "finish", "note"];
 /** A texture's side unless told; a kit's picture is made this much smaller (the kits paint at 1024 wide). */
 const SHEET_SIZE = 256;
 const KIT_SHRINK = 2;
@@ -106,6 +110,13 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
     errors.push(`kind: "prop" (stands on the floor), "held" (lies along +x, its grip at the origin), "piece" (as built) or "character" (a body on a base model's skeleton): not ${JSON.stringify(spec.kind)}`);
   if (spec.base !== undefined && typeof (spec.base?.file ?? spec.base) !== "string")
     errors.push(`base: { file: "player/gordon/gordon.mdl", bodypart, bodies, pose }: the model whose skeleton and animations the parts are put on`);
+  const finishErrors = (value, where) => {
+    if (value === undefined || value === false) return;
+    if (!value || typeof value !== "object" || Object.entries(value).some(([k, v]) => !(k in FINISH) || !isNumber(v) || v < 0 || v > 1))
+      errors.push(`${where}: false (none), or { ${Object.keys(FINISH).join(", ")} }, each 0 to 1`);
+  };
+  finishErrors(spec.finish, "finish");
+  for (const [i, part] of (spec.parts ?? []).entries()) finishErrors(part?.finish, `parts[${i}] (${part?.id}).finish`);
   if (spec.weapon !== undefined) {
     const w = spec.weapon;
     if (typeof w?.like !== "string" || !/^[\w-]+$/.test(w.like))
@@ -800,6 +811,18 @@ export function buildModelSpec(spec, { folder, prefabs = {}, games = [] } = {}) 
   report.faults.push(...sound.faults);
   report.notes.push(...sound.notes);
   report.edges = sound.edges;
+
+  // the finish read from the shape (light, worn edges, grime, a part's own shade) painted over the materials
+  if (spec.finish !== false) {
+    const byTop = new Map(spec.parts.map((part) => [part.id, part]));
+    const amounts = (id) => {
+      const own = byTop.get(String(id).split(".")[0])?.finish;
+      if (own === false) return null;
+      return { ...FINISH, ...(kind === "character" ? CHARACTER_FINISH : {}), ...(spec.finish ?? {}), ...(own ?? {}) };
+    };
+    const { texels } = paintFinish(meshes, { amounts, ground: kind === "prop" ? 0 : null, height: box.mx[2] - box.mn[2] });
+    report.facts.push(`finish painted over ${texels} texels: ${JSON.stringify({ ...FINISH, ...(kind === "character" ? CHARACTER_FINISH : {}), ...(spec.finish ?? {}) })}`);
+  }
 
   // written: one bone, one still animation
   const textures = meshes.map((mesh, n) => {
