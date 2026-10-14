@@ -355,6 +355,11 @@ test("a map spec's furniture never floats: on the floor, against a wall, under t
     { box: [64, 64, 8], room: "a", at: [100, 100], z: 248 },
   ]);
   sure(!held.length, held.join("; "));
+  // one set on another's corner is warned of; one set square on it is not
+  const warned = (furniture) =>
+    buildMapSpec({ spec: "smak.map/1", name: "float", rooms: [{ id: "a", size: [512, 512, 256] }], entities: [{ class: "info_player_start", room: "a", at: [-200, -200] }], furniture }, { out: join(folder, "float"), compilers: { found: false, message: "" } }).report.warnings.filter((w) => /footprint/.test(w));
+  sure(!warned([{ box: [64, 64, 32], room: "a", at: [0, 0] }, { box: [32, 32, 32], room: "a", at: [0, 0], z: 32 }]).length, "square on");
+  sure(warned([{ box: [64, 64, 32], room: "a", at: [0, 0] }, { box: [32, 32, 32], room: "a", at: [30, 30], z: 32 }]).some((w) => /furniture\[1\] \(box\) on \d+%/.test(w)), "on a corner");
   const afloat = faults([{ box: [32, 32, 32], room: "a", at: [100, 0], z: 100 }]);
   sure(afloat.some((f) => /furniture\[0\] \(box\) in a, 100 over its floor/.test(f)), afloat.join("; ") || "no fault");
 });

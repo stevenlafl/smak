@@ -856,6 +856,9 @@ and pass the picture as `reference`: it is then drawn beside the plan of the res
 - `FAULT ... reaches N into <room>'s <side> wall`: furniture or a prop standing in a wall.
 - `FAULT furniture[n] ... stands in front of links[m]`: in the way of a door or an opening; move it aside.
 - `FAULT N pieces of furniture float`: touching no floor, wall, ceiling or other piece; each named with its height.
+- `WARN N pieces of furniture stand on ... under half their footprint`: set on others, not on the floor or a wall,
+  with less than half of what they stand on under them (on an edge or a corner when almost none): line each up
+  with what holds it, unless it overhangs on purpose (a shelf, a balcony).
 - `fact sweep: ...` (after the compile): the drops a player can step off and be hurt by (over 210 units, a
   warning: mean it or rail it) and lights with nothing solid within 32 (a fault). Every lamp the spec hangs below a
   ceiling has a rod and a shade, so none floats; `smak map-sweep <bsp>` sweeps any map.

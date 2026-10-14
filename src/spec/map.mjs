@@ -64,6 +64,8 @@ const INSET = 48;
 const INTO_WALL = 1;
 /** Pieces this near each other, or a room's face, touch. */
 const TOUCH = 1;
+/** A piece set on others with less than this share of its footprint under it overhangs. */
+const OVERHANG = 0.5;
 /** The rise and the depth of a stair's step that a link of stairs is built with. */
 const RISE = 16;
 const TREAD = 24;
@@ -1158,6 +1160,22 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       for (const piece of furniturePieces) if (!held.has(piece) && [...held].some((other) => touches(piece, other))) (held.add(piece), (grew = true));
     }
     const floating = furniturePieces.filter((piece) => !held.has(piece));
+    // a piece set on others, not on the floor or a wall, stands on how much of its footprint: one on an edge or
+    // a corner of what is under it, or hanging half off it, reads as a mistake (Steven's play-test of
+    // frenzy_pictures: walls "not connected to the floor at all, or if they are it's by vertex and not by face")
+    const area = (p) => (p.max[0] - p.min[0]) * (p.max[1] - p.min[1]);
+    const overhung = [];
+    for (const piece of furniturePieces) {
+      if (!held.has(piece) || piece.min[2] <= piece.room.min[2] + TOUCH) continue;
+      if ([0, 1].some((k) => piece.min[k] <= piece.room.min[k] + TOUCH || piece.max[k] >= piece.room.max[k] - TOUCH) || onBuilding(piece)) continue;
+      const under = furniturePieces.filter((o) => o !== piece && Math.abs(o.max[2] - piece.min[2]) <= TOUCH);
+      if (!under.length) continue;
+      const shared = under.reduce((sum, o) => sum + Math.max(0, Math.min(piece.max[0], o.max[0]) - Math.max(piece.min[0], o.min[0])) * Math.max(0, Math.min(piece.max[1], o.max[1]) - Math.max(piece.min[1], o.min[1])), 0);
+      const share = Math.min(1, shared / Math.max(1, area(piece)));
+      if (share < OVERHANG) overhung.push({ piece, share });
+    }
+    if (overhung.length)
+      warnings.push(`${overhung.length} pieces of furniture stand on ${overhung.some((o) => o.share < 0.05) ? "an edge or a corner of what is under them, or " : ""}under half their footprint: ${overhung.slice(0, 8).map(({ piece, share }) => `${piece.name} on ${Math.round(share * 100)}%`).join("; ")}: line each up with what holds it, unless it is meant to overhang (a shelf, a balcony)`);
     if (floating.length)
       report.faults.push(`${floating.length} pieces of furniture float, touching no floor, wall, ceiling or other piece: ${floating.slice(0, 8).map((p) => `${p.name} in ${p.room.id}, ${Math.round(p.min[2] - p.room.min[2])} over its floor`).join("; ")}: rest each on the floor, against a wall, under the ceiling, or on another piece`);
   }
