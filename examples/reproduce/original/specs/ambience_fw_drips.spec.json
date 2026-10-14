@@ -1,0 +1,329 @@
+{
+  "spec": "smak.sound/1",
+  "seed": 21,
+  "name": "ambience/fw_drips.wav",
+  "class": "loop drips",
+  "length": 7,
+  "loop": {
+    "crossfade": 0.2
+  },
+  "layers": [
+    {
+      "id": "plop1",
+      "kind": "tone",
+      "f": 700,
+      "sweep": {
+        "to": 1500,
+        "time": 0.05
+      },
+      "at": 0.05,
+      "length": 0.4,
+      "env": {
+        "attack": 0.002,
+        "decay": 0.22
+      },
+      "gain": -12
+    },
+    {
+      "id": "plop2",
+      "kind": "tone",
+      "f": 900,
+      "sweep": {
+        "to": 1700,
+        "time": 0.04
+      },
+      "at": 1.6,
+      "length": 0.4,
+      "env": {
+        "attack": 0.002,
+        "decay": 0.2
+      },
+      "gain": -16
+    },
+    {
+      "id": "plop3",
+      "kind": "tone",
+      "f": 600,
+      "sweep": {
+        "to": 1250,
+        "time": 0.06
+      },
+      "at": 3.1,
+      "length": 0.5,
+      "env": {
+        "attack": 0.002,
+        "decay": 0.25
+      },
+      "gain": -14
+    },
+    {
+      "id": "plop4",
+      "kind": "tone",
+      "f": 800,
+      "sweep": {
+        "to": 1550,
+        "time": 0.045
+      },
+      "at": 3.45,
+      "length": 0.4,
+      "env": {
+        "attack": 0.002,
+        "decay": 0.2
+      },
+      "gain": -18
+    },
+    {
+      "id": "plop5",
+      "kind": "tone",
+      "f": 650,
+      "sweep": {
+        "to": 1350,
+        "time": 0.05
+      },
+      "at": 5.2,
+      "length": 0.45,
+      "env": {
+        "attack": 0.002,
+        "decay": 0.22
+      },
+      "gain": -13
+    },
+    {
+      "id": "splash1",
+      "kind": "noise",
+      "iterations": 8,
+      "shape": [
+        [
+          100,
+          -14
+        ],
+        [
+          250,
+          0
+        ],
+        [
+          700,
+          0
+        ],
+        [
+          1400,
+          -6
+        ],
+        [
+          3000,
+          -18
+        ],
+        [
+          8000,
+          -36
+        ]
+      ],
+      "at": 0.05,
+      "length": 0.7,
+      "env": {
+        "attack": 0.002,
+        "decay": 0.6
+      },
+      "gain": -3
+    },
+    {
+      "id": "splash2",
+      "kind": "noise",
+      "iterations": 8,
+      "shape": [
+        [
+          100,
+          -14
+        ],
+        [
+          250,
+          0
+        ],
+        [
+          700,
+          0
+        ],
+        [
+          1400,
+          -6
+        ],
+        [
+          3000,
+          -18
+        ],
+        [
+          8000,
+          -36
+        ]
+      ],
+      "at": 1.6,
+      "length": 0.6,
+      "env": {
+        "attack": 0.002,
+        "decay": 0.5
+      },
+      "gain": -7
+    },
+    {
+      "id": "splash3",
+      "kind": "noise",
+      "iterations": 8,
+      "shape": [
+        [
+          100,
+          -14
+        ],
+        [
+          250,
+          0
+        ],
+        [
+          700,
+          0
+        ],
+        [
+          1400,
+          -6
+        ],
+        [
+          3000,
+          -18
+        ],
+        [
+          8000,
+          -36
+        ]
+      ],
+      "at": 3.1,
+      "length": 0.9,
+      "env": {
+        "attack": 0.002,
+        "decay": 0.8
+      },
+      "gain": -4
+    },
+    {
+      "id": "splash4",
+      "kind": "noise",
+      "iterations": 8,
+      "shape": [
+        [
+          100,
+          -14
+        ],
+        [
+          250,
+          0
+        ],
+        [
+          700,
+          0
+        ],
+        [
+          1400,
+          -6
+        ],
+        [
+          3000,
+          -18
+        ],
+        [
+          8000,
+          -36
+        ]
+      ],
+      "at": 3.45,
+      "length": 0.5,
+      "env": {
+        "attack": 0.002,
+        "decay": 0.4
+      },
+      "gain": -10
+    },
+    {
+      "id": "splash5",
+      "kind": "noise",
+      "iterations": 8,
+      "shape": [
+        [
+          100,
+          -14
+        ],
+        [
+          250,
+          0
+        ],
+        [
+          700,
+          0
+        ],
+        [
+          1400,
+          -6
+        ],
+        [
+          3000,
+          -18
+        ],
+        [
+          8000,
+          -36
+        ]
+      ],
+      "at": 5.2,
+      "length": 0.8,
+      "env": {
+        "attack": 0.002,
+        "decay": 0.7
+      },
+      "gain": -4
+    },
+    {
+      "id": "water",
+      "kind": "noise",
+      "iterations": 8,
+      "shape": [
+        [
+          100,
+          -10
+        ],
+        [
+          300,
+          0
+        ],
+        [
+          800,
+          -3
+        ],
+        [
+          2000,
+          -14
+        ],
+        [
+          6000,
+          -30
+        ]
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            7,
+            0
+          ]
+        ]
+      },
+      "gain": -28
+    }
+  ],
+  "finish": {
+    "room": {
+      "decay": 0.6,
+      "wet": 0.3
+    },
+    "peak": -4
+  }
+}

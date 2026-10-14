@@ -1,0 +1,141 @@
+{
+  "spec": "smak.sound/1",
+  "seed": 11,
+  "name": "headcrab/hc_pain1.wav",
+  "reference": "headcrab/hc_pain1.wav",
+  "length": 0.75,
+  "layers": [
+    {
+      "id": "pulse",
+      "kind": "particles",
+      "every": 0.026,
+      "jitter": 0.12,
+      "band": [
+        800,
+        3000
+      ],
+      "grain": 0.014,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.3,
+            -5
+          ],
+          [
+            0.72,
+            -40
+          ]
+        ]
+      },
+      "gain": 0
+    },
+    {
+      "id": "pulse_low",
+      "kind": "particles",
+      "every": 0.026,
+      "jitter": 0.12,
+      "band": [
+        300,
+        900
+      ],
+      "grain": 0.012,
+      "env": {
+        "points": [
+          [
+            0,
+            -4
+          ],
+          [
+            0.3,
+            -9
+          ],
+          [
+            0.72,
+            -40
+          ]
+        ]
+      },
+      "gain": -6
+    },
+    {
+      "id": "squeal",
+      "kind": "fm",
+      "f": 1100,
+      "ratio": 1.33,
+      "index": 6,
+      "indexDecay": 0.4,
+      "env": {
+        "points": [
+          [
+            0,
+            -20
+          ],
+          [
+            0.02,
+            0
+          ],
+          [
+            0.3,
+            -8
+          ],
+          [
+            0.7,
+            -45
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1800,
+          "q": 0.7,
+          "sweep": {
+            "to": 1000,
+            "time": 0.6
+          }
+        }
+      ],
+      "gain": -16
+    },
+    {
+      "id": "spit",
+      "kind": "noise",
+      "iterations": 8,
+      "shape": [
+        [
+          300,
+          -18
+        ],
+        [
+          1500,
+          0
+        ],
+        [
+          4000,
+          -4
+        ],
+        [
+          9000,
+          -20
+        ]
+      ],
+      "env": {
+        "attack": 0.002,
+        "decay": 0.3
+      },
+      "gain": -16
+    }
+  ],
+  "finish": {
+    "saturate": 1.8,
+    "room": {
+      "decay": 0.12,
+      "wet": 0.06
+    },
+    "peak": -1
+  }
+}

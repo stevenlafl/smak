@@ -1,0 +1,198 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_bigpipe.mdl",
+  "kind": "prop",
+  "texture": {
+    "width": 512,
+    "height": 256
+  },
+  "materials": {
+    "conc": {
+      "base": "stone",
+      "tone": [
+        0.5,
+        0.49,
+        0.45
+      ]
+    },
+    "rusty": {
+      "base": "metal",
+      "tone": [
+        0.4,
+        0.3,
+        0.22
+      ],
+      "rust": 0.8
+    },
+    "dark": {
+      "base": "stone",
+      "tone": [
+        0.2,
+        0.2,
+        0.18
+      ]
+    },
+    "haz": {
+      "base": "hazard",
+      "tone": [
+        0.82,
+        0.64,
+        0.1
+      ],
+      "stripe": 6
+    }
+  },
+  "finish": {
+    "wear": 0.6,
+    "grime": 0.8,
+    "light": 0.35
+  },
+  "parts": [
+    {
+      "id": "pipe",
+      "kind": "turn",
+      "axis": "x",
+      "material": "conc",
+      "sides": 16,
+      "lining": {
+        "inset": 6
+      },
+      "caps": [
+        false,
+        true
+      ],
+      "rings": [
+        [
+          0,
+          46
+        ],
+        [
+          100,
+          46
+        ],
+        [
+          206,
+          46
+        ]
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0,
+              30
+            ],
+            [
+              0.25,
+              55
+            ]
+          ],
+          "width": 2.5,
+          "material": "dark",
+          "ends": [
+            "round",
+            "point"
+          ]
+        },
+        {
+          "path": [
+            [
+              0,
+              160
+            ],
+            [
+              0.3,
+              140
+            ]
+          ],
+          "width": 2,
+          "material": "dark",
+          "ends": [
+            "round",
+            "point"
+          ]
+        },
+        {
+          "path": [
+            [
+              0,
+              280
+            ],
+            [
+              0.2,
+              300
+            ]
+          ],
+          "width": 2,
+          "material": "dark",
+          "ends": [
+            "round",
+            "point"
+          ]
+        },
+        {
+          "path": [
+            [
+              0.92,
+              40
+            ],
+            [
+              0.7,
+              70
+            ]
+          ],
+          "width": 2,
+          "material": "rusty",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.98,
+              200
+            ],
+            [
+              0.75,
+              220
+            ]
+          ],
+          "width": 1.6,
+          "material": "rusty",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.6,
+              0
+            ],
+            [
+              0.6,
+              360
+            ]
+          ],
+          "width": 10,
+          "material": "haz"
+        }
+      ]
+    },
+    {
+      "id": "flange",
+      "kind": "cylinder",
+      "material": "rusty",
+      "radius": 53,
+      "height": 8,
+      "sides": 16,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        202,
+        0,
+        0
+      ]
+    }
+  ]
+}

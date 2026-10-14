@@ -1,0 +1,87 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_drips.wav: water dripping, a loop",
+ "measured": {
+  "features": {
+   "length": 0.5,
+   "peak": -10.5,
+   "rms": -15.1,
+   "crest": 4.7,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.19,
+   "t20": 0.314,
+   "t40": 0.314,
+   "centroid": 2751,
+   "rolloff": 4673,
+   "flatness": 0.948,
+   "bands": {
+    "<150": 3.4,
+    "150-600": 8.3,
+    "600-2k": 24.6,
+    "2k-5k": 54.8,
+    ">5k": 9
+   },
+   "onsets": 0
+  },
+  "class": "loop drips",
+  "against": {
+   "score": 5,
+   "of": 20,
+   "lines": [
+    "length 0.5 s (5.48 to 9.14): too short",
+    "crest 4.7 dB (20.17 to 33.63): too squashed",
+    "rms -15.1 dBFS (-30.3 to -24.3): over the range",
+    "centroid 2751 Hz (671 to 1007): too bright: less over 2000 Hz",
+    "flatness 0.948 (0.05 to 0.15): too noisy: more tone (modes)",
+    "band 150-600 8.3% (13.2 to 33.2): under the range",
+    "band 600-2k 24.6% (62.3 to 82.3): under the range",
+    "band 2k-5k 54.8% (0 to 12.5): over the range"
+   ]
+  },
+  "engineFaults": [
+   "its last samples are at 0.21 of full scale: it ends in a click; fade its end"
+  ]
+ },
+ "caps": {
+  "S5": 0
+ },
+ "scores": {
+  "S1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The picture shows half a second of steady broadband hiss. The waveform is flat and dense from start to end, with no separate drops, and the spectrogram is evenly filled at every frequency with no short, pitched drip transients. The measurements agree: 0 onsets and flatness 0.948. Nobody would call this water dripping. It is noise of the asset's length."
+  },
+  "S2": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The length is 0.5 s against the drips class range of 5.48 to 9.14 s, so it is far too short to work as a drip loop. The envelope is one flat block with no attack-and-decay shape for each drop. Attack is 0.005 s only because the noise starts abruptly. T20 and T40 are both 0.314 s, which is just the level of steady noise, not decaying drops. The crest is 4.7 dB against 20.17 to 33.63, so the sound is squashed flat."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The centroid is 2751 Hz against a range of 671 to 1007 Hz, far more than 20% too bright. Three bands are well outside their ranges: 150-600 Hz is 8.3% against 13.2 to 33.2, 600-2k is 24.6% against 62.3 to 82.3, and 2k-5k is 54.8% against 0 to 12.5. The spectrogram shows energy spread evenly up to the top, where a drip would be concentrated in a few modes."
+  },
+  "S4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "It has no onsets where a drip loop needs repeated sharp ones. Flatness is 0.948 against 0.05 to 0.15, so it is pure noise with none of the ringing tonal modes a drop has. The spectrogram shows no pitch movement, such as the falling 'plink' of a drop. The character does not match on any count."
+  },
+  "S5": {
+   "judge": 1,
+   "cap": 0,
+   "score": 0,
+   "reason": "The name sound/ambience/fw_drips.wav is the one the brief asks for. It has no clipping (clipped 0, peak -10.5 dBFS) and no DC (dc 0). The engine check reports a fault: the last samples sit at 0.21 of full scale, so the file ends in a click, and that click would sound on every repeat of a loop. Sample rate, bit depth, channel count and a loop cue are not shown in the measurements, so the format cannot be confirmed as right."
+  }
+ },
+ "total": 0,
+ "of": 10,
+ "passes": false
+}

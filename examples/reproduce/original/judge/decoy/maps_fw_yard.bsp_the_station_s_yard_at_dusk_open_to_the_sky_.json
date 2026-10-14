@@ -1,0 +1,86 @@
+{
+ "kind": "map",
+ "label": "maps/fw_yard.bsp: the station's yard at dusk, open to the sky, a gatehouse door, drums, a pipe section; start by the gate, out by the pump house's double doors",
+ "measured": {
+  "size": [
+   1532,
+   1532
+  ],
+  "sizeAsked": [
+   1500,
+   1500
+  ],
+  "checkErrors": [
+   "1 of the listed .wad files are not in the folders given (fw_yard.wad): GoldSrc stops with \"couldn't open\" on the first it does not find"
+  ],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [],
+  "landmarks": [],
+  "itemsAsked": [],
+  "itemsFound": []
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 0
+ },
+ "scores": {
+  "P1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The plan shows one square room with a lone info_player_start in the middle and a grid of lights. The brief asks for a gatehouse with a door, a pump house with double doors to leave by, and a yard between them. None of these areas is there, and there is no door or other way joining one area to another."
+  },
+  "P2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The outer size is 1532 x 1532 against the 1500 x 1500 asked, which is within 25%. But the gatehouse and pump house the brief places on the yard are missing, so only the overall square matches. There are no areas whose sizes or places could be checked."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan is one even colour and the views show a single flat floor, with no step, ledge or raised floor anywhere. The brief gives no heights, but a gatehouse and a pump house would bring their own floors and ceilings, and none exist. The only height detail is a uniform wall round an open sky."
+  },
+  "P4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The entity list has one info_player_start and 34 lights, nothing else. The start is at the centre of the square, not by a gate. There is no gatehouse door entity, no double doors at the pump house, and no level change to fw_pumphall. The measurements list no changelevels or landmarks."
+  },
+  "P5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The views show flat untextured colours: a pale green floor, a lavender wall and a cyan sky. There is no concrete, rusted steel or hazard paint. The check also reports that fw_yard.wad is missing, and GoldSrc would stop with \"couldn't open\"."
+  },
+  "P6": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The 34 lights stand in an even 6 x 6 grid with one missing, and the views are evenly bright everywhere. Nothing reads as dusk, there are no sodium-orange lamps, and there is no contrast of bright and dark areas."
+  },
+  "P7": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The plan and views show none of the brief's distinctive features: no stacked drums, no broken pipe section, no gatehouse, no pump house front, no high wall detail. The yard is an empty box."
+  },
+  "P8": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The check reports a missing .wad (fw_yard.wad), which stops GoldSrc on load. The map has no way out either: no pump-house doors and no changelevel. The walk test therefore cannot reach an exit, and there is no wrench or other item on this map to reach."
+  },
+  "P9": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "From the start, all four views show an empty flat-coloured box under a cyan sky. A player would not take it for a Half-Life map, let alone a pumping station yard at dusk."
+  }
+ },
+ "total": 2,
+ "of": 18,
+ "passes": false
+}

@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_hit1.wav: the wrench striking metal",
+ "measured": {
+  "features": {
+   "length": 0.5,
+   "peak": -10.5,
+   "rms": -15.3,
+   "crest": 4.8,
+   "dc": -0.0015,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.045,
+   "t20": 0.459,
+   "t40": 0.459,
+   "centroid": 2755,
+   "rolloff": 4651,
+   "flatness": 0.943,
+   "bands": {
+    "<150": 2,
+    "150-600": 8.3,
+    "600-2k": 26.1,
+    "2k-5k": 54.8,
+    ">5k": 8.8
+   },
+   "onsets": 0
+  },
+  "class": "metal hit",
+  "against": {
+   "score": 12,
+   "of": 22,
+   "lines": [
+    "crest 4.8 dB (5.3 to 12.5): too squashed",
+    "rms -15.3 dBFS (-12.9 to -5.7): under the range",
+    "centroid 2755 Hz (1074 to 1654): too bright: less over 2000 Hz",
+    "flatness 0.943 (0.16 to 0.28): too noisy: more tone (modes)",
+    "band 600-2k 26.1% (63.7 to 83.8): under the range",
+    "band 2k-5k 54.8% (3.7 to 24.6): over the range"
+   ]
+  },
+  "engineFaults": [
+   "its last samples are at 0.17 of full scale: it ends in a click; fade its end"
+  ]
+ },
+ "caps": {
+  "S5": 0
+ },
+ "scores": {
+  "S1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Not a metal strike. The waveform is a flat band at the same level from 0 to 0.50 s, with no transient and no decay, and the spectrogram is broadband noise with no stable bright lines anywhere (no ringing modes). It reads as a steady hiss, not the wrench hitting metal. I could not listen to it; this is judged from the picture and the features."
+  },
+  "S2": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "There is no hit envelope. The level never falls: t20 and t40 are both 0.459 s, so the sound stays within 20 dB of its peak almost to the end of its 0.50 s. The waveform is a constant band from start to finish. A metal hit has a sharp attack and then decays, and this has neither. The measured length (0.5 s) does not make up for having no decay shape."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The spectrum is far outside the metal-hit class. The centroid is 2755 Hz against a range of 1074 to 1654 Hz. The 600 Hz to 2 kHz band holds 26.1% against 63.7 to 83.8%, and the 2 to 5 kHz band holds 54.8% against 3.7 to 24.6%. Both bands miss by more than 10 points."
+  },
+  "S4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "It has none of a hit's character. There are 0 onsets where a strike needs one. The flatness is 0.943 (almost pure noise) against the class's 0.16 to 0.28, which is tonal ringing. The spectrogram shows no pitched modes and no pitch movement."
+  },
+  "S5": {
+   "judge": 1,
+   "cap": 0,
+   "score": 0,
+   "reason": "The name is right (sound/weapons/cbar_hit1.wav), nothing clips (0 clipped samples) and the DC offset is negligible (-0.0015). The engine check found a fault, though: the last samples sit at 0.17 of full scale, so it ends in a click with no fade-out. The sample rate, bit depth and channel count are not in the measurements, so they cannot be confirmed."
+  }
+ },
+ "total": 0,
+ "of": 10,
+ "passes": false
+}

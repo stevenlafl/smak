@@ -1,0 +1,81 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_glow.spr: a sodium lamp's glow",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.56,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "glow",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Frame 0 is a flat, uniform light-grey disc with a hard, stepped edge and no falloff from a bright core. It reads as a solid dot pasted on black rather than the light bloom of a lamp. Something is there in the glow's place, but it is clearly off as the 'sodium lamp's glow' the brief asks for."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The 32x32 size and clean border (border max 0, inside the glow class's 0 to 0.005 range) are fine. But the disc fills about 75% of the frame at one even brightness and stops at a hard pixel edge. Half-Life's glows fade smoothly from the centre to black at the edges. The measurement allows a 2, but the hard-edged flat fill is wrong for the class's shape, so it scores lower."
+  },
+  "R3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The disc is a neutral grey-white with no hue. The brief asks for sodium-orange light ('sodium lamps that buzz', 'a sodium-orange glass'). Blended additively, it would cast white or grey, not the warm orange-amber of a sodium lamp. The colour is wrong."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "One static frame, with its peak at frame 0 and its first and last frames both at 1. That matches a lamp glow, which is a still, steady sprite in Half-Life's glow class. The brief asks for no animation here."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "It is sprites/fw_glow.spr, the name the brief implies. It is a parallel sprite in the additive format, which suits a glow and matches Half-Life's own glow sprites. The harness read back a single 32x32 frame with that type and format."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

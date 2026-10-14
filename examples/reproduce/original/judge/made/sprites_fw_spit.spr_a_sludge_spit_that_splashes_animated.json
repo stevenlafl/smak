@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_spit.spr: a sludge spit that splashes, animated",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 10,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 10,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0.121,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0.44,
+    "first": 0,
+    "last": 0
+   },
+   "dark": 0.66,
+   "wrap": 0.31,
+   "jitter": 1.62
+  },
+  "class": "explosion",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.62,
+    "range": [
+     1.04,
+     1.48
+    ],
+    "ok": false,
+    "words": "flickers: more coherence from frame to frame"
+   },
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.44,
+    "range": [
+     0.22,
+     0.71
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0,
+    "range": [
+     0,
+     0.22
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.03
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "It reads as a puffy glowing gas burst with a starburst of sparks at its core (frames 1-4), not as wet sludge spit splashing. There are no heavy globs or droplets thrown outward and falling, and no splash crown. The thin lines in frames 4-6 look more like spark trails than drips. The effect is close to a spit or splash, but a player would more likely call it a small green explosion or gas puff."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "It is 64x64, a normal size for a spit or splash sprite. The effect is centred and grows to fill most of the frame by frames 4-5 without reaching the edges (border mean 0, within the explosion class range). Frames 0 and 9 are empty, but that is the class's one-shot opening and ending (first 0, last 0, both in range)."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Blended additively it shows a green that fits the brief's grey-green sludge, and it dulls to a darker grey-green as it fades (frames 6-8). There is no neon or sci-fi hue. The hot yellow-white core in frames 1-3 is a little bright for sludge, but it is short and small. No mean-colour measure was given, so this is judged from the sheet."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The measured jitter of 1.62 is outside the explosion class range of 1.04-1.48, which caps this item at 1. The sheet shows why: the blob clusters change arrangement from frame to frame (for example frames 2 to 3 and 5 to 6) instead of moving outward together, so it flickers rather than reading as one splash spreading. The rest of the motion is right: 10 frames, a peak at 0.44, and it starts and ends dark as a one-shot should."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "It is a parallel sprite in additive format, which suits a glowing spit effect that the brief leaves unspecified. It has the name the brief implies (sprites/fw_spit.spr), and its 10 frames at 64x64 read back as written."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

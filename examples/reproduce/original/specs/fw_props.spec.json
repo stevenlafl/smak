@@ -1,0 +1,134 @@
+{
+  "spec": "smak.map/1",
+  "name": "fw_props",
+  "wads": [
+    "fw/fw.wad"
+  ],
+  "theme": {
+    "floor": "wetfloor",
+    "wall": "concwall",
+    "ceiling": "concceil"
+  },
+  "textures": {
+    "concwall": {
+      "texture": "fw_concwall"
+    },
+    "concceil": {
+      "texture": "fw_concceil"
+    },
+    "wetfloor": {
+      "texture": "fw_wetfloor"
+    }
+  },
+  "models": {
+    "fw_valvewheel": {
+      "file": "fw_valvewheel.spec.json"
+    },
+    "fw_drum": {
+      "file": "fw_drum.spec.json"
+    },
+    "fw_console": {
+      "file": "fw_console.spec.json"
+    },
+    "fw_pipejunction": {
+      "file": "fw_pipejunction.spec.json"
+    },
+    "fw_walllamp": {
+      "file": "fw_walllamp.spec.json"
+    },
+    "fw_bigpipe": {
+      "file": "fw_bigpipe.spec.json"
+    }
+  },
+  "rooms": [
+    {
+      "id": "room",
+      "size": [
+        640,
+        384,
+        192
+      ],
+      "light": {
+        "count": 4,
+        "brightness": 200,
+        "color": [
+          255,
+          190,
+          120
+        ]
+      }
+    }
+  ],
+  "props": [
+    {
+      "model": "fw_valvewheel",
+      "room": "room",
+      "at": [
+        -240,
+        0
+      ],
+      "z": 0,
+      "facing": "south"
+    },
+    {
+      "model": "fw_drum",
+      "room": "room",
+      "at": [
+        -160,
+        0
+      ],
+      "facing": "south"
+    },
+    {
+      "model": "fw_console",
+      "room": "room",
+      "at": [
+        -60,
+        0
+      ],
+      "facing": "south"
+    },
+    {
+      "model": "fw_pipejunction",
+      "room": "room",
+      "at": [
+        40,
+        0
+      ],
+      "facing": "south"
+    },
+    {
+      "model": "fw_walllamp",
+      "room": "room",
+      "at": [
+        100,
+        -191
+      ],
+      "z": 100,
+      "facing": "north"
+    },
+    {
+      "model": "fw_bigpipe",
+      "room": "room",
+      "at": [
+        -20,
+        110
+      ],
+      "facing": "east"
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "room",
+      "at": [
+        0,
+        -140
+      ],
+      "facing": "north"
+    }
+  ],
+  "compile": {
+    "quality": "draft"
+  }
+}

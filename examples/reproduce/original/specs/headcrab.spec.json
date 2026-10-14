@@ -1,0 +1,579 @@
+{
+  "spec": "smak.model/1",
+  "name": "headcrab.mdl",
+  "kind": "character",
+  "base": {
+    "file": "models/headcrab.mdl"
+  },
+  "contract": {
+    "file": "models/headcrab.mdl"
+  },
+  "floor": 0,
+  "size": {
+    "length": 26
+  },
+  "materials": {
+    "hide": {
+      "base": "paint",
+      "tone": [
+        0.45,
+        0.5,
+        0.42
+      ]
+    },
+    "spot": {
+      "base": "paint",
+      "tone": [
+        0.25,
+        0.3,
+        0.23
+      ]
+    },
+    "slime": {
+      "base": "paint",
+      "tone": [
+        0.62,
+        0.68,
+        0.55
+      ]
+    },
+    "belly": {
+      "base": "paint",
+      "tone": [
+        0.8,
+        0.78,
+        0.66
+      ]
+    },
+    "mouth": {
+      "base": "paint",
+      "tone": [
+        0.3,
+        0.07,
+        0.07
+      ]
+    },
+    "tooth": {
+      "base": "bone",
+      "tone": [
+        0.88,
+        0.85,
+        0.72
+      ]
+    },
+    "leg": {
+      "base": "paint",
+      "tone": [
+        0.37,
+        0.42,
+        0.35
+      ]
+    }
+  },
+  "finish": {
+    "wear": 0.15,
+    "grime": 0.5,
+    "light": 0.5
+  },
+  "parts": [
+    {
+      "id": "body",
+      "kind": "turn",
+      "axis": "x",
+      "material": "hide",
+      "sides": 12,
+      "bone": "Bip01 Spine",
+      "at": [
+        -15,
+        0,
+        6.5
+      ],
+      "rings": [
+        [
+          0,
+          [
+            2,
+            2
+          ]
+        ],
+        [
+          3,
+          [
+            7,
+            5
+          ]
+        ],
+        [
+          8,
+          [
+            9,
+            6
+          ]
+        ],
+        [
+          14,
+          [
+            9,
+            5.5
+          ]
+        ],
+        [
+          19,
+          [
+            7.5,
+            4.5
+          ]
+        ],
+        [
+          22,
+          [
+            4.5,
+            3.2
+          ]
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.3,
+              55
+            ],
+            [
+              0.33,
+              62
+            ]
+          ],
+          "width": 2.6,
+          "material": "spot"
+        },
+        {
+          "path": [
+            [
+              0.5,
+              125
+            ],
+            [
+              0.53,
+              118
+            ]
+          ],
+          "width": 2.2,
+          "material": "spot"
+        },
+        {
+          "path": [
+            [
+              0.3,
+              -55
+            ],
+            [
+              0.33,
+              -62
+            ]
+          ],
+          "width": 2.6,
+          "material": "spot"
+        },
+        {
+          "path": [
+            [
+              0.5,
+              -125
+            ],
+            [
+              0.53,
+              -118
+            ]
+          ],
+          "width": 2.2,
+          "material": "spot"
+        },
+        {
+          "path": [
+            [
+              0.7,
+              75
+            ],
+            [
+              0.72,
+              80
+            ]
+          ],
+          "width": 1.8,
+          "material": "spot"
+        },
+        {
+          "path": [
+            [
+              0.7,
+              -75
+            ],
+            [
+              0.72,
+              -80
+            ]
+          ],
+          "width": 1.8,
+          "material": "spot"
+        },
+        {
+          "path": [
+            [
+              0.2,
+              90
+            ],
+            [
+              0.23,
+              90
+            ]
+          ],
+          "width": 2,
+          "material": "spot"
+        },
+        {
+          "path": [
+            [
+              0.48,
+              90
+            ],
+            [
+              0.5,
+              92
+            ]
+          ],
+          "width": 1.6,
+          "material": "spot"
+        },
+        {
+          "path": [
+            [
+              0.35,
+              100
+            ],
+            [
+              0.65,
+              105
+            ]
+          ],
+          "width": 0.5,
+          "material": "slime"
+        },
+        {
+          "path": [
+            [
+              0.4,
+              80
+            ],
+            [
+              0.75,
+              70
+            ]
+          ],
+          "width": 0.4,
+          "material": "slime"
+        },
+        {
+          "path": [
+            [
+              0.25,
+              30
+            ],
+            [
+              0.6,
+              22
+            ]
+          ],
+          "width": 0.5,
+          "material": "slime"
+        },
+        {
+          "path": [
+            [
+              0.25,
+              150
+            ],
+            [
+              0.6,
+              158
+            ]
+          ],
+          "width": 0.5,
+          "material": "slime"
+        }
+      ]
+    },
+    {
+      "id": "wart_l",
+      "kind": "boss",
+      "material": "hide",
+      "on": {
+        "part": "body",
+        "s": 0.4,
+        "angle": 65
+      },
+      "radius": 1.2,
+      "height": 1
+    },
+    {
+      "id": "wart_r",
+      "kind": "boss",
+      "material": "hide",
+      "on": {
+        "part": "body",
+        "s": 0.4,
+        "angle": 115
+      },
+      "radius": 1.2,
+      "height": 1
+    },
+    {
+      "id": "wart_c",
+      "kind": "boss",
+      "material": "hide",
+      "on": {
+        "part": "body",
+        "s": 0.62,
+        "angle": 90
+      },
+      "radius": 1,
+      "height": 0.8
+    },
+    {
+      "id": "belly",
+      "kind": "superquadric",
+      "material": "belly",
+      "size": [
+        15,
+        13,
+        3.4
+      ],
+      "round": [
+        0.4,
+        0.6
+      ],
+      "bone": "Bip01 Spine",
+      "at": [
+        -3,
+        0,
+        0.8
+      ],
+      "sides": 10
+    },
+    {
+      "id": "mouth",
+      "kind": "cylinder",
+      "material": "mouth",
+      "radius": 3.2,
+      "height": 1,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "bone": "Bip01 Neck",
+      "at": [
+        6.5,
+        0,
+        5.5
+      ],
+      "sides": 12
+    },
+    {
+      "id": "tooth",
+      "kind": "cylinder",
+      "material": "tooth",
+      "radius": 0.6,
+      "top": 0,
+      "height": 2.2,
+      "rotate": [
+        0,
+        135,
+        0
+      ],
+      "bone": "Bip01 Neck",
+      "at": [
+        7,
+        0,
+        8.4
+      ],
+      "sides": 4,
+      "repeat": {
+        "count": 8,
+        "axis": "x",
+        "through": [
+          7,
+          0,
+          5.5
+        ],
+        "start": 0
+      }
+    },
+    {
+      "id": "fr_upper",
+      "kind": "cylinder",
+      "material": "leg",
+      "radius": 1.1,
+      "top": 0.9,
+      "height": 1,
+      "sides": 6,
+      "span": {
+        "bones": [
+          "Bone04",
+          "Bone05"
+        ],
+        "over": 2
+      }
+    },
+    {
+      "id": "fr_lower",
+      "kind": "cylinder",
+      "material": "leg",
+      "radius": 0.9,
+      "top": 0.2,
+      "height": 1,
+      "sides": 6,
+      "span": {
+        "bones": [
+          "Bone05",
+          "Bone06"
+        ],
+        "over": 1
+      }
+    },
+    {
+      "id": "fl_upper",
+      "kind": "cylinder",
+      "material": "leg",
+      "radius": 1.1,
+      "top": 0.9,
+      "height": 1,
+      "sides": 6,
+      "span": {
+        "bones": [
+          "Bone01",
+          "Bone03"
+        ],
+        "over": 2
+      }
+    },
+    {
+      "id": "fl_lower",
+      "kind": "cylinder",
+      "material": "leg",
+      "radius": 0.9,
+      "top": 0.2,
+      "height": 1,
+      "sides": 6,
+      "span": {
+        "bones": [
+          "Bone03",
+          "Bone08"
+        ],
+        "over": 1
+      }
+    },
+    {
+      "id": "bl_upper",
+      "kind": "cylinder",
+      "material": "leg",
+      "radius": 1.2,
+      "top": 1,
+      "height": 1,
+      "sides": 6,
+      "span": {
+        "bones": [
+          "Bip01 L Leg",
+          "Bip01 L Leg1"
+        ],
+        "over": 1
+      }
+    },
+    {
+      "id": "bl_lower",
+      "kind": "cylinder",
+      "material": "leg",
+      "radius": 1,
+      "top": 0.25,
+      "height": 1,
+      "sides": 6,
+      "span": {
+        "bones": [
+          "Bip01 L Leg1",
+          "Bip01 L Foot"
+        ],
+        "over": 1
+      }
+    },
+    {
+      "id": "br_upper",
+      "kind": "cylinder",
+      "material": "leg",
+      "radius": 1.2,
+      "top": 1,
+      "height": 1,
+      "sides": 6,
+      "span": {
+        "bones": [
+          "Bip01 R Leg",
+          "Bip01 R Leg1"
+        ],
+        "over": 1
+      }
+    },
+    {
+      "id": "br_lower",
+      "kind": "cylinder",
+      "material": "leg",
+      "radius": 1,
+      "top": 0.25,
+      "height": 1,
+      "sides": 6,
+      "span": {
+        "bones": [
+          "Bip01 R Leg1",
+          "Bip01 R Foot"
+        ],
+        "over": 1
+      }
+    },
+    {
+      "id": "mid_leg",
+      "kind": "tube",
+      "material": "leg",
+      "bone": "Bip01 Spine",
+      "sides": 6,
+      "path": [
+        [
+          -3,
+          5.5,
+          6,
+          1.1
+        ],
+        [
+          -2,
+          11,
+          7,
+          1
+        ],
+        [
+          -1,
+          13,
+          3,
+          0.8
+        ],
+        [
+          0,
+          14,
+          0.3,
+          0.2
+        ]
+      ],
+      "mirror": "y"
+    }
+  ]
+}

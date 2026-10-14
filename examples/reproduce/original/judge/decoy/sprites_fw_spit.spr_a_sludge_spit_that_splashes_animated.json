@@ -1,0 +1,111 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_spit.spr: a sludge spit that splashes, animated",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.56,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "explosion",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0,
+    "range": [
+     0.22,
+     0.71
+    ],
+    "ok": false,
+    "words": "peaks too soon"
+   },
+   {
+    "measure": "first",
+    "value": 1,
+    "range": [
+     0,
+     0.22
+    ],
+    "ok": false,
+    "words": "starts too bright: an attack in its envelope"
+   },
+   {
+    "measure": "last",
+    "value": 1,
+    "range": [
+     0,
+     0.03
+    ],
+    "ok": false,
+    "words": "does not end dark: a decay in its envelope"
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Frame 0 is one flat, pale grey disc with even edges on a dark background. It has no droplets, spray, drips or splash shape, so a player would not call it a sludge spit that splashes. It is a placeholder disc, not the effect the brief asks for."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frame is 32x32 and the border measure is 0, which is inside the explosion class's range. But the effect is a centred circle covering most of the frame: no splash outline and no spreading spray. Its shape does not fill the frame the way a splash sprite of the class does."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The disc is a uniform light grey, nearly white, with no green and no variation. The brief's sludge is grey-green, wet and dirty. No colour measurement was given to check against the class, and the flat pale grey is clearly off from sludge."
+  },
+  "R4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "It has 1 frame, but the brief asks for an animated sprite. The envelope check fails all three measures against the explosion class: peakAt 0 against 0.22-0.71 ('peaks too soon'), first 1 against 0-0.22 ('starts too bright'), last 1 against 0-0.03 ('does not end dark'). There is no splash motion and no fade, and the one-shot does not end dark."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The file is sprites/fw_spit.spr, the name the brief lists, and it reads back as a 32x32 parallel additive sprite. Additive is a sensible format for a game spit effect. Nothing in the file's kind is wrong for the game."
+  }
+ },
+ "total": 4,
+ "of": 10,
+ "passes": false
+}

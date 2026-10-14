@@ -1,0 +1,87 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_pump.wav: a pump's droning loop",
+ "measured": {
+  "features": {
+   "length": 0.5,
+   "peak": -10.5,
+   "rms": -15.3,
+   "crest": 4.8,
+   "dc": -0.0005,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.05,
+   "peakAt": 0.494,
+   "t20": 0.01,
+   "t40": 0.01,
+   "centroid": 2751,
+   "rolloff": 4683,
+   "flatness": 0.945,
+   "bands": {
+    "<150": 2.7,
+    "150-600": 8.3,
+    "600-2k": 25.3,
+    "2k-5k": 54.8,
+    ">5k": 8.9
+   },
+   "onsets": 0
+  },
+  "class": "loop machine",
+  "against": {
+   "score": 6,
+   "of": 20,
+   "lines": [
+    "length 0.5 s (2.03 to 3.39): too short",
+    "crest 4.8 dB (8.3 to 14.3): too squashed",
+    "rms -15.3 dBFS (-14.7 to -8.7): under the range",
+    "centroid 2751 Hz (237 to 437): too bright: less over 2000 Hz",
+    "flatness 0.945 (-0.05 to 0.05): too noisy: more tone (modes)",
+    "band 150-600 8.3% (84.2 to 100): under the range",
+    "band 600-2k 25.3% (0 to 11.9): over the range",
+    "band 2k-5k 54.8% (0 to 10): over the range"
+   ]
+  },
+  "engineFaults": [
+   "its last samples are at 0.25 of full scale: it ends in a click; fade its end"
+  ]
+ },
+ "caps": {
+  "S5": 0
+ },
+ "scores": {
+  "S1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The picture shows broadband white noise: a flat, even band across the whole 0.5 s waveform, and a spectrogram filled evenly from bottom to top with no low tone, no harmonics and no periodic pulse. A pump's droning loop would show a low, tonal hum with steady modes below 600 Hz. This reads as a hiss, not a pump. The judge cannot listen; this is judged from the picture and features only."
+  },
+  "S2": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "It is 0.5 s long against the loop-machine class range of 2.03 to 3.39 s, far outside 25%. Crest is 4.8 dB against 8.3 to 14.3, and RMS is -15.3 dBFS against -14.7 to -8.7. The envelope is a flat block of noise with no shape a machine loop has."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The centroid is 2751 Hz against the class range of 237 to 437 Hz, more than six times too bright. The 150-600 Hz band holds 8.3% against 84.2 to 100, 600-2k holds 25.3% against 0 to 11.9, and 2k-5k holds 54.8% against 0 to 10. Every major band misses by far more than 10 points."
+  },
+  "S4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Flatness is 0.945, nearly pure noise, against the class's -0.05 to 0.05, which is tonal. The spectrogram shows no modes, no hum lines and no rhythmic pump cycle. It has none of a pump drone's character."
+  },
+  "S5": {
+   "judge": 1,
+   "cap": 0,
+   "score": 0,
+   "reason": "The name is right and the file has no clipping (0 clipped samples) and no meaningful DC (-0.0005). But the engine check flags its last samples at 0.25 of full scale, so it ends in a click, and as a loop that click repeats at every wrap. The measurements don't confirm a loop cue, so it cannot be shown to loop in the engine as a droning loop must."
+  }
+ },
+ "total": 0,
+ "of": 10,
+ "passes": false
+}

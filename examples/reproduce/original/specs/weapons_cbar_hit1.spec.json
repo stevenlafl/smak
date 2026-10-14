@@ -1,0 +1,141 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/cbar_hit1.wav",
+  "class": "metal hit",
+  "seed": 7,
+  "length": 0.65,
+  "layers": [
+    {
+      "id": "click",
+      "kind": "noise",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2500
+        }
+      ],
+      "env": {
+        "attack": 0.0003,
+        "decay": 0.03
+      },
+      "gain": -6
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "iterations": 16,
+      "shape": [
+        [
+          150,
+          -22
+        ],
+        [
+          450,
+          -8
+        ],
+        [
+          900,
+          0
+        ],
+        [
+          1500,
+          0
+        ],
+        [
+          2200,
+          -6
+        ],
+        [
+          3500,
+          -14
+        ],
+        [
+          7000,
+          -26
+        ],
+        [
+          11000,
+          -36
+        ]
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.08,
+            -3
+          ],
+          [
+            0.3,
+            -13
+          ],
+          [
+            0.62,
+            -42
+          ]
+        ]
+      },
+      "gain": -2
+    },
+    {
+      "id": "thud",
+      "kind": "tone",
+      "f": 170,
+      "sweep": {
+        "to": 90,
+        "time": 0.06
+      },
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.1
+      },
+      "gain": -14
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 1180,
+      "ratios": "plate",
+      "decay": 0.6,
+      "damping": 1.2,
+      "detune": 0.02,
+      "gain": -14
+    },
+    {
+      "id": "rattle",
+      "kind": "particles",
+      "count": 12,
+      "band": [
+        900,
+        3000
+      ],
+      "grain": 0.004,
+      "at": 0.02,
+      "length": 0.2,
+      "env": {
+        "decay": 0.2
+      },
+      "gain": -14
+    }
+  ],
+  "finish": {
+    "saturate": 2.2,
+    "room": {
+      "decay": 0.2,
+      "wet": 0.1
+    },
+    "limit": {
+      "crest": 11
+    }
+  },
+  "variants": [
+    {
+      "name": "weapons/cbar_hit2.wav",
+      "seed": 8,
+      "pitch": -5
+    }
+  ]
+}

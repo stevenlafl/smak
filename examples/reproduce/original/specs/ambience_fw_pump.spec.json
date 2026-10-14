@@ -1,0 +1,348 @@
+{
+  "spec": "smak.sound/1",
+  "seed": 21,
+  "sounds": [
+    {
+      "name": "ambience/fw_pump.wav",
+      "class": "loop machine",
+      "length": 3,
+      "loop": {
+        "crossfade": 0.3
+      },
+      "layers": [
+        {
+          "id": "hum",
+          "kind": "tone",
+          "f": 180,
+          "wave": "saw",
+          "filter": [
+            {
+              "type": "lowpass",
+              "f": 800
+            }
+          ],
+          "env": {
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          "gain": -12
+        },
+        {
+          "id": "hum2",
+          "kind": "tone",
+          "f": 360,
+          "wave": "sine",
+          "env": {
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          "gain": -18
+        },
+        {
+          "id": "motor",
+          "kind": "fm",
+          "f": 240,
+          "ratio": 2.01,
+          "index": 1.5,
+          "filter": [
+            {
+              "type": "bandpass",
+              "f": 420,
+              "q": 1
+            }
+          ],
+          "env": {
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          "gain": -14
+        },
+        {
+          "id": "churn",
+          "kind": "noise",
+          "iterations": 16,
+          "shape": [
+            [
+              60,
+              -30
+            ],
+            [
+              140,
+              -14
+            ],
+            [
+              250,
+              0
+            ],
+            [
+              450,
+              0
+            ],
+            [
+              800,
+              -10
+            ],
+            [
+              1600,
+              -22
+            ],
+            [
+              6000,
+              -40
+            ]
+          ],
+          "env": {
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          "gain": -4
+        },
+        {
+          "id": "stroke",
+          "kind": "particles",
+          "every": 0.5,
+          "jitter": 0.03,
+          "band": [
+            180,
+            500
+          ],
+          "grain": 0.08,
+          "env": {
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          "gain": -8
+        },
+        {
+          "id": "valve",
+          "kind": "particles",
+          "every": 1,
+          "jitter": 0.02,
+          "band": [
+            600,
+            1500
+          ],
+          "grain": 0.02,
+          "at": 0.25,
+          "env": {
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                2.7,
+                0
+              ]
+            ]
+          },
+          "gain": -24
+        }
+      ],
+      "finish": {
+        "saturate": 1.2,
+        "peak": -3
+      }
+    },
+    {
+      "name": "ambience/fw_drips.wav",
+      "class": "loop drips",
+      "length": 7,
+      "loop": {
+        "crossfade": 0.2
+      },
+      "layers": [
+        {
+          "id": "plop1",
+          "kind": "tone",
+          "f": 700,
+          "sweep": {
+            "to": 1500,
+            "time": 0.05
+          },
+          "at": 0.05,
+          "length": 0.4,
+          "env": {
+            "attack": 0.002,
+            "decay": 0.3
+          },
+          "gain": 0
+        },
+        {
+          "id": "plop2",
+          "kind": "tone",
+          "f": 900,
+          "sweep": {
+            "to": 1700,
+            "time": 0.04
+          },
+          "at": 1.6,
+          "length": 0.4,
+          "env": {
+            "attack": 0.002,
+            "decay": 0.25
+          },
+          "gain": -4
+        },
+        {
+          "id": "plop3",
+          "kind": "tone",
+          "f": 600,
+          "sweep": {
+            "to": 1250,
+            "time": 0.06
+          },
+          "at": 3.1,
+          "length": 0.5,
+          "env": {
+            "attack": 0.002,
+            "decay": 0.35
+          },
+          "gain": -2
+        },
+        {
+          "id": "plop4",
+          "kind": "tone",
+          "f": 800,
+          "sweep": {
+            "to": 1550,
+            "time": 0.045
+          },
+          "at": 3.45,
+          "length": 0.4,
+          "env": {
+            "attack": 0.002,
+            "decay": 0.25
+          },
+          "gain": -8
+        },
+        {
+          "id": "plop5",
+          "kind": "tone",
+          "f": 650,
+          "sweep": {
+            "to": 1350,
+            "time": 0.05
+          },
+          "at": 5.2,
+          "length": 0.45,
+          "env": {
+            "attack": 0.002,
+            "decay": 0.3
+          },
+          "gain": -1
+        },
+        {
+          "id": "splash",
+          "kind": "particles",
+          "every": 1.7,
+          "jitter": 0.4,
+          "band": [
+            500,
+            1500
+          ],
+          "grain": 0.02,
+          "env": {
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                7,
+                0
+              ]
+            ]
+          },
+          "gain": -14
+        },
+        {
+          "id": "water",
+          "kind": "noise",
+          "iterations": 8,
+          "shape": [
+            [
+              100,
+              -10
+            ],
+            [
+              400,
+              0
+            ],
+            [
+              900,
+              -3
+            ],
+            [
+              2000,
+              -14
+            ],
+            [
+              6000,
+              -30
+            ]
+          ],
+          "env": {
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                7,
+                0
+              ]
+            ]
+          },
+          "gain": -36
+        }
+      ],
+      "finish": {
+        "room": {
+          "decay": 0.6,
+          "wet": 0.3
+        }
+      }
+    }
+  ]
+}
