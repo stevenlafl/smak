@@ -250,3 +250,13 @@ walk test, not the game.
   0.69 on floor, since an empty shell covers the footprint, and fails on its doors and windows (P4), as the
   decoy is meant to. A house's open deck under the sky (Grindle's) is not counted as floor, and an attic
   whose ridge is over 160 may lose part of its floor: both noted for when those houses are judged.
+- **2026-10-14, later: the model judge's prompt, and a control of the judge itself.** From Steven's reviews (the
+  headcrab's missing claws and the battery's 7-sided cylinder seen by neither judge; texture faults charged to
+  shape), the model judge is told to list the original's parts down to the small ones (claws, teeth, rivets, the
+  sides of a round part) and find each before scoring M3, and to charge a difference only in the painted
+  picture to M4 or M5, never M1 or M3. A control judges each original against itself, told it is the
+  reproduction (`judge.mjs identical`), and again with one pixel of the reproduction's half lightened
+  (`touched`): Haiku gave the battery and the headcrab 16 every time and never docked a shape item, but took a
+  point off the filing cabinet's surface detail in four runs of six and failed it once (14, M6). A single 1 on
+  M5 or M6 from Haiku is therefore not yet proof of a fault.
+

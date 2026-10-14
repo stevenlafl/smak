@@ -1,0 +1,165 @@
+{
+ "subject": "headcrab",
+ "leg": "decoy: identical-touched",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 1,
+   "left/right": 1,
+   "top/below": 1
+  },
+  "size": {
+   "original": [
+    25.9,
+    19.2,
+    13.2
+   ],
+   "reproduction": [
+    25.9,
+    19.2,
+    13.2
+   ],
+   "offShare": [
+    0,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 0,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "left",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "back",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "right",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "top",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "below",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "front-left",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "front-right",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "back-left",
+     "deltaE": 0,
+     "shared": 1
+    },
+    {
+     "view": "back-right",
+     "deltaE": 0,
+     "shared": 1
+    }
+   ]
+  },
+  "triangles": {
+   "original": 478,
+   "reproduction": 478
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "B",
+  "right": "B",
+  "letters": {
+   "A": "models/forklift.mdl",
+   "B": "models/headcrab.mdl",
+   "C": "models/can.mdl",
+   "D": "models/w_9mmclip.mdl",
+   "E": "models/w_longjump.mdl",
+   "F": "models/w_medkit.mdl",
+   "G": "models/w_security.mdl",
+   "H": "models/w_battery.mdl",
+   "I": "models/mbarrel.mdl",
+   "J": "models/filecabinet.mdl"
+  },
+  "answer": "B",
+  "ended": "success"
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "All six views (front, left, back, right, top, below) and all four close angles have the same outline in both pictures. The silhouette overlap is 1 in every view and no part sticks out or is missing. The harness's overlap measure agrees."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Size is 25.9 x 19.2 x 13.2 units in both original and reproduction, with 0 offset share on each axis."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Parts checked from the close angles: pale domed body, two long red front legs with dark claw tips, two shorter red rear legs with claws, the ridged brown back plates, and the toothed maw under the body. Each is present in the same number and place in the reproduction, with the same shape. No small part (claw, tooth, leg joint) is missing or moved."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Colour difference is 0 in every view (front, left, back, right, top, below and the four angles). The pale belly, brown carapace, red legs and dark claws all match in colour and material."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Surface detail matches: the wrinkled pale belly, the brown ridged plates on the back, the striations on the legs and the teeth inside the maw are in the same places at the same sharpness. No stripe, glow or wear is missing or displaced."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Side by side at the same scale and camera, the two pictures cannot be told apart in any view. The line-up is scored separately and is not judged here."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front faces the same way in both, the model is upright, and it rests on the same contact points (the claw tips and the belly) in the side and below views."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The harness reports no check errors. Triangle count is 478 in both, which is within the 2x limit, and no open, inside-out or floating geometry is visible in any view."
+  }
+ },
+ "total": 16,
+ "of": 16,
+ "passes": true
+}

@@ -71,6 +71,30 @@ export function measureModel(original, copy) {
 }
 
 /** The judge's pictures: each view, the original beside the reproduction. */
+/**
+ * The control's second form: one pixel of the reproduction's half of each comparison picture lightened a little,
+ * at a seeded random place on the thing, so a judge cannot tell the two halves apart by their bytes alone.
+ */
+function touchOnePixel(dir) {
+  let seed = Number(process.env.SMAK_TOUCH_SEED ?? 20261014);
+  const random = () => ((seed = (seed * 1103515245 + 12345) >>> 0) / 4294967296);
+  for (const name of ["compare-sides.png", "compare-angles.png"]) {
+    const picture = unpng(readFileSync(join(dir, name)));
+    const { width, height, rgba } = picture;
+    const ground = [rgba[0], rgba[1], rgba[2]];
+    for (let tries = 0; tries < 100000; tries++) {
+      // the tiles are pairs two to a row, ORIGINAL | REPRODUCTION: the second and fourth quarters across
+      const x = Math.floor(((random() < 0.5 ? 1 : 3) + random()) * (width / 4));
+      const y = Math.floor(random() * height);
+      const i = (y * width + x) * 4;
+      if (Math.abs(rgba[i] - ground[0]) + Math.abs(rgba[i + 1] - ground[1]) + Math.abs(rgba[i + 2] - ground[2]) < 30) continue;
+      for (let k = 0; k < 3; k++) rgba[i + k] = Math.min(255, rgba[i + k] + 12);
+      savePng(join(dir, name), picture);
+      break;
+    }
+  }
+}
+
 export function comparePictures(dir, pictures) {
   mkdirSync(dir, { recursive: true });
   const pairs = pictures.original.map((p, i) => ({ name: p.name, pair: besides([p.picture, pictures.reproduction[i].picture]) }));
@@ -123,7 +147,11 @@ The pictures: ${pictures} Look at every picture closely before you score.
 The harness's measurements (computed from the files; a measured item may score lower than its measurement allows, never higher):
 ${JSON.stringify(measured, null, 1)}
 
-${kind === "model" ? "For M6, judge only whether a player would take it for the original side by side at the size the game shows it; the line-up is run separately." : ""}
+${kind === "model" ? `For M3, first list the original's parts down to the small ones, as the close angles show them: claws, teeth, rivets, handles, tabs, the number of sides or facets of a round part. Then find each in the reproduction. A small part missing, or a round part with a different number of sides, makes M3 at most 1.
+
+Tell paint from shape. A difference only in the painted picture (stripes in another place, softer detail, a smear, wear) is M4 or M5, not M1 or M3; a shape that is really different (a part missing, too big, the wrong form) is M1 or M3. Before you charge a shape item, check in the side and angle views that the outline itself differs, not just the paint on it.
+
+For M6, judge only whether a player would take it for the original side by side at the size the game shows it; the line-up is run separately.` : ""}
 
 Score every item, ${items.join(", ")}, 0, 1 or 2, each with a reason that names what is wrong and where (or what makes it right). Reply with JSON alone, of this form:
 {${items.map((i) => `"${i}": { "score": 0, "reason": "..." }`).join(", ")}}
@@ -181,6 +209,7 @@ export async function judgeModel(model, leg, copyFile, { decoy } = {}) {
   rmSync(dir, { recursive: true, force: true });
   const { measured, caps, pictures } = measureModel(original, copy);
   comparePictures(dir, pictures);
+  if (decoy === "identical-touched") touchOnePixel(dir);
   // failed already by a measure of a must-have item: no line-up and no judge are asked (agents.mjs)
   const failed = failedByMeasure(caps, MODEL_MUST);
   if (failed.length) return { subject: model.id, leg: decoy ? `decoy: ${decoy}` : leg, measured, caps, passes: false, failedByMeasure: failed };
@@ -396,6 +425,9 @@ async function main() {
   if (identical.length)
     for (const model of SUBJECTS.models.filter((m) => identical.includes(undefined) || identical.includes(m.id)))
       jobs.push(() => judgeModel(model, "identical", join(GAME, model.file), { decoy: "identical" }).then((r) => [join(HERE, model.id, "judge", "control-identical.json"), r]));
+  if (words.includes("touched"))
+    for (const model of SUBJECTS.models.filter((m) => identical.includes(undefined) || identical.includes(m.id)))
+      jobs.push(() => judgeModel(model, "identical", join(GAME, model.file), { decoy: "identical-touched" }).then((r) => [join(HERE, model.id, "judge", "control-identical-touched.json"), r]));
   if (identical.length)
     for (const map of SUBJECTS.maps.filter((m) => identical.includes(undefined) || identical.includes(m.id)))
       jobs.push(() => judgeMap(map, "identical", join(GAME, map.file), { decoy: "identical" }).then((r) => [join(HERE, map.id, "judge", "control-identical.json"), r]));
