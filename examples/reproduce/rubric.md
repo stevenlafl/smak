@@ -44,6 +44,30 @@ missing), 1 (there, clearly off) or 2 (right to a close look).
 | P8 | Works | yes | it compiles, does not leak, every place to start reaches every weapon and item on foot (as the original's do), within the engine's limits |
 | P9 | Visual fidelity | yes | the views from the original's places to start, taken from the same points in both maps, look like the same place: a player who knows the map would recognise it at once |
 
+## Weapons, characters and creatures (added 2026-10-14, before any of them was built)
+
+A **weapon** is the game's set of three files: the first-person `v_` model (the weapon in the player's
+hands, with its animations), `p_` (in another player's hands) and `w_` (lying in the world). It is reproduced
+into the game's own files, whose hands, bones and animations it keeps (the server lets the build fit the new
+weapon into them and never shows it the old weapon). A **character** (a person, a creature) is reproduced on
+another model's skeleton: its own is refused. The legs are pictures and words, as for any model.
+
+Each is scored on the Models table, M1 to M8, with these readings:
+
+- A weapon's M1, M2, M4 and M8 are measured on its `w_` model; M3, M5 and M6 are judged over all three files,
+  the first-person view (still and in its attack) first among them, since that is how the player sees it.
+- A character's or creature's M1 to M8 are measured and judged in the first frame of its first animation, as any
+  model's are.
+
+And one more item each:
+
+| # | Item | Must | What a 2 is |
+| --- | --- | --- | --- |
+| W1 | In the hands | yes | in the first-person view the weapon sits where the original sits, held the same way, the same way round, and moves with the hands through its attack without leaving them |
+| C1 | In motion | yes | through a run and an attack (or a walk), drawn frame by frame, every part stays on the body and moves as the original's does: nothing comes apart, sinks or floats |
+
+A weapon passes on M1 to M8 and W1, a character on M1 to M8 and C1, by "Passing" below.
+
 ## Textures, sounds and sprites (added 2026-10-14, before any of them was built)
 
 The same test for the other kinds of a mod's assets. A **texture** or a **sound** is replaced: a set of Valve's
