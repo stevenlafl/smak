@@ -1,0 +1,13 @@
+A man in a security guard's uniform, built in a low-poly style with painted textures. He's about 75 units tall, 30 wide across the hanging arms and 23 deep. His proportions are realistic and slightly lean, with long legs that make up a little over half his height. His shoulders are moderately broad, his hands are small and clenched into loose fists, and his arms hang slightly away from his body with the elbows a little bent.
+
+Head: a young man's face, narrow and clean-shaven, with pale peach skin, a straight nose, a long jaw and a calm, slightly stern expression. Short dark brown hair shows at the temples and sideburns. He wears a rounded protective helmet in dark grey-black with a soft sheen. A wide band of violet-blue fabric wraps the lower helmet from the temples around to the back of the head, and dark padded edges sit over the ears. The helmet comes down low on the forehead.
+
+Clothing: a long-sleeved shirt in pale periwinkle blue-lavender, with a collar and a thin dark tie just visible at the neck. The sleeves are loose and creased, and the cuffs are buttoned at the wrists. Over the shirt is a black protective vest that runs from the collarbone to just below the waist. It's made of glossy molded segments, like a stack of horizontal ribbed plates with a vertical seam down the centre and straps over the shoulders. On the left chest is a small round orange-yellow emblem: a circle holding a simple angular symbol. On the right chest is a small grey-and-white clipped ID badge. Across the upper back, "SECURITY" is printed in faded olive-yellow block capitals.
+
+Trousers: baggy work trousers in deeper royal blue-violet, the same shade as the helmet band, with heavy creases and a slight sheen. They're gathered loosely at the knees and tucked into his boots. He wears a thin black belt, and a black pistol holster hangs on his right hip, reaching to mid-thigh.
+
+Boots: tall black leather combat boots up to mid-shin, laced up the front, with thick soles and slightly squared toes.
+
+Colours overall: violet-blues in two tones, black gear, a grey helmet and warm skin, with no other strong colours except the small orange emblem.
+
+Movement: he runs with an athletic, upright stride. His torso leans slightly forward and his head stays steady, facing ahead. His arms swing opposite to his legs, with elbows bent at about ninety degrees and fists coming forward to chest height, then swinging back past the hip. His stride is long: the front leg reaches out nearly straight, and the back leg kicks up behind so the heel rises toward knee height, and at the furthest point both feet are off the ground. One full cycle takes about sixteen frames, two steps in all. His body bobs a little at mid-stride, and the vest moves rigidly with his chest.

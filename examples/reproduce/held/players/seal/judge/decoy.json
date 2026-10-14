@@ -1,0 +1,174 @@
+{
+ "kind": "players",
+ "subject": "seal",
+ "leg": "decoy: box",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.573,
+   "left/right": 0.561,
+   "top/below": 0.668
+  },
+  "size": {
+   "original": [
+    23.9,
+    24.5,
+    70.1
+   ],
+   "reproduction": [
+    23.9,
+    24.5,
+    70.1
+   ],
+   "offShare": [
+    0,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 30.6,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 30,
+     "shared": 0.578
+    },
+    {
+     "view": "left",
+     "deltaE": 32.9,
+     "shared": 0.575
+    },
+    {
+     "view": "back",
+     "deltaE": 33.6,
+     "shared": 0.578
+    },
+    {
+     "view": "right",
+     "deltaE": 33,
+     "shared": 0.575
+    },
+    {
+     "view": "top",
+     "deltaE": 40.7,
+     "shared": 0.682
+    },
+    {
+     "view": "below",
+     "deltaE": 20.1,
+     "shared": 0.682
+    },
+    {
+     "view": "front-left",
+     "deltaE": 27.9,
+     "shared": 0.379
+    },
+    {
+     "view": "front-right",
+     "deltaE": 26.4,
+     "shared": 0.417
+    },
+    {
+     "view": "back-left",
+     "deltaE": 29.4,
+     "shared": 0.422
+    },
+    {
+     "view": "back-right",
+     "deltaE": 32.2,
+     "shared": 0.383
+    }
+   ]
+  },
+  "triangles": {
+   "original": 2617,
+   "reproduction": 12
+  },
+  "checkErrors": [],
+  "contract": [
+   "34 bones of the reference are missing: Bip01, Bip01 Bacino, Bip01 SX Coscia, Bip01 SX Polpaccio, Bip01 SX Piede, Bip01 DX Coscia, Bip01 DX Polpaccio, Bip01 DX Piede ...",
+   "171 of the reference's 171 animations are missing: empty, standard_idle, combat_idle, combat_idle_low, katana_idle, knife_idle, briefcase_idle, idle_onehanded, duck_idle_onehanded, idle_onehanded_case ...",
+   "attachment 0 (on Bip01 DX Mano) is missing",
+   "attachment 1 (on Bip01 DX Mano) is missing",
+   "attachment 2 (on Bip01 SX Mano) is missing",
+   "attachment 3 (on Bip01 DX Mano) is missing"
+  ]
+ },
+ "caps": {
+  "M1": 0,
+  "M2": 2,
+  "M4": 0,
+  "M8": 2,
+  "C2": 0,
+  "M6": 1
+ },
+ "lineup": {
+  "picked": "I",
+  "right": "E"
+ },
+ "scores": {
+  "M1": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The reproduction is a plain upright rectangular box. The measured silhouette overlap is 0.573 front/back, 0.561 left/right and 0.668 top/below, all well under the 0.80 line. In every view there is no head, arms, legs or feet: the box fills the space between the legs and arms and lacks the head's narrower outline."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured size is identical to the original's (23.9 x 24.5 x 70.1), with 0 off-share on every axis, which is within 10%."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "None of the original's parts are there. It has no head or balaclava, no vest, no arms or gloved hands, no knee pads, no trousers and no boots. It is one undivided box."
+  },
+  "M4": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The measured mean delta E is 30.6, about double the 15 line, and every view is over 15 (up to 40.7 from the top). The box is a uniform light grey stone or concrete. The original is a black vest and balaclava, olive-khaki cloth fatigues, dark grey knee pads and black boots."
+  },
+  "M5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The original's surface detail is all missing: the white trident emblem on the back of the vest, the vest's pockets and straps, the knee pads' metal sheen, the belt and the boot laces. The box only has a blotchy grey texture with light edge trim, which the original does not have."
+  },
+  "M6": {
+   "judge": 0,
+   "cap": 1,
+   "score": 0,
+   "reason": "No player would take a grey stone pillar for the masked soldier in khaki and black. It does not resemble the original at any size."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "It stands upright with its base on the original's ground line, the same footprint height. But a featureless box has no front, so you can't tell whether it faces the original's front."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's check reports no errors. It has 12 triangles against the original's 2617, well under twice. It is a closed box, not inside out and not floating."
+  },
+  "C1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "In the run and forward-dive sheets, the reproduction is one static box that never moves. It has no legs to stride, no arms to swing, and no lean into or horizontal flight through the dive, so none of the original's motion happens."
+  },
+  "C2": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "compareContract reports faults, and any fault caps C2 at 0. All 34 bones are missing (Bip01, Bip01 Bacino and the rest). All 171 of 171 animations are missing, and so are all four attachments (0 to 3 on Bip01 DX Mano and SX Mano)."
+  }
+ },
+ "total": 5,
+ "of": 20,
+ "passes": false
+}

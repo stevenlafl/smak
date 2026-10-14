@@ -1,0 +1,159 @@
+{
+ "kind": "weapons",
+ "subject": "9mmhandgun",
+ "leg": "decoy: box",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.484,
+   "left/right": 0.761,
+   "top/below": 0.407
+  },
+  "size": {
+   "original": [
+    14.8,
+    9.5,
+    2.8
+   ],
+   "reproduction": [
+    18,
+    15.9,
+    3
+   ],
+   "offShare": [
+    0.219,
+    0.675,
+    0.064
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 18.1,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 24.3,
+     "shared": 0.49
+    },
+    {
+     "view": "left",
+     "deltaE": 18.8,
+     "shared": 0.795
+    },
+    {
+     "view": "back",
+     "deltaE": 22.4,
+     "shared": 0.489
+    },
+    {
+     "view": "right",
+     "deltaE": 16,
+     "shared": 0.795
+    },
+    {
+     "view": "top",
+     "deltaE": 11.4,
+     "shared": 0.412
+    },
+    {
+     "view": "below",
+     "deltaE": 24.2,
+     "shared": 0.412
+    },
+    {
+     "view": "front-left",
+     "deltaE": 17.1,
+     "shared": 0.537
+    },
+    {
+     "view": "front-right",
+     "deltaE": 16.5,
+     "shared": 0.579
+    },
+    {
+     "view": "back-left",
+     "deltaE": 14.7,
+     "shared": 0.573
+    },
+    {
+     "view": "back-right",
+     "deltaE": 15.4,
+     "shared": 0.539
+    }
+   ]
+  },
+  "triangles": {
+   "original": 88,
+   "reproduction": 12
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 0,
+  "M2": 0,
+  "M4": 1,
+  "M8": 2,
+  "M6": 2
+ },
+ "lineup": {
+  "picked": "D",
+  "right": "D"
+ },
+ "scores": {
+  "M1": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "All three measured silhouette overlaps are below 0.80: front/back 0.484, left/right 0.761, top/below 0.407. The reproduction is a plain rectangular slab. In the top and below views the pistol's L shape is gone: no grip dropping from the slide, no trigger guard, no step between barrel and grip. The slab also fills the empty corner beside the grip where the original has nothing. In the front and back views the slab is a long even bar, while the original narrows from the grip to the slide."
+  },
+  "M2": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "Measured size is 18 x 15.9 x 3 against the original's 14.8 x 9.5 x 2.8. Length is 21.9% over and width is 67.5% over, both far outside 10%. Only height (6.4%) is within tolerance."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "None of the pistol's parts are there. There is no slide, barrel or muzzle bore (seen in the original's back view), no grip, trigger guard, trigger or rear serrations. It is one box with no parts in any of the three files: w_ in compare-sides/angles, v_ in first-person, p_ in in-hand."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "Measured mean deltaE is 18.1, over the 15 line, and five views exceed 20 (front 24.3, back 22.4, below 24.2). The reproduction is a flat, even, light-to-mid grey. The original is dark gunmetal with a darker charcoal grip, a separate region the reproduction lacks. It reads as grey metal, so the colour is there but clearly off."
+  },
+  "M5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "None of the original's surface detail is there: the slide's panel lines and grooves, the rear serrations, the dark muzzle hole, the grip's stippled texture. The only marks are a lighter bevel band along the box edges and faint blotches, which the original does not have."
+  },
+  "M6": {
+   "judge": 0,
+   "cap": 2,
+   "score": 0,
+   "reason": "In first-person.png the player holds a light grey brick where the original holds a dark pistol with a visible sight and slide. In in-hand.png it is a pale slab. No player would take it for the original."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "It lies flat and thin on its origin as the original does, which is lying on its side (height 3 vs 2.8). A box has no front, though, so there is no barrel direction to match. In the top and below views the slab is turned about 30 degrees off the original's long axis."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The check reports no errors for GoldSrc, and 12 triangles is well under twice the original's 88. It is a closed box: nothing open, inside out or floating on the w_ model."
+  },
+  "W1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "In first-person.png and first-person-attack.png the box stays in the hand and follows the hands through all 14 shoot frames without leaving them. It is not held as the original is, though. The box stands upright above and through the hand, its lower part covering the fingers, with no grip in the palm and no barrel pointing forward, so there is no 'same way round'. In in-hand.png the slab also sits off to the side and is tilted differently from the original pistol."
+  }
+ },
+ "total": 5,
+ "of": 18,
+ "passes": false
+}

@@ -1,0 +1,159 @@
+{
+ "kind": "weapons",
+ "subject": "shotgun",
+ "leg": "decoy: box",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.406,
+   "left/right": 0.597,
+   "top/below": 0.347
+  },
+  "size": {
+   "original": [
+    40.8,
+    13.4,
+    5.2
+   ],
+   "reproduction": [
+    42.4,
+    20.2,
+    5.6
+   ],
+   "offShare": [
+    0.038,
+    0.511,
+    0.078
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 31.1,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 37.3,
+     "shared": 0.409
+    },
+    {
+     "view": "left",
+     "deltaE": 31,
+     "shared": 0.599
+    },
+    {
+     "view": "back",
+     "deltaE": 33.6,
+     "shared": 0.409
+    },
+    {
+     "view": "right",
+     "deltaE": 30.5,
+     "shared": 0.6
+    },
+    {
+     "view": "top",
+     "deltaE": 26,
+     "shared": 0.353
+    },
+    {
+     "view": "below",
+     "deltaE": 40.1,
+     "shared": 0.353
+    },
+    {
+     "view": "front-left",
+     "deltaE": 29.4,
+     "shared": 0.421
+    },
+    {
+     "view": "front-right",
+     "deltaE": 30,
+     "shared": 0.414
+    },
+    {
+     "view": "back-left",
+     "deltaE": 27.6,
+     "shared": 0.403
+    },
+    {
+     "view": "back-right",
+     "deltaE": 25.1,
+     "shared": 0.413
+    }
+   ]
+  },
+  "triangles": {
+   "original": 174,
+   "reproduction": 12
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 0,
+  "M2": 0,
+  "M4": 0,
+  "M8": 2,
+  "M6": 1
+ },
+ "lineup": {
+  "picked": "F",
+  "right": "A"
+ },
+ "scores": {
+  "M1": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The reproduction is a plain rectangular slab. The measured silhouette overlap is 0.406 front/back, 0.597 left/right and 0.347 top/below, all far under 0.80. In the side views the original's stock, curved grip, pump and thin barrel are all missing, and the box fills the gaps between them. In the top and below views the slab is much wider than the barrel and has no hooked stock."
+  },
+  "M2": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "Width is 20.2 against the original's 13.4, which is 51% over (offShare 0.511) and far outside 10%. Length (42.4 vs 40.8, +3.8%) and height (5.6 vs 5.2, +7.8%) are within 10%, but one axis failing rules out a 2. Since the item asks for all three, a single gross miss scores 0."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "It has none of the shotgun's components. There is no barrel, magazine tube, pump/fore-end, receiver, trigger guard, pistol grip or stock. It is one featureless box in every view of the world, first-person and in-hand models."
+  },
+  "M4": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The measured mean colour difference (CIE76 delta E) is 31.1, more than twice the line of 15, and every view is over 25. The reproduction is a uniform light grey with no material distinction. The original is dark gunmetal and black with blued metal and a brown wooden pump."
+  },
+  "M5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The original's surface detail is all absent. That includes the receiver's ribbing and panel lines, the brown pump band, the bright muzzle, the bluish highlights on the first-person barrel and the grip texture. The box carries only a faint grey mottle and bevelled edges."
+  },
+  "M6": {
+   "judge": 0,
+   "cap": 1,
+   "score": 0,
+   "reason": "No player would take a grey slab for the shotgun. In the first-person view the original is a dark, detailed pump shotgun and the reproduction is a large grey block. The in-hand and world models are equally unrecognisable."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Its long axis lies along the original's and it sits flat at a similar height. However, the box has no front, back or top that can be told apart, so the original's facing is not reproduced. The top and below views also show it skewed relative to the original's straight axis."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "There are no check errors. It has 12 triangles against the original's 174, well under twice. It is a closed box with no open, inverted or floating parts."
+  },
+  "W1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "It stays attached to the hands and follows them through every attack frame without leaving them. But it is not held as the original is: the slab is far bulkier, rises steeply to the screen's right edge and covers the view where the original's slim barrel sits. Only a dark sliver shows at the grip, so the hand does not visibly hold a stock and grip the way the original does."
+  }
+ },
+ "total": 4,
+ "of": 18,
+ "passes": false
+}

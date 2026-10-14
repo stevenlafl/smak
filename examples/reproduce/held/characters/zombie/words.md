@@ -1,0 +1,13 @@
+A gaunt humanoid corpse in a bloodied white lab coat. Its head is completely covered by a pale, dome-shaped parasite, and it has huge clawed hands. It stands about 68 units tall, 54 wide across the outstretched claws, and 38.5 deep. The body is slim, about one-sixth as wide as it is tall at the shoulders, with narrow sloping shoulders. The legs take up roughly half the height. The neck juts forward and the head hangs low, so the figure stoops with a hunched upper back.
+
+Head: no human face shows. A rounded, bulbous creature sits over the whole head like a helmet and comes down to about the jaw. Its top is smooth creamy bone-white with a faint sheen. Its rim and underside turn ochre and mustard-brown, wrinkled and fleshy, with dark reddish folds where it grips the host. Below it there are only a few red, glistening strands of flesh where the face and chin would be.
+
+Torso: the white coat hangs open to mid-thigh with a narrow collar and lapels. It is heavily smeared with pinkish-red blood, worst around the chest, cuffs and hem. The front of the torso is torn open from collarbone to belly, showing dark red and black flesh, exposed ribs and a long gash with teeth-like edges down the midline, like a vertical mouth. On the back, the coat has two oval holes over the spine and lower back. Through them you can see dark ribs and vertebrae edged in raw red.
+
+Arms: thin and dark, the sleeves pushed up or gone below the elbow. The forearms are mottled black-red and sinewy. Each hand is grossly enlarged, with five very long, jointed, spindly fingers ending in hooked claws. The claws are tipped bright crimson and are each nearly as long as the forearm. At rest the arms hang slightly out from the body, fingers splayed and curled down to about knee height.
+
+Legs: pale grey-white trousers, loose and straight, spotted with blood stains. The shoes are dark red-brown leather shoes or low boots, also bloodied.
+
+Palette: off-white and pale grey cloth, pink and crimson blood, near-black flesh, a cream-and-ochre head creature. The texture is low-resolution and painterly, with matte cloth and slightly glossy wet flesh.
+
+Movement: a slow, shambling walk with one full cycle over about 60 frames. The body leans forward with the head bowed and the knees slightly bent. Steps are short and stiff and the feet barely lift. The torso sways and rolls a little from side to side. The arms swing loosely and out of step with each other. They drift forward ahead of the body with the claws trailing and dangling, then fall back beside the thighs, and the long fingers flex and wobble limply as they go. One shoulder dips while the other rises, which makes the gait lopsided and drunken. Nothing about the head is purposeful: it just nods and bobs with each step.

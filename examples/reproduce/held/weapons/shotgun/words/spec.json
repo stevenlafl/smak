@@ -1,0 +1,747 @@
+{
+  "spec": "smak.model/1",
+  "name": "shotgun_v.mdl",
+  "kind": "held",
+  "weapon": {
+    "like": "shotgun",
+    "turn": "as drawn",
+    "views": [
+      "v"
+    ]
+  },
+  "size": {
+    "length": 35.5
+  },
+  "materials": {
+    "gunmetal": {
+      "base": "metal",
+      "tone": [
+        0.12,
+        0.13,
+        0.1
+      ]
+    },
+    "blued": {
+      "base": "steel",
+      "tone": [
+        0.11,
+        0.1,
+        0.17
+      ]
+    },
+    "rustband": {
+      "base": "iron",
+      "tone": [
+        0.42,
+        0.25,
+        0.14
+      ],
+      "rust": 0.6
+    },
+    "bright": {
+      "base": "steel",
+      "tone": [
+        0.72,
+        0.73,
+        0.75
+      ]
+    },
+    "bore": {
+      "base": "metal",
+      "tone": [
+        0.03,
+        0.03,
+        0.03
+      ]
+    },
+    "groove": {
+      "base": "metal",
+      "tone": [
+        0.04,
+        0.04,
+        0.05
+      ]
+    },
+    "edge": {
+      "base": "metal",
+      "tone": [
+        0.36,
+        0.4,
+        0.47
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "receiver",
+      "kind": "box",
+      "material": "gunmetal",
+      "size": [
+        8.2,
+        3.4,
+        5
+      ],
+      "at": [
+        10.2,
+        0,
+        -3.9
+      ],
+      "panels": [
+        {
+          "face": "right",
+          "at": [
+            4.6,
+            3.6
+          ],
+          "size": [
+            4.2,
+            1.1
+          ],
+          "material": "groove"
+        },
+        {
+          "face": "left",
+          "at": [
+            3.6,
+            3.6
+          ],
+          "size": [
+            4.2,
+            1.1
+          ],
+          "material": "groove"
+        },
+        {
+          "face": "right",
+          "at": [
+            4.1,
+            1.2
+          ],
+          "size": [
+            6.4,
+            0.3
+          ],
+          "style": "flat",
+          "material": "edge"
+        },
+        {
+          "face": "left",
+          "at": [
+            4.1,
+            1.2
+          ],
+          "size": [
+            6.4,
+            0.3
+          ],
+          "style": "flat",
+          "material": "edge"
+        }
+      ]
+    },
+    {
+      "id": "hump",
+      "kind": "box",
+      "material": "gunmetal",
+      "size": [
+        5.6,
+        2.6,
+        0.7
+      ],
+      "at": [
+        10.4,
+        0,
+        0.95
+      ],
+      "panels": [
+        {
+          "face": "top",
+          "at": [
+            1,
+            1.3
+          ],
+          "size": [
+            0.45,
+            0.45
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "edge"
+        },
+        {
+          "face": "top",
+          "at": [
+            4.6,
+            1.3
+          ],
+          "size": [
+            0.45,
+            0.45
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "edge"
+        }
+      ]
+    },
+    {
+      "id": "trigger_guard",
+      "kind": "box",
+      "material": "gunmetal",
+      "size": [
+        3.2,
+        0.9,
+        1.5
+      ],
+      "at": [
+        9.2,
+        0,
+        -5.2
+      ]
+    },
+    {
+      "id": "trigger",
+      "kind": "box",
+      "material": "groove",
+      "size": [
+        0.5,
+        0.4,
+        1
+      ],
+      "at": [
+        9.4,
+        0,
+        -4.9
+      ]
+    },
+    {
+      "id": "band",
+      "kind": "box",
+      "material": "rustband",
+      "size": [
+        0.4,
+        3.6,
+        5.2
+      ],
+      "at": [
+        6.9,
+        0,
+        -4
+      ]
+    },
+    {
+      "id": "barrel",
+      "kind": "box",
+      "material": "blued",
+      "size": [
+        27.2,
+        1.3,
+        1.3
+      ],
+      "at": [
+        27.4,
+        0,
+        -0.65
+      ]
+    },
+    {
+      "id": "top_rail",
+      "kind": "box",
+      "material": "blued",
+      "size": [
+        25,
+        0.8,
+        0.45
+      ],
+      "at": [
+        26.6,
+        0,
+        0.5
+      ],
+      "panels": [
+        {
+          "face": "top",
+          "at": [
+            1,
+            0.4
+          ],
+          "size": [
+            0.5,
+            0.8
+          ],
+          "style": "raised",
+          "material": "edge"
+        },
+        {
+          "face": "top",
+          "at": [
+            2.6,
+            0.4
+          ],
+          "size": [
+            0.5,
+            0.8
+          ],
+          "style": "raised",
+          "material": "edge"
+        },
+        {
+          "face": "top",
+          "at": [
+            4.2,
+            0.4
+          ],
+          "size": [
+            0.5,
+            0.8
+          ],
+          "style": "raised",
+          "material": "edge"
+        },
+        {
+          "face": "top",
+          "at": [
+            5.8,
+            0.4
+          ],
+          "size": [
+            0.5,
+            0.8
+          ],
+          "style": "raised",
+          "material": "edge"
+        },
+        {
+          "face": "top",
+          "at": [
+            7.4,
+            0.4
+          ],
+          "size": [
+            0.5,
+            0.8
+          ],
+          "style": "raised",
+          "material": "edge"
+        },
+        {
+          "face": "top",
+          "at": [
+            9,
+            0.4
+          ],
+          "size": [
+            0.5,
+            0.8
+          ],
+          "style": "raised",
+          "material": "edge"
+        },
+        {
+          "face": "top",
+          "at": [
+            10.6,
+            0.4
+          ],
+          "size": [
+            0.5,
+            0.8
+          ],
+          "style": "raised",
+          "material": "edge"
+        },
+        {
+          "face": "top",
+          "at": [
+            12.2,
+            0.4
+          ],
+          "size": [
+            0.5,
+            0.8
+          ],
+          "style": "raised",
+          "material": "edge"
+        },
+        {
+          "face": "top",
+          "at": [
+            13.8,
+            0.4
+          ],
+          "size": [
+            0.5,
+            0.8
+          ],
+          "style": "raised",
+          "material": "edge"
+        },
+        {
+          "face": "top",
+          "at": [
+            15.4,
+            0.4
+          ],
+          "size": [
+            0.5,
+            0.8
+          ],
+          "style": "raised",
+          "material": "edge"
+        },
+        {
+          "face": "top",
+          "at": [
+            17,
+            0.4
+          ],
+          "size": [
+            0.5,
+            0.8
+          ],
+          "style": "raised",
+          "material": "edge"
+        },
+        {
+          "face": "top",
+          "at": [
+            18.6,
+            0.4
+          ],
+          "size": [
+            0.5,
+            0.8
+          ],
+          "style": "raised",
+          "material": "edge"
+        },
+        {
+          "face": "top",
+          "at": [
+            20.2,
+            0.4
+          ],
+          "size": [
+            0.5,
+            0.8
+          ],
+          "style": "raised",
+          "material": "edge"
+        },
+        {
+          "face": "top",
+          "at": [
+            21.8,
+            0.4
+          ],
+          "size": [
+            0.5,
+            0.8
+          ],
+          "style": "raised",
+          "material": "edge"
+        },
+        {
+          "face": "top",
+          "at": [
+            23.4,
+            0.4
+          ],
+          "size": [
+            0.5,
+            0.8
+          ],
+          "style": "raised",
+          "material": "edge"
+        }
+      ]
+    },
+    {
+      "id": "magazine",
+      "kind": "cylinder",
+      "material": "gunmetal",
+      "radius": 0.6,
+      "height": 25.6,
+      "sides": 8,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        14,
+        0,
+        -1.5
+      ]
+    },
+    {
+      "id": "mag_cap",
+      "kind": "cylinder",
+      "material": "gunmetal",
+      "radius": 0.72,
+      "height": 0.8,
+      "sides": 8,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        39.2,
+        0,
+        -1.5
+      ]
+    },
+    {
+      "id": "forend",
+      "kind": "box",
+      "material": "gunmetal",
+      "size": [
+        17,
+        3.4,
+        4
+      ],
+      "at": [
+        22.8,
+        0,
+        -3.3
+      ],
+      "bone": "Bone01",
+      "panels": [
+        {
+          "face": "right",
+          "at": [
+            8.5,
+            1.2
+          ],
+          "size": [
+            13,
+            0.45
+          ],
+          "material": "groove"
+        },
+        {
+          "face": "right",
+          "at": [
+            8.5,
+            2
+          ],
+          "size": [
+            13,
+            0.45
+          ],
+          "material": "groove"
+        },
+        {
+          "face": "right",
+          "at": [
+            8.5,
+            2.8
+          ],
+          "size": [
+            13,
+            0.45
+          ],
+          "material": "groove"
+        },
+        {
+          "face": "right",
+          "at": [
+            8.5,
+            1.6
+          ],
+          "size": [
+            13,
+            0.3
+          ],
+          "style": "flat",
+          "material": "edge"
+        },
+        {
+          "face": "right",
+          "at": [
+            8.5,
+            2.4
+          ],
+          "size": [
+            13,
+            0.3
+          ],
+          "style": "flat",
+          "material": "edge"
+        },
+        {
+          "face": "left",
+          "at": [
+            8.5,
+            1.2
+          ],
+          "size": [
+            13,
+            0.45
+          ],
+          "material": "groove"
+        },
+        {
+          "face": "left",
+          "at": [
+            8.5,
+            2
+          ],
+          "size": [
+            13,
+            0.45
+          ],
+          "material": "groove"
+        },
+        {
+          "face": "left",
+          "at": [
+            8.5,
+            2.8
+          ],
+          "size": [
+            13,
+            0.45
+          ],
+          "material": "groove"
+        },
+        {
+          "face": "left",
+          "at": [
+            8.5,
+            1.6
+          ],
+          "size": [
+            13,
+            0.3
+          ],
+          "style": "flat",
+          "material": "edge"
+        },
+        {
+          "face": "left",
+          "at": [
+            8.5,
+            2.4
+          ],
+          "size": [
+            13,
+            0.3
+          ],
+          "style": "flat",
+          "material": "edge"
+        }
+      ]
+    },
+    {
+      "id": "forend_flare_top",
+      "kind": "box",
+      "material": "gunmetal",
+      "size": [
+        16,
+        4,
+        0.7
+      ],
+      "at": [
+        22.8,
+        0,
+        0
+      ],
+      "bone": "Bone01"
+    },
+    {
+      "id": "forend_flare_low",
+      "kind": "box",
+      "material": "gunmetal",
+      "size": [
+        16,
+        4,
+        0.7
+      ],
+      "at": [
+        22.8,
+        0,
+        -3.45
+      ],
+      "bone": "Bone01"
+    },
+    {
+      "id": "lug_rear",
+      "kind": "box",
+      "material": "gunmetal",
+      "size": [
+        0.8,
+        2.4,
+        1.1
+      ],
+      "at": [
+        14.7,
+        0,
+        -4.2
+      ],
+      "bone": "Bone01"
+    },
+    {
+      "id": "lug_front",
+      "kind": "box",
+      "material": "gunmetal",
+      "size": [
+        0.8,
+        2.4,
+        1.1
+      ],
+      "at": [
+        30.9,
+        0,
+        -4.2
+      ],
+      "bone": "Bone01"
+    },
+    {
+      "id": "muzzle",
+      "kind": "box",
+      "material": "bright",
+      "size": [
+        1.4,
+        1.6,
+        1.6
+      ],
+      "at": [
+        40.3,
+        0,
+        -0.8
+      ],
+      "panels": [
+        {
+          "face": "front",
+          "at": [
+            0.8,
+            0.8
+          ],
+          "size": [
+            0.9,
+            0.9
+          ],
+          "shape": "ellipse",
+          "material": "bore"
+        }
+      ]
+    },
+    {
+      "id": "blade_sight",
+      "kind": "box",
+      "material": "gunmetal",
+      "size": [
+        0.8,
+        0.3,
+        0.8
+      ],
+      "at": [
+        40.3,
+        0,
+        0.7
+      ]
+    }
+  ]
+}

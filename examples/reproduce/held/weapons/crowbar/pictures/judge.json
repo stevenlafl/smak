@@ -1,0 +1,159 @@
+{
+ "kind": "weapons",
+ "subject": "crowbar",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.811,
+   "left/right": 0.957,
+   "top/below": 0.595
+  },
+  "size": {
+   "original": [
+    43.4,
+    9.8,
+    2.7
+   ],
+   "reproduction": [
+    43.3,
+    9.7,
+    2.7
+   ],
+   "offShare": [
+    0.001,
+    0.009,
+    0.007
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 12.8,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 15.3,
+     "shared": 0.86
+    },
+    {
+     "view": "left",
+     "deltaE": 15.2,
+     "shared": 0.965
+    },
+    {
+     "view": "back",
+     "deltaE": 18.7,
+     "shared": 0.861
+    },
+    {
+     "view": "right",
+     "deltaE": 8.2,
+     "shared": 0.965
+    },
+    {
+     "view": "top",
+     "deltaE": 9.1,
+     "shared": 0.616
+    },
+    {
+     "view": "below",
+     "deltaE": 24.9,
+     "shared": 0.618
+    },
+    {
+     "view": "front-left",
+     "deltaE": 10.1,
+     "shared": 0.801
+    },
+    {
+     "view": "front-right",
+     "deltaE": 8.3,
+     "shared": 0.83
+    },
+    {
+     "view": "back-left",
+     "deltaE": 10.3,
+     "shared": 0.83
+    },
+    {
+     "view": "back-right",
+     "deltaE": 7.5,
+     "shared": 0.8
+    }
+   ]
+  },
+  "triangles": {
+   "original": 60,
+   "reproduction": 160
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 0,
+  "M2": 2,
+  "M4": 2,
+  "M8": 1,
+  "M6": 2
+ },
+ "lineup": {
+  "picked": "D",
+  "right": "D"
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 0,
+   "score": 0,
+   "reason": "From the front, back, left and right the outline matches the original closely (overlap 0.811 and 0.957). The measurement fails the top and below views, though: overlap there is 0.595, well under the 0.80 line. In the top and below pictures the reproduction's hook and chisel end bend at slightly different angles and lengths from the original's, and its shaft kinks more sharply at the middle joint. The measured overlap caps this at 1."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 43.3 against 43.4, width 9.7 against 9.8, height 2.7 against 2.7. Every dimension is within 1% of the original."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "On the world model and the model another player holds, all the parts are there and in place: a red two-section shaft, grey collars, a curved claw hook at one end and a flat tapered chisel at the other. In the first-person model the shapes are clearly off. The original's shaft is thin and round, and its hook is a slim, tapered claw. The reproduction's shaft is a thick square bar about three times as wide, and its hook is a blocky, angular grey piece with a wide collar. That is not the original's slender crowbar."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured mean difference is 12.8, under 15. On the world model each region matches: a red shaft in two slightly different tones, grey metal collars, hook and chisel. The view from below is darker red (24.9), and so is the back view (18.7), but the colours are the same ones. The first-person colour mismatch is scored under M5 and M6."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The world model has the original's two-tone red banding on the shaft and its grey collar bands. The first-person model, which is how the player sees the weapon, loses the original's look. The original's shaft is glossy red with dark shaded edges and its hook is black. The reproduction's shaft is flat matte red and its hook and collar are light grey, so the shine and the dark-metal finish are gone."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The world model and the held model would pass for the original at game size. The first-person view would not: a player sees a thick, square, matte red bar with a pale grey blocky hook, where the original has a slim, glossy red shaft with a black claw. The same difference shows in every attack frame. Anyone can tell it is a crowbar, but not the original one."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "In all ten views the reproduction faces the same way as the original. The hook and chisel are at the same ends and the hook bends in the same direction. It lies flat in the same position."
+  },
+  "M8": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "SMAK's check reports no errors, and nothing in the pictures is open, inside out or floating. The model has 160 triangles, though, which is more than twice the original's 60 (a 2 allows at most 120)."
+  },
+  "W1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "In first person the reproduction sits in the same place as the original: right of centre, rising from the lower edge, hook up and curling left. It is held the same way round. In every attack frame (1, 3, 4, 6, 7, 9 and 10) it follows the original's path and stays in the hand. Frame 3 shows the hand gripping it in the same place in both. Its extra thickness is scored under M3."
+  }
+ },
+ "total": 12,
+ "of": 18,
+ "passes": false
+}

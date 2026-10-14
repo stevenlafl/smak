@@ -1,0 +1,371 @@
+{
+  "spec": "smak.model/1",
+  "name": "crowbar.mdl",
+  "kind": "held",
+  "weapon": {
+    "like": "crowbar"
+  },
+  "size": {
+    "length": 43.4
+  },
+  "materials": {
+    "steel": {
+      "base": "steel",
+      "tone": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "steeldark": {
+      "base": "steel",
+      "tone": [
+        0.36,
+        0.36,
+        0.37
+      ]
+    },
+    "red": {
+      "base": "paint",
+      "tone": [
+        0.68,
+        0.14,
+        0.09
+      ]
+    },
+    "darkred": {
+      "base": "paint",
+      "tone": [
+        0.52,
+        0.1,
+        0.07
+      ]
+    },
+    "patchred": {
+      "base": "paint",
+      "tone": [
+        0.6,
+        0.16,
+        0.11
+      ]
+    },
+    "tipdark": {
+      "base": "steel",
+      "tone": [
+        0.18,
+        0.18,
+        0.19
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "shaft",
+      "kind": "turn",
+      "axis": "x",
+      "sides": 6,
+      "material": "red",
+      "at": [
+        7.6,
+        0,
+        0
+      ],
+      "rings": [
+        [
+          0,
+          0.7
+        ],
+        [
+          26.3,
+          0.7
+        ]
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.58,
+              0
+            ],
+            [
+              0.58,
+              360
+            ]
+          ],
+          "width": 3.5,
+          "material": "darkred"
+        },
+        {
+          "path": [
+            [
+              0.06,
+              20
+            ],
+            [
+              0.14,
+              70
+            ]
+          ],
+          "width": 0.9,
+          "material": "patchred"
+        },
+        {
+          "path": [
+            [
+              0.1,
+              200
+            ],
+            [
+              0.16,
+              240
+            ]
+          ],
+          "width": 0.8,
+          "material": "patchred"
+        },
+        {
+          "path": [
+            [
+              0.86,
+              120
+            ],
+            [
+              0.94,
+              160
+            ]
+          ],
+          "width": 0.9,
+          "material": "patchred"
+        },
+        {
+          "path": [
+            [
+              0.88,
+              300
+            ],
+            [
+              0.95,
+              330
+            ]
+          ],
+          "width": 0.8,
+          "material": "darkred"
+        }
+      ]
+    },
+    {
+      "id": "grip_collar",
+      "kind": "turn",
+      "axis": "x",
+      "sides": 6,
+      "material": "steel",
+      "at": [
+        6.3,
+        0,
+        0
+      ],
+      "rings": [
+        [
+          0,
+          0.72
+        ],
+        [
+          1.5,
+          0.72
+        ]
+      ]
+    },
+    {
+      "id": "chisel",
+      "kind": "turn",
+      "axis": "x",
+      "sides": 6,
+      "material": "steel",
+      "at": [
+        6.5,
+        0,
+        0
+      ],
+      "rotate": [
+        0,
+        170,
+        0
+      ],
+      "rings": [
+        [
+          0,
+          0.7
+        ],
+        [
+          2,
+          0.7
+        ],
+        {
+          "s": 4.5,
+          "r": [
+            1,
+            0.45
+          ]
+        },
+        {
+          "s": 6.6,
+          "r": [
+            1.35,
+            0.28
+          ],
+          "crease": true
+        }
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.9,
+              0
+            ],
+            [
+              0.9,
+              360
+            ]
+          ],
+          "width": 1.2,
+          "material": "steeldark"
+        }
+      ]
+    },
+    {
+      "id": "hook",
+      "kind": "tube",
+      "sides": 6,
+      "material": "steel",
+      "path": [
+        [
+          33.6,
+          0,
+          0,
+          0.72
+        ],
+        [
+          37.35,
+          0,
+          0,
+          0.72
+        ],
+        [
+          40.5,
+          0,
+          0.7,
+          0.72
+        ],
+        [
+          42.05,
+          0,
+          2.05,
+          0.72
+        ],
+        [
+          42.72,
+          0,
+          4.02,
+          0.72
+        ],
+        [
+          42.35,
+          0,
+          6.09,
+          0.7
+        ],
+        [
+          41.1,
+          0,
+          7.54,
+          0.65
+        ]
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.93,
+              0
+            ],
+            [
+              0.93,
+              360
+            ]
+          ],
+          "width": 1,
+          "material": "steeldark"
+        }
+      ]
+    },
+    {
+      "id": "claw",
+      "kind": "turn",
+      "axis": "x",
+      "sides": 6,
+      "material": "steel",
+      "at": [
+        41.35,
+        0,
+        7.25
+      ],
+      "rotate": [
+        0,
+        -150,
+        0
+      ],
+      "rings": [
+        [
+          0,
+          0.62
+        ],
+        [
+          0.8,
+          [
+            0.95,
+            0.45
+          ]
+        ],
+        {
+          "s": 1.8,
+          "r": [
+            1.25,
+            0.25
+          ],
+          "crease": true
+        }
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.5,
+              0
+            ],
+            [
+              0.5,
+              360
+            ]
+          ],
+          "width": 0.6,
+          "material": "steeldark"
+        },
+        {
+          "path": [
+            [
+              0.96,
+              0
+            ],
+            [
+              0.96,
+              360
+            ]
+          ],
+          "width": 0.35,
+          "material": "tipdark"
+        }
+      ]
+    }
+  ]
+}

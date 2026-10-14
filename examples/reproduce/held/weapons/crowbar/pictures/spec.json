@@ -1,0 +1,283 @@
+{
+  "spec": "smak.model/1",
+  "name": "crowbar.mdl",
+  "kind": "held",
+  "weapon": {
+    "like": "crowbar"
+  },
+  "size": {
+    "length": 43.4
+  },
+  "finish": {
+    "light": 0.3,
+    "wear": 0.15,
+    "grime": 0.15,
+    "vary": 0.03
+  },
+  "materials": {
+    "red_light": {
+      "base": "paint",
+      "seen": [
+        0.66,
+        0.23,
+        0.23
+      ]
+    },
+    "red_dark": {
+      "base": "paint",
+      "seen": [
+        0.56,
+        0.19,
+        0.19
+      ]
+    },
+    "collar": {
+      "base": "paint",
+      "seen": [
+        0.58,
+        0.58,
+        0.58
+      ]
+    },
+    "iron_dark": {
+      "base": "paint",
+      "seen": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "chisel",
+      "kind": "turn",
+      "axis": "x",
+      "material": "iron_dark",
+      "sides": 8,
+      "at": [
+        21.5,
+        0,
+        0
+      ],
+      "rotate": [
+        180,
+        0,
+        0
+      ],
+      "rings": [
+        {
+          "s": 0,
+          "r": [
+            0.28,
+            1.35
+          ],
+          "off": [
+            -1.7,
+            0
+          ]
+        },
+        {
+          "s": 6.9,
+          "r": [
+            0.7,
+            0.75
+          ]
+        }
+      ]
+    },
+    {
+      "id": "collar",
+      "kind": "turn",
+      "axis": "x",
+      "material": "collar",
+      "sides": 4,
+      "at": [
+        14.8,
+        0,
+        0
+      ],
+      "rotate": [
+        180,
+        0,
+        45
+      ],
+      "rings": [
+        [
+          0,
+          0.95
+        ],
+        [
+          3.3,
+          0.95
+        ]
+      ]
+    },
+    {
+      "id": "shaft_chisel_side",
+      "kind": "turn",
+      "axis": "x",
+      "material": "red_dark",
+      "sides": 4,
+      "at": [
+        11.6,
+        0,
+        0
+      ],
+      "rotate": [
+        180,
+        0,
+        45
+      ],
+      "rings": [
+        [
+          0,
+          0.95
+        ],
+        {
+          "s": 12.8,
+          "r": 0.95,
+          "off": [
+            0.35,
+            -0.35
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shaft_hook_side",
+      "kind": "turn",
+      "axis": "x",
+      "material": "red_light",
+      "sides": 4,
+      "at": [
+        -1.1,
+        0,
+        0
+      ],
+      "rotate": [
+        180,
+        0,
+        45
+      ],
+      "rings": [
+        {
+          "s": 0,
+          "r": 0.95,
+          "off": [
+            0.35,
+            -0.35
+          ]
+        },
+        {
+          "s": 13.8,
+          "r": 0.95,
+          "off": [
+            -0.21,
+            0.21
+          ]
+        }
+      ]
+    },
+    {
+      "id": "neck",
+      "kind": "turn",
+      "axis": "x",
+      "material": "collar",
+      "sides": 4,
+      "at": [
+        -14.8,
+        0,
+        0
+      ],
+      "rotate": [
+        180,
+        0,
+        45
+      ],
+      "rings": [
+        {
+          "s": 0,
+          "r": 0.95,
+          "off": [
+            -0.21,
+            0.21
+          ]
+        },
+        {
+          "s": 1.4,
+          "r": 0.95,
+          "off": [
+            -0.14,
+            0.14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hook",
+      "kind": "tube",
+      "material": "iron_dark",
+      "sides": 4,
+      "path": [
+        [
+          -16,
+          0.2,
+          0,
+          0.8
+        ],
+        [
+          -19.5,
+          -0.7,
+          0,
+          0.8
+        ],
+        [
+          -21,
+          -3,
+          0,
+          0.8
+        ],
+        [
+          -21.1,
+          -4.2,
+          0,
+          0.8
+        ]
+      ]
+    },
+    {
+      "id": "claw",
+      "kind": "turn",
+      "axis": "x",
+      "material": "iron_dark",
+      "sides": 8,
+      "at": [
+        -21.1,
+        -3.9,
+        0
+      ],
+      "rotate": [
+        290,
+        0,
+        0
+      ],
+      "rings": [
+        [
+          0,
+          [
+            0.75,
+            0.75
+          ]
+        ],
+        [
+          3.6,
+          [
+            0.25,
+            1.35
+          ]
+        ]
+      ]
+    }
+  ]
+}
