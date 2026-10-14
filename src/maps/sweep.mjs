@@ -15,8 +15,13 @@ import { valueOf, vectorOf } from "./entities.mjs";
 export const SAFE_DROP = Math.round((580 * 580) / (2 * 800));
 /** A light this far from anything solid in every direction hangs in the air. */
 export const LIGHT_REACH = 32;
-/** The classes that light the map from where they stand. */
-const LIGHTS = ["light", "light_spot"];
+/**
+ * What is looked at for hanging in the air: the sprites a player sees (a glow on a lamp), and the light entities,
+ * which the game does not draw. Valve's frenzy has every glow on something and two of its eight lights in open
+ * air; frenzy_pictures had seven of eight glows floating: what Steven saw as "random lights in the middle of the air".
+ */
+const SEEN = ["env_glow", "env_sprite"];
+const LIGHTS = ["light", "light_spot", ...SEEN];
 /** Where a body's chest is over the floor: open there, a player walks off the edge. */
 const CHEST = 36;
 
@@ -64,13 +69,14 @@ export function sweepOf(bytes, { reach = null } = {}) {
       for (let t = 2; t <= LIGHT_REACH; t += 2) if (solid([o[0] + d[0] * t, o[1] + d[1] * t, o[2] + d[2] * t])) return true;
       return false;
     });
-    if (!near) floating.push({ number, classname: valueOf(entity, "classname"), at: o.map(Math.round) });
+    if (!near) floating.push({ number, classname: valueOf(entity, "classname"), seen: SEEN.includes(valueOf(entity, "classname")), at: o.map(Math.round) });
   });
 
   const islands = islandsOf(bsp);
   const facts = [
     `${drops.length} places a player can step off and fall more than ${SAFE_DROP} (hurt)${drops.length ? `: ${drops.slice(0, 6).map((d) => `${d.fall} down at ${d.at.join(" ")}`).join("; ")}` : ""}`,
-    `${floating.length} lights with nothing solid within ${LIGHT_REACH} of them${floating.length ? `: ${floating.slice(0, 8).map((f) => `${f.number} at ${f.at.join(" ")}`).join("; ")}` : ""}`,
+    `${floating.filter((f) => f.seen).length} glows and sprites with nothing solid within ${LIGHT_REACH} of them${floating.some((f) => f.seen) ? `: ${floating.filter((f) => f.seen).slice(0, 8).map((f) => `${f.number} ${f.classname} at ${f.at.join(" ")}`).join("; ")}` : ""}`,
+    `${floating.filter((f) => !f.seen).length} light entities in open air (the game draws them not; Valve's frenzy has two)`,
   ];
   facts.push(`${islands.length} pieces of solid that touch nothing (floating in the air)${islands.length ? `: ${islands.slice(0, 6).map((i) => `${i.from.join(" ")} to ${i.to.join(" ")}`).join("; ")}` : ""}`);
   return { drops, floating, islands, facts };

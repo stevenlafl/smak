@@ -268,7 +268,8 @@ walk test, not the game.
   legs (reviews/maps-2026-10-14.json): each map, original and reproduction, is swept for the drops a player can
   step off and be hurt by (over 210 units, Half-Life's safe fall) and for lights with nothing solid within 32
   (`src/maps/sweep.mjs`), and both counts are given to the judge beside each other. Valve's frenzy has 48 such
-  drops and 2 such lights; its reproductions had 58 to 77 and 7 to 53. Solid that touches nothing (sampled every
+  drops, no glow in the air and 2 light entities (which the game does not draw) in open air; frenzy_pictures had
+  7 of its 8 glows floating, what Steven saw. Glows and light entities are counted apart. Solid that touches nothing (sampled every
   16 units, 8 cells or more) is counted too: Valve's frenzy has none, frenzy_pictures one slab and frenzy_words
   two. The measure caps nothing yet.
 

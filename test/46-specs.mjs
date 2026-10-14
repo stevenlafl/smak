@@ -381,6 +381,14 @@ test("a material's tone of null is its base's own colour, as left out (the winte
   sure(JSON.stringify(materialOf({ base: "grass", tone: null }).tone) === JSON.stringify(materialOf({ base: "grass" }).tone), "null as left out");
 });
 
+test("a map spec's glow is on what it shines from: one in the air is a fault, one on the ceiling is not", () => {
+  // frenzy_pictures: seven env_glow floating, what Steven saw as "random lights in the middle of the air"
+  const faults = (z) =>
+    buildMapSpec({ spec: "smak.map/1", name: "glow2", rooms: [{ id: "a", size: [512, 512, 256] }], entities: [{ class: "info_player_start", room: "a", at: [-200, -200] }, { class: "env_glow", room: "a", at: "centre", z, keys: { model: "sprites/glow01.spr" } }] }, { out: join(folder, "glow2"), compilers: { found: false, message: "" } }).report.faults.filter((f) => /hangs in the air/.test(f));
+  sure(faults(128).length === 1, "at 128 of 256, in the air");
+  sure(faults(240).length === 0, "16 under the ceiling");
+});
+
 test("a lamp is never in mid-air: one hung below a tall room's ceiling has a shade and a rod up to it", () => {
   // Steven's play-test of frenzy_pictures: "random lights in the middle of the air"
   const spec = { spec: "smak.map/1", name: "tall", rooms: [{ id: "hall", size: [256, 256, 480] }], entities: [{ class: "info_player_start", room: "hall", at: "centre" }, { class: "light", room: "hall", at: "corner ne" }] };
@@ -1098,7 +1106,7 @@ if (compilers.found)
     sure(report.rooms.low.light > 24 && report.rooms.high.light > 24, JSON.stringify(report.rooms));
     // and swept: no light in mid-air, no solid in mid-air
     const swept = report.facts.filter((f) => /^sweep:/.test(f)).join(" | ");
-    sure(/0 lights with nothing solid/.test(swept) && /0 pieces of solid that touch nothing/.test(swept), swept);
+    sure(/0 glows and sprites with nothing solid/.test(swept) && /0 pieces of solid that touch nothing/.test(swept), swept);
   });
 else console.log(`skip  a map spec compiled\n      skipped: no compilers (name the folder of VHLT or SDHLT in ${COMPILERS_VARIABLE} to run it)`);
 

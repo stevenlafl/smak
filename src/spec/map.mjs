@@ -64,6 +64,9 @@ const INSET = 48;
 const INTO_WALL = 1;
 /** Pieces this near each other, or a room's face, touch. */
 const TOUCH = 1;
+/** The sprites a player sees, and how near a surface they must be (sweep.mjs's LIGHT_REACH). */
+const GLOWS = ["env_glow", "env_sprite"];
+const GLOW_REACH = 32;
 /** A piece set on others with less than this share of its footprint under it overhangs. */
 const OVERHANG = 0.5;
 /** The rise and the depth of a stair's step that a link of stairs is built with. */
@@ -1264,6 +1267,14 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       const start = playerStart(at, yaw, thing.class);
       Object.assign(start, keys);
       entities.push(start);
+    } else if (GLOWS.includes(thing.class)) {
+      // a glow a player sees is on what it shines from: within GLOW_REACH of a surface of its room or of furniture
+      const p = [at[0], at[1], at[2]];
+      const toRoom = Math.min(...[0, 1, 2].flatMap((k) => [p[k] - room.min[k], room.max[k] - p[k]]));
+      const toPiece = Math.min(Infinity, ...furniturePieces.map((b) => Math.hypot(...[0, 1, 2].map((k) => Math.max(b.min[k] - p[k], 0, p[k] - b.max[k])))));
+      if (Math.min(toRoom, toPiece) > GLOW_REACH)
+        report.faults.push(`entities: ${thing.class} at ${p.map(Math.round).join(" ")} in ${room.id} hangs in the air, ${Math.round(Math.min(toRoom, toPiece))} from anything: put it on the lamp or the wall it shines from`);
+      entities.push(pointEntity(thing.class, p, { angles: [0, yaw, 0], ...keys }));
     } else if (thing.class === "light") {
       entities.push(light([at[0], at[1], at[2] + (thing.height ?? 96)], keys));
       hang(room, [at[0], at[1], at[2] + (thing.height ?? 96)]);
@@ -1438,7 +1449,8 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       const swept = sweepOf(bsp, { reach: walked });
       report.facts.push(...swept.facts.map((line) => `sweep: ${line}`));
       if (swept.islands.length) report.faults.push(`sweep: ${swept.islands.length} pieces of solid touch nothing, floating in the air: ${swept.islands.slice(0, 4).map((i) => `${i.from.join(" ")} to ${i.to.join(" ")}`).join("; ")}: rest each on something, or take it out`);
-      if (swept.floating.length) report.faults.push(`sweep: ${swept.floating.length} lights hang in the air with nothing within ${LIGHT_REACH} of them: put each on a wall or under a ceiling`);
+      const seenFloating = swept.floating.filter((f) => f.seen);
+      if (seenFloating.length) report.faults.push(`sweep: ${seenFloating.length} glows or sprites hang in the air with nothing within ${LIGHT_REACH} of them: put each on the lamp or the wall it shines from`);
       if (swept.drops.length) warnings.push(`sweep: ${swept.drops.length} places a player can step off and fall far enough to be hurt (more than ${SAFE_DROP}), the farthest ${swept.drops[0].fall} at ${swept.drops[0].at.join(" ")}: mean each, or rail it`);
       // a night map's sky drawn dark: without the game's own sky pictures the views fill it with a day's blue
       const drawing = { folders: [out, dirname(out), ...gameWads.map((file) => dirname(file))], models: true, ...(spec.night && typeof spec.sky !== "object" ? { sky: [10, 12, 22] } : {}) };
