@@ -68,6 +68,22 @@ export function colourOfGiven(given, where) {
   throw new Error(`${where}: [r, g, b] from 0 to 1, or words ("dark warm grey")`);
 }
 
+/**
+ * The paint of a colour read off a picture: under the kit's stand-in lamp (a colour alone), or under a light
+ * that is known (`{ colour, light }`, light a number or [r, g, b]: what a map's preview reports for a face, so
+ * that a colour read off a view of the map is divided by the light the map lays there).
+ */
+function seenPaint(seen, where) {
+  if (seen && typeof seen === "object" && !Array.isArray(seen)) {
+    const colour = colourOfGiven(seen.colour, `${where}.colour`);
+    const light = Array.isArray(seen.light) ? seen.light : [seen.light, seen.light, seen.light];
+    if (!light.every((v) => typeof v === "number" && v > 0))
+      throw new Error(`${where}.light: the light the colour was seen under, a number or [r, g, b] over 0 (the preview's report gives it)`);
+    return colour.map((v, k) => Math.min(1, v / light[k]));
+  }
+  return colourOfGiven(seen, where).map((v) => Math.min(1, v / SEEN_LIGHT));
+}
+
 export function materialOf(given, where = "material") {
   // `glow` (a map's texture light: how bright a lit face shines a unit of its area) is passed on as it is
   const material = typeof given === "string" ? { base: given } : { ...given };
@@ -80,7 +96,7 @@ export function materialOf(given, where = "material") {
     // the paint: given as it is (tone), or as it shows in a picture (seen), lit by the kit's stand-in lamp
     tone:
       material.seen !== undefined
-        ? colourOfGiven(material.seen, `${where}.seen`).map((v) => Math.min(1, v / SEEN_LIGHT))
+        ? seenPaint(material.seen, `${where}.seen`)
         : material.tone !== undefined
           ? colourOfGiven(material.tone, `${where}.tone`)
           : MATERIALS[material.base].tone,
@@ -90,6 +106,9 @@ export function materialOf(given, where = "material") {
     glow: material.glow,
     ...(material.cell !== undefined ? { cell: material.cell } : {}),
     ...(material.weave !== undefined ? { weave: material.weave } : {}),
+    // the sizes of a pattern, in texels of the picture: a tile's or a panel's cell ([w, h] or one number), a
+    // brick's course and length, a board's width, a hazard stripe's width and slant
+    ...Object.fromEntries(["course", "length", "board", "stripe", "angle"].filter((k) => material[k] !== undefined).map((k) => [k, material[k]])),
   };
 }
 
@@ -173,8 +192,11 @@ export function colourAt(material, x, y, light = 1, px = 8) {
       return shade(tone, ripple * light);
     }
     case "hazard": {
-      // stripes a unit and a half wide on a slant, worn at their edges
-      const band = ((x + y) / 1.5) % 2;
+      // stripes a unit and a half wide on a slant (or `stripe` wide at `angle` degrees from upright), worn at
+      // their edges
+      const turn = ((material.angle ?? 45) * Math.PI) / 180;
+      const width = material.stripe ?? 1.5 / Math.SQRT2;
+      const band = ((((x * Math.cos(turn) + y * Math.sin(turn)) / width) % 2) + 2) % 2;
       const black = band >= 0 && band < 1;
       const k = 0.9 + 0.2 * (grain(x * 0.6, y * 0.6) - 0.5);
       return shade(black ? [0.06, 0.06, 0.06] : tone, k * light);
@@ -263,28 +285,41 @@ export function surfacePicture(given, size = 64, height = size) {
     );
   };
   const mortar = [0.6, 0.58, 0.54];
+  // a pattern's size made to divide the picture, so that it tiles: the nearest whole number of them across
+  const divide = (wanted, across) => across / Math.max(1, Math.round(across / wanted));
+  const cellOf = (given, fallback) => (Array.isArray(given) ? given : [given ?? fallback, given ?? fallback]);
+  const [cellW, cellH] = cellOf(material.cell, 32);
+  const [cw, ch] = [divide(cellW, size), divide(cellH, height)];
+  const courseH = divide(material.course ?? 16, height);
+  const brickL = divide(material.length ?? 32, size);
+  const boardW = divide(material.board ?? 16, height);
   for (let y = 0; y < height; y++)
     for (let x = 0; x < size; x++) {
       let c = seamless(x, y);
       if (base === "brick") {
-        // courses 16 high, bricks 32 long, every other course moved half a brick
-        const course = Math.floor(y / 16);
-        const along = (x + (course % 2) * 16) % 32;
-        const edge = Math.min(y % 16, 15 - (y % 16), along, 31 - along);
-        const brick = times(c, 0.85 + 0.3 * (noise(Math.floor((x + (course % 2) * 16) / 32), course, s) - 0.5));
+        // courses 16 high, bricks 32 long (`course`, `length`), every other course moved half a brick
+        const course = Math.floor(y / courseH);
+        const shifted = x + (course % 2) * (brickL / 2);
+        const along = shifted % brickL;
+        const up = y - course * courseH;
+        const edge = Math.min(up, courseH - 1 - up, along, brickL - 1 - along);
+        const brick = times(c, 0.85 + 0.3 * (noise(Math.floor(shifted / brickL), course, s) - 0.5));
         c = edge < 1.5 ? times(mortar, 0.9 * (0.9 + 0.2 * (noise(x, y, s + 3) - 0.5))) : brick;
       } else if (base === "tile") {
-        const edge = Math.min(x % 32, 31 - (x % 32), y % 32, 31 - (y % 32));
+        const [u, v] = [x % cw, y % ch];
+        const edge = Math.min(u, cw - 1 - u, v, ch - 1 - v);
         c = edge < 1 ? times(tone, 0.55) : times(c, edge < 3 ? 1.08 : 1);
       } else if (base === "planks") {
-        // boards 16 wide along x, their ends staggered
-        const board = Math.floor(y / 16);
+        // boards 16 wide along x (`board`), their ends staggered
+        const board = Math.floor(y / boardW);
         const end = (x + board * 23) % size;
-        const seam = Math.min(y % 16, 15 - (y % 16)) < 1 || end < 1;
+        const across = y - board * boardW;
+        const seam = Math.min(across, boardW - 1 - across) < 1 || end < 1;
         c = times(c, seam ? 0.45 : 0.92 + 0.16 * (noise(board, 0, s) - 0.5));
       } else if (base === "metal") {
-        const edge = Math.min(x % 32, 31 - (x % 32), y % 32, 31 - (y % 32));
-        const rivet = Math.hypot((x % 32) - 4, (y % 32) - 4) < 1.5;
+        const [u, v] = [x % cw, y % ch];
+        const edge = Math.min(u, cw - 1 - u, v, ch - 1 - v);
+        const rivet = Math.hypot(u - 4, v - 4) < 1.5;
         c = times(c, edge < 1 ? 0.55 : rivet ? 1.35 : edge < 2 ? 1.15 : 1);
       }
       rgb.set(c.map((v) => Math.max(0, Math.min(255, Math.round(v * 255)))), (y * size + x) * 3);

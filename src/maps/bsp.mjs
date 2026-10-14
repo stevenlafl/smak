@@ -482,6 +482,15 @@ function texinfoOf(bsp, face) {
 }
 
 /**
+ * How a face lays its texture: `{ s: [x, y, z, offset], t: [x, y, z, offset] }`, the texture's two axes in the
+ * world (a point's pixel is its dot with the axis plus the offset; `t` runs down the picture).
+ */
+export function faceTextureAxes(bsp, face) {
+  const { s, t } = texinfoOf(bsp, face);
+  return { s: [...s], t: [...t] };
+}
+
+/**
  * The directory entry of the texture a face wears: `{ index, name, width, height, embedded, absent, at }`.
  */
 export function faceTexture(bsp, face) {

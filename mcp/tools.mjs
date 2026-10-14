@@ -773,6 +773,24 @@ function build(folders, args) {
         show(views);
         const missing = views.facts?.missing ?? [];
         if (missing.length) lines.push(`the map wears textures this .wad does not have (drawn flat): ${missing.join(", ")}`);
+        if (spec.preview.each) {
+          // each texture of the spec on its own place in the map, from the camera and at the brightness the
+          // reproduction test's judge uses: scale, turn and colour checked against a picture of the original's
+          const wadTextures = smak.maps.readWad(readFileSync(files.wad)).textures;
+          const mine = new Set(spec.textures.map((t) => t.name.toLowerCase()));
+          const places = smak.maps.texturePlaces(bsp).filter((p) => mine.has(p.name.toLowerCase()));
+          const shots = places.map((p) => smak.maps.placeView(bsp, p, { textures: wadTextures }));
+          for (let i = 0; i < shots.length; i += 8)
+            show(smak.tile(shots.slice(i, i + 8), 4, places.slice(i, i + 8).map((p) => p.name)));
+          lines.push(`each texture where the map shows it best, at brightness ${smak.maps.PLACE_BRIGHTNESS} (a colour read off such a view is the paint times the face's light: material seen: { colour, light }):`);
+          for (const p of places)
+            lines.push(`  ${p.name}: on a ${p.wall ? "wall" : "floor or ceiling"}, the view spans ${p.across} texels across, the picture's top turned ${p.turned} degrees from ${p.wall ? "up" : "north"}, light [${p.light.join(", ")}]${p.lit ? "" : " (unlit: black in any view)"}`);
+          // a texture the map keeps inside itself is the one the game wears: a .wad does not replace it
+          const kept = places.filter((p) => bsp.textures.some((t) => t.name.toLowerCase() === p.name.toLowerCase() && t.embedded && !t.absent)).map((p) => p.name);
+          for (const name of kept) lines.push(`  the map keeps its own ${name} inside it: the game (and this view) wears that, not the .wad's. Only a recompile without it, or a map that names the .wad, wears yours`);
+          const absent = spec.textures.filter((t) => !places.some((p) => p.name.toLowerCase() === t.name.toLowerCase())).map((t) => t.name);
+          if (absent.length) lines.push(`  not on the map's world faces: ${absent.join(", ")}`);
+        }
       }
     }
     return [text(lines.join("\n")), ...pictures];

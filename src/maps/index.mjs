@@ -28,4 +28,5 @@ export * from "./light.mjs";
 export * from "./measure.mjs";
 export * from "./decompile.mjs";
 export * from "./texlights.mjs";
+export * from "./places.mjs";
 export * from "./fidelity.mjs";

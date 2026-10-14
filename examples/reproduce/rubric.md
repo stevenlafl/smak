@@ -150,8 +150,8 @@ walk test, not the game.
   its bone) and bodypart of the base (`compareContract`, measured: any fault caps C2 at 0). C1 is judged on
   its run and on a stunt (a forward dive), each beside the original's.
 - **2026-10-14, the asset test's pictures and measures, after round 1 (research/asset-reproduction-failures.md).**
-  Before round 2: each texture's face is its largest *lit* face (four of frenzy's were judged on faces the map
-  leaves black); the judge also sees every texture flat, on its own, beside the original, with an
+  Before round 2: each texture's face is its largest face lit in every colour, else its largest lit one (four
+  of frenzy's were judged on faces the map leaves black; `maps.texturePlaces`, which the agents' preview uses too); the judge also sees every texture flat, on its own, beside the original, with an
   animation's frames and a random set's tiles (T6 needs them, and "on its own" always said so); T2 is the
   larger of the view's colour difference and the flat textures' (a face under a coloured lamp hides its
   texture's colour). The words leg is given the facts the pictures leg has (a sprite's size, frames, type and

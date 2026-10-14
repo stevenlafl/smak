@@ -45,43 +45,6 @@ const png = (picture) => smak.png(picture.width, picture.height, picture.rgba);
 
 // ── what the game has ─────────────────────────────────────────────────────
 
-/** The mean light (0 to 255) of a face's lightmap under which it counts as unlit: black in any picture. */
-const LIT_LEAST = 12;
-
-/** A texture's largest lit face of the world (its largest when none is lit), and a camera square in front of it. */
-export function texturePlaces(bsp) {
-  const best = new Map();
-  const world = bsp.models[0];
-  for (let f = world.firstFace; f < world.firstFace + world.faceCount; f++) {
-    const tex = maps.faceTexture(bsp, f);
-    if (/^(aaatrigger|sky|clip|null|origin|hint|skip)$/i.test(tex.name)) continue;
-    const corners = maps.facePolygon(bsp, f);
-    let a = [0, 0, 0];
-    for (let i = 1; i + 1 < corners.length; i++) {
-      const u = corners[i].map((v, k) => v - corners[0][k]);
-      const w = corners[i + 1].map((v, k) => v - corners[0][k]);
-      a = a.map((s, k) => s + [u[1] * w[2] - u[2] * w[1], u[2] * w[0] - u[0] * w[2], u[0] * w[1] - u[1] * w[0]][k] / 2);
-    }
-    const area = Math.hypot(...a);
-    // a face the map leaves unlit is black in either picture: one that is lit stands before any that is not
-    const light = maps.faceLightmap(bsp, f)?.styles.find((st) => st.style === 0)?.rgb;
-    let lum = 0;
-    if (light) for (let i = 0; i < light.length; i += 3) lum += (light[i] + light[i + 1] + light[i + 2]) / 3;
-    const lit = light && lum / (light.length / 3) >= LIT_LEAST;
-    const rank = area * (lit ? 1 : 1e-6);
-    if (rank > (best.get(tex.name)?.rank ?? 0)) best.set(tex.name, { area, rank, lit: Boolean(lit), corners, normal: maps.faceNormal(bsp, f), texture: tex });
-  }
-  return [...best.values()].map(({ corners, normal, texture, area, lit }) => {
-    const mid = corners.reduce((s, c) => s.map((v, k) => v + c[k] / corners.length), [0, 0, 0]);
-    const span = Math.sqrt(area);
-    const dist = Math.min(160, Math.max(40, span * 0.8));
-    const from = mid.map((v, k) => v + normal[k] * dist);
-    const yaw = (Math.atan2(-normal[1], -normal[0]) * 180) / Math.PI;
-    const pitch = (Math.asin(Math.max(-1, Math.min(1, -normal[2]))) * 180) / Math.PI;
-    return { name: texture.name, width: texture.width, height: texture.height, from, yaw, pitch, area, lit };
-  });
-}
-
 /** A wad texture as a picture: its palette's colours, a `{` texture's holes shown in a pale grey. */
 function flatOf(t) {
   const rgba = new Uint8Array(t.width * t.height * 4);
@@ -135,11 +98,10 @@ function siblingsOf(name, known) {
   return [...known.keys()].filter((k) => k.length === name.length && /^[+-][0-9a-j]/i.test(k) && k[0] === m[1] && k.slice(2) === rest).sort();
 }
 
-/** A view of a texture's place in the map: from its camera, wearing `textures` (a .wad's) or the game's. */
-function placeView(bsp, place, textures) {
-  // three times as bright as the map has it: many of its walls are in its dark, and the texture must show
-  return maps.drawMap(bsp, { from: place.from, yaw: place.yaw, pitch: place.pitch, fov: 70, width: 320, height: 240, folders: textures ? [] : [GAME], textures, entities: "none", labels: false, brightness: 4.5 });
-}
+/** A view of a texture's place in the map: from the judge's camera, wearing `textures` (a .wad's) or the game's. */
+const placeView = (bsp, place, textures) => maps.placeView(bsp, place, textures ? { textures } : { folders: [GAME] });
+const texturePlaces = (bsp) => maps.texturePlaces(bsp);
+export { texturePlaces };
 
 // ── inputs ────────────────────────────────────────────────────────────────
 

@@ -256,7 +256,12 @@ a grille: cords in its tone with holes between, seen through as in the game; `ce
 changes its colour, or words: `"tone": "dark warm grey"` (the XKCD colour survey's 949 names, with `dark`,
 `light`, `pale`, `muted`, `bright`, `deep`, `warm`, `cool`, `grimy` and `-ish`). A colour read off a picture is
 lighter or darker than its paint by the picture's light: give it as `seen` (`"seen": [0.4, 0.38, 0.35]` or
-words) and the build takes the paint as the colour over the pictures' light (0.8). `rust` (0 to 1) a metal's rust; `flags: ["fullbright"]` makes it shine in the dark
+words) and the build takes the paint as the colour over the pictures' light (0.8); read off a view of a map,
+give the light the preview reports for that face as well (`"seen": { "colour": [0.4, 0.3, 0.2], "light": [1.1,
+1.05, 0.9] }`), and the paint is the colour over it, channel by channel. A pattern's size, in texels of its
+picture (made to divide it, so that it tiles): `cell` a `tile`'s or a `metal` panel's (32, or `[w, h]`),
+`course` and `length` a `brick`'s (16 and 32), `board` a plank's width (16), `stripe` and `angle` a `hazard`'s
+stripe width and slant (1.06 at 45 degrees). `rust` (0 to 1) a metal's rust; `flags: ["fullbright"]` makes it shine in the dark
 (`flame` and `neon` are so already; such parts get a texture of their own).
 
 ### The finish
@@ -408,8 +413,13 @@ is one word of 15 letters at most and its first letters mean what a map's do (`{
 animation's first frame, `-0` the first of random tiles); sides are multiples of 16, 512 at most. The build
 writes the .wad and a sheet of its textures. With `preview.map`, a compiled map of the models or work folder is
 drawn wearing them: textures of the same names stand in for the game's, the way a mod replaces a game's look,
-and the report names the textures the map wears that the .wad does not have. `render` takes `wad` to draw any
-map wearing one.
+and the report names the textures the map wears that the .wad does not have. With `preview.each: true` as well,
+each texture is drawn on its own place in the map, its largest face lit in every colour, from the camera and at
+the brightness (4.5) a reproduction test's judge looks from: set it beside a picture of the original's place.
+For each, the report says how many texels the view spans across (its scale), how far the picture's top is
+turned from up or north on that face (the map may turn it), and the light on the face, `[r, g, b]`, which a
+colour read off such a view is the paint times. A texture the map keeps inside itself is the one the game
+wears; the report says so. `render` takes `wad` to draw any map wearing one.
 
 ## A sprite
 

@@ -58,6 +58,7 @@ const areas = [
   "48-decompile", // a compiled map made back into a .map (Half-Life's frenzy where installed), recompiled, and measured against its original
   "49-video", // video: a camera path at an even speed, shots made into frames, a GIF of our own, built by the tool
   "50-mod-code", // a mod's classes and keys read from its C++ source, and an FGD written from them
+  "53-texture-places", // where a map's textures are best seen, a material seen under a map's light, the wad preview from there
   "19-example-and-kit-faults", // the examples' wrong arguments and refused models; the kits' fittings and rings
 ];
 

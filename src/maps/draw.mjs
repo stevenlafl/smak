@@ -910,13 +910,24 @@ export function viewFrom(map, which) {
 // ── a compiled map made ready ───────────────────────────────────────────────
 const scenes = new WeakMap();
 
+const textureIds = new WeakMap();
+let textureCount = 0;
+/** A texture object's own number, the same for the same object every time it is asked. */
+function textureIdentity(texture) {
+  if (!texture || typeof texture !== "object") return String(texture);
+  if (!textureIds.has(texture)) textureIds.set(texture, ++textureCount);
+  return `${texture.name}#${textureIds.get(texture)}`;
+}
+
 /**
  * A compiled map with what the drawing needs worked out once: its textures (found where they can be), its
  * entities, and its faces as surfaces, each made the first time it is drawn. Kept for the map and these
  * options, so that the second picture of a map does not look for its textures again.
  */
 function sceneOf(bsp, { textures, folders, light = true, sky = true }) {
-  const key = JSON.stringify([folders ?? [], (textures ?? []).map((texture) => texture.name), light, sky]);
+  // textures are told apart by the very objects given, not their names: two sets under the same names (a
+  // game's and their replacements) are two scenes
+  const key = JSON.stringify([folders ?? [], (textures ?? []).map(textureIdentity), light, sky]);
   const kept = scenes.get(bsp);
   if (kept?.key === key) return kept;
   // the sky: a colour that was asked for, or the picture the map names where the folders have it
