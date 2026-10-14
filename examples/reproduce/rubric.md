@@ -110,6 +110,41 @@ that limit is said in every sound result), sprites as sheets and their measures.
 | R4 | Motion | yes | the same number of frames within 25%, the same kind of motion (grows, rises, flickers, fades), a loop that closes where the original loops and a one-shot that ends dark where it does (measured) |
 | R5 | Fit for the game | yes | the original's type and format (additive, index alpha, alpha test), the same name, read back as written |
 
+## Original creation: a small mod from a brief (added 2026-10-14, before any of it was built)
+
+The test that the kit makes a mod, not only copies one. The brief is `original/brief.md`, fixed with this
+section: three connected maps, five props, a weapon in place of the crowbar, an enemy in place of the
+headcrab's model, a .wad of twelve textures or more, three sprites, six sounds and the pictures and videos to
+show them. One fresh agent with only the MCP server (the game's folder for its `.wad` and its own files to fit
+into, as in the other tests) makes all of it from the brief alone, with as long as it needs.
+
+The judge sees the brief, this rubric, and the harness's pictures and measurements of what was made; never a
+spec or the maker's words. Each asset is scored on its kind's table above, with "the original" read as **what
+the brief asks**, and these measures in place of the ones against an original:
+
+| Kind | Measured in place of the original's |
+| --- | --- |
+| A prop, the weapon, the enemy | M1: its outline judged against the brief's words; M2: within 15% of a size the brief gives; M6: beside three of Half-Life's own of its kind at the same scale (a line-up the harness draws), a player would take it for one of the game's; M8: no more than twice the median triangles of Half-Life's own of its kind and size (`docs/SPEC.md`, "How many triangles") |
+| The enemy | C2: it keeps the headcrab's contract (`compareContract`, measured), so the game's own headcrab plays it |
+| A map | P1 to P3: the brief's areas, joined as it says, at its sizes within 25%; P4: the entities it names (starts, the wrench, the crawlers, the doors, the lift) are there and reached; P8 measured as for any map (compiles, no leak, the walk test reaches every item and the way out); P9: from inside, a player would take it for a map of Half-Life's |
+| A texture | T2: its colour as the brief says; T3: its pattern at a scale a wall of the game's has; T5: beside Half-Life's own textures of its kind, flat and on a wall, at least as good (its fine detail within Valve's band, measured as in research/asset-reproduction-failures.md, Table 4) |
+| A sound | S2 and S3: within the range of Half-Life's own sounds of its class (`src/audio/classes.mjs`), measured |
+| A sprite | R2 to R4: within the measures of Half-Life's own sprites of its class (`SPRITE_CLASSES`), measured |
+
+And the mod as a whole:
+
+| # | Item | Must | What a 2 is |
+| --- | --- | --- | --- |
+| O1 | Complete | yes | every asset the brief lists is there, under the file name the game looks for, and passes SMAK's checks for GoldSrc |
+| O2 | Wired | yes | each map leads to the next where the player can walk to it, by a level change with its landmark, and arrives where the last left (measured: the walk test reaches each change of level from the start); every model, sprite and sound a map names is among the mod's files or the game's |
+| O3 | One place | yes | the assets read as one place: the palette, the materials and the wear agree across maps, props, textures and sprites (judged from one sheet of everything) |
+| O4 | Shown | no | the videos and the sheet of props the brief asks for are there and show each asset as it is |
+
+The mod passes when O1, O2 and O3 score 2 and at least 80% of the assets of each kind pass by "Passing" below.
+The decoy is the brief made plainly by the harness itself (each prop a box of its size, each texture one flat
+colour, each sound a hiss of its length, each sprite one disc, each map one room with the entities in it): it
+must fail.
+
 ## Passing
 
 A reproduction (or a replacement) passes when **every must-have item scores 2 and the total is 85% or more**. An item the
