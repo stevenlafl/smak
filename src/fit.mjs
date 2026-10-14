@@ -198,7 +198,13 @@ export function bestTurn(piece, original, haft = false, only = null) {
   }
   // what stands off a piece without being part of it (flames: `loose`) is not measured
   const solid = piece.some((tri) => tri.loose) ? piece.filter((tri) => !tri.loose) : piece;
-  const own = frameOf(solid);
+  // "as drawn": the axes it was built along (+x its length), not its principal axes, which a hooked stock or a
+  // deep grip tilts; any other turn starts from the principal axes as before
+  const drawn = () => {
+    const b = box(uniq(solid.map((tri) => tri.map((corner) => corner.p))));
+    return { X: [1, 0, 0], Y: [0, 1, 0], Z: [0, 0, 1], o: [0, 1, 2].map((a) => mid(b, a)) };
+  };
+  const own = only === "as drawn" ? drawn() : frameOf(solid);
   const mine = solid.map((tri) => tri.map((corner) => into(own, corner.p)));
   const theirs = original.map((tri) => tri.map((corner) => corner.p));
   const theirBox = box(theirs.flat());
