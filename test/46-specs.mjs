@@ -318,6 +318,21 @@ test("a part's texels: twice as finely painted as its twin, and the zones laid t
   sure(ratio > 1.7 && ratio < 2.3, `the face's zone ${ratio.toFixed(2)} times as wide`);
 });
 
+test("a map spec's doors: one on hinges, one that slides all the way up, and the threshold under each filled", () => {
+  const spec = (door) => ({ spec: "smak.map/1", name: "doors", rooms: [{ id: "a", size: [256, 256, 128], surfaces: { floor: "planks" } }, { id: "b", size: [256, 256, 128], place: { east_of: "a" } }], links: [{ between: ["a", "b"], kind: "door", door }], entities: [{ class: "info_player_start", room: "a", at: "centre" }] });
+  const swung = buildMapSpec(spec({ swing: true }), { out: join(folder, "doors-swing") });
+  const slid = buildMapSpec(spec(undefined), { out: join(folder, "doors-slide") });
+  const text = (r) => readFileSync(r.files.map, "utf8");
+  sure(/"classname" "func_door_rotating"/.test(text(swung)) && /ORIGIN/.test(text(swung)), "a door on hinges, with its hinge");
+  sure(/"classname" "func_door"/.test(text(slid)) && /"lip" "0"/.test(text(slid)), "a sliding door that opens all the way");
+  // the threshold: the map's brushes have a floor under the doorway, level with the rooms'
+  const map = smak.maps.readMap(text(slid));
+  const door = map.entities.find((e) => e.classname === "func_door");
+  const [x, y] = [0, 1].map((k) => (Math.min(...door.brushes[0].faces.flatMap((f) => f.points.map((p) => p[k]))) + Math.max(...door.brushes[0].faces.flatMap((f) => f.points.map((p) => p[k])))) / 2);
+  const under = map.brushes.some((b) => smak.maps.holds(b, [x, y, -4]));
+  sure(under, `solid under the doorway at ${x}, ${y}`);
+});
+
 test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ files, the gloved hands kept", () => {
   // a stand-in for a game's files: a first-person model of a glove and a stick, and a world one of the stick
   const meshOn = (build, name) => {

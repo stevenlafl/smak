@@ -618,6 +618,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
 
   // ── the ways through: doorways, windows, stairs, shafts between storeys ──
   const holes = [];
+  const thresholds = [];
   const brushes = [];
   /** where to cut the map upright to see each staircase: { name, from, to } in plan */
   const cuts = [];
@@ -690,6 +691,9 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     hole.min[along] = w0;
     hole.max[along] = w0 + width;
     holes.push(hole);
+    // the threshold: rooms with a floor of their own are carved a lining deeper under it, and the way between
+    // them was carved down with them, a slot across the doorway a foot catches in. A slab fills it to the floor
+    if (kind !== "window") thresholds.push({ min: [hole.min[0], hole.min[1], z0 - LINING * 2], max: [hole.max[0], hole.max[1], z0] });
     report.facts.push(`links[${i}]: ${kind === "opening" ? "an" : "a"} ${kind} ${width} wide and ${height} high from ${a.id} to ${b.id} at ${along === 0 ? "x" : "y"} ${w0} to ${w0 + width}`);
     if (kind !== "window" && floorHigh - floorLow > STEP) {
       // stairs in the lower room, up to the doorway's floor, against the wall it is in
@@ -736,11 +740,36 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       );
     }
     if (kind === "door") {
-      const leaf = { min: [...hole.min], max: [...hole.max] };
       const middle = (from.max[axis] + to.min[axis]) / 2;
-      leaf.min[axis] = middle - 4;
-      leaf.max[axis] = middle + 4;
-      entities.push(brushEntity("func_door", [box(leaf.min, leaf.max, textureOf(link.material ?? "door"))], { angle: -1, speed: 120, wait: 4, lip: 8, ...(link.door ?? {}) }));
+      const swing = link.door?.swing;
+      const { swing: _swing, hinge = "start", ...keys } = link.door ?? {};
+      if (swing) {
+        // a door on hinges, as a house's: a leaf 4 thick in the wall's middle, turning a quarter about an
+        // upright through its hinge (an ORIGIN brush there), away from whoever opens it
+        const leaf = { min: [...hole.min], max: [...hole.max] };
+        leaf.min[axis] = middle - 2;
+        leaf.max[axis] = middle + 2;
+        const at = hinge === "end" ? hole.max[along] - 2 : hole.min[along] + 2;
+        const pin = { min: [...leaf.min], max: [...leaf.max] };
+        pin.min[along] = at - 2;
+        pin.max[along] = at + 2;
+        entities.push(
+          brushEntity("func_door_rotating", [box(leaf.min, leaf.max, textureOf(link.material ?? "door")), box(pin.min, pin.max, "ORIGIN")], {
+            speed: 100,
+            wait: 4,
+            distance: 90,
+            angles: "0 0 0",
+            ...keys,
+          }),
+        );
+      } else {
+        // a door that slides up into the wall over it, all the way: a lip left showing under the lintel
+        // makes a player of 72 duck through a doorway of 80
+        const leaf = { min: [...hole.min], max: [...hole.max] };
+        leaf.min[axis] = middle - 4;
+        leaf.max[axis] = middle + 4;
+        entities.push(brushEntity("func_door", [box(leaf.min, leaf.max, textureOf(link.material ?? "door"))], { angle: -1, speed: 120, wait: 4, lip: 0, ...keys }));
+      }
     }
   });
 
@@ -796,6 +825,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   const rock = carve([...boxes, ...holes], wall, themeNames);
   brushes.unshift(...rock);
   brushes.push(...linings);
+  brushes.push(...thresholds.map((t) => box(t.min, t.max, themeNames.floor)));
   // ── buildings standing in the open: a shell round their rooms, `wall` thick out from each room's face,
   // from the open room's floor to over the top room, its outside of the building's own material, and a roof
   const carvedOf = new Map([...rooms.values()].map((room, k) => [room.id, boxes[k]]));

@@ -681,8 +681,10 @@ open room with `stand: true`, and the rooms placed against that one (`east_of`, 
 stacked) with the wall's rock between them, and the link goes through that rock:
 
 - `opening` (unless told): a way through, 64 wide and 96 high unless told.
-- `door`: the same with a door in it (a `func_door` that slides up; `door: { keys }` for more; `material`
-  for its own, the theme's `door` unless told).
+- `door`: the same with a door in it: a `func_door` that slides up into the wall over it, all the way, or with
+  `door: { swing: true }` a door on hinges (`func_door_rotating`), as a house's are, turning a quarter away
+  from whoever opens it about its hinge at the start of the way (`hinge: "end"` the other edge). Other keys of
+  `door` are the entity's (`speed`, `wait`, `targetname`); `material` its own, the theme's `door` unless told.
 - `window`: 48 by 48, `sill` (40) over the higher floor. Nothing walks through a window. `glass: true` (or
   `{ alpha, health, material }`) glazes it: a `func_breakable` pane, half see-through, that shatters.
 - `stairs`: for rooms stacked one above the other: a stair in the lower room up through a hole in the
