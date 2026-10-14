@@ -107,7 +107,8 @@ export const GOLDSRC = deepFrozen({
     monster_alien_controller: "large",
   },
   doors: ["func_door", "func_door_rotating", "momentary_door"],
-  exits: [],
+  // a single-player map is left by its level changes: the walk test takes one as a way out, not a dead end
+  exits: ["trigger_changelevel"],
   markers: [],
   wiring: [],
   off: [],
