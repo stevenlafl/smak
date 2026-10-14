@@ -14,7 +14,7 @@ import { join, basename } from "node:path";
 import { tmpdir } from "node:os";
 import { mkdtempSync } from "node:fs";
 import { HERE, SUBJECTS, GAME, ANGLES } from "./lib.mjs";
-import { runAgent } from "./agents.mjs";
+import { runAgent, MAKER_MODEL } from "./agents.mjs";
 
 const words = process.argv.slice(2);
 const option = (name, fallback) => {
@@ -140,6 +140,7 @@ async function runJob({ kind, subject, leg }) {
     server: { wads: kind === "map", models },
     files: job.files,
     hours: kind === "map" ? 4 : 1.5,
+    model: MAKER_MODEL ?? undefined,
   });
   mkdirSync(out, { recursive: true });
   writeFileSync(join(out, "answer.md"), `${r.answer.trim()}\n`);
@@ -175,7 +176,7 @@ async function runJob({ kind, subject, leg }) {
         kept.push(file.name);
       }
     }
-  writeFileSync(join(out, "run.json"), `${JSON.stringify({ kit, seconds: r.seconds, turns: r.turns, cost: r.cost, error: r.error, built: kept, folder: r.folder }, null, 1)}\n`);
+  writeFileSync(join(out, "run.json"), `${JSON.stringify({ kit, model: MAKER_MODEL ?? "opus (the command's own)", seconds: r.seconds, turns: r.turns, cost: r.cost, error: r.error, built: kept, folder: r.folder }, null, 1)}\n`);
   return `${subject.id}:${leg}: ${r.seconds} s, ${r.turns} turns, built ${kept.join(", ") || "nothing"}${r.error ? ` (${r.error})` : ""}`;
 }
 
