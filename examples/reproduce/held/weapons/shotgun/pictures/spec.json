@@ -5,489 +5,589 @@
   "weapon": {
     "like": "shotgun",
     "turn": {
-      "w": "z",
-      "v": "z"
+      "v": "x"
     }
   },
   "size": {
     "length": 40.8
   },
   "materials": {
-    "gunmetal": {
+    "black": {
       "base": "steel",
       "seen": [
-        0.13,
-        0.14,
-        0.15
+        0.11,
+        0.12,
+        0.12
       ]
     },
-    "bluesteel": {
-      "base": "steel",
-      "seen": [
-        0.2,
-        0.23,
-        0.28
-      ]
-    },
-    "olive": {
+    "grey": {
       "base": "steel",
       "seen": [
         0.22,
         0.24,
-        0.2
+        0.23
+      ]
+    },
+    "blued": {
+      "base": "steel",
+      "seen": [
+        0.3,
+        0.36,
+        0.42
+      ]
+    },
+    "slate": {
+      "base": "metal",
+      "seen": [
+        0.15,
+        0.19,
+        0.25
+      ]
+    },
+    "brown": {
+      "base": "metal",
+      "seen": [
+        0.3,
+        0.2,
+        0.13
+      ]
+    },
+    "bright": {
+      "base": "steel",
+      "seen": [
+        0.62,
+        0.63,
+        0.6
+      ]
+    },
+    "slot": {
+      "base": "metal",
+      "seen": [
+        0.04,
+        0.04,
+        0.05
       ]
     }
   },
-  "project": [
-    {
-      "picture": "work:pictures/sides.png",
-      "view": "front",
-      "area": [
-        0,
-        0,
-        512,
-        512
-      ]
-    },
-    {
-      "picture": "work:pictures/sides.png",
-      "view": "left",
-      "area": [
-        512,
-        0,
-        1024,
-        512
-      ]
-    },
-    {
-      "picture": "work:pictures/sides.png",
-      "view": "back",
-      "area": [
-        1024,
-        0,
-        1536,
-        512
-      ]
-    },
-    {
-      "picture": "work:pictures/sides.png",
-      "view": "right",
-      "area": [
-        0,
-        512,
-        512,
-        1024
-      ]
-    },
-    {
-      "picture": "work:pictures/sides.png",
-      "view": "top",
-      "area": [
-        512,
-        512,
-        1024,
-        1024
-      ]
-    },
-    {
-      "picture": "work:pictures/sides.png",
-      "view": "below",
-      "area": [
-        1024,
-        512,
-        1536,
-        1024
-      ]
-    },
-    {
-      "picture": "work:pictures/front-left.png",
-      "yaw": 35,
-      "pitch": 20
-    },
-    {
-      "picture": "work:pictures/front-right.png",
-      "yaw": -35,
-      "pitch": 20
-    },
-    {
-      "picture": "work:pictures/back-left.png",
-      "yaw": 145,
-      "pitch": 20
-    },
-    {
-      "picture": "work:pictures/back-right.png",
-      "yaw": 215,
-      "pitch": 20
-    }
-  ],
   "parts": [
     {
-      "id": "grip",
-      "kind": "turn",
-      "material": "bluesteel",
+      "id": "stock_head",
+      "kind": "superquadric",
+      "material": "slate",
+      "size": [
+        6,
+        5.1,
+        6.4
+      ],
+      "round": [
+        0.15,
+        1.3
+      ],
       "sides": 8,
-      "rotate": [
-        180,
+      "at": [
+        3.5,
         0,
-        -90
+        1
+      ],
+      "rotate": [
+        0,
+        0,
+        180
+      ],
+      "views": [
+        "p",
+        "w"
+      ]
+    },
+    {
+      "id": "grip",
+      "kind": "superquadric",
+      "material": "slate",
+      "size": [
+        4.2,
+        2.7,
+        7
+      ],
+      "round": [
+        0.15,
+        0.3
+      ],
+      "sides": 8,
+      "at": [
+        2.7,
+        0,
+        7.2
+      ],
+      "rotate": [
+        0,
+        0,
+        180
+      ],
+      "views": [
+        "p",
+        "w"
+      ]
+    },
+    {
+      "id": "neck",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        9.6,
+        2.4,
+        4
       ],
       "at": [
+        10.6,
         0,
-        0,
-        0
+        -1.5
       ],
-      "rings": [
+      "rotate": [
+        0,
+        0,
+        180
+      ],
+      "panels": [
         {
-          "s": 0,
-          "r": [
-            2.15,
-            1.9
+          "face": "top",
+          "at": [
+            1.4,
+            1.2
           ],
-          "off": [
-            2.15,
-            0
-          ],
-          "crease": true
-        },
-        {
-          "s": 1.2,
-          "r": [
-            2.3,
+          "size": [
+            0.6,
             1.6
           ],
-          "off": [
-            2.4,
-            0
-          ]
+          "material": "slot"
         },
         {
-          "s": 8.6,
-          "r": [
-            3.3,
-            1.35
+          "face": "top",
+          "at": [
+            2.6,
+            1.2
           ],
-          "off": [
-            3.3,
-            0
-          ]
-        }
-      ]
-    },
-    {
-      "id": "receiver_rear",
-      "kind": "turn",
-      "axis": "x",
-      "material": "gunmetal",
-      "sides": 8,
-      "rotate": [
-        180,
-        0,
-        -90
-      ],
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "rings": [
-        {
-          "s": 0,
-          "r": [
-            1,
-            0.8
+          "size": [
+            0.6,
+            1.6
           ],
-          "off": [
-            0,
-            8.8
-          ],
-          "crease": true
+          "material": "slot"
         },
         {
-          "s": 1.2,
-          "r": [
-            1.05,
-            1.15
+          "face": "top",
+          "at": [
+            3.8,
+            1.2
           ],
-          "off": [
-            0,
-            9.05
-          ]
+          "size": [
+            0.6,
+            1.6
+          ],
+          "material": "slot"
         },
         {
-          "s": 3.2,
-          "r": [
-            1.1,
-            1.55
+          "face": "top",
+          "at": [
+            5,
+            1.2
           ],
-          "off": [
-            0,
-            9.35
-          ]
+          "size": [
+            0.6,
+            1.6
+          ],
+          "material": "slot"
         },
         {
-          "s": 6.5,
-          "r": [
-            1.1,
-            1.95
+          "face": "top",
+          "at": [
+            6.2,
+            1.2
           ],
-          "off": [
-            0,
-            9.75
-          ]
+          "size": [
+            0.6,
+            1.6
+          ],
+          "material": "slot"
         },
         {
-          "s": 14.9,
-          "r": [
-            1.1,
-            1.95
+          "face": "top",
+          "at": [
+            7.4,
+            1.2
           ],
-          "off": [
-            0,
-            9.75
-          ]
-        }
-      ]
-    },
-    {
-      "id": "receiver",
-      "kind": "turn",
-      "axis": "x",
-      "material": "gunmetal",
-      "sides": 8,
-      "rotate": [
-        180,
-        0,
-        -90
-      ],
-      "at": [
-        -14.4,
-        0,
-        0
-      ],
-      "rings": [
-        {
-          "s": 0,
-          "r": [
-            1.4,
-            2.8
+          "size": [
+            0.6,
+            1.6
           ],
-          "off": [
-            0,
-            10.2
-          ],
-          "crease": true
+          "material": "slot"
         },
         {
-          "s": 5.5,
-          "r": [
-            1.5,
-            2.8
-          ],
-          "off": [
-            0,
-            10.2
-          ]
-        },
-        {
-          "s": 6.6,
-          "r": [
-            2.5,
+          "face": "left",
+          "at": [
+            4.8,
             2.6
           ],
-          "off": [
-            0,
-            10
+          "size": [
+            8.6,
+            0.5
           ],
-          "crease": true
+          "style": "flat",
+          "material": "grey"
         },
         {
-          "s": 8,
-          "r": [
-            1.4,
-            2
+          "face": "right",
+          "at": [
+            4.8,
+            2.6
           ],
-          "off": [
-            0,
-            10
+          "size": [
+            8.6,
+            0.5
           ],
-          "crease": true
+          "style": "flat",
+          "material": "grey"
         }
       ]
     },
     {
-      "id": "magazine",
+      "id": "body",
       "kind": "turn",
+      "material": "black",
       "axis": "x",
-      "material": "gunmetal",
       "sides": 8,
-      "rotate": [
-        180,
-        0,
-        -90
-      ],
       "at": [
-        -22,
+        14.6,
         0,
-        0
+        -2.9
+      ],
+      "rotate": [
+        0,
+        0,
+        180
       ],
       "rings": [
-        {
-          "s": 0,
-          "r": 1,
-          "off": [
-            0,
-            9.3
+        [
+          0,
+          [
+            1.3,
+            2.9
           ]
+        ],
+        [
+          4.9,
+          [
+            1.3,
+            2.9
+          ]
+        ],
+        [
+          6.4,
+          [
+            2.5,
+            2.9
+          ]
+        ],
+        [
+          7.8,
+          [
+            1.3,
+            2.9
+          ]
+        ],
+        [
+          12.4,
+          [
+            1.3,
+            2.9
+          ]
+        ],
+        [
+          14.9,
+          [
+            2.5,
+            2.9
+          ]
+        ],
+        [
+          16.8,
+          [
+            1.4,
+            2.6
+          ]
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.47,
+              250
+            ],
+            [
+              0.82,
+              250
+            ]
+          ],
+          "width": 1.6,
+          "material": "blued"
         },
         {
-          "s": 17.5,
-          "r": 1,
-          "off": [
-            0,
-            9.3
-          ]
+          "path": [
+            [
+              0.47,
+              290
+            ],
+            [
+              0.82,
+              290
+            ]
+          ],
+          "width": 1.6,
+          "material": "blued"
+        },
+        {
+          "path": [
+            [
+              0.93,
+              0
+            ],
+            [
+              0.93,
+              360
+            ]
+          ],
+          "width": 2.2,
+          "material": "brown"
+        },
+        {
+          "path": [
+            [
+              0.12,
+              0
+            ],
+            [
+              0.12,
+              360
+            ]
+          ],
+          "width": 0.35,
+          "material": "grey"
+        },
+        {
+          "path": [
+            [
+              0.2,
+              0
+            ],
+            [
+              0.2,
+              360
+            ]
+          ],
+          "width": 0.35,
+          "material": "grey"
+        },
+        {
+          "path": [
+            [
+              0.55,
+              0
+            ],
+            [
+              0.55,
+              360
+            ]
+          ],
+          "width": 0.35,
+          "material": "grey"
+        },
+        {
+          "path": [
+            [
+              0.63,
+              0
+            ],
+            [
+              0.63,
+              360
+            ]
+          ],
+          "width": 0.35,
+          "material": "grey"
+        },
+        {
+          "path": [
+            [
+              0.71,
+              0
+            ],
+            [
+              0.71,
+              360
+            ]
+          ],
+          "width": 0.35,
+          "material": "grey"
         }
       ]
     },
     {
       "id": "barrel",
-      "kind": "turn",
-      "axis": "x",
-      "material": "olive",
+      "kind": "cylinder",
+      "material": "black",
+      "radius": 0.9,
+      "height": 9.6,
       "sides": 8,
-      "rotate": [
-        180,
-        0,
-        -90
-      ],
       "at": [
-        -22,
+        31.2,
         0,
+        -3.95
+      ],
+      "rotate": [
+        0,
+        90,
         0
       ],
-      "rings": [
+      "marks": [
         {
-          "s": 0,
-          "r": 0.9,
-          "off": [
-            0,
-            11.3
-          ]
+          "path": [
+            [
+              0.3,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "width": 0.8,
+          "material": "bright"
         },
         {
-          "s": 18.8,
-          "r": 0.9,
-          "off": [
-            0,
-            11.3
-          ]
+          "path": [
+            [
+              0.3,
+              180
+            ],
+            [
+              1,
+              180
+            ]
+          ],
+          "width": 0.5,
+          "material": "grey"
         }
       ]
     },
     {
-      "id": "pump",
-      "kind": "turn",
-      "axis": "x",
-      "material": "bluesteel",
+      "id": "mag_tube",
+      "kind": "cylinder",
+      "material": "black",
+      "radius": 0.85,
+      "height": 8.6,
       "sides": 8,
-      "rotate": [
-        180,
-        0,
-        -90
-      ],
       "at": [
-        -26.4,
+        31.2,
         0,
+        -2.1
+      ],
+      "rotate": [
+        0,
+        90,
         0
       ],
-      "rings": [
+      "marks": [
         {
-          "s": 0,
-          "r": [
-            1.5,
-            2.35
+          "path": [
+            [
+              0.25,
+              90
+            ],
+            [
+              0.45,
+              90
+            ]
           ],
-          "off": [
-            0,
-            9.75
-          ],
-          "crease": true
+          "width": 1,
+          "material": "blued"
         },
         {
-          "s": 3,
-          "r": [
-            1.6,
-            2.35
+          "path": [
+            [
+              0.25,
+              270
+            ],
+            [
+              0.45,
+              270
+            ]
           ],
-          "off": [
-            0,
-            9.75
-          ]
-        },
-        {
-          "s": 4.5,
-          "r": [
-            2.5,
-            2.4
-          ],
-          "off": [
-            0,
-            9.75
-          ],
-          "crease": true
-        },
-        {
-          "s": 5.9,
-          "r": [
-            1.5,
-            2
-          ],
-          "off": [
-            0,
-            9.75
-          ],
-          "crease": true
+          "width": 1,
+          "material": "blued"
         }
+      ]
+    },
+    {
+      "id": "muzzle_clamp",
+      "kind": "box",
+      "material": "bright",
+      "size": [
+        1,
+        1.9,
+        3.7
+      ],
+      "at": [
+        40,
+        0,
+        -1.2
+      ],
+      "rotate": [
+        0,
+        0,
+        180
       ]
     },
     {
       "id": "front_sight",
       "kind": "box",
-      "material": "gunmetal",
+      "material": "black",
       "size": [
-        0.9,
-        0.5,
-        1.6
-      ],
-      "rotate": [
-        180,
-        0,
-        -90
+        0.8,
+        0.6,
+        1.4
       ],
       "at": [
-        -39.6,
-        -11.8,
-        0
+        39.6,
+        0,
+        -4.6
+      ],
+      "rotate": [
+        0,
+        0,
+        180
       ]
     },
     {
       "id": "rear_sight",
       "kind": "box",
-      "material": "gunmetal",
+      "material": "black",
       "size": [
-        1.2,
         1,
-        1.8
-      ],
-      "rotate": [
-        180,
-        0,
-        -90
+        1.4,
+        1
       ],
       "at": [
-        -12.4,
-        -11.6,
-        0
+        12.3,
+        0,
+        -5.2
+      ],
+      "rotate": [
+        0,
+        0,
+        180
       ]
     }
   ]

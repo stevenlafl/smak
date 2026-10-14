@@ -1,15 +1,27 @@
-The build says OK. The crowbar spec is `work:crowbar.spec.json`, and the three game files it replaces are in `work:crowbar_weapon/` (`v_crowbar.mdl`, `p_crowbar.mdl`, `w_crowbar.mdl`). Each file keeps the game's hands, bones and animations.
+The crowbar is built and the build says OK. All three game files were made from the game's own v_crowbar.mdl, p_crowbar.mdl and w_crowbar.mdl, and they keep the game's hands, bones and animations.
 
-**What it is:** a 6-sided round bar, 216 triangles in one texture. It measures 43.5 long, 9.7 across the hook and 2.7 thick, against 43.4, 9.8 and 2.7 in your description.
-- **Chisel end:** about 6.6 long, angled 10° away from the hook side, flattening to a square-cut blade 2.7 wide with darker steel at the tip.
-- **Shaft:** red paint with a darker band just past the middle and a few faint patches near the ends. There's a grey steel collar at each end.
-- **Hook:** bends through 150° in five straight facets, ending in a small fishtail claw about 2.5 wide with a dark edge. The steel is mid-grey and darkens toward the tips.
+**Shape** (the build's measurements):
+- **Size:** 43.1 long, 10 wide and 2.7 thick, against the described 43.4 × 9.8 × 2.7. The game files are stretched to the old crowbar's length anyway.
+- **Shaft:** a round red bar 1.4 across, with a darker red band just past the middle and faint patches near the ends. A short bare-steel collar sits at each end.
+- **Hook:** a gooseneck bent through 150° in one flat plane, made of five straight facets. Its tip ends about 8 to 9 units out to the side. The claw is a flattened fishtail 2.5 wide with a dark edge.
+- **Chisel:** angled 8° away from the hook. Edge-on, it widens from shaft width to a square blade 2.7 across, and it darkens toward the tip.
+- **Count:** 376 triangles in total, but each file holds less, because the hook and claw are built twice and each file gets only one copy.
 
-**What I checked in the pictures:**
-- **Other player's view:** held at the chisel end, the hook at the far end with its curve turned down. That matches your description.
-- **Draw animation:** the hook sits at the top and curls over to the left, with the claw pointing left.
-- **Attack:** it shows the hook at the far end through the swing.
+**The three views:**
+- **First person:** the red shaft rises from the lower right and the hook curls over to the left. The attack swings up and out to the right, stands straight up, drives down to the lower left and comes back.
+- **Another player's hands:** held at the chisel end, with the hook hanging at the far end and its curve turned down.
+- **Lying in the world:** flat colours, grey steel ends and a red middle.
 
-**Two things don't match the original:**
-- **The first-person rest pose may be framed differently.** At rest, my red shaft rises from the bottom right but runs off the top of the screen, and the hook is out of view. Your description has it stopping a third of the way down with the hook showing. I couldn't draw the original, because the game's files are outside the folders the tool can open. The build places the bar to match the outline of the game's own crowbar, at its length and grip, and that placement didn't change whichever way I built the bar. So I've left it, but the side-by-side may differ here.
-- **No chrome sheen in first person.** The original's first-person crowbar uses chrome textures, which give the glossy red and gunmetal hook you described. The kit refuses those on a weapon (it allows only one texture), so in first person the shaft is flat painted red with the kit's shading, not glossy.
+**Where it differs from the description:**
+- **No chrome in first person.** I turned off the engine's chrome reflection because it made the red shaft look mostly grey. Instead, the shaft has painted light shading and a pale highlight stripe. That stripe hardly shows in the preview, so the "glossy with near-black edges" look is weaker than described.
+- **Hook colour by view.** To get a dark gunmetal hook in first person but a mid-grey one in the other two views, the hook and claw are built twice. The first-person copy sits 0.02 units off the other so the build's checks pass.
+- **Width.** It comes out 10 rather than 9.8.
+
+I only looked at the build's preview pictures. I didn't load the files in the game.
+
+Files are in the work folder:
+- crowbar.spec.json
+- crowbar.mdl
+- crowbar_weapon/v_crowbar.mdl
+- crowbar_weapon/p_crowbar.mdl
+- crowbar_weapon/w_crowbar.mdl

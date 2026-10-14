@@ -1,0 +1,180 @@
+{
+  "spec": "smak.model/1",
+  "name": "9mmhandgun.mdl",
+  "kind": "held",
+  "weapon": {
+    "like": "9mmhandgun"
+  },
+  "size": {
+    "length": 14.8
+  },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "materials": {
+    "gunmetal": {
+      "base": "steel",
+      "seen": [
+        0.38,
+        0.38,
+        0.4
+      ]
+    },
+    "polymer": {
+      "base": "metal",
+      "seen": [
+        0.3,
+        0.3,
+        0.31
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "slide",
+      "kind": "box",
+      "material": "gunmetal",
+      "size": [
+        14.24,
+        2.8,
+        2.8
+      ],
+      "at": [
+        7.12,
+        1.4,
+        -1.4
+      ]
+    },
+    {
+      "id": "grip",
+      "kind": "box",
+      "material": "polymer",
+      "size": [
+        4.8,
+        6.75,
+        2.4
+      ],
+      "rotate": [
+        -8,
+        0,
+        0
+      ],
+      "at": [
+        2.4,
+        -3.33,
+        -1.2
+      ]
+    },
+    {
+      "id": "trigger_guard",
+      "kind": "tube",
+      "material": "polymer",
+      "sides": 4,
+      "path": [
+        [
+          8.5,
+          0.3,
+          0,
+          0.32
+        ],
+        [
+          8.1,
+          -2.5,
+          0,
+          0.32
+        ],
+        [
+          4.9,
+          -2.6,
+          0,
+          0.32
+        ]
+      ]
+    },
+    {
+      "id": "trigger",
+      "kind": "tube",
+      "material": "gunmetal",
+      "sides": 4,
+      "path": [
+        [
+          6.7,
+          0.3,
+          0,
+          0.22
+        ],
+        [
+          6.4,
+          -2.4,
+          0,
+          0.16
+        ]
+      ]
+    }
+  ],
+  "project": [
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "back",
+      "area": [
+        0,
+        40,
+        512,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "right",
+      "area": [
+        512,
+        40,
+        1024,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "front",
+      "area": [
+        1024,
+        40,
+        1536,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "left",
+      "area": [
+        0,
+        552,
+        512,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "yaw": 180,
+      "pitch": 90,
+      "area": [
+        512,
+        552,
+        1024,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "yaw": 180,
+      "pitch": -90,
+      "area": [
+        1024,
+        552,
+        1536,
+        1024
+      ]
+    }
+  ]
+}

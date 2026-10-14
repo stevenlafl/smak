@@ -4,9 +4,9 @@
  "leg": "pictures",
  "measured": {
   "silhouetteOverlap": {
-   "front/back": 0.621,
-   "left/right": 0.385,
-   "top/below": 0.347
+   "front/back": 0.886,
+   "left/right": 0.781,
+   "top/below": 0.792
   },
   "size": {
    "original": [
@@ -15,81 +15,81 @@
     68
    ],
    "reproduction": [
-    22.9,
-    28.1,
-    73.1
+    33,
+    21.2,
+    68.3
    ],
    "offShare": [
-    0.31,
-    0.296,
-    0.075
+    0.006,
+    0.023,
+    0.005
    ]
   },
   "colour": {
-   "meanDeltaE": 17.4,
+   "meanDeltaE": 9,
    "byView": [
     {
      "view": "front",
-     "deltaE": 18.8,
-     "shared": 0.625
+     "deltaE": 9.6,
+     "shared": 0.888
     },
     {
      "view": "left",
-     "deltaE": 16.3,
-     "shared": 0.388
+     "deltaE": 9.4,
+     "shared": 0.781
     },
     {
      "view": "back",
-     "deltaE": 14.7,
-     "shared": 0.625
+     "deltaE": 8.9,
+     "shared": 0.89
     },
     {
      "view": "right",
-     "deltaE": 16.3,
-     "shared": 0.387
+     "deltaE": 9.5,
+     "shared": 0.781
     },
     {
      "view": "top",
-     "deltaE": 16.5,
-     "shared": 0.348
+     "deltaE": 7.9,
+     "shared": 0.801
     },
     {
      "view": "below",
-     "deltaE": 26.7,
-     "shared": 0.348
+     "deltaE": 9.1,
+     "shared": 0.801
     },
     {
      "view": "front-left",
-     "deltaE": 17.2,
-     "shared": 0.432
+     "deltaE": 9.6,
+     "shared": 0.846
     },
     {
      "view": "front-right",
-     "deltaE": 17.2,
-     "shared": 0.528
+     "deltaE": 9.1,
+     "shared": 0.804
     },
     {
      "view": "back-left",
-     "deltaE": 15.2,
-     "shared": 0.511
+     "deltaE": 8.3,
+     "shared": 0.797
     },
     {
      "view": "back-right",
-     "deltaE": 14.8,
-     "shared": 0.446
+     "deltaE": 9,
+     "shared": 0.858
     }
    ]
   },
   "triangles": {
    "original": 740,
-   "reproduction": 1096
+   "reproduction": 1192
   },
   "checkErrors": []
  },
  "caps": {
-  "M1": 0,
-  "M2": 0,
-  "M4": 1,
+  "M1": 1,
+  "M2": 2,
+  "M4": 2,
   "M8": 2,
   "M6": 2
  },
@@ -99,61 +99,61 @@
  },
  "scores": {
   "M1": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "Measured silhouette overlap is 0.621 front/back, 0.385 left/right and 0.347 top/below. All three are far below the 0.80 needed. The pose also differs: the original is mid-stride with its arms down at its sides, while the reproduction stands straight-legged with one forearm thrust forward horizontally (front, left and right views). In the top and below views the arms and legs are spread differently."
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "Measured overlap is 0.886 front/back but 0.781 left/right and 0.792 top/below, so two views are under the 0.80 line. In the pictures the lab coat hem is a stiff, boxy flat panel, and in the left/right and front-right views a rectangular flap sticks out at the hip. The shoulders are puffed out wider than the original's in the front and back views, and the coat's lower edge is squared off, where the original's tapers to an open flare at the knees."
   },
   "M2": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "Measured size is 33.3 x 21.7 x 68 for the original and 22.9 x 28.1 x 73.1 for the reproduction. Length is 31% off and width is 30% off, both well beyond 10%. Height is 7.5% off, which is within 10%."
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 33.0 x 21.2 x 68.3 against 33.3 x 21.7 x 68. The largest difference is 2.3% in width, well within 10% on every axis."
   },
   "M3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The main parts are there: bald head, glasses, red/black striped tie, white lab coat, shirt, belt, white trousers, brown shoes and hands. Some parts are missing or wrongly shaped. The original's grey fringe of hair at the sides and back of the head is missing (back and side views), and the coat has no lapels or open front shaped like the original's. The hands are rounded blobs. The shoulders are boxy slabs that stick out above the arms (front and back-right views), and the forward forearm is a separate tube held out in front."
+   "reason": "Bald head with grey side hair, glasses, blue shirt, tie, belt, white trousers, brown shoes, hands and lab coat are all there and in place. The coat's shape is off: its front edges and hem are flat rigid panels rather than the original's open coat with lapels, a separate rectangular piece juts out at the hip in the side views, and the shoulders are padded out. The glasses are thinner and less defined than the original's."
   },
   "M4": {
-   "judge": 1,
-   "cap": 1,
-   "score": 1,
-   "reason": "Measured mean colour difference (deltaE) is 17.4, above the line of 15. The 'below' view is worst at 26.7. The shirt is a pale sky blue where the original's is dark navy-slate (front and front-left/right views). In the run frames the arms and trousers read mid-grey against the original's off-white. The coat, skin and shoes are broadly right."
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured mean deltaE is 9.0, every view between 7.9 and 9.6, under 15. The regions keep their colours: white coat and trousers, blue shirt, dark tie with red, brown shoes, skin-toned head and hands. The coat reads slightly greyer, but it is the same colour."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The tie stripes, glasses and some cloth grain on the coat are there. The original's detail is missing: the face has no features, there is no hair, and the shirt pocket and collar detail and the creases on the coat and trousers are gone. The reproduction's surfaces are flat and smooth by comparison."
+   "reason": "The tie's red stripes are faint and blurred compared with the original's crisp diagonal stripes. The glasses frames and face are muddier. The coat carries dark smudges and blotches (front, front-left and back-left views) that the original's clean coat does not have, and the original's fold shading on the coat is replaced by flat grey texture."
   },
   "M6": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "At game size it reads as a lab-coated scientist, but not as this one. It is bald with no hair fringe and has a featureless face. The bright light-blue shirt is wrong, the body is stiff and boxy with slab shoulders, and the pose is wrong. A player would see a different, cruder model."
+   "reason": "At game size it reads as a scientist like the original, but a player would notice it is not the same model. The coat is a stiff box with a squared hem and a hip flap, the shoulders are puffed, the face and glasses are blurrier, and the tie lacks its clear stripes."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The front faces the original's front, the model is upright, and the feet stand on the ground plane at the origin as the original's do in all six side views."
+   "reason": "Faces the same way as the original in every view, upright, feet on the same ground line at the origin as the original's."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "SMAK's check reports no errors. It has 1096 triangles against 740 for the original, under the 1480 allowed. Nothing open, inside out or floating is visible in the ten views."
+   "reason": "Check passes with no errors. 1192 triangles against 740 is under twice the original's (1480). No open, inside-out or floating parts are visible in any view, the underside included."
   },
   "C1": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The run cycles its legs and stays roughly in one piece, but it does not move like the original. The forward forearm stays rigidly horizontal at chest height in nearly every frame (RUN2 1, 3, 6, 19, 22), and in frames 1 and 22 it reads as detached from the grey upper arm. The torso and coat stay stiff and upright, with none of the original's forward lean or arm swing. The feet also sit well below the row's reference line in every reproduction frame, while the original's feet rest on its line, which suggests the body sinks."
+   "reason": "Through the run nothing comes apart, sinks or floats: head, hands, coat and shoes stay on the body. The motion does not move as the original's does. The reproduction plays a different run (run2, 22 frames, against the original's 18) with a more upright body and arms held lower and stiffer. The coat hem stays a rigid box that the rear thigh pushes through in several frames (3/22, 16/22, 19/22), where the original's coat swings with the stride."
   }
  },
- "total": 9,
+ "total": 13,
  "of": 18,
  "passes": false
 }

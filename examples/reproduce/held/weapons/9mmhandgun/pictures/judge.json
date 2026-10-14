@@ -4,9 +4,9 @@
  "leg": "pictures",
  "measured": {
   "silhouetteOverlap": {
-   "front/back": 0.783,
-   "left/right": 0.889,
-   "top/below": 0.859
+   "front/back": 0.886,
+   "left/right": 0.962,
+   "top/below": 0.888
   },
   "size": {
    "original": [
@@ -15,80 +15,80 @@
     2.8
    ],
    "reproduction": [
-    14.5,
-    10.2,
-    3.4
+    14.7,
+    9.6,
+    3
    ],
    "offShare": [
+    0.007,
     0.015,
-    0.075,
-    0.201
+    0.057
    ]
   },
   "colour": {
-   "meanDeltaE": 7.3,
+   "meanDeltaE": 5.1,
    "byView": [
     {
      "view": "front",
-     "deltaE": 7.2,
-     "shared": 0.787
-    },
-    {
-     "view": "left",
-     "deltaE": 6.8,
+     "deltaE": 4.7,
      "shared": 0.891
     },
     {
+     "view": "left",
+     "deltaE": 6.9,
+     "shared": 0.965
+    },
+    {
      "view": "back",
-     "deltaE": 7.5,
-     "shared": 0.785
+     "deltaE": 5.4,
+     "shared": 0.89
     },
     {
      "view": "right",
-     "deltaE": 7.2,
-     "shared": 0.892
+     "deltaE": 5.4,
+     "shared": 0.965
     },
     {
      "view": "top",
-     "deltaE": 9.1,
-     "shared": 0.86
-    },
-    {
-     "view": "below",
-     "deltaE": 6.1,
-     "shared": 0.86
-    },
-    {
-     "view": "front-left",
-     "deltaE": 6.4,
+     "deltaE": 5.2,
      "shared": 0.893
     },
     {
+     "view": "below",
+     "deltaE": 5.5,
+     "shared": 0.893
+    },
+    {
+     "view": "front-left",
+     "deltaE": 4.6,
+     "shared": 0.913
+    },
+    {
      "view": "front-right",
-     "deltaE": 7.7,
-     "shared": 0.888
+     "deltaE": 4,
+     "shared": 0.913
     },
     {
      "view": "back-left",
-     "deltaE": 6.9,
-     "shared": 0.902
+     "deltaE": 5.2,
+     "shared": 0.922
     },
     {
      "view": "back-right",
-     "deltaE": 8.3,
-     "shared": 0.854
+     "deltaE": 4.1,
+     "shared": 0.919
     }
    ]
   },
   "triangles": {
    "original": 88,
-   "reproduction": 64
+   "reproduction": 96
   },
   "checkErrors": []
  },
  "caps": {
-  "M1": 1,
-  "M2": 1,
+  "M1": 2,
+  "M2": 2,
   "M4": 2,
   "M8": 2,
   "M6": 2
@@ -100,60 +100,60 @@
  "scores": {
   "M1": {
    "judge": 1,
-   "cap": 1,
+   "cap": 2,
    "score": 1,
-   "reason": "The front/back silhouette overlap is 0.783, below the 0.80 line (left/right 0.889, top/below 0.859), so 2 is ruled out. In the top and below views the grip is a square, rectangular slab set at right angles to the slide. The original's grip is raked back and narrows to a shaped butt with a beavertail. In the front-left and back-right angles the grip reads as a box instead of the original's angled handle. The reproduction is also tilted a little along its length in the left and right views."
+   "reason": "Measured overlap clears 0.80 in every view (0.886 front/back, 0.962 left/right, 0.888 top/below), but the outline is clearly off in the top and below views. The original's grip rakes back and tapers, with a flared beavertail where it meets the slide. The reproduction's grip is a square-cornered rectangular block set straight, with no rake and no beavertail. The same boxy grip shows in the front-left, front-right and back-left angles and in in-hand.png."
   },
   "M2": {
-   "judge": 1,
-   "cap": 1,
-   "score": 1,
-   "reason": "Length is 14.5 against 14.8 (1.5% off) and width is 10.2 against 9.5 (7.5% off). Height is 3.4 against 2.8, which is 20% off and breaks the 10% limit. The slide and grip are visibly thicker in the front and back views."
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 14.7 against 14.8, width 9.6 against 9.5 and height 3.0 against 2.8. The largest difference is 5.7%, inside 10% on every axis."
   },
   "M3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The slide, muzzle bore, rear block, trigger guard, trigger and grip are all there, in the right places. The grip is the wrong shape: a flat rectangular block with no rake, no curved back strap and no tapered butt (top and below views). The trigger guard is a thin square frame, not the original's angled guard. In the first-person v_ model the gun reads as a wide, boxy block much bulkier than the original's slim pistol."
+   "reason": "The slide, frame, trigger guard, trigger, grip and muzzle bore are all there, one of each, in the right places. The grip has the wrong shape, though: a rectangular box where the original has a raked, tapered grip with a beavertail (top, below and angle views). The trigger is a thin bright bar unlike the original's. The step between frame and slide that the original has on its right side is also missing."
   },
   "M4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean is 7.3, well under 15, and every view is 9.1 or less. On the w_ model each region is grey gunmetal, as on the original: a mid-grey slide and a darker grey grip. The slide's bluish-white speckle is a fault of grain (M5), not of colour. The v_ model is much lighter and greyer than the original's dark blue-black in first person, but M4 is measured on the w_ model and that difference is scored under M6."
+   "reason": "The smoothed mean ΔE is 5.1, and no view exceeds 6.9, well under 15. On the w_ model each region is the original's grey gunmetal, with a darker grip. This is measured on w_ only. The v_ model's colour difference is counted under M6."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The rear slide serrations, the side panel line along the slide and the muzzle bore are there and in place. The slide's texture is a noisy, blotchy speckle of blue-white and black pixels like digital camouflage, not the original's smooth bands of grey highlights. This shows in the left, right and top views and in in-hand.png. The grip's edge detail (the original's shaped panel line near the butt) is lost on the flat slab."
+   "reason": "The muzzle bore and a dark band near the slide's step are there. Most of the original's detail is missing or blurred: the long recessed groove down both sides of the slide (left and right views), the rear slide serrations (top and below views), the front-strap ridges, and the stippled grip panel with its edge trim. The reproduction's texture is low-resolution blocky noise, much less sharp than the original's."
   },
   "M6": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "In first person, the player's main view, the original is a slim, dark blue-black pistol seen side-on. The reproduction is a pale grey-white, wide, boxy block seen almost from the rear, and it looks oversized throughout the attack frames. A player would not take it for the original. The world and in-hand models come closer but still show the square grip and the speckled slide. It does still read as a pistol, so 1, not 0."
+   "reason": "In first-person.png and first-person-attack.png the original pistol is dark blue-black with crisp slide detail. The reproduction is a light silver-grey and blurry, so a player would see at once that it is a different gun skin, even though it has the same pose and roughly the same shape. On the world and in-hand models the boxy grip and coarse texture also show at a glance."
   },
   "M7": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The muzzle faces the original's way and the model is upright, sitting on its origin as the original does. There is a slight roll and pitch along its length, visible as a slope in the left and right views and a small rotation in the top and below views, so it is not right to a close look."
+   "score": 2,
+   "reason": "In every view the muzzle points the same way as the original's and the grip hangs on the same side. It is upright, and it sits on the origin at the same place in every view."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "There are no check errors. It has 64 triangles against the original's 88, well under twice that. No part looks open, inside out or floating in any view."
+   "reason": "There are no check errors. It has 96 triangles against the original's 88, well under twice. Nothing in the pictures looks open, inside out or floating."
   },
   "W1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The weapon sits at roughly the original's place in the right hand, and it stays in the hands through every shoot frame without leaving them. It is not held the same way round: the original is turned so its left side shows, angled up and to the left. The reproduction faces the camera almost rear-on, showing its back face and the top of a wide slide, and it stands taller and larger in the frame. In shoot 2 to 6 it rises as a broad block where the original tilts as a slim slide."
+   "score": 2,
+   "reason": "In first-person.png the pistol sits in the same place in the same hand, held the same way and the same way round. In every attack frame (2 to 14) it follows the original's recoil and recovery, and it stays in the hand throughout."
   }
  },
- "total": 11,
+ "total": 14,
  "of": 18,
  "passes": false
 }

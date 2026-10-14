@@ -3,12 +3,104 @@
   "name": "zombie.mdl",
   "kind": "character",
   "base": {
-    "file": "gman.mdl"
+    "file": "player/gordon/gordon.mdl"
   },
+  "floor": 0,
   "size": {
     "height": 68,
     "width": 54,
     "length": 38.5
+  },
+  "pose": {
+    "keys": {
+      "Bip01 Spine1": {
+        "turn": {
+          "y": 5
+        }
+      },
+      "Bip01 Spine2": {
+        "turn": {
+          "y": 10
+        }
+      },
+      "Bip01 Spine3": {
+        "turn": {
+          "y": 12
+        }
+      },
+      "Bip01 Neck": {
+        "turn": {
+          "y": 25
+        }
+      },
+      "Bip01 Head": {
+        "turn": {
+          "y": -10
+        }
+      },
+      "Bip01 L Arm": {
+        "turn": {
+          "y": -52
+        }
+      },
+      "Bip01 R Arm": {
+        "turn": {
+          "y": -52
+        }
+      },
+      "Bip01 L Arm1": {
+        "turn": {
+          "x": 18,
+          "y": -32
+        }
+      },
+      "Bip01 R Arm1": {
+        "turn": {
+          "x": -18,
+          "y": -15
+        }
+      },
+      "Bip01 L Arm2": {
+        "turn": {
+          "y": -13
+        }
+      },
+      "Bip01 R Arm2": {
+        "turn": {
+          "y": 60
+        }
+      },
+      "Bip01 L Leg": {
+        "turn": {
+          "y": -18
+        }
+      },
+      "Bip01 R Leg": {
+        "turn": {
+          "y": 2
+        }
+      },
+      "Bip01 L Leg1": {
+        "turn": {
+          "y": 22
+        }
+      },
+      "Bip01 R Leg1": {
+        "turn": {
+          "y": 16
+        }
+      },
+      "Bip01 L Foot": {
+        "turn": {
+          "y": -4
+        }
+      },
+      "Bip01 R Foot": {
+        "turn": {
+          "y": -18
+        }
+      }
+    }
   },
   "materials": {
     "coat": {
@@ -16,79 +108,87 @@
       "tone": [
         0.86,
         0.85,
-        0.81
+        0.8
       ]
     },
-    "coatshade": {
+    "pants": {
       "base": "cloth",
       "tone": [
-        0.66,
-        0.65,
-        0.62
+        0.74,
+        0.74,
+        0.72
+      ]
+    },
+    "shade": {
+      "base": "cloth",
+      "tone": [
+        0.5,
+        0.49,
+        0.47
+      ]
+    },
+    "shoe": {
+      "base": "leather",
+      "tone": [
+        0.3,
+        0.15,
+        0.09
       ]
     },
     "blood": {
       "base": "paint",
       "tone": [
-        0.78,
-        0.25,
-        0.3
+        0.74,
+        0.2,
+        0.22
       ]
     },
     "gore": {
-      "base": "leather",
+      "base": "paint",
       "tone": [
         0.42,
         0.05,
-        0.06
+        0.05
       ]
     },
-    "black": {
-      "base": "leather",
+    "wet": {
+      "base": "paint",
       "tone": [
+        0.72,
         0.08,
+        0.08
+      ]
+    },
+    "dark": {
+      "base": "paint",
+      "tone": [
+        0.1,
         0.03,
         0.03
       ]
     },
-    "flesh": {
-      "base": "leather",
+    "skin": {
+      "base": "paint",
       "tone": [
-        0.16,
-        0.06,
+        0.2,
+        0.07,
         0.06
       ]
     },
     "rib": {
       "base": "bone",
       "tone": [
-        0.55,
-        0.42,
-        0.38
+        0.7,
+        0.52,
+        0.48
       ]
     },
-    "tooth": {
-      "base": "bone",
+    "claw": {
+      "base": "paint",
       "tone": [
-        0.85,
         0.8,
-        0.68
-      ]
-    },
-    "trousers": {
-      "base": "cloth",
-      "tone": [
-        0.76,
-        0.76,
-        0.74
-      ]
-    },
-    "shoe": {
-      "base": "leather",
-      "tone": [
-        0.32,
-        0.16,
-        0.1
+        0.06,
+        0.08
       ]
     },
     "crab": {
@@ -96,207 +196,388 @@
       "tone": [
         0.93,
         0.89,
-        0.76
+        0.77
       ]
     },
-    "crabflesh": {
+    "ochre": {
       "base": "leather",
       "tone": [
         0.66,
-        0.48,
-        0.2
-      ]
-    },
-    "mustard": {
-      "base": "leather",
-      "tone": [
-        0.78,
-        0.65,
-        0.35
+        0.5,
+        0.24
       ]
     },
     "fold": {
-      "base": "leather",
-      "tone": [
-        0.4,
-        0.1,
-        0.08
-      ]
-    },
-    "claw": {
-      "base": "bone",
-      "tone": [
-        0.3,
-        0.2,
-        0.17
-      ]
-    },
-    "crimson": {
       "base": "paint",
       "tone": [
-        0.85,
-        0.05,
-        0.1
+        0.42,
+        0.13,
+        0.08
       ]
     }
   },
   "parts": [
     {
-      "id": "hips",
-      "kind": "turn",
-      "material": "trousers",
-      "bone": "Bip01 Pelvis",
-      "at": [
-        0,
-        0,
-        33
-      ],
-      "sides": 10,
-      "rings": [
-        [
-          0,
-          [
-            3.8,
-            5.6
-          ]
-        ],
-        [
-          5,
-          [
-            4.2,
-            6
-          ]
-        ],
-        [
-          11,
-          [
-            4,
-            5.6
-          ]
-        ]
-      ]
-    },
-    {
-      "id": "torso",
-      "kind": "turn",
-      "material": "coat",
+      "id": "thigh_left",
+      "kind": "cylinder",
+      "radius": 3,
+      "top": 2.6,
+      "height": 10,
+      "sides": 8,
+      "material": "pants",
       "span": {
         "bones": [
-          "Bip01 Spine",
-          "Bip01 Neck"
+          "Bip01 L Leg",
+          "Bip01 L Leg1"
         ],
-        "over": 2
+        "over": 1
+      }
+    },
+    {
+      "id": "thigh_right",
+      "kind": "cylinder",
+      "radius": 3,
+      "top": 2.6,
+      "height": 10,
+      "sides": 8,
+      "material": "pants",
+      "span": {
+        "bones": [
+          "Bip01 R Leg",
+          "Bip01 R Leg1"
+        ],
+        "over": 1
+      }
+    },
+    {
+      "id": "knee_left",
+      "kind": "sphere",
+      "radius": 2.6,
+      "sides": 6,
+      "material": "pants",
+      "attach": {
+        "bone": "Bip01 L Leg1"
+      }
+    },
+    {
+      "id": "knee_right",
+      "kind": "sphere",
+      "radius": 2.6,
+      "sides": 6,
+      "material": "pants",
+      "attach": {
+        "bone": "Bip01 R Leg1"
+      }
+    },
+    {
+      "id": "shin_left",
+      "kind": "cylinder",
+      "radius": 2.6,
+      "top": 2.5,
+      "height": 10,
+      "sides": 8,
+      "material": "pants",
+      "span": {
+        "bones": [
+          "Bip01 L Leg1",
+          "Bip01 L Foot"
+        ],
+        "over": 1
       },
-      "sides": 12,
-      "caps": [
-        true,
-        true
-      ],
-      "rings": [
-        [
-          0,
-          [
-            4,
-            5.6
-          ]
-        ],
-        [
-          5,
-          [
-            3.8,
-            5.1
-          ]
-        ],
-        [
-          11,
-          [
-            4.2,
-            5.7
-          ]
-        ],
-        {
-          "s": 16,
-          "r": [
-            4.9,
-            6
-          ],
-          "off": [
-            -1.4,
-            0
-          ]
-        },
-        {
-          "s": 19.5,
-          "r": [
-            4.8,
-            5.5
-          ],
-          "off": [
-            -2.4,
-            0
-          ]
-        },
-        {
-          "s": 22,
-          "r": [
-            3.2,
-            3.5
-          ],
-          "off": [
-            -1.6,
-            0
-          ]
-        },
-        {
-          "s": 23,
-          "r": [
-            1.5,
-            2
-          ],
-          "off": [
-            -0.8,
-            0
-          ]
-        }
-      ],
       "marks": [
         {
           "path": [
             [
-              0.6,
+              0.3,
+              20
+            ],
+            [
+              0.36,
               40
-            ],
-            [
-              0.82,
-              75
             ]
           ],
-          "width": 3,
+          "width": 1.2,
           "material": "blood"
         },
         {
           "path": [
             [
-              0.55,
-              -45
+              0.7,
+              -60
             ],
             [
-              0.78,
-              -75
+              0.75,
+              -40
             ]
           ],
-          "width": 3,
+          "width": 1,
           "material": "blood"
         },
         {
           "path": [
             [
-              0.28,
-              35
+              0.9,
+              0
+            ],
+            [
+              0.95,
+              30
+            ]
+          ],
+          "width": 1.4,
+          "material": "blood"
+        }
+      ]
+    },
+    {
+      "id": "shin_right",
+      "kind": "cylinder",
+      "radius": 2.6,
+      "top": 2.5,
+      "height": 10,
+      "sides": 8,
+      "material": "pants",
+      "span": {
+        "bones": [
+          "Bip01 R Leg1",
+          "Bip01 R Foot"
+        ],
+        "over": 1
+      },
+      "marks": [
+        {
+          "path": [
+            [
+              0.4,
+              -10
             ],
             [
               0.45,
-              60
+              -30
+            ]
+          ],
+          "width": 1.2,
+          "material": "blood"
+        },
+        {
+          "path": [
+            [
+              0.65,
+              50
+            ],
+            [
+              0.7,
+              70
+            ]
+          ],
+          "width": 1,
+          "material": "blood"
+        },
+        {
+          "path": [
+            [
+              0.92,
+              0
+            ],
+            [
+              0.95,
+              -30
+            ]
+          ],
+          "width": 1.4,
+          "material": "blood"
+        }
+      ]
+    },
+    {
+      "id": "shoe_left",
+      "kind": "superquadric",
+      "size": [
+        9,
+        4.6,
+        5.4
+      ],
+      "round": [
+        0.3,
+        0.5
+      ],
+      "sides": 8,
+      "material": "shoe",
+      "attach": {
+        "bone": "Bip01 L Foot",
+        "at": "bottom",
+        "offset": [
+          2.5,
+          0,
+          -5.8
+        ]
+      }
+    },
+    {
+      "id": "shoe_right",
+      "kind": "superquadric",
+      "size": [
+        9,
+        4.6,
+        5.4
+      ],
+      "round": [
+        0.3,
+        0.5
+      ],
+      "sides": 8,
+      "material": "shoe",
+      "attach": {
+        "bone": "Bip01 R Foot",
+        "at": "bottom",
+        "offset": [
+          2.5,
+          0,
+          -5.7
+        ]
+      }
+    },
+    {
+      "id": "hips",
+      "kind": "superquadric",
+      "size": [
+        8,
+        12,
+        8
+      ],
+      "sides": 8,
+      "material": "pants",
+      "attach": {
+        "bone": "Bip01 Pelvis",
+        "offset": [
+          0,
+          0,
+          -1
+        ]
+      }
+    },
+    {
+      "id": "coat_skirt",
+      "kind": "turn",
+      "material": "coat",
+      "sides": 10,
+      "bone": "Bip01 Pelvis",
+      "at": [
+        0.5,
+        0,
+        -8.5
+      ],
+      "rings": [
+        {
+          "s": 0,
+          "r": [
+            7,
+            8.6
+          ],
+          "off": [
+            2,
+            0
+          ]
+        },
+        {
+          "s": 5,
+          "r": [
+            6,
+            7.6
+          ],
+          "off": [
+            1.2,
+            0
+          ]
+        },
+        {
+          "s": 10,
+          "r": [
+            5,
+            6.6
+          ]
+        },
+        {
+          "s": 14,
+          "r": [
+            4.4,
+            6
+          ]
+        }
+      ],
+      "caps": [
+        false,
+        true
+      ],
+      "lining": {
+        "inset": 0.4
+      },
+      "marks": [
+        {
+          "path": [
+            [
+              0,
+              0
+            ],
+            [
+              0.85,
+              0
+            ]
+          ],
+          "width": 4,
+          "material": "shade"
+        },
+        {
+          "path": [
+            [
+              0,
+              0
+            ],
+            [
+              0.85,
+              0
+            ]
+          ],
+          "width": 3,
+          "material": "pants"
+        },
+        {
+          "path": [
+            [
+              0.04,
+              0
+            ],
+            [
+              0.04,
+              360
+            ]
+          ],
+          "width": 1.6,
+          "material": "blood"
+        },
+        {
+          "path": [
+            [
+              0,
+              0
+            ],
+            [
+              0.85,
+              0
+            ]
+          ],
+          "width": 3,
+          "material": "pants"
+        },
+        {
+          "path": [
+            [
+              0.1,
+              30
+            ],
+            [
+              0.45,
+              45
             ]
           ],
           "width": 2,
@@ -305,12 +586,12 @@
         {
           "path": [
             [
-              0.2,
-              -30
+              0.05,
+              -40
             ],
             [
               0.35,
-              -55
+              -30
             ]
           ],
           "width": 2.2,
@@ -319,187 +600,66 @@
         {
           "path": [
             [
-              0.12,
-              0
+              0.2,
+              150
             ],
             [
-              0.92,
-              0
+              0.5,
+              170
             ]
           ],
-          "width": 8,
-          "material": "blood",
-          "ends": "point"
+          "width": 1.5,
+          "material": "blood"
         },
         {
           "path": [
             [
-              0.86,
-              25
+              0.75,
+              80
             ],
             [
-              0.4,
-              12
+              0.9,
+              100
             ]
           ],
           "width": 1.2,
-          "material": "coatshade"
-        },
-        {
-          "path": [
-            [
-              0.86,
-              -25
-            ],
-            [
-              0.4,
-              -12
-            ]
-          ],
-          "width": 1.2,
-          "material": "coatshade"
-        },
-        {
-          "path": [
-            [
-              0.18,
-              0
-            ],
-            [
-              0.88,
-              0
-            ]
-          ],
-          "width": 5.5,
-          "material": "gore",
-          "ends": "point"
-        },
-        {
-          "path": [
-            [
-              0.55,
-              -38
-            ],
-            [
-              0.55,
-              38
-            ]
-          ],
-          "width": 0.6,
-          "material": "rib"
-        },
-        {
-          "path": [
-            [
-              0.64,
-              -40
-            ],
-            [
-              0.64,
-              40
-            ]
-          ],
-          "width": 0.6,
-          "material": "rib"
-        },
-        {
-          "path": [
-            [
-              0.73,
-              -40
-            ],
-            [
-              0.73,
-              40
-            ]
-          ],
-          "width": 0.6,
-          "material": "rib"
-        },
-        {
-          "path": [
-            [
-              0.35,
-              -12
-            ],
-            [
-              0.35,
-              12
-            ]
-          ],
-          "width": 0.4,
-          "material": "tooth"
-        },
-        {
-          "path": [
-            [
-              0.42,
-              -12
-            ],
-            [
-              0.42,
-              12
-            ]
-          ],
-          "width": 0.4,
-          "material": "tooth"
-        },
-        {
-          "path": [
-            [
-              0.49,
-              -12
-            ],
-            [
-              0.49,
-              12
-            ]
-          ],
-          "width": 0.4,
-          "material": "tooth"
-        },
-        {
-          "path": [
-            [
-              0.58,
-              -12
-            ],
-            [
-              0.58,
-              12
-            ]
-          ],
-          "width": 0.4,
-          "material": "tooth"
-        },
-        {
-          "path": [
-            [
-              0.67,
-              -12
-            ],
-            [
-              0.67,
-              12
-            ]
-          ],
-          "width": 0.4,
-          "material": "tooth"
-        },
-        {
-          "path": [
-            [
-              0.76,
-              -12
-            ],
-            [
-              0.76,
-              12
-            ]
-          ],
-          "width": 0.4,
-          "material": "tooth"
-        },
+          "material": "blood"
+        }
+      ]
+    },
+    {
+      "id": "waist",
+      "kind": "turn",
+      "material": "coat",
+      "sides": 12,
+      "span": {
+        "bones": [
+          "Bip01 Spine",
+          "Bip01 Spine2"
+        ],
+        "over": 1
+      },
+      "rings": [
+        [
+          0,
+          [
+            4.2,
+            5.8
+          ]
+        ],
+        [
+          10,
+          [
+            3.8,
+            5.5
+          ]
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "marks": [
         {
           "path": [
             [
@@ -507,22 +667,63 @@
               0
             ],
             [
-              0.82,
+              1,
               0
             ]
           ],
-          "width": 1.1,
-          "material": "black",
-          "ends": "point"
+          "width": 6.5,
+          "material": "blood"
         },
         {
           "path": [
             [
-              0.58,
+              0.36,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "width": 5,
+          "material": "dark"
+        },
+        {
+          "path": [
+            [
+              0.4,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "width": 0.6,
+          "material": "gore"
+        },
+        {
+          "path": [
+            [
+              0,
+              0
+            ],
+            [
+              0.3,
+              0
+            ]
+          ],
+          "width": 3,
+          "material": "shade"
+        },
+        {
+          "path": [
+            [
+              0.32,
               180
             ],
             [
-              0.78,
+              0.68,
               180
             ]
           ],
@@ -532,182 +733,36 @@
         {
           "path": [
             [
-              0.6,
-              180
-            ],
-            [
-              0.76,
-              180
-            ]
-          ],
-          "width": 4.2,
-          "material": "black"
-        },
-        {
-          "path": [
-            [
-              0.64,
-              160
-            ],
-            [
-              0.64,
-              200
-            ]
-          ],
-          "width": 0.6,
-          "material": "gore"
-        },
-        {
-          "path": [
-            [
-              0.7,
-              160
-            ],
-            [
-              0.7,
-              200
-            ]
-          ],
-          "width": 0.6,
-          "material": "gore"
-        },
-        {
-          "path": [
-            [
-              0.6,
-              180
-            ],
-            [
-              0.76,
-              180
-            ]
-          ],
-          "width": 0.9,
-          "material": "rib"
-        },
-        {
-          "path": [
-            [
-              0.14,
-              180
-            ],
-            [
-              0.3,
-              180
-            ]
-          ],
-          "width": 5,
-          "material": "blood"
-        },
-        {
-          "path": [
-            [
-              0.16,
-              180
-            ],
-            [
-              0.28,
-              180
-            ]
-          ],
-          "width": 3.4,
-          "material": "black"
-        },
-        {
-          "path": [
-            [
-              0.16,
-              180
-            ],
-            [
-              0.28,
-              180
-            ]
-          ],
-          "width": 0.9,
-          "material": "rib"
-        },
-        {
-          "path": [
-            [
               0.35,
-              150
+              180
             ],
             [
-              0.5,
-              130
+              0.65,
+              180
             ]
           ],
-          "width": 2,
-          "material": "blood"
-        }
-      ]
-    },
-    {
-      "id": "collar",
-      "kind": "band",
-      "material": "coat",
-      "on": {
-        "part": "torso",
-        "s": 0.9
-      },
-      "width": 1.4,
-      "height": 0.7
-    },
-    {
-      "id": "skirt_left",
-      "kind": "turn",
-      "material": "coat",
-      "bone": "Bip01 L Leg",
-      "at": [
-        0,
-        4.2,
-        29.5
-      ],
-      "sides": 12,
-      "rings": [
-        [
-          0,
-          [
-            5.2,
-            4.8
-          ]
-        ],
-        [
-          6,
-          [
-            4.6,
-            4.4
-          ]
-        ],
-        [
-          13,
-          [
-            4.4,
-            4.4
-          ]
-        ]
-      ],
-      "marks": [
+          "width": 4.6,
+          "material": "dark"
+        },
         {
           "path": [
             [
-              0.05,
-              0
+              0.4,
+              180
             ],
             [
-              0.05,
-              360
+              0.6,
+              180
             ]
           ],
-          "width": 1.6,
-          "material": "blood"
+          "width": 0.9,
+          "material": "rib"
         },
         {
           "path": [
             [
               0.1,
-              20
+              60
             ],
             [
               0.5,
@@ -716,490 +771,394 @@
           ],
           "width": 2,
           "material": "blood"
-        },
-        {
-          "path": [
-            [
-              0.1,
-              200
-            ],
-            [
-              0.35,
-              230
-            ]
-          ],
-          "width": 1.6,
-          "material": "blood"
-        },
-        {
-          "path": [
-            [
-              0.02,
-              -55
-            ],
-            [
-              0.98,
-              -55
-            ]
-          ],
-          "width": 0.8,
-          "material": "coatshade"
         }
       ]
     },
     {
-      "id": "skirt_right",
+      "id": "chest",
       "kind": "turn",
       "material": "coat",
-      "bone": "Bip01 R Leg",
-      "at": [
-        0,
-        -4.2,
-        29.5
-      ],
       "sides": 12,
+      "span": {
+        "bones": [
+          "Bip01 Spine2",
+          "Bip01 Neck"
+        ],
+        "over": 1
+      },
       "rings": [
         [
           0,
           [
-            5.2,
-            4.8
+            3.8,
+            5.5
           ]
         ],
         [
-          6,
+          4,
           [
-            4.6,
-            4.4
-          ]
-        ],
-        [
-          13,
-          [
-            4.4,
-            4.4
-          ]
-        ]
-      ],
-      "marks": [
-        {
-          "path": [
-            [
-              0.05,
-              0
-            ],
-            [
-              0.05,
-              360
-            ]
-          ],
-          "width": 1.6,
-          "material": "blood"
-        },
-        {
-          "path": [
-            [
-              0.1,
-              -20
-            ],
-            [
-              0.45,
-              -45
-            ]
-          ],
-          "width": 2,
-          "material": "blood"
-        },
-        {
-          "path": [
-            [
-              0.1,
-              150
-            ],
-            [
-              0.3,
-              120
-            ]
-          ],
-          "width": 1.6,
-          "material": "blood"
-        },
-        {
-          "path": [
-            [
-              0.02,
-              55
-            ],
-            [
-              0.98,
-              55
-            ]
-          ],
-          "width": 0.8,
-          "material": "coatshade"
-        }
-      ]
-    },
-    {
-      "id": "neck",
-      "kind": "tube",
-      "material": "gore",
-      "bone": "Bip01 Neck",
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "sides": 6,
-      "path": [
-        [
-          -2.5,
-          0,
-          60.5,
-          1.7
-        ],
-        [
-          0.5,
-          0,
-          60,
-          1.6
-        ],
-        [
-          3,
-          0,
-          59,
-          1.5
-        ]
-      ]
-    },
-    {
-      "id": "head_crab",
-      "kind": "turn",
-      "material": "crab",
-      "bone": "Bip01 Head",
-      "at": [
-        2.5,
-        0,
-        56
-      ],
-      "sides": 14,
-      "caps": [
-        true,
-        1.2
-      ],
-      "rings": [
-        [
-          0,
-          [
-            5.6,
-            5.2
-          ]
-        ],
-        [
-          1,
-          [
-            6.5,
+            4.3,
             6
           ]
         ],
-        [
-          2.8,
-          [
-            7,
-            6.5
+        {
+          "s": 7.5,
+          "r": [
+            4.3,
+            6.2
+          ],
+          "off": [
+            -0.6,
+            0
           ]
-        ],
-        [
-          5,
-          [
-            6.9,
-            6.4
+        },
+        {
+          "s": 9,
+          "r": [
+            3.4,
+            5.2
+          ],
+          "off": [
+            -0.4,
+            0
           ]
-        ],
+        },
         [
-          7.5,
+          10,
           [
-            6.2,
-            5.8
-          ]
-        ],
-        [
-          9.3,
-          [
-            4.9,
-            4.6
-          ]
-        ],
-        [
-          10.8,
-          [
-            2.8,
+            2,
             2.6
           ]
         ]
       ],
+      "caps": [
+        true,
+        true
+      ],
       "marks": [
         {
           "path": [
             [
-              0.03,
+              0.86,
               0
             ],
             [
-              0.03,
+              0.86,
               360
             ]
           ],
-          "width": 1.2,
-          "material": "fold"
+          "width": 0.6,
+          "material": "pants"
         },
         {
           "path": [
             [
-              0.14,
+              0.02,
               0
             ],
             [
-              0.14,
-              360
-            ]
-          ],
-          "width": 2.6,
-          "material": "crabflesh"
-        },
-        {
-          "path": [
-            [
-              0.27,
+              0.86,
               0
-            ],
-            [
-              0.27,
-              360
             ]
           ],
-          "width": 1.4,
-          "material": "mustard"
-        },
-        {
-          "path": [
-            [
-              0.1,
-              0
-            ],
-            [
-              0.22,
-              20
-            ]
-          ],
-          "width": 0.5,
-          "material": "fold"
-        },
-        {
-          "path": [
-            [
-              0.1,
-              90
-            ],
-            [
-              0.22,
-              110
-            ]
-          ],
-          "width": 0.5,
-          "material": "fold"
-        },
-        {
-          "path": [
-            [
-              0.1,
-              180
-            ],
-            [
-              0.22,
-              200
-            ]
-          ],
-          "width": 0.5,
-          "material": "fold"
-        },
-        {
-          "path": [
-            [
-              0.1,
-              270
-            ],
-            [
-              0.22,
-              290
-            ]
-          ],
-          "width": 0.5,
-          "material": "fold"
-        }
-      ]
-    },
-    {
-      "id": "crab_rim",
-      "kind": "band",
-      "material": "crabflesh",
-      "on": {
-        "part": "head_crab",
-        "s": 0.12
-      },
-      "width": 2,
-      "height": 0.8
-    },
-    {
-      "id": "strand_a",
-      "kind": "tube",
-      "material": "gore",
-      "bone": "Bip01 Head",
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "sides": 4,
-      "path": [
-        [
-          5.5,
-          -1.5,
-          57,
-          0.45
-        ],
-        [
-          6,
-          -1.7,
-          53.5,
-          0.3
-        ],
-        [
-          6.2,
-          -1.5,
-          51,
-          0
-        ]
-      ]
-    },
-    {
-      "id": "strand_b",
-      "kind": "tube",
-      "material": "gore",
-      "bone": "Bip01 Head",
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "sides": 4,
-      "path": [
-        [
-          5.5,
-          1.5,
-          57,
-          0.45
-        ],
-        [
-          6.2,
-          1.6,
-          52.5,
-          0.3
-        ],
-        [
-          6.4,
-          1.4,
-          50.5,
-          0
-        ]
-      ]
-    },
-    {
-      "id": "strand_c",
-      "kind": "tube",
-      "material": "gore",
-      "bone": "Bip01 Head",
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "sides": 4,
-      "path": [
-        [
-          4.5,
-          0,
-          57,
-          0.5
-        ],
-        [
-          5.4,
-          0,
-          53,
-          0.35
-        ],
-        [
-          5.6,
-          0.1,
-          49.5,
-          0
-        ]
-      ]
-    },
-    {
-      "id": "shoulder_left",
-      "kind": "cylinder",
-      "material": "coat",
-      "span": {
-        "bones": [
-          "Bip01 L Arm",
-          "Bip01 L Arm1"
-        ],
-        "over": 1.5
-      },
-      "radius": 2.2,
-      "height": 10,
-      "sides": 8
-    },
-    {
-      "id": "sleeve_left",
-      "kind": "cylinder",
-      "material": "coat",
-      "span": {
-        "bones": [
-          "Bip01 L Arm1",
-          "Bip01 L Arm2"
-        ],
-        "over": 1.2
-      },
-      "radius": 2,
-      "top": 2.2,
-      "height": 10,
-      "sides": 8,
-      "marks": [
-        {
-          "path": [
-            [
-              0.9,
-              0
-            ],
-            [
-              0.9,
-              360
-            ]
-          ],
-          "width": 2,
+          "width": 9,
           "material": "blood"
         },
         {
           "path": [
             [
-              0.3,
+              0.05,
               0
             ],
             [
+              0.84,
+              0
+            ]
+          ],
+          "width": 7,
+          "material": "dark"
+        },
+        {
+          "path": [
+            [
+              0.25,
+              -34
+            ],
+            [
+              0.25,
+              34
+            ]
+          ],
+          "width": 0.8,
+          "material": "rib"
+        },
+        {
+          "path": [
+            [
+              0.4,
+              -36
+            ],
+            [
+              0.4,
+              36
+            ]
+          ],
+          "width": 0.8,
+          "material": "rib"
+        },
+        {
+          "path": [
+            [
+              0.55,
+              -36
+            ],
+            [
+              0.55,
+              36
+            ]
+          ],
+          "width": 0.8,
+          "material": "rib"
+        },
+        {
+          "path": [
+            [
+              0.7,
+              -34
+            ],
+            [
+              0.7,
+              34
+            ]
+          ],
+          "width": 0.8,
+          "material": "rib"
+        },
+        {
+          "path": [
+            [
+              0.06,
+              0
+            ],
+            [
+              0.84,
+              0
+            ]
+          ],
+          "width": 2,
+          "material": "gore"
+        },
+        {
+          "path": [
+            [
+              0.08,
+              0
+            ],
+            [
+              0.82,
+              0
+            ]
+          ],
+          "width": 0.7,
+          "material": "dark"
+        },
+        {
+          "path": [
+            [
+              0.15,
+              -7
+            ],
+            [
+              0.15,
+              7
+            ]
+          ],
+          "width": 0.35,
+          "material": "crab",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.27,
+              -7
+            ],
+            [
+              0.27,
+              7
+            ]
+          ],
+          "width": 0.35,
+          "material": "crab",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.39,
+              -7
+            ],
+            [
+              0.39,
+              7
+            ]
+          ],
+          "width": 0.35,
+          "material": "crab",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.51,
+              -7
+            ],
+            [
+              0.51,
+              7
+            ]
+          ],
+          "width": 0.35,
+          "material": "crab",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.63,
+              -7
+            ],
+            [
+              0.63,
+              7
+            ]
+          ],
+          "width": 0.35,
+          "material": "crab",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.75,
+              -7
+            ],
+            [
+              0.75,
+              7
+            ]
+          ],
+          "width": 0.35,
+          "material": "crab",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.42,
+              180
+            ],
+            [
+              0.7,
+              180
+            ]
+          ],
+          "width": 7,
+          "material": "blood"
+        },
+        {
+          "path": [
+            [
+              0.45,
+              180
+            ],
+            [
+              0.67,
+              180
+            ]
+          ],
+          "width": 5.6,
+          "material": "dark"
+        },
+        {
+          "path": [
+            [
+              0.5,
+              165
+            ],
+            [
+              0.5,
+              195
+            ]
+          ],
+          "width": 0.6,
+          "material": "gore"
+        },
+        {
+          "path": [
+            [
               0.6,
-              40
+              165
+            ],
+            [
+              0.6,
+              195
+            ]
+          ],
+          "width": 0.6,
+          "material": "gore"
+        },
+        {
+          "path": [
+            [
+              0.45,
+              180
+            ],
+            [
+              0.67,
+              180
+            ]
+          ],
+          "width": 1,
+          "material": "rib"
+        },
+        {
+          "path": [
+            [
+              0.6,
+              45
+            ],
+            [
+              0.2,
+              70
+            ]
+          ],
+          "width": 2.4,
+          "material": "blood"
+        },
+        {
+          "path": [
+            [
+              0.8,
+              -45
+            ],
+            [
+              0.3,
+              -60
+            ]
+          ],
+          "width": 2.4,
+          "material": "blood"
+        },
+        {
+          "path": [
+            [
+              0.82,
+              90
+            ],
+            [
+              0.55,
+              100
             ]
           ],
           "width": 1.5,
@@ -1208,19 +1167,647 @@
       ]
     },
     {
-      "id": "elbow_left",
-      "kind": "sphere",
-      "material": "flesh",
-      "radius": 1.4,
-      "sides": 8,
-      "attach": {
-        "bone": "Bip01 L Arm2"
+      "id": "lapel_left",
+      "kind": "ridge",
+      "material": "coat",
+      "on": {
+        "part": "chest",
+        "path": [
+          [
+            0.88,
+            38
+          ],
+          [
+            0.35,
+            28
+          ]
+        ]
+      },
+      "width": 1.6,
+      "height": 0.6
+    },
+    {
+      "id": "lapel_right",
+      "kind": "ridge",
+      "material": "coat",
+      "on": {
+        "part": "chest",
+        "path": [
+          [
+            0.88,
+            -38
+          ],
+          [
+            0.35,
+            -28
+          ]
+        ]
+      },
+      "width": 1.6,
+      "height": 0.6
+    },
+    {
+      "id": "neck",
+      "kind": "cylinder",
+      "radius": 1.7,
+      "height": 10,
+      "sides": 6,
+      "material": "gore",
+      "span": {
+        "bones": [
+          "Bip01 Neck",
+          "Bip01 Head"
+        ],
+        "over": 2.5
       }
+    },
+    {
+      "id": "crab",
+      "kind": "turn",
+      "material": "crab",
+      "sides": 12,
+      "texels": 2,
+      "bone": "Bip01 Head",
+      "at": [
+        7.5,
+        0,
+        24.3
+      ],
+      "rotate": [
+        0,
+        30,
+        0
+      ],
+      "rings": [
+        [
+          0,
+          [
+            3.6,
+            3.4
+          ]
+        ],
+        [
+          0.8,
+          [
+            5.2,
+            4.9
+          ]
+        ],
+        [
+          2.4,
+          [
+            6,
+            5.6
+          ]
+        ],
+        [
+          4.4,
+          [
+            5.7,
+            5.3
+          ]
+        ],
+        [
+          6.4,
+          [
+            4.4,
+            4.1
+          ]
+        ],
+        [
+          7.6,
+          [
+            2.6,
+            2.4
+          ]
+        ]
+      ],
+      "caps": [
+        true,
+        1
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.06,
+              0
+            ],
+            [
+              0.06,
+              360
+            ]
+          ],
+          "width": 2.4,
+          "material": "ochre"
+        },
+        {
+          "path": [
+            [
+              0.18,
+              0
+            ],
+            [
+              0.18,
+              360
+            ]
+          ],
+          "width": 2,
+          "material": "ochre"
+        },
+        {
+          "path": [
+            [
+              0.29,
+              0
+            ],
+            [
+              0.29,
+              360
+            ]
+          ],
+          "width": 1,
+          "material": "ochre"
+        },
+        {
+          "path": [
+            [
+              0.01,
+              0
+            ],
+            [
+              0.01,
+              360
+            ]
+          ],
+          "width": 0.9,
+          "material": "fold"
+        },
+        {
+          "path": [
+            [
+              0,
+              20
+            ],
+            [
+              0.2,
+              25
+            ]
+          ],
+          "width": 0.45,
+          "material": "fold"
+        },
+        {
+          "path": [
+            [
+              0,
+              60
+            ],
+            [
+              0.18,
+              62
+            ]
+          ],
+          "width": 0.45,
+          "material": "fold"
+        },
+        {
+          "path": [
+            [
+              0,
+              100
+            ],
+            [
+              0.21,
+              98
+            ]
+          ],
+          "width": 0.45,
+          "material": "fold"
+        },
+        {
+          "path": [
+            [
+              0,
+              140
+            ],
+            [
+              0.19,
+              145
+            ]
+          ],
+          "width": 0.45,
+          "material": "fold"
+        },
+        {
+          "path": [
+            [
+              0,
+              180
+            ],
+            [
+              0.18,
+              175
+            ]
+          ],
+          "width": 0.45,
+          "material": "fold"
+        },
+        {
+          "path": [
+            [
+              0,
+              220
+            ],
+            [
+              0.2,
+              225
+            ]
+          ],
+          "width": 0.45,
+          "material": "fold"
+        },
+        {
+          "path": [
+            [
+              0,
+              260
+            ],
+            [
+              0.19,
+              258
+            ]
+          ],
+          "width": 0.45,
+          "material": "fold"
+        },
+        {
+          "path": [
+            [
+              0,
+              300
+            ],
+            [
+              0.18,
+              303
+            ]
+          ],
+          "width": 0.45,
+          "material": "fold"
+        },
+        {
+          "path": [
+            [
+              0,
+              340
+            ],
+            [
+              0.2,
+              336
+            ]
+          ],
+          "width": 0.45,
+          "material": "fold"
+        }
+      ]
+    },
+    {
+      "id": "crab_leg_side",
+      "kind": "tube",
+      "material": "ochre",
+      "sides": 5,
+      "bone": "Bip01 Head",
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "mirror": "y",
+      "path": [
+        [
+          8.7,
+          5.1,
+          25.8,
+          0.8
+        ],
+        [
+          9.6,
+          5.1,
+          23.6,
+          0.65
+        ],
+        [
+          10.4,
+          4.3,
+          21.6,
+          0.45
+        ],
+        [
+          10.8,
+          3.4,
+          20.4,
+          0
+        ]
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.6,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "width": 0.6,
+          "material": "fold"
+        }
+      ]
+    },
+    {
+      "id": "crab_leg_front",
+      "kind": "tube",
+      "material": "ochre",
+      "sides": 5,
+      "bone": "Bip01 Head",
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "mirror": "y",
+      "path": [
+        [
+          12.2,
+          2.6,
+          22.8,
+          0.7
+        ],
+        [
+          12.9,
+          2.4,
+          21,
+          0.55
+        ],
+        [
+          12.4,
+          1.7,
+          19.6,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "jaw",
+      "kind": "superquadric",
+      "size": [
+        4.4,
+        4.2,
+        3.6
+      ],
+      "round": [
+        0.5,
+        0.6
+      ],
+      "sides": 8,
+      "material": "gore",
+      "bone": "Bip01 Head",
+      "at": [
+        9,
+        0,
+        19.8
+      ]
+    },
+    {
+      "id": "strand_a",
+      "kind": "tube",
+      "material": "wet",
+      "sides": 4,
+      "bone": "Bip01 Head",
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "path": [
+        [
+          10.4,
+          0.9,
+          21.5,
+          0.4
+        ],
+        [
+          11,
+          1.2,
+          19.4,
+          0.3
+        ],
+        [
+          10.7,
+          1.1,
+          17.8,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "strand_b",
+      "kind": "tube",
+      "material": "wet",
+      "sides": 4,
+      "bone": "Bip01 Head",
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "path": [
+        [
+          10.6,
+          -0.9,
+          21.5,
+          0.4
+        ],
+        [
+          11.2,
+          -1.3,
+          19.8,
+          0.3
+        ],
+        [
+          11,
+          -1.4,
+          18.6,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "strand_c",
+      "kind": "tube",
+      "material": "wet",
+      "sides": 4,
+      "bone": "Bip01 Head",
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "path": [
+        [
+          10,
+          0,
+          20.8,
+          0.35
+        ],
+        [
+          10.3,
+          0.1,
+          18.9,
+          0.25
+        ],
+        [
+          10,
+          0,
+          17.4,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "clavicle_left",
+      "kind": "cylinder",
+      "radius": 2.2,
+      "top": 2,
+      "height": 10,
+      "sides": 8,
+      "material": "coat",
+      "span": {
+        "bones": [
+          "Bip01 L Arm",
+          "Bip01 L Arm1"
+        ],
+        "over": 1.5
+      }
+    },
+    {
+      "id": "clavicle_right",
+      "kind": "cylinder",
+      "radius": 2.2,
+      "top": 2,
+      "height": 10,
+      "sides": 8,
+      "material": "coat",
+      "span": {
+        "bones": [
+          "Bip01 R Arm",
+          "Bip01 R Arm1"
+        ],
+        "over": 1.5
+      }
+    },
+    {
+      "id": "sleeve_left",
+      "kind": "cylinder",
+      "radius": 2.1,
+      "top": 1.8,
+      "height": 10,
+      "sides": 8,
+      "material": "coat",
+      "span": {
+        "bones": [
+          "Bip01 L Arm1",
+          "Bip01 L Arm2"
+        ],
+        "over": 1.5
+      },
+      "marks": [
+        {
+          "path": [
+            [
+              0.95,
+              0
+            ],
+            [
+              0.95,
+              360
+            ]
+          ],
+          "width": 1.2,
+          "material": "blood"
+        },
+        {
+          "path": [
+            [
+              0.6,
+              0
+            ],
+            [
+              0.85,
+              40
+            ]
+          ],
+          "width": 1.2,
+          "material": "blood"
+        }
+      ]
+    },
+    {
+      "id": "sleeve_right",
+      "kind": "cylinder",
+      "radius": 2.1,
+      "top": 1.8,
+      "height": 10,
+      "sides": 8,
+      "material": "coat",
+      "span": {
+        "bones": [
+          "Bip01 R Arm1",
+          "Bip01 R Arm2"
+        ],
+        "over": 1.5
+      },
+      "marks": [
+        {
+          "path": [
+            [
+              0.95,
+              0
+            ],
+            [
+              0.95,
+              360
+            ]
+          ],
+          "width": 1.2,
+          "material": "blood"
+        },
+        {
+          "path": [
+            [
+              0.5,
+              0
+            ],
+            [
+              0.8,
+              -40
+            ]
+          ],
+          "width": 1.2,
+          "material": "blood"
+        }
+      ]
     },
     {
       "id": "forearm_left",
       "kind": "cylinder",
-      "material": "flesh",
+      "radius": 1.4,
+      "top": 1.1,
+      "height": 10,
+      "sides": 6,
+      "material": "skin",
       "span": {
         "bones": [
           "Bip01 L Arm2",
@@ -1228,19 +1815,15 @@
         ],
         "over": 1
       },
-      "radius": 1.3,
-      "top": 1.1,
-      "height": 10,
-      "sides": 6,
       "marks": [
         {
           "path": [
             [
-              0.1,
+              0.2,
               0
             ],
             [
-              0.8,
+              0.6,
               60
             ]
           ],
@@ -1250,7 +1833,7 @@
         {
           "path": [
             [
-              0.2,
+              0.4,
               180
             ],
             [
@@ -1260,680 +1843,17 @@
           ],
           "width": 0.8,
           "material": "gore"
-        },
-        {
-          "path": [
-            [
-              0.3,
-              100
-            ],
-            [
-              0.7,
-              90
-            ]
-          ],
-          "width": 0.6,
-          "material": "gore"
         }
       ]
-    },
-    {
-      "id": "palm_left",
-      "kind": "turn",
-      "material": "flesh",
-      "bone": "Bip01 L Hand",
-      "at": [
-        1,
-        8.8,
-        34.5
-      ],
-      "sides": 8,
-      "rings": [
-        [
-          0,
-          [
-            3,
-            1.2
-          ]
-        ],
-        [
-          2.5,
-          [
-            3.6,
-            1.6
-          ]
-        ],
-        [
-          5,
-          [
-            2.6,
-            1.5
-          ]
-        ],
-        [
-          7,
-          [
-            1.4,
-            1.2
-          ]
-        ]
-      ]
-    },
-    {
-      "id": "thumb_left",
-      "kind": "tube",
-      "material": "flesh",
-      "bone": "Bip01 L Hand",
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "sides": 5,
-      "path": [
-        [
-          3.5,
-          8.4,
-          38,
-          0.8
-        ],
-        [
-          7,
-          9.4,
-          35,
-          0.6
-        ],
-        [
-          10.5,
-          10.7,
-          31.5,
-          0.6
-        ],
-        [
-          13.5,
-          11.4,
-          28.5,
-          0.55
-        ],
-        [
-          17.5,
-          11.4,
-          25.5,
-          0.35
-        ],
-        [
-          20,
-          10,
-          22,
-          0
-        ]
-      ],
-      "marks": [
-        {
-          "path": [
-            [
-              0.62,
-              0
-            ],
-            [
-              0.8,
-              0
-            ]
-          ],
-          "width": 2.5,
-          "material": "claw"
-        },
-        {
-          "path": [
-            [
-              0.62,
-              180
-            ],
-            [
-              0.8,
-              180
-            ]
-          ],
-          "width": 2.5,
-          "material": "claw"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              0
-            ],
-            [
-              1,
-              0
-            ]
-          ],
-          "width": 2.5,
-          "material": "crimson"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              180
-            ],
-            [
-              1,
-              180
-            ]
-          ],
-          "width": 2.5,
-          "material": "crimson"
-        }
-      ]
-    },
-    {
-      "id": "index_left",
-      "kind": "tube",
-      "material": "flesh",
-      "bone": "Bip01 L Hand",
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "sides": 5,
-      "path": [
-        [
-          3,
-          10,
-          35.5,
-          0.75
-        ],
-        [
-          5,
-          13.4,
-          32.5,
-          0.55
-        ],
-        [
-          7,
-          16.8,
-          29,
-          0.6
-        ],
-        [
-          8.5,
-          19.5,
-          26,
-          0.5
-        ],
-        [
-          10,
-          21.5,
-          22.5,
-          0.3
-        ],
-        [
-          10.5,
-          20.8,
-          19,
-          0
-        ]
-      ],
-      "marks": [
-        {
-          "path": [
-            [
-              0.62,
-              0
-            ],
-            [
-              0.8,
-              0
-            ]
-          ],
-          "width": 2.5,
-          "material": "claw"
-        },
-        {
-          "path": [
-            [
-              0.62,
-              180
-            ],
-            [
-              0.8,
-              180
-            ]
-          ],
-          "width": 2.5,
-          "material": "claw"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              0
-            ],
-            [
-              1,
-              0
-            ]
-          ],
-          "width": 2.5,
-          "material": "crimson"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              180
-            ],
-            [
-              1,
-              180
-            ]
-          ],
-          "width": 2.5,
-          "material": "crimson"
-        }
-      ]
-    },
-    {
-      "id": "middle_left",
-      "kind": "tube",
-      "material": "flesh",
-      "bone": "Bip01 L Hand",
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "sides": 5,
-      "path": [
-        [
-          1,
-          10,
-          35,
-          0.75
-        ],
-        [
-          1,
-          15.5,
-          32,
-          0.55
-        ],
-        [
-          1,
-          19.5,
-          28.5,
-          0.6
-        ],
-        [
-          0.5,
-          23.3,
-          25.5,
-          0.5
-        ],
-        [
-          0,
-          26.5,
-          22,
-          0.3
-        ],
-        [
-          0,
-          26,
-          18.5,
-          0
-        ]
-      ],
-      "marks": [
-        {
-          "path": [
-            [
-              0.62,
-              0
-            ],
-            [
-              0.8,
-              0
-            ]
-          ],
-          "width": 2.5,
-          "material": "claw"
-        },
-        {
-          "path": [
-            [
-              0.62,
-              180
-            ],
-            [
-              0.8,
-              180
-            ]
-          ],
-          "width": 2.5,
-          "material": "claw"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              0
-            ],
-            [
-              1,
-              0
-            ]
-          ],
-          "width": 2.5,
-          "material": "crimson"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              180
-            ],
-            [
-              1,
-              180
-            ]
-          ],
-          "width": 2.5,
-          "material": "crimson"
-        }
-      ]
-    },
-    {
-      "id": "ring_left",
-      "kind": "tube",
-      "material": "flesh",
-      "bone": "Bip01 L Hand",
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "sides": 5,
-      "path": [
-        [
-          -0.5,
-          9.8,
-          35.2,
-          0.75
-        ],
-        [
-          -3,
-          13.4,
-          32,
-          0.55
-        ],
-        [
-          -5,
-          16.8,
-          28.5,
-          0.6
-        ],
-        [
-          -7,
-          19.5,
-          25.5,
-          0.5
-        ],
-        [
-          -9,
-          21.5,
-          22,
-          0.3
-        ],
-        [
-          -9.5,
-          20.8,
-          18.5,
-          0
-        ]
-      ],
-      "marks": [
-        {
-          "path": [
-            [
-              0.62,
-              0
-            ],
-            [
-              0.8,
-              0
-            ]
-          ],
-          "width": 2.5,
-          "material": "claw"
-        },
-        {
-          "path": [
-            [
-              0.62,
-              180
-            ],
-            [
-              0.8,
-              180
-            ]
-          ],
-          "width": 2.5,
-          "material": "claw"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              0
-            ],
-            [
-              1,
-              0
-            ]
-          ],
-          "width": 2.5,
-          "material": "crimson"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              180
-            ],
-            [
-              1,
-              180
-            ]
-          ],
-          "width": 2.5,
-          "material": "crimson"
-        }
-      ]
-    },
-    {
-      "id": "pinky_left",
-      "kind": "tube",
-      "material": "flesh",
-      "bone": "Bip01 L Hand",
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "sides": 5,
-      "path": [
-        [
-          -1.8,
-          8.8,
-          35.8,
-          0.7
-        ],
-        [
-          -5.5,
-          10,
-          33,
-          0.5
-        ],
-        [
-          -9,
-          12,
-          30,
-          0.55
-        ],
-        [
-          -12,
-          14,
-          27,
-          0.45
-        ],
-        [
-          -15,
-          14.8,
-          23.5,
-          0.3
-        ],
-        [
-          -16.5,
-          14.2,
-          20,
-          0
-        ]
-      ],
-      "marks": [
-        {
-          "path": [
-            [
-              0.62,
-              0
-            ],
-            [
-              0.8,
-              0
-            ]
-          ],
-          "width": 2.5,
-          "material": "claw"
-        },
-        {
-          "path": [
-            [
-              0.62,
-              180
-            ],
-            [
-              0.8,
-              180
-            ]
-          ],
-          "width": 2.5,
-          "material": "claw"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              0
-            ],
-            [
-              1,
-              0
-            ]
-          ],
-          "width": 2.5,
-          "material": "crimson"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              180
-            ],
-            [
-              1,
-              180
-            ]
-          ],
-          "width": 2.5,
-          "material": "crimson"
-        }
-      ]
-    },
-    {
-      "id": "shoulder_right",
-      "kind": "cylinder",
-      "material": "coat",
-      "span": {
-        "bones": [
-          "Bip01 R Arm",
-          "Bip01 R Arm1"
-        ],
-        "over": 1.5
-      },
-      "radius": 2.2,
-      "height": 10,
-      "sides": 8
-    },
-    {
-      "id": "sleeve_right",
-      "kind": "cylinder",
-      "material": "coat",
-      "span": {
-        "bones": [
-          "Bip01 R Arm1",
-          "Bip01 R Arm2"
-        ],
-        "over": 1.2
-      },
-      "radius": 2,
-      "top": 2.2,
-      "height": 10,
-      "sides": 8,
-      "marks": [
-        {
-          "path": [
-            [
-              0.9,
-              0
-            ],
-            [
-              0.9,
-              360
-            ]
-          ],
-          "width": 2,
-          "material": "blood"
-        },
-        {
-          "path": [
-            [
-              0.3,
-              0
-            ],
-            [
-              0.6,
-              -40
-            ]
-          ],
-          "width": 1.5,
-          "material": "blood"
-        }
-      ]
-    },
-    {
-      "id": "elbow_right",
-      "kind": "sphere",
-      "material": "flesh",
-      "radius": 1.4,
-      "sides": 8,
-      "attach": {
-        "bone": "Bip01 R Arm2"
-      }
     },
     {
       "id": "forearm_right",
       "kind": "cylinder",
-      "material": "flesh",
+      "radius": 1.4,
+      "top": 1.1,
+      "height": 10,
+      "sides": 6,
+      "material": "skin",
       "span": {
         "bones": [
           "Bip01 R Arm2",
@@ -1941,19 +1861,15 @@
         ],
         "over": 1
       },
-      "radius": 1.3,
-      "top": 1.1,
-      "height": 10,
-      "sides": 6,
       "marks": [
         {
           "path": [
             [
-              0.1,
+              0.2,
               0
             ],
             [
-              0.8,
+              0.6,
               -60
             ]
           ],
@@ -1963,7 +1879,7 @@
         {
           "path": [
             [
-              0.2,
+              0.4,
               180
             ],
             [
@@ -1973,941 +1889,717 @@
           ],
           "width": 0.8,
           "material": "gore"
-        },
-        {
-          "path": [
-            [
-              0.3,
-              260
-            ],
-            [
-              0.7,
-              270
-            ]
-          ],
-          "width": 0.6,
-          "material": "gore"
         }
       ]
     },
     {
-      "id": "palm_right",
-      "kind": "turn",
-      "material": "flesh",
-      "bone": "Bip01 R Hand",
-      "at": [
-        -1,
-        -9.8,
-        32.5
+      "id": "elbow_left",
+      "kind": "sphere",
+      "radius": 1.6,
+      "sides": 6,
+      "material": "skin",
+      "attach": {
+        "bone": "Bip01 L Arm2"
+      }
+    },
+    {
+      "id": "elbow_right",
+      "kind": "sphere",
+      "radius": 1.6,
+      "sides": 6,
+      "material": "skin",
+      "attach": {
+        "bone": "Bip01 R Arm2"
+      }
+    },
+    {
+      "id": "palm_left",
+      "kind": "superquadric",
+      "size": [
+        4.5,
+        2,
+        4.6
       ],
       "sides": 8,
-      "rings": [
+      "material": "skin",
+      "rotate": [
+        0,
+        -30,
+        0
+      ],
+      "attach": {
+        "bone": "Bip01 L Hand",
+        "at": "top",
+        "offset": [
+          0.8,
+          0.6,
+          0.8
+        ]
+      }
+    },
+    {
+      "id": "palm_right",
+      "kind": "superquadric",
+      "size": [
+        4.5,
+        2,
+        4.6
+      ],
+      "sides": 8,
+      "material": "skin",
+      "rotate": [
+        0,
+        -30,
+        0
+      ],
+      "attach": {
+        "bone": "Bip01 R Hand",
+        "at": "top",
+        "offset": [
+          0.8,
+          -0.6,
+          0.8
+        ]
+      }
+    },
+    {
+      "id": "index_left",
+      "kind": "tube",
+      "sides": 4,
+      "material": "skin",
+      "bone": "Bip01 L Hand",
+      "at": [
+        14,
+        19,
+        7
+      ],
+      "path": [
         [
-          0,
-          [
-            3,
-            1.2
-          ]
+          3.6,
+          0.4,
+          -3.4,
+          0.55
         ],
         [
+          6,
+          1,
+          -6,
+          0.45
+        ],
+        [
+          7.5,
+          1.6,
+          -8.5,
+          0.42
+        ]
+      ]
+    },
+    {
+      "id": "index_claw_left",
+      "kind": "tube",
+      "sides": 4,
+      "material": "claw",
+      "bone": "Bip01 L Hand",
+      "at": [
+        14,
+        19,
+        7
+      ],
+      "path": [
+        [
+          7.4,
+          1.6,
+          -8.3,
+          0.42
+        ],
+        [
+          9.5,
+          2.2,
+          -12,
+          0.3
+        ],
+        [
+          9.5,
           2.5,
-          [
-            3.6,
-            1.6
-          ]
+          -16,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "middle_left",
+      "kind": "tube",
+      "sides": 4,
+      "material": "skin",
+      "bone": "Bip01 L Hand",
+      "at": [
+        14,
+        19,
+        7
+      ],
+      "path": [
+        [
+          2.6,
+          0.8,
+          -4,
+          0.55
         ],
         [
-          5,
-          [
-            2.6,
-            1.5
-          ]
+          4.6,
+          2.6,
+          -7,
+          0.45
         ],
         [
-          7,
-          [
-            1.4,
-            1.2
-          ]
+          5.8,
+          4,
+          -9.8,
+          0.42
+        ]
+      ]
+    },
+    {
+      "id": "middle_claw_left",
+      "kind": "tube",
+      "sides": 4,
+      "material": "claw",
+      "bone": "Bip01 L Hand",
+      "at": [
+        14,
+        19,
+        7
+      ],
+      "path": [
+        [
+          5.7,
+          3.9,
+          -9.6,
+          0.42
+        ],
+        [
+          7.4,
+          5.4,
+          -13.5,
+          0.3
+        ],
+        [
+          7.2,
+          6.2,
+          -17.5,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "ring_left",
+      "kind": "tube",
+      "sides": 4,
+      "material": "skin",
+      "bone": "Bip01 L Hand",
+      "at": [
+        14,
+        19,
+        7
+      ],
+      "path": [
+        [
+          1.5,
+          1,
+          -4.4,
+          0.55
+        ],
+        [
+          2.8,
+          3.4,
+          -7.4,
+          0.45
+        ],
+        [
+          3.6,
+          5.4,
+          -10,
+          0.42
+        ]
+      ]
+    },
+    {
+      "id": "ring_claw_left",
+      "kind": "tube",
+      "sides": 4,
+      "material": "claw",
+      "bone": "Bip01 L Hand",
+      "at": [
+        14,
+        19,
+        7
+      ],
+      "path": [
+        [
+          3.55,
+          5.3,
+          -9.8,
+          0.42
+        ],
+        [
+          4.6,
+          7.4,
+          -13.6,
+          0.3
+        ],
+        [
+          4.2,
+          8.2,
+          -17,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "pinky_left",
+      "kind": "tube",
+      "sides": 4,
+      "material": "skin",
+      "bone": "Bip01 L Hand",
+      "at": [
+        14,
+        19,
+        7
+      ],
+      "path": [
+        [
+          0.4,
+          1,
+          -4.6,
+          0.5
+        ],
+        [
+          0.6,
+          3.6,
+          -7,
+          0.42
+        ],
+        [
+          1,
+          5.8,
+          -9,
+          0.38
+        ]
+      ]
+    },
+    {
+      "id": "pinky_claw_left",
+      "kind": "tube",
+      "sides": 4,
+      "material": "claw",
+      "bone": "Bip01 L Hand",
+      "at": [
+        14,
+        19,
+        7
+      ],
+      "path": [
+        [
+          0.95,
+          5.7,
+          -8.8,
+          0.38
+        ],
+        [
+          1.4,
+          7.8,
+          -12,
+          0.28
+        ],
+        [
+          1,
+          8.6,
+          -15,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "thumb_left",
+      "kind": "tube",
+      "sides": 4,
+      "material": "skin",
+      "bone": "Bip01 L Hand",
+      "at": [
+        14,
+        19,
+        7
+      ],
+      "path": [
+        [
+          3,
+          -0.6,
+          -1.2,
+          0.55
+        ],
+        [
+          5.4,
+          -1.2,
+          -3,
+          0.45
+        ],
+        [
+          7.2,
+          -1.6,
+          -4.8,
+          0.42
+        ]
+      ]
+    },
+    {
+      "id": "thumb_claw_left",
+      "kind": "tube",
+      "sides": 4,
+      "material": "claw",
+      "bone": "Bip01 L Hand",
+      "at": [
+        14,
+        19,
+        7
+      ],
+      "path": [
+        [
+          7.1,
+          -1.6,
+          -4.6,
+          0.42
+        ],
+        [
+          9.2,
+          -1.8,
+          -7.6,
+          0.3
+        ],
+        [
+          9.4,
+          -1.4,
+          -11,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "index_right",
+      "kind": "tube",
+      "sides": 4,
+      "material": "skin",
+      "bone": "Bip01 R Hand",
+      "at": [
+        11,
+        -17,
+        7
+      ],
+      "path": [
+        [
+          3.6,
+          -0.4,
+          -3.4,
+          0.55
+        ],
+        [
+          6,
+          -1,
+          -6,
+          0.45
+        ],
+        [
+          7.5,
+          -1.6,
+          -8.5,
+          0.42
+        ]
+      ]
+    },
+    {
+      "id": "index_claw_right",
+      "kind": "tube",
+      "sides": 4,
+      "material": "claw",
+      "bone": "Bip01 R Hand",
+      "at": [
+        11,
+        -17,
+        7
+      ],
+      "path": [
+        [
+          7.4,
+          -1.6,
+          -8.3,
+          0.42
+        ],
+        [
+          9.5,
+          -2.2,
+          -12,
+          0.3
+        ],
+        [
+          9.5,
+          -2.5,
+          -16,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "middle_right",
+      "kind": "tube",
+      "sides": 4,
+      "material": "skin",
+      "bone": "Bip01 R Hand",
+      "at": [
+        11,
+        -17,
+        7
+      ],
+      "path": [
+        [
+          2.6,
+          -0.8,
+          -4,
+          0.55
+        ],
+        [
+          4.6,
+          -2.6,
+          -7,
+          0.45
+        ],
+        [
+          5.8,
+          -4,
+          -9.8,
+          0.42
+        ]
+      ]
+    },
+    {
+      "id": "middle_claw_right",
+      "kind": "tube",
+      "sides": 4,
+      "material": "claw",
+      "bone": "Bip01 R Hand",
+      "at": [
+        11,
+        -17,
+        7
+      ],
+      "path": [
+        [
+          5.7,
+          -3.9,
+          -9.6,
+          0.42
+        ],
+        [
+          7.4,
+          -5.4,
+          -13.5,
+          0.3
+        ],
+        [
+          7.2,
+          -6.2,
+          -17.5,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "ring_right",
+      "kind": "tube",
+      "sides": 4,
+      "material": "skin",
+      "bone": "Bip01 R Hand",
+      "at": [
+        11,
+        -17,
+        7
+      ],
+      "path": [
+        [
+          1.5,
+          -1,
+          -4.4,
+          0.55
+        ],
+        [
+          2.8,
+          -3.4,
+          -7.4,
+          0.45
+        ],
+        [
+          3.6,
+          -5.4,
+          -10,
+          0.42
+        ]
+      ]
+    },
+    {
+      "id": "ring_claw_right",
+      "kind": "tube",
+      "sides": 4,
+      "material": "claw",
+      "bone": "Bip01 R Hand",
+      "at": [
+        11,
+        -17,
+        7
+      ],
+      "path": [
+        [
+          3.55,
+          -5.3,
+          -9.8,
+          0.42
+        ],
+        [
+          4.6,
+          -7.4,
+          -13.6,
+          0.3
+        ],
+        [
+          4.2,
+          -8.2,
+          -17,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "pinky_right",
+      "kind": "tube",
+      "sides": 4,
+      "material": "skin",
+      "bone": "Bip01 R Hand",
+      "at": [
+        11,
+        -17,
+        7
+      ],
+      "path": [
+        [
+          0.4,
+          -1,
+          -4.6,
+          0.5
+        ],
+        [
+          0.6,
+          -3.6,
+          -7,
+          0.42
+        ],
+        [
+          1,
+          -5.8,
+          -9,
+          0.38
+        ]
+      ]
+    },
+    {
+      "id": "pinky_claw_right",
+      "kind": "tube",
+      "sides": 4,
+      "material": "claw",
+      "bone": "Bip01 R Hand",
+      "at": [
+        11,
+        -17,
+        7
+      ],
+      "path": [
+        [
+          0.95,
+          -5.7,
+          -8.8,
+          0.38
+        ],
+        [
+          1.4,
+          -7.8,
+          -12,
+          0.28
+        ],
+        [
+          1,
+          -8.6,
+          -15,
+          0
         ]
       ]
     },
     {
       "id": "thumb_right",
       "kind": "tube",
-      "material": "flesh",
+      "sides": 4,
+      "material": "skin",
       "bone": "Bip01 R Hand",
       "at": [
-        0,
-        0,
-        0
+        11,
+        -17,
+        7
       ],
-      "sides": 5,
       "path": [
-        [
-          1.5,
-          -9.4,
-          36,
-          0.8
-        ],
-        [
-          5,
-          -10.4,
-          33,
-          0.6
-        ],
-        [
-          8.5,
-          -11.7,
-          29.5,
-          0.6
-        ],
-        [
-          11.5,
-          -12.4,
-          26.5,
-          0.55
-        ],
-        [
-          15.5,
-          -12.4,
-          23.5,
-          0.35
-        ],
-        [
-          18,
-          -11,
-          20,
-          0
-        ]
-      ],
-      "marks": [
-        {
-          "path": [
-            [
-              0.62,
-              0
-            ],
-            [
-              0.8,
-              0
-            ]
-          ],
-          "width": 2.5,
-          "material": "claw"
-        },
-        {
-          "path": [
-            [
-              0.62,
-              180
-            ],
-            [
-              0.8,
-              180
-            ]
-          ],
-          "width": 2.5,
-          "material": "claw"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              0
-            ],
-            [
-              1,
-              0
-            ]
-          ],
-          "width": 2.5,
-          "material": "crimson"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              180
-            ],
-            [
-              1,
-              180
-            ]
-          ],
-          "width": 2.5,
-          "material": "crimson"
-        }
-      ]
-    },
-    {
-      "id": "index_right",
-      "kind": "tube",
-      "material": "flesh",
-      "bone": "Bip01 R Hand",
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "sides": 5,
-      "path": [
-        [
-          1,
-          -11,
-          33.5,
-          0.75
-        ],
         [
           3,
-          -14.4,
-          30.5,
+          0.6,
+          -1.2,
           0.55
         ],
         [
-          5,
-          -17.8,
-          27,
-          0.6
-        ],
-        [
-          6.5,
-          -20.5,
-          24,
-          0.5
-        ],
-        [
-          8,
-          -22.5,
-          20.5,
-          0.3
-        ],
-        [
-          8.5,
-          -21.8,
-          17,
-          0
-        ]
-      ],
-      "marks": [
-        {
-          "path": [
-            [
-              0.62,
-              0
-            ],
-            [
-              0.8,
-              0
-            ]
-          ],
-          "width": 2.5,
-          "material": "claw"
-        },
-        {
-          "path": [
-            [
-              0.62,
-              180
-            ],
-            [
-              0.8,
-              180
-            ]
-          ],
-          "width": 2.5,
-          "material": "claw"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              0
-            ],
-            [
-              1,
-              0
-            ]
-          ],
-          "width": 2.5,
-          "material": "crimson"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              180
-            ],
-            [
-              1,
-              180
-            ]
-          ],
-          "width": 2.5,
-          "material": "crimson"
-        }
-      ]
-    },
-    {
-      "id": "middle_right",
-      "kind": "tube",
-      "material": "flesh",
-      "bone": "Bip01 R Hand",
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "sides": 5,
-      "path": [
-        [
-          -1,
-          -11,
-          33,
-          0.75
-        ],
-        [
-          -1,
-          -16.5,
-          30,
-          0.55
-        ],
-        [
-          -1,
-          -20.5,
-          26.5,
-          0.6
-        ],
-        [
-          -1.5,
-          -24.3,
-          23.5,
-          0.5
-        ],
-        [
-          -2,
-          -27.5,
-          20,
-          0.3
-        ],
-        [
-          -2,
-          -27,
-          16.5,
-          0
-        ]
-      ],
-      "marks": [
-        {
-          "path": [
-            [
-              0.62,
-              0
-            ],
-            [
-              0.8,
-              0
-            ]
-          ],
-          "width": 2.5,
-          "material": "claw"
-        },
-        {
-          "path": [
-            [
-              0.62,
-              180
-            ],
-            [
-              0.8,
-              180
-            ]
-          ],
-          "width": 2.5,
-          "material": "claw"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              0
-            ],
-            [
-              1,
-              0
-            ]
-          ],
-          "width": 2.5,
-          "material": "crimson"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              180
-            ],
-            [
-              1,
-              180
-            ]
-          ],
-          "width": 2.5,
-          "material": "crimson"
-        }
-      ]
-    },
-    {
-      "id": "ring_right",
-      "kind": "tube",
-      "material": "flesh",
-      "bone": "Bip01 R Hand",
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "sides": 5,
-      "path": [
-        [
-          -2.5,
-          -10.8,
-          33.2,
-          0.75
-        ],
-        [
-          -5,
-          -14.4,
-          30,
-          0.55
-        ],
-        [
-          -7,
-          -17.8,
-          26.5,
-          0.6
-        ],
-        [
-          -9,
-          -20.5,
-          23.5,
-          0.5
-        ],
-        [
-          -11,
-          -22.5,
-          20,
-          0.3
-        ],
-        [
-          -11.5,
-          -21.8,
-          16.5,
-          0
-        ]
-      ],
-      "marks": [
-        {
-          "path": [
-            [
-              0.62,
-              0
-            ],
-            [
-              0.8,
-              0
-            ]
-          ],
-          "width": 2.5,
-          "material": "claw"
-        },
-        {
-          "path": [
-            [
-              0.62,
-              180
-            ],
-            [
-              0.8,
-              180
-            ]
-          ],
-          "width": 2.5,
-          "material": "claw"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              0
-            ],
-            [
-              1,
-              0
-            ]
-          ],
-          "width": 2.5,
-          "material": "crimson"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              180
-            ],
-            [
-              1,
-              180
-            ]
-          ],
-          "width": 2.5,
-          "material": "crimson"
-        }
-      ]
-    },
-    {
-      "id": "pinky_right",
-      "kind": "tube",
-      "material": "flesh",
-      "bone": "Bip01 R Hand",
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "sides": 5,
-      "path": [
-        [
-          -3.8,
-          -9.8,
-          33.8,
-          0.7
-        ],
-        [
-          -7.5,
-          -11,
-          31,
-          0.5
-        ],
-        [
-          -11,
-          -13,
-          28,
-          0.55
-        ],
-        [
-          -14,
-          -15,
-          25,
+          5.4,
+          1.2,
+          -3,
           0.45
         ],
         [
-          -17,
-          -15.8,
-          21.5,
+          7.2,
+          1.6,
+          -4.8,
+          0.42
+        ]
+      ]
+    },
+    {
+      "id": "thumb_claw_right",
+      "kind": "tube",
+      "sides": 4,
+      "material": "claw",
+      "bone": "Bip01 R Hand",
+      "at": [
+        11,
+        -17,
+        7
+      ],
+      "path": [
+        [
+          7.1,
+          1.6,
+          -4.6,
+          0.42
+        ],
+        [
+          9.2,
+          1.8,
+          -7.6,
           0.3
         ],
         [
-          -18.5,
-          -15.2,
-          18,
+          9.4,
+          1.4,
+          -11,
           0
         ]
-      ],
-      "marks": [
-        {
-          "path": [
-            [
-              0.62,
-              0
-            ],
-            [
-              0.8,
-              0
-            ]
-          ],
-          "width": 2.5,
-          "material": "claw"
-        },
-        {
-          "path": [
-            [
-              0.62,
-              180
-            ],
-            [
-              0.8,
-              180
-            ]
-          ],
-          "width": 2.5,
-          "material": "claw"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              0
-            ],
-            [
-              1,
-              0
-            ]
-          ],
-          "width": 2.5,
-          "material": "crimson"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              180
-            ],
-            [
-              1,
-              180
-            ]
-          ],
-          "width": 2.5,
-          "material": "crimson"
-        }
-      ]
-    },
-    {
-      "id": "thigh_left",
-      "kind": "cylinder",
-      "material": "trousers",
-      "span": {
-        "bones": [
-          "Bip01 L Leg",
-          "Bip01 L Leg1"
-        ],
-        "over": 1.5
-      },
-      "radius": 2.9,
-      "top": 2.7,
-      "height": 10,
-      "sides": 8,
-      "marks": [
-        {
-          "path": [
-            [
-              0.6,
-              20
-            ],
-            [
-              0.7,
-              30
-            ]
-          ],
-          "width": 1.2,
-          "material": "blood"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              200
-            ],
-            [
-              0.85,
-              210
-            ]
-          ],
-          "width": 1,
-          "material": "blood"
-        }
-      ]
-    },
-    {
-      "id": "knee_left",
-      "kind": "sphere",
-      "material": "trousers",
-      "radius": 2.7,
-      "sides": 8,
-      "attach": {
-        "bone": "Bip01 L Leg1"
-      }
-    },
-    {
-      "id": "shin_left",
-      "kind": "cylinder",
-      "material": "trousers",
-      "span": {
-        "bones": [
-          "Bip01 L Leg1",
-          "Bip01 L Foot"
-        ],
-        "over": 2
-      },
-      "radius": 2.6,
-      "top": 2.5,
-      "height": 10,
-      "sides": 8,
-      "marks": [
-        {
-          "path": [
-            [
-              0.3,
-              10
-            ],
-            [
-              0.38,
-              20
-            ]
-          ],
-          "width": 1.3,
-          "material": "blood"
-        },
-        {
-          "path": [
-            [
-              0.6,
-              -30
-            ],
-            [
-              0.66,
-              -20
-            ]
-          ],
-          "width": 1,
-          "material": "blood"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              0
-            ],
-            [
-              0.92,
-              0
-            ]
-          ],
-          "width": 1.6,
-          "material": "blood"
-        },
-        {
-          "path": [
-            [
-              0.5,
-              170
-            ],
-            [
-              0.58,
-              180
-            ]
-          ],
-          "width": 1.1,
-          "material": "blood"
-        }
-      ]
-    },
-    {
-      "id": "shoe_left",
-      "kind": "box",
-      "material": "shoe",
-      "bone": "Bip01 L Foot",
-      "at": [
-        -0.5,
-        4,
-        0
-      ],
-      "size": [
-        9,
-        4,
-        4.5
-      ],
-      "panels": [
-        {
-          "face": "front",
-          "at": [
-            2,
-            1.5
-          ],
-          "size": [
-            2.5,
-            2
-          ],
-          "shape": "ellipse",
-          "style": "flat",
-          "material": "gore"
-        },
-        {
-          "face": "top",
-          "at": [
-            6,
-            2
-          ],
-          "size": [
-            3,
-            2
-          ],
-          "shape": "ellipse",
-          "style": "flat",
-          "material": "gore"
-        }
-      ]
-    },
-    {
-      "id": "thigh_right",
-      "kind": "cylinder",
-      "material": "trousers",
-      "span": {
-        "bones": [
-          "Bip01 R Leg",
-          "Bip01 R Leg1"
-        ],
-        "over": 1.5
-      },
-      "radius": 2.9,
-      "top": 2.7,
-      "height": 10,
-      "sides": 8,
-      "marks": [
-        {
-          "path": [
-            [
-              0.65,
-              -20
-            ],
-            [
-              0.75,
-              -30
-            ]
-          ],
-          "width": 1.2,
-          "material": "blood"
-        },
-        {
-          "path": [
-            [
-              0.75,
-              160
-            ],
-            [
-              0.82,
-              150
-            ]
-          ],
-          "width": 1,
-          "material": "blood"
-        }
-      ]
-    },
-    {
-      "id": "knee_right",
-      "kind": "sphere",
-      "material": "trousers",
-      "radius": 2.7,
-      "sides": 8,
-      "attach": {
-        "bone": "Bip01 R Leg1"
-      }
-    },
-    {
-      "id": "shin_right",
-      "kind": "cylinder",
-      "material": "trousers",
-      "span": {
-        "bones": [
-          "Bip01 R Leg1",
-          "Bip01 R Foot"
-        ],
-        "over": 2
-      },
-      "radius": 2.6,
-      "top": 2.5,
-      "height": 10,
-      "sides": 8,
-      "marks": [
-        {
-          "path": [
-            [
-              0.25,
-              -10
-            ],
-            [
-              0.33,
-              -20
-            ]
-          ],
-          "width": 1.3,
-          "material": "blood"
-        },
-        {
-          "path": [
-            [
-              0.55,
-              30
-            ],
-            [
-              0.62,
-              20
-            ]
-          ],
-          "width": 1,
-          "material": "blood"
-        },
-        {
-          "path": [
-            [
-              0.85,
-              0
-            ],
-            [
-              0.95,
-              0
-            ]
-          ],
-          "width": 1.5,
-          "material": "blood"
-        }
-      ]
-    },
-    {
-      "id": "shoe_right",
-      "kind": "box",
-      "material": "shoe",
-      "bone": "Bip01 R Foot",
-      "at": [
-        -0.5,
-        -4,
-        0
-      ],
-      "size": [
-        9,
-        4,
-        4.5
-      ],
-      "panels": [
-        {
-          "face": "front",
-          "at": [
-            2,
-            1.5
-          ],
-          "size": [
-            2.5,
-            2
-          ],
-          "shape": "ellipse",
-          "style": "flat",
-          "material": "gore"
-        },
-        {
-          "face": "top",
-          "at": [
-            3,
-            2
-          ],
-          "size": [
-            3,
-            2
-          ],
-          "shape": "ellipse",
-          "style": "flat",
-          "material": "gore"
-        }
       ]
     }
   ]

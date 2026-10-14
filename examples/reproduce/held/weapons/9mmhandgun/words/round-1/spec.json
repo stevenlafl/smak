@@ -1,0 +1,426 @@
+{
+  "spec": "smak.model/1",
+  "name": "9mmhandgun.mdl",
+  "kind": "held",
+  "weapon": {
+    "like": "9mmhandgun"
+  },
+  "size": {
+    "length": 14.8,
+    "height": 9.5,
+    "width": 2.8
+  },
+  "materials": {
+    "slide_steel": {
+      "base": "steel",
+      "tone": [
+        0.27,
+        0.285,
+        0.31
+      ]
+    },
+    "frame_dark": {
+      "base": "metal",
+      "tone": [
+        0.15,
+        0.15,
+        0.16
+      ]
+    },
+    "bore_black": {
+      "base": "metal",
+      "tone": [
+        0.03,
+        0.03,
+        0.03
+      ]
+    },
+    "mag_base": {
+      "base": "steel",
+      "tone": [
+        0.4,
+        0.41,
+        0.43
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "slide",
+      "kind": "box",
+      "size": [
+        14.8,
+        2.8,
+        2.7
+      ],
+      "at": [
+        7.4,
+        0,
+        6.6
+      ],
+      "material": "slide_steel",
+      "panels": [
+        {
+          "face": "front",
+          "at": [
+            1.4,
+            1.7
+          ],
+          "size": [
+            1,
+            1
+          ],
+          "shape": "ellipse",
+          "style": "inset",
+          "material": "bore_black",
+          "edge": 0.15
+        },
+        {
+          "face": "left",
+          "at": [
+            7.6,
+            1.3
+          ],
+          "size": [
+            11.6,
+            1.5
+          ],
+          "style": "inset",
+          "edge": 0.3
+        },
+        {
+          "face": "right",
+          "at": [
+            7.2,
+            1.3
+          ],
+          "size": [
+            11.6,
+            1.5
+          ],
+          "style": "inset",
+          "edge": 0.3
+        },
+        {
+          "face": "left",
+          "at": [
+            14.6,
+            1.35
+          ],
+          "size": [
+            0.14,
+            2.2
+          ],
+          "style": "inset",
+          "material": "bore_black",
+          "edge": 0.05
+        },
+        {
+          "face": "left",
+          "at": [
+            14.3,
+            1.35
+          ],
+          "size": [
+            0.14,
+            2.2
+          ],
+          "style": "inset",
+          "material": "bore_black",
+          "edge": 0.05
+        },
+        {
+          "face": "left",
+          "at": [
+            14,
+            1.35
+          ],
+          "size": [
+            0.14,
+            2.2
+          ],
+          "style": "inset",
+          "material": "bore_black",
+          "edge": 0.05
+        },
+        {
+          "face": "left",
+          "at": [
+            13.7,
+            1.35
+          ],
+          "size": [
+            0.14,
+            2.2
+          ],
+          "style": "inset",
+          "material": "bore_black",
+          "edge": 0.05
+        },
+        {
+          "face": "left",
+          "at": [
+            13.4,
+            1.35
+          ],
+          "size": [
+            0.14,
+            2.2
+          ],
+          "style": "inset",
+          "material": "bore_black",
+          "edge": 0.05
+        },
+        {
+          "face": "right",
+          "at": [
+            0.2,
+            1.35
+          ],
+          "size": [
+            0.14,
+            2.2
+          ],
+          "style": "inset",
+          "material": "bore_black",
+          "edge": 0.05
+        },
+        {
+          "face": "right",
+          "at": [
+            0.5,
+            1.35
+          ],
+          "size": [
+            0.14,
+            2.2
+          ],
+          "style": "inset",
+          "material": "bore_black",
+          "edge": 0.05
+        },
+        {
+          "face": "right",
+          "at": [
+            0.8,
+            1.35
+          ],
+          "size": [
+            0.14,
+            2.2
+          ],
+          "style": "inset",
+          "material": "bore_black",
+          "edge": 0.05
+        },
+        {
+          "face": "right",
+          "at": [
+            1.1,
+            1.35
+          ],
+          "size": [
+            0.14,
+            2.2
+          ],
+          "style": "inset",
+          "material": "bore_black",
+          "edge": 0.05
+        },
+        {
+          "face": "right",
+          "at": [
+            1.4,
+            1.35
+          ],
+          "size": [
+            0.14,
+            2.2
+          ],
+          "style": "inset",
+          "material": "bore_black",
+          "edge": 0.05
+        },
+        {
+          "face": "back",
+          "at": [
+            1.4,
+            2.4
+          ],
+          "size": [
+            0.5,
+            0.4
+          ],
+          "style": "inset",
+          "material": "bore_black",
+          "edge": 0.05
+        }
+      ]
+    },
+    {
+      "id": "frame",
+      "kind": "box",
+      "size": [
+        10.6,
+        2.5,
+        0.9
+      ],
+      "at": [
+        5.6,
+        0,
+        5.85
+      ],
+      "material": "frame_dark"
+    },
+    {
+      "id": "grip",
+      "kind": "box",
+      "size": [
+        5.5,
+        2.7,
+        6.5
+      ],
+      "at": [
+        3,
+        0,
+        0.25
+      ],
+      "rotate": [
+        0,
+        5,
+        0
+      ],
+      "material": "frame_dark",
+      "panels": [
+        {
+          "face": "back",
+          "at": [
+            1.35,
+            0.6
+          ],
+          "size": [
+            2.7,
+            1
+          ],
+          "style": "flat",
+          "material": "mag_base"
+        },
+        {
+          "face": "left",
+          "at": [
+            5.15,
+            0.6
+          ],
+          "size": [
+            0.7,
+            1
+          ],
+          "style": "flat",
+          "material": "mag_base"
+        },
+        {
+          "face": "right",
+          "at": [
+            0.35,
+            0.6
+          ],
+          "size": [
+            0.7,
+            1
+          ],
+          "style": "flat",
+          "material": "mag_base"
+        }
+      ]
+    },
+    {
+      "id": "trigger_guard",
+      "kind": "tube",
+      "sides": 4,
+      "material": "frame_dark",
+      "path": [
+        [
+          9.9,
+          0,
+          6.2,
+          0.25
+        ],
+        [
+          9.5,
+          0,
+          4.25,
+          0.25
+        ],
+        [
+          6.7,
+          0,
+          4.25,
+          0.25
+        ],
+        [
+          6,
+          0,
+          5.1,
+          0.25
+        ]
+      ]
+    },
+    {
+      "id": "trigger",
+      "kind": "tube",
+      "sides": 4,
+      "material": "frame_dark",
+      "path": [
+        [
+          7.9,
+          0,
+          6.2,
+          0.22
+        ],
+        [
+          8,
+          0,
+          5.4,
+          0.2
+        ],
+        [
+          7.7,
+          0,
+          4.85,
+          0.14
+        ]
+      ]
+    },
+    {
+      "id": "rear_sight",
+      "kind": "box",
+      "size": [
+        0.6,
+        0.7,
+        0.45
+      ],
+      "at": [
+        0.5,
+        0.75,
+        9.1
+      ],
+      "mirror": "y",
+      "material": "slide_steel"
+    },
+    {
+      "id": "front_sight",
+      "kind": "box",
+      "size": [
+        0.6,
+        0.35,
+        0.4
+      ],
+      "at": [
+        14.2,
+        0,
+        9.1
+      ],
+      "material": "slide_steel"
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+{
+ "kind": "weapons",
+ "subject": "shotgun",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.815,
+   "left/right": 0.774,
+   "top/below": 0.775
+  },
+  "size": {
+   "original": [
+    40.8,
+    13.4,
+    5.2
+   ],
+   "reproduction": [
+    41,
+    13.3,
+    5
+   ],
+   "offShare": [
+    0.004,
+    0.005,
+    0.046
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 6.1,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 4.1,
+     "shared": 0.816
+    },
+    {
+     "view": "left",
+     "deltaE": 6.7,
+     "shared": 0.774
+    },
+    {
+     "view": "back",
+     "deltaE": 6.4,
+     "shared": 0.816
+    },
+    {
+     "view": "right",
+     "deltaE": 8.5,
+     "shared": 0.775
+    },
+    {
+     "view": "top",
+     "deltaE": 6.9,
+     "shared": 0.784
+    },
+    {
+     "view": "below",
+     "deltaE": 10.5,
+     "shared": 0.784
+    },
+    {
+     "view": "front-left",
+     "deltaE": 3.6,
+     "shared": 0.801
+    },
+    {
+     "view": "front-right",
+     "deltaE": 4.4,
+     "shared": 0.745
+    },
+    {
+     "view": "back-left",
+     "deltaE": 4.9,
+     "shared": 0.748
+    },
+    {
+     "view": "back-right",
+     "deltaE": 5.3,
+     "shared": 0.801
+    }
+   ]
+  },
+  "triangles": {
+   "original": 174,
+   "reproduction": 344
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 1,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2,
+  "M6": 2
+ },
+ "lineup": {
+  "picked": "A",
+  "right": "A"
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "Measured overlap is below 0.80 in two views: left/right is 0.774 and top/below is 0.775 (front/back is 0.815). In the left and right views, the reproduction's barrel and magazine are a thin rod with three diamond-shaped bulges. The original has a deeper receiver with a continuous slab profile, a tube magazine under the barrel and a flared muzzle end. In the top and below views, the reproduction's stock is a flat blade bent at a sharper angle, and the receiver is a narrow column without the original's side bulges."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 41 x 13.3 x 5 against 40.8 x 13.4 x 5.2. The largest difference is 4.6% in height, inside the 10% limit."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The world and in-hand models have a stock, a receiver, a barrel and a pump, but their shapes are off. The pump and receiver are diamond-shaped knuckles, not the original's ribbed pump and boxy receiver, and the original's separate magazine tube and muzzle ring are not clearly there. The first-person model, which counts first, is far worse: a huge flat slab with a small muzzle cluster. It has none of the original's visible receiver ribbing, top rail or long barrel with the pump under it."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured mean is 6.1, under 15, but the regions do not match closely. The original's brown or rust pump band (left and back views) and its light silver muzzle and receiver highlights (right, back-left and back-right views) are mostly missing, so the reproduction reads near-black. Its stock is a distinct blue (below view, in-hand picture) where the original's is dark gunmetal. In first person, the original's bluish-silver receiver and barrel highlights are replaced by a dark grey slab."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original's panel lines, ribbing on the pump and receiver, the light bands on the barrel and the ejection-port detail (front-left and front-right views, and the first-person receiver) are mostly gone. The reproduction shows blurred dark texture with a few blue patches and none of the original's sharp highlights."
+  },
+  "M6": {
+   "judge": 0,
+   "cap": 2,
+   "score": 0,
+   "reason": "In the first-person view the reproduction is a giant dark slab filling the right edge of the screen and pointing back toward the camera. No player would take it for the original's slim shotgun angled forward from the hands, in the still view or in any attack frame. The world model is closer in outline but loses the original's highlights and detail."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The world model faces as the original does: the stock and muzzle are at the same ends in the front, back, top and below views, it is upright, and it is placed at the same point. The first-person problems are scored under W1."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The check reports no errors. The reproduction has 344 triangles, within 2 x 174 = 348. Nothing in the views looks open, inside out or floating."
+  },
+  "W1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "In first person the weapon does not sit where the original does. It is greatly oversized, pushed to the right edge, and turned so its muzzle faces back toward the camera. The hands grip empty space below it, not the original's grip and pump. Through the attack, frames 6 and 20 show it swinging into a huge block over the screen, clear of the hands."
+  }
+ },
+ "total": 10,
+ "of": 18,
+ "passes": false
+}

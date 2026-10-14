@@ -1,36 +1,36 @@
-`barney.mdl` is built and the build says **OK**: every check passes, with no faults, warnings or notes. It stays together in the standing pose and through the run, walk, crouch and jump the build tests.
+The build passes: **`work:barney.mdl`**, with every check OK. The spec it was built from is `work:barney.spec.json`.
 
-**Skeleton:** I used `player/gordon/gordon.mdl`, so it keeps all 77 of Gordon's animations, including the runs. I tried every other human base the game has before choosing it:
+**How it's built.** It sits on Half-Life's `player/gordon/gordon.mdl` skeleton and keeps all 77 of its animations. The spec has `"floor": 0`, so every animation is raised 36 units and the feet stand at the origin. All four checked animations stay closed with no gaps between parts: standing, running, walking and jumping.
 
-```
-base          first frame                               why not
-gman          arms tight to the sides, feet together    too narrow, no stride
-hgrunt        walking, holding a gun                    pose is wrong
-scientist     walking, arms swinging                    different skeleton, shorter
-zombie        arms reaching forward                     pose is wrong
-hassassin     left hand forward                         pose is wrong
-gordon        left arm down, right forearm forward      chosen
-```
-
-Gordon matches Barney's arm span, hand height and stride length best. In Gordon's first frame the right forearm points forward to hold a gun. I modelled Barney's right forearm and fist hanging straight down from that elbow, so the standing pose matches the original. In player animations that forearm will stay hanging where Gordon's would hold the weapon.
-
-**Size and shape:**
+**Size compared with the original:**
 
 ```
-              original   mine
-height        75.3       75.7
-width         30.2       30.6
-length        22.8       21.3
-triangles                1,296
+           built   original
+height     75.3    75.3
+width      30.1    30.2
+length     24.1    22.8   (about 6% long: the rear boot sits a bit far back)
 ```
 
-The parts are the hips, the chest under the vest, neck, head, nose, helmet, shoulders, upper arms, forearms, fists, thighs, knees, the pants with their bloused ends, the boot shafts, soles and insteps, and the holster on the right hip.
+**Parts:**
+- A grey helmet dome with a blue band round the back and sides.
+- Head, nose and neck.
+- The black vest on the torso, with the shirt at the shoulders.
+- Hips and baggy pants.
+- Shoulders, upper arms, forearms and fists.
+- Thighs and shins, the shins ending in boot shafts.
+- Chunky black boots, and the holster on the right hip.
 
-**Colours and markings:** all ten of your pictures are projected onto the body: the six sides plus the four close angles. That carries over the lavender shirt, the blue pants, the black vest with the logo and badge on the front and SECURITY on the back, the face, and the grey helmet with its blue band. The projections use outline boxes I measured by hand, because the automatic finder took in the sheet's caption labels.
+**Colours and markings.** All ten of your pictures (the six sides and the four close angles) are projected onto the shape. That carries over the face, the orange logo and the badge on the front of the vest, the "SECURITY" lettering on the back, the vest's panels, the black belt line and the creases in the pants. Base materials matching the pictures' colours fill anything no picture sees.
 
-**Where it still differs**, as a side-by-side judge would see:
-- **Which foot is forward:** the original has its right foot forward; Gordon's skeleton has the left forward. The leg bones can't be mirrored, so the left and right side views show the stride the wrong way round. From the front three-quarter angles the stance also looks narrower than the original.
-- **Boots:** the boots are plain black boxes and tubes, not projected. Because of the stride mismatch, projecting them painted pants-blue onto them. They're a bit blockier than the original's and have no laces.
-- **Run:** the run is Gordon's, carrying a weapon, not Barney's own run with its arm swing in `motion.png`.
+**Stance.** It stands the way the original's first frame does:
+- The right foot is forward and the left back, which is the opposite of Gordon's stance, so I swung both hips and leveled the feet.
+- The right leg is splayed out slightly.
+- Gordon's right forearm points forward holding a gun; here it hangs at the side like the left.
+- The arms are angled a little out from the body.
 
-Files are in the work folder: `barney.mdl`, `barney.spec.json` and `barney-sheet.png`.
+I started from the tool's automatic fit to your outlines, then set the angles by hand.
+
+**Where it still falls short:**
+- **Size warning:** it has 1,340 triangles, against 362 in Gordon's own body. That's a warning, not a fault, and the build still passes.
+- **Face:** the face is a projection on a simple rounded block, so up close it reads softer than the original's sculpted face.
+- **Close-up views didn't work:** the build's close-up option pointed at the wrong spot on this character, so I couldn't zoom on the head. I compared it in the full-size six-side renders instead.

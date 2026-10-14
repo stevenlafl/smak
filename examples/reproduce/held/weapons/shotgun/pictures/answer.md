@@ -1,25 +1,14 @@
-The build says **OK** and the spec is `shotgun.mdl` (saved as `work:shotgun.spec.json`). The world and in-hand views match the original closely, but the first-person view doesn't, and I couldn't fix that with what the spec exposes.
+The build says **OK**: every check passed. The spec is `work:shotgun.spec.json`, the replacement files are `work:shotgun_weapon/v_shotgun.mdl`, `p_shotgun.mdl` and `w_shotgun.mdl`, and the model is 320 triangles on one texture.
 
-**What it is:** a SPAS-style pump shotgun, 40.8 × 13.4 × 5 units like the original, in 344 triangles. It has a barrel with the magazine tube under it, a receiver with flared plates on each side, a pump with matching flares, front and rear sights, and a hooked pistol grip that slopes back into a rounded rear. The colours and markings come from your ten reference views projected onto the shape. The game's three files are written to `work:shotgun_weapon/`: `v_shotgun.mdl`, `p_shotgun.mdl` and `w_shotgun.mdl`.
+**What it is**, read off the reference pictures:
+- **Shape:** a chunky slate-blue stock with a drop grip, a thinner black receiver with vent slots and a rear sight, and a fore-end that flares out in two diamond-shaped bumps. In front of that are the barrel over the magazine tube, a light-grey muzzle clamp and a front sight.
+- **Size:** 40.8 long and 13.4 high from the top of the sights to the bottom of the grip, matching the original. It's 5.1 thick against the original's 5.2.
+- **Markings:** the brown band at the front of the pump, the blue-grey underside of the pump, faint grey ribs on the body, and a light stripe along the top of the barrel.
+- **Each view:**
+  - **World model:** I rendered mine from the reference's cameras. Every side shows the same outline as the original, with muzzle, stock and bumps in the same places.
+  - **First person:** it's held like the original, with the muzzle pointing away and the receiver near the camera. The stock is left out, as in Valve's own first-person model.
+  - **Another player's hands:** stock up and muzzle down, like `in-hand.png`.
 
-**Compared with the originals at the same cameras:**
-
-| View | Result |
-| --- | --- |
-| World model (`sides.png`, the four angles) | Lines up in outline, scale and framing: muzzle, sights, pump, receiver and hook are all in the same place. My copy renders a bit darker, because the light baked into the pictures gets shaded again. |
-| In another player's hands (`in-hand.png`) | Same pose and placement, hook at the top, muzzle at the bottom. |
-| First person (`first-person.png`, attack) | **Doesn't match.** The barrel, pump and left hand sit where the original's do, but the grip lands right in front of the eye, so a large dark slab covers the right third of the screen in every frame. |
-
-**Why first person is off:** the build fits one shape into all three files by lining up its main axes, weighted by surface area. The game's first-person shotgun is a different model from its world model; its proportions point to a stock behind the hand. So a grip that fits the world model pulls the first-person fit about 10° tail-up and toward the camera. Things I tried that didn't work:
-- **No grip at all:** first person matches well, but the hook disappears from every other view.
-- **Hidden balancing surfaces inside the receiver:** barely helped first person and visibly tilted the world model.
-- **Giving the grip its own bone:** doesn't take it out of the fit.
-- **Pinning the size (`size: "own"`):** put the grip end at the eye instead.
-- **Forcing each of the four turns:** none gives the right pose with a full grip.
-
-**Decision for you:** a grip about half as deep keeps first person acceptable. The cost is a visibly shorter hook in 6 of the 8 reference pictures, and the texture projection would need re-aligning. I kept the true shape because it's right in most of what will be judged. Say if you'd rather have the shorter grip.
-
-Turn settings the spec needs, since "as drawn" doesn't keep the drawn orientation:
-- **World model:** `"z"`, which puts the grip at the bottom right of the top view as in the original.
-- **First person:** `"z"`, the only turn with the muzzle away from the player, the grip down and the sights up.
-- **In hand:** the automatic pick was already right.
+**Things to know:**
+- **A bug in the kit.** Telling the fit to keep first person as drawn (`turn: { v: "as drawn" }`) crashes with `Cannot read properties of undefined (reading 'join')`. The other options either point the muzzle at the camera or turn the gun upside down. To get around it, I built the whole gun upside down and used the `x` option for first person, which flips it upright. The other two views pick their own fit and come out right. If the bug gets fixed, the gun could be built upright with "as drawn".
+- **First person isn't an exact copy.** Valve's first-person shotgun is a separate, more detailed model, with a purple chrome side plate near the camera. Mine reuses the world shape, so first person is the closest of the three views to looking different. I tried adding the plate, but it landed on the side the camera doesn't see and showed on the world model, so I took it out.

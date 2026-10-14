@@ -3,7 +3,10 @@
   "name": "9mmhandgun.mdl",
   "kind": "held",
   "weapon": {
-    "like": "9mmhandgun"
+    "like": "9mmhandgun",
+    "chrome": [
+      "v"
+    ]
   },
   "size": {
     "length": 14.8,
@@ -14,35 +17,63 @@
     "slide_steel": {
       "base": "steel",
       "tone": [
-        0.27,
-        0.285,
-        0.31
-      ]
+        0.3,
+        0.31,
+        0.34
+      ],
+      "rust": 0
     },
     "frame_dark": {
-      "base": "metal",
+      "base": "iron",
       "tone": [
-        0.15,
-        0.15,
-        0.16
-      ]
+        0.17,
+        0.17,
+        0.18
+      ],
+      "rust": 0
     },
-    "bore_black": {
-      "base": "metal",
-      "tone": [
-        0.03,
-        0.03,
-        0.03
-      ]
-    },
-    "mag_base": {
+    "rim": {
       "base": "steel",
       "tone": [
-        0.4,
-        0.41,
-        0.43
-      ]
+        0.46,
+        0.47,
+        0.51
+      ],
+      "rust": 0
+    },
+    "bore": {
+      "base": "iron",
+      "tone": [
+        0.03,
+        0.03,
+        0.04
+      ],
+      "rust": 0
+    },
+    "groove": {
+      "base": "iron",
+      "tone": [
+        0.08,
+        0.08,
+        0.09
+      ],
+      "rust": 0
+    },
+    "magbase": {
+      "base": "steel",
+      "tone": [
+        0.42,
+        0.42,
+        0.44
+      ],
+      "rust": 0
     }
+  },
+  "finish": {
+    "light": 0.3,
+    "wear": 0.55,
+    "grime": 0.2,
+    "vary": 0.05
   },
   "parts": [
     {
@@ -51,20 +82,205 @@
       "size": [
         14.8,
         2.8,
-        2.7
+        2.8
       ],
       "at": [
         7.4,
         0,
-        6.6
+        6.7
       ],
       "material": "slide_steel",
+      "texels": 1.6,
       "panels": [
+        {
+          "face": "right",
+          "at": [
+            7.8,
+            1.4
+          ],
+          "size": [
+            11.6,
+            1.9
+          ],
+          "style": "raised",
+          "material": "rim",
+          "edge": 0.3
+        },
+        {
+          "face": "right",
+          "at": [
+            7.8,
+            1.4
+          ],
+          "size": [
+            11,
+            1.3
+          ],
+          "style": "inset",
+          "edge": 0.25
+        },
+        {
+          "face": "left",
+          "at": [
+            7,
+            1.4
+          ],
+          "size": [
+            11.6,
+            1.9
+          ],
+          "style": "raised",
+          "material": "rim",
+          "edge": 0.3
+        },
+        {
+          "face": "left",
+          "at": [
+            7,
+            1.4
+          ],
+          "size": [
+            11,
+            1.3
+          ],
+          "style": "inset",
+          "edge": 0.25
+        },
+        {
+          "face": "right",
+          "at": [
+            0.35,
+            1.4
+          ],
+          "size": [
+            0.16,
+            2.3
+          ],
+          "material": "groove",
+          "edge": 0.06
+        },
+        {
+          "face": "right",
+          "at": [
+            0.65,
+            1.4
+          ],
+          "size": [
+            0.16,
+            2.3
+          ],
+          "material": "groove",
+          "edge": 0.06
+        },
+        {
+          "face": "right",
+          "at": [
+            0.95,
+            1.4
+          ],
+          "size": [
+            0.16,
+            2.3
+          ],
+          "material": "groove",
+          "edge": 0.06
+        },
+        {
+          "face": "right",
+          "at": [
+            1.25,
+            1.4
+          ],
+          "size": [
+            0.16,
+            2.3
+          ],
+          "material": "groove",
+          "edge": 0.06
+        },
+        {
+          "face": "right",
+          "at": [
+            1.55,
+            1.4
+          ],
+          "size": [
+            0.16,
+            2.3
+          ],
+          "material": "groove",
+          "edge": 0.06
+        },
+        {
+          "face": "left",
+          "at": [
+            14.45,
+            1.4
+          ],
+          "size": [
+            0.16,
+            2.3
+          ],
+          "material": "groove",
+          "edge": 0.06
+        },
+        {
+          "face": "left",
+          "at": [
+            14.15,
+            1.4
+          ],
+          "size": [
+            0.16,
+            2.3
+          ],
+          "material": "groove",
+          "edge": 0.06
+        },
+        {
+          "face": "left",
+          "at": [
+            13.85,
+            1.4
+          ],
+          "size": [
+            0.16,
+            2.3
+          ],
+          "material": "groove",
+          "edge": 0.06
+        },
+        {
+          "face": "left",
+          "at": [
+            13.55,
+            1.4
+          ],
+          "size": [
+            0.16,
+            2.3
+          ],
+          "material": "groove",
+          "edge": 0.06
+        },
+        {
+          "face": "left",
+          "at": [
+            13.25,
+            1.4
+          ],
+          "size": [
+            0.16,
+            2.3
+          ],
+          "material": "groove",
+          "edge": 0.06
+        },
         {
           "face": "front",
           "at": [
             1.4,
-            1.7
+            1.85
           ],
           "size": [
             1,
@@ -72,188 +288,35 @@
           ],
           "shape": "ellipse",
           "style": "inset",
-          "material": "bore_black",
+          "material": "bore",
           "edge": 0.15
-        },
-        {
-          "face": "left",
-          "at": [
-            7.6,
-            1.3
-          ],
-          "size": [
-            11.6,
-            1.5
-          ],
-          "style": "inset",
-          "edge": 0.3
-        },
-        {
-          "face": "right",
-          "at": [
-            7.2,
-            1.3
-          ],
-          "size": [
-            11.6,
-            1.5
-          ],
-          "style": "inset",
-          "edge": 0.3
-        },
-        {
-          "face": "left",
-          "at": [
-            14.6,
-            1.35
-          ],
-          "size": [
-            0.14,
-            2.2
-          ],
-          "style": "inset",
-          "material": "bore_black",
-          "edge": 0.05
-        },
-        {
-          "face": "left",
-          "at": [
-            14.3,
-            1.35
-          ],
-          "size": [
-            0.14,
-            2.2
-          ],
-          "style": "inset",
-          "material": "bore_black",
-          "edge": 0.05
-        },
-        {
-          "face": "left",
-          "at": [
-            14,
-            1.35
-          ],
-          "size": [
-            0.14,
-            2.2
-          ],
-          "style": "inset",
-          "material": "bore_black",
-          "edge": 0.05
-        },
-        {
-          "face": "left",
-          "at": [
-            13.7,
-            1.35
-          ],
-          "size": [
-            0.14,
-            2.2
-          ],
-          "style": "inset",
-          "material": "bore_black",
-          "edge": 0.05
-        },
-        {
-          "face": "left",
-          "at": [
-            13.4,
-            1.35
-          ],
-          "size": [
-            0.14,
-            2.2
-          ],
-          "style": "inset",
-          "material": "bore_black",
-          "edge": 0.05
-        },
-        {
-          "face": "right",
-          "at": [
-            0.2,
-            1.35
-          ],
-          "size": [
-            0.14,
-            2.2
-          ],
-          "style": "inset",
-          "material": "bore_black",
-          "edge": 0.05
-        },
-        {
-          "face": "right",
-          "at": [
-            0.5,
-            1.35
-          ],
-          "size": [
-            0.14,
-            2.2
-          ],
-          "style": "inset",
-          "material": "bore_black",
-          "edge": 0.05
-        },
-        {
-          "face": "right",
-          "at": [
-            0.8,
-            1.35
-          ],
-          "size": [
-            0.14,
-            2.2
-          ],
-          "style": "inset",
-          "material": "bore_black",
-          "edge": 0.05
-        },
-        {
-          "face": "right",
-          "at": [
-            1.1,
-            1.35
-          ],
-          "size": [
-            0.14,
-            2.2
-          ],
-          "style": "inset",
-          "material": "bore_black",
-          "edge": 0.05
-        },
-        {
-          "face": "right",
-          "at": [
-            1.4,
-            1.35
-          ],
-          "size": [
-            0.14,
-            2.2
-          ],
-          "style": "inset",
-          "material": "bore_black",
-          "edge": 0.05
         },
         {
           "face": "back",
           "at": [
             1.4,
-            2.4
+            1.4
           ],
           "size": [
-            0.5,
-            0.4
+            2.8,
+            2.8
+          ],
+          "style": "flat",
+          "material": "frame_dark"
+        },
+        {
+          "face": "back",
+          "at": [
+            1.4,
+            1.5
+          ],
+          "size": [
+            1.2,
+            0.9
           ],
           "style": "inset",
-          "material": "bore_black",
-          "edge": 0.05
+          "material": "groove",
+          "edge": 0.15
         }
       ]
     },
@@ -261,12 +324,12 @@
       "id": "frame",
       "kind": "box",
       "size": [
-        10.6,
+        9.8,
         2.5,
         0.9
       ],
       "at": [
-        5.6,
+        4.9,
         0,
         5.85
       ],
@@ -277,13 +340,13 @@
       "kind": "box",
       "size": [
         5.5,
-        2.7,
-        6.5
+        2.6,
+        6.8
       ],
       "at": [
-        3,
+        2.75,
         0,
-        0.25
+        0
       ],
       "rotate": [
         0,
@@ -291,79 +354,83 @@
         0
       ],
       "material": "frame_dark",
+      "texels": 1.2,
       "panels": [
         {
           "face": "back",
           "at": [
-            1.35,
-            0.6
+            1.3,
+            0.9
           ],
           "size": [
-            2.7,
-            1
+            2.6,
+            1.8
           ],
           "style": "flat",
-          "material": "mag_base"
-        },
-        {
-          "face": "left",
-          "at": [
-            5.15,
-            0.6
-          ],
-          "size": [
-            0.7,
-            1
-          ],
-          "style": "flat",
-          "material": "mag_base"
+          "material": "magbase"
         },
         {
           "face": "right",
           "at": [
-            0.35,
-            0.6
+            2.75,
+            3.6
           ],
           "size": [
-            0.7,
-            1
+            4.4,
+            5
           ],
-          "style": "flat",
-          "material": "mag_base"
+          "style": "raised",
+          "edge": 0.3
+        },
+        {
+          "face": "left",
+          "at": [
+            2.75,
+            3.6
+          ],
+          "size": [
+            4.4,
+            5
+          ],
+          "style": "raised",
+          "edge": 0.3
         }
       ]
     },
     {
-      "id": "trigger_guard",
-      "kind": "tube",
-      "sides": 4,
-      "material": "frame_dark",
-      "path": [
-        [
-          9.9,
-          0,
-          6.2,
-          0.25
-        ],
-        [
-          9.5,
-          0,
-          4.25,
-          0.25
-        ],
-        [
-          6.7,
-          0,
-          4.25,
-          0.25
-        ],
-        [
-          6,
-          0,
-          5.1,
-          0.25
-        ]
-      ]
+      "id": "guard_bottom",
+      "kind": "box",
+      "size": [
+        3.8,
+        0.8,
+        0.45
+      ],
+      "at": [
+        7.8,
+        0,
+        4.2
+      ],
+      "material": "frame_dark"
+    },
+    {
+      "id": "guard_front",
+      "kind": "box",
+      "size": [
+        0.45,
+        0.8,
+        2.2
+      ],
+      "at": [
+        9.55,
+        0,
+        4.25
+      ],
+      "rotate": [
+        0,
+        -10,
+        0
+      ],
+      "material": "frame_dark"
     },
     {
       "id": "trigger",
@@ -372,22 +439,22 @@
       "material": "frame_dark",
       "path": [
         [
-          7.9,
+          7,
           0,
           6.2,
-          0.22
-        ],
-        [
-          8,
-          0,
-          5.4,
           0.2
         ],
         [
-          7.7,
+          7.35,
+          0,
+          5.4,
+          0.18
+        ],
+        [
+          7.15,
           0,
           4.85,
-          0.14
+          0.15
         ]
       ]
     },
@@ -395,14 +462,14 @@
       "id": "rear_sight",
       "kind": "box",
       "size": [
-        0.6,
+        0.5,
         0.7,
         0.45
       ],
       "at": [
-        0.5,
-        0.75,
-        9.1
+        0.4,
+        0.7,
+        9.4
       ],
       "mirror": "y",
       "material": "slide_steel"
@@ -411,14 +478,14 @@
       "id": "front_sight",
       "kind": "box",
       "size": [
-        0.6,
+        0.4,
         0.35,
         0.4
       ],
       "at": [
-        14.2,
+        14.3,
         0,
-        9.1
+        9.4
       ],
       "material": "slide_steel"
     }

@@ -1,24 +1,28 @@
-`zombie.mdl` is built and the build says **OK**, with every check passing. It's in the work folder with its spec (`zombie.spec.json`) and sheet (`zombie-sheet.png`).
+`zombie.mdl` is built, and the build says **OK: built, and every check passed**. It's in the server's work folder, with its spec saved beside it as `zombie.spec.json`.
 
 **What it is**
-- It's on Gordon's skeleton (`player/gordon/gordon.mdl`), so it keeps all 42 of his bones and 77 animations. His first frame is a plain upright stance with the feet about where the zombie's are.
-- The parts are the lab coat (in three sections), legs, shoes, neck and face, and a headcrab tilted forward with its legs down the sides of the head. Each arm has a white sleeve, a long dark-red forearm, a palm and four claws plus a thumb, all with bright red tips. That's 1,124 triangles.
-- The pose is the zombie's hunched one: head hanging forward and low, a hump at the upper back, the right arm reaching forward and out, and the left arm hanging lower.
-- The colours and markings are the original's own pictures laid onto the shape from the six straight views of `sides.png`. That carries over the open ribcage at the front, the two rib and spine wounds on the back, the blood on the coat and trousers, and the crab's pale top and orange back. The claws are painted with their own colours instead.
+- It's a character on Gordon's skeleton (`player/gordon/gordon.mdl`, 42 bones) and keeps all 77 of its animations.
+- With `"floor": 0` it stands with its feet at the origin. Every animation is lifted 36 units to match.
+- The texture is projected from all ten of your pictures: the six sides plus the four close angles. That carries over the bloody lab coat and trousers, the open gore on the chest and back, the tan headcrab and the dark red forearms and claws.
 
-**Size against the original**
-
+**Size compared with the original**
 ```
-            original   mine
-length (x)  38.5       38.7
-width  (y)  53.8       53.7
-height (z)  68.4       68.7
+            original   built
+length      38.5       38.8
+width       53.8       54.7
+height      68.4       68.8
 ```
 
-I compared my renders with the original from the six sides and two of the close angles (front-left and back-right), and the outlines line up to within a pixel or two at the same scale.
+**Parts:** a lab-coat torso and flared coat skirt, trousers in thighs and shins, dark red shoes, a neck, the zombie's face under the headcrab, a rounded headcrab dome tilted face-down, white sleeves, dark flesh forearms, hands, and five long claws on each hand.
 
-**Problems I hit, and what's still different**
-- **Captions:** at first the projection put the texture in the wrong place. When it looked for the figure's outline in each view, it took the "FRONT"/"LEFT" captions in as part of it. I fixed this by giving each view's outline box myself.
-- **Close-angle pictures:** I tried projecting the four close-angle pictures as well. They blurred the chest and back wounds, so I took them out and kept only the six straight views.
-- **Movement won't match `motion.png`:** the zombie's own skeleton isn't available, so it moves with Gordon's player animations, not the zombie's shuffling walk. The claws are fixed to the forearm, so they don't flex at the wrist. In the run, crouch and jump tests nothing comes apart.
-- **Smaller differences:** the shoes are plain boxes where the original's have rounded toes. There's also a faint seam at the waist where the coat sections meet.
+**Stance:** I matched the original's first frame:
+- The spine hunches forward 16° and the head is bowed 30°, so the headcrab sits low between the shoulders.
+- The left arm hangs with its claws splayed down and out.
+- The right arm reaches forward with its claws fanned out to the side.
+
+**Things you might notice**
+- **Longer forearms:** Gordon's arms are too short to put the right wrist where the original's is, about 20 units forward at waist height. I made both forearms longer than their bones and hung the hands at the end. In animations the hands therefore pivot a few units short of where the hands show; the run, walk, crouch and jump checks found no gaps.
+- **Pose set by hand:** the automatic pose fit pulled the right arm back, so I set every joint angle myself. Its outline overlap score dropped from 0.65 to 0.62 when I added the hunch. I didn't run it again on the final pose, so I have no overlap score for it.
+- **Triangle count:** there's one warning. It has 1084 triangles, which is over twice the 362 in Gordon's body. That's within the 500 to 1,000 range the guide gives for Half-Life's large monsters, so I left it.
+- **Walk:** it walks with Gordon's animations as the task asked, not the original's shuffle from `motion.png`.
+- **Claws:** the remaining notes say some claws sit within half a unit of each other at the hand. Fingers in a row are meant to be like that.

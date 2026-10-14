@@ -1,0 +1,1994 @@
+{
+  "spec": "smak.model/1",
+  "name": "barney.mdl",
+  "kind": "character",
+  "base": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "size": {
+    "height": 75
+  },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "materials": {
+    "shirt": {
+      "base": "cloth",
+      "tone": [
+        0.64,
+        0.66,
+        0.86
+      ]
+    },
+    "pants": {
+      "base": "cloth",
+      "tone": [
+        0.3,
+        0.3,
+        0.64
+      ]
+    },
+    "vest": {
+      "base": "leather",
+      "tone": [
+        0.09,
+        0.09,
+        0.1
+      ]
+    },
+    "rib": {
+      "base": "paint",
+      "tone": [
+        0.26,
+        0.26,
+        0.29
+      ]
+    },
+    "stencil": {
+      "base": "paint",
+      "tone": [
+        0.66,
+        0.63,
+        0.3
+      ]
+    },
+    "helmet": {
+      "base": "paint",
+      "tone": [
+        0.2,
+        0.2,
+        0.22
+      ]
+    },
+    "pad": {
+      "base": "leather",
+      "tone": [
+        0.07,
+        0.07,
+        0.08
+      ]
+    },
+    "skin": {
+      "base": "paint",
+      "tone": [
+        0.93,
+        0.76,
+        0.63
+      ]
+    },
+    "hair": {
+      "base": "cloth",
+      "tone": [
+        0.24,
+        0.16,
+        0.1
+      ]
+    },
+    "boot": {
+      "base": "leather",
+      "tone": [
+        0.07,
+        0.07,
+        0.07
+      ]
+    },
+    "lace": {
+      "base": "paint",
+      "tone": [
+        0.3,
+        0.3,
+        0.3
+      ]
+    },
+    "emblem": {
+      "base": "paint",
+      "tone": [
+        0.95,
+        0.62,
+        0.12
+      ]
+    },
+    "badge": {
+      "base": "paint",
+      "tone": [
+        0.8,
+        0.8,
+        0.82
+      ]
+    },
+    "badgegrey": {
+      "base": "paint",
+      "tone": [
+        0.45,
+        0.45,
+        0.48
+      ]
+    },
+    "tie": {
+      "base": "cloth",
+      "tone": [
+        0.1,
+        0.1,
+        0.14
+      ]
+    },
+    "crease": {
+      "base": "cloth",
+      "tone": [
+        0.2,
+        0.2,
+        0.46
+      ]
+    },
+    "shirtcrease": {
+      "base": "cloth",
+      "tone": [
+        0.47,
+        0.49,
+        0.7
+      ]
+    },
+    "eye": {
+      "base": "paint",
+      "tone": [
+        0.16,
+        0.12,
+        0.1
+      ]
+    },
+    "lip": {
+      "base": "paint",
+      "tone": [
+        0.7,
+        0.48,
+        0.42
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "hips",
+      "kind": "turn",
+      "material": "pants",
+      "at": [
+        0,
+        0,
+        -5
+      ],
+      "bone": "Bip01 Pelvis",
+      "rings": [
+        [
+          0,
+          [
+            3.2,
+            5.2
+          ]
+        ],
+        [
+          3,
+          [
+            4.5,
+            6.6
+          ]
+        ],
+        [
+          6,
+          [
+            5,
+            7
+          ]
+        ],
+        [
+          8,
+          [
+            5,
+            6.9
+          ]
+        ],
+        [
+          10,
+          [
+            4.8,
+            6.6
+          ]
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "sides": 10,
+      "marks": [
+        {
+          "path": [
+            [
+              0.7,
+              0
+            ],
+            [
+              0.7,
+              360
+            ]
+          ],
+          "width": 1.1,
+          "material": "pad"
+        }
+      ]
+    },
+    {
+      "id": "torso",
+      "kind": "turn",
+      "material": "vest",
+      "span": {
+        "bones": [
+          "Bip01 Spine",
+          "Bip01 Neck"
+        ],
+        "over": 1
+      },
+      "rings": [
+        [
+          0,
+          [
+            5.2,
+            7.1
+          ]
+        ],
+        [
+          5,
+          [
+            5.4,
+            7.2
+          ]
+        ],
+        [
+          10,
+          [
+            5.9,
+            7.8
+          ]
+        ],
+        [
+          15,
+          [
+            6.1,
+            8.3
+          ]
+        ],
+        [
+          19,
+          [
+            5.4,
+            8.6
+          ]
+        ],
+        [
+          21.5,
+          [
+            4.2,
+            7
+          ]
+        ],
+        [
+          23,
+          [
+            2.6,
+            3.1
+          ]
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "sides": 12,
+      "marks": [
+        {
+          "path": [
+            [
+              0.14,
+              -110
+            ],
+            [
+              0.14,
+              110
+            ]
+          ],
+          "width": 0.35,
+          "material": "rib"
+        },
+        {
+          "path": [
+            [
+              0.26,
+              -110
+            ],
+            [
+              0.26,
+              110
+            ]
+          ],
+          "width": 0.35,
+          "material": "rib"
+        },
+        {
+          "path": [
+            [
+              0.38,
+              -110
+            ],
+            [
+              0.38,
+              110
+            ]
+          ],
+          "width": 0.35,
+          "material": "rib"
+        },
+        {
+          "path": [
+            [
+              0.5,
+              -110
+            ],
+            [
+              0.5,
+              110
+            ]
+          ],
+          "width": 0.35,
+          "material": "rib"
+        },
+        {
+          "path": [
+            [
+              0.62,
+              -110
+            ],
+            [
+              0.62,
+              110
+            ]
+          ],
+          "width": 0.35,
+          "material": "rib"
+        },
+        {
+          "path": [
+            [
+              0.02,
+              0
+            ],
+            [
+              0.86,
+              0
+            ]
+          ],
+          "width": 0.35,
+          "material": "rib"
+        },
+        {
+          "path": [
+            [
+              0.88,
+              -60
+            ],
+            [
+              0.97,
+              -90
+            ],
+            [
+              0.88,
+              -125
+            ]
+          ],
+          "width": 0.3,
+          "material": "rib"
+        },
+        {
+          "path": [
+            [
+              0.88,
+              60
+            ],
+            [
+              0.97,
+              90
+            ],
+            [
+              0.88,
+              125
+            ]
+          ],
+          "width": 0.3,
+          "material": "rib"
+        },
+        {
+          "path": [
+            [
+              0.9,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "width": 2.6,
+          "material": "shirt",
+          "ends": [
+            "point",
+            "round"
+          ]
+        },
+        {
+          "path": [
+            [
+              0.86,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "width": 0.7,
+          "material": "tie"
+        },
+        {
+          "path": [
+            [
+              0.72,
+              32
+            ],
+            [
+              0.72,
+              33
+            ]
+          ],
+          "width": 2.2,
+          "material": "emblem"
+        },
+        {
+          "path": [
+            [
+              0.7,
+              30
+            ],
+            [
+              0.745,
+              33
+            ],
+            [
+              0.7,
+              36
+            ]
+          ],
+          "width": 0.3,
+          "material": "pad"
+        },
+        {
+          "path": [
+            [
+              0.68,
+              -33
+            ],
+            [
+              0.78,
+              -33
+            ]
+          ],
+          "width": 2,
+          "material": "badge"
+        },
+        {
+          "path": [
+            [
+              0.7,
+              -33
+            ],
+            [
+              0.74,
+              -33
+            ]
+          ],
+          "width": 1.2,
+          "material": "badgegrey"
+        },
+        {
+          "path": [
+            [
+              0.77,
+              -31
+            ],
+            [
+              0.77,
+              -35
+            ]
+          ],
+          "width": 0.4,
+          "material": "badgegrey"
+        },
+        {
+          "path": [
+            [
+              0.72,
+              143
+            ],
+            [
+              0.72,
+              135
+            ],
+            [
+              0.67,
+              135
+            ],
+            [
+              0.67,
+              143
+            ],
+            [
+              0.62,
+              143
+            ],
+            [
+              0.62,
+              135
+            ]
+          ],
+          "width": 0.3,
+          "material": "stencil"
+        },
+        {
+          "path": [
+            [
+              0.72,
+              154.25
+            ],
+            [
+              0.72,
+              146.25
+            ],
+            [
+              0.62,
+              146.25
+            ],
+            [
+              0.62,
+              154.25
+            ]
+          ],
+          "width": 0.3,
+          "material": "stencil"
+        },
+        {
+          "path": [
+            [
+              0.67,
+              146.25
+            ],
+            [
+              0.67,
+              152.6
+            ]
+          ],
+          "width": 0.3,
+          "material": "stencil"
+        },
+        {
+          "path": [
+            [
+              0.72,
+              165.5
+            ],
+            [
+              0.72,
+              157.5
+            ],
+            [
+              0.62,
+              157.5
+            ],
+            [
+              0.62,
+              165.5
+            ]
+          ],
+          "width": 0.3,
+          "material": "stencil"
+        },
+        {
+          "path": [
+            [
+              0.72,
+              168.75
+            ],
+            [
+              0.62,
+              168.75
+            ],
+            [
+              0.62,
+              176.75
+            ],
+            [
+              0.72,
+              176.75
+            ]
+          ],
+          "width": 0.3,
+          "material": "stencil"
+        },
+        {
+          "path": [
+            [
+              0.62,
+              180
+            ],
+            [
+              0.72,
+              180
+            ],
+            [
+              0.72,
+              188
+            ],
+            [
+              0.67,
+              188
+            ],
+            [
+              0.67,
+              180
+            ],
+            [
+              0.62,
+              188
+            ]
+          ],
+          "width": 0.3,
+          "material": "stencil"
+        },
+        {
+          "path": [
+            [
+              0.62,
+              195.25
+            ],
+            [
+              0.72,
+              195.25
+            ]
+          ],
+          "width": 0.3,
+          "material": "stencil"
+        },
+        {
+          "path": [
+            [
+              0.72,
+              202.5
+            ],
+            [
+              0.72,
+              210.5
+            ]
+          ],
+          "width": 0.3,
+          "material": "stencil"
+        },
+        {
+          "path": [
+            [
+              0.72,
+              206.5
+            ],
+            [
+              0.62,
+              206.5
+            ]
+          ],
+          "width": 0.3,
+          "material": "stencil"
+        },
+        {
+          "path": [
+            [
+              0.72,
+              213.75
+            ],
+            [
+              0.67,
+              217.75
+            ],
+            [
+              0.72,
+              221.75
+            ]
+          ],
+          "width": 0.3,
+          "material": "stencil"
+        },
+        {
+          "path": [
+            [
+              0.67,
+              217.75
+            ],
+            [
+              0.62,
+              217.75
+            ]
+          ],
+          "width": 0.3,
+          "material": "stencil"
+        }
+      ]
+    },
+    {
+      "id": "neck",
+      "kind": "cylinder",
+      "material": "skin",
+      "span": {
+        "bones": [
+          "Bip01 Neck",
+          "Bip01 Head"
+        ],
+        "over": 2
+      },
+      "radius": 2.2,
+      "height": 1,
+      "sides": 8
+    },
+    {
+      "id": "collar",
+      "kind": "band",
+      "material": "shirt",
+      "on": {
+        "part": "neck",
+        "s": 0.2
+      },
+      "width": 1.3,
+      "height": 0.7
+    },
+    {
+      "id": "head",
+      "kind": "turn",
+      "material": "skin",
+      "bone": "Bip01 Head",
+      "at": [
+        1.6,
+        0,
+        28.6
+      ],
+      "rings": [
+        {
+          "s": 0,
+          "r": [
+            1.8,
+            1.9
+          ],
+          "off": [
+            1.4,
+            0
+          ]
+        },
+        {
+          "s": 1,
+          "r": [
+            2.8,
+            2.8
+          ],
+          "off": [
+            0.9,
+            0
+          ]
+        },
+        {
+          "s": 2.6,
+          "r": [
+            3.6,
+            3.3
+          ],
+          "off": [
+            0.4,
+            0
+          ]
+        },
+        {
+          "s": 5,
+          "r": [
+            4.2,
+            3.6
+          ]
+        },
+        {
+          "s": 7,
+          "r": [
+            4.4,
+            3.8
+          ]
+        },
+        {
+          "s": 8.8,
+          "r": [
+            4,
+            3.6
+          ]
+        },
+        {
+          "s": 9.8,
+          "r": [
+            2.4,
+            2.2
+          ]
+        }
+      ],
+      "caps": [
+        true,
+        1
+      ],
+      "sides": 12,
+      "marks": [
+        {
+          "path": [
+            [
+              0.555,
+              13
+            ],
+            [
+              0.555,
+              31
+            ]
+          ],
+          "width": 0.8,
+          "material": "eye",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.555,
+              -13
+            ],
+            [
+              0.555,
+              -31
+            ]
+          ],
+          "width": 0.8,
+          "material": "eye",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.635,
+              9
+            ],
+            [
+              0.645,
+              33
+            ]
+          ],
+          "width": 0.6,
+          "material": "hair",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.635,
+              -9
+            ],
+            [
+              0.645,
+              -33
+            ]
+          ],
+          "width": 0.6,
+          "material": "hair",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.22,
+              -15
+            ],
+            [
+              0.22,
+              15
+            ]
+          ],
+          "width": 0.5,
+          "material": "lip",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.42,
+              72
+            ],
+            [
+              0.68,
+              78
+            ]
+          ],
+          "width": 1.6,
+          "material": "hair"
+        },
+        {
+          "path": [
+            [
+              0.42,
+              -72
+            ],
+            [
+              0.68,
+              -78
+            ]
+          ],
+          "width": 1.6,
+          "material": "hair"
+        },
+        {
+          "path": [
+            [
+              0.6,
+              95
+            ],
+            [
+              0.6,
+              265
+            ]
+          ],
+          "width": 3,
+          "material": "hair"
+        },
+        {
+          "path": [
+            [
+              0.5,
+              120
+            ],
+            [
+              0.47,
+              180
+            ],
+            [
+              0.5,
+              240
+            ]
+          ],
+          "width": 1.6,
+          "material": "hair",
+          "ends": "point"
+        }
+      ]
+    },
+    {
+      "id": "nose",
+      "kind": "box",
+      "material": "skin",
+      "bone": "Bip01 Head",
+      "at": [
+        5.6,
+        0,
+        32.1
+      ],
+      "size": [
+        1.6,
+        1.3,
+        2.6
+      ],
+      "rotate": [
+        0,
+        -12,
+        0
+      ]
+    },
+    {
+      "id": "helmet",
+      "kind": "turn",
+      "material": "helmet",
+      "bone": "Bip01 Head",
+      "at": [
+        1.5,
+        0,
+        34.6
+      ],
+      "rings": [
+        [
+          0,
+          [
+            4.9,
+            4.3
+          ]
+        ],
+        [
+          1.4,
+          [
+            5.05,
+            4.45
+          ]
+        ],
+        [
+          2.8,
+          [
+            4.7,
+            4.2
+          ]
+        ],
+        [
+          3.9,
+          [
+            3.8,
+            3.4
+          ]
+        ],
+        [
+          4.6,
+          [
+            2.2,
+            2
+          ]
+        ]
+      ],
+      "caps": [
+        true,
+        0.4
+      ],
+      "sides": 14,
+      "marks": [
+        {
+          "path": [
+            [
+              0.14,
+              55
+            ],
+            [
+              0.14,
+              305
+            ]
+          ],
+          "width": 1.9,
+          "material": "pants"
+        }
+      ],
+      "finish": {
+        "light": 0.45,
+        "wear": 0.3
+      }
+    },
+    {
+      "id": "earpad_left",
+      "kind": "cylinder",
+      "material": "pad",
+      "radius": 1.5,
+      "height": 1,
+      "sides": 8,
+      "bone": "Bip01 Head",
+      "rotate": [
+        0,
+        0,
+        -90
+      ],
+      "at": [
+        1.4,
+        3.8,
+        35
+      ]
+    },
+    {
+      "id": "earpad_right",
+      "kind": "cylinder",
+      "material": "pad",
+      "radius": 1.5,
+      "height": 1,
+      "sides": 8,
+      "bone": "Bip01 Head",
+      "rotate": [
+        0,
+        0,
+        90
+      ],
+      "at": [
+        1.4,
+        -3.8,
+        35
+      ]
+    },
+    {
+      "id": "shoulder_left",
+      "kind": "sphere",
+      "material": "shirt",
+      "radius": 3.1,
+      "sides": 10,
+      "bone": "Bip01 L Arm1",
+      "at": [
+        1.7,
+        8.6,
+        18.8
+      ]
+    },
+    {
+      "id": "shoulder_right",
+      "kind": "sphere",
+      "material": "shirt",
+      "radius": 3.1,
+      "sides": 10,
+      "bone": "Bip01 R Arm1",
+      "at": [
+        -0.8,
+        -8.6,
+        19.8
+      ]
+    },
+    {
+      "id": "upperarm_left",
+      "kind": "turn",
+      "material": "shirt",
+      "span": {
+        "bones": [
+          "Bip01 L Arm1",
+          "Bip01 L Arm2"
+        ],
+        "over": 1.5
+      },
+      "rings": [
+        [
+          0,
+          2.8
+        ],
+        [
+          5,
+          2.7
+        ],
+        [
+          10,
+          2.4
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "sides": 8,
+      "marks": [
+        {
+          "path": [
+            [
+              0.5,
+              40
+            ],
+            [
+              0.65,
+              100
+            ]
+          ],
+          "width": 0.4,
+          "material": "shirtcrease"
+        },
+        {
+          "path": [
+            [
+              0.7,
+              -40
+            ],
+            [
+              0.85,
+              30
+            ]
+          ],
+          "width": 0.4,
+          "material": "shirtcrease"
+        }
+      ]
+    },
+    {
+      "id": "upperarm_right",
+      "kind": "turn",
+      "material": "shirt",
+      "span": {
+        "bones": [
+          "Bip01 R Arm1",
+          "Bip01 R Arm2"
+        ],
+        "over": 1.5
+      },
+      "rings": [
+        [
+          0,
+          2.8
+        ],
+        [
+          5,
+          2.7
+        ],
+        [
+          10,
+          2.4
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "sides": 8,
+      "marks": [
+        {
+          "path": [
+            [
+              0.5,
+              -40
+            ],
+            [
+              0.65,
+              -100
+            ]
+          ],
+          "width": 0.4,
+          "material": "shirtcrease"
+        },
+        {
+          "path": [
+            [
+              0.7,
+              40
+            ],
+            [
+              0.85,
+              -30
+            ]
+          ],
+          "width": 0.4,
+          "material": "shirtcrease"
+        }
+      ]
+    },
+    {
+      "id": "elbow_left",
+      "kind": "sphere",
+      "material": "shirt",
+      "radius": 2.4,
+      "sides": 8,
+      "bone": "Bip01 L Arm2",
+      "at": [
+        -1,
+        11,
+        9.6
+      ]
+    },
+    {
+      "id": "elbow_right",
+      "kind": "sphere",
+      "material": "shirt",
+      "radius": 2.4,
+      "sides": 8,
+      "bone": "Bip01 R Arm2",
+      "at": [
+        -1,
+        -10,
+        8.6
+      ]
+    },
+    {
+      "id": "forearm_left",
+      "kind": "turn",
+      "material": "shirt",
+      "span": {
+        "bones": [
+          "Bip01 L Arm2",
+          "Bip01 L Hand"
+        ],
+        "over": 1
+      },
+      "rings": [
+        [
+          0,
+          2.4
+        ],
+        [
+          6,
+          2.3
+        ],
+        [
+          9.5,
+          2.1
+        ],
+        [
+          11,
+          2
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "sides": 8,
+      "marks": [
+        {
+          "path": [
+            [
+              0.82,
+              0
+            ],
+            [
+              0.82,
+              360
+            ]
+          ],
+          "width": 0.5,
+          "material": "shirtcrease"
+        },
+        {
+          "path": [
+            [
+              0.86,
+              0
+            ],
+            [
+              0.88,
+              0
+            ]
+          ],
+          "width": 0.5,
+          "material": "badge"
+        },
+        {
+          "path": [
+            [
+              0.4,
+              60
+            ],
+            [
+              0.55,
+              140
+            ]
+          ],
+          "width": 0.4,
+          "material": "shirtcrease"
+        }
+      ]
+    },
+    {
+      "id": "forearm_right",
+      "kind": "turn",
+      "material": "shirt",
+      "span": {
+        "bones": [
+          "Bip01 R Arm2",
+          "Bip01 R Hand"
+        ],
+        "over": 1
+      },
+      "rings": [
+        [
+          0,
+          2.4
+        ],
+        [
+          6,
+          2.3
+        ],
+        [
+          9.5,
+          2.1
+        ],
+        [
+          11,
+          2
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "sides": 8,
+      "marks": [
+        {
+          "path": [
+            [
+              0.82,
+              0
+            ],
+            [
+              0.82,
+              360
+            ]
+          ],
+          "width": 0.5,
+          "material": "shirtcrease"
+        },
+        {
+          "path": [
+            [
+              0.86,
+              0
+            ],
+            [
+              0.88,
+              0
+            ]
+          ],
+          "width": 0.5,
+          "material": "badge"
+        },
+        {
+          "path": [
+            [
+              0.4,
+              -60
+            ],
+            [
+              0.55,
+              -140
+            ]
+          ],
+          "width": 0.4,
+          "material": "shirtcrease"
+        }
+      ]
+    },
+    {
+      "id": "fist_left",
+      "kind": "box",
+      "material": "skin",
+      "bone": "Bip01 L Hand",
+      "at": [
+        0.3,
+        13.2,
+        -3
+      ],
+      "size": [
+        3,
+        2.3,
+        3.6
+      ]
+    },
+    {
+      "id": "fist_right",
+      "kind": "box",
+      "material": "skin",
+      "bone": "Bip01 R Hand",
+      "at": [
+        12,
+        -11.1,
+        9.6
+      ],
+      "size": [
+        3.6,
+        2.3,
+        3
+      ]
+    },
+    {
+      "id": "thigh_left",
+      "kind": "turn",
+      "material": "pants",
+      "span": {
+        "bones": [
+          "Bip01 L Leg",
+          "Bip01 L Leg1"
+        ],
+        "over": 2
+      },
+      "rings": [
+        [
+          0,
+          4.3
+        ],
+        [
+          9,
+          4
+        ],
+        [
+          18,
+          3.5
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "sides": 10,
+      "marks": [
+        {
+          "path": [
+            [
+              0.55,
+              -20
+            ],
+            [
+              0.75,
+              30
+            ]
+          ],
+          "width": 0.45,
+          "material": "crease"
+        },
+        {
+          "path": [
+            [
+              0.7,
+              -40
+            ],
+            [
+              0.85,
+              10
+            ]
+          ],
+          "width": 0.45,
+          "material": "crease"
+        },
+        {
+          "path": [
+            [
+              0.3,
+              120
+            ],
+            [
+              0.45,
+              170
+            ]
+          ],
+          "width": 0.45,
+          "material": "crease"
+        }
+      ]
+    },
+    {
+      "id": "thigh_right",
+      "kind": "turn",
+      "material": "pants",
+      "span": {
+        "bones": [
+          "Bip01 R Leg",
+          "Bip01 R Leg1"
+        ],
+        "over": 2
+      },
+      "rings": [
+        [
+          0,
+          4.3
+        ],
+        [
+          9,
+          4
+        ],
+        [
+          18,
+          3.5
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "sides": 10,
+      "marks": [
+        {
+          "path": [
+            [
+              0.55,
+              20
+            ],
+            [
+              0.75,
+              -30
+            ]
+          ],
+          "width": 0.45,
+          "material": "crease"
+        },
+        {
+          "path": [
+            [
+              0.7,
+              40
+            ],
+            [
+              0.85,
+              -10
+            ]
+          ],
+          "width": 0.45,
+          "material": "crease"
+        },
+        {
+          "path": [
+            [
+              0.3,
+              -120
+            ],
+            [
+              0.45,
+              -170
+            ]
+          ],
+          "width": 0.45,
+          "material": "crease"
+        }
+      ]
+    },
+    {
+      "id": "shin_left",
+      "kind": "turn",
+      "material": "pants",
+      "span": {
+        "bones": [
+          "Bip01 L Leg1",
+          "Bip01 L Foot"
+        ],
+        "over": 1.5
+      },
+      "rings": [
+        [
+          0,
+          3.5
+        ],
+        [
+          3,
+          3.8
+        ],
+        [
+          6.5,
+          3.5
+        ],
+        {
+          "s": 7.6,
+          "r": 2.9,
+          "crease": true
+        },
+        [
+          13,
+          2.7
+        ],
+        [
+          20,
+          2.6
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "sides": 10,
+      "marks": [
+        {
+          "path": [
+            [
+              0.73,
+              0
+            ],
+            [
+              0.73,
+              360
+            ]
+          ],
+          "width": 12,
+          "material": "boot"
+        },
+        {
+          "path": [
+            [
+              0.45,
+              -15
+            ],
+            [
+              0.5,
+              15
+            ],
+            [
+              0.55,
+              -15
+            ],
+            [
+              0.6,
+              15
+            ],
+            [
+              0.65,
+              -15
+            ],
+            [
+              0.7,
+              15
+            ],
+            [
+              0.75,
+              -15
+            ],
+            [
+              0.8,
+              15
+            ],
+            [
+              0.85,
+              -15
+            ]
+          ],
+          "width": 0.3,
+          "material": "lace"
+        },
+        {
+          "path": [
+            [
+              0.2,
+              -30
+            ],
+            [
+              0.3,
+              40
+            ]
+          ],
+          "width": 0.45,
+          "material": "crease"
+        }
+      ]
+    },
+    {
+      "id": "shin_right",
+      "kind": "turn",
+      "material": "pants",
+      "span": {
+        "bones": [
+          "Bip01 R Leg1",
+          "Bip01 R Foot"
+        ],
+        "over": 2
+      },
+      "rings": [
+        [
+          0,
+          3.5
+        ],
+        [
+          3,
+          3.8
+        ],
+        [
+          6.5,
+          3.5
+        ],
+        {
+          "s": 7.6,
+          "r": 2.9,
+          "crease": true
+        },
+        [
+          13,
+          2.7
+        ],
+        [
+          20,
+          2.6
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "sides": 10,
+      "marks": [
+        {
+          "path": [
+            [
+              0.73,
+              0
+            ],
+            [
+              0.73,
+              360
+            ]
+          ],
+          "width": 12,
+          "material": "boot"
+        },
+        {
+          "path": [
+            [
+              0.45,
+              -15
+            ],
+            [
+              0.5,
+              15
+            ],
+            [
+              0.55,
+              -15
+            ],
+            [
+              0.6,
+              15
+            ],
+            [
+              0.65,
+              -15
+            ],
+            [
+              0.7,
+              15
+            ],
+            [
+              0.75,
+              -15
+            ],
+            [
+              0.8,
+              15
+            ],
+            [
+              0.85,
+              -15
+            ]
+          ],
+          "width": 0.3,
+          "material": "lace"
+        },
+        {
+          "path": [
+            [
+              0.2,
+              30
+            ],
+            [
+              0.3,
+              -40
+            ]
+          ],
+          "width": 0.45,
+          "material": "crease"
+        }
+      ]
+    },
+    {
+      "id": "boottop_left",
+      "kind": "band",
+      "material": "boot",
+      "on": {
+        "part": "shin_left",
+        "s": 0.42
+      },
+      "width": 1,
+      "height": 0.4
+    },
+    {
+      "id": "boottop_right",
+      "kind": "band",
+      "material": "boot",
+      "on": {
+        "part": "shin_right",
+        "s": 0.42
+      },
+      "width": 1,
+      "height": 0.4
+    },
+    {
+      "id": "boot_left",
+      "kind": "box",
+      "material": "boot",
+      "bone": "Bip01 L Foot",
+      "at": [
+        6.2,
+        5,
+        -35
+      ],
+      "size": [
+        10,
+        4.6,
+        4.2
+      ]
+    },
+    {
+      "id": "sole_left",
+      "kind": "box",
+      "material": "pad",
+      "bone": "Bip01 L Foot",
+      "at": [
+        6.3,
+        5,
+        -36
+      ],
+      "size": [
+        10.6,
+        5,
+        1.2
+      ]
+    },
+    {
+      "id": "boot_right",
+      "kind": "box",
+      "material": "boot",
+      "bone": "Bip01 R Foot",
+      "at": [
+        -2.8,
+        -5,
+        -35
+      ],
+      "size": [
+        10,
+        4.6,
+        4.2
+      ]
+    },
+    {
+      "id": "sole_right",
+      "kind": "box",
+      "material": "pad",
+      "bone": "Bip01 R Foot",
+      "at": [
+        -2.7,
+        -5,
+        -36
+      ],
+      "size": [
+        10.6,
+        5,
+        1.2
+      ]
+    },
+    {
+      "id": "holster",
+      "kind": "box",
+      "material": "boot",
+      "bone": "Bip01 Pelvis",
+      "at": [
+        -0.8,
+        -7.7,
+        -9.5
+      ],
+      "size": [
+        4.2,
+        2.2,
+        9.5
+      ],
+      "rotate": [
+        0,
+        8,
+        0
+      ]
+    },
+    {
+      "id": "holster_strap",
+      "kind": "box",
+      "material": "boot",
+      "bone": "Bip01 Pelvis",
+      "at": [
+        -0.6,
+        -7,
+        -1.5
+      ],
+      "size": [
+        1.5,
+        1.2,
+        3.6
+      ]
+    }
+  ]
+}
