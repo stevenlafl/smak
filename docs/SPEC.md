@@ -317,7 +317,8 @@ stacked) with the wall's rock between them, and the link goes through that rock:
 - `window`: 48 by 48, `sill` (40) over the higher floor. Nothing walks through a window. `glass: true` (or
   `{ alpha, health, material }`) glazes it: a `func_breakable` pane, half see-through, that shatters.
 - `stairs`: for rooms stacked one above the other: a stair in the lower room up through a hole in the
-  floor of the upper (the lower room needs `rise / 16 * 24 + 32` of length along x).
+  floor of the upper (the lower room needs `rise / 16 * 24 + 32` of length along x). It climbs along x
+  against the south wall, or with `along: 1` the north (between, a share): keep it clear of a doorway.
 - Between rooms side by side whose floors differ by more than 18, any opening or door gets **stairs** in the
   lower room, up to the opening. The lower room must reach as high as the opening (its ceiling over the
   higher floor by the opening's height).

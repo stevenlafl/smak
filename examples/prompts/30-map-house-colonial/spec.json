@@ -1,0 +1,644 @@
+{
+ "spec": "smak.map/1",
+ "name": "house_colonial",
+ "theme": {
+  "floor": "planks",
+  "wall": "plaster",
+  "ceiling": "plaster",
+  "door": "darkwood",
+  "outside": "red_brick",
+  "roof": "dark_shingles"
+ },
+ "textures": {
+  "lawn": {
+   "base": "grass"
+  },
+  "kitchen_tile": {
+   "base": "tile",
+   "tone": [
+    0.8,
+    0.78,
+    0.72
+   ]
+  },
+  "bath_tile": {
+   "base": "tile",
+   "tone": [
+    0.9,
+    0.9,
+    0.88
+   ]
+  },
+  "hall_tile": {
+   "base": "tile",
+   "tone": [
+    0.35,
+    0.33,
+    0.3
+   ]
+  },
+  "red_brick": {
+   "base": "brick",
+   "tone": [
+    0.55,
+    0.25,
+    0.18
+   ]
+  },
+  "dark_shingles": {
+   "base": "shingles",
+   "tone": [
+    0.2,
+    0.19,
+    0.19
+   ]
+  }
+ },
+ "sun": {
+  "pitch": -50,
+  "yaw": 35,
+  "brightness": 300
+ },
+ "models": {
+  "sofa": {
+   "file": "../28-map-furnishings/sofa.json"
+  },
+  "coffee_table": {
+   "file": "../28-map-furnishings/coffee_table.json"
+  },
+  "tv_stand": {
+   "file": "../28-map-furnishings/tv_stand.json"
+  },
+  "armchair": {
+   "file": "../28-map-furnishings/armchair.json"
+  },
+  "potted_plant": {
+   "file": "../28-map-furnishings/potted_plant.json"
+  },
+  "fridge": {
+   "file": "../28-map-furnishings/fridge.json"
+  },
+  "stove": {
+   "file": "../28-map-furnishings/stove.json"
+  },
+  "sink_cabinet": {
+   "file": "../28-map-furnishings/sink_cabinet.json"
+  },
+  "bed": {
+   "file": "../28-map-furnishings/bed.json"
+  },
+  "dresser": {
+   "file": "../28-map-furnishings/dresser.json"
+  },
+  "toilet": {
+   "file": "../28-map-furnishings/toilet.json"
+  },
+  "bathtub": {
+   "file": "../28-map-furnishings/bathtub.json"
+  },
+  "tree_summer": {
+   "file": "../28-map-furnishings/tree_summer.json"
+  },
+  "bush": {
+   "file": "../28-map-furnishings/bush.json"
+  },
+  "bench": {
+   "file": "../28-map-furnishings/bench.json"
+  }
+ },
+ "rooms": [
+  {
+   "id": "lot",
+   "size": [
+    1152,
+    896,
+    448
+   ],
+   "sky": true,
+   "surfaces": {
+    "floor": "lawn"
+   },
+   "light": "none"
+  },
+  {
+   "id": "living",
+   "size": [
+    320,
+    288,
+    112
+   ],
+   "floor": 8,
+   "place": {
+    "in": "lot",
+    "offset": [
+     160,
+     256
+    ],
+    "stand": true
+   },
+   "building": {
+    "roof": {
+     "pitch": 35,
+     "overhang": 16
+    }
+   }
+  },
+  {
+   "id": "hall",
+   "size": [
+    240,
+    288,
+    112
+   ],
+   "place": {
+    "east_of": "living"
+   },
+   "surfaces": {
+    "floor": "hall_tile"
+   }
+  },
+  {
+   "id": "kitchen",
+   "size": [
+    256,
+    288,
+    112
+   ],
+   "place": {
+    "east_of": "hall"
+   },
+   "surfaces": {
+    "floor": "kitchen_tile"
+   }
+  },
+  {
+   "id": "landing",
+   "size": [
+    240,
+    288,
+    112
+   ],
+   "place": {
+    "above": "hall"
+   }
+  },
+  {
+   "id": "master",
+   "size": [
+    320,
+    288,
+    112
+   ],
+   "place": {
+    "west_of": "landing"
+   }
+  },
+  {
+   "id": "bedroom",
+   "size": [
+    256,
+    160,
+    112
+   ],
+   "place": {
+    "east_of": "landing",
+    "align": "south"
+   }
+  },
+  {
+   "id": "bath",
+   "size": [
+    256,
+    112,
+    112
+   ],
+   "place": {
+    "north_of": "bedroom",
+    "align": "west"
+   },
+   "surfaces": {
+    "floor": "bath_tile",
+    "walls": "bath_tile"
+   }
+  },
+  {
+   "id": "street",
+   "size": [
+    1152,
+    256,
+    320
+   ],
+   "place": {
+    "south_of": "lot"
+   },
+   "sky": true,
+   "surfaces": {
+    "floor": "asphalt"
+   },
+   "light": "none",
+   "test": true
+  }
+ ],
+ "links": [
+  {
+   "between": [
+    "lot",
+    "street"
+   ],
+   "kind": "opening",
+   "width": 256,
+   "height": 128,
+   "along": 0.5
+  },
+  {
+   "between": [
+    "hall",
+    "lot"
+   ],
+   "kind": "door",
+   "side": "south"
+  },
+  {
+   "between": [
+    "living",
+    "lot"
+   ],
+   "kind": "window",
+   "side": "south",
+   "along": 0.3,
+   "glass": true
+  },
+  {
+   "between": [
+    "living",
+    "lot"
+   ],
+   "kind": "window",
+   "side": "south",
+   "along": 0.75,
+   "glass": true
+  },
+  {
+   "between": [
+    "living",
+    "lot"
+   ],
+   "kind": "window",
+   "side": "west",
+   "glass": true
+  },
+  {
+   "between": [
+    "kitchen",
+    "lot"
+   ],
+   "kind": "window",
+   "side": "south",
+   "glass": true
+  },
+  {
+   "between": [
+    "kitchen",
+    "lot"
+   ],
+   "kind": "door",
+   "side": "north"
+  },
+  {
+   "between": [
+    "kitchen",
+    "lot"
+   ],
+   "kind": "window",
+   "side": "east",
+   "glass": true
+  },
+  {
+   "between": [
+    "living",
+    "hall"
+   ],
+   "kind": "opening",
+   "width": 96,
+   "along": 0.3
+  },
+  {
+   "between": [
+    "hall",
+    "kitchen"
+   ],
+   "kind": "door",
+   "along": 0.3
+  },
+  {
+   "between": [
+    "hall",
+    "landing"
+   ],
+   "kind": "stairs",
+   "width": 96,
+   "along": 1
+  },
+  {
+   "between": [
+    "landing",
+    "master"
+   ],
+   "kind": "door",
+   "along": 0.7
+  },
+  {
+   "between": [
+    "landing",
+    "bedroom"
+   ],
+   "kind": "door",
+   "along": 0.5
+  },
+  {
+   "between": [
+    "landing",
+    "bath"
+   ],
+   "kind": "door",
+   "along": 0.5
+  },
+  {
+   "between": [
+    "master",
+    "lot"
+   ],
+   "kind": "window",
+   "side": "south",
+   "along": 0.3,
+   "glass": true
+  },
+  {
+   "between": [
+    "master",
+    "lot"
+   ],
+   "kind": "window",
+   "side": "south",
+   "along": 0.75,
+   "glass": true
+  },
+  {
+   "between": [
+    "master",
+    "lot"
+   ],
+   "kind": "window",
+   "side": "west",
+   "glass": true
+  },
+  {
+   "between": [
+    "bedroom",
+    "lot"
+   ],
+   "kind": "window",
+   "side": "south",
+   "glass": true
+  },
+  {
+   "between": [
+    "bedroom",
+    "lot"
+   ],
+   "kind": "window",
+   "side": "east",
+   "glass": true
+  },
+  {
+   "between": [
+    "bath",
+    "lot"
+   ],
+   "kind": "window",
+   "side": "north",
+   "glass": true
+  }
+ ],
+ "props": [
+  {
+   "model": "sofa",
+   "room": "living",
+   "at": [
+    -30,
+    -70
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "coffee_table",
+   "room": "living",
+   "at": [
+    -30,
+    0
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "tv_stand",
+   "room": "living",
+   "at": [
+    -30,
+    110
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "armchair",
+   "room": "living",
+   "at": [
+    110,
+    0
+   ],
+   "facing": "west"
+  },
+  {
+   "model": "potted_plant",
+   "room": "living",
+   "at": [
+    -130,
+    115
+   ]
+  },
+  {
+   "model": "potted_plant",
+   "room": "hall",
+   "at": [
+    95,
+    -120
+   ]
+  },
+  {
+   "model": "fridge",
+   "room": "kitchen",
+   "at": [
+    100,
+    110
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "stove",
+   "room": "kitchen",
+   "at": [
+    30,
+    115
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "sink_cabinet",
+   "room": "kitchen",
+   "at": [
+    -40,
+    115
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "coffee_table",
+   "room": "kitchen",
+   "at": [
+    20,
+    -50
+   ],
+   "facing": "east"
+  },
+  {
+   "model": "bed",
+   "room": "master",
+   "at": [
+    -30,
+    95
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "dresser",
+   "room": "master",
+   "at": [
+    120,
+    -110
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "armchair",
+   "room": "master",
+   "at": [
+    110,
+    60
+   ],
+   "facing": "west"
+  },
+  {
+   "model": "potted_plant",
+   "room": "landing",
+   "at": [
+    -95,
+    120
+   ]
+  },
+  {
+   "model": "bed",
+   "room": "bedroom",
+   "at": [
+    60,
+    0
+   ],
+   "facing": "east"
+  },
+  {
+   "model": "dresser",
+   "room": "bedroom",
+   "at": [
+    -100,
+    -45
+   ],
+   "facing": "east"
+  },
+  {
+   "model": "toilet",
+   "room": "bath",
+   "at": [
+    -90,
+    0
+   ],
+   "facing": "east"
+  },
+  {
+   "model": "bathtub",
+   "room": "bath",
+   "at": [
+    60,
+    0
+   ],
+   "facing": "east"
+  },
+  {
+   "model": "tree_summer",
+   "room": "lot",
+   "at": [
+    -470,
+    -300
+   ]
+  },
+  {
+   "model": "tree_summer",
+   "room": "lot",
+   "at": [
+    470,
+    -300
+   ]
+  },
+  {
+   "model": "tree_summer",
+   "room": "lot",
+   "at": [
+    -450,
+    330
+   ]
+  },
+  {
+   "model": "bush",
+   "room": "lot",
+   "at": [
+    -120,
+    -250
+   ]
+  },
+  {
+   "model": "bush",
+   "room": "lot",
+   "at": [
+    120,
+    -250
+   ]
+  },
+  {
+   "model": "bench",
+   "room": "lot",
+   "at": [
+    400,
+    330
+   ],
+   "facing": "south"
+  }
+ ],
+ "entities": [
+  {
+   "class": "info_player_start",
+   "room": "street",
+   "at": [
+    -200,
+    0
+   ],
+   "facing": "north"
+  }
+ ]
+}

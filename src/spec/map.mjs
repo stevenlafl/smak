@@ -593,8 +593,9 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       const [x0, x1] = overlap[0];
       const [y0, y1] = overlap[1];
       if (x1 - x0 >= run + 32 && y1 - y0 >= width) {
+        // along the lower room's south side unless told: `along` 0 to 1 moves it across to the north side
         const sx = x0 + 16;
-        const sy = y0 + 16;
+        const sy = snap(y0 + 16 + (link.along ?? 0) * (y1 - y0 - 32 - width), 8);
         holes.push({ min: [sx, sy, lower.max[2]], max: [sx + run, sy + width, upper.min[2]] });
         brushes.push(...stairBrushes([sx, sy, lower.min[2]], [sx + run, sy + width, upper.min[2]], "+x", textureOf("floor"), { steps: count, top: false, tread: TREAD }));
         report.facts.push(`links[${i}]: stairs of ${count} steps from ${lower.id} up to ${upper.id}, along x from ${sx} to ${sx + run}`);
