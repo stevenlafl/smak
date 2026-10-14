@@ -37,6 +37,12 @@ const LINK_KINDS = ["door", "opening", "window", "stairs"];
 const PLAYER = { wide: 32, high: 72 };
 const STEP = 18;
 const DOOR = { width: 64, height: 96 };
+/**
+ * The narrowest way a player passes at ease: a way as wide as the player (32) scrapes both sides, and a door on
+ * hinges stands open in its own doorway, its leaf and its stop taking a third of it. Narrower ways asked for
+ * (a real house's 2'-6" doors at a foot to 12 units) are widened to these, and the report says so.
+ */
+const PASSABLE = { opening: 48, door: 48, swing: 56 };
 const WINDOW = { width: 48, height: 48, sill: 40 };
 /** How thick a lining of another texture is (a yard's grass, a sky over a court). */
 const LINING = 8;
@@ -675,7 +681,10 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     }
     const along = others[0];
     const [lo, hi] = overlap[0];
-    const width = Math.min(link.width ?? (kind === "window" ? WINDOW.width : DOOR.width), hi - lo);
+    const asked = link.width ?? (kind === "window" ? WINDOW.width : DOOR.width);
+    const least = kind === "window" ? 0 : kind === "door" && link.door?.swing ? PASSABLE.swing : kind === "door" ? PASSABLE.door : PASSABLE.opening;
+    const width = Math.min(Math.max(asked, least), hi - lo);
+    if (width > asked) report.notes.push(`links[${i}]: ${a.id} to ${b.id} widened from ${asked} to ${width}: a player passes a ${kind}${link.door?.swing ? " on hinges" : ""} at ease at ${least}`);
     const share = link.along ?? 0.5;
     const centre = snap(lo + (hi - lo) * share, 8);
     const w0 = Math.max(lo, Math.min(hi - width, centre - width / 2));
