@@ -163,6 +163,9 @@ function leastSquares(rows) {
   return a.map((row, i) => row[k] / row[i]);
 }
 
+/** Faces about a point that bend less than this from a triangle's own share its smooth normal there (degrees). */
+const CORNER_BEND = 60;
+
 /** The faces a view must see squarely for its light to be fitted and divided out. */
 const LIGHT_FIT_LEAST = 60;
 
@@ -281,6 +284,32 @@ export function paintProjections(meshes, views) {
     return picture.rgba ? [picture.rgba[i * 4], picture.rgba[i * 4 + 1], picture.rgba[i * 4 + 2]] : [picture.rgb[i * 3], picture.rgb[i * 3 + 1], picture.rgb[i * 3 + 2]];
   };
 
+  // a smooth normal at each triangle's corners, the faces about a point within CORNER_BEND of this one averaged:
+  // a texel weighs the views by it, so that two triangles meeting at a gentle bend agree at their edge and the
+  // views give way to one another gradually (by the face alone a dome's triangles each took a different picture,
+  // and the edges between showed as seams of light and dark)
+  const faceNormal = (t) => unit(cross(sub(t[1].p, t[0].p), sub(t[2].p, t[0].p)));
+  const keyOf = (p) => p.map((v) => Math.round(v * 1000)).join(",");
+  const around = new Map();
+  for (const mesh of meshes)
+    for (const t of mesh.tris) {
+      const n = faceNormal(t);
+      const area = Math.hypot(...cross(sub(t[1].p, t[0].p), sub(t[2].p, t[0].p)));
+      for (const c of t) {
+        const k = keyOf(c.p);
+        if (!around.has(k)) around.set(k, []);
+        around.get(k).push([n, area]);
+      }
+    }
+  const cosBend = Math.cos((CORNER_BEND * Math.PI) / 180);
+  const cornersOf = (t) => {
+    const own = faceNormal(t);
+    return t.map((c) => {
+      const sum = [0, 0, 0];
+      for (const [n, area] of around.get(keyOf(c.p)) ?? []) if (dot(n, own) >= cosBend) for (let k = 0; k < 3; k++) sum[k] += n[k] * area;
+      return Math.hypot(...sum) > 0 ? unit(sum) : own;
+    });
+  };
   let texels = 0;
   for (const mesh of meshes) {
     const { width, height, rgb } = mesh.image;
@@ -291,6 +320,7 @@ export function paintProjections(meshes, views) {
       const part = String(mesh.partOf?.[ti] ?? "").split(".")[0];
       const p = tri.map((c) => c.p);
       const n = unit(cross(sub(p[1], p[0]), sub(p[2], p[0])));
+      const corner = cornersOf(tri);
       const uv = tri.map((c) => [c.uv[0] * width, c.uv[1] * height]);
       const [A, B, C] = uv;
       const area2 = (B[0] - A[0]) * (C[1] - A[1]) - (C[0] - A[0]) * (B[1] - A[1]);
@@ -309,6 +339,7 @@ export function paintProjections(meshes, views) {
           if (w0 < -0.02 || w1 < -0.02 || w2 < -0.02) continue;
           covered[y * width + x] = 1;
           const q = [0, 1, 2].map((k) => p[0][k] * w0 + p[1][k] * w1 + p[2][k] * w2);
+          const ns = unit([0, 1, 2].map((k) => corner[0][k] * w0 + corner[1][k] * w1 + corner[2][k] * w2));
           // the pictures' dots of the thing first; where none sees this texel, any dot the model covers (a speck
           // of the ground's colour on the outline's edge is still the thing's)
           let sum;
@@ -325,11 +356,11 @@ export function paintProjections(meshes, views) {
               const at = iy * v.picture.width + ix;
               return !(masked && !v.mask[at]) && dot(q, v.back) >= v.depth[at] - v.slack;
             });
-            const best = Math.max(0, ...seeing.map((v) => dot(n, v.back)));
-            for (const v of seeing.filter((v) => dot(n, v.back) >= best * SQUARE_SHARE)) {
+            const best = Math.max(0, ...seeing.map((v) => dot(ns, v.back)));
+            for (const v of seeing.filter((v) => dot(ns, v.back) >= best * SQUARE_SHARE)) {
               const [px, py] = v.toPicture(q);
-              const w = dot(n, v.back) ** SHARPNESS;
-              const shade = lightOf(v, n);
+              const w = Math.max(0, dot(ns, v.back)) ** SHARPNESS;
+              const shade = lightOf(v, ns);
               const c = colourAt(v, px, py).map((value) => Math.min(255, value / shade));
               sum = sum.map((s, k) => s + c[k] * w);
               weight += w;
