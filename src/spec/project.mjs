@@ -24,6 +24,8 @@ const unit = (a) => {
 /** How squarely a surface must face a view to take its colour (the cosine), and the weight's power. */
 const LEAST_FACING = 0.2;
 const SHARPNESS = 4;
+/** A view takes part in a texel's colour only if it faces the surface this share as squarely as the best view does. */
+const SQUARE_SHARE = Number(process.env.SMAK_SQUARE_SHARE ?? 0.8);
 /** A picture's dot is background within this of the background's colour, each channel (0 to 255). */
 const BACKGROUND_NEAR = 14;
 
@@ -140,6 +142,37 @@ export function outlineBox(mask, width, [x0, y0, x1, y1]) {
   return [Math.min(...kept.map((p) => p.x0)), Math.min(...kept.map((p) => p.y0)), Math.max(...kept.map((p) => p.x1)) + 1, Math.max(...kept.map((p) => p.y1)) + 1];
 }
 
+/** How many texels a picture's colour is spread past the edge of what the triangles cover. */
+const BLEED = 3;
+
+/**
+ * The colour painted from the pictures spread outwards, a ring at a time, into the texels no triangle covers: the
+ * engine's texture filter reads a texel or two past a cut, and the material's flat paint there shows as a seam.
+ */
+function bleed({ width, height, rgb }, covered, painted) {
+  let ring = painted;
+  for (let step = 0; step < BLEED; step++) {
+    const next = new Uint8Array(ring);
+    for (let y = 0; y < height; y++)
+      for (let x = 0; x < width; x++) {
+        const at = y * width + x;
+        if (ring[at] || covered[at]) continue;
+        const sum = [0, 0, 0];
+        let n = 0;
+        for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]]) {
+          const [nx, ny] = [x + dx, y + dy];
+          if (nx < 0 || ny < 0 || nx >= width || ny >= height || !ring[ny * width + nx]) continue;
+          for (let k = 0; k < 3; k++) sum[k] += rgb[(ny * width + nx) * 3 + k];
+          n++;
+        }
+        if (!n) continue;
+        for (let k = 0; k < 3; k++) rgb[at * 3 + k] = Math.round(sum[k] / n);
+        next[at] = 1;
+      }
+    ring = next;
+  }
+}
+
 /**
  * Paints the views into the meshes' pictures, in place. Returns { texels (painted), views: [{ rect, seen }] }:
  * each view's outline box in its picture and how many texels it gave colour to.
@@ -193,6 +226,9 @@ export function paintProjections(meshes, views) {
   let texels = 0;
   for (const mesh of meshes) {
     const { width, height, rgb } = mesh.image;
+    // which texels a triangle covers, and which took a picture's colour: the colour is spread past the cuts after
+    const covered = new Uint8Array(width * height);
+    const painted = new Uint8Array(width * height);
     mesh.tris.forEach((tri, ti) => {
       const part = String(mesh.partOf?.[ti] ?? "").split(".")[0];
       const p = tri.map((c) => c.p);
@@ -213,6 +249,7 @@ export function paintProjections(meshes, views) {
           const w2 = ((B[0] - A[0]) * (y + 0.5 - A[1]) - (x + 0.5 - A[0]) * (B[1] - A[1])) / area2;
           const w0 = 1 - w1 - w2;
           if (w0 < -0.02 || w1 < -0.02 || w2 < -0.02) continue;
+          covered[y * width + x] = 1;
           const q = [0, 1, 2].map((k) => p[0][k] * w0 + p[1][k] * w1 + p[2][k] * w2);
           // the pictures' dots of the thing first; where none sees this texel, any dot the model covers (a speck
           // of the ground's colour on the outline's edge is still the thing's)
@@ -220,13 +257,19 @@ export function paintProjections(meshes, views) {
           let weight = 0;
           for (const masked of [true, false]) {
             sum = [0, 0, 0];
-            for (const v of takers) {
+            // only the views that see this point nearly as squarely as the best one that sees it: a view that
+            // grazes a face smears what it shows of the next one over it (a tab's stripes down its sides)
+            const seeing = takers.filter((v) => {
               const [px, py] = v.toPicture(q);
               const ix = Math.floor(px);
               const iy = Math.floor(py);
-              if (ix < 0 || iy < 0 || ix >= v.picture.width || iy >= v.picture.height) continue;
+              if (ix < 0 || iy < 0 || ix >= v.picture.width || iy >= v.picture.height) return false;
               const at = iy * v.picture.width + ix;
-              if ((masked && !v.mask[at]) || dot(q, v.back) < v.depth[at] - v.slack) continue;
+              return !(masked && !v.mask[at]) && dot(q, v.back) >= v.depth[at] - v.slack;
+            });
+            const best = Math.max(0, ...seeing.map((v) => dot(n, v.back)));
+            for (const v of seeing.filter((v) => dot(n, v.back) >= best * SQUARE_SHARE)) {
+              const [px, py] = v.toPicture(q);
               const w = dot(n, v.back) ** SHARPNESS;
               const c = colourAt(v, px, py);
               sum = sum.map((s, k) => s + c[k] * w);
@@ -238,9 +281,11 @@ export function paintProjections(meshes, views) {
           if (!weight) continue;
           const i = (y * width + x) * 3;
           for (let k = 0; k < 3; k++) rgb[i + k] = Math.round(sum[k] / weight);
+          painted[y * width + x] = 1;
           texels++;
         }
     });
+    bleed(mesh.image, covered, painted);
   }
   return { texels, views: prepared.map((v) => (v ? { rect: v.rect, seen: v.seen } : null)) };
 }

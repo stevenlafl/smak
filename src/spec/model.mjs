@@ -743,7 +743,9 @@ function piecesOf(given, context) {
     if (!sheets.has(flags)) sheets.set(flags, []);
     sheets.get(flags).push(part);
   }
-  const size = spec.texture ?? {};
+  // a model painted from pictures gets the larger picture unless told: shared out by area, 512 x 256 left a
+  // battery's small top parts coarser than Valve's own textures for them
+  const size = spec.texture ?? (spec.project?.length ? { width: 512, height: 512 } : {});
   const built = new Map();
   /** every placed triangle: { p: [a, b, c] (corners, each with uv), part, mesh } */
   const meshes = [];
