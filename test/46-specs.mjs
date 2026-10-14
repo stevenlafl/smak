@@ -359,6 +359,19 @@ test("a map spec's furniture never floats: on the floor, against a wall, under t
   sure(afloat.some((f) => /furniture\[0\] \(box\) in a, 100 over its floor/.test(f)), afloat.join("; ") || "no fault");
 });
 
+test("a map spec's ladder is built as Valve's are: a func_ladder to climb, and see-through rungs in render mode 4", () => {
+  // Steven's play-test of frenzy_pictures: a ladder made as furniture in a grate texture read as a vent
+  const spec = { spec: "smak.map/1", name: "ladders", rooms: [{ id: "pit", size: [256, 256, 256] }], ladders: [{ room: "pit", side: "north", along: 0.25, height: 200 }], entities: [{ class: "info_player_start", room: "pit", at: "centre" }] };
+  const { files, report } = buildMapSpec(spec, { out: join(folder, "ladders"), compilers: { found: false, message: "" } });
+  const map = smak.maps.readMap(readFileSync(files.map, "utf8"));
+  const climb = map.entities.find((e) => e.classname === "func_ladder");
+  const seen = map.entities.find((e) => e.classname === "func_wall" && e.rendermode === "4");
+  const textureOf = (e) => e.brushes[0].faces[0].texture;
+  sure(climb && seen && textureOf(seen).startsWith("{") && textureOf(climb) === textureOf(seen), JSON.stringify(report.facts.filter((f) => /ladders/.test(f))));
+  const ys = smak.maps.shapeOf(seen.brushes[0]).corners.map((p) => p[1]);
+  sure(Math.max(...ys) === 128 && Math.min(...ys) === 122, `the rungs from ${Math.min(...ys)} to ${Math.max(...ys)}, the wall at 128`);
+});
+
 test("a lamp is never in mid-air: one hung below a tall room's ceiling has a shade and a rod up to it", () => {
   // Steven's play-test of frenzy_pictures: "random lights in the middle of the air"
   const spec = { spec: "smak.map/1", name: "tall", rooms: [{ id: "hall", size: [256, 256, 480] }], entities: [{ class: "info_player_start", room: "hall", at: "centre" }, { class: "light", room: "hall", at: "corner ne" }] };

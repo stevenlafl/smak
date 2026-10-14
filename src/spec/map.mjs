@@ -31,7 +31,9 @@ import { buildModelSpec, validateModelSpec } from "./model.mjs";
 import { buildSoundSpec } from "./sound.mjs";
 
 export const MAP_SPEC = "smak.map/1";
-const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "replace", "sounds", "fgd", "wads", "compile", "detail", "note"];
+const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "replace", "sounds", "fgd", "wads", "compile", "detail", "note", "ladders"];
+/** A ladder's depth off its wall, and its width unless told: Valve's frenzy's are 32 wide. */
+const LADDER = { depth: 6, width: 32 };
 const ROOM = ["id", "size", "at", "place", "floor", "sky", "surfaces", "light", "water", "test", "building", "dark", "note"];
 const LINK = ["between", "kind", "width", "height", "along", "sill", "stairs", "door", "glass", "side", "material", "note"];
 const PLACES = ["east_of", "west_of", "north_of", "south_of", "above", "below", "in"];
@@ -1109,6 +1111,37 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     },
     (thing) => turnedPrint(prefabPrint(prefabOf(thing)), 90 * Math.round((thing.rotate ?? 0) / 90)),
   );
+  // ladders, as Valve's maps make them: a func_ladder to climb (the game draws it not) and over it the rungs a
+  // player sees, a func_wall in render mode 4 wearing a texture with holes ({LADDER1 when the game's .wad is
+  // there): a ladder in a texture without holes reads as a vent (Steven's play-test of frenzy_pictures)
+  (spec.ladders ?? []).forEach((given, i) => {
+    const room = rooms.get(given?.room);
+    const side = SIDE_AXES[given?.side];
+    if (!room || !side) {
+      errors.push(`ladders[${i}]: { room, side: north | south | east | west, along (0 to 1), width, height }`);
+      return;
+    }
+    let rungs;
+    try {
+      rungs = catalog.some((t) => t.name.toUpperCase() === "{LADDER1") ? fromWads("ladder", { texture: "{LADDER1" }) : textureOf("mesh");
+    } catch (error) {
+      errors.push(`ladders[${i}]: ${error.message}`);
+      return;
+    }
+    const across = side.axis === 0 ? 1 : 0;
+    const width = given.width ?? LADDER.width;
+    const middle = room.min[across] + (room.max[across] - room.min[across]) * (given.along ?? 0.5);
+    const min = [0, 0, room.min[2]];
+    const max = [0, 0, Math.min(room.max[2], room.min[2] + (given.height ?? room.max[2] - room.min[2]))];
+    min[across] = Math.round(middle - width / 2);
+    max[across] = min[across] + width;
+    if (side.sign > 0) [min[side.axis], max[side.axis]] = [room.max[side.axis] - LADDER.depth, room.max[side.axis]];
+    else [min[side.axis], max[side.axis]] = [room.min[side.axis], room.min[side.axis] + LADDER.depth];
+    entities.push(brushEntity("func_ladder", [box(min, max, rungs)], {}));
+    entities.push(brushEntity("func_wall", [box(min, max, rungs)], { rendermode: 4, renderamt: 255 }));
+    furniturePieces.push({ name: `ladders[${i}]`, room, min, max });
+    report.facts.push(`ladders[${i}]: against ${room.id}'s ${given.side} wall, ${width} wide, ${max[2] - min[2]} high, its rungs ${rungs}`);
+  });
   // nothing floats: a piece rests on its room's floor, stands against a wall, hangs from the ceiling, or touches a
   // piece that does (Steven's play-test of frenzy_words: "everything is floating everywhere")
   {

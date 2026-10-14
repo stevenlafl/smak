@@ -627,6 +627,7 @@ command line: `smak video spec.json -o folder [--preview] [--models folder]`.
 | `links` | The ways from room to room |
 | `entities` | What is in the rooms: the start, monsters, items, lights of your own |
 | `furniture` | Brush furniture put in rooms: a box, or a prefab of `prefabs` |
+| `ladders` | `[{ room, side, along, width, height }]`: a ladder against that wall of the room (`side` north, south, east or west; `along` 0 to 1, 0.5 unless told; 32 wide and the room's height unless told), built as Valve's are: a `func_ladder` to climb and over it the rungs a player sees, a `func_wall` in render mode 4 in a texture with holes (`{LADDER1` when the game's `.wad` is given, a mesh of the map's own otherwise). Never make a ladder as furniture: a ladder texture without its holes reads as a vent |
 | `prefabs` | `{ name: { pieces: [...] } }` or `{ name: { file: "table.map" } }`: brush furniture made once, put in many places |
 | `models` | `{ name: <a model spec> }` or `{ name: { file } }`: models built with the map, for `props`. Each is written to `models/<map name>/<name>.mdl` beside the map, and its props name that path: copy the folder into `<mod>/models/` and the `.bsp` finds them, apart from the mod's own |
 | `props` | Models put in rooms: `{ model, room, at, facing, z }` |
