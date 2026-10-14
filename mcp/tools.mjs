@@ -676,6 +676,7 @@ function build(folders, args) {
       show(reference ? besideOf(reference, drawn) : drawn);
     }
     if (files.views) show(smak.unpng(readFileSync(files.views)));
+    if (files.buildings) show(smak.unpng(readFileSync(files.buildings)));
     if (files["views-bright"]) show(smak.unpng(readFileSync(files["views-bright"])));
     if (files.sections) show(smak.unpng(readFileSync(files.sections)));
     if (files.props) show(smak.unpng(readFileSync(files.props)));

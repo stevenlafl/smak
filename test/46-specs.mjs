@@ -387,6 +387,8 @@ test("a map spec's building stands in the open: a shell of its own material, a g
   sure(/SM_OUTSIDE/.test(text) && /SM_ROOF/.test(text), "its outside and its roof wear their own textures");
   const out = buildMapSpec({ ...spec, rooms: [spec.rooms[0], { ...spec.rooms[1], place: { in: "yard", offset: [900, 256], stand: true } }, spec.rooms[2]] }, { out: join(folder, "house2"), compilers: { found: false, message: "" } }).report;
   sure(out.errors.some((e) => /the building's walls .* reach out of yard/.test(e)), out.errors.join("; "));
+  const inside = buildMapSpec({ ...spec, props: [{ model: "bush", room: "yard", at: [-200, -200] }], models: { bush: { spec: "smak.model/1", parts: [{ id: "bush", kind: "sphere", radius: 10 }] } } }, { out: join(folder, "house4"), compilers: { found: false, message: "" } }).report;
+  sure(inside.faults.some((f) => /props\[0\] \(bush\) stands \d+ into the building living in yard/.test(f)), `a bush put inside the house: ${inside.faults.join("; ")}`);
   const sideless = buildMapSpec({ ...spec, links: [{ between: ["living", "yard"], kind: "door" }, ...spec.links.slice(1)] }, { out: join(folder, "house3"), compilers: { found: false, message: "" } }).report;
   sure(sideless.errors.some((e) => /side "north", "south", "east" or "west"/.test(e)), sideless.errors.join("; "));
 });

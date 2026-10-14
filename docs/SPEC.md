@@ -302,7 +302,10 @@ open room with `stand: true`, and the rooms placed against that one (`east_of`, 
   through (`"south"`). A door, a window and glass are as between rooms. Keep its floor within a step (18)
   of the open room's.
 - A storey over it is a room `above` one of its rooms, with stairs as between any stacked rooms.
-- `siding` (clapboards) and `shingles` are materials of their own, for its outside and its roof.
+- `siding` (clapboards) and `shingles` are materials of their own, for its outside and its roof. A theme
+  word may name one of the spec's `textures` (`"outside": "siding_blue"`).
+- Furniture and props in the open room must stand clear of it: one inside its walls is a fault.
+- The pictures add each building seen from the corner of its open room on the side of its front door.
 
 ### Links
 

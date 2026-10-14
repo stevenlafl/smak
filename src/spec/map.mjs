@@ -52,6 +52,8 @@ const INTO_WALL = 1;
 const RISE = 16;
 const TREAD = 24;
 const FACINGS = { east: 0, north: 90, west: 180, south: 270 };
+/** The theme's words: what a module keeps of its own under its prefix. */
+const THEME_FACES = ["floor", "ceiling", "wall", "door", "furniture", "outside", "roof"];
 /** A side of a room: the axis its wall is across and which way out it faces. */
 const SIDE_AXES = { east: { axis: 0, sign: 1 }, west: { axis: 0, sign: -1 }, north: { axis: 1, sign: 1 }, south: { axis: 1, sign: -1 } };
 
@@ -157,7 +159,7 @@ export function withIncludes(spec, folder = ".") {
   const out = { ...spec, rooms: [...(spec.rooms ?? [])], links: [...(spec.links ?? [])], entities: [...(spec.entities ?? [])] };
   for (const key of ["furniture", "props"]) out[key] = [...(spec[key] ?? [])];
   for (const key of ["prefabs", "models", "textures"]) out[key] = { ...(spec[key] ?? {}) };
-  const hostTheme = { floor: "stone", wall: "plaster", ceiling: "planks", door: "metal", furniture: "darkwood", ...(spec.theme ?? {}) };
+  const hostTheme = { floor: "stone", wall: "plaster", ceiling: "planks", door: "metal", furniture: "darkwood", outside: "siding", roof: "shingles", ...(spec.theme ?? {}) };
   for (const [n, given] of spec.include.entries()) {
     const file = resolve(folder, given.spec);
     const inner = withIncludes(JSON.parse(readFileSync(file, "utf8")), dirname(file));
@@ -168,15 +170,21 @@ export function withIncludes(spec, folder = ".") {
     const innerTheme = { ...hostTheme, ...(inner.theme ?? {}) };
     // the module's own words for materials, kept under its own names
     for (const [word, material] of Object.entries(inner.textures ?? {})) out.textures[id(word)] = material;
-    for (const face of ["floor", "ceiling", "wall", "door", "furniture"]) out.textures[id(face)] = innerTheme[face];
-    const word = (w) => (inner.textures?.[w] !== undefined || ["floor", "ceiling", "wall", "door", "furniture"].includes(w) ? id(w) : w);
+    for (const face of THEME_FACES) out.textures[id(face)] = innerTheme[face];
+    const word = (w) => (inner.textures?.[w] !== undefined || THEME_FACES.includes(w) ? id(w) : w);
     // the rooms a module has only to be tried alone (a stretch of street before a shop) stay out
     const tried = new Set(inner.rooms.filter((room) => room.test).map((room) => room.id));
     inner.rooms = inner.rooms.filter((room) => !room.test);
     inner.links = (inner.links ?? []).filter((link) => !link.between.some((r) => tried.has(r)));
     for (const key of ["entities", "furniture", "props"]) inner[key] = (inner[key] ?? []).filter((thing) => !tried.has(thing.room));
+    // the rooms of a building the module stands: lined in the module's own floor, walls and ceiling
+    const standing = new Set();
+    for (const room of inner.rooms) {
+      const way = room.place && PLACES.find((w) => room.place[w] !== undefined);
+      if ((way === "in" && room.place.stand) || (way && way !== "in" && room.place.stand !== false && standing.has(room.place[way]))) standing.add(room.id);
+    }
     inner.rooms.forEach((room, k) => {
-      const surfaces = { ...(room.surfaces ?? {}) };
+      const surfaces = { ...(standing.has(room.id) ? { floor: "floor", walls: "wall", ceiling: "ceiling" } : {}), ...(room.surfaces ?? {}) };
       for (const face of ["floor", "ceiling"]) {
         if (surfaces[face]) surfaces[face] = word(surfaces[face]);
         else if (JSON.stringify(innerTheme[face]) !== JSON.stringify(hostTheme[face])) surfaces[face] = id(face);
@@ -184,6 +192,11 @@ export function withIncludes(spec, folder = ".") {
       if (surfaces.walls) surfaces.walls = word(surfaces.walls);
       else if (JSON.stringify(innerTheme.wall) !== JSON.stringify(hostTheme.wall)) surfaces.walls = id("wall");
       const placed = { ...room, id: id(room.id), surfaces };
+      if (room.building || (room.place?.in && room.place?.stand)) {
+        const asked = room.building ?? {};
+        const roof = asked.roof === false ? false : { ...(asked.roof ?? {}), material: word(asked.roof?.material ?? "roof") };
+        placed.building = { ...asked, walls: word(asked.walls ?? "outside"), roof };
+      }
       if (room.water?.material) placed.water = { ...room.water, material: word(room.water.material) };
       if (k === 0) {
         delete placed.place;
@@ -513,6 +526,8 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   const textureOf = (word, { liquid = false } = {}) => {
     if (word === "sky") return used.set("sky", { base: "glass", tone: spec.night ? [0.05, 0.06, 0.1] : [0.45, 0.6, 0.85] }) && "sky";
     let material = materials[word] ?? word;
+    // a theme's word may name one of the spec's own textures (`outside: "siding_blue"`): that is the texture
+    if (typeof material === "string" && material !== word && spec.textures?.[material] !== undefined) return textureOf(material, { liquid });
     if (material && typeof material === "object" && (material.texture || material.pick)) {
       const name = fromWads(word, material);
       if (name) return name;
@@ -538,6 +553,8 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   /** where to cut the map upright to see each staircase: { name, from, to } in plan */
   const cuts = [];
   const entities = [];
+  /** each building's front: the side its first way out goes through */
+  const fronts = new Map();
   (spec.links ?? []).forEach((link, i) => {
     let [a, b] = link.between.map((id) => rooms.get(id));
     const kind = link.kind ?? "opening";
@@ -551,6 +568,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         errors.push(`links[${i}]: between ${inner.id}, a room of a building, and ${open.id}, round it: side "north", "south", "east" or "west" (the wall it goes through)`);
         return;
       }
+      if (kind !== "window" && !fronts.has(inner.building)) fronts.set(inner.building, link.side);
       const sliver = { id: open.id, min: [...inner.min], max: [...inner.max], spec: open.spec };
       sliver.min[2] = open.min[2];
       sliver.max[2] = open.max[2];
@@ -711,6 +729,8 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   // ── buildings standing in the open: a shell round their rooms, `wall` thick out from each room's face,
   // from the open room's floor to over the top room, its outside of the building's own material, and a roof
   const carvedOf = new Map([...rooms.values()].map((room, k) => [room.id, boxes[k]]));
+  /** each building's block, by the open room it stands in: what is put in that room must stand clear of it */
+  const standing = [];
   for (const id of new Set([...rooms.values()].filter((room) => room.building).map((room) => room.building))) {
     const own = [...rooms.values()].filter((room) => room.building === id);
     const root = rooms.get(id);
@@ -721,6 +741,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     const block = { min: [lo[0] - wall, lo[1] - wall, host.min[2]], max: [hi[0] + wall, hi[1] + wall, hi[2] + wall] };
     if (block.min[0] < host.min[0] || block.min[1] < host.min[1] || block.max[0] > host.max[0] || block.max[1] > host.max[1])
       errors.push(`rooms ${id}: the building's walls (${block.min.slice(0, 2).join(" ")} to ${block.max.slice(0, 2).join(" ")}) reach out of ${host.id}`);
+    standing.push({ id, host: host.id, min: block.min, max: block.max });
     let pieces = [block];
     for (const cut of [...own.map((room) => carvedOf.get(room.id)), ...holes]) pieces = pieces.flatMap((piece) => subtract(piece, cut));
     const outer = textureOf(asked.walls ?? "outside");
@@ -829,6 +850,12 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
             ["north", xy[1] + own.max[1] - room.max[1]],
           ].filter(([, by]) => by > INTO_WALL);
           for (const [side, by] of reach) report.faults.push(`${what}[${i}] (${thing.prefab ?? thing.model ?? "box"}) reaches ${Math.round(by)} into ${room.id}'s ${side} wall: move or turn it`);
+          // nor into a building that stands in its room (a bush put inside the house it was to stand by)
+          for (const block of standing.filter((b) => b.host === room.id)) {
+            const over = [0, 1].map((k) => Math.min(xy[k] + own.max[k], block.max[k]) - Math.max(xy[k] + own.min[k], block.min[k]));
+            if (over.every((v) => v > INTO_WALL))
+              report.faults.push(`${what}[${i}] (${thing.prefab ?? thing.model ?? "box"}) stands ${Math.round(Math.min(...over))} into the building ${block.id} in ${room.id} (its walls from ${block.min.slice(0, 2).join(" ")} to ${block.max.slice(0, 2).join(" ")}): move it out`);
+          }
         }
         // what was put where, under a name that stays the same from build to build: its kind and what it is,
         // with its count among those (the second table of the room)
@@ -1097,6 +1124,25 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         return drawMap(bsp, { ...drawing, from, yaw, pitch, width: 320, height: 240 });
       });
       save("views", tile(views, Math.min(4, views.length), [...rooms.keys()]));
+      // each building from the open room it stands in, at a man's height, before its front: what no view of a
+      // room shows (its walls, its roof, its door and windows)
+      if (standing.length) {
+        const fronted = standing.map((block) => {
+          // from the corner of its open room on its front's side, a little over a man's height, looking at
+          // its middle: two of its walls and its roof, as one sees a house from the street's corner
+          const host = rooms.get(block.host);
+          const side = SIDE_AXES[fronts.get(block.id) ?? "south"];
+          const k = side.axis;
+          const centre = [0, 1, 2].map((a) => (block.min[a] + block.max[a]) / 2);
+          const from = [host.min[0] + 24, host.min[1] + 24, host.min[2] + 112];
+          from[k] = side.sign > 0 ? host.max[k] - 24 : host.min[k] + 24;
+          const yaw = Math.round((Math.atan2(centre[1] - from[1], centre[0] - from[0]) * 180) / Math.PI);
+          const flat = Math.hypot(centre[0] - from[0], centre[1] - from[1]);
+          const pitch = Math.round((Math.atan2(centre[2] - from[2], flat) * 180) / Math.PI);
+          return drawMap(bsp, { ...drawing, from, yaw, pitch, width: 480, height: 300 });
+        });
+        save("buildings", tile(fronted, Math.min(2, fronted.length), standing.map((block) => `building ${block.id}`)));
+      }
       // a dark map's views again, three times as bright: to see what is in a room meant to be dark
       const darkest = Math.min(...lit.rooms.filter((room) => report.rooms[room.name]).map((room) => room.mean));
       if (darkest < BRIGHT_UNDER) {
