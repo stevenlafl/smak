@@ -1,6 +1,6 @@
 # 01 A barrel (model, simple)
 
-## The prompt (62 words)
+## The prompt (57 words)
 
 > Make me a wooden barrel for a tavern map. About 40 units tall, the usual bulging shape so it's wider in
 > the middle than at the ends. Two dark iron hoops, one near the top and one near the bottom. Flat wooden

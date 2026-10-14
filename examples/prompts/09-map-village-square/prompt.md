@@ -1,6 +1,6 @@
 # 09 A village square (map, open sky, buildings round it, model props)
 
-## The prompt (167 words)
+## The prompt (171 words)
 
 > A little village square at midday. The square itself is open to the sky, about 640 by 512, paved with
 > cobbles, and the sun lights it. On its north side is the inn, a room about 512 by 320, entered through a

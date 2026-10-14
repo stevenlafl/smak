@@ -1,6 +1,6 @@
 # 06 A guard room (map, one room, furnished)
 
-## The prompt (99 words)
+## The prompt (101 words)
 
 > A small guard room as a Half-Life map I can load and walk around in. One room, about 384 units by 320,
 > and 160 high, with a stone floor, plaster walls and a ceiling of wooden planks. I start by the south wall

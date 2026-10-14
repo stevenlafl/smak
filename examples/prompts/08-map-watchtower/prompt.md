@@ -1,6 +1,6 @@
 # 08 A watchtower (map, storeys, stairs up and down, a corridor)
 
-## The prompt (138 words)
+## The prompt (134 words)
 
 > A stone watchtower level. I start in the ground-floor guard room, about 320 square and 160 high. A
 > staircase in the guard room climbs to a lookout room directly above it, the same size but 128 high,

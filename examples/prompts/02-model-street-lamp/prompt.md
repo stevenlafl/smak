@@ -1,6 +1,6 @@
 # 02 A street lamp (model, a stack of parts and an arm)
 
-## The prompt (96 words)
+## The prompt (100 words)
 
 > I need a cast-iron street lamp for a village street, about 110 units tall overall. It has a heavy round
 > base that steps in as it goes up, then a tall slim post that tapers a little towards the top, with a

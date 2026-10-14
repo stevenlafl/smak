@@ -1,0 +1,61 @@
+{
+  "spec": "smak.map/1",
+  "name": "tavern",
+  "wall": 64,
+  "theme": { "floor": "planks", "wall": "plaster", "ceiling": "darkwood", "door": "darkwood", "furniture": "wood" },
+  "textures": {
+    "counter": { "base": "darkwood" },
+    "linen": { "base": "cloth", "tone": [0.8, 0.76, 0.64] },
+    "flags": { "base": "stone", "tone": [0.52, 0.5, 0.46] }
+  },
+  "layout": {
+    "cell": 64,
+    "rows": [
+      "KKK.HHHHHHHHH",
+      "KKK.HH1H1HHHH",
+      "KKK.HHHHHHHBH",
+      "....HHHHHHHHH",
+      "....HHHHHHHHH",
+      ".............",
+      "..........EE.",
+      "..........EE."
+    ],
+    "key": { "K": "kitchen", "H": "common", "E": "entrance", "1": { "prefab": "table" }, "B": { "prefab": "bar" } }
+  },
+  "prefabs": {
+    "table": { "file": "table.map" },
+    "bar": { "file": "bar.map" },
+    "bed": { "file": "bed.map" }
+  },
+  "models": {
+    "barrel": { "file": "../01-model-barrel/spec.json" },
+    "round_table": { "file": "../03-model-tavern-table/spec.json" }
+  },
+  "rooms": [
+    { "id": "kitchen", "size": 128, "surfaces": { "floor": "flags" } },
+    { "id": "common", "size": 192 },
+    { "id": "entrance", "size": 128, "surfaces": { "floor": "flags" } },
+    { "id": "bedrooms", "size": [576, 320, 128], "place": { "above": "common", "gap": 16 } }
+  ],
+  "links": [
+    { "between": ["entrance", "common"], "kind": "door" },
+    { "between": ["kitchen", "common"], "kind": "door" },
+    { "between": ["common", "bedrooms"], "kind": "stairs", "width": 96 }
+  ],
+  "furniture": [
+    { "prefab": "bed", "room": "bedrooms", "at": [288, -80] },
+    { "prefab": "bed", "room": "bedrooms", "at": [288, 80] }
+  ],
+  "props": [
+    { "model": "barrel", "room": "kitchen", "at": [-40, 40] },
+    { "model": "barrel", "room": "kitchen", "at": [-10, 52] },
+    { "model": "barrel", "room": "kitchen", "at": [-40, 10] },
+    { "model": "barrel", "room": "common", "at": [256, -82] },
+    { "model": "barrel", "room": "common", "at": [256, 82] },
+    { "model": "round_table", "room": "bedrooms", "at": [238, 0] }
+  ],
+  "entities": [
+    { "class": "info_player_start", "room": "entrance", "at": "centre", "facing": "north" },
+    { "class": "monster_scientist", "room": "common", "at": [248, 0], "facing": "west" }
+  ]
+}

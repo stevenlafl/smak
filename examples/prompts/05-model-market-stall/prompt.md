@@ -1,6 +1,6 @@
 # 05 A market stall (model, built from prefabs)
 
-## The prompt (139 words)
+## The prompt (138 words)
 
 > A small market stall for a medieval town square, as one prop, about 90 units tall. A plain wooden
 > counter runs across the front. Four wooden posts hold up a red cloth awning that slopes down towards the

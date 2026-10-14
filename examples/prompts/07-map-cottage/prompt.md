@@ -1,6 +1,6 @@
 # 07 A cottage (map, rooms joined by a door, a step and a hatch)
 
-## The prompt (151 words)
+## The prompt (148 words)
 
 > A little cottage interior for a single-player map. The main room is about 384 by 320 with a brick
 > fireplace in the middle of its west wall, a fire glowing orange in it (a warm orange light is enough), and

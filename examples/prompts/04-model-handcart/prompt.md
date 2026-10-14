@@ -1,6 +1,6 @@
 # 04 A handcart (model, wheels with spokes, mirrored sides, a load)
 
-## The prompt (154 words)
+## The prompt (164 words)
 
 > A wooden handcart for a market scene, the kind a farmer pushes, about 80 units long including the
 > handles. It has a flat rectangular bed of planks with low side boards along the left and right and a

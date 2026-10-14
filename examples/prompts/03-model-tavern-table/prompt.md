@@ -1,6 +1,6 @@
 # 03 A tavern table, set (model, repeated parts and things on things)
 
-## The prompt (118 words)
+## The prompt (115 words)
 
 > A round tavern table for my inn, as one prop. The top is a thick round slab of dark wood, about 48 units
 > across, standing about 30 units off the floor. It sits on a single thick central pedestal, turned like a

@@ -97,6 +97,11 @@ export function readLayout(layout) {
       } else if (meaning) marks.push({ char, meaning, x: x + cell / 2, y: y + cell / 2 });
     }),
   );
+  // a mark drawn inside a room's area (a table, the bar) is a cell of that room with something on it
+  for (const mark of marks) {
+    const room = Object.values(rooms).find((box) => mark.x > box.x0 && mark.x < box.x1 && mark.y > box.y0 && mark.y < box.y1);
+    if (room) room.cells++;
+  }
   return { rooms, marks, cell };
 }
 
@@ -655,6 +660,8 @@ export function buildMapSpec(spec, { out, compilers, folder } = {}) {
       const roomsBoxes = Object.fromEntries([...rooms.values()].map((room) => [room.id, { min: room.min, max: room.max }]));
       const lit = lightReport(bsp, { rooms: roomsBoxes });
       for (const room of lit.rooms) {
+        // lightReport also tells of the floor in no room given ("elsewhere"): a stair's top, a ledge
+        if (!report.rooms[room.name]) continue;
         report.rooms[room.name].light = Math.round(room.mean);
         if (room.dark) report.faults.push(`${room.name} is dark: its floor's light is ${Math.round(room.mean)} of 255 (under ${24})`);
       }
