@@ -66,7 +66,7 @@ pictures of the result, from a barrel to a city of four shops and a sewer; read 
 | `base` | For a character: `{ file }`, the game's model whose skeleton and animations it keeps |
 | `weapon` | For a weapon: `{ like: "crowbar" }`, the game's weapon whose v_, p_ and w_ files it takes the place of (below) |
 | `size` | What the person asked for: `{ height, length, width }` (any of them). Off by more than 10% is warned of, more than 25% is a fault |
-| `texture` | `{ width, height }` of the shared picture (256 x 256 unless told; 512 x 256 for a larger thing) |
+| `texture` | `{ width, height }` of the shared picture (256 x 256 unless told, 512 x 512 when it projects pictures; 512 x 256 for a larger thing) |
 | `materials` | Names for materials the parts share: `{ "oak": { "base": "wood", "tone": [r, g, b] } }`. A part may also name a base itself (`"material": "iron"`) |
 | `parts` | The parts, each placed on one listed above it |
 | `prefabs` | `{ name: <another model spec> }`, for parts of kind `prefab` |
