@@ -529,6 +529,7 @@ All return `{ width, height, rgba }`; write with `png(img.width, img.height, img
 | `lineup([[name, model], ...], { yaws = [20, 200], pitch, zoom, width, height, cols, target, seq, frame })` | Several models to one scale, each from the same sides. |
 | `together([...])` (`src/place.mjs`) | Not a picture: several models on one skeleton as one model, for any of these to draw (a helmet on a head with an armour). |
 | `label(img, text, x, y)` | Writes on a picture. |
+| `textMask(text, k = 1)` | No picture: the labels' letters as a mask, `{ width, height, at(x, y) }`, each dot `k` pixels square: words to paint on a texture (a spec's `print`). |
 | `posed(src, options)` | No picture: the triangles in model space as shown, `{ info, tris, pose }`. A triangle: `{ tex, where, tri, c: [{ p, n, u, v, bone } ×3] }` (`where`: its mesh; `tri`: its number in it; `u`, `v` in pixels; `bone` a number). |
 | `framing(src, [options])` | `{ mid, far }` over several poses, for `within`. |
 

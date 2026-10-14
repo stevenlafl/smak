@@ -467,6 +467,24 @@ const DARK = [20, 22, 26];
 const NAME_AT = 6;
 
 /** Writes `text` into a picture at (x, y), each dot `k` pixels, light on a dark band. */
+/**
+ * Text in the labels' letters as a mask: `{ width, height, at(x, y) }`, `at` true on a letter's dot, each dot
+ * `k` pixels square. Capitals, digits and a few marks (others are blank); for painting a word on a picture.
+ */
+export function textMask(text, k = 1) {
+  const letters = String(text).toUpperCase();
+  const width = Math.max(1, (letters.length * GLYPH_STEP - 1) * k);
+  const height = 5 * k;
+  const at = (x, y) => {
+    const n = Math.floor(x / k / GLYPH_STEP);
+    const bit = Math.floor(x / k) - n * GLYPH_STEP;
+    const row = Math.floor(y / k);
+    if (n < 0 || n >= letters.length || bit >= GLYPH_WIDE || row < 0 || row >= 5) return false;
+    return !!((GLYPHS[letters[n]] ?? NO_GLYPH)[row] & (4 >> bit));
+  };
+  return { width, height, at };
+}
+
 export function label(img, text, x, y, k = 2, colour = [235, 235, 235]) {
   const letters = String(text).toUpperCase();
   const put = (px, py, c) => {

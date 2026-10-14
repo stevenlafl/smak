@@ -115,6 +115,10 @@ A part is placed in one of two ways, then copied when asked:
   y, z]`), the first turned `start` degrees: chair legs, a crown's points, a wheel's spokes. Copies of a
   part must not all begin at one point: start each a little off the axis.
 
+A `box` may carry words on a face: `"print": { "text": "NOODLES", "face": "front", "ink": [0.7, 0.1, 0.1],
+"size": 0.6 }` (or a list of them), in plain capitals and digits as large as the face holds (`size`: the
+share of its height), over its material. `face`: `front`, `back`, `left`, `right`, `top`.
+
 Parts should touch: the check calls a part more than 0.25 units from every other **floating**. Let parts
 sink a little into what they stand on (an `offset` of `[0, 0, -0.5]`), the way a real thing is made: a part
 sunk into another, or cutting through it, touches it.

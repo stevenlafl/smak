@@ -1,0 +1,1051 @@
+{
+ "spec": "smak.map/1",
+ "name": "shops",
+ "theme": {
+  "floor": "tile",
+  "wall": "plaster",
+  "ceiling": "plaster",
+  "door": "glassdoor",
+  "outside": "stucco"
+ },
+ "textures": {
+  "shop_tile": {
+   "base": "tile",
+   "tone": [
+    0.82,
+    0.82,
+    0.8
+   ]
+  },
+  "stucco": {
+   "base": "plaster",
+   "tone": [
+    0.85,
+    0.78,
+    0.65
+   ]
+  },
+  "glassdoor": {
+   "base": "metal",
+   "tone": [
+    0.5,
+    0.55,
+    0.6
+   ]
+  },
+  "neon_green": {
+   "base": "neon",
+   "tone": [
+    0.2,
+    1,
+    0.3
+   ]
+  },
+  "neon_red": {
+   "base": "neon",
+   "tone": [
+    1,
+    0.2,
+    0.15
+   ]
+  },
+  "neon_orange": {
+   "base": "neon",
+   "tone": [
+    1,
+    0.55,
+    0.1
+   ]
+  },
+  "neon_pink": {
+   "base": "neon",
+   "tone": [
+    1,
+    0.3,
+    0.75
+   ]
+  },
+  "neon_blue": {
+   "base": "neon",
+   "tone": [
+    0.25,
+    0.55,
+    1
+   ]
+  }
+ },
+ "sun": {
+  "pitch": -50,
+  "yaw": 35,
+  "brightness": 300
+ },
+ "models": {
+  "grocery_shelf": {
+   "file": "../../28-map-furnishings/grocery_shelf.json"
+  },
+  "checkout_counter": {
+   "file": "../../28-map-furnishings/checkout_counter.json"
+  },
+  "fridge": {
+   "file": "../../28-map-furnishings/fridge.json"
+  },
+  "gun_case": {
+   "file": "../../28-map-furnishings/gun_case.json"
+  },
+  "clothing_rack": {
+   "file": "../../28-map-furnishings/clothing_rack.json"
+  },
+  "potted_plant": {
+   "file": "../../28-map-furnishings/potted_plant.json"
+  },
+  "electronics_shelf": {
+   "file": "../../28-map-furnishings/electronics_shelf.json"
+  },
+  "tv_stand": {
+   "file": "../../28-map-furnishings/tv_stand.json"
+  },
+  "sedan": {
+   "file": "../../28-map-furnishings/sedan.json"
+  },
+  "bush": {
+   "file": "../../28-map-furnishings/bush.json"
+  },
+  "sign_grocery": {
+   "spec": "smak.model/1",
+   "kind": "piece",
+   "texture": {
+    "width": 256,
+    "height": 128
+   },
+   "finish": false,
+   "materials": {
+    "glow": {
+     "base": "neon",
+     "tone": [
+      0.2,
+      1,
+      0.3
+     ]
+    }
+   },
+   "parts": [
+    {
+     "id": "board",
+     "kind": "box",
+     "material": "glow",
+     "size": [
+      1.5,
+      192,
+      26
+     ],
+     "print": {
+      "text": "GROCERY",
+      "face": "front",
+      "ink": [
+       0.04,
+       0.04,
+       0.05
+      ],
+      "size": 0.55
+     }
+    }
+   ]
+  },
+  "sign_corner_store": {
+   "spec": "smak.model/1",
+   "kind": "piece",
+   "texture": {
+    "width": 256,
+    "height": 128
+   },
+   "finish": false,
+   "materials": {
+    "glow": {
+     "base": "neon",
+     "tone": [
+      1,
+      0.2,
+      0.15
+     ]
+    }
+   },
+   "parts": [
+    {
+     "id": "board",
+     "kind": "box",
+     "material": "glow",
+     "size": [
+      1.5,
+      192,
+      26
+     ],
+     "print": {
+      "text": "CORNER STORE",
+      "face": "front",
+      "ink": [
+       0.04,
+       0.04,
+       0.05
+      ],
+      "size": 0.55
+     }
+    }
+   ]
+  },
+  "sign_gun_store": {
+   "spec": "smak.model/1",
+   "kind": "piece",
+   "texture": {
+    "width": 256,
+    "height": 128
+   },
+   "finish": false,
+   "materials": {
+    "glow": {
+     "base": "neon",
+     "tone": [
+      1,
+      0.55,
+      0.1
+     ]
+    }
+   },
+   "parts": [
+    {
+     "id": "board",
+     "kind": "box",
+     "material": "glow",
+     "size": [
+      1.5,
+      192,
+      26
+     ],
+     "print": {
+      "text": "GUNS",
+      "face": "front",
+      "ink": [
+       0.04,
+       0.04,
+       0.05
+      ],
+      "size": 0.55
+     }
+    }
+   ]
+  },
+  "sign_clothing": {
+   "spec": "smak.model/1",
+   "kind": "piece",
+   "texture": {
+    "width": 256,
+    "height": 128
+   },
+   "finish": false,
+   "materials": {
+    "glow": {
+     "base": "neon",
+     "tone": [
+      1,
+      0.3,
+      0.75
+     ]
+    }
+   },
+   "parts": [
+    {
+     "id": "board",
+     "kind": "box",
+     "material": "glow",
+     "size": [
+      1.5,
+      192,
+      26
+     ],
+     "print": {
+      "text": "CLOTHES",
+      "face": "front",
+      "ink": [
+       0.04,
+       0.04,
+       0.05
+      ],
+      "size": 0.55
+     }
+    }
+   ]
+  },
+  "sign_electronics": {
+   "spec": "smak.model/1",
+   "kind": "piece",
+   "texture": {
+    "width": 256,
+    "height": 128
+   },
+   "finish": false,
+   "materials": {
+    "glow": {
+     "base": "neon",
+     "tone": [
+      0.25,
+      0.55,
+      1
+     ]
+    }
+   },
+   "parts": [
+    {
+     "id": "board",
+     "kind": "box",
+     "material": "glow",
+     "size": [
+      1.5,
+      192,
+      26
+     ],
+     "print": {
+      "text": "ELECTRONICS",
+      "face": "front",
+      "ink": [
+       0.04,
+       0.04,
+       0.05
+      ],
+      "size": 0.55
+     }
+    }
+   ]
+  }
+ },
+ "rooms": [
+  {
+   "id": "parking",
+   "size": [
+    2048,
+    768,
+    320
+   ],
+   "sky": true,
+   "surfaces": {
+    "floor": "asphalt"
+   },
+   "light": "none"
+  },
+  {
+   "id": "grocery",
+   "size": [
+    512,
+    384,
+    128
+   ],
+   "surfaces": {
+    "floor": "shop_tile"
+   },
+   "floor": 8,
+   "place": {
+    "in": "parking",
+    "offset": [
+     96,
+     64
+    ],
+    "stand": true
+   },
+   "building": {
+    "roof": false,
+    "walls": "stucco"
+   }
+  },
+  {
+   "id": "corner_store",
+   "size": [
+    256,
+    384,
+    128
+   ],
+   "surfaces": {
+    "floor": "shop_tile"
+   },
+   "place": {
+    "east_of": "grocery"
+   }
+  },
+  {
+   "id": "gun_store",
+   "size": [
+    288,
+    384,
+    128
+   ],
+   "surfaces": {
+    "floor": "shop_tile"
+   },
+   "place": {
+    "east_of": "corner_store"
+   }
+  },
+  {
+   "id": "clothing",
+   "size": [
+    320,
+    384,
+    128
+   ],
+   "surfaces": {
+    "floor": "shop_tile"
+   },
+   "place": {
+    "east_of": "gun_store"
+   }
+  },
+  {
+   "id": "electronics",
+   "size": [
+    352,
+    384,
+    128
+   ],
+   "surfaces": {
+    "floor": "shop_tile"
+   },
+   "place": {
+    "east_of": "clothing"
+   }
+  },
+  {
+   "id": "street",
+   "size": [
+    2048,
+    256,
+    320
+   ],
+   "place": {
+    "north_of": "parking"
+   },
+   "sky": true,
+   "surfaces": {
+    "floor": "asphalt"
+   },
+   "light": "none",
+   "test": true
+  }
+ ],
+ "links": [
+  {
+   "between": [
+    "parking",
+    "street"
+   ],
+   "kind": "opening",
+   "width": 1536,
+   "height": 160
+  },
+  {
+   "between": [
+    "grocery",
+    "parking"
+   ],
+   "kind": "door",
+   "side": "north",
+   "along": 0.5
+  },
+  {
+   "between": [
+    "grocery",
+    "parking"
+   ],
+   "kind": "window",
+   "side": "north",
+   "along": 0.15,
+   "glass": true
+  },
+  {
+   "between": [
+    "grocery",
+    "parking"
+   ],
+   "kind": "window",
+   "side": "north",
+   "along": 0.85,
+   "glass": true
+  },
+  {
+   "between": [
+    "corner_store",
+    "parking"
+   ],
+   "kind": "door",
+   "side": "north",
+   "along": 0.5
+  },
+  {
+   "between": [
+    "corner_store",
+    "parking"
+   ],
+   "kind": "window",
+   "side": "north",
+   "along": 0.15,
+   "glass": true
+  },
+  {
+   "between": [
+    "corner_store",
+    "parking"
+   ],
+   "kind": "window",
+   "side": "north",
+   "along": 0.85,
+   "glass": true
+  },
+  {
+   "between": [
+    "gun_store",
+    "parking"
+   ],
+   "kind": "door",
+   "side": "north",
+   "along": 0.5
+  },
+  {
+   "between": [
+    "gun_store",
+    "parking"
+   ],
+   "kind": "window",
+   "side": "north",
+   "along": 0.15,
+   "glass": true
+  },
+  {
+   "between": [
+    "gun_store",
+    "parking"
+   ],
+   "kind": "window",
+   "side": "north",
+   "along": 0.85,
+   "glass": true
+  },
+  {
+   "between": [
+    "clothing",
+    "parking"
+   ],
+   "kind": "door",
+   "side": "north",
+   "along": 0.5
+  },
+  {
+   "between": [
+    "clothing",
+    "parking"
+   ],
+   "kind": "window",
+   "side": "north",
+   "along": 0.15,
+   "glass": true
+  },
+  {
+   "between": [
+    "clothing",
+    "parking"
+   ],
+   "kind": "window",
+   "side": "north",
+   "along": 0.85,
+   "glass": true
+  },
+  {
+   "between": [
+    "electronics",
+    "parking"
+   ],
+   "kind": "door",
+   "side": "north",
+   "along": 0.5
+  },
+  {
+   "between": [
+    "electronics",
+    "parking"
+   ],
+   "kind": "window",
+   "side": "north",
+   "along": 0.15,
+   "glass": true
+  },
+  {
+   "between": [
+    "electronics",
+    "parking"
+   ],
+   "kind": "window",
+   "side": "north",
+   "along": 0.85,
+   "glass": true
+  },
+  {
+   "between": [
+    "grocery",
+    "parking"
+   ],
+   "kind": "door",
+   "side": "west"
+  }
+ ],
+ "props": [
+  {
+   "model": "grocery_shelf",
+   "room": "grocery",
+   "at": [
+    -170,
+    -40
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "grocery_shelf",
+   "room": "grocery",
+   "at": [
+    -60,
+    -40
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "grocery_shelf",
+   "room": "grocery",
+   "at": [
+    50,
+    -40
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "grocery_shelf",
+   "room": "grocery",
+   "at": [
+    160,
+    -40
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "grocery_shelf",
+   "room": "grocery",
+   "at": [
+    -170,
+    -130
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "grocery_shelf",
+   "room": "grocery",
+   "at": [
+    -60,
+    -130
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "grocery_shelf",
+   "room": "grocery",
+   "at": [
+    50,
+    -130
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "grocery_shelf",
+   "room": "grocery",
+   "at": [
+    160,
+    -130
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "checkout_counter",
+   "room": "grocery",
+   "at": [
+    -160,
+    110
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "checkout_counter",
+   "room": "grocery",
+   "at": [
+    -40,
+    110
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "grocery_shelf",
+   "room": "corner_store",
+   "at": [
+    -70,
+    -120
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "grocery_shelf",
+   "room": "corner_store",
+   "at": [
+    40,
+    -120
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "fridge",
+   "room": "corner_store",
+   "at": [
+    95,
+    10
+   ],
+   "facing": "west"
+  },
+  {
+   "model": "fridge",
+   "room": "corner_store",
+   "at": [
+    95,
+    -55
+   ],
+   "facing": "west"
+  },
+  {
+   "model": "checkout_counter",
+   "room": "corner_store",
+   "at": [
+    -75,
+    90
+   ],
+   "facing": "east"
+  },
+  {
+   "model": "gun_case",
+   "room": "gun_store",
+   "at": [
+    -90,
+    -60
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "gun_case",
+   "room": "gun_store",
+   "at": [
+    60,
+    -60
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "gun_case",
+   "room": "gun_store",
+   "at": [
+    -90,
+    -150
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "checkout_counter",
+   "room": "gun_store",
+   "at": [
+    60,
+    90
+   ],
+   "facing": "west"
+  },
+  {
+   "model": "clothing_rack",
+   "room": "clothing",
+   "at": [
+    -100,
+    -40
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "clothing_rack",
+   "room": "clothing",
+   "at": [
+    20,
+    -40
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "clothing_rack",
+   "room": "clothing",
+   "at": [
+    -100,
+    -130
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "clothing_rack",
+   "room": "clothing",
+   "at": [
+    20,
+    -130
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "potted_plant",
+   "room": "clothing",
+   "at": [
+    130,
+    140
+   ]
+  },
+  {
+   "model": "checkout_counter",
+   "room": "clothing",
+   "at": [
+    100,
+    60
+   ],
+   "facing": "west"
+  },
+  {
+   "model": "electronics_shelf",
+   "room": "electronics",
+   "at": [
+    -120,
+    -120
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "electronics_shelf",
+   "room": "electronics",
+   "at": [
+    0,
+    -120
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "electronics_shelf",
+   "room": "electronics",
+   "at": [
+    120,
+    -120
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "tv_stand",
+   "room": "electronics",
+   "at": [
+    -100,
+    10
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "tv_stand",
+   "room": "electronics",
+   "at": [
+    20,
+    10
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "checkout_counter",
+   "room": "electronics",
+   "at": [
+    110,
+    100
+   ],
+   "facing": "west"
+  },
+  {
+   "model": "sedan",
+   "room": "parking",
+   "at": [
+    -600,
+    250
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "sedan",
+   "room": "parking",
+   "at": [
+    -200,
+    250
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "sedan",
+   "room": "parking",
+   "at": [
+    500,
+    260
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "bush",
+   "room": "parking",
+   "at": [
+    -950,
+    330
+   ]
+  },
+  {
+   "model": "bush",
+   "room": "parking",
+   "at": [
+    950,
+    330
+   ]
+  },
+  {
+   "model": "sign_grocery",
+   "room": "parking",
+   "at": [
+    -672.0,
+    88
+   ],
+   "z": 121,
+   "facing": "north"
+  },
+  {
+   "model": "sign_corner_store",
+   "room": "parking",
+   "at": [
+    -272.0,
+    88
+   ],
+   "z": 121,
+   "facing": "north"
+  },
+  {
+   "model": "sign_gun_store",
+   "room": "parking",
+   "at": [
+    16.0,
+    88
+   ],
+   "z": 121,
+   "facing": "north"
+  },
+  {
+   "model": "sign_clothing",
+   "room": "parking",
+   "at": [
+    336.0,
+    88
+   ],
+   "z": 121,
+   "facing": "north"
+  },
+  {
+   "model": "sign_electronics",
+   "room": "parking",
+   "at": [
+    688.0,
+    88
+   ],
+   "z": 121,
+   "facing": "north"
+  }
+ ],
+ "furniture": [
+  {
+   "box": [
+    192,
+    6,
+    28
+   ],
+   "room": "parking",
+   "at": [
+    -672.0,
+    84
+   ],
+   "z": 120,
+   "texture": "neon_green"
+  },
+  {
+   "box": [
+    192,
+    6,
+    28
+   ],
+   "room": "parking",
+   "at": [
+    -272.0,
+    84
+   ],
+   "z": 120,
+   "texture": "neon_red"
+  },
+  {
+   "box": [
+    192,
+    6,
+    28
+   ],
+   "room": "parking",
+   "at": [
+    16.0,
+    84
+   ],
+   "z": 120,
+   "texture": "neon_orange"
+  },
+  {
+   "box": [
+    192,
+    6,
+    28
+   ],
+   "room": "parking",
+   "at": [
+    336.0,
+    84
+   ],
+   "z": 120,
+   "texture": "neon_pink"
+  },
+  {
+   "box": [
+    192,
+    6,
+    28
+   ],
+   "room": "parking",
+   "at": [
+    688.0,
+    84
+   ],
+   "z": 120,
+   "texture": "neon_blue"
+  }
+ ],
+ "entities": [
+  {
+   "class": "info_player_start",
+   "room": "street",
+   "at": [
+    -600,
+    0
+   ],
+   "facing": "south"
+  }
+ ]
+}

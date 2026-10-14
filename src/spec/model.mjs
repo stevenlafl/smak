@@ -19,7 +19,7 @@ import { check } from "../check.mjs";
 import { readMdl, bones as bonesOf, sequences as sequencesOf, withTextures, addMesh, replaceMesh, inverse34, apply34, readSequence, replaceSequence, events as eventsOf, setEvents } from "../mdl.mjs";
 import { buildSoundSpec } from "./sound.mjs";
 import * as A from "../animate.mjs";
-import { posed } from "../render.mjs";
+import { posed, textMask } from "../render.mjs";
 import { meshOf } from "../mesh.mjs";
 import { putBody } from "../bodies.mjs";
 import { soundness } from "../sound.mjs";
@@ -55,7 +55,7 @@ const KINDS = {
   prefab: ["prefab", "spec", "file", "scale"],
 };
 /** The fields every part takes. */
-const COMMON = ["id", "kind", "material", "at", "attach", "rotate", "mirror", "repeat", "open", "loose", "bone", "span", "finish", "smooth", "note"];
+const COMMON = ["id", "kind", "material", "at", "attach", "rotate", "mirror", "repeat", "open", "loose", "bone", "span", "finish", "smooth", "print", "note"];
 /** The kinds that sit on another part's surface, and move with it. */
 const ON_SURFACE = new Set(["band", "boss", "ridge", "studs"]);
 /** The anchors every part has: the middles of the faces of its box, and its middle. */
@@ -428,6 +428,10 @@ function buildPart(part, M, S, zone, px, material, hostSurface, capZones = []) {
       ];
       faces.forEach((face, f) => {
         const cell = { x: zone.x + ((f % 3) * zone.w) / 3, y: zone.y + (Math.floor(f / 3) * zone.h) / 2, w: zone.w / 3, h: zone.h / 2 };
+        // words printed on a face: in the labels' letters, as large as the face's cell holds, in `ink`. A
+        // side face's picture runs up the face from its top row, so the letters are drawn turned over.
+        for (const print of [part.print ?? []].flat())
+          if (BOX_FACES[print.face ?? "front"] === f) paintWords(S, cell, print, material, px, f !== 1, f === 4 || f === 3);
         const pixel = [
           [cell.x, cell.y],
           [cell.x + cell.w, cell.y],
@@ -957,6 +961,29 @@ function atSpanLength(part, skeleton) {
     return { ...part, rings: part.rings.map((ring) => (Array.isArray(ring) ? [(ring[0] - s0) * k, ...ring.slice(1)] : { ...ring, s: (ring.s - s0) * k })) };
   }
   return part;
+}
+
+/** A box's faces by name, as the six cells of its zone are numbered. */
+const BOX_FACES = { bottom: 0, top: 1, right: 2, left: 3, back: 4, front: 5 };
+
+/**
+ * Words painted into one cell of a sheet: the labels' letters scaled to the cell (`size`, the share of its
+ * height they take, 0.6 unless told), centred, in `ink` ([r, g, b] 0 to 1) over the material as it was
+ * painted. `flip`: the cell's rows run up the face, so the letters go in turned over; `across`: its columns
+ * run to the left as the face is seen from outside (the back, the left), so they go in mirrored.
+ */
+function paintWords(S, cell, { text, ink = [0.05, 0.05, 0.05], size = 0.6 }, material, px, flip, across) {
+  const one = textMask(text, 1);
+  const k = Math.max(1, Math.floor(Math.min((cell.h * size) / one.height, (cell.w * 0.9) / one.width)));
+  const mask = textMask(text, k);
+  const x0 = (cell.w - mask.width) / 2;
+  const y0 = (cell.h - mask.height) / 2;
+  const under = zonePainter(material, cell, px);
+  S.zone(cell, (u, v) => {
+    const mx = Math.floor(across ? cell.w - 1 - u - x0 : u - x0);
+    const my = Math.floor(flip ? cell.h - 1 - v - y0 : v - y0);
+    return mask.at(mx, my) ? ink : under(u, v);
+  }, 0);
 }
 
 /** The size of a picture of its own for zones of these sizes: 256 square, or 512 by less for a long one. */

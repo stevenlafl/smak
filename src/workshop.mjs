@@ -223,7 +223,10 @@ export function rivet(x, y, cx, cy, rad) {
 /** A picture of `width` by `height` to paint zone by zone, all `ground` (a colour, 0 to 1) to begin with. */
 export function sheet(width, height, ground = [0.2, 0.18, 0.17]) {
   const rgb = new Uint8Array(width * height * 3);
-  const put = (px, py, c) => {
+  const put = (x, y, c) => {
+    // a whole pixel: a zone whose corner is not on one (a third of another) would write a channel off
+    const px = Math.floor(x);
+    const py = Math.floor(y);
     if (px < 0 || py < 0 || px >= width || py >= height) return;
     const i = (py * width + px) * 3;
     for (let k = 0; k < 3; k++) rgb[i + k] = Math.max(0, Math.min(255, c[k] * 255));

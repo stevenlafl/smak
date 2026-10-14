@@ -290,6 +290,25 @@ test("a model spec's smooth: a thin tube of four sides shaded round shares its n
   sure(/smooth: the angle in degrees/.test(validateModelSpec({ ...tube(), smooth: 400 }).errors.join()), "an angle over 180 is refused");
 });
 
+test("a model spec's print: words on a box's face, in their ink, over its material, the right way round", () => {
+  const spec = { spec: "smak.model/1", name: "sign.mdl", kind: "prop", finish: false, materials: { board: { base: "paint", tone: [0.9, 0.85, 0.6] } }, parts: [{ id: "sign", kind: "box", material: "board", size: [2, 40, 14], print: { text: "OPEN", face: "front", ink: [0.8, 0.05, 0.05] } }] };
+  const { mdl, report } = buildModelSpec(spec);
+  sure(report.ok, [...report.errors, ...report.faults].join("; "));
+  // the front face drawn: red letters on the cream board, and no other colour (a channel written off its
+  // pixel turned the board cyan before the sheet kept to whole pixels)
+  const front = smak.render(mdl, { seq: 0, yaw: 0, pitch: 0, width: 200, height: 80, light: false });
+  let red = 0;
+  let cream = 0;
+  let other = 0;
+  for (let i = 0; i < front.rgba.length; i += 4) {
+    const [r, g, b] = front.rgba.subarray(i, i + 3);
+    if (r > 150 && g < 60 && b < 60) red++;
+    else if (r > 180 && g > 170 && b > 100 && b < 190) cream++;
+    else if (!(Math.abs(r - 58) < 6 && Math.abs(g - 62) < 6 && Math.abs(b - 70) < 6)) other++;
+  }
+  sure(red > 40 && cream > 1000 && other < cream * 0.15, `red letters on cream: ${red} red, ${cream} cream, ${other} other`);
+});
+
 test("a model spec's finish: a box's edges worn lighter than its middle, its foot dirtier; none when told", () => {
   const spec = (finish, partFinish) => ({
     spec: "smak.model/1",
