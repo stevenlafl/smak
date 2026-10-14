@@ -69,7 +69,7 @@ const ON_SURFACE = new Set(["band", "boss", "ridge", "studs"]);
 /** The anchors every part has: the middles of the faces of its box, and its middle. */
 const BOX_ANCHORS = ["top", "bottom", "front", "back", "left", "right", "centre"];
 /** The fields a spec takes at its top. */
-const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "weapon", "finish", "smooth", "project", "budget", "contract", "floor", "note"];
+const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "weapon", "finish", "smooth", "project", "budget", "contract", "floor", "pose", "note"];
 /** A texture's side unless told; a kit's picture is made this much smaller (the kits paint at 1024 wide). */
 const SHEET_SIZE = 256;
 const KIT_SHRINK = 2;
@@ -142,6 +142,16 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
   finishErrors(spec.finish, "finish");
   if (spec.budget !== undefined && !(Number.isInteger(spec.budget) && spec.budget > 0)) errors.push("budget: the most triangles the model may have, a whole number");
   if (spec.floor !== undefined && !(typeof spec.floor === "number" && Number.isFinite(spec.floor))) errors.push("floor: where its feet stand, 0 for a monster (its origin at its feet) or -36 for a player (its origin the middle of its hull)");
+  if (spec.pose !== undefined) {
+    const keys = spec.pose?.keys;
+    if (!spec.base) errors.push("pose: a character's, on a base model's skeleton: give the spec a base");
+    if (!keys || typeof keys !== "object" || Array.isArray(keys) || !Object.keys(keys).length)
+      errors.push(`pose: { keys: { "<bone>": { turn: { x, y, z } } } }: degrees about the model's axes, as the bone stands in the first frame (a leg back: "Bip01 L Thigh": { turn: { y: 20 } })`);
+    else
+      for (const [bone, change] of Object.entries(keys))
+        if (!change?.turn || typeof change.turn !== "object" || !Object.values(change.turn).every(isNumber))
+          errors.push(`pose.keys.${bone}: { turn: { x, y, z } } in degrees`);
+  }
   if (spec.floor !== undefined && !spec.base) errors.push("floor: a character's, on a base model's skeleton: give the spec a base");
   for (const [where, value] of [["smooth", spec.smooth], ...(spec.parts ?? []).map((part, i) => [`parts[${i}] (${part?.id}).smooth`, part?.smooth])])
     if (value !== undefined && !(isNumber(value) && value >= 0 && value <= 180)) errors.push(`${where}: the angle in degrees (0 to 180) under which faces are shaded as one smooth surface`);
@@ -923,6 +933,18 @@ export function buildModelSpec(spec, { folder, prefabs = {}, games = [], readPic
       errors.push(`base: ${error.message}`);
       return { mdl: null, report };
     }
+    // the stance it is built in and judged in: the first animation's every frame turned by the pose's keys,
+    // about the model's axes as each bone stands there (its number, length and activity kept); the parts are
+    // then placed as the base stands in it
+    if (spec.pose?.keys) {
+      try {
+        skeleton = posedSkeleton(skeleton, spec.pose.keys);
+        report.facts.push(`pose: the first animation turned at ${Object.keys(spec.pose.keys).join(", ")}`);
+      } catch (error) {
+        errors.push(`pose: ${error.message}`);
+        return { mdl: null, report };
+      }
+    }
     // a bone named in another language of 3ds Max's Biped than the base's ("Bip01 Head" on a base whose head is
     // "Bip01 Testa") is that bone: the names are put in the base's own words before anything is built
     const names = [...skeleton.joints.keys()];
@@ -1472,6 +1494,28 @@ function skeletonOf(given, folder, games, refuse = []) {
 }
 
 /** The meshes (in model space, each corner with its bone's name) put into the base in place of its bodies. */
+/**
+ * The skeleton with its first animation turned by `keys` ({ bone: { turn } }, bones named in any Biped
+ * language), every frame and blend, and its joints worked out again in that stance.
+ */
+function posedSkeleton(skeleton, keys) {
+  const names = bonesOf(skeleton.src).map((bone) => bone.name);
+  const own = Object.fromEntries(Object.entries(keys).map(([bone, change]) => {
+    const found = boneIn(bone, names);
+    if (!found) throw new Error(`no bone ${bone} in the base: its bones are ${names.join(", ")}`);
+    return [found, { turn: change.turn }];
+  }));
+  const rig = A.rigOf(skeleton.src);
+  const seq = sequencesOf(skeleton.src)[0];
+  const blends = Array.from({ length: Math.max(1, seq.blends ?? 1) }, (_, b) =>
+    readSequence(skeleton.src, 0, b).frames.map((frame) => A.valuesOf(rig, A.turnedInPose(rig, A.poseOfValues(rig, frame), own))),
+  );
+  const src = replaceSequence(skeleton.src, 0, blends.length > 1 ? { blends } : { frames: blends[0] });
+  const matrices = posed(src, skeleton.pose).pose;
+  const joints = new Map(bonesOf(src).map((bone, i) => [bone.name, apply34(matrices[i], [0, 0, 0])]));
+  return { ...skeleton, src, joints };
+}
+
 /** Every animation's root bones moved `lift` units up, blend by blend: the whole model stands higher. */
 function liftRoot(src, lift) {
   const roots = bonesOf(src).map((bone, i) => (bone.parent < 0 ? i : -1)).filter((i) => i >= 0);

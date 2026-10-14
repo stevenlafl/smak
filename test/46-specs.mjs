@@ -222,6 +222,23 @@ test("a character spec: a place on a part laid along a limb is where the part we
   sure(capped.report.facts.some((f) => /floor: the base's feet are at 0; every animation lifted 10/.test(f)), capped.report.facts.join("; "));
   const low = Math.min(...smak.posed(capped.mdl, { seq: 0, frame: 0 }).pose.map((m) => m[2][3]));
   sure(Math.abs(low - 10) < 0.01, `the root at 10 after the lift: ${low}`);
+  // a pose: the limb turned a quarter about y in the first animation, and a part on its tip placed where the tip
+  // then is (along +x, not up z)
+  const turned = buildModelSpec(
+    {
+      spec: "smak.model/1",
+      name: "turned.mdl",
+      kind: "character",
+      base: { file: "limb.mdl" },
+      pose: { keys: { root: { turn: { y: 90 } } } },
+      parts: [{ id: "knob", kind: "box", size: [1, 1, 1], attach: { bone: "tip", at: "centre" } }],
+    },
+    { folder },
+  );
+  sure(turned.report.ok, [...turned.report.errors, ...turned.report.faults].join("; "));
+  const knob = turned.report.parts.knob;
+  const mid = knob.from.map((v, k) => (v + knob.to[k]) / 2);
+  sure(Math.abs(Math.abs(mid[0]) - 10) < 0.6 && Math.abs(mid[2]) < 0.6, `the tip's knob along x after the turn: ${mid.map((v) => v.toFixed(1))}`);
 });
 
 test("a superquadric: a rounded block and an egg at their sizes, a wrong round refused", () => {

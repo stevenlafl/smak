@@ -197,6 +197,12 @@ a part that comes apart in any of them is a fault (`in run2 frame 11: ... thumb_
 - `bone`: the bone a part placed by `at` hangs on (a rib built in the chest's space).
 - Left and right are given apart, each on its own side's bones; `mirror: "y"` of a part on a middle bone
   copies it across, and a mirrored part on an `L` bone hangs its copy on the `R` one.
+- `pose`: the stance it is built and judged in, when the original stands otherwise than the base:
+  `"pose": { "keys": { "Bip01 L Thigh": { "turn": { "y": 20 } }, "Bip01 R UpperArm": { "turn": { "y": -10 } } } }`,
+  degrees about the model's axes as each bone stands in the first frame (`y` over 0 swings a hanging limb back,
+  `x` over 0 out to the left). Every frame of the first animation is turned so (its number, length and
+  activity kept), and the parts are placed as the base then stands. Turn the walking plane's joints (hips,
+  knees, ankles, spine, upper arms, forearms) forward and back; a twist reads as wrong at once.
 - `floor`: where its feet stand. A player model's origin is the middle of its hull, so its feet are at -36; a
   monster's origin is its feet, at 0. A monster made on a player's skeleton (Gordon's) gives `"floor": 0`, and
   every animation is lifted so that it stands on the floor and not sunk to its hips; a player keeps -36.
