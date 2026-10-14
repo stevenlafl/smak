@@ -157,3 +157,15 @@ await testAsync("matchTextures: a texture seen dim is found first among others, 
   const answer = await toolsFor({ work }).find((tool) => tool.name === "info").call({ model: "mine.wad", like: "view.png", rect: [0, 0, 64, 64] });
   sure(/1\. bricks/i.test(answer[0].text) && answer[1]?.type === "image", answer[0].text);
 });
+
+await testAsync("the render tool: several models side by side, saved under the name asked", "render models save", async () => {
+  const work = join(tmp, "sheetsave");
+  mkdirSync(join(work, "models"), { recursive: true });
+  const { buildModelSpec: build } = await import("../src/spec/model.mjs");
+  for (const [name, size] of [["a", [8, 8, 8]], ["b", [4, 12, 6]]])
+    writeFileSync(join(work, "models", `${name}.mdl`), build({ spec: "smak.model/1", name: `${name}.mdl`, kind: "prop", parts: [{ id: "x", kind: "box", size }] }).mdl);
+  const answer = await toolsFor({ work }).find((tool) => tool.name === "render").call({ models: ["models/a.mdl", "models/b.mdl"], save: "pictures/both.png" });
+  sure(/2 models side by side.*saved: work:pictures\/both\.png/.test(answer[0].text), answer[0].text);
+  const saved = smak.unpng(readFileSync(join(work, "pictures", "both.png")));
+  sure(saved.width >= 600, `the sheet at full size: ${saved.width}`);
+});

@@ -642,7 +642,29 @@ function renderMap(folders, file, args) {
  * "strip" (an animation's frames) or "uv" (a texture with the triangles that wear it). `size` is the
  * picture's longer side in pixels.
  */
+/** A picture written into the work folder under the name asked (`save`), its folders made: the bytes back. */
+function saved(folders, args, bytes) {
+  if (!args.save) return null;
+  if (!/\.png$/i.test(args.save)) throw new Error("save: a .png file's name in the work folder (pictures/props.png)");
+  const file = pathOf(folders, args.save, { write: true });
+  mkdirSync(dirname(file), { recursive: true });
+  writeFileSync(file, bytes);
+  return `saved: work:${file.slice(folders.work.length + 1)}`;
+}
+
 function render(folders, args) {
+  // several models side by side, each from the same quarter, named under it: a sheet to show a set
+  if (Array.isArray(args.models) && args.models.length) {
+    const size = Math.min(PICTURE_MOST, Math.max(64, Math.round(args.size ?? 320)));
+    const shots = args.models.map((name) => {
+      const { src } = readModel(folders, name);
+      return smak.render(src, { seq: seqOf(src, args.seq), frame: 0, yaw: args.yaw ?? 35, pitch: args.pitch ?? 20, width: size, height: size });
+    });
+    const sheet = smak.tile(shots, Math.min(args.models.length, 4), args.models.map((name) => basename(name).replace(/\.mdl$/i, "")));
+    const full = smak.png(sheet.width, sheet.height, sheet.rgba);
+    const said = saved(folders, args, full);
+    return [text(`${args.models.length} models side by side; ${sheet.width}x${sheet.height}${said ? `; ${said}` : ""}`), image(pictureWithin(full))];
+  }
   const named = pathOf(folders, args.model);
   if (isCompiledMap(named) || isMapSource(named)) return renderMap(folders, named, args);
   const { src, file } = readModel(folders, args.model);
@@ -660,9 +682,11 @@ function render(folders, args) {
     kind === "uv"
       ? `${picture.texture.name} ${picture.texture.width}x${picture.texture.height} x${picture.scale}, ${picture.triangles} triangles of ${picture.meshes} meshes`
       : `body ${pose.body}, ${pose.seq === null ? "at rest" : `animation ${pose.seq}${kind === "strip" ? "" : ` frame ${pose.frame}`}`}`;
-  const bytes = pictureWithin(smak.png(picture.width, picture.height, picture.rgba));
+  const full = smak.png(picture.width, picture.height, picture.rgba);
+  const said = saved(folders, args, full);
+  const bytes = pictureWithin(full);
   const drawn = smak.unpng(bytes);
-  return [text(`${basename(file)} ${kind}: ${shown}; ${drawn.width}x${drawn.height}`), image(bytes)];
+  return [text(`${basename(file)} ${kind}: ${shown}; ${drawn.width}x${drawn.height}${said ? `; ${said}` : ""}`), image(bytes)];
 }
 
 // ── build ──────────────────────────────────────────────────────────────────
@@ -1066,6 +1090,8 @@ export function toolsFor(folders, { allowRun = true } = {}) {
       inputSchema: object(
         {
           model: MODEL,
+          models: { type: "array", items: { type: "string" }, description: "several models side by side, in place of model" },
+          save: { type: "string", description: "also write the picture to the work folder under this .png name" },
           kind: {
             type: "string",
             enum: [...Object.keys(KINDS), "plan", "views", "section", "storeys", "openings"],
@@ -1098,7 +1124,7 @@ export function toolsFor(folders, { allowRun = true } = {}) {
             description: `longer side in px: ${SIZE_ONE}, sheet and strip ${SIZE_SEVERAL}; ${PICTURE_MOST} at most`,
           },
         },
-        ["model"],
+        [],
       ),
       call: (args) => render(folders, args),
     },
