@@ -202,6 +202,24 @@ export function closeCall(settled) {
   return raisable > 0 && settled.total + raisable >= PASS_SHARE * settled.of;
 }
 
+/** Judges' answers as one: each item the higher score of those given, with that answer's reason. */
+function betterOf(answers) {
+  const parsed = answers.map((a) => {
+    try {
+      return JSON.parse(a.slice(a.indexOf("{"), a.lastIndexOf("}") + 1));
+    } catch {
+      return null;
+    }
+  }).filter(Boolean);
+  if (!parsed.length) return answers[0];
+  const out = {};
+  for (const item of MODEL_ITEMS) {
+    const best = parsed.map((p) => p[item]).filter(Boolean).sort((a, b) => Number(b.score) - Number(a.score))[0];
+    if (best) out[item] = best;
+  }
+  return JSON.stringify(out);
+}
+
 export async function judgeModel(model, leg, copyFile, { decoy } = {}) {
   const original = readModel(join(GAME, model.file));
   const copy = readModel(copyFile);
@@ -216,8 +234,11 @@ export async function judgeModel(model, leg, copyFile, { decoy } = {}) {
   const line = await lineup(join(dir, "lineup"), copy, model.file);
   const prompt = judgePrompt("model", dir, measured);
   const extra = { M6: line.picked === line.right ? 2 : 1 };
-  const r = await runJudge({ read: dir, hours: 0.5, prompt });
-  let settled = settle("model", r.answer, caps, extra);
+  // two readings, each item scored the better of the two: Haiku, given an original against itself, docks surface
+  // detail it made up about half the time (rubric, the judge's control) but a fault that is there shows in both
+  const readings = await Promise.all([prompt, `${prompt}\n\n(Second reading.)`].map((p) => runJudge({ read: dir, hours: 0.5, prompt: p })));
+  let settled = settle("model", betterOf(readings.map((r) => r.answer)), caps, extra);
+  settled.readings = readings.map((r) => settle("model", r.answer, caps, extra)).map((x) => (x.scores ? Object.fromEntries(Object.entries(x.scores).map(([k, v]) => [k, v.judge])) : x.error));
   // a close call on Haiku goes to Opus (calibration-haiku.md: Haiku stood a point under Opus on these, never over)
   if (closeCall(settled)) {
     const second = await runJudge({ read: dir, hours: 0.5, prompt, model: "opus" });

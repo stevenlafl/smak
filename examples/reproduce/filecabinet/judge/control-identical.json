@@ -114,52 +114,74 @@
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "All six views (front, left, back, right, top, below) and all four close angles have the same outline in both pictures. The harness measures silhouette overlap at 1.0 in all three axis pairs, and no part sticks out or is missing."
+   "reason": "All six views (front, left, back, right, top, below) and all four angles have the same outline in both pictures, and the harness's silhouette overlap is 1 in every view. The plinth at the base and the top's edge sit in the same places in both."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured size is 28.8 x 22.6 x 62.4 for both, with offShare 0 on each axis, so all three dimensions are well within 10%."
+   "reason": "Size is 28.8 x 22.6 x 62.4 in both, with offShare 0 on all three axes, so each dimension is well within 10%."
   },
   "M3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Original parts: three drawer fronts stacked in the upper body, each with a bevelled frame, a recessed pull handle at centre, a top lip, and a plinth along the base. The reproduction has all of these in the same places and shapes: three drawers, three pulls, the bevels, the plinth and the top edge. Nothing is missing or misplaced in the front or angle views."
+   "reason": "Original parts, down to the small ones: three drawer fronts, three recessed pull handles (one per drawer), a raised bevelled rim around each drawer, a thin plinth strip along the base, and a bevelled top edge. Each is present in the reproduction, in the same count and place. There are no round parts or claws."
   },
   "M4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured mean colour difference is 0 in all ten views, and the two pictures show the same grey painted metal throughout."
+   "reason": "Mean colour difference is 0 in every view, with all shared regions matched (deltaE 0 across the ten views). The steel-grey painted metal and the darker recesses of the handles match."
   },
   "M5": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The original's side faces carry visible vertical streaks and brushed or grain-like marks, clearest in the front-left and back-left views on the left face. The reproduction's sides are smoother and lack those streaks. The drawer bevels and handle detail are close to the original's."
+   "score": 2,
+   "reason": "Surface detail is the same in the picture: the mottled paint, the drawer-edge highlights, the plinth's lighter lip, and the streaks on the back-left face all sit in the same places at the same sharpness."
   },
   "M6": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "At this size the silhouette, colour, drawers and handles look like the original. Up close, the side panels show the original's streaked grain in the front-left and back-left views and the reproduction's sides are visibly smoother, so a player comparing the two side by side would likely notice. The line-up is not run here."
+   "score": 2,
+   "reason": "Side by side at the same scale, the two pictures are indistinguishable in every view. A player would take the reproduction for the original. (Line-up not judged here.)"
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The drawers are on the front in both, the cabinet stands upright, and the base sits at the origin the same way in the front, side and below views."
+   "reason": "The drawer front faces the front view, the cabinet stands upright on its base, and the plinth sits on the origin as in the original (front-left and front-right views agree)."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both have 14 triangles, which is well under twice the original's. The check reports no errors, and the silhouettes show nothing open or floating."
+   "reason": "Measured triangles are 14 for both, well under twice the original's. checkErrors is empty, so SMAK's check passes. Nothing is reported as open, inside out, or floating in the views."
   }
  },
- "total": 14,
+ "total": 16,
  "of": 16,
- "passes": false
+ "passes": true,
+ "readings": [
+  {
+   "M1": 2,
+   "M2": 2,
+   "M3": 2,
+   "M4": 2,
+   "M5": 2,
+   "M6": 2,
+   "M7": 2,
+   "M8": 2
+  },
+  {
+   "M1": 2,
+   "M2": 2,
+   "M3": 2,
+   "M4": 2,
+   "M5": 2,
+   "M6": 2,
+   "M7": 2,
+   "M8": 2
+  }
+ ]
 }

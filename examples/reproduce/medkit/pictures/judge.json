@@ -111,55 +111,77 @@
  },
  "scores": {
   "M1": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Overall outline matches the original in all six views (measured overlap 0.988 to 0.99), but the strap is torn in several views. In the front view (about x 455-695, y 185-222) the strap has ragged gaps where the background shows through, and the back view (about x 455-700, y 545-607) has black triangular holes in the box's rear face around x 575-640, y 575-605. A part is visibly missing or broken in those places."
+   "score": 2,
+   "reason": "Silhouette overlap is 0.99 or better in all six views and the four close angles show the same outline. The strap's torn edges are inside the outline and do not change the silhouette, so no part sticks out or is missing at the outline level."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured size is 34.6 x 26.4 x 6.8 for the original and 34.6 x 26.3 x 6.8 for the reproduction, an offset of 0.2% to 0.4% on each axis, well within 10%."
+   "reason": "Measured size 34.6 x 26.3 x 6.8 against the original's 34.6 x 26.4 x 6.8, all within 10%."
   },
   "M3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Box, control panel, red cross, arrows and strap are all present, but the strap is not a continuous band. In the front-left and back-left angle views (about x 420-730, y 120-260 and x 450-735, y 520-660) it is fragmented with gaps, and the front-left and front-right views show the strap starting and stopping in the wrong places. The panel also reads differently in the front view: a green screen in the reproduction where the original shows a grey, recessed panel."
+   "reason": "The original's parts are the octagonal body, the top red-cross label, the front panel with screen, gauges and red and green lights, the side dials (two per side in the left and right views), and one continuous strap loop. The body, panel and dials are present and placed. The strap is fragmented in the reproduction (gaps in the front-left, front-right and back-left views, a missing chunk in the right view), and the back view shows dark triangular holes in the body's lower right face. Those are wrong shapes for the strap and body."
   },
   "M4": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Mean colour difference is 10, under the 15 line, and the white box and brown check strap match in tone. But the front view differs by 13.1 and the strap shows background colour through its gaps (front, back and front-right views), so the strap region is not the original's material everywhere. The front panel's screen colour also differs (green against the original's grey)."
+   "score": 2,
+   "reason": "The white body, grey-silver panels, dark screen and red markings match the original. The strap keeps the same grey-brown checker material. The measured colour difference is 10 on average, and the worst view is 14.1, under 15. The white patches on the strap read as missing strap faces showing the body behind, which is geometry (charged to M1 and M3), not colour."
   },
   "M5": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The red cross, the 'FIRST AID' lettering, the red side arrows and the panel's lights are in their places and at a similar sharpness. The strap's check pattern is torn where it should be whole, and the front panel's detail differs from the original's, so the surface detail is not fully there."
+   "score": 2,
+   "reason": "The 'FIRST AID' lettering, the red cross on top, the red arrows and small red text on the sides, and the top panel's dark gauge and screen detail are all in their places at similar sharpness."
   },
   "M6": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "At this scale the item reads as the same first-aid kit, but the torn and holed strap in the front, back and angle views would give the reproduction away side by side with the original. A player would probably notice the strap is wrong before anything else."
+   "reason": "Side by side at game size the body reads as the original, but the torn and holed strap in the four angled views and the dark holes in the back view show it is a reproduction. A player would see the strap damage at normal viewing distance."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The front is the original's front (the panel and cross face the same way in the front and top views), it is upright, and its placement and outline match in every view. The reproduction's underside is closed, where the original's below view is blank, but that does not change how it stands."
+   "reason": "The front panel faces the front in both models, the body is upright, and both sit at the same height in the front and side views, so they stand on the origin the same way."
   },
   "M8": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "SMAK's check reports no errors and the triangle count is 156 against the original's 99, well within twice. But the back view shows black holes in the box's rear face (about x 575-640, y 575-605) and the back-left view shows another (about x 670-715, y 610-640), and the strap is open in several places. Visibly open and inside-out faces fail the 'nothing open' requirement."
+   "reason": "SMAK's check reports no errors and the triangle count (156 against 99) is under twice the original's. But the strap has open, missing faces, and the back face has triangular holes, so 'nothing open' fails. The underside view also shows a closed plate where the original shows nothing, which I did not charge because it is unclear whether the original's underside is open."
   }
  },
- "total": 10,
+ "total": 13,
  "of": 16,
- "passes": false
+ "passes": false,
+ "readings": [
+  {
+   "M1": 1,
+   "M2": 2,
+   "M3": 1,
+   "M4": 2,
+   "M5": 2,
+   "M6": 1,
+   "M7": 2,
+   "M8": 1
+  },
+  {
+   "M1": 2,
+   "M2": 2,
+   "M3": 1,
+   "M4": 1,
+   "M5": 1,
+   "M6": 1,
+   "M7": 2,
+   "M8": 1
+  }
+ ]
 }

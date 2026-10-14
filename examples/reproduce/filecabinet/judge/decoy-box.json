@@ -114,52 +114,74 @@
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Each view's outline is a plain rectangle that matches the original's overall bounding box (measured overlap 1.0 in all three axis pairs), so the outline is close. But the original's silhouette has a base plinth at the bottom, a slight top bevel, and the drawer fronts stand proud of the carcass. The reproduction has none of those, so the outline is right only at the bounding-box level."
+   "reason": "Overall outline matches in all six views (measured overlap 1, and the box is the same width and height as the original). But the original's plinth at the base sticks out a little past the cabinet body in the front, left, back and right views and in the front-left and back-right angles, and the box has no plinth step. The outline is clearly off at the base."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured size is 28.8 x 22.6 x 62.4 for both original and reproduction, with zero offset share on every axis, so each dimension is well within 10%."
+   "reason": "Size is 28.8 x 22.6 x 62.4 on both, with 0% off in each axis (measured)."
   },
   "M3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The original has three drawers, each with a recessed front and a black pull handle, plus a plinth. The reproduction is one solid box with no drawers, no handles and no plinth. In the front view (compare-sides.png, top left) the drawer fronts and handles are simply absent."
+   "reason": "Parts missing. The original's front has three drawers, each with a recessed frame and a black drawer pull (three handles in total), plus a plinth at the base. The reproduction is one plain box with none of these: no drawers, no handles, no plinth. The front view and both front angles show this most clearly."
   },
   "M4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The mean colour difference is 13.9, under 15 on average, but per view it runs over 15 in front (16.7), top (20.8) and the front-left and front-right views (14.7). The original's drawer faces are darker recessed panels and its handles are near-black; the reproduction is one uniform mid-grey with no regions to match. The material is painted metal in both, but the front has no separate drawer or handle material."
+   "reason": "The body grey is close (measured mean delta E 13.9, under 15). But the original's black drawer pulls and darker drawer recesses have no matching region in the reproduction, and the reproduction's top is visibly lighter than the original's top (top delta E 20.8)."
   },
   "M5": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The original's drawer outlines, recessed panel edges, handle shapes and the darker wear at the base and top are all missing. The reproduction shows only a blotchy grey texture with a bright edge line along the corners."
+   "reason": "The original's drawer seams and recessed panel lines, the drawer frames and the vertical shading of the left and right sides are absent. The reproduction has only an even mottled texture with no lines in the original's places."
   },
   "M6": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Side by side, the reproduction reads as a plain grey box, not a filing cabinet. The front-left and front-right pictures (compare-angles.png) show the drawers and handles that a player would see at once; the reproduction has none of them."
+   "reason": "Side by side, the plain flat-faced box is plainly not the original filing cabinet. Its drawers, pulls and plinth are missing in every close view."
   },
   "M7": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The reproduction is upright and sits on its base, matching the original's footprint. But it has no front: there are no drawers on the face the original shows as its front, so the front cannot be identified as the original's."
+   "reason": "It stands upright on its base, the same height and footprint as the original. But there is no front to match: nothing marks the drawer face, so the front cannot be the original's front."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The harness check reports no errors, the reproduction has 12 triangles against the original's 14 (under the two-times limit), and the box looks closed, upright and grounded in every view. Nothing is open, inside out or floating in the pictures."
+   "reason": "The SMAK check reports no errors. It has 12 triangles against the original's 14, well under twice. It is a closed box with nothing open, inside out or floating."
   }
  },
  "total": 7,
  "of": 16,
- "passes": false
+ "passes": false,
+ "readings": [
+  {
+   "M1": 1,
+   "M2": 2,
+   "M3": 0,
+   "M4": 1,
+   "M5": 0,
+   "M6": 0,
+   "M7": 1,
+   "M8": 2
+  },
+  {
+   "M1": 1,
+   "M2": 2,
+   "M3": 0,
+   "M4": 1,
+   "M5": 0,
+   "M6": 0,
+   "M7": 1,
+   "M8": 2
+  }
+ ]
 }

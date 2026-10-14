@@ -106,7 +106,7 @@
    "I": "models/headcrab.mdl",
    "J": "models/mbarrel.mdl"
   },
-  "answer": "B",
+  "answer": "**B**",
   "ended": "success"
  },
  "scores": {
@@ -114,52 +114,74 @@
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Measured silhouette overlap is 0.988 to 0.999 in every view and the body outline matches, but the top works differ in outline. In left and right the original's yellow-striped cap is a tall cylinder above the grey top ring, and the reproduction's is a flatter sloped slab. In front and front-left the original's angled yellow tab rises at the top-left, and the reproduction's is shorter and flatter. In front-right and back-left the reproduction's top rim shows ragged white edges that the original does not have."
+   "reason": "Overall outlines match (measured overlap 0.988 to 0.999 in every view, and the body is the same octagonal prism). The top assembly's outline differs: the yellow striped cap sits at a different tilt and height. In the left and right views it is centred and upright in the original but leans off-centre in the reproduction, and in the front-right angle the original's cap stands up while the reproduction's lies flatter, so the outline at the top is wrong."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured size is 10.3 x 10.3 x 18.4 for both, an offset share of 0 to 0.001 on each axis, well inside 10%."
+   "reason": "Size matches exactly: 10.3 x 10.3 x 18.4 for both, with an off-share of 0.001 on the width."
   },
   "M3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Parts are present, but the top assembly's yellow-striped cap is a different shape in the reproduction: a flat tilted slab in place of the original's tall striped cylinder (left, right, front-left views). The angled yellow tab on the top-left of the front view is not the original's form. The grey top drum and the white side boxes, teal panels, hazard band and bottom yellow block with teal blade are in place. A part with the wrong shape caps M3 at 1."
+   "reason": "The parts are present: octagonal body, two side panels, four corner lights on the top rim, a central front and back light, three green screens per side, the hazard band, the grey gear cap and the yellow cap. The yellow cap's shape is wrong. In the original it is a flat-faced striped block with square ends; in the reproduction it is a rounded, bent cylinder with a curved top (back view, right view, front-right angle). A wrong-shaped component caps M3 at 1."
   },
   "M4": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Measured mean delta E is 7.1 and under 15, so the regions are close. The teal glow panels read lighter and whiter at their centres in every reproduction view than the original's more saturated green. The top's yellow stripes are a paler, flatter yellow. Clearly off in those regions, though the materials are right."
+   "score": 2,
+   "reason": "Measured colour difference inside the shared outline is 7.1 mean (CIE76), well under 15, and every view is 8.4 or lower. Metal is grey-beige, the hazard stripes are yellow, the screens are green, and the light indicators are red in both. The screen centres are paler in the reproduction, but that is glow, which M5 covers."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The hazard band stripes, teal panel grain and rivet detail are roughly in place. The reproduction's top rim has ragged white fuzz (front-right, back-left, back-right) and softer, blockier panel edges than the original's sharp panel lines and bevels."
+   "reason": "The hazard stripes, panel lines and the mottled screen texture are in place. But the reproduction's top rim shows a fuzzy, noisy white smear along its edge (front-right and back-right angles), which the original does not have, and its screen centres are washed out and less mottled than the original's glow."
   },
   "M6": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "At the size the game shows it the body and glow pass, but the top assembly is visibly different in the angle views (the flattened striped cap and the ragged white rim artifacts). A player who knows the original would notice the top at a glance, so it is not taken for the original."
+   "reason": "Side by side at this size, the body reads as the original, but the top cap is visibly a different shape and angle (front-right and back-right), and the fuzzy rim is visible even at this scale. A player would likely notice the difference on the top of the battery."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The front (the red lamp and the large teal panel face) is in the same place as the original's, the prop stands upright, and its base sits on the origin like the original's bevelled bottom."
+   "reason": "The front is the original's front in the front view (centre light above the screen, side panels on either side, hazard band below), it stands upright on the same base, and the underside matches."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The harness reports no check errors. The reproduction has 88 triangles against the original's 116, under the 2x limit. The below view shows a closed dark base like the original's, and no open or inside-out faces are visible."
+   "reason": "SMAK checkErrors is empty. The reproduction has 88 triangles against the original's 116, well under twice. Its underside shows the same open bottom ring as the original, with nothing floating or inside out in these views."
   }
  },
- "total": 11,
+ "total": 12,
  "of": 16,
- "passes": false
+ "passes": false,
+ "readings": [
+  {
+   "M1": 1,
+   "M2": 2,
+   "M3": 1,
+   "M4": 2,
+   "M5": 1,
+   "M6": 1,
+   "M7": 2,
+   "M8": 2
+  },
+  {
+   "M1": 1,
+   "M2": 2,
+   "M3": 1,
+   "M4": 2,
+   "M5": 1,
+   "M6": 1,
+   "M7": 2,
+   "M8": 2
+  }
+ ]
 }

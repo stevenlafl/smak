@@ -259,4 +259,9 @@ walk test, not the game.
   (`touched`): Haiku gave the battery and the headcrab 16 every time and never docked a shape item, but took a
   point off the filing cabinet's surface detail in four runs of six and failed it once (14, M6). A single 1 on
   M5 or M6 from Haiku is therefore not yet proof of a fault.
+- **2026-10-14, later: two readings for a model.** Each model is judged twice by Haiku and each item takes the
+  better of the two scores, with that reading's reason. On the control (an original against itself, one pixel
+  touched) one reading had docked surface detail in four runs of six; with two readings, six runs of six scored
+  16 of 16. Every decoy still fails (the filing cabinet's box, the one judged, at 7 of 16). A fault that is there
+  shows in both readings; one that a reading made up seldom does.
 
