@@ -1000,6 +1000,14 @@ export function buildModelSpec(spec, { folder, prefabs = {}, games = [], readPic
   if (spec.budget && triangles > spec.budget) report.faults.push(`over budget: ${budgetLine}`);
   else if (!spec.budget && kind === "prop" && triangles > PROP_BUDGET) warnings.push(`${budgetLine}: three quarters of Half-Life's props have fewer than ${PROP_BUDGET}; give the spec a budget, and paint what lies on a surface`);
   else report.facts.push(budgetLine);
+  // a character's: the body it takes the place of (its base's own), which a copy is judged against twice of
+  if (kind === "character" && skeleton && !spec.budget) {
+    const info = readMdl(skeleton.src);
+    const own = info.bodyparts[skeleton.bodypart].models[0]?.meshes.reduce((n, m) => n + m.numtris, 0) ?? 0;
+    if (own && triangles > 2 * own)
+      warnings.push(`${triangles} triangles, over twice the ${own} of the base's own body: the most in ${heaviest}. Paint what lies on the surface (eyes, buttons, seams, pockets) and give round parts fewer sides`);
+    else if (own) report.facts.push(`the base's own body is ${own} triangles`);
+  }
   // what Half-Life's own props of this size spend: a judge holds a copy to twice its original's triangles, and an
   // original of this size most often has the median
   if (kind === "prop") {
