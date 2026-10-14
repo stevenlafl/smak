@@ -224,6 +224,20 @@ test("a character spec: a place on a part laid along a limb is where the part we
   sure(Math.abs(low - 10) < 0.01, `the root at 10 after the lift: ${low}`);
 });
 
+test("a superquadric: a rounded block and an egg at their sizes, a wrong round refused", () => {
+  const { mdl, report } = buildModelSpec({ spec: "smak.model/1", name: "sq.mdl", kind: "prop", allow: { floating: ["egg"] }, parts: [
+    { id: "boot", kind: "superquadric", size: [12, 5, 4], round: [0.3, 0.5], at: [0, 0, 0] },
+    { id: "egg", kind: "superquadric", size: [6, 6, 8], round: [1, 1], at: [0, 12, 0] },
+  ] });
+  sure(report.ok, [...report.errors, ...report.faults].join("; "));
+  const boot = report.parts.boot;
+  const extent = boot.to.map((v, k) => v - boot.from[k]);
+  sure(Math.abs(extent[0] - 12) < 0.3 && Math.abs(extent[1] - 5) < 0.3 && Math.abs(extent[2] - 4) < 0.05, `the boot ${JSON.stringify(boot)}`);
+  sure(smak.check(mdl).errors.length === 0);
+  const bad = validateModelSpec({ spec: "smak.model/1", name: "x.mdl", kind: "prop", parts: [{ id: "a", kind: "superquadric", size: [1, 1, 1], round: [0, 3] }] });
+  sure(bad.errors.some((e) => /round/.test(e)), bad.errors.join("; "));
+});
+
 test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ files, the gloved hands kept", () => {
   // a stand-in for a game's files: a first-person model of a glove and a stick, and a world one of the stick
   const meshOn = (build, name) => {

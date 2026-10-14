@@ -48,6 +48,7 @@ const KINDS = {
   box: ["size", "panels"],
   cylinder: ["radius", "height", "sides", "top"],
   sphere: ["radius", "sides"],
+  superquadric: ["size", "round", "sides"],
   turn: ["rings", "caps", "sides", "lining", "axis"],
   tube: ["path", "sides", "caps"],
   leaf: ["width", "height", "rows", "bend"],
@@ -242,7 +243,7 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
     }
     // marks: painted on a turned part's surface, as a ridge is built on it
     if (part.marks !== undefined) {
-      if (!["turn", "cylinder", "sphere", "tube"].includes(part.kind))
+      if (!["turn", "cylinder", "sphere", "superquadric", "tube"].includes(part.kind))
         errors.push(`${label}.marks: marks are painted on a turned part (turn, cylinder, sphere or tube); a box's words are its print`);
       else if (!Array.isArray(part.marks)) errors.push(`${label}.marks: a list of { path, width, material, ends }`);
       else
@@ -262,6 +263,12 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
         });
     }
     switch (part.kind) {
+      case "superquadric":
+        if (!isPoint(part.size) || part.size.some((v) => v <= 0))
+          errors.push(`${label}.size: [x, y, z], three numbers over 0 (its length, width and height)`);
+        if (part.round !== undefined && !(Array.isArray(part.round) && part.round.length === 2 && part.round.every((v) => isNumber(v) && v >= 0.05 && v <= 2)))
+          errors.push(`${label}.round: [up, round], each 0.05 to 2: how its outline turns from top to bottom and round its middle (0.1 a box's corners, 0.5 rounded, 1 an egg, 2 a diamond)`);
+        break;
       case "box":
         if (!isPoint(part.size) || part.size.some((v) => v <= 0))
           errors.push(`${label}.size: [x, y, z], three numbers over 0 (its length along x, its width along y, its height)`);
@@ -309,7 +316,7 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
         }
         before(part.on.part, "on.part");
         const host = spec.parts[seen.get(part.on.part)];
-        if (host && !["turn", "cylinder", "tube", "sphere"].includes(host.kind))
+        if (host && !["turn", "cylinder", "tube", "sphere", "superquadric"].includes(host.kind))
           errors.push(`${label}.on.part: a ${part.kind} sits on a turned part (turn, cylinder, sphere or tube); ${part.on.part} is a ${host.kind}`);
         if (part.kind === "ridge" || part.kind === "studs") {
           if (!Array.isArray(part.on.path) || part.on.path.length < 2)
@@ -422,6 +429,23 @@ function turnedOf(part) {
     });
     return { rings, caps: [false, false], sides };
   }
+  if (part.kind === "superquadric") {
+    // Barr's superquadric (1981) as rings up its height: each ring a superellipse of the part's width and length,
+    // scaled by how far up it is. `round` [up, round]: 0.1 a box with its corners eased, 1 an ellipsoid
+    const [e1, e2] = part.round ?? [0.3, 0.3];
+    const [X, Y, Z] = part.size;
+    const spow = (v, e) => Math.sign(v) * Math.abs(v) ** e;
+    const count = Math.max(4, Math.round(sides / 2));
+    const rings = Array.from({ length: count + 1 }, (_, i) => {
+      const v = -Math.PI / 2 + (Math.PI * i) / count;
+      const k = Math.abs(Math.cos(v)) < 1e-9 ? 0 : spow(Math.cos(v), e1);
+      const s = (Z / 2) * (1 + spow(Math.sin(v), e1));
+      // the superellipse's radius at an angle round the part's axis: |cos/a|^(2/e) + |sin/b|^(2/e) = r^(-2/e)
+      const r = k === 0 ? 0 : (angle) => k * (Math.abs(Math.cos(angle) / (X / 2)) ** (2 / e2) + Math.abs(Math.sin(angle) / (Y / 2)) ** (2 / e2)) ** (-e2 / 2);
+      return { s, r };
+    });
+    return { rings, caps: [false, false], sides };
+  }
   return { rings: part.rings, caps: part.caps ?? [true, true], sides };
 }
 /** The largest radius of a turned part's rings. */
@@ -444,6 +468,10 @@ function zoneSizeOf(part, hostOf) {
     case "box": {
       const [x, y, z] = part.size;
       return [2 * (x + y), Math.max(x, y) + z];
+    }
+    case "superquadric": {
+      const [x, y, z] = part.size;
+      return [Math.max(1, z), Math.max(1, 2 * (x + y))];
     }
     case "cylinder":
     case "sphere":
@@ -483,7 +511,7 @@ function zoneSizeOf(part, hostOf) {
  */
 function buildPart(part, M, S, zone, px, material, hostSurface, capZones = []) {
   for (const capZone of capZones) if (capZone) S.zone(capZone, zonePainter(material, capZone, px), 2);
-  const painterRound = ["turn", "cylinder", "sphere", "tube"].includes(part.kind) ? "v" : null;
+  const painterRound = ["turn", "cylinder", "sphere", "superquadric", "tube"].includes(part.kind) ? "v" : null;
   S.zone(zone, zonePainter(material, zone, px, { round: painterRound }), 2);
   switch (part.kind) {
     case "box": {
@@ -520,6 +548,7 @@ function buildPart(part, M, S, zone, px, material, hostSurface, capZones = []) {
     }
     case "cylinder":
     case "sphere":
+    case "superquadric":
     case "turn": {
       const { rings, caps, sides } = turnedOf(part);
       const at = AXES[part.axis ?? "z"];
@@ -931,7 +960,7 @@ export function buildModelSpec(spec, { folder, prefabs = {}, games = [], readPic
   // a round part (turn, cylinder, sphere, tube) is shaded smooth across its own sides whatever their count:
   // an 8-sided one's faces meet at 45 degrees, over the 40 a flat part creases at, and shaded flat it pushed
   // builders to 16 sides; under 90 degrees, so its caps keep their edge (research/repeated-failures.md, 5)
-  const ROUND = { turn: 16, cylinder: 16, sphere: 16, tube: 8 };
+  const ROUND = { turn: 16, cylinder: 16, sphere: 16, superquadric: 16, tube: 8 };
   const roundAngle = (part) => {
     const sides = part.sides ?? ROUND[part.kind];
     return ROUND[part.kind] && sides >= 5 ? Math.min(85, 360 / sides + 5) : undefined;
