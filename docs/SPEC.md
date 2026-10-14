@@ -392,6 +392,40 @@ drawn wearing them: textures of the same names stand in for the game's, the way 
 and the report names the textures the map wears that the .wad does not have. `render` takes `wad` to draw any
 map wearing one.
 
+## A sprite
+
+A sprite (`.spr`): the flat picture the game turns to the eye, a torch's flame, a glow, an explosion, sparks,
+a beam. Made of layers of effects by rule, quantised to the one palette its format needs, written, read back,
+measured against Half-Life's own of its kind, and drawn as a sheet of its frames and an animated picture.
+
+```json
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    { "name": "sprites/torch.spr", "class": "fire loop", "size": [32, 64], "frames": 16, "loop": true, "fps": 10,
+      "origin": "bottom", "layers": [{ "kind": "fire" }, { "kind": "glow", "at": [0, -0.3], "radius": 0.6, "gain": 0.3 }] },
+    { "name": "sprites/blast.spr", "class": "explosion", "use": "tempent", "size": [64, 64], "frames": 16,
+      "layers": [{ "kind": "explosion", "env": { "attack": 0.05 } }] }
+  ]
+}
+```
+
+| Field | |
+| --- | --- |
+| `name` | Its path under the mod, `sprites/...spr`. A sprite the game loads by name keeps that name to replace it |
+| `use` | `env_sprite` (unless told), `env_glow`, `tempent` (a muzzle flash, an explosion), `beam`, `hud`. A beam may be lit to its ends (it tiles along its length); anything else keeps its border dark |
+| `class` | What it is held against: `explosion`, `fire loop`, `smoke loop`, `smoke puff`, `sparks`, `glow`, `flare`, `ring`, `beam` |
+| `size` | `[w, h]`, multiples of 8, 256 at most to be drawn as made (512 at most) |
+| `frames`, `loop`, `fps` | A loop of `frames` is written with its first frame again at the end, as the engine wraps; an `env_sprite` changes frame at most 10 times a second |
+| `type`, `format` | `parallel` (unless told: faces the camera), `upright`, `facing upright`, `oriented`, `parallel oriented`; `additive` (unless told: black is clear), `index alpha` (coverage, tinted by `colour`), `alpha test` (holes), `normal` |
+| `origin` | `centre` (unless told), `bottom` (a flame on its base), or `[x, y]` pixels |
+| `layers` | Each `{ kind, gain, env: { attack, decay }, ... }`: `glow` (`radius`, `core`, `colour`, `at`), `flare` (`streaks: [{ angle, length, width }]`), `fire` (`ramp`: fire, blue, green; `width`, `rise`, `turbulence`), `smoke` (`density`, `spread`, `colour`), `explosion` (`growth`, `cool`, `turbulence`), `sparks` (`count`, `speed`, `gravity`, `trail`), `ring` (`from`, `to`, `width`), `beam` (`core`, `noise`). Coordinates run -1 to 1 across the longer side; `v` is up |
+| `finish` | `edge`: pixels faded at the border (2) |
+
+The report gives each sprite's colours, the border's light, how it starts and ends, how smoothly a loop wraps
+and how much it flickers, each against Half-Life's own of its class, and the render mode to place it with.
+FAULTs: a loop that jumps at its wrap, a one-shot that does not end dark, light at the border.
+
 ## A map
 
 ```json

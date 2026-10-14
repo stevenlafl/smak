@@ -1,15 +1,15 @@
-I built `work:filecabinet.mdl` and the last build says **OK** with every check passing. It's 276 triangles on one 256×256 texture, well within GoldSrc's limits.
+I built `filecabinet.mdl` and it's in the work folder. The build says OK, and the engine check says it fits GoldSrc's limits: 12 triangles, one 512×512 texture, one bone.
 
-**What it has:**
-- **Size:** 28.8 long, 22.6 wide and 62.4 high at the cabinet itself. The drawer fronts and handles stick out about 1.5 units at the front, so with them the box is 30.3 long. A light 0.4 lip at the top of the plinth adds 0.3 to the width (22.9).
-- **Parts:** a cabinet body standing on a 3.5-unit plinth, with the light lip along its top edge. There's a lighter strip along the top front edge, as the original's top view shows.
-- **Drawers:** three, each in a dark recessed gap with a light bevel along the top edge. They're placed and sized from the front view: about 19.7 × 17 units, set slightly off-centre the same way the original's are.
-- **Handles:** each is a black backplate with a lighter grey lip, sitting a little below the middle of its drawer, at the original's size (about 5.8 × 2.6).
-- **Colour:** dull grey painted steel with light edge wear and some grime near the floor.
-- **Left side:** the original's left side has a darker stepped band toward the back. I copied it with four nested panels, each a little darker, sharing the back and top edges and stepping in at the bottom.
+**What it is:** a single box with the original's six straight-on pictures projected onto it as the texture. Its size matches what you gave exactly: 28.8 front to back, 22.6 side to side and 62.4 high, standing on the floor. From every side the original's outline is a plain rectangle. The drawers, handles and base strip are all painted on, not built as separate parts, so I made it one box too.
 
-**Where it still differs:**
-- The original's paint has large, soft dark blotches. The kit's metal texture gives a finer, noisier mottle, and nothing in the spec can paint those exact blotches.
-- I couldn't tell for sure from the pictures whether the plinth sits flush, sticks out or is set in. I made it flush with only a slight lip, which looks right from the side views.
+**How it compares:**
+- **Front:** the three drawer fronts with their bevelled edges and dark pull handles line up with the original.
+- **Back, right, top and below:** the mottled grey steel comes through, along with the lighter line along the base.
+- **Left side:** the original has odd stepped bands across the front ~13 units of that side, which look like a stretched texture in the original model. They're carried over too, but they show more faintly than in the original.
+- **Corner views:** I rendered the front-left and back-right corners and they read the same as `front-left.png` and `back-right.png`.
 
-The build notes that the handles come within 0.4 of the body without touching it. That's expected: they're mounted on the drawer fronts, not on the body.
+**Limits:**
+- The base strip and the drawer fronts are painted, not modelled. In the original's corner shots the base looks like it might stick out a hair, but its straight-on views show no step in the outline, so I left it flush.
+- The engine's own lighting isn't shown in these pictures; the tool draws a plain stand-in. It hasn't been looked at in the game.
+
+The spec is saved next to the model as `filecabinet.spec.json` if you want to rebuild or tweak it.

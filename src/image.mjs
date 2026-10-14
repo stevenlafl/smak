@@ -105,6 +105,49 @@ export function png(width, height, rgba) {
   ]);
 }
 /**
+ * An animated PNG (APNG): `frames` (each `rgba` of `width` x `height`), each shown `delay` milliseconds, played
+ * over and over (`plays` 0) or that many times. Browsers, Discord and most viewers play it; one that does not
+ * shows the first frame.
+ */
+export function apng(width, height, frames, { delay = 100, plays = 0 } = {}) {
+  const header = Buffer.alloc(IHDR.sizeof);
+  header.writeUInt32BE(width, IHDR.width);
+  header.writeUInt32BE(height, IHDR.height);
+  header[IHDR.bitDepth] = 8;
+  header[IHDR.colourType] = RGBA;
+  const control = Buffer.alloc(8);
+  control.writeUInt32BE(frames.length, 0);
+  control.writeUInt32BE(plays, 4);
+  const chunks = [Buffer.from(PNG_SIGNATURE), pngChunk("IHDR", header), pngChunk("acTL", control)];
+  let sequence = 0;
+  const stride = width * 4;
+  frames.forEach((rgba, n) => {
+    // the frame's control: its size, place, how long it is shown, and nothing kept of the frame before
+    const fc = Buffer.alloc(26);
+    fc.writeUInt32BE(sequence++, 0);
+    fc.writeUInt32BE(width, 4);
+    fc.writeUInt32BE(height, 8);
+    fc.writeUInt32BE(0, 12);
+    fc.writeUInt32BE(0, 16);
+    fc.writeUInt16BE(Math.round(delay), 20);
+    fc.writeUInt16BE(1000, 22);
+    fc[24] = 0;
+    fc[25] = 0;
+    chunks.push(pngChunk("fcTL", fc));
+    const rows = Buffer.alloc(height * (stride + 1));
+    for (let y = 0; y < height; y++) Buffer.from(rgba.buffer, rgba.byteOffset + y * stride, stride).copy(rows, y * (stride + 1) + 1);
+    const data = deflateSync(rows);
+    if (n === 0) chunks.push(pngChunk("IDAT", data));
+    else {
+      const seq = Buffer.alloc(4);
+      seq.writeUInt32BE(sequence++, 0);
+      chunks.push(pngChunk("fdAT", Buffer.concat([seq, data])));
+    }
+  });
+  chunks.push(pngChunk("IEND", Buffer.alloc(0)));
+  return Buffer.concat(chunks);
+}
+/**
  * What a filter took from a byte: worked out from the byte to its left, the one above and the one above left.
  */
 function filtered(filter, left, up, upLeft) {

@@ -1,0 +1,660 @@
+{
+  "spec": "smak.model/1",
+  "name": "filecabinet.mdl",
+  "kind": "prop",
+  "size": {
+    "height": 62.4,
+    "length": 28.8,
+    "width": 22.6
+  },
+  "finish": {
+    "light": 0.3,
+    "wear": 0.3,
+    "grime": 0.7,
+    "vary": 0.05
+  },
+  "materials": {
+    "shell": {
+      "base": "paint",
+      "tone": [
+        0.21,
+        0.21,
+        0.22
+      ]
+    },
+    "plinth": {
+      "base": "paint",
+      "tone": [
+        0.15,
+        0.15,
+        0.155
+      ]
+    },
+    "edge": {
+      "base": "paint",
+      "tone": [
+        0.55,
+        0.55,
+        0.56
+      ]
+    },
+    "lip": {
+      "base": "paint",
+      "tone": [
+        0.38,
+        0.38,
+        0.39
+      ]
+    },
+    "recess": {
+      "base": "paint",
+      "tone": [
+        0.07,
+        0.07,
+        0.075
+      ]
+    },
+    "drawer": {
+      "base": "paint",
+      "tone": [
+        0.25,
+        0.25,
+        0.26
+      ]
+    },
+    "drawerface": {
+      "base": "paint",
+      "tone": [
+        0.23,
+        0.23,
+        0.24
+      ]
+    },
+    "pull": {
+      "base": "iron",
+      "tone": [
+        0.07,
+        0.07,
+        0.07
+      ]
+    },
+    "pullrim": {
+      "base": "iron",
+      "tone": [
+        0.3,
+        0.3,
+        0.31
+      ]
+    },
+    "streak_a": {
+      "base": "paint",
+      "tone": [
+        0.27,
+        0.27,
+        0.28
+      ]
+    },
+    "streak_b": {
+      "base": "paint",
+      "tone": [
+        0.17,
+        0.17,
+        0.18
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "plinth",
+      "kind": "box",
+      "material": "plinth",
+      "size": [
+        28.9,
+        22.7,
+        3.4
+      ],
+      "at": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "plinth_line",
+      "kind": "box",
+      "material": "edge",
+      "size": [
+        28.95,
+        22.75,
+        0.25
+      ],
+      "at": [
+        0,
+        0,
+        3.25
+      ],
+      "finish": {
+        "grime": 0
+      }
+    },
+    {
+      "id": "body",
+      "kind": "box",
+      "material": "shell",
+      "size": [
+        28.8,
+        22.6,
+        59.2
+      ],
+      "at": [
+        0,
+        0,
+        3.2
+      ]
+    },
+    {
+      "id": "recess_low",
+      "kind": "box",
+      "material": "recess",
+      "size": [
+        0.4,
+        20.1,
+        17.9
+      ],
+      "at": [
+        14.4,
+        0,
+        6.1
+      ]
+    },
+    {
+      "id": "drawer_low",
+      "kind": "box",
+      "material": "drawer",
+      "size": [
+        0.8,
+        19.5,
+        17.3
+      ],
+      "at": [
+        14.6,
+        0,
+        6.4
+      ]
+    },
+    {
+      "id": "face_low",
+      "kind": "box",
+      "material": "drawerface",
+      "size": [
+        0.4,
+        18.7,
+        16.5
+      ],
+      "at": [
+        14.95,
+        0,
+        6.7
+      ]
+    },
+    {
+      "id": "lip_top_low",
+      "kind": "box",
+      "material": "lip",
+      "size": [
+        0.3,
+        19.2,
+        0.4
+      ],
+      "at": [
+        14.9,
+        0.15,
+        23.3
+      ],
+      "finish": {
+        "grime": 0
+      }
+    },
+    {
+      "id": "lip_side_low",
+      "kind": "box",
+      "material": "lip",
+      "size": [
+        0.3,
+        0.4,
+        17.3
+      ],
+      "at": [
+        14.9,
+        -9.55,
+        6.4
+      ],
+      "finish": {
+        "grime": 0
+      }
+    },
+    {
+      "id": "pull_low",
+      "kind": "box",
+      "material": "pull",
+      "size": [
+        0.6,
+        6,
+        3
+      ],
+      "at": [
+        15.3,
+        0,
+        15
+      ]
+    },
+    {
+      "id": "pullrim_low",
+      "kind": "box",
+      "material": "pullrim",
+      "size": [
+        0.9,
+        6.2,
+        0.6
+      ],
+      "at": [
+        15.5,
+        0,
+        17.6
+      ]
+    },
+    {
+      "id": "scoop_low",
+      "kind": "box",
+      "material": "pull",
+      "size": [
+        0.9,
+        5.4,
+        1.8
+      ],
+      "at": [
+        15.6,
+        0,
+        15.2
+      ]
+    },
+    {
+      "id": "recess_mid",
+      "kind": "box",
+      "material": "recess",
+      "size": [
+        0.4,
+        20.1,
+        17.9
+      ],
+      "at": [
+        14.4,
+        0,
+        24.6
+      ]
+    },
+    {
+      "id": "drawer_mid",
+      "kind": "box",
+      "material": "drawer",
+      "size": [
+        0.8,
+        19.5,
+        17.3
+      ],
+      "at": [
+        14.6,
+        0,
+        24.9
+      ]
+    },
+    {
+      "id": "face_mid",
+      "kind": "box",
+      "material": "drawerface",
+      "size": [
+        0.4,
+        18.7,
+        16.5
+      ],
+      "at": [
+        14.95,
+        0,
+        25.2
+      ]
+    },
+    {
+      "id": "lip_top_mid",
+      "kind": "box",
+      "material": "lip",
+      "size": [
+        0.3,
+        19.2,
+        0.4
+      ],
+      "at": [
+        14.9,
+        0.15,
+        41.8
+      ],
+      "finish": {
+        "grime": 0
+      }
+    },
+    {
+      "id": "lip_side_mid",
+      "kind": "box",
+      "material": "lip",
+      "size": [
+        0.3,
+        0.4,
+        17.3
+      ],
+      "at": [
+        14.9,
+        -9.55,
+        24.9
+      ],
+      "finish": {
+        "grime": 0
+      }
+    },
+    {
+      "id": "pull_mid",
+      "kind": "box",
+      "material": "pull",
+      "size": [
+        0.6,
+        6,
+        3
+      ],
+      "at": [
+        15.3,
+        0,
+        33.5
+      ]
+    },
+    {
+      "id": "pullrim_mid",
+      "kind": "box",
+      "material": "pullrim",
+      "size": [
+        0.9,
+        6.2,
+        0.6
+      ],
+      "at": [
+        15.5,
+        0,
+        36.1
+      ]
+    },
+    {
+      "id": "scoop_mid",
+      "kind": "box",
+      "material": "pull",
+      "size": [
+        0.9,
+        5.4,
+        1.8
+      ],
+      "at": [
+        15.6,
+        0,
+        33.7
+      ]
+    },
+    {
+      "id": "recess_top",
+      "kind": "box",
+      "material": "recess",
+      "size": [
+        0.4,
+        20.1,
+        17.9
+      ],
+      "at": [
+        14.4,
+        0,
+        43.1
+      ]
+    },
+    {
+      "id": "drawer_top",
+      "kind": "box",
+      "material": "drawer",
+      "size": [
+        0.8,
+        19.5,
+        17.3
+      ],
+      "at": [
+        14.6,
+        0,
+        43.4
+      ]
+    },
+    {
+      "id": "face_top",
+      "kind": "box",
+      "material": "drawerface",
+      "size": [
+        0.4,
+        18.7,
+        16.5
+      ],
+      "at": [
+        14.95,
+        0,
+        43.7
+      ]
+    },
+    {
+      "id": "lip_top_top",
+      "kind": "box",
+      "material": "lip",
+      "size": [
+        0.3,
+        19.2,
+        0.4
+      ],
+      "at": [
+        14.9,
+        0.15,
+        60.3
+      ],
+      "finish": {
+        "grime": 0
+      }
+    },
+    {
+      "id": "lip_side_top",
+      "kind": "box",
+      "material": "lip",
+      "size": [
+        0.3,
+        0.4,
+        17.3
+      ],
+      "at": [
+        14.9,
+        -9.55,
+        43.4
+      ],
+      "finish": {
+        "grime": 0
+      }
+    },
+    {
+      "id": "pull_top",
+      "kind": "box",
+      "material": "pull",
+      "size": [
+        0.6,
+        6,
+        3
+      ],
+      "at": [
+        15.3,
+        0,
+        52
+      ]
+    },
+    {
+      "id": "pullrim_top",
+      "kind": "box",
+      "material": "pullrim",
+      "size": [
+        0.9,
+        6.2,
+        0.6
+      ],
+      "at": [
+        15.5,
+        0,
+        54.6
+      ]
+    },
+    {
+      "id": "scoop_top",
+      "kind": "box",
+      "material": "pull",
+      "size": [
+        0.9,
+        5.4,
+        1.8
+      ],
+      "at": [
+        15.6,
+        0,
+        52.2
+      ]
+    },
+    {
+      "id": "streak_1",
+      "kind": "box",
+      "material": "streak_a",
+      "size": [
+        0.3,
+        0.1,
+        58.6
+      ],
+      "at": [
+        13.6,
+        11.32,
+        3.6
+      ],
+      "finish": {
+        "grime": 0.2
+      }
+    },
+    {
+      "id": "streak_2",
+      "kind": "box",
+      "material": "streak_b",
+      "size": [
+        0.25,
+        0.1,
+        58.4
+      ],
+      "at": [
+        12.4,
+        11.32,
+        3.7
+      ],
+      "finish": {
+        "grime": 0.2
+      }
+    },
+    {
+      "id": "streak_3",
+      "kind": "box",
+      "material": "streak_a",
+      "size": [
+        0.25,
+        0.1,
+        58.2
+      ],
+      "at": [
+        10.9,
+        11.32,
+        3.8
+      ],
+      "finish": {
+        "grime": 0.2
+      }
+    },
+    {
+      "id": "streak_4",
+      "kind": "box",
+      "material": "streak_b",
+      "size": [
+        0.2,
+        0.1,
+        58
+      ],
+      "at": [
+        9.1,
+        11.32,
+        3.9
+      ],
+      "finish": {
+        "grime": 0.2
+      }
+    },
+    {
+      "id": "streak_5",
+      "kind": "box",
+      "material": "streak_a",
+      "size": [
+        0.2,
+        0.1,
+        57.8
+      ],
+      "at": [
+        7,
+        11.32,
+        4
+      ],
+      "finish": {
+        "grime": 0.2
+      }
+    },
+    {
+      "id": "streak_6",
+      "kind": "box",
+      "material": "streak_b",
+      "size": [
+        0.2,
+        0.1,
+        57.6
+      ],
+      "at": [
+        4.6,
+        11.32,
+        4.1
+      ],
+      "finish": {
+        "grime": 0.2
+      }
+    },
+    {
+      "id": "streak_7",
+      "kind": "box",
+      "material": "streak_a",
+      "size": [
+        0.15,
+        0.1,
+        57.4
+      ],
+      "at": [
+        2.2,
+        11.32,
+        4.2
+      ],
+      "finish": {
+        "grime": 0.2
+      }
+    }
+  ]
+}

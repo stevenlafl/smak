@@ -23,6 +23,7 @@ import { guide } from "./guide.mjs";
 import { buildModelSpec } from "../src/spec/model.mjs";
 import { buildSoundSpec } from "../src/spec/sound.mjs";
 import { buildWadSpec } from "../src/spec/wad.mjs";
+import { buildSpriteSpec } from "../src/spec/sprite.mjs";
 import { buildMapSpec } from "../src/spec/map.mjs";
 import { summaryOf, changesOf } from "../src/spec/changes.mjs";
 import { run, pictureWithin, TIMEOUT_SECONDS, OUTPUT_MOST, SHOWN_MOST, PICTURE_MOST } from "./run.mjs";
@@ -687,6 +688,25 @@ function build(folders, args) {
     if (files.models) show(smak.unpng(readFileSync(files.models)));
     return [text(lines.join("\n")), ...pictures];
   }
+  if (spec?.spec === "smak.sprite/1") {
+    // sprites: each under work:<its name> (sprites/...spr), with its contact sheet and an animated picture
+    const { report, files } = buildSpriteSpec(spec);
+    const lines = reportLines(report);
+    const first = spec.name ?? spec.sprites?.[0]?.name ?? "sprite";
+    const base = first.replace(/\.spr$/i, "").replace(/[^\w-]+/g, "_");
+    mkdirSync(folders.work, { recursive: true });
+    writeFileSync(join(folders.work, `${base}.spec.json`), `${JSON.stringify(spec, null, 2)}\n`);
+    for (const file of files) {
+      const path = join(folders.work, file.name);
+      mkdirSync(dirname(path), { recursive: true });
+      writeFileSync(path, file.bytes);
+      writeFileSync(path.replace(/\.spr$/i, "-sheet.png"), file.sheet);
+      writeFileSync(path.replace(/\.spr$/i, "-animated.png"), file.animation);
+      show(file.sheetPicture);
+    }
+    if (files.length) lines.push(`written: ${files.map((f) => `work:${f.name} (with -sheet.png and -animated.png beside it)`).join(", ")}`);
+    return [text(lines.join("\n")), ...pictures];
+  }
   if (spec?.spec === "smak.wad/1") {
     // textures: the .wad and a sheet of them; with a map named, it drawn wearing them
     const out = join(folders.work, spec.name?.replace(/\.wad$/i, "") ?? "textures");
@@ -726,7 +746,7 @@ function build(folders, args) {
     return [text(lines.join("\n")), ...pictures];
   }
   if (spec?.spec !== "smak.model/1")
-    throw new Error('spec: a model spec ("spec": "smak.model/1"), a map spec ("smak.map/1"), a sound spec ("smak.sound/1") or a textures spec ("smak.wad/1"); guide { doc: "spec" } says how to write one');
+    throw new Error('spec: a model spec ("spec": "smak.model/1"), a map spec ("smak.map/1"), a sound spec ("smak.sound/1"), a textures spec ("smak.wad/1") or a sprite spec ("smak.sprite/1"); guide { doc: "spec" } says how to write one');
   const { mdl, report, files = [] } = buildModelSpec(spec, { folder, games: folders.wads ?? [], readPicture: (name) => smak.unpng(readFileSync(pathOf(folders, name))) });
   const lines = reportLines(report);
   if (mdl) {

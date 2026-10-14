@@ -2,7 +2,7 @@
 // server stands on (src/spec, src/sound.mjs). The faults each case builds on purpose are the ones the
 // soundness check must name, and the crashes found while the prompts of examples/prompts were built are
 // built again here, so that none comes back.
-import { mkdirSync, mkdtempSync, writeFileSync, readFileSync, existsSync } from "node:fs";
+import { mkdirSync, mkdtempSync, writeFileSync, readFileSync, existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import * as smak from "../src/index.mjs";
@@ -357,6 +357,46 @@ test("a model spec's project: a person's picture of the front laid onto the face
   const back = shot(180);
   const [l, r, b] = [at(front, 40, 50), at(front, 60, 50), at(back, 50, 50)];
   sure(l[0] > 150 && l[2] < 80 && r[2] > 150 && r[0] < 80 && b[1] > 150 && b[0] < 80, `front left ${l}, front right ${r}, back ${b}`);
+});
+
+await testAsync("a sprite spec: a looping flame and a one-shot fireball, written, read back, measured against the game's kinds", "build: sprite", async () => {
+  const work = mkdtempSync(join(tmpdir(), "smak-sprite-"));
+  const spec = {
+    spec: "smak.sprite/1",
+    sprites: [
+      { name: "sprites/torch.spr", class: "fire loop", size: [32, 64], frames: 12, loop: true, fps: 10, origin: "bottom", layers: [{ kind: "fire" }] },
+      { name: "sprites/boom.spr", class: "explosion", use: "tempent", size: [64, 64], frames: 12, layers: [{ kind: "explosion", env: { attack: 0.05 } }] },
+    ],
+  };
+  const build = toolsFor({ work }).find((tool) => tool.name === "build");
+  const answer = await build.call({ spec: JSON.stringify(spec) });
+  const words = answer.find((piece) => piece.type === "text").text;
+  sure(/^OK/.test(words) && /fire loop: \d+ of \d+ in range/.test(words), words.slice(0, 600));
+  const torch = smak.maps.readSpr(readFileSync(join(work, "sprites", "torch.spr")));
+  // a loop of 12 written as 13, its first frame again at the end; additive with pure black at index 0
+  sure(torch.frames.length === 13 && torch.format === "additive" && torch.palette[0] + torch.palette[1] + torch.palette[2] === 0, `${torch.frames.length} frames, ${torch.format}`);
+  sure(Buffer.compare(Buffer.from(torch.frames[0].pixels), Buffer.from(torch.frames[12].pixels)) === 0, "the loop's last frame is its first");
+  // a flame stands on its base: its frame's top is its height over the point it is put at
+  sure(torch.frames[0].up === 64 && torch.frames[0].left === -16, `origin ${torch.frames[0].left} ${torch.frames[0].up}`);
+  // the fireball starts and ends dark
+  const boom = smak.maps.readSpr(readFileSync(join(work, "sprites", "boom.spr")));
+  const bright = (f) => f.pixels.reduce((s, p) => s + boom.palette[p * 3], 0);
+  sure(bright(boom.frames[0]) < bright(boom.frames[4]) / 20 && bright(boom.frames.at(-1)) < bright(boom.frames[4]) / 20, "dark, bright, dark");
+  sure(existsSync(join(work, "sprites", "torch-animated.png")), "an animated picture beside it");
+});
+
+await testAsync("a sprite file written is the file read: Half-Life's own, where the game is there, byte for byte", "spr: round trip", async () => {
+  const { writeSpr } = await import("../src/sprite/spr.mjs");
+  // a group and a single frame, written and read back
+  const frame = (v) => ({ left: -4, up: 4, width: 8, height: 8, pixels: new Uint8Array(64).fill(v) });
+  const bytes = writeSpr({ type: "oriented", format: "alpha test", palette: new Uint8Array(768).fill(7), frames: [frame(1), frame(2), frame(3)], groups: [{ first: 1, count: 2, ends: [0.1, 0.25] }] });
+  const back = smak.maps.readSpr(bytes);
+  sure(back.type === "oriented" && back.frames.length === 3 && back.groups[0].count === 2 && Math.abs(back.groups[0].ends[1] - 0.25) < 1e-6 && Buffer.compare(writeSpr(back), bytes) === 0, JSON.stringify(back.groups));
+  const game = join(process.env.HOME ?? "", ".steam/steam/steamapps/common/Half-Life/valve/sprites");
+  if (!existsSync(game)) return;
+  const files = readdirSync(game).filter((f) => f.endsWith(".spr"));
+  const differ = files.filter((f) => Buffer.compare(writeSpr(smak.maps.readSpr(readFileSync(join(game, f)))), readFileSync(join(game, f))) !== 0);
+  sure(!differ.length, `${differ.length} of ${files.length} differ: ${differ.slice(0, 5)}`);
 });
 
 await testAsync("a textures spec: a .wad of named textures, seamless, with panels and words; built through the server", "build: wad", async () => {

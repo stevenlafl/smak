@@ -7,474 +7,97 @@
     "length": 28.8,
     "width": 22.6
   },
-  "finish": {
-    "light": 0.3,
-    "wear": 0.12,
-    "grime": 0.25,
-    "vary": 0.03
+  "texture": {
+    "width": 512,
+    "height": 512
   },
   "materials": {
-    "shell": {
+    "steel": {
       "base": "metal",
       "tone": [
-        0.33,
-        0.33,
-        0.33
-      ]
-    },
-    "side1": {
-      "base": "metal",
-      "tone": [
-        0.31,
-        0.31,
-        0.31
-      ]
-    },
-    "side2": {
-      "base": "metal",
-      "tone": [
-        0.29,
-        0.29,
-        0.29
-      ]
-    },
-    "side3": {
-      "base": "metal",
-      "tone": [
-        0.27,
-        0.27,
-        0.27
-      ]
-    },
-    "side4": {
-      "base": "metal",
-      "tone": [
-        0.25,
-        0.25,
-        0.25
-      ]
-    },
-    "kick": {
-      "base": "metal",
-      "tone": [
-        0.3,
-        0.3,
-        0.3
-      ]
-    },
-    "trim": {
-      "base": "metal",
-      "tone": [
-        0.42,
-        0.42,
-        0.42
-      ]
-    },
-    "gap": {
-      "base": "iron",
-      "tone": [
-        0.07,
-        0.07,
-        0.07
-      ]
-    },
-    "face": {
-      "base": "metal",
-      "tone": [
-        0.35,
-        0.35,
-        0.35
-      ]
-    },
-    "bevel": {
-      "base": "metal",
-      "tone": [
-        0.48,
-        0.48,
-        0.48
-      ]
-    },
-    "pull": {
-      "base": "iron",
-      "tone": [
-        0.08,
-        0.08,
-        0.08
-      ]
-    },
-    "pulllip": {
-      "base": "steel",
-      "tone": [
-        0.4,
-        0.4,
-        0.4
+        0.36,
+        0.36,
+        0.36
       ]
     }
   },
+  "finish": false,
   "parts": [
     {
-      "id": "plinth",
+      "id": "cabinet",
       "kind": "box",
-      "material": "kick",
       "size": [
         28.8,
         22.6,
-        3.5
+        62.4
       ],
+      "material": "steel",
       "at": [
         0,
         0,
         0
       ]
-    },
+    }
+  ],
+  "project": [
     {
-      "id": "plinth_lip",
-      "kind": "box",
-      "material": "trim",
-      "size": [
-        28.95,
-        22.75,
-        0.4
-      ],
-      "at": [
-        0,
-        0,
-        3.1
+      "picture": "work:pictures/sides.png",
+      "view": "front",
+      "rect": [
+        182,
+        53,
+        330,
+        459
       ]
     },
     {
-      "id": "body",
-      "kind": "box",
-      "material": "shell",
-      "size": [
-        28.8,
-        22.6,
-        59
-      ],
-      "at": [
-        0,
-        0,
-        3.4
+      "picture": "work:pictures/sides.png",
+      "view": "left",
+      "rect": [
+        675,
+        53,
+        861,
+        459
       ]
     },
     {
-      "id": "topfront",
-      "kind": "box",
-      "material": "trim",
-      "size": [
-        1.5,
-        22.7,
-        0.1
-      ],
-      "at": [
-        13.7,
-        0,
-        62.33
+      "picture": "work:pictures/sides.png",
+      "view": "back",
+      "rect": [
+        1207,
+        53,
+        1354,
+        459
       ]
     },
     {
-      "id": "lside1",
-      "kind": "box",
-      "material": "side1",
-      "size": [
-        13,
-        0.2,
-        58.8
-      ],
-      "at": [
-        -7.9,
-        11.3,
-        3.6
-      ],
-      "finish": {
-        "light": 0.3,
-        "wear": 0,
-        "grime": 0
-      }
-    },
-    {
-      "id": "lside2",
-      "kind": "box",
-      "material": "side2",
-      "size": [
-        10.7,
-        0.3,
-        55.6
-      ],
-      "at": [
-        -9.05,
-        11.3,
-        6.8
-      ],
-      "finish": {
-        "light": 0.3,
-        "wear": 0,
-        "grime": 0
-      }
-    },
-    {
-      "id": "lside3",
-      "kind": "box",
-      "material": "side3",
-      "size": [
-        8.4,
-        0.4,
-        52.5
-      ],
-      "at": [
-        -10.2,
-        11.3,
-        9.9
-      ],
-      "finish": {
-        "light": 0.3,
-        "wear": 0,
-        "grime": 0
-      }
-    },
-    {
-      "id": "lside4",
-      "kind": "box",
-      "material": "side4",
-      "size": [
-        6.1,
-        0.5,
-        49.5
-      ],
-      "at": [
-        -11.35,
-        11.3,
-        12.9
-      ],
-      "finish": {
-        "light": 0.3,
-        "wear": 0,
-        "grime": 0
-      }
-    },
-    {
-      "id": "gap1",
-      "kind": "box",
-      "material": "gap",
-      "size": [
-        0.4,
-        19.7,
-        17.1
-      ],
-      "at": [
-        14.5,
-        -0.4,
-        43.5
+      "picture": "work:pictures/sides.png",
+      "view": "right",
+      "rect": [
+        163,
+        565,
+        350,
+        971
       ]
     },
     {
-      "id": "face1",
-      "kind": "box",
-      "material": "face",
-      "size": [
-        0.7,
-        18.9,
-        16.2
-      ],
-      "at": [
-        14.7,
-        -0.4,
-        44.1
+      "picture": "work:pictures/sides.png",
+      "view": "top",
+      "rect": [
+        695,
+        675,
+        842,
+        861
       ]
     },
     {
-      "id": "bevel1",
-      "kind": "box",
-      "material": "bevel",
-      "size": [
-        0.3,
-        18.5,
-        0.35
-      ],
-      "at": [
-        15,
-        -0.4,
-        59.75
-      ]
-    },
-    {
-      "id": "plate1",
-      "kind": "box",
-      "material": "pull",
-      "size": [
-        0.4,
-        5.8,
-        2.6
-      ],
-      "at": [
-        15,
-        -0.4,
-        49.9
-      ]
-    },
-    {
-      "id": "lip1",
-      "kind": "box",
-      "material": "pulllip",
-      "size": [
-        1.1,
-        4.8,
-        0.9
-      ],
-      "at": [
-        15.3,
-        -0.4,
-        49.9
-      ]
-    },
-    {
-      "id": "gap2",
-      "kind": "box",
-      "material": "gap",
-      "size": [
-        0.4,
-        19.7,
-        16.6
-      ],
-      "at": [
-        14.5,
-        -0.4,
-        25.7
-      ]
-    },
-    {
-      "id": "face2",
-      "kind": "box",
-      "material": "face",
-      "size": [
-        0.7,
-        18.9,
-        15.8
-      ],
-      "at": [
-        14.7,
-        -0.4,
-        26.1
-      ]
-    },
-    {
-      "id": "bevel2",
-      "kind": "box",
-      "material": "bevel",
-      "size": [
-        0.3,
-        18.5,
-        0.35
-      ],
-      "at": [
-        15,
-        -0.4,
-        41.35
-      ]
-    },
-    {
-      "id": "plate2",
-      "kind": "box",
-      "material": "pull",
-      "size": [
-        0.4,
-        5.8,
-        2.6
-      ],
-      "at": [
-        15,
-        -0.4,
-        31.7
-      ]
-    },
-    {
-      "id": "lip2",
-      "kind": "box",
-      "material": "pulllip",
-      "size": [
-        1.1,
-        4.8,
-        0.9
-      ],
-      "at": [
-        15.3,
-        -0.4,
-        31.7
-      ]
-    },
-    {
-      "id": "gap3",
-      "kind": "box",
-      "material": "gap",
-      "size": [
-        0.4,
-        19.7,
-        16.5
-      ],
-      "at": [
-        14.5,
-        -0.4,
-        6.8
-      ]
-    },
-    {
-      "id": "face3",
-      "kind": "box",
-      "material": "face",
-      "size": [
-        0.7,
-        18.9,
-        15.7
-      ],
-      "at": [
-        14.7,
-        -0.4,
-        7.2
-      ]
-    },
-    {
-      "id": "bevel3",
-      "kind": "box",
-      "material": "bevel",
-      "size": [
-        0.3,
-        18.5,
-        0.35
-      ],
-      "at": [
-        15,
-        -0.4,
-        22.35
-      ]
-    },
-    {
-      "id": "plate3",
-      "kind": "box",
-      "material": "pull",
-      "size": [
-        0.4,
-        5.8,
-        2.6
-      ],
-      "at": [
-        15,
-        -0.4,
-        12.8
-      ]
-    },
-    {
-      "id": "lip3",
-      "kind": "box",
-      "material": "pulllip",
-      "size": [
-        1.1,
-        4.8,
-        0.9
-      ],
-      "at": [
-        15.3,
-        -0.4,
-        12.8
+      "picture": "work:pictures/sides.png",
+      "view": "below",
+      "rect": [
+        1207,
+        675,
+        1354,
+        861
       ]
     }
   ]

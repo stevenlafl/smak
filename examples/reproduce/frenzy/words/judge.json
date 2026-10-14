@@ -1,0 +1,112 @@
+{
+ "subject": "frenzy",
+ "leg": "words",
+ "measured": {
+  "floorOverlap": 0.332,
+  "alignment": {
+   "move": [
+    -16,
+    16,
+    0
+   ],
+   "note": "the reproduction is this far from where the original has the same floor"
+  },
+  "entities": {
+   "original": 58,
+   "reproduction": 58,
+   "matched": 16,
+   "share": 0.276,
+   "missing": [
+    "info_player_deathmatch at -552 -632 224",
+    "info_player_deathmatch at 608 496 224",
+    "weapon_tripmine at -816 272 176",
+    "weapon_tripmine at -816 -288 176",
+    "ammo_gaussclip at 600 344 176",
+    "ammo_gaussclip at 600 376 176",
+    "ammo_gaussclip at -48 144 16",
+    "ammo_buckshot at -48 -144 16",
+    "item_battery at 488 -360 176",
+    "item_battery at 488 360 176",
+    "ammo_ARgrenades at -664 152 336",
+    "ammo_ARgrenades at -664 -152 336",
+    "weapon_9mmAR at -384 0 176",
+    "ammo_9mmAR at -384 48 176",
+    "ammo_9mmAR at -384 -48 176",
+    "ammo_9mmAR at 608 480 16",
+    "weapon_9mmAR at 608 448 16",
+    "ammo_9mmAR at 608 416 16",
+    "ammo_ARgrenades at 640 448 16",
+    "ammo_buckshot at -208 -184 336"
+   ]
+  },
+  "walkTest": {
+   "unreachedInReproduction": 0,
+   "unreachedInOriginal": 3
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "P2": 0,
+  "P4": 0,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Both have a central north-south corridor that runs the full depth of the map (blue strip in plans.png), a ring of walkways around the outside, and a stair annex on the east/north-east side. The arrangement differs, though. The original is an octagon: an angled outer ring wraps two mirrored H-shaped halls, each with two pillars, and wedge-shaped dark platforms sit on either side of the corridor. The reproduction is a rectangular frame. A solid square block fills the centre around the corridor, tall rectangular rooms stand on the west and east sides, and the open voids between them have no counterpart in the original. The original's curving north-east annex, with its stair down to a spur, became a large square room in the reproduction. The way the halls connect through the H-shaped cross passages is gone."
+  },
+  "P2": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The measured overlap of walkable floor is 0.332, far below the 0.70 needed. The reproduction's footprint is 3616 x 2336 against the original's 2432 x 2080, so it is about 49% too wide east-west. Its side rooms and central block are not the size of the original's halls or in their places."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The floor heights carry over: 0, 160, 320 and 512 appear in both sections. Where they sit is off. In the original section, the 160 deck on the west side runs only from the left wall to the middle, and the right side has a sloped outer wall with a 160 ledge. The reproduction puts a 160 deck almost all the way across, adds a raised 320 band with its own ceiling on both flanks that the original lacks, and drops the original's outer wall that slopes inward from 576 down to 320. The storeys put things at different heights too: the original's 0-level ring becomes a rectangle, and the upper storey's two wedge platforms become diamond-shaped pads."
+  },
+  "P4": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The measured match rate is 0.276 (16 of 58), against the 0.80 needed. Twenty items are missing or misplaced. They include the starts at -552 -632 224 and 608 496 224, both weapon_tripmine at x -816, the cluster of weapon_9mmAR and ammo_9mmAR at -384 0 176, the 9mmAR cache at 608 448 16, the gauss clips, and the batteries."
+  },
+  "P5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The original is dark blue-grey concrete, with walls of recessed panels showing computer banks or machinery and a tiled corridor floor (views 1, 2, 3, 8). The reproduction wears bright beige plaster and grey grid panels with dark star-shaped holes, plus a yellow-black hazard stripe in view 3. A player would tell them apart at once."
+  },
+  "P6": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The original is dim and moody. Starts 4 to 7 are almost black, and in view 8 strip lights light the corridor. The reproduction is lit flat and bright everywhere, and every one of views 1 to 8 is fully lit. The original's dark areas are gone."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The long central corridor and the east stairs are there. The original's signature machinery panels in the walls are missing everywhere (views 1, 2, 3, 8), as are its 45-degree angled outer walls, the pillars in the H halls (the reproduction has a few square posts, but not in the original's positions), and the wedge platforms beside the corridor."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The check reports no errors, and the walk test leaves nothing unreached in the reproduction (the original leaves 3 unreached). Nothing in the pictures suggests a leak."
+  },
+  "P9": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Not one of the eight view pairs looks like the same place. View 1 in the original faces a wall of machinery panels, and the reproduction faces a blank beige wall. View 3 is a panelled hall in the original and, in the reproduction, a hazard-striped beam over a curved plaster wall. View 8 is a lit corridor lined with machinery in the original; the reproduction's corridor has grid-panel walls and a different shape. Someone who knows the map would not recognise it."
+  }
+ },
+ "total": 5,
+ "of": 18,
+ "passes": false
+}

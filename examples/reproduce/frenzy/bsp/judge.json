@@ -1,0 +1,95 @@
+{
+ "subject": "frenzy",
+ "leg": "bsp",
+ "measured": {
+  "floorOverlap": 0.939,
+  "alignment": {
+   "move": [
+    0,
+    0,
+    -15
+   ],
+   "note": "the reproduction is this far from where the original has the same floor"
+  },
+  "entities": {
+   "original": 58,
+   "reproduction": 58,
+   "matched": 55,
+   "share": 0.948,
+   "missing": [
+    "ammo_ARgrenades at -664 152 336",
+    "ammo_ARgrenades at -664 -152 336",
+    "item_longjump at -72 0 336"
+   ]
+  },
+  "walkTest": {
+   "unreachedInReproduction": 0,
+   "unreachedInOriginal": 3
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "P2": 2,
+  "P4": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The same areas are there in the same arrangement: two hexagonal side halls with H-shaped walkways, the north-south bridge over the central octagonal pit, the outer ring corridor, the northeast stair annex and the south stub. Some of the ways between them are different. The original has a func_ladder at the south end of the bridge (z372 storey) and another at the south stub (z228 storey). The reproduction has only func_walls at those two places. In the original, three separate z320 ledges over the pit have gaps between them (section). The reproduction joins them into one continuous walkway, so a crossing that was broken up is now one flat path."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured floor overlap is 0.939, well above 0.70. The halls, the bridge, the ring corridor and the annex sit in the same places at the same sizes on the plans. The pit's angled edges and the northeast curved corridor are stair-stepped rather than smooth, but they stay inside the original's outline. The header extents (2848 x 2176 against 2432 x 2080) differ by more than the drawn geometry does, which suggests something stray outside the playable area, but the plan shows nothing there."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The section matches on most heights: floors at 0 (drawn at 1), side ledges at 160, upper ledges at 512, the 640 ceiling and the sloped outer walls. The difference is over the pit. The original has three separate z320 platforms with drops between them: a left ledge, a centre slab and a right ledge. The reproduction has one unbroken z320 span from the left ledge to the right one, so those drops are gone. The ladders that changed level at the south end are also missing."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "55 of 58 entities are matched (0.948), but important ones are off. The item_longjump at -72 0 336 is not where the original has it: the original puts it on the right z320 ledge, and the reproduction puts it nearer the middle of the bridge (section and z372 storey). The two ammo_ARgrenades at -664 +/-152 336 are moved from the left of the bridge to beside the bridge. Both func_ladders are func_walls in the reproduction. The two trigger_multiples by the west func_doors (92 and 93 in the original's z228 storey) do not appear in the reproduction."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Most surfaces wear the original's textures: the concrete walls with computer-bank window frames, the grates and the floors. Some differ in the views. Start 8's corridor in the original has a green lower-wall band and a tiled floor under a ceiling lamp panel, while the reproduction's lower walls are grey and its ceiling is plain and dark. The yellow/orange ceiling trim at the top left of start 3's original view is missing in the reproduction."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The light and env_glow entities in the northeast annex and by the south start are in about the same places. The lighting still differs in the views. At start 8 the original has a bright lamp directly overhead, while the reproduction's corridor is dim with its only lamp far down the hall. At start 3 the reproduction has a bright light fixture at the top left that the original does not, and at start 2 one at the top right. The dark views at starts 5 to 7 agree."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Most of the original's features are present: the computer-bank windows, the central bridge, the octagonal pit, the floor grates, the four square pillars in the side halls and the northeast stairs. Their shapes are coarser. The pit's hexagonal outline and the northeast curved corridor are drawn as jagged steps instead of the original's straight diagonals and smooth curve (plans). Both ladders are gone."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The check reports no errors, and the walk test leaves nothing unreached in the reproduction (the original has 3 unreached). There is no sign of a leak or of going past the engine's limits."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Starts 1, 2, 5, 6 and 7 show the same computer-bank walls in similar framing and brightness. Start 4 is clearly different: the original looks at a plain concrete wall with a seam, while the reproduction looks at a computer bank. Start 8 is the same corridor, but the lighting and the lower-wall colour are noticeably different. Start 3 has an extra bright fixture. A player who knows the map would recognise most of the views, but not all of them at once."
+  }
+ },
+ "total": 11,
+ "of": 18,
+ "passes": false
+}

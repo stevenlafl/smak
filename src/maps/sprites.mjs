@@ -17,13 +17,13 @@ import { inFolders } from "./files.mjs";
 import { turnOf } from "./figures.mjs";
 
 // ── the file ────────────────────────────────────────────────────────────────
-/** A sprite file begins with these four letters and this number. */
-const IDENT = "IDSP";
-const VERSION = 2;
+/** A sprite file begins with these four letters and this number (the writer, src/sprite/spr.mjs, shares them). */
+export const IDENT = "IDSP";
+export const VERSION = 2;
 /** Where each number of the header is (bytes), and its length. */
-const HEADER = { type: 8, format: 12, width: 20, height: 24, frames: 28, sizeof: 40 };
+export const HEADER = { type: 8, format: 12, radius: 16, width: 20, height: 24, frames: 28, beam: 32, sync: 36, sizeof: 40 };
 /** A frame's own header: where its left edge and its top are from the entity's origin, and its size. */
-const FRAME = { left: 0, up: 4, width: 8, height: 12, sizeof: 16 };
+export const FRAME = { left: 0, up: 4, width: 8, height: 12, sizeof: 16 };
 /** A file may hold this many frames and a frame this many pixels a side, before it is taken as broken. */
 const FRAMES_MOST = 4096;
 const SIDE_MOST = 4096;
@@ -39,7 +39,10 @@ const HOLE_INDEX = 255;
  * frame's), palette (768 bytes), frames: [{ left, up, width, height, pixels }] }`. A frame's `left` and `up`
  * say where its left edge and its top are from the point the sprite is put at, in pixels (a frame of 64
  * about its middle: -32 and 32); `pixels` is one palette index a pixel, a view of `bytes`. The frames of a
- * group are listed one after another. Throws, in words, for a file that is not a Half-Life sprite.
+ * group are listed one after another, and `groups` says which they are: [{ first, count, ends (each frame's
+ * cumulative end time, seconds) }]. Also kept, so that a file can be written again as it was: `radius` (the
+ * bounding radius), `beam` (the beam length, which Xash reads as "draw both sides"), `sync`, and `colours`
+ * (the palette's count). Throws, in words, for a file that is not a Half-Life sprite.
  */
 export function readSpr(bytes) {
   if (bytes.length < HEADER.sizeof + 2 || bytes.toString("latin1", 0, 4) !== IDENT)
@@ -60,6 +63,7 @@ export function readSpr(bytes) {
   palette.set(bytes.subarray(at, at + colours * 3));
   at += colours * 3;
   const frames = [];
+  const groups = [];
   /** One frame at `at`: its header, then its pixels. */
   const frame = () => {
     if (at + FRAME.sizeof > bytes.length)
@@ -93,6 +97,8 @@ export function readSpr(bytes) {
     const inGroup = bytes.readInt32LE(at);
     if (!(inGroup >= 1 && inGroup <= FRAMES_MOST))
       throw new Error(`a group of ${inGroup} frames: the file is broken`);
+    const ends = Array.from({ length: inGroup }, (_, k) => bytes.readFloatLE(at + 4 + k * 4));
+    groups.push({ first: frames.length, count: inGroup, ends });
     at += 4 + inGroup * 4;
     for (let each = 0; each < inGroup; each++) frame();
   }
@@ -101,8 +107,13 @@ export function readSpr(bytes) {
     format: SPRITE_FORMATS[format] ?? SPRITE_FORMATS[0],
     width: bytes.readInt32LE(HEADER.width),
     height: bytes.readInt32LE(HEADER.height),
+    radius: bytes.readFloatLE(HEADER.radius),
+    beam: bytes.readFloatLE(HEADER.beam),
+    sync: bytes.readInt32LE(HEADER.sync),
+    colours,
     palette,
     frames,
+    groups,
   };
 }
 

@@ -1,22 +1,13 @@
-I built `filecabinet.mdl`. The build reports OK and passes every check. The model and its spec are in the work folder (`work:filecabinet.mdl` and `work:filecabinet.spec.json`).
+The cabinet is built as `work:filecabinet.mdl`. The build reports OK with every check passed, and I looked over the six-side sheet and a close three-quarter view.
 
-**Size and limits**
-- The body is 28.8 deep, 22.6 wide and 62.4 high, exactly as described.
-- The outline is 30.5 deep with the handles, which stick out about 1.6 units from the front.
-- It uses 408 triangles and one texture, well within the engine's limits.
+**Shape:** it's 28.8 deep, 22.6 wide and 62.4 high, made of 24 triangles. The body is one sharp-cornered box. The plinth is a 3.4-high band around the bottom that stands 0.05 proud of the body. Everything else is painted onto the texture rather than modelled, because none of it sticks out by a unit or more.
 
-**What it has**
-- **Body:** a plain charcoal block with sharp corners and a flat top, painted with dark blotches and a little wear on the edges.
-- **Plinth:** a 3.4-unit band round the bottom, very slightly proud of the body and a little darker. A thin light grey line runs along its top edge on all four sides.
-- **Drawers:** three identical fronts, 19.5 wide and 17.3 high, centred with about 1.5 units of body at each side. The layout from the bottom is the plinth, 3 units of body, then the drawers with 1.2-unit dark gaps, and 1.7 units of body above the top drawer.
-  - Each drawer is a raised panel in two steps, which reads as a slight bevel. It has a lighter strip along its top and left edge and a black outline all round that shows as a shadow line beneath it.
-- **Handles:** a small black pull on each drawer, 6 wide and 3 high, a little above the drawer's middle. Each has a lighter rim at the top and a dark block below. There is no lettering, no label holders and no locks.
-- **Left side:** seven thin vertical streaks in two slightly different greys across the front part of the side. The rear part, the right side and the back are plain mottled panels.
+**Front:** three drawer fronts, each 19.5 by 17.3, with 1.5 of body showing at each side. The spacing is 1.7 above the top drawer, 1.2 gaps between drawers and 3 above the plinth. Each drawer is a raised bevelled panel lit from the top left, with a dark recessed outline and a dark shadow line beneath. Each has a black cup pull, 6 by 3, set a little above the drawer's middle, with a lighter rim on top and a dark curved scoop below.
 
-**How it differs from the description**
-- **Drawer height:** each drawer is 17.3 high rather than about 17. With 17 the gaps you gave come to only 61.5 against the 62.4 total, so I made the drawers a little taller to keep every gap as described.
-- **Handles:** they are built from flat boxes, so the "curved scoop" is a dark block under the rim rather than a true curve.
-- **Streaks on the left side:** the kit can only paint marks on rounded parts, so these are thin strips sitting 0.05 units proud of the side. From the side they read as lines; at a steep angle they would show as slight ridges.
-- **Mottling:** this comes from the kit's automatic grime and wear finish. It gives blotchy darker patches and specks over every face, heavier near the floor, but it is the kit's own noise, not a copy of the original's smudges.
+**Finish:** mottled charcoal metal with dark blotches and specks, heavier grime near the floor, and a slightly darker plinth with a bright line along its top edge on all four sides. The back and right side are plain. On the left side, the front 13 units (about 45% of the depth) carry fine vertical lines in lighter and darker greys.
 
-The build also notes that some streaks nearly touch the plinth. That is expected, because each streak is fixed to the side panel.
+**Two differences from the original:**
+- **Drawer height:** I used 17.3 instead of 17. With your other spacings, 17 adds up to 61.5 high rather than 62.4, so I let the drawers take up the extra.
+- **Underside:** the kit can only paint panels on the front, back, sides and top, so the underside has no lighter strip along its front edge. It's plain mottled grey.
+
+**Not confirmed in a picture:** the thin light line along the top's front edge. It's in the spec, but too faint to make out in the renders. The edge it sits on comes from a red test strip I placed on the top earlier, not from seeing the line itself.

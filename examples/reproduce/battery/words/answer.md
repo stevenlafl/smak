@@ -1,22 +1,25 @@
-I built `battery.mdl` and it passes every check, with the build reporting OK. It's in the work folder with its spec, `battery.spec.json`. I compared the six side views, a close view of the top fittings and the view from below against your description.
+`battery.mdl` is built and passes every check. It's 10.4 × 10.4 × 18.4 units, made of 472 triangles in 2 textures. I looked at all six sides, below, and close-ups of the top fittings.
 
-**What matches:**
-- **Size:** 18.4 tall. The body is 10.3 by 10.3 across. The window frames and lamps stick out a little past that, so the overall box is 11.1.
-- **Body:** seen from above it's an octagon with long sides and short cut corners, and all four long faces are the same. From the bottom up:
-  - a dark charcoal skirt (0–1.8) that narrows toward the floor
-  - the hazard band (1.8–3.3)
-  - the grimy grey-beige column with brown rust streaks, up to 15
-  - a light grey bevelled rim sloping in to a recessed pale deck with a raised frame
-- **Each long face:** a glowing teal window with a thick light-grey frame (window 5.3–11.3, frame 4.6–11.9). Above it is a small orange lamp with a yellow centre and a white surround, just under the rim.
-- **Corner faces:** a tall off-white panel with a dark outline, level with the upper part of the windows, and plain metal below.
-- **Top:** the grey hex cap with a dark round socket is on the right in the front view. The lever's grey hinge is on the other half, holding a tab that tilts out at 45° toward that edge, in gold and grey stripes. In the left and right views the tab shows end-on above the cap, and the back view is the mirror image of the front.
-- **Underside:** a dark rim around an open, hollow bottom, with no plate.
-- **Glow:** only the windows and lamps shine; everything else has grime and worn edges.
+**Matches your description:**
+- **Shape:** a square column with its corners cut, so it's an octagon with long faces and short diagonal corners.
+- **Body:** the dark skirt at the bottom, the grimy grey-beige column (about 15 units tall), and a light-grey rim stepping in to a pale, recessed top deck.
+- **Long faces:** all four are the same. Each has:
+  - a glowing teal window, darker green at the edges and nearly white in the middle, in a thick light-grey raised frame;
+  - an orange-red lamp with a yellow centre in a white surround, above the window just under the rim;
+  - the hazard band just above the skirt, running all the way round.
+- **Corner faces:** off-white panels with a dark outline, level with the upper half of the windows, plain metal below.
+- **Top:** in the front view the hex cap (with a dark round socket) is on the right. On the left is a hinge base holding a gold tab with grey stripes, tilted about 45° outward. From the back the two swap sides, so they're mirror images. From either side the tab shows end-on above the cap.
+- **Glow:** only the windows and lamps glow (they're fullbright).
+- **Wear:** grime, rust streaks and worn edges are painted over everything.
 
-**Where it falls short:**
-- **Hazard stripes:** the kit's hazard material only makes stripes of one colour and black, so they're yellow and black rather than yellow and grey. They are diagonal and look worn.
-- **Window texture:** the windows are a flat glowing teal. They don't have the brighter, almost white middle or the mottled crystalline look.
-- **Hex cap:** it's a plain hexagon, without notches cut into its sides.
-- **Lever tab:** the tab is built from five short stacked pieces. The check notes small gaps between some of them and the hinge pin. Nothing in the pictures shows them, and nothing failed.
+**Where it differs from the original:**
+- **Hazard stripes:** they're yellow and black, not yellow and grey. The kit's hazard material only does stripes in one colour plus black.
+- **Skirt:** it steps in to a smaller octagon instead of sloping. The top bevel is also two steps, not a slope. The kit has no shape for an irregular octagon that tapers, so the octagon is made from overlapping boxes.
+- **Underside:** it's closed but painted dark, not actually hollow. From below it reads as a dark octagon with a darker middle.
+- **Top deck:** its raised frame is painted on as a rectangle, not an octagon.
+- **Window texture:** it's a smooth gradient from the middle outward, not mottled or crystalline.
+- **Hex cap:** the notches on its sides aren't there.
 
-I couldn't test it in the game. The kit's pictures use a stand-in for the engine's lighting, so it will look a bit different in-game.
+The build lists six "nearly touch" notes for the top fittings, but those parts are sunk into the deck, so they aren't actual gaps.
+
+The files are in the work folder: `battery.mdl`, `battery.spec.json` (the spec, to rebuild it) and `battery-sheet.png` (the six views).
