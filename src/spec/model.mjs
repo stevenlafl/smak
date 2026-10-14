@@ -1085,7 +1085,10 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, hide =
             const area = view.area ?? [0, 0, picture.width, picture.height];
             views.push({ ...masksFromPicture(picture, area, view.rect), yaw, pitch, name: view.view ?? `yaw ${yaw}` });
           }
-          const hull = carve(views, { size: part.size, cells: part.cells ?? 64, target: part.triangles ?? 400 });
+          // unless told, as many triangles as three quarters of Half-Life's props of its size have under them:
+          // a copy is judged against twice its original's, and the outline holds at that count
+          const band = PROP_TRIANGLES.find((b) => Math.hypot(...part.size) < b.under);
+          const hull = carve(views, { size: part.size, cells: part.cells ?? 64, target: part.triangles ?? band.q3 });
           report.facts.push(`${part.id}: carved from ${views.length} views at ${part.cells ?? 64} cells, ${hull.tris.length} triangles; each view's outline against its own: ${Object.entries(hull.report.overlapByView ?? {}).map(([k, v]) => `${k} ${v}`).join(", ")}`);
           return { ...part, carvedTris: hull.tris };
         }),
