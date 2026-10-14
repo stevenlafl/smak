@@ -916,12 +916,16 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         );
     return { min: [0, 1].map((k) => Math.min(...points.map((p) => p[k]))), max: [0, 1].map((k) => Math.max(...points.map((p) => p[k]))) };
   };
+  /** what stands in each room (props, prefabs): where to look at it from */
+  const propsAt = [];
   place(
     spec.furniture,
     "furniture",
     (thing, room, at, i) => {
       const prefab = prefabOf(thing);
       putPrefab(prefab, at, Math.round((thing.rotate ?? 0) / 90), `furniture[${i}]`, thing.entity ?? prefab.entity ?? detailed(thing, prefab));
+      // a prefab is looked at as a prop is (a slab or a line on the floor is not: it is the floor)
+      if (thing.prefab) propsAt.push({ room: room.id, at, half: 32 });
     },
     (thing) => turnedPrint(prefabPrint(prefabOf(thing)), 90 * Math.round((thing.rotate ?? 0) / 90)),
   );
@@ -973,7 +977,6 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     files.models = join(out, `${spec.name}-models.png`);
     writeFileSync(files.models, png(sheet.width, sheet.height, sheet.rgba));
   }
-  const propsAt = [];
   place(
     spec.props,
     "props",
@@ -1168,7 +1171,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
           const pitch = Math.round((Math.atan2(high - from[2], Math.hypot(centre[0] - from[0], centre[1] - from[1])) * 180) / Math.PI);
           return drawMap(bsp, { ...drawing, from, yaw, pitch: Math.max(-30, Math.min(30, pitch)), width: 640, height: 360 });
         });
-        save("props", stacked(looks, propRooms.map((room) => `${room.id}: its props`)));
+        save("props", stacked(looks, propRooms.map((room) => `${room.id}: what stands in it`)));
       }
       // a side section through each staircase: the steps, the floors and the headroom, which no plan shows
       if (cuts.length)
