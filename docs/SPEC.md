@@ -163,7 +163,10 @@ player holds): 8 for a radius of 6, 6 for a pipe seen only lengthways, more only
 | Weapon in another player's hands (`p_`) | 88 | 142 | 187 |
 | First-person weapon with its arms (`v_`) | 523 | 615 | 832 |
 
-A crate there is 26 triangles, its planks and bands painted on; a can, 28; a large monster, 500 to 1,000.
+A crate there is 26 triangles, its planks and bands painted on; a can, 28; a large monster, 500 to 1,000. A
+prop's report gives the median and third quartile of Half-Life's props of its size, and warns past twice the
+median: a copy is judged against twice its original's count. A filing cabinet there is 14 triangles, its
+drawers, handles and rails all painted on a box.
 Build to that: the shape in triangles, the detail in the picture.
 
 Parts should touch: the check calls a part more than 0.25 units from every other **floating**. Let parts

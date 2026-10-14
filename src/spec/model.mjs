@@ -74,6 +74,18 @@ const SHEET_SIZE = 256;
 const KIT_SHRINK = 2;
 /** Three quarters of Half-Life's props, plants, creatures and people have fewer triangles than this (docs/SPEC.md). */
 const PROP_BUDGET = 576;
+/**
+ * Half-Life's props (models of three bones or fewer, not v_ or p_) by the length of their box's diagonal, in
+ * units: the triangles of their first body at the median and the third quartile. Measured on the game's 74 such
+ * models (2026-10-14); numbers only.
+ */
+const PROP_TRIANGLES = [
+  { under: 16, median: 20, q3: 32 },
+  { under: 32, median: 51, q3: 88 },
+  { under: 64, median: 62, q3: 156 },
+  { under: 128, median: 105, q3: 238 },
+  { under: Infinity, median: 288, q3: 288 },
+];
 /** How far the size may be off what the spec asks before it is warned of, and before it is an error. */
 const SIZE_WARN = 0.1;
 const SIZE_ERROR = 0.25;
@@ -985,6 +997,15 @@ export function buildModelSpec(spec, { folder, prefabs = {}, games = [], readPic
   if (spec.budget && triangles > spec.budget) report.faults.push(`over budget: ${budgetLine}`);
   else if (!spec.budget && kind === "prop" && triangles > PROP_BUDGET) warnings.push(`${budgetLine}: three quarters of Half-Life's props have fewer than ${PROP_BUDGET}; give the spec a budget, and paint what lies on a surface`);
   else report.facts.push(budgetLine);
+  // what Half-Life's own props of this size spend: a judge holds a copy to twice its original's triangles, and an
+  // original of this size most often has the median
+  if (kind === "prop") {
+    const diagonal = Math.hypot(...[0, 1, 2].map((k) => box.mx[k] - box.mn[k]));
+    const band = PROP_TRIANGLES.find((b) => diagonal < b.under);
+    const line = `Half-Life's props of this size (${Math.round(diagonal)} units corner to corner) have ${band.median} triangles at the median, three quarters under ${band.q3}`;
+    if (!spec.budget && triangles > 2 * band.median) warnings.push(`${triangles} triangles: ${line}. Paint what lies on a surface (drawers, labels, seams), and build only what stands out of the outline`);
+    else report.facts.push(line);
+  }
   report.notes.push(...sound.notes);
   report.edges = sound.edges;
 
