@@ -208,3 +208,15 @@ export function fitMotion(src, { seq, picture, count = 8, cols = 4, view = "left
   const mean = (list, key) => Math.round((list.reduce((a, f) => a + f[key], 0) / list.length) * 1000) / 1000;
   return { frames, offset, before: mean(fits, "before"), after: mean(fits, "after") };
 }
+
+/**
+ * How well a shape's outline fits pictures of the thing: for each view ({ picture, yaw, pitch, area, rect }, as
+ * `project` takes them) the share of cells in both outlines of those in either, both at their true proportions,
+ * or null where no outline is found in the picture. `tris`: triangles as lists of three points in model space.
+ */
+export function outlineFit(tris, views) {
+  return views.map((view) => {
+    const target = targetOf(view);
+    return target ? Math.round(overlap(target, outlineOf(tris, target.axes)) * 1000) / 1000 : null;
+  });
+}

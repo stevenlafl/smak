@@ -39,6 +39,9 @@ import { bakeParts } from "./bake.mjs";
 import { contractOf, compareContract } from "../contract.mjs";
 import { paintPanels, paintWords, faceSize } from "./faces.mjs";
 import { paintProjections, VIEW_NAMES } from "./project.mjs";
+import { outlineFit } from "./posefit.mjs";
+/** An outline sharing less than this with its picture's is warned of: the reproduction test's own line (M1). */
+const OUTLINE_FAIR = 0.8;
 import { unpng } from "../image.mjs";
 
 /** A character's finish unless told: cloth and skin do not rub bright as metal and wood do. */
@@ -1295,6 +1298,13 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, hide =
       const { texels, views: seen } = paintProjections(meshes, views);
       report.facts.push(`pictures projected over ${texels} texels: ${seen.map((v, i) => `${spec.project[i].picture} (${spec.project[i].view ?? `yaw ${spec.project[i].yaw ?? 0} pitch ${spec.project[i].pitch ?? 0}`}) ${v ? `outline at ${v.rect.join(" ")} in it, ${v.seen} texels seen` : "NO OUTLINE FOUND in it: give rect"}`).join("; ")}`);
       seen.forEach((v, i) => !v && warnings.push(`project[${i}]: the thing's outline was not found in ${spec.project[i].picture}: give its area or rect`));
+      // the shape's own outline against each picture's, as a judge measures it: what to mend before painting more
+      const fits = outlineFit(meshes.flatMap((mesh) => mesh.tris.map((t) => t.map((c) => c.p))), views);
+      const named = (i) => spec.project[i].view ?? `yaw ${spec.project[i].yaw ?? 0} pitch ${spec.project[i].pitch ?? 0}`;
+      report.facts.push(`the shape's outline against each picture's (cells in both of those in either): ${fits.map((f, i) => `${named(i)} ${f ?? "-"}`).join(", ")}`);
+      const short = fits.map((f, i) => [f, i]).filter(([f]) => f !== null && f < OUTLINE_FAIR);
+      if (short.length)
+        warnings.push(`the shape's outline is off the pictures' in ${short.map(([f, i]) => `${named(i)} (${f})`).join(", ")}: under ${OUTLINE_FAIR}, a part is missing, too big or misplaced there. Look at those views beside the pictures (reference), or carve the body from them (kind carved)`);
     } catch (error) {
       errors.push(`project: ${error.message}`);
       return { mdl: null, report };

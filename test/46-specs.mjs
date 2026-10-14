@@ -515,6 +515,9 @@ test("a model spec's project: a person's picture of the front laid onto the face
   const spec = { spec: "smak.model/1", name: "p.mdl", kind: "prop", finish: false, parts: [{ id: "b", kind: "box", size: [10, 10, 20], material: { base: "paint", tone: [0.1, 0.8, 0.1] } }], project: [{ picture: "front.png", view: "front" }] };
   const { mdl, report } = buildModelSpec(spec, { folder });
   sure(report.ok && report.facts.some((f) => /projected over \d+ texels.*outline at 50 50 150 250/.test(f)), [...report.errors, ...report.facts.filter((f) => /projected/.test(f))].join("; "));
+  // the box's own outline against the picture's: the same shape, so they share nearly every cell
+  const fit = report.facts.find((f) => /outline against each picture's/.test(f));
+  sure(fit && Number(/front ([\d.]+)/.exec(fit)[1]) > 0.95 && !report.warnings.some((w) => /outline is off/.test(w)), fit);
   // from the front: red on the viewer's left, blue on the right; from the back: the box's own green
   const shot = (yaw) => smak.render(mdl, { seq: 0, yaw, pitch: 0, width: 100, height: 100, light: false });
   const at = (pic, x, y) => [...pic.rgba.subarray((y * 100 + x) * 4, (y * 100 + x) * 4 + 3)];

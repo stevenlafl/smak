@@ -363,6 +363,9 @@ the front, not a corner), and a part the pictures show stands where they show it
   its frame) is open by a sliver, which no fault catches when each part touches something else. Look at
   each pair close (`focus`) and sink one into the other where they were meant to meet.
 - `FAULT the pictures look through the model`: seen from outside, the inside shows somewhere.
+- `fact the shape's outline against each picture's`: with `project`, how much of the model's outline and each
+  picture's are shared, view by view, both at their true proportions (as a judge measures it); under 0.8 is
+  `WARN ... outline is off`: a part missing, too big or out of place in that view. Mend it, or carve the body.
 - `FAULT height ... where the spec asks`: the size is not what was asked.
 - `fact from the lowest part up`: each part's height from and to. A roof under a floor is a stack built
   upside down.
