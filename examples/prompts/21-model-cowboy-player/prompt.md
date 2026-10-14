@@ -29,8 +29,7 @@ Built on Half-Life's own player model, like cases 19 and 20, so its results stay
 | 7 | Brown heeled boots with a spur at each heel | no | 2 |
 | 8 | Nothing apart in standing, running, walking, crouching and jumping; no holes; shown running | yes | 2 |
 
-**Score: 16 of 16 (100%), judged from the pictures built locally. Passes.** Plainest: the hands are flat
-paddles with a thumb, and the spurs are small; both are for a later pass at higher fidelity.
+**Score: 16 of 16 (100%), judged from the pictures built locally. Passes.** Plainest: the spurs are small.
 
 ## How the prompt became the spec
 
@@ -62,4 +61,8 @@ paddles with a thumb, and the spurs are small; both are for a later pass at high
    points, and the skeleton and the robot lighter too.
 5. The moustache was a thin line: made big, a horseshoe out from the face. 2898 triangles, nothing apart
    in the five poses, fit for goldsrc.
+6. A pass at higher fidelity: the paddle hands made a palm, four fingers laid along the hand's finger bones
+   and a thumb. That went over GoldSrc's 2048 normals; measured part by part, the turned parts and tubes
+   (the boots' feet, 116 normals for 72 points; the head; the moustache) were shaded face by face. With the
+   spec's `smooth` at 70 they are shaded round, the model looks rounder, and it is under the limit.
 
