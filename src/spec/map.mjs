@@ -43,6 +43,8 @@ const DOOR = { width: 64, height: 96 };
  * (a real house's 2'-6" doors at a foot to 12 units) are widened to these, and the report says so.
  */
 const PASSABLE = { opening: 48, door: 48, swing: 56 };
+/** How deep the floor in front of a way through stays clear of furniture, on both sides: a step and a turn. */
+const CLEAR = 40;
 const WINDOW = { width: 48, height: 48, sill: 40 };
 /** How thick a lining of another texture is (a yard's grass, a sky over a court). */
 const LINING = 8;
@@ -625,6 +627,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   // ── the ways through: doorways, windows, stairs, shafts between storeys ──
   const holes = [];
   const thresholds = [];
+  const ways = [];
   const brushes = [];
   /** where to cut the map upright to see each staircase: { name, from, to } in plan */
   const cuts = [];
@@ -684,7 +687,8 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     const asked = link.width ?? (kind === "window" ? WINDOW.width : DOOR.width);
     const least = kind === "window" ? 0 : kind === "door" && link.door?.swing ? PASSABLE.swing : kind === "door" ? PASSABLE.door : PASSABLE.opening;
     const width = Math.min(Math.max(asked, least), hi - lo);
-    if (width > asked) report.facts.push(`links[${i}]: ${a.id} to ${b.id} widened from ${asked} to ${width}: a player passes a ${kind}${link.door?.swing ? " on hinges" : ""} at ease at ${least}`);
+    if (width > asked) report.facts.push(`links[${i}]: ${a.id} to ${b.id} widened from ${asked} to ${width}: a player passes ${kind === "opening" ? "an" : "a"} ${kind}${link.door?.swing ? " on hinges" : ""} at ease at ${least}`);
+    if (width < least) report.faults.push(`links[${i}]: the wall ${a.id} and ${b.id} share is ${hi - lo} long, and a player passes ${kind === "opening" ? "an" : "a"} ${kind}${link.door?.swing ? " on hinges" : ""} at ease at ${least}: make the rooms share more wall, or leave the way out`);
     const share = link.along ?? 0.5;
     const centre = snap(lo + (hi - lo) * share, 8);
     const w0 = Math.max(lo, Math.min(hi - width, centre - width / 2));
@@ -702,7 +706,14 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     holes.push(hole);
     // the threshold: rooms with a floor of their own are carved a lining deeper under it, and the way between
     // them was carved down with them, a slot across the doorway a foot catches in. A slab fills it to the floor
-    if (kind !== "window") thresholds.push({ min: [hole.min[0], hole.min[1], z0 - LINING * 2], max: [hole.max[0], hole.max[1], z0] });
+    if (kind !== "window") {
+      thresholds.push({ min: [hole.min[0], hole.min[1], z0 - LINING * 2], max: [hole.max[0], hole.max[1], z0] });
+      // the floor in front of it on both sides, which furniture keeps clear of
+      const clear = { link: i, kind, z0, along, least, min: [hole.min[0], hole.min[1]], max: [hole.max[0], hole.max[1]], in: [] };
+      clear.min[axis] -= CLEAR;
+      clear.max[axis] += CLEAR;
+      ways.push(clear);
+    }
     report.facts.push(`links[${i}]: ${kind === "opening" ? "an" : "a"} ${kind} ${width} wide and ${height} high from ${a.id} to ${b.id} at ${along === 0 ? "x" : "y"} ${w0} to ${w0 + width}`);
     if (kind !== "window" && floorHigh - floorLow > STEP) {
       // stairs in the lower room, up to the doorway's floor, against the wall it is in
@@ -1024,6 +1035,43 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         );
     return { min: [0, 1].map((k) => Math.min(...points.map((p) => p[k]))), max: [0, 1].map((k) => Math.max(...points.map((p) => p[k]))) };
   };
+  /** each piece's bottom and top, in the prefab's own space */
+  const prefabHeights = (prefab) =>
+    prefab.file
+      ? [readMap(readFileSync(resolve(folder ?? ".", prefab.file), "utf8")).brushes.flatMap((b) => shapeOf(b).corners.map((c) => c[2]))].map((z) => [Math.min(...z), Math.max(...z)])
+      : prefab.pieces.map((piece) => {
+          const box = piece.box ?? piece.wedge;
+          if (box) return [Math.min(box[0][2], box[1][2]), Math.max(box[0][2], box[1][2])];
+          const solid = piece.cylinder ?? piece.prism;
+          return [solid?.from ?? 0, solid?.to ?? PLAYER.high];
+        });
+  /**
+   * The ways through (doors, openings) a piece of furniture at `at` stands in front of: where it overlaps the floor
+   * kept clear each side of one, between a step over its floor and a player's head. A flight whose every rise is
+   * a step (steps up to a door) is walked over, and is in no way.
+   */
+  const inTheWay = (prefab, own, at) =>
+    ways.filter((way) => {
+      const over = [0, 1].map((k) => Math.min(at[k] + own.max[k], way.max[k]) - Math.max(at[k] + own.min[k], way.min[k]));
+      if (!over.every((v) => v > INTO_WALL)) return false;
+      const pieces = prefabHeights(prefab).map(([lo, hi]) => [at[2] + lo - way.z0, at[2] + hi - way.z0]);
+      const standing = pieces.filter(([lo, hi]) => hi > STEP && lo < PLAYER.high);
+      if (!standing.length) return false;
+      const tops = [...new Set(pieces.map(([, hi]) => hi).filter((hi) => hi > 0))].sort((a, b) => a - b);
+      return !tops.every((top, k) => top - (tops[k - 1] ?? 0) <= STEP);
+    });
+  /** the widest stretch across a way that nothing in front of it stands in */
+  const freeAcross = (way) => {
+    const [lo, hi] = [way.min[way.along], way.max[way.along]];
+    const taken = way.in.map((t) => [Math.max(lo, t.min[way.along]), Math.min(hi, t.max[way.along])]).sort((a, b) => a[0] - b[0]);
+    let widest = 0;
+    let from = lo;
+    for (const [a, b] of taken) {
+      widest = Math.max(widest, a - from);
+      from = Math.max(from, b);
+    }
+    return Math.max(widest, hi - from);
+  };
   /** what stands in each room (props, prefabs): where to look at it from */
   const propsAt = [];
   place(
@@ -1035,11 +1083,23 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       const holed = (prefab.pieces ?? []).some((piece) => textureOf(piece.texture ?? "furniture").startsWith("{"));
       const seeThrough = holed ? { class: "func_wall", rendermode: 4, renderamt: 255 } : null;
       putPrefab(prefab, at, Math.round((thing.rotate ?? 0) / 90), `furniture[${i}]`, thing.entity ?? prefab.entity ?? seeThrough ?? detailed(thing, prefab));
+      // nor in front of a door or an opening, where a player steps through
+      const own = turnedPrint(prefabPrint(prefab), 90 * Math.round((thing.rotate ?? 0) / 90));
+      for (const way of inTheWay(prefab, own, at))
+        way.in.push({ name: `furniture[${i}] (${thing.prefab ?? "box"})`, min: [at[0] + own.min[0], at[1] + own.min[1]], max: [at[0] + own.max[0], at[1] + own.max[1]] });
       // a prefab is looked at as a prop is (a slab or a line on the floor is not: it is the floor)
       if (thing.prefab) propsAt.push({ room: room.id, at, half: 32 });
     },
     (thing) => turnedPrint(prefabPrint(prefabOf(thing)), 90 * Math.round((thing.rotate ?? 0) / 90)),
   );
+  // a way through keeps a stretch a player passes at ease clear in front of it (a wide one may have a hedge by it)
+  for (const way of ways) {
+    if (!way.in.length) continue;
+    const free = freeAcross(way);
+    const wanted = Math.min(way.least, way.max[way.along] - way.min[way.along]);
+    if (free < wanted)
+      report.faults.push(`${way.in.map((t) => t.name).join(", ")} ${way.in.length > 1 ? "stand" : "stands"} in front of links[${way.link}], ${way.kind === "opening" ? "an" : "a"} ${way.kind}, leaving ${Math.round(free)} of it free (a player passes at ease at ${wanted}; the floor ${CLEAR} deep each side, from ${way.min.join(" ")} to ${way.max.join(" ")}, is kept clear): move ${way.in.length > 1 ? "them" : "it"} out of the way`);
+  }
   for (const mark of marks) {
     if (!mark.meaning.prefab) continue;
     const room = [...rooms.values()].find((r) => mark.x > r.min[0] && mark.x < r.max[0] && mark.y > r.min[1] && mark.y < r.max[1]);
@@ -1208,6 +1268,10 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   // place; otherwise what it says (an opening a player only just fits) is a warning
   const walkFaults = walk.unreached.length + walk.stuck.length + walk.oneWay.length;
   (walkFaults ? report.faults : warnings).push(...walk.warnings.map((line) => `walk: ${line}`));
+  // every way a player walks through at ease: 32 is the player's own width, and the game may not let one by
+  const tight = (walk.openings ?? []).filter((opening) => opening.width < PASSABLE.opening);
+  if (tight.length)
+    report.faults.push(`${tight.length} ways a player walks through are under ${PASSABLE.opening} wide (furniture, or walls, too close together): ${tight.slice(0, 6).map((o) => `${o.width} wide at ${o.at.map(Math.round).join(" ")}`).join("; ")}: move what narrows each`);
   for (const room of rooms.values()) {
     const c = mid(room);
     if (!walk.on(c[0], c[1], room.max[2]).walked && !(room.spec.walk === false))

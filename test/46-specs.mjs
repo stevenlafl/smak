@@ -335,6 +335,28 @@ test("a map spec's doors: one on hinges, one that slides all the way up, and the
   sure(under, `solid under the doorway at ${x}, ${y}`);
 });
 
+test("a map spec keeps its ways through at ease: no furniture in front of a door, no wall too short for one", () => {
+  const spec = (furniture, size = [256, 256, 128]) => ({
+    spec: "smak.map/1", name: "ways",
+    rooms: [{ id: "a", size: [256, 256, 128] }, { id: "b", size, place: { east_of: "a" } }],
+    prefabs: { chest: { pieces: [{ box: [[-16, -16, 0], [16, 16, 40]] }] }, slab: { pieces: [{ box: [[-20, -20, 0], [20, 20, 4]] }] }, steps: { pieces: [9, 18, 27].map((h, k) => ({ box: [[-24 + 8 * k, -20, 0], [-16 + 8 * k, 20, h]] })) } },
+    links: [{ between: ["a", "b"], kind: "door" }],
+    furniture,
+    entities: [{ class: "info_player_start", room: "a", at: "centre" }],
+  });
+  const faults = (s) => buildMapSpec(s, { out: join(folder, "ways") }).report.faults.filter((f) => !/not compiled/.test(f));
+  // the door is in a's east wall, at its middle: 20 in front of it stands in the way, a slab and steps do not
+  const blocked = faults(spec([{ prefab: "chest", room: "a", at: [108, 0] }]));
+  sure(blocked.some((f) => /furniture\[0\] \(chest\) stands in front of links\[0\]/.test(f)), blocked.join("; "));
+  const over = faults(spec([{ prefab: "slab", room: "a", at: [104, 0] }, { prefab: "steps", room: "b", at: [-100, 0] }]));
+  sure(!over.some((f) => /in front of/.test(f)), over.join("; "));
+  const aside = faults(spec([{ prefab: "chest", room: "a", at: [108, 100] }]));
+  sure(!aside.some((f) => /in front of/.test(f)), aside.join("; "));
+  // a room that shares 40 of wall: a door there is too narrow, and the build says so
+  const short = faults({ ...spec([], [40, 40, 128]), rooms: [{ id: "a", size: [256, 256, 128] }, { id: "b", size: [40, 40, 128], place: { east_of: "a" } }] });
+  sure(short.some((f) => /links\[0\]: the wall a and b share is 40 long/.test(f)), short.join("; "));
+});
+
 test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ files, the gloved hands kept", () => {
   // a stand-in for a game's files: a first-person model of a glove and a stick, and a world one of the stick
   const meshOn = (build, name) => {
