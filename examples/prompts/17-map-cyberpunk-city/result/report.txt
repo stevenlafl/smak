@@ -1,5 +1,5 @@
 OK: built, and every check passed
-WARN  13 brushes have planes written with points off the grid of 1: where two such brushes should share a plane a crack can open, and the compiler may complain. Round them (a builder's snap option, or snapped) where they have to meet others: world brush 351 at -717.88 334.12 0; world brush 352 at -712.21 336.5 20; world brush 353 at -661.88 334.12 0; world brush 354 at -656.21 336.5 20; world brush 355 at -605.88 334.12 0; world brush 356 at -600.21 336.5 20; world brush 357 at -549.88 334.12 0; world brush 358 at -544.21 336.5 20; and 5 more
+WARN  13 brushes have planes written with points off the grid of 1: where two such brushes should share a plane a crack can open, and the compiler may complain. Round them (a builder's snap option, or snapped) where they have to meet others: brush 0 of entity 27 (func_detail) at -717.88 334.12 0; brush 1 of entity 27 (func_detail) at -712.21 336.5 20; brush 0 of entity 28 (func_detail) at -661.88 334.12 0; brush 1 of entity 28 (func_detail) at -656.21 336.5 20; brush 0 of entity 29 (func_detail) at -605.88 334.12 0; brush 1 of entity 29 (func_detail) at -600.21 336.5 20; brush 0 of entity 30 (func_detail) at -549.88 334.12 0; brush 1 of entity 30 (func_detail) at -544.21 336.5 20; and 5 more
 WARN  the middle of noodle_shop is not walked to (furniture there, or the room is shut off)
 WARN  the middle of clinic_surgery is not walked to (furniture there, or the room is shut off)
 WARN  the middle of sewer_channel is not walked to (furniture there, or the room is shut off)
@@ -23,13 +23,14 @@ fact  models.hover_car: built and sound (1228 triangles in 2 textures; 107.7 lon
 fact  models.noodle_noodle_sign: built and sound (288 triangles in 2 textures; 3.4 long (x), 64 wide (y), 44 high (z))
 fact  models.noodle_paper_lantern: built and sound (248 triangles in 2 textures; 12 long (x), 12 wide (y), 28.4 high (z))
 fact  texture lights: SM_PINK_SIGN, SM_PURPLE_SIGN, SM_GREEN_SIGN, SM_WINDOW, SM_MAGENTA_BOAR, SM_CYAN_BOARD, SM_NOODLE_PINK, SM_ARCADE_SCREE, SM_ARCADE_MARQU, SM_ARCADE_STRIP, SM_ARCADE_LEDS, SM_CLINIC_VEND, SM_CLINIC_MONIT, SM_CLINIC_JARS, SM_SEWER_SCREEN, SM_SEWER_STATUS
-fact  15 rooms, 14 ways through, 485 brushes, 65 entities
+fact  15 rooms, 14 ways through, 236 brushes, 122 entities
 fact  entities checked against halflife.fgd, sdhlt.fgd (208 classes)
 fact  walked from 1 places to start: 1 info_player_start
 fact  all 21 entities a player goes to are reached on foot
 fact  no one-way place: from all the floor walked there is a way back to a place to start
 fact  the walk reaches 86.4 in 100 of the floor a standing player fits on (1722816 of 1993216 square units, on the grid of 8)
-fact  compiled: /tmp/smak-prompts-UAISVL/cyberpunk_city/cyberpunk_city.bsp; the floors' light by room: street 80, pawnshop 36, alley 39, lobby 47, noodle_shop 57, noodle_store 45, arcade_hall 41, arcade_closet 47, clinic_waiting 120, clinic_surgery 218, sewer_access 32, sewer_drain 37, sewer_channel 0, sewer_hideout 33, sewer_culvert 32, elsewhere 11
+fact  the engine's limits: models 10 of 512, planes 1221 of 32768, worldfaces 2782 of 32768, clipnodes 2029 of 32767, worldleaves 773 of 8192, allocblock 6 of 64
+fact  compiled: /tmp/smak-prompts-NW7Uao/cyberpunk_city/cyberpunk_city.bsp; the floors' light by room: street 80, pawnshop 36, alley 39, lobby 47, noodle_shop 57, noodle_store 45, arcade_hall 41, arcade_closet 47, clinic_waiting 120, clinic_surgery 218, sewer_access 32, sewer_drain 37, sewer_channel 0, sewer_hideout 33, sewer_culvert 32, elsewhere 11
 ROOMS: id, from x y z to x y z, floor light
   street -896 -224 0 to 896 224 512, light 80
   pawnshop -800 -496 0 to -416 -240 144, light 36

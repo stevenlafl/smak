@@ -1,8 +1,7 @@
 OK: built, and every check passed
 CHANGED since the last build of noodle_bar: materials added: blue_neon
 CHANGED since the last build of noodle_bar: 22 rooms and things are where they were
-WARN  13 brushes have planes written with points off the grid of 1: where two such brushes should share a plane a crack can open, and the compiler may complain. Round them (a builder's snap option, or snapped) where they have to meet others: world brush 32 at -141.88 -33.88 0; world brush 33 at -136.21 -31.5 20; world brush 34 at -85.88 -33.88 0; world brush 35 at -80.21 -31.5 20; world brush 36 at -29.88 -33.88 0; world brush 37 at -24.21 -31.5 20; world brush 38 at 26.12 -33.88 0; world brush 39 at 31.79 -31.5 20; and 5 more
-WARN  1 entities are inside a world brush: entity 14 (info_texlights) at 0 0 32 is inside world brush 30
+WARN  13 brushes have planes written with points off the grid of 1: where two such brushes should share a plane a crack can open, and the compiler may complain. Round them (a builder's snap option, or snapped) where they have to meet others: brush 0 of entity 3 (func_detail) at -141.88 -33.88 0; brush 1 of entity 3 (func_detail) at -136.21 -31.5 20; brush 0 of entity 4 (func_detail) at -85.88 -33.88 0; brush 1 of entity 4 (func_detail) at -80.21 -31.5 20; brush 0 of entity 5 (func_detail) at -29.88 -33.88 0; brush 1 of entity 5 (func_detail) at -24.21 -31.5 20; brush 0 of entity 6 (func_detail) at 26.12 -33.88 0; brush 1 of entity 6 (func_detail) at 31.79 -31.5 20; and 5 more
 WARN  the middle of shop is not walked to (furniture there, or the room is shut off)
 WARN  the middle of store is not walked to (furniture there, or the room is shut off)
 fact  links[0]: an opening 192 wide and 112 high from shop to street at x -96 to 96
@@ -10,13 +9,14 @@ fact  links[1]: a door 64 wide and 96 high from shop to store at x 96 to 160
 fact  models.noodle_sign: built and sound (288 triangles in 2 textures; 3.4 long (x), 64 wide (y), 44 high (z))
 fact  models.paper_lantern: built and sound (248 triangles in 2 textures; 12 long (x), 12 wide (y), 28.4 high (z))
 fact  texture lights: SM_BLUE_NEON
-fact  3 rooms, 2 ways through, 60 brushes, 14 entities
+fact  3 rooms, 2 ways through, 29 brushes, 25 entities
 fact  entities checked against halflife.fgd, sdhlt.fgd (208 classes)
 fact  walked from 1 places to start: 1 info_player_start
 fact  all 4 entities a player goes to are reached on foot
 fact  no one-way place: from all the floor walked there is a way back to a place to start
 fact  the walk reaches 77.2 in 100 of the floor a standing player fits on (205376 of 266112 square units, on the grid of 8)
-fact  compiled: /tmp/smak-prompts-UAISVL/noodle_bar/noodle_bar.bsp; the floors' light by room: shop 53, store 44, street 44
+fact  the engine's limits: models 2 of 512, planes 387 of 32768, worldfaces 456 of 32768, clipnodes 324 of 32767, worldleaves 179 of 8192, allocblock 1 of 64
+fact  compiled: /tmp/smak-prompts-NW7Uao/noodle_bar/noodle_bar.bsp; the floors' light by room: shop 53, store 44, street 44
 ROOMS: id, from x y z to x y z, floor light
   shop -224 -128 0 to 224 128 160, light 53
   store 32 144 0 to 224 272 128, light 44
