@@ -31,9 +31,11 @@ const kinds = KINDS.filter((k) => !words.some((w) => KINDS.includes(w)) || words
 const named = words.filter((w) => !KINDS.includes(w));
 const LEGS = ["pictures", "words"];
 
+const SOUND_CLASS = { "weapons/cbar_hit1": "metal hit", "weapons/357_shot1": "gunshot", "weapons/sbarrel1": "gunshot", "player/pl_step1": "step concrete", "player/pl_metal1": "step metal", "weapons/explode3": "explosion", "ambience/drips": "loop drips" };
 const SUBJECTS = {
   sprites: ["glow01", "flare1", "fire", "zerogxplode", "steam1", "xspark1", "laserbeam", "muzzleflash1"].map((id) => ({ id, file: `sprites/${id}.spr` })),
-  sounds: ["weapons/cbar_hit1", "weapons/357_shot1", "weapons/sbarrel1", "player/pl_step1", "player/pl_metal1", "doors/doormove1", "items/smallmedkit1", "debris/bustmetal1", "weapons/explode3", "ambience/drips"].map((n) => ({ id: n.replace("/", "-"), file: `sound/${n}.wav`, name: `${n}.wav` })),
+  // a class of src/audio/classes.mjs where the sound is of one, for its envelope's range (S2)
+  sounds: ["weapons/cbar_hit1", "weapons/357_shot1", "weapons/sbarrel1", "player/pl_step1", "player/pl_metal1", "doors/doormove1", "items/smallmedkit1", "debris/bustmetal1", "weapons/explode3", "ambience/drips"].map((n) => ({ id: n.replace("/", "-"), file: `sound/${n}.wav`, name: `${n}.wav`, class: SOUND_CLASS[n] })),
   textures: [{ id: "frenzy", file: "maps/frenzy.bsp" }],
 };
 const chosen = (kind) => SUBJECTS[kind].filter((s) => !named.length || named.includes(s.id));
@@ -43,8 +45,11 @@ const png = (picture) => smak.png(picture.width, picture.height, picture.rgba);
 
 // ── what the game has ─────────────────────────────────────────────────────
 
-/** A texture's largest face of the world, and a camera that looks square at it from in front. */
-function texturePlaces(bsp) {
+/** The mean light (0 to 255) of a face's lightmap under which it counts as unlit: black in any picture. */
+const LIT_LEAST = 12;
+
+/** A texture's largest lit face of the world (its largest when none is lit), and a camera square in front of it. */
+export function texturePlaces(bsp) {
   const best = new Map();
   const world = bsp.models[0];
   for (let f = world.firstFace; f < world.firstFace + world.faceCount; f++) {
@@ -58,17 +63,76 @@ function texturePlaces(bsp) {
       a = a.map((s, k) => s + [u[1] * w[2] - u[2] * w[1], u[2] * w[0] - u[0] * w[2], u[0] * w[1] - u[1] * w[0]][k] / 2);
     }
     const area = Math.hypot(...a);
-    if (area > (best.get(tex.name)?.area ?? 0)) best.set(tex.name, { area, corners, normal: maps.faceNormal(bsp, f), texture: tex });
+    // a face the map leaves unlit is black in either picture: one that is lit stands before any that is not
+    const light = maps.faceLightmap(bsp, f)?.styles.find((st) => st.style === 0)?.rgb;
+    let lum = 0;
+    if (light) for (let i = 0; i < light.length; i += 3) lum += (light[i] + light[i + 1] + light[i + 2]) / 3;
+    const lit = light && lum / (light.length / 3) >= LIT_LEAST;
+    const rank = area * (lit ? 1 : 1e-6);
+    if (rank > (best.get(tex.name)?.rank ?? 0)) best.set(tex.name, { area, rank, lit: Boolean(lit), corners, normal: maps.faceNormal(bsp, f), texture: tex });
   }
-  return [...best.values()].map(({ corners, normal, texture, area }) => {
+  return [...best.values()].map(({ corners, normal, texture, area, lit }) => {
     const mid = corners.reduce((s, c) => s.map((v, k) => v + c[k] / corners.length), [0, 0, 0]);
     const span = Math.sqrt(area);
     const dist = Math.min(160, Math.max(40, span * 0.8));
     const from = mid.map((v, k) => v + normal[k] * dist);
     const yaw = (Math.atan2(-normal[1], -normal[0]) * 180) / Math.PI;
     const pitch = (Math.asin(Math.max(-1, Math.min(1, -normal[2]))) * 180) / Math.PI;
-    return { name: texture.name, width: texture.width, height: texture.height, from, yaw, pitch, area };
+    return { name: texture.name, width: texture.width, height: texture.height, from, yaw, pitch, area, lit };
   });
+}
+
+/** A wad texture as a picture: its palette's colours, a `{` texture's holes shown in a pale grey. */
+function flatOf(t) {
+  const rgba = new Uint8Array(t.width * t.height * 4);
+  const holes = t.name.startsWith("{");
+  for (let i = 0; i < t.width * t.height; i++) {
+    const c = t.pixels[i];
+    const hole = holes && c === 255;
+    rgba.set(hole ? [200, 200, 200, 255] : [t.palette[c * 3], t.palette[c * 3 + 1], t.palette[c * 3 + 2], 255], i * 4);
+  }
+  return { width: t.width, height: t.height, rgba };
+}
+
+/** A picture scaled by whole steps (nearest) to fit a square of `cell`, so that texels stay sharp. */
+function scaled(picture, cell = 256) {
+  const k = Math.max(1, Math.floor(cell / Math.max(picture.width, picture.height)));
+  const width = picture.width * k;
+  const height = picture.height * k;
+  const rgba = new Uint8Array(width * height * 4);
+  for (let y = 0; y < height; y++)
+    for (let x = 0; x < width; x++) rgba.set(picture.rgba.subarray(((((y / k) | 0) * picture.width) + ((x / k) | 0)) * 4, ((((y / k) | 0) * picture.width) + ((x / k) | 0)) * 4 + 4), (y * width + x) * 4);
+  return { width, height, rgba };
+}
+
+/** A picture in the top left of a canvas of a fixed size, so that every cell of a sheet is the same. */
+function onCanvas(picture, width, height) {
+  const rgba = new Uint8Array(width * height * 4);
+  for (let i = 0; i < width * height; i++) rgba.set([24, 26, 30, 255], i * 4);
+  for (let y = 0; y < Math.min(height, picture.height); y++)
+    rgba.set(picture.rgba.subarray(y * picture.width * 4, y * picture.width * 4 + Math.min(width, picture.width) * 4), y * width * 4);
+  return { width, height, rgba };
+}
+
+/** The game's own textures of a map, by name in small letters, from the .wad files its worldspawn names. */
+function gameTextures(bsp) {
+  const ws = maps.entitiesOf(bsp).find((e) => e.classname === "worldspawn")?.pairs ?? [];
+  const named = (ws.find(([k]) => k === "wad")?.[1] ?? "").split(";").map((w) => basename(w.replace(/\\/g, "/"))).filter(Boolean);
+  const found = new Map();
+  for (const wad of [...named, "halflife.wad"]) {
+    const file = join(GAME, wad);
+    if (!existsSync(file)) continue;
+    for (const t of maps.readWad(readFileSync(file)).textures) if (!found.has(t.name.toLowerCase())) found.set(t.name.toLowerCase(), t);
+  }
+  return found;
+}
+
+/** The names that go with a map's texture: its animation's frames (+0name..+9name, +Aname..) and random tiles (-0name..). */
+function siblingsOf(name, known) {
+  const m = name.match(/^([+-])[0-9a-j](.+)$/i);
+  if (!m) return [name];
+  const rest = m[2].toLowerCase();
+  return [...known.keys()].filter((k) => k.length === name.length && /^[+-][0-9a-j]/i.test(k) && k[0] === m[1] && k.slice(2) === rest).sort();
 }
 
 /** A view of a texture's place in the map: from its camera, wearing `textures` (a .wad's) or the game's. */
@@ -136,7 +200,7 @@ async function reproduce(kind, subject, leg) {
   if (leg === "pictures") {
     for (const f of readdirSync(input)) files[`pictures/${f}`] = join(input, f);
     given = `The original, in pictures: every file of ${input} (also in the server's work folder under pictures/). ${readdirSync(input).filter((f) => f.endsWith(".txt")).map((f) => readFileSync(join(input, f), "utf8")).join("\n")}`;
-  } else given = `The original, as someone who has seen it describes it:\n\n${readFileSync(join(base, "words.md"), "utf8")}${kind === "textures" ? `\nThe textures, each name and size:\n${readFileSync(join(input, "list.txt"), "utf8").replace(/ \(.*\)/g, "")}` : ""}`;
+  } else given = `The original, as someone who has seen it describes it:\n\n${readFileSync(join(base, "words.md"), "utf8")}${kind !== "textures" ? `\nIts facts: ${readFileSync(join(input, "facts.txt"), "utf8")}` : ""}${kind === "textures" ? `\nThe textures, each name and size:\n${readFileSync(join(input, "list.txt"), "utf8").replace(/ \(.*\)/g, "")}` : ""}`;
   // the map, for a textures leg: alone in the server's models folder, with no game folder for its textures
   let models = null;
   if (kind === "textures") {
@@ -188,7 +252,7 @@ function meanLab(picture, ground) {
 const deltaE = (a, b) => (a && b ? round(Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2])) : null);
 const band = (v, two, one, lowerBetter = true) => (v === null || v === undefined ? 0 : lowerBetter ? (v <= two ? 2 : v <= one ? 1 : 0) : v >= two ? 2 : v >= one ? 1 : 0);
 
-function measureSpriteCopy(original, copy, dir) {
+export function measureSpriteCopy(original, copy, dir) {
   const o = maps.readSpr(original);
   const c = maps.readSpr(copy);
   const so = sheetOf(o, { cols: 8, cell: 128 });
@@ -209,7 +273,7 @@ function measureSpriteCopy(original, copy, dir) {
   return { measured, caps, pictures: `${dir}/original.png (the original's frames as the engine blends them, numbered) and ${dir}/reproduction.png (the reproduction's, the same way)` };
 }
 
-function measureSoundCopy(original, copy, dir, subject) {
+export function measureSoundCopy(original, copy, dir, subject) {
   const o = A.readWav(original);
   const c = A.readWav(copy);
   savePng(join(dir, "sounds.png"), A.soundPicture([{ name: `ORIGINAL ${subject.name}`, x: o.x, rate: o.rate, loop: o.cue?.length ? 0 : undefined }, { name: "REPRODUCTION", x: c.x, rate: c.rate, loop: c.cue?.length ? 0 : undefined }], { width: 960 }));
@@ -219,12 +283,17 @@ function measureSoundCopy(original, copy, dir, subject) {
   const lengthShare = Math.abs(fc.length - fo.length) / fo.length;
   const centroidShare = Math.abs(fc.centroid - fo.centroid) / fo.centroid;
   const bandsOff = Math.max(...Object.keys(fo.bands).map((k) => Math.abs(fc.bands[k] - fo.bands[k])));
-  const measured = { original: fo, reproduction: fc, lengthOff: round(lengthShare, 3), centroidOff: round(centroidShare, 3), bandsOffMost: round(bandsOff), engineFaults: checks.faults, sameName: true, format: { rate: c.rate, bits: c.bits, channels: c.channels } };
-  const caps = { S2: band(lengthShare, 0.25, 0.5), S3: Math.min(band(centroidShare, 0.2, 0.4), band(bandsOff, 10, 20)), S5: checks.faults.length ? 0 : 2 };
+  // the envelope's range: the class's where the sound is of one, else the original's own decay within a quarter
+  // (or 0.05 s); a loop has no decay to hold to
+  const loop = Boolean(o.cue?.length);
+  const t20Range = loop ? null : subject.class ? A.rangesOf(subject.class).t20 : [fo.t20 - Math.max(0.05, fo.t20 * 0.25), fo.t20 + Math.max(0.05, fo.t20 * 0.25)];
+  const t20In = !t20Range || (fc.t20 >= t20Range[0] && fc.t20 <= t20Range[1]);
+  const measured = { original: fo, reproduction: fc, envelope: { class: subject.class ?? "none: the original's own decay", t20Range: t20Range && t20Range.map((v) => round(v, 3)), t20: round(fc.t20, 3), inRange: t20In }, lengthOff: round(lengthShare, 3), centroidOff: round(centroidShare, 3), bandsOffMost: round(bandsOff), engineFaults: checks.faults, sameName: true, format: { rate: c.rate, bits: c.bits, channels: c.channels } };
+  const caps = { S2: Math.min(band(lengthShare, 0.25, 0.5), t20In ? 2 : 1), S3: Math.min(band(centroidShare, 0.2, 0.4), band(bandsOff, 10, 20)), S5: checks.faults.length ? 0 : 2 };
   return { measured, caps, pictures: `${dir}/sounds.png (the original's waveform over its spectrogram above, the reproduction's below, at one time scale)` };
 }
 
-function measureTexturesCopy(originalBsp, wadBytes, dir) {
+export function measureTexturesCopy(originalBsp, wadBytes, dir) {
   const bsp = maps.readBsp(originalBsp);
   const wad = maps.readWad(wadBytes);
   const mine = new Map(wad.textures.map((t) => [t.name.toLowerCase(), t]));
@@ -242,10 +311,34 @@ function measureTexturesCopy(originalBsp, wadBytes, dir) {
   // sheets of pairs, eight textures a sheet
   for (let i = 0; i < pairs.length; i += 8)
     savePng(join(dir, `textures-${i / 8 + 1}.png`), tile(pairs.slice(i, i + 8), 2, places.slice(i, i + 8).map((p) => `${p.name}: ORIGINAL | REPLACEMENT`)));
+  // each texture flat, on its own, at whole-number scale: the original's beside the replacement's, with the
+  // frames of an animation and the tiles of a random set beside the one the map names (T6)
+  const game = gameTextures(bsp);
+  const flats = [];
+  const shown = new Set();
+  for (const p of places)
+    for (const name of siblingsOf(p.name, game)) {
+      if (shown.has(name.toLowerCase())) continue;
+      shown.add(name.toLowerCase());
+      const o = game.get(name.toLowerCase());
+      const r = mine.get(name.toLowerCase());
+      const blank = (w, h) => ({ width: w, height: h, rgba: new Uint8Array(w * h * 4).fill(40) });
+      flats.push({ name, pair: besides([onCanvas(scaled(o ? flatOf(o) : blank(p.width, p.height)), 256, 256), onCanvas(scaled(r ? flatOf(r) : blank(p.width, p.height)), 256, 256)]) });
+    }
+  // T2 by the texture itself too: a face lit by a coloured light (a blue lamp on a wall) hides its colour in
+  // the view, so the larger of the two differences is the measure (rubric amendment of 2026-10-14)
+  for (const row of rows) {
+    const o = game.get(row.name.toLowerCase());
+    const r = mine.get(row.name.toLowerCase());
+    row.flatDeltaE = o && r ? deltaE(meanLab(flatOf(o), null), meanLab(flatOf(r), null)) : null;
+  }
+  for (let i = 0; i < flats.length; i += 8)
+    savePng(join(dir, `flat-${i / 8 + 1}.png`), tile(flats.slice(i, i + 8).map((f) => f.pair), 2, flats.slice(i, i + 8).map((f) => `${f.name}: ORIGINAL | REPLACEMENT (flat)`)));
   const views = maps.viewsOf(bsp, { count: 6, folders: [GAME], entities: "none", labels: false, width: 320, height: 240 });
   const viewsMine = maps.viewsOf(bsp, { count: 6, textures: wad.textures, entities: "none", labels: false, width: 320, height: 240 });
   savePng(join(dir, "views.png"), tile([views, viewsMine], 1, ["ORIGINAL", "REPLACEMENT"]));
-  return { rows, sheets: Math.ceil(pairs.length / 8), pictures: `${dir}/textures-1.png ... textures-${Math.ceil(pairs.length / 8)}.png (each texture on its wall, the ORIGINAL on the left and the REPLACEMENT on the right, the same camera and light) and ${dir}/views.png (views of the map wearing the originals above and the replacements below)` };
+  const flatSheets = Math.ceil(flats.length / 8);
+  return { rows, sheets: Math.ceil(pairs.length / 8), pictures: `${dir}/textures-1.png ... textures-${Math.ceil(pairs.length / 8)}.png (each texture on its wall, the ORIGINAL on the left and the REPLACEMENT on the right, the same camera and light), ${dir}/flat-1.png ... flat-${flatSheets}.png (each texture flat on its own at a whole-number scale, ORIGINAL left and REPLACEMENT right, with an animation's frames and a random set's tiles each shown; a hole of a { texture in pale grey; a dark square where one has none) and ${dir}/views.png (views of the map wearing the originals above and the replacements below)` };
 }
 
 // ── the judge ─────────────────────────────────────────────────────────────
@@ -286,11 +379,11 @@ async function judgeOne(kind, subject, leg, copyFile, { decoy } = {}) {
     const r = await runAgent({
       read: dir,
       hours: 1,
-      prompt: `${head}\n\nThe pictures: ${m.pictures}. Look at every picture closely.\n\nThe measurements, texture by texture (deltaE: the mean colour of its view, original against replacement; present and sizeKept: the replacement has the name and its size):\n${JSON.stringify(m.rows)}\n\nScore EVERY texture, items ${items.join(", ")}, 0, 1 or 2 each with a reason. Reply with JSON alone: { "<texture name>": { ${items.map((i) => `"${i}": { "score": 0, "reason": "..." }`).join(", ")} }, ... }\n\nTHE RUBRIC\n${RUBRIC}`,
+      prompt: `${head}\n\nThe pictures: ${m.pictures}. Look at every picture closely.\n\nThe measurements, texture by texture (deltaE: the mean colour of its view, original against replacement; flatDeltaE: the same of the textures themselves, flat; present and sizeKept: the replacement has the name and its size):\n${JSON.stringify(m.rows)}\n\nScore EVERY texture, items ${items.join(", ")}, 0, 1 or 2 each with a reason. Reply with JSON alone: { "<texture name>": { ${items.map((i) => `"${i}": { "score": 0, "reason": "..." }`).join(", ")} }, ... }\n\nTHE RUBRIC\n${RUBRIC}`,
     });
     const judged = parse(r.answer) ?? {};
     const results = m.rows.map((row) => {
-      const caps = { T2: band(row.deltaE, 15, 25), T6: row.sizeKept ? 2 : 0 };
+      const caps = { T2: band(Math.max(row.deltaE ?? 0, row.flatDeltaE ?? 0), 15, 25), T6: row.sizeKept ? 2 : 0 };
       return { texture: row.name, measured: row, caps, ...settle(kind, judged[row.name], caps) };
     });
     const passed = results.filter((x) => x.passes).length;
@@ -355,7 +448,9 @@ async function pool(jobs, atOnce = 4) {
   return out;
 }
 
-if (step === "inputs") for (const kind of kinds) for (const s of chosen(kind)) console.log(`${kind}/${s.id}: ${inputs(kind, s)}`);
+const direct = process.argv[1] && import.meta.url.endsWith(basename(process.argv[1]));
+if (!direct);
+else if (step === "inputs") for (const kind of kinds) for (const s of chosen(kind)) console.log(`${kind}/${s.id}: ${inputs(kind, s)}`);
 else if (step === "describe") await pool(kinds.flatMap((kind) => chosen(kind).filter((s) => again || !existsSync(join(folderOf(kind, s.id), "words.md"))).map((s) => () => describe(kind, s))), 6);
 else if (step === "reproduce") await pool(kinds.flatMap((kind) => chosen(kind).flatMap((s) => LEGS.map((leg) => () => reproduce(kind, s, leg)))), 5);
 else if (step === "judge") {

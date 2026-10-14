@@ -149,3 +149,12 @@ walk test, not the game.
   contract (must-have)**: a 2 keeps every bone, animation (at its number, with its activity), attachment (on
   its bone) and bodypart of the base (`compareContract`, measured: any fault caps C2 at 0). C1 is judged on
   its run and on a stunt (a forward dive), each beside the original's.
+- **2026-10-14, the asset test's pictures and measures, after round 1 (research/asset-reproduction-failures.md).**
+  Before round 2: each texture's face is its largest *lit* face (four of frenzy's were judged on faces the map
+  leaves black); the judge also sees every texture flat, on its own, beside the original, with an
+  animation's frames and a random set's tiles (T6 needs them, and "on its own" always said so); T2 is the
+  larger of the view's colour difference and the flat textures' (a face under a coloured lamp hides its
+  texture's colour). The words leg is given the facts the pictures leg has (a sprite's size, frames, type and
+  format; a sound's length and rate). S2's decay range is the sound's class's where it is of one
+  (`src/audio/classes.mjs`), else the original's own decay within a quarter or 0.05 s; outside it caps S2 at 1.
+  Round 1 keeps the scores it was given.
