@@ -13,7 +13,7 @@ the photos and their sources are in `inputs/car-photo/SOURCES.txt`. Nothing in t
 | Step | Script (in `local-3d/scripts/`) | What it does |
 | --- | --- | --- |
 | Picture from text | `sd_turbo_images.py` | SD-Turbo, four pictures a prompt, 1 s each |
-| Subject from a photo | inside `hunyuan_mini_shape.py` (rembg, U-2-Net) | cuts the subject out of a cluttered photo |
+| Subject from a photo | inside `hunyuan_mini_shape.py` (rembg's default, which in rembg 2.0.85 is BRIA RMBG-2.0: free for non-commercial use only; BiRefNet, MIT, from here on) | cuts the subject out of a cluttered photo |
 | Shape | `hunyuan_mini_shape.py` | Hunyuan3D-2mini, 50 steps: about 16 s, about 300,000 triangles |
 | Reduction | `reduce_compare.py` | several ways to the budget, measured against the dense shape |
 | Texture from photos, unwrapped | `photo_texture.py` | xatlas unwrap; each texel's point projected into every photo that sees it |
@@ -26,7 +26,7 @@ the photos and their sources are in `inputs/car-photo/SOURCES.txt`. Nothing in t
 
 A text prompt ("a red four door sedan car, 1990s family car") gave four clean pictures; the shape from one is a
 real sedan: roofline, glasshouse, bumpers, wheel arches. Two real Wikimedia Commons photos of Volvo 240s, with
-other cars and a tree beside them, were cut out cleanly by rembg (the neighbours and the tree trunk went), and
+other cars and a tree beside them, were cut out cleanly by BRIA RMBG-2.0 (the neighbours and the tree trunk went), and
 gave a sedan and an estate of the right shape. The underside comes out as fins and blobs (the photos do not
 show it).
 
