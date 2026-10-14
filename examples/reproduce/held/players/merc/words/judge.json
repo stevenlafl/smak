@@ -1,0 +1,167 @@
+{
+ "kind": "players",
+ "subject": "merc",
+ "leg": "words",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.85,
+   "left/right": 0.858,
+   "top/below": 0.829
+  },
+  "size": {
+   "original": [
+    23.7,
+    22,
+    69.4
+   ],
+   "reproduction": [
+    23.9,
+    22.3,
+    69.4
+   ],
+   "offShare": [
+    0.011,
+    0.013,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 9.1,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 10.5,
+     "shared": 0.853
+    },
+    {
+     "view": "left",
+     "deltaE": 8,
+     "shared": 0.861
+    },
+    {
+     "view": "back",
+     "deltaE": 8.5,
+     "shared": 0.853
+    },
+    {
+     "view": "right",
+     "deltaE": 10.3,
+     "shared": 0.861
+    },
+    {
+     "view": "top",
+     "deltaE": 8.4,
+     "shared": 0.833
+    },
+    {
+     "view": "below",
+     "deltaE": 9.4,
+     "shared": 0.833
+    },
+    {
+     "view": "front-left",
+     "deltaE": 9.6,
+     "shared": 0.798
+    },
+    {
+     "view": "front-right",
+     "deltaE": 10.5,
+     "shared": 0.825
+    },
+    {
+     "view": "back-left",
+     "deltaE": 7.7,
+     "shared": 0.855
+    },
+    {
+     "view": "back-right",
+     "deltaE": 8.4,
+     "shared": 0.821
+    }
+   ]
+  },
+  "triangles": {
+   "original": 873,
+   "reproduction": 2214
+  },
+  "checkErrors": [],
+  "contract": "keeps every bone, animation, attachment and bodypart of the base"
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 1,
+  "C2": 2,
+  "M6": 2
+ },
+ "lineup": {
+  "picked": "D",
+  "right": "D"
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Silhouette overlap is at least 0.80 in every view (front/back 0.85, left/right 0.858, top/below 0.829). The outlines match the original in all six sides and four angles: same stance, bent arms, hands together at the waist, legs apart. The only extra is the thin brown sole plates under the boots, which barely change the outline."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured size is 23.9 x 22.3 x 69.4 against 23.7 x 22 x 69.4. Each axis is within about 1.3%, well inside 10%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The balaclava, vest, belt, gloves, laced boots and a thigh pouch are there. The original's black short-sleeved shirt with its collar and lapels (front and front-right views) has become a plain sleeveless-looking grey vest over black sleeves. The reproduction adds parts the original does not have: a pistol holster on the right thigh, strap bands around both thighs, a white pouch on the left thigh, and flat brown sole plates jutting out under both boots. The original's thigh rig is a dark pocketed pouch, not a holstered pistol."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured mean dE is 9.1, under 15, but some regions are not what one would call the same colour. The bare arms are a saturated orange-tan, where the original's are pale, greyish flesh. The vest is a mid grey where the original's top is near-black. The camouflage trousers are much lighter, with large white blotches, against the original's dark grey camo. The boot soles are brown, where the original's are black."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The '311' lettering on the back is there and in place. The original's large dark tattoos covering both forearms and upper arms have been cut down to a few black stripes. The front of the vest carries a red and orange bar marking the original does not have; the original has a row of small cartridges and a faint '311'. The trousers have coarse blotch camo instead of the original's fine, dense pattern. The original's worn, creased leather on the boots and shirt is missing."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "It reads as the same kind of masked mercenary in the same pose. At game size, though, the orange arms, grey vest, red chest bars and bright white-blotched trousers make it clearly lighter and different from the original's almost all-black figure with pale tattooed arms. A player would not take it for the original."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front faces the same way as the original's in every view. The model is upright and stands on its origin at the same height, with both models' feet on the same line."
+  },
+  "M8": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "SMAK's check reports no errors. However, the reproduction has 2214 triangles against the original's 873, about 2.5 times as many, so it is over the limit of twice the original's (1746). Nothing looks open, inside out or floating."
+  },
+  "C1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "In the run, every part stays on the body, the feet reach the same ground line as the original's and the legs move in step with it. In the forward dive, nothing comes apart, sinks or floats, but the take-off does not move as the original's does. The original crouches deeply at frames 3 to 6 and then springs out flat. The reproduction leans straight forward from standing, with no crouch, and stretches across 35 frames against the original's 22."
+  },
+  "C2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured contract shows no fault: it keeps every bone, animation, attachment and bodypart of the base."
+  }
+ },
+ "total": 14,
+ "of": 20,
+ "passes": false
+}

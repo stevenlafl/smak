@@ -1,0 +1,856 @@
+{
+  "spec": "smak.model/1",
+  "name": "merc.mdl",
+  "kind": "character",
+  "base": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "contract": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "size": {
+    "height": 69.4,
+    "length": 23.7,
+    "width": 22
+  },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "materials": {
+    "vest": {
+      "base": "cloth",
+      "seen": [
+        0.1,
+        0.1,
+        0.11
+      ]
+    },
+    "skin": {
+      "base": "leather",
+      "seen": [
+        0.42,
+        0.27,
+        0.2
+      ]
+    },
+    "camo": {
+      "base": "cloth",
+      "seen": [
+        0.5,
+        0.5,
+        0.52
+      ]
+    },
+    "boot": {
+      "base": "leather",
+      "seen": [
+        0.12,
+        0.12,
+        0.12
+      ]
+    },
+    "mask": {
+      "base": "cloth",
+      "seen": [
+        0.07,
+        0.07,
+        0.08
+      ]
+    },
+    "glove": {
+      "base": "leather",
+      "seen": [
+        0.1,
+        0.1,
+        0.1
+      ]
+    }
+  },
+  "project": [
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "front",
+      "area": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "rect": [
+        186,
+        38,
+        325,
+        473
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "left",
+      "area": [
+        512,
+        0,
+        1024,
+        512
+      ],
+      "rect": [
+        693,
+        38,
+        843,
+        473
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "back",
+      "area": [
+        1024,
+        0,
+        1536,
+        512
+      ],
+      "rect": [
+        1211,
+        38,
+        1350,
+        473
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "right",
+      "area": [
+        0,
+        512,
+        512,
+        1024
+      ],
+      "rect": [
+        181,
+        550,
+        331,
+        985
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "top",
+      "area": [
+        512,
+        512,
+        1024,
+        1024
+      ],
+      "rect": [
+        698,
+        692,
+        838,
+        842
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "below",
+      "area": [
+        1024,
+        512,
+        1536,
+        1024
+      ],
+      "rect": [
+        1210,
+        692,
+        1350,
+        842
+      ]
+    },
+    {
+      "picture": "work:pictures/front-left.png",
+      "yaw": 35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/front-right.png",
+      "yaw": -35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-left.png",
+      "yaw": 145,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-right.png",
+      "yaw": 215,
+      "pitch": 20
+    }
+  ],
+  "parts": [
+    {
+      "id": "hips",
+      "kind": "turn",
+      "material": "camo",
+      "sides": 10,
+      "attach": {
+        "bone": "Bip01 Bacino",
+        "at": "centre",
+        "offset": [
+          0,
+          0,
+          -1
+        ]
+      },
+      "rings": [
+        [
+          0,
+          [
+            4.2,
+            7.2
+          ]
+        ],
+        [
+          3,
+          [
+            4.8,
+            8
+          ]
+        ],
+        [
+          6,
+          [
+            5,
+            7.8
+          ]
+        ],
+        [
+          9,
+          [
+            4.8,
+            7.3
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "torso",
+      "kind": "turn",
+      "material": "vest",
+      "sides": 10,
+      "span": {
+        "bones": [
+          "Bip01 Dorso",
+          "Bip01 Collo"
+        ],
+        "over": 0
+      },
+      "rings": [
+        [
+          0,
+          [
+            5,
+            7.2
+          ]
+        ],
+        [
+          5,
+          [
+            5.4,
+            7.6
+          ]
+        ],
+        [
+          10,
+          [
+            5.9,
+            8.3
+          ]
+        ],
+        [
+          15,
+          [
+            6.2,
+            9
+          ]
+        ],
+        [
+          19,
+          [
+            5.8,
+            9.4
+          ]
+        ],
+        [
+          21.5,
+          [
+            4.4,
+            7.6
+          ]
+        ],
+        [
+          23,
+          [
+            2.6,
+            3.4
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "neck",
+      "kind": "cylinder",
+      "material": "mask",
+      "radius": 2.3,
+      "height": 5,
+      "sides": 8,
+      "span": {
+        "bones": [
+          "Bip01 Collo",
+          "Bip01 Testa"
+        ],
+        "over": 1.5
+      }
+    },
+    {
+      "id": "head",
+      "kind": "turn",
+      "material": "mask",
+      "sides": 10,
+      "attach": {
+        "bone": "Bip01 Testa",
+        "at": "centre",
+        "offset": [
+          0.5,
+          0.8,
+          3.1
+        ]
+      },
+      "rings": [
+        [
+          0,
+          [
+            2.6,
+            2.2
+          ]
+        ],
+        [
+          1.5,
+          [
+            3.7,
+            3
+          ]
+        ],
+        [
+          4,
+          [
+            4.4,
+            3.4
+          ]
+        ],
+        [
+          6.5,
+          [
+            4.3,
+            3.3
+          ]
+        ],
+        [
+          8,
+          [
+            3.3,
+            2.6
+          ]
+        ],
+        [
+          8.6,
+          [
+            1.5,
+            1.3
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "thigh_left",
+      "kind": "turn",
+      "material": "camo",
+      "sides": 8,
+      "span": {
+        "bones": [
+          "Bip01 SX Coscia",
+          "Bip01 SX Polpaccio"
+        ],
+        "over": 2
+      },
+      "rings": [
+        [
+          0,
+          4.3
+        ],
+        [
+          9,
+          4
+        ],
+        [
+          17.5,
+          3.4
+        ]
+      ]
+    },
+    {
+      "id": "thigh_right",
+      "kind": "turn",
+      "material": "camo",
+      "sides": 8,
+      "span": {
+        "bones": [
+          "Bip01 DX Coscia",
+          "Bip01 DX Polpaccio"
+        ],
+        "over": 2
+      },
+      "rings": [
+        [
+          0,
+          4.3
+        ],
+        [
+          9,
+          4
+        ],
+        [
+          17.5,
+          3.4
+        ]
+      ]
+    },
+    {
+      "id": "knee_left",
+      "kind": "sphere",
+      "material": "camo",
+      "radius": 3.4,
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 SX Polpaccio"
+      }
+    },
+    {
+      "id": "knee_right",
+      "kind": "sphere",
+      "material": "camo",
+      "radius": 3.4,
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 DX Polpaccio"
+      }
+    },
+    {
+      "id": "shin_left",
+      "kind": "turn",
+      "material": "boot",
+      "sides": 8,
+      "span": {
+        "bones": [
+          "Bip01 SX Polpaccio",
+          "Bip01 SX Piede"
+        ],
+        "over": 1.5
+      },
+      "rings": [
+        [
+          0,
+          3.4
+        ],
+        [
+          4,
+          3.3
+        ],
+        {
+          "s": 4.5,
+          "r": 3.3,
+          "crease": true
+        },
+        {
+          "s": 4.6,
+          "r": 3.7,
+          "crease": true
+        },
+        [
+          12,
+          3.4
+        ],
+        [
+          18,
+          3.1
+        ]
+      ]
+    },
+    {
+      "id": "shin_right",
+      "kind": "turn",
+      "material": "boot",
+      "sides": 8,
+      "span": {
+        "bones": [
+          "Bip01 DX Polpaccio",
+          "Bip01 DX Piede"
+        ],
+        "over": 1.5
+      },
+      "rings": [
+        [
+          0,
+          3.4
+        ],
+        [
+          4,
+          3.3
+        ],
+        {
+          "s": 4.5,
+          "r": 3.3,
+          "crease": true
+        },
+        {
+          "s": 4.6,
+          "r": 3.7,
+          "crease": true
+        },
+        [
+          12,
+          3.4
+        ],
+        [
+          18,
+          3.1
+        ]
+      ]
+    },
+    {
+      "id": "foot_left",
+      "kind": "box",
+      "material": "boot",
+      "size": [
+        11.5,
+        5.2,
+        4.6
+      ],
+      "attach": {
+        "bone": "Bip01 SX Piede",
+        "at": "centre",
+        "offset": [
+          2.6,
+          0,
+          -1.7
+        ]
+      }
+    },
+    {
+      "id": "foot_right",
+      "kind": "box",
+      "material": "boot",
+      "size": [
+        11.5,
+        5.2,
+        4.6
+      ],
+      "attach": {
+        "bone": "Bip01 DX Piede",
+        "at": "centre",
+        "offset": [
+          3.2,
+          0,
+          -1.7
+        ]
+      }
+    },
+    {
+      "id": "holster",
+      "kind": "box",
+      "material": "glove",
+      "size": [
+        4,
+        2,
+        7.5
+      ],
+      "at": [
+        -2.6,
+        -8.3,
+        -13
+      ],
+      "bone": "Bip01 DX Coscia"
+    },
+    {
+      "id": "shoulder_left",
+      "kind": "sphere",
+      "material": "vest",
+      "radius": 3.2,
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 SX Braccio superiore",
+        "offset": [
+          -0.6,
+          -0.6,
+          0
+        ]
+      }
+    },
+    {
+      "id": "shoulder_right",
+      "kind": "sphere",
+      "material": "vest",
+      "radius": 3.2,
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 DX Braccio superiore",
+        "offset": [
+          0,
+          0.8,
+          -1
+        ]
+      }
+    },
+    {
+      "id": "upperarm_left",
+      "kind": "turn",
+      "material": "skin",
+      "sides": 8,
+      "span": {
+        "bones": [
+          "Bip01 SX Braccio superiore",
+          "Bip01 SX Avambraccio"
+        ],
+        "over": 1.5
+      },
+      "rings": [
+        [
+          0,
+          3.4
+        ],
+        {
+          "s": 5,
+          "r": 3.4,
+          "crease": true
+        },
+        {
+          "s": 5.1,
+          "r": 2.9,
+          "crease": true
+        },
+        [
+          11.2,
+          2.3
+        ]
+      ]
+    },
+    {
+      "id": "upperarm_right",
+      "kind": "turn",
+      "material": "skin",
+      "sides": 8,
+      "span": {
+        "bones": [
+          "Bip01 DX Braccio superiore",
+          "Bip01 DX Avambraccio"
+        ],
+        "over": 1.5
+      },
+      "rings": [
+        [
+          0,
+          3.4
+        ],
+        {
+          "s": 5,
+          "r": 3.4,
+          "crease": true
+        },
+        {
+          "s": 5.1,
+          "r": 2.9,
+          "crease": true
+        },
+        [
+          11.2,
+          2.3
+        ]
+      ]
+    },
+    {
+      "id": "elbow_left",
+      "kind": "sphere",
+      "material": "skin",
+      "radius": 2.3,
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 SX Avambraccio"
+      }
+    },
+    {
+      "id": "elbow_right",
+      "kind": "sphere",
+      "material": "skin",
+      "radius": 2.3,
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 DX Avambraccio",
+        "offset": [
+          0,
+          0.3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "forearm_left",
+      "kind": "turn",
+      "material": "skin",
+      "sides": 8,
+      "span": {
+        "bones": [
+          "Bip01 SX Avambraccio",
+          "Bip01 SX Mano"
+        ],
+        "over": 1
+      },
+      "rings": [
+        [
+          0,
+          2.3
+        ],
+        [
+          4,
+          2.5
+        ],
+        [
+          10,
+          1.8
+        ]
+      ]
+    },
+    {
+      "id": "forearm_right",
+      "kind": "turn",
+      "material": "skin",
+      "sides": 8,
+      "span": {
+        "bones": [
+          "Bip01 DX Avambraccio",
+          "Bip01 DX Mano"
+        ],
+        "over": 1
+      },
+      "rings": [
+        [
+          0,
+          2.3
+        ],
+        [
+          4,
+          2.5
+        ],
+        [
+          10,
+          1.8
+        ]
+      ]
+    },
+    {
+      "id": "hand_left",
+      "kind": "box",
+      "material": "glove",
+      "size": [
+        3.2,
+        2.6,
+        4
+      ],
+      "span": {
+        "bones": [
+          "Bip01 SX Mano",
+          "Bip01 Dito mano SX1"
+        ],
+        "over": 1.2
+      }
+    },
+    {
+      "id": "hand_right",
+      "kind": "box",
+      "material": "glove",
+      "size": [
+        3.2,
+        2.6,
+        4
+      ],
+      "span": {
+        "bones": [
+          "Bip01 DX Mano",
+          "Bip01 Dito mano DX1"
+        ],
+        "over": 1.2
+      }
+    },
+    {
+      "id": "fingers_left",
+      "kind": "box",
+      "material": "glove",
+      "size": [
+        2.6,
+        2.4,
+        3
+      ],
+      "span": {
+        "bones": [
+          "Bip01 Dito mano SX1",
+          "Bip01 Dito mano SX12"
+        ],
+        "over": 0.8
+      }
+    },
+    {
+      "id": "fingers_right",
+      "kind": "box",
+      "material": "glove",
+      "size": [
+        2.6,
+        2.4,
+        3
+      ],
+      "span": {
+        "bones": [
+          "Bip01 Dito mano DX1",
+          "Bip01 Dito mano DX12"
+        ],
+        "over": 0.8
+      }
+    },
+    {
+      "id": "thumb_left",
+      "kind": "cylinder",
+      "material": "glove",
+      "radius": 0.8,
+      "height": 3,
+      "sides": 5,
+      "span": {
+        "bones": [
+          "Bip01 Dito mano SX0",
+          "Bip01 Dito mano SX02"
+        ],
+        "over": 0.7
+      }
+    },
+    {
+      "id": "thumb_right",
+      "kind": "cylinder",
+      "material": "glove",
+      "radius": 0.8,
+      "height": 3,
+      "sides": 5,
+      "span": {
+        "bones": [
+          "Bip01 Dito mano DX0",
+          "Bip01 Dito mano DX02"
+        ],
+        "over": 0.7
+      }
+    }
+  ]
+}

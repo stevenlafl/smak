@@ -1,0 +1,839 @@
+{
+  "spec": "smak.model/1",
+  "name": "seal.mdl",
+  "kind": "character",
+  "base": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "contract": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "size": {
+    "height": 70.1,
+    "length": 23.9,
+    "width": 24.5
+  },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "materials": {
+    "olive": {
+      "base": "cloth",
+      "tone": [
+        0.3,
+        0.25,
+        0.15
+      ]
+    },
+    "vest": {
+      "base": "leather",
+      "tone": [
+        0.12,
+        0.12,
+        0.12
+      ]
+    },
+    "mask": {
+      "base": "cloth",
+      "tone": [
+        0.07,
+        0.07,
+        0.07
+      ]
+    },
+    "pad": {
+      "base": "leather",
+      "tone": [
+        0.32,
+        0.32,
+        0.33
+      ]
+    },
+    "boot": {
+      "base": "leather",
+      "tone": [
+        0.08,
+        0.08,
+        0.08
+      ]
+    }
+  },
+  "project": [
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "front",
+      "area": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "left",
+      "area": [
+        512,
+        0,
+        1024,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "back",
+      "area": [
+        1024,
+        0,
+        1536,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "right",
+      "area": [
+        0,
+        512,
+        512,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "top",
+      "area": [
+        512,
+        512,
+        1024,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "below",
+      "area": [
+        1024,
+        512,
+        1536,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/front-left.png",
+      "yaw": 35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/front-right.png",
+      "yaw": -35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-left.png",
+      "yaw": 145,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-right.png",
+      "yaw": 215,
+      "pitch": 20
+    }
+  ],
+  "parts": [
+    {
+      "id": "pelvis",
+      "kind": "turn",
+      "material": "olive",
+      "bone": "Bip01 Bacino",
+      "at": [
+        -2.2,
+        0,
+        -7.5
+      ],
+      "sides": 10,
+      "rings": [
+        [
+          0,
+          [
+            5.6,
+            7.6
+          ]
+        ],
+        [
+          4,
+          [
+            6.2,
+            8.6
+          ]
+        ],
+        [
+          8.5,
+          [
+            6.3,
+            8.8
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "abdomen",
+      "kind": "turn",
+      "material": "olive",
+      "bone": "Bip01 Dorso",
+      "at": [
+        -2.2,
+        0,
+        -1
+      ],
+      "sides": 10,
+      "rings": [
+        [
+          0,
+          [
+            6.3,
+            8.8
+          ]
+        ],
+        [
+          4,
+          [
+            6.6,
+            8.4
+          ]
+        ],
+        [
+          8,
+          [
+            7.2,
+            8
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "vest_low",
+      "kind": "turn",
+      "material": "vest",
+      "bone": "Bip01 Dorso1",
+      "at": [
+        -2.3,
+        0,
+        4.5
+      ],
+      "sides": 12,
+      "rings": [
+        [
+          0,
+          [
+            7.9,
+            8.4
+          ]
+        ],
+        [
+          9.5,
+          [
+            7.9,
+            8.5
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "vest_high",
+      "kind": "turn",
+      "material": "vest",
+      "bone": "Bip01 Dorso3",
+      "at": [
+        -2.3,
+        0,
+        13
+      ],
+      "sides": 12,
+      "rings": [
+        [
+          0,
+          [
+            7.9,
+            8.5
+          ]
+        ],
+        {
+          "s": 5,
+          "r": [
+            7.7,
+            8.6
+          ],
+          "off": [
+            0.2,
+            0
+          ]
+        },
+        {
+          "s": 8,
+          "r": [
+            6.6,
+            8.4
+          ],
+          "off": [
+            1.2,
+            0
+          ]
+        },
+        {
+          "s": 10,
+          "r": [
+            5.2,
+            7.2
+          ],
+          "off": [
+            2.3,
+            0
+          ]
+        },
+        {
+          "s": 11.1,
+          "r": [
+            3.9,
+            4.4
+          ],
+          "off": [
+            4.2,
+            -0.6
+          ]
+        }
+      ]
+    },
+    {
+      "id": "neck",
+      "kind": "cylinder",
+      "material": "mask",
+      "bone": "Bip01 Collo",
+      "at": [
+        5,
+        -0.7,
+        23
+      ],
+      "radius": 2.4,
+      "height": 4,
+      "sides": 8
+    },
+    {
+      "id": "head",
+      "kind": "turn",
+      "material": "mask",
+      "bone": "Bip01 Testa",
+      "at": [
+        6.6,
+        -0.8,
+        24
+      ],
+      "sides": 10,
+      "rings": [
+        [
+          0,
+          [
+            2.6,
+            2.4
+          ]
+        ],
+        [
+          1.5,
+          [
+            3.2,
+            3
+          ]
+        ],
+        [
+          3.5,
+          [
+            3.6,
+            3.3
+          ]
+        ],
+        [
+          6,
+          [
+            3.8,
+            3.4
+          ]
+        ],
+        [
+          8,
+          [
+            3.3,
+            3.1
+          ]
+        ],
+        [
+          9.5,
+          [
+            2,
+            1.9
+          ]
+        ]
+      ],
+      "caps": [
+        true,
+        0.6
+      ]
+    },
+    {
+      "id": "shoulder_right",
+      "kind": "sphere",
+      "material": "olive",
+      "bone": "Bip01 DX Braccio superiore",
+      "at": [
+        -2,
+        -8.4,
+        18.6
+      ],
+      "radius": 3.4,
+      "sides": 8
+    },
+    {
+      "id": "shoulder_left",
+      "kind": "sphere",
+      "material": "olive",
+      "bone": "Bip01 SX Braccio superiore",
+      "at": [
+        5,
+        7.8,
+        16.2
+      ],
+      "radius": 3.4,
+      "sides": 8
+    },
+    {
+      "id": "upperarm_right",
+      "kind": "cylinder",
+      "material": "olive",
+      "span": {
+        "bones": [
+          "Bip01 DX Braccio superiore",
+          "Bip01 DX Avambraccio"
+        ],
+        "over": 0.3
+      },
+      "radius": 3.1,
+      "top": 3,
+      "height": 1,
+      "sides": 8
+    },
+    {
+      "id": "forearm_right",
+      "kind": "cylinder",
+      "material": "olive",
+      "span": {
+        "bones": [
+          "Bip01 DX Avambraccio",
+          "Bip01 DX Mano"
+        ],
+        "over": 1
+      },
+      "radius": 2.9,
+      "top": 2.4,
+      "height": 1,
+      "sides": 8
+    },
+    {
+      "id": "upperarm_left",
+      "kind": "cylinder",
+      "material": "olive",
+      "bone": "Bip01 SX Braccio superiore",
+      "at": [
+        8.1,
+        7.6,
+        4.5
+      ],
+      "rotate": [
+        0,
+        -11.3,
+        0
+      ],
+      "radius": 3,
+      "top": 3.2,
+      "height": 15,
+      "sides": 8
+    },
+    {
+      "id": "forearm_left",
+      "kind": "cylinder",
+      "material": "olive",
+      "span": {
+        "bones": [
+          "Bip01 SX Avambraccio",
+          "Bip01 SX Mano"
+        ],
+        "over": 1
+      },
+      "radius": 2.9,
+      "top": 2.4,
+      "height": 1,
+      "sides": 8
+    },
+    {
+      "id": "elbowpad_right",
+      "kind": "sphere",
+      "material": "pad",
+      "bone": "Bip01 DX Avambraccio",
+      "at": [
+        1.2,
+        -12,
+        9.4
+      ],
+      "radius": 2.3,
+      "sides": 8
+    },
+    {
+      "id": "elbowpad_left",
+      "kind": "sphere",
+      "material": "pad",
+      "bone": "Bip01 SX Avambraccio",
+      "at": [
+        7.4,
+        8.8,
+        3.5
+      ],
+      "radius": 2.3,
+      "sides": 8
+    },
+    {
+      "id": "hand_right",
+      "kind": "box",
+      "material": "boot",
+      "span": {
+        "bones": [
+          "Bip01 DX Mano",
+          "Bip01 Dito mano DX1"
+        ],
+        "over": 1.3
+      },
+      "size": [
+        3.2,
+        3.8,
+        1
+      ]
+    },
+    {
+      "id": "hand_left",
+      "kind": "box",
+      "material": "boot",
+      "span": {
+        "bones": [
+          "Bip01 SX Mano",
+          "Bip01 Dito mano SX1"
+        ],
+        "over": 1.3
+      },
+      "size": [
+        3.2,
+        3.8,
+        1
+      ]
+    },
+    {
+      "id": "thigh_left",
+      "kind": "cylinder",
+      "material": "olive",
+      "span": {
+        "bones": [
+          "Bip01 SX Coscia",
+          "Bip01 SX Polpaccio"
+        ],
+        "over": 1.5
+      },
+      "radius": 4.4,
+      "top": 3.7,
+      "height": 1,
+      "sides": 8
+    },
+    {
+      "id": "thigh_right",
+      "kind": "cylinder",
+      "material": "olive",
+      "span": {
+        "bones": [
+          "Bip01 DX Coscia",
+          "Bip01 DX Polpaccio"
+        ],
+        "over": 1.5
+      },
+      "radius": 4.4,
+      "top": 3.7,
+      "height": 1,
+      "sides": 8
+    },
+    {
+      "id": "shin_left",
+      "kind": "cylinder",
+      "material": "olive",
+      "span": {
+        "bones": [
+          "Bip01 SX Polpaccio",
+          "Bip01 SX Piede"
+        ],
+        "over": 1
+      },
+      "radius": 3.5,
+      "top": 3.2,
+      "height": 1,
+      "sides": 8
+    },
+    {
+      "id": "shin_right",
+      "kind": "cylinder",
+      "material": "olive",
+      "span": {
+        "bones": [
+          "Bip01 DX Polpaccio",
+          "Bip01 DX Piede"
+        ],
+        "over": 1
+      },
+      "radius": 3.5,
+      "top": 3.2,
+      "height": 1,
+      "sides": 8
+    },
+    {
+      "id": "kneepad_left",
+      "kind": "turn",
+      "material": "pad",
+      "bone": "Bip01 SX Polpaccio",
+      "at": [
+        6.2,
+        7,
+        -20.5
+      ],
+      "sides": 8,
+      "rings": [
+        [
+          0,
+          [
+            0.6,
+            1.4
+          ]
+        ],
+        [
+          2,
+          [
+            1.6,
+            2.8
+          ]
+        ],
+        [
+          5,
+          [
+            2,
+            3.1
+          ]
+        ],
+        [
+          8,
+          [
+            1.6,
+            2.8
+          ]
+        ],
+        [
+          10,
+          [
+            0.6,
+            1.4
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "kneepad_right",
+      "kind": "turn",
+      "material": "pad",
+      "bone": "Bip01 DX Polpaccio",
+      "at": [
+        1.6,
+        -7,
+        -20.8
+      ],
+      "sides": 8,
+      "rings": [
+        [
+          0,
+          [
+            0.6,
+            1.4
+          ]
+        ],
+        [
+          2,
+          [
+            1.6,
+            2.8
+          ]
+        ],
+        [
+          5,
+          [
+            2,
+            3.1
+          ]
+        ],
+        [
+          8,
+          [
+            1.6,
+            2.8
+          ]
+        ],
+        [
+          10,
+          [
+            0.6,
+            1.4
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "boot_left",
+      "kind": "cylinder",
+      "material": "boot",
+      "bone": "Bip01 SX Piede",
+      "at": [
+        3.8,
+        7,
+        -35.5
+      ],
+      "radius": 2.9,
+      "top": 2.8,
+      "height": 8,
+      "sides": 8
+    },
+    {
+      "id": "foot_left",
+      "kind": "turn",
+      "axis": "x",
+      "material": "boot",
+      "bone": "Bip01 SX Piede",
+      "at": [
+        1.2,
+        7,
+        -34.2
+      ],
+      "rotate": [
+        12,
+        0,
+        0
+      ],
+      "sides": 8,
+      "rings": [
+        [
+          0,
+          [
+            2,
+            1.5
+          ]
+        ],
+        [
+          0.8,
+          [
+            2.3,
+            1.8
+          ]
+        ],
+        [
+          6.5,
+          [
+            2.3,
+            1.8
+          ]
+        ],
+        [
+          9.4,
+          [
+            1.9,
+            1.4
+          ]
+        ],
+        [
+          10.4,
+          [
+            0.9,
+            0.8
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "boot_right",
+      "kind": "cylinder",
+      "material": "boot",
+      "bone": "Bip01 DX Piede",
+      "at": [
+        -9,
+        -7.2,
+        -35.5
+      ],
+      "radius": 2.9,
+      "top": 2.8,
+      "height": 8,
+      "sides": 8
+    },
+    {
+      "id": "foot_right",
+      "kind": "turn",
+      "axis": "x",
+      "material": "boot",
+      "bone": "Bip01 DX Piede",
+      "at": [
+        -11.8,
+        -6.4,
+        -34.2
+      ],
+      "rotate": [
+        -25,
+        0,
+        0
+      ],
+      "sides": 8,
+      "rings": [
+        [
+          0,
+          [
+            2,
+            1.5
+          ]
+        ],
+        [
+          0.8,
+          [
+            2.3,
+            1.8
+          ]
+        ],
+        [
+          6.5,
+          [
+            2.3,
+            1.8
+          ]
+        ],
+        [
+          9.4,
+          [
+            1.9,
+            1.4
+          ]
+        ],
+        [
+          10.4,
+          [
+            0.9,
+            0.8
+          ]
+        ]
+      ]
+    }
+  ]
+}

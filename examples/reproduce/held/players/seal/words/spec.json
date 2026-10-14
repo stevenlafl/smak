@@ -1,0 +1,2190 @@
+{
+  "spec": "smak.model/1",
+  "name": "seal.mdl",
+  "kind": "character",
+  "base": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "contract": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "size": {
+    "height": 70,
+    "width": 24,
+    "length": 24
+  },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "materials": {
+    "drab": {
+      "base": "cloth",
+      "tone": [
+        0.43,
+        0.4,
+        0.28
+      ]
+    },
+    "vest": {
+      "base": "cloth",
+      "tone": [
+        0.12,
+        0.12,
+        0.13
+      ]
+    },
+    "quilt": {
+      "base": "cloth",
+      "tone": [
+        0.2,
+        0.2,
+        0.21
+      ]
+    },
+    "pouch": {
+      "base": "cloth",
+      "tone": [
+        0.07,
+        0.07,
+        0.08
+      ]
+    },
+    "mask": {
+      "base": "cloth",
+      "tone": [
+        0.06,
+        0.06,
+        0.06
+      ]
+    },
+    "glove": {
+      "base": "leather",
+      "tone": [
+        0.06,
+        0.06,
+        0.06
+      ]
+    },
+    "boot": {
+      "base": "leather",
+      "tone": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "pad": {
+      "base": "metal",
+      "tone": [
+        0.24,
+        0.25,
+        0.27
+      ]
+    },
+    "elbow": {
+      "base": "cloth",
+      "tone": [
+        0.22,
+        0.22,
+        0.23
+      ]
+    },
+    "silver": {
+      "base": "steel",
+      "tone": [
+        0.82,
+        0.82,
+        0.84
+      ]
+    },
+    "skin": {
+      "base": "paint",
+      "tone": [
+        0.74,
+        0.58,
+        0.43
+      ]
+    },
+    "tint": {
+      "base": "paint",
+      "tone": [
+        0.45,
+        0.26,
+        0.19
+      ]
+    },
+    "eye": {
+      "base": "paint",
+      "tone": [
+        0.08,
+        0.06,
+        0.05
+      ]
+    },
+    "strap": {
+      "base": "cloth",
+      "tone": [
+        0.04,
+        0.04,
+        0.04
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "pelvis",
+      "kind": "turn",
+      "material": "drab",
+      "sides": 10,
+      "span": {
+        "bones": [
+          "Bip01 Bacino",
+          "Bip01 Dorso1"
+        ],
+        "over": 4
+      },
+      "rings": [
+        [
+          0,
+          [
+            4.8,
+            7.2
+          ]
+        ],
+        [
+          3,
+          [
+            5.2,
+            7.6
+          ]
+        ],
+        [
+          6,
+          [
+            5.2,
+            7.4
+          ]
+        ],
+        [
+          8,
+          [
+            4.6,
+            6.8
+          ]
+        ],
+        [
+          10,
+          [
+            3.8,
+            6
+          ]
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.47,
+              0
+            ],
+            [
+              0.47,
+              360
+            ]
+          ],
+          "width": 1.8,
+          "material": "strap"
+        },
+        {
+          "path": [
+            [
+              0.47,
+              -8
+            ],
+            [
+              0.47,
+              8
+            ]
+          ],
+          "width": 1.5,
+          "material": "silver"
+        }
+      ]
+    },
+    {
+      "id": "belly",
+      "kind": "turn",
+      "material": "vest",
+      "sides": 10,
+      "span": {
+        "bones": [
+          "Bip01 Dorso1",
+          "Bip01 Dorso3"
+        ],
+        "over": 1
+      },
+      "rotate": [
+        -15,
+        0,
+        0
+      ],
+      "rings": [
+        [
+          0,
+          [
+            5.6,
+            7.8
+          ]
+        ],
+        [
+          4,
+          [
+            5.8,
+            8
+          ]
+        ],
+        [
+          10,
+          [
+            6,
+            8.2
+          ]
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.22,
+              -70
+            ],
+            [
+              0.22,
+              70
+            ]
+          ],
+          "width": 0.35,
+          "material": "quilt"
+        },
+        {
+          "path": [
+            [
+              0.45,
+              -70
+            ],
+            [
+              0.45,
+              70
+            ]
+          ],
+          "width": 0.35,
+          "material": "quilt"
+        },
+        {
+          "path": [
+            [
+              0.68,
+              -70
+            ],
+            [
+              0.68,
+              70
+            ]
+          ],
+          "width": 0.35,
+          "material": "quilt"
+        },
+        {
+          "path": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "width": 0.5,
+          "material": "silver"
+        },
+        {
+          "path": [
+            [
+              0.15,
+              90
+            ],
+            [
+              0.95,
+              90
+            ]
+          ],
+          "width": 1.6,
+          "material": "drab"
+        },
+        {
+          "path": [
+            [
+              0.15,
+              270
+            ],
+            [
+              0.95,
+              270
+            ]
+          ],
+          "width": 1.6,
+          "material": "drab"
+        },
+        {
+          "path": [
+            [
+              0.4,
+              80
+            ],
+            [
+              0.4,
+              100
+            ]
+          ],
+          "width": 0.7,
+          "material": "strap"
+        },
+        {
+          "path": [
+            [
+              0.4,
+              260
+            ],
+            [
+              0.4,
+              280
+            ]
+          ],
+          "width": 0.7,
+          "material": "strap"
+        },
+        {
+          "path": [
+            [
+              0.7,
+              80
+            ],
+            [
+              0.7,
+              100
+            ]
+          ],
+          "width": 0.7,
+          "material": "strap"
+        },
+        {
+          "path": [
+            [
+              0.7,
+              260
+            ],
+            [
+              0.7,
+              280
+            ]
+          ],
+          "width": 0.7,
+          "material": "strap"
+        }
+      ]
+    },
+    {
+      "id": "chest",
+      "kind": "turn",
+      "material": "vest",
+      "sides": 10,
+      "span": {
+        "bones": [
+          "Bip01 Dorso3",
+          "Bip01 Collo"
+        ],
+        "over": 1
+      },
+      "rotate": [
+        -35,
+        0,
+        0
+      ],
+      "rings": [
+        [
+          0,
+          [
+            6,
+            8.4
+          ]
+        ],
+        [
+          3,
+          [
+            6.2,
+            8.8
+          ]
+        ],
+        [
+          6,
+          [
+            5.4,
+            8
+          ]
+        ],
+        [
+          8,
+          [
+            3.6,
+            5
+          ]
+        ],
+        [
+          9,
+          [
+            2.4,
+            2.6
+          ]
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.25,
+              -70
+            ],
+            [
+              0.25,
+              70
+            ]
+          ],
+          "width": 0.35,
+          "material": "quilt"
+        },
+        {
+          "path": [
+            [
+              0.5,
+              -60
+            ],
+            [
+              0.5,
+              60
+            ]
+          ],
+          "width": 0.35,
+          "material": "quilt"
+        },
+        {
+          "path": [
+            [
+              0,
+              0
+            ],
+            [
+              0.78,
+              0
+            ]
+          ],
+          "width": 0.5,
+          "material": "silver"
+        },
+        {
+          "path": [
+            [
+              0.1,
+              90
+            ],
+            [
+              0.5,
+              90
+            ]
+          ],
+          "width": 1.6,
+          "material": "drab"
+        },
+        {
+          "path": [
+            [
+              0.1,
+              270
+            ],
+            [
+              0.5,
+              270
+            ]
+          ],
+          "width": 1.6,
+          "material": "drab"
+        },
+        {
+          "path": [
+            [
+              0.3,
+              80
+            ],
+            [
+              0.3,
+              100
+            ]
+          ],
+          "width": 0.7,
+          "material": "strap"
+        },
+        {
+          "path": [
+            [
+              0.3,
+              260
+            ],
+            [
+              0.3,
+              280
+            ]
+          ],
+          "width": 0.7,
+          "material": "strap"
+        },
+        {
+          "path": [
+            [
+              0.22,
+              180
+            ],
+            [
+              0.5,
+              180
+            ]
+          ],
+          "width": 0.7,
+          "material": "silver"
+        },
+        {
+          "path": [
+            [
+              0.36,
+              180
+            ],
+            [
+              0.46,
+              150
+            ],
+            [
+              0.56,
+              138
+            ]
+          ],
+          "width": 0.6,
+          "material": "silver",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.36,
+              180
+            ],
+            [
+              0.46,
+              210
+            ],
+            [
+              0.56,
+              222
+            ]
+          ],
+          "width": 0.6,
+          "material": "silver",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.33,
+              180
+            ],
+            [
+              0.4,
+              158
+            ],
+            [
+              0.46,
+              145
+            ]
+          ],
+          "width": 0.45,
+          "material": "silver",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.33,
+              180
+            ],
+            [
+              0.4,
+              202
+            ],
+            [
+              0.46,
+              215
+            ]
+          ],
+          "width": 0.45,
+          "material": "silver",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.27,
+              166
+            ],
+            [
+              0.27,
+              194
+            ]
+          ],
+          "width": 0.45,
+          "material": "silver"
+        },
+        {
+          "path": [
+            [
+              0.24,
+              168
+            ],
+            [
+              0.2,
+              172
+            ]
+          ],
+          "width": 0.35,
+          "material": "silver",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.24,
+              192
+            ],
+            [
+              0.2,
+              188
+            ]
+          ],
+          "width": 0.35,
+          "material": "silver",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.48,
+              172
+            ],
+            [
+              0.56,
+              172
+            ]
+          ],
+          "width": 0.3,
+          "material": "silver",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.48,
+              188
+            ],
+            [
+              0.56,
+              188
+            ]
+          ],
+          "width": 0.3,
+          "material": "silver",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.5,
+              180
+            ],
+            [
+              0.58,
+              180
+            ]
+          ],
+          "width": 0.3,
+          "material": "silver",
+          "ends": "point"
+        }
+      ]
+    },
+    {
+      "id": "mag_l1",
+      "kind": "box",
+      "material": "pouch",
+      "size": [
+        1.4,
+        1.9,
+        2.8
+      ],
+      "attach": {
+        "to": "belly",
+        "toAt": {
+          "s": 0.5,
+          "angle": 28,
+          "out": -0.4
+        },
+        "at": "back"
+      },
+      "panels": [
+        {
+          "face": "front",
+          "at": [
+            0.95,
+            2.3
+          ],
+          "size": [
+            2,
+            0.9
+          ],
+          "style": "raised",
+          "material": "quilt"
+        }
+      ]
+    },
+    {
+      "id": "mag_l2",
+      "kind": "box",
+      "material": "pouch",
+      "size": [
+        1.4,
+        1.9,
+        2.8
+      ],
+      "attach": {
+        "to": "belly",
+        "toAt": {
+          "s": 0.5,
+          "angle": 52,
+          "out": -0.4
+        },
+        "at": "back"
+      },
+      "panels": [
+        {
+          "face": "front",
+          "at": [
+            0.95,
+            2.3
+          ],
+          "size": [
+            2,
+            0.9
+          ],
+          "style": "raised",
+          "material": "quilt"
+        }
+      ]
+    },
+    {
+      "id": "mag_r1",
+      "kind": "box",
+      "material": "pouch",
+      "size": [
+        1.4,
+        1.9,
+        2.8
+      ],
+      "attach": {
+        "to": "belly",
+        "toAt": {
+          "s": 0.5,
+          "angle": -28,
+          "out": -0.4
+        },
+        "at": "back"
+      },
+      "panels": [
+        {
+          "face": "front",
+          "at": [
+            0.95,
+            2.3
+          ],
+          "size": [
+            2,
+            0.9
+          ],
+          "style": "raised",
+          "material": "quilt"
+        }
+      ]
+    },
+    {
+      "id": "mag_r2",
+      "kind": "box",
+      "material": "pouch",
+      "size": [
+        1.4,
+        1.9,
+        2.8
+      ],
+      "attach": {
+        "to": "belly",
+        "toAt": {
+          "s": 0.5,
+          "angle": -52,
+          "out": -0.4
+        },
+        "at": "back"
+      },
+      "panels": [
+        {
+          "face": "front",
+          "at": [
+            0.95,
+            2.3
+          ],
+          "size": [
+            2,
+            0.9
+          ],
+          "style": "raised",
+          "material": "quilt"
+        }
+      ]
+    },
+    {
+      "id": "mag_l3",
+      "kind": "box",
+      "material": "pouch",
+      "size": [
+        1.3,
+        1.8,
+        2.4
+      ],
+      "attach": {
+        "to": "chest",
+        "toAt": {
+          "s": 0.2,
+          "angle": 30,
+          "out": -0.4
+        },
+        "at": "back"
+      },
+      "panels": [
+        {
+          "face": "front",
+          "at": [
+            0.9,
+            1.95
+          ],
+          "size": [
+            1.9,
+            0.8
+          ],
+          "style": "raised",
+          "material": "quilt"
+        }
+      ]
+    },
+    {
+      "id": "mag_r3",
+      "kind": "box",
+      "material": "pouch",
+      "size": [
+        1.3,
+        1.8,
+        2.4
+      ],
+      "attach": {
+        "to": "chest",
+        "toAt": {
+          "s": 0.2,
+          "angle": -30,
+          "out": -0.4
+        },
+        "at": "back"
+      },
+      "panels": [
+        {
+          "face": "front",
+          "at": [
+            0.9,
+            1.95
+          ],
+          "size": [
+            1.9,
+            0.8
+          ],
+          "style": "raised",
+          "material": "quilt"
+        }
+      ]
+    },
+    {
+      "id": "neck",
+      "kind": "cylinder",
+      "material": "mask",
+      "radius": 2.4,
+      "height": 5,
+      "sides": 8,
+      "span": {
+        "bones": [
+          "Bip01 Collo",
+          "Bip01 Testa"
+        ],
+        "over": 2
+      }
+    },
+    {
+      "id": "head",
+      "kind": "turn",
+      "material": "mask",
+      "sides": 10,
+      "attach": {
+        "bone": "Bip01 Testa",
+        "at": "bottom",
+        "offset": [
+          0.6,
+          0,
+          -1.5
+        ]
+      },
+      "rotate": [
+        0,
+        12,
+        0
+      ],
+      "rings": [
+        [
+          0,
+          [
+            2.8,
+            2.6
+          ]
+        ],
+        [
+          2,
+          [
+            3.6,
+            3.1
+          ]
+        ],
+        [
+          4,
+          [
+            4.1,
+            3.5
+          ]
+        ],
+        [
+          6,
+          [
+            4.2,
+            3.6
+          ]
+        ],
+        [
+          7.5,
+          [
+            3.8,
+            3.3
+          ]
+        ],
+        [
+          8.5,
+          [
+            2.8,
+            2.5
+          ]
+        ]
+      ],
+      "caps": [
+        true,
+        1
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.6,
+              -42
+            ],
+            [
+              0.6,
+              42
+            ]
+          ],
+          "width": 1.6,
+          "material": "tint"
+        },
+        {
+          "path": [
+            [
+              0.6,
+              -36
+            ],
+            [
+              0.6,
+              36
+            ]
+          ],
+          "width": 1.1,
+          "material": "skin"
+        },
+        {
+          "path": [
+            [
+              0.6,
+              -22
+            ],
+            [
+              0.6,
+              -12
+            ]
+          ],
+          "width": 0.7,
+          "material": "eye"
+        },
+        {
+          "path": [
+            [
+              0.6,
+              12
+            ],
+            [
+              0.6,
+              22
+            ]
+          ],
+          "width": 0.7,
+          "material": "eye"
+        }
+      ]
+    },
+    {
+      "id": "nose",
+      "kind": "sphere",
+      "material": "mask",
+      "radius": 0.8,
+      "sides": 6,
+      "attach": {
+        "to": "head",
+        "toAt": {
+          "s": 0.45,
+          "angle": 0,
+          "out": -0.4
+        }
+      }
+    },
+    {
+      "id": "shoulder_l",
+      "kind": "sphere",
+      "material": "vest",
+      "radius": 3.2,
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 SX Clavicola",
+        "offset": [
+          2.6,
+          1.6,
+          0.6
+        ]
+      }
+    },
+    {
+      "id": "shoulder_r",
+      "kind": "sphere",
+      "material": "vest",
+      "radius": 3.2,
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 DX Clavicola",
+        "offset": [
+          -1.4,
+          -3,
+          0.6
+        ]
+      }
+    },
+    {
+      "id": "upperarm_l",
+      "kind": "turn",
+      "material": "drab",
+      "sides": 7,
+      "span": {
+        "bones": [
+          "Bip01 SX Braccio superiore",
+          "Bip01 SX Avambraccio"
+        ],
+        "over": 1
+      },
+      "rings": [
+        [
+          0,
+          2.7
+        ],
+        [
+          5,
+          2.7
+        ],
+        [
+          10,
+          2.4
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "upperarm_r",
+      "kind": "turn",
+      "material": "drab",
+      "sides": 7,
+      "span": {
+        "bones": [
+          "Bip01 DX Braccio superiore",
+          "Bip01 DX Avambraccio"
+        ],
+        "over": 1
+      },
+      "rings": [
+        [
+          0,
+          2.7
+        ],
+        [
+          5,
+          2.7
+        ],
+        [
+          10,
+          2.4
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "elbow_l",
+      "kind": "sphere",
+      "material": "elbow",
+      "radius": 2.7,
+      "sides": 7,
+      "attach": {
+        "bone": "Bip01 SX Avambraccio"
+      }
+    },
+    {
+      "id": "elbow_r",
+      "kind": "sphere",
+      "material": "elbow",
+      "radius": 2.7,
+      "sides": 7,
+      "attach": {
+        "bone": "Bip01 DX Avambraccio"
+      }
+    },
+    {
+      "id": "forearm_l",
+      "kind": "turn",
+      "material": "drab",
+      "sides": 7,
+      "span": {
+        "bones": [
+          "Bip01 SX Avambraccio",
+          "Bip01 SX Mano"
+        ],
+        "over": 0.6
+      },
+      "rings": [
+        [
+          0,
+          2.4
+        ],
+        [
+          6,
+          2.3
+        ],
+        [
+          8.6,
+          1.9
+        ],
+        [
+          10,
+          1.7
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.92,
+              0
+            ],
+            [
+              0.92,
+              360
+            ]
+          ],
+          "width": 0.5,
+          "material": "elbow"
+        }
+      ]
+    },
+    {
+      "id": "forearm_r",
+      "kind": "turn",
+      "material": "drab",
+      "sides": 7,
+      "span": {
+        "bones": [
+          "Bip01 DX Avambraccio",
+          "Bip01 DX Mano"
+        ],
+        "over": 0.6
+      },
+      "rings": [
+        [
+          0,
+          2.4
+        ],
+        [
+          6,
+          2.3
+        ],
+        [
+          8.6,
+          1.9
+        ],
+        [
+          10,
+          1.7
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.92,
+              0
+            ],
+            [
+              0.92,
+              360
+            ]
+          ],
+          "width": 0.5,
+          "material": "elbow"
+        }
+      ]
+    },
+    {
+      "id": "palm_l",
+      "kind": "box",
+      "material": "glove",
+      "size": [
+        1.8,
+        3,
+        1
+      ],
+      "span": {
+        "bones": [
+          "Bip01 SX Mano",
+          "Bip01 Dito mano SX1"
+        ],
+        "over": 0.8
+      }
+    },
+    {
+      "id": "palm_r",
+      "kind": "box",
+      "material": "glove",
+      "size": [
+        1.8,
+        3,
+        1
+      ],
+      "span": {
+        "bones": [
+          "Bip01 DX Mano",
+          "Bip01 Dito mano DX1"
+        ],
+        "over": 0.8
+      }
+    },
+    {
+      "id": "fingers_l",
+      "kind": "box",
+      "material": "glove",
+      "size": [
+        1.6,
+        2.9,
+        1
+      ],
+      "span": {
+        "bones": [
+          "Bip01 Dito mano SX1",
+          "Bip01 Dito mano SX12"
+        ],
+        "over": 0.6
+      }
+    },
+    {
+      "id": "fingers_r",
+      "kind": "box",
+      "material": "glove",
+      "size": [
+        1.6,
+        2.9,
+        1
+      ],
+      "span": {
+        "bones": [
+          "Bip01 Dito mano DX1",
+          "Bip01 Dito mano DX12"
+        ],
+        "over": 0.6
+      }
+    },
+    {
+      "id": "thumb_l",
+      "kind": "cylinder",
+      "material": "glove",
+      "radius": 0.7,
+      "height": 1,
+      "sides": 5,
+      "span": {
+        "bones": [
+          "Bip01 Dito mano SX0",
+          "Bip01 Dito mano SX02"
+        ],
+        "over": 0.6
+      }
+    },
+    {
+      "id": "thumb_r",
+      "kind": "cylinder",
+      "material": "glove",
+      "radius": 0.7,
+      "height": 1,
+      "sides": 5,
+      "span": {
+        "bones": [
+          "Bip01 Dito mano DX0",
+          "Bip01 Dito mano DX02"
+        ],
+        "over": 0.6
+      }
+    },
+    {
+      "id": "thigh_l",
+      "kind": "turn",
+      "material": "drab",
+      "sides": 8,
+      "span": {
+        "bones": [
+          "Bip01 SX Coscia",
+          "Bip01 SX Polpaccio"
+        ],
+        "over": 1.5
+      },
+      "rings": [
+        [
+          0,
+          [
+            4,
+            3.9
+          ]
+        ],
+        [
+          4,
+          [
+            4.1,
+            4
+          ]
+        ],
+        [
+          8,
+          [
+            3.6,
+            3.5
+          ]
+        ],
+        [
+          10,
+          [
+            3.1,
+            3
+          ]
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.82,
+              0
+            ],
+            [
+              0.82,
+              360
+            ]
+          ],
+          "width": 0.9,
+          "material": "strap"
+        }
+      ]
+    },
+    {
+      "id": "thigh_r",
+      "kind": "turn",
+      "material": "drab",
+      "sides": 8,
+      "span": {
+        "bones": [
+          "Bip01 DX Coscia",
+          "Bip01 DX Polpaccio"
+        ],
+        "over": 1.5
+      },
+      "rings": [
+        [
+          0,
+          [
+            4,
+            3.9
+          ]
+        ],
+        [
+          4,
+          [
+            4.1,
+            4
+          ]
+        ],
+        [
+          8,
+          [
+            3.6,
+            3.5
+          ]
+        ],
+        [
+          10,
+          [
+            3.1,
+            3
+          ]
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.82,
+              0
+            ],
+            [
+              0.82,
+              360
+            ]
+          ],
+          "width": 0.9,
+          "material": "strap"
+        }
+      ]
+    },
+    {
+      "id": "pocket_l",
+      "kind": "box",
+      "material": "drab",
+      "size": [
+        4.2,
+        1.2,
+        4.6
+      ],
+      "attach": {
+        "to": "thigh_l",
+        "toAt": {
+          "s": 0.45,
+          "angle": 270,
+          "out": -0.5
+        },
+        "at": "right"
+      },
+      "panels": [
+        {
+          "face": "left",
+          "at": [
+            2.1,
+            3.9
+          ],
+          "size": [
+            4.4,
+            1.4
+          ],
+          "style": "raised"
+        }
+      ]
+    },
+    {
+      "id": "pocket_r",
+      "kind": "box",
+      "material": "drab",
+      "size": [
+        4.2,
+        1.2,
+        4.6
+      ],
+      "attach": {
+        "to": "thigh_r",
+        "toAt": {
+          "s": 0.45,
+          "angle": 90,
+          "out": -0.5
+        },
+        "at": "left"
+      },
+      "panels": [
+        {
+          "face": "right",
+          "at": [
+            2.1,
+            3.9
+          ],
+          "size": [
+            4.4,
+            1.4
+          ],
+          "style": "raised"
+        }
+      ]
+    },
+    {
+      "id": "backpocket_l",
+      "kind": "box",
+      "material": "drab",
+      "size": [
+        1,
+        3.2,
+        3
+      ],
+      "attach": {
+        "to": "pelvis",
+        "toAt": {
+          "s": 0.3,
+          "angle": 145,
+          "out": -0.4
+        },
+        "at": "front"
+      },
+      "panels": [
+        {
+          "face": "back",
+          "at": [
+            1.6,
+            2.5
+          ],
+          "size": [
+            3.4,
+            1.1
+          ],
+          "style": "raised"
+        }
+      ]
+    },
+    {
+      "id": "backpocket_r",
+      "kind": "box",
+      "material": "drab",
+      "size": [
+        1,
+        3.2,
+        3
+      ],
+      "attach": {
+        "to": "pelvis",
+        "toAt": {
+          "s": 0.3,
+          "angle": 215,
+          "out": -0.4
+        },
+        "at": "front"
+      },
+      "panels": [
+        {
+          "face": "back",
+          "at": [
+            1.6,
+            2.5
+          ],
+          "size": [
+            3.4,
+            1.1
+          ],
+          "style": "raised"
+        }
+      ]
+    },
+    {
+      "id": "beltpouch_l",
+      "kind": "box",
+      "material": "pouch",
+      "size": [
+        2.6,
+        1.4,
+        2.4
+      ],
+      "attach": {
+        "to": "pelvis",
+        "toAt": {
+          "s": 0.47,
+          "angle": 110,
+          "out": -0.4
+        },
+        "at": "right"
+      }
+    },
+    {
+      "id": "beltpouch_r",
+      "kind": "box",
+      "material": "pouch",
+      "size": [
+        2.6,
+        1.4,
+        2.4
+      ],
+      "attach": {
+        "to": "pelvis",
+        "toAt": {
+          "s": 0.47,
+          "angle": 250,
+          "out": -0.4
+        },
+        "at": "left"
+      }
+    },
+    {
+      "id": "beltpouch_b",
+      "kind": "box",
+      "material": "pouch",
+      "size": [
+        1.4,
+        3,
+        2.2
+      ],
+      "attach": {
+        "to": "pelvis",
+        "toAt": {
+          "s": 0.47,
+          "angle": 180,
+          "out": -0.4
+        },
+        "at": "front"
+      }
+    },
+    {
+      "id": "knee_l",
+      "kind": "sphere",
+      "material": "pad",
+      "radius": 3.1,
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 SX Polpaccio",
+        "offset": [
+          1.2,
+          0,
+          0
+        ]
+      },
+      "finish": {
+        "light": 0.6,
+        "wear": 0.4
+      },
+      "marks": [
+        {
+          "path": [
+            [
+              0.5,
+              80
+            ],
+            [
+              0.5,
+              100
+            ]
+          ],
+          "width": 0.6,
+          "material": "silver"
+        },
+        {
+          "path": [
+            [
+              0.5,
+              260
+            ],
+            [
+              0.5,
+              280
+            ]
+          ],
+          "width": 0.6,
+          "material": "silver"
+        }
+      ]
+    },
+    {
+      "id": "knee_r",
+      "kind": "sphere",
+      "material": "pad",
+      "radius": 3.1,
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 DX Polpaccio",
+        "offset": [
+          1.2,
+          0,
+          0
+        ]
+      },
+      "finish": {
+        "light": 0.6,
+        "wear": 0.4
+      },
+      "marks": [
+        {
+          "path": [
+            [
+              0.5,
+              80
+            ],
+            [
+              0.5,
+              100
+            ]
+          ],
+          "width": 0.6,
+          "material": "silver"
+        },
+        {
+          "path": [
+            [
+              0.5,
+              260
+            ],
+            [
+              0.5,
+              280
+            ]
+          ],
+          "width": 0.6,
+          "material": "silver"
+        }
+      ]
+    },
+    {
+      "id": "shin_l",
+      "kind": "turn",
+      "material": "drab",
+      "sides": 8,
+      "span": {
+        "bones": [
+          "Bip01 SX Polpaccio",
+          "Bip01 SX Piede"
+        ],
+        "over": 0.5
+      },
+      "rings": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          8,
+          2.6
+        ],
+        [
+          9.3,
+          2.9
+        ],
+        [
+          10,
+          2.5
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.14,
+              0
+            ],
+            [
+              0.14,
+              360
+            ]
+          ],
+          "width": 0.9,
+          "material": "strap"
+        }
+      ]
+    },
+    {
+      "id": "shin_r",
+      "kind": "turn",
+      "material": "drab",
+      "sides": 8,
+      "span": {
+        "bones": [
+          "Bip01 DX Polpaccio",
+          "Bip01 DX Piede"
+        ],
+        "over": 0.5
+      },
+      "rings": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          8,
+          2.6
+        ],
+        [
+          9.3,
+          2.9
+        ],
+        [
+          10,
+          2.5
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.14,
+              0
+            ],
+            [
+              0.14,
+              360
+            ]
+          ],
+          "width": 0.9,
+          "material": "strap"
+        }
+      ]
+    },
+    {
+      "id": "bootshaft_l",
+      "kind": "cylinder",
+      "material": "boot",
+      "radius": 2.7,
+      "height": 5,
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 SX Piede",
+        "at": "bottom",
+        "offset": [
+          0,
+          0,
+          -3
+        ]
+      },
+      "marks": [
+        {
+          "path": [
+            [
+              0.1,
+              -12
+            ],
+            [
+              0.3,
+              12
+            ],
+            [
+              0.5,
+              -12
+            ],
+            [
+              0.7,
+              12
+            ],
+            [
+              0.9,
+              -12
+            ]
+          ],
+          "width": 0.35,
+          "material": "silver"
+        },
+        {
+          "path": [
+            [
+              0.1,
+              12
+            ],
+            [
+              0.3,
+              -12
+            ],
+            [
+              0.5,
+              12
+            ],
+            [
+              0.7,
+              -12
+            ],
+            [
+              0.9,
+              12
+            ]
+          ],
+          "width": 0.35,
+          "material": "silver"
+        }
+      ]
+    },
+    {
+      "id": "bootshaft_r",
+      "kind": "cylinder",
+      "material": "boot",
+      "radius": 2.7,
+      "height": 5,
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 DX Piede",
+        "at": "bottom",
+        "offset": [
+          0,
+          0,
+          -3
+        ]
+      },
+      "marks": [
+        {
+          "path": [
+            [
+              0.1,
+              -12
+            ],
+            [
+              0.3,
+              12
+            ],
+            [
+              0.5,
+              -12
+            ],
+            [
+              0.7,
+              12
+            ],
+            [
+              0.9,
+              -12
+            ]
+          ],
+          "width": 0.35,
+          "material": "silver"
+        },
+        {
+          "path": [
+            [
+              0.1,
+              12
+            ],
+            [
+              0.3,
+              -12
+            ],
+            [
+              0.5,
+              12
+            ],
+            [
+              0.7,
+              -12
+            ],
+            [
+              0.9,
+              12
+            ]
+          ],
+          "width": 0.35,
+          "material": "silver"
+        }
+      ]
+    },
+    {
+      "id": "foot_l",
+      "kind": "box",
+      "material": "boot",
+      "size": [
+        8.5,
+        4.4,
+        2.8
+      ],
+      "attach": {
+        "bone": "Bip01 SX Piede",
+        "at": "bottom",
+        "offset": [
+          2.4,
+          0,
+          -3
+        ]
+      },
+      "panels": [
+        {
+          "face": "top",
+          "at": [
+            2.2,
+            2.2
+          ],
+          "size": [
+            3,
+            1.2
+          ],
+          "style": "raised",
+          "material": "silver"
+        }
+      ]
+    },
+    {
+      "id": "foot_r",
+      "kind": "box",
+      "material": "boot",
+      "size": [
+        8.5,
+        4.4,
+        2.8
+      ],
+      "attach": {
+        "bone": "Bip01 DX Piede",
+        "at": "bottom",
+        "offset": [
+          2.4,
+          0,
+          -3
+        ]
+      },
+      "panels": [
+        {
+          "face": "top",
+          "at": [
+            2.2,
+            2.2
+          ],
+          "size": [
+            3,
+            1.2
+          ],
+          "style": "raised",
+          "material": "silver"
+        }
+      ]
+    },
+    {
+      "id": "sole_l",
+      "kind": "box",
+      "material": "strap",
+      "size": [
+        9,
+        4.8,
+        1.1
+      ],
+      "attach": {
+        "to": "foot_l",
+        "toAt": "bottom",
+        "at": "top",
+        "offset": [
+          0,
+          0,
+          0.3
+        ]
+      }
+    },
+    {
+      "id": "sole_r",
+      "kind": "box",
+      "material": "strap",
+      "size": [
+        9,
+        4.8,
+        1.1
+      ],
+      "attach": {
+        "to": "foot_r",
+        "toAt": "bottom",
+        "at": "top",
+        "offset": [
+          0,
+          0,
+          0.3
+        ]
+      }
+    }
+  ]
+}
