@@ -785,7 +785,9 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         entities.push(
           brushEntity("func_door_rotating", [box(leaf.min, leaf.max, textureOf(link.material ?? "door")), box(pin.min, pin.max, "ORIGIN")], {
             speed: 100,
-            wait: 4,
+            // open it stays, unless the spec says otherwise: one that shut after 4 s closed on Steven in the
+            // doorway, and the squeeze set it off again (Kaupo); a house's doors do not shut themselves
+            wait: -1,
             distance: 90,
             angles: "0 0 0",
             ...keys,
