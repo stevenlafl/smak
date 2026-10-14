@@ -104,6 +104,14 @@ function inside(x, y, poly) {
   return inn;
 }
 
+/** A key turned about its origin by quarter turns: its rooms' outlines and its doors' and windows' places. */
+function turnedKey(key, degrees) {
+  const [c, s] = [Math.round(Math.cos((degrees * Math.PI) / 180)), Math.round(Math.sin((degrees * Math.PI) / 180))];
+  const turn = ([x, y]) => [x * c - y * s, x * s + y * c];
+  const at = (list) => (list ?? []).map((d) => ({ ...d, at: turn(d.at) }));
+  return { ...key, rooms: key.rooms.map((r) => ({ ...r, outline: r.outline.map(turn) })), doors: at(key.doors), windows: at(key.windows) };
+}
+
 /** The key's rooms as walked floor in cells of 16 units, as floorOf gives a map's: { cells: Map "x,y" -> [heights] }. */
 function keyFloor(key, storeys = null) {
   const foot = key.foot ?? 12;
@@ -124,6 +132,91 @@ function keyFloor(key, storeys = null) {
       }
   }
   return { cells };
+}
+
+/**
+ * The walked floor that is indoors: a cell whose nearest ceiling (the lowest face over it that looks down) is not
+ * the sky. The key holds the house's rooms; a yard the maker stood the house in is no room, and counted as floor
+ * it swamps the overlap (rubric.md, amendment of 2026-10-14). A cell with nothing over it is outdoors too.
+ */
+function indoorsOf(floor, bsp) {
+  const ceilings = maps
+    .modelFaces(bsp, 0)
+    .filter((face) => maps.faceNormal(bsp, face)[2] < -0.7)
+    .map((face) => {
+      const corners = maps.facePolygon(bsp, face);
+      return { xy: corners.map((c) => [c[0], c[1]]), z: Math.min(...corners.map((c) => c[2])), sky: /^sky$/i.test(maps.faceTexture(bsp, face).name) };
+    });
+  // inside a convex polygon in plan, whichever way round its corners go
+  const inside = (xy, x, y) => {
+    let sign = 0;
+    for (let i = 0; i < xy.length; i++) {
+      const [a, b] = [xy[i], xy[(i + 1) % xy.length]];
+      const cross = (b[0] - a[0]) * (y - a[1]) - (b[1] - a[1]) * (x - a[0]);
+      if (Math.abs(cross) < 1e-6) continue;
+      if (sign && Math.sign(cross) !== sign) return false;
+      sign = Math.sign(cross);
+    }
+    return true;
+  };
+  const cells = new Map();
+  for (const [k, hs] of floor.cells) {
+    const [x, y] = k.split(",").map(Number);
+    const kept = hs.filter((h) => {
+      let nearest = null;
+      for (const c of ceilings) if (c.z > h + 8 && (!nearest || c.z < nearest.z) && inside(c.xy, x + 8, y + 8)) nearest = c;
+      return nearest && !nearest.sky && nearest.z - h <= STOREY;
+    });
+    if (kept.length) cells.set(k, kept);
+  }
+  return { ...floor, cells };
+}
+
+/** A ceiling higher than this over a floor is no room's (a yard's rim under the top of its walls). */
+const STOREY = 160;
+
+/**
+ * The walked floor widened by a cell (16) each way at its own heights: the walk test keeps a player's middle 16
+ * from every wall, and the key's rooms run to their walls. Without it a 7-foot bathroom is found at three fifths.
+ */
+function widenedOf(floor) {
+  const cells = new Map();
+  for (const [k, hs] of floor.cells) {
+    const [x, y] = k.split(",").map(Number);
+    for (const dx of [-16, 0, 16])
+      for (const dy of [-16, 0, 16]) {
+        const at = `${x + dx},${y + dy}`;
+        const list = cells.get(at) ?? [];
+        for (const h of hs) if (!list.some((g) => Math.abs(g - h) <= 8)) list.push(h);
+        cells.set(at, list);
+      }
+  }
+  return { ...floor, cells };
+}
+
+/**
+ * The key's floor moved onto the map's as judged, from above: white where both have floor, red where only the key
+ * has, green where only the map has (+y up). Every storey at once, 4 dots a cell.
+ */
+function fitPicture(theirs, mine, [dx, dy]) {
+  const cells = new Map();
+  for (const k of theirs.cells.keys()) {
+    const [x, y] = k.split(",").map(Number);
+    cells.set(`${x + dx},${y + dy}`, 1);
+  }
+  for (const k of mine.cells.keys()) cells.set(k, (cells.get(k) ?? 0) | 2);
+  const at = [...cells.keys()].map((k) => k.split(",").map(Number));
+  const [x0, y0] = [Math.min(...at.map((p) => p[0])), Math.min(...at.map((p) => p[1]))];
+  const [x1, y1] = [Math.max(...at.map((p) => p[0])), Math.max(...at.map((p) => p[1]))];
+  const [w, h] = [(x1 - x0) / 16 + 1, (y1 - y0) / 16 + 1];
+  const rgba = new Uint8Array(w * 4 * h * 4 * 4);
+  const colour = { 1: [220, 60, 60], 2: [60, 200, 90], 3: [240, 240, 240] };
+  for (const [k, v] of cells) {
+    const [x, y] = k.split(",").map(Number);
+    const [cx, cy] = [(x - x0) / 16, h - 1 - (y - y0) / 16];
+    for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) rgba.set([...colour[v], 255], ((cy * 4 + j) * w * 4 + cx * 4 + i) * 4);
+  }
+  return { width: w * 4, height: h * 4, rgba };
 }
 
 /** The share of `a`'s floor cells that `b` has at the same place and height (within 24), moved by `move`. */
@@ -147,8 +240,8 @@ const ITEMS = ["P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8", "P9"];
 const MUST = ["P1", "P2", "P3", "P4", "P8", "P9"];
 
 async function judgeHouse(house, file, { decoy = false } = {}) {
-  const key = keyOf(house);
-  const foot = key.foot ?? 12;
+  const asKeyed = keyOf(house);
+  const foot = asKeyed.foot ?? 12;
   const dir = join(ROOT, house, "judge", decoy ? "decoy" : "made");
   rmSync(dir, { recursive: true, force: true });
   mkdirSync(dir, { recursive: true });
@@ -156,10 +249,22 @@ async function judgeHouse(house, file, { decoy = false } = {}) {
   const bsp = maps.readBsp(bytes);
   const folders = [join(file, ".."), GAME];
   // the floor against the key's, aligned as the maps' are, whole and storey by storey
-  const theirs = keyFloor(key);
-  const mine = floorOf(bytes);
-  const { overlap, move } = alignMaps(theirs, mine);
+  const mine = widenedOf(indoorsOf(floorOf(bytes), bsp));
+  // the key at each quarter turn, the best kept: the drawings fix the house's plan, not which way the map's axes
+  // run (Kaupo's sheets put north at a slant). A mirror is a plan read wrongly, and is not tried
+  const tries = [0, 90, 180, 270].map((turn) => {
+    const key = turnedKey(asKeyed, turn);
+    return { turn, key, ...alignMaps(keyFloor(key), mine) };
+  });
+  const first = tries.reduce((a, b) => (b.overlap > a.overlap ? b : a));
+  // floor at a height no storey of the key has is the ground outside (under the eaves of a house that stands raised),
+  // not a room: left out, and aligned again. A storey built at the wrong height still loses the key's floor it misses
+  const levels = first.key.storeys.map((s) => s.floor * foot + first.move[2]);
+  const roomsOnly = { ...mine, cells: new Map([...mine.cells].map(([k, hs]) => [k, hs.filter((h) => levels.some((l) => Math.abs(h - l) <= 24))]).filter(([, hs]) => hs.length)) };
+  const { overlap, move } = alignMaps(keyFloor(first.key), roomsOnly);
+  const { key, turn } = first;
   const byStorey = Object.fromEntries(key.storeys.map((s) => [s.name, shareOf(keyFloor(key, [s.name]), mine, move)]));
+  savePng(join(dir, "floor-fit.png"), fitPicture(keyFloor(key), roomsOnly, move));
   // doors: each of the key's (but those it marks uncertain) matched by a door entity within 24 units of it
   const doorModels = entitiesOf(bytes)
     .filter((e) => /^func_door/.test(e.classname ?? "") && /^\*\d+$/.test(e.model ?? ""))
@@ -195,6 +300,8 @@ async function judgeHouse(house, file, { decoy = false } = {}) {
   const keyPicture = join(ROOT, house, "input", "key.png");
   const measured = {
     floorOverlap: round(overlap),
+    keyTurned: turn,
+    floorCells: { key: [...keyFloor(key).cells.values()].flat().length, map: [...roomsOnly.cells.values()].flat().length },
     floorFoundByStorey: byStorey,
     doors: { key: sure.length, matched: doorsMatched, entities: doorModels.length },
     windows: { key: (key.windows ?? []).length, matched: windowsMatched },

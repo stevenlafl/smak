@@ -230,3 +230,15 @@ walk test, not the game.
   on M3, M4 and M6 only, and turned three of Opus's passes into fails; with Opus on the close calls, all eight
   came out as Opus had them, with four Opus judgements in place of eight. Decoys are judged the same way and
   must still fail. Results judged on Opus alone before this date keep their scores.
+- **2026-10-14, the houses' floor measure, after Kaupo's first judging.** P2 had compared the key's rooms with
+  every floor the walk test reached, and Kaupo scored 0.18 with 0 of 9 doors. Four faults of the measure, not
+  the house, were found, and the measure now: takes only floor indoors (the nearest ceiling over it is not the
+  sky and is within 160 units: a yard, and the ground under the eaves, are no rooms); widens it by a cell
+  (16) each way, since the walk test keeps a player's middle 16 off every wall and the key's rooms run to their
+  walls; keeps only floor at a height one of the key's storeys has; and tries the key at each quarter turn,
+  keeping the best (the drawings fix the plan, not which way the map's axes run; Kaupo was built turned half
+  round; a mirror is not tried). Doors and windows are matched with the same turn. Kaupo then measures 0.64,
+  9 of 9 doors and 19 of 19 windows, and still fails P2. The decoy (the outer walls as one room) measures
+  0.69 on floor, since an empty shell covers the footprint, and fails on its doors and windows (P4), as the
+  decoy is meant to. A house's open deck under the sky (Grindle's) is not counted as floor, and an attic
+  whose ridge is over 160 may lose part of its floor: both noted for when those houses are judged.
