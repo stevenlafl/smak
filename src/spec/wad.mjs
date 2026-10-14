@@ -8,7 +8,8 @@
 // A texture: { name (15 letters at most: `{` first for one with holes, `!` for a liquid, `+0` an animation's
 // frame), size: [width, height] (multiples of 16, 512 at most), material (a word of `materials` or a base),
 // panels (as a box face's, in texels from the bottom left), print (words, as a box face's), grime (0 to 1: dirt
-// gathered toward its foot), wear ({ stains, streaks, cracks, scratches, speckle } 0 to 1: weather.mjs) }.
+// gathered toward its foot), relief (pipes, bars, louvres, rivets, seams, lamps, lit: relief.mjs), wear ({ stains,
+// streaks, cracks, scratches, speckle } 0 to 1: weather.mjs) }.
 import { writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 import { sheet as workshopSheet, fbm } from "../workshop.mjs";
@@ -18,10 +19,11 @@ import { writeWad } from "../maps/wad.mjs";
 import { materialOf, surfacePicture } from "./paint.mjs";
 import { paintPanels, paintWords } from "./faces.mjs";
 import { weather, WEAR_LAYERS } from "./weather.mjs";
+import { relief, RELIEF_KINDS } from "./relief.mjs";
 
 export const WAD_SPEC = "smak.wad/1";
 const TOP = ["spec", "name", "materials", "textures", "preview", "note"];
-const FIELDS = ["name", "size", "material", "panels", "print", "grime", "wear", "note"];
+const FIELDS = ["name", "size", "material", "panels", "print", "relief", "grime", "wear", "note"];
 const isNumber = (v) => typeof v === "number" && Number.isFinite(v);
 /** The largest side a texture of GoldSrc's is drawn at as painted. */
 const SIDE_MOST = 512;
@@ -60,6 +62,23 @@ export function validateWadSpec(spec) {
           if (key === "seed") continue;
           else if (!WEAR_LAYERS.includes(key)) warnings.push(`${at}.wear.${key}: no such layer (${WEAR_LAYERS.join(", ")}), left out`);
           else if (!(isNumber(value) && value >= 0 && value <= 1)) errors.push(`${at}.wear.${key}: 0 to 1`);
+    }
+    for (const [k, part] of (Array.isArray(texture?.relief) ? texture.relief : texture?.relief === undefined ? [] : [null]).entries()) {
+      const where = `${at}.relief[${k}]`;
+      if (!RELIEF_KINDS.includes(part?.kind)) {
+        errors.push(`${where}.kind: one of ${RELIEF_KINDS.join(", ")}`);
+        continue;
+      }
+      const point = (p) => Array.isArray(p) && p.length === 2 && p.every(isNumber);
+      if (part.kind === "pipe" && !(Array.isArray(part.path) && part.path.length >= 2 && part.path.every(point))) errors.push(`${where}.path: [[x, y], [x, y], ...] in texels from the bottom left, two points at least`);
+      if (["bars", "louvre", "lamp"].includes(part.kind) && !(point(part.at) && point(part.size))) errors.push(`${where}: at [x, y] (its middle) and size [w, h], in texels`);
+      if (["rivets", "seam"].includes(part.kind) && !(point(part.from) && point(part.to))) errors.push(`${where}: from [x, y] and to [x, y], in texels`);
+      if (part.material !== undefined)
+        try {
+          materialOf(typeof part.material === "string" && spec.materials?.[part.material] !== undefined ? spec.materials[part.material] : part.material, `${where}.material`);
+        } catch (error) {
+          errors.push(error.message);
+        }
     }
     for (const [k, panel] of (texture?.panels ?? []).entries())
       if (!Array.isArray(panel?.at) || !Array.isArray(panel?.size)) errors.push(`${at}.panels[${k}]: { at: [x, y], size: [w, h], shape, style, edge, material }`);
@@ -101,6 +120,10 @@ function paintTexture(texture, materials) {
     paintWords(S, cell, print, material, 1, false, false, { under });
   }
   const image = now();
+  if (texture.relief?.length) {
+    const pictures = (material) => surfacePicture(resolve(material), width, height);
+    relief(image, texture.relief, pictures);
+  }
   // grime: darker toward the foot, broken up by noise that tiles across the sides
   if (texture.grime) {
     for (let y = 0; y < height; y++)

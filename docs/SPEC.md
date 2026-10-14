@@ -410,7 +410,13 @@ it (its volume, its pitch, the map's room): say so, and the person listens in th
 Each texture is a material laid seamlessly (one texel a unit, as a map draws it), with `panels` and `print`
 as a box face has them (in texels from the bottom left) and `grime` (0 to 1) gathered toward its foot. `wear`
 makes it a used surface and not a fill: `{ "stains": 0.6, "streaks": 0.5, "cracks": 0.4, "scratches": 0.3,
-"speckle": 0.8 }`, each 0 to 1 (`seed` another pattern), every layer tiling with the texture. A game's concrete
+"speckle": 0.8 }`, each 0 to 1 (`seed` another pattern), every layer tiling with the texture. `relief` raises
+machinery over it, lit from the top left with the dark of a recess round what stands out, each part in texels
+from the bottom left with a `material` of its own where it has one: `{ "kind": "pipe", "path": [[0, 100],
+[128, 100]], "radius": 6 }` (bends where the path turns), `bars` (`at`, `size`, `count`, `width`, `axis`: a
+grille over a dark hole), `louvre` (`at`, `size`, `count`), `rivets` (`from`, `to`, `count`, `radius`), `seam`
+(`from`, `to`, `width`, `notched`: a groove) and `lamp` (`at`, `size`, `colour`: a lamp's face bright in its
+middle; name the texture with `~` and light it with the map's texture lights). A game's concrete
 has a texel's own grain all over it (`speckle`) and blotches (`stains`); its machinery, streaks and scratches.
 A plain fill reads as flat beside it. A name
 is one word of 15 letters at most and its first letters mean what a map's do (`{` holes, `!` a liquid, `+0` an

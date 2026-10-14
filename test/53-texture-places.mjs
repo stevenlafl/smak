@@ -5,6 +5,7 @@
 //   the build tool's wad preview `each`: every texture of the spec from the judge's camera, and what it reports
 //   the renderer's scene is kept by the textures given, not their names: two sets of one name draw apart
 //   a texture's wear: finer detail and spread than a plain fill, and no seam where it repeats
+//   relief: a pipe lit on its top and dark below, a grille's holes dark, a refused part said
 import { readFileSync, mkdirSync, copyFileSync } from "node:fs";
 import { join } from "node:path";
 import * as smak from "../src/index.mjs";
@@ -107,4 +108,26 @@ test("a texture's wear: detail and spread as a used wall has them, and no seam w
   for (let x = 0; x < worn.width - 1; x++) inside += step(worn, x);
   inside /= worn.width - 1;
   sure(step(worn, worn.width - 1) < 1.5 * inside, `across the edge ${step(worn, worn.width - 1)}, inside ${inside}`);
+});
+
+test("relief: a pipe lit on its top and shaded below, a grille's recess dark, a wrong part refused", () => {
+  const out = join(tmp, "relief");
+  const built = buildWadSpec({ spec: "smak.wad/1", name: "relief.wad", textures: [
+    { name: "pipe", size: [64, 64], material: { base: "plaster", tone: [0.5, 0.5, 0.5] }, relief: [{ kind: "pipe", path: [[0, 32], [64, 32]], radius: 8, material: { base: "paint", tone: [0.5, 0.5, 0.5] } }] },
+    { name: "grille", size: [64, 64], material: { base: "plaster", tone: [0.5, 0.5, 0.5] }, relief: [{ kind: "bars", at: [32, 32], size: [40, 40], count: 5, width: 4 }] },
+  ] }, { out });
+  sure(built.report.ok, built.report.errors.join("; "));
+  const [pipe, grille] = smak.maps.readWad(readFileSync(join(out, "relief.wad"))).textures;
+  const lum = (t, x, row) => {
+    const c = t.pixels[row * t.width + x] * 3;
+    return 0.3 * t.palette[c] + 0.59 * t.palette[c + 1] + 0.11 * t.palette[c + 2];
+  };
+  // the pipe's middle is row 31 from the top; its upper flank faces the light, its lower one does not
+  sure(lum(pipe, 32, 26) > lum(pipe, 32, 37) + 15, `${lum(pipe, 32, 26)} over ${lum(pipe, 32, 37)}`);
+  // between two bars, the hole is dark
+  let darkest = 255;
+  for (let x = 12; x < 52; x++) darkest = Math.min(darkest, lum(grille, x, 32));
+  sure(darkest < 30, `the hole ${darkest}`);
+  const bad = buildWadSpec({ spec: "smak.wad/1", name: "bad.wad", textures: [{ name: "x", size: [64, 64], relief: [{ kind: "pipe", path: [[0, 0]] }, { kind: "fan" }] }] }, { out });
+  sure(bad.report.errors.length === 2, bad.report.errors.join("; "));
 });
