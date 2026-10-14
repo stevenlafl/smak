@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "muzzleflash1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 2,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 2,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.02,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.95,
+     "last": 1
+    },
+    "dark": 0.76,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 2,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 2,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.82,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 26.3
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 0,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Same effect: a five-armed star-shaped muzzle flash with a bright white-hot core and warm orange arms, in both frames."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frames are 64x64 like the original's, and the arms reach about as far toward the edges. The fill is clearly off, though. The original's arms are broad and soft and sit in a diffuse glow. The reproduction's arms are thin and sharp-edged, and its white core is larger and hard-edged, so more of the frame stays dark (dark share 0.82 against 0.76)."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 0,
+   "score": 0,
+   "reason": "The measured mean colour difference is 26.3, well over the 15 line, so this cannot score 2. The hues are related (white core, warm arms), but the reproduction's arms are a saturated yellow-orange and it has no hazy glow around the star. The original's arms are a duller tan-orange with a soft halo."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Two frames, as in the original. The motion is the same kind: the star turns slightly from one frame to the next at a steady brightness (envelope 1 to 1 against 0.95 to 1, a negligible difference). This is a flash whose frames are picked in turn, with no one-shot fade to match."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Same type (parallel) and format (additive) as the original, read back as 64x64 with 2 frames."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

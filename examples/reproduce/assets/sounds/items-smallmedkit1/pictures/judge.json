@@ -1,0 +1,107 @@
+{
+ "kind": "sounds",
+ "subject": "items-smallmedkit1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.763,
+   "peak": -3,
+   "rms": -14.1,
+   "crest": 11.1,
+   "dc": -0.0033,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.09,
+   "t20": 0.673,
+   "t40": 0.673,
+   "centroid": 2177,
+   "rolloff": 6072,
+   "flatness": 0.128,
+   "bands": {
+    "<150": 0.1,
+    "150-600": 14.7,
+    "600-2k": 59.5,
+    "2k-5k": 3.9,
+    ">5k": 21.7
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 0.76,
+   "peak": -0.6,
+   "rms": -11.8,
+   "crest": 11.2,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.065,
+   "peakAt": 0.18,
+   "t20": 0.574,
+   "t40": 0.579,
+   "centroid": 2200,
+   "rolloff": 6331,
+   "flatness": 0.157,
+   "bands": {
+    "<150": 0,
+    "150-600": 20.1,
+    "600-2k": 55.4,
+    "2k-5k": 3.8,
+    ">5k": 20.7
+   },
+   "onsets": 1
+  },
+  "lengthOff": 0.004,
+  "centroidOff": 0.011,
+  "bandsOffMost": 5.4,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the pictures and features only; I cannot listen. Both have the same sequence of events: a short tonal blip at the start, then two sustained tonal bursts with a strong fundamental and harmonics (about 0.06-0.18 s and 0.21-0.33 s), then a quiet stretch with a faint click, then a broadband hiss from about 0.52 s to the end. That reads as the same pickup event: two tones followed by a spray or hiss."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Length matches (0.760 s against 0.763 s, 0.4% off), but the envelope is clearly off. Attack is 0.065 s against the original's 0. The peak sits at 0.18 s against 0.09 s because the reproduction's second burst is louder than its first, while the original's two bursts are level. T20 is 0.574 s against 0.673 s (15% short), and the reproduction's hiss fades out before the end where the original's runs at full level to the last sample. The overall level is also 2.3 dB hotter (RMS -11.8 against -14.1). No class range was given, so I scored strictly on these visible and measured differences."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 2200 Hz against 2177 Hz (1.1% off) and rolloff is 6331 Hz against 6072 Hz. The largest band difference is 5.4 points (150-600 Hz, 20.1 against 14.7) and every other band is within about 4 points. All are within the rubric's limits. The within-segment spectral differences in the hiss and the middle section are scored under S4."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the pictures and features only; I cannot listen. The onset count matches (1 and 1), but the character differs. First, the reproduction's tone bursts have deep diamond-shaped amplitude modulation, like a beating pattern, where the original's are near-steady blocks with only a light flutter. Second, the original's middle section (about 0.34-0.52 s) is full of broadband crackle and several transients that show as bright vertical streaks in its spectrogram; the reproduction's middle is mostly quiet, with one click. Third, the original's hiss puts its energy in a bright band near the top of the spectrogram with darker content below it, while the reproduction's hiss is spread evenly across the spectrum. Flatness is 0.157 against 0.128, so the reproduction is noisier overall."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file is mono, 8-bit PCM at 22050 Hz, an allowed engine format. It has no clipped samples (peak -0.6 dB), DC of 0, and the same name as the original. The original has no loop cue, so none is needed."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

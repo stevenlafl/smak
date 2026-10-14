@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "zerogxplode",
+ "leg": "decoy: plain",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.818,
+     "mean": 0.005
+    },
+    "envelope": {
+     "peakAt": 0.36,
+     "first": 0.08,
+     "last": 0.03
+    },
+    "dark": 0.73,
+    "wrap": 0.81,
+    "jitter": 1.25
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.784,
+     "mean": 0.784
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 39.5
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 0,
+  "R4": 0,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The original is an explosion: a small bright burst in frame 0 grows into a white-hot fireball by frames 2-4 with sparks and debris flying off, then cools to orange-brown smoke and fades out by frame 14. The reproduction is a single flat, uniform light-grey square with no burst, no fire, no sparks and no smoke. It is not an explosion or any other recognisable effect."
+  },
+  "R2": {
+   "judge": 0,
+   "cap": 2,
+   "score": 0,
+   "reason": "The frame size matches (64 x 64 in both), but the shape does not. The original's effect sits in the middle of a dark frame and stays clear of the edges (border mean 0.005). The reproduction's grey covers the whole frame edge to edge (border mean 0.784, max 0.784), so there is no shape at all, only a filled rectangle."
+  },
+  "R3": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The measured mean colour difference is 39.5 against a pass line of 15. The original blends as white-yellow cooling to orange-brown over black (dark fraction 0.73). The reproduction is a neutral pale grey with no dark area at all (dark fraction 0)."
+  },
+  "R4": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The reproduction has 1 frame against the original's 15, far outside 25%. It has no motion. The original is a one-shot that grows, peaks about a third of the way through (peakAt 0.36), fades and ends almost dark (last 0.03). The reproduction is fully bright from its first frame to its last (first 1, last 1, peakAt 0) and never ends dark. Wrap and jitter cannot be measured with one frame."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The type (parallel) and format (additive) match the original's and the harness read them back. The file was judged under the original's name, zerogxplode. A single-frame sprite is valid for the engine. Every failure here is in content, not in the file's form."
+  }
+ },
+ "total": 2,
+ "of": 10,
+ "passes": false
+}

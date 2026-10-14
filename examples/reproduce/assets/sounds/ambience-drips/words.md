@@ -1,0 +1,7 @@
+Ambient loop of water drops falling one at a time into a puddle or pool inside a cave or tunnel. It runs 7.31 seconds, mono, 11025 Hz, 8-bit, and loops seamlessly from the start.
+
+There are five drips, at about 0.05 s, 1.87 s, 3.69 s, 3.97 s and 5.85 s. The spacing is uneven, with a quick double drip in the middle, and the tail of the last one runs into the loop point. Every drip starts at once with a sharp, soft-edged "plip" transient of a few milliseconds. It then fades over roughly 0.5 to 1 second as a wet, reverberant tail. The first and last drips are the loudest. The third and fourth are a little softer. The second is medium. Between drips the level drops to a steady, quiet hiss with low rumble, never to true silence.
+
+Each drip's energy sits mostly in the mids, from about 400 Hz to 1.2 kHz, with the strongest band near 700 to 900 Hz. A weaker band of energy reaches about 1.5 to 2.5 kHz, and the high end above 3 kHz is faint. The tails have faint narrow resonant lines that hold steady, like a hollow, watery "bloop" ring. Make them slightly different per drip, sitting around 600 Hz to 2 kHz. They may glide upward a little over the first 100 ms, as a water drop's bubble does. Otherwise there is no clear pitch movement.
+
+Overall it is mostly noisy with a slight tonal ring. The background is a constant broadband noise bed weighted toward the lows below about 200 Hz, like distant cave air, at a low level so the drips stand out clearly.

@@ -1,0 +1,107 @@
+{
+ "kind": "sounds",
+ "subject": "doors-doormove1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 5.037,
+   "peak": -3.2,
+   "rms": -17.1,
+   "crest": 13.9,
+   "dc": -0.0041,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.035,
+   "attack": 4.25,
+   "peakAt": 4.425,
+   "t20": 0.514,
+   "t40": 0.579,
+   "centroid": 622,
+   "rolloff": 1421,
+   "flatness": 0.158,
+   "bands": {
+    "<150": 31.1,
+    "150-600": 35.2,
+    "600-2k": 28.4,
+    "2k-5k": 5,
+    ">5k": 0.2
+   },
+   "onsets": 2
+  },
+  "reproduction": {
+   "length": 5.045,
+   "peak": -1.1,
+   "rms": -14.5,
+   "crest": 13.4,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 4.136,
+   "peakAt": 4.185,
+   "t20": 0.554,
+   "t40": 0.803,
+   "centroid": 453,
+   "rolloff": 883,
+   "flatness": 0.045,
+   "bands": {
+    "<150": 33.8,
+    "150-600": 40,
+    "600-2k": 24,
+    "2k-5k": 2.2,
+    ">5k": 0
+   },
+   "onsets": 1
+  },
+  "lengthOff": 0.002,
+  "centroidOff": 0.272,
+  "bandsOffMost": 4.8,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 1,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the pictures and features only, since I cannot listen. Both are the same event: a door's sustained mechanical rumble, about 5 s long, with faint rising tonal sweeps at roughly matching intervals (around 0.2, 1.3, 2.6 and 3.8 s in the original). Each ends with a heavier stop-thud near 4.2 to 4.4 s and then decays into a short tail. Most energy sits low in both, and the overall shape lines up."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 5.045 s against 5.037 s, so 0.2% off. T20 decay (time to fall 20 dB) is 0.554 s against 0.514 s, about 8% off. The main peak is at 4.19 s against 4.43 s, so the stop lands in the same late place. The waveforms share the sustained body, the late peak and the tail. T40 (time to fall 40 dB) is longer, 0.80 s against 0.58 s, but the rubric's T20 is within range."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "The spectral centroid (the spectrum's centre of mass) is 453 Hz against 622 Hz, 27% off, past the 20% line. The worst band share is off by 4.8 points, which is within 10. The reproduction is darker: the 99% rolloff is 883 Hz against 1421 Hz, 2-5 kHz holds 2.2% against 5.0%, and the spectrogram shows less upper-mid energy throughout, most visibly in the final stop."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the pictures and features only, since I cannot listen. The original's stop at about 4.3 to 4.6 s is a rattling burst with repeated pulses and ringing, and 2 onsets are detected. The reproduction has one smooth thud, 1 onset. Flatness (how noise-like the sound is) is 0.045 against 0.158, so the reproduction is much less noisy and grainy than the original's scrape. The rising pitch sweeps are present but fainter and thinner than the original's bright arcs."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono PCM, 11025 Hz, 8-bit, same name. Nothing clipped, DC offset 0, no engine faults. No loop cue is reported for the original, and none is needed."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

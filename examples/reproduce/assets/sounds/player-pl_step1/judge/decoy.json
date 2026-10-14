@@ -1,0 +1,107 @@
+{
+ "kind": "sounds",
+ "subject": "player-pl_step1",
+ "leg": "decoy: plain",
+ "measured": {
+  "original": {
+   "length": 0.266,
+   "peak": -0.1,
+   "rms": -21.1,
+   "crest": 21,
+   "dc": -0.0043,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.005,
+   "t20": 0.09,
+   "t40": 0.264,
+   "centroid": 853,
+   "rolloff": 2326,
+   "flatness": 0.27,
+   "bands": {
+    "<150": 26.8,
+    "150-600": 48.3,
+    "600-2k": 8.5,
+    "2k-5k": 15.1,
+    ">5k": 1.4
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.266,
+   "peak": -10.5,
+   "rms": -15.5,
+   "crest": 5,
+   "dc": -0.0064,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.035,
+   "peakAt": 0.2,
+   "t20": 0.07,
+   "t40": 0.07,
+   "centroid": 2778,
+   "rolloff": 4683,
+   "flatness": 0.862,
+   "bands": {
+    "<150": 2.3,
+    "150-600": 9.1,
+    "600-2k": 24.9,
+    "2k-5k": 56,
+    ">5k": 7.8
+   },
+   "onsets": 0
+  },
+  "lengthOff": 0,
+  "centroidOff": 2.257,
+  "bandsOffMost": 40.9,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 16,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 0,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Judged from the picture and features alone; I cannot listen. The original is a footstep: a sharp low thud at the start (peak at 0.005 s), a short decay, and a small second scuff at about 0.11 s. Most of its energy is low, with 75% below 600 Hz. The reproduction is steady broadband noise at one level for the whole 0.27 s. It has no impact and no decay, and most of its energy is high (56% in 2k-5k). No one would call it the same event."
+  },
+  "S2": {
+   "judge": 0,
+   "cap": 2,
+   "score": 0,
+   "reason": "Only the length matches (0.266 s each). The envelope itself is wrong. The original starts instantly (attack 0) and peaks at 0.005 s with crest 21. The reproduction's waveform is flat from start to end: attack 0.035 s, peak at 0.2 s, crest 5, and t20 and t40 are both 0.07 s against the original's 0.09 and 0.264. Those t20 and t40 values come from noise fluctuation, not from a decay, so I scored below what the t20 number alone allows."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The centroid is 2778 Hz against 853 Hz, off by 226% where the limit is 20%. Bands are off by up to 40.9 points where the limit is 10: <150 is 2.3 vs 26.8, 150-600 is 9.1 vs 48.3, 600-2k is 24.9 vs 8.5, and 2k-5k is 56 vs 15.1. Rolloff is 4683 Hz vs 2326. In the spectrogram the reproduction is evenly bright across all frequencies and all of its length, while the original's energy is concentrated low and fades after the first frames."
+  },
+  "S4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Judged from the picture and features, without listening. The original has a clear transient at the start and a smaller one near 0.11 s; the measured onset count of 0 for both files misses these, but the waveform shows them. The reproduction has no transients at all. Flatness is 0.862 (close to pure noise) against 0.27 (a pitched low thump). Neither shows any pitch movement, but the original's tonal thud is missing."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono 16-bit PCM at 11025 Hz, the same name as the original, nothing clipped, and no engine faults. The DC offset of -0.0064 is negligible and close to the original's -0.0043. The original has no loop cue, so none is needed."
+  }
+ },
+ "total": 2,
+ "of": 10,
+ "passes": false
+}

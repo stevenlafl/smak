@@ -1,0 +1,197 @@
+{
+  "spec": "smak.sound/1",
+  "name": "debris/bustmetal1.wav",
+  "class": "metal hit",
+  "rate": 11025,
+  "bits": 8,
+  "seed": 7,
+  "length": 0.87,
+  "layers": [
+    {
+      "id": "crunch",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 300
+        },
+        {
+          "type": "lowpass",
+          "f": 4500
+        },
+        {
+          "type": "peak",
+          "f": 1400,
+          "q": 0.7,
+          "gain": 6
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.15,
+            -1
+          ],
+          [
+            0.3,
+            -8
+          ],
+          [
+            0.45,
+            -18
+          ],
+          [
+            0.6,
+            -30
+          ],
+          [
+            0.8,
+            -60
+          ]
+        ]
+      },
+      "gain": 0
+    },
+    {
+      "id": "thump",
+      "kind": "noise",
+      "color": "brown",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 350
+        },
+        {
+          "type": "highpass",
+          "f": 90
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "hold": 0.07,
+        "decay": 0.15
+      },
+      "gain": -9
+    },
+    {
+      "id": "debris",
+      "kind": "particles",
+      "rate": 60,
+      "band": [
+        900,
+        4500
+      ],
+      "grain": 0.004,
+      "length": 0.85,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.15,
+            -3
+          ],
+          [
+            0.45,
+            -14
+          ],
+          [
+            0.85,
+            -36
+          ]
+        ]
+      },
+      "gain": -12
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "modes": [
+        {
+          "f": 610,
+          "gain": 0.4,
+          "decay": 0.35
+        },
+        {
+          "f": 930,
+          "gain": 0.7,
+          "decay": 0.55
+        },
+        {
+          "f": 1130,
+          "gain": 1,
+          "decay": 0.65
+        },
+        {
+          "f": 1370,
+          "gain": 0.9,
+          "decay": 0.7
+        },
+        {
+          "f": 1640,
+          "gain": 0.8,
+          "decay": 0.75
+        },
+        {
+          "f": 1910,
+          "gain": 0.7,
+          "decay": 0.8
+        },
+        {
+          "f": 2280,
+          "gain": 0.5,
+          "decay": 0.9
+        },
+        {
+          "f": 2730,
+          "gain": 0.35,
+          "decay": 0.95
+        },
+        {
+          "f": 3170,
+          "gain": 0.3,
+          "decay": 1
+        },
+        {
+          "f": 3780,
+          "gain": 0.22,
+          "decay": 1.1
+        },
+        {
+          "f": 4460,
+          "gain": 0.15,
+          "decay": 1.2
+        }
+      ],
+      "gain": -1
+    },
+    {
+      "id": "ring2",
+      "kind": "fm",
+      "f": 1270,
+      "ratio": 1.41,
+      "index": 2.5,
+      "indexDecay": 0.2,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.7
+      },
+      "gain": -12
+    }
+  ],
+  "finish": {
+    "saturate": 6,
+    "room": {
+      "decay": 0.2,
+      "wet": 0.1
+    },
+    "peak": -0.5
+  }
+}

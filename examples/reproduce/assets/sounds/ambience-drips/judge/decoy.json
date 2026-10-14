@@ -1,0 +1,109 @@
+{
+ "kind": "sounds",
+ "subject": "ambience-drips",
+ "leg": "decoy: plain",
+ "measured": {
+  "original": {
+   "length": 7.306,
+   "peak": -0.4,
+   "rms": -27.3,
+   "crest": 26.9,
+   "dc": -0.0039,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 5.777,
+   "peakAt": 5.832,
+   "t20": 0.434,
+   "t40": 1.477,
+   "centroid": 839,
+   "rolloff": 1066,
+   "flatness": 0.095,
+   "bands": {
+    "<150": 1.2,
+    "150-600": 23.2,
+    "600-2k": 72.3,
+    "2k-5k": 2.5,
+    ">5k": 0.7
+   },
+   "onsets": 4
+  },
+  "reproduction": {
+   "length": 7.306,
+   "peak": -10.5,
+   "rms": -15.3,
+   "crest": 4.8,
+   "dc": -0.0015,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.04,
+   "peakAt": 4.46,
+   "t20": 2.849,
+   "t40": 2.849,
+   "centroid": 2758,
+   "rolloff": 4694,
+   "flatness": 0.997,
+   "bands": {
+    "<150": 2.6,
+    "150-600": 8.3,
+    "600-2k": 25.2,
+    "2k-5k": 54.5,
+    ">5k": 9.3
+   },
+   "onsets": 3
+  },
+  "lengthOff": 0,
+  "centroidOff": 2.287,
+  "bandsOffMost": 52,
+  "engineFaults": [
+   "it is to loop and has no cue point: the engine plays it once"
+  ],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 16,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 0,
+  "S5": 0
+ },
+ "scores": {
+  "S1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Judged from the picture and features only; I cannot listen. The original (ambience/drips.wav) has four separate drip events, at about 0, 2.4, 4.8 and 7.6 s on the time axis. Each is a sharp hit with a ringing decay that stays mostly between 150 Hz and 2 kHz. The reproduction is steady broadband noise across the whole 7.31 s, with no events in its waveform or spectrogram. It does not show the same event: it reads as hiss, not dripping water."
+  },
+  "S2": {
+   "judge": 0,
+   "cap": 2,
+   "score": 0,
+   "reason": "Only the length matches (7.306 s in both). The envelope is wrong. The original's waveform has four spiky transients, each decaying quickly (T20, the time to fall 20 dB, is 0.434 s; crest factor 26.9 dB). The reproduction's waveform is a flat band at constant level from start to end: crest factor 4.8 dB, T20 and T40 both 2.849 s, and an attack of 0.04 s that belongs to no event. Its decay is far outside the range for a drip, so this item is 0, not 1."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "Measured: the spectral centroid is 2758 Hz against the original's 839 Hz, 229% off where the limit is 20%. The worst band is off by 52 points where the limit is 10. The original puts 72.3% of its energy in 600 Hz to 2 kHz and 23.2% in 150 to 600 Hz. The reproduction puts 54.5% in 2 to 5 kHz and 9.3% above 5 kHz, which shows as the yellow wash filling the whole height of its spectrogram."
+  },
+  "S4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Judged from the picture and features only; I cannot listen. Spectral flatness is 0.997 in the reproduction, which is white noise, against 0.095 in the tonal, resonant original. In the original's spectrogram each drip shows banded resonances around 400 Hz to 1.5 kHz; none of that is in the reproduction. The detector counts 3 onsets in the reproduction against 4 in the original, but no hits are visible anywhere in its waveform or spectrogram, so those counts are not drip onsets."
+  },
+  "S5": {
+   "judge": 1,
+   "cap": 0,
+   "score": 0,
+   "reason": "The format is valid: mono 16-bit PCM at 11025 Hz, nothing clipped, DC offset -0.0015 (negligible), same file name. But the harness reports an engine fault: the sound is meant to loop and has no cue point, so the engine plays it once. The rubric requires a loop's cue where the original has one, so this cannot score 2."
+  }
+ },
+ "total": 0,
+ "of": 10,
+ "passes": false
+}

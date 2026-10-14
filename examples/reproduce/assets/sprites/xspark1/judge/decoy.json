@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "xspark1",
+ "leg": "decoy: plain",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    32
+   ],
+   "frames": 11,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 11,
+    "size": [
+     32,
+     32
+    ],
+    "border": {
+     "max": 0.145,
+     "mean": 0.004
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.94,
+     "last": 1
+    },
+    "dark": 0.46,
+    "wrap": 1.61,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    32
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     32,
+     32
+    ],
+    "border": {
+     "max": 0.784,
+     "mean": 0.784
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 45
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 0,
+  "R4": 0,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The original is a cyan-white glowing energy burst with soft, lumpy edges that flicker. The reproduction is one flat, uniform pale grey square with no glow, sparks or shape, so it is not the same effect."
+  },
+  "R2": {
+   "judge": 0,
+   "cap": 2,
+   "score": 0,
+   "reason": "The frame size matches at 32x32, but the effect doesn't fill the frame the way the original's does. The original glows in the centre and fades to dark at the edges (border max 0.145, mean 0.004). The reproduction fills the whole frame edge to edge (border max and mean 0.784) and has no shape at all."
+  },
+  "R3": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The original is saturated cyan with white-hot centres on black, while the reproduction is flat light grey. The measured mean colour difference is 45, three times the line of 15."
+  },
+  "R4": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The reproduction has 1 frame against the original's 11, far outside 25%. With one static frame it has none of the original's flicker or jitter (jitter 1.51, wrap 1.61 in the original; both null in the reproduction) and no looping cycle."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "It is parallel and additive like the original, but a single uniform frame does not stand in as the original's sprite. The measurements don't confirm the name or that the file reads back as written, so this can't be scored 2."
+  }
+ },
+ "total": 1,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,107 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-explode3",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 1.301,
+   "peak": -0.4,
+   "rms": -6.2,
+   "crest": 5.7,
+   "dc": -0.0048,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.254,
+   "t20": 0.893,
+   "t40": 1.028,
+   "centroid": 616,
+   "rolloff": 947,
+   "flatness": 0.097,
+   "bands": {
+    "<150": 36.4,
+    "150-600": 37.6,
+    "600-2k": 19.5,
+    "2k-5k": 4.6,
+    ">5k": 1.9
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 1.3,
+   "peak": -0.6,
+   "rms": -8.8,
+   "crest": 8.2,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.349,
+   "peakAt": 0.349,
+   "t20": 0.753,
+   "t40": 0.913,
+   "centroid": 661,
+   "rolloff": 1184,
+   "flatness": 0.113,
+   "bands": {
+    "<150": 38.4,
+    "150-600": 35.4,
+    "600-2k": 18.1,
+    "2k-5k": 6.1,
+    ">5k": 2
+   },
+   "onsets": 0
+  },
+  "lengthOff": 0.001,
+  "centroidOff": 0.073,
+  "bandsOffMost": 2.2,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only, since I cannot listen. The broad shape is right for an explosion: a noisy burst weighted to the low end (about 74% of the energy below 600 Hz in both) that dies away to silence over 1.3 s. The original starts with an instant blast. Its waveform is at full scale from the very first sample (attack 0.005 s, one onset) and stays saturated for about the first 0.4 s. The reproduction has no blast at its start. Its waveform opens at moderate level and swells to its peak at 0.349 s, and the harness detected no onset. That reads as a rumble rising to a peak rather than a detonation, so the event is only partly the same."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Length is 1.300 s against 1.301 s, which is fine. Decay is close: T20 is 0.753 s against 0.893 s (16% shorter) and T40 is 0.913 s against 1.028 s. Attack is clearly wrong. The original reaches its peak in 0.005 s, as an explosion does, while the reproduction takes 0.349 s, about 70 times slower. That is outside any range for an explosion. The picture confirms it: the reproduction's waveform ramps up over the first third instead of hitting full scale at time 0."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 661 Hz against 616 Hz, 7.3% off (the limit is 20%). Every band's share is within 2.2 points: <150 Hz 38.4 vs 36.4, 150-600 Hz 35.4 vs 37.6, 600 Hz-2 kHz 18.1 vs 19.5, 2-5 kHz 6.1 vs 4.6, >5 kHz 2.0 vs 1.9. Rolloff is somewhat higher (1184 Hz vs 947 Hz). The two spectrograms show the same broadband noise, bright at the bottom and fading from the top down over time."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only, since I cannot listen. The noise is a close match: flatness is 0.113 against 0.097, and neither spectrogram shows any pitch movement. The onsets do not match. The original has one sharp onset at time 0, the blast, and the reproduction has none (onsets 0). Its energy builds gradually instead."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono 8-bit PCM at 22050 Hz with the same name. Nothing is clipped (0 samples), and the peak is -0.6 dBFS with DC at 0. The original is a one-shot with no loop, so no cue is needed."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

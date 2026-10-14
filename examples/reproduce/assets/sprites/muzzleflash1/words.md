@@ -1,0 +1,7 @@
+A gunfire muzzle flash: a small five-pointed starburst of light, drawn additively on black so the black areas are fully transparent. The canvas is 64x64 pixels with 2 frames, and the sprite always turns to face the viewer.
+
+Shape: a hot, roughly round core about 10 to 12 pixels across sits at the centre of the frame. Five thin, tapering rays come out of it like a lopsided star. One points almost straight up. Two point sideways, left and right, a little above horizontal. Two point down and outward, at about the 7 o'clock and 5 o'clock positions. The rays are about 3 to 4 pixels wide at the base and taper to soft points about 26 to 30 pixels from the centre, so the whole star nearly fills the frame with a small margin. The edges are soft and blurry, with no hard outlines, and a faint haze surrounds the core.
+
+Colour: the core is near-white with a slight warm cream tint. Moving outward along the rays it turns pale gold, then amber-orange, then dim brownish orange at the tips before fading into black. Brightness falls off smoothly from the centre.
+
+Animation: two nearly identical frames that alternate quickly as a flicker loop while the weapon fires. The second frame is the same star with slightly different ray lengths and angles. The rays shift by a pixel or two and are a touch shorter or longer, so the flash looks like it shimmers rather than standing still. The core stays the same size and brightness in both frames, and nothing grows, rises or fades across the cycle.

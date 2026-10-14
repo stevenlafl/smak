@@ -1,0 +1,107 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-cbar_hit1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.694,
+   "peak": -0.4,
+   "rms": -9.9,
+   "crest": 9.5,
+   "dc": 0.0043,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.03,
+   "t20": 0.559,
+   "t40": 0.649,
+   "centroid": 1343,
+   "rolloff": 1938,
+   "flatness": 0.215,
+   "bands": {
+    "<150": 4.9,
+    "150-600": 6.8,
+    "600-2k": 73.8,
+    "2k-5k": 13.7,
+    ">5k": 0.9
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 0.694,
+   "peak": -0.6,
+   "rms": -10.6,
+   "crest": 10,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0,
+   "peakAt": 0.01,
+   "t20": 0.364,
+   "t40": 0.673,
+   "centroid": 1342,
+   "rolloff": 1443,
+   "flatness": 0.181,
+   "bands": {
+    "<150": 5.3,
+    "150-600": 14.1,
+    "600-2k": 69.7,
+    "2k-5k": 10.7,
+    ">5k": 0.1
+   },
+   "onsets": 0
+  },
+  "lengthOff": 0,
+  "centroidOff": 0.001,
+  "bandsOffMost": 7.3,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the pictures and features only; I cannot listen. Both are a broadband, mid-heavy noise burst of the same length, and most of the energy sits at 600-2k in both, so it is plausibly an impact. But the original's defining mark is missing. The original's spectrogram has a bright, steady tonal line (the metal ring) across its whole 0.69 s, and the reproduction has none. The harness also finds no onset in the reproduction (0 against the original's 1), and its waveform does not read as one clean strike: it starts loud, thins out, then swells again around 0.15-0.25 s. Going by the picture, that is closer to a scrape or a burst of noise than a crowbar ringing off metal."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The length matches (0.694 s in both, 0% off). The decay does not. T20 is 0.364 s against the original's 0.559 s, about 35% shorter, so the reproduction loses its body much sooner. In the waveform, the original holds a dense, full body to about 0.3 s and then tapers. The reproduction's lower edge rises from about 0.05 s, peaks again around 0.2 s and has collapsed by about 0.3 s. T40 is 0.673 against 0.649, which is close. The attack is 0 against 0.005 s and the peak comes at 0.01 against 0.03 s, both fine for a hit. The shape of the decay between onset and tail is clearly off."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements meet the line. The centroid is 1342 Hz against 1343 Hz, 0.1% off. The largest band difference is 7.3 points, at 150-600 Hz (14.1 against 6.8). The others: 600-2k 69.7 against 73.8, 2k-5k 10.7 against 13.7, >5k 0.1 against 0.9, <150 5.3 against 4.9. All are within 10 points. Two things to note. The rolloff is lower (1443 against 1938 Hz). In the spectrogram, the reproduction's upper half also darkens sooner after about 0.35 s, while the original keeps its highs and its ringing line. I count the missing ring under S4, not here, so S3 keeps its 2."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the pictures and features only; I cannot listen. The noise level is close: flatness is 0.181 against 0.215. Two things do not match. The harness finds no onset where the original has one clear strike. And the original's sustained pitched component, the bright horizontal line in its spectrogram running the full length (the ring of struck metal), is absent from the reproduction, whose spectrogram has only diffuse noise. Neither shows any pitch movement."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono PCM at 11025 Hz, 8 bits, the same name (sameName true). No clipping, DC 0 (the original's was 0.0043), and no engine faults. The original is a one-shot with no loop cue, and none is needed. Lead is 0 and the tail is 0.01 s, which is fine."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

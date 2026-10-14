@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "muzzleflash1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 2,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 2,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.02,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.95,
+     "last": 1
+    },
+    "dark": 0.76,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 2,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 2,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.86,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 37.2
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 0,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Same effect: in both frames of both sprites, a five-armed star-shaped muzzle flash with a hot white-yellow core and orange arms fading out toward the tips, on black for additive blending."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frames are the original's 64 x 64, and the arms reach about the same distance toward the edges. But the effect fills the frame differently. The original's arms are broad, soft and blurred, with a small core. The reproduction's arms are thin and sharp-edged, with a larger, harder white core. The measured dark share is 0.86 against the original's 0.76, so noticeably less of the frame is lit."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 0,
+   "score": 0,
+   "reason": "The measured mean colour difference is 37.2, far over the 15 line, so this cannot be a 2. The hues are in the same family (white core, orange arms). The reproduction is clearly off, though: its core is a brighter, whiter blow-out and its arm tips are a more saturated orange. The original's arms are a duller, softer peach-orange."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both have 2 frames, the brightness peaks at frame 1 in both, and neither has wrap or jitter. Both are a two-frame flicker of the star with slight changes in the arms between frames. The original's frame 0 is a little dimmer (0.95) where the reproduction's two frames are equally bright (1, 1), a small difference within the same kind of motion. Neither ends dark, which suits a looping flash."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Same type (parallel) and same format (additive), 64 x 64 with 2 frames, matching the original as read back."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "zerogxplode",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.818,
+     "mean": 0.005
+    },
+    "envelope": {
+     "peakAt": 0.36,
+     "first": 0.08,
+     "last": 0.03
+    },
+    "dark": 0.73,
+    "wrap": 0.81,
+    "jitter": 1.25
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.029,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0.57,
+     "first": 0.04,
+     "last": 0
+    },
+    "dark": 0.7,
+    "wrap": 0.66,
+    "jitter": 1.06
+   }
+  },
+  "meanColourDeltaE": 19.6
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 1,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are a one-shot fireball explosion: a hot flash that swells into a burning cloud, then fades to dark."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frames are the right size (64x64), but the effect fills them differently. The original is an irregular, lumpy cloud that leans up and to the right, with stray debris specks around it. By frames 3-5 it already reaches the frame edge (border max 0.818). The reproduction is a symmetric round ball, centred, with no debris. It reaches full size only around frames 7-8 and stays clear of the edge (border max 0.029). Its outline and fill do not match the original's in any frame."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "The measured mean colour difference is 19.6, above the pass line of 15. In the pictures, the original runs from white-cream to a yellow-tan, then to a smoky brown. The reproduction is saturated orange-red with a red rim from frame 4 on, and fades through red-brown and maroon in frames 11-13 instead of the original's tan-brown."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frame count matches (15). Both are one-shots that grow, then fade and end dark (last frame 0.03 against 0). The timing is clearly off, though. The original flashes to near full size and white heat within frames 2-3 (peak at 0.36), then cools and drifts slowly. The reproduction grows steadily as a ball and peaks around frames 7-9 (peak at 0.57), so its growth phase lasts about twice as long. The original's drifting sparks and debris are also missing."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type (parallel) and format (additive) match the original. The harness read it back at the same size (64x64) and frame count (15)."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

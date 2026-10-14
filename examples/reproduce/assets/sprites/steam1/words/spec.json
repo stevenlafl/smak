@@ -1,0 +1,96 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/steam1.spr",
+      "class": "smoke puff",
+      "use": "tempent",
+      "size": [
+        32,
+        48
+      ],
+      "frames": 16,
+      "loop": false,
+      "fps": 15,
+      "format": "index alpha",
+      "colour": [
+        1,
+        1,
+        1
+      ],
+      "finish": {
+        "edge": 5
+      },
+      "layers": [
+        {
+          "kind": "glow",
+          "at": [
+            -0.06,
+            -0.3
+          ],
+          "radius": 0.06,
+          "core": 0.6,
+          "colour": [
+            1,
+            1,
+            1
+          ],
+          "gain": 1,
+          "env": {
+            "attack": 0,
+            "decay": 1
+          }
+        },
+        {
+          "kind": "explosion",
+          "growth": 0.36,
+          "cool": 1,
+          "turbulence": 1,
+          "gain": 1,
+          "at": [
+            -0.05,
+            -0.25
+          ],
+          "env": {
+            "attack": 0.05,
+            "decay": 0.95
+          }
+        },
+        {
+          "kind": "glow",
+          "at": [
+            0,
+            0.25
+          ],
+          "radius": 0.4,
+          "core": 0.2,
+          "colour": [
+            1,
+            1,
+            1
+          ],
+          "gain": 0.5,
+          "env": {
+            "attack": 0.55,
+            "decay": 0.45
+          }
+        },
+        {
+          "kind": "smoke",
+          "density": 1,
+          "spread": 0.45,
+          "colour": [
+            1,
+            1,
+            1
+          ],
+          "gain": 1.6,
+          "env": {
+            "attack": 0.35,
+            "decay": 0.65
+          }
+        }
+      ]
+    }
+  ]
+}

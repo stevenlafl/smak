@@ -1,0 +1,7 @@
+A looping campfire-style flame, drawn additively so the black background disappears and only the light shows. Each frame is 32 pixels wide and 96 tall, and there are 15 frames. The flame always faces the viewer but stays upright, like a standing torch fire.
+
+The flame fills most of the frame's width at its base, in roughly the lower third, and narrows upward into two or three ragged, wispy tongues. These reach close to the top edge, ending about 10 to 20 pixels below it. The base is soft and slightly faded rather than cut off hard at the bottom edge. The overall outline is a rough teardrop or candle shape, with uneven edges that look streaked, almost painterly, with vertical licks.
+
+The colours run from a bright yellow-orange, near white-hot at the densest point just above the base, through saturated orange in the body, to dim red-brown and dark rust at the fringes and the tips of the tongues. These fade smoothly into black. There are no blue tones and no smoke.
+
+From frame to frame the flame flickers in place rather than rising or growing. The tongues sway, split and merge, so the left or right side gets taller in turn. The bright core pulses slightly in size and brightness, and the overall height varies by maybe 10 percent. The motion is fast and irregular, but the frames blend into each other without a jump, so the sequence loops seamlessly and the fire burns forever. Nothing fades in or out, and there are no sparks or embers.

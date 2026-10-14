@@ -1,0 +1,107 @@
+{
+ "kind": "sounds",
+ "subject": "items-smallmedkit1",
+ "leg": "decoy: plain",
+ "measured": {
+  "original": {
+   "length": 0.763,
+   "peak": -3,
+   "rms": -14.1,
+   "crest": 11.1,
+   "dc": -0.0033,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.09,
+   "t20": 0.673,
+   "t40": 0.673,
+   "centroid": 2177,
+   "rolloff": 6072,
+   "flatness": 0.128,
+   "bands": {
+    "<150": 0.1,
+    "150-600": 14.7,
+    "600-2k": 59.5,
+    "2k-5k": 3.9,
+    ">5k": 21.7
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 0.763,
+   "peak": -10.5,
+   "rms": -15.3,
+   "crest": 4.8,
+   "dc": 0.0012,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.015,
+   "peakAt": 0.07,
+   "t20": 0.693,
+   "t40": 0.693,
+   "centroid": 5533,
+   "rolloff": 9410,
+   "flatness": 0.984,
+   "bands": {
+    "<150": 1.3,
+    "150-600": 4.2,
+    "600-2k": 12.6,
+    "2k-5k": 27.5,
+    ">5k": 54.4
+   },
+   "onsets": 1
+  },
+  "lengthOff": 0,
+  "centroidOff": 1.542,
+  "bandsOffMost": 46.9,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 16,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 0,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Judged from the picture and features only; I could not listen. The original is a medkit pickup with distinct parts: three gated tonal bursts with a steady harmonic line around the lower-middle of the spectrogram (0 to 0.33 s), then quiet clicks and rustle (0.33 to 0.66 s), then a burst of high noise (0.66 s to the end). The reproduction is the same broadband static all the way through, with no tone, no clicks and no sections. It does not read as the same event, or as any particular event."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measurements allow a 2: length 0.763 s matches exactly, and T20 is 0.693 s against 0.673 s. Scored lower because the envelope shape is wrong. The reproduction's waveform stays at one level from start to end (crest 4.8 against 11.1, peak -10.5 dB against -3 dB). The original has three separated bursts in the first 0.33 s, a near-silent middle with small clicks, and a loud final section. Only the overall length and the decay time agree."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The centroid is 5533 Hz against 2177 Hz, 154% off where the line is 20%. Band shares miss by up to 46.9 points: 600-2k is 12.6% against 59.5%, >5k is 54.4% against 21.7%, 2k-5k is 27.5% against 3.9%, and 150-600 is 4.2% against 14.7%. The spectrogram shows uniform energy at every frequency, where the original's energy sits mostly in the low-mid band with a tonal line."
+  },
+  "S4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Judged from the picture and features only; I could not listen. Flatness is 0.984, which is white noise, against 0.128 for the tonal original. The original's steady pitched line in its first third is missing, and so are the separate clicks in its middle section. The onset count of 1 matches only because both files start at once. The reproduction has no inner onsets, tone or pitch structure at all."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono 16-bit PCM at 22050 Hz, with no clipped samples. The DC offset of 0.0012 is negligible and smaller than the original's -0.0033. The name is the same. The original shows no loop, so no cue point is needed."
+  }
+ },
+ "total": 3,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "steam1",
+ "leg": "decoy: plain",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.341,
+     "mean": 0.002
+    },
+    "envelope": {
+     "peakAt": 0.4,
+     "first": 0.04,
+     "last": 0.03
+    },
+    "dark": 0.64,
+    "wrap": 0.5,
+    "jitter": 1.1
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 1,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 1,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.004,
+     "mean": 0.004
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 1,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 33.4
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 0,
+  "R4": 0,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The original is a puff of white smoke or steam (frames 0-15): it starts as a small dot, billows into a bright cloud, then rises and thins out into wisps. The reproduction's single frame is a flat grey field. No smoke, glow or effect of any kind shows in it."
+  },
+  "R2": {
+   "judge": 0,
+   "cap": 2,
+   "score": 0,
+   "reason": "The frame size matches the original's (32x48). Nothing fills it, though. The original's cloud grows to fill most of the frame by frames 5-8 and then rises toward the top. The reproduction's frame is uniformly empty, with border max 0.004 against the original's 0.341."
+  },
+  "R3": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The original blends to bright white and light grey smoke. The reproduction shows only the flat grey background, with no white areas at all. The measured mean colour difference is 33.4, well over the line of 15."
+  },
+  "R4": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The reproduction has 1 frame against the original's 16, far outside 25%. It has no motion. The original grows, rises and fades over its frames (envelope peaks at 0.4, first 0.04, last 0.03, ending dark as a one-shot). The reproduction has a constant envelope (first 1, last 1), so wrap and jitter cannot be measured."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The type (parallel oriented) and format (index alpha) match the original's. The judge was not shown the sprite's name, so the same-name requirement cannot be confirmed. It also read back as a single frame with no content, which is not a sprite that does the original's job in the game."
+  }
+ },
+ "total": 1,
+ "of": 10,
+ "passes": false
+}

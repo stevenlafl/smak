@@ -1,0 +1,107 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-explode3",
+ "leg": "decoy: plain",
+ "measured": {
+  "original": {
+   "length": 1.301,
+   "peak": -0.4,
+   "rms": -6.2,
+   "crest": 5.7,
+   "dc": -0.0048,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.254,
+   "t20": 0.893,
+   "t40": 1.028,
+   "centroid": 616,
+   "rolloff": 947,
+   "flatness": 0.097,
+   "bands": {
+    "<150": 36.4,
+    "150-600": 37.6,
+    "600-2k": 19.5,
+    "2k-5k": 4.6,
+    ">5k": 1.9
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 1.301,
+   "peak": -10.5,
+   "rms": -15.2,
+   "crest": 4.8,
+   "dc": -0.001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.02,
+   "peakAt": 1.083,
+   "t20": 0.22,
+   "t40": 0.22,
+   "centroid": 5466,
+   "rolloff": 9345,
+   "flatness": 0.99,
+   "bands": {
+    "<150": 1.2,
+    "150-600": 4.1,
+    "600-2k": 13,
+    "2k-5k": 28.1,
+    ">5k": 53.6
+   },
+   "onsets": 2
+  },
+  "lengthOff": 0,
+  "centroidOff": 7.873,
+  "bandsOffMost": 51.7,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 16,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 0,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Judged from the picture and features only; I cannot listen. The original is an explosion: a sharp onset at the start, a dense blast that peaks at 0.25 s and decays to near silence by 1.3 s, with its energy mostly below 600 Hz (74% of it). The reproduction is steady broadband noise at the same level from start to end, with no blast and no decay, and 54% of its energy above 5 kHz. It reads as hiss or static, not an explosion."
+  },
+  "S2": {
+   "judge": 0,
+   "cap": 2,
+   "score": 0,
+   "reason": "Only the length matches (1.301 s in both). The original rises fast (attack 0.005 s) and decays smoothly (T20 0.893 s, T40 1.028 s). The reproduction's waveform is a flat band for the whole 1.3 s. Its attack is 0.02 s and it peaks at 1.083 s, near the end, against the original's 0.254 s. Its measured T20 and T40 of 0.22 s are not a real decay, since the waveform never decays. The envelope is missing, not just off."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The centroid is 5466 Hz against 616 Hz, about 7.9 times too high, where a 2 needs it within 20%. Every band misses the 10-point limit: <150 Hz is 1.2 vs 36.4, 150-600 Hz is 4.1 vs 37.6, 2k-5k is 28.1 vs 4.6, and >5k is 53.6 vs 1.9, with the largest miss at 51.7 points. The spectrogram is evenly bright up to the top, while the original's energy sits low and its highs fade over time."
+  },
+  "S4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Judged from the picture and features only; I cannot listen. Flatness is 0.99 (pure white noise) against the original's 0.097, which is low-frequency rumble with structure in it. The onsets measure 2 against 1, and the waveform shows no clear hit at the start. The original's spectrum darkens from the top down as it decays; the reproduction's stays the same throughout, so it has none of the original's movement over time."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono 16-bit PCM at 22050 Hz with the same name. No clipped samples, DC of -0.001, no lead or tail silence and no engine faults. Neither the measurements nor the picture show a loop, so no cue is needed."
+  }
+ },
+ "total": 2,
+ "of": 10,
+ "passes": false
+}

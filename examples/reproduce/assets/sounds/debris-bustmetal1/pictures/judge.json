@@ -1,0 +1,107 @@
+{
+ "kind": "sounds",
+ "subject": "debris-bustmetal1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.873,
+   "peak": -0.1,
+   "rms": -12.8,
+   "crest": 12.7,
+   "dc": -0.0076,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.105,
+   "attack": 0.025,
+   "peakAt": 0.075,
+   "t20": 0.439,
+   "t40": 0.629,
+   "centroid": 1968,
+   "rolloff": 3241,
+   "flatness": 0.569,
+   "bands": {
+    "<150": 0.2,
+    "150-600": 8.8,
+    "600-2k": 47,
+    "2k-5k": 41.3,
+    ">5k": 2.7
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.874,
+   "peak": -0.6,
+   "rms": -13.3,
+   "crest": 12.7,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0,
+   "peakAt": 0.01,
+   "t20": 0.379,
+   "t40": 0.743,
+   "centroid": 1884,
+   "rolloff": 3650,
+   "flatness": 0.595,
+   "bands": {
+    "<150": 2.7,
+    "150-600": 5.9,
+    "600-2k": 51,
+    "2k-5k": 37,
+    ">5k": 3.5
+   },
+   "onsets": 0
+  },
+  "lengthOff": 0.001,
+  "centroidOff": 0.043,
+  "bandsOffMost": 4.3,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the pictures and features only; I could not listen. Both sounds are a single broadband, noisy metallic burst with no separate onsets (0 in both) that decays over about 0.87 s. Both spectrograms show the same vertical grainy striations of rattling debris across the 600-5k range. It reads as the same event, a metal piece busting apart."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 0.874 vs 0.873 s (0.1% off). T20 0.379 vs 0.439 s (14% shorter) and attack 0 vs 0.025 s are both inside an impact's range. Two smaller differences show in the waveform. The reproduction hits full level at once (peak at 0.01 s), while the original swells to its peak at 0.075 s. The original also falls to silence for its last 0.1 s (tail 0.105, the dark blue block at the right of its spectrogram), but the reproduction keeps a faint noise floor to the end (tail 0.01, t40 0.743 vs 0.629). Neither changes the overall decay shape."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid 1884 vs 1968 Hz (4.3% off, under the 20% line). The largest band difference is 4.3 points (600-2k: 51 vs 47), and every other band is closer. Rolloff 3650 vs 3241 Hz is a bit high but not part of this item."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the pictures and features only; I could not listen. Flatness 0.595 vs 0.569 and onsets (0 vs 0) match. Two things differ. A steady horizontal tonal line runs across the reproduction's spectrogram at mid height, from about 0.2 s to the end, a sustained ring the original does not have: its tail stays noisy and unpitched. And the reproduction's lower bands go dark early (by about 0.37 s) while its upper band carries on. The original fades evenly across all bands. So the tone and the way the spectrum changes over time are clearly off."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono 8-bit PCM at 11025 Hz, the same format as the original. Same name, no clipping (0), DC 0, peak -0.6 dB, no engine faults. The original is a one-shot with no loop cue, so none is needed."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

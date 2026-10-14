@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "xspark1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    32
+   ],
+   "frames": 11,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 11,
+    "size": [
+     32,
+     32
+    ],
+    "border": {
+     "max": 0.145,
+     "mean": 0.004
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.94,
+     "last": 1
+    },
+    "dark": 0.46,
+    "wrap": 1.61,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    32
+   ],
+   "frames": 11,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 11,
+    "size": [
+     32,
+     32
+    ],
+    "border": {
+     "max": 0.097,
+     "mean": 0.003
+    },
+    "envelope": {
+     "peakAt": 0.5,
+     "first": 0.95,
+     "last": 0.95
+    },
+    "dark": 0.49,
+    "wrap": 1.09,
+    "jitter": 1.63
+   }
+  },
+  "meanColourDeltaE": 9
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Same effect: a cyan-blue additive spark glow with a white-hot core and soft lobes around it, in every frame of both sheets."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frames are 32x32 as in the original, but the glow fills them differently. The original's lobes are irregular, uneven blobs that change position from frame to frame and reach the frame edges unevenly (border max 0.145; frames 4, 5, 7 and 10 spread wide to one side). The reproduction is a neat, symmetric four-lobed clover centred in every frame. It is smaller and more regular, and its round core is clearly separated from the lobes, where the original's core merges into a ragged mass."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured mean colour difference is 9, under the 15 line. Both are cyan to white with a blue edge as the engine blends them. The reproduction leans slightly more blue in its lobes, which is still the same colour."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "11 frames, matching the original, and the envelope is close to flat in both, so the loop closes. But the kind of motion is off. The original flickers: every frame shows a different shape of the lobes (frames 0 to 10 shift, rotate and spread). The reproduction's frames are almost identical clovers, with only small changes in a faint smudge below the glow. Its peak also sits mid-loop (peakAt 0.5 against 1). The jitter measure (1.63 against 1.51) passes, but the pictures show the shape-changing flicker is mostly gone, so the score is held below the measurement."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type parallel and format additive match the original; size and frame count read back as written."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

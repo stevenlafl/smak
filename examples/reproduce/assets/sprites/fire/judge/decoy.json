@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "fire",
+ "leg": "decoy: plain",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.275,
+     "mean": 0.028
+    },
+    "envelope": {
+     "peakAt": 0.07,
+     "first": 0.9,
+     "last": 0.84
+    },
+    "dark": 0.42,
+    "wrap": 1.13,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 1,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.784,
+     "mean": 0.784
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 64.3
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 0,
+  "R4": 0,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The original is a flame: an orange-red fire tongue, brightest at its base, flickering upward over 15 frames. The reproduction is one flat, even light-grey rectangle (frame 0) with no flame, glow or other effect in it. It is not the same effect."
+  },
+  "R2": {
+   "judge": 0,
+   "cap": 2,
+   "score": 0,
+   "reason": "The frame size matches the original's 32 x 96, but the reproduction has no effect shape. In the original the flame sits on a black background and fades out toward the edges (border max 0.275, mean 0.028). The reproduction fills the whole frame evenly right to its edges (border max and mean 0.784), so the shape and fill of the original are missing entirely."
+  },
+  "R3": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The original's colours are orange, red and yellow on black, as additive blending shows them. The reproduction is uniform pale grey with no dark areas (dark 0 against the original's 0.42). The measured mean colour difference is 64.3, far over the pass line of 15."
+  },
+  "R4": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The reproduction has 1 frame against the original's 15, well outside 25%. It has no motion at all, so the original's flicker and its loop (wrap 1.13, jitter 1.51) are missing, and the reproduction's wrap and jitter measure null."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Its type (parallel oriented) and format (additive) match the original's, and the harness read it back as written. I could not check the name from what I was given, and nothing shown contradicts it."
+  }
+ },
+ "total": 2,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,107 @@
+{
+ "kind": "sounds",
+ "subject": "player-pl_metal1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 0.582,
+   "peak": 0,
+   "rms": -15.5,
+   "crest": 15.5,
+   "dc": -0.0104,
+   "clipped": 1,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.025,
+   "peakAt": 0.045,
+   "t20": 0.424,
+   "t40": 0.539,
+   "centroid": 360,
+   "rolloff": 624,
+   "flatness": 0.057,
+   "bands": {
+    "<150": 34.8,
+    "150-600": 43.8,
+    "600-2k": 19.6,
+    "2k-5k": 1.8,
+    ">5k": 0.1
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.588,
+   "peak": -0.6,
+   "rms": -14.9,
+   "crest": 14.4,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.01,
+   "peakAt": 0.01,
+   "t20": 0.329,
+   "t40": 0.569,
+   "centroid": 335,
+   "rolloff": 560,
+   "flatness": 0.029,
+   "bands": {
+    "<150": 33.9,
+    "150-600": 51.7,
+    "600-2k": 13.3,
+    "2k-5k": 1.2,
+    ">5k": 0
+   },
+   "onsets": 1
+  },
+  "lengthOff": 0.01,
+  "centroidOff": 0.069,
+  "bandsOffMost": 7.9,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the pictures and features only; I cannot listen. Both show a dull metal impact with a fast start and a resonant decay over about 0.58 s. Most of the energy sits below 600 Hz in both (78.6% in the original, 85.6% in the reproduction), and almost nothing is above 2 kHz. That fits a footfall on a metal floor. The differences in texture are scored under S4, not here."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 0.588 s against 0.582 s (1% off). Both attacks are a fast impulse (0.010 s against 0.025 s). The decay time to -20 dB (T20) is 0.329 s against 0.424 s, about 22% shorter but within the range of a one-shot metal footstep. The -40 dB point is 0.569 s against 0.539 s. The waveform shows the reproduction's ringing dies away somewhat faster in its middle third."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid 335 Hz against 360 Hz (6.9% off, inside 20%). The largest band gap is 7.9 points, in 150-600 Hz (51.7 against 43.8), inside 10. The 600 Hz-2 kHz band is 13.3 against 19.6, a gap of 6.3. The spectrogram shows the reproduction's energy above about 600 Hz fading sooner, after about 0.15 s, where the original's stays broadband further into the tail. Nothing fails the measured lines."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the pictures and features only; I cannot listen. The original's first 0.1 s is jagged, with several close peaks (peak at 0.045 s, onset count 0). Its tail is irregular, with beating and noisy, broadband texture (flatness 0.057). The reproduction is one clean strike, peaking at 0.010 s (onset count 1), followed by a smooth exponential ring. Its spectrogram shows steady horizontal tonal lines, and its flatness of 0.029 is about half the original's. That makes it more tonal and 'struck plate' than the original's gritty, scuffing clank."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono PCM at 11025 Hz and 8 bits, a format the engine plays. Same name (player/pl_metal1.wav). No clipping (the original clips 1 sample), and the DC offset is 0 (the original's is -0.0104). The original is a one-shot with no loop cue, so none is needed."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

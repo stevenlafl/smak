@@ -1,0 +1,207 @@
+{
+  "spec": "smak.sound/1",
+  "name": "player/pl_metal1.wav",
+  "class": "step metal",
+  "rate": 11025,
+  "bits": 8,
+  "seed": 7,
+  "length": 0.58,
+  "layers": [
+    {
+      "id": "thump",
+      "kind": "noise",
+      "color": "brown",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 70
+        },
+        {
+          "type": "lowpass",
+          "f": 200
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "hold": 0.02,
+        "decay": 0.5
+      },
+      "gain": -9
+    },
+    {
+      "id": "heel",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150
+        },
+        {
+          "type": "lowpass",
+          "f": 5000
+        }
+      ],
+      "env": {
+        "attack": 0.0002,
+        "hold": 0.015,
+        "decay": 0.15
+      },
+      "gain": 0
+    },
+    {
+      "id": "clank",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1000,
+          "q": 0.6
+        }
+      ],
+      "env": {
+        "attack": 0.0002,
+        "hold": 0.03,
+        "decay": 0.22
+      },
+      "gain": -4
+    },
+    {
+      "id": "rattle",
+      "kind": "particles",
+      "rate": 180,
+      "band": [
+        500,
+        5000
+      ],
+      "grain": 0.003,
+      "length": 0.15,
+      "env": {
+        "hold": 0.06,
+        "decay": 0.12
+      },
+      "gain": -3
+    },
+    {
+      "id": "body",
+      "kind": "modes",
+      "modes": [
+        {
+          "f": 104,
+          "gain": 0.6,
+          "decay": 1.1
+        },
+        {
+          "f": 141,
+          "gain": 0.55,
+          "decay": 1
+        },
+        {
+          "f": 187,
+          "gain": 0.55,
+          "decay": 1
+        },
+        {
+          "f": 262,
+          "gain": 0.45,
+          "decay": 0.9
+        },
+        {
+          "f": 377,
+          "gain": 0.4,
+          "decay": 0.85
+        },
+        {
+          "f": 541,
+          "gain": 0.4,
+          "decay": 0.7
+        },
+        {
+          "f": 803,
+          "gain": 0.45,
+          "decay": 0.6
+        },
+        {
+          "f": 1190,
+          "gain": 0.35,
+          "decay": 0.45
+        },
+        {
+          "f": 1730,
+          "gain": 0.2,
+          "decay": 0.3
+        }
+      ],
+      "detune": 0.01,
+      "gain": -3
+    },
+    {
+      "id": "hum",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 600,
+          "q": 0.5
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "hold": 0.04,
+        "decay": 0.8
+      },
+      "gain": -10
+    },
+    {
+      "id": "toe",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0.17,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 800,
+          "q": 0.7
+        }
+      ],
+      "env": {
+        "attack": 0.0002,
+        "hold": 0.005,
+        "decay": 0.07
+      },
+      "gain": 0
+    },
+    {
+      "id": "toering",
+      "kind": "modes",
+      "at": 0.17,
+      "modes": [
+        {
+          "f": 215,
+          "gain": 1,
+          "decay": 0.5
+        },
+        {
+          "f": 330,
+          "gain": 0.7,
+          "decay": 0.4
+        },
+        {
+          "f": 620,
+          "gain": 0.6,
+          "decay": 0.3
+        }
+      ],
+      "gain": -9
+    }
+  ],
+  "finish": {
+    "saturate": 1.6,
+    "room": {
+      "decay": 0.12,
+      "wet": 0.08
+    }
+  }
+}

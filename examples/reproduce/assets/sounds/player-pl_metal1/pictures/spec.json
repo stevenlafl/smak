@@ -1,0 +1,142 @@
+{
+  "spec": "smak.sound/1",
+  "name": "player/pl_metal1.wav",
+  "class": "step metal",
+  "rate": 11025,
+  "bits": 8,
+  "seed": 7,
+  "length": 0.58,
+  "layers": [
+    {
+      "id": "body",
+      "kind": "noise",
+      "color": "brown",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 800
+        },
+        {
+          "type": "highpass",
+          "f": 110
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "hold": 0.12,
+        "decay": 1.3
+      },
+      "gain": -5
+    },
+    {
+      "id": "mid",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 800,
+          "q": 0.7
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "hold": 0.12,
+        "decay": 1.1
+      },
+      "gain": -4
+    },
+    {
+      "id": "scuff",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1400,
+          "q": 0.6
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "hold": 0.15,
+        "decay": 0.6
+      },
+      "gain": -7
+    },
+    {
+      "id": "rattle",
+      "kind": "particles",
+      "rate": 260,
+      "band": [
+        400,
+        3500
+      ],
+      "grain": 0.003,
+      "length": 0.35,
+      "env": {
+        "attack": 0.001,
+        "hold": 0.14,
+        "decay": 0.35
+      },
+      "gain": -6
+    },
+    {
+      "id": "heel",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 900,
+          "q": 0.6
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.04
+      },
+      "gain": -3
+    },
+    {
+      "id": "toe",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.175,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 700,
+          "q": 0.6
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.05
+      },
+      "gain": 2
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 190,
+      "ratios": [
+        1,
+        1.47,
+        2.09,
+        2.56,
+        3.4,
+        4.3,
+        5.9,
+        7.7
+      ],
+      "decay": 1,
+      "damping": 0.7,
+      "detune": 0.02,
+      "gain": -14
+    }
+  ],
+  "finish": {
+    "peak": -1
+  }
+}

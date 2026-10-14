@@ -1,0 +1,107 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-357_shot1",
+ "leg": "decoy: plain",
+ "measured": {
+  "original": {
+   "length": 1.064,
+   "peak": 0,
+   "rms": -8.5,
+   "crest": 8.5,
+   "dc": -0.0012,
+   "clipped": 265,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.748,
+   "t40": 1.003,
+   "centroid": 937,
+   "rolloff": 1658,
+   "flatness": 0.11,
+   "bands": {
+    "<150": 20.3,
+    "150-600": 27.5,
+    "600-2k": 43.9,
+    "2k-5k": 6.7,
+    ">5k": 1.6
+   },
+   "onsets": 3
+  },
+  "reproduction": {
+   "length": 1.064,
+   "peak": -10.5,
+   "rms": -15.3,
+   "crest": 4.8,
+   "dc": 0.001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.998,
+   "t20": 0.07,
+   "t40": 0.07,
+   "centroid": 5527,
+   "rolloff": 9345,
+   "flatness": 0.989,
+   "bands": {
+    "<150": 1.4,
+    "150-600": 4.2,
+    "600-2k": 11.9,
+    "2k-5k": 27.8,
+    ">5k": 54.7
+   },
+   "onsets": 1
+  },
+  "lengthOff": 0,
+  "centroidOff": 4.899,
+  "bandsOffMost": 53.1,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 16,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 0,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Judged from the picture and features only, since I cannot listen. The original is a gunshot. It starts with a loud, clipped burst (265 clipped samples, peak at 0.015 s) that dies away over about 0.75 s, and its energy sits low, mostly under 2 kHz. The reproduction is a flat band of noise at the same level from start to end. Its spectrogram is evenly bright from top to bottom and stays the same the whole way across. It has no blast and no decay, so it reads as steady hiss, not a gunshot."
+  },
+  "S2": {
+   "judge": 0,
+   "cap": 2,
+   "score": 0,
+   "reason": "The length matches (1.064 s both), but the shape over time is wrong. The original peaks at 0.015 s and decays, with T20 of 0.748 s and T40 of 1.003 s. In the reproduction's waveform the level is flat from 0 to 1.06 s, and its loudest point is at 0.998 s, at the very end. There is no attack and no decay. The measured T20 of 0.07 s does not match the flat waveform in the picture, and it is far outside the original's range either way."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The centroid is 5527 Hz against the original's 937 Hz, about 4.9 times too high where the limit is 20%. The band shares are far off: above 5 kHz is 54.7 against 1.6, under 150 Hz is 1.4 against 20.3, and 600 Hz to 2 kHz is 11.9 against 43.9. The largest gap is 53.1 points, where the limit is 10. The spectrogram is bright all the way up, where the original's energy is at the bottom."
+  },
+  "S4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Judged from the picture and features only, since I cannot listen. The flatness is 0.989, which is pure white noise; the original's is 0.11, which has structure and some tone. The reproduction has 1 onset against the original's 3, and none of the original's hits show at the start of the picture. The original's high frequencies fade as it decays, and the reproduction has nothing like that."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file is mono 16-bit PCM at 22050 Hz with the same name. It has 0 clipped samples, and its DC offset of 0.001 is negligible. The original has no loop, so no loop cue is needed. The engine can play it as it is."
+  }
+ },
+ "total": 2,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,107 @@
+{
+ "kind": "sounds",
+ "subject": "player-pl_metal1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.582,
+   "peak": 0,
+   "rms": -15.5,
+   "crest": 15.5,
+   "dc": -0.0104,
+   "clipped": 1,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.025,
+   "peakAt": 0.045,
+   "t20": 0.424,
+   "t40": 0.539,
+   "centroid": 360,
+   "rolloff": 624,
+   "flatness": 0.057,
+   "bands": {
+    "<150": 34.8,
+    "150-600": 43.8,
+    "600-2k": 19.6,
+    "2k-5k": 1.8,
+    ">5k": 0.1
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.58,
+   "peak": -1.1,
+   "rms": -14.5,
+   "crest": 13.4,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.09,
+   "peakAt": 0.105,
+   "t20": 0.414,
+   "t40": 0.474,
+   "centroid": 358,
+   "rolloff": 603,
+   "flatness": 0.043,
+   "bands": {
+    "<150": 34.9,
+    "150-600": 50,
+    "600-2k": 13.4,
+    "2k-5k": 1.7,
+    ">5k": 0
+   },
+   "onsets": 0
+  },
+  "lengthOff": 0.003,
+  "centroidOff": 0.006,
+  "bandsOffMost": 6.2,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only; I cannot listen. Both are low, tonal, metal-ringing bursts of the same length that decay to silence, with almost the same centroid (360 vs 358 Hz) and bands. That fits a step on metal. The original opens with a hard transient: its waveform is densest in the first ~0.05 s, with a peak at 0.045 s. The reproduction swells in over about the first 0.1 s (peak at 0.105 s) and reads more like a rising rumble than a footfall striking metal. So it is the same family of sound, but the impact that identifies the event is softened."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Length 0.580 vs 0.582 s (0.3% off) and T20 0.414 vs 0.424 s both agree. The attack is 0.09 s against the original's 0.025 s, 3.6 times slower, and the peak comes at 0.105 s instead of 0.045 s. For an impact sound like a footstep that is outside a plausible attack range. The reproduction's waveform visibly ramps up where the original's starts at full level. T40 also ends earlier (0.474 vs 0.539 s)."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 0.6% off (358 vs 360 Hz), well inside 20%. The largest band difference is 6.2 points (150-600 Hz: 50.0 vs 43.8; 600-2k: 13.4 vs 19.6), inside 10. The spectrograms show the same low-weighted energy with little above 2 kHz. The reproduction is slightly heavier in the low-mids and a little lighter in the 600-2k region, but within the line."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only; I cannot listen. Neither file has a detected onset, and both are tonal (flatness 0.057 vs 0.043), with horizontal partial bands lasting through the decay in both spectrograms. The original's single sharp strike at the start is missing, though. The reproduction builds gradually, so the click-like character of the impact does not match, and its spectrum stays more uniformly bright through the middle where the original's thins out sooner."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono PCM, 11025 Hz, 8 bits, the same name (sameName true). No clipping (clipped 0, peak -1.1 dB) and no DC (0.0000). The original itself clips and carries DC of -0.0104, so the replacement is cleaner than the original here. The original is a one-shot with no loop cue, and the harness reports no engine faults."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

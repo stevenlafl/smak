@@ -1,0 +1,107 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-cbar_hit1",
+ "leg": "decoy: plain",
+ "measured": {
+  "original": {
+   "length": 0.694,
+   "peak": -0.4,
+   "rms": -9.9,
+   "crest": 9.5,
+   "dc": 0.0043,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.03,
+   "t20": 0.559,
+   "t40": 0.649,
+   "centroid": 1343,
+   "rolloff": 1938,
+   "flatness": 0.215,
+   "bands": {
+    "<150": 4.9,
+    "150-600": 6.8,
+    "600-2k": 73.8,
+    "2k-5k": 13.7,
+    ">5k": 0.9
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 0.694,
+   "peak": -10.5,
+   "rms": -15.2,
+   "crest": 4.8,
+   "dc": -0.0001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.364,
+   "t20": 0.329,
+   "t40": 0.334,
+   "centroid": 2778,
+   "rolloff": 4748,
+   "flatness": 0.962,
+   "bands": {
+    "<150": 2.4,
+    "150-600": 8.2,
+    "600-2k": 24.3,
+    "2k-5k": 55,
+    ">5k": 10
+   },
+   "onsets": 0
+  },
+  "lengthOff": 0,
+  "centroidOff": 1.069,
+  "bandsOffMost": 49.5,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 16,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 0,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Judged from the picture and features only; I could not listen. The original is a crowbar striking metal: a hard single onset at 0 s (peak at 0.03 s, attack 0.005 s), a steady ringing tone (the bright horizontal line in its spectrogram) and a decay over about 0.6 s. The reproduction is constant broadband noise for the whole 0.69 s. Its waveform is a flat band, its spectrogram is evenly bright from start to end, and it has no strike and no ring. No one would call it the same event."
+  },
+  "S2": {
+   "judge": 0,
+   "cap": 2,
+   "score": 0,
+   "reason": "Length matches (0.694 s against 0.694 s), but the reproduction has no envelope. Its attack is measured as 0 because the noise starts at full level, and it never decays: the waveform is flat from start to end and the peak falls at 0.364 s, mid-file, against the original's 0.03 s. Its T20 of 0.329 s and T40 of 0.334 s come from a level step inside steady noise, not a decay, and are far from the original's 0.559 s and 0.649 s. Neither the attack nor the decay is within an impact's range."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The centroid is 2778 Hz against 1343 Hz, 107% off where the limit is 20%. The largest band difference is 49.5 points where the limit is 10: 600-2k has 24.3% against 73.8%, 2k-5k has 55% against 13.7%, and >5k has 10% against 0.9%. The energy sits well above the original's mid-band ring."
+  },
+  "S4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Judged from the picture and features only; I could not listen. The original has one onset; the reproduction has none (onsets 0). Flatness is 0.962 (white noise) against 0.215 (tonal). The original's sustained metallic partial, a clear horizontal line in its spectrogram, is missing, and so is any pitch or ring behaviour."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono 16-bit PCM at 11025 Hz, same name, no clipped samples, DC of -0.0001 (none to speak of), no lead or tail silence. The measurements report no loop cue for either file. The file is fine for the engine, even though its content is wrong."
+  }
+ },
+ "total": 2,
+ "of": 10,
+ "passes": false
+}

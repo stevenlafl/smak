@@ -1,0 +1,107 @@
+{
+ "kind": "sounds",
+ "subject": "doors-doormove1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 5.037,
+   "peak": -3.2,
+   "rms": -17.1,
+   "crest": 13.9,
+   "dc": -0.0041,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.035,
+   "attack": 4.25,
+   "peakAt": 4.425,
+   "t20": 0.514,
+   "t40": 0.579,
+   "centroid": 622,
+   "rolloff": 1421,
+   "flatness": 0.158,
+   "bands": {
+    "<150": 31.1,
+    "150-600": 35.2,
+    "600-2k": 28.4,
+    "2k-5k": 5,
+    ">5k": 0.2
+   },
+   "onsets": 2
+  },
+  "reproduction": {
+   "length": 5.039,
+   "peak": -1,
+   "rms": -14.8,
+   "crest": 13.8,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.015,
+   "attack": 4.285,
+   "peakAt": 4.355,
+   "t20": 0.449,
+   "t40": 0.569,
+   "centroid": 621,
+   "rolloff": 1163,
+   "flatness": 0.088,
+   "bands": {
+    "<150": 22.3,
+    "150-600": 42.8,
+    "600-2k": 30,
+    "2k-5k": 4.9,
+    ">5k": 0
+   },
+   "onsets": 4
+  },
+  "lengthOff": 0,
+  "centroidOff": 0.002,
+  "bandsOffMost": 8.8,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "I couldn't listen, so this is judged from the pictures and features. Both sounds are a door's movement lasting about 5 seconds: a steady mechanical rumble with a rising tonal sweep that repeats about every 1.1 s, then a louder end-of-travel burst at about 4.2 to 4.6 s that dies away. The reproduction's sweeps are fainter, but it is the same event."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 5.039 s against 5.037 s (0% off). Attack is 4.285 against 4.25 and the peak comes at 4.355 s against 4.425 s. T20 is 0.449 s against 0.514 s (about 13% shorter) and T40 is 0.569 s against 0.579 s. All of these are close, and the late peak followed by a short decay matches the original."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 621 Hz against 622 Hz (0.2% off). The largest band gap is 8.8 points (<150 Hz: 22.3 against 31.1), which is inside the 10-point limit. 150-600 Hz is +7.6 points and the other bands are within 1.6. This is a pass, though a narrow one: the reproduction is thinner in the lowest band, and its rolloff is lower (1163 Hz against 1421 Hz)."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "I couldn't listen, so this is judged from the pictures and features. The tone/noise balance is off: the reproduction's flatness is 0.088 against the original's 0.158, about half. The onset count is off too, 4 against 2. The pitch movement is there, but the original's rising sweeps (at about 0.2, 1.4, 2.6 and 3.8 s) are bright and well defined, while the reproduction's are faint lines buried in broadband noise. At the end, the original's burst (about 4.1 to 4.6 s) is a train of separate pulses, a rattle or clunk with a clear periodic beat in the waveform. The reproduction's is a smooth swell with no pulses."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file is 11025 Hz, 8-bit mono PCM with the same name. Nothing is clipped (peak -1 dBFS) and DC is 0. The engine reported no faults. The measurements don't report a loop cue for either file, and nothing suggests the original has one that the reproduction lacks."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

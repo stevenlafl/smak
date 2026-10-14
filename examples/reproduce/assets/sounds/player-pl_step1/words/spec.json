@@ -1,0 +1,174 @@
+{
+  "spec": "smak.sound/1",
+  "name": "player/pl_step1.wav",
+  "class": "step concrete",
+  "rate": 11025,
+  "bits": 8,
+  "length": 0.27,
+  "seed": 7,
+  "layers": [
+    {
+      "id": "heel_thump",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 70
+        },
+        {
+          "type": "bandpass",
+          "f": 320,
+          "q": 0.7
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "hold": 0.006,
+        "decay": 0.08
+      },
+      "gain": 0
+    },
+    {
+      "id": "heel_body",
+      "kind": "modes",
+      "f": 230,
+      "ratios": "plate",
+      "decay": 0.06,
+      "damping": 1.5,
+      "detune": 0.03,
+      "gain": -9
+    },
+    {
+      "id": "heel_low",
+      "kind": "noise",
+      "color": "brown",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 160,
+          "q": 0.7
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "hold": 0.005,
+        "decay": 0.06
+      },
+      "gain": -6
+    },
+    {
+      "id": "heel_click",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        },
+        {
+          "type": "lowpass",
+          "f": 4800
+        }
+      ],
+      "env": {
+        "attack": 0.0003,
+        "hold": 0.004,
+        "decay": 0.03
+      },
+      "gain": -5
+    },
+    {
+      "id": "heel_scuff",
+      "kind": "particles",
+      "count": 8,
+      "band": [
+        1500,
+        4500
+      ],
+      "grain": 0.003,
+      "length": 0.03,
+      "gain": -7
+    },
+    {
+      "id": "toe",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0.08,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 120
+        },
+        {
+          "type": "bandpass",
+          "f": 380,
+          "q": 0.7
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "hold": 0.003,
+        "decay": 0.05
+      },
+      "gain": -11
+    },
+    {
+      "id": "toe_click",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.08,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        },
+        {
+          "type": "lowpass",
+          "f": 4500
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "hold": 0.002,
+        "decay": 0.02
+      },
+      "gain": -17
+    },
+    {
+      "id": "tail",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0.1,
+      "length": 0.17,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 500,
+          "q": 0.5
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -34
+          ],
+          [
+            0.12,
+            -43
+          ],
+          [
+            0.17,
+            -56
+          ]
+        ]
+      },
+      "gain": 0
+    }
+  ],
+  "finish": {
+    "saturate": 1.4,
+    "peak": -0.5
+  }
+}

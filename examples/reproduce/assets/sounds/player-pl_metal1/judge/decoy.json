@@ -1,0 +1,107 @@
+{
+ "kind": "sounds",
+ "subject": "player-pl_metal1",
+ "leg": "decoy: plain",
+ "measured": {
+  "original": {
+   "length": 0.582,
+   "peak": 0,
+   "rms": -15.5,
+   "crest": 15.5,
+   "dc": -0.0104,
+   "clipped": 1,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.025,
+   "peakAt": 0.045,
+   "t20": 0.424,
+   "t40": 0.539,
+   "centroid": 360,
+   "rolloff": 624,
+   "flatness": 0.057,
+   "bands": {
+    "<150": 34.8,
+    "150-600": 43.8,
+    "600-2k": 19.6,
+    "2k-5k": 1.8,
+    ">5k": 0.1
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.582,
+   "peak": -10.5,
+   "rms": -15.2,
+   "crest": 4.8,
+   "dc": 0.0001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.015,
+   "t20": 0.569,
+   "t40": 0.569,
+   "centroid": 2716,
+   "rolloff": 4630,
+   "flatness": 0.95,
+   "bands": {
+    "<150": 3.1,
+    "150-600": 7.9,
+    "600-2k": 26,
+    "2k-5k": 54.2,
+    ">5k": 8.8
+   },
+   "onsets": 0
+  },
+  "lengthOff": 0,
+  "centroidOff": 6.544,
+  "bandsOffMost": 52.4,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 16,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 0,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "I can't listen, so this is judged from the picture and features only. The original, player/pl_metal1.wav, is a footstep on metal. It has a sharp hit in the first ~0.05 s, then a ringing decay with tonal energy mostly below 2 kHz. The reproduction is steady broadband noise at one level for the full 0.58 s, with no hit and no decay. Its spectrogram is evenly bright from bottom to top. Nobody would call that the same event; it reads as hiss or static, not a step on metal."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Length matches (0.582 s both, lengthOff 0), but the envelope is wrong. The original rises over 0.025 s, peaks at 0.045 s and decays (T20 0.424 s, T40 0.539 s). The reproduction's waveform is a flat block from start to end with no decay at all. Its T20 and T40 are both 0.569 s, which only marks where the file ends, and its attack is 0 with no real peak (crest 4.8 dB against the original's 15.5). Only the length is right, so this is a 1."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "Measured, way off. The spectral centroid (the average frequency, weighted by energy) is 2716 Hz against 360 Hz, about 6.5x the original's, far outside 20%. Band shares miss by up to 52.4 points. The 2k-5k band has 54.2% against 1.8%, <150 has 3.1% against 34.8%, 150-600 has 7.9% against 43.8%, and >5k has 8.8% against 0.1%. Energy sits in the highs where the original's sits in the lows."
+  },
+  "S4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Judged from the picture and features, since I can't listen. Flatness is 0.95 against 0.057, so the reproduction is near-white noise and the original is tonal, with the ringing partials visible as horizontal bands in its spectrogram. The original's onset is its opening hit, followed by a ring that dies away. The reproduction has neither: no hit at the start, and its texture never changes, where the original's tone fades as it rings out."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Engine-ready. Mono 16-bit PCM at 11025 Hz, same name, no clipping (0 against the original's 1), DC 0.0001, no engine faults. Neither file has a loop cue. The file is fine; the problems are all in the sound itself."
+  }
+ },
+ "total": 3,
+ "of": 10,
+ "passes": false
+}

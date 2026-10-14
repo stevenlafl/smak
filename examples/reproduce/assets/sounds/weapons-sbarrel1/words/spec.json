@@ -1,0 +1,226 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/sbarrel1.wav",
+  "class": "gunshot",
+  "rate": 22050,
+  "bits": 8,
+  "seed": 7,
+  "length": 1.04,
+  "layers": [
+    {
+      "id": "hit",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 9500
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "hold": 0.006,
+        "decay": 0.05
+      },
+      "gain": 0
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 9000
+        },
+        {
+          "type": "highpass",
+          "f": 600
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.003,
+            0
+          ],
+          [
+            0.12,
+            -6
+          ],
+          [
+            0.3,
+            -28
+          ],
+          [
+            0.42,
+            -60
+          ]
+        ]
+      },
+      "gain": -10
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2200,
+          "sweep": {
+            "to": 350,
+            "time": 0.6
+          }
+        },
+        {
+          "type": "highpass",
+          "f": 90
+        },
+        {
+          "type": "peak",
+          "f": 250,
+          "q": 0.7,
+          "gain": 6
+        },
+        {
+          "type": "peak",
+          "f": 1000,
+          "q": 0.8,
+          "gain": 4
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.003,
+            0
+          ],
+          [
+            0.25,
+            -2
+          ],
+          [
+            0.35,
+            -10
+          ],
+          [
+            0.42,
+            -8
+          ],
+          [
+            0.5,
+            -17
+          ],
+          [
+            0.55,
+            -15
+          ],
+          [
+            0.62,
+            -28
+          ],
+          [
+            1.04,
+            -60
+          ]
+        ]
+      },
+      "gain": 3
+    },
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 120,
+      "wave": "sine",
+      "sweep": {
+        "to": 55,
+        "time": 0.25
+      },
+      "env": {
+        "attack": 0.001,
+        "hold": 0.05,
+        "decay": 0.5
+      },
+      "gain": -4
+    },
+    {
+      "id": "rumble",
+      "kind": "noise",
+      "color": "brown",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 400
+        },
+        {
+          "type": "highpass",
+          "f": 50
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -8
+          ],
+          [
+            0.3,
+            -10
+          ],
+          [
+            0.6,
+            -24
+          ],
+          [
+            1.04,
+            -60
+          ]
+        ]
+      },
+      "gain": -3
+    },
+    {
+      "id": "pops",
+      "kind": "particles",
+      "count": 6,
+      "band": [
+        400,
+        4000
+      ],
+      "grain": 0.006,
+      "length": 0.3,
+      "at": 0.04,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.3,
+            -18
+          ]
+        ]
+      },
+      "gain": -6
+    }
+  ],
+  "finish": {
+    "saturate": 6,
+    "room": {
+      "decay": 0.3,
+      "wet": 0.12,
+      "tone": 0.4
+    },
+    "peak": -0.5
+  }
+}

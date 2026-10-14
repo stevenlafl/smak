@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "laserbeam",
+ "leg": "decoy: plain",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     32,
+     64
+    ],
+    "border": {
+     "max": 1,
+     "mean": 0.261
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.02,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     32,
+     64
+    ],
+    "border": {
+     "max": 0.784,
+     "mean": 0.784
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 17.6
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 1,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The original is a vertical laser beam: a bright white core down the middle of the frame, fading through grey-blue streaks to near-black at the left and right edges. The reproduction is one flat light grey fill over the whole 32x64 frame. It has no core, no falloff and no streaks, so it does not read as a beam or as any other effect."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frame size matches (32x64 on both). But the reproduction fills the frame in a completely different way. The original's light sits in a centred column with dark sides (border mean 0.261, dark 0.02). The reproduction is uniform right to the edges (border max and mean both 0.784, dark 0). The beam's shape is missing."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "The measured mean colour difference is 17.6, over the pass line of 15, so this cannot score 2. The reproduction is an even pale grey. The original is a near-white core with cooler grey-blue and dark edge tones."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both have 1 frame, and the envelopes match (peakAt 0, first 1, last 1). The original is a static single-frame sprite with no loop or one-shot ending, and the reproduction is the same."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are type parallel and format additive, as read back by the harness. The size is the same."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

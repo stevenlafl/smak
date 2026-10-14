@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "xspark1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    32
+   ],
+   "frames": 11,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 11,
+    "size": [
+     32,
+     32
+    ],
+    "border": {
+     "max": 0.145,
+     "mean": 0.004
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.94,
+     "last": 1
+    },
+    "dark": 0.46,
+    "wrap": 1.61,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    32
+   ],
+   "frames": 12,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 12,
+    "size": [
+     32,
+     32
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0.45,
+     "first": 0.85,
+     "last": 0.85
+    },
+    "dark": 0.49,
+    "wrap": 2.34,
+    "jitter": 0.7
+   }
+  },
+  "meanColourDeltaE": 4.6
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are the same effect: a cyan-white additive glow with a white-hot centre and a soft cyan halo. A player would call it the same flare or spark glow."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frames are the original's size (32 x 32), but the effect fills them differently. The original is a lumpy, irregular cluster of overlapping blobs whose lobes reach the frame edges (border max 0.145), and in frames 3, 4 and 7 the lobes sit far off-centre. The reproduction is a clean round core with an even, compact halo that never touches the border (border max 0). Its outline is rounder and smoother in every frame, missing the original's clumped, many-lobed shape."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured mean colour difference is 4.6, well under 15. Seen closely, the reproduction's halo leans a little toward sky blue where the original's is a more saturated cyan-teal. The core is white in both, and the palette is the same family."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frame counts are within 25% (12 against 11), but the motion is a different kind. The original flickers in place: its lobes rearrange every frame (jitter 1.51) and brightness stays nearly flat (first 0.94, peak at the last frame, last 1.0). The reproduction swells and shrinks slowly, peaking mid-sequence (peak at 0.45, first and last 0.85), and frame to frame it changes only half as much (jitter 0.7). Its loop also closes less cleanly (wrap 2.34 against 1.61). It reads as a slow pulse, not the original's crackling flicker."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The type (parallel) and format (additive) match the original, and the file reads back with them as written."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}
