@@ -151,6 +151,10 @@ test("lightReport: the light on a map's floors from its lightmaps, by room and a
   sure(room.elsewhere?.area > 0 && !byRoom.patches.length, "what is in neither is elsewhere");
   sure(/^1 rooms are dark on the floor \(a mean under 24 of 255\): behind /.test(byRoom.warnings.join("|")), byRoom.warnings.join(" | ")); // prettier-ignore
   sure(/by room, the floor's mean: first [\d.]+; behind [\d.]+ \(\d+ in 100 under 24\)/.test(byRoom.facts.join("|")), byRoom.facts.join(" | ")); // prettier-ignore
+  // a room inside another's box (a house in its yard) takes its own floor, whichever is named first
+  const nested = maps.lightReport(tworooms, { rooms: { all: { min: [-64, -64, -64], max: [512, 512, 256] }, ...ROOMS } });
+  const inner = Object.fromEntries(nested.rooms.map((each) => [each.name, each]));
+  sure(inner.first.area === room.first.area && inner.behind.area === room.behind.area, `the inner rooms keep their floors: ${JSON.stringify(nested.rooms)}`);
   // only the floor that is walked: the room behind the grate is not, and nothing is dark
   const walked = maps.lightReport(tworooms, { reach: maps.reachOf(tworooms) });
   sure(walked.floor.area < report.floor.area * 0.7 && walked.patches.length === 0, `walked: ${JSON.stringify(walked.floor)}`); // prettier-ignore

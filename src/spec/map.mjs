@@ -28,8 +28,8 @@ import { buildModelSpec, validateModelSpec } from "./model.mjs";
 
 export const MAP_SPEC = "smak.map/1";
 const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "fgd", "wads", "compile", "detail", "note"];
-const ROOM = ["id", "size", "at", "place", "floor", "sky", "surfaces", "light", "water", "test", "note"];
-const LINK = ["between", "kind", "width", "height", "along", "sill", "stairs", "door", "glass", "note"];
+const ROOM = ["id", "size", "at", "place", "floor", "sky", "surfaces", "light", "water", "test", "building", "note"];
+const LINK = ["between", "kind", "width", "height", "along", "sill", "stairs", "door", "glass", "side", "note"];
 const PLACES = ["east_of", "west_of", "north_of", "south_of", "above", "below", "in"];
 const LINK_KINDS = ["door", "opening", "window", "stairs"];
 /** Sizes by the words of MAPS-MAKING.md, "Units and sizes". */
@@ -52,6 +52,8 @@ const INTO_WALL = 1;
 const RISE = 16;
 const TREAD = 24;
 const FACINGS = { east: 0, north: 90, west: 180, south: 270 };
+/** A side of a room: the axis its wall is across and which way out it faces. */
+const SIDE_AXES = { east: { axis: 0, sign: 1 }, west: { axis: 0, sign: -1 }, north: { axis: 1, sign: 1 }, south: { axis: 1, sign: -1 } };
 
 const isNumber = (v) => typeof v === "number" && Number.isFinite(v);
 const snap = (v, grid) => Math.round(v / grid) * grid;
@@ -348,7 +350,15 @@ export function layoutOf(spec) {
       // a tunnel's floor, a raised dais)
       if (way === "in") min = [other.min[0] + (room.place.offset?.[0] ?? 0), other.min[1] + (room.place.offset?.[1] ?? 0), floor];
     }
-    rooms.set(room.id, { id: room.id, min, max: min.map((v, k) => v + size[k]), spec: room });
+    // a building standing in an open room: its first room stands `in` it (`stand: true`), and the rooms
+    // placed against that one by a compass word, above or below, are of it too (unless `stand: false`)
+    let building = null;
+    let host = null;
+    const way = room.place && PLACES.find((w) => room.place[w] !== undefined);
+    if (way === "in" && room.place.stand) [building, host] = [room.id, room.place.in];
+    else if (way && way !== "in" && room.place.stand !== false && rooms.get(room.place[way])?.building)
+      [building, host] = [rooms.get(room.place[way]).building, rooms.get(room.place[way]).host];
+    rooms.set(room.id, { id: room.id, min, max: min.map((v, k) => v + size[k]), spec: room, building, host });
   }
   return { rooms, errors, marks: drawn?.marks ?? [], wall };
 }
@@ -456,7 +466,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   errors.push(...placing);
 
   // ── textures: the theme's and every other the spec names, each made a picture of its own ──
-  const theme = { floor: "stone", wall: "plaster", ceiling: "planks", door: "metal", furniture: "darkwood", ...(spec.theme ?? {}) };
+  const theme = { floor: "stone", wall: "plaster", ceiling: "planks", door: "metal", furniture: "darkwood", outside: "siding", roof: "shingles", ...(spec.theme ?? {}) };
   const materials = { ...theme, ...(spec.textures ?? {}) };
   const used = new Map();
   /** a texture name for a word of the spec (a key of theme/textures, or a base material) */
@@ -529,8 +539,25 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   const cuts = [];
   const entities = [];
   (spec.links ?? []).forEach((link, i) => {
-    const [a, b] = link.between.map((id) => rooms.get(id));
+    let [a, b] = link.between.map((id) => rooms.get(id));
     const kind = link.kind ?? "opening";
+    // a room of a building and the open room it stands in: the way goes through the building's outer wall on
+    // `side`, to a sliver of the open room just past it (its floor the open room's)
+    const outside = a.building && a.host === b.id ? [a, b] : b.building && b.host === a.id ? [b, a] : null;
+    if (outside) {
+      const [inner, open] = outside;
+      const side = SIDE_AXES[link.side];
+      if (!side) {
+        errors.push(`links[${i}]: between ${inner.id}, a room of a building, and ${open.id}, round it: side "north", "south", "east" or "west" (the wall it goes through)`);
+        return;
+      }
+      const sliver = { id: open.id, min: [...inner.min], max: [...inner.max], spec: open.spec };
+      sliver.min[2] = open.min[2];
+      sliver.max[2] = open.max[2];
+      if (side.sign > 0) [sliver.min[side.axis], sliver.max[side.axis]] = [inner.max[side.axis] + wall, inner.max[side.axis] + wall + 1];
+      else [sliver.min[side.axis], sliver.max[side.axis]] = [inner.min[side.axis] - wall - 1, inner.min[side.axis] - wall];
+      [a, b] = a === inner ? [inner, sliver] : [sliver, inner];
+    }
     const shared = sharedWall(a, b, wall + LINING * 2);
     if (!shared) {
       errors.push(`links[${i}]: ${a.id} and ${b.id} are not side by side with ${wall} of rock between them (place one against the other)`);
@@ -637,7 +664,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   const linings = [];
   for (const room of rooms.values()) {
     const carved = { min: [...room.min], max: [...room.max] };
-    const surfaces = { ...(room.spec.surfaces ?? {}) };
+    const surfaces = { ...(room.building ? { floor: "floor", walls: "wall", ceiling: "ceiling" } : {}), ...(room.spec.surfaces ?? {}) };
     if (room.spec.sky) surfaces.ceiling = "sky";
     for (const [face, word] of Object.entries(surfaces)) {
       if (!["floor", "ceiling", "walls"].includes(face)) {
@@ -681,6 +708,47 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   const rock = carve([...boxes, ...holes], wall, themeNames);
   brushes.unshift(...rock);
   brushes.push(...linings);
+  // ── buildings standing in the open: a shell round their rooms, `wall` thick out from each room's face,
+  // from the open room's floor to over the top room, its outside of the building's own material, and a roof
+  const carvedOf = new Map([...rooms.values()].map((room, k) => [room.id, boxes[k]]));
+  for (const id of new Set([...rooms.values()].filter((room) => room.building).map((room) => room.building))) {
+    const own = [...rooms.values()].filter((room) => room.building === id);
+    const root = rooms.get(id);
+    const host = rooms.get(root.host);
+    const asked = root.spec.building ?? {};
+    const lo = [0, 1, 2].map((k) => Math.min(...own.map((room) => room.min[k])));
+    const hi = [0, 1, 2].map((k) => Math.max(...own.map((room) => room.max[k])));
+    const block = { min: [lo[0] - wall, lo[1] - wall, host.min[2]], max: [hi[0] + wall, hi[1] + wall, hi[2] + wall] };
+    if (block.min[0] < host.min[0] || block.min[1] < host.min[1] || block.max[0] > host.max[0] || block.max[1] > host.max[1])
+      errors.push(`rooms ${id}: the building's walls (${block.min.slice(0, 2).join(" ")} to ${block.max.slice(0, 2).join(" ")}) reach out of ${host.id}`);
+    let pieces = [block];
+    for (const cut of [...own.map((room) => carvedOf.get(room.id)), ...holes]) pieces = pieces.flatMap((piece) => subtract(piece, cut));
+    const outer = textureOf(asked.walls ?? "outside");
+    // a word of the theme told as the material it is: "roof" is shingles unless the theme says otherwise
+    const wordOf = (word) => (typeof materials[word] === "string" ? materials[word] : materials[word]?.base ?? word);
+    brushes.push(...pieces.map((piece) => box(piece.min, piece.max, outer)));
+    // a gable over the longer side, overhanging; or flat (`roof: false`)
+    const roof = asked.roof === false ? null : { pitch: 30, overhang: 12, material: "roof", ...(asked.roof ?? {}) };
+    if (roof) {
+      const over = roof.overhang;
+      const ridgeAlongX = block.max[0] - block.min[0] >= block.max[1] - block.min[1];
+      const span = ridgeAlongX ? block.max[1] - block.min[1] : block.max[0] - block.min[0];
+      const rise = snap(Math.tan((roof.pitch * Math.PI) / 180) * (span / 2 + over), 4);
+      const top = block.max[2];
+      const material = textureOf(roof.material);
+      const min = [block.min[0] - over, block.min[1] - over, top];
+      const max = [block.max[0] + over, block.max[1] + over, top + rise];
+      const k = ridgeAlongX ? 1 : 0;
+      const middle = (min[k] + max[k]) / 2;
+      const lowHalf = { min: [...min], max: [...max] };
+      const highHalf = { min: [...min], max: [...max] };
+      lowHalf.max[k] = middle;
+      highHalf.min[k] = middle;
+      brushes.push(wedge(lowHalf.min, lowHalf.max, ridgeAlongX ? "+y" : "+x", material), wedge(highHalf.min, highHalf.max, ridgeAlongX ? "-y" : "-x", material));
+      if (top + rise > host.max[2]) errors.push(`rooms ${id}: the roof's ridge at ${top + rise} is over ${host.id}'s sky at ${host.max[2]}`);
+    }
+    report.facts.push(`building ${id}: ${own.map((room) => room.id).join(", ")}, standing in ${host.id}, its outside ${wordOf(asked.walls ?? "outside")}${roof ? `, a gable roof of ${wordOf(roof.material)}` : ""}`);
+  }
 
   // ── where things go in a room ──
   const pointIn = (room, at, inset = INSET) => {
@@ -1005,7 +1073,9 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         // lightReport also tells of the floor in no room given ("elsewhere"): a stair's top, a ledge
         if (!report.rooms[room.name]) continue;
         report.rooms[room.name].light = Math.round(room.mean);
-        const part = rooms.get(room.name)?.spec.place?.in;
+        // a room `in` another is part of it (a channel under water) and not held to the dark line; a room of a
+        // building standing in another is a room of its own, and is
+        const part = rooms.get(room.name)?.building ? null : rooms.get(room.name)?.spec.place?.in;
         if (room.dark && part) report.facts.push(`${room.name} (part of ${part}) has its floor lit ${Math.round(room.mean)}: not held to the dark line, being the floor of another room's part (under water, as a rule)`);
         else if (room.dark) report.faults.push(`${room.name} is dark: its floor's light is ${Math.round(room.mean)} of 255 (under ${24})`);
       }

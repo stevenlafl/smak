@@ -360,6 +360,37 @@ test("a map spec is built without compilers: lined rooms (the crash of case 9), 
   sure(step(63, 0) < 80, "a picture laid side by side shows no seam");
 });
 
+test("a map spec's building stands in the open: a shell of its own material, a gable roof, ways out through its walls", () => {
+  const spec = {
+    spec: "smak.map/1",
+    name: "house",
+    rooms: [
+      { id: "yard", size: [1024, 896, 384], sky: true, surfaces: { floor: "grass" } },
+      { id: "living", size: [320, 256, 112], floor: 8, place: { in: "yard", offset: [256, 256], stand: true } },
+      { id: "kitchen", size: [192, 256, 112], place: { east_of: "living" } },
+    ],
+    links: [
+      { between: ["living", "yard"], kind: "door", side: "south" },
+      { between: ["living", "kitchen"], kind: "opening" },
+      { between: ["kitchen", "yard"], kind: "window", side: "east", glass: true },
+    ],
+    entities: [
+      { class: "info_player_start", room: "yard", at: [0, -300], facing: "north" },
+      { class: "item_healthkit", room: "kitchen", at: "centre" },
+    ],
+  };
+  const { report, files } = buildMapSpec(spec, { out: join(folder, "house"), compilers: { found: false, message: "no compilers in this test" } });
+  sure(report.errors.length === 0, report.errors.join("; "));
+  sure(/building living: living, kitchen, standing in yard, its outside siding, a gable roof of shingles/.test(report.facts.join("\n")), report.facts.join(" | "));
+  sure(/all \d+ entities a player goes to are reached on foot/.test(report.facts.join("\n")), "the kitchen is walked into from the yard, through the front door");
+  const text = readFileSync(files.map, "utf8");
+  sure(/SM_OUTSIDE/.test(text) && /SM_ROOF/.test(text), "its outside and its roof wear their own textures");
+  const out = buildMapSpec({ ...spec, rooms: [spec.rooms[0], { ...spec.rooms[1], place: { in: "yard", offset: [900, 256], stand: true } }, spec.rooms[2]] }, { out: join(folder, "house2"), compilers: { found: false, message: "" } }).report;
+  sure(out.errors.some((e) => /the building's walls .* reach out of yard/.test(e)), out.errors.join("; "));
+  const sideless = buildMapSpec({ ...spec, links: [{ between: ["living", "yard"], kind: "door" }, ...spec.links.slice(1)] }, { out: join(folder, "house3"), compilers: { found: false, message: "" } }).report;
+  sure(sideless.errors.some((e) => /side "north", "south", "east" or "west"/.test(e)), sideless.errors.join("; "));
+});
+
 test("a map spec's walk faults come back in the walk test's own words (the crash of case 8)", () => {
   const { report } = buildMapSpec(
     {

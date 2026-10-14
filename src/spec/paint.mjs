@@ -39,6 +39,8 @@ export const MATERIALS = {
   paint: { tone: [0.6, 0.15, 0.12], what: "a painted surface in its tone: a sign, a cart" },
   bone: { tone: [0.86, 0.82, 0.7], what: "bone, ivory, a skull" },
   rope: { tone: [0.62, 0.52, 0.34], what: "rope, twine, straw" },
+  siding: { tone: [0.82, 0.84, 0.8], what: "a house's outside: painted clapboards, laid level (maps: the walls of a building)" },
+  shingles: { tone: [0.3, 0.27, 0.25], what: "a roof: rows of shingles, staggered (maps: a building's roof)" },
   mesh: { tone: [0.12, 0.12, 0.12], what: "a net, a wire fence, a grille: a grid of cords in its tone with holes between (masked: seen through). `cell`: the holes' size in units (2)" },
 };
 /** The colour that stands for a hole in a masked picture until it is made a texture (`HOLE_RGB`). */
@@ -162,6 +164,20 @@ export function colourAt(material, x, y, light = 1, px = 8) {
     case "flame": {
       const k = 0.85 + 0.3 * (grain(x * 1.5, y * 3) - 0.5);
       return shade(mix(tone, [1, 0.95, 0.6], step(0.5, 0.8, grain(x * 0.8, y * 0.8))), k);
+    }
+    case "siding": {
+      // boards 6 high, each lit at its top and shadowed under its lap
+      const inBoard = ((y % 6) + 6) % 6 / 6;
+      const k = (0.86 + 0.18 * inBoard + 0.06 * (grain(x * 0.3, y * 0.3) - 0.5)) * (inBoard < 0.12 ? 0.62 : 1);
+      return shade(tone, k * light);
+    }
+    case "shingles": {
+      // rows 8 high, tabs 12 wide, every other row moved half a tab
+      const row = Math.floor(y / 8);
+      const along = (((x + (row % 2) * 6) % 12) + 12) % 12;
+      const gap = along < 0.8 || ((y % 8) + 8) % 8 > 7.2;
+      const k = (0.85 + 0.25 * (noise(Math.floor((x + (row % 2) * 6) / 12), row, s) - 0.5)) * (gap ? 0.5 : 1);
+      return shade(tone, k * light);
     }
     default: {
       // paint, metal, tile, brick: their base colour, a little uneven

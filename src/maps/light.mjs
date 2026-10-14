@@ -177,6 +177,9 @@ const summed = (sum) => ({
  * }
  * A map's light is what its compile made it: of a draft (`fast`) it is direct light only (see above).
  */
+/** A box's volume. */
+const volumeOf = ({ min, max }) => (max[0] - min[0]) * (max[1] - min[1]) * (max[2] - min[2]);
+
 export function lightReport(bsp, { rooms = null, dark = DARK_FLOOR, cell = CELL, reach = null } = {}) {
   if (!bsp?.faces || !bsp.lumps) throw new Error("lightReport: a compiled map, as readBsp gives it");
   const warnings = [];
@@ -194,7 +197,10 @@ export function lightReport(bsp, { rooms = null, dark = DARK_FLOOR, cell = CELL,
     if (reach && !reach.on(point[0], point[1], point[2] + 1).walked) return;
     count(all, point, brightness, area, dark);
     if (rooms) {
-      const room = named.find(({ box }) => point.every((value, axis) => value >= box.min[axis] - 1 && value <= box.max[axis] + 1)); // prettier-ignore
+      // the smallest room round the point: a house's floor stands in its yard's box, and is the house's
+      const room = named
+        .filter(({ box }) => point.every((value, axis) => value >= box.min[axis] - 1 && value <= box.max[axis] + 1))
+        .reduce((a, b) => (!a || volumeOf(b.box) < volumeOf(a.box) ? b : a), null);
       count(room ? room.sum : elsewhere, point, brightness, area, dark);
       return;
     }

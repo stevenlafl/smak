@@ -282,6 +282,28 @@ under a housing shows only from below); with `reference`, the person's picture b
 - `test: true`: a room only for trying a module alone (a stretch of street before a shop), left out when
   the module is included.
 
+### Buildings that stand in the open
+
+A room carved out of rock is a hole: from a street it is a wall with a door in it. A house, a shop or a shed
+that stands in a yard, with its own walls and a roof, is a **building**: its first room is placed `in` an
+open room with `stand: true`, and the rooms placed against that one (`east_of`, `above`...) are of it too.
+
+```json
+{ "id": "living", "size": [320, 256, 112], "floor": 8, "place": { "in": "yard", "offset": [256, 256], "stand": true },
+  "building": { "walls": "outside", "roof": { "material": "roof", "pitch": 30, "overhang": 12 } } },
+{ "id": "kitchen", "size": [192, 256, 112], "place": { "east_of": "living" } }
+```
+
+- Its shell is `wall` thick out from each room's face, from the open room's floor to over its top room, of
+  `building.walls` outside (the theme's `outside`, siding unless told) and its rooms' own surfaces inside.
+- Its roof is a gable over its longer side (`roof: { material, pitch, overhang }`, the theme's `roof`,
+  shingles unless told), or flat with `roof: false`. The open room's sky must clear the ridge.
+- A way out is a link between a room of it and the open room round it, with `side`: the wall it goes
+  through (`"south"`). A door, a window and glass are as between rooms. Keep its floor within a step (18)
+  of the open room's.
+- A storey over it is a room `above` one of its rooms, with stairs as between any stacked rooms.
+- `siding` (clapboards) and `shingles` are materials of their own, for its outside and its roof.
+
 ### Links
 
 `{ between: [a, b], kind, width, height, along, sill, glass }`. The two rooms must be side by side (or
