@@ -1,0 +1,485 @@
+{
+ "spec": "smak.model/1",
+ "name": "sedan.mdl",
+ "kind": "prop",
+ "texture": {
+  "width": 512,
+  "height": 256
+ },
+ "materials": {
+  "paint": {
+   "base": "paint",
+   "tone": [
+    0.55,
+    0.1,
+    0.1
+   ]
+  },
+  "glass": {
+   "base": "paint",
+   "tone": [
+    0.2,
+    0.25,
+    0.3
+   ]
+  },
+  "tyre": {
+   "base": "paint",
+   "tone": [
+    0.06,
+    0.06,
+    0.06
+   ]
+  },
+  "chrome": {
+   "base": "steel"
+  },
+  "light": {
+   "base": "paint",
+   "tone": [
+    0.95,
+    0.95,
+    0.85
+   ]
+  },
+  "red": {
+   "base": "paint",
+   "tone": [
+    0.8,
+    0.1,
+    0.08
+   ]
+  }
+ },
+ "parts": [
+  {
+   "id": "chassis",
+   "kind": "box",
+   "material": "paint",
+   "size": [
+    112,
+    56,
+    16
+   ],
+   "at": [
+    0,
+    0,
+    10
+   ]
+  },
+  {
+   "id": "hood",
+   "kind": "box",
+   "material": "paint",
+   "size": [
+    34,
+    54,
+    3
+   ],
+   "at": [
+    39,
+    0,
+    25
+   ]
+  },
+  {
+   "id": "trunk",
+   "kind": "box",
+   "material": "paint",
+   "size": [
+    20,
+    54,
+    3
+   ],
+   "at": [
+    -46,
+    0,
+    25
+   ]
+  },
+  {
+   "id": "cabin",
+   "kind": "box",
+   "material": "paint",
+   "size": [
+    38,
+    52,
+    15
+   ],
+   "at": [
+    -12,
+    0,
+    26
+   ]
+  },
+  {
+   "id": "roof",
+   "kind": "box",
+   "material": "paint",
+   "size": [
+    36,
+    50,
+    2
+   ],
+   "at": [
+    -12,
+    0,
+    40
+   ]
+  },
+  {
+   "id": "windshield",
+   "kind": "box",
+   "material": "glass",
+   "size": [
+    1.5,
+    48,
+    19
+   ],
+   "at": [
+    13,
+    0,
+    26.5
+   ],
+   "rotate": [
+    0,
+    -38,
+    0
+   ]
+  },
+  {
+   "id": "rear_window",
+   "kind": "box",
+   "material": "glass",
+   "size": [
+    1.5,
+    48,
+    17
+   ],
+   "at": [
+    -35,
+    0,
+    27
+   ],
+   "rotate": [
+    0,
+    36,
+    0
+   ]
+  },
+  {
+   "id": "side_windows_l",
+   "kind": "box",
+   "material": "glass",
+   "size": [
+    32,
+    1,
+    9
+   ],
+   "at": [
+    -12,
+    25.8,
+    30
+   ]
+  },
+  {
+   "id": "side_windows_r",
+   "kind": "box",
+   "material": "glass",
+   "size": [
+    32,
+    1,
+    9
+   ],
+   "at": [
+    -12,
+    -25.8,
+    30
+   ]
+  },
+  {
+   "id": "wheel_0",
+   "kind": "turn",
+   "material": "tyre",
+   "axis": "y",
+   "sides": 14,
+   "rings": [
+    [
+     0,
+     11
+    ],
+    [
+     8,
+     11
+    ]
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "at": [
+    36,
+    23,
+    11
+   ]
+  },
+  {
+   "id": "wheel_1",
+   "kind": "turn",
+   "material": "tyre",
+   "axis": "y",
+   "sides": 14,
+   "rings": [
+    [
+     0,
+     11
+    ],
+    [
+     8,
+     11
+    ]
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "at": [
+    36,
+    -31,
+    11
+   ]
+  },
+  {
+   "id": "wheel_2",
+   "kind": "turn",
+   "material": "tyre",
+   "axis": "y",
+   "sides": 14,
+   "rings": [
+    [
+     0,
+     11
+    ],
+    [
+     8,
+     11
+    ]
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "at": [
+    -36,
+    23,
+    11
+   ]
+  },
+  {
+   "id": "wheel_3",
+   "kind": "turn",
+   "material": "tyre",
+   "axis": "y",
+   "sides": 14,
+   "rings": [
+    [
+     0,
+     11
+    ],
+    [
+     8,
+     11
+    ]
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "at": [
+    -36,
+    -31,
+    11
+   ]
+  },
+  {
+   "id": "hub_0",
+   "kind": "cylinder",
+   "material": "chrome",
+   "radius": 5,
+   "height": 1,
+   "sides": 10,
+   "rotate": [
+    0,
+    0,
+    90
+   ],
+   "at": [
+    36,
+    32,
+    11
+   ]
+  },
+  {
+   "id": "hub_1",
+   "kind": "cylinder",
+   "material": "chrome",
+   "radius": 5,
+   "height": 1,
+   "sides": 10,
+   "rotate": [
+    0,
+    0,
+    90
+   ],
+   "at": [
+    36,
+    -30,
+    11
+   ]
+  },
+  {
+   "id": "hub_2",
+   "kind": "cylinder",
+   "material": "chrome",
+   "radius": 5,
+   "height": 1,
+   "sides": 10,
+   "rotate": [
+    0,
+    0,
+    90
+   ],
+   "at": [
+    -36,
+    32,
+    11
+   ]
+  },
+  {
+   "id": "hub_3",
+   "kind": "cylinder",
+   "material": "chrome",
+   "radius": 5,
+   "height": 1,
+   "sides": 10,
+   "rotate": [
+    0,
+    0,
+    90
+   ],
+   "at": [
+    -36,
+    -30,
+    11
+   ]
+  },
+  {
+   "id": "headlight_l",
+   "kind": "box",
+   "material": "light",
+   "size": [
+    1,
+    9,
+    4
+   ],
+   "at": [
+    56.2,
+    19,
+    19
+   ]
+  },
+  {
+   "id": "headlight_r",
+   "kind": "box",
+   "material": "light",
+   "size": [
+    1,
+    9,
+    4
+   ],
+   "at": [
+    56.2,
+    -19,
+    19
+   ]
+  },
+  {
+   "id": "taillight_l",
+   "kind": "box",
+   "material": "red",
+   "size": [
+    1,
+    9,
+    4
+   ],
+   "at": [
+    -56.2,
+    19,
+    19
+   ]
+  },
+  {
+   "id": "taillight_r",
+   "kind": "box",
+   "material": "red",
+   "size": [
+    1,
+    9,
+    4
+   ],
+   "at": [
+    -56.2,
+    -19,
+    19
+   ]
+  },
+  {
+   "id": "grille",
+   "kind": "box",
+   "material": "chrome",
+   "size": [
+    1,
+    22,
+    6
+   ],
+   "at": [
+    56.2,
+    0,
+    15
+   ]
+  },
+  {
+   "id": "bumper_f",
+   "kind": "box",
+   "material": "chrome",
+   "size": [
+    3,
+    58,
+    4
+   ],
+   "at": [
+    57,
+    0,
+    9
+   ]
+  },
+  {
+   "id": "bumper_r",
+   "kind": "box",
+   "material": "chrome",
+   "size": [
+    3,
+    58,
+    4
+   ],
+   "at": [
+    -57,
+    0,
+    9
+   ]
+  }
+ ],
+ "size": {
+  "height": 42
+ }
+}

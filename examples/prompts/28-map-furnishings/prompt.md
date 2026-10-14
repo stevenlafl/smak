@@ -58,4 +58,8 @@ glass, and the shelves' goods are boxes in colours, labels to come with painted 
    an 8 by 8 picture whatever its size, and then one laid across the wrong way; and a picture of its own
    (a net's, a flame's) was always 256 square, so a long net had a strip of it. Fixed, with a test of a
    net and a basket of mesh.
+4. A sedan added for the neighbourhood's streets and garages (a change after the case passed, so it has
+   no line of the rubric). Built first of oval turns, it came out a red pillow with a cushion for a cabin;
+   built again of boxes (a chassis, a hood, a cabin with slanted glass, wheels standing out under it), it
+   reads as a car.
 
