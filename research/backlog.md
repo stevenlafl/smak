@@ -257,7 +257,7 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | 8. `audio.fromPicture` to a draft spec | DONE | `src/audio/picture.mjs` (commit ee496d7) |
 | 9. Sprite `billow` and `blobs` | DONE | Commit 603c920. Missing: steam1's column of wisps, fire's heat that falls with height |
 | 10. Texture relief: pipes, bars, louvres, rivets, seams, lamps | DONE | `src/spec/relief.mjs` (commit 17f9552) |
-| 11. Room early reflections; statistics matching for textures | OPEN | |
+| 11. Room early reflections; statistics matching for textures | PARTLY | Heeger-Bergen tried (`research/grain-trial.mjs`, not wired): on four of frenzy's textures from their views, blotchy grain with the right colours and no cracks, seams or panel lines. Missing: Portilla-Simoncelli's joint statistics; room early reflections |
 | Read-back of pictures into pixels (sprites, textures) or samples | DECLINED until Steven decides | Section 7: measures and drafts are in; texels and samples are copying |
 
 ## held-reproduction-failures.md (weapons and characters, round 1)
