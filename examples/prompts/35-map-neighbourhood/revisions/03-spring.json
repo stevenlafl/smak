@@ -1,0 +1,652 @@
+{
+ "spec": "smak.map/1",
+ "name": "neighbourhood",
+ "textures": {
+  "sidewalk": {
+   "base": "stone",
+   "tone": [
+    0.62,
+    0.62,
+    0.6
+   ]
+  },
+  "road_line": {
+   "base": "paint",
+   "tone": [
+    0.95,
+    0.85,
+    0.2
+   ]
+  }
+ },
+ "sun": {
+  "pitch": -60,
+  "yaw": 35,
+  "brightness": 330,
+  "color": [
+   255,
+   250,
+   235
+  ]
+ },
+ "models": {
+  "sedan": {
+   "file": "../../28-map-furnishings/sedan.json"
+  },
+  "street_lamp": {
+   "file": "../../02-model-street-lamp/spec.json"
+  },
+  "tree_spring": {
+   "file": "../../28-map-furnishings/tree_spring.json"
+  }
+ },
+ "include": [
+  {
+   "spec": "../../29-map-house-ranch/spec.json",
+   "as": "ranch",
+   "place": {
+    "north_of": "main_street",
+    "align": 64
+   }
+  },
+  {
+   "spec": "../../30-map-house-colonial/spec.json",
+   "as": "colonial",
+   "place": {
+    "north_of": "main_street",
+    "align": 1104
+   }
+  },
+  {
+   "spec": "../../31-map-house-bungalow/spec.json",
+   "as": "bungalow",
+   "place": {
+    "north_of": "main_street",
+    "align": 2272
+   }
+  },
+  {
+   "spec": "../../32-map-shops/spec.json",
+   "as": "shops",
+   "place": {
+    "south_of": "main_street",
+    "align": 64
+   }
+  },
+  {
+   "spec": "../../34-map-construction/spec.json",
+   "as": "site",
+   "place": {
+    "south_of": "main_street",
+    "align": 2128
+   }
+  },
+  {
+   "spec": "../../33-map-park/spec.json",
+   "as": "park",
+   "place": {
+    "east_of": "main_street"
+   }
+  }
+ ],
+ "rooms": [
+  {
+   "id": "main_street",
+   "size": [
+    3712,
+    384,
+    352
+   ],
+   "sky": true,
+   "surfaces": {
+    "floor": "asphalt"
+   },
+   "light": "none"
+  }
+ ],
+ "links": [
+  {
+   "between": [
+    "ranch_lot",
+    "main_street"
+   ],
+   "kind": "opening",
+   "width": 256,
+   "height": 128,
+   "along": 0.35
+  },
+  {
+   "between": [
+    "colonial_lot",
+    "main_street"
+   ],
+   "kind": "opening",
+   "width": 256,
+   "height": 128,
+   "along": 0.5
+  },
+  {
+   "between": [
+    "bungalow_lot",
+    "main_street"
+   ],
+   "kind": "opening",
+   "width": 288,
+   "height": 128,
+   "along": 0.78
+  },
+  {
+   "between": [
+    "shops_parking",
+    "main_street"
+   ],
+   "kind": "opening",
+   "width": 1536,
+   "height": 160,
+   "along": 0.5
+  },
+  {
+   "between": [
+    "site_site",
+    "main_street"
+   ],
+   "kind": "opening",
+   "width": 256,
+   "height": 160,
+   "along": 0.5
+  },
+  {
+   "between": [
+    "park_park",
+    "main_street"
+   ],
+   "kind": "opening",
+   "width": 320,
+   "height": 160
+  }
+ ],
+ "props": [
+  {
+   "model": "street_lamp",
+   "room": "main_street",
+   "at": [
+    -1600,
+    170
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "street_lamp",
+   "room": "main_street",
+   "at": [
+    -1088,
+    170
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "street_lamp",
+   "room": "main_street",
+   "at": [
+    -576,
+    170
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "street_lamp",
+   "room": "main_street",
+   "at": [
+    -64,
+    170
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "street_lamp",
+   "room": "main_street",
+   "at": [
+    448,
+    170
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "street_lamp",
+   "room": "main_street",
+   "at": [
+    960,
+    170
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "street_lamp",
+   "room": "main_street",
+   "at": [
+    1472,
+    170
+   ],
+   "facing": "south"
+  },
+  {
+   "model": "street_lamp",
+   "room": "main_street",
+   "at": [
+    -1344,
+    -170
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "street_lamp",
+   "room": "main_street",
+   "at": [
+    -832,
+    -170
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "street_lamp",
+   "room": "main_street",
+   "at": [
+    -320,
+    -170
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "street_lamp",
+   "room": "main_street",
+   "at": [
+    192,
+    -170
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "street_lamp",
+   "room": "main_street",
+   "at": [
+    704,
+    -170
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "street_lamp",
+   "room": "main_street",
+   "at": [
+    1216,
+    -170
+   ],
+   "facing": "north"
+  },
+  {
+   "model": "sedan",
+   "room": "main_street",
+   "at": [
+    -900,
+    100
+   ],
+   "facing": "east"
+  },
+  {
+   "model": "sedan",
+   "room": "main_street",
+   "at": [
+    300,
+    -100
+   ],
+   "facing": "west"
+  },
+  {
+   "model": "sedan",
+   "room": "main_street",
+   "at": [
+    1200,
+    100
+   ],
+   "facing": "east"
+  }
+ ],
+ "furniture": [
+  {
+   "box": [
+    3712,
+    48,
+    6
+   ],
+   "room": "main_street",
+   "at": [
+    0,
+    168
+   ],
+   "texture": "sidewalk"
+  },
+  {
+   "box": [
+    3712,
+    48,
+    6
+   ],
+   "room": "main_street",
+   "at": [
+    0,
+    -168
+   ],
+   "texture": "sidewalk"
+  },
+  {
+   "box": [
+    96,
+    4,
+    0.5
+   ],
+   "room": "main_street",
+   "at": [
+    -1760,
+    0
+   ],
+   "z": 0,
+   "texture": "road_line"
+  },
+  {
+   "box": [
+    96,
+    4,
+    0.5
+   ],
+   "room": "main_street",
+   "at": [
+    -1568,
+    0
+   ],
+   "z": 0,
+   "texture": "road_line"
+  },
+  {
+   "box": [
+    96,
+    4,
+    0.5
+   ],
+   "room": "main_street",
+   "at": [
+    -1376,
+    0
+   ],
+   "z": 0,
+   "texture": "road_line"
+  },
+  {
+   "box": [
+    96,
+    4,
+    0.5
+   ],
+   "room": "main_street",
+   "at": [
+    -1184,
+    0
+   ],
+   "z": 0,
+   "texture": "road_line"
+  },
+  {
+   "box": [
+    96,
+    4,
+    0.5
+   ],
+   "room": "main_street",
+   "at": [
+    -992,
+    0
+   ],
+   "z": 0,
+   "texture": "road_line"
+  },
+  {
+   "box": [
+    96,
+    4,
+    0.5
+   ],
+   "room": "main_street",
+   "at": [
+    -800,
+    0
+   ],
+   "z": 0,
+   "texture": "road_line"
+  },
+  {
+   "box": [
+    96,
+    4,
+    0.5
+   ],
+   "room": "main_street",
+   "at": [
+    -608,
+    0
+   ],
+   "z": 0,
+   "texture": "road_line"
+  },
+  {
+   "box": [
+    96,
+    4,
+    0.5
+   ],
+   "room": "main_street",
+   "at": [
+    -416,
+    0
+   ],
+   "z": 0,
+   "texture": "road_line"
+  },
+  {
+   "box": [
+    96,
+    4,
+    0.5
+   ],
+   "room": "main_street",
+   "at": [
+    -224,
+    0
+   ],
+   "z": 0,
+   "texture": "road_line"
+  },
+  {
+   "box": [
+    96,
+    4,
+    0.5
+   ],
+   "room": "main_street",
+   "at": [
+    -32,
+    0
+   ],
+   "z": 0,
+   "texture": "road_line"
+  },
+  {
+   "box": [
+    96,
+    4,
+    0.5
+   ],
+   "room": "main_street",
+   "at": [
+    160,
+    0
+   ],
+   "z": 0,
+   "texture": "road_line"
+  },
+  {
+   "box": [
+    96,
+    4,
+    0.5
+   ],
+   "room": "main_street",
+   "at": [
+    352,
+    0
+   ],
+   "z": 0,
+   "texture": "road_line"
+  },
+  {
+   "box": [
+    96,
+    4,
+    0.5
+   ],
+   "room": "main_street",
+   "at": [
+    544,
+    0
+   ],
+   "z": 0,
+   "texture": "road_line"
+  },
+  {
+   "box": [
+    96,
+    4,
+    0.5
+   ],
+   "room": "main_street",
+   "at": [
+    736,
+    0
+   ],
+   "z": 0,
+   "texture": "road_line"
+  },
+  {
+   "box": [
+    96,
+    4,
+    0.5
+   ],
+   "room": "main_street",
+   "at": [
+    928,
+    0
+   ],
+   "z": 0,
+   "texture": "road_line"
+  },
+  {
+   "box": [
+    96,
+    4,
+    0.5
+   ],
+   "room": "main_street",
+   "at": [
+    1120,
+    0
+   ],
+   "z": 0,
+   "texture": "road_line"
+  },
+  {
+   "box": [
+    96,
+    4,
+    0.5
+   ],
+   "room": "main_street",
+   "at": [
+    1312,
+    0
+   ],
+   "z": 0,
+   "texture": "road_line"
+  },
+  {
+   "box": [
+    96,
+    4,
+    0.5
+   ],
+   "room": "main_street",
+   "at": [
+    1504,
+    0
+   ],
+   "z": 0,
+   "texture": "road_line"
+  },
+  {
+   "box": [
+    96,
+    4,
+    0.5
+   ],
+   "room": "main_street",
+   "at": [
+    1696,
+    0
+   ],
+   "z": 0,
+   "texture": "road_line"
+  }
+ ],
+ "entities": [
+  {
+   "class": "info_player_start",
+   "room": "main_street",
+   "at": [
+    -1700,
+    60
+   ],
+   "facing": "east"
+  },
+  {
+   "class": "info_player_deathmatch",
+   "room": "main_street",
+   "at": [
+    0,
+    60
+   ],
+   "facing": "north"
+  },
+  {
+   "class": "info_player_deathmatch",
+   "room": "main_street",
+   "at": [
+    1600,
+    -60
+   ],
+   "facing": "west"
+  }
+ ],
+ "replace": {
+  "textures": {
+   "lawn": {
+    "base": "grass",
+    "tone": [
+     0.32,
+     0.6,
+     0.2
+    ]
+   }
+  },
+  "models": {
+   "tree_summer": "tree_spring"
+  }
+ }
+}

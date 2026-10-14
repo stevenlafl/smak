@@ -471,6 +471,11 @@ test("a map spec's building stands in the open: a shell of its own material, a g
   sure(winter.placed.some((thing) => thing.name === "bare") && !winter.placed.some((thing) => /tree/.test(thing.name)), "the tree is the bare one");
   const wrong = buildMapSpec({ spec: "smak.map/1", name: "w2", rooms: [{ id: "road", size: [512, 256, 320], sky: true }], entities: [{ class: "info_player_start", room: "road", at: "centre" }], replace: { textures: { lawn: { base: "snow" } }, models: { tree: "bare" } } }, { out: join(folder, "w2"), compilers: { found: false, message: "" } }).report;
   sure(wrong.errors.some((e) => /replace.textures.lawn: no texture/.test(e)) && wrong.errors.some((e) => /replace.models.tree: "bare" is none of the spec's models/.test(e)), wrong.errors.join("; "));
+  // a model the map and its module both have from one file is one model, built once
+  writeFileSync(join(folder, "post.json"), JSON.stringify({ spec: "smak.model/1", parts: [{ id: "post", kind: "cylinder", radius: 2, height: 40 }] }));
+  writeFileSync(join(folder, "posts-module.json"), JSON.stringify({ spec: "smak.map/1", rooms: [{ id: "plot", size: [256, 256, 128], sky: true }], models: { post: { file: "post.json" } }, props: [{ model: "post", room: "plot", at: "centre" }], entities: [] }));
+  const merged = withIncludes({ spec: "smak.map/1", rooms: [{ id: "road", size: [512, 256, 128], sky: true }], models: { lamp: { file: "post.json" } }, props: [{ model: "lamp", room: "road", at: "centre" }], include: [{ spec: "posts-module.json", as: "p", place: { north_of: "road" } }] }, folder);
+  sure(Object.keys(merged.models).join() === "lamp" && merged.props.every((thing) => thing.model === "lamp"), `one model for one file: ${JSON.stringify(merged.models)} ${JSON.stringify(merged.props)}`);
   const wad = smak.maps.readWad(readFileSync(town.files.wad));
   sure(wad.textures.some((tx) => tx.name.toUpperCase() === "SM_H_BLUE"), `the module's own texture is made: ${wad.textures.map((tx) => tx.name)}`);
   const out = buildMapSpec({ ...spec, rooms: [spec.rooms[0], { ...spec.rooms[1], place: { in: "yard", offset: [900, 256], stand: true } }, spec.rooms[2]] }, { out: join(folder, "house2"), compilers: { found: false, message: "" } }).report;

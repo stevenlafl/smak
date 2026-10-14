@@ -229,12 +229,22 @@ export function withIncludes(spec, folder = ".") {
       out.prefabs[id(name)] = prefab.file
         ? { ...prefab, file: resolve(here, prefab.file) }
         : { ...prefab, pieces: prefab.pieces.map((piece) => ({ ...piece, texture: word(piece.texture ?? "furniture") })) };
-    for (const [name, model] of Object.entries(inner.models ?? {}))
-      out.models[id(name)] = model.file ? { ...model, file: resolve(here, model.file) } : model;
+    // a model the map or a module before has from the same file is that model, built once: the three houses'
+    // sofas are one sofa (one file the engine loads, not three)
+    const modelName = {};
+    for (const [name, model] of Object.entries(inner.models ?? {})) {
+      const file = model.file ? resolve(here, model.file) : null;
+      const same = file && Object.entries(out.models).find(([, known]) => known.file && resolve(folder, known.file) === file);
+      if (same) modelName[name] = same[0];
+      else {
+        modelName[name] = id(name);
+        out.models[id(name)] = file ? { ...model, file } : model;
+      }
+    }
     for (const thing of inner.furniture ?? [])
       out.furniture.push({ ...named(thing), ...(thing.prefab ? { prefab: id(thing.prefab) } : { texture: word(thing.texture ?? "furniture") }) });
     for (const thing of inner.props ?? [])
-      out.props.push({ ...named(thing), model: inner.models?.[thing.model] ? id(thing.model) : thing.model });
+      out.props.push({ ...named(thing), model: inner.models?.[thing.model] ? modelName[thing.model] : thing.model });
   }
   delete out.include;
   return out;
