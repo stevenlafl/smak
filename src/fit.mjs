@@ -201,7 +201,7 @@ export function bestTurn(piece, original, haft = false, only = null) {
   // "as drawn": the axes it was built along (+x its length), not its principal axes, which a hooked stock or a
   // deep grip tilts; any other turn starts from the principal axes as before
   const drawn = () => {
-    const b = box(uniq(solid.map((tri) => tri.map((corner) => corner.p))));
+    const b = box(uniq(solid));
     return { X: [1, 0, 0], Y: [0, 1, 0], Z: [0, 0, 1], o: [0, 1, 2].map((a) => mid(b, a)) };
   };
   const own = only === "as drawn" ? drawn() : frameOf(solid);

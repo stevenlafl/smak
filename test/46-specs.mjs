@@ -456,6 +456,14 @@ test("a map spec keeps its ways through at ease: no furniture in front of a door
   sure(short.some((f) => /links\[0\]: the wall a and b share is 40 long/.test(f)), short.join("; "));
 });
 
+test("a weapon laid \"as drawn\" is fitted without a crash (case 26, the lunchbox mine, never built)", () => {
+  // the as-drawn turn handed the box of its points bare points where corners were expected
+  const M = W.shape(64, 64);
+  M.lathe([[0, 1], [6, 1.5], [8, 1]], Z, { sides: 6, caps: [true, true] });
+  const fit = smak.bestTurn(M.tris, M.tris, false, "as drawn");
+  sure(fit && fit.name === "as drawn" && Number.isFinite(fit.k), JSON.stringify(fit && { name: fit.name, k: fit.k }));
+});
+
 test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ files, the gloved hands kept", () => {
   // a stand-in for a game's files: a first-person model of a glove and a stick, and a world one of the stick
   const meshOn = (build, name) => {
