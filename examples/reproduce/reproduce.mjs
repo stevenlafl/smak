@@ -4,10 +4,12 @@
 //
 //   node examples/reproduce/reproduce.mjs [subject[:leg] ...] [--at-once 5] [--again]
 //
+// A run again (--again) first moves the last one's records into <id>/<leg>/round-<n>/, so every round is kept.
 // Each run leaves <id>/<leg>/: spec.json (its last spec), answer.md (what it said at the end), run.json
 // (time, turns, cost), and built/ (what it built: the .mdl, or the .bsp, .map and .wad), which is kept out of
 // git with the rest of what is made from the game.
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync, copyFileSync, existsSync, rmSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync, copyFileSync, existsSync, rmSync, renameSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { join, basename } from "node:path";
 import { tmpdir } from "node:os";
 import { mkdtempSync } from "node:fs";
@@ -87,6 +89,14 @@ for (const model of SUBJECTS.models) for (const leg of SUBJECTS.legs.models) if 
 async function runJob({ kind, subject, leg }) {
   const out = join(HERE, subject.id, leg);
   if (existsSync(join(out, "run.json")) && !again) return `${subject.id}:${leg}: done before (--again to run it again)`;
+  // the last round kept: its records and what it built, under round-<n>
+  if (existsSync(join(out, "run.json"))) {
+    const n = readdirSync(out).filter((f) => /^round-\d+$/.test(f)).length + 1;
+    const keep = join(out, `round-${n}`);
+    mkdirSync(keep);
+    for (const f of ["spec.json", "answer.md", "run.json", "judge.json", "built"]) if (existsSync(join(out, f))) renameSync(join(out, f), join(keep, f));
+  }
+  const kit = execFileSync("git", ["-C", HERE, "rev-parse", "--short", "HEAD"], { encoding: "utf8" }).trim();
   const job = kind === "model" ? modelPrompt(subject, leg) : mapPrompt(subject, leg);
   // the bsp leg's models folder holds the compiled map alone: a folder of its own, with that one file
   let models = null;
@@ -134,7 +144,7 @@ async function runJob({ kind, subject, leg }) {
         kept.push(file.name);
       }
     }
-  writeFileSync(join(out, "run.json"), `${JSON.stringify({ seconds: r.seconds, turns: r.turns, cost: r.cost, error: r.error, built: kept, folder: r.folder }, null, 1)}\n`);
+  writeFileSync(join(out, "run.json"), `${JSON.stringify({ kit, seconds: r.seconds, turns: r.turns, cost: r.cost, error: r.error, built: kept, folder: r.folder }, null, 1)}\n`);
   return `${subject.id}:${leg}: ${r.seconds} s, ${r.turns} turns, built ${kept.join(", ") || "nothing"}${r.error ? ` (${r.error})` : ""}`;
 }
 

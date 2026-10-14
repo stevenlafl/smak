@@ -10,7 +10,7 @@
 // whether it passes. <id>/judge/: the pictures the judge saw (kept out of git: Valve's art is in them).
 // scores.md: every result in one table.
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync } from "node:fs";
-import { join } from "node:path";
+import { join, dirname } from "node:path";
 import { execFileSync } from "node:child_process";
 import { HERE, KIT, SUBJECTS, GAME, POSE, SIDES, ANGLES, readModel, boxOf, picturesOf, savePng, besides, silhouettes, colourDifference, fitness } from "./lib.mjs";
 import { runAgent } from "./agents.mjs";
@@ -354,6 +354,7 @@ async function main() {
   }
 
   const results = [];
+  process.on("exit", () => writeScores());
   const queue = [...jobs];
   await Promise.all(
     Array.from({ length: Math.min(4, queue.length) }, async () => {
@@ -365,4 +366,42 @@ async function main() {
       }
     }),
   );
+}
+
+/** scores.md: every judgement of every round, newest round last, and the share that passes by kind. */
+function writeScores() {
+  const rows = [];
+  for (const kind of ["models", "maps"])
+    for (const subject of SUBJECTS[kind])
+      for (const leg of SUBJECTS.legs[kind]) {
+        const dir = join(HERE, subject.id, leg);
+        if (!existsSync(dir)) continue;
+        const rounds = readdirSync(dir).filter((f) => /^round-\d+$/.test(f)).sort((a, b) => Number(a.slice(6)) - Number(b.slice(6)));
+        const files = [...rounds.map((r) => [r, join(dir, r, "judge.json")]), [`round-${rounds.length + 1}`, join(dir, "judge.json")]];
+        for (const [round, file] of files) {
+          if (!existsSync(file)) continue;
+          const j = JSON.parse(readFileSync(file, "utf8"));
+          if (!j.scores) continue;
+          const kit = (() => {
+            try {
+              return JSON.parse(readFileSync(join(dirname(file), "run.json"), "utf8")).kit ?? "";
+            } catch {
+              return "";
+            }
+          })();
+          rows.push({ kind, round, subject: subject.id, leg, total: j.total, of: j.of, passes: j.passes, items: Object.entries(j.scores).map(([k, v]) => `${k} ${v.score}`).join(", "), kit });
+        }
+      }
+  const lines = ["# Reproduction scores", "", "Written by judge.mjs from every judge.json (rounds kept under each leg's round-<n>/). The rubric is rubric.md.", ""];
+  for (const kind of ["models", "maps"]) {
+    const of = rows.filter((r) => r.kind === kind);
+    if (!of.length) continue;
+    lines.push(`## ${kind === "models" ? "Models" : "Maps"}`, "", "| Round | Subject | Leg | Score | Passes | Items | Kit |", "| --- | --- | --- | --- | --- | --- | --- |");
+    for (const r of of) lines.push(`| ${r.round.slice(6)} | ${r.subject} | ${r.leg} | ${r.total} of ${r.of} | ${r.passes ? "yes" : "no"} | ${r.items} | ${r.kit} |`);
+    const latest = new Map();
+    for (const r of of) latest.set(`${r.subject}:${r.leg}`, r);
+    const pass = [...latest.values()].filter((r) => r.passes).length;
+    lines.push("", `Latest round: ${pass} of ${latest.size} pass.`, "");
+  }
+  writeFileSync(join(HERE, "scores.md"), `${lines.join("\n")}\n`);
 }
