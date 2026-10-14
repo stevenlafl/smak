@@ -1,0 +1,30 @@
+{
+  "spec": "smak.map/1",
+  "name": "guard_room",
+  "theme": { "floor": "stone", "wall": "plaster", "ceiling": "planks", "furniture": "wood" },
+  "textures": { "crate": { "base": "wood", "tone": [0.58, 0.45, 0.28], "seed": 3 } },
+  "prefabs": {
+    "table": { "pieces": [
+      { "box": [[-40, -24, 28], [40, 24, 32]], "texture": "furniture" },
+      { "box": [[-36, -20, 0], [-30, -14, 28]], "texture": "furniture" },
+      { "box": [[30, -20, 0], [36, -14, 28]], "texture": "furniture" },
+      { "box": [[-36, 14, 0], [-30, 20, 28]], "texture": "furniture" },
+      { "box": [[30, 14, 0], [36, 20, 28]], "texture": "furniture" }
+    ] },
+    "crates": { "pieces": [
+      { "box": [[-32, -16, 0], [0, 16, 32]], "texture": "crate" },
+      { "box": [[0, -16, 0], [32, 16, 32]], "texture": "crate" },
+      { "box": [[-16, -16, 32], [16, 16, 64]], "texture": "crate" }
+    ] }
+  },
+  "rooms": [{ "id": "guardroom", "size": [384, 320, 160] }],
+  "furniture": [
+    { "prefab": "table", "room": "guardroom", "at": "centre" },
+    { "prefab": "crates", "room": "guardroom", "at": [136, 128] }
+  ],
+  "entities": [
+    { "class": "info_player_start", "room": "guardroom", "at": "against south", "facing": "north" },
+    { "class": "item_healthkit", "room": "guardroom", "at": [24, 0], "z": 32 },
+    { "class": "ammo_9mmclip", "room": "guardroom", "at": "against west" }
+  ]
+}

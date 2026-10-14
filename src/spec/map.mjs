@@ -11,7 +11,7 @@
 // docs/SPEC.md is the guide. Axes as every map's: +x east, +y north, +z up, a unit about an inch.
 import { writeFileSync, mkdirSync, readFileSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
-import { carve, box, cylinder, wedge, stairs as stairBrushes, light, sunLight, playerStart, pointEntity, brushEntity, writeMap, subtract } from "../maps/source.mjs";
+import { carve, box, cylinder, wedge, stairs as stairBrushes, light, sunLight, playerStart, pointEntity, brushEntity, writeMap, readMap, subtract, moved } from "../maps/source.mjs";
 import { checkPlan } from "../maps/plan.mjs";
 import { reachOf } from "../maps/reach.mjs";
 import { writeWad } from "../maps/wad.mjs";
@@ -21,7 +21,7 @@ import { lightReport } from "../maps/light.mjs";
 import { planOfSource, planOf, drawMap, sectionOf } from "../maps/draw.mjs";
 import { tile } from "../render.mjs";
 import { png } from "../image.mjs";
-import { materialOf, surfacePicture } from "./paint.mjs";
+import { materialOf, surfacePicture, MATERIALS } from "./paint.mjs";
 import { buildModelSpec, validateModelSpec } from "./model.mjs";
 
 export const MAP_SPEC = "smak.map/1";
@@ -224,6 +224,43 @@ function sharedWall(a, b, wall) {
     if (axis === 2 && overlap.every(([lo, hi]) => hi - lo > 0)) return { axis, gap, from: gapAB >= 0 ? a : b, to: gapAB >= 0 ? b : a, overlap, others };
   }
   return null;
+}
+
+/** A point turned by `quarters` quarter turns about z (anticlockwise seen from above). */
+function quarterTurn([x, y, z], quarters) {
+  for (let q = 0; q < ((quarters % 4) + 4) % 4; q++) [x, y] = [-y, x];
+  return [x, y, z];
+}
+/** A brush turned by quarter turns about z: its planes' points and its pictures' axes with it. */
+function turnedBrush(brush, quarters) {
+  const axis = (a) => [...quarterTurn(a.slice(0, 3), quarters), a[3]];
+  return { faces: brush.faces.map((face) => ({ ...face, points: face.points.map((p) => quarterTurn(p, quarters)), u: axis(face.u), v: axis(face.v) })) };
+}
+/**
+ * A prefab read from a .map file, as Hammer's are: its world brushes and its entities, a group that is put
+ * down as one. Its own origin is the point on the floor where it is put. Returns { brushes, entities, textures }.
+ */
+function prefabFromMap(file, at, quarters) {
+  const map = readMap(readFileSync(file, "utf8"));
+  const place = (brushes) => brushes.map((brush) => moved(turnedBrush(brush, quarters), at));
+  const textures = new Set(map.brushes.flatMap((b) => b.faces.map((f) => f.texture)));
+  const entities = map.entities.map((entity) => {
+    const out = { ...entity };
+    if (entity.brushes) {
+      out.brushes = place(entity.brushes);
+      for (const b of entity.brushes) for (const f of b.faces) textures.add(f.texture);
+    }
+    if (typeof entity.origin === "string") {
+      const p = quarterTurn(entity.origin.split(/\s+/).map(Number), quarters);
+      out.origin = p.map((v, k) => v + at[k]);
+    }
+    if (typeof entity.angles === "string") {
+      const [pitch, yaw, roll] = entity.angles.split(/\s+/).map(Number);
+      out.angles = [pitch, (yaw + 90 * quarters) % 360, roll];
+    }
+    return out;
+  });
+  return { brushes: place(map.brushes), entities, textures: [...textures] };
 }
 
 /** A brush prefab's pieces turned by a quarter turn `quarters` about z and moved to `at` ([x, y, floor]). */
@@ -458,9 +495,22 @@ export function buildMapSpec(spec, { out, compilers, folder } = {}) {
 
   // furniture: brush prefabs, or plain boxes
   const prefabs = spec.prefabs ?? {};
-  place(spec.furniture, "furniture", (thing, room, at) => {
+  // a texture a prefab's .map names, as the word of the spec it was made from: SM_FURNITURE is "furniture"
+  const wordOfTexture = new Map([...Object.keys(materials), ...Object.keys(MATERIALS)].map((word) => [textureName(word), word]));
+  const putPrefab = (prefab, at, quarters, where) => {
+    if (!prefab.file) return void brushes.push(...placedPrefab(prefab, at, quarters, textureOf));
+    const placed = prefabFromMap(resolve(folder ?? ".", prefab.file), at, quarters);
+    for (const name of placed.textures) {
+      const word = wordOfTexture.get(name.toUpperCase());
+      if (!word) throw new Error(`${where}: its .map wears ${name}, which is no material of the spec (its textures are SM_ and a word of theme, textures or a base)`);
+      textureOf(word);
+    }
+    brushes.push(...placed.brushes);
+    entities.push(...placed.entities);
+  };
+  place(spec.furniture, "furniture", (thing, room, at, i) => {
     const prefab = thing.prefab ? prefabs[thing.prefab] : { pieces: [{ box: [[-thing.box[0] / 2, -thing.box[1] / 2, 0], [thing.box[0] / 2, thing.box[1] / 2, thing.box[2]]], texture: thing.texture ?? "furniture" }] };
-    brushes.push(...placedPrefab(prefab, at, Math.round((thing.rotate ?? 0) / 90), textureOf));
+    putPrefab(prefab, at, Math.round((thing.rotate ?? 0) / 90), `furniture[${i}]`);
   });
   for (const mark of marks) {
     if (!mark.meaning.prefab) continue;
@@ -470,7 +520,12 @@ export function buildMapSpec(spec, { out, compilers, folder } = {}) {
       continue;
     }
     if (!prefabs[mark.meaning.prefab]) errors.push(`layout: the mark ${mark.char} names no prefab ${mark.meaning.prefab}`);
-    else brushes.push(...placedPrefab(prefabs[mark.meaning.prefab], [mark.x, mark.y, room.min[2]], Math.round((mark.meaning.rotate ?? 0) / 90), textureOf));
+    else
+      try {
+        putPrefab(prefabs[mark.meaning.prefab], [mark.x, mark.y, room.min[2]], Math.round((mark.meaning.rotate ?? 0) / 90), `layout ${mark.char}`);
+      } catch (error) {
+        errors.push(error.message);
+      }
   }
 
   // models built from their specs, and put in as props
@@ -586,9 +641,13 @@ export function buildMapSpec(spec, { out, compilers, folder } = {}) {
       save("plan", planOf(bsp, drawing));
       // a view of every room, from a corner by its walls looking across it to the far corner
       const views = [...rooms.values()].map((room) => {
-        const from = [room.min[0] + 20, room.min[1] + 20, room.min[2] + 64];
+        // high in the corner, under the ceiling, looking down across the room: over what stands on its floor
+        const high = room.max[2] - room.min[2];
+        const from = [room.min[0] + 16, room.min[1] + 16, room.min[2] + Math.max(64, Math.min(high - 16, 160))];
+        const across = Math.hypot(room.max[0] - from[0], room.max[1] - from[1]);
         const yaw = Math.round((Math.atan2(room.max[1] - from[1], room.max[0] - from[0]) * 180) / Math.PI);
-        return drawMap(bsp, { ...drawing, from, yaw, pitch: -8, width: 320, height: 240 });
+        const pitch = -Math.round((Math.atan2(from[2] - room.min[2], across * 0.55) * 180) / Math.PI);
+        return drawMap(bsp, { ...drawing, from, yaw, pitch, width: 320, height: 240 });
       });
       save("views", tile(views, Math.min(4, views.length), [...rooms.keys()]));
       report.facts.push(`compiled: ${result.bsp}; the floors' light by room: ${lit.rooms.map((r) => `${r.name} ${Math.round(r.mean)}`).join(", ")}`);

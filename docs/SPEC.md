@@ -240,4 +240,4 @@ and pass the picture as `reference`: it is then drawn beside the plan of the res
 - `ROOMS`: every room's box and the light on its floor.
 
 The pictures: the plan of the result (every entity marked with its number and class) and a view of every
-room from its south-west corner, lit by the map's own light.
+room from high in its south-west corner, looking down across it, lit by the map's own light.
