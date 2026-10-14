@@ -8,7 +8,7 @@
 //
 // held/<kind>/<id>/: input/ (Valve's pictures, out of git), words.md, <leg>/ (spec.json, answer.md, run.json,
 // judge.json; built/ out of git).
-import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync, copyFileSync, rmSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync, copyFileSync, rmSync, renameSync } from "node:fs";
 import { join, basename } from "node:path";
 import { execFileSync } from "node:child_process";
 import { HERE, GAME, POSE, SIDES, ANGLES, readModel, boxOf, picturesOf, savePng, besides } from "./lib.mjs";
@@ -133,6 +133,13 @@ async function reproduce(kind, s, leg) {
   const base = folderOf(kind, s.id);
   const out = join(base, leg);
   if (existsSync(join(out, "run.json")) && !again) return `${kind}/${s.id}:${leg}: done before`;
+  // the last round kept: its records and what it built, under round-<n>
+  if (existsSync(join(out, "run.json"))) {
+    const n = readdirSync(out).filter((f) => /^round-\d+$/.test(f)).length + 1;
+    const keep = join(out, `round-${n}`);
+    mkdirSync(keep);
+    for (const f of ["spec.json", "answer.md", "run.json", "judge.json", "built"]) if (existsSync(join(out, f))) renameSync(join(out, f), join(keep, f));
+  }
   const input = join(base, "input");
   const files = {};
   let given;
