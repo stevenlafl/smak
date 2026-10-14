@@ -36,9 +36,9 @@ fidelity.
   the joints; round paws and turned oval feet; the tail a tube on the pelvis curling up behind.
 - The face is set into the head's surface: the eyes spheres with pupils, each with an orange sphere over its
   top half for a heavy lid; two cream cheeks and a pink nose; whiskers out from the cheeks.
-- The stripes are `ridge`s on the head and across the back of the torso (with `ends: ["run", "run"]` so
-  that they keep their width to their ends) and `band`s round the forearms; the belly a cream sphere sunk
-  into the torso's front.
+- The stripes are `marks`, painted on the head, across the back of the torso and round the forearms: they
+  lie flat on the fur, so they are colour, not shape. The head's narrow to a point down the forehead; the
+  belly is a cream sphere sunk into the torso's front.
 
 ## Iterations
 
@@ -53,4 +53,7 @@ fidelity.
 3. The head was a third of the body's width and the face small: the head 1.3 times wider and sunk, the eyes,
    lids, cheeks and nose larger, the belly sunk further in. The head's stripes were dashes (a ridge narrows
    to a point at both ends unless told): full width to their ends and longer.
-
+4. The stripes were built: six ridges and four bands, 0.2 to 0.3 units high, which changed no outline,
+   caused three of iteration 1's faults and spent points and normals of a body held to 2048. They are
+   painted now (`marks`, which the kit learnt for this): ten parts fewer, nothing to come apart, and
+   sharper edges.

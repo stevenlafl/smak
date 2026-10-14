@@ -28,8 +28,9 @@ import { sword, taper } from "../../kits/swordkit.mjs";
 import { axe } from "../../kits/axekit.mjs";
 import { blunt } from "../../kits/bluntkit.mjs";
 import { bow } from "../../kits/bowkit.mjs";
-import { materialOf, flagsOf, zonePainter, HOLE_RGB } from "./paint.mjs";
+import { materialOf, flagsOf, zonePainter, colourAt, HOLE_RGB } from "./paint.mjs";
 import { paintFinish, FINISH } from "./finish.mjs";
+import { paintMarks } from "./marks.mjs";
 
 /** A character's finish unless told: cloth and skin do not rub bright as metal and wood do. */
 const CHARACTER_FINISH = { wear: 0.15, grime: 0.3 };
@@ -55,7 +56,7 @@ const KINDS = {
   prefab: ["prefab", "spec", "file", "scale"],
 };
 /** The fields every part takes. */
-const COMMON = ["id", "kind", "material", "at", "attach", "rotate", "mirror", "repeat", "open", "loose", "bone", "span", "finish", "smooth", "print", "note"];
+const COMMON = ["id", "kind", "material", "at", "attach", "rotate", "mirror", "repeat", "open", "loose", "bone", "span", "finish", "smooth", "print", "marks", "note"];
 /** The kinds that sit on another part's surface, and move with it. */
 const ON_SURFACE = new Set(["band", "boss", "ridge", "studs"]);
 /** The anchors every part has: the middles of the faces of its box, and its middle. */
@@ -188,6 +189,27 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
     const positive = (key, value = part[key]) => {
       if (!isNumber(value) || value <= 0) errors.push(`${label}.${key}: a number over 0, not ${JSON.stringify(value)}`);
     };
+    // marks: painted on a turned part's surface, as a ridge is built on it
+    if (part.marks !== undefined) {
+      if (!["turn", "cylinder", "sphere", "tube"].includes(part.kind))
+        errors.push(`${label}.marks: marks are painted on a turned part (turn, cylinder, sphere or tube); a box's words are its print`);
+      else if (!Array.isArray(part.marks)) errors.push(`${label}.marks: a list of { path, width, material, ends }`);
+      else
+        part.marks.forEach((mark, k) => {
+          const where = `${label}.marks[${k}]`;
+          if (!Array.isArray(mark?.path) || mark.path.length < 2 || mark.path.some((q) => !Array.isArray(q) || q.length !== 2 || !q.every(isNumber)))
+            errors.push(`${where}.path: [[s, angle], ...], two places at least (s 0 to 1 along the part, the angle in degrees round it)`);
+          if (mark?.width !== undefined && !(isNumber(mark.width) && mark.width > 0)) errors.push(`${where}.width: a number over 0 (units)`);
+          for (const end of [mark?.ends ?? []].flat())
+            if (!["round", "point"].includes(end)) errors.push(`${where}.ends: "round" or "point", or one of each`);
+          if (typeof mark?.material === "string" && spec.materials?.[mark.material] === undefined)
+            try {
+              materialOf(mark.material);
+            } catch {
+              errors.push(`${where}.material: "${mark.material}" is neither in the spec's materials nor a base`);
+            }
+        });
+    }
     switch (part.kind) {
       case "box":
         if (!isPoint(part.size) || part.size.some((v) => v <= 0))
@@ -551,6 +573,17 @@ function piecesOf(given, context) {
       built.set(part.id, { made, mesh: meshes.length, range: [start, M.tris.length], host: host ? part.on.part : null });
     }
     meshes.push({ tris: M.tris, image: S.image(), flags, name: `sheet${n}` });
+    // marks painted on the parts that have them, in each part's own space, before it is placed
+    for (const part of parts.filter((p) => p.marks?.length)) {
+      const { made, range } = built.get(part.id);
+      paintMarks(meshes.at(-1).image, M.tris.slice(...range), made.surface, {
+        from: made.from,
+        to: made.to,
+        marks: part.marks,
+        colourOf: (mark, x, y) => colourAt(materialFor({ material: mark.material ?? { base: "paint", tone: [0.05, 0.05, 0.05] } }), x, y, 1, zones.px),
+        px: zones.px,
+      });
+    }
     const partOf = new Array(M.tris.length);
     for (const part of parts) {
       const { range } = built.get(part.id);

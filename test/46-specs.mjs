@@ -309,6 +309,24 @@ test("a model spec's print: words on a box's face, in their ink, over its materi
   sure(red > 40 && cream > 1000 && other < cream * 0.15, `red letters on cream: ${red} red, ${cream} cream, ${other} other`);
 });
 
+test("a model spec's marks: stripes painted on a turned part, on its side only, round it as a ring; none on a box", () => {
+  const post = (marks) => ({ spec: "smak.model/1", name: "post.mdl", kind: "prop", finish: false, materials: { fur: { base: "paint", tone: [0.95, 0.55, 0.12] } }, parts: [{ id: "post", kind: "cylinder", radius: 6, height: 30, sides: 16, material: "fur", marks }] });
+  const dark = (spec) => {
+    const { mdl, report } = buildModelSpec(spec);
+    sure(report.ok, [...report.errors, ...report.faults].join("; "));
+    const front = smak.render(mdl, { seq: 0, yaw: 0, pitch: 0, width: 120, height: 160, light: false });
+    let count = 0;
+    for (let i = 0; i < front.rgba.length; i += 4) if (front.rgba[i] < 40 && front.rgba[i + 1] < 40 && front.rgba[i + 2] < 40) count++;
+    return count;
+  };
+  const ring = dark(post([{ path: [[0.5, 0], [0.5, 360]], width: 4 }]));
+  const behind = dark(post([{ path: [[0.2, 180], [0.8, 180]], width: 4 }]));
+  const none = dark(post([]));
+  sure(ring > 300 && behind === none, `a ring shows from the front (${ring} dark dots), a stripe behind does not (${behind} against ${none})`);
+  const box = validateModelSpec({ spec: "smak.model/1", name: "b.mdl", parts: [{ id: "b", kind: "box", size: [4, 4, 4], marks: [{ path: [[0, 0], [1, 0]] }] }] });
+  sure(box.errors.some((e) => /marks are painted on a turned part/.test(e)), box.errors.join("; "));
+});
+
 test("a model spec's finish: a box's edges worn lighter than its middle, its foot dirtier; none when told", () => {
   const spec = (finish, partFinish) => ({
     spec: "smak.model/1",

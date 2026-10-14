@@ -119,6 +119,19 @@ A `box` may carry words on a face: `"print": { "text": "NOODLES", "face": "front
 "size": 0.6 }` (or a list of them), in plain capitals and digits as large as the face holds (`size`: the
 share of its height), over its material. `face`: `front`, `back`, `left`, `right`, `top`.
 
+A turned part (`turn`, `cylinder`, `sphere`, `tube`) may carry painted **marks**: `"marks": [{ "path": [[0.2,
+130], [0.2, 230]], "width": 1.1, "material": "stripe", "ends": "point" }]`. A path is a ridge's (`s` 0 to 1
+along the part, the angle in degrees round it; `[[0.5, 0], [0.5, 360]]` is a ring round it); `width` in
+units; `material` a word of `materials` or a base (near-black unless told); `ends` `round` (unless told) or
+`point`, or one of each. A mark is painted into the part's picture and follows it wherever it is placed.
+
+**Shape or paint.** Build it (`ridge`, `band`, `boss`, a part of its own) when it changes the outline: it
+stands off the surface by a unit or more on a thing a player's size, it is seen edge-on (a brim, an ear, a
+collar), or it moves on a bone of its own. Paint it (`marks`, `print`) when it lies on the surface: stripes,
+spots, a painted line, a seam, a label, a rivet seen from two steps away. A built ridge 0.3 high changes
+nothing the engine's flat light shows, and costs triangles, normals (2048 a body) and a part that can come
+apart. Holes in a thin sheet (a fence, a net, a grate) are a third way: a `mesh` material, see-through.
+
 Parts should touch: the check calls a part more than 0.25 units from every other **floating**. Let parts
 sink a little into what they stand on (an `offset` of `[0, 0, -0.5]`), the way a real thing is made: a part
 sunk into another, or cutting through it, touches it.

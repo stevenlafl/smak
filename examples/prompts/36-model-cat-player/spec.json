@@ -106,7 +106,75 @@
      0,
      -5
     ]
-   }
+   },
+   "marks": [
+    {
+     "path": [
+      [
+       0.7,
+       -22
+      ],
+      [
+       0.85,
+       -24.200000000000003
+      ],
+      [
+       0.99,
+       -33.0
+      ]
+     ],
+     "width": 1.4,
+     "material": "stripe",
+     "ends": [
+      "point",
+      "round"
+     ]
+    },
+    {
+     "path": [
+      [
+       0.7,
+       0
+      ],
+      [
+       0.85,
+       0.0
+      ],
+      [
+       0.99,
+       0.0
+      ]
+     ],
+     "width": 1.4,
+     "material": "stripe",
+     "ends": [
+      "point",
+      "round"
+     ]
+    },
+    {
+     "path": [
+      [
+       0.7,
+       22
+      ],
+      [
+       0.85,
+       24.200000000000003
+      ],
+      [
+       0.99,
+       33.0
+      ]
+     ],
+     "width": 1.4,
+     "material": "stripe",
+     "ends": [
+      "point",
+      "round"
+     ]
+    }
+   ]
   },
   {
    "id": "eye_left",
@@ -586,90 +654,6 @@
    }
   },
   {
-   "id": "head_stripe_0",
-   "kind": "ridge",
-   "material": "stripe",
-   "on": {
-    "part": "head",
-    "path": [
-     [
-      0.7,
-      -22
-     ],
-     [
-      0.85,
-      -24.200000000000003
-     ],
-     [
-      0.99,
-      -33.0
-     ]
-    ]
-   },
-   "width": 1.4,
-   "height": 0.3,
-   "ends": [
-    "run",
-    "run"
-   ]
-  },
-  {
-   "id": "head_stripe_1",
-   "kind": "ridge",
-   "material": "stripe",
-   "on": {
-    "part": "head",
-    "path": [
-     [
-      0.7,
-      0
-     ],
-     [
-      0.85,
-      0.0
-     ],
-     [
-      0.99,
-      0.0
-     ]
-    ]
-   },
-   "width": 1.4,
-   "height": 0.3,
-   "ends": [
-    "run",
-    "run"
-   ]
-  },
-  {
-   "id": "head_stripe_2",
-   "kind": "ridge",
-   "material": "stripe",
-   "on": {
-    "part": "head",
-    "path": [
-     [
-      0.7,
-      22
-     ],
-     [
-      0.85,
-      24.200000000000003
-     ],
-     [
-      0.99,
-      33.0
-     ]
-    ]
-   },
-   "width": 1.4,
-   "height": 0.3,
-   "ends": [
-    "run",
-    "run"
-   ]
-  },
-  {
    "id": "hips",
    "kind": "turn",
    "material": "fur",
@@ -763,7 +747,54 @@
      "Bip01 Neck"
     ],
     "over": 4
-   }
+   },
+   "marks": [
+    {
+     "path": [
+      [
+       0.22,
+       130
+      ],
+      [
+       0.22,
+       230
+      ]
+     ],
+     "width": 1.1,
+     "material": "stripe",
+     "ends": "point"
+    },
+    {
+     "path": [
+      [
+       0.44,
+       130
+      ],
+      [
+       0.44,
+       230
+      ]
+     ],
+     "width": 1.1,
+     "material": "stripe",
+     "ends": "point"
+    },
+    {
+     "path": [
+      [
+       0.66,
+       130
+      ],
+      [
+       0.66,
+       230
+      ]
+     ],
+     "width": 1.1,
+     "material": "stripe",
+     "ends": "point"
+    }
+   ]
   },
   {
    "id": "belly",
@@ -780,66 +811,6 @@
     },
     "at": "centre"
    }
-  },
-  {
-   "id": "back_stripe_0",
-   "kind": "ridge",
-   "material": "stripe",
-   "on": {
-    "part": "torso",
-    "path": [
-     [
-      0.22,
-      130
-     ],
-     [
-      0.22,
-      230
-     ]
-    ]
-   },
-   "width": 1.1,
-   "height": 0.2
-  },
-  {
-   "id": "back_stripe_1",
-   "kind": "ridge",
-   "material": "stripe",
-   "on": {
-    "part": "torso",
-    "path": [
-     [
-      0.44,
-      130
-     ],
-     [
-      0.44,
-      230
-     ]
-    ]
-   },
-   "width": 1.1,
-   "height": 0.2
-  },
-  {
-   "id": "back_stripe_2",
-   "kind": "ridge",
-   "material": "stripe",
-   "on": {
-    "part": "torso",
-    "path": [
-     [
-      0.66,
-      130
-     ],
-     [
-      0.66,
-      230
-     ]
-    ]
-   },
-   "width": 1.1,
-   "height": 0.2
   },
   {
    "id": "neck",
@@ -908,29 +879,37 @@
      "Bip01 L Hand"
     ],
     "over": 0.8
-   }
-  },
-  {
-   "id": "arm_stripe_left_0",
-   "kind": "band",
-   "material": "stripe",
-   "on": {
-    "part": "forearm_left",
-    "s": 0.35
    },
-   "width": 0.9,
-   "height": 0.18
-  },
-  {
-   "id": "arm_stripe_left_1",
-   "kind": "band",
-   "material": "stripe",
-   "on": {
-    "part": "forearm_left",
-    "s": 0.65
-   },
-   "width": 0.9,
-   "height": 0.18
+   "marks": [
+    {
+     "path": [
+      [
+       0.35,
+       0
+      ],
+      [
+       0.35,
+       360
+      ]
+     ],
+     "width": 0.9,
+     "material": "stripe"
+    },
+    {
+     "path": [
+      [
+       0.65,
+       0
+      ],
+      [
+       0.65,
+       360
+      ]
+     ],
+     "width": 0.9,
+     "material": "stripe"
+    }
+   ]
   },
   {
    "id": "paw_left",
@@ -1093,29 +1072,37 @@
      "Bip01 R Hand"
     ],
     "over": 0.8
-   }
-  },
-  {
-   "id": "arm_stripe_right_0",
-   "kind": "band",
-   "material": "stripe",
-   "on": {
-    "part": "forearm_right",
-    "s": 0.35
    },
-   "width": 0.9,
-   "height": 0.18
-  },
-  {
-   "id": "arm_stripe_right_1",
-   "kind": "band",
-   "material": "stripe",
-   "on": {
-    "part": "forearm_right",
-    "s": 0.65
-   },
-   "width": 0.9,
-   "height": 0.18
+   "marks": [
+    {
+     "path": [
+      [
+       0.35,
+       0
+      ],
+      [
+       0.35,
+       360
+      ]
+     ],
+     "width": 0.9,
+     "material": "stripe"
+    },
+    {
+     "path": [
+      [
+       0.65,
+       0
+      ],
+      [
+       0.65,
+       360
+      ]
+     ],
+     "width": 0.9,
+     "material": "stripe"
+    }
+   ]
   },
   {
    "id": "paw_right",
