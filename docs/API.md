@@ -113,6 +113,24 @@ A pose is `{ q, p }`: for each bone a turn and a place, plain data that no call 
 | `seam(rig, frames)` | `{ degrees, units, bone }`: how far the last frame is from the first |
 | `stride(rig, frames, { feet, fps, ground = 1 })` | `{ speed, slide, low, feet }`: the speed the planted feet ask for (units a second), how far off it they are at the worst, the lowest a foot goes |
 
+## Sounds (`src/audio/`, exported as `audio`)
+
+`import { audio } from "smak"`. A sound is samples, a `Float32Array` from -1 to 1, and a rate. The spec that
+makes them is in `docs/SPEC.md`, "A sound"; why each rule is so, in `research/sound-generation.md`.
+
+| Function | Does |
+| --- | --- |
+| `readWav(bytes)` | `{ format, channels, rate, bits, samples, x, cue, chunks }`: a WAVE file's samples (a stereo one as the mean of its channels) and what it says of itself; `cue` the cue points' samples, or null. |
+| `writeWav(x, { rate = 22050, bits = 16, loop, seed })` | A mono PCM file as GoldSrc plays it: 8 or 16 bits (8 with a seeded dither), 11025, 22050 or 44100 Hz; `loop`: the sample the engine loops back to, as the one cue point. Refuses another rate or depth. |
+| `features({ x, rate })` | `{ length, peak, rms, crest, dc, clipped, lead, tail, attack, peakAt, t20, t40, centroid, rolloff, flatness, bands, onsets }`: levels in dBFS, times in seconds (`t20`, `t40`: from its peak to -20 and -40 dB), `centroid` and `rolloff` in Hz, `flatness` 0 (a tone) to 1 (white noise), `bands` the % of its power under 150, to 600, to 2000, to 5000 and over 5000 Hz. |
+| `checks(wav, { loop, oneShot })` | `{ faults, warnings, features }`: what the engine would do wrong (not mono PCM, clipping, an offset, silence before it starts, an end that clicks, a loop with no cue or a seam that jumps), in sentences. |
+| `render(sound, { rate })` | The samples of a sound as a spec gives it (`{ length, seed, pitch, layers, finish, loop }`): its layers made and mixed, then finished. The same sound and seed, the same samples. |
+| `seeded(n)`, `biquad(type, f, rate, q, gain)`, `envelopeAt(env, t)`, `MODE_SETS` | The blocks it is made of: a random number maker, a filter of one sample at a time (RBJ), an envelope's level, the ratios of a struck thing's modes. |
+| `CLASSES`, `rangesOf(name)`, `scoreAgainst(features, name)` | What the game's own sounds of each kind measure (numbers, not files), their ranges widened, and a sound held against them: `{ score, of, lines }`, each feature 2 in range, 1 near, 0 off, the ones off in words. |
+| `soundPicture([{ name, x, rate, loop }], { width = 640 })` | Each sound's waveform over its spectrogram, one under another at one time scale. |
+| `fft(re, im)`, `spectrum(x, rate, size)` | A radix-2 FFT in place; a sound's power by bin, frame by frame. |
+| `buildSoundSpec(spec, { games })`, `validateSoundSpec(spec)` | A sound spec built: `{ report, files: [{ name, bytes }], picture }` (what the tool `build` does with one). |
+
 ## Whole models
 
 `writeMdl({ name, bones, sequences, textures, skins, bodyparts, hitboxes, attachments, controllers, eyes, min, max, bbmin, bbmax })`
@@ -199,16 +217,18 @@ texture, bone, pose })`.
 
 ## Putting a piece into a model (`src/build.mjs`, `src/fit.mjs`, `src/mesh.mjs`)
 
-`swapMesh(src, { body, pick, piece, texture, place = "fit", size = "old", name })` → `{ mdl, report }`
+`swapMesh(src, { body, bodypart = 0, pick, piece, texture, place = "fit", size = "old", turn, name })` → `{ mdl, report }`
 
 | Option | Meaning |
 | --- | --- |
-| `body` | The body number that shows the submodel (of the first bodypart). |
-| `pick(mesh)` | True for the meshes that are the old piece. Default: all whose texture name does not match `HANDS` (`/hands|arms|body/i`). |
+| `body` | The body number that shows the submodel. |
+| `bodypart` | The bodypart that holds it (0): a launcher's tube may be in another than its rocket. |
+| `pick(mesh)` | True for the meshes that are the old piece. Default: all whose texture name does not match `HANDS` (`/hands|arms|forearm|body|glove|sleeve|knuckle|handpak/i`: Half-Life's gloves and sleeves; not "hand" alone, which the .357's grip is). |
 | `piece` | `{ tris, haft?, rig?, bones? }`. `haft: true`: it is laid along the old one's handle. `rig: "nearest"`: each corner takes the bone of the old piece's nearest corner. `bones: [, "name"]`: corners with `part: n` go to that bone. |
 | `texture` | The piece's texture. |
 | `place` | `"fit"`: laid over the old piece's outline. `"bone"`: its points are already in the carrying bone's space. |
 | `size` | `"old"`: stretched to the old length. `"own"`: keeps its drawn size, its low-x end held where the old one's was. |
+| `turn` | With `"fit"`: the one of the four turns to take (`"as drawn"`, `"x"`, `"y"`, `"z"`) where the outline cannot choose (a box); the best outline unless told. |
 
 `report`: `{ model, bone, bones, was, now, verts, scale, turn, left, boxOff, textures }`.
 
@@ -218,7 +238,7 @@ The parts it is made of, for when you need them separately:
 | --- | --- |
 | `measure(src, body, pick, what)` | `{ info, j, model, meshes, rest, bone, original }`: the picked meshes, the bone that carries most of them, and their triangles in that bone's space. |
 | `frameOf(tris)` | A frame `{ X, Y, Z, o }`: the piece's own axes (principal axes by area) and its middle. |
-| `bestTurn(pieceTris, originalInItsAxes, haft)` | `{ k, name, left, at(p) }`: the scale, which of four turns fits best, what is left over, and the function that places a point. |
+| `bestTurn(pieceTris, originalInItsAxes, haft, only)` | `{ k, name, left, at(p) }`: the scale, which of four turns fits best (or `only` that one), what is left over, and the function that places a point. |
 | `shieldFit(original)` | For a thing with straps on its back: its frame and measures. |
 | `into(frame, p)`, `out(frame, p)` | A point into a frame's axes and back. |
 | `meshOf(original, tris, texture, bone, smooth = 40)` | Triangles as `replaceMesh` takes them: shared points, smoothed normals, winding as the original's (pass `null` for the format's usual). A corner may carry `bone` and `to` (the matrix taking `p` into that bone's space), for creases `group` and `smooth`, and a normal of its own, `n`: see below. |
@@ -527,7 +547,7 @@ Options of `render` (and the others pass them on):
 | `body`, `skin` | 0, 0 | Which submodels and which skin family. |
 | `width`, `height` | 512² (640×480 first person) | |
 | `light` | true | False: textures at full brightness. |
-| `cull` | true | False: both sides of every triangle. |
+| `cull` | true | False: both sides of every triangle. `"solid"`: both sides of every triangle but a masked texture's, whose holes show its far side as in the game (what `seeThrough` compares with). |
 | `background` | `[58, 62, 70]` | |
 
 `TEXTURE` names the texture flags: `{ flat: 1, chrome: 2, fullbright: 4, additive: 32, masked: 64 }`.

@@ -1,6 +1,6 @@
 # Specs: a model or a map from a person's words
 
-A spec is a description in plain JSON of a model or a map. The person says what they want, in words and
+A spec is a description in plain JSON of a model, a map or a sound. The person says what they want, in words and
 maybe a drawing; you, the agent, turn that into a spec; the tool `build` (or `buildModelSpec` and
 `buildMapSpec` in a script) builds it, checks it and draws it. You write no code and no coordinates of
 brushes or triangles: parts are placed by saying what they sit on, rooms by saying what they are next to.
@@ -230,6 +230,65 @@ see-through materials are left as they are.
 
 The pictures: six sides of it; with `focus`, those parts close from the front, the back and below (a light
 under a housing shows only from below); with `reference`, the person's picture beside a view of it.
+
+## A sound
+
+A sound, or a set of them, made from layers into GoldSrc's own files (mono PCM, 22050 Hz 16-bit unless
+told), checked as the engine needs them, and measured against the game's own sounds of its kind.
+
+```json
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/cbar_hit1.wav",
+  "class": "metal hit",
+  "seed": 3,
+  "layers": [
+    { "id": "click", "kind": "noise", "filter": [{ "type": "highpass", "f": 1500 }], "env": { "decay": 0.012 }, "gain": -2 },
+    { "id": "ring", "kind": "modes", "f": 760, "ratios": "bar", "decay": 0.7, "damping": 1.2 }
+  ],
+  "finish": { "saturate": 1.5, "room": { "decay": 0.35, "wet": 0.15 } },
+  "variants": [{ "name": "weapons/cbar_hit2.wav", "seed": 4, "pitch": 3 }]
+}
+```
+
+| Field | |
+| --- | --- |
+| `name` | Its path under `sound/`, lower case, `.wav`. A sound the game's code plays keeps the game's name (the crowbar's hit is `weapons/cbar_hit1.wav`): that name is the one the game loads, with no code |
+| `class` | What it is held against: `metal hit`, `flesh hit`, `swing`, `gunshot`, `reload`, `click`, `pump`, `shell`, `launcher`, `grenade cock`, `grenade bounce`, `explosion`, `step concrete`, `step metal`, `step dirt`, `step tile`, `step grate`, `step vent`, `loop drips`, `loop crickets`, `loop machine`, `loop drone`, `loop fire` |
+| `rate`, `bits` | 22050 and 16 unless told; 11025, 44100 and 8 too. Never stereo: GoldSrc plays mono only |
+| `seed` | Every random choice: the same spec makes the same bytes |
+| `length`, `pitch` | Seconds (unless told, the longest layer's end); a pitch in percent |
+| `layers` | Each `{ id, kind, at (s), length (s), gain (dB), env, filter }` (below) |
+| `finish` | `saturate` (a drive: what makes a shot loud, 1 to 8), `room: { decay, wet, tone }` (keep it short: the map's `env_sound` adds the room), `peak` (dBFS, -0.5) |
+| `loop` | `true` or `{ crossfade }`: a cue point at its start, its seam crossfaded; the engine loops it |
+| `variants` | More files from the same layers: `{ name, seed, pitch, gain }` (`cbar_hit2`, `pl_step1` to `4`) |
+| `reference` | The game's files to draw beside it (unless told, the first of its class), read from the game folders the server was given and never copied |
+| `sounds` | A set: a list of sounds, the spec's other fields their defaults |
+
+The kinds of layer:
+
+| kind | fields | what it is |
+| --- | --- | --- |
+| `noise` | `color`: `white`, `pink`, `brown` | a hiss, a whoosh, a blast, a scrape: shaped by its filters |
+| `tone` | `f`, `wave` (`sine`, `square`, `saw`, `triangle`), `sweep: { to, time }` | a boom that falls (`f` 140, `to` 45), a beep |
+| `fm` | `f`, `ratio`, `index`, `indexDecay` | a bell, a metallic ring, a machine |
+| `modes` | `f` and `ratios` (`bar`, `clamped`, `plate`, `bell`, `tube`, or a list), `gains`, `decay` (s to -60 dB), `damping`, `detune`; or `modes: [{ f, gain, decay }]` | a struck thing ringing: a wrench, a bell, a casing, a plate |
+| `particles` | `count` or `rate` (a second), `band: [lo, hi]` Hz, `grain` (s) | gravel, a rattle, debris, crackle |
+
+`env`: `{ attack, hold, decay }` in seconds (`decay` to -60 dB), `{ shape: "bell", decay }` (a swell up and
+down, a swing's whoosh), or `points: [[t, dB], ...]`. `filter`: a list of `{ type: lowpass | highpass |
+bandpass | peak | notch, f, q, gain, sweep: { to, time } }`. A layer's `at` puts it later: a pump is two
+clacks 0.2 apart, a step a heel and a toe.
+
+What the report says of a sound: each file's rate, length, peak, RMS and crest; its attack, T20 and T40
+(seconds to -20 and -40 dB), centroid (Hz: bright or dark), flatness (0 a pure tone, 1 white noise),
+onsets, and its power in five bands; then, with a `class`, how many of its features are in the range of
+the game's own of that kind, and each one off in words with which way to go (`centroid 881 Hz (1074 to
+1654): too dark: more 600 to 5000 Hz`). `FAULT`s are what the engine would do wrong: clipping, an offset,
+silence before it starts (it plays late), an end that clicks, a loop with no cue or a seam that jumps. The
+picture is each file's waveform over its spectrogram (log frequency, 50 Hz at the bottom), the game's own
+of its kind under them at the same time scale. What it cannot say is how it sounds, or how the game plays
+it (its volume, its pitch, the map's room): say so, and the person listens in the game.
 
 ## A map
 

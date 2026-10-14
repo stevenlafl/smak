@@ -21,6 +21,7 @@ import { text, image } from "./protocol.mjs";
 import { filesUnder, pathOf } from "./folders.mjs";
 import { guide } from "./guide.mjs";
 import { buildModelSpec } from "../src/spec/model.mjs";
+import { buildSoundSpec } from "../src/spec/sound.mjs";
 import { buildMapSpec } from "../src/spec/map.mjs";
 import { summaryOf, changesOf } from "../src/spec/changes.mjs";
 import { run, pictureWithin, TIMEOUT_SECONDS, OUTPUT_MOST, SHOWN_MOST, PICTURE_MOST } from "./run.mjs";
@@ -683,8 +684,21 @@ function build(folders, args) {
     if (files.models) show(smak.unpng(readFileSync(files.models)));
     return [text(lines.join("\n")), ...pictures];
   }
+  if (spec?.spec === "smak.sound/1") {
+    // sounds: each file under work:sound/, as the game's own folder has them; the picture of them all
+    const { report, files, picture } = buildSoundSpec(spec, { games: folders.wads ?? [] });
+    const lines = reportLines(report);
+    for (const file of files) {
+      const path = join(folders.work, "sound", file.name);
+      mkdirSync(dirname(path), { recursive: true });
+      writeFileSync(path, file.bytes);
+    }
+    if (files.length) lines.push(`written: ${files.map((file) => `work:sound/${file.name}`).join(", ")} (they take the place of the game's own of those names when put in <mod>/sound)`);
+    if (picture) show(picture);
+    return [text(lines.join("\n")), ...pictures];
+  }
   if (spec?.spec !== "smak.model/1")
-    throw new Error('spec: a model spec ("spec": "smak.model/1") or a map spec ("spec": "smak.map/1"); guide { doc: "spec" } says how to write one');
+    throw new Error('spec: a model spec ("spec": "smak.model/1"), a map spec ("smak.map/1") or a sound spec ("smak.sound/1"); guide { doc: "spec" } says how to write one');
   const { mdl, report, files = [] } = buildModelSpec(spec, { folder, games: folders.wads ?? [] });
   const lines = reportLines(report);
   if (mdl) {
@@ -891,7 +905,7 @@ export function toolsFor(folders, { allowRun = true } = {}) {
     {
       name: "build",
       description:
-        'A model or map from a JSON spec (guide { doc: "spec" }): built, checked (holes, gaps, leaks, reach, light), compiled, drawn. Says OK or what to fix, and what changed since the last build.',
+        'A model, map or sound from a JSON spec (guide { doc: "spec" }): built, checked (holes, gaps, leaks, reach, light; a sound against the game\'s of its kind), compiled, drawn. Says OK or what to fix, and what changed since the last build.',
       inputSchema: object(
         {
           spec: { description: "the spec, or a .json file of the folders" },

@@ -19,6 +19,7 @@ export * as workshop from "./workshop.mjs";
 export * as maps from "./maps/index.mjs";
 export * as play from "./play.mjs";
 export * as animate from "./animate.mjs";
+export * as audio from "./audio/index.mjs";
 export * from "./fbx.mjs";
 export * from "./glb.mjs";
 export * from "./import-shape.mjs";

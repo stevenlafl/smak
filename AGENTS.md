@@ -8,9 +8,14 @@ animations, events and textures by hand (`smak edit`); when they use it, the two
 `editor/AGENTS.md` says how you work on it.
 
 It also works on the game's **maps**: a compiled map (`.bsp`) read, checked, drawn and its entities changed; a new
-map made from brushes in a script and compiled; texture files (`.wad`) read and made. See "Maps", below.
+map made from brushes in a script and compiled; texture files (`.wad`) read and made. See "Maps", below. And it
+makes **sounds** (`.wav`) from layers, checked as the engine needs them and measured against the game's own.
 
-This file is the whole briefing. `docs/API.md` lists every function; `docs/ENGINES.md` covers GoldSrc against Xash;
+A model, a map or a sound can also be described in plain JSON, a **spec**, and built, checked and drawn by the
+tool `build` (or `node bin/smak.mjs build spec.json`) with no script at all: `docs/SPEC.md`, with worked cases in
+`examples/prompts/`. For a person's request through the MCP server, that is the way.
+
+This file is the whole briefing. `docs/API.md` lists every function; `docs/SPEC.md` the specs; `docs/ENGINES.md` covers GoldSrc against Xash;
 `docs/MAPS.md` (a compiled map, and the pictures of maps) and `docs/MAPS-MAKING.md` (brushes and the compile) hold
 the vocabulary for maps.
 
@@ -61,6 +66,7 @@ It makes a model from nothing and exercises every part of the kit. If every test
 | Change a compiled map's entities: move a start, add a monster, change a door's keys, take a point entity out | Change the brushes, the light or the visibility of a compiled map: that is a recompile from its source |
 | Make a new map from brushes in a script, check it and draw it before any compile, and compile it with VHLT (an outside program) | Compile without VHLT; cut one brush by another; place brushes by hand as an editor does |
 | Read a `.wad`, take a map's textures out as pictures, and make a `.wad` from pictures | Run the game: a door that opens, a trigger that fires and a script that runs only show there |
+| Make a sound (a hit, a shot, a pump, a step, a loop) from layers, as the engine plays it, measured against the game's own of its kind and drawn as a spectrogram | Say how a sound sounds: the numbers and the picture say how like the game's it is, not whether it is good. Listen in the game |
 
 When a task needs something in the right-hand column, say so to the person instead of working round it silently.
 
