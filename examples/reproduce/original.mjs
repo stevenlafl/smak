@@ -105,6 +105,8 @@ async function make() {
     copyFileSync(f.p, join(out, want));
     found.push(want);
   }
+  // every .wad it made beside them: a map names its own, and the textures are found by those names
+  for (const f of all.filter((x) => x.name.endsWith(".wad") && !found.includes(x.name))) copyFileSync(f.p, join(out, f.name));
   mkdirSync(join(ROOT, "specs"), { recursive: true });
   for (const f of all.filter((x) => x.name.endsWith(".spec.json"))) copyFileSync(f.p, join(ROOT, "specs", f.name));
   writeFileSync(join(ROOT, "run.json"), `${JSON.stringify({ kit, seconds: r.seconds, turns: r.turns, cost: r.cost, error: r.error, ended: r.ended, found, missing: LOOKED_FOR.filter((f) => !found.includes(f)), folder: r.folder }, null, 1)}\n`);
@@ -113,11 +115,11 @@ async function make() {
 
 // ── Half-Life's own, to set beside ─────────────────────────────────────────
 
-/** Half-Life's props (three bones or fewer, not v_ or p_) with their size: the line-ups pick from these. */
+/** Half-Life's props (three bones or fewer, no weapon's file) with their size: the line-ups pick from these. */
 function gameProps() {
   const out = [];
   for (const f of readdirSync(join(GAME, "models"))) {
-    if (!/\.mdl$/.test(f) || /t\.mdl$|\d\d\.mdl$|^(v_|p_)/.test(f)) continue;
+    if (!/\.mdl$/.test(f) || /t\.mdl$|\d\d\.mdl$|^(v_|p_|w_)/.test(f)) continue;
     try {
       const src = readModel(join(GAME, "models", f));
       if (smak.readMdl(src).bones.length > 3) continue;
@@ -135,12 +137,10 @@ function lineupOf(ours, list, dir, name) {
   const all = [{ src: ours, ours: true }, ...near];
   let seed = [...name].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 11);
   const order = all.map((x) => ({ x, k: (seed = (seed * 1103515245 + 12345) >>> 0) })).sort((a, b) => a.k - b.k).map((o) => o.x);
-  const within = framing(order[0].src, [POSE]);
-  for (const o of order.slice(1)) {
-    const f = framing(o.src, [POSE]);
-    within.mn = within.mn.map((v, k) => Math.min(v, f.mn[k]));
-    within.mx = within.mx.map((v, k) => Math.max(v, f.mx[k]));
-  }
+  // one camera for all four, about the largest, reaching round every one of them: the same scale for each
+  const frames = order.map((o) => framing(o.src, [POSE]));
+  const mid = frames.reduce((a, b) => (b.far > a.far ? b : a)).mid;
+  const within = { mid, far: Math.max(...frames.map((f) => Math.hypot(...f.mid.map((v, k) => v - mid[k])) + f.far)) };
   const shots = order.map((o) => render(o.src, { ...POSE, view: "orbit", yaw: 35, pitch: 20, width: 320, height: 320, within }));
   savePng(join(dir, "lineup.png"), tile(shots, 4, order.map((_, i) => "ABCD"[i])));
   return { letter: "ABCD"[order.findIndex((o) => o.ours)], others: near.map((x) => x.file) };
@@ -173,7 +173,8 @@ const band = (ok, near) => (ok ? 2 : near ? 1 : 0);
 /** One judge's scores held to the caps; passed by the rubric's "Passing". */
 async function judge(kind, label, dir, pictures, measured, caps = {}) {
   const items = ITEMS[kind];
-  const r = await runJudge({
+  // DRY=1: the harness alone, every judge's score a 1, to test the pictures and measures with no agent run
+  const r = process.env.DRY ? { answer: JSON.stringify(Object.fromEntries(items.map((i) => [i, { score: 1, reason: "dry run" }]))) } : await runJudge({
     read: dir,
     hours: 0.5,
     prompt: `You are an independent judge of one asset of a small mod made for Half-Life from a written brief. Judge it strictly by the rubric below: the "Original creation" section, with its kind's table read against what the brief asks, and "Passing" and "Keeping the judge honest". A measured item may score lower than its measurement allows, never higher.
