@@ -342,3 +342,75 @@ export function paintProjections(meshes, views) {
   }
   return { texels, views: prepared.map((v) => (v ? { rect: v.rect, seen: v.seen } : null)) };
 }
+
+/** sRGB (0 to 255) to CIE Lab, for colour differences a person would call so. */
+function labOf([r, g, b]) {
+  const lin = (c) => ((c /= 255) <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
+  const [R, G, B] = [lin(r), lin(g), lin(b)];
+  const X = (0.4124 * R + 0.3576 * G + 0.1805 * B) / 0.95047;
+  const Y = 0.2126 * R + 0.7152 * G + 0.0722 * B;
+  const Z = (0.0193 * R + 0.1192 * G + 0.9505 * B) / 1.08883;
+  const f = (t) => (t > 0.008856 ? Math.cbrt(t) : 7.787 * t + 16 / 116);
+  return [116 * f(Y) - 16, 500 * (f(X) - f(Y)), 200 * (f(Y) - f(Z))];
+}
+
+/** Rows of cells a view's comparison is made in; the columns follow its proportions. */
+const FIT_ROWS = 16;
+
+/**
+ * The built model drawn from each picture's camera, set against the picture in cells: where its painted look
+ * parts from the picture's (a strap's texels reading the case behind it, a part a little out of place). For each
+ * view (as `paintProjections` takes them): { meanDeltaE, worst: { deltaE, where } } over the cells both cover, or
+ * null when the thing is not found in the picture. `draw(yaw, pitch)` draws the model, `{ width, height, rgba }`.
+ */
+export function viewFit(draw, views) {
+  const ground = (img, i) => Math.abs(img.rgba[i * 4] - img.rgba[0]) + Math.abs(img.rgba[i * 4 + 1] - img.rgba[1]) + Math.abs(img.rgba[i * 4 + 2] - img.rgba[2]) < 8;
+  const boxIn = (img) => {
+    let [x0, y0, x1, y1] = [Infinity, Infinity, -1, -1];
+    for (let y = 0; y < img.height; y++)
+      for (let x = 0; x < img.width; x++)
+        if (!ground(img, y * img.width + x)) [x0, y0, x1, y1] = [Math.min(x0, x), Math.min(y0, y), Math.max(x1, x + 1), Math.max(y1, y + 1)];
+    return x1 < 0 ? null : [x0, y0, x1, y1];
+  };
+  const cellsOf = (img, [x0, y0, x1, y1], cols, keep) => {
+    const sum = Array.from({ length: cols * FIT_ROWS }, () => [0, 0, 0, 0, 0]);
+    for (let y = y0; y < y1; y++)
+      for (let x = x0; x < x1; x++) {
+        const c = Math.min(cols - 1, Math.floor(((x - x0) / (x1 - x0)) * cols)) + Math.min(FIT_ROWS - 1, Math.floor(((y - y0) / (y1 - y0)) * FIT_ROWS)) * cols;
+        const i = y * img.width + x;
+        sum[c][4]++;
+        if (!keep(i)) continue;
+        for (let k = 0; k < 3; k++) sum[c][k] += (img.rgba ?? img.rgb)[i * (img.rgba ? 4 : 3) + k];
+        sum[c][3]++;
+      }
+    return sum.map((s) => (s[3] > s[4] / 2 ? [s[0] / s[3], s[1] / s[3], s[2] / s[3]] : null));
+  };
+  return views.map((view) => {
+    const { picture } = view;
+    const area = view.area ?? [0, 0, picture.width, picture.height];
+    const mask = foregroundOf(picture, area);
+    const rect = view.rect ?? outlineBox(mask, picture.width, area);
+    const drawn = draw(view.yaw, view.pitch);
+    const box = boxIn(drawn);
+    if (!rect || !box) return null;
+    const cols = Math.max(1, Math.round((FIT_ROWS * (rect[2] - rect[0])) / Math.max(1, rect[3] - rect[1])));
+    const a = cellsOf(picture, rect, cols, (i) => mask[i]);
+    const b = cellsOf(drawn, box, cols, (i) => !ground(drawn, i));
+    let sum = 0;
+    let n = 0;
+    let worst = { deltaE: 0, at: 0 };
+    a.forEach((ca, i) => {
+      const cb = b[i];
+      if (!ca || !cb) return;
+      const [p, q] = [labOf(ca), labOf(cb)];
+      const d = Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2]);
+      sum += d;
+      n++;
+      if (d > worst.deltaE) worst = { deltaE: d, at: i };
+    });
+    if (!n) return null;
+    const [col, row] = [worst.at % cols, Math.floor(worst.at / cols)];
+    const where = `${["top", "upper middle", "lower middle", "bottom"][Math.min(3, Math.floor((row / FIT_ROWS) * 4))]} ${["left", "middle", "right"][Math.min(2, Math.floor((col / cols) * 3))]}`;
+    return { meanDeltaE: Math.round(sum / n * 10) / 10, worst: { deltaE: Math.round(worst.deltaE), where } };
+  });
+}

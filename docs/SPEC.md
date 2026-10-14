@@ -368,6 +368,10 @@ the front, not a corner), and a part the pictures show stands where they show it
 - `fact the shape's outline against each picture's`: with `project`, how much of the model's outline and each
   picture's are shared, view by view, both at their true proportions (as a judge measures it); under 0.8 is
   `WARN ... outline is off`: a part missing, too big or out of place in that view. Mend it, or carve the body.
+- `fact its look against each picture's`: the painted model drawn from each picture's camera and set against
+  the picture in cells (mean colour difference, and the worst cell with where it is); a mean over 10 or a cell
+  over 45 is `WARN ... its look parts from the pictures`: a part a little out of place takes another's colour
+  (a strap's texels reading the case behind it). Look at that view beside the picture and move the part.
 - `FAULT height ... where the spec asks`: the size is not what was asked.
 - `fact from the lowest part up`: each part's height from and to. A roof under a floor is a stack built
   upside down.

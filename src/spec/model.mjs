@@ -23,7 +23,7 @@ import { check } from "../check.mjs";
 import { readMdl, bones as bonesOf, sequences as sequencesOf, withTextures, addMesh, replaceMesh, inverse34, apply34, readSequence, replaceSequence, events as eventsOf, setEvents } from "../mdl.mjs";
 import { buildSoundSpec } from "./sound.mjs";
 import * as A from "../animate.mjs";
-import { posed } from "../render.mjs";
+import { posed, render } from "../render.mjs";
 import { meshOf } from "../mesh.mjs";
 import { putBody } from "../bodies.mjs";
 import { soundness } from "../sound.mjs";
@@ -38,10 +38,17 @@ import { paintMarks } from "./marks.mjs";
 import { bakeParts } from "./bake.mjs";
 import { contractOf, compareContract } from "../contract.mjs";
 import { paintPanels, paintWords, faceSize } from "./faces.mjs";
-import { paintProjections, VIEW_NAMES } from "./project.mjs";
+import { paintProjections, viewFit, VIEW_NAMES } from "./project.mjs";
 import { outlineFit } from "./posefit.mjs";
 /** An outline sharing less than this with its picture's is warned of: the reproduction test's own line (M1). */
 const OUTLINE_FAIR = 0.8;
+/**
+ * A painted look is warned of past these against a picture: set between Steven's reviews of round 8 (the filing
+ * cabinet at 98% and the headcrab at 95% gave means of 4 to 8 and worst cells to 34; the medkit he failed for its
+ * sides, means 10 to 15 and worst cells 52 to 78).
+ */
+const LOOK_MEAN = 10;
+const LOOK_WORST = 45;
 import { unpng } from "../image.mjs";
 
 /** A character's finish unless told: cloth and skin do not rub bright as metal and wood do. */
@@ -1293,6 +1300,7 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, hide =
   }
 
   // the person's pictures projected onto the shape: each texel takes the colour of the views that see it
+  let projectedViews = null;
   if (spec.project?.length) {
     const read = readPicture ?? ((name) => unpng(readFileSync(resolve(folder ?? ".", name.replace(/^(work|models):/, "")))));
     try {
@@ -1300,6 +1308,7 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, hide =
         const [yaw, pitch] = typeof view.view === "string" ? VIEW_NAMES[view.view] : [view.yaw ?? 0, view.pitch ?? 0];
         return { picture: read(view.picture), yaw, pitch, area: view.area, rect: view.rect, parts: view.parts };
       });
+      projectedViews = views;
       const { texels, views: seen } = paintProjections(meshes, views);
       report.facts.push(`pictures projected over ${texels} texels: ${seen.map((v, i) => `${spec.project[i].picture} (${spec.project[i].view ?? `yaw ${spec.project[i].yaw ?? 0} pitch ${spec.project[i].pitch ?? 0}`}) ${v ? `outline at ${v.rect.join(" ")} in it, ${v.seen} texels seen` : "NO OUTLINE FOUND in it: give rect"}`).join("; ")}`);
       seen.forEach((v, i) => !v && warnings.push(`project[${i}]: the thing's outline was not found in ${spec.project[i].picture}: give its area or rect`));
@@ -1388,6 +1397,15 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, hide =
   const seen = seeThrough(mdl);
   report.faults.push(...seen.faults);
   report.facts.push(`the pictures see through it at ${(seen.share * 100).toFixed(2)}% of its dots`);
+  // the painted model from each picture's camera, set against the picture: where its look parts from them
+  if (projectedViews) {
+    const fits = viewFit((yaw, pitch) => render(mdl, { seq: 0, yaw, pitch, width: 384, height: 384 }), projectedViews);
+    const named = (i) => spec.project[i].view ?? `yaw ${spec.project[i].yaw ?? 0} pitch ${spec.project[i].pitch ?? 0}`;
+    report.facts.push(`its look against each picture's, drawn from that picture's camera (mean colour difference, CIE76, of cells both cover; the worst cell and where): ${fits.map((f, i) => (f ? `${named(i)} ${f.meanDeltaE}, worst ${f.worst.deltaE} at its ${f.worst.where}` : `${named(i)} -`)).join("; ")}`);
+    const off = fits.map((f, i) => [f, i]).filter(([f]) => f && (f.meanDeltaE > LOOK_MEAN || f.worst.deltaE > LOOK_WORST));
+    if (off.length)
+      warnings.push(`its look parts from the pictures in ${off.map(([f, i]) => `${named(i)} (mean ${f.meanDeltaE}, ${f.worst.deltaE} at its ${f.worst.where})`).join(", ")}: a part out of place there takes another's colour (a strap reading the case behind it). Look at that view beside the picture (reference) and move the part`);
+  }
   const files = spec.weapon ? weaponViews(spec, meshes, { folder, games, report, hide }) : [];
   // the contract a mod's code holds the model to: a reference's bones, animations, attachments, bodyparts
   if (spec.contract) {

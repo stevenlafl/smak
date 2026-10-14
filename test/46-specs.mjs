@@ -578,6 +578,9 @@ test("a model spec's project: a person's picture of the front laid onto the face
   // the box's own outline against the picture's: the same shape, so they share nearly every cell
   const fit = report.facts.find((f) => /outline against each picture's/.test(f));
   sure(fit && Number(/front ([\d.]+)/.exec(fit)[1]) > 0.95 && !report.warnings.some((w) => /outline is off/.test(w)), fit);
+  // and its painted look against the picture, drawn from the picture's camera: the same colours where they were
+  const look = report.facts.find((f) => /its look against each picture's/.test(f));
+  sure(look && Number(/front ([\d.]+)/.exec(look)[1]) < 10 && !report.warnings.some((w) => /look parts/.test(w)), look);
   // from the front: red on the viewer's left, blue on the right; from the back: the box's own green
   const shot = (yaw) => smak.render(mdl, { seq: 0, yaw, pitch: 0, width: 100, height: 100, light: false });
   const at = (pic, x, y) => [...pic.rgba.subarray((y * 100 + x) * 4, (y * 100 + x) * 4 + 3)];
