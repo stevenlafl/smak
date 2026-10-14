@@ -347,3 +347,94 @@ export function definitionsOf(...sources) {
   }
   return { from: from.length ? from : ["an FGD"], fgd: true, maps: 0, classes };
 }
+
+// ── writing one ────────────────────────────────────────────────────────────
+/** The keys an editor writes by itself, which an FGD does not list. */
+const IMPLIED = ["classname", "origin", "model"];
+/** The engine's keys an FGD lists for every class when nothing else names them. */
+const ALWAYS = { point: ["targetname", "angles"], solid: ["targetname"] };
+/** What an FGD calls the kinds of value the code reads. */
+const FGD_TYPES = { vector: "string" };
+/** Classes the SDK makes for itself, which no map names: left out when nothing but the code has them. */
+const INTERNAL = ["player", "bodyque", "soundent", "beam", "weaponbox", "worlditems", "world_items", "spark_shower", "fireanddie", "test_effect", "trip_beam", "my_monster", "monster_player"];
+/** Only the code names it, and it is the SDK's own or a C++ name (TSWorldGun): no map's. */
+const internal = (name, c) => !c.defined && !c.seen && (INTERNAL.includes(name) || /^[A-Z]/.test(name));
+
+/** A value as an FGD writes it: a number bare, anything else in quotes. */
+const written = (value) => (/^-?\d+$/.test(String(value)) ? String(value) : quoted(value));
+/** Words for a person, always in quotes. */
+const quoted = (text) => `"${String(text).replace(/"/g, "'")}"`;
+
+/** The type a key is written with: an FGD's own, else what the code reads, else what the maps give. */
+function typeOfKey(key) {
+  // an FGD that calls a key whole when the code reads a fraction (a sprite's framerate) is wrong
+  if (key.defined && key.type === "integer" && key.read === "float") return "float";
+  if (key.defined && key.type) return key.type;
+  if (key.type) return FGD_TYPES[key.type] ?? key.type;
+  if (key.seen && key.whole === key.seen) return "integer";
+  return "string";
+}
+
+function internalOf(definitions) {
+  return Object.fromEntries(Object.entries(definitions.classes).filter(([n, c]) => internal(n, c)));
+}
+
+/**
+ * An .fgd file's text from definitions, as `joinDefinitions` puts an FGD's, a mod's maps' (`learnEntities`)
+ * and its program's (`definitionsOfCode`, `definitionsOfDll`) together: for a mod that has no FGD, or one
+ * that has fallen behind its code. A class is written when the program has it, or, with no program among the
+ * definitions, when anything names it; one an FGD or the maps name that the program lacks is listed in a
+ * comment at the top. Each class keeps what an FGD said of it (its kind, size, model, keys with their choices
+ * and flags and defaults); a key no FGD has is written with the type the code reads it as, or the maps'
+ * values have, and no default; with the class's code read, a key the maps alone give is left out. Of the engine's own keys (every class has them) only those an FGD or the maps
+ * give the class are written, with `targetname` (and `angles` for a point class). A comment above each class
+ * says where it was found.
+ */
+export function writeFgd(definitions, { name = "the mod" } = {}) {
+  const program = definitions.program;
+  const lines = [`// ${name}: entity definitions written by SMAK from ${(definitions.from ?? []).join(", ")}`];
+  const dropped = Object.entries(definitions.classes).filter(([, c]) => program && !c.exists).map(([n]) => n);
+  if (dropped.length) lines.push(`// named by an FGD or the maps, and not in the program (left out): ${dropped.sort().join(" ")}`);
+  const inner = Object.entries(internalOf(definitions)).map(([n]) => n);
+  if (inner.length) lines.push(`// in the code for its own use, named by no FGD and no map (left out): ${inner.sort().join(" ")}`);
+  for (const [className, c] of Object.entries(definitions.classes).sort(([a], [b]) => a.localeCompare(b))) {
+    if ((program && !c.exists) || internal(className, c)) continue;
+    const kind = c.defined ? c.kind : c.point && !c.solid ? "point" : c.solid && !c.point ? "solid" : (c.kind === "either" ? "solid" : c.kind) ?? "point";
+    const said = [];
+    if (c.cclass) said.push(`code ${c.cclass}${Object.values(c.keys).find((k) => k.of === c.cclass)?.from ? ` (${Object.values(c.keys).find((k) => k.of === c.cclass).from})` : ""}`);
+    if (c.defined) said.push("an FGD");
+    if (c.seen) said.push(`${c.seen} in ${c.maps} maps`);
+    lines.push("", `// ${className}: ${said.join("; ") || "named"}`);
+    const head = [`@${kind === "solid" ? "SolidClass" : "PointClass"}`];
+    if (c.size) head.push(`size(${c.size.mins.join(" ")}, ${c.size.maxs.join(" ")})`);
+    if (c.model) head.push(`studio("${c.model}")`);
+    if (c.sprite) head.push(`iconsprite("${c.sprite}")`);
+    lines.push(`${head.join(" ")} = ${className} : ${quoted(c.description || className)}`, "[");
+    for (const [keyName, key] of Object.entries(c.keys ?? {})) {
+      // a key of more than one word is a map's mistake, which no FGD can name
+      if (IMPLIED.includes(keyName) || !/^[A-Za-z_][\w-]*$/.test(keyName)) continue;
+      if (key.engine && !key.defined && !key.seen && !ALWAYS[kind]?.includes(keyName)) continue;
+      // with the class's code read, a key only the maps give is one the code passes over (a multi_manager's
+      // keys are the names it fires): not a key of the class
+      if (c.cclass && !key.defined && !key.type && !key.engine) continue;
+      const type = typeOfKey(key);
+      let line = `\t${keyName}(${type}) : ${quoted(key.description || keyName)}`;
+      if (type === "flags") {
+        const on = Number(key.default ?? 0);
+        const bits = (key.flags ?? []).map((bit) => `\t\t${bit} : ${quoted(key.labels?.[bit] ?? `flag ${bit}`)} : ${on & bit ? 1 : 0}`);
+        lines.push(`\t${keyName}(flags) =`, "\t[", ...bits, "\t]");
+        continue;
+      }
+      if (key.default !== undefined && key.default !== "") line += ` : ${written(key.default)}`;
+      if (type === "choices" && key.choices?.length) {
+        if (key.default === undefined || key.default === "") line += " : ";
+        line += " =";
+        lines.push(line, "\t[", ...key.choices.map((v) => `\t\t${written(v)} : ${quoted(key.labels?.[v] ?? v)}`), "\t]");
+        continue;
+      }
+      lines.push(line);
+    }
+    lines.push("]");
+  }
+  return `${lines.join("\n")}\n`;
+}

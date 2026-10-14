@@ -579,7 +579,7 @@ the walk test: `reachOf`, `spaceOf`, `restOf`, `storeyCuts`, a map in numbers: `
 compiled map decompiled into a `.map` and its recompile measured against it: `decompile(bytes, { name, folders })`
 → `{ map, facts, warnings, wad }`, `textureFidelity(original, recompiled)`, `lightParity(original, recompiled)`,
 Half-Life's texture lights `TEXLIGHTS`, `texlightsFor`, `texlightsRad`, `texlightsEntity`, and a map's entities against its
-mod: `checkEntities`, `definitionsOf`, `learnEntities`, `classesOfDll`, `GOLDSRC`, `loadMod`) and
+mod: `checkEntities`, `definitionsOf`, `learnEntities`, `classesOfDll`, `definitionsOfCode`, `writeFgd`, `GOLDSRC`, `loadMod`) and
 `docs/MAPS-MAKING.md` (brushes, entities, the `.map` file, the plan check, a mod's profile and the compile).
 
 ## Playing a map in the game (`src/play.mjs`, exported as `play`)

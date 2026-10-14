@@ -131,6 +131,7 @@ const LISTED_FLAGS = [
   "shut",
   "fgd",
   "learned",
+  "dll",
   "scripts",
   "exit",
   "map",
@@ -1552,6 +1553,41 @@ async function mapCheck({ file, flags, listed }) {
   process.exit(report.errors.length ? 1 : 0);
 }
 /**
+ * map-fgd: an FGD for a mod from its C++ source (the classes and the keys its code reads), with what its own
+ * FGDs say (--fgd) and its maps (--maps), and, without source, its library (--dll) for the classes alone.
+ */
+function mapFgd({ command, file, flags, listed }) {
+  const to = need(command, flags.o, "-o mod.fgd");
+  // the program first, so that what an FGD says of a key (its choices, its labels) stands over the code's type
+  const parts = [];
+  const code = file ? maps.definitionsOfCode(existingFolder(file)) : null;
+  if (code) parts.push(code);
+  if (listed.dll?.length) parts.push(maps.definitionsOfDll(listed.dll.map(existing)));
+  if (flags.maps) parts.push(maps.learnEntities(existingFolder(flags.maps)));
+  if (listed.fgd?.length) parts.push(maps.definitionsOf(listed.fgd.map(existing)));
+  if (!parts.length) fail(`${command}: the mod's source folder (dlls), or --fgd, --maps or --dll`);
+  const all = maps.joinDefinitions(parts);
+  const text = maps.writeFgd(all, { name: flags.name ?? basename(resolve(file ?? flags.maps ?? ".")) });
+  save(to, text);
+  const written = Object.keys(maps.definitionsOf(maps.readFgd(text)).classes).length;
+  console.log(`${to}  ${written} classes, from ${all.from.join(", ")}`);
+  for (const line of text.split("\n").slice(1, 3)) if (line.startsWith("// ")) console.log(`      ${line.slice(3)}`);
+  for (const sentence of code?.unread ?? []) console.log(`WARN  ${sentence}`);
+  // what the code reads that the FGDs given do not name: the keys a mapper cannot see in the editor
+  const fgd = parts.find((part) => part.fgd);
+  if (code && fgd) {
+    const lacking = [];
+    for (const [name, c] of Object.entries(code.classes)) {
+      const f = fgd.classes[name];
+      if (!f) continue;
+      const keys = Object.entries(c.keys).filter(([key, k]) => !k.engine && !f.keys[key]).map(([key]) => key);
+      if (keys.length) lacking.push(`${name}: ${keys.join(" ")}`);
+    }
+    if (lacking.length) console.log(`      ${lacking.length} classes have keys the code reads and the FGD given does not name (now written):`);
+    for (const line of lacking.slice(0, flags.all ? lacking.length : MARKS_PRINTED)) console.log(`        ${line}`);
+  }
+}
+/**
  * map-learn: what a mod's own maps say of its entities, written to a file that --learned and a profile's
  * `definitions` take. --class prints one class's keys.
  */
@@ -2495,6 +2531,15 @@ const COMMANDS = {
                                             kind, a name nothing answers to, the mod's rules, the files it names (--scripts: folders of
                                             scripts of your own, for a profile whose mod names scripts: of those named by nothing,
                                             this map's own are warned of, and every one with --all)`,
+  },
+  "map-fgd": {
+    run: mapFgd,
+    own: true,
+    folder: true,
+    help: `  map-fgd [<source folder>] -o mod.fgd [--fgd file ...] [--maps <folder of .bsp>] [--dll file] [--all]
+                                            an FGD for a mod: its classes and the keys its C++ code reads (each typed by what the
+                                            code does with it), joined with its own FGDs and its maps; what the code reads that the
+                                            FGD given lacks is listed`,
   },
   "map-learn": {
     run: mapLearn,

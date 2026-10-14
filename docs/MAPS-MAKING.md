@@ -10,8 +10,8 @@ rock; you add what stands in them from a small vocabulary; you check, compile an
 
 - `src/maps/source.mjs`: brushes, entities, the file written and read
 - `src/maps/plan.mjs`: the check before compiling, and the leak hint
-- `src/maps/mod.mjs`, `rules.mjs`, `fgd.mjs`, `learn.mjs`, `dll.mjs`: the mod the map is for: its profile, its
-  entity definitions and its rules, which the check holds the entities against ("A mod's profile", below)
+- `src/maps/mod.mjs`, `rules.mjs`, `fgd.mjs`, `learn.mjs`, `dll.mjs`, `code.mjs`: the mod the map is for: its
+  profile, its entity definitions (and an FGD written from them) and its rules, which the check holds the entities against ("A mod's profile", below)
 - `src/maps/reach.mjs`: the walk test: what a player reaches on foot, what stands in something solid, the openings
 - `src/maps/compile.mjs`: finding and running the compilers
 - `src/maps/draw.mjs`: pictures of the source before a compile, and of the result (`docs/MAPS.md`, "Pictures")
@@ -186,7 +186,8 @@ Values may be numbers and lists: `origin: [0, 0, 36]` is written `"0 0 36"`. An 
 | --- | --- |
 | `checkPlan(map, { textures, starts, range, grid, cell, mod, definitions, folders })` | `{ errors, warnings, facts, leak }` before any compile. An entity is numbered in its sentences as the pictures number it: the first of `entities` is 1. `mod`: the mod's profile, which gives the starts, the textures and the folders and has the entities checked; `definitions`: an FGD's path, or learned definitions, with no profile |
 | `checkEntities(map, { mod, definitions, folders })` | The entities' part by itself: `{ errors, warnings, facts }` (`docs/MAPS.md`, "Entities against a mod") |
-| `GOLDSRC`, `loadMod(file, { folders, cache })`, `definitionsOf(fgd)`, `learnEntities(folder, { cache })`, `classesOfDll(bytes)` | Half-Life's own profile; a mod's read from a file; entity definitions from an FGD, from the mod's own maps, and the classes its program has |
+| `GOLDSRC`, `loadMod(file, { folders, cache })`, `definitionsOf(fgd)`, `learnEntities(folder, { cache })`, `classesOfDll(bytes)`, `definitionsOfCode(folder)` | Half-Life's own profile; a mod's read from a file; entity definitions from an FGD, from the mod's own maps, the classes its program has, and the classes and keys its C++ source reads |
+| `writeFgd(definitions, { name })` | An .fgd file's text from definitions put together (`joinDefinitions(code, learned, fgd)`): for a mod with no FGD, or one behind its code |
 | `leakHint(map, { cell })` | The flood on its own: `{ leak, cell, cells, from }` |
 | `reachOf(map, { from, jump, slopes, exits, doors, open, shut, bodies, to, cell })` | The walk test: `{ warnings, facts, entities, unreached, stuck, hanging, oneWay, leaps, openings, routes, ... }` (`docs/MAPS.md`, "The walk test") |
 | `storeyCuts(map)` | The heights to cut the map at so that every floor is seen: `[{ z, floors, area }]` |
@@ -214,6 +215,11 @@ written over it: read it as the example.
 1. **What classes exist.** The game's own program has the certain answer:
    `maps.classesOfDll(readFileSync("<Half-Life>/ts/dlls/mp.dll"))` lists them (the `gamedll` line of
    `ts/liblist.gam` names the file). Put the file in the profile as `dlls`.
+   **With the mod's C++ source** (the server library's, `dlls/`), `maps.definitionsOfCode(folder)` reads
+   more: every class `LINK_ENTITY_TO_CLASS` makes, with the keys its `KeyValue` and its bases' read, each
+   typed by what the code does with the value. `smak map-fgd <dlls> -o mod.fgd --fgd <its FGD> --maps
+   <its maps>` writes an FGD from all three for the person's editor, and lists the keys the code reads that the
+   old FGD left out. The Specialists' source gives 192 classes, and 60 of them have keys its shipped FGD lacks.
 2. **An FGD, when there is one.** Look in the mod's folder (`ts/ts_fgd.fgd`; Master Sword's is in `msc/dev/`)
    and in the editors' folders (J.A.C.K., Hammer, TrenchBroom). `maps.definitionsOf(file)` reads it; `fgd` in
    the profile. It gives the keys with their types, and each class's `size(...)`, which becomes the box the

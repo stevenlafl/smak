@@ -57,6 +57,7 @@ const areas = [
   "47-audio", // sounds: a GoldSrc file written and read, measured, checked, made from a spec, built by the tool
   "48-decompile", // a compiled map made back into a .map (Half-Life's frenzy where installed), recompiled, and measured against its original
   "49-video", // video: a camera path at an even speed, shots made into frames, a GIF of our own, built by the tool
+  "50-mod-code", // a mod's classes and keys read from its C++ source, and an FGD written from them
   "19-example-and-kit-faults", // the examples' wrong arguments and refused models; the kits' fittings and rings
 ];
 

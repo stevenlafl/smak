@@ -119,6 +119,7 @@ node bin/smak.mjs map-check <bsp> [--engine xash] [--game <folder> ...]   errors
 node bin/smak.mjs map-check <bsp|map> --mod <profile.mjs|.json|goldsrc> [--fgd <file.fgd>] [--learned <file>] [--game <folder> ...]
                                                    its entities against the mod: classes, keys, values, names, the mod's rules, files
 node bin/smak.mjs map-learn <folder of .bsp> -o learned.json [--class name]   what a mod's own maps say of its entities
+node bin/smak.mjs map-fgd <mod source dlls> -o mod.fgd [--fgd old.fgd] [--maps <folder>]   an FGD from the classes and keys its code reads
 node bin/smak.mjs map-entities <bsp> [--class x] [--json]   every entity with its number, class, place and keys
 node bin/smak.mjs map-set <bsp> -o out.bsp --entity <n|class> key=value ... [--move x,y,z] [--unset key]
 node bin/smak.mjs map-set <bsp> -o out.bsp --add <class> [--at x,y,z] key=value ...   /   --remove <n|class>

@@ -13,6 +13,7 @@ export * from "./compile.mjs";
 export * from "./plan.mjs";
 export * from "./fgd.mjs";
 export * from "./learn.mjs";
+export * from "./code.mjs";
 export * from "./dll.mjs";
 export * from "./mod.mjs";
 export * from "./rules.mjs";
