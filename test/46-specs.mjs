@@ -319,8 +319,10 @@ test("a part's texels: twice as finely painted as its twin, and the zones laid t
 });
 
 test("a map spec's doors: one on hinges, one that slides all the way up, and the threshold under each filled", () => {
-  const spec = (door) => ({ spec: "smak.map/1", name: "doors", rooms: [{ id: "a", size: [256, 256, 128], surfaces: { floor: "planks" } }, { id: "b", size: [256, 256, 128], place: { east_of: "a" } }], links: [{ between: ["a", "b"], kind: "door", door }], entities: [{ class: "info_player_start", room: "a", at: "centre" }] });
+  const spec = (door) => ({ spec: "smak.map/1", name: "doors", rooms: [{ id: "a", size: [256, 256, 128], surfaces: { floor: "planks" } }, { id: "b", size: [256, 256, 128], place: { east_of: "a" } }], links: [{ between: ["a", "b"], kind: "door", door, width: 32 }], entities: [{ class: "info_player_start", room: "a", at: "centre" }] });
   const swung = buildMapSpec(spec({ swing: true }), { out: join(folder, "doors-swing") });
+  // asked 32 wide, as a house's drawing gives a door: a player passes one on hinges at ease at 56
+  sure(swung.report.facts.some((f) => /widened from 32 to 56/.test(f)), swung.report.facts.filter((f) => /links/.test(f)).join("; "));
   const slid = buildMapSpec(spec(undefined), { out: join(folder, "doors-slide") });
   const text = (r) => readFileSync(r.files.map, "utf8");
   sure(/"classname" "func_door_rotating"/.test(text(swung)) && /ORIGIN/.test(text(swung)), "a door on hinges, with its hinge");

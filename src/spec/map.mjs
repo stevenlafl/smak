@@ -684,7 +684,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     const asked = link.width ?? (kind === "window" ? WINDOW.width : DOOR.width);
     const least = kind === "window" ? 0 : kind === "door" && link.door?.swing ? PASSABLE.swing : kind === "door" ? PASSABLE.door : PASSABLE.opening;
     const width = Math.min(Math.max(asked, least), hi - lo);
-    if (width > asked) report.notes.push(`links[${i}]: ${a.id} to ${b.id} widened from ${asked} to ${width}: a player passes a ${kind}${link.door?.swing ? " on hinges" : ""} at ease at ${least}`);
+    if (width > asked) report.facts.push(`links[${i}]: ${a.id} to ${b.id} widened from ${asked} to ${width}: a player passes a ${kind}${link.door?.swing ? " on hinges" : ""} at ease at ${least}`);
     const share = link.along ?? 0.5;
     const centre = snap(lo + (hi - lo) * share, 8);
     const w0 = Math.max(lo, Math.min(hi - width, centre - width / 2));
