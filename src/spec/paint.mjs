@@ -10,13 +10,14 @@
 //          "additive" (a glow), "chrome", "masked"
 // Colours are [r, g, b] from 0 to 1, as the workshop's.
 import { wood, iron, steel, fbm, noise, mix, times, bell, step } from "../workshop.mjs";
+import { colourFromWords } from "./colours.mjs";
 
 /** Each base with the colour it has unless told, in words for the guide. */
 export const MATERIALS = {
   wood: { tone: [0.46, 0.32, 0.19], what: "planks, a barrel, a handle" },
   darkwood: { tone: [0.25, 0.16, 0.1], what: "old oak, a dark stained post" },
   iron: { tone: [0.27, 0.26, 0.26], what: "forged and dark: hoops, nails, a stove" },
-  steel: { tone: [0.6, 0.61, 0.63], what: "bright and scratched: a blade, a pipe" },
+  steel: { tone: [0.56, 0.56, 0.54], what: "bright and scratched: a blade, a pipe" },
   brass: { tone: [0.72, 0.55, 0.25], what: "yellow metal: a lamp, a fitting" },
   gold: { tone: [0.85, 0.66, 0.2], what: "a crown, a coin" },
   copper: { tone: [0.72, 0.42, 0.25], what: "a kettle, a still" },
@@ -27,7 +28,7 @@ export const MATERIALS = {
   plaster: { tone: [0.78, 0.75, 0.68], what: "a plain wall" },
   tile: { tone: [0.62, 0.6, 0.56], what: "a floor of square tiles" },
   planks: { tone: [0.45, 0.31, 0.18], what: "a floor or a wall of boards (maps)" },
-  metal: { tone: [0.42, 0.44, 0.47], what: "plates of metal with seams (maps: a lab, a ship)" },
+  metal: { tone: [0.4, 0.39, 0.37], what: "plates of metal with seams (maps: a lab, a ship)" },
   grass: { tone: [0.28, 0.42, 0.18], what: "a lawn, a field (maps)" },
   dirt: { tone: [0.4, 0.3, 0.2], what: "bare earth, a path (maps)" },
   glass: { tone: [0.55, 0.7, 0.75], what: "a pane; with fullbright, a lit window" },
@@ -52,6 +53,21 @@ const BASE_FLAGS = { flame: ["fullbright"], neon: ["fullbright"], mesh: ["masked
 export const FLAG_BITS = { flat: 1, chrome: 2, fullbright: 4, additive: 32, masked: 64 };
 
 /** A material as an object, from a word or an object; refuses a base it does not know, in words. */
+/** What the kit's pictures light a colour by, on the mean (the stand-in lamp over the judge's views): a colour
+ * read off a picture is its paint times this (research/repeated-failures.md, Table 6). */
+export const SEEN_LIGHT = 0.8;
+
+/** A colour as given: [r, g, b] (0 to 1), or words ("warm dark grey"): the XKCD names and the modifiers. */
+export function colourOfGiven(given, where) {
+  if (Array.isArray(given)) return given;
+  if (typeof given === "string") {
+    const found = colourFromWords(given);
+    if (!found) throw new Error(`${where}: no colour named in "${given}" (the XKCD survey's names: grey, teal, brick red...; with dark, light, pale, muted, warm, cool, grimy)`);
+    return found.rgb;
+  }
+  throw new Error(`${where}: [r, g, b] from 0 to 1, or words ("dark warm grey")`);
+}
+
 export function materialOf(given, where = "material") {
   // `glow` (a map's texture light: how bright a lit face shines a unit of its area) is passed on as it is
   const material = typeof given === "string" ? { base: given } : { ...given };
@@ -61,7 +77,13 @@ export function materialOf(given, where = "material") {
     );
   return {
     base: material.base,
-    tone: material.tone ?? MATERIALS[material.base].tone,
+    // the paint: given as it is (tone), or as it shows in a picture (seen), lit by the kit's stand-in lamp
+    tone:
+      material.seen !== undefined
+        ? colourOfGiven(material.seen, `${where}.seen`).map((v) => Math.min(1, v / SEEN_LIGHT))
+        : material.tone !== undefined
+          ? colourOfGiven(material.tone, `${where}.tone`)
+          : MATERIALS[material.base].tone,
     rust: material.rust ?? (material.base === "iron" ? 0.3 : 0),
     seed: material.seed ?? 1,
     flags: material.flags ?? BASE_FLAGS[material.base] ?? [],

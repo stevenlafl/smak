@@ -247,7 +247,10 @@ player sees it. `examples/prompts/22-weapon-wrench` is a worked one.
 `hazard` (stripes of its tone and black), `asphalt`, `water`, `paint`, `bone`, `mesh` (a net, a wire fence,
 a grille: cords in its tone with holes between, seen through as in the game; `cell` the holes' size, 2;
 `weave: "diamond"` runs the cords on the diagonals, as chain-link's do). `tone: [r, g, b]` (0 to 1)
-changes its colour; `rust` (0 to 1) a metal's rust; `flags: ["fullbright"]` makes it shine in the dark
+changes its colour, or words: `"tone": "dark warm grey"` (the XKCD colour survey's 949 names, with `dark`,
+`light`, `pale`, `muted`, `bright`, `deep`, `warm`, `cool`, `grimy` and `-ish`). A colour read off a picture is
+lighter or darker than its paint by the picture's light: give it as `seen` (`"seen": [0.4, 0.38, 0.35]` or
+words) and the build takes the paint as the colour over the pictures' light (0.8). `rust` (0 to 1) a metal's rust; `flags: ["fullbright"]` makes it shine in the dark
 (`flame` and `neon` are so already; such parts get a texture of their own).
 
 ### The finish

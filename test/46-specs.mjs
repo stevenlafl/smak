@@ -456,6 +456,18 @@ test("a model spec's round parts are shaded round whatever their sides: an 8-sid
   sure(round === 18 && flat === 10, `round ${round} normals (18 wanted), flat ${flat} (10)`);
 });
 
+test("colours in words: the XKCD names with their modifiers, and a colour as it shows in a picture", async () => {
+  const { colourFromWords } = await import("../src/spec/colours.mjs");
+  const { toLab } = await import("../src/spec/colours.mjs");
+  const grey = toLab(colourFromWords("grey").rgb);
+  const dark = toLab(colourFromWords("dark grey").rgb);
+  const warm = toLab(colourFromWords("warm grey").rgb);
+  sure(dark[0] < grey[0] - 10 && warm[2] > grey[2] + 3, `dark grey L ${dark[0].toFixed(1)} under grey's ${grey[0].toFixed(1)}; warm grey b ${warm[2].toFixed(1)} over ${grey[2].toFixed(1)}`);
+  sure(colourFromWords("nothing at all") === null, "no colour named: none made up");
+  // a material's colour in words; and one given as seen in a picture, divided by the pictures' light
+  sure(materialOf({ base: "paint", tone: "teal" }).tone[2] > 0.4 && materialOf({ base: "paint", seen: [0.4, 0.4, 0.4] }).tone[0] === 0.5, "words, and seen");
+});
+
 test("a model spec's marks: stripes painted on a turned part, on its side only, round it as a ring; none on a box", () => {
   const post = (marks) => ({ spec: "smak.model/1", name: "post.mdl", kind: "prop", finish: false, materials: { fur: { base: "paint", tone: [0.95, 0.55, 0.12] } }, parts: [{ id: "post", kind: "cylinder", radius: 6, height: 30, sides: 16, material: "fur", marks }] });
   const dark = (spec) => {
