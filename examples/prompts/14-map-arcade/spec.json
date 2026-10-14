@@ -1,0 +1,576 @@
+{
+ "spec": "smak.map/1",
+ "name": "arcade",
+ "night": true,
+ "sun": {
+  "brightness": 16
+ },
+ "theme": {
+  "floor": {
+   "base": "tile",
+   "tone": [
+    0.12,
+    0.12,
+    0.15
+   ]
+  },
+  "wall": {
+   "base": "plaster",
+   "tone": [
+    0.2,
+    0.18,
+    0.24
+   ]
+  },
+  "ceiling": {
+   "base": "metal",
+   "tone": [
+    0.05,
+    0.05,
+    0.06
+   ]
+  },
+  "door": "metal",
+  "furniture": {
+   "base": "metal",
+   "tone": [
+    0.1,
+    0.1,
+    0.12
+   ]
+  }
+ },
+ "textures": {
+  "screen": {
+   "base": "neon",
+   "tone": [
+    0.25,
+    0.85,
+    1.0
+   ],
+   "glow": 700
+  },
+  "marquee": {
+   "base": "neon",
+   "tone": [
+    1.0,
+    0.2,
+    0.7
+   ],
+   "glow": 500
+  },
+  "strip": {
+   "base": "neon",
+   "tone": [
+    0.6,
+    0.2,
+    1.0
+   ],
+   "glow": 250
+  },
+  "leds": {
+   "base": "neon",
+   "tone": [
+    0.2,
+    1.0,
+    0.35
+   ],
+   "glow": 350
+  },
+  "counter": {
+   "base": "darkwood"
+  },
+  "asphalt": {
+   "base": "asphalt"
+  }
+ },
+ "prefabs": {
+  "cabinet": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -14,
+       -14,
+       0
+      ],
+      [
+       14,
+       14,
+       72
+      ]
+     ],
+     "texture": "furniture"
+    },
+    {
+     "box": [
+      [
+       -11,
+       -15,
+       36
+      ],
+      [
+       11,
+       -14,
+       58
+      ]
+     ],
+     "texture": "screen"
+    },
+    {
+     "box": [
+      [
+       -14,
+       -16,
+       30
+      ],
+      [
+       14,
+       -14,
+       34
+      ]
+     ],
+     "texture": "furniture"
+    },
+    {
+     "box": [
+      [
+       -14,
+       -15,
+       62
+      ],
+      [
+       14,
+       -14,
+       72
+      ]
+     ],
+     "texture": "marquee"
+    }
+   ]
+  },
+  "wall_strip_x": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -232,
+       -2,
+       0
+      ],
+      [
+       232,
+       2,
+       4
+      ]
+     ],
+     "texture": "strip"
+    }
+   ]
+  },
+  "wall_strip_y": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -2,
+       -168,
+       0
+      ],
+      [
+       2,
+       168,
+       4
+      ]
+     ],
+     "texture": "strip"
+    }
+   ]
+  },
+  "prize_counter": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -16,
+       -96,
+       0
+      ],
+      [
+       16,
+       96,
+       30
+      ]
+     ],
+     "texture": "counter"
+    },
+    {
+     "box": [
+      [
+       -20,
+       -100,
+       30
+      ],
+      [
+       20,
+       100,
+       34
+      ]
+     ],
+     "texture": "counter"
+    }
+   ]
+  },
+  "change_machine": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -12,
+       -12,
+       0
+      ],
+      [
+       12,
+       12,
+       64
+      ]
+     ],
+     "texture": "furniture"
+    },
+    {
+     "box": [
+      [
+       12,
+       -8,
+       36
+      ],
+      [
+       13,
+       8,
+       52
+      ]
+     ],
+     "texture": "screen"
+    }
+   ]
+  },
+  "rack": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -14,
+       -20,
+       0
+      ],
+      [
+       14,
+       20,
+       96
+      ]
+     ],
+     "texture": "furniture"
+    },
+    {
+     "box": [
+      [
+       -12,
+       -21,
+       10
+      ],
+      [
+       12,
+       -20,
+       12
+      ]
+     ],
+     "texture": "leds"
+    },
+    {
+     "box": [
+      [
+       -12,
+       -21,
+       30
+      ],
+      [
+       12,
+       -20,
+       32
+      ]
+     ],
+     "texture": "leds"
+    },
+    {
+     "box": [
+      [
+       -12,
+       -21,
+       50
+      ],
+      [
+       12,
+       -20,
+       52
+      ]
+     ],
+     "texture": "leds"
+    },
+    {
+     "box": [
+      [
+       -12,
+       -21,
+       70
+      ],
+      [
+       12,
+       -20,
+       72
+      ]
+     ],
+     "texture": "leds"
+    },
+    {
+     "box": [
+      [
+       -12,
+       -21,
+       88
+      ],
+      [
+       12,
+       -20,
+       90
+      ]
+     ],
+     "texture": "leds"
+    }
+   ]
+  }
+ },
+ "rooms": [
+  {
+   "id": "hall",
+   "size": [
+    512,
+    384,
+    176
+   ],
+   "light": "none"
+  },
+  {
+   "id": "closet",
+   "size": [
+    192,
+    160,
+    128
+   ],
+   "place": {
+    "north_of": "hall",
+    "align": "east"
+   },
+   "light": "none"
+  },
+  {
+   "id": "street",
+   "size": [
+    640,
+    256,
+    320
+   ],
+   "place": {
+    "south_of": "hall"
+   },
+   "sky": true,
+   "surfaces": {
+    "floor": "asphalt"
+   },
+   "light": "none",
+   "test": true
+  }
+ ],
+ "links": [
+  {
+   "between": [
+    "hall",
+    "street"
+   ],
+   "kind": "opening",
+   "width": 128,
+   "height": 112
+  },
+  {
+   "between": [
+    "hall",
+    "closet"
+   ],
+   "kind": "door",
+   "along": 0.85
+  }
+ ],
+ "furniture": [
+  {
+   "prefab": "cabinet",
+   "room": "hall",
+   "at": [
+    -96,
+    -20
+   ]
+  },
+  {
+   "prefab": "cabinet",
+   "room": "hall",
+   "at": [
+    -32,
+    -20
+   ]
+  },
+  {
+   "prefab": "cabinet",
+   "room": "hall",
+   "at": [
+    32,
+    -20
+   ]
+  },
+  {
+   "prefab": "cabinet",
+   "room": "hall",
+   "at": [
+    96,
+    -20
+   ]
+  },
+  {
+   "prefab": "cabinet",
+   "room": "hall",
+   "at": [
+    -96,
+    20
+   ],
+   "rotate": 180
+  },
+  {
+   "prefab": "cabinet",
+   "room": "hall",
+   "at": [
+    -32,
+    20
+   ],
+   "rotate": 180
+  },
+  {
+   "prefab": "cabinet",
+   "room": "hall",
+   "at": [
+    32,
+    20
+   ],
+   "rotate": 180
+  },
+  {
+   "prefab": "cabinet",
+   "room": "hall",
+   "at": [
+    96,
+    20
+   ],
+   "rotate": 180
+  },
+  {
+   "prefab": "wall_strip_x",
+   "room": "hall",
+   "at": [
+    0,
+    186
+   ]
+  },
+  {
+   "prefab": "wall_strip_y",
+   "room": "hall",
+   "at": [
+    -250,
+    0
+   ]
+  },
+  {
+   "prefab": "wall_strip_y",
+   "room": "hall",
+   "at": [
+    250,
+    0
+   ]
+  },
+  {
+   "prefab": "prize_counter",
+   "room": "hall",
+   "at": [
+    -180,
+    40
+   ]
+  },
+  {
+   "prefab": "change_machine",
+   "room": "hall",
+   "at": [
+    -236,
+    -90
+   ]
+  },
+  {
+   "prefab": "rack",
+   "room": "closet",
+   "at": [
+    -56,
+    56
+   ]
+  },
+  {
+   "prefab": "rack",
+   "room": "closet",
+   "at": [
+    0,
+    56
+   ]
+  },
+  {
+   "prefab": "rack",
+   "room": "closet",
+   "at": [
+    56,
+    56
+   ]
+  }
+ ],
+ "entities": [
+  {
+   "class": "info_player_start",
+   "room": "street",
+   "at": [
+    0,
+    -64
+   ],
+   "facing": "north"
+  },
+  {
+   "class": "monster_barney",
+   "room": "hall",
+   "at": [
+    -224,
+    40
+   ],
+   "facing": "east"
+  },
+  {
+   "class": "item_battery",
+   "room": "hall",
+   "at": [
+    -166,
+    40
+   ],
+   "z": 34
+  }
+ ]
+}

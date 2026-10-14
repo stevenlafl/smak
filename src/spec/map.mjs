@@ -76,6 +76,8 @@ const textureName = (key, liquid = false) =>
   key === "sky" ? "sky" : `${liquid ? "!" : ""}SM_${key}`.toUpperCase().replace(/[^!A-Z0-9_]/g, "").slice(0, 15);
 /** A texture light's brightness for a material that glows, unless it says (`glow`). */
 const GLOW = 600;
+/** A map whose darkest room's floor is lit under this gets its views drawn again three times as bright. */
+const BRIGHT_UNDER = 80;
 
 /**
  * The rooms of a layout drawing: rows of text, a character a cell of `cell` units, each letter the key gives
@@ -791,6 +793,7 @@ export function buildMapSpec(given, { out, compilers, folder } = {}) {
       const drawing = { folders: [out, dirname(out)], models: true };
       save("plan", planOf(bsp, drawing));
       // a view of every room, from a corner by its walls looking across it to the far corner
+      const viewSpots = [];
       const views = [...rooms.values()].map((room) => {
         // high in the corner, under the ceiling, looking down across the room: over what stands on its floor
         const high = room.max[2] - room.min[2];
@@ -798,9 +801,16 @@ export function buildMapSpec(given, { out, compilers, folder } = {}) {
         const across = Math.hypot(room.max[0] - from[0], room.max[1] - from[1]);
         const yaw = Math.round((Math.atan2(room.max[1] - from[1], room.max[0] - from[0]) * 180) / Math.PI);
         const pitch = -Math.round((Math.atan2(from[2] - room.min[2], across * 0.55) * 180) / Math.PI);
+        viewSpots.push({ from, yaw, pitch });
         return drawMap(bsp, { ...drawing, from, yaw, pitch, width: 320, height: 240 });
       });
       save("views", tile(views, Math.min(4, views.length), [...rooms.keys()]));
+      // a dark map's views again, three times as bright: to see what is in a room meant to be dark
+      const darkest = Math.min(...lit.rooms.filter((room) => report.rooms[room.name]).map((room) => room.mean));
+      if (darkest < BRIGHT_UNDER) {
+        const bright = [...rooms.values()].map((room, n) => drawMap(bsp, { ...drawing, ...viewSpots[n], brightness: 3, width: 320, height: 240 }));
+        save("views-bright", tile(bright, Math.min(4, bright.length), [...rooms.keys()].map((id) => `${id} x3`)));
+      }
       // a room with props: a larger view at a man's height, from across the room towards them
       const propRooms = [...rooms.values()].filter((room) => propsAt.some((prop) => prop.room === room.id));
       if (propRooms.length) {
