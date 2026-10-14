@@ -37,8 +37,10 @@ fidelity.
 - The face is set into the head's surface: the eyes spheres with pupils, each with an orange sphere over its
   top half for a heavy lid; two cream cheeks and a pink nose; whiskers out from the cheeks.
 - The stripes are `marks`, painted on the head, across the back of the torso and round the forearms: they
-  lie flat on the fur, so they are colour, not shape. The head's narrow to a point down the forehead; the
-  belly is a cream sphere sunk into the torso's front.
+  lie flat on the fur, so they are colour, not shape. The head's narrow to a point down the forehead.
+- The body is a large pear hung on the pelvis, reaching past the middle of the thighs: Gordon's legs go up
+  inside it, so only short legs show below it standing (running, the thighs swing out of it). The cream
+  belly is painted on its front.
 
 ## Iterations
 
@@ -57,3 +59,6 @@ fidelity.
    caused three of iteration 1's faults and spent points and normals of a body held to 2048. They are
    painted now (`marks`, which the kit learnt for this): ten parts fewer, nothing to come apart, and
    sharper edges.
+5. A review of the pictures saw a man in an orange suit: legs as long as a man's under a narrow body. The
+   legs keep Gordon's bones; the body grew over them instead (Steven's call), down to the knees, and the
+   belly, a sphere stuck on the chest, became a painted patch on the new body's front.
