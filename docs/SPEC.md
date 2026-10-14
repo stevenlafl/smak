@@ -32,7 +32,11 @@ pictures of the result, from a barrel to a city of four shops and a sewer; read 
    its tables, a city with its shops) is cut in pieces: each piece a spec of its own, built and checked
    alone, then put in the larger one: a model's `prefab` part; a map's `models`, `prefabs` (brushes, or a
    `.map` file) and `include` (a whole map spec as a module).
-6. **The person asks for a change** ("looks good, now add a fridge next to the cabinet"): change the spec
+6. **Given pictures of the thing** (its sides, some angles), let the pictures do what they can measure: a
+   `carved` part takes its outline from them at once (then paint it); a character's `pose: { fit: true }` and
+   `motion` take its stance and its run from them; a map's `.wad` textures are found by the `info` tool's
+   `like` and `rect`. Build the rest by hand: what an outline cannot show (a hollow, a handle's hole, a face).
+7. **The person asks for a change** ("looks good, now add a fridge next to the cabinet"): change the spec
    as little as the request needs and build it again under the same name. The report then says what
    changed since the last build (`CHANGED ... things added: ...`, `... are where they were`): tell the
    person that, and check that nothing changed that they did not ask for.
