@@ -3,9 +3,9 @@
   "name": "medkit.mdl",
   "kind": "prop",
   "size": {
-    "height": 6.8,
     "length": 34.6,
-    "width": 26.4
+    "width": 26.4,
+    "height": 6.8
   },
   "texture": {
     "width": 512,
@@ -15,41 +15,25 @@
     "shell": {
       "base": "plaster",
       "tone": [
-        0.87,
-        0.86,
-        0.81
-      ]
-    },
-    "label": {
-      "base": "plaster",
-      "tone": [
-        0.8,
-        0.79,
-        0.74
+        0.72,
+        0.71,
+        0.66
       ]
     },
     "red": {
       "base": "paint",
       "tone": [
-        0.78,
-        0.08,
-        0.07
+        0.82,
+        0.06,
+        0.05
       ]
     },
     "plate": {
-      "base": "metal",
-      "tone": [
-        0.27,
-        0.28,
-        0.29
-      ]
-    },
-    "lightgrey": {
       "base": "paint",
       "tone": [
-        0.62,
-        0.63,
-        0.63
+        0.27,
+        0.27,
+        0.28
       ]
     },
     "black": {
@@ -63,1354 +47,1397 @@
     "screen": {
       "base": "paint",
       "tone": [
-        0.15,
-        0.36,
-        0.18
+        0.12,
+        0.32,
+        0.16
       ]
     },
     "green": {
       "base": "paint",
       "tone": [
         0.1,
-        0.55,
+        0.6,
         0.15
       ]
     },
     "white": {
       "base": "paint",
       "tone": [
-        0.92,
-        0.92,
-        0.9
+        0.88,
+        0.88,
+        0.86
       ]
     },
-    "grommet": {
-      "base": "metal",
+    "grey": {
+      "base": "paint",
       "tone": [
-        0.5,
-        0.5,
-        0.5
+        0.55,
+        0.55,
+        0.55
       ]
     },
     "webbing": {
       "base": "cloth",
       "tone": [
-        0.45,
-        0.4,
-        0.3
+        0.44,
+        0.39,
+        0.29
       ]
     }
   },
   "parts": [
     {
-      "id": "walls",
-      "kind": "leaf",
+      "id": "body",
+      "kind": "carved",
+      "size": [
+        23,
+        23,
+        6.8
+      ],
       "material": "shell",
+      "cells": 96,
+      "triangles": 80,
+      "texels": 3,
       "at": [
-        0,
+        -5.8,
         0,
         0
       ],
-      "rows": [
-        [
-          [
-            11.5,
-            -7.5,
-            0
-          ],
-          [
-            11.5,
-            7.5,
-            0
-          ],
-          [
-            7.5,
-            11.5,
-            0
-          ],
-          [
-            -7.5,
-            11.5,
-            0
-          ],
-          [
-            -11.5,
-            7.5,
-            0
-          ],
-          [
-            -11.5,
-            -7.5,
-            0
-          ],
-          [
-            -7.5,
-            -11.5,
-            0
-          ],
-          [
-            7.5,
-            -11.5,
-            0
-          ],
-          [
-            11.5,
-            -7.5,
-            0
-          ]
-        ],
-        [
-          [
-            11.5,
-            -7.5,
-            3.4
-          ],
-          [
-            11.5,
-            7.5,
-            3.4
-          ],
-          [
-            7.5,
-            11.5,
-            3.4
-          ],
-          [
-            -7.5,
-            11.5,
-            3.4
-          ],
-          [
-            -11.5,
-            7.5,
-            3.4
-          ],
-          [
-            -11.5,
-            -7.5,
-            3.4
-          ],
-          [
-            -7.5,
-            -11.5,
-            3.4
-          ],
-          [
-            7.5,
-            -11.5,
-            3.4
-          ],
-          [
-            11.5,
-            -7.5,
-            3.4
-          ]
-        ],
-        [
-          [
-            8.1,
-            -6.1,
-            6.8
-          ],
-          [
-            8.1,
-            6.1,
-            6.8
-          ],
-          [
-            6.1,
-            8.1,
-            6.8
-          ],
-          [
-            -6.1,
-            8.1,
-            6.8
-          ],
-          [
-            -8.1,
-            6.1,
-            6.8
-          ],
-          [
-            -8.1,
-            -6.1,
-            6.8
-          ],
-          [
-            -6.1,
-            -8.1,
-            6.8
-          ],
-          [
-            6.1,
-            -8.1,
-            6.8
-          ],
-          [
-            8.1,
-            -6.1,
-            6.8
-          ]
-        ]
-      ]
-    },
-    {
-      "id": "top",
-      "kind": "leaf",
-      "material": "shell",
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "rows": [
-        [
-          [
-            -8.1,
-            6.1,
-            6.8
-          ],
-          [
-            -8.1,
-            3.05,
-            6.8
-          ],
-          [
-            -8.1,
-            0,
-            6.8
-          ],
-          [
-            -8.1,
-            -3.05,
-            6.8
-          ],
-          [
-            -8.1,
-            -6.1,
-            6.8
-          ]
-        ],
-        [
-          [
-            -6.1,
-            8.1,
-            6.8
-          ],
-          [
-            -6.1,
-            4.05,
-            6.8
-          ],
-          [
-            -6.1,
-            0,
-            6.8
-          ],
-          [
-            -6.1,
-            -4.05,
-            6.8
-          ],
-          [
-            -6.1,
-            -8.1,
-            6.8
-          ]
-        ],
-        [
-          [
-            -4,
-            8.1,
-            6.8
-          ],
-          [
-            -4,
-            4.05,
-            6.8
-          ],
-          [
-            -4,
-            0,
-            6.8
-          ],
-          [
-            -4,
-            -4.05,
-            6.8
-          ],
-          [
-            -4,
-            -8.1,
-            6.8
-          ]
-        ],
-        [
-          [
-            -2,
-            8.1,
-            6.8
-          ],
-          [
-            -2,
-            4.05,
-            6.8
-          ],
-          [
-            -2,
-            0,
-            6.8
-          ],
-          [
-            -2,
-            -4.05,
-            6.8
-          ],
-          [
-            -2,
-            -8.1,
-            6.8
-          ]
-        ],
-        [
-          [
-            0,
-            8.1,
-            6.8
-          ],
-          [
-            0,
-            4.05,
-            6.8
-          ],
-          [
-            0,
-            0,
-            6.8
-          ],
-          [
-            0,
-            -4.05,
-            6.8
-          ],
-          [
-            0,
-            -8.1,
-            6.8
-          ]
-        ],
-        [
-          [
-            2,
-            8.1,
-            6.8
-          ],
-          [
-            2,
-            4.05,
-            6.8
-          ],
-          [
-            2,
-            0,
-            6.8
-          ],
-          [
-            2,
-            -4.05,
-            6.8
-          ],
-          [
-            2,
-            -8.1,
-            6.8
-          ]
-        ],
-        [
-          [
-            4,
-            8.1,
-            6.8
-          ],
-          [
-            4,
-            4.05,
-            6.8
-          ],
-          [
-            4,
-            0,
-            6.8
-          ],
-          [
-            4,
-            -4.05,
-            6.8
-          ],
-          [
-            4,
-            -8.1,
-            6.8
-          ]
-        ],
-        [
-          [
-            6.1,
-            8.1,
-            6.8
-          ],
-          [
-            6.1,
-            4.05,
-            6.8
-          ],
-          [
-            6.1,
-            0,
-            6.8
-          ],
-          [
-            6.1,
-            -4.05,
-            6.8
-          ],
-          [
-            6.1,
-            -8.1,
-            6.8
-          ]
-        ],
-        [
-          [
-            8.1,
-            6.1,
-            6.8
-          ],
-          [
-            8.1,
-            3.05,
-            6.8
-          ],
-          [
-            8.1,
-            0,
-            6.8
-          ],
-          [
-            8.1,
-            -3.05,
-            6.8
-          ],
-          [
-            8.1,
-            -6.1,
-            6.8
-          ]
-        ]
-      ]
-    },
-    {
-      "id": "bottom",
-      "kind": "leaf",
-      "material": "shell",
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "rows": [
-        [
-          [
-            -11.5,
-            -7.5,
-            0
-          ],
-          [
-            -11.5,
-            7.5,
-            0
-          ]
-        ],
-        [
-          [
-            -7.5,
-            -11.5,
-            0
-          ],
-          [
-            -7.5,
-            11.5,
-            0
-          ]
-        ],
-        [
-          [
-            7.5,
-            -11.5,
-            0
-          ],
-          [
-            7.5,
-            11.5,
-            0
-          ]
-        ],
-        [
-          [
-            11.5,
-            -7.5,
-            0
-          ],
-          [
-            11.5,
-            7.5,
-            0
-          ]
-        ]
-      ]
-    },
-    {
-      "id": "strap",
-      "kind": "leaf",
-      "material": "webbing",
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "rows": [
-        [
-          [
-            4.6,
-            11.3,
-            3.4
-          ],
-          [
-            4.6,
-            11.3,
-            0.2
-          ]
-        ],
-        [
-          [
-            7,
-            12.6,
-            3.4
-          ],
-          [
-            7,
-            12.6,
-            0.2
-          ]
-        ],
-        [
-          [
-            10.51,
-            13.125,
-            3.085
-          ],
-          [
-            10.49,
-            12.875,
-            0.205
-          ]
-        ],
-        [
-          [
-            13.7,
-            12.59,
-            2.3
-          ],
-          [
-            13.3,
-            11.81,
-            0.22
-          ]
-        ],
-        [
-          [
-            17,
-            10.48,
-            1.67
-          ],
-          [
-            16,
-            9.52,
-            0.23
-          ]
-        ],
-        [
-          [
-            18.8,
-            7.85,
-            1.51
-          ],
-          [
-            17.6,
-            6.95,
-            0.23
-          ]
-        ],
-        [
-          [
-            20.92,
-            5.03,
-            1.51
-          ],
-          [
-            19.68,
-            4.18,
-            0.23
-          ]
-        ],
-        [
-          [
-            22.48,
-            2.93,
-            1.51
-          ],
-          [
-            21.13,
-            2.27,
-            0.23
-          ]
-        ],
-        [
-          [
-            23.1,
-            1.24,
-            1.51
-          ],
-          [
-            21.6,
-            1.36,
-            0.23
-          ]
-        ],
-        [
-          [
-            22.39,
-            -0.3,
-            1.51
-          ],
-          [
-            21.01,
-            0.3,
-            0.23
-          ]
-        ],
-        [
-          [
-            20.88,
-            -2.93,
-            1.51
-          ],
-          [
-            19.53,
-            -2.27,
-            0.23
-          ]
-        ],
-        [
-          [
-            19.05,
-            -6.38,
-            1.51
-          ],
-          [
-            17.76,
-            -5.62,
-            0.23
-          ]
-        ],
-        [
-          [
-            16.82,
-            -9.65,
-            1.67
-          ],
-          [
-            15.78,
-            -8.75,
-            0.23
-          ]
-        ],
-        [
-          [
-            13.74,
-            -11.97,
-            2.3
-          ],
-          [
-            13.26,
-            -11.23,
-            0.22
-          ]
-        ],
-        [
-          [
-            10.52,
-            -13.024,
-            3.085
-          ],
-          [
-            10.48,
-            -12.776,
-            0.205
-          ]
-        ],
-        [
-          [
-            7,
-            -12.6,
-            3.4
-          ],
-          [
-            7,
-            -12.6,
-            0.2
-          ]
-        ],
-        [
-          [
-            4.6,
-            -11.3,
-            3.4
-          ],
-          [
-            4.6,
-            -11.3,
-            0.2
-          ]
-        ]
+      "pictures": [
+        {
+          "picture": "work:prof_front.png",
+          "view": "front"
+        },
+        {
+          "picture": "work:prof_front.png",
+          "view": "left"
+        },
+        {
+          "picture": "work:prof_front.png",
+          "view": "back"
+        },
+        {
+          "picture": "work:prof_front.png",
+          "view": "right"
+        },
+        {
+          "picture": "work:plan_top.png",
+          "view": "top"
+        },
+        {
+          "picture": "work:plan_top.png",
+          "view": "below"
+        }
       ]
     },
     {
       "id": "cross_long",
       "kind": "box",
-      "paint": true,
-      "material": "red",
       "size": [
-        6,
-        1.9,
-        0.05
+        5.6,
+        1.8,
+        0.4
       ],
+      "material": "red",
+      "paint": true,
       "at": [
-        -4.3,
+        -10,
         0,
-        6.85
+        6.6
       ]
     },
     {
       "id": "cross_wide",
       "kind": "box",
-      "paint": true,
-      "material": "red",
       "size": [
-        1.9,
-        6,
-        0.05
+        1.8,
+        5.6,
+        0.4
       ],
+      "material": "red",
+      "paint": true,
       "at": [
-        -4.3,
+        -10,
         0,
-        6.85
+        6.6
       ]
     },
     {
-      "id": "first_aid",
+      "id": "f_stem",
       "kind": "box",
-      "paint": true,
-      "material": "label",
       "size": [
-        12,
-        2.4,
-        0.05
+        1.8,
+        0.36,
+        0.4
       ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -5.8,
+        5.22,
+        6.6
+      ]
+    },
+    {
+      "id": "f_top",
+      "kind": "box",
+      "size": [
+        0.36,
+        1.2,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -5.08,
+        4.8,
+        6.6
+      ]
+    },
+    {
+      "id": "f_mid",
+      "kind": "box",
+      "size": [
+        0.36,
+        1,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -5.74,
+        4.9,
+        6.6
+      ]
+    },
+    {
+      "id": "i1_stem",
+      "kind": "box",
+      "size": [
+        1.8,
+        0.36,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -5.8,
+        3.72,
+        6.6
+      ]
+    },
+    {
+      "id": "r_stem",
+      "kind": "box",
+      "size": [
+        1.8,
+        0.36,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -5.8,
+        3.07,
+        6.6
+      ]
+    },
+    {
+      "id": "r_top",
+      "kind": "box",
+      "size": [
+        0.36,
+        1.2,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -5.08,
+        2.65,
+        6.6
+      ]
+    },
+    {
+      "id": "r_mid",
+      "kind": "box",
+      "size": [
+        0.36,
+        1.2,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -5.74,
+        2.65,
+        6.6
+      ]
+    },
+    {
+      "id": "r_bowl",
+      "kind": "box",
+      "size": [
+        1.02,
+        0.36,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -5.41,
+        2.23,
+        6.6
+      ]
+    },
+    {
+      "id": "r_leg",
+      "kind": "box",
+      "size": [
+        1.15,
+        0.36,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
       "rotate": [
-        -90,
+        35.8,
         0,
         0
       ],
       "at": [
-        0.6,
-        0,
-        6.85
+        -6.25,
+        2.38,
+        6.6
+      ]
+    },
+    {
+      "id": "s_top",
+      "kind": "box",
+      "size": [
+        0.36,
+        1.2,
+        0.4
       ],
-      "print": {
-        "text": "FIRST AID",
-        "face": "top",
-        "ink": [
-          0.78,
-          0.08,
-          0.07
-        ],
-        "size": 0.85
-      }
+      "material": "red",
+      "paint": true,
+      "at": [
+        -5.08,
+        1.15,
+        6.6
+      ]
+    },
+    {
+      "id": "s_mid",
+      "kind": "box",
+      "size": [
+        0.36,
+        1.2,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -5.8,
+        1.15,
+        6.6
+      ]
+    },
+    {
+      "id": "s_bottom",
+      "kind": "box",
+      "size": [
+        0.36,
+        1.2,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -6.52,
+        1.15,
+        6.6
+      ]
+    },
+    {
+      "id": "s_upper",
+      "kind": "box",
+      "size": [
+        1.08,
+        0.36,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -5.44,
+        1.57,
+        6.6
+      ]
+    },
+    {
+      "id": "s_lower",
+      "kind": "box",
+      "size": [
+        1.08,
+        0.36,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -6.16,
+        0.73,
+        6.6
+      ]
+    },
+    {
+      "id": "t_top",
+      "kind": "box",
+      "size": [
+        0.36,
+        1.2,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -5.08,
+        -0.35,
+        6.6
+      ]
+    },
+    {
+      "id": "t_stem",
+      "kind": "box",
+      "size": [
+        1.8,
+        0.36,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -5.8,
+        -0.35,
+        6.6
+      ]
+    },
+    {
+      "id": "a_left",
+      "kind": "box",
+      "size": [
+        1.8,
+        0.36,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -5.8,
+        -2.23,
+        6.6
+      ]
+    },
+    {
+      "id": "a_right",
+      "kind": "box",
+      "size": [
+        1.8,
+        0.36,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -5.8,
+        -3.07,
+        6.6
+      ]
+    },
+    {
+      "id": "a_top",
+      "kind": "box",
+      "size": [
+        0.36,
+        1.2,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -5.08,
+        -2.65,
+        6.6
+      ]
+    },
+    {
+      "id": "a_mid",
+      "kind": "box",
+      "size": [
+        0.36,
+        1.2,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -5.8,
+        -2.65,
+        6.6
+      ]
+    },
+    {
+      "id": "i2_stem",
+      "kind": "box",
+      "size": [
+        1.8,
+        0.36,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -5.8,
+        -3.73,
+        6.6
+      ]
+    },
+    {
+      "id": "d_stem",
+      "kind": "box",
+      "size": [
+        1.8,
+        0.36,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -5.8,
+        -4.38,
+        6.6
+      ]
+    },
+    {
+      "id": "d_top",
+      "kind": "box",
+      "size": [
+        0.36,
+        0.9,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -5.08,
+        -4.65,
+        6.6
+      ]
+    },
+    {
+      "id": "d_bottom",
+      "kind": "box",
+      "size": [
+        0.36,
+        0.9,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -6.52,
+        -4.65,
+        6.6
+      ]
+    },
+    {
+      "id": "d_right",
+      "kind": "box",
+      "size": [
+        1.2,
+        0.36,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "at": [
+        -5.8,
+        -5.22,
+        6.6
+      ]
     },
     {
       "id": "device_top",
       "kind": "box",
-      "paint": true,
-      "material": "plate",
       "size": [
-        3.9,
+        5.5,
         10,
-        0.02
+        0.4
       ],
-      "at": [
-        6.15,
-        0,
-        6.81
-      ]
-    },
-    {
-      "id": "pictograms",
-      "kind": "box",
-      "paint": true,
-      "material": "lightgrey",
-      "size": [
-        7.4,
-        1.4,
-        0.02
-      ],
-      "rotate": [
-        90,
-        0,
-        0
-      ],
-      "at": [
-        5.2,
-        -0.9,
-        6.9
-      ],
-      "print": {
-        "text": "1 2 3 4",
-        "face": "top",
-        "ink": [
-          0.95,
-          0.95,
-          0.95
-        ],
-        "size": 0.75
-      }
-    },
-    {
-      "id": "dial",
-      "kind": "cylinder",
-      "paint": true,
-      "material": "black",
-      "radius": 0.75,
-      "height": 0.02,
-      "sides": 12,
-      "at": [
-        5.2,
-        4,
-        6.95
-      ]
-    },
-    {
-      "id": "device_bevel",
-      "kind": "box",
-      "paint": true,
       "material": "plate",
+      "paint": true,
+      "texels": 3,
+      "at": [
+        -1.05,
+        0,
+        6.6
+      ],
+      "panels": [
+        {
+          "face": "top",
+          "at": [
+            2.75,
+            5
+          ],
+          "size": [
+            5.3,
+            9.8
+          ],
+          "style": "inset",
+          "material": "plate"
+        },
+        {
+          "face": "top",
+          "at": [
+            2.75,
+            2.9
+          ],
+          "size": [
+            4.4,
+            4.4
+          ],
+          "style": "flat",
+          "material": "black"
+        },
+        {
+          "face": "top",
+          "at": [
+            2.75,
+            2.9
+          ],
+          "size": [
+            3.4,
+            3.4
+          ],
+          "style": "inset",
+          "material": "screen"
+        },
+        {
+          "face": "top",
+          "at": [
+            3.7,
+            6.6
+          ],
+          "size": [
+            1.4,
+            1.4
+          ],
+          "style": "raised",
+          "material": "red"
+        },
+        {
+          "face": "top",
+          "at": [
+            1.8,
+            6.6
+          ],
+          "size": [
+            1.4,
+            1.4
+          ],
+          "style": "raised",
+          "material": "green"
+        },
+        {
+          "face": "top",
+          "at": [
+            1.2,
+            8.2
+          ],
+          "size": [
+            0.45,
+            0.45
+          ],
+          "style": "flat",
+          "material": "white"
+        },
+        {
+          "face": "top",
+          "at": [
+            2,
+            8.2
+          ],
+          "size": [
+            0.45,
+            0.45
+          ],
+          "style": "flat",
+          "material": "white"
+        },
+        {
+          "face": "top",
+          "at": [
+            2.8,
+            8.2
+          ],
+          "size": [
+            0.45,
+            0.45
+          ],
+          "style": "flat",
+          "material": "white"
+        },
+        {
+          "face": "top",
+          "at": [
+            3.6,
+            8.2
+          ],
+          "size": [
+            0.45,
+            0.45
+          ],
+          "style": "flat",
+          "material": "white"
+        },
+        {
+          "face": "top",
+          "at": [
+            4.4,
+            8.2
+          ],
+          "size": [
+            0.45,
+            0.45
+          ],
+          "style": "flat",
+          "material": "white"
+        }
+      ]
+    },
+    {
+      "id": "device_slope",
+      "kind": "box",
       "size": [
-        4.8,
+        2.8,
         10,
-        0.02
+        0.4
       ],
+      "material": "plate",
+      "paint": true,
+      "texels": 3,
       "rotate": [
         0,
-        45,
+        40.36,
         0
       ],
       "at": [
-        9.804,
+        2.62,
         0,
-        5.11
+        5.75
+      ],
+      "panels": [
+        {
+          "face": "top",
+          "at": [
+            1.4,
+            5
+          ],
+          "size": [
+            2.6,
+            9.8
+          ],
+          "style": "inset",
+          "material": "plate"
+        },
+        {
+          "face": "top",
+          "at": [
+            1.4,
+            1.3
+          ],
+          "size": [
+            1.2,
+            1
+          ],
+          "style": "flat",
+          "material": "white"
+        },
+        {
+          "face": "top",
+          "at": [
+            1.4,
+            2.6
+          ],
+          "size": [
+            1.2,
+            1
+          ],
+          "style": "flat",
+          "material": "grey"
+        },
+        {
+          "face": "top",
+          "at": [
+            1.4,
+            3.9
+          ],
+          "size": [
+            1.2,
+            1
+          ],
+          "style": "flat",
+          "material": "white"
+        },
+        {
+          "face": "top",
+          "at": [
+            1.4,
+            5.2
+          ],
+          "size": [
+            1.2,
+            1
+          ],
+          "style": "flat",
+          "material": "grey"
+        },
+        {
+          "face": "top",
+          "at": [
+            1.4,
+            6.5
+          ],
+          "size": [
+            1.2,
+            1
+          ],
+          "style": "flat",
+          "material": "white"
+        },
+        {
+          "face": "top",
+          "at": [
+            1.4,
+            8.7
+          ],
+          "size": [
+            1.8,
+            1.8
+          ],
+          "shape": "ellipse",
+          "style": "raised",
+          "material": "black"
+        },
+        {
+          "face": "top",
+          "at": [
+            1.4,
+            8.7
+          ],
+          "size": [
+            0.6,
+            0.6
+          ],
+          "shape": "ellipse",
+          "style": "flat",
+          "material": "grey"
+        }
       ]
     },
     {
-      "id": "bezel",
+      "id": "side_words_left_a",
       "kind": "box",
-      "paint": true,
-      "material": "black",
       "size": [
-        4,
-        4,
-        0.02
+        2.2,
+        0.4,
+        0.3
       ],
-      "rotate": [
-        0,
-        45,
-        0
-      ],
-      "at": [
-        9.797,
-        -2.4,
-        5.244
-      ]
-    },
-    {
-      "id": "lcd",
-      "kind": "box",
-      "paint": true,
-      "material": "screen",
-      "size": [
-        3,
-        3,
-        0.02
-      ],
-      "rotate": [
-        0,
-        45,
-        0
-      ],
-      "at": [
-        9.832,
-        -2.4,
-        5.28
-      ]
-    },
-    {
-      "id": "button_red",
-      "kind": "box",
-      "paint": true,
       "material": "red",
-      "size": [
-        1.1,
-        1.1,
-        0.02
-      ],
-      "rotate": [
-        0,
-        45,
-        0
-      ],
-      "at": [
-        9.161,
-        1.6,
-        5.881
-      ]
-    },
-    {
-      "id": "button_green",
-      "kind": "box",
       "paint": true,
-      "material": "green",
-      "size": [
-        1.1,
-        1.1,
-        0.02
-      ],
-      "rotate": [
-        0,
-        45,
-        0
-      ],
-      "at": [
-        10.363,
-        1.6,
-        4.678
-      ]
-    },
-    {
-      "id": "dot1",
-      "kind": "box",
-      "paint": true,
-      "material": "white",
-      "size": [
-        0.35,
-        0.35,
-        0.02
-      ],
-      "rotate": [
-        0,
-        45,
-        0
-      ],
-      "at": [
-        9.02,
-        3.2,
-        6.022
-      ]
-    },
-    {
-      "id": "dot2",
-      "kind": "box",
-      "paint": true,
-      "material": "white",
-      "size": [
-        0.35,
-        0.35,
-        0.02
-      ],
-      "rotate": [
-        0,
-        45,
-        0
-      ],
-      "at": [
-        9.514,
-        3.2,
-        5.527
-      ]
-    },
-    {
-      "id": "dot3",
-      "kind": "box",
-      "paint": true,
-      "material": "white",
-      "size": [
-        0.35,
-        0.35,
-        0.02
-      ],
-      "rotate": [
-        0,
-        45,
-        0
-      ],
-      "at": [
-        10.009,
-        3.2,
-        5.032
-      ]
-    },
-    {
-      "id": "dot4",
-      "kind": "box",
-      "paint": true,
-      "material": "white",
-      "size": [
-        0.35,
-        0.35,
-        0.02
-      ],
-      "rotate": [
-        0,
-        45,
-        0
-      ],
-      "at": [
-        10.504,
-        3.2,
-        4.537
-      ]
-    },
-    {
-      "id": "side_text_left",
-      "kind": "box",
-      "paint": true,
-      "material": "label",
-      "size": [
-        10,
-        1.5,
-        0.03
-      ],
       "rotate": [
         0,
         0,
-        -45
+        -40.36
       ],
       "at": [
-        0.5,
+        -11.6,
         9.4,
-        5.53
-      ],
-      "print": {
-        "text": "FIRST AID KIT",
-        "face": "top",
-        "ink": [
-          0.78,
-          0.08,
-          0.07
-        ],
-        "size": 0.85
-      }
-    },
-    {
-      "id": "side_arrow_left",
-      "kind": "box",
-      "paint": true,
-      "material": "red",
-      "size": [
-        9,
-        0.3,
-        0.03
-      ],
-      "rotate": [
-        0,
-        0,
-        -45
-      ],
-      "at": [
-        -1,
-        10.66,
-        4.27
+        4.99
       ]
     },
     {
-      "id": "side_arrowhead_left",
+      "id": "side_words_left_b",
       "kind": "box",
-      "paint": true,
-      "material": "red",
       "size": [
-        0.9,
-        0.9,
-        0.03
-      ],
-      "rotate": [
-        45,
-        0,
-        -45
-      ],
-      "at": [
-        -5.5,
-        10.66,
-        4.27
-      ]
-    },
-    {
-      "id": "side_text_right",
-      "kind": "box",
-      "paint": true,
-      "material": "label",
-      "size": [
-        10,
         1.5,
-        0.03
+        0.4,
+        0.3
       ],
+      "material": "red",
+      "paint": true,
       "rotate": [
         0,
         0,
-        45
+        -40.36
       ],
       "at": [
-        0.5,
         -9.4,
-        5.53
-      ],
-      "print": {
-        "text": "FIRST AID KIT",
-        "face": "top",
-        "ink": [
-          0.78,
-          0.08,
-          0.07
-        ],
-        "size": 0.85
-      }
+        9.4,
+        4.99
+      ]
     },
     {
-      "id": "side_arrow_right",
+      "id": "side_words_left_c",
       "kind": "box",
-      "paint": true,
-      "material": "red",
       "size": [
+        2.4,
+        0.4,
+        0.3
+      ],
+      "material": "red",
+      "paint": true,
+      "rotate": [
+        0,
+        0,
+        -40.36
+      ],
+      "at": [
+        -7.1,
+        9.4,
+        4.99
+      ]
+    },
+    {
+      "id": "side_words_right_a",
+      "kind": "box",
+      "size": [
+        2.2,
+        0.4,
+        0.3
+      ],
+      "material": "red",
+      "paint": true,
+      "rotate": [
+        0,
+        0,
+        40.36
+      ],
+      "at": [
+        -11.6,
+        -9.4,
+        4.99
+      ]
+    },
+    {
+      "id": "side_words_right_b",
+      "kind": "box",
+      "size": [
+        1.5,
+        0.4,
+        0.3
+      ],
+      "material": "red",
+      "paint": true,
+      "rotate": [
+        0,
+        0,
+        40.36
+      ],
+      "at": [
+        -9.4,
+        -9.4,
+        4.99
+      ]
+    },
+    {
+      "id": "side_words_right_c",
+      "kind": "box",
+      "size": [
+        2.4,
+        0.4,
+        0.3
+      ],
+      "material": "red",
+      "paint": true,
+      "rotate": [
+        0,
+        0,
+        40.36
+      ],
+      "at": [
+        -7.1,
+        -9.4,
+        4.99
+      ]
+    },
+    {
+      "id": "arrow_left",
+      "kind": "box",
+      "size": [
+        3.2,
+        0.25,
+        0.3
+      ],
+      "material": "red",
+      "paint": true,
+      "rotate": [
+        0,
+        0,
+        -40.36
+      ],
+      "at": [
+        -3.2,
+        9.4,
+        4.99
+      ]
+    },
+    {
+      "id": "arrow_left_head",
+      "kind": "cylinder",
+      "sides": 3,
+      "radius": 0.65,
+      "height": 0.3,
+      "material": "red",
+      "paint": true,
+      "rotate": [
+        0,
+        0,
+        -40.36
+      ],
+      "at": [
+        -1.3,
+        9.4,
+        4.99
+      ]
+    },
+    {
+      "id": "arrow_right",
+      "kind": "box",
+      "size": [
+        3.2,
+        0.25,
+        0.3
+      ],
+      "material": "red",
+      "paint": true,
+      "rotate": [
+        0,
+        0,
+        40.36
+      ],
+      "at": [
+        -3.2,
+        -9.4,
+        4.99
+      ]
+    },
+    {
+      "id": "arrow_right_head",
+      "kind": "cylinder",
+      "sides": 3,
+      "radius": 0.65,
+      "height": 0.3,
+      "material": "red",
+      "paint": true,
+      "rotate": [
+        0,
+        0,
+        40.36
+      ],
+      "at": [
+        -1.3,
+        -9.4,
+        4.99
+      ]
+    },
+    {
+      "id": "tick_front_a",
+      "kind": "box",
+      "size": [
+        1.1,
+        0.25,
+        0.4
+      ],
+      "material": "red",
+      "paint": true,
+      "rotate": [
+        45,
+        0,
+        0
+      ],
+      "at": [
+        3.2,
         9,
-        0.3,
-        0.03
+        5.3
       ],
-      "rotate": [
-        0,
-        0,
-        45
-      ],
-      "at": [
-        -1,
-        -10.66,
-        4.27
-      ]
+      "mirror": "y"
     },
     {
-      "id": "side_arrowhead_right",
+      "id": "tick_front_b",
       "kind": "box",
-      "paint": true,
-      "material": "red",
       "size": [
-        0.9,
-        0.9,
-        0.03
+        1.1,
+        0.25,
+        0.4
       ],
+      "material": "red",
+      "paint": true,
       "rotate": [
-        45,
+        -45,
         0,
-        45
+        0
       ],
       "at": [
-        -5.5,
-        -10.66,
-        4.27
-      ]
+        3.2,
+        9,
+        5.3
+      ],
+      "mirror": "y"
     },
     {
-      "id": "corner_mark_a",
+      "id": "tick_back_a",
       "kind": "box",
-      "paint": true,
-      "material": "red",
       "size": [
-        1.6,
-        0.45,
-        0.05
+        1.1,
+        0.25,
+        0.4
       ],
+      "material": "red",
+      "paint": true,
       "rotate": [
         45,
         0,
         0
       ],
       "at": [
-        8.3,
-        8.3,
-        5.9
+        -14.8,
+        9,
+        5.3
       ],
-      "repeat": {
-        "count": 4,
-        "through": [
-          0,
-          0,
-          0
-        ],
-        "start": 0
-      }
+      "mirror": "y"
     },
     {
-      "id": "corner_mark_b",
+      "id": "tick_back_b",
       "kind": "box",
-      "paint": true,
-      "material": "red",
       "size": [
-        0.45,
-        1.6,
-        0.05
+        1.1,
+        0.25,
+        0.4
       ],
+      "material": "red",
+      "paint": true,
       "rotate": [
-        45,
+        -45,
+        0,
+        0
+      ],
+      "at": [
+        -14.8,
+        9,
+        5.3
+      ],
+      "mirror": "y"
+    },
+    {
+      "id": "side_inset",
+      "kind": "box",
+      "size": [
+        6,
+        0.6,
+        2.6
+      ],
+      "material": "black",
+      "paint": true,
+      "texels": 3,
+      "at": [
+        -0.6,
+        11.5,
+        0.4
+      ],
+      "mirror": "y",
+      "panels": [
+        {
+          "face": "left",
+          "at": [
+            3,
+            1.3
+          ],
+          "size": [
+            2.1,
+            2.1
+          ],
+          "shape": "ellipse",
+          "style": "raised",
+          "material": "grey"
+        },
+        {
+          "face": "left",
+          "at": [
+            3,
+            1.3
+          ],
+          "size": [
+            0.9,
+            0.9
+          ],
+          "shape": "ellipse",
+          "style": "inset",
+          "material": "black"
+        }
+      ]
+    },
+    {
+      "id": "strap_l0",
+      "kind": "box",
+      "size": [
+        5.1,
+        0.8,
+        3.4
+      ],
+      "material": "webbing",
+      "texels": 0.7,
+      "rotate": [
+        12.5,
+        0,
+        0
+      ],
+      "at": [
+        1.2,
+        12.3,
+        0
+      ]
+    },
+    {
+      "id": "strap_l1",
+      "kind": "box",
+      "size": [
+        5.2,
+        0.8,
+        3.1
+      ],
+      "material": "webbing",
+      "texels": 0.7,
+      "rotate": [
+        -6,
+        0,
+        0
+      ],
+      "at": [
+        4.9,
+        12.5,
+        0
+      ]
+    },
+    {
+      "id": "strap_l2",
+      "kind": "box",
+      "size": [
+        5.4,
+        0.8,
+        2.7
+      ],
+      "material": "webbing",
+      "texels": 0.7,
+      "rotate": [
+        -28.5,
+        0,
+        0
+      ],
+      "at": [
+        8.55,
+        11.35,
+        0
+      ]
+    },
+    {
+      "id": "strap_l3",
+      "kind": "box",
+      "size": [
+        5.7,
+        0.8,
+        2.3
+      ],
+      "material": "webbing",
+      "texels": 0.7,
+      "rotate": [
+        -44.1,
+        0,
+        0
+      ],
+      "at": [
+        11.85,
+        8.9,
+        0
+      ]
+    },
+    {
+      "id": "strap_l4",
+      "kind": "box",
+      "size": [
+        5.3,
+        0.8,
+        2
+      ],
+      "material": "webbing",
+      "texels": 0.7,
+      "rotate": [
+        -54.3,
+        0,
+        0
+      ],
+      "at": [
+        14.55,
+        5.8,
+        0
+      ]
+    },
+    {
+      "id": "strap_l5",
+      "kind": "box",
+      "size": [
+        3.42,
+        0.8,
+        1.8
+      ],
+      "material": "webbing",
+      "texels": 0.7,
+      "rotate": [
+        -66.4,
+        0,
+        0
+      ],
+      "at": [
+        16.23,
+        3,
+        0
+      ]
+    },
+    {
+      "id": "strap_tip",
+      "kind": "box",
+      "size": [
+        3.37,
+        0.8,
+        1.8
+      ],
+      "material": "webbing",
+      "texels": 0.7,
+      "rotate": [
+        -116.6,
+        0,
+        0
+      ],
+      "at": [
+        16.18,
+        0.65,
+        0
+      ]
+    },
+    {
+      "id": "strap_r4",
+      "kind": "box",
+      "size": [
+        5.9,
+        0.8,
+        2
+      ],
+      "material": "webbing",
+      "texels": 0.7,
+      "rotate": [
+        -121.6,
+        0,
+        0
+      ],
+      "at": [
+        14.4,
+        -2.45,
+        0
+      ]
+    },
+    {
+      "id": "strap_r3",
+      "kind": "box",
+      "size": [
+        6.6,
+        0.8,
+        2.3
+      ],
+      "material": "webbing",
+      "texels": 0.7,
+      "rotate": [
+        -127.3,
+        0,
+        0
+      ],
+      "at": [
+        11.6,
+        -6.5,
+        0
+      ]
+    },
+    {
+      "id": "strap_r2",
+      "kind": "box",
+      "size": [
+        5.8,
+        0.8,
+        2.7
+      ],
+      "material": "webbing",
+      "texels": 0.7,
+      "rotate": [
+        -140.5,
         0,
         0
       ],
       "at": [
         8.3,
-        8.3,
-        5.9
-      ],
-      "repeat": {
-        "count": 4,
-        "through": [
-          0,
-          0,
-          0
-        ],
-        "start": 0
-      }
+        -10,
+        0
+      ]
     },
     {
-      "id": "inset_left",
+      "id": "strap_r1",
       "kind": "box",
-      "paint": true,
-      "material": "black",
       "size": [
-        6,
-        0.02,
-        2.6
+        5.2,
+        0.8,
+        3.1
       ],
-      "at": [
-        4.6,
-        11.52,
-        0.4
-      ]
-    },
-    {
-      "id": "grommet_left",
-      "kind": "cylinder",
-      "paint": true,
-      "material": "grommet",
-      "radius": 1.05,
-      "height": 0.02,
-      "sides": 12,
+      "material": "webbing",
+      "texels": 0.7,
       "rotate": [
+        -160.1,
         0,
-        0,
-        -90
+        0
       ],
       "at": [
-        4.6,
-        11.56,
-        1.7
+        4.8,
+        -12.05,
+        0
       ]
     },
     {
-      "id": "grommet_hole_left",
-      "kind": "cylinder",
-      "paint": true,
-      "material": "black",
-      "radius": 0.5,
-      "height": 0.02,
-      "sides": 12,
-      "rotate": [
-        0,
-        0,
-        -90
-      ],
-      "at": [
-        4.6,
-        11.62,
-        1.7
-      ]
-    },
-    {
-      "id": "inset_right",
+      "id": "strap_r0",
       "kind": "box",
-      "paint": true,
-      "material": "black",
       "size": [
-        6,
-        0.02,
-        2.6
+        5.1,
+        0.8,
+        3.4
       ],
-      "at": [
-        4.6,
-        -11.52,
-        0.4
-      ]
-    },
-    {
-      "id": "grommet_right",
-      "kind": "cylinder",
-      "paint": true,
-      "material": "grommet",
-      "radius": 1.05,
-      "height": 0.02,
-      "sides": 12,
+      "material": "webbing",
+      "texels": 0.7,
       "rotate": [
+        167.5,
         0,
-        0,
-        90
+        0
       ],
       "at": [
-        4.6,
-        -11.56,
-        1.7
-      ]
-    },
-    {
-      "id": "grommet_hole_right",
-      "kind": "cylinder",
-      "paint": true,
-      "material": "black",
-      "radius": 0.5,
-      "height": 0.02,
-      "sides": 12,
-      "rotate": [
-        0,
-        0,
-        90
-      ],
-      "at": [
-        4.6,
-        -11.62,
-        1.7
+        1.2,
+        -12.3,
+        0
       ]
     }
   ]

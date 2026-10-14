@@ -1,0 +1,163 @@
+{
+ "subject": "filecabinet",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 1,
+   "left/right": 1,
+   "top/below": 1
+  },
+  "size": {
+   "original": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "reproduction": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "offShare": [
+    0.001,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 2.4,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 2.2,
+     "shared": 1
+    },
+    {
+     "view": "left",
+     "deltaE": 2.6,
+     "shared": 0.986
+    },
+    {
+     "view": "back",
+     "deltaE": 2.5,
+     "shared": 1
+    },
+    {
+     "view": "right",
+     "deltaE": 2.6,
+     "shared": 0.986
+    },
+    {
+     "view": "top",
+     "deltaE": 2.5,
+     "shared": 0.986
+    },
+    {
+     "view": "below",
+     "deltaE": 2.5,
+     "shared": 0.986
+    },
+    {
+     "view": "front-left",
+     "deltaE": 2.2,
+     "shared": 1
+    },
+    {
+     "view": "front-right",
+     "deltaE": 2.5,
+     "shared": 1
+    },
+    {
+     "view": "back-left",
+     "deltaE": 1.9,
+     "shared": 1
+    },
+    {
+     "view": "back-right",
+     "deltaE": 2.1,
+     "shared": 1
+    }
+   ]
+  },
+  "triangles": {
+   "original": 14,
+   "reproduction": 84
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 0
+ },
+ "lineup": {
+  "picked": "I",
+  "right": "I",
+  "letters": {
+   "A": "models/w_longjump.mdl",
+   "B": "models/w_security.mdl",
+   "C": "models/w_battery.mdl",
+   "D": "models/forklift.mdl",
+   "E": "models/w_medkit.mdl",
+   "F": "models/mbarrel.mdl",
+   "G": "models/w_9mmclip.mdl",
+   "H": "models/headcrab.mdl",
+   "I": "models/filecabinet.mdl",
+   "J": "models/can.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Silhouette overlap is 1.00 in all three view pairs. Every view, front, sides, back, top and below, shows the same tall narrow box with its plinth line at the bottom. Nothing sticks out and nothing is missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 28.8 x 22.6 x 62.4 for both models, with an off-share of at most 0.001 on any axis."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front has three drawers stacked the same way, each with one dark pull handle centred near its top, and the plinth band at the base matches. No component of the original is missing or added. The back and sides are plain in both."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are the same mid-grey painted metal, with dark handles and dark drawer seams. Mean colour difference is 2.4 (CIE76 delta E), and no view goes above 2.6."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original's left side has heavy diagonal streak and grain marks, clearly visible in the front-left and back-left views, and a stepped band of vertical strips near the front edge in the left view. The reproduction's left side is nearly plain and shows only two thin lines. The original's sides and back have stronger dark mottled blotches, which are fainter and smoother on the reproduction. The reproduction also adds small dark speckles along the plinth and the bottom drawer edge that the original does not have there."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "At the size the game shows it, the front and three-quarter views read as the same three-drawer grey filing cabinet: same drawers, same handles, same plinth, same tone. Up close the softer side grain is the only giveaway, and a player would not notice it in passing."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The drawers face the same way as the original's front, the model is upright, and it stands on its base the same way, since the silhouettes line up exactly in every view."
+  },
+  "M8": {
+   "judge": 1,
+   "cap": 0,
+   "score": 0,
+   "reason": "No check errors, and the pictures show nothing open, inside out or floating. But the reproduction has 84 triangles against the original's 14, six times the original's count, where the limit is twice (28)."
+  }
+ },
+ "total": 13,
+ "of": 16,
+ "passes": false
+}

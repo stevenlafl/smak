@@ -9,119 +9,106 @@
   },
   "texture": {
     "width": 512,
-    "height": 512
+    "height": 256
   },
   "materials": {
-    "steel": {
+    "body": {
       "base": "paint",
       "tone": [
-        0.22,
-        0.22,
-        0.22
+        0.262,
+        0.262,
+        0.27
       ]
     },
-    "plinthsteel": {
+    "plinth": {
       "base": "paint",
       "tone": [
-        0.16,
-        0.16,
-        0.16
+        0.195,
+        0.195,
+        0.2
       ]
     },
     "edge": {
-      "base": "metal",
-      "tone": [
-        0.45,
-        0.45,
-        0.45
-      ]
-    },
-    "gap": {
       "base": "paint",
       "tone": [
-        0.06,
-        0.06,
-        0.06
+        0.5,
+        0.5,
+        0.51
       ]
     },
     "drawer": {
       "base": "paint",
       "tone": [
-        0.24,
-        0.24,
-        0.24
+        0.285,
+        0.285,
+        0.293
+      ]
+    },
+    "gap": {
+      "base": "paint",
+      "tone": [
+        0.07,
+        0.07,
+        0.075
       ]
     },
     "pull": {
-      "base": "metal",
+      "base": "steel",
       "tone": [
-        0.07,
-        0.07,
-        0.07
-      ]
-    },
-    "rim": {
-      "base": "metal",
-      "tone": [
-        0.32,
-        0.32,
-        0.32
+        0.1,
+        0.1,
+        0.1
       ]
     },
     "scoop": {
       "base": "paint",
       "tone": [
-        0.02,
-        0.02,
-        0.02
+        0.03,
+        0.03,
+        0.03
+      ]
+    },
+    "pullrim": {
+      "base": "steel",
+      "tone": [
+        0.45,
+        0.45,
+        0.46
       ]
     },
     "streak1": {
       "base": "paint",
       "tone": [
-        0.25,
-        0.25,
-        0.25
+        0.315,
+        0.315,
+        0.322
       ]
     },
     "streak2": {
       "base": "paint",
       "tone": [
-        0.195,
-        0.195,
-        0.195
-      ]
-    },
-    "streak3": {
-      "base": "paint",
-      "tone": [
-        0.23,
-        0.23,
-        0.23
+        0.22,
+        0.22,
+        0.226
       ]
     }
   },
   "finish": {
     "light": 0.3,
-    "wear": 0.25,
-    "grime": 0.6,
+    "wear": 0.3,
+    "grime": 0.7,
     "vary": 0.03
   },
   "parts": [
     {
-      "id": "body",
+      "id": "cabinet",
       "kind": "box",
       "size": [
         28.8,
         22.6,
         62.4
       ],
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "material": "steel",
+      "material": "body",
       "panels": [
         {
           "face": "front",
@@ -134,17 +121,17 @@
             3.4
           ],
           "style": "flat",
-          "material": "plinthsteel"
+          "material": "plinth"
         },
         {
           "face": "front",
           "at": [
             11.3,
-            3.35
+            3.45
           ],
           "size": [
             22.6,
-            0.3
+            0.35
           ],
           "style": "flat",
           "material": "edge"
@@ -160,17 +147,17 @@
             3.4
           ],
           "style": "flat",
-          "material": "plinthsteel"
+          "material": "plinth"
         },
         {
           "face": "back",
           "at": [
             11.3,
-            3.35
+            3.45
           ],
           "size": [
             22.6,
-            0.3
+            0.35
           ],
           "style": "flat",
           "material": "edge"
@@ -186,17 +173,17 @@
             3.4
           ],
           "style": "flat",
-          "material": "plinthsteel"
+          "material": "plinth"
         },
         {
           "face": "left",
           "at": [
             14.4,
-            3.35
+            3.45
           ],
           "size": [
             28.8,
-            0.3
+            0.35
           ],
           "style": "flat",
           "material": "edge"
@@ -212,137 +199,124 @@
             3.4
           ],
           "style": "flat",
-          "material": "plinthsteel"
+          "material": "plinth"
         },
         {
           "face": "right",
           "at": [
             14.4,
-            3.35
+            3.45
           ],
           "size": [
             28.8,
-            0.3
+            0.35
           ],
           "style": "flat",
           "material": "edge"
+        },
+        {
+          "face": "left",
+          "at": [
+            1.2,
+            33.3
+          ],
+          "size": [
+            0.5,
+            59
+          ],
+          "style": "flat",
+          "material": "streak1"
+        },
+        {
+          "face": "left",
+          "at": [
+            2.6,
+            33.3
+          ],
+          "size": [
+            0.4,
+            59
+          ],
+          "style": "flat",
+          "material": "streak2"
+        },
+        {
+          "face": "left",
+          "at": [
+            4.3,
+            33.3
+          ],
+          "size": [
+            0.5,
+            59
+          ],
+          "style": "flat",
+          "material": "streak1"
+        },
+        {
+          "face": "left",
+          "at": [
+            6.4,
+            33.3
+          ],
+          "size": [
+            0.4,
+            59
+          ],
+          "style": "flat",
+          "material": "streak2"
+        },
+        {
+          "face": "left",
+          "at": [
+            8.7,
+            33.3
+          ],
+          "size": [
+            0.5,
+            59
+          ],
+          "style": "flat",
+          "material": "streak1"
+        },
+        {
+          "face": "left",
+          "at": [
+            11,
+            33.3
+          ],
+          "size": [
+            0.4,
+            59
+          ],
+          "style": "flat",
+          "material": "streak2"
+        },
+        {
+          "face": "left",
+          "at": [
+            12.9,
+            33.3
+          ],
+          "size": [
+            0.3,
+            59
+          ],
+          "style": "flat",
+          "material": "streak1"
         },
         {
           "face": "top",
           "at": [
-            11.3,
-            0.2
+            28.55,
+            11.3
           ],
           "size": [
-            22.6,
-            0.4
+            0.5,
+            22.6
           ],
           "style": "flat",
           "material": "edge"
-        },
-        {
-          "face": "left",
-          "at": [
-            6.5,
-            32.9
-          ],
-          "size": [
-            13,
-            58.4
-          ],
-          "style": "flat",
-          "material": "streak1"
-        },
-        {
-          "face": "left",
-          "at": [
-            5.4,
-            32.9
-          ],
-          "size": [
-            10.8,
-            58.4
-          ],
-          "style": "flat",
-          "material": "streak2"
-        },
-        {
-          "face": "left",
-          "at": [
-            4.4,
-            32.9
-          ],
-          "size": [
-            8.8,
-            58.4
-          ],
-          "style": "flat",
-          "material": "streak3"
-        },
-        {
-          "face": "left",
-          "at": [
-            3.4,
-            32.9
-          ],
-          "size": [
-            6.8,
-            58.4
-          ],
-          "style": "flat",
-          "material": "streak2"
-        },
-        {
-          "face": "left",
-          "at": [
-            2.5,
-            32.9
-          ],
-          "size": [
-            5,
-            58.4
-          ],
-          "style": "flat",
-          "material": "streak1"
-        },
-        {
-          "face": "left",
-          "at": [
-            1.7,
-            32.9
-          ],
-          "size": [
-            3.4,
-            58.4
-          ],
-          "style": "flat",
-          "material": "streak3"
-        },
-        {
-          "face": "left",
-          "at": [
-            1,
-            32.9
-          ],
-          "size": [
-            2,
-            58.4
-          ],
-          "style": "flat",
-          "material": "streak2"
-        },
-        {
-          "face": "left",
-          "at": [
-            0.4,
-            32.9
-          ],
-          "size": [
-            0.8,
-            58.4
-          ],
-          "style": "flat",
-          "material": "streak1"
         },
         {
           "face": "front",
@@ -351,8 +325,8 @@
             15.05
           ],
           "size": [
-            20.1,
-            17.9
+            19.9,
+            17.6
           ],
           "style": "inset",
           "material": "gap",
@@ -362,7 +336,7 @@
           "face": "front",
           "at": [
             11.3,
-            15.05
+            15.15
           ],
           "size": [
             19.5,
@@ -371,6 +345,19 @@
           "style": "raised",
           "material": "drawer",
           "edge": 0.5
+        },
+        {
+          "face": "front",
+          "at": [
+            11.3,
+            6.35
+          ],
+          "size": [
+            19.5,
+            0.4
+          ],
+          "style": "flat",
+          "material": "gap"
         },
         {
           "face": "front",
@@ -383,7 +370,7 @@
             3
           ],
           "shape": "round",
-          "radius": 0.8,
+          "radius": 1,
           "style": "raised",
           "material": "pull",
           "edge": 0.3
@@ -392,24 +379,11 @@
           "face": "front",
           "at": [
             11.3,
-            17.85
-          ],
-          "size": [
-            5.6,
-            0.4
-          ],
-          "style": "flat",
-          "material": "rim"
-        },
-        {
-          "face": "front",
-          "at": [
-            11.3,
             16.1
           ],
           "size": [
-            4.6,
-            1.4
+            5,
+            1.8
           ],
           "shape": "ellipse",
           "style": "inset",
@@ -420,11 +394,24 @@
           "face": "front",
           "at": [
             11.3,
+            17.75
+          ],
+          "size": [
+            6,
+            0.6
+          ],
+          "style": "flat",
+          "material": "pullrim"
+        },
+        {
+          "face": "front",
+          "at": [
+            11.3,
             33.55
           ],
           "size": [
-            20.1,
-            17.9
+            19.9,
+            17.6
           ],
           "style": "inset",
           "material": "gap",
@@ -434,7 +421,7 @@
           "face": "front",
           "at": [
             11.3,
-            33.55
+            33.65
           ],
           "size": [
             19.5,
@@ -443,6 +430,19 @@
           "style": "raised",
           "material": "drawer",
           "edge": 0.5
+        },
+        {
+          "face": "front",
+          "at": [
+            11.3,
+            24.85
+          ],
+          "size": [
+            19.5,
+            0.4
+          ],
+          "style": "flat",
+          "material": "gap"
         },
         {
           "face": "front",
@@ -455,7 +455,7 @@
             3
           ],
           "shape": "round",
-          "radius": 0.8,
+          "radius": 1,
           "style": "raised",
           "material": "pull",
           "edge": 0.3
@@ -464,24 +464,11 @@
           "face": "front",
           "at": [
             11.3,
-            36.35
-          ],
-          "size": [
-            5.6,
-            0.4
-          ],
-          "style": "flat",
-          "material": "rim"
-        },
-        {
-          "face": "front",
-          "at": [
-            11.3,
             34.6
           ],
           "size": [
-            4.6,
-            1.4
+            5,
+            1.8
           ],
           "shape": "ellipse",
           "style": "inset",
@@ -492,11 +479,24 @@
           "face": "front",
           "at": [
             11.3,
+            36.25
+          ],
+          "size": [
+            6,
+            0.6
+          ],
+          "style": "flat",
+          "material": "pullrim"
+        },
+        {
+          "face": "front",
+          "at": [
+            11.3,
             52.05
           ],
           "size": [
-            20.1,
-            17.9
+            19.9,
+            17.6
           ],
           "style": "inset",
           "material": "gap",
@@ -506,7 +506,7 @@
           "face": "front",
           "at": [
             11.3,
-            52.05
+            52.15
           ],
           "size": [
             19.5,
@@ -520,6 +520,19 @@
           "face": "front",
           "at": [
             11.3,
+            43.35
+          ],
+          "size": [
+            19.5,
+            0.4
+          ],
+          "style": "flat",
+          "material": "gap"
+        },
+        {
+          "face": "front",
+          "at": [
+            11.3,
             53.6
           ],
           "size": [
@@ -527,7 +540,7 @@
             3
           ],
           "shape": "round",
-          "radius": 0.8,
+          "radius": 1,
           "style": "raised",
           "material": "pull",
           "edge": 0.3
@@ -536,29 +549,29 @@
           "face": "front",
           "at": [
             11.3,
-            54.85
-          ],
-          "size": [
-            5.6,
-            0.4
-          ],
-          "style": "flat",
-          "material": "rim"
-        },
-        {
-          "face": "front",
-          "at": [
-            11.3,
             53.1
           ],
           "size": [
-            4.6,
-            1.4
+            5,
+            1.8
           ],
           "shape": "ellipse",
           "style": "inset",
           "material": "scoop",
           "edge": 0.3
+        },
+        {
+          "face": "front",
+          "at": [
+            11.3,
+            54.75
+          ],
+          "size": [
+            6,
+            0.6
+          ],
+          "style": "flat",
+          "material": "pullrim"
         }
       ]
     }

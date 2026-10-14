@@ -1,0 +1,163 @@
+{
+ "subject": "filecabinet",
+ "leg": "words",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 1,
+   "left/right": 1,
+   "top/below": 1
+  },
+  "size": {
+   "original": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "reproduction": [
+    28.8,
+    22.6,
+    62.4
+   ],
+   "offShare": [
+    0.001,
+    0,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 11.2,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 10.3,
+     "shared": 1
+    },
+    {
+     "view": "left",
+     "deltaE": 11.1,
+     "shared": 0.986
+    },
+    {
+     "view": "back",
+     "deltaE": 12.4,
+     "shared": 1
+    },
+    {
+     "view": "right",
+     "deltaE": 12.4,
+     "shared": 0.986
+    },
+    {
+     "view": "top",
+     "deltaE": 7.6,
+     "shared": 0.986
+    },
+    {
+     "view": "below",
+     "deltaE": 18.4,
+     "shared": 0.986
+    },
+    {
+     "view": "front-left",
+     "deltaE": 9.1,
+     "shared": 1
+    },
+    {
+     "view": "front-right",
+     "deltaE": 9.9,
+     "shared": 0.999
+    },
+    {
+     "view": "back-left",
+     "deltaE": 10.2,
+     "shared": 0.999
+    },
+    {
+     "view": "back-right",
+     "deltaE": 10.5,
+     "shared": 1
+    }
+   ]
+  },
+  "triangles": {
+   "original": 14,
+   "reproduction": 12
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "F",
+  "right": "F",
+  "letters": {
+   "A": "models/w_longjump.mdl",
+   "B": "models/headcrab.mdl",
+   "C": "models/w_medkit.mdl",
+   "D": "models/w_security.mdl",
+   "E": "models/forklift.mdl",
+   "F": "models/filecabinet.mdl",
+   "G": "models/w_9mmclip.mdl",
+   "H": "models/mbarrel.mdl",
+   "I": "models/w_battery.mdl",
+   "J": "models/can.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Silhouette overlap is 1.0 in front/back, left/right and top/below. Every view shows the same tall upright box with the same plinth line at the bottom. Nothing sticks out and nothing is missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 28.8 x 22.6 x 62.4 for both, the same as the original on every axis (largest off-share 0.001)."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The three drawers are there, in the right place and at the right spacing, and so is the plinth. The handles have the wrong shape. The original has a raised cup or D-pull on each drawer, with a lighter lip and a shadowed recess (front view and front-left/front-right angles). The reproduction has a flat black rectangular slot instead. The drawer fronts also lack the original's lighter bevelled rim."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured mean is 11.2, under 15, but by eye the colour is clearly off: the original is a mid grey painted metal and the reproduction is a much darker charcoal on every face. The worst view is from below (18.4), where the original's mid grey underside is near black in the reproduction. The back and right views (12.4) are also clearly darker. The material is the same painted metal, but the colour is not one you'd call the same."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The reproduction has panel lines around the drawers, a plinth highlight line and vertical streaks on the left side. Several details are weaker or missing. The original's mottled paint blotches on the back, right and top are much fainter. Its drawer frames have lighter bevel highlights, which the reproduction lacks. The original's left side shows a lighter rear half and nested edge lines toward the front, while the reproduction shows uniform dark stripes. The original's plinth is a lighter worn band, while the reproduction's is a dark strip."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Side by side, a player would see a much darker cabinet with slot handles where the original has a lighter grey body with cup pulls. It reads as a similar cabinet, not the same prop."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The drawers face the same front direction in the front view and in the front-left/front-right angles. It is upright and rests on its base at the same height as the original."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The check reports no errors. It has 12 triangles against the original's 14, well under twice. Every angle shows a closed box, with nothing inside out or floating."
+  }
+ },
+ "total": 12,
+ "of": 16,
+ "passes": false
+}

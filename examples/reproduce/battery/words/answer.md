@@ -1,23 +1,20 @@
-I've built `battery.mdl` and it passes: the build reports OK and the engine check says it's fit for GoldSrc. It has 496 triangles (the kit warns a prop above 576), 2 textures and 1 bone, and its file is `work:battery.mdl`. The spec it was built from is saved next to it as `work:battery.spec.json`, so you can rebuild or change it.
+I built `battery.mdl` in the work folder. The build passed every check and the engine check says it fits GoldSrc. It's 10.5 × 10.5 × 18.4 units, 556 triangles on one bone, with two textures, one of them the glowing parts.
 
-**What matches the description:**
-- **Size:** 10.7 × 10.7 × 18.5 units overall. The column itself is 10.3 wide; the extra 0.4 is the lamps and windows standing out from the faces. The 18.5 height includes the tip of the lever.
-- **Outline:** a square column with short 45° corners cut off. The turned shapes in the kit only make even octagons, so each height section is two crossed boxes plus four small corner boxes.
-- **Body, bottom to top:**
-  - a dark charcoal skirt (0 to 1.8)
-  - the yellow hazard band (1.8 to 3.3)
-  - the grimy grey-beige column up to 14.6
-  - a light grey rim, then a pale deck with a raised light-grey frame
-- **Each long face:** a glowing teal window, near-white in the middle and dark green at the edges, in a thick raised grey frame. Above it, under the rim, is an orange-red lamp with a yellow centre in a white surround. The windows and lamps are the only parts that glow.
-- **Corner faces:** an off-white panel with a dark outline, level with the upper half of the windows, and plain grey below.
-- **Top fittings:** the grey hex cap, with notches and a dark socket, sits on the right in the front view. On the left is a hinge holding a gold tab striped across in grey, tilted 45° outward. From the sides the tab is seen end-on above the cap, and the front and back views mirror each other.
-- **Underside:** a dark rim around a near-black middle.
-- **Wear:** grime, rubbed edges and rust streaks everywhere.
+**What matches the description, checked in the six views and the close-ups:**
+- **Body:** an octagonal column with long faces and short diagonal corners, in grimy grey-beige metal with brown rust streaks and darker grime toward the bottom.
+- **Skirt:** a dark charcoal skirt 1.8 units tall that tapers inward to the floor. Underneath, the bottom is open and hollow, with a dark rim.
+- **Top:** a light grey bevel slopes inward to a recessed pale deck, and the bevel's top edge forms the raised frame round the deck.
+- **On each long face:**
+  - a teal-green glowing window framed in light grey metal, darker at the edges and nearly white in the middle, about half the face wide and 6 units tall
+  - an orange-red lamp with a yellow centre and a white surround, just under the rim
+  - a hazard band just above the skirt
+- **Corners:** each diagonal corner has an off-white panel with a dark outline, level with the upper part of the windows.
+- **Top fittings:** a grey hex cap with notched sides and a dark round socket sits on the right of the deck in the front view. On the left, a grey hinged base holds a gold tab with grey stripes, tilted 45° outward. The back view shows them mirrored, and from either side the tab is seen end-on above the cap.
 
-**Where it falls short:**
-- **Hazard stripes are yellow and black, not yellow and grey.** The kit's hazard material only does its colour plus black. I tried a stripe-colour setting and the build ignored it.
-- **The underside is painted, not open.** It's a closed bottom painted to look hollow, because an open bottom would need a different kind of shape that can't do this octagon.
-- **The skirt steps in instead of tapering.** It's a slightly smaller octagon (9.9 against 10.3), and the top rim bevel is a small step too. The kit's boxes can't slope.
-- **The window glow is smooth.** It goes in oval rings from white to dark green, so it doesn't have the mottled, crystalline look.
+**Where it differs from the description:**
+- **Hazard stripes:** they're yellow and black, not yellow and grey. The kit's hazard material only makes stripes of one colour and black, and I couldn't find a way to set the second colour.
+- **Window texture:** the glow is in layers from dark to bright, but the mottled, crystalline look barely shows at this size.
+- **Size:** it's 10.5 wide rather than 10.3, because the lamps and windows stand about 0.1 unit off each face. That's within the size check's limits.
+- **Triangle count:** the build warns that 556 is high for a prop this small. Half-Life's own props of this size are about 51 at the median. That's because I built the tapered skirt and the sloped bevel as separate tilted plates. It's still within the engine's limits.
 
-The build notes that the lamps sit 0.4 below the rim. That's on purpose ("just under the top rim"), and each lamp is attached to the column. I couldn't compare it with the original because I had no picture of it, so it's built from the description alone.
+The spec is saved as `battery.spec.json` next to the model, so you can rebuild or change it.

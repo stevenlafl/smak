@@ -11,7 +11,6 @@
     "width": 512,
     "height": 512
   },
-  "budget": 3000,
   "materials": {
     "red": {
       "base": "paint",
@@ -26,7 +25,7 @@
       "tone": [
         0.86,
         0.86,
-        0.82
+        0.83
       ]
     },
     "stripe": {
@@ -37,12 +36,20 @@
         0.97
       ]
     },
-    "underside": {
+    "chassis": {
       "base": "metal",
       "tone": [
-        0.35,
-        0.35,
-        0.34
+        0.36,
+        0.36,
+        0.35
+      ]
+    },
+    "mast": {
+      "base": "steel",
+      "tone": [
+        0.2,
+        0.21,
+        0.22
       ]
     },
     "black": {
@@ -53,7 +60,7 @@
         0.07
       ]
     },
-    "tyre": {
+    "rubber": {
       "base": "leather",
       "tone": [
         0.06,
@@ -69,221 +76,239 @@
         0.55
       ]
     },
-    "mast": {
-      "base": "steel",
-      "tone": [
-        0.24,
-        0.25,
-        0.26
-      ]
-    },
     "chain": {
       "base": "iron",
       "tone": [
-        0.55,
-        0.32,
-        0.14
+        0.5,
+        0.28,
+        0.12
       ],
-      "rust": 0.5
+      "rust": 0.3
     },
     "roofmesh": {
       "base": "mesh",
       "tone": [
-        0.22,
-        0.22,
-        0.22
+        0.28,
+        0.28,
+        0.28
       ],
-      "cell": 2
-    },
-    "suit": {
-      "base": "cloth",
-      "tone": [
-        0.24,
-        0.44,
-        0.2
-      ]
-    },
-    "hat": {
-      "base": "paint",
-      "tone": [
-        0.97,
-        0.82,
-        0.05
-      ]
+      "cell": 1
     },
     "skin": {
       "base": "paint",
       "tone": [
-        0.94,
+        0.93,
         0.8,
-        0.68
+        0.7
+      ]
+    },
+    "suit": {
+      "base": "cloth",
+      "tone": [
+        0.22,
+        0.46,
+        0.2
       ]
     },
     "boot": {
       "base": "leather",
       "tone": [
         0.6,
-        0.43,
-        0.25
+        0.44,
+        0.26
       ]
     },
     "yellow": {
       "base": "paint",
       "tone": [
-        0.95,
+        0.97,
         0.8,
-        0.1
+        0.08
       ]
     },
-    "dark": {
+    "grey": {
+      "base": "metal",
+      "tone": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "slot": {
       "base": "paint",
       "tone": [
         0.12,
         0.12,
         0.12
       ]
-    },
-    "greyvent": {
-      "base": "metal",
-      "tone": [
-        0.45,
-        0.45,
-        0.45
-      ]
     }
   },
   "parts": [
     {
-      "id": "chassis",
+      "id": "core",
       "kind": "box",
-      "material": "underside",
       "size": [
-        105,
+        104,
         40,
-        20
-      ],
-      "at": [
-        -52.5,
-        0,
-        4
-      ]
-    },
-    {
-      "id": "red_band",
-      "kind": "box",
-      "material": "red",
-      "size": [
-        47,
-        60,
         21
       ],
       "at": [
-        -52.5,
+        -28,
         0,
-        4
+        5
       ],
+      "material": "chassis"
+    },
+    {
+      "id": "band",
+      "kind": "box",
+      "size": [
+        50,
+        60,
+        20
+      ],
+      "at": [
+        -25.7,
+        0,
+        6
+      ],
+      "material": "red",
+      "texels": 3,
       "print": [
         {
           "text": "HAIHAN",
           "face": "left",
           "ink": [
-            1,
-            1,
-            1
+            0.97,
+            0.97,
+            0.97
           ],
-          "size": 0.36
+          "size": 0.45
         },
         {
           "text": "HAIHAN",
           "face": "right",
           "ink": [
-            1,
-            1,
-            1
+            0.97,
+            0.97,
+            0.97
           ],
-          "size": 0.36
+          "size": 0.45
         }
       ]
     },
     {
-      "id": "stripe_low",
+      "id": "band_stripe_low",
       "kind": "box",
-      "material": "stripe",
       "size": [
-        40,
-        0.4,
+        44,
+        61,
         0.9
       ],
       "at": [
-        -52.5,
-        30.25,
-        7.8
+        -25.5,
+        0,
+        9
       ],
-      "paint": true,
-      "mirror": "y"
+      "material": "stripe",
+      "paint": true
     },
     {
-      "id": "stripe_high",
+      "id": "band_stripe_high",
       "kind": "box",
-      "material": "stripe",
       "size": [
-        40,
-        0.4,
+        44,
+        61,
         0.9
       ],
       "at": [
-        -52.5,
-        30.25,
-        20.3
+        -25.5,
+        0,
+        22.1
       ],
-      "paint": true,
-      "mirror": "y"
-    },
-    {
-      "id": "rear_skirt",
-      "kind": "box",
-      "material": "red",
-      "size": [
-        6,
-        9,
-        18.5
-      ],
-      "at": [
-        -102,
-        25.5,
-        4
-      ],
-      "mirror": "y"
+      "material": "stripe",
+      "paint": true
     },
     {
       "id": "deck",
       "kind": "box",
-      "material": "white",
       "size": [
         72,
         60,
-        12
+        6
       ],
       "at": [
-        -36,
+        -10,
         0,
-        25
-      ]
+        26
+      ],
+      "material": "white"
+    },
+    {
+      "id": "cowl",
+      "kind": "superquadric",
+      "sides": 10,
+      "size": [
+        22,
+        56,
+        20
+      ],
+      "at": [
+        14,
+        0,
+        28
+      ],
+      "round": [
+        0.4,
+        0.4
+      ],
+      "material": "white"
+    },
+    {
+      "id": "floorstep",
+      "kind": "box",
+      "size": [
+        20,
+        40,
+        1.5
+      ],
+      "at": [
+        -6,
+        0,
+        31.8
+      ],
+      "material": "red"
+    },
+    {
+      "id": "seatbase",
+      "kind": "box",
+      "size": [
+        30,
+        46,
+        10
+      ],
+      "at": [
+        -31,
+        0,
+        31.8
+      ],
+      "material": "white"
     },
     {
       "id": "counterweight",
       "kind": "box",
-      "material": "white",
       "size": [
-        25,
+        28,
         60,
         42
       ],
       "at": [
-        -84.5,
+        -60,
         0,
-        22
+        24
       ],
+      "material": "white",
+      "texels": 2,
       "print": [
         {
           "text": "2.2 LITER",
@@ -293,7 +318,7 @@
             0.05,
             0.05
           ],
-          "size": 0.11
+          "size": 0.15
         },
         {
           "text": "2.2 LITER",
@@ -303,543 +328,475 @@
             0.05,
             0.05
           ],
-          "size": 0.11
+          "size": 0.15
         }
       ]
     },
     {
-      "id": "vent_rear",
-      "kind": "box",
-      "material": "greyvent",
+      "id": "counterweight_back",
+      "kind": "superquadric",
+      "sides": 12,
       "size": [
-        3,
-        44,
-        0.4
+        14,
+        60,
+        42
+      ],
+      "round": [
+        0.15,
+        0.5
       ],
       "at": [
-        -94,
+        -73,
         0,
-        64.1
+        24
       ],
+      "material": "white",
+      "texels": 2
+    },
+    {
+      "id": "rear_slot",
+      "kind": "box",
+      "size": [
+        1,
+        30,
+        6
+      ],
+      "at": [
+        -80.3,
+        0,
+        49
+      ],
+      "material": "slot",
       "paint": true
     },
     {
-      "id": "vent_side",
+      "id": "number_plate",
       "kind": "box",
-      "material": "greyvent",
       "size": [
-        18,
-        3,
-        0.4
+        1,
+        10,
+        5
       ],
       "at": [
-        -84.5,
-        27,
-        64.1
+        -80.3,
+        0,
+        28
       ],
-      "paint": true,
-      "mirror": "y"
+      "material": "yellow",
+      "paint": true
     },
     {
-      "id": "warn_tag",
+      "id": "vent",
       "kind": "box",
-      "material": "yellow",
       "size": [
-        3,
-        0.4,
-        4
+        26,
+        4,
+        1
       ],
       "at": [
-        -94,
-        30.25,
-        56
+        -63,
+        26,
+        66
       ],
+      "material": "grey",
       "paint": true,
       "mirror": "y"
     },
     {
       "id": "logo",
       "kind": "cylinder",
-      "material": "black",
-      "radius": 1.8,
-      "height": 0.4,
-      "sides": 10,
+      "radius": 1.6,
+      "height": 61,
+      "sides": 8,
       "rotate": [
         0,
         0,
         90
       ],
       "at": [
-        -77.5,
-        30.45,
-        38
+        -60,
+        30.5,
+        53
       ],
-      "paint": true,
-      "mirror": "y"
+      "material": "black",
+      "paint": true
     },
     {
       "id": "dash_a",
       "kind": "box",
-      "material": "greyvent",
       "size": [
-        2.4,
-        0.4,
+        2.5,
+        61,
         0.8
       ],
       "at": [
-        -81.5,
-        30.25,
-        37.6
+        -64,
+        0,
+        38.5
       ],
-      "paint": true,
-      "mirror": "y"
+      "material": "grey",
+      "paint": true
     },
     {
       "id": "dash_b",
       "kind": "box",
-      "material": "greyvent",
       "size": [
-        2.4,
-        0.4,
+        2.5,
+        61,
         0.8
       ],
       "at": [
-        -85,
-        30.25,
-        37.6
+        -60,
+        0,
+        38.5
       ],
-      "paint": true,
-      "mirror": "y"
+      "material": "grey",
+      "paint": true
     },
     {
       "id": "dash_c",
       "kind": "box",
-      "material": "greyvent",
       "size": [
-        2.4,
-        0.4,
+        2.5,
+        61,
         0.8
       ],
       "at": [
-        -88.5,
-        30.25,
-        37.6
+        -56,
+        0,
+        38.5
       ],
-      "paint": true,
+      "material": "grey",
+      "paint": true
+    },
+    {
+      "id": "warn_tag",
+      "kind": "box",
+      "size": [
+        4,
+        61,
+        3
+      ],
+      "at": [
+        -75,
+        0,
+        59
+      ],
+      "material": "yellow",
+      "paint": true
+    },
+    {
+      "id": "rear_skirt",
+      "kind": "box",
+      "size": [
+        5,
+        10,
+        20
+      ],
+      "at": [
+        -76.5,
+        25,
+        5
+      ],
+      "material": "red",
       "mirror": "y"
     },
     {
-      "id": "cw_rear",
-      "kind": "box",
-      "material": "white",
-      "size": [
-        9,
-        60,
-        30.5
-      ],
-      "at": [
-        -100.5,
-        0,
-        22
-      ],
-      "panels": [
-        {
-          "face": "back",
-          "at": [
-            30,
-            20
-          ],
-          "size": [
-            34,
-            5
-          ],
-          "shape": "round",
-          "radius": 2,
-          "material": "dark"
-        },
-        {
-          "face": "back",
-          "at": [
-            30,
-            6
-          ],
-          "size": [
-            10,
-            4
-          ],
-          "style": "raised",
-          "material": "yellow"
-        },
-        {
-          "face": "back",
-          "at": [
-            8,
-            6
-          ],
-          "size": [
-            5,
-            5
-          ],
-          "shape": "ellipse",
-          "style": "raised",
-          "material": "dark"
-        },
-        {
-          "face": "back",
-          "at": [
-            52,
-            6
-          ],
-          "size": [
-            5,
-            5
-          ],
-          "shape": "ellipse",
-          "style": "raised",
-          "material": "dark"
-        }
-      ]
-    },
-    {
-      "id": "cw_round",
+      "id": "rear_lamp",
       "kind": "cylinder",
-      "material": "white",
-      "radius": 12,
-      "height": 60,
-      "sides": 16,
-      "rotate": [
-        0,
-        0,
-        90
-      ],
-      "at": [
-        -93,
-        30,
-        52
-      ]
-    },
-    {
-      "id": "cowl",
-      "kind": "cylinder",
-      "material": "white",
-      "radius": 11,
-      "height": 56,
-      "sides": 14,
-      "rotate": [
-        0,
-        0,
-        90
-      ],
-      "at": [
-        -14,
-        28,
-        37
-      ]
-    },
-    {
-      "id": "step",
-      "kind": "box",
-      "material": "red",
-      "size": [
-        20,
-        30,
-        1
-      ],
-      "at": [
-        -38,
-        0,
-        36.6
-      ]
-    },
-    {
-      "id": "seat",
-      "kind": "box",
-      "material": "black",
-      "size": [
-        16,
-        22,
-        6
-      ],
-      "at": [
-        -63,
-        0,
-        36.5
-      ]
-    },
-    {
-      "id": "seat_back",
-      "kind": "box",
-      "material": "black",
-      "size": [
-        4,
-        22,
-        18
-      ],
-      "at": [
-        -70,
-        0,
-        42
-      ]
-    },
-    {
-      "id": "column",
-      "kind": "tube",
-      "material": "black",
-      "sides": 6,
-      "path": [
-        [
-          -24,
-          0,
-          44,
-          1.6
-        ],
-        [
-          -33,
-          0,
-          61,
-          1.6
-        ]
-      ]
-    },
-    {
-      "id": "steering_wheel",
-      "kind": "cylinder",
-      "material": "black",
-      "radius": 7,
+      "radius": 3,
       "height": 1.2,
-      "sides": 12,
+      "sides": 8,
       "rotate": [
         0,
-        -35,
+        90,
         0
       ],
       "at": [
-        -33.5,
-        0,
-        60.5
-      ]
+        -80,
+        24.5,
+        16
+      ],
+      "material": "slot",
+      "mirror": "y"
     },
     {
-      "id": "front_tyre",
-      "kind": "cylinder",
-      "material": "tyre",
-      "radius": 13,
-      "height": 9,
-      "sides": 16,
-      "rotate": [
-        0,
-        0,
-        90
-      ],
-      "at": [
-        -16,
+      "id": "seat",
+      "kind": "superquadric",
+      "sides": 8,
+      "size": [
+        16,
         30,
-        13.5
-      ],
-      "mirror": "y"
-    },
-    {
-      "id": "front_hub",
-      "kind": "cylinder",
-      "material": "hub",
-      "radius": 6.5,
-      "height": 9.6,
-      "sides": 10,
-      "rotate": [
-        0,
-        0,
-        90
+        6
       ],
       "at": [
-        -16,
-        30.3,
-        13.5
+        -31,
+        0,
+        41.5
       ],
-      "mirror": "y"
+      "material": "black"
     },
     {
-      "id": "rear_tyre",
-      "kind": "cylinder",
-      "material": "tyre",
-      "radius": 12,
-      "height": 9,
-      "sides": 16,
-      "rotate": [
-        0,
-        0,
-        90
-      ],
-      "at": [
-        -88,
+      "id": "seatback",
+      "kind": "superquadric",
+      "sides": 8,
+      "size": [
+        5,
         30,
-        12
+        20
       ],
+      "at": [
+        -41,
+        0,
+        43
+      ],
+      "material": "black"
+    },
+    {
+      "id": "wheel_front",
+      "kind": "turn",
+      "axis": "y",
+      "sides": 14,
+      "rings": [
+        [
+          0,
+          10
+        ],
+        [
+          1,
+          13
+        ],
+        [
+          11,
+          13
+        ],
+        [
+          12,
+          10
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "at": [
+        12,
+        17.4,
+        13
+      ],
+      "material": "rubber",
       "mirror": "y"
     },
     {
-      "id": "rear_hub",
-      "kind": "cylinder",
-      "material": "hub",
-      "radius": 6,
-      "height": 9.6,
+      "id": "hub_front",
+      "kind": "turn",
+      "axis": "y",
       "sides": 10,
-      "rotate": [
-        0,
-        0,
-        90
+      "rings": [
+        [
+          11,
+          7
+        ],
+        [
+          12.6,
+          6
+        ]
+      ],
+      "caps": [
+        true,
+        true
       ],
       "at": [
-        -88,
-        30.3,
-        12
+        12,
+        17.4,
+        13
       ],
+      "material": "hub",
+      "mirror": "y"
+    },
+    {
+      "id": "wheel_rear",
+      "kind": "turn",
+      "axis": "y",
+      "sides": 14,
+      "rings": [
+        [
+          0,
+          9
+        ],
+        [
+          1,
+          11.5
+        ],
+        [
+          11,
+          11.5
+        ],
+        [
+          12,
+          9
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "at": [
+        -62,
+        17.4,
+        11.5
+      ],
+      "material": "rubber",
+      "mirror": "y"
+    },
+    {
+      "id": "hub_rear",
+      "kind": "turn",
+      "axis": "y",
+      "sides": 10,
+      "rings": [
+        [
+          11,
+          6
+        ],
+        [
+          12.6,
+          5
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "at": [
+        -62,
+        17.4,
+        11.5
+      ],
+      "material": "hub",
       "mirror": "y"
     },
     {
       "id": "upright",
       "kind": "box",
-      "material": "mast",
       "size": [
         6,
-        6,
-        113
+        5,
+        107
       ],
       "at": [
-        3,
-        22,
-        0
+        29,
+        24.5,
+        2
       ],
+      "material": "mast",
       "mirror": "y"
     },
     {
       "id": "mast_top",
       "kind": "box",
-      "material": "black",
       "size": [
-        6.6,
-        52,
-        4
+        7,
+        60,
+        5.4
       ],
       "at": [
-        3,
+        29,
         0,
-        109.4
-      ]
+        108
+      ],
+      "material": "black"
     },
     {
       "id": "chain",
       "kind": "box",
-      "material": "chain",
       "size": [
-        2,
-        1.5,
-        96
+        3,
+        3,
+        90
       ],
       "at": [
-        3,
-        18.6,
-        8
+        29,
+        20.5,
+        14
       ],
+      "material": "chain",
       "mirror": "y"
     },
     {
       "id": "backrest",
       "kind": "box",
-      "material": "mast",
       "size": [
         3,
         60,
-        32
+        30
       ],
       "at": [
-        8.5,
+        33.5,
         0,
-        2
+        3
       ],
+      "material": "mast",
       "panels": [
         {
           "face": "front",
           "at": [
             30,
-            18
+            17
           ],
           "size": [
-            20,
+            22,
             12
           ],
           "shape": "round",
           "radius": 3,
-          "material": "dark"
+          "material": "slot"
         },
         {
           "face": "front",
           "at": [
-            4,
-            16
+            5,
+            15
           ],
           "size": [
-            1.5,
-            26
+            2,
+            24
           ],
           "style": "raised"
         },
         {
           "face": "front",
           "at": [
-            8,
-            16
+            10,
+            15
           ],
           "size": [
-            1.5,
-            26
+            2,
+            24
           ],
           "style": "raised"
         },
         {
           "face": "front",
           "at": [
-            12,
-            16
+            50,
+            15
           ],
           "size": [
-            1.5,
-            26
+            2,
+            24
           ],
           "style": "raised"
         },
         {
           "face": "front",
           "at": [
-            48,
-            16
+            55,
+            15
           ],
           "size": [
-            1.5,
-            26
-          ],
-          "style": "raised"
-        },
-        {
-          "face": "front",
-          "at": [
-            52,
-            16
-          ],
-          "size": [
-            1.5,
-            26
-          ],
-          "style": "raised"
-        },
-        {
-          "face": "front",
-          "at": [
-            56,
-            16
-          ],
-          "size": [
-            1.5,
-            26
+            2,
+            24
           ],
           "style": "raised"
         }
@@ -848,200 +805,53 @@
     {
       "id": "fork_shank",
       "kind": "box",
-      "material": "mast",
       "size": [
         2.5,
-        7,
-        30
+        5,
+        28
       ],
       "at": [
-        11,
+        36,
         10,
         0
       ],
-      "mirror": "y"
-    },
-    {
-      "id": "fork",
-      "kind": "turn",
-      "axis": "x",
       "material": "mast",
-      "sides": 8,
-      "rings": [
-        [
-          0,
-          [
-            3.5,
-            1
-          ]
-        ],
-        [
-          62,
-          [
-            3.5,
-            1
-          ]
-        ],
-        [
-          71.6,
-          [
-            1.4,
-            0.4
-          ]
-        ]
-      ],
-      "at": [
-        10,
-        10,
-        1
-      ],
       "mirror": "y"
     },
     {
-      "id": "roof",
+      "id": "fork_tine",
       "kind": "box",
-      "material": "roofmesh",
       "size": [
-        46,
-        56,
-        1
-      ],
-      "at": [
-        -49,
-        0,
-        103.5
-      ]
-    },
-    {
-      "id": "roof_edge_side",
-      "kind": "box",
-      "material": "black",
-      "size": [
-        46,
-        2,
+        63,
+        5,
         2
       ],
       "at": [
-        -49,
-        28,
-        103
+        68.5,
+        10,
+        0
       ],
+      "material": "mast",
       "mirror": "y"
     },
     {
-      "id": "roof_edge_end",
-      "kind": "box",
-      "material": "black",
-      "size": [
-        2.2,
-        57.6,
-        2.2
-      ],
-      "at": [
-        -71,
-        0,
-        102.9
-      ]
-    },
-    {
-      "id": "roof_edge_front",
-      "kind": "box",
-      "material": "black",
-      "size": [
-        2.2,
-        57.6,
-        2.2
-      ],
-      "at": [
-        -27,
-        0,
-        102.9
-      ]
-    },
-    {
-      "id": "rear_post",
-      "kind": "box",
-      "material": "black",
-      "size": [
-        2.5,
-        2.5,
-        41
-      ],
-      "at": [
-        -70.5,
-        28,
-        63
-      ],
-      "mirror": "y"
-    },
-    {
-      "id": "front_post",
-      "kind": "tube",
-      "material": "black",
-      "sides": 6,
-      "path": [
-        [
-          -27,
-          28,
-          104,
-          1.3
-        ],
-        [
-          -8,
-          28,
-          45,
-          1.3
-        ]
-      ],
-      "mirror": "y"
-    },
-    {
-      "id": "thighs",
-      "kind": "box",
-      "material": "suit",
-      "size": [
-        22,
-        18,
-        9
-      ],
-      "at": [
-        -53,
-        0,
-        42.5
-      ]
-    },
-    {
-      "id": "torso",
+      "id": "fork_tip",
       "kind": "turn",
-      "material": "suit",
-      "sides": 12,
+      "axis": "x",
+      "sides": 4,
       "rings": [
         [
           0,
           [
-            7,
-            10
+            2.5,
+            1
           ]
         ],
         [
-          12,
+          7,
           [
-            7.5,
-            10.5
-          ]
-        ],
-        [
-          21,
-          [
-            6.5,
-            10
-          ]
-        ],
-        [
-          25,
-          [
-            3,
-            4
+            0.6,
+            0.4
           ]
         ]
       ],
@@ -1050,126 +860,334 @@
         true
       ],
       "at": [
-        -63,
-        0,
-        49
-      ]
+        99.6,
+        10,
+        1
+      ],
+      "material": "mast",
+      "mirror": "y"
     },
     {
-      "id": "head",
-      "kind": "sphere",
-      "material": "skin",
-      "radius": 4.5,
-      "sides": 10,
+      "id": "roof",
+      "kind": "box",
+      "size": [
+        56,
+        54,
+        1
+      ],
       "at": [
-        -62,
+        -18,
         0,
-        73
-      ]
+        99
+      ],
+      "material": "roofmesh"
     },
     {
-      "id": "hard_hat",
-      "kind": "turn",
-      "material": "hat",
-      "sides": 12,
-      "rings": [
+      "id": "roof_side",
+      "kind": "box",
+      "size": [
+        56,
+        1.5,
+        2
+      ],
+      "at": [
+        -18,
+        26.5,
+        98.5
+      ],
+      "material": "black",
+      "mirror": "y"
+    },
+    {
+      "id": "roof_front",
+      "kind": "box",
+      "size": [
+        1.5,
+        54,
+        2
+      ],
+      "at": [
+        9.5,
+        0,
+        98.5
+      ],
+      "material": "black"
+    },
+    {
+      "id": "roof_back",
+      "kind": "box",
+      "size": [
+        1.5,
+        54,
+        2
+      ],
+      "at": [
+        -45.5,
+        0,
+        98.5
+      ],
+      "material": "black"
+    },
+    {
+      "id": "post_rear",
+      "kind": "box",
+      "size": [
+        2,
+        2,
+        67.5
+      ],
+      "at": [
+        -45,
+        26.5,
+        31.5
+      ],
+      "material": "black",
+      "mirror": "y"
+    },
+    {
+      "id": "post_front",
+      "kind": "tube",
+      "sides": 6,
+      "path": [
         [
-          0,
-          6.2
+          21,
+          26.5,
+          31.5,
+          1.1
         ],
         [
-          0.8,
-          6.2
-        ],
-        [
-          1,
-          5
-        ],
-        [
-          4.5,
-          4.4
+          9.5,
+          26.5,
+          99.5,
+          1.1
         ]
       ],
-      "caps": [
-        true,
-        2.2
+      "material": "black",
+      "mirror": "y"
+    },
+    {
+      "id": "column",
+      "kind": "tube",
+      "sides": 6,
+      "path": [
+        [
+          8,
+          0,
+          44,
+          1.3
+        ],
+        [
+          -5,
+          0,
+          57,
+          1.3
+        ]
+      ],
+      "material": "black"
+    },
+    {
+      "id": "steering_wheel",
+      "kind": "cylinder",
+      "radius": 6,
+      "height": 1.2,
+      "sides": 12,
+      "rotate": [
+        0,
+        -50,
+        0
       ],
       "at": [
-        -62,
+        -5.5,
         0,
-        78.5
-      ]
+        56.5
+      ],
+      "material": "black"
+    },
+    {
+      "id": "thigh",
+      "kind": "tube",
+      "sides": 8,
+      "path": [
+        [
+          -32,
+          5,
+          47,
+          4
+        ],
+        [
+          -14,
+          5,
+          50,
+          3.6
+        ]
+      ],
+      "material": "suit",
+      "mirror": "y"
     },
     {
       "id": "shin",
-      "kind": "box",
+      "kind": "tube",
+      "sides": 8,
+      "path": [
+        [
+          -14,
+          5,
+          50,
+          3.4
+        ],
+        [
+          -7,
+          5,
+          34.5,
+          3
+        ]
+      ],
       "material": "suit",
-      "size": [
-        5,
-        6,
-        13.5
-      ],
-      "at": [
-        -43,
-        5,
-        36.8
-      ],
       "mirror": "y"
     },
     {
       "id": "boot",
-      "kind": "box",
-      "material": "boot",
+      "kind": "superquadric",
+      "sides": 8,
       "size": [
-        9,
-        6.5,
-        4
+        10,
+        5.5,
+        5
       ],
       "at": [
-        -40,
+        -4.5,
         5,
-        37
+        33
       ],
+      "material": "boot",
       "mirror": "y"
     },
     {
-      "id": "arm",
+      "id": "torso",
+      "kind": "superquadric",
+      "sides": 10,
+      "size": [
+        12,
+        20,
+        25
+      ],
+      "at": [
+        -33,
+        0,
+        45
+      ],
+      "round": [
+        0.5,
+        0.4
+      ],
+      "material": "suit"
+    },
+    {
+      "id": "head",
+      "kind": "superquadric",
+      "sides": 10,
+      "size": [
+        9,
+        8,
+        10
+      ],
+      "at": [
+        -32,
+        0,
+        68.5
+      ],
+      "round": [
+        0.7,
+        0.7
+      ],
+      "material": "skin"
+    },
+    {
+      "id": "hat",
+      "kind": "superquadric",
+      "sides": 10,
+      "size": [
+        10.5,
+        10,
+        5.5
+      ],
+      "at": [
+        -32,
+        0,
+        76
+      ],
+      "round": [
+        0.5,
+        0.8
+      ],
+      "material": "yellow"
+    },
+    {
+      "id": "hat_brim",
+      "kind": "cylinder",
+      "radius": 6.2,
+      "height": 0.8,
+      "sides": 12,
+      "at": [
+        -31.5,
+        0,
+        76.5
+      ],
+      "material": "yellow"
+    },
+    {
+      "id": "upper_arm",
       "kind": "tube",
-      "material": "suit",
       "sides": 6,
       "path": [
         [
-          -63,
+          -33,
           10,
-          69,
+          66,
+          2.8
+        ],
+        [
+          -26,
+          11.5,
+          56,
           2.6
-        ],
-        [
-          -53,
-          12,
-          59,
-          2.4
-        ],
-        [
-          -36,
-          6,
-          61,
-          2
         ]
       ],
+      "material": "suit",
+      "mirror": "y"
+    },
+    {
+      "id": "forearm",
+      "kind": "tube",
+      "sides": 6,
+      "path": [
+        [
+          -26,
+          11.5,
+          56,
+          2.5
+        ],
+        [
+          -8,
+          5.5,
+          58,
+          2.1
+        ]
+      ],
+      "material": "suit",
       "mirror": "y"
     },
     {
       "id": "hand",
       "kind": "sphere",
-      "material": "skin",
       "radius": 2,
       "sides": 6,
       "at": [
-        -35,
-        6,
-        59.5
+        -7,
+        5.5,
+        56
       ],
+      "material": "skin",
       "mirror": "y"
     }
   ]

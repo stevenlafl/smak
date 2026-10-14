@@ -1,22 +1,19 @@
-I built `forklift.mdl` and the build reports **OK**: every check passes. It's in the kit's work folder (`work:forklift.mdl`), with the spec beside it as `work:forklift.spec.json`.
+I built `work:forklift.mdl` and the last build says **OK**, with every check passing. It's the right size: 187 long, 61 wide and 113.4 high, standing on the floor.
 
-**Size:** 186.7 long, 60 wide and 113.4 high, standing on the floor. That's within 0.1 unit of what you gave. It has 1,176 triangles and one 512×512 texture, which is within what the engine allows.
+**How it's made:** 28 parts made of boxes, rounded blocks, cylinders and tubes, placed using measurements I took off the reference sheet (about 2.15 pixels per unit):
+- **Lift:** the forks, the fork uprights, the carriage plate, the mast rails and the cap on top of the mast.
+- **Truck:** the red chassis and front fenders, the rounded white front body, the steering column and wheel, the white middle body and rear hood, the back bumper, and four tyres.
+- **Seat and roof cage:** a black seat and seat back, the roof, and its posts (the front ones slanted).
+- **Driver:** a seated figure with a yellow hard hat, head, torso, arms, legs and boots.
 
-**Parts**, placed by measuring your side views at about 2.15 pixels a unit:
-- **Forks:** two long forks and their upright shanks, and the black carriage plate across the full 60-unit width.
-- **Mast:** two uprights and the cap on top.
-- **Overhead guard:** a roof with front posts that lean back and rear posts that stand straight.
-- **Body:** the red lower frame, white seat deck, white rear counterweight, the cowl with a sloped front, and the red front fenders.
-- **Wheels:** two large front wheels at the outer edges and two smaller rear wheels set further in under the counterweight.
-- **Cab:** the seat, a black steering column and the steering wheel.
-- **Driver:** a seated figure with a yellow hard hat, green overalls, arms reaching to the wheel and brown boots.
+All 10 of your pictures are projected onto it for colour and markings: the six flat sides and the four close angles. That carries over the red and white paint, the HAIHAN and "2.2 LITER" lettering, the orange chain on the mast, the rear lights and plate, the mesh on the roof and the driver's green overalls.
 
-**Colours and markings** come from your pictures, laid straight onto the shape: all six views on the sheet plus the four angled shots. That carries over the "HAIHAN" lettering, the "2.2 LITER" badge, the orange chains on the mast, the rear vents and lights, the checker-plate roof and the driver's face and clothes.
+**How it compares:**
+- I put my renders next to the references for the side, below, front-left, front-right and back-left views. The outlines, the positions of the parts and the colours line up closely.
+- The underside was the one obvious mismatch. The original is open underneath, so from below you see up into the cab and the driver. My first build showed a solid red chassis bottom there; I changed the chassis base colour to dark grey, and now the picture's view of the driver comes through as it does in the original.
 
-**One fix along the way:** the first builds came out badly smeared. The tool had counted the "FRONT", "LEFT" and other labels on your sheet as part of the forklift, which threw off the scale of every picture. I cut the labels out of the areas it reads, and the markings now line up.
+**What isn't the same:**
+- My rear hood, front body and the driver's limbs are simpler shapes than the original's. Up close the driver is lumpier, though at the judging distance the outlines match.
+- It's 1,448 triangles. That's well within what the engine allows, but the build warns that it's more than most Half-Life props of this size. Most of it goes on the rounded parts, the wheels and the driver.
 
-**Where it still differs from the original:**
-- The shapes are mostly boxes. The original's rounded body corners and the sloping back of the cowl are only roughly matched.
-- I couldn't fully settle where the rear wheels sit: the side view and the angled views disagree slightly. I set them inward, which matches the angled shots best.
-- On the driver, the green of the overalls spreads a little onto the seat back. You can see it from the rear three-quarter angles.
-- The texture is coarser than the original's, because the whole forklift shares one 512×512 picture.
+Files are in the work folder: `forklift.mdl`, `forklift.spec.json` and `forklift-sheet.png`.

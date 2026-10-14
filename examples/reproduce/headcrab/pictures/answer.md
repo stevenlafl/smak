@@ -1,23 +1,20 @@
-`headcrab.mdl` is built. The build says OK, and the engine check says it's fit for GoldSrc.
+I built `headcrab.mdl` and the last build came back OK with every check passing. Saved in the work folder as `work:headcrab.mdl`, with its spec in `work:headcrab.spec.json`.
 
-**What it is:**
-- **Size:** 25.9 long, 19.2 wide, 13.2 high, standing on the floor. That's exactly what you gave.
-- **Detail:** 632 triangles and one 512×512 texture.
-- **Parts:**
-  - a pale egg-shaped body
-  - a wider, flat-topped brown shell at the back, which gives the squared-off outline seen from behind and above
-  - two front legs, each with a brown upper part, a long red lower part that ends in a point, and a black spur pointing back and outward
-  - two back legs that come off the top corners of the shell and drop to thick red feet with black spurs
-- **Colours and markings:** taken straight from your ten pictures and painted onto the shape. That covers the cream belly with red flecks, the brown ribbed shell, the red legs and the toothed mouth underneath, which shows in the back and below views.
+**How it's built:** the body is one shape cut from the outlines of all 10 pictures you gave (the six sides and the four close angles). It's then painted by laying those same pictures onto it, so the colours and surface markings come straight from the original. The shell, the red leg tips, the dark claws and the mouth with its teeth underneath all came across that way. Its outline matches the original's at 0.988 to 0.991 in every view, where 1.0 would be an exact match.
 
-**Problem I fixed:** on the first builds, the tool took the "FRONT"/"LEFT" labels in `sides.png` as part of the creature. That misaligned the side colours and left a bare band around the body. I gave each view the creature's exact position in the sheet, and since then the colours line up in every view.
+**Size:**
+```
+            asked   built
+length      25.9    25.7
+width       19.2    18.3
+height      13.2    13.2
+```
+It stands on the floor.
 
-**Where it still differs from the original:**
-- The body's cross-sections are ovals, so the front of the body is a little rounder than the original's sharper top-front corner. This is clearest from the left and right sides.
-- From above, the back legs don't flare quite as far out sideways near the rear.
-- It's a still model: one bone, no animation. You asked for the look, so I didn't rig it to the game's headcrab skeleton.
+**Two changes along the way:**
+- I turned off the kit's extra paint effects (shading, wear, dirt), because the pictures already carry the original's own lighting.
+- Thin dark lines showed on the pale shell where the painted patches meet. They came from the default wood material showing through at those edges. Giving the part a tan base colour fixed them.
 
-Files are in the work folder:
-- `headcrab.mdl`
-- `headcrab.spec.json` (the spec, to rebuild or change it)
-- `headcrab-sheet.png` (six views)
+**Where it still differs:**
+- **Mouth from the back:** it reads darker and murkier than in the original's back view. The cut-out shape fills in the hollow under the body, so the teeth don't sit as far back as they should. From below, the mouth matches well.
+- **Triangle count:** it's 1000 triangles, and the build warns that's more than most Half-Life props of this size. It's still within the engine's limits. I couldn't compare it to the real `headcrab.mdl` because there's no copy of it on this machine. If you want it lighter, I can rebuild it at about 500 triangles, at some cost to the thin legs and claws.

@@ -1,18 +1,13 @@
-`filecabinet.mdl` is built and the build reports OK, with every check passing. It's 28.8 long, 22.6 wide and 62.4 high, standing on the floor, and it's 84 triangles on a single 512×512 texture.
+I built `filecabinet.mdl` and the build says OK, with every check passed. It's in the server's work folder, with the spec saved beside it as `filecabinet.spec.json`.
 
-**How it's made**
-- **Shape:** a main box for the body. Across the front there's a frame 1 unit deep: two side strips, a top rail, two rails between the drawers and a solid base strip. The three drawer fronts sit 1 unit back inside it, so from the angled cameras they read as recessed the way the original's do. I took the drawer sizes and the rail heights from the front picture (6.5 pixels to a unit).
-- **Surface:** the six straight-on views in `sides.png` are projected onto it as its texture, each with its outline set by hand. That carries over the grey mottled steel, the drawer bevels and pulls, the line where the base strip meets the body, and the stepped stripes on the left side.
+**What it is:**
+- **Shape:** one box exactly 28.8 long, 22.6 wide and 62.4 high, standing on the floor. It's 12 triangles. The Half-Life filing cabinet it copies is also a plain box with all its detail painted on, so the outline matches from every side. The only shape difference I could see is that in the front-left picture the base may stick out a little past the body. I didn't build that, because the straight-on front view shows the base no wider than the body.
+- **Surfaces:** the six straight-on views from `sides.png` are projected onto the box as its texture. That carries the three drawers with their pulls, the base strip along the bottom, the stepped lines near the front of the left side and the mottled grey on the other sides.
 
-**How it compares**
-- **Straight-on views:** the front, sides, top and bottom match the originals closely in outline and tone.
-- **Front-left, front-right and back-right:** these match well.
-- **Back-left (yaw 145):** this is the one visible mismatch. My back face renders darker and flatter than the original's. The texture there is fine. The renderer lights my flat box faces from the camera's left, and the original seems to light its front and back faces more brightly from every angle. I tried smoothed corner shading to get closer, but it put diagonal gradients across the straight-on views, so I took it out.
+**One problem I fixed:** my first try used the kit's steel material. Its bluish tint used up the colour palette and the texture came out blotchy and much too contrasty. A neutral grey (0.32) fixed that. I also turned off the kit's painted finish, since the pictures already have the original's lighting in them.
 
-**Two things I tried and dropped**
-- Giving the colour as "seen" (as read off the pictures) roughly tripled the texture's contrast.
-- A darker base colour also made the result too contrasty.
+**How I checked it:** I rendered it from the front-left (yaw 35) and back-right (yaw 215) angles and compared them by eye with your pictures. Shape, drawers, pulls and base all line up. Two differences are left:
+- Mine is a little darker overall.
+- The mottling on the sides looks a bit grainier than the original's smoother patches.
 
-The final version uses a plain mid-grey base colour (0.33), which gave the right contrast.
-
-The files are in the work folder: `filecabinet.mdl`, `filecabinet.spec.json` and `filecabinet-sheet.png`.
+I didn't project the four angled pictures as well, and I didn't render the back-left or front-right views.

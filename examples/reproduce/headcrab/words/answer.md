@@ -1,24 +1,26 @@
-I've built `headcrab.mdl` in the work folder (the spec is saved next to it as `headcrab.spec.json`). The build says OK and passes every check: no holes, nothing floating, nothing you can see through. It uses 784 triangles in one 256×256 texture. I made it from your description alone, since there was no original model on disk to measure against.
+I've built `headcrab.mdl` in the work folder. The build passed every check, and the engine check says it's fit for GoldSrc (1 bone, 1 texture, 980 triangles). I worked only from your description because there's no original model or picture in the models folder to compare against. How close it gets to the original from the judge's cameras is my reading of the pictures, not something I measured.
 
-**Size**
-
+**Size, asked vs built:**
 ```
-            asked   built
-length      25.9    25.8
-width       19.2    19.0
-height      13.2    13.3
+           asked   built
+length     25.9    25.7
+width      19.2    18.8
+height     13.2    13.3
 ```
 
-**What's there**
-- **Body:** a wedge-shaped tan-ochre dome, 15.5 long, 16 wide and about 11.6 high. It's highest at the front and tapers and drops toward the rear. Darker brown rib bands and long fibrous streaks are painted over it, and two raised ridges along the top edges of the back make the shallow V-notch seen from above.
-- **Pale patch:** a bulging cream dome sits on the front face, angled to slope back and down. A cream patch about two thirds of the body's width carries it over the top to mid-body. It has white mottling, thin red veins and a red stain along its lower edge.
-- **Underside:** ochre with broad dark-red staining. The round mouth sits at the rear centre: a red ring, a pale inner disc and nine ivory peg teeth, and from behind the teeth just show under the rear edge.
-- **Forelegs:** a thin tan upper segment starts at each upper front corner and runs about 8 units ahead of the body. It bends sharply down into a thicker blood-red forearm with darker mottling, which ends in an ivory claw with a black band that touches the floor. From above, the two run parallel at the body's width.
-- **Hind legs:** short stumps angled outward at the rear corners, tan shading into red feet, each with three small black claws.
+**What's there:**
+- **Body:** a tan, ochre-brown dome that leans forward. It's 15 long and 16 wide and sits over the rear 60% of the length. The sides have dark fibrous streaks and painted ribs.
+- **Back ridges:** two ridges run along the top edges of the back and leave a shallow notch at the rear.
+- **Pale front:** a bulging cream-ivory dome covers the front and the top up to mid-body, about two thirds of the body's width. It has white blotches, thin red veins and red staining along its lower edge.
+- **Underside:** flat, with dark-red staining. The mouth sits toward the rear: a red ring with 9 off-white peg teeth around pale tissue. From behind, the teeth just show under the rear edge.
+- **Forelegs:** a thin tan upper segment runs from the upper front corners about 10 units ahead of the body. It bends down into a thicker forearm, bright red with darker mottling, that ends in a hooked ivory-and-black claw on the floor. The forelegs run parallel, as wide apart as the body.
+- **Hind legs:** short, thick stumps at the rear corners, angled out, tan shading to red feet with three small black claws each.
+- **Surface:** no glow, lettering or lights.
 
-**Where it may differ from the original**
-- **Forearm length:** the forearm is about as long as the upper segment, not a third longer. At that length, keeping the overall height and length you gave would have pushed the foot out of position.
-- **Claw shape:** the forelimb claws hook straight down at the floor, not curling backward.
-- **Belly:** it's rounded, not truly flat, because the body is one turned shape.
-- **Fine detail:** the veins, mottling and worm-like tissue in the mouth are painted on, so they're simpler than a hand-painted original. The pixels are softer than the blocky look you described; dropping the texture to 128×128 would make them blockier if the side-by-side calls for it.
-- **No animations:** it's a static prop with no skeleton or animations, so it won't walk or attack in the game as it stands.
+**Where it may fall short:**
+- **Triangle count:** 980 is far over Half-Life's own props of this size, which mostly stay under 156. Most of it is in the rounded body, the front dome, the teeth and the legs. It's within the engine's limits, but a low-poly original will look more faceted than this.
+- **Pixel texture:** the texture is 256×256, so the brown areas are soft rather than visibly blocky.
+- **Front face:** your "flat, angled face" is read as a rounded bulge that faces forward and a bit down. If the original has a flat plane there, the side outline will differ.
+- **Not animated:** it's a static prop with one bone and no animations, so it doesn't walk, attack or die.
+
+The spec it builds from is `work:headcrab.spec.json`, and `work:headcrab-sheet.png` shows six views.

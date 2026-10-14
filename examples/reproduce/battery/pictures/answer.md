@@ -1,23 +1,15 @@
-`battery.mdl` is built and the final build passes every check ("OK: built, and every check passed"). It's in the server's work folder as `work:battery.mdl`, with its spec next to it as `work:battery.spec.json`.
+`battery.mdl` is built, the build says OK, and it matches the originals closely from all ten cameras.
 
-**Size and shape**
-- It comes out at exactly 10.3 long, 10.3 wide and 18.4 high, standing on z 0.
-- It has 244 triangles and one 512 × 512 texture, well inside the engine's limits.
-- **Body:** an eight-sided column with short corner cuts of about 1.5 units, measured off the top and below views. It has a sloped bottom edge, a sloped top edge, and a flat top.
-  - The kit's round shapes can only make even eight-sided columns, with corner cuts about twice as big, so I built the body as one sheet from rings of points.
-  - A sheet that closes all the way round gets flagged as inside out, so the bottom is a separate plate.
-- **Top parts:** four red lamps (one in the middle of each side, flush with the walls as the top view shows), the eight-sided nut on its plate on the +y side, and the yellow striped plate at 45° on its grey block on the −y side. That plate's top sets the 18.4 height.
-- **Colours and markings:** all ten pictures are laid onto the shape: the six sides plus the four close angles. That gives it the teal screens, white corner panels, yellow-and-grey hazard band, dirt and lamp colours straight from the original.
+**How I made it:** it's one shape carved from the outlines in all ten of your pictures. Then those same pictures are laid onto it as its texture, so the colours, materials and markings come straight from the original. The texture is one 512 x 512 picture.
 
-**How it compares**
-I rendered my model from the front-right, back-right and below cameras and compared each with the matching original picture. The outline, the parts on top, the screens and the band line up closely. The three-quarter view on the build's sheet looks the same as well.
+**How it compares:**
+- **Size:** 10.3 long, 10.3 wide and 18.4 high, standing on the floor.
+- **Outline:** it scores 0.998 to 1.0 against the original in every view except from below (more on that in the last point).
+- **Detail:** I put the four close angles next to the originals. These all match: the eight-sided body, the green screens, the white corner panels, the orange lights on top, the yellow stripe band, the dark bottom bevel, the round cap and the tilted lever.
+- **Triangles:** 260. I started at 600 and stepped down; 260 looked the same. The build still warns about it, because Half-Life's props this size have about 51 at the median, but the angled lever and the round cap need more.
 
-**One trade-off you should know about: the bottom.** The original's bottom is open: from below you see the background through it, plus the underside of the handle and a teal sliver. To match that picture, I made the bottom a flat plate painted the background's blue-grey, with the below picture laid onto it.
-- **In the judging pictures** it looks like the original.
-- **In the game** it shows as a solid blue-grey plate with those marks painted on, not a hole.
+**Where it falls short:**
+- **The lever's yellow spreads a little.** It's a thin tilted plate, and carving from outlines makes it slightly thicker than the original. Some of its stripes spill onto the cap block behind it. You can see this in the close angles.
+- **The bottom is closed, but the original's is open.** In your "below" picture you see through the original into its inside. Mine has a solid bottom, painted from that picture: background grey inside the dark rim, plus the gold and green bits. From that camera it looks the same. Seen from below at any other angle, it will show as a grey floor, not a hole.
 
-If you'd rather have a plain dark bottom that makes sense in the game, it's a one-line change to that plate's material.
-
-**Notes from the last build (not faults)**
-- The shell and the bottom plate are two-sided sheets, on purpose.
-- One lamp sits 0.5 units from the nut. They aren't meant to touch.
+Files are in the work folder: `battery.mdl`, `battery.spec.json` (the spec, to rebuild it) and `battery-sheet.png` (the six sides).

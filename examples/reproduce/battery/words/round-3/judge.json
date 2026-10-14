@@ -1,0 +1,163 @@
+{
+ "subject": "battery",
+ "leg": "words",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.936,
+   "left/right": 0.938,
+   "top/below": 0.98
+  },
+  "size": {
+   "original": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "reproduction": [
+    10.7,
+    10.7,
+    18.5
+   ],
+   "offShare": [
+    0.039,
+    0.039,
+    0.007
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 25.7,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 26.6,
+     "shared": 0.935
+    },
+    {
+     "view": "left",
+     "deltaE": 27.2,
+     "shared": 0.938
+    },
+    {
+     "view": "back",
+     "deltaE": 26.8,
+     "shared": 0.935
+    },
+    {
+     "view": "right",
+     "deltaE": 27.7,
+     "shared": 0.937
+    },
+    {
+     "view": "top",
+     "deltaE": 29.9,
+     "shared": 0.977
+    },
+    {
+     "view": "below",
+     "deltaE": 17.1,
+     "shared": 0.566
+    },
+    {
+     "view": "front-left",
+     "deltaE": 25.2,
+     "shared": 0.914
+    },
+    {
+     "view": "front-right",
+     "deltaE": 25.9,
+     "shared": 0.919
+    },
+    {
+     "view": "back-left",
+     "deltaE": 25.2,
+     "shared": 0.914
+    },
+    {
+     "view": "back-right",
+     "deltaE": 25.7,
+     "shared": 0.919
+    }
+   ]
+  },
+  "triangles": {
+   "original": 116,
+   "reproduction": 496
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 0,
+  "M8": 0
+ },
+ "lineup": {
+  "picked": "D",
+  "right": "D",
+  "letters": {
+   "A": "models/headcrab.mdl",
+   "B": "models/w_9mmclip.mdl",
+   "C": "models/w_longjump.mdl",
+   "D": "models/w_battery.mdl",
+   "E": "models/forklift.mdl",
+   "F": "models/w_medkit.mdl",
+   "G": "models/mbarrel.mdl",
+   "H": "models/can.mdl",
+   "I": "models/w_security.mdl",
+   "J": "models/filecabinet.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Measured overlap is 0.936, 0.938 and 0.98, all above 0.80, but the outline is still clearly off. The original's base tapers inward in a deep chamfer under the hazard band in every side view. The reproduction's foot drops nearly straight down, so the bottom corners stick out. The top fittings are also smaller: the original has a broad raised block with a large ring cap and a wide angled switch, and the reproduction has a small hex nub and a thin switch. The top corners are boxier than the original's beveled shoulders."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 10.7 x 10.7 x 18.5 against 10.3 x 10.3 x 18.4. The largest difference is 3.9% on width and length, inside 10%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "All the parts are there: a glowing panel on each of the four sides, a red/orange light above each panel, a hazard band, white corner lamps, the angled yellow switch and the cap on top. Several have the wrong shape or size. Each panel is a small inset frame around an oval glow, where the original's glass fills most of the face. The original's tall white corner lamps are reduced to thin slivers at the edges. The top cap and switch are smaller and sit on a plain white plate instead of the original's raised grey block."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 0,
+   "score": 0,
+   "reason": "Measured mean deltaE is 25.7, well over 15, and every side view is around 26-30. The original's body is dark, grimy brown-grey metal. The reproduction's is light beige-grey and the top is near white (top view deltaE 29.9). The original's hazard band is yellow blocks on brown, and the reproduction's is fine black/yellow diagonal stripes. The teal glow is roughly the same colour."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original has heavy grime and wear on the body, a mottled noisy glow across the whole glass, and chunky yellow stripe blocks. The reproduction has a clean oval gradient glow, a fine regular black/yellow diagonal hazard stripe, and only light pixel mottling. The markings are in roughly the right places but in a different style, with less wear."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "It reads as the same kind of object: a tall battery cell with a teal glow on each face and a hazard band. Side by side, a player would not take it for the original. The light body and white top against the dark grimy original, the small oval glows against full glowing panels, and the thin diagonal stripes are all visible at game size."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Facing matches. In the front view the switch is at top-left and the cap at top-right in both, and the back view is mirrored the same way. Both are upright and stand on their bases at the same height."
+  },
+  "M8": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The reproduction has 496 triangles, over twice the original's 116 (limit 232). SMAK's check reports no errors and nothing looks open, inside out or floating, but the triangle limit alone fails this item."
+  }
+ },
+ "total": 8,
+ "of": 16,
+ "passes": false
+}
