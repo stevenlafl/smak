@@ -40,6 +40,9 @@ function parseArgs(argv) {
     else if (word === "--models" || word === "--work" || word === "--compilers") flags[word.slice(2)] = argv[++i];
     else if (word === "--fgd") (flags.fgd ??= []).push(argv[++i]);
     else if (word === "--wads") (flags.wads ??= []).push(argv[++i]);
+    // for a blind test: game files a build may fit into but never draw or describe (--hide), or never read (--refuse)
+    else if (word === "--hide") (flags.hide ??= []).push(argv[++i]);
+    else if (word === "--refuse") (flags.refuse ??= []).push(argv[++i]);
     else throw new Error(`what is ${word}?`);
   }
   return flags;
@@ -49,11 +52,13 @@ function parseArgs(argv) {
  * Starts the server over the process's own stdin and stdout. Resolves when the client has closed stdin and
  * every call has been answered.
  */
-export function start({ models, work, run = true, compilers, fgd = [], wads = [] }) {
+export function start({ models, work, run = true, compilers, fgd = [], wads = [], hide = [], refuse = [] }) {
   const folders = openFolders({ models, work });
   folders.compilers = compilers;
   folders.fgd = fgd;
   folders.wads = wads;
+  folders.hide = hide;
+  folders.refuse = refuse;
   const { version } = JSON.parse(readFileSync(join(KIT, "package.json"), "utf8"));
   const log = (line) => process.stderr.write(`${line}\n`);
   log(

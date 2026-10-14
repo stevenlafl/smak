@@ -797,7 +797,7 @@ function build(folders, args) {
   }
   if (spec?.spec !== "smak.model/1")
     throw new Error('spec: a model spec ("spec": "smak.model/1"), a map spec ("smak.map/1"), a sound spec ("smak.sound/1"), a textures spec ("smak.wad/1"), a sprite spec ("smak.sprite/1") or a video spec ("smak.video/1"); guide { doc: "spec" } says how to write one');
-  const { mdl, report, files = [] } = buildModelSpec(spec, { folder, games: folders.wads ?? [], readPicture: (name) => smak.unpng(readFileSync(pathOf(folders, name))) });
+  const { mdl, report, files = [] } = buildModelSpec(spec, { folder, games: folders.wads ?? [], readPicture: (name) => smak.unpng(readFileSync(pathOf(folders, name))), hide: folders.hide ?? [], refuse: folders.refuse ?? [] });
   const lines = reportLines(report);
   if (mdl) {
     const name = spec.name ?? "model.mdl";
@@ -832,7 +832,7 @@ function build(folders, args) {
       for (const file of files.filter((f) => f.view !== "sound")) {
         const first = file.view === "v";
         const draw = (src) => smak.render(src, { seq: 0, frame: 0, width: 320, height: 320, ...(first ? { view: "first" } : { yaw: 35, pitch: 20 }) });
-        if (first) {
+        if (first && file.original) {
           views.push(draw(file.original));
           labels.push(`the game's ${file.name}`);
         }

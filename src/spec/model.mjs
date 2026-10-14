@@ -852,7 +852,7 @@ function piecesOf(given, context) {
  * { ok, errors, faults, warnings, notes, facts, parts }; `ok` when nothing is wrong. Throws only for a spec it
  * cannot read at all; every other fault is in the report.
  */
-export function buildModelSpec(spec, { folder, prefabs = {}, games = [], readPicture } = {}) {
+export function buildModelSpec(spec, { folder, prefabs = {}, games = [], readPicture, hide = [], refuse = [] } = {}) {
   const { errors, warnings } = validateModelSpec(spec, { prefabs });
   const report = { ok: false, errors, faults: [], warnings, notes: [], facts: [], parts: {} };
   if (errors.length) return { mdl: null, report };
@@ -863,7 +863,7 @@ export function buildModelSpec(spec, { folder, prefabs = {}, games = [], readPic
   let skeleton = null;
   if (spec.base) {
     try {
-      skeleton = skeletonOf(spec.base, folder, games);
+      skeleton = skeletonOf(spec.base, folder, games, refuse);
     } catch (error) {
       errors.push(`base: ${error.message}`);
       return { mdl: null, report };
@@ -1053,7 +1053,7 @@ export function buildModelSpec(spec, { folder, prefabs = {}, games = [], readPic
   const seen = seeThrough(mdl);
   report.faults.push(...seen.faults);
   report.facts.push(`the pictures see through it at ${(seen.share * 100).toFixed(2)}% of its dots`);
-  const files = spec.weapon ? weaponViews(spec, meshes, { folder, games, report }) : [];
+  const files = spec.weapon ? weaponViews(spec, meshes, { folder, games, report, hide }) : [];
   report.ok = !errors.length && !report.faults.length;
   return { mdl, report, files };
 }
@@ -1177,7 +1177,7 @@ const WEAPON_VIEWS = { v: { shrink: 1, what: "first person" }, p: { shrink: 2, w
  * untouched; the files keep the game's names, so that the game loads them with no code (AGENTS.md, rule 8).
  * Returns [{ name, mdl, view }]; what each became goes in the report.
  */
-function weaponViews(spec, meshes, { folder, games, report }) {
+function weaponViews(spec, meshes, { folder, games, report, hide = [] }) {
   const { like, views = ["v", "p", "w"], size = "old", rig = "carry", turn } = spec.weapon;
   if (meshes.length !== 1) {
     report.errors.push(`weapon: a weapon wears one picture, and this one has ${meshes.length} (${meshes.map((m) => m.name).join(", ")}): a glowing or see-through material gets a picture of its own; leave such parts out of a weapon`);
@@ -1194,6 +1194,7 @@ function weaponViews(spec, meshes, { folder, games, report }) {
     bones: named,
   };
   const files = [];
+  const hidden = (fileName) => hide.some((name) => name.replace(/^models\//, "") === fileName);
   // the weapon's sounds, made first: their files go with the models', under sound/
   const soundLengths = new Map();
   for (const [n, { spec: sound }] of (spec.weapon.sounds ?? []).entries()) {
@@ -1230,11 +1231,17 @@ function weaponViews(spec, meshes, { folder, games, report }) {
     for (const [j, model] of part.models.entries()) {
       if (!weaponTris(model)) continue;
       try {
-        const swapped = swapMesh(mdl, { body: j * part.base, bodypart, piece, texture, size, turn: typeof turn === "object" && turn ? turn[view] : turn, name: fileName });
+        // a hidden file's weapon lends nothing of its own shape: the piece keeps the size it was built at
+        const swapped = swapMesh(mdl, { body: j * part.base, bodypart, piece, texture, size: hidden(fileName) ? "own" : size, turn: typeof turn === "object" && turn ? turn[view] : turn, name: fileName });
         mdl = swapped.mdl;
         const r = swapped.report;
         const others = r.bones.filter((b) => b !== r.bone);
-        done.push(`${r.model} on ${r.bone}${others.length ? ` and ${others.join(", ")}` : ""} (${r.was} triangles were there; laid ${r.turn}, ${size === "own" ? "at its own size" : `scaled ${r.scale.toFixed(2)}`}, ${r.left.toFixed(2)} off the old outline)`);
+        // a hidden file (a blind test's original) is fitted into, but nothing of its own weapon is told
+        done.push(
+          hidden(fileName)
+            ? `${r.model} on ${r.bone}${others.length ? ` and ${others.join(", ")}` : ""}`
+            : `${r.model} on ${r.bone}${others.length ? ` and ${others.join(", ")}` : ""} (${r.was} triangles were there; laid ${r.turn}, ${size === "own" ? "at its own size" : `scaled ${r.scale.toFixed(2)}`}, ${r.left.toFixed(2)} off the old outline)`,
+        );
       } catch (error) {
         report.errors.push(`weapon: ${fileName}, ${model.name}: ${error.message}`);
       }
@@ -1293,7 +1300,7 @@ function weaponViews(spec, meshes, { folder, games, report }) {
     const engine = check(mdl, "goldsrc");
     report.errors.push(...engine.errors.map((e) => `${fileName}: ${e}`));
     report.facts.push(`${fileName} (${WEAPON_VIEWS[view].what}), from ${place}: ${done.join("; ")}; its ${sequencesOf(mdl).length} animations and ${info.bones.length} bones are the game's`);
-    files.push({ name: fileName, mdl, view, original });
+    files.push({ name: fileName, mdl, view, original: hidden(fileName) ? null : original });
   }
   return files;
 }
@@ -1304,8 +1311,11 @@ function weaponViews(spec, meshes, { folder, games, report }) {
  * games' folders (`<game>/models/<file>`), its textures from <name>t.mdl when they are there. Returns
  * { src, file, joints: Map(bone name -> [x, y, z] in model space as it stands in `pose`), pose, bodypart, bodies }.
  */
-function skeletonOf(given, folder, games) {
+function skeletonOf(given, folder, games, refuse = []) {
   const options = typeof given === "string" ? { file: given } : given;
+  // a file this build may not read (the model a blind test reproduces): its skeleton would be the original's
+  if (refuse.some((name) => name.replace(/^models\//, "") === options.file.replace(/^models\//, "")))
+    throw new Error(`${options.file} may not be used here (a blind test's original): take another model's skeleton`);
   const places = [resolve(folder ?? ".", options.file), ...games.flatMap((game) => [join(game, "models", options.file), join(game, options.file)])];
   const file = places.find((place) => existsSync(place));
   if (!file) throw new Error(`${options.file} is neither beside the spec nor in the game folders given (${games.join(", ") || "none: --wads <game folder>"})`);

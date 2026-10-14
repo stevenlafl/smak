@@ -481,6 +481,15 @@ test("a map spec's prism pieces cut a room's corner at 45 degrees, turned with t
   sure(same(at(-240, -240), at(240, -240)) && !same(at(-240, -240), at(-200, 200)) && same(at(-200, 200), at(100, 100)), `rock cut in at both front corners: ${at(-240, -240)} ${at(240, -240)} against floor ${at(-200, 200)} ${at(100, 100)}`);
 });
 
+test("a blind test's original may be refused: a character may not take its skeleton", () => {
+  const folder = mkdtempSync(join(tmpdir(), "smak-refuse-"));
+  const { mdl } = buildModelSpec({ spec: "smak.model/1", name: "target.mdl", kind: "prop", parts: [{ id: "a", kind: "box", size: [4, 4, 4] }] });
+  writeFileSync(join(folder, "target.mdl"), mdl);
+  const spec = { spec: "smak.model/1", name: "copy.mdl", kind: "character", base: { file: "target.mdl" }, parts: [{ id: "b", kind: "box", size: [2, 2, 2], at: [0, 0, 0] }] };
+  const refused = buildModelSpec(spec, { folder, refuse: ["models/target.mdl"] });
+  sure(refused.report.errors.some((e) => /may not be used here \(a blind test's original\)/.test(e)), refused.report.errors.join("; "));
+});
+
 test("colours in words: the XKCD names with their modifiers, and a colour as it shows in a picture", async () => {
   const { colourFromWords } = await import("../src/spec/colours.mjs");
   const { toLab } = await import("../src/spec/colours.mjs");
