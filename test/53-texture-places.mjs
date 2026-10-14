@@ -6,7 +6,8 @@
 //   the renderer's scene is kept by the textures given, not their names: two sets of one name draw apart
 //   a texture's wear: finer detail and spread than a plain fill, and no seam where it repeats
 //   relief: a pipe lit on its top and dark below, a grille's holes dark, a refused part said
-import { readFileSync, mkdirSync, copyFileSync } from "node:fs";
+//   matchTextures: a texture under a dim light is found first among others; the info tool's like and rect
+import { readFileSync, mkdirSync, copyFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import * as smak from "../src/index.mjs";
 import { materialOf } from "../src/spec/paint.mjs";
@@ -130,4 +131,29 @@ test("relief: a pipe lit on its top and shaded below, a grille's recess dark, a 
   sure(darkest < 30, `the hole ${darkest}`);
   const bad = buildWadSpec({ spec: "smak.wad/1", name: "bad.wad", textures: [{ name: "x", size: [64, 64], relief: [{ kind: "pipe", path: [[0, 0]] }, { kind: "fan" }] }] }, { out });
   sure(bad.report.errors.length === 2, bad.report.errors.join("; "));
+});
+
+await testAsync("matchTextures: a texture seen dim is found first among others, and through the info tool", "wad match", async () => {
+  const picture = (w, h, f) => ({ width: w, height: h, rgb: Uint8Array.from({ length: w * h * 3 }, (_, i) => f(Math.floor(i / 3) % w, Math.floor(i / 3 / w), i % 3)) });
+  const textures = smak.maps.readWad(smak.maps.writeWad([
+    { name: "bricks", image: picture(32, 32, (x, y, c) => ((y % 8 < 1 || (x + (Math.floor(y / 8) % 2) * 8) % 16 < 1) ? 200 : [150, 60, 40][c])) },
+    { name: "grass", image: picture(32, 32, (x, y, c) => [60, 140, 50][c] + ((x * 7 + y * 13) % 20)) },
+    { name: "steel", image: picture(32, 32, (x, y, c) => 120 + ((x + y) % 6) * 4) },
+  ])).textures;
+  // the bricks as a view shows them: twice as large, at half the light
+  const bricks = textures[0];
+  const view = { width: 64, height: 64, rgba: new Uint8Array(64 * 64 * 4) };
+  for (let y = 0; y < 64; y++)
+    for (let x = 0; x < 64; x++) {
+      const p = bricks.pixels[(y >> 1) * 32 + (x >> 1)] * 3;
+      view.rgba.set([bricks.palette[p] >> 1, bricks.palette[p + 1] >> 1, bricks.palette[p + 2] >> 1, 255], (y * 64 + x) * 4);
+    }
+  const found = smak.maps.matchTextures(view, [0, 0, 64, 64], textures);
+  sure(found[0].name === "bricks", found.map((f) => `${f.name} ${f.distance}`).join(", "));
+  const work = join(tmp, "match");
+  mkdirSync(work, { recursive: true });
+  writeFileSync(join(work, "view.png"), smak.png(64, 64, view.rgba));
+  writeFileSync(join(work, "mine.wad"), smak.maps.writeWad(textures.map((t) => ({ name: t.name, image: { width: t.width, height: t.height, rgb: Uint8Array.from({ length: t.width * t.height * 3 }, (_, i) => t.palette[t.pixels[Math.floor(i / 3)] * 3 + (i % 3)]) } }))));
+  const answer = await toolsFor({ work }).find((tool) => tool.name === "info").call({ model: "mine.wad", like: "view.png", rect: [0, 0, 64, 64] });
+  sure(/1\. bricks/i.test(answer[0].text) && answer[1]?.type === "image", answer[0].text);
 });

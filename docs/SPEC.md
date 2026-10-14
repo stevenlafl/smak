@@ -756,7 +756,11 @@ Name the game's .wad files in `wads` and give a material as a texture of them:
 - When nothing fits, that is a **gap**: the report says so, with the nearest, and the texture is made from
   `else` into the map's own .wad, which the map names beside the game's.
 
-The `info` tool on a .wad lists its textures. A game's textures are its authors': a map built with them
+The `info` tool on a .wad lists its textures; with `like` (a picture, say a view of the map you are making
+again) and `rect` (the patch of a wall in it, `[x, y, w, h]` in dots) it lists the dozen textures whose colours
+are most like that patch's, its light divided out, and draws them beside it: look and choose, then name it.
+It finds a wall's texture among a game's thousands about a third of the time first and often in the dozen;
+under a coloured lamp, or on a texture smaller than the patch, it cannot. A game's textures are its authors': a map built with them
 names them and the game's .wad, and copies nothing (AGENTS.md, rule 7).
 
 ### Entities

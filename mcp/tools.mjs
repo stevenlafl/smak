@@ -123,8 +123,11 @@ const flagNames = (flags) =>
  * What is in a model, in few words: its bones (each with its parent's number), its bodies with their body
  * numbers, its textures and its animations. `full` adds where each bone is, the events and the attachments.
  */
-function info(folders, { model, full = false }) {
-  const named = pathOf(folders, model);
+function info(folders, { model, full = false, like, rect }) {
+  // a game's .wad by its name (halflife.wad), from the game folders the server was given
+  const inGame = /\.wad$/i.test(model) && !/[\\/:]/.test(model) ? (folders.wads ?? []).map((game) => join(game, model)).find((f) => existsSync(f)) : null;
+  const named = inGame ?? pathOf(folders, model);
+  if (isWad(named) && like) return wadMatch(folders, named, like, rect);
   if (isCompiledMap(named)) return mapInfo(named, full);
   if (isMapSource(named)) return sourceInfo(named);
   if (isWad(named)) return wadInfo(named);
@@ -279,6 +282,38 @@ function sourceInfo(file) {
   return [text(lines.join("\n"))];
 }
 /** The textures of a .wad file, each with its size. */
+/**
+ * The textures of a .wad most like a patch of a picture (a wall in a view of the original): ranked by their
+ * colours with the brightness divided out (src/maps/match.mjs), and drawn beside the patch to be looked at.
+ */
+function wadMatch(folders, file, like, rect) {
+  const picture = smak.unpng(readFileSync(pathOf(folders, like)));
+  const [x, y, w, h] = rect ?? [0, 0, picture.width, picture.height];
+  const textures = maps.readWad(readFileSync(file)).textures;
+  const found = maps.matchTextures(picture, [x, y, w, h], textures);
+  const byName = new Map(textures.map((t) => [t.name, t]));
+  const cell = 128;
+  const square = (draw) => {
+    const rgba = new Uint8Array(cell * cell * 4);
+    for (let j = 0; j < cell; j++) for (let i = 0; i < cell; i++) rgba.set([...draw(i / cell, j / cell), 255], (j * cell + i) * 4);
+    return { width: cell, height: cell, rgba };
+  };
+  const patch = square((u, v) => {
+    const k = ((y + Math.floor(v * h)) * picture.width + x + Math.floor(u * w)) * 4;
+    return [picture.rgba[k], picture.rgba[k + 1], picture.rgba[k + 2]];
+  });
+  const flat = (t) =>
+    square((u, v) => {
+      const p = t.pixels[Math.floor(v * t.height) * t.width + Math.floor(u * t.width)] * 3;
+      return [t.palette[p], t.palette[p + 1], t.palette[p + 2]];
+    });
+  const sheet = smak.tile([patch, ...found.map((f) => flat(byName.get(f.name)))], 7, ["the patch", ...found.map((f) => f.name)]);
+  return [
+    text([`the textures of ${basename(file)} most like ${like} [${x}, ${y}, ${w}, ${h}], nearest first (by colour, its light divided out: look at them, the order is not a verdict):`, ...found.map((f, i) => `  ${i + 1}. ${f.name} ${f.width}x${f.height} (${f.distance})`)].join("\n")),
+    image(smak.png(sheet.width, sheet.height, sheet.rgba)),
+  ];
+}
+
 function wadInfo(file) {
   const read = maps.readWad(readFileSync(file));
   const listed = read.textures.map((texture) => `${texture.name} ${texture.width}x${texture.height}`);
@@ -984,7 +1019,7 @@ export function toolsFor(folders, { allowRun = true } = {}) {
     {
       name: "info",
       description:
-        "What a model holds (bones, bodies with their body numbers, textures, animations), or a map (.bsp: entities, textures, light), a .map or a .wad.",
+        "What a model holds (bones, bodies with their body numbers, textures, animations), or a map (.bsp: entities, textures, light), a .map or a .wad. A .wad with like (a picture) and rect: its textures most like that patch.",
       inputSchema: object(
         {
           model: MODEL,
@@ -992,6 +1027,8 @@ export function toolsFor(folders, { allowRun = true } = {}) {
             type: "boolean",
             description: "also bone places, events, attachments; a map: every entity, with its keys",
           },
+          like: { type: "string", description: "a .wad: a picture (work:pictures/views.png) to find its textures in" },
+          rect: { type: "array", items: { type: "number" }, description: "with like: the patch, [x, y, w, h] in dots" },
         },
         ["model"],
       ),
