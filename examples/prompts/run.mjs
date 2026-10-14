@@ -40,6 +40,14 @@ const compilers = option("--compilers") ?? process.env.VHLT_DIR ?? (existsSync(b
 // SDK where Steam keeps it and the compilers' own beside them
 const fgds = [];
 for (let at = words.indexOf("--fgd"); at >= 0; at = words.indexOf("--fgd")) fgds.push(words.splice(at, 2)[1]);
+// the games' .wad folders a map spec's `wads` are found in by name: Half-Life's and The Specialists' in Steam
+const wadFolders = [];
+for (let at = words.indexOf("--wads"); at >= 0; at = words.indexOf("--wads")) wadFolders.push(words.splice(at, 2)[1]);
+if (!wadFolders.length)
+  for (const game of ["valve", "ts"]) {
+    const place = join(homedir(), ".steam/steam/steamapps/common/Half-Life", game);
+    if (existsSync(place)) wadFolders.push(place);
+  }
 if (!fgds.length) {
   const sdk = join(homedir(), ".steam/steam/steamapps/common/Half-Life SDK/Hammer Editor/fgd/half-life/halflife.fgd");
   const own = join(beside, "sdhlt.fgd");
@@ -53,7 +61,7 @@ const cases = readdirSync(HERE)
 // the server, started as a client starts it
 const child = spawn(
   process.execPath,
-  [SERVER, "--models", HERE, "--work", work, "--no-run", ...(compilers ? ["--compilers", compilers] : []), ...fgds.flatMap((file) => ["--fgd", file])],
+  [SERVER, "--models", HERE, "--work", work, "--no-run", ...(compilers ? ["--compilers", compilers] : []), ...fgds.flatMap((file) => ["--fgd", file]), ...wadFolders.flatMap((place) => ["--wads", place])],
   { stdio: ["pipe", "pipe", "inherit"] },
 );
 const waiting = new Map();

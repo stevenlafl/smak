@@ -666,7 +666,7 @@ function build(folders, args) {
     const out = join(folders.work, name);
     mkdirSync(out, { recursive: true });
     writeFileSync(join(out, `${name}.spec.json`), `${JSON.stringify(spec, null, 2)}\n`);
-    const { report, files } = buildMapSpec(spec, { out, compilers: folders.compilers, folder, fgd: folders.fgd ?? [] });
+    const { report, files } = buildMapSpec(spec, { out, compilers: folders.compilers, folder, fgd: folders.fgd ?? [], wads: folders.wads ?? [] });
     const lines = reportLines(report);
     if (report.rooms && Object.keys(report.rooms).length) lines.splice(1, 0, ...changedSince(out, name, "map", spec, report));
     lines.push(`written: ${Object.values(files).map((file) => `work:${file.slice(folders.work.length + 1)}`).join(", ")}`);

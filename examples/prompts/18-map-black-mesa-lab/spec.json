@@ -1,0 +1,448 @@
+{
+ "spec": "smak.map/1",
+ "name": "bm_lab",
+ "wads": [
+  "halflife.wad",
+  "liquids.wad"
+ ],
+ "theme": {
+  "floor": {
+   "pick": {
+    "words": [
+     "labflr"
+    ]
+   }
+  },
+  "wall": {
+   "pick": {
+    "words": [
+     "labw"
+    ],
+    "tone": [
+     0.62,
+     0.62,
+     0.58
+    ]
+   }
+  },
+  "ceiling": {
+   "pick": {
+    "words": [
+     "c1a0_c",
+     "ceil"
+    ],
+    "tone": [
+     0.7,
+     0.7,
+     0.68
+    ]
+   }
+  },
+  "door": {
+   "pick": {
+    "words": [
+     "lab1_door"
+    ]
+   }
+  },
+  "furniture": {
+   "pick": {
+    "words": [
+     "metal_bord"
+    ],
+    "tone": [
+     0.45,
+     0.45,
+     0.45
+    ]
+   }
+  }
+ },
+ "textures": {
+  "slime": {
+   "pick": {
+    "words": [
+     "!toxic"
+    ]
+   }
+  },
+  "grating": {
+   "pick": {
+    "words": [
+     "grate"
+    ],
+    "tone": [
+     0.35,
+     0.33,
+     0.3
+    ]
+   }
+  },
+  "computer": {
+   "pick": {
+    "words": [
+     "lab1_comp"
+    ],
+    "tone": [
+     0.35,
+     0.38,
+     0.42
+    ]
+   }
+  },
+  "hologram": {
+   "pick": {
+    "words": [
+     "holo"
+    ],
+    "else": {
+     "base": "neon",
+     "tone": [
+      0.3,
+      0.9,
+      1.0
+     ],
+     "glow": 300
+    }
+   }
+  },
+  "rail": {
+   "pick": {
+    "words": [
+     "metal_bord"
+    ],
+    "tone": [
+     0.4,
+     0.4,
+     0.42
+    ]
+   }
+  }
+ },
+ "prefabs": {
+  "railing": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -136,
+       -104,
+       0
+      ],
+      [
+       136,
+       -100,
+       32
+      ]
+     ],
+     "texture": "rail"
+    },
+    {
+     "box": [
+      [
+       -136,
+       100,
+       0
+      ],
+      [
+       136,
+       104,
+       32
+      ]
+     ],
+     "texture": "rail"
+    },
+    {
+     "box": [
+      [
+       -136,
+       -100,
+       0
+      ],
+      [
+       -132,
+       100,
+       32
+      ]
+     ],
+     "texture": "rail"
+    },
+    {
+     "box": [
+      [
+       132,
+       -100,
+       0
+      ],
+      [
+       136,
+       100,
+       32
+      ]
+     ],
+     "texture": "rail"
+    }
+   ]
+  },
+  "console": {
+   "pieces": [
+    {
+     "box": [
+      [
+       -64,
+       -16,
+       0
+      ],
+      [
+       64,
+       16,
+       36
+      ]
+     ],
+     "texture": "furniture"
+    },
+    {
+     "wedge": [
+      [
+       -64,
+       -16,
+       36
+      ],
+      [
+       64,
+       16,
+       52
+      ]
+     ],
+     "high": "+y",
+     "texture": "computer"
+    },
+    {
+     "box": [
+      [
+       -64,
+       12,
+       52
+      ],
+      [
+       64,
+       16,
+       84
+      ]
+     ],
+     "texture": "computer"
+    }
+   ]
+  },
+  "holo": {
+   "pieces": [
+    {
+     "cylinder": {
+      "centre": [
+       0,
+       0
+      ],
+      "radius": 20,
+      "from": 0,
+      "to": 30,
+      "sides": 12
+     },
+     "texture": "furniture"
+    },
+    {
+     "box": [
+      [
+       -16,
+       -16,
+       30
+      ],
+      [
+       16,
+       16,
+       78
+      ]
+     ],
+     "texture": "hologram"
+    }
+   ]
+  }
+ },
+ "rooms": [
+  {
+   "id": "lab",
+   "size": [
+    512,
+    384,
+    192
+   ],
+   "light": {
+    "count": 4,
+    "brightness": 260,
+    "color": [
+     235,
+     245,
+     255
+    ]
+   }
+  },
+  {
+   "id": "pool",
+   "size": [
+    256,
+    192,
+    48
+   ],
+   "place": {
+    "in": "lab",
+    "offset": [
+     128,
+     96
+    ]
+   },
+   "floor": -48,
+   "water": {
+    "depth": 40,
+    "material": "slime"
+   },
+   "light": "none"
+  },
+  {
+   "id": "corridor",
+   "size": [
+    256,
+    128,
+    128
+   ],
+   "place": {
+    "east_of": "lab"
+   },
+   "surfaces": {
+    "floor": "grating"
+   },
+   "light": {
+    "count": 1,
+    "brightness": 220,
+    "color": [
+     235,
+     245,
+     255
+    ]
+   }
+  },
+  {
+   "id": "control",
+   "size": [
+    320,
+    256,
+    160
+   ],
+   "place": {
+    "east_of": "corridor"
+   },
+   "light": {
+    "count": 2,
+    "brightness": 240,
+    "color": [
+     235,
+     245,
+     255
+    ]
+   }
+  }
+ ],
+ "links": [
+  {
+   "between": [
+    "lab",
+    "corridor"
+   ],
+   "kind": "opening",
+   "width": 96
+  },
+  {
+   "between": [
+    "corridor",
+    "control"
+   ],
+   "kind": "door"
+  }
+ ],
+ "furniture": [
+  {
+   "prefab": "railing",
+   "room": "lab",
+   "at": [
+    0,
+    0
+   ]
+  },
+  {
+   "prefab": "console",
+   "room": "control",
+   "at": [
+    0,
+    104
+   ]
+  },
+  {
+   "prefab": "console",
+   "room": "control",
+   "at": [
+    136,
+    0
+   ],
+   "rotate": 90
+  },
+  {
+   "prefab": "holo",
+   "room": "control",
+   "at": [
+    -20,
+    -20
+   ]
+  }
+ ],
+ "entities": [
+  {
+   "class": "info_player_start",
+   "room": "lab",
+   "at": "corner sw",
+   "facing": "east"
+  },
+  {
+   "class": "monster_scientist",
+   "room": "lab",
+   "at": [
+    -180,
+    140
+   ],
+   "facing": "south"
+  },
+  {
+   "class": "monster_scientist",
+   "room": "lab",
+   "at": [
+    180,
+    140
+   ],
+   "facing": "south"
+  },
+  {
+   "class": "monster_headcrab",
+   "room": "lab",
+   "at": [
+    0,
+    -130
+   ]
+  },
+  {
+   "class": "monster_barney",
+   "room": "control",
+   "at": [
+    -100,
+    60
+   ],
+   "facing": "east"
+  }
+ ]
+}

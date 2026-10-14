@@ -9,8 +9,8 @@
 //   layoutOf(spec)                                   -> the rooms as boxes, before anything else is built
 //
 // docs/SPEC.md is the guide. Axes as every map's: +x east, +y north, +z up, a unit about an inch.
-import { writeFileSync, mkdirSync, readFileSync } from "node:fs";
-import { join, resolve, dirname } from "node:path";
+import { writeFileSync, mkdirSync, readFileSync, existsSync } from "node:fs";
+import { join, resolve, dirname, basename } from "node:path";
 import { carve, box, cylinder, wedge, stairs as stairBrushes, light, sunLight, textureLights, playerStart, pointEntity, brushEntity, writeMap, readMap, subtract, moved, shapeOf } from "../maps/source.mjs";
 import { checkPlan } from "../maps/plan.mjs";
 import { definitionsOf } from "../maps/fgd.mjs";
@@ -23,10 +23,11 @@ import { planOfSource, planOf, drawMap, sectionOf } from "../maps/draw.mjs";
 import { tile, label } from "../render.mjs";
 import { png } from "../image.mjs";
 import { materialOf, surfacePicture, MATERIALS } from "./paint.mjs";
+import { wadCatalog, pickTexture } from "./wads.mjs";
 import { buildModelSpec, validateModelSpec } from "./model.mjs";
 
 export const MAP_SPEC = "smak.map/1";
-const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "fgd", "note"];
+const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "fgd", "wads", "note"];
 const ROOM = ["id", "size", "at", "place", "floor", "sky", "surfaces", "light", "water", "test", "note"];
 const LINK = ["between", "kind", "width", "height", "along", "sill", "stairs", "door", "glass", "note"];
 const PLACES = ["east_of", "west_of", "north_of", "south_of", "above", "below", "in"];
@@ -418,7 +419,7 @@ function placedPrefab(prefab, at, quarters, textureOf) {
  * every model it puts in, and <name>.bsp when the compilers are found (`compilers`: what findCompilers gave,
  * or a folder). Returns { report, files, map }: report is { ok, errors, faults, warnings, facts, rooms }.
  */
-export function buildMapSpec(given, { out, compilers, folder, fgd = [] } = {}) {
+export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [] } = {}) {
   let spec;
   try {
     spec = withIncludes(given, folder ?? ".");
@@ -439,9 +440,53 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [] } = {}) {
   const used = new Map();
   /** a texture name for a word of the spec (a key of theme/textures, or a base material) */
   const liquids = new Set();
+  // a game's own textures: named (`{ texture: "C1A0_LABW4" }`) or picked by words and a colour
+  // (`{ pick: { words: ["brick"], tone: [r, g, b], else: <a material> } }`) from the .wad files given; a pick
+  // that finds nothing is a gap, made from its `else` into the map's own .wad and told
+  // a .wad the spec names is looked for as a path from the spec's folder, then by its name in the folders the
+  // build was given (a game's valve or mod folder): a spec names "halflife.wad", never a machine's path
+  const wadFiles = [...[spec.wads ?? []].flat()].map((given) => {
+    const near = resolve(folder ?? ".", given);
+    if (existsSync(near)) return near;
+    for (const place of [wads].flat()) if (existsSync(join(place, basename(given)))) return join(place, basename(given));
+    throw new Error(`wads: ${given} is neither beside the spec nor in the game folders given (${[wads].flat().join(", ") || "none: --wads <folder>"})`);
+  });
+  const catalog = wadFiles.length ? wadCatalog(wadFiles) : [];
+  const gameTextures = new Map();
+  const picked = new Map();
+  const fromWads = (word, material) => {
+    if (picked.has(word)) return picked.get(word);
+    let name = null;
+    if (material.texture) {
+      const found = catalog.find((texture) => texture.name.toLowerCase() === String(material.texture).toLowerCase());
+      if (!found) throw new Error(`texture ${word}: ${material.texture} is in none of the .wad files given (${wadFiles.map((file) => basename(file)).join(", ") || "none"})`);
+      gameTextures.set(found.name, found.file);
+      name = found.name;
+      report.facts.push(`${word}: ${found.name} of ${found.wad}, as named`);
+    } else {
+      const choice = pickTexture(catalog, material.pick);
+      if (choice.pick) {
+        gameTextures.set(choice.pick.name, choice.pick.file);
+        name = choice.pick.name;
+        report.facts.push(`${word}: picked ${choice.pick.name} of ${choice.pick.wad} (colour off ${choice.off.toFixed(2)}${choice.others.length ? `; next: ${choice.others.join(", ")}` : ""})`);
+      } else {
+        const instead = material.pick.else ?? { base: "plaster", tone: material.pick.tone };
+        report.facts.push(`${word}: a GAP in the .wad files given (${choice.gap}${choice.others.length ? `; nearest: ${choice.others.join(", ")}` : ""}): made into the map's own .wad`);
+        picked.set(word, null);
+        return null;
+      }
+    }
+    picked.set(word, name);
+    return name;
+  };
   const textureOf = (word, { liquid = false } = {}) => {
     if (word === "sky") return used.set("sky", { base: "glass", tone: spec.night ? [0.05, 0.06, 0.1] : [0.45, 0.6, 0.85] }) && "sky";
-    const material = materials[word] ?? word;
+    let material = materials[word] ?? word;
+    if (material && typeof material === "object" && (material.texture || material.pick)) {
+      const name = fromWads(word, material);
+      if (name) return name;
+      material = material.pick.else ?? { base: "plaster", tone: material.pick.tone };
+    }
     materialOf(material, `texture ${word}`);
     const key = materials[word] !== undefined ? word : `${typeof material === "string" ? material : material.base}`;
     used.set(key, material);
@@ -865,7 +910,8 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [] } = {}) {
   const wadFile = join(out, `${name}.wad`);
   writeFileSync(wadFile, writeWad([...used.entries()].map(([key, material]) => ({ name: textureName(key, liquids.has(key)), image: surfacePicture(material, key === "sky" ? 64 : 128) }))));
   files.wad = wadFile;
-  const map = { worldspawn: { wad: [wadFile], message: spec.note ?? name, skyname: spec.sky ?? "desert" }, brushes, entities };
+  const gameWads = [...new Set(gameTextures.values())];
+  const map = { worldspawn: { wad: [wadFile, ...gameWads], message: spec.note ?? name, skyname: spec.sky ?? "desert" }, brushes, entities };
   const mapFile = join(out, `${name}.map`);
   writeFileSync(mapFile, writeMap(map));
   files.map = mapFile;
@@ -873,7 +919,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [] } = {}) {
   for (const room of rooms.values()) report.rooms[room.id] = { min: room.min, max: room.max };
 
   // ── checked before any compile: the plan, and the walk ──
-  const textures = [...used.keys()].map((key) => textureName(key, liquids.has(key)));
+  const textures = [...[...used.keys()].map((key) => textureName(key, liquids.has(key))), ...gameTextures.keys()];
   // the entities held against the game's entity definitions (its FGD, and the compilers' own), when given
   const fgds = [...[fgd].flat(), ...[spec.fgd ?? []].flat().map((file) => resolve(folder ?? ".", file))];
   const definitions = fgds.length ? definitionsOf(...fgds) : undefined;
@@ -907,7 +953,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [] } = {}) {
     report.facts.push(`not compiled: ${found.message}`);
     report.faults.push("not compiled: the compilers were not found, so the leak test of the compiler and the light could not run");
   } else {
-    const result = compileMap(mapFile, { wads: [wadFile], compilers: found, out: join(out, `${name}.bsp`) });
+    const result = compileMap(mapFile, { wads: [wadFile, ...gameWads], compilers: found, out: join(out, `${name}.bsp`) });
     if (!result.bsp) report.faults.push(...result.errors);
     else {
       files.bsp = result.bsp;
@@ -925,7 +971,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [] } = {}) {
       const walked = reachOf(bsp);
       if (walked.unreached.length + walked.stuck.length) report.faults.push(...walked.warnings.map((line) => `walk of the compiled map: ${line}`));
       // a night map's sky drawn dark: without the game's own sky pictures the views fill it with a day's blue
-      const drawing = { folders: [out, dirname(out)], models: true, ...(spec.night ? { sky: [10, 12, 22] } : {}) };
+      const drawing = { folders: [out, dirname(out), ...gameWads.map((file) => dirname(file))], models: true, ...(spec.night ? { sky: [10, 12, 22] } : {}) };
       save("plan", planOf(bsp, drawing));
       // a view of every room, from a corner by its walls looking across it to the far corner
       const viewSpots = [];
