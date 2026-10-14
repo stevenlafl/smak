@@ -1,0 +1,193 @@
+{
+ "spec": "smak.sound/1",
+ "seed": 1,
+ "sounds": [
+  {
+   "name": "weapons/cbar_hit1.wav",
+   "class": "metal hit",
+   "seed": 11,
+   "layers": [
+    {
+     "id": "click",
+     "kind": "noise",
+     "filter": [
+      {
+       "type": "highpass",
+       "f": 1500
+      }
+     ],
+     "env": {
+      "decay": 0.015
+     },
+     "gain": 0
+    },
+    {
+     "id": "ring",
+     "kind": "modes",
+     "f": 780,
+     "ratios": "bar",
+     "decay": 0.9,
+     "damping": 0.9,
+     "gains": [
+      1,
+      0.7,
+      0.45,
+      0.3
+     ]
+    },
+    {
+     "id": "rasp",
+     "kind": "noise",
+     "filter": [
+      {
+       "type": "bandpass",
+       "f": 1100,
+       "q": 0.7
+      }
+     ],
+     "env": {
+      "attack": 0.001,
+      "hold": 0.04,
+      "decay": 0.5
+     },
+     "gain": 6
+    },
+    {
+     "id": "thud",
+     "kind": "noise",
+     "filter": [
+      {
+       "type": "lowpass",
+       "f": 400
+      }
+     ],
+     "env": {
+      "decay": 0.06
+     },
+     "gain": 2
+    }
+   ],
+   "finish": {
+    "saturate": 4,
+    "room": {
+     "decay": 0.35,
+     "wet": 0.15
+    }
+   },
+   "variants": [
+    {
+     "name": "weapons/cbar_hit2.wav",
+     "seed": 12,
+     "pitch": 2
+    }
+   ]
+  },
+  {
+   "name": "weapons/cbar_hitbod1.wav",
+   "seed": 21,
+   "class": "flesh hit",
+   "length": 0.32,
+   "layers": [
+    {
+     "id": "thud",
+     "kind": "noise",
+     "filter": [
+      {
+       "type": "lowpass",
+       "f": 300
+      }
+     ],
+     "env": {
+      "attack": 0.004,
+      "hold": 0.08,
+      "decay": 0.5
+     },
+     "gain": 0
+    },
+    {
+     "id": "drop",
+     "kind": "tone",
+     "f": 120,
+     "sweep": {
+      "to": 60,
+      "time": 0.25
+     },
+     "env": {
+      "attack": 0.003,
+      "hold": 0.05,
+      "decay": 0.4
+     },
+     "gain": -4
+    },
+    {
+     "id": "slap",
+     "kind": "noise",
+     "filter": [
+      {
+       "type": "bandpass",
+       "f": 900,
+       "q": 0.6
+      }
+     ],
+     "env": {
+      "attack": 0.001,
+      "hold": 0.02,
+      "decay": 0.12
+     },
+     "gain": 9
+    }
+   ],
+   "finish": {
+    "saturate": 3
+   },
+   "variants": [
+    {
+     "name": "weapons/cbar_hitbod2.wav",
+     "seed": 22,
+     "pitch": -4
+    },
+    {
+     "name": "weapons/cbar_hitbod3.wav",
+     "seed": 23,
+     "pitch": 5
+    }
+   ]
+  },
+  {
+   "name": "weapons/cbar_miss1.wav",
+   "class": "swing",
+   "seed": 31,
+   "length": 0.34,
+   "layers": [
+    {
+     "id": "whoosh",
+     "kind": "noise",
+     "color": "pink",
+     "filter": [
+      {
+       "type": "highpass",
+       "f": 150
+      },
+      {
+       "type": "bandpass",
+       "f": 180,
+       "q": 1.3,
+       "sweep": {
+        "to": 420,
+        "time": 0.17
+       }
+      }
+     ],
+     "env": {
+      "shape": "bell",
+      "decay": 0.34
+     }
+    }
+   ],
+   "finish": {
+    "peak": -9,
+    "trim": false
+   }
+  }
+ ]
+}

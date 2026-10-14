@@ -222,15 +222,27 @@ function normalise(x, dB) {
  * finished: `saturate` (a drive, tanh), `room`, `peak` (dBFS, -0.5 unless told), a DC block, a trim of
  * silence at the end and a 5 ms fade (one-shots), or a crossfaded seam (`loop`).
  */
+/** How long a layer takes to die away when it is not told: its envelope's attack, hold and decay (to -60 dB). */
+function naturalLength(layer) {
+  if (layer.length) return layer.length;
+  const env = layer.env ?? {};
+  if (env.points) return env.points.at(-1)[0];
+  const decay = layer.kind === "modes" ? (layer.modes ? Math.max(...layer.modes.map((m) => m.decay)) : (layer.decay ?? 0.5)) : (env.decay ?? 0.3);
+  return Math.min(6, (env.attack ?? 0.001) + (env.hold ?? 0) + decay);
+}
+
 export function render(sound, { rate = 22050 } = {}) {
   const random = seeded(sound.seed ?? 1);
-  const length = sound.length ?? Math.max(...sound.layers.map((l) => (l.at ?? 0) + (l.length ?? 0.5)));
+  const length = sound.length ?? Math.max(...sound.layers.map((l) => (l.at ?? 0) + naturalLength(l)));
   const pitch = 1 + (sound.pitch ?? 0) / 100;
   let mix = new Float32Array(Math.round(length * rate));
   sound.layers.forEach((layer, k) => {
     const own = seeded((sound.seed ?? 1) * 7919 + k * 104729);
     const seconds = Math.max(0.001, Math.min(layer.length ?? length - (layer.at ?? 0), length - (layer.at ?? 0)));
     const samples = layerSamples(layer, seconds * pitch, rate, own);
+    // its own last 5 ms faded: a layer cut off while it still rings is a click in the middle of the sound
+    const fade = Math.min(samples.length, Math.round(0.005 * rate));
+    for (let i = 0; i < fade; i++) samples[samples.length - 1 - i] *= i / fade;
     const gain = 10 ** ((layer.gain ?? 0) / 20);
     const at = Math.round((layer.at ?? 0) * rate);
     for (let i = 0; i < mix.length - at; i++) {

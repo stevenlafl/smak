@@ -18,6 +18,7 @@ reads before writing a spec of its own (`docs/SPEC.md` is the reference).
 | 29 to 31 | Houses: a ranch, a brick two-storey, a bungalow with a garage | a building standing in the open: its shell, a gable roof, doors and windows to the outside by side; five furnished rooms |
 | 32 to 34 | Shops, a park, a building site | a row of five furnished shops with lit signs; courts laid out of slabs and lines; house frames as brush prefabs |
 | 35 | The neighbourhood, in four seasons | six modules on a street; the seasons as change requests by `replace` (every lawn to snow, every tree bare), swaps told as swaps |
+| 38 | The wrench's sounds | six sounds under the crowbar's names, made from layers and held against the game's own of their kinds by measure and spectrogram |
 
 ## How a case is made and judged
 

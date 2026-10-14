@@ -73,6 +73,13 @@ test("a sound spec: built the same every time, its variants, held against its cl
   sure(first.picture && first.picture.width === 640 && first.picture.height > 400, "a picture of the two");
   const loop = A.buildSoundSpec({ spec: "smak.sound/1", name: "ambience/hum.wav", class: "loop machine", length: 2.5, loop: { crossfade: 0.3 }, layers: [{ kind: "tone", f: 60, env: { attack: 0.01, hold: 3 } }, { kind: "noise", color: "pink", filter: [{ type: "bandpass", f: 300 }], gain: -14, env: { attack: 0.01, hold: 3 } }] });
   sure(loop.report.ok && A.readWav(loop.files[0].bytes).cue?.[0] === 0, `a loop with its cue and a smooth seam: ${[...loop.report.errors, ...loop.report.faults]}`);
+  // a ring cut off long before it has died (its layer 0.2 s, its decay 1 s) is faded at its end: no click
+  // inside the sound, which the wrench's hits had before (a stripe down the spectrogram)
+  const cut = A.render({ length: 0.4, finish: { trim: false }, layers: [{ kind: "modes", f: 700, decay: 1, length: 0.2 }, { kind: "noise", gain: -60, length: 0.4 }] }, { rate: RATE });
+  const at = Math.round(0.2 * RATE);
+  const jump = Math.max(...Array.from({ length: 6 }, (_, i) => Math.abs(cut[at - 3 + i] - cut[at - 4 + i])));
+  const step = Math.max(...Array.from({ length: 200 }, (_, i) => Math.abs(cut[at - 400 + i] - cut[at - 401 + i])));
+  sure(jump <= step, `no step at the layer's end: ${jump.toFixed(4)} against ${step.toFixed(4)} before it`);
   const wrong = A.validateSoundSpec({ spec: "smak.sound/1", name: "Weapons/Hit 1.wav", class: "clang", layers: [{ kind: "chime" }, { kind: "modes", ratios: "drum" }] });
   const said = wrong.errors.join(" | ");
   sure(/name: the file's path under sound\/, lower case/.test(said) && /class: one of metal hit/.test(said) && /kind: noise, tone, fm, modes, particles/.test(said) && /ratios: bar, clamped/.test(said), said);
