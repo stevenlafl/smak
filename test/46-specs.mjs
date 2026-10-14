@@ -2,8 +2,9 @@
 // server stands on (src/spec, src/sound.mjs). The faults each case builds on purpose are the ones the
 // soundness check must name, and the crashes found while the prompts of examples/prompts were built are
 // built again here, so that none comes back.
-import { mkdirSync, writeFileSync, readFileSync, existsSync } from "node:fs";
+import { mkdirSync, mkdtempSync, writeFileSync, readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
+import { tmpdir } from "node:os";
 import * as smak from "../src/index.mjs";
 import { buildModelSpec, validateModelSpec } from "../src/spec/model.mjs";
 import { buildMapSpec, layoutOf, withIncludes } from "../src/spec/map.mjs";
@@ -331,6 +332,30 @@ test("a model spec's panels: drawers and pulls painted on a box's face, in relie
   sure(grey(drawer.mdl) > grey(plain.mdl) + 50, `a bevel's shadow: ${grey(drawer.mdl)} dark dots against ${grey(plain.mdl)}`);
   const bad = validateModelSpec(box([{ face: "side", at: [1], size: [0, 2] }]));
   sure(bad.errors.length >= 3, bad.errors.join("; "));
+});
+
+test("a model spec's project: a person's picture of the front laid onto the faces that look that way, the rest left", () => {
+  // a picture of a box's front: grey background, the box's outline red on its left half and blue on its right
+  const W = 200;
+  const H = 300;
+  const rgb = new Uint8Array(W * H * 3);
+  for (let y = 0; y < H; y++)
+    for (let x = 0; x < W; x++) {
+      const inside = x >= 50 && x < 150 && y >= 50 && y < 250;
+      rgb.set(!inside ? [58, 62, 70] : x < 100 ? [220, 30, 30] : [30, 30, 220], (y * W + x) * 3);
+    }
+  const folder = mkdtempSync(join(tmpdir(), "smak-project-"));
+  writeFileSync(join(folder, "front.png"), smak.png(W, H, (() => { const rgba = new Uint8Array(W * H * 4); for (let i = 0; i < W * H; i++) rgba.set([...rgb.subarray(i * 3, i * 3 + 3), 255], i * 4); return rgba; })()));
+  const spec = { spec: "smak.model/1", name: "p.mdl", kind: "prop", finish: false, parts: [{ id: "b", kind: "box", size: [10, 10, 20], material: { base: "paint", tone: [0.1, 0.8, 0.1] } }], project: [{ picture: "front.png", view: "front" }] };
+  const { mdl, report } = buildModelSpec(spec, { folder });
+  sure(report.ok && report.facts.some((f) => /projected over \d+ texels.*outline at 50 50 150 250/.test(f)), [...report.errors, ...report.facts.filter((f) => /projected/.test(f))].join("; "));
+  // from the front: red on the viewer's left, blue on the right; from the back: the box's own green
+  const shot = (yaw) => smak.render(mdl, { seq: 0, yaw, pitch: 0, width: 100, height: 100, light: false });
+  const at = (pic, x, y) => [...pic.rgba.subarray((y * 100 + x) * 4, (y * 100 + x) * 4 + 3)];
+  const front = shot(0);
+  const back = shot(180);
+  const [l, r, b] = [at(front, 40, 50), at(front, 60, 50), at(back, 50, 50)];
+  sure(l[0] > 150 && l[2] < 80 && r[2] > 150 && r[0] < 80 && b[1] > 150 && b[0] < 80, `front left ${l}, front right ${r}, back ${b}`);
 });
 
 test("a model spec's marks: stripes painted on a turned part, on its side only, round it as a ring; none on a box", () => {

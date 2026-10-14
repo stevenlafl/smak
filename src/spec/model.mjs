@@ -31,6 +31,8 @@ import { bow } from "../../kits/bowkit.mjs";
 import { materialOf, flagsOf, zonePainter, colourAt, HOLE_RGB } from "./paint.mjs";
 import { paintFinish, FINISH } from "./finish.mjs";
 import { paintMarks } from "./marks.mjs";
+import { paintProjections, VIEW_NAMES } from "./project.mjs";
+import { unpng } from "../image.mjs";
 
 /** A character's finish unless told: cloth and skin do not rub bright as metal and wood do. */
 const CHARACTER_FINISH = { wear: 0.15, grime: 0.3 };
@@ -62,7 +64,7 @@ const ON_SURFACE = new Set(["band", "boss", "ridge", "studs"]);
 /** The anchors every part has: the middles of the faces of its box, and its middle. */
 const BOX_ANCHORS = ["top", "bottom", "front", "back", "left", "right", "centre"];
 /** The fields a spec takes at its top. */
-const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "weapon", "finish", "smooth", "note"];
+const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "weapon", "finish", "smooth", "project", "note"];
 /** A texture's side unless told; a kit's picture is made this much smaller (the kits paint at 1024 wide). */
 const SHEET_SIZE = 256;
 const KIT_SHRINK = 2;
@@ -151,6 +153,15 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
   if (!Array.isArray(spec.parts) || !spec.parts.length) {
     errors.push("parts: a list of one part at least");
     return { errors, warnings };
+  }
+  for (const [k, view] of (spec.project ?? []).entries()) {
+    const where = `project[${k}]`;
+    if (typeof view?.picture !== "string") errors.push(`${where}.picture: the picture's file (work:pictures/front.png)`);
+    if (view?.view !== undefined && !VIEW_NAMES[view.view]) errors.push(`${where}.view: one of ${Object.keys(VIEW_NAMES).join(", ")}, or yaw and pitch in its place`);
+    if (view?.view === undefined && !isNumber(view?.yaw)) errors.push(`${where}: a view (front, left, ...) or a yaw and a pitch in degrees`);
+    for (const key of ["area", "rect"])
+      if (view?.[key] !== undefined && !(Array.isArray(view[key]) && view[key].length === 4 && view[key].every(isNumber)))
+        errors.push(`${where}.${key}: [x0, y0, x1, y1] in the picture's pixels`);
   }
   const seen = new Map();
   spec.parts.forEach((part, i) => {
@@ -836,7 +847,7 @@ function piecesOf(given, context) {
  * { ok, errors, faults, warnings, notes, facts, parts }; `ok` when nothing is wrong. Throws only for a spec it
  * cannot read at all; every other fault is in the report.
  */
-export function buildModelSpec(spec, { folder, prefabs = {}, games = [] } = {}) {
+export function buildModelSpec(spec, { folder, prefabs = {}, games = [], readPicture } = {}) {
   const { errors, warnings } = validateModelSpec(spec, { prefabs });
   const report = { ok: false, errors, faults: [], warnings, notes: [], facts: [], parts: {} };
   if (errors.length) return { mdl: null, report };
@@ -929,6 +940,23 @@ export function buildModelSpec(spec, { folder, prefabs = {}, games = [] } = {}) 
     };
     const { texels } = paintFinish(meshes, { amounts, ground: kind === "prop" ? 0 : null, height: box.mx[2] - box.mn[2] });
     report.facts.push(`finish painted over ${texels} texels: ${JSON.stringify({ ...FINISH, ...(kind === "character" ? CHARACTER_FINISH : {}), ...(spec.finish ?? {}) })}`);
+  }
+
+  // the person's pictures projected onto the shape: each texel takes the colour of the views that see it
+  if (spec.project?.length) {
+    const read = readPicture ?? ((name) => unpng(readFileSync(resolve(folder ?? ".", name.replace(/^(work|models):/, "")))));
+    try {
+      const views = spec.project.map((view) => {
+        const [yaw, pitch] = typeof view.view === "string" ? VIEW_NAMES[view.view] : [view.yaw ?? 0, view.pitch ?? 0];
+        return { picture: read(view.picture), yaw, pitch, area: view.area, rect: view.rect, parts: view.parts };
+      });
+      const { texels, views: seen } = paintProjections(meshes, views);
+      report.facts.push(`pictures projected over ${texels} texels: ${seen.map((v, i) => `${spec.project[i].picture} (${spec.project[i].view ?? `yaw ${spec.project[i].yaw ?? 0} pitch ${spec.project[i].pitch ?? 0}`}) ${v ? `outline at ${v.rect.join(" ")} in it, ${v.seen} texels seen` : "NO OUTLINE FOUND in it: give rect"}`).join("; ")}`);
+      seen.forEach((v, i) => !v && warnings.push(`project[${i}]: the thing's outline was not found in ${spec.project[i].picture}: give its area or rect`));
+    } catch (error) {
+      errors.push(`project: ${error.message}`);
+      return { mdl: null, report };
+    }
   }
 
   // written: one bone, one still animation

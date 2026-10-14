@@ -68,6 +68,7 @@ pictures of the result, from a barrel to a city of four shops and a sewer; read 
 | `prefabs` | `{ name: <another model spec> }`, for parts of kind `prefab` |
 | `allow` | `{ open: [ids], floating: [ids] }`: parts open or apart on purpose (a part can say `open: true` or `loose: true` itself) |
 | `finish` | What a painter adds over the materials, read from the shape (below): `{ light, wear, grime, vary }`, each 0 to 1, or `false` for none. A part may have its own |
+| `project` | The person's pictures of the thing laid onto it as its texture (below, "Pictures projected onto it") |
 | `smooth` | The angle (degrees) under which faces are shaded as one surface: 40 unless told. A part may have its own. A thin round part of few sides (a tube of 4 meets itself at 90 degrees) is shaded flat, each face with normals of its own: a rib cost 104 normals for 44 points. Over its faces' angle (100 for 4 sides) it is shaded round with a normal a point: the engine holds 2048 normals a body |
 
 ### Axes, and which way is up
@@ -256,6 +257,34 @@ false`:
 A character's are gentler unless told (`wear` 0.15, `grime` 0.3): cloth and skin do not rub bright. A part's
 own `finish` (the same fields, or `false`) is over the spec's: a glass pane, a clean blade. Glowing and
 see-through materials are left as they are.
+
+### Pictures projected onto it
+
+When the person gives pictures of the thing taken straight on (a front, a side, a top: drawn, rendered or
+photographed), they can be its texture, as they are, on the shape you built:
+
+```json
+"project": [
+  { "picture": "work:pictures/front.png", "view": "front" },
+  { "picture": "work:pictures/sides.png", "view": "left", "area": [512, 0, 1024, 512] },
+  { "picture": "work:pictures/quarter.png", "yaw": 35, "pitch": 20 }
+]
+```
+
+- `view`: `front`, `left`, `back`, `right`, `top` or `below`, or `yaw` and `pitch` in degrees as `render`
+  takes them (yaw 0 looks at the front, 90 at the left side; pitch 90 looks down). The picture must look that
+  way with no perspective (or very little: a photo from far off).
+- `area`: the part of the picture to look in, `[x0, y0, x1, y1]` in pixels (one view of a sheet of several).
+- `rect`: where the thing's outline is in the picture. Found unless told: the largest patch that is not the
+  background (its border's colour, or the see-through dots of a cut-out), with every patch a hundredth its size
+  or more, leaving out a caption in the area's top left corner. The report says what it found.
+- `parts`: only these parts take it.
+
+Each texel takes the colour of the pictures that see it, weighted by how squarely each does, where nothing of
+the model hides it from that view; a texel no picture sees keeps its material. The picture's own light comes
+with it, so the finish is not painted over what it covers. The shape decides how well it fits: the outline in
+each view must match the picture's, faces should be square to the views (an eight-sided column with flats to
+the front, not a corner), and a part the pictures show stands where they show it.
 
 ### What the report says of a model
 

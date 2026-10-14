@@ -704,7 +704,7 @@ function build(folders, args) {
   }
   if (spec?.spec !== "smak.model/1")
     throw new Error('spec: a model spec ("spec": "smak.model/1"), a map spec ("smak.map/1") or a sound spec ("smak.sound/1"); guide { doc: "spec" } says how to write one');
-  const { mdl, report, files = [] } = buildModelSpec(spec, { folder, games: folders.wads ?? [] });
+  const { mdl, report, files = [] } = buildModelSpec(spec, { folder, games: folders.wads ?? [], readPicture: (name) => smak.unpng(readFileSync(pathOf(folders, name))) });
   const lines = reportLines(report);
   if (mdl) {
     const name = spec.name ?? "model.mdl";
