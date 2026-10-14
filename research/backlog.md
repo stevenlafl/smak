@@ -287,7 +287,7 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | A judge charges texture to shape | DONE | Prompt: paint differences are M4 or M5 |
 | Haiku makes up surface-detail faults on identical inputs | DONE | Two readings a model; controls 16 of 16 |
 | Forklift: the lift shifted in the side view, the back's slopes built as blocks, a half-sphere helmet; the medkit's strap route | OPEN | Maker faults the outline warning names; the strap route still wrong in three rounds |
-| Maps: Steven's checklist (model and player placement, textures, detailing, geometry, water) | OPEN | His review of the frenzy legs is pending; the map judge and measures follow from it |
+| Maps: Steven's checklist (reviews/maps-2026-10-14.json) | PARTLY | Done: the env_glow crash refused at the writers; the sweep (`smak map-sweep`: drops that hurt, lights in mid-air) in builds and the map judge; every spec lamp hung from the ceiling; furniture that floats is a fault; hinged doors stay open. Open: uneven stairs (a check by rises found nothing in frenzy_words, whose stairs are stacked furniture, and flagged a seam in Valve's: needs where Steven saw it, or treads measured too); walls meeting floors by a vertex or overhanging them; ladders that read as ladders (see-through, aligned); texture alignment |
 
 ## Open, by priority
 
