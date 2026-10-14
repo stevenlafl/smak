@@ -2160,7 +2160,7 @@ function mapDecompile({ command, file, flags, listed }) {
   if (result.wad) {
     const wadFile = join(dirname(to), result.wad.name);
     save(wadFile, result.wad.bytes);
-    console.log(`      ${result.wad.textures.length} textures it carries inside it, in none of its .wad files: ${wadFile}`); // prettier-ignore
+    console.log(`      ${result.wad.textures.length === 1 ? "1 texture" : `${result.wad.textures.length} textures`} it carries inside it, in none of its .wad files: ${wadFile}`); // prettier-ignore
   }
   for (const warning of result.warnings) console.log(`WARN  ${warning}`);
   console.log(`${to}: decompiled in ${((performance.now() - started) / 1000).toFixed(1)} s`);

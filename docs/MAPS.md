@@ -2,8 +2,8 @@
 
 Everything here is exported from `src/maps/index.mjs`. A map is a Node `Buffer` holding the whole `.bsp` file;
 `readBsp` gives a plain object over it, and the functions below take that object. A function that changes a map
-returns a **new** buffer. Apart from `wadsFor` and `texturesFor` (and the pictures, when they are given
-`folders`), which look for files in folders you name, nothing here touches the disk.
+returns a **new** buffer. Apart from `wadsFor` and `texturesFor` (and the pictures and `decompile`, when they
+are given `folders`), which look for files in folders you name, nothing here touches the disk.
 
 ```js
 import { readFileSync, writeFileSync } from "node:fs";
@@ -22,7 +22,7 @@ This page covers reading a compiled map, its textures and `.wad` files, changing
 it ("Pictures", which also draws brush source). Writing brush source (`.map`) and compiling it are the other
 half of `src/maps/`, in `docs/MAPS-MAKING.md`. The command line has a command for most of this: `smak map-info`,
 `map-check`, `map-entities`, `map-set`, `map-plan`, `map-view`, `map-views`, `map-compare`, `map-reach`, `map-section`,
-`map-storeys`, `map-openings`, `map-measure`, `map-textures`, `wad`, `wad-make` and `map-compile` (`node bin/smak.mjs help`;
+`map-storeys`, `map-openings`, `map-measure`, `map-textures`, `wad`, `wad-make`, `map-compile` and `map-decompile` (`node bin/smak.mjs help`;
 `AGENTS.md` has them with their recipes).
 
 ## What a compiled map is
@@ -597,6 +597,55 @@ its numbers to the place and the unit; to within a unit the widths come out some
 coarser search reads a 352 hall as 340), which on the old Barrow Road moves 8 in 100 of the floor into the band
 of 352 and over. demontemple measured whole (`every`): 5893 places, width median 256, headroom 192, sight
 median 708; the walk test reaches 1523 of them.
+
+## Decompiling (`src/maps/decompile.mjs`, `fidelity.mjs`, `texlights.mjs`)
+
+A compiled map made back into brush source, so that a map whose source was never released (Half-Life's own)
+can be opened in an editor, changed and compiled again. It is a port of `bsp2map.py` from Steven Linn's
+goldsrc.net project (`godot/tools/bsp2map`, whose README tells every rule below with the map that taught it),
+and writes the same text, number for number: on all 126 maps of Half-Life's `valve` folder the two outputs are
+the same but for their first line, and so are the `.wad` files of the textures the maps carry inside them. The
+port takes about a second a map (rocket_frenzy, 14171 brushes, 11 seconds), the Python ten to twenty times that.
+
+```js
+const { map, facts, warnings, wad } = maps.decompile(readFileSync("crossfire.bsp"), { name: "crossfire", folders: [valve] });
+writeFileSync("crossfire.map", map);
+if (wad) writeFileSync(wad.name, wad.bytes);                       // the textures only the .bsp had
+console.log(maps.decompileSummary({ facts }), warnings);
+```
+
+**The method.** Each model's tree (hull 0) is walked, and every leaf that is not empty (solid, water, slime,
+lava, sky) is the convex region the planes on its path cut out of the model's box: one brush, built by
+clipping. So the solids are watertight and exact, split along the tree's planes; cells whose union is convex
+are merged again. A brush face that lies on a node's plane wears the texinfo of the face of the same model on
+that plane, facing the same way, that overlaps it most, written as Valve 220 axes, scales and offsets with
+nothing lost; a brush face that spans faces of several textures is cut along their edges. A face no face
+covers is `NULL` (the compilers drop it), or `sky` in a sky leaf. What a compiler refuses is mended on the way:
+near-coplanar planes are unified first, no face under half a square unit, no acute wedge (snapped against its
+neighbour, capped, or its tip cut), no face of over 24 corners, one content a brush, thin empty seams and the
+void's pockets filled, a brush model clipped to its own box. Entities are carried over as they are, but that a
+brush entity compiled round an ORIGIN brush is put back in world space with an ORIGIN brush and no `origin`
+key, the worldspawn's `wad` list becomes the bare names of the files found in `folders`, and
+`func_illusionary` and `env_bubbles` get `zhlt_noclip`.
+
+| Function | Gives |
+| --- | --- |
+| `decompile(bytes, { name, folders, canon, tips, cuts, merge })` | `{ map, facts, warnings, wad }`. `map`: the `.map`'s text. `facts`: what was done, in counts (`brushes`, `cuts`, `merged`, `snapped`, `filled` ... and the world's `box`). `wad`: null, or `{ name, bytes, textures }`, the textures the map carries that none of its `.wad` files has, as a WAD3 named `<name>_dc.wad` and already in the `wad` key (a map with no `wad` key, compiled with its textures inside, gets one). Without `folders` every listed `.wad` name is kept and every texture inside goes into the own `.wad`. `canon`, `tips`, `cuts`, `merge`: `false` turns one rule off, to see what it does (bsp2map's `BSP2MAP_NO_*`) |
+| `decompileSummary(result)` | bsp2map's line of counts |
+| `textureFidelity(original, recompiled)` | In per cent of the seen original face area: `matched` (a recompiled face at the same spot), `same` (of that, wearing the original's texture), `texinfo` (of that, laid as the original's), `covered` (solid in the recompile before it), `unseen`; and `boxmove` (the largest shift of a brush entity's box), `lostModels`, `lost` (textures worn nowhere). texcheck.py's measure; `fidelityLine(r)` its summary column |
+| `lightParity(original, recompiled)` | `{ all, up, side }`, each `{ faces, retail, ours, ratio }`: the mean style-0 light at the centres of the original's world faces, in both maps. lightcheck.py's measure |
+| `TEXLIGHTS`, `TEXLIGHTS_BY_MAP`, `NOT_EMITTERS`, `texlightsFor(map)`, `texlightsRad(map)`, `texlightsEntity(map)`, `TEXLIGHT_RAD_ARGS` | The texture lights of Half-Life's maps, calibrated against the retail lightmaps by goldsrc.net: the list, each map's own values over it, as a `lights.rad` (`compileMap(file, { args: { hlrad: ["-lights", rad, ...TEXLIGHT_RAD_ARGS] } })`) or as the keys of an `info_texlights` |
+
+**Measured** (2026-10-14, SDHLT, hlvis `-fast`, hlrad with the texture lights): frenzy, crossfire and c1a0 decompiled
+and recompiled come back 100.0 matched, 100.0 the same texture, 100.0 the same texinfo, nothing covered, every
+brush entity there (crossfire: 1232 brushes, 4067 faces looked at), the same numbers texcheck.py gives for the
+same pair. Their light, ours over retail: frenzy 0.91, crossfire 1.19 (sunlit), c1a0 0.93.
+
+**What is lost by construction**: brushes of clip only (hulls 1 to 3 carry no textures, and the compilers make
+them again from the solids), the mapper's own split of the brushes, and the light, which the compile works out
+again from the light entities and the texture lights. A map's brushes are many more than its mapper drew
+(the tree cuts every solid along planes from elsewhere). And a decompiled game map is still the game's: rule 7
+of `AGENTS.md` holds for it as for the `.bsp`.
 
 ## Checking (`src/maps/check.mjs`)
 
