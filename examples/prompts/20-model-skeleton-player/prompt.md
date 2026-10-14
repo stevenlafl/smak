@@ -59,4 +59,14 @@ distance, and are where a second pass would go.
    then moved up and forward onto the teeth.
 4. Three fingers and three toes looked like a cartoon's: four fingers and a thumb, five toes. 2672
    triangles, nothing apart in the five poses, fit for goldsrc.
+5. A pass at higher fidelity, asked for by Steven ("feet that aren't blocks, an attached jaw rather than
+   intersecting geometry, oval glow eyes"). The skull's rings now swell to the back for the cranium and
+   narrow to the face, with cheekbones; the sockets are dark ovals with an oval red glow in each; the nasal
+   opening a dark triangle, point up; the jaw ends in a knob at each side of the skull, where a jaw hinges.
+   Each foot is a heel, an arch and five toes; the pelvis a hollow bowl; the shoulder blades triangles. It
+   went over GoldSrc's 2048 normals: measured part by part, a 4-sided rib cost 104 normals for 44 points,
+   each face shaded flat. The kit learnt `smooth` for this (a part's shading angle, a test): the thin bones
+   shaded round, with a normal a point, are under the limit and look rounder. The glow was first hidden
+   inside the closed socket, and the nose, a three-sided prism, would not turn point up: the glow stands in
+   front of the socket now, and the nose is a flat triangle laid on the face.
 

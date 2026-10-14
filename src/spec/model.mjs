@@ -54,13 +54,13 @@ const KINDS = {
   prefab: ["prefab", "spec", "file", "scale"],
 };
 /** The fields every part takes. */
-const COMMON = ["id", "kind", "material", "at", "attach", "rotate", "mirror", "repeat", "open", "loose", "bone", "span", "finish", "note"];
+const COMMON = ["id", "kind", "material", "at", "attach", "rotate", "mirror", "repeat", "open", "loose", "bone", "span", "finish", "smooth", "note"];
 /** The kinds that sit on another part's surface, and move with it. */
 const ON_SURFACE = new Set(["band", "boss", "ridge", "studs"]);
 /** The anchors every part has: the middles of the faces of its box, and its middle. */
 const BOX_ANCHORS = ["top", "bottom", "front", "back", "left", "right", "centre"];
 /** The fields a spec takes at its top. */
-const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "weapon", "finish", "note"];
+const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "weapon", "finish", "smooth", "note"];
 /** A texture's side unless told; a kit's picture is made this much smaller (the kits paint at 1024 wide). */
 const SHEET_SIZE = 256;
 const KIT_SHRINK = 2;
@@ -117,6 +117,8 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
       errors.push(`${where}: false (none), or { ${Object.keys(FINISH).join(", ")} }, each 0 to 1`);
   };
   finishErrors(spec.finish, "finish");
+  for (const [where, value] of [["smooth", spec.smooth], ...(spec.parts ?? []).map((part, i) => [`parts[${i}] (${part?.id}).smooth`, part?.smooth])])
+    if (value !== undefined && !(isNumber(value) && value >= 0 && value <= 180)) errors.push(`${where}: the angle in degrees (0 to 180) under which faces are shaded as one smooth surface`);
   for (const [i, part] of (spec.parts ?? []).entries()) finishErrors(part?.finish, `parts[${i}] (${part?.id}).finish`);
   if (spec.weapon !== undefined) {
     const w = spec.weapon;
@@ -796,6 +798,14 @@ export function buildModelSpec(spec, { folder, prefabs = {}, games = [] } = {}) 
   }
   warnings.push(...pieces.warnings);
   const { meshes } = pieces;
+  // a part's own smoothing angle, or the spec's, on every corner that has none of its own: a low-sided round
+  // part (a sphere of 6, a finger of 4) shaded round, and its normals shared, which the engine counts
+  const smoothOf = new Map(spec.parts.map((part) => [part.id, part.smooth ?? spec.smooth]));
+  for (const mesh of meshes)
+    mesh.tris.forEach((t, i) => {
+      const angle = smoothOf.get(String(mesh.partOf?.[i] ?? "").split(".")[0]);
+      if (angle !== undefined) mesh.tris[i] = t.map((c) => (c.smooth === undefined ? { ...c, smooth: angle } : c));
+    });
   const all = meshes.flatMap((mesh) => mesh.tris);
   let box = boxOf(all.flatMap((t) => t.map((c) => c.p)));
   // a prop stands on the floor: its lowest point at z = 0

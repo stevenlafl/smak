@@ -68,6 +68,7 @@ pictures of the result, from a barrel to a city of four shops and a sewer; read 
 | `prefabs` | `{ name: <another model spec> }`, for parts of kind `prefab` |
 | `allow` | `{ open: [ids], floating: [ids] }`: parts open or apart on purpose (a part can say `open: true` or `loose: true` itself) |
 | `finish` | What a painter adds over the materials, read from the shape (below): `{ light, wear, grime, vary }`, each 0 to 1, or `false` for none. A part may have its own |
+| `smooth` | The angle (degrees) under which faces are shaded as one surface: 40 unless told. A part may have its own. A thin round part of few sides (a tube of 4 meets itself at 90 degrees) is shaded flat, each face with normals of its own: a rib cost 104 normals for 44 points. Over its faces' angle (100 for 4 sides) it is shaded round with a normal a point: the engine holds 2048 normals a body |
 
 ### Axes, and which way is up
 

@@ -281,6 +281,15 @@ test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ file
   sure(!missing.ok && /v_spear\.mdl is neither beside the spec nor in the game folders/.test(missing.errors.join()), missing.errors.join());
 });
 
+test("a model spec's smooth: a thin tube of four sides shaded round shares its normals (the skeleton's ribs)", () => {
+  const tube = (smooth) => ({ spec: "smak.model/1", name: "rib.mdl", kind: "prop", ...(smooth ? { smooth } : {}), parts: [{ id: "rib", kind: "tube", sides: 4, path: [[0, 0, 1, 0.5], [5, 0, 3, 0.5], [10, 0, 1, 0.5]] }] });
+  const normals = (spec) => smak.readMdl(buildModelSpec(spec).mdl).bodyparts[0].models[0].numnorms;
+  const flat = normals(tube());
+  const round = normals(tube(100));
+  sure(round < flat * 0.7, `fewer normals shaded round: ${round} against ${flat}`);
+  sure(/smooth: the angle in degrees/.test(validateModelSpec({ ...tube(), smooth: 400 }).errors.join()), "an angle over 180 is refused");
+});
+
 test("a model spec's finish: a box's edges worn lighter than its middle, its foot dirtier; none when told", () => {
   const spec = (finish, partFinish) => ({
     spec: "smak.model/1",
