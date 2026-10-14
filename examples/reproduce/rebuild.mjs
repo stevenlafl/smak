@@ -1,0 +1,54 @@
+// A leg built again from the spec its maker left, on the kit as it is now, with no agent: what a change to the
+// kit does to a result, for the price of a build and a judge. The last round's records are kept under
+// <id>/<leg>/round-<n>/ first, as reproduce.mjs --again keeps them; spec.json, answer.md and run.json stay (they
+// are still the maker's), and rebuilt.json says which kit built it again.
+//
+//   node examples/reproduce/rebuild.mjs subject:leg ...        models only, for now
+//   then: node examples/reproduce/judge.mjs subject:leg ... --again
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, renameSync, copyFileSync, mkdtempSync, statSync } from "node:fs";
+import { join } from "node:path";
+import { tmpdir } from "node:os";
+import { execFileSync } from "node:child_process";
+import { HERE, SUBJECTS } from "./lib.mjs";
+import { toolsFor } from "../../mcp/tools.mjs";
+
+const asked = process.argv.slice(2).map((a) => a.split(":"));
+if (!asked.length) throw new Error("rebuild.mjs subject:leg ...: which legs to build again");
+const kit = execFileSync("git", ["-C", HERE, "rev-parse", "--short", "HEAD"], { encoding: "utf8" }).trim();
+
+for (const [id, leg] of asked) {
+  const subject = SUBJECTS.models.find((m) => m.id === id);
+  if (!subject) throw new Error(`${id}: not a model of subjects.json (maps are not rebuilt yet)`);
+  const out = join(HERE, id, leg);
+  if (!existsSync(join(out, "spec.json"))) {
+    console.log(`${id}:${leg}: no spec.json to build again`);
+    continue;
+  }
+  // the work folder as the maker had it: the leg's pictures under pictures/, the spec beside them
+  const work = mkdtempSync(join(tmpdir(), "smak-rebuild-"));
+  mkdirSync(join(work, "pictures"));
+  const input = join(HERE, id, "input");
+  if (leg === "pictures") for (const f of readdirSync(input).filter((f) => f.endsWith(".png"))) copyFileSync(join(input, f), join(work, "pictures", f));
+  copyFileSync(join(out, "spec.json"), join(work, "spec.json"));
+  const build = toolsFor({ work }, { allowRun: false }).find((tool) => tool.name === "build");
+  const answer = await build.call({ spec: "work:spec.json" });
+  const said = answer.filter((piece) => piece.type === "text").map((piece) => piece.text).join("\n");
+  const mdl = readdirSync(work, { recursive: true })
+    .filter((f) => String(f).endsWith(".mdl"))
+    .map((f) => join(work, String(f)))
+    .sort((a, b) => statSync(b).mtimeMs - statSync(a).mtimeMs)[0];
+  if (!mdl) {
+    console.log(`${id}:${leg}: the spec did not build: ${said.split("\n").slice(0, 3).join(" | ")}`);
+    continue;
+  }
+  // the round before kept whole; the maker's own records copied into it, and left where they are
+  const n = readdirSync(out).filter((f) => /^round-\d+$/.test(f)).length + 1;
+  const keep = join(out, `round-${n}`);
+  mkdirSync(keep);
+  for (const f of ["judge.json", "built", "rebuilt.json"]) if (existsSync(join(out, f))) renameSync(join(out, f), join(keep, f));
+  for (const f of ["spec.json", "answer.md", "run.json"]) if (existsSync(join(out, f))) copyFileSync(join(out, f), join(keep, f));
+  mkdirSync(join(out, "built"));
+  copyFileSync(mdl, join(out, "built", `${id}.mdl`));
+  writeFileSync(join(out, "rebuilt.json"), `${JSON.stringify({ kit, from: `round-${n}`, at: new Date().toISOString(), ok: said.startsWith("OK") }, null, 1)}\n`);
+  console.log(`${id}:${leg}: built again on ${kit} (${said.split("\n")[0]}); the last round kept as round-${n}`);
+}
