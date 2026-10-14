@@ -254,12 +254,14 @@ export function render(sound, { rate = 22050 } = {}) {
     }
   });
   const finish = { peak: -0.5, ...(sound.finish ?? {}) };
+  // the room, then the saturation: a shot is loud because its room's tail is squashed up to its blast
+  // (research/sound-generation.md, 5.4: saturating before the room left the tail thin and the shot spiky)
+  if (finish.room) mix = withRoom(mix, finish.room, rate, random);
   if (finish.saturate) {
     normalise(mix, 0);
     const d = finish.saturate;
     for (let i = 0; i < mix.length; i++) mix[i] = Math.tanh(mix[i] * d) / Math.tanh(d);
   }
-  if (finish.room) mix = withRoom(mix, finish.room, rate, random);
   // a DC block: a one-pole high-pass at 25 Hz
   const r = 1 - (2 * Math.PI * 25) / rate;
   let lastIn = 0;

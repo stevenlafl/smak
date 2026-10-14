@@ -266,7 +266,7 @@ told), checked as the engine needs them, and measured against the game's own sou
 | `seed` | Every random choice: the same spec makes the same bytes |
 | `length`, `pitch` | Seconds (unless told, the longest layer's end); a pitch in percent |
 | `layers` | Each `{ id, kind, at (s), length (s), gain (dB), env, filter }` (below) |
-| `finish` | `saturate` (a drive: what makes a shot loud, 1 to 8), `room: { decay, wet, tone }` (keep it short: the map's `env_sound` adds the room), `peak` (dBFS, -0.5) |
+| `finish` | `room: { decay, wet, tone }` (keep it short: the map's `env_sound` adds the room), then `saturate` (a drive, 1 to 8: what makes a shot loud, its room's tail squashed up to its blast), `peak` (dBFS, -0.5) |
 | `loop` | `true` or `{ crossfade }`: a cue point at its start, its seam crossfaded; the engine loops it |
 | `variants` | More files from the same layers: `{ name, seed, pitch, gain }` (`cbar_hit2`, `pl_step1` to `4`) |
 | `reference` | The game's files to draw beside it (unless told, the first of its class), read from the game folders the server was given and never copied |

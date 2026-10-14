@@ -1074,7 +1074,7 @@ function weaponViews(spec, meshes, { folder, games, report }) {
   for (const [n, { spec: sound }] of (spec.weapon.sounds ?? []).entries()) {
     const built = buildSoundSpec(sound, { games });
     for (const line of [...built.report.errors, ...built.report.faults]) report.errors.push(`weapon.sounds[${n}]: ${line}`);
-    report.facts.push(...built.report.facts.filter((line) => /against the game's|Hz \d+-bit/.test(line)).map((line) => `sound ${line}`));
+    report.facts.push(...built.report.facts.filter((line) => /against the game's|Hz \d+-bit|: attack /.test(line)).map((line) => `sound ${line}`));
     for (const file of built.files) {
       files.push({ name: `sound/${file.name}`, bytes: file.bytes, view: "sound" });
       soundLengths.set(file.name, built.report.sounds[file.name].features.length);
