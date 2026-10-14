@@ -377,6 +377,10 @@ test("a map spec's ladder is built as Valve's are: a func_ladder to climb, and s
   sure(Math.max(...ys) === 128 && Math.min(...ys) === 122, `the rungs from ${Math.min(...ys)} to ${Math.max(...ys)}, the wall at 128`);
 });
 
+test("a material's tone of null is its base's own colour, as left out (the winter tree of case 28)", () => {
+  sure(JSON.stringify(materialOf({ base: "grass", tone: null }).tone) === JSON.stringify(materialOf({ base: "grass" }).tone), "null as left out");
+});
+
 test("a lamp is never in mid-air: one hung below a tall room's ceiling has a shade and a rod up to it", () => {
   // Steven's play-test of frenzy_pictures: "random lights in the middle of the air"
   const spec = { spec: "smak.map/1", name: "tall", rooms: [{ id: "hall", size: [256, 256, 480] }], entities: [{ class: "info_player_start", room: "hall", at: "centre" }, { class: "light", room: "hall", at: "corner ne" }] };

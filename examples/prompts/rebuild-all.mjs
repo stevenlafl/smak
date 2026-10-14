@@ -77,7 +77,7 @@ for (const file of specs) {
     let report;
     if (spec.spec === "smak.map/1") report = buildMapSpec(spec, { out: where, folder: dirname(file), compilers, wads: game ? [game, dirname(file)] : [dirname(file)] }).report;
     else if (spec.spec === "smak.model/1") {
-      const built = buildModelSpec(spec, { folder: dirname(file) });
+      const built = buildModelSpec(spec, { folder: dirname(file), games: game ? [game] : [] });
       report = built.report;
       if (built.mdl) writeFileSync(join(where, spec.name ?? "model.mdl"), built.mdl);
     } else continue;

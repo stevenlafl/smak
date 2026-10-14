@@ -97,7 +97,7 @@ export function materialOf(given, where = "material") {
     tone:
       material.seen !== undefined
         ? seenPaint(material.seen, `${where}.seen`)
-        : material.tone !== undefined
+        : material.tone !== undefined && material.tone !== null
           ? colourOfGiven(material.tone, `${where}.tone`)
           : MATERIALS[material.base].tone,
     rust: material.rust ?? (material.base === "iron" ? 0.3 : 0),
