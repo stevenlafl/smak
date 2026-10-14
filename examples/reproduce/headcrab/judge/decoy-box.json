@@ -91,73 +91,9 @@
   "M4": 0,
   "M8": 2
  },
- "lineup": {
-  "picked": null,
-  "right": "G",
-  "letters": {
-   "A": "models/filecabinet.mdl",
-   "B": "models/w_battery.mdl",
-   "C": "models/w_longjump.mdl",
-   "D": "models/w_9mmclip.mdl",
-   "E": "models/w_medkit.mdl",
-   "F": "models/mbarrel.mdl",
-   "G": "models/headcrab.mdl",
-   "H": "models/w_security.mdl",
-   "I": "models/forklift.mdl",
-   "J": "models/can.mdl"
-  }
- },
- "scores": {
-  "M1": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "Measured silhouette overlap is 0.694 front/back, 0.508 left/right and 0.436 top/below. All three are under 0.80. The reproduction is a plain rectangular block, so every view is a rectangle. The original's domed body and the four long clawed legs are missing: they spread out at the sides in front and back, reach forward in left and right, and stick out as two long forelegs in top and below. The box also fills the empty space between the legs."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The measured bounds are 25.9 x 19.2 x 13.2 for both, with zero off-share on every axis, so length, width and height are all within 10%."
-  },
-  "M3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "None of the original's parts are there. The domed carapace, the pale belly sac on top, the four jointed legs with red claws and black tips, and the toothed mouth seen from below are all missing. The reproduction is one undivided box."
-  },
-  "M4": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "Measured mean colour difference is 37.6 (CIE76 delta E), far above 15, and every view is between 34 and 41. The original is tan-brown chitin with a cream/yellow fleshy dome and red legs and mouth. The reproduction is uniform grey, like concrete or stone, with nothing like flesh or chitin anywhere."
-  },
-  "M5": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The original's surface detail is missing: the ribbed chitin plates on the back, the mottled pink veins on the cream dome, the red gore and teeth around the mouth underneath, and the dark claw tips. The box carries only a generic grey mottle and light edge trim that the original does not have."
-  },
-  "M6": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "Side by side at game size, no player would take a grey crate for the tan, red-legged crab creature. It reads as a different object altogether."
-  },
-  "M7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "It sits upright within the same bounds, so its resting place on the origin matches. But a symmetric box has no front: the original's front (dome forward, forelegs reaching out) cannot be told apart from its back or sides on the reproduction."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "There are no check errors, and 12 triangles is well under twice the original's 478. The box is closed, faces outward and rests on the ground, with nothing open, inside out or floating."
-  }
- },
- "total": 5,
- "of": 16,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M1",
+  "M4"
+ ]
 }

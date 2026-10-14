@@ -50,63 +50,9 @@
   "P4": 0,
   "P8": 2
  },
- "scores": {
-  "P1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The reproduction is one empty rectangular room, 2400 x 2048. The original has a central north-south corridor with a bridge, mirrored east and west wings, each with two octagonal rooms around pillars and diagonal corridors, a west hall with alcoves, a stair annex in the northeast, a lower ring corridor at z 0 and upper rooms at z 160, 320 and 512. None of these areas or the ways between them are there: no doors, corridors, stairs, ladders or lifts."
-  },
-  "P2": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The measured floor overlap is 0.287, against 0.70 needed for a 2. The single room only matches the original's overall bounding size (2432 x 2080). None of the original's areas has its size or place: the corridor 224 wide, the octagonal rooms, the annex. The rest of the box is floor where the original has walls and void."
-  },
-  "P3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The section and storeys show a single floor at z 0 under a flat ceiling about 224 high. The original has floors at 0, 160, 320 and 512, a ceiling up to about 640, stairs in the northeast annex, ladders in the central corridor and drops between levels. None of these exists, and the original's total height of 672 is cut to 288."
-  },
-  "P4": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The measurement shows 0 of the original's 58 entities matched (share 0). The reproduction has one info_player_deathmatch and a grid of lights. Every original start, weapon (rpg, gauss, tripmine, mp5, shotgun, hornetgun, snark, handgrenade), ammo, battery, longjump, health charger, func_door, func_ladder, trigger_multiple and func_wall is missing."
-  },
-  "P5": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The views show a wooden plank ceiling, plain cream walls and a sandy beige floor. The original wears dark grey concrete walls with recessed computer-bank panels, green-yellow trim, tiled and metal floors and grates. A player would see at once that no surface matches."
-  },
-  "P6": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The reproduction is lit evenly and brightly from a regular grid of lights, with no shading. The original is dim and moody: dark rooms (starts 5, 6 and 7 are nearly black), fluorescent ceiling lamps in the corridors, and env_glow and light pairs in the northeast annex. The original's bright and dark areas are not reproduced."
-  },
-  "P7": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "None of the original's distinctive features is present: the central corridor and bridge, the computer-bank wall panels, the octagonal rooms with square pillars, the diagonal corridors, the ladders, the annex stairs, the fluorescent light fixtures, the grates or the trim."
-  },
-  "P8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "There are no check errors, it compiles, and the walk test leaves nothing unreached in the reproduction. This is vacuous, since the map holds no weapons or items to reach; that shortfall is scored under P4."
-  },
-  "P9": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "In every one of the eight start views the original shows dark concrete corridors and rooms with computer banks. The reproduction shows a bright, empty cream room with a wooden ceiling, or void for starts 2 and 3, whose points lie outside its box. No player who knows the map would recognise it."
-  }
- },
- "total": 2,
- "of": 18,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "P2",
+  "P4"
+ ]
 }

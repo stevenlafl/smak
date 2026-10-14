@@ -25,21 +25,21 @@
    ]
   },
   "colour": {
-   "meanDeltaE": 8.9,
+   "meanDeltaE": 8.6,
    "byView": [
     {
      "view": "front",
      "deltaE": 6.2,
-     "shared": 0.882
+     "shared": 0.878
     },
     {
      "view": "left",
      "deltaE": 9.2,
-     "shared": 0.733
+     "shared": 0.734
     },
     {
      "view": "back",
-     "deltaE": 7.7,
+     "deltaE": 7.5,
      "shared": 0.898
     },
     {
@@ -49,22 +49,22 @@
     },
     {
      "view": "top",
-     "deltaE": 5.7,
-     "shared": 0.787
+     "deltaE": 5.5,
+     "shared": 0.786
     },
     {
      "view": "below",
-     "deltaE": 7,
-     "shared": 0.653
+     "deltaE": 4.5,
+     "shared": 0.652
     },
     {
      "view": "front-left",
-     "deltaE": 10.6,
-     "shared": 0.777
+     "deltaE": 10.7,
+     "shared": 0.776
     },
     {
      "view": "front-right",
-     "deltaE": 10.7,
+     "deltaE": 10.8,
      "shared": 0.781
     },
     {
@@ -74,7 +74,7 @@
     },
     {
      "view": "back-right",
-     "deltaE": 10.6,
+     "deltaE": 10.5,
      "shared": 0.803
     }
    ]
@@ -91,73 +91,8 @@
   "M4": 2,
   "M8": 2
  },
- "lineup": {
-  "picked": "B",
-  "right": "B",
-  "letters": {
-   "A": "models/w_battery.mdl",
-   "B": "models/forklift.mdl",
-   "C": "models/can.mdl",
-   "D": "models/filecabinet.mdl",
-   "E": "models/w_security.mdl",
-   "F": "models/w_longjump.mdl",
-   "G": "models/w_9mmclip.mdl",
-   "H": "models/headcrab.mdl",
-   "I": "models/w_medkit.mdl",
-   "J": "models/mbarrel.mdl"
-  }
- },
- "scores": {
-  "M1": {
-   "judge": 1,
-   "cap": 1,
-   "score": 1,
-   "reason": "Measured overlap is under 0.80 in two of the three view pairs: left/right 0.718 and top/below 0.781 (front/back 0.892), so the measurement caps this at 1. In the side views the reproduction's body is a tall, square-edged box. The original has a low, sloping white cowl in front of the driver; the reproduction has an upright slab there. The rear counterweight is boxier and the driver sits lower and smaller. From below, the reproduction's underside is a wide solid block where the original's is narrower and partly open."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Measured 186.3 x 60 x 113.4 against the original's 186.6 x 60 x 113.4. Every dimension is well within 10%."
-  },
-  "M3": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "All the main parts are there in the right places: the mast, the carriage plate, two forks, the overhead guard on four posts, four wheels, the seat, the steering wheel, the rear grille and a seated driver in a hard hat. Some have the wrong shape. The curved front cowl/dash panel beside the driver is a flat upright box. The driver is shrunken and hunched, his head barely above the cowl, where the original's sits upright with his arms out to the wheel. The rounded counterweight is squared off. The underside is a closed red slab instead of the original's dark, open frame."
-  },
-  "M4": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Measured mean ΔE (CIE76 colour difference) is 8.9, under 15, and the worst view is 11.1. The regions keep the original's colours: white body panels, red lower skirt, black and dark-grey mast and forks, green coveralls, yellow hard hat, black tyres. The reproduction's white is greyer and more smudged, and its underside is red where the original's is dark. Both are within the same colour family, so this scores 2."
-  },
-  "M5": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The 2.2 capacity decals and the HAIHAN lettering on the red skirt are in place, but the lettering is blurrier than the original's. The reproduction also adds things the original does not have: red-and-white stripes along the edges of the overhead guard (front-left and back-right views) and heavy dark smudging all over the white body and the carriage plate, where the original is clean. The driver's coveralls are noisy and camouflage-like instead of plain green with shading."
-  },
-  "M6": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "At game size it reads as the same white-and-red forklift with a green-clad driver and a black mast. Side by side, though, a player would notice the boxier cab and cowl, the much smaller slumped driver, the striped canopy edge and the grimier finish, so it would not be taken for the original."
-  },
-  "M7": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "The forks point to the same front in every view, the model is upright, and the wheels rest on the same ground line as the original's. The bounding sizes match, so the placement on the origin agrees."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "There are no check errors. 880 triangles is well under twice the original's 749 (1498). Nothing in any view looks floating, inside out or open."
-  }
- },
- "total": 12,
- "of": 16,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M1"
+ ]
 }

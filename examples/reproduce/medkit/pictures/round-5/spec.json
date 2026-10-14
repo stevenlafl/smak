@@ -1,0 +1,595 @@
+{
+  "spec": "smak.model/1",
+  "name": "medkit.mdl",
+  "kind": "prop",
+  "size": {
+    "length": 34.6,
+    "width": 26.4,
+    "height": 6.8
+  },
+  "smooth": 80,
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "materials": {
+    "strap": {
+      "base": "cloth",
+      "seen": [
+        0.4,
+        0.37,
+        0.31
+      ]
+    },
+    "device": {
+      "base": "metal",
+      "seen": [
+        0.2,
+        0.2,
+        0.2
+      ]
+    },
+    "underside": {
+      "base": "paint",
+      "tone": [
+        0.36,
+        0.39,
+        0.46
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "case",
+      "kind": "carved",
+      "size": [
+        13,
+        23.5,
+        6.8
+      ],
+      "at": [
+        -10.9,
+        -0.35,
+        0
+      ],
+      "cells": 64,
+      "texels": 2,
+      "triangles": 70,
+      "material": "plaster",
+      "pictures": [
+        {
+          "picture": "work:pictures/sides.png",
+          "view": "top",
+          "area": [
+            619,
+            554,
+            908,
+            714
+          ],
+          "rect": [
+            619,
+            554,
+            908,
+            714
+          ]
+        },
+        {
+          "picture": "work:pictures/sides.png",
+          "view": "front",
+          "area": [
+            107,
+            200,
+            396,
+            298
+          ],
+          "rect": [
+            107,
+            214,
+            396,
+            298
+          ]
+        },
+        {
+          "picture": "work:pictures/sides.png",
+          "view": "back",
+          "area": [
+            1140,
+            200,
+            1429,
+            298
+          ],
+          "rect": [
+            1140,
+            214,
+            1429,
+            298
+          ]
+        },
+        {
+          "picture": "work:pictures/sides.png",
+          "view": "left",
+          "area": [
+            822,
+            200,
+            982,
+            298
+          ],
+          "rect": [
+            822,
+            214,
+            982,
+            298
+          ]
+        },
+        {
+          "picture": "work:pictures/sides.png",
+          "view": "right",
+          "area": [
+            42,
+            712,
+            202,
+            810
+          ],
+          "rect": [
+            42,
+            726,
+            202,
+            810
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arm_left",
+      "kind": "carved",
+      "size": [
+        10.5,
+        6.1,
+        6.8
+      ],
+      "at": [
+        0.35,
+        8.35,
+        0
+      ],
+      "cells": 64,
+      "texels": 2,
+      "triangles": 30,
+      "material": "plaster",
+      "pictures": [
+        {
+          "picture": "work:pictures/sides.png",
+          "view": "top",
+          "area": [
+            833,
+            708,
+            908,
+            837
+          ],
+          "rect": [
+            833,
+            708,
+            908,
+            837
+          ]
+        },
+        {
+          "picture": "work:pictures/sides.png",
+          "view": "front",
+          "area": [
+            321,
+            200,
+            396,
+            298
+          ],
+          "rect": [
+            321,
+            214,
+            396,
+            298
+          ]
+        },
+        {
+          "picture": "work:pictures/sides.png",
+          "view": "left",
+          "area": [
+            699,
+            200,
+            828,
+            298
+          ],
+          "rect": [
+            699,
+            214,
+            828,
+            298
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arm_right",
+      "kind": "carved",
+      "size": [
+        10.5,
+        6.8,
+        6.35
+      ],
+      "at": [
+        0.35,
+        -8.7,
+        0
+      ],
+      "cells": 64,
+      "texels": 2,
+      "triangles": 30,
+      "material": "plaster",
+      "pictures": [
+        {
+          "picture": "work:pictures/sides.png",
+          "view": "top",
+          "area": [
+            619,
+            708,
+            703,
+            837
+          ],
+          "rect": [
+            619,
+            708,
+            703,
+            837
+          ]
+        },
+        {
+          "picture": "work:pictures/sides.png",
+          "view": "front",
+          "area": [
+            107,
+            200,
+            190,
+            298
+          ],
+          "rect": [
+            107,
+            214,
+            190,
+            298
+          ]
+        },
+        {
+          "picture": "work:pictures/sides.png",
+          "view": "right",
+          "area": [
+            196,
+            712,
+            325,
+            810
+          ],
+          "rect": [
+            196,
+            726,
+            325,
+            810
+          ]
+        }
+      ]
+    },
+    {
+      "id": "well_floor",
+      "kind": "box",
+      "size": [
+        10.2,
+        11.4,
+        4.2
+      ],
+      "at": [
+        0.5,
+        0,
+        0
+      ],
+      "material": "device",
+      "texels": 2
+    },
+    {
+      "id": "underside",
+      "kind": "box",
+      "paint": true,
+      "size": [
+        22.6,
+        23,
+        0.3
+      ],
+      "at": [
+        -5.85,
+        -0.3,
+        -0.5
+      ],
+      "material": "underside"
+    },
+    {
+      "id": "strap",
+      "kind": "leaf",
+      "material": "strap",
+      "texels": 1,
+      "rows": [
+        [
+          [
+            -5.6,
+            11,
+            0
+          ],
+          [
+            -2.3,
+            11.8,
+            0
+          ],
+          [
+            2.6,
+            12.9,
+            0
+          ],
+          [
+            5.1,
+            13.1,
+            0
+          ],
+          [
+            7.5,
+            11.2,
+            0
+          ],
+          [
+            9.6,
+            7.5,
+            0
+          ],
+          [
+            10.2,
+            2.6,
+            0
+          ],
+          [
+            10.8,
+            0.6,
+            0
+          ],
+          [
+            12.9,
+            -1.9,
+            0
+          ],
+          [
+            16.1,
+            -3.1,
+            0
+          ],
+          [
+            17,
+            -6.4,
+            0
+          ],
+          [
+            14.5,
+            -9.7,
+            0
+          ],
+          [
+            11.2,
+            -11.7,
+            0
+          ],
+          [
+            7.5,
+            -13.1,
+            0
+          ],
+          [
+            4.3,
+            -13.1,
+            0
+          ],
+          [
+            0.6,
+            -12.8,
+            0
+          ],
+          [
+            0.2,
+            -11.6,
+            0
+          ]
+        ],
+        [
+          [
+            -5.6,
+            11,
+            3.4
+          ],
+          [
+            -2.3,
+            11.8,
+            3.4
+          ],
+          [
+            2.6,
+            12.9,
+            3.4
+          ],
+          [
+            5.1,
+            13.1,
+            3.4
+          ],
+          [
+            7.5,
+            11.2,
+            3.4
+          ],
+          [
+            9.6,
+            7.5,
+            3.4
+          ],
+          [
+            10.2,
+            2.6,
+            3.4
+          ],
+          [
+            10.8,
+            0.6,
+            3.4
+          ],
+          [
+            12.9,
+            -1.9,
+            3.4
+          ],
+          [
+            16.1,
+            -3.1,
+            3.4
+          ],
+          [
+            17,
+            -6.4,
+            3.4
+          ],
+          [
+            14.5,
+            -9.7,
+            3.4
+          ],
+          [
+            11.2,
+            -11.7,
+            3.4
+          ],
+          [
+            7.5,
+            -13.1,
+            3.4
+          ],
+          [
+            4.3,
+            -13.1,
+            3.4
+          ],
+          [
+            0.6,
+            -12.8,
+            3.4
+          ],
+          [
+            0.2,
+            -11.6,
+            3.4
+          ]
+        ]
+      ]
+    }
+  ],
+  "project": [
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "front",
+      "area": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "left",
+      "area": [
+        512,
+        0,
+        1024,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "back",
+      "area": [
+        1024,
+        0,
+        1536,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "right",
+      "area": [
+        0,
+        512,
+        512,
+        1024
+      ]
+    },
+    {
+      "parts": [
+        "case",
+        "arm_right",
+        "arm_left",
+        "well_floor"
+      ],
+      "picture": "work:pictures/sides.png",
+      "view": "top",
+      "area": [
+        512,
+        512,
+        1024,
+        1024
+      ]
+    },
+    {
+      "parts": [
+        "case",
+        "arm_right",
+        "arm_left",
+        "well_floor"
+      ],
+      "picture": "work:pictures/front-left.png",
+      "yaw": 35,
+      "pitch": 20
+    },
+    {
+      "parts": [
+        "case",
+        "arm_right",
+        "arm_left",
+        "well_floor"
+      ],
+      "picture": "work:pictures/front-right.png",
+      "yaw": -35,
+      "pitch": 20
+    },
+    {
+      "parts": [
+        "case",
+        "arm_right",
+        "arm_left",
+        "well_floor"
+      ],
+      "picture": "work:pictures/back-left.png",
+      "yaw": 145,
+      "pitch": 20
+    },
+    {
+      "parts": [
+        "case",
+        "arm_right",
+        "arm_left",
+        "well_floor"
+      ],
+      "picture": "work:pictures/back-right.png",
+      "yaw": 215,
+      "pitch": 20
+    }
+  ]
+}

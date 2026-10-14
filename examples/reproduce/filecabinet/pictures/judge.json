@@ -25,56 +25,56 @@
    ]
   },
   "colour": {
-   "meanDeltaE": 4,
+   "meanDeltaE": 2.8,
    "byView": [
     {
      "view": "front",
-     "deltaE": 3.8,
+     "deltaE": 2.9,
      "shared": 1
     },
     {
      "view": "left",
-     "deltaE": 5.6,
+     "deltaE": 2.6,
      "shared": 0.986
     },
     {
      "view": "back",
-     "deltaE": 4.1,
+     "deltaE": 3,
      "shared": 1
     },
     {
      "view": "right",
-     "deltaE": 4.2,
+     "deltaE": 2.9,
      "shared": 0.986
     },
     {
      "view": "top",
-     "deltaE": 4.1,
+     "deltaE": 3,
      "shared": 0.986
     },
     {
      "view": "below",
-     "deltaE": 4,
+     "deltaE": 2.9,
      "shared": 0.986
     },
     {
      "view": "front-left",
-     "deltaE": 3.5,
+     "deltaE": 2.6,
      "shared": 0.999
     },
     {
      "view": "front-right",
-     "deltaE": 3.4,
+     "deltaE": 2.6,
      "shared": 0.999
     },
     {
      "view": "back-left",
-     "deltaE": 3.7,
-     "shared": 0.999
+     "deltaE": 2.6,
+     "shared": 0.998
     },
     {
      "view": "back-right",
-     "deltaE": 3.5,
+     "deltaE": 2.6,
      "shared": 0.999
     }
    ]
@@ -112,52 +112,58 @@
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured silhouette overlap is 1.0 in front/back, left/right and top/below. In all six side views and four angle views the reproduction is the same upright box, with the same plinth step at the bottom. Nothing sticks out and nothing is missing."
+   "reason": "Silhouette overlap measured 1.00 in front/back, left/right and top/below. In all six sides and four angles the outline matches the original's: a tall upright box with the plinth step at the foot, nothing added or missing."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured size is 28.8 x 22.6 x 62.4 for both the original and the reproduction, so length, width and height are all well inside 10%."
+   "reason": "Measured size is 28.8 x 22.6 x 62.4 for both, with an off share of 0.001 or less on every axis."
   },
   "M3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The front has three stacked drawers, each with a raised bevelled face and a dark recessed pull handle at the centre, plus the kick plate strip at the base. These match the original in count, position and shape. The original has no other components."
+   "reason": "The front has three drawers stacked at the original's spacing and size. Each has a recessed dark pull handle centred near its top, and the plinth band at the foot is in the same place. The back and the other sides are plain, as in the original."
   },
   "M4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured mean deltaE is 4.0, with no view above 5.6 (left). Every region is the original's mid-grey painted metal: the drawer faces, the darker handle recesses and the plinth all keep their tones."
+   "reason": "Measured mean deltaE is 2.8, and every view is between 2.6 and 3.0. Every region is the same mid-grey painted metal, with darker drawer frames and handles and a lighter plinth edge, the same as the original."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The panel lines, drawer bevels and the light edge line along the plinth are all present. The wear differs, though. The original's mottling is soft, low-contrast dark smudging, with fine diagonal streaks on the left side. The reproduction's is coarser and more posterised, with pale blotches and speckle on the top, back, right and drawer faces, and ragged dark flecks along the plinth line. The left side also differs: the original has darker stepped vertical bands toward the front edge, where the reproduction has a lighter flat vertical strip with a notch near the base. This strip is visible in the left, front-left and back-left views."
+   "reason": "The front's drawer bevels and handle shading, the mottled grime on the back and right side, and the plinth highlight all match. The left side differs: in the front-left and back-left angles the original's left face carries fine diagonal streaks across most of its width, which the reproduction lacks. There that face shows soft vertical bands, with a hard vertical seam in the back-left angle. In the left view the darker stepped panel on the rear half is also softer and lacks the original's nested edge lines."
   },
   "M6": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "At the size the game shows it, this reads as the same grey three-drawer filing cabinet with the same front, handles, proportions and plinth. A player would take it for the original. The coarser blotchy wear and the lighter strip on the left side show up only on close inspection."
+   "reason": "At game size the two are effectively the same: the same three-drawer grey file cabinet, the same proportions, colour and handles. The only difference is the left-side streaking, which a player would not see in passing."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The drawers face the same direction as the original's in the front view. The model is upright, and it stands on its base in the same place in every view."
+   "reason": "The drawers face the same way as the original's front. It is upright, and it sits on the same base: the plinth is at the bottom in every view, and the top and below views line up."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "There are no check errors. It uses 12 triangles against the original's 14, well under twice. It is a closed box with nothing open, inside out or floating in any view."
+   "reason": "There are no check errors. It has 12 triangles against the original's 14, well under twice. Nothing is open, inside out or floating in any view: the underside is closed in the below view, and the box sits on its plinth."
   }
  },
  "total": 15,
  "of": 16,
- "passes": true
+ "passes": true,
+ "first": {
+  "model": "haiku",
+  "total": 14,
+  "passes": false
+ },
+ "judgedBy": "opus"
 }

@@ -25,37 +25,37 @@
    ]
   },
   "colour": {
-   "meanDeltaE": 7.2,
+   "meanDeltaE": 7.3,
    "byView": [
     {
      "view": "front",
      "deltaE": 7,
-     "shared": 0.993
+     "shared": 0.994
     },
     {
      "view": "left",
      "deltaE": 7.2,
-     "shared": 0.994
+     "shared": 0.995
     },
     {
      "view": "back",
      "deltaE": 7,
-     "shared": 0.993
+     "shared": 0.995
     },
     {
      "view": "right",
-     "deltaE": 7.4,
-     "shared": 0.992
+     "deltaE": 7.5,
+     "shared": 0.995
     },
     {
      "view": "top",
-     "deltaE": 6.8,
+     "deltaE": 7,
      "shared": 1
     },
     {
      "view": "below",
-     "deltaE": 3.7,
-     "shared": 0.636
+     "deltaE": 3.9,
+     "shared": 0.593
     },
     {
      "view": "front-left",
@@ -64,8 +64,8 @@
     },
     {
      "view": "front-right",
-     "deltaE": 8.2,
-     "shared": 0.994
+     "deltaE": 8.3,
+     "shared": 0.995
     },
     {
      "view": "back-left",
@@ -74,8 +74,8 @@
     },
     {
      "view": "back-right",
-     "deltaE": 8.3,
-     "shared": 0.994
+     "deltaE": 8.4,
+     "shared": 0.995
     }
    ]
   },
@@ -105,59 +105,67 @@
    "H": "models/w_9mmclip.mdl",
    "I": "models/headcrab.mdl",
    "J": "models/mbarrel.mdl"
-  }
+  },
+  "answer": "B",
+  "ended": "success"
  },
  "scores": {
   "M1": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured overlap is 0.998 or more in all six views, and the pictures agree. The octagonal-cornered upright body, the bevelled dark base, the cylindrical fitting on top and the tilted tab all match the original's outline. Nothing sticks out or is missing in any view."
+   "reason": "The outline matches in all six views. Measured silhouette overlap is 0.998 front/back, 0.999 left/right and 1.0 top/below. The octagonal body, the bevelled base, the raised cap and the tilted flap on top are all where the original has them, and nothing sticks out or is missing."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured 10.3 x 10.3 x 18.4 against the original's 10.3 x 10.3 x 18.4, an exact match on all three axes."
+   "reason": "Measured 10.3 x 10.3 x 18.4 against the original's 10.3 x 10.3 x 18.4, so all three dimensions match exactly. offShare is no more than 0.001."
   },
   "M3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Every part of the original is there, the right number of each, in the right places. That includes the four glowing cyan panels (one per side), the white strips at the corners, a red light above each panel, the hazard band near the bottom, and the dark bevelled base. On top are the round notched fitting and the yellow-striped tab tilted up beside it, in the same corner as the original's in every view. The flat blocks under the top fittings are slightly more broken up than the original's clean grey blocks, but their shape and position match."
+   "reason": "Every part is there, the right number of each, in the right place: a glowing cyan window on each of the four main faces, white side lamps in the corner bevels, a red/orange indicator above each window, a yellow-and-black hazard band near the base, the dark bevelled base, the round grey cap and the yellow-striped flap on the lid. In the front and back views the flap leans the same way, and in the top view the cap and the striped block sit in the same places."
   },
   "M4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Mean deltaE is 7.2, well under 15, and the regions keep their colours: worn tan/grey metal body, cyan glow panels, yellow-and-black hazard stripes, red lights, near-black base. One small fault: the top fittings and the slab under them pick up brownish smudges where the original's are clean light grey. They still read as the same grey metal."
+   "reason": "Measured mean deltaE is 7.3, under 15, and every view with shared coverage is between 7 and 8.4. The regions keep the original's colours and materials: grey-beige worn metal body, cyan glowing glass, yellow hazard paint, near-black base. The reproduction's body is only slightly warmer, which still counts as the same colour."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The body's markings are all there at the original's sharpness: the cyan glow texture, the hazard stripes, the red indicator lights, the white corner strips and the wear grime. The top is where it falls short. The tab's yellow stripes are smeared and skewed instead of two clean bands, the round fitting's notches are muddied, and the grey top slab has brown blotches and stretched texture (clearest in the top view and the front-left and front-right close angles). The original's top is crisp and clean."
+   "reason": "Body markings match in place and sharpness: the hazard stripes, window glow, indicators, lamps and grime. The lid is clearly off. On the round cap and the striped flap, the original's clean grey and crisp yellow stripes come out smeared and noisy, with blurred stripes and mottled grey. This is visible in the top view and in all four angle views (front-left, front-right, back-left, back-right)."
   },
   "M6": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "At the size the game shows it, this looks like the same battery: same silhouette, glowing panels, stripe band and top fittings. The smearing on the top pieces only shows up close."
+   "reason": "At the size the game shows it, the shape, colours, glowing windows and hazard band are the same, so a player would take it for the original. The muddier lid texture only shows up on a close look at the top."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The front matches the original's: the tab sits at front-left in the front view and back-right in the back view, as in the original. The model is upright and sits on its base at the same height in every side view."
+   "reason": "The front matches the original's front (the flap is on the same side in the front and back views). It is upright and stands on its base at the same height in every side view."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "SMAK's GoldSrc check reports no errors. It has 150 triangles against the original's 116, well under twice. The pictures show no open, inside-out or floating parts, and the view from below shows the same closed dark rim as the original's."
+   "reason": "There are no check errors. It has 150 triangles against the original's 116, under twice the original (232). The views show nothing open, inside out or floating; the underside matches the original's."
   }
  },
  "total": 15,
  "of": 16,
- "passes": true
+ "passes": true,
+ "first": {
+  "model": "haiku",
+  "total": 12,
+  "passes": false
+ },
+ "judgedBy": "opus"
 }

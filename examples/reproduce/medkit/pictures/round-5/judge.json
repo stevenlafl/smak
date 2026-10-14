@@ -1,0 +1,163 @@
+{
+ "subject": "medkit",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.987,
+   "left/right": 0.975,
+   "top/below": 0.907
+  },
+  "size": {
+   "original": [
+    34.6,
+    26.4,
+    6.8
+   ],
+   "reproduction": [
+    34.3,
+    26.2,
+    6.7
+   ],
+   "offShare": [
+    0.009,
+    0.009,
+    0.004
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 7.3,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 6.5,
+     "shared": 0.989
+    },
+    {
+     "view": "left",
+     "deltaE": 7.7,
+     "shared": 0.985
+    },
+    {
+     "view": "back",
+     "deltaE": 7.4,
+     "shared": 0.989
+    },
+    {
+     "view": "right",
+     "deltaE": 6.5,
+     "shared": 0.985
+    },
+    {
+     "view": "top",
+     "deltaE": 6.5,
+     "shared": 0.899
+    },
+    {
+     "view": "below",
+     "deltaE": null,
+     "shared": 0
+    },
+    {
+     "view": "front-left",
+     "deltaE": 8.7,
+     "shared": 0.978
+    },
+    {
+     "view": "front-right",
+     "deltaE": 8.4,
+     "shared": 0.979
+    },
+    {
+     "view": "back-left",
+     "deltaE": 7.4,
+     "shared": 0.978
+    },
+    {
+     "view": "back-right",
+     "deltaE": 6.7,
+     "shared": 0.972
+    }
+   ]
+  },
+  "triangles": {
+   "original": 99,
+   "reproduction": 206
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 1
+ },
+ "lineup": {
+  "picked": "G",
+  "right": "G",
+  "letters": {
+   "A": "models/headcrab.mdl",
+   "B": "models/can.mdl",
+   "C": "models/w_9mmclip.mdl",
+   "D": "models/w_longjump.mdl",
+   "E": "models/mbarrel.mdl",
+   "F": "models/w_battery.mdl",
+   "G": "models/w_medkit.mdl",
+   "H": "models/forklift.mdl",
+   "I": "models/filecabinet.mdl",
+   "J": "models/w_security.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Measured overlap clears 0.80 in every view (front/back 0.987, left/right 0.975, top/below 0.907), but parts go missing or get added. In the top view the original's strap loops out past the bottom-left and right of the case, and in the reproduction it doesn't show at all. In the below view the original shows nothing, while the reproduction draws a solid dark underside, so that view's outline is wrong."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 34.3 x 26.2 x 6.7 against 34.6 x 26.4 x 6.8. Every axis is within 1% (offShare at most 0.009)."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The bevelled white case, the console recess at the front of the top, the speaker grilles on the left and right sides and the strap are all there, in the right places. The strap is clearly off, though: it shows in the angled views but disappears from directly above (top view), so it isn't built the way the original's is. The reproduction also adds a closed underside the original doesn't have (below view)."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The white case, the red markings, the dark console and the brown cloth strap match region by region. Measured mean ΔE is 7.3, under 15, and the worst view (front-left) is 8.7."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The red cross, the mirrored FIRST AID lettering, the red arrows and small text on the sides, and the screen with its red and green buttons are all in place at similar sharpness. But in the front-left and front-right views the original's sloped console recess shows a large, blurry grey stretch of texture, and the reproduction shows a crisp screen-and-buttons panel there instead. The reproduction's top surface also has extra crease and seam lines next to the recess (front-right view) that the original doesn't have."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From the side and the angled views a player would take it for the original. Players usually look down at pickups on the floor, though, and from above the reproduction has no strap where the original clearly shows its loop (top view). That difference would be noticed."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The console and recess face the same way as the original's, it is upright, and it lies flat on the same base plane in the front, back and side views."
+  },
+  "M8": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "SMAK's check passes with no errors. But it has 206 triangles against the original's 99, which is more than the 198 allowed (twice the original). The strap also seems to be single-sided and facing the wrong way: it disappears from directly above while it shows from the angles."
+  }
+ },
+ "total": 11,
+ "of": 16,
+ "passes": false
+}

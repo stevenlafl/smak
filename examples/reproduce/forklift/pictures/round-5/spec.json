@@ -1,0 +1,621 @@
+{
+  "spec": "smak.model/1",
+  "name": "forklift.mdl",
+  "kind": "prop",
+  "size": {
+    "length": 186.6,
+    "width": 60,
+    "height": 113.4
+  },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "materials": {
+    "white": {
+      "base": "paint",
+      "tone": [
+        0.85,
+        0.85,
+        0.86
+      ]
+    },
+    "red": {
+      "base": "paint",
+      "tone": [
+        0.7,
+        0.1,
+        0.1
+      ]
+    },
+    "dark": {
+      "base": "steel",
+      "tone": [
+        0.2,
+        0.2,
+        0.22
+      ]
+    },
+    "tyre": {
+      "base": "leather",
+      "tone": [
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    "overall": {
+      "base": "cloth",
+      "tone": [
+        0.2,
+        0.45,
+        0.2
+      ]
+    },
+    "helmet": {
+      "base": "paint",
+      "tone": [
+        0.95,
+        0.8,
+        0.1
+      ]
+    },
+    "skin": {
+      "base": "leather",
+      "tone": [
+        0.75,
+        0.55,
+        0.45
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "chassis",
+      "kind": "box",
+      "material": "red",
+      "size": [
+        90,
+        44,
+        19
+      ],
+      "at": [
+        -43,
+        0,
+        8
+      ]
+    },
+    {
+      "id": "skirt",
+      "kind": "box",
+      "material": "red",
+      "size": [
+        52,
+        8,
+        18
+      ],
+      "at": [
+        -42.5,
+        25.5,
+        9
+      ],
+      "mirror": "y"
+    },
+    {
+      "id": "front_wheel",
+      "kind": "cylinder",
+      "material": "tyre",
+      "radius": 10.5,
+      "height": 7,
+      "sides": 12,
+      "rotate": [
+        0,
+        0,
+        90
+      ],
+      "at": [
+        -6,
+        28.5,
+        10.5
+      ],
+      "mirror": "y"
+    },
+    {
+      "id": "rear_wheel",
+      "kind": "cylinder",
+      "material": "tyre",
+      "radius": 9.5,
+      "height": 7,
+      "sides": 12,
+      "rotate": [
+        0,
+        0,
+        90
+      ],
+      "at": [
+        -76.8,
+        28.5,
+        9.5
+      ],
+      "mirror": "y"
+    },
+    {
+      "id": "cowl",
+      "kind": "superquadric",
+      "material": "white",
+      "size": [
+        23,
+        60,
+        34
+      ],
+      "round": [
+        0.2,
+        0.2
+      ],
+      "sides": 8,
+      "at": [
+        -19.5,
+        0,
+        22
+      ]
+    },
+    {
+      "id": "rear_lower",
+      "kind": "box",
+      "material": "white",
+      "size": [
+        47,
+        56,
+        22
+      ],
+      "at": [
+        -69.5,
+        0,
+        20
+      ]
+    },
+    {
+      "id": "rear_hump",
+      "kind": "superquadric",
+      "material": "white",
+      "size": [
+        23,
+        48,
+        15
+      ],
+      "round": [
+        0.2,
+        0.25
+      ],
+      "sides": 8,
+      "at": [
+        -81.5,
+        0,
+        41
+      ]
+    },
+    {
+      "id": "bumper",
+      "kind": "box",
+      "material": "dark",
+      "size": [
+        6,
+        44,
+        12
+      ],
+      "at": [
+        -90,
+        0,
+        8
+      ]
+    },
+    {
+      "id": "seat_cushion",
+      "kind": "box",
+      "material": "dark",
+      "size": [
+        14,
+        30,
+        4
+      ],
+      "at": [
+        -56,
+        0,
+        41.5
+      ]
+    },
+    {
+      "id": "seat_back",
+      "kind": "box",
+      "material": "dark",
+      "size": [
+        5,
+        28,
+        22
+      ],
+      "at": [
+        -68,
+        0,
+        42
+      ]
+    },
+    {
+      "id": "roof",
+      "kind": "box",
+      "material": "dark",
+      "size": [
+        48,
+        38,
+        1.5
+      ],
+      "at": [
+        -51,
+        0,
+        96
+      ]
+    },
+    {
+      "id": "rear_post",
+      "kind": "box",
+      "material": "dark",
+      "size": [
+        2.5,
+        2.5,
+        41
+      ],
+      "at": [
+        -73,
+        17,
+        55.5
+      ],
+      "mirror": "y"
+    },
+    {
+      "id": "front_post",
+      "kind": "tube",
+      "material": "dark",
+      "sides": 4,
+      "path": [
+        [
+          -18,
+          17,
+          54,
+          1.2
+        ],
+        [
+          -30,
+          17,
+          96.5,
+          1.2
+        ]
+      ],
+      "mirror": "y"
+    },
+    {
+      "id": "column",
+      "kind": "tube",
+      "material": "dark",
+      "sides": 4,
+      "path": [
+        [
+          -27,
+          0,
+          52,
+          1
+        ],
+        [
+          -38,
+          0,
+          59,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "steering_wheel",
+      "kind": "cylinder",
+      "material": "dark",
+      "radius": 5,
+      "height": 1,
+      "sides": 8,
+      "rotate": [
+        0,
+        -40,
+        0
+      ],
+      "at": [
+        -38,
+        0,
+        58.5
+      ]
+    },
+    {
+      "id": "fork",
+      "kind": "box",
+      "material": "dark",
+      "size": [
+        76,
+        4.5,
+        2
+      ],
+      "at": [
+        55.3,
+        19,
+        0
+      ],
+      "mirror": "y"
+    },
+    {
+      "id": "carriage",
+      "kind": "box",
+      "material": "dark",
+      "size": [
+        5,
+        60,
+        52
+      ],
+      "at": [
+        16.5,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "mast_rail",
+      "kind": "box",
+      "material": "dark",
+      "size": [
+        11,
+        4.5,
+        112
+      ],
+      "at": [
+        9,
+        16,
+        0
+      ],
+      "mirror": "y"
+    },
+    {
+      "id": "mast_top",
+      "kind": "box",
+      "material": "dark",
+      "size": [
+        20,
+        38,
+        2
+      ],
+      "at": [
+        5,
+        0,
+        111.4
+      ]
+    },
+    {
+      "id": "torso",
+      "kind": "superquadric",
+      "material": "overall",
+      "size": [
+        12,
+        17,
+        24
+      ],
+      "round": [
+        0.4,
+        0.5
+      ],
+      "sides": 8,
+      "rotate": [
+        0,
+        -10,
+        0
+      ],
+      "at": [
+        -60,
+        0,
+        44
+      ]
+    },
+    {
+      "id": "head",
+      "kind": "sphere",
+      "material": "skin",
+      "radius": 4.3,
+      "sides": 8,
+      "at": [
+        -57,
+        0,
+        67
+      ]
+    },
+    {
+      "id": "hard_hat",
+      "kind": "turn",
+      "material": "helmet",
+      "sides": 8,
+      "rings": [
+        [
+          0,
+          5.6
+        ],
+        [
+          0.6,
+          5.6
+        ],
+        [
+          0.8,
+          4.8
+        ],
+        [
+          3,
+          4.4
+        ],
+        {
+          "s": 5,
+          "r": 2.5
+        },
+        [
+          5.6,
+          0
+        ]
+      ],
+      "at": [
+        -57,
+        0,
+        74.5
+      ]
+    },
+    {
+      "id": "arm",
+      "kind": "tube",
+      "material": "overall",
+      "sides": 5,
+      "path": [
+        [
+          -59,
+          7,
+          62,
+          2.6
+        ],
+        [
+          -51,
+          10.5,
+          55,
+          2.4
+        ],
+        [
+          -41,
+          6,
+          59,
+          2
+        ]
+      ],
+      "mirror": "y"
+    },
+    {
+      "id": "leg",
+      "kind": "tube",
+      "material": "overall",
+      "sides": 5,
+      "path": [
+        [
+          -58,
+          5,
+          46,
+          3.6
+        ],
+        [
+          -42,
+          6,
+          48,
+          3.4
+        ],
+        [
+          -33.5,
+          6.5,
+          30,
+          3
+        ]
+      ],
+      "mirror": "y"
+    },
+    {
+      "id": "boot",
+      "kind": "box",
+      "material": "leather",
+      "size": [
+        8,
+        5,
+        4
+      ],
+      "at": [
+        -33,
+        6.5,
+        26.5
+      ],
+      "mirror": "y"
+    }
+  ],
+  "project": [
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "front",
+      "area": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "left",
+      "area": [
+        512,
+        0,
+        1024,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "back",
+      "area": [
+        1024,
+        0,
+        1536,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "right",
+      "area": [
+        0,
+        512,
+        512,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "top",
+      "area": [
+        512,
+        512,
+        1024,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "below",
+      "area": [
+        1024,
+        512,
+        1536,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/front-left.png",
+      "yaw": 35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/front-right.png",
+      "yaw": -35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-left.png",
+      "yaw": 145,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-right.png",
+      "yaw": 215,
+      "pitch": 20
+    }
+  ]
+}

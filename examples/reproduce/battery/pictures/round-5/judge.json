@@ -1,0 +1,163 @@
+{
+ "subject": "battery",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.998,
+   "left/right": 0.999,
+   "top/below": 1
+  },
+  "size": {
+   "original": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "reproduction": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "offShare": [
+    0,
+    0,
+    0.001
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 7.2,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 7,
+     "shared": 0.993
+    },
+    {
+     "view": "left",
+     "deltaE": 7.2,
+     "shared": 0.994
+    },
+    {
+     "view": "back",
+     "deltaE": 7,
+     "shared": 0.993
+    },
+    {
+     "view": "right",
+     "deltaE": 7.4,
+     "shared": 0.992
+    },
+    {
+     "view": "top",
+     "deltaE": 6.8,
+     "shared": 1
+    },
+    {
+     "view": "below",
+     "deltaE": 3.7,
+     "shared": 0.636
+    },
+    {
+     "view": "front-left",
+     "deltaE": 8.3,
+     "shared": 0.995
+    },
+    {
+     "view": "front-right",
+     "deltaE": 8.2,
+     "shared": 0.994
+    },
+    {
+     "view": "back-left",
+     "deltaE": 8.1,
+     "shared": 0.995
+    },
+    {
+     "view": "back-right",
+     "deltaE": 8.3,
+     "shared": 0.994
+    }
+   ]
+  },
+  "triangles": {
+   "original": 116,
+   "reproduction": 150
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "B",
+  "right": "B",
+  "letters": {
+   "A": "models/w_security.mdl",
+   "B": "models/w_battery.mdl",
+   "C": "models/w_longjump.mdl",
+   "D": "models/filecabinet.mdl",
+   "E": "models/can.mdl",
+   "F": "models/forklift.mdl",
+   "G": "models/w_medkit.mdl",
+   "H": "models/w_9mmclip.mdl",
+   "I": "models/headcrab.mdl",
+   "J": "models/mbarrel.mdl"
+  }
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured overlap is 0.998 or more in all six views, and the pictures agree. The octagonal-cornered upright body, the bevelled dark base, the cylindrical fitting on top and the tilted tab all match the original's outline. Nothing sticks out or is missing in any view."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 10.3 x 10.3 x 18.4 against the original's 10.3 x 10.3 x 18.4, an exact match on all three axes."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Every part of the original is there, the right number of each, in the right places. That includes the four glowing cyan panels (one per side), the white strips at the corners, a red light above each panel, the hazard band near the bottom, and the dark bevelled base. On top are the round notched fitting and the yellow-striped tab tilted up beside it, in the same corner as the original's in every view. The flat blocks under the top fittings are slightly more broken up than the original's clean grey blocks, but their shape and position match."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mean deltaE is 7.2, well under 15, and the regions keep their colours: worn tan/grey metal body, cyan glow panels, yellow-and-black hazard stripes, red lights, near-black base. One small fault: the top fittings and the slab under them pick up brownish smudges where the original's are clean light grey. They still read as the same grey metal."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The body's markings are all there at the original's sharpness: the cyan glow texture, the hazard stripes, the red indicator lights, the white corner strips and the wear grime. The top is where it falls short. The tab's yellow stripes are smeared and skewed instead of two clean bands, the round fitting's notches are muddied, and the grey top slab has brown blotches and stretched texture (clearest in the top view and the front-left and front-right close angles). The original's top is crisp and clean."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "At the size the game shows it, this looks like the same battery: same silhouette, glowing panels, stripe band and top fittings. The smearing on the top pieces only shows up close."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front matches the original's: the tab sits at front-left in the front view and back-right in the back view, as in the original. The model is upright and sits on its base at the same height in every side view."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's GoldSrc check reports no errors. It has 150 triangles against the original's 116, well under twice. The pictures show no open, inside-out or floating parts, and the view from below shows the same closed dark rim as the original's."
+  }
+ },
+ "total": 15,
+ "of": 16,
+ "passes": true
+}

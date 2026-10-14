@@ -25,16 +25,16 @@
    ]
   },
   "colour": {
-   "meanDeltaE": 8.7,
+   "meanDeltaE": 8.8,
    "byView": [
     {
      "view": "front",
-     "deltaE": 10.4,
+     "deltaE": 10.5,
      "shared": 0.977
     },
     {
      "view": "left",
-     "deltaE": 10.2,
+     "deltaE": 10.4,
      "shared": 0.948
     },
     {
@@ -44,7 +44,7 @@
     },
     {
      "view": "right",
-     "deltaE": 8.6,
+     "deltaE": 8.7,
      "shared": 0.948
     },
     {
@@ -54,22 +54,22 @@
     },
     {
      "view": "below",
-     "deltaE": 9.5,
-     "shared": 0.951
+     "deltaE": 9.6,
+     "shared": 0.952
     },
     {
      "view": "front-left",
-     "deltaE": 10.3,
+     "deltaE": 10.4,
      "shared": 0.956
     },
     {
      "view": "front-right",
-     "deltaE": 8.4,
+     "deltaE": 8.5,
      "shared": 0.959
     },
     {
      "view": "back-left",
-     "deltaE": 7.9,
+     "deltaE": 8,
      "shared": 0.958
     },
     {
@@ -105,59 +105,67 @@
    "H": "models/forklift.mdl",
    "I": "models/w_9mmclip.mdl",
    "J": "models/w_longjump.mdl"
-  }
+  },
+  "answer": "G",
+  "ended": "success"
  },
  "scores": {
   "M1": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Silhouette overlap is 0.976 front/back, 0.948 left/right and 0.95 top/below, all well above 0.80. Every view has the same outline: the domed body, the two long front legs reaching forward and down, the shorter back legs with claws, and the flared rear rim seen from above. Nothing sticks out or is missing."
+   "reason": "Silhouette overlap is 0.976 front/back, 0.948 left/right and 0.95 top/below, all well above 0.80. In every view the outline matches the original: the domed body, the two long forelegs reaching forward and the two short hind legs, with nothing extra or missing."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The reproduction measures 25.9 x 19.0 x 13.1 against the original's 25.9 x 19.2 x 13.2. Each dimension is within about 1%."
+   "reason": "Measured 25.9 x 19.0 x 13.1 against the original's 25.9 x 19.2 x 13.2. Every axis is within 1%."
   },
   "M3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Every part is there, in the right place and shape: the pale dome, the brown ribbed carapace at the back, two long front legs with red ends and black claws, two short back legs with red feet and claws, and the toothed mouth underneath with the red flesh around it (back and below views)."
+   "reason": "Every part of the original is there, in the right place and shape: the domed carapace, the two long red-tipped forelegs with black claws, the two short hind legs with claws, the ribbed brown back plates, and the toothed mouth on the underside and rear. The numbers and placement match in all ten views."
   },
   "M4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Mean smoothed delta E is 8.7, and the worst view (front) is 10.4, all under 15. Each region has the original's colour: a cream-white dome, a tan and brown carapace, blood-red legs and mouth flesh, and black claws."
+   "reason": "Mean smoothed delta E is 8.8 (worst view 10.5, front), under 15. The regions keep the original's colours: a cream fleshy dome, brown ribbed shell, red leg tips and a red mouth."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The markings are there but softer. The dome loses most of the original's mottled red flecks and grain, and dark seam lines cross it in the front-left and front-right views. The front view also has a stray dark notch on the right of the dome. The teeth in the mouth (back and below views) are blurrier and less distinct. The ribbing on the back carapace is less crisp in the back-left view."
+   "reason": "The detail is mostly there but clearly softer. The dome's mottled flesh and pink veining are blurrier and flatter than the original's in the front and front-left/front-right views. Thin dark seam lines run across the dome in front-left and front-right that the original lacks. There is a stray dark rectangular mark on the right flank in the front view. The teeth are less crisp in the back view and from below."
   },
   "M6": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Side by side at the size the game shows a headcrab, a player would take it for the original. The shape, pose, colours, legs and mouth all match. The softer dome texture and the seam lines only show on a close look."
+   "reason": "At the size the game shows it, side by side, a player would take it for the original headcrab. The pose, proportions, colours and mouth all read the same. The seams and softer dome only show on a close look."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The front is the same way round as the original's, with the front legs reaching forward and the mouth at the back and underside as in the original. It stands upright on its four claws at the same height on its origin in every view."
+   "reason": "Facing matches in every view: the forelegs point forward and the mouth faces down and back as in the original. It is upright and sits at the same height on its origin in the side views."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The check has no errors. It uses 514 triangles against the original's 478, within the limit of twice the original. No open, inside-out or floating parts are visible in any view."
+   "reason": "SMAK's check reports no errors. It has 514 triangles against the original's 478, well under twice. Nothing looks inside out or floating. The dark seam lines on the dome look like texture seams, not gaps showing the background."
   }
  },
  "total": 15,
  "of": 16,
- "passes": true
+ "passes": true,
+ "first": {
+  "model": "haiku",
+  "total": 14,
+  "passes": false
+ },
+ "judgedBy": "opus"
 }

@@ -91,73 +91,8 @@
   "M4": 0,
   "M8": 2
  },
- "lineup": {
-  "picked": "E",
-  "right": "G",
-  "letters": {
-   "A": "models/w_longjump.mdl",
-   "B": "models/w_medkit.mdl",
-   "C": "models/w_security.mdl",
-   "D": "models/headcrab.mdl",
-   "E": "models/filecabinet.mdl",
-   "F": "models/can.mdl",
-   "G": "models/w_battery.mdl",
-   "H": "models/forklift.mdl",
-   "I": "models/mbarrel.mdl",
-   "J": "models/w_9mmclip.mdl"
-  }
- },
- "scores": {
-  "M1": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "Measured overlap clears 0.80 in every view (0.889 front/back, 0.882 left/right, 0.959 top/below), but the outline is a plain rectangular slab. Parts are missing in every view: the original's chamfered corners (the octagonal footprint from top and below, the angled shoulders and base in the side views), the round cap and the yellow tab sticking up above the top in front, back, left and right, and the black tapered base."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Bounds match exactly: 10.3 x 10.3 x 18.4 for both, with zero off share on every axis."
-  },
-  "M3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "None of the original's parts are there. It lacks the four glowing teal panels, the white side indicators at the corners, the red lights at the top of each face, the round cap and the yellow-striped tab on top, the black chamfered base, and the octagonal body. The reproduction is a single box."
-  },
-  "M4": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "Measured mean delta E is 27.9, far over 15, and every side view is about 30. The whole box is one flat grey. The original has teal glowing panels, yellow and black hazard bands near the bottom, a tan-grey worn metal shell, a black base and red lights, and none of these regions has its colour."
-  },
-  "M5": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "No surface detail at all, only a faint grey mottle. The original's hazard stripes, glowing panel texture, red indicator lights, white side plates, panel framing, the cap's ring detail and its wear are all missing."
-  },
-  "M6": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "No player would take a plain grey box for the original, a teal-glowing octagonal battery with hazard stripes and a cap on top, even at game size."
-  },
-  "M7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "It is upright, sits on the same extents and has the same height span as the original, so the placing is right. But it is a featureless box with no front, so the original's front (the side with the tab on top) is not reproduced in any way that can be identified."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "SMAK's check reports no errors. It has 12 triangles against the original's 116 (the limit is 232). It is a closed box, upright and not floating."
-  }
- },
- "total": 6,
- "of": 16,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M4"
+ ]
 }

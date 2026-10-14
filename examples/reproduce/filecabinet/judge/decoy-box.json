@@ -92,7 +92,7 @@
   "M8": 2
  },
  "lineup": {
-  "picked": "B",
+  "picked": null,
   "right": "B",
   "letters": {
    "A": "models/headcrab.mdl",
@@ -109,55 +109,55 @@
  },
  "scores": {
   "M1": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Silhouette overlap is 1.00 in all three view pairs. In every view the outline is the original's tall rectangular block, and nothing sticks out or is missing. The original's plinth and recessed drawer fronts sit inside its outline, so they don't change it."
+   "score": 1,
+   "reason": "Outline is a plain rectangle that matches the original's overall box in all six views (measured overlap 1.0), but the original's recessed plinth at the bottom of the front, left, back and right views and its stepped drawer-face edges are missing, so the outline is not the original's."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured size matches exactly: 28.8 x 22.6 x 62.4 against 28.8 x 22.6 x 62.4, offShare 0 on every axis."
+   "reason": "Measured size is 28.8 x 22.6 x 62.4 for both, with 0% off-share on each axis."
   },
   "M3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The reproduction is one plain box. All three drawers on the front are missing, along with their three dark pull handles and the stepped plinth around the bottom of every side. None of the original's parts are there."
+   "reason": "All three drawer fronts are missing, as are the three recessed drawer handles (front, front-left, front-right), the plinth at the base, and the two-tone recess between drawers. The reproduction is one solid block."
   },
   "M4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The mean deltaE of 13.9 is just under the line, but the reproduction is a clearly lighter, flatter grey than the original's dark gunmetal everywhere. The front (16.7) and top (20.8) are over 15. The dark drawer recesses and the black handles have no matching dark regions. Only the underside (2.3) is close."
+   "reason": "The mean colour difference of 13.9 is under 15, but the regions do not match: the original's black drawer handles and dark drawer-gap recesses are rendered as flat grey, and the reproduction's top is noticeably lighter than the original's top face. The painted-metal body grey is roughly right."
   },
   "M5": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "None of the original's surface detail is there. The front lacks the drawer seams, bevelled drawer edges and handle shading. Every side lacks the base trim line, and the left side lacks its panel step. All the reproduction has is a light mottled grey with bright edge lines the original doesn't have."
+   "reason": "The original's drawer seams, handle slots, plinth line and panel edges are absent. The reproduction shows only a uniform grain. (Not a must-have item, but nothing of the original's markings is there.)"
   },
   "M6": {
    "judge": 0,
-   "cap": null,
+   "cap": 1,
    "score": 0,
-   "reason": "Side by side, a player would see a featureless light-grey pillar beside a dark three-drawer filing cabinet. Nobody would take it for the original."
+   "reason": "Side by side, the reproduction is an obvious plain grey box with no drawers or handles. A player would not take it for a filing cabinet."
   },
   "M7": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "It is upright and fills the original's bounds, so it stands on its origin as the original does. But it has no front: all four sides are identical, so nothing marks the original's drawer face."
+   "reason": "The reproduction stands upright on its origin, as the original does, but it has no front: none of its faces carries the drawer front, so the original's front cannot be identified."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "No check errors. It has 12 triangles against the original's 14, well under twice. It is a closed box with nothing open, inside out or floating."
+   "reason": "checkErrors is empty. The reproduction has 12 triangles against the original's 14, well under the twice-original limit. A box is closed and has no open or inside-out faces."
   }
  },
- "total": 8,
+ "total": 7,
  "of": 16,
  "passes": false
 }

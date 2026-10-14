@@ -11,6 +11,7 @@ Written by judge.mjs from every judge.json (rounds kept under each leg's round-<
 | 3 | filecabinet | pictures | 13 of 16 | no | M1 2, M2 2, M3 2, M4 2, M5 1, M6 2, M7 2, M8 0 | 13c7c25 |
 | 4 | filecabinet | pictures | 15 of 16 | yes | M1 2, M2 2, M3 2, M4 2, M5 1, M6 2, M7 2, M8 2 | 2c5b717 |
 | 5 | filecabinet | pictures | 15 of 16 | yes | M1 2, M2 2, M3 2, M4 2, M5 1, M6 2, M7 2, M8 2 | 713c64b |
+| 6 | filecabinet | pictures | 15 of 16 | yes | M1 2, M2 2, M3 2, M4 2, M5 1, M6 2, M7 2, M8 2 | 713c64b |
 | 1 | filecabinet | words | 9 of 16 | no | M1 1, M2 2, M3 1, M4 1, M5 1, M6 1, M7 2, M8 0 |  |
 | 2 | filecabinet | words | 13 of 16 | no | M1 2, M2 2, M3 2, M4 1, M5 1, M6 1, M7 2, M8 2 | dac7582 |
 | 3 | filecabinet | words | 12 of 16 | no | M1 2, M2 2, M3 1, M4 1, M5 1, M6 1, M7 2, M8 2 | 13c7c25 |
@@ -20,6 +21,7 @@ Written by judge.mjs from every judge.json (rounds kept under each leg's round-<
 | 3 | battery | pictures | 14 of 16 | no | M1 2, M2 2, M3 2, M4 2, M5 1, M6 2, M7 2, M8 1 | 2f681c2 |
 | 4 | battery | pictures | 14 of 16 | no | M1 2, M2 2, M3 2, M4 2, M5 1, M6 2, M7 2, M8 1 | 2c5b717 |
 | 5 | battery | pictures | 15 of 16 | yes | M1 2, M2 2, M3 2, M4 2, M5 1, M6 2, M7 2, M8 2 | 713c64b |
+| 6 | battery | pictures | 15 of 16 | yes | M1 2, M2 2, M3 2, M4 2, M5 1, M6 2, M7 2, M8 2 | 713c64b |
 | 1 | battery | words | 8 of 16 | no | M1 1, M2 2, M3 1, M4 0, M5 1, M6 1, M7 2, M8 0 |  |
 | 2 | battery | words | 9 of 16 | no | M1 1, M2 2, M3 1, M4 1, M5 1, M6 1, M7 2, M8 0 | dac7582 |
 | 3 | battery | words | 8 of 16 | no | M1 1, M2 2, M3 1, M4 0, M5 1, M6 1, M7 2, M8 0 | 2f681c2 |
@@ -47,6 +49,7 @@ Written by judge.mjs from every judge.json (rounds kept under each leg's round-<
 | 3 | headcrab | pictures | 12 of 16 | no | M1 1, M2 2, M3 1, M4 2, M5 1, M6 1, M7 2, M8 2 | 601dd12 |
 | 4 | headcrab | pictures | 13 of 16 | no | M1 2, M2 2, M3 1, M4 2, M5 1, M6 2, M7 2, M8 1 | 2c5b717 |
 | 5 | headcrab | pictures | 15 of 16 | yes | M1 2, M2 2, M3 2, M4 2, M5 1, M6 2, M7 2, M8 2 | 713c64b |
+| 6 | headcrab | pictures | 15 of 16 | yes | M1 2, M2 2, M3 2, M4 2, M5 1, M6 2, M7 2, M8 2 | 713c64b |
 | 1 | headcrab | words | 10 of 16 | no | M1 1, M2 2, M3 1, M4 0, M5 1, M6 1, M7 2, M8 2 |  |
 | 2 | headcrab | words | 7 of 16 | no | M1 0, M2 2, M3 1, M4 1, M5 1, M6 0, M7 2, M8 0 | adc09ae |
 | 3 | headcrab | words | 9 of 16 | no | M1 0, M2 2, M3 1, M4 1, M5 1, M6 0, M7 2, M8 2 | 77643ac |

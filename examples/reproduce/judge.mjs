@@ -92,15 +92,21 @@ async function lineup(dir, copy, rightFile) {
   });
   savePng(join(dir, "lineup.png"), tile(shots, 5, order.map((_, i) => letters[i])));
   savePng(join(dir, "mystery.png"), render(copy, { ...POSE, view: "orbit", within: framing(copy, [POSE]), yaw: 35, pitch: 20, width: 384, height: 384 }));
-  const r = await runAgent({
-    model: JUDGE_MODEL,
-    read: dir,
-    hours: 0.25,
-    prompt: `${dir}/mystery.png shows a model made to copy one of the game models in ${dir}/lineup.png (labelled ${letters.slice(0, order.length).split("").join(", ")}).
+  // asked again when no letter comes back (a session cut off, or an answer of words): a pick never made caps M6
+  let r;
+  let picked = null;
+  for (let attempt = 1; attempt <= 3 && !picked; attempt++) {
+    r = await runAgent({
+      model: JUDGE_MODEL,
+      read: dir,
+      hours: 0.25,
+      prompt: `${dir}/mystery.png shows a model made to copy one of the game models in ${dir}/lineup.png (labelled ${letters.slice(0, order.length).split("").join(", ")}).
 Which one is it a copy of? Look at both pictures. Reply with the one letter alone.`,
-  });
-  const picked = (r.answer.match(/\b([A-P])\b/) ?? [])[1] ?? null;
-  return { picked, right: letters[order.indexOf(rightFile)], letters: Object.fromEntries(order.map((f, i) => [letters[i], f])) };
+    });
+    const answer = (r.answer ?? "").trim();
+    picked = (answer.match(/\b([A-P])\b/) ?? answer.match(/^\W*([a-p])\W*$/i) ?? [])[1]?.toUpperCase() ?? null;
+  }
+  return { picked, right: letters[order.indexOf(rightFile)], letters: Object.fromEntries(order.map((f, i) => [letters[i], f])), answer: (r.answer ?? "").slice(0, 300), ended: r.ended };
 }
 
 function judgePrompt(kind, dir, measured) {

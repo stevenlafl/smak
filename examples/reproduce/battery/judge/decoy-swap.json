@@ -25,56 +25,56 @@
    ]
   },
   "colour": {
-   "meanDeltaE": 32.2,
+   "meanDeltaE": 32.6,
    "byView": [
     {
      "view": "front",
-     "deltaE": 35.9,
+     "deltaE": 36.3,
      "shared": 0.12
     },
     {
      "view": "left",
-     "deltaE": 33.2,
+     "deltaE": 33.3,
      "shared": 0.092
     },
     {
      "view": "back",
-     "deltaE": 32.7,
+     "deltaE": 32.8,
      "shared": 0.12
     },
     {
      "view": "right",
-     "deltaE": 33.8,
+     "deltaE": 34,
      "shared": 0.092
     },
     {
      "view": "top",
-     "deltaE": 28.1,
+     "deltaE": 28.3,
      "shared": 0.155
     },
     {
      "view": "below",
-     "deltaE": 23.9,
+     "deltaE": 23.8,
      "shared": 0.092
     },
     {
      "view": "front-left",
-     "deltaE": 34.3,
+     "deltaE": 35,
      "shared": 0.092
     },
     {
      "view": "front-right",
-     "deltaE": 34.2,
+     "deltaE": 34.9,
      "shared": 0.092
     },
     {
      "view": "back-left",
-     "deltaE": 33.1,
+     "deltaE": 34.6,
      "shared": 0.092
     },
     {
      "view": "back-right",
-     "deltaE": 32.7,
+     "deltaE": 33,
      "shared": 0.092
     }
    ]
@@ -91,73 +91,10 @@
   "M4": 0,
   "M8": 2
  },
- "lineup": {
-  "picked": null,
-  "right": "J",
-  "letters": {
-   "A": "models/w_security.mdl",
-   "B": "models/can.mdl",
-   "C": "models/w_medkit.mdl",
-   "D": "models/w_longjump.mdl",
-   "E": "models/headcrab.mdl",
-   "F": "models/mbarrel.mdl",
-   "G": "models/forklift.mdl",
-   "H": "models/w_9mmclip.mdl",
-   "I": "models/filecabinet.mdl",
-   "J": "models/w_battery.mdl"
-  }
- },
- "scores": {
-  "M1": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The outline is wrong in every view. Silhouette overlap is 0.12 front/back, 0.094 left/right and 0.158 top/below, far below the 0.80 line. The original is a short, squat canister with a stepped cap and a fitting on top. The reproduction is a tall rectangular box with a flat top, about 3.4 times the original's height. It has none of the canister's bevelled corners or the cap."
-  },
-  "M2": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "All three dimensions are far outside 10%. Length is 28.8 against 10.3 (+180%), width is 22.6 against 10.3 (+119%) and height is 62.4 against 18.4 (+239%)."
-  },
-  "M3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "None of the original's parts are there. The original has a glowing green glass window on each side, a yellow-and-black hazard-striped band at the base, a grey cap on top with a round fitting and a yellow lever, orange tabs, and side clips. The reproduction instead shows three filing drawers with pull handles on the front face. These are drawn into the texture on a single box and belong to a different object."
-  },
-  "M4": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The measured mean colour difference is 32.2, more than double the 15 line. The reproduction is uniform dark grey painted metal. The original's glowing teal glass, yellow hazard stripes, tan/olive body and light grey cap are all missing."
-  },
-  "M5": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "None of the original's surface detail is there: the glowing green panels, the diagonal hazard stripes, the orange markings, the cap's machined fitting and the bottom panel's cyan marking. The reproduction shows drawer outlines and grime that the original does not have."
-  },
-  "M6": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "No player would mistake it for the original. It is clearly a three-drawer filing cabinet, while the original is a small glowing energy cell. The two differ in object type, scale and colour."
-  },
-  "M7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "It is upright and stands on the ground plane with its drawer face toward the front camera. However, it is a different object, so its front cannot correspond to the original's front, which is a glowing window. Its footprint is also far wider than the original's, so it is not placed on the origin the way the original is."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The harness check reports no errors. It has 12 triangles against the original's 116, well under twice. The box is closed, the right way out and resting on the ground in every view, with nothing floating."
-  }
- },
- "total": 3,
- "of": 16,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M1",
+  "M2",
+  "M4"
+ ]
 }

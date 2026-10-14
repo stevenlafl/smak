@@ -91,73 +91,9 @@
   "M4": 1,
   "M8": 2
  },
- "lineup": {
-  "picked": "C",
-  "right": "C",
-  "letters": {
-   "A": "models/w_longjump.mdl",
-   "B": "models/can.mdl",
-   "C": "models/w_medkit.mdl",
-   "D": "models/forklift.mdl",
-   "E": "models/headcrab.mdl",
-   "F": "models/w_battery.mdl",
-   "G": "models/mbarrel.mdl",
-   "H": "models/w_9mmclip.mdl",
-   "I": "models/w_security.mdl",
-   "J": "models/filecabinet.mdl"
-  }
- },
- "scores": {
-  "M1": {
-   "judge": 1,
-   "cap": 0,
-   "score": 0,
-   "reason": "Measured overlap is 0.855 front/back, 0.769 left/right and 0.582 top/below, so two views are under the 0.80 line. The reproduction is a sharp-edged rectangular slab. The original's case has bevelled corners on the top, front and back. Its strap loops out to the left and below the case in the top view and in all four angle views, and the reproduction has no strap at all. The overall footprint and thickness are roughly right, so the outline is there but clearly off."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Measured 34.6 x 26.4 x 6.8 for both, with 0% off on every axis."
-  },
-  "M3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "None of the original's parts are there. Missing: the cloth strap (looped handle), the bevelled case corners, the recessed control panel with its dark screen and red and green buttons on the top, and the dark side fittings (knobs and sockets) on the left and right ends. It is one plain box."
-  },
-  "M4": {
-   "judge": 0,
-   "cap": 1,
-   "score": 0,
-   "reason": "Measured mean deltaE is 23.9, well over 15. The original is a white painted case with red markings, a black control panel and a brown-grey cloth strap. The reproduction is uniform mid-grey on top and darker grey underneath, so no region has the original's colour or material."
-  },
-  "M5": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The original has a red cross and FIRST AID lettering on the top and back, red arrows with small lettering along the sides, a screen and buttons on the panel, and woven texture on the strap. The reproduction shows only a faint grey mottle and a lighter edge trim, none of which is in the original."
-  },
-  "M6": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "At game size the original reads as a white first-aid kit with a red cross and a strap. The reproduction is a featureless grey slab, and no player would take it for the original."
-  },
-  "M7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "It lies flat and sits on the same base plane and centre as the original in every side view. But it is symmetric with no features, so it has no front to match the original's front, which is the side with the control panel and strap attachment."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "No check errors were reported. It has 12 triangles against the original's 99, well under twice. In the renders it is a closed box with nothing open, inside out or floating."
-  }
- },
- "total": 5,
- "of": 16,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M1",
+  "M4"
+ ]
 }

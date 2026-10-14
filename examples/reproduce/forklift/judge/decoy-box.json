@@ -91,73 +91,9 @@
   "M4": 1,
   "M8": 2
  },
- "lineup": {
-  "picked": "E",
-  "right": "G",
-  "letters": {
-   "A": "models/w_security.mdl",
-   "B": "models/w_9mmclip.mdl",
-   "C": "models/can.mdl",
-   "D": "models/w_battery.mdl",
-   "E": "models/filecabinet.mdl",
-   "F": "models/w_medkit.mdl",
-   "G": "models/forklift.mdl",
-   "H": "models/w_longjump.mdl",
-   "I": "models/headcrab.mdl",
-   "J": "models/mbarrel.mdl"
-  }
- },
- "scores": {
-  "M1": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The reproduction is a single solid rectangular box. The measured silhouette overlap is 0.642 front/back, 0.31 left/right and 0.579 top/below, all well under 0.80. The side views fill the whole bounding rectangle, where the original shows the open mast, the overhead guard, the gap under the body between the wheels and the thin forks reaching forward. Top and below are solid rectangles, where the original has two separate fork tines and a narrow mast."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Length, width and height (186.6 x 60 x 113.4) match the original exactly. The measured off-share is 0 on every axis."
-  },
-  "M3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "None of the original's parts are there: no wheels (four, with hubs), no forks, no mast with lift chains, no overhead guard, no seat or steering wheel, no rear counterweight or engine grille, no driver in green overalls and yellow hard hat. It is one undivided box."
-  },
-  "M4": {
-   "judge": 0,
-   "cap": 1,
-   "score": 0,
-   "reason": "Measured mean deltaE is 25, against a pass line of 15 (21.6 to 29.2 per view). The whole box is one flat mid-grey concrete-like material. The original has a white and grey painted body, a red lower chassis band, a black mast and forks, black tyres and the driver's green clothing and yellow helmet. None of these regions has its colour or material."
-  },
-  "M5": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "None of the original's surface detail is there: the 'HANAN' lettering on the red band, the '2.2' capacity marking on the body side, the rear grille slats, the mesh roof of the overhead guard, the dark front plate on the mast. The box has only a generic grey stone grain with lighter edge trim, which does not belong to the original."
-  },
-  "M6": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "At game size, no player would take a plain grey block for a forklift with a driver. The two look nothing alike in any view."
-  },
-  "M7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "It sits upright on the same bounding box and footprint as the original, so it stands on its origin as the original does. But a symmetric box has no front: there is no mast end or counterweight end to show it faces the original's way."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "SMAK's check reports no errors. It has 12 triangles against the original's 749, far under twice. The box is closed, faces outward and rests on the ground, with nothing floating."
-  }
- },
- "total": 5,
- "of": 16,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M1",
+  "M4"
+ ]
 }
