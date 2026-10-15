@@ -512,6 +512,19 @@ test("a map's pictures look as Valve's walls do: grain, patches, colour and brig
   sure(!game.warnings.some((w) => /spec's own .wad/.test(w)), game.warnings.join("; "));
 });
 
+test("furniture of boxes named for a thing the kit has a model of is warned of (Kaupo's bathroom of blocks)", () => {
+  const spec = (prefabs) => ({
+    spec: "smak.map/1", name: "boxed", rooms: [{ id: "a", size: [256, 256, 128] }],
+    prefabs: Object.fromEntries(prefabs.map((n) => [n, { pieces: [{ box: [[-8, -8, 0], [8, 8, 16]] }] }])),
+    furniture: prefabs.map((prefab, k) => ({ prefab, room: "a", at: [-80 + 40 * k, 60] })),
+    entities: [{ class: "info_player_start", room: "a", at: [0, -60] }],
+  });
+  const said = (prefabs) => buildMapSpec(spec(prefabs), { out: join(folder, "boxed"), compilers: { found: false, message: "" } }).report.warnings.find((w) => /kit has a model/.test(w)) ?? "";
+  sure(/toilet as kit:toilet, tub as kit:bathtub, wall_sink as kit:sink_cabinet/.test(said(["toilet", "tub", "wall_sink"])), said(["toilet", "tub", "wall_sink"]));
+  // a shelf by the bath, a crate and steps are no kit's furniture
+  sure(said(["bath_shelf", "crate", "front_steps", "porta_toilet"]) === "", said(["bath_shelf", "crate", "front_steps", "porta_toilet"]));
+});
+
 test("stairs are kept clear as a doorway is: on them and at their foot (Kaupo's blocks by its stairs)", () => {
   const spec = (furniture) => ({
     spec: "smak.map/1", name: "stairs",

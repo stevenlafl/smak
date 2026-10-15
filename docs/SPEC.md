@@ -876,6 +876,9 @@ and pass the picture as `reference`: it is then drawn beside the plan of the res
 - `FAULT ... reaches N into <room>'s <side> wall`: furniture or a prop standing in a wall.
 - `FAULT furniture[n] ... stands in front of links[m]`: in the way of a door or an opening; move it aside.
   `... stands on or at the foot of the stairs of links[m]`: the same for a flight of stairs.
+- `WARN N pieces of furniture are boxes where the kit has a model`: a prefab named for a thing the kit furnishes
+  (`toilet`, `tub`, `wall_sink`, `fridge`) is built of boxes, which read as blocks in the game: put the kit's in
+  as props (`"model": "kit:toilet"`), unless the boxes are meant.
 - `WARN N of the map's own textures look unlike nine in ten of Valve's walls and floors`: each picture named
   with what is off: brighter or more coloured than Valve's (with the number and Valve's middle), or too even.
   Darken or soften its tone ("Materials").

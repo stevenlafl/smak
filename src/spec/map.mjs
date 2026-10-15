@@ -76,6 +76,10 @@ const RAIL_HIGH = 36;
 const RAIL_POST = 2;
 /** The kit's furniture, model specs a map's props name as "kit:<name>", and the key each is built under. */
 const KIT_FURNITURE = fileURLToPath(new URL("../../kits/furniture/", import.meta.url));
+/** Words in a prefab's name that make it something other than the kit's piece of that name. */
+const OTHER_THING = new Set(["porta", "portable", "toy", "mini", "model", "sign"]);
+/** Other names for the kit's furniture, as a maker names a prefab: a `tub` is the kit's `bathtub`. */
+const KIT_WORDS = { tub: "bathtub", bath: "bathtub", sink: "sink_cabinet", basin: "sink_cabinet", couch: "sofa", settee: "sofa", refrigerator: "fridge", oven: "stove", range: "stove", cooker: "stove", car: "sedan", tree: "tree_summer", plant: "potted_plant", tv: "tv_stand", television: "tv_stand", hoop: "basketball_hoop", swings: "swing_set", net: "tennis_net", wardrobe: "dresser", drawers: "dresser" };
 const kitKey = (model) => (typeof model === "string" && model.startsWith("kit:") ? `kit_${model.slice(4)}` : model);
 /** The sprites a player sees, and how near a surface they must be (sweep.mjs's LIGHT_REACH). */
 const GLOWS = ["env_glow", "env_sprite"];
@@ -1296,6 +1300,23 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     if (free < wanted)
       report.faults.push(`${way.in.map((t) => t.name).join(", ")} ${way.in.length > 1 ? "stand" : "stands"} ${way.kind === "stairs" ? "on or at the foot of the stairs of" : "in front of"} links[${way.link}]${way.kind === "stairs" ? "" : `, ${way.kind === "opening" ? "an" : "a"} ${way.kind}`}, leaving ${Math.round(free)} of ${way.kind === "stairs" ? "them" : "it"} free (a player passes at ease at ${wanted}; ${way.kind === "stairs" ? `the stairs and the floor ${CLEAR} deep at their foot` : `the floor ${CLEAR} deep each side`}, from ${way.min.join(" ")} to ${way.max.join(" ")}, ${way.kind === "stairs" ? "are" : "is"} kept clear): move ${way.in.length > 1 ? "them" : "it"} out of the way`);
   }
+  // furniture of boxes named for a thing the kit furnishes as a model: Kaupo's bathroom was a toilet, a tub and a
+  // sink of boxes, read as blocks (Steven's walk). Its name, or its last word, is the kit's or a common other name
+  const kitNames = readdirSync(KIT_FURNITURE).map((f) => f.replace(/\.json$/, ""));
+  const kitFor = (name) => {
+    const words = String(name).toLowerCase().split(/[^a-z]+/).filter(Boolean);
+    // a word that makes it another thing: a porta toilet is a booth, not the kit's toilet
+    if (words.some((w) => OTHER_THING.has(w))) return null;
+    const last = words.at(-1);
+    return [words.join("_"), last].map((w) => (kitNames.includes(w) ? w : KIT_WORDS[w])).find(Boolean);
+  };
+  const boxed = new Map();
+  for (const thing of spec.furniture ?? []) {
+    const kit = thing.prefab && !prefabOf(thing).file ? kitFor(thing.prefab) : null;
+    if (kit) boxed.set(thing.prefab, { kit, count: (boxed.get(thing.prefab)?.count ?? 0) + 1 });
+  }
+  if (boxed.size)
+    warnings.push(`${[...boxed.values()].reduce((a, b) => a + b.count, 0)} pieces of furniture are boxes where the kit has a model: ${[...boxed.entries()].map(([name, { kit, count }]) => `${name}${count > 1 ? ` (${count})` : ""} as kit:${kit}`).join(", ")}: boxes read as blocks; put the kit's in as props (\`"model": "kit:${[...boxed.values()][0].kit}"\`), unless the boxes are meant`);
   for (const mark of marks) {
     if (!mark.meaning.prefab) continue;
     const room = [...rooms.values()].find((r) => mark.x > r.min[0] && mark.x < r.max[0] && mark.y > r.min[1] && mark.y < r.max[1]);
