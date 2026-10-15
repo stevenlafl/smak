@@ -90,70 +90,13 @@
   "M1": 0,
   "M2": 2,
   "M4": 1,
-  "M8": 2,
-  "M6": 1
+  "M8": 2
  },
- "lineup": {
-  "picked": "I",
-  "right": "E"
- },
- "scores": {
-  "M1": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The reproduction is a plain rectangular box. Silhouette overlap is 0.283 front/back, 0.314 left/right and 0.215 top/below, far below the 0.80 line in every view. In every view it is missing the original's hunched head, the long arms reaching out with clawed hands, the separate legs and feet, and the stooped lean seen from the side. The box fills its whole bounding volume, which the original's outline does not."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The measured size is identical to the original's on every axis (38.5 x 53.8 x 68.4) and offShare is 0 on every axis, well within 10%."
-  },
-  "M3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "None of the original's parts are there. The box has no head or headcrab, no torso with the opened ribcage front and back, no lab coat, no arms, no long clawed hands, no legs and no shoes."
-  },
-  "M4": {
-   "judge": 0,
-   "cap": 1,
-   "score": 0,
-   "reason": "Measured mean deltaE is 23.1, above the 15 line in every view (19.4 to 33). The box is one flat mid-grey. The original has a white blood-stained lab coat and trousers, dark red-brown gore on the chest and back, a tan-yellow headcrab on the head, dark red clawed arms and dark red shoes. None of those regions or materials are there."
-  },
-  "M5": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "None of the original's surface detail is there: no blood splatter on the coat and trousers, no exposed ribs and organs on the chest and back, no headcrab texture, no claw detail. The box shows only a faint grey mottle with lighter edge trim, which the original does not have."
-  },
-  "M6": {
-   "judge": 0,
-   "cap": 1,
-   "score": 0,
-   "reason": "Side by side at game size, no player would take a grey box for the scientist zombie. It has no human figure, no headcrab and no claws, and nothing about it suggests a creature at all."
-  },
-  "M7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The box is upright and sits on the ground line at the original's height, matching how the original stands on its origin. A uniform box has no front, though, so the original's front (face, chest cavity, arms reaching forward) is not shown facing the right way. Facing cannot be confirmed."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The check reports no errors. The box has 12 triangles against the original's 844, well under twice. From every angle it looks closed, the right way out and resting on the ground, with nothing floating."
-  },
-  "C1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The motion sheet shows the reproduction as one unchanging box with no walk frames. Where the original swings its legs and arms through a 59-frame walk, the reproduction has no limbs and no motion. Nothing moves the way the original's parts do."
-  }
- },
- "total": 5,
- "of": 18,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M1",
+  "M4"
+ ],
+ "total": 0,
+ "of": 18
 }

@@ -154,6 +154,7 @@ function meshPart(part, readText, report, warnings) {
  * character's limb parts would have: 60 a piece), and given the part's own space. Its pieces stay on the part,
  * resolved, for each corner's bone.
  */
+const BLOB_MOST = 600;
 function blobPart(part, skeleton, report) {
   const names = skeleton ? [...skeleton.joints.keys()] : [];
   const jointAt = (name, where) => {
@@ -174,7 +175,9 @@ function blobPart(part, skeleton, report) {
     const c = plus(at ? at.joint : piece.at, piece.offset);
     return { kind: "ellipsoid", c, r: isNumber(r) ? [r, r, r] : r.length === 3 ? r : [r[0], r[0], r[1]], bone: piece.bone ?? (at ? at.own : skeleton ? nearestJoint(skeleton, c) : "root") };
   });
-  const made = blob(resolved, { cells: part.cells ?? 64, blend: part.blend ?? 3, target: part.triangles ?? Math.max(120, 60 * resolved.length) });
+  // unless told, 40 triangles a piece and 600 at most: a whole body in one blob of 28 pieces at 60 each came to 1,680,
+  // past twice the original character's 785 that a copy is held to (the reproduction test's M8)
+  const made = blob(resolved, { cells: part.cells ?? 64, blend: part.blend ?? 3, target: part.triangles ?? Math.min(BLOB_MOST, Math.max(120, 40 * resolved.length)) });
   const lo = [0, 1, 2].map((k) => Math.min(...made.tris.flatMap((t) => t.map((c) => c.p[k]))));
   const hi = [0, 1, 2].map((k) => Math.max(...made.tris.flatMap((t) => t.map((c) => c.p[k]))));
   const at = [(lo[0] + hi[0]) / 2, (lo[1] + hi[1]) / 2, lo[2]];

@@ -1,0 +1,731 @@
+{
+  "spec": "smak.model/1",
+  "name": "houndeye.mdl",
+  "kind": "character",
+  "base": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "floor": 0,
+  "size": {
+    "length": 49.3,
+    "width": 33.5,
+    "height": 44.7
+  },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "pose": {
+    "keys": {
+      "Bip01 L Leg": {
+        "turn": {
+          "y": -8,
+          "x": 17.6
+        }
+      },
+      "Bip01 R Leg": {
+        "turn": {
+          "y": -24,
+          "x": -20
+        }
+      },
+      "Bip01 L Leg1": {
+        "turn": {
+          "y": -2,
+          "x": -9
+        }
+      },
+      "Bip01 R Leg1": {
+        "turn": {
+          "y": 1,
+          "x": 15
+        }
+      }
+    }
+  },
+  "materials": {
+    "skin": {
+      "base": "leather",
+      "seen": [
+        0.62,
+        0.6,
+        0.25
+      ]
+    }
+  },
+  "project": [
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "front",
+      "area": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "left",
+      "area": [
+        512,
+        0,
+        1024,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "back",
+      "area": [
+        1024,
+        0,
+        1536,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "right",
+      "area": [
+        0,
+        512,
+        512,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "top",
+      "area": [
+        512,
+        512,
+        1024,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "below",
+      "area": [
+        1024,
+        512,
+        1536,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/front-left.png",
+      "yaw": 35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/front-right.png",
+      "yaw": -35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-left.png",
+      "yaw": 145,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-right.png",
+      "yaw": 215,
+      "pitch": 20
+    }
+  ],
+  "parts": [
+    {
+      "id": "body",
+      "kind": "turn",
+      "material": "skin",
+      "axis": "x",
+      "sides": 16,
+      "at": [
+        -24.6,
+        0,
+        -10
+      ],
+      "bone": "Bip01 Pelvis",
+      "caps": [
+        true,
+        0.8
+      ],
+      "rings": [
+        {
+          "s": 0,
+          "r": [
+            2,
+            2.5
+          ],
+          "off": [
+            0,
+            -5
+          ]
+        },
+        {
+          "s": 2.6,
+          "r": [
+            4.5,
+            6
+          ],
+          "off": [
+            0,
+            -4.5
+          ]
+        },
+        {
+          "s": 8.6,
+          "r": [
+            6,
+            8
+          ],
+          "off": [
+            0,
+            -3.5
+          ]
+        },
+        {
+          "s": 16.6,
+          "r": [
+            7.5,
+            9
+          ],
+          "off": [
+            0,
+            -0.5
+          ]
+        },
+        {
+          "s": 24.6,
+          "r": [
+            9,
+            10.5
+          ],
+          "off": [
+            0,
+            1.5
+          ]
+        },
+        {
+          "s": 32.6,
+          "r": [
+            11.2,
+            11.5
+          ],
+          "off": [
+            0,
+            2.8
+          ]
+        },
+        {
+          "s": 40.6,
+          "r": [
+            12,
+            11.8
+          ],
+          "off": [
+            0,
+            3.3
+          ]
+        },
+        {
+          "s": 45.6,
+          "r": [
+            12,
+            12
+          ],
+          "off": [
+            0,
+            3.5
+          ]
+        },
+        {
+          "s": 47.6,
+          "r": [
+            11.3,
+            11.3
+          ],
+          "off": [
+            0,
+            3.2
+          ]
+        },
+        {
+          "s": 48.8,
+          "r": [
+            10,
+            10
+          ],
+          "off": [
+            0,
+            2.8
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fin1",
+      "kind": "turn",
+      "material": "skin",
+      "axis": "x",
+      "sides": 12,
+      "at": [
+        9.5,
+        0,
+        -10
+      ],
+      "bone": "Bip01 Pelvis",
+      "caps": [
+        true,
+        true
+      ],
+      "rings": [
+        {
+          "s": 0,
+          "r": [
+            10.8,
+            11
+          ],
+          "off": [
+            0,
+            2.9
+          ]
+        },
+        {
+          "s": 6,
+          "r": [
+            12.3,
+            12.1
+          ],
+          "off": [
+            0,
+            6.6
+          ],
+          "crease": true
+        },
+        {
+          "s": 6.5,
+          "r": [
+            11.2,
+            11.2
+          ],
+          "off": [
+            0,
+            3.3
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fin2",
+      "kind": "turn",
+      "material": "skin",
+      "axis": "x",
+      "sides": 12,
+      "at": [
+        1.5,
+        0,
+        -10
+      ],
+      "bone": "Bip01 Pelvis",
+      "caps": [
+        true,
+        true
+      ],
+      "rings": [
+        {
+          "s": 0,
+          "r": [
+            8.9,
+            10.2
+          ],
+          "off": [
+            0,
+            1.75
+          ]
+        },
+        {
+          "s": 6,
+          "r": [
+            11.9,
+            11.65
+          ],
+          "off": [
+            0,
+            5.95
+          ],
+          "crease": true
+        },
+        {
+          "s": 6.5,
+          "r": [
+            10.5,
+            10.8
+          ],
+          "off": [
+            0,
+            2.8
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fin3",
+      "kind": "turn",
+      "material": "skin",
+      "axis": "x",
+      "sides": 12,
+      "at": [
+        -7,
+        0,
+        -10
+      ],
+      "bone": "Bip01 Pelvis",
+      "caps": [
+        true,
+        true
+      ],
+      "rings": [
+        {
+          "s": 0,
+          "r": [
+            7.3,
+            8.7
+          ],
+          "off": [
+            0,
+            -0.25
+          ]
+        },
+        {
+          "s": 6,
+          "r": [
+            10,
+            10.8
+          ],
+          "off": [
+            0,
+            4.8
+          ],
+          "crease": true
+        },
+        {
+          "s": 6.5,
+          "r": [
+            8.3,
+            9.8
+          ],
+          "off": [
+            0,
+            1.4
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fin4",
+      "kind": "turn",
+      "material": "skin",
+      "axis": "x",
+      "sides": 12,
+      "at": [
+        -15,
+        0,
+        -10
+      ],
+      "bone": "Bip01 Pelvis",
+      "caps": [
+        true,
+        true
+      ],
+      "rings": [
+        {
+          "s": 0,
+          "r": [
+            5.9,
+            7.7
+          ],
+          "off": [
+            0,
+            -3.1
+          ]
+        },
+        {
+          "s": 6,
+          "r": [
+            8.5,
+            9.4
+          ],
+          "off": [
+            0,
+            2.6
+          ],
+          "crease": true
+        },
+        {
+          "s": 6.5,
+          "r": [
+            7,
+            8.5
+          ],
+          "off": [
+            0,
+            -0.7
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fin5",
+      "kind": "turn",
+      "material": "skin",
+      "axis": "x",
+      "sides": 12,
+      "at": [
+        -21.5,
+        0,
+        -10
+      ],
+      "bone": "Bip01 Pelvis",
+      "caps": [
+        true,
+        true
+      ],
+      "rings": [
+        {
+          "s": 0,
+          "r": [
+            4.6,
+            6
+          ],
+          "off": [
+            0,
+            -4.4
+          ]
+        },
+        {
+          "s": 5,
+          "r": [
+            7,
+            8
+          ],
+          "off": [
+            0,
+            -0.5
+          ],
+          "crease": true
+        },
+        {
+          "s": 5.5,
+          "r": [
+            5.6,
+            7.6
+          ],
+          "off": [
+            0,
+            -3.5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "haunch",
+      "kind": "superquadric",
+      "material": "skin",
+      "size": [
+        10,
+        10,
+        15
+      ],
+      "round": [
+        0.8,
+        0.8
+      ],
+      "sides": 10,
+      "at": [
+        -19.5,
+        1,
+        -24
+      ],
+      "bone": "Bip01 Pelvis"
+    },
+    {
+      "id": "thigh_left",
+      "kind": "cylinder",
+      "material": "skin",
+      "radius": 3,
+      "height": 1,
+      "sides": 6,
+      "span": {
+        "bones": [
+          "Bip01 L Leg",
+          "Bip01 L Leg1"
+        ],
+        "over": 2
+      }
+    },
+    {
+      "id": "thigh_right",
+      "kind": "cylinder",
+      "material": "skin",
+      "radius": 3,
+      "height": 1,
+      "sides": 6,
+      "span": {
+        "bones": [
+          "Bip01 R Leg",
+          "Bip01 R Leg1"
+        ],
+        "over": 2
+      }
+    },
+    {
+      "id": "shoulder_left",
+      "kind": "superquadric",
+      "material": "skin",
+      "size": [
+        10,
+        7.5,
+        15
+      ],
+      "round": [
+        0.6,
+        0.6
+      ],
+      "sides": 10,
+      "at": [
+        10,
+        13.3,
+        -21
+      ],
+      "bone": "Bip01 L Leg"
+    },
+    {
+      "id": "shoulder_right",
+      "kind": "superquadric",
+      "material": "skin",
+      "size": [
+        10,
+        7.5,
+        15
+      ],
+      "round": [
+        0.6,
+        0.6
+      ],
+      "sides": 10,
+      "at": [
+        10,
+        -13.3,
+        -21
+      ],
+      "bone": "Bip01 R Leg"
+    },
+    {
+      "id": "shin_left",
+      "kind": "cylinder",
+      "material": "skin",
+      "radius": 2.6,
+      "top": 1.6,
+      "height": 1,
+      "sides": 7,
+      "span": {
+        "bones": [
+          "Bip01 L Leg1",
+          "Bip01 L Foot"
+        ],
+        "over": 1.5
+      }
+    },
+    {
+      "id": "shin_right",
+      "kind": "cylinder",
+      "material": "skin",
+      "radius": 2.6,
+      "top": 1.6,
+      "height": 1,
+      "sides": 7,
+      "span": {
+        "bones": [
+          "Bip01 R Leg1",
+          "Bip01 R Foot"
+        ],
+        "over": 1.5
+      }
+    },
+    {
+      "id": "foot_left",
+      "kind": "cylinder",
+      "material": "skin",
+      "radius": 2.8,
+      "top": 1.3,
+      "height": 4.5,
+      "sides": 7,
+      "at": [
+        9,
+        12.5,
+        -36
+      ],
+      "bone": "Bip01 L Foot"
+    },
+    {
+      "id": "foot_right",
+      "kind": "cylinder",
+      "material": "skin",
+      "radius": 2.8,
+      "top": 1.3,
+      "height": 4.5,
+      "sides": 7,
+      "at": [
+        9,
+        -12.5,
+        -36
+      ],
+      "bone": "Bip01 R Foot"
+    },
+    {
+      "id": "rear_leg",
+      "kind": "tube",
+      "material": "skin",
+      "sides": 7,
+      "bone": "Bip01 Pelvis",
+      "path": [
+        [
+          -20,
+          2,
+          -23,
+          2.8
+        ],
+        [
+          -19.5,
+          2,
+          -28,
+          2.2
+        ],
+        [
+          -18,
+          2,
+          -32.5,
+          1.8
+        ]
+      ]
+    },
+    {
+      "id": "rear_foot",
+      "kind": "cylinder",
+      "material": "skin",
+      "radius": 2.7,
+      "top": 1.3,
+      "height": 4.5,
+      "sides": 7,
+      "at": [
+        -17.5,
+        2,
+        -36
+      ],
+      "bone": "Bip01 Pelvis"
+    }
+  ]
+}

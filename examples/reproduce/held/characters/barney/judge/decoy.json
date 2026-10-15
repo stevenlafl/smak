@@ -90,70 +90,13 @@
   "M1": 0,
   "M2": 2,
   "M4": 0,
-  "M8": 2,
-  "M6": 1
+  "M8": 2
  },
- "lineup": {
-  "picked": "I",
-  "right": "B"
- },
- "scores": {
-  "M1": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The reproduction is a plain rectangular box. Its silhouette overlap is 0.528 front/back, 0.53 left/right and 0.494 top/below, far below the 0.80 line in every view. There is no head, arms, legs or helmet outline. The pictures show a solid block where the original has a person with gaps between the arms, torso and legs."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The bounding size of 22.8 x 30.2 x 75.3 matches the original exactly, so offShare is 0 on all three axes."
-  },
-  "M3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "None of the original's parts are there: no head, helmet, visor, torso, armoured vest, arms, hands, holstered pistol, legs or boots. It is one box with six faces."
-  },
-  "M4": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The whole box is one flat mottled grey. The original has a blue-violet shirt and trousers, a black vest and boots, a grey helmet and skin-toned face and hands. The measured mean ΔE is 30.8, roughly double the 15 line, and every view is between 26.4 and 33.8."
-  },
-  "M5": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The original's surface details are all missing: the yellow emblem and badge on the front of the vest, the SECURITY lettering on the back, the vest's ribbing, the boot laces and the face. The box carries only a generic grey noise texture with light edges."
-  },
-  "M6": {
-   "judge": 0,
-   "cap": 1,
-   "score": 0,
-   "reason": "No player would take a grey pillar for the uniformed security guard. Nothing about it is recognisable as a character."
-  },
-  "M7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "It is upright and stands on the origin at ground level as the original does. A featureless box has no front, though, so it cannot show the original's facing."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "SMAK's check reports no errors. It has 12 triangles against the original's 785, well under twice the original's count, and the box is closed and sits on the ground. The measurement allows a 2 and the pictures show nothing open or inside out."
-  },
-  "C1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The reproduction's run is a single static box with no frames of motion. Nothing moves: there are no legs that stride, no arms that swing and no body that leans as in the original's 15-frame run. It does not move as the original does."
-  }
- },
- "total": 5,
- "of": 18,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M1",
+  "M4"
+ ],
+ "total": 0,
+ "of": 18
 }

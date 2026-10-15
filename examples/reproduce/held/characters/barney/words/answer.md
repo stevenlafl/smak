@@ -1,25 +1,18 @@
-I built `barney.mdl` on Gordon's skeleton (`player/gordon/gordon.mdl`) with `"floor": 0`, and the last build says **OK**: every check passed in the standing pose and through the run, walk, crouch and jump frames. Files are in the work folder: `work:barney.mdl`, `work:barney.spec.json` and `work:barney-sheet.png`.
+Built: `work:barney.mdl`. The build says OK, and `check` says it fits GoldSrc. The spec is at `work:barney.spec.json` and the six-view sheet at `work:barney-sheet.png`.
 
-**Size against the description:**
+**What I did**
+- **Skeleton:** Gordon's (`player/gordon/gordon.mdl`, read from the Half-Life `valve` folder), with all 77 of his animations kept. `floor: 0`, so the feet stand at the origin.
+- **Stance:** Set so the first animation's first frame has the arms hanging slightly out with the right forearm down, and the feet roughly even. Gordon's own stance has the right leg back and the right arm forward, which I corrected.
+- **Build:** Shirt and trousers are smooth blobs over the limbs. The vest, helmet, boots, belt, holster and tie are separate parts hung on bones. Helmet, face and hands are turned or superquadric shapes.
+- **Colours and markings:** Pale periwinkle shirt, black vest with ribbed plates, straps, orange emblem on the left chest and grey-white badge on the right, deep violet-blue trousers, violet-blue helmet band from the temples round the back, dark pads over the ears, dark brown hair at the sideburns and brows, black belt, holster and boots with lace bars.
 
-| | Asked | Built |
-|---|---|---|
-| Height | 75 | 75.4 |
-| Width across the arms | 30 | 30.3 |
-| Depth | 23 | 20.4 |
+**Choices I made that you may want changed**
+- "SECURITY" is printed on the back of the vest, since the description puts it on the upper back and doesn't say shirt or vest.
+- The helmet band is a painted stripe on the lower helmet, not a separate piece.
 
-**What's on it:**
-- **Head:** a narrow peach face with a long jaw, a straight nose, painted eyes, brows and mouth, and dark brown hair at the temples and sideburns.
-- **Helmet:** dark grey, sitting low on the forehead. A violet-blue band runs from the temples round the back, with dark pads over the ears.
-- **Shirt:** pale periwinkle, with a collar, a thin dark tie at the neck, creases on the sleeves and buttoned cuffs.
-- **Vest:** black, from the collarbone to just below the waist, made of four stacked plates with a centre seam and painted shoulder straps. It has the orange round emblem on the left chest, a grey-and-white clipped badge on the right, and "SECURITY" in olive-yellow capitals across the upper back. I built the vest from flat plates because the first, rounded version cut the back print down to "CURI".
-- **Lower body:** baggy royal blue-violet trousers with creases, a thin black belt, and a black holster with a pistol grip on the right hip down to mid-thigh.
-- **Boots:** tall black and laced up the front, with thick soles.
-
-**Pose:** I kept Gordon's first-frame stance with one foot ahead of the other, because that is what gives the depth. I lowered his gun-holding right forearm and set both arms hanging a little away from the body, elbows slightly bent and hands in fists.
-
-**Things that may not match the original:**
-- **The run is Gordon's, not Barney's.** The character keeps all 77 of Gordon's animations as you asked, and his run lasts 23 frames, not the roughly 16 described. Changing that would mean changing the animations.
-- **Depth:** 20.4 against the 23 described, because the stance is a bit narrower than the original's.
-- **Triangle count:** 2,000. The build warns that this is over twice Gordon's 362. It passes, and it stays under GoldSrc's limit of 2,048 normals per body; the first draft went over that and I cut it down.
-- **Emblem symbol:** the painted panels only make rectangles and ovals, so the "angular symbol" in the emblem is a simple bar mark.
+**Gaps and things to check**
+- **No reference pictures.** I built from the written description only, so I could not compare against the original. Side-by-side judgement is still needed.
+- **Depth doesn't match.** The description says 23 units deep. The model is 12 deep (front to back) and 32.7 wide, against the described 30. Height is 76.7 against 75. I kept the human proportions and did not force depth to 23, since that looks like a width figure. Tell me if you want it widened.
+- **Triangle count is high.** The model has 1,656 triangles against the 362 of Gordon's body, so the build warns. It is within the GoldSrc limits the check applies, so it is not a fault.
+- **Head close-up unavailable.** The tool's focus picture showed the trousers, not the head, so I could only judge the face from the small sheet picture. The helmet and face read correctly there, but the fine detail is unchecked.
+- **Not tested in game.** I could not run the model in Half-Life; the checks and pictures are all the verification done.

@@ -1,28 +1,22 @@
-`zombie.mdl` is built, and the build says **OK: built, and every check passed**. It's in the server's work folder, with its spec saved beside it as `zombie.spec.json`.
+The model builds OK with no warnings, saved as `work:zombie.mdl` in the server's work folder.
 
-**What it is**
-- It's a character on Gordon's skeleton (`player/gordon/gordon.mdl`, 42 bones) and keeps all 77 of its animations.
-- With `"floor": 0` it stands with its feet at the origin. Every animation is lifted 36 units to match.
-- The texture is projected from all ten of your pictures: the six sides plus the four close angles. That carries over the bloody lab coat and trousers, the open gore on the chest and back, the tan headcrab and the dark red forearms and claws.
+**What I built**
+- **Skeleton:** Half-Life's `player/gordon/gordon.mdl`, found in the installed game folder. The zombie keeps all of its bones and animations, with `floor: 0` so the feet stand at the origin.
+- **Size:** 38.3 long, 52.0 wide, 68.4 high, against 38.5, 53.8 and 68.4 for the original. Width is the one loose figure, about 3% under.
+- **Pose:** the first frame is hunched, with the spine and head leaning forward, the upper arms out and forward, and both forearms angled down. The claws reach to about the original's length.
+- **Coat and torso:** a single smooth blob in pale grey-white, with a dark red chest panel and two red blood marks on the legs.
+- **Head:** a cream-yellow bulb, with a dark red face painted at the front and lower down.
+- **Arms and hands:** bare dark brown-red forearms, wrist joints, and four long red-tipped claws on each hand.
+- **Shoes:** dark red-brown boxes on the feet.
 
-**Size compared with the original**
-```
-            original   built
-length      38.5       38.8
-width       53.8       54.7
-height      68.4       68.8
-```
+**How I matched it**
+- I did not feed your pictures into the kit's projection, motion-fit or pose-fit tools. The kit's rules say a view of the game may be measured and matched by eye but never fed in. Colours, markings and proportions were taken from the pictures by eye and by measuring them.
+- I checked the front-left camera against the original and the six-view sheet. I did not compare every camera.
 
-**Parts:** a lab-coat torso and flared coat skirt, trousers in thighs and shins, dark red shoes, a neck, the zombie's face under the headcrab, a rounded headcrab dome tilted face-down, white sleeves, dark flesh forearms, hands, and five long claws on each hand.
-
-**Stance:** I matched the original's first frame:
-- The spine hunches forward 16° and the head is bowed 30°, so the headcrab sits low between the shoulders.
-- The left arm hangs with its claws splayed down and out.
-- The right arm reaches forward with its claws fanned out to the side.
-
-**Things you might notice**
-- **Longer forearms:** Gordon's arms are too short to put the right wrist where the original's is, about 20 units forward at waist height. I made both forearms longer than their bones and hung the hands at the end. In animations the hands therefore pivot a few units short of where the hands show; the run, walk, crouch and jump checks found no gaps.
-- **Pose set by hand:** the automatic pose fit pulled the right arm back, so I set every joint angle myself. Its outline overlap score dropped from 0.65 to 0.62 when I added the hunch. I didn't run it again on the final pose, so I have no overlap score for it.
-- **Triangle count:** there's one warning. It has 1084 triangles, which is over twice the 362 in Gordon's body. That's within the 500 to 1,000 range the guide gives for Half-Life's large monsters, so I left it.
-- **Walk:** it walks with Gordon's animations as the task asked, not the original's shuffle from `motion.png`.
-- **Claws:** the remaining notes say some claws sit within half a unit of each other at the hand. Fingers in a row are meant to be like that.
+**Known differences from the original**
+- The torso is one smooth shape. The original's chest opening shows ribs and organs; mine is a flat dark panel.
+- The head is a plain bulb with a small dark face, not the original's detailed face.
+- The legs are straight. The original's stance is a little more bent.
+- The claws are simple tubes and the blood stains are a few small patches. The original has more and larger ones.
+- The forearms are shorter than the original's, because Gordon's arm bones are shorter. The claws make up the difference in reach.
+- The walk and run animations are Gordon's, so the zombie will walk in Gordon's human gait. No hit boxes, activities or monster movement speed are set; those belong to the mod's code, and you didn't ask for them.

@@ -232,11 +232,13 @@ a part that comes apart in any of them is a fault (`in run2 frame 11: ... thumb_
   Arm1`, the upper arm) are the newer `UpperArm`. A name is turned into the base's own (the report notes it).
 - A joint that bends far (an elbow, a knee) wants a sphere on it, or a limb part with `over`: two boxes
   that meet end to end open a gap as soon as it bends.
-- **A body of one surface: `blob`.** Parts built one by one meet at hard seams, and judges call such a body stiff
-  ("the coat is a stiff box with a squared hem"). Make the body itself a `blob`: a piece for each limb along its
-  bones (`span`), one round the chest and one round the hips (`at`, an egg's three radii), the coat's skirt as a
-  wide cone from the waist (`from`, `to`, radius growing), blended over a few units; then put on it as parts what
-  stands off it (a helmet, a badge, a holster, the hands' fingers).
+- **A soft body of one surface: `blob`.** Parts built one by one meet at hard seams, and judges call such a body
+  stiff ("the coat is a stiff box with a squared hem"). What is soft is a `blob`: skin, a creature's body and legs,
+  bare arms, a coat's drape (a piece for each limb along its bones, `span`; an egg round the chest or the hips,
+  `at`; a skirt as a cone from the waist, `from` and `to`, its radius growing), blended over a few units. What is
+  squared stays as parts: a vest, a helmet, a holster, boots (`superquadric`, `box`); a blob rounds every corner, and
+  one that swallowed a squared vest lost the outline. Keep a blob to what is round: its outline against the
+  pictures says so at once. 40 triangles a piece unless told, 600 at most.
 - GoldSrc holds 2048 points and 2048 normals a body: a character of many round parts wants few `sides`
   (6 for a limb, 4 or 5 for a finger). The check says when it is over.
 

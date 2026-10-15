@@ -90,70 +90,13 @@
   "M1": 0,
   "M2": 2,
   "M4": 0,
-  "M8": 2,
-  "M6": 1
+  "M8": 2
  },
- "lineup": {
-  "picked": "I",
-  "right": "F"
- },
- "scores": {
-  "M1": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The reproduction is a plain rectangular box. Silhouette overlap is 0.601 front/back, 0.393 left/right and 0.458 top/below, all below 0.80. It has no head, arms, legs or coat tails, and in every view the box fills space the figure does not, such as the gaps between the legs and beside the arms."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The measured bounding size is 33.3 x 21.7 x 68 for both, so the off-share is 0 on every axis. That puts each dimension within 10%."
-  },
-  "M3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "None of the original's parts are there. The head with glasses and grey hair, the arms and hands, the lab coat, shirt and tie, the trousers and the brown shoes are all missing. The reproduction is a single box."
-  },
-  "M4": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The mean colour difference is 27.3 (CIE76 deltaE), well over 15, and every view is above 19. The box is a uniform mottled grey stone or concrete texture. It has none of the white cloth coat and trousers, blue shirt, red-striped tie, skin or brown leather shoes."
-  },
-  "M5": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The original's surface detail is missing: the face, the glasses, the tie stripes, the coat folds and lapels, the belt and the shoe texture. The box adds a stone mottle and bevelled edge lines that the original does not have."
-  },
-  "M6": {
-   "judge": 0,
-   "cap": 1,
-   "score": 0,
-   "reason": "At any size a player would see a grey pillar, not a bald scientist in a lab coat. Nobody would take it for the original."
-  },
-  "M7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The box is upright and stands on the origin at the original's height, with its footprint centred like the original's. A box has no front, though, so it cannot show the original's facing. Nothing marks which side is the face."
-  },
-  "M8": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "The check reports no errors. At 12 triangles against 740 it is well under the twice-the-original limit, and it is closed and stands on the ground. It is a 1 rather than a 2 because the model has no bones or skinning tied to the character skeleton in any way that shows, as the motion picture makes clear."
-  },
-  "C1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "In the run the original swings its arms and legs through 18 frames. The reproduction shows one rigid box with no limbs and no motion, so nothing moves as the original's parts do."
-  }
- },
- "total": 4,
- "of": 18,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M1",
+  "M4"
+ ],
+ "total": 0,
+ "of": 18
 }

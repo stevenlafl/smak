@@ -1,33 +1,36 @@
-I built `scientist.mdl` on Gordon's skeleton (`player/gordon/gordon.mdl`) with `"floor": 0`. The build says **OK** and every check passed. Gordon's 77 animations are kept, and the run animation stays in one piece in every frame.
+I built `scientist.mdl` on Gordon's skeleton with `"floor": 0`. The build says OK and the engine-limit check reports "fit for goldsrc". I had no picture of the original, only your description, so every colour, marking and proportion is my reading of that text, and nothing was checked against the original's pictures.
 
-**Size against the description:**
+**Files (in the work folder)**
+- `work:scientist.mdl`: the model
+- `work:scientist.spec.json`: the spec it was built from
+- `work:scientist-sheet.png`: six-view sheet
+- `headcheck.mdl`, `headcheck.spec.json`, `headcheck-sheet.png`: a scratch model I used to look at the head alone. I have no delete tool here, so please remove them.
 
-| | Target | Built |
-|---|---|---|
-| Height | 68 | 69.3 |
-| Width across hands | 21.7 | 22.8 |
-| Front to back (mid-stride) | 33.3 | 32.3 |
-| Triangles | — | 1,360 |
+**Checked against your numbers**
 
-**How it stands:** In the first frame he's mid-walk: left leg forward, right leg back with the heel lifted, and his whole weight on the floor. He has a slight stoop, with the neck and head pushed forward but the head kept level. Both arms hang straight with loose fists. Gordon's own first frame holds a gun forward in the right hand, so I lowered that forearm.
+| Thing | Your description | Model |
+| --- | --- | --- |
+| Height | about 68 | 67.9 |
+| Width across the hands | 21.7 | 22.0 |
+| Length front to back | 33.3 (from a stride) | 18.3 standing |
+| Head, all three sides | about 8.5 tall | 8.6 long, 8.2 wide, 9.5 tall |
+| Hip line | just under 34 | hip joint at about 39 |
 
-**What's on him:**
-- **Head:**
-  - Bald, slightly long, pale pink-beige skull, with a band of grey-white hair round the back at ear level.
-  - Black rectangular glasses whose arms run back to the ears.
-  - Sunken eyes, hollow cheeks and a thin mouth.
-  - A long straight nose and ears that stick out a little; these two are built, the rest is painted.
-- **Coat:** A white lab coat, open down the front, with a turned-down collar, lapel lines and long sleeves. It comes to below mid-thigh with a flare at the hem, and a seam runs down the back.
-- **Under the coat:** A collared chambray-blue shirt shows in the opening. The tie has diagonal stripes, and the black belt has a grey buckle.
-- **Trousers and shoes:** Off-white trousers that gather over dark reddish-brown shoes.
+**What's in it**
+- Bald, elongated head with pale pinkish skin, a grey-white band of hair at ear level, black-framed glasses, a long straight nose, a thin mouth and slightly prominent ears.
+- White lab coat to mid-thigh with a slight flare, and a blue shirt and red-and-black tie down the centre. Black belt with a grey buckle, off-white trousers, dark reddish-brown shoes.
+- Arms hang straight with fists at mid-thigh, about 22 units apart at the fists.
+- Skeleton's own animations kept. Its run, walk, crouch and jump passed the report's checks for parts coming apart.
 
-**Where it falls short:**
-- **Proportions:** Gordon's bones are longer than this scientist's. The pose can only turn bones, not move them, so I couldn't lower the hips. The hip line ends up about 38 units up instead of just under half his height (about 33). His fists only reach the top of the thigh, not mid-thigh. To keep him near 68 tall, the head sits low and close on the shoulders.
-- **Tie colours:** The tie's stripes are dull red and black, not red and navy. The striped paint the kit offers only pairs a colour with black.
-- **Running:** Run and the other animations are Gordon's own, including an athletic run with a 23-frame cycle. The coat tails follow the thighs, but nothing flaps on its own and the tie doesn't move.
-- **Triangles:** The build warns that 1,360 is more than twice the 362 in Gordon's own body. That's a warning, not a fault.
-- **A minor note:** The build notes a 0.45-unit gap between the left upper arm and the chest. Both parts touch other parts, so it isn't a fault.
+**Where it differs from the original**
+- **Hip line and leg length:** Gordon's hip joint sits higher than your hip line. I can't move bones, so the legs are his and the hip line is set by the coat and trousers.
+- **Coat front:** the coat is closed. Painted lapel edges and the shirt suggest the open front, but a real open front needs a split coat.
+- **Stoop:** the spine is Gordon's and nearly upright. Only the head juts forward.
+- **Tie:** the hazard pattern gives red and black, not navy and red.
+- **Running:** the coat tails don't flap as described. I didn't fit the run to pictures, since I had none.
+- **Eyes:** no sunken eye sockets are modelled.
+- **Triangles:** 1,026, which the report flags as more than twice Gordon's body (362). It is a warning, not a failure.
 
-**Kit bug:** the close-up view (`focus`) ignores the floor lift, so it aims 36 units too low; asking for the head showed the hips. To check the face I built a throwaway copy without the lift, `work:probe.mdl`. You can delete it; the tools here can't.
-
-The files are in the work folder: `scientist.mdl`, `scientist.spec.json` and `scientist-sheet.png` (the six views).
+**Choices I made**
+- Used `C:\...\Half-Life\valve\models\player\gordon\gordon.mdl`, found through the Steam install, since the models folder is not set up.
+- Coat, trousers and shirt use matte paint, not cloth, to avoid the blotchy look the cloth gave.

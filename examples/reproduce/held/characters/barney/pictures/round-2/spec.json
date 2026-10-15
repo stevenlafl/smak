@@ -1,0 +1,856 @@
+{
+  "spec": "smak.model/1",
+  "name": "barney.mdl",
+  "kind": "character",
+  "base": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "floor": 0,
+  "size": {
+    "height": 75.3,
+    "length": 22.8,
+    "width": 30.2
+  },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "pose": {
+    "keys": {
+      "Bip01 L Leg": {
+        "turn": {
+          "y": 17,
+          "x": 1
+        }
+      },
+      "Bip01 L Leg1": {
+        "turn": {
+          "y": 0
+        }
+      },
+      "Bip01 L Foot": {
+        "turn": {
+          "y": -17
+        }
+      },
+      "Bip01 R Leg": {
+        "turn": {
+          "y": -14,
+          "x": -4
+        }
+      },
+      "Bip01 R Leg1": {
+        "turn": {
+          "y": -3
+        }
+      },
+      "Bip01 R Foot": {
+        "turn": {
+          "y": 17
+        }
+      },
+      "Bip01 L Arm1": {
+        "turn": {
+          "y": 3,
+          "x": 2
+        }
+      },
+      "Bip01 L Arm2": {
+        "turn": {
+          "y": -6
+        }
+      },
+      "Bip01 R Arm1": {
+        "turn": {
+          "x": -5
+        }
+      },
+      "Bip01 R Arm2": {
+        "turn": {
+          "y": 80
+        }
+      }
+    }
+  },
+  "materials": {
+    "shirt": {
+      "base": "cloth",
+      "seen": [
+        0.5,
+        0.5,
+        0.85
+      ]
+    },
+    "pants": {
+      "base": "cloth",
+      "seen": [
+        0.3,
+        0.32,
+        0.62
+      ]
+    },
+    "vest": {
+      "base": "leather",
+      "seen": [
+        0.12,
+        0.12,
+        0.13
+      ]
+    },
+    "skin": {
+      "base": "paint",
+      "seen": [
+        0.72,
+        0.58,
+        0.48
+      ]
+    },
+    "helmet": {
+      "base": "paint",
+      "seen": [
+        0.4,
+        0.42,
+        0.45
+      ]
+    },
+    "band": {
+      "base": "paint",
+      "seen": [
+        0.3,
+        0.3,
+        0.7
+      ]
+    },
+    "boot": {
+      "base": "leather",
+      "seen": [
+        0.08,
+        0.08,
+        0.08
+      ]
+    }
+  },
+  "project": [
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "front",
+      "area": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "left",
+      "area": [
+        512,
+        0,
+        1024,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "back",
+      "area": [
+        1024,
+        0,
+        1536,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "right",
+      "area": [
+        0,
+        512,
+        512,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "top",
+      "area": [
+        512,
+        512,
+        1024,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "below",
+      "area": [
+        1024,
+        512,
+        1536,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/front-left.png",
+      "yaw": 35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/front-right.png",
+      "yaw": -35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-left.png",
+      "yaw": 145,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-right.png",
+      "yaw": 215,
+      "pitch": 20
+    }
+  ],
+  "parts": [
+    {
+      "id": "torso",
+      "kind": "turn",
+      "material": "vest",
+      "sides": 10,
+      "span": {
+        "bones": [
+          "Bip01 Spine",
+          "Bip01 Neck"
+        ],
+        "over": 2
+      },
+      "rings": [
+        [
+          0,
+          [
+            5.4,
+            8.3
+          ]
+        ],
+        [
+          6,
+          [
+            5.6,
+            8.6
+          ]
+        ],
+        [
+          12,
+          [
+            6,
+            9.2
+          ]
+        ],
+        [
+          18,
+          [
+            6,
+            10.5
+          ]
+        ],
+        [
+          22,
+          [
+            5.4,
+            11
+          ]
+        ],
+        [
+          25,
+          [
+            4,
+            8
+          ]
+        ],
+        [
+          27,
+          [
+            2.8,
+            4
+          ]
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "hips",
+      "kind": "superquadric",
+      "material": "pants",
+      "size": [
+        10,
+        16.5,
+        10
+      ],
+      "round": [
+        0.4,
+        0.4
+      ],
+      "sides": 10,
+      "attach": {
+        "bone": "Bip01 Pelvis",
+        "offset": [
+          -1,
+          0,
+          -1
+        ]
+      }
+    },
+    {
+      "id": "neck",
+      "kind": "cylinder",
+      "material": "skin",
+      "radius": 2.2,
+      "height": 4,
+      "sides": 8,
+      "span": {
+        "bones": [
+          "Bip01 Neck",
+          "Bip01 Head"
+        ],
+        "over": 3
+      }
+    },
+    {
+      "id": "head",
+      "kind": "superquadric",
+      "material": "skin",
+      "size": [
+        9.1,
+        7.4,
+        10.8
+      ],
+      "round": [
+        0.6,
+        0.6
+      ],
+      "sides": 12,
+      "texels": 2.5,
+      "attach": {
+        "bone": "Bip01 Head",
+        "offset": [
+          2,
+          0,
+          2.4
+        ]
+      }
+    },
+    {
+      "id": "nose",
+      "kind": "box",
+      "material": "skin",
+      "size": [
+        1.4,
+        1.2,
+        2
+      ],
+      "texels": 2.5,
+      "attach": {
+        "to": "head",
+        "toAt": "front",
+        "at": "back",
+        "offset": [
+          -0.6,
+          0,
+          -0.8
+        ]
+      }
+    },
+    {
+      "id": "helmet",
+      "kind": "turn",
+      "material": "helmet",
+      "sides": 12,
+      "texels": 2,
+      "rings": [
+        [
+          0,
+          [
+            6.2,
+            5.2
+          ]
+        ],
+        [
+          1.5,
+          [
+            6.2,
+            5.2
+          ]
+        ],
+        [
+          3,
+          [
+            5.7,
+            4.8
+          ]
+        ],
+        [
+          4.5,
+          [
+            4.3,
+            3.7
+          ]
+        ],
+        [
+          5.5,
+          [
+            2.6,
+            2.2
+          ]
+        ],
+        [
+          6,
+          0
+        ]
+      ],
+      "caps": [
+        true,
+        false
+      ],
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "start",
+        "offset": [
+          1.5,
+          0,
+          4.4
+        ]
+      }
+    },
+    {
+      "id": "neck_guard",
+      "kind": "superquadric",
+      "material": "band",
+      "size": [
+        9,
+        10.4,
+        5.2
+      ],
+      "round": [
+        0.2,
+        0.6
+      ],
+      "sides": 10,
+      "texels": 2,
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "bottom",
+        "offset": [
+          -0.2,
+          0,
+          -0.2
+        ]
+      }
+    },
+    {
+      "id": "shoulder_left",
+      "kind": "sphere",
+      "material": "shirt",
+      "radius": 3.2,
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 L Arm1"
+      }
+    },
+    {
+      "id": "shoulder_right",
+      "kind": "sphere",
+      "material": "shirt",
+      "radius": 3.2,
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 R Arm1"
+      }
+    },
+    {
+      "id": "upperarm_left",
+      "kind": "turn",
+      "material": "shirt",
+      "sides": 7,
+      "span": {
+        "bones": [
+          "Bip01 L Arm1",
+          "Bip01 L Arm2"
+        ],
+        "over": 1.5
+      },
+      "rings": [
+        [
+          0,
+          3.1
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          13,
+          2.5
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "upperarm_right",
+      "kind": "turn",
+      "material": "shirt",
+      "sides": 7,
+      "span": {
+        "bones": [
+          "Bip01 R Arm1",
+          "Bip01 R Arm2"
+        ],
+        "over": 1.5
+      },
+      "rings": [
+        [
+          0,
+          3.1
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          13,
+          2.5
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "forearm_left",
+      "kind": "turn",
+      "material": "shirt",
+      "sides": 7,
+      "span": {
+        "bones": [
+          "Bip01 L Arm2",
+          "Bip01 L Hand"
+        ],
+        "over": 1
+      },
+      "rings": [
+        [
+          0,
+          2.6
+        ],
+        [
+          5,
+          2.5
+        ],
+        [
+          12,
+          2
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "forearm_right",
+      "kind": "turn",
+      "material": "shirt",
+      "sides": 7,
+      "span": {
+        "bones": [
+          "Bip01 R Arm2",
+          "Bip01 R Hand"
+        ],
+        "over": 1
+      },
+      "rings": [
+        [
+          0,
+          2.6
+        ],
+        [
+          5,
+          2.5
+        ],
+        [
+          12,
+          2
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "fist_left",
+      "kind": "superquadric",
+      "material": "skin",
+      "size": [
+        4,
+        3.3,
+        4.4
+      ],
+      "round": [
+        0.4,
+        0.4
+      ],
+      "sides": 8,
+      "texels": 2,
+      "attach": {
+        "bone": "Bip01 L Hand",
+        "offset": [
+          0.3,
+          0,
+          0.6
+        ]
+      }
+    },
+    {
+      "id": "fist_right",
+      "kind": "superquadric",
+      "material": "skin",
+      "size": [
+        4,
+        3.3,
+        4.4
+      ],
+      "round": [
+        0.4,
+        0.4
+      ],
+      "sides": 8,
+      "texels": 2,
+      "attach": {
+        "bone": "Bip01 R Hand",
+        "offset": [
+          0.3,
+          0,
+          0.6
+        ]
+      }
+    },
+    {
+      "id": "thigh_left",
+      "kind": "turn",
+      "material": "pants",
+      "sides": 8,
+      "span": {
+        "bones": [
+          "Bip01 L Leg",
+          "Bip01 L Leg1"
+        ],
+        "over": 1.5
+      },
+      "rings": [
+        [
+          0,
+          4.4
+        ],
+        [
+          8,
+          4.1
+        ],
+        [
+          16,
+          3.6
+        ],
+        [
+          21,
+          3.3
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "thigh_right",
+      "kind": "turn",
+      "material": "pants",
+      "sides": 8,
+      "span": {
+        "bones": [
+          "Bip01 R Leg",
+          "Bip01 R Leg1"
+        ],
+        "over": 1.5
+      },
+      "rings": [
+        [
+          0,
+          4.4
+        ],
+        [
+          8,
+          4.1
+        ],
+        [
+          16,
+          3.6
+        ],
+        [
+          21,
+          3.3
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "shin_left",
+      "kind": "turn",
+      "material": "pants",
+      "sides": 8,
+      "span": {
+        "bones": [
+          "Bip01 L Leg1",
+          "Bip01 L Foot"
+        ],
+        "over": 1
+      },
+      "rings": [
+        [
+          0,
+          3.4
+        ],
+        [
+          4,
+          3.1
+        ],
+        [
+          5.6,
+          3
+        ],
+        [
+          6.2,
+          3.4
+        ],
+        [
+          19,
+          3.2
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "shin_right",
+      "kind": "turn",
+      "material": "pants",
+      "sides": 8,
+      "span": {
+        "bones": [
+          "Bip01 R Leg1",
+          "Bip01 R Foot"
+        ],
+        "over": 1
+      },
+      "rings": [
+        [
+          0,
+          3.4
+        ],
+        [
+          4,
+          3.1
+        ],
+        [
+          5.6,
+          3
+        ],
+        [
+          6.2,
+          3.4
+        ],
+        [
+          19,
+          3.2
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "boot_left",
+      "kind": "superquadric",
+      "material": "boot",
+      "size": [
+        12.5,
+        6,
+        4.8
+      ],
+      "round": [
+        0.25,
+        0.4
+      ],
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 L Foot",
+        "offset": [
+          2.8,
+          0,
+          -1.6
+        ]
+      }
+    },
+    {
+      "id": "boot_right",
+      "kind": "superquadric",
+      "material": "boot",
+      "size": [
+        12.5,
+        6,
+        4.8
+      ],
+      "round": [
+        0.25,
+        0.4
+      ],
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 R Foot",
+        "offset": [
+          2.8,
+          0,
+          -1.6
+        ]
+      }
+    },
+    {
+      "id": "holster",
+      "kind": "box",
+      "material": "boot",
+      "size": [
+        3.2,
+        2.6,
+        12
+      ],
+      "bone": "Bip01 Pelvis",
+      "at": [
+        -3.2,
+        -8.2,
+        -8.5
+      ]
+    }
+  ]
+}

@@ -1,20 +1,11 @@
-I built `scientist.mdl` and the build says **OK**, with every check passed. It's in the work folder with its spec (`work:scientist.spec.json`) and contact sheet.
+I couldn't build the scientist yet. The build needs the game's own model files, and this server doesn't have them.
 
-**How it's built**
-- **Skeleton:** It sits on Gordon's skeleton (`player/gordon/gordon.mdl`, 42 bones) and keeps all 77 of his animations. It has `"floor": 0`, so every animation is lifted 36 units and the feet stand at the origin.
-- **Size:** It comes out 33 long, 21.2 wide and 68.3 high, against the original's 33.3 × 21.7 × 68.
-- **Parts:**
-  - a hunched torso under an open lab coat, with a coat tail that flares back
-  - grey trousers
-  - brown shoes
-  - coat sleeves and fists
-  - a short neck and a bald head with a nose and ears
-  - black glasses
-  - grey hair around the back of the head
-- **Colours and markings:** All ten reference pictures (the six sides and the four close angles) are projected onto the shape as its texture. That carries over the blue shirt, the striped red tie, the belt, the face and glasses, the grey hair and the shoe colour.
-- **Pose:** The first frame stands in the original's walking stride: right foot forward, left arm forward and right arm swung back. I started from the kit's automatic pose fit, then tuned it by hand against the side and angled views. I dropped the collarbones about 2.5 units to get the original's lower, sloped shoulders, brought the feet in toward the middle, and straightened the backswing arm.
+**What's stuck:** A character is a body put on a game model's skeleton, so the kit has to read that model. The server's models folder is empty. It only lists the work folder (`pictures/`), and `player/gordon/gordon.mdl` is not there. The kit's guide says the models folder is set with the server's `--models` flag, and this server was started without it. I can't fix that from here, and I shouldn't change the server's configuration without your go-ahead. I also searched the kit's guide and the disk for a Half-Life install and found nothing I could read.
 
-**Where it still differs from the original**
-- **Other animations:** Only the first animation is posed this way. The others keep Gordon's own motion, including his higher shoulders, so the run differs from the scientist's own run in `motion.png`.
-- **Smudges:** The texture has some soft blending smudges where my shape doesn't line up exactly with the pictures, mostly on the coat edges and the face.
-- **Triangle count:** It has 1,192 triangles, about three times the 362 in Gordon's own body. The build warns about this, but it isn't a fault.
+**What I checked:** The reference pictures are the Half-Life scientist: a bald head with grey hair at the sides, black-rimmed glasses, a white lab coat over a blue shirt with a red-and-blue striped tie, white trousers, a black belt and brown shoes. The coat hangs to mid-thigh and is open at the front. The pose is a slight forward lean with one hand at the hip. The spec for characters requires the base model, so I have no other route to a `kind: "character"` file that keeps the animations. Making a plain prop in its place would not be the model you asked for.
+
+**What I need from you (pick one):**
+1. The path to a models folder with `player/gordon/gordon.mdl` in it (for example `…/Half-Life/valve/models` or `…/Half-Life/ts/models`). Then I restart the server with `--models <that folder>` and carry on. Restarting the server is a configuration change, so I'll wait for your go-ahead.
+2. Or the path to any single `.mdl` with a human skeleton that suits you better, if you have one.
+
+Once the base is loaded, the plan is: write the spec with `floor: 0`, build the coat, shirt, tie, trousers, shoes, glasses and hair as parts, paint the markings from the reference pictures, check the report, and look at the pictures until the build says OK.

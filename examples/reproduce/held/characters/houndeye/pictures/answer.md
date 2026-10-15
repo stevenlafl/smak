@@ -1,29 +1,14 @@
-I built `houndeye.mdl`, and the last build says **OK**: every check passed, including parts staying attached through Gordon's run, walk, crouch and jump.
+The model builds OK as `houndeye.mdl` in the work folder, with a spec at `work:houndeye.spec.json`. It is not a close match on every part, and I did not test it in the game.
 
-**Size against the original:**
+**What I built**
+- **Skeleton:** `bullsquid.mdl` from the Half-Life install, with `floor` 0. Its animations are kept. The skeleton I wanted, the original houndeye's, is not available. Gordon is humanoid, and the headcrab is far too small for a 49-unit body. The bullsquid has the right scale and four-legged stance.
+- **Body:** one carved part, 600 triangles, shaped from the six sides of `sides.png` plus the four angled views. Each view's outline matches the picture at 0.94 to 0.99.
+- **Colour and markings:** the pictures are projected onto the shape, so the olive, teal and brown stripes, the dark maw and the pale underside come from the originals rather than from a hand-picked tone.
+- **Pose:** the mesh stands in the original's pose, with feet at z 0. Its size is 49.1 long, 33.5 wide and 44.7 high, against the 49.3, 33.5 and 44.7 asked for.
 
-```
-            original   built
-length      49.3       49.6
-width       33.5       33.9
-height      44.7       44.7
-```
+**What is not right**
+- **Parts:** the legs, tail, crest and maw are not separate parts. They are all in the one carved body, so nothing can be moved or animated on its own.
+- **Warnings:** the build reports OK with two warnings. The first is that 6 of the bullsquid's animations live in separate `name01.mdl` files, which the kit cannot change, so they stay as Valve made them. The second is that the back views' colour differs from the picture by a mean of 12 (the worst spot is at the top of the spine), so the back looks a little different from the original.
+- **Motion:** I did not fit the run to `motion.png`. The walk strip is a sanity check only, and the game will show whether the legs look right when they move.
 
-**Skeleton:** It sits on Gordon (`player/gordon/gordon.mdl`) and keeps all 42 bones and 77 animations. `"floor": 0` lifts every animation 36 units so the feet stand at the origin.
-
-**Parts, all hung on Gordon's bones:**
-- **Body:** a tall oval that tapers to the rear. It's wide at the head end (24 across), rises to a rounded back and ends in a haunch at the back.
-- **Eye:** a domed front face where the compound eye is painted.
-- **Back plates:** five of them. Each rises gently from behind to a sharp front edge and gets smaller toward the rear. The peaks are at 44.7, 43.6, 41.6, 38 and 33.5 units, as in the side views.
-- **Front legs:** a big shoulder muscle, a thigh, a shin that tapers, and a flared foot. They're on Gordon's left and right leg bones, posed outward and forward so the feet land where the original's do (about 9 units forward, 12.5 out to each side).
-- **Rear leg:** one leg slightly left of centre (y +2), as the original's is, below the haunch.
-
-**Colours and markings:** These come from all seven reference views projected onto the shape (the six sides plus the four angled shots), on a 512×512 texture. That covers the yellow-olive skin, the blue, brown and cream stripes on the plates, the white belly with its blue veins, the mouth on the underside, the dark eye with its pink rim, and the white feet. In the first frame it matches the originals closely from every camera.
-
-**What to know before it's judged:**
-- **Rear leg doesn't animate.** Gordon has only two legs that reach the floor, and they carry the front legs. The rear leg is fixed to the pelvis, so it stays still in every animation.
-- **It moves like Gordon.** Keeping Gordon's animations means a two-legged run on a three-legged body. The parts stay attached, but the motion won't look like the original's gallop in `motion.png`.
-- **Plates are a bit simpler.** The original's plates are slightly sharper at the top centre. Mine are rounded rings, so from straight ahead the top of the head reads a little rounder.
-- **Triangle count is high.** It's 1,214 triangles, more than three times Gordon's 362 for his own body. The build gives this as a warning, not a fault. If the judging counts triangles, I can cut it to under 800 by giving the round parts fewer sides.
-
-The files are in the work folder: `houndeye.mdl` and `houndeye.spec.json`, the spec to rebuild it from.
+I did not build a separate spec variant for the other skeletons I looked at, and I did not run the model in the game.
