@@ -1,30 +1,21 @@
-The build says **OK**: "built, and every check passed." It still prints three warnings about outlines and look, which are described below. The model is `barney.mdl` in the work folder, with its spec at `work:barney.spec.json`. I didn't render the original and mine through the same camera myself; the figures below are the build's own measures.
+`barney.mdl` builds OK, but it is not yet as close to the original as you asked. The build's own warnings say the silhouettes are short of the bar in every view.
 
-**What it is:** a standing security guard, built on Gordon's skeleton with `floor: 0`. It keeps all 77 of Gordon's animations, and `size` is set to 75.3 high, 22.8 long, 30.2 wide.
+**What it is**
+- Built on `player/gordon/gordon.mdl` from the Half-Life install, keeping its 42 bones and 77 animations, with `floor: 0`.
+- Parts: a superquadric helmet, shirt, vest, hips and boots; cylinder spans for the legs and arms; a skin blob for the head, neck and hands.
+- Colours and markings (the blue helmet band, the SECURITY print, the badge) come from projecting the eight reference pictures onto the body, not from hand-set materials.
+- Size: 22.2 long, 28.5 wide, 75.3 high, against the original's 22.8, 30.2 and 75.3.
+- 628 triangles, under the 724 limit (twice the base body's 362).
+- The spec is `work:barney.spec.json`, and the sheet is `work:barney-sheet.png`.
 
-**Built from the pictures:**
-- **Body:** one blob hung on Gordon's joints: chest and vest, hips, neck, head, helmet, arms, fists, legs, boots and holster. Joints give model-space positions, so the body comes out where the bones put it.
-- **Pose:** the right forearm is turned 90° at the elbow, because Gordon's right hand holds a gun forward. The first frame has both arms hanging.
-- **Colours and markings:** all ten pictures projected onto the body (the six sheet views and the four angles). That gives the black vest, lavender shirt and sleeves, the "SECURITY" lettering, the grey helmet, boots and skin.
+**Pose**
+- The base's first frame holds the right hand forward, as Gordon's gun pose does. I hung the right forearm down so the fist sits by the thigh, as in the reference. That is the only pose key.
+- The left foot, the boots and the vest are placed from the base's measured foot and spine positions.
 
-**Measures against the originals:**
+**What is still off**
+- Outline overlap against the pictures: front 0.77, back 0.77, left 0.71, right 0.73. The quarter views (35 and 145 degrees) are 0.60 to 0.62. The bar is 0.8.
+- The side view has the front leg about 3 to 5 units further back under the hip than the reference. Swinging the left thigh forward made the side and quarter views worse, so I reverted it.
+- The render's auto-scale differs slightly from the pictures', so I judged by the build's overlap numbers rather than by eye.
+- Boots and trousers are simplified blocks and tubes. The projection gives them the right colours, but the shapes are rougher than the original's.
 
-| Measure | Built | Original |
-| --- | --- | --- |
-| Height | 75.9 | 75.3 |
-| Length | 21.6 | 22.8 |
-| Width | 29.6 | 30.2 |
-| Outline overlap, front | 0.80 | 1.0 is a perfect match |
-| Outline overlap, back | 0.86 | |
-| Outline overlap, right | 0.79 | |
-| Outline overlap, left | 0.73 | |
-| Outline overlap, top | 0.57 | |
-| Outline overlap, below | 0.61 | |
-| Outline overlap, the four angles | 0.64 to 0.67 | |
-
-The build warns below 0.8, so the left, top, below and angled views are short of it. Colour difference is 4 to 8 in most views, and 15 from below.
-
-**Known gaps:**
-- **Shape:** the blob gives round forms, where the original vest and shoulders are squared off. That is the main reason for the low outline numbers.
-- **Running:** in the run animation a dark flat wedge trails from the far side of the body. Removing the seat, the back plate, or blend (blend 0 also broke the normal limit) did not remove it. The standing first frame is clean, but this is not fixed.
-- **Triangles:** 1,680 against the base's 362. It's a warning only.
+**Next step if you want it closer:** the quarter-view gap points at how the body's depth and width are spread across the diagonals, and the side gap at the leg stance. The next thing to try is a `carved` torso from the outlines, or a `fit` on the legs only, with the boots re-placed from the fitted feet. I did not do either, since a rigid carved body would come apart in the run frames.

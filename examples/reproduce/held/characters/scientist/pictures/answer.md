@@ -1,11 +1,20 @@
-I couldn't build the scientist yet. The build needs the game's own model files, and this server doesn't have them.
+The scientist model builds with **OK** and every check passes. It's saved in the work folder as `scientist.mdl`, with its spec beside it as `scientist.spec.json`. I haven't run it in the game.
 
-**What's stuck:** A character is a body put on a game model's skeleton, so the kit has to read that model. The server's models folder is empty. It only lists the work folder (`pictures/`), and `player/gordon/gordon.mdl` is not there. The kit's guide says the models folder is set with the server's `--models` flag, and this server was started without it. I can't fix that from here, and I shouldn't change the server's configuration without your go-ahead. I also searched the kit's guide and the disk for a Half-Life install and found nothing I could read.
+**What it is**
+- It stands on Gordon's skeleton and keeps all 77 of Gordon's animations. Its feet are at the origin (`floor: 0`), and it's 68 units tall.
+- The first frame is the stance the original's sheet shows: a stride with the forearms bent forward to the waist. I took that as the first frame because the sheet's side views show a stride rather than a rest pose.
+- Its parts are a white lab coat with a blue shirt, a red tie, and a dark belt. The trousers are white-grey, the shoes brown, the face and hands skin, and the hair grey at the temples and back. The glasses are a black bar across the eyes.
+- It has 700 triangles (Gordon's own body has 362), with no faults.
 
-**What I checked:** The reference pictures are the Half-Life scientist: a bald head with grey hair at the sides, black-rimmed glasses, a white lab coat over a blue shirt with a red-and-blue striped tie, white trousers, a black belt and brown shoes. The coat hangs to mid-thigh and is open at the front. The pose is a slight forward lean with one hand at the hip. The spec for characters requires the base model, so I have no other route to a `kind: "character"` file that keeps the animations. Making a plain prop in its place would not be the model you asked for.
+**How I matched it**
+- I set the stance, arm positions and colours by eye from the sheet and the four angles. I didn't feed the original's pictures into the kit's projection, fit or motion tools, since its rules say to match a game's views by eye rather than use them as input.
+- I checked the front-left camera against the original and corrected the arm splay, the stride and the hair band.
 
-**What I need from you (pick one):**
-1. The path to a models folder with `player/gordon/gordon.mdl` in it (for example `…/Half-Life/valve/models` or `…/Half-Life/ts/models`). Then I restart the server with `--models <that folder>` and carry on. Restarting the server is a configuration change, so I'll wait for your go-ahead.
-2. Or the path to any single `.mdl` with a human skeleton that suits you better, if you have one.
+**Where it still differs**
+- The glasses are a painted bar, not wire frames.
+- The hair is a grey band painted on a bald-topped head, and there are no ears.
+- The coat is a plain box with a flat front, with no flare at the hem and no lapels.
+- The shoes are chunkier than the original's.
+- The stride and the hands are matched by eye, not measured.
 
-Once the base is loaded, the plan is: write the spec with `floor: 0`, build the coat, shirt, tie, trousers, shoes, glasses and hair as parts, paint the markings from the reference pictures, check the report, and look at the pictures until the build says OK.
+**Licence note:** the output keeps Gordon's skeleton and animations from your Half-Life install, so it's a derivative of the game's files. That's fine for local testing, but the kit's rules say not to share it.

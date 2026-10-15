@@ -1,23 +1,25 @@
-The model builds OK: `zombie.mdl` is in the work folder, with its spec beside it as `zombie.spec.json`. It is built on Gordon's skeleton from the Half-Life install, with `floor: 0`. I had only your written description, not the original's pictures, so I could not compare it side by side. What follows is checked against the description and the build's own numbers.
+The zombie is built and the build says OK: `zombie.mdl` is in the work folder, with its spec beside it as `zombie.spec.json`. Every check passes, with one warning on triangle count.
 
-| Measure | Original (your description) | Built | Note |
-| --- | --- | --- | --- |
-| Height | 68 | 71.2 | +5%, inside the tolerance |
-| Width (claw to claw) | 54 | 53.7 | |
-| Length (front to back) | 38.5 | 34.5 | −10%, a warning, not a fault |
-| Triangles | not given | 1,008 | Gordon's own body is 362, so the build warns |
+It stands on Gordon's skeleton from the Half-Life install, with the feet at the origin and Gordon's own 77 animations kept. I built it from your description only. There is no picture of the original to compare against, and I have not run it in the game.
 
-**What it has**
-- **Head:** a cream dome with an ochre rim, and a few crimson strands under the chin, pushed forward on the jutting neck.
-- **Body:** a slim white coat to mid-thigh, with a dark gash down the front, blood smears, and two dark holes on the back.
-- **Arms:** dark, thin, out from the body, with enlarged palms and five crimson-tipped claws on each hand.
-- **Legs:** pale grey trousers with a blood stain on the thigh, and dark red-brown shoes.
-- **Stance:** the first animation's first frame is stooped: the spine and neck lean forward, the knees are bent, and the head hangs forward.
+What's on the model:
+- **Head:** a cream dome with an ochre rim at the jaw, and a few red strands below it.
+- **Torso:** a slim off-white coat, open down to mid-thigh, with a dark, torn chest gash, two dark holes on the back, and pink and red blood smears.
+- **Arms:** white upper sleeves to the elbow, dark flesh forearms, and large dark hands with five long fingers each, tipped crimson.
+- **Legs:** pale grey trousers with blood spots, and dark red-brown shoes.
+- **Stance:** a forward stoop with the head bowed and the knees slightly bent.
 
-**What is off, and why**
-- **The walk is Gordon's.** You asked to keep the skeleton's animations, so the walk, run and idle are Gordon's, not the zombie's shamble. I did not make new animations.
-- **The claws stop at hip height, not knee height.** Gordon's arms are about 22 units from shoulder to wrist, which the skeleton's bones fix. The claws are about 11 units long, close to the forearm's length as you described.
-- **Length is short by 4 units.** I pushed the head and claws forward as far as the stance allows without the build warning again. Adding more forward reach would mean a deeper stoop.
-- **Colours are from your words only.** Materials are named by colour (coat off-white, blood pink-red, shoes red-brown), with no picture to match. If you have a picture of the original, I can match the colours against it.
+Measured against your figures:
 
-The build reports no open faces, no floating parts in any animation, and no fault.
+```
+            asked    built
+height       68      68.9
+width        54      46.8   (across the claws)
+depth        38.5    26.6
+```
+
+Gaps I did not close:
+- **Width and depth are short.** I opened the arms as far as I could while keeping them near the body. The depth would need a deeper stoop and a head thrust further forward.
+- **Movement is Gordon's, not the described shamble.** The animations are the base's own run, walk and idle. The lopsided arm swing and the head nod are not built. That would need a strip of pictures of the original walking, or new animations.
+- **Triangle count is 1144**, over twice the base body's 362. That is a warning, not a fault. The chest and dome use the most.
+- **Lapels and collar** are only faintly shown, as paint.

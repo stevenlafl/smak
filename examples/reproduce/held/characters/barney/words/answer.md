@@ -1,18 +1,19 @@
-Built: `work:barney.mdl`. The build says OK, and `check` says it fits GoldSrc. The spec is at `work:barney.spec.json` and the six-view sheet at `work:barney-sheet.png`.
+I built `barney.mdl` on Gordon's skeleton, and the build reports OK with every check passed. It's in the work folder as `work:barney.mdl`, with its spec beside it as `barney.spec.json`. I couldn't see the original, so I haven't compared it side by side.
 
-**What I did**
-- **Skeleton:** Gordon's (`player/gordon/gordon.mdl`, read from the Half-Life `valve` folder), with all 77 of his animations kept. `floor: 0`, so the feet stand at the origin.
-- **Stance:** Set so the first animation's first frame has the arms hanging slightly out with the right forearm down, and the feet roughly even. Gordon's own stance has the right leg back and the right arm forward, which I corrected.
-- **Build:** Shirt and trousers are smooth blobs over the limbs. The vest, helmet, boots, belt, holster and tie are separate parts hung on bones. Helmet, face and hands are turned or superquadric shapes.
-- **Colours and markings:** Pale periwinkle shirt, black vest with ribbed plates, straps, orange emblem on the left chest and grey-white badge on the right, deep violet-blue trousers, violet-blue helmet band from the temples round the back, dark pads over the ears, dark brown hair at the sideburns and brows, black belt, holster and boots with lace bars.
+**What it is**
+- **Base:** `player/gordon/gordon.mdl` from the Half-Life install. It keeps all 42 bones and all 77 animations, and `floor: 0` stands the feet at the origin.
+- **Pose:** the first animation is `look_idle`. Gordon's right forearm points forward there, so I turned it down to hang like the left. Every frame of that animation gets the same turn.
+- **Size:** 76.4 tall (asked for 75), 30.4 wide (30), 21.7 long (23). The length is 6% short, and the 76.4 height is within tolerance.
+- **Colours:** periwinkle shirt, black glossy vest, violet-blue trousers and helmet band, grey-black helmet, peach skin, black boots, belt and holster, orange emblem on the wearer's left chest, grey-white ID badge on the right.
+- **Markings:** SECURITY in olive-yellow across the upper back, ribbed slats and a centre seam on the vest front, painted laces on the boots, sideburns and eyes on the face.
 
-**Choices I made that you may want changed**
-- "SECURITY" is printed on the back of the vest, since the description puts it on the upper back and doesn't say shirt or vest.
-- The helmet band is a painted stripe on the lower helmet, not a separate piece.
+**Choices I made**
+- The face is a single soft shape with a nose and a long jaw. The helmet is a turned dome with the band painted on.
+- The vest, boots, holster and belt are squared shapes, as the description asked. The arms, head and neck are soft shapes.
+- The trousers are straight tubes, not baggy and creased.
 
-**Gaps and things to check**
-- **No reference pictures.** I built from the written description only, so I could not compare against the original. Side-by-side judgement is still needed.
-- **Depth doesn't match.** The description says 23 units deep. The model is 12 deep (front to back) and 32.7 wide, against the described 30. Height is 76.7 against 75. I kept the human proportions and did not force depth to 23, since that looks like a width figure. Tell me if you want it widened.
-- **Triangle count is high.** The model has 1,656 triangles against the 362 of Gordon's body, so the build warns. It is within the GoldSrc limits the check applies, so it is not a fault.
-- **Head close-up unavailable.** The tool's focus picture showed the trousers, not the head, so I could only judge the face from the small sheet picture. The helmet and face read correctly there, but the fine detail is unchecked.
-- **Not tested in game.** I could not run the model in Half-Life; the checks and pictures are all the verification done.
+**Not matched**
+- **Motion:** the original's 16-frame run isn't reproduced. The model plays Gordon's own run and walk cycles, because you asked to keep the skeleton's animations.
+- **Triangles:** 1066, against the base body's 362. That's a warning, not a fault. I cut the round parts' sides to keep it down, but the check still flags it.
+- **Fine detail:** the head, ribs and laces are small and may not read at the judging distance.
+- **Trousers:** no creases or gathers at the knees.

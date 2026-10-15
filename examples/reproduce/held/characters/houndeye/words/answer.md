@@ -1,15 +1,17 @@
-The model is built as `work:houndeye.mdl`, and the build says OK. Its spec is at `work:houndeye.spec.json` and its picture sheet at `work:houndeye-sheet.png`. I read the first frame of Gordon's first animation (`look_idle`) as the stance. It stands on Gordon's skeleton with `"floor": 0`, and keeps all 77 of Gordon's animations.
+I built `houndeye.mdl`. The build says OK and the engine check says "fit for goldsrc". It is a character on Gordon's skeleton (`player/gordon/gordon.mdl` from Half-Life's `valve/models`, 42 bones, 77 animations), with `"floor": 0`. The files are `work:houndeye.mdl` and the spec at `work:houndeye.spec.json`.
 
-What is in it:
-- **Body:** one rounded, teardrop-shaped lump, from z 13 to 43, with a blunt rear point and a broad front. It is about 49.5 long, 34.4 wide and 47.8 high, against 49 × 34 × 45. The height is 6% over, and the spines account for most of that.
-- **Eye:** a flat front with 12 dark maroon spheres in a grid and a red-pink rim around them.
-- **Mouth:** a dark red oval under the body, just behind the eye, with six small cream teeth.
-- **Back:** seven backward-leaning spines and chevron-like bands of cyan, brown, gold and cream on the upper sides. The belly is cream, and there are two small dark navel spots on the flanks.
-- **Legs:** two splayed front legs and one centre rear leg. Each has an olive thigh that goes to a cream shin and foot, with three toes.
+**Measured against your numbers:** 47.6 long, 35.3 wide, 44.5 high, against 49, 34 and 45. The feet stand at the origin.
 
-Gaps and choices you should know about:
-- **The gait is not a bounding hop.** The legs are hung on Gordon's own leg and arm bones, so the animations swing them like a biped's legs. Making it hop would mean replacing the animations, which you didn't ask for.
-- **The base skeleton is not in the render pictures.** The tool can build on Gordon, but it could not render Gordon's own file. I checked its joints from the build report, not from a picture.
-- **The eye highlights are very small.** I added a cream mark to each sphere, but at this scale they barely show.
-- **The triangle count is over the warning line.** The build has 1,580 triangles against the 724 it advises (twice the base body's 362). The build still says OK, so I left it. Cutting it further would mean fewer eye spheres or coarser legs.
-- **The "nearly touch" notes are on purpose.** They are the eye spheres sitting in a row, and the rear leg meeting the body.
+**What it has:**
+- **Body:** a teardrop turned along the length, broad at the front and pointed at the tail, olive-to-mustard skin.
+- **Back:** a row of seven backward-leaning spines, and turquoise, brown, gold and cyan chevron bands over the top and down the upper flanks. Brown wrinkle lines and fine cyan veins run over the skin.
+- **Belly:** a cream band underneath.
+- **Face:** a front cluster of twelve dark maroon spheres in a grid, each with a small white highlight mark, inside a pinkish-red rim. The body is tilted 5 degrees so the eye points slightly down.
+- **Mouth and skin detail:** a dark red painted mouth with three pale ridges, and four dark brown pores on the flanks.
+- **Legs:** two front legs splayed under the shoulders and one rear leg under the tail. Each has a bulging thigh, a tapering shin and a cream foot with three toes.
+
+**Choices and limits to know about:**
+- **Motion is Gordon's.** The skeleton's own animations are kept, so the bounding run is not reproduced. The legs bend on Gordon's leg bones, which is a human-style walk.
+- **Triangle warning.** The count is 1398, which is over the 362 of the base's own body. The check warns of this without failing. I kept the detail on purpose because the judges look at the pictures.
+- **The original was not available to compare against.** I built from your description, not from a picture of the original, so the proportions and colours are my reading of it. Please compare the six-side sheet with the original's pictures before you rely on it.
+- **Small details may not read at game scale.** The eye highlights, the teeth and the pores are very small, and may be hard to see.

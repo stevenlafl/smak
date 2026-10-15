@@ -1,0 +1,1532 @@
+{
+  "spec": "smak.model/1",
+  "name": "houndeye.mdl",
+  "kind": "character",
+  "base": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "floor": 0,
+  "size": {
+    "height": 45,
+    "length": 49,
+    "width": 34
+  },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "materials": {
+    "skin": {
+      "base": "leather",
+      "tone": [
+        0.55,
+        0.55,
+        0.18
+      ]
+    },
+    "cream": {
+      "base": "bone",
+      "tone": [
+        0.85,
+        0.8,
+        0.6
+      ]
+    },
+    "cyan": {
+      "base": "paint",
+      "tone": [
+        0.1,
+        0.85,
+        0.85
+      ]
+    },
+    "brown": {
+      "base": "paint",
+      "tone": [
+        0.3,
+        0.15,
+        0.07
+      ]
+    },
+    "gold": {
+      "base": "paint",
+      "tone": [
+        0.9,
+        0.72,
+        0.15
+      ]
+    },
+    "maroon": {
+      "base": "paint",
+      "tone": [
+        0.22,
+        0.02,
+        0.04
+      ]
+    },
+    "rim": {
+      "base": "paint",
+      "tone": [
+        0.8,
+        0.3,
+        0.3
+      ]
+    },
+    "mouth": {
+      "base": "paint",
+      "tone": [
+        0.5,
+        0.07,
+        0.05
+      ]
+    },
+    "pore": {
+      "base": "paint",
+      "tone": [
+        0.2,
+        0.1,
+        0.05
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "body",
+      "kind": "turn",
+      "axis": "x",
+      "sides": 16,
+      "at": [
+        -24,
+        0,
+        28.5
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "skin",
+      "caps": [
+        true,
+        true
+      ],
+      "rings": [
+        {
+          "s": 0,
+          "r": [
+            1.5,
+            1.5
+          ],
+          "off": [
+            0,
+            1
+          ]
+        },
+        {
+          "s": 3,
+          "r": [
+            4,
+            3.5
+          ],
+          "off": [
+            0,
+            1
+          ]
+        },
+        {
+          "s": 8,
+          "r": [
+            8,
+            7
+          ],
+          "off": [
+            0,
+            0.5
+          ]
+        },
+        {
+          "s": 14,
+          "r": [
+            11.5,
+            10
+          ]
+        },
+        {
+          "s": 22,
+          "r": [
+            14.5,
+            13
+          ]
+        },
+        {
+          "s": 30,
+          "r": [
+            16.5,
+            15
+          ]
+        },
+        {
+          "s": 38,
+          "r": [
+            17,
+            15
+          ],
+          "off": [
+            0,
+            -0.5
+          ]
+        },
+        {
+          "s": 43,
+          "r": [
+            16.5,
+            14.5
+          ],
+          "off": [
+            0,
+            -1
+          ]
+        },
+        {
+          "s": 46,
+          "r": [
+            15,
+            13.5
+          ],
+          "off": [
+            0,
+            -1.5
+          ]
+        },
+        {
+          "s": 48,
+          "r": [
+            13,
+            12
+          ],
+          "off": [
+            0,
+            -1.5
+          ]
+        }
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.18,
+              20
+            ],
+            [
+              0.23,
+              50
+            ],
+            [
+              0.28,
+              85
+            ]
+          ],
+          "width": 2.4,
+          "material": "cyan",
+          "ends": "round"
+        },
+        {
+          "path": [
+            [
+              0.18,
+              160
+            ],
+            [
+              0.23,
+              130
+            ],
+            [
+              0.28,
+              95
+            ]
+          ],
+          "width": 2.4,
+          "material": "cyan",
+          "ends": "round"
+        },
+        {
+          "path": [
+            [
+              0.27,
+              20
+            ],
+            [
+              0.32,
+              50
+            ],
+            [
+              0.37,
+              85
+            ]
+          ],
+          "width": 2.4,
+          "material": "brown",
+          "ends": "round"
+        },
+        {
+          "path": [
+            [
+              0.27,
+              160
+            ],
+            [
+              0.32,
+              130
+            ],
+            [
+              0.37,
+              95
+            ]
+          ],
+          "width": 2.4,
+          "material": "brown",
+          "ends": "round"
+        },
+        {
+          "path": [
+            [
+              0.36,
+              20
+            ],
+            [
+              0.41,
+              50
+            ],
+            [
+              0.46,
+              85
+            ]
+          ],
+          "width": 2.4,
+          "material": "gold",
+          "ends": "round"
+        },
+        {
+          "path": [
+            [
+              0.36,
+              160
+            ],
+            [
+              0.41,
+              130
+            ],
+            [
+              0.46,
+              95
+            ]
+          ],
+          "width": 2.4,
+          "material": "gold",
+          "ends": "round"
+        },
+        {
+          "path": [
+            [
+              0.45,
+              20
+            ],
+            [
+              0.5,
+              50
+            ],
+            [
+              0.55,
+              85
+            ]
+          ],
+          "width": 2.4,
+          "material": "cyan",
+          "ends": "round"
+        },
+        {
+          "path": [
+            [
+              0.45,
+              160
+            ],
+            [
+              0.5,
+              130
+            ],
+            [
+              0.55,
+              95
+            ]
+          ],
+          "width": 2.4,
+          "material": "cyan",
+          "ends": "round"
+        },
+        {
+          "path": [
+            [
+              0.54,
+              20
+            ],
+            [
+              0.59,
+              50
+            ],
+            [
+              0.64,
+              85
+            ]
+          ],
+          "width": 2.4,
+          "material": "cream",
+          "ends": "round"
+        },
+        {
+          "path": [
+            [
+              0.54,
+              160
+            ],
+            [
+              0.59,
+              130
+            ],
+            [
+              0.64,
+              95
+            ]
+          ],
+          "width": 2.4,
+          "material": "cream",
+          "ends": "round"
+        },
+        {
+          "path": [
+            [
+              0.06,
+              270
+            ],
+            [
+              0.94,
+              270
+            ]
+          ],
+          "width": 14,
+          "material": "cream",
+          "ends": "round"
+        },
+        {
+          "path": [
+            [
+              0.955,
+              0
+            ],
+            [
+              0.955,
+              360
+            ]
+          ],
+          "width": 1.2,
+          "material": "rim",
+          "ends": "round"
+        },
+        {
+          "path": [
+            [
+              0.25,
+              250
+            ],
+            [
+              0.4,
+              235
+            ],
+            [
+              0.55,
+              215
+            ]
+          ],
+          "width": 0.4,
+          "material": "cyan",
+          "ends": "round"
+        },
+        {
+          "path": [
+            [
+              0.5,
+              300
+            ],
+            [
+              0.65,
+              285
+            ],
+            [
+              0.8,
+              255
+            ]
+          ],
+          "width": 0.4,
+          "material": "cyan",
+          "ends": "round"
+        }
+      ]
+    },
+    {
+      "id": "spine_1",
+      "kind": "cylinder",
+      "sides": 3,
+      "radius": 3.4,
+      "height": 4,
+      "top": 0,
+      "at": [
+        15,
+        0,
+        42.8
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "skin",
+      "rotate": [
+        0,
+        -20,
+        0
+      ]
+    },
+    {
+      "id": "spine_2",
+      "kind": "cylinder",
+      "sides": 3,
+      "radius": 3.4,
+      "height": 4,
+      "top": 0,
+      "at": [
+        9,
+        0,
+        43
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "skin",
+      "rotate": [
+        0,
+        -20,
+        0
+      ]
+    },
+    {
+      "id": "spine_3",
+      "kind": "cylinder",
+      "sides": 3,
+      "radius": 3.4,
+      "height": 4,
+      "top": 0,
+      "at": [
+        3,
+        0,
+        42.5
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "skin",
+      "rotate": [
+        0,
+        -20,
+        0
+      ]
+    },
+    {
+      "id": "spine_4",
+      "kind": "cylinder",
+      "sides": 3,
+      "radius": 3.4,
+      "height": 4,
+      "top": 0,
+      "at": [
+        -3,
+        0,
+        41
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "skin",
+      "rotate": [
+        0,
+        -20,
+        0
+      ]
+    },
+    {
+      "id": "spine_5",
+      "kind": "cylinder",
+      "sides": 3,
+      "radius": 3.2,
+      "height": 3.5,
+      "top": 0,
+      "at": [
+        -9,
+        0,
+        38
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "skin",
+      "rotate": [
+        0,
+        -20,
+        0
+      ]
+    },
+    {
+      "id": "spine_6",
+      "kind": "cylinder",
+      "sides": 3,
+      "radius": 2.8,
+      "height": 3.2,
+      "top": 0,
+      "at": [
+        -15,
+        0,
+        35
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "skin",
+      "rotate": [
+        0,
+        -20,
+        0
+      ]
+    },
+    {
+      "id": "spine_7",
+      "kind": "cylinder",
+      "sides": 3,
+      "radius": 2.3,
+      "height": 2.8,
+      "top": 0,
+      "at": [
+        -20,
+        0,
+        31
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "skin",
+      "rotate": [
+        0,
+        -20,
+        0
+      ]
+    },
+    {
+      "id": "eye_1",
+      "kind": "sphere",
+      "radius": 3,
+      "sides": 6,
+      "at": [
+        22.5,
+        -8.5,
+        16.5
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "maroon",
+      "marks": [
+        {
+          "path": [
+            [
+              0.72,
+              340
+            ],
+            [
+              0.74,
+              20
+            ]
+          ],
+          "width": 0.9,
+          "material": "cream",
+          "ends": "round"
+        }
+      ]
+    },
+    {
+      "id": "eye_2",
+      "kind": "sphere",
+      "radius": 3,
+      "sides": 6,
+      "at": [
+        22.5,
+        -2.8,
+        16.5
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "maroon",
+      "marks": [
+        {
+          "path": [
+            [
+              0.72,
+              340
+            ],
+            [
+              0.74,
+              20
+            ]
+          ],
+          "width": 0.9,
+          "material": "cream",
+          "ends": "round"
+        }
+      ]
+    },
+    {
+      "id": "eye_3",
+      "kind": "sphere",
+      "radius": 3,
+      "sides": 6,
+      "at": [
+        22.5,
+        2.8,
+        16.5
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "maroon",
+      "marks": [
+        {
+          "path": [
+            [
+              0.72,
+              340
+            ],
+            [
+              0.74,
+              20
+            ]
+          ],
+          "width": 0.9,
+          "material": "cream",
+          "ends": "round"
+        }
+      ]
+    },
+    {
+      "id": "eye_4",
+      "kind": "sphere",
+      "radius": 3,
+      "sides": 6,
+      "at": [
+        22.5,
+        8.5,
+        16.5
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "maroon",
+      "marks": [
+        {
+          "path": [
+            [
+              0.72,
+              340
+            ],
+            [
+              0.74,
+              20
+            ]
+          ],
+          "width": 0.9,
+          "material": "cream",
+          "ends": "round"
+        }
+      ]
+    },
+    {
+      "id": "eye_5",
+      "kind": "sphere",
+      "radius": 3,
+      "sides": 6,
+      "at": [
+        22.5,
+        -8.5,
+        24
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "maroon",
+      "marks": [
+        {
+          "path": [
+            [
+              0.72,
+              340
+            ],
+            [
+              0.74,
+              20
+            ]
+          ],
+          "width": 0.9,
+          "material": "cream",
+          "ends": "round"
+        }
+      ]
+    },
+    {
+      "id": "eye_6",
+      "kind": "sphere",
+      "radius": 3,
+      "sides": 6,
+      "at": [
+        22.5,
+        -2.8,
+        24
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "maroon",
+      "marks": [
+        {
+          "path": [
+            [
+              0.72,
+              340
+            ],
+            [
+              0.74,
+              20
+            ]
+          ],
+          "width": 0.9,
+          "material": "cream",
+          "ends": "round"
+        }
+      ]
+    },
+    {
+      "id": "eye_7",
+      "kind": "sphere",
+      "radius": 3,
+      "sides": 6,
+      "at": [
+        22.5,
+        2.8,
+        24
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "maroon",
+      "marks": [
+        {
+          "path": [
+            [
+              0.72,
+              340
+            ],
+            [
+              0.74,
+              20
+            ]
+          ],
+          "width": 0.9,
+          "material": "cream",
+          "ends": "round"
+        }
+      ]
+    },
+    {
+      "id": "eye_8",
+      "kind": "sphere",
+      "radius": 3,
+      "sides": 6,
+      "at": [
+        22.5,
+        8.5,
+        24
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "maroon",
+      "marks": [
+        {
+          "path": [
+            [
+              0.72,
+              340
+            ],
+            [
+              0.74,
+              20
+            ]
+          ],
+          "width": 0.9,
+          "material": "cream",
+          "ends": "round"
+        }
+      ]
+    },
+    {
+      "id": "eye_9",
+      "kind": "sphere",
+      "radius": 3,
+      "sides": 6,
+      "at": [
+        22.5,
+        -8.5,
+        31.5
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "maroon",
+      "marks": [
+        {
+          "path": [
+            [
+              0.72,
+              340
+            ],
+            [
+              0.74,
+              20
+            ]
+          ],
+          "width": 0.9,
+          "material": "cream",
+          "ends": "round"
+        }
+      ]
+    },
+    {
+      "id": "eye_10",
+      "kind": "sphere",
+      "radius": 3,
+      "sides": 6,
+      "at": [
+        22.5,
+        -2.8,
+        31.5
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "maroon",
+      "marks": [
+        {
+          "path": [
+            [
+              0.72,
+              340
+            ],
+            [
+              0.74,
+              20
+            ]
+          ],
+          "width": 0.9,
+          "material": "cream",
+          "ends": "round"
+        }
+      ]
+    },
+    {
+      "id": "eye_11",
+      "kind": "sphere",
+      "radius": 3,
+      "sides": 6,
+      "at": [
+        22.5,
+        2.8,
+        31.5
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "maroon",
+      "marks": [
+        {
+          "path": [
+            [
+              0.72,
+              340
+            ],
+            [
+              0.74,
+              20
+            ]
+          ],
+          "width": 0.9,
+          "material": "cream",
+          "ends": "round"
+        }
+      ]
+    },
+    {
+      "id": "eye_12",
+      "kind": "sphere",
+      "radius": 3,
+      "sides": 6,
+      "at": [
+        22.5,
+        8.5,
+        31.5
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "maroon",
+      "marks": [
+        {
+          "path": [
+            [
+              0.72,
+              340
+            ],
+            [
+              0.74,
+              20
+            ]
+          ],
+          "width": 0.9,
+          "material": "cream",
+          "ends": "round"
+        }
+      ]
+    },
+    {
+      "id": "mouth",
+      "kind": "superquadric",
+      "size": [
+        10,
+        8,
+        3.5
+      ],
+      "sides": 8,
+      "at": [
+        12,
+        0,
+        11.5
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "mouth"
+    },
+    {
+      "id": "teeth_1",
+      "kind": "cylinder",
+      "sides": 4,
+      "radius": 0.7,
+      "height": 2.5,
+      "top": 0,
+      "at": [
+        8,
+        -3,
+        11.5
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "cream"
+    },
+    {
+      "id": "teeth_2",
+      "kind": "cylinder",
+      "sides": 4,
+      "radius": 0.7,
+      "height": 2.5,
+      "top": 0,
+      "at": [
+        8,
+        3,
+        11.5
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "cream"
+    },
+    {
+      "id": "teeth_3",
+      "kind": "cylinder",
+      "sides": 4,
+      "radius": 0.7,
+      "height": 2.5,
+      "top": 0,
+      "at": [
+        12,
+        -3,
+        11.5
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "cream"
+    },
+    {
+      "id": "teeth_4",
+      "kind": "cylinder",
+      "sides": 4,
+      "radius": 0.7,
+      "height": 2.5,
+      "top": 0,
+      "at": [
+        12,
+        3,
+        11.5
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "cream"
+    },
+    {
+      "id": "teeth_5",
+      "kind": "cylinder",
+      "sides": 4,
+      "radius": 0.7,
+      "height": 2.5,
+      "top": 0,
+      "at": [
+        16,
+        -3,
+        11.5
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "cream"
+    },
+    {
+      "id": "teeth_6",
+      "kind": "cylinder",
+      "sides": 4,
+      "radius": 0.7,
+      "height": 2.5,
+      "top": 0,
+      "at": [
+        16,
+        3,
+        11.5
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "cream"
+    },
+    {
+      "id": "navel_left",
+      "kind": "sphere",
+      "radius": 1.2,
+      "sides": 5,
+      "at": [
+        0,
+        15,
+        27.3
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "pore"
+    },
+    {
+      "id": "navel_right",
+      "kind": "sphere",
+      "radius": 1.2,
+      "sides": 5,
+      "at": [
+        0,
+        -15,
+        27.3
+      ],
+      "bone": "Bip01 Pelvis",
+      "material": "pore"
+    },
+    {
+      "id": "front_leg_upper_left",
+      "kind": "blob",
+      "material": "skin",
+      "blend": 2,
+      "cells": 16,
+      "triangles": 90,
+      "pieces": [
+        {
+          "at": [
+            7,
+            11,
+            21
+          ],
+          "radius": 4.4
+        },
+        {
+          "from": [
+            7,
+            11,
+            21
+          ],
+          "to": [
+            15,
+            14,
+            13
+          ],
+          "radius": [
+            3.6,
+            2.6
+          ]
+        },
+        {
+          "at": [
+            15,
+            14,
+            13
+          ],
+          "radius": 2.6
+        }
+      ]
+    },
+    {
+      "id": "front_leg_upper_right",
+      "kind": "blob",
+      "material": "skin",
+      "blend": 2,
+      "cells": 16,
+      "triangles": 90,
+      "pieces": [
+        {
+          "at": [
+            7,
+            -11,
+            21
+          ],
+          "radius": 4.4
+        },
+        {
+          "from": [
+            7,
+            -11,
+            21
+          ],
+          "to": [
+            15,
+            -14,
+            13
+          ],
+          "radius": [
+            3.6,
+            2.6
+          ]
+        },
+        {
+          "at": [
+            15,
+            -14,
+            13
+          ],
+          "radius": 2.6
+        }
+      ]
+    },
+    {
+      "id": "front_leg_lower_left",
+      "kind": "blob",
+      "material": "cream",
+      "blend": 1.5,
+      "cells": 16,
+      "triangles": 120,
+      "pieces": [
+        {
+          "from": [
+            15,
+            14,
+            13
+          ],
+          "to": [
+            12,
+            14.5,
+            4.5
+          ],
+          "radius": [
+            2.4,
+            1.8
+          ]
+        },
+        {
+          "at": [
+            12,
+            14.5,
+            4.5
+          ],
+          "radius": 1.8
+        },
+        {
+          "from": [
+            12,
+            14.5,
+            4.5
+          ],
+          "to": [
+            15,
+            15,
+            1
+          ],
+          "radius": [
+            1.6,
+            1.2
+          ]
+        },
+        {
+          "from": [
+            15,
+            15,
+            1
+          ],
+          "to": [
+            19,
+            11.5,
+            0.2
+          ],
+          "radius": [
+            1,
+            0.4
+          ]
+        },
+        {
+          "from": [
+            15,
+            15,
+            1
+          ],
+          "to": [
+            20.5,
+            14.5,
+            0.2
+          ],
+          "radius": [
+            1,
+            0.4
+          ]
+        },
+        {
+          "from": [
+            15,
+            15,
+            1
+          ],
+          "to": [
+            19,
+            17,
+            0.2
+          ],
+          "radius": [
+            1,
+            0.4
+          ]
+        }
+      ]
+    },
+    {
+      "id": "front_leg_lower_right",
+      "kind": "blob",
+      "material": "cream",
+      "blend": 1.5,
+      "cells": 16,
+      "triangles": 120,
+      "pieces": [
+        {
+          "from": [
+            15,
+            -14,
+            13
+          ],
+          "to": [
+            12,
+            -14.5,
+            4.5
+          ],
+          "radius": [
+            2.4,
+            1.8
+          ]
+        },
+        {
+          "at": [
+            12,
+            -14.5,
+            4.5
+          ],
+          "radius": 1.8
+        },
+        {
+          "from": [
+            12,
+            -14.5,
+            4.5
+          ],
+          "to": [
+            15,
+            -15,
+            1
+          ],
+          "radius": [
+            1.6,
+            1.2
+          ]
+        },
+        {
+          "from": [
+            15,
+            -15,
+            1
+          ],
+          "to": [
+            19,
+            -11.5,
+            0.2
+          ],
+          "radius": [
+            1,
+            0.4
+          ]
+        },
+        {
+          "from": [
+            15,
+            -15,
+            1
+          ],
+          "to": [
+            20.5,
+            -14.5,
+            0.2
+          ],
+          "radius": [
+            1,
+            0.4
+          ]
+        },
+        {
+          "from": [
+            15,
+            -15,
+            1
+          ],
+          "to": [
+            19,
+            -17,
+            0.2
+          ],
+          "radius": [
+            1,
+            0.4
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rear_leg_upper",
+      "kind": "blob",
+      "material": "skin",
+      "blend": 2,
+      "cells": 16,
+      "triangles": 90,
+      "pieces": [
+        {
+          "at": [
+            -10,
+            0,
+            20
+          ],
+          "radius": 4.2
+        },
+        {
+          "from": [
+            -10,
+            0,
+            20
+          ],
+          "to": [
+            -3,
+            0,
+            11.5
+          ],
+          "radius": [
+            3.8,
+            2.6
+          ]
+        },
+        {
+          "at": [
+            -3,
+            0,
+            11.5
+          ],
+          "radius": 2.6
+        }
+      ]
+    },
+    {
+      "id": "rear_leg_lower",
+      "kind": "blob",
+      "material": "cream",
+      "blend": 1.5,
+      "cells": 16,
+      "triangles": 120,
+      "pieces": [
+        {
+          "from": [
+            -3,
+            0,
+            13
+          ],
+          "to": [
+            -13,
+            0,
+            4
+          ],
+          "radius": [
+            2.6,
+            1.8
+          ]
+        },
+        {
+          "at": [
+            -3,
+            0,
+            11.5
+          ],
+          "radius": 2.6
+        },
+        {
+          "at": [
+            -13,
+            0,
+            3
+          ],
+          "radius": 1.8
+        },
+        {
+          "from": [
+            -13,
+            0,
+            3
+          ],
+          "to": [
+            -12,
+            0,
+            1
+          ],
+          "radius": [
+            1.6,
+            1.4
+          ]
+        },
+        {
+          "from": [
+            -12,
+            0,
+            1
+          ],
+          "to": [
+            -7,
+            0,
+            0.2
+          ],
+          "radius": [
+            1,
+            0.4
+          ]
+        },
+        {
+          "from": [
+            -12,
+            0,
+            1
+          ],
+          "to": [
+            -8,
+            -4,
+            0.2
+          ],
+          "radius": [
+            1,
+            0.4
+          ]
+        },
+        {
+          "from": [
+            -12,
+            0,
+            1
+          ],
+          "to": [
+            -8,
+            4,
+            0.2
+          ],
+          "radius": [
+            1,
+            0.4
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -11,19 +11,34 @@
     "length": 22.8,
     "width": 30.2
   },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
   "materials": {
     "cloth": {
       "base": "cloth",
-      "tone": "muted blue"
-    }
-  },
-  "pose": {
-    "keys": {
-      "Bip01 R Arm2": {
-        "turn": {
-          "y": 90
-        }
-      }
+      "tone": [
+        0.4,
+        0.4,
+        0.75
+      ]
+    },
+    "vest": {
+      "base": "leather",
+      "tone": [
+        0.12,
+        0.12,
+        0.13
+      ]
+    },
+    "skin": {
+      "base": "plaster",
+      "tone": [
+        0.8,
+        0.65,
+        0.55
+      ]
     }
   },
   "project": [
@@ -68,26 +83,6 @@
       ]
     },
     {
-      "picture": "work:pictures/sides.png",
-      "view": "top",
-      "area": [
-        512,
-        512,
-        1024,
-        1024
-      ]
-    },
-    {
-      "picture": "work:pictures/sides.png",
-      "view": "below",
-      "area": [
-        1024,
-        512,
-        1536,
-        1024
-      ]
-    },
-    {
       "picture": "work:pictures/front-left.png",
       "yaw": 35,
       "pitch": 20
@@ -108,267 +103,306 @@
       "pitch": 20
     }
   ],
+  "pose": {
+    "keys": {
+      "Bip01 R Arm2": {
+        "turn": {
+          "y": 45
+        }
+      }
+    }
+  },
   "parts": [
     {
-      "id": "body",
+      "id": "skin",
       "kind": "blob",
-      "material": "cloth",
+      "material": "skin",
       "blend": 2,
       "pieces": [
         {
-          "at": [
-            -2,
-            0,
-            20
-          ],
-          "radius": [
-            7.5,
-            8.2,
-            7.5
-          ]
-        },
-        {
-          "at": [
-            -1,
-            0,
-            23.5
-          ],
-          "radius": [
-            7.2,
-            8.6,
-            3.6
-          ]
-        },
-        {
-          "at": [
-            -7.2,
-            0,
-            17
-          ],
-          "radius": [
-            2.4,
-            7.2,
-            8.5
-          ]
-        },
-        {
-          "at": [
-            -0.5,
-            0,
-            8
-          ],
-          "radius": [
-            6,
-            7.6,
-            6.5
-          ]
-        },
-        {
-          "at": [
-            -0.5,
-            0,
-            -2
-          ],
-          "radius": [
-            6.3,
-            8.8,
-            4.5
-          ]
-        },
-        {
-          "at": [
-            -3.5,
-            0,
-            -2.5
-          ],
-          "radius": [
-            4.6,
-            8.6,
-            4.5
-          ]
-        },
-        {
-          "at": [
-            1.8,
-            0,
-            30.5
-          ],
-          "radius": [
-            4.6,
-            3.8,
-            4.6
-          ]
-        },
-        {
-          "at": [
-            0.9,
-            0,
-            34.5
-          ],
-          "radius": [
-            5.9,
-            4.9,
-            4.8
-          ]
+          "at": "Bip01 Head",
+          "radius": 4.6
         },
         {
           "span": [
             "Bip01 Neck",
             "Bip01 Head"
           ],
-          "radius": 2.8
-        },
-        {
-          "span": [
-            "Bip01 L Arm1",
-            "Bip01 L Arm2"
-          ],
-          "radius": 3.4
-        },
-        {
-          "span": [
-            "Bip01 L Arm2",
-            "Bip01 L Hand"
-          ],
-          "radius": 3
-        },
-        {
-          "at": "Bip01 L Arm1",
-          "radius": 3.6
-        },
-        {
-          "at": "Bip01 L Arm2",
-          "radius": 3.1
+          "radius": 2.6
         },
         {
           "at": "Bip01 L Hand",
-          "radius": [
-            1.7,
-            2,
-            2.6
-          ]
-        },
-        {
-          "span": [
-            "Bip01 R Arm1",
-            "Bip01 R Arm2"
-          ],
-          "radius": 3.4
-        },
-        {
-          "span": [
-            "Bip01 R Arm2",
-            "Bip01 R Hand"
-          ],
-          "radius": 3
-        },
-        {
-          "at": "Bip01 R Arm1",
-          "radius": 3.6
-        },
-        {
-          "at": "Bip01 R Arm2",
-          "radius": 3.1
+          "radius": 2
         },
         {
           "at": "Bip01 R Hand",
-          "radius": [
-            1.7,
-            2,
-            2.6
-          ]
-        },
-        {
-          "span": [
-            "Bip01 L Leg",
-            "Bip01 L Leg1"
-          ],
-          "radius": 4.3
-        },
-        {
-          "span": [
-            "Bip01 L Leg1",
-            "Bip01 L Foot"
-          ],
-          "radius": 3.3
-        },
-        {
-          "span": [
-            "Bip01 R Leg",
-            "Bip01 R Leg1"
-          ],
-          "radius": 4.3
-        },
-        {
-          "span": [
-            "Bip01 R Leg1",
-            "Bip01 R Foot"
-          ],
-          "radius": 3.3
-        },
-        {
-          "from": [
-            0,
-            5,
-            -33.2
-          ],
-          "to": [
-            7.8,
-            5,
-            -33.2
-          ],
-          "radius": 2.9
-        },
-        {
-          "at": [
-            4.2,
-            5,
-            -27
-          ],
-          "radius": [
-            4.6,
-            3.6,
-            4.5
-          ]
-        },
-        {
-          "from": [
-            -7.8,
-            -6.5,
-            -33.2
-          ],
-          "to": [
-            -0.2,
-            -6.5,
-            -33.2
-          ],
-          "radius": 2.9
-        },
-        {
-          "at": [
-            -4.8,
-            -6.5,
-            -27
-          ],
-          "radius": [
-            4.6,
-            3.6,
-            4.5
-          ]
-        },
-        {
-          "at": [
-            -1,
-            -9.5,
-            -8
-          ],
-          "radius": [
-            1.5,
-            1.5,
-            4
-          ]
+          "radius": 2
         }
       ]
+    },
+    {
+      "id": "helmet",
+      "kind": "superquadric",
+      "material": "vest",
+      "size": [
+        11.5,
+        10.5,
+        10.4
+      ],
+      "round": [
+        0.4,
+        0.5
+      ],
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "bottom",
+        "offset": [
+          0,
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "id": "shirt",
+      "kind": "superquadric",
+      "material": "cloth",
+      "size": [
+        11,
+        16,
+        24
+      ],
+      "round": [
+        0.3,
+        0.4
+      ],
+      "sides": 6,
+      "attach": {
+        "bone": "Bip01 Spine",
+        "at": "bottom",
+        "offset": [
+          3.5,
+          0,
+          -1.5
+        ]
+      }
+    },
+    {
+      "id": "vest",
+      "kind": "superquadric",
+      "material": "vest",
+      "size": [
+        13,
+        17.5,
+        23.5
+      ],
+      "round": [
+        0.15,
+        0.3
+      ],
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "at": "bottom",
+        "offset": [
+          3.5,
+          0,
+          -4
+        ]
+      }
+    },
+    {
+      "id": "hips",
+      "kind": "superquadric",
+      "material": "cloth",
+      "size": [
+        11.5,
+        16,
+        9
+      ],
+      "round": [
+        0.3,
+        0.4
+      ],
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 Pelvis",
+        "at": "centre",
+        "offset": [
+          3.5,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "thigh_L",
+      "kind": "cylinder",
+      "material": "cloth",
+      "radius": 3.4,
+      "height": 10,
+      "sides": 6,
+      "span": {
+        "bones": [
+          "Bip01 L Thigh",
+          "Bip01 L Calf"
+        ],
+        "over": 1
+      }
+    },
+    {
+      "id": "thigh_R",
+      "kind": "cylinder",
+      "material": "cloth",
+      "radius": 3.4,
+      "height": 10,
+      "sides": 6,
+      "span": {
+        "bones": [
+          "Bip01 R Thigh",
+          "Bip01 R Calf"
+        ],
+        "over": 1
+      }
+    },
+    {
+      "id": "calf_L",
+      "kind": "cylinder",
+      "material": "cloth",
+      "radius": 3,
+      "height": 10,
+      "sides": 6,
+      "span": {
+        "bones": [
+          "Bip01 L Calf",
+          "Bip01 L Foot"
+        ],
+        "over": 1
+      }
+    },
+    {
+      "id": "calf_R",
+      "kind": "cylinder",
+      "material": "cloth",
+      "radius": 3,
+      "height": 10,
+      "sides": 6,
+      "span": {
+        "bones": [
+          "Bip01 R Calf",
+          "Bip01 R Foot"
+        ],
+        "over": 1
+      }
+    },
+    {
+      "id": "boot_L",
+      "kind": "superquadric",
+      "material": "vest",
+      "size": [
+        12,
+        7.5,
+        14
+      ],
+      "round": [
+        0.2,
+        0.3
+      ],
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 L Foot",
+        "at": "bottom",
+        "offset": [
+          4.4,
+          0.5,
+          -2
+        ]
+      }
+    },
+    {
+      "id": "boot_R",
+      "kind": "superquadric",
+      "material": "vest",
+      "size": [
+        12,
+        7.5,
+        14
+      ],
+      "round": [
+        0.2,
+        0.3
+      ],
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 R Foot",
+        "at": "bottom",
+        "offset": [
+          2.5,
+          -0.5,
+          -2
+        ]
+      }
+    },
+    {
+      "id": "arm_L",
+      "kind": "cylinder",
+      "material": "cloth",
+      "radius": 3.1,
+      "height": 10,
+      "sides": 6,
+      "span": {
+        "bones": [
+          "Bip01 L UpperArm",
+          "Bip01 L Forearm"
+        ],
+        "over": 1
+      }
+    },
+    {
+      "id": "arm_R",
+      "kind": "cylinder",
+      "material": "cloth",
+      "radius": 3.1,
+      "height": 10,
+      "sides": 6,
+      "span": {
+        "bones": [
+          "Bip01 R UpperArm",
+          "Bip01 R Forearm"
+        ],
+        "over": 1
+      }
+    },
+    {
+      "id": "forearm_L",
+      "kind": "cylinder",
+      "material": "cloth",
+      "radius": 2.8,
+      "height": 10,
+      "sides": 6,
+      "span": {
+        "bones": [
+          "Bip01 L Forearm",
+          "Bip01 L Hand"
+        ],
+        "over": 1
+      }
+    },
+    {
+      "id": "forearm_R",
+      "kind": "cylinder",
+      "material": "cloth",
+      "radius": 2.8,
+      "height": 10,
+      "sides": 6,
+      "span": {
+        "bones": [
+          "Bip01 R Forearm",
+          "Bip01 R Hand"
+        ],
+        "over": 1
+      }
     }
   ]
 }

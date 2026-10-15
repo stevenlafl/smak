@@ -1,14 +1,12 @@
-The model builds OK as `houndeye.mdl` in the work folder, with a spec at `work:houndeye.spec.json`. It is not a close match on every part, and I did not test it in the game.
+**Blocked: I can't build this yet, because the game's skeleton isn't in this session.** The SMAK server's models folder is empty. `models` lists only the work folder (`pictures/`), and `player/gordon/gordon.mdl` isn't found. I checked whether the kit can build without a base, and it can't: a character is a body put on a game model's bones and animations, so there's nothing to build on. I haven't written or built a spec.
 
-**What I built**
-- **Skeleton:** `bullsquid.mdl` from the Half-Life install, with `floor` 0. Its animations are kept. The skeleton I wanted, the original houndeye's, is not available. Gordon is humanoid, and the headcrab is far too small for a 49-unit body. The bullsquid has the right scale and four-legged stance.
-- **Body:** one carved part, 600 triangles, shaped from the six sides of `sides.png` plus the four angled views. Each view's outline matches the picture at 0.94 to 0.99.
-- **Colour and markings:** the pictures are projected onto the shape, so the olive, teal and brown stripes, the dark maw and the pale underside come from the originals rather than from a hand-picked tone.
-- **Pose:** the mesh stands in the original's pose, with feet at z 0. Its size is 49.1 long, 33.5 wide and 44.7 high, against the 49.3, 33.5 and 44.7 asked for.
+What I did confirm:
+- All the reference pictures are in the work folder under `pictures/` (`sides.png`, `motion.png`, `front-left.png`, `front-right.png`, `back-left.png`, `back-right.png`, `facts.txt`). I looked at the sides, the run strip and three of the angles.
+- The creature is a low, wide oval body with a round, dark, bumpy maw on the front. It has five or six ridged fins across the back, olive-yellow skin with teal and brown stripes, and four thin legs with pale feet. The run strip shows the legs reaching forward and back.
 
-**What is not right**
-- **Parts:** the legs, tail, crest and maw are not separate parts. They are all in the one carved body, so nothing can be moved or animated on its own.
-- **Warnings:** the build reports OK with two warnings. The first is that 6 of the bullsquid's animations live in separate `name01.mdl` files, which the kit cannot change, so they stay as Valve made them. The second is that the back views' colour differs from the picture by a mean of 12 (the worst spot is at the top of the spine), so the back looks a little different from the original.
-- **Motion:** I did not fit the run to `motion.png`. The walk strip is a sanity check only, and the game will show whether the legs look right when they move.
+Before we pick a base, one thing to consider: Gordon is a two-legged player skeleton. The Houndeye walks on four legs, so Gordon's bones would not match its stance, and its run would be a biped run. A four-legged monster's own skeleton from the game would suit it better. I'd rank the options like this:
 
-I did not build a separate spec variant for the other skeletons I looked at, and I did not run the model in the game.
+1. **A four-legged monster skeleton from the game** (the best fit for its run). Tell me the folder, and I'll check which one fits.
+2. **Gordon's skeleton with bones added for the legs.** This works, but the run would be a poor match.
+
+To go on, I need one thing from you: the path to the game's `models` folder (for example `…/Half-Life/valve/models/` or `…/Half-Life/ts/models/`). The SMAK server has to be started with `--models` pointing at it. Once it's there, I'll pick the base, write the spec with `"floor": 0`, build it, and check it against the pictures until it says OK.

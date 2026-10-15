@@ -1,0 +1,701 @@
+{
+  "spec": "smak.model/1",
+  "name": "zombie.mdl",
+  "kind": "character",
+  "base": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "floor": 0,
+  "size": {
+    "height": 68.4,
+    "length": 38.5,
+    "width": 53.8
+  },
+  "materials": {
+    "coat": {
+      "base": "cloth",
+      "tone": [
+        0.8,
+        0.79,
+        0.76
+      ]
+    },
+    "skin": {
+      "base": "paint",
+      "tone": [
+        0.45,
+        0.24,
+        0.18
+      ]
+    },
+    "flesh": {
+      "base": "paint",
+      "tone": [
+        0.24,
+        0.05,
+        0.05
+      ]
+    },
+    "blood": {
+      "base": "paint",
+      "tone": [
+        0.55,
+        0.08,
+        0.07
+      ]
+    },
+    "claw": {
+      "base": "bone",
+      "tone": [
+        0.55,
+        0.12,
+        0.08
+      ]
+    },
+    "head": {
+      "base": "paint",
+      "tone": [
+        0.9,
+        0.82,
+        0.52
+      ]
+    },
+    "shoe": {
+      "base": "leather",
+      "tone": [
+        0.4,
+        0.1,
+        0.07
+      ]
+    }
+  },
+  "pose": {
+    "keys": {
+      "Bip01 Spine": {
+        "turn": {
+          "y": 8
+        }
+      },
+      "Bip01 Spine1": {
+        "turn": {
+          "y": 12
+        }
+      },
+      "Bip01 Spine2": {
+        "turn": {
+          "y": 12
+        }
+      },
+      "Bip01 Spine3": {
+        "turn": {
+          "y": 12
+        }
+      },
+      "Bip01 Neck": {
+        "turn": {
+          "y": 12
+        }
+      },
+      "Bip01 Head": {
+        "turn": {
+          "y": 8
+        }
+      },
+      "Bip01 L Arm1": {
+        "turn": {
+          "y": -35,
+          "x": 28
+        }
+      },
+      "Bip01 R Arm1": {
+        "turn": {
+          "y": -35,
+          "x": -28
+        }
+      },
+      "Bip01 L Arm2": {
+        "turn": {
+          "y": -45
+        }
+      },
+      "Bip01 R Arm2": {
+        "turn": {
+          "y": 45
+        }
+      }
+    }
+  },
+  "parts": [
+    {
+      "id": "head",
+      "kind": "superquadric",
+      "size": [
+        12.5,
+        12,
+        10.5
+      ],
+      "round": [
+        0.6,
+        0.7
+      ],
+      "sides": 8,
+      "material": "head",
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "centre",
+        "offset": [
+          -3,
+          0,
+          2.3
+        ]
+      }
+    },
+    {
+      "id": "face",
+      "kind": "superquadric",
+      "size": [
+        5,
+        9,
+        7
+      ],
+      "round": [
+        0.5,
+        0.5
+      ],
+      "sides": 8,
+      "material": "flesh",
+      "paint": true,
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "centre",
+        "offset": [
+          2,
+          0,
+          -3
+        ]
+      }
+    },
+    {
+      "id": "body",
+      "kind": "blob",
+      "material": "coat",
+      "blend": 3,
+      "cells": 40,
+      "triangles": 340,
+      "pieces": [
+        {
+          "at": [
+            2,
+            0,
+            8
+          ],
+          "radius": [
+            5.5,
+            8.5,
+            8
+          ]
+        },
+        {
+          "at": [
+            1.5,
+            0,
+            -2
+          ],
+          "radius": [
+            5.5,
+            8,
+            6
+          ]
+        },
+        {
+          "at": [
+            1,
+            0,
+            18
+          ],
+          "radius": [
+            5,
+            10,
+            5
+          ]
+        },
+        {
+          "from": [
+            4,
+            0,
+            20
+          ],
+          "to": [
+            7,
+            0,
+            27
+          ],
+          "radius": 3.3
+        },
+        {
+          "span": [
+            "Bip01 L Arm1",
+            "Bip01 L Arm2"
+          ],
+          "radius": 3.2
+        },
+        {
+          "span": [
+            "Bip01 R Arm1",
+            "Bip01 R Arm2"
+          ],
+          "radius": 3.2
+        },
+        {
+          "span": [
+            "Bip01 L Leg",
+            "Bip01 L Leg1"
+          ],
+          "radius": 4
+        },
+        {
+          "span": [
+            "Bip01 R Leg",
+            "Bip01 R Leg1"
+          ],
+          "radius": 4
+        },
+        {
+          "span": [
+            "Bip01 L Leg1",
+            "Bip01 L Foot"
+          ],
+          "radius": 3
+        },
+        {
+          "span": [
+            "Bip01 R Leg1",
+            "Bip01 R Foot"
+          ],
+          "radius": 3
+        }
+      ]
+    },
+    {
+      "id": "cavity",
+      "kind": "box",
+      "size": [
+        2,
+        7,
+        22
+      ],
+      "material": "flesh",
+      "paint": true,
+      "at": [
+        6,
+        0,
+        -4
+      ]
+    },
+    {
+      "id": "stain_L1",
+      "kind": "superquadric",
+      "size": [
+        1.5,
+        2.5,
+        3
+      ],
+      "round": [
+        0.5,
+        0.5
+      ],
+      "sides": 6,
+      "material": "blood",
+      "paint": true,
+      "attach": {
+        "bone": "Bip01 L Leg1",
+        "at": "centre",
+        "offset": [
+          2.5,
+          0.5,
+          -6
+        ]
+      }
+    },
+    {
+      "id": "stain_R1",
+      "kind": "superquadric",
+      "size": [
+        1.5,
+        2.5,
+        3
+      ],
+      "round": [
+        0.5,
+        0.5
+      ],
+      "sides": 6,
+      "material": "blood",
+      "paint": true,
+      "attach": {
+        "bone": "Bip01 R Leg1",
+        "at": "centre",
+        "offset": [
+          2.5,
+          -0.5,
+          -5
+        ]
+      }
+    },
+    {
+      "id": "stain_L2",
+      "kind": "superquadric",
+      "size": [
+        1.5,
+        2,
+        3
+      ],
+      "round": [
+        0.5,
+        0.5
+      ],
+      "sides": 6,
+      "material": "blood",
+      "paint": true,
+      "attach": {
+        "bone": "Bip01 L Leg",
+        "at": "centre",
+        "offset": [
+          2.5,
+          0.5,
+          -6
+        ]
+      }
+    },
+    {
+      "id": "forearm_L",
+      "kind": "cylinder",
+      "radius": 2.2,
+      "height": 8,
+      "sides": 5,
+      "material": "skin",
+      "span": {
+        "bones": [
+          "Bip01 L Arm2",
+          "Bip01 L Hand"
+        ],
+        "over": 1
+      }
+    },
+    {
+      "id": "forearm_R",
+      "kind": "cylinder",
+      "radius": 2.2,
+      "height": 8,
+      "sides": 5,
+      "material": "skin",
+      "span": {
+        "bones": [
+          "Bip01 R Arm2",
+          "Bip01 R Hand"
+        ],
+        "over": 1
+      }
+    },
+    {
+      "id": "wrist_L",
+      "kind": "sphere",
+      "radius": 2.4,
+      "sides": 5,
+      "material": "skin",
+      "attach": {
+        "bone": "Bip01 L Hand",
+        "at": "centre"
+      }
+    },
+    {
+      "id": "wrist_R",
+      "kind": "sphere",
+      "radius": 2.4,
+      "sides": 5,
+      "material": "skin",
+      "attach": {
+        "bone": "Bip01 R Hand",
+        "at": "centre"
+      }
+    },
+    {
+      "id": "claw_L1",
+      "kind": "tube",
+      "path": [
+        [
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          12,
+          3,
+          -4,
+          0.7
+        ],
+        [
+          22,
+          6,
+          -11,
+          0.12
+        ]
+      ],
+      "sides": 4,
+      "material": "claw",
+      "attach": {
+        "bone": "Bip01 L Hand",
+        "at": "start"
+      }
+    },
+    {
+      "id": "claw_L2",
+      "kind": "tube",
+      "path": [
+        [
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          13,
+          1.5,
+          -4,
+          0.7
+        ],
+        [
+          23,
+          3,
+          -11,
+          0.12
+        ]
+      ],
+      "sides": 4,
+      "material": "claw",
+      "attach": {
+        "bone": "Bip01 L Hand",
+        "at": "start"
+      }
+    },
+    {
+      "id": "claw_L3",
+      "kind": "tube",
+      "path": [
+        [
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          13,
+          0,
+          -4,
+          0.7
+        ],
+        [
+          23,
+          0,
+          -11,
+          0.12
+        ]
+      ],
+      "sides": 4,
+      "material": "claw",
+      "attach": {
+        "bone": "Bip01 L Hand",
+        "at": "start"
+      }
+    },
+    {
+      "id": "claw_L4",
+      "kind": "tube",
+      "path": [
+        [
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          12,
+          -1.5,
+          -4,
+          0.7
+        ],
+        [
+          21,
+          -3,
+          -11,
+          0.12
+        ]
+      ],
+      "sides": 4,
+      "material": "claw",
+      "attach": {
+        "bone": "Bip01 L Hand",
+        "at": "start"
+      }
+    },
+    {
+      "id": "claw_R1",
+      "kind": "tube",
+      "path": [
+        [
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          12,
+          -3,
+          -4,
+          0.7
+        ],
+        [
+          22,
+          -6,
+          -11,
+          0.12
+        ]
+      ],
+      "sides": 4,
+      "material": "claw",
+      "attach": {
+        "bone": "Bip01 R Hand",
+        "at": "start"
+      }
+    },
+    {
+      "id": "claw_R2",
+      "kind": "tube",
+      "path": [
+        [
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          13,
+          -1.5,
+          -4,
+          0.7
+        ],
+        [
+          23,
+          -3,
+          -11,
+          0.12
+        ]
+      ],
+      "sides": 4,
+      "material": "claw",
+      "attach": {
+        "bone": "Bip01 R Hand",
+        "at": "start"
+      }
+    },
+    {
+      "id": "claw_R3",
+      "kind": "tube",
+      "path": [
+        [
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          13,
+          0,
+          -4,
+          0.7
+        ],
+        [
+          23,
+          0,
+          -11,
+          0.12
+        ]
+      ],
+      "sides": 4,
+      "material": "claw",
+      "attach": {
+        "bone": "Bip01 R Hand",
+        "at": "start"
+      }
+    },
+    {
+      "id": "claw_R4",
+      "kind": "tube",
+      "path": [
+        [
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          12,
+          1.5,
+          -4,
+          0.7
+        ],
+        [
+          21,
+          3,
+          -11,
+          0.12
+        ]
+      ],
+      "sides": 4,
+      "material": "claw",
+      "attach": {
+        "bone": "Bip01 R Hand",
+        "at": "start"
+      }
+    },
+    {
+      "id": "shoe_L",
+      "kind": "box",
+      "size": [
+        12,
+        5,
+        5
+      ],
+      "material": "shoe",
+      "attach": {
+        "bone": "Bip01 L Foot",
+        "at": "centre",
+        "offset": [
+          -2.5,
+          -0.5,
+          -1.5
+        ]
+      }
+    },
+    {
+      "id": "shoe_R",
+      "kind": "box",
+      "size": [
+        12,
+        5,
+        5
+      ],
+      "material": "shoe",
+      "attach": {
+        "bone": "Bip01 R Foot",
+        "at": "centre",
+        "offset": [
+          6.5,
+          0.5,
+          -1.5
+        ]
+      }
+    }
+  ]
+}

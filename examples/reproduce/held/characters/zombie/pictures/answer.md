@@ -1,22 +1,28 @@
-The model builds OK with no warnings, saved as `work:zombie.mdl` in the server's work folder.
+I built `zombie.mdl` on Gordon's skeleton. The build says OK, but with four warnings, and it is not a close match yet. The judge would see clear differences in the arms, the width and the silhouettes.
 
-**What I built**
-- **Skeleton:** Half-Life's `player/gordon/gordon.mdl`, found in the installed game folder. The zombie keeps all of its bones and animations, with `floor: 0` so the feet stand at the origin.
-- **Size:** 38.3 long, 52.0 wide, 68.4 high, against 38.5, 53.8 and 68.4 for the original. Width is the one loose figure, about 3% under.
-- **Pose:** the first frame is hunched, with the spine and head leaning forward, the upper arms out and forward, and both forearms angled down. The claws reach to about the original's length.
-- **Coat and torso:** a single smooth blob in pale grey-white, with a dark red chest panel and two red blood marks on the legs.
-- **Head:** a cream-yellow bulb, with a dark red face painted at the front and lower down.
-- **Arms and hands:** bare dark brown-red forearms, wrist joints, and four long red-tipped claws on each hand.
-- **Shoes:** dark red-brown boxes on the feet.
+**What the build is**
+- Base: `player/gordon/gordon.mdl` from the installed Half-Life `valve` folder, keeping its 42 bones and 77 animations. `floor` is 0, so the feet stand at the origin.
+- Body: a blob torso with a coat skirt, and blob legs and arms on their bones. The head is a superquadric on the head bone, with a pale skull colour.
+- Hands: a sphere on each hand bone, with three claws per hand, pointing down and forward.
+- Shoes: boxes on the feet, in dark red.
+- Colour: the four angle pictures and the six sides are projected onto it, so the coat, the blood and the skull come from the original's own pictures.
+- Pose: a forward lean through the spine, the head forward and down, and the upper arms swung slightly forward and rolled outward. I set these by hand, because the automatic pose fit pushed the figure into a running stance.
 
-**How I matched it**
-- I did not feed your pictures into the kit's projection, motion-fit or pose-fit tools. The kit's rules say a view of the game may be measured and matched by eye but never fed in. Colours, markings and proportions were taken from the pictures by eye and by measuring them.
-- I checked the front-left camera against the original and the six-view sheet. I did not compare every camera.
+**What the build still reports**
+- Length is 33.2 against 38.5, and width is 44.5 against 53.8.
+- Outline overlap against the original's views is 0.30 to 0.56 on most views, against the 0.8 the tool asks for.
+- The triangle count is 1240, over twice Gordon's own body, which is a warning only.
 
-**Known differences from the original**
-- The torso is one smooth shape. The original's chest opening shows ribs and organs; mine is a flat dark panel.
-- The head is a plain bulb with a small dark face, not the original's detailed face.
-- The legs are straight. The original's stance is a little more bent.
-- The claws are simple tubes and the blood stains are a few small patches. The original has more and larger ones.
-- The forearms are shorter than the original's, because Gordon's arm bones are shorter. The claws make up the difference in reach.
-- The walk and run animations are Gordon's, so the zombie will walk in Gordon's human gait. No hit boxes, activities or monster movement speed are set; those belong to the mod's code, and you didn't ask for them.
+**Why the arms are short**
+Gordon's arm from shoulder to wrist is about 22 units on this skeleton. The original's arm reaches down to about 32 units, so its hands hang near floor 25. Ours stop near floor 38 at the claw tips, and the shape is narrower because the arms cannot splay further without lifting the hands. Each forward swing of the upper arm raised the hand toward shoulder height, so I kept the arms nearly hanging. That trade costs the reach and the width. I tried three other arm settings, and this one had the best side-view overlap.
+
+**Choices I made that you may want to change**
+- The legs are left straight on the skeleton, so the hips and knees are Gordon's. I did not bend the knees, because bending them far enough to match the original's hip height would have made it look crouched.
+- The skirt, the torso and the claws are approximations of the coat's hem and the fingers, not traced from the pictures.
+- I did not check it in the game. Everything above is from the build report and the sheet pictures.
+
+**If you want it closer**
+- Carve the torso and arms from the original's silhouettes (the `carved` kind), keeping the blobs for the joints. The tool may not allow that on a character, so I have not tried it.
+- Accept the arm shortfall as the cost of Gordon's skeleton. A monster with his arm lengths would look closer to a human than to the original.
+
+The files are in the server's work folder: `zombie.mdl`, `zombie.spec.json` and `zombie-sheet.png`. I could not save a memory note, because the write tool is disabled in this session. The pose sign findings are in the report above instead.

@@ -1,36 +1,29 @@
-I built `scientist.mdl` on Gordon's skeleton with `"floor": 0`. The build says OK and the engine-limit check reports "fit for goldsrc". I had no picture of the original, only your description, so every colour, marking and proportion is my reading of that text, and nothing was checked against the original's pictures.
+The model is built and the build says **OK**: `work:scientist.mdl` (the work folder, 1.19 MB), with its spec beside it as `work:scientist.spec.json`. I built it from your written description only. I had no reference pictures, so nothing here has been compared side by side with the original, and I did not run it in the game.
 
-**Files (in the work folder)**
-- `work:scientist.mdl`: the model
-- `work:scientist.spec.json`: the spec it was built from
-- `work:scientist-sheet.png`: six-view sheet
-- `headcheck.mdl`, `headcheck.spec.json`, `headcheck-sheet.png`: a scratch model I used to look at the head alone. I have no delete tool here, so please remove them.
+**Checks from the build**
 
-**Checked against your numbers**
+| Check | Result |
+| --- | --- |
+| Height | 67.9 units against 68 asked |
+| Width | 23.6 units across the hands against 21.7 asked (within the 10% tolerance) |
+| Length | 17 units front to back. You gave 33.3, but I did not set it (see below) |
+| Holes, floating parts, faces turned the wrong way | None |
+| Triangles | 1,188, over twice the 362 of Gordon's own body (a warning only) |
 
-| Thing | Your description | Model |
-| --- | --- | --- |
-| Height | about 68 | 67.9 |
-| Width across the hands | 21.7 | 22.0 |
-| Length front to back | 33.3 (from a stride) | 18.3 standing |
-| Head, all three sides | about 8.5 tall | 8.6 long, 8.2 wide, 9.5 tall |
-| Hip line | just under 34 | hip joint at about 39 |
+**What I built**
 
-**What's in it**
-- Bald, elongated head with pale pinkish skin, a grey-white band of hair at ear level, black-framed glasses, a long straight nose, a thin mouth and slightly prominent ears.
-- White lab coat to mid-thigh with a slight flare, and a blue shirt and red-and-black tie down the centre. Black belt with a grey buckle, off-white trousers, dark reddish-brown shoes.
-- Arms hang straight with fists at mid-thigh, about 22 units apart at the fists.
-- Skeleton's own animations kept. Its run, walk, crouch and jump passed the report's checks for parts coming apart.
+- **Base:** Gordon's skeleton and all its animations, found in the Half-Life `valve/models` folder. `floor: 0`, so the feet stand at the origin.
+- **Head:** a pale, slightly long skull with a bald top. A grey-white hair band runs from ear to ear over the sides and back. Black-rimmed glasses are painted on, with arms back to the ears. There are a long nose, slightly prominent ears and a thin mouth.
+- **Body:** a white lab coat (a soft body with a hem at about mid-thigh to knee, slightly flared), with a blue shirt and a navy tie with red diagonal stripes painted on the front. A black belt with a grey buckle goes all the way round. Trousers are off-white, and the shoes are reddish-brown leather.
+- **Arms and hands:** the arms hang at the sides with curled fists, hands at mid-thigh.
 
-**Where it differs from the original**
-- **Hip line and leg length:** Gordon's hip joint sits higher than your hip line. I can't move bones, so the legs are his and the hip line is set by the coat and trousers.
-- **Coat front:** the coat is closed. Painted lapel edges and the shirt suggest the open front, but a real open front needs a split coat.
-- **Stoop:** the spine is Gordon's and nearly upright. Only the head juts forward.
-- **Tie:** the hazard pattern gives red and black, not navy and red.
-- **Running:** the coat tails don't flap as described. I didn't fit the run to pictures, since I had none.
-- **Eyes:** no sunken eye sockets are modelled.
-- **Triangles:** 1,026, which the report flags as more than twice Gordon's body (362). It is a warning, not a failure.
+**Where I departed from the description or from the skeleton**
 
-**Choices I made**
-- Used `C:\...\Half-Life\valve\models\player\gordon\gordon.mdl`, found through the Steam install, since the models folder is not set up.
-- Coat, trousers and shirt use matte paint, not cloth, to avoid the blotchy look the cloth gave.
+- **Stride:** the base's standing stance is narrow, so the figure is 17 units long where you gave 33.3. I did not force a wider stride, because moving the legs means keeping the feet on the floor with no inverse kinematics.
+- **Pose:** the base's first animation holds Gordon's right arm forward with a gun. I turned its right forearm down and brought both upper arms in slightly, so the arms hang. This changes the frames of that first animation only, not the others. Say if you want that reverted.
+- **Coat front:** the coat is not really open down the front. The shirt, tie and belt are painted onto the closed coat, and the lapels and collar are not modelled.
+- **Motion:** the walk and run are Gordon's, not the 19-frame scientist run. Without reference frames the motion could not be fitted to yours.
+- **Face at close range:** the glasses and hair band are painted onto the head, but the close-up tool showed the hips rather than the head. I could not confirm the face detail up close, so that is the least verified part.
+- **Minor:** the build notes that each ear sits 0.3 units from the neck. That is a note, not a fault.
+
+If you can send a front view and a side view of the original, I can run the fitting tools against them and check the outline and colours directly.

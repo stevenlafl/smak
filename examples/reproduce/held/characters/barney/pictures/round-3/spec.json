@@ -1,0 +1,374 @@
+{
+  "spec": "smak.model/1",
+  "name": "barney.mdl",
+  "kind": "character",
+  "base": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "floor": 0,
+  "size": {
+    "height": 75.3,
+    "length": 22.8,
+    "width": 30.2
+  },
+  "materials": {
+    "cloth": {
+      "base": "cloth",
+      "tone": "muted blue"
+    }
+  },
+  "pose": {
+    "keys": {
+      "Bip01 R Arm2": {
+        "turn": {
+          "y": 90
+        }
+      }
+    }
+  },
+  "project": [
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "front",
+      "area": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "left",
+      "area": [
+        512,
+        0,
+        1024,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "back",
+      "area": [
+        1024,
+        0,
+        1536,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "right",
+      "area": [
+        0,
+        512,
+        512,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "top",
+      "area": [
+        512,
+        512,
+        1024,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "below",
+      "area": [
+        1024,
+        512,
+        1536,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/front-left.png",
+      "yaw": 35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/front-right.png",
+      "yaw": -35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-left.png",
+      "yaw": 145,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-right.png",
+      "yaw": 215,
+      "pitch": 20
+    }
+  ],
+  "parts": [
+    {
+      "id": "body",
+      "kind": "blob",
+      "material": "cloth",
+      "blend": 2,
+      "pieces": [
+        {
+          "at": [
+            -2,
+            0,
+            20
+          ],
+          "radius": [
+            7.5,
+            8.2,
+            7.5
+          ]
+        },
+        {
+          "at": [
+            -1,
+            0,
+            23.5
+          ],
+          "radius": [
+            7.2,
+            8.6,
+            3.6
+          ]
+        },
+        {
+          "at": [
+            -7.2,
+            0,
+            17
+          ],
+          "radius": [
+            2.4,
+            7.2,
+            8.5
+          ]
+        },
+        {
+          "at": [
+            -0.5,
+            0,
+            8
+          ],
+          "radius": [
+            6,
+            7.6,
+            6.5
+          ]
+        },
+        {
+          "at": [
+            -0.5,
+            0,
+            -2
+          ],
+          "radius": [
+            6.3,
+            8.8,
+            4.5
+          ]
+        },
+        {
+          "at": [
+            -3.5,
+            0,
+            -2.5
+          ],
+          "radius": [
+            4.6,
+            8.6,
+            4.5
+          ]
+        },
+        {
+          "at": [
+            1.8,
+            0,
+            30.5
+          ],
+          "radius": [
+            4.6,
+            3.8,
+            4.6
+          ]
+        },
+        {
+          "at": [
+            0.9,
+            0,
+            34.5
+          ],
+          "radius": [
+            5.9,
+            4.9,
+            4.8
+          ]
+        },
+        {
+          "span": [
+            "Bip01 Neck",
+            "Bip01 Head"
+          ],
+          "radius": 2.8
+        },
+        {
+          "span": [
+            "Bip01 L Arm1",
+            "Bip01 L Arm2"
+          ],
+          "radius": 3.4
+        },
+        {
+          "span": [
+            "Bip01 L Arm2",
+            "Bip01 L Hand"
+          ],
+          "radius": 3
+        },
+        {
+          "at": "Bip01 L Arm1",
+          "radius": 3.6
+        },
+        {
+          "at": "Bip01 L Arm2",
+          "radius": 3.1
+        },
+        {
+          "at": "Bip01 L Hand",
+          "radius": [
+            1.7,
+            2,
+            2.6
+          ]
+        },
+        {
+          "span": [
+            "Bip01 R Arm1",
+            "Bip01 R Arm2"
+          ],
+          "radius": 3.4
+        },
+        {
+          "span": [
+            "Bip01 R Arm2",
+            "Bip01 R Hand"
+          ],
+          "radius": 3
+        },
+        {
+          "at": "Bip01 R Arm1",
+          "radius": 3.6
+        },
+        {
+          "at": "Bip01 R Arm2",
+          "radius": 3.1
+        },
+        {
+          "at": "Bip01 R Hand",
+          "radius": [
+            1.7,
+            2,
+            2.6
+          ]
+        },
+        {
+          "span": [
+            "Bip01 L Leg",
+            "Bip01 L Leg1"
+          ],
+          "radius": 4.3
+        },
+        {
+          "span": [
+            "Bip01 L Leg1",
+            "Bip01 L Foot"
+          ],
+          "radius": 3.3
+        },
+        {
+          "span": [
+            "Bip01 R Leg",
+            "Bip01 R Leg1"
+          ],
+          "radius": 4.3
+        },
+        {
+          "span": [
+            "Bip01 R Leg1",
+            "Bip01 R Foot"
+          ],
+          "radius": 3.3
+        },
+        {
+          "from": [
+            0,
+            5,
+            -33.2
+          ],
+          "to": [
+            7.8,
+            5,
+            -33.2
+          ],
+          "radius": 2.9
+        },
+        {
+          "at": [
+            4.2,
+            5,
+            -27
+          ],
+          "radius": [
+            4.6,
+            3.6,
+            4.5
+          ]
+        },
+        {
+          "from": [
+            -7.8,
+            -6.5,
+            -33.2
+          ],
+          "to": [
+            -0.2,
+            -6.5,
+            -33.2
+          ],
+          "radius": 2.9
+        },
+        {
+          "at": [
+            -4.8,
+            -6.5,
+            -27
+          ],
+          "radius": [
+            4.6,
+            3.6,
+            4.5
+          ]
+        },
+        {
+          "at": [
+            -1,
+            -9.5,
+            -8
+          ],
+          "radius": [
+            1.5,
+            1.5,
+            4
+          ]
+        }
+      ]
+    }
+  ]
+}
