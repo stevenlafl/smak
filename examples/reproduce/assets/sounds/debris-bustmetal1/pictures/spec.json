@@ -4,110 +4,145 @@
   "class": "metal hit",
   "rate": 11025,
   "bits": 8,
-  "seed": 5,
-  "length": 0.85,
+  "length": 0.87,
+  "seed": 1,
   "picture": "pictures/sound.png",
   "layers": [
     {
-      "id": "burst",
+      "id": "crack",
       "kind": "noise",
+      "color": "white",
       "shape": [
         [
-          60,
-          -14
+          200,
+          -30
         ],
         [
-          300,
-          -6
+          600,
+          -26
         ],
         [
-          1000,
-          0
+          1200,
+          -20
         ],
         [
           2000,
-          0
-        ],
-        [
-          3500,
           -3
         ],
         [
+          2800,
+          -2
+        ],
+        [
+          3500,
+          -6
+        ],
+        [
           5000,
-          -12
+          -14
+        ],
+        [
+          7000,
+          -26
+        ],
+        [
+          11000,
+          -40
         ]
       ],
-      "iterations": 16,
       "env": {
-        "points": [
-          [
-            0,
-            0
-          ],
-          [
-            0.06,
-            -4
-          ],
-          [
-            0.15,
-            -10
-          ],
-          [
-            0.4,
-            -20
-          ],
-          [
-            0.7,
-            -36
-          ],
-          [
-            0.85,
-            -50
-          ]
-        ]
-      }
+        "decay": 0.04
+      },
+      "gain": -1
     },
     {
-      "id": "rattle",
-      "kind": "particles",
-      "rate": 90,
-      "band": [
-        800,
-        4000
-      ],
-      "grain": 0.008,
-      "length": 0.7,
-      "gain": -8,
-      "env": {
-        "points": [
-          [
-            0,
-            0
-          ],
-          [
-            0.3,
-            -8
-          ],
-          [
-            0.7,
-            -25
-          ]
+      "id": "body",
+      "kind": "noise",
+      "color": "white",
+      "shape": [
+        [
+          200,
+          -30
+        ],
+        [
+          600,
+          -26
+        ],
+        [
+          1200,
+          -20
+        ],
+        [
+          2000,
+          -3
+        ],
+        [
+          2800,
+          -2
+        ],
+        [
+          3500,
+          -6
+        ],
+        [
+          5000,
+          -14
+        ],
+        [
+          7000,
+          -26
+        ],
+        [
+          11000,
+          -40
         ]
-      }
+      ],
+      "env": {
+        "attack": 0.003,
+        "decay": 0.6
+      },
+      "gain": -5
     },
     {
       "id": "ring",
       "kind": "modes",
-      "f": 1100,
+      "f": 2600,
+      "ratios": "bell",
+      "decay": 1,
+      "damping": 0.8,
+      "gain": -20
+    },
+    {
+      "id": "low",
+      "kind": "modes",
+      "f": 300,
       "ratios": "plate",
       "decay": 0.3,
-      "gain": -10
+      "damping": 1.2,
+      "gain": -16
+    },
+    {
+      "id": "debris",
+      "kind": "particles",
+      "rate": 200,
+      "band": [
+        2000,
+        5000
+      ],
+      "grain": 0.004,
+      "env": {
+        "attack": 0.03,
+        "decay": 0.9
+      },
+      "gain": -11
     }
   ],
   "finish": {
-    "saturate": 1.2,
+    "saturate": 1.5,
     "limit": {
-      "crest": 12
-    }
+      "crest": 12,
+      "release": 0.002
+    },
+    "peak": -0.5
   }
 }

@@ -33,25 +33,25 @@
    "peak": -10.5,
    "rms": -15.2,
    "crest": 4.8,
-   "dc": 0.0002,
+   "dc": 0.0024,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
-   "attack": 0.025,
-   "peakAt": 0.609,
-   "t20": 0.693,
-   "t40": 0.693,
-   "centroid": 5546,
-   "rolloff": 9345,
-   "flatness": 0.99,
+   "attack": 0.04,
+   "peakAt": 1.132,
+   "t20": 0.17,
+   "t40": 0.17,
+   "centroid": 5543,
+   "rolloff": 9367,
+   "flatness": 0.991,
    "bands": {
-    "<150": 1.2,
-    "150-600": 3.6,
+    "<150": 1.1,
+    "150-600": 4,
     "600-2k": 12.6,
-    "2k-5k": 27.1,
-    ">5k": 55.4
+    "2k-5k": 27.3,
+    ">5k": 55
    },
-   "onsets": 2
+   "onsets": 1
   },
   "envelope": {
    "class": "explosion",
@@ -59,12 +59,12 @@
     0.668,
     1.113
    ],
-   "t20": 0.693,
-   "inRange": true
+   "t20": 0.17,
+   "inRange": false
   },
   "lengthOff": 0,
-  "centroidOff": 8.003,
-  "bandsOffMost": 53.5,
+  "centroidOff": 7.998,
+  "bandsOffMost": 53.1,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -74,12 +74,13 @@
   }
  },
  "caps": {
-  "S2": 2,
+  "S2": 1,
   "S3": 0,
   "S5": 2
  },
  "passes": false,
  "failedByMeasure": [
+  "S2",
   "S3"
  ],
  "total": 0,

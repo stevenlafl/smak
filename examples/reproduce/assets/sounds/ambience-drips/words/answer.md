@@ -1,17 +1,22 @@
-`ambience/drips.wav` is built and the build says OK, with every engine check passing. It still misses four of the 20 measures against the game's own drip loops.
+`ambience/drips.wav` is built: the final build says OK, with no faults, and the file is in `work:sound/ambience/drips.wav`. It's 7.31 s, 11025 Hz, 8-bit mono, with a loop cue at its start. The spec is layers only, with no generator take, so no licence question arises.
 
-It is 7.29 s, mono, 11025 Hz, 8-bit, with a cue point at the start so it loops. That is 0.02 s short of the original's 7.31 s, because the 0.02 s loop crossfade trims the end. I have not listened to it, so how it sounds in the game is unchecked.
+It matches the original's facts: five drops at 0.06, 1.87, 3.68, 3.97 and 5.84 s, with the 3.68 and 3.97 s drops 6 dB softer. Each drop has a click, a sharp body, a short sine bloop that rises from 480 to 560 Hz, and a faint 560/650 Hz ring. A pink hiss bed runs under the whole loop.
 
-- **Drips:** five, at 0.05, 1.87, 3.69, 3.97 and 5.85 s, so the double drip sits in the middle. Each has a 12 ms soft click, then a noisy tail centred around 700 to 850 Hz that fades over roughly 0.35 to 0.6 s. The first and last are loudest, the second is medium, and the third and fourth are softer.
-- **Ring:** each tail has three faint steady lines between about 600 Hz and 2.1 kHz, different for each drip. I did not add the small upward glide over the first 100 ms.
-- **Bed:** a constant quiet pink-noise bed weighted to the lows, plus a faint mid hiss, so it never drops to true silence.
+The spectrum is not on target yet:
 
-Measured against the game's loop drips:
-- **Centroid:** 1426 Hz, against a range of 671 to 1007 Hz, so it is too bright.
-- **150 to 600 Hz band:** 4.2%, against 13.2 to 33.2%, so it is too weak.
-- **600 Hz to 2 kHz band:** 86.7%, against 62.3 to 82.3%, so it is too strong.
-- **Crest:** the one measure I did not check on the final build. The one before it was 27.1 dB, above the 20 to 34 dB range's top.
+```
+Band          target   built
+< 150 Hz        15%      2.8%
+150-600 Hz      35%     42.8%
+600-2000 Hz     30%     50.9%
+2000-5000 Hz    18%      3.1%
+> 5000 Hz        2%      0.4%
+```
 
-I could not fix these together. The "silent more than 60% of the time" check only passes with the bed loud enough to push the sound over the range. I stopped at a build that passes every engine check rather than trade that for a closer spectrum.
+- The build reports 18 of 20 features in the game's range for this class. Flatness (0.099) and loudness (-25 dBFS RMS) are in range. The misses are the 150–600 Hz and 600–2000 Hz shares, and 2–5 kHz and the low band sit well under target.
+- I tried to fix the bands by moving the bed, the drop bandwidth and the tonal levels. Each change shifted the mix toward either the bottom or the top, and none got all five bands close. The bed alone shaped to the target gave 19 / 43 / 29 / 8.5 / 0.4%, so the drops are likely pushing the middle up. I did not find the lever that fixes it.
+- I could not hear it. Judge the drop character and the loop seam in the game.
 
-The build reports that this was made from layers alone and that a generated recording could start closer to a real drip. I did not use `generate`, because its models are licensed non-commercial (the sound model is CC-BY-NC), which is your call.
+Things to know:
+- Three scratch files are left in `work:sound/scratch/` (`nobloop.wav`, `bedpink.wav`, `bedshape.wav`). They are not part of the sound. My tools cannot delete files, so remove that folder by hand.
+- The first drop was briefly lost while I tuned the loop crossfade. The final build has the drop at 0.06 s and the loop seam at 0.05 s.

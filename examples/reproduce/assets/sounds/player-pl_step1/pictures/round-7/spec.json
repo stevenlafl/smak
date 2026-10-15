@@ -1,0 +1,120 @@
+{
+  "spec": "smak.sound/1",
+  "name": "player/pl_step1.wav",
+  "class": "step concrete",
+  "seed": 5,
+  "rate": 11025,
+  "bits": 8,
+  "length": 0.27,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "thud",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150
+        },
+        {
+          "type": "lowpass",
+          "f": 550
+        }
+      ],
+      "env": {
+        "attack": 0.002,
+        "decay": 0.05
+      },
+      "gain": -2
+    },
+    {
+      "id": "low",
+      "kind": "noise",
+      "color": "brown",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 100
+        },
+        {
+          "type": "lowpass",
+          "f": 400
+        }
+      ],
+      "env": {
+        "attack": 0.002,
+        "decay": 0.05
+      },
+      "gain": -5
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2500
+        },
+        {
+          "type": "lowpass",
+          "f": 5000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.04
+      },
+      "gain": 5
+    },
+    {
+      "id": "toe",
+      "kind": "noise",
+      "at": 0.088,
+      "length": 0.04,
+      "color": "pink",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150
+        },
+        {
+          "type": "lowpass",
+          "f": 1000
+        }
+      ],
+      "env": {
+        "attack": 0.003,
+        "decay": 0.03
+      },
+      "gain": -14
+    },
+    {
+      "id": "tail",
+      "kind": "noise",
+      "at": 0,
+      "length": 0.27,
+      "color": "brown",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150
+        },
+        {
+          "type": "lowpass",
+          "f": 700
+        }
+      ],
+      "env": {
+        "decay": 0.3
+      },
+      "gain": -27
+    }
+  ],
+  "finish": {
+    "limit": {
+      "crest": 18
+    }
+  }
+}

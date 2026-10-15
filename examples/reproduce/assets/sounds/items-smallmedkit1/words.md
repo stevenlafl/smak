@@ -1,9 +1,11 @@
-A small medical kit being picked up and used, played once and lasting 0.76 seconds. It has three parts: electronic buzz pulses, a quiet fumbling gap, then a pressurized spray hiss.
+A small medical kit being used: a quick electronic beep pattern, a soft rustle of handling, then a hissing spray, as if from a pressurized injector. It is 0.76 seconds long, mono, 22050 Hz, 8-bit, plays once and does not loop.
 
-0.00 to 0.26 s: three loud, buzzy tonal pulses, all at about the same level, separated by short dropouts. The first is very short (about 0.035 s). The second runs from about 0.05 to 0.15 s and the third from about 0.17 to 0.26 s. Each one is a steady low-mid tone, around 250 to 300 Hz, rich in harmonics, like a square-ish beep. The pitch stays flat. Each pulse starts and stops abruptly, with a slight click and a brief broadband smear at the edges.
+0 to 0.33 s: four beeps of one steady tone near 600 Hz with buzzy harmonics, a bit like a square wave. The first beep is a short blip; the next three last about 0.06 to 0.07 s each, with short silent gaps between. Each beep starts and stops hard, which makes a small broadband click. The beeps are moderately loud and all the same level. There is no pitch movement.
 
-0.26 to 0.52 s: much quieter, at roughly a tenth of the earlier level. It is faint mechanical rustling and handling noise, with energy spread across mid frequencies and a few soft ticks. One small, sharp click lands near 0.40 s.
+0.33 to 0.58 s: a quiet stretch at about a fifth of the beep level. It is soft, noisy fumbling across 150 to 2000 Hz, with two or three small dry clicks near 0.38, 0.42 and 0.48 s.
 
-0.52 to 0.76 s: a sudden jump to full loudness. This is a dense, steady hiss like an aerosol or a pressurized injector, held at a constant level until the file ends. Its energy sits mostly in a bright high band, about 5 to 10 kHz, with little low end. It is pure noise with no pitch, and it is cut off sharply at the end without a fade.
+0.58 to 0.76 s: a sudden loud, steady burst of noise, the loudest part of the sound. Its energy sits mostly in a bright band from about 4 to 8 kHz with a weaker, thinner low body underneath. It holds level and is cut off abruptly at the end, with no fade.
 
-Overall there is no reverb, the sound is dry and lo-fi (8-bit, 22 kHz), and it does not loop.
+Energy share over the whole sound: under 150 Hz about 5%, 150 to 600 about 25%, 600 to 2000 about 30%, 2000 to 5000 about 15%, over 5000 about 25%.
+
+Character: the first part is tonal and electronic, the middle is noisy with sparse clicks, and the end is pure noise.

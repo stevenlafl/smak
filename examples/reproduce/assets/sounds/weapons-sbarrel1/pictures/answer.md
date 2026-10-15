@@ -1,18 +1,21 @@
-`weapons/sbarrel1.wav` is built, and the last build said OK with no warnings. It's written to `work:sound/weapons/sbarrel1.wav`, so it replaces the game's file when put in `<mod>/sound`.
+The sound is built and the build says OK: `weapons/sbarrel1.wav` is in the work folder at `work:sound/weapons/sbarrel1.wav`, ready to go in a mod's `sound` folder in place of the game's file.
 
-It's made from layers only (no generated recording): a shaped noise blast that is loud from the start and fades over the second, a short falling low thump, and a brief bright crack added after the limiter.
+I used the spec path with no generated recording. The generator's shotgun takes were poor: none matched the blast's density, and their crest and length were far off. So the sound is layered from scratch, shaped to the original's picture.
 
-Measured against the original's picture:
-
-| | Original | Mine |
+| Feature | Original (from picture) | Made |
 | --- | --- | --- |
-| Length | 1.04 s | 1.045 s |
-| Centroid (brightness) | 615 Hz | 628 Hz |
-| Crest (peak over RMS) | about 11.2 dB | 11.9 dB |
-| T20 (time to fall 20 dB) | 0.458–1.013 s allowed | 0.823 s |
-| Largest band difference | within 7 points allowed | 3.6 points (150–600 Hz) |
+| Length | 1.04 s | 1.04 s |
+| Crest (peak over RMS) | about 11.2 dB | 10.5 dB |
+| T20 (time to -20 dB) | 0.46 to 1.01 s | 0.79 s |
+| Centroid (brightness) | 615 Hz | 538 Hz (13% off) |
+| Power under 150 Hz | 36% | 38% |
+| Power 150 to 600 Hz | 32% | 33% |
+| Power 600 to 2k Hz | 26% | 25% |
 
-- **Format:** 22050 Hz, 8-bit mono.
-- **Gunshot class:** 20 of its 22 measures are in range. The two off are crest (11.9 dB against a limit of 11.7 dB) and RMS (-12.5 dBFS, slightly under the range), both slight.
+The build's own checks: the class `gunshot` has 22 of 22 features in range, with no faults reported. The picture check puts every band within 2 points of the original's.
 
-I haven't heard it. How it sounds, and how the game plays it (volume, pitch, the map's room), still needs a listen in the game.
+The construction: a noise blast that holds for about 0.3 s then decays, driven hard for its dense body, with a low sine boom sweeping from 110 Hz to 45 Hz, a short high crack, and a saturation of 5. The rate is 22050 Hz, 8-bit, mono.
+
+What I could not check: how it sounds. I can't hear it, so the match rests on measurements from the picture, which is only a rough reading. Please listen to it in the game against the original, especially the attack and the tail. The spec is inline in this session and not saved to a file; I can write it to the project if you want it kept.
+
+The scratch file `work:sound/test/diag.wav` from my experiments is still in the work folder and can be deleted.

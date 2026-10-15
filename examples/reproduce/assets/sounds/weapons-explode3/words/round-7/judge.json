@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-explode3",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 1.301,
+   "peak": -0.4,
+   "rms": -6.2,
+   "crest": 5.7,
+   "dc": -0.0048,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.254,
+   "t20": 0.893,
+   "t40": 1.028,
+   "centroid": 616,
+   "rolloff": 947,
+   "flatness": 0.097,
+   "bands": {
+    "<150": 36.4,
+    "150-600": 37.6,
+    "600-2k": 19.5,
+    "2k-5k": 4.6,
+    ">5k": 1.9
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 1.3,
+   "peak": -0.6,
+   "rms": -9,
+   "crest": 8.4,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.01,
+   "peakAt": 0.409,
+   "t20": 0.683,
+   "t40": 0.873,
+   "centroid": 572,
+   "rolloff": 1098,
+   "flatness": 0.046,
+   "bands": {
+    "<150": 37.2,
+    "150-600": 35.5,
+    "600-2k": 20.9,
+    "2k-5k": 5.8,
+    ">5k": 0.6
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "explosion",
+   "t20Range": [
+    0.668,
+    1.113
+   ],
+   "t20": 0.683,
+   "inRange": true
+  },
+  "lengthOff": 0.001,
+  "centroidOff": 0.071,
+  "bandsOffMost": 2.1,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Cannot listen; judged from the picture. Both waveforms show the same event: a dense broadband burst at the start that decays over about a second, with a low-heavy spectrum that reads as an explosion. The original's burst is denser and holds its level longer through about 0.4 s, and the reproduction peaks later and falls faster, but that is the same kind of event, not a different one."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured. Length 1.300 s against 1.301 s, well within 25%. Attack 0.01 s against 0.005 s, and the t20 of 0.683 s sits inside the explosion class range of 0.668 to 1.113 s (inRange true)."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured. Centroid 572 Hz against 616 Hz, a 7% difference, within 20%. Band shares differ by at most 2.1 points (bandsOffMost 2.1), under the 10-point limit: <150 37.2 vs 36.4, 150-600 35.5 vs 37.6, 600-2k 20.9 vs 19.5, 2k-5k 5.8 vs 4.6, >5k 0.6 vs 1.9."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. The original has one detected onset (a sharp hit at 0.005 s) and the reproduction has none (onsets 0 against 1), so the hit is softer. Flatness is 0.046 against 0.097, so the reproduction is more tonal and less noise-like than the original, which the picture bears out: its low band is a smoother, more coloured sweep. Pitch movement looks broadly similar. Clearly off on two of the character measures."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured and from the format. Mono, 8-bit, 22050 Hz, which the engine plays. Peak -0.6 dBFS, no clipping, DC 0 (within tolerance of the original's -0.0048). It is a one-shot, so no loop cue is needed and the original has none in the picture. The name matches (sameName true)."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

@@ -1,20 +1,37 @@
-The build says OK, and all 22 of 22 features are within the range of the game's own gunshots. The sound is written to `work:sound/weapons/sbarrel1.wav`, so it replaces the original when you put it in `<mod>/sound`.
+The sound is built and the build says OK: `work:sound/weapons/sbarrel1.wav`, 22050 Hz, 8-bit mono, 1.04 s, no loop. Copy it to `<mod>/sound/weapons/` so the game plays it in place of its own file. I have not heard it, and the tool can't say how it sounds. The numbers below are the tool's readings, so listen to it in the game before you trust them.
 
-| | Original (as described) | Mine |
-|---|---|---|
-| Format | 22050 Hz, 8-bit, mono, played once | 22050 Hz, 8-bit, mono |
-| Length | 1.04 s | 1.054 s |
-| Attack | instant, full scale in a few ms | 0 ms |
-| T20 (time to fall 20 dB) | in the gunshot range, 0.46 to 1.01 s | 0.499 s |
-| T40 (time to fall 40 dB) | not stated | 0.639 s |
-| Centroid (spectral centre) | not stated | 567 Hz |
-| Flatness (0 is a pure tone, 1 is white noise) | fully noisy, no pitch | 0.078 |
-| Crest (peak over RMS) | not stated | 9.9 dB |
+It is built from layers only, with no recording in it. I generated four takes with woosh-dflow (a non-commercial model, which you accepted). They were too dark and not clipped: 64 to 85% of their energy sat under 150 Hz, against a target of 35%. None of them went into the file, so the non-commercial licence does not apply to the output.
 
-- **Spectrum:** power sits mostly low, with 47.8% under 150 Hz, 26.1% from 150 to 600 Hz and 19.7% from 600 Hz to 2 kHz. The highs are thin and die first, as in your description.
-- **Envelope:** a clipped, crackling opening, a ragged fall from about 0.3 s to 0.6 s, then a low rumble that fades to silence.
-- **Layers:** a hard-clipped low-passed noise burst, a moving-spectrum noise blast that darkens over time, a 110 to 50 Hz thump, a few faint echo pops, and a brown-noise rumble tail.
+Measured against the original's targets:
 
-- **Length:** it runs 1.054 s against 1.04 s, about 1.3% long. The build reports it as within tolerance.
-- **Not checked:** I had no original to compare against, so the comparison is to your description and the game's gunshot class. The build can't judge how it sounds or how the game plays it (volume, pitch, the map's room). That needs a listen in the game.
-- **Source:** it is built from layers alone, not from a generated recording. A generated take might add more grain and room character, if the side-by-side shows it falls short.
+```
+Measure              Target            Made
+length               1.04 s            1.04 s
+rate, bits           22050, 8-bit      22050, 8-bit, mono
+under 150 Hz         35%               41%
+150 to 600 Hz        30%               28%
+600 to 2000 Hz       20%               18%
+2000 to 5000 Hz      10%               9%
+over 5000 Hz         5%                4%
+T20 (to -20 dB)      falls 0.4 to 0.6 s,  0.57 s
+                     silent by 1.04 s
+T40 (to -40 dB)      -                    0.86 s
+crest (peak/RMS)     6 to 10 dB (class 4.5 to 11.7)   10.8 dB
+flatness             low, noisy           0.19 (class 0 to 0.2)
+attack               instant              15 ms
+```
+
+The tool reports 22 of 22 features in the range of the game's own gunshot sounds. The attack of 15 ms is the tool's reading, not zero. The waveform starts at full level, but the measure reads a few milliseconds of build-up. The sound's last samples are one 8-bit step (the smallest level 8-bit audio can hold), so it is silent by ear before 1.04 s.
+
+What the layers do:
+- **Slab:** shaped noise pinned by saturation for the first 0.4 s, then a steep fall to silence by about 0.7 s.
+- **Double crack:** a high-passed noise transient at 0 s, and a second at 0.03 s, a little quieter.
+- **Thump:** a sine sweeping from 110 Hz down to 45 Hz, over the first second.
+- **Tail:** low-heavy noise and crackle from 0.4 s to the end.
+- **Roar:** 600 to 5000 Hz particles, for the grit in the first half.
+
+Two things I found while building, which may matter if you change it:
+- A peak limiter or a layer's `drive` lifts quiet tails back to full level, so the decay never came down. I dropped both and used the finish's `saturate` alone.
+- Parts added after saturation (the thump, tail, roar and cracks) keep the pinned slab looking clipped. Parts added before it dent the clipping.
+
+The spec was saved beside the sound as `work:weapons_sbarrel1.spec.json` by the build.

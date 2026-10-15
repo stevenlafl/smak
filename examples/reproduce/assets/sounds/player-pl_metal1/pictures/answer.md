@@ -1,20 +1,23 @@
-`player/pl_metal1.wav` is built, and the last build said OK with no warnings. It's written to `work:sound/player/pl_metal1.wav`. It's 11025 Hz, 8-bit mono, 0.58 s, and it takes the original's place when put in `<mod>/sound`.
+The sound is built and the build says OK with no warnings. The file is `player/pl_metal1.wav` at 11025 Hz, 8-bit, mono, 0.58 s long, written to the server's work folder as `work:sound/player/pl_metal1.wav`. I have not listened to it, and the build can't judge how it sounds, so a listen in the game is still needed.
 
-It's made from layers only (shaped noise, a plate-mode ring, a low thump and a scuff of particles), with no generated recording. The spec is the final build call above.
+The sound is built from one generated take of a metal footstep, which I chose from four seeds, plus two synthesized layers: a low sine thump and a dark pink-noise tail. The take is the sample for the click and the first hit. The tail carries the body.
 
-**Against the game's own metal steps:** all 22 features are in range.
+Measured against the original's picture:
 
-**Against the original's picture:**
+```
+measure        original   built
+length         0.58 s     0.58 s
+centroid       361 Hz     354 Hz
+T20            0.315-0.525 s (in range)   0.394 s
+band <150 Hz   32%        31%
+band 150-600   47%        49%
+band 600-2k    ~20%       20%
+crest          ~16 dB     14 dB
+peak           -0.6 dBFS
+```
 
-| Measure | Mine | Original |
-| --- | --- | --- |
-| Length | 0.58 s | 0.58 s |
-| Centroid (brightness) | 393 Hz | 361 Hz (9% off) |
-| T20 (time to -20 dB) | 0.404 s | 0.315 to 0.525 s range, so inside it |
-| Crest (peak over RMS) | 14.9 dB | about 16.3 dB |
-| Onsets | 0 | 0 |
-| Worst band | 150-600 Hz, 3.4 points off | |
+T20 is the time for the sound to fall 20 dB from its peak. Against the game's own metal steps, all 22 features are in range. The report's only numbers that differ from the original are the crest (14 dB against about 16) and the 150-600 band (2.6 points off), both within the tolerances the kit uses.
 
-The crest is read off the picture's outline, so it's only good to about 3 dB. The first build got the picture path wrong: it has to be `pictures/sound.png` in the work folder, not the examples path.
+The build used a `picture` of the original, and I set the spec's `class` to `step metal`. The spec's `seed` is 4, so rebuilding gives the same bytes.
 
-I can't judge how it sounds, or how the game plays it (volume, pitch, the map's room), from here. Listen in the game.
+Licence: the take comes from woosh-dflow (CC-BY-NC 4.0, non-commercial). You said that was acceptable for this test, but it means the file can't ship in a commercial product as is.

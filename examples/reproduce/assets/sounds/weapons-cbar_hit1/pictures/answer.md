@@ -1,13 +1,20 @@
-`weapons/cbar_hit1.wav` is built and the build says OK with no warnings. It's written to `work:sound/weapons/cbar_hit1.wav` and takes the original's place when put in `<mod>/sound`. I haven't listened to it, and the build can't check how it plays in the game.
+The sound is built and the build says OK: `work:sound/weapons/cbar_hit1.wav`, ready to go in a mod's `sound` folder in place of the game's file of that name. I can't listen to it, so the judgement against the original is by measurement only.
 
-It's a layered sound: shaped noise as the body plus one `modes` ring at 1650 Hz. It is 0.69 s, 11025 Hz, 8-bit, mono, and plays once.
+The build ran on layers alone. I tried one generated take as the crack layer, from a text-to-sound model (woosh-dflow, non-commercial licence). It changed none of the measures, so I left it out and the file needs no licence beyond the local generators.
 
-| Check | Result |
-| --- | --- |
-| Against the game's metal hits | 22 of 22 features in range |
-| Centroid (brightness) | 1362 Hz against the picture's 1467 (7% off) |
-| Band power, worst case | 5.8 points off (150-600 Hz) |
-| T20 (time to -20 dB) | 0.569 s, inside the 0.24 to 0.7 s range |
-| Crest (peak over RMS) | 8 dB, against about 9.8 read off the original's outline |
+| Measure | Original (picture) | Built |
+| --- | --- | --- |
+| Length | 0.69 s | 0.71 s (3% long) |
+| Centroid (brightness) | 1467 Hz | 1617 Hz (10% high) |
+| 600 Hz to 2 kHz band | 68.9% | 66.7% |
+| Crest (peak over average) | about 9.8 dB | 9.5 dB |
+| Attack | instant | 5 ms |
+| Game class (metal hit) | 22 features checked | 21 of 22 in range |
 
-The ring doesn't hold as long as the thin line in the original's spectrogram, which runs the full length. The waveform is also less ragged than the original's, which has a few bursts in its first half. A generated recording could come closer on the grain. This server offers `generate`, but its models are licensed non-commercial, so that is your call.
+The one miss is flatness (how noisy against tonal), 0.126 against the game's 0.16 to 0.28 range. I tried flattening the top of the spectrum to raise it, but that pushed the centroid to 2.3 kHz and moved the 600 Hz to 2 kHz band off the original's, so I kept the closer version.
+
+The spec is written only in this conversation and not saved to the project; say if you want it kept as a `.json` beside the build.
+
+Two things I could not do:
+- The original's own flatness and spectrum could not be measured: the reference path is not in the game folders the server was given, so the comparison is against the original's picture only.
+- The picture is only a reading of the original, so the match is as close as its readings allow.

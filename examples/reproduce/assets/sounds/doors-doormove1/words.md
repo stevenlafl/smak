@@ -1,9 +1,17 @@
-A heavy door or gate sliding or grinding along a track: a mechanical, motor-driven scraping rumble that runs for the whole clip. It lasts 5.04 seconds. It is low-fidelity audio, 11025 Hz and 8-bit, and plays once without looping.
+A sliding or rolling heavy door, probably a metal or stone slab dragged along a track. It lasts 5.04 seconds and plays once without looping (11025 Hz, 8-bit).
 
-Onset: it fades in fast, over about 0.1 s, to a steady level. There is no sharp initial hit.
+It starts almost at once, with a fade-in of about 0.1 s, and then holds a steady, grinding level with small ripples for about 4 seconds. From 4.0 to 4.5 s it swells to its loudest point, a burst of coarse, rattling pulses spaced about 30 to 50 ms apart, like the slab juddering as it reaches the end of its travel. It then dies quickly, fading to silence over the last 0.4 s. It never hits a clean slam.
 
-Loudness: it holds a fairly constant medium level from about 0.1 s to 4.0 s, with small grainy ripples throughout. At about 4.1 s it swells to its loudest section: a pulsing, rattling stretch of roughly 0.5 s where the amplitude beats rapidly, like the mechanism shuddering as it reaches the end of its travel. It then dies out quickly, tapering to silence by about 4.9 s with a short soft tail.
+Most of the sound is broadband rumbling noise, with a little tone on top. A faint, wavering resonant tone sits around 300 to 600 Hz and bends upward in slow arcs that repeat roughly every 1.2 to 1.3 s (near 0.2, 1.4, 2.6 and 3.8 s). This sounds like a wheel or roller squealing as it turns. There's no overall pitch rise or fall beyond these arcs. The low end gets stronger in the final judder, with a deep thump around 50 to 120 Hz.
 
-Frequency: the energy is broadband, filling roughly 100 Hz to 4 kHz, and is densest from 200 Hz to 1.5 kHz. A firm low rumble sits under 150 Hz and gets much stronger in the final rattling section. The top is fairly dull, as the low sample rate limits it.
+Approximate share of energy by frequency band:
+```
+under 150 Hz     20%
+150-600 Hz       35%
+600-2000 Hz      30%
+2000-5000 Hz     13%
+over 5000 Hz      2%  (near the 5.5 Hz ceiling... see note)
+```
+Note: the file's upper limit is 5.5 kHz, so there is almost nothing above 5000 Hz.
 
-Texture: it is mostly noisy, a gritty friction and grinding. Faint tonal squeals sit inside the noise: soft arcs that rise in pitch, from roughly 300 Hz up toward 600 Hz, each lasting about a second. They repeat about every 1.2 to 1.3 seconds, at around 0.3, 1.5, 2.8 and 3.9 s, like a wheel or hinge squeaking on each turn. There are no distinct clicks, just continuous grain and the rattling flutter at the end.
+There are no sharp isolated clicks, just a dense granular scrape the whole way through and the cluster of rattles near the end.

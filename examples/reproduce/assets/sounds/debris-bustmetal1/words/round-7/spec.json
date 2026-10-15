@@ -1,0 +1,126 @@
+{
+  "spec": "smak.sound/1",
+  "name": "debris/bustmetal1.wav",
+  "class": "metal hit",
+  "seed": 5,
+  "rate": 11025,
+  "bits": 8,
+  "length": 0.87,
+  "layers": [
+    {
+      "id": "crunch",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 250
+        },
+        {
+          "type": "lowpass",
+          "f": 4000
+        }
+      ],
+      "env": {
+        "hold": 0.1,
+        "decay": 0.28
+      },
+      "gain": -3
+    },
+    {
+      "id": "mid",
+      "kind": "noise",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1800,
+          "q": 0.7
+        }
+      ],
+      "env": {
+        "hold": 0.12,
+        "decay": 0.4
+      },
+      "gain": -4
+    },
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 160,
+      "sweep": {
+        "to": 100,
+        "time": 0.1
+      },
+      "env": {
+        "decay": 0.1
+      },
+      "gain": -6
+    },
+    {
+      "id": "ring1",
+      "kind": "modes",
+      "f": 900,
+      "ratios": [
+        1,
+        1.47,
+        2.09,
+        2.76,
+        3.38,
+        4.1
+      ],
+      "decay": 0.6,
+      "damping": 1,
+      "gain": -4
+    },
+    {
+      "id": "ring2",
+      "kind": "modes",
+      "f": 1500,
+      "ratios": [
+        1,
+        1.31,
+        1.83,
+        2.4
+      ],
+      "decay": 0.8,
+      "damping": 0.7,
+      "gain": -7
+    },
+    {
+      "id": "rattle",
+      "kind": "particles",
+      "rate": 90,
+      "band": [
+        2000,
+        4500
+      ],
+      "grain": 0.004,
+      "at": 0.2,
+      "length": 0.65,
+      "env": {
+        "decay": 0.4
+      },
+      "gain": -16
+    },
+    {
+      "id": "pad",
+      "kind": "tone",
+      "f": 1000,
+      "env": {
+        "attack": 0,
+        "hold": 0,
+        "decay": 0.02
+      },
+      "at": 0.86,
+      "length": 0.01,
+      "gain": -60
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "limit": {
+      "crest": 11
+    },
+    "peak": -0.5
+  }
+}

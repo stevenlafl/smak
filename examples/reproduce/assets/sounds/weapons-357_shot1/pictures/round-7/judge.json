@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-357_shot1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 1.064,
+   "peak": 0,
+   "rms": -8.5,
+   "crest": 8.5,
+   "dc": -0.0012,
+   "clipped": 265,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.748,
+   "t40": 1.003,
+   "centroid": 937,
+   "rolloff": 1658,
+   "flatness": 0.11,
+   "bands": {
+    "<150": 20.3,
+    "150-600": 27.5,
+    "600-2k": 43.9,
+    "2k-5k": 6.7,
+    ">5k": 1.6
+   },
+   "onsets": 3
+  },
+  "reproduction": {
+   "length": 1.063,
+   "peak": -0.6,
+   "rms": -11.9,
+   "crest": 11.3,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0,
+   "peakAt": 0.015,
+   "t20": 0.654,
+   "t40": 0.908,
+   "centroid": 1035,
+   "rolloff": 1809,
+   "flatness": 0.082,
+   "bands": {
+    "<150": 14.7,
+    "150-600": 27.6,
+    "600-2k": 44.8,
+    "2k-5k": 11.8,
+    ">5k": 1.1
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "gunshot",
+   "t20Range": [
+    0.458,
+    1.013
+   ],
+   "t20": 0.654,
+   "inRange": true
+  },
+  "lengthOff": 0.001,
+  "centroidOff": 0.105,
+  "bandsOffMost": 5.6,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture only, since I cannot listen. Both waveforms show the same event: a dense, loud, broadband burst at the start that decays over about a second. The reproduction keeps the impulsive onset and the long tail, and its spectrogram is broadband with the energy at the bottom, as a gunshot's is. Nothing in the picture suggests another event."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 1.063 s against the original's 1.064 s (0.1% off, within 25%). Attack is 0 against 0.005 s, and the peak sits at 0.015 s in both. T20 (time to fall 20 dB) is 0.654 s, inside the gunshot class range of 0.458 to 1.013 s, so the envelope is within the class's range."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 1035 Hz against 937 Hz, 10.5% off (within 20%). Band shares: under 150 Hz 14.7 vs 20.3 (5.6 points off), 150-600 Hz 27.6 vs 27.5, 600-2k 44.8 vs 43.9, 2k-5k 11.8 vs 6.7 (5.1 points off), over 5k 1.1 vs 1.6. Every band is within 10 points (bandsOffMost 5.6). The spectrogram shows the same low-heavy spread."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features, since I cannot listen. The original has 3 onsets (distinct hits in its clipped start, visible as separate dense bursts in the waveform) and the reproduction has 0, so the onset structure is clearly off. Flatness is close (0.082 against 0.11), and the decay and the lack of pitch movement in the spectrogram match, so the character is partly there. Tone and noise are not what fails here."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file is mono, 8-bit, 22050 Hz, which the engine plays. Peak is -0.6 dBFS with 0 clipped samples (the original has 265, the reproduction has none), DC is 0, and the name matches (sameName true). The measurements describe a one-shot, so there is no loop cue to check."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

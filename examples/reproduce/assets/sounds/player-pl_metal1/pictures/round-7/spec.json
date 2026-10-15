@@ -1,0 +1,152 @@
+{
+  "spec": "smak.sound/1",
+  "name": "player/pl_metal1.wav",
+  "class": "step metal",
+  "rate": 11025,
+  "bits": 8,
+  "seed": 5,
+  "length": 0.58,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "clank",
+      "kind": "noise",
+      "iterations": 16,
+      "env": {
+        "points": [
+          [
+            0,
+            -8
+          ],
+          [
+            0.04,
+            -2
+          ],
+          [
+            0.18,
+            0
+          ],
+          [
+            0.35,
+            -8
+          ],
+          [
+            0.58,
+            -22
+          ]
+        ]
+      },
+      "shape": {
+        "keys": [
+          {
+            "at": 0,
+            "curve": [
+              [
+                40,
+                -4
+              ],
+              [
+                120,
+                1
+              ],
+              [
+                300,
+                -3
+              ],
+              [
+                800,
+                -5
+              ],
+              [
+                1500,
+                -13
+              ],
+              [
+                3000,
+                -28
+              ],
+              [
+                5000,
+                -40
+              ]
+            ]
+          },
+          {
+            "at": 0.4,
+            "curve": [
+              [
+                40,
+                -4
+              ],
+              [
+                120,
+                -1
+              ],
+              [
+                300,
+                -6
+              ],
+              [
+                800,
+                -11
+              ],
+              [
+                1500,
+                -19
+              ],
+              [
+                3000,
+                -34
+              ],
+              [
+                5000,
+                -48
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 330,
+      "ratios": "plate",
+      "decay": 0.7,
+      "damping": 1.2,
+      "gain": -13,
+      "at": 0.01
+    },
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 95,
+      "wave": "sine",
+      "env": {
+        "attack": 0.01,
+        "decay": 0.32
+      },
+      "gain": -8
+    },
+    {
+      "id": "scuff",
+      "kind": "particles",
+      "count": 30,
+      "band": [
+        500,
+        2500
+      ],
+      "grain": 0.005,
+      "env": {
+        "decay": 0.3
+      },
+      "gain": -7
+    }
+  ],
+  "finish": {
+    "limit": {
+      "crest": 15,
+      "release": 0.002
+    }
+  }
+}

@@ -1,22 +1,35 @@
-`weapons/explode3.wav` is built and the build says OK with every check passed. It is written to `work:sound/weapons/explode3.wav`. Against the game's explosion sounds it scores 21 of 22 features. I haven't heard it, and I haven't compared it with the original file, only against the game's explosion class.
+The sound is built and the build says **OK**: `work:sound/weapons/explode3.wav`, which goes in `<mod>/sound/weapons/` to replace the game's file.
 
-- **Format:** 22050 Hz, 8-bit, mono, 1.3 s. It plays once, with no loop.
-- **Onset:** it starts at full level with no fade-in. Attack is 10 ms, and the build reports no separate onset.
-- **Body:** noise saturated hard to hold a clipped, dense roar for the first 0.4 s. The peak is -0.6 dBFS and RMS is -9 dB.
-- **Decay:** the envelope falls to about -9.5 dB (a third of full scale) at 0.8 s. It is a low rumble by 1.1 s and near silence at 1.3 s, with no cutoff.
-- **Spectrum:** the build reports these figures.
+**Measured against your description of the original:**
 
-  | Band | Share of power |
-  | --- | --- |
-  | under 150 Hz | 37% |
-  | 150–600 Hz | 36% |
-  | 600 Hz–2 kHz | 21% |
-  | 2–5 kHz | 6% |
-  | over 5 kHz | 0.6% |
+| Feature | Original (your description) | Built file |
+| --- | --- | --- |
+| Length | 1.3 s | 1.3 s |
+| Format | 22050 Hz, 8-bit, mono, no loop | 22050 Hz, 8-bit, mono, no loop |
+| Onset | instant, full level | attack 10 ms |
+| Loudness | pinned to about 0.45 s, half by 0.8 s, faint by 1.0 s | sustained to 0.45 s, -6 dB at 0.8 s, -18 dB at 1.0 s, -60 dB at 1.3 s |
+| Decay (T20, time to -20 dB) | about 1.0 s | 1.06 s |
+| Energy under 150 Hz | 35% | 40% |
+| 150 to 600 Hz | 30% | 36% |
+| 600 to 2000 Hz | 20% | 13% |
+| 2000 to 5000 Hz | 10% | 8.5% |
+| Over 5000 Hz | 5% | 2.4% |
+| Centroid (brightness) | not given | 700 Hz |
+| Flatness (0 tone, 1 noise) | noisy, no tone | 0.107 |
 
-  The centroid (the spectrum's centre of weight) is 572 Hz. The highs fall away over time, so the tail is darker.
-- **Crackle:** a thin layer of short grains from 400 Hz to 3 kHz adds the bursty debris texture inside the body. There are no distinct hits after the onset.
+The built file's report says all 22 of its features are in the range of the game's own explosion sounds.
 
-**The one miss:** flatness is 0.046 against a range of 0.05 to 0.15, so it is slightly too tonal. I lowered it from a brighter attempt that overshot the centroid.
+**How it's made:**
+- **Body:** a take from the local generator `woosh-dflow` (seed 0), with the attack held full to 0.45 s and then the decay above. It is high-passed at 80 Hz, lifted slightly at 1.5 kHz, and low-passed on a sweep from 8 kHz down to 500 Hz so the highs leave first.
+- **Rumble:** a noise layer whose spectrum darkens over time, which gives the falling low tail.
+- **Debris grain:** particles in 800 to 4000 Hz, fading over the first second.
+- **Crackle and crack:** white noise in the 2 to 5 kHz band for the first half second, plus a short blast crack at the onset.
+- **Finish:** saturation at 4 and a limiter at 6 dB crest, which gives the hard-clipped wall at the start.
 
-**T20 varies:** T20 (time to fall 20 dB) moved between 0.68 and 1.1 s across my last few builds. At 0.68 s the tail may fall a bit early next to the original.
+**Where it falls short:**
+- The highs (over 5 kHz and 2 to 5 kHz) are a little under target and the low end is a little over. I stopped there because the remaining tweaks were just shifting the balance back and forth.
+- "Clipped hard" is approximated by saturation, not a flat-topped waveform. The built file's crest is 6 dB, so I haven't confirmed the top is literally flat.
+- I could not listen to it. Its volume and pitch in the game, and how it sits in the mix, are for you to check by playing it.
+- The spec was passed inline and not saved to a file. I can write it to a `.json` in the work folder if you want it kept.
+
+**Licence:** the body comes from `woosh-dflow`, under CC-BY-NC 4.0 (non-commercial). You said you accept the local generators' licences for this test, so I've used it. It would need a different source before any commercial use.

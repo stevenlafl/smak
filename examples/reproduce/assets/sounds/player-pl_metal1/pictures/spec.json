@@ -4,149 +4,72 @@
   "class": "step metal",
   "rate": 11025,
   "bits": 8,
-  "seed": 5,
   "length": 0.58,
+  "seed": 4,
   "picture": "pictures/sound.png",
   "layers": [
     {
-      "id": "clank",
-      "kind": "noise",
-      "iterations": 16,
+      "id": "step",
+      "kind": "sample",
+      "file": "work:gen/pl_metal1_s0.wav",
+      "from": "onset",
+      "length": 0.58,
       "env": {
-        "points": [
-          [
-            0,
-            -8
-          ],
-          [
-            0.04,
-            -2
-          ],
-          [
-            0.18,
-            0
-          ],
-          [
-            0.35,
-            -8
-          ],
-          [
-            0.58,
-            -22
-          ]
-        ]
+        "attack": 0.001,
+        "hold": 0.02,
+        "decay": 0.2
       },
-      "shape": {
-        "keys": [
-          {
-            "at": 0,
-            "curve": [
-              [
-                40,
-                -4
-              ],
-              [
-                120,
-                1
-              ],
-              [
-                300,
-                -3
-              ],
-              [
-                800,
-                -5
-              ],
-              [
-                1500,
-                -13
-              ],
-              [
-                3000,
-                -28
-              ],
-              [
-                5000,
-                -40
-              ]
-            ]
-          },
-          {
-            "at": 0.4,
-            "curve": [
-              [
-                40,
-                -4
-              ],
-              [
-                120,
-                -1
-              ],
-              [
-                300,
-                -6
-              ],
-              [
-                800,
-                -11
-              ],
-              [
-                1500,
-                -19
-              ],
-              [
-                3000,
-                -34
-              ],
-              [
-                5000,
-                -48
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "ring",
-      "kind": "modes",
-      "f": 330,
-      "ratios": "plate",
-      "decay": 0.7,
-      "damping": 1.2,
-      "gain": -13,
-      "at": 0.01
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 900
+        }
+      ]
     },
     {
       "id": "thump",
       "kind": "tone",
-      "f": 95,
+      "f": 110,
       "wave": "sine",
-      "env": {
-        "attack": 0.01,
-        "decay": 0.32
+      "sweep": {
+        "to": 60,
+        "time": 0.08
       },
-      "gain": -8
-    },
-    {
-      "id": "scuff",
-      "kind": "particles",
-      "count": 30,
-      "band": [
-        500,
-        2500
-      ],
-      "grain": 0.005,
       "env": {
+        "attack": 0.002,
+        "hold": 0.05,
         "decay": 0.3
       },
-      "gain": -7
+      "gain": -14
+    },
+    {
+      "id": "tail",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0.01,
+      "env": {
+        "attack": 0.005,
+        "hold": 0.15,
+        "decay": 0.8
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 800
+        },
+        {
+          "type": "highpass",
+          "f": 100
+        }
+      ],
+      "gain": -2
     }
   ],
   "finish": {
     "limit": {
-      "crest": 15,
+      "crest": 14,
       "release": 0.002
-    }
+    },
+    "peak": -0.5
   }
 }

@@ -1,0 +1,113 @@
+{
+  "spec": "smak.sound/1",
+  "name": "debris/bustmetal1.wav",
+  "class": "metal hit",
+  "rate": 11025,
+  "bits": 8,
+  "seed": 5,
+  "length": 0.85,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "burst",
+      "kind": "noise",
+      "shape": [
+        [
+          60,
+          -14
+        ],
+        [
+          300,
+          -6
+        ],
+        [
+          1000,
+          0
+        ],
+        [
+          2000,
+          0
+        ],
+        [
+          3500,
+          -3
+        ],
+        [
+          5000,
+          -12
+        ]
+      ],
+      "iterations": 16,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.06,
+            -4
+          ],
+          [
+            0.15,
+            -10
+          ],
+          [
+            0.4,
+            -20
+          ],
+          [
+            0.7,
+            -36
+          ],
+          [
+            0.85,
+            -50
+          ]
+        ]
+      }
+    },
+    {
+      "id": "rattle",
+      "kind": "particles",
+      "rate": 90,
+      "band": [
+        800,
+        4000
+      ],
+      "grain": 0.008,
+      "length": 0.7,
+      "gain": -8,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.3,
+            -8
+          ],
+          [
+            0.7,
+            -25
+          ]
+        ]
+      }
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 1100,
+      "ratios": "plate",
+      "decay": 0.3,
+      "gain": -10
+    }
+  ],
+  "finish": {
+    "saturate": 1.2,
+    "limit": {
+      "crest": 12
+    }
+  }
+}

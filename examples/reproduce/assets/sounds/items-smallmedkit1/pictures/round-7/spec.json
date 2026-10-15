@@ -1,0 +1,151 @@
+{
+  "spec": "smak.sound/1",
+  "name": "items/smallmedkit1.wav",
+  "rate": 22050,
+  "bits": 8,
+  "seed": 5,
+  "length": 0.76,
+  "layers": [
+    {
+      "id": "blip",
+      "kind": "tone",
+      "f": 600,
+      "wave": "sine",
+      "at": 0,
+      "length": 0.04,
+      "gain": -8,
+      "env": {
+        "attack": 0.003,
+        "decay": 0.03
+      }
+    },
+    {
+      "id": "t1",
+      "kind": "tone",
+      "f": 600,
+      "wave": "sine",
+      "at": 0.05,
+      "length": 0.097,
+      "gain": -2,
+      "env": {
+        "attack": 0.004,
+        "hold": 0.085,
+        "decay": 0.008
+      }
+    },
+    {
+      "id": "t2",
+      "kind": "tone",
+      "f": 600,
+      "wave": "sine",
+      "at": 0.17,
+      "length": 0.095,
+      "gain": -2,
+      "env": {
+        "attack": 0.004,
+        "hold": 0.085,
+        "decay": 0.008
+      }
+    },
+    {
+      "id": "mid",
+      "kind": "noise",
+      "at": 0.26,
+      "length": 0.26,
+      "gain": -16,
+      "shape": [
+        [
+          100,
+          -30
+        ],
+        [
+          300,
+          -14
+        ],
+        [
+          1500,
+          -8
+        ],
+        [
+          5000,
+          -14
+        ],
+        [
+          10000,
+          -26
+        ]
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -4
+          ],
+          [
+            0.15,
+            -9
+          ],
+          [
+            0.26,
+            -14
+          ]
+        ]
+      }
+    },
+    {
+      "id": "tick",
+      "kind": "particles",
+      "at": 0.27,
+      "length": 0.25,
+      "count": 4,
+      "band": [
+        1500,
+        6000
+      ],
+      "grain": 0.003,
+      "gain": -14
+    },
+    {
+      "id": "hiss",
+      "kind": "noise",
+      "at": 0.52,
+      "length": 0.24,
+      "gain": -4,
+      "shape": [
+        [
+          100,
+          -50
+        ],
+        [
+          2500,
+          -40
+        ],
+        [
+          3600,
+          -6
+        ],
+        [
+          6000,
+          0
+        ],
+        [
+          9000,
+          -2
+        ],
+        [
+          11000,
+          -12
+        ]
+      ],
+      "iterations": 16,
+      "env": {
+        "attack": 0.004,
+        "hold": 0.23,
+        "decay": 0.005
+      }
+    }
+  ],
+  "finish": {
+    "peak": -1
+  }
+}

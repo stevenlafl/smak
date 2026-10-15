@@ -29,27 +29,27 @@
    "onsets": 1
   },
   "reproduction": {
-   "length": 0.69,
-   "peak": -0.6,
-   "rms": -8.6,
-   "crest": 8,
-   "dc": -0.0002,
+   "length": 0.709,
+   "peak": -0.5,
+   "rms": -10,
+   "crest": 9.5,
+   "dc": 0.0002,
    "clipped": 0,
    "lead": 0,
-   "tail": 0,
+   "tail": 0.015,
    "attack": 0.005,
-   "peakAt": 0.115,
-   "t20": 0.569,
-   "t40": 0.574,
-   "centroid": 1362,
-   "rolloff": 2153,
-   "flatness": 0.265,
+   "peakAt": 0.005,
+   "t20": 0.544,
+   "t40": 0.683,
+   "centroid": 1617,
+   "rolloff": 2412,
+   "flatness": 0.126,
    "bands": {
-    "<150": 0.5,
-    "150-600": 14.2,
-    "600-2k": 66.4,
-    "2k-5k": 18.8,
-    ">5k": 0.1
+    "<150": 0.3,
+    "150-600": 8.8,
+    "600-2k": 66.7,
+    "2k-5k": 22,
+    ">5k": 2.1
    },
    "onsets": 0
   },
@@ -59,58 +59,29 @@
     0.24,
     0.7
    ],
-   "t20": 0.569,
+   "t20": 0.544,
    "inRange": true
   },
-  "lengthOff": 0.006,
-  "centroidOff": 0.014,
-  "bandsOffMost": 7.4,
+  "lengthOff": 0.022,
+  "centroidOff": 0.204,
+  "bandsOffMost": 8.3,
   "engineFaults": [],
   "sameName": true,
   "format": {
-   "rate": 11025,
-   "bits": 8,
+   "rate": 22050,
+   "bits": 16,
    "channels": 1
   }
  },
  "caps": {
   "S2": 2,
-  "S3": 2,
+  "S3": 1,
   "S5": 2
  },
- "scores": {
-  "S1": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "From the picture alone (I cannot listen) the reproduction reads as a broadband noise burst. Its waveform is dense, near-constant amplitude across the first 0.55 s, and its spectrogram has no discrete ringing lines. The original is a sharp strike at the start, with a loud transient spike train and then tonal ringing lines in its spectrogram that read as struck metal. The reproduction's peak sits at 0.115 s, not 0.03 s, and the hit does not stand out from its body. It may be a hit, but it does not clearly show a metal strike."
-  },
-  "S2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Length is 0.69 s against 0.694 s, well within 25%. Attack is 0.005 s in both. T20 is 0.569 s, inside the metal-hit class range of 0.24 to 0.7 s. The waveform shows the reproduction's envelope as a plateau that falls away near the end, not the original's early peak and long ring, but the measured attack and decay items are all met, so I score the measured item at its full 2."
-  },
-  "S3": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Centroid is 1362 Hz against 1343 Hz, about 1.4% off, far inside 20%. Band shares differ by at most 7.4 points (the 150-600 and 600-2k bands, 7.4 each; <150 4.4; 2k-5k 5.1; >5k 0.8), all inside the 10-point limit. The spectrogram agrees: the reproduction is spread more evenly across the low and mid bands, but no band is off by more than the limit."
-  },
-  "S4": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "I cannot listen; this is from the picture and features. The original has one onset and visible discrete transient spikes at the start. The reproduction has zero onsets and a continuous dense waveform with no spikes. The tonal ringing lines in the original's spectrogram are missing from the reproduction, whose flatness is 0.265 against 0.215, so it is noisier. Pitch movement cannot be judged from a still picture, but the tone-versus-noise and onset items do not match."
-  },
-  "S5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The format is mono, 11025 Hz, 8-bit, which the engine plays. Clipped is 0, DC is -0.0002 (near zero), peak is -0.6 dBFS, and no engine faults are listed. The name matches (sameName true). A one-shot hit has no loop cue to match, so none is missing."
-  }
- },
- "total": 8,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "S3"
+ ],
+ "total": 0,
+ "of": 10
 }

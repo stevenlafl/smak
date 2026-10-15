@@ -1,15 +1,20 @@
-`weapons/357_shot1.wav` is built and the build says OK with no warnings. It matches the original on length and overall tone. Loudness is the one remaining gap, and I haven't heard it. The file is at `work:sound/weapons/357_shot1.wav`, and the game plays it in the original's place once it's in `<mod>/sound`.
+The sound is built and the build says OK with no warnings: `work:sound/weapons/357_shot1.wav` (22050 Hz, 8-bit, mono).
 
-It is made from layers alone: a shaped noise blast, a falling 110 to 55 Hz boom and a short mid crack, saturated and written as 8-bit, 22050 Hz mono. I didn't try a generated take.
+Against the original's picture, measured by the build:
 
-| | Original | Mine |
+| Feature | Original (picture) | Made |
 | --- | --- | --- |
-| Length | 1.06 s | 1.063 s |
-| Centroid (the spectrum's centre, in Hz) | 921 Hz | 1035 Hz (12% off, inside the 15% limit) |
-| Time to fall 20 dB (T20) | 0.458 to 1.013 s (the class range) | 0.654 s |
-| Crest (peak over RMS) | about 10 dB | 11.3 dB |
-| Power, over 600 Hz | not read | 57.7% |
+| Length | 1.06 s | 1.083 s (2% off) |
+| T20 (time to -20 dB) | in the 0.458 to 1.013 s range | 0.783 s |
+| Centroid (brightness) | 921 Hz | 874 Hz (5% off) |
+| Crest (peak over RMS) | about 10 dB | 9.6 dB |
+| Bands, worst off | | 2.8 points (600 to 2k Hz) |
 
-- **Where it's weakest:** the build puts the low-end power, under 150 Hz, 6.4 points off the original, the worst of the bands.
-- **Against the game's gunshots:** it is in range on 21 of 22 measures. The 22nd is RMS (average level), at -11.9 dBFS against a floor of -11.7, so it is slightly quieter than the game's own shots.
-- **What I can't check:** how it sounds, and how the game plays it (volume, pitch, the map's room). That needs a listen in the game.
+All 22 of the game's own gunshot features are in range, and the report raised no faults.
+
+How it is made: a sharp crack at the start, a broadband blast with a spectrum shaped to the original's (a fast decay, most energy 150 Hz to 2 kHz), and a sine boom sweeping from 120 Hz down to 45 Hz. It has a short room tail and a limiter at a 10 dB crest, to keep the tail's dynamics close to the original's. The spec sets no seed-dependent recording, so it uses no generator and no non-commercial licence.
+
+Caveats:
+- The build only gives me the original's measured numbers; I could not hear either file. The "as close as I can" judgement rests on those measures, and a listen in the game (and against the original) is the real test.
+- The 1.083 s length is slightly over 1.06 s. I left it because the room tail sets it; trimming it would be a small follow-up if you want it exact.
+- I could not open the work folder's picture files directly, so I read the original's numbers from the build report rather than from the picture itself.

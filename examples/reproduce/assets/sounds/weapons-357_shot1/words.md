@@ -1,9 +1,11 @@
-A single gunshot from a heavy revolver (a .357 Magnum): one loud, sharp report followed by a booming tail. Total length is 1.06 seconds. It plays once and does not loop. Format is 22,050 Hz, 8-bit.
+A single gunshot from a heavy revolver (.357 magnum), fired once. It lasts 1.06 s, mono, 22050 Hz, 8-bit, and plays once with no loop.
 
-Start: the attack is instant. A very brief click comes first, then a gap of a few milliseconds that is nearly silent, then the main blast hits at full volume. So the onset is a double transient: a hammer or primer snap right before the explosion.
+Onset: the attack is instant, a hard broadband crack at full scale. About 20 to 30 ms in there's a very brief dip, then the blast comes straight back.
 
-Loudness: from the blast to about 0.45 seconds the sound is slammed against full scale and heavily clipped, like a dense, distorted wall. From 0.45 seconds it decays steadily and roughly exponentially. By 0.75 seconds it is quiet, and it fades to near silence at about 1.0 seconds, with a short silent tail at the end.
+Loudness: the sound stays heavily clipped, pinned at full scale, from 0 to about 0.45 s. It's a dense, distorted roar with a few momentary dips inside it. After that it falls off fast, to about a quarter of full scale by 0.6 s and a faint rumbling tail by 0.8 s. It's near silence by 0.95 to 1.06 s.
 
-Frequency: the blast is broadband noise across the whole range, with the most energy in the low end (roughly 50 to 300 Hz), which gives the punch and boom. The mids and highs are strong during the clipped section, then die out first. The last few tenths of a second are mostly low and low-mid rumble, like an echo rolling off in a room or outdoors.
+Frequency: this is wideband noise with the weight in the lows and low mids. Rough energy shares: under 150 Hz about 30%, 150 to 600 Hz about 30%, 600 to 2000 Hz about 22%, 2000 to 5000 Hz about 13%, over 5000 Hz about 5%. The top end reaches about 11 kHz during the clipped blast. In the tail the highs die first and only a low boom and rumble (under about 600 Hz) is left at the end.
 
-Character: entirely noisy, with no tone and no pitch. There is no pitch movement except that the high frequencies roll off as it decays, so the tail sounds darker and duller. After the opening click there are no further hits or clicks, just one continuous explosion and its reverberant decay. Make it gritty and overdriven, as from a low-fidelity 8-bit source.
+Hits: there's one main transient at the start. The sustained section has a grainy, crackling texture from the clipping and the reverb-like tail, but there are no separate second shots or mechanical clicks.
+
+Character: entirely noisy, with no tonal component and no pitch movement. The decay just gets darker over time, like an outdoor echo or room boom fading out.

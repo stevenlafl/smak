@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "debris-bustmetal1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.873,
+   "peak": -0.1,
+   "rms": -12.8,
+   "crest": 12.7,
+   "dc": -0.0076,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.105,
+   "attack": 0.025,
+   "peakAt": 0.075,
+   "t20": 0.439,
+   "t40": 0.629,
+   "centroid": 1968,
+   "rolloff": 3241,
+   "flatness": 0.569,
+   "bands": {
+    "<150": 0.2,
+    "150-600": 8.8,
+    "600-2k": 47,
+    "2k-5k": 41.3,
+    ">5k": 2.7
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.85,
+   "peak": -0.6,
+   "rms": -12.6,
+   "crest": 12,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0,
+   "peakAt": 0.085,
+   "t20": 0.499,
+   "t40": 0.758,
+   "centroid": 2100,
+   "rolloff": 3338,
+   "flatness": 0.643,
+   "bands": {
+    "<150": 0.3,
+    "150-600": 5.2,
+    "600-2k": 46,
+    "2k-5k": 47.4,
+    ">5k": 1.1
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "none: the original's own decay",
+   "t20Range": [
+    0.329,
+    0.549
+   ],
+   "t20": 0.499,
+   "inRange": true
+  },
+  "lengthOff": 0.026,
+  "centroidOff": 0.067,
+  "bandsOffMost": 6.1,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture only, since I cannot listen. Both waveforms show the same event: a broadband metal-debris burst with a dense, loud onset in the first ~0.1 s, then a long decay to about 0.87-0.85 s. The spectrograms share the same broad energy band from 600 Hz to 5 kHz that fades with time. The original's onset is a little sharper (attack 0.025 s against 0), but that is a difference of texture, which S4 charges, not of event."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 0.85 s against 0.873 s, 2.6% off, well inside 25%. The reproduction's T20 is 0.499 s against 0.439 s and sits inside the class range of 0.329 to 0.549 s, which is the original's own decay within a quarter. Attack is 0 against 0.025 s; the 25 ms gap is small, and the class gives no attack range to test it against, so it does not drop the item. The picture shows the same fast rise and a peak at 0.085 s against 0.075 s."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 2100 Hz against 1968 Hz, 6.7% off, inside 20%. Band shares differ by at most 6.1 points (2k-5k: 47.4 against 41.3; 150-600: 5.2 against 8.8), all within the 10-point limit. The spectrogram's energy sits in the same bands with the same falloff above 5 kHz."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Onsets match (0 in both), but the tone-or-noise character does not. Flatness is 0.643 against 0.569, so the reproduction is more noise-like, and the original's spectrogram shows horizontal streaks of resonance that the reproduction's smoother, more uniform bands lack. There is no pitch movement to compare. Not a must item, so this is a clear but minor fault; judged from the picture and features only, not by listening."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Format is 11025 Hz, 8-bit, mono, which the engine plays. Clipped is 0 and DC is 0. Peak is -0.6 dBFS, so there is headroom. The name matches (sameName true), and no engine faults are listed. The original is a one-shot, so no loop cue is needed."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

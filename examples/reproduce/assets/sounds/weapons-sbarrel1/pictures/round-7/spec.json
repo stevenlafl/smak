@@ -1,0 +1,140 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/sbarrel1.wav",
+  "class": "gunshot",
+  "seed": 7,
+  "rate": 22050,
+  "bits": 8,
+  "length": 1.04,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "blast",
+      "kind": "noise",
+      "iterations": 32,
+      "env": {
+        "attack": 0.002,
+        "decay": 0.7
+      },
+      "shape": {
+        "keys": [
+          {
+            "at": 0,
+            "curve": [
+              [
+                50,
+                2
+              ],
+              [
+                200,
+                -1.5
+              ],
+              [
+                800,
+                -3
+              ],
+              [
+                3000,
+                -10
+              ],
+              [
+                8000,
+                -18
+              ]
+            ]
+          },
+          {
+            "at": 0.3,
+            "curve": [
+              [
+                50,
+                0
+              ],
+              [
+                200,
+                -2.5
+              ],
+              [
+                800,
+                -7
+              ],
+              [
+                3000,
+                -20
+              ],
+              [
+                8000,
+                -36
+              ]
+            ]
+          },
+          {
+            "at": 0.8,
+            "curve": [
+              [
+                50,
+                -4
+              ],
+              [
+                200,
+                -5.5
+              ],
+              [
+                800,
+                -14
+              ],
+              [
+                3000,
+                -33
+              ],
+              [
+                8000,
+                -50
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 100,
+      "sweep": {
+        "to": 50,
+        "time": 0.2
+      },
+      "env": {
+        "decay": 0.3
+      },
+      "gain": -5
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.015
+      },
+      "gain": -8,
+      "post": true
+    }
+  ],
+  "finish": {
+    "saturate": 6,
+    "limit": {
+      "crest": 7.5,
+      "release": 0.01
+    },
+    "room": {
+      "decay": 0.12,
+      "wet": 0.06
+    }
+  }
+}

@@ -1,5 +1,13 @@
-A single player footstep: one hard shoe landing on a firm floor, like a boot on concrete or tile. It is short, 0.27 seconds, mono, 11025 Hz, 8-bit, and plays once with no loop.
+This is a single footstep: a shoe landing on a hard floor such as concrete or metal grating. It plays once and does not loop. It lasts 0.27 seconds, in mono at 11025 Hz with 8-bit samples, so the top usable frequency is about 5.5 kHz.
 
-It starts instantly with a sharp, dry transient and no fade-in. The loudest moment is within the first 10 to 20 milliseconds, made of a few rapid jagged spikes, like a heel strike with a slight scuffing rattle. That burst falls off fast, to about a fifth of the peak by 0.04 s. At roughly 0.08 s a second, much smaller tap arrives, about a quarter as loud as the first. This is the toe or sole settling after the heel. It also dies within about 20 ms. From 0.1 s to the end there is only a faint, near-silent tail of low-level grit and room noise, fading to nothing by 0.27 s.
+It starts instantly with a sharp heel strike that is the loudest part of the sound. That strike is a cluster of two or three fast clicks spread over about the first 30 milliseconds. The amplitude falls to around a quarter within 40 ms. At about 90 ms comes a second, much softer tap, roughly 20% of the first peak, as the toe or the rest of the sole comes down. After that, a faint gritty scuff of noise trails off almost to nothing by the end, with no ringing.
 
-It is noise, not tone, with no pitch and no pitch movement. The energy is broadband, but most of it sits in the low-mid range, about 100 Hz to 1.5 kHz, with a solid thump around 150 to 400 Hz. There is moderate presence up to around 4 to 5 kHz, which gives the click its definition. Both hits are brightest and fullest at the moment they land, and the spectrum darkens and thins as each one decays. The overall character is dry, close and unreverberant, with a slightly gritty, lo-fi texture from the low bit depth.
+It is noisy, not tonal. There is no clear pitch and no pitch movement, only a dull, slightly woody thud colour. The energy is weighted toward the low-mids, and the brightest band is roughly 150 to 600 Hz in both impacts. Approximate share of energy:
+
+- Under 150 Hz: 20% (soft body thump)
+- 150 to 600 Hz: 45% (main thud)
+- 600 to 2000 Hz: 25% (the click and scrape detail)
+- 2000 to 5000 Hz: 10% (gritty edge, strongest during the two hits)
+- Over 5000 Hz: almost none
+
+The highs fade faster than the lows, so the tail is dull, low and mid noise. The coarse 8-bit grain adds a faint hiss under the tail.

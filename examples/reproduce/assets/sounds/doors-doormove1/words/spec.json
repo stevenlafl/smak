@@ -1,339 +1,254 @@
 {
   "spec": "smak.sound/1",
   "name": "doors/doormove1.wav",
-  "class": "loop machine",
-  "seed": 7,
+  "seed": 1,
   "rate": 11025,
   "bits": 8,
   "length": 5.04,
   "layers": [
     {
-      "id": "grind",
-      "kind": "noise",
-      "iterations": 16,
-      "gain": -4,
-      "length": 5.04,
-      "shape": {
-        "keys": [
-          {
-            "at": 0,
-            "curve": [
-              [
-                50,
-                -40
-              ],
-              [
-                120,
-                -22
-              ],
-              [
-                200,
-                -4
-              ],
-              [
-                400,
-                0
-              ],
-              [
-                800,
-                -1
-              ],
-              [
-                1500,
-                -6
-              ],
-              [
-                3000,
-                -18
-              ],
-              [
-                5000,
-                -32
-              ]
-            ]
-          },
-          {
-            "at": 4,
-            "curve": [
-              [
-                50,
-                -40
-              ],
-              [
-                120,
-                -20
-              ],
-              [
-                200,
-                -3
-              ],
-              [
-                400,
-                0
-              ],
-              [
-                800,
-                -1
-              ],
-              [
-                1500,
-                -7
-              ],
-              [
-                3000,
-                -20
-              ],
-              [
-                5000,
-                -32
-              ]
-            ]
-          }
-        ]
-      },
+      "id": "scrape",
+      "kind": "sample",
+      "file": "work:gen/doormove1b_s5.wav",
+      "from": 0.08,
+      "length": 4.96,
       "env": {
         "points": [
           [
             0,
-            -50
+            -14
           ],
           [
             0.1,
+            -4
+          ],
+          [
+            0.3,
             0
           ],
           [
-            1,
-            -1
-          ],
-          [
-            2,
+            3.9,
             0
           ],
           [
-            3,
-            -1
-          ],
-          [
-            4,
-            -1
-          ],
-          [
-            4.1,
+            4.5,
             0
           ],
           [
-            4.6,
-            -2
-          ],
-          [
-            4.9,
-            -30
+            4.64,
+            -8
           ],
           [
             5.04,
-            -60
+            -50
           ]
         ]
-      }
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 5000,
+          "q": 0.7
+        }
+      ]
     },
     {
-      "id": "grain",
-      "kind": "particles",
-      "rate": 400,
-      "band": [
-        300,
-        2500
+      "id": "grit",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 700,
+          "q": 0.7
+        },
+        {
+          "type": "lowpass",
+          "f": 4500,
+          "q": 0.7
+        }
       ],
-      "grain": 0.004,
-      "gain": -18,
-      "length": 4.2,
+      "length": 5.04,
       "env": {
         "points": [
           [
             0,
-            -40
+            -60
+          ],
+          [
+            0.1,
+            -10
+          ],
+          [
+            0.3,
+            -8
+          ],
+          [
+            3.9,
+            -8
+          ],
+          [
+            4.5,
+            -5
+          ],
+          [
+            4.64,
+            -16
+          ],
+          [
+            5.04,
+            -50
+          ]
+        ]
+      },
+      "gain": -30
+    },
+    {
+      "id": "arc1",
+      "kind": "tone",
+      "f": 360,
+      "wave": "saw",
+      "at": 0.05,
+      "length": 0.3,
+      "sweep": {
+        "to": 560,
+        "time": 0.3
+      },
+      "gain": -24,
+      "env": {
+        "shape": "bell",
+        "decay": 0.15
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 450,
+          "q": 2
+        }
+      ]
+    },
+    {
+      "id": "arc2",
+      "kind": "tone",
+      "f": 360,
+      "wave": "saw",
+      "at": 1.25,
+      "length": 0.3,
+      "sweep": {
+        "to": 560,
+        "time": 0.3
+      },
+      "gain": -24,
+      "env": {
+        "shape": "bell",
+        "decay": 0.15
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 450,
+          "q": 2
+        }
+      ]
+    },
+    {
+      "id": "arc3",
+      "kind": "tone",
+      "f": 360,
+      "wave": "saw",
+      "at": 2.45,
+      "length": 0.3,
+      "sweep": {
+        "to": 560,
+        "time": 0.3
+      },
+      "gain": -24,
+      "env": {
+        "shape": "bell",
+        "decay": 0.15
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 450,
+          "q": 2
+        }
+      ]
+    },
+    {
+      "id": "arc4",
+      "kind": "tone",
+      "f": 360,
+      "wave": "saw",
+      "at": 3.7,
+      "length": 0.3,
+      "sweep": {
+        "to": 560,
+        "time": 0.3
+      },
+      "gain": -24,
+      "env": {
+        "shape": "bell",
+        "decay": 0.15
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 450,
+          "q": 2
+        }
+      ]
+    },
+    {
+      "id": "judder",
+      "kind": "particles",
+      "every": 0.04,
+      "jitter": 0.3,
+      "band": [
+        150,
+        1500
+      ],
+      "grain": 0.006,
+      "at": 4,
+      "length": 0.5,
+      "gain": -8,
+      "env": {
+        "points": [
+          [
+            0,
+            -30
           ],
           [
             0.1,
             0
           ],
           [
-            4,
-            0
+            0.35,
+            -3
           ],
           [
-            4.2,
+            0.5,
             -40
           ]
         ]
       }
     },
     {
-      "id": "rumble",
-      "kind": "noise",
-      "color": "brown",
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 140
-        }
-      ],
-      "gain": -24,
-      "length": 5.04,
-      "env": {
-        "points": [
-          [
-            0,
-            -40
-          ],
-          [
-            0.15,
-            -3
-          ],
-          [
-            4,
-            -3
-          ],
-          [
-            4.2,
-            8
-          ],
-          [
-            4.6,
-            6
-          ],
-          [
-            4.95,
-            -40
-          ]
-        ]
-      }
-    },
-    {
-      "id": "sq1",
+      "id": "thump",
       "kind": "tone",
-      "f": 300,
-      "sweep": {
-        "to": 600,
-        "time": 1
-      },
-      "wave": "saw",
-      "at": 0.3,
-      "length": 1,
-      "gain": -18,
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 1200
-        }
-      ],
-      "env": {
-        "shape": "bell",
-        "decay": 0.5
-      }
-    },
-    {
-      "id": "sq2",
-      "kind": "tone",
-      "f": 300,
-      "sweep": {
-        "to": 600,
-        "time": 1
-      },
-      "wave": "saw",
-      "at": 1.5,
-      "length": 1,
-      "gain": -18,
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 1200
-        }
-      ],
-      "env": {
-        "shape": "bell",
-        "decay": 0.5
-      }
-    },
-    {
-      "id": "sq3",
-      "kind": "tone",
-      "f": 300,
-      "sweep": {
-        "to": 600,
-        "time": 1
-      },
-      "wave": "saw",
-      "at": 2.8,
-      "length": 1,
-      "gain": -18,
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 1200
-        }
-      ],
-      "env": {
-        "shape": "bell",
-        "decay": 0.5
-      }
-    },
-    {
-      "id": "sq4",
-      "kind": "tone",
-      "f": 300,
-      "sweep": {
-        "to": 600,
-        "time": 1
-      },
-      "wave": "saw",
-      "at": 3.9,
-      "length": 1,
-      "gain": -18,
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 1200
-        }
-      ],
-      "env": {
-        "shape": "bell",
-        "decay": 0.5
-      }
-    },
-    {
-      "id": "rattle",
-      "kind": "particles",
-      "every": 0.05,
-      "jitter": 0.3,
-      "band": [
-        100,
-        1200
-      ],
-      "grain": 0.025,
-      "at": 4.1,
+      "f": 110,
+      "wave": "sine",
+      "at": 4,
       "length": 0.6,
-      "gain": 2,
+      "sweep": {
+        "to": 50,
+        "time": 0.4
+      },
+      "gain": -18,
       "env": {
-        "points": [
-          [
-            0,
-            0
-          ],
-          [
-            0.4,
-            0
-          ],
-          [
-            0.8,
-            -40
-          ]
-        ]
+        "attack": 0.005,
+        "decay": 0.3
       }
     }
-  ],
-  "finish": {
-    "saturate": 1.5,
-    "peak": -1
-  }
+  ]
 }

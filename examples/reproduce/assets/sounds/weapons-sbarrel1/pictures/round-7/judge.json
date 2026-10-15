@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-sbarrel1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 1.039,
+   "peak": -0.4,
+   "rms": -8.7,
+   "crest": 8.3,
+   "dc": -0.0044,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.614,
+   "t40": 0.958,
+   "centroid": 604,
+   "rolloff": 991,
+   "flatness": 0.081,
+   "bands": {
+    "<150": 31.7,
+    "150-600": 37.9,
+    "600-2k": 24.4,
+    "2k-5k": 4.8,
+    ">5k": 1.3
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 1.045,
+   "peak": -0.6,
+   "rms": -12.5,
+   "crest": 11.9,
+   "dc": 0.0007,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0,
+   "peakAt": 0.005,
+   "t20": 0.823,
+   "t40": 1.033,
+   "centroid": 628,
+   "rolloff": 1077,
+   "flatness": 0.081,
+   "bands": {
+    "<150": 34.2,
+    "150-600": 35.5,
+    "600-2k": 23.7,
+    "2k-5k": 5.5,
+    ">5k": 1.2
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "gunshot",
+   "t20Range": [
+    0.458,
+    1.013
+   ],
+   "t20": 0.823,
+   "inRange": true
+  },
+  "lengthOff": 0.006,
+  "centroidOff": 0.04,
+  "bandsOffMost": 2.5,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Cannot listen; judged from the picture and features. Both are short, low-frequency, broadband, decaying bursts that read as a gunshot: the original's energy sits in the bottom bands and fades over about a second, and the reproduction shows the same bottom-heavy, decaying shape. The original's sharper opening crack is a detail of the event, not a different event, so the event matches."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 1.045 s against 1.039 s is 0.6% off, well inside 25%. T20 is 0.823 s, inside the gunshot class range of 0.458 to 1.013 s (the measure holds). Attack is 0 s against 0.005 s, a difference of 5 ms, so the attack matches too."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid 628 Hz against 604 Hz is 4% off, within 20%. Band shares differ by at most 2.5 points (bandsOffMost 2.5, under 10): <150 Hz 34.2 vs 31.7, 150-600 Hz 35.5 vs 37.9, 600-2k 23.7 vs 24.4, 2k-5k 5.5 vs 4.8, >5k 1.2 vs 1.3."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. Onsets are 1 in the original and 0 in the reproduction. The original opens with a sharp, rhythmic high-amplitude burst and a crack in the first 0.1 s; the reproduction ramps up as a continuous noisy burst with no distinct hit. Flatness matches exactly at 0.081 for both, so the tone or noise character is right, but the onset is clearly missing. No pitch movement was measured, so that part is not scored."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono, 8-bit, 22050 Hz, which the engine accepts. Peak -0.6 dBFS with zero clipped samples. DC offset 0.0007, negligible. No loop cue is recorded for the original, so none is needed. The name matches (sameName true) and the engine-fault list is empty."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

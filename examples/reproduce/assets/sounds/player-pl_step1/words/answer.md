@@ -1,18 +1,22 @@
-I built `player/pl_step1.wav` as a `smak.sound/1` spec, and the build says OK with every check passed. It matches the original's event, length and format. It sits close to the game's concrete steps but not inside every range.
+The sound is built and the build says OK: `work:sound/player/pl_step1.wav`, 11025 Hz, 8-bit mono, 0.269 s. To use it, copy it into your mod as `sound/player/pl_step1.wav`, and the game will play it in place of the original. I haven't heard it, and the build can't judge how it sounds, so it still needs a listen in the game.
 
-It plays once, as a mono 11025 Hz, 8-bit file of 0.27 s. A noise burst gives the heel strike, a few short grains give the scuff, a small second tap lands at 0.08 s, and a faint noise tail runs to the end. The burst starts at full level and darkens as it dies.
+I built it from layers, not from a generator take. The four woosh-dflow takes were too far from the brief: one was almost silent, one was far too bright, and the others were the wrong shape. So the final file uses no generated audio, and the non-commercial licence on those takes doesn't apply to it.
 
-It is written to `sound/player/pl_step1.wav` in the work folder. It takes the place of the game's own file once you put it in `<mod>/sound`.
+The layers are three short clicks in the first 25 ms, a pink-free heel thud, a low body tone, a second tap at 88 ms, and a gritty scuff that dies away by the end.
 
-Against the game's step-concrete sounds, 18 of 22 measures are in range. The last build was:
+Energy by band, against the brief:
 
-| Measure | Mine | Game's range |
-| --- | --- | --- |
-| Centroid (brightness) | 661 Hz | 678 to 1024 Hz |
-| Flatness (0 is a pure tone, 1 is white noise) | 0.18 | 0.2 to 0.35 |
-| Power below 150 Hz | 13% | 15 to 37% |
-| Power 600 Hz to 2 kHz | 25% | 0 to 18.5% |
+```
+Band              Brief    Made
+Under 150 Hz       20%     21%
+150 to 600 Hz      45%     39%
+600 to 2000 Hz     25%     25%
+2000 to 5000 Hz    10%     13%
+Over 5000 Hz      ~0%     1.1%
+```
 
-Nudging one of these moved another out of range in my earlier builds. I stopped here rather than keep trading them off. I didn't compare the envelope against the original's waveform, only against those class ranges. The report also can't say how it sounds or how the game plays it (volume, pitch, the map's room), so it needs a listen in the game.
+Against the game's own step-on-concrete sounds, 21 of 22 measured features are in range. The one that is off is the 600 Hz to 2 kHz band, at 25%, which is above the game's range of 0 to 18.5%. I kept it because the brief sets 25%.
 
-I did not use `generate`, so no non-commercial model licence is involved.
+Two things I did not fully match:
+- The brief says the amplitude falls to about a quarter within 40 ms. The measured time to fall 20 dB is 0.10 s, a little later than that. I didn't tune it further.
+- The spec is inline in this chat and isn't saved to a file yet. I can save it into the project so the sound can be rebuilt.
