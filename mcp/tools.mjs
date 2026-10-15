@@ -912,6 +912,11 @@ function build(folders, args) {
     // sounds: each file under work:sound/, as the game's own folder has them; the picture of them all
     const { report, files, picture } = buildSoundSpec(spec, { games: folders.wads ?? [], readPicture: (name) => smak.unpicture(readFileSync(pathOf(folders, name))), readFile: (name) => readFileSync(pathOf(folders, name)) });
     const lines = reportLines(report);
+    // made of layers alone where a generator could have given a recording: said where the agent reads, the report
+    const layersOf = (s) => [...(s.layers ?? []), ...(s.sounds ?? []).flatMap((x) => x.layers ?? [])];
+    const sound = folders.generators?.models.find((m) => m.kind === "sound" && m.default) ?? folders.generators?.models.find((m) => m.kind === "sound");
+    if (sound && !layersOf(spec).some((l) => l.kind === "sample"))
+      lines.splice(1, 0, `note  made of layers alone: this server makes recordings (the tool generate, ${sound.name}). A sound of a real thing (a hit, a shot, a step, a door, debris) begins best from one: generate { prompt, length, class, seeds: 6 }, then the nearest take as a layer { kind: "sample", file, from: "onset" }, shaped by the spec's filters, layers and finish (guide { doc: "spec", find: "From a recording" })`);
     // the spec kept beside what it made, as a model's and a map's are (named after its first sound)
     const first = spec.name ?? spec.sounds?.[0]?.name ?? "sound";
     const base = first.replace(/\.wav$/i, "").replace(/[^\w-]+/g, "_");

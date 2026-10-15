@@ -92,8 +92,12 @@ async function generateCase() {
   const tune = (await tools.generate.call({ kind: "music", prompt: "a tune", length: 2, seeds: 1, bpm: 120 }))[0].text;
   sure(/by tune \(music; licence MIT\)/.test(tune) && /\(2 channels\)/.test(tune) && /No spec writes music/.test(tune), tune);
   sure(readFileSync(join(folder, "starts.txt"), "utf8").trim().split("\n").join(",") === "clang,tune", "each model started once");
+  // a spec of layers alone, on a server that has generators, is told of them
+  const layered = (await tools.build.call({ spec: { spec: "smak.sound/1", name: "weapons/beep.wav", layers: [{ kind: "tone", f: 880, env: { decay: 0.2 } }] } }))[0].text;
+  sure(/note  made of layers alone: this server makes recordings \(the tool generate, clang\)/.test(layered), layered);
   // a take used in a sound spec through build
   const built = (await tools.build.call({ spec: { spec: "smak.sound/1", name: "weapons/hit.wav", layers: [{ kind: "sample", file: "work:gen/hit_s0.wav", from: "onset" }] } }))[0].text;
+  sure(!/made of layers alone/.test(built), "no note once a take is used");
   sure(/^OK/.test(built) && /made by clang seed 0 from "a wrench on a pipe", licence CC-BY-NC 4\.0/.test(built) && /may not be sold/.test(built), built);
   // refused in words
   for (const [args, said] of [[{ prompt: "", length: 1 }, /prompt:/], [{ prompt: "x", length: 0 }, /length:/], [{ prompt: "x", length: 1, model: "none" }, /model: one of clang \(sound\), tune \(music\)/], [{ prompt: "x", length: 1, seeds: 99 }, /seeds:/]]) {
