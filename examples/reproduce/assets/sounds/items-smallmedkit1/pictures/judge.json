@@ -30,28 +30,28 @@
   },
   "reproduction": {
    "length": 0.76,
-   "peak": -1,
-   "rms": -12.1,
-   "crest": 11.1,
-   "dc": 0,
+   "peak": -0.6,
+   "rms": -13.9,
+   "crest": 13.3,
+   "dc": -0.0001,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
-   "attack": 0.055,
-   "peakAt": 0.234,
-   "t20": 0.524,
-   "t40": 0.529,
-   "centroid": 2018,
-   "rolloff": 6029,
-   "flatness": 0.159,
+   "attack": 0.06,
+   "peakAt": 0.2,
+   "t20": 0.559,
+   "t40": 0.564,
+   "centroid": 2201,
+   "rolloff": 5922,
+   "flatness": 0.246,
    "bands": {
     "<150": 0,
-    "150-600": 10.8,
-    "600-2k": 69.3,
-    "2k-5k": 3.1,
-    ">5k": 16.8
+    "150-600": 9.7,
+    "600-2k": 63.2,
+    "2k-5k": 8.6,
+    ">5k": 18.5
    },
-   "onsets": 0
+   "onsets": 1
   },
   "envelope": {
    "class": "none: the original's own decay",
@@ -59,12 +59,12 @@
     0.505,
     0.841
    ],
-   "t20": 0.524,
+   "t20": 0.559,
    "inRange": true
   },
   "lengthOff": 0.004,
-  "centroidOff": 0.073,
-  "bandsOffMost": 9.8,
+  "centroidOff": 0.011,
+  "bandsOffMost": 5,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -80,34 +80,34 @@
  },
  "scores": {
   "S1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Cannot listen; judged from the picture and features. The original's layout is three tonal bursts at about 0.00-0.04, 0.07-0.19 and 0.22-0.34 s, a quiet tail with a small click near 0.5 s, then a broadband swell from about 0.55 s to the end. The reproduction has the same layout, with the three bursts aligned in time and the same swell at the end, so it reads as the same event. The quiet sustained tail between about 0.35 and 0.55 s is nearly absent in the reproduction, which costs some character but not the event's identity."
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. The original is three evenly spaced tonal bursts (about 0 to 0.13 s, 0.17 to 0.3 s, 0.35 to 0.5 s), a click near 0.6 s, then a broadband noise swell from about 0.67 s to the end. The reproduction is a longer run of about seven uneven, shorter pulses from 0.1 to 0.33 s, a click near 0.5 s, and a weaker noise rise that peaks at the very end. Both read as a pulsed item-pickup chime with a noise tail, so the kind of event is plausibly the same, but the pulse pattern is clearly different from the original's three-burst structure. Scored 1 for that clear difference, not 0 for the kind of event."
   },
   "S2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Cannot listen; judged from the picture and features. Length is 0.760 s against 0.763 s, and decay (T20) is 0.524 s, inside the original's own range of 0.505 to 0.841 s, so both pass. The attack does not: the original starts with an instant onset (attack 0), the reproduction takes 0.055 s to reach its level, and its loudest point sits on the third burst at 0.234 s, where the original's peaks on the second at 0.09 s. The envelope shape is clearly off from the original even though the decay matches."
+   "score": 2,
+   "reason": "Length 0.760 s against the original's 0.763 s (0.4% off, well within 25%). The decay measure T20 is 0.559 s, inside the class range of 0.505 to 0.841 s that the harness gives (inRange true). Attack is 0.06 s against the original's 0, with both starting on their first sample in the picture; no attack range is given, and a 60 ms difference does not register as a visible envelope fault."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Cannot listen; judged from measurements. Centroid is 2018 against 2177, 7% off and inside 20%. Band shares differ by at most 9.8 points, in the 600 to 2k band (69.3 against 59.5), just inside the 10-point limit. The other bands differ by 0.1 to 4.9 points. Every band passes, though 600 to 2k is close to the line."
+   "reason": "Centroid 2201 Hz against 2177 Hz (1.1% off, within 20%). Band shares against the original, reproduction minus original: under 150 Hz 0 vs 0.1 (0.1 pt), 150 to 600 Hz 9.7 vs 14.7 (5.0 pt), 600 to 2k 63.2 vs 59.5 (3.7 pt), 2k to 5k 8.6 vs 3.9 (4.7 pt), above 5k 18.5 vs 21.7 (3.2 pt). Every band is within 10 points, and the largest gap is 5.0. The rolloff, 5922 Hz against 6072 Hz, agrees too."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Cannot listen; judged from the picture and features. Onsets do not match: the original has one (a sharp start), the reproduction has none by the measure. The original's last click near 0.5 s is only a faint trace in the reproduction. Flatness is close (0.128 against 0.159). The reproduction's bursts are hard-gated, flat horizontal bands in the spectrogram, while the original's show more striation, so the character is only partly right. This item is not a must-have."
+   "reason": "Cannot listen; judged from the picture and features. Onsets agree on the measure (1 each), but the picture shows the original with three clear pulses and the reproduction with about seven, so the onset character differs. Flatness is 0.246 against 0.128, nearly double, so the reproduction is clearly noisier. The reproduction also has a tonal line that is stacked and broader through 0.33 s, where the original's is sharper and confined to the pulses. Pitch movement looks roughly similar. Non-must item, scored 1 for the clear onset and flatness differences."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Fits the engine: mono, 22050 Hz, 8-bit PCM, which the rubric allows. No clipping (peak -1 dBFS), no DC offset, no lead or tail silence, no engine faults, and the same name. The reproduction is about 2 dB louder in RMS than the original (-12.1 against -14.1), which the item does not measure, so it does not lower the score."
+   "reason": "Fit for the game: format is mono, 22050 Hz, 8 bits, one channel, which is one of the engine's allowed formats. Clipped 0, DC -0.0001 (negligible), peak -0.6 dB, engineFaults empty, and sameName true. The original has no loop cue to match, and none is reported for the reproduction."
   }
  },
  "total": 8,

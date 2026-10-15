@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "player-pl_step1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 0.266,
+   "peak": -0.1,
+   "rms": -21.1,
+   "crest": 21,
+   "dc": -0.0043,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.005,
+   "t20": 0.09,
+   "t40": 0.264,
+   "centroid": 853,
+   "rolloff": 2326,
+   "flatness": 0.27,
+   "bands": {
+    "<150": 26.8,
+    "150-600": 48.3,
+    "600-2k": 8.5,
+    "2k-5k": 15.1,
+    ">5k": 1.4
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.27,
+   "peak": -0.6,
+   "rms": -19.6,
+   "crest": 19,
+   "dc": -0.0009,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0,
+   "peakAt": 0,
+   "t20": 0.09,
+   "t40": 0.239,
+   "centroid": 694,
+   "rolloff": 1572,
+   "flatness": 0.238,
+   "bands": {
+    "<150": 30.4,
+    "150-600": 46.6,
+    "600-2k": 10.1,
+    "2k-5k": 11.8,
+    ">5k": 1.1
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "step concrete",
+   "t20Range": [
+    0.04,
+    0.18
+   ],
+   "t20": 0.09,
+   "inRange": true
+  },
+  "lengthOff": 0.015,
+  "centroidOff": 0.186,
+  "bandsOffMost": 3.6,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture only, since I cannot listen. Both waveforms show the same event shape: a sharp broadband strike at the start, a decay over roughly 0.09 s, then a small secondary strike at about 0.08 to 0.09 s, then a low tail. That is consistent with a footstep on concrete (the class the envelope names). The reproduction's spectrogram has more low-frequency energy in its opening columns, which is a timbre difference that a picture cannot settle, so it does not change the event."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 0.27 s against the original's 0.266 s is 1.5% off, well inside 25%. Attack is 0 in both. t20 is 0.09 s in both, inside the step concrete class range of 0.04 to 0.18 s (inRange true)."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 694 Hz against 853 Hz, a 18.6% offset, inside 20%. The largest band difference is 3.6 points (<150 Hz: 30.4 against 26.8; 2k to 5k: 11.8 against 15.1), inside 10 points, and the other bands are closer. The measure passes. Rolloff differs more (1572 against 2326 Hz) but the item does not score rolloff, and the centroid margin is narrow."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only, since I cannot listen. The onset count is 0 in both, but the picture shows a secondary strike in each at about the same time. The reproduction's second strike is sharper and more isolated, while the original's is a rounder, smaller bump. The reproduction's opening is also heavier in the low band and dark in the 0.03 s column, so its spectral movement differs from the original's. Flatness is close (0.27 against 0.238). Pitch movement cannot be read from a picture. Scored 1 for a character that is near but visibly different."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file is mono, 11025 Hz, 8 bit, which the engine plays. Peak is -0.6 dBFS, clipped is 0, and DC is -0.0009, all within fit. The name matches (sameName true). A footstep has no loop cue, and the original shows none, so none is needed."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

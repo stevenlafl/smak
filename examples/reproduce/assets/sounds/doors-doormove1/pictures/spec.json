@@ -4,112 +4,98 @@
   "rate": 11025,
   "bits": 8,
   "length": 5.04,
-  "seed": 1,
+  "seed": 7,
   "picture": "pictures/sound.png",
   "layers": [
     {
-      "id": "rumble",
+      "id": "body",
       "kind": "noise",
-      "color": "pink",
       "shape": [
         [
           40,
-          2
+          -12
         ],
         [
-          90,
-          4
-        ],
-        [
-          150,
-          2
+          120,
+          -4
         ],
         [
           300,
-          -3
+          -2
         ],
         [
           600,
-          -5
+          -6
         ],
         [
-          1000,
-          -8
+          1200,
+          -12
         ],
         [
           2500,
-          -17
+          -20
         ],
         [
           5000,
-          -28
-        ],
-        [
-          11000,
-          -40
+          -30
         ]
       ],
       "env": {
         "points": [
           [
             0,
-            -14
-          ],
-          [
-            0.4,
-            -8
-          ],
-          [
-            1.5,
-            -7
-          ],
-          [
-            3.5,
-            -7
-          ],
-          [
-            4.05,
-            -6
-          ],
-          [
-            4.2,
-            -7
-          ],
-          [
-            4.4,
-            -14
-          ],
-          [
-            4.6,
-            -22
-          ],
-          [
-            4.8,
             -30
           ],
           [
+            0.2,
+            -14
+          ],
+          [
+            1,
+            -12
+          ],
+          [
+            2,
+            -11
+          ],
+          [
+            3.5,
+            -11
+          ],
+          [
+            3.9,
+            -9
+          ],
+          [
+            4.1,
+            -4
+          ],
+          [
+            4.6,
+            -4
+          ],
+          [
+            4.9,
+            -10
+          ],
+          [
             5.04,
-            -40
+            -30
           ]
         ]
       },
       "gain": 0
     },
     {
-      "id": "grind",
-      "kind": "particles",
-      "every": 0.035,
-      "jitter": 0.6,
-      "band": [
-        200,
-        900
-      ],
-      "grain": 0.01,
+      "id": "rumble",
+      "kind": "tone",
+      "f": 60,
+      "wave": "sine",
       "env": {
         "points": [
           [
             0,
-            -30
+            -40
           ],
           [
             0.3,
@@ -120,16 +106,8 @@
             -22
           ],
           [
-            4,
-            -14
-          ],
-          [
             4.3,
-            -22
-          ],
-          [
-            4.6,
-            -32
+            -16
           ],
           [
             5.04,
@@ -137,70 +115,117 @@
           ]
         ]
       },
-      "gain": -8
+      "gain": -10
     },
     {
-      "id": "tick1",
+      "id": "knock1",
       "kind": "noise",
-      "at": 1.56,
-      "length": 0.03,
       "filter": [
         {
           "type": "highpass",
-          "f": 600
+          "f": 900
         }
       ],
       "env": {
-        "decay": 0.015
+        "decay": 0.02
       },
-      "gain": -8
+      "at": 0.6,
+      "gain": -10
     },
     {
-      "id": "tick2",
+      "id": "knock2",
       "kind": "noise",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 900
+        }
+      ],
+      "env": {
+        "decay": 0.02
+      },
+      "at": 1.9,
+      "gain": -10
+    },
+    {
+      "id": "knock3",
+      "kind": "noise",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 900
+        }
+      ],
+      "env": {
+        "decay": 0.02
+      },
       "at": 2.8,
-      "length": 0.03,
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 600
-        }
-      ],
-      "env": {
-        "decay": 0.015
-      },
-      "gain": -8
+      "gain": -10
     },
     {
-      "id": "stop",
-      "kind": "noise",
-      "at": 4.06,
-      "length": 0.06,
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 500
-        }
+      "id": "ratchet",
+      "kind": "particles",
+      "every": 0.04,
+      "jitter": 0.4,
+      "band": [
+        800,
+        2500
       ],
+      "grain": 0.003,
+      "at": 3.85,
+      "length": 0.8,
       "env": {
-        "decay": 0.03
+        "points": [
+          [
+            0,
+            -14
+          ],
+          [
+            0.5,
+            -6
+          ],
+          [
+            0.8,
+            -30
+          ]
+        ]
       },
-      "gain": -4
+      "gain": -5
     },
     {
       "id": "ring",
       "kind": "modes",
-      "f": 170,
-      "ratios": "plate",
-      "decay": 0.4,
+      "f": 900,
+      "ratios": "bar",
+      "decay": 0.6,
       "damping": 1,
-      "at": 4.06,
+      "at": 4.2,
+      "gain": -14
+    },
+    {
+      "id": "clunk",
+      "kind": "tone",
+      "f": 110,
+      "wave": "sine",
+      "sweep": {
+        "to": 40,
+        "time": 0.12
+      },
+      "at": 4.55,
+      "env": {
+        "decay": 0.25
+      },
       "gain": -10
     }
   ],
   "finish": {
+    "room": {
+      "decay": 0.2,
+      "wet": 0.1
+    },
+    "saturate": 2,
     "limit": {
-      "crest": 12.7,
+      "crest": 13,
       "release": 0.002
     },
     "peak": -0.5

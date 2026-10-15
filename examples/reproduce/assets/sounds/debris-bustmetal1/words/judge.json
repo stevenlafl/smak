@@ -31,27 +31,27 @@
   "reproduction": {
    "length": 0.87,
    "peak": -0.6,
-   "rms": -10.6,
-   "crest": 10,
+   "rms": -11.6,
+   "crest": 11,
    "dc": 0,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.005,
+   "tail": 0.01,
    "attack": 0,
-   "peakAt": 0.03,
-   "t20": 0.544,
-   "t40": 0.723,
-   "centroid": 1392,
-   "rolloff": 2143,
-   "flatness": 0.175,
+   "peakAt": 0.025,
+   "t20": 0.579,
+   "t40": 0.768,
+   "centroid": 1637,
+   "rolloff": 2659,
+   "flatness": 0.22,
    "bands": {
-    "<150": 0.3,
-    "150-600": 5.9,
-    "600-2k": 76.2,
-    "2k-5k": 17.5,
+    "<150": 0.7,
+    "150-600": 11.6,
+    "600-2k": 61.6,
+    "2k-5k": 26.1,
     ">5k": 0.1
    },
-   "onsets": 1
+   "onsets": 0
   },
   "envelope": {
    "class": "none: the original's own decay",
@@ -59,12 +59,12 @@
     0.329,
     0.549
    ],
-   "t20": 0.544,
-   "inRange": true
+   "t20": 0.579,
+   "inRange": false
   },
   "lengthOff": 0.003,
-  "centroidOff": 0.293,
-  "bandsOffMost": 29.2,
+  "centroidOff": 0.168,
+  "bandsOffMost": 15.2,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -74,12 +74,13 @@
   }
  },
  "caps": {
-  "S2": 2,
-  "S3": 0,
+  "S2": 1,
+  "S3": 1,
   "S5": 2
  },
  "passes": false,
  "failedByMeasure": [
+  "S2",
   "S3"
  ],
  "total": 0,

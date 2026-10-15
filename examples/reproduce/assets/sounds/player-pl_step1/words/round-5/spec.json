@@ -1,0 +1,210 @@
+{
+  "spec": "smak.sound/1",
+  "name": "player/pl_step1.wav",
+  "class": "step concrete",
+  "rate": 11025,
+  "bits": 8,
+  "length": 0.27,
+  "seed": 7,
+  "layers": [
+    {
+      "id": "heel",
+      "kind": "noise",
+      "shape": [
+        [
+          60,
+          -20
+        ],
+        [
+          120,
+          -8
+        ],
+        [
+          250,
+          2
+        ],
+        [
+          400,
+          3
+        ],
+        [
+          1000,
+          0
+        ],
+        [
+          2500,
+          -4
+        ],
+        [
+          4000,
+          -7
+        ],
+        [
+          5000,
+          -11
+        ]
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.02
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 40
+        }
+      ],
+      "gain": -2
+    },
+    {
+      "id": "scuff",
+      "kind": "particles",
+      "count": 120,
+      "length": 0.03,
+      "band": [
+        1200,
+        6000
+      ],
+      "grain": 0.0006,
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.01
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 40
+        }
+      ],
+      "gain": -4
+    },
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 200,
+      "wave": "sine",
+      "sweep": {
+        "to": 100,
+        "time": 0.02
+      },
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.025
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 40
+        }
+      ],
+      "gain": -8
+    },
+    {
+      "id": "toe",
+      "kind": "noise",
+      "at": 0.08,
+      "length": 0.02,
+      "shape": [
+        [
+          60,
+          -20
+        ],
+        [
+          150,
+          -6
+        ],
+        [
+          300,
+          1
+        ],
+        [
+          800,
+          0
+        ],
+        [
+          2000,
+          -3
+        ],
+        [
+          4000,
+          -7
+        ],
+        [
+          5000,
+          -11
+        ]
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.008
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 40
+        }
+      ],
+      "gain": -12
+    },
+    {
+      "id": "toe_thump",
+      "kind": "tone",
+      "at": 0.08,
+      "f": 180,
+      "wave": "sine",
+      "sweep": {
+        "to": 90,
+        "time": 0.02
+      },
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.015
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 40
+        }
+      ],
+      "gain": -20
+    },
+    {
+      "id": "tail",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0.1,
+      "length": 0.17,
+      "env": {
+        "points": [
+          [
+            0,
+            -30
+          ],
+          [
+            0.1,
+            -36
+          ],
+          [
+            0.17,
+            -42
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 60
+        }
+      ],
+      "gain": -20
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "limit": {
+      "crest": 19,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

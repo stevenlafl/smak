@@ -1,0 +1,117 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/cbar_hit1.wav",
+  "class": "metal hit",
+  "rate": 11025,
+  "bits": 8,
+  "seed": 3,
+  "length": 0.69,
+  "layers": [
+    {
+      "id": "click",
+      "kind": "noise",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2500
+        }
+      ],
+      "env": {
+        "decay": 0.01
+      },
+      "gain": 4
+    },
+    {
+      "id": "clang",
+      "kind": "noise",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2200
+        },
+        {
+          "type": "lowpass",
+          "f": 5000
+        }
+      ],
+      "env": {
+        "decay": 0.15
+      },
+      "gain": 2
+    },
+    {
+      "id": "hiss",
+      "kind": "noise",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1800
+        },
+        {
+          "type": "lowpass",
+          "f": 4000
+        }
+      ],
+      "env": {
+        "decay": 0.25
+      },
+      "gain": -12
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150
+        },
+        {
+          "type": "lowpass",
+          "f": 600
+        }
+      ],
+      "env": {
+        "decay": 0.12
+      },
+      "gain": 10
+    },
+    {
+      "id": "mid",
+      "kind": "noise",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 600
+        },
+        {
+          "type": "lowpass",
+          "f": 1800
+        }
+      ],
+      "env": {
+        "decay": 0.2
+      },
+      "gain": -8
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 760,
+      "ratios": "bar",
+      "decay": 0.8,
+      "damping": 1.2,
+      "gain": -40
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "limit": {
+      "crest": 9
+    }
+  },
+  "picture": {
+    "file": "pictures/sound.png",
+    "length": 0.69,
+    "rate": 11025
+  }
+}

@@ -2,32 +2,39 @@
   "spec": "smak.sound/1",
   "name": "weapons/cbar_hit1.wav",
   "class": "metal hit",
+  "seed": 3,
   "rate": 11025,
   "bits": 8,
-  "seed": 3,
-  "length": 0.69,
+  "length": 0.66,
   "layers": [
     {
-      "id": "click",
+      "id": "body",
       "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 200
+        },
+        {
+          "type": "lowpass",
+          "f": 4500
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.45
+      },
+      "gain": -2
+    },
+    {
+      "id": "air",
+      "kind": "noise",
+      "color": "white",
       "filter": [
         {
           "type": "highpass",
           "f": 2500
-        }
-      ],
-      "env": {
-        "decay": 0.01
-      },
-      "gain": 4
-    },
-    {
-      "id": "clang",
-      "kind": "noise",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 2200
         },
         {
           "type": "lowpass",
@@ -35,83 +42,49 @@
         }
       ],
       "env": {
-        "decay": 0.15
-      },
-      "gain": 2
-    },
-    {
-      "id": "hiss",
-      "kind": "noise",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 1800
-        },
-        {
-          "type": "lowpass",
-          "f": 4000
-        }
-      ],
-      "env": {
-        "decay": 0.25
-      },
-      "gain": -12
-    },
-    {
-      "id": "body",
-      "kind": "noise",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 150
-        },
-        {
-          "type": "lowpass",
-          "f": 600
-        }
-      ],
-      "env": {
+        "attack": 0.001,
         "decay": 0.12
       },
-      "gain": 10
-    },
-    {
-      "id": "mid",
-      "kind": "noise",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 600
-        },
-        {
-          "type": "lowpass",
-          "f": 1800
-        }
-      ],
-      "env": {
-        "decay": 0.2
-      },
-      "gain": -8
+      "gain": -9
     },
     {
       "id": "ring",
       "kind": "modes",
       "f": 760,
       "ratios": "bar",
-      "decay": 0.8,
+      "decay": 0.6,
       "damping": 1.2,
-      "gain": -40
+      "gain": -10
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.004
+      },
+      "post": true,
+      "gain": -6
     }
   ],
   "finish": {
     "saturate": 1.5,
+    "room": {
+      "decay": 0.2,
+      "wet": 0.1
+    },
     "limit": {
-      "crest": 9
-    }
+      "crest": 9.8,
+      "release": 0.002
+    },
+    "peak": -0.5
   },
-  "picture": {
-    "file": "pictures/sound.png",
-    "length": 0.69,
-    "rate": 11025
-  }
+  "picture": "pictures/sound.png"
 }

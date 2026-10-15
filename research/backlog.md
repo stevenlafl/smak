@@ -139,6 +139,7 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | Stable Audio Open 1.0, Open Small, Stable Audio 3 small SFX | OPEN | Gated on HF: Steven accepts the terms and logs in (report, section 8); `generate.py sao` is written, not run |
 | Per-model prompts and lengths, more DFlow seeds; EzAudio inpainting for loop seams and longer loops | OPEN | Report, "Next" |
 | A takes-picker that prefers one onset for a one-shot and shows the picture | OPEN | The class score picked noise beds over hits (report, section 4) |
+| Makers that shape a take rather than drop it | OPEN | Sounds rounds 3 to 6 (2026-10-15, Haiku makers, `generate` offered; 4, 6, 5, 7 of 20): most makers called `generate`, then built from layers because no take matched the picture as it came (late or spiky onsets, the wrong envelope, too short) and because the report's non-commercial warning on Woosh told them a take "may not be sold". The kit has what shaping needs (`from: "onset"`, `env` on a sample layer, filters, layers over it); what is missing is a take nearer at the start (several prompts, the class's length) or the guidance to shape one. Whether the licence warning should stop a take in a personal mod is Steven's call |
 | TangoFlux | DECLINED | This report: slowest here, loose on length, NC; nothing Woosh and EzAudio lack |
 | AudioLDM 2, Tango 2, AudioGen, MAGNeT, Make-An-Audio 2 (16 kHz), MOSS-SoundEffect 8B (16 GB) | DECLINED | This report, section 1 |
 

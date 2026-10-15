@@ -1,18 +1,20 @@
-The medkit sound is built as `work:sound/items/smallmedkit1.wav`, and the build says OK with every check passed. To use it in the game, put it in `<mod>/sound/items/` so it replaces the original.
+The sound builds OK: `work:sound/items/smallmedkit1.wav`, 22050 Hz, 16-bit mono, 0.76 s, peak -0.5 dBFS. The build's checks all passed, and its picture shows the three parts in order. It is 16-bit, not the original's 8-bit. The spec format's default is 16-bit, and I didn't ask for 8-bit.
 
-The file is 22050 Hz, 8-bit mono, 0.76 s long, with a peak of -0.6 dBFS and an RMS of -8.5. The spec is saved beside it as `work:items_smallmedkit1.spec.json`.
+**Layers**
+- **Buzz pulses:** three 270 Hz square waves gated at 0 to 0.035 s, 0.05 to 0.15 s and 0.17 to 0.26 s, with 2 ms ramps.
+- **Edge clicks:** a high-passed noise spike at each pulse edge, for the click and broadband smear.
+- **Quiet gap:** pink noise shaped to mid frequencies, from 0.26 to 0.52 s, at about -20 dB relative to the pulses, plus a field of soft ticks.
+- **Click at 0.40 s:** a short high-passed noise burst.
+- **Hiss:** white noise shaped to a 5 to 10 kHz band, from 0.52 s to the end at full level, with no fade.
 
-How it follows your description:
+**Measured**
+- The hiss section alone measures about 80% of its power above 5 kHz and about 18% in 2 to 5 kHz, with almost none below 600 Hz.
+- The pulse section alone measures about 81% in 150 to 600 Hz, which is the 270 Hz fundamental and its harmonics.
+- The whole file's report reads centroid 2003 Hz, T20 0.69 s and flatness 0.22. The pulses dominate those totals, so the file looks dark and tonal overall.
 
-| Part | Time (s) | What I built |
-| --- | --- | --- |
-| Buzz pulses | 0.00 to 0.035, 0.05 to 0.15, 0.17 to 0.26 | Three square-wave tones at 270 Hz, lowpassed at 4.5 kHz, each starting and stopping abruptly. A short white-noise click sits at each start and stop. |
-| Fumbling gap | 0.26 to 0.52 | Pink noise about 20 dB under the pulses, shaped to mid frequencies, with about 14 soft ticks a second in the 1.2 to 4 kHz band. A sharp click lands at 0.40 s. |
-| Spray hiss | 0.52 to 0.76 | White noise shaped to peak at 6 to 10 kHz, held at a steady level and cut hard at the end with no fade. |
+**Not verified**
+- **No side-by-side comparison.** The original isn't in any game folder the server can read, so the report's reference check found nothing. Everything was checked against your description, not the real file.
+- **Relative levels are inferred.** The finish normalises every build to the same peak, so I couldn't measure the gap's level against the pulses or the hiss. I set them from your description, about -20 dB for the gap and equal peak level for the pulses and hiss. The picture looks right, but the exact dB are unchecked.
+- **Class.** None of the sound classes is a medkit. I used `click` as the nearest, so the report's class ranges (length, T20, flatness) flag the file as too long and too pure. Those flags come from the steady hiss and the tone, which your description asks for, so I left them.
 
-The file's waveform and spectrogram match that timeline in the picture. The tool gives no per-section figures, so the segment levels and the hiss band are checked by eye from the picture, not measured.
-
-Limits:
-- No original was on this machine, so the match is to your description, not to the original's measurements. Send me the original's path and I can measure it beside this one.
-- I didn't set a `class`, because none of the game's sound classes fit a medkit, so the report has no class score.
-- The tool can't say how it sounds. Listen to it in the game before you call it done.
+The spec was passed inline; I didn't save it as a file, since I have no file-writing tool here. I can save it into the work folder if you want it kept for rebuilds.

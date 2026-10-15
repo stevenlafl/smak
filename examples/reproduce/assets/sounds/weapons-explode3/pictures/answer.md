@@ -1,30 +1,25 @@
-The sound is built and the build says OK: `work:sound/weapons/explode3.wav`, 22050 Hz, 8-bit mono, 1.3 s. Its name is the game's own, so it takes the place of `weapons/explode3.wav` when placed in `<mod>/sound`. It has no warnings and all 22 of the game's explosion features are in range.
+The sound is built and the build says OK: `weapons/explode3.wav`, written to the server's work folder at `work:sound/weapons/explode3.wav`. To make the game use it, copy it to `<mod>/sound/weapons/explode3.wav`. I have not listened to it, and the report can't judge how it sounds or how the game plays it, so it still needs a listen in the game.
 
-Against the original's picture (the spectrogram, read by the kit's measure, not listened to):
+**Format and event:** 22050 Hz, 8-bit, mono, 1.308 s, matching the original's 1.3 s, 22050 Hz, 8-bit. I read it as one explosion played once.
 
-| Measure | Original (picture) | Made | Off by |
-| --- | --- | --- | --- |
-| Length | 1.3 s | 1.3 s | 0% |
-| Centroid (brightness) | about 605 Hz | 558 Hz | 8% |
-| Band under 150 Hz | 36.7% | 35.7% | 1 point |
-| Band 150–600 Hz | 36.2% | 36.3% | 0.1 point |
-| Band 600–2k Hz | about 21% | 23.8% | 2.6 points |
-| T20 (time to fall 20 dB) | 0.668 to 1.113 s | 1.063 s | in range |
-| Crest (peak over RMS) | about 8.1 dB | 8 dB | 0.1 dB |
+**Measured against the original's picture (the report's own reading):**
 
-The one thing I could not confirm is onsets. The picture reading gave 1 to 3 and the made sound shows 0 distinct onsets, so the sharp crack at the start may be softer than the original's. I could not open the original's picture or the input folder directly: the Read tool was refused on the reproduce folder, and the picture's path only resolves on the server. The numbers above come from the kit's reading of that picture, not from my own view of it. Please listen to it in the game, since neither the kit nor I can judge how it sounds.
+| Feature | Original (from its picture) | Built file |
+| --- | --- | --- |
+| Length | 1.3 s | 1.31 s (1% off) |
+| Centroid (the frequency centre of its energy) | about 605 Hz | 666 Hz (10% off) |
+| T20 (time to fall 20 dB) | 0.67 to 1.11 s | 0.94 s (in range) |
+| Crest (peak over RMS, the average level) | about 8.1 dB | 8.9 dB |
+| Band 150 to 600 Hz | about 36% | 32% |
+| Band 600 Hz to 2 kHz | about 21% | 25% |
 
-The spec, as built:
+The report's last warning for the picture is gone, so the build's own picture check passes.
 
-```json
-{"spec":"smak.sound/1","name":"weapons/explode3.wav","class":"explosion","rate":22050,"bits":8,"length":1.3,"seed":3,"picture":"pictures/sound.png",
-"layers":[
- {"id":"crack","kind":"noise","color":"white","filter":[{"type":"highpass","f":800},{"type":"lowpass","f":7000,"q":0.7}],"env":{"attack":0.001,"decay":0.08},"gain":-1},
- {"id":"boom","kind":"tone","f":110,"wave":"sine","sweep":{"to":45,"time":0.4},"env":{"attack":0.002,"decay":0.6},"gain":-2},
- {"id":"mid","kind":"noise","color":"pink","filter":[{"type":"bandpass","f":400,"q":0.6}],"env":{"points":[[0,-6],[0.02,-3],[0.4,-5],[0.9,-11],[1.2,-30],[1.3,-60]]},"gain":-1},
- {"id":"blast","kind":"noise","color":"pink","filter":[{"type":"lowpass","f":2000,"q":0.7}],"env":{"points":[[0,-10],[0.01,-4],[0.3,-6],[0.7,-10],[1.0,-22],[1.3,-40]]},"gain":-3},
- {"id":"hiss","kind":"noise","color":"white","filter":[{"type":"highpass","f":2500}],"env":{"attack":0.001,"decay":0.25},"gain":-4}],
-"finish":{"saturate":4,"limit":{"crest":8,"release":0.002},"peak":-0.5}}
-```
+**What the sound is:** a falling sine boom (120 to 55 Hz), a pink-noise body under 450 Hz, a mid blast to 1.3 kHz, a low rumble tail, a hiss and a quiet full-band air layer, debris crackle, and three sharp cracks at 0, 0.2 and 0.45 s, with saturation and a limiter.
 
-My choices: the class is `explosion`, the seed is 3, and I built from layers rather than a generated take, since the original has no recording to match. The spec is not saved to a file; it lives in this message.
+**What is still off, from the class check against the game's own explosions:**
+- **Onsets:** the report counts 0 where the original has 3. The three cracks are too quiet to register as separate hits; louder cracks fixed that but pushed the crest up, so I kept the quieter cracks.
+- **Flatness:** 0.044, just under the 0.05 that the game's explosions start at.
+- **Crest and RMS:** the crest is 8.9 dB, just above the 8.7 top of the range, and the RMS is 0.3 dB under the range. Harder saturation fixed the crest but pushed the centroid out of range, so I stopped there.
+
+I could not open the original's picture myself by its file path, so the original figures above come from the report's readings of it, and I did not compare the two spectrograms by eye.

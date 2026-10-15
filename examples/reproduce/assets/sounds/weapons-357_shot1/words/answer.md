@@ -1,15 +1,15 @@
-The sound is built and the build says OK: `work:sound/weapons/357_shot1.wav`, 22050 Hz, 8-bit mono, 1.06 s. It is 22 of 22 on the game's gunshot features, with no faults.
+The sound is built and the build says OK: `work:sound/weapons/357_shot1.wav`, 22050 Hz, 8-bit mono, 1.08 s long (the 1.06 s target, 2% over), peak -0.6 dBFS.
 
-The layers, as the build reads them:
+I built it from layers, so it has no recorded source. The layers are:
+- **Click:** a 2 kHz high-passed noise crack at t=0 that is added after the saturation, so it stays a sharp onset.
+- **Blast:** broadband noise from 4 ms, with a spectrum that darkens over time. Its level holds from 0.004 s to 0.4 s, then falls to -50 dB by the end.
+- **Boom:** a sine that sweeps from 110 Hz down to 45 Hz for the low punch.
+- **Rumble:** brown noise, low-passed at 500 Hz, that swells around 0.35 s and fades out by the end.
+- **Finish:** a 5x saturation for the clipped wall, a limiter at a 7 dB crest, and a short room tail (0.08 s).
 
-- **Click:** 4 ms of high-passed noise at 2 kHz at the very start. The blast starts at 8 ms, so there is a short near-silent gap between them.
-- **Blast:** one noise layer, 1.05 s long. Its spectrum is weighted to the low end, 50 to 300 Hz, and it rolls off from there. Its envelope holds at full level to 0.42 s, then falls to -18 dB at 0.75 s and -40 dB at 1.0 s. It is driven hard and then saturated and limited to a 6 dB crest, which gives the clipped wall.
-- **Tail:** the spectrum falls further from 0.45 s and again from 1.0 s, so the end is dark and low.
+The report puts all 22 of its measured features in the gunshot range. Its T20 (time to fall 20 dB) is 0.98 s, its centroid is 942 Hz, and its 600 Hz to 2 kHz band is 25%.
 
-Measured: attack 10 ms, T20 0.74 s, T40 0.88 s, centroid 801 Hz, flatness 0.14, band power 31% under 150 Hz, 37% at 150 to 600 Hz, 21% at 600 Hz to 2 kHz, 8% at 2 to 5 kHz, 3% above 5 kHz.
-
-Choices I made:
-- I first added a sine boom that swept from 110 to 45 Hz for the low punch. It pulled the sound too far toward tone and pitch movement, which you said it should not have, so the final version is noise only.
-- The seed is 7. The spec is only in this conversation, not saved in the project. If you want to regenerate it, I can save it as a `.json` file next to the sound.
-
-I have not listened to it, and I have no copy of the original to compare it against directly. The 22 of 22 is against the game's own gunshot sounds, not against your description. The build cannot judge volume, how the game plays it, or the room. Please listen to it in the game, next to the original, before it goes into a mod.
+Things to know:
+- **No game reference.** No game folder was given to the server, so the sound was not measured against the original `357_shot1.wav`. The check was only against the class ranges and your description. For a true side-by-side, give the server the game folder and I'll rebuild against the real file.
+- **Not heard.** The report cannot say how it sounds or how loud it plays in the game. Listen to it in the game before judging it.
+- **Choices I made:** the rumble's exact envelope, the blast's spectrum curve, and the room settings were my own picks from your description, so they are the first things to adjust if it sounds off.

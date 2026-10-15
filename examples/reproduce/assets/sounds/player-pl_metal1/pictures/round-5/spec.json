@@ -1,0 +1,146 @@
+{
+  "spec": "smak.sound/1",
+  "name": "player/pl_metal1.wav",
+  "class": "step metal",
+  "rate": 11025,
+  "bits": 8,
+  "seed": 1,
+  "length": 0.58,
+  "layers": [
+    {
+      "id": "sub",
+      "kind": "tone",
+      "f": 110,
+      "wave": "sine",
+      "sweep": {
+        "to": 55,
+        "time": 0.15
+      },
+      "env": {
+        "attack": 0.001,
+        "decay": 0.3
+      },
+      "gain": 0
+    },
+    {
+      "id": "heel",
+      "kind": "noise",
+      "color": "white",
+      "env": {
+        "attack": 0.001,
+        "decay": 0.08
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 550,
+          "q": 0.7
+        }
+      ],
+      "gain": -5
+    },
+    {
+      "id": "mid",
+      "kind": "noise",
+      "color": "white",
+      "env": {
+        "attack": 0.001,
+        "decay": 0.15
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1000,
+          "q": 0.5
+        }
+      ],
+      "gain": -1
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "color": "white",
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.05,
+            -1
+          ],
+          [
+            0.3,
+            -12
+          ],
+          [
+            0.6,
+            -30
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 450
+        }
+      ],
+      "gain": -2
+    },
+    {
+      "id": "toe",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.17,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.12
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1000,
+          "q": 0.6
+        }
+      ],
+      "gain": -0.5
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 300,
+      "ratios": "plate",
+      "decay": 1.2,
+      "damping": 0.5,
+      "gain": -10
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "post": true,
+      "length": 0.003,
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.002
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "gain": 2
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "limit": {
+      "crest": 16,
+      "release": 0.002
+    },
+    "peak": -0.5
+  },
+  "picture": "pictures/sound.png"
+}

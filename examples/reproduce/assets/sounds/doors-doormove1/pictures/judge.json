@@ -29,29 +29,29 @@
    "onsets": 2
   },
   "reproduction": {
-   "length": 5.04,
+   "length": 5.093,
    "peak": -0.6,
-   "rms": -13.3,
-   "crest": 12.7,
+   "rms": -13.4,
+   "crest": 12.9,
    "dc": 0.0001,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.005,
-   "attack": 4.066,
-   "peakAt": 4.081,
-   "t20": 0.454,
-   "t40": 0.953,
-   "centroid": 530,
-   "rolloff": 1023,
-   "flatness": 0.156,
+   "tail": 0.015,
+   "attack": 4.091,
+   "peakAt": 4.555,
+   "t20": 0.419,
+   "t40": 0.484,
+   "centroid": 591,
+   "rolloff": 969,
+   "flatness": 0.17,
    "bands": {
-    "<150": 30.3,
-    "150-600": 41.5,
-    "600-2k": 23.8,
-    "2k-5k": 4.4,
-    ">5k": 0.1
+    "<150": 24.3,
+    "150-600": 42.9,
+    "600-2k": 28,
+    "2k-5k": 4.6,
+    ">5k": 0.2
    },
-   "onsets": 1
+   "onsets": 5
   },
   "envelope": {
    "class": "none: the original's own decay",
@@ -59,12 +59,12 @@
     0.386,
     0.643
    ],
-   "t20": 0.454,
+   "t20": 0.419,
    "inRange": true
   },
-  "lengthOff": 0.001,
-  "centroidOff": 0.148,
-  "bandsOffMost": 6.3,
+  "lengthOff": 0.011,
+  "centroidOff": 0.05,
+  "bandsOffMost": 7.7,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -83,31 +83,31 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged from the picture and features only; I cannot listen. Both files show a sustained rumble that fits a door sliding over about five seconds. The original is structured: low-mid tonal streaks in the spectrogram and a cluster of sharp impulses around 4.2 to 4.4 s. The reproduction is an even broadband noise bed with one peak near 4.08 s and no visible streaks or impulse cluster. It reads as a door-like noise, not clearly the same sound, so 1 rather than 2."
+   "reason": "I cannot listen, so this is judged from the waveform and spectrogram. Both show one long swell that peaks near the end (original peak at 4.43 s, reproduction at 4.56 s), which fits a door's slide. But the original's spectrogram has curved tonal glides in its harmonics, and the reproduction is a broadband noise bed with vertical click lines. The event is plausibly a door move, yet its character is not clearly the same, so it scores 1."
   },
   "S2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Length is 5.040 s against 5.037 s (0.001 off, well within 25%). T20 is 0.454 s, inside the measured range of 0.386 to 0.643 s. The t40 values differ (0.579 against 0.953 s), but the rubric's envelope item is T20 and its range, which the reproduction meets."
+   "reason": "Length is 5.093 s against 5.037 s, a 1.1% difference, well within 25%. Attack is 4.09 s against 4.25 s. The reproduction's t20 decay time (0.419 s) falls inside the class range of 0.386 to 0.643 s, which is the original's own decay within a quarter or 0.05 s. The envelope is correct."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Centroid is 530 Hz against 622 Hz, 14.8% off, within 20%. Band shares are within 10 points everywhere: under 150 Hz 30.3 against 31.1; 150 to 600 Hz 41.5 against 35.2 (6.3 points, the largest); 600 to 2k 23.8 against 28.4; 2k to 5k 4.4 against 5.0; above 5k 0.1 against 0.2. Rolloff differs (1023 against 1421 Hz), but the rubric does not score it."
+   "reason": "Centroid is 591 Hz against 622 Hz, a 5% difference, within 20%. Band shares are within 10 points: below 150 Hz is 24.3 against 31.1 (6.8 off), 150 to 600 Hz is 42.9 against 35.2 (7.7 off, the largest), 600 Hz to 2 kHz is 28.0 against 28.4, 2 to 5 kHz is 4.6 against 5.0, and above 5 kHz is 0.2 against 0.2. The largest band gap is 7.7 points."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged from the picture and features only; I cannot listen. Onsets do not match: the original has 2 and the reproduction has 1, and the picture shows the original's clusters near 4.2 to 4.4 s missing from the reproduction. The original's horizontal tonal streaks in the spectrogram are absent from the reproduction, so pitch movement does not match. Flatness matches (0.158 against 0.156), so the noise-or-tone character is right; the rest is not."
+   "reason": "I cannot listen, so this is judged from the picture and features. Flatness matches (0.170 against 0.158), so both are similarly noisy. But the onsets do not match: the reproduction has 5 against the original's 2, and the picture shows vertical click lines at roughly 1.0, 2.5 and 2.9 s that the original lacks. The original's tonal pitch glides are also absent from the reproduction. It scores 1, since S4 is not a must-have."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The file is mono, 8-bit, 11025 Hz, which the engine plays. Peak is -0.6 dBFS with zero clipped samples, DC is 0.0001, lead silence is 0 and tail is 0.005 s. The name matches the original (sameName true). The original has no loop cue to match, and none is needed."
+   "reason": "Fit for the game: mono, 11025 Hz, 8-bit, the same file name. Peak is -0.6 dBFS with 0 clipped samples. DC offset is 0.0001, against a limit of none stated. Neither file carries a loop cue in the measures, so there is nothing to match. The file is in the engine's format."
   }
  },
  "total": 8,

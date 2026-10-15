@@ -29,39 +29,39 @@
    "onsets": 4
   },
   "reproduction": {
-   "length": 7.06,
+   "length": 7.36,
    "peak": -0.6,
-   "rms": -28.5,
-   "crest": 27.9,
+   "rms": -24.3,
+   "crest": 23.7,
    "dc": 0,
    "clipped": 0,
    "lead": 0,
-   "tail": 0,
-   "attack": 0.005,
-   "peakAt": 1.871,
-   "t20": 3.961,
-   "t40": 5.193,
-   "centroid": 745,
-   "rolloff": 883,
-   "flatness": 0.042,
+   "tail": 0.14,
+   "attack": 1.686,
+   "peakAt": 3.687,
+   "t20": 3.362,
+   "t40": 3.447,
+   "centroid": 827,
+   "rolloff": 1152,
+   "flatness": 0.041,
    "bands": {
-    "<150": 0.1,
-    "150-600": 21.1,
-    "600-2k": 78,
+    "<150": 0.4,
+    "150-600": 25.4,
+    "600-2k": 73.5,
     "2k-5k": 0.7,
-    ">5k": 0.1
+    ">5k": 0
    },
-   "onsets": 4
+   "onsets": 3
   },
   "envelope": {
    "class": "loop drips",
    "t20Range": null,
-   "t20": 3.961,
+   "t20": 3.362,
    "inRange": true
   },
-  "lengthOff": 0.034,
-  "centroidOff": 0.112,
-  "bandsOffMost": 5.7,
+  "lengthOff": 0.007,
+  "centroidOff": 0.014,
+  "bandsOffMost": 2.2,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -80,34 +80,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged from the picture only, since I cannot listen. Both files have four events at about the same times (around 1.9, 3.7, 4.0 and 5.8 s), so the reproduction does place drips over a bed. But the original's events are broad noisy bursts with a decay tail over a textured ambient bed, while the reproduction's are thin, dry vertical clicks over a steady hiss. The event reads as a drip in a noisy space in both, but it is not the same sound."
+   "reason": "Cannot listen; judged from the picture and features only. The original is a set of drips: four sharp onsets (about 1.9 s, 3.7 s, 4.0 s, 5.8 s), each followed by a decaying, ringing tail with horizontal tonal lines in the spectrogram. The reproduction is a continuous broadband noise bed across the whole length, with three thin clicks (about 1.9 s, 3.7 s, 5.8 s) and no decays. Taps over a hiss could pass for drips, but the decaying drip character is not there, so it is clearly off."
   },
   "S2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Length is 7.06 s against 7.306 s, a 3.4% difference, within 25%. The decay does not match: t20 is 3.961 s in the reproduction against 0.434 s in the original, about nine times longer, and t40 is 5.193 s against 1.477 s. The envelope block reports inRange true only because its class range is null, so the fallback applies: the original's own decay within a quarter or 0.05 s. The reproduction is far outside that, so S2 is capped at 1. The attack figures (0.005 against the original's 5.777) also conflict with the picture, where the original starts loud at 0 s, so they are not used."
+   "reason": "Length passes (7.36 s against 7.306 s, 0.7% off). The class range is null, so the fallback applies: the original's own decay must match within a quarter or 0.05 s, and it does not. The original's t20 is 0.434 s and the reproduction's is 3.362 s; t40 is 1.477 s against 3.447 s. The attack also differs (peak at 5.83 s in the original, 3.69 s in the reproduction). The measured inRange flag is true only because the class has no range, so it caps S2 at 1."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Centroid is 745 Hz against 839 Hz, an offset of 0.112, within 20%. Band shares against the original: under 150 Hz 0.1 vs 1.2 (1.1 points), 150-600 Hz 21.1 vs 23.2 (2.1), 600-2k Hz 78 vs 72.3 (5.7), 2-5k Hz 0.7 vs 2.5 (1.8), over 5k Hz 0.1 vs 0.7 (0.6). The largest gap is 5.7 points, within 10. The spectrogram shows the reproduction's energy sitting somewhat lower, but the measured bands are within tolerance."
+   "reason": "Centroid is 827 Hz against 839 Hz (1.4% off, inside 20%). Band shares are within 2.2 points of the original on every band, inside the 10-point limit: <150 0.4 vs 1.2, 150-600 25.4 vs 23.2, 600-2k 73.5 vs 72.3, 2k-5k 0.7 vs 2.5, >5k 0 vs 0.7. The rolloff is 1152 against 1066 Hz, which is not part of the score."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged from features and picture only, since I cannot listen. The onset count matches (4 and 4) and the event times line up. But the flatness is 0.095 in the original against 0.042 in the reproduction, so the reproduction's bed is markedly more tonal, consistent with the thin steady band in its spectrogram against the original's broad noisy texture. The hits differ too: the original's are decaying bursts, the reproduction's are sharp clicks. No pitch movement is visible in either."
+   "reason": "Cannot listen; judged from the picture and features only. The onset count is 3 against the original's 4, and the missing onset is one of the four drip hits. Flatness is 0.041 against 0.095, so the reproduction is peakier, while the picture shows a flat broadband bed, which does not match the original. The original's sustained tonal lines and their pitch steps are absent in the reproduction. Clearly off, not wrong throughout."
   },
   "S5": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "The format is mono PCM at 11025 Hz, 8 bits, one channel, which the engine plays. Clipping is 0, DC is 0, and there is no lead or tail silence. Peak is -0.6 dB. The name is the same (sameName true). The measures do not report a loop cue for either file, and no cue marker appears on either waveform in the picture, so there is no cue the reproduction is missing on the evidence available."
+   "score": 1,
+   "reason": "The file format is right: mono, 8-bit, 11025 Hz, same name, no clipping, DC 0 (the original's -0.0039 is a measurement artifact, not a fault). The reproduction has a 0.14 s silent tail (tail 0.14; the original has 0), visible as a blank stretch at the right edge of the spectrogram. For a sound named as a loop, that gap breaks a seamless repeat. No loop cue is measured for either file, so the cue cannot be confirmed as correct. Short of 2 on the tail."
   }
  },
- "total": 7,
+ "total": 6,
  "of": 10,
  "passes": false
 }

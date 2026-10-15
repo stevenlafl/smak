@@ -2,142 +2,108 @@
   "spec": "smak.sound/1",
   "name": "weapons/sbarrel1.wav",
   "class": "gunshot",
-  "seed": 7,
+  "seed": 1,
   "length": 1.04,
-  "picture": {
-    "file": "pictures/sound.png",
-    "length": 1.04,
-    "rate": 22050
-  },
+  "picture": "pictures/sound.png",
   "layers": [
-    {
-      "id": "body",
-      "kind": "noise",
-      "iterations": 32,
-      "shape": [
-        [
-          40,
-          -2
-        ],
-        [
-          120,
-          0
-        ],
-        [
-          300,
-          -1
-        ],
-        [
-          600,
-          -2
-        ],
-        [
-          1200,
-          -9
-        ],
-        [
-          2500,
-          -20
-        ],
-        [
-          5000,
-          -32
-        ],
-        [
-          10000,
-          -45
-        ]
-      ],
-      "at": 0,
-      "length": 1.04,
-      "gain": 1,
-      "env": {
-        "attack": 0.002,
-        "decay": 0.45
-      }
-    },
-    {
-      "id": "boom",
-      "kind": "tone",
-      "f": 95,
-      "wave": "sine",
-      "sweep": {
-        "to": 40,
-        "time": 0.25
-      },
-      "at": 0,
-      "length": 0.5,
-      "gain": -2,
-      "env": {
-        "attack": 0.001,
-        "decay": 0.22
-      }
-    },
     {
       "id": "crack",
       "kind": "noise",
       "color": "white",
-      "at": 0,
-      "length": 0.06,
-      "gain": -3,
-      "env": {
-        "attack": 0.0005,
-        "decay": 0.02
-      },
       "filter": [
         {
           "type": "highpass",
-          "f": 1800
+          "f": 2000
         }
-      ]
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.012
+      },
+      "gain": -10
     },
     {
-      "id": "tail",
+      "id": "blast",
       "kind": "noise",
-      "iterations": 32,
       "shape": [
         [
           60,
+          -2
+        ],
+        [
+          150,
           -3
         ],
         [
-          200,
-          -1
+          400,
+          -8
         ],
         [
-          600,
-          0
-        ],
-        [
-          1500,
-          -7
+          1200,
+          -13
         ],
         [
           4000,
-          -18
+          -25
         ],
         [
-          10000,
-          -36
+          11000,
+          -42
         ]
       ],
-      "at": 0.15,
-      "length": 0.89,
-      "gain": -7,
       "env": {
-        "attack": 0.03,
-        "decay": 0.85
+        "points": [
+          [
+            0,
+            -1
+          ],
+          [
+            0.03,
+            0
+          ],
+          [
+            0.25,
+            -6
+          ],
+          [
+            0.45,
+            -18
+          ],
+          [
+            0.7,
+            -30
+          ],
+          [
+            1.04,
+            -45
+          ]
+        ]
       }
+    },
+    {
+      "id": "body",
+      "kind": "tone",
+      "f": 100,
+      "wave": "sine",
+      "sweep": {
+        "to": 45,
+        "time": 0.2
+      },
+      "env": {
+        "attack": 0.002,
+        "decay": 0.2
+      },
+      "gain": -2
     }
   ],
   "finish": {
-    "saturate": 1.5,
     "room": {
-      "decay": 0.2,
-      "wet": 0.1
+      "decay": 0.1,
+      "wet": 0.05
     },
+    "saturate": 1,
     "limit": {
-      "crest": 12,
+      "crest": 11,
       "release": 0.002
     },
     "peak": -0.5

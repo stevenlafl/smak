@@ -1,30 +1,56 @@
-The sound is built and the build says OK: `weapons/sbarrel1.wav` is in the work folder at `work:sound/weapons/sbarrel1.wav`, ready to go into `<mod>/sound/weapons/` in place of the original.
+The sound is built and the build says OK with no warnings: `work:sound/weapons/sbarrel1.wav`, 22050 Hz 16-bit mono, 1.05 s. It goes in `<mod>/sound/weapons/` to replace the game's own file. I could not listen to it, so the match is by measurement only.
 
-I did not use the generated takes. The final sound is entirely from layers, so the woosh-dflow licence (non-commercial, CC-BY-NC) does not apply to the output.
+I read the original's picture (`pictures/sound.png`) and its facts line, not the original file itself: the input folder sits outside the folders this server can read.
 
-**Measured against the original's picture (the kit's numbers read off `pictures/sound.png`):**
+**Measured against the original's picture**
 
-| Measure | Original (picture) | Made sound | Off by |
+| Feature | Original (picture) | Ours | Within |
 | --- | --- | --- | --- |
-| Length | 1.04 s | 1.042 s | 0% |
-| Centroid (brightness) | 615 Hz | 610 Hz | 1% |
-| Band 150–600 Hz | 31.9% | 30.7% | about 1 point |
-| Band 600–2 kHz | 26.1% | 28.3% | about 2 points |
-| Crest (peak over RMS) | about 11.2 dB | 11.2 dB | 0 |
-| Onsets | 1 | 1 | none |
-| T20 (time to −20 dB) | 0.458 to 1.013 s range | 0.529 s | in range |
+| Length | 1.04 s | 1.05 s | 1% |
+| Centroid (brightness) | 615 Hz | 664 Hz | 8% |
+| Band 2 to 5 kHz | (closest band) | 6.7% | 2.3 points |
+| T20 (time to fall 20 dB) | 0.46 to 1.01 s range | 0.67 s | in range |
+| Crest (peak over RMS) | about 11.2 dB | 10.6 dB | within 0.6 dB |
 
-Against the game's own gunshot sounds, all 22 features are in range. The build gave no warnings and no faults.
+Against the game's own gunshot sounds, all 22 features are in range.
 
-**The spec (`smak.sound/1`, class `gunshot`, seed 7):**
-- **Body:** pink noise shaped by a spectrum curve, heavy at 150–600 Hz and falling above 1 kHz, with a 0.45 s decay.
-- **Boom:** a sine tone sweeping 95 → 40 Hz over 0.25 s, for the low thump.
-- **Crack:** 60 ms of white noise high-passed at 1.8 kHz, for the sharp onset.
-- **Tail:** shaped noise starting at 0.15 s and decaying over 0.85 s, which fills the 1.04 s length.
-- **Finish:** saturate 1.5, room 0.2 s at 10% wet, limiter at a crest of 12 dB, peak −0.5 dBFS.
+**The spec**
 
-**Choices I made:**
-- The layers are synthetic, so the grain and room of a real recording are missing. The original is closest on the spectrum and envelope numbers above, and I can't confirm how it sounds.
-- I kept the tail starting at 0.15 s: starting it at 0.1 s gave the original's two-onset count, the build flagged it, and I moved it.
+```json
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/sbarrel1.wav",
+  "class": "gunshot",
+  "seed": 1,
+  "length": 1.04,
+  "picture": "pictures/sound.png",
+  "layers": [
+    { "id": "crack", "kind": "noise", "color": "white",
+      "filter": [{ "type": "highpass", "f": 2000 }],
+      "env": { "attack": 0.001, "decay": 0.012 }, "gain": -10 },
+    { "id": "blast", "kind": "noise",
+      "shape": [[60, -2], [150, -3], [400, -8], [1200, -13], [4000, -25], [11000, -42]],
+      "env": { "points": [[0, -1], [0.03, 0], [0.25, -6], [0.45, -18], [0.7, -30], [1.04, -45]] } },
+    { "id": "body", "kind": "tone", "f": 100, "wave": "sine",
+      "sweep": { "to": 45, "time": 0.2 },
+      "env": { "attack": 0.002, "decay": 0.2 }, "gain": -2 }
+  ],
+  "finish": {
+    "room": { "decay": 0.1, "wet": 0.05 },
+    "saturate": 1,
+    "limit": { "crest": 11, "release": 0.002 },
+    "peak": -0.5
+  }
+}
+```
 
-I could not listen to the result. The build measures the sound; it cannot say how it plays in the game. Please play the two side by side in the game before you judge it.
+The layers are a broadband crack, a shaped noise blast that is loud for about 0.25 s and then falls to a quiet tail, and a low sine body that sweeps from 100 Hz to 45 Hz. The limiter's crest is set to 11 dB to match the original's dynamics.
+
+**Choices I made**
+
+- **Layers only, no recording.** I also generated four shotgun-blast takes with the recording tool. Blended in as a sample layer, the best take matched the envelope but added a non-commercial licence warning (CC-BY-NC 4.0 weights, so the sound may not be sold) and pushed the 150 to 600 Hz band further off. I kept the layers-only build, which has no licence restriction and scores better on the picture.
+- **The spec is only in this message.** The build call wrote the file but no spec file was saved in the work folder.
+
+**What the measurements cannot show**
+
+How it sounds to a person, its volume and pitch in the game, and how the map's room changes it. Please listen to it in the game next to the original.

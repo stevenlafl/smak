@@ -1,0 +1,184 @@
+{
+  "spec": "smak.sound/1",
+  "name": "items/smallmedkit1.wav",
+  "length": 0.76,
+  "rate": 22050,
+  "bits": 8,
+  "picture": {
+    "file": "pictures/sound.png",
+    "length": 0.76,
+    "rate": 22050,
+    "row": 0
+  },
+  "layers": [
+    {
+      "id": "beep0",
+      "kind": "tone",
+      "f": 660,
+      "wave": "sine",
+      "at": 0,
+      "length": 0.04,
+      "gain": -9,
+      "env": {
+        "attack": 0.003,
+        "hold": 0.015,
+        "decay": 0.015
+      }
+    },
+    {
+      "id": "beep1",
+      "kind": "tone",
+      "f": 660,
+      "wave": "sine",
+      "at": 0.05,
+      "length": 0.1,
+      "gain": -6,
+      "env": {
+        "attack": 0.004,
+        "hold": 0.075,
+        "decay": 0.02
+      }
+    },
+    {
+      "id": "beep2",
+      "kind": "tone",
+      "f": 660,
+      "wave": "sine",
+      "at": 0.169,
+      "length": 0.1,
+      "gain": -6,
+      "env": {
+        "attack": 0.004,
+        "hold": 0.075,
+        "decay": 0.02
+      }
+    },
+    {
+      "id": "body1",
+      "kind": "tone",
+      "f": 300,
+      "wave": "sine",
+      "at": 0.05,
+      "length": 0.1,
+      "gain": -14,
+      "env": {
+        "attack": 0.004,
+        "hold": 0.075,
+        "decay": 0.02
+      }
+    },
+    {
+      "id": "body2",
+      "kind": "tone",
+      "f": 300,
+      "wave": "sine",
+      "at": 0.169,
+      "length": 0.1,
+      "gain": -14,
+      "env": {
+        "attack": 0.004,
+        "hold": 0.075,
+        "decay": 0.02
+      }
+    },
+    {
+      "id": "tail",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0.264,
+      "length": 0.256,
+      "gain": -18,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150
+        },
+        {
+          "type": "lowpass",
+          "f": 4000
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -30
+          ],
+          [
+            0.13,
+            -14
+          ],
+          [
+            0.16,
+            -18
+          ],
+          [
+            0.256,
+            -40
+          ]
+        ]
+      }
+    },
+    {
+      "id": "swell",
+      "kind": "noise",
+      "iterations": 32,
+      "at": 0.52,
+      "length": 0.24,
+      "gain": 0,
+      "shape": [
+        [
+          100,
+          -30
+        ],
+        [
+          600,
+          -24
+        ],
+        [
+          1300,
+          -14
+        ],
+        [
+          3700,
+          -8
+        ],
+        [
+          8900,
+          -3
+        ],
+        [
+          11000,
+          -3
+        ]
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -14
+          ],
+          [
+            0.08,
+            -6
+          ],
+          [
+            0.16,
+            -3
+          ],
+          [
+            0.24,
+            -2
+          ]
+        ]
+      }
+    }
+  ],
+  "finish": {
+    "limit": {
+      "crest": 11,
+      "release": 0.002
+    },
+    "peak": -1
+  }
+}

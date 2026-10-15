@@ -1,0 +1,113 @@
+{
+ "kind": "sounds",
+ "subject": "ambience-drips",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 7.306,
+   "peak": -0.4,
+   "rms": -27.3,
+   "crest": 26.9,
+   "dc": -0.0039,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 5.777,
+   "peakAt": 5.832,
+   "t20": 0.434,
+   "t40": 1.477,
+   "centroid": 839,
+   "rolloff": 1066,
+   "flatness": 0.095,
+   "bands": {
+    "<150": 1.2,
+    "150-600": 23.2,
+    "600-2k": 72.3,
+    "2k-5k": 2.5,
+    ">5k": 0.7
+   },
+   "onsets": 4
+  },
+  "reproduction": {
+   "length": 7.31,
+   "peak": -0.6,
+   "rms": -29.6,
+   "crest": 29,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.05,
+   "t20": 6.006,
+   "t40": 7.263,
+   "centroid": 923,
+   "rolloff": 1346,
+   "flatness": 0.122,
+   "bands": {
+    "<150": 8.2,
+    "150-600": 15.5,
+    "600-2k": 72.4,
+    "2k-5k": 3.8,
+    ">5k": 0.1
+   },
+   "onsets": 4
+  },
+  "envelope": {
+   "class": "loop drips",
+   "t20Range": null,
+   "t20": 6.006,
+   "inRange": true
+  },
+  "lengthOff": 0.001,
+  "centroidOff": 0.1,
+  "bandsOffMost": 7.7,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen, so judged from the pictures and features. The reproduction has four transients at about the original's times (roughly 0, 1.9, 3.7-4.0 and 5.9 s), so it reads as drips over an ambience. But the original's drips sit on mid-band horizontal banding that looks like resonant ringing, while the reproduction's onsets spread into a broadband fan of noise. The event matches in timing but its character looks more like a noise wash than the original's drips. Clearly off, not wrong."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Length passes (7.31 s against 7.306 s). The envelope fails. The original peaks at 5.83 s with a 5.78 s attack, and its drips decay fast (t20 0.434 s, t40 1.477 s). The reproduction peaks at 0.05 s and decays slowly (t20 6.006 s, t40 7.263 s), so it is a sustained bed rather than decaying drips. The envelope block reports inRange true, but its class range is null, so the fallback applies: the original's own decay within a quarter or 0.05 s. 6.0 s against 0.43 s is far outside that, which caps S2 at 1."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: centroid 923 against 839, a 10% difference, within 20%. Band shares are within 10 points in every band; the largest gap is 7.7 points (150-600 Hz, 23.2 against 15.5), and the 600-2k band matches (72.3 against 72.4). The picture agrees: the bright low-mid energy sits in the same range."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Onset count matches (4 and 4) and the onset times line up, and flatness is close (0.095 against 0.122). But the original's mid-band horizontal banding, which shows as pitched resonance that shifts after each drip, is absent from the reproduction's spectrogram, and its tail reads as broadband noise. The character of the drips is therefore only partly matched. Cannot listen, so judged from the features and picture only."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Fits the engine's format: mono, 11025 Hz, 8-bit, peak -0.6 dBFS, no clipping, DC 0, same name as the original (ambience/drips.wav). The measures do not report a loop cue, so whether the original has one cannot be checked from them; nothing visible in the pictures contradicts a loop, and the reproduction's tail stays at about its start level."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

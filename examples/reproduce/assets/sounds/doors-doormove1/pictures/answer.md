@@ -1,17 +1,26 @@
-The sound is built and the build says OK with no warnings: `work:sound/doors/doormove1.wav`, 11025 Hz, 8-bit, mono, 5.04 s, the same length as the original. It is in the server's work folder, not in the reproduce assets folder, so the game will only use it once it is copied to `<mod>/sound/doors/doormove1.wav`.
+The sound is built and the build says OK with no warnings: `work:sound/doors/doormove1.wav`. It takes the game's name, so it replaces the original when put in the mod's `sound` folder. I can't listen to it, so the judgement of how it sounds is yours.
 
-I could not listen to it, so how it sounds is untested. The measures against the original's picture are these:
+The sound is made from layers, not from a generated take. I generated four door takes, but none came near the original (too short, or the wrong spectrum), so none went into the spec. Those four takes are still in `work:gen/` and are under a non-commercial licence, so don't use them.
 
-| Measure | Original (picture) | Built | Result |
-| --- | --- | --- | --- |
-| Length | 5.04 s | 5.04 s | match |
-| Crest (peak over RMS) | about 12.7 dB | 12.7 dB | match |
-| Centroid (brightness) | 589 Hz | 530 Hz | 10% off (copy allowed 15%) |
-| Band power, under 150 Hz | 30.1% | 30.3% | match |
-| Band power, 150 to 600 Hz | 37.8% | 41.5% | within 4 points |
-| Band power, 600 Hz to 2 kHz | not read | 23.8% | within 4 points |
-| T20 (time to fall 20 dB) | 0.35 to 0.58 s | 0.45 s | in range |
+The comparison is against the numbers the tool reads off the original's picture (`pictures/sound.png`). I couldn't read the original `.wav` itself, since the file tool doesn't open binary audio.
 
-The picture shows the same events as the original: a rumble across the whole length, clicks at about 1.56 s and 2.8 s, and a ringing stop burst at about 4.06 s that rings out to the end. The first draft had clicks that were too spiky and a tail that rang too long, and I fixed both.
+```
+Measure               Original (picture)   Built
+Length                5.04 s               5.09 s
+Centroid              589 Hz               591 Hz
+Power under 150 Hz    30.1%                24.3%
+Power 600 Hz to 2 kHz 27.6%                28.0%
+T20 (time to -20 dB)  0.348 to 0.58 s      0.419 s
+Crest                 about 12.7 dB        12.9 dB
+Attack (burst onset)  about 4.1 s          4.09 s
+Onsets                about 7              5
+```
 
-The spec is still in this conversation, not saved as a file. Its seed is 1, so rebuilding it gives the same bytes. Say if you want it saved in the project folder.
+The build's sound layers are:
+- A broadband noise body over the whole length, shaped to the original's spectrum, that holds up after the burst.
+- A low sine rumble under it.
+- Three short knocks at 0.6, 1.9 and 2.8 s.
+- A ratchet train at 3.85 to 4.65 s, a ring at 4.2 s and a falling clunk at 4.55 s.
+- Light room, saturation and a limiter set to a 13 dB crest, at 11025 Hz, 8-bit mono.
+
+The main gap is the onset count: 5 built against about 7 read off the picture. The report doesn't flag it, but it is the next thing I'd tune if the ratchet sounds too sparse in the game. The under-150 Hz power is also 6 points heavy, which is within the tolerance of 7.

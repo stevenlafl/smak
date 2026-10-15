@@ -1,31 +1,29 @@
-The sound is built and the build says OK. It is written to `work:sound/ambience/drips.wav`, which takes the place of the game's file of that name when put in the mod's `sound` folder.
+The sound is built and the build says OK: `work:sound/ambience/drips.wav`, 11025 Hz, 8-bit, mono, looped with its cue point at the start. It is 7.30 s long, 0.01 s short of the 7.31 s you gave. The build's 20 checks all pass, and none of the 20 is off.
 
-**What the build reports**
+**What's in it**
 
-| Check | Result | Your description |
-|---|---|---|
-| Length | 7.31 s | 7.31 s |
-| Format | 11025 Hz, 8-bit, mono | 11025 Hz, 8-bit, mono |
-| Loop | Cue at the start, seam cross-faded over 0.05 s | Loops seamlessly from the start |
-| Drip onsets | 4 detected, one per drip | 5 drips at 0.05, 1.87, 3.69, 3.97, 5.85 s |
-| Power, 600 Hz to 2 kHz | 72% | Mids, 400 Hz to 1.2 kHz, strongest |
-| Power, 2 to 5 kHz | 3.8% | Weaker band to 2.5 kHz, faint above 3 kHz |
-| Power, above 5 kHz | 0.1% | Faint above 3 kHz |
-| Centroid | 923 Hz | Mids-weighted |
-| Game's loop-drips features | 20 of 20 in range | — |
+| Drip | Start | Level | Notes |
+|---|---|---|---|
+| 1 | 0.05 s | loudest | ring at 1100 Hz, bloop 640 to 720 Hz |
+| 2 | 1.87 s | medium | ring at 1350 Hz, bloop 600 to 660 Hz |
+| 3 | 3.69 s | softer | ring at 1700 Hz, bloop 720 to 800 Hz |
+| 4 | 3.97 s | softer | ring at 1000 Hz, bloop 760 to 840 Hz |
+| 5 | 5.85 s | loudest | ring at 1250 Hz, bloop 620 to 700 Hz, tail runs past the loop point |
 
-The sound's own RMS (root mean square level) is -29.6 dBFS (decibels below full scale). The T20 and T40 figures are the times to fall 20 and 40 dB.
+- **Transient:** each drip starts with a short 900 Hz click and a 3 ms high-passed crack.
+- **Body:** band-limited noise centred near 850 Hz, with the top cut at 1800 Hz.
+- **Bloop:** a sine that glides up 80 Hz over 0.1 s, then decays.
+- **Bed:** white noise shaped to be heavier in the lows, at a level just high enough to keep the file from going silent between drips.
 
-**How it is built**
+**Measured against the game's loop-drip class:** centroid 928 Hz (range 671 to 1007), flatness 0.131 (0.05 to 0.15), RMS −24.3 dBFS (−30.3 to −24.3), crest 22.7 dB (20 to 34), and band shares 1.7% below 150 Hz, 17.2% from 150 to 600 Hz, 78.4% from 600 Hz to 2 kHz, 2.4% from 2 to 5 kHz.
 
-- **Bed:** a noise bed weighted to the lows, held for the whole loop at -14 dB, so the level never drops to silence between drips.
-- **Each drip:** three layers. A 12 ms click for the soft-edged transient, a mid-band noise body weighted to 700 to 900 Hz with a faint 1.5 to 2.5 kHz shoulder and a roll-off above 3 kHz, and a sine ring that glides up about 50 Hz over the first 100 ms.
-- **Levels:** drips 1 and 5 are the loudest, drip 2 is medium, drips 3 and 4 are about 6 dB softer.
-- **Ring pitches:** 880, 1240, 710, 1020 and 1380 Hz, so each drip differs.
+**Where I'd still check by ear**
 
-**Choices I made that you may want to change**
+- **Decay:** the file's overall decay reads about 7 s because the bed holds the level. The individual drip tails fall over roughly 0.5 to 1 s as you asked, but the bed masks the fall. If the drips sound too smeared, the bed is the first thing to lower.
+- **Second drip:** I set it to medium, slightly quieter than drips 3 and 4. I haven't compared that with the original.
+- **Not checked:** I had no copy of the original, so there was no side-by-side. The numbers come from the class ranges, not the original file. Only you can judge how it sounds in the game.
 
-- The ring is a pure sine, so it is narrow, but it is not a set of resonant lines. A real resonance would need a modal layer, which is a bigger change.
-- I had only your description, not the original file, so every match is to your numbers, not a side-by-side. Please listen to it in the game and against the original; the build cannot judge how it sounds.
+**Other things**
 
-**Leftover file:** during testing I wrote `work:sound/scratch/bedtest.wav`, a bed-only test. It is not part of the sound and can be deleted.
+- The spec exists only inline in this session. I had no way to write a spec file into the work folder, so a second person can't rebuild it from disk yet.
+- Four scratch test sounds from my experiments are in `work:sound/ambience/` (`test_bed.wav`, `test_nobed.wav`, `test_bed6.wav`, `test_bed_shape.wav`). None of them is a game file name, so the game won't load them, but they should be removed. I have no delete tool, so you'll need to remove them.

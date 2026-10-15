@@ -1,0 +1,208 @@
+{
+  "spec": "smak.sound/1",
+  "name": "doors/doormove1.wav",
+  "rate": 11025,
+  "bits": 8,
+  "length": 5.04,
+  "seed": 1,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "rumble",
+      "kind": "noise",
+      "color": "pink",
+      "shape": [
+        [
+          40,
+          2
+        ],
+        [
+          90,
+          4
+        ],
+        [
+          150,
+          2
+        ],
+        [
+          300,
+          -3
+        ],
+        [
+          600,
+          -5
+        ],
+        [
+          1000,
+          -8
+        ],
+        [
+          2500,
+          -17
+        ],
+        [
+          5000,
+          -28
+        ],
+        [
+          11000,
+          -40
+        ]
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -14
+          ],
+          [
+            0.4,
+            -8
+          ],
+          [
+            1.5,
+            -7
+          ],
+          [
+            3.5,
+            -7
+          ],
+          [
+            4.05,
+            -6
+          ],
+          [
+            4.2,
+            -7
+          ],
+          [
+            4.4,
+            -14
+          ],
+          [
+            4.6,
+            -22
+          ],
+          [
+            4.8,
+            -30
+          ],
+          [
+            5.04,
+            -40
+          ]
+        ]
+      },
+      "gain": 0
+    },
+    {
+      "id": "grind",
+      "kind": "particles",
+      "every": 0.035,
+      "jitter": 0.6,
+      "band": [
+        200,
+        900
+      ],
+      "grain": 0.01,
+      "env": {
+        "points": [
+          [
+            0,
+            -30
+          ],
+          [
+            0.3,
+            -22
+          ],
+          [
+            3.5,
+            -22
+          ],
+          [
+            4,
+            -14
+          ],
+          [
+            4.3,
+            -22
+          ],
+          [
+            4.6,
+            -32
+          ],
+          [
+            5.04,
+            -40
+          ]
+        ]
+      },
+      "gain": -8
+    },
+    {
+      "id": "tick1",
+      "kind": "noise",
+      "at": 1.56,
+      "length": 0.03,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 600
+        }
+      ],
+      "env": {
+        "decay": 0.015
+      },
+      "gain": -8
+    },
+    {
+      "id": "tick2",
+      "kind": "noise",
+      "at": 2.8,
+      "length": 0.03,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 600
+        }
+      ],
+      "env": {
+        "decay": 0.015
+      },
+      "gain": -8
+    },
+    {
+      "id": "stop",
+      "kind": "noise",
+      "at": 4.06,
+      "length": 0.06,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 500
+        }
+      ],
+      "env": {
+        "decay": 0.03
+      },
+      "gain": -4
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 170,
+      "ratios": "plate",
+      "decay": 0.4,
+      "damping": 1,
+      "at": 4.06,
+      "gain": -10
+    }
+  ],
+  "finish": {
+    "limit": {
+      "crest": 12.7,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

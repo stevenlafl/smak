@@ -1,0 +1,134 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/357_shot1.wav",
+  "class": "gunshot",
+  "seed": 1,
+  "length": 1.06,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2500
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.01
+      },
+      "gain": -14
+    },
+    {
+      "id": "boom",
+      "kind": "tone",
+      "f": 120,
+      "wave": "sine",
+      "sweep": {
+        "to": 40,
+        "time": 0.2
+      },
+      "env": {
+        "attack": 0.001,
+        "decay": 0.2
+      },
+      "gain": 2
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 800,
+          "q": 0.5
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.003,
+            0
+          ],
+          [
+            0.1,
+            -4
+          ],
+          [
+            0.25,
+            -10
+          ],
+          [
+            0.4,
+            -16
+          ],
+          [
+            0.6,
+            -24
+          ],
+          [
+            0.8,
+            -36
+          ],
+          [
+            1.06,
+            -60
+          ]
+        ]
+      },
+      "gain": -2
+    },
+    {
+      "id": "tail",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 1500
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.05,
+            -16
+          ],
+          [
+            0.3,
+            -24
+          ],
+          [
+            0.6,
+            -34
+          ],
+          [
+            1.06,
+            -55
+          ]
+        ]
+      },
+      "gain": -8
+    }
+  ],
+  "finish": {
+    "saturate": 3,
+    "limit": {
+      "crest": 8,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

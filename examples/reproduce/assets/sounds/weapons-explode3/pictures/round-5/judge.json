@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-explode3",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 1.301,
+   "peak": -0.4,
+   "rms": -6.2,
+   "crest": 5.7,
+   "dc": -0.0048,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.254,
+   "t20": 0.893,
+   "t40": 1.028,
+   "centroid": 616,
+   "rolloff": 947,
+   "flatness": 0.097,
+   "bands": {
+    "<150": 36.4,
+    "150-600": 37.6,
+    "600-2k": 19.5,
+    "2k-5k": 4.6,
+    ">5k": 1.9
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 1.3,
+   "peak": -0.6,
+   "rms": -8.6,
+   "crest": 8,
+   "dc": 0.0003,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.075,
+   "t20": 1.063,
+   "t40": 1.222,
+   "centroid": 558,
+   "rolloff": 969,
+   "flatness": 0.06,
+   "bands": {
+    "<150": 35.7,
+    "150-600": 36.3,
+    "600-2k": 23.8,
+    "2k-5k": 3.2,
+    ">5k": 1
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "explosion",
+   "t20Range": [
+    0.668,
+    1.113
+   ],
+   "t20": 1.063,
+   "inRange": true
+  },
+  "lengthOff": 0.001,
+  "centroidOff": 0.094,
+  "bandsOffMost": 4.3,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Cannot listen; judged from the picture and features. Both waveforms open at full level in a dense burst that falls away over about a second into a low tail, and both spectrograms are heavy in the low bands with a fading upper band. That is the shape of an explosion, which matches the envelope class of 'explosion' in the measurements."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 1.30 s against 1.301 s (0.1% off, well within 25%). T20 (decay) is 1.063 s, inside the explosion class range of 0.668 to 1.113 s (inRange true). Attack is 0 s against the original's 0.005 s, both effectively instant."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid 558 Hz against 616 Hz (9.4% off, within 20%). Band shares differ by at most 4.3 points (600 to 2k: 23.8 against 19.5, the largest gap), inside the 10-point limit (bandsOffMost 4.3)."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. The original has one detected onset (a discrete hit at the start) and the reproduction has none (onsets 0 against 1). Flatness differs, 0.06 against 0.097, so the noise-versus-tone character is not the same. The loudest point also comes earlier (0.075 s against 0.254 s). Pitch movement cannot be checked from the picture. Short of 2 because a must-have-like character item (the onset) is missing, though S4 is not a must."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono, 8-bit, 22050 Hz, all formats the engine plays. Peak -0.6 dBFS with no clipping. DC 0.0003, effectively zero. A one-shot with no loop cue needed (lead and tail both 0, and the original has none). sameName true and engineFaults empty."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

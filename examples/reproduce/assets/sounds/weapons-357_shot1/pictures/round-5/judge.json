@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-357_shot1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 1.064,
+   "peak": 0,
+   "rms": -8.5,
+   "crest": 8.5,
+   "dc": -0.0012,
+   "clipped": 265,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.748,
+   "t40": 1.003,
+   "centroid": 937,
+   "rolloff": 1658,
+   "flatness": 0.11,
+   "bands": {
+    "<150": 20.3,
+    "150-600": 27.5,
+    "600-2k": 43.9,
+    "2k-5k": 6.7,
+    ">5k": 1.6
+   },
+   "onsets": 3
+  },
+  "reproduction": {
+   "length": 1.06,
+   "peak": -0.5,
+   "rms": -8.5,
+   "crest": 8,
+   "dc": 0.0018,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.005,
+   "t20": 0.923,
+   "t40": 1.053,
+   "centroid": 974,
+   "rolloff": 1723,
+   "flatness": 0.047,
+   "bands": {
+    "<150": 17.2,
+    "150-600": 25.6,
+    "600-2k": 45.8,
+    "2k-5k": 10.7,
+    ">5k": 0.8
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "gunshot",
+   "t20Range": [
+    0.458,
+    1.013
+   ],
+   "t20": 0.923,
+   "inRange": true
+  },
+  "lengthOff": 0.004,
+  "centroidOff": 0.039,
+  "bandsOffMost": 4,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 16,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only, since I cannot listen. Both are a loud broadband burst that decays over about a second, with t20 in the gunshot range, so the reproduction plausibly reads as a shot. But the original's sharp, clipped crack at its start is missing: the original's waveform saturates from 0 to about 0.5 s, while the reproduction's is an even dense hiss from the first frame. The original has 3 onsets and the reproduction has 0. That is a clearly different attack, so it is only a partial match."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 1.06 s against 1.064 s (0.4% off, within 25%). Attack is 0.005 s in both. t20 is 0.923 s, inside the gunshot class range of 0.458 to 1.013 s (inRange true). Decay is close, with t40 at 1.053 s against 1.003 s."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Centroid is 974 against 937 (3.9% off, within 20%). The band shares are all within 10 points by the listed numbers: <150 by 3.1, 150-600 by 1.9, 600-2k by 1.9, 2k-5k by 4.0, >5k by 0.8. But the measurement reports bandsOffMost = 4, meaning four of five bands are off, and I cannot reconcile that with its 10-point rule, so I cap the item at 1. The reproduction also carries about 60% more 2k-5k energy (10.7 against 6.7) and half the >5k energy (0.8 against 1.6)."
+  },
+  "S4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Judged from the picture and features only, since I cannot listen. The original has 3 onsets (its hits or cracks) and the reproduction has 0, so the transient character is missing. Flatness is 0.047 against 0.11, less than half the original's, so the reproduction is far more tonal and smooth. The picture shows an even hiss with no discrete hits where the original has a sharp blast."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The format is 22050 Hz, 16-bit, mono, which the engine plays. Clipping is 0 against 265 in the original (peak -0.5 dBFS, so no clipping). DC is 0.0018, which is negligible. The name matches (sameName true). The sound is a one-shot with no loop, and the original has no loop cue (lead and tail are 0 in both)."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

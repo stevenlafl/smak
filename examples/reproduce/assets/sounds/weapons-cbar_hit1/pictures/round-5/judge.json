@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-cbar_hit1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.694,
+   "peak": -0.4,
+   "rms": -9.9,
+   "crest": 9.5,
+   "dc": 0.0043,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.03,
+   "t20": 0.559,
+   "t40": 0.649,
+   "centroid": 1343,
+   "rolloff": 1938,
+   "flatness": 0.215,
+   "bands": {
+    "<150": 4.9,
+    "150-600": 6.8,
+    "600-2k": 73.8,
+    "2k-5k": 13.7,
+    ">5k": 0.9
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 0.69,
+   "peak": -0.6,
+   "rms": -9.6,
+   "crest": 9,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.244,
+   "t20": 0.274,
+   "t40": 0.444,
+   "centroid": 1337,
+   "rolloff": 2745,
+   "flatness": 0.191,
+   "bands": {
+    "<150": 0.1,
+    "150-600": 2.6,
+    "600-2k": 75.6,
+    "2k-5k": 21.3,
+    ">5k": 0.3
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "metal hit",
+   "t20Range": [
+    0.24,
+    0.7
+   ],
+   "t20": 0.274,
+   "inRange": true
+  },
+  "lengthOff": 0.006,
+  "centroidOff": 0.004,
+  "bandsOffMost": 7.6,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "I cannot listen, so this is from the picture and features. Both waveforms are dense, broadband and ring on a steady tone line in the spectrogram, which fits a metal hit. But the original opens with a sharp full-level strike at 0 s (onset 1), and the reproduction has no strike: it swells from a lower level and peaks at 0.244 s, reading more as a buzzing ring than a crowbar hitting metal. Same class, but the event's defining transient is missing."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measures pass: length 0.69 s against 0.694 s (0.6% off), attack 0 s against 0.005 s, and t20 of 0.274 s is inside the metal-hit range of 0.24 to 0.7 s. But the picture shows the envelope is a different shape. The original peaks at 0.03 s and decays; the reproduction builds for about 0.24 s before peaking. The measures cannot capture that, so this item is scored lower than the measurement allows."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: centroid 1337 Hz against 1343 Hz (0.4% off, within 20%). Band shares are within 10 points throughout: under 150 Hz 0.1 against 4.9 (4.8 off), 150-600 Hz 2.6 against 6.8 (4.2 off), 600-2k Hz 75.6 against 73.8 (1.8 off), 2k-5k Hz 21.3 against 13.7 (7.6 off, the largest), over 5k Hz 0.3 against 0.9. The spectrogram shows the same broad mid-band energy and the same ringing line."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Onsets fail: the original has one (its click at 0 s) and the reproduction has none, so the hit's character is missing. Flatness is close (0.191 against 0.215) and the same tonal ring line appears in both spectrograms, so tone and pitch movement roughly match. The judge cannot listen, so this is from the pictures and features only."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file format is mono, 11025 Hz, 8-bit, which the engine plays. Peak is -0.6 dB with no clipping (0 samples), DC is 0 and there is no lead or tail silence. Engine faults are empty and the name matches. No loop cue is measured; this reads as a one-shot like the original, so none is needed."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

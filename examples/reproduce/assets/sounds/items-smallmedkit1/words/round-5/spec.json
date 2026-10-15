@@ -1,0 +1,449 @@
+{
+  "spec": "smak.sound/1",
+  "name": "items/smallmedkit1.wav",
+  "rate": 22050,
+  "bits": 8,
+  "length": 0.76,
+  "seed": 7,
+  "layers": [
+    {
+      "id": "buzz1",
+      "kind": "tone",
+      "f": 270,
+      "wave": "square",
+      "at": 0,
+      "length": 0.035,
+      "gain": 0,
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.002,
+            0
+          ],
+          [
+            0.032,
+            0
+          ],
+          [
+            0.035,
+            -60
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 4500
+        }
+      ]
+    },
+    {
+      "id": "buzz2",
+      "kind": "tone",
+      "f": 270,
+      "wave": "square",
+      "at": 0.05,
+      "length": 0.1,
+      "gain": 0,
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.002,
+            0
+          ],
+          [
+            0.097,
+            0
+          ],
+          [
+            0.1,
+            -60
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 4500
+        }
+      ]
+    },
+    {
+      "id": "buzz3",
+      "kind": "tone",
+      "f": 270,
+      "wave": "square",
+      "at": 0.17,
+      "length": 0.09,
+      "gain": 0,
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.002,
+            0
+          ],
+          [
+            0.087,
+            0
+          ],
+          [
+            0.09,
+            -60
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 4500
+        }
+      ]
+    },
+    {
+      "id": "edge_on1",
+      "kind": "noise",
+      "color": "white",
+      "at": 0,
+      "length": 0.006,
+      "gain": -8,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.001,
+            0
+          ],
+          [
+            0.006,
+            -60
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ]
+    },
+    {
+      "id": "edge_on2",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.05,
+      "length": 0.006,
+      "gain": -8,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.001,
+            0
+          ],
+          [
+            0.006,
+            -60
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ]
+    },
+    {
+      "id": "edge_on3",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.17,
+      "length": 0.006,
+      "gain": -8,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.001,
+            0
+          ],
+          [
+            0.006,
+            -60
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ]
+    },
+    {
+      "id": "edge_off1",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.033,
+      "length": 0.006,
+      "gain": -8,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.001,
+            0
+          ],
+          [
+            0.006,
+            -60
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ]
+    },
+    {
+      "id": "edge_off2",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.148,
+      "length": 0.006,
+      "gain": -8,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.001,
+            0
+          ],
+          [
+            0.006,
+            -60
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ]
+    },
+    {
+      "id": "edge_off3",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.258,
+      "length": 0.006,
+      "gain": -8,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.001,
+            0
+          ],
+          [
+            0.006,
+            -60
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ]
+    },
+    {
+      "id": "rustle",
+      "kind": "noise",
+      "color": "pink",
+      "shape": [
+        [
+          150,
+          -10
+        ],
+        [
+          600,
+          -3
+        ],
+        [
+          2000,
+          0
+        ],
+        [
+          4000,
+          -3
+        ],
+        [
+          8000,
+          -10
+        ]
+      ],
+      "at": 0.26,
+      "length": 0.26,
+      "gain": -22,
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.02,
+            0
+          ],
+          [
+            0.23,
+            0
+          ],
+          [
+            0.26,
+            -60
+          ]
+        ]
+      }
+    },
+    {
+      "id": "ticks",
+      "kind": "particles",
+      "rate": 14,
+      "band": [
+        1200,
+        4000
+      ],
+      "grain": 0.002,
+      "at": 0.26,
+      "length": 0.26,
+      "gain": -16
+    },
+    {
+      "id": "click40",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.4,
+      "length": 0.005,
+      "gain": -6,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.0005,
+            0
+          ],
+          [
+            0.005,
+            -60
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2500
+        }
+      ]
+    },
+    {
+      "id": "hiss",
+      "kind": "noise",
+      "color": "white",
+      "shape": [
+        [
+          200,
+          -30
+        ],
+        [
+          1000,
+          -18
+        ],
+        [
+          4000,
+          -4
+        ],
+        [
+          6000,
+          0
+        ],
+        [
+          10000,
+          0
+        ],
+        [
+          12000,
+          -8
+        ],
+        [
+          16000,
+          -30
+        ]
+      ],
+      "at": 0.52,
+      "length": 0.24,
+      "gain": -3,
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.003,
+            0
+          ],
+          [
+            0.236,
+            0
+          ],
+          [
+            0.24,
+            -60
+          ]
+        ]
+      }
+    }
+  ],
+  "finish": {
+    "peak": -0.5
+  }
+}

@@ -1,22 +1,22 @@
-The sound is built and checks OK with no warnings: `work:sound/player/pl_step1.wav`, which goes into `<mod>/sound/player/` so the game plays it in the original's place.
+The sound is built and written to `work:sound/player/pl_step1.wav`, so the game will load it in place of the original. The build says OK, but two measures are still a little outside the game's range for footsteps, so the match is close rather than exact.
 
-The build reads the original's measures from its picture (`pictures/sound.png`), and I compared the made sound against them:
+Measured against the original's picture (the only reading I had of it, since its `.wav` can't be read here):
 
-```
-Feature              Original (from picture)   Made
-Length               0.27 s                    0.274 s
-Centroid (brightness) 902 Hz                   994 Hz
-Power below 150 Hz   13%                       15%
-Power 150-600 Hz     about 60%                 54%
-Power 600-2k Hz      about 9%                  11%
-Power 2k-5k Hz       about 16%                 18%
-Time to fall 20 dB   0.04 to 0.18 s           0.145 s
-Crest (peak over RMS) about 21.8 dB            19 dB
-```
+| Feature | Original (from picture) | Made | Note |
+| --- | --- | --- | --- |
+| Length | 0.27 s | 0.264 s | 2% short; the file ends at its audible end |
+| Centroid (brightness) | about 902 Hz | 883 Hz | 2% off |
+| Power below 150 Hz | about 13% | 15.2% | within range |
+| Power 150 to 600 Hz | about 60% | 59.8% | at the top of the class range (59.7%) |
+| Power 600 to 2k Hz | about 9% | 9.8% | close |
+| Power 2k to 5k Hz | about 16% | 14.9% | close |
+| Crest (peak over RMS) | about 21.8 dB | 19.2 dB | within 3 dB of the picture's reading |
+| T20 (time to −20 dB) | in range | 0.095 s | within the class range |
+| Flatness (noisiness) | class range 0.2 to 0.35 | 0.187 | slightly too pure: the one open miss |
 
-Every feature is in the range of the game's own step sounds (22 of 22). The sound is a low body tone and a pink-noise heel thump, then a toe click at 0.14 s with a little white hiss, over a short tail.
+What it is: a heel hit at the start (pink noise, a short white click, a low sine thump that falls from 110 Hz to 50 Hz), a smaller toe hit at 0.09 s, and a body tail that decays over about 0.36 s, all in 11025 Hz 8-bit mono. It is held against the game's `step concrete` class, where it matches 20 of 22 features.
 
 What I could not do:
-- **Listen.** The report can't say how it sounds, so judge it in the game.
-- **Match the crest.** It sits about 3 dB under the original's. Loosening the limiter did nothing, because the saturation sets the crest, and I stopped there rather than squash the sound to chase it.
-- **Compare against the original's own file.** The input folder is a directory, and the tools here won't read the original WAV, so the comparison rests on the picture's numbers. The picture's label reads 0.27 s, which is the original's length, so I took it to be the original's picture.
+- **Flatness.** I tried a broadband air layer, a noise sub and swapping the sine thump for noise. The air layer pushed the top end too bright, and the noise sub changed the other bands in a way I couldn't explain. Flatness stayed at 0.187 for the best version, so I kept that one.
+- **Listening.** The original's samples aren't readable here, so the comparison rests on the picture and the build's measurements. Someone needs to listen in the game to judge how it sits next to the original; volume and the map's room are not in the build.
+- **Spec file.** The spec lives in this session only. I haven't saved it to the reproduce folder; say if you want it written there beside the input.

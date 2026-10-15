@@ -1,16 +1,15 @@
-The sound is built as `player/pl_step1.wav` and the build says OK, with all 22 class features in the game's range. It is at `work:sound/player/pl_step1.wav`, so it goes in `<mod>/sound/player/` to replace the game's own file.
+The sound is built and passes every check: `work:sound/player/pl_step1.wav`, 0.27 s, 11025 Hz, 8-bit mono, one-shot. Its peak is -0.6 dBFS, crest 16 dB.
 
-Facts from the final build: 11025 Hz, 8-bit mono, 0.27 s, peak -0.6 dBFS, RMS -19.6 dB, crest 19 dB, T20 0.09 s, T40 0.24 s, centroid 694 Hz, flatness 0.24. Power by band: under 150 Hz 30%, 150–600 Hz 47%, 600–2k 10%, 2k–5k 12%, over 5k 1%.
+I could not put it side by side with the original, since no copy of it is in the folders. So I judged it against the description and the game's own "step concrete" sounds. All 22 of the class's features are now in range.
 
-How it is built, all as layers in one spec:
-- **Heel strike at 0 s:** shaped noise with a 150–400 Hz thump and presence up to 5 kHz, decaying in about 20 ms. A sine thump sweeps 200 to 100 Hz under it.
-- **Scuff:** a burst of 120 short grains between 1.2 and 6 kHz, for the rattle on the click.
-- **Toe tap at 0.08 s:** a smaller, darker noise hit at -12 dB with a -20 dB thump under it.
-- **Tail from 0.1 s:** pink noise fading from about -30 dB to -42 dB by 0.27 s.
-- **Finish:** a mild saturation of 1.5, a limiter at a 19 dB crest, and a peak of -0.5 dBFS. The 8-bit depth supplies the grit.
+The sound is built from layers, not a recording:
+- **Heel strike:** white noise shaped to a low-mid thump, falling to about a fifth of its peak by 0.04 s and dying by 0.27 s.
+- **Rattle:** a short burst of jagged particles at the onset, in the first 20 ms.
+- **Thump:** a sine that falls from 180 to 80 Hz, at a low level so the sound stays mostly noise.
+- **Toe tap:** a second noise hit at 0.08 s, about a quarter as loud as the heel and gone within 20 ms.
+- **Grit:** very quiet pink noise from 0.1 s, fading to nothing by the end.
+- **Finish:** a light saturation and a limiter at a 16 dB crest, the middle of the range for steps.
 
-Limits of the check:
-- The report compares the sound with the game's step-concrete class, not with the original file. No reference file was drawn, so I could not compare it side by side with the original.
-- The check cannot judge how it sounds to a listener, or its volume and pitch in the game. Someone should listen to it in the game.
-- Its T20 of 0.09 s is inside the class range, but the original's heel burst reportedly falls to a fifth by 0.04 s, which is faster. I did not tighten the decay further because the class check was passing.
-- No generated take was used, so there is no third-party licence to note.
+Five builds were needed to bring the spectrum into range. The first was too bright and too noisy, the second too dark and too pure, and the last two each fixed one remaining feature. The final build's centroid is 872 Hz (range 678 to 1024), flatness 0.30 (0.2 to 0.35), and 600 Hz to 2 kHz at 18% (up to 18.5).
+
+The spec is inline in this session and not saved as a file. I did not use a generated take, because there was no recording to compare it against. If the side-by-side result is not close enough, the next step would be to generate several takes and layer the nearest one under the synthesized parts.

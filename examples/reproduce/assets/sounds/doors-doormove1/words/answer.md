@@ -1,20 +1,28 @@
-The sound is built and the build says OK: `work:sound/doors/doormove1.wav`. Put it in `<mod>/sound/doors/` so the game plays it in place of the original. I only have your description of the original, not the file, so I could not compare the two side by side.
+The sound is built and the build says OK: `work:sound/doors/doormove1.wav`, 11025 Hz, 8-bit mono, 5.02 s, peak -0.6 dBFS. It is a layered synthesis with no recording, so it is an approximation of the original rather than a close copy. It has not been listened to.
 
-Measured against your description:
+**What I built** (the spec is the last build, from the layers I wrote):
+- **Body:** pink noise with a shaped spectrum from 100 Hz to 4 kHz, peaking at 200 to 500 Hz and rolling off above 1.5 kHz. Its envelope fades in over 0.1 s to a steady level, holds to 4.0 s, and tapers to silence by 4.9 s.
+- **Rumble:** brown noise below 150 Hz, about 2 dB under the body in its steady part, swelling at 4.1 s and pulsing at about 8 Hz until 4.5 s.
+- **Rattle:** band-passed pink noise at 4.1 to 4.7 s, with pulsed gain, for the shudder at the end.
+- **Squeals:** four sine sweeps from 300 Hz to 600 Hz, each one second long, at 0.3, 1.5, 2.8 and 3.9 s, at -20 dB.
 
-| Feature | Original (per your description) | Built |
-|---|---|---|
-| Length | 5.04 s | 5.035 s |
-| Format | 11025 Hz, 8-bit, mono, plays once | 11025 Hz, 8-bit mono, no loop |
-| Onset | fades in over about 0.1 s, no hit | no onsets; 20 dB rise (T20) at 0.27 s |
-| Loudest point | about 4.1 s | peak of the level at about 4.1 s |
-| Tail | silent by about 4.9 s | envelope tapers to silence by 5.04 s |
-| Tonal arcs | 300 to 600 Hz, at 0.3, 1.5, 2.8, 3.9 s | four sine sweeps 300 to 600 Hz at those starts, 1 s each |
-| Rattle | pulsing flutter at the end | particle train 150 to 1500 Hz at 4.1 s, 0.6 s long |
-| Spectrum | broadband 100 Hz to 4 kHz, densest 200 Hz to 1.5 kHz, dull top | centroid 917 Hz; 2 to 5 kHz at 8.6%, above 5 kHz at 0.1% |
+**Measured against the description:**
 
-The layers are noise with a spectrum shape for the grit, a low rumble under 150 Hz that swells in the final section, the rattle, and the four squeals. The finish limits the crest to 12 dB, which gives a steady medium level.
+| Feature | Original (description) | Made | Note |
+| --- | --- | --- | --- |
+| Length | 5.04 s | 5.02 s | |
+| Centroid | Dull top, densest 200 Hz to 1.5 kHz | 393 Hz | Inside the class range of 237 to 437 Hz |
+| Flatness | Mostly noisy | 0.037 | Inside the class range |
+| Power under 150 Hz | "Firm" rumble | 39% | Over the class range (0 to 14%) |
+| Power 150 to 600 Hz | Densest band | 38% | Under the class range (84 to 100%) |
+| Power 600 Hz to 2 kHz | Densest band | 22% | Over the class range |
+| Attack | About 0.1 s | 1.0 s | Not met, see below |
 
-The report still flags a few items against the game's loop-machine class. Its length, flatness and band ranges describe a looping, tonal hum, which this one-shot, mostly noisy door is not, so I left those as they are. The centroid flag is the one I'd still check by ear: the original's top may be duller than this. If it sounds too bright in the game, the next change is to take a few dB more off the grit above 1.5 kHz.
+**What is not matched:**
+- **Attack:** the tool reads 1.0 s, not 0.1 s. It seems to measure against the loudest section, and it flipped between about 1 s and 4 s as I raised and lowered the steady level. Getting the steady level within a couple of dB of the loudest section was the best I could do without losing the description's level change.
+- **Spectrum:** the class ranges come from the game's generic loop-machine sounds, which don't fit this description. I followed the description. The low band at 39% is the most visible difference from the class.
+- **Reference:** `doors/doormove1.wav` is not in any game folder on this machine, so no measurement is taken against the original. Please check the numbers against your copy.
+- **Squeals:** they are sine tones at -20 dB. They show as faint lines in the spectrogram, but they may be hard to hear.
+- **Class:** there is no door class, so I used `loop machine`. The report's class checks use that choice.
 
-The spec is inline in this session only, since I have no file-writing tool here. I can save it to the work folder if you want it kept.
+**Options if the listening test falls short:** a generated take of a heavy door grinding along a track, used as a sample layer, would bring in real grain and room. The generator's weights are CC-BY-NC 4.0, so that would be non-commercial. Or I can adjust the rumble and attack balance by ear if you tell me what the side-by-side listen shows.

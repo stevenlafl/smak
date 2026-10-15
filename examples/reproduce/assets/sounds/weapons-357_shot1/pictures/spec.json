@@ -10,121 +10,91 @@
       "id": "crack",
       "kind": "noise",
       "color": "white",
+      "at": 0,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.004
+      },
       "filter": [
         {
           "type": "highpass",
-          "f": 2500
+          "f": 2000
         }
       ],
+      "gain": -4,
+      "post": true
+    },
+    {
+      "id": "blast",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0,
       "env": {
-        "attack": 0.0005,
-        "decay": 0.01
+        "attack": 0.002,
+        "hold": 0.01,
+        "decay": 0.22
       },
-      "gain": -14
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 4500,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 1200,
+          "q": 0.8,
+          "gain": 4
+        }
+      ],
+      "gain": 0
     },
     {
       "id": "boom",
       "kind": "tone",
-      "f": 120,
+      "f": 150,
       "wave": "sine",
       "sweep": {
-        "to": 40,
+        "to": 55,
         "time": 0.2
       },
       "env": {
         "attack": 0.001,
-        "decay": 0.2
+        "decay": 0.18
       },
-      "gain": 2
-    },
-    {
-      "id": "body",
-      "kind": "noise",
-      "color": "pink",
-      "filter": [
-        {
-          "type": "bandpass",
-          "f": 800,
-          "q": 0.5
-        }
-      ],
-      "env": {
-        "points": [
-          [
-            0,
-            -60
-          ],
-          [
-            0.003,
-            0
-          ],
-          [
-            0.1,
-            -4
-          ],
-          [
-            0.25,
-            -10
-          ],
-          [
-            0.4,
-            -16
-          ],
-          [
-            0.6,
-            -24
-          ],
-          [
-            0.8,
-            -36
-          ],
-          [
-            1.06,
-            -60
-          ]
-        ]
-      },
-      "gain": -2
+      "gain": -10
     },
     {
       "id": "tail",
       "kind": "noise",
       "color": "pink",
+      "at": 0.02,
+      "env": {
+        "attack": 0.02,
+        "decay": 0.55
+      },
       "filter": [
         {
           "type": "lowpass",
-          "f": 1500
+          "f": 2800,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 1200,
+          "q": 0.8,
+          "gain": 4
         }
       ],
-      "env": {
-        "points": [
-          [
-            0,
-            -60
-          ],
-          [
-            0.05,
-            -16
-          ],
-          [
-            0.3,
-            -24
-          ],
-          [
-            0.6,
-            -34
-          ],
-          [
-            1.06,
-            -55
-          ]
-        ]
-      },
       "gain": -8
     }
   ],
   "finish": {
     "saturate": 3,
+    "room": {
+      "decay": 0.25,
+      "wet": 0.1
+    },
     "limit": {
       "crest": 8,
       "release": 0.002

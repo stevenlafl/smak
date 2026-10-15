@@ -29,27 +29,27 @@
    "onsets": 1
   },
   "reproduction": {
-   "length": 0.69,
+   "length": 0.712,
    "peak": -0.6,
-   "rms": -9.6,
+   "rms": -9.5,
    "crest": 9,
-   "dc": 0,
+   "dc": 0.0001,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
    "attack": 0,
-   "peakAt": 0.244,
-   "t20": 0.274,
-   "t40": 0.444,
-   "centroid": 1337,
-   "rolloff": 2745,
-   "flatness": 0.191,
+   "peakAt": 0.319,
+   "t20": 0.254,
+   "t40": 0.339,
+   "centroid": 1406,
+   "rolloff": 2918,
+   "flatness": 0.23,
    "bands": {
     "<150": 0.1,
-    "150-600": 2.6,
-    "600-2k": 75.6,
-    "2k-5k": 21.3,
-    ">5k": 0.3
+    "150-600": 3.3,
+    "600-2k": 73.3,
+    "2k-5k": 23.3,
+    ">5k": 0.1
    },
    "onsets": 0
   },
@@ -59,12 +59,12 @@
     0.24,
     0.7
    ],
-   "t20": 0.274,
+   "t20": 0.254,
    "inRange": true
   },
-  "lengthOff": 0.006,
-  "centroidOff": 0.004,
-  "bandsOffMost": 7.6,
+  "lengthOff": 0.026,
+  "centroidOff": 0.047,
+  "bandsOffMost": 9.6,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -83,34 +83,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "I cannot listen, so this is from the picture and features. Both waveforms are dense, broadband and ring on a steady tone line in the spectrogram, which fits a metal hit. But the original opens with a sharp full-level strike at 0 s (onset 1), and the reproduction has no strike: it swells from a lower level and peaks at 0.244 s, reading more as a buzzing ring than a crowbar hitting metal. Same class, but the event's defining transient is missing."
+   "reason": "Cannot listen; judged from the pictures and features. The original is a sharp strike at the start (peak at 0.03 s, attack 0.005 s) with a broadband body and a long ring. The reproduction is a broadband burst of similar length and band balance, but its waveform starts already loud with no spike at the front and swells to its peak at 0.319 s. It reads as a sustained noise burst more than a crowbar striking metal. The event is plausibly related but not clearly the same hit."
   },
   "S2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The measures pass: length 0.69 s against 0.694 s (0.6% off), attack 0 s against 0.005 s, and t20 of 0.274 s is inside the metal-hit range of 0.24 to 0.7 s. But the picture shows the envelope is a different shape. The original peaks at 0.03 s and decays; the reproduction builds for about 0.24 s before peaking. The measures cannot capture that, so this item is scored lower than the measurement allows."
+   "score": 2,
+   "reason": "Cannot listen; judged from the pictures and features. Length is 0.712 s against 0.694 s (2.6% off, within 25%). Attack is 0 s against 0.005 s, and T20 is 0.254 s, inside the metal-hit class range of 0.24 to 0.7 s (inRange true). The measured envelope items pass. Visible caveat: the peak moves from 0.03 s to 0.319 s, and the reproduction's loud body runs longer, which the rubric's items do not measure, so this is not scored higher than the measures allow."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured: centroid 1337 Hz against 1343 Hz (0.4% off, within 20%). Band shares are within 10 points throughout: under 150 Hz 0.1 against 4.9 (4.8 off), 150-600 Hz 2.6 against 6.8 (4.2 off), 600-2k Hz 75.6 against 73.8 (1.8 off), 2k-5k Hz 21.3 against 13.7 (7.6 off, the largest), over 5k Hz 0.3 against 0.9. The spectrogram shows the same broad mid-band energy and the same ringing line."
+   "reason": "Measured. Centroid is 1406 against 1343 (4.7% off, within 20%). Band shares: <150 is 0.1 against 4.9 (4.8 points), 150-600 is 3.3 against 6.8 (3.5 points), 600-2k is 73.3 against 73.8 (0.5 points), 2k-5k is 23.3 against 13.7 (9.6 points), >5k is 0.1 against 0.9 (0.8 points). Every band is within 10 points (bandsOffMost 9.6), though 2k-5k is close to the limit. The spectrogram shows the same broad mid-band energy in both."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Onsets fail: the original has one (its click at 0 s) and the reproduction has none, so the hit's character is missing. Flatness is close (0.191 against 0.215) and the same tonal ring line appears in both spectrograms, so tone and pitch movement roughly match. The judge cannot listen, so this is from the pictures and features only."
+   "reason": "Cannot listen; judged from the pictures and features. The original has one onset (a hit). The reproduction has zero onsets, and its waveform shows no sharp click at the front, so the strike's character is clearly off. Flatness is close (0.215 against 0.23), and the spectrograms show no obvious pitch movement in either, so those parts match. The onset mismatch is a clear fault."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The file format is mono, 11025 Hz, 8-bit, which the engine plays. Peak is -0.6 dB with no clipping (0 samples), DC is 0 and there is no lead or tail silence. Engine faults are empty and the name matches. No loop cue is measured; this reads as a one-shot like the original, so none is needed."
+   "reason": "Measured format: mono, 8 bit, 11025 Hz, all valid for the engine. No clipping (0). DC is 0.0001 against the original's 0.0043, so no fault. The file is a one-shot with no loop cue to match. Name is the same (sameName true)."
   }
  },
- "total": 7,
+ "total": 8,
  "of": 10,
  "passes": false
 }
