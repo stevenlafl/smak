@@ -30,25 +30,25 @@
   },
   "reproduction": {
    "length": 7.31,
-   "peak": -1.1,
-   "rms": -29.8,
-   "crest": 28.7,
+   "peak": -0.6,
+   "rms": -29.6,
+   "crest": 29,
    "dc": 0,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
-   "attack": 5.802,
-   "peakAt": 5.852,
-   "t20": 0.15,
-   "t40": 1.462,
-   "centroid": 855,
-   "rolloff": 1217,
-   "flatness": 0.142,
+   "attack": 0,
+   "peakAt": 0.05,
+   "t20": 6.006,
+   "t40": 7.263,
+   "centroid": 923,
+   "rolloff": 1346,
+   "flatness": 0.122,
    "bands": {
-    "<150": 8.5,
-    "150-600": 19.7,
-    "600-2k": 67.6,
-    "2k-5k": 4.1,
+    "<150": 8.2,
+    "150-600": 15.5,
+    "600-2k": 72.4,
+    "2k-5k": 3.8,
     ">5k": 0.1
    },
    "onsets": 4
@@ -56,12 +56,12 @@
   "envelope": {
    "class": "loop drips",
    "t20Range": null,
-   "t20": 0.15,
+   "t20": 6.006,
    "inRange": true
   },
   "lengthOff": 0.001,
-  "centroidOff": 0.019,
-  "bandsOffMost": 7.3,
+  "centroidOff": 0.1,
+  "bandsOffMost": 7.7,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -77,37 +77,37 @@
  },
  "scores": {
   "S1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Judged from the picture only, since I cannot listen. Both files show the same event: a loop of drips with four onsets at the same times (about 0, 1.9, 3.7-4.0 and 5.8 s), each a sharp transient with a decaying tail. The original's drips ring with more tone, which is a character difference (S4), not a different event."
+   "score": 1,
+   "reason": "Cannot listen, so judged from the pictures and features. The reproduction has four transients at about the original's times (roughly 0, 1.9, 3.7-4.0 and 5.9 s), so it reads as drips over an ambience. But the original's drips sit on mid-band horizontal banding that looks like resonant ringing, while the reproduction's onsets spread into a broadband fan of noise. The event matches in timing but its character looks more like a noise wash than the original's drips. Clearly off, not wrong."
   },
   "S2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Length is 7.31 s against 7.306 s, well within 25%. The attack lines up (peak at 5.852 against 5.832 s). The decay does not. T20 is 0.15 s against the original's 0.434 s, a gap of 0.28 s. The class 'loop drips' has no t20Range (null), so the rule falls back to the original's own decay within a quarter (0.11 s) or 0.05 s, and 0.28 s is outside both. The harness's inRange:true cannot be checked against a null range, so S2 is capped at 1. The pictures agree: the reproduction's bursts die faster than the original's."
+   "reason": "Length passes (7.31 s against 7.306 s). The envelope fails. The original peaks at 5.83 s with a 5.78 s attack, and its drips decay fast (t20 0.434 s, t40 1.477 s). The reproduction peaks at 0.05 s and decays slowly (t20 6.006 s, t40 7.263 s), so it is a sustained bed rather than decaying drips. The envelope block reports inRange true, but its class range is null, so the fallback applies: the original's own decay within a quarter or 0.05 s. 6.0 s against 0.43 s is far outside that, which caps S2 at 1."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Centroid is 855 against 839 Hz, a 1.9% difference (limit 20%). Band shares against the original: under 150 Hz 8.5 vs 1.2 (7.3 points), 150-600 19.7 vs 23.2 (3.5), 600-2k 67.6 vs 72.3 (4.7), 2k-5k 4.1 vs 2.5 (1.6), over 5k 0.1 vs 0.7 (0.6). Every band is within 10 points (bandsOffMost 7.3). Rolloff differs (1217 vs 1066) but is not a measured item."
+   "reason": "Measured: centroid 923 against 839, a 10% difference, within 20%. Band shares are within 10 points in every band; the largest gap is 7.7 points (150-600 Hz, 23.2 against 15.5), and the 600-2k band matches (72.3 against 72.4). The picture agrees: the bright low-mid energy sits in the same range."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged from the picture and features, since I cannot listen. The onsets match (4 and 4). The tone is clearly off: flatness is 0.142 against 0.095, so the reproduction is noisier. The original's spectrogram shows tonal horizontal bands that drift in pitch, and the reproduction shows broadband vertical smears with no pitch movement. This is a fault, not a measurement limit, so it scores 1 rather than 2."
+   "reason": "Onset count matches (4 and 4) and the onset times line up, and flatness is close (0.095 against 0.122). But the original's mid-band horizontal banding, which shows as pitched resonance that shifts after each drip, is absent from the reproduction's spectrogram, and its tail reads as broadband noise. The character of the drips is therefore only partly matched. Cannot listen, so judged from the features and picture only."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The format is mono, 8-bit, 11025 Hz, as the engine plays it. Peak is -1.1 dBFS, clipped 0, DC 0, and the name matches (sameName true). Lead and tail are both 0 on both files. The measurements report no loop cue on either file, and none is visible in the pictures, so the cue check is not contradicted, but it is not positively confirmed either."
+   "reason": "Fits the engine's format: mono, 11025 Hz, 8-bit, peak -0.6 dBFS, no clipping, DC 0, same name as the original (ambience/drips.wav). The measures do not report a loop cue, so whether the original has one cannot be checked from them; nothing visible in the pictures contradicts a loop, and the reproduction's tail stays at about its start level."
   }
  },
- "total": 8,
+ "total": 7,
  "of": 10,
  "passes": false
 }

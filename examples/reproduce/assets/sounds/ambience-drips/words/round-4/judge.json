@@ -1,0 +1,113 @@
+{
+ "kind": "sounds",
+ "subject": "ambience-drips",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 7.306,
+   "peak": -0.4,
+   "rms": -27.3,
+   "crest": 26.9,
+   "dc": -0.0039,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 5.777,
+   "peakAt": 5.832,
+   "t20": 0.434,
+   "t40": 1.477,
+   "centroid": 839,
+   "rolloff": 1066,
+   "flatness": 0.095,
+   "bands": {
+    "<150": 1.2,
+    "150-600": 23.2,
+    "600-2k": 72.3,
+    "2k-5k": 2.5,
+    ">5k": 0.7
+   },
+   "onsets": 4
+  },
+  "reproduction": {
+   "length": 7.31,
+   "peak": -1.1,
+   "rms": -29.8,
+   "crest": 28.7,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 5.802,
+   "peakAt": 5.852,
+   "t20": 0.15,
+   "t40": 1.462,
+   "centroid": 855,
+   "rolloff": 1217,
+   "flatness": 0.142,
+   "bands": {
+    "<150": 8.5,
+    "150-600": 19.7,
+    "600-2k": 67.6,
+    "2k-5k": 4.1,
+    ">5k": 0.1
+   },
+   "onsets": 4
+  },
+  "envelope": {
+   "class": "loop drips",
+   "t20Range": null,
+   "t20": 0.15,
+   "inRange": true
+  },
+  "lengthOff": 0.001,
+  "centroidOff": 0.019,
+  "bandsOffMost": 7.3,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture only, since I cannot listen. Both files show the same event: a loop of drips with four onsets at the same times (about 0, 1.9, 3.7-4.0 and 5.8 s), each a sharp transient with a decaying tail. The original's drips ring with more tone, which is a character difference (S4), not a different event."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Length is 7.31 s against 7.306 s, well within 25%. The attack lines up (peak at 5.852 against 5.832 s). The decay does not. T20 is 0.15 s against the original's 0.434 s, a gap of 0.28 s. The class 'loop drips' has no t20Range (null), so the rule falls back to the original's own decay within a quarter (0.11 s) or 0.05 s, and 0.28 s is outside both. The harness's inRange:true cannot be checked against a null range, so S2 is capped at 1. The pictures agree: the reproduction's bursts die faster than the original's."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 855 against 839 Hz, a 1.9% difference (limit 20%). Band shares against the original: under 150 Hz 8.5 vs 1.2 (7.3 points), 150-600 19.7 vs 23.2 (3.5), 600-2k 67.6 vs 72.3 (4.7), 2k-5k 4.1 vs 2.5 (1.6), over 5k 0.1 vs 0.7 (0.6). Every band is within 10 points (bandsOffMost 7.3). Rolloff differs (1217 vs 1066) but is not a measured item."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features, since I cannot listen. The onsets match (4 and 4). The tone is clearly off: flatness is 0.142 against 0.095, so the reproduction is noisier. The original's spectrogram shows tonal horizontal bands that drift in pitch, and the reproduction shows broadband vertical smears with no pitch movement. This is a fault, not a measurement limit, so it scores 1 rather than 2."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The format is mono, 8-bit, 11025 Hz, as the engine plays it. Peak is -1.1 dBFS, clipped 0, DC 0, and the name matches (sameName true). Lead and tail are both 0 on both files. The measurements report no loop cue on either file, and none is visible in the pictures, so the cue check is not contradicted, but it is not positively confirmed either."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

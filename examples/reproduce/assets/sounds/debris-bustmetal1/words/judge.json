@@ -31,27 +31,27 @@
   "reproduction": {
    "length": 0.87,
    "peak": -0.6,
-   "rms": -9.6,
-   "crest": 9,
-   "dc": 0.0004,
+   "rms": -10.6,
+   "crest": 10,
+   "dc": 0,
    "clipped": 0,
    "lead": 0,
-   "tail": 0,
+   "tail": 0.005,
    "attack": 0,
-   "peakAt": 0.035,
-   "t20": 0.738,
-   "t40": 0.833,
-   "centroid": 1827,
-   "rolloff": 3101,
-   "flatness": 0.318,
+   "peakAt": 0.03,
+   "t20": 0.544,
+   "t40": 0.723,
+   "centroid": 1392,
+   "rolloff": 2143,
+   "flatness": 0.175,
    "bands": {
-    "<150": 1.1,
-    "150-600": 11.8,
-    "600-2k": 44.5,
-    "2k-5k": 42.3,
-    ">5k": 0.2
+    "<150": 0.3,
+    "150-600": 5.9,
+    "600-2k": 76.2,
+    "2k-5k": 17.5,
+    ">5k": 0.1
    },
-   "onsets": 0
+   "onsets": 1
   },
   "envelope": {
    "class": "none: the original's own decay",
@@ -59,12 +59,12 @@
     0.329,
     0.549
    ],
-   "t20": 0.738,
-   "inRange": false
+   "t20": 0.544,
+   "inRange": true
   },
   "lengthOff": 0.003,
-  "centroidOff": 0.072,
-  "bandsOffMost": 3,
+  "centroidOff": 0.293,
+  "bandsOffMost": 29.2,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -74,13 +74,13 @@
   }
  },
  "caps": {
-  "S2": 1,
-  "S3": 2,
+  "S2": 2,
+  "S3": 0,
   "S5": 2
  },
  "passes": false,
  "failedByMeasure": [
-  "S2"
+  "S3"
  ],
  "total": 0,
  "of": 10

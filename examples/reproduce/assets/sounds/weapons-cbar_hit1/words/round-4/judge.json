@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-cbar_hit1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 0.694,
+   "peak": -0.4,
+   "rms": -9.9,
+   "crest": 9.5,
+   "dc": 0.0043,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.03,
+   "t20": 0.559,
+   "t40": 0.649,
+   "centroid": 1343,
+   "rolloff": 1938,
+   "flatness": 0.215,
+   "bands": {
+    "<150": 4.9,
+    "150-600": 6.8,
+    "600-2k": 73.8,
+    "2k-5k": 13.7,
+    ">5k": 0.9
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 0.69,
+   "peak": -0.6,
+   "rms": -7.6,
+   "crest": 7.1,
+   "dc": -0.0001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0,
+   "peakAt": 0,
+   "t20": 0.514,
+   "t40": 0.673,
+   "centroid": 1292,
+   "rolloff": 1992,
+   "flatness": 0.387,
+   "bands": {
+    "<150": 2.1,
+    "150-600": 13.2,
+    "600-2k": 69.9,
+    "2k-5k": 14.1,
+    ">5k": 0.7
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "metal hit",
+   "t20Range": [
+    0.24,
+    0.7
+   ],
+   "t20": 0.514,
+   "inRange": true
+  },
+  "lengthOff": 0.006,
+  "centroidOff": 0.038,
+  "bandsOffMost": 6.4,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Cannot listen, so this is judged from the picture and features only. Both waveforms are a dense, noisy broadband burst that decays over about 0.7 s, with the loudest part at the start and a long ring after it. Length, the t20/t40 decay points and the centroid all agree, so both read as the same kind of hit, consistent with a crowbar striking metal. The reproduction lacks the original's discrete strike spike near 0.03 s, which is an S4 fault, not an event mismatch."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 0.69 s against 0.694 s, well within 25%. Attack is 0 against 0.005 s, which is negligible. The decay point t20 is 0.514 s, inside the metal hit class range of 0.24 to 0.7 s (inRange true). The envelope matches."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 1292 Hz against 1343 Hz, a 3.8% difference, well inside 20%. Band shares differ by at most 6.4 points (150-600 Hz: 13.2 against 6.8; 600-2k: 69.9 against 73.8; <150: 2.1 against 4.9; 2k-5k: 14.1 against 13.7; >5k: 0.7 against 0.9), all under the 10-point limit. Rolloff is 1992 against 1938 Hz."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen, so judged from the picture and features. The original has one onset (a sharp strike at the start) and the reproduction has none (onsets 0 against 1), visible as the missing spike at the start of its waveform. Flatness is 0.387 against 0.215, so the reproduction is clearly noisier and less tonal than the original. The reproduction's 150-600 Hz energy is also much higher, which fits a more diffuse sound. Pitch movement cannot be judged from the picture alone."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file is mono, 8-bit PCM at 11025 Hz, which is an engine-playable format. Peak is -0.6 dBFS, no clipping, and DC is -0.0001. The name matches (sameName true). A hit has no loop, so no loop cue is needed. Nothing here fails the engine's file requirements."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

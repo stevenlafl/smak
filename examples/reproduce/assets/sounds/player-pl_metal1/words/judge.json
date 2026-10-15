@@ -31,24 +31,24 @@
   "reproduction": {
    "length": 0.58,
    "peak": -0.6,
-   "rms": -15.6,
-   "crest": 15,
-   "dc": 0.0014,
+   "rms": -16.6,
+   "crest": 16,
+   "dc": 0,
    "clipped": 0,
    "lead": 0,
    "tail": 0.005,
-   "attack": 0.005,
-   "peakAt": 0.01,
-   "t20": 0.244,
-   "t40": 0.564,
-   "centroid": 348,
-   "rolloff": 474,
-   "flatness": 0.031,
+   "attack": 0,
+   "peakAt": 0.015,
+   "t20": 0.484,
+   "t40": 0.559,
+   "centroid": 389,
+   "rolloff": 571,
+   "flatness": 0.028,
    "bands": {
-    "<150": 38.4,
-    "150-600": 49.9,
-    "600-2k": 10.2,
-    "2k-5k": 1.5,
+    "<150": 35.2,
+    "150-600": 51,
+    "600-2k": 12.1,
+    "2k-5k": 1.8,
     ">5k": 0
    },
    "onsets": 1
@@ -59,12 +59,12 @@
     0.315,
     0.525
    ],
-   "t20": 0.244,
-   "inRange": false
+   "t20": 0.484,
+   "inRange": true
   },
   "lengthOff": 0.003,
-  "centroidOff": 0.033,
-  "bandsOffMost": 9.4,
+  "centroidOff": 0.081,
+  "bandsOffMost": 7.5,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -74,14 +74,43 @@
   }
  },
  "caps": {
-  "S2": 1,
+  "S2": 2,
   "S3": 2,
   "S5": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "S2"
- ],
- "total": 0,
- "of": 10
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture and features only; I could not listen. Both waveforms open with a dense, ragged burst in the first ~0.1 s, then a ringing decay with fine ripples. The spectrograms show the same broadband strike that dies away, consistent with a metal step (the class is 'step metal'). The original's burst is somewhat more spread out, but the event type matches."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 0.580 s against 0.582 s (0.003 off, well within 25%). T20 is 0.484 s, inside the step-metal class range of 0.315 to 0.525 s. Attack differs on the measures (0.000 vs 0.025 s; peak at 0.015 vs 0.045 s), but both are short impulsive attacks well inside the class, so the envelope is not held against it."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid 389 against 360 Hz is 8.1% off, inside the 20% limit. Band shares are within 10 points: <150 Hz 35.2 vs 34.8 (0.4), 150-600 Hz 51.0 vs 43.8 (7.2), 600-2k Hz 12.1 vs 19.6 (7.5), 2k-5k Hz 1.8 vs 1.8, >5k Hz 0 vs 0.1. The worst gap is 7.5 points. The spectrogram agrees: the reproduction's energy sits a little lower and its top bands are dimmer."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Not a must-have, but clearly off on the measures. The reproduction registers one onset where the original has none (1 vs 0). Flatness is 0.028 against 0.057, so the reproduction is more tonal and the original more noise-like. The picture shows the original's upper-band noise and ragged spikes as thinner and steadier in the reproduction. Pitch movement cannot be checked from the picture alone."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono, 8-bit, 11025 Hz, which the engine plays. Peak is -0.6 dBFS with clipped 0, where the original was clipped, so no clipping. DC is 0. Name is the same (sameName true). No loop cue is recorded for this sound and none is shown in the picture. Nothing wrong against the fit checks."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
 }

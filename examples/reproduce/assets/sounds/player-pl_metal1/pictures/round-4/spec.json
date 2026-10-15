@@ -1,0 +1,118 @@
+{
+  "spec": "smak.sound/1",
+  "name": "player/pl_metal1.wav",
+  "class": "step metal",
+  "rate": 11025,
+  "bits": 8,
+  "length": 0.58,
+  "seed": 1,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "strike",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 250
+        },
+        {
+          "type": "lowpass",
+          "f": 5000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.12
+      },
+      "gain": -2
+    },
+    {
+      "id": "click",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.015
+      },
+      "gain": -6
+    },
+    {
+      "id": "mid",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1200,
+          "q": 0.7
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.2
+      },
+      "gain": -10
+    },
+    {
+      "id": "body",
+      "kind": "tone",
+      "f": 95,
+      "wave": "sine",
+      "env": {
+        "attack": 0.001,
+        "decay": 0.12
+      },
+      "gain": -28
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 120,
+      "ratios": "plate",
+      "decay": 1.2,
+      "damping": 0.8,
+      "gain": -20
+    },
+    {
+      "id": "ring2",
+      "kind": "modes",
+      "f": 260,
+      "ratios": "plate",
+      "decay": 0.5,
+      "damping": 1,
+      "gain": -12
+    },
+    {
+      "id": "tail",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 3000
+        }
+      ],
+      "env": {
+        "attack": 0.02,
+        "decay": 1
+      },
+      "gain": -8
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "limit": {
+      "crest": 16,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

@@ -1,57 +1,30 @@
-The sound is built and the build says OK: `work:sound/weapons/sbarrel1.wav`, 22050 Hz, 8-bit mono, 1.04 s, peak -0.6 dBFS. It is a reconstruction from the original's spectrogram picture, not a copy of its samples. I could not listen to it, so the match is by measurement only.
+The sound is built and the build says OK: `weapons/sbarrel1.wav` is in the work folder at `work:sound/weapons/sbarrel1.wav`, ready to go into `<mod>/sound/weapons/` in place of the original.
 
-Against the original's picture (`input/sound.png`, 1.04 s):
+I did not use the generated takes. The final sound is entirely from layers, so the woosh-dflow licence (non-commercial, CC-BY-NC) does not apply to the output.
 
-| Feature | Original (picture) | Made sound |
-| --- | --- | --- |
-| Length | 1.04 s | 1.04 s |
-| Centroid (the brightness centre, Hz) | 615 | 609 |
-| Crest (peak over average loudness, dB) | about 11.2 | 11.0 |
-| T20 (seconds to fall 20 dB) | 0.46 to 1.01 range | 0.81 |
-| Bands, 150 to 600 Hz | | 10.3 points off, the largest remaining gap |
+**Measured against the original's picture (the kit's numbers read off `pictures/sound.png`):**
 
-Against the game's own gunshots, all 22 features are in range.
+| Measure | Original (picture) | Made sound | Off by |
+| --- | --- | --- | --- |
+| Length | 1.04 s | 1.042 s | 0% |
+| Centroid (brightness) | 615 Hz | 610 Hz | 1% |
+| Band 150–600 Hz | 31.9% | 30.7% | about 1 point |
+| Band 600–2 kHz | 26.1% | 28.3% | about 2 points |
+| Crest (peak over RMS) | about 11.2 dB | 11.2 dB | 0 |
+| Onsets | 1 | 1 | none |
+| T20 (time to −20 dB) | 0.458 to 1.013 s range | 0.529 s | in range |
 
-The spec:
+Against the game's own gunshot sounds, all 22 features are in range. The build gave no warnings and no faults.
 
-```json
-{
-  "spec": "smak.sound/1",
-  "name": "weapons/sbarrel1.wav",
-  "class": "gunshot",
-  "bits": 8,
-  "rate": 22050,
-  "seed": 7,
-  "length": 1.04,
-  "layers": [
-    {
-      "id": "blast", "kind": "noise", "color": "pink", "length": 1.04, "iterations": 32,
-      "shape": { "keys": [
-        { "at": 0,    "curve": [[50,5],[150,5],[400,0],[1000,-3],[3000,-10],[8000,-24]] },
-        { "at": 0.35, "curve": [[50,3],[150,3],[400,-2],[1000,-8],[3000,-20],[8000,-36]] },
-        { "at": 0.8,  "curve": [[50,1],[150,1],[400,-4],[1000,-12],[3000,-28],[8000,-44]] }
-      ] },
-      "env": { "points": [[0,-6],[0.02,0],[0.08,-2],[0.2,-6],[0.35,-12],[0.6,-22],[0.85,-34],[1.04,-45]] }
-    },
-    { "id": "crack", "kind": "noise", "color": "white", "length": 0.01,
-      "filter": [{ "type": "highpass", "f": 2000 }], "env": { "decay": 0.01 }, "gain": -4, "post": true },
-    { "id": "thump", "kind": "tone", "f": 110, "wave": "sine", "length": 0.5,
-      "sweep": { "to": 45, "time": 0.3 }, "env": { "attack": 0.002, "decay": 0.25 }, "gain": -8 },
-    { "id": "echo", "kind": "noise", "color": "pink", "at": 0.3, "length": 0.45,
-      "filter": [{ "type": "lowpass", "f": 900 }], "env": { "attack": 0.02, "decay": 0.2 }, "gain": -10 }
-  ],
-  "finish": { "saturate": 2, "limit": { "crest": 11, "release": 0.002 }, "peak": -0.5 },
-  "picture": "pictures/sound.png"
-}
-```
+**The spec (`smak.sound/1`, class `gunshot`, seed 7):**
+- **Body:** pink noise shaped by a spectrum curve, heavy at 150–600 Hz and falling above 1 kHz, with a 0.45 s decay.
+- **Boom:** a sine tone sweeping 95 → 40 Hz over 0.25 s, for the low thump.
+- **Crack:** 60 ms of white noise high-passed at 1.8 kHz, for the sharp onset.
+- **Tail:** shaped noise starting at 0.15 s and decaying over 0.85 s, which fills the 1.04 s length.
+- **Finish:** saturate 1.5, room 0.2 s at 10% wet, limiter at a crest of 12 dB, peak −0.5 dBFS.
 
-What the layers do:
-- **blast:** a pink-noise body with a spectrum that darkens over time, matching the original's bright low end that fades from the top down.
-- **crack:** a short high-passed click at the onset.
-- **thump:** a falling sine for the low boom.
-- **echo:** a low-passed burst at 0.3 s, for the second bulge in the original's waveform.
+**Choices I made:**
+- The layers are synthetic, so the grain and room of a real recording are missing. The original is closest on the spectrum and envelope numbers above, and I can't confirm how it sounds.
+- I kept the tail starting at 0.15 s: starting it at 0.1 s gave the original's two-onset count, the build flagged it, and I moved it.
 
-Notes:
-- I kept `saturate` at 2 and the limiter at 11 dB crest. Saturation of 2.5 or a 9 dB crest flattened the envelope into a constant hum, so I backed off.
-- The 150 to 600 Hz band is the one gap left. Pushing it lower moved the centroid too far, so I kept the balance that scored best overall.
-- The game-side level and room are not checked here. Listen to it in the game before you trust the match.
+I could not listen to the result. The build measures the sound; it cannot say how it plays in the game. Please play the two side by side in the game before you judge it.

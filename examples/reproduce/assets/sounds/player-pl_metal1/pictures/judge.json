@@ -33,25 +33,25 @@
    "peak": -0.6,
    "rms": -16.6,
    "crest": 16,
-   "dc": 0,
+   "dc": -0.0001,
    "clipped": 0,
    "lead": 0,
    "tail": 0.005,
    "attack": 0,
    "peakAt": 0,
-   "t20": 0.344,
-   "t40": 0.574,
-   "centroid": 435,
-   "rolloff": 786,
-   "flatness": 0.067,
+   "t20": 0.329,
+   "t40": 0.579,
+   "centroid": 407,
+   "rolloff": 646,
+   "flatness": 0.052,
    "bands": {
-    "<150": 35.9,
-    "150-600": 46.8,
-    "600-2k": 13.2,
-    "2k-5k": 4.1,
+    "<150": 35.8,
+    "150-600": 48.4,
+    "600-2k": 12.9,
+    "2k-5k": 3,
     ">5k": 0
    },
-   "onsets": 0
+   "onsets": 1
   },
   "envelope": {
    "class": "step metal",
@@ -59,12 +59,12 @@
     0.315,
     0.525
    ],
-   "t20": 0.344,
+   "t20": 0.329,
    "inRange": true
   },
   "lengthOff": 0.003,
-  "centroidOff": 0.208,
-  "bandsOffMost": 6.4,
+  "centroidOff": 0.131,
+  "bandsOffMost": 6.7,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -75,13 +75,42 @@
  },
  "caps": {
   "S2": 2,
-  "S3": 1,
+  "S3": 2,
   "S5": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "S3"
- ],
- "total": 0,
- "of": 10
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. Both waveforms open with a dense, noisy transient that rings out, which fits a metal footstep (pl_metal1). The reproduction, though, shows a second strike near 0.17 s that the original lacks, and its peak sits at 0 s where the original's is at 0.045 s. The same kind of event, but with an extra hit, so it is clearly off."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 0.580 s against 0.582 s (0.3% off, well within 25%). T20 is 0.329 s, inside the metal step class range of 0.315 to 0.525 s. Attack differs (0 s against 0.025 s), but the measured envelope items all pass."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid 407 Hz against 360 Hz, 13% off (within 20%). Largest band difference is 6.7 points (600 to 2k: 12.9 against 19.6), within the 10-point limit. The other bands differ by 4.6 or less. All measured spectrum items pass."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. Flatness matches closely (0.052 against 0.057), so the noise-versus-tone character agrees. But the reproduction has one onset (its second strike) and the original has none, so the hits do not match. Pitch movement cannot be judged from the picture. S4 is not a must-have, so this is a partial miss."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono, 8-bit PCM at 11025 Hz, the format the engine plays. No clipping in the reproduction (peak -0.6 dBFS; the original clips, which the reproduction does not copy). DC offset is -0.0001, essentially zero. No loop cue is needed for a one-shot. Same name as the original."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
 }

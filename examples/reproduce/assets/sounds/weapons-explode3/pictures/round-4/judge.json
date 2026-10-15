@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-explode3",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 1.301,
+   "peak": -0.4,
+   "rms": -6.2,
+   "crest": 5.7,
+   "dc": -0.0048,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.254,
+   "t20": 0.893,
+   "t40": 1.028,
+   "centroid": 616,
+   "rolloff": 947,
+   "flatness": 0.097,
+   "bands": {
+    "<150": 36.4,
+    "150-600": 37.6,
+    "600-2k": 19.5,
+    "2k-5k": 4.6,
+    ">5k": 1.9
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 1.3,
+   "peak": -0.6,
+   "rms": -8.6,
+   "crest": 8,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.155,
+   "peakAt": 0.155,
+   "t20": 0.853,
+   "t40": 1.137,
+   "centroid": 654,
+   "rolloff": 1227,
+   "flatness": 0.053,
+   "bands": {
+    "<150": 34.2,
+    "150-600": 30,
+    "600-2k": 29.1,
+    "2k-5k": 6,
+    ">5k": 0.7
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "explosion",
+   "t20Range": [
+    0.668,
+    1.113
+   ],
+   "t20": 0.853,
+   "inRange": true
+  },
+  "lengthOff": 0.001,
+  "centroidOff": 0.062,
+  "bandsOffMost": 9.6,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture and features only, since I cannot listen. Both waveforms are a dense, broadband burst that starts loud and decays over about a second, and the reproduction's envelope is classed as an explosion, with its t20 (0.853 s) inside the class range of 0.668 to 1.113 s. Both read as the same event, an explosion."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Length passes (1.300 s against 1.301 s, 0.1% off) and t20 is inside the explosion range. The attack fails: the original's attack is 0.005 s and the reproduction's is 0.155 s, about 30 times slower. The picture shows the reproduction's waveform building toward its peak where the original hits at once, and the original's sharp opening transient is missing. The class range given covers t20 only, so the attack gap is scored against the original's own attack."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: centroid 654 against 616 is 6.2% off, inside 20%. Band shares differ by at most 9.6 points (150-600 Hz: 30.0 against 37.6), inside 10 points. The other bands differ by 2.2, 1.4 and 1.2 points. Every spectral measure is inside the rubric's line."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "I cannot listen; this is from the picture and features. The original has one onset at its start (a hit or click) and the reproduction has none, so the onsets do not match. Flatness is 0.097 against 0.053, so the reproduction is clearly more tonal than the original. The picture shows a similar broadband decay in both, so the overall character is partly right, but the onset and tone do not match."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono, 22050 Hz, 8 bits, all permitted by the engine's format. Clipped 0, DC 0 (the original's DC is -0.0048, so the reproduction is cleaner). Peak -0.6 dBFS, so it does not clip. The name is the same (sameName true). It is a one-shot, so there is no loop cue to match."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

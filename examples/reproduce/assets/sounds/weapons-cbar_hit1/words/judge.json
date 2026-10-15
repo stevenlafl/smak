@@ -31,25 +31,25 @@
   "reproduction": {
    "length": 0.69,
    "peak": -0.6,
-   "rms": -7.6,
-   "crest": 7.1,
-   "dc": -0.0001,
+   "rms": -8.6,
+   "crest": 8,
+   "dc": 0.0007,
    "clipped": 0,
    "lead": 0,
    "tail": 0.005,
    "attack": 0,
    "peakAt": 0,
-   "t20": 0.514,
-   "t40": 0.673,
-   "centroid": 1292,
-   "rolloff": 1992,
-   "flatness": 0.387,
+   "t20": 0.569,
+   "t40": 0.683,
+   "centroid": 1431,
+   "rolloff": 2982,
+   "flatness": 0.186,
    "bands": {
-    "<150": 2.1,
-    "150-600": 13.2,
-    "600-2k": 69.9,
-    "2k-5k": 14.1,
-    ">5k": 0.7
+    "<150": 0.3,
+    "150-600": 5.4,
+    "600-2k": 75.1,
+    "2k-5k": 18.8,
+    ">5k": 0.4
    },
    "onsets": 0
   },
@@ -59,12 +59,12 @@
     0.24,
     0.7
    ],
-   "t20": 0.514,
+   "t20": 0.569,
    "inRange": true
   },
   "lengthOff": 0.006,
-  "centroidOff": 0.038,
-  "bandsOffMost": 6.4,
+  "centroidOff": 0.066,
+  "bandsOffMost": 5.1,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -80,37 +80,37 @@
  },
  "scores": {
   "S1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Cannot listen, so this is judged from the picture and features only. Both waveforms are a dense, noisy broadband burst that decays over about 0.7 s, with the loudest part at the start and a long ring after it. Length, the t20/t40 decay points and the centroid all agree, so both read as the same kind of hit, consistent with a crowbar striking metal. The reproduction lacks the original's discrete strike spike near 0.03 s, which is an S4 fault, not an event mismatch."
+   "score": 1,
+   "reason": "Judged from the picture and features only; I cannot listen. Both waveforms decay over about 0.7 s from a loud burst, which fits a hit. But the original's first ~0.15 s is a set of discrete impulsive spikes, the signature of a strike on metal. The reproduction's burst is a dense, continuous band of noise through its first ~0.5 s with no separate impacts (onsets 0 against the original's 1). It reads more like a noise hit than a crowbar striking metal, so this is there but clearly off."
   },
   "S2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Length is 0.69 s against 0.694 s, well within 25%. Attack is 0 against 0.005 s, which is negligible. The decay point t20 is 0.514 s, inside the metal hit class range of 0.24 to 0.7 s (inRange true). The envelope matches."
+   "reason": "Length 0.69 s against 0.694 s (0.6% off, well within 25%). The attack is 0 ms against the original's 5 ms, both at the start of the picture. T20 is 0.569 s, inside the metal-hit class range of 0.24 to 0.70 s (inRange true). The decay shape in the pictures matches: a loud body that falls away by about 0.6 s."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Centroid is 1292 Hz against 1343 Hz, a 3.8% difference, well inside 20%. Band shares differ by at most 6.4 points (150-600 Hz: 13.2 against 6.8; 600-2k: 69.9 against 73.8; <150: 2.1 against 4.9; 2k-5k: 14.1 against 13.7; >5k: 0.7 against 0.9), all under the 10-point limit. Rolloff is 1992 against 1938 Hz."
+   "reason": "Centroid 1431 Hz against 1343 Hz (6.6% off, within 20%). Band shares: <150 Hz 0.3 vs 4.9 (4.6 points); 150-600 Hz 5.4 vs 6.8 (1.4); 600-2k Hz 75.1 vs 73.8 (1.3); 2k-5k Hz 18.8 vs 13.7 (5.1); >5k Hz 0.4 vs 0.9 (0.5). Every band is within 10 points (worst 5.1). The spectrograms show the same mid-band (orange) energy."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Cannot listen, so judged from the picture and features. The original has one onset (a sharp strike at the start) and the reproduction has none (onsets 0 against 1), visible as the missing spike at the start of its waveform. Flatness is 0.387 against 0.215, so the reproduction is clearly noisier and less tonal than the original. The reproduction's 150-600 Hz energy is also much higher, which fits a more diffuse sound. Pitch movement cannot be judged from the picture alone."
+   "reason": "Judged from the picture and features only; I cannot listen. Onsets do not match: the original has one clear hit onset and the reproduction has none (0), and its waveform shows dense spikes spread across the burst instead of a single impact. Flatness is close (0.215 against 0.186), so the tone-or-noise character is roughly right. Pitch movement cannot be judged from these pictures. The missing onset is a clear miss, though not a must-have."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The file is mono, 8-bit PCM at 11025 Hz, which is an engine-playable format. Peak is -0.6 dBFS, no clipping, and DC is -0.0001. The name matches (sameName true). A hit has no loop, so no loop cue is needed. Nothing here fails the engine's file requirements."
+   "reason": "Mono, 8-bit PCM at 11025 Hz, the engine's format. No clipping (0). DC is 0.0007, well under the original's 0.0043. The name matches (sameName true) and there are no engine faults. A one-shot hit needs no loop cue."
   }
  },
- "total": 9,
+ "total": 8,
  "of": 10,
- "passes": true
+ "passes": false
 }

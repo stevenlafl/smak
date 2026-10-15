@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-explode3",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 1.301,
+   "peak": -0.4,
+   "rms": -6.2,
+   "crest": 5.7,
+   "dc": -0.0048,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.254,
+   "t20": 0.893,
+   "t40": 1.028,
+   "centroid": 616,
+   "rolloff": 947,
+   "flatness": 0.097,
+   "bands": {
+    "<150": 36.4,
+    "150-600": 37.6,
+    "600-2k": 19.5,
+    "2k-5k": 4.6,
+    ">5k": 1.9
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 1.3,
+   "peak": -0.6,
+   "rms": -7.6,
+   "crest": 7,
+   "dc": 0.0005,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.02,
+   "peakAt": 0.03,
+   "t20": 1.078,
+   "t40": 1.267,
+   "centroid": 697,
+   "rolloff": 1270,
+   "flatness": 0.086,
+   "bands": {
+    "<150": 27.1,
+    "150-600": 40.5,
+    "600-2k": 24.4,
+    "2k-5k": 6.7,
+    ">5k": 1.3
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "explosion",
+   "t20Range": [
+    0.668,
+    1.113
+   ],
+   "t20": 1.078,
+   "inRange": true
+  },
+  "lengthOff": 0.001,
+  "centroidOff": 0.131,
+  "bandsOffMost": 9.3,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture and features only, since I cannot listen. Both waveforms open with a dense, full-height burst that decays over about a second, and both spectrograms are broadband with energy concentrated low and fading to the right. That is the shape of an explosion, and the class envelope check reads 'explosion' for both."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 1.301 s original against 1.300 s reproduction, well within 25%. The attack is 0.005 s against 0.020 s, both punchy. t20 is 0.893 s against 1.078 s, and the measurement reports it inside the explosion class range of 0.668 to 1.113 s (inRange true). The reproduction peaks at 0.03 s where the original peaks at 0.254 s, which the picture shows as a front-loaded burst, but the rubric's S2 items (length, attack, decay within class) all hold."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 697 Hz against 616 Hz, a 13% difference, within 20%. The band shares are within 10 points each: under 150 Hz is 27.1 against 36.4 (9.3 points, the largest and close to the limit), 150 to 600 Hz is 40.5 against 37.6, 600 Hz to 2 kHz is 24.4 against 19.5, 2 to 5 kHz is 6.7 against 4.6, and above 5 kHz is 1.3 against 1.9. The reproduction's low band is lighter and the picture shows a slightly brighter lower half, but every measured check passes."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only, since I cannot listen. The original has one detected onset (its sharp opening crack) and the reproduction has none, with attack 0.005 s against 0.020 s, so the initial hit is softer and less defined. Noise character matches (flatness 0.097 against 0.086, both broadband), and pitch movement cannot be read from these pictures. The onset mismatch is clearly off, so 1."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Format is mono, 8-bit, 22050 Hz, one of the engine's allowed formats. The reproduction has no clipping, peak at -0.6 dBFS, and DC of 0.0005, which is negligible. Name matches (sameName true). Neither measurement reports a loop, and neither file shows loop markers, so no loop cue is required."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

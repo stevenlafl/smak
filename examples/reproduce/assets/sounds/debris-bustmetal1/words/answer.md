@@ -1,27 +1,20 @@
-The sound is built and passes: `work:sound/debris/bustmetal1.wav`, which is the game's name for it, so it takes the original's place once it is put in `<mod>/sound`. I could not check it against the original. The game's folders were not given to the tool, so the reference was never found and the side-by-side is not there. Every figure below is measured from my file and set against the description you gave, not against the real `debris/bustmetal1.wav`.
+The sound is built and the build says OK: `work:sound/debris/bustmetal1.wav`, 11025 Hz, 8-bit, mono, 0.87 s. Copy it into a mod's `sound/debris/` folder to replace the game's file.
 
-| Measure | Made sound | Description or class range |
+I could not compare it to the original. The game folders weren't given to the tool, so the reference was not found. Without the original, the numbers below are checked against the game's own metal-hit sounds, not against this file. If you give me the game folder path, I can rebuild with the original as the reference.
+
+The sound is one noisy crash that starts at full level and falls off, with seven inharmonic metal partials ringing on top. The low and middle partials are loudest and the highest ones ring longest. The result is a noise-and-tone mix, with no pitch movement.
+
+| Measure | Result | Game's metal-hit range |
 | --- | --- | --- |
-| Length | 0.87 s, 11025 Hz, 8-bit mono | 0.87 s, 11 kHz, 8-bit mono |
-| Onset | starts at full level, no fade | no fade-in |
-| Fall to -20 dB (T20) | 0.74 s | about half at 0.3 s, quiet by 0.6 s; class range up to 0.70 s |
-| Centroid (brightness) | 1827 Hz | strongest at 800 Hz to 4 kHz; class range 1074 to 1654 Hz |
-| Flatness (0 pure tone, 1 noise) | 0.32 | a noise and tone mix; class range 0.16 to 0.28 |
-| Power, 600 Hz to 2 kHz | 45% | class range 64 to 84% |
-| Power, 2 to 5 kHz | 42% | class range 4 to 25% |
+| Centroid (the brightness centre) | 1392 Hz | 1074 to 1654 Hz |
+| Flatness (0 pure tone, 1 white noise) | 0.175 | 0.16 to 0.28 |
+| Band 600 Hz to 2 kHz | 76% | 64% to 84% |
+| Band 2 to 5 kHz | 17.5% | 3.7% to 24.6% |
+| Time to fall 20 dB (T20) | 0.54 s | |
+| Features in range | 21 of 22 | |
 
-How it is built, in four layers:
-- **Crash:** white noise shaped to a spectrum that peaks from 600 Hz to 2 kHz, with its envelope at full level for 0.15 s and half by 0.3 s.
-- **Bite:** a short band of noise at 1 kHz on the first 0.1 s, for the dense crash.
-- **Ring:** seven inharmonic partials from 450 Hz to 3.1 kHz, decays of 0.25 to 0.45 s, the highest ones the longest.
-- **Flutter and thump:** a faint particle rattle in the tail, and a short 160 Hz tone sweeping to 90 Hz for the low weight at impact.
+The one flag is length: the game's metal hits run 0.37 to 0.86 s, and this one is 0.87 s because you gave that length. The original is also 0.87 s, so I left it.
 
-Where I went against the class numbers, and why:
-- **Brightness and the 2 to 5 kHz share** are above the class ranges. Your description puts the strongest energy at 800 Hz to 4 kHz, so I followed the description. If the original turns out darker, the crash's upper shelf is the place to cut.
-- **Flatness** sits at 0.32, a little above the class range. Pushing it lower made the crash's noise drop out, and the ring gain has little effect on it. I stopped there.
-- **Tail** is 0.74 s to T20, about 0.04 s over the class ceiling. The partials' decays set it, and shortening them further thinned the ring.
-
-Things to check:
-- Two scratch files from my tests are in `work:sound/debris/`: `test_crash.wav` and `test_modes.wav`. The tools here cannot delete files, so please remove them. They are not part of the sound and would not be used unless copied into a mod's `sound` folder.
-- The spec is inline in this session, not saved to a file. If you want it reproducible, I can save it as a JSON file in the work folder.
-- Nothing has been heard. Judge it in the game with the original, for its loudness and how the ring sits in the mix.
+Two things you should know:
+- The tool's `modes` gain is a linear amplitude, not decibels, and a gain of 0 means silence. I used that in the spec.
+- Four scratch test files are left in `work:sound/debris/` (`test_crash.wav`, `test_ring.wav`, `test_low.wav`, `test_high.wav`). They are not part of the sound. I have no tool to delete them, so remove them by hand if you don't want them.

@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-357_shot1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 1.064,
+   "peak": 0,
+   "rms": -8.5,
+   "crest": 8.5,
+   "dc": -0.0012,
+   "clipped": 265,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.748,
+   "t40": 1.003,
+   "centroid": 937,
+   "rolloff": 1658,
+   "flatness": 0.11,
+   "bands": {
+    "<150": 20.3,
+    "150-600": 27.5,
+    "600-2k": 43.9,
+    "2k-5k": 6.7,
+    ">5k": 1.6
+   },
+   "onsets": 3
+  },
+  "reproduction": {
+   "length": 1.057,
+   "peak": -0.5,
+   "rms": -10.1,
+   "crest": 9.6,
+   "dc": 0.0031,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.025,
+   "attack": 0.005,
+   "peakAt": 0.005,
+   "t20": 0.659,
+   "t40": 0.873,
+   "centroid": 881,
+   "rolloff": 1744,
+   "flatness": 0.023,
+   "bands": {
+    "<150": 20.2,
+    "150-600": 26.2,
+    "600-2k": 43.7,
+    "2k-5k": 9.7,
+    ">5k": 0.2
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "gunshot",
+   "t20Range": [
+    0.458,
+    1.013
+   ],
+   "t20": 0.659,
+   "inRange": true
+  },
+  "lengthOff": 0.007,
+  "centroidOff": 0.06,
+  "bandsOffMost": 3,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 16,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture only, since I cannot listen. Both waveforms are a dense, broadband burst at the start that decays over about half a second, and both spectrograms are a bright low-frequency blast fading to a thin tail. That is the shape of a revolver shot. The original is clipped and its start is more ragged, but the event is the same."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 1.057 s against 1.064 s (0.007 off), well within 25%. Attack is 0.005 s in both. The reproduction's t20 is 0.659 s, inside the gunshot class range of 0.458 to 1.013 s. The decay (t40) is a little shorter, 0.873 s against 1.003 s, and still within the class range."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 881 Hz against 937 Hz, 6% off, inside 20%. Band shares: under 150 Hz 20.2 against 20.3; 150 to 600 Hz 26.2 against 27.5; 600 Hz to 2 kHz 43.7 against 43.9; 2 to 5 kHz 9.7 against 6.7 (3.0 points); above 5 kHz 0.2 against 1.6 (1.4 points). Every band is within 10 points, the largest gap being 3.0."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Clearly off on the onsets: the original has three onsets (the separate hits at the start, visible as gaps in its waveform and a dark vertical break in its spectrogram), and the reproduction has none, so its start reads as one continuous burst. Flatness is 0.023 against 0.11, so the reproduction is more tonal and less noisy than the original. The spectrogram of the tail shows a steady tone, which the original lacks. Pitch movement cannot be judged from the picture. Not a must-have item."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Format is mono, 16-bit, 22050 Hz, which the engine plays. No clipping (0 against the original's 265 clipped samples), peak -0.5 dBFS, no engine faults reported, and the name matches. DC is 0.0031, small and in the same range as the original's -0.0012, and the measurement does not flag it. The original has no loop cue to match, and the reproduction has no tail or lead problem worth noting."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

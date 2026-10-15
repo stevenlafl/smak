@@ -1,27 +1,20 @@
-The sound is built and the build says OK: `work:sound/doors/doormove1.wav`, 11025 Hz, 8-bit mono, 5.04 s. Copy it to `<mod>/sound/doors/` so the game plays it in place of the original.
+The sound is built and the build says OK: `work:sound/doors/doormove1.wav`. Put it in `<mod>/sound/doors/` so the game plays it in place of the original. I only have your description of the original, not the file, so I could not compare the two side by side.
 
-I could not check it against the original. No game folders were given to the build, so its reference comparison was empty, and I have not heard either file. The numbers below are from the build's own report.
+Measured against your description:
 
-**What it's made of**
+| Feature | Original (per your description) | Built |
+|---|---|---|
+| Length | 5.04 s | 5.035 s |
+| Format | 11025 Hz, 8-bit, mono, plays once | 11025 Hz, 8-bit mono, no loop |
+| Onset | fades in over about 0.1 s, no hit | no onsets; 20 dB rise (T20) at 0.27 s |
+| Loudest point | about 4.1 s | peak of the level at about 4.1 s |
+| Tail | silent by about 4.9 s | envelope tapers to silence by 5.04 s |
+| Tonal arcs | 300 to 600 Hz, at 0.3, 1.5, 2.8, 3.9 s | four sine sweeps 300 to 600 Hz at those starts, 1 s each |
+| Rattle | pulsing flutter at the end | particle train 150 to 1500 Hz at 4.1 s, 0.6 s long |
+| Spectrum | broadband 100 Hz to 4 kHz, densest 200 Hz to 1.5 kHz, dull top | centroid 917 Hz; 2 to 5 kHz at 8.6%, above 5 kHz at 0.1% |
 
-| Layer | What it does |
-| --- | --- |
-| Generated grind (`doormove_s0.wav`, seed 0) | The main body: gritty friction and rumble, band-limited to 180 Hz to 3.5 kHz, with a mid lift around 400 Hz |
-| Pink noise | Keeps the 200 Hz to 1.5 kHz band dense and rolls off the top |
-| Rattle (particles, 200 Hz to 1.5 kHz) | The shudder at about 4.1 s, over 0.6 s |
-| 70 Hz sine | The low rumble under 150 Hz, rising at the end |
-| Four squeals (300 to 600 Hz sweeps) | At 0.3, 1.5, 2.8 and 3.9 s, each 1 s long, bell-shaped |
+The layers are noise with a spectrum shape for the grit, a low rumble under 150 Hz that swells in the final section, the rattle, and the four squeals. The finish limits the crest to 12 dB, which gives a steady medium level.
 
-The envelope fades in over about 0.1 s, holds a medium level, swells at 4.1 s, and tapers to silence by 4.9 s. The spectrogram shows the four squeal arcs at the right times.
+The report still flags a few items against the game's loop-machine class. Its length, flatness and band ranges describe a looping, tonal hum, which this one-shot, mostly noisy door is not, so I left those as they are. The centroid flag is the one I'd still check by ear: the original's top may be duller than this. If it sounds too bright in the game, the next change is to take a few dB more off the grit above 1.5 kHz.
 
-**Measured by the build**
-
-- Energy split: 17% under 150 Hz, 57% from 150 to 600 Hz, 21% from 600 Hz to 2 kHz, 5% from 2 to 5 kHz.
-- Centroid 590 Hz. The build's checker says it is too bright for its game-sound ranges, but those ranges are for other sounds, so I left it.
-- Peak -0.6 dBFS, crest 11.9 dB. No clipping, offset or end click.
-
-**Things to know**
-
-- **Licence:** the grind layer comes from a generated take by woosh-dflow. Its weights are CC-BY-NC 4.0 (Creative Commons, non-commercial), so the sound may not be sold as is. Tell me if that matters for this project and I'll rebuild without it.
-- **Not yet matched against the original:** I could not confirm the original's exact spectrum, length or envelope. If you give me the game's folder, or a copy of the original, I can run the build's side-by-side comparison and tune against it.
-- **Dependency:** the spec reads `work:gen/doormove_s0.wav`. Rebuilding on a fresh machine needs that take regenerated first (same prompt, seed 0).
+The spec is inline in this session only, since I have no file-writing tool here. I can save it to the work folder if you want it kept.

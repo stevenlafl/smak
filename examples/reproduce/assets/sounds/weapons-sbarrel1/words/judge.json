@@ -31,27 +31,27 @@
   "reproduction": {
    "length": 1.04,
    "peak": -0.6,
-   "rms": -8.6,
-   "crest": 8,
-   "dc": 0.0001,
+   "rms": -11.1,
+   "crest": 10.6,
+   "dc": 0,
    "clipped": 0,
    "lead": 0,
    "tail": 0.005,
-   "attack": 0,
-   "peakAt": 0.319,
-   "t20": 0.559,
-   "t40": 0.713,
-   "centroid": 598,
-   "rolloff": 1335,
-   "flatness": 0.072,
+   "attack": 0.055,
+   "peakAt": 0.055,
+   "t20": 0.649,
+   "t40": 0.893,
+   "centroid": 1179,
+   "rolloff": 2649,
+   "flatness": 0.173,
    "bands": {
-    "<150": 40.8,
-    "150-600": 35.5,
-    "600-2k": 15.5,
-    "2k-5k": 6.9,
-    ">5k": 1.3
+    "<150": 24.7,
+    "150-600": 30.5,
+    "600-2k": 23.7,
+    "2k-5k": 17.7,
+    ">5k": 3.4
    },
-   "onsets": 0
+   "onsets": 2
   },
   "envelope": {
    "class": "gunshot",
@@ -59,12 +59,12 @@
     0.458,
     1.013
    ],
-   "t20": 0.559,
+   "t20": 0.649,
    "inRange": true
   },
   "lengthOff": 0.001,
-  "centroidOff": 0.01,
-  "bandsOffMost": 9.1,
+  "centroidOff": 0.952,
+  "bandsOffMost": 12.9,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -75,42 +75,13 @@
  },
  "caps": {
   "S2": 2,
-  "S3": 2,
+  "S3": 0,
   "S5": 2
  },
- "scores": {
-  "S1": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Cannot listen; judged from the picture and features. Both waveforms open with a dense, high-amplitude burst over the first ~0.3 to 0.4 s, then fall into a long low-level tail. Both spectrograms show broadband energy at the start that decays, and the class is gunshot in the envelope. The event reads as the same gunshot."
-  },
-  "S2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Cannot listen; judged from measures. Length is 1.040 s against 1.039 s (0.001 off, well within 25%). T20 is 0.559 s, inside the gunshot range of 0.458 to 1.013 s. The attack is 0 against the original's 0.005 s, a sub-10 ms difference that the class range does not test."
-  },
-  "S3": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Cannot listen; judged from measures. Centroid is 598 against 604 (1% off, within 20%). Band shares differ by at most 9.1 points (<150: 40.8 vs 31.7; 600-2k: 15.5 vs 24.4; 150-600: 35.5 vs 37.9; 2k-5k: 6.9 vs 4.8; >5k: 1.3 vs 1.3), all within the 10-point limit."
-  },
-  "S4": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Cannot listen; judged from the picture and measures. The original has one onset at the very start (a sharp attack, 0.005 s) and the reproduction has none (count 0, attack 0), so its opening is a softer rise. The reproduction's waveform also has a bump near 0.6 s that the original lacks. Flatness is close (0.072 against 0.081), so the noise character matches. Clearly off on onsets, so 1."
-  },
-  "S5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Cannot listen; judged from format and measures. Mono, 22050 Hz, 8-bit PCM, the same name. No clipping, DC is 0.0001 (the original's is -0.0044, and the reproduction's is the smaller). A one-shot gunshot needs no loop cue, and none is shown in the original."
-  }
- },
- "total": 9,
- "of": 10,
- "passes": true
+ "passes": false,
+ "failedByMeasure": [
+  "S3"
+ ],
+ "total": 0,
+ "of": 10
 }

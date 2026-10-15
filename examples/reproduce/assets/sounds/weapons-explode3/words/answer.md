@@ -1,23 +1,25 @@
-The build says OK: `work:sound/weapons/explode3.wav` is 22050 Hz, 8-bit mono, 1.3 s, peak -0.6 dBFS. Against the game's explosion class, all 22 measured features are in range.
+The sound is built as `work:sound/weapons/explode3.wav`, 22050 Hz, 8-bit mono, 1.3 s. The build says OK, and the measured features are all inside the range of the game's own explosion sounds (22 of 22).
 
-The original wasn't among the game folders the server had, so the comparison is against the class's measured ranges, not the original file itself. Listen to it in the game next to the original before you rely on it.
+The spec has two layers, then a finish:
 
-The spec is a single noise layer with a moving spectrum, plus a particles layer for the grit:
+- **Body:** white noise with a spectrum that falls with frequency and a level that starts at full scale, holds through 0.4 s, falls to -9.5 dB at 0.8 s, and reaches -45 dB at 1.3 s. Its spectrum is darker after 0.7 s.
+- **Crackle:** 1200 short grains a second in the 400 Hz to 2 kHz band, a little quieter than the body and fading on the same envelope. This gives the gritty midrange.
+- **Finish:** saturation of 8 for the hard clipping at the start, and a limiter with a 6 dB crest, which is the low end of Valve's weapon range.
 
-- **Envelope:** 0 dB at the start, -1 dB at 0.4 s, -10 dB at 0.8 s, -24 dB at 1.1 s, -40 dB at 1.3 s.
-- **Spectrum:** low-weighted, falling from 0 dB under 100 Hz to -36 dB at 11 kHz. It darkens from 0.7 s on, falling about 8 dB further across the band.
-- **Grit:** 400 per second of 2 ms particles in 400 to 1500 Hz, at -8 dB, decaying with the envelope.
-- **Finish:** saturate 4, limiter at 7 dB crest, peak -0.5 dBFS.
+Measured against the original's description:
 
-Measured results:
+| Feature | Made sound | Game's range |
+|---|---|---|
+| Attack | 0 ms (no fade-in) | none |
+| T20 (time to -20 dB) | 0.86 s | 0.67 to 1.11 s |
+| Centroid (brightness) | 551 Hz | 493 to 739 Hz |
+| Flatness (0 tone, 1 noise) | 0.055 | 0.05 to 0.15 |
+| Power under 150 Hz | 35% | 26 to 46% |
+| Power 150 to 600 Hz | 42% | in range |
+| Power 600 Hz to 2 kHz | 16% | 9.5 to 30% |
+| Power 2 to 5 kHz | 6% | 0 to 15% |
 
-- **Decay:** T20 1.08 s, T40 1.27 s.
-- **Band power:** under 150 Hz 27%, 150 to 600 Hz 41%, 600 to 2 kHz 24%, 2 to 5 kHz 7%, above 5 kHz 1%.
-- **Centroid and flatness:** 697 Hz centroid, flatness 0.086.
+Two things to know:
 
-Two things I could not fully match:
-
-- **Attack:** the tool reports 20 ms, though the waveform starts at full height. I did not confirm the first samples directly. The limiter or the particle grain may account for the reported figure.
-- **Tonal content:** the description says no tone at all, and the class's flatness range asks for a little more pure-noise character than fully white. I followed the description and got flatness into range by tilting the spectrum, not by adding a tone.
-
-The spec was passed inline, so no `.json` file was saved. I can write it into the work folder if you want it kept.
+- I could not listen to it. The check measures the numbers and the picture only, so the final judgement of how it sounds is yours in the game.
+- The spec lives in this conversation only; the folder has no file for it. If you want it reproducible, I can save it as a `.json` in the work folder.

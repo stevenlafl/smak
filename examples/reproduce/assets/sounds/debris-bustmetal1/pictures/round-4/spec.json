@@ -1,0 +1,108 @@
+{
+  "spec": "smak.sound/1",
+  "name": "debris/bustmetal1.wav",
+  "class": "metal hit",
+  "rate": 11025,
+  "bits": 8,
+  "seed": 3,
+  "length": 0.87,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        },
+        {
+          "type": "lowpass",
+          "f": 7000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.06
+      },
+      "gain": -2
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "shape": [
+        [
+          100,
+          -6
+        ],
+        [
+          400,
+          -2
+        ],
+        [
+          1200,
+          1
+        ],
+        [
+          2000,
+          1
+        ],
+        [
+          3000,
+          -2
+        ],
+        [
+          5000,
+          -9
+        ],
+        [
+          8000,
+          -18
+        ]
+      ],
+      "iterations": 32,
+      "env": {
+        "attack": 0.002,
+        "decay": 0.45
+      },
+      "gain": -3
+    },
+    {
+      "id": "rattle",
+      "kind": "particles",
+      "rate": 120,
+      "band": [
+        1500,
+        6000
+      ],
+      "grain": 0.003,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.3
+      },
+      "gain": -5
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 1400,
+      "ratios": "plate",
+      "decay": 0.25,
+      "damping": 1,
+      "gain": -2
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "room": {
+      "decay": 0.2,
+      "wet": 0
+    },
+    "limit": {
+      "crest": 9,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

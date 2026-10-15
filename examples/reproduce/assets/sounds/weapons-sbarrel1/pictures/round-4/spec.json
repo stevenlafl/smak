@@ -1,0 +1,205 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/sbarrel1.wav",
+  "class": "gunshot",
+  "bits": 8,
+  "rate": 22050,
+  "seed": 7,
+  "length": 1.04,
+  "layers": [
+    {
+      "id": "blast",
+      "kind": "noise",
+      "color": "pink",
+      "length": 1.04,
+      "iterations": 32,
+      "shape": {
+        "keys": [
+          {
+            "at": 0,
+            "curve": [
+              [
+                50,
+                5
+              ],
+              [
+                150,
+                5
+              ],
+              [
+                400,
+                0
+              ],
+              [
+                1000,
+                -3
+              ],
+              [
+                3000,
+                -10
+              ],
+              [
+                8000,
+                -24
+              ]
+            ]
+          },
+          {
+            "at": 0.35,
+            "curve": [
+              [
+                50,
+                3
+              ],
+              [
+                150,
+                3
+              ],
+              [
+                400,
+                -2
+              ],
+              [
+                1000,
+                -8
+              ],
+              [
+                3000,
+                -20
+              ],
+              [
+                8000,
+                -36
+              ]
+            ]
+          },
+          {
+            "at": 0.8,
+            "curve": [
+              [
+                50,
+                1
+              ],
+              [
+                150,
+                1
+              ],
+              [
+                400,
+                -4
+              ],
+              [
+                1000,
+                -12
+              ],
+              [
+                3000,
+                -28
+              ],
+              [
+                8000,
+                -44
+              ]
+            ]
+          }
+        ]
+      },
+      "env": {
+        "points": [
+          [
+            0,
+            -6
+          ],
+          [
+            0.02,
+            0
+          ],
+          [
+            0.08,
+            -2
+          ],
+          [
+            0.2,
+            -6
+          ],
+          [
+            0.35,
+            -12
+          ],
+          [
+            0.6,
+            -22
+          ],
+          [
+            0.85,
+            -34
+          ],
+          [
+            1.04,
+            -45
+          ]
+        ]
+      }
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "length": 0.01,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.01
+      },
+      "gain": -4,
+      "post": true
+    },
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 110,
+      "wave": "sine",
+      "length": 0.5,
+      "sweep": {
+        "to": 45,
+        "time": 0.3
+      },
+      "env": {
+        "attack": 0.002,
+        "decay": 0.25
+      },
+      "gain": -8
+    },
+    {
+      "id": "echo",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0.3,
+      "length": 0.45,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 900
+        }
+      ],
+      "env": {
+        "attack": 0.02,
+        "decay": 0.2
+      },
+      "gain": -10
+    }
+  ],
+  "finish": {
+    "saturate": 2,
+    "limit": {
+      "crest": 11,
+      "release": 0.002
+    },
+    "peak": -0.5
+  },
+  "picture": "pictures/sound.png"
+}

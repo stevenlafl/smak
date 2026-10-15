@@ -30,28 +30,28 @@
   },
   "reproduction": {
    "length": 0.76,
-   "peak": -0.6,
-   "rms": -9.9,
-   "crest": 9.4,
+   "peak": -1,
+   "rms": -12.1,
+   "crest": 11.1,
    "dc": 0,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
-   "attack": 0,
-   "peakAt": 0.08,
-   "t20": 0.678,
-   "t40": 0.683,
-   "centroid": 1646,
-   "rolloff": 3101,
-   "flatness": 0.192,
+   "attack": 0.055,
+   "peakAt": 0.234,
+   "t20": 0.524,
+   "t40": 0.529,
+   "centroid": 2018,
+   "rolloff": 6029,
+   "flatness": 0.159,
    "bands": {
-    "<150": 0.3,
-    "150-600": 18.7,
-    "600-2k": 63.2,
-    "2k-5k": 8,
-    ">5k": 9.9
+    "<150": 0,
+    "150-600": 10.8,
+    "600-2k": 69.3,
+    "2k-5k": 3.1,
+    ">5k": 16.8
    },
-   "onsets": 1
+   "onsets": 0
   },
   "envelope": {
    "class": "none: the original's own decay",
@@ -59,12 +59,12 @@
     0.505,
     0.841
    ],
-   "t20": 0.678,
+   "t20": 0.524,
    "inRange": true
   },
   "lengthOff": 0.004,
-  "centroidOff": 0.244,
-  "bandsOffMost": 11.8,
+  "centroidOff": 0.073,
+  "bandsOffMost": 9.8,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -75,13 +75,42 @@
  },
  "caps": {
   "S2": 2,
-  "S3": 1,
+  "S3": 2,
   "S5": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "S3"
- ],
- "total": 0,
- "of": 10
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Cannot listen; judged from the picture and features. The original's layout is three tonal bursts at about 0.00-0.04, 0.07-0.19 and 0.22-0.34 s, a quiet tail with a small click near 0.5 s, then a broadband swell from about 0.55 s to the end. The reproduction has the same layout, with the three bursts aligned in time and the same swell at the end, so it reads as the same event. The quiet sustained tail between about 0.35 and 0.55 s is nearly absent in the reproduction, which costs some character but not the event's identity."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. Length is 0.760 s against 0.763 s, and decay (T20) is 0.524 s, inside the original's own range of 0.505 to 0.841 s, so both pass. The attack does not: the original starts with an instant onset (attack 0), the reproduction takes 0.055 s to reach its level, and its loudest point sits on the third burst at 0.234 s, where the original's peaks on the second at 0.09 s. The envelope shape is clearly off from the original even though the decay matches."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Cannot listen; judged from measurements. Centroid is 2018 against 2177, 7% off and inside 20%. Band shares differ by at most 9.8 points, in the 600 to 2k band (69.3 against 59.5), just inside the 10-point limit. The other bands differ by 0.1 to 4.9 points. Every band passes, though 600 to 2k is close to the line."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. Onsets do not match: the original has one (a sharp start), the reproduction has none by the measure. The original's last click near 0.5 s is only a faint trace in the reproduction. Flatness is close (0.128 against 0.159). The reproduction's bursts are hard-gated, flat horizontal bands in the spectrogram, while the original's show more striation, so the character is only partly right. This item is not a must-have."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Fits the engine: mono, 22050 Hz, 8-bit PCM, which the rubric allows. No clipping (peak -1 dBFS), no DC offset, no lead or tail silence, no engine faults, and the same name. The reproduction is about 2 dB louder in RMS than the original (-12.1 against -14.1), which the item does not measure, so it does not lower the score."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
 }

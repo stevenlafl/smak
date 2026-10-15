@@ -1,25 +1,31 @@
-The sound is built and passes: `ambience/drips.wav` is in the work folder at `work:sound/ambience/drips.wav`, and the build says OK. I made it from your description, not from the original file, so the match is to that description. The check is against the game's own drip loops, not against the original.
+The sound is built and the build says OK. It is written to `work:sound/ambience/drips.wav`, which takes the place of the game's file of that name when put in the mod's `sound` folder.
 
-Measured output:
+**What the build reports**
 
-| Measure | Result | Your description |
-| --- | --- | --- |
+| Check | Result | Your description |
+|---|---|---|
 | Length | 7.31 s | 7.31 s |
-| Format | 11025 Hz, 8-bit, mono, looped from its start | same |
-| Peak / RMS | -1.1 dBFS / -29.8 | not given |
-| Centroid | 855 Hz | mids, strongest 700 to 900 Hz |
-| Energy by band | 150 to 600 Hz 19.7%, 600 Hz to 2 kHz 67.6%, 2 to 5 kHz 4.1%, above 5 kHz 0.1% | mids dominant, faint highs |
-| Tail (T20 / T40) | 0.15 s / 1.46 s | fades over 0.5 to 1 s |
-| Game's drip loops | 20 of 20 features in range | n/a |
+| Format | 11025 Hz, 8-bit, mono | 11025 Hz, 8-bit, mono |
+| Loop | Cue at the start, seam cross-faded over 0.05 s | Loops seamlessly from the start |
+| Drip onsets | 4 detected, one per drip | 5 drips at 0.05, 1.87, 3.69, 3.97, 5.85 s |
+| Power, 600 Hz to 2 kHz | 72% | Mids, 400 Hz to 1.2 kHz, strongest |
+| Power, 2 to 5 kHz | 3.8% | Weaker band to 2.5 kHz, faint above 3 kHz |
+| Power, above 5 kHz | 0.1% | Faint above 3 kHz |
+| Centroid | 923 Hz | Mids-weighted |
+| Game's loop-drips features | 20 of 20 in range | — |
 
-How it is built:
-- **Drips:** five drips at 0.05, 1.87, 3.69, 3.97 and 5.85 s. Each has a short noise "plip" and a 0.45 s decaying tail shaped to the mid-weighted spectrum you described.
-- **Levels:** first and last loudest (0 and -1 dB), second medium (-5 dB), third and fourth softer (-9 and -8 dB).
-- **Ring:** each drip has a faint sine "bloop" at 640, 860, 720, 980 and 780 Hz, gliding up about 8% over 0.1 s.
-- **Bed:** constant noise weighted to the lows, at -14 dB, so the gaps hold a hiss with rumble and never go silent.
-- **Room:** a short reverb (0.25 s decay, 12% wet), set so the tail ends at 7.31 s.
+The sound's own RMS (root mean square level) is -29.6 dBFS (decibels below full scale). The T20 and T40 figures are the times to fall 20 and 40 dB.
 
-Things to check:
-- The analysis finds four onsets, not five. The third and fourth drips are 0.28 s apart and seem to merge. That is my reading of the description, and it may or may not match the original.
-- The spec was passed inline, so it is not saved as a file. I can save it into the project if you want the build to be repeatable.
-- I have not listened to it, and the in-game volume and the map's room are not checked here. Please listen in the game.
+**How it is built**
+
+- **Bed:** a noise bed weighted to the lows, held for the whole loop at -14 dB, so the level never drops to silence between drips.
+- **Each drip:** three layers. A 12 ms click for the soft-edged transient, a mid-band noise body weighted to 700 to 900 Hz with a faint 1.5 to 2.5 kHz shoulder and a roll-off above 3 kHz, and a sine ring that glides up about 50 Hz over the first 100 ms.
+- **Levels:** drips 1 and 5 are the loudest, drip 2 is medium, drips 3 and 4 are about 6 dB softer.
+- **Ring pitches:** 880, 1240, 710, 1020 and 1380 Hz, so each drip differs.
+
+**Choices I made that you may want to change**
+
+- The ring is a pure sine, so it is narrow, but it is not a set of resonant lines. A real resonance would need a modal layer, which is a bigger change.
+- I had only your description, not the original file, so every match is to your numbers, not a side-by-side. Please listen to it in the game and against the original; the build cannot judge how it sounds.
+
+**Leftover file:** during testing I wrote `work:sound/scratch/bedtest.wav`, a bed-only test. It is not part of the sound and can be deleted.

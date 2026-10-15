@@ -6,82 +6,28 @@
   "bits": 8,
   "seed": 3,
   "length": 0.69,
-  "picture": "pictures/sound.png",
   "layers": [
     {
-      "id": "crack",
+      "id": "click",
       "kind": "noise",
-      "color": "white",
       "filter": [
         {
           "type": "highpass",
           "f": 2500
-        },
-        {
-          "type": "lowpass",
-          "f": 7000
         }
       ],
       "env": {
-        "attack": 0.001,
-        "decay": 0.015
+        "decay": 0.01
       },
-      "gain": -1
+      "gain": 4
     },
     {
-      "id": "body",
+      "id": "clang",
       "kind": "noise",
-      "color": "white",
       "filter": [
         {
           "type": "highpass",
-          "f": 500
-        },
-        {
-          "type": "lowpass",
-          "f": 3500
-        }
-      ],
-      "env": {
-        "attack": 0.001,
-        "decay": 0.35
-      },
-      "gain": 0
-    },
-    {
-      "id": "low",
-      "kind": "noise",
-      "color": "pink",
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 500
-        }
-      ],
-      "env": {
-        "attack": 0.001,
-        "decay": 0.3
-      },
-      "gain": -1.5
-    },
-    {
-      "id": "ring",
-      "kind": "modes",
-      "f": 760,
-      "ratios": "bar",
-      "decay": 0.9,
-      "damping": 1,
-      "gain": -7
-    },
-    {
-      "id": "strike2",
-      "kind": "noise",
-      "at": 0.27,
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 800
+          "f": 2200
         },
         {
           "type": "lowpass",
@@ -89,14 +35,83 @@
         }
       ],
       "env": {
-        "attack": 0.005,
         "decay": 0.15
       },
-      "gain": -6
+      "gain": 2
+    },
+    {
+      "id": "hiss",
+      "kind": "noise",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1800
+        },
+        {
+          "type": "lowpass",
+          "f": 4000
+        }
+      ],
+      "env": {
+        "decay": 0.25
+      },
+      "gain": -12
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150
+        },
+        {
+          "type": "lowpass",
+          "f": 600
+        }
+      ],
+      "env": {
+        "decay": 0.12
+      },
+      "gain": 10
+    },
+    {
+      "id": "mid",
+      "kind": "noise",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 600
+        },
+        {
+          "type": "lowpass",
+          "f": 1800
+        }
+      ],
+      "env": {
+        "decay": 0.2
+      },
+      "gain": -8
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 760,
+      "ratios": "bar",
+      "decay": 0.8,
+      "damping": 1.2,
+      "gain": -40
     }
   ],
   "finish": {
-    "saturate": 6,
-    "peak": -0.5
+    "saturate": 1.5,
+    "limit": {
+      "crest": 9
+    }
+  },
+  "picture": {
+    "file": "pictures/sound.png",
+    "length": 0.69,
+    "rate": 11025
   }
 }

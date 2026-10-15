@@ -33,23 +33,23 @@
    "peak": -0.6,
    "rms": -8.6,
    "crest": 8,
-   "dc": 0,
+   "dc": 0.0003,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
-   "attack": 0.155,
-   "peakAt": 0.155,
-   "t20": 0.853,
-   "t40": 1.137,
-   "centroid": 654,
-   "rolloff": 1227,
-   "flatness": 0.053,
+   "attack": 0,
+   "peakAt": 0.075,
+   "t20": 1.063,
+   "t40": 1.222,
+   "centroid": 558,
+   "rolloff": 969,
+   "flatness": 0.06,
    "bands": {
-    "<150": 34.2,
-    "150-600": 30,
-    "600-2k": 29.1,
-    "2k-5k": 6,
-    ">5k": 0.7
+    "<150": 35.7,
+    "150-600": 36.3,
+    "600-2k": 23.8,
+    "2k-5k": 3.2,
+    ">5k": 1
    },
    "onsets": 0
   },
@@ -59,12 +59,12 @@
     0.668,
     1.113
    ],
-   "t20": 0.853,
+   "t20": 1.063,
    "inRange": true
   },
   "lengthOff": 0.001,
-  "centroidOff": 0.062,
-  "bandsOffMost": 9.6,
+  "centroidOff": 0.094,
+  "bandsOffMost": 4.3,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -83,34 +83,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Judged from the picture and features only, since I cannot listen. Both waveforms are a dense, broadband burst that starts loud and decays over about a second, and the reproduction's envelope is classed as an explosion, with its t20 (0.853 s) inside the class range of 0.668 to 1.113 s. Both read as the same event, an explosion."
+   "reason": "Cannot listen; judged from the picture and features. Both waveforms open at full level in a dense burst that falls away over about a second into a low tail, and both spectrograms are heavy in the low bands with a fading upper band. That is the shape of an explosion, which matches the envelope class of 'explosion' in the measurements."
   },
   "S2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Length passes (1.300 s against 1.301 s, 0.1% off) and t20 is inside the explosion range. The attack fails: the original's attack is 0.005 s and the reproduction's is 0.155 s, about 30 times slower. The picture shows the reproduction's waveform building toward its peak where the original hits at once, and the original's sharp opening transient is missing. The class range given covers t20 only, so the attack gap is scored against the original's own attack."
+   "score": 2,
+   "reason": "Length 1.30 s against 1.301 s (0.1% off, well within 25%). T20 (decay) is 1.063 s, inside the explosion class range of 0.668 to 1.113 s (inRange true). Attack is 0 s against the original's 0.005 s, both effectively instant."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured: centroid 654 against 616 is 6.2% off, inside 20%. Band shares differ by at most 9.6 points (150-600 Hz: 30.0 against 37.6), inside 10 points. The other bands differ by 2.2, 1.4 and 1.2 points. Every spectral measure is inside the rubric's line."
+   "reason": "Centroid 558 Hz against 616 Hz (9.4% off, within 20%). Band shares differ by at most 4.3 points (600 to 2k: 23.8 against 19.5, the largest gap), inside the 10-point limit (bandsOffMost 4.3)."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "I cannot listen; this is from the picture and features. The original has one onset at its start (a hit or click) and the reproduction has none, so the onsets do not match. Flatness is 0.097 against 0.053, so the reproduction is clearly more tonal than the original. The picture shows a similar broadband decay in both, so the overall character is partly right, but the onset and tone do not match."
+   "reason": "Cannot listen; judged from the picture and features. The original has one detected onset (a discrete hit at the start) and the reproduction has none (onsets 0 against 1). Flatness differs, 0.06 against 0.097, so the noise-versus-tone character is not the same. The loudest point also comes earlier (0.075 s against 0.254 s). Pitch movement cannot be checked from the picture. Short of 2 because a must-have-like character item (the onset) is missing, though S4 is not a must."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Mono, 22050 Hz, 8 bits, all permitted by the engine's format. Clipped 0, DC 0 (the original's DC is -0.0048, so the reproduction is cleaner). Peak -0.6 dBFS, so it does not clip. The name is the same (sameName true). It is a one-shot, so there is no loop cue to match."
+   "reason": "Mono, 8-bit, 22050 Hz, all formats the engine plays. Peak -0.6 dBFS with no clipping. DC 0.0003, effectively zero. A one-shot with no loop cue needed (lead and tail both 0, and the original has none). sameName true and engineFaults empty."
   }
  },
- "total": 8,
+ "total": 9,
  "of": 10,
- "passes": false
+ "passes": true
 }

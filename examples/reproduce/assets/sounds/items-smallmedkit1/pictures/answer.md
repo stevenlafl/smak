@@ -1,15 +1,35 @@
-The sound is built and the build says OK. It is written to `work:sound/items/smallmedkit1.wav`, which takes the place of the game's `items/smallmedkit1.wav` when placed in `<mod>/sound`.
+The sound is built: `work:sound/items/smallmedkit1.wav`, 22050 Hz, 8-bit mono, 0.76 s. The last build says OK with no warnings. Copy it into `<mod>/sound/items/` to replace the game's file.
 
-**What's in it**
-- **Format:** 22050 Hz, 8-bit mono, 0.76 s long, matching the original's format and length.
-- **Event:** three pulsed bursts, then a faint tail, then a broadband noise rise to the end. This is the structure the original's picture shows.
-- **Bursts:** a 620 Hz square tone gated into about 70 Hz pulses (7 ms on, 7 ms off), with the three bursts at 0–0.03 s, 0.05–0.15 s and 0.17–0.27 s.
-- **Tail and rush:** pink noise at low level from 0.27 s, then noise shaped to 3–11 kHz that rises from 0.52 s to the end.
-- **Finish:** saturation 1.5, a limiter with a 12 dB crest setting, and peak at -0.5 dBFS.
+Measured against the picture of the original (the picture is what I had; the game's own WAV was not on this machine):
 
-**Where it doesn't match, and what I know**
-- **I only compared against the picture.** The original's folder was not readable from here (permission denied), so I could not measure its samples. The numbers I compared are the ones read from `pictures/sound.png`: length matches exactly, the crest is 9.4 dB against about 11.5 read off the picture, and the centroid is 1646 Hz against about 1936 Hz.
-- **The check flags it against the game's click sounds:** too long, rings too long, too dark, too pure. Those ranges describe short clicks, and this original is a longer pickup sound, so I did not chase those flags.
-- **The faint tone through 0.27–0.52 s** is a flat line in mine, and the original has a few spikes there that I did not reproduce.
-- **I did not listen to it.** The tool cannot judge how it sounds, so the in-game check is still yours.
-- **The spec lives only in this conversation.** It is not saved in the project. I can write it to a JSON file in the work folder if you want it to be rebuildable.
+| Measure | Original (from picture) | Made | Off by |
+|---|---|---|---|
+| Length | 0.76 s | 0.76 s | 0% |
+| Centroid (brightness centre) | 1936 Hz | 2018 Hz | 4% |
+| Worst band (600 to 2k Hz) | 600 to 2k share | within 5 points | 4.9 points |
+| T20 (time to fall 20 dB) | 0.41 to 0.68 s | 0.52 s | in range |
+| Crest (peak over RMS) | about 11.5 dB | 11.1 dB | -0.4 dB |
+
+The first three builds failed the picture check (too quiet, then too bright), so I changed the swell's loudness and spectrum and added a low 300 Hz partner to the beeps until the numbers came in.
+
+Spec I used, so it can be rebuilt:
+
+```json
+{"spec":"smak.sound/1","name":"items/smallmedkit1.wav","length":0.76,"rate":22050,"bits":8,
+ "picture":{"file":"pictures/sound.png","length":0.76,"rate":22050,"row":0},
+ "layers":[
+  {"id":"beep0","kind":"tone","f":660,"wave":"sine","at":0.0,"length":0.04,"gain":-9,"env":{"attack":0.003,"hold":0.015,"decay":0.015}},
+  {"id":"beep1","kind":"tone","f":660,"wave":"sine","at":0.05,"length":0.1,"gain":-6,"env":{"attack":0.004,"hold":0.075,"decay":0.02}},
+  {"id":"beep2","kind":"tone","f":660,"wave":"sine","at":0.169,"length":0.1,"gain":-6,"env":{"attack":0.004,"hold":0.075,"decay":0.02}},
+  {"id":"body1","kind":"tone","f":300,"wave":"sine","at":0.05,"length":0.1,"gain":-14,"env":{"attack":0.004,"hold":0.075,"decay":0.02}},
+  {"id":"body2","kind":"tone","f":300,"wave":"sine","at":0.169,"length":0.1,"gain":-14,"env":{"attack":0.004,"hold":0.075,"decay":0.02}},
+  {"id":"tail","kind":"noise","color":"pink","at":0.264,"length":0.256,"gain":-18,"filter":[{"type":"highpass","f":150},{"type":"lowpass","f":4000}],"env":{"points":[[0,-30],[0.13,-14],[0.16,-18],[0.256,-40]]}},
+  {"id":"swell","kind":"noise","iterations":32,"at":0.52,"length":0.24,"gain":0,"shape":[[100,-30],[600,-24],[1300,-14],[3700,-8],[8900,-3],[11000,-3]],"env":{"points":[[0,-14],[0.08,-6],[0.16,-3],[0.24,-2]]}}
+ ],
+ "finish":{"limit":{"crest":11,"release":0.002},"peak":-1}}
+```
+
+What the spec is built on:
+- **Event:** the two tone bursts at about 660 Hz (the medkit's beeps), a quieter low-level tail with a spike near 0.4 s, then a bright hiss swell from 0.52 s to the end.
+- **Choices I made:** the picture's bursts were read by eye, so the 300 Hz partner, the tail's band limits and the swell's curve are my estimates. I did not match the original's exact waveform.
+- **Not checked:** how it sounds to a person and how the game plays it (volume, the map's room). Please listen in the game before shipping.

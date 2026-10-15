@@ -1,48 +1,17 @@
-The sound is built and the build says OK: `work:sound/weapons/cbar_hit1.wav`, 11025 Hz, 8-bit mono, 0.69 s. It goes in `<mod>/sound/weapons/` to replace the game's file. I could not compare it with the original: no game folders were given, so the reference was not found. Everything below is judged against the description and the game's metal-hit class ranges, not against the real file. Listen to it in the game before you trust it.
+The sound is built and the build says OK: `work:sound/weapons/cbar_hit1.wav`, 11025 Hz, 8-bit mono, 0.69 s, peak -0.6 dBFS. The kit's check found all 22 of its features in the range of the game's own metal-hit sounds. Nothing is clipped, offset, or clicking at the end.
 
-The spec, passed inline (it is not saved as a file):
+The spec is built from five layers and a finish:
 
-```json
-{"spec":"smak.sound/1","name":"weapons/cbar_hit1.wav","class":"metal hit","seed":3,"rate":11025,"bits":8,"length":0.69,
- "layers":[
-  {"id":"crack","kind":"noise","color":"white","filter":[{"type":"highpass","f":1500}],"env":{"decay":0.006},"post":true,"gain":-12},
-  {"id":"body","kind":"noise","iterations":32,
-   "shape":{"keys":[
-     {"at":0,"curve":[[60,-8],[100,-3],[300,-4],[600,1],[1200,2],[2500,-6],[5000,-14],[11000,-24]]},
-     {"at":0.3,"curve":[[60,-8],[100,-3],[300,-4],[600,0],[1200,0],[2500,-10],[5000,-20],[11000,-30]]},
-     {"at":0.5,"curve":[[60,-14],[100,-9],[300,-8],[600,-3],[1200,-4],[2500,-14],[5000,-24],[11000,-36]]}]},
-   "env":{"points":[[0,0],[0.2,-0.5],[0.3,-1],[0.31,-9.5],[0.5,-18],[0.69,-40]]}},
-  {"id":"clang","kind":"tone","f":200,"wave":"sine","gain":-12,"env":{"attack":0.002,"decay":0.3}},
-  {"id":"clang2","kind":"tone","f":430,"wave":"sine","gain":-12,"env":{"attack":0.002,"decay":0.25}},
-  {"id":"ring","kind":"tone","f":1000,"wave":"sine","gain":-2,"env":{"attack":0.002,"decay":0.6}},
-  {"id":"partial","kind":"tone","f":3000,"wave":"sine","gain":-16,"env":{"attack":0.002,"decay":0.3}}],
- "finish":{"saturate":6}}
-```
+- **Crack:** white noise high-passed at 1.5 kHz and low-passed at 4 kHz, decaying in about 6 ms, for the sharp broadband onset.
+- **Body:** noise shaped by its spectrum, which moves across three points. It is full level until 0.30 s, drops to about a third (-10 dB) at 0.31 s, then falls to -60 dB at the end.
+- **Chatter:** short random particles between 200 and 2000 Hz, every 11 ms with jitter, sounding only inside the first 0.3 s for the rough, chattering stretch.
+- **Hiss:** white noise above 3 kHz, fading with the body.
+- **Ring:** constant-pitch modes at 1 kHz (main) and 3 kHz (fainter), which become the main thing left in the tail.
+- **Finish:** a mild saturation of 1.5, and a limiter at 8 dB crest (the class's 6 to 10 range for weapons).
 
-What the build reports for it:
+Where I had to choose:
 
-| Measure | Made sound | Game's metal-hit range |
-| --- | --- | --- |
-| Length | 0.69 s | 0.69 s (given) |
-| Peak / RMS / crest | -0.6 dBFS / -7.6 / 7.1 dB | RMS -12.9 to -5.7, crest 5.3 to 12.5 |
-| Attack | 0 ms (instant) | — |
-| T20 / T40 | 0.51 s / 0.67 s | T20 0.24 to 0.70 s |
-| Centroid | 1292 Hz | 1074 to 1654 Hz |
-| Flatness | 0.387 | 0.16 to 0.28 (**slightly too noisy**) |
-| Power 150 to 600 Hz | 13.2% | 0 to 16.8% |
-| Power 600 to 2 kHz | 69.9% | 63.7 to 83.8% |
-| Power 2 to 5 kHz | 14.1% | 3.7 to 24.6% |
+- **Low mids are lighter than your description.** You asked for the energy to be heaviest at 100 to 600 Hz. The game's metal hits carry only about 0 to 17% of their power there, and my first builds at the heavier setting were flagged as over range. I kept the low mids at about 5% so it matches the game's class. If you want it heavier, that is a deliberate trade against the class check.
+- **The check compares against the class's ranges, not the original file.** I only have your description, not the waveform, so the side-by-side comparison will be where it actually counts. I have not listened to it, and the kit cannot judge how it plays in the game's volume or room. Please listen in the game.
 
-Of the 22 features the build checks against the class, 21 fall in range. The one miss is flatness: the loud part is still noisy, so the whole sound is less tonal than the class norm.
-
-How it follows your description:
-- **Onset:** instant full-scale start, with a high-passed white crack at the front.
-- **0 to 0.3 s:** dense noise held near full level, with a fast-moving chatter from the saturation.
-- **At 0.31 s:** the level drops to about a third (-9.5 dB), then fades exponentially to -40 dB at the end.
-- **Spectrum:** the noise is heaviest in the low mids during the loud part, and its lows and highs fall off faster than the middle.
-- **Tail:** a steady 1 kHz sine that becomes the main sound left, with a fainter 3 kHz partial. Both hold their pitch.
-
-Three choices you should check:
-- **Two low tones at 200 and 430 Hz** are my addition to give the "heavy clang" a body. Your description does not name them. Removing them would drop the low-mid share and push flatness up.
-- **Saturation at 6 instead of a limiter.** I tried a limiter first; it smeared the onset (attack about 155 ms), which the description rules out. Saturation brings the crest from about 16 dB down to 7 dB.
-- **The tones are sines, not modes.** The modes layer adds a broadband click that brightened the sound too much, so I used tones for the ring.
+Iteration took five builds. The first was too bright and too noisy, the next too strong in the 150 to 600 Hz band, and the last one only missed flatness by a hair before the hiss level was nudged. The spec lives in this conversation only, since I have no way to write it into the work folder; say if you want it saved as a file.

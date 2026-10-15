@@ -2,204 +2,144 @@
   "spec": "smak.sound/1",
   "name": "weapons/sbarrel1.wav",
   "class": "gunshot",
-  "bits": 8,
-  "rate": 22050,
   "seed": 7,
   "length": 1.04,
+  "picture": {
+    "file": "pictures/sound.png",
+    "length": 1.04,
+    "rate": 22050
+  },
   "layers": [
     {
-      "id": "blast",
+      "id": "body",
       "kind": "noise",
-      "color": "pink",
-      "length": 1.04,
       "iterations": 32,
-      "shape": {
-        "keys": [
-          {
-            "at": 0,
-            "curve": [
-              [
-                50,
-                5
-              ],
-              [
-                150,
-                5
-              ],
-              [
-                400,
-                0
-              ],
-              [
-                1000,
-                -3
-              ],
-              [
-                3000,
-                -10
-              ],
-              [
-                8000,
-                -24
-              ]
-            ]
-          },
-          {
-            "at": 0.35,
-            "curve": [
-              [
-                50,
-                3
-              ],
-              [
-                150,
-                3
-              ],
-              [
-                400,
-                -2
-              ],
-              [
-                1000,
-                -8
-              ],
-              [
-                3000,
-                -20
-              ],
-              [
-                8000,
-                -36
-              ]
-            ]
-          },
-          {
-            "at": 0.8,
-            "curve": [
-              [
-                50,
-                1
-              ],
-              [
-                150,
-                1
-              ],
-              [
-                400,
-                -4
-              ],
-              [
-                1000,
-                -12
-              ],
-              [
-                3000,
-                -28
-              ],
-              [
-                8000,
-                -44
-              ]
-            ]
-          }
+      "shape": [
+        [
+          40,
+          -2
+        ],
+        [
+          120,
+          0
+        ],
+        [
+          300,
+          -1
+        ],
+        [
+          600,
+          -2
+        ],
+        [
+          1200,
+          -9
+        ],
+        [
+          2500,
+          -20
+        ],
+        [
+          5000,
+          -32
+        ],
+        [
+          10000,
+          -45
         ]
-      },
+      ],
+      "at": 0,
+      "length": 1.04,
+      "gain": 1,
       "env": {
-        "points": [
-          [
-            0,
-            -6
-          ],
-          [
-            0.02,
-            0
-          ],
-          [
-            0.08,
-            -2
-          ],
-          [
-            0.2,
-            -6
-          ],
-          [
-            0.35,
-            -12
-          ],
-          [
-            0.6,
-            -22
-          ],
-          [
-            0.85,
-            -34
-          ],
-          [
-            1.04,
-            -45
-          ]
-        ]
+        "attack": 0.002,
+        "decay": 0.45
+      }
+    },
+    {
+      "id": "boom",
+      "kind": "tone",
+      "f": 95,
+      "wave": "sine",
+      "sweep": {
+        "to": 40,
+        "time": 0.25
+      },
+      "at": 0,
+      "length": 0.5,
+      "gain": -2,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.22
       }
     },
     {
       "id": "crack",
       "kind": "noise",
       "color": "white",
-      "length": 0.01,
+      "at": 0,
+      "length": 0.06,
+      "gain": -3,
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.02
+      },
       "filter": [
         {
           "type": "highpass",
-          "f": 2000
+          "f": 1800
         }
-      ],
-      "env": {
-        "decay": 0.01
-      },
-      "gain": -4,
-      "post": true
+      ]
     },
     {
-      "id": "thump",
-      "kind": "tone",
-      "f": 110,
-      "wave": "sine",
-      "length": 0.5,
-      "sweep": {
-        "to": 45,
-        "time": 0.3
-      },
-      "env": {
-        "attack": 0.002,
-        "decay": 0.25
-      },
-      "gain": -8
-    },
-    {
-      "id": "echo",
+      "id": "tail",
       "kind": "noise",
-      "color": "pink",
-      "at": 0.3,
-      "length": 0.45,
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 900
-        }
+      "iterations": 32,
+      "shape": [
+        [
+          60,
+          -3
+        ],
+        [
+          200,
+          -1
+        ],
+        [
+          600,
+          0
+        ],
+        [
+          1500,
+          -7
+        ],
+        [
+          4000,
+          -18
+        ],
+        [
+          10000,
+          -36
+        ]
       ],
+      "at": 0.15,
+      "length": 0.89,
+      "gain": -7,
       "env": {
-        "attack": 0.02,
-        "decay": 0.2
-      },
-      "gain": -10
+        "attack": 0.03,
+        "decay": 0.85
+      }
     }
   ],
   "finish": {
-    "saturate": 2,
+    "saturate": 1.5,
+    "room": {
+      "decay": 0.2,
+      "wet": 0.1
+    },
     "limit": {
-      "crest": 11,
+      "crest": 12,
       "release": 0.002
     },
     "peak": -0.5
-  },
-  "picture": "pictures/sound.png"
+  }
 }

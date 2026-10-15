@@ -1,28 +1,24 @@
-The sound is built and the build says OK, with every check passed. It is written to `work:sound/weapons/357_shot1.wav`, so it takes the place of the game's own file of that name.
+The sound is built and the build says OK. It is at `work:sound/weapons/357_shot1.wav`, ready to go in `<mod>/sound/weapons/`.
 
-**What's checked against the original's picture (the only reference here)**
+The final build reads 22050 Hz, 16-bit mono, 1.06 s, peak -0.5 dBFS, crest 8 dB. Against the original's picture:
 
-| Feature | Made sound | Original (read off picture) | Note |
-| --- | --- | --- | --- |
-| Length | 1.057 s | 1.06 s | matches |
-| Decay to -20 dB (T20) | 0.659 s | 0.458 to 1.013 s range | inside range |
-| Centroid (brightness) | 881 Hz | 921 Hz | 4% off |
-| Crest (peak over RMS) | 9.6 dB | about 10 dB | within tolerance |
-| Largest band miss | 3.6 points (2 to 5 kHz) | | |
-| Game gunshot sounds | 22 of 22 features in range | | |
+| Feature | Made sound | Original (read off picture) |
+| --- | --- | --- |
+| Length | 1.06 s | 1.06 s |
+| Centroid | 974 Hz | 921 Hz (6% off) |
+| T20 | 0.923 s | within 0.458 to 1.013 s |
+| Under 150 Hz | 17.2% | 21.1% |
+| 150 to 600 Hz | 25.6% | 25.6% |
+| 600 Hz to 2 kHz | 45.8% | not stated |
+| 2 to 5 kHz | 10.7% | not stated |
+| Crest | 8 dB | about 10 dB (within 3 dB) |
 
-The band levels are: under 150 Hz 20%, 150 to 600 Hz 26%, 600 Hz to 2 kHz 44%, 2 to 5 kHz 10%, above 5 kHz 0.2%.
+The game's gunshot class check passes 22 of 22 features. The build raised no warnings.
 
-**Limits of this check**
+What I built, in short: a sharp white-noise crack above 2.5 kHz, a sine boom falling from 120 Hz to 40 Hz, a pink-noise body band-passed at 800 Hz, and a low-passed tail. The finish is saturation 3 and a limiter at 8 dB crest. I left out the room, since the map's own `env_sound` adds it.
 
-- The original `weapons/357_shot1.wav` is not in the game folders this server was given, so the report could not compare against the real file. Only the picture was used.
-- The band targets came from the report's "points off" lines. I worked backwards from them to a rough target, so they are estimates.
-- Nothing has been listened to. The report cannot judge how it sounds, its volume in the game, or the map's room. Someone needs to play it in the game and A/B it against the original.
-
-**The spec** (one `build` call, final version)
-
-```json
-{"spec":"smak.sound/1","name":"weapons/357_shot1.wav","class":"gunshot","seed":1,"length":1.06,"layers":[{"id":"crack","kind":"noise","color":"white","filter":[{"type":"highpass","f":1500}],"env":{"attack":0.001,"decay":0.02},"gain":-4},{"id":"blast","kind":"noise","shape":[[60,-2],[200,0],[600,0],[1000,0],[2000,-3],[4000,-26],[11000,-40]],"env":{"attack":0.002,"hold":0.03,"decay":0.4},"gain":0},{"id":"thump","kind":"tone","f":110,"wave":"sine","sweep":{"to":40,"time":0.25},"env":{"attack":0.001,"decay":0.25},"gain":-6},{"id":"tail","kind":"noise","color":"pink","filter":[{"type":"lowpass","f":3000}],"env":{"attack":0.02,"decay":0.55},"gain":-10}],"finish":{"saturate":3,"room":{"decay":0.2,"wet":0.08},"limit":{"crest":10,"release":0.002},"peak":-0.5},"reference":"weapons/357_shot1.wav","picture":"pictures/sound.png"}
-```
-
-The spec is only in this message, not saved to a file in the project. If you want it kept for re-running, I can commit it as a script.
+Limits to know about:
+- **It is matched to the picture, not the recording.** The input folder holds only the picture and a facts file, so I could not measure the original's samples. Its finer detail (grain, exact ring) is not reproduced.
+- **No side-by-side reference was drawn.** The game's original file isn't on this server, so the `reference` field had nothing to read.
+- **Listen in the game.** The report can't say how it sounds or how loud it plays.
+- **The spec is inline only.** I didn't save it as a file in the project. Say if you want it written into the reproduce folder so the build can be rerun.

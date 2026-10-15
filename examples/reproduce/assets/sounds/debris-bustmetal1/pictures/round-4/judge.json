@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "debris-bustmetal1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.873,
+   "peak": -0.1,
+   "rms": -12.8,
+   "crest": 12.7,
+   "dc": -0.0076,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.105,
+   "attack": 0.025,
+   "peakAt": 0.075,
+   "t20": 0.439,
+   "t40": 0.629,
+   "centroid": 1968,
+   "rolloff": 3241,
+   "flatness": 0.569,
+   "bands": {
+    "<150": 0.2,
+    "150-600": 8.8,
+    "600-2k": 47,
+    "2k-5k": 41.3,
+    ">5k": 2.7
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.869,
+   "peak": -0.6,
+   "rms": -10.7,
+   "crest": 10.1,
+   "dc": -0.0001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.035,
+   "attack": 0.005,
+   "peakAt": 0.005,
+   "t20": 0.544,
+   "t40": 0.713,
+   "centroid": 1955,
+   "rolloff": 3144,
+   "flatness": 0.648,
+   "bands": {
+    "<150": 0.8,
+    "150-600": 6.9,
+    "600-2k": 52.4,
+    "2k-5k": 38.6,
+    ">5k": 1.4
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "none: the original's own decay",
+   "t20Range": [
+    0.329,
+    0.549
+   ],
+   "t20": 0.544,
+   "inRange": true
+  },
+  "lengthOff": 0.005,
+  "centroidOff": 0.007,
+  "bandsOffMost": 5.4,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Cannot listen; judged from the picture and features only. Both are a broadband noise burst that opens loud and decays over about 0.87 s, with the bright 600 Hz to 5 kHz energy and the same overall shape. That fits a debris or metal bust. The original's onset is less abrupt, but the event class matches."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Length is 0.869 s against 0.873 s, and T20 is 0.544 s, inside the measured range of 0.329 to 0.549 s, so the decay passes. The attack does not: the original's peak sits at 0.075 s with a 0.025 s attack, while the reproduction hits full level at 0.005 s. The picture shows the original building up over about 75 ms and the reproduction starting at full level, a visible envelope difference that the measured T20 range does not cover."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 1955 Hz against 1968 Hz, 0.7% off, well inside 20%. Every band is within 10 points: below 150 Hz 0.8 vs 0.2, 150 to 600 Hz 6.9 vs 8.8, 600 Hz to 2 kHz 52.4 vs 47, 2 to 5 kHz 38.6 vs 41.3, above 5 kHz 1.4 vs 2.7. The largest gap is 5.4 points."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. Onsets match (0 in each). The reproduction is noticeably flatter, 0.648 against 0.569, so it reads more like plain noise. The original shows horizontal striping in its mid bands that the reproduction's smoother blocks lack, and the reproduction has a faint low tonal line at the start that the original does not. This is a clearly visible difference in character, though not a must-have."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Format is mono PCM at 11025 Hz, 8 bits, as the engine plays. Peak is -0.6 dBFS, clipped 0, DC -0.0001, no lead or tail silence problem, and the name matches. No loop cue is recorded for the original, so there is none to match."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

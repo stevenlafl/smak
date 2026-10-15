@@ -1,14 +1,15 @@
-The sound is built and the build says OK. It is at `work:sound/weapons/357_shot1.wav`, 22050 Hz, 8-bit mono, 1.059 s long, and it plays once.
+The sound is built and the build says OK: `work:sound/weapons/357_shot1.wav`, 22050 Hz, 8-bit mono, 1.06 s. It is 22 of 22 on the game's gunshot features, with no faults.
 
-The spec is in `work:sound` as a `smak.sound/1` spec with three layers and a finish:
+The layers, as the build reads them:
 
-- **Click:** a 3 ms high-passed white-noise snap at 0 s.
-- **Blast:** brown-to-white noise starting at 7 ms, shaped so the low end (about 50 to 300 Hz) is strongest and the highs fall off faster as it decays. It is driven hard and held near full scale to about 0.45 s, then falls to -60 dB by the end.
-- **Rumble:** brown noise below 350 Hz, starting at 50 ms, for the low tail.
-- **Finish:** saturation of 4 and a limiter at a crest of 7 dB, which gives the clipped, gritty wall. I left out the room reverb because it pushed the length to 1.19 s. The map's own room sound will add its echo in the game.
+- **Click:** 4 ms of high-passed noise at 2 kHz at the very start. The blast starts at 8 ms, so there is a short near-silent gap between them.
+- **Blast:** one noise layer, 1.05 s long. Its spectrum is weighted to the low end, 50 to 300 Hz, and it rolls off from there. Its envelope holds at full level to 0.42 s, then falls to -18 dB at 0.75 s and -40 dB at 1.0 s. It is driven hard and then saturated and limited to a 6 dB crest, which gives the clipped wall.
+- **Tail:** the spectrum falls further from 0.45 s and again from 1.0 s, so the end is dark and low.
 
-What the report measures: attack 10 ms, T20 (time to fall 20 dB) 0.95 s, T40 (time to fall 40 dB) 1.01 s, centroid 1129 Hz, and most of the power between 150 and 600 Hz. Against the game's gunshot sounds, 21 of 22 features are in range.
+Measured: attack 10 ms, T20 0.74 s, T40 0.88 s, centroid 801 Hz, flatness 0.14, band power 31% under 150 Hz, 37% at 150 to 600 Hz, 21% at 600 Hz to 2 kHz, 8% at 2 to 5 kHz, 3% above 5 kHz.
 
-The one feature out of range is flatness: 0.23, where the game's gunshots sit at 0 to 0.2 and the report says "more tone". I left it. Your description says the original has no tone at all, so I kept the sound entirely noisy rather than adding a tonal ring to hit that range. If you'd rather match the game's own gunshots on that measure, a low `modes` ring would do it.
+Choices I made:
+- I first added a sine boom that swept from 110 to 45 Hz for the low punch. It pulled the sound too far toward tone and pitch movement, which you said it should not have, so the final version is noise only.
+- The seed is 7. The spec is only in this conversation, not saved in the project. If you want to regenerate it, I can save it as a `.json` file next to the sound.
 
-I did not compare it against the original file, which I don't have here. Judge the side-by-side in the game, since the report can't say how it sounds or how loud it plays.
+I have not listened to it, and I have no copy of the original to compare it against directly. The 22 of 22 is against the game's own gunshot sounds, not against your description. The build cannot judge volume, how the game plays it, or the room. Please listen to it in the game, next to the original, before it goes into a mod.

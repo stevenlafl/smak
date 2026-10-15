@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-cbar_hit1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.694,
+   "peak": -0.4,
+   "rms": -9.9,
+   "crest": 9.5,
+   "dc": 0.0043,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.03,
+   "t20": 0.559,
+   "t40": 0.649,
+   "centroid": 1343,
+   "rolloff": 1938,
+   "flatness": 0.215,
+   "bands": {
+    "<150": 4.9,
+    "150-600": 6.8,
+    "600-2k": 73.8,
+    "2k-5k": 13.7,
+    ">5k": 0.9
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 0.69,
+   "peak": -0.6,
+   "rms": -11.7,
+   "crest": 11.1,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0,
+   "peakAt": 0.01,
+   "t20": 0.354,
+   "t40": 0.663,
+   "centroid": 1379,
+   "rolloff": 2670,
+   "flatness": 0.258,
+   "bands": {
+    "<150": 1.7,
+    "150-600": 1.9,
+    "600-2k": 72.9,
+    "2k-5k": 23.1,
+    ">5k": 0.5
+   },
+   "onsets": 1
+  },
+  "envelope": {
+   "class": "metal hit",
+   "t20Range": [
+    0.24,
+    0.7
+   ],
+   "t20": 0.354,
+   "inRange": true
+  },
+  "lengthOff": 0.006,
+  "centroidOff": 0.027,
+  "bandsOffMost": 9.4,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "I cannot listen, so this is read from the picture and features. The original is one impact: a dense, spiky attack near 0.03 s that rings out. The reproduction starts with a similar dense section, but its waveform has a second strike at about 0.27 s (x of about 378 of 960 px, roughly 0.27 s of 0.69 s). That strike is as tall as the opening and stands out sharply in the spectrogram as a bright vertical column. A single crowbar hit on metal does not show a second strike, so the event reads as two hits. The measured onset count (1 in each) does not catch this, so the picture's extra strike stands. It is there but clearly off, not the same event."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured and within the rubric. Length 0.690 s against 0.694 s (0.6% off, inside 25%). T20 is 0.354 s, inside the metal-hit class range of 0.24 to 0.70 s. The attack is near zero in both (0.005 and 0 s). The decay, measured as t40, is 0.663 s against 0.649 s. The picture does show a difference in envelope shape: the reproduction fades earlier after its mid-sound strike, while the original keeps a brighter ring to about 0.5 s. That shape difference is an S1 issue, and the measured envelope items pass."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured and within the rubric. Centroid is 1379 Hz against 1343 Hz (2.7% off, inside 20%). Band shares are within 10 points, with the largest gap in 2k to 5k at 9.4 points (23.1 against 13.7), just inside the line. The 600 to 2k band matches (72.9 against 73.8). The 150 to 600 Hz gap (1.9 against 6.8) and the under-150 Hz gap (1.7 against 4.9) are each under 5 points. The picture supports the upper-mid excess: the reproduction's spectrogram is brighter in the upper bands during its middle section than the original's."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "I cannot listen, so this is read from the picture and features. Onsets are measured as 1 in each, but the picture shows a second strike at about 0.27 s in the reproduction that the original does not have, so the onset pattern does not match. Flatness is 0.258 against 0.215 (a 20% relative gap, so this is a noisier sound than the original). The sustained horizontal tone line sits at a similar height in both spectrograms, so the tonal character is roughly alike. The pitch movement cannot be checked from the picture. One mismatch is clearly visible and the flatness is off, so this scores 1."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured and within the rubric. Format is mono, 8 bit, 11025 Hz, which the engine plays. Clipped samples: 0 in both. Direct current (DC) offset: 0 in the reproduction (0.0043 in the original, so the reproduction is cleaner). The measure records the same name as the original (sameName true). Engine faults: none. A loop cue does not apply to a one-shot hit. The picture's label for the reproduction does not show the file name, so the name rests on the measure."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

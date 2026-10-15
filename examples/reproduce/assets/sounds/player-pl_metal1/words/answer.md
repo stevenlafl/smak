@@ -1,10 +1,26 @@
-The sound is built and the build says OK: `work:sound/player/pl_metal1.wav`, 11,025 Hz, 8-bit mono, 0.58 s, peak -0.6 dBFS. Against the game's step-metal sounds it scores 21 of 22 on the report's features. I can't hear it, so the sound itself is unjudged.
+The sound builds OK and is at `work:sound/player/pl_metal1.wav`, in the game's own file name so it replaces the original when it sits in `sound/`. It is 11,025 Hz, 8-bit, mono, 0.58 s long, and plays once.
 
-I could not compare it to the original. `player/pl_metal1.wav` isn't in the folders the server has, so the report measured it against the game's other step-metal sounds, not the original. Those ranges are a class average and don't have to match this file.
+The last build reports 22 of 22 features in range against the game's step-metal sounds: every measure is inside the range of those sounds, and the attack is instant with one onset.
 
-- **Event and envelope:** a dense click cluster in the first 0.15 s, a second impact at 0.17 s, then a ring that falls to about -36 dB by 0.58 s, with a soft tail.
-- **Spectrum:** the low band (under 150 Hz) holds 38% of the power, 150 to 600 Hz holds 50%, 600 Hz to 2 kHz holds 10%, and nothing sits above 5 kHz. The ring is a plate-mode set around 220 Hz, and the hiss is faint.
-- **Miss:** T20 (time to fall 20 dB from the peak) is 0.244 s against the class range of 0.32 to 0.53 s, so it dies a little fast. Two variants that lengthened the tail both scored worse, so I kept the better one.
-- **Minor deviation:** the attack reads as 5 ms rather than instant.
+| Measure | This sound | Range of the game's metal steps |
+| --- | --- | --- |
+| Attack | 0 ms | — |
+| T20 (time to fall 20 dB) | 0.48 s | 0.32 to 0.53 s |
+| Centroid (brightness centre) | 389 Hz | 260 to 460 Hz |
+| Flatness (0 pure tone, 1 noise) | 0.028 | 0.01 to 0.11 |
+| Power under 150 Hz | 35% | 25 to 45% |
+| Power 150 to 600 Hz | 51% | 34 to 54% |
+| Power 600 Hz to 2 kHz | 12% | 10 to 30% |
 
-The spec is inline in this session, not saved as a file. I can save it to the work folder beside the .wav if you want it reproducible. A generated take of a real metal step might sound closer than these layers, and the guide suggests that route. Say if you want me to try it.
+How it is built:
+- **Clicks (0 to 0.15 s):** a short white-noise heel hit, and a particle cloud of 140 per second between 600 Hz and 2.2 kHz, both at full level from the first sample.
+- **Body:** pink noise under 180 Hz, which gives the low weight, plus a pink scrape band around 900 Hz that fades over the length.
+- **Second impact (0.17 s):** a toe click and a short plate thud.
+- **Ring:** five struck-metal modes from 150 Hz to 780 Hz, fixed frequencies with no pitch slide, fading to near silence by 0.58 s.
+- **Hiss:** white noise from 600 Hz to 1.8 kHz, which gives the grain and the flatness.
+- **Finish:** a light drive and a limiter at a 16 dB crest, the class's lower steps range, with the peak at -0.5 dBFS.
+
+What I could not verify:
+- **Against the original:** I did not have the original file, so the comparison is against the game's step-metal class statistics and your description, not a side-by-side spectrogram. The envelope points (a third of the level at 0.35 s, the fall near silence at 0.58 s) were set from your description and not measured separately.
+- **In the game:** the report cannot say how it sounds to a person or how loud it plays. Please listen in the game.
+- **Licence:** no generated takes were used, so there is no model licence to note.

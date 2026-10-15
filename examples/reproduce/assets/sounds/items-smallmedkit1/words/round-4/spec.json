@@ -1,0 +1,295 @@
+{
+  "spec": "smak.sound/1",
+  "name": "items/smallmedkit1.wav",
+  "class": "click",
+  "seed": 7,
+  "rate": 22050,
+  "bits": 8,
+  "length": 0.76,
+  "layers": [
+    {
+      "id": "buzz1",
+      "kind": "tone",
+      "wave": "square",
+      "f": 275,
+      "at": 0,
+      "length": 0.26,
+      "gain": -8,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.001,
+            0
+          ],
+          [
+            0.034,
+            0
+          ],
+          [
+            0.036,
+            -60
+          ],
+          [
+            0.05,
+            -60
+          ],
+          [
+            0.051,
+            0
+          ],
+          [
+            0.149,
+            0
+          ],
+          [
+            0.151,
+            -60
+          ],
+          [
+            0.17,
+            -60
+          ],
+          [
+            0.171,
+            0
+          ],
+          [
+            0.259,
+            0
+          ],
+          [
+            0.26,
+            -60
+          ]
+        ]
+      }
+    },
+    {
+      "id": "edge0",
+      "kind": "noise",
+      "at": 0,
+      "length": 0.012,
+      "gain": -6,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1200
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "hold": 0,
+        "decay": 0.004
+      }
+    },
+    {
+      "id": "edge1",
+      "kind": "noise",
+      "at": 0.035,
+      "length": 0.012,
+      "gain": -10,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1200
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "hold": 0,
+        "decay": 0.004
+      }
+    },
+    {
+      "id": "edge2",
+      "kind": "noise",
+      "at": 0.05,
+      "length": 0.012,
+      "gain": -6,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1200
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "hold": 0,
+        "decay": 0.004
+      }
+    },
+    {
+      "id": "edge3",
+      "kind": "noise",
+      "at": 0.15,
+      "length": 0.012,
+      "gain": -10,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1200
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "hold": 0,
+        "decay": 0.004
+      }
+    },
+    {
+      "id": "edge4",
+      "kind": "noise",
+      "at": 0.17,
+      "length": 0.012,
+      "gain": -6,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1200
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "hold": 0,
+        "decay": 0.004
+      }
+    },
+    {
+      "id": "edge5",
+      "kind": "noise",
+      "at": 0.26,
+      "length": 0.012,
+      "gain": -10,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1200
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "hold": 0,
+        "decay": 0.004
+      }
+    },
+    {
+      "id": "handling",
+      "kind": "noise",
+      "at": 0.26,
+      "length": 0.26,
+      "gain": -20,
+      "shape": [
+        [
+          150,
+          -12
+        ],
+        [
+          500,
+          -3
+        ],
+        [
+          1200,
+          0
+        ],
+        [
+          3000,
+          -2
+        ],
+        [
+          6000,
+          -10
+        ],
+        [
+          10000,
+          -24
+        ]
+      ],
+      "env": {
+        "attack": 0.01,
+        "hold": 0.2,
+        "decay": 0.03
+      }
+    },
+    {
+      "id": "ticks",
+      "kind": "particles",
+      "at": 0.26,
+      "length": 0.26,
+      "rate": 12,
+      "band": [
+        800,
+        4000
+      ],
+      "grain": 0.004,
+      "gain": -24
+    },
+    {
+      "id": "click_mid",
+      "kind": "noise",
+      "at": 0.4,
+      "length": 0.008,
+      "gain": -12,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "hold": 0,
+        "decay": 0.003
+      }
+    },
+    {
+      "id": "hiss",
+      "kind": "noise",
+      "at": 0.52,
+      "length": 0.25,
+      "gain": 0,
+      "iterations": 32,
+      "shape": [
+        [
+          100,
+          -40
+        ],
+        [
+          1000,
+          -18
+        ],
+        [
+          3000,
+          -5
+        ],
+        [
+          5000,
+          -1
+        ],
+        [
+          7500,
+          0
+        ],
+        [
+          10000,
+          -3
+        ],
+        [
+          12000,
+          -20
+        ]
+      ],
+      "env": {
+        "attack": 0.003,
+        "hold": 0.235,
+        "decay": 0.002
+      }
+    }
+  ],
+  "finish": {
+    "peak": -0.5
+  }
+}

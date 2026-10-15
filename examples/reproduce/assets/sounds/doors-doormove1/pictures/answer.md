@@ -1,29 +1,17 @@
-The sound is built and the build says OK: `doors/doormove1.wav`, written to the server's work folder at `sound/doors/doormove1.wav`. It is 11025 Hz, 8-bit mono, 5.034 s long, peak -0.6 dBFS, and the same length as the original's 5.04 s. I have not listened to it, and the build can't judge how it sounds in the game.
+The sound is built and the build says OK with no warnings: `work:sound/doors/doormove1.wav`, 11025 Hz, 8-bit, mono, 5.04 s, the same length as the original. It is in the server's work folder, not in the reproduce assets folder, so the game will only use it once it is copied to `<mod>/sound/doors/doormove1.wav`.
 
-Against the original's picture, the measurable features land close:
+I could not listen to it, so how it sounds is untested. The measures against the original's picture are these:
 
-| Feature | Original (from picture) | Made sound |
-|---|---|---|
-| Length | 5.04 s | 5.034 s |
-| Centroid (brightness) | about 589 Hz | 507 Hz (14% low) |
-| Power below 150 Hz | about 30% | 29% |
-| Power 150 to 600 Hz | about 42% | 36% |
-| Power 600 Hz to 2 kHz | about 28% | 34% |
-| Crest | about 12.7 dB | 12 dB |
+| Measure | Original (picture) | Built | Result |
+| --- | --- | --- | --- |
+| Length | 5.04 s | 5.04 s | match |
+| Crest (peak over RMS) | about 12.7 dB | 12.7 dB | match |
+| Centroid (brightness) | 589 Hz | 530 Hz | 10% off (copy allowed 15%) |
+| Band power, under 150 Hz | 30.1% | 30.3% | match |
+| Band power, 150 to 600 Hz | 37.8% | 41.5% | within 4 points |
+| Band power, 600 Hz to 2 kHz | not read | 23.8% | within 4 points |
+| T20 (time to fall 20 dB) | 0.35 to 0.58 s | 0.45 s | in range |
 
-The loudest band is 6 points off. The build's other flags are against the game's loop-machine class, which fits a door's motor noise poorly, so I didn't chase them.
+The picture shows the same events as the original: a rumble across the whole length, clicks at about 1.56 s and 2.8 s, and a ringing stop burst at about 4.06 s that rings out to the end. The first draft had clicks that were too spiky and a tail that rang too long, and I fixed both.
 
-How it is built, in order of how much each layer contributes:
-- **Motor body:** pink noise shaped to put most of its energy from 50 to 600 Hz, falling away above 1 kHz, with a constant level and a fade from 4.9 s.
-- **Low thump:** a 95 Hz sine at -18 dB, for the low end.
-- **Ringing:** two modes, at 180 Hz and 430 Hz, for the tonal streaks in the original's spectrogram.
-- **Clacks:** sparse, irregular particles from 200 to 1200 Hz, about every 0.4 s.
-- **Stop burst:** bright particles from 1 to 4 kHz at 4.0 to 4.6 s, where the original's waveform peaks.
-- **Finish:** light saturation and a limiter at a 12 dB crest, with peak at -0.5 dBFS.
-
-Where it falls short of the original:
-- **Texture:** the original has sharper, separate knocks and clearer horizontal lines. Mine reads more as a continuous hiss, and flatness is 0.055 against a near-tonal original.
-- **Brightness:** the centroid is still 14% dark of the original, and I stopped there because pushing it further unbalanced the bands again.
-- **Envelope:** the attack and the start level were matched by eye from the waveform, not measured against the original.
-
-To check it as the game plays it, put the file in the mod's `sound/doors/` folder and listen to the door next to the original.
+The spec is still in this conversation, not saved as a file. Its seed is 1, so rebuilding it gives the same bytes. Say if you want it saved in the project folder.

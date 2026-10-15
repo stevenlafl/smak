@@ -1,26 +1,16 @@
-The sound is built and checked: `work:sound/player/pl_step1.wav`, 11025 Hz, 8-bit mono, 0.27 s. The final build says OK, and all 22 of its features fall inside the range of the game's own `step concrete` sounds.
+The sound is built as `player/pl_step1.wav` and the build says OK, with all 22 class features in the game's range. It is at `work:sound/player/pl_step1.wav`, so it goes in `<mod>/sound/player/` to replace the game's own file.
 
-Measured against your description of the original:
+Facts from the final build: 11025 Hz, 8-bit mono, 0.27 s, peak -0.6 dBFS, RMS -19.6 dB, crest 19 dB, T20 0.09 s, T40 0.24 s, centroid 694 Hz, flatness 0.24. Power by band: under 150 Hz 30%, 150–600 Hz 47%, 600–2k 10%, 2k–5k 12%, over 5k 1%.
 
-| Feature | Original (your description) | Made sound |
-| --- | --- | --- |
-| Length | 0.27 s | 0.27 s |
-| Attack | Instant, no fade-in | 0 ms |
-| First hit | Loudest in the first 10 to 20 ms, a few jagged spikes | Heel burst at 0 ms with a crack layer and a scuff of 20 particles in 30 ms |
-| Decay of first hit | About a fifth of peak (-14 dB) by 0.04 s | Envelope set to -14 dB at 0.04 s |
-| Second tap | About 0.08 s, a quarter of the first (-12 dB), dies within 20 ms | Toe layer at 0.08 s, starts at -12 dB, gone by 0.035 s |
-| Tail | Faint grit from 0.1 s, silent by 0.27 s | Low-level pink grit from 0.1 s, about -46 to -66 dB |
-| Spectrum | Thump 150 to 400 Hz, moderate presence to 4 to 5 kHz | Thump tone 220 Hz sweeping to 110 Hz, heel shaped with the most energy at 60 to 400 Hz, presence falling by 5 kHz |
-| Noise vs tone | Noise, no pitch | Mostly noise; tone only in the thump layers |
-| Centroid (brightness) | Not given | 745 Hz |
-| Flatness (0 tone, 1 noise) | Not given | 0.249 |
+How it is built, all as layers in one spec:
+- **Heel strike at 0 s:** shaped noise with a 150–400 Hz thump and presence up to 5 kHz, decaying in about 20 ms. A sine thump sweeps 200 to 100 Hz under it.
+- **Scuff:** a burst of 120 short grains between 1.2 and 6 kHz, for the rattle on the click.
+- **Toe tap at 0.08 s:** a smaller, darker noise hit at -12 dB with a -20 dB thump under it.
+- **Tail from 0.1 s:** pink noise fading from about -30 dB to -42 dB by 0.27 s.
+- **Finish:** a mild saturation of 1.5, a limiter at a 19 dB crest, and a peak of -0.5 dBFS. The 8-bit depth supplies the grit.
 
-Choices I made where the description was open:
-- **Class**: `step concrete`, since the description says concrete or tile.
-- **Limiter**: crest 17 dB, in the 15 to 21 range the kit gives for steps.
-- **No room**: the sound is dry, as described. The map's own `env_sound` will add any room.
-
-Limits:
-- I worked from the description only, not the original file, so this is measured against the words, not a side-by-side with the real `pl_step1.wav`. A side-by-side needs the original file in the work folder.
-- I can't listen, so how it sounds, its volume and the mix are untested. Please check it in the game.
-- The spec lives only in this conversation. It isn't saved to a file, so it isn't reproducible from the folder yet. I can save it as a script in the project if you want it kept.
+Limits of the check:
+- The report compares the sound with the game's step-concrete class, not with the original file. No reference file was drawn, so I could not compare it side by side with the original.
+- The check cannot judge how it sounds to a listener, or its volume and pitch in the game. Someone should listen to it in the game.
+- Its T20 of 0.09 s is inside the class range, but the original's heel burst reportedly falls to a fifth by 0.04 s, which is faster. I did not tighten the decay further because the class check was passing.
+- No generated take was used, so there is no third-party licence to note.

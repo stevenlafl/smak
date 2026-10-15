@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-sbarrel1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 1.039,
+   "peak": -0.4,
+   "rms": -8.7,
+   "crest": 8.3,
+   "dc": -0.0044,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.614,
+   "t40": 0.958,
+   "centroid": 604,
+   "rolloff": 991,
+   "flatness": 0.081,
+   "bands": {
+    "<150": 31.7,
+    "150-600": 37.9,
+    "600-2k": 24.4,
+    "2k-5k": 4.8,
+    ">5k": 1.3
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 1.04,
+   "peak": -0.6,
+   "rms": -11.6,
+   "crest": 11,
+   "dc": 0.001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.02,
+   "t20": 0.808,
+   "t40": 1.018,
+   "centroid": 609,
+   "rolloff": 1077,
+   "flatness": 0.062,
+   "bands": {
+    "<150": 28,
+    "150-600": 42.2,
+    "600-2k": 23.4,
+    "2k-5k": 5.6,
+    ">5k": 0.8
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "gunshot",
+   "t20Range": [
+    0.458,
+    1.013
+   ],
+   "t20": 0.808,
+   "inRange": true
+  },
+  "lengthOff": 0.001,
+  "centroidOff": 0.008,
+  "bandsOffMost": 4.3,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Cannot listen; judged from the picture and features. Both waveforms show a dense, broadband noise burst at the start that decays over about 0.4 s and then leaves a thin tail. The spectrograms show low-band energy at the start, falling off with time. The features put both in the gunshot class (t20 0.808 s inside its 0.458 to 1.013 s range). The same event is plausible."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 1.04 s against 1.039 s, off by 0.001 s, well within 25%. Attack is 0 ms against 5 ms, both effectively instant. t20 is 0.808 s, inside the gunshot class range of 0.458 to 1.013 s. t40 is 1.018 s against 0.958 s. The envelope matches."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid 609 Hz against 604 Hz, off 0.8%, within 20%. Band shares: under 150 Hz 28 against 31.7 (3.7 points), 150 to 600 Hz 42.2 against 37.9 (4.3), 600 to 2k 23.4 against 24.4 (1.0), 2k to 5k 5.6 against 4.8 (0.8), above 5k 0.8 against 1.3 (0.5). All within 10 points; the largest gap is 4.3."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. The original has one onset (measured 1). Its waveform opens with a hard, dense, near-full-scale burst in the first tens of milliseconds, with a visible gap after it. The reproduction has no onset (measured 0). Its waveform is a uniform dense noise run that rises without that opening hit, so the character of the first hit is clearly off. Flatness is close (0.081 original, 0.062 reproduction), and the spectrograms show no obvious pitch movement in either, so the noise or tone character otherwise agrees."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Format is mono, 8-bit, 22050 Hz, which the engine plays. Clipped 0 and lead and tail 0 for both. DC is 0.001 against the original's -0.0044, negligible. Same name (sameName true), engineFaults empty. No loop cue is indicated for this one-shot. The file is fit for the game."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}
