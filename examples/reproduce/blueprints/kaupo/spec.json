@@ -2,228 +2,247 @@
   "spec": "smak.map/1",
   "name": "kaupo_house",
   "wads": [
-    "halflife.wad",
-    "kaupo/kaupo.wad"
+    "halflife.wad"
   ],
-  "wall": 10,
-  "sky": "desert",
-  "sun": {
-    "pitch": 55,
-    "yaw": 135,
-    "brightness": 260,
-    "color": [
-      255,
-      248,
-      230
-    ]
-  },
+  "wall": 8,
   "theme": {
-    "floor": "floor_wood",
-    "wall": "wall_boards",
+    "floor": "floorboards",
+    "wall": "boards_white",
     "ceiling": "ceiling_boards",
     "door": "door_white",
-    "outside": "siding",
+    "outside": "siding_grey",
     "roof": "roof_metal",
-    "furniture": "wall_boards"
+    "furniture": "shelf_wood"
   },
   "textures": {
-    "wall_boards": {
-      "texture": "KP_WALLBOARD"
-    },
-    "ceiling_boards": {
-      "texture": "KP_CEILING"
-    },
-    "floor_wood": {
-      "texture": "KP_FLOOR"
-    },
-    "siding": {
-      "texture": "KP_SIDING"
-    },
-    "crawl": {
-      "base": "dirt",
+    "floorboards": {
+      "base": "planks",
       "tone": [
-        0.11,
-        0.1,
-        0.09
+        0.4,
+        0.37,
+        0.32
+      ],
+      "board": 4
+    },
+    "boards_white": {
+      "base": "tile",
+      "tone": [
+        0.56,
+        0.55,
+        0.52
+      ],
+      "cell": [
+        6,
+        128
       ]
     },
-    "post": {
+    "ceiling_boards": {
+      "base": "tile",
+      "tone": [
+        0.56,
+        0.55,
+        0.52
+      ],
+      "cell": [
+        128,
+        4
+      ]
+    },
+    "door_white": {
       "base": "wood",
       "tone": [
-        0.48,
+        0.56,
+        0.55,
+        0.51
+      ]
+    },
+    "siding_grey": {
+      "base": "tile",
+      "tone": [
+        0.36,
+        0.34,
+        0.31
+      ],
+      "cell": [
+        6,
+        128
+      ]
+    },
+    "roof_metal": {
+      "base": "metal",
+      "tone": [
+        0.45,
+        0.45,
+        0.43
+      ],
+      "cell": [
+        8,
+        128
+      ],
+      "rust": 0.5
+    },
+    "shed_metal": {
+      "base": "metal",
+      "tone": [
+        0.42,
+        0.42,
+        0.4
+      ],
+      "cell": [
+        8,
+        128
+      ],
+      "rust": 0.4
+    },
+    "vinyl_tile": {
+      "base": "tile",
+      "tone": [
+        0.42,
+        0.41,
+        0.38
+      ],
+      "cell": 12
+    },
+    "vinyl_sheet": {
+      "base": "plaster",
+      "tone": [
         0.44,
+        0.42,
         0.38
       ]
     },
     "plywood": {
       "base": "wood",
       "tone": [
-        0.58,
-        0.48,
-        0.36
+        0.45,
+        0.39,
+        0.3
       ]
-    },
-    "tile_floor": {
-      "base": "tile",
-      "cell": 12,
-      "tone": [
-        0.66,
-        0.64,
-        0.58
-      ]
-    },
-    "sheet_floor": {
-      "base": "paint",
-      "tone": [
-        0.6,
-        0.6,
-        0.55
-      ]
-    },
-    "door_white": {
-      "base": "wood",
-      "tone": [
-        0.88,
-        0.87,
-        0.83
-      ]
-    },
-    "door_front": {
-      "base": "darkwood"
-    },
-    "roof_metal": {
-      "texture": "LAB10_TNK2"
-    },
-    "shed_metal": {
-      "texture": "LAB10_TNK2"
     },
     "concrete": {
       "base": "stone",
       "tone": [
-        0.62,
-        0.61,
-        0.58
+        0.45,
+        0.45,
+        0.43
       ]
     },
-    "lawn": {
-      "base": "grass"
-    },
-    "hedge": {
-      "base": "grass",
+    "lava_rock": {
+      "base": "stone",
       "tone": [
-        0.2,
-        0.3,
-        0.15
+        0.22,
+        0.22,
+        0.21
+      ]
+    },
+    "window_panes": {
+      "base": "tile",
+      "tone": [
+        0.5,
+        0.55,
+        0.56
+      ],
+      "cell": [
+        21,
+        32
       ]
     },
     "porcelain": {
-      "base": "paint",
+      "base": "tile",
       "tone": [
-        0.93,
-        0.93,
-        0.9
-      ]
+        0.58,
+        0.58,
+        0.56
+      ],
+      "cell": 64
     },
-    "steps_wood": {
+    "shelf_wood": {
       "base": "planks",
       "tone": [
-        0.45,
-        0.4,
-        0.33
+        0.55,
+        0.54,
+        0.5
       ],
-      "board": 12
+      "board": 6
+    },
+    "lawn": {
+      "base": "grass",
+      "tone": [
+        0.3,
+        0.34,
+        0.22
+      ]
     }
   },
+  "sun": {
+    "pitch": 55,
+    "yaw": 210,
+    "brightness": 260
+  },
+  "sky": "desert",
   "rooms": [
     {
       "id": "yard",
       "size": [
-        660,
-        820,
+        960,
+        1024,
         320
       ],
       "sky": true,
       "surfaces": {
         "floor": "lawn",
-        "walls": "hedge"
+        "walls": "lava_rock"
       }
     },
     {
-      "id": "living",
+      "id": "living_room",
       "size": [
-        176,
-        230,
+        180,
+        232,
         108
       ],
       "floor": 54,
-      "light": {
-        "count": 2,
-        "brightness": 170,
-        "color": [
-          255,
-          250,
-          235
-        ]
-      },
       "place": {
         "in": "yard",
         "offset": [
-          170,
-          278
+          328,
+          336
         ],
         "stand": true
       },
       "building": {
-        "walls": "siding",
+        "walls": "siding_grey",
         "roof": {
           "material": "roof_metal",
           "pitch": 18.4,
-          "overhang": 33
+          "overhang": 24
         }
       }
     },
     {
       "id": "kitchen",
       "size": [
-        176,
+        180,
         80,
         108
       ],
-      "light": {
-        "count": 1,
-        "brightness": 170,
-        "color": [
-          255,
-          250,
-          235
-        ]
-      },
       "place": {
-        "north_of": "living",
+        "north_of": "living_room",
         "align": "west"
       },
       "surfaces": {
-        "floor": "tile_floor"
+        "floor": "vinyl_tile"
       }
     },
     {
       "id": "lanai",
       "size": [
-        176,
-        58,
+        180,
+        64,
         108
       ],
-      "light": {
-        "count": 1,
-        "brightness": 150,
-        "color": [
-          255,
-          250,
-          235
-        ]
-      },
       "place": {
-        "south_of": "living",
+        "south_of": "living_room",
         "align": "west"
       },
       "surfaces": {
@@ -231,178 +250,110 @@
       }
     },
     {
-      "id": "bedroom_west",
+      "id": "bedroom_north",
       "size": [
-        130,
-        130,
+        136,
+        136,
         108
       ],
-      "light": {
-        "count": 1,
-        "brightness": 170,
-        "color": [
-          255,
-          250,
-          235
-        ]
-      },
       "place": {
-        "east_of": "kitchen",
-        "align": "north"
+        "east_of": "living_room",
+        "align": 184
       },
       "surfaces": {
-        "floor": "sheet_floor"
+        "floor": "vinyl_sheet"
       }
     },
     {
-      "id": "bedroom_east",
+      "id": "bedroom_south",
       "size": [
-        130,
-        130,
+        136,
+        132,
         108
       ],
-      "light": {
-        "count": 1,
-        "brightness": 170,
-        "color": [
-          255,
-          250,
-          235
-        ]
-      },
       "place": {
         "east_of": "lanai",
         "align": "south"
       }
     },
     {
-      "id": "bathroom",
+      "id": "closets",
       "size": [
-        80,
+        64,
         108,
         108
       ],
-      "light": {
-        "count": 1,
-        "brightness": 150,
-        "color": [
-          255,
-          250,
-          235
-        ]
-      },
       "place": {
-        "south_of": "bedroom_west",
-        "align": "east"
+        "east_of": "living_room",
+        "align": 68
+      }
+    },
+    {
+      "id": "bathroom",
+      "size": [
+        64,
+        108,
+        108
+      ],
+      "place": {
+        "east_of": "closets",
+        "align": "south"
       },
       "surfaces": {
         "floor": "plywood"
       }
     },
     {
-      "id": "closet_west",
+      "id": "front_steps",
       "size": [
-        40,
-        40,
-        108
+        72,
+        160,
+        200
       ],
-      "light": {
-        "count": 1,
-        "brightness": 90,
-        "color": [
-          255,
-          250,
-          235
-        ]
-      },
-      "place": {
-        "south_of": "bedroom_west",
-        "align": "west"
-      }
-    },
-    {
-      "id": "closet_east",
-      "size": [
-        40,
-        43,
-        108
-      ],
-      "light": {
-        "count": 1,
-        "brightness": 90,
-        "color": [
-          255,
-          250,
-          235
-        ]
-      },
-      "place": {
-        "north_of": "bedroom_east",
-        "align": "west"
-      }
-    },
-    {
-      "id": "front_stoop",
-      "size": [
-        54,
-        11,
-        100
-      ],
-      "floor": 45,
-      "light": "none",
+      "floor": 0,
       "place": {
         "in": "yard",
         "offset": [
-          296,
-          189
+          448,
+          96
         ]
       },
       "surfaces": {
-        "floor": "steps_wood"
+        "floor": "concrete"
       }
     },
     {
-      "id": "side_landing",
+      "id": "back_landing",
       "size": [
-        47,
-        51,
-        96
+        64,
+        96,
+        200
       ],
       "floor": 54,
-      "light": "none",
       "place": {
         "in": "yard",
         "offset": [
-          113,
-          533
+          256,
+          568
         ]
       },
       "surfaces": {
-        "floor": "steps_wood"
+        "floor": "plywood"
       }
     },
     {
       "id": "shed",
       "size": [
-        66,
-        82,
-        80
+        64,
+        96,
+        96
       ],
-      "floor": 8,
-      "light": {
-        "count": 1,
-        "brightness": 110,
-        "color": [
-          255,
-          250,
-          235
-        ]
-      },
+      "floor": 0,
       "place": {
         "in": "yard",
         "offset": [
-          170,
-          618
+          328,
+          672
         ],
         "stand": true
       },
@@ -417,50 +368,15 @@
       }
     },
     {
-      "id": "shed_store",
+      "id": "washroom",
       "size": [
-        40,
-        38,
-        80
+        64,
+        96,
+        96
       ],
-      "light": {
-        "count": 1,
-        "brightness": 90,
-        "color": [
-          255,
-          250,
-          235
-        ]
-      },
       "place": {
         "east_of": "shed",
-        "align": "north"
-      },
-      "surfaces": {
-        "floor": "concrete",
-        "walls": "shed_metal",
-        "ceiling": "shed_metal"
-      }
-    },
-    {
-      "id": "shower",
-      "size": [
-        40,
-        34,
-        80
-      ],
-      "light": {
-        "count": 1,
-        "brightness": 90,
-        "color": [
-          255,
-          250,
-          235
-        ]
-      },
-      "place": {
-        "south_of": "shed_store",
-        "align": "west"
+        "align": "south"
       },
       "surfaces": {
         "floor": "concrete",
@@ -472,104 +388,134 @@
   "links": [
     {
       "between": [
-        "living",
-        "lanai"
+        "lanai",
+        "living_room"
       ],
       "kind": "door",
-      "along": 0.881,
-      "width": 36,
-      "height": 84,
-      "material": "door_front"
+      "width": 56,
+      "along": 0.844,
+      "door": {
+        "swing": true,
+        "hinge": "end"
+      }
     },
     {
       "between": [
-        "living",
+        "living_room",
         "kitchen"
       ],
       "kind": "opening",
-      "along": 0.75,
-      "width": 40,
-      "height": 84
+      "width": 48,
+      "along": 0.742
     },
     {
       "between": [
-        "living",
-        "bedroom_west"
+        "living_room",
+        "bedroom_north"
       ],
       "kind": "opening",
-      "along": 0.5,
-      "width": 36,
-      "height": 84
+      "width": 48,
+      "along": 0.5
     },
     {
       "between": [
-        "living",
-        "bedroom_east"
+        "living_room",
+        "bedroom_south"
       ],
       "kind": "opening",
-      "along": 0.702,
-      "width": 36,
-      "height": 84
+      "width": 48,
+      "along": 0.5333
     },
     {
       "between": [
-        "bedroom_west",
-        "closet_west"
+        "bedroom_north",
+        "closets"
       ],
       "kind": "door",
-      "along": 0.5,
-      "width": 36,
-      "height": 80
+      "width": 56,
+      "along": 0.4375,
+      "door": {
+        "swing": true
+      }
     },
     {
       "between": [
-        "bedroom_east",
-        "closet_east"
-      ],
-      "kind": "door",
-      "along": 0.5,
-      "width": 36,
-      "height": 80
-    },
-    {
-      "between": [
-        "bedroom_west",
+        "bedroom_north",
         "bathroom"
       ],
       "kind": "door",
-      "along": 0.225,
-      "width": 36,
-      "height": 80
+      "width": 56,
+      "along": 0.4375,
+      "door": {
+        "swing": true
+      }
     },
     {
       "between": [
-        "bedroom_east",
+        "bedroom_south",
+        "closets"
+      ],
+      "kind": "door",
+      "width": 56,
+      "along": 0.4375,
+      "door": {
+        "swing": true
+      }
+    },
+    {
+      "between": [
+        "bedroom_south",
         "bathroom"
       ],
       "kind": "door",
-      "along": 0.225,
-      "width": 36,
-      "height": 80
+      "width": 56,
+      "along": 0.4375,
+      "door": {
+        "swing": true
+      }
     },
     {
       "between": [
         "kitchen",
-        "side_landing"
+        "back_landing"
       ],
       "kind": "door",
-      "along": 0.5,
-      "width": 36,
-      "height": 80
+      "width": 56,
+      "along": 0.35,
+      "door": {
+        "swing": true
+      }
+    },
+    {
+      "between": [
+        "shed",
+        "washroom"
+      ],
+      "kind": "door",
+      "width": 56,
+      "along": 0.646,
+      "door": {
+        "swing": true
+      }
+    },
+    {
+      "between": [
+        "shed",
+        "yard"
+      ],
+      "side": "west",
+      "kind": "opening",
+      "width": 48,
+      "along": 0.667
     },
     {
       "between": [
         "lanai",
-        "front_stoop"
+        "front_steps"
       ],
       "kind": "opening",
-      "along": 0.5,
-      "width": 48,
-      "height": 100
+      "width": 52,
+      "along": 0.5
     },
     {
       "between": [
@@ -578,10 +524,10 @@
       ],
       "side": "south",
       "kind": "window",
-      "along": 0.341,
       "width": 116,
+      "height": 60,
       "sill": 36,
-      "height": 64
+      "along": 0.333
     },
     {
       "between": [
@@ -590,117 +536,54 @@
       ],
       "side": "west",
       "kind": "window",
-      "along": 0.5,
-      "width": 48,
+      "width": 58,
+      "height": 60,
       "sill": 36,
-      "height": 64
+      "along": 0.5
     },
     {
       "between": [
-        "shed",
-        "shed_store"
-      ],
-      "kind": "door",
-      "along": 0.5,
-      "width": 36,
-      "height": 76
-    },
-    {
-      "between": [
-        "shed_store",
-        "shower"
-      ],
-      "kind": "opening",
-      "along": 0.5,
-      "width": 36,
-      "height": 76
-    },
-    {
-      "between": [
-        "shed",
-        "yard"
-      ],
-      "side": "west",
-      "kind": "opening",
-      "along": 0.707,
-      "width": 36,
-      "height": 76
-    },
-    {
-      "between": [
-        "living",
-        "yard"
-      ],
-      "side": "west",
-      "kind": "window",
-      "along": 0.178,
-      "width": 36,
-      "sill": 32,
-      "height": 60,
-      "glass": true
-    },
-    {
-      "between": [
-        "living",
-        "yard"
-      ],
-      "side": "west",
-      "kind": "window",
-      "along": 0.348,
-      "width": 36,
-      "sill": 32,
-      "height": 60,
-      "glass": true
-    },
-    {
-      "between": [
-        "living",
-        "yard"
-      ],
-      "side": "west",
-      "kind": "window",
-      "along": 0.639,
-      "width": 36,
-      "sill": 32,
-      "height": 60,
-      "glass": true
-    },
-    {
-      "between": [
-        "living",
-        "yard"
-      ],
-      "side": "west",
-      "kind": "window",
-      "along": 0.817,
-      "width": 36,
-      "sill": 32,
-      "height": 60,
-      "glass": true
-    },
-    {
-      "between": [
-        "living",
+        "living_room",
         "lanai"
       ],
       "kind": "window",
-      "along": 0.236,
-      "width": 36,
-      "sill": 32,
-      "height": 60,
-      "glass": true
+      "width": 80,
+      "height": 64,
+      "sill": 30,
+      "along": 0.361,
+      "glass": {
+        "material": "window_panes"
+      }
     },
     {
       "between": [
-        "living",
-        "lanai"
+        "living_room",
+        "yard"
       ],
+      "side": "west",
       "kind": "window",
-      "along": 0.474,
-      "width": 36,
-      "sill": 32,
-      "height": 60,
-      "glass": true
+      "width": 78,
+      "height": 64,
+      "sill": 30,
+      "along": 0.711,
+      "glass": {
+        "material": "window_panes"
+      }
+    },
+    {
+      "between": [
+        "living_room",
+        "yard"
+      ],
+      "side": "west",
+      "kind": "window",
+      "width": 78,
+      "height": 64,
+      "sill": 30,
+      "along": 0.2435,
+      "glass": {
+        "material": "window_panes"
+      }
     },
     {
       "between": [
@@ -709,11 +592,13 @@
       ],
       "side": "north",
       "kind": "window",
-      "along": 0.114,
-      "width": 34,
-      "sill": 48,
+      "width": 113,
       "height": 36,
-      "glass": true
+      "sill": 52,
+      "along": 0.331,
+      "glass": {
+        "material": "window_panes"
+      }
     },
     {
       "between": [
@@ -722,89 +607,43 @@
       ],
       "side": "north",
       "kind": "window",
-      "along": 0.321,
-      "width": 34,
-      "sill": 48,
-      "height": 36,
-      "glass": true
+      "width": 42,
+      "height": 64,
+      "sill": 30,
+      "along": 0.833,
+      "glass": {
+        "material": "window_panes"
+      }
     },
     {
       "between": [
-        "kitchen",
+        "bedroom_north",
         "yard"
       ],
       "side": "north",
       "kind": "window",
-      "along": 0.528,
-      "width": 34,
-      "sill": 48,
-      "height": 36,
-      "glass": true
+      "width": 84,
+      "height": 64,
+      "sill": 30,
+      "along": 0.5,
+      "glass": {
+        "material": "window_panes"
+      }
     },
     {
       "between": [
-        "kitchen",
-        "yard"
-      ],
-      "side": "north",
-      "kind": "window",
-      "along": 0.838,
-      "width": 36,
-      "sill": 25,
-      "height": 68,
-      "glass": true
-    },
-    {
-      "between": [
-        "bedroom_west",
-        "yard"
-      ],
-      "side": "north",
-      "kind": "window",
-      "along": 0.354,
-      "width": 36,
-      "sill": 25,
-      "height": 68,
-      "glass": true
-    },
-    {
-      "between": [
-        "bedroom_west",
-        "yard"
-      ],
-      "side": "north",
-      "kind": "window",
-      "along": 0.662,
-      "width": 36,
-      "sill": 25,
-      "height": 68,
-      "glass": true
-    },
-    {
-      "between": [
-        "bedroom_west",
+        "bedroom_north",
         "yard"
       ],
       "side": "east",
       "kind": "window",
-      "along": 0.369,
-      "width": 38,
-      "sill": 28,
-      "height": 58,
-      "glass": true
-    },
-    {
-      "between": [
-        "bedroom_west",
-        "yard"
-      ],
-      "side": "east",
-      "kind": "window",
-      "along": 0.715,
-      "width": 38,
-      "sill": 28,
-      "height": 58,
-      "glass": true
+      "width": 84,
+      "height": 64,
+      "sill": 30,
+      "along": 0.522,
+      "glass": {
+        "material": "window_panes"
+      }
     },
     {
       "between": [
@@ -813,692 +652,242 @@
       ],
       "side": "east",
       "kind": "window",
-      "along": 0.213,
-      "width": 40,
-      "sill": 42,
-      "height": 40,
-      "glass": true
+      "width": 44,
+      "height": 42,
+      "sill": 43,
+      "along": 0.555,
+      "glass": {
+        "material": "window_panes"
+      }
     },
     {
       "between": [
-        "bedroom_east",
+        "bedroom_south",
         "yard"
       ],
       "side": "east",
       "kind": "window",
-      "along": 0.315,
-      "width": 38,
-      "sill": 28,
-      "height": 58,
-      "glass": true
+      "width": 84,
+      "height": 64,
+      "sill": 30,
+      "along": 0.49,
+      "glass": {
+        "material": "window_panes"
+      }
     },
     {
       "between": [
-        "bedroom_east",
-        "yard"
-      ],
-      "side": "east",
-      "kind": "window",
-      "along": 0.669,
-      "width": 38,
-      "sill": 28,
-      "height": 58,
-      "glass": true
-    },
-    {
-      "between": [
-        "bedroom_east",
+        "bedroom_south",
         "yard"
       ],
       "side": "south",
       "kind": "window",
-      "along": 0.354,
-      "width": 36,
-      "sill": 25,
-      "height": 68,
-      "glass": true
-    },
-    {
-      "between": [
-        "bedroom_east",
-        "yard"
-      ],
-      "side": "south",
-      "kind": "window",
-      "along": 0.662,
-      "width": 36,
-      "sill": 25,
-      "height": 68,
-      "glass": true
+      "width": 84,
+      "height": 64,
+      "sill": 30,
+      "along": 0.5,
+      "glass": {
+        "material": "window_panes"
+      }
     }
   ],
   "prefabs": {
-    "front_steps": {
+    "back_steps": {
       "pieces": [
         {
           "box": [
             [
-              296,
-              178,
+              -48,
+              0,
               0
             ],
             [
-              350,
-              189,
-              36
+              -8,
+              10,
+              43
             ]
           ],
-          "texture": "steps_wood"
+          "texture": "plywood"
         },
         {
           "box": [
             [
-              296,
-              167,
+              -48,
+              10,
               0
             ],
             [
-              350,
-              178,
-              27
+              -8,
+              20,
+              32
             ]
           ],
-          "texture": "steps_wood"
+          "texture": "plywood"
         },
         {
           "box": [
             [
-              296,
-              156,
+              -48,
+              20,
               0
             ],
             [
-              350,
-              167,
-              18
+              -8,
+              30,
+              22
             ]
           ],
-          "texture": "steps_wood"
+          "texture": "plywood"
         },
         {
           "box": [
             [
-              296,
-              145,
+              -48,
+              30,
               0
             ],
             [
-              350,
-              156,
-              9
+              -8,
+              40,
+              11
             ]
           ],
-          "texture": "steps_wood"
-        }
-      ]
-    },
-    "front_slab": {
-      "pieces": [
+          "texture": "plywood"
+        },
         {
           "box": [
             [
-              288,
-              91,
+              -64,
+              40,
               0
             ],
             [
-              360,
-              145,
-              4
+              -4,
+              112,
+              2
             ]
           ],
           "texture": "concrete"
         }
       ]
     },
-    "side_steps": {
+    "tall_shelf": {
       "pieces": [
         {
           "box": [
             [
-              119,
-              584,
-              0
-            ],
-            [
-              153,
-              595,
-              45
-            ]
-          ],
-          "texture": "steps_wood"
-        },
-        {
-          "box": [
-            [
-              119,
-              595,
-              0
-            ],
-            [
-              153,
-              606,
-              36
-            ]
-          ],
-          "texture": "steps_wood"
-        },
-        {
-          "box": [
-            [
-              119,
-              606,
-              0
-            ],
-            [
-              153,
-              617,
-              27
-            ]
-          ],
-          "texture": "steps_wood"
-        },
-        {
-          "box": [
-            [
-              119,
-              617,
-              0
-            ],
-            [
-              153,
-              628,
-              18
-            ]
-          ],
-          "texture": "steps_wood"
-        },
-        {
-          "box": [
-            [
-              119,
-              628,
-              0
-            ],
-            [
-              153,
-              639,
-              9
-            ]
-          ],
-          "texture": "steps_wood"
-        }
-      ]
-    },
-    "shed_slab": {
-      "pieces": [
-        {
-          "box": [
-            [
-              98,
-              641,
-              0
-            ],
-            [
-              159,
-              700,
-              4
-            ]
-          ],
-          "texture": "concrete"
-        }
-      ]
-    },
-    "crawl_south": {
-      "pieces": [
-        {
-          "box": [
-            [
-              160,
-              197,
-              0
-            ],
-            [
-              296,
-              200,
-              46
-            ]
-          ],
-          "texture": "crawl"
-        },
-        {
-          "box": [
-            [
-              350,
-              197,
-              0
-            ],
-            [
-              496,
-              200,
-              46
-            ]
-          ],
-          "texture": "crawl"
-        },
-        {
-          "box": [
-            [
-              160,
-              193,
-              0
-            ],
-            [
-              164,
-              197,
-              46
-            ]
-          ],
-          "texture": "post"
-        },
-        {
-          "box": [
-            [
-              222,
-              193,
-              0
-            ],
-            [
-              226,
-              197,
-              46
-            ]
-          ],
-          "texture": "post"
-        },
-        {
-          "box": [
-            [
-              286,
-              193,
-              0
-            ],
-            [
-              290,
-              197,
-              46
-            ]
-          ],
-          "texture": "post"
-        },
-        {
-          "box": [
-            [
-              356,
-              193,
-              0
-            ],
-            [
-              360,
-              197,
-              46
-            ]
-          ],
-          "texture": "post"
-        },
-        {
-          "box": [
-            [
-              424,
-              193,
-              0
-            ],
-            [
-              428,
-              197,
-              46
-            ]
-          ],
-          "texture": "post"
-        },
-        {
-          "box": [
-            [
-              492,
-              193,
-              0
-            ],
-            [
-              496,
-              197,
-              46
-            ]
-          ],
-          "texture": "post"
-        }
-      ]
-    },
-    "crawl_west": {
-      "pieces": [
-        {
-          "box": [
-            [
-              157,
-              200,
-              0
-            ],
-            [
-              160,
-              533,
-              46
-            ]
-          ],
-          "texture": "crawl"
-        },
-        {
-          "box": [
-            [
-              157,
-              584,
-              0
-            ],
-            [
-              160,
-              608,
-              46
-            ]
-          ],
-          "texture": "crawl"
-        },
-        {
-          "box": [
-            [
-              153,
-              268,
-              0
-            ],
-            [
-              157,
-              272,
-              46
-            ]
-          ],
-          "texture": "post"
-        },
-        {
-          "box": [
-            [
-              153,
-              338,
-              0
-            ],
-            [
-              157,
-              342,
-              46
-            ]
-          ],
-          "texture": "post"
-        },
-        {
-          "box": [
-            [
-              153,
-              408,
-              0
-            ],
-            [
-              157,
-              412,
-              46
-            ]
-          ],
-          "texture": "post"
-        },
-        {
-          "box": [
-            [
-              153,
-              478,
-              0
-            ],
-            [
-              157,
-              482,
-              46
-            ]
-          ],
-          "texture": "post"
-        },
-        {
-          "box": [
-            [
-              153,
-              604,
-              0
-            ],
-            [
-              157,
-              608,
-              46
-            ]
-          ],
-          "texture": "post"
-        }
-      ]
-    },
-    "crawl_north": {
-      "pieces": [
-        {
-          "box": [
-            [
-              296,
-              608,
-              0
-            ],
-            [
-              496,
-              611,
-              46
-            ]
-          ],
-          "texture": "crawl"
-        },
-        {
-          "box": [
-            [
-              330,
-              611,
-              0
-            ],
-            [
-              334,
-              615,
-              46
-            ]
-          ],
-          "texture": "post"
-        },
-        {
-          "box": [
-            [
-              410,
-              611,
-              0
-            ],
-            [
-              414,
-              615,
-              46
-            ]
-          ],
-          "texture": "post"
-        },
-        {
-          "box": [
-            [
-              492,
-              611,
-              0
-            ],
-            [
-              496,
-              615,
-              46
-            ]
-          ],
-          "texture": "post"
-        }
-      ]
-    },
-    "crawl_east": {
-      "pieces": [
-        {
-          "box": [
-            [
-              496,
-              200,
-              0
-            ],
-            [
-              499,
-              608,
-              46
-            ]
-          ],
-          "texture": "crawl"
-        },
-        {
-          "box": [
-            [
-              499,
-              268,
-              0
-            ],
-            [
-              503,
-              272,
-              46
-            ]
-          ],
-          "texture": "post"
-        },
-        {
-          "box": [
-            [
-              499,
-              338,
-              0
-            ],
-            [
-              503,
-              342,
-              46
-            ]
-          ],
-          "texture": "post"
-        },
-        {
-          "box": [
-            [
-              499,
-              408,
-              0
-            ],
-            [
-              503,
-              412,
-              46
-            ]
-          ],
-          "texture": "post"
-        },
-        {
-          "box": [
-            [
-              499,
-              478,
-              0
-            ],
-            [
-              503,
-              482,
-              46
-            ]
-          ],
-          "texture": "post"
-        },
-        {
-          "box": [
-            [
-              499,
-              548,
-              0
-            ],
-            [
-              503,
-              552,
-              46
-            ]
-          ],
-          "texture": "post"
-        }
-      ]
-    },
-    "counter": {
-      "pieces": [
-        {
-          "box": [
-            [
-              -35,
-              -9,
-              0
-            ],
-            [
-              35,
-              9,
-              34
-            ]
-          ],
-          "texture": "porcelain"
-        }
-      ]
-    },
-    "low_shelf": {
-      "pieces": [
-        {
-          "box": [
-            [
-              -24,
-              -4,
-              0
-            ],
-            [
-              24,
-              4,
-              60
-            ]
-          ],
-          "texture": "wall_boards"
-        }
-      ]
-    },
-    "tall_shelf_ns": {
-      "pieces": [
-        {
-          "box": [
-            [
-              -4,
+              -5,
               -40,
               0
             ],
             [
-              4,
-              40,
-              72
+              5,
+              -38,
+              84
             ]
-          ],
-          "texture": "wall_boards"
+          ]
+        },
+        {
+          "box": [
+            [
+              -5,
+              38,
+              0
+            ],
+            [
+              5,
+              40,
+              84
+            ]
+          ]
+        },
+        {
+          "box": [
+            [
+              -5,
+              -38,
+              12
+            ],
+            [
+              5,
+              38,
+              14
+            ]
+          ]
+        },
+        {
+          "box": [
+            [
+              -5,
+              -38,
+              30
+            ],
+            [
+              5,
+              38,
+              32
+            ]
+          ]
+        },
+        {
+          "box": [
+            [
+              -5,
+              -38,
+              48
+            ],
+            [
+              5,
+              38,
+              50
+            ]
+          ]
+        },
+        {
+          "box": [
+            [
+              -5,
+              -38,
+              66
+            ],
+            [
+              5,
+              38,
+              68
+            ]
+          ]
+        },
+        {
+          "box": [
+            [
+              -5,
+              -38,
+              82
+            ],
+            [
+              5,
+              38,
+              84
+            ]
+          ]
+        }
+      ]
+    },
+    "wall_shelf_ew": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -25,
+              -5,
+              74
+            ],
+            [
+              25,
+              5,
+              75.5
+            ]
+          ]
         }
       ]
     },
@@ -1512,90 +901,57 @@
                 0
               ],
               [
-                26,
+                22,
                 0
               ],
               [
                 0,
-                26
+                22
               ]
             ],
-            "from": 0,
-            "to": 72
-          },
-          "texture": "wall_boards"
-        }
-      ]
-    },
-    "tub": {
-      "pieces": [
-        {
-          "box": [
-            [
-              -20,
-              -12,
-              0
-            ],
-            [
-              20,
-              12,
-              20
-            ]
-          ],
-          "texture": "porcelain"
-        }
-      ]
-    },
-    "toilet": {
-      "pieces": [
-        {
-          "box": [
-            [
-              -15,
-              -9,
-              0
-            ],
-            [
-              9,
-              9,
-              16
-            ]
-          ],
-          "texture": "porcelain"
+            "from": 30,
+            "to": 31.5
+          }
         },
         {
-          "box": [
-            [
-              9,
-              -10,
-              0
+          "prism": {
+            "outline": [
+              [
+                0,
+                0
+              ],
+              [
+                22,
+                0
+              ],
+              [
+                0,
+                22
+              ]
             ],
-            [
-              15,
-              10,
-              30
-            ]
-          ],
-          "texture": "porcelain"
-        }
-      ]
-    },
-    "wall_sink": {
-      "pieces": [
+            "from": 48,
+            "to": 49.5
+          }
+        },
         {
-          "box": [
-            [
-              -8,
-              -9,
-              24
+          "prism": {
+            "outline": [
+              [
+                0,
+                0
+              ],
+              [
+                22,
+                0
+              ],
+              [
+                0,
+                22
+              ]
             ],
-            [
-              8,
-              9,
-              32
-            ]
-          ],
-          "texture": "porcelain"
+            "from": 66,
+            "to": 67.5
+          }
         }
       ]
     },
@@ -1604,212 +960,382 @@
         {
           "box": [
             [
-              -3,
-              -40,
-              0
+              -5,
+              -24,
+              86
             ],
             [
-              3,
-              40,
-              72
+              5,
+              24,
+              87.5
             ]
-          ],
-          "texture": "wall_boards"
+          ]
+        },
+        {
+          "box": [
+            [
+              -5,
+              -24,
+              100
+            ],
+            [
+              5,
+              24,
+              101.5
+            ]
+          ]
         }
       ]
     },
-    "cabinet": {
+    "medicine_cabinet": {
       "pieces": [
         {
           "box": [
             [
-              -3,
-              -10,
-              0
+              -2,
+              -7,
+              73
             ],
             [
-              3,
-              10,
-              72
+              2,
+              7,
+              95
             ]
-          ],
-          "texture": "wall_boards"
+          ]
         }
       ]
     },
-    "bed_shelf": {
+    "wall_basin": {
       "pieces": [
         {
           "box": [
             [
               -4,
-              -30,
-              0
+              -9,
+              26
             ],
             [
               4,
-              30,
-              72
+              9,
+              33
             ]
           ],
-          "texture": "wall_boards"
+          "texture": "porcelain"
+        },
+        {
+          "box": [
+            [
+              2,
+              -1,
+              33
+            ],
+            [
+              4,
+              1,
+              38
+            ]
+          ],
+          "texture": "porcelain"
+        }
+      ]
+    },
+    "closet_divider": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -32,
+              -11.5,
+              0
+            ],
+            [
+              32,
+              11.5,
+              108
+            ]
+          ]
+        }
+      ]
+    },
+    "closet_shelf": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -5.5,
+              -20.25,
+              74
+            ],
+            [
+              5.5,
+              20.25,
+              75.5
+            ]
+          ]
+        }
+      ]
+    },
+    "wall_cabinet": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -3,
+              -8,
+              0
+            ],
+            [
+              3,
+              8,
+              84
+            ]
+          ]
+        }
+      ]
+    },
+    "bedroom_shelf": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -6,
+              -30.5,
+              0
+            ],
+            [
+              6,
+              -28.5,
+              60
+            ]
+          ]
+        },
+        {
+          "box": [
+            [
+              -6,
+              28.5,
+              0
+            ],
+            [
+              6,
+              30.5,
+              60
+            ]
+          ]
+        },
+        {
+          "box": [
+            [
+              -6,
+              -28.5,
+              18
+            ],
+            [
+              6,
+              28.5,
+              20
+            ]
+          ]
+        },
+        {
+          "box": [
+            [
+              -6,
+              -28.5,
+              38
+            ],
+            [
+              6,
+              28.5,
+              40
+            ]
+          ]
+        },
+        {
+          "box": [
+            [
+              -6,
+              -28.5,
+              58
+            ],
+            [
+              6,
+              28.5,
+              60
+            ]
+          ]
+        }
+      ]
+    },
+    "shower_curb": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -7,
+              -16,
+              0
+            ],
+            [
+              32,
+              -12,
+              4
+            ]
+          ],
+          "texture": "concrete"
+        },
+        {
+          "box": [
+            [
+              -7,
+              -48,
+              0
+            ],
+            [
+              -3,
+              -16,
+              4
+            ]
+          ],
+          "texture": "concrete"
         }
       ]
     }
   },
   "furniture": [
     {
-      "prefab": "front_steps",
+      "prefab": "back_steps",
       "room": "yard",
       "at": [
-        -330,
-        -410
+        -160,
+        152
       ]
     },
     {
-      "prefab": "front_slab",
-      "room": "yard",
-      "at": [
-        -330,
-        -410
-      ]
-    },
-    {
-      "prefab": "side_steps",
-      "room": "yard",
-      "at": [
-        -330,
-        -410
-      ]
-    },
-    {
-      "prefab": "shed_slab",
-      "room": "yard",
-      "at": [
-        -330,
-        -410
-      ]
-    },
-    {
-      "prefab": "crawl_south",
-      "room": "yard",
-      "at": [
-        -330,
-        -410
-      ]
-    },
-    {
-      "prefab": "crawl_west",
-      "room": "yard",
-      "at": [
-        -330,
-        -410
-      ]
-    },
-    {
-      "prefab": "crawl_north",
-      "room": "yard",
-      "at": [
-        -330,
-        -410
-      ]
-    },
-    {
-      "prefab": "crawl_east",
-      "room": "yard",
-      "at": [
-        -330,
-        -410
-      ]
-    },
-    {
-      "prefab": "counter",
+      "prefab": "tall_shelf",
       "room": "kitchen",
       "at": [
-        -53,
-        31
-      ]
-    },
-    {
-      "prefab": "low_shelf",
-      "room": "kitchen",
-      "at": [
-        -64,
-        -36
-      ]
-    },
-    {
-      "prefab": "tall_shelf_ns",
-      "room": "kitchen",
-      "at": [
-        84,
+        85,
         0
       ]
     },
     {
+      "prefab": "wall_shelf_ew",
+      "room": "kitchen",
+      "at": [
+        -65,
+        -35
+      ]
+    },
+    {
       "prefab": "corner_shelf",
-      "room": "living",
+      "room": "living_room",
       "at": [
-        -88,
-        -115
-      ]
-    },
-    {
-      "prefab": "tub",
-      "room": "bathroom",
-      "at": [
-        20,
-        2
-      ]
-    },
-    {
-      "prefab": "toilet",
-      "room": "bathroom",
-      "at": [
-        25,
-        42
-      ]
-    },
-    {
-      "prefab": "wall_sink",
-      "room": "bathroom",
-      "at": [
-        31,
-        -38
+        -90,
+        -116
       ]
     },
     {
       "prefab": "bath_shelf",
       "room": "bathroom",
       "at": [
-        -37,
-        -4
+        -27,
+        22
       ]
     },
     {
-      "prefab": "cabinet",
-      "room": "bedroom_east",
+      "prefab": "medicine_cabinet",
+      "room": "bathroom",
+      "at": [
+        -30,
+        41
+      ]
+    },
+    {
+      "prefab": "wall_basin",
+      "room": "bathroom",
+      "at": [
+        28,
+        -41
+      ]
+    },
+    {
+      "prefab": "closet_divider",
+      "room": "closets",
+      "at": [
+        0,
+        2
+      ]
+    },
+    {
+      "prefab": "closet_shelf",
+      "room": "closets",
+      "at": [
+        26.5,
+        33.75
+      ]
+    },
+    {
+      "prefab": "wall_cabinet",
+      "room": "bedroom_south",
+      "at": [
+        -65,
+        3
+      ]
+    },
+    {
+      "prefab": "bedroom_shelf",
+      "room": "bedroom_south",
       "at": [
         -62,
-        10
+        -35.5
       ]
     },
     {
-      "prefab": "bed_shelf",
-      "room": "bedroom_east",
+      "prefab": "shower_curb",
+      "room": "washroom",
       "at": [
-        -61,
-        -34
+        0,
+        0
       ]
+    }
+  ],
+  "props": [
+    {
+      "model": "kit:sink_cabinet",
+      "room": "kitchen",
+      "at": [
+        -57,
+        27.25
+      ],
+      "facing": "south"
+    },
+    {
+      "model": "kit:toilet",
+      "room": "bathroom",
+      "at": [
+        20,
+        43.5
+      ],
+      "facing": "west"
+    },
+    {
+      "model": "kit:bathtub",
+      "room": "bathroom",
+      "at": [
+        2,
+        5
+      ],
+      "facing": "west"
     }
   ],
   "entities": [
     {
       "class": "info_player_start",
-      "room": "living",
+      "room": "living_room",
       "at": [
-        67,
-        -93
+        42,
+        -86
       ],
       "facing": "north"
     }

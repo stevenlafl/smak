@@ -1,36 +1,37 @@
-I've built kaupo_house and it compiles OK: no leak, the build's checks all pass, and every room is reached on foot from the start. Four things don't match the drawings exactly, and you need to copy one extra wad for it to load in the game.
+The map is built and the final build passes with no faults: it compiles with no leak, all 12 rooms are reached on foot from the start, and every door is reachable. The compiled map is `work/kaupo_house/kaupo_house.bsp`, with its `.wad` and `models/kaupo_house/` beside it. The 4 warnings left are harmless: one is about the basin being made of boxes (on purpose), one about the doors' use-only flags, and two say the closet and bathroom middles have something standing in them (the closet divider and the tub).
 
-**Where to find it:** the map is `work/kaupo_house/kaupo_house.bsp`, with its own `kaupo_house.wad`. It also needs `work/kaupo/kaupo.wad`, which holds the vertical tongue-and-groove boards I made for the walls, ceilings, floors and outside siding. The map's own texture list can't make boards that run vertically, so those live in a separate file. The engine check flags this: GoldSrc will refuse to load the map unless `kaupo.wad` sits in the mod folder beside `kaupo_house.wad`. Everything else comes from halflife.wad (the corrugated metal on the roof and shed) or the map's own wad.
+**What's in it**
+- **Orientation:** the plan reads the same way as the drawing (top of the sheet is +y). By the drawing's compass that top edge is actually west, so the front porch faces east.
+- **Heights:** the house floor is 4'6" (54 units) above the grass and the ceilings are 9' (108), from the sections.
+- **Rooms:**
+  - Living room 15' x 19'4"
+  - Kitchen 15' x 6'8"
+  - Front porch (lanai) 15' x 5'4"
+  - North bedroom 11'4" x 11'4"
+  - South bedroom 11'4" x 11'
+  - Bathroom and closets in the middle strip
+  - Shed with a washroom behind the kitchen, on the concrete at ground level
+- **Ways in and out:** cased openings join the living room to the kitchen and to both bedrooms. Front steps (4 risers) run down to the concrete slab, and a back deck with steps sits outside the kitchen door.
+- **Doors:** all 7 doors on the plan are hinged doors that open with the use key: front, kitchen, two closet, two bathroom, and the shed's inner door. The front door is hinged on the side the plan shows.
+- **Windows:** all 13 windows are glazed with divided panes, at the sills and heights read off the elevations. The porch has open bays above a 3' rail wall.
+- **Surfaces:**
+  - Inside: white vertical tongue-and-groove walls and a board ceiling.
+  - Floors per the plan's notes: tile in the kitchen, sheet flooring in the north bedroom, plywood in the bath and porch, boards elsewhere.
+  - Outside: weathered grey vertical siding, rusty corrugated metal roof, corrugated shed.
+  - A dark lava-rock yard wall, as in the photos.
+- **Fixtures:** sink, toilet, tub, wall basin, medicine cabinet, the cabinet, and the shelves where the plan puts them.
+- **Start:** you begin in the living room just inside the front door.
 
-**Orientation:** the map matches the drawing as it sits on the sheet, so map north is the top of the plan. Going by the sheet's compass, that is true west. The lanai and front steps face true east, and the shed is at the west end.
-
-**What's in it.** The outside is 28'×34', as written on the plan. Floors are 4'6" above the ground, taken from section B-B (18'-6" from the front steps to the ridge, minus 14'-0" from the floor to the ridge). Ceilings are 9'-0" to the plate. Room sizes below are clear inside dimensions:
-
-```
-room          built (ft)     drawing label
-living        14'8 x 19'2    16 x 18   (scales to ~15'5 x 19'11; I followed the scale and the 34' overall)
-kitchen       14'8 x 6'8     7 x 16
-lanai         14'8 x 4'10    6 x 16'6 (to the wall centre, open rail on two sides)
-bedroom W/E   10'10 x 10'10  11 x 11
-bathroom      6'8 x 9'0      7 x 9
-closets (2)   3'4 x 3'4/3'7  (scaled)
-shed          5'6 x 6'10, store 3'4 x 3'2, shower 3'4 x 2'10 (outside 11'4 x 8'6; drawn 11'1½ x 8'5½)
-```
-
-- **Doors:** all seven doors on the plan are door entities that open: the front door, the kitchen side door, two closet doors, the two bathroom doors and the shed store door. The cased openings into the kitchen and both bedrooms are open doorways, as drawn.
-- **Windows:** all 19 sashes from the elevations are glazed and breakable, at their sill and head heights. That includes the low three-sash kitchen window over the shed roof. The lanai has open railing bays at 3' high on two sides.
-- **Outside:** wooden front steps run down to a concrete slab. The kitchen has a side landing with steps down to the shed's slab, and the shed is entered at grade through its west opening.
-- **Furniture:** the kitchen counter and shelves, the living-room corner shelf, the tub, toilet, sink and shelf in the bathroom, and the east bedroom's cabinet and shelf, all where the plan puts them.
-- **Surfaces, from the photos:** white painted vertical boards inside, white board ceilings, wood floors, and tile in the kitchen. The bedroom marked sheet flooring has plain sheet flooring and the lanai and bathroom have plywood. Outside is weathered vertical siding with a corrugated metal roof, and the shed is corrugated metal. The photos are black and white, so all colours are my guesses.
-
-**Walk test:** the player starts inside the front door, facing in. I ran a separate test build with a marker item in every room, including the shower and both closets, and all 18 targets were reached. That build is `work/kaupo_reachtest/`, and the two `kaupo_test` maps there are my experiments; all three can be deleted. The final build still gives two warnings:
-- The middles of the bathroom and shower aren't walked, because the tub stands in the bathroom's middle and the shower is only 2'10" deep on the walk test's 8-unit grid. The marker items prove both rooms are reached.
-- Two doorways measure 32 units, just wide enough for a player.
-
-**Where it departs from the drawings:**
-- **Walls are 10" thick instead of about 5".** With thinner walls the kit sealed off the openings between rooms and showed the inside boards on the outside. To keep the 28'×34' outside, every room is about 4–6" smaller than drawn.
-- **The roof is a gable, not the hip roof in the elevations.** The kit can only make gable or flat roofs. The 4/12 pitch, the ridge running the long way, and the 2'-9½" eaves are as drawn.
-- **There's no open crawlspace.** The kit builds the house as solid down to the ground, so I put a dark skirt with posts around it to read like the shadowed piers in the photos. There are no diagonal braces.
-- **Doors are 3'0" wide and slide up, rather than swinging.** The closet and bathroom doors are drawn 2'6", and a GoldSrc player is 2'8" wide. The shed rooms are similarly squeezed so a player fits.
-
-The windows are plain glass with no sash or muntin detail, and the sky is halflife's desert sky because the game has no Maui one.
+**Where it differs from the drawings, because the kit wouldn't allow otherwise**
+- **Door and opening sizes:** the kit forces hinged doors to 56 wide (4'8") and every door or opening to 96 high (8'). The real doors are about 2'6"–3'3" by 7'.
+- **Wall thickness:** walls are 8" thick. With anything thinner the kit silently cut none of the openings and still reported OK, which looks like a kit bug. The thicker walls make the house 28'4" wide instead of 28'.
+- **Minimum room size:** any room you can walk into must be at least 64 x 96 units. So:
+  - The two closets are one 5'4"-wide room split by a full-height shelf divider, each half with its own door as on the plan.
+  - The bathroom is 5'4" wide instead of 7'.
+  - The shed and washroom are each 5'4" x 8', which makes the shed about 12'8" x 9'4" outside against the drawn 11'1½" x 8'5½".
+  - The shower is a curbed corner of the washroom, not its own room.
+- **Back deck:** it's 5'4" x 8', larger than the real one, for the same size rule.
+- **Roof:** it's a gable at 4:12 instead of the hip roof in the drawings and photos. The kit only builds gable or flat roofs.
+- **Under the floor:** the house sits on a solid skirt instead of the open stone piers in the photos.
+- **Door swing:** the kit makes each door swing away from whoever opens it, so not every door swings into the room the plan shows.
+- **Bathroom basin:** it's a shallow wall-hung basin. The kit's vanity blocked the widened bathroom door.
