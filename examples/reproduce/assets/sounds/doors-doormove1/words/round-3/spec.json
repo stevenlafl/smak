@@ -1,0 +1,270 @@
+{
+  "spec": "smak.sound/1",
+  "name": "doors/doormove1.wav",
+  "class": "loop machine",
+  "seed": 7,
+  "length": 5.04,
+  "rate": 11025,
+  "bits": 8,
+  "layers": [
+    {
+      "id": "grind",
+      "kind": "noise",
+      "color": "white",
+      "shape": [
+        [
+          80,
+          -10
+        ],
+        [
+          150,
+          -3
+        ],
+        [
+          250,
+          0
+        ],
+        [
+          800,
+          0
+        ],
+        [
+          1500,
+          -3
+        ],
+        [
+          2500,
+          -10
+        ],
+        [
+          4000,
+          -18
+        ],
+        [
+          5500,
+          -30
+        ]
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -40
+          ],
+          [
+            0.05,
+            -4
+          ],
+          [
+            0.1,
+            0
+          ],
+          [
+            3.9,
+            0
+          ],
+          [
+            4.1,
+            2
+          ],
+          [
+            4.4,
+            3
+          ],
+          [
+            4.6,
+            1
+          ],
+          [
+            4.9,
+            -20
+          ],
+          [
+            5.04,
+            -40
+          ]
+        ]
+      },
+      "gain": -3
+    },
+    {
+      "id": "rumble",
+      "kind": "noise",
+      "color": "brown",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 150,
+          "q": 0.7
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -40
+          ],
+          [
+            0.05,
+            -10
+          ],
+          [
+            0.1,
+            -6
+          ],
+          [
+            3.9,
+            -6
+          ],
+          [
+            4.1,
+            0
+          ],
+          [
+            4.4,
+            2
+          ],
+          [
+            4.6,
+            0
+          ],
+          [
+            4.9,
+            -25
+          ],
+          [
+            5.04,
+            -42
+          ]
+        ]
+      },
+      "gain": -12
+    },
+    {
+      "id": "rattle",
+      "kind": "particles",
+      "at": 4.1,
+      "length": 0.5,
+      "every": 0.04,
+      "jitter": 0.4,
+      "band": [
+        150,
+        1500
+      ],
+      "grain": 0.01,
+      "env": {
+        "attack": 0.01,
+        "hold": 0.3,
+        "decay": 0.15
+      },
+      "gain": -4
+    },
+    {
+      "id": "squeal1",
+      "kind": "tone",
+      "f": 300,
+      "wave": "saw",
+      "sweep": {
+        "to": 600,
+        "time": 1
+      },
+      "at": 0.3,
+      "length": 1,
+      "env": {
+        "attack": 0.2,
+        "hold": 0.4,
+        "decay": 0.3
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 450,
+          "q": 1
+        }
+      ],
+      "gain": -9
+    },
+    {
+      "id": "squeal2",
+      "kind": "tone",
+      "f": 300,
+      "wave": "saw",
+      "sweep": {
+        "to": 600,
+        "time": 1
+      },
+      "at": 1.5,
+      "length": 1,
+      "env": {
+        "attack": 0.2,
+        "hold": 0.4,
+        "decay": 0.3
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 450,
+          "q": 1
+        }
+      ],
+      "gain": -9
+    },
+    {
+      "id": "squeal3",
+      "kind": "tone",
+      "f": 300,
+      "wave": "saw",
+      "sweep": {
+        "to": 600,
+        "time": 1
+      },
+      "at": 2.8,
+      "length": 1,
+      "env": {
+        "attack": 0.2,
+        "hold": 0.4,
+        "decay": 0.3
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 450,
+          "q": 1
+        }
+      ],
+      "gain": -9
+    },
+    {
+      "id": "squeal4",
+      "kind": "tone",
+      "f": 300,
+      "wave": "saw",
+      "sweep": {
+        "to": 600,
+        "time": 1
+      },
+      "at": 3.9,
+      "length": 1,
+      "env": {
+        "attack": 0.2,
+        "hold": 0.4,
+        "decay": 0.3
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 450,
+          "q": 1
+        }
+      ],
+      "gain": -9
+    }
+  ],
+  "finish": {
+    "saturate": 2,
+    "limit": {
+      "crest": 11,
+      "release": 0.002
+    }
+  }
+}

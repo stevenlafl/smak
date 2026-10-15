@@ -1,33 +1,28 @@
-The sound builds OK: `work:sound/weapons/357_shot1.wav`, named so the game loads it in place of the original.
+The sound is built and the build says OK, with every check passed. It is written to `work:sound/weapons/357_shot1.wav`, so it takes the place of the game's own file of that name.
 
-The final build measures:
+**What's checked against the original's picture (the only reference here)**
 
-| Feature | Result | Original (from its picture) |
-| --- | --- | --- |
-| Length | 1.06 s | 1.06 s |
-| T20 (time to fall 20 dB) | 0.718 s | 0.458 to 1.013 s |
-| Centroid (brightness) | 932 Hz | 921 Hz |
-| Crest (peak over RMS) | 10.9 dB | about 10 dB |
-| Peak | -0.5 dBFS | n/a |
-| RMS | -11.4 dBFS | n/a |
-| Gunshot features in the game's range | 22 of 22 | n/a |
+| Feature | Made sound | Original (read off picture) | Note |
+| --- | --- | --- | --- |
+| Length | 1.057 s | 1.06 s | matches |
+| Decay to -20 dB (T20) | 0.659 s | 0.458 to 1.013 s range | inside range |
+| Centroid (brightness) | 881 Hz | 921 Hz | 4% off |
+| Crest (peak over RMS) | 9.6 dB | about 10 dB | within tolerance |
+| Largest band miss | 3.6 points (2 to 5 kHz) | | |
+| Game gunshot sounds | 22 of 22 features in range | | |
 
-The check reports no faults. The bands are up to 10 points off the picture's, mostly in the under-150 Hz band.
+The band levels are: under 150 Hz 20%, 150 to 600 Hz 26%, 600 Hz to 2 kHz 44%, 2 to 5 kHz 10%, above 5 kHz 0.2%.
 
-I worked from the spectrogram picture and its facts line, not the original WAV, so the match is to those measurements. I can't hear either file here, so the report's note stands: listen to it in the game, since its volume and the map's room are not checked.
+**Limits of this check**
 
-The sound is built from three layers: a 120 Hz sine thump that falls to 45 Hz, a pink-noise blast with a fast fall after 0.46 s, and a band-limited white-noise layer for brightness. A white-noise crack sits after the saturation. Saturation at 6 gives the sustained body, and I dropped the limiter because it lifted the tail and pushed T20 past the original's range.
+- The original `weapons/357_shot1.wav` is not in the game folders this server was given, so the report could not compare against the real file. Only the picture was used.
+- The band targets came from the report's "points off" lines. I worked backwards from them to a rough target, so they are estimates.
+- Nothing has been listened to. The report cannot judge how it sounds, its volume in the game, or the map's room. Someone needs to play it in the game and A/B it against the original.
 
-This is the spec that produced it. It was passed inline, so I haven't saved it to a file in the project; say where you want it kept and I'll write it there.
+**The spec** (one `build` call, final version)
 
 ```json
-{"spec":"smak.sound/1","name":"weapons/357_shot1.wav","class":"gunshot","seed":1,"length":1.06,"picture":"pictures/sound.png",
- "layers":[
-  {"id":"thump","kind":"tone","f":120,"wave":"sine","sweep":{"to":45,"time":0.15},"env":{"attack":0.001,"decay":0.25},"gain":4},
-  {"id":"blast","kind":"noise","color":"pink","filter":[{"type":"bandpass","f":700,"q":0.8},{"type":"lowpass","f":7000,"q":0.7}],
-   "env":{"points":[[0,-3],[0.01,0],[0.3,-4],[0.46,-10],[0.6,-18],[0.8,-26],[1.06,-40]]},"gain":10.5},
-  {"id":"bright","kind":"noise","color":"white","filter":[{"type":"highpass","f":1500},{"type":"lowpass","f":4000}],
-   "env":{"points":[[0,-3],[0.01,0],[0.3,-4],[0.46,-10],[0.6,-18],[0.8,-26],[1.06,-40]]},"gain":-10},
-  {"id":"crack","kind":"noise","color":"white","filter":[{"type":"highpass","f":2000}],"env":{"attack":0.0005,"decay":0.012},"gain":-4,"post":true}],
- "finish":{"saturate":6,"peak":-0.5}}
+{"spec":"smak.sound/1","name":"weapons/357_shot1.wav","class":"gunshot","seed":1,"length":1.06,"layers":[{"id":"crack","kind":"noise","color":"white","filter":[{"type":"highpass","f":1500}],"env":{"attack":0.001,"decay":0.02},"gain":-4},{"id":"blast","kind":"noise","shape":[[60,-2],[200,0],[600,0],[1000,0],[2000,-3],[4000,-26],[11000,-40]],"env":{"attack":0.002,"hold":0.03,"decay":0.4},"gain":0},{"id":"thump","kind":"tone","f":110,"wave":"sine","sweep":{"to":40,"time":0.25},"env":{"attack":0.001,"decay":0.25},"gain":-6},{"id":"tail","kind":"noise","color":"pink","filter":[{"type":"lowpass","f":3000}],"env":{"attack":0.02,"decay":0.55},"gain":-10}],"finish":{"saturate":3,"room":{"decay":0.2,"wet":0.08},"limit":{"crest":10,"release":0.002},"peak":-0.5},"reference":"weapons/357_shot1.wav","picture":"pictures/sound.png"}
 ```
+
+The spec is only in this message, not saved to a file in the project. If you want it kept for re-running, I can commit it as a script.

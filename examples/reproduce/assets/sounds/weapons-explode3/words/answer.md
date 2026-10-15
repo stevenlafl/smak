@@ -1,22 +1,23 @@
-The sound is built and the build says OK: `work:sound/weapons/explode3.wav`, 22050 Hz, 8-bit mono, 1.3 s. To use it in the game, put it in your mod's `sound/weapons/` folder so it replaces the original.
+The build says OK: `work:sound/weapons/explode3.wav` is 22050 Hz, 8-bit mono, 1.3 s, peak -0.6 dBFS. Against the game's explosion class, all 22 measured features are in range.
 
-The final build measured against the kit's explosion ranges, and all 22 features were in range:
+The original wasn't among the game folders the server had, so the comparison is against the class's measured ranges, not the original file itself. Listen to it in the game next to the original before you rely on it.
 
-| Feature | Built sound | Your description |
-| --- | --- | --- |
-| Start | 0 ms attack, full scale at the first sample | No fade-in, no click |
-| Decay (T20: time to -20 dB) | 1.01 s | Full scale to about 1/3 by 0.8 s, quiet rumble by 1.1 s |
-| Spectrum | 37% under 150 Hz, 39% at 150 to 600 Hz, 17% at 600 Hz to 2 kHz, 6% at 2 to 5 kHz, 2% above 5 kHz | Strongest under 300 Hz, mids strong early, highs weak |
-| Centroid (brightness) | 616 Hz | Darker over time as the highs fade |
-| Flatness (0 is pure tone, 1 is white noise) | 0.09 | Entirely noisy, no tone |
+The spec is a single noise layer with a moving spectrum, plus a particles layer for the grit:
 
-How it is built, from the spec:
-- **Body:** noise with a spectrum that moves over time. It is boosted under 300 Hz and rolls off above 1 kHz, and the treble falls faster at 0.7 s and 1.3 s.
-- **Level:** pinned near full scale until 0.4 s, then -6 dB at 0.8 s, -12 dB at 1.1 s and -26 dB at 1.3 s.
-- **Crackle:** a train of 2.5 kHz-band particles, rate 500 per second, gives the bursty grain.
-- **Finish:** saturation at 4 (the hard clipping) and a limiter with a crest of 8 dB.
+- **Envelope:** 0 dB at the start, -1 dB at 0.4 s, -10 dB at 0.8 s, -24 dB at 1.1 s, -40 dB at 1.3 s.
+- **Spectrum:** low-weighted, falling from 0 dB under 100 Hz to -36 dB at 11 kHz. It darkens from 0.7 s on, falling about 8 dB further across the band.
+- **Grit:** 400 per second of 2 ms particles in 400 to 1500 Hz, at -8 dB, decaying with the envelope.
+- **Finish:** saturate 4, limiter at 7 dB crest, peak -0.5 dBFS.
 
-Points to check:
-- **No side-by-side reference:** the server was not given your game folders, so the comparison used the kit's built-in explosion ranges, not the original file. The judgement against the original is still yours to make by ear in the game.
-- **Decay is a compromise:** your description reads as about 0.8 s for a third of full scale, which implies a T20 nearer 0.85 s. Matching that cost the spectrum its brightness, so I kept T20 at 1.0 s. If it sounds too long, the 0.8 s point in the envelope is the place to change.
-- **Spec not saved:** the spec exists only in this conversation, not as a file in the work folder. If you want to rebuild or tweak it, say so and I'll save it into the project.
+Measured results:
+
+- **Decay:** T20 1.08 s, T40 1.27 s.
+- **Band power:** under 150 Hz 27%, 150 to 600 Hz 41%, 600 to 2 kHz 24%, 2 to 5 kHz 7%, above 5 kHz 1%.
+- **Centroid and flatness:** 697 Hz centroid, flatness 0.086.
+
+Two things I could not fully match:
+
+- **Attack:** the tool reports 20 ms, though the waveform starts at full height. I did not confirm the first samples directly. The limiter or the particle grain may account for the reported figure.
+- **Tonal content:** the description says no tone at all, and the class's flatness range asks for a little more pure-noise character than fully white. I followed the description and got flatness into range by tilting the spectrum, not by adding a tone.
+
+The spec was passed inline, so no `.json` file was saved. I can write it into the work folder if you want it kept.

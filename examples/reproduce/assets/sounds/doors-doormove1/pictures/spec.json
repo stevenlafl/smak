@@ -2,263 +2,280 @@
   "spec": "smak.sound/1",
   "name": "doors/doormove1.wav",
   "class": "loop machine",
-  "seed": 1,
-  "length": 5.04,
   "rate": 11025,
   "bits": 8,
+  "seed": 1,
+  "length": 5.04,
   "picture": "pictures/sound.png",
   "layers": [
     {
       "id": "motor",
       "kind": "noise",
-      "color": "white",
+      "color": "pink",
       "shape": [
         [
-          40,
-          -3
-        ],
-        [
-          100,
+          50,
           -4
         ],
         [
           150,
-          -6
+          -2
         ],
         [
           300,
-          -11
+          1
         ],
         [
           600,
-          -12
+          0
         ],
         [
           1000,
-          -15
+          -6
         ],
         [
           2000,
-          -21
+          -15
         ],
         [
-          3500,
-          -30
+          4000,
+          -27
         ],
         [
-          5500,
-          -38
+          8000,
+          -40
         ]
       ],
       "env": {
         "points": [
           [
             0,
-            -8
+            -3
           ],
           [
             0.1,
-            -6
+            -3
           ],
           [
-            1,
-            -6
+            3.8,
+            -4
           ],
           [
-            3.5,
-            -6
+            4.1,
+            -1
           ],
           [
-            4.4,
-            -8
+            4.5,
+            -2
           ],
           [
             4.9,
-            -16
+            -18
           ],
           [
             5.04,
-            -30
+            -60
           ]
         ]
-      }
+      },
+      "gain": -8
     },
     {
-      "id": "line",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "bandpass",
-          "f": 445,
-          "q": 10
-        }
-      ],
+      "id": "thump",
+      "kind": "tone",
+      "f": 95,
+      "wave": "sine",
       "env": {
         "points": [
           [
             0,
-            -20
+            -6
           ],
           [
-            4,
+            3.8,
+            -6
+          ],
+          [
+            4.1,
+            -3
+          ],
+          [
+            4.9,
+            -18
+          ],
+          [
+            5.04,
+            -60
+          ]
+        ]
+      },
+      "gain": -18
+    },
+    {
+      "id": "body",
+      "kind": "modes",
+      "f": 180,
+      "ratios": [
+        1,
+        2.4,
+        4.1
+      ],
+      "gains": [
+        0,
+        -4,
+        -10
+      ],
+      "decay": 1.2,
+      "damping": 0.8,
+      "env": {
+        "points": [
+          [
+            0,
+            -6
+          ],
+          [
+            3.8,
+            -8
+          ],
+          [
+            4.1,
+            -4
+          ],
+          [
+            4.9,
             -20
           ],
           [
             5.04,
-            -34
+            -60
           ]
         ]
-      }
+      },
+      "gain": -10
     },
     {
-      "id": "c0",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 1500
-        }
+      "id": "ring",
+      "kind": "modes",
+      "f": 430,
+      "ratios": [
+        1,
+        2.6
       ],
+      "gains": [
+        0,
+        -8
+      ],
+      "decay": 0.8,
+      "damping": 1,
       "env": {
-        "attack": 0.001,
-        "hold": 0,
-        "decay": 0.02
+        "points": [
+          [
+            0,
+            -10
+          ],
+          [
+            3.8,
+            -10
+          ],
+          [
+            4.1,
+            -6
+          ],
+          [
+            4.9,
+            -22
+          ],
+          [
+            5.04,
+            -60
+          ]
+        ]
       },
-      "at": 0.02,
+      "gain": -8
+    },
+    {
+      "id": "clacks",
+      "kind": "particles",
+      "every": 0.4,
+      "jitter": 0.7,
+      "band": [
+        200,
+        1200
+      ],
+      "grain": 0.01,
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.02,
+            -10
+          ],
+          [
+            3.9,
+            -8
+          ],
+          [
+            4.1,
+            -6
+          ],
+          [
+            4.8,
+            -14
+          ],
+          [
+            5,
+            -60
+          ]
+        ]
+      },
+      "gain": -7
+    },
+    {
+      "id": "stop",
+      "kind": "particles",
+      "every": 0.02,
+      "jitter": 0.5,
+      "band": [
+        1000,
+        4000
+      ],
+      "grain": 0.004,
+      "env": {
+        "points": [
+          [
+            3.95,
+            -60
+          ],
+          [
+            4.12,
+            -8
+          ],
+          [
+            4.5,
+            -10
+          ],
+          [
+            4.8,
+            -30
+          ],
+          [
+            5,
+            -60
+          ]
+        ]
+      },
       "gain": -12
-    },
-    {
-      "id": "c1",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 1500
-        }
-      ],
-      "env": {
-        "attack": 0.001,
-        "hold": 0,
-        "decay": 0.02
-      },
-      "at": 0.8,
-      "gain": -12
-    },
-    {
-      "id": "c2",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 1500
-        }
-      ],
-      "env": {
-        "attack": 0.001,
-        "hold": 0,
-        "decay": 0.02
-      },
-      "at": 1.56,
-      "gain": -12
-    },
-    {
-      "id": "c3",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 1500
-        }
-      ],
-      "env": {
-        "attack": 0.001,
-        "hold": 0,
-        "decay": 0.02
-      },
-      "at": 2.52,
-      "gain": -12
-    },
-    {
-      "id": "c4",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 1500
-        }
-      ],
-      "env": {
-        "attack": 0.001,
-        "hold": 0,
-        "decay": 0.02
-      },
-      "at": 2.84,
-      "gain": -12
-    },
-    {
-      "id": "c5",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 1500
-        }
-      ],
-      "env": {
-        "attack": 0.001,
-        "hold": 0,
-        "decay": 0.02
-      },
-      "at": 3.4,
-      "gain": -12
-    },
-    {
-      "id": "c6",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 1500
-        }
-      ],
-      "env": {
-        "attack": 0.001,
-        "hold": 0,
-        "decay": 0.02
-      },
-      "at": 4.13,
-      "gain": -12
-    },
-    {
-      "id": "knock",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "bandpass",
-          "f": 450,
-          "q": 2
-        }
-      ],
-      "env": {
-        "attack": 0.005,
-        "hold": 0.1,
-        "decay": 0.35
-      },
-      "at": 4.13,
-      "gain": -4
     }
   ],
   "finish": {
     "saturate": 1.5,
+    "limit": {
+      "crest": 12,
+      "release": 0.002
+    },
     "peak": -0.5
   }
 }

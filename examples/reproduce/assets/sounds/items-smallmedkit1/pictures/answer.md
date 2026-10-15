@@ -1,25 +1,15 @@
-The sound is built and the build says OK. It's written to `work:sound/items/smallmedkit1.wav`, so the game will load it in place of `items/smallmedkit1.wav`. I haven't listened to it, and I couldn't play the original, so the comparison below is numbers read off the original's picture, not a side-by-side listen.
+The sound is built and the build says OK. It is written to `work:sound/items/smallmedkit1.wav`, which takes the place of the game's `items/smallmedkit1.wav` when placed in `<mod>/sound`.
 
-It matches the original's picture on these points:
+**What's in it**
+- **Format:** 22050 Hz, 8-bit mono, 0.76 s long, matching the original's format and length.
+- **Event:** three pulsed bursts, then a faint tail, then a broadband noise rise to the end. This is the structure the original's picture shows.
+- **Bursts:** a 620 Hz square tone gated into about 70 Hz pulses (7 ms on, 7 ms off), with the three bursts at 0–0.03 s, 0.05–0.15 s and 0.17–0.27 s.
+- **Tail and rush:** pink noise at low level from 0.27 s, then noise shaped to 3–11 kHz that rises from 0.52 s to the end.
+- **Finish:** saturation 1.5, a limiter with a 12 dB crest setting, and peak at -0.5 dBFS.
 
-| Check | Original (from picture) | Made | Result |
-| --- | --- | --- | --- |
-| Length | 0.76 s | 0.76 s | Exact |
-| Format | 22050 Hz, 8-bit | 22050 Hz, 8-bit mono | Exact |
-| Crest (peak over average level) | about 11.5 dB | 11.4 dB | Within 0.1 dB |
-| Decay to −20 dB (T20) | 0.41 to 0.68 s range | 0.52 s | In range |
-| Power by band | see below | max 5.5 points off | Close |
-| Centroid (brightness) | 1936 Hz | 1551 Hz | 20% dark |
-
-The power bands the report compares: 150 to 600 Hz is 18%, 600 Hz to 2 kHz is 60%, 2 to 5 kHz is 10%, and above 5 kHz is 12%.
-
-The sound is built from four layers that follow the picture's timing:
-- **Three bursts** (0 to 0.27 s): a 630 Hz triangle tone with a 200 Hz sine under it, cut into three pulses.
-- **A quiet middle** (0.26 to 0.52 s): pink noise through a 900 Hz band, with one tick at 0.40 s.
-- **A bright hiss** (from 0.52 s to the end): noise band-limited to 3 to 7 kHz, rising to the end.
-- **A limiter** at 11.5 dB crest.
-
-Choices and gaps to know about:
-- **Brightness:** the centroid is 20% dark. Opening the hiss's top end brought it to 8% off, but T20 then fell out of range and the 600 Hz to 2 kHz band went 11 points off. I kept the version where T20 and the bands are in range.
-- **No class:** the sound has no `class`, because none of the listed classes fits a health pickup. So the build had no game sounds of its kind to compare against, and no game reference was set.
-- **Spec not saved:** the spec exists only in this chat. Say if you want it saved as a file in the project.
+**Where it doesn't match, and what I know**
+- **I only compared against the picture.** The original's folder was not readable from here (permission denied), so I could not measure its samples. The numbers I compared are the ones read from `pictures/sound.png`: length matches exactly, the crest is 9.4 dB against about 11.5 read off the picture, and the centroid is 1646 Hz against about 1936 Hz.
+- **The check flags it against the game's click sounds:** too long, rings too long, too dark, too pure. Those ranges describe short clicks, and this original is a longer pickup sound, so I did not chase those flags.
+- **The faint tone through 0.27–0.52 s** is a flat line in mine, and the original has a few spikes there that I did not reproduce.
+- **I did not listen to it.** The tool cannot judge how it sounds, so the in-game check is still yours.
+- **The spec lives only in this conversation.** It is not saved in the project. I can write it to a JSON file in the work folder if you want it to be rebuildable.

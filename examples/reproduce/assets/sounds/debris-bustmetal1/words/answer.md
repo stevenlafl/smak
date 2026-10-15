@@ -1,29 +1,27 @@
-The sound is built and the build says OK: `work:sound/debris/bustmetal1.wav`. It goes in `<mod>/sound/debris/` to replace the game's file of that name.
+The sound is built and passes: `work:sound/debris/bustmetal1.wav`, which is the game's name for it, so it takes the original's place once it is put in `<mod>/sound`. I could not check it against the original. The game's folders were not given to the tool, so the reference was never found and the side-by-side is not there. Every figure below is measured from my file and set against the description you gave, not against the real `debris/bustmetal1.wav`.
 
-I could not compare it with the original itself. No game folder was given, so the reference was not found and the check ran against the game's other metal-hit sounds. I also can't hear it, so the numbers below are the only check I have. Listen to it in the game before you trust it.
+| Measure | Made sound | Description or class range |
+| --- | --- | --- |
+| Length | 0.87 s, 11025 Hz, 8-bit mono | 0.87 s, 11 kHz, 8-bit mono |
+| Onset | starts at full level, no fade | no fade-in |
+| Fall to -20 dB (T20) | 0.74 s | about half at 0.3 s, quiet by 0.6 s; class range up to 0.70 s |
+| Centroid (brightness) | 1827 Hz | strongest at 800 Hz to 4 kHz; class range 1074 to 1654 Hz |
+| Flatness (0 pure tone, 1 noise) | 0.32 | a noise and tone mix; class range 0.16 to 0.28 |
+| Power, 600 Hz to 2 kHz | 45% | class range 64 to 84% |
+| Power, 2 to 5 kHz | 42% | class range 4 to 25% |
 
-```
-Measured (11025 Hz, 8-bit mono, 0.87 s)
-Item                  Built            Your description
-Length                0.87 s           0.87 s
-Attack                0 ms (instant)   instant, full loudness
-T20 (fall to -20 dB)  0.37 s           half by 0.3 s, quiet by 0.6 s
-Band 150-600 Hz       10.8%            low weight at impact, fades fast
-Band 600-2k Hz        71.4%            800 Hz to 4 kHz strongest
-Band 2k-5k Hz         17.0%
-Flatness              0.164            noise and tone mixed
-Centroid              1267 Hz
-```
+How it is built, in four layers:
+- **Crash:** white noise shaped to a spectrum that peaks from 600 Hz to 2 kHz, with its envelope at full level for 0.15 s and half by 0.3 s.
+- **Bite:** a short band of noise at 1 kHz on the first 0.1 s, for the dense crash.
+- **Ring:** seven inharmonic partials from 450 Hz to 3.1 kHz, decays of 0.25 to 0.45 s, the highest ones the longest.
+- **Flutter and thump:** a faint particle rattle in the tail, and a short 160 Hz tone sweeping to 90 Hz for the low weight at impact.
 
-What it's made of:
-- **Crash:** shaped noise, loudest for 0.15 s, then falling by about -6 dB at 0.3 s and -20 dB at 0.6 s. The low end drops faster than the highs over the decay.
-- **Click:** a short high-passed noise tick for the first few milliseconds.
-- **Low ring:** two struck partials at 420 Hz and 685 Hz, decaying in about 0.6 s.
-- **Main ring:** five inharmonic metallic partials on a 760 Hz base, which ring for about 0.9 s and keep the bell-like clang.
-- **Tail flutter:** sparse 1.5 to 4 kHz rattles in the last 0.6 s.
+Where I went against the class numbers, and why:
+- **Brightness and the 2 to 5 kHz share** are above the class ranges. Your description puts the strongest energy at 800 Hz to 4 kHz, so I followed the description. If the original turns out darker, the crash's upper shelf is the place to cut.
+- **Flatness** sits at 0.32, a little above the class range. Pushing it lower made the crash's noise drop out, and the ring gain has little effect on it. I stopped there.
+- **Tail** is 0.74 s to T20, about 0.04 s over the class ceiling. The partials' decays set it, and shortening them further thinned the ring.
 
-The build's report flags only the length as "too long" against the other metal-hit sounds (their range tops out at 0.86 s). I kept 0.87 s because you specified it.
-
-Things to know:
-- Two earlier test files were written to `work:sound/debris/diag_low.wav` during tuning. I have no delete tool, so remove that file by hand. It is not part of the sound.
-- The 2k to 5k band is at 17%, which is under the 2k to 5k range the game's own sounds show. I kept it there because your description says the highs are strongest. If the game version sounds too dull, raise the crash's 2k to 5k level first.
+Things to check:
+- Two scratch files from my tests are in `work:sound/debris/`: `test_crash.wav` and `test_modes.wav`. The tools here cannot delete files, so please remove them. They are not part of the sound and would not be used unless copied into a mod's `sound` folder.
+- The spec is inline in this session, not saved to a file. If you want it reproducible, I can save it as a JSON file in the work folder.
+- Nothing has been heard. Judge it in the game with the original, for its loudness and how the ring sits in the mix.

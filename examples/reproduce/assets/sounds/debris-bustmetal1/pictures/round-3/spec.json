@@ -1,0 +1,160 @@
+{
+  "spec": "smak.sound/1",
+  "name": "debris/bustmetal1.wav",
+  "class": "metal hit",
+  "rate": 11025,
+  "bits": 8,
+  "length": 0.87,
+  "seed": 1,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 800
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.03
+      },
+      "gain": 0
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "iterations": 32,
+      "shape": {
+        "keys": [
+          {
+            "at": 0,
+            "curve": [
+              [
+                60,
+                -4
+              ],
+              [
+                300,
+                -1
+              ],
+              [
+                1000,
+                1
+              ],
+              [
+                3000,
+                -3
+              ],
+              [
+                6000,
+                -7
+              ],
+              [
+                11000,
+                -20
+              ]
+            ]
+          },
+          {
+            "at": 0.4,
+            "curve": [
+              [
+                60,
+                -8
+              ],
+              [
+                300,
+                -3
+              ],
+              [
+                1000,
+                -1
+              ],
+              [
+                3000,
+                -6
+              ],
+              [
+                6000,
+                -12
+              ],
+              [
+                11000,
+                -28
+              ]
+            ]
+          }
+        ]
+      },
+      "env": {
+        "points": [
+          [
+            0,
+            -3
+          ],
+          [
+            0.02,
+            0
+          ],
+          [
+            0.1,
+            -2
+          ],
+          [
+            0.3,
+            -7
+          ],
+          [
+            0.5,
+            -14
+          ],
+          [
+            0.7,
+            -24
+          ],
+          [
+            0.87,
+            -40
+          ]
+        ]
+      },
+      "gain": 0
+    },
+    {
+      "id": "grit",
+      "kind": "particles",
+      "rate": 90,
+      "band": [
+        400,
+        3000
+      ],
+      "grain": 0.004,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.5
+      },
+      "gain": -8
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 700,
+      "ratios": "plate",
+      "decay": 0.25,
+      "damping": 1,
+      "gain": -16
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "limit": {
+      "crest": 12,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

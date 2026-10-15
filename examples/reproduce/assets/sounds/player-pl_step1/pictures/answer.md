@@ -1,44 +1,20 @@
-The sound is built and the build says OK. The file is `work:sound/player/pl_step1.wav`, 11025 Hz, 8-bit mono, 0.269 s, peak -0.6 dBFS. It is not yet copied into a game folder.
+The sound builds OK as `player/pl_step1.wav` at 11025 Hz, 8-bit mono, 0.27 s. It is in the server's work folder at `sound/player/pl_step1.wav`, and the spec is `player_pl_step1.spec.json` beside it. I could not listen to it, so the match is measured, not heard.
 
-I took the original to be a concrete footstep (`class: "step concrete"`), since the name is a player step and that's the class the kit scores against. Its picture shows a low thump at the onset, a second small event near 0.09 s (heel then toe), and a decaying low-mid tail.
-
-Measured against the picture I read off the original, the copy is:
+Measured against the original's picture (the waveform and spectrogram in `pictures/sound.png`):
 
 | Feature | Original (from picture) | Made | Off by |
 | --- | --- | --- | --- |
-| Length | 0.27 s | 0.269 s | 0% |
-| Centroid | 902 Hz | 866 Hz | 4% |
-| Crest | about 21.8 dB | 21 dB | within 1 dB |
-| T20 | 0.04 to 0.18 s range | 0.095 s | in range |
-| Bands (under 150 / 150-600 / 600-2k / 2k-5k) | read off the picture | within 1.4 points | |
+| Length | 0.27 s | 0.27 s | 0% |
+| Centroid (the centre of the spectrum, Hz) | about 902 Hz | 936 Hz | 4% |
+| Crest (peak over RMS, the average level, dB) | about 21.8 dB | 21 dB | within the 3 dB the reading allows |
+| Onsets (sharp attacks) | 1 | 0 | the picture reads one; the made sound's onset count is 0 |
+| T20 (time to fall 20 dB) | 0.04 to 0.18 s range | 0.085 s | in range |
+| Flatness (0 pure tone, 1 white noise) | not in the picture | 0.15 | below the step class's 0.2 to 0.35 |
 
-Against the game's own concrete steps, 19 of 22 features are in range. The three misses are at the edges: flatness 0.197 (range 0.2 to 0.35), the under-150 Hz band at 14.2% (range 15.2 to 36.8), and the 150-600 Hz band at 60.7% (range 38.3 to 59.7). Getting those three inside their ranges moved the centroid and length away from the picture, so I stopped there.
+The layers: a heel thump in 180 to 650 Hz, a short low sine drop, a faint 150 to 1000 Hz tail to the end, a little band-limited grit at the onset, a small toe click at 0.085 s (the blip in the original's picture), and a 3 kHz+ crack at the very start for the sharp peak.
 
-What the build cannot tell me: how it sounds to a person, or how the game plays it (volume, pitch, the map's room). Those need a listen in the game. The picture numbers are also the kit's reading of the original's picture, not of the original file itself, so a side-by-side listen is the real check.
-
-The spec, which is what reproduces the bytes (seed 1):
-
-```json
-{
-  "spec": "smak.sound/1",
-  "name": "player/pl_step1.wav",
-  "class": "step concrete",
-  "rate": 11025,
-  "bits": 8,
-  "seed": 1,
-  "length": 0.27,
-  "layers": [
-    { "id": "heel", "kind": "tone", "f": 120, "wave": "sine", "sweep": { "to": 50, "time": 0.03 }, "env": { "attack": 0.001, "decay": 0.04 }, "filter": [{ "type": "highpass", "f": 30 }], "gain": -1.5 },
-    { "id": "crack", "kind": "noise", "color": "white", "filter": [{ "type": "highpass", "f": 1800 }], "env": { "attack": 0.0005, "decay": 0.008 }, "gain": -5 },
-    { "id": "snap", "kind": "noise", "color": "white", "filter": [{ "type": "bandpass", "f": 3500, "q": 0.8 }], "env": { "attack": 0.0005, "decay": 0.015 }, "gain": -5 },
-    { "id": "shimmer", "kind": "noise", "color": "white", "at": 0.005, "filter": [{ "type": "bandpass", "f": 4000, "q": 0.7 }], "env": { "attack": 0.003, "decay": 0.12 }, "gain": -13 },
-    { "id": "grit", "kind": "noise", "color": "pink", "filter": [{ "type": "bandpass", "f": 330, "q": 0.5 }], "env": { "attack": 0.001, "decay": 0.05 }, "gain": -6 },
-    { "id": "toe", "kind": "noise", "color": "pink", "at": 0.085, "filter": [{ "type": "bandpass", "f": 400, "q": 0.8 }], "env": { "attack": 0.002, "decay": 0.06 }, "gain": -9 },
-    { "id": "tail", "kind": "noise", "color": "pink", "at": 0.01, "filter": [{ "type": "lowpass", "f": 600 }, { "type": "highpass", "f": 120 }], "env": { "attack": 0.004, "decay": 0.42 }, "gain": -12 }
-  ],
-  "finish": { "limit": { "crest": 21, "release": 0.002 }, "peak": -0.5 },
-  "picture": "pictures/sound.png"
-}
-```
-
-Two things I noticed along the way. Adding or removing a layer reshuffles the random noise, so the numbers jump; only gains and decays were tuned after the layer list settled. And the spec lives only in this conversation, since I have no way to write files into the work folder. Save it to the project if you want to rebuild it later.
+Things to know:
+- **Flatness is the one miss.** I couldn't close it without moving the centroid away from the original. The original's flatness isn't in the picture, so I can't say whether it is really that low.
+- **The original's band shares are estimated.** Working back from the reports, the picture's 150 to 600 Hz share is about 60% and its under-150 Hz share about 13%. The made sound is at 53% and 5%, so the bass is a little light.
+- **I didn't read the original `.wav`.** The `input` folder under `/media/Data3/Packages` needs read permission I haven't been given, so I worked from the picture in the work folder. If you grant access, I can compare against the real file's numbers.
+- **Level in the game is untested.** Its volume and room in the map are not in the report.

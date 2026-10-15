@@ -1,0 +1,335 @@
+{
+  "spec": "smak.sound/1",
+  "name": "player/pl_metal1.wav",
+  "class": "step metal",
+  "rate": 11025,
+  "bits": 8,
+  "seed": 7,
+  "length": 0.58,
+  "layers": [
+    {
+      "id": "clicks",
+      "kind": "particles",
+      "every": 0.011,
+      "jitter": 0.6,
+      "band": [
+        600,
+        2500
+      ],
+      "grain": 0.002,
+      "length": 0.15,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 40
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.005,
+            -2
+          ],
+          [
+            0.1,
+            -8
+          ],
+          [
+            0.15,
+            -40
+          ]
+        ]
+      },
+      "gain": 7
+    },
+    {
+      "id": "sub",
+      "kind": "tone",
+      "f": 110,
+      "wave": "sine",
+      "env": {
+        "points": [
+          [
+            0,
+            -90
+          ],
+          [
+            0.001,
+            -3
+          ],
+          [
+            0.06,
+            -8
+          ],
+          [
+            0.2,
+            -30
+          ],
+          [
+            0.3,
+            -90
+          ]
+        ]
+      },
+      "gain": -2,
+      "length": 0.3
+    },
+    {
+      "id": "heel",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 400,
+          "q": 1
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.03
+      },
+      "gain": -3,
+      "length": 0.05
+    },
+    {
+      "id": "scrape",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 700,
+          "q": 0.8
+        },
+        {
+          "type": "lowpass",
+          "f": 2500
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -6
+          ],
+          [
+            0.05,
+            -10
+          ],
+          [
+            0.15,
+            -30
+          ]
+        ]
+      },
+      "gain": 0,
+      "length": 0.2
+    },
+    {
+      "id": "toe",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 400,
+          "q": 1
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -90
+          ],
+          [
+            0.168,
+            -90
+          ],
+          [
+            0.172,
+            0
+          ],
+          [
+            0.2,
+            -10
+          ],
+          [
+            0.23,
+            -90
+          ]
+        ]
+      },
+      "gain": 0,
+      "length": 0.25
+    },
+    {
+      "id": "toe_click",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1200
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -90
+          ],
+          [
+            0.168,
+            -90
+          ],
+          [
+            0.17,
+            -3
+          ],
+          [
+            0.178,
+            -30
+          ],
+          [
+            0.19,
+            -90
+          ]
+        ]
+      },
+      "gain": 4,
+      "length": 0.25
+    },
+    {
+      "id": "grit",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 1400
+        },
+        {
+          "type": "highpass",
+          "f": 120
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -14
+          ],
+          [
+            0.15,
+            -8
+          ],
+          [
+            0.35,
+            -14
+          ],
+          [
+            0.58,
+            -60
+          ]
+        ]
+      },
+      "gain": -6,
+      "length": 0.58
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "modes": [
+        {
+          "f": 180,
+          "gain": 0.25,
+          "decay": 1.6
+        },
+        {
+          "f": 260,
+          "gain": 0.2,
+          "decay": 1.3
+        },
+        {
+          "f": 380,
+          "gain": 0.15,
+          "decay": 1.1
+        },
+        {
+          "f": 560,
+          "gain": 0.12,
+          "decay": 0.8
+        },
+        {
+          "f": 760,
+          "gain": 0.08,
+          "decay": 0.5
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -90
+          ],
+          [
+            0.19,
+            -90
+          ],
+          [
+            0.2,
+            0
+          ],
+          [
+            0.58,
+            0
+          ]
+        ]
+      },
+      "length": 0.58
+    },
+    {
+      "id": "hiss",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 5000
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -30
+          ],
+          [
+            0.5,
+            -30
+          ],
+          [
+            0.58,
+            -60
+          ]
+        ]
+      },
+      "gain": -18,
+      "length": 0.58
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "limit": {
+      "crest": 16,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "spec": "smak.sound/1",
+  "name": "player/pl_metal1.wav",
+  "class": "step metal",
+  "rate": 11025,
+  "bits": 8,
+  "length": 0.58,
+  "seed": 1,
+  "layers": [
+    {
+      "id": "click",
+      "kind": "noise",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1200
+        },
+        {
+          "type": "lowpass",
+          "f": 2600
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.02
+      },
+      "gain": -6
+    },
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 110,
+      "wave": "sine",
+      "sweep": {
+        "to": 55,
+        "time": 0.1
+      },
+      "env": {
+        "attack": 0.001,
+        "decay": 0.3
+      },
+      "gain": -3
+    },
+    {
+      "id": "rumble",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 900
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.3
+      },
+      "gain": -9
+    },
+    {
+      "id": "grit",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 300
+        },
+        {
+          "type": "lowpass",
+          "f": 4000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.25
+      },
+      "gain": -12
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 300,
+      "ratios": "bar",
+      "decay": 2,
+      "damping": 0.6,
+      "gain": -15
+    },
+    {
+      "id": "clang",
+      "kind": "modes",
+      "f": 1000,
+      "ratios": "bar",
+      "decay": 0.25,
+      "damping": 1,
+      "gain": -18
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "limit": {
+      "crest": 16,
+      "release": 0.002
+    },
+    "peak": -0.5
+  },
+  "picture": "pictures/sound.png"
+}

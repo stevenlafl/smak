@@ -4,8 +4,8 @@
   "class": "metal hit",
   "rate": 11025,
   "bits": 8,
-  "length": 0.69,
   "seed": 3,
+  "length": 0.69,
   "picture": "pictures/sound.png",
   "layers": [
     {
@@ -15,122 +15,88 @@
       "filter": [
         {
           "type": "highpass",
-          "f": 1500
+          "f": 2500
+        },
+        {
+          "type": "lowpass",
+          "f": 7000
         }
       ],
       "env": {
         "attack": 0.001,
-        "decay": 0.03
+        "decay": 0.015
       },
-      "gain": -6
+      "gain": -1
     },
     {
       "id": "body",
       "kind": "noise",
-      "iterations": 32,
-      "shape": [
-        [
-          80,
-          -14
-        ],
-        [
-          200,
-          -6
-        ],
-        [
-          500,
-          -1
-        ],
-        [
-          900,
-          2
-        ],
-        [
-          1500,
-          2
-        ],
-        [
-          2500,
-          -6
-        ],
-        [
-          4000,
-          -18
-        ],
-        [
-          6000,
-          -30
-        ],
-        [
-          11000,
-          -44
-        ]
-      ],
-      "env": {
-        "points": [
-          [
-            0,
-            0
-          ],
-          [
-            0.02,
-            0
-          ],
-          [
-            0.2,
-            -3
-          ],
-          [
-            0.31,
-            -4
-          ],
-          [
-            0.45,
-            -14
-          ],
-          [
-            0.69,
-            -40
-          ]
-        ]
-      },
-      "gain": -2
-    },
-    {
-      "id": "bloom",
-      "kind": "noise",
       "color": "white",
-      "at": 0.28,
       "filter": [
         {
-          "type": "bandpass",
-          "f": 1100,
-          "q": 0.9
+          "type": "highpass",
+          "f": 500
+        },
+        {
+          "type": "lowpass",
+          "f": 3500
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.35
+      },
+      "gain": 0
+    },
+    {
+      "id": "low",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 500
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.3
+      },
+      "gain": -1.5
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 760,
+      "ratios": "bar",
+      "decay": 0.9,
+      "damping": 1,
+      "gain": -7
+    },
+    {
+      "id": "strike2",
+      "kind": "noise",
+      "at": 0.27,
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 800
+        },
+        {
+          "type": "lowpass",
+          "f": 5000
         }
       ],
       "env": {
         "attack": 0.005,
         "decay": 0.15
       },
-      "gain": -9
-    },
-    {
-      "id": "ring",
-      "kind": "modes",
-      "f": 1000,
-      "ratios": "bar",
-      "decay": 0.35,
-      "damping": 1.2,
-      "gain": -10,
-      "length": 0.69
+      "gain": -6
     }
   ],
   "finish": {
-    "saturate": 1.5,
-    "limit": {
-      "crest": 9,
-      "release": 0.002
-    },
+    "saturate": 6,
     "peak": -0.5
   }
 }

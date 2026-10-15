@@ -1,0 +1,96 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/sbarrel1.wav",
+  "class": "gunshot",
+  "seed": 1,
+  "length": 1.04,
+  "picture": "pictures/sound.png",
+  "reference": "weapons/sbarrel1.wav",
+  "layers": [
+    {
+      "id": "blast",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2800,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 280,
+          "q": 0.9,
+          "gain": 2.5
+        }
+      ],
+      "env": {
+        "attack": 0.002,
+        "decay": 0.6
+      },
+      "gain": -2
+    },
+    {
+      "id": "boom",
+      "kind": "tone",
+      "f": 140,
+      "wave": "sine",
+      "sweep": {
+        "to": 45,
+        "time": 0.3
+      },
+      "env": {
+        "attack": 0.001,
+        "decay": 0.35
+      },
+      "gain": -6
+    },
+    {
+      "id": "click",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.025,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 2500,
+          "q": 0.8
+        }
+      ],
+      "env": {
+        "attack": 0.0003,
+        "decay": 0.006
+      },
+      "gain": -3
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.01
+      },
+      "gain": -4,
+      "post": true
+    }
+  ],
+  "finish": {
+    "saturate": 2.5,
+    "room": {
+      "decay": 0.2,
+      "wet": 0.1
+    },
+    "limit": {
+      "crest": 9,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

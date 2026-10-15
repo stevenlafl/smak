@@ -1,20 +1,27 @@
-The sound is built and the build says OK: `work:sound/doors/doormove1.wav`, 11025 Hz, 8-bit mono, 5.04 s, played once. It goes into `<mod>/sound/doors/` to replace the game's file of that name.
+The sound is built and the build says OK: `work:sound/doors/doormove1.wav`, 11025 Hz, 8-bit mono, 5.04 s. Copy it to `<mod>/sound/doors/` so the game plays it in place of the original.
 
-I could not compare it with the original. No game folder was given, so the report drew no reference beside it, and I have not listened to it. The figures below are what the build measured.
+I could not check it against the original. No game folders were given to the build, so its reference comparison was empty, and I have not heard either file. The numbers below are from the build's own report.
 
-| Feature (from your description) | What the build made |
+**What it's made of**
+
+| Layer | What it does |
 | --- | --- |
-| Length 5.04 s, 11025 Hz, 8-bit | 5.04 s, 11025 Hz, 8-bit mono |
-| Fast fade-in to a steady level | Body fades in over 0.1 s; no initial hit (onsets: 1) |
-| Steady body 0.1 to 4.0 s, grainy | Broadband noise, held level |
-| Swell at 4.1 s, rattling about 0.5 s | Loudest section, with a 25 Hz particle flutter from 4.1 to 4.6 s |
-| Taper to silence by 4.9 s | Fades out 4.9 to 5.04 s |
-| Firm rumble under 150 Hz | Brown noise low-passed at 150 Hz, at a lower level than the body |
-| Energy densest 200 Hz to 1.5 kHz, dull top | Shaped noise, 600 to 2k Hz at 40% of power, above 5 kHz at 0% |
-| Squeals rising 300 to 600 Hz, about 1 s each, at 0.3, 1.5, 2.8, 3.9 s | Four rising sweeps at those times, band-passed around 450 Hz |
+| Generated grind (`doormove_s0.wav`, seed 0) | The main body: gritty friction and rumble, band-limited to 180 Hz to 3.5 kHz, with a mid lift around 400 Hz |
+| Pink noise | Keeps the 200 Hz to 1.5 kHz band dense and rolls off the top |
+| Rattle (particles, 200 Hz to 1.5 kHz) | The shudder at about 4.1 s, over 0.6 s |
+| 70 Hz sine | The low rumble under 150 Hz, rising at the end |
+| Four squeals (300 to 600 Hz sweeps) | At 0.3, 1.5, 2.8 and 3.9 s, each 1 s long, bell-shaped |
 
-The spectrogram shows the four squeal arcs at the right times. The fade-in and the swell are in the envelope. The build reports a crest of 11 dB and an RMS of -11.6 dBFS.
+The envelope fades in over about 0.1 s, holds a medium level, swells at 4.1 s, and tapers to silence by 4.9 s. The spectrogram shows the four squeal arcs at the right times.
 
-Two of the build's complaints are about the class I chose, not the sound. I used `loop machine` because the kit has no door class. Its length and centroid ranges come from looping machines, so "too long" and "too bright" do not apply to a one-shot door. The flatness complaint asks for more tone. I kept the noise-dominant texture you described, with the tonal squeals as the only tone.
+**Measured by the build**
 
-The spec is inline in my build calls and nothing was saved beside the work file. If you want to tune it, the next steps are to listen in the game and, if the game folder is available, rebuild with `reference: "doors/doormove1.wav"` so the report draws the original beside it.
+- Energy split: 17% under 150 Hz, 57% from 150 to 600 Hz, 21% from 600 Hz to 2 kHz, 5% from 2 to 5 kHz.
+- Centroid 590 Hz. The build's checker says it is too bright for its game-sound ranges, but those ranges are for other sounds, so I left it.
+- Peak -0.6 dBFS, crest 11.9 dB. No clipping, offset or end click.
+
+**Things to know**
+
+- **Licence:** the grind layer comes from a generated take by woosh-dflow. Its weights are CC-BY-NC 4.0 (Creative Commons, non-commercial), so the sound may not be sold as is. Tell me if that matters for this project and I'll rebuild without it.
+- **Not yet matched against the original:** I could not confirm the original's exact spectrum, length or envelope. If you give me the game's folder, or a copy of the original, I can run the build's side-by-side comparison and tune against it.
+- **Dependency:** the spec reads `work:gen/doormove_s0.wav`. Rebuilding on a fresh machine needs that take regenerated first (same prompt, seed 0).

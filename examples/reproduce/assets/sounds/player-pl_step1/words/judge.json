@@ -30,25 +30,25 @@
   },
   "reproduction": {
    "length": 0.27,
-   "peak": -0.6,
-   "rms": -16.6,
-   "crest": 16,
-   "dc": -0.001,
+   "peak": -1.1,
+   "rms": -18.1,
+   "crest": 17,
+   "dc": -0.0003,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.01,
+   "tail": 0.005,
    "attack": 0,
-   "peakAt": 0,
+   "peakAt": 0.015,
    "t20": 0.085,
-   "t40": 0.215,
-   "centroid": 699,
-   "rolloff": 1281,
-   "flatness": 0.215,
+   "t40": 0.254,
+   "centroid": 745,
+   "rolloff": 1593,
+   "flatness": 0.249,
    "bands": {
-    "<150": 20.7,
-    "150-600": 48.9,
-    "600-2k": 19.9,
-    "2k-5k": 9.9,
+    "<150": 21.8,
+    "150-600": 49.5,
+    "600-2k": 15.9,
+    "2k-5k": 12.4,
     ">5k": 0.5
    },
    "onsets": 0
@@ -63,8 +63,8 @@
    "inRange": true
   },
   "lengthOff": 0.015,
-  "centroidOff": 0.181,
-  "bandsOffMost": 11.4,
+  "centroidOff": 0.127,
+  "bandsOffMost": 7.4,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -75,13 +75,42 @@
  },
  "caps": {
   "S2": 2,
-  "S3": 1,
+  "S3": 2,
   "S5": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "S3"
- ],
- "total": 0,
- "of": 10
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture and features only, since I cannot listen. Both waveforms open with a sharp impact at the start and decay into a low tail, which fits a footstep on concrete. The envelope class is 'step concrete' and the reproduction's t20 (0.085 s) sits in that class's range. The reproduction's opening burst is a little longer and noisier, but it is the same kind of event."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 0.27 s against 0.266 s, about 1.5% off, well within 25%. Attack is 0 in both. t20 is 0.085 s against 0.09 s, inside the class range of 0.04 to 0.18 s. The envelope measures hold, and the picture agrees: both decay over about the same time."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 745 Hz against 853 Hz, 12.7% off, under the 20% limit. Band shares: <150 Hz 21.8 vs 26.8 (5.0 points), 150-600 Hz 49.5 vs 48.3 (1.2), 600-2k Hz 15.9 vs 8.5 (7.4), 2k-5k Hz 12.4 vs 15.1 (2.7), >5k Hz 0.5 vs 1.4 (0.9). The largest gap is 7.4 points, under the 10-point limit. The measures hold, and the spectrogram's colour pattern is broadly similar."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen, so judged from the pictures and features. Both have zero onsets and similar flatness (0.27 vs 0.249). Visibly, the reproduction's opening is a longer, noisier broadband burst, and its upper bands are cooler and more even through the tail. The original's upper bands stay warmer late and show a single small blip near 0.13 s, while the reproduction has several small spikes later on. The character is clearly off in these respects, though it is not a must-have item."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Format is mono 8-bit at 11025 Hz, which the engine plays. Peak is -1.1 dBFS with no clipping. DC is -0.0003, negligible. Lead is 0 and tail 0.005 s. The name matches (sameName true). It is a one-shot footstep, so no loop cue is needed."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
 }

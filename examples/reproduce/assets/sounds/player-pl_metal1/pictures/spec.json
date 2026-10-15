@@ -6,94 +6,105 @@
   "bits": 8,
   "length": 0.58,
   "seed": 1,
+  "picture": "pictures/sound.png",
   "layers": [
     {
-      "id": "click",
-      "kind": "noise",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 1200
-        },
-        {
-          "type": "lowpass",
-          "f": 2600
-        }
-      ],
-      "env": {
-        "attack": 0.001,
-        "decay": 0.02
-      },
-      "gain": -6
-    },
-    {
-      "id": "thump",
-      "kind": "tone",
-      "f": 110,
-      "wave": "sine",
-      "sweep": {
-        "to": 55,
-        "time": 0.1
-      },
-      "env": {
-        "attack": 0.001,
-        "decay": 0.3
-      },
-      "gain": -3
-    },
-    {
-      "id": "rumble",
+      "id": "strike",
       "kind": "noise",
       "color": "pink",
       "filter": [
         {
+          "type": "highpass",
+          "f": 250
+        },
+        {
           "type": "lowpass",
-          "f": 900
+          "f": 5000
         }
       ],
       "env": {
         "attack": 0.001,
-        "decay": 0.3
+        "decay": 0.12
       },
-      "gain": -9
+      "gain": -2
     },
     {
-      "id": "grit",
+      "id": "click",
       "kind": "noise",
       "color": "white",
       "filter": [
         {
           "type": "highpass",
-          "f": 300
-        },
-        {
-          "type": "lowpass",
-          "f": 4000
+          "f": 1500
         }
       ],
       "env": {
-        "attack": 0.001,
-        "decay": 0.25
+        "attack": 0.0005,
+        "decay": 0.015
       },
-      "gain": -12
+      "gain": -6
+    },
+    {
+      "id": "mid",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1200,
+          "q": 0.7
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.2
+      },
+      "gain": -10
+    },
+    {
+      "id": "body",
+      "kind": "tone",
+      "f": 95,
+      "wave": "sine",
+      "env": {
+        "attack": 0.001,
+        "decay": 0.12
+      },
+      "gain": -28
     },
     {
       "id": "ring",
       "kind": "modes",
-      "f": 300,
-      "ratios": "bar",
-      "decay": 2,
-      "damping": 0.6,
-      "gain": -15
+      "f": 120,
+      "ratios": "plate",
+      "decay": 1.2,
+      "damping": 0.8,
+      "gain": -20
     },
     {
-      "id": "clang",
+      "id": "ring2",
       "kind": "modes",
-      "f": 1000,
-      "ratios": "bar",
-      "decay": 0.25,
+      "f": 260,
+      "ratios": "plate",
+      "decay": 0.5,
       "damping": 1,
-      "gain": -18
+      "gain": -12
+    },
+    {
+      "id": "tail",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 3000
+        }
+      ],
+      "env": {
+        "attack": 0.02,
+        "decay": 1
+      },
+      "gain": -8
     }
   ],
   "finish": {
@@ -103,6 +114,5 @@
       "release": 0.002
     },
     "peak": -0.5
-  },
-  "picture": "pictures/sound.png"
+  }
 }

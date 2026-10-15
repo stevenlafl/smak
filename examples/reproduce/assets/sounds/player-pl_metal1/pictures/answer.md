@@ -1,23 +1,24 @@
-The sound is built and the build says OK. It is written to `work:sound/player/pl_metal1.wav` (11025 Hz, 8-bit, mono, 0.58 s), and every check passed.
+The sound builds OK and passes all checks. It is written to the server's work folder as `sound/player/pl_metal1.wav`, so it can go in a mod's `sound` folder and replace the game's file of that name.
 
-Against the picture of the original, the measured numbers are:
+**What it is:** a metal step, class `step metal`, at 11025 Hz, 8-bit, mono, 0.58 s, the same as the original. The spec is a sharp broadband strike, a short click, a mid-band burst, a low body thump, two ringing modes at 120 Hz and 260 Hz, and a low-passed noise tail, with a saturation and limiter in the finish.
 
-| Feature | Original (from picture) | Built |
-| --- | --- | --- |
-| Length | 0.58 s | 0.58 s |
-| Centroid (brightness) | about 361 Hz | 343 Hz |
-| T20 (time to fall 20 dB) | 0.32 to 0.53 s range | 0.334 s |
-| Under 150 Hz power | about 35% | 42% |
-| 150 to 600 Hz power | about 46% | 45% |
-| Crest (peak over RMS) | about 16 dB | 16 dB |
+**Measured against the game's own step metal sounds:** 22 of 22 features are in range.
 
-Against the game's own `step metal` sounds, all 22 features are in range.
+**Measured against the original's picture:**
 
-What the build is made of: a short high-passed click, a sine thump that drops from 110 to 55 Hz, a pink-noise rumble, a white-noise grit bed for flatness, and two struck-metal ring layers (300 Hz and 1000 Hz). The mix is saturated and limited to a 16 dB crest.
+| Feature | Original | Made | Note |
+| --- | --- | --- | --- |
+| Length | 0.58 s | 0.58 s | Matches |
+| T20 (time to fall 20 dB) | 0.315 to 0.525 s | 0.344 s | In range |
+| T40 (time to fall 40 dB) | not read | 0.574 s | |
+| Centroid (brightness) | 361 Hz | 435 Hz | 21% high, inside the class range of 260 to 460 Hz |
+| Crest (peak over RMS) | about 16.3 dB | 16 dB | Matches |
+| Onsets | 0 | 0 | Matches |
 
-Things to know:
+The energy bands are in the class ranges: under 150 Hz at 36%, 150 to 600 Hz at 47%, 600 Hz to 2 kHz at 13%, 2 to 5 kHz at 4%.
 
-- **I could not read the original file itself.** The Packages folder asked for permission, and the work folder holds only the picture and a facts file. So the match is to the picture's numbers, not the waveform sample by sample.
-- **The reference is the game's first `step metal` file, not the original.** The build named no specific reference, so the comparison is against the class as a whole.
-- **I can't judge how it sounds.** Listen in the game: the volume and pitch as the code plays it, and how the map's room changes it, are outside what the build can measure.
-- **The spec is not saved to a file.** The final spec is the last build call above; if you want it kept, I can write it into the project.
+**What I could not check:** how it sounds to a person. The tool measures and draws the sound but does not listen, and it cannot say how the game plays it (volume, pitch, the map's room). A side-by-side listen in the game is the real test. The most likely gap is the centroid, which still sits about 20% brighter than the original's picture reading.
+
+**Other things to know:**
+- The spec was passed inline to the build and is not saved as a file in my working folder. If you want it kept, I can save it into the project.
+- I did not compare against the game's own `player/pl_metal1.wav`, because no game folder was given to this session. The reference field needs one.

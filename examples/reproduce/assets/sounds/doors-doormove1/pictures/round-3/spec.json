@@ -1,0 +1,264 @@
+{
+  "spec": "smak.sound/1",
+  "name": "doors/doormove1.wav",
+  "class": "loop machine",
+  "seed": 1,
+  "length": 5.04,
+  "rate": 11025,
+  "bits": 8,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "motor",
+      "kind": "noise",
+      "color": "white",
+      "shape": [
+        [
+          40,
+          -3
+        ],
+        [
+          100,
+          -4
+        ],
+        [
+          150,
+          -6
+        ],
+        [
+          300,
+          -11
+        ],
+        [
+          600,
+          -12
+        ],
+        [
+          1000,
+          -15
+        ],
+        [
+          2000,
+          -21
+        ],
+        [
+          3500,
+          -30
+        ],
+        [
+          5500,
+          -38
+        ]
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -8
+          ],
+          [
+            0.1,
+            -6
+          ],
+          [
+            1,
+            -6
+          ],
+          [
+            3.5,
+            -6
+          ],
+          [
+            4.4,
+            -8
+          ],
+          [
+            4.9,
+            -16
+          ],
+          [
+            5.04,
+            -30
+          ]
+        ]
+      }
+    },
+    {
+      "id": "line",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 445,
+          "q": 10
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -20
+          ],
+          [
+            4,
+            -20
+          ],
+          [
+            5.04,
+            -34
+          ]
+        ]
+      }
+    },
+    {
+      "id": "c0",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "hold": 0,
+        "decay": 0.02
+      },
+      "at": 0.02,
+      "gain": -12
+    },
+    {
+      "id": "c1",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "hold": 0,
+        "decay": 0.02
+      },
+      "at": 0.8,
+      "gain": -12
+    },
+    {
+      "id": "c2",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "hold": 0,
+        "decay": 0.02
+      },
+      "at": 1.56,
+      "gain": -12
+    },
+    {
+      "id": "c3",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "hold": 0,
+        "decay": 0.02
+      },
+      "at": 2.52,
+      "gain": -12
+    },
+    {
+      "id": "c4",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "hold": 0,
+        "decay": 0.02
+      },
+      "at": 2.84,
+      "gain": -12
+    },
+    {
+      "id": "c5",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "hold": 0,
+        "decay": 0.02
+      },
+      "at": 3.4,
+      "gain": -12
+    },
+    {
+      "id": "c6",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "hold": 0,
+        "decay": 0.02
+      },
+      "at": 4.13,
+      "gain": -12
+    },
+    {
+      "id": "knock",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 450,
+          "q": 2
+        }
+      ],
+      "env": {
+        "attack": 0.005,
+        "hold": 0.1,
+        "decay": 0.35
+      },
+      "at": 4.13,
+      "gain": -4
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "peak": -0.5
+  }
+}

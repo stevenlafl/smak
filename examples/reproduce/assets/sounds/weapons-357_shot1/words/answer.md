@@ -1,16 +1,14 @@
-The sound is built and the build says OK: `work:sound/weapons/357_shot1.wav`, 22050 Hz, 8-bit mono, 1.06 s, peak -0.6 dBFS. Against the game's gunshot sounds it passes 22 of 22 features. I could not listen to it, so the judgement of how it sounds is still yours.
+The sound is built and the build says OK. It is at `work:sound/weapons/357_shot1.wav`, 22050 Hz, 8-bit mono, 1.059 s long, and it plays once.
 
-The spec is in the work folder's sound spec, and the layers are:
+The spec is in `work:sound` as a `smak.sound/1` spec with three layers and a finish:
 
-- **Click:** 3 ms of high-passed white noise at 2 kHz, placed after the limiter so it keeps its sharpness.
-- **Gap:** about 14 ms of near silence.
-- **Blast:** broadband noise, driven hard so the first 0.43 s is a dense, clipped wall. It then decays from -12 dB at 0.7 s to -48 dB at 1.0 s. Its spectrum has the most energy at the low end and falls off in the highs, and the shape darkens over time.
-- **Boom:** a sine at 80 Hz sweeping down to 40 Hz, for the low punch.
-- **Finish:** a limiter with a crest of 7 dB. I left out the room reverb, because it pushed the file past 1.06 s.
+- **Click:** a 3 ms high-passed white-noise snap at 0 s.
+- **Blast:** brown-to-white noise starting at 7 ms, shaped so the low end (about 50 to 300 Hz) is strongest and the highs fall off faster as it decays. It is driven hard and held near full scale to about 0.45 s, then falls to -60 dB by the end.
+- **Rumble:** brown noise below 350 Hz, starting at 50 ms, for the low tail.
+- **Finish:** saturation of 4 and a limiter at a crest of 7 dB, which gives the clipped, gritty wall. I left out the room reverb because it pushed the length to 1.19 s. The map's own room sound will add its echo in the game.
 
-The final numbers are: T20 0.71 s (time to fall 20 dB), centroid 1022 Hz, flatness 0.19, onset count 1, and band power at 39% for 150 to 600 Hz and 20% below 150 Hz.
+What the report measures: attack 10 ms, T20 (time to fall 20 dB) 0.95 s, T40 (time to fall 40 dB) 1.01 s, centroid 1129 Hz, and most of the power between 150 and 600 Hz. Against the game's gunshot sounds, 21 of 22 features are in range.
 
-Two points where it differs from the description:
+The one feature out of range is flatness: 0.23, where the game's gunshots sit at 0 to 0.2 and the report says "more tone". I left it. Your description says the original has no tone at all, so I kept the sound entirely noisy rather than adding a tonal ring to hit that range. If you'd rather match the game's own gunshots on that measure, a low `modes` ring would do it.
 
-- **Attack:** the measured attack time (to -20 dB) is 65 ms. The click and gap are there, but the blast takes a while to reach -20 dB on the report's measure. I did not chase this further.
-- **Tail:** the tail is a single decay, with no separate echo or room rumble. The room reverb is the part I dropped to hit the length.
+I did not compare it against the original file, which I don't have here. Judge the side-by-side in the game, since the report can't say how it sounds or how loud it plays.

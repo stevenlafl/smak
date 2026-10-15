@@ -4,121 +4,7 @@
   "class": "gunshot",
   "seed": 1,
   "length": 1.06,
-  "picture": "pictures/sound.png",
   "layers": [
-    {
-      "id": "thump",
-      "kind": "tone",
-      "f": 120,
-      "wave": "sine",
-      "sweep": {
-        "to": 45,
-        "time": 0.15
-      },
-      "env": {
-        "attack": 0.001,
-        "decay": 0.25
-      },
-      "gain": 4
-    },
-    {
-      "id": "blast",
-      "kind": "noise",
-      "color": "pink",
-      "filter": [
-        {
-          "type": "bandpass",
-          "f": 700,
-          "q": 0.8
-        },
-        {
-          "type": "lowpass",
-          "f": 7000,
-          "q": 0.7
-        }
-      ],
-      "env": {
-        "points": [
-          [
-            0,
-            -3
-          ],
-          [
-            0.01,
-            0
-          ],
-          [
-            0.3,
-            -4
-          ],
-          [
-            0.46,
-            -10
-          ],
-          [
-            0.6,
-            -18
-          ],
-          [
-            0.8,
-            -26
-          ],
-          [
-            1.06,
-            -40
-          ]
-        ]
-      },
-      "gain": 10.5
-    },
-    {
-      "id": "bright",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 1500
-        },
-        {
-          "type": "lowpass",
-          "f": 4000
-        }
-      ],
-      "env": {
-        "points": [
-          [
-            0,
-            -3
-          ],
-          [
-            0.01,
-            0
-          ],
-          [
-            0.3,
-            -4
-          ],
-          [
-            0.46,
-            -10
-          ],
-          [
-            0.6,
-            -18
-          ],
-          [
-            0.8,
-            -26
-          ],
-          [
-            1.06,
-            -40
-          ]
-        ]
-      },
-      "gain": -10
-    },
     {
       "id": "crack",
       "kind": "noise",
@@ -126,19 +12,99 @@
       "filter": [
         {
           "type": "highpass",
-          "f": 2000
+          "f": 1500
         }
       ],
       "env": {
-        "attack": 0.0005,
-        "decay": 0.012
+        "attack": 0.001,
+        "decay": 0.02
       },
-      "gain": -4,
-      "post": true
+      "gain": -4
+    },
+    {
+      "id": "blast",
+      "kind": "noise",
+      "shape": [
+        [
+          60,
+          -2
+        ],
+        [
+          200,
+          0
+        ],
+        [
+          600,
+          0
+        ],
+        [
+          1000,
+          0
+        ],
+        [
+          2000,
+          -3
+        ],
+        [
+          4000,
+          -26
+        ],
+        [
+          11000,
+          -40
+        ]
+      ],
+      "env": {
+        "attack": 0.002,
+        "hold": 0.03,
+        "decay": 0.4
+      },
+      "gain": 0
+    },
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 110,
+      "wave": "sine",
+      "sweep": {
+        "to": 40,
+        "time": 0.25
+      },
+      "env": {
+        "attack": 0.001,
+        "decay": 0.25
+      },
+      "gain": -6
+    },
+    {
+      "id": "tail",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 3000
+        }
+      ],
+      "env": {
+        "attack": 0.02,
+        "decay": 0.55
+      },
+      "gain": -10
     }
   ],
   "finish": {
-    "saturate": 6,
+    "saturate": 3,
+    "room": {
+      "decay": 0.2,
+      "wet": 0.08
+    },
+    "limit": {
+      "crest": 10,
+      "release": 0.002
+    },
     "peak": -0.5
-  }
+  },
+  "reference": "weapons/357_shot1.wav",
+  "picture": "pictures/sound.png"
 }

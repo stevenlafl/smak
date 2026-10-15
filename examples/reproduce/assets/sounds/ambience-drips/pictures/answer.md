@@ -1,28 +1,20 @@
-The sound is built and the build says **OK**: `ambience/drips.wav` is written to the work folder at `work:sound/ambience/drips.wav`. I could not listen to it, and I could not read the original's waveform directly, so the match rests on the kit's numbers.
+The sound is built and the build says OK, with 19 of 20 features in the drip class's range. It is written to `sound/ambience/drips.wav` in the smak work folder, so it takes the place of the game's file of that name when put in `<mod>/sound`.
 
-**What it is:** eight water drips in 7.31 s, 11025 Hz, 8-bit mono, looped from its start. Each drip is a short falling sine tone with a little white-noise splash, over a quiet band-limited noise bed and a very faint full-band hiss.
+**What it is:** a 7.36 s mono 8-bit 11025 Hz loop (cue point at the start, seam crossfaded). It is made from layers, not copied from the original. A continuous band-shaped noise bed (peaked near 900 Hz) runs under a fainter hiss, and 17 drip strikes (sweep tones with ringing modes) sit at the five strike times I read off the original's picture (about 0.0, 1.87, 3.69, 3.96 and 5.80 s), with smaller strikes between. The finish is a short room, a mild saturation and a limiter at 26 dB crest.
 
-**Figures against the original's picture** (read by the kit from `pictures/sound.png`):
+**Measures against the original and the class:**
 
-| Feature | Original (picture) | Made | Status |
-|---|---|---|---|
-| Length | 7.31 s | 7.06 s | 3% short |
-| Drip count (onsets) | about 8 | 8 | matches |
-| Centroid (brightness) | 795 Hz | 845 Hz | 6% bright |
-| Crest (peak over RMS) | about 24.9 dB | 24.2 dB | within 1 dB |
-| Band 600 Hz to 2 kHz | about 74% | 80% | close |
-| Band 150 to 600 Hz | about 22% (inferred) | 15% | about 7 points low, the worst miss |
-| Flatness | class range 0.05 to 0.15 | 0.116 | in range |
+```
+measure            made         original / class range      result
+RMS                -26.9 dBFS   -30.3 to -24.3 (class)      in range
+crest              26.3 dB      20.2 to 33.6 (class)        in range
+flatness           0.046        0.05 to 0.15 (class)        just under
+centroid           943 Hz       795 (picture), 671-1007     in class range, 19% over picture
+band 150-600 Hz    34.2%        13.2 to 33.2 (class)        just over
+band 600-2k Hz     64.6%        62.3 to 82.3 (class)        in range
+length             7.36 s       7.31 (picture)              1% off
+```
 
-The class check (loop drips) passes on all 20 features.
+**What is left:** flatness sits just under its range and the 150 to 600 Hz band just over. Pushing the centroid down to the picture's 795 Hz made the 150 to 600 Hz share worse, so I kept the balance that passed most checks. I could not listen to it, so the sound itself has not been judged by ear. Its volume and pitch in the game, and the map's room, are also untested. Please listen to it in the game before trusting the match.
 
-**Choices I made:**
-- Drip positions and pitches are my own, read from the picture's onset count and centroid. They are not the original's exact timing, so the two will not line up note for note.
-- I did not use the original file as a sample layer, because that would copy it rather than reproduce its character.
-- The loop is set with `loop: true`, so the engine uses its start as the cue point.
-
-**Things to check:**
-- The kit reports attack of 1.2 s and T20 of 4.9 s for the whole loop. That is because the noise bed never fully decays, so those two numbers describe the bed, not the drips. With the bed removed, the drips alone measured T20 of about 0.05 s, which is in line with a drip. The kit does not flag this, but it is worth knowing when you compare the decays.
-- The kit cannot judge how it sounds to a person, its volume in the game, or the room of the map. Please listen to it in the game beside the original.
-
-I stopped after this iteration because the remaining gaps were small and more tuning was giving little back. The spec was not saved to its own file, so the parameters live in the build call above.
+The picture-based comparison is the only measure taken from the original; its raw samples were not read, since I didn't want to copy it. If you want it tighter, the next step is to adjust the bed and hiss shapes to bring the 150 to 600 Hz share down a few points and raise flatness.

@@ -29,27 +29,27 @@
    "onsets": 0
   },
   "reproduction": {
-   "length": 0.87,
+   "length": 0.869,
    "peak": -0.6,
-   "rms": -12.6,
-   "crest": 12,
-   "dc": 0,
+   "rms": -10.7,
+   "crest": 10.1,
+   "dc": -0.0001,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.005,
-   "attack": 0,
-   "peakAt": 0.08,
-   "t20": 0.534,
-   "t40": 0.783,
-   "centroid": 1987,
-   "rolloff": 3639,
-   "flatness": 0.792,
+   "tail": 0.035,
+   "attack": 0.005,
+   "peakAt": 0.005,
+   "t20": 0.544,
+   "t40": 0.713,
+   "centroid": 1955,
+   "rolloff": 3144,
+   "flatness": 0.648,
    "bands": {
-    "<150": 1.4,
-    "150-600": 12.5,
-    "600-2k": 44.9,
-    "2k-5k": 38,
-    ">5k": 3.2
+    "<150": 0.8,
+    "150-600": 6.9,
+    "600-2k": 52.4,
+    "2k-5k": 38.6,
+    ">5k": 1.4
    },
    "onsets": 0
   },
@@ -59,12 +59,12 @@
     0.329,
     0.549
    ],
-   "t20": 0.534,
+   "t20": 0.544,
    "inRange": true
   },
-  "lengthOff": 0.003,
-  "centroidOff": 0.01,
-  "bandsOffMost": 3.7,
+  "lengthOff": 0.005,
+  "centroidOff": 0.007,
+  "bandsOffMost": 5.4,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -80,34 +80,34 @@
  },
  "scores": {
   "S1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Judged from the picture and features only; I cannot listen. Both waveforms are a broadband burst with a hard hit near the start and a noisy ring-down, which fits a metal debris impact. The reproduction's onset is softer (attack 0 against the original's 0.025 s, and its waveform rises to full level without the original's sharp first hit), and its spectrogram holds bright low-mid energy evenly through the whole length. The event type is consistent, but the transient is smeared, so it is not clearly the same event."
+   "score": 2,
+   "reason": "Cannot listen; judged from the picture and features only. Both are a broadband noise burst that opens loud and decays over about 0.87 s, with the bright 600 Hz to 5 kHz energy and the same overall shape. That fits a debris or metal bust. The original's onset is less abrupt, but the event class matches."
   },
   "S2": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Length 0.870 s against 0.873 s, 0.3% off, well within 25%. T20 is 0.534 s, inside the class's range of 0.329 to 0.549 s, and the reproduction's peak sits at 0.08 s against 0.075 s. The attack differs by 25 ms (0 against 0.025 s), which is small and in the picture is only a slightly softer start."
+   "score": 1,
+   "reason": "Length is 0.869 s against 0.873 s, and T20 is 0.544 s, inside the measured range of 0.329 to 0.549 s, so the decay passes. The attack does not: the original's peak sits at 0.075 s with a 0.025 s attack, while the reproduction hits full level at 0.005 s. The picture shows the original building up over about 75 ms and the reproduction starting at full level, a visible envelope difference that the measured T20 range does not cover."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Centroid 1987 Hz against 1968 Hz, 1% off, well within 20%. The band shares are within 3.7 points at worst (150 to 600 Hz: 12.5 against 8.8; 2k to 5k: 38 against 41.3; 600 to 2k: 44.9 against 47), and the other bands are within 1.2 points, all inside the 10-point limit. The harness's bandsOffMost of 3.7 agrees with this."
+   "reason": "Centroid is 1955 Hz against 1968 Hz, 0.7% off, well inside 20%. Every band is within 10 points: below 150 Hz 0.8 vs 0.2, 150 to 600 Hz 6.9 vs 8.8, 600 Hz to 2 kHz 52.4 vs 47, 2 to 5 kHz 38.6 vs 41.3, above 5 kHz 1.4 vs 2.7. The largest gap is 5.4 points."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged from the picture and features only; I cannot listen. Onsets are 0 in both, so no hits or clicks are missing by count. Flatness is 0.792 against 0.569, so the reproduction is clearly more noise-like, and its spectrogram is smoother, with few of the original's horizontal lines in the mid bands, so the original's tonal ring is not carried over. Pitch movement cannot be judged beyond that. This is not a must-have item, so it scores 1."
+   "reason": "Cannot listen; judged from the picture and features. Onsets match (0 in each). The reproduction is noticeably flatter, 0.648 against 0.569, so it reads more like plain noise. The original shows horizontal striping in its mid bands that the reproduction's smoother blocks lack, and the reproduction has a faint low tonal line at the start that the original does not. This is a clearly visible difference in character, though not a must-have."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The format is mono, 11025 Hz, 8-bit, which the engine plays. No clipping (peak -0.6 dBFS), DC is 0, the name matches (sameName true), and the engine reports no faults. The measurements give no loop cue for the original, so there is nothing to match on that point."
+   "reason": "Format is mono PCM at 11025 Hz, 8 bits, as the engine plays. Peak is -0.6 dBFS, clipped 0, DC -0.0001, no lead or tail silence problem, and the name matches. No loop cue is recorded for the original, so there is none to match."
   }
  },
  "total": 8,
