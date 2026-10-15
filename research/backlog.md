@@ -93,8 +93,8 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | --- | --- | --- |
 | Generators as an optional Python pre-step outside the kit | DONE | `/media/Data3/Packages/local-3d/` (scripts, venvs, weights); the kit stays dependency-free |
 | Hunyuan3D-2mini shape for rounded, organic forms | DONE | `local-3d/scripts/hunyuan_mini_shape.py`, used again in `photo-to-model-experiments.md` |
-| A spec part from a generated `.obj` (placed, scaled and painted by the spec) | OPEN | The model spec has no `obj` part kind; `prefab` takes `.json` only. Today an `.obj` becomes a whole model through `smak obj` |
-| Gate every import on `soundness`, `seeThrough`, the points limit and a sheet | PARTLY | `local-3d/scripts/qa.mjs` does it by hand; nothing in the kit gates an import |
+| A spec part from a generated `.obj` (placed, scaled and painted by the spec) | DONE | Part kind `mesh` (`src/spec/model.mjs`: reduced, fitted, laid out and projected as `carved`); the MCP tool `generate` makes the `.obj` with Hunyuan3D-2mini (`kind: "shape"`, from a picture or from words through SD-Turbo); `test/57-generate.mjs` |
+| Gate every import on `soundness`, `seeThrough`, the points limit and a sheet | PARTLY | A `mesh` part goes through the model spec's checks; `smak obj` still does not run `soundness` |
 | Try TripoSG (MIT) | OPEN | Carried into the benchmark plan of `photo-to-model-experiments.md` |
 | Research reduction to a budget | DONE | `3d-fidelity-methods.md` section 1 and the measured comparison in `photo-to-model-experiments.md` |
 | Multi-view pictures (Hunyuan3D-2mv) or prompts that show the whole object | OPEN | |
@@ -369,7 +369,7 @@ map-reproduction-failures, LS local-sound-generators, LM local-music-generators,
 20. Footsteps with `materials.txt`, the per-weapon role table of code-named sounds, mod profiles naming sounds (SG).
 21. Loop start other than 0, loop RMS and whole-cycle checks, seam picture, LUFS (SG).
 22. Sound layer kinds `sequence` and `sound` (SG).
-23. A spec part from an `.obj`, gated on the soundness checks: the bridge to the generators (L3).
+23. (Done: the `mesh` part and `generate`'s shapes.) Next for shapes: TripoSG and Hunyuan3D-2.1 in the worker, a three-quarter picture's camera for `project` (L3, FM 5).
 24. Map checks: link-to-opening match, graph connectivity before layout, lock-and-key `locked_by`, mission check (GR, IR).
 25. Model checks: genus, slivers, self-intersection, centre of mass over the base, long axis of a held piece, silhouettes, texture zones (GR).
 26. Model spec: `plate` kind, box `bevel`, torus, kit presets, a new body into an existing model (GR).

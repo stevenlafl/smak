@@ -6,10 +6,12 @@ It loads one model once, then reads requests from stdin, one JSON object a line:
 
   { "id": 1, "prompt": "...", "length": 2.5, "seed": 3, "out": "/abs/gen/hit_s3.wav",
     "bpm": 120, "key": "D minor", "loop": false }
+  { "id": 2, "prompt": "...", "picture": "/abs/refs/chair.png", "seed": 0, "out": "/abs/gen/chair_s0.obj" }  (a shape)
 
 and for each writes the take (the model's own rate and channels, 32-bit float) and answers on stdout, one line:
 
   { "id": 1, "ok": true, "file": "...", "rate": 48000, "channels": 1, "seconds": 2.5, "took": 1.9 }
+  { "id": 2, "ok": true, "file": "...obj", "faces": 20000, "box": [[x, y, z], [x, y, z]], "picture": "...png", "took": 31 }
   { "id": 1, "ok": false, "error": "..." }
 
 Its first line is { "ready": true, "model": ..., "load": seconds } once the model is in memory. Everything else
@@ -125,7 +127,55 @@ def load_acestep(root, model):
     return gen
 
 
-LOADERS = {"woosh-dflow": load_woosh, "woosh-flow": load_woosh, "acestep": load_acestep, "acestep-xl": load_acestep}
+def load_hunyuan(root, model):
+    import torch
+    import trimesh, fast_simplification
+    from PIL import Image
+    from rembg import remove, new_session
+    from hy3dgen.shapegen import Hunyuan3DDiTFlowMatchingPipeline, FloaterRemover, DegenerateFaceRemover
+    os.environ.setdefault("U2NET_HOME", str(root / "weights/u2net"))
+    pipe = Hunyuan3DDiTFlowMatchingPipeline.from_pretrained("tencent/Hunyuan3D-2mini", subfolder="hunyuan3d-dit-v2-mini",
+                                                            use_safetensors=True, variant="fp16", device="cuda")
+    # BiRefNet (MIT) by name: rembg's default is BRIA RMBG-2.0, free for non-commercial use only
+    session = new_session("birefnet-general")
+    words = {}
+
+    def picture_of(prompt, seed):
+        # a prompt with no picture: SD-Turbo draws the thing alone, whole, on white (local-3d's sd_turbo_images.py)
+        if "pipe" not in words:
+            from diffusers import AutoPipelineForText2Image
+            words["pipe"] = AutoPipelineForText2Image.from_pretrained("stabilityai/sd-turbo", torch_dtype=torch.float16, variant="fp16").to("cuda")
+        style = ", single object, whole object in view, centered, three-quarter view, plain white background, studio lighting, 3d render"
+        return words["pipe"](prompt + style, num_inference_steps=4, guidance_scale=0.0, width=512, height=512,
+                             generator=torch.manual_seed(seed)).images[0]
+
+    def gen(r):
+        out = Path(r["out"])
+        out.parent.mkdir(parents=True, exist_ok=True)
+        if r.get("picture"):
+            image = Image.open(r["picture"]).convert("RGB")
+        else:
+            image = picture_of(r["prompt"], r["seed"])
+            image.save(out.with_suffix(".png"))
+        cut = remove(image, session=session, bgcolor=[255, 255, 255, 0])
+        cut.save(out.with_name(out.stem + "_cut.png"))
+        mesh = pipe(image=cut, num_inference_steps=r.get("steps") or 30, octree_resolution=256, num_chunks=20000,
+                    generator=torch.manual_seed(r["seed"]), output_type="trimesh")[0]
+        mesh = DegenerateFaceRemover()(FloaterRemover()(mesh))
+        # hundreds of thousands of triangles: brought to 20,000 here, the spec reduces it to its budget
+        most = r.get("faces") or 20000
+        if len(mesh.faces) > most:
+            v, f = fast_simplification.simplify(mesh.vertices.astype("float32"), mesh.faces.astype("int32"), target_reduction=1 - most / len(mesh.faces))
+            mesh = trimesh.Trimesh(v, f, process=True)
+        mesh.fix_normals()
+        mesh.export(out)
+        return {"faces": int(len(mesh.faces)), "picture": None if r.get("picture") else str(out.with_suffix(".png")),
+                "box": [[float(v) for v in mesh.bounds[0]], [float(v) for v in mesh.bounds[1]]]}
+    return gen
+
+
+LOADERS = {"woosh-dflow": load_woosh, "woosh-flow": load_woosh, "acestep": load_acestep, "acestep-xl": load_acestep,
+           "hunyuan3d-mini": load_hunyuan}
 
 
 def main():
@@ -136,7 +186,6 @@ def main():
     root = Path(a.root).resolve()
     os.environ.setdefault("HF_HOME", str(root / "weights/hf"))
     os.environ.setdefault("MIOPEN_FIND_MODE", "FAST")
-    import soundfile as sf
     import torch
     t0 = time.time()
     try:
@@ -151,9 +200,14 @@ def main():
         r = json.loads(line)
         try:
             t = time.time()
-            x, rate = gen(r)
+            made = gen(r)
             torch.cuda.synchronize()
             out = Path(r["out"])
+            if isinstance(made, dict):  # a shape: written by its loader
+                say({"id": r["id"], "ok": True, "file": str(out), **made, "took": round(time.time() - t, 2)})
+                continue
+            import soundfile as sf
+            x, rate = made
             out.parent.mkdir(parents=True, exist_ok=True)
             sf.write(out, x, rate, subtype="FLOAT")
             say({"id": r["id"], "ok": True, "file": str(out), "rate": rate, "channels": 1 if x.ndim == 1 else x.shape[1],

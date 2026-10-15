@@ -927,7 +927,7 @@ function build(folders, args) {
   }
   if (spec?.spec !== "smak.model/1")
     throw new Error('spec: a model spec ("spec": "smak.model/1"), a map spec ("smak.map/1"), a sound spec ("smak.sound/1"), a textures spec ("smak.wad/1"), a sprite spec ("smak.sprite/1") or a video spec ("smak.video/1"); guide { doc: "spec" } says how to write one');
-  const { mdl, report, files = [] } = buildModelSpec(spec, { folder, games: folders.wads ?? [], readPicture: (name) => smak.unpicture(readFileSync(pathOf(folders, name))), hide: folders.hide ?? [], refuse: folders.refuse ?? [] });
+  const { mdl, report, files = [] } = buildModelSpec(spec, { folder, games: folders.wads ?? [], readPicture: (name) => smak.unpicture(readFileSync(pathOf(folders, name))), readFile: (name) => readFileSync(pathOf(folders, name)), hide: folders.hide ?? [], refuse: folders.refuse ?? [] });
   const lines = reportLines(report);
   if (mdl) {
     const name = spec.name ?? "model.mdl";
@@ -1239,12 +1239,13 @@ export function toolsFor(folders, { allowRun = true } = {}) {
     const names = folders.generators.models.map((m) => `${m.name} (${m.kind}${m.default ? ", the default" : ""}${m.licence ? `, ${m.licence}` : ""})`).join("; ");
     tools.push({
       name: "generate",
-      description: `A sound or music made by a model run on this machine, several seeds at once: each take written to work:gen/<name>_s<seed>.wav with a sidecar .json (model, prompt, seed, licence), measured and drawn one under another. Then use the take you choose in a sound spec as a layer { kind: "sample", file, from: "onset" } and shape it there. Models: ${names}. The first call to a model loads it (a minute or three); later calls take seconds.`,
+      description: `A sound, music or a shape (a mesh, from a picture or from words) made by a model run on this machine, several seeds at once: each take written to work:gen/<name>_s<seed> (.wav, or .obj with its picture) with a sidecar .json (model, prompt, seed, licence), measured and drawn. Then use the take you choose in a sound spec as a layer { kind: "sample", file, from: "onset" }, or the shape in a model spec as a part { kind: "mesh", file, size }, and shape it there. Models: ${names}. The first call to a model loads it (a minute or three); later calls take seconds.`,
       inputSchema: object(
         {
           prompt: { type: "string", description: "what it is, in plain words: the thing, the action, the material, the space (\"a heavy wrench hitting a steel pipe, one sharp metallic clang, short ring\")" },
-          length: { type: "number", description: "seconds (a sound model makes 5 at most; music 10 to 600)" },
-          kind: { type: "string", enum: ["sound", "music"], description: "which kind's default model (sound unless told)" },
+          length: { type: "number", description: "seconds (a sound model makes 5 at most; music 10 to 600); not for a shape" },
+          kind: { type: "string", enum: ["sound", "music", "shape"], description: "which kind's default model (sound unless told)" },
+          picture: { type: "string", description: "a shape: a picture of the thing in the folders (one object, whole, plain background), in place of one drawn from the prompt" },
           model: { type: "string", description: "a model by name, in place of the kind's default" },
           seeds: { description: "how many takes (4), or a list of seeds: other seeds of a prompt are other takes" },
           from: { type: "number", description: "with seeds as a count: the first seed (0); a second call with from 4 gives four more" },
@@ -1254,7 +1255,7 @@ export function toolsFor(folders, { allowRun = true } = {}) {
           key: { type: "string", description: "music: \"D minor\"" },
           loop: { type: "boolean", description: "music: made to loop (its join regenerated, in whole bars with a bpm)" },
         },
-        ["prompt", "length"],
+        [],
       ),
       call: (args) => generate(folders, args),
     });

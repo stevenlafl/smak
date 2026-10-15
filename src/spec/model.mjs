@@ -12,6 +12,8 @@
 import { boneIn, otherSideOf } from "../biped.mjs";
 import { fitPose, fitMotion } from "./posefit.mjs";
 import { carve, masksFromPicture, sheetViews } from "./carve.mjs";
+import { readObj, objMeshes } from "../obj.mjs";
+import { reduce } from "../qem.mjs";
 import { sub, cross } from "../vec.mjs";
 import { readFileSync, existsSync } from "node:fs";
 import { resolve, dirname, join } from "node:path";
@@ -63,6 +65,7 @@ const KINDS = {
   sphere: ["radius", "sides"],
   superquadric: ["size", "round", "sides"],
   carved: ["size", "sheet", "pictures", "cells", "triangles"],
+  mesh: ["size", "file", "triangles", "up", "turn"],
   turn: ["rings", "caps", "sides", "lining", "axis"],
   tube: ["path", "sides", "caps"],
   leaf: ["width", "height", "rows", "bend"],
@@ -107,6 +110,42 @@ const PROP_TRIANGLES = [
   { under: 128, median: 105, q3: 238 },
   { under: Infinity, median: 288, q3: 288 },
 ];
+/**
+ * A mesh part's triangles: its .obj read and stood up (`up`, `turn`), its loose crumbs dropped, reduced to
+ * `triangles` (unless told, three quarters of Half-Life's props of its size have under that), then stretched to
+ * `size`, centred on x and y and standing on z 0, as a carved part is. What was done is told in the report.
+ */
+function meshPart(part, readText, report, warnings) {
+  let obj;
+  try {
+    obj = readObj(readText(part.file).toString("utf8"));
+  } catch (error) {
+    throw new Error(`${part.id}: ${part.file}: ${error.message}`);
+  }
+  const { meshes } = objMeshes(obj, { up: part.up ?? "y", turn: part.turn ?? 0 });
+  const all = meshes.flatMap((m) => m.tris).map((t) => t.map((c) => ({ p: c.p })));
+  if (!all.length) throw new Error(`${part.id}: ${part.file} has no triangles`);
+  const band = PROP_TRIANGLES.find((b) => Math.hypot(...part.size) < b.under);
+  const target = part.triangles ?? band.q3;
+  const reduced = all.length > target ? reduce(all, { target }).tris : all;
+  const lo = [0, 1, 2].map((k) => Math.min(...reduced.flatMap((t) => t.map((c) => c.p[k]))));
+  const hi = [0, 1, 2].map((k) => Math.max(...reduced.flatMap((t) => t.map((c) => c.p[k]))));
+  const own = hi.map((v, k) => v - lo[k] || 1e-6);
+  const k = part.size.map((v, i) => v / own[i]);
+  let fitted = reduced.map((t) => t.map((c) => ({ p: [(c.p[0] - (lo[0] + hi[0]) / 2) * k[0], (c.p[1] - (lo[1] + hi[1]) / 2) * k[1], (c.p[2] - lo[2]) * k[2]] })));
+  // faces that look inwards on the whole (a file wound the other way): its signed volume under 0, turned round
+  const volume = fitted.reduce((v, [a, b, c]) => v + (a.p[0] * (b.p[1] * c.p[2] - b.p[2] * c.p[1]) - a.p[1] * (b.p[0] * c.p[2] - b.p[2] * c.p[0]) + a.p[2] * (b.p[0] * c.p[1] - b.p[1] * c.p[0])) / 6, 0);
+  if (volume < 0) {
+    fitted = fitted.map(([a, b, c]) => [a, c, b]);
+    report.notes.push(`${part.id}: ${part.file}'s faces looked inwards on the whole: turned round`);
+  }
+  report.facts.push(`${part.id}: the shape of ${part.file}, ${all.length} triangles reduced to ${fitted.length}, fitted to ${part.size.join(" x ")} (its own proportions ${own.map((v) => Math.round((v / Math.max(...own)) * 100) / 100).join(" : ")})`);
+  const stretch = Math.max(...k) / Math.min(...k);
+  if (stretch > 1.15)
+    warnings.push(`${part.id}: fitted to ${part.size.join(" x ")} it is stretched ${Math.round((stretch - 1) * 100)}% more one way than another: give size its own proportions (${own.map((v) => Math.round((v / Math.max(...own)) * Math.max(...part.size))).join(" x ")} at that height), unless the generator got them wrong`);
+  return fitted;
+}
+
 /** How far the size may be off what the spec asks before it is warned of, and before it is an error. */
 const SIZE_WARN = 0.1;
 const SIZE_ERROR = 0.25;
@@ -325,6 +364,14 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
         if (part.triangles !== undefined && !(Number.isInteger(part.triangles) && part.triangles >= 12)) errors.push(`${label}.triangles: how many it is reduced to, 12 or more`);
         if (part.cells !== undefined && !(Number.isInteger(part.cells) && part.cells >= 16 && part.cells <= 256)) errors.push(`${label}.cells: cells on its longest side, 16 to 256 (64)`);
         break;
+      case "mesh":
+        if (!isPoint(part.size) || part.size.some((v) => v <= 0))
+          errors.push(`${label}.size: [x, y, z], the thing's length, width and height in units: the shape is fitted to it`);
+        if (typeof part.file !== "string" || !/\.obj$/i.test(part.file)) errors.push(`${label}.file: an .obj of the work folder (a shape the tool generate made: "work:gen/chair_s0.obj")`);
+        if (part.triangles !== undefined && !(Number.isInteger(part.triangles) && part.triangles >= 12)) errors.push(`${label}.triangles: how many it is reduced to, 12 or more`);
+        if (part.up !== undefined && part.up !== "y" && part.up !== "z") errors.push(`${label}.up: "y" (an .obj's own way, and generate's) or "z"`);
+        if (part.turn !== undefined && !isNumber(part.turn)) errors.push(`${label}.turn: degrees about the upright, when its front is not towards +x`);
+        break;
       case "superquadric":
         if (!isPoint(part.size) || part.size.some((v) => v <= 0))
           errors.push(`${label}.size: [x, y, z], three numbers over 0 (its length, width and height)`);
@@ -535,6 +582,7 @@ function zoneSizeOf(part, hostOf) {
       const [x, y, z] = part.size;
       return [Math.max(1, z), Math.max(1, 2 * (x + y))];
     }
+    case "mesh":
     case "carved": {
       // six patches, one for each way a face can look, three across and two down
       const [x, y, z] = part.size;
@@ -650,6 +698,7 @@ function buildPart(part, M, S, zone, px, material, hostSurface, capZones = []) {
       });
       return { ends: [anchorOfBox(boxOf([corner(0), corner(7)]), "bottom"), anchorOfBox(boxOf([corner(0), corner(7)]), "top")] };
     }
+    case "mesh":
     case "carved": {
       // the carved hull's triangles, each laid flat on the patch of the zone for the way it most faces: seen
       // from that side, as a picture of that side would paint it (project paints it from the pictures)
@@ -1083,7 +1132,7 @@ function buildPosed(spec, options = {}) {
   return second;
 }
 
-function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, hide = [], refuse = [] } = {}) {
+function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFile, hide = [], refuse = [] } = {}) {
   const { errors, warnings } = validateModelSpec(spec, { prefabs });
   const report = { ok: false, errors, faults: [], warnings, notes: [], facts: [], parts: {} };
   if (errors.length) return { mdl: null, report };
@@ -1189,6 +1238,16 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, hide =
       return { mdl: null, report };
     }
   }
+  // mesh parts: a shape made elsewhere (generate's .obj), stood up, reduced to its triangles and fitted to its size
+  if (spec.parts.some((part) => part.kind === "mesh")) {
+    const readText = readFile ?? ((name) => readFileSync(resolve(folder ?? ".", name.replace(/^(work|models):/, ""))));
+    try {
+      spec = { ...spec, parts: spec.parts.map((part) => (part.kind === "mesh" ? { ...part, carvedTris: meshPart(part, readText, report, warnings) } : part)) };
+    } catch (error) {
+      errors.push(`mesh: ${error.message}`);
+      return { mdl: null, report };
+    }
+  }
   let pieces;
   try {
     pieces = piecesOf(spec, { folder, prefabs, skeleton });
@@ -1263,7 +1322,7 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, hide =
 
   // the shape's soundness, part by part, before it is written
   // a carved hull may come apart where its outlines do (a creature's claws): its pieces are what was seen
-  const allow = spec.parts.filter((part) => part.open || part.loose || part.kind === "carved").map((part) => part.id);
+  const allow = spec.parts.filter((part) => part.open || part.loose || part.kind === "carved" || part.kind === "mesh").map((part) => part.id);
   allow.push(...(spec.allow?.open ?? []), ...(spec.allow?.floating ?? []));
   const sound = shapeSoundness(
     meshes.flatMap((mesh) => mesh.tris.map((t, i) => ({ p: t.map((c) => c.p), name: mesh.partOf[i] }))),

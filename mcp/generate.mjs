@@ -4,12 +4,13 @@
 // server is given a generators folder (`--generators <dir>` or SMAK_GENERATORS): the folder
 // generators/install.sh fills, with a `generators.json` that names its models.
 //
-//   openGenerators(folder)                 -> { folder, models: [{ name, kind, python, licence, default }] }
+//   openGenerators(folder)                 -> { folder, models: [{ name, kind, python, root, licence, default }] }
 //   generate(folders, args)                -> the tool's answer: text and one picture of the takes
 //   stopWorkers()                          -> the loaded model's process stopped
 //
 // generators.json: { "models": [{ "name": "woosh-dflow", "kind": "sound", "python": "venvs/audio-rocm/bin/python",
-//   "licence": "CC-BY-NC 4.0", "default": true, "longest": 5 }, ...] }. Paths are from the folder. The worker
+//   "licence": "CC-BY-NC 4.0", "default": true, "longest": 5 }, ...] }. Paths are from the folder, or from a
+//   model's own `root` (another folder: the 3D models live apart from the audio ones). The worker
 // (generators/worker.py) keeps one model in memory; asking for another stops it first, since the card holds one.
 import { spawn } from "node:child_process";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
@@ -19,12 +20,14 @@ import { readWav, resample } from "../src/audio/wav.mjs";
 import { features } from "../src/audio/measure.mjs";
 import { CLASSES, scoreAgainst } from "../src/audio/classes.mjs";
 import { soundPicture } from "../src/audio/draw.mjs";
-import { png } from "../src/image.mjs";
+import { png, unpicture } from "../src/image.mjs";
+import { readObj, objModel } from "../src/obj.mjs";
+import { render, tile } from "../src/render.mjs";
 import { text, image } from "./protocol.mjs";
 import { pathOf } from "./folders.mjs";
 
 const WORKER = join(dirname(fileURLToPath(import.meta.url)), "..", "generators", "worker.py");
-const KINDS = ["sound", "music"];
+const KINDS = ["sound", "music", "shape"];
 /** How long a model may take to load (XL: about 3 minutes here), and a take to be made. */
 const LOAD_MS = 15 * 60 * 1000;
 const TAKE_MS = 10 * 60 * 1000;
@@ -39,8 +42,9 @@ export function openGenerators(folder) {
   const { models } = JSON.parse(readFileSync(file, "utf8"));
   if (!Array.isArray(models) || !models.length) throw new Error(`${file}: "models": [{ name, kind, python, licence }]`);
   for (const m of models) {
-    if (typeof m.name !== "string" || !KINDS.includes(m.kind) || typeof m.python !== "string") throw new Error(`${file}: each model { name, kind: sound | music, python }, not ${JSON.stringify(m)}`);
-    if (!existsSync(resolve(folder, m.python))) throw new Error(`${file}: ${m.name}'s python ${m.python} is not there (generators/install.sh)`);
+    if (typeof m.name !== "string" || !KINDS.includes(m.kind) || typeof m.python !== "string") throw new Error(`${file}: each model { name, kind: sound | music | shape, python }, not ${JSON.stringify(m)}`);
+    m.root = resolve(folder, m.root ?? ".");
+    if (!existsSync(resolve(m.root, m.python))) throw new Error(`${file}: ${m.name}'s python ${m.python} is not there in ${m.root} (generators/install.sh)`);
   }
   return { folder: resolve(folder), models };
 }
@@ -61,8 +65,8 @@ process.once("exit", stopWorkers);
 function workerFor(generators, model) {
   if (live?.name === model.name && !live.dead) return live.ready;
   stopWorkers();
-  const child = spawn(resolve(generators.folder, model.python), ["-I", WORKER, "--model", model.name, "--root", generators.folder], {
-    cwd: generators.folder,
+  const child = spawn(resolve(model.root, model.python), ["-I", WORKER, "--model", model.name, "--root", model.root], {
+    cwd: model.root,
     stdio: ["pipe", "pipe", "pipe"],
     env: { ...process.env, ...(model.env ?? {}) },
   });
@@ -100,6 +104,10 @@ function workerFor(generators, model) {
     for (const answer of worker.waiting.values()) answer({ ok: false, error: why });
     if (live === worker) live = null;
   });
+  // an idle worker does not keep the process alive (a test that fails, a script that is done): only a take asked for does
+  const hold = (on) => [child, child.stdin, child.stdout, child.stderr].forEach((x) => (on ? x.ref?.() : x.unref?.()));
+  worker.hold = hold;
+  worker.ready.then(() => worker.waiting.size || hold(false), () => {});
   live = worker;
   return worker.ready;
 }
@@ -107,6 +115,7 @@ function workerFor(generators, model) {
 /** One take asked of the worker: its answer line. */
 function ask(worker, request) {
   const id = worker.next++;
+  worker.hold(true);
   return new Promise((resolveTake) => {
     const timer = setTimeout(() => {
       worker.waiting.delete(id);
@@ -116,6 +125,7 @@ function ask(worker, request) {
     worker.waiting.set(id, (said) => {
       clearTimeout(timer);
       worker.waiting.delete(id);
+      if (!worker.waiting.size) worker.hold(false);
       resolveTake(said);
     });
     worker.child.stdin.write(`${JSON.stringify({ ...request, id })}\n`);
@@ -151,13 +161,13 @@ function modelOf(generators, { model, kind = "sound" }) {
 export async function generate(folders, args) {
   const generators = folders.generators;
   if (!generators) throw new Error("no generators: start the server with --generators <folder>");
+  if (args.kind !== undefined && !KINDS.includes(args.kind)) throw new Error(`kind: ${KINDS.join(", ")}`);
+  const model = modelOf(generators, args);
+  if (model.kind === "shape") return generateShapes(folders, generators, model, args);
   const { prompt, length } = args;
   if (typeof prompt !== "string" || !prompt.trim()) throw new Error("prompt: what to make, in words (\"a wrench hitting a steel pipe, one sharp clang\")");
   if (!(typeof length === "number" && length > 0 && length <= 600)) throw new Error("length: seconds, over 0 and at most 600");
-  if (args.kind !== undefined && !KINDS.includes(args.kind)) throw new Error(`kind: ${KINDS.join(" or ")}`);
-  const model = modelOf(generators, args);
-  const seeds = Array.isArray(args.seeds) ? args.seeds : Array.from({ length: args.seeds ?? 4 }, (_, i) => i + (args.from ?? 0));
-  if (!seeds.length || seeds.length > MOST_SEEDS || seeds.some((s) => !Number.isInteger(s) || s < 0)) throw new Error(`seeds: how many (1 to ${MOST_SEEDS}), or a list of whole numbers`);
+  const seeds = seedsOf(args);
   if (args.class !== undefined && !CLASSES[args.class]) throw new Error(`class: one of ${Object.keys(CLASSES).join(", ")}`);
   const name = (args.name ?? prompt.split(/\s+/).slice(0, 3).join("_")).toLowerCase().replace(/^work:/, "").replace(/\.wav$/, "").replace(/[^a-z0-9_/-]+/g, "_");
   const stem = name.includes("/") ? name : `gen/${name}`;
@@ -204,4 +214,87 @@ export async function generate(folders, args) {
     answer.push(image(png(picture.width, picture.height, picture.rgba)));
   }
   return answer;
+}
+
+/** The seeds asked for: a count from `from`, or a list. */
+function seedsOf(args, unless = 4) {
+  const seeds = Array.isArray(args.seeds) ? args.seeds : Array.from({ length: args.seeds ?? unless }, (_, i) => i + (args.from ?? 0));
+  if (!seeds.length || seeds.length > MOST_SEEDS || seeds.some((s) => !Number.isInteger(s) || s < 0)) throw new Error(`seeds: how many (1 to ${MOST_SEEDS}), or a list of whole numbers`);
+  return seeds;
+}
+
+/**
+ * Shapes: a picture of the thing (the person's, of the folders, or drawn from the prompt), its subject cut out,
+ * made into a mesh, a take a seed: work:gen/<name>_s<seed>.obj (Y up, its front towards +z as an .obj's is), with
+ * the picture it was made from and a sidecar. Drawn from the three-quarter side, each beside its picture.
+ */
+async function generateShapes(folders, generators, model, args) {
+  const { prompt, picture } = args;
+  if (!(typeof prompt === "string" && prompt.trim()) && typeof picture !== "string") throw new Error("prompt: the thing in words (\"a wooden kitchen chair\"), or picture: a picture of it in the folders");
+  const seeds = seedsOf(args, picture ? 1 : 2);
+  const given = picture ? pathOf(folders, picture) : null;
+  const words = prompt?.trim() || picture;
+  const name = (args.name ?? words.replace(/\.[a-z]+$/i, "").split(/[\s/]+/).slice(-3).join("_")).toLowerCase().replace(/^work:/, "").replace(/\.obj$/, "").replace(/[^a-z0-9_/-]+/g, "_");
+  const stem = name.includes("/") ? name : `gen/${name}`;
+  const started = Date.now();
+  const { worker, load } = await workerFor(generators, model);
+  const loaded = worker.told ? null : load;
+  worker.told = true;
+  const takes = [];
+  for (const seed of seeds) {
+    const out = pathOf(folders, `${stem}_s${seed}.obj`, { write: true });
+    const said = await ask(worker, { prompt: prompt ?? "", picture: given, seed, out, steps: args.steps });
+    if (!said.ok) {
+      takes.push({ seed, error: said.error });
+      continue;
+    }
+    const from = given ? relative(folders.work, given) : said.picture ? relative(folders.work, said.picture) : null;
+    writeFileSync(out.replace(/\.obj$/, ".json"), `${JSON.stringify({ model: model.name, kind: "shape", prompt, picture: from, seed, faces: said.faces, licence: model.licence ?? "not given", took: said.took, made: new Date().toISOString() }, null, 1)}\n`);
+    // drawn as it would stand: Y up, at a player's scale for the picture only
+    const { mdl } = objModel(readObj(readFileSync(out, "utf8")), { up: "y", ground: true, centre: true, scale: 24, quiet: true });
+    const view = render(mdl, { yaw: 30, pitch: 15, width: 320, height: 320 });
+    const front = render(mdl, { view: "front", width: 320, height: 320 });
+    takes.push({ seed, file: relative(folders.work, out), from, said, view, front });
+  }
+  idleLater(worker);
+  const made = takes.filter((t) => t.view);
+  const size = (b) => b[1].map((v, k) => round(v - b[0][k], 100));
+  const lines = [
+    `${made.length} of ${seeds.length} shapes of ${given ? `the picture ${picture}` : `"${prompt}"`} by ${model.name} (licence ${model.licence ?? "not given"})${loaded !== null ? `; the model loaded in ${loaded} s` : ""}; ${round((Date.now() - started) / 1000, 10)} s in all`,
+    ...takes.map((t) =>
+      t.error
+        ? `seed ${t.seed}: failed: ${t.error}`
+        : `work:${t.file}: ${t.said.faces} triangles, ${size(t.said.box).join(" x ")} in the file's units (x, y up, z), from ${t.from ? `work:${t.from}` : "the picture"}, made in ${t.said.took} s`,
+    ),
+    `Each .obj has a sidecar .json and the picture it was made from (its subject cut out beside it as _cut.png). Pick the one whose shape is right and put it in a model spec as a part { "kind": "mesh", "file": "work:<the .obj>", "size": [x, y, z], "triangles": n } (guide { doc: "spec" }), painted by its material, or by project from its cut-out ("picture": "work:<name>_s<seed>_cut.png", the side the picture shows as its view; the raw picture's background hides its outline). The shape is the generator's guess where the picture does not show it (the back, below): look at every side.`,
+  ];
+  const answer = [text(lines.join("\n"))];
+  if (made.length) {
+    const pictures = made.flatMap((t) => {
+      const shown = t.from ? unpicture(readFileSync(join(folders.work, t.from))) : null;
+      const square = shown ? fitted(shown, 320) : null;
+      return [square, t.front, t.view].filter(Boolean);
+    });
+    const names = made.flatMap((t) => [t.from ? `seed ${t.seed}: picture` : null, `seed ${t.seed}: front`, `seed ${t.seed}: three quarter`].filter(Boolean));
+    const sheet = tile(pictures, made[0].from ? 3 : 2, names);
+    answer.push(image(png(sheet.width, sheet.height, sheet.rgba)));
+  }
+  return answer;
+}
+
+/** A picture brought to `side` x `side`, whole, on grey: for a sheet of equal cells. */
+function fitted(picture, side) {
+  const k = Math.min(side / picture.width, side / picture.height);
+  const rgba = Buffer.alloc(side * side * 4);
+  for (let i = 0; i < side * side; i++) rgba.set([58, 62, 70, 255], i * 4);
+  const w = Math.round(picture.width * k);
+  const h = Math.round(picture.height * k);
+  const x0 = Math.floor((side - w) / 2);
+  const y0 = Math.floor((side - h) / 2);
+  for (let y = 0; y < h; y++)
+    for (let x = 0; x < w; x++) {
+      const s = (Math.min(picture.height - 1, Math.floor(y / k)) * picture.width + Math.min(picture.width - 1, Math.floor(x / k))) * 4;
+      rgba.set([picture.rgba[s], picture.rgba[s + 1], picture.rgba[s + 2], 255], ((y0 + y) * side + x0 + x) * 4);
+    }
+  return { width: side, height: side, rgba };
 }
