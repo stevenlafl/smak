@@ -470,7 +470,8 @@ the game's own of that kind, and each one off in words with which way to go (`ce
 1654): too dark: more 600 to 5000 Hz`); with a `picture`, the numbers read off it beside its own: length,
 centroid and the band most off (each with how far off), T20 against its class's range (or the picture's own
 within a quarter), crest (the picture's is read off its outline, within 3 dB) and onsets. `FAULT`s are what the engine would do wrong: clipping, an offset,
-silence before it starts (it plays late), an end that clicks, a loop with no cue or a seam that jumps. The
+silence before it starts (it plays late), an end that clicks, a loop with no cue or a seam that jumps, and a loop
+silent more than 60% of the time (the game's own are at most about half silent: a drip loop is many drips). The
 picture is each file's waveform over its spectrogram (log frequency, 50 Hz at the bottom), the game's own
 of its kind under them at the same time scale. What it cannot say is how it sounds, or how the game plays
 it (its volume, its pitch, the map's room): say so, and the person listens in the game.

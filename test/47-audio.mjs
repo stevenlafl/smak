@@ -52,6 +52,10 @@ test("the checks a played file must pass: clipping, an offset, a late start, an 
   const hum = signal(1, (t) => 0.5 * Math.sin(2 * Math.PI * 50.25 * t));
   sure(/no cue point/.test(A.checks(wav(hum), { loop: true }).faults.join()), "a loop without a cue is played once");
   sure(/jumps by .* at the seam/.test(A.checks(wav(hum, { loop: 0 }), { loop: true }).faults.join()), "a quarter of a cycle short, its end at a peak: a click every time round");
+  // a loop of one drip and then silence is a one-shot with a gap after it (Haiku's drips: silent 95%); a hum is not
+  const drip = signal(4, (t) => (t < 0.2 ? 0.6 * Math.sin(2 * Math.PI * 900 * t) * Math.exp(-30 * t) : 0));
+  sure(/silent 9\d% of the time/.test(A.checks(wav(drip, { loop: 0 }), { loop: true }).faults.join()), A.checks(wav(drip, { loop: 0 }), { loop: true }).faults.join());
+  sure(!/silent/.test(A.checks(wav(hum, { loop: 0 }), { loop: true }).faults.join()), "a hum is never silent");
 });
 
 const HIT = {

@@ -174,6 +174,24 @@ export function features({ x, rate }) {
  * to loop (a cue is wanted, and a smooth seam); `oneShot`: it is played once (no silence before it starts,
  * little after, faded at its end). Faults fail a build; warnings are told.
  */
+/** The most of its time a loop may be silent: past every one of Half-Life's own (0.47 at most). */
+export const LOOP_QUIET = 0.6;
+/** The share of 50 ms windows whose peak is under 3% of the whole sound's peak. */
+export function quietShare(x, rate) {
+  let peak = 0;
+  for (const v of x) peak = Math.max(peak, Math.abs(v));
+  const win = Math.max(1, Math.round(rate * 0.05));
+  let quiet = 0;
+  let windows = 0;
+  for (let i = 0; i + win <= x.length; i += win) {
+    let m = 0;
+    for (let j = i; j < i + win; j++) m = Math.max(m, Math.abs(x[j]));
+    windows++;
+    if (m < peak * 0.03) quiet++;
+  }
+  return windows ? quiet / windows : 0;
+}
+
 export function checks(wav, { loop = false, oneShot = !loop } = {}) {
   const faults = [];
   const warnings = [];
@@ -215,6 +233,10 @@ export function checks(wav, { loop = false, oneShot = !loop } = {}) {
       const localStep = Math.max(...near, 1e-6);
       const seam = Math.abs(x[start] - x[n - 1]);
       if (seam > 2.5 * localStep + 1e-4) faults.push(`its loop jumps by ${seam.toFixed(3)} at the seam, ${(seam / localStep).toFixed(1)} times the steps beside it: a click every time round`);
+      // a loop mostly silent is a one-shot with a gap after it: of Half-Life's 85 looped ambience sounds the
+      // quietest is silent 47% of the time (biotone; drips 32%), measured as 50 ms windows under 3% of the peak
+      const quiet = quietShare(x, wav.rate);
+      if (quiet > LOOP_QUIET) faults.push(`it is silent ${Math.round(quiet * 100)}% of the time: a loop of the game's is at most about half silent; fill it (more of what repeats in it, a bed of sound under it) or make it shorter`);
     }
   } else if (wav.cue?.length) warnings.push("it has a cue point and is not to loop: the engine will loop it");
   return { faults, warnings, features: f };
