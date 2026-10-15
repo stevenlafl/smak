@@ -46,7 +46,7 @@ export const VALVE_KINDS = {
 
 /** The kind of Valve's surfaces a base of the kit's is held against, or null for all of them. */
 const BASE_KIND = {
-  wood: "wood", darkwood: "wood", planks: "wood", door: "wood",
+  wood: "wood", darkwood: "wood", planks: "wood",
   plaster: "concrete", stone: "concrete", asphalt: "concrete",
   iron: "metal", steel: "metal", metal: "metal", brass: "metal", gold: "metal", copper: "metal",
   tile: "tile",

@@ -550,7 +550,8 @@ from the bottom left with a `material` of its own where it has one: `{ "kind": "
 grille over a dark hole), `louvre` (`at`, `size`, `count`), `rivets` (`from`, `to`, `count`, `radius`), `seam`
 (`from`, `to`, `width`, `notched`: a groove) and `lamp` (`at`, `size`, `colour`: a lamp's face bright in its
 middle; name the texture with `~` and light it with the map's texture lights). A game's concrete
-has a texel's own grain all over it (`speckle`) and blotches (`stains`); its machinery, streaks and scratches.
+has grit all over it (`speckle`: specks two to four texels across) and blotches (`stains`); its machinery,
+streaks and scratches.
 A plain fill reads as flat beside it; every material is painted with some patches and grain already, and the
 report warns, as a map's does, of a texture brighter, more coloured, more even or noisier than nine in ten of
 Valve's ("Materials"). A material may take a photograph (`picture`, with `filter`, `rect`, `size`, `tile`: "A

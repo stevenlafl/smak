@@ -6,7 +6,9 @@
 //   streaks    dirt run down the wall in thin lines, strongest under the top
 //   cracks     a few cracks on the borders of random cells (Worley's), a dark line with a light one above
 //   scratches  short light marks at random angles
-//   speckle    a texel's own grain: what Valve's concrete has and a smooth fill has not
+//   speckle    grit: specks two and three and a half texels across, what Valve's concrete has and a smooth fill
+//              has not (a random value a texel, as it was, measured as grain and read as static:
+//              research/reference-textures.md)
 //   seed       another pattern of the same
 //
 // Made from the failure research (research/asset-reproduction-failures.md, section 5): Valve's concrete has a
@@ -125,7 +127,11 @@ export function weather(image, wear) {
         const fromTop = 1 - v * 0.6;
         k *= 1 - w.streaks * 0.35 * Math.max(0, line - 0.45) * 2.2 * fromTop;
       }
-      if (w.speckle) k *= 1 + w.speckle * 0.32 * (hash(x, y, s + 5) - 0.5) + w.speckle * 0.18 * (tiledFbm(u, v, width / 4, height / 4, s + 6, 2) - 0.5);
+      if (w.speckle) {
+        const fine = tiledFbm(u, v, Math.round(width / 2), Math.round(height / 2), s + 5, 1) - 0.5;
+        const coarse = tiledFbm(u, v, Math.round(width / 3.5), Math.round(height / 3.5), s + 6, 1) - 0.5;
+        k *= 1 + w.speckle * (0.62 * fine + 0.46 * coarse + 0.08 * (hash(x, y, s + 7) - 0.5));
+      }
       let add = 0;
       if (w.cracks) {
         const here = crackAt(x, y);

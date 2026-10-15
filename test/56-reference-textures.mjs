@@ -290,6 +290,10 @@ test("the procedural grain is the material's, not noise: alike from texel to tex
   const look = lookOf(noise);
   sure(look.fine > VALVE.fine[0] && look.structure < 0, `noise: grain ${look.fine.toFixed(3)}, alike ${look.structure.toFixed(3)}`);
   sure(lookFaults(look).some((f) => /grain that is noise/.test(f)), lookFaults(look).join(", "));
+  // a .wad's speckle, the remedy the warning names, is grit too: more grain than none, and alike
+  const built = buildWadSpec({ spec: "smak.wad/1", name: "grit.wad", textures: [{ name: "plain", size: [128, 128], material: { base: "plaster" } }, { name: "speckled", size: [128, 128], material: { base: "plaster" }, wear: { speckle: 1 } }] }, { out: join(folder, "grit") });
+  const [plain, speckled] = built.textures.map((t) => lookOf(t.image));
+  sure(speckled.fine > 1.4 * plain.fine && speckled.structure >= VALVE.structure[1], `speckle: grain ${plain.fine.toFixed(3)} to ${speckled.fine.toFixed(3)}, alike ${speckled.structure.toFixed(2)}`);
 });
 
 test("a map and a .wad take a picture by its path, beside the spec; a model's part refuses one; a picture not there is an error", () => {

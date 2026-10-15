@@ -35,8 +35,8 @@ fault "grain that is noise, not the material's" is said when `fine` is past Valv
 `research/texture-stats.mjs` now splits halflife.wad by the words in names (`KIND_NAMES` in `look.mjs`;
 `--names` lists the members). Their wood is twice as grainy as their concrete and far more coloured, so grain and
 patches are held to the kind's 10th, colour to whichever of the kind's and the whole set's 90th is higher, and
-brightness to the whole set's (a tone's lightness is the person's choice). Bricks and roofs have no kind measured:
-they are held to the whole set.
+brightness to the whole set's (a tone's lightness is the person's choice). Bricks, roofs and doors have no kind
+measured (a door is painted as often as it is wood): they are held to the whole set.
 
 | kind (count) | fine 10/50/90 | coarse 10/50/90 | colour 10/50/90 | bright 10/50/90 | structure 10/50/90 |
 | --- | --- | --- | --- | --- | --- |
@@ -56,6 +56,9 @@ CRETE3_WALL01 before any number was read:
 - A map's picture is **sampled four times a texel** and averaged (`SUBTEXEL`): a pattern finer than a texel is its
   average, not a value picked from it. Noise terms finer than a pixel in `colourAt` are kept to a quarter at a
   texel a unit (`sub`).
+- A .wad's **`speckle`** wear was the same trap: a random value a texel (plaster with `speckle: 1` measured
+  alike -0.09, flagged as noise). It is grit of the same two sizes now (fine 0.087, alike 0.28 at 1), so the
+  remedy a "little grain" warning points to adds grain that is the material's.
 - **Wood's grain lines** were 1.5 texels apart at a map's scale (`wood(x * 0.5)`): drawn at 0.2, about five texels
   apart, with half again their contrast (`WOOD_LINES` 1.6), as Valve's boards have. **Iron's pits** likewise drawn
   larger. **Siding's lap line** was under a texel and vanished in the average: a texel wide at least.
