@@ -525,6 +525,16 @@ test("a door's picture is fitted to its leaf, a ladder's across its width; every
   }
 });
 
+test("a flight of stairs has a railing on each open side: a post and a handrail over every step", () => {
+  // Steven's walk of kaupo_v2: "the stairs don't have railing"
+  const spec = { spec: "smak.map/1", name: "rail", rooms: [{ id: "low", size: [384, 384, 256] }, { id: "high", size: [256, 256, 128], place: { east_of: "low" }, floor: 64 }], links: [{ between: ["low", "high"], kind: "opening", width: 64 }], entities: [{ class: "info_player_start", room: "low", at: "centre" }] };
+  const { files, report } = buildMapSpec(spec, { out: join(folder, "rail"), compilers: { found: false, message: "" } });
+  const steps = Number(/stairs of (\d+) steps/.exec(report.facts.join(" "))?.[1]);
+  const map = smak.maps.readMap(readFileSync(files.map, "utf8"));
+  const rails = map.entities.filter((e) => e.classname === "func_detail").reduce((n, e) => n + e.brushes.length, 0);
+  sure(steps > 0 && rails === 2 * 2 * steps, `${steps} steps, ${rails} pieces of railing`);
+});
+
 test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ files, the gloved hands kept", () => {
   // a stand-in for a game's files: a first-person model of a glove and a stick, and a world one of the stick
   const meshOn = (build, name) => {

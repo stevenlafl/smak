@@ -70,6 +70,9 @@ const INSET = 48;
 const INTO_WALL = 1;
 /** Pieces this near each other, or a room's face, touch. */
 const TOUCH = 1;
+/** A stair's railing: its handrail this high over a tread, its posts and rail this thick. */
+const RAIL_HIGH = 36;
+const RAIL_POST = 2;
 /** The kit's furniture, model specs a map's props name as "kit:<name>", and the key each is built under. */
 const KIT_FURNITURE = fileURLToPath(new URL("../../kits/furniture/", import.meta.url));
 const kitKey = (model) => (typeof model === "string" && model.startsWith("kit:") ? `kit_${model.slice(4)}` : model);
@@ -673,6 +676,33 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     return { report, files, map: null };
   }
 
+  // a railing on each open long side of a flight (Steven's walk of kaupo_v2: "the stairs don't have railing"):
+  // a post at the front of each step and a handrail over it, RAIL_HIGH above its tread; a side against a wall
+  // of its room has none
+  const railings = (min, max, axis, toward, count, room) => {
+    const side = axis === 0 ? 1 : 0;
+    const rise = (max[2] - min[2]) / count;
+    const tread = (max[axis] - min[axis]) / count;
+    const pieces = [];
+    for (const edge of [min[side], max[side] - RAIL_POST]) {
+      if (edge - room.min[side] < 4 || room.max[side] - (edge + RAIL_POST) < 4) continue;
+      for (let k = 0; k < count; k++) {
+        const top = min[2] + (k + 1) * rise;
+        const from = toward > 0 ? min[axis] + k * tread : max[axis] - (k + 1) * tread;
+        const at = (a0, a1, z0, z1) => {
+          const lo = [0, 0, z0];
+          const hi = [0, 0, z1];
+          [lo[axis], hi[axis]] = [a0, a1];
+          [lo[side], hi[side]] = [edge, edge + RAIL_POST];
+          return box(lo, hi, textureOf("furniture"));
+        };
+        const front = toward > 0 ? from : from + tread - RAIL_POST;
+        pieces.push(at(front, front + RAIL_POST, top, top + RAIL_HIGH - RAIL_POST), at(from, from + tread, top + RAIL_HIGH - RAIL_POST, top + RAIL_HIGH));
+      }
+    }
+    if (pieces.length) entities.push(brushEntity("func_detail", pieces, {}));
+  };
+
   // ── the ways through: doorways, windows, stairs, shafts between storeys ──
   const holes = [];
   const thresholds = [];
@@ -726,6 +756,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         const sy = snap(y0 + 16 + (link.along ?? 0) * (y1 - y0 - 32 - width), 8);
         holes.push({ min: [sx, sy, lower.max[2]], max: [sx + run, sy + width, upper.min[2]] });
         brushes.push(...stairBrushes([sx, sy, lower.min[2]], [sx + run, sy + width, upper.min[2]], "+x", textureOf("floor"), { steps: count, top: false, tread: TREAD }));
+        railings([sx, sy, lower.min[2]], [sx + run, sy + width, upper.min[2]], 0, 1, count, lower);
         report.facts.push(`links[${i}]: stairs of ${count} steps from ${lower.id} up to ${upper.id}, along x from ${sx} to ${sx + run}`);
         cuts.push({ name: `${lower.id} up to ${upper.id}`, from: [lower.min[0] - 8, sy + width / 2], to: [lower.max[0] + 8, sy + width / 2] });
       } else errors.push(`links[${i}]: stairs from ${lower.id} to ${upper.id} need ${run + 32} x ${width} of floor both rooms share; they share ${x1 - x0} x ${y1 - y0}`);
@@ -800,6 +831,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       if (run > lower.max[axis] - lower.min[axis] - PLAYER.wide) errors.push(`links[${i}]: stairs up ${floorHigh - floorLow} need ${run} of ${lower.id}'s floor; it is ${lower.max[axis] - lower.min[axis]} long that way`);
       else {
         brushes.push(...stairBrushes(min, max, high, textureOf("floor"), { steps: count, top: false, tread: TREAD }));
+        railings(min, max, axis, toward, count, lower);
         report.facts.push(`links[${i}]: stairs of ${count} steps in ${lower.id} up to the way at ${floorHigh}`);
         const middle = w0 + width / 2;
         const ends = [Math.min(a.min[axis], b.min[axis]) - 8, Math.max(a.max[axis], b.max[axis]) + 8];
