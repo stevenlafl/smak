@@ -13,7 +13,7 @@ import { framesOf, LAYER_KINDS, RAMP_NAMES } from "../sprite/effects.mjs";
 import { quantiseFrames } from "../sprite/palette.mjs";
 import { writeSpr } from "../sprite/spr.mjs";
 import { readSpr, SPRITE_TYPES, SPRITE_FORMATS } from "../maps/sprites.mjs";
-import { measureSprite, measureSheet, shapeOverlap, SHAPE_LEVELS, againstClass, SPRITE_CLASSES } from "../sprite/measure.mjs";
+import { measureSprite, measureSheet, shapeOverlap, SHAPE_LEVELS, rampOfSheet, againstClass, SPRITE_CLASSES } from "../sprite/measure.mjs";
 import { sheetOf, animationOf } from "../sprite/draw.mjs";
 import { png, unpicture } from "../image.mjs";
 
@@ -61,7 +61,8 @@ export function validateSpriteSpec(spec) {
     else
       s.layers.forEach((layer, k) => {
         if (!LAYER_KINDS.includes(layer?.kind)) errors.push(`${at}.layers[${k}].kind: one of ${LAYER_KINDS.join(", ")}`);
-        if (layer?.ramp !== undefined && typeof layer.ramp === "string" && !RAMP_NAMES.includes(layer.ramp)) errors.push(`${at}.layers[${k}].ramp: one of ${RAMP_NAMES.join(", ")}, or a list of [heat, [r, g, b]] stops`);
+        if (layer?.ramp !== undefined && typeof layer.ramp === "string" && !RAMP_NAMES.includes(layer.ramp) && layer.ramp !== "reference") errors.push(`${at}.layers[${k}].ramp: one of ${RAMP_NAMES.join(", ")}, "reference" (the reference's own colour at each brightness), or a list of [heat, [r, g, b]] stops`);
+        if (layer?.ramp === "reference" && s.reference === undefined) errors.push(`${at}.layers[${k}].ramp: "reference" takes the reference's colours, and the sprite has none`);
         // colours are 0 to 1: one of 0 to 255 summed into the frame is a white blot (three words legs of round 2)
         if (layer?.colour !== undefined && rgbFault(layer.colour)) errors.push(`${at}.layers[${k}].colour: ${rgbFault(layer.colour)}`);
         if (layer?.mask !== undefined) {
@@ -208,7 +209,25 @@ export function buildSpriteSpec(spec, { readPicture = (path) => unpicture(readFi
       });
       report.facts.push(`${s.name}: ${s.layers.filter((l) => l.mask).length} layer(s) masked by the reference's lit area, its ${masks.length} frames over this one's ${s.frames ?? 1}: its outline, not its colours`);
     }
-    let made = framesOf({ size: s.size, frames: s.frames ?? 1, loop, layers: s.layers, seed: s.seed ?? 1, edge: s.finish?.edge ?? 2, use, masks });
+    // a layer's ramp "reference": the reference's own colour at each brightness, read off its sheet
+    let layers = s.layers;
+    if (layers.some((layer) => layer.ramp === "reference")) {
+      const ref = typeof s.reference === "string" ? { picture: s.reference } : s.reference;
+      let stops = null;
+      try {
+        stops = rampOfSheet(readPicture(ref.picture), { format });
+      } catch (error) {
+        errors.push(`${s.name}: its ramp's reference: ${error.message.split("\n")[0]}`);
+        continue;
+      }
+      if (!stops) {
+        errors.push(`${s.name}: its reference has no lit pixel to take a ramp from`);
+        continue;
+      }
+      layers = layers.map((layer) => (layer.ramp === "reference" ? { ...layer, ramp: stops } : layer));
+      report.facts.push(`${s.name}: ramp "reference": ${stops.length - 1} steps of the reference's own colour, from ${stops[1][1].join(" ")} at its faintest to ${stops.at(-1)[1].join(" ")} at its brightest`);
+    }
+    let made = framesOf({ size: s.size, frames: s.frames ?? 1, loop, layers, seed: s.seed ?? 1, edge: s.finish?.edge ?? 2, use, masks });
     // a loop has no first frame of its own: with a reference, it starts at the frame that puts its light over the
     // loop as the reference's is (the judges marked flames down for a brightest frame "two frames later", which in
     // a loop is only where it was cut open)

@@ -242,3 +242,36 @@ export function shapeOverlap(theirs, ours) {
   });
   return { mean: round(frames.reduce((a, b) => a + b, 0) / frames.length, 2), frames, levels, worst: frames.map((v, i) => [v, i]).filter(([v]) => v < 0.6).map(([, i]) => i) };
 }
+
+/**
+ * A reference sheet's colour by brightness, as ramp stops: every lit pixel of its frames (the frame numbers left
+ * out), less the sheet's ground, grouped by its brightness against the sheet's brightest into `count` steps, each
+ * step's mean colour. A layer with `ramp: "reference"` wears it: its colour at each brightness is the reference's
+ * own there (Steven, 2026-10-15: a flare's halo peach in the original and violet in the copy).
+ */
+export function rampOfSheet(picture, { format = "additive", count = 12 } = {}) {
+  const ground = format === "additive" ? DARK : GREY;
+  const { width, height, rgba } = picture;
+  const lumOf = (r, g, b) => 0.299 * r + 0.587 * g + 0.114 * b;
+  const lits = [];
+  let most = 0;
+  for (let i = 0; i < width * height; i++) {
+    const c = [rgba[i * 4], rgba[i * 4 + 1], rgba[i * 4 + 2]];
+    if (c.every((v, j) => v === NUMBER.colour[j])) continue;
+    const own = c.map((v, j) => Math.max(0, v - ground[j]) / 255);
+    const l = lumOf(...own);
+    if (l < 0.01) continue;
+    lits.push([l, own]);
+    most = Math.max(most, l);
+  }
+  if (!lits.length) return null;
+  const sums = Array.from({ length: count }, () => ({ n: 0, c: [0, 0, 0] }));
+  for (const [l, c] of lits) {
+    const k = Math.min(count - 1, Math.floor((l / most) * count));
+    sums[k].n++;
+    c.forEach((v, j) => (sums[k].c[j] += v));
+  }
+  const stops = [[0, [0, 0, 0]]];
+  sums.forEach((s, k) => s.n && stops.push([(k + 0.5) / count, s.c.map((v) => Math.round((v / s.n) * 1000) / 1000)]));
+  return stops;
+}

@@ -250,3 +250,17 @@ test("a loop with a reference starts at the frame where its light over the loop 
   const built = buildSpriteSpec({ ...spec, reference: file });
   sure(built.report.facts.some((f) => /its loop starts at its frame 5,/.test(f)), built.report.facts.filter((f) => /loop/.test(f)).join(" | "));
 });
+
+test("ramp reference: a layer wears the reference's own colour at each brightness", () => {
+  const ref = buildSpriteSpec({ spec: "smak.sprite/1", name: "sprites/ref.spr", size: [32, 32], frames: 1, layers: [{ kind: "glow", radius: 1.2, core: 0.3, ramp: [[0, [0, 0, 0]], [0.5, [0.6, 0.3, 0.1]], [1, [1, 0.9, 0.8]]] }] });
+  const sheet = sheetOf(smak.maps.readSpr(ref.files[0].bytes), { cols: 8, cell: 128 });
+  const file = join(tmp, "ramp-ref.png");
+  writeFileSync(file, smak.png(sheet.width, sheet.height, sheet.rgba));
+  const spec = (ramp) => ({ spec: "smak.sprite/1", name: "sprites/ours.spr", size: [32, 32], frames: 1, reference: file, layers: [{ kind: "glow", radius: 1.2, core: 0.3, ramp }] });
+  const violet = buildSpriteSpec(spec([[0, [0, 0, 0]], [0.5, [0.4, 0.2, 0.6]], [1, [1, 0.9, 1]]]));
+  const taken = buildSpriteSpec(spec("reference"));
+  const deltaOf = (r) => Number(/mean colour delta E ([\d.]+)/.exec(r.report.facts.find((f) => /delta E/.test(f)))[1]);
+  sure(taken.report.facts.some((f) => /ramp "reference": \d+ steps of the reference's own colour/.test(f)), taken.report.facts.join(" | "));
+  sure(deltaOf(taken) < 4 && deltaOf(taken) < deltaOf(violet), `taken ${deltaOf(taken)}, violet ${deltaOf(violet)}`);
+  sure(validateSpriteSpec({ ...spec("reference"), reference: undefined }).errors.some((e) => /ramp: "reference" takes the reference's colours/.test(e)), "no reference, refused");
+});

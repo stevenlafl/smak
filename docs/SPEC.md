@@ -715,7 +715,9 @@ measured against Half-Life's own of its kind, and drawn as a sheet of its frames
 own brightness, a white middle to a dark rim, in place of `colour`): `fire`, `blue`, `green`, `blast` (white,
 cream, tan, brown: an explosion's smoke) and `muzzle` (white, peach, tan), or a list of `[heat, [r, g, b]]`
 stops. `blast` and `muzzle` are the mean colours of Half-Life's own explosion and muzzle flash at each tenth of
-brightness.
+brightness. With a `reference`, `"ramp": "reference"` is the reference's own colour at each brightness, read off its
+sheet: give it whenever the sprite copies a picture of one, so that a halo is the original's peach and not a violet
+read from a description.
 
 The report gives each sprite's colours, the border's light, how it starts and ends, how smoothly a loop wraps
 and how much it flickers, each against Half-Life's own of its class, and the render mode to place it with.
