@@ -8,9 +8,13 @@
 //   seed   which of its patterns (the same seed, the same grain)
 //   flags  the texture's flags in words: "fullbright" (not dimmed by the room: a flame, a lamp's glass),
 //          "additive" (a glow), "chrome", "masked"
+//   picture  a map's picture from a photograph (reference.mjs): its path (read by the build) or an image, with
+//          `filter` ("valve", "literal", "aged"), `rect` [x0, y0, x1, y1], `size` (units across, or [w, h]),
+//          `tile`
 // Colours are [r, g, b] from 0 to 1, as the workshop's.
 import { wood, iron, steel, fbm, noise, rand, smooth, mix, times, bell, step } from "../workshop.mjs";
 import { colourFromWords } from "./colours.mjs";
+import { referencePicture, FILTERS } from "./reference.mjs";
 
 /**
  * Each base with the colour it has unless told, in words for the guide. A map's plain surfaces (plaster, siding,
@@ -114,7 +118,25 @@ export function materialOf(given, where = "material") {
     // the sizes of a pattern, in texels of the picture: a tile's or a panel's cell ([w, h] or one number), a
     // brick's course and length, a board's width, a hazard stripe's width and slant
     ...Object.fromEntries(["course", "length", "board", "stripe", "angle"].filter((k) => material[k] !== undefined).map((k) => [k, material[k]])),
+    ...(material.picture !== undefined ? pictureOf(material, where) : {}),
   };
+}
+
+/** A material's picture and how it is used, checked: { picture, filter, rect, size, tile }. */
+function pictureOf(material, where) {
+  const { picture, filter = "valve", rect, size, tile } = material;
+  const isImage = picture && typeof picture === "object" && picture.width > 0 && (picture.rgb || picture.rgba);
+  if (!(typeof picture === "string" && picture) && !isImage)
+    throw new Error(`${where}.picture: a picture file of the work folder or beside the spec ("work:refs/plaster.jpg"; PNG, BMP or JPEG)`);
+  if (material.base === "mesh") throw new Error(`${where}.picture: a mesh is its cords and holes; give a picture to another base`);
+  if (!FILTERS.includes(filter)) throw new Error(`${where}.filter: one of ${FILTERS.join(", ")} ("${filter}" is not)`);
+  const number = (v) => typeof v === "number" && Number.isFinite(v);
+  if (rect !== undefined && !(Array.isArray(rect) && rect.length === 4 && rect.every(number) && rect[2] > rect[0] && rect[3] > rect[1]))
+    throw new Error(`${where}.rect: [x0, y0, x1, y1], the part of the picture to take, in its pixels`);
+  if (size !== undefined && !(number(size) ? size > 0 : Array.isArray(size) && size.length === 2 && size.every((v) => number(v) && v > 0)))
+    throw new Error(`${where}.size: the units of the game the picture's part spans across (a door 36, a wall 96), or [width, height]`);
+  if (tile !== undefined && typeof tile !== "boolean") throw new Error(`${where}.tile: true or false`);
+  return { picture, filter, ...(rect ? { rect } : {}), ...(size !== undefined ? { size } : {}), ...(tile !== undefined ? { tile } : {}) };
 }
 
 /** The flags of a material as the number a texture holds. */
@@ -142,6 +164,19 @@ const toned = (colour, base, tone) => {
 export function colourAt(material, x, y, light = 1, px = 8) {
   const { base, tone, rust, seed: s } = material;
   const grain = (a, b, n = 3) => fbm(a, b, s, n);
+  // noise finer than a pixel is static, not grain: at a map's texel a unit (px 1) it is kept to a quarter, and
+  // the map's picture has a grit of its own two to four texels across (surfacePicture)
+  const sub = Math.min(1, px / 4);
+  // wood's grain at `k` units a step (or [along, across]); at a map's texel a unit its light and dark lines a
+  // half again as far apart in brightness, as Valve's boards have them (their wood is the grainiest of their
+  // surfaces: research/texture-stats.mjs), where the workshop's grain was made for a model's finer pixels
+  const boards = (x, y, k, px) => {
+    const [ka, kb] = Array.isArray(k) ? k : [k, k];
+    const c = wood(x * ka, y * kb, 1, s);
+    if (px >= 4) return c;
+    const own = MATERIALS.wood.tone;
+    return c.map((v, i) => Math.max(0, own[i] + WOOD_LINES * (v - own[i])));
+  };
   switch (base) {
     case "mesh": {
       // cords at least a texel and a half wide, holes at least three texels, however coarse the picture
@@ -156,7 +191,8 @@ export function colourAt(material, x, y, light = 1, px = 8) {
       // one door on a picture 64 wide and 128 high, y down: a frame, two panels sunk in with their bevels lit
       // from the top left, and a brass handle at hand height on the right (seen from the other side, the left)
       const [u, v] = [((x % 64) + 64) % 64, ((y % 128) + 128) % 128];
-      const woodAt = (k) => shade(toned(wood(x * 0.5, y * 0.08, 1, s), "wood", tone), light * k);
+      // a reference picture's detail is its surface (surfacePicture), the panels and the handle drawn over it
+      const woodAt = (k) => shade(material.surface ? material.surface(x, y) : toned(boards(x, y, [0.5, 0.08], px), "wood", tone), light * k);
       if (Math.hypot(u - 53, v - 68) < 3.2) return shade([0.78, 0.62, 0.3], light * (1.15 - 0.12 * Math.hypot(u - 52, v - 67)));
       for (const [y0, y1] of [[12, 58], [70, 116]]) {
         const [x0, x1] = [11, 53];
@@ -172,10 +208,17 @@ export function colourAt(material, x, y, light = 1, px = 8) {
     }
     case "wood":
     case "darkwood":
-    case "planks":
-      return shade(toned(wood(x * 0.5, y * 0.5, 1, s), "wood", tone), light);
-    case "iron":
-      return shade(toned(iron(x * 0.33, y * 0.33, 1, s, rust - 0.3), "iron", tone), light);
+    case "planks": {
+      // at a map's texel a unit the grain's lines are drawn wider apart, about five texels, as a photographed
+      // board cut down to that size shows them; at half a unit they came a texel and a half apart, which the
+      // texels cannot hold and drew as static
+      return shade(toned(boards(x, y, px < 4 ? 0.2 : 0.5, px), "wood", tone), light);
+    }
+    case "iron": {
+      // its pits are a third of a unit apart: at a map's texel a unit, drawn larger, or they are static
+      const k = px < 4 ? 0.12 : 0.33;
+      return shade(toned(iron(x * k, y * k, 1, s, rust - 0.3), "iron", tone), light);
+    }
     case "steel":
       return shade(toned(steel(x * 0.4, y * 0.4, 1, s, rust * 2 - 1), "steel", tone), light);
     case "brass":
@@ -186,28 +229,28 @@ export function colourAt(material, x, y, light = 1, px = 8) {
       return shade(tone, sheen * light * (1 - 0.25 * step(0.6, 0.75, grain(x * 0.8, y * 0.8))));
     }
     case "leather": {
-      const pores = 0.92 + 0.12 * (noise(x * 9, y * 9, s) - 0.5) + 0.2 * (grain(x * 0.6, y * 0.6) - 0.5);
+      const pores = 0.92 + 0.12 * sub * (noise(x * 9, y * 9, s) - 0.5) + 0.2 * (grain(x * 0.6, y * 0.6) - 0.5);
       return shade(tone, pores * light);
     }
     case "cloth":
     case "rope": {
       // a weave: threads across each way
       // threads too fine to draw at a model's few pixels a unit: a soft mottle, and folds across it
-      const weave = 0.92 + 0.03 * Math.sin(x * 9) * Math.sin(y * 9) + 0.16 * (grain(x * 0.5, y * 0.5) - 0.5) + 0.06 * Math.sin(y * 1.3 + 3 * grain(x * 0.2, y * 0.2));
+      const weave = 0.92 + 0.03 * sub * Math.sin(x * 9) * Math.sin(y * 9) + 0.16 * (grain(x * 0.5, y * 0.5) - 0.5) + 0.06 * Math.sin(y * 1.3 + 3 * grain(x * 0.2, y * 0.2));
       return shade(tone, weave * light);
     }
     case "stone":
     case "plaster": {
       const rough = base === "stone" ? 0.35 : 0.12;
-      const k = 1 + rough * (grain(x * 0.25, y * 0.25, 4) - 0.5) + 0.1 * (noise(x * 4, y * 4, s) - 0.5);
+      const k = 1 + rough * (grain(x * 0.25, y * 0.25, 4) - 0.5) + 0.1 * sub * (noise(x * 4, y * 4, s) - 0.5);
       return shade(tone, k * light);
     }
     case "grass": {
-      const blades = 0.85 + 0.3 * (noise(x * 2.5, y * 7, s) - 0.5) + 0.25 * (grain(x * 0.2, y * 0.2) - 0.5);
+      const blades = 0.85 + 0.3 * sub * (noise(x * 2.5, y * 7, s) - 0.5) + 0.25 * (grain(x * 0.2, y * 0.2) - 0.5);
       return shade(mix(tone, [0.36, 0.33, 0.16], step(0.55, 0.7, grain(x * 0.1, y * 0.1))), blades * light);
     }
     case "dirt": {
-      const k = 0.9 + 0.3 * (grain(x * 0.3, y * 0.3, 4) - 0.5) + 0.15 * (noise(x * 5, y * 5, s) - 0.5);
+      const k = 0.9 + 0.3 * (grain(x * 0.3, y * 0.3, 4) - 0.5) + 0.15 * sub * (noise(x * 5, y * 5, s) - 0.5);
       return shade(tone, k * light);
     }
     case "bone": {
@@ -234,7 +277,7 @@ export function colourAt(material, x, y, light = 1, px = 8) {
       return shade(black ? [0.06, 0.06, 0.06] : tone, k * light);
     }
     case "asphalt": {
-      const k = 0.85 + 0.25 * (noise(x * 3, y * 3, s) - 0.5) + 0.3 * step(0.62, 0.72, grain(x * 0.08, y * 0.08));
+      const k = 0.85 + 0.25 * sub * (noise(x * 3, y * 3, s) - 0.5) + 0.3 * step(0.62, 0.72, grain(x * 0.08, y * 0.08));
       return shade(tone, k * light);
     }
     case "glass": {
@@ -248,7 +291,7 @@ export function colourAt(material, x, y, light = 1, px = 8) {
     case "siding": {
       // boards 6 high, each lit at its top and shadowed under its lap
       const inBoard = ((y % 6) + 6) % 6 / 6;
-      const k = (0.86 + 0.18 * inBoard + 0.06 * (grain(x * 0.3, y * 0.3) - 0.5)) * (inBoard < 0.12 ? 0.62 : 1);
+      const k = (0.86 + 0.18 * inBoard + 0.06 * (grain(x * 0.3, y * 0.3) - 0.5)) * (inBoard < Math.max(0.12, 1.2 / 6 / Math.max(1, px)) ? 0.62 : 1);
       return shade(tone, k * light);
     }
     case "shingles": {
@@ -317,10 +360,42 @@ export const UNWORN = new Set(["glass", "flame", "neon", "water"]);
  * nine in ten of Valve's, which Steven saw as cheap.
  */
 const MOTTLE = 0.3;
+/** How much more a map's wood shows its grain than a model's (above). */
+const WOOD_LINES = 1.6;
 const CELL_TONE = 0.1;
-const GRAIN = 0.16;
+const GRAIN = 0.3;
+/** Where in a texel a map's picture is sampled, four times, and averaged. */
+const SUBTEXEL = [[-0.25, -0.25], [0.25, -0.25], [-0.25, 0.25], [0.25, 0.25]];
+/** Of the grain, the share that is grit two to four texels across; the rest is a texel's own. */
+const GRIT = 0.8;
 
-export function surfacePicture(given, size = 64, height = size) {
+/**
+ * Value noise that comes round exactly every `w` by `h` texels, in cells about `cell` texels across, joined
+ * smoothly: -1 to 1, about 0 on the whole.
+ */
+function cellNoise(x, y, w, h, cell, s) {
+  const [px, py] = [Math.max(1, Math.round(w / cell)), Math.max(1, Math.round(h / cell))];
+  const [u, v] = [(x / w) * px, (y / h) * py];
+  const [xi, yi] = [Math.floor(u), Math.floor(v)];
+  const [fx, fy] = [smooth(u - xi), smooth(v - yi)];
+  const at = (i, j) => rand(((i % px) + px) % px, ((j % py) + py) % py, s);
+  const [a, b, c, d] = [at(xi, yi), at(xi + 1, yi), at(xi, yi + 1), at(xi + 1, yi + 1)];
+  return 2 * (a + (b - a) * fx + (c - a) * fy + (a - b - c + d) * fx * fy) - 1;
+}
+
+/**
+ * The grain of a used surface at a texel, -1 to 1: grit in specks two and three and a half texels across (what
+ * a photographed wall cut down to a texel a unit shows: a texel is like its neighbours), and a little of each
+ * texel's own. Pure noise texel by texel, as it was, measured as Valve's grain and looked like static
+ * (research/reference-textures.md).
+ */
+function grit(x, y, w, h, s) {
+  // value noise between its cells is softer than at them: the two sizes together reach about 0.3 apart
+  const specks = 0.65 * cellNoise(x, y, w, h, 2, s) + 0.55 * cellNoise(x, y, w, h, 3.5, s + 7);
+  return GRIT * specks + (1 - GRIT) * (rand(x, y, s + 13) * 2 - 1);
+}
+
+export function surfacePicture(given, size = 64, height = size, { readPicture } = {}) {
   // a mesh (a fence, a grille): cords and holes laid exactly on the tile, one texel a unit, the holes as
   // see-through pixels (rgba): no seamless blending, which would mix the holes into the cords
   if ((typeof given === "string" ? given : given.base) === "mesh") {
@@ -337,14 +412,39 @@ export function surfacePicture(given, size = 64, height = size) {
       }
     return { width: size, height, rgba };
   }
-  const material = materialOf(given);
+  let material = materialOf(given);
   const { base, tone, seed: s } = material;
+  // a picture from a photograph: the whole texture (literal, aged), or the material's detail under its structure
+  let detail = null;
+  const facts = [];
+  if (material.picture) {
+    if (typeof material.picture === "string") {
+      if (!readPicture) throw new Error(`picture ${material.picture}: not read (a spec's pictures are read by its build: buildMapSpec, buildWadSpec)`);
+      material = { ...material, picture: readPicture(material.picture) };
+    }
+    const made = referencePicture(material, size, height);
+    if (material.filter !== "valve") return { ...made.image, facts: made.facts };
+    facts.push(...made.facts);
+    // the texel a point is nearest (the supersampled points of a texel round to it, so the detail stays sharp)
+    const at = (x, y) => {
+      const i = ((((Math.round(y) % height) + height) % height) * size + (((Math.round(x) % size) + size) % size)) * 3;
+      return [made.image.rgb[i] / 255, made.image.rgb[i + 1] / 255, made.image.rgb[i + 2] / 255];
+    };
+    detail = at;
+    material = { ...material, surface: at };
+  }
   const rgb = new Uint8Array(size * height * 3);
   // the grain made seamless: four copies of it, each shifted by a whole picture, faded into one another
   const seamless = (x, y) => {
     const a = x / size;
     const b = y / height;
-    const at = (dx, dy) => colourAt(material, x - dx, y - dy);
+    // each texel the mean of four points inside it: a pattern finer than a texel is its average, not a
+    // value picked at random from it
+    const at = (dx, dy) => {
+      const sum = [0, 0, 0];
+      for (const [ox, oy] of SUBTEXEL) colourAt(material, x - dx + ox, y - dy + oy, 1, 1).forEach((v, i) => (sum[i] += v / SUBTEXEL.length));
+      return sum;
+    };
     const c = [at(0, 0), at(size, 0), at(0, height), at(size, height)];
     return c[0].map(
       (_, i) =>
@@ -362,7 +462,8 @@ export function surfacePicture(given, size = 64, height = size) {
   const boardW = divide(material.board ?? 16, height);
   for (let y = 0; y < height; y++)
     for (let x = 0; x < size; x++) {
-      let c = seamless(x, y);
+      // the picture's detail where one is given (a door's is under its panels, drawn by colourAt)
+      let c = detail && base !== "door" ? detail(x, y) : seamless(x, y);
       if (base === "brick") {
         // courses 16 high, bricks 32 long (`course`, `length`), every other course moved half a brick
         const course = Math.floor(y / courseH);
@@ -394,11 +495,12 @@ export function surfacePicture(given, size = 64, height = size) {
         const bevel = u < 2 || v < 2 ? 1.15 : cw - 1 - u < 2 || ch - 1 - v < 2 ? 0.82 : 1;
         c = times(c, edge < 1 ? 0.55 : rivet ? 1.35 : own * bevel);
       }
-      if (!UNWORN.has(base)) {
+      // a used surface's patches and grain, unless a photograph gives them
+      if (!UNWORN.has(base) && !detail) {
         const patch = roundNoise(x, y, size, height, 32, s + 17);
-        c = times(c, (1 + MOTTLE * (patch - 0.5) * 2) * (1 + GRAIN * (rand(x, y, s + 23) - 0.5) * 2));
+        c = times(c, (1 + MOTTLE * (patch - 0.5) * 2) * (1 + GRAIN * grit(x, y, size, height, s + 23)));
       }
       rgb.set(c.map((v) => Math.max(0, Math.min(255, Math.round(v * 255)))), (y * size + x) * 3);
     }
-  return { width: size, height, rgb };
+  return { width: size, height, rgb, ...(facts.length ? { facts } : {}) };
 }

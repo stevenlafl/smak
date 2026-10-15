@@ -3,18 +3,19 @@
 // take their place in any map that wears them (the MCP render tool's `wad`).
 //
 //   validateWadSpec(spec) -> { errors, warnings }
-//   buildWadSpec(spec, { out }) -> { report, files: { wad, sheet }, textures: [{ name, image }] }
+//   buildWadSpec(spec, { out, folder, readPicture }) -> { report, files: { wad, sheet }, textures: [{ name, image }] }
 //
 // A texture: { name (15 letters at most: `{` first for one with holes, `!` for a liquid, `+0` an animation's
 // frame), size: [width, height] (multiples of 16, 512 at most), material (a word of `materials` or a base),
 // panels (as a box face's, in texels from the bottom left), print (words, as a box face's), grime (0 to 1: dirt
 // gathered toward its foot), relief (pipes, bars, louvres, rivets, seams, lamps, lit: relief.mjs), wear ({ stains,
-// streaks, cracks, scratches, speckle } 0 to 1: weather.mjs) }.
-import { writeFileSync, mkdirSync } from "node:fs";
-import { join } from "node:path";
+// streaks, cracks, scratches, speckle } 0 to 1: weather.mjs) }. A material may take its detail, or be, a photograph
+// (`picture`, read from `folder` or by `readPicture`: reference.mjs).
+import { writeFileSync, mkdirSync, readFileSync } from "node:fs";
+import { join, resolve } from "node:path";
 import { sheet as workshopSheet, fbm } from "../workshop.mjs";
 import { tile } from "../render.mjs";
-import { png } from "../image.mjs";
+import { png, unpicture } from "../image.mjs";
 import { writeWad } from "../maps/wad.mjs";
 import { materialOf, surfacePicture, UNWORN } from "./paint.mjs";
 import { lookSentence, ALLOWED } from "./look.mjs";
@@ -88,11 +89,11 @@ export function validateWadSpec(spec) {
 }
 
 /** One texture's picture: { width, height, rgb } (rgba for one with holes). */
-function paintTexture(texture, materials) {
-  const resolve = (given) => materialOf(typeof given === "string" && materials?.[given] !== undefined ? materials[given] : given);
-  const material = resolve(texture.material ?? "plaster");
+function paintTexture(texture, materials, readPicture) {
+  const resolved = (given) => materialOf(typeof given === "string" && materials?.[given] !== undefined ? materials[given] : given);
+  const material = resolved(texture.material ?? "plaster");
   const [width, height] = texture.size;
-  const base = surfacePicture(material, width, height);
+  const base = surfacePicture(material, width, height, { readPicture });
   if (base.rgba) return base; // a mesh: its holes are its picture
   const S = workshopSheet(width, height);
   const cell = { x: 0, y: 0, w: width, h: height };
@@ -109,7 +110,7 @@ function paintTexture(texture, materials) {
       const i = (Math.floor(v) * width + Math.floor(u)) * 3;
       return [was.rgb[i] / 255, was.rgb[i + 1] / 255, was.rgb[i + 2] / 255];
     };
-    const panels = texture.panels.map((panel) => (panel.material ? { ...panel, material: resolve(panel.material) } : panel));
+    const panels = texture.panels.map((panel) => (panel.material ? { ...panel, material: resolved(panel.material) } : panel));
     paintPanels(S, cell, panels, material, 1, false, false, [width, height], { under });
   }
   for (const print of [texture.print ?? []].flat()) {
@@ -122,7 +123,7 @@ function paintTexture(texture, materials) {
   }
   const image = now();
   if (texture.relief?.length) {
-    const pictures = (material) => surfacePicture(resolve(material), width, height);
+    const pictures = (material) => surfacePicture(resolved(material), width, height, { readPicture });
     relief(image, texture.relief, pictures);
   }
   // grime: darker toward the foot, broken up by noise that tiles across the sides
@@ -137,7 +138,7 @@ function paintTexture(texture, materials) {
       }
   }
   if (texture.wear) weather(image, texture.wear);
-  return image;
+  return base.facts ? { ...image, facts: base.facts } : image;
 }
 
 const rgbaOf = (image) => {
@@ -165,11 +166,24 @@ function fitted(image, side) {
 }
 
 /** Builds a wad spec into `out`: the .wad and a sheet of its textures. */
-export function buildWadSpec(spec, { out }) {
+export function buildWadSpec(spec, { out, folder = ".", readPicture } = {}) {
   const { errors, warnings } = validateWadSpec(spec);
   const report = { ok: false, errors, warnings, faults: [], notes: [], facts: [] };
   if (errors.length) return { report, files: {} };
-  const textures = spec.textures.map((texture) => ({ name: texture.name, image: paintTexture(texture, spec.materials) }));
+  // a material's photograph, read once: from the spec's folder unless the build says how (the MCP's folders)
+  const read = new Map();
+  const readOnce = (name) => {
+    if (!read.has(name)) read.set(name, (readPicture ?? ((file) => unpicture(readFileSync(resolve(folder, file.replace(/^(work|models):/, ""))))))(name));
+    return read.get(name);
+  };
+  let textures;
+  try {
+    textures = spec.textures.map((texture) => ({ name: texture.name, image: paintTexture(texture, spec.materials, readOnce) }));
+  } catch (error) {
+    errors.push(`textures: ${error.message}`);
+    return { report, files: {} };
+  }
+  for (const t of textures) for (const fact of t.image.facts ?? []) report.facts.push(`${t.name}: ${fact}`);
   mkdirSync(out, { recursive: true });
   const wad = join(out, spec.name);
   writeFileSync(wad, writeWad(textures));
@@ -181,11 +195,12 @@ export function buildWadSpec(spec, { out }) {
   const sheetFile = join(out, spec.name.replace(/\.wad$/i, "-textures.png"));
   writeFileSync(sheetFile, png(shown.width, shown.height, shown.rgba));
   report.facts.push(`${textures.length} textures: ${textures.map((t) => `${t.name} ${t.image.width}x${t.image.height}`).join(", ")}`);
-  const bases = spec.textures.map((texture) => {
-    const given = texture.material ?? "plaster";
-    return materialOf(typeof given === "string" && spec.materials?.[given] !== undefined ? spec.materials[given] : given).base;
+  const given = spec.textures.map((texture) => {
+    const named = texture.material ?? "plaster";
+    return materialOf(typeof named === "string" && spec.materials?.[named] !== undefined ? spec.materials[named] : named);
   });
-  const looks = lookSentence(textures.map((t, i) => ({ ...t, base: bases[i], allow: ALLOWED[bases[i]] })).filter((t) => !t.image.rgba && !UNWORN.has(t.base)));
+  // a photograph laid as it is (literal) is the person's picture, not a surface to hold to Valve's
+  const looks = lookSentence(textures.map((t, i) => ({ ...t, base: given[i].base, filter: given[i].filter, allow: ALLOWED[given[i].base] })).filter((t) => !t.image.rgba && !UNWORN.has(t.base) && t.filter !== "literal"));
   if (looks) warnings.push(looks);
   report.ok = true;
   return { report, files: { wad, sheet: sheetFile }, textures };

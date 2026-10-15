@@ -14,7 +14,7 @@
 // There is no tool for each thing the kit does (paint, turn, putBody...): those take functions, and a
 // function is written in a script.
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from "node:fs";
-import { basename, dirname, join } from "node:path";
+import { basename, dirname, join, relative, resolve } from "node:path";
 import * as smak from "../src/index.mjs";
 import * as maps from "../src/maps/index.mjs";
 import { text, image } from "./protocol.mjs";
@@ -774,6 +774,25 @@ function reportLines(report) {
 }
 
 /**
+ * How a spec's picture is read by the MCP server: a path of the work or models folder ("work:refs/oak.jpg"), or one
+ * beside the spec's own file; never a path outside them. PNG, BMP or JPEG.
+ */
+function pictureReader(folders, folder) {
+  return (name) => {
+    let path;
+    try {
+      path = pathOf(folders, name);
+    } catch (error) {
+      // beside the spec, as a path of the work folder
+      const beside = folder && folders.work ? relative(folders.work, resolve(folder, name.replace(/^(work|models):/, ""))) : null;
+      if (!beside || beside.startsWith("..")) throw error;
+      path = pathOf(folders, `work:${beside}`);
+    }
+    return smak.unpicture(readFileSync(path));
+  };
+}
+
+/**
  * A model or a map from a spec, written to the work folder with the spec beside it, and a report: whether
  * every check passed, what is wrong, what each part or room came to; with pictures. `reference`: a PNG of the
  * work or models folder (the person's drawing or picture) drawn beside the result.
@@ -791,7 +810,7 @@ function build(folders, args) {
     const out = join(folders.work, name);
     mkdirSync(out, { recursive: true });
     writeFileSync(join(out, `${name}.spec.json`), `${JSON.stringify(spec, null, 2)}\n`);
-    const { report, files } = buildMapSpec(spec, { out, compilers: folders.compilers, folder, fgd: folders.fgd ?? [], wads: folders.wads ?? [] });
+    const { report, files } = buildMapSpec(spec, { out, compilers: folders.compilers, folder, fgd: folders.fgd ?? [], wads: folders.wads ?? [], readPicture: pictureReader(folders, folder) });
     const lines = reportLines(report);
     if (report.rooms && Object.keys(report.rooms).length) lines.splice(1, 0, ...changedSince(out, name, "map", spec, report));
     lines.push(`written: ${Object.values(files).map((file) => `work:${file.slice(folders.work.length + 1)}`).join(", ")}`);
@@ -852,7 +871,7 @@ function build(folders, args) {
   if (spec?.spec === "smak.wad/1") {
     // textures: the .wad and a sheet of them; with a map named, it drawn wearing them
     const out = join(folders.work, spec.name?.replace(/\.wad$/i, "") ?? "textures");
-    const { report, files } = buildWadSpec(spec, { out });
+    const { report, files } = buildWadSpec(spec, { out, readPicture: pictureReader(folders, folder) });
     const lines = reportLines(report);
     if (report.ok) {
       writeFileSync(join(out, `${basename(out)}.spec.json`), `${JSON.stringify(spec, null, 2)}\n`);

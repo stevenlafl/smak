@@ -25,7 +25,7 @@ import { PRECACHES_MODEL } from "../maps/entities.mjs";
 import { sweepOf, SAFE_DROP, LIGHT_REACH } from "../maps/sweep.mjs";
 import { planOfSource, planOf, drawMap, sectionOf } from "../maps/draw.mjs";
 import { tile, label, render } from "../render.mjs";
-import { png } from "../image.mjs";
+import { png, unpicture } from "../image.mjs";
 import { materialOf, surfacePicture, MATERIALS, UNWORN } from "./paint.mjs";
 import { lookSentence, ALLOWED } from "./look.mjs";
 import { wadCatalog, pickTexture } from "./wads.mjs";
@@ -580,7 +580,7 @@ function placedPrefab(prefab, at, quarters, textureOf) {
  * every model it puts in, and <name>.bsp when the compilers are found (`compilers`: what findCompilers gave,
  * or a folder). Returns { report, files, map }: report is { ok, errors, faults, warnings, facts, rooms }.
  */
-export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [] } = {}) {
+export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [], readPicture } = {}) {
   let spec;
   try {
     spec = withIncludes(given, folder ?? ".");
@@ -688,8 +688,14 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     if (holed) meshed.add(key);
     return textureName(key, liquid, holed);
   };
-  // a texture's size: the game's from its .wad, the map's own as it is drawn (a door 64 by 128, the rest 128)
-  const pictureSize = (key, material) => (key === "sky" ? [64, 64] : (typeof material === "string" ? material : material?.base) === "door" ? [64, 128] : [128, 128]);
+  // a texture's size: the game's from its .wad, the map's own as it is drawn (a door 64 by 128, the rest 128);
+  // a photograph laid as it is (literal, aged) the units its `size` gives, in multiples of 16
+  const pictureSize = (key, material) => {
+    if (key === "sky") return [64, 64];
+    const kept = material?.picture && material.filter && material.filter !== "valve" && material.size;
+    if (kept) return [material.size].flat().concat([material.size].flat()).slice(0, 2).map((v) => Math.max(16, Math.min(512, 16 * Math.round(v / 16))));
+    return (typeof material === "string" ? material : material?.base) === "door" ? [64, 128] : [128, 128];
+  };
   const sizeOfTexture = (name) => {
     const game = catalog.find((t) => t.name.toUpperCase() === String(name).toUpperCase());
     if (game) return [game.width, game.height];
@@ -721,7 +727,9 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     if (material && typeof material === "object" && (material.texture || material.pick)) return textureOf(word);
     if ((typeof material === "string" ? material : material?.base) === "door") return textureOf(word);
     const key = `${named}_leaf`;
-    materials[key] ??= { base: "door", tone: materialOf(material, `door ${word}`).tone };
+    // a photograph given for the material comes with it: its detail under the door's panels, or the door itself
+    const photo = material && typeof material === "object" && material.picture !== undefined ? Object.fromEntries(["picture", "filter", "rect", "size", "tile"].filter((k) => material[k] !== undefined).map((k) => [k, material[k]])) : {};
+    materials[key] ??= { ...photo, base: "door", tone: materialOf(material, `door ${word}`).tone };
     return textureOf(key);
   };
   let themeNames;
@@ -1599,10 +1607,24 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   // ── the files: the .wad of its pictures, and the .map ──
   mkdirSync(out, { recursive: true });
   const wadFile = join(out, `${name}.wad`);
-  const pictures = [...used.entries()].map(([key, material]) => ({ name: nameOfKey(key), image: surfacePicture(material, ...pictureSize(key, material)), base: materialOf(material).base }));
+  // a material's photograph is read once, from the spec's folder unless the build says how (the MCP's folders)
+  const read = new Map();
+  const readOnce = (name) => {
+    if (!read.has(name)) read.set(name, (readPicture ?? ((file) => unpicture(readFileSync(resolve(folder ?? ".", file.replace(/^(work|models):/, ""))))))(name));
+    return read.get(name);
+  };
+  let pictures;
+  try {
+    pictures = [...used.entries()].map(([key, material]) => ({ name: nameOfKey(key), image: surfacePicture(material, ...pictureSize(key, material), { readPicture: readOnce }), base: materialOf(material).base, filter: materialOf(material).filter }));
+  } catch (error) {
+    report.errors.push(`textures: ${error.message}`);
+    return { report, files, map: null };
+  }
+  for (const p of pictures) for (const fact of p.image.facts ?? []) report.facts.push(`texture ${p.name}: ${fact}`);
   writeFileSync(wadFile, writeWad(pictures));
   // a picture flatter, brighter or more coloured than nine in ten of Valve's walls looks cheap in the game
-  const looks = lookSentence(pictures.filter((p) => !p.image.rgba && !UNWORN.has(p.base)).map((p) => ({ ...p, allow: ALLOWED[p.base] })), "of the map's own textures");
+  // a photograph laid as it is (literal) is the person's picture, not a surface to hold to Valve's
+  const looks = lookSentence(pictures.filter((p) => !p.image.rgba && !UNWORN.has(p.base) && p.filter !== "literal").map((p) => ({ ...p, allow: ALLOWED[p.base] })), "of the map's own textures");
   if (looks) report.warnings.push(looks);
   const theirs = [...gameTextures.entries()].filter(([, file]) => ownWads.has(file));
   if (theirs.length) {

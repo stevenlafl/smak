@@ -208,9 +208,15 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
       if (!anim || typeof anim.replace !== "string" || !Array.isArray(anim.keys) || !anim.keys.some((key) => key?.at === 0) || anim.keys.some((key) => !isNumber(key?.at) || (key.aim !== undefined && !(Array.isArray(key.aim) && key.aim.length === 2 && key.aim.every(isNumber)))))
         errors.push(`weapon.animations[${n}]: { replace: "<the game's animation>", from, frames, fps, keys: [{ at, turn: { bone: { x, y, z } }, move: { bone: [x, y, z] }, aim: [across, up], ease }] }, a key at frame 0`);
   }
+  // a material's photograph is a map's picture: a model's parts take a picture by `project`
+  const noPicture = (material, where) => {
+    if (material && typeof material === "object" && material.picture !== undefined)
+      errors.push(`${where}.picture: a reference picture paints a map's or a .wad's texture; a model's parts take a picture by \`project\` (docs/SPEC.md, "Pictures projected onto it")`);
+  };
   for (const [name, material] of Object.entries(spec.materials ?? {}))
     try {
       materialOf(material, `materials.${name}`);
+      noPicture(material, `materials.${name}`);
     } catch (error) {
       errors.push(error.message);
     }
@@ -254,6 +260,7 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
       else if (typeof part.material === "object")
         try {
           materialOf(part.material, `${label}.material`);
+          noPicture(part.material, `${label}.material`);
         } catch (error) {
           errors.push(error.message);
         }
