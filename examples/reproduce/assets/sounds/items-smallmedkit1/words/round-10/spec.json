@@ -1,0 +1,259 @@
+{
+  "spec": "smak.sound/1",
+  "name": "items/smallmedkit1.wav",
+  "class": "click",
+  "seed": 7,
+  "rate": 22050,
+  "bits": 8,
+  "length": 0.76,
+  "layers": [
+    {
+      "id": "beep1",
+      "kind": "tone",
+      "wave": "square",
+      "f": 600,
+      "at": 0.01,
+      "length": 0.05,
+      "gain": -13,
+      "env": {
+        "attack": 0.0005,
+        "hold": 0.048,
+        "decay": 0.0005
+      }
+    },
+    {
+      "id": "beep2",
+      "kind": "tone",
+      "wave": "square",
+      "f": 600,
+      "at": 0.1,
+      "length": 0.065,
+      "gain": -13,
+      "env": {
+        "attack": 0.0005,
+        "hold": 0.063,
+        "decay": 0.0005
+      }
+    },
+    {
+      "id": "beep3",
+      "kind": "tone",
+      "wave": "square",
+      "f": 600,
+      "at": 0.19,
+      "length": 0.065,
+      "gain": -13,
+      "env": {
+        "attack": 0.0005,
+        "hold": 0.063,
+        "decay": 0.0005
+      }
+    },
+    {
+      "id": "beep4",
+      "kind": "tone",
+      "wave": "square",
+      "f": 600,
+      "at": 0.27,
+      "length": 0.065,
+      "gain": -13,
+      "env": {
+        "attack": 0.0005,
+        "hold": 0.063,
+        "decay": 0.0005
+      }
+    },
+    {
+      "id": "start",
+      "kind": "noise",
+      "color": "white",
+      "at": 0,
+      "length": 0.003,
+      "gain": -3,
+      "post": true,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.001
+      }
+    },
+    {
+      "id": "fumble",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.33,
+      "length": 0.245,
+      "gain": -15,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150
+        },
+        {
+          "type": "lowpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.03,
+            -6
+          ],
+          [
+            0.12,
+            -4
+          ],
+          [
+            0.22,
+            -6
+          ],
+          [
+            0.245,
+            -60
+          ]
+        ]
+      }
+    },
+    {
+      "id": "click1",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.38,
+      "length": 0.02,
+      "gain": -10,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ],
+      "env": {
+        "decay": 0.006
+      }
+    },
+    {
+      "id": "click2",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.42,
+      "length": 0.02,
+      "gain": -10,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ],
+      "env": {
+        "decay": 0.006
+      }
+    },
+    {
+      "id": "click3",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.48,
+      "length": 0.02,
+      "gain": -10,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ],
+      "env": {
+        "decay": 0.006
+      }
+    },
+    {
+      "id": "spray",
+      "kind": "noise",
+      "iterations": 16,
+      "at": 0.58,
+      "length": 0.18,
+      "gain": 0,
+      "shape": [
+        [
+          40,
+          -4
+        ],
+        [
+          100,
+          0
+        ],
+        [
+          150,
+          5
+        ],
+        [
+          300,
+          5
+        ],
+        [
+          600,
+          2
+        ],
+        [
+          1000,
+          -6
+        ],
+        [
+          2000,
+          -6
+        ],
+        [
+          3000,
+          -6
+        ],
+        [
+          4000,
+          -4
+        ],
+        [
+          6000,
+          -2
+        ],
+        [
+          8000,
+          -3
+        ],
+        [
+          9000,
+          -14
+        ],
+        [
+          11000,
+          -30
+        ]
+      ],
+      "env": {
+        "attack": 0.005,
+        "hold": 0.165,
+        "decay": 0.002
+      }
+    },
+    {
+      "id": "body",
+      "kind": "tone",
+      "wave": "sine",
+      "f": 90,
+      "at": 0.58,
+      "length": 0.18,
+      "gain": -20,
+      "env": {
+        "attack": 0.005,
+        "hold": 0.165,
+        "decay": 0.002
+      }
+    }
+  ]
+}

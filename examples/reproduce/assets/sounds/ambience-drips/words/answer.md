@@ -1,24 +1,28 @@
-The sound is built and the build says OK: `work:sound/ambience/drips.wav`, 7.31 s, 11025 Hz, 8-bit mono, looped with a cue at its start. Copy it to a mod's `sound/ambience/` folder to replace the game's file of that name. I haven't heard it in the game, and the tool can't say how it sounds.
+The sound is built and the build says OK: `work:sound/ambience/drips.wav`, 7.31 s, 11025 Hz, 8-bit mono, looped with its cue at the start. The spec that makes it is saved at `work:ambience_drips.spec.json`, so `build` on that file reproduces the same bytes.
 
-The spec is one file of five drops at 0.06, 1.87, 3.68, 3.97 and 5.84 s, plus a steady murmur and a low rumble under them. Each drop has a sharp click, a short upward bloop from 420 to 560 Hz, a faint tonal ring at 500 to 640 Hz, and a noisy tail. The 3.68 and 3.97 s drops are about 6 dB softer. The tails fade over about 0.9 s, and the last one dies well before the first drop returns.
+I had no copy of the original to measure against, so every comparison below is against your description and the game's own loop-drips class range. Nobody has listened to it yet.
 
-Measured against your spectrum (the tool's own numbers, not a listen):
+| Measure | Original (your description) | Made | Note |
+|---|---|---|---|
+| Length | 7.31 s | 7.31 s | Matches |
+| Drops (onset times) | 0.06, 1.87, 3.68, 3.97, 5.84 s | same | The two soft drops are 6 to 8 dB lower |
+| Under 150 Hz | 15% | 13% | Close |
+| 150 to 600 Hz | 35% | 35.2% | Matches |
+| 600 to 2000 Hz | 30% | 32.8% | A little high |
+| 2000 to 5000 Hz | 18% | 18.3% | Matches |
+| Over 5000 Hz | 2% | 0.8% | Low; the file's 5.5 kHz ceiling limits it |
+| Loudness (RMS, root mean square) | Not given | -27.7 dBFS | Within the class range |
+| Attack (rise to peak) | Sharp click | 35 ms | Sharp by the class's standard |
+| Flatness (0 is pure tone, 1 is white noise) | "Mostly noisy" | 0.47 | Class range is 0.05 to 0.15; this is the one place I left the class on purpose |
 
-```
-band        target   made
-under 150    15%     13.9%
-150-600      35%     36.6%
-600-2000     30%     36.6%
-2000-5000    18%     11.9%
-over 5000     2%      0.9%
-```
+How it is built:
+- **Each drop:** a short click, a 460 to 540 Hz sine that rises a little and holds, a faint 600 Hz ring with two overtones, a 400 to 900 Hz band that decays over about 0.6 s, a 900 to 2000 Hz band, and a 1.8 to 2.2 kHz streak. The two soft drops are quieter by about 6 dB.
+- **Between drops:** a pink hiss at -21 dB and a brown rumble under 150 Hz, both running the whole length, so there is never silence.
+- **Loop:** the seam is a 0.02 s crossfade. The file is built 7.33 s long because the seam takes 0.02 s off the end, leaving 7.31 s.
 
-Where it falls short:
-- **Tonal ring.** The sound is still too noisy (flatness 0.29, where the game's own drip loops sit at 0.05 to 0.15). Adding more tone pushed too much energy into 600 to 2000 Hz, so I kept the ring faint.
-- **Brightness.** The centroid is 886 Hz, and the 2000 to 5000 Hz band is about 6 points under your figure.
-- **Loudest drop.** The peak lands on the 5.84 s drop, not the 0.06 s one. The three loud drops are close in level.
+Choices I made that you can redirect:
+- **8-bit** because your facts say so. The build warns that 8-bit adds a hiss under quiet tails; I kept it to match the original.
+- **Flatness** stays at 0.47, well outside the class range. Your description says "mostly noisy", so I followed that over the class norm. Adding tone would bring the number down but would move the spectrum away from your figures.
+- **Centroid** (the spectral centre of mass) is 1122 Hz against the class range of 671 to 1007 Hz. I left it because it follows from the band split you gave.
 
-Other notes:
-- **8-bit.** The tool warns that 8-bit adds a hiss under the quiet tails. I kept 8-bit because you asked for it.
-- **Reference.** No game folder was available, so the "against the game's sounds" score uses the tool's built-in ranges, not the original file.
-- **Licences.** I used no generators, so nothing non-commercial went into this file.
+The build's two warnings are both deliberate: the pink hiss is steady noise, and the 8-bit depth matches the original.

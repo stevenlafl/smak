@@ -1,0 +1,89 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/cbar_hit1.wav",
+  "class": "metal hit",
+  "rate": 11025,
+  "bits": 8,
+  "seed": 3,
+  "length": 0.69,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "take",
+      "kind": "sample",
+      "file": "work:gen/cbar_hit_s0.wav",
+      "from": "onset",
+      "length": 0.69,
+      "env": {
+        "attack": 0.001,
+        "hold": 0,
+        "decay": 1
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 120
+        },
+        {
+          "type": "lowpass",
+          "f": 2200
+        }
+      ]
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 760,
+      "ratios": "bar",
+      "decay": 0.4,
+      "damping": 1.2,
+      "gain": -20,
+      "length": 0.69,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.4
+      }
+    },
+    {
+      "id": "body",
+      "kind": "tone",
+      "f": 220,
+      "wave": "sine",
+      "sweep": {
+        "to": 140,
+        "time": 0.12
+      },
+      "env": {
+        "attack": 0.001,
+        "decay": 0.15
+      },
+      "gain": -19
+    },
+    {
+      "id": "grit",
+      "kind": "particles",
+      "count": 800,
+      "band": [
+        300,
+        2000
+      ],
+      "grain": 0.008,
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.2
+      },
+      "gain": -1
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "room": {
+      "decay": 0.35,
+      "wet": 0.15
+    },
+    "limit": {
+      "crest": 8
+    },
+    "peak": -0.5
+  }
+}

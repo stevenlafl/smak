@@ -29,29 +29,29 @@
    "onsets": 2
   },
   "reproduction": {
-   "length": 5.04,
-   "peak": -0.6,
-   "rms": -18.1,
-   "crest": 17.6,
-   "dc": 0,
+   "length": 5.019,
+   "peak": -0.5,
+   "rms": -12.5,
+   "crest": 12,
+   "dc": 0.0001,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.005,
-   "attack": 0.145,
-   "peakAt": 0.145,
-   "t20": 0.484,
-   "t40": 4.889,
-   "centroid": 578,
-   "rolloff": 1109,
-   "flatness": 0.15,
+   "tail": 0.01,
+   "attack": 0.264,
+   "peakAt": 0.274,
+   "t20": 4.23,
+   "t40": 4.525,
+   "centroid": 534,
+   "rolloff": 969,
+   "flatness": 0.031,
    "bands": {
-    "<150": 24.8,
-    "150-600": 41.9,
-    "600-2k": 28,
-    "2k-5k": 5.1,
-    ">5k": 0.1
+    "<150": 26.2,
+    "150-600": 41.4,
+    "600-2k": 30.2,
+    "2k-5k": 2.2,
+    ">5k": 0
    },
-   "onsets": 2
+   "onsets": 4
   },
   "envelope": {
    "class": "none: the original's own decay",
@@ -59,58 +59,29 @@
     0.386,
     0.643
    ],
-   "t20": 0.484,
-   "inRange": true
+   "t20": 4.23,
+   "inRange": false
   },
-  "lengthOff": 0.001,
-  "centroidOff": 0.071,
-  "bandsOffMost": 6.7,
+  "lengthOff": 0.004,
+  "centroidOff": 0.141,
+  "bandsOffMost": 6.2,
   "engineFaults": [],
   "sameName": true,
   "format": {
    "rate": 11025,
-   "bits": 8,
+   "bits": 16,
    "channels": 1
   }
  },
  "caps": {
-  "S2": 2,
+  "S2": 1,
   "S3": 2,
   "S5": 2
  },
- "scores": {
-  "S1": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Cannot listen; judged from the picture and features. The original is a sustained rumble across the full 5.04 s with clatter-like transients near 2.6 s and 4.2 to 4.6 s, which reads as a door moving on its track. The reproduction is one short broadband thump at the start (about 0 to 0.6 s), then near silence for the remaining 4.4 s. It is a plausible door-related sound, but it does not show the same slide-and-stop event, so it is clearly off."
-  },
-  "S2": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "Length is 5.04 s against 5.037 s, and the attack-side t20 (0.484 s) is inside the class range (0.386 to 0.643), so the measures pass. The picture shows the envelope is clearly off: the original keeps its level through the whole clip and swells again at about 4.4 s, while the reproduction drops to a thin line after about 0.6 s. The decay is wrong, and the measured t40 (4.889 s against 0.579 s) disagrees with the picture, so the score is held at 1."
-  },
-  "S3": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Measured: centroid 578 Hz against 622 Hz (about 7% off, inside 20%). Band shares differ by at most 6.7 points (below 150 Hz: 24.8 against 31.1; 150 to 600 Hz: 41.9 against 35.2; 600 to 2k: 28.0 against 28.4; 2k to 5k: 5.1 against 5.0; above 5k: 0.1 against 0.2), all inside 10 points. The spectrograms show the same broad low-mid weighting."
-  },
-  "S4": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Cannot listen; judged from features and the picture. The onset count (2) and flatness (0.150 against 0.158) match. But the original's transients are spread through the clip, at about 2.6 s and 4.2 to 4.6 s, with horizontal tonal bands that drift, while the reproduction's only transient is at the start and its spectrogram is an even broadband blob with no visible pitch movement. The character is clearly off."
-  },
-  "S5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The file is mono, 11025 Hz, 8-bit PCM, which the engine plays. The peak is -0.6 dB with clipped 0, DC is 0, the length matches the original's (5.04 s), and the name is the same. No loop cue is needed, as the original shows none in its measures."
-  }
- },
- "total": 7,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "S2"
+ ],
+ "total": 0,
+ "of": 10
 }

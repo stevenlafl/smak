@@ -1,89 +1,82 @@
 {
   "spec": "smak.sound/1",
-  "name": "weapons/cbar_hit1.wav",
+  "name": "diag/samp_s2b.wav",
   "class": "metal hit",
   "rate": 11025,
   "bits": 8,
   "seed": 3,
   "length": 0.69,
-  "picture": "pictures/sound.png",
   "layers": [
     {
       "id": "take",
       "kind": "sample",
-      "file": "work:gen/cbar_hit_s0.wav",
+      "file": "work:gen/cbar_clang_s2.wav",
       "from": "onset",
       "length": 0.69,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 1400,
+          "q": 0.9
+        }
+      ],
       "env": {
         "attack": 0.001,
-        "hold": 0,
-        "decay": 1
+        "decay": 0.45
       },
+      "gain": 0
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "color": "pink",
       "filter": [
         {
           "type": "highpass",
-          "f": 120
+          "f": 500
         },
         {
           "type": "lowpass",
           "f": 2200
         }
-      ]
-    },
-    {
-      "id": "ring",
-      "kind": "modes",
-      "f": 760,
-      "ratios": "bar",
-      "decay": 0.4,
-      "damping": 1.2,
-      "gain": -20,
-      "length": 0.69,
+      ],
       "env": {
         "attack": 0.001,
-        "decay": 0.4
-      }
+        "decay": 0.14
+      },
+      "gain": -5
     },
     {
-      "id": "body",
-      "kind": "tone",
-      "f": 220,
-      "wave": "sine",
-      "sweep": {
-        "to": 140,
-        "time": 0.12
-      },
+      "id": "low",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 60
+        },
+        {
+          "type": "lowpass",
+          "f": 600
+        }
+      ],
       "env": {
         "attack": 0.001,
         "decay": 0.15
       },
-      "gain": -19
-    },
-    {
-      "id": "grit",
-      "kind": "particles",
-      "count": 800,
-      "band": [
-        300,
-        2000
-      ],
-      "grain": 0.008,
-      "env": {
-        "attack": 0.0005,
-        "decay": 0.2
-      },
-      "gain": -1
+      "gain": 2
     }
   ],
   "finish": {
     "saturate": 1.5,
     "room": {
-      "decay": 0.35,
-      "wet": 0.15
+      "decay": 0.2,
+      "wet": 0.1
     },
     "limit": {
-      "crest": 8
+      "crest": 12
     },
     "peak": -0.5
-  }
+  },
+  "picture": "pictures/sound.png"
 }

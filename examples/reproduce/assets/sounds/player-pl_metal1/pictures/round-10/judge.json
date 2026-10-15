@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "player-pl_metal1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.582,
+   "peak": 0,
+   "rms": -15.5,
+   "crest": 15.5,
+   "dc": -0.0104,
+   "clipped": 1,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.025,
+   "peakAt": 0.045,
+   "t20": 0.424,
+   "t40": 0.539,
+   "centroid": 360,
+   "rolloff": 624,
+   "flatness": 0.057,
+   "bands": {
+    "<150": 34.8,
+    "150-600": 43.8,
+    "600-2k": 19.6,
+    "2k-5k": 1.8,
+    ">5k": 0.1
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.58,
+   "peak": -0.5,
+   "rms": -16.5,
+   "crest": 16,
+   "dc": 0.0001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.334,
+   "t40": 0.564,
+   "centroid": 351,
+   "rolloff": 732,
+   "flatness": 0.009,
+   "bands": {
+    "<150": 30.2,
+    "150-600": 46.5,
+    "600-2k": 21.1,
+    "2k-5k": 2,
+    ">5k": 0.2
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "step metal",
+   "t20Range": [
+    0.315,
+    0.525
+   ],
+   "t20": 0.334,
+   "inRange": true
+  },
+  "lengthOff": 0.003,
+  "centroidOff": 0.025,
+  "bandsOffMost": 4.6,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 16,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the waveform and spectrogram only. Both start with the same sharp broadband transient, so a metal impact or step is plausible. But the original keeps broadband ringing across its length, while the reproduction after about 0.2 s is a thud over a steady tone, so the event reads as a different sound. Clearly off, not the same event."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 0.580 s against 0.582 s (0.3% off, within 25%). T20 is 0.334 s, inside the step metal class range of 0.315 to 0.525 s. Attack is 0.005 s against 0.025 s and the peak comes earlier (0.015 s against 0.045 s), but the rubric measures the envelope by length and T20, and both hold."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid 351 Hz against 360 Hz (2.5% off, within 20%). Band shares are within 4.6 points on every band (bandsOffMost 4.6, within 10). The measured spectrum passes. The time-resolved spectrogram differences are scored under S4."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the spectrogram and flatness. Flatness is 0.009 against 0.057, so the reproduction is far more tonal. The spectrogram shows a steady horizontal line in the reproduction that the original lacks. Above about 1 kHz the reproduction goes dark after roughly 0.2 s while the original keeps mid and high content through the whole clip, so its ring is lost. Onsets match (0 each). Pitch movement cannot be judged from the picture."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured format is mono, 16-bit, 11025 Hz, which the engine plays. Peak is -0.5 dBFS with no clipping, DC is 0.0001, and the file name is the same (sameName true). engineFaults is empty. The original is a one-shot footstep with no loop cue needed."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

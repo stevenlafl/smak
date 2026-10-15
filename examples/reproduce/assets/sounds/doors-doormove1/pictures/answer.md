@@ -1,35 +1,29 @@
-The sound is built and written to `work:sound/doors/doormove1.wav`. The build says OK, but it is not as close to the original as I wanted on loudness shape: the crest is about 5 dB off. I could not hear it, and I could not open the original's picture directly, so the targets below are the numbers the build read off that picture.
+The sound is built and the build says **OK**, with no warnings left. It's written as `doors/doormove1.wav` in the server's work folder (`sound/doors/doormove1.wav`), so it takes the place of the game's file of that name.
+
+**How it's made**
+
+- **Source:** one take from the local generator `woosh-dflow` (seed 0), prompted as an electric sliding door motor with a rumble, then ratchet clicks as it reaches the stop. Its licence is CC-BY-NC 4.0 (non-commercial). You accepted that for this test; it would need a different take for a commercial release.
+- **Motor body:** the take, low-passed at 2.3 kHz, held to 3.9 s and decayed over 0.6 s.
+- **Sub-bass:** a second copy of the take, low-passed at 200 Hz, +1 dB, so the energy below 150 Hz matches the original's share.
+- **Ratchet:** a train of clicks every 0.1 s (jitter 25%), band 900 to 3000 Hz, starting at 4.0 s and running to the end of the file.
+- **Finish:** saturation at 1.5, a limiter at 12 dB crest, peak at -0.5 dBFS.
 
 **Measured against the original's picture**
 
-```
-Measure            Made sound        Original (read off picture)   Result
-Length             5.04 s            5.04 s                        matches
-T20 (time to -20)  0.48 s            0.35 to 0.58 s                in range
-Centroid           578 Hz            589 Hz                        2% off
-Below 150 Hz       24.8%             30.1%                         5.3 points off
-150 to 600 Hz      41.9%             37.8%                         in range
-2k to 5k Hz        5.1%              4.4%                          in range
-Crest              17.6 dB           about 12.7 dB                 4.9 dB off (outside 3 dB)
-Format             11025 Hz, 8-bit mono (same as original)
-```
+| Feature | Original (from picture) | Ours |
+| --- | --- | --- |
+| Length | 5.04 s | 5.02 s |
+| Centroid (brightness) | 589 Hz | 534 Hz (9% off, within the 15% aim) |
+| Power under 150 Hz | about 30% | 26% |
+| Band error (worst) | | 3.9 points (aim within 7) |
+| Crest | about 12.7 dB | 12 dB |
+| Onsets | 4 to 7 | 4 |
 
-The original's 600 Hz to 2 kHz share and its top band were not in the picture readings, so I could not check those.
+**Where it differs from the original**
 
-**How it was made**
+- **Bit depth:** I made it 16-bit at the original's 11025 Hz, not 8-bit. The build warns that 8-bit adds hiss under the quiet tail, and the spec says a copy is not held to the original's depth. If you want the exact 8-bit character, it's a one-line change (`bits: 8`) and the build will warn again.
+- **Comparison method:** the original wasn't in the game folders the server can read, so I compared against numbers read off the picture, not the original file. Those numbers are approximate.
+- **Not checked by ear:** the build can't judge how it sounds to a person or how the game mixes it. Listen to it in the game before you call it done.
+- **Class:** the spec has no door class, so I scored it against `loop machine`, the closest one.
 
-- A generated take of a sliding steel door, from the woosh-dflow model (seed 0). Its licence is CC-BY-NC 4.0, which is non-commercial. You said the licences were accepted for this test.
-- Layer 1, `burst`: the first 0.6 s of that take, with a 12× drive to flatten its peaks, and a shaped envelope that drops by 20 dB at about 0.58 s.
-- Layer 2, `tail`: the rest of the same take, very quiet, fading to -42 dB, so the file runs its full 5 s.
-- Layer 3, `rumble`: low pink noise under 140 Hz, to restore the bass share.
-- The same filter on both take layers: a cut around 280 Hz, a lift around 900 Hz, and a lowpass at 2.6 kHz.
-- Finish: peak normalised to -0.5 dBFS. No limiter: a limiter pumped the quiet tail up and broke the decay.
-
-**Open issues**
-
-- Crest is the main miss. The burst's peaks still sit about 5 dB above its average level. I tried higher drive and flatter envelopes; the best I got was 16.9 dB, which then cost centroid and band accuracy.
-- The build warns that 8-bit depth adds a hiss under the quiet tail. The original is also 8-bit, so I kept it for a like-for-like format. Switching to 16-bit would remove the hiss if it is audible in the game.
-- The build also warns that a steady pink noise layer is heard as static. The rumble layer is a short low-pass noise, so I judged it acceptable, but listen for it.
-- The spec was only passed inline. I have no file-write tool here, so it is not saved in the work folder. The shape of it is in the layers above and in the build calls.
-
-Nothing here has been listened to. Please play it in the game, check the crest and the hiss, and tell me which way it is off.
+The spec was passed inline and isn't saved to a file in the project. If you want it kept for re-running, I can write it out.

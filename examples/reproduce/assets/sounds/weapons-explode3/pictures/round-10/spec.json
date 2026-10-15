@@ -1,0 +1,80 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/explode3.wav",
+  "class": "explosion",
+  "seed": 3,
+  "length": 1.3,
+  "layers": [
+    {
+      "id": "take",
+      "kind": "sample",
+      "file": "work:gen/explode3_s3.wav",
+      "from": "onset",
+      "length": 1.3,
+      "env": {
+        "attack": 0.002,
+        "hold": 0.1,
+        "decay": 0.9
+      },
+      "gain": -8,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 200
+        },
+        {
+          "type": "lowpass",
+          "f": 2000
+        },
+        {
+          "type": "peak",
+          "f": 300,
+          "q": 0.8,
+          "gain": -8
+        },
+        {
+          "type": "peak",
+          "f": 900,
+          "q": 1,
+          "gain": 3
+        }
+      ]
+    },
+    {
+      "id": "boom",
+      "kind": "tone",
+      "f": 70,
+      "wave": "sine",
+      "env": {
+        "attack": 0.001,
+        "hold": 0,
+        "decay": 0.5
+      },
+      "gain": -3
+    },
+    {
+      "id": "grain",
+      "kind": "particles",
+      "rate": 6000,
+      "band": [
+        500,
+        2000
+      ],
+      "grain": 0.002,
+      "env": {
+        "attack": 0.002,
+        "decay": 0.5
+      },
+      "gain": 5
+    }
+  ],
+  "finish": {
+    "saturate": 6,
+    "limit": {
+      "crest": 7.5,
+      "release": 0.002
+    },
+    "peak": -0.5
+  },
+  "picture": "pictures/sound.png"
+}

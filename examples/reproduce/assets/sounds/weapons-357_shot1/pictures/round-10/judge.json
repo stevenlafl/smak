@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-357_shot1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 1.064,
+   "peak": 0,
+   "rms": -8.5,
+   "crest": 8.5,
+   "dc": -0.0012,
+   "clipped": 265,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.748,
+   "t40": 1.003,
+   "centroid": 937,
+   "rolloff": 1658,
+   "flatness": 0.11,
+   "bands": {
+    "<150": 20.3,
+    "150-600": 27.5,
+    "600-2k": 43.9,
+    "2k-5k": 6.7,
+    ">5k": 1.6
+   },
+   "onsets": 3
+  },
+  "reproduction": {
+   "length": 1.06,
+   "peak": -0.5,
+   "rms": -9.5,
+   "crest": 9,
+   "dc": 0.0004,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0,
+   "peakAt": 0.005,
+   "t20": 0.768,
+   "t40": 1.048,
+   "centroid": 943,
+   "rolloff": 1809,
+   "flatness": 0.028,
+   "bands": {
+    "<150": 16.3,
+    "150-600": 26.7,
+    "600-2k": 46.1,
+    "2k-5k": 10.7,
+    ">5k": 0.2
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "gunshot",
+   "t20Range": [
+    0.458,
+    1.013
+   ],
+   "t20": 0.768,
+   "inRange": true
+  },
+  "lengthOff": 0.004,
+  "centroidOff": 0.006,
+  "bandsOffMost": 4,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 16,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. The reproduction has a single fast-attack burst that decays over about a second, which reads as a gunshot. The original's loud, flat-topped body runs from 0 to about 0.4 s and is clipped, and the reproduction's peak sits at 0.005 s with no such sustained blast, so it is plausibly the same event but not clearly the same blast."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 1.06 s against the original's 1.064 s (0.4% off, well within 25%). T20 is 0.768 s, inside the gunshot class range of 0.458 to 1.013 s (in range: true). Attack is 0 against 0.005 s, both within a few milliseconds, and the decay matches the original's (t40 1.048 against 1.003 s)."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid 943 Hz against 937 Hz (0.6% off, within 20%). Band shares against the original: under 150 Hz 16.3 against 20.3 (4.0 points), 150 to 600 Hz 26.7 against 27.5 (0.8), 600 to 2k 46.1 against 43.9 (2.2), 2k to 5k 10.7 against 6.7 (4.0), above 5k 0.2 against 1.6 (1.4). All five are within 10 points."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. The original has 3 onsets, visible as a blocky clipped start and a dark vertical click line at the left of its spectrogram. The reproduction has 0 onsets and a smooth spectrogram with no click. Flatness is 0.11 in the original and 0.028 in the reproduction, so the reproduction is clearly less noisy. The pitch movement is not measured."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono, 16-bit, 22050 Hz, which is a rate the engine plays. Peak is -0.5 dBFS with 0 clipped samples (the original has 265). DC is 0.0004, negligible. It is a one-shot with no loop cue needed (lead 0, tail 0.005, ending clean). Same name as the original (sameName: true)."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

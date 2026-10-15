@@ -1,24 +1,27 @@
-The sound is built: `work:sound/player/pl_metal1.wav`. The build says OK, with one warning I kept on purpose (below).
+The sound is built and the build says OK: `work:sound/player/pl_metal1.wav`, 11025 Hz, 8-bit, mono, 0.575 s. Copy it into `<mod>/sound/player/` and GoldSrc will play it in place of the original's footstep.
 
-I made it from layers, not from a generated take. I generated four takes with the local model (woosh-dflow, non-commercial licence). They were brighter and spikier than the description, and their levels were wrong, so none went in. The final file contains no generator output, so that licence does not apply to it.
-
-The envelope and band shares are measured by the kit, and I could not listen to it:
+I didn't have the original file, so the comparison is against the figures in your description, not a side-by-side listen.
 
 ```
-Measure            Target    Made
-length             0.58 s    0.58 s  (11025 Hz, 8-bit, mono)
-peak               -        -0.6 dBFS
-T40                -        0.57 s
-under 150 Hz       20%      18.9%
-150 to 600 Hz      35%      32.9%
-600 to 2000 Hz     30%      31.2%
-2000 to 5000 Hz    13%      16.5%
-over 5000 Hz       2%       0.6%
+Band (Hz)        Target   Built
+under 150          20%      21%
+150 to 600         35%      38%
+600 to 2000        30%      30%
+2000 to 5000       13%      10%
+over 5000           2%       0%
+Length        0.58 s    0.575 s
+Loudest peak  ~0.17 s    0.165 s
+T20 (to -20 dB)  -       0.35 s
 ```
 
-- **Event:** a noise burst of clicks from 0 to about 0.12 s, a second hit with its peak at 0.165 s, then a tail of plate-like modes (200 to 380 Hz with partials near 1 kHz) that fades to about -30 dB by the end.
-- **Warning kept:** the kit warns that 8-bit adds hiss under the quiet tail. I kept 8-bit because the original is 8-bit. If the hiss is audible in game, change `bits` to 16.
-- **Against the game's own grate sounds:** the kit's class check flags the flatness (0.29 against a range up to 0.07), the crest (18.8 against up to 18.5) and the length. I followed your description (gritty, noisy attack, faint tone) over those ranges, so these flags are expected.
-- **Not checked:** how it sounds, and its level in the game. Please listen in game.
+**How it's made:** The main layer is a generated take (`woosh-dflow`, seed 2 of `pl_metal1`), high-passed at 600 Hz and boosted around 1.3 kHz and 3 kHz, so it lands as the heel hit at 0.165 s. A short sine thump at 120 Hz (sweeping to 70 Hz) adds the low end. A quiet plate-ring layer at 260 Hz starts at 0.27 s for the hollow tail. A burst of clicks over the first 0.12 s gives the crackly attack. The file is put through a saturate-and-limit finish with a crest of 14 dB.
 
-Scratch probes are in `work:sound/test/` and the generated takes are in `work:gen/`. Say if you want them deleted.
+**Known gaps:**
+- The tail is noisier than a real plate ring. The measured flatness is 0.17 against a tonal target of about 0.01 to 0.11. Raising the ring to fix it pushed the low-mid band out of balance, so I kept the balance.
+- Above 5 kHz is empty, though the original has about 2%.
+- The build warns that the decay to -20 dB (0.35 s) is a little shorter than the game's own step sounds (0.32 s is the minimum), and that the rise to peak is slower than those sounds. Both match your description of the original, so I left them.
+- I kept 8-bit as you specified. The build warns that 8-bit adds a faint hiss under the quiet tail.
+
+**Licence:** The take is from `woosh-dflow`, whose weights are CC-BY-NC 4.0 (non-commercial). You said you accept the local generators' licences for this test. If the mod is ever sold or distributed commercially, this sound will need replacing.
+
+The spec was passed inline to `build`, so it isn't saved as a file. Say if you want it written into the work folder so the sound can be rebuilt.

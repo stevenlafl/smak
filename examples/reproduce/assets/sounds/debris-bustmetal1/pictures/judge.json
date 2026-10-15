@@ -29,29 +29,29 @@
    "onsets": 0
   },
   "reproduction": {
-   "length": 0.836,
+   "length": 0.856,
    "peak": -0.6,
-   "rms": -12.4,
-   "crest": 11.8,
-   "dc": 0,
+   "rms": -13.3,
+   "crest": 12.7,
+   "dc": -0.0004,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.015,
-   "attack": 0,
-   "peakAt": 0.215,
-   "t20": 0.419,
-   "t40": 0.534,
-   "centroid": 1914,
-   "rolloff": 3575,
-   "flatness": 0.49,
+   "tail": 0.005,
+   "attack": 0.035,
+   "peakAt": 0.135,
+   "t20": 0.574,
+   "t40": 0.718,
+   "centroid": 1690,
+   "rolloff": 2961,
+   "flatness": 0.381,
    "bands": {
-    "<150": 0.2,
-    "150-600": 7.1,
-    "600-2k": 50.8,
-    "2k-5k": 41.3,
-    ">5k": 0.6
+    "<150": 0.1,
+    "150-600": 13.4,
+    "600-2k": 52.4,
+    "2k-5k": 34.1,
+    ">5k": 0.1
    },
-   "onsets": 1
+   "onsets": 0
   },
   "envelope": {
    "class": "none: the original's own decay",
@@ -59,12 +59,12 @@
     0.329,
     0.549
    ],
-   "t20": 0.419,
-   "inRange": true
+   "t20": 0.574,
+   "inRange": false
   },
-  "lengthOff": 0.042,
-  "centroidOff": 0.027,
-  "bandsOffMost": 3.8,
+  "lengthOff": 0.019,
+  "centroidOff": 0.141,
+  "bandsOffMost": 7.2,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -74,43 +74,14 @@
   }
  },
  "caps": {
-  "S2": 2,
+  "S2": 1,
   "S3": 2,
   "S5": 2
  },
- "scores": {
-  "S1": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Cannot listen, so judged from the picture and features. Both are broadband noise bursts over about 0.9 s, consistent with a debris or metal impact. But the reproduction opens with about 0.2 s of quieter sound carrying a bright, sustained low-frequency band that the original lacks, and its main hit arrives at 0.215 s (peakAt) where the original's hits at 0.075 s. The event's sequence is off, so it is not clearly the same event."
-  },
-  "S2": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "Length is 0.836 s against 0.873 s (within 25%), and t20 is 0.419 s against 0.439 s, inside the class range 0.329 to 0.549. Those measures pass. The picture shows the reproduction's peak at 0.215 s against the original's 0.075 s, with a quiet lead-in and no sharp start. The attack measure of 0 against 0.025 misses that, so the envelope shape is short of a 2."
-  },
-  "S3": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Measured: centroid 1914 against 1968 (2.7% off, within 20%). Band shares: <150 0.2 vs 0.2; 150-600 7.1 vs 8.8; 600-2k 50.8 vs 47; 2k-5k 41.3 vs 41.3; >5k 0.6 vs 2.7. The largest gap is 3.8 points, within 10. The picture agrees: both spectrograms sit in the same mid-high band."
-  },
-  "S4": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Onsets are 1 against 0: the reproduction has a hit at 0.215 s that the original does not have. Flatness is 0.49 against 0.569, so the reproduction is more tonal, and the picture shows a sustained bright low-frequency line over its first 0.2 s that the original lacks. Pitch movement cannot be judged from the picture. This is clearly off but not absent, so 1."
-  },
-  "S5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Format is mono, 11025 Hz, 8-bit, as the engine plays. Peak is -0.6 dBFS with no clipping, DC is 0 (the original's is -0.0076, so this is no worse), the name matches (sameName true), and the engine reports no faults. The original has no loop cue, so none is needed."
-  }
- },
- "total": 7,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "S2"
+ ],
+ "total": 0,
+ "of": 10
 }

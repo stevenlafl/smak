@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "items-smallmedkit1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.763,
+   "peak": -3,
+   "rms": -14.1,
+   "crest": 11.1,
+   "dc": -0.0033,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.09,
+   "t20": 0.673,
+   "t40": 0.673,
+   "centroid": 2177,
+   "rolloff": 6072,
+   "flatness": 0.128,
+   "bands": {
+    "<150": 0.1,
+    "150-600": 14.7,
+    "600-2k": 59.5,
+    "2k-5k": 3.9,
+    ">5k": 21.7
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 0.76,
+   "peak": -0.5,
+   "rms": -14.9,
+   "crest": 14.4,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.055,
+   "t20": 0.673,
+   "t40": 0.703,
+   "centroid": 2078,
+   "rolloff": 6503,
+   "flatness": 0.099,
+   "bands": {
+    "<150": 0,
+    "150-600": 13.8,
+    "600-2k": 65.4,
+    "2k-5k": 2,
+    ">5k": 18.8
+   },
+   "onsets": 1
+  },
+  "envelope": {
+   "class": "none: the original's own decay",
+   "t20Range": [
+    0.505,
+    0.841
+   ],
+   "t20": 0.673,
+   "inRange": true
+  },
+  "lengthOff": 0.004,
+  "centroidOff": 0.045,
+  "bandsOffMost": 5.9,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 16,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture only, since I cannot listen. Both waveforms share the same event shape: a run of tonal pulses (three groups in the original, roughly three in the reproduction), a gap, a quieter tail, then a loud noise swell that rises to the end. The reproduction's first group is more smeared and its tail thinner, which is a matter of character (S4), not of what the event is."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 0.76 s against 0.763 s (0.4% off, within 25%). The attack is 0.005 s against 0 s, and both are in range. T20 is 0.673 s in both, inside the class's range of 0.505 to 0.841 s (the original's own decay, so no class range applies), and inRange is true."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 2078 Hz against 2177 Hz, 4.6% off (within 20%). Band shares differ by at most 5.9 points (600 to 2k: 65.4 against 59.5), and every band is within 10 points: under 150 Hz 0 against 0.1, 150 to 600 Hz 13.8 against 14.7, 2k to 5k 2 against 3.9, over 5k 18.8 against 21.7."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features, not by ear. Onsets match (1 each) and flatness is near (0.099 against 0.128). But the original's quiet tail is a sustained noisy smear with clicks at about 0.4 s and 0.6 s, and the reproduction's tail is nearly empty with sparse dots. The reproduction's tonal bursts also show more banding and blur, so the tone and pitch movement do not clearly match. Not a must-have item, but the difference is clear in the picture."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The features give mono, 16-bit PCM at 22050 Hz, which the engine plays. Peak is -0.5 dBFS with no clipping, DC is 0, and there is no lead or tail silence. The name matches (sameName true), and the engine reports no faults. The original has no loop cue to match, so none is missing."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

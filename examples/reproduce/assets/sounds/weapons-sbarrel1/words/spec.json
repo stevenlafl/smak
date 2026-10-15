@@ -2,49 +2,54 @@
   "spec": "smak.sound/1",
   "name": "weapons/sbarrel1.wav",
   "class": "gunshot",
-  "seed": 1,
+  "seed": 7,
   "rate": 22050,
   "bits": 8,
   "length": 1.04,
   "layers": [
     {
-      "id": "crack",
+      "id": "crack1",
       "kind": "noise",
+      "color": "white",
       "at": 0,
-      "length": 0.02,
-      "gain": 2,
-      "env": {
-        "attack": 0.0005,
-        "decay": 0.008
-      },
+      "length": 0.003,
       "filter": [
         {
           "type": "highpass",
           "f": 2000
         }
-      ]
+      ],
+      "env": {
+        "attack": 0.0003,
+        "decay": 0.002
+      },
+      "gain": 0,
+      "post": true
     },
     {
       "id": "crack2",
       "kind": "noise",
+      "color": "white",
       "at": 0.03,
-      "length": 0.02,
-      "gain": 0,
-      "env": {
-        "attack": 0.0005,
-        "decay": 0.008
-      },
+      "length": 0.004,
       "filter": [
         {
           "type": "highpass",
           "f": 2000
         }
-      ]
+      ],
+      "env": {
+        "attack": 0.0003,
+        "decay": 0.003
+      },
+      "gain": -2,
+      "post": true
     },
     {
       "id": "blast",
       "kind": "noise",
       "iterations": 32,
+      "drive": 4,
       "env": {
         "points": [
           [
@@ -52,24 +57,16 @@
             0
           ],
           [
-            0.38,
+            0.4,
             0
           ],
           [
-            0.5,
-            -6
-          ],
-          [
             0.6,
-            -14
+            -26
           ],
           [
-            0.8,
-            -24
-          ],
-          [
-            0.92,
-            -36
+            0.9,
+            -50
           ],
           [
             1.04,
@@ -83,40 +80,36 @@
             "at": 0,
             "curve": [
               [
-                40,
-                0
+                30,
+                3
               ],
               [
-                60,
-                1
+                80,
+                7
               ],
               [
                 150,
-                -6
+                4
               ],
               [
                 300,
-                -10
+                -1
               ],
               [
                 600,
-                -12
-              ],
-              [
-                1200,
-                -3
+                -5
               ],
               [
                 2000,
-                -3
+                -10
               ],
               [
                 5000,
-                -6
+                -14
               ],
               [
                 11000,
-                -12
+                -24
               ]
             ]
           },
@@ -124,40 +117,36 @@
             "at": 0.5,
             "curve": [
               [
-                40,
-                -4
+                30,
+                3
               ],
               [
-                60,
-                -2
+                80,
+                7
               ],
               [
                 150,
-                -2
+                4
               ],
               [
                 300,
-                -8
+                -2
               ],
               [
                 600,
-                -14
-              ],
-              [
-                1200,
-                -20
+                -7
               ],
               [
                 2000,
-                -28
+                -15
               ],
               [
                 5000,
-                -40
+                -22
               ],
               [
                 11000,
-                -50
+                -34
               ]
             ]
           }
@@ -167,65 +156,54 @@
     {
       "id": "thump",
       "kind": "tone",
-      "f": 110,
+      "f": 140,
       "wave": "sine",
       "sweep": {
         "to": 45,
         "time": 0.25
       },
-      "at": 0,
-      "length": 0.6,
-      "gain": -2,
       "env": {
         "attack": 0.001,
-        "decay": 0.35
-      }
+        "decay": 0.3
+      },
+      "gain": -5
     },
     {
-      "id": "body",
-      "kind": "tone",
-      "f": 62,
-      "wave": "sine",
-      "at": 0,
-      "length": 1,
-      "gain": -7,
-      "env": {
-        "attack": 0.002,
-        "decay": 0.6
-      }
-    },
-    {
-      "id": "crackle",
+      "id": "tail",
       "kind": "particles",
-      "rate": 300,
+      "count": 400,
       "band": [
-        80,
-        2000
+        100,
+        900
       ],
       "grain": 0.004,
-      "at": 0.2,
-      "length": 0.8,
-      "gain": -16,
+      "at": 0.3,
+      "length": 0.74,
       "env": {
         "points": [
           [
             0,
+            -60
+          ],
+          [
+            0.1,
             -6
           ],
           [
             0.3,
-            -10
+            -14
           ],
           [
             0.6,
-            -18
+            -30
           ],
           [
-            0.8,
-            -30
+            0.74,
+            -60
           ]
         ]
-      }
+      },
+      "gain": -8
     }
   ],
   "finish": {

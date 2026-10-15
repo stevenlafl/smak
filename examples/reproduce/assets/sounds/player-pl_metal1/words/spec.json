@@ -1,258 +1,107 @@
 {
   "spec": "smak.sound/1",
   "name": "player/pl_metal1.wav",
-  "class": "step grate",
-  "seed": 7,
+  "class": "step metal",
   "rate": 11025,
   "bits": 8,
   "length": 0.58,
+  "seed": 7,
   "layers": [
     {
-      "id": "body",
-      "kind": "tone",
-      "f": 95,
-      "wave": "sine",
-      "env": {
-        "attack": 0.001,
-        "decay": 0.12
-      },
-      "gain": 0,
-      "post": true
-    },
-    {
-      "id": "clatter",
+      "id": "crackle",
       "kind": "particles",
-      "rate": 900,
+      "every": 0.009,
+      "jitter": 0.6,
       "band": [
-        2000,
-        5000
+        1200,
+        4500
       ],
       "grain": 0.002,
       "env": {
         "attack": 0.001,
-        "hold": 0.03,
-        "decay": 0.09
+        "hold": 0.08,
+        "decay": 0.03
       },
-      "gain": -13
-    },
-    {
-      "id": "burst",
-      "kind": "noise",
-      "shape": [
-        [
-          60,
-          -12
-        ],
-        [
-          200,
-          -10
-        ],
-        [
-          400,
-          -6
-        ],
-        [
-          800,
-          -1
-        ],
-        [
-          1500,
-          0
-        ],
-        [
-          3000,
-          -3
-        ],
-        [
-          5000,
-          -10
-        ]
-      ],
-      "env": {
-        "points": [
-          [
-            0,
-            -6
-          ],
-          [
-            0.04,
-            -8
-          ],
-          [
-            0.12,
-            -30
-          ],
-          [
-            0.16,
-            -60
-          ]
-        ]
-      }
+      "gain": -6
     },
     {
       "id": "hit",
-      "kind": "noise",
+      "kind": "sample",
+      "file": "work:gen/pl_metal1_s2.wav",
+      "from": "onset",
+      "length": 0.4,
       "at": 0.165,
-      "shape": [
-        [
-          60,
-          -14
-        ],
-        [
-          200,
-          -10
-        ],
-        [
-          400,
-          -6
-        ],
-        [
-          800,
-          0
-        ],
-        [
-          1500,
-          0
-        ],
-        [
-          2500,
-          -5
-        ],
-        [
-          4000,
-          -14
-        ],
-        [
-          5000,
-          -20
-        ]
-      ],
       "env": {
-        "attack": 0.001,
-        "hold": 0.004,
-        "decay": 0.12
+        "attack": 0.002,
+        "hold": 0,
+        "decay": 0.8
       },
-      "gain": -1
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 600,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 1300,
+          "q": 1,
+          "gain": 8
+        },
+        {
+          "type": "peak",
+          "f": 3000,
+          "q": 1,
+          "gain": 7
+        },
+        {
+          "type": "lowpass",
+          "f": 5500,
+          "q": 0.7
+        }
+      ],
+      "gain": 10
     },
     {
       "id": "thump",
       "kind": "tone",
-      "at": 0.165,
-      "f": 110,
+      "f": 120,
       "wave": "sine",
+      "sweep": {
+        "to": 70,
+        "time": 0.1
+      },
+      "at": 0.165,
+      "length": 0.2,
       "env": {
         "attack": 0.001,
-        "decay": 0.09
+        "hold": 0,
+        "decay": 0.14
       },
-      "gain": -2,
-      "post": true
+      "gain": -17
     },
     {
-      "id": "tail",
-      "kind": "noise",
-      "at": 0.1,
-      "shape": [
-        [
-          150,
-          -14
-        ],
-        [
-          300,
-          -8
-        ],
-        [
-          600,
-          -2
-        ],
-        [
-          1000,
-          0
-        ],
-        [
-          2000,
-          -2
-        ],
-        [
-          3000,
-          -14
-        ],
-        [
-          5000,
-          -26
-        ]
-      ],
-      "env": {
-        "points": [
-          [
-            0,
-            -22
-          ],
-          [
-            0.2,
-            -26
-          ],
-          [
-            0.48,
-            -36
-          ]
-        ]
-      }
-    },
-    {
-      "id": "ring",
+      "id": "plate",
       "kind": "modes",
-      "modes": [
-        {
-          "f": 200,
-          "gain": 0,
-          "decay": 1.2
-        },
-        {
-          "f": 300,
-          "gain": -6,
-          "decay": 1
-        },
-        {
-          "f": 380,
-          "gain": -9,
-          "decay": 0.8
-        },
-        {
-          "f": 1000,
-          "gain": -2,
-          "decay": 0.5
-        },
-        {
-          "f": 1400,
-          "gain": -8,
-          "decay": 0.3
-        }
-      ],
+      "f": 260,
+      "ratios": "plate",
+      "decay": 0.8,
+      "damping": 1.2,
+      "at": 0.27,
+      "length": 0.3,
       "env": {
-        "points": [
-          [
-            0,
-            -8
-          ],
-          [
-            0.1,
-            -6
-          ],
-          [
-            0.3,
-            -8
-          ],
-          [
-            0.58,
-            -14
-          ]
-        ]
+        "attack": 0.005,
+        "hold": 0,
+        "decay": 0.5
       },
-      "gain": -34
+      "gain": -24
     }
   ],
   "finish": {
     "saturate": 1.5,
-    "peak": -0.5
+    "limit": {
+      "crest": 17,
+      "release": 0.002
+    }
   }
 }

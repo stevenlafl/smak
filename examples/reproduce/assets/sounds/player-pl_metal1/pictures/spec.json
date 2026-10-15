@@ -3,113 +3,88 @@
   "name": "player/pl_metal1.wav",
   "class": "step metal",
   "rate": 11025,
-  "bits": 16,
-  "length": 0.58,
+  "bits": 8,
   "seed": 1,
-  "picture": {
-    "file": "pictures/sound.png",
-    "length": 0.58,
-    "rate": 11025
-  },
+  "length": 0.58,
+  "picture": "pictures/sound.png",
   "layers": [
     {
-      "id": "sub",
-      "kind": "tone",
-      "f": 110,
-      "wave": "sine",
-      "sweep": {
-        "to": 75,
-        "time": 0.12
-      },
+      "id": "click",
+      "kind": "noise",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 600
+        },
+        {
+          "type": "peak",
+          "f": 900,
+          "q": 1,
+          "gain": 6
+        },
+        {
+          "type": "lowpass",
+          "f": 1800
+        }
+      ],
       "env": {
-        "attack": 0.0005,
-        "decay": 0.9
+        "attack": 0.001,
+        "decay": 0.06
       },
-      "gain": -7
+      "gain": 0
     },
     {
       "id": "thump",
       "kind": "tone",
-      "f": 300,
+      "f": 120,
       "wave": "sine",
       "sweep": {
-        "to": 180,
+        "to": 60,
         "time": 0.1
       },
       "env": {
-        "attack": 0.0005,
-        "decay": 1
+        "attack": 0.001,
+        "decay": 0.35
       },
       "gain": -6
     },
     {
       "id": "grit",
       "kind": "noise",
-      "color": "white",
       "filter": [
         {
           "type": "highpass",
           "f": 300
-        }
-      ],
-      "env": {
-        "attack": 0.0005,
-        "decay": 0.15
-      },
-      "gain": -10
-    },
-    {
-      "id": "fill",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 3000
-        }
-      ],
-      "env": {
-        "attack": 0.0005,
-        "decay": 0.25
-      },
-      "gain": -8
-    },
-    {
-      "id": "strike",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 150
         },
         {
           "type": "lowpass",
-          "f": 800
+          "f": 1200
         }
       ],
       "env": {
-        "attack": 0.0005,
-        "decay": 0.05
+        "attack": 0.001,
+        "decay": 0.25
       },
-      "gain": -4
+      "gain": -1
     },
     {
       "id": "ring",
       "kind": "modes",
-      "f": 730,
+      "f": 420,
       "ratios": "bar",
-      "gains": [
-        0.3,
-        0.1,
-        0.04
-      ],
-      "decay": 1.2
+      "decay": 1.2,
+      "damping": 0.6,
+      "gain": -16
     }
   ],
   "finish": {
+    "saturate": 1,
+    "room": {
+      "decay": 0.2,
+      "wet": 0.1
+    },
     "limit": {
-      "crest": 16,
+      "crest": 14,
       "release": 0.002
     },
     "peak": -0.5

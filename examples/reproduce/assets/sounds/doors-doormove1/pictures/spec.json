@@ -1,172 +1,78 @@
 {
   "spec": "smak.sound/1",
   "name": "doors/doormove1.wav",
+  "class": "loop machine",
   "rate": 11025,
-  "bits": 8,
+  "bits": 16,
   "length": 5.04,
   "seed": 1,
   "picture": "pictures/sound.png",
   "layers": [
     {
-      "id": "burst",
+      "id": "motor",
       "kind": "sample",
-      "file": "work:gen/doormove_s0.wav",
-      "from": "onset",
-      "length": 0.8,
-      "drive": 12,
-      "env": {
-        "points": [
-          [
-            0,
-            -4
-          ],
-          [
-            0.1,
-            -1
-          ],
-          [
-            0.35,
-            -2
-          ],
-          [
-            0.5,
-            -10
-          ],
-          [
-            0.58,
-            -24
-          ],
-          [
-            0.7,
-            -60
-          ],
-          [
-            5.04,
-            -60
-          ]
-        ]
-      },
-      "filter": [
-        {
-          "type": "peak",
-          "f": 280,
-          "q": 0.7,
-          "gain": -12
-        },
-        {
-          "type": "peak",
-          "f": 900,
-          "q": 0.8,
-          "gain": 6
-        },
-        {
-          "type": "lowpass",
-          "f": 2600,
-          "q": 0.7
-        }
-      ]
-    },
-    {
-      "id": "tail",
-      "kind": "sample",
-      "file": "work:gen/doormove_s0.wav",
-      "from": "onset",
+      "file": "work:gen/doormove1_s0.wav",
+      "from": 0,
       "length": 5.04,
       "env": {
-        "points": [
-          [
-            0,
-            -60
-          ],
-          [
-            0.4,
-            -50
-          ],
-          [
-            0.6,
-            -30
-          ],
-          [
-            1,
-            -34
-          ],
-          [
-            2,
-            -38
-          ],
-          [
-            5.04,
-            -42
-          ]
-        ]
+        "attack": 0.05,
+        "hold": 3.9,
+        "decay": 0.6
       },
       "filter": [
         {
-          "type": "peak",
-          "f": 280,
-          "q": 0.7,
-          "gain": -12
-        },
-        {
-          "type": "peak",
-          "f": 900,
-          "q": 0.8,
-          "gain": 6
-        },
-        {
           "type": "lowpass",
-          "f": 2600,
+          "f": 2300,
           "q": 0.7
         }
       ]
     },
     {
-      "id": "rumble",
-      "kind": "noise",
-      "color": "pink",
+      "id": "sub",
+      "kind": "sample",
+      "file": "work:gen/doormove1_s0.wav",
+      "from": 0,
+      "length": 5.04,
       "env": {
-        "points": [
-          [
-            0,
-            -12
-          ],
-          [
-            0.15,
-            -6
-          ],
-          [
-            0.4,
-            -18
-          ],
-          [
-            0.6,
-            -26
-          ],
-          [
-            1,
-            -34
-          ],
-          [
-            2,
-            -38
-          ],
-          [
-            5.04,
-            -42
-          ]
-        ]
+        "attack": 0.05,
+        "hold": 3.9,
+        "decay": 0.6
       },
+      "gain": 1,
       "filter": [
         {
           "type": "lowpass",
-          "f": 140,
+          "f": 200,
           "q": 0.7
         }
+      ]
+    },
+    {
+      "id": "ratchet",
+      "kind": "particles",
+      "every": 0.1,
+      "jitter": 0.25,
+      "band": [
+        900,
+        3000
       ],
-      "gain": -15
+      "grain": 0.004,
+      "at": 4,
+      "length": 1.2,
+      "env": {
+        "attack": 0.01,
+        "hold": 0.5,
+        "decay": 0.6
+      },
+      "gain": -6
     }
   ],
   "finish": {
+    "saturate": 1.5,
+    "limit": {
+      "crest": 12,
+      "release": 0.002
+    },
     "peak": -0.5
   }
 }

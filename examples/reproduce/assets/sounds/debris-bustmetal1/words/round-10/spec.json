@@ -1,0 +1,250 @@
+{
+  "spec": "smak.sound/1",
+  "name": "debris/bustmetal1.wav",
+  "class": "metal hit",
+  "rate": 11025,
+  "bits": 8,
+  "length": 0.87,
+  "seed": 7,
+  "layers": [
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.004
+      },
+      "gain": -4,
+      "post": true
+    },
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 120,
+      "wave": "sine",
+      "sweep": {
+        "to": 55,
+        "time": 0.08
+      },
+      "env": {
+        "attack": 0.001,
+        "decay": 0.2
+      },
+      "gain": -2
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "iterations": 32,
+      "shape": [
+        [
+          40,
+          -8
+        ],
+        [
+          100,
+          -1
+        ],
+        [
+          150,
+          0
+        ],
+        [
+          300,
+          -7
+        ],
+        [
+          600,
+          -5
+        ],
+        [
+          1200,
+          -3
+        ],
+        [
+          2000,
+          -3
+        ],
+        [
+          3500,
+          -8
+        ],
+        [
+          5000,
+          -14
+        ],
+        [
+          5500,
+          -40
+        ]
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -1
+          ],
+          [
+            0.01,
+            0
+          ],
+          [
+            0.15,
+            -1
+          ],
+          [
+            0.3,
+            -6
+          ],
+          [
+            0.45,
+            -12
+          ],
+          [
+            0.6,
+            -20
+          ],
+          [
+            0.75,
+            -30
+          ],
+          [
+            0.84,
+            -60
+          ]
+        ]
+      },
+      "gain": -8
+    },
+    {
+      "id": "clatter",
+      "kind": "particles",
+      "rate": 900,
+      "band": [
+        700,
+        3000
+      ],
+      "grain": 0.002,
+      "env": {
+        "points": [
+          [
+            0,
+            -1
+          ],
+          [
+            0.02,
+            0
+          ],
+          [
+            0.15,
+            -1
+          ],
+          [
+            0.3,
+            -6
+          ],
+          [
+            0.45,
+            -12
+          ],
+          [
+            0.6,
+            -20
+          ],
+          [
+            0.75,
+            -30
+          ],
+          [
+            0.84,
+            -60
+          ]
+        ]
+      },
+      "gain": -6
+    },
+    {
+      "id": "plate",
+      "kind": "modes",
+      "f": 500,
+      "ratios": "plate",
+      "decay": 0.45,
+      "damping": 1.2,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.45
+      },
+      "gain": -5
+    },
+    {
+      "id": "plate2",
+      "kind": "modes",
+      "f": 1400,
+      "ratios": "plate",
+      "decay": 0.25,
+      "damping": 1.5,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.25
+      },
+      "gain": -3
+    },
+    {
+      "id": "take",
+      "kind": "sample",
+      "file": "work:gen/bustmetal_s1.wav",
+      "from": "onset",
+      "length": 0.6,
+      "env": {
+        "points": [
+          [
+            0,
+            -3
+          ],
+          [
+            0.15,
+            -2
+          ],
+          [
+            0.3,
+            -8
+          ],
+          [
+            0.45,
+            -14
+          ],
+          [
+            0.6,
+            -30
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 600
+        },
+        {
+          "type": "lowpass",
+          "f": 5000
+        }
+      ],
+      "gain": -14
+    }
+  ],
+  "finish": {
+    "saturate": 2,
+    "limit": {
+      "crest": 12,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

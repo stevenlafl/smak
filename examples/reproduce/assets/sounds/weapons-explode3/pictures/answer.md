@@ -1,23 +1,27 @@
-The sound builds clean: `work:sound/weapons/explode3.wav` is written, and the last build reports OK with no warnings. All 22 of its features are in the range of the game's own explosion sounds.
+The build says OK: `weapons/explode3.wav` is written to the work folder under `sound/weapons/explode3.wav`, ready to go in a mod's `sound` folder.
 
-**What I matched against:** the only copy of the original I had was its picture and facts (`sound.png`, `facts.txt`). The WAV is not in the input folder, so the comparison is against those numbers, not a listen.
+I could not compare it against the original wav. The input folder holds only the spectrogram picture and a facts line, so every match below is against numbers read off that picture, and I have not listened to either file.
 
-| Feature | Original (picture) | Made |
-| --- | --- | --- |
+| Feature | Original (from picture) | Made |
+|---|---|---|
 | Length | 1.3 s | 1.30 s |
-| Rate | 22050 Hz | 22050 Hz, mono |
-| Centroid | 605 Hz | 617 Hz |
-| T20 (time to -20 dB) | about 0.67 to 1.11 s | 0.92 s |
-| Crest | about 8.1 dB | 8.4 dB |
-| Band 150 to 600 Hz | about 36% | 33% |
-| Band 600 to 2000 Hz | about 21% | 20% |
+| Attack | at the start | 5 ms |
+| T20 (time to −20 dB) | about 0.67 to 1.11 s range | 1.09 s |
+| Centroid | about 605 Hz | 629 Hz |
+| Band under 150 Hz | about 37% | 36% |
+| Band 150 to 600 Hz | about 36% | 39% |
+| Crest | about 8.1 dB | 8.5 dB |
 
-**How it is made:** a generated explosion take (woosh-dflow, seed 3), cut from its onset, high-passed at 200 Hz, low-passed at 2 kHz, with a notch at 300 Hz and a lift at 900 Hz. It sits under a 70 Hz sine body and a grain layer of 500 to 2000 Hz, then goes through saturation at 6 and the explosion class's limit.
+All 22 explosion-class features are in range, and the build reports no faults.
 
-**Licence:** the take is from woosh-dflow, whose weights are CC-BY-NC 4.0 (non-commercial). You said that was accepted for this test. It is not cleared for a commercial release.
+How it is made:
+- **Body:** one of four generated grenade-explosion takes (seed 0, 48 kHz), high-passed at 150 Hz and low-passed at 3.5 kHz, with an envelope that is loudest at the start and falls over about 1 s.
+- **Low boom:** a sine tone sweeping from 110 Hz down to 40 Hz, kept quiet.
+- **Grain:** short particles in the 400 Hz to 4 kHz range, falling away with the body.
+- **Crack:** a short high-passed noise burst added after the limiter so the sound starts sharply.
+- **Finish:** saturation at 6 and a limiter aimed at a crest of 8 dB.
 
-**Choices I made that you can redirect:**
-- **16-bit, not 8-bit.** The original is 8-bit, but the kit warns that 8-bit adds a hiss under the quiet tail, which is not in the original's character. I kept 16-bit.
-- **No room.** A room tail pushed the length past 1.3 s, so I dropped it.
-
-**Not checked:** how it sounds in the game, its volume there, and how it compares by ear. Listen to it in the game against the original before you accept it.
+Things you should know:
+- **Licence:** the take comes from woosh-dflow, whose licence is CC-BY-NC 4.0 (non-commercial). You said that suits this test; I have not changed the file to work around it.
+- **8-bit:** I kept 8 bits to match the original's depth. The build warns that this adds a faint hiss under the quiet tail. If that is heard as static, switching to 16 bits removes it, at the cost of not matching the original's format.
+- **Not checked:** how it sounds in the game, its volume, and the map's room. The original wav is not in the input folder, so a side-by-side listen is the real test.

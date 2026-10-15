@@ -1,0 +1,113 @@
+{
+ "kind": "sounds",
+ "subject": "ambience-drips",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 7.306,
+   "peak": -0.4,
+   "rms": -27.3,
+   "crest": 26.9,
+   "dc": -0.0039,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 5.777,
+   "peakAt": 5.832,
+   "t20": 0.434,
+   "t40": 1.477,
+   "centroid": 839,
+   "rolloff": 1066,
+   "flatness": 0.095,
+   "bands": {
+    "<150": 1.2,
+    "150-600": 23.2,
+    "600-2k": 72.3,
+    "2k-5k": 2.5,
+    ">5k": 0.7
+   },
+   "onsets": 4
+  },
+  "reproduction": {
+   "length": 7.06,
+   "peak": -0.5,
+   "rms": -25.3,
+   "crest": 24.8,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 1.267,
+   "peakAt": 2.504,
+   "t20": 3.407,
+   "t40": 4.56,
+   "centroid": 770,
+   "rolloff": 980,
+   "flatness": 0.005,
+   "bands": {
+    "<150": 3.6,
+    "150-600": 22.8,
+    "600-2k": 73.3,
+    "2k-5k": 0.4,
+    ">5k": 0
+   },
+   "onsets": 4
+  },
+  "envelope": {
+   "class": "loop drips",
+   "t20Range": null,
+   "t20": 3.407,
+   "inRange": true
+  },
+  "lengthOff": 0.034,
+  "centroidOff": 0.082,
+  "bandsOffMost": 2.4,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 16,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture only, since I cannot listen. Both files are a drip ambience: a continuous noisy bed with sharp drip transients on top. The original's transients are splashy bursts at about 1.9 s, 3.7 s, 4.0 s and 5.8 s, and the reproduction has similar discrete drips, including a larger hit at 2.5 s. The envelope class is 'loop drips' for both. The same event is clearly there."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Length is 7.06 s against 7.306 s, a 3.4% difference, which is within 25%. The decay does not match: T20 is 3.407 against the original's 0.434, about eight times longer. The class's T20 range is null, so the fallback is the original's own decay within a quarter or 0.05 s (about 0.18 to 0.68 s), and 3.407 falls outside it. The measurement's inRange: true does not agree with that fallback, so I score the decay as off. Attack also differs (1.267 against 5.777), though the attack and peak definitions are unclear from the measures."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 770 against 839, an 8.2% difference, within 20%. The band shares differ by at most 2.4 points (the largest is <150 Hz, 3.6 against 1.2), all within the 10-point limit. Band shares: 150-600 Hz 22.8 against 23.2, 600-2k Hz 73.3 against 72.3, 2-5k Hz 0.4 against 2.5, >5k Hz 0 against 0.7."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Onset count matches (4 and 4), so the hits are there. Flatness does not: 0.005 in the reproduction against 0.095 in the original, about nineteen times less noise-like. The reproduction's drips are narrow, tonal-looking vertical lines over a bed that is less noisy than the original's, which is a clear difference in noise against tone. Pitch movement cannot be checked from the picture or the features."
+  },
+  "S5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Format is right: mono, 16-bit, 11025 Hz, no clipping, DC 0, peak -0.5 dBFS, and the same name. The loop cue is not in the measurements and cannot be confirmed from the picture: lead and tail are 0 on both, but those are silence measures, not cue points. Because this must-have item is unverified rather than shown to be right, I score it 1."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

@@ -30,28 +30,28 @@
   },
   "reproduction": {
    "length": 1.04,
-   "peak": -0.5,
-   "rms": -11.5,
-   "crest": 11,
-   "dc": 0,
+   "peak": -0.6,
+   "rms": -11.1,
+   "crest": 10.5,
+   "dc": 0.0031,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.005,
-   "attack": 0.005,
-   "peakAt": 0.005,
-   "t20": 0.644,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.015,
+   "t20": 0.703,
    "t40": 1.023,
-   "centroid": 702,
-   "rolloff": 1314,
-   "flatness": 0.051,
+   "centroid": 678,
+   "rolloff": 1335,
+   "flatness": 0.061,
    "bands": {
-    "<150": 25.4,
-    "150-600": 36.6,
-    "600-2k": 30.5,
+    "<150": 35.7,
+    "150-600": 28.1,
+    "600-2k": 28.5,
     "2k-5k": 6.9,
-    ">5k": 0.6
+    ">5k": 0.8
    },
-   "onsets": 1
+   "onsets": 0
   },
   "envelope": {
    "class": "gunshot",
@@ -59,17 +59,17 @@
     0.458,
     1.013
    ],
-   "t20": 0.644,
+   "t20": 0.703,
    "inRange": true
   },
   "lengthOff": 0.001,
-  "centroidOff": 0.162,
-  "bandsOffMost": 6.3,
+  "centroidOff": 0.123,
+  "bandsOffMost": 9.8,
   "engineFaults": [],
   "sameName": true,
   "format": {
    "rate": 22050,
-   "bits": 16,
+   "bits": 8,
    "channels": 1
   }
  },
@@ -83,31 +83,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Cannot listen; judged from the picture. Both waveforms open with a dense, loud burst of wideband energy in the first 0.05 s and decay over roughly 0.4 to 0.5 s into a quiet tail, with broadband energy across the lower and middle bands. That matches a shotgun-style gunshot, the class the envelope measure gives (gunshot). No sign of a different event such as a crowbar strike or a door slide."
+   "reason": "Judged from the picture only, since I cannot listen. Both waveforms open with a dense, loud, broadband burst of about 0.4 s that then decays into a low tail, and both spectrograms show a low-frequency bright onset fading over the same span. That is the same kind of event, a gunshot. The envelope class is 'gunshot' and the reproduction's T20 (0.703 s) sits inside the class range (0.458 to 1.013 s). The original has a distinct early vertical stripe (a click-like transient near 0.05 s) that the reproduction's spectrogram lacks, but that is a character detail, scored under S4, not a change of event."
   },
   "S2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Length 1.040 s against 1.039 s, well inside 25%. Attack 0.005 s in both. T20 is 0.644 s, inside the gunshot class range of 0.458 to 1.013 s (inRange true). The picture shows the same decay shape."
+   "reason": "Length is 1.040 s against 1.039 s, off by 0.001 s, far inside 25%. Peak time is 0.015 s in both. The attack is 0 ms against 5 ms, and both are instant, so the attack is within the class range. T20 is 0.703 s, inside the gunshot range of 0.458 to 1.013 s, and the T40 values (1.023 and 0.958) are close. The envelope holds."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Centroid 702 Hz against 604 Hz is 16.2% off, inside 20%. Band shares differ by at most 6.3 points (<150: 25.4 vs 31.7; 150-600: 36.6 vs 37.9; 600-2k: 30.5 vs 24.4; 2k-5k: 6.9 vs 4.8; >5k: 0.6 vs 1.3), all within 10 points. The spectrogram shows the same broad, lower-weighted spread."
+   "reason": "Centroid is 678 against 604 Hz, a 12.3% difference, inside 20%. The largest band difference is 150-600 Hz at 28.1 against 37.9, a 9.8-point gap, inside 10 points. The other bands differ by 4.1, 4.0, 2.1 and 0.5 points. Every measured item passes. The 150-600 Hz gap is close to the limit, and the reproduction is visibly heavier in the lowest band in the spectrogram, which the measure already reflects."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Cannot listen; judged from the picture and features. Onset count matches (1 and 1), but the character differs. Flatness is 0.081 in the original and 0.051 in the reproduction, so the replacement is more tonal than the original. The original has a distinct low-frequency thump in its first 0.1 s, which the reproduction lacks. The reproduction keeps bright low-frequency energy late in the tail, where the original's fades early. Pitch movement cannot be judged from the picture. This item is not a must, but the difference is clear enough to score 1."
+   "reason": "The measured onset count is 1 in the original and 0 in the reproduction, so the reproduction lacks the sharp hit the original starts with. The spectrogram confirms this: the original has a bright early click stripe and the reproduction opens smoothly. Flatness is 0.081 against 0.061, both noise-like, and the reproduction's spectrum is more tonal and low-weighted, which reads as a slightly different character. Pitch movement cannot be judged from pictures. The onset mismatch is a measured fault, so this is a 1 and not a 2."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Mono, 22050 Hz, 16-bit, the format the engine plays. Peak -0.5 dBFS, zero clipped samples, DC 0. Same name as the original (sameName true). No engine faults reported. Nothing in the measures fails the fit-for-game check."
+   "reason": "The file is mono, 8-bit, at 22050 Hz, which the engine plays. There is no clipping (0) and no lead or tail silence to cue. DC is +0.0031, under one 8-bit step (about 0.0078) and smaller in magnitude than the original's own -0.0044, so it is not a fault of the reproduction. The name matches the original (sameName true). No engine faults were reported. No loop cue is needed, since the original has none."
   }
  },
  "total": 9,

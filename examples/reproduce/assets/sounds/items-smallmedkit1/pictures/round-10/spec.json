@@ -1,0 +1,142 @@
+{
+  "spec": "smak.sound/1",
+  "name": "items/smallmedkit1.wav",
+  "rate": 22050,
+  "length": 0.76,
+  "picture": "pictures/sound.png",
+  "seed": 1,
+  "layers": [
+    {
+      "id": "body",
+      "kind": "tone",
+      "f": 300,
+      "wave": "triangle",
+      "at": 0,
+      "length": 0.26,
+      "gain": -10,
+      "env": {
+        "attack": 0.003,
+        "hold": 0.05,
+        "decay": 0.1
+      }
+    },
+    {
+      "id": "b1",
+      "kind": "tone",
+      "f": 650,
+      "wave": "triangle",
+      "at": 0,
+      "length": 0.035,
+      "gain": -9,
+      "env": {
+        "attack": 0.002,
+        "hold": 0.01,
+        "decay": 0.02
+      }
+    },
+    {
+      "id": "b2",
+      "kind": "tone",
+      "f": 650,
+      "wave": "triangle",
+      "at": 0.05,
+      "length": 0.095,
+      "gain": -7,
+      "env": {
+        "attack": 0.004,
+        "hold": 0.06,
+        "decay": 0.03
+      }
+    },
+    {
+      "id": "b3",
+      "kind": "tone",
+      "f": 650,
+      "wave": "triangle",
+      "at": 0.17,
+      "length": 0.09,
+      "gain": -7,
+      "env": {
+        "attack": 0.004,
+        "hold": 0.05,
+        "decay": 0.04
+      }
+    },
+    {
+      "id": "crackle",
+      "kind": "particles",
+      "every": 0.012,
+      "jitter": 0.6,
+      "band": [
+        300,
+        2500
+      ],
+      "grain": 0.003,
+      "at": 0.26,
+      "length": 0.26,
+      "gain": -14,
+      "env": {
+        "points": [
+          [
+            0,
+            -6
+          ],
+          [
+            0.13,
+            -14
+          ],
+          [
+            0.26,
+            -40
+          ]
+        ]
+      }
+    },
+    {
+      "id": "wash",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.52,
+      "length": 0.24,
+      "gain": -1.5,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 5000
+        },
+        {
+          "type": "lowpass",
+          "f": 11000
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -14
+          ],
+          [
+            0.06,
+            -9
+          ],
+          [
+            0.14,
+            -8
+          ],
+          [
+            0.18,
+            -14
+          ],
+          [
+            0.22,
+            -24
+          ],
+          [
+            0.24,
+            -30
+          ]
+        ]
+      }
+    }
+  ]
+}

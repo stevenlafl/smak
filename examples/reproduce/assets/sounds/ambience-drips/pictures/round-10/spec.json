@@ -1,0 +1,152 @@
+{
+  "spec": "smak.sound/1",
+  "name": "ambience/drips.wav",
+  "class": "loop drips",
+  "rate": 11025,
+  "bits": 16,
+  "seed": 3,
+  "length": 7.31,
+  "layers": [
+    {
+      "id": "a",
+      "kind": "sample",
+      "file": "work:gen/drips_s3.wav",
+      "from": "onset",
+      "length": 5,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 350,
+          "q": 1,
+          "gain": 4
+        },
+        {
+          "type": "lowpass",
+          "f": 2000,
+          "q": 0.7
+        }
+      ]
+    },
+    {
+      "id": "b",
+      "kind": "sample",
+      "file": "work:gen/drips_s0.wav",
+      "from": "onset",
+      "length": 2.56,
+      "at": 5,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 350,
+          "q": 1,
+          "gain": 4
+        },
+        {
+          "type": "lowpass",
+          "f": 2000,
+          "q": 0.7
+        }
+      ]
+    },
+    {
+      "id": "c",
+      "kind": "sample",
+      "file": "work:gen/drips_s1.wav",
+      "from": "onset",
+      "length": 5,
+      "at": 1.2,
+      "gain": -6,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 350,
+          "q": 1,
+          "gain": 4
+        },
+        {
+          "type": "lowpass",
+          "f": 2000,
+          "q": 0.7
+        }
+      ]
+    },
+    {
+      "id": "d",
+      "kind": "sample",
+      "file": "work:gen/drips_s2.wav",
+      "from": "onset",
+      "length": 5,
+      "at": 3.6,
+      "gain": -8,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 350,
+          "q": 1,
+          "gain": 4
+        },
+        {
+          "type": "lowpass",
+          "f": 2000,
+          "q": 0.7
+        }
+      ]
+    },
+    {
+      "id": "e",
+      "kind": "sample",
+      "file": "work:gen/drips_s0.wav",
+      "from": "onset",
+      "length": 4,
+      "at": 2.2,
+      "gain": -10,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 350,
+          "q": 1,
+          "gain": 4
+        },
+        {
+          "type": "lowpass",
+          "f": 2000,
+          "q": 0.7
+        }
+      ]
+    }
+  ],
+  "finish": {
+    "limit": {
+      "crest": 24.9,
+      "release": 0.002
+    },
+    "peak": -0.5
+  },
+  "loop": true,
+  "picture": "work:pictures/sound.png"
+}
