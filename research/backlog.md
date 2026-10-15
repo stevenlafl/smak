@@ -128,6 +128,20 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | Presets for the eight targets, steps and loops, each scored against its class as a test | OPEN | `test/47-audio.mjs` tests the blocks, not presets |
 | `smak play` recording the game's audio | OPEN | Out of scope in the report |
 
+## local-sound-generators.md (open text-to-audio models, run here)
+
+| Item | Status | Where / what is missing |
+| --- | --- | --- |
+| Generators installed and run on ROCm: TangoFlux, EzAudio, Woosh Flow and DFlow, six sounds by four seeds | DONE | `/media/Data3/Packages/local-audio/` (`scripts/install.sh`, `generate.py`, `finish.mjs`); outside the kit |
+| Steven listens to the four models' takes beside Haiku's and Valve's | DONE | 2026-10-15: Woosh-DFlow the most accurate and the default, iterated over seeds; Woosh-Flow the best hit; other models selectable (report, "Steven's listening") |
+| Sound layer kind `sample`: a work-folder WAV, cut by `from`/`length` or `onset`, with the layer's env, filter, pitch and gain; provenance from a sidecar, a warning on an NC licence | OPEN | Needs `readWav` for 24-bit, 32-bit and float data, a resampler, onset times from `features`; `KINDS` in `src/spec/sound.mjs` |
+| MCP `generate` tool running a locally installed model, found by `--generators` or `SMAK_GENERATORS` (option A) | OPEN | Woosh-DFlow by default, `model` selectable, many seeds a call; waits on the `sample` kind; a manifest and worker script in `local-audio` |
+| Stable Audio Open 1.0, Open Small, Stable Audio 3 small SFX | OPEN | Gated on HF: Steven accepts the terms and logs in (report, section 8); `generate.py sao` is written, not run |
+| Per-model prompts and lengths, more DFlow seeds; EzAudio inpainting for loop seams and longer loops | OPEN | Report, "Next" |
+| A takes-picker that prefers one onset for a one-shot and shows the picture | OPEN | The class score picked noise beds over hits (report, section 4) |
+| TangoFlux | DECLINED | This report: slowest here, loose on length, NC; nothing Woosh and EzAudio lack |
+| AudioLDM 2, Tango 2, AudioGen, MAGNeT, Make-An-Audio 2 (16 kHz), MOSS-SoundEffect 8B (16 GB) | DECLINED | This report, section 1 |
+
 ## 3d-fidelity-methods.md (photo or prompt to a prop that keeps its look)
 
 | Item | Status | Where / what is missing |
@@ -295,7 +309,7 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 Most value for least work first. Each line names its report: CF compiler-features, GR generation-research,
 L3 local-3d-generators, SG sound-generation, FM 3d-fidelity-methods, IR improvements-research, DV
 directed-video, PE photo-to-model-experiments, SP sprite-generation, RF repeated-failures, MF
-map-reproduction-failures.
+map-reproduction-failures, LS local-sound-generators.
 
 1. Words-to-box before the cut-out (Grounding DINO or OWLv2, Apache 2.0), to pick one subject of several (FM 1, PE). (The BiRefNet switch is done.)
 2. Two doc lines on SDHLT's faults (`-subdivide 512`, `%NAME`), and SPLITFACE in `SEALS_NOTHING` (CF).
@@ -321,6 +335,7 @@ map-reproduction-failures.
 17. Judge: prompt-only DSG questions, a non-Claude VLM, recognition without the prompt, pairwise ranking, run on the 38 cases, an agreement figure against Steven's reviews (IR 1).
 18. AO and curvature bake, warm-cool light and value bands in `finish` (IR 4).
 19. Sound presets from the recipe table, each scored against its class as a test (SG).
+19a. The `sample` layer kind, then the MCP `generate` tool with `--generators` (Woosh-DFlow by default, Steven's call); the Stable Audio models once he accepts their terms (LS).
 20. Footsteps with `materials.txt`, the per-weapon role table of code-named sounds, mod profiles naming sounds (SG).
 21. Loop start other than 0, loop RMS and whole-cycle checks, seam picture, LUFS (SG).
 22. Sound layer kinds `sequence` and `sound` (SG).
