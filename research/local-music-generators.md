@@ -362,7 +362,8 @@ prompt's action as "a trance-y dub/dnb" (140 BPM is dubstep's tempo):
 | v3a, 120 BPM, D minor: "late 1990s big beat and industrial rock instrumental, sampled acoustic breakbeat drum loop, gritty distorted electric guitar riffs, analog synth stabs, mid-range bass guitar, metallic percussion, dark sci-fi action, lo-fi sampler production, no vocals" | 117.5 | 72 to 76% | 15 to 18% | "I love the ones under A" |
 | v3b, 112 BPM, E minor: "1998 PC game soundtrack, industrial electronic instrumental, heavy sampled funk breakbeat, clanging metal percussion, distorted guitar chugs, eerie synth pads, short sampled orchestral hits, tense and mechanical, tracker music, no vocals" | 108 to 112 | 41 to 61% | 26 to 39% | "B sucks" |
 
-v3a is the action prompt to start from. The band shares are no guide to his ear: v3b sat on the game's median
+His description of v3a: "kind of like a little electric guitar, and it's really upbeat. I love it". v3a is
+the action prompt to start from. The band shares are no guide to his ear: v3b sat on the game's median
 and lost, v3a kept the heavy bass and won. Do not EQ towards the game's bands, or rank takes by `dist`, on the
 strength of these numbers.
 
