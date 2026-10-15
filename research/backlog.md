@@ -170,7 +170,7 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | 7. View-based or photo-based charting, small charts merged, mirrored charts, LSCM | OPEN | Measured in Python only (`charts_by_view.py`) |
 | 8. Handle removal (voxel closing) before reduction | OPEN | Measured in Python only (`charts_closing.py`) |
 | 9. Image-driven last reduction stage | OPEN | Only if experiment 7.2 says it pays |
-| 10. Try TripoSG and Hunyuan3D-2.1 shape; Hunyuan3D-2 paint after `sudo apt install libhipblaslt-dev` | OPEN | Steven installed the package on 2026-10-14; the build of the paint stage is not tried yet |
+| 10. Try TripoSG and Hunyuan3D-2.1 shape; Hunyuan3D-2 paint after `sudo apt install libhipblaslt-dev` | PARTLY | Hunyuan3D-2 paint (turbo) runs here since 2026-10-15: the rasteriser hipifies and builds, 16 s and 10.7 GB from one picture to six views (`character-texturing.md`, E7); on the zombie its views were flat colour. TripoSG and 2.1 shape not tried |
 | Palette: k-means refinement or Wu's quantiser instead of median cut alone | OPEN | `indexed` in `src/image.mjs` is median cut |
 | De-lighting: spherical-harmonic shading division; multi-view median | OPEN | |
 | Experiments 7.1 to 7.9 and U1 (reduction, bake, camera, texture, de-light, isolation, generator, charts) | OPEN | Folded into the benchmark plan of `photo-to-model-experiments.md` |
@@ -346,13 +346,29 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | A model part's material from a photograph | DECLINED for now | A model's parts take pictures by `project` |
 | A library of photographs for makers with no web | DONE | `generators/fetch-materials.mjs` (Poly Haven's 863 CC0 textures at 1k, 615 MB, an index of kind and real size), the MCP tool `materials` and `picture: "library:<name>"`; `test/58-materials.mjs`. In texture rounds the photo-based textures score higher on quality (T5 1.33 against 1.08) but single rounds swing (1 to 4 of 25 a leg); colour (T2) and layout (T3) are what fail next |
 
+## character-texturing.md (a character's texture from pictures; the zombie review)
+
+| Item | Status | Where / what is missing |
+| --- | --- | --- |
+| CT 1. A character's outline under 0.7 IoU against a `project` picture is a FAULT, and a check that the first frame's hands are where the pictures' are | OPEN | Today a WARN under 0.8 (`OUTLINE_FAIR`, `src/spec/model.mjs`); the zombie maker shipped at 0.26 to 0.42 with Gordon's gun-holding forearms (the "sledgehammer") |
+| CT 2. `carved` on a character: the hull hung on each corner's nearest bone segment in the fitted pose | OPEN | A carved prop of the zombie scores M4 8.3 against the maker's 16.9, texturing unchanged (E2) |
+| CT 3. Bone lengths in a character spec (`base.scale`), the animations' translations scaled to match | OPEN | Steven's design call: it changes the base's reach. Gordon's arm 22 against the zombie's 28.4 plus 10 to 13 of fingers |
+| CT 4. View charts for `carved`, `blob` and `mesh` parts (best view, Potts, overlap split, small charts merged, packed) in place of the six-side grid | OPEN | Prototype `~/stignored/texturing-research/charts.mjs`: M4 8.3 to 7.7, no shared-texel speckle, equal to Valve's layout on the true shape (E4) |
+| CT 5. Fingers as tapered tubes along the base's finger chains, thin parts painted by position along them from the pictures' centre line, sharing one strip | OPEN | Projection error on claws rises 60% at a third of a unit of misfit (E6); a carve loses them (E2) |
+| CT 6. Fill of worn texels no picture sees (push-pull or nearest across the surface) | OPEN | 1.4 to 8.6% of texels (E5); same as FM 6's push-pull |
+| CT 7. Generative fill for the words leg: Hunyuan3D-2 paint at full weights, StableGen-style SDXL with a reference image, as a `generate` kind giving pictures for `project` | OPEN | Turbo paint runs here but gave flat colour on the zombie (M4 16.3 to 15.2, real pictures 7.7; E7) |
+| CT 8. A speckle measure beside local contrast (texels unlike all eight neighbours) | OPEN | Local contrast rewards misplaced-colour speckle (E4) |
+| Silhouette warping of each picture before projecting; a VLM seam planner; xatlas tuning | DECLINED | E3: no M4 gain on the maker's shape or the true one; the layout is not the bottleneck (E4, FM 6.1) |
+
 ## Open, by priority
 
 Most value for least work first. Each line names its report: CF compiler-features, GR generation-research,
 L3 local-3d-generators, SG sound-generation, FM 3d-fidelity-methods, IR improvements-research, DV
 directed-video, PE photo-to-model-experiments, SP sprite-generation, RF repeated-failures, MF
-map-reproduction-failures, LS local-sound-generators, LM local-music-generators, RT reference-textures.
+map-reproduction-failures, LS local-sound-generators, LM local-music-generators, RT reference-textures, CT
+character-texturing.
 
+0. Characters from pictures: the shape before the paint. The outline fault and hand check, `carved` on a character, bone lengths (Steven's call), then view charts and fingers painted by length (CT 1 to 5); guide text for makers meanwhile.
 1. Words-to-box before the cut-out (Grounding DINO or OWLv2, Apache 2.0), to pick one subject of several (FM 1, PE). (The BiRefNet switch is done.)
 2. Two doc lines on SDHLT's faults (`-subdivide 512`, `%NAME`), and SPLITFACE in `SEALS_NOTHING` (CF).
 3. Run `soundness` and `seeThrough` from `check` (MCP and command line) on any model (GR).
