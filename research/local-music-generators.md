@@ -346,6 +346,9 @@ rounding).
 | ACE-Step with planner | "didn't care for" |
 | MusicGen | "sucked" |
 
+His favourite take: `acestep/action.wav` ("I quite like it"), the 2B's seed 0 on the first action prompt (75 s,
+140 BPM, D minor; section 3). That prompt is the starting point for an action cue.
+
 So: ACE-Step 2B is the default music model, XL stays in the manifest for an agent that wants more varied
 takes, and the planner and MusicGen are dropped.
 
