@@ -140,3 +140,41 @@ export function lookSentence(pictures, what = "textures") {
   if (!off.length) return null;
   return `${off.length} ${what} look unlike nine in ten of Valve's walls and floors: ${off.map((p) => `${p.name} ${p.said.join(", ")}`).join("; ")}: give a plain one a pattern, wear or grime, or its detail from a photograph (\`picture\`), and a colour or a brightness nearer Valve's (docs/SPEC.md, "Materials")`;
 }
+
+/** Above this brightness (0 to 1) a texel is near white; over this colour (highest channel less lowest) vivid. */
+const WHITE_OVER = 0.75;
+const VIVID_OVER = 0.5;
+
+/**
+ * The two measures a model's picture is held to beside lookOf's: `whites`, the share of its texels near white,
+ * and `vivid`, the share strongly coloured. A model's picture is many small things on one sheet, so its mean
+ * brightness and colour can sit in Valve's range while half of it is a clean white fridge or a row of toy-red
+ * boxes: the shares see that.
+ */
+export function modelLookOf(rgba, step = 4) {
+  let whites = 0;
+  let vivid = 0;
+  let n = 0;
+  for (let i = 0; i < rgba.length; i += step) {
+    if (step === 4 && rgba[i + 3] < 128) continue;
+    n++;
+    const [r, g, b] = [rgba[i] / 255, rgba[i + 1] / 255, rgba[i + 2] / 255];
+    if (0.3 * r + 0.59 * g + 0.11 * b > WHITE_OVER) whites++;
+    if (Math.max(r, g, b) - Math.min(r, g, b) > VIVID_OVER) vivid++;
+  }
+  return { whites: whites / (n || 1), vivid: vivid / (n || 1) };
+}
+
+/**
+ * Valve's model textures, the 10th, 50th and 90th of each measure over 287 textures of 93 of Half-Life's models
+ * (research/model-texture-stats.mjs, 2026-10-15; first-person files and chrome left out).
+ */
+export const VALVE_MODELS = {
+  fine: [0.048, 0.147, 0.358],
+  coarse: [0.053, 0.18, 0.463],
+  colour: [0.014, 0.133, 0.351],
+  bright: [0.146, 0.317, 0.607],
+  structure: [0.069, 0.198, 0.304],
+  whites: [0, 0.005, 0.227],
+  vivid: [0, 0, 0.3],
+};

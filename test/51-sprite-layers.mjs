@@ -209,3 +209,21 @@ test("a layer masked by its reference: the reference's lit area frame by frame, 
   const refused = validateSpriteSpec({ ...spec(true), reference: undefined });
   sure(refused.errors.some((e) => /mask: the sprite has no reference/.test(e)), refused.errors.join(" | "));
 });
+
+test("a glow of one colour is a ramp of 255 steps, and a middle hotter than its reference's is told", () => {
+  // a white glow over a large frame: the falloff in many steps, none of its faint levels merged into bands
+  const glow = buildSpriteSpec({ spec: "smak.sprite/1", name: "sprites/white.spr", size: [64, 64], frames: 1, layers: [{ kind: "glow", radius: 1.1, core: 0.24, colour: [1, 1, 1] }] });
+  const s = smak.maps.readSpr(glow.files[0].bytes);
+  const used = new Set(s.frames[0].pixels).size;
+  sure(used > 100, `${used} colours used`);
+  for (let k = 1; k < 256; k++) sure(s.palette[k * 3] === k && s.palette[k * 3 + 2] === k, `entry ${k} is ${s.palette.subarray(k * 3, k * 3 + 3)}`);
+  // against a reference with a small core: the broad core is told
+  const ref = buildSpriteSpec({ spec: "smak.sprite/1", name: "sprites/ref.spr", size: [64, 64], frames: 1, layers: [{ kind: "glow", radius: 1.1, core: 0.08, colour: [0.9, 0.9, 0.9] }] });
+  const sheet = sheetOf(smak.maps.readSpr(ref.files[0].bytes), { cols: 8, cell: 128 });
+  const file = join(tmp, "hot-ref.png");
+  writeFileSync(file, smak.png(sheet.width, sheet.height, sheet.rgba));
+  const hot = buildSpriteSpec({ spec: "smak.sprite/1", name: "sprites/hot.spr", size: [64, 64], frames: 1, reference: file, layers: [{ kind: "glow", radius: 1.1, core: 0.3, colour: [1, 1, 1] }] });
+  sure(hot.report.warnings.some((w) => /its middle is hotter than its reference's/.test(w)), hot.report.warnings.join(" | "));
+  const same = buildSpriteSpec({ spec: "smak.sprite/1", name: "sprites/same.spr", size: [64, 64], frames: 1, reference: file, layers: [{ kind: "glow", radius: 1.1, core: 0.08, colour: [0.9, 0.9, 0.9] }] });
+  sure(!same.report.warnings.some((w) => /its middle is/.test(w)), same.report.warnings.join(" | "));
+});

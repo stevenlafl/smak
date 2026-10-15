@@ -62,3 +62,33 @@ test("a blob's pieces are checked: a radius, one of span, at or from, bones only
   const prop = buildModelSpec({ spec: "smak.model/1", name: "snow.mdl", kind: "prop", parts: [{ id: "snowman", kind: "blob", material: "plaster", blend: 2, pieces: [{ at: [0, 0, 6], radius: 6 }, { at: [0, 0, 15], radius: 4 }, { from: [0, 0, 19], to: [0, 0, 22], radius: [2.5, 2] }] }] }, { folder });
   sure(prop.report.ok, [...prop.report.errors, ...prop.report.faults].join("; "));
 });
+
+// a shape mirrored: every corner has its twin through y 0 (a chair's seat, a body)
+const mirroredIn = (mdl) => {
+  const info = readMdl(mdl);
+  const ps = info.bodyparts.flatMap((bp) => bp.models.flatMap((m) => m.meshes.flatMap((mesh) => readMesh(mdl, m, mesh).flat().map((c) => c.p ?? c.pos))));
+  const near = (p) => ps.some((q) => Math.abs(q[0] - p[0]) < 0.05 && Math.abs(q[1] + p[1]) < 0.05 && Math.abs(q[2] - p[2]) < 0.05);
+  return { all: ps.length, unmatched: ps.filter((p) => !near(p)).length, spread: Math.max(...ps.map((p) => p[1])) + Math.min(...ps.map((p) => p[1])) };
+};
+
+test("symmetric: a lopsided mesh made the mirror of its +y half, and a blob given each piece's twin", () => {
+  // a wedge whose -y side leans out further than its +y side
+  writeFileSync(join(folder, "lop.obj"), ["v 0 0 0", "v 4 0 0", "v 4 3 0", "v 0 3 0", "v 0 -1 4", "v 4 -1 4", "v 4 1 4", "v 0 1 4"].join("\n") + "\n" +
+    ["f 1 3 2", "f 1 4 3", "f 5 6 7", "f 5 7 8", "f 1 2 6", "f 1 6 5", "f 2 3 7", "f 2 7 6", "f 3 4 8", "f 3 8 7", "f 4 1 5", "f 4 5 8"].join("\n") + "\n");
+  const spec = (symmetric) => ({ spec: "smak.model/1", name: "lop.mdl", kind: "prop", parts: [{ id: "body", kind: "mesh", file: "lop.obj", up: "z", size: [8, 8, 8], symmetric }] });
+  const lop = buildModelSpec(spec(false), { folder });
+  const even = buildModelSpec(spec(true), { folder });
+  sure(lop.report.ok && even.report.ok, [...lop.report.errors, ...even.report.errors].join("; "));
+  sure(mirroredIn(lop.mdl).unmatched > 0, "the lopsided one is lopsided");
+  const m = mirroredIn(even.mdl);
+  sure(m.unmatched === 0, `${m.unmatched} of ${m.all} corners have no twin`);
+  sure(even.report.facts.some((f) => /body: symmetric: its \+y half kept/.test(f)), even.report.facts.join(" | "));
+  sure(even.report.faults.length === 0, even.report.faults.join("; "));
+  // a blob: one arm given at +y, its twin made at -y
+  const b = buildModelSpec({ spec: "smak.model/1", name: "arms.mdl", kind: "prop", parts: [{ id: "b", kind: "blob", symmetric: true, pieces: [{ at: [0, 0, 10], radius: [3, 3, 6] }, { from: [0, 2, 12], to: [0, 10, 8], radius: 1.5 }] }] }, { folder });
+  sure(b.report.ok, b.report.errors.join("; "));
+  sure(b.report.facts.some((f) => /b: symmetric: 1 pieces mirrored/.test(f)), b.report.facts.join(" | "));
+  sure(Math.abs(mirroredIn(b.mdl).spread) < 0.6, `its sides reach ${mirroredIn(b.mdl).spread} apart`);
+  const bad = buildModelSpec({ spec: "smak.model/1", name: "x.mdl", kind: "prop", parts: [{ id: "body", kind: "mesh", file: "lop.obj", size: [8, 8, 8], symmetric: "yes" }] }, { folder });
+  sure(bad.report.errors.some((e) => /\(body\)\.symmetric: true/.test(e)), bad.report.errors.join(" | "));
+});

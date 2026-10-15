@@ -91,19 +91,27 @@ turned by `rotate`, then moved to its place. **Build things upright**: a post, a
 | `box` | `size: [x, y, z]` | centred on x and y, from z 0 up to z |
 | `cylinder` | `radius`, `height`, `top` (radius at the top: a cone or a taper), `sides` (16) | along z from 0 to `height`, both ends closed |
 | `sphere` | `radius`, `sides` | from z 0 to `2 * radius` |
-| `carved` | `size: [x, y, z]` (the thing's size: its outlines are stretched to it), `sheet` (a picture of six sides laid as the kit's sheets are: front, left, back; right, top, below), `pictures` (more views: `[{ picture, view or yaw and pitch, area, rect }]`, the three-quarter ones), `cells` (64 on its longest side; more for thin parts), `triangles` (what it is reduced to: leave it out, and it is what three quarters of Half-Life's props of its size have under them; a copy over twice its original's count fails) | a shape carved from the outlines of pictures of the thing (a visual hull), centred on x and y, from z 0 up: every outline right at once, which parts built one by one rarely get. A hollow no picture sees into is filled; a part thinner than a cell is lost. Paint it with `project`, and give the spec `smooth: 80` so its normals fit |
-| `blob` | `pieces`: each `{ span: [bone, bone], radius }` (a limb from joint to joint, `radius` a number or `[start, end]`), `{ at: bone or [x, y, z], radius }` (round a joint or a point: a number, or `[x, y, z]` for an egg) or `{ from: [x, y, z], to: [x, y, z], radius }`, each with `offset` and `bone` if it likes; `blend` (3: the units over which pieces melt into each other, 0 a plain union), `cells` (64), `triangles` | one smooth surface over many pieces: a torso running into its shoulders, a coat into its hem, a creature's body into its legs, with no seam between them. On a base each corner hangs on the bone of the piece nearest it, so the body bends at its joints. Placed by its pieces (no `attach`, `at`, `rotate`); laid out and painted as `carved` is, by its material and `project` |
-| `mesh` | `file` (an `.obj` of the work folder: a shape the tool `generate` made, or any), `size: [x, y, z]` (it is stretched to it: give its own proportions, which the report says), `triangles` (what it is reduced to: unless told, what three quarters of Half-Life's props of its size have under them), `up` (`y` unless told, an .obj's own way; `z`), `turn` (degrees about the upright, when its front is not towards +x) | a shape made elsewhere, centred on x and y, from z 0 up, laid out and painted as `carved` is: by its material and the finish, or by `project` from the picture it was made from (generate's `_cut.png`, its subject cut out, so that its outline is found). Faces wound inwards on the whole are turned round. A generator guesses what its picture does not show: look at every side |
+| `carved` | `size: [x, y, z]` (the thing's size: its outlines are stretched to it), `sheet` (a picture of six sides laid as the kit's sheets are: front, left, back; right, top, below), `pictures` (more views: `[{ picture, view or yaw and pitch, area, rect }]`, the three-quarter ones), `cells` (64 on its longest side; more for thin parts), `triangles` (what it is reduced to: leave it out, and it is what three quarters of Half-Life's props of its size have under them; a copy over twice its original's count fails), `symmetric` (below) | a shape carved from the outlines of pictures of the thing (a visual hull), centred on x and y, from z 0 up: every outline right at once, which parts built one by one rarely get. A hollow no picture sees into is filled; a part thinner than a cell is lost. Paint it with `project`, and give the spec `smooth: 80` so its normals fit |
+| `blob` | `pieces`: each `{ span: [bone, bone], radius }` (a limb from joint to joint, `radius` a number or `[start, end]`), `{ at: bone or [x, y, z], radius }` (round a joint or a point: a number, or `[x, y, z]` for an egg) or `{ from: [x, y, z], to: [x, y, z], radius }`, each with `offset` and `bone` if it likes; `blend` (3: the units over which pieces melt into each other, 0 a plain union), `cells` (64), `triangles`, `symmetric` (give one side's limbs: each piece is copied to the other side's bones, or through y 0) | one smooth surface over many pieces: a torso running into its shoulders, a coat into its hem, a creature's body into its legs, with no seam between them. On a base each corner hangs on the bone of the piece nearest it, so the body bends at its joints. Placed by its pieces (no `attach`, `at`, `rotate`); laid out and painted as `carved` is, by its material and `project` |
+| `mesh` | `file` (an `.obj` of the work folder: a shape the tool `generate` made, or any), `size: [x, y, z]` (it is stretched to it: give its own proportions, which the report says), `triangles` (what it is reduced to: unless told, what three quarters of Half-Life's props of its size have under them), `up` (`y` unless told, an .obj's own way; `z`), `turn` (degrees about the upright, when its front is not towards +x), `symmetric` (below) | a shape made elsewhere, centred on x and y, from z 0 up, laid out and painted as `carved` is: by its material and the finish, or by `project` from the picture it was made from (generate's `_cut.png`, its subject cut out, so that its outline is found). Faces wound inwards on the whole are turned round. A generator guesses what its picture does not show: look at every side |
 | `superquadric` | `size: [x, y, z]`, `round: [up, round]` (each 0.05 to 2: 0.1 a box with its corners eased, 0.3 a rounded block, 1 an egg or a ball, 2 a diamond; 0.3, 0.3 unless told), `sides` (16) | centred on x and y, from z 0 up to z: a boot, a fist, a helmet's shell, a padded block, in one part |
 | `turn` | `rings: [[s, r], ...]` (s along the axis, growing; r its radius, `[ra, rb]` an oval, 0 makes a point; `{ s, r, crease: true }` a hard edge, `{ s, r, off: [a, b] }` its middle moved off the axis), `caps: [start, end]` (true: flat; a number: a dome that high; false: open, which needs `open: true` or a `lining`), `lining: { inset }` (an inside: a cup, a bowl, a helmet, a pipe; the rings then run from the open rim, so the first ring is the open end and `caps` is `[false, ...]`: a pipe open at its front is built from the front back, `rotate: [180, 0, 0]`), `axis` (`z`), `sides` (16) | along its axis from its first ring |
 | `tube` | `path: [[x, y, z, r], ...]` (a bent pipe, an arm, a horn, a rope, a rim round a circle; r 0 at an end makes a point), `sides` (8) | as the path's numbers say |
 | `leaf` | `width`, `height`, `bend` (how far its middle bulges), or `rows` of points (a grid: a sagging awning; a column of points every row keeps within 0.25 of the line through its neighbours is left out, and the report says how many) | a sheet seen from both sides, in the x-z plane: a flag, a sign, a pane, a sail |
+| `cards` | `size: [x, y, z]` (the crown's box), `count` (4), `card: [width, height]` (each card's size: leave it out for cards crossed through the crown's middle, each the crown's size, the last laid flat; give it smaller for `count` cards scattered through the crown), `tilt` (30: the degrees a scattered card may lean) | a tree's crown, a bush, a fern, a hedge: thin sheets seen from both sides, all wearing one picture of leaves with holes between (`material` `leaves` unless told), thinning to a ragged egg inside each card. How GoldSrc's trees are made: a crown of solid spheres or blobs reads as a toy. Centred on x and y, from z 0 up |
 | `band` | `on: { part, s }`, `width`, `height` | a hoop round a turned part (`s` 0 at its first ring, 1 at its last). Moves with that part |
 | `boss` | `on: { part, s, angle }`, `radius`, `height` | a round stud (a rivet, a knob, a gem) on a turned part; `angle` in degrees round it: for a part along `z`, 0 faces +x and 90 +y; along `x`, 0 faces +y and 90 +z (up); along `y`, 0 faces +z and 90 +x |
 | `ridge` | `on: { part, path: [[s, angle], ...] }`, `width`, `height` | a raised line along a turned part (a stripe, a seam) |
 | `studs` | `on: { part, path }`, `count`, `radius`, `height` | a row of studs along that path |
 | `kit:sword`, `kit:axe`, `kit:blunt`, `kit:bow` | `options`: the kit's own (its header in `kits/`; a blade's `half` as `{ "taper": [base, tip] }`) | lying along +x, grip at the origin |
 | `prefab` | `prefab` (a name of `prefabs`), `spec` (one given here) or `file` (a .json beside this spec: another case's model, reused), `scale` | the prefab as it was built |
+
+**Symmetric things are built symmetric.** A chair, a person, a car, a crate, most things made are the same on
+their left as on their right, and a carve, a generated mesh or a blob seldom is: a picture's light, a three-quarter
+view or a generator's guess leaves one side fuller. Give such a `carved` or `mesh` part `"symmetric": true`: its
+left half (+y) is kept and the right made its mirror, so the two meet on the same points (`turn` its front to +x
+first). Built parts are symmetric when their sizes are: give the other side with `mirror: "y"`, never as a second
+part placed by eye. Leave it off only for what is lopsided in the pictures too (a held gun, a coat open on one side).
 
 Every part takes `texels`: how finely its picture is painted against the others' (1). A face, a badge or a
 label at 2 gets twice the texels a unit of the body does; a sole or an inside that is hardly seen at 0.5 half.
@@ -297,7 +305,7 @@ player sees it. `examples/prompts/22-weapon-wrench` is a worked one.
 
 `base` is one of: `wood`, `darkwood`, `planks`, `iron`, `steel`, `brass`, `gold`, `copper`, `leather`,
 `cloth`, `rope`, `stone`, `brick`, `plaster`, `tile`, `metal`, `grass`, `dirt`, `glass`, `flame`, `neon`,
-`hazard` (stripes of its tone and black), `asphalt`, `water`, `paint`, `bone`, `door` (maps: a panelled door with
+`hazard` (stripes of its tone and black), `leaves` (pointed leaves on two layers with holes between, a masked texture: a crown's `cards`; `cell` a leaf's size in units, 2.5, `fill` the share of places that hold one, 0.75), `asphalt`, `water`, `paint`, `bone`, `door` (maps: a panelled door with
 its handle, fitted to the leaf), `mesh` (a net, a wire fence,
 a grille: cords in its tone with holes between, seen through as in the game; `cell` the holes' size, 2;
 `weave: "diamond"` runs the cords on the diagonals, as chain-link's do). `tone: [r, g, b]` (0 to 1)
@@ -324,10 +332,10 @@ held to Valve's of the material's kind (their wood is grainier than their concre
 and brass, gold, copper, leather, rope, `paint` and `hazard` coloured. The softest bases (cloth, dirt, grass,
 paint, snow...) have less texel contrast than nine in ten of Valve's and say so: a photograph gives them more.
 
-#### A material from a photograph (maps and .wad textures)
+#### A material from a photograph
 
-Valve's textures are photographs cut down: their fine detail is the material's own. Give a map's or a .wad's
-material a photograph and its picture is made from it:
+Valve's textures are photographs cut down: their fine detail is the material's own. Give a material a photograph
+(a map's, a .wad's or a model's) and its picture is made from it:
 
 ```json
 "textures": {
@@ -342,13 +350,17 @@ material a photograph and its picture is made from it:
   "library:<name>", "size": <its width in units>`. Otherwise search the web for a photograph of the material seen straight on and evenly lit (plain white
   plaster wall, raw plywood, poured concrete, a painted panel door), and save it in the work folder (`refs/`), named
   for what it is. Texture sites that give scans away (Poly Haven, ambientCG: CC0) say their real size; a photo of a
-  wall from a few steps away works too. PNG, BMP or JPEG (baseline or progressive). The picture is the material's
-  detail, or a picture the person made or may use: never a game's own texture (AGENTS.md, rule 7). The two are not
-  alike: a photograph of a real surface (the library's, a CC0 scan, the person's) is what `picture` is for, and making
-  a game's texture again from one is the point; a game's texture, or a view of the game you were given to copy from,
-  is the game's, to measure and match by eye but never to feed in.
-- `picture`: its path in the work folder (`work:refs/oak.jpg`) or beside the spec. Any base takes one but `mesh`;
-  a model's parts take theirs by `project` instead.
+  wall from a few steps away works too. PNG, BMP or JPEG (baseline or progressive).
+- **A picture the person gave of the thing itself** (the door they want, the sign, the wall in their photo) is
+  used as it is: `literal`, or `aged` to sit among Valve's, cropped to it by `rect`. They want it to look as their
+  picture does, and a material redrawn from a photo of something like it does not. Whether they may use their
+  picture is theirs to know, not the kit's to decide; a game's own files are still never put in anything shared
+  (AGENTS.md, rule 7).
+- `picture`: its path in the work folder (`work:refs/oak.jpg`) or beside the spec. Any base takes one but `mesh`.
+  On a model it is laid over each part that wears the material at its real size (`size`, as for a map), at 4 texels a
+  unit, in place of the base's own painted grain: a sofa's leather, a fridge's chipped enamel, a cabinet's worn
+  wood. A plain painted base on a model reads as a toy; Valve's props are photographs too. Pictures of the thing
+  itself, from its sides, are `project`'s (below).
 - `filter`: what is done with it.
   - `valve` (unless told): the material's detail. The largest part of the picture that is one material is taken
     (or `rect`), its broad light divided out, laid one texel a unit at its real size, made to tile, its mean colour
@@ -443,6 +455,11 @@ the front, not a corner), and a part the pictures show stands where they show it
   the picture in cells (mean colour difference, and the worst cell with where it is); a mean over 10 or a cell
   over 45 is `WARN ... its look parts from the pictures`: a part a little out of place takes another's colour
   (a strap's texels reading the case behind it). Look at that view beside the picture and move the part.
+- `WARN its pictures look unlike nine in ten of Valve's models'`: a picture with more near-white texels than
+  Valve's (over 23%), more strongly coloured ones (over 30%), brighter on the whole (over 0.61), or with little grain
+  (under 0.048), each against 287 textures of Half-Life's own models. Clean whites, toy colours and flat paint read as
+  The Sims, not GoldSrc: a white thing there is a used grey of 0.5 to 0.6, its colours muted, its surfaces worn. Give
+  tones nearer Valve's and the materials a photograph (`picture`). Not told of pictures projected from the person's.
 - `FAULT height ... where the spec asks`: the size is not what was asked.
 - `fact from the lowest part up`: each part's height from and to. A roof under a floor is a stack built
   upside down.
@@ -697,9 +714,11 @@ The report gives each sprite's colours, the border's light, how it starts and en
 and how much it flickers, each against Half-Life's own of its class, and the render mode to place it with.
 With a `reference`, it gives the judge's measures of both, each read off a sheet of the same drawing: mean
 colour (delta E; 15 or under is near), the share that is dark (within 0.05 is near), the border's light and the
-frame count, and its shape frame by frame (the share of lit pixels both have), with a warning for each that is
-off: a colour over 15, a shape under 0.8 (where the judges stop giving a shape full marks). Build until they are
-gone, not only until `OK`.
+frame count, its shape frame by frame (the share of lit pixels both have) and its hot middle (its brightest, and
+the pixels over 0.7), with a warning for each that is off: a colour over 15, a shape under 0.8 (where the judges
+stop giving a shape full marks), a middle half again as large as the reference's or 0.15 brighter (a glow's core
+too large reads at once to the eye). Build until they are gone, not only until `OK`. A light of one colour (a
+white glow) is written as 255 steps of that colour, so its falloff shows no bands.
 FAULTs: a loop that jumps at its wrap, a one-shot that does not end dark, light at the border.
 
 ## A video

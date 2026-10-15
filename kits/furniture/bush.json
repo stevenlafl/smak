@@ -8,62 +8,42 @@
  },
  "materials": {
   "leaves": {
-   "base": "grass",
+   "base": "leaves",
    "tone": [
-    0.2,
-    0.42,
-    0.16
-   ]
+    0.18,
+    0.27,
+    0.11
+   ],
+   "cell": 2
   }
  },
  "parts": [
   {
-   "id": "lump_0",
-   "kind": "sphere",
+   "id": "bush",
+   "kind": "cards",
    "material": "leaves",
-   "radius": 12,
-   "sides": 8,
-   "at": [
-    0,
-    0,
-    0
-   ]
+   "size": [
+    40,
+    40,
+    26
+   ],
+   "count": 10,
+   "card": [
+    18,
+    14
+   ],
+   "tilt": 35
   },
   {
-   "id": "lump_1",
-   "kind": "sphere",
+   "id": "bush_core",
+   "kind": "cards",
    "material": "leaves",
-   "radius": 9,
-   "sides": 8,
-   "at": [
-    10,
-    6,
-    0
-   ]
-  },
-  {
-   "id": "lump_2",
-   "kind": "sphere",
-   "material": "leaves",
-   "radius": 9,
-   "sides": 8,
-   "at": [
-    -9,
-    5,
-    0
-   ]
-  },
-  {
-   "id": "lump_3",
-   "kind": "sphere",
-   "material": "leaves",
-   "radius": 9,
-   "sides": 8,
-   "at": [
-    3,
-    -9,
-    0
-   ]
+   "size": [
+    36,
+    36,
+    24
+   ],
+   "count": 3
   }
  ],
  "size": {

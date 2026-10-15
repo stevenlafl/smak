@@ -496,7 +496,7 @@ test("a map's pictures look as Valve's walls do: grain, patches, colour and brig
   // is soft grit, not the static of a random texel (research/reference-textures.md), and a picture is the way to
   // more. Every base a map's theme uses unless told passes outright, so a plain map is not warned of its own look
   const SOFT = ["leather", "cloth", "grass", "dirt", "paint", "bone", "rope", "snow"];
-  for (const base of Object.keys(MATERIALS).filter((b) => b !== "mesh" && !UNWORN.has(b))) {
+  for (const base of Object.keys(MATERIALS).filter((b) => !materialOf({ base: b }).flags.includes("masked") && !UNWORN.has(b))) {
     const said = lookFaults(lookOf(surfacePicture(materialOf({ base }), base === "door" ? 64 : 128, 128)), ALLOWED[base], base);
     sure(SOFT.includes(base) ? said.every((s) => /^little grain/.test(s)) : said.length === 0, `${base}: ${said.join(", ")}`);
   }

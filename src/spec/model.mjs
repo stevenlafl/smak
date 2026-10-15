@@ -35,7 +35,8 @@ import { sword, taper } from "../../kits/swordkit.mjs";
 import { axe } from "../../kits/axekit.mjs";
 import { blunt } from "../../kits/bluntkit.mjs";
 import { bow } from "../../kits/bowkit.mjs";
-import { materialOf, flagsOf, zonePainter, colourAt, HOLE_RGB } from "./paint.mjs";
+import { lookOf, modelLookOf, VALVE_MODELS } from "./look.mjs";
+import { materialOf, flagsOf, zonePainter, colourAt, HOLE_RGB, photoMaterial } from "./paint.mjs";
 import { paintFinish, FINISH } from "./finish.mjs";
 import { paintMarks } from "./marks.mjs";
 import { bakeParts } from "./bake.mjs";
@@ -65,12 +66,13 @@ const KINDS = {
   cylinder: ["radius", "height", "sides", "top"],
   sphere: ["radius", "sides"],
   superquadric: ["size", "round", "sides"],
-  carved: ["size", "sheet", "pictures", "cells", "triangles"],
-  mesh: ["size", "file", "triangles", "up", "turn"],
-  blob: ["pieces", "blend", "cells", "triangles"],
+  carved: ["size", "sheet", "pictures", "cells", "triangles", "symmetric"],
+  mesh: ["size", "file", "triangles", "up", "turn", "symmetric"],
+  blob: ["pieces", "blend", "cells", "triangles", "symmetric"],
   turn: ["rings", "caps", "sides", "lining", "axis"],
   tube: ["path", "sides", "caps"],
   leaf: ["width", "height", "rows", "bend"],
+  cards: ["size", "count", "card", "tilt"],
   band: ["on", "width", "height"],
   boss: ["on", "radius", "height", "sides"],
   ridge: ["on", "width", "height", "ends"],
@@ -177,6 +179,32 @@ function blobPart(part, skeleton, report) {
   });
   // unless told, 40 triangles a piece and 600 at most: a whole body in one blob of 28 pieces at 60 each came to 1,680,
   // past twice the original character's 785 that a copy is held to (the reproduction test's M8)
+  // symmetric: each piece's twin, on the other side's bones (by name: the base's pose may not be symmetric, Gordon's
+  // right hand holds a gun) or, placed by points, mirrored through y 0; a piece on a middle bone or at y 0 has none
+  if (part.symmetric) {
+    const twins = part.pieces.flatMap((piece, k) => {
+      const swap = (name) => otherSideOf(name);
+      if (piece.span) {
+        const other = piece.span.map(swap);
+        if (other.every((b, j) => b === piece.span[j])) return [];
+        const [a, b] = other.map((name, j) => jointAt(name, `pieces[${k}] (mirrored).span[${j}]`));
+        const r = piece.radius;
+        return [{ kind: "capsule", a: plus(a.joint, piece.offset && [piece.offset[0], -piece.offset[1], piece.offset[2]]), b: plus(b.joint, piece.offset && [piece.offset[0], -piece.offset[1], piece.offset[2]]), r: isNumber(r) ? [r, r] : [r[0], r[1] ?? r[0]], bone: piece.bone ? swap(piece.bone) : a.own }];
+      }
+      if (typeof piece.at === "string") {
+        if (swap(piece.at) === piece.at) return [];
+        const at = jointAt(swap(piece.at), `pieces[${k}] (mirrored).at`);
+        const r = piece.radius;
+        return [{ kind: "ellipsoid", c: plus(at.joint, piece.offset && [piece.offset[0], -piece.offset[1], piece.offset[2]]), r: isNumber(r) ? [r, r, r] : r.length === 3 ? r : [r[0], r[0], r[1]], bone: piece.bone ? swap(piece.bone) : at.own }];
+      }
+      const done = resolved[k];
+      const flip = (p) => [p[0], -p[1], p[2]];
+      if (done.kind === "capsule") return Math.abs(done.a[1]) < 0.5 && Math.abs(done.b[1]) < 0.5 ? [] : [{ ...done, a: flip(done.a), b: flip(done.b), bone: swap(done.bone) }];
+      return Math.abs(done.c[1]) < 0.5 ? [] : [{ ...done, c: flip(done.c), bone: swap(done.bone) }];
+    });
+    resolved.push(...twins);
+    report.facts.push(`${part.id}: symmetric: ${twins.length} pieces mirrored to the other side`);
+  }
   const made = blob(resolved, { cells: part.cells ?? 64, blend: part.blend ?? 3, target: part.triangles ?? Math.min(BLOB_MOST, Math.max(120, 40 * resolved.length)) });
   const lo = [0, 1, 2].map((k) => Math.min(...made.tris.flatMap((t) => t.map((c) => c.p[k]))));
   const hi = [0, 1, 2].map((k) => Math.max(...made.tris.flatMap((t) => t.map((c) => c.p[k]))));
@@ -184,6 +212,31 @@ function blobPart(part, skeleton, report) {
   const own = made.tris.map((t) => t.map((c) => ({ p: [c.p[0] - at[0], c.p[1] - at[1], c.p[2] - at[2]] })));
   report.facts.push(`${part.id}: a blob of ${resolved.length} pieces blended over ${part.blend ?? 3} units, ${made.report.surfaced} triangles surfaced and reduced to ${made.report.triangles}; its corners on ${[...new Set(resolved.map((p) => p.bone))].length} bones`);
   return { ...part, at, size: hi.map((v, k) => Math.max(0.01, v - lo[k])), carvedTris: own, blobPieces: resolved };
+}
+
+/**
+ * A shape made symmetric through y 0 (its own space, centred on x and y): the +y half kept, each triangle that
+ * crosses the middle cut there, then mirrored with its winding turned, so the two halves meet on the same points.
+ */
+function symmetrized(tris, part, report) {
+  const half = [];
+  const cut = (a, b) => {
+    const t = a.p[1] / (a.p[1] - b.p[1]);
+    return { p: [a.p[0] + (b.p[0] - a.p[0]) * t, 0, a.p[2] + (b.p[2] - a.p[2]) * t] };
+  };
+  for (const tri of tris) {
+    const poly = [];
+    for (let i = 0; i < 3; i++) {
+      const [a, b] = [tri[i], tri[(i + 1) % 3]];
+      const [ina, inb] = [a.p[1] >= 0, b.p[1] >= 0];
+      if (ina) poly.push({ p: [...a.p] });
+      if (ina !== inb) poly.push(cut(a, b));
+    }
+    for (let i = 1; i + 1 < poly.length; i++) half.push([poly[0], poly[i], poly[i + 1]]);
+  }
+  const mirrored = half.map(([a, b, c]) => [c, b, a].map((v) => ({ p: [v.p[0], -v.p[1], v.p[2]] })));
+  report.facts.push(`${part.id}: symmetric: its +y half kept (${half.length} triangles) and mirrored`);
+  return [...half, ...mirrored];
 }
 
 /** The joint of a skeleton nearest a point. */
@@ -297,15 +350,9 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
       if (!anim || typeof anim.replace !== "string" || !Array.isArray(anim.keys) || !anim.keys.some((key) => key?.at === 0) || anim.keys.some((key) => !isNumber(key?.at) || (key.aim !== undefined && !(Array.isArray(key.aim) && key.aim.length === 2 && key.aim.every(isNumber)))))
         errors.push(`weapon.animations[${n}]: { replace: "<the game's animation>", from, frames, fps, keys: [{ at, turn: { bone: { x, y, z } }, move: { bone: [x, y, z] }, aim: [across, up], ease }] }, a key at frame 0`);
   }
-  // a material's photograph is a map's picture: a model's parts take a picture by `project`
-  const noPicture = (material, where) => {
-    if (material && typeof material === "object" && material.picture !== undefined)
-      errors.push(`${where}.picture: a reference picture paints a map's or a .wad's texture; a model's parts take a picture by \`project\` (docs/SPEC.md, "Pictures projected onto it")`);
-  };
   for (const [name, material] of Object.entries(spec.materials ?? {}))
     try {
       materialOf(material, `materials.${name}`);
-      noPicture(material, `materials.${name}`);
     } catch (error) {
       errors.push(error.message);
     }
@@ -339,6 +386,8 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
     for (const key of Object.keys(part))
       if (!COMMON.includes(key) && !KINDS[part.kind].includes(key))
         warnings.push(`${label}.${key}: a ${part.kind} takes no ${key}, left out.${nearest(key, [...COMMON, ...KINDS[part.kind]])}`);
+    if (KINDS[part.kind].includes("symmetric") && part.symmetric !== undefined && typeof part.symmetric !== "boolean")
+      errors.push(`${label}.symmetric: true (its right half made the mirror of its left, +y) or false`);
     if (part.material !== undefined && !part.kind.startsWith("kit:") && part.kind !== "prefab") {
       if (typeof part.material === "string" && spec.materials?.[part.material] === undefined)
         try {
@@ -349,7 +398,6 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
       else if (typeof part.material === "object")
         try {
           materialOf(part.material, `${label}.material`);
-          noPicture(part.material, `${label}.material`);
         } catch (error) {
           errors.push(error.message);
         }
@@ -480,6 +528,12 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
       case "tube":
         if (!Array.isArray(part.path) || part.path.length < 2 || part.path.some((q) => !Array.isArray(q) || q.length !== 4 || !q.every(isNumber)))
           errors.push(`${label}.path: two points at least, each [x, y, z, radius]`);
+        break;
+      case "cards":
+        if (!(Array.isArray(part.size) && part.size.length === 3 && part.size.every((v) => isNumber(v) && v > 0))) errors.push(`${label}.size: [x, y, z], the crown's box in units`);
+        if (part.count !== undefined && !(Number.isInteger(part.count) && part.count >= 2 && part.count <= 64)) errors.push(`${label}.count: how many cards, 2 to 64`);
+        if (part.card !== undefined && !(Array.isArray(part.card) && part.card.length === 2 && part.card.every((v) => isNumber(v) && v > 0))) errors.push(`${label}.card: [width, height] of each card in units (unless told, the crown's: crossed through its middle)`);
+        if (part.tilt !== undefined && !(isNumber(part.tilt) && part.tilt >= 0 && part.tilt <= 90)) errors.push(`${label}.tilt: degrees a scattered card may lean, 0 to 90 (30)`);
         break;
       case "leaf":
         if (part.rows === undefined) {
@@ -676,6 +730,10 @@ function zoneSizeOf(part, hostOf) {
         length += Math.hypot(...[0, 1, 2].map((k) => part.path[i][k] - part.path[i - 1][k]));
       return [Math.max(1, length), 2 * Math.PI * Math.max(...part.path.map((q) => q[3]), 0.1)];
     }
+    case "cards": {
+      const [w, h] = part.card ?? [Math.max(part.size[0], part.size[1]), part.size[2]];
+      return [w, h];
+    }
     case "leaf": {
       if (!part.rows) return [part.width, part.height];
       // a grid's real size, as the workshop's leaf lays it: across its zone from row to row, and down it
@@ -737,7 +795,9 @@ function leanerRows(rows) {
 function buildPart(part, M, S, zone, px, material, hostSurface, capZones = []) {
   for (const capZone of capZones) if (capZone) S.zone(capZone, zonePainter(material, capZone, px), 2);
   const painterRound = ["turn", "cylinder", "sphere", "superquadric", "tube"].includes(part.kind) ? "v" : null;
-  S.zone(zone, zonePainter(material, zone, px, { round: painterRound }), 2);
+  // a crown's cards thin out to nothing at an egg inside each card, so that no card's straight edge shows
+  const painted = part.kind === "cards" ? { ...material, crown: [zone.w / px, zone.h / px] } : material;
+  S.zone(zone, zonePainter(painted, zone, px, { round: painterRound }), 2);
   switch (part.kind) {
     case "box": {
       const [x, y, z] = part.size;
@@ -817,6 +877,48 @@ function buildPart(part, M, S, zone, px, material, hostSurface, capZones = []) {
       const surface = M.tube(part.path, zone, { name: part.id, sides: part.sides ?? 8, caps });
       return { surface, from: 0, to: surface.length, ends: [part.path[0].slice(0, 3), part.path.at(-1).slice(0, 3)] };
     }
+    case "cards": {
+      // thin sheets seen from both sides, all wearing one picture of leaves with holes in it (material leaves):
+      // crossed through the crown's middle, each turned by an even share of a half turn and the last laid flat; or,
+      // given a `card` smaller than the crown, scattered through it at seeded places, turns and leans
+      const [X, Y, Z] = part.size;
+      const count = part.count ?? 4;
+      const crossed = !part.card;
+      const [w, h] = part.card ?? [Math.max(X, Y), Z];
+      const tilt = ((part.tilt ?? 30) * Math.PI) / 180;
+      let seed = 0;
+      for (const ch of part.id) seed = (seed * 31 + ch.charCodeAt(0)) >>> 0;
+      const r = (k) => {
+        const v = Math.sin(seed * 12.9898 + k * 78.233) * 43758.5453;
+        return v - Math.floor(v);
+      };
+      for (let i = 0; i < count; i++) {
+        let c;
+        let along;
+        let up;
+        if (crossed && i < count - 1) {
+          const yaw = (Math.PI * i) / (count - 1);
+          [c, along, up] = [[0, 0, Z / 2], [(Math.cos(yaw) * X) / Math.max(X, Y), (Math.sin(yaw) * Y) / Math.max(X, Y), 0], [0, 0, 1]];
+        } else if (crossed) {
+          [c, along, up] = [[0, 0, Z * 0.55], [X / Math.max(X, Y), 0, 0], [0, Y / Z, 0]];
+        } else {
+          // a point inside the crown's egg, a turn about the upright and a lean
+          let p;
+          for (let k = 0; ; k++) {
+            p = [r(i * 7 + k * 101) * 2 - 1, r(i * 7 + k * 101 + 1) * 2 - 1, r(i * 7 + k * 101 + 2) * 2 - 1];
+            if (Math.hypot(...p) <= 1 || k > 20) break;
+          }
+          c = [(p[0] * (X - w)) / 2, (p[1] * (Y - w)) / 2, Z / 2 + (p[2] * (Z - h)) / 2];
+          const yaw = Math.PI * r(i * 7 + 3);
+          const lean = tilt * (r(i * 7 + 4) * 2 - 1);
+          along = [Math.cos(yaw), Math.sin(yaw), 0];
+          up = [-Math.sin(yaw) * Math.sin(lean), Math.cos(yaw) * Math.sin(lean), Math.cos(lean)];
+        }
+        const at = (a, b) => [0, 1, 2].map((k) => c[k] + along[k] * a * (w / 2) + up[k] * b * (h / 2));
+        M.leaf([[at(-1, -1), at(1, -1)], [at(-1, 1), at(1, 1)]], zone, { name: part.id });
+      }
+      return {};
+    }
     case "leaf": {
       const bend = part.bend ?? 0;
       const given = part.rows ?? [0, 0.5, 1].map((t) =>
@@ -876,7 +978,7 @@ function piecesOf(given, context) {
   const prefabs = { ...context.prefabs, ...(spec.prefabs ?? {}) };
   const byId = new Map(spec.parts.map((part) => [part.id, part]));
   const materialFor = (part) => {
-    const given = part.material ?? "wood";
+    const given = part.material ?? (part.kind === "cards" ? "leaves" : "wood");
     return materialOf(typeof given === "string" && spec.materials?.[given] !== undefined ? spec.materials[given] : given);
   };
   // the shared pictures: one a set of flags (a flame is drawn unlit, so it needs a texture of its own)
@@ -1215,6 +1317,24 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
   const { errors, warnings } = validateModelSpec(spec, { prefabs });
   const report = { ok: false, errors, faults: [], warnings, notes: [], facts: [], parts: {} };
   if (errors.length) return { mdl: null, report };
+  // a material with a photograph: its detail laid over the part at its real size, made like Valve's (paint.mjs)
+  const readMaterial = readPicture ?? ((file) => unpicture(readFileSync(resolve(folder ?? ".", file.replace(/^(work|models):/, "")))));
+  try {
+    const photographed = new Map();
+    const withPhoto = (material) => {
+      if (!material || typeof material !== "object" || material.picture === undefined) return material;
+      if (!photographed.has(material)) photographed.set(material, photoMaterial(material, readMaterial, report.facts));
+      return photographed.get(material);
+    };
+    spec = {
+      ...spec,
+      ...(spec.materials ? { materials: Object.fromEntries(Object.entries(spec.materials).map(([k, m]) => [k, withPhoto(m)])) } : {}),
+      parts: spec.parts.map((part) => (typeof part.material === "object" ? { ...part, material: withPhoto(part.material) } : part)),
+    };
+  } catch (error) {
+    errors.push(`materials: ${error.message}`);
+    return { mdl: null, report };
+  }
   const name = spec.name ?? "model.mdl";
   const base = name.replace(/\.mdl$/i, "");
   // a base model: its skeleton, as it stands in `pose`, is what the parts are put on, and its file (with its
@@ -1309,7 +1429,7 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
           const lost = hull.report.lost ?? [];
           if (lost.length)
             warnings.push(`${part.id}: the carve lost ${lost.length} thin piece${lost.length > 1 ? "s" : ""} the pictures show, thinner than its cells (${(Math.max(...part.size) / (hull.cells ?? part.cells ?? 64)).toFixed(2)} units) can hold: ${lost.slice(0, 6).map((l) => `${l.view} view, ${l.length} long and ${l.across} across, near pixel ${l.at.join(" ")} of that view`).join("; ")}. Make each a part of its own (a tube, a leaf, a box) where the picture has it`);
-          return { ...part, carvedTris: hull.tris };
+          return { ...part, carvedTris: part.symmetric ? symmetrized(hull.tris, part, report) : hull.tris };
         }),
       };
     } catch (error) {
@@ -1321,7 +1441,7 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
   if (spec.parts.some((part) => part.kind === "mesh")) {
     const readText = readFile ?? ((name) => readFileSync(resolve(folder ?? ".", name.replace(/^(work|models):/, ""))));
     try {
-      spec = { ...spec, parts: spec.parts.map((part) => (part.kind === "mesh" ? { ...part, carvedTris: meshPart(part, readText, report, warnings) } : part)) };
+      spec = { ...spec, parts: spec.parts.map((part) => (part.kind === "mesh" ? { ...part, carvedTris: ((t) => (part.symmetric ? symmetrized(t, part, report) : t))(meshPart(part, readText, report, warnings)) } : part)) };
     } catch (error) {
       errors.push(`mesh: ${error.message}`);
       return { mdl: null, report };
@@ -1488,6 +1608,30 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
       errors.push(`project: ${error.message}`);
       return { mdl: null, report };
     }
+  }
+
+  // each picture against Valve's models' (look.mjs): clean whites and toy colours read as The Sims, not GoldSrc
+  // (a Xash3D developer on the kit's furniture, 2026-10-15). A picture projected from the person's own is theirs
+  if (!projectedViews) {
+    const off = [];
+    for (const mesh of meshes) {
+      if (mesh.flags & (4 | 32)) continue;
+      const { width, height } = mesh.image;
+      // a masked picture's holes (HOLE_RGB, or see-through) are not its colour, and its grain is the leaves' edges
+      const masked = Boolean(mesh.flags & 64);
+      const hole = (i) => masked && mesh.image.rgb && mesh.image.rgb[i * 3] === 255 && mesh.image.rgb[i * 3 + 1] === 0 && mesh.image.rgb[i * 3 + 2] === 255;
+      const rgba = mesh.image.rgba ?? Uint8Array.from({ length: width * height * 4 }, (_, i) => (i % 4 === 3 ? (hole(i >> 2) ? 0 : 255) : mesh.image.rgb[(i >> 2) * 3 + (i % 4)]));
+      const look = masked ? { bright: 0, fine: VALVE_MODELS.fine[1] } : lookOf({ width, height, rgba });
+      const { whites, vivid } = modelLookOf(rgba);
+      const said = [];
+      if (whites > VALVE_MODELS.whites[2]) said.push(`${Math.round(whites * 100)}% near white (nine in ten of Valve's under ${Math.round(VALVE_MODELS.whites[2] * 100)}%)`);
+      if (vivid > VALVE_MODELS.vivid[2]) said.push(`${Math.round(vivid * 100)}% strongly coloured (Valve's under ${Math.round(VALVE_MODELS.vivid[2] * 100)}%)`);
+      if (look.bright > VALVE_MODELS.bright[2]) said.push(`brighter (${look.bright.toFixed(2)}; Valve's ${VALVE_MODELS.bright[1]})`);
+      if (look.fine < VALVE_MODELS.fine[0]) said.push(`little grain (${look.fine.toFixed(3)}; Valve's ${VALVE_MODELS.fine[1]})`);
+      if (said.length) off.push(`${mesh.name} ${said.join(", ")}`);
+    }
+    if (off.length)
+      warnings.push(`its pictures look unlike nine in ten of Valve's models': ${off.join("; ")}. A white thing in Half-Life is a used grey (0.5 to 0.6: the game's light brightens it), its colours muted, its surfaces worn: give tones nearer Valve's and its materials a photograph (\`picture\`, docs/SPEC.md "A material from a photograph")`);
   }
 
   // written: one bone, one still animation

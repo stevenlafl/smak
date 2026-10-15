@@ -14,7 +14,7 @@
 // Colours are [r, g, b] from 0 to 1, as the workshop's.
 import { wood, iron, steel, fbm, noise, rand, smooth, mix, times, bell, step } from "../workshop.mjs";
 import { colourFromWords } from "./colours.mjs";
-import { referencePicture, FILTERS } from "./reference.mjs";
+import { referencePicture, FILTERS, DEFAULT_UNITS } from "./reference.mjs";
 
 /**
  * Each base with the colour it has unless told, in words for the guide. A map's plain surfaces (plaster, siding,
@@ -23,6 +23,7 @@ import { referencePicture, FILTERS } from "./reference.mjs";
  */
 export const MATERIALS = {
   wood: { tone: [0.46, 0.32, 0.19], what: "planks, a barrel, a handle" },
+  leaves: { tone: [0.2, 0.27, 0.12], what: "a tree's crown or a bush on cards: leaves with holes between, seen through" },
   darkwood: { tone: [0.25, 0.16, 0.1], what: "old oak, a dark stained post" },
   iron: { tone: [0.27, 0.26, 0.26], what: "forged and dark: hoops, nails, a stove" },
   steel: { tone: [0.56, 0.56, 0.54], what: "bright and scratched: a blade, a pipe" },
@@ -57,7 +58,7 @@ export const MATERIALS = {
 /** The colour that stands for a hole in a masked picture until it is made a texture (`HOLE_RGB`). */
 export const HOLE_RGB = [1, 0, 1];
 /** The flags a base has unless told. */
-const BASE_FLAGS = { flame: ["fullbright"], neon: ["fullbright"], mesh: ["masked"] };
+const BASE_FLAGS = { flame: ["fullbright"], neon: ["fullbright"], mesh: ["masked"], leaves: ["masked"] };
 /** The texture flags by name, as `render`'s TEXTURE has them. */
 export const FLAG_BITS = { flat: 1, chrome: 2, fullbright: 4, additive: 32, masked: 64 };
 
@@ -135,6 +136,8 @@ export function materialOf(given, where = "material") {
     // brick's course and length, a board's width, a hazard stripe's width and slant
     ...Object.fromEntries(["course", "length", "board", "stripe", "angle"].filter((k) => material[k] !== undefined).map((k) => [k, material[k]])),
     ...(material.picture !== undefined ? pictureOf(material, where) : {}),
+    // a model's photographed material, made once by photoMaterial
+    ...(material.tiled ? { tiled: material.tiled } : {}),
   };
 }
 
@@ -179,7 +182,37 @@ const toned = (colour, base, tone) => {
  * The colour of a material at a point given in units on its surface: `x` along, `y` across, `light` the
  * painted light (1 plain). The same point always has the same colour.
  */
+/** Texels a unit a model's photographed material is made at. */
+const PHOTO_TEXELS = 4;
+
+/**
+ * A model's material with a photograph (`picture`): its detail made as a map's is (reference.mjs: `valve` matched to
+ * Valve's range in the material's tone, or `literal`, `aged`), at PHOTO_TEXELS a unit and made to tile, kept as
+ * `tiled` for colourAt. The picture is read by `read` when it is a name.
+ */
+export function photoMaterial(given, read, facts = []) {
+  const material = materialOf(given);
+  const picture = typeof material.picture === "string" ? read(material.picture) : material.picture;
+  const units = material.size ?? DEFAULT_UNITS[material.base] ?? 96;
+  const scaled = Array.isArray(units) ? units.map((u) => u * PHOTO_TEXELS) : units * PHOTO_TEXELS;
+  const side = 256;
+  const made = referencePicture({ ...material, picture, size: scaled, tile: true }, side, side);
+  facts.push(`material ${material.base}${typeof given.picture === "string" ? ` (${given.picture})` : ""}: ${made.facts.join("; ")}, at ${PHOTO_TEXELS} texels a unit`);
+  const { picture: _, ...rest } = material;
+  return { ...rest, tiled: made.image };
+}
+
+/** A tiled picture { width, height, rgb } read at (x, y) texels, between its texels, wrapping. */
+function tiledAt(image, x, y) {
+  const { width: w, height: h, rgb } = image;
+  const [x0, y0] = [Math.floor(x), Math.floor(y)];
+  const [fx, fy] = [x - x0, y - y0];
+  const at = (xx, yy, c) => rgb[((((yy % h) + h) % h) * w + (((xx % w) + w) % w)) * 3 + c] / 255;
+  return [0, 1, 2].map((c) => (at(x0, y0, c) * (1 - fx) + at(x0 + 1, y0, c) * fx) * (1 - fy) + (at(x0, y0 + 1, c) * (1 - fx) + at(x0 + 1, y0 + 1, c) * fx) * fy);
+}
+
 export function colourAt(material, x, y, light = 1, px = 8) {
+  if (material.tiled) return tiledAt(material.tiled, x * PHOTO_TEXELS, y * PHOTO_TEXELS).map((v) => v * light);
   const { base, tone, rust, seed: s } = material;
   const grain = (a, b, n = 3) => fbm(a, b, s, n);
   // noise finer than a pixel is static, not grain: at a map's texel a unit (px 1) it is kept to a quarter, and
@@ -197,6 +230,44 @@ export function colourAt(material, x, y, light = 1, px = 8) {
     return c.map((v, i) => Math.max(0, mean[i] + WOOD_LINES * (v - mean[i])));
   };
   switch (base) {
+    case "leaves": {
+      // leaves on two jittered grids, one over the other, each a pointed blade turned its own way, the holes
+      // between them see-through (a masked texture): how Valve's and every GoldSrc tree is made, on crossed cards.
+      // A leaf at least six texels long, however coarse the picture; `cell` its size in units (2.5), `fill` the
+      // share of places that hold one (0.75)
+      const cell = Math.max(material.cell ?? 2.5, 6 / px);
+      const fill = material.fill ?? 0.75;
+      let hit = null;
+      for (let layer = 0; layer < 2; layer++) {
+        const off = layer * 0.5 * cell;
+        const [gx, gy] = [Math.floor((x + off) / cell), Math.floor((y + off) / cell)];
+        for (let dy = -1; dy <= 1; dy++)
+          for (let dx = -1; dx <= 1; dx++) {
+            const [cx, cy] = [gx + dx, gy + dy];
+            const mx = (cx + 0.2 + 0.6 * rand(cx, cy, s + 63 + layer)) * cell - off;
+            const my = (cy + 0.2 + 0.6 * rand(cx, cy, s + 65 + layer)) * cell - off;
+            // on a crown's card (`crown`: its size in units), fewer leaves toward an egg inside its edge, none past
+            // it, the egg's outline broken by noise so that the crown is round and ragged, not a rectangle
+            let here = fill;
+            if (material.crown) {
+              const [cw, ch] = material.crown;
+              const d = Math.hypot((mx - cw / 2) / (cw / 2 - cell), (my - ch / 2) / (ch / 2 - cell)) + 0.35 * (fbm(mx * 0.08, my * 0.08, s + 71, 2) - 0.5);
+              here *= Math.max(0, Math.min(1, (1 - d) / 0.35));
+            }
+            if (rand(cx, cy, s + 61 + layer) > here) continue;
+            const turn = Math.PI * rand(cx, cy, s + 67 + layer);
+            const [ax, ay] = [Math.cos(turn), Math.sin(turn)];
+            const along = ((x - mx) * ax + (y - my) * ay) / (0.62 * cell);
+            const across = (-(x - mx) * ay + (y - my) * ax) / (0.26 * cell);
+            if (Math.abs(along) >= 1 || Math.abs(across) >= 1 - along * along) continue;
+            hit = { own: 0.72 + 0.5 * rand(cx, cy, s + 69 + layer), side: across, rib: Math.abs(across) < 0.12, top: layer };
+          }
+      }
+      if (!hit) return HOLE_RGB;
+      // each leaf its own shade, the upper layer a little lighter, one side of the midrib lit, the rib darker
+      const shadeOf = hit.own * (hit.top ? 1.08 : 0.86) * (1 + 0.12 * hit.side) * (hit.rib ? 0.8 : 1);
+      return shade(tone, light * shadeOf);
+    }
     case "mesh": {
       // cords at least a texel and a half wide, holes at least three texels, however coarse the picture
       const cell = Math.max(material.cell ?? 2, 4.5 / px);

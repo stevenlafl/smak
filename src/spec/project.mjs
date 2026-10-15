@@ -98,6 +98,43 @@ export function enclosedForegroundOf(picture, [x0, y0, x1, y1]) {
   return mask;
 }
 
+/** Whether a picture is a cut-out: some of its dots see-through. */
+function cutOut(picture) {
+  if (!picture.rgba) return false;
+  for (let i = 3; i < picture.rgba.length; i += 4) if (picture.rgba[i] < 128) return true;
+  return false;
+}
+
+/** A cut-out's dots whose colour is the thing's alone: wholly opaque, in the mask, and not on its edge. */
+function solidOf(picture, mask, [x0, y0, x1, y1]) {
+  const { width, rgba } = picture;
+  const opaque = new Uint8Array(mask.length);
+  for (let i = 0; i < mask.length; i++) opaque[i] = mask[i] && rgba[i * 4 + 3] >= 250 ? 1 : 0;
+  const solid = new Uint8Array(mask.length);
+  for (let y = y0; y < y1; y++)
+    for (let x = x0; x < x1; x++) {
+      const i = y * width + x;
+      solid[i] = opaque[i] && x > x0 && y > y0 && x < x1 - 1 && y < y1 - 1 && opaque[i - 1] && opaque[i + 1] && opaque[i - width] && opaque[i + width] ? 1 : 0;
+    }
+  return solid;
+}
+
+/** The nearest solid dot to dot i, within a few dots (a texel just past the cut takes the thing's colour). */
+function nearestSolid(solid, width, height, i, reach = 4) {
+  const x = i % width;
+  const y = (i - x) / width;
+  let best = null;
+  let bestD = Infinity;
+  for (let dy = -reach; dy <= reach; dy++)
+    for (let dx = -reach; dx <= reach; dx++) {
+      const [nx, ny] = [x + dx, y + dy];
+      if (nx < 0 || ny < 0 || nx >= width || ny >= height || !solid[ny * width + nx]) continue;
+      const d = dx * dx + dy * dy;
+      if (d < bestD) [best, bestD] = [ny * width + nx, d];
+    }
+  return best;
+}
+
 /** The outline's box in a mask: the largest patch, with every patch at least a tenth its size. */
 export function outlineBox(mask, width, [x0, y0, x1, y1]) {
   const label = new Int32Array(mask.length);
@@ -242,7 +279,10 @@ export function paintProjections(meshes, views) {
         }
     }
     const extent = Math.max(a1 - a0, h1 - h0);
-    return { view, picture, back, toPicture, depth, mask, rect, slack: extent * 0.01 + 0.05, parts: view.parts ? new Set(view.parts) : null, seen: 0 };
+    // a cut-out's dots on its edge are half the ground it was cut from (a white fringe round a chair's legs), and
+    // its see-through dots keep that ground's colour: colour is taken only from its solid dots a dot in from the edge
+    const solid = cutOut(picture) ? solidOf(picture, mask, area) : null;
+    return { view, picture, back, toPicture, depth, mask: solid ?? mask, solid, rect, slack: extent * 0.01 + 0.05, parts: view.parts ? new Set(view.parts) : null, seen: 0 };
   });
   // the light each picture carries, as a function of the way a surface faces in that view: brightness fitted
   // to the face's direction (right, up, toward the camera) over the triangles it sees squarely; a texel's colour
@@ -280,7 +320,8 @@ export function paintProjections(meshes, views) {
   };
   const colourAt = (v, x, y) => {
     const { picture } = v;
-    const i = Math.min(picture.width - 1, Math.max(0, Math.floor(x))) + Math.min(picture.height - 1, Math.max(0, Math.floor(y))) * picture.width;
+    let i = Math.min(picture.width - 1, Math.max(0, Math.floor(x))) + Math.min(picture.height - 1, Math.max(0, Math.floor(y))) * picture.width;
+    if (v.solid && !v.solid[i]) i = nearestSolid(v.solid, picture.width, picture.height, i) ?? i;
     return picture.rgba ? [picture.rgba[i * 4], picture.rgba[i * 4 + 1], picture.rgba[i * 4 + 2]] : [picture.rgb[i * 3], picture.rgb[i * 3 + 1], picture.rgb[i * 3 + 2]];
   };
 
@@ -354,7 +395,8 @@ export function paintProjections(meshes, views) {
               const iy = Math.floor(py);
               if (ix < 0 || iy < 0 || ix >= v.picture.width || iy >= v.picture.height) return false;
               const at = iy * v.picture.width + ix;
-              return !(masked && !v.mask[at]) && dot(q, v.back) >= v.depth[at] - v.slack;
+              if (masked ? !v.mask[at] : v.solid && !v.solid[at] && nearestSolid(v.solid, v.picture.width, v.picture.height, at) === null) return false;
+              return dot(q, v.back) >= v.depth[at] - v.slack;
             });
             const best = Math.max(0, ...seeing.map((v) => dot(ns, v.back)));
             for (const v of seeing.filter((v) => dot(ns, v.back) >= best * SQUARE_SHARE)) {

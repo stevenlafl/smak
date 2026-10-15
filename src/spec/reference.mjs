@@ -24,6 +24,8 @@ export const DEFAULT_UNITS = {
   wood: 48, darkwood: 48, planks: 64, door: 48, tile: 64, brick: 96, metal: 96, iron: 64, steel: 64,
   plaster: 96, stone: 96, asphalt: 128, dirt: 128, grass: 128, snow: 128, siding: 96, shingles: 96,
 };
+/** The most a photo's grain or patches are raised toward Valve's range. */
+const GAIN_MOST = 2;
 /** The share of a tile's cell given to the cross-fade that makes it come round: a quarter of it. */
 const SEAM = 0.25;
 /** The broad light of a photo is a blur this share of the crop's shorter side (at least 8 texels). */
@@ -264,7 +266,13 @@ function toValve(picture, base, { tone = null } = {}) {
       const l = bright * (1 + coarse * (soft[i] / meanLum - 1) + fine * (g / meanLum));
       for (let c = 0; c < 3; c++) {
         const hue = tone ? tone[c] / Math.max(0.02, targetLum) : 1 + toward * (meanShare[c] - 1);
-        out[c][i] = Math.max(0, Math.min(1, l * hue * (1 + chroma * (share[c][i] / Math.max(0.02, meanShare[c]) - 1))));
+        // with a tone, the photo's colour as a difference from its own mean, weighed down in its dark texels: a
+        // ratio to a brown photo's small blue share made its grey gaps and dark streaks bright blue on a sofa's
+        // wood (2026-10-15), where a dark gap's colour is barely there to see
+        const own = tone
+          ? hue + chroma * Math.min(1, lum[i] / meanLum) * (share[c][i] - meanShare[c])
+          : hue * (1 + chroma * (share[c][i] / Math.max(0.02, meanShare[c]) - 1));
+        out[c][i] = Math.max(0, Math.min(1, l * own));
       }
     }
     return { width: w, height: h, planes: out };
@@ -272,7 +280,9 @@ function toValve(picture, base, { tone = null } = {}) {
   // patches 16 texels across are measured over a cell of 48 or more; a smaller cell repeats too soon to have any
   const patches = Math.min(w, h) >= 48;
   const inside = (v, [lo, , hi]) => (v < lo ? lo * 1.15 : v > hi ? hi * 0.9 : v);
-  const held = (k) => Math.max(0.25, Math.min(8, k));
+  // raised no more than twice: a smooth photo (painted planks) raised fourfold made its few flakes of rust black
+  // streaks across a door (Steven, 2026-10-15); left smoother than Valve's, it reads as clean paint
+  const held = (k) => Math.max(0.25, Math.min(GAIN_MOST, k));
   let [fine, coarse, chroma] = [1, 1, 1];
   let result;
   for (alike = 0; alike <= 1; alike += 0.25) {

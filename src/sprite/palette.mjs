@@ -47,6 +47,28 @@ function unstack(frames, indices, width) {
   return out;
 }
 
+/**
+ * The one colour every lit pixel of the frames is a shade of (its brightest channel 1), or null: each pixel within
+ * 2 in 255 of that colour scaled to its brightness.
+ */
+function oneHue(frames) {
+  let best = null;
+  let most = 0;
+  for (const f of frames)
+    for (let i = 0; i < f.width * f.height; i++) {
+      const m = Math.max(f.rgb[i * 3], f.rgb[i * 3 + 1], f.rgb[i * 3 + 2]);
+      if (m > most) [most, best] = [m, [f.rgb[i * 3] / m, f.rgb[i * 3 + 1] / m, f.rgb[i * 3 + 2] / m]];
+    }
+  if (!best) return null;
+  for (const f of frames)
+    for (let i = 0; i < f.width * f.height; i++) {
+      const m = Math.max(f.rgb[i * 3], f.rgb[i * 3 + 1], f.rgb[i * 3 + 2]);
+      if (m < BLACK_UNDER) continue;
+      for (let c = 0; c < 3; c++) if (Math.abs(Math.min(1, f.rgb[i * 3 + c]) - Math.min(1, best[c] * m)) > 2 / 255) return null;
+    }
+  return best;
+}
+
 export function quantiseFrames(frames, format, { colour = [1, 1, 1] } = {}) {
   const palette = new Uint8Array(768);
   let pixels;
@@ -61,6 +83,20 @@ export function quantiseFrames(frames, format, { colour = [1, 1, 1] } = {}) {
     palette.set([0, 0, 255], 255 * 3);
     const all = unstack(frames, texture.pixels, picture.width);
     pixels = all.map((p, n) => p.map((index, i) => (frames[n].a[i] >= 0.5 ? index : 255)));
+  } else if (format === "additive" && oneHue(frames)) {
+    // a light of one colour (a white glow): 255 steps of that colour from black, as Valve's glows are. Median cut
+    // spent its entries on the many faint pixels' few values and left a soft falloff in 48 bands (Steven, 2026-10-15:
+    // "as if I went from 16 to 8 bit colour")
+    const hue = oneHue(frames);
+    for (let k = 0; k < 256; k++) palette.set(hue.map((c) => Math.round((255 * c * k) / 255)), k * 3);
+    pixels = frames.map((f) => {
+      const out = new Uint8Array(f.width * f.height);
+      for (let i = 0; i < out.length; i++) {
+        const level = Math.max(f.rgb[i * 3], f.rgb[i * 3 + 1], f.rgb[i * 3 + 2]) / Math.max(...hue);
+        out[i] = level * Math.max(...hue) < BLACK_UNDER ? 0 : Math.max(1, Math.min(255, Math.round(255 * level)));
+      }
+      return out;
+    });
   } else if (format === "additive") {
     // near-black to black first, so that one entry is pure black and nothing faint is left round the effect
     const darkened = frames.map((f) => ({ ...f, rgb: f.rgb.map((v, i, all) => (Math.max(all[i - (i % 3)], all[i - (i % 3) + 1], all[i - (i % 3) + 2]) < BLACK_UNDER ? 0 : v)) }));

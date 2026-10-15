@@ -113,6 +113,18 @@ function againstReference(name, ref, back, s, readPicture) {
   if (colour !== null && colour > REFERENCE_BARS.colour) notes.push(`${name}: its colour is ${colour} from its reference's (delta E; the bar is ${REFERENCE_BARS.colour}): a ramp or a colour nearer the reference's`);
   const darker = ours.dark - theirs.dark;
   if (Math.abs(darker) > REFERENCE_BARS.dark) notes.push(`${name}: ${darker > 0 ? "more" : "less"} of it is dark than of its reference (${ours.dark} against ${theirs.dark}): the effect ${darker > 0 ? "covers too little of its frame" : "covers too much of its frame"}`);
+  // the hot middle: how bright its brightest is, and how many pixels are near that (Steven, 2026-10-15: the glow's
+  // brightest point larger than the original's, which the shape's levels up to 0.4 did not see)
+  const hot = (m) => {
+    const all = m.flatMap((f) => [...f]);
+    const peak = Math.max(0, ...all);
+    return { peak: Math.round(peak * 100) / 100, core: all.filter((e) => e > 0.7).length / (m.length || 1) };
+  };
+  const [hotTheirs, hotOurs] = [hot(theirs.masks), hot(ours.masks)];
+  facts.push(`${name}: its brightest ${hotTheirs.peak} and ${hotOurs.peak}, pixels over 0.7 a frame ${Math.round(hotTheirs.core)} and ${Math.round(hotOurs.core)}`);
+  if (hotOurs.peak > hotTheirs.peak + 0.15 || hotOurs.core > Math.max(2, 1.5 * hotTheirs.core))
+    notes.push(`${name}: its middle is hotter than its reference's (brightest ${hotOurs.peak} against ${hotTheirs.peak}, ${Math.round(hotOurs.core)} pixels over 0.7 against ${Math.round(hotTheirs.core)}): a smaller core, a dimmer colour or a gentler falloff`);
+  else if (hotOurs.peak < hotTheirs.peak - 0.15) notes.push(`${name}: its middle is dimmer than its reference's (brightest ${hotOurs.peak} against ${hotTheirs.peak}): a brighter colour or core`);
   if (ours.frames !== theirs.frames) notes.push(`${name}: ${ours.frames} frames against its reference's ${theirs.frames}`);
   // the shape, frame by frame: the lit pixels of each against the reference's at the same point of its play
   if (theirs.masks[0]?.length === ours.masks[0]?.length) {

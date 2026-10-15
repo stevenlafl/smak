@@ -68,6 +68,7 @@ const areas = [
   "57-generate", // the MCP tool generate with a stand-in worker: takes and sidecars, the model kept loaded, a take in a spec, a shape as a mesh part
   "58-materials", // the MCP tool materials and library: pictures, over a small library of the kit's own
   "59-blob", // a blob part: pieces on joints blended into one closed surface, each corner on its nearest piece's bone
+  "60-props-look", // a tree of crossed leaf cards (masked), a model's pictures against Valve's models' (whites, toy colours)
 ];
 
 // one after another: each file runs its cases as it is loaded, and the servers' cases wait for their answers

@@ -1462,7 +1462,10 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   }
   for (const [modelName, given] of Object.entries({ ...(spec.models ?? {}), ...kitModels })) {
     const modelSpec = given.file ? JSON.parse(readFileSync(resolve(folder ?? ".", given.file), "utf8")) : given;
-    const built = buildModelSpec({ ...modelSpec, name: `${modelName}.mdl` }, { folder });
+    // a model spec's pictures (its materials' photographs) are beside its own file: the kit's furniture's in
+    // kits/furniture/photos; one written in the map spec reads them as the map's do
+    const own = given.file ? dirname(resolve(folder ?? ".", given.file)) : folder;
+    const built = buildModelSpec({ ...modelSpec, name: `${modelName}.mdl` }, { folder: own, ...(given.file ? {} : { readPicture }) });
     if (!built.mdl || !built.report.ok) {
       errors.push(`models.${modelName}: ${[...built.report.errors, ...built.report.faults].join("; ")}`);
       continue;
