@@ -2,248 +2,293 @@
   "spec": "smak.map/1",
   "name": "kaupo_house",
   "wall": 8,
+  "wads": [
+    "halflife.wad"
+  ],
   "theme": {
-    "floor": "planks",
-    "wall": "tg_white",
-    "ceiling": "tg_white",
-    "door": "door",
-    "furniture": "plywood"
-  },
-  "textures": {
-    "tg_white": {
-      "base": "wood",
-      "tone": [
-        0.56,
-        0.56,
-        0.53
-      ]
+    "floor": {
+      "pick": {
+        "words": [
+          "wood"
+        ],
+        "tone": [
+          0.45,
+          0.33,
+          0.2
+        ],
+        "else": {
+          "base": "planks"
+        }
+      }
     },
-    "lino": {
-      "base": "tile",
-      "tone": "dark grey",
-      "cell": 32
+    "wall": {
+      "pick": {
+        "words": [
+          "wood"
+        ],
+        "tone": [
+          0.55,
+          0.5,
+          0.4
+        ],
+        "else": {
+          "base": "plaster"
+        }
+      }
     },
-    "plywood": {
-      "base": "wood",
-      "tone": [
-        0.5,
-        0.42,
-        0.3
-      ]
+    "ceiling": {
+      "pick": {
+        "words": [
+          "wood"
+        ],
+        "tone": [
+          0.5,
+          0.45,
+          0.35
+        ],
+        "else": {
+          "base": "planks"
+        }
+      }
     },
-    "concrete": {
-      "base": "stone",
-      "tone": [
-        0.55,
-        0.55,
-        0.53
-      ]
-    },
-    "siding_grey": {
-      "base": "wood",
-      "tone": [
-        0.42,
-        0.41,
-        0.38
-      ]
-    },
-    "metal_siding": {
-      "base": "metal",
-      "tone": [
-        0.45,
-        0.45,
-        0.45
-      ],
-      "rust": 0.3
-    },
-    "roof_metal": {
-      "base": "metal",
-      "tone": [
-        0.4,
-        0.4,
-        0.42
-      ],
-      "rust": 0.45
+    "outside": "siding",
+    "roof": {
+      "pick": {
+        "words": [
+          "metal"
+        ],
+        "tone": [
+          0.5,
+          0.45,
+          0.4
+        ],
+        "else": {
+          "base": "shingles"
+        }
+      }
     }
   },
   "rooms": [
     {
       "id": "yard",
       "size": [
-        1200,
-        1200,
-        384
+        640,
+        780,
+        320
       ],
-      "floor": 30,
+      "at": [
+        0,
+        0,
+        0
+      ],
       "sky": true,
       "surfaces": {
         "floor": "grass"
       }
     },
     {
-      "id": "lanai",
+      "id": "living",
       "size": [
-        192,
-        72,
-        108
+        188,
+        240,
+        102
       ],
+      "floor": 42,
       "place": {
         "in": "yard",
         "offset": [
-          288,
-          288
+          140,
+          230
         ],
         "stand": true
       },
-      "floor": 18,
-      "surfaces": {
-        "floor": "plywood"
-      },
       "building": {
-        "walls": "siding_grey",
+        "walls": "outside",
         "roof": {
-          "material": "roof_metal",
-          "pitch": 18.4,
-          "overhang": 18
+          "pitch": 18,
+          "overhang": 24
         }
-      }
-    },
-    {
-      "id": "living",
-      "size": [
-        192,
-        216,
-        108
-      ],
-      "place": {
-        "north_of": "lanai",
-        "align": "west"
-      },
-      "surfaces": {
-        "floor": "lino"
       }
     },
     {
       "id": "kitchen",
       "size": [
-        192,
-        84,
-        108
+        188,
+        80,
+        102
       ],
+      "floor": 42,
       "place": {
-        "north_of": "living",
-        "align": "west"
-      },
-      "surfaces": {
-        "floor": "lino"
+        "in": "yard",
+        "offset": [
+          140,
+          478
+        ],
+        "stand": true
+      }
+    },
+    {
+      "id": "lanai",
+      "size": [
+        188,
+        72,
+        102
+      ],
+      "floor": 42,
+      "place": {
+        "in": "yard",
+        "offset": [
+          140,
+          150
+        ],
+        "stand": true
+      }
+    },
+    {
+      "id": "bedroom_n",
+      "size": [
+        140,
+        144,
+        102
+      ],
+      "floor": 42,
+      "place": {
+        "in": "yard",
+        "offset": [
+          336,
+          414
+        ],
+        "stand": true
       }
     },
     {
       "id": "closet",
       "size": [
         64,
-        104,
-        108
+        110,
+        102
       ],
+      "floor": 42,
       "place": {
-        "east_of": "living",
-        "align": 64
+        "in": "yard",
+        "offset": [
+          336,
+          296
+        ],
+        "stand": true
       }
     },
     {
-      "id": "bedroom_n",
-      "size": [
-        132,
-        132,
-        108
-      ],
-      "place": {
-        "north_of": "closet",
-        "align": "west"
-      }
-    },
-    {
-      "id": "bathroom",
+      "id": "bath",
       "size": [
         68,
-        104,
-        108
+        110,
+        102
       ],
+      "floor": 42,
       "place": {
-        "east_of": "closet",
-        "align": "south"
-      },
-      "surfaces": {
-        "floor": "plywood"
+        "in": "yard",
+        "offset": [
+          408,
+          296
+        ],
+        "stand": true
       }
     },
     {
       "id": "bedroom_s",
       "size": [
-        132,
-        128,
-        108
+        140,
+        138,
+        102
       ],
+      "floor": 42,
       "place": {
-        "south_of": "bathroom",
-        "align": "east"
+        "in": "yard",
+        "offset": [
+          336,
+          150
+        ],
+        "stand": true
       }
     },
     {
       "id": "shed",
       "size": [
-        88,
-        102,
-        96
+        64,
+        96,
+        102
       ],
+      "floor": 42,
       "place": {
         "in": "yard",
         "offset": [
-          288,
-          690
+          140,
+          566
         ],
         "stand": true
       },
       "surfaces": {
-        "floor": "concrete"
-      },
-      "building": {
-        "walls": "metal_siding",
-        "roof": {
-          "material": "roof_metal",
-          "pitch": 18.4,
-          "overhang": 6
-        }
+        "floor": "stone"
       }
     },
     {
       "id": "shower",
       "size": [
-        45,
-        102,
-        96
+        64,
+        96,
+        102
       ],
+      "floor": 42,
       "place": {
-        "east_of": "shed",
-        "align": "centre"
+        "in": "yard",
+        "offset": [
+          212,
+          566
+        ],
+        "stand": true
       },
       "surfaces": {
-        "floor": "concrete"
+        "floor": "stone"
       }
     }
   ],
   "links": [
     {
       "between": [
-        "lanai",
-        "living"
+        "living",
+        "lanai"
       ],
       "kind": "door",
-      "width": 36,
-      "along": 0.85,
       "door": {
         "swing": true
-      }
+      },
+      "width": 56,
+      "along": 0.8
+    },
+    {
+      "between": [
+        "living",
+        "lanai"
+      ],
+      "kind": "window",
+      "along": 0.12
+    },
+    {
+      "between": [
+        "living",
+        "lanai"
+      ],
+      "kind": "window",
+      "along": 0.34
+    },
+    {
+      "between": [
+        "living",
+        "lanai"
+      ],
+      "kind": "window",
+      "along": 0.56
     },
     {
       "between": [
@@ -251,79 +296,96 @@
         "yard"
       ],
       "side": "south",
-      "kind": "door",
-      "width": 36,
-      "along": 0.85,
-      "door": {
-        "swing": true
-      }
-    },
-    {
-      "between": [
-        "living",
-        "kitchen"
-      ],
       "kind": "opening",
-      "width": 48,
-      "along": 0.5
-    },
-    {
-      "between": [
-        "living",
-        "closet"
-      ],
-      "kind": "opening",
-      "width": 48,
-      "along": 0.5
-    },
-    {
-      "between": [
-        "closet",
-        "bedroom_n"
-      ],
-      "kind": "door",
-      "width": 56,
-      "along": 0.5,
-      "door": {
-        "swing": true
-      }
-    },
-    {
-      "between": [
-        "bathroom",
-        "bedroom_n"
-      ],
-      "kind": "door",
-      "width": 56,
-      "along": 0.5,
-      "door": {
-        "swing": true
-      }
-    },
-    {
-      "between": [
-        "bedroom_s",
-        "bathroom"
-      ],
-      "kind": "door",
-      "width": 56,
-      "along": 0.35,
-      "door": {
-        "swing": true
-      }
+      "width": 96,
+      "along": 0.75
     },
     {
       "between": [
         "kitchen",
-        "yard"
+        "living"
       ],
-      "side": "west",
+      "kind": "opening",
+      "width": 64,
+      "along": 0.75
+    },
+    {
+      "between": [
+        "living",
+        "bedroom_n"
+      ],
       "kind": "door",
-      "width": 36,
-      "along": 0.67,
       "door": {
         "swing": true
-      }
+      },
+      "width": 56
+    },
+    {
+      "between": [
+        "living",
+        "bedroom_s"
+      ],
+      "kind": "door",
+      "door": {
+        "swing": true
+      },
+      "width": 56
+    },
+    {
+      "between": [
+        "bedroom_n",
+        "closet"
+      ],
+      "kind": "door",
+      "door": {
+        "swing": true
+      },
+      "width": 56
+    },
+    {
+      "between": [
+        "bedroom_n",
+        "bath"
+      ],
+      "kind": "door",
+      "door": {
+        "swing": true
+      },
+      "width": 56
+    },
+    {
+      "between": [
+        "bedroom_s",
+        "bath"
+      ],
+      "kind": "door",
+      "door": {
+        "swing": true
+      },
+      "width": 56
+    },
+    {
+      "between": [
+        "bedroom_s",
+        "closet"
+      ],
+      "kind": "door",
+      "door": {
+        "swing": true
+      },
+      "width": 56
+    },
+    {
+      "between": [
+        "kitchen",
+        "shed"
+      ],
+      "kind": "door",
+      "door": {
+        "swing": true
+      },
+      "width": 56,
+      "along": 0.5
     },
     {
       "between": [
@@ -331,44 +393,24 @@
         "shower"
       ],
       "kind": "door",
-      "width": 36,
-      "along": 0.45,
       "door": {
         "swing": true
-      }
+      },
+      "width": 56,
+      "along": 0.5
     },
     {
       "between": [
-        "shed",
+        "kitchen",
         "yard"
       ],
       "side": "west",
       "kind": "door",
-      "width": 36,
-      "along": 0.5,
       "door": {
         "swing": true
-      }
-    },
-    {
-      "between": [
-        "living",
-        "yard"
-      ],
-      "side": "west",
-      "kind": "window",
-      "along": 0.3,
-      "glass": true
-    },
-    {
-      "between": [
-        "living",
-        "yard"
-      ],
-      "side": "west",
-      "kind": "window",
-      "along": 0.7,
-      "glass": true
+      },
+      "width": 56,
+      "along": 0.5
     },
     {
       "between": [
@@ -377,8 +419,48 @@
       ],
       "side": "north",
       "kind": "window",
-      "along": 0.5,
-      "glass": true
+      "glass": true,
+      "along": 0.8
+    },
+    {
+      "between": [
+        "living",
+        "yard"
+      ],
+      "side": "west",
+      "kind": "window",
+      "glass": true,
+      "along": 0.2
+    },
+    {
+      "between": [
+        "living",
+        "yard"
+      ],
+      "side": "west",
+      "kind": "window",
+      "glass": true,
+      "along": 0.4
+    },
+    {
+      "between": [
+        "living",
+        "yard"
+      ],
+      "side": "west",
+      "kind": "window",
+      "glass": true,
+      "along": 0.6
+    },
+    {
+      "between": [
+        "living",
+        "yard"
+      ],
+      "side": "west",
+      "kind": "window",
+      "glass": true,
+      "along": 0.8
     },
     {
       "between": [
@@ -387,8 +469,28 @@
       ],
       "side": "north",
       "kind": "window",
-      "along": 0.5,
-      "glass": true
+      "glass": true,
+      "along": 0.2
+    },
+    {
+      "between": [
+        "bedroom_n",
+        "yard"
+      ],
+      "side": "north",
+      "kind": "window",
+      "glass": true,
+      "along": 0.5
+    },
+    {
+      "between": [
+        "bedroom_n",
+        "yard"
+      ],
+      "side": "north",
+      "kind": "window",
+      "glass": true,
+      "along": 0.8
     },
     {
       "between": [
@@ -397,8 +499,8 @@
       ],
       "side": "east",
       "kind": "window",
-      "along": 0.3,
-      "glass": true
+      "glass": true,
+      "along": 0.2
     },
     {
       "between": [
@@ -407,8 +509,28 @@
       ],
       "side": "east",
       "kind": "window",
-      "along": 0.7,
-      "glass": true
+      "glass": true,
+      "along": 0.5
+    },
+    {
+      "between": [
+        "bedroom_n",
+        "yard"
+      ],
+      "side": "east",
+      "kind": "window",
+      "glass": true,
+      "along": 0.8
+    },
+    {
+      "between": [
+        "bath",
+        "yard"
+      ],
+      "side": "east",
+      "kind": "window",
+      "glass": true,
+      "along": 0.5
     },
     {
       "between": [
@@ -417,8 +539,8 @@
       ],
       "side": "east",
       "kind": "window",
-      "along": 0.3,
-      "glass": true
+      "glass": true,
+      "along": 0.2
     },
     {
       "between": [
@@ -427,19 +549,82 @@
       ],
       "side": "east",
       "kind": "window",
-      "along": 0.7,
-      "glass": true
+      "glass": true,
+      "along": 0.5
+    },
+    {
+      "between": [
+        "bedroom_s",
+        "yard"
+      ],
+      "side": "east",
+      "kind": "window",
+      "glass": true,
+      "along": 0.8
+    },
+    {
+      "between": [
+        "bedroom_s",
+        "yard"
+      ],
+      "side": "south",
+      "kind": "window",
+      "glass": true,
+      "along": 0.2
+    },
+    {
+      "between": [
+        "bedroom_s",
+        "yard"
+      ],
+      "side": "south",
+      "kind": "window",
+      "glass": true,
+      "along": 0.5
+    },
+    {
+      "between": [
+        "bedroom_s",
+        "yard"
+      ],
+      "side": "south",
+      "kind": "window",
+      "glass": true,
+      "along": 0.8
+    }
+  ],
+  "props": [
+    {
+      "model": "kit:toilet",
+      "room": "bath",
+      "at": "corner ne",
+      "facing": "south"
+    },
+    {
+      "model": "kit:sink_cabinet",
+      "room": "kitchen",
+      "at": [
+        60,
+        18
+      ],
+      "facing": "south"
+    },
+    {
+      "model": "kit:bench",
+      "room": "lanai",
+      "at": "against west",
+      "facing": "east"
     }
   ],
   "entities": [
     {
       "class": "info_player_start",
-      "room": "lanai",
+      "room": "living",
       "at": [
-        67,
-        -12
+        40,
+        -80
       ],
-      "facing": "living"
+      "facing": "south"
     }
   ]
 }
