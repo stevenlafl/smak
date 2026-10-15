@@ -4,9 +4,9 @@
  "leg": "pictures",
  "measured": {
   "silhouetteOverlap": {
-   "front/back": 0.844,
-   "left/right": 0.768,
-   "top/below": 0.597
+   "front/back": 0.863,
+   "left/right": 0.939,
+   "top/below": 0.842
   },
   "size": {
    "original": [
@@ -15,87 +15,145 @@
     68.4
    ],
    "reproduction": [
-    36.4,
-    49.9,
-    68.3
+    38.3,
+    52.9,
+    68.2
    ],
    "offShare": [
-    0.053,
-    0.073,
-    0.001
+    0.003,
+    0.017,
+    0.003
    ]
   },
   "colour": {
-   "meanDeltaE": 9.7,
+   "meanDeltaE": 8.2,
    "byView": [
     {
      "view": "front",
-     "deltaE": 9.2,
-     "shared": 0.842
+     "deltaE": 8.7,
+     "shared": 0.86
     },
     {
      "view": "left",
-     "deltaE": 10.1,
-     "shared": 0.768
+     "deltaE": 7.3,
+     "shared": 0.939
     },
     {
      "view": "back",
-     "deltaE": 7.9,
-     "shared": 0.846
+     "deltaE": 8.1,
+     "shared": 0.86
     },
     {
      "view": "right",
-     "deltaE": 9.2,
-     "shared": 0.769
+     "deltaE": 6.7,
+     "shared": 0.939
     },
     {
      "view": "top",
-     "deltaE": 9.4,
-     "shared": 0.598
+     "deltaE": 8.2,
+     "shared": 0.842
     },
     {
      "view": "below",
-     "deltaE": 14.6,
-     "shared": 0.597
+     "deltaE": 9.4,
+     "shared": 0.842
     },
     {
      "view": "front-left",
-     "deltaE": 11.4,
-     "shared": 0.765
+     "deltaE": 9.6,
+     "shared": 0.886
     },
     {
      "view": "front-right",
-     "deltaE": 9.5,
-     "shared": 0.835
+     "deltaE": 8.5,
+     "shared": 0.896
     },
     {
      "view": "back-left",
-     "deltaE": 6.7,
-     "shared": 0.847
+     "deltaE": 8.3,
+     "shared": 0.915
     },
     {
      "view": "back-right",
-     "deltaE": 8.9,
-     "shared": 0.81
+     "deltaE": 7.4,
+     "shared": 0.902
     }
    ]
   },
   "triangles": {
    "original": 844,
-   "reproduction": 590
+   "reproduction": 720
   },
   "checkErrors": []
  },
  "caps": {
-  "M1": 0,
+  "M1": 2,
   "M2": 2,
   "M4": 2,
-  "M8": 2
+  "M8": 2,
+  "M6": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "M1"
- ],
- "total": 0,
- "of": 18
+ "lineup": {
+  "picked": "E",
+  "right": "E"
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Silhouette overlap is 0.863 front/back, 0.939 left/right and 0.842 top/below, so all three pass the 0.80 measure. But the reproduction's arms are visibly shorter and thinner than the original's, and the long trailing claws are missing or stubby in the left, right, front-left and back-left views. Those parts are missing from the outline, so the view-by-view check does not pass."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Size is 38.3 x 52.9 x 68.2 against the original's 38.5 x 53.8 x 68.4, which is within 2% on every axis (offShare 0.003 to 0.017), well inside 10%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The head, coat, legs, shoes and the open chest cavity with ribs are all present in place. The hands are wrong: the original has a full set of long clawed fingers on each hand, while the reproduction shows fewer, shorter and sparser claws, and some of the arm reads as a stub. Hand parts are missing or the wrong shape."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured mean delta E is 8.2 (per view 6.7 to 9.6), well under 15. Visually the white coat, red blood, dark-brown claws with red tips, cream head and golden crest and shoes all match in colour and material."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The blood streaks and coat wear are there, but the chest cavity's ribs and organ detail are softer and blockier in the reproduction. The underside shows dark blotches on the coat and the back shows dark specks that the original does not have, so the surface detail is clearly less sharp and partly wrong."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Side by side at game scale, a player would not take it for the original. The arms are shorter and the claws are thin and sparse, and the coat has dark patches, so the figure reads as a different zombie. The head, colours and overall pose are close enough that it is not a 0."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front faces the same way as the original's (head, chest cavity and feet line up in the front and back views). It stands upright on its feet at the origin, with the feet at the same height in every view."
+  },
+  "M8": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "SMAK's check reports no errors and the triangle count is 720 against 844, well within twice. But the reproduction shows dark, scattered fragments around the arms in the side views and dark patches on the underside that look like loose or inside-out faces, and fragments that look detached. These are not clean, closed geometry, so the 'nothing open, inside out or floating' test is not met."
+  },
+  "C1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "In the walk strip the reproduction's arm is a short stub with a red patch at the hand that seems to sit apart from the arm and shifts between frames, while the original's claws trail and swing with the arm. Parts appear to float rather than move with the body. The reproduction is also a walkTwoHanded animation, not the original's walk, so the frames are not a like-for-like comparison."
+  }
+ },
+ "total": 12,
+ "of": 18,
+ "passes": false
 }

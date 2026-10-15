@@ -1,28 +1,21 @@
-The houndeye builds OK as `houndeye.mdl` in the work folder (`work:houndeye.mdl`, with its spec beside it as `houndeye.spec.json`). I checked it from the six-side sheet and the run frames, but I had no picture of the original, so I could not compare it side by side.
+The model builds OK and passes the GoldSrc check ("fit for goldsrc", 948 triangles, 1 texture, 21 animations). It is `work:houndeye.mdl`, made from `work:houndeye.spec.json`. The front and side pictures are in `work:houndeye-sheet.png` and `work:houndeye_front.png`. I don't have the original to compare against, so I judged it from the description only.
 
-**Skeleton:** Gordon's (`player/gordon/gordon.mdl`), found in the Half-Life `valve/models` folder. It keeps his 77 animations and `"floor": 0`. The report's only fault-level notes are in the parts below.
+**Choices I made**
 
-**Size against the brief:**
+- **Skeleton: `headcrab.mdl`, not Gordon.** Gordon is an upright human and the Houndeye has no matching game skeleton. The headcrab's low, squat, hopping build is closer. The game's files were found at `~/.steam/steam/steamapps/common/Half-Life/valve`. The headcrab's front limb bones (`Bone01` to `Bone08`) are where I put the front legs.
+- **Size and floor:** 50 long, 34 wide, 46 high, with `floor: 0`. The body runs from z 16 to 42, the legs from 0 to 16, and the spines go up to about 45.
+- **Body:** one turned lump with a teardrop plan, broad at the front and blunt at the rear. It is olive-mustard leather, with cream on the belly and turquoise, brown, golden and cream chevron stripes across the back.
+- **Eye:** 12 near-black maroon spheres in a 4 by 3 grid, inside a pink-red ring on the front.
+- **Spines:** six, running from behind the eye to the rump, leaning backward.
+- **Mouth:** a dark maroon oval under the body behind the eye.
+- **Legs:** two front legs splayed out, one rear leg under the tail point, each with small toes.
+- **Animations:** all 21 of the headcrab's are kept, as the rules require.
 
-| | Asked | Built |
-|---|---|---|
-| Length | 49 | 49.9 |
-| Width | 34 | 34.7 |
-| Height | 45 | 46.2 (the top spine tip) |
+**Known gaps, not fixed**
 
-**What is in it:**
-- **Body:** one turned, teardrop-shaped lump, blunt at the rear and broad at the front, sitting from about 17 to 44 units up. Olive-to-mustard leathery skin, with a cream belly band.
-- **Back:** seven small triangular spines leaning back, and six chevron bands in cyan, brown, gold and cream, with thin cyan vein lines.
-- **Face:** a flat front with twelve glossy near-black maroon spheres in a 4 by 3 grid and a thin pink-red rim. No mouth on the front.
-- **Underside:** a dark red oval mouth with three pale ridges, just behind the eye.
-- **Flanks:** two small dark pores.
-- **Legs:** two splayed front legs and one centre rear leg, all thigh, knee and shin, with pale cream feet.
-
-**Where it falls short of the brief:**
-- **Pose:** it stands upright, not hunched with the eye tilted down. I did not tilt the body, to keep the feet on the floor.
-- **Markings:** the stripes are flat painted bands on a round body, so they do not wrap the sides as strongly as the original's chevrons.
-- **Colour:** I matched the description by eye, not against a picture. It may read greener than the original.
-- **Triangles:** 1,790, about five times the base's own body, and the check warns of it. The round parts take most of it; I did not cut further to keep the silhouette.
-- **Motion:** the in-game run and walk use Gordon's human gait on this body, so it will not gallop like a houndeye. The build's animation checks show no parts coming apart. The one note is that two adjacent spines nearly touch, which is intended.
-
-If you can give me a picture of the original, I can compare it directly and adjust the colour, stripe layout and pose.
+- **Legs don't step.** I hung them on the spine bone so they can't come apart in a run or jump. The walk and run therefore show the body and legs moving together rigidly, not a bounding gait with the legs swinging.
+- **Spines are three-sided pyramids**, not flat triangular plates. The tool has no flat-triangle primitive that fit.
+- **Stance is level.** The original hunches forward with the eye tilted down, and I did not add that.
+- **Mouth has no pale ridges**, and there are no flank veins or wrinkle lines.
+- **Triangle budget:** the spec's count is 948, under the 956 that twice the base body allows. The eye spheres and the body's sides are the parts that had to be kept low to fit.
+- **Headcrab events remain:** the "headcrabbed" animations and their sound events come with the skeleton. A mod that relies on them will treat this as a headcrab.

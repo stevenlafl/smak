@@ -1,0 +1,967 @@
+{
+  "spec": "smak.model/1",
+  "name": "houndeye.mdl",
+  "kind": "character",
+  "base": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "floor": 0,
+  "size": {
+    "height": 45,
+    "length": 49,
+    "width": 34
+  },
+  "materials": {
+    "skin": {
+      "base": "leather",
+      "tone": [
+        0.6,
+        0.58,
+        0.2
+      ]
+    },
+    "turquoise": {
+      "base": "paint",
+      "tone": [
+        0.15,
+        0.75,
+        0.72
+      ]
+    },
+    "chocolate": {
+      "base": "paint",
+      "tone": [
+        0.3,
+        0.16,
+        0.07
+      ]
+    },
+    "gold": {
+      "base": "paint",
+      "tone": [
+        0.85,
+        0.68,
+        0.2
+      ]
+    },
+    "cream": {
+      "base": "paint",
+      "tone": [
+        0.9,
+        0.86,
+        0.68
+      ]
+    },
+    "maroon": {
+      "base": "paint",
+      "tone": [
+        0.25,
+        0.03,
+        0.05
+      ]
+    },
+    "rim": {
+      "base": "paint",
+      "tone": [
+        0.7,
+        0.3,
+        0.3
+      ]
+    },
+    "wrinkle": {
+      "base": "leather",
+      "tone": [
+        0.3,
+        0.2,
+        0.08
+      ]
+    },
+    "pore": {
+      "base": "leather",
+      "tone": [
+        0.2,
+        0.12,
+        0.05
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "body",
+      "kind": "turn",
+      "axis": "x",
+      "material": "skin",
+      "sides": 8,
+      "caps": [
+        true,
+        true
+      ],
+      "rings": [
+        [
+          0,
+          [
+            1.5,
+            1.5
+          ]
+        ],
+        [
+          5,
+          [
+            4,
+            4
+          ]
+        ],
+        [
+          14,
+          [
+            11,
+            10
+          ]
+        ],
+        [
+          24,
+          [
+            16,
+            15
+          ]
+        ],
+        [
+          36,
+          [
+            17,
+            15.5
+          ]
+        ],
+        [
+          42,
+          [
+            16.5,
+            15
+          ]
+        ],
+        [
+          46,
+          [
+            15,
+            13.5
+          ]
+        ],
+        [
+          49,
+          [
+            13,
+            12
+          ]
+        ]
+      ],
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "offset": [
+          -1.5,
+          0,
+          -15
+        ]
+      },
+      "marks": [
+        {
+          "path": [
+            [
+              0.82,
+              35
+            ],
+            [
+              0.8,
+              90
+            ],
+            [
+              0.82,
+              145
+            ]
+          ],
+          "width": 2,
+          "material": "turquoise"
+        },
+        {
+          "path": [
+            [
+              0.73,
+              35
+            ],
+            [
+              0.71,
+              90
+            ],
+            [
+              0.73,
+              145
+            ]
+          ],
+          "width": 2,
+          "material": "chocolate"
+        },
+        {
+          "path": [
+            [
+              0.65,
+              35
+            ],
+            [
+              0.63,
+              90
+            ],
+            [
+              0.65,
+              145
+            ]
+          ],
+          "width": 2,
+          "material": "gold"
+        },
+        {
+          "path": [
+            [
+              0.57,
+              35
+            ],
+            [
+              0.55,
+              90
+            ],
+            [
+              0.57,
+              145
+            ]
+          ],
+          "width": 2,
+          "material": "turquoise"
+        },
+        {
+          "path": [
+            [
+              0.49,
+              35
+            ],
+            [
+              0.47,
+              90
+            ],
+            [
+              0.49,
+              145
+            ]
+          ],
+          "width": 2,
+          "material": "chocolate"
+        },
+        {
+          "path": [
+            [
+              0.41,
+              35
+            ],
+            [
+              0.39,
+              90
+            ],
+            [
+              0.41,
+              145
+            ]
+          ],
+          "width": 2,
+          "material": "cream"
+        },
+        {
+          "path": [
+            [
+              0.33,
+              35
+            ],
+            [
+              0.31,
+              90
+            ],
+            [
+              0.33,
+              145
+            ]
+          ],
+          "width": 2,
+          "material": "turquoise"
+        },
+        {
+          "path": [
+            [
+              0.05,
+              270
+            ],
+            [
+              0.95,
+              270
+            ]
+          ],
+          "width": 12,
+          "material": "cream"
+        },
+        {
+          "path": [
+            [
+              0.3,
+              200
+            ],
+            [
+              0.45,
+              215
+            ]
+          ],
+          "width": 0.5,
+          "material": "wrinkle"
+        },
+        {
+          "path": [
+            [
+              0.6,
+              160
+            ],
+            [
+              0.7,
+              150
+            ]
+          ],
+          "width": 0.5,
+          "material": "wrinkle"
+        },
+        {
+          "path": [
+            [
+              0.55,
+              0
+            ],
+            [
+              0.55,
+              2
+            ]
+          ],
+          "width": 1.6,
+          "material": "pore",
+          "ends": "round"
+        },
+        {
+          "path": [
+            [
+              0.55,
+              180
+            ],
+            [
+              0.55,
+              182
+            ]
+          ],
+          "width": 1.6,
+          "material": "pore",
+          "ends": "round"
+        }
+      ]
+    },
+    {
+      "id": "rim",
+      "kind": "tube",
+      "material": "rim",
+      "sides": 4,
+      "path": [
+        [
+          0,
+          11,
+          0,
+          1
+        ],
+        [
+          0,
+          7.8,
+          7.4,
+          1
+        ],
+        [
+          0,
+          0,
+          9.5,
+          1
+        ],
+        [
+          0,
+          -7.8,
+          7.4,
+          1
+        ],
+        [
+          0,
+          -11,
+          0,
+          1
+        ],
+        [
+          0,
+          -7.8,
+          -7.4,
+          1
+        ],
+        [
+          0,
+          0,
+          -9.5,
+          1
+        ],
+        [
+          0,
+          7.8,
+          -7.4,
+          1
+        ]
+      ],
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "offset": [
+          23,
+          0,
+          -12
+        ]
+      }
+    },
+    {
+      "id": "eye_1",
+      "kind": "sphere",
+      "material": "maroon",
+      "radius": 2.6,
+      "sides": 3,
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "offset": [
+          22.5,
+          -7,
+          -16.5
+        ]
+      }
+    },
+    {
+      "id": "eye_2",
+      "kind": "sphere",
+      "material": "maroon",
+      "radius": 2.6,
+      "sides": 3,
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "offset": [
+          22.5,
+          -2.3,
+          -16.5
+        ]
+      }
+    },
+    {
+      "id": "eye_3",
+      "kind": "sphere",
+      "material": "maroon",
+      "radius": 2.6,
+      "sides": 3,
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "offset": [
+          22.5,
+          2.3,
+          -16.5
+        ]
+      }
+    },
+    {
+      "id": "eye_4",
+      "kind": "sphere",
+      "material": "maroon",
+      "radius": 2.6,
+      "sides": 3,
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "offset": [
+          22.5,
+          7,
+          -16.5
+        ]
+      }
+    },
+    {
+      "id": "eye_5",
+      "kind": "sphere",
+      "material": "maroon",
+      "radius": 2.6,
+      "sides": 3,
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "offset": [
+          22.5,
+          -7,
+          -12
+        ]
+      }
+    },
+    {
+      "id": "eye_6",
+      "kind": "sphere",
+      "material": "maroon",
+      "radius": 2.6,
+      "sides": 3,
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "offset": [
+          22.5,
+          -2.3,
+          -12
+        ]
+      }
+    },
+    {
+      "id": "eye_7",
+      "kind": "sphere",
+      "material": "maroon",
+      "radius": 2.6,
+      "sides": 3,
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "offset": [
+          22.5,
+          2.3,
+          -12
+        ]
+      }
+    },
+    {
+      "id": "eye_8",
+      "kind": "sphere",
+      "material": "maroon",
+      "radius": 2.6,
+      "sides": 3,
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "offset": [
+          22.5,
+          7,
+          -12
+        ]
+      }
+    },
+    {
+      "id": "eye_9",
+      "kind": "sphere",
+      "material": "maroon",
+      "radius": 2.6,
+      "sides": 3,
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "offset": [
+          22.5,
+          -7,
+          -7.5
+        ]
+      }
+    },
+    {
+      "id": "eye_10",
+      "kind": "sphere",
+      "material": "maroon",
+      "radius": 2.6,
+      "sides": 3,
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "offset": [
+          22.5,
+          -2.3,
+          -7.5
+        ]
+      }
+    },
+    {
+      "id": "eye_11",
+      "kind": "sphere",
+      "material": "maroon",
+      "radius": 2.6,
+      "sides": 3,
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "offset": [
+          22.5,
+          2.3,
+          -7.5
+        ]
+      }
+    },
+    {
+      "id": "eye_12",
+      "kind": "sphere",
+      "material": "maroon",
+      "radius": 2.6,
+      "sides": 3,
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "offset": [
+          22.5,
+          7,
+          -7.5
+        ]
+      }
+    },
+    {
+      "id": "spine_1",
+      "kind": "cylinder",
+      "material": "skin",
+      "radius": 3.2,
+      "top": 0.2,
+      "height": 5,
+      "sides": 3,
+      "rotate": [
+        0,
+        -25,
+        0
+      ],
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "offset": [
+          13,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "spine_2",
+      "kind": "cylinder",
+      "material": "skin",
+      "radius": 3.2,
+      "top": 0.2,
+      "height": 5,
+      "sides": 3,
+      "rotate": [
+        0,
+        -25,
+        0
+      ],
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "offset": [
+          7,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "spine_3",
+      "kind": "cylinder",
+      "material": "skin",
+      "radius": 3.2,
+      "top": 0.2,
+      "height": 5,
+      "sides": 3,
+      "rotate": [
+        0,
+        -25,
+        0
+      ],
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "offset": [
+          1,
+          0,
+          -0.5
+        ]
+      }
+    },
+    {
+      "id": "spine_4",
+      "kind": "cylinder",
+      "material": "skin",
+      "radius": 3.2,
+      "top": 0.2,
+      "height": 5,
+      "sides": 3,
+      "rotate": [
+        0,
+        -25,
+        0
+      ],
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "offset": [
+          -5,
+          0,
+          -2.5
+        ]
+      }
+    },
+    {
+      "id": "spine_5",
+      "kind": "cylinder",
+      "material": "skin",
+      "radius": 3.2,
+      "top": 0.2,
+      "height": 5,
+      "sides": 3,
+      "rotate": [
+        0,
+        -25,
+        0
+      ],
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "offset": [
+          -11,
+          0,
+          -4.5
+        ]
+      }
+    },
+    {
+      "id": "spine_6",
+      "kind": "cylinder",
+      "material": "skin",
+      "radius": 3,
+      "top": 0.2,
+      "height": 5,
+      "sides": 3,
+      "rotate": [
+        0,
+        -25,
+        0
+      ],
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "offset": [
+          -17,
+          0,
+          -7.5
+        ]
+      }
+    },
+    {
+      "id": "spine_7",
+      "kind": "cylinder",
+      "material": "skin",
+      "radius": 2.6,
+      "top": 0.2,
+      "height": 5,
+      "sides": 3,
+      "rotate": [
+        0,
+        -25,
+        0
+      ],
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "offset": [
+          -21,
+          0,
+          -10.5
+        ]
+      }
+    },
+    {
+      "id": "legs",
+      "kind": "blob",
+      "material": "skin",
+      "symmetric": true,
+      "blend": 2,
+      "triangles": 100,
+      "pieces": [
+        {
+          "from": [
+            3,
+            10,
+            -8
+          ],
+          "to": [
+            8,
+            14,
+            -22
+          ],
+          "radius": [
+            5,
+            3.6
+          ],
+          "bone": "Bip01 Spine"
+        },
+        {
+          "at": [
+            9,
+            14.5,
+            -23
+          ],
+          "radius": 3.2,
+          "bone": "Bip01 L Leg1"
+        },
+        {
+          "from": [
+            9,
+            14.5,
+            -23
+          ],
+          "to": [
+            5,
+            12,
+            -31
+          ],
+          "radius": 2.9,
+          "bone": "Bip01 L Leg1"
+        },
+        {
+          "from": [
+            5,
+            12,
+            -31
+          ],
+          "to": [
+            9,
+            14,
+            -34.5
+          ],
+          "radius": 1.9,
+          "bone": "Bip01 L Foot"
+        }
+      ]
+    },
+    {
+      "id": "rear_leg",
+      "kind": "blob",
+      "material": "skin",
+      "blend": 2,
+      "triangles": 50,
+      "pieces": [
+        {
+          "from": [
+            -12,
+            0,
+            -9
+          ],
+          "to": [
+            -17,
+            0,
+            -23
+          ],
+          "radius": [
+            4.5,
+            3.2
+          ],
+          "bone": "Bip01 Pelvis"
+        },
+        {
+          "from": [
+            -17,
+            0,
+            -23
+          ],
+          "to": [
+            -14,
+            0,
+            -32
+          ],
+          "radius": 2.6,
+          "bone": "Bip01 R Leg1"
+        },
+        {
+          "from": [
+            -14,
+            0,
+            -32
+          ],
+          "to": [
+            -11,
+            0,
+            -34.8
+          ],
+          "radius": 1.8,
+          "bone": "Bip01 R Foot"
+        }
+      ]
+    },
+    {
+      "id": "toe_1",
+      "kind": "cylinder",
+      "material": "cream",
+      "radius": 0.9,
+      "height": 3.5,
+      "sides": 4,
+      "rotate": [
+        15,
+        90,
+        0
+      ],
+      "attach": {
+        "bone": "Bip01 L Foot",
+        "offset": [
+          6.5,
+          7,
+          -2.5
+        ]
+      }
+    },
+    {
+      "id": "toe_2",
+      "kind": "cylinder",
+      "material": "cream",
+      "radius": 0.9,
+      "height": 3.5,
+      "sides": 4,
+      "rotate": [
+        -10,
+        90,
+        0
+      ],
+      "attach": {
+        "bone": "Bip01 L Foot",
+        "offset": [
+          6.5,
+          10,
+          -2.5
+        ]
+      }
+    },
+    {
+      "id": "toe_3",
+      "kind": "cylinder",
+      "material": "cream",
+      "radius": 0.9,
+      "height": 3.5,
+      "sides": 4,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "attach": {
+        "bone": "Bip01 R Foot",
+        "offset": [
+          -6.5,
+          3.5,
+          -3
+        ]
+      }
+    },
+    {
+      "id": "toe_4",
+      "kind": "cylinder",
+      "material": "cream",
+      "radius": 0.9,
+      "height": 3.5,
+      "sides": 4,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "attach": {
+        "bone": "Bip01 R Foot",
+        "offset": [
+          -6.5,
+          6.5,
+          -3
+        ]
+      }
+    }
+  ]
+}

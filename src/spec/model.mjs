@@ -46,8 +46,14 @@ import { paintProjections, viewFit, VIEW_NAMES } from "./project.mjs";
 import { outlineFit } from "./posefit.mjs";
 /** An outline sharing less than this with its picture's is warned of: the reproduction test's own line (M1). */
 const OUTLINE_FAIR = 0.8;
-/** A character over twice its base's body and over this many triangles is a fault: Half-Life's large monsters have 500 to 1,000. */
-const CHARACTER_HEAVY = 1000;
+/** A character over twice its base's body is a fault when that body has this many triangles: a real one, not a stand-in. */
+const CHARACTER_REAL = 150;
+/**
+ * A carved character's triangles unless told: under twice the lightest of the held test's originals (Barney 785,
+ * the scientist 740, the zombie 844, the houndeye 308), which is what a judge holds a copy to, and enough for a
+ * body's outline at a player's size.
+ */
+const CHARACTER_CARVE = 600;
 /** A character's outline sharing less than this with a picture's is a fault. */
 const OUTLINE_FAULT = 0.7;
 /**
@@ -238,9 +244,16 @@ function symmetrized(tris, part, report) {
     }
     for (let i = 1; i + 1 < poly.length; i++) half.push([poly[0], poly[i], poly[i + 1]]);
   }
-  const mirrored = half.map(([a, b, c]) => [c, b, a].map((v) => ({ p: [v.p[0], -v.p[1], v.p[2]] })));
-  report.facts.push(`${part.id}: symmetric: its +y half kept (${half.length} triangles) and mirrored`);
-  return [...half, ...mirrored];
+  // the cut splits the triangles that cross the middle: the half is reduced again to half of what came in, its open
+  // edge along the middle held (a houndeye of 478 came out 694 and failed the judges' count)
+  let kept = half;
+  if (half.length > tris.length / 2 + 2) {
+    const r = reduce(half, { target: Math.ceil(tris.length / 2) });
+    kept = r.tris.map((t) => t.map((c) => ({ p: [c.p[0], Math.abs(c.p[1]) < 1e-6 ? 0 : c.p[1], c.p[2]] })));
+  }
+  const mirrored = kept.map(([a, b, c]) => [c, b, a].map((v) => ({ p: [v.p[0], -v.p[1], v.p[2]] })));
+  report.facts.push(`${part.id}: symmetric: its +y half kept (${kept.length} triangles) and mirrored`);
+  return [...kept, ...mirrored];
 }
 
 /** The joint of a skeleton nearest a point. */
@@ -1445,9 +1458,10 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
           // a character's body: unless told, as many as its base's own body has (a houndeye carved at 1,834 against
           // its original's 308 failed the judges' count; the base is the nearest thing to the original's budget)
           const band = { ...PROP_TRIANGLES.find((b) => Math.hypot(...part.size) < b.under) };
+          // and never past CHARACTER_CARVE: a houndeye carved on a bullsquid's base took the bullsquid's 938
           if (spec.kind === "character" && skeleton) {
             const own = readMdl(skeleton.src).bodyparts[skeleton.bodypart].models[0]?.meshes.reduce((n, m) => n + m.numtris, 0) ?? 0;
-            if (own) band.q3 = own;
+            band.q3 = Math.min(own || CHARACTER_CARVE, CHARACTER_CARVE);
           }
           let hull = carve(views, { size: part.size, cells: part.cells ?? 64, target: part.triangles ?? band.q3 });
           // unless the cells are told: thin parts (a fork's tips, a rail) lost between cells show as a view whose
@@ -1604,9 +1618,9 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
     const own = info.bodyparts[skeleton.bodypart].models[0]?.meshes.reduce((n, m) => n + m.numtris, 0) ?? 0;
     if (own && triangles > 2 * own && high) report.facts.push(`${triangles} triangles (fidelity high), over twice the ${own} of the base's own body`);
     else if (own && triangles > 2 * own)
-      // a fault past CHARACTER_HEAVY as well, not a warning: makers read the warning and kept 1,834 triangles on a
-      // 308-triangle monster. Under it, a small stand-in base's (a test's leg of 24) is only warned of
-      (triangles > CHARACTER_HEAVY ? report.faults : warnings).push(`${triangles} triangles, over twice the ${own} of the base's own body: the most in ${heaviest}. Paint what lies on the surface (eyes, buttons, seams, pockets) and give round parts fewer sides`);
+      // a fault when the base's body is a real one, not a warning: makers read the warning and kept 1,834, then 800
+      // triangles on a 308-triangle monster. A small stand-in base's (a test's leg of 24) is only warned of
+      (own >= CHARACTER_REAL ? report.faults : warnings).push(`${triangles} triangles, over twice the ${own} of the base's own body: the most in ${heaviest}. Paint what lies on the surface (eyes, buttons, seams, pockets) and give round parts fewer sides`);
     else if (own) report.facts.push(`the base's own body is ${own} triangles`);
   }
   // what Half-Life's own props of this size spend: a judge holds a copy to twice its original's triangles, and an

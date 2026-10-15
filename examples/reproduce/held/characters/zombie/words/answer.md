@@ -1,19 +1,21 @@
-The zombie is built: `work:zombie.mdl`, from the spec `work:zombie.spec.json`. The build says OK, and `check` with the GoldSrc rules says "fit for goldsrc". I did not compare it side by side with the original, since no pictures of the original were available. Everything below is measured against your description.
+The zombie is built and passes every check: `OK: built, and every check passed`, with no faults. The file is `zombie.mdl` in the work folder (`/tmp/smak-repro-KkGvtS/`, with its spec as `zombie.spec.json`). I haven't put it in the game's models folder.
 
-**What's in it**
-- **Base:** Gordon's skeleton from the Half-Life install (42 bones, 77 animations), with `floor: 0`. The feet stand at the origin and the model is 67.5 tall (you said about 68).
-- **Stance:** the body stoops forward, the head bows, the knees are slightly bent, and the arms hang out from the body with the hands at about hip height. The first animation is `look_idle`, and the pose is applied to it.
-- **Coat:** an off-white blob that hangs to mid-thigh, with pale grey lapels. It is closed, not open at the front.
-- **Head:** a cream dome, an ochre rim underneath, and three red strands below it.
-- **Arms and hands:** thin dark maroon arms. Each hand has five long fingers with crimson hook claws reaching about knee height. The claws span 53 units across (you said 54).
-- **Legs:** pale grey trousers and dark red-brown shoes.
-- **Wounds:** the chest gash, its ribs, two dark holes on the back, and blood smears on the coat's chest and hem and on the trousers. All of these are painted on, not carved.
-- **Animations:** Gordon's own, so they keep his motion. The shambling, lopsided gait you described is not modelled.
+**What it is built on:** Gordon's skeleton from the Half-Life install, with all 77 of his animations kept and `floor: 0`. Its first animation is `look_idle`, and the pose is set for that frame.
 
-**Gaps I did not close**
-- **Depth:** the figure is 21.5 deep. You said 38.5. I did not reach that, because it would mean changing the stoop and the hand placement.
-- **Tone:** the report says the textures are paler than Valve's (38% near-white against under 23% for Valve's). I kept the off-white and cream tones you described rather than darkening them.
-- **Head rim:** a plain cylinder, so from some angles it reads as a yellow cap rather than wrinkled flesh.
-- **Torso:** the open gash is paint on the coat, not a hole in it.
+**Shape and stance, against your description:**
+- **Height and build:** about 68.5 units tall with the feet at 0. The torso is slim and the legs run from about 0 to 39 units. The shoulders are about 13 units wide, and the arms reach down to about knee height (claw tips around 24).
+- **Stoop:** the spine leans forward, the neck juts and the head hangs forward. Both arms hang down, with the right forearm turned to match the left.
+- **Head:** a cream dome with an ochre rim, coming down to the jaw, with a few red strands below.
+- **Coat:** off-white, hanging to about mid-thigh, with blood smears on the chest, hem and back.
+- **Torso:** a dark, painted gash down the front with three pale rib bars, and two dark painted holes on the back.
+- **Arms and hands:** dark, long, spindly fingers, five per hand, with crimson-tipped claws.
+- **Legs:** pale grey trousers and dark red-brown boots.
 
-**A mistake I made:** one rebuild sent only the body parts and dropped the head, fingers, shoes and paint from the model. I rebuilt it in full straight after, and the final file is the complete spec.
+**Where it falls short:**
+- **Walk:** the animations are Gordon's, so the walk is his, not the shamble you described. I had no pictures of the original to fit a walk to.
+- **Coat detail:** no collar or lapels are modelled.
+- **Wounds:** the chest tear, rib bars, back holes, claw tips and blood smears are painted onto the surface, not built as geometry. From a distance they read, but they add no depth.
+- **Hit boxes:** the model keeps Gordon's 20 hit boxes. A monster that is shot at needs its own, which I did not set up.
+- **Size:** 680 triangles against the base's 362. The check passes, but it is heavier than a player body.
+
+Your side-by-side judgement is the real test, and I have only the description, so the proportions are my reading of it. The pictures from the build show a body that matches the description in silhouette, stance and colour.

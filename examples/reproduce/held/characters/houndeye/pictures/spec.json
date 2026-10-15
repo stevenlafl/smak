@@ -3,7 +3,7 @@
   "name": "houndeye.mdl",
   "kind": "character",
   "base": {
-    "file": "headcrab.mdl"
+    "file": "player/gordon/gordon.mdl"
   },
   "floor": 0,
   "size": {
@@ -18,7 +18,12 @@
   "smooth": 80,
   "materials": {
     "hide": {
-      "base": "cloth"
+      "base": "leather",
+      "tone": [
+        0.6,
+        0.6,
+        0.3
+      ]
     }
   },
   "parts": [
@@ -31,12 +36,8 @@
         33.5,
         44.7
       ],
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "bone": "Bip01 Spine",
+      "cells": 96,
+      "triangles": 800,
       "sheet": "work:pictures/sides.png",
       "pictures": [
         {
@@ -60,9 +61,11 @@
           "pitch": 20
         }
       ],
-      "cells": 96,
-      "triangles": 1400,
-      "symmetric": true
+      "at": [
+        0,
+        0,
+        0
+      ]
     }
   ],
   "project": [

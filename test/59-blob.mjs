@@ -105,3 +105,33 @@ test("a generated or carved body on a base: each corner on the limb nearest it, 
   const bones = new Set(corners.map((c) => c.bone));
   sure(bones.has(0) && bones.has(1), `bones used: ${[...bones]}`);
 });
+
+test("symmetric keeps the count: the half cut at the middle is reduced again before it is mirrored, and stays closed", () => {
+  // a lopsided ball of 1,200 or so triangles, its rings not lined up with the middle
+  const v = [];
+  const f = [];
+  const rings = 20;
+  const sides = 31;
+  for (let i = 0; i <= rings; i++)
+    for (let j = 0; j < sides; j++) {
+      const t = (Math.PI * i) / rings;
+      const a = (2 * Math.PI * j) / sides + 0.13;
+      const r = 5 * (1 + 0.2 * Math.max(0, -Math.sin(t) * Math.sin(a)));
+      v.push(`v ${(r * Math.sin(t) * Math.cos(a)).toFixed(4)} ${(r * Math.sin(t) * Math.sin(a)).toFixed(4)} ${(5 - 5 * Math.cos(t)).toFixed(4)}`);
+    }
+  const at = (i, j) => i * sides + (j % sides) + 1;
+  for (let i = 0; i < rings; i++)
+    for (let j = 0; j < sides; j++) {
+      if (i > 0) f.push(`f ${at(i, j)} ${at(i + 1, j)} ${at(i, j + 1)}`);
+      if (i < rings - 1) f.push(`f ${at(i, j + 1)} ${at(i + 1, j)} ${at(i + 1, j + 1)}`);
+    }
+  writeFileSync(join(folder, "ball.obj"), `${v.join("\n")}\n${f.join("\n")}\n`);
+  const spec = (symmetric) => ({ spec: "smak.model/1", name: "ball.mdl", kind: "prop", parts: [{ id: "ball", kind: "mesh", file: "ball.obj", up: "z", size: [10, 10, 10], triangles: 400, symmetric }] });
+  const plain = buildModelSpec(spec(false), { folder });
+  const even = buildModelSpec(spec(true), { folder });
+  const count = (r) => Number(/(\d+) triangles/.exec(r.report.facts.find((x) => /PARTS|ball \d+/.test(x)) ?? "")?.[1] ?? NaN);
+  sure(even.report.ok && even.report.faults.length === 0, [...even.report.errors, ...even.report.faults].join("; "));
+  const half = Number(/half kept \((\d+) triangles\)/.exec(even.report.facts.find((x) => /half kept/.test(x)))[1]);
+  sure(half * 2 <= 420, `mirrored ${half * 2} against 400 asked (plain ${count(plain)})`);
+  sure(mirroredIn(even.mdl).unmatched === 0, "still the mirror of itself");
+});

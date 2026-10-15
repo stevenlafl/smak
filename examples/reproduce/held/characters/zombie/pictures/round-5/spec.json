@@ -1,0 +1,358 @@
+{
+  "spec": "smak.model/1",
+  "name": "zombie.mdl",
+  "kind": "character",
+  "floor": 0,
+  "base": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "size": {
+    "height": 68.4,
+    "length": 38.5,
+    "width": 53.8
+  },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "finish": {
+    "light": 0.3,
+    "wear": 0.15,
+    "grime": 0.3,
+    "vary": 0.08
+  },
+  "project": [
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "front",
+      "area": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "left",
+      "area": [
+        512,
+        0,
+        1024,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "back",
+      "area": [
+        1024,
+        0,
+        1536,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "right",
+      "area": [
+        0,
+        512,
+        512,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/front-left.png",
+      "yaw": 35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/front-right.png",
+      "yaw": -35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-left.png",
+      "yaw": 145,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-right.png",
+      "yaw": 215,
+      "pitch": 20
+    }
+  ],
+  "parts": [
+    {
+      "id": "body",
+      "kind": "carved",
+      "size": [
+        38.5,
+        53.8,
+        68.4
+      ],
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "cells": 48,
+      "sheet": "work:pictures/sides.png",
+      "pictures": [
+        {
+          "picture": "work:pictures/front-left.png",
+          "yaw": 35,
+          "pitch": 20
+        },
+        {
+          "picture": "work:pictures/front-right.png",
+          "yaw": -35,
+          "pitch": 20
+        },
+        {
+          "picture": "work:pictures/back-left.png",
+          "yaw": 145,
+          "pitch": 20
+        },
+        {
+          "picture": "work:pictures/back-right.png",
+          "yaw": 215,
+          "pitch": 20
+        }
+      ],
+      "material": "cloth"
+    },
+    {
+      "id": "wrist_l",
+      "kind": "sphere",
+      "radius": 2.6,
+      "sides": 6,
+      "material": "cloth",
+      "attach": {
+        "bone": "Bip01 L Hand",
+        "at": "centre",
+        "offset": [
+          0,
+          0,
+          36
+        ]
+      },
+      "mirror": "y"
+    },
+    {
+      "id": "claw_l1",
+      "kind": "tube",
+      "sides": 5,
+      "material": "claw",
+      "path": [
+        [
+          0,
+          3,
+          0,
+          1
+        ],
+        [
+          5,
+          4.5,
+          -1,
+          0.7
+        ],
+        [
+          9,
+          6.5,
+          -3,
+          0.3
+        ],
+        [
+          11,
+          8,
+          -6,
+          0
+        ]
+      ],
+      "attach": {
+        "bone": "Bip01 L Hand",
+        "at": "start",
+        "offset": [
+          0,
+          0,
+          36
+        ]
+      },
+      "mirror": "y"
+    },
+    {
+      "id": "claw_l2",
+      "kind": "tube",
+      "sides": 5,
+      "material": "claw",
+      "path": [
+        [
+          0,
+          1,
+          0,
+          1
+        ],
+        [
+          5,
+          1.8,
+          -1,
+          0.7
+        ],
+        [
+          10,
+          2.5,
+          -3.5,
+          0.3
+        ],
+        [
+          12,
+          3,
+          -7,
+          0
+        ]
+      ],
+      "attach": {
+        "bone": "Bip01 L Hand",
+        "at": "start",
+        "offset": [
+          0,
+          0,
+          36
+        ]
+      },
+      "mirror": "y"
+    },
+    {
+      "id": "claw_l3",
+      "kind": "tube",
+      "sides": 5,
+      "material": "claw",
+      "path": [
+        [
+          0,
+          -1,
+          0,
+          1
+        ],
+        [
+          5,
+          -1.8,
+          -1,
+          0.7
+        ],
+        [
+          10,
+          -2.5,
+          -3.5,
+          0.3
+        ],
+        [
+          12,
+          -3,
+          -7,
+          0
+        ]
+      ],
+      "attach": {
+        "bone": "Bip01 L Hand",
+        "at": "start",
+        "offset": [
+          0,
+          0,
+          36
+        ]
+      },
+      "mirror": "y"
+    },
+    {
+      "id": "claw_l4",
+      "kind": "tube",
+      "sides": 5,
+      "material": "claw",
+      "path": [
+        [
+          0,
+          -3,
+          0,
+          1
+        ],
+        [
+          5,
+          -4.5,
+          -1,
+          0.7
+        ],
+        [
+          9,
+          -6.5,
+          -3,
+          0.3
+        ],
+        [
+          11,
+          -8,
+          -6,
+          0
+        ]
+      ],
+      "attach": {
+        "bone": "Bip01 L Hand",
+        "at": "start",
+        "offset": [
+          0,
+          0,
+          36
+        ]
+      },
+      "mirror": "y"
+    },
+    {
+      "id": "claw_l5",
+      "kind": "tube",
+      "sides": 5,
+      "material": "claw",
+      "path": [
+        [
+          0,
+          -3.5,
+          0,
+          0.9
+        ],
+        [
+          4,
+          -6,
+          -0.5,
+          0.6
+        ],
+        [
+          7,
+          -8,
+          -2,
+          0
+        ]
+      ],
+      "attach": {
+        "bone": "Bip01 L Hand",
+        "at": "start",
+        "offset": [
+          0,
+          0,
+          36
+        ]
+      },
+      "mirror": "y"
+    }
+  ],
+  "materials": {
+    "cloth": {
+      "base": "cloth",
+      "tone": "grimy white"
+    },
+    "claw": {
+      "base": "bone",
+      "tone": "dark red brown"
+    }
+  }
+}

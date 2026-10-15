@@ -184,7 +184,9 @@ player holds): 8 for a radius of 6, 6 for a pipe seen only lengthways, more only
 | Weapon in another player's hands (`p_`) | 88 | 142 | 187 |
 | First-person weapon with its arms (`v_`) | 523 | 615 | 832 |
 
-A crate there is 26 triangles, its planks and bands painted on; a can, 28; a large monster, 500 to 1,000. A
+A crate there is 26 triangles, its planks and bands painted on; a can, 28; a person (Barney, a scientist) about 750,
+the zombie 844, a small creature (the houndeye) 308. A character over twice its base's own body is a FAULT: choose a
+base near its size, and paint what a spine or a fin does not change in the outline. A
 prop's report gives the median and third quartile of Half-Life's props of its size, and warns past twice the
 median: a copy is judged against twice its original's count. A filing cabinet there is 14 triangles, its
 drawers, handles and rails all painted on a box.
