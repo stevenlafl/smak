@@ -1,0 +1,30 @@
+{
+ "kind": "sounds",
+ "reviewer": "Steven",
+ "at": "2026-10-15",
+ "blind": true,
+ "sets": [
+  {
+   "set": "A/B: the take legs of the licences-accepted round (Haiku, a generated take) against the same legs' last round (Sonnet, layers only), each after the game's original",
+   "picks": { "doormove1 pictures": "A, the layers one: closest, but static-y", "357_shot1 words": "A, the layers one: sounds like reverb, not clean", "doormove1 words": "A, the take: closest; B worse; both static-y", "pl_metal1 pictures": "A, the take; reverb again", "explode3 words": "both good, both with reverb" },
+   "said": "Is there any way to clean this up? ... It sounds good if it weren't tainted by the staticy/reverb"
+  },
+  {
+   "set": "the same five A picks at 16 bits, 22050 Hz",
+   "said": "They're still both staticy",
+   "found": "Not the bit depth. Their spectrograms showed an even wash of noise where the game's own break into grains and tones: the makers' noise layers"
+  },
+  {
+   "set": "the take legs with their noise layers taken out, 16 bits",
+   "said": {
+    "doormove1 pictures": "sounds like a metal door opening without an engine, by hand; the original sounds more like a Star Trek alert, more electronic-y",
+    "357_shot1 words": "sounds like a gunshot played in reverse; okay, just a little weird",
+    "doormove1 words": "closer, but more industrial, like a waterworks area door",
+    "pl_metal1 pictures": "a thunk on metal, but not echoey at all: a thud in a soundproofed room",
+    "explode3 words": "good, but the particles might be making it sound a little more sparkly"
+   },
+   "found": "No static or reverb named. The .357 take swells to its peak (attack 0.14 s against 0.005); the metal step dies three times faster than the game's (T20 0.13 s against 0.42); the door takes were prompted as a door and not as the motor whine the original's tone lines show"
+  }
+ ],
+ "led_to": ["2de487c 8-bit warned of", "5026070 steady noise warned of as static and reverb"]
+}
