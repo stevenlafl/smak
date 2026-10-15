@@ -360,14 +360,32 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | CT 8. A speckle measure beside local contrast (texels unlike all eight neighbours) | OPEN | Local contrast rewards misplaced-colour speckle (E4) |
 | Silhouette warping of each picture before projecting; a VLM seam planner; xatlas tuning | DECLINED | E3: no M4 gain on the maker's shape or the true one; the layout is not the bottleneck (E4, FM 6.1) |
 
+## map-geometry.md (maps from a sketch, a plan or screenshots; Valve's placement; staged maps)
+
+| Item | Status | Where / what is missing |
+| --- | --- | --- |
+| MG 1. Harness: `alignMaps` also tries the copy where it was built; for campaign maps P2 on every standable floor (walls gone), a rubric amendment | OPEN | `examples/reproduce/judge.mjs` searches 128 about the boxes' centres only (c1a1 0.44 against 0.79 in place) and walks from the starts only (c1a2: a right copy 0.29, 0.92 on every standable floor). Needed before cXaY subjects |
+| MG 2. A height plan picture: each layer of floor coloured by height and by headroom, with a printed legend; in the pictures, plans and bsp legs' inputs | OPEN | Experiment A read exactly: frenzy P2 0.898 (best leg 0.689), c1a0 0.98, c1a0d 0.945; every standable floor 0.83 to 0.94 on six maps. Heights were the legs' main loss (2D overlap 0.84 to 0.86, 3D 0.61 to 0.69) |
+| MG 3. A `trace` tool: a plan picture (the kit's or a person's sketch with a legend) to a draft floor plan | OPEN | Prototype `~/stignored/map-research/trace-heightplan.mjs` (cells grown by one, merged into boxes) |
+| MG 4. A floor-plan form in the map spec: cells keyed to floor and ceiling, several layers, merged into boxes; `terrain` where ground | OPEN | Columns blow the brush limit on terrain (c2a5: 57,000 brushes) |
+| MG 5. The build's plan against the reference picture: pixel IoU of floor masks per layer, with the diff drawn | OPEN | `research/map-floor-diff.mjs` draws the judge's version of it |
+| MG 6. Prefab wiring: rename every key whose FGD type names an entity (`LightningStart`, `m_iszEntity`, `TriggerTarget`...), turn `angle` with the prefab, `wire` parameters for names given outside it | OPEN | `prefabFromMap` in `src/spec/map.mjs` renames `NAME_KEYS` and `multi_manager` keys and turns `angles` only |
+| MG 7. Point entity heights by class (items 4 to 16 over their floor, starts 36 to 64, wall lamps 8 off) and a warning outside Valve's range | OPEN | Numbers in the report, section 3.4. Snapping alone lowered the pictures leg (0.81 to 0.76) while its floors were wrong; 0.931 on right floors |
+| MG 8. Brush-entity rules as checks, and a library of Valve-like wired prefabs written by the kit as `.map` files (vending machine with buttons and `env_beverage`, charger, scanner and door, breakable vent, crate stack, cabinet drawer) | OPEN | Rules in the report, section 7.1; Valve's 141 readable library prefabs listed in 3.7 |
+| MG 9. Light placed as Valve's: texture-lamp faces, wall lamps 8 off the wall, brightness held to the views | OPEN | |
+| MG 10. Screenshot depth (DA-V2 metric indoor small, scaled by the eye's 64) as a helper outside the kit, for heights and a room's shape | OPEN | 14 to 16 views see 24 to 30% of a map's floor; model depth 72 to 74% right indoors, 54% on frenzy |
+| MG 11. VGGT for screenshots with unknown cameras; RoomFormer for photographed paper plans | OPEN | Not tried |
+| Readers for Valve's sources: RMF 1.6, 1.8 and 2.2, and Hammer's prefab libraries (`.ol`) | DONE (research) | `research/rmf-read.mjs`; `old stuff.ol` not parsed. Whether the kit should read RMF (for a person's own Hammer files) is open |
+
 ## Open, by priority
 
 Most value for least work first. Each line names its report: CF compiler-features, GR generation-research,
 L3 local-3d-generators, SG sound-generation, FM 3d-fidelity-methods, IR improvements-research, DV
 directed-video, PE photo-to-model-experiments, SP sprite-generation, RF repeated-failures, MF
 map-reproduction-failures, LS local-sound-generators, LM local-music-generators, RT reference-textures, CT
-character-texturing.
+character-texturing, MG map-geometry.
 
+00. Maps in stages (MG): the harness's P2 fixed for campaign maps (MG 1), then the floor plan: a height plan picture, the `trace` tool, the floor-plan form and the plan measure in the report (MG 2 to 5); then prefab wiring and entity heights (MG 6, 7); then brush-entity rules and wired prefabs, light by Valve's placement (MG 8, 9); screenshot depth and VGGT last (MG 10, 11).
 0. Characters from pictures: the shape before the paint. The outline fault and hand check, `carved` on a character, bone lengths (Steven's call), then view charts and fingers painted by length (CT 1 to 5); guide text for makers meanwhile.
 1. Words-to-box before the cut-out (Grounding DINO or OWLv2, Apache 2.0), to pick one subject of several (FM 1, PE). (The BiRefNet switch is done.)
 2. Two doc lines on SDHLT's faults (`-subdivide 512`, `%NAME`), and SPLITFACE in `SEALS_NOTHING` (CF).
