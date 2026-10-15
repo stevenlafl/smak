@@ -237,6 +237,8 @@ function toValve(picture, base, { tone = null } = {}) {
   for (let i = 0; i < n; i++) grain[i] = lum[i] - soft[i];
   const grainSoft = blur(grain, w, h, 1, true, 1);
   const targetLum = tone ? lumOf(...tone) : meanLum;
+  // with no tone (aged), the picture's own mean colour, drawn toward grey where it is more coloured than Valve's
+  let toward = 1;
   // the brightness: the tone's, or (with none) the picture's own kept to Valve's range
   const bright = tone ? targetLum : Math.max(range.bright[0], Math.min(range.bright[2], meanLum));
   let alike = 0;
@@ -246,7 +248,7 @@ function toValve(picture, base, { tone = null } = {}) {
       const g = (1 - alike) * grain[i] + alike * grainSoft[i];
       const l = bright * (1 + coarse * (soft[i] / meanLum - 1) + fine * (g / meanLum));
       for (let c = 0; c < 3; c++) {
-        const hue = tone ? tone[c] / Math.max(0.02, targetLum) : meanShare[c];
+        const hue = tone ? tone[c] / Math.max(0.02, targetLum) : 1 + toward * (meanShare[c] - 1);
         out[c][i] = Math.max(0, Math.min(1, l * hue * (1 + chroma * (share[c][i] / Math.max(0.02, meanShare[c]) - 1))));
       }
     }
@@ -259,7 +261,7 @@ function toValve(picture, base, { tone = null } = {}) {
   let [fine, coarse, chroma] = [1, 1, 1];
   let result;
   for (alike = 0; alike <= 1; alike += 0.25) {
-    [fine, coarse, chroma] = [1, 1, 1];
+    [fine, coarse, chroma, toward] = [1, 1, 1, 1];
     result = colourOf(fine, coarse, chroma);
     for (let round = 0; round < 5; round++) {
       const look = lookOfPlanes(result);
@@ -267,10 +269,17 @@ function toValve(picture, base, { tone = null } = {}) {
       if (Math.abs(want.fine - look.fine) < 0.004 && Math.abs(want.coarse - look.coarse) < 0.004 && look.colour <= want.colour + 0.004) break;
       fine = held(fine * (want.fine / Math.max(1e-4, look.fine)));
       coarse = held(coarse * (want.coarse / Math.max(1e-4, look.coarse)));
-      // the colour's spread is what is over the tone's own colour: scaled down by the share of it that is too much
       if (look.colour > want.colour + 0.004) {
-        const plain = lookOfPlanes(colourOf(fine, coarse, 0)).colour;
-        chroma *= Math.max(0, (want.colour - plain) / Math.max(1e-4, look.colour - plain));
+        if (!tone) {
+          // an aged picture: all of its colour drawn toward grey alike, so a red frame stays redder than its beige
+          // panels (its content), only less coloured
+          toward *= want.colour / look.colour;
+          chroma *= want.colour / look.colour;
+        } else {
+          // the spread over the tone's own colour scaled down by the share of it that is too much; the tone is kept
+          const plain = lookOfPlanes(colourOf(fine, coarse, 0)).colour;
+          chroma *= Math.max(0, (want.colour - plain) / Math.max(1e-4, look.colour - plain));
+        }
       }
       result = colourOf(fine, coarse, chroma);
     }

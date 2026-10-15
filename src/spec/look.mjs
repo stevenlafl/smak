@@ -1,6 +1,6 @@
 // How a texture for a map looks beside Valve's: five numbers measured from its picture, held against what 347 of
 // halflife.wad's walls, floors, ceilings and roofs measure, and against each kind of them (wood, concrete, metal,
-// tile, ground). The kit's own pictures were flatter than nine in ten of Valve's and Steven, walking a map, found
+// tile, ground, doors). The kit's own pictures were flatter than nine in ten of Valve's and Steven, walking a map, found
 // them cheap; this is the measure that says so before anyone walks it. research/texture-stats.mjs measures
 // VALVE and VALVE_KINDS again from a person's own halflife.wad.
 //
@@ -33,6 +33,7 @@ export const KIND_NAMES = {
   metal: /METAL|MTL|DUCT|STEEL|GALV|GRATE/,
   tile: /TILE|LABFLR|LAB1_FLR|LAB1_FLOOR|LINO/,
   ground: /DIRT|GRVL|GRAVEL|GRND|MUD|OUT_SND|OUT_RK|ROCK(?!ET)/,
+  door: /DOOR|_DR\d|DR\d|_DR$|DR\d?[A-Z]$/,
 };
 
 /** The same five measures over each kind (research/texture-stats.mjs, 2026-10-14; the count after each). */
@@ -42,11 +43,12 @@ export const VALVE_KINDS = {
   metal: { fine: [0.037, 0.233, 0.402], coarse: [0.032, 0.101, 0.242], colour: [0.024, 0.047, 0.112], bright: [0.114, 0.19, 0.493], structure: [-0.091, 0.253, 0.41] }, // 34
   tile: { fine: [0.044, 0.085, 0.178], coarse: [0.011, 0.041, 0.415], colour: [0.028, 0.109, 0.212], bright: [0.199, 0.296, 0.443], structure: [-0.041, 0.158, 0.229] }, // 28
   ground: { fine: [0.053, 0.129, 0.145], coarse: [0.042, 0.073, 0.115], colour: [0.082, 0.152, 0.172], bright: [0.265, 0.414, 0.57], structure: [-0.002, 0.146, 0.282] }, // 15
+  door: { fine: [0.077, 0.157, 0.259], coarse: [0.07, 0.18, 0.499], colour: [0.034, 0.081, 0.278], bright: [0.172, 0.318, 0.545], structure: [0.115, 0.24, 0.303] }, // 90
 };
 
 /** The kind of Valve's surfaces a base of the kit's is held against, or null for all of them. */
 const BASE_KIND = {
-  wood: "wood", darkwood: "wood", planks: "wood",
+  wood: "wood", darkwood: "wood", planks: "wood", door: "door",
   plaster: "concrete", stone: "concrete", asphalt: "concrete",
   iron: "metal", steel: "metal", metal: "metal", brass: "metal", gold: "metal", copper: "metal",
   tile: "tile",

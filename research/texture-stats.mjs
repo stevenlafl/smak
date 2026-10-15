@@ -1,6 +1,6 @@
 // Measures again, from the game's own halflife.wad in a person's install, the numbers of VALVE and VALVE_KINDS
 // in src/spec/look.mjs: the 10th, 50th and 90th of each measure over Valve's walls, floors, ceilings and roofs,
-// and over each kind of them told by its name (KIND_NAMES in look.mjs: wood, concrete, metal, tile, ground).
+// and over each kind of them told by its name (KIND_NAMES in look.mjs: wood, concrete, metal, tile, ground, door).
 // Reads only; prints the rows to paste. With --kit, also where each of the kit's map materials falls among them;
 // with --names, which textures each kind counts.
 //   node research/texture-stats.mjs <the game's valve folder> [--kit] [--names]

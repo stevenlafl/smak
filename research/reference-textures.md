@@ -35,8 +35,10 @@ fault "grain that is noise, not the material's" is said when `fine` is past Valv
 `research/texture-stats.mjs` now splits halflife.wad by the words in names (`KIND_NAMES` in `look.mjs`;
 `--names` lists the members). Their wood is twice as grainy as their concrete and far more coloured, so grain and
 patches are held to the kind's 10th, colour to whichever of the kind's and the whole set's 90th is higher, and
-brightness to the whole set's (a tone's lightness is the person's choice). Bricks, roofs and doors have no kind
-measured (a door is painted as often as it is wood): they are held to the whole set.
+brightness to the whole set's (a tone's lightness is the person's choice). Bricks and roofs have no kind measured:
+they are held to the whole set. Doors are a kind of their own (90 of Valve's, by DOOR and DR in their names): held
+first to wood, door leaves of every colour were warned, and Valve's own red FIFTIES_DR1 is more coloured than
+nine in ten of their walls.
 
 | kind (count) | fine 10/50/90 | coarse 10/50/90 | colour 10/50/90 | bright 10/50/90 | structure 10/50/90 |
 | --- | --- | --- | --- | --- | --- |
@@ -45,6 +47,7 @@ measured (a door is painted as often as it is wood): they are held to the whole 
 | metal (34) | 0.037 / 0.233 / 0.402 | 0.032 / 0.101 / 0.242 | 0.024 / 0.047 / 0.112 | 0.114 / 0.19 / 0.493 | -0.091 / 0.253 / 0.41 |
 | tile (28) | 0.044 / 0.085 / 0.178 | 0.011 / 0.041 / 0.415 | 0.028 / 0.109 / 0.212 | 0.199 / 0.296 / 0.443 | -0.041 / 0.158 / 0.229 |
 | ground (15) | 0.053 / 0.129 / 0.145 | 0.042 / 0.073 / 0.115 | 0.082 / 0.152 / 0.172 | 0.265 / 0.414 / 0.57 | -0.002 / 0.146 / 0.282 |
+| door (90) | 0.077 / 0.157 / 0.259 | 0.07 / 0.18 / 0.499 | 0.034 / 0.081 / 0.278 | 0.172 / 0.318 / 0.545 | 0.115 / 0.24 / 0.303 |
 
 ## The procedural paint, fixed and looked at
 
