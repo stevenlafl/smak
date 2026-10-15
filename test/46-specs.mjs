@@ -522,6 +522,29 @@ test("fidelity high: a heavy prop is told its triangles as a fact, not warned, a
   sure(buildModelSpec(spec("ultra"), {}).report.errors.some((e) => /fidelity: "game" or "high"/.test(e)), "a wrong word");
 });
 
+test("a map at fidelity high: trim round its ways and along its walls, not solid; more lamps; boxes named for kit furniture as its models", () => {
+  const spec = (fidelity) => ({
+    spec: "smak.map/1", name: "trimmed", ...(fidelity ? { fidelity } : {}),
+    rooms: [{ id: "a", size: [384, 384, 128] }, { id: "b", size: [256, 256, 128], place: { east_of: "a" } }],
+    links: [{ between: ["a", "b"], kind: "door", door: { swing: true } }, { between: ["a", "b"], kind: "window", along: 0.15 }],
+    prefabs: { toilet: { pieces: [{ box: [[-10, -10, 0], [10, 10, 16]] }] } },
+    furniture: [{ prefab: "toilet", room: "b", at: "corner ne" }],
+    entities: [{ class: "info_player_start", room: "a", at: "centre" }],
+  });
+  const build = (f) => buildMapSpec(spec(f), { out: join(folder, `trimmed-${f ?? "game"}`), compilers: { found: false, message: "" } });
+  const game = build();
+  const high = build("high");
+  sure(!high.report.errors.length && !high.report.faults.some((f) => !/not compiled/.test(f)), [...high.report.errors, ...high.report.faults].join("; "));
+  sure(high.report.facts.some((f) => /fidelity high: \d+ pieces of trim/.test(f)), high.report.facts.join("; "));
+  sure(high.report.facts.some((f) => /toilet as kit:toilet/.test(f)), "the toilet of boxes put in as the kit's");
+  const text = readFileSync(high.files.map, "utf8");
+  sure(/"classname" "func_illusionary"/.test(text), "the trim is drawn, not solid");
+  const lamps = (r) => (readFileSync(r.files.map, "utf8").match(/"classname" "light"/g) ?? []).length;
+  sure(lamps(high) > lamps(game), `lamps: ${lamps(game)} at game fidelity, ${lamps(high)} at high`);
+  sure(!/func_illusionary/.test(readFileSync(game.files.map, "utf8")), "no trim at game fidelity");
+  sure(buildMapSpec({ ...spec("ultra") }, { out: join(folder, "trimmed-x"), compilers: { found: false, message: "" } }).report.errors.some((e) => /fidelity: "game" or "high"/.test(e)), "a wrong word");
+});
+
 test("a building raised over its yard gets steps out from its door, and is walked into", () => {
   const spec = { spec: "smak.map/1", name: "raised", rooms: [{ id: "yard", size: [1024, 1024, 320], sky: true }, { id: "a", size: [256, 256, 112], floor: 48, place: { in: "yard", offset: [384, 384], stand: true }, building: { roof: false } }], links: [{ between: ["a", "yard"], kind: "door", side: "south", door: { swing: true } }], entities: [{ class: "info_player_start", room: "yard", at: [-300, -300] }, { class: "item_battery", room: "a", at: "centre" }] };
   const report = buildMapSpec(spec, { out: join(folder, "raised"), compilers: { found: false, message: "" } }).report;

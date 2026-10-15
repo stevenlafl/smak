@@ -33,7 +33,7 @@ import { buildModelSpec, validateModelSpec } from "./model.mjs";
 import { buildSoundSpec } from "./sound.mjs";
 
 export const MAP_SPEC = "smak.map/1";
-const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "replace", "sounds", "fgd", "wads", "compile", "detail", "note", "ladders"];
+const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "replace", "sounds", "fgd", "wads", "compile", "detail", "note", "ladders", "fidelity"];
 /** A ladder's depth off its wall, and its width unless told: Valve's frenzy's are 32 wide. */
 const LADDER = { depth: 6, width: 32 };
 const ROOM = ["id", "size", "at", "place", "floor", "sky", "surfaces", "light", "water", "test", "building", "dark", "note"];
@@ -76,6 +76,21 @@ const RAIL_HIGH = 36;
 const RAIL_POST = 2;
 /** The kit's furniture, model specs a map's props name as "kit:<name>", and the key each is built under. */
 const KIT_FURNITURE = fileURLToPath(new URL("../../kits/furniture/", import.meta.url));
+/** The kit's furniture a prefab's name stands for (its name, or its last word, or a common other name), or null. */
+function kitOf(name) {
+  const kitNames = readdirSync(KIT_FURNITURE).map((f) => f.replace(/\.json$/, ""));
+  const words = String(name).toLowerCase().split(/[^a-z]+/).filter(Boolean);
+  // a word that makes it another thing: a porta toilet is a booth, not the kit's toilet
+  if (words.some((w) => OTHER_THING.has(w))) return null;
+  const last = words.at(-1);
+  return [words.join("_"), last].map((w) => (kitNames.includes(w) ? w : KIT_WORDS[w])).find(Boolean) ?? null;
+}
+/**
+ * A map made to look its best (`fidelity: "high"`): wall trim and door casings, more lamps, and furniture of boxes
+ * named for a piece the kit has a model of put in as that model. The sizes of the trim, in units.
+ */
+const TRIM = { base: 6, baseDeep: 1.5, casing: 3, proud: 1, sill: 3 };
+const LAMP_AREA_HIGH = 192 * 192;
 /** Words in a prefab's name that make it something other than the kit's piece of that name. */
 const OTHER_THING = new Set(["porta", "portable", "toy", "mini", "model", "sign"]);
 /** Other names for the kit's furniture, as a maker names a prefab: a `tub` is the kit's `bathtub`. */
@@ -578,7 +593,23 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   errors.push(...replaced.errors);
   const report = { ok: false, errors, faults: [], warnings, facts: [...replaced.facts], rooms: {} };
   const files = {};
+  if (spec.fidelity !== undefined && !["game", "high"].includes(spec.fidelity)) errors.push('fidelity: "game" or "high"');
   if (errors.length) return { report, files, map: null };
+  const high = spec.fidelity === "high";
+  // furniture of boxes named for a piece the kit has a model of is put in as that model, where it stood
+  if (high) {
+    const swapped = [];
+    const kept = [];
+    for (const thing of spec.furniture ?? []) {
+      const kit = thing.prefab && !spec.prefabs?.[thing.prefab]?.file ? kitOf(thing.prefab) : null;
+      if (kit) swapped.push({ thing, kit });
+      else kept.push(thing);
+    }
+    if (swapped.length) {
+      spec = { ...spec, furniture: kept, props: [...(spec.props ?? []), ...swapped.map(({ thing, kit }) => ({ model: `kit:${kit}`, room: thing.room, at: thing.at, facing: thing.rotate ?? 0, fit: true, ...(thing.id ? { id: thing.id } : {}) }))] };
+      report.facts.push(`fidelity high: ${swapped.length} pieces of furniture of boxes put in as the kit's models: ${swapped.map(({ thing, kit }) => `${thing.prefab} as kit:${kit}`).join(", ")}`);
+    }
+  }
   const name = spec.name ?? "specmap";
   const { rooms, errors: placing, marks, wall } = layoutOf(spec);
   // a room's own floor, ceiling or walls are a slab laid into the rock round it: never more than half the rock
@@ -588,7 +619,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   errors.push(...placing);
 
   // ── textures: the theme's and every other the spec names, each made a picture of its own ──
-  const theme = { floor: "stone", wall: "plaster", ceiling: "planks", door: "door", furniture: "darkwood", outside: "siding", roof: "shingles", ...(spec.theme ?? {}) };
+  const theme = { floor: "stone", wall: "plaster", ceiling: "planks", door: "door", furniture: "darkwood", outside: "siding", roof: "shingles", trim: "darkwood", ...(spec.theme ?? {}) };
   const materials = { ...theme, ...(spec.textures ?? {}) };
   const used = new Map();
   /** a texture name for a word of the spec (a key of theme/textures, or a base material) */
@@ -731,6 +762,34 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   // ── the ways through: doorways, windows, stairs, shafts between storeys ──
   const holes = [];
   const thresholds = [];
+  /** fidelity high: casings round doors and openings, sills and frames under and round windows, baseboards */
+  const trims = [];
+  const trimOfWay = (hole, axis, along, kind, lo, hi, ceiling) => {
+    const [w0, w1, z0, z1] = [hole.min[along], hole.max[along], hole.min[2], hole.max[2]];
+    for (const [face, out] of [[hole.min[axis], -1], [hole.max[axis], 1]]) {
+      const slab = (a0, a1, zlo, zhi, depth) => {
+        const [b0, b1, top] = [Math.max(lo, a0), Math.min(hi, a1), Math.min(ceiling, zhi)];
+        if (b1 - b0 < 0.5 || top - zlo < 0.5) return;
+        const min = [0, 0, zlo];
+        const max = [0, 0, top];
+        min[along] = b0;
+        max[along] = b1;
+        [min[axis], max[axis]] = out < 0 ? [face - depth, face] : [face, face + depth];
+        trims.push(box(min, max, textureOf("trim")));
+      };
+      const c = TRIM.casing;
+      if (kind === "window") {
+        slab(w0 - 2, w1 + 2, z0 - 2, z0, TRIM.sill);
+        slab(w0 - 2, w0, z0, z1, TRIM.proud);
+        slab(w1, w1 + 2, z0, z1, TRIM.proud);
+        slab(w0 - 2, w1 + 2, z1, z1 + 2, TRIM.proud);
+      } else {
+        slab(w0 - c, w0, z0, z1 + c, TRIM.proud);
+        slab(w1, w1 + c, z0, z1 + c, TRIM.proud);
+        slab(w0 - c, w1 + c, z1, z1 + c, TRIM.proud);
+      }
+    }
+  };
   const ways = [];
   const brushes = [];
   /** where to cut the map upright to see each staircase: { name, from, to } in plan */
@@ -824,6 +883,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     hole.min[along] = w0;
     hole.max[along] = w0 + width;
     holes.push(hole);
+    if (high) trimOfWay(hole, axis, along, kind, lo, hi, ceiling);
     // the threshold: rooms with a floor of their own are carved a lining deeper under it, and the way between
     // them was carved down with them, a slot across the doorway a foot catches in. A slab fills it to the floor
     if (kind !== "window") {
@@ -984,6 +1044,31 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   brushes.unshift(...rock);
   brushes.push(...linings);
   brushes.push(...thresholds.map((t) => box(t.min, t.max, themeNames.floor)));
+  if (high) {
+    // a baseboard along every wall of a room under a roof, broken by its ways through and their casings
+    for (const room of rooms.values()) {
+      if (room.spec.sky || room.spec.place?.in && !room.spec.place?.stand) continue;
+      const [x0, y0, z0] = room.min;
+      const [x1, y1] = room.max;
+      const d = TRIM.baseDeep;
+      let strips = [
+        { min: [x0, y0, z0], max: [x0 + d, y1, z0 + TRIM.base] },
+        { min: [x1 - d, y0, z0], max: [x1, y1, z0 + TRIM.base] },
+        { min: [x0, y0, z0], max: [x1, y0 + d, z0 + TRIM.base] },
+        { min: [x0, y1 - d, z0], max: [x1, y1, z0 + TRIM.base] },
+      ];
+      for (const hole of holes) {
+        const cut = { min: hole.min.map((v) => v - TRIM.casing - d), max: hole.max.map((v) => v + TRIM.casing + d) };
+        strips = strips.flatMap((strip) => subtract(strip, cut));
+      }
+      trims.push(...strips.filter((b) => b.max.every((v, k) => v - b.min[k] > 0.4)).map((b) => box(b.min, b.max, textureOf("trim"))));
+    }
+    if (trims.length) {
+      // drawn and not solid, as a thin trim is in Valve's maps: a baseboard takes no room from a narrow one
+      entities.push(brushEntity("func_illusionary", trims, {}));
+      report.facts.push(`fidelity high: ${trims.length} pieces of trim (baseboards, casings round ${holes.length} ways, sills)`);
+    }
+  }
   // ── buildings standing in the open: a shell round their rooms, `wall` thick out from each room's face,
   // from the open room's floor to over the top room, its outside of the building's own material, and a roof
   const carvedOf = new Map([...rooms.values()].map((room, k) => [room.id, boxes[k]]));
@@ -1098,6 +1183,10 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         const room = rooms.get(thing.room);
         const own = printOf(thing);
         const xy = thing.at && typeof thing.at === "object" && !Array.isArray(thing.at) ? besideOf(thing.at, own) : pointIn(room, thing.at);
+        // a kit model put in for boxes (fidelity high) is moved back into the room by what it reaches past a wall:
+        // the boxes were sized by the maker, the model by the kit
+        if (thing.fit)
+          for (const k of [0, 1]) xy[k] += Math.max(0, room.min[k] - (xy[k] + own.min[k])) - Math.max(0, xy[k] + own.max[k] - room.max[k]);
         if (thing.id) footprints.set(thing.id, { min: [xy[0] + own.min[0], xy[1] + own.min[1]], max: [xy[0] + own.max[0], xy[1] + own.max[1]] });
         // furniture and props must stay in their room: one that reaches into a wall stands half in the rock
         if (what !== "entities") {
@@ -1317,14 +1406,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   if (bare.length) warnings.push(`${bare.length} rooms of a building have nothing in them: ${bare.map((room) => room.id).join(", ")}: furnish each as the person's words or pictures say (props of the kit's furniture, "kit:bed"), or leave it bare on purpose`);
   // furniture of boxes named for a thing the kit furnishes as a model: Kaupo's bathroom was a toilet, a tub and a
   // sink of boxes, read as blocks (Steven's walk). Its name, or its last word, is the kit's or a common other name
-  const kitNames = readdirSync(KIT_FURNITURE).map((f) => f.replace(/\.json$/, ""));
-  const kitFor = (name) => {
-    const words = String(name).toLowerCase().split(/[^a-z]+/).filter(Boolean);
-    // a word that makes it another thing: a porta toilet is a booth, not the kit's toilet
-    if (words.some((w) => OTHER_THING.has(w))) return null;
-    const last = words.at(-1);
-    return [words.join("_"), last].map((w) => (kitNames.includes(w) ? w : KIT_WORDS[w])).find(Boolean);
-  };
+  const kitFor = kitOf;
   const boxed = new Map();
   for (const thing of spec.furniture ?? []) {
     const kit = thing.prefab && !prefabOf(thing).file ? kitFor(thing.prefab) : null;
@@ -1479,7 +1561,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     if (asked === "none") continue;
     const options = typeof asked === "object" ? asked : {};
     const size = [room.max[0] - room.min[0], room.max[1] - room.min[1]];
-    const count = options.count ?? Math.max(1, Math.round((size[0] * size[1]) / LAMP_AREA));
+    const count = options.count ?? Math.max(1, Math.round((size[0] * size[1]) / (high ? LAMP_AREA_HIGH : LAMP_AREA)));
     const across = Math.max(1, Math.round(Math.sqrt((count * size[0]) / size[1])));
     const down = Math.ceil(count / across);
     for (let i = 0; i < count; i++) {
