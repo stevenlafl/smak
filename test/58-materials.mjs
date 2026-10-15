@@ -50,6 +50,10 @@ await testAsync("materials: a library searched and seen, its pictures read as li
   // a .wad's texture made from the library's concrete through build
   const built = (await tools.build.call({ spec: { spec: "smak.wad/1", name: "lib.wad", textures: [{ name: "lib_wall", size: [64, 64], material: { base: "plaster", picture: "library:cracked_concrete", size: 79 } }] } }))[0].text;
   sure(/^OK/.test(built) && /lib_wall: valve: .*library|texture LIB_WALL|lib_wall/i.test(built), built.split("\n").slice(0, 6).join(" | "));
+  // a .wad of painted materials alone, on a server with the library, is told of it; one with a photograph is not
+  const painted = (await tools.build.call({ spec: { spec: "smak.wad/1", name: "paint.wad", textures: [{ name: "p_wall", size: [64, 64], material: { base: "plaster" } }] } }))[0].text;
+  sure(/note  every material is painted: this server has a library of 2 photographed materials/.test(painted), painted.split("\n").slice(0, 3).join(" | "));
+  sure(!/every material is painted/.test(built), "not when one takes a photograph");
   const without = toolsFor(openFolders({ work: join(tmp, "library-work") }));
   sure(!without.some((t) => t.name === "materials"), "no library, no tool");
 });

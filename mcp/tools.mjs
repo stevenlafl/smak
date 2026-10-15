@@ -814,8 +814,10 @@ function build(folders, args) {
     mkdirSync(out, { recursive: true });
     writeFileSync(join(out, `${name}.spec.json`), `${JSON.stringify(spec, null, 2)}\n`);
     const { report, files } = buildMapSpec(spec, { out, compilers: folders.compilers, folder, fgd: folders.fgd ?? [], wads: folders.wads ?? [], readPicture: pictureReader(folders, folder) });
+    const paintedMap = paintedOnly(folders, spec);
     const lines = reportLines(report);
     if (report.rooms && Object.keys(report.rooms).length) lines.splice(1, 0, ...changedSince(out, name, "map", spec, report));
+    if (paintedMap) lines.splice(1, 0, paintedMap);
     lines.push(`written: ${Object.values(files).map((file) => `work:${file.slice(folders.work.length + 1)}`).join(", ")}`);
     const plan = files.plan ?? files["plan-source"];
     if (plan) {
@@ -876,6 +878,8 @@ function build(folders, args) {
     const out = join(folders.work, spec.name?.replace(/\.wad$/i, "") ?? "textures");
     const { report, files } = buildWadSpec(spec, { out, readPicture: pictureReader(folders, folder) });
     const lines = reportLines(report);
+    const painted = paintedOnly(folders, spec);
+    if (painted) lines.splice(1, 0, painted);
     if (report.ok) {
       writeFileSync(join(out, `${basename(out)}.spec.json`), `${JSON.stringify(spec, null, 2)}\n`);
       lines.push(`written: ${Object.values(files).map((file) => `work:${file.slice(folders.work.length + 1)}`).join(", ")}`);
@@ -1084,6 +1088,18 @@ function entities(folders, { match, class: one } = {}) {
     .filter(([name, c]) => !wanted || name.includes(wanted) || String(c.description ?? "").toLowerCase().includes(wanted))
     .map(([name, c]) => `  ${name} (${c.kind === "solid" ? "brush" : c.kind})${c.description ? `: ${c.description}` : ""}`);
   return [text([`${lines.length} classes of ${definitions.from.join(", ")}${wanted ? ` holding "${wanted}"` : ""}; class: <name> for its keys`, ...lines].join("\n"))];
+}
+
+/**
+ * A note for a .wad or map spec whose materials are all painted, on a server with a material library: textures
+ * painted from nothing were judged "grainy noise" on 24 of 25, and a maker that never looked at the library did not
+ * know it was there. Null when the server has none or a material already takes a photograph.
+ */
+function paintedOnly(folders, spec) {
+  if (!folders.materials) return null;
+  const all = [...Object.values(spec.materials ?? {}), ...Object.values(spec.textures && !Array.isArray(spec.textures) ? spec.textures : {}), ...(Array.isArray(spec.textures) ? spec.textures.map((t) => t.material) : [])];
+  if (all.some((m) => m && typeof m === "object" && typeof m.picture === "string")) return null;
+  return `note  every material is painted: this server has a library of ${folders.materials.list.length} photographed materials (the tool materials). A wall, a floor, metal, rust or wood made from a real surface reads as Valve's do, where painted grain reads as noise: materials { match: "rusty metal", show: [...] }, then { "base": ..., "picture": "library:<name>", "size": <its width in units> }`;
 }
 
 // ── the tools as a client is told of them ──────────────────────────────────
