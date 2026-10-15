@@ -4,9 +4,9 @@
  "leg": "pictures",
  "measured": {
   "silhouetteOverlap": {
-   "front/back": 0.668,
-   "left/right": 0.36,
-   "top/below": 0.419
+   "front/back": 0.983,
+   "left/right": 0.972,
+   "top/below": 0.968
   },
   "size": {
    "original": [
@@ -15,89 +15,145 @@
     68
    ],
    "reproduction": [
-    25,
-    23.3,
-    66.4
+    33.4,
+    21.6,
+    68
    ],
    "offShare": [
-    0.249,
-    0.074,
-    0.023
+    0.003,
+    0.006,
+    0.001
    ]
   },
   "colour": {
-   "meanDeltaE": 19.4,
+   "meanDeltaE": 8.7,
    "byView": [
     {
      "view": "front",
-     "deltaE": 16,
-     "shared": 0.669
+     "deltaE": 10.1,
+     "shared": 0.979
     },
     {
      "view": "left",
-     "deltaE": 16.8,
-     "shared": 0.366
+     "deltaE": 7.1,
+     "shared": 0.971
     },
     {
      "view": "back",
-     "deltaE": 14.6,
-     "shared": 0.67
+     "deltaE": 8.8,
+     "shared": 0.982
     },
     {
      "view": "right",
-     "deltaE": 23.2,
-     "shared": 0.366
+     "deltaE": 8.4,
+     "shared": 0.97
     },
     {
      "view": "top",
-     "deltaE": 19.6,
-     "shared": 0.426
+     "deltaE": 6.7,
+     "shared": 0.967
     },
     {
      "view": "below",
-     "deltaE": 26.4,
-     "shared": 0.426
+     "deltaE": 12.2,
+     "shared": 0.967
     },
     {
      "view": "front-left",
-     "deltaE": 20.9,
-     "shared": 0.467
+     "deltaE": 10.1,
+     "shared": 0.975
     },
     {
      "view": "front-right",
-     "deltaE": 21.3,
-     "shared": 0.476
+     "deltaE": 8.2,
+     "shared": 0.973
     },
     {
      "view": "back-left",
-     "deltaE": 16.4,
-     "shared": 0.463
+     "deltaE": 7.5,
+     "shared": 0.975
     },
     {
      "view": "back-right",
-     "deltaE": 18.6,
-     "shared": 0.473
+     "deltaE": 7.9,
+     "shared": 0.978
     }
    ]
   },
   "triangles": {
    "original": 740,
-   "reproduction": 700
+   "reproduction": 680
   },
   "checkErrors": []
  },
  "caps": {
-  "M1": 0,
-  "M2": 1,
-  "M4": 1,
-  "M8": 2
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2,
+  "M6": 1
  },
- "passes": false,
- "failedByMeasure": [
-  "M1",
-  "M2",
-  "M4"
- ],
- "total": 0,
- "of": 18
+ "lineup": {
+  "picked": null,
+  "right": "F"
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "All six views keep the original's outline. The measured overlaps (0.968 to 0.983) clear 0.80, and the static front, back, left and right views match the original's coat hem, arms and stance. The flared coat tail that sticks out in the run frames is a motion fault and is charged to C1."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 33.4 x 21.6 x 68 against the original's 33.3 x 21.7 x 68, a difference of 0.1% to 0.6%, well within 10%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Every component is present, but the coat is wrong. In the front, back and side views the coat has large torn-looking gaps, most visibly on the chest and the back of the right arm, through which the blue shirt shows. The original's coat is one solid piece. The glasses also read as dark-framed where the original's are thin. The shoes show white heel patches in the left and front-left views."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured mean delta E of 8.7 is under 15, but the measure averages over the whole outline. Where the coat's gaps show the blue shirt and tie, the coat region has the wrong colour and material, and the heel patches are off-white. Those regions are clearly wrong, not merely shaded differently."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original's cloth wrinkles and the lapel and seam shading are only loosely present. The reproduction adds dark torn-edge marks and holes across the coat that the original does not have, so it adds something wrong rather than nothing."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "Side by side at game size, the coat's gaps and blue patches are visible at a glance. A player would see a torn-coat scientist, not the original, though the figure is clearly recognisable as the same character. The line-up is not scored here."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front faces the original's front, the figure is upright, and the feet sit on the ground at the origin as the original's do, per the front, below and side views."
+  },
+  "M8": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "SMAK's check reports no errors and the triangle count (680) is under twice the original's (740), so the measured checks pass. But the coat's missing faces leave open holes that show the shirt behind, and the below view shows a white patch in the trousers that the original does not have. Those are open surfaces, which the must-have forbids, so the score is held down from the measurement."
+  },
+  "C1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "In the run frames (3/22, 9/22, 22/22) the coat tail flares out as a flat sheet away from the legs and swings farther than the original's tail, so part of it appears to float. The legs also splay wider than the original's in frame 3/22. Only a run was supplied, so the stunt is not judged."
+  }
+ },
+ "total": 12,
+ "of": 18,
+ "passes": false
 }

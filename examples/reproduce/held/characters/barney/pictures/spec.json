@@ -15,32 +15,7 @@
     "width": 512,
     "height": 512
   },
-  "materials": {
-    "cloth": {
-      "base": "cloth",
-      "tone": [
-        0.4,
-        0.4,
-        0.75
-      ]
-    },
-    "vest": {
-      "base": "leather",
-      "tone": [
-        0.12,
-        0.12,
-        0.13
-      ]
-    },
-    "skin": {
-      "base": "plaster",
-      "tone": [
-        0.8,
-        0.65,
-        0.55
-      ]
-    }
-  },
+  "smooth": 80,
   "project": [
     {
       "picture": "work:pictures/sides.png",
@@ -83,6 +58,26 @@
       ]
     },
     {
+      "picture": "work:pictures/sides.png",
+      "view": "top",
+      "area": [
+        512,
+        512,
+        1024,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "below",
+      "area": [
+        1024,
+        512,
+        1536,
+        1024
+      ]
+    },
+    {
       "picture": "work:pictures/front-left.png",
       "yaw": 35,
       "pitch": 20
@@ -103,306 +98,45 @@
       "pitch": 20
     }
   ],
-  "pose": {
-    "keys": {
-      "Bip01 R Arm2": {
-        "turn": {
-          "y": 45
-        }
-      }
-    }
-  },
   "parts": [
     {
-      "id": "skin",
-      "kind": "blob",
-      "material": "skin",
-      "blend": 2,
-      "pieces": [
+      "id": "body",
+      "kind": "carved",
+      "size": [
+        22.8,
+        30.2,
+        75.3
+      ],
+      "sheet": "work:pictures/sides.png",
+      "pictures": [
         {
-          "at": "Bip01 Head",
-          "radius": 4.6
+          "picture": "work:pictures/front-left.png",
+          "yaw": 35,
+          "pitch": 20
         },
         {
-          "span": [
-            "Bip01 Neck",
-            "Bip01 Head"
-          ],
-          "radius": 2.6
+          "picture": "work:pictures/front-right.png",
+          "yaw": -35,
+          "pitch": 20
         },
         {
-          "at": "Bip01 L Hand",
-          "radius": 2
+          "picture": "work:pictures/back-left.png",
+          "yaw": 145,
+          "pitch": 20
         },
         {
-          "at": "Bip01 R Hand",
-          "radius": 2
+          "picture": "work:pictures/back-right.png",
+          "yaw": 215,
+          "pitch": 20
         }
+      ],
+      "cells": 192,
+      "triangles": 600,
+      "at": [
+        0,
+        0,
+        0
       ]
-    },
-    {
-      "id": "helmet",
-      "kind": "superquadric",
-      "material": "vest",
-      "size": [
-        11.5,
-        10.5,
-        10.4
-      ],
-      "round": [
-        0.4,
-        0.5
-      ],
-      "sides": 8,
-      "attach": {
-        "bone": "Bip01 Head",
-        "at": "bottom",
-        "offset": [
-          0,
-          0,
-          2
-        ]
-      }
-    },
-    {
-      "id": "shirt",
-      "kind": "superquadric",
-      "material": "cloth",
-      "size": [
-        11,
-        16,
-        24
-      ],
-      "round": [
-        0.3,
-        0.4
-      ],
-      "sides": 6,
-      "attach": {
-        "bone": "Bip01 Spine",
-        "at": "bottom",
-        "offset": [
-          3.5,
-          0,
-          -1.5
-        ]
-      }
-    },
-    {
-      "id": "vest",
-      "kind": "superquadric",
-      "material": "vest",
-      "size": [
-        13,
-        17.5,
-        23.5
-      ],
-      "round": [
-        0.15,
-        0.3
-      ],
-      "sides": 8,
-      "attach": {
-        "bone": "Bip01 Spine1",
-        "at": "bottom",
-        "offset": [
-          3.5,
-          0,
-          -4
-        ]
-      }
-    },
-    {
-      "id": "hips",
-      "kind": "superquadric",
-      "material": "cloth",
-      "size": [
-        11.5,
-        16,
-        9
-      ],
-      "round": [
-        0.3,
-        0.4
-      ],
-      "sides": 8,
-      "attach": {
-        "bone": "Bip01 Pelvis",
-        "at": "centre",
-        "offset": [
-          3.5,
-          0,
-          0
-        ]
-      }
-    },
-    {
-      "id": "thigh_L",
-      "kind": "cylinder",
-      "material": "cloth",
-      "radius": 3.4,
-      "height": 10,
-      "sides": 6,
-      "span": {
-        "bones": [
-          "Bip01 L Thigh",
-          "Bip01 L Calf"
-        ],
-        "over": 1
-      }
-    },
-    {
-      "id": "thigh_R",
-      "kind": "cylinder",
-      "material": "cloth",
-      "radius": 3.4,
-      "height": 10,
-      "sides": 6,
-      "span": {
-        "bones": [
-          "Bip01 R Thigh",
-          "Bip01 R Calf"
-        ],
-        "over": 1
-      }
-    },
-    {
-      "id": "calf_L",
-      "kind": "cylinder",
-      "material": "cloth",
-      "radius": 3,
-      "height": 10,
-      "sides": 6,
-      "span": {
-        "bones": [
-          "Bip01 L Calf",
-          "Bip01 L Foot"
-        ],
-        "over": 1
-      }
-    },
-    {
-      "id": "calf_R",
-      "kind": "cylinder",
-      "material": "cloth",
-      "radius": 3,
-      "height": 10,
-      "sides": 6,
-      "span": {
-        "bones": [
-          "Bip01 R Calf",
-          "Bip01 R Foot"
-        ],
-        "over": 1
-      }
-    },
-    {
-      "id": "boot_L",
-      "kind": "superquadric",
-      "material": "vest",
-      "size": [
-        12,
-        7.5,
-        14
-      ],
-      "round": [
-        0.2,
-        0.3
-      ],
-      "sides": 8,
-      "attach": {
-        "bone": "Bip01 L Foot",
-        "at": "bottom",
-        "offset": [
-          4.4,
-          0.5,
-          -2
-        ]
-      }
-    },
-    {
-      "id": "boot_R",
-      "kind": "superquadric",
-      "material": "vest",
-      "size": [
-        12,
-        7.5,
-        14
-      ],
-      "round": [
-        0.2,
-        0.3
-      ],
-      "sides": 8,
-      "attach": {
-        "bone": "Bip01 R Foot",
-        "at": "bottom",
-        "offset": [
-          2.5,
-          -0.5,
-          -2
-        ]
-      }
-    },
-    {
-      "id": "arm_L",
-      "kind": "cylinder",
-      "material": "cloth",
-      "radius": 3.1,
-      "height": 10,
-      "sides": 6,
-      "span": {
-        "bones": [
-          "Bip01 L UpperArm",
-          "Bip01 L Forearm"
-        ],
-        "over": 1
-      }
-    },
-    {
-      "id": "arm_R",
-      "kind": "cylinder",
-      "material": "cloth",
-      "radius": 3.1,
-      "height": 10,
-      "sides": 6,
-      "span": {
-        "bones": [
-          "Bip01 R UpperArm",
-          "Bip01 R Forearm"
-        ],
-        "over": 1
-      }
-    },
-    {
-      "id": "forearm_L",
-      "kind": "cylinder",
-      "material": "cloth",
-      "radius": 2.8,
-      "height": 10,
-      "sides": 6,
-      "span": {
-        "bones": [
-          "Bip01 L Forearm",
-          "Bip01 L Hand"
-        ],
-        "over": 1
-      }
-    },
-    {
-      "id": "forearm_R",
-      "kind": "cylinder",
-      "material": "cloth",
-      "radius": 2.8,
-      "height": 10,
-      "sides": 6,
-      "span": {
-        "bones": [
-          "Bip01 R Forearm",
-          "Bip01 R Hand"
-        ],
-        "over": 1
-      }
     }
   ]
 }

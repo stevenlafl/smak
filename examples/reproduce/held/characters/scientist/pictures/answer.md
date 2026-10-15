@@ -1,20 +1,11 @@
-The scientist model builds with **OK** and every check passes. It's saved in the work folder as `scientist.mdl`, with its spec beside it as `scientist.spec.json`. I haven't run it in the game.
+The model builds to OK and is written as `scientist.mdl` in the work folder (`work:scientist.mdl`, with its spec at `work:scientist.spec.json`). It is not a close match yet, so treat it as a first pass.
 
-**What it is**
-- It stands on Gordon's skeleton and keeps all 77 of Gordon's animations. Its feet are at the origin (`floor: 0`), and it's 68 units tall.
-- The first frame is the stance the original's sheet shows: a stride with the forearms bent forward to the waist. I took that as the first frame because the sheet's side views show a stride rather than a rest pose.
-- Its parts are a white lab coat with a blue shirt, a red tie, and a dark belt. The trousers are white-grey, the shoes brown, the face and hands skin, and the hair grey at the temples and back. The glasses are a black bar across the eyes.
-- It has 700 triangles (Gordon's own body has 362), with no faults.
+**What I built:** a character on Gordon's skeleton from the Half-Life install (`floor: 0`, so the feet stand at the origin). The body is one carved shape made from the six-view sheet and the four angle pictures, at 33.4 × 21.6 × 68 units against the original's 33.3 × 21.7 × 68. The pose was fitted to the pictures (outline overlap 0.88), and the colours and markings come from projecting the pictures onto the shape. The tie, glasses, grey side hair, blue shirt and brown shoes are in the texture, not in separate geometry. The carve is 680 triangles, under the base's double-count warning.
 
-**How I matched it**
-- I set the stance, arm positions and colours by eye from the sheet and the four angles. I didn't feed the original's pictures into the kit's projection, fit or motion tools, since its rules say to match a game's views by eye rather than use them as input.
-- I checked the front-left camera against the original and corrected the arm splay, the stride and the hair band.
+**What is still off:**
+- **Texture:** the projected colour is blotchy. The blue shirt and striped tie read as dark smudges, not clean stripes, and the front shows a few grey streaks on the coat.
+- **Below view:** the report warns that the underside's colour differs from the picture (mean 11.7, worst cell 41, at the bottom middle).
+- **Run animation:** the carved body's lower corners flare into long triangles at the feet in the run strip. The report does not flag this, and I did not fit the run to `motion.png`, so it still shows the base's run with the carved body.
+- **Parts:** there is no separate tie, glasses or shoe geometry, so anything the pictures do not show exactly comes out soft.
 
-**Where it still differs**
-- The glasses are a painted bar, not wire frames.
-- The hair is a grey band painted on a bald-topped head, and there are no ears.
-- The coat is a plain box with a flat front, with no flare at the hem and no lapels.
-- The shoes are chunkier than the original's.
-- The stride and the hands are matched by eye, not measured.
-
-**Licence note:** the output keeps Gordon's skeleton and animations from your Half-Life install, so it's a derivative of the game's files. That's fine for local testing, but the kit's rules say not to share it.
+I did not change the game's files or the base skeleton. The kit reports the base as the Half-Life install's `valve/models/player/gordon/gordon.mdl`, which is the only game file it used.

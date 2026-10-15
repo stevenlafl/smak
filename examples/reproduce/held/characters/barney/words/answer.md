@@ -1,19 +1,20 @@
-I built `barney.mdl` on Gordon's skeleton, and the build reports OK with every check passed. It's in the work folder as `work:barney.mdl`, with its spec beside it as `barney.spec.json`. I couldn't see the original, so I haven't compared it side by side.
+The model builds OK: `barney.mdl` is in the work folder, with `barney.spec.json` (the spec, to rebuild from) and `barney-sheet.png`. I could not test it in the game, and I had no pictures of the original, so every size and colour comes from your description.
 
-**What it is**
-- **Base:** `player/gordon/gordon.mdl` from the Half-Life install. It keeps all 42 bones and all 77 animations, and `floor: 0` stands the feet at the origin.
-- **Pose:** the first animation is `look_idle`. Gordon's right forearm points forward there, so I turned it down to hang like the left. Every frame of that animation gets the same turn.
-- **Size:** 76.4 tall (asked for 75), 30.4 wide (30), 21.7 long (23). The length is 6% short, and the 76.4 height is within tolerance.
-- **Colours:** periwinkle shirt, black glossy vest, violet-blue trousers and helmet band, grey-black helmet, peach skin, black boots, belt and holster, orange emblem on the wearer's left chest, grey-white ID badge on the right.
-- **Markings:** SECURITY in olive-yellow across the upper back, ribbed slats and a centre seam on the vest front, painted laces on the boots, sideburns and eyes on the face.
+**What I used:**
+- **Skeleton:** `player/gordon/gordon.mdl` from the Half-Life install at `valve/models/player/gordon/`. All 77 of its animations are kept, with `floor: 0` so the feet stand at the origin.
+- **Size:** 74.5 units tall, against the 75 you gave.
+- **Stance:** Gordon's pose is set so the arms hang with the elbows slightly bent. The legs keep the skeleton's own stance.
 
-**Choices I made**
-- The face is a single soft shape with a nose and a long jaw. The helmet is a turned dome with the band painted on.
-- The vest, boots, holster and belt are squared shapes, as the description asked. The arms, head and neck are soft shapes.
-- The trousers are straight tubes, not baggy and creased.
+**What is on the model:**
+- Dark grey-black helmet, with a violet band from the temples round to the back and dark padded ear pieces.
+- Peach face with a nose, painted brown sideburns, and a body shirt in pale periwinkle with a collar and a dark tie.
+- Black vest with horizontal ribbed plates, a centre seam, two shoulder straps, the orange emblem and grey-white ID badge on the left and right chest, and "SECURITY" in olive-yellow across the back.
+- Violet trousers with a black belt, a black holster on the right hip down to mid-thigh, and tall black boots.
+- Fists at the wrists.
 
-**Not matched**
-- **Motion:** the original's 16-frame run isn't reproduced. The model plays Gordon's own run and walk cycles, because you asked to keep the skeleton's animations.
-- **Triangles:** 1066, against the base body's 362. That's a warning, not a fault. I cut the round parts' sides to keep it down, but the check still flags it.
-- **Fine detail:** the head, ribs and laces are small and may not read at the judging distance.
-- **Trousers:** no creases or gathers at the knees.
+**Remaining gaps, which you should look at against the original:**
+- The orange emblem's dark angular symbol is too large, so from the front the emblem reads as a hook. Making it smaller is a small spec change.
+- The face has almost no detail: no eyes or mouth, and the head is small under the helmet.
+- The trousers look bulky, and the legs are plain tubes rather than shaped trousers.
+- The build reports 1,400 triangles against the base body's 362. That is a warning, not a fault, but it is heavy for a monster.
+- The gap between the forearm and the hips is a note, not a fault. I left it.

@@ -2,10 +2,10 @@
   "spec": "smak.model/1",
   "name": "zombie.mdl",
   "kind": "character",
+  "floor": 0,
   "base": {
     "file": "player/gordon/gordon.mdl"
   },
-  "floor": 0,
   "size": {
     "height": 68.4,
     "length": 38.5,
@@ -15,24 +15,11 @@
     "width": 512,
     "height": 512
   },
-  "smooth": 60,
-  "materials": {
-    "coat": {
-      "base": "cloth",
-      "tone": "light grey"
-    },
-    "flesh": {
-      "base": "leather",
-      "tone": "dark red"
-    },
-    "skin": {
-      "base": "bone",
-      "tone": "pale yellow"
-    },
-    "shoe": {
-      "base": "leather",
-      "tone": "dark red"
-    }
+  "finish": {
+    "light": 0.3,
+    "wear": 0.15,
+    "grime": 0.3,
+    "vary": 0.08
   },
   "project": [
     {
@@ -96,451 +83,276 @@
       "pitch": 20
     }
   ],
-  "pose": {
-    "keys": {
-      "Bip01 Spine": {
-        "turn": {
-          "y": -6
-        }
-      },
-      "Bip01 Spine1": {
-        "turn": {
-          "y": -10
-        }
-      },
-      "Bip01 Spine2": {
-        "turn": {
-          "y": -12
-        }
-      },
-      "Bip01 Spine3": {
-        "turn": {
-          "y": -12
-        }
-      },
-      "Bip01 Neck": {
-        "turn": {
-          "y": -15
-        }
-      },
-      "Bip01 Head": {
-        "turn": {
-          "y": -20
-        }
-      },
-      "Bip01 L Arm1": {
-        "turn": {
-          "y": -20,
-          "x": 25
-        }
-      },
-      "Bip01 L Arm2": {
-        "turn": {
-          "y": 0
-        }
-      },
-      "Bip01 R Arm1": {
-        "turn": {
-          "y": -20,
-          "x": -25
-        }
-      },
-      "Bip01 R Arm2": {
-        "turn": {
-          "y": 0
-        }
-      }
-    }
-  },
   "parts": [
     {
-      "id": "torso",
-      "kind": "blob",
-      "material": "coat",
-      "blend": 3,
-      "pieces": [
-        {
-          "span": [
-            "Bip01 Pelvis",
-            "Bip01 Spine3"
-          ],
-          "radius": 6,
-          "offset": [
-            0,
-            5,
-            0
-          ]
-        },
-        {
-          "span": [
-            "Bip01 Pelvis",
-            "Bip01 Spine3"
-          ],
-          "radius": 6,
-          "offset": [
-            0,
-            -5,
-            0
-          ]
-        },
-        {
-          "span": [
-            "Bip01 Spine3",
-            "Bip01 Neck"
-          ],
-          "radius": 3.5
-        }
-      ]
-    },
-    {
-      "id": "skirt",
-      "kind": "superquadric",
-      "material": "coat",
+      "id": "body",
+      "kind": "carved",
       "size": [
-        11,
-        14,
-        18
+        38.5,
+        53.8,
+        68.4
       ],
-      "round": [
-        0.3,
-        0.3
-      ],
-      "attach": {
-        "bone": "Bip01 Pelvis",
-        "at": "centre",
-        "offset": [
-          0,
-          0,
-          -3
-        ]
-      }
-    },
-    {
-      "id": "head",
-      "kind": "superquadric",
-      "material": "skin",
-      "size": [
-        12,
-        12,
-        11
-      ],
-      "round": [
-        0.5,
-        0.6
-      ],
-      "attach": {
-        "bone": "Bip01 Head",
-        "at": "centre",
-        "offset": [
-          4,
-          0,
-          -1
-        ]
-      }
-    },
-    {
-      "id": "leg_L",
-      "kind": "blob",
-      "material": "coat",
-      "blend": 2,
-      "pieces": [
-        {
-          "span": [
-            "Bip01 L Leg",
-            "Bip01 L Leg1"
-          ],
-          "radius": [
-            4.3,
-            3.6
-          ]
-        },
-        {
-          "span": [
-            "Bip01 L Leg1",
-            "Bip01 L Foot"
-          ],
-          "radius": [
-            3.6,
-            3
-          ]
-        }
-      ]
-    },
-    {
-      "id": "leg_R",
-      "kind": "blob",
-      "material": "coat",
-      "blend": 2,
-      "pieces": [
-        {
-          "span": [
-            "Bip01 R Leg",
-            "Bip01 R Leg1"
-          ],
-          "radius": [
-            4.3,
-            3.6
-          ]
-        },
-        {
-          "span": [
-            "Bip01 R Leg1",
-            "Bip01 R Foot"
-          ],
-          "radius": [
-            3.6,
-            3
-          ]
-        }
-      ]
-    },
-    {
-      "id": "shoe_L",
-      "kind": "box",
-      "material": "shoe",
-      "size": [
-        11,
-        6,
-        8
-      ],
-      "attach": {
-        "bone": "Bip01 L Foot",
-        "at": "centre",
-        "offset": [
-          3,
-          0,
-          0
-        ]
-      }
-    },
-    {
-      "id": "shoe_R",
-      "kind": "box",
-      "material": "shoe",
-      "size": [
-        11,
-        6,
-        8
-      ],
-      "attach": {
-        "bone": "Bip01 R Foot",
-        "at": "centre",
-        "offset": [
-          3,
-          0,
-          0
-        ]
-      }
-    },
-    {
-      "id": "arm_L",
-      "kind": "blob",
-      "material": "coat",
-      "blend": 2,
-      "pieces": [
-        {
-          "span": [
-            "Bip01 L Arm1",
-            "Bip01 L Arm2"
-          ],
-          "radius": 3.8
-        },
-        {
-          "span": [
-            "Bip01 L Arm2",
-            "Bip01 L Hand"
-          ],
-          "radius": [
-            3.2,
-            2
-          ]
-        }
-      ]
-    },
-    {
-      "id": "arm_R",
-      "kind": "blob",
-      "material": "coat",
-      "blend": 2,
-      "pieces": [
-        {
-          "span": [
-            "Bip01 R Arm1",
-            "Bip01 R Arm2"
-          ],
-          "radius": 3.8
-        },
-        {
-          "span": [
-            "Bip01 R Arm2",
-            "Bip01 R Hand"
-          ],
-          "radius": [
-            3.2,
-            2
-          ]
-        }
-      ]
-    },
-    {
-      "id": "hand_L",
-      "kind": "sphere",
-      "material": "flesh",
-      "radius": 3,
-      "sides": 6,
-      "attach": {
-        "bone": "Bip01 L Hand",
-        "at": "centre"
-      }
-    },
-    {
-      "id": "hand_R",
-      "kind": "sphere",
-      "material": "flesh",
-      "radius": 3,
-      "sides": 6,
-      "attach": {
-        "bone": "Bip01 R Hand",
-        "at": "centre"
-      }
-    },
-    {
-      "id": "claw_L1",
-      "kind": "cylinder",
-      "material": "flesh",
-      "radius": 0.9,
-      "top": 0.2,
-      "height": 16,
-      "sides": 4,
-      "rotate": [
+      "at": [
         0,
-        150,
+        0,
         0
       ],
+      "cells": 48,
+      "sheet": "work:pictures/sides.png",
+      "pictures": [
+        {
+          "picture": "work:pictures/front-left.png",
+          "yaw": 35,
+          "pitch": 20
+        },
+        {
+          "picture": "work:pictures/front-right.png",
+          "yaw": -35,
+          "pitch": 20
+        },
+        {
+          "picture": "work:pictures/back-left.png",
+          "yaw": 145,
+          "pitch": 20
+        },
+        {
+          "picture": "work:pictures/back-right.png",
+          "yaw": 215,
+          "pitch": 20
+        }
+      ],
+      "material": "cloth"
+    },
+    {
+      "id": "wrist_l",
+      "kind": "sphere",
+      "radius": 2.6,
+      "sides": 6,
+      "material": "cloth",
       "attach": {
         "bone": "Bip01 L Hand",
         "at": "centre",
         "offset": [
-          4,
           0,
-          -7
+          0,
+          36
         ]
-      }
+      },
+      "mirror": "y"
     },
     {
-      "id": "claw_L2",
-      "kind": "cylinder",
-      "material": "flesh",
-      "radius": 0.9,
-      "top": 0.2,
-      "height": 16,
-      "sides": 4,
-      "rotate": [
-        0,
-        150,
-        25
+      "id": "claw_l1",
+      "kind": "tube",
+      "sides": 5,
+      "material": "claw",
+      "path": [
+        [
+          0,
+          3,
+          0,
+          1
+        ],
+        [
+          5,
+          4.5,
+          -1,
+          0.7
+        ],
+        [
+          9,
+          6.5,
+          -3,
+          0.3
+        ],
+        [
+          11,
+          8,
+          -6,
+          0
+        ]
       ],
       "attach": {
         "bone": "Bip01 L Hand",
-        "at": "centre",
+        "at": "start",
         "offset": [
-          4,
           0,
-          -7
+          0,
+          36
         ]
-      }
+      },
+      "mirror": "y"
     },
     {
-      "id": "claw_L3",
-      "kind": "cylinder",
-      "material": "flesh",
-      "radius": 0.9,
-      "top": 0.2,
-      "height": 16,
-      "sides": 4,
-      "rotate": [
-        0,
-        150,
-        -25
+      "id": "claw_l2",
+      "kind": "tube",
+      "sides": 5,
+      "material": "claw",
+      "path": [
+        [
+          0,
+          1,
+          0,
+          1
+        ],
+        [
+          5,
+          1.8,
+          -1,
+          0.7
+        ],
+        [
+          10,
+          2.5,
+          -3.5,
+          0.3
+        ],
+        [
+          12,
+          3,
+          -7,
+          0
+        ]
       ],
       "attach": {
         "bone": "Bip01 L Hand",
-        "at": "centre",
+        "at": "start",
         "offset": [
-          4,
           0,
-          -7
+          0,
+          36
         ]
-      }
+      },
+      "mirror": "y"
     },
     {
-      "id": "claw_R1",
-      "kind": "cylinder",
-      "material": "flesh",
-      "radius": 0.9,
-      "top": 0.2,
-      "height": 16,
-      "sides": 4,
-      "rotate": [
-        0,
-        150,
-        0
+      "id": "claw_l3",
+      "kind": "tube",
+      "sides": 5,
+      "material": "claw",
+      "path": [
+        [
+          0,
+          -1,
+          0,
+          1
+        ],
+        [
+          5,
+          -1.8,
+          -1,
+          0.7
+        ],
+        [
+          10,
+          -2.5,
+          -3.5,
+          0.3
+        ],
+        [
+          12,
+          -3,
+          -7,
+          0
+        ]
       ],
       "attach": {
-        "bone": "Bip01 R Hand",
-        "at": "centre",
+        "bone": "Bip01 L Hand",
+        "at": "start",
         "offset": [
-          4,
           0,
-          -7
+          0,
+          36
         ]
-      }
+      },
+      "mirror": "y"
     },
     {
-      "id": "claw_R2",
-      "kind": "cylinder",
-      "material": "flesh",
-      "radius": 0.9,
-      "top": 0.2,
-      "height": 16,
-      "sides": 4,
-      "rotate": [
-        0,
-        150,
-        25
+      "id": "claw_l4",
+      "kind": "tube",
+      "sides": 5,
+      "material": "claw",
+      "path": [
+        [
+          0,
+          -3,
+          0,
+          1
+        ],
+        [
+          5,
+          -4.5,
+          -1,
+          0.7
+        ],
+        [
+          9,
+          -6.5,
+          -3,
+          0.3
+        ],
+        [
+          11,
+          -8,
+          -6,
+          0
+        ]
       ],
       "attach": {
-        "bone": "Bip01 R Hand",
-        "at": "centre",
+        "bone": "Bip01 L Hand",
+        "at": "start",
         "offset": [
-          4,
           0,
-          -7
+          0,
+          36
         ]
-      }
+      },
+      "mirror": "y"
     },
     {
-      "id": "claw_R3",
-      "kind": "cylinder",
-      "material": "flesh",
-      "radius": 0.9,
-      "top": 0.2,
-      "height": 16,
-      "sides": 4,
-      "rotate": [
-        0,
-        150,
-        -25
+      "id": "claw_l5",
+      "kind": "tube",
+      "sides": 5,
+      "material": "claw",
+      "path": [
+        [
+          0,
+          -3.5,
+          0,
+          0.9
+        ],
+        [
+          4,
+          -6,
+          -0.5,
+          0.6
+        ],
+        [
+          7,
+          -8,
+          -2,
+          0
+        ]
       ],
       "attach": {
-        "bone": "Bip01 R Hand",
-        "at": "centre",
+        "bone": "Bip01 L Hand",
+        "at": "start",
         "offset": [
-          4,
           0,
-          -7
+          0,
+          36
         ]
-      }
+      },
+      "mirror": "y"
     }
-  ]
+  ],
+  "materials": {
+    "cloth": {
+      "base": "cloth",
+      "tone": "grimy white"
+    },
+    "claw": {
+      "base": "bone",
+      "tone": "dark red brown"
+    }
+  }
 }

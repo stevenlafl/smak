@@ -1,28 +1,29 @@
-I built `zombie.mdl` on Gordon's skeleton. The build says OK, but with four warnings, and it is not a close match yet. The judge would see clear differences in the arms, the width and the silhouettes.
+**The build is NOT OK. `zombie.mdl` is written to the work folder, but it still has 17 detached body pieces at rest, and the check fails on them.**
 
-**What the build is**
-- Base: `player/gordon/gordon.mdl` from the installed Half-Life `valve` folder, keeping its 42 bones and 77 animations. `floor` is 0, so the feet stand at the origin.
-- Body: a blob torso with a coat skirt, and blob legs and arms on their bones. The head is a superquadric on the head bone, with a pale skull colour.
-- Hands: a sphere on each hand bone, with three claws per hand, pointing down and forward.
-- Shoes: boxes on the feet, in dark red.
-- Colour: the four angle pictures and the six sides are projected onto it, so the coat, the blood and the skull come from the original's own pictures.
-- Pose: a forward lean through the spine, the head forward and down, and the upper arms swung slightly forward and rolled outward. I set these by hand, because the automatic pose fit pushed the figure into a running stance.
+The file on disk is the best version I got. It has a carved body from the ten pictures at 48 cells, with a wrist sphere and five claws per hand attached to the hand bone. Its outlines match the pictures at 0.71 to 0.80 in every view, and the front view looks like the original, but its carved hand and hem slivers float.
 
-**What the build still reports**
-- Length is 33.2 against 38.5, and width is 44.5 against 53.8.
-- Outline overlap against the original's views is 0.30 to 0.56 on most views, against the 0.8 the tool asks for.
-- The triangle count is 1240, over twice Gordon's own body, which is a warning only.
+```
+Build                                          Result
+Carve, 10 views, 48 cells, short claws         Best silhouette (outline 0.71-0.80 in all views); 17 pieces float at rest, 10-14 in animations
+Carve, 10 views, 64 cells                      33 pieces; floats 0.3-2.8
+Carve, 10 views, 40 cells                      Arms lost (length 31.9 against 38.5)
+Carve, 6 views only                            27 pieces float, outline 0.55-0.79
+Carve, symmetric                               Side outline 0.38; worse
+Carve plus joint spheres                       Spheres sit outside the body; floats unchanged
+Carve plus extended claws                      Claws match the pictures; floats unchanged; side outline 0.39
+Blob body (eggs and spans), no carve           No carved floats; arms hang straight, side outline 0.16, length 20.7 against 38.5
+```
 
-**Why the arms are short**
-Gordon's arm from shoulder to wrist is about 22 units on this skeleton. The original's arm reaches down to about 32 units, so its hands hang near floor 25. Ours stop near floor 38 at the claw tips, and the shape is narrower because the arms cannot splay further without lifting the hands. Each forward swing of the upper arm raised the hand toward shoulder height, so I kept the arms nearly hanging. That trade costs the reach and the width. I tried three other arm settings, and this one had the best side-view overlap.
+Why it is stuck:
+- **Placement:** parts hung on bones (claws, wrist, blob pieces) use the base's raw joint positions, which sit 36 units below the body's floor-space position. Each needs `offset: [0, 0, 36]`. I applied that, and the claws now sit at the hands.
+- **Carved floats:** the visual hull at 48 cells leaves small islands of the body that don't touch the main body at rest. They are not at the joints or the feet, and I could not find them. The build reports distances, not positions, and I have no tool to highlight islands or to clean the picture's specks.
+- **Pose fit:** it turns only the first animation, so the other animations keep the base's stance and separate further from the carve. Leaving the pose off gave the best silhouettes.
 
-**Choices I made that you may want to change**
-- The legs are left straight on the skeleton, so the hips and knees are Gordon's. I did not bend the knees, because bending them far enough to match the original's hip height would have made it look crouched.
-- The skirt, the torso and the claws are approximations of the coat's hem and the fingers, not traced from the pictures.
-- I did not check it in the game. Everything above is from the build report and the sheet pictures.
+I also could not save a memory note on these findings, because the Write tool is disabled in this session.
 
-**If you want it closer**
-- Carve the torso and arms from the original's silhouettes (the `carved` kind), keeping the blobs for the joints. The tool may not allow that on a character, so I have not tried it.
-- Accept the arm shortfall as the cost of Gordon's skeleton. A monster with his arm lengths would look closer to a human than to the original.
+Choices for you:
+1. Accept a carved body with a few detached specks, and the check still reports NOT OK. I would not mark it OK by allowing the body to float, since the specks would show in the pictures.
+2. Push on with the blob body and fix its arms: pose the arms forward and out, widen the torso, and place the claws to match. That should clear the float check, but the outline will be softer than the carve.
+3. Clean the sheet first: a silhouette without the claw fringe and the coat-hem specks would let the carve pass. That needs a picture you can edit, since the tools here cannot.
 
-The files are in the server's work folder: `zombie.mdl`, `zombie.spec.json` and `zombie-sheet.png`. I could not save a memory note, because the write tool is disabled in this session. The pose sign findings are in the report above instead.
+I'd suggest option 2, because it can pass the check. Tell me which you want and I'll carry it on.
