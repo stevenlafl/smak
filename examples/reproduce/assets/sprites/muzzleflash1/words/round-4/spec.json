@@ -1,0 +1,255 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/muzzleflash1.spr",
+      "class": "flare",
+      "use": "tempent",
+      "type": "parallel",
+      "format": "additive",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 2,
+      "loop": false,
+      "fps": 14,
+      "origin": "centre",
+      "layers": [
+        {
+          "kind": "glow",
+          "radius": 0.5,
+          "core": 0.3,
+          "falloff": "smooth",
+          "gain": 0.12,
+          "colour": [
+            1,
+            0.85,
+            0.6
+          ],
+          "at": [
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "glow",
+          "radius": 0.26,
+          "core": 0.15,
+          "falloff": "smooth",
+          "colour": [
+            1,
+            0.96,
+            0.85
+          ],
+          "at": [
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "flare",
+          "core": 0.14,
+          "env": {
+            "decay": 0.5
+          },
+          "ramp": [
+            [
+              0,
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            [
+              0.2,
+              [
+                0.471,
+                0.188,
+                0.047
+              ]
+            ],
+            [
+              0.45,
+              [
+                0.902,
+                0.502,
+                0.141
+              ]
+            ],
+            [
+              0.75,
+              [
+                1,
+                0.839,
+                0.51
+              ]
+            ],
+            [
+              1,
+              [
+                1,
+                0.98,
+                0.925
+              ]
+            ]
+          ],
+          "streaks": [
+            {
+              "angle": 90,
+              "length": 0.9,
+              "width": 0.1,
+              "half": true,
+              "gain": 0.8,
+              "taper": 0,
+              "blur": 0,
+              "haze": 0
+            },
+            {
+              "angle": 12,
+              "length": 0.86,
+              "width": 0.1,
+              "half": true,
+              "gain": 0.8,
+              "taper": 0,
+              "blur": 0,
+              "haze": 0
+            },
+            {
+              "angle": 168,
+              "length": 0.84,
+              "width": 0.1,
+              "half": true,
+              "gain": 0.8,
+              "taper": 0,
+              "blur": 0,
+              "haze": 0
+            },
+            {
+              "angle": 238,
+              "length": 0.8,
+              "width": 0.1,
+              "half": true,
+              "gain": 0.8,
+              "taper": 0,
+              "blur": 0,
+              "haze": 0
+            },
+            {
+              "angle": 302,
+              "length": 0.82,
+              "width": 0.1,
+              "half": true,
+              "gain": 0.8,
+              "taper": 0,
+              "blur": 0,
+              "haze": 0
+            }
+          ]
+        },
+        {
+          "kind": "flare",
+          "core": 0.14,
+          "env": {
+            "attack": 0.5
+          },
+          "ramp": [
+            [
+              0,
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            [
+              0.2,
+              [
+                0.471,
+                0.188,
+                0.047
+              ]
+            ],
+            [
+              0.45,
+              [
+                0.902,
+                0.502,
+                0.141
+              ]
+            ],
+            [
+              0.75,
+              [
+                1,
+                0.839,
+                0.51
+              ]
+            ],
+            [
+              1,
+              [
+                1,
+                0.98,
+                0.925
+              ]
+            ]
+          ],
+          "streaks": [
+            {
+              "angle": 92,
+              "length": 0.94,
+              "width": 0.1,
+              "half": true,
+              "gain": 0.8,
+              "taper": 0,
+              "blur": 0,
+              "haze": 0
+            },
+            {
+              "angle": 8,
+              "length": 0.9,
+              "width": 0.1,
+              "half": true,
+              "gain": 0.8,
+              "taper": 0,
+              "blur": 0,
+              "haze": 0
+            },
+            {
+              "angle": 172,
+              "length": 0.88,
+              "width": 0.1,
+              "half": true,
+              "gain": 0.8,
+              "taper": 0,
+              "blur": 0,
+              "haze": 0
+            },
+            {
+              "angle": 236,
+              "length": 0.84,
+              "width": 0.1,
+              "half": true,
+              "gain": 0.8,
+              "taper": 0,
+              "blur": 0,
+              "haze": 0
+            },
+            {
+              "angle": 304,
+              "length": 0.86,
+              "width": 0.1,
+              "half": true,
+              "gain": 0.8,
+              "taper": 0,
+              "blur": 0,
+              "haze": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

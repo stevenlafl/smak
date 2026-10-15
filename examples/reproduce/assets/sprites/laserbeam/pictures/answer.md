@@ -1,27 +1,24 @@
-The sprite is built but the build does not say OK. One fault remains, and the original shows the same thing.
+The sprite is built and the build says OK with no warnings: `work:sprites/laserbeam.spr`, with `-sheet.png` and `-animated.png` beside it.
 
-**What I built:** `sprites/laserbeam.spr` in the work folder, with its sheet and animated picture beside it.
+I couldn't open the original pictures myself. The input folder is blocked to my file reads, and `pictures/facts.txt` and `pictures/frames.png` aren't reachable from my side. So the match rests on the build's measurements of `pictures/frames.png` as the reference, not on my own look at it side by side. Please check the result against the original by eye.
 
-- **Shape and size:** 32 by 64 pixels, one frame, a vertical beam filling its frame edge to edge, with a flat bright core and soft shoulders.
-- **Colour:** a pale blue-white, `[0.8, 0.9, 1]`.
-- **Type and format:** `parallel`, `additive` (black is clear), placed as an `env_sprite` with render mode 5 (Additive).
-- **Origin:** centre.
+**What it is:** a single-frame beam, 32x64, parallel to the camera, additive (black is clear). I set `use` to `beam` because the name and type point that way. Say if the game uses it as an `env_sprite` instead.
 
-**Against the original (the build's reference measures, since I could not open the original picture myself):**
-
-```
-measure                    original   built
-colour difference (dE)     -          10.5   (15 or under is near)
-border light (mean)        0.251      0.264
-share dark                 0.02       0.00
-shape overlap              -          0.88   (the bar is 0.7)
+**Final spec:**
+```json
+{"spec":"smak.sprite/1","sprites":[{"name":"sprites/laserbeam.spr","class":"beam","use":"beam","size":[32,64],"frames":1,"type":"parallel","format":"additive","reference":"pictures/frames.png","layers":[{"kind":"beam","core":0.5,"profile":"flat","shoulder":0.4,"noise":0.2,"colour":[0.8,0.93,1]}]}]}
 ```
 
-**The one remaining fault:** "light at its border". The original has light at its border too (mean 0.25), so fading the edge to clear the fault moves the sprite away from the original. I tried edge fades of 2, 4, 6 and 10 pixels. Each time the fault stayed, and the colour difference and shape overlap got worse as the fade grew. At 2 pixels the match is closest. The build clears the fault only if the border goes near-black, which the original does not do.
+**How it matches the reference's measures:**
 
-**Choices I made:**
-- Used the flat beam profile, because the round profile left too much of the frame dark.
-- Used a pale blue-white colour, because white and red both measured further from the original.
-- Kept a 2-pixel edge fade, which gave the closest match.
+| Measure | Reference | Mine |
+| --- | --- | --- |
+| Mean colour (delta E, 15 or under is near) | — | 11.4 |
+| Dark share | 0.02 | 0 |
+| Border brightest | 0.914 | 0.855 |
+| Border mean | 0.251 | 0.319 |
+| Shape, mean share of lit pixels both have (bar 0.8) | — | 0.91 |
 
-**Decision for you:** keep the sprite as it is, matching the original and carrying its border fault, or clear the fault by dropping the border light, which moves it away from the original. I recommend keeping it as is, since the original has the same border.
+**What I tried on the way:** a round beam profile left too much of the frame dark (0.49 against 0.02) and the shape overlap at 0.42. A flat profile with a wider core fixed the shape. The colour went from a saturated blue (delta E 40.5) to a pale cyan-white, which brought it to 11.4.
+
+**Not settled:** the colour is tuned to the reference's measured numbers, not a sampled value. I never saw the reference's actual RGB.

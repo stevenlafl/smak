@@ -46,20 +46,20 @@
      48
     ],
     "border": {
-     "max": 0.404,
-     "mean": 0.002
+     "max": 0.435,
+     "mean": 0.005
     },
     "envelope": {
-     "peakAt": 0.4,
-     "first": 0.2,
+     "peakAt": 0.33,
+     "first": 0.23,
      "last": 0
     },
-    "dark": 0.69,
-    "wrap": 1.6,
-    "jitter": 0.95
+    "dark": 0.67,
+    "wrap": 1.4,
+    "jitter": 1.07
    }
   },
-  "meanColourDeltaE": 3.5
+  "meanColourDeltaE": 0.6
  },
  "caps": {
   "R2": 2,
@@ -72,34 +72,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are a soft smoke puff that grows, rises and thins into the same grey plume, so it is the same effect."
+   "reason": "Both are the same effect, a smoke or cloud puff that grows, then fades. The original has a rising trail under the cloud and the reproduction is a rounder cloud, but both read as smoke."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Frame size matches (32x48), but the envelope differs at the start: frame 0 is a tiny dot in the original (first 0.04) and a medium blob in the reproduction (first 0.2). The original also trails a plume downward over frames 3 to 9 that the reproduction's blob mostly lacks, so it does not fill the frames as the original does."
+   "reason": "Frame size matches (32 x 48), but the filling differs. The original's puff reaches the bottom of the frame in frames 4 to 8 with a tail trailing down. The reproduction stays higher and rounder, lacks the tail, and in frames 0 and 1 is a larger blob than the original's near-invisible dot."
   },
   "R3": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "From the pictures, the reproduction's mid and late frames (7 to 14) carry darker, mottled inner shading and more contrast than the original's lighter, smoother greys. Dark-pixel share is close (0.69 against 0.64), so the gap is in tone and shading rather than coverage. The mean-colour measure is not given, so this is a visual judgement, not a measured fault."
+   "score": 2,
+   "reason": "Same palette as the engine blends it: white-grey smoke on the same grey background. The measured mean colour difference of 0.6 is well inside 15. The reproduction's later frames are a little greyer than the original's, which is a brightness fade (R4), not a colour fault."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Frame count matches (16 against 16) and both end dark (last 0.03 against 0), so it is a one-shot in both. The kind of motion matches: growth to frames 3 to 7, then a drift and fade. The loop wrap is measured worse, 1.6 against the original's 0.5, which is more than three times the original's, and the first frame is too large (0.2 against 0.04)."
+   "reason": "Frame count is 16 in both, and both end dark (last 0.03 and 0). But the motion differs: the original starts from a tiny dot (first 0.04) and the reproduction starts already bright (first 0.23). The reproduction greys and breaks into noisy fragments in frames 12 to 14 where the original fades smoothly. Its wrap measure is 1.4 against the original's 0.5, so the step across the loop is larger."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type (parallel oriented) and format (index alpha) match the original, and the frame count and size are read back as written. The sprite's file name is not in the pictures or measures, so the name part of R5 is unverified here."
+   "reason": "Type (parallel oriented), format (index alpha), frame count and size (32 x 48) all match the original's measures. The file name is not in the measurements I was given, so the name part is unverified; nothing in the pictures suggests it is wrong."
   }
  },
- "total": 7,
+ "total": 8,
  "of": 10,
  "passes": false
 }

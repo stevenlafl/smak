@@ -1,0 +1,101 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/muzzleflash1.spr",
+      "class": "flare",
+      "use": "tempent",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 2,
+      "loop": false,
+      "fps": 15,
+      "type": "parallel",
+      "format": "additive",
+      "origin": "centre",
+      "layers": [
+        {
+          "kind": "glow",
+          "radius": 0.22,
+          "core": 0.1,
+          "ramp": "muzzle",
+          "at": [
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "flare",
+          "core": 0.08,
+          "ramp": "muzzle",
+          "at": [
+            0,
+            0
+          ],
+          "streaks": [
+            {
+              "angle": 90,
+              "length": 0.95,
+              "width": 0.05,
+              "half": true,
+              "gain": 1.2,
+              "taper": 0.15,
+              "blur": 0,
+              "haze": 0
+            },
+            {
+              "angle": 162,
+              "length": 0.95,
+              "width": 0.05,
+              "half": true,
+              "gain": 1.2,
+              "taper": 0.15,
+              "blur": 0,
+              "haze": 0
+            },
+            {
+              "angle": 234,
+              "length": 0.95,
+              "width": 0.05,
+              "half": true,
+              "gain": 1.2,
+              "taper": 0.15,
+              "blur": 0,
+              "haze": 0
+            },
+            {
+              "angle": 306,
+              "length": 0.95,
+              "width": 0.05,
+              "half": true,
+              "gain": 1.2,
+              "taper": 0.15,
+              "blur": 0,
+              "haze": 0
+            },
+            {
+              "angle": 18,
+              "length": 0.95,
+              "width": 0.05,
+              "half": true,
+              "gain": 1.2,
+              "taper": 0.15,
+              "blur": 0,
+              "haze": 0
+            }
+          ]
+        }
+      ],
+      "finish": {
+        "edge": 2
+      },
+      "reference": {
+        "picture": "pictures/frames.png",
+        "cell": 128,
+        "cols": 2
+      }
+    }
+  ]
+}

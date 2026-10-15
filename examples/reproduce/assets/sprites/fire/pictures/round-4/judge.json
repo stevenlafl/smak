@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "fire",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.275,
+     "mean": 0.028
+    },
+    "envelope": {
+     "peakAt": 0.07,
+     "first": 0.9,
+     "last": 0.84
+    },
+    "dark": 0.42,
+    "wrap": 1.13,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0.67,
+     "first": 0.93,
+     "last": 0.93
+    },
+    "dark": 0.78,
+    "wrap": 0.53,
+    "jitter": 1.66
+   }
+  },
+  "meanColourDeltaE": 6.2
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both sets are flames rising from a base on a dark background, the same fire effect."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frames are 32x96 as the original's are, but the flame is a narrow tongue in the lower two-thirds of each frame, with a dark top. The original's flame fills the frame to the top and to both sides, so the effect does not fill the frames as the original's does."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured mean colour difference is 6.2, under the line of 15. Visually the reproduction's core is a little redder and darker than the original's yellow-orange body, but the measure allows a 2 and the gap is small."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count is 16 against 15, within 25%, and jitter is similar (1.66 against 1.51). But the brightness envelope differs: the original peaks at frame 0.07 and stays bright, while the reproduction peaks at 0.67, and its dark share is 0.78 against 0.42, so it reads as dimmer and sparser. The wrap also differs (0.53 against 1.13), so the loop closes differently from the original's."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured type (parallel oriented) and format (additive) match the original, and the size 32x96 matches. The name and read-back were not in the pictures, but nothing in the measures contradicts a pass."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

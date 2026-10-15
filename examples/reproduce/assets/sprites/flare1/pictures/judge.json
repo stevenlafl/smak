@@ -54,12 +54,12 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.44,
+    "dark": 0.39,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 5
+  "meanColourDeltaE": 7.1
  },
  "caps": {
   "R2": 2,
@@ -69,37 +69,37 @@
  },
  "scores": {
   "R1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Both are a soft additive glow with a bright core, so the effect is the same. The reproduction adds a sharp four-point cross streak through the centre that the original does not show, so it reads as a star-shaped lens flare rather than the original's plain radial glow."
+   "score": 2,
+   "reason": "Both are a soft radial glow with a bright core and faint streaks, the same effect. Nothing in the reproduction is a different kind of effect."
   },
   "R2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are 64 x 64 single frames, and the glow fills the frame in the same way, fading to the edges with a similar halo."
+   "reason": "Both are 64 x 64 with one frame, and the glow fills the frame the same way: a bright centre fading out to the edges, with a similar radius. The measured border is 0 in both."
   },
   "R3": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Measured mean colour difference is 5 (CIE76 delta E), well under 15. The dark fraction is 0.39 in the original and 0.44 in the reproduction, a small difference that does not change the colours."
+   "score": 1,
+   "reason": "The measured mean colour difference (7.1) passes the line of 15. Side by side, though, the reproduction's halo is a more saturated pink-magenta, while the original's is a greyer white-pink. The core is also more pink in the reproduction. That visible cast is clearly off, so this scores 1."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both have one frame, the envelope is identical (peak at frame 0, first and last 1), and the sprite is a single static frame, so the frame count and the lack of motion match. No loop or fade can be measured from one frame."
+   "reason": "Frame count is 1 in both, so it matches. The one-frame glow is static in both. Measured darkness is 0.39 in both, so the fade and end state agree."
   },
   "R5": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Both are type parallel and format additive at 64 x 64, and the reproduction sits under the same name, flare1, as the original. Nothing in the measures suggests it will not read back as written."
+   "score": 1,
+   "reason": "Type and format match in the measures (both additive, both 64 x 64, both 1 frame). The sprite name and the read-back of the file are not in the inputs I was given, so I cannot confirm them. This is not a visible fault, but a must-have item I could not verify, so it scores 1 rather than 2."
   }
  },
- "total": 9,
+ "total": 8,
  "of": 10,
  "passes": false
 }

@@ -1,14 +1,17 @@
-The sprite builds OK: `sprites/xspark1.spr` is in the work folder, with a sheet and an animated preview beside it.
+The sprite is built and the build says OK: `work:sprites/xspark1.spr`, with a contact sheet and an animated preview beside it.
 
-What it is and how it is built:
-- **Size and format:** 32x32, 11 frames, parallel (faces the viewer), additive (black is clear), placed as an `env_sprite` with render mode 5 (additive) at 10 frames per second.
-- **Loop:** the frames wrap cleanly (wrap measure 0.99, where 1 is a seamless join). The file holds 11 frames, the count you gave, with the first frame repeated at the end as the engine wraps.
-- **Core:** a white centre about 11 to 13 pixels across, drawn as a smooth glow.
-- **Glow:** cyan at RGB 60,220,255, reaching about 27 pixels across and fading to black before the frame edge. The border measures 0, so no hard edge.
-- **Lobes:** five teal blobs at RGB 20,90,130, placed fresh each frame so they shift around the core. This gives the flicker and the lumpy outline.
+**What it is:** a blue-white charged spark, 32x32, drawn parallel to the viewer and additive, so black is clear.
 
-Choices and gaps:
-- **Frame rate:** I used 10 fps, the bottom of your 10 to 15 range. An `env_sprite` can change frame at most 10 times a second, and I did not change the sprite type to go faster.
-- **Crackle specks:** I did not add the dark flecks inside the core. The spec has no clean way to do them without changing the look of the core.
-- **Lobes:** the teal lobes are softer than the cloverleaf in your description. They show as bumps, not clear lobes. Raising the blob gain or count would push them further out if the judge wants more lobes.
-- **Side-by-side measure:** I did not have the original, so the report compares only to Half-Life's own glow class (in range). No reference was given, so no colour or dark-share comparison against the original was run.
+**Frames and motion:** 11 frames in the file. The kit writes a looping sprite with its first frame again at the end, so I built 10 frames of loop and it wrote 11 in total. The outer teal lobes are re-placed at random every frame, which gives the boil and the lumpy, cloud-like outline. The core stays put and does not grow or fade.
+
+**Colours and size:**
+- White core: about 11 px across, at the centre.
+- Bright cyan (60, 220, 255) glow around it, about 19 px across.
+- Teal (20, 90, 130) lobes and halo, reaching about 28 px across and fading to black before the frame edge.
+
+**Type and format:** `parallel`, `additive`, `env_sprite`, render mode 5 (additive). The report gives its border as 0 (no light at the edge), and it measures its wrap and jitter as 1.16 and 1.92 with no faults.
+
+**Choices and gaps:**
+- **Frame rate:** I set 10 fps, which is the most an `env_sprite` can play; the kit warns above that. That is the bottom of your 10–15 range. If you want 12–15, the spec's `use` would have to change to `tempent`, which I did not do without your say-so.
+- **Dark flecks in the core:** not added. Additive blending cannot draw dark pixels, so there is no way to show the crackle specks in this format.
+- **Comparison:** no copy of the original is on this machine and I had no reference sheet, so the report has no measures against Half-Life's xspark1. The description is the only source for the colours and sizes above. Give me the original's `.spr` or a sheet of its frames and I can run the side-by-side measure and tune to it.

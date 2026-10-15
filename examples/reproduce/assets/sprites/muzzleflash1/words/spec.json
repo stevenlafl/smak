@@ -13,239 +13,65 @@
       ],
       "frames": 2,
       "loop": false,
-      "fps": 14,
+      "fps": 20,
       "origin": "centre",
+      "finish": "edge",
       "layers": [
         {
           "kind": "glow",
-          "radius": 0.5,
-          "core": 0.3,
-          "falloff": "smooth",
-          "gain": 0.12,
-          "colour": [
-            1,
-            0.85,
-            0.6
-          ],
+          "radius": 0.15,
+          "core": 0.06,
+          "ramp": "muzzle",
           "at": [
             0,
             0
-          ]
-        },
-        {
-          "kind": "glow",
-          "radius": 0.26,
-          "core": 0.15,
-          "falloff": "smooth",
-          "colour": [
-            1,
-            0.96,
-            0.85
           ],
-          "at": [
-            0,
-            0
-          ]
+          "gain": 1
         },
         {
           "kind": "flare",
-          "core": 0.14,
-          "env": {
-            "decay": 0.5
-          },
-          "ramp": [
-            [
-              0,
-              [
-                0,
-                0,
-                0
-              ]
-            ],
-            [
-              0.2,
-              [
-                0.471,
-                0.188,
-                0.047
-              ]
-            ],
-            [
-              0.45,
-              [
-                0.902,
-                0.502,
-                0.141
-              ]
-            ],
-            [
-              0.75,
-              [
-                1,
-                0.839,
-                0.51
-              ]
-            ],
-            [
-              1,
-              [
-                1,
-                0.98,
-                0.925
-              ]
-            ]
-          ],
+          "core": 0.04,
+          "ramp": "muzzle",
           "streaks": [
             {
               "angle": 90,
+              "half": true,
               "length": 0.9,
-              "width": 0.1,
-              "half": true,
-              "gain": 0.8,
-              "taper": 0,
-              "blur": 0,
-              "haze": 0
+              "width": 0.04,
+              "taper": 3,
+              "gain": 2.2
             },
             {
-              "angle": 12,
-              "length": 0.86,
-              "width": 0.1,
+              "angle": 20,
               "half": true,
-              "gain": 0.8,
-              "taper": 0,
-              "blur": 0,
-              "haze": 0
-            },
-            {
-              "angle": 168,
               "length": 0.84,
-              "width": 0.1,
-              "half": true,
-              "gain": 0.8,
-              "taper": 0,
-              "blur": 0,
-              "haze": 0
+              "width": 0.04,
+              "taper": 3,
+              "gain": 2.2
             },
             {
-              "angle": 238,
-              "length": 0.8,
-              "width": 0.1,
+              "angle": 160,
               "half": true,
-              "gain": 0.8,
-              "taper": 0,
-              "blur": 0,
-              "haze": 0
+              "length": 0.84,
+              "width": 0.04,
+              "taper": 3,
+              "gain": 2.2
             },
             {
-              "angle": 302,
+              "angle": 240,
+              "half": true,
               "length": 0.82,
-              "width": 0.1,
-              "half": true,
-              "gain": 0.8,
-              "taper": 0,
-              "blur": 0,
-              "haze": 0
-            }
-          ]
-        },
-        {
-          "kind": "flare",
-          "core": 0.14,
-          "env": {
-            "attack": 0.5
-          },
-          "ramp": [
-            [
-              0,
-              [
-                0,
-                0,
-                0
-              ]
-            ],
-            [
-              0.2,
-              [
-                0.471,
-                0.188,
-                0.047
-              ]
-            ],
-            [
-              0.45,
-              [
-                0.902,
-                0.502,
-                0.141
-              ]
-            ],
-            [
-              0.75,
-              [
-                1,
-                0.839,
-                0.51
-              ]
-            ],
-            [
-              1,
-              [
-                1,
-                0.98,
-                0.925
-              ]
-            ]
-          ],
-          "streaks": [
-            {
-              "angle": 92,
-              "length": 0.94,
-              "width": 0.1,
-              "half": true,
-              "gain": 0.8,
-              "taper": 0,
-              "blur": 0,
-              "haze": 0
+              "width": 0.04,
+              "taper": 3,
+              "gain": 2.2
             },
             {
-              "angle": 8,
-              "length": 0.9,
-              "width": 0.1,
+              "angle": 300,
               "half": true,
-              "gain": 0.8,
-              "taper": 0,
-              "blur": 0,
-              "haze": 0
-            },
-            {
-              "angle": 172,
-              "length": 0.88,
-              "width": 0.1,
-              "half": true,
-              "gain": 0.8,
-              "taper": 0,
-              "blur": 0,
-              "haze": 0
-            },
-            {
-              "angle": 236,
-              "length": 0.84,
-              "width": 0.1,
-              "half": true,
-              "gain": 0.8,
-              "taper": 0,
-              "blur": 0,
-              "haze": 0
-            },
-            {
-              "angle": 304,
-              "length": 0.86,
-              "width": 0.1,
-              "half": true,
-              "gain": 0.8,
-              "taper": 0,
-              "blur": 0,
-              "haze": 0
+              "length": 0.82,
+              "width": 0.04,
+              "taper": 3,
+              "gain": 2.2
             }
           ]
         }

@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "zerogxplode",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.818,
+     "mean": 0.005
+    },
+    "envelope": {
+     "peakAt": 0.36,
+     "first": 0.08,
+     "last": 0.03
+    },
+    "dark": 0.73,
+    "wrap": 0.81,
+    "jitter": 1.25
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.038,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0.5,
+     "first": 0.04,
+     "last": 0
+    },
+    "dark": 0.58,
+    "wrap": 0.51,
+    "jitter": 1.14
+   }
+  },
+  "meanColourDeltaE": 10.3
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are explosions: a hot white core, a bright bloom that swells and cools to orange and dark, and scattered sparks. The reproduction gives the same kind of effect, though the original's irregular, offset cloud shape is not copied (that is R2's concern)."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 64 x 64. The original's cloud sits off-centre, rising up and to the side, and its peak frames reach the cell edges (border max 0.818). The reproduction is a round, centred blob that stays off the edges (border max 0.038) and grows to fill the middle of the cell in frames 5 to 7. The effect's footprint in the frames does not match the original's."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The hot white-yellow core and the orange falloff match, and the measured mean colour difference is 10.3, under 15. Visually, though, the reproduction's late frames (8 to 13) carry a grey-blue cast with pale speckles, where the original stays a warm yellow-brown. The palette drifts in the later half, so it is not right to a close look."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count matches (15 each, within 25%), and both fade to dark at the end (last envelope 0.03 original, 0 reproduction). The motion differs: the original jumps to a bright peak by frames 2 to 3 and then holds and sinks, peaking at 0.36 of its run. The reproduction swells slowly and peaks later, at 0.5, with its largest frame at 7."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measures confirm the type and format (additive, both). The name and the read-back as written are not in the evidence I was given, so this item is not shown to be right to a close look."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

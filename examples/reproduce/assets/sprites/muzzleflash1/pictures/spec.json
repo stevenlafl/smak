@@ -11,16 +11,24 @@
       ],
       "frames": 2,
       "loop": false,
-      "fps": 15,
+      "fps": 20,
       "type": "parallel",
       "format": "additive",
       "origin": "centre",
+      "reference": {
+        "picture": "pictures/frames.png",
+        "cell": 128,
+        "cols": 2
+      },
       "layers": [
         {
           "kind": "glow",
-          "radius": 0.22,
-          "core": 0.1,
+          "radius": 0.4,
+          "core": 0.15,
+          "falloff": "power",
+          "power": 2,
           "ramp": "muzzle",
+          "gain": 0.2,
           "at": [
             0,
             0
@@ -28,74 +36,58 @@
         },
         {
           "kind": "flare",
-          "core": 0.08,
+          "core": 0.07,
           "ramp": "muzzle",
-          "at": [
-            0,
-            0
-          ],
+          "gain": 1,
           "streaks": [
             {
               "angle": 90,
-              "length": 0.95,
+              "length": 1,
               "width": 0.05,
+              "gain": 0.7,
               "half": true,
-              "gain": 1.2,
-              "taper": 0.15,
-              "blur": 0,
-              "haze": 0
-            },
-            {
-              "angle": 162,
-              "length": 0.95,
-              "width": 0.05,
-              "half": true,
-              "gain": 1.2,
-              "taper": 0.15,
-              "blur": 0,
-              "haze": 0
-            },
-            {
-              "angle": 234,
-              "length": 0.95,
-              "width": 0.05,
-              "half": true,
-              "gain": 1.2,
-              "taper": 0.15,
-              "blur": 0,
-              "haze": 0
-            },
-            {
-              "angle": 306,
-              "length": 0.95,
-              "width": 0.05,
-              "half": true,
-              "gain": 1.2,
-              "taper": 0.15,
-              "blur": 0,
+              "taper": 0.4,
               "haze": 0
             },
             {
               "angle": 18,
-              "length": 0.95,
+              "length": 1,
               "width": 0.05,
+              "gain": 0.7,
               "half": true,
-              "gain": 1.2,
-              "taper": 0.15,
-              "blur": 0,
+              "taper": 0.4,
+              "haze": 0
+            },
+            {
+              "angle": -54,
+              "length": 1,
+              "width": 0.05,
+              "gain": 0.7,
+              "half": true,
+              "taper": 0.4,
+              "haze": 0
+            },
+            {
+              "angle": -126,
+              "length": 1,
+              "width": 0.05,
+              "gain": 0.7,
+              "half": true,
+              "taper": 0.4,
+              "haze": 0
+            },
+            {
+              "angle": 162,
+              "length": 1,
+              "width": 0.05,
+              "gain": 0.7,
+              "half": true,
+              "taper": 0.4,
               "haze": 0
             }
           ]
         }
-      ],
-      "finish": {
-        "edge": 2
-      },
-      "reference": {
-        "picture": "pictures/frames.png",
-        "cell": 128,
-        "cols": 2
-      }
+      ]
     }
   ]
 }

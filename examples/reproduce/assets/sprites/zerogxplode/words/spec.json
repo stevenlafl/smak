@@ -5,8 +5,6 @@
       "name": "sprites/zerogxplode.spr",
       "class": "explosion",
       "use": "tempent",
-      "type": "parallel",
-      "format": "additive",
       "size": [
         64,
         64
@@ -14,64 +12,56 @@
       "frames": 15,
       "loop": false,
       "fps": 15,
+      "type": "parallel",
+      "format": "additive",
       "origin": "centre",
       "layers": [
         {
           "kind": "explosion",
-          "gain": 0.35,
           "ramp": "blast",
-          "growth": 0.4,
-          "cool": 0.8,
+          "gain": 0.8,
+          "growth": 0.45,
+          "cool": 0.9,
           "turbulence": 0.5,
-          "env": {
-            "attack": 0,
-            "decay": 0.6
-          }
+          "at": [
+            -0.08,
+            0
+          ]
         },
         {
           "kind": "billow",
-          "gain": 0.9,
-          "ramp": "fire",
+          "ramp": "blast",
           "at": [
-            -0.08,
-            0.1
+            0,
+            0.12
           ],
           "count": 24,
-          "spread": 0.55,
-          "size": 0.36,
-          "growth": 0.4,
-          "rise": 0.15,
-          "drift": 0.08,
-          "blend": 0.4,
-          "lumps": 0.4,
+          "spread": 0.5,
+          "size": 0.3,
+          "growth": 0.6,
+          "rise": 0.25,
+          "drift": 0.12,
           "hot": 0.3,
-          "cool": 1,
-          "dissolve": 0.6,
-          "light": [
-            -0.6,
-            0.6
-          ],
-          "env": {
-            "attack": 0,
-            "decay": 0.3
-          },
+          "cool": 0.7,
+          "dissolve": 0.8,
           "debris": {
-            "count": 14,
-            "speed": 0.9,
-            "gravity": 0.2,
+            "count": 18,
+            "speed": 0.7,
+            "gravity": 0.4,
             "trail": 0.1
           }
         },
         {
           "kind": "sparks",
-          "count": 14,
-          "speed": 0.9,
-          "gravity": 0.1,
-          "trail": 0.05,
-          "env": {
-            "attack": 0,
-            "decay": 0.7
-          }
+          "count": 10,
+          "speed": 0.6,
+          "gravity": 0.4,
+          "trail": 0,
+          "colour": [
+            1,
+            0.97,
+            0.85
+          ]
         }
       ]
     }

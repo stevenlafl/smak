@@ -54,12 +54,12 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.43,
+    "dark": 0.47,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 1.9
+  "meanColourDeltaE": 1
  },
  "caps": {
   "R2": 2,
@@ -72,31 +72,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both pictures show the same effect: a soft radial glow, brightest at the centre and fading to the dark corners of a single frame. Nothing else is drawn in either."
+   "reason": "Both frames show the same effect: a soft radial glow with a bright core and a falloff to the frame edges, which is what the original is."
   },
   "R2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are 64 x 64. In both the glow fills the frame the same way, with the falloff reaching the edges and the corners left dark."
+   "reason": "Both are 64 x 64, the same size, and the glow fills the frame the same way: the falloff reaches the same radius and the edges are dark in both. The reproduction's core sits a few pixels further down and right than the original's, which a close look shows but which does not change the shape or size."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean colour difference is 1.9 (CIE76), far under the line of 15. Both are the same white-to-dark gradient, with no visible hue difference."
+   "reason": "The measured mean colour difference is 1 (CIE76), well under 15. Both have the same white core falling to the same dark background, and the measured dark fraction is 0.47 in each."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both have one frame, so the frame count matches. There is no motion to compare, and the loop, wrap and jitter measures are null for both. The dark fraction is 0.47 for the original and 0.43 for the reproduction, a 4-point gap. That is small and I see no clear difference in falloff, so I do not mark it down. The gap is noted here."
+   "reason": "Both are single frames, so the frame count matches, and there is no motion to differ. The envelope measures are identical (peak at frame 0, first and last both 1), and both are dark at the edges. No loop or one-shot ending is measured on either side, so nothing here is worse than the original."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are parallel type with additive format, as the measurements state. Size and frame count match. The file name is not in the material I was given, so the name check cannot be scored from the pictures and measures alone. Format and type match, so the fit is right."
+   "reason": "Both are type parallel and format additive, as the measures state. The sprite's file name is not in the measures or the pictures I was given, so the same-name part of this item is not confirmed by what I saw; nothing shown contradicts it."
   }
  },
  "total": 10,

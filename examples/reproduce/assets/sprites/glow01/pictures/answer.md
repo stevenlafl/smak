@@ -1,23 +1,24 @@
-The sprite builds OK: `sprites/glow01.spr` is written to the work folder, with `-sheet.png` and `-animated.png` beside it. The build reported no errors and no notes about the sprite's shape or colour.
+The sprite is built: `work:sprites/glow01.spr`, and the build says OK with no warnings.
 
-What it is, and how I matched the original:
+What I made, as a `smak.sprite/1` spec:
+- **Name and use:** `sprites/glow01.spr`, placed as an `env_glow` (render mode 3, Glow).
+- **Class:** `glow`.
+- **Size and frames:** 64x64, one frame, no loop.
+- **Type and format:** `parallel` and `additive`, so black is clear.
+- **Shape:** one glow layer, `radius` 1.0, `core` 0.26, `colour` [1, 1, 1] (white). The core is a bright white centre that falls off smoothly to dark at the frame's edge.
 
-- **Shape and size:** a round, soft-edged white glow, 64x64, centred, with one frame. It is a `glow` class with a smooth falloff, so it fades to nothing well inside the frame's edge.
-- **Radius and core:** the glow radius is 1.0 and the bright core is 0.3. These were set by measuring against the reference: the first try (radius 0.9, core 0.12) covered too little of the frame, and radius 1.1 covered too much.
-- **Colour:** pure white on black, which is what additive needs (black is clear).
-- **Type and format:** `parallel` (faces the camera) and `additive`, as in `facts.txt`.
-- **Use:** `env_sprite`, placed in render mode 5 (Additive).
+Against the reference, measured by the kit's judge:
 
-Measured against `pictures/frames.png` by the build's report:
-
-| Measure | Original | Mine |
+| Measure | Reference | Ours |
 | --- | --- | --- |
-| Mean colour (delta E, 15 or under is near) | | 1.9 |
-| Share that is dark (within 0.05 is near) | 0.47 | 0.43 |
-| Shape overlap (the bar is 0.7) | | 0.83 |
+| Mean colour (delta E, 15 or under is near) | | 1 |
+| Share that is dark (within 0.05 is near) | 0.47 | 0.46 |
+| Border brightness | 0 | 0 |
 | Frames | 1 | 1 |
-| Border light | 0 | 0 |
+| Shape overlap, mean (bar 0.8) | | 0.84 |
 
-The build also confirmed it places as Half-Life's glow class (1 of 1 in range).
+The shape overlap is only just above the 0.8 bar, so it is the figure most likely to slip if the judge sees the two side by side. The colour came out close on the first pass after I changed it from the default warm tan to white.
 
-One thing I did not verify: the reference sheet has a small bracket mark in its top-left corner. I did not reproduce it, since it looks like a sheet marker rather than part of the sprite.
+Two things to check:
+- I could not read the original's `facts.txt` or the source folder under `Packages/`, because the tools refuse paths outside the models and work folders. I worked from the copy in the work folder, `pictures/frames.png`, which I looked at by eye and measured the build against. If the original differs in a way the reference copy doesn't show, that is the first place to look.
+- The build also wrote `sprites/glow01-sheet.png` and `sprites/glow01-animated.png` beside the sprite in the work folder. I did not open them.

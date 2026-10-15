@@ -1,24 +1,44 @@
-The sprite builds OK and is written to `work:sprites/xspark1.spr`, with `-sheet.png` and `-animated.png` beside it.
+The sprite builds **OK** and has no faults, but one warning is left: its shape matches the original at 0.71 against the 0.8 bar. I stopped there because the remaining gap comes from the blobs, which the sprite places randomly each frame, so I can't line them up with the original frame by frame.
 
-**What it is:** a flickering cyan spark-cloud, the kind of soft glow you'd see at a Xen spark. The original's 11 frames are clusters of soft cyan blobs, each with a bright white core, on a dark ground.
+The file is `work:sprites/xspark1.spr`, with `-sheet.png` and `-animated.png` beside it.
 
-**The spec I built:**
-- **Class:** `glow`. The `sparks` class is held to a one-shot that must end dark, and the original doesn't do that: its last frame is as bright as its first.
-- **Size:** 32x32, origin at centre.
-- **Frames:** 11, looping at 10 fps. The spec writes the first frame again at the end, so the report counts 12.
-- **Type and format:** parallel and additive, as your facts file says. The report places it as an `env_sprite`, render mode 5 (Additive), framerate 10.
-- **Layer:** 9 soft blobs (`blobs`), with radius 0.3, spread 0.5 and core 0.4. The blobs are redrawn each frame, which gives the flicker the original shows.
-- **Colour:** a ramp from black at the rim, through a mid cyan, to a pale cyan and white at the core. Black is clear in additive, so the border goes dark.
-- **Finish:** an edge fade of 2 pixels, so no light reaches the square's border.
+**What it is:** a 32x32 glowing spark. A bright white-cyan core with a blue halo, lumpy outer edges, and the lobes shifting from frame to frame, as in the original.
 
-**Measured against your reference sheet:**
-- Mean colour delta E is 3.9, inside the 15 "near" band.
-- Border light is 0, against the reference's brightest 0.145.
-- Shape overlap with the reference is 0.74 on average; the judge's bar is 0.7.
+**Settings I chose:**
 
-**Left open:**
-- Dark share is 0.53 against the original's 0.46. The spec's near band is 0.05 and this is 0.07 outside it. Widening the blobs from 0.26 to 0.3 barely moved it, so I stopped there rather than keep tuning.
-- The 12-against-11 frame count is the loop's wrap copy, which the spec writes by design. Dropping the loop would fail the sprite's own check, since it would then have to end dark.
-- I guessed the 10 fps and the looping. Your facts file doesn't give either, and the original's frame rate isn't recorded anywhere I could read.
+| Setting | Value | Basis |
+| --- | --- | --- |
+| Class | `glow` | Looping light, not a one-shot |
+| Size | 32x32 | Your input |
+| Frames | 11 written (10 plus the first again at the end) | Matches the original's 11 |
+| Type | `parallel` | Your input |
+| Format | `additive` | Your input |
+| Frame rate | 10 fps | My choice; I couldn't read `facts.txt` for the original's rate |
+| Placed as | `env_sprite`, render mode 5 (additive) | Reported by the build |
 
-I couldn't read the input folder directly: it's a directory, and the render tool wouldn't take the PNG. I worked from the `frames.png` contact sheet, which is what the build's reference uses.
+**Layers:**
+- A glow: radius 0.55, core 0.3, shifted slightly right and up from centre.
+- Nine blobs per frame, radius 0.35, spread 0.6.
+- Both use one colour ramp: black at the rim (clear in additive), deep blue, cyan, then a near-white centre.
+- A 2-pixel edge fade so no square border shows.
+
+**Measures against the original (from the build report):**
+
+| Measure | Original | Mine | Bar |
+| --- | --- | --- | --- |
+| Mean colour, delta E | — | 12.5 | 15 or under |
+| Share that is dark | 0.46 | 0.49 | within 0.05 |
+| Border brightness | 0.145 | 0.146 | — |
+| Frame count | 11 | 11 | — |
+| Shape overlap, mean | — | 0.71 | 0.8 |
+| Loop wrap | — | 0.89 | — |
+
+The shape warning is the one thing still open. I tried four placements and the best was 0.71, with per-frame overlap between 0.66 and 0.76. Getting over 0.8 would need the blobs placed by hand for each frame, which the sprite tool doesn't do.
+
+**Spec used** (for a rebuild):
+
+```json
+{"spec":"smak.sprite/1","sprites":[{"name":"sprites/xspark1.spr","class":"glow","size":[32,32],"frames":10,"loop":true,"fps":10,"type":"parallel","format":"additive","origin":"centre","reference":{"picture":"pictures/frames.png","cell":128,"cols":8},"finish":{"edge":2},"layers":[{"kind":"glow","radius":0.55,"core":0.3,"at":[0.1,-0.12],"ramp":[[0,[0,0,0]],[0.35,[0.05,0.3,0.7]],[0.7,[0.25,0.8,1]],[1,[0.95,1,1]]],"gain":0.6},{"kind":"blobs","count":9,"radius":0.35,"spread":0.6,"ramp":[[0,[0,0,0]],[0.35,[0.05,0.3,0.7]],[0.7,[0.25,0.8,1]],[1,[0.95,1,1]]],"gain":1}]}]}
+```
+
+I haven't copied the spec or the sprite into the reproduce folder; say if you want that.

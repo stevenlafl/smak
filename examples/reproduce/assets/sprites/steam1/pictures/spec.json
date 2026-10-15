@@ -15,47 +15,34 @@
       "loop": false,
       "fps": 10,
       "origin": "centre",
-      "finish": "edge",
+      "reference": "pictures/frames.png",
+      "finish": {
+        "edge": 2
+      },
       "layers": [
         {
           "kind": "billow",
-          "at": [
-            0,
-            -0.12
-          ],
-          "count": 28,
+          "count": 30,
           "spread": 0.5,
-          "size": 0.3,
+          "size": 0.34,
           "growth": 0.6,
           "rise": 0.25,
           "drift": 0.12,
-          "dissolve": 0.4,
-          "gain": 1.2,
+          "blend": 0.4,
+          "lumps": 0.4,
+          "hot": 0.4,
+          "cool": 0.5,
+          "dissolve": 0.6,
+          "at": [
+            0,
+            -0.15
+          ],
           "env": {
             "attack": 0,
             "decay": 0.7
           }
-        },
-        {
-          "kind": "billow",
-          "at": [
-            0,
-            -0.35
-          ],
-          "count": 10,
-          "spread": 0.25,
-          "size": 0.2,
-          "growth": 0.5,
-          "rise": 0.2,
-          "dissolve": 0.5,
-          "gain": 0.9,
-          "env": {
-            "attack": 0.15,
-            "decay": 0.7
-          }
         }
-      ],
-      "reference": "pictures/frames.png"
+      ]
     }
   ]
 }

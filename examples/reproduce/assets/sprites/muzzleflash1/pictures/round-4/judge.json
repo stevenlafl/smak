@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "muzzleflash1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 2,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 2,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.02,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.95,
+     "last": 1
+    },
+    "dark": 0.76,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 2,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 2,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.76,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 2.9
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both show a five-armed star flash with a bright core and soft glow, the same effect as the original."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are 64 x 64 as measured, and the star's rays reach toward the frame edges in both, filling the frame much as the original does."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured mean colour difference is 2.9, far under 15. Both have the same warm white-to-orange core and fade, and the picture shows no visible colour difference."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count matches (2), but the envelope differs: the original peaks at frame 1 (first frame 0.95), while the reproduction is equal in both frames (peak at 0, first 1, last 1). The original brightens across the loop and the reproduction does not, so the kind of motion is only partly the same."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured type (parallel) and format (additive) match, the size is 64 x 64 for both, and the frames read back in the same form. The sprite's file name is not in the pictures or measurements, so that part is unchecked."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

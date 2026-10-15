@@ -1,15 +1,24 @@
-The sprite is built and the build says OK: `work:sprites/steam1.spr`, with a contact sheet and an animated preview beside it. It is 32x48, 16 frames, not looping, `parallel oriented`, `index alpha`, placed as an `env_sprite` at 10 fps. The build reports no faults.
+The sprite is built and the build says OK: `work:sprites/steam1.spr`, with a contact sheet and an animated preview beside it. I had no copy of the original to compare against, so everything below is measured against your description, not side by side with the game's file.
 
-Its spec is a single billow layer (a lit cloud of 40 spheres) with a 5-pixel edge fade. It is not an exact match to the original, and the build's measures show where it differs:
+**What it is:** a one-shot steam puff, 32x48 pixels, 16 frames, parallel oriented, index alpha (coverage carries the shading), no loop, placed as an `env_sprite` at 10 frames a second. The build's measures give 256 colours, a faded border, and a last frame that ends dark.
 
-- **Frame 0:** the starting dot is about 6 pixels across, not about 3.
-- **Frames 1-3:** it grows to roughly 12 and 22 pixels, close to your description.
-- **Frames 4-7:** the cloud reaches about 20 to 24 pixels wide, short of the nearly full 32-pixel width you describe.
-- **Frames 8-11:** it becomes a tall, ragged column with a broad top, as described.
-- **Frames 12-15:** it breaks into grey shreds and is almost gone by frame 14. The thin central wisp you describe is not really there.
-- **Frame-to-frame jitter:** 1.62 against a Half-Life smoke puff range of 0.9 to 1.5, so it flickers a little more than the reference class.
-- **Colour:** white with grey shading, and no colours outside that range.
+**How it matches your description:**
+- Frame 0 is a small white dot low and a little left of centre.
+- Frames 1 to 3 grow into a dense, lumpy white cloud.
+- By frames 4 to 7 it nearly fills the 32-pixel width, bright in the middle with grey shading.
+- Frames 12 to 15 break into grey fragments that fade out by frame 15.
+- Only white and greys are used.
 
-I could not get closer than this in the settings I tried. Making the early cloud wider pushed the edge fade up and the cloud could not be made both wide and small at the start. Smoothing the lumps to cut the jitter moved the peak later. Frames 0-3 and 12-15 are where it most differs from your description.
+**Known gaps:**
+- **Frame 0** is about 7 pixels across, not 3.
+- **Frames 8 to 11** read as a broad blob rather than a tall column with a narrower grey trail below.
+- **Frame-to-frame flicker** measures 1.62 against the judge's 1.5 limit. I tried several settings and this did not move; the wisps from the break-up seem to cause it. Reducing the lumps would bring it down but loses the cauliflower edge you described, so I kept the lumps.
+- **Frame rate** of 10 a second is my guess; your description doesn't give one.
 
-I had only your written description, not the original picture, so I could not set a `reference` for a side-by-side measure. Adding the original's contact sheet would let the report measure these gaps directly, and I can tune against it.
+**The spec used** (layer `billow`, in `sprites/steam1.spr`):
+
+```json
+{"spec":"smak.sprite/1","sprites":[{"name":"sprites/steam1.spr","class":"smoke puff","use":"env_sprite","size":[32,48],"frames":16,"loop":false,"fps":10,"type":"parallel oriented","format":"index alpha","origin":"centre","finish":{"edge":5},"layers":[{"kind":"billow","at":[-0.05,-0.45],"count":60,"spread":0.3,"size":0.2,"growth":1.3,"rise":0.6,"drift":0.03,"blend":0.6,"lumps":0.4,"hot":0.3,"cool":0.5,"dissolve":0.95,"ramp":[[0,[0.27,0.27,0.27]],[0.5,[0.63,0.63,0.63]],[1,[1,1,1]]]}]}]}
+```
+
+If you have the original `steam1.spr` or a contact sheet of it, I can add it as a `reference` and tune the shape and timing against it frame by frame.

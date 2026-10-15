@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "fire",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.275,
+     "mean": 0.028
+    },
+    "envelope": {
+     "peakAt": 0.07,
+     "first": 0.9,
+     "last": 0.84
+    },
+    "dark": 0.42,
+    "wrap": 1.13,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.31,
+     "mean": 0.024
+    },
+    "envelope": {
+     "peakAt": 0.71,
+     "first": 0.93,
+     "last": 0.93
+    },
+    "dark": 0.51,
+    "wrap": 0.76,
+    "jitter": 1.64
+   }
+  },
+  "meanColourDeltaE": 11.3
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are a fire sprite: tongues of flame rising from the base of each frame, fading toward the tips. The effect is the same in both sheets."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are 32 x 96 and the flames fill the frame from the bottom up to the tips in both sheets. The reproduction's flames look slightly narrower and more compact at the base, but the fill is the same kind."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured mean colour difference is 11.3, under the line of 15, so the numbers allow a 2. Visually the reproduction's bases are a yellow-white core where the original's are deeper orange-red, so the score is held at 1 for that hue and brightness shift."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frame count matches at 15 and the jitter is close (1.51 vs 1.64). But the envelope peak is at 0.07 in the original and 0.71 in the reproduction, so the brightness pulse sits at a different point in the loop. The wrap measure also differs (1.13 vs 0.76), so the loop's closure is not shown to match. The dark fraction is 0.42 vs 0.51."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The type (parallel oriented) and format (additive) match, and the size and frame count are the same. But the sprite's name is not shown in the evidence, and no read-back of the written file is given, so the same-name and read-back parts cannot be confirmed."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

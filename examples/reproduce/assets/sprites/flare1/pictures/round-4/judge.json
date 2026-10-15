@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "flare1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.39,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.44,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 5
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Both are a soft additive glow with a bright core, so the effect is the same. The reproduction adds a sharp four-point cross streak through the centre that the original does not show, so it reads as a star-shaped lens flare rather than the original's plain radial glow."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are 64 x 64 single frames, and the glow fills the frame in the same way, fading to the edges with a similar halo."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured mean colour difference is 5 (CIE76 delta E), well under 15. The dark fraction is 0.39 in the original and 0.44 in the reproduction, a small difference that does not change the colours."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both have one frame, the envelope is identical (peak at frame 0, first and last 1), and the sprite is a single static frame, so the frame count and the lack of motion match. No loop or fade can be measured from one frame."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are type parallel and format additive at 64 x 64, and the reproduction sits under the same name, flare1, as the original. Nothing in the measures suggests it will not read back as written."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

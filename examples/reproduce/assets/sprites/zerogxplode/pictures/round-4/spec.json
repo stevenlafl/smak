@@ -1,0 +1,123 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/zerogxplode.spr",
+      "class": "explosion",
+      "use": "tempent",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 15,
+      "fps": 15,
+      "type": "parallel",
+      "format": "additive",
+      "origin": "centre",
+      "finish": "edge",
+      "reference": "pictures/frames.png",
+      "layers": [
+        {
+          "kind": "explosion",
+          "ramp": [
+            [
+              0,
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            [
+              0.25,
+              [
+                0.12,
+                0.03,
+                0
+              ]
+            ],
+            [
+              0.45,
+              [
+                0.9,
+                0.42,
+                0.1
+              ]
+            ],
+            [
+              0.75,
+              [
+                1,
+                0.8,
+                0.42
+              ]
+            ],
+            [
+              1,
+              [
+                1,
+                0.98,
+                0.9
+              ]
+            ]
+          ],
+          "growth": 0.95,
+          "cool": 0.4,
+          "turbulence": 1.5,
+          "env": {
+            "attack": 0.01,
+            "decay": 0.6
+          }
+        },
+        {
+          "kind": "glow",
+          "radius": 0.3,
+          "core": 0.2,
+          "colour": [
+            1,
+            0.94,
+            0.78
+          ],
+          "at": [
+            0,
+            0
+          ],
+          "gain": 0.6,
+          "env": {
+            "attack": 0,
+            "decay": 0.4
+          }
+        },
+        {
+          "kind": "blobs",
+          "count": 12,
+          "radius": 0.25,
+          "core": 0.4,
+          "spread": 0.45,
+          "colour": [
+            1,
+            0.6,
+            0.2
+          ],
+          "gain": 0.3,
+          "env": {
+            "attack": 0.05,
+            "decay": 0.5
+          }
+        },
+        {
+          "kind": "sparks",
+          "count": 30,
+          "speed": 0.8,
+          "gravity": 0.1,
+          "trail": 0.05,
+          "colour": [
+            0.9,
+            0.9,
+            0.85
+          ]
+        }
+      ]
+    }
+  ]
+}

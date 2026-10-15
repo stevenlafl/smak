@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "xspark1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    32
+   ],
+   "frames": 11,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 11,
+    "size": [
+     32,
+     32
+    ],
+    "border": {
+     "max": 0.145,
+     "mean": 0.004
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.94,
+     "last": 1
+    },
+    "dark": 0.46,
+    "wrap": 1.61,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    32
+   ],
+   "frames": 12,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 12,
+    "size": [
+     32,
+     32
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.54,
+    "wrap": 1.17,
+    "jitter": 1.84
+   }
+  },
+  "meanColourDeltaE": 3.9
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Both are glowing cyan blobs, so the effect is recognisably the same kind. The original is a white core with a soft, trailing cyan halo that flares out, while the reproduction is a denser, more solid cluster with a harder edge and less flare. It reads as a glow, but not as the same glow."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 32x32 frames with the effect centred. The original's halo reaches the frame edge (border max 0.145) and fills the frame more loosely, while the reproduction's blob stays inside the frame (border max 0) and looks more compact. The size is right but the fill is off."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured mean colour difference is 3.9, under 15, which allows a 2. Visually, though, the reproduction's core is a larger, flatter white and its halo is brighter and less blue. The original has a visible dark-blue fringe that the reproduction lacks (dark 0.46 against 0.54). The measure is lenient here, so I score lower on sight."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count is 12 against 11, within 25%, and both loops close (first and last are both near 1). The original's envelope peaks at frame 1 and the reproduction's at frame 0. The reproduction jitters more frame to frame (1.84 against 1.51), and its lobes change shape more between frames (for example frames 4 and 5). The kind of motion is a pulsing glow in both, but the reproduction is busier and less steady."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The type (parallel) and format (additive) match the original. The name is not in the evidence I was given, so I cannot confirm it matches or that the file reads back as written. That leaves the item unverified rather than clearly right."
+  }
+ },
+ "total": 5,
+ "of": 10,
+ "passes": false
+}

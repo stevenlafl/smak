@@ -1,26 +1,21 @@
-The sprite builds OK: `work:sprites/laserbeam.spr`, 32x64, 1 frame, additive, placed as a beam (render mode 5, framerate 10). It is close to the description but not a faithful match, and I could not verify the pixel layout closely.
+The sprite builds OK: `work:sprites/laserbeam.spr`, with `-sheet.png` and `-animated.png` beside it.
 
-The build's own numbers for the final version:
-
-| Measure | This sprite | Original (per the description) |
-| --- | --- | --- |
-| Size and frames | 32x64, 1 frame | 32x64, 1 frame |
-| Format | additive, parallel | additive, parallel |
-| Border light (edge brightness) | 0.138 | near black (fades 2 to 4 px from the edges) |
-| Dark share | 0.36 | roughly 0.15 to 0.2 |
-| Brightest | 1.0 | near white |
-
-The problems:
-
-- **Edges too bright.** The border reads about 0.14 where the original fades to black. The halo needs to fall off sooner at the sides; I could not get that without thinning the halo too far.
-- **Dark share too high.** The halo is narrower than the original, so more of the frame is black.
-- **Core position unverified.** The core is built from a flat band at the centre, but the preview thumbnails seemed to show it right of centre. I could not measure the pixels to confirm or fix it, so it may need a one-pixel shift left.
-- **Striations and mottling.** The halo has streak and noise settings, but I could not check how they read at full size.
-
-The spec I ended on, as a single inline sprite with two beam layers:
+The spec I built from:
 
 ```json
-{"spec":"smak.sprite/1","sprites":[{"name":"sprites/laserbeam.spr","class":"beam","use":"beam","size":[32,64],"frames":1,"loop":false,"fps":10,"type":"parallel","format":"additive","origin":"centre","layers":[{"kind":"beam","core":0.32,"noise":0.5,"profile":"flat","shoulder":0.2,"streaks":0.7,"colour":[0.55,0.6,0.7],"gain":0.9},{"kind":"beam","core":0.28,"noise":0,"profile":"flat","shoulder":0.04,"colour":[1,1,1],"gain":1}]}]}
+{"spec":"smak.sprite/1","sprites":[{"name":"sprites/laserbeam.spr","class":"beam","use":"beam","size":[32,64],"frames":1,"type":"parallel","format":"additive","origin":"centre","finish":{"edge":3},"layers":[{"kind":"beam","core":0.28,"shoulder":0.3,"profile":"flat","noise":0.6,"streaks":0.8,"colour":[0.82,0.88,1.0]}]}]}
 ```
 
-Next steps if you want it closer: give me a reference picture of the original (a sheet or a frame) and I can measure against it with the `reference` field. That would settle the core offset and the edge fade directly.
+- **What it is:** a beam, `use` beam, placed as render mode 5 (Additive), 32x64, one frame, parallel.
+- **Shape:** a flat core about 28% of the width (roughly 9 px) with soft shoulders, then the halo fades out. The edge fade is 3 px.
+- **Colour:** white at the centre, a slightly cool grey-blue halo (0.82, 0.88, 1.0).
+- **Texture:** mottling and vertical streaks (noise 0.6, streaks 0.8), with the top and bottom lit so it tiles end to end.
+- **Frames:** one still frame, so nothing animates inside the sprite.
+
+Where I could not match the description:
+- **Core lean:** the beam layer has no offset, so the core sits centred, not a pixel or two to the left.
+- **Right halo:** it is not brighter than the left, for the same reason.
+- **Border measure:** the build reports the border at 0.125 light. That is probably the tiled top and bottom rows, which the beam keeps lit by design, but I could not confirm it from the picture alone.
+- **Not measured:** there is no reference sheet here, so the build made no comparison against the original. The "against Half-Life's beam: 0 of 0" line is empty, so the shape and colour are unverified against the real file.
+
+I also could not open the sheet PNG for a closer look; the picture shown with each build is the only view I had. Check the sprite in the game before you rely on it.

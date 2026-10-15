@@ -46,8 +46,8 @@
      64
     ],
     "border": {
-     "max": 0.637,
-     "mean": 0.271
+     "max": 0.862,
+     "mean": 0.322
     },
     "envelope": {
      "peakAt": 0,
@@ -59,7 +59,7 @@
     "jitter": null
    }
   },
-  "meanColourDeltaE": 10.5
+  "meanColourDeltaE": 11.4
  },
  "caps": {
   "R2": 2,
@@ -69,37 +69,37 @@
  },
  "scores": {
   "R1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The original is a vertical laser beam: a bright core with streaks running down the frame and darker sides. The reproduction is a flat pale-blue panel with no streaks or core, so it reads as a glow card rather than a beam. The effect is there but clearly off."
+   "score": 2,
+   "reason": "Both pictures show the same effect: a tall vertical beam with a bright core and darker edges on a 32 x 64 frame. Nothing in the reproduction is a different effect."
   },
   "R2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Both are 32 x 64, so the size matches. The effect does not fill the frame as the original's does: the original is brightest at its edges (border max 1.0, mean 0.261), while the reproduction is an even wash (border max 0.637, mean 0.271) with no shaped band."
+   "score": 2,
+   "reason": "Both frames are 32 x 64 and the beam fills the frame from top to bottom and across its width, as in the original."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured frame colour difference is 10.5, under the line of 15. The pictures agree in overall tone, though the original's dark-to-white banding is not in the reproduction, so this scores on the measure and not on the look."
+   "reason": "The measured mean colour difference is 11.4, under the line of 15. The reproduction is paler and bluer than the original's grey-blue, and its core is less bright, but it stays in the same colour family. Border measures are 1 and 0.862, and the original's dark measure is 0.02 against 0 for the reproduction, which is a small difference."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both have one frame, matching the original's count. The envelope (first 1, last 1, peak at 0) is the same in both, so there is no loop or fade to contradict. The original's dark measure is 0.02 against 0 here, which is not a meaningful difference."
+   "reason": "Both have 1 frame, so the frame count matches and no loop or one-shot ending applies. The envelope is identical (peak at frame 0, first and last at 1). The only gap is the dark measure, 0.02 against 0, which is too small to count."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are type parallel and format additive, and the size matches. The file name is not shown in the pictures or measurements I was given, so I could not check it read back as written; that is the only part not verified."
+   "reason": "Both are type parallel and format additive, as the original is. The file name was not among the inputs I was given, so I could not check it. The read-back measures match, and nothing else in the record shows a fault."
   }
  },
- "total": 8,
+ "total": 10,
  "of": 10,
- "passes": false
+ "passes": true
 }

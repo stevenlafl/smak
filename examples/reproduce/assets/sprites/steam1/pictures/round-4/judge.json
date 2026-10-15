@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "steam1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.341,
+     "mean": 0.002
+    },
+    "envelope": {
+     "peakAt": 0.4,
+     "first": 0.04,
+     "last": 0.03
+    },
+    "dark": 0.64,
+    "wrap": 0.5,
+    "jitter": 1.1
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.404,
+     "mean": 0.002
+    },
+    "envelope": {
+     "peakAt": 0.4,
+     "first": 0.2,
+     "last": 0
+    },
+    "dark": 0.69,
+    "wrap": 1.6,
+    "jitter": 0.95
+   }
+  },
+  "meanColourDeltaE": 3.5
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are a soft smoke puff that grows, rises and thins into the same grey plume, so it is the same effect."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame size matches (32x48), but the envelope differs at the start: frame 0 is a tiny dot in the original (first 0.04) and a medium blob in the reproduction (first 0.2). The original also trails a plume downward over frames 3 to 9 that the reproduction's blob mostly lacks, so it does not fill the frames as the original does."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "From the pictures, the reproduction's mid and late frames (7 to 14) carry darker, mottled inner shading and more contrast than the original's lighter, smoother greys. Dark-pixel share is close (0.69 against 0.64), so the gap is in tone and shading rather than coverage. The mean-colour measure is not given, so this is a visual judgement, not a measured fault."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count matches (16 against 16) and both end dark (last 0.03 against 0), so it is a one-shot in both. The kind of motion matches: growth to frames 3 to 7, then a drift and fade. The loop wrap is measured worse, 1.6 against the original's 0.5, which is more than three times the original's, and the first frame is too large (0.2 against 0.04)."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type (parallel oriented) and format (index alpha) match the original, and the frame count and size are read back as written. The sprite's file name is not in the pictures or measures, so the name part of R5 is unverified here."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}
