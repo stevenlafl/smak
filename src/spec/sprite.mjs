@@ -14,7 +14,7 @@ import { writeSpr } from "../sprite/spr.mjs";
 import { readSpr, SPRITE_TYPES, SPRITE_FORMATS } from "../maps/sprites.mjs";
 import { measureSprite, measureSheet, shapeOverlap, SHAPE_LEVELS, againstClass, SPRITE_CLASSES } from "../sprite/measure.mjs";
 import { sheetOf, animationOf } from "../sprite/draw.mjs";
-import { png, unpng } from "../image.mjs";
+import { png, unpicture } from "../image.mjs";
 
 export const SPRITE_SPEC = "smak.sprite/1";
 const FIELDS = ["spec", "name", "use", "class", "size", "frames", "loop", "fps", "type", "format", "origin", "seed", "layers", "finish", "colour", "reference", "sprites", "note"];
@@ -127,7 +127,7 @@ function againstReference(name, ref, back, s, readPicture) {
   return { facts, notes, measured };
 }
 
-export function buildSpriteSpec(spec, { readPicture = (path) => unpng(readFileSync(path)) } = {}) {
+export function buildSpriteSpec(spec, { readPicture = (path) => unpicture(readFileSync(path)) } = {}) {
   const { errors, warnings } = validateSpriteSpec(spec);
   const report = { ok: false, errors, warnings, faults: [], notes: [], facts: [] };
   if (errors.length) return { report, files: [] };

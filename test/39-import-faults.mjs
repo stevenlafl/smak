@@ -46,7 +46,7 @@ test("readGlb refuses a mesh packed with Draco, a .bin not given, another glTF v
   sure(/cut short/.test(said(() => smak.readGlb(g.glb().subarray(0, 60)))) || /not whole|JSON/.test(said(() => smak.readGlb(g.glb().subarray(0, 60)))), said(() => smak.readGlb(g.glb().subarray(0, 60))));
 });
 
-test("a JPEG picture inside a file is read (baseline), and one that is progressive is named, the material its colour", () => {
+test("a JPEG picture inside a file is read, and one of a kind not read (lossless) is named, the material its colour", () => {
   // 24x16: the top left block red, the third column blue, the rest grey
   const jpeg = jpegOfBlocks(24, 16, (column, row) => (column === 0 && row === 0 ? [220, 30, 20] : column === 2 ? [20, 40, 200] : [128, 128, 128]));
   const picture = smak.unjpeg(jpeg);
@@ -68,12 +68,12 @@ test("a JPEG picture inside a file is read (baseline), and one that is progressi
   };
   const made = smak.importModel(sceneWith(jpeg), { name: "photo.mdl" });
   sure(made.report.textures[0].from === "the picture given" && made.report.textures[0].width === 24, JSON.stringify(made.report.textures));
-  // a progressive JPEG: its frame marker SOF2
-  const progressive = Buffer.from(jpeg);
-  progressive[progressive.indexOf(Buffer.from([0xff, 0xc0])) + 1] = 0xc2;
-  sure(/progressive JPEG \(SOF2\)/.test(said(() => smak.unjpeg(progressive))), said(() => smak.unjpeg(progressive)));
-  const refused = smak.importModel(sceneWith(progressive), { name: "photo.mdl" });
-  sure(refused.warnings.some((line) => /photo: .*progressive/.test(line)), refused.warnings.join(" | "));
+  // a lossless JPEG: its frame marker SOF3
+  const lossless = Buffer.from(jpeg);
+  lossless[lossless.indexOf(Buffer.from([0xff, 0xc0])) + 1] = 0xc3;
+  sure(/lossless JPEG \(SOF3\)/.test(said(() => smak.unjpeg(lossless))), said(() => smak.unjpeg(lossless)));
+  const refused = smak.importModel(sceneWith(lossless), { name: "photo.mdl" });
+  sure(refused.warnings.some((line) => /photo: .*lossless/.test(line)), refused.warnings.join(" | "));
   sure(refused.report.textures[0].from.startsWith("the colour 0.5 0.25 0"), refused.report.textures[0].from);
 });
 

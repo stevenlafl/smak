@@ -29,4 +29,4 @@ export * from "./import-shape.mjs";
 export * from "./import-model.mjs";
 export * from "./import-files.mjs";
 export * from "./import-rig.mjs";
-export * from "./import-jpeg.mjs";
+export * from "./jpeg.mjs";

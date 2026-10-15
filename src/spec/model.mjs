@@ -49,7 +49,7 @@ const OUTLINE_FAIR = 0.8;
  */
 const LOOK_MEAN = 10;
 const LOOK_WORST = 45;
-import { unpng } from "../image.mjs";
+import { unpicture } from "../image.mjs";
 
 /** A character's finish unless told: cloth and skin do not rub bright as metal and wood do. */
 const CHARACTER_FINISH = { wear: 0.15, grime: 0.3 };
@@ -1031,7 +1031,7 @@ export function buildModelSpec(spec, options = {}) {
   const built = buildPosed(spec, options);
   if (!spec?.motion?.length || !built.mdl) return built;
   // each animation named fitted to its strip of pictures, frame by frame (posefit.mjs), and written in its place
-  const read = options.readPicture ?? ((name) => unpng(readFileSync(resolve(options.folder ?? ".", name.replace(/^(work|models):/, "")))));
+  const read = options.readPicture ?? ((name) => unpicture(readFileSync(resolve(options.folder ?? ".", name.replace(/^(work|models):/, "")))));
   let { mdl } = built;
   for (const [n, m] of spec.motion.entries()) {
     try {
@@ -1056,7 +1056,7 @@ function buildPosed(spec, options = {}) {
   const given = spec.pose.keys ?? null;
   const first = buildOnce({ ...spec, pose: given ? { keys: given } : undefined }, options);
   if (!first.mdl) return first;
-  const read = options.readPicture ?? ((name) => unpng(readFileSync(resolve(options.folder ?? ".", name.replace(/^(work|models):/, "")))));
+  const read = options.readPicture ?? ((name) => unpicture(readFileSync(resolve(options.folder ?? ".", name.replace(/^(work|models):/, "")))));
   const asked = Array.isArray(spec.pose.fit) ? spec.pose.fit : spec.project ?? [];
   let fit;
   try {
@@ -1129,7 +1129,7 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, hide =
   }
   // carved parts: their hull worked out from their pictures before anything is built (carve.mjs)
   if (spec.parts.some((part) => part.kind === "carved")) {
-    const readCarved = readPicture ?? ((name) => unpng(readFileSync(resolve(folder ?? ".", name.replace(/^(work|models):/, "")))));
+    const readCarved = readPicture ?? ((name) => unpicture(readFileSync(resolve(folder ?? ".", name.replace(/^(work|models):/, "")))));
     try {
       spec = {
         ...spec,
@@ -1312,7 +1312,7 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, hide =
   // the person's pictures projected onto the shape: each texel takes the colour of the views that see it
   let projectedViews = null;
   if (spec.project?.length) {
-    const read = readPicture ?? ((name) => unpng(readFileSync(resolve(folder ?? ".", name.replace(/^(work|models):/, "")))));
+    const read = readPicture ?? ((name) => unpicture(readFileSync(resolve(folder ?? ".", name.replace(/^(work|models):/, "")))));
     try {
       const views = spec.project.map((view) => {
         const [yaw, pitch] = typeof view.view === "string" ? VIEW_NAMES[view.view] : [view.yaw ?? 0, view.pitch ?? 0];

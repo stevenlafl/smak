@@ -15,7 +15,7 @@ import { LIMITS } from "./check.mjs";
 import { indexed, masked, shrink, unpng, unbmp, rgbOf, rgbaOf } from "./image.mjs";
 import { sub, cross, box } from "./vec.mjs";
 import { measured, axisNamed, UNITS_A_METRE } from "./import-shape.mjs";
-import { unjpeg } from "./import-jpeg.mjs";
+import { unjpeg } from "./jpeg.mjs";
 
 // ── the size ───────────────────────────────────────────────────────────────
 /**
@@ -117,8 +117,8 @@ function pictureFor(given, name) {
  *   pictures   { material's name: its picture }, the bytes of a PNG or BMP file, a texture or an image; and
  *              under the name "*" one for every material that has none of its own
  * A material with a picture inside the file (`images`) wears that when none is given for it. A PNG with
- * see-through parts becomes a texture with holes. A JPEG is read when it is baseline (`unjpeg`); one that is
- * not (progressive) is named in `notes`, and the material wears its flat colour.
+ * see-through parts becomes a texture with holes. A JPEG is read when it is baseline or progressive (`unjpeg`);
+ * one that is not (lossless, arithmetic) is named in `notes`, and the material wears its flat colour.
  */
 export function importPictures(imported, { pictures = {} } = {}) {
   const textures = {};

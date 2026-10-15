@@ -1,9 +1,10 @@
 // Pictures: RGB images cut down to the 256 colours a studio model's texture holds, and PNG and BMP files
-// written and read, with nothing but Node's own zlib.
+// written and read, with nothing but Node's own zlib; JPEG files read (jpeg.mjs).
 //
 //   an image    { width, height, rgb }                    three bytes a pixel
 //   a texture   { name, width, height, pixels, palette }  one palette index a pixel, 768 bytes of palette
 import { deflateSync, inflateSync } from "node:zlib";
+import { unjpeg } from "./jpeg.mjs";
 
 // ── a texture ──────────────────────────────────────────────────────────────
 /** The colours a texture's palette holds, and its size: three bytes (r g b) a colour. */
@@ -460,8 +461,31 @@ export function unbmp(buf) {
     }
   return { width, height, rgb };
 }
+/** Whether a file's bytes are a JPEG's. */
+const isJpeg = (buf) => buf[0] === 0xff && buf[1] === 0xd8;
+
 /**
- * A picture file (PNG or BMP) as a texture for a model. A BMP of 8 bits keeps its palette index for index;
+ * A picture file of any kind the kit reads (PNG, BMP of 8, 24 or 32 bits, JPEG) as { width, height, rgba }: what
+ * a spec's pictures (a reference, a projected view, a material's photo) are read by.
+ */
+export function unpicture(buf) {
+  const bytes = Buffer.from(buf.buffer ?? buf, buf.byteOffset ?? 0, buf.length);
+  const opaque = ({ width, height, rgb }) => {
+    const rgba = new Uint8Array(width * height * 4);
+    for (let i = 0; i < width * height; i++) rgba.set([rgb[i * 3], rgb[i * 3 + 1], rgb[i * 3 + 2], 255], i * 4);
+    return { width, height, rgba };
+  };
+  if (isJpeg(bytes)) return opaque(unjpeg(bytes));
+  if (bytes.toString("latin1", BMP_FILE.type, BMP_FILE.type + 2) === "BM") {
+    const read = unbmp(bytes);
+    return read.pixels ? { width: read.width, height: read.height, rgba: rgbaOf(read) } : opaque(read);
+  }
+  if (bytes.length >= 4 && bytes.readUInt32BE(0) === PNG_MAGIC) return unpng(bytes);
+  throw new Error("not a picture the kit reads: PNG, BMP or JPEG");
+}
+
+/**
+ * A picture file (PNG, BMP or JPEG) as a texture for a model. A BMP of 8 bits keeps its palette index for index;
  * anything else is cut down to 256 colours, or, with `holes` and a see-through PNG, to 255 and the last for
  * the holes (see masked).
  */
@@ -470,6 +494,7 @@ export function textureFrom(buf, name, { holes = false } = {}) {
     const read = unbmp(buf);
     return read.pixels ? { name, ...read } : indexed(read, name);
   }
+  if (isJpeg(buf)) return indexed(unjpeg(buf), name);
   const image = unpng(buf);
   return holes && image.rgba.some((v, i) => i % 4 === 3 && v < SOLID_ALPHA)
     ? masked(image, name)

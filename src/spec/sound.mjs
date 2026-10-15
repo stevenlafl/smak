@@ -13,7 +13,7 @@ import { checks } from "../audio/measure.mjs";
 import { CLASSES, scoreAgainst, rangesOf } from "../audio/classes.mjs";
 import { soundPicture } from "../audio/draw.mjs";
 import { pictureMeasures } from "../audio/picture.mjs";
-import { unpng } from "../image.mjs";
+import { unpicture } from "../image.mjs";
 
 export const SOUND_SPEC = "smak.sound/1";
 const TOP = ["spec", "name", "class", "rate", "bits", "seed", "length", "pitch", "layers", "finish", "loop", "variants", "reference", "picture", "sounds", "note"];
@@ -134,7 +134,7 @@ function againstPicture(f, seen, sound) {
  * (unless given, from `folder`). Returns { report: { ok, errors, faults, warnings, facts, sounds }, files:
  * [{ name, bytes }], picture }.
  */
-export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (name) => unpng(readFileSync(resolve(folder, name))) } = {}) {
+export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (name) => unpicture(readFileSync(resolve(folder, name))) } = {}) {
   const { errors, warnings } = validateSoundSpec(spec);
   const report = { ok: false, errors, faults: [], warnings, facts: [], sounds: {} };
   const files = [];

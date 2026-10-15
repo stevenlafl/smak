@@ -287,7 +287,7 @@ function sourceInfo(file) {
  * colours with the brightness divided out (src/maps/match.mjs), and drawn beside the patch to be looked at.
  */
 function wadMatch(folders, file, like, rect) {
-  const picture = smak.unpng(readFileSync(pathOf(folders, like)));
+  const picture = smak.unpicture(readFileSync(pathOf(folders, like)));
   const [x, y, w, h] = rect ?? [0, 0, picture.width, picture.height];
   const textures = maps.readWad(readFileSync(file)).textures;
   const found = maps.matchTextures(picture, [x, y, w, h], textures);
@@ -783,7 +783,7 @@ function build(folders, args) {
   const fromFile = typeof given === "string" && !given.trim().startsWith("{");
   const spec = typeof given === "string" ? JSON.parse(fromFile ? readFileSync(pathOf(folders, given), "utf8") : given) : given;
   const folder = fromFile ? dirname(pathOf(folders, given)) : folders.work;
-  const reference = args.reference ? smak.unpng(readFileSync(pathOf(folders, args.reference))) : null;
+  const reference = args.reference ? smak.unpicture(readFileSync(pathOf(folders, args.reference))) : null;
   const pictures = [];
   const show = (picture) => pictures.push(image(pictureWithin(smak.png(picture.width, picture.height, picture.rgba))));
   if (spec?.spec === "smak.map/1") {
@@ -832,7 +832,7 @@ function build(folders, args) {
   if (spec?.spec === "smak.sprite/1") {
     // sprites: each under work:<its name> (sprites/...spr), with its contact sheet and an animated picture
     // a reference picture (the agent's input sheet) is read for its measures only, from the work or models folder
-    const { report, files } = buildSpriteSpec(spec, { readPicture: (name) => smak.unpng(readFileSync(pathOf(folders, name))) });
+    const { report, files } = buildSpriteSpec(spec, { readPicture: (name) => smak.unpicture(readFileSync(pathOf(folders, name))) });
     const lines = reportLines(report);
     const first = spec.name ?? spec.sprites?.[0]?.name ?? "sprite";
     const base = first.replace(/\.spr$/i, "").replace(/[^\w-]+/g, "_");
@@ -889,7 +889,7 @@ function build(folders, args) {
   }
   if (spec?.spec === "smak.sound/1") {
     // sounds: each file under work:sound/, as the game's own folder has them; the picture of them all
-    const { report, files, picture } = buildSoundSpec(spec, { games: folders.wads ?? [], readPicture: (name) => smak.unpng(readFileSync(pathOf(folders, name))) });
+    const { report, files, picture } = buildSoundSpec(spec, { games: folders.wads ?? [], readPicture: (name) => smak.unpicture(readFileSync(pathOf(folders, name))) });
     const lines = reportLines(report);
     // the spec kept beside what it made, as a model's and a map's are (named after its first sound)
     const first = spec.name ?? spec.sounds?.[0]?.name ?? "sound";
@@ -907,7 +907,7 @@ function build(folders, args) {
   }
   if (spec?.spec !== "smak.model/1")
     throw new Error('spec: a model spec ("spec": "smak.model/1"), a map spec ("smak.map/1"), a sound spec ("smak.sound/1"), a textures spec ("smak.wad/1"), a sprite spec ("smak.sprite/1") or a video spec ("smak.video/1"); guide { doc: "spec" } says how to write one');
-  const { mdl, report, files = [] } = buildModelSpec(spec, { folder, games: folders.wads ?? [], readPicture: (name) => smak.unpng(readFileSync(pathOf(folders, name))), hide: folders.hide ?? [], refuse: folders.refuse ?? [] });
+  const { mdl, report, files = [] } = buildModelSpec(spec, { folder, games: folders.wads ?? [], readPicture: (name) => smak.unpicture(readFileSync(pathOf(folders, name))), hide: folders.hide ?? [], refuse: folders.refuse ?? [] });
   const lines = reportLines(report);
   if (mdl) {
     const name = spec.name ?? "model.mdl";

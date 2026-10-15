@@ -4,7 +4,7 @@ A low-poly model bought in a pack comes as `.fbx`, `.glb`/`.gltf` or `.obj`, wit
 inside it. SMAK reads all three into one shape and makes of it a **prop** (a whole `.mdl`), a **piece** for
 `smak item` (a new weapon, shield or bow in a game's own files, docs/ITEMS.md), or a **model with the file's
 skeleton and animations**. Pure JavaScript, no dependencies: zlib for FBX's packed arrays, a PNG and a
-baseline JPEG reader of the kit's own.
+JPEG reader of the kit's own.
 
 ```
 smak import mace.fbx                                   what is in it
@@ -33,7 +33,7 @@ texture coordinates, vertex colours, `InheritType` (every node passes all its sc
 animation layer, constraints, curves' tangents (keys are joined by straight lines; a tool that bakes a key a
 frame, as Blender does on export, loses nothing), Draco and meshopt packing (refused, saying so), points and
 lines, `KHR_texture_transform` (warned of). Pictures: PNG (8 bits a channel, not interlaced), BMP and
-baseline JPEG; a progressive JPEG is named and its material wears its flat colour (`--save-pictures` writes
+JPEG (baseline and progressive); a lossless or arithmetic coded JPEG is named and its material wears its flat colour (`--save-pictures` writes
 the pictures inside a file out, to be saved again).
 
 ## The conventions
