@@ -129,7 +129,7 @@ makes them is in `docs/SPEC.md`, "A sound"; why each rule is so, in `research/so
 
 | Function | Does |
 | --- | --- |
-| `readWav(bytes)` | `{ format, channels, rate, bits, samples, x, cue, chunks }`: a WAVE file's samples (a stereo one as the mean of its channels) and what it says of itself; `cue` the cue points' samples, or null. Reads 8, 16, 24 and 32-bit PCM and 32 and 64-bit float, plain or in the extensible format (what generators write). |
+| `readWav(bytes, { split })` | `{ format, channels, rate, bits, samples, x, cue, chunks }` (with `split`, `xs` too: each channel's own samples): a WAVE file's samples (a stereo one as the mean of its channels) and what it says of itself; `cue` the cue points' samples, or null. Reads 8, 16, 24 and 32-bit PCM and 32 and 64-bit float, plain or in the extensible format (what generators write). |
 | `resample(x, from, to)` | The samples at another rate, each a windowed sinc of the old (cut off under the lower rate's half): a generator's 48 kHz take brought to the game's 22050 without its top folding down. |
 | `writeWav(x, { rate = 22050, bits = 16, loop, seed })` | A mono PCM file as GoldSrc plays it: 8 or 16 bits (8 with a seeded dither), 11025, 22050 or 44100 Hz; `loop`: the sample the engine loops back to, as the one cue point. Refuses another rate or depth. |
 | `features({ x, rate })` | `{ length, peak, rms, crest, dc, clipped, lead, tail, attack, peakAt, t20, t40, centroid, rolloff, flatness, bands, onsets }`: levels in dBFS, times in seconds (`t20`, `t40`: from its peak to -20 and -40 dB), `centroid` and `rolloff` in Hz, `flatness` 0 (a tone) to 1 (white noise), `bands` the % of its power under 150, to 600, to 2000, to 5000 and over 5000 Hz. |
@@ -143,6 +143,8 @@ makes them is in `docs/SPEC.md`, "A sound"; why each rule is so, in `research/so
 | `limitTo(x, after, { crest, release = 0.002 }, rate)` | A look-ahead peak limiter: `x` (at full scale) squashed until it, made up and with `after` added, has that crest in dB. |
 | `fromPicture(png, { points = 16, iterations = 32, name, length, rate, row })` | A sound's picture (as `soundPicture` draws it) read to a draft spec: `{ spec, measures, lines, onsets }`, a noise layer with a moving shape, its envelope's points and a `modes` layer a tone line. Numbers, never samples. |
 | `pictureMeasures(png, { length, rate, row })`, `readSoundPicture(png, options)` | What a judge measures of a sound, read off its picture: `{ length, rate, loop, peak, crest (about, within 3 dB), t20, centroid, bands, onsets, onsetTimes, levels }`; the picture decoded: its outline, its frames' dB by bin. |
+| `loudness(channels, rate)` | `{ lufs, range, peak }`: integrated loudness (ITU-R BS.1770, gated), loudness range (EBU Tech 3342) and sample peak of a track, `channels` a list of sample arrays. |
+| `buildMusicSpec(spec, { readFile, ffmpeg })`, `validateMusicSpec(spec)`, `TRACKS`, `GROUPS` (`src/spec/music.mjs`) | A music spec built: `{ report, files: [{ name, bytes }], picture }`; the engine's CD track table (`TRACKS[n - 2]` is track n's file); the game's tracks' medians by group. |
 | `buildSoundSpec(spec, { games, folder, readPicture, readFile })`, `validateSoundSpec(spec)` | A sound spec built: `{ report, files: [{ name, bytes }], picture }` (what the tool `build` does with one). A spec's `picture` is read by `readPicture(name)` and a `sample` layer's file and its sidecar by `readFile(name)`, from `folder` unless given. Not exported from the index: `src/spec/sound.mjs`. |
 
 ## Sprites (`src/sprite/`, `src/spec/sprite.mjs`)

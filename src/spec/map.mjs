@@ -31,9 +31,10 @@ import { lookSentence, ALLOWED } from "./look.mjs";
 import { wadCatalog, pickTexture } from "./wads.mjs";
 import { buildModelSpec, validateModelSpec } from "./model.mjs";
 import { buildSoundSpec } from "./sound.mjs";
+import { TRACKS } from "./music.mjs";
 
 export const MAP_SPEC = "smak.map/1";
-const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "replace", "sounds", "fgd", "wads", "compile", "detail", "note", "ladders", "fidelity"];
+const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "replace", "sounds", "fgd", "wads", "compile", "detail", "note", "ladders", "fidelity", "music"];
 /** A ladder's depth off its wall, and its width unless told: Valve's frenzy's are 32 wide. */
 const LADDER = { depth: 6, width: 32 };
 const ROOM = ["id", "size", "at", "place", "floor", "sky", "surfaces", "light", "water", "test", "building", "dark", "note"];
@@ -1592,6 +1593,35 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       report.facts.push(`sounds[${n}]: ${name} plays in ${room.id}${sound.loop ? ", looped" : " once (not looped)"}, heard ${given.radius ?? "medium"}`);
     });
   }
+  // music: the game's CD tracks (media/<name>.mp3, a music spec with `track` makes one), started as the map
+  // begins (a trigger_auto firing a target_cdaudio) or as a player walks into a room (a trigger_cdaudio over its
+  // floor), or stopped (track -1). The SDK's entities play for the first player only, and once
+  for (const [n, given] of (spec.music ?? []).entries()) {
+    const track = given.stop ? -1 : given.track;
+    if (!given.stop && !(Number.isInteger(track) && track >= 2 && track <= 27)) {
+      errors.push(`music[${n}].track: the CD track to play, 2 to 27 (or stop: true)`);
+      continue;
+    }
+    const said = given.stop ? "stops the music" : `plays track ${track} (media/${TRACKS[track - 2]}.mp3)`;
+    if (given.when === "start" || given.when === undefined) {
+      const name = `music${n}`;
+      const first = [...rooms.values()][0];
+      const at = [(first.min[0] + first.max[0]) / 2, (first.min[1] + first.max[1]) / 2, first.min[2] + 16];
+      entities.push(pointEntity("trigger_auto", at, { target: name, delay: given.delay ?? 1, spawnflags: 1 }));
+      entities.push(pointEntity("target_cdaudio", [at[0] + 16, at[1], at[2]], { targetname: name, health: track, radius: 0 }));
+      report.facts.push(`music[${n}]: ${said} as the map begins`);
+    } else if (typeof given.when?.enter === "string") {
+      const room = rooms.get(given.when.enter);
+      if (!room) {
+        errors.push(`music[${n}].when.enter: a room's id, not ${given.when.enter}`);
+        continue;
+      }
+      entities.push(brushEntity("trigger_cdaudio", [box([room.min[0] + 1, room.min[1] + 1, room.min[2]], [room.max[0] - 1, room.max[1] - 1, room.min[2] + PLAYER.high], "AAATRIGGER")], { health: track }));
+      report.facts.push(`music[${n}]: ${said} when a player first walks into ${room.id}`);
+    } else errors.push(`music[${n}].when: "start", or { enter: <a room's id> }`);
+  }
+  if (spec.music?.length) report.facts.push("music: trigger_cdaudio and target_cdaudio play for the first player only (the SDK sends cd play to client 1), and each fires once: a multiplayer mod needs its own way to play music");
+
   // light: each room that asks lamps by its floor's area, a sun for rooms under the sky
   let sunny = false;
   for (const room of rooms.values()) {

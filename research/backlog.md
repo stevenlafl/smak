@@ -110,7 +110,7 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | Hard checks: format, clipping, DC, level, silence at the ends, unfaded end, loop cue and seam | DONE | `checks()` in `src/audio/measure.mjs`. Missing: loop RMS match across the seam, whole cycles of each tone in a loop |
 | Name checks: lower case, under `sound/`, 63 characters | DONE | `src/spec/sound.mjs` (`LONGEST_NAME`) |
 | Features: length, peak, RMS, crest, attack, T20, T40, centroid, roll-off, flatness, bands, onsets | DONE | `features()` in `src/audio/measure.mjs` |
-| LUFS loudness (ITU-R BS.1770) | OPEN | Optional in the report |
+| LUFS loudness (ITU-R BS.1770) | DONE | `loudness` in `src/audio/loudness.mjs` (EBU's tone at -23.0, ffmpeg's meter matched on a take); used by the music spec, not yet in a sound's report |
 | Synthesis blocks: seeded noise, biquads, envelopes, oscillators with sweep, FM, modes, particles, room, saturation, finish | DONE | `src/audio/synth.mjs` |
 | Layer kinds `sequence` and `sound` (a sound as a prefab) | OPEN | `KINDS` in `src/spec/sound.mjs` is noise, tone, fm, modes, particles; a layer's `at` covers simple sequences |
 | `preset` (a layer or sound from the recipe table), `recipes.mjs` | OPEN | No presets; every spec writes its layers |
@@ -149,8 +149,8 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | ACE-Step 1.5 (2B turbo, XL turbo, 2B with its planner) and MusicGen stereo large installed on ROCm; four cues by four seeds each; the game's 27 tracks measured in place | DONE | `/media/Data3/Packages/local-audio/` (`scripts/install-music.sh`, `generate-music.py`, `finish-music.py`, `measure-music.py`, `music-pictures.mjs`); takes in `~/stignored/music-review/` |
 | Steven listens to the takes beside the game's tracks | DONE | 2026-10-15: ACE-Step follows music theory best and XL wins on sound over four seeds; the planner and MusicGen out (report, section 6a) |
 | Music entries in the `generate` tool's manifest (`kind: "music"`, `bpm`, `key`, `metre`, `loop`), ACE-Step XL in bf16 as the music default and the 2B as the fast choice; loops by turn-and-repaint in whole bars | DONE | `generators/worker.py`, `generators.example.json`. Missing: `metre`; prompts for EDM (naming the genre made it worse, Steven 2026-10-15) |
-| `smak.music/1`: a take cut, looped, faded, levelled to -14 LUFS, EQ, sound layers mixed in, written as 44.1 kHz stereo MP3 under a `media/` name or a CD `track`, or a looped WAV for `ambient_generic`; measured against the game's groups | OPEN | Needs LUFS, a 24-bit and float WAV reader, a resampler (sound items), and ffmpeg with libmp3lame found on the path |
-| Map spec `music`: `trigger_cdaudio` / `target_cdaudio` (with `trigger_auto` for the start) by track, single-player warning, the mod profile saying when the mod plays music its own way | OPEN | Report section 8 |
+| `smak.music/1`: a take cut, looped, faded, levelled to -14 LUFS, EQ, sound layers mixed in, written as 44.1 kHz stereo MP3 under a `media/` name or a CD `track`, or a looped WAV for `ambient_generic`; measured against the game's groups | DONE | `src/spec/music.mjs`, the `build` tool; `test/47-audio.mjs`. Missing: sound layers mixed in, `bars` with a tempo |
+| Map spec `music`: `trigger_cdaudio` / `target_cdaudio` (with `trigger_auto` for the start) by track, single-player warning, the mod profile saying when the mod plays music its own way | PARTLY | `music` in `src/spec/map.mjs`. Missing: the mod profile's own way of music (Master Sword's `mp3 play`) |
 | In-game tests: a mod's `media/Half-LifeNN.mp3` found before valve's, the MP3 loop gap through Miles, `worldspawn` `sounds`, the `mp3` subcommands' arguments | OPEN | Read from code and engine strings only |
 | Magenta RealTime 2 (CC-BY, MIDI input) through JAX on ROCm; Stable Audio 3 music models once their terms are accepted | OPEN | Report sections 1, 10 |
 | MusicGen, and ACE-Step with its planner, as the music generator | DECLINED | Steven's ear (section 6a); MusicGen is also NC, forty times slower than ACE-Step here, in 30 s windows |
@@ -365,7 +365,7 @@ map-reproduction-failures, LS local-sound-generators, LM local-music-generators,
 18. AO and curvature bake, warm-cool light and value bands in `finish` (IR 4).
 19. Sound presets from the recipe table, each scored against its class as a test (SG).
 19a. The Stable Audio models in the generate worker once Steven accepts their terms (LS). (The `sample` layer and the `generate` tool are done.)
-19b. `smak.music/1` and the map spec's `music`; the in-game tests of a mod's `media/` file and the MP3 loop gap (LM). (Music in `generate` is done.)
+19b. The in-game tests of a mod's `media/` file and the MP3 loop gap; a mod profile's own way of music (LM). (`generate`'s music, `smak.music/1` and the map's `music` are done.)
 20. Footsteps with `materials.txt`, the per-weapon role table of code-named sounds, mod profiles naming sounds (SG).
 21. Loop start other than 0, loop RMS and whole-cycle checks, seam picture, LUFS (SG).
 22. Sound layer kinds `sequence` and `sound` (SG).

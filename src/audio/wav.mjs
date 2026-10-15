@@ -2,7 +2,8 @@
 // when it loops (the engine loops from the cue's sample to the end). research/sound-generation.md, section 2,
 // has where each rule comes from.
 //
-//   readWav(bytes)                          -> { format, channels, rate, bits, samples, x (Float32Array, -1..1), cue, chunks }
+//   readWav(bytes, { split })               -> { format, channels, rate, bits, samples, x (Float32Array, -1..1), cue, chunks }
+//                                              (with split, also xs: each channel's own samples)
 //   writeWav(x, { rate, bits, loop, seed }) -> bytes: mono, a cue at `loop` (a sample) when given
 //   resample(x, from, to)                   -> x at another rate, band-limited (a generator's 44.1 or 48 kHz to the game's)
 
@@ -14,7 +15,7 @@ export const RATES = [11025, 22050, 44100];
  * the game's tools or a generator write: 8, 16, 24 or 32-bit whole numbers, 32 or 64-bit floats, plain or in
  * the extensible format's wrapper (`format` is then the one inside it).
  */
-export function readWav(bytes) {
+export function readWav(bytes, { split = false } = {}) {
   if (bytes.toString("ascii", 0, 4) !== "RIFF" || bytes.toString("ascii", 8, 12) !== "WAVE") throw new Error("not a WAVE file (RIFF/WAVE)");
   let at = 12;
   let fmt = null;
@@ -56,15 +57,17 @@ export function readWav(bytes) {
             : (o) => data.readInt32LE(o) / 2147483648;
   const samples = Math.floor(data.length / width / fmt.channels);
   const x = new Float32Array(samples);
+  const xs = split ? Array.from({ length: fmt.channels }, () => new Float32Array(samples)) : null;
   for (let i = 0; i < samples; i++) {
     let sum = 0;
     for (let c = 0; c < fmt.channels; c++) {
-      const o = (i * fmt.channels + c) * width;
-      sum += sample(o);
+      const v = sample((i * fmt.channels + c) * width);
+      if (xs) xs[c][i] = v;
+      sum += v;
     }
     x[i] = sum / fmt.channels;
   }
-  return { ...fmt, samples, x, cue, chunks };
+  return { ...fmt, samples, x, ...(xs ? { xs } : {}), cue, chunks };
 }
 
 /**
@@ -123,18 +126,28 @@ export function resample(x, from, to) {
   const ratio = to / from;
   const cut = Math.min(1, ratio) * 0.95;
   const half = Math.ceil(16 / cut);
+  // the kernel tabled at a 512th of a sample and read between: a sine and two cosines a tap made a minute of
+  // music take tens of seconds
+  const STEPS = 512;
+  const table = new Float64Array(half * STEPS + 2);
+  for (let i = 0; i < table.length; i++) {
+    const d = i / STEPS;
+    const sinc = d === 0 ? 1 : Math.sin(Math.PI * cut * d) / (Math.PI * cut * d);
+    const w = d >= half ? 0 : 0.42 + 0.5 * Math.cos((Math.PI * d) / half) + 0.08 * Math.cos((2 * Math.PI * d) / half);
+    table[i] = cut * sinc * w;
+  }
+  const kernel = (d) => {
+    const a = Math.abs(d) * STEPS;
+    const i = Math.floor(a);
+    return table[i] + (table[i + 1] - table[i]) * (a - i);
+  };
   const out = new Float32Array(Math.max(1, Math.round(x.length * ratio)));
   for (let i = 0; i < out.length; i++) {
     const centre = i / ratio;
     const j0 = Math.max(0, Math.ceil(centre - half));
     const j1 = Math.min(x.length - 1, Math.floor(centre + half));
     let sum = 0;
-    for (let j = j0; j <= j1; j++) {
-      const d = j - centre;
-      const sinc = d === 0 ? 1 : Math.sin(Math.PI * cut * d) / (Math.PI * cut * d);
-      const w = 0.42 + 0.5 * Math.cos((Math.PI * d) / half) + 0.08 * Math.cos((2 * Math.PI * d) / half);
-      sum += x[j] * cut * sinc * w;
-    }
+    for (let j = j0; j <= j1; j++) sum += x[j] * kernel(j - centre);
     out[i] = sum;
   }
   return out;

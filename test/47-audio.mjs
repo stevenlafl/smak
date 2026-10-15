@@ -8,6 +8,7 @@ import { toolsFor } from "../mcp/tools.mjs";
 import { buildMapSpec } from "../src/spec/map.mjs";
 import { buildModelSpec } from "../src/spec/model.mjs";
 import { buildSoundSpec, validateSoundSpec } from "../src/spec/sound.mjs";
+import { buildMusicSpec, validateMusicSpec } from "../src/spec/music.mjs";
 import { writeFileSync, mkdirSync } from "node:fs";
 
 const { audio: A } = smak;
@@ -212,4 +213,43 @@ test("a sample layer: a generator's take cut at its first hit, brought to the so
   sure(missing.report.errors.some((e) => /the sample gen\/none\.wav/.test(e)), missing.report.errors.join("; "));
   const bad = validateSoundSpec({ ...spec, layers: [{ kind: "sample", from: -1 }] });
   sure(bad.errors.some((e) => /\.file: a \.wav/.test(e)) && bad.errors.some((e) => /\.from: seconds/.test(e)), bad.errors.join("; "));
+});
+
+test("loudness as broadcasters measure it: EBU's stereo tone at -23 LUFS, at any rate", () => {
+  for (const rate of [48000, 44100, 22050]) {
+    const x = Float32Array.from({ length: rate * 10 }, (_, i) => Math.sin((2 * Math.PI * 1000 * i) / rate) * 10 ** (-23 / 20));
+    const both = A.loudness([x, x], rate);
+    sure(both.lufs === -23 && A.loudness([x], rate).lufs === -26 && both.peak === -23 && both.range === 0, `${rate}: ${JSON.stringify(both)}`);
+  }
+});
+
+test("a music spec: a take made a game track (cut, faded, levelled by loudness) or a looped WAV bed, and a map that plays it", () => {
+  const folder = join(tmp, "music");
+  mkdirSync(join(folder, "gen"), { recursive: true });
+  // 12 s of a chord that swells, at 48 kHz in stereo floats, quiet
+  const n = 48000 * 12;
+  const take = Float32Array.from({ length: n }, (_, i) => 0.1 * Math.sin((2 * Math.PI * 220 * i) / 48000) * (0.5 + 0.5 * Math.sin((2 * Math.PI * i) / n)) + 0.05 * Math.sin((2 * Math.PI * 330 * i) / 48000));
+  writeFileSync(join(folder, "gen", "tune_s0.wav"), generated(take, take));
+  writeFileSync(join(folder, "gen", "tune_s0.json"), JSON.stringify({ model: "acestep-xl", seed: 0, prompt: "a tune", licence: "MIT" }));
+  const readFile = (name) => readFileSync(join(folder, name.replace(/^work:/, "")));
+  const ffmpeg = existsSync("/usr/bin/ffmpeg") || process.env.PATH.split(":").some((d) => existsSync(join(d, "ffmpeg")));
+  if (ffmpeg) {
+    const { report, files } = buildMusicSpec({ spec: "smak.music/1", track: 5, group: "ambient", from: { file: "work:gen/tune_s0.wav", start: 1, length: 10 }, fade: { out: 2 } }, { readFile });
+    sure(report.ok && files[0].name === "media/Half-Life07.mp3" && files[0].bytes.subarray(0, 3).toString("latin1") !== "RIFF", [...report.errors, ...report.faults].join("; "));
+    sure(report.facts.some((f) => /-14 LUFS \(it was -2\d/.test(f)) && report.facts.some((f) => /track 5: .*Half-Life07\.mp3/.test(f)) && report.facts.some((f) => /made by acestep-xl seed 0/.test(f)), report.facts.join(" | "));
+  }
+  const bed = buildMusicSpec({ spec: "smak.music/1", name: "ambience/tune_bed.wav", as: "wav", loop: { crossfade: 1 }, from: { file: "work:gen/tune_s0.wav", length: 8 } }, { readFile });
+  const wav = A.readWav(bed.files[0].bytes);
+  sure(bed.report.ok && wav.rate === 22050 && wav.channels === 1 && wav.cue?.[0] === 0 && Math.abs(wav.samples - 7 * 22050) < 2, `${bed.report.errors} ${wav.rate} ${wav.cue} ${wav.samples}`);
+  const said = A.loudness([wav.x], 22050).lufs;
+  sure(Math.abs(said + 14) < 0.3, `the bed at ${said} LUFS`);
+  const bad = validateMusicSpec({ spec: "smak.music/1", track: 28, name: "x.mp3", from: { file: "a.mp3" }, loudness: -40 });
+  sure(["track: 28 is the menu", "track or name", "from: { file", "loudness: LUFS"].every((w) => bad.errors.some((e) => e.includes(w))), bad.errors.join("; "));
+  // a map that plays it: as it begins, and when a player walks into a room; stopped in another
+  const spec = { spec: "smak.map/1", name: "tunes", rooms: [{ id: "hall", size: [256, 256, 128] }, { id: "lab", size: [256, 256, 128], place: { east_of: "hall" } }], links: [{ between: ["hall", "lab"] }], entities: [{ class: "info_player_start", room: "hall", at: "centre" }], music: [{ track: 5 }, { track: 2, when: { enter: "lab" } }, { stop: true, when: { enter: "hall" } }] };
+  const { report, files } = buildMapSpec(spec, { out: join(folder, "map"), compilers: { found: false, message: "" } });
+  const map = smak.maps.readMap(readFileSync(files.map, "utf8"));
+  const by = (c) => map.entities.filter((e) => e.classname === c);
+  sure(by("trigger_auto")[0]?.target === "music0" && by("target_cdaudio")[0]?.health === "5" && by("trigger_cdaudio").map((e) => e.health).join(",") === "2,-1", JSON.stringify(map.entities.filter((e) => /cdaudio|auto/.test(e.classname))));
+  sure(report.facts.some((f) => /music\[1\]: plays track 2 \(media\/Half-Life01\.mp3\) when a player first walks into lab/.test(f)) && report.facts.some((f) => /first player only/.test(f)), report.facts.filter((f) => /music/.test(f)).join(" | "));
 });

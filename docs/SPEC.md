@@ -1,6 +1,6 @@
 # Specs: a model or a map from a person's words
 
-A spec is a description in plain JSON of a model, a map or a sound. The person says what they want, in words and
+A spec is a description in plain JSON of a model, a map, a sound or a music track. The person says what they want, in words and
 maybe a drawing; you, the agent, turn that into a spec; the tool `build` (or `buildModelSpec` and
 `buildMapSpec` in a script) builds it, checks it and draws it. You write no code and no coordinates of
 brushes or triangles: parts are placed by saying what they sit on, rooms by saying what they are next to.
@@ -505,6 +505,18 @@ gives its loudness.
                       { "at": 0.5, "curve": [[60, -6], [300, 0], [1200, -8], [4000, -26], [11000, -45]] }] } }
 ```
 
+**From a recording.** When the server offers the tool `generate`, a sound of a real thing (a hit, a shot, a step, a
+door, debris, a medkit's click) begins best from a generated take, which has the grain, the ring and the room no
+layer of noise and modes reaches. Ask for the event in plain words (the thing, the action, the material: "a
+heavy steel wrench striking a metal pipe, one sharp clang"), its `length`, its `class`, and 4 to 8 seeds; read
+each take's measures against the class and the picture; put the nearest in a `sample` layer `from: "onset"`.
+Then shape it in the spec toward the original: its `length`, a `filter` (a generated hit is often brighter than
+the game's: a `lowpass` or a `highshelf` cut), the finish's `saturate` and `limit` (to the class's crest), and
+layers of your own under or over it (a `modes` ring, a noise crack, a `tone` thump). Build, read the class
+score, and change one thing at a time; another seed is another take. Layers alone are for what has no real
+source (a beep, a drone) or where no take comes near. Each take's sidecar names its model's licence, and the
+report warns of a non-commercial one: say so to the person.
+
 **From a picture.** `audio.fromPicture(png)` reads a sound's picture as the kit draws it (its label gives the
 length, its marks the rate) and returns a draft spec of tens of numbers: one noise layer whose `shape` moves
 through keys read off the spectrogram (where it starts, its loudest, and as it falls by 6, 12, 20, 30 and 45
@@ -524,6 +536,35 @@ silent more than 60% of the time (the game's own are at most about half silent: 
 picture is each file's waveform over its spectrogram (log frequency, 50 Hz at the bottom), the game's own
 of its kind under them at the same time scale. What it cannot say is how it sounds, or how the game plays
 it (its volume, its pitch, the map's room): say so, and the person listens in the game.
+
+## A music track
+
+A take of music (the tool `generate`'s, `kind: "music"`, or any recording in the work folder) made into a track
+the game plays: the game's music is 44.1 kHz stereo MP3 under `media/`, levelled by loudness.
+
+```json
+{ "spec": "smak.music/1", "track": 2, "group": "action",
+  "from": { "file": "work:gen/action_s3.wav", "start": 0, "length": 75 },
+  "fade": { "in": 0.5, "out": 3 }, "loudness": -14,
+  "eq": [{ "type": "lowshelf", "f": 150, "gain": -3 }] }
+```
+
+| Field | |
+| --- | --- |
+| `track` | The CD track a map plays, 2 to 27: the engine's own table names the file (`media/Half-Life01.mp3` for 2, `Prospero01` for 3 ... `Suspense07` for 27), so the mod's file stands in for the game's. Or `name` instead |
+| `name` | The file's path in the mod: `music/lab.mp3` for a mod whose code plays music its own way (`mp3 play`; a map cannot play it); with `as: "wav"`, a path under `sound/` |
+| `from` | `{ file, start, length }`: the take, and the seconds of it to use |
+| `fade` | `{ in, out }` in seconds (not on a loop) |
+| `loudness` | LUFS (ITU-R BS.1770), -14 unless told: the game's tracks are -10 to -21, -14 their middle. Its peak is held under -1 dBFS, and the report says when that left it quieter |
+| `eq` | Filters as a sound's: `lowpass`, `highpass`, `bandpass`, `peak`, `notch`, `lowshelf`, `highshelf` |
+| `loop` | `{ crossfade: seconds }`: its end laid over its start; `true`: the take is a loop already (`generate`'s `loop`). An MP3 has no loop point: a bed that must loop without a gap is `as: "wav"` |
+| `as` | `mp3` (unless told; through ffmpeg with libmp3lame, found on the PATH) or `wav`: 22050 Hz mono with a cue at its start, a bed a map's `sounds` plays by an `ambient_generic` |
+| `group` | `action`, `ambient`, `between` or `stinger`: the game's tracks of that kind, their medians told beside it (not held to it: to the person's ear the share of bass said nothing of which take was better) |
+
+The report gives its loudness before and after, its loudness range, its peak, its power by band, what made the
+take (its sidecar) with a warning on a non-commercial licence, and, for a track, how a map plays it. Its file is
+written as the mod has it: `work:media/Half-Life01.mp3`, `work:sound/ambience/lab_bed.wav`. The map spec's
+`music` plays a track.
 
 ## Textures for maps (a .wad)
 
@@ -705,6 +746,7 @@ command line: `smak video spec.json -o folder [--preview] [--models folder]`.
 | `compile` | How the compilers run: `{ quality: "draft" \| "normal" \| "final", threads, light: { bounce, ao, extra, softShadows }, hulls: { large: false, crouch: false }, clipEconomy: true }`. Every program gets all the machine's threads unless told |
 | `detail` | `false` keeps furniture in the world; unless told, furniture is `func_detail` (below) |
 | `fidelity` | `"game"` (unless told) or `"high"`: a map made to look its best, when the person asks for it. High adds trim (a baseboard along every wall under a roof, a casing round every door and opening, a sill and frame at every window, in the theme's `trim`, darkwood unless told: drawn, not solid, so a narrow room keeps its room), a lamp for each 192 x 192 of floor where `"auto"` gives one for each 256 x 256, and puts furniture of boxes named for a piece the kit has a model of (`toilet`, `tub`, `fridge`) in as that model, moved back inside its room if the model is larger than the boxes. The report says what it added |
+| `music` | `[{ track, when }]`: the game's CD tracks, 2 to 27 (a music spec with that `track` makes the file): `when` `"start"` (unless told: a `trigger_auto` firing a `target_cdaudio` as the map begins) or `{ enter: "<room>" }` (a `trigger_cdaudio` over the room's floor, the first time a player walks in); `{ stop: true, when }` stops it. They play for the first player only, and each once: a multiplayer mod plays music its own way |
 | `sounds` | `[{ spec, room, at, z, volume, radius }]`: sounds made with the map (`spec`: a sound spec, or `{ file }`) and played where they are put by an `ambient_generic`: `volume` 1 to 10, `radius` `everywhere`, `small`, `medium` or `large`; looped when the sound loops (a hum, a fire), once otherwise. The files go under `sound/<map name>/` beside the map, and its `ambient_generic` names them there: copy that folder into `<mod>/sound/` |
 
 ### Rooms

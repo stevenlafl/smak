@@ -22,6 +22,7 @@ import { filesUnder, pathOf } from "./folders.mjs";
 import { guide } from "./guide.mjs";
 import { buildModelSpec } from "../src/spec/model.mjs";
 import { buildSoundSpec } from "../src/spec/sound.mjs";
+import { buildMusicSpec } from "../src/spec/music.mjs";
 import { buildWadSpec } from "../src/spec/wad.mjs";
 import { buildSpriteSpec } from "../src/spec/sprite.mjs";
 import { buildVideoSpec } from "../src/spec/video.mjs";
@@ -925,8 +926,25 @@ function build(folders, args) {
     if (picture) show(picture);
     return [text(lines.join("\n")), ...pictures];
   }
+  if (spec?.spec === "smak.music/1") {
+    // music: the file under work:media/ (or work:sound/ for a WAV bed), as the mod's own folder has it
+    const { report, files, picture } = buildMusicSpec(spec, { readFile: (name) => readFileSync(pathOf(folders, name)) });
+    const lines = reportLines(report);
+    const base = (spec.name ?? `track${spec.track}`).replace(/\.(mp3|wav)$/i, "").replace(/[^\w-]+/g, "_");
+    mkdirSync(folders.work, { recursive: true });
+    writeFileSync(join(folders.work, `${base}.spec.json`), `${JSON.stringify(spec, null, 2)}\n`);
+    for (const file of files) {
+      const under = (spec.as ?? "mp3") === "wav" ? join("sound", file.name) : file.name;
+      const path = join(folders.work, under);
+      mkdirSync(dirname(path), { recursive: true });
+      writeFileSync(path, file.bytes);
+      lines.push(`written: work:${under} (put in <mod>/${under})`);
+    }
+    if (picture) show(picture);
+    return [text(lines.join("\n")), ...pictures];
+  }
   if (spec?.spec !== "smak.model/1")
-    throw new Error('spec: a model spec ("spec": "smak.model/1"), a map spec ("smak.map/1"), a sound spec ("smak.sound/1"), a textures spec ("smak.wad/1"), a sprite spec ("smak.sprite/1") or a video spec ("smak.video/1"); guide { doc: "spec" } says how to write one');
+    throw new Error('spec: a model spec ("spec": "smak.model/1"), a map spec ("smak.map/1"), a sound spec ("smak.sound/1"), a music spec ("smak.music/1"), a textures spec ("smak.wad/1"), a sprite spec ("smak.sprite/1") or a video spec ("smak.video/1"); guide { doc: "spec" } says how to write one');
   const { mdl, report, files = [] } = buildModelSpec(spec, { folder, games: folders.wads ?? [], readPicture: (name) => smak.unpicture(readFileSync(pathOf(folders, name))), readFile: (name) => readFileSync(pathOf(folders, name)), hide: folders.hide ?? [], refuse: folders.refuse ?? [] });
   const lines = reportLines(report);
   if (mdl) {

@@ -40,8 +40,11 @@ export function biquad(type, f, rate, q = 0.707, gain = 0) {
     bandpass: [alpha, 0, -alpha, 1 + alpha, -2 * cos, 1 - alpha],
     notch: [1, -2 * cos, 1, 1 + alpha, -2 * cos, 1 - alpha],
     peak: [1 + alpha * A, -2 * cos, 1 - alpha * A, 1 + alpha / A, -2 * cos, 1 - alpha / A],
+    // the shelves (RBJ's cookbook): every frequency under (or over) `f` lifted or cut by `gain` dB
+    lowshelf: [A * (A + 1 - (A - 1) * cos + 2 * Math.sqrt(A) * alpha), 2 * A * (A - 1 - (A + 1) * cos), A * (A + 1 - (A - 1) * cos - 2 * Math.sqrt(A) * alpha), A + 1 + (A - 1) * cos + 2 * Math.sqrt(A) * alpha, -2 * (A - 1 + (A + 1) * cos), A + 1 + (A - 1) * cos - 2 * Math.sqrt(A) * alpha],
+    highshelf: [A * (A + 1 + (A - 1) * cos + 2 * Math.sqrt(A) * alpha), -2 * A * (A - 1 + (A + 1) * cos), A * (A + 1 + (A - 1) * cos - 2 * Math.sqrt(A) * alpha), A + 1 - (A - 1) * cos + 2 * Math.sqrt(A) * alpha, 2 * (A - 1 - (A + 1) * cos), A + 1 - (A - 1) * cos - 2 * Math.sqrt(A) * alpha],
   }[type];
-  if (!k) throw new Error(`a filter is lowpass, highpass, bandpass, peak or notch, not ${type}`);
+  if (!k) throw new Error(`a filter is lowpass, highpass, bandpass, peak, notch, lowshelf or highshelf, not ${type}`);
   const [b0, b1, b2, a0, a1, a2] = k;
   let x1 = 0;
   let x2 = 0;

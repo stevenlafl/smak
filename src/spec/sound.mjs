@@ -21,7 +21,7 @@ const LAYER = ["id", "kind", "file", "from", "at", "length", "gain", "env", "fil
 const KINDS = ["noise", "tone", "fm", "modes", "particles", "sample"];
 /** Licences a take's sidecar may name that do not allow selling what is made with it. */
 const NON_COMMERCIAL = /\bNC\b|non-?commercial|research only/i;
-const FILTERS = ["lowpass", "highpass", "bandpass", "peak", "notch"];
+const FILTERS = ["lowpass", "highpass", "bandpass", "peak", "notch", "lowshelf", "highshelf"];
 /** The longest a sound's path may be from the mod's folder: the engine's 64 with its zero, `sound/` added. */
 const LONGEST_NAME = 63 - "sound/".length;
 
