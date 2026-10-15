@@ -67,6 +67,7 @@ const areas = [
   "56-reference-textures", // JPEG read; a map's pictures from photographs (valve, literal, aged), a door over one, grain that is not noise
   "57-generate", // the MCP tool generate with a stand-in worker: takes and sidecars, the model kept loaded, a take in a spec, a shape as a mesh part
   "58-materials", // the MCP tool materials and library: pictures, over a small library of the kit's own
+  "59-blob", // a blob part: pieces on joints blended into one closed surface, each corner on its nearest piece's bone
 ];
 
 // one after another: each file runs its cases as it is loaded, and the servers' cases wait for their answers

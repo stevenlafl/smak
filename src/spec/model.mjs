@@ -14,6 +14,7 @@ import { fitPose, fitMotion } from "./posefit.mjs";
 import { carve, masksFromPicture, sheetViews } from "./carve.mjs";
 import { readObj, objMeshes } from "../obj.mjs";
 import { reduce } from "../qem.mjs";
+import { blob, nearestPiece } from "./blob.mjs";
 import { sub, cross } from "../vec.mjs";
 import { readFileSync, existsSync } from "node:fs";
 import { resolve, dirname, join } from "node:path";
@@ -66,6 +67,7 @@ const KINDS = {
   superquadric: ["size", "round", "sides"],
   carved: ["size", "sheet", "pictures", "cells", "triangles"],
   mesh: ["size", "file", "triangles", "up", "turn"],
+  blob: ["pieces", "blend", "cells", "triangles"],
   turn: ["rings", "caps", "sides", "lining", "axis"],
   tube: ["path", "sides", "caps"],
   leaf: ["width", "height", "rows", "bend"],
@@ -144,6 +146,51 @@ function meshPart(part, readText, report, warnings) {
   if (stretch > 1.15)
     warnings.push(`${part.id}: fitted to ${part.size.join(" x ")} it is stretched ${Math.round((stretch - 1) * 100)}% more one way than another: give size its own proportions (${own.map((v) => Math.round((v / Math.max(...own)) * Math.max(...part.size))).join(" x ")} at that height), unless the generator got them wrong`);
   return fitted;
+}
+
+/**
+ * A blob part made: its pieces resolved to capsules and ellipsoids in model space (a span from joint to joint, an
+ * `at` round a joint or a point, a from-to), blended (blob.mjs), reduced to `triangles` (unless told, as many as a
+ * character's limb parts would have: 60 a piece), and given the part's own space. Its pieces stay on the part,
+ * resolved, for each corner's bone.
+ */
+function blobPart(part, skeleton, report) {
+  const names = skeleton ? [...skeleton.joints.keys()] : [];
+  const jointAt = (name, where) => {
+    const own = boneIn(name, names) ?? name;
+    const joint = skeleton?.joints.get(own);
+    if (!joint) throw new Error(`${part.id}.${where}: the base has no bone "${name}"`);
+    return { own, joint };
+  };
+  const plus = (p, o) => (o ? p.map((v, k) => v + o[k]) : p);
+  const resolved = part.pieces.map((piece, k) => {
+    const r = piece.radius;
+    if (piece.span) {
+      const [a, b] = piece.span.map((name, j) => jointAt(name, `pieces[${k}].span[${j}]`));
+      return { kind: "capsule", a: plus(a.joint, piece.offset), b: plus(b.joint, piece.offset), r: isNumber(r) ? [r, r] : [r[0], r[1] ?? r[0]], bone: piece.bone ?? a.own };
+    }
+    if (piece.from) return { kind: "capsule", a: piece.from, b: piece.to, r: isNumber(r) ? [r, r] : [r[0], r[1] ?? r[0]], bone: piece.bone ?? (skeleton ? nearestJoint(skeleton, piece.from) : "root") };
+    const at = typeof piece.at === "string" ? jointAt(piece.at, `pieces[${k}].at`) : null;
+    const c = plus(at ? at.joint : piece.at, piece.offset);
+    return { kind: "ellipsoid", c, r: isNumber(r) ? [r, r, r] : r.length === 3 ? r : [r[0], r[0], r[1]], bone: piece.bone ?? (at ? at.own : skeleton ? nearestJoint(skeleton, c) : "root") };
+  });
+  const made = blob(resolved, { cells: part.cells ?? 64, blend: part.blend ?? 3, target: part.triangles ?? Math.max(120, 60 * resolved.length) });
+  const lo = [0, 1, 2].map((k) => Math.min(...made.tris.flatMap((t) => t.map((c) => c.p[k]))));
+  const hi = [0, 1, 2].map((k) => Math.max(...made.tris.flatMap((t) => t.map((c) => c.p[k]))));
+  const at = [(lo[0] + hi[0]) / 2, (lo[1] + hi[1]) / 2, lo[2]];
+  const own = made.tris.map((t) => t.map((c) => ({ p: [c.p[0] - at[0], c.p[1] - at[1], c.p[2] - at[2]] })));
+  report.facts.push(`${part.id}: a blob of ${resolved.length} pieces blended over ${part.blend ?? 3} units, ${made.report.surfaced} triangles surfaced and reduced to ${made.report.triangles}; its corners on ${[...new Set(resolved.map((p) => p.bone))].length} bones`);
+  return { ...part, at, size: hi.map((v, k) => Math.max(0.01, v - lo[k])), carvedTris: own, blobPieces: resolved };
+}
+
+/** The joint of a skeleton nearest a point. */
+function nearestJoint(skeleton, p) {
+  let best = null;
+  for (const [name, joint] of skeleton.joints) {
+    const d = Math.hypot(...joint.map((v, k) => v - p[k]));
+    if (!best || d < best.d) best = { name, d };
+  }
+  return best.name;
 }
 
 /** How far the size may be off what the spec asks before it is warned of, and before it is an error. */
@@ -364,6 +411,28 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
         if (part.triangles !== undefined && !(Number.isInteger(part.triangles) && part.triangles >= 12)) errors.push(`${label}.triangles: how many it is reduced to, 12 or more`);
         if (part.cells !== undefined && !(Number.isInteger(part.cells) && part.cells >= 16 && part.cells <= 256)) errors.push(`${label}.cells: cells on its longest side, 16 to 256 (64)`);
         break;
+      case "blob":
+        if (!Array.isArray(part.pieces) || !part.pieces.length)
+          errors.push(`${label}.pieces: a list of pieces, each { span: [bone, bone], radius } (along a limb), { at: bone or [x, y, z], radius } (round a joint or a point: a number, or [x, y, z] for an egg), or { from: [x, y, z], to: [x, y, z], radius }`);
+        for (const [k, piece] of (part.pieces ?? []).entries()) {
+          const where = `${label}.pieces[${k}]`;
+          const radius = piece?.radius;
+          const okRadius = isNumber(radius) ? radius > 0 : Array.isArray(radius) && (radius.length === 2 || radius.length === 3) && radius.every((v) => isNumber(v) && v > 0);
+          if (!okRadius) errors.push(`${where}.radius: units over 0: a number, [start, end] along a span or from-to, or [x, y, z] round a point`);
+          const kinds = [piece?.span !== undefined, piece?.at !== undefined, piece?.from !== undefined].filter(Boolean).length;
+          if (kinds !== 1) errors.push(`${where}: one of span, at or from (with to)`);
+          if (piece?.span !== undefined && !(Array.isArray(piece.span) && piece.span.length === 2 && piece.span.every((b) => typeof b === "string"))) errors.push(`${where}.span: [from bone, to bone] of the spec's base`);
+          if ((piece?.span !== undefined || typeof piece?.at === "string") && !spec.base) errors.push(`${where}: bones are a base model's: give the spec a base, or place the piece by [x, y, z]`);
+          if (piece?.at !== undefined && typeof piece.at !== "string" && !isPoint(piece.at)) errors.push(`${where}.at: a bone of the base, or [x, y, z]`);
+          if (piece?.from !== undefined && !(isPoint(piece.from) && isPoint(piece.to))) errors.push(`${where}: from and to, each [x, y, z]`);
+          if (piece?.offset !== undefined && !isPoint(piece.offset)) errors.push(`${where}.offset: [x, y, z] in units, from where it is put`);
+          if (piece?.bone !== undefined && typeof piece.bone !== "string") errors.push(`${where}.bone: the bone its corners hang on`);
+        }
+        if (part.blend !== undefined && !(isNumber(part.blend) && part.blend >= 0 && part.blend <= 32)) errors.push(`${label}.blend: units over which pieces melt into each other, 0 to 32 (3)`);
+        if (part.cells !== undefined && !(Number.isInteger(part.cells) && part.cells >= 16 && part.cells <= 160)) errors.push(`${label}.cells: cells along its longest side, 16 to 160 (64)`);
+        if (part.triangles !== undefined && !(Number.isInteger(part.triangles) && part.triangles >= 12)) errors.push(`${label}.triangles: how many it is reduced to, 12 or more`);
+        for (const key of ["attach", "span", "rotate", "at", "mirror", "repeat"]) if (part[key] !== undefined) errors.push(`${label}.${key}: a blob is placed by its pieces, not moved as a whole`);
+        break;
       case "mesh":
         if (!isPoint(part.size) || part.size.some((v) => v <= 0))
           errors.push(`${label}.size: [x, y, z], the thing's length, width and height in units: the shape is fitted to it`);
@@ -582,6 +651,7 @@ function zoneSizeOf(part, hostOf) {
       const [x, y, z] = part.size;
       return [Math.max(1, z), Math.max(1, 2 * (x + y))];
     }
+    case "blob":
     case "mesh":
     case "carved": {
       // six patches, one for each way a face can look, three across and two down
@@ -698,6 +768,7 @@ function buildPart(part, M, S, zone, px, material, hostSurface, capZones = []) {
       });
       return { ends: [anchorOfBox(boxOf([corner(0), corner(7)]), "bottom"), anchorOfBox(boxOf([corner(0), corner(7)]), "top")] };
     }
+    case "blob":
     case "mesh":
     case "carved": {
       // the carved hull's triangles, each laid flat on the patch of the zone for the way it most faces: seen
@@ -1019,6 +1090,11 @@ function piecesOf(given, context) {
     };
     for (const part of spec.parts) {
       if (ON_SURFACE.has(part.kind)) continue;
+      // a blob's corners each on the bone of the piece nearest them: one surface over several bones
+      if (part.kind === "blob") {
+        for (const { mesh, i } of trianglesOf(part.id)) meshes[mesh].tris[i] = meshes[mesh].tris[i].map((c) => ({ ...c, bone: nearestPiece(part.blobPieces, c.p).bone }));
+        continue;
+      }
       const bone = boneOfPart(part);
       for (const { mesh, i } of trianglesOf(part.id)) meshes[mesh].tris[i] = meshes[mesh].tris[i].map((c) => ({ ...c, bone }));
     }
@@ -1245,6 +1321,16 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
       spec = { ...spec, parts: spec.parts.map((part) => (part.kind === "mesh" ? { ...part, carvedTris: meshPart(part, readText, report, warnings) } : part)) };
     } catch (error) {
       errors.push(`mesh: ${error.message}`);
+      return { mdl: null, report };
+    }
+  }
+  // blob parts: their pieces put on the base's joints (or at points), blended into one surface in model space, then
+  // held in the part's own space as a carved part is (centred on x and y, from z 0), its `at` putting it back
+  if (spec.parts.some((part) => part.kind === "blob")) {
+    try {
+      spec = { ...spec, parts: spec.parts.map((part) => (part.kind === "blob" ? blobPart(part, skeleton, report) : part)) };
+    } catch (error) {
+      errors.push(`blob: ${error.message}`);
       return { mdl: null, report };
     }
   }
