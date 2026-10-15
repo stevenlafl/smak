@@ -17,6 +17,7 @@ import { runAgent, runJudge, failedByMeasure } from "./agents.mjs";
 import * as smak from "../../src/index.mjs";
 import { tile, render, framing, strip } from "../../src/render.mjs";
 import { contractOf, compareContract } from "../../src/contract.mjs";
+import { HANDS } from "../../src/fit.mjs";
 import { measureSprite, againstClass, SPRITE_CLASSES } from "../../src/sprite/measure.mjs";
 import { sheetOf } from "../../src/sprite/draw.mjs";
 import { buildModelSpec } from "../../src/spec/model.mjs";
@@ -236,11 +237,25 @@ function sizeOff(asked, size) {
   return offs.length ? round(Math.max(...offs), 3) : null;
 }
 
-async function judgeModelAsset(kind, label, src, dir, { asked, list, extra = {}, extraPictures = "" }) {
+/**
+ * A weapon's size as it is drawn in first person, its hands left out: Valve's world models are drawn about twice
+ * life size for small things (a Glock 15 units, the .357 28), so a brief's real length is held against the
+ * first-person model (Steven, 2026-10-15). Valve's crowbar measures 25.7 there.
+ */
+function weaponSizeIn(src) {
+  const points = [];
+  smak.dropTriangles(src, (t) => {
+    if (!HANDS.test(t.tex ?? "")) points.push(...t.p);
+    return false;
+  }, POSE);
+  return [0, 1, 2].map((k) => Math.max(...points.map((p) => p[k])) - Math.min(...points.map((p) => p[k])));
+}
+
+async function judgeModelAsset(kind, label, src, dir, { asked, list, extra = {}, extraPictures = "", sizeFrom }) {
   mkdirSync(dir, { recursive: true });
   const pictures = picturesOf(src, { size: 384 });
   savePng(join(dir, "sides.png"), tile(pictures.map((p) => p.picture), 5, pictures.map((p) => p.name)));
-  const { size } = boxOf(src);
+  const size = sizeFrom ?? boxOf(src).size;
   const line = lineupOf(src, list, dir, label);
   const triangles = trianglesOf(src);
   const [, median, q3] = PROP_MEDIAN.find(([under]) => Math.hypot(...size) < under);
@@ -264,7 +279,7 @@ async function judgeAll(which) {
   // props
   for (const p of ASSETS.props)
     jobs.push(async () => (has(p.file) ? judgeModelAsset("model", `${p.file}: ${p.what}`, readModel(join(made, p.file)), join(out, basename(p.file, ".mdl")), { asked: p.size, list: props }) : { kind: "model", label: p.file, missing: true, passes: false }));
-  // the weapon: measured on w_, seen in all three
+  // the weapon: measured on w_ but for its size (on v_, its hands left out), seen in all three
   jobs.push(async () => {
     if (!WEAPON_FILES.every(has)) return { kind: "weapon", label: "the wrench", missing: true, passes: false };
     const dir = join(out, "weapon");
@@ -275,7 +290,7 @@ async function judgeAll(which) {
     savePng(join(dir, "attack.png"), strip(v, { seq: attack, count: 8, cols: 4, view: "first", width: 240, height: 180 }));
     savePng(join(dir, "in-hand.png"), render(readModel(join(made, WEAPON_FILES[1])), { seq: 0, frame: 0, yaw: 35, pitch: 20, width: 384, height: 384 }));
     const weapons = readdirSync(join(GAME, "models")).filter((f) => /^w_.*\.mdl$/.test(f) && !/t\.mdl$/.test(f)).map((f) => ({ file: `models/${f}`, src: readModel(join(GAME, "models", f)) })).map((x) => ({ ...x, diagonal: Math.hypot(...boxOf(x.src).size) }));
-    return judgeModelAsset("weapon", `the wrench (${WEAPON_FILES.join(", ")}): ${ASSETS.weapon.what}`, readModel(join(made, WEAPON_FILES[2])), dir, { asked: { long: ASSETS.weapon.long }, list: weapons, extraPictures: `, ${dir}/first-person.png (this mod's first-person view left, the game's crowbar right, for where it sits), ${dir}/attack.png (its attack frame by frame) and ${dir}/in-hand.png (the model another player holds); sides.png and lineup.png show the w_ model` });
+    return judgeModelAsset("weapon", `the wrench (${WEAPON_FILES.join(", ")}): ${ASSETS.weapon.what}`, readModel(join(made, WEAPON_FILES[2])), dir, { asked: { long: ASSETS.weapon.long }, sizeFrom: weaponSizeIn(readModel(join(made, WEAPON_FILES[0]))), list: weapons, extraPictures: `, ${dir}/first-person.png (this mod's first-person view left, the game's crowbar right, for where it sits), ${dir}/attack.png (its attack frame by frame) and ${dir}/in-hand.png (the model another player holds); sides.png and lineup.png show the w_ model` });
   });
   // the enemy: its contract with the game's headcrab, and its motion
   jobs.push(async () => {

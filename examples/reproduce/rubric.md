@@ -277,3 +277,7 @@ walk test, not the game.
   of a size failed more than a quarter of Valve's own props of that size (a box 40 to 64 across: median 62, three
   quarters under 156) and the kit's own toilet. An original prop now fails M8 on triangles only past both twice the
   median and the third quartile. Haiku's pipe junction, valve wheel and wall lamp (388, 278, 172) fail either way.
+- **2026-10-15: a weapon's size on its first-person model.** Steven's call. Valve draws small world models about
+  twice life size (a Glock 15 units, the .357 28, the crowbar 43), so the brief's real length is now held against
+  the weapon in its first-person (`v_`) model, its hands left out: Valve's crowbar is 25.7 there. Haiku's wrench,
+  18 asked, measures 19.1 there and 44 in the world.
