@@ -314,8 +314,8 @@ Every take's line is in `~/stignored/music-review/<run>/takes/measures.json`. Wh
 
 Four-minute tracks (240 s, 2026-10-15, three seeds of two EDM prompts on each model; `music-prompts-edm-a.json`,
 `-edm-b.json`): XL 20.3 to 27.2 s a track (the first of a load the slowest) after a 164 to 177 s load, peak 11.6
-GB; the 2B 10.4 to 12.1 s after 44 to 64 s, peak 7.3 GB. Time grows about as the length does: a 240 s track
-costs twice a 75 s one, not three times.
+GB; the 2B 10.4 to 12.1 s after 44 to 64 s, peak 7.3 GB. Time grows slower than the length: 3.2 times the
+length costs XL about 1.7 times and the 2B about 2.6 times what a 75 s track does.
 
 "Peak VRAM" is what torch allocated; the runtime and the desktop take 2 to 3 GB more of the 16. ACE-Step's 2B
 makes music about twenty times faster than real time here; MusicGen at about half real time.
