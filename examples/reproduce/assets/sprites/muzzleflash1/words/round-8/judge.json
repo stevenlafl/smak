@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "muzzleflash1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 2,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 2,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.02,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.95,
+     "last": 1
+    },
+    "dark": 0.76,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 2,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 2,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.98,
+     "last": 1
+    },
+    "dark": 0.83,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 5.2,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are the same effect: a five-pointed star flash with a bright core and soft rays, the look of a muzzle flash. The reproduction is softer and less spiky, but it is still a muzzle flash."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 64 x 64 with the effect centred and no border spill (border max 0.02 and 0). Visually, though, the original's rays run out to near the frame edges, while the reproduction's are shorter and stop about 10 to 20% short, so the effect fills the frame less than the original does."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured mean colour difference is 5.2, well under the line of 15. Both have a white-gold core and warm rays. The original's rays look somewhat more orange and the reproduction's more pale gold, a slight hue shift that the measurement already covers."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both have two frames (matching count), and both peak at frame 1 (peakAt 1, last 1 in both). The first-frame envelope is 0.95 in the original and 0.98 in the reproduction, close. Neither ends dark, so the one-shot/loop behaviour matches. The motion is subtle in both pictures and the reproduction does not clearly differ in kind."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type parallel and format additive match, size 64 x 64 and frame count 2 match, sameName is true and readsBack is true."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

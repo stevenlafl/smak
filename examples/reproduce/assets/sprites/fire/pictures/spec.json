@@ -10,65 +10,22 @@
         32,
         96
       ],
-      "frames": 15,
-      "loop": false,
+      "frames": 14,
+      "loop": true,
       "fps": 10,
       "origin": "bottom",
       "layers": [
         {
           "kind": "fire",
-          "ramp": [
-            [
-              0,
-              [
-                0,
-                0,
-                0
-              ]
-            ],
-            [
-              0.3,
-              [
-                0.45,
-                0.08,
-                0.02
-              ]
-            ],
-            [
-              0.6,
-              [
-                0.9,
-                0.35,
-                0.06
-              ]
-            ],
-            [
-              1,
-              [
-                1,
-                0.8,
-                0.45
-              ]
-            ]
-          ],
-          "width": 1,
-          "rise": 1.6,
-          "height": 2.6,
-          "taper": 0.2,
-          "tongues": 0.5,
-          "turbulence": 0.5,
-          "mask": {
-            "from": "reference",
-            "low": 0.01,
-            "high": 0.05
-          }
+          "ramp": "fire",
+          "width": 1.1,
+          "height": 2.4,
+          "taper": 0.1,
+          "tongues": 0.6,
+          "gain": 0.7
         }
       ],
-      "reference": {
-        "picture": "pictures/frames.png",
-        "cell": 32,
-        "cols": 8
-      }
+      "reference": "pictures/frames.png"
     }
   ]
 }

@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "glow01",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.47,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.45,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 2.7,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both frames show the same effect: a single soft radial glow, brightest at the centre and fading to a dark background. Nothing extra or missing is visible."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are 64 x 64 and the glow fills the frame in the same way, reaching the same falloff radius. The measured border is 0 in both, so the glow does not spill past the edge."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mean frame colour differs by a CIE76 delta E of 2.7, well under the 15 line. The dark fraction is 0.47 in the original and 0.45 in the reproduction, so the brightness distribution matches closely."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both have 1 frame, matching the original's count, and both are a static glow with no motion to differ. The envelope measures agree (peak at frame 0, first and last both 1). No loop or one-shot ending applies to a single frame."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type is parallel and format is additive in both, the name matches (sameName true), and the file reads back (readsBack true)."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

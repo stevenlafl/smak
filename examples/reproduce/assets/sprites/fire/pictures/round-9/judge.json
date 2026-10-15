@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "fire",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.275,
+     "mean": 0.028
+    },
+    "envelope": {
+     "peakAt": 0.07,
+     "first": 0.9,
+     "last": 0.84
+    },
+    "dark": 0.42,
+    "wrap": 1.13,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.27,
+     "mean": 0.019
+    },
+    "envelope": {
+     "peakAt": 0.21,
+     "first": 0.89,
+     "last": 0.89
+    },
+    "dark": 0.47,
+    "wrap": 0.9,
+    "jitter": 1.58
+   }
+  },
+  "meanColourDeltaE": 12.8,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both sheets show a rising flame in the same position in every frame, with the same flicker and the same tall, tapering shape. The reproduction is the same effect as the original."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are 32 x 96. The flame fills the frame height in both, and the border measures agree (max 0.275 vs 0.27, mean 0.028 vs 0.019), so the effect fills the frames as the original's does."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The frames' colour difference is 12.8, under the line of 15. Both are orange-yellow at the base and fade to dark at the top. The dark-pixel share is close (0.42 vs 0.47)."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count matches (15). The motion is the same kind, a flicker that rises and fades, but the envelope peak is clearly off: the original peaks at 0.07 of the sequence and the reproduction at 0.21, about two frames later. The wrap seam also differs (1.13 vs 0.9), so the loop closure is not shown to match. Jitter is close (1.51 vs 1.58)."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are additive, the same parallel-oriented type, the same name, and the reproduction reads back as written."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

@@ -1,18 +1,33 @@
-The sprite is built and written as `sprites/xspark1.spr` in the work folder, with `-sheet.png` and `-animated.png` beside it. The build says OK, but one warning remains: the shape overlap with the original is 0.71 against the 0.8 bar, so it is not fully close yet.
+The sprite builds OK: `work:sprites/xspark1.spr`, with `-sheet.png` and `-animated.png` beside it. The build's warnings remain, so it is close to the original but not a match on every measure.
 
-**What it is:** a cyan-blue glow with a bright white core and soft lobes that shift from frame to frame, like the original's. The class is `glow`, used as an `env_sprite`, so it plays at 10 frames a second with render mode 5 (additive).
+**What it is:** a soft, flickering cyan spark glow with a white hot centre. It uses the `glow` class, `env_sprite` use, and the `blobs` layer, which places soft discs afresh each frame so the flicker has no motion to follow.
 
-**Shape, size and frames:** 32 by 32 pixels, parallel to the camera, centred. It has 11 frames: 10 written plus the first again at the end, so the loop wraps cleanly and the original's 11 frames match.
+**Shape and size:** 32x32 pixels, centred origin. The lit cloud fills most of the frame, with a dark rim, and no square edge (the edge is faded with `finish: edge 2`).
 
-**Colours:** a ramp from black through deep blue (0, 0.275, 0.784) and cyan (0.157, 0.784, 1) to near-white at the core. Mean colour difference from the original is 12.7 (bar 15). Dark share is 0.51 against the original's 0.46, which is inside the 0.05 bar.
+**Colours:** a ramp from black through deep blue and cyan to white at the centre. A faint halo layer in a dark cyan (0, 0.45, 0.65) fills the frame outside the core.
 
-**Format:** type `parallel`, format `additive` (black is clear), border dark, as the original.
+**Frames and motion:** 11 frames, written as a loop of 10 with its first frame repeated at the end, so the wrap is smooth (wrap 1.2 against a limit of 2.5). Playback is 10 fps. The frame rate is my guess: the original's timing is not in `facts.txt`, so check it against the original if it matters.
 
-**Build history:** I went through about nine builds. The main changes were:
-- Using 10 frames with a loop, not 11 frames, because the loop writes the first frame back in.
-- Replacing the blue ramp with a cyan-to-white ramp, which brought the colour difference from 22.5 down to 12.7.
-- Setting the glow layer's outline to follow each of the original's frames (`mask: "reference"`), lowered 2 to 3 pixels to match the core's position.
+**Type and format:** `parallel` and `additive`, as the original.
 
-**What is still off:** the shape overlap stayed between 0.66 and 0.71 in every variant. The glow follows the original's outline, but the blob layer adds random lobes that spill past it, and removing them made the sprite a static disc (overlap 0.42). I could not get past 0.71 without losing the shape or the dark share.
+**Measured against the original (the report's figures):**
 
-**Disclosure:** the glow layer's outline is traced from the original's contact sheet by the `mask: "reference"` setting. That is the tool's documented way to match a shape to a reference, and you asked for the closest match, but it means the outline comes from the original rather than being built from scratch.
+| Measure | Original | Mine | Bar |
+| --- | --- | --- | --- |
+| Colour difference | — | 2.7 | 15 or under |
+| Share that is dark | 0.46 | 0.51 | within 0.05 |
+| Shape overlap, frame by frame | — | 0.72 | 0.8 |
+| Brightest frame's position | 1 (last) | 0.3 | should match |
+| Border light | 0.145 | 0.044 | — |
+
+**Still open:**
+- **Shape overlap (0.72, under the 0.8 bar):** the original's blobs sit in a different arrangement in each frame. I widened them, but the overlap plateaued around 0.72–0.73. Closing this needs the blob placement itself to match, which the layer does not do.
+- **Brightest frame:** the report puts the original's peak at its last frame and mine at 30% through the loop. Moving the envelope to fix that made the loop jump and start faint, so I reverted it. The flicker sets the peak here, not a fixed envelope.
+
+The spec used for the final build (rebuild with this if the file is lost):
+
+```json
+{"spec":"smak.sprite/1","sprites":[{"name":"sprites/xspark1.spr","class":"glow","use":"env_sprite","size":[32,32],"frames":10,"loop":true,"fps":10,"type":"parallel","format":"additive","origin":"centre","finish":{"edge":2},"reference":"pictures/frames.png","layers":[{"kind":"blobs","count":9,"radius":0.34,"spread":0.6,"core":0.35,"soft":0.6,"ramp":[[0,[0,0,0]],[0.3,[0,0.235,0.353]],[0.6,[0,0.588,0.824]],[0.85,[0.549,0.941,1]],[1,[1,1,1]]]},{"kind":"glow","radius":1,"core":0.4,"gain":0.7,"colour":[0,0.45,0.65]}]}]}
+```
+
+I did not copy the `.spr` into the Packages example folder; it is only in the server's work folder. Tell me if you want it placed there.

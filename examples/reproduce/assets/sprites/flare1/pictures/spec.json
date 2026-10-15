@@ -5,43 +5,48 @@
       "name": "sprites/flare1.spr",
       "class": "flare",
       "use": "env_sprite",
+      "type": "parallel",
+      "format": "additive",
       "size": [
         64,
         64
       ],
       "frames": 1,
-      "type": "parallel",
-      "format": "additive",
-      "finish": "edge",
+      "origin": "centre",
       "reference": "pictures/frames.png",
+      "finish": "edge",
       "layers": [
         {
           "kind": "glow",
           "radius": 0.95,
-          "core": 0.35,
+          "core": 0.5,
+          "falloff": "smooth",
           "colour": [
-            0.7,
-            0.5,
-            0.78
+            1,
+            0.62,
+            0.85
           ],
-          "falloff": "power",
-          "power": 2
+          "at": [
+            0,
+            0
+          ],
+          "gain": 0.7
         },
         {
-          "kind": "flare",
+          "kind": "glow",
+          "radius": 0.6,
           "core": 0.3,
+          "falloff": "power",
           "colour": [
             1,
-            1,
-            1
+            0.92,
+            0.97
           ],
-          "rays": {
-            "count": 48,
-            "length": 0.9,
-            "jitter": 0.5,
-            "width": 0.012,
-            "gain": 0.35
-          }
+          "at": [
+            0,
+            0
+          ],
+          "gain": 1
         }
       ]
     }

@@ -1,0 +1,130 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/zerogxplode.spr",
+      "class": "explosion",
+      "use": "tempent",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 15,
+      "type": "parallel",
+      "format": "additive",
+      "reference": "pictures/frames.png",
+      "layers": [
+        {
+          "kind": "billow",
+          "count": 30,
+          "spread": 0.7,
+          "size": 0.4,
+          "gain": 0.55,
+          "ramp": [
+            [
+              0,
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            [
+              0.25,
+              [
+                0.25,
+                0.12,
+                0.03
+              ]
+            ],
+            [
+              0.5,
+              [
+                0.65,
+                0.42,
+                0.15
+              ]
+            ],
+            [
+              0.75,
+              [
+                0.92,
+                0.78,
+                0.45
+              ]
+            ],
+            [
+              1,
+              [
+                1,
+                0.98,
+                0.88
+              ]
+            ]
+          ],
+          "hot": 0.45,
+          "rise": 0.2,
+          "drift": 0.1,
+          "blend": 0.8,
+          "lumps": 0.5,
+          "dissolve": 0.1,
+          "cool": 0.95,
+          "debris": {
+            "count": 14,
+            "speed": 0.7,
+            "gravity": 0,
+            "trail": 0.1
+          },
+          "mask": "reference"
+        },
+        {
+          "kind": "explosion",
+          "ramp": "blast",
+          "growth": 1.2,
+          "cool": 0.6,
+          "turbulence": 0.6,
+          "gain": 0.2,
+          "mask": "reference"
+        },
+        {
+          "kind": "glow",
+          "radius": 1.6,
+          "falloff": "power",
+          "core": 0.8,
+          "colour": [
+            0.3,
+            0.17,
+            0.06
+          ],
+          "gain": 2.5,
+          "env": {
+            "attack": 0.95,
+            "decay": 0.01
+          },
+          "mask": {
+            "from": "reference",
+            "low": 0.01,
+            "high": 0.05
+          }
+        },
+        {
+          "kind": "glow",
+          "radius": 1.2,
+          "falloff": "power",
+          "core": 0.6,
+          "colour": [
+            1,
+            0.93,
+            0.75
+          ],
+          "gain": 0.25,
+          "env": {
+            "attack": 0.05,
+            "decay": 0.1
+          },
+          "mask": "reference"
+        }
+      ]
+    }
+  ]
+}

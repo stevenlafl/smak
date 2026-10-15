@@ -1,30 +1,36 @@
-The sprite is built and the build says **OK** with no warnings: `sprites/laserbeam.spr` in the work folder, with `-sheet.png` and `-animated.png` beside it.
+The sprite is built and the build says OK with no warnings. It is written to `work:sprites/laserbeam.spr`, with `-sheet.png` and `-animated.png` beside it.
 
-**Spec used** (`smak.sprite/1`):
+**What it is:** a flat-profile beam, 32x64, one frame, parallel to the camera, additive (black is clear), centred. The class is `beam` and the use is `beam`, so the engine tiles it along its length. The build places it as render mode 5 (Additive).
 
+**The spec:**
 ```json
-{"spec":"smak.sprite/1","sprites":[{"name":"sprites/laserbeam.spr","class":"beam","use":"beam","type":"parallel","format":"additive","size":[32,64],"frames":1,"reference":"pictures/frames.png","layers":[{"kind":"beam","profile":"flat","core":0.5,"shoulder":0.3,"noise":0.3,"colour":[0.85,0.9,1]}]}]}
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    { "name": "sprites/laserbeam.spr", "class": "beam", "use": "beam", "size": [32, 64], "frames": 1,
+      "type": "parallel", "format": "additive", "origin": "centre", "reference": "pictures/frames.png",
+      "layers": [{ "kind": "beam", "core": 0.6, "shoulder": 0.5, "streaks": 0.3, "colour": [0.8, 0.88, 1], "profile": "flat" }] }
+  ]
+}
 ```
 
-**What it is and how it matches the original:**
+**Measured against the original (the report's own numbers):**
 
-| Measure | Original | Mine |
+| Measure | Original | Ours |
 | --- | --- | --- |
-| Size, frames | 32x64, 1 frame | 32x64, 1 frame |
-| Type, format | parallel, additive | parallel, additive (render mode 5) |
-| Mean colour (delta E, 15 or under is near) | reference | 8.9 |
-| Dark share (near = within 0.05) | 0.02 | 0.06 |
-| Border brightness, mean | 0.251 | 0.235 |
-| Shape overlap, frame 0 (judge's bar 0.8) | | 0.94 |
+| Mean colour delta E (15 or under is near) | — | 11 |
+| Share dark (0.05 is near) | 0.02 | 0 |
+| Border brightest | 0.914 | 0.91 |
+| Border mean | 0.251 | 0.352 |
+| Frames | 1 | 1 |
+| Shape overlap, frame 0 (bar 0.8) | — | 0.89 |
+| Pixels over 0.7 in the frame | 1064 | 577 |
 
-- **Shape:** a flat beam, full width, with a bright core in the middle and softer shoulders to each edge, lit across the whole frame like the original.
-- **Colour:** a pale blue-white.
-- **Frames and motion:** one frame, no animation, since the original has one.
-- **Type and format:** `use: beam`, so it tiles along its length when placed as a beam.
+**Decisions to check:**
+- I picked the colour and shape values by eye from the contact sheet and then tuned them against the report. I did not measure the original's pixels directly, so the colour is an estimate that the delta E of 11 supports.
+- The first attempt (core 0.3, no shoulder) failed on colour, darkness, and shape. Widening the flat core and shoulder fixed it.
+- The `streaks` value (0.3) gives the mottling the reference shows. I did not test other values.
 
-**Judgement calls to check:**
-- The facts file gives only size, type and format, so `use: beam` and `class: beam` are my reading of a file called laserbeam, not something the original states.
-- The noise and colour values were tuned against the original's measures, not copied from it.
-- The original's dark share is 0.02 and mine is 0.06. Both are near-black pixels in the same small range, so this is within the bar, but it is the one measure I'd tighten first if you want it closer.
-
-I couldn't open the original's files directly from here (the reference was only reachable through the kit), so the comparison rests on the kit's measurements of `pictures/frames.png`, not a side-by-side look at the pixels.
+**Limits:**
+- The work folder is on the server, so I could not list or open its pictures directly. I read the original from `.../laserbeam/input/frames.png` and used it as the `reference`. Its `facts.txt` matches the 32x64, one frame, parallel, additive description.
+- The middle is a little less bright than the original (577 pixels over 0.7 against 1064). The build gave no warning for it, so I stopped tuning there.

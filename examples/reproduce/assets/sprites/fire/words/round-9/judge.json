@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "fire",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.275,
+     "mean": 0.028
+    },
+    "envelope": {
+     "peakAt": 0.07,
+     "first": 0.9,
+     "last": 0.84
+    },
+    "dark": 0.42,
+    "wrap": 1.13,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.014,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0.64,
+     "first": 0.88,
+     "last": 0.88
+    },
+    "dark": 0.76,
+    "wrap": 0.69,
+    "jitter": 1.65
+   }
+  },
+  "meanColourDeltaE": 9.6,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are a flame: a column of orange-yellow fire rising from the bottom of each frame, with the same tapering tongues. The effect is the same."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 32x96 and the frame count matches, but the reproduction's flame does not fill its frames as the original's does. The original's flame reaches the top edge in most frames (border max 0.275). The reproduction's flames are short and narrow with a dark gap above them (border max 0.014), and frames 0, 7 and 8 are small stubs at the bottom."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The hues are the same orange and yellow, and the measured mean colour difference (9.6) is under 15. But the reproduction is much darker overall (dark 0.76 against 0.42). Its brightest part sits at the flame's base, while the original's brightness is spread up the body. Its frames look dimmer and less saturated through the body, so the colour as the engine blends it is not the same."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frame count is 15, as the original's. The motion does not match. The original's flames keep a steady full height with a flicker (envelope peak at 0.07, first 0.9, last 0.84). The reproduction's flame swells and shrinks through the sequence, peaking at 0.64, with its smallest frames at 0, 7 and 8. Its loop does not close the way the original's does (first 0.88 and last 0.88 match, but the shape between them does not). Jitter is close (1.65 against 1.51). Must-have short, so 1."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type and format are both additive, as the original's. The name matches (sameName true) and the file reads back (readsBack true)."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "laserbeam",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     32,
+     64
+    ],
+    "border": {
+     "max": 1,
+     "mean": 0.261
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.02,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     32,
+     64
+    ],
+    "border": {
+     "max": 1,
+     "mean": 0.179
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.27,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 1.2,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both pictures show the same effect, a bright vertical laser beam with a soft blue-grey halo. Nothing in either reads as a different effect."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 32 by 64 with one frame, but the effect does not fill the frame the same way. The original's glow runs to the left and right edges (border mean 0.261, dark 0.02). The reproduction has a dark band of about 27% of its pixels (border mean 0.179), so its halo fades out before the frame edge. That is clearly off, though the beam itself is in place."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured mean colour difference is 1.2 CIE76 delta E, far under the 15 line. The core and halo colours look the same in both pictures."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frame count matches (1 each), and a single static beam has no visible loop or motion to compare. But the measured darkness differs a lot (original 0.02, reproduction 0.27), so the reproduction ends darker than the original where the original is fully lit. The picture shows that gap as dark side bands in the reproduction. That is clearly off on the measure."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are additive, same name, and readsBack is true. Nothing in the format or the read-back is wrong."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

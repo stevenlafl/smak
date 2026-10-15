@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "fire",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.275,
+     "mean": 0.028
+    },
+    "envelope": {
+     "peakAt": 0.07,
+     "first": 0.9,
+     "last": 0.84
+    },
+    "dark": 0.42,
+    "wrap": 1.13,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.115,
+     "mean": 0.005
+    },
+    "envelope": {
+     "peakAt": 0.86,
+     "first": 0.92,
+     "last": 0.92
+    },
+    "dark": 0.6,
+    "wrap": 0.67,
+    "jitter": 1.69
+   }
+  },
+  "meanColourDeltaE": 13.3,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are the same effect: a flame rising from the base in each frame, tapering to flickering tips. The original's flame is ragged and stacked; the reproduction's reads as a flame too."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frames are 32 x 96 as the original's are, but the effect fills them less. The original's flames reach the top edge of most frames and fill the width; the reproduction's are narrower, end lower, and leave dark space above the tips."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured mean colour difference of 13.3 is under the line of 15, but the picture shows a visible hue shift the mean hides. The reproduction's cores are yellow-white and its frames read brighter at the base, where the original is orange-red and darker. The judge scores lower than the measure allows, so this is a 1."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frame count matches (15 against 15) and both flicker, so the kind of motion is right. The loop differs: the original's envelope peaks early (0.07) and the reproduction's late (0.86), and the reproduction's brightness rises through the second half of the sequence where the original's does not. The wrap measure is 1.13 against 0.67, so the reproduction's wrap is not what the original's is, and the one-shot/loop check is not clean."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type (parallel oriented) and format (additive) match the original, the name matches, and the file reads back as written. Nothing wrong with the file itself."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

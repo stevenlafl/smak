@@ -46,20 +46,20 @@
      64
     ],
     "border": {
-     "max": 0.029,
-     "mean": 0
+     "max": 0.361,
+     "mean": 0.001
     },
     "envelope": {
      "peakAt": 0.43,
-     "first": 0.22,
+     "first": 0,
      "last": 0
     },
-    "dark": 0.7,
-    "wrap": 1.27,
-    "jitter": 1.19
+    "dark": 0.78,
+    "wrap": 0.06,
+    "jitter": 1.57
    }
   },
-  "meanColourDeltaE": 4.3,
+  "meanColourDeltaE": 9,
   "sameName": true,
   "readsBack": true
  },
@@ -74,34 +74,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Both are a fire blast that swells and fades, but the reproduction reads as a solid, crusty, rock-like lump with hard cracks and no sparks or drifting debris. The original is a billowing fireball with flying sparks around it, so the effect is recognisably different."
+   "reason": "Both are an explosion: a bright core that grows, then cools to brown. The reproduction lacks the original's flying spark dots at every frame. Its frame 0 is blank where the original shows a small flash, and frames 13 and 14 nearly vanish, so the effect reads as a lumpy cloud more than the original's fireball."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both are 64 x 64 and the effect fills the frames. The shape differs: the original is a tall, billowing cloud with a dark ragged edge, while the reproduction is a compact blob. Frame 0 is a small disc in the original but already a large bright blob in the reproduction, and the original's border reaches the edge (border max 0.818 against 0.029)."
+   "reason": "Both are 64 x 64 frames, but the effect fills them differently. The original's blast swells to a broad, rounded bloom by frames 2 to 4 and keeps its width. The reproduction starts smaller, stays a narrower, ragged shape, and its frame 0 is empty."
   },
   "R3": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "The measured mean colour difference is 4.3, well under 15. Visually the hues match: white-hot centres, yellow-orange, then dark red-brown. The reproduction's late frames run a little more tan and dull than the original's glowing ember tones, but the measure governs and that gap is minor."
+   "score": 1,
+   "reason": "The early frames match: a white-hot core. From frame 8 on, the reproduction turns pale khaki or olive-tan where the original stays deep orange-brown, and its fade looks paler. The measured mean colour difference of 9 is within 15, but it averages away this visible drift in the later frames, so the score is held at 1."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Frame count matches (15). Both grow and then fade to dark by the end (last 0.03 and 0). The onset is wrong, though: the original starts small and rises to a peak around frame 2 to 3 (first 0.08, peak at 0.36), while the reproduction starts bright and large (first 0.22, peak at 0.43) and is already at full size by frame 1, so the rise is missing."
+   "reason": "The count matches at 15 frames, and both grow then fade. The original's first frame has a small flash (first 0.08) and its last frame keeps a faint glow (last 0.03), so it ends near-dark rather than fully dark. The reproduction is dark at both ends (first 0, last 0) and fades out early, going blank by frame 13. Its jitter is higher (1.57 against 1.25), so its shape flickers more across frames, and the peak falls at 0.43 against the original's 0.36."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured as additive in both, with the same name and size, sameName true, and readsBack true. The format matches the original."
+   "reason": "The type and format are both additive, the name is the same (sameName true), and it reads back as written (readsBack true). Nothing in the measurements or the pictures shows a fault here."
   }
  },
- "total": 7,
+ "total": 6,
  "of": 10,
  "passes": false
 }

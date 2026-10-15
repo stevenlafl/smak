@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "steam1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.341,
+     "mean": 0.002
+    },
+    "envelope": {
+     "peakAt": 0.4,
+     "first": 0.04,
+     "last": 0.03
+    },
+    "dark": 0.64,
+    "wrap": 0.5,
+    "jitter": 1.1
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.231,
+     "mean": 0.004
+    },
+    "envelope": {
+     "peakAt": 0.33,
+     "first": 0.17,
+     "last": 0
+    },
+    "dark": 0.65,
+    "wrap": 1.07,
+    "jitter": 1.08
+   }
+  },
+  "meanColourDeltaE": 1,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are the same effect: a smoke puff that grows, rises and thins out, with a trailing lower part in the later frames. The reproduction's clouds are blockier and less wispy, but they read as the same smoke."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 32x48 and the effect fills the frames similarly in the middle frames. But the original starts as a small speck in the upper-left and grows into the frame, while the reproduction is already a sizeable cloud at frame 0 (first 0.17 against 0.04). The original's downward tail is also thinner and less defined in the reproduction."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both sit on the same mid-grey with a light-grey to white body that dims in the later frames. Dark (0.64 against 0.65) matches, and the frames' tones look within a close band of each other. Nothing in the pictures shows a colour gap of 15 or more."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both have 16 frames and both end dark (last 0.03 against 0). But the motion is off: the original grows from a speck and peaks at 0.4, while the reproduction starts large and peaks earlier at 0.33. Its wrap is 1.07 against the original's 0.5, so it does not close the way the original's does. Jitter (1.1 against 1.08) matches."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type (parallel oriented) and format (index alpha) match the original. The name is the same and the file reads back as written (sameName true, readsBack true)."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

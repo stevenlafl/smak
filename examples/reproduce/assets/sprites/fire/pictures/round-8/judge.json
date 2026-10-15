@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "fire",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.275,
+     "mean": 0.028
+    },
+    "envelope": {
+     "peakAt": 0.07,
+     "first": 0.9,
+     "last": 0.84
+    },
+    "dark": 0.42,
+    "wrap": 1.13,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.111,
+     "mean": 0.007
+    },
+    "envelope": {
+     "peakAt": 0.71,
+     "first": 0.9,
+     "last": 0.9
+    },
+    "dark": 0.45,
+    "wrap": 0.72,
+    "jitter": 1.71
+   }
+  },
+  "meanColourDeltaE": 8.7,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are a rising flame: a column of orange fire that brightens at the base and thins toward the tip, with the same flickering look across the 15 frames. The effect is the same."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frames are 32 by 96, matching the original. The fill differs: in the reproduction the bright flame runs up to the top edge of each frame and looks cut off there, while the original's tips taper and dim well before the top. The measures agree: border 0.111 max against 0.275, and the envelope peak sits at 0.71 against 0.07."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The mean colour difference is 8.7, under the line of 15. Both are the same orange-to-yellow blend over a dark background, and the dark share is close (0.45 against 0.42)."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frame count matches (15), and the loop closes: the first and last envelope values are both 0.9, and the original's last is 0.84. But the brightness peak is in a different place (0.71 against 0.07), so the motion's shape over time differs from the original's. The reproduction also looks taller and more upright. Jitter is close (1.71 against 1.51), so the flicker itself is roughly right."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type (parallel oriented) and format (additive) match the original, the name is the same, and the file reads back as written."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "zerogxplode",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.818,
+     "mean": 0.005
+    },
+    "envelope": {
+     "peakAt": 0.36,
+     "first": 0.08,
+     "last": 0.03
+    },
+    "dark": 0.73,
+    "wrap": 0.81,
+    "jitter": 1.25
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.305,
+     "mean": 0.002
+    },
+    "envelope": {
+     "peakAt": 0.5,
+     "first": 0.05,
+     "last": 0.02
+    },
+    "dark": 0.76,
+    "wrap": 0.7,
+    "jitter": 1.62
+   }
+  },
+  "meanColourDeltaE": 14,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are the same effect: a bright puff that swells from a small core, throws off sparks, then cools to a dark, smoky ember. Nothing in the reproduction reads as a different effect."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are 64x64 frames, and the effect fills them in the same way: the central cloud is about the same size and sits in the same place, with the same stray sparks at its edges. Shape holds across the sequence."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The colours are clearly off. The original has a white-hot core in frames 2 to 7 and saturated yellow-orange with dark red edges later. The reproduction is greyer and more tan or beige, with no white-hot core, and its later frames are a dull light brown rather than gold. The frames' mean colour is not given in the measurements, so this rests on the pictures alone."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frame count matches at 15 and the one-shot ends dark (last 0.02 against 0.03). The envelope is slower to peak: the original peaks at 0.36 of its length (about frame 5) and the reproduction at 0.5 (about frame 7). In the pictures the original is already at full size by frame 2 and the reproduction is still building there. The kind of motion is right, but the growth timing is measurably off."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The format is additive, as the original's is, the name matches, and the file reads back as written (sameName true, readsBack true)."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

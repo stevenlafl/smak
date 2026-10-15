@@ -1,0 +1,134 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/zerogxplode.spr",
+      "class": "explosion",
+      "use": "tempent",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 15,
+      "loop": false,
+      "fps": 15,
+      "type": "parallel",
+      "format": "additive",
+      "origin": "centre",
+      "finish": {
+        "edge": 3
+      },
+      "layers": [
+        {
+          "kind": "billow",
+          "at": [
+            -0.05,
+            0
+          ],
+          "count": 28,
+          "spread": 0.5,
+          "size": 0.3,
+          "growth": 1,
+          "rise": 0.3,
+          "drift": 0.05,
+          "blend": 0.4,
+          "lumps": 0.55,
+          "ramp": [
+            [
+              0,
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            [
+              0.15,
+              [
+                0.235,
+                0.098,
+                0.031
+              ]
+            ],
+            [
+              0.3,
+              [
+                0.51,
+                0.216,
+                0.059
+              ]
+            ],
+            [
+              0.45,
+              [
+                0.745,
+                0.431,
+                0.137
+              ]
+            ],
+            [
+              0.6,
+              [
+                0.882,
+                0.647,
+                0.275
+              ]
+            ],
+            [
+              0.75,
+              [
+                0.961,
+                0.843,
+                0.549
+              ]
+            ],
+            [
+              0.88,
+              [
+                1,
+                0.941,
+                0.784
+              ]
+            ],
+            [
+              1,
+              [
+                1,
+                1,
+                1
+              ]
+            ]
+          ],
+          "hot": 0.4,
+          "cool": 1,
+          "dissolve": 0.6,
+          "debris": {
+            "count": 18,
+            "speed": 0.7,
+            "gravity": 0.3,
+            "trail": 0.05
+          },
+          "env": {
+            "attack": 0.02,
+            "decay": 0.35
+          }
+        },
+        {
+          "kind": "glow",
+          "at": [
+            -0.12,
+            0.05
+          ],
+          "radius": 0.14,
+          "core": 0.05,
+          "gain": 1,
+          "ramp": "fire",
+          "env": {
+            "attack": 0,
+            "decay": 1
+          }
+        }
+      ]
+    }
+  ]
+}

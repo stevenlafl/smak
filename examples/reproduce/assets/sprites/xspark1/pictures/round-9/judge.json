@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "xspark1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    32
+   ],
+   "frames": 11,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 11,
+    "size": [
+     32,
+     32
+    ],
+    "border": {
+     "max": 0.145,
+     "mean": 0.004
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.94,
+     "last": 1
+    },
+    "dark": 0.46,
+    "wrap": 1.61,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    32
+   ],
+   "frames": 11,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 11,
+    "size": [
+     32,
+     32
+    ],
+    "border": {
+     "max": 0.063,
+     "mean": 0.001
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.94,
+     "last": 1
+    },
+    "dark": 0.52,
+    "wrap": 1.22,
+    "jitter": 1.74
+   }
+  },
+  "meanColourDeltaE": 10.2,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Both are a blue-cyan glow with a white core, so the effect class matches. The original is a cluster of lobed puffs with dark gaps between them, which reads as sparks. The reproduction is a smoother, more diffuse glow with few lobes and no gaps, so it is clearly off in character."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 32 x 32 frames. The original's glow spills much closer to the frame edges (border max 0.145 against the reproduction's 0.063), e.g. frame 1 at the top and frame 10 at the bottom. The reproduction keeps the effect more inside the frame, so it does not fill the frames as the original does."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both use the same cyan-blue halo with a near-white centre, and the dark-background proportion is close (0.46 against 0.52). No colour difference is visible at this size, and the harness's measured mean colour is not given separately, so this is scored on the sheets as drawn."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both have 11 frames. The envelope is the same (peak at frame 1, first 0.94, last 1). The loop wrap is 1.22 against 1.61, and jitter is 1.74 against 1.51, both within about 25% of the original. The motion is the same kind of flicker and growth, and the measures agree, although the original's lobed motion looks busier by eye."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type and format are both additive, the name matches, and the harness reports that it reads back as written."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

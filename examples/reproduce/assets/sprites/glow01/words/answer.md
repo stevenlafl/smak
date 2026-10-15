@@ -1,15 +1,16 @@
-The sprite is built and the build says OK: `work:sprites/glow01.spr`, with `-sheet.png` and `-animated.png` beside it.
+The sprite is built and the build says OK: `work:sprites/glow01.spr`, with a sheet and an animated preview beside it.
 
-What it is, as specified:
-- **Size and frame:** 64 by 64 pixels, one frame, with no animation.
-- **Type and format:** parallel (faces the viewer flat), additive (black is clear), placed as an `env_sprite` in render mode 5 (Additive).
-- **Colour:** neutral white with no tint. My first build came out cream, so I set the glow colour to `[1, 1, 1]`. The palette has 55 colours and the quantising loss is 0.0037.
-- **Shape:** a single centred radial glow, no rays or noise. Its falloff is `power` 2 with a core of 0.3125 (10 pixels), so it sits at mid grey at 10 pixels and about 20% brightness at 20 pixels. Its reach is 32 pixels, so the corners and edges are pure black (border 0).
+The spec is `smak.sprite/1`, one sprite named `sprites/glow01.spr`:
 
-The build reports the glow is in range of Half-Life's own glow class (1 of 1). Its checks don't compare pixels against your original, because I was not given a reference picture. The 10, 20 and 30 pixel values come from the falloff formula, not from measuring the original, so a side-by-side judge may see small differences in the hot spot (I didn't tune its size to 4 to 6 pixels) and in the exact haze at 30 to 32 pixels. If you can send a picture of the original, I can set the spec's `reference` and tune against it.
+- **Class and use:** `glow`, placed as an `env_glow`. The build reports render mode 3 (Glow).
+- **Size and frames:** 64 by 64 pixels, 1 frame, no animation.
+- **Type and format:** `parallel` (faces the viewer flat), `additive` (black is clear).
+- **Origin:** centred.
+- **Shape:** two glow layers summed, both with power falloff (`1 / (1 + (r / core)^power)`):
+  - A tight core (`core` 0.08, power 4, about 5 pixels) for the near-white hot spot, about 4 to 6 pixels across.
+  - A broad halo (`core` 0.3125, power 2, gain 0.85) that gives about mid grey at 10 pixels, dim grey at 20, and fades to black by about 30 pixels (`radius` 0.94).
+- **Colour:** neutral white, `[1, 1, 1]`, no tint.
 
-The spec I used:
+The build's measurements: the border is 0.003 (brightest 0.024), so there is no square outline. The build also reports 117 colours with quantising loss of 0.0025. Against Half-Life's own glow it is in range (1 of 1).
 
-```json
-{"spec": "smak.sprite/1", "sprites": [{"name": "sprites/glow01.spr", "class": "glow", "use": "env_sprite", "size": [64, 64], "frames": 1, "type": "parallel", "format": "additive", "origin": "centre", "layers": [{"kind": "glow", "radius": 1.0, "core": 0.3125, "falloff": "power", "power": 2, "reach": 1.0, "colour": [1, 1, 1]}]}]}
-```
+I did not compare it side by side with the original. I only had the description, so the radii and grey levels come from calculating the falloff curve, not from measuring a real frame. The build's reference check needs the original's sheet, so the judge's shape and colour numbers were not run. If you can supply the original's sprite or a contact sheet of it, I can add it as a `reference` and tune the two layers against those numbers.

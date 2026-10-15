@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "steam1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.341,
+     "mean": 0.002
+    },
+    "envelope": {
+     "peakAt": 0.4,
+     "first": 0.04,
+     "last": 0.03
+    },
+    "dark": 0.64,
+    "wrap": 0.5,
+    "jitter": 1.1
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.51,
+     "mean": 0.002
+    },
+    "envelope": {
+     "peakAt": 0.53,
+     "first": 0.12,
+     "last": 0
+    },
+    "dark": 0.76,
+    "wrap": 0.78,
+    "jitter": 1.3
+   }
+  },
+  "meanColourDeltaE": 9.5,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Both are a puff of smoke that swells and fades, so the effect is the same kind. The reproduction reads as solid white lumps, though. The original has grainy, wispy edges and a tail trailing down the frame, which the reproduction lacks, and its later frames break into scattered fragments that the original's fade does not."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frames are 32x48 as the original's are, but the reproduction's border measure is 0.51 against the original's 0.341, so its cloud reaches the frame edges more. The original's cloud sits centred with a tail reaching the bottom; the reproduction's blob is rounder and lacks that tail."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "No measured mean colour difference was given for the frames, so this is judged by eye. The reproduction's mid-frames (7 to 10) are a flat, near-pure white, while the original's are white with grey shading and grain. Its early frames are also visibly brighter (envelope first 0.12 against 0.04). That is clearly off, but not verified as more than 15 apart."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frame count matches (16 and 16) and both grow then fade. The envelope differs, though: the reproduction starts brighter (first 0.12 against 0.04) and peaks later (0.53 against 0.4, about two frames), and its fade fragments into grey specks where the original's dims smoothly. The loop-closure measure (wrap 0.78 against 0.5) is not clearly in the original's favour, so I cannot confirm the loop matches."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The type (parallel oriented) and format (index alpha) match the original, the name matches (sameName true), and the file reads back as written (readsBack true)."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

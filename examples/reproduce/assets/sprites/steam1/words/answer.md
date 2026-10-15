@@ -1,20 +1,17 @@
-The sprite builds OK with no faults or warnings: `sprites/steam1.spr` in the work folder, with its sheet and animated picture beside it.
+The sprite is built and the build says OK: `sprites/steam1.spr` is in the work folder, with a contact sheet and an animated preview beside it.
 
-The final spec:
+The file is 32x48, 16 frames, type `parallel oriented`, format `index alpha` (the coverage alpha mask), placed as an `env_sprite`, and it plays once without looping. I used the `smoke puff` class and set the frame rate to 10 a second, since your description gave no rate and an `env_sprite` runs at most 10.
 
-```json
-{"spec":"smak.sprite/1","sprites":[{"name":"sprites/steam1.spr","class":"smoke puff","use":"env_sprite","size":[32,48],"frames":16,"loop":false,"fps":10,"type":"parallel oriented","format":"index alpha","origin":"centre","finish":{"edge":2},"layers":[{"kind":"billow","gain":1.5,"at":[-0.05,-0.45],"count":24,"spread":0.4,"size":0.25,"growth":0.8,"rise":0.35,"drift":0.1,"blend":0.4,"lumps":0.5,"hot":0.4,"cool":0.6,"dissolve":0.7,"env":{"attack":0,"decay":0.6}}]}]}
-```
+What the sheet shows against your description:
+- **Frame 0:** a small bright white dot a few pixels across, low and a little left of centre.
+- **Frames 1 to 3:** a dense white cloud that grows to about 12 px, then about 25 px. This is close to your 12 and 22.
+- **Frames 4 to 7:** the cloud swells to nearly the full 32 px width, white in the middle, with grey shading on the edges and underside.
+- **Frames 8 to 11:** it loosens and dims toward grey, with gaps between the puffs and a ragged trail below.
+- **Frames 12 to 15:** it breaks into faint, see-through grey streaks and fades almost to nothing by frame 15.
 
-What the build reports: 32x48, 16 frames, index alpha, type parallel oriented, not looping, placed as an env_sprite at 10 fps. Against Half-Life's smoke puff, all five measures are in range. The border light is 0.002, so the square edge does not show.
+Where it falls short of the description:
+- **Frames 8 to 11:** the cloud stays broader than it is tall. Your description has a tall column with the top as the widest part, and I did not get that shape.
+- **Frames 12 to 15:** the streaks are broader and blobbier than the thin vertical wisp you described.
+- **Border light:** the report puts it at 0.017 against Half-Life's 0 to 0.005. A stronger edge fade (edge 3) cut the brightest pixel from 0.75 to 0.50 and greyed the whole cloud, so I kept edge 2.
 
-Frame by frame, against your description:
-- **Frame 0:** a small white dot low and a little left of centre. It is about 6 px, where yours is about 3 px.
-- **Frames 1 and 3:** about 10 px and 22 px across, close to your 12 px and 22 px.
-- **Frames 4-7:** the cloud swells to nearly the full 32 px width, with lumpy cauliflower edges, bright middle and grey shading.
-- **Frames 8-11:** it dims to grey and loosens, but the top does not stretch into a tall column as clearly as you describe.
-- **Frames 12-15:** it breaks into faint grey streaks and fades to almost nothing by frame 15.
-
-Colours are white and greys only, with a single index colour (its alpha coverage gives the shading).
-
-Limits: I had no reference picture, so this was matched to your description, not measured against the original. The `reference` field would let the report measure it directly, if you can supply a contact sheet of the original. The main gaps are the size of the frame 0 dot and the column shape in frames 8-11. I stopped at OK rather than tuning further, since the report has no warnings left.
+I had no contact sheet of the original, so every comparison here is against your description, not the original's pixels. If you can supply a sheet, I can add it as the `reference` and tune the shape to it.

@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "zerogxplode",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.818,
+     "mean": 0.005
+    },
+    "envelope": {
+     "peakAt": 0.36,
+     "first": 0.08,
+     "last": 0.03
+    },
+    "dark": 0.73,
+    "wrap": 0.81,
+    "jitter": 1.25
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.206,
+     "mean": 0.001
+    },
+    "envelope": {
+     "peakAt": 0.36,
+     "first": 0.01,
+     "last": 0
+    },
+    "dark": 0.7,
+    "wrap": 0.12,
+    "jitter": 1.38
+   }
+  },
+  "meanColourDeltaE": 3.9,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Both are explosions, but the reproduction reads as a rocky boulder or dust cloud rather than a fireball. The original has a glowing white-yellow core, orange-edged flame and flying sparks; the reproduction has a cratered, lumpy surface and almost no sparks, and its late frames look like tan rock."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frames are 64x64 and the effect fills a similar area. The silhouette differs, though: the original is a two-lobed cloud with a tall upper lobe and a lower bulk, while the reproduction is a rounder, irregular rock-like mass. Frame 0 is a bright small burst with sparks in the original, a faint red dot in the reproduction."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured mean colour difference is 3.9, well under 15. The white core and yellow-to-orange progression match. Late frames (8 to 12) look slightly more tan and less saturated gold than the original, which the measure does not charge, so this is scored at the measured level."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count is 15 in both and the envelope peaks at 0.36 in both, so the grow-then-fade kind matches. The start does not: the original's frame 0 is already bright (first 0.08) against the reproduction's faint dot (0.01). The wrap measure also differs (0.81 against 0.12), and the original's frame 14 keeps a dim ember that the reproduction lacks. Both end dark, but the start and the seam are off."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type parallel and format additive match the original, the name is the same (sameName true), and the file reads back (readsBack true)."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

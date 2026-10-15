@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "xspark1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    32
+   ],
+   "frames": 11,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 11,
+    "size": [
+     32,
+     32
+    ],
+    "border": {
+     "max": 0.145,
+     "mean": 0.004
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.94,
+     "last": 1
+    },
+    "dark": 0.46,
+    "wrap": 1.61,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    32
+   ],
+   "frames": 11,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 11,
+    "size": [
+     32,
+     32
+    ],
+    "border": {
+     "max": 0.032,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0.3,
+     "first": 0.96,
+     "last": 0.91
+    },
+    "dark": 0.66,
+    "wrap": 1.1,
+    "jitter": 1.75
+   }
+  },
+  "meanColourDeltaE": 4.2,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Both are a blue-white glow, but the original is a cluster of overlapping lobes with a bright core and dim halos spreading across the frame (frames 0 to 10), while the reproduction is a single soft disc with at most a faint lobe. The original's burst structure is missing, so it is the same family of effect but not the same look."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 32 x 32 as the measurements state. The original's effect fills its frames, reaching the edges (border mean 0.004, max 0.145), while the reproduction stays compact in the middle (border max 0.032, mean 0). The effect does not fill the frame as the original's does."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are cyan-blue with a white core, and the measured mean colour difference is 4.2, well under 15. Colour matches as the engine blends it. The dark-pixel measure differs (0.66 against 0.46), but that is spread of the glow, not colour, and the rubric's colour test passes."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both have 11 frames, as the rubric asks. The envelope differs: the original peaks at frame 1 and ends at 1 (first 0.94), while the reproduction peaks at 0.3 and ends at 0.91 (first 0.96). The original's lobes shift and grow between frames, and the reproduction only pulses in size. The loop closes roughly in both, but the motion is not the same kind."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements agree: both are type parallel with additive format, the same name (sameName true), and the reproduction reads back as written (readsBack true)."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "muzzleflash1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 2,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 2,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.02,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.95,
+     "last": 1
+    },
+    "dark": 0.76,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 2,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 2,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.99,
+     "last": 1
+    },
+    "dark": 0.78,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 14.2,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are the same effect: a five-pointed muzzle-flash star with a bright core and streaks, and the second frame is the peak in both."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both frames are 64x64 and the star fills the frame in the same way, reaching near the edges without touching them (border 0.02 vs 0). The reproduction's arms look a little thicker and blunter than the original's thin, long spikes, which is a shape detail rather than a size or fill fault."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured mean colour difference is 14.2, under the line of 15, so the average passes. Visually, though, the reproduction's core is a broad flat-white disc, while the original's core is a smaller hot yellow-white centre grading into amber. That distribution of colour is clearly different, so the item is scored down to 1."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both have 2 frames, matching the original. Both rise to the peak at frame 1 (peakAt 1) and end at 1 (last 1 vs 1). The first-frame level is 0.95 in the original and 0.99 in the reproduction, and dark is 0.76 vs 0.78, all within tolerance. The motion is the same: a flash that grows to a bright peak."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are additive, 64x64, with 2 frames. The name matches (sameName true) and the file reads back as written (readsBack true)."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

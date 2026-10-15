@@ -1,17 +1,14 @@
-The sprite builds OK: `work:sprites/flare1.spr`, written beside a contact sheet and an animated preview. The build's report says 64x64, 1 frame, additive, render mode 5 (Additive), placed as an `env_sprite`. Against Half-Life's own flare it is in range.
+The sprite builds OK: `work:sprites/flare1.spr`, with `-sheet.png` and `-animated.png` beside it.
 
-I had no reference picture, so the judge's side-by-side measures (colour, dark share, shape per frame) were not run. The check is by eye only, at the 128px preview.
+The build reports it as 64x64, 1 frame, additive, placed as an `env_sprite` with render mode 5 (Additive). It sits in the flare class and checks as "1 of 1 in range" against Half-Life's own flare. Its border is 0 and its dark share is 0.51. The envelope peaks at frame 0.
 
-The spec I used:
+How it matches your description:
+- **Shape:** a bright white core about 0.24 of the half-width (roughly a quarter of the frame), with a smooth glow out to 0.92 of the radius, so the halo reaches almost to the edges and fades to black at the corners.
+- **Colour:** a ramp from black through dark violet-grey and dusty rose-mauve to warm white at the core.
+- **Streaks:** 48 thin, evenly spread rays of varying length, low gain, no cross shape.
+- **Motion:** one frame, no loop. Any pulse has to come from the engine, as you said.
 
-```json
-{"spec":"smak.sprite/1","sprites":[{"name":"sprites/flare1.spr","class":"flare","use":"env_sprite","type":"parallel","format":"additive","size":[64,64],"frames":1,"origin":"centre","layers":[{"kind":"flare","core":0.3,"at":[0,0],"streaks":[],"ramp":[[0,[0,0,0]],[0.2,[0.157,0.098,0.196]],[0.45,[0.549,0.353,0.49]],[0.7,[0.902,0.745,0.843]],[0.9,[1,0.941,0.961]],[1,[1,1,1]]],"rays":{"count":48,"length":0.9,"jitter":0.5,"width":0.012,"gain":0.25}}]}]}
-```
-
-Choices I made:
-- **Shape:** a flare layer with a 0.3 core, centred, falling off to black at the frame's edges.
-- **Colour:** the ramp runs from black, through dark violet-grey and dusty rose-mauve, to pale pink-lavender and warm white at the core.
-- **Rays:** 48 thin, faint rays at gain 0.25, spread evenly round the circle. I set `streaks: []` because the default streaks drew a dominant horizontal and vertical cross, which the description rules out.
-- **Type and format:** parallel and additive, one frame, no animation. Any flicker should come from the engine scaling or dimming the sprite.
-
-Not verified: the exact core width against the original's quarter to third of the frame, and the alternating bright and dark rays. Those need the original beside it to judge properly. If you can give me the original as a reference picture, I can run the measures and tune against them.
+Choices I made that you may want to change:
+- The colour ramp stops are my estimate from your description. No reference picture was given, so I could not measure the colours against the original.
+- The `env_sprite` use and the `flare` class are my reading of "a light flare". Change `use` if you intend it as a `tempent` or `env_glow`.
+- The larger sheet render failed with an internal error, so I checked the frame from the build's own small image only. It may be worth a look at `flare1-sheet.png` before you judge it side by side.

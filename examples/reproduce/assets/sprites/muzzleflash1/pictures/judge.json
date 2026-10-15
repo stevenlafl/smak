@@ -50,16 +50,16 @@
      "mean": 0
     },
     "envelope": {
-     "peakAt": 0,
-     "first": 1,
+     "peakAt": 1,
+     "first": 0.98,
      "last": 1
     },
-    "dark": 0.74,
+    "dark": 0.71,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 2.9,
+  "meanColourDeltaE": 2.7,
   "sameName": true,
   "readsBack": true
  },
@@ -71,37 +71,37 @@
  },
  "scores": {
   "R1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Both are a bright orange-white core with rays, but the original is a five-ray starburst muzzle flash, while the reproduction is a round orb with a faint four-point cross. The five-ray star that makes it read as a muzzle flash is missing, so it reads as a generic glow."
+   "score": 2,
+   "reason": "Both are the same effect: a five-pointed star of rays around a bright core, the usual muzzle flash. The reproduction's rays are softer and wider, but it is the same kind of flash."
   },
   "R2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Both are 64 x 64 frames. In the original the rays reach toward the frame edges and fill it; in the reproduction the effect is a smaller round halo with short rays, so it does not fill the frame as the original does."
+   "score": 2,
+   "reason": "Both are 64 x 64, and the border measure is 0.02 against 0, so nothing spills past the edge. The original's rays are thinner and reach the frame edges a little more sharply, but the star fills the frame in the same way."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean colour difference is 2.9, well under 15. Both are the same warm orange-white, with a bright white core fading to orange."
+   "reason": "The frames' mean colour difference is 2.7, well under 15. The warm orange-white core and rays match in both pictures. The dark fraction is 0.76 against 0.71, a small difference."
   },
   "R4": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Both have 2 frames and close dark values (0.76 and 0.74). The envelope differs, though: the original peaks at frame 1 (first 0.95, last 1), while the reproduction peaks at frame 0 (first 1, last 1). The reproduction's peak is in the wrong frame, and it shows no change from frame to frame that the original has."
+   "score": 2,
+   "reason": "Two frames in both. The envelope peaks at frame 1 in both, with first at 0.95 against 0.98 and last at 1 in both, so the same brightening motion with the same ending. The original's second frame is marginally brighter, which is within the tolerance."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The type and format are both additive, the name matches (sameName true), and the file reads back (readsBack true)."
+   "reason": "Measured as 64 x 64, two frames, parallel, additive, the same name (sameName true), and it reads back (readsBack true). The format and type match the original's."
   }
  },
- "total": 7,
+ "total": 10,
  "of": 10,
- "passes": false
+ "passes": true
 }

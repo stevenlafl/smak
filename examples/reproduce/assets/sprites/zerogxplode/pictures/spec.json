@@ -15,6 +15,7 @@
       "type": "parallel",
       "format": "additive",
       "origin": "centre",
+      "finish": "edge",
       "reference": {
         "picture": "pictures/frames.png",
         "cell": 128,
@@ -22,50 +23,40 @@
       },
       "layers": [
         {
-          "kind": "explosion",
-          "ramp": "blast",
-          "gain": 0.4,
-          "growth": 0.6,
-          "cool": 0.8,
-          "turbulence": 0.5,
-          "env": {
-            "attack": 0,
-            "decay": 0.6
-          }
-        },
-        {
           "kind": "billow",
-          "ramp": "blast",
-          "count": 24,
-          "spread": 0.6,
+          "gain": 1.15,
+          "count": 20,
+          "spread": 0.48,
           "size": 0.4,
           "at": [
-            -0.1,
-            -0.05
+            0.02,
+            0.02
           ],
-          "growth": 0.6,
-          "rise": 0.2,
-          "drift": 0.12,
-          "hot": 0.4,
-          "cool": 0.8,
+          "growth": 1.2,
+          "rise": 0.1,
+          "drift": 0.08,
+          "blend": 0.4,
+          "lumps": 0.6,
+          "ramp": "blast",
+          "hot": 0.2,
+          "cool": 0.7,
           "dissolve": 0.5,
-          "lumps": 0.25,
           "env": {
-            "attack": 0,
-            "decay": 0.55
+            "attack": 0.03,
+            "decay": 0.4
+          },
+          "mask": "reference",
+          "reference": {
+            "picture": "pictures/frames.png",
+            "cell": 128,
+            "cols": 8
+          },
+          "debris": {
+            "count": 8,
+            "speed": 0.5,
+            "gravity": 0.2,
+            "trail": 0.1
           }
-        },
-        {
-          "kind": "sparks",
-          "count": 14,
-          "speed": 0.8,
-          "gravity": 0.3,
-          "trail": 0.1,
-          "colour": [
-            1,
-            0.9,
-            0.7
-          ]
         }
       ]
     }

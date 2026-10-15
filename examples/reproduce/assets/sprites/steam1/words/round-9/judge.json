@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "steam1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.341,
+     "mean": 0.002
+    },
+    "envelope": {
+     "peakAt": 0.4,
+     "first": 0.04,
+     "last": 0.03
+    },
+    "dark": 0.64,
+    "wrap": 0.5,
+    "jitter": 1.1
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.224,
+     "mean": 0.002
+    },
+    "envelope": {
+     "peakAt": 0.53,
+     "first": 0.08,
+     "last": 0
+    },
+    "dark": 0.68,
+    "wrap": 0.49,
+    "jitter": 1.36
+   }
+  },
+  "meanColourDeltaE": 6.8,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are a smoke puff that swells, drifts and thins out, with a soft cloud body. The reproduction reads as smoke at a glance, though its late frames are lumpier and less wispy than the original's."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame size matches (32 x 48), but the shape differs. Frame 0 of the reproduction is a sizeable blob where the original starts as a speck (first-frame measure 0.08 vs 0.04), and the original's trailing tail toward the bottom is only weakly present in the reproduction."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured mean colour difference over the whole sprite is 6.8 (under 15). The reproduction is a little whiter and harder-edged than the original's softer grey-white, but the blended colours agree within the measured bound."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count matches (16) and both grow then fade to dark, with a similar dark fraction (0.68 vs 0.64). But the envelope peak comes later (0.53 vs 0.40, about two frames), the reproduction starts larger, and its fading frames (10 to 15) break into blotches rather than fading smoothly. Jitter is also higher (1.36 vs 1.1)."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The type (parallel oriented) and format (index alpha) match the original, the name matches (sameName true), and the file reads back (readsBack true)."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

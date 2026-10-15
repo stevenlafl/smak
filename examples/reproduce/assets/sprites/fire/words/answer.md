@@ -1,21 +1,18 @@
-The sprite is built and the build says OK: `work:sprites/fire.spr`, with `-sheet.png` and `-animated.png` beside it.
+The sprite is built and the build says OK: `sprites/fire.spr` is in the work folder, with a contact sheet and an animated preview beside it.
 
-**What it is:** a looping campfire flame, drawn additively so the black background drops out. It is a parallel oriented sprite that stays upright, with its base at the bottom of the frame.
+**What it is:** a looping campfire flame, additive so black drops out, parallel oriented (faces the viewer, stays upright), origin at the bottom so the flame sits on its base.
 
-**Spec used:**
-- **Name:** `sprites/fire.spr`, class `fire loop`
-- **Size and frames:** 32×96, 15 frames in the file. That is a loop of 14 plus the first frame again at the end, which is how the kit wraps a loop. I chose 14 so the file holds the 15 frames you described.
-- **Type and format:** parallel oriented, additive. The build placed it as an `env_sprite` in render mode 5 (Additive) at 10 frames a second, the engine's cap for that class.
-- **Origin:** bottom, so the flame sits on its base.
-- **Layers:**
-  - Main fire: full width at the base, tapering to 0.6 of that at the top, with tongues at 0.8. Turbulence is low (0.15) so the frames stay steady and don't drop out.
-  - A narrower second fire layer (half width, gain 0.8) that adds to the body.
-  - A warm glow centred low in the frame, colour around (1.0, 0.8, 0.4), gain 0.4, for the white-hot core.
-- **Edge fade:** 2 pixels, so the base is soft and not cut hard at the bottom edge.
+**Shape and size:** 32 by 96 pixels, 15 frames. The flame is widest at the base and narrows into ragged tongues that reach close to the top. I set it as a fire layer plus a soft glow at the base to get the bright core.
 
-**What the build measured:** the palette is 255 colours, the border is almost black (0.005 against a brightest of 0.115), and the loop wrap scores 0.67. The report flags nothing; its checks against Half-Life's fire loop are all within range, and the brightness envelope peaks at 0.86.
+**Frames and motion:** 15 frames at 10 frames a second, which is in the engine's limit for an `env_sprite`. The tongues flicker and sway from frame to frame, and the sequence wraps without a jump (the report's wrap score is 0.77, and the wrap frame is a copy of the first).
 
-**Choices and limits:**
-- No reference picture came with the description, so I could not measure it side by side with the original. Everything above is tuned by eye from the contact sheet and against the description, not against the original's pixels. Put the two next to each other before you judge it.
-- I tried several turbulence settings. The higher ones gave frames that dropped out almost to nothing (frames 5 and 6 especially). The current setting holds the brightness steady across the loop.
-- The colours follow the description: yellow-orange core, orange body, red-brown tips, no blue, no smoke, no sparks.
+**Colours:** a yellow-orange core fading through orange into dark rust at the edges and tips, with no blue and no smoke. The fire colour ramp is what produces this.
+
+**Type and format:** `use: env_sprite`, render mode 5 (additive).
+
+**Choices I made without the original:**
+- The frame rate, 10 a second, is a guess. The description gives no frame rate.
+- The flame's height and tongue shape are tuned by eye against your description. The build's check only confirms the file's format and its loop against Half-Life's own fire loops (5 of 5 in range).
+- No reference picture was given, so I could not measure it side by side with the original. If you can give me a contact sheet of the original's frames, I can set it as a reference and tune the colours and shape against it.
+
+The spec is in the work folder's build output and can be rerun as it is.

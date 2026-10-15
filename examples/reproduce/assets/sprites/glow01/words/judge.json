@@ -46,20 +46,20 @@
      64
     ],
     "border": {
-     "max": 0,
-     "mean": 0
+     "max": 0.024,
+     "mean": 0.003
     },
     "envelope": {
      "peakAt": 0,
      "first": 1,
      "last": 1
     },
-    "dark": 0.56,
+    "dark": 0.27,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 1.7,
+  "meanColourDeltaE": 5.5,
   "sameName": true,
   "readsBack": true
  },
@@ -74,34 +74,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both frames show the same effect: a soft white radial glow, brightest at the centre and fading out to the dark background. Nothing in the reproduction is a different effect."
+   "reason": "Both are a soft white radial glow: a bright core fading outward to dark. Same effect."
   },
   "R2": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Both are 64 x 64, and the glow fills the frame the same way: a bright core with a fall-off reaching toward the edges. At this picture size I see no difference in extent."
+   "score": 1,
+   "reason": "Both are 64 x 64. The original's soft halo reaches toward the frame's edges, while the reproduction's glow is tighter, with a sharper core and darker surround. Measured dark is 0.47 against 0.27, so the effect does not fill the frame as the original does."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean colour difference is ΔE 1.7, far inside the 15 limit. The pictures show the same white-to-grey-to-black blend."
+   "reason": "Both are neutral white-to-grey additive blends with the same hue. The measured mean colour difference is 5.5, under the 15 line."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both are one frame, so the frame count matches and the motion is static, with no loop or one-shot to check. The measured dark fraction differs, though: 0.47 in the original against 0.56 in the reproduction. The reproduction's glow reads as a tighter bright core with a darker surround, so its fall-off is not the original's. That is a clear, measured difference in how the glow fades, and it is not within what the pictures can excuse."
+   "reason": "Both have one frame and the same peak position, so frame count and envelope match. But the measured dark fraction differs (0.47 against 0.27), so the fade's falloff profile is off, with the reproduction's halo falling away faster. Motion and loop measures are null for a single frame, so this rests on the dark measure."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The type and format are both additive, the name matches, and the reproduction reads back as written."
+   "reason": "Type is parallel and format additive in both, size 64 x 64, frame count 1, same name, and it reads back as written."
   }
  },
- "total": 9,
+ "total": 8,
  "of": 10,
  "passes": false
 }

@@ -1,32 +1,29 @@
-The sprite is built and written to the work folder as `sprites/muzzleflash1.spr`, with its sheet and animation pictures beside it. The build opens with "OK: built, and every check passed", but it still prints one warning, so the shape match is not met.
+The sprite builds **OK** as `work:sprites/muzzleflash1.spr`, with `-sheet.png` and `-animated.png` beside it. Two warnings are still open because the build asks for them to be gone too. I tried about ten variants and they traded one off against the other.
 
-**The spec** (also saved as `sprites_muzzleflash1.spec.json`):
+**What I built:** a 64x64 star-shaped muzzle flash, 2 frames, one-shot (not looping), 20 fps, placed as a `tempent` in additive render mode. The reference shows a bright white core, a peach-to-tan glow, and five rays (one straight up, four splayed below and to the sides), so I used a `flare` layer with five half-streaks plus two glows.
+
+**Measured against the original:**
+
+| Measure | Original | Mine | Bar |
+|---|---|---|---|
+| Mean colour (delta E) | reference | 2.7 | 15 or under |
+| Dark share | 0.76 | 0.70 | within 0.05 |
+| Shape overlap, frame 0 / frame 1 | | 0.73 / 0.76 | 0.8 |
+| Brightest frame | frame 1 | frame 1 | match |
+| Border light | 0.02 | 0 | no light at border |
+
+**Still open:**
+- Dark share is 0.70 against 0.76: my flash covers slightly more of its frame than the original.
+- Shape overlap is 0.75 against the 0.8 bar. Pushing the rays longer brought border light in, which is a fault, so I backed that out.
+
+**Choices I made that the original does not state:**
+- 20 fps, one-shot. The reference shows only the two frames.
+- The timing: a second glow with an envelope that only rises at the end is what makes frame 1 the brightest, as in the original.
+
+**Spec used:**
 
 ```json
-{"spec":"smak.sprite/1","sprites":[{"name":"sprites/muzzleflash1.spr","use":"tempent","class":"flare","size":[64,64],"frames":2,"type":"parallel","format":"additive","reference":"pictures/frames.png",
-"layers":[{"kind":"glow","radius":0.6,"ramp":"muzzle"},
-{"kind":"flare","core":0.1,"ramp":"muzzle","streaks":[
-{"angle":0,"length":0.95,"width":0.02,"half":true,"gain":0.5,"haze":0,"blur":0},
-{"angle":90,"length":0.95,"width":0.02,"half":true,"gain":0.5,"haze":0,"blur":0},
-{"angle":45,"length":0.6,"width":0.02,"half":true,"gain":0.3,"haze":0,"blur":0},
-{"angle":135,"length":0.6,"width":0.02,"half":true,"gain":0.3,"haze":0,"blur":0}]}]}]}
+{"spec":"smak.sprite/1","sprites":[{"name":"sprites/muzzleflash1.spr","class":"flare","use":"tempent","size":[64,64],"frames":2,"loop":false,"fps":20,"type":"parallel","format":"additive","reference":{"picture":"pictures/frames.png","cell":128,"cols":2},"layers":[{"kind":"flare","core":0.08,"colour":[1,0.78,0.55],"ramp":"muzzle","streaks":[{"angle":90,"length":1.0,"width":0.09,"gain":0.85,"half":true},{"angle":18,"length":0.97,"width":0.09,"gain":0.75,"half":true},{"angle":162,"length":0.97,"width":0.09,"gain":0.75,"half":true},{"angle":-47,"length":0.97,"width":0.09,"gain":0.75,"half":true},{"angle":227,"length":0.97,"width":0.09,"gain":0.75,"half":true}]},{"kind":"glow","radius":0.28,"core":0.1,"ramp":"muzzle","gain":0.2},{"kind":"glow","radius":0.3,"core":0.1,"ramp":"muzzle","gain":0.3,"env":{"attack":0.99}}]}]}
 ```
 
-**Measured against the original** (the build's own reading of `pictures/frames.png`):
-
-| Measure | Original | This sprite | Bar |
-| --- | --- | --- | --- |
-| Mean colour (delta E) | reference | 2.9 | 15 or under |
-| Share that is dark | 0.76 | 0.74 | within 0.05 |
-| Frames | 2 | 2 | 2 |
-| Shape overlap, frame 0 / frame 1 | | 0.58 / 0.58 | 0.8 |
-| Colours | | 92 | |
-| Border brightness | 0.02 | 0 | |
-
-**Choices made:**
-- Type `parallel`, format `additive`, use `tempent`, class `flare`, 64x64, 2 frames, as you gave.
-- The colours come from the built-in `muzzle` ramp (white, peach, tan), which the measures put close to the original.
-- A soft glow gives the body, and four thin streaks (horizontal, vertical, and two diagonals) give the spikes.
-- Both frames come out identical in shape. The original's second frame is a touch wider, but I could not measure that difference in the tool.
-
-**What is still open:** the shape overlap stays at about 0.58, under the 0.8 bar. I tried about ten variations (glow radius, core size, streak width and gain). Colour and darkness moved with them, but no variation lifted the overlap above about 0.6. I could not open the original picture myself: the file is not reachable from this sandbox, so every change was tuned from the numbers the build reports, not by eye. If you can give me the original as a file reachable here, or tell me how its bright core and spikes look, I can aim the shape directly.
+The reference was read from the work folder's `pictures/frames.png`, which is the input's `frames.png`. Nothing was written outside the work folder.

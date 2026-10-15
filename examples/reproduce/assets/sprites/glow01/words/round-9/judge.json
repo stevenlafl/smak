@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "glow01",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.47,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.56,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 1.5,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both frames show the same effect: a soft radial glow, bright at the centre and fading out over a dark background. The reproduction is the same kind of glow."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 64 x 64 and the glow is centred in each. The measured dark fraction differs, 0.47 for the original and 0.56 for the reproduction, so the reproduction leaves more of the frame dark. Its halo fades out a little sooner than the original's, which reaches further toward the edges. That is a clear but modest difference in how the effect fills the frame."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The mean colour difference is 1.5 CIE76 delta E, far under the line of 15. Both glows run from the same near-white core to the same dark grey background."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are single frames, so the frame count matches. The envelope measures agree (peak at frame 0, first and last at 1). There is no loop or motion to compare, and neither ends differently from the other."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are parallel with additive format, the same name is kept, and the reproduction reads back as written."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

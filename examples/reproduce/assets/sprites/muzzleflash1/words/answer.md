@@ -1,15 +1,13 @@
-The sprite is built and the build says OK: `sprites/muzzleflash1.spr` is in the work folder, with a sheet and an animated preview beside it.
+The sprite is built and the build says OK: `work:sprites/muzzleflash1.spr`, with a contact sheet and animated preview written beside it.
 
-The final build reports 64x64, 2 frames, additive, placed as a tempent (render mode 5, framerate 16). Border light is 0 and the envelope is balanced across frames (first 0.98, last 1). Against Half-Life's flare class it lands 1 of 1 in range. No original picture was given, so there is no side-by-side measure against your original, only against the class.
+What it is: a five-ray starburst on black, drawn additively (black is transparent), with a near-white hot core that fades through pale gold and amber to brownish orange at the ray tips. It is 64x64, 2 frames, type parallel (faces the viewer), format additive, placed as a `tempent` at 20 fps.
 
-What the spec does:
-- **Core:** a glow of near-white with a cream ramp, black at the rim, about 10 to 12 px across.
-- **Rays:** five half-streaks from the core at 88°, 12°, 168°, 238° and 302°, so one points almost straight up, two sideways slightly above horizontal, and two down and outward. Lengths run about 0.8 to 0.86 of the half-frame, so tips sit about 26 to 28 px out.
-- **Colour:** the rays are a gold-amber (1, 0.7, 0.35) and fade out at the tips.
-- **Frame 2:** a second set of rays with slightly longer top and side rays and shifted angles. The two sets are swapped in with the layer envelope (`attack`/`decay`), so the total light is balanced, and the core is unchanged.
+Choices I made:
+- **Rays:** five half-streaks at 88° (up), 8° and 172° (sides, just above horizontal), and 212° and 332° (down-left and down-right, the 7 and 5 o'clock positions). Lengths run 0.72 to 0.92 of the frame's half-width, so the tips land about 26 to 30 px out. Width and taper are set so the base is roughly 3 to 4 px and the tips are soft points.
+- **Core:** about 10 to 12 px across, with a cream-white colour ramp.
+- **Loop:** off, so it plays as the two frames once (`loop: true` would have written a third frame). Both frames end dark.
 
-Choices I made that you may want to change:
-- **`loop: false`:** this keeps the file at exactly 2 frames. With `loop: true` the build writes a third frame (a copy of the first) for the wrap. The engine plays a tempent once, so the flicker comes from the two frames alternating while the weapon fires.
-- **Frame 2 is a set swap, not a fade:** the rays change shape between frames, but the envelope does shift each set's brightness a little across the cycle. The core does not change.
-- **Framerate 16:** you did not give one, so I picked a quick flicker rate.
-- **Spec not saved to a file:** I passed the spec inline to `build`, so it is not in the work folder. I can save it as a `.json` next to the sprite if you want it reproducible.
+Limits:
+- **Frames are identical.** The sprite spec can't vary ray angles or lengths between frames, so the shimmer you described is missing. The two frames match exactly, not "nearly identical." This is the main gap from the original.
+- **Edges and haze:** I kept the haze off. Adding it spread light to the frame border and failed the build. The result has the soft edges but no visible faint haze around the core.
+- **No side-by-side:** I don't have the original file, so the check was against the kit's own Half-Life flare class (1 of 1 in range), not against your muzzle flash.

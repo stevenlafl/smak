@@ -5,26 +5,27 @@
       "name": "sprites/laserbeam.spr",
       "class": "beam",
       "use": "beam",
-      "type": "parallel",
-      "format": "additive",
       "size": [
         32,
         64
       ],
       "frames": 1,
+      "type": "parallel",
+      "format": "additive",
+      "origin": "centre",
       "reference": "pictures/frames.png",
       "layers": [
         {
           "kind": "beam",
-          "profile": "flat",
-          "core": 0.5,
-          "shoulder": 0.3,
-          "noise": 0.3,
+          "core": 0.6,
+          "shoulder": 0.5,
+          "streaks": 0.3,
           "colour": [
-            0.85,
-            0.9,
+            0.8,
+            0.88,
             1
-          ]
+          ],
+          "profile": "flat"
         }
       ]
     }

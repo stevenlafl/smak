@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "flare1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.39,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.019,
+     "mean": 0.001
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.43,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 11.2,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are the same effect: a bright white core with a soft radial falloff, the glow of a flare. The original's halo is a little wider and shows faint radial streaks, which the reproduction softens, but the effect is the same."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 64 x 64 as measured. The original's pale halo spreads nearly to the frame edges, while the reproduction's falls off sooner and leaves a darker grey surround (dark 0.43 against 0.39). The effect does not fill the frame as the original's does."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured mean colour difference is 11.2, under the line of 15. Visually the original is a warmer pink-lavender and the reproduction a slightly cooler lavender, a small hue shift that the measure allows for."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are one frame, parallel, with the same envelope (peak at frame 0, first and last frame at 1). A single-frame glow has no motion to differ, so the frame count and the ends match exactly."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are type parallel and format additive, with the same name (sameName true) and read back as written (readsBack true)."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}
