@@ -6,6 +6,8 @@
 //   node examples/reproduce/assets.mjs inputs|describe|reproduce|judge [sprites|sounds|textures] [subject ...] [--again]
 //        [--generators <folder>]   the sound makers' server offers the tool generate (generators/README.md;
 //                                  SMAK_GENERATORS unless told): two makers at a time, each loads its model
+//        [--accept-licences]       a test condition: the sound makers are told the person accepts the generators'
+//                                  licences (to measure what takes add; the tool itself decides nothing)
 //
 // Each subject's folder under assets/<kind>/<id>/: input/ (the pictures: Valve's, kept out of git), words.md,
 // <leg>/ (spec.json, answer.md, run.json, built/ out of git), <leg>/judge.json. assets/scores.md: every result.
@@ -29,6 +31,8 @@ const words = process.argv.slice(2);
 const step = words.shift();
 const again = words.includes("--again") && words.splice(words.indexOf("--again"), 1);
 const GENERATORS = words.includes("--generators") ? words.splice(words.indexOf("--generators"), 2)[1] : process.env.SMAK_GENERATORS;
+// a test condition, never the tool's default: the makers told the person accepts the generators' licences
+const ACCEPT = words.includes("--accept-licences") && words.splice(words.indexOf("--accept-licences"), 1);
 const KINDS = ["sprites", "sounds", "textures"];
 const kinds = KINDS.filter((k) => !words.some((w) => KINDS.includes(w)) || words.includes(k));
 const named = words.filter((w) => !KINDS.includes(w));
@@ -134,7 +138,7 @@ function inputs(kind, subject) {
 
 const DESCRIBE = {
   sprites: (dir) => `You are looking at the frames of one sprite of a video game (a flat picture the game turns to face the eye: a glow, a flame, smoke, an explosion, sparks, a beam), in ${dir}/frames.png, each frame as the engine blends it (an additive sprite over a dark ground, others over grey), numbered in order; its size, frame count, type and format are in ${dir}/facts.txt. Someone who will never see them must make it again from your words: describe what it is, its shape and size within the frame, its colours, how it changes from frame to frame (grows, rises, flickers, fades, loops or plays once) and anything special. At most 250 words.`,
-  sounds: (dir) => `You are looking at a picture of one sound of a video game, in ${dir}/sound.png: its waveform over its spectrogram (log frequency, 50 Hz at the bottom), with its name and length; its facts are in ${dir}/facts.txt. Someone who will never hear it must make it again from your words: describe what event it is (from its name and its shape), its length, how it starts and dies, its loudness over time, where its energy is in frequency, its hits or clicks, whether it is tonal or noisy, any pitch movement, and whether it loops. At most 250 words.`,
+  sounds: (dir) => `You are looking at a picture of one sound of a video game, in ${dir}/sound.png: its waveform over its spectrogram (log frequency, 50 Hz at the bottom), with its name and length; its facts are in ${dir}/facts.txt. Someone who will never hear it must make it again from your words: describe what event it is (from its name and its shape), its length, how it starts and dies, its loudness over time, where its energy is in frequency (and roughly what share of it lies under 150 Hz, 150 to 600, 600 to 2000, 2000 to 5000 and over 5000, as the picture shows it), its hits or clicks, whether it is tonal or noisy, any pitch movement, and whether it loops. At most 250 words.`,
   textures: (dir) => `You are looking at the textures of one map (a level) of a video game, each seen on its wall in the map, lit: one picture a texture in ${dir} (named after it), and eight views of the map in ${dir}/views.png. ${dir}/list.txt gives each texture's name, size and picture. Someone who will never see them must make every texture again from your words, at its size: for each, what it is (concrete, metal panel, grate, floor tiles, a light's face), its colours, its pattern and how large its panels, seams or tiles are against its size, its wear and dirt, and anything special (holes, glow, an animation's frames). Go texture by texture, by name. At most 1800 words.`,
 };
 const RULES = `Do not name the game, the file's origin, the series or the company. Reply with the description alone, plain text.`;
@@ -144,7 +148,7 @@ function reproducePrompt(kind, subject, leg, given) {
   if (kind === "sprites")
     return `Make this sprite for the GoldSrc engine with a smak.sprite/1 spec (guide { doc: "spec" }, "A sprite"), named ${subject.file}, as close to the original as you can: what it is, its shape and size in its frames, its colours, its frames and how it moves, its type and format. ${judged} Build until the build says OK.\n\n${given}`;
   if (kind === "sounds")
-    return `Make this sound for the GoldSrc engine with a smak.sound/1 spec (guide { doc: "spec" }, "A sound"), named ${subject.name} so the game plays it in the original's place, as close to the original as you can, and at least as good: the same event, length, envelope, spectrum and character. ${judged} Build until the build says OK.\n\n${given}`;
+    return `Make this sound for the GoldSrc engine with a smak.sound/1 spec (guide { doc: "spec" }, "A sound"), named ${subject.name} so the game plays it in the original's place, as close to the original as you can, and at least as good: the same event, length, envelope, spectrum and character. ${judged} Build until the build says OK.${ACCEPT ? " For this test the person accepts the licences of the local generators, non-commercial ones included." : ""}\n\n${given}`;
   return `Make every texture of this map again for the GoldSrc engine, in one smak.wad/1 spec (guide { doc: "spec" }, "Textures for maps") named frenzy_new.wad, each under the original's exact name and size, so the map wears ours in their place, as close to the originals as you can and at least as good: what each is, its colours, its pattern and scale, tiling without a seam, its kind kept (a { texture's holes, a +0 animation's frames, a light's face). The compiled map is models:frenzy.bsp: give the spec preview: { map: "models:frenzy.bsp", each: true } to see the map wearing yours, and each texture on its own place from the very camera and brightness of the pictures given (the game's own textures are not here). ${judged} Build until the build says OK.\n\n${given}`;
 }
 
@@ -203,7 +207,7 @@ async function reproduce(kind, subject, leg) {
   const want = kind === "textures" ? "frenzy_new.wad" : basename(subject.file);
   const found = newest((n) => n === want) ?? newest((n) => n.endsWith(ext));
   if (found) copyFileSync(found.p, join(built, basename(want)));
-  writeFileSync(join(out, "run.json"), `${JSON.stringify({ kit, model: r.model, generators: generators ? "generate" : null, seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, built: found?.name ?? null }, null, 1)}\n`);
+  writeFileSync(join(out, "run.json"), `${JSON.stringify({ kit, model: r.model, generators: generators ? "generate" : null, licencesAccepted: kind === "sounds" && ACCEPT ? true : undefined, seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, built: found?.name ?? null }, null, 1)}\n`);
   return `${kind}/${subject.id}:${leg}: ${r.seconds} s, built ${found?.name ?? "nothing"}`;
 }
 

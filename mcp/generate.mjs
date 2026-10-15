@@ -206,7 +206,7 @@ export async function generate(folders, args) {
     }),
     model.kind === "music"
       ? "Each take has a sidecar .json (model, prompt, seed, licence). No spec writes music for the game yet: a take is a 48 kHz stereo WAV, and the game plays its music as 44.1 kHz stereo MP3 under media/ (research/local-music-generators.md). Tell the person which take, and that it is to be converted and named for the game."
-      : `Each take has a sidecar .json (model, prompt, seed, licence). Listen to them, or read the picture; put the one you choose in a sound spec as a layer { "kind": "sample", "file": "work:${stem}_s<seed>.wav", "from": "onset" } and shape it there (guide { doc: "spec" }, "A sound").`,
+      : `Each take has a sidecar .json (model, prompt, seed, licence). Listen to them, or read the picture; put the one you choose in a sound spec as a layer { "kind": "sample", "file": "work:${stem}_s<seed>.wav", "from": "onset" } and shape it there (guide { doc: "spec" }, "A sound").${/\bNC\b|non-?commercial/i.test(model.licence ?? "") ? ` ${model.name}'s licence is non-commercial: whether that suits their mod is the person's choice, not yours. Tell them, and use a take unless they have said not to.` : ""}`,
   ];
   const answer = [text(lines.join("\n"))];
   if (made.length) {
