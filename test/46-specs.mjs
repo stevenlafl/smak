@@ -325,7 +325,7 @@ test("a map spec's doors: one on hinges, one that slides all the way up, and the
   sure(swung.report.facts.some((f) => /widened from 32 to 56/.test(f)), swung.report.facts.filter((f) => /links/.test(f)).join("; "));
   const slid = buildMapSpec(spec(undefined), { out: join(folder, "doors-slide") });
   const text = (r) => readFileSync(r.files.map, "utf8");
-  sure(/"classname" "func_door_rotating"/.test(text(swung)) && /ORIGIN/.test(text(swung)), "a door on hinges, with its hinge");
+  sure(/"classname" "func_door_rotating"/.test(text(swung)) && /ORIGIN/.test(text(swung)) && /"spawnflags" "288"/.test(text(swung)), "a door on hinges, with its hinge, opened and closed by use");
   sure(/"classname" "func_door"/.test(text(slid)) && /"lip" "0"/.test(text(slid)), "a sliding door that opens all the way");
   // the threshold: the map's brushes have a floor under the doorway, level with the rooms'
   const map = smak.maps.readMap(text(slid));
@@ -476,6 +476,14 @@ test("a map spec keeps its ways through at ease: no furniture in front of a door
   // a room that shares 40 of wall: a door there is too narrow, and the build says so
   const short = faults({ ...spec([], [40, 40, 128]), rooms: [{ id: "a", size: [256, 256, 128] }, { id: "b", size: [40, 40, 128], place: { east_of: "a" } }] });
   sure(short.some((f) => /links\[0\]: the wall a and b share is 40 long/.test(f)), short.join("; "));
+});
+
+test("a way through clears a step: raised to Valve's 96, and 90 over the lower floor (Kaupo's shed, ducked through)", () => {
+  const spec = (high) => ({ spec: "smak.map/1", name: "step", rooms: [{ id: "yard", size: [256, 256, high] }, { id: "shed", size: [256, 256, high], place: { east_of: "yard" }, floor: 8 }], links: [{ between: ["yard", "shed"], kind: "opening", height: 76 }], entities: [{ class: "info_player_start", room: "yard", at: "centre" }] });
+  const tall = buildMapSpec(spec(160), { out: join(folder, "step"), compilers: { found: false, message: "" } }).report;
+  sure(tall.facts.some((f) => /raised from 76 to 96 high/.test(f)), tall.facts.filter((f) => /links/.test(f)).join("; "));
+  const low = buildMapSpec(spec(86), { out: join(folder, "step"), compilers: { found: false, message: "" } }).report;
+  sure(low.faults.some((f) => /is 78 high.*over the step of 8/.test(f)), [...low.faults, ...low.errors].join("; "));
 });
 
 test("a weapon laid \"as drawn\" is fitted without a crash (case 26, the lunchbox mine, never built)", () => {

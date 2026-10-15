@@ -48,6 +48,8 @@ const DOOR = { width: 64, height: 96 };
  * (a real house's 2'-6" doors at a foot to 12 units) are widened to these, and the report says so.
  */
 const PASSABLE = { opening: 48, door: 48, swing: 56 };
+/** And as high as Valve's own doors, where the rooms have the height. */
+const PASSABLE_HIGH = 96;
 /** How deep the floor in front of a way through stays clear of furniture, on both sides: a step and a turn. */
 const CLEAR = 40;
 const WINDOW = { width: 48, height: 48, sill: 40 };
@@ -714,8 +716,15 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     const floorLow = Math.min(a.min[2], b.min[2]);
     const ceiling = Math.min(a.max[2], b.max[2]);
     const z0 = kind === "window" ? floorHigh + (link.sill ?? WINDOW.sill) : floorHigh;
-    const height = Math.min(link.height ?? (kind === "window" ? WINDOW.height : DOOR.height), ceiling - z0);
-    if (kind !== "window" && height < PLAYER.high) errors.push(`links[${i}]: the way from ${a.id} to ${b.id} is ${height} high; a player needs 72`);
+    // a way a player walks through is as high as Valve's doors at least (96), and over a step it clears the body
+    // the engine lifts by up to a step (18) before it moves on: 72 + 18 over the lower floor. Kaupo's shed door,
+    // 76 high over a step of 8, was ducked through (Steven's play-test)
+    const askedHigh = link.height ?? (kind === "window" ? WINDOW.height : DOOR.height);
+    const leastHigh = kind === "window" ? 0 : Math.max(PASSABLE_HIGH, floorLow + STEP + PLAYER.high - z0);
+    const height = Math.min(Math.max(askedHigh, leastHigh), ceiling - z0);
+    if (kind !== "window" && height > askedHigh) report.facts.push(`links[${i}]: ${a.id} to ${b.id} raised from ${askedHigh} to ${height} high: a player walks through at ease at ${leastHigh}`);
+    if (kind !== "window" && height < leastHigh)
+      (height < PLAYER.high ? errors : report.faults).push(`links[${i}]: the way from ${a.id} to ${b.id} is ${height} high, under the ceiling of the lower room; a player walks through at ease at ${leastHigh}${floorHigh > floorLow ? ` (over the step of ${floorHigh - floorLow} the engine lifts the body by up to ${STEP} before it moves on)` : ""}: raise the rooms' ceilings`);
     const hole = { min: [0, 0, z0], max: [0, 0, z0 + height] };
     hole.min[axis] = from.max[axis];
     hole.max[axis] = to.min[axis];
@@ -794,8 +803,10 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         entities.push(
           brushEntity("func_door_rotating", [box(leaf.min, leaf.max, textureOf(link.material ?? "door")), box(pin.min, pin.max, "ORIGIN")], {
             speed: 100,
-            // open it stays, unless the spec says otherwise: one that shut after 4 s closed on Steven in the
-            // doorway, and the squeeze set it off again (Kaupo); a house's doors do not shut themselves
+            // opened and closed by the player, as a house's are: use only (256), and each use toggles it (32,
+            // no auto return). One that shut by itself after 4 s closed on Steven in the doorway; one that never
+            // shut could not be closed at all (Kaupo); walking into a toggling door would flap it
+            spawnflags: 256 + 32,
             wait: -1,
             distance: 90,
             angles: "0 0 0",
