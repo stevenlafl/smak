@@ -972,17 +972,48 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         const pin = { min: [...leaf.min], max: [...leaf.max] };
         pin.min[along] = at - 2;
         pin.max[along] = at + 2;
+        const name = keys.targetname ?? `door${i}`;
         entities.push(
           brushEntity("func_door_rotating", [box(leaf.min, leaf.max, fitted(doorTextureOf(link.material ?? "door"), leaf.min, leaf.max)), box(pin.min, pin.max, "ORIGIN")], {
             speed: 100,
-            // opened and closed by the player, as a house's are: use only (256), and each use toggles it (32,
-            // no auto return). One that shut by itself after 4 s closed on Steven in the doorway; one that never
-            // shut could not be closed at all (Kaupo); walking into a toggling door would flap it
-            spawnflags: 256 + 32,
+            // opened and closed by the player, as a house's are, each use toggling it (32, no auto return). One
+            // that shut by itself after 4 s closed on Steven in the doorway; one that never shut could not be
+            // closed at all (Kaupo); walking into a toggling door would flap it. It is used through its frame
+            // (below), not by itself: a named door does not open to a touch either
+            spawnflags: 32,
             wait: -1,
             distance: 90,
             angles: "0 0 0",
             ...keys,
+            targetname: name,
+          }),
+        );
+        // what the use key finds: a still button buried in the frame, both jambs and the lintel, that toggles the
+        // door. The game's use search (PlayerUse) aims at an entity's box, and a door turned open is given a
+        // cube about its hinge as wide as the door is tall (SetObjectCollisionBox): a player inside it finds
+        // the door only looking up past 45 degrees, so an open door could not be shut from beside it, and its
+        // cube took the use from a door next to it (Steven's walk of Kaupo). The frame's box never turns and
+        // spans the doorway, so the door is found from anywhere in front of it, from either side; the door
+        // still swings away from whoever used it, the button handing on the player as the activator
+        const frame = (min, max) => box(min, max, "NULL");
+        const [w0, w1, z0, z1, d0, d1] = [hole.min[along], hole.max[along], hole.min[2], hole.max[2], from.max[axis], to.min[axis]];
+        const slab = (a0, a1, h0, h1) => {
+          const min = [0, 0, h0];
+          const max = [0, 0, h1];
+          min[along] = a0;
+          max[along] = a1;
+          min[axis] = d0;
+          max[axis] = d1;
+          return frame(min, max);
+        };
+        entities.push(
+          brushEntity("func_button", [slab(w0 - 2, w0, z0, z1), slab(w1, w1 + 2, z0, z1), slab(w0 - 2, w1 + 2, z1, z1 + 2)], {
+            target: name,
+            spawnflags: 1,
+            wait: 1,
+            sounds: 0,
+            rendermode: 2,
+            renderamt: 0,
           }),
         );
       } else {

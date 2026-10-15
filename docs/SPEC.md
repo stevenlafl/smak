@@ -763,8 +763,11 @@ stacked) with the wall's rock between them, and the link goes through that rock:
 - `door`: the same with a door in it: a `func_door` that slides up into the wall over it, all the way, or with
   `door: { swing: true }` a door on hinges (`func_door_rotating`), as a house's are, turning a quarter away
   from whoever opens it about its hinge at the start of the way (`hinge: "end"` the other edge), opened and
-  closed with the use key and never by walking into it (`spawnflags` 256 + 32: use only, toggle). Other keys of
-  `door` are the entity's (`speed`, `wait`, `targetname`); `material` its own, the theme's `door` unless told,
+  closed with the use key and never by walking into it (`spawnflags` 32, toggle, and named: a named door opens
+  to no touch). The use key finds it through a still `func_button` hidden in its frame (both jambs and the
+  lintel, in the wall's rock) that toggles it: the game looks for an open door in a cube about its hinge, so
+  a door used by itself could not be shut from beside it. Other keys of `door` are the entity's (`speed`,
+  `wait`, `targetname`: the name the frame's button targets, `door<n>` unless told); `material` its own, the theme's `door` unless told,
   which is the `door` base: a panelled wooden door with a brass handle, one picture fitted to the leaf. A
   material of another base (`{ "base": "wood", "tone": "white" }`) is painted as that door in its tone, unless
   it names a game's texture. A sliding door is opened and closed by use too. Any door's picture is fitted to its
