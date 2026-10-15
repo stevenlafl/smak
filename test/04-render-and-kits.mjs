@@ -64,3 +64,14 @@ test("the kits make pieces", () => {
   });
   sure(bowPiece.tris.length > 50 && bowPiece.rig === "nearest", "bow");
 });
+
+test("an animation as a looping GIF: every frame, labelled, at its rate; every animation with animationGifs", () => {
+  const g = smak.animationGif(knife.mdl, { seq: "wave", width: 96, height: 96 });
+  sure(Buffer.from(g.bytes.subarray(0, 6)).toString("latin1") === "GIF89a", "a GIF89a");
+  sure(g.name === "wave" && g.frames === 12 && g.width === 96, `${g.name} ${g.frames} ${g.width}`);
+  // one image block a frame (0x2c after a graphic control block)
+  let blocks = 0;
+  for (let i = 0; i + 8 < g.bytes.length; i++) if (g.bytes[i] === 0x21 && g.bytes[i + 1] === 0xf9 && g.bytes[i + 8] === 0x2c) blocks++;
+  sure(blocks === 12, `${blocks} frames written`);
+  sure(smak.animationGifs(knife.mdl, { width: 64, height: 64 }).map((x) => x.name).join() === smak.sequences(knife.mdl).map((s) => s.name).join(), "every animation, in order");
+});

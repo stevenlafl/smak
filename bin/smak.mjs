@@ -524,6 +524,26 @@ function draw({ command, src, flags }) {
   console.log(`${to}  ${picture.width}x${picture.height}`);
 }
 
+// ── an animation as a GIF ──────────────────────────────────────────────────
+/** One animation, or every one (--seq all, -o a folder), as looping GIFs, each frame labelled. */
+function gifs({ command, src, flags, file }) {
+  const to = need(command, flags.o, "-o out.gif (or a folder, with --seq all)");
+  const options = defined(viewOptions(src, flags));
+  const stem = basename(file).replace(/\.mdl$/i, "");
+  if (String(flags.seq) === "all") {
+    for (const g of smak.animationGifs(src, { ...options, seq: undefined })) {
+      const file = join(to, `${stem}-${String(g.number).padStart(2, "0")}-${g.name}.gif`);
+      save(file, g.bytes);
+      console.log(`${file}  ${g.width}x${g.height}, ${g.frames} frames at ${g.fps.toFixed(1)} a second`);
+    }
+    return;
+  }
+  if (!/\.gif$/i.test(to)) fail("-o: a .gif file (or a folder with --seq all)");
+  const g = smak.animationGif(src, options);
+  save(to, g.bytes);
+  console.log(`${to}  ${g.name}, ${g.width}x${g.height}, ${g.frames} frames at ${g.fps.toFixed(1)} a second`);
+}
+
 // ── textures ───────────────────────────────────────────────────────────────
 function textures({ command, src, flags }) {
   const dir = need(command, flags.o, "-o <folder>");
@@ -2398,6 +2418,11 @@ const COMMANDS = {
     help: `  strip <mdl> -o out.png --seq <name|n>     an animation, frame by frame   [--count 12] [--cols 4] [--from f] [--to f] [--view first]
                                             a walk judged by its feet: --view side --ground (one camera for every frame, the floor a line)
         (render, sheet and strip all take --seq --frame --body --skin --width --height --no-light --no-cull)`,
+  },
+  gif: {
+    run: gifs,
+    help: `  gif <mdl> -o out.gif --seq <name|n|all>     an animation as a looping GIF, each frame labelled (--seq all: every one, -o a folder)
+                                            [--view side --ground] [--yaw] [--pitch] [--width] [--height] [--body] [--skin], as strip`,
   },
   textures: {
     run: textures,

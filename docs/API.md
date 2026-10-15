@@ -551,6 +551,7 @@ All return `{ width, height, rgba }`; write with `png(img.width, img.height, img
 | `render(src, options)` | One view. |
 | `sheet(src, options)` | Six views: front, left side, back, right side, top, three quarter. `size` (384) is each one's side. |
 | `strip(src, { seq, count = 12, cols = 4, from, to, ... })` | An animation (the first unless told), `count` frames from first to last, each numbered, all by one camera at one scale. Throws when the model has no animation, or none of that name. A walk: `{ view: "side", ground: true }`. |
+| `animationGif(src, { seq, fps, most = 60, ... })` (`src/anim-gif.mjs`) | Not `{ width, height, rgba }`: an animation as a looping GIF, `{ bytes, name, number, frames, fps, width, height }`. Every frame (every n-th past `most`, the rate cut to match; a loop's repeated last frame left out) by one camera at one scale, each labelled with its name and frame, at the animation's own rate unless `fps`. Write `bytes` to a `.gif`. `animationGifs(src, options)` gives every animation's, in order. |
 | `uvMap(src, which, { scale })` | A texture enlarged with the triangles that wear it drawn over it. Also returns `scale`, `meshes`, `triangles`. |
 | `tile(images, cols, names)` | Pictures of one size side by side, named. For before and after. |
 | `lineup([[name, model], ...], { yaws = [20, 200], pitch, zoom, width, height, cols, target, seq, frame })` | Several models to one scale, each from the same sides. |

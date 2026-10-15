@@ -93,6 +93,8 @@ node bin/smak.mjs check <mdl> [--engine xash]      errors and warnings; exit cod
 node bin/smak.mjs sheet <mdl> -o s.png             six views in one picture
 node bin/smak.mjs render <mdl> -o r.png --yaw 30 --pitch 15 [--view first|side|front|top] [--ground]
 node bin/smak.mjs strip <mdl> -o a.png --seq reload --count 12 [--view first]   (a walk: --view side --ground)
+node bin/smak.mjs gif <mdl> -o a.gif --seq reload  an animation as a looping GIF, each frame labelled (--seq all -o dir: every one);
+                                                   the MCP render tool's kind "gif" does the same into the work folder
 node bin/smak.mjs textures <mdl> -o dir [--bmp]    every texture as a file
 node bin/smak.mjs uv <mdl> -o dir                  every texture with the triangles that wear it drawn over it
 node bin/smak.mjs islands <mdl> [-o dir] [--body n]  the islands each picture is cut into, listed; with -o, drawn tinted and numbered

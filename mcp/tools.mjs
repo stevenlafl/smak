@@ -669,7 +669,8 @@ function render(folders, args) {
   if (isCompiledMap(named) || isMapSource(named)) return renderMap(folders, named, args);
   const { src, file } = readModel(folders, args.model);
   const kind = args.kind ?? "view";
-  if (!Object.hasOwn(KINDS, kind)) throw new Error(`kind: one of ${Object.keys(KINDS).join(", ")}`);
+  if (kind === "gif") return renderGif(folders, src, file, args);
+  if (!Object.hasOwn(KINDS, kind)) throw new Error(`kind: one of ${Object.keys(KINDS).join(", ")}, gif`);
   const size = Math.min(
     PICTURE_MOST,
     Math.max(1, Math.round(args.size ?? (kind === "view" || kind === "uv" ? SIZE_ONE : SIZE_SEVERAL))),
@@ -687,6 +688,35 @@ function render(folders, args) {
   const bytes = pictureWithin(full);
   const drawn = smak.unpng(bytes);
   return [text(`${basename(file)} ${kind}: ${shown}; ${drawn.width}x${drawn.height}${said ? `; ${said}` : ""}`), image(bytes)];
+}
+
+/**
+ * An animation as a looping GIF in the work folder (`save`: a .gif name; unless told, <model>-<animation>.gif), or
+ * with seq "all" every animation, each <model>-<nn>-<name>.gif in a folder (`save` a folder; unless told
+ * <model>-gifs/). Each frame is labelled with its animation and frame. The picture sent back is a strip of the
+ * first one's frames, since a GIF is not shown inline.
+ */
+function renderGif(folders, src, file, args) {
+  const stem = basename(file).replace(/\.mdl$/i, "");
+  const size = Math.min(PICTURE_MOST, Math.max(64, Math.round(args.size ?? 320)));
+  const options = { width: size, height: size, body: args.body ?? 0, yaw: args.yaw ?? SIDES[args.side ?? "quarter"]?.[0], pitch: args.pitch ?? SIDES[args.side ?? "quarter"]?.[1], view: args.first ? "first" : args.view, ground: args.ground };
+  const write = (name, bytes) => {
+    const to = pathOf(folders, name, { write: true });
+    mkdirSync(dirname(to), { recursive: true });
+    writeFileSync(to, bytes);
+    return `work:${to.slice(folders.work.length + 1)}`;
+  };
+  const all = String(args.seq ?? "") === "all";
+  if (!all && args.save && !/\.gif$/i.test(args.save)) throw new Error("save: a .gif file's name in the work folder (pictures/run.gif)");
+  const made = all
+    ? smak.animationGifs(src, options).map((g) => ({ ...g, at: write(`${args.save ?? `${stem}-gifs`}/${stem}-${String(g.number).padStart(2, "0")}-${g.name}.gif`, g.bytes) }))
+    : [smak.animationGif(src, { ...options, seq: seqOf(src, args.seq) ?? 0 })].map((g) => ({ ...g, at: write(args.save ?? `${stem}-${g.name}.gif`, g.bytes) }));
+  const first = made[0];
+  const preview = smak.strip(src, { ...options, seq: first.number, count: Math.min(STRIP_COUNT, first.frames), width: 240, height: 240 });
+  return [
+    text(`${basename(file)} gif: ${made.length} animation${made.length > 1 ? "s" : ""}, ${made.map((g) => `${g.name} (${g.frames} frames at ${g.fps.toFixed(1)} a second) ${g.at}`).join("; ")}. The picture is ${first.name}'s frames.`),
+    image(pictureWithin(smak.png(preview.width, preview.height, preview.rgba))),
+  ];
 }
 
 // ── build ──────────────────────────────────────────────────────────────────
@@ -1088,18 +1118,18 @@ export function toolsFor(folders, { allowRun = true } = {}) {
     },
     {
       name: "render",
-      description: `A picture. Of a model: kind "view" (default; one side), "sheet" (six sides), "strip" (an animation's frames), "uv" (a texture with its triangles). Of a map (.bsp, .map): "plan" (default; from above, entities marked), "view" (from inside), "views" (several), "section" (a side cut), "storeys" (a plan each), "openings" (through each doorway).`,
+      description: `A picture. Of a model: kind "view" (default; one side), "sheet" (six sides), "strip" (an animation's frames), "uv" (a texture with its triangles), "gif" (an animation as a looping GIF written to the work folder, each frame labelled; seq "all" for every animation). Of a map (.bsp, .map): "plan" (default; from above, entities marked), "view" (from inside), "views" (several), "section" (a side cut), "storeys" (a plan each), "openings" (through each doorway).`,
       inputSchema: object(
         {
           model: MODEL,
           models: { type: "array", items: { type: "string" }, description: "several models side by side, in place of model" },
-          save: { type: "string", description: "also write the picture to the work folder under this .png name" },
+          save: { type: "string", description: "also write the picture to the work folder under this .png name (gif: a .gif name, or a folder with seq \"all\")" },
           kind: {
             type: "string",
-            enum: [...Object.keys(KINDS), "plan", "views", "section", "storeys", "openings"],
+            enum: [...Object.keys(KINDS), "gif", "plan", "views", "section", "storeys", "openings"],
           },
           body: { type: "number", description: "body number (0)" },
-          seq: { type: "string", description: 'animation name or number, or "rest" (default: the first)' },
+          seq: { type: "string", description: 'animation name or number, or "rest" (default: the first); gif: "all" for every one' },
           frame: { type: "number" },
           side: { type: "string", enum: Object.keys(SIDES), description: "view: default quarter" },
           yaw: { type: "number", description: "degrees; 0 front, 90 left side; map view: 0 looks +x, 90 +y" },
