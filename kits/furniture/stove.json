@@ -1,0 +1,257 @@
+{
+ "spec": "smak.model/1",
+ "name": "stove.mdl",
+ "kind": "prop",
+ "texture": {
+  "width": 256,
+  "height": 256
+ },
+ "materials": {
+  "white": {
+   "base": "paint",
+   "tone": [
+    0.9,
+    0.9,
+    0.88
+   ]
+  },
+  "steel": {
+   "base": "steel"
+  },
+  "black": {
+   "base": "paint",
+   "tone": [
+    0.07,
+    0.07,
+    0.08
+   ]
+  },
+  "glass": {
+   "base": "paint",
+   "tone": [
+    0.15,
+    0.17,
+    0.2
+   ]
+  }
+ },
+ "parts": [
+  {
+   "id": "body",
+   "kind": "box",
+   "material": "white",
+   "size": [
+    26,
+    30,
+    35
+   ],
+   "at": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "top",
+   "kind": "box",
+   "material": "black",
+   "size": [
+    26,
+    30,
+    1
+   ],
+   "at": [
+    0,
+    0,
+    35
+   ]
+  },
+  {
+   "id": "oven_door",
+   "kind": "box",
+   "material": "black",
+   "size": [
+    0.8,
+    24,
+    18
+   ],
+   "at": [
+    13.3,
+    0,
+    6
+   ]
+  },
+  {
+   "id": "oven_glass",
+   "kind": "box",
+   "material": "glass",
+   "size": [
+    0.4,
+    16,
+    8
+   ],
+   "at": [
+    13.8,
+    0,
+    11
+   ]
+  },
+  {
+   "id": "oven_handle",
+   "kind": "box",
+   "material": "steel",
+   "size": [
+    1.5,
+    20,
+    1
+   ],
+   "at": [
+    14.3,
+    0,
+    22.5
+   ]
+  },
+  {
+   "id": "backsplash",
+   "kind": "box",
+   "material": "white",
+   "size": [
+    2,
+    30,
+    8
+   ],
+   "at": [
+    -12,
+    0,
+    36
+   ]
+  },
+  {
+   "id": "burner_0",
+   "kind": "cylinder",
+   "material": "steel",
+   "radius": 2.6,
+   "height": 0.5,
+   "sides": 12,
+   "at": [
+    4,
+    -7,
+    35.9
+   ]
+  },
+  {
+   "id": "burner_1",
+   "kind": "cylinder",
+   "material": "steel",
+   "radius": 3.4,
+   "height": 0.5,
+   "sides": 12,
+   "at": [
+    4,
+    7,
+    35.9
+   ]
+  },
+  {
+   "id": "burner_2",
+   "kind": "cylinder",
+   "material": "steel",
+   "radius": 2.6,
+   "height": 0.5,
+   "sides": 12,
+   "at": [
+    -5,
+    -7,
+    35.9
+   ]
+  },
+  {
+   "id": "burner_3",
+   "kind": "cylinder",
+   "material": "steel",
+   "radius": 3.4,
+   "height": 0.5,
+   "sides": 12,
+   "at": [
+    -5,
+    7,
+    35.9
+   ]
+  },
+  {
+   "id": "knob_0",
+   "kind": "cylinder",
+   "material": "steel",
+   "radius": 0.7,
+   "height": 0.6,
+   "sides": 8,
+   "rotate": [
+    0,
+    90,
+    0
+   ],
+   "at": [
+    -12.9,
+    -9,
+    40
+   ]
+  },
+  {
+   "id": "knob_1",
+   "kind": "cylinder",
+   "material": "steel",
+   "radius": 0.7,
+   "height": 0.6,
+   "sides": 8,
+   "rotate": [
+    0,
+    90,
+    0
+   ],
+   "at": [
+    -12.9,
+    -3,
+    40
+   ]
+  },
+  {
+   "id": "knob_2",
+   "kind": "cylinder",
+   "material": "steel",
+   "radius": 0.7,
+   "height": 0.6,
+   "sides": 8,
+   "rotate": [
+    0,
+    90,
+    0
+   ],
+   "at": [
+    -12.9,
+    3,
+    40
+   ]
+  },
+  {
+   "id": "knob_3",
+   "kind": "cylinder",
+   "material": "steel",
+   "radius": 0.7,
+   "height": 0.6,
+   "sides": 8,
+   "rotate": [
+    0,
+    90,
+    0
+   ],
+   "at": [
+    -12.9,
+    9,
+    40
+   ]
+  }
+ ],
+ "size": {
+  "height": 44
+ }
+}

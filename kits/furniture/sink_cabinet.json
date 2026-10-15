@@ -1,0 +1,233 @@
+{
+ "spec": "smak.model/1",
+ "name": "sink_cabinet.mdl",
+ "kind": "prop",
+ "texture": {
+  "width": 256,
+  "height": 256
+ },
+ "materials": {
+  "wood": {
+   "base": "wood",
+   "tone": [
+    0.7,
+    0.55,
+    0.38
+   ]
+  },
+  "wood_dark": {
+   "base": "wood",
+   "tone": [
+    0.6,
+    0.45,
+    0.3
+   ]
+  },
+  "stone": {
+   "base": "stone",
+   "tone": [
+    0.55,
+    0.55,
+    0.58
+   ]
+  },
+  "steel": {
+   "base": "steel"
+  },
+  "black": {
+   "base": "paint",
+   "tone": [
+    0.07,
+    0.07,
+    0.08
+   ]
+  }
+ },
+ "parts": [
+  {
+   "id": "cabinet",
+   "kind": "box",
+   "material": "wood",
+   "size": [
+    24,
+    36,
+    34
+   ],
+   "at": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "counter",
+   "kind": "box",
+   "material": "stone",
+   "size": [
+    25.5,
+    37,
+    1.5
+   ],
+   "at": [
+    0.5,
+    0,
+    34
+   ]
+  },
+  {
+   "id": "door_l",
+   "kind": "box",
+   "material": "wood_dark",
+   "size": [
+    0.8,
+    16,
+    26
+   ],
+   "at": [
+    12.2,
+    -8.6,
+    4
+   ]
+  },
+  {
+   "id": "door_r",
+   "kind": "box",
+   "material": "wood_dark",
+   "size": [
+    0.8,
+    16,
+    26
+   ],
+   "at": [
+    12.2,
+    8.6,
+    4
+   ]
+  },
+  {
+   "id": "pull_l",
+   "kind": "box",
+   "material": "steel",
+   "size": [
+    0.8,
+    0.8,
+    5
+   ],
+   "at": [
+    12.8,
+    -2,
+    20
+   ]
+  },
+  {
+   "id": "pull_r",
+   "kind": "box",
+   "material": "steel",
+   "size": [
+    0.8,
+    0.8,
+    5
+   ],
+   "at": [
+    12.8,
+    2,
+    20
+   ]
+  },
+  {
+   "id": "basin",
+   "kind": "turn",
+   "material": "steel",
+   "sides": 16,
+   "rings": [
+    [
+     0,
+     [
+      7.5,
+      10
+     ]
+    ],
+    [
+     6,
+     [
+      7.5,
+      10
+     ]
+    ]
+   ],
+   "caps": [
+    false,
+    true
+   ],
+   "lining": {
+    "inset": 0.5
+   },
+   "rotate": [
+    0,
+    180,
+    0
+   ],
+   "at": [
+    1,
+    0,
+    35.6
+   ]
+  },
+  {
+   "id": "faucet",
+   "kind": "tube",
+   "material": "steel",
+   "sides": 8,
+   "path": [
+    [
+     -9,
+     0,
+     35,
+     0.6
+    ],
+    [
+     -9,
+     0,
+     42,
+     0.6
+    ],
+    [
+     -7,
+     0,
+     44,
+     0.55
+    ],
+    [
+     -4,
+     0,
+     43,
+     0.5
+    ],
+    [
+     -3.5,
+     0,
+     41,
+     0.45
+    ]
+   ]
+  },
+  {
+   "id": "toe_kick",
+   "kind": "box",
+   "material": "black",
+   "size": [
+    0.6,
+    36,
+    3
+   ],
+   "at": [
+    12.1,
+    0,
+    0
+   ]
+  }
+ ],
+ "size": {
+  "height": 44
+ }
+}

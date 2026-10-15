@@ -1,0 +1,329 @@
+{
+ "spec": "smak.model/1",
+ "name": "gun_case.mdl",
+ "kind": "prop",
+ "texture": {
+  "width": 256,
+  "height": 256
+ },
+ "materials": {
+  "wood": {
+   "base": "darkwood"
+  },
+  "glasslike": {
+   "base": "paint",
+   "tone": [
+    0.6,
+    0.7,
+    0.75
+   ]
+  },
+  "chrome": {
+   "base": "steel"
+  },
+  "felt": {
+   "base": "cloth",
+   "tone": [
+    0.12,
+    0.25,
+    0.15
+   ]
+  },
+  "gunmetal": {
+   "base": "steel",
+   "tone": [
+    0.25,
+    0.26,
+    0.28
+   ]
+  },
+  "grip": {
+   "base": "darkwood"
+  }
+ },
+ "parts": [
+  {
+   "id": "cabinet",
+   "kind": "box",
+   "material": "wood",
+   "size": [
+    24,
+    60,
+    32
+   ],
+   "at": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "glass_top",
+   "kind": "box",
+   "material": "glasslike",
+   "size": [
+    24,
+    60,
+    0.8
+   ],
+   "at": [
+    0,
+    0,
+    40
+   ]
+  },
+  {
+   "id": "glass_post_0",
+   "kind": "box",
+   "material": "chrome",
+   "size": [
+    1,
+    1,
+    8
+   ],
+   "at": [
+    11.5,
+    29.5,
+    32
+   ]
+  },
+  {
+   "id": "glass_post_1",
+   "kind": "box",
+   "material": "chrome",
+   "size": [
+    1,
+    1,
+    8
+   ],
+   "at": [
+    11.5,
+    -29.5,
+    32
+   ]
+  },
+  {
+   "id": "glass_post_2",
+   "kind": "box",
+   "material": "chrome",
+   "size": [
+    1,
+    1,
+    8
+   ],
+   "at": [
+    -11.5,
+    29.5,
+    32
+   ]
+  },
+  {
+   "id": "glass_post_3",
+   "kind": "box",
+   "material": "chrome",
+   "size": [
+    1,
+    1,
+    8
+   ],
+   "at": [
+    -11.5,
+    -29.5,
+    32
+   ]
+  },
+  {
+   "id": "felt",
+   "kind": "box",
+   "material": "felt",
+   "size": [
+    22,
+    58,
+    0.5
+   ],
+   "at": [
+    0,
+    0,
+    32
+   ]
+  },
+  {
+   "id": "pistol_0",
+   "kind": "box",
+   "material": "gunmetal",
+   "size": [
+    7,
+    1.5,
+    0.8
+   ],
+   "at": [
+    -2,
+    -22,
+    32.5
+   ]
+  },
+  {
+   "id": "pistol_1",
+   "kind": "box",
+   "material": "gunmetal",
+   "size": [
+    7,
+    1.5,
+    0.8
+   ],
+   "at": [
+    4,
+    -13,
+    32.5
+   ]
+  },
+  {
+   "id": "pistol_2",
+   "kind": "box",
+   "material": "gunmetal",
+   "size": [
+    7,
+    1.5,
+    0.8
+   ],
+   "at": [
+    -2,
+    -4,
+    32.5
+   ]
+  },
+  {
+   "id": "pistol_3",
+   "kind": "box",
+   "material": "gunmetal",
+   "size": [
+    7,
+    1.5,
+    0.8
+   ],
+   "at": [
+    4,
+    5,
+    32.5
+   ]
+  },
+  {
+   "id": "pistol_4",
+   "kind": "box",
+   "material": "gunmetal",
+   "size": [
+    7,
+    1.5,
+    0.8
+   ],
+   "at": [
+    -2,
+    14,
+    32.5
+   ]
+  },
+  {
+   "id": "grip_0",
+   "kind": "box",
+   "material": "grip",
+   "size": [
+    1.6,
+    1.2,
+    3.2
+   ],
+   "at": [
+    -5,
+    -22,
+    32.5
+   ],
+   "rotate": [
+    0,
+    -75,
+    0
+   ]
+  },
+  {
+   "id": "grip_1",
+   "kind": "box",
+   "material": "grip",
+   "size": [
+    1.6,
+    1.2,
+    3.2
+   ],
+   "at": [
+    1,
+    -13,
+    32.5
+   ],
+   "rotate": [
+    0,
+    -75,
+    0
+   ]
+  },
+  {
+   "id": "grip_2",
+   "kind": "box",
+   "material": "grip",
+   "size": [
+    1.6,
+    1.2,
+    3.2
+   ],
+   "at": [
+    -5,
+    -4,
+    32.5
+   ],
+   "rotate": [
+    0,
+    -75,
+    0
+   ]
+  },
+  {
+   "id": "grip_3",
+   "kind": "box",
+   "material": "grip",
+   "size": [
+    1.6,
+    1.2,
+    3.2
+   ],
+   "at": [
+    1,
+    5,
+    32.5
+   ],
+   "rotate": [
+    0,
+    -75,
+    0
+   ]
+  },
+  {
+   "id": "grip_4",
+   "kind": "box",
+   "material": "grip",
+   "size": [
+    1.6,
+    1.2,
+    3.2
+   ],
+   "at": [
+    -5,
+    14,
+    32.5
+   ],
+   "rotate": [
+    0,
+    -75,
+    0
+   ]
+  }
+ ],
+ "size": {
+  "height": 41
+ }
+}

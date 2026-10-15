@@ -1,0 +1,343 @@
+{
+ "spec": "smak.model/1",
+ "name": "dresser.mdl",
+ "kind": "prop",
+ "texture": {
+  "width": 256,
+  "height": 256
+ },
+ "materials": {
+  "wood": {
+   "base": "wood",
+   "tone": [
+    0.5,
+    0.33,
+    0.2
+   ]
+  },
+  "drawer": {
+   "base": "wood",
+   "tone": [
+    0.56,
+    0.38,
+    0.24
+   ]
+  },
+  "brass": {
+   "base": "brass"
+  },
+  "shade": {
+   "base": "cloth",
+   "tone": [
+    0.95,
+    0.88,
+    0.7
+   ]
+  }
+ },
+ "parts": [
+  {
+   "id": "body",
+   "kind": "box",
+   "material": "wood",
+   "size": [
+    18,
+    40,
+    34
+   ],
+   "at": [
+    0,
+    0,
+    2
+   ]
+  },
+  {
+   "id": "drawer_0_0",
+   "kind": "box",
+   "material": "drawer",
+   "size": [
+    0.8,
+    18.5,
+    9.5
+   ],
+   "at": [
+    9.2,
+    -9.6,
+    4.0
+   ]
+  },
+  {
+   "id": "drawer_0_1",
+   "kind": "box",
+   "material": "drawer",
+   "size": [
+    0.8,
+    18.5,
+    9.5
+   ],
+   "at": [
+    9.2,
+    9.6,
+    4.0
+   ]
+  },
+  {
+   "id": "drawer_1_0",
+   "kind": "box",
+   "material": "drawer",
+   "size": [
+    0.8,
+    18.5,
+    9.5
+   ],
+   "at": [
+    9.2,
+    -9.6,
+    14.5
+   ]
+  },
+  {
+   "id": "drawer_1_1",
+   "kind": "box",
+   "material": "drawer",
+   "size": [
+    0.8,
+    18.5,
+    9.5
+   ],
+   "at": [
+    9.2,
+    9.6,
+    14.5
+   ]
+  },
+  {
+   "id": "drawer_2_0",
+   "kind": "box",
+   "material": "drawer",
+   "size": [
+    0.8,
+    18.5,
+    9.5
+   ],
+   "at": [
+    9.2,
+    -9.6,
+    25.0
+   ]
+  },
+  {
+   "id": "drawer_2_1",
+   "kind": "box",
+   "material": "drawer",
+   "size": [
+    0.8,
+    18.5,
+    9.5
+   ],
+   "at": [
+    9.2,
+    9.6,
+    25.0
+   ]
+  },
+  {
+   "id": "knob_0_0",
+   "kind": "sphere",
+   "material": "brass",
+   "radius": 0.6,
+   "sides": 6,
+   "at": [
+    9.8,
+    -9.6,
+    8.2
+   ]
+  },
+  {
+   "id": "knob_0_1",
+   "kind": "sphere",
+   "material": "brass",
+   "radius": 0.6,
+   "sides": 6,
+   "at": [
+    9.8,
+    9.6,
+    8.2
+   ]
+  },
+  {
+   "id": "knob_1_0",
+   "kind": "sphere",
+   "material": "brass",
+   "radius": 0.6,
+   "sides": 6,
+   "at": [
+    9.8,
+    -9.6,
+    18.7
+   ]
+  },
+  {
+   "id": "knob_1_1",
+   "kind": "sphere",
+   "material": "brass",
+   "radius": 0.6,
+   "sides": 6,
+   "at": [
+    9.8,
+    9.6,
+    18.7
+   ]
+  },
+  {
+   "id": "knob_2_0",
+   "kind": "sphere",
+   "material": "brass",
+   "radius": 0.6,
+   "sides": 6,
+   "at": [
+    9.8,
+    -9.6,
+    29.2
+   ]
+  },
+  {
+   "id": "knob_2_1",
+   "kind": "sphere",
+   "material": "brass",
+   "radius": 0.6,
+   "sides": 6,
+   "at": [
+    9.8,
+    9.6,
+    29.2
+   ]
+  },
+  {
+   "id": "foot_0",
+   "kind": "box",
+   "material": "wood",
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "at": [
+    7,
+    18,
+    0
+   ]
+  },
+  {
+   "id": "foot_1",
+   "kind": "box",
+   "material": "wood",
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "at": [
+    7,
+    -18,
+    0
+   ]
+  },
+  {
+   "id": "foot_2",
+   "kind": "box",
+   "material": "wood",
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "at": [
+    -7,
+    18,
+    0
+   ]
+  },
+  {
+   "id": "foot_3",
+   "kind": "box",
+   "material": "wood",
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "at": [
+    -7,
+    -18,
+    0
+   ]
+  },
+  {
+   "id": "lamp_base",
+   "kind": "turn",
+   "material": "brass",
+   "sides": 10,
+   "rings": [
+    [
+     0,
+     2.5
+    ],
+    [
+     0.8,
+     2.2
+    ],
+    [
+     2,
+     0.6
+    ],
+    [
+     9,
+     0.5
+    ]
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "at": [
+    0,
+    12,
+    36
+   ]
+  },
+  {
+   "id": "lamp_shade",
+   "kind": "turn",
+   "material": "shade",
+   "sides": 12,
+   "rings": [
+    [
+     0,
+     4.5
+    ],
+    [
+     5,
+     3
+    ]
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "attach": {
+    "to": "lamp_base",
+    "toAt": "top",
+    "at": "bottom",
+    "offset": [
+     0,
+     0,
+     -0.5
+    ]
+   }
+  }
+ ],
+ "size": {
+  "height": 50
+ }
+}

@@ -1,0 +1,148 @@
+{
+ "spec": "smak.model/1",
+ "name": "fridge.mdl",
+ "kind": "prop",
+ "texture": {
+  "width": 256,
+  "height": 256
+ },
+ "materials": {
+  "white": {
+   "base": "paint",
+   "tone": [
+    0.9,
+    0.9,
+    0.88
+   ]
+  },
+  "steel": {
+   "base": "steel"
+  },
+  "black": {
+   "base": "paint",
+   "tone": [
+    0.07,
+    0.07,
+    0.08
+   ]
+  },
+  "red": {
+   "base": "paint",
+   "tone": [
+    0.75,
+    0.15,
+    0.1
+   ]
+  }
+ },
+ "parts": [
+  {
+   "id": "body",
+   "kind": "box",
+   "material": "white",
+   "size": [
+    30,
+    32,
+    68
+   ],
+   "at": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "door_low",
+   "kind": "box",
+   "material": "white",
+   "size": [
+    1,
+    31,
+    42
+   ],
+   "at": [
+    15.5,
+    0,
+    1.5
+   ]
+  },
+  {
+   "id": "door_high",
+   "kind": "box",
+   "material": "white",
+   "size": [
+    1,
+    31,
+    22
+   ],
+   "at": [
+    15.5,
+    0,
+    44.5
+   ]
+  },
+  {
+   "id": "handle_low",
+   "kind": "box",
+   "material": "steel",
+   "size": [
+    1.2,
+    1.2,
+    14
+   ],
+   "at": [
+    16.6,
+    -13,
+    24
+   ]
+  },
+  {
+   "id": "handle_high",
+   "kind": "box",
+   "material": "steel",
+   "size": [
+    1.2,
+    1.2,
+    10
+   ],
+   "at": [
+    16.6,
+    -13,
+    48
+   ]
+  },
+  {
+   "id": "kick",
+   "kind": "box",
+   "material": "black",
+   "size": [
+    0.6,
+    30,
+    1.5
+   ],
+   "at": [
+    15.2,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "magnet",
+   "kind": "box",
+   "material": "red",
+   "size": [
+    0.4,
+    2.5,
+    2
+   ],
+   "at": [
+    16.2,
+    6,
+    54
+   ]
+  }
+ ],
+ "size": {
+  "height": 68
+ }
+}

@@ -9,7 +9,8 @@
 //   layoutOf(spec)                                   -> the rooms as boxes, before anything else is built
 //
 // docs/SPEC.md is the guide. Axes as every map's: +x east, +y north, +z up, a unit about an inch.
-import { writeFileSync, mkdirSync, readFileSync, existsSync } from "node:fs";
+import { writeFileSync, mkdirSync, readFileSync, existsSync, readdirSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { join, resolve, dirname, basename } from "node:path";
 import { carve, box, cylinder, wedge, prism, stairs as stairBrushes, light, sunLight, textureLights, playerStart, pointEntity, brushEntity, writeMap, readMap, subtract, moved, shapeOf, onFloor } from "../maps/source.mjs";
 import { checkPlan } from "../maps/plan.mjs";
@@ -66,6 +67,9 @@ const INSET = 48;
 const INTO_WALL = 1;
 /** Pieces this near each other, or a room's face, touch. */
 const TOUCH = 1;
+/** The kit's furniture, model specs a map's props name as "kit:<name>", and the key each is built under. */
+const KIT_FURNITURE = fileURLToPath(new URL("../../kits/furniture/", import.meta.url));
+const kitKey = (model) => (typeof model === "string" && model.startsWith("kit:") ? `kit_${model.slice(4)}` : model);
 /** The sprites a player sees, and how near a surface they must be (sweep.mjs's LIGHT_REACH). */
 const GLOWS = ["env_glow", "env_sprite"];
 const GLOW_REACH = 32;
@@ -1227,7 +1231,19 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   /** each model's footprint in its own space, for `beside` */
   const modelPrints = {};
   const gallery = [];
-  for (const [modelName, given] of Object.entries(spec.models ?? {})) {
+  // the kit's own furniture (kits/furniture/<name>.json), named by a prop as "kit:<name>", is built as the map's
+  const kitModels = {};
+  for (const [i, thing] of (spec.props ?? []).entries()) {
+    if (typeof thing?.model !== "string" || !thing.model.startsWith("kit:")) continue;
+    const name = thing.model.slice(4);
+    const file = join(KIT_FURNITURE, `${name}.json`);
+    if (!/^[a-z0-9_]+$/.test(name) || !existsSync(file)) {
+      errors.push(`props[${i}].model: "${thing.model}" is none of the kit's furniture (${readdirSync(KIT_FURNITURE).map((f) => `kit:${f.replace(/\.json$/, "")}`).join(", ")})`);
+      continue;
+    }
+    kitModels[kitKey(thing.model)] = { file };
+  }
+  for (const [modelName, given] of Object.entries({ ...(spec.models ?? {}), ...kitModels })) {
     const modelSpec = given.file ? JSON.parse(readFileSync(resolve(folder ?? ".", given.file), "utf8")) : given;
     const built = buildModelSpec({ ...modelSpec, name: `${modelName}.mdl` }, { folder });
     if (!built.mdl || !built.report.ok) {
@@ -1256,12 +1272,22 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     spec.props,
     "props",
     (thing, room, at) => {
-      propsAt.push({ room: room.id, at, half: modelHeights[thing.model] ? modelHeights[thing.model] / 2 : 16 });
-      const model = modelFiles[thing.model] ?? thing.model;
+      const key = kitKey(thing.model);
+      propsAt.push({ room: room.id, at, half: modelHeights[key] ? modelHeights[key] / 2 : 16 });
+      const model = modelFiles[key] ?? thing.model;
       entities.push(pointEntity(thing.class ?? "cycler_sprite", at, { model, angles: [0, yawOf(room, thing.facing, at), 0], ...(thing.keys ?? {}) }));
+      // a model is walked through in the game: furniture of the kit's, or a prop that says `solid: true`, is
+      // given a CLIP box of its footprint and height, which stops a body and draws nothing
+      if (thing.solid ?? String(thing.model).startsWith("kit:")) {
+        const own = turnedPrint(modelPrints[key] ?? { min: [-16, -16], max: [16, 16] }, isNumber(thing.facing) ? thing.facing : FACINGS[thing.facing] ?? 0);
+        const min = [at[0] + own.min[0], at[1] + own.min[1], at[2]];
+        const max = [at[0] + own.max[0], at[1] + own.max[1], at[2] + (modelHeights[key] ?? 32)];
+        brushes.push(box(min, max, "CLIP"));
+        furniturePieces.push({ name: `props (${thing.model})`, room, min, max });
+      }
     },
     // a prop's footprint: its model's, turned as it faces (a facing that names a room counts as unturned)
-    (thing) => turnedPrint(modelPrints[thing.model] ?? { min: [-16, -16], max: [16, 16] }, isNumber(thing.facing) ? thing.facing : FACINGS[thing.facing] ?? 0),
+    (thing) => turnedPrint(modelPrints[kitKey(thing.model)] ?? { min: [-16, -16], max: [16, 16] }, isNumber(thing.facing) ? thing.facing : FACINGS[thing.facing] ?? 0),
   );
   // a lamp is never in mid-air: one that hangs below the ceiling gets a shade over it and a rod up to the ceiling
   // (Steven's play-test: "random lights in the middle of the air"; src/maps/sweep.mjs finds them in any map)

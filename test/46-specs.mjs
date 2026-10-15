@@ -411,6 +411,17 @@ test("a wall's texture stands on the floor of the room it faces, whatever that f
   sure(across.includes(-24), `across: ${across}`);
 });
 
+test("a map's props may be the kit's own furniture, built as the map's models and solid to a body", () => {
+  // Kaupo's bathroom was boxes: "sink, toilet, and ... something else in the middle?" (Steven's walk)
+  const spec = (model) => ({ spec: "smak.map/1", name: "bath", rooms: [{ id: "bath", size: [256, 192, 128] }], props: [{ model, room: "bath", at: "corner ne" }], entities: [{ class: "info_player_start", room: "bath", at: [-80, -40] }] });
+  const { files, report } = buildMapSpec(spec("kit:toilet"), { out: join(folder, "kitprops"), compilers: { found: false, message: "" } });
+  sure(report.errors.length === 0 && report.facts.some((f) => /models\.kit_toilet: built and sound/.test(f)), report.errors.join("; "));
+  const text = readFileSync(files.map, "utf8");
+  sure(/models\/bath\/kit_toilet\.mdl/.test(text) && /\bCLIP\b/.test(text), "the toilet named, and a CLIP box about it");
+  const wrong = buildMapSpec(spec("kit:jacuzzi"), { out: join(folder, "kitprops"), compilers: { found: false, message: "" } }).report;
+  sure(wrong.errors.some((e) => /"kit:jacuzzi" is none of the kit's furniture \(.*kit:toilet/.test(e)), wrong.errors.join("; "));
+});
+
 test("a lamp is never in mid-air: one hung below a tall room's ceiling has a shade and a rod up to it", () => {
   // Steven's play-test of frenzy_pictures: "random lights in the middle of the air"
   const spec = { spec: "smak.map/1", name: "tall", rooms: [{ id: "hall", size: [256, 256, 480] }], entities: [{ class: "info_player_start", room: "hall", at: "centre" }, { class: "light", room: "hall", at: "corner ne" }] };

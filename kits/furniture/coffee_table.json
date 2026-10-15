@@ -1,0 +1,178 @@
+{
+ "spec": "smak.model/1",
+ "name": "coffee_table.mdl",
+ "kind": "prop",
+ "texture": {
+  "width": 256,
+  "height": 256
+ },
+ "materials": {
+  "wood": {
+   "base": "wood",
+   "tone": [
+    0.55,
+    0.38,
+    0.22
+   ]
+  },
+  "book": {
+   "base": "paint",
+   "tone": [
+    0.2,
+    0.35,
+    0.6
+   ]
+  },
+  "mug": {
+   "base": "paint",
+   "tone": [
+    0.85,
+    0.2,
+    0.15
+   ]
+  }
+ },
+ "parts": [
+  {
+   "id": "top",
+   "kind": "box",
+   "material": "wood",
+   "size": [
+    24,
+    46,
+    2
+   ],
+   "at": [
+    0,
+    0,
+    16
+   ]
+  },
+  {
+   "id": "shelf",
+   "kind": "box",
+   "material": "wood",
+   "size": [
+    20,
+    42,
+    1
+   ],
+   "at": [
+    0,
+    0,
+    5
+   ]
+  },
+  {
+   "id": "leg_0",
+   "kind": "box",
+   "material": "wood",
+   "size": [
+    2,
+    2,
+    16
+   ],
+   "at": [
+    10,
+    21,
+    0
+   ]
+  },
+  {
+   "id": "leg_1",
+   "kind": "box",
+   "material": "wood",
+   "size": [
+    2,
+    2,
+    16
+   ],
+   "at": [
+    10,
+    -21,
+    0
+   ]
+  },
+  {
+   "id": "leg_2",
+   "kind": "box",
+   "material": "wood",
+   "size": [
+    2,
+    2,
+    16
+   ],
+   "at": [
+    -10,
+    21,
+    0
+   ]
+  },
+  {
+   "id": "leg_3",
+   "kind": "box",
+   "material": "wood",
+   "size": [
+    2,
+    2,
+    16
+   ],
+   "at": [
+    -10,
+    -21,
+    0
+   ]
+  },
+  {
+   "id": "book",
+   "kind": "box",
+   "material": "book",
+   "size": [
+    7,
+    5,
+    1.2
+   ],
+   "at": [
+    3,
+    -8,
+    18
+   ]
+  },
+  {
+   "id": "mug",
+   "kind": "turn",
+   "material": "mug",
+   "sides": 12,
+   "rings": [
+    [
+     0,
+     1.4
+    ],
+    [
+     3.2,
+     1.5
+    ]
+   ],
+   "caps": [
+    false,
+    true
+   ],
+   "lining": {
+    "inset": 0.25
+   },
+   "rotate": [
+    0,
+    180,
+    0
+   ],
+   "at": [
+    -4,
+    10,
+    21.2
+   ]
+  }
+ ],
+ "size": {
+  "height": 21
+ }
+}

@@ -1,0 +1,153 @@
+{
+ "spec": "smak.model/1",
+ "name": "bed.mdl",
+ "kind": "prop",
+ "texture": {
+  "width": 256,
+  "height": 256
+ },
+ "materials": {
+  "wood": {
+   "base": "wood",
+   "tone": [
+    0.6,
+    0.42,
+    0.26
+   ]
+  },
+  "sheet": {
+   "base": "cloth",
+   "tone": [
+    0.92,
+    0.92,
+    0.9
+   ]
+  },
+  "blanket": {
+   "base": "cloth",
+   "tone": [
+    0.35,
+    0.5,
+    0.35
+   ]
+  },
+  "pillow": {
+   "base": "cloth",
+   "tone": [
+    0.95,
+    0.95,
+    0.95
+   ]
+  }
+ },
+ "parts": [
+  {
+   "id": "frame",
+   "kind": "box",
+   "material": "wood",
+   "size": [
+    80,
+    60,
+    10
+   ],
+   "at": [
+    0,
+    0,
+    4
+   ]
+  },
+  {
+   "id": "mattress",
+   "kind": "box",
+   "material": "sheet",
+   "size": [
+    78,
+    58,
+    8
+   ],
+   "at": [
+    1,
+    0,
+    14
+   ]
+  },
+  {
+   "id": "blanket",
+   "kind": "box",
+   "material": "blanket",
+   "size": [
+    52,
+    60,
+    1.5
+   ],
+   "at": [
+    -12,
+    0,
+    21.2
+   ]
+  },
+  {
+   "id": "pillow_l",
+   "kind": "box",
+   "material": "pillow",
+   "size": [
+    12,
+    24,
+    4
+   ],
+   "at": [
+    31,
+    -14,
+    21.5
+   ]
+  },
+  {
+   "id": "pillow_r",
+   "kind": "box",
+   "material": "pillow",
+   "size": [
+    12,
+    24,
+    4
+   ],
+   "at": [
+    31,
+    14,
+    21.5
+   ]
+  },
+  {
+   "id": "headboard",
+   "kind": "box",
+   "material": "wood",
+   "size": [
+    3,
+    62,
+    36
+   ],
+   "at": [
+    41.5,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "footboard",
+   "kind": "box",
+   "material": "wood",
+   "size": [
+    2.5,
+    62,
+    18
+   ],
+   "at": [
+    -41,
+    0,
+    0
+   ]
+  }
+ ],
+ "size": {
+  "height": 36
+ }
+}

@@ -1,0 +1,132 @@
+{
+ "spec": "smak.model/1",
+ "name": "toilet.mdl",
+ "kind": "prop",
+ "texture": {
+  "width": 256,
+  "height": 256
+ },
+ "materials": {
+  "porcelain": {
+   "base": "paint",
+   "tone": [
+    0.95,
+    0.95,
+    0.94
+   ]
+  },
+  "steel": {
+   "base": "steel"
+  }
+ },
+ "parts": [
+  {
+   "id": "bowl",
+   "kind": "turn",
+   "material": "porcelain",
+   "sides": 14,
+   "rings": [
+    [
+     0,
+     [
+      5,
+      4
+     ]
+    ],
+    [
+     6,
+     [
+      6,
+      5
+     ]
+    ],
+    [
+     12,
+     [
+      9,
+      7
+     ]
+    ],
+    [
+     15,
+     [
+      9.5,
+      7.5
+     ]
+    ]
+   ],
+   "caps": [
+    true,
+    true
+   ],
+   "at": [
+    3,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "seat",
+   "kind": "box",
+   "material": "porcelain",
+   "size": [
+    19,
+    15,
+    1
+   ],
+   "at": [
+    3.5,
+    0,
+    15
+   ]
+  },
+  {
+   "id": "tank",
+   "kind": "box",
+   "material": "porcelain",
+   "size": [
+    8,
+    18,
+    15
+   ],
+   "at": [
+    -7,
+    0,
+    15
+   ]
+  },
+  {
+   "id": "tank_lid",
+   "kind": "box",
+   "material": "porcelain",
+   "size": [
+    9,
+    19,
+    1.2
+   ],
+   "at": [
+    -7,
+    0,
+    30
+   ]
+  },
+  {
+   "id": "flush",
+   "kind": "box",
+   "material": "steel",
+   "size": [
+    1,
+    2.5,
+    0.8
+   ],
+   "at": [
+    -3,
+    6,
+    27
+   ]
+  }
+ ],
+ "size": {
+  "height": 31
+ }
+}
