@@ -83,7 +83,13 @@ const ON_SURFACE = new Set(["band", "boss", "ridge", "studs"]);
 /** The anchors every part has: the middles of the faces of its box, and its middle. */
 const BOX_ANCHORS = ["top", "bottom", "front", "back", "left", "right", "centre"];
 /** The fields a spec takes at its top. */
-const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "weapon", "finish", "smooth", "project", "budget", "contract", "floor", "pose", "motion", "note"];
+const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "weapon", "finish", "smooth", "project", "budget", "fidelity", "contract", "floor", "pose", "motion", "note"];
+/**
+ * How finely a model is made: "game" (unless told) holds it to Half-Life's own of its kind and size, warning past
+ * them; "high" (a person's own model, made to look its best) gets the larger picture and is told its triangles
+ * against Half-Life's as a fact, not warned. A `budget` still binds either way.
+ */
+const FIDELITY = ["game", "high"];
 /** A texture's side unless told; a kit's picture is made this much smaller (the kits paint at 1024 wide). */
 const SHEET_SIZE = 256;
 const KIT_SHRINK = 2;
@@ -155,6 +161,7 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
   };
   finishErrors(spec.finish, "finish");
   if (spec.budget !== undefined && !(Number.isInteger(spec.budget) && spec.budget > 0)) errors.push("budget: the most triangles the model may have, a whole number");
+  if (spec.fidelity !== undefined && !FIDELITY.includes(spec.fidelity)) errors.push(`fidelity: ${FIDELITY.map((f) => `"${f}"`).join(" or ")}`);
   if (spec.floor !== undefined && !(typeof spec.floor === "number" && Number.isFinite(spec.floor))) errors.push("floor: where its feet stand, 0 for a monster (its origin at its feet) or -36 for a player (its origin the middle of its hull)");
   if (spec.motion !== undefined) {
     if (!spec.base) errors.push("motion: a character's, on a base model's skeleton: give the spec a base");
@@ -752,7 +759,7 @@ function piecesOf(given, context) {
   }
   // a model painted from pictures gets the larger picture unless told: shared out by area, 512 x 256 left a
   // battery's small top parts coarser than Valve's own textures for them
-  const size = spec.texture ?? (spec.project?.length ? { width: 512, height: 512 } : {});
+  const size = spec.texture ?? (spec.project?.length || spec.fidelity === "high" ? { width: 512, height: 512 } : {});
   const built = new Map();
   /** every placed triangle: { p: [a, b, c] (corners, each with uv), part, mesh } */
   const meshes = [];
@@ -1263,15 +1270,17 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, hide =
   const triangles = meshes.reduce((sum, mesh) => sum + mesh.tris.length, 0);
   const heaviest = [...byPart].sort((a, b) => b[1] - a[1]).slice(0, 6).map(([id, n]) => `${id} ${n}`).join(", ");
   const thin = spec.parts.filter((part) => part.kind === "box" && part.paint !== true && Math.min(...part.size) < 1).map((part) => part.id);
+  const high = spec.fidelity === "high";
   const budgetLine = `${triangles} triangles${spec.budget ? ` of a budget of ${spec.budget}` : ""}; the most in ${heaviest}${thin.length ? `; ${thin.length} boxes under a unit thick could be panels or paint: true (${thin.slice(0, 8).join(", ")}${thin.length > 8 ? " ..." : ""})` : ""}`;
   if (spec.budget && triangles > spec.budget) report.faults.push(`over budget: ${budgetLine}`);
-  else if (!spec.budget && kind === "prop" && triangles > PROP_BUDGET) warnings.push(`${budgetLine}: three quarters of Half-Life's props have fewer than ${PROP_BUDGET}; give the spec a budget, and paint what lies on a surface`);
+  else if (!spec.budget && kind === "prop" && triangles > PROP_BUDGET) (high ? report.facts : warnings).push(`${budgetLine}: three quarters of Half-Life's props have fewer than ${PROP_BUDGET}${high ? " (fidelity high: told, not warned)" : "; give the spec a budget, and paint what lies on a surface"}`);
   else report.facts.push(budgetLine);
   // a character's: the body it takes the place of (its base's own), which a copy is judged against twice of
   if (kind === "character" && skeleton && !spec.budget) {
     const info = readMdl(skeleton.src);
     const own = info.bodyparts[skeleton.bodypart].models[0]?.meshes.reduce((n, m) => n + m.numtris, 0) ?? 0;
-    if (own && triangles > 2 * own)
+    if (own && triangles > 2 * own && high) report.facts.push(`${triangles} triangles (fidelity high), over twice the ${own} of the base's own body`);
+    else if (own && triangles > 2 * own)
       warnings.push(`${triangles} triangles, over twice the ${own} of the base's own body: the most in ${heaviest}. Paint what lies on the surface (eyes, buttons, seams, pockets) and give round parts fewer sides`);
     else if (own) report.facts.push(`the base's own body is ${own} triangles`);
   }
@@ -1281,7 +1290,8 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, hide =
     const diagonal = Math.hypot(...[0, 1, 2].map((k) => box.mx[k] - box.mn[k]));
     const band = PROP_TRIANGLES.find((b) => diagonal < b.under);
     const line = `Half-Life's props of this size (${Math.round(diagonal)} units corner to corner) have ${band.median} triangles at the median, three quarters under ${band.q3}`;
-    if (!spec.budget && triangles > 2 * band.median) warnings.push(`${triangles} triangles: ${line}. Paint what lies on a surface (drawers, labels, seams), and build only what stands out of the outline`);
+    if (!spec.budget && triangles > 2 * band.median && !high) warnings.push(`${triangles} triangles: ${line}. Paint what lies on a surface (drawers, labels, seams), and build only what stands out of the outline`);
+    else if (high) report.facts.push(`${triangles} triangles (fidelity high): ${line}`);
     else report.facts.push(line);
   }
   report.notes.push(...sound.notes);

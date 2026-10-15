@@ -512,6 +512,16 @@ test("a map's pictures look as Valve's walls do: grain, patches, colour and brig
   sure(!game.warnings.some((w) => /spec's own .wad/.test(w)), game.warnings.join("; "));
 });
 
+test("fidelity high: a heavy prop is told its triangles as a fact, not warned, and painted larger; a wrong word refused", () => {
+  const spec = (fidelity) => ({ spec: "smak.model/1", name: "post.mdl", kind: "prop", ...(fidelity ? { fidelity } : {}), parts: [{ id: "post", kind: "cylinder", radius: 10, height: 40, sides: 64, material: "wood" }] });
+  const game = buildModelSpec(spec(), {});
+  sure(game.report.warnings.some((w) => /triangles/.test(w)), game.report.warnings.join("; "));
+  const high = buildModelSpec(spec("high"), {});
+  sure(!high.report.warnings.some((w) => /triangles/.test(w)) && high.report.facts.some((f) => /fidelity high/.test(f)), [...high.report.warnings, ...high.report.facts].join("; "));
+  sure(smak.readMdl(high.mdl).textures[0].width === 512, `texture ${smak.readMdl(high.mdl).textures[0].width}`);
+  sure(buildModelSpec(spec("ultra"), {}).report.errors.some((e) => /fidelity: "game" or "high"/.test(e)), "a wrong word");
+});
+
 test("a building raised over its yard gets steps out from its door, and is walked into", () => {
   const spec = { spec: "smak.map/1", name: "raised", rooms: [{ id: "yard", size: [1024, 1024, 320], sky: true }, { id: "a", size: [256, 256, 112], floor: 48, place: { in: "yard", offset: [384, 384], stand: true }, building: { roof: false } }], links: [{ between: ["a", "yard"], kind: "door", side: "south", door: { swing: true } }], entities: [{ class: "info_player_start", room: "yard", at: [-300, -300] }, { class: "item_battery", room: "a", at: "centre" }] };
   const report = buildMapSpec(spec, { out: join(folder, "raised"), compilers: { found: false, message: "" } }).report;
