@@ -49,6 +49,9 @@ const DOOR = { width: 64, height: 96 };
  * (a real house's 2'-6" doors at a foot to 12 units) are widened to these, and the report says so.
  */
 const PASSABLE = { opening: 48, door: 48, swing: 56 };
+/** A room a player walks into is this wide both ways at least: two of his widths, room to turn and shut a door. */
+const ROOM_LEAST = 64;
+const ROOM_LONG = 96;
 /** And as high as Valve's own doors, where the rooms have the height. */
 const PASSABLE_HIGH = 96;
 /** How deep the floor in front of a way through stays clear of furniture, on both sides: a step and a turn. */
@@ -712,6 +715,14 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     const least = kind === "window" ? 0 : kind === "door" && link.door?.swing ? PASSABLE.swing : kind === "door" ? PASSABLE.door : PASSABLE.opening;
     const width = Math.min(Math.max(asked, least), hi - lo);
     if (width > asked) report.facts.push(`links[${i}]: ${a.id} to ${b.id} widened from ${asked} to ${width}: a player passes ${kind === "opening" ? "an" : "a"} ${kind}${link.door?.swing ? " on hinges" : ""} at ease at ${least}`);
+    // a room a player walks into turns him round and lets a door shut behind him: 64 across both ways at least
+    // (Kaupo's closets, 40 square: "just large enough to fit the player ... the door won't shut with them inside")
+    if (kind !== "window")
+      for (const room of [a, b].filter((r) => r.spec && !r.spec.sky && rooms.get(r.id) === r)) {
+        const small = [0, 1].map((k) => room.max[k] - room.min[k]);
+        // small both ways: a corridor, long and narrow, is walked along and is no fault
+        if (Math.min(...small) < ROOM_LEAST && Math.max(...small) < ROOM_LONG) report.faults.push(`links[${i}]: ${room.id} is ${small.join(" x ")}, too small for a player to walk into and turn round (and shut a door behind): ${ROOM_LEAST} by ${ROOM_LONG} at least, or leave the way into it out (a cupboard)`);
+      }
     if (width < least) report.faults.push(`links[${i}]: the wall ${a.id} and ${b.id} share is ${hi - lo} long, and a player passes ${kind === "opening" ? "an" : "a"} ${kind}${link.door?.swing ? " on hinges" : ""} at ease at ${least}: make the rooms share more wall, or leave the way out`);
     const share = link.along ?? 0.5;
     const centre = snap(lo + (hi - lo) * share, 8);
