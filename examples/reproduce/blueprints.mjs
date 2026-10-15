@@ -270,7 +270,9 @@ async function judgeHouse(house, file, { decoy = false } = {}) {
     .filter((e) => /^func_door/.test(e.classname ?? "") && /^\*\d+$/.test(e.model ?? ""))
     .map((e) => {
       const m = bsp.models[Number(e.model.slice(1))];
-      return [0, 1, 2].map((k) => (m.mins[k] + m.maxs[k]) / 2);
+      // a door on hinges is kept about its hinge, its `origin`: its box is from there, not from the map's origin
+      const origin = e.origin ?? [0, 0, 0];
+      return [0, 1, 2].map((k) => (m.mins[k] + m.maxs[k]) / 2 + (origin[k] || 0));
     });
   const height = Object.fromEntries(key.storeys.map((s) => [s.name, s.floor * foot]));
   const storeyOfRoom = Object.fromEntries(key.rooms.map((r) => [r.name, r.storey]));
