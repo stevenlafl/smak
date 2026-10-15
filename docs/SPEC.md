@@ -250,8 +250,9 @@ a part that comes apart in any of them is a fault (`in run2 frame 11: ... thumb_
   squared stays as parts: a vest, a helmet, a holster, boots (`superquadric`, `box`); a blob rounds every corner, and
   one that swallowed a squared vest lost the outline. Keep a blob to what is round: its outline against the
   pictures says so at once. 40 triangles a piece unless told, 600 at most.
-- **Given pictures of the character, carve its body from them** (`carved`, with `sheet` or `pictures`, placed by
-  `at` with its feet on the floor): each corner hangs on the base's limb nearest it, so the one shape bends at the
+- **Given pictures of the character, carve its body from them** (`carved`, with `sheet` or `pictures`, and no `at`:
+  it stands on the base's own feet, where the skeleton stands before `floor` lifts it; `at: [0, 0, 0]` hangs it over
+  its bones, 36 units on Gordon's, each corner on the wrong limb): each corner hangs on the base's limb nearest it, so the one shape bends at the
   knees and elbows, and its outline is the pictures' at once. Turn the base to the pictures' stance first (`pose:
   { fit: true }`, or keys: the forearms down where the pictures' hands hang; Gordon's first frame holds a gun
   forward in both hands). Then add what a carve loses as parts on their bones: long fingers and claws as `fingers`
@@ -935,7 +936,11 @@ stood up: a corner cut at 45 degrees, an octagon's wall, a slanted pillar's foot
 `as: "world"` it shapes the room itself), in units from the point on the floor where it is put, with a
 `texture` that is a word of `theme`, `textures` or a base. A prefab may instead be a `.map` file (`file`),
 as Hammer's are: its brushes and its entities (a candle's light) moved and turned as one; its textures
-named `SM_` and a word of the spec's materials (`SM_FURNITURE`). `furniture: [{ prefab: "table", room:
+named `SM_` and a word of the spec's materials (`SM_FURNITURE`). A set piece wired of brush and point entities is one
+too: Valve's soda machine is its body's brushes, five `func_button` brushes each `target`ing an `env_beverage` (`skin`
+the can, `health` how many) at the slot. The names a prefab gives its own entities (`targetname`, and what targets
+them) take `_1`, `_2`... at each one put, so each machine's buttons fire its own can; a name it only uses (the map's
+own `lights_main`) is kept. `furniture: [{ prefab: "table", room:
 "hall", at: "centre", rotate: 90 }]` puts one (turned by a multiple of 90). `entity: "func_breakable"` (or
 `{ class, keys... }`) makes its brushes a brush entity: a crate that breaks (`material: 1`, wood), a
 `func_wall`, a `func_illusionary`. Furniture wearing a `mesh` (a chain-link fence: a box 2 thick in

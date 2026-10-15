@@ -517,12 +517,22 @@ function turnedBrush(brush, quarters) {
  * A prefab read from a .map file, as Hammer's are: its world brushes and its entities, a group that is put
  * down as one. Its own origin is the point on the floor where it is put. Returns { brushes, entities, textures }.
  */
-function prefabFromMap(file, at, quarters) {
+function prefabFromMap(file, at, quarters, tag = null) {
   const map = readMap(readFileSync(file, "utf8"));
+  // the names the prefab gives its own entities, made its own at each insertion (`tag`): two soda machines each
+  // keep a button that fires their own can (c1a0d: five func_buttons target=soda_machine_2, one env_beverage of
+  // that name). A name it uses and does not give (a map's own door) is left as it is
+  const own = new Set(map.entities.map((e) => e.targetname).filter((n) => typeof n === "string" && n));
+  const renamed = (n) => (tag !== null && own.has(n) ? `${n}_${tag}` : n);
+  const NAME_KEYS = ["targetname", "target", "killtarget", "master", "netname", "parent", "message"];
   const place = (brushes) => brushes.map((brush) => moved(turnedBrush(brush, quarters), at));
   const textures = new Set(map.brushes.flatMap((b) => b.faces.map((f) => f.texture)));
   const entities = map.entities.map((entity) => {
     const out = { ...entity };
+    for (const key of NAME_KEYS) if (typeof out[key] === "string" && (key !== "message" || own.has(out[key]))) out[key] = renamed(out[key]);
+    // a multi_manager names what it fires by its keys
+    if (entity.classname === "multi_manager")
+      for (const key of Object.keys(entity)) if (own.has(key) && key !== "targetname") (out[renamed(key)] = entity[key]), delete out[key];
     if (entity.brushes) {
       out.brushes = place(entity.brushes);
       for (const b of entity.brushes) for (const f of b.faces) textures.add(f.texture);
@@ -1239,6 +1249,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     const asked = thing?.as ?? prefab.as ?? (spec.detail === false ? "world" : "detail");
     return asked === "detail" ? { class: "func_detail" } : null;
   };
+  let prefabsPut = 0;
   const putPrefab = (prefab, at, quarters, where, entity = prefab.entity ?? detailed(null, prefab)) => {
     const target = entity ? [] : brushes;
     const done = () => {
@@ -1250,7 +1261,8 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       target.push(...placedPrefab(prefab, at, quarters, textureOf));
       return done();
     }
-    const placed = prefabFromMap(resolve(folder ?? ".", prefab.file), at, quarters);
+    prefabsPut += 1;
+    const placed = prefabFromMap(resolve(folder ?? ".", prefab.file), at, quarters, prefabsPut);
     for (const name of placed.textures) {
       const word = wordOfTexture.get(name.toUpperCase());
       if (!word) throw new Error(`${where}: its .map wears ${name}, which is no material of the spec (its textures are SM_ and a word of theme, textures or a base)`);
