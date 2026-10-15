@@ -531,8 +531,9 @@ test("a flight of stairs has a railing on each open side: a post and a handrail 
   const { files, report } = buildMapSpec(spec, { out: join(folder, "rail"), compilers: { found: false, message: "" } });
   const steps = Number(/stairs of (\d+) steps/.exec(report.facts.join(" "))?.[1]);
   const map = smak.maps.readMap(readFileSync(files.map, "utf8"));
-  const rails = map.entities.filter((e) => e.classname === "func_detail").reduce((n, e) => n + e.brushes.length, 0);
-  sure(steps > 0 && rails === 2 * 2 * steps, `${steps} steps, ${rails} pieces of railing`);
+  // one func_detail holds the railing (the lamps' rods and shades are others): two sides, a post and a rail a step
+  const rails = map.entities.filter((e) => e.classname === "func_detail").map((e) => e.brushes.length);
+  sure(steps > 0 && rails.includes(2 * 2 * steps), `${steps} steps, func_detail of ${rails.join(", ")} pieces`);
 });
 
 test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ files, the gloved hands kept", () => {
