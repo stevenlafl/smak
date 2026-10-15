@@ -1,0 +1,111 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_steam.spr: a steam puff that rises and thins, animated",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.56,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "smoke puff",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0,
+    "range": [
+     0.2,
+     0.6
+    ],
+    "ok": false,
+    "words": "peaks too soon"
+   },
+   {
+    "measure": "first",
+    "value": 1,
+    "range": [
+     0,
+     0.35
+    ],
+    "ok": false,
+    "words": "starts too bright: an attack in its envelope"
+   },
+   {
+    "measure": "last",
+    "value": 1,
+    "range": [
+     0,
+     0.1
+    ],
+    "ok": false,
+    "words": "does not end dark: a decay in its envelope"
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Frame 0 is a single flat pale-grey disc with a hard, stair-stepped edge on black. The pale grey fits steam, but it has no soft falloff, no billowing and no wisps, so it reads as a generic dot or glow rather than a steam puff."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "At 32x32 it is a plausible size for a puff, and the border is clean (border max 0). But the effect is a uniform disc filling about three quarters of the frame edge to edge. A smoke puff in Half-Life fades from a denser core to nothing at its rim, and this has no gradient anywhere."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The pale grey on black is close to steam's colour as the engine blends it additively. But it is one flat value across the whole disc (dark fraction 0.56, the rest a single grey), so it lacks the darker, thinner edges a smoke puff has. Its mean colour is therefore unlikely to fall within the smoke puff class's measures."
+  },
+  "R4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "It has 1 frame where the brief asks for an animated puff that rises and thins, so there is no motion at all. Every envelope measure fails against the smoke puff class: peakAt is 0 against 0.2 to 0.6 (peaks too soon), first is 1 against 0 to 0.35 (starts too bright), and last is 1 against 0 to 0.1 (does not end dark)."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "It is a parallel, additive sprite under the name the brief gives (sprites/fw_steam.spr), and the measurement reads it back as written. Additive is a type and format Half-Life's own steam and smoke sprites use."
+  }
+ },
+ "total": 5,
+ "of": 10,
+ "passes": false
+}

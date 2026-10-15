@@ -1,0 +1,81 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_glow.spr: a sodium lamp's glow",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.66,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "glow",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Frame 0 shows one soft radial glow, bright at the centre and fading evenly to black, with no hard edge. That is a lamp glow, the effect the brief asks for."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "64 x 64 is a usual size for one of Half-Life's glow sprites. The glow sits in the centre and fills about a third of the frame (dark 0.66), and it fades out well before the edge: border max 0 and mean 0, inside the glow class's range of 0 to 0.005, which the harness marks ok."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The core is a pale warm yellow and the halo is amber-orange over black. Blended additively, that reads as a sodium lamp's orange, with no neon or cold tint, so it fits the brief's palette. The harness gave no colour measure against the class, so this is judged from the picture alone."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "One frame, with the peak at frame 0, and first and last both 1. The brief asks for no motion, and a still single-frame glow is what Half-Life's own glows are, so it is inside the class."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Its type is parallel and its format additive, the usual pair for a glow that faces the camera, and the file is named sprites/fw_glow.spr. The harness read back 64 x 64 and one frame from the file, which agrees with the header."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

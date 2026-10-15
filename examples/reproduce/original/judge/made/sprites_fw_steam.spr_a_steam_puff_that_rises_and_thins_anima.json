@@ -4,41 +4,41 @@
  "measured": {
   "size": [
    64,
-   96
+   64
   ],
   "frames": 12,
   "type": "parallel",
-  "format": "additive",
+  "format": "index alpha",
   "measures": {
    "frames": 12,
    "size": [
     64,
-    96
+    64
    ],
    "border": {
-    "max": 0.316,
+    "max": 0.204,
     "mean": 0.004
    },
    "envelope": {
-    "peakAt": 0.45,
+    "peakAt": 0.36,
     "first": 0,
     "last": 0
    },
-   "dark": 0.72,
-   "wrap": 0,
-   "jitter": 1.52
+   "dark": 0.67,
+   "wrap": 0.35,
+   "jitter": 1.36
   },
   "class": "smoke puff",
   "againstClass": [
    {
     "measure": "jitter",
-    "value": 1.52,
+    "value": 1.36,
     "range": [
      0.9,
      1.5
     ],
-    "ok": false,
-    "words": "flickers: more coherence from frame to frame"
+    "ok": true,
+    "words": ""
    },
    {
     "measure": "border",
@@ -52,7 +52,7 @@
    },
    {
     "measure": "peakAt",
-    "value": 0.45,
+    "value": 0.36,
     "range": [
      0.2,
      0.6
@@ -88,34 +88,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "It reads as a steam or smoke puff. It starts as a small bright white puff in frame 1, swells into a grey-white cloud by frames 5-6, then breaks up and thins away in frames 8-10, which is the effect the brief asks for. There are slightly hard dark crack lines inside the puff in frames 3-7 (a crease running down its middle) that make it look a bit carved, but not enough to make it read as a different effect."
+   "reason": "Reads as a smoke puff: a soft grey-white column that rises off the bottom of the frame, widens and then breaks up into faint wisps, which is the steam effect the brief asks for."
   },
   "R2": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "At 64x96 the frames suit a tall rising puff. The mean border measure (0.004) is inside the smoke-puff range. But the border maximum of 0.316 shows that at least one frame runs into its edge, and the sheet bears this out: in frames 7-8 the expanded cloud reaches the sides of its cell and the edge looks cut off rather than fading out. The puff also spreads mostly sideways and in place rather than climbing up the tall frame, so the upper part of the 96-high frame stays empty in the early frames and the effect does not fill the frame the way a rising puff should."
+   "score": 2,
+   "reason": "All 12 frames are 64 by 64 as measured, and the border measure (max 0.204, mean 0.004) shows the puff stays inside the frame. It fills a narrow central column rather than the full width, but no original extent is supplied to show that is wrong, and the puff reaches the bottom edge cleanly in frames 1 to 5."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Neutral white to grey throughout, bright when dense and dimming as it thins. Blended additively this gives a pale steam colour with no tint, which fits the brief's industrial palette and Half-Life's own steam and smoke sprites. No colour measurement fails."
+   "reason": "No colour measure against an original is supplied for this item. By eye the puff is neutral grey-white, which is plausible for steam on the grey engine blend, and no frame shows an odd tint. Judged by eye only, so the score is provisional."
   },
   "R4": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The envelope measures pass: 12 frames, peak at 0.45, and both the first and last frames are dark, so the one-shot ends dark. But jitter is 1.52, outside the smoke-puff class's range of 0.9-1.5 ('flickers: more coherence from frame to frame'), so this item cannot score 2. The pictures show the same problem: between frames 7, 8 and 9 the cloud does not thin smoothly but falls apart into scattered patches, and it jumps from a dense cloud in 8 to a few faint specks in 9. The upward motion the brief asks for is also weak: the puff grows more than it rises."
-  },
-  "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Saved as sprites/fw_steam.spr, the name the brief asks for. It is parallel and additive, the usual type and format for Half-Life's steam and smoke puffs, with 12 frames at 64x96 as measured. Nothing indicates it fails to read back."
+   "reason": "Twelve frames, matching the measured count. Frame 0 and frame 11 are both empty, so the sequence starts and ends dark as the envelope measure says (first 0, last 0). The envelope peaks around frame 4 (0.36). The puff visibly rises from frame 1 to frame 10 and thins and fades from about frame 7 on, which is the rise-and-thin motion the brief asks for."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The measured type (parallel) and format (index alpha) are valid GoldSrc values and the name fw_steam matches the brief, but the original's type and format are not in the measurements, so the type cannot be checked against Valve's sprite. The judge cannot confirm the read-back or the type, so this is marked 1 as unverified rather than clearly wrong."
   }
  },
- "total": 8,
+ "total": 9,
  "of": 10,
  "passes": false
 }

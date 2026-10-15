@@ -116,37 +116,37 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "All twelve textures (fw_plain0 to fw_plain11) are one flat mid-grey with nothing drawn on them. None reads as a concrete wall, wet floor, grate, catwalk, pipe wall, hazard trim, rusted plate, control panel, lamp face, water, PUMP 3 sign or door. A player could not name the material or purpose of any of them."
+   "reason": "Every texture is a flat mid-grey field (fw_plain0 to fw_plain11, 64x64). None reads as concrete wall, wet floor, grate, catwalk, pipe wall, hazard trim, rusted plate, control panel, lamp face, water, sign or door, so a player would not call any of them the brief's material."
   },
   "T2": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Every texture is the same neutral grey. The brief asks for yellow hazard paint, rust brown, a sodium-orange lamp face, green-grey water and a red or steel door. Grey is plausible only for the concrete, so most of the set is far off the colours the brief gives."
+   "reason": "The brief asks for concrete grey, wet concrete, rust, yellow hazard paint, green-grey water and a sodium-orange lamp face. All twelve are the same neutral grey, with no hazard yellow, rust, green-grey water or sodium orange, so no texture's colour matches what the brief asks for."
   },
   "T3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "There is no pattern at all: no panels, seams, grate holes, catwalk treads, pipes, stripes, dials or lettering. Nothing has a scale to compare against a Half-Life wall."
+   "reason": "There are no panels, seams, bricks, tiles, grate holes, stripes or lettering in any of the twelve. Nothing at the scale a Half-Life wall uses can line up with a map's surfaces."
   },
   "T4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "A flat colour has no seam where it repeats, so the edge-step measurement would pass trivially. I score it lower than the measurement allows because there is no content that tiles, which makes the seamlessness meaningless."
+   "reason": "The fields are uniform, so no seam shows where they repeat, and a repeat test would pass trivially. But a featureless field is not a tiling texture of anything the brief names, so it scores 1 rather than 2."
   },
   "T5": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Measured detail is 0 for all twelve, far below Half-Life's band (lower quartile 19.7, median 30.1, upper quartile 45). Flat and on a wall, these are blank fills and nowhere near as detailed or believable as the game's own textures."
+   "reason": "Measured detail is 0 for every texture, against Half-Life's own median of 30.1 (inter-quartile 19.7 to 45). Seen flat, they have no grain, wear, edges or lettering, so they are far from as sharp or believable as Valve's textures."
   },
   "T6": {
    "judge": 0,
    "cap": 2,
    "score": 0,
-   "reason": "The sizes (64x64) are valid, but no name carries the meaning the brief requires. The water is not a '!' liquid texture, the grate is not a '{' texture with transparent holes, and the sodium lamp face is not lit (no light-emitting texture). Each is fw_plainN in a single colour."
+   "reason": "The names are fw_plain0 to fw_plain11, not the brief's kinds. None is a '{' texture with holes, a '+0' animation with frames, a '!' liquid (the water), or a lit lamp face, and the sign and door are absent. The 64x64 size is not checked against any original here, but the kinds the names are meant to carry are all missing."
   }
  },
  "total": 1,

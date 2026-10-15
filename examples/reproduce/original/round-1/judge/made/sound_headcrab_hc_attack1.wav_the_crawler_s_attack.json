@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_attack1.wav: the crawler's attack",
+ "measured": {
+  "features": {
+   "length": 0.904,
+   "peak": -1,
+   "rms": -17.2,
+   "crest": 16.2,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.21,
+   "peakAt": 0.21,
+   "t20": 0.17,
+   "t40": 0.274,
+   "centroid": 2055,
+   "rolloff": 3316,
+   "flatness": 0.169,
+   "bands": {
+    "<150": 0.1,
+    "150-600": 1.1,
+    "600-2k": 51.7,
+    "2k-5k": 43.5,
+    ">5k": 3.6
+   },
+   "onsets": 1
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.906,
+    "centroid": 921,
+    "t20": 0.394,
+    "bands": {
+     "<150": 0.5,
+     "150-600": 68.1,
+     "600-2k": 18.8,
+     "2k-5k": 10.9,
+     ">5k": 1.6
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "This is my reading of the waveform and spectrogram only; the judge cannot listen to sounds. It does look like a creature's lunge. There is a short burst at 0 to 0.06 s, then a swelling broadband hiss from 0.21 s. A held tone line runs through it to about 0.5 s, and the sound dies away into silence. But it has almost nothing under 600 Hz (1.2% of its energy). The brief asks for a low, wet crawler, and the game's own attack is voiced chittering in the low-mid range. This reads more like a thin hiss or screech, perhaps steam, than a low, wet creature's attack."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The length is right: 0.904 s against the game's 0.906 s. There is no class range for this sound (class is null), so decay is checked against the game's own sound: 0.394 s, within a quarter or 0.05 s. The made sound's decay (T20) is 0.17 s, well outside the allowed 0.296 to 0.493 s, which caps S2 at 1. The waveform agrees: the main swell is gone by about 0.5 s, and the last 0.4 s is near silence. The game's sound keeps clicking and chittering to its end."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The spectral centroid (the sound's centre of brightness) is 2055 Hz against the game's 921 Hz, more than twice it and far outside 20%. The band shares are far off too. The 150-600 Hz band holds 1.1% against 68.1%, a gap of 67 points. The 600-2k band holds 51.7% against 18.8%, and the 2k-5k band 43.5% against 10.9%. Both are more than 30 points over. The energy sits in the upper mids and treble, where a low, wet crawler's attack would have it low."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The measurement counts 1 onset, against the game's several separate chitter bursts and clicks, visible at about 0.05, 0.1, 0.25, 0.6 and 0.68 s in its picture. The flatness of 0.169 means mixed tone and noise, which suits a creature. But the made sound's tone line is flat and steady, with no pitch movement. Overall it is one smooth swell, not the original's rhythmic, voiced texture."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The peak is -1 dBFS, nothing is clipped, the DC offset is 0, and the engine check reports no faults (engineFaults is empty). The file name is the game's own: sound/headcrab/hc_attack1.wav. This is a one-shot, so no loop cue is needed. The sample rate, bit depth and channel count are not given directly; with no engine faults reported, I take the format as acceptable."
+  }
+ },
+ "total": 5,
+ "of": 10,
+ "passes": false
+}

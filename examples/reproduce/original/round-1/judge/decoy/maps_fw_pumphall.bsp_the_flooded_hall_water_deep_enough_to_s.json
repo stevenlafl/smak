@@ -1,0 +1,91 @@
+{
+ "kind": "map",
+ "label": "maps/fw_pumphall.bsp: the flooded hall: water deep enough to swim, three pumps, catwalks both sides joined by a bridge, ladders; the wrench on a catwalk, three crawlers in the water; out by a stair to a corridor",
+ "measured": {
+  "size": [
+   2532,
+   800
+  ],
+  "sizeAsked": {
+   "long": 2500
+  },
+  "checkErrors": [
+   "1 of the listed .wad files are not in the folders given (fw_pumphall.wad): GoldSrc stops with \"couldn't open\" on the first it does not find"
+  ],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [],
+  "landmarks": [],
+  "itemsAsked": [
+   "weapon_crowbar",
+   "monster_headcrab"
+  ],
+  "itemsFound": [
+   "weapon_crowbar: 1",
+   "monster_headcrab: 1"
+  ]
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 0
+ },
+ "scores": {
+  "P1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The plan shows one flat rectangular room, 2532 by 800. None of the brief's areas are there: no catwalks on either side, no bridge, no pumps, no ladders, and no stair up to a corridor as the way out. Only one area exists, so nothing is joined the way the brief says."
+  },
+  "P2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The overall length of 2532 is within 25% of the asked 2500. But the walkable floor is a single flat slab with no catwalk or bridge floors and no corridor. The size is right only as a bounding box, and the areas the brief describes have no sizes or places at all."
+  },
+  "P3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The whole plan is one floor height, and the views show a flat green floor at one level. There is no sunken water deep enough to swim, no raised catwalks, no ladders and no stair. None of the levels the brief asks for are present."
+  },
+  "P4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The measurements find one monster_headcrab where the brief asks for three crawlers. The weapon_crowbar lies on the floor at the room's far corner, not on a catwalk, because there are no catwalks. The leaving stair and corridor are missing too, so the way out cannot be reached. The named entities fall short in both number and place."
+  },
+  "P5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Every surface is one flat colour: green floor, lavender walls, cyan ceiling. There is no concrete, rusted steel, grate, catwalk floor, hazard trim or water texture. The check also reports that fw_pumphall.wad is missing from the given folders."
+  },
+  "P6": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "There are 29 lights in a uniform 3 by 10 grid, and the views show the room evenly lit with no lamp placement, bright areas or dark areas. Nothing suggests buzzing sodium lamps by the pumps or catwalks."
+  },
+  "P7": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "None of the brief's distinctive features are there: no three pumps, no catwalks, no bridge, no ladders, no water, no stair, no corridor and no PUMP 3 sign. The views show bare walls and floor."
+  },
+  "P8": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The check reports that fw_pumphall.wad, which the map lists, is not in the folders given, so GoldSrc stops with \"couldn't open\" when it loads. Walk-test reach of the one headcrab and the crowbar on a flat floor is trivial, and there is no way out to reach."
+  },
+  "P9": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "From inside, the views show an empty pastel box with flat-coloured surfaces. No player would take it for a Half-Life map, let alone a flooded pump hall."
+  }
+ },
+ "total": 1,
+ "of": 18,
+ "passes": false
+}

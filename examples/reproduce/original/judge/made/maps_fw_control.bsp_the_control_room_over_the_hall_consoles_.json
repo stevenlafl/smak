@@ -3,8 +3,8 @@
  "label": "maps/fw_control.bsp: the control room over the hall: consoles under windows onto the hall, a lift down to the valve room with the main valve wheel; two crawlers",
  "measured": {
   "size": [
-   1488,
-   928
+   2180,
+   848
   ],
   "sizeAsked": null,
   "checkErrors": [],
@@ -12,7 +12,7 @@
   "reachWarnings": [],
   "changelevels": [],
   "landmarks": [
-   "fw_lm_hall"
+   "hall_exit"
   ],
   "itemsAsked": [
    "monster_headcrab"
@@ -27,61 +27,61 @@
  },
  "scores": {
   "P1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "The plan has every area the brief asks for, joined the way it says. An entry room on the west holds the start and the fw_lm_hall landmark, and it opens onto the control room. The control room has four consoles (cycler_sprite 11 to 14) along its north wall, under a row of window panes (func_breakable 1 to 4). The windows look down on a mock of the hall at -320 with two pumps in it. A lift (func_door 6, named FW_LIFT) in the control room's south-east corner leads east to the valve room, where the wheel model (cycler_sprite 19) sits on a raised platform."
+   "score": 1,
+   "reason": "The plan shows a control room (the middle room) with a start, a lift (func_plat 6) in the right-hand room, a stair, a trigger_changelevel, and two crawlers. The valve room the lift should reach is not clearly joined: the large empty left room with nine lights has no visible route to the lift, and only breakables sit between it and the control room. The brief's consoles under windows are not visible as windows in the views."
   },
   "P2": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "The brief gives no size for this map, and the measured 1488 by 928 is a sensible footprint. The control room is about 500 by 210 units, enough for a console row and the lift. The valve room is about 256 by 220 and the entry room about 170 by 170. Nothing is out of scale for Half-Life."
+   "score": 1,
+   "reason": "The brief gives no size for fw_control, so the areas cannot be checked against it. The plan shows a roughly 1000 by 800 unit empty room on the left with no entities, which the brief does not describe, and the control room is about 700 units across. The walkable overlap cannot be measured here."
   },
   "P3": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "The floor heights fit the brief. The control room is at 0, above the hall at -320 (its pump plinths at -256 and 48), so the windows really look down on it. The lift box drops from 0 to -256, which matches the valve room floor at -256. The wheel's platform rises to -144, with steps at -184 on either side."
+   "score": 1,
+   "reason": "The plan has several floor heights (Z 0, Z 200, Z 263) and a stair in the right room, so there are storeys and a lift. The brief's control room sits above the hall and the lift drops to the valve room, but the valve room's height relation to the lift is not shown clearly, and the views do not show the stair or the drop."
   },
   "P4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The start, the landmark, the lift and both crawlers are there (the measurement finds 2 headcrabs, as the brief asks). The crawlers are placed one in the control room by the lift (25) and one in the valve room (26). The brief says the valve wheel ends the mod, and the plan has the ending chain: multi_manager FW_TURN, env_fade FW_FADE and FW_MSG. But no entity lets the player turn the wheel. The wheel is a cycler_sprite (19), which can't fire anything, and the entity list has no func_button, func_rot_button or trigger, so nothing visible fires FW_TURN at the wheel. The ending as the brief describes it isn't wired to the wheel."
+   "reason": "The start (info_player_start 15), two monster_headcrab (measured 2 of 2) and the func_plat lift are present. The valve wheel, which the brief places in the valve room, is not visible as an entity: func_button 7 may stand in for it but sits in the control room. The trigger_changelevel points to fw_end, a map the mod does not contain. The landmark hall_exit is present."
   },
   "P5": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "The surfaces fit the brief's materials. The walls and ceiling are worn tan concrete panels, the floors are scuffed concrete tiles, the entry room has riveted steel plates, and the lift floor is a yellow and black hazard grate. Nothing neon or sci-fi."
+   "score": 1,
+   "reason": "The views show a sandy, mottled wall and a dark tiled floor. The brief asks for concrete, wet concrete, rusted steel and yellow hazard paint, and none of those is visible. The surfaces are plausible for Half-Life but not the brief's materials."
   },
   "P6": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "There are 16 lights spread over every room: along the control room, over the pump hall, in the valve room and in the entry. In the yaw 180 view the ceiling has warm sodium-coloured pools of light with darker gaps between them. That gives the industrial mix of bright and dark the brief describes."
+   "score": 1,
+   "reason": "The lighting in the views is dim and warm, with dark patches on the ceiling, which fits the mood. The brief asks for sodium lamps that buzz and a caged lamp, and the views do not show caged lamps. The plan has lights scattered across an empty room that is not in the brief, so the bright and dark areas do not match the brief's layout."
   },
   "P7": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The window row and the consoles under it are there. The consoles read well in the yaw 90 view, with green screens, dials and switches. But the hall through the windows is a dim brown blur, and the two pumps in the plan can't be made out from the console row. No view is taken in the valve room, so the main valve wheel (cycler_sprite 19) and its platform can't be confirmed from the pictures."
+   "reason": "The stair, the lift, a row of five breakables along the control room's left wall (possibly the windows) and three console-like boxes with sprites are there. The windows onto the hall are not visible from the views, and no hazard trim, grates or caged lamps are seen."
   },
   "P8": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Measured: the check finds no errors, nothing is unreached and there are no reach warnings. The map compiles with no leak."
+   "score": 1,
+   "reason": "The compile is clean (checkErrors empty, reachWarnings empty) and both crawlers are reached (notReached empty). But changelevels is empty, so the way out (the trigger_changelevel to fw_end) was not reached in the walk test, and the brief's ending is not measured as reachable. Leak status is not reported."
   },
   "P9": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "From inside it reads as a Half-Life industrial map. The entry is a riveted steel corridor, and the control room has concrete panel walls, a row of consoles under windows and a hazard grate lift. One thing is off: the crawler near the lift (25) is drawn as a plain red block in the yaw -90 view, not as its model, so its look can't be judged from the views."
+   "score": 1,
+   "reason": "From inside, the room reads as a generic beige room with tiled floors and a few boxes, with no windows, consoles or lift visible in the views. It could pass as a Half-Life room in passing, but nothing in the views says flooded pumping station."
   }
  },
- "total": 16,
+ "total": 9,
  "of": 18,
  "passes": false
 }

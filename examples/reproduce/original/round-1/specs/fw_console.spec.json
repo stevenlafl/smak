@@ -1,0 +1,657 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_console.mdl",
+  "kind": "prop",
+  "size": {
+    "height": 52,
+    "width": 64
+  },
+  "texture": {
+    "width": 512,
+    "height": 256
+  },
+  "materials": {
+    "case": {
+      "base": "metal",
+      "tone": [
+        0.42,
+        0.45,
+        0.4
+      ],
+      "cell": 64
+    },
+    "face": {
+      "base": "metal",
+      "tone": [
+        0.3,
+        0.32,
+        0.3
+      ],
+      "cell": 64
+    },
+    "cream": {
+      "base": "paint",
+      "tone": [
+        0.86,
+        0.84,
+        0.72
+      ]
+    },
+    "black": {
+      "base": "paint",
+      "tone": [
+        0.08,
+        0.08,
+        0.08
+      ]
+    },
+    "screen": {
+      "base": "paint",
+      "tone": [
+        0.3,
+        0.7,
+        0.36
+      ],
+      "flags": [
+        "fullbright"
+      ]
+    },
+    "trace": {
+      "base": "paint",
+      "tone": [
+        0.65,
+        1,
+        0.65
+      ],
+      "flags": [
+        "fullbright"
+      ]
+    },
+    "red": {
+      "base": "paint",
+      "tone": [
+        0.7,
+        0.12,
+        0.08
+      ]
+    },
+    "yellow": {
+      "base": "paint",
+      "tone": [
+        0.8,
+        0.62,
+        0.1
+      ]
+    },
+    "steel": {
+      "base": "steel"
+    }
+  },
+  "finish": {
+    "wear": 0.5,
+    "grime": 0.6,
+    "light": 0.35
+  },
+  "parts": [
+    {
+      "id": "cabinet",
+      "kind": "box",
+      "material": "case",
+      "size": [
+        26,
+        64,
+        34
+      ],
+      "panels": [
+        {
+          "face": "front",
+          "at": [
+            16,
+            16
+          ],
+          "size": [
+            28,
+            24
+          ],
+          "style": "inset",
+          "edge": 0.6
+        },
+        {
+          "face": "front",
+          "at": [
+            48,
+            16
+          ],
+          "size": [
+            28,
+            24
+          ],
+          "style": "inset",
+          "edge": 0.6
+        },
+        {
+          "face": "front",
+          "at": [
+            27,
+            16
+          ],
+          "size": [
+            1.5,
+            5
+          ],
+          "style": "raised",
+          "material": "steel"
+        },
+        {
+          "face": "front",
+          "at": [
+            59,
+            16
+          ],
+          "size": [
+            1.5,
+            5
+          ],
+          "style": "raised",
+          "material": "steel"
+        },
+        {
+          "face": "front",
+          "at": [
+            32,
+            1.5
+          ],
+          "size": [
+            64,
+            3
+          ],
+          "style": "flat",
+          "material": "black"
+        },
+        {
+          "face": "left",
+          "at": [
+            13,
+            26
+          ],
+          "size": [
+            16,
+            6
+          ],
+          "style": "inset"
+        },
+        {
+          "face": "right",
+          "at": [
+            13,
+            26
+          ],
+          "size": [
+            16,
+            6
+          ],
+          "style": "inset"
+        }
+      ]
+    },
+    {
+      "id": "desk",
+      "kind": "box",
+      "material": "face",
+      "texels": 3,
+      "size": [
+        18,
+        64,
+        3
+      ],
+      "rotate": [
+        0,
+        22,
+        0
+      ],
+      "at": [
+        4,
+        0,
+        34
+      ],
+      "panels": [
+        {
+          "face": "top",
+          "at": [
+            7,
+            12
+          ],
+          "size": [
+            9,
+            9
+          ],
+          "shape": "ellipse",
+          "style": "inset",
+          "edge": 0.5,
+          "material": "black"
+        },
+        {
+          "face": "top",
+          "at": [
+            7,
+            25
+          ],
+          "size": [
+            9,
+            9
+          ],
+          "shape": "ellipse",
+          "style": "inset",
+          "edge": 0.5,
+          "material": "black"
+        },
+        {
+          "face": "top",
+          "at": [
+            7,
+            38
+          ],
+          "size": [
+            9,
+            9
+          ],
+          "shape": "ellipse",
+          "style": "inset",
+          "edge": 0.5,
+          "material": "black"
+        },
+        {
+          "face": "top",
+          "at": [
+            7,
+            12
+          ],
+          "size": [
+            7.6,
+            7.6
+          ],
+          "shape": "ellipse",
+          "style": "flat",
+          "material": "cream"
+        },
+        {
+          "face": "top",
+          "at": [
+            7,
+            25
+          ],
+          "size": [
+            7.6,
+            7.6
+          ],
+          "shape": "ellipse",
+          "style": "flat",
+          "material": "cream"
+        },
+        {
+          "face": "top",
+          "at": [
+            7,
+            38
+          ],
+          "size": [
+            7.6,
+            7.6
+          ],
+          "shape": "ellipse",
+          "style": "flat",
+          "material": "cream"
+        },
+        {
+          "face": "top",
+          "at": [
+            7.8,
+            12
+          ],
+          "size": [
+            2.2,
+            0.5
+          ],
+          "style": "flat",
+          "material": "black"
+        },
+        {
+          "face": "top",
+          "at": [
+            7,
+            26
+          ],
+          "size": [
+            0.5,
+            2.4
+          ],
+          "style": "flat",
+          "material": "red"
+        },
+        {
+          "face": "top",
+          "at": [
+            6.2,
+            37.2
+          ],
+          "size": [
+            2,
+            0.5
+          ],
+          "style": "flat",
+          "material": "black"
+        },
+        {
+          "face": "top",
+          "at": [
+            7,
+            52
+          ],
+          "size": [
+            6,
+            14
+          ],
+          "style": "inset",
+          "material": "black"
+        },
+        {
+          "face": "top",
+          "at": [
+            15,
+            32
+          ],
+          "size": [
+            3,
+            60
+          ],
+          "style": "flat",
+          "material": "yellow"
+        }
+      ]
+    },
+    {
+      "id": "switch_plate",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        6,
+        22,
+        0.6
+      ],
+      "rotate": [
+        0,
+        22,
+        0
+      ],
+      "at": [
+        9.6,
+        -19,
+        34.7
+      ]
+    },
+    {
+      "id": "switch",
+      "kind": "box",
+      "material": "steel",
+      "size": [
+        1.2,
+        1.2,
+        2.4
+      ],
+      "at": [
+        9.6,
+        -27,
+        34.9
+      ],
+      "rotate": [
+        0,
+        22,
+        0
+      ]
+    },
+    {
+      "id": "switch2",
+      "kind": "box",
+      "material": "steel",
+      "size": [
+        1.2,
+        1.2,
+        2.4
+      ],
+      "at": [
+        9.6,
+        -23.8,
+        34.9
+      ],
+      "rotate": [
+        0,
+        22,
+        0
+      ]
+    },
+    {
+      "id": "switch3",
+      "kind": "box",
+      "material": "red",
+      "size": [
+        1.2,
+        1.2,
+        2.4
+      ],
+      "at": [
+        9.6,
+        -20.6,
+        34.9
+      ],
+      "rotate": [
+        0,
+        22,
+        0
+      ]
+    },
+    {
+      "id": "switch4",
+      "kind": "box",
+      "material": "steel",
+      "size": [
+        1.2,
+        1.2,
+        2.4
+      ],
+      "at": [
+        9.6,
+        -17.4,
+        34.9
+      ],
+      "rotate": [
+        0,
+        22,
+        0
+      ]
+    },
+    {
+      "id": "switch5",
+      "kind": "box",
+      "material": "yellow",
+      "size": [
+        1.2,
+        1.2,
+        2.4
+      ],
+      "at": [
+        9.6,
+        -14.2,
+        34.9
+      ],
+      "rotate": [
+        0,
+        22,
+        0
+      ]
+    },
+    {
+      "id": "switch6",
+      "kind": "box",
+      "material": "steel",
+      "size": [
+        1.2,
+        1.2,
+        2.4
+      ],
+      "at": [
+        9.6,
+        -11,
+        34.9
+      ],
+      "rotate": [
+        0,
+        22,
+        0
+      ]
+    },
+    {
+      "id": "riser",
+      "kind": "box",
+      "material": "case",
+      "size": [
+        8,
+        64,
+        18
+      ],
+      "at": [
+        -9,
+        0,
+        34
+      ],
+      "panels": [
+        {
+          "face": "front",
+          "at": [
+            32,
+            16.5
+          ],
+          "size": [
+            60,
+            2
+          ],
+          "style": "flat",
+          "material": "yellow"
+        }
+      ]
+    },
+    {
+      "id": "screen_l",
+      "kind": "box",
+      "material": "screen",
+      "texels": 2,
+      "size": [
+        0.6,
+        20,
+        11
+      ],
+      "at": [
+        -4.8,
+        -14,
+        39
+      ],
+      "panels": [
+        {
+          "face": "front",
+          "at": [
+            10,
+            8
+          ],
+          "size": [
+            16,
+            0.7
+          ],
+          "style": "flat",
+          "material": "trace"
+        },
+        {
+          "face": "front",
+          "at": [
+            7,
+            5.5
+          ],
+          "size": [
+            10,
+            0.7
+          ],
+          "style": "flat",
+          "material": "trace"
+        },
+        {
+          "face": "front",
+          "at": [
+            9,
+            3
+          ],
+          "size": [
+            14,
+            0.7
+          ],
+          "style": "flat",
+          "material": "trace"
+        }
+      ]
+    },
+    {
+      "id": "screen_r",
+      "kind": "box",
+      "material": "screen",
+      "texels": 2,
+      "size": [
+        0.6,
+        20,
+        11
+      ],
+      "at": [
+        -4.8,
+        14,
+        39
+      ],
+      "panels": [
+        {
+          "face": "front",
+          "at": [
+            10,
+            5.5
+          ],
+          "size": [
+            18,
+            0.7
+          ],
+          "style": "flat",
+          "material": "trace"
+        },
+        {
+          "face": "front",
+          "at": [
+            6,
+            5.5
+          ],
+          "size": [
+            0.7,
+            9
+          ],
+          "style": "flat",
+          "material": "trace"
+        },
+        {
+          "face": "front",
+          "at": [
+            13,
+            7
+          ],
+          "size": [
+            0.7,
+            6
+          ],
+          "style": "flat",
+          "material": "trace"
+        }
+      ]
+    }
+  ]
+}

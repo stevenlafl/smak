@@ -26,52 +26,52 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "In all ten views in sides.png the model is a rectangular box with sharp corners. The front, left, back and right views are flat rectangles, and the top and below views are squares. A 55-gallon drum should be a cylinder with a round top and bottom, rolled rims at each end and rolling hoops around the body. None of that outline is there, so the silhouette does not match the brief's words in any view."
+   "reason": "The outline is a plain rectangle in the four side views and a square from above and below. A 55-gallon drum is round in plan, so its top and bottom outlines are wrong. It is a box, not a drum, and the brief's drum outline is missing."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured 23 x 23 x 34 against the asked 23 across and 34 high, sizeOff 0, well inside 15%."
+   "reason": "Measured size is 23 x 23 x 34, exactly the brief's 34 high and 23 across (sizeOff 0). Within 10%."
   },
   "M3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "A drum's parts are a cylindrical body, top and bottom lids with a chime rim, two rolling hoops on the body, and bung caps on the lid. None of these are present. The model is a single plain box with six flat faces and nothing else, as seen in every view."
+   "reason": "The drum's parts are missing: no rim or chime bands, no lid or bung, no seam. Only one solid block is there."
   },
   "M4": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "The whole model is one flat mid-grey with a faint concrete-like mottle. The brief asks for rusted steel (orange-brown rust over the metal) and a yellow hazard stripe. No region has a rust or paint colour, and the material reads as concrete or stone, not metal."
+   "score": 1,
+   "reason": "A single flat mid-grey throughout. The brief asks for a rusted steel drum, and no rust colouring or metal variation shows in any view or in the line-up. Colour is present but clearly off."
   },
   "M5": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief asks for a hazard stripe and rust wear. There is no stripe anywhere on the sides in the front, left, back, right or angled views. There is also no rust streaking, no dents, no rim or hoop lines and no lettering. The surface is a uniform grey mottle."
+   "reason": "The hazard stripe the brief names is missing, and so is any rust or wear. The faces show only a faint noise texture, with no markings."
   },
   "M6": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "In lineup.png, B is plainly the grey box, and it stands out at once against the leg bone (A), the rock (C) and the checker sphere (D). No player would take it for a Half-Life drum prop. It reads as an untextured placeholder block, not a game asset."
+   "reason": "In the line-up it is the plain grey box (B). Beside the testsphere, the bone and the rock, a player would not take it for one of Half-Life's props. It reads as a placeholder block."
   },
   "M7": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "It stands upright with the long axis vertical, as a standing drum should. However, the pictures do not show the origin, so I cannot confirm that it stands on its origin. A featureless box also has no front to check."
+   "reason": "It stands upright with its tall axis vertical, which is the drum's pose. Front and facing cannot be told apart on a box, and the origin's placement cannot be verified from the pictures. Not a must-have item."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "checkErrors is empty. It has 12 triangles, well under twice the median of 62 for Half-Life props of this size. It is a closed box, and no view shows it open, inside out or floating."
+   "reason": "The SMAK check reports no errors. At 12 triangles it is under twice the Half-Life median of 62 (the limit is 124). The box is closed, with nothing open, inside out or floating."
   }
  },
- "total": 5,
+ "total": 6,
  "of": 16,
  "passes": false
 }

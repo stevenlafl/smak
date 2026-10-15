@@ -3,8 +3,8 @@
  "label": "maps/fw_pumphall.bsp: the flooded hall: water deep enough to swim, three pumps, catwalks both sides joined by a bridge, ladders; the wrench on a catwalk, three crawlers in the water; out by a stair to a corridor",
  "measured": {
   "size": [
-   3216,
-   864
+   3164,
+   948
   ],
   "sizeAsked": {
    "long": 2500
@@ -15,12 +15,12 @@
   "changelevels": [
    {
     "map": "fw_control",
-    "landmark": "fw_lm_hall"
+    "landmark": "hall_exit"
    }
   ],
   "landmarks": [
-   "fw_lm_yard",
-   "fw_lm_hall"
+   "yard_exit",
+   "hall_exit"
   ],
   "itemsAsked": [
    "weapon_crowbar",
@@ -35,63 +35,10 @@
   "P2": 1,
   "P8": 2
  },
- "scores": {
-  "P1": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Most of the brief's layout is there. The long hall runs east-west with three pumps along it, there is a catwalk along the north and the south side, and a cross strip near x of about 300 (light 38) joins them as a bridge. The arrival room in the south-west has a func_door, and in the north-east a stair (the white steps) climbs to a room and the exit corridor (landmark fw_lm_hall). The brief also asks for ladders between water and catwalk, and the entity list has no func_ladder at all. The only way out of the water appears to be the steps at the west end, so the ladders are missing."
-  },
-  "P2": {
-   "judge": 2,
-   "cap": 1,
-   "score": 1,
-   "reason": "The measured bounding box is 3216 long, 29% over the 2500 asked. That figure includes the arrival room and the exit stair and corridor. The flooded hall itself, from the west steps to the east wall, scales to about 2350 to 2400 units against the 512-unit bar, within 25% of 2500. The 864 width is a sensible size for a hall with catwalks on both sides."
-  },
-  "P3": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "The heights fit the brief. The water floor is at -168 and the catwalks are at 0, which gives water deep enough to swim. The pumps rise to 184 from the hall floor. The exit stair climbs from catwalk level (-8) to a landing at 176 that leads to the corridor. In the yaw -90 view the water lies well below the catwalk deck."
-  },
-  "P4": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Everything the brief names is there and reached. There is one info_player_start, by the door of the arrival room. The weapon_crowbar (26) lies on the north catwalk near the east end. Three monster_headcrab (27, 28, 29) sit in the hall's water. There is a func_door. Both landmarks are present (fw_lm_yard at the arrival, fw_lm_hall at the exit) and the level change goes to fw_control. The walk test lists nothing as not reached."
-  },
-  "P5": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The walls, catwalks and water fit the brief and look like Half-Life's industrial set: concrete and pipe-covered walls with rust-red pipe runs, catwalk floor plates, railings with hazard-striped trim, green-grey water, and a green steel door in the arrival room. But in the yaw 0 view from the north catwalk the top of the hall shows a brown cloudy sky instead of a roof, which is the wrong surface for an indoor pump hall."
-  },
-  "P6": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "There are 25 lights, spread along both catwalks, over the pumps and in the end rooms. The views show the warm sodium-orange cast the brief asks for, with darker water below and brighter walls above. Nothing is flat or blown out."
-  },
-  "P7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Pipe runs, railings, hazard trim and the stair are in place, and the plan marks the three pumps as boxes with round housings. The ladders are missing, though. No view shows the pumps, so whether they read as big pumps can't be checked. The yaw 90 view from -895 208 64 also has a solid black vertical slit in the wall, a visible gap or seam."
-  },
-  "P8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The check reports no errors and no reach warnings, and the walk test reaches every item and the level change to fw_control."
-  },
-  "P9": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The catwalk views with pipe walls, rusted trim and the green door could pass for Half-Life's own industrial maps. Three things weaken it: the hall appears open to a cloudy sky instead of under a roof, the yaw 90 view has a black slit in the wall, and no view shows the three pumps that should define the room."
-  }
- },
- "total": 13,
- "of": 18,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "P2"
+ ],
+ "total": 0,
+ "of": 18
 }

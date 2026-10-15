@@ -4,301 +4,137 @@
   "kind": "prop",
   "materials": {
     "pipe": {
-      "base": "metal",
-      "tone": [
-        0.36,
-        0.42,
-        0.36
-      ],
-      "rust": 0.5
-    },
-    "flange": {
       "base": "iron",
-      "tone": [
-        0.32,
-        0.32,
-        0.32
-      ],
-      "rust": 0.6
+      "rust": 0.45,
+      "tone": "dark grey"
     },
     "bolt": {
       "base": "steel",
       "tone": [
-        0.45,
-        0.45,
-        0.45
+        0.5,
+        0.5,
+        0.48
       ]
-    },
-    "haz": {
-      "base": "hazard",
-      "tone": [
-        0.82,
-        0.64,
-        0.1
-      ],
-      "stripe": 2.5
     }
-  },
-  "finish": {
-    "wear": 0.6,
-    "grime": 0.7,
-    "light": 0.35
   },
   "parts": [
     {
-      "id": "saddle",
-      "kind": "box",
-      "material": "flange",
-      "size": [
-        6,
-        14,
-        6.5
-      ],
-      "at": [
-        -30,
-        0,
-        0
-      ]
-    },
-    {
-      "id": "pipe_run",
-      "kind": "cylinder",
-      "material": "pipe",
-      "radius": 6,
-      "height": 34,
-      "sides": 10,
-      "rotate": [
-        0,
-        90,
-        0
-      ],
-      "at": [
-        -46,
-        0,
-        12
-      ],
-      "marks": [
-        {
-          "path": [
-            [
-              0.25,
-              0
-            ],
-            [
-              0.25,
-              360
-            ]
-          ],
-          "width": 3,
-          "material": "haz"
-        },
-        {
-          "path": [
-            [
-              0.7,
-              60
-            ],
-            [
-              0.85,
-              70
-            ]
-          ],
-          "width": 2,
-          "material": {
-            "base": "metal",
-            "tone": [
-              0.45,
-              0.25,
-              0.12
-            ],
-            "rust": 1
-          }
-        }
-      ]
-    },
-    {
-      "id": "flange_run",
-      "kind": "cylinder",
-      "material": "flange",
-      "radius": 9,
-      "height": 2,
-      "sides": 10,
-      "rotate": [
-        0,
-        90,
-        0
-      ],
-      "at": [
-        -12,
-        0,
-        12
-      ]
-    },
-    {
-      "id": "bolt_run",
-      "kind": "cylinder",
-      "material": "bolt",
-      "radius": 1,
-      "height": 3.4,
-      "sides": 4,
-      "rotate": [
-        0,
-        90,
-        0
-      ],
-      "at": [
-        -12.7,
-        0,
-        19.5
-      ],
-      "repeat": {
-        "count": 8,
-        "axis": "x",
-        "through": [
-          -11,
-          0,
-          12
-        ],
-        "start": 22.5
-      }
-    },
-    {
-      "id": "elbow",
+      "id": "pipe",
       "kind": "tube",
       "material": "pipe",
-      "sides": 10,
+      "sides": 8,
       "path": [
         [
-          -10.5,
+          -26,
           0,
-          12,
-          6.3
-        ],
-        [
-          -6.4,
-          0,
-          13.1,
-          6.3
-        ],
-        [
-          -3.1,
-          0,
-          15.6,
-          6.3
-        ],
-        [
-          -1.1,
-          0,
-          18.9,
-          6.3
+          14,
+          4
         ],
         [
           0,
           0,
-          22.5,
-          6.3
+          14,
+          4
+        ],
+        [
+          0,
+          0,
+          36,
+          4
         ]
       ]
     },
     {
-      "id": "flange_rise",
-      "kind": "cylinder",
-      "material": "flange",
-      "radius": 9,
-      "height": 2,
-      "sides": 10,
+      "id": "elbow",
+      "kind": "sphere",
+      "material": "pipe",
+      "radius": 5,
+      "sides": 6,
       "at": [
         0,
         0,
-        22
+        9
       ]
     },
     {
-      "id": "bolt_rise",
+      "id": "flange_side",
+      "kind": "cylinder",
+      "material": "pipe",
+      "radius": 6.5,
+      "height": 2.5,
+      "sides": 8,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -28.5,
+        0,
+        14
+      ]
+    },
+    {
+      "id": "flange_top",
+      "kind": "cylinder",
+      "material": "pipe",
+      "radius": 6.5,
+      "height": 2.5,
+      "sides": 8,
+      "at": [
+        0,
+        0,
+        36
+      ]
+    },
+    {
+      "id": "bolt_side",
       "kind": "cylinder",
       "material": "bolt",
-      "radius": 1,
-      "height": 3.4,
-      "sides": 4,
-      "at": [
-        7.5,
+      "radius": 0.9,
+      "height": 1.2,
+      "sides": 5,
+      "rotate": [
         0,
-        21.3
+        -90,
+        0
+      ],
+      "at": [
+        -28.5,
+        4.6,
+        14
       ],
       "repeat": {
-        "count": 8,
+        "count": 6,
+        "axis": "x",
+        "through": [
+          -28.5,
+          0,
+          14
+        ]
+      }
+    },
+    {
+      "id": "bolt_top",
+      "kind": "cylinder",
+      "material": "bolt",
+      "radius": 0.9,
+      "height": 1.2,
+      "sides": 5,
+      "at": [
+        4.6,
+        0,
+        38.5
+      ],
+      "repeat": {
+        "count": 6,
         "axis": "z",
         "through": [
           0,
           0,
-          23
-        ],
-        "start": 22.5
+          36
+        ]
       }
-    },
-    {
-      "id": "pipe_rise",
-      "kind": "cylinder",
-      "material": "pipe",
-      "radius": 6,
-      "height": 36,
-      "sides": 10,
-      "at": [
-        0,
-        0,
-        23.5
-      ],
-      "marks": [
-        {
-          "path": [
-            [
-              0.6,
-              0
-            ],
-            [
-              0.6,
-              360
-            ]
-          ],
-          "width": 3,
-          "material": "haz"
-        },
-        {
-          "path": [
-            [
-              0.2,
-              200
-            ],
-            [
-              0.3,
-              190
-            ]
-          ],
-          "width": 2,
-          "material": {
-            "base": "metal",
-            "tone": [
-              0.45,
-              0.25,
-              0.12
-            ],
-            "rust": 1
-          }
-        }
-      ]
-    },
-    {
-      "id": "collar",
-      "kind": "cylinder",
-      "material": "flange",
-      "radius": 7,
-      "height": 2,
-      "sides": 10,
-      "at": [
-        0,
-        0,
-        58
-      ]
     }
   ]
 }

@@ -49,39 +49,10 @@
  "caps": {
   "S5": 0
  },
- "scores": {
-  "S1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The picture shows the same evenly filled hiss from 0 to 0.50 s: the waveform stays at one height the whole way and the spectrogram is flat yellow-orange noise at every frequency. A wrench swing is a whoosh that swells and then dies away. This has no swell, no fade and no airy band, so from its picture and measurements it is not the event the brief asks for. (I can't listen to it; this is judged from the picture and numbers only.)"
-  },
-  "S2": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The length is 0.5 s, outside the swing class's 0.24 to 0.44 s. T20 (the time to decay by 20 dB) is 0.449 s against the class's 0.05 to 0.15 s, and the waveform shows no decay at all, just flat level to the last sample. Both length and decay miss the measured range."
-  },
-  "S3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The centroid is 2755 Hz against the class's 608 to 912 Hz, far more than 20% too bright. The 150-600 Hz band holds 8.2% against 55.8 to 75.8%, and the 2k-5k band holds 53.3% against 0 to 16.7%. Several bands are off by tens of points, and the spectrogram shows energy spread evenly up the whole range."
-  },
-  "S4": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "Flatness is 0.94, pure noise, against the class's 0.03 to 0.13. The spectrogram shows no tonal content and no rising or falling sweep, and the waveform has no shaped onset or swell. It has none of a swing's character."
-  },
-  "S5": {
-   "judge": 1,
-   "cap": 0,
-   "score": 0,
-   "reason": "The name sound/weapons/cbar_miss1.wav is right, nothing clips (clipped 0) and the DC offset is negligible (-0.0011). But the harness reports an engine fault: the last samples sit at 0.28 of full scale, so it ends in a click with no fade, which the waveform's flat cut-off at 0.50 s confirms. The format (mono PCM, sample rate, bit depth) isn't among the measurements, so it can't be confirmed as a 2."
-  }
- },
+ "passes": false,
+ "failedByMeasure": [
+  "S5"
+ ],
  "total": 0,
- "of": 10,
- "passes": false
+ "of": 10
 }

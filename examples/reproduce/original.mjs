@@ -459,8 +459,10 @@ function scores(which, results) {
     return of.length ? of.filter((r) => r.passes).length / of.length : 0;
   };
   const kindsPass = kinds.every((k) => share(k) >= 0.8);
-  const modPasses = mod && !mod.error && ["O1", "O2", "O3"].every((i) => mod.scores[i].score === 2);
-  lines.push("", `The mod: ${mod?.error ?? (mod ? ["O1", "O2", "O3", "O4"].map((i) => `${i} ${mod.scores[i].score}`).join(", ") : "not judged")}. It ${modPasses && kindsPass ? "PASSES" : "fails"}.`, "");
+  // a mod judged with no scores (failed by its measures before a judge was asked, as a decoy is) scores 0 on each
+  const modScore = (i) => mod?.scores?.[i]?.score ?? 0;
+  const modPasses = mod && !mod.error && ["O1", "O2", "O3"].every((i) => modScore(i) === 2);
+  lines.push("", `The mod: ${mod?.error ?? (mod ? ["O1", "O2", "O3", "O4"].map((i) => `${i} ${modScore(i)}`).join(", ") + (mod.scores ? "" : " (no judge: failed by its measures)") : "not judged")}. It ${modPasses && kindsPass ? "PASSES" : "fails"}.`, "");
   writeFileSync(join(ROOT, `scores-${which}.md`), `${lines.join("\n")}\n`);
   console.log(lines.join("\n"));
 }

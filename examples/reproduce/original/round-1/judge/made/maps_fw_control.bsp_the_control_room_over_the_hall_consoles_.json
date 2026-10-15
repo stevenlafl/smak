@@ -1,0 +1,87 @@
+{
+ "kind": "map",
+ "label": "maps/fw_control.bsp: the control room over the hall: consoles under windows onto the hall, a lift down to the valve room with the main valve wheel; two crawlers",
+ "measured": {
+  "size": [
+   1488,
+   928
+  ],
+  "sizeAsked": null,
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [],
+  "landmarks": [
+   "fw_lm_hall"
+  ],
+  "itemsAsked": [
+   "monster_headcrab"
+  ],
+  "itemsFound": [
+   "monster_headcrab: 2"
+  ]
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The plan has every area the brief asks for, joined the way it says. An entry room on the west holds the start and the fw_lm_hall landmark, and it opens onto the control room. The control room has four consoles (cycler_sprite 11 to 14) along its north wall, under a row of window panes (func_breakable 1 to 4). The windows look down on a mock of the hall at -320 with two pumps in it. A lift (func_door 6, named FW_LIFT) in the control room's south-east corner leads east to the valve room, where the wheel model (cycler_sprite 19) sits on a raised platform."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The brief gives no size for this map, and the measured 1488 by 928 is a sensible footprint. The control room is about 500 by 210 units, enough for a console row and the lift. The valve room is about 256 by 220 and the entry room about 170 by 170. Nothing is out of scale for Half-Life."
+  },
+  "P3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The floor heights fit the brief. The control room is at 0, above the hall at -320 (its pump plinths at -256 and 48), so the windows really look down on it. The lift box drops from 0 to -256, which matches the valve room floor at -256. The wheel's platform rises to -144, with steps at -184 on either side."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The start, the landmark, the lift and both crawlers are there (the measurement finds 2 headcrabs, as the brief asks). The crawlers are placed one in the control room by the lift (25) and one in the valve room (26). The brief says the valve wheel ends the mod, and the plan has the ending chain: multi_manager FW_TURN, env_fade FW_FADE and FW_MSG. But no entity lets the player turn the wheel. The wheel is a cycler_sprite (19), which can't fire anything, and the entity list has no func_button, func_rot_button or trigger, so nothing visible fires FW_TURN at the wheel. The ending as the brief describes it isn't wired to the wheel."
+  },
+  "P5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The surfaces fit the brief's materials. The walls and ceiling are worn tan concrete panels, the floors are scuffed concrete tiles, the entry room has riveted steel plates, and the lift floor is a yellow and black hazard grate. Nothing neon or sci-fi."
+  },
+  "P6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "There are 16 lights spread over every room: along the control room, over the pump hall, in the valve room and in the entry. In the yaw 180 view the ceiling has warm sodium-coloured pools of light with darker gaps between them. That gives the industrial mix of bright and dark the brief describes."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The window row and the consoles under it are there. The consoles read well in the yaw 90 view, with green screens, dials and switches. But the hall through the windows is a dim brown blur, and the two pumps in the plan can't be made out from the console row. No view is taken in the valve room, so the main valve wheel (cycler_sprite 19) and its platform can't be confirmed from the pictures."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: the check finds no errors, nothing is unreached and there are no reach warnings. The map compiles with no leak."
+  },
+  "P9": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "From inside it reads as a Half-Life industrial map. The entry is a riveted steel corridor, and the control room has concrete panel walls, a row of consoles under windows and a hazard grate lift. One thing is off: the crawler near the lift (25) is drawn as a plain red block in the yaw -90 view, not as its model, so its look can't be judged from the views."
+  }
+ },
+ "total": 16,
+ "of": 18,
+ "passes": false
+}

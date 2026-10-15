@@ -78,34 +78,34 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Frame 0 is one flat, pale grey disc with even edges on a dark background. It has no droplets, spray, drips or splash shape, so a player would not call it a sludge spit that splashes. It is a placeholder disc, not the effect the brief asks for."
+   "reason": "The frame is one flat light-grey disc on a dark ground. There is no splash: no spread, droplets, crown or drip. Nothing reads as a sludge spit that splashes, so the effect the brief names is not there."
   },
   "R2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The frame is 32x32 and the border measure is 0, which is inside the explosion class's range. But the effect is a centred circle covering most of the frame: no splash outline and no spreading spray. Its shape does not fill the frame the way a splash sprite of the class does."
+   "reason": "The frame is 32 x 32, a size the measures confirm, and the disc fills it evenly. The brief gives no frame size, and a splash would have a lobed or spreading silhouette, not a round fill, so the shape is clearly off."
   },
   "R3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The disc is a uniform light grey, nearly white, with no green and no variation. The brief's sludge is grey-green, wet and dirty. No colour measurement was given to check against the class, and the flat pale grey is clearly off from sludge."
+   "reason": "The colour is a neutral near-white grey. The brief asks for green-grey sludge, consistent with the water and the crawler, and nothing in the frame has that tint. It is clearly off but not a wholly wrong family, so 1 rather than 0."
   },
   "R4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "It has 1 frame, but the brief asks for an animated sprite. The envelope check fails all three measures against the explosion class: peakAt 0 against 0.22-0.71 ('peaks too soon'), first 1 against 0-0.22 ('starts too bright'), last 1 against 0-0.03 ('does not end dark'). There is no splash motion and no fade, and the one-shot does not end dark."
+   "reason": "The brief asks for an animated splash, but there is one frame, so the motion is absent. The measures fail the envelope for the explosion class: it starts bright (first 1, class range 0 to 0.22), peaks at frame 0 (class range 0.22 to 0.71), and does not end dark (last 1, class range 0 to 0.03). A measured must-have fails, so this cannot score 2."
   },
   "R5": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "The file is sprites/fw_spit.spr, the name the brief lists, and it reads back as a 32x32 parallel additive sprite. Additive is a sensible format for a game spit effect. Nothing in the file's kind is wrong for the game."
+   "score": 1,
+   "reason": "The type (parallel) and format (additive) are plausible for a glow-like effect and no measure flags them. Whether the name and read-back match SPRITE_CLASSES cannot be confirmed from the picture, and the sprite fails R1 to R4, so this scores 1 rather than 2. Note that the picture's folder is named decoy, and the image matches the decoy's description: one disc per sprite. That is a reason to fail it, not to score it higher."
   }
  },
- "total": 4,
+ "total": 3,
  "of": 10,
  "passes": false
 }

@@ -1,0 +1,87 @@
+{
+ "kind": "map",
+ "label": "maps/fw_control.bsp: the control room over the hall: consoles under windows onto the hall, a lift down to the valve room with the main valve wheel; two crawlers",
+ "measured": {
+  "size": [
+   1056,
+   800
+  ],
+  "sizeAsked": null,
+  "checkErrors": [
+   "1 of the listed .wad files are not in the folders given (fw_control.wad): GoldSrc stops with \"couldn't open\" on the first it does not find"
+  ],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [],
+  "landmarks": [],
+  "itemsAsked": [
+   "monster_headcrab"
+  ],
+  "itemsFound": [
+   "monster_headcrab: 1"
+  ]
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 0
+ },
+ "scores": {
+  "P1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The map is one rectangular room (1056 x 800) with no inside walls. The brief asks for a control room, a row of windows onto the hall, a lift, and a valve room below it. None of these is in the plan, and there are no connections between areas because there is only one area."
+  },
+  "P2": {
+   "judge": 0,
+   "cap": 2,
+   "score": 0,
+   "reason": "The brief's areas (control room, valve room) and the lift shaft between them are not there, so none of their sizes or places can match. There is only one flat floor, and there is nothing to set its size against."
+  },
+  "P3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The plan shows one floor height everywhere. The brief puts the valve room below the control room, reached by a lift, but the map has no lower level, no lift shaft and no change in height."
+  },
+  "P4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The entities are one info_player_start, one monster_headcrab (the brief asks for two crawlers) and 12 lights. There is no func_door, no func_plat or func_train for the lift, no valve wheel and no game_end or trigger to end the mod."
+  },
+  "P5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "In the views every surface is one flat colour: green floor, lavender walls, cyan ceiling. None of them is concrete, rusted steel, a console panel, hazard trim or a window. The check also reports that fw_control.wad is missing, and the brief names the .wad fw.wad."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "There is light: 12 point lights in an even 4 x 3 grid. But the brightness is flat across the room, and the brief's buzzing sodium-orange lamps and bright and dark areas are not there."
+  },
+  "P7": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "None of the brief's distinctive features are present: no consoles, no windows looking down on the hall, no lift, no valve wheel, no valve room. The only object is the box marking the headcrab."
+  },
+  "P8": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The check fails: the .wad file listed (fw_control.wad) is not in the folders given, and GoldSrc stops with \"couldn't open\". The map also has nothing that ends the mod, so there is no way out to reach."
+  },
+  "P9": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "From inside it is an untextured box with flat pastel colours. No player would take it for a Half-Life map or for a control room in a pumping station."
+  }
+ },
+ "total": 1,
+ "of": 18,
+ "passes": false
+}

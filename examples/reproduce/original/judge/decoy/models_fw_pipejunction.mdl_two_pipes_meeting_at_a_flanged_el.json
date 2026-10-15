@@ -23,49 +23,49 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "All ten views in sides.png show a plain cube: square outlines front, left, back, right, top and below, and a box in all four corners. Nothing in it matches the brief's two pipes meeting at a flanged elbow. No round pipe sections, no bend, no flange rings."
+   "reason": "The brief asks for two pipes meeting at a flanged elbow, but the outline is a plain cube. The front, back, left, right, top, below and three-quarter views all show the same square or square-cornered box, with no pipe run, elbow or flange in any view."
   },
   "M2": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "The brief gives no size for the pipe junction (sizeAsked is null), so there is nothing to measure against. 24 x 24 x 24 is a believable bounding box for a small elbow fitting. The wrong shape is scored under M1 and M3, not here."
+   "score": 1,
+   "reason": "The brief gives no size for the pipe junction, so the 15% check has no target. The measured size is 24 x 24 x 24, which is a plausible scale for a pipe junction, but the shape it measures is a box. Clearly off, not scored 2."
   },
   "M3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "None of the brief's parts are there: no first pipe, no second pipe, no elbow, no flanges, no bolts. The model is one box with six faces."
+   "reason": "None of the parts are there: no pipes, no flanged elbow, no bolts or bolt holes. The model is a single solid block with no components in any view."
   },
   "M4": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "Every face wears the same mottled flat grey that reads as concrete or plaster. The brief's setting asks for rusted steel or painted pipe, and nothing here shows metal, rust or paint, and no part is coloured differently from the rest."
+   "score": 1,
+   "reason": "The single region is a mottled grey that reads as concrete or stone, not the painted or rusted steel the brief's pipe junction needs. The colour is in a plausible grey range, but the material is wrong, so it is clearly off."
   },
   "M5": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "No surface detail anywhere: no bolt heads, flange edges, weld seams, rust streaks or paint wear. Each face carries the same soft mottle and nothing else."
+   "reason": "The brief's junction has flange rims, bolt heads and pipe seams. The box has only a generic noise texture across all faces, with none of those markings or panel lines in place."
   },
   "M6": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "In lineup.png, C is the textured cube beside A (a ribcage), B (a leg bone gib) and D (a checkered test sphere). No player would take a bare cube for one of the game's props, let alone for a pipe junction."
+   "reason": "Beside Half-Life's own models in the line-up, the box (C) is a plain grey cube. Nobody would take it for a pipe junction or for any of the game's props, and a judge would not pick it as the junction."
   },
   "M7": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "A cube looks the same from every side, so there is no front to check against an elbow's facing. It sits upright and centred, but the pictures cannot show whether it rests on its origin."
+   "reason": "The brief's pipe junction has a defined front (the elbow's orientation and the pipe run). The cube has no front to speak of, so the front cannot be the original's. The box does stand upright, but that is not a meaningful check here, so it is clearly off."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "checkErrors is empty. 12 triangles is far under twice the median of 62 for Half-Life's props of this size. The box is closed and nothing floats or turns inside out."
+   "reason": "The measured checks are clean: SMAK's check reports no errors, and the model is 12 triangles against a cap of 124 (twice the Half-Life median of 62). The views show a closed solid with no open faces, inside-out faces or floating parts."
   }
  },
  "total": 5,

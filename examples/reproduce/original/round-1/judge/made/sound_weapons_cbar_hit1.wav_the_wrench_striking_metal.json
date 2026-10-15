@@ -1,0 +1,78 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_hit1.wav: the wrench striking metal",
+ "measured": {
+  "features": {
+   "length": 0.7,
+   "peak": -0.5,
+   "rms": -10.7,
+   "crest": 10.2,
+   "dc": -0.0002,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.02,
+   "attack": 0,
+   "peakAt": 0,
+   "t20": 0.479,
+   "t40": 0.649,
+   "centroid": 1483,
+   "rolloff": 2024,
+   "flatness": 0.069,
+   "bands": {
+    "<150": 0.2,
+    "150-600": 3.8,
+    "600-2k": 80,
+    "2k-5k": 15,
+    ">5k": 1
+   },
+   "onsets": 0
+  },
+  "class": "metal hit",
+  "against": {
+   "score": 21,
+   "of": 22,
+   "lines": [
+    "flatness 0.069 (0.16 to 0.28): too pure: more noise"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture shows a struck metal ring. The attack is instant (attack 0, peak at 0 s), followed by a ring that decays over 0.7 s, with most of the energy at 600-2k (80%). The harness classes it as a metal hit, which is the brief's wrench striking metal. One thing a close look notices: the waveform stays near full level for about the first 0.25 s, and no strike transient stands above the ring (crest 10.2 dB). So it reads more as a clang than a sharp knock, but it is still the same event. I cannot listen to it; this is judged from the picture and features only."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length 0.70 s, instant attack, and T20 0.479 s / T40 0.649 s. All are within Half-Life's metal-hit class range, and the class check fails only flatness, which is not an envelope measure. The tail ends cleanly (0.02 s) with no lead-in."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid 1483 Hz and rolloff 2024 Hz, with bands of <150 0.2%, 150-600 3.8%, 600-2k 80%, 2k-5k 15% and >5k 1%. All fall within the metal-hit class range by the class check (21 of 22, and the only miss is flatness). The spectrogram agrees: energy concentrated in the mid band, fading in the highs over the tail."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Flatness is 0.069 against the class's 0.16 to 0.28, so the tone is too pure. Half-Life's metal hits carry more noise in the strike, and this one lacks that grit. The spectrogram shows a smooth, smeared band with no broadband burst at the onset. There is a single strike at 0 s with no extra hits, which fits, and no pitch movement is visible."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Same name (sound/weapons/cbar_hit1.wav). Peak is -0.5 dBFS with 0 clipped samples, DC is -0.0002 (negligible), and engineFaults is empty, so the engine's format check found nothing wrong. A one-shot hit needs no loop cue. The measurements given do not state the sample rate or bit depth; the score rests on the empty engine-fault list."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

@@ -1,0 +1,77 @@
+{
+ "kind": "model",
+ "label": "models/fw_drum.mdl: a rusted 55-gallon drum with a hazard stripe",
+ "measured": {
+  "size": [
+   22.4,
+   21.8,
+   35.3
+  ],
+  "sizeAsked": {
+   "high": 34,
+   "across": 23
+  },
+  "sizeOff": 0.038,
+  "triangles": 136,
+  "halfLifeMedianOfThisSize": 62,
+  "checkErrors": [],
+  "lineup": "ours is one of A to D in lineup.png beside models/testsphere.mdl, models/gib_legbone.mdl, models/big_rock.mdl: the judge does not know which"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 1
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "A drum outline in all six views, an upright cylinder 35.3 high and about 22 across, which is a 55-gallon drum's height to width. Nothing sticks out and nothing is missing. The 12-sided cylinder shows as facets in TOP and BELOW, but those are views from above and below and the outline still holds."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 22.4 x 21.8 x 35.3 against the brief's 23 across and 34 high, so 3.8% off at most, well inside 15%."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The parts a drum should have are there: the body, two rolling hoops, a closed lid with a bevelled chime edge, a bung on the lid, a closed bottom, and the hazard stripe band near the top. Minor gaps: the hoops are shallow grooves that don't show in the outline, the lid has one bung where a real drum has two, and the top chime isn't raised. None of these is clearly wrong at the size the game shows it."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief asks for a rusted drum. What was made is mostly clean blue-grey paint with slight grunge. Rust covers only a few thin vertical streaks, one or two oval patches per side, and the brown bottom rim, all of them clear in FRONT, BACK and FRONT-LEFT. The main surface reads as painted steel with little wear, not rusted steel. The yellow and black of the stripe are right."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The hazard stripe, hoop lines, bung and rust streaks are all present. But the stripe is crisp and unworn, with no rust or chipping on it in any view. The rust patches are smooth uniform ovals that look stuck on like stickers (FRONT lower right, BACK, BACK-RIGHT), not rust that grew on the metal. There is no run-off below the streaks and no rust at the hoops or the top rim."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "In the lineup, B is plainly the drum and the colours sit in Half-Life's palette. But the same smooth oval rust decal repeats around the body, and the clean stripe on a near-clean body makes it read as a mod prop. A player looking closely would not take it for one of Valve's grimy industrial props."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Upright and standing on its base, with the bottom at the same level in every side view. A drum has no front, so the facing can't be wrong."
+  },
+  "M8": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "SMAK's check passes with no errors. The model is closed top and bottom, nothing is inside out, and nothing floats. But it has 136 triangles against a limit of 124 (twice the median of 62 for Half-Life models of this size), about 10% over."
+  }
+ },
+ "total": 12,
+ "of": 16,
+ "passes": false
+}

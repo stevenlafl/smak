@@ -47,39 +47,10 @@
  "caps": {
   "S5": 0
  },
- "scores": {
-  "S1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "Not a metal strike. The waveform is a flat band at the same level from 0 to 0.50 s, with no transient and no decay, and the spectrogram is broadband noise with no stable bright lines anywhere (no ringing modes). It reads as a steady hiss, not the wrench hitting metal. I could not listen to it; this is judged from the picture and the features."
-  },
-  "S2": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "There is no hit envelope. The level never falls: t20 and t40 are both 0.459 s, so the sound stays within 20 dB of its peak almost to the end of its 0.50 s. The waveform is a constant band from start to finish. A metal hit has a sharp attack and then decays, and this has neither. The measured length (0.5 s) does not make up for having no decay shape."
-  },
-  "S3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The spectrum is far outside the metal-hit class. The centroid is 2755 Hz against a range of 1074 to 1654 Hz. The 600 Hz to 2 kHz band holds 26.1% against 63.7 to 83.8%, and the 2 to 5 kHz band holds 54.8% against 3.7 to 24.6%. Both bands miss by more than 10 points."
-  },
-  "S4": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "It has none of a hit's character. There are 0 onsets where a strike needs one. The flatness is 0.943 (almost pure noise) against the class's 0.16 to 0.28, which is tonal ringing. The spectrogram shows no pitched modes and no pitch movement."
-  },
-  "S5": {
-   "judge": 1,
-   "cap": 0,
-   "score": 0,
-   "reason": "The name is right (sound/weapons/cbar_hit1.wav), nothing clips (0 clipped samples) and the DC offset is negligible (-0.0015). The engine check found a fault, though: the last samples sit at 0.17 of full scale, so it ends in a click with no fade-out. The sample rate, bit depth and channel count are not in the measurements, so they cannot be confirmed."
-  }
- },
+ "passes": false,
+ "failedByMeasure": [
+  "S5"
+ ],
  "total": 0,
- "of": 10,
- "passes": false
+ "of": 10
 }

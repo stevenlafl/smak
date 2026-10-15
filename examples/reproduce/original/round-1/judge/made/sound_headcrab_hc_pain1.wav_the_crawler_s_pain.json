@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_pain1.wav: the crawler's pain",
+ "measured": {
+  "features": {
+   "length": 0.754,
+   "peak": -1,
+   "rms": -14.4,
+   "crest": 13.4,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.025,
+   "peakAt": 0.025,
+   "t20": 0.474,
+   "t40": 0.683,
+   "centroid": 1878,
+   "rolloff": 2950,
+   "flatness": 0.101,
+   "bands": {
+    "<150": 0,
+    "150-600": 2.7,
+    "600-2k": 63.8,
+    "2k-5k": 30.9,
+    ">5k": 2.7
+   },
+   "onsets": 2
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.795,
+    "centroid": 2682,
+    "t20": 0.544,
+    "bands": {
+     "<150": 0.2,
+     "150-600": 0,
+     "600-2k": 15.6,
+     "2k-5k": 83.8,
+     ">5k": 0.3
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "It reads as a wet, gurgling creature noise, which suits a sludge crawler, but not clearly as a pain cry. The spectrogram shows broadband bursts with gaps between them (the vertical stripes in the first 0.45 s) and one steady horizontal tone line running the whole length, with no pitch movement. That looks more like a synthetic drone under gurgle noise than a pained vocal. The game's own hc_pain1 is a raspy squeal that pulses at a regular rate throughout. From the picture, the event is plausible but not unmistakably 'the crawler's pain'."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "There is no class, so it is measured against the game's own sound. Length is 0.754 s against 0.795 s (-5%, inside 25%). T20 is 0.474 s against 0.544 s, a 0.07 s gap that is inside a quarter of the original's decay (0.136 s). The attack is fast: 25 ms to peak, nothing before the sound starts. The shape differs from the original (it peaks at the front and fades out, where the original holds a pulsed sustain), but the measured envelope is within range."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Fails the measurement. The centroid is 1878 Hz against 2682 Hz (-30%, outside 20%). The 600-2k band holds 63.8% against 15.6% (+48 points), and the 2k-5k band 30.9% against 83.8% (-53 points). Both are far outside 10 points. The energy sits about an octave lower than the original's bright squeal. Spectrum is a must-have, so this blocks a pass."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "It has 2 detected onsets and irregular bursts, where the original has about 30 regular pulses of amplitude modulation. Flatness of 0.101 is moderately tonal, but that tone is one unchanging line, with none of the original's squeal-like texture. There is no pitch movement in either the line or the bursts. The character is clearly off."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Same name (sound/headcrab/hc_pain1.wav). Peak is -1 dBFS with 0 clipped samples and DC of 0. The engine check reports no faults, so the format is taken as mono PCM at a valid rate and depth. The original is a one-shot with no loop cue, and none is needed here. The tail is 10 ms, so it is not cut off."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

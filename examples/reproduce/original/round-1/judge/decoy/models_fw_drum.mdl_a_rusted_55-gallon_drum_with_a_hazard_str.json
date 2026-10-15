@@ -1,0 +1,77 @@
+{
+ "kind": "model",
+ "label": "models/fw_drum.mdl: a rusted 55-gallon drum with a hazard stripe",
+ "measured": {
+  "size": [
+   23,
+   23,
+   34
+  ],
+  "sizeAsked": {
+   "high": 34,
+   "across": 23
+  },
+  "sizeOff": 0,
+  "triangles": 12,
+  "halfLifeMedianOfThisSize": 62,
+  "checkErrors": [],
+  "lineup": "ours is one of A to D in lineup.png beside models/testsphere.mdl, models/gib_legbone.mdl, models/big_rock.mdl: the judge does not know which"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "In all ten views in sides.png the model is a rectangular box with sharp corners. The front, left, back and right views are flat rectangles, and the top and below views are squares. A 55-gallon drum should be a cylinder with a round top and bottom, rolled rims at each end and rolling hoops around the body. None of that outline is there, so the silhouette does not match the brief's words in any view."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 23 x 23 x 34 against the asked 23 across and 34 high, sizeOff 0, well inside 15%."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "A drum's parts are a cylindrical body, top and bottom lids with a chime rim, two rolling hoops on the body, and bung caps on the lid. None of these are present. The model is a single plain box with six flat faces and nothing else, as seen in every view."
+  },
+  "M4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The whole model is one flat mid-grey with a faint concrete-like mottle. The brief asks for rusted steel (orange-brown rust over the metal) and a yellow hazard stripe. No region has a rust or paint colour, and the material reads as concrete or stone, not metal."
+  },
+  "M5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief asks for a hazard stripe and rust wear. There is no stripe anywhere on the sides in the front, left, back, right or angled views. There is also no rust streaking, no dents, no rim or hoop lines and no lettering. The surface is a uniform grey mottle."
+  },
+  "M6": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "In lineup.png, B is plainly the grey box, and it stands out at once against the leg bone (A), the rock (C) and the checker sphere (D). No player would take it for a Half-Life drum prop. It reads as an untextured placeholder block, not a game asset."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "It stands upright with the long axis vertical, as a standing drum should. However, the pictures do not show the origin, so I cannot confirm that it stands on its origin. A featureless box also has no front to check."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "checkErrors is empty. It has 12 triangles, well under twice the median of 62 for Half-Life props of this size. It is a closed box, and no view shows it open, inside out or floating."
+  }
+ },
+ "total": 5,
+ "of": 16,
+ "passes": false
+}

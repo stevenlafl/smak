@@ -1,0 +1,118 @@
+{
+  "spec": "smak.model/1",
+  "name": "v_crowbar.mdl",
+  "kind": "held",
+  "weapon": {
+    "like": "crowbar"
+  },
+  "materials": {
+    "red": {
+      "base": "paint",
+      "tone": [
+        0.62,
+        0.12,
+        0.08
+      ]
+    },
+    "iron": {
+      "base": "iron",
+      "rust": 0.25,
+      "tone": "dark grey"
+    }
+  },
+  "parts": [
+    {
+      "id": "handle",
+      "kind": "box",
+      "material": "red",
+      "size": [
+        13,
+        3.4,
+        3.4
+      ],
+      "at": [
+        6.5,
+        0,
+        0
+      ],
+      "finish": {
+        "wear": 1
+      }
+    },
+    {
+      "id": "throat",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        4,
+        5,
+        10
+      ],
+      "at": [
+        13.5,
+        0,
+        -3.2
+      ]
+    },
+    {
+      "id": "cheek_top",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        6,
+        7.5,
+        3
+      ],
+      "at": [
+        15.5,
+        0,
+        3.5
+      ]
+    },
+    {
+      "id": "cheek_low",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        6,
+        7.5,
+        3
+      ],
+      "at": [
+        15.5,
+        0,
+        -6
+      ]
+    },
+    {
+      "id": "teeth_top",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        1.6,
+        7.5,
+        1.2
+      ],
+      "at": [
+        18.2,
+        0,
+        2.2
+      ]
+    },
+    {
+      "id": "teeth_low",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        1.6,
+        7.5,
+        1.2
+      ],
+      "at": [
+        18.2,
+        0,
+        -4.8
+      ]
+    }
+  ]
+}

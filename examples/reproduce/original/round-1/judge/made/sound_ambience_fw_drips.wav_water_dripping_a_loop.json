@@ -1,0 +1,78 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_drips.wav: water dripping, a loop",
+ "measured": {
+  "features": {
+   "length": 7.4,
+   "peak": -4,
+   "rms": -30.1,
+   "crest": 26.1,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0.01,
+   "tail": 0.185,
+   "attack": 5.153,
+   "peakAt": 5.203,
+   "t20": 0.244,
+   "t40": 1.821,
+   "centroid": 852,
+   "rolloff": 1227,
+   "flatness": 0.023,
+   "bands": {
+    "<150": 0.4,
+    "150-600": 27.8,
+    "600-2k": 68.7,
+    "2k-5k": 2.9,
+    ">5k": 0.2
+   },
+   "onsets": 5
+  },
+  "class": "loop drips",
+  "against": {
+   "score": 19,
+   "of": 20,
+   "lines": [
+    "flatness 0.023 (0.05 to 0.15): too pure: more noise"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Five separate, irregularly spaced transients over 7.4 s (at about 0.0, 1.9, 3.6, 4.0 and 5.2 s). Each has a short decay and a reverb tail, which reads as water dripping in a hall and fits the 'loop drips' class. The judge cannot listen to the sound; this is judged from the picture and the features only."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Measured within the drips class: length 7.4 s, attack and T20 0.244 s. The only line flagged against the class is flatness. Lead-in 0.01 s and tail 0.185 s are short enough for a loop. One caveat is left to S4: the faint background bed drops out in the last ~0.4 s."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid 852 Hz and rolloff 1227 Hz are within the class range, and no band was flagged. Most of the energy is in 600-2k (68.7%) and 150-600 (27.8%), with little above 2 kHz. That is dark for drips but still inside Half-Life's own range for the class."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The onsets are right: 5 separate drips with natural, uneven spacing, including the close pair at about 3.6 and 4.0 s. The tone is off: flatness is 0.023 against the class's 0.05 to 0.15, which is too pure. The spectrogram also shows no rising pitch chirp in any drip, the 'plink' that real drips have; each drip is a plain broadband strike that decays. The faint noise bed also stops at about 7.0 s, so the end of the loop is darker than its start and the bed has a small gap at the seam."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "No clipping, DC 0, peak -4 dB, no engine faults reported, and it has the name the brief asks for (sound/ambience/fw_drips.wav). The harness reports nothing wrong with the format or the loop cue. The only seam issue is the bed gap already counted under S4. That bed is very quiet next to the drips, so it should not be heard as a fault in the game."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

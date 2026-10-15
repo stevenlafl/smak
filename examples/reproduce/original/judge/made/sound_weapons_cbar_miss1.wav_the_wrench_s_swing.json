@@ -3,37 +3,38 @@
  "label": "sound/weapons/cbar_miss1.wav: the wrench's swing",
  "measured": {
   "features": {
-   "length": 0.34,
-   "peak": -5,
-   "rms": -20,
-   "crest": 15,
+   "length": 0.247,
+   "peak": -0.5,
+   "rms": -14.4,
+   "crest": 13.9,
    "dc": 0,
    "clipped": 0,
-   "lead": 0,
-   "tail": 0.005,
-   "attack": 0.075,
+   "lead": 0.01,
+   "tail": 0.01,
+   "attack": 0.07,
    "peakAt": 0.125,
-   "t20": 0.105,
-   "t40": 0.175,
-   "centroid": 545,
-   "rolloff": 775,
-   "flatness": 0.013,
+   "t20": 0.085,
+   "t40": 0.11,
+   "centroid": 995,
+   "rolloff": 1873,
+   "flatness": 0.108,
    "bands": {
-    "<150": 1.5,
-    "150-600": 66.4,
-    "600-2k": 31.4,
-    "2k-5k": 0.6,
-    ">5k": 0.2
+    "<150": 0.7,
+    "150-600": 52.7,
+    "600-2k": 33.2,
+    "2k-5k": 11.3,
+    ">5k": 2.1
    },
-   "onsets": 1
+   "onsets": 0
   },
   "class": "swing",
   "against": {
-   "score": 20,
+   "score": 19,
    "of": 22,
    "lines": [
-    "centroid 545 Hz (608 to 912): too dark: more 600 to 5000 Hz",
-    "flatness 0.013 (0.03 to 0.13): too pure: more noise"
+    "rms -14.4 dBFS (-25.8 to -19.8): over the range",
+    "centroid 995 Hz (608 to 912): too bright: less over 2000 Hz",
+    "band 150-600 52.7% (55.8 to 75.8): under the range"
    ]
   },
   "engineFaults": []
@@ -46,31 +47,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The waveform rises smoothly to a peak around 0.125 s and fades out by 0.34 s, with no impulse at the start and a single onset. That is the shape of a swing's whoosh, and the harness classes it as a swing. One doubt: it sounds tonal and dark for a swish (see S3 and S4). It has no strike transient, so it is not mistaken for the hit sound. I cannot listen to it; this is judged from the picture and the features only."
+   "reason": "The waveform is one noise burst that swells to a peak near 0.125 s and fades out over 0.25 s, and the spectrogram is broadband noise with no hits. That is the shape of a swing whoosh, not a strike, so it is the same event. Judged from the picture and features only; the judge cannot listen."
   },
   "S2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "It is 0.34 s long, with a 0.075 s attack, the peak at 0.125 s and T20 (the decay time) at 0.105 s. The tail fades cleanly with no lead-in silence. The class check flags nothing on the envelope, so it is within the range of Half-Life's own swing sounds."
+   "reason": "Length is 0.247 s. Attack is 0.07 s, t20 is 0.085 s and t40 is 0.11 s. None of these is listed as out of range in the measured class comparison, which flags only rms, centroid and the 150-600 band, so the envelope holds."
   },
   "S3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The centroid (the average frequency of its energy) is 545 Hz, below the swing class's range of 608 to 912 Hz. 66.4% of the energy sits in 150-600 Hz, and almost none is above 2 kHz (2k-5k 0.6%, >5k 0.2%). The spectrogram agrees: the energy is concentrated in the lower half and the top rows are nearly empty. It needs more energy from 600 to 5000 Hz to have the airy swish of a swing."
+   "reason": "Measured fail. Centroid is 995 Hz against the range 608 to 912, too bright, with too little energy above 2 kHz. The 150-600 Hz band is 52.7% against 55.8 to 75.8%, under the range. The spectrogram shows the mass sitting in a bright low-mid band around 150 to 300 Hz. Both must-have spectrum checks are off, though not grossly."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The single onset is right for a swing. But flatness is 0.013, below the class's range of 0.03 to 0.13, so the sound is too pure where a swing should be broadband noise. It will read more like a low hum or rumble than a swish of air. Neither the picture nor the features show a pitch or band sweep through the swing."
+   "reason": "Onsets are 0, which suits a swing. But flatness is 0.108, which is tonal rather than noise-like for a whoosh, and the spectrogram shows steady horizontal banding in one low-mid band with no visible sweep in pitch. This is clearly off from a swing's usual noisy, moving character."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The file is under the name the game looks for, sound/weapons/cbar_miss1.wav. It has no clipping (clipped 0), no DC offset (dc 0), and the peak is at -5 dBFS. The harness reports no engine faults (its format check found no fault: mono PCM at an accepted rate and bit depth). A one-shot needs no loop cue."
+   "reason": "Clipped 0, DC 0, peak -0.5 dBFS, and the engine-fault list is empty, so SMAK's format check passed. The sample rate and bit depth are not in the measurements, so they are taken from the empty fault list rather than read directly."
   }
  },
  "total": 8,

@@ -24,7 +24,7 @@
     "first": 1,
     "last": 1
    },
-   "dark": 0.66,
+   "dark": 0.56,
    "wrap": null,
    "jitter": null
   },
@@ -48,31 +48,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Frame 0 shows one soft radial glow, bright at the centre and fading evenly to black, with no hard edge. That is a lamp glow, the effect the brief asks for."
+   "reason": "The frame is a soft radial glow that is brightest at the centre and fades to black at the edges, which is what a lamp's glow in an additive sprite looks like. The brief asks for a sodium lamp's glow, and this matches it."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "64 x 64 is a usual size for one of Half-Life's glow sprites. The glow sits in the centre and fills about a third of the frame (dark 0.66), and it fades out well before the edge: border max 0 and mean 0, inside the glow class's range of 0 to 0.005, which the harness marks ok."
+   "reason": "The frame is 64 x 64 as measured. The glow fills the frame and fades out before the edges, so the border is 0 and nothing is clipped."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The core is a pale warm yellow and the halo is amber-orange over black. Blended additively, that reads as a sodium lamp's orange, with no neon or cold tint, so it fits the brief's palette. The harness gave no colour measure against the class, so this is judged from the picture alone."
+   "reason": "The glow is warm orange at its centre, fading to dark, which fits a sodium lamp and the brief's warm, non-neon palette. No measured colour figure for Half-Life's own glows was given, so this rests on the picture and not on a number, and the score is not higher than the picture supports."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "One frame, with the peak at frame 0, and first and last both 1. The brief asks for no motion, and a still single-frame glow is what Half-Life's own glows are, so it is inside the class."
+   "reason": "The sprite is a single static frame (frames: 1, first and last both 1, no peak change). The brief asks for no motion from the glow, and a steady glow is the right kind of motion for a lamp, so there is nothing to fail here."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Its type is parallel and its format additive, the usual pair for a glow that faces the camera, and the file is named sprites/fw_glow.spr. The harness read back 64 x 64 and one frame from the file, which agrees with the header."
+   "reason": "The file is named fw_glow.spr, as the game expects, and is typed parallel and additive, which is the usual form for a glow in GoldSrc. The additive format matches the dark background that the blend needs. SMAK's read-back result was not among the measures, so this rests on the recorded type and format."
   }
  },
  "total": 10,

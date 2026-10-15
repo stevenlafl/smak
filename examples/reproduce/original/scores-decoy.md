@@ -10,5 +10,5 @@
 | sprite | 0 | 3 |
 | sound | 0 | 6 |
 
-The mod: O1 0, O2 0, O3 0, O4 0. It fails.
+The mod: O1 0, O2 0, O3 0, O4 0 (no judge: failed by its measures). It fails.
 

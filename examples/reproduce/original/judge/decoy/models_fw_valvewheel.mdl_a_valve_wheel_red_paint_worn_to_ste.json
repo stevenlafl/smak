@@ -25,52 +25,52 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "All ten views in sides.png show a plain rectangular box: a 32x24 rectangle from front, left, back and right, and a 32x32 square from top and below. The brief asks for a valve wheel, which should show a round rim with spokes and a hub, open between the spokes. None of that is there in any view."
+   "reason": "The outline is a plain square-cornered box in every view (sides.png, FRONT through BACK-RIGHT). A valve wheel's round rim, hub and spokes are absent in all ten views, so the silhouette does not match the brief's wheel."
   },
   "M2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The measured size is 32 x 32 x 24, so the 32 across the brief asks for is met (sizeOff 0). But the box is 24 thick, and a 32-across valve wheel is a thin disc a few units deep. The bulk is far off a wheel's even though the one given dimension is right."
+   "score": 2,
+   "reason": "Measured sizeOff is 0 and the extent is 32 x 32 x 24, so the 32-unit across size the brief gives is met. The brief gives no height for the wheel, so only the across size is checked here."
   },
   "M3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "None of a valve wheel's parts are there: no rim, no spokes, no hub, no stem or mounting. It is a single solid box with six flat faces."
+   "reason": "No parts are present. The brief's wheel has a hub, spokes and a rim, and the model is one solid block with none of them, in any view."
   },
   "M4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Every face is the same flat mid-grey with a faint concrete-like mottle. The brief asks for red paint worn to bare steel at the rim. There is no red anywhere and nothing reads as painted or bare steel."
+   "reason": "The whole block is one flat neutral grey with a noise texture. The brief's red paint is missing, and the worn-to-steel region at the rim is missing too."
   },
   "M5": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "There is no wear at the rim, no edge where paint gives way to steel, and no grip ridges, bolts or casting marks. The surface is one uniform mottled grey on all faces."
+   "reason": "There is no paint wear, markings or stripes at the rim or anywhere else. The only surface is a uniform noise texture with no features that the brief describes."
   },
   "M6": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "In lineup.png, B is an untextured-looking grey cube. Beside Half-Life's bone gib, rock and test sphere, it reads at once as a placeholder box. No player would take it for one of the game's props, and nothing about it says valve wheel."
+   "reason": "In lineup.png (B), the reproduction is an obvious grey cube beside the rock, the gib and the sphere. A player would not take it for a valve wheel, and no Half-Life prop of this size looks like it."
   },
   "M7": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "A box has no front, no wheel face and no axis. Nothing shows which way it faces or whether it is mounted upright or lying flat as a valve wheel would be."
+   "reason": "The model has no wheel orientation or front. Its upright, faced, standing pose cannot be a wheel's, since a valve wheel stands on its edge with a hub facing the player, and this block has neither."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "SMAK's check reports no errors, and 12 triangles is far under twice the median of 62. The box is closed, faces outward in every view and sits on the ground plane, not floating."
+   "reason": "checkErrors is empty. The model has 12 triangles, which is well under twice the median of 62 for Half-Life's props of this size, and the block is closed with no open faces or floating parts in the views."
   }
  },
- "total": 3,
+ "total": 4,
  "of": 16,
  "passes": false
 }

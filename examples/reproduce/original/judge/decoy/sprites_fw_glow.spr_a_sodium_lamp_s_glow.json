@@ -48,34 +48,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Frame 0 is a flat, uniform light-grey disc with a hard, stepped edge and no falloff from a bright core. It reads as a solid dot pasted on black rather than the light bloom of a lamp. Something is there in the glow's place, but it is clearly off as the 'sodium lamp's glow' the brief asks for."
+   "reason": "The picture is a flat, hard-edged light-grey disc on a dark ground. It reads as a round light, but it has no radial falloff, bloom or halo that makes it a lamp's glow, so it is only loosely the effect the brief asks for."
   },
   "R2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The 32x32 size and clean border (border max 0, inside the glow class's 0 to 0.005 range) are fine. But the disc fills about 75% of the frame at one even brightness and stops at a hard pixel edge. Half-Life's glows fade smoothly from the centre to black at the edges. The measurement allows a 2, but the hard-edged flat fill is wrong for the class's shape, so it scores lower."
+   "reason": "The frame is 32 by 32 as measured, and the border is empty (max 0), so the size is right. The disc is a hard-edged shape that fills most of the frame, with no glow spreading out to the edges as a lamp's light would. The shape is clearly off from a glow, though no class size figure is given to compare it against."
   },
   "R3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The disc is a neutral grey-white with no hue. The brief asks for sodium-orange light ('sodium lamps that buzz', 'a sodium-orange glass'). Blended additively, it would cast white or grey, not the warm orange-amber of a sodium lamp. The colour is wrong."
+   "reason": "The colour is neutral grey-white (about #DCDCE0 in the picture). The brief asks for a sodium lamp's glow, which should be sodium orange. The colour is wrong for the brief."
   },
   "R4": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "One static frame, with its peak at frame 0 and its first and last frames both at 1. That matches a lamp glow, which is a still, steady sprite in Half-Life's glow class. The brief asks for no animation here."
+   "score": 1,
+   "reason": "The sprite has one frame and no motion to show. The brief does not ask for motion on the glow, and the measures give no class frame count to test the 25% rule against, so I cannot confirm the frame count matches Half-Life's glow sprites. The envelope (first and last frame 1) is consistent with a static glow, but the check cannot be completed from what was given."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "It is sprites/fw_glow.spr, the name the brief implies. It is a parallel sprite in the additive format, which suits a glow and matches Half-Life's own glow sprites. The harness read back a single 32x32 frame with that type and format."
+   "reason": "The type is parallel and the format is additive, which fits a glow in the game. The file is sprites/fw_glow.spr, the name the brief implies. The against-class border check passes (0, within 0 to 0.005). Nothing in the measures or the picture breaks the fit for the game."
   }
  },
- "total": 6,
+ "total": 5,
  "of": 10,
  "passes": false
 }

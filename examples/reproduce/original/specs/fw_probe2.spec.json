@@ -1,0 +1,35 @@
+{
+  "spec": "smak.map/1",
+  "name": "fw_probe2",
+  "theme": {
+    "floor": {
+      "texture": "fw_wetconc"
+    },
+    "wall": {
+      "texture": "fw_concrete"
+    },
+    "ceiling": {
+      "texture": "fw_concrete"
+    }
+  },
+  "wads": [
+    "work:fw/fw.wad"
+  ],
+  "rooms": [
+    {
+      "id": "hall",
+      "size": [
+        256,
+        256,
+        128
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "hall",
+      "at": "centre"
+    }
+  ]
+}

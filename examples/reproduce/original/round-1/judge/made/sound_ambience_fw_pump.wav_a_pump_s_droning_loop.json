@@ -1,0 +1,79 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_pump.wav: a pump's droning loop",
+ "measured": {
+  "features": {
+   "length": 2.7,
+   "peak": -3,
+   "rms": -10.7,
+   "crest": 7.7,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.354,
+   "peakAt": 2.005,
+   "t20": 0.698,
+   "t40": 0.698,
+   "centroid": 344,
+   "rolloff": 646,
+   "flatness": 0.002,
+   "bands": {
+    "<150": 0.1,
+    "150-600": 84.3,
+    "600-2k": 15.4,
+    "2k-5k": 0.1,
+    ">5k": 0
+   },
+   "onsets": 4
+  },
+  "class": "loop machine",
+  "against": {
+   "score": 18,
+   "of": 20,
+   "lines": [
+    "crest 7.7 dB (8.3 to 14.3): too squashed",
+    "band 600-2k 15.4% (0 to 11.9): over the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture and features only; the judge cannot listen. The waveform is a steady, sustained level with a slow, gentle throb and no gaps, start or end. The spectrogram shows steady horizontal harmonic bands concentrated low (centroid 344 Hz, flatness 0.002, so tonal rather than hiss). The measurements class it as a loop machine. That reads as a pump's droning loop, which is what the brief asks for."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The 2.7 s length, 0.354 s attack and 0.698 s T20 decay produce no out-of-range line against Half-Life's loop-machine class. Lead and tail are both 0, and the level holds flat across the whole file, as a loop should. The crest finding belongs to character (S4), not to this envelope item."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The 600-2k band holds 15.4% of the energy, above the class range of 0 to 11.9%, so the spectrum is measurably outside Half-Life's own machine loops. The centroid (344 Hz) is not flagged. Also, almost nothing sits below 150 Hz (0.1%) and 84% sits in 150-600 Hz. For a big pump's drone that is a thin, mid-heavy low end, which the spectrogram confirms: there is no strong band at the very bottom."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The tone is right for a pump: tonal, steady harmonics, a mild periodic swell and 4 soft onsets that read as the pump's throb. But the crest factor is 7.7 dB, below the class range of 8.3 to 14.3, so the measurement calls it too squashed. The waveform agrees: a dense block with little peak-to-body contrast, flatter than Half-Life's own machine loops."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file is at the name the brief needs (sound/ambience/fw_pump.wav). The harness reports no engine faults, 0 clipped samples, 0 DC offset and a -3 dB peak with headroom. Lead and tail are 0, so it loops without a gap. The measurements given show nothing wrong with the format or loop setup, though the loop cue is not reported as a separate measure."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

@@ -3,221 +3,81 @@
   "name": "fw_drum.mdl",
   "kind": "prop",
   "size": {
-    "height": 35
+    "height": 35,
+    "width": 23
   },
   "materials": {
-    "drum": {
-      "base": "metal",
-      "tone": [
-        0.25,
-        0.33,
-        0.4
-      ],
-      "rust": 0.85
+    "steel": {
+      "base": "iron",
+      "rust": 0.55,
+      "tone": "dark grey"
     },
-    "rustpatch": {
-      "base": "metal",
-      "tone": [
-        0.42,
-        0.24,
-        0.12
-      ],
-      "rust": 1
-    },
-    "hoop": {
-      "base": "metal",
-      "tone": [
-        0.18,
-        0.22,
-        0.26
-      ],
-      "rust": 0.9
-    },
-    "haz": {
+    "hazard": {
       "base": "hazard",
       "tone": [
         0.85,
-        0.66,
+        0.68,
         0.1
-      ],
-      "stripe": 3
-    },
-    "dark": {
-      "base": "iron",
-      "tone": [
-        0.18,
-        0.18,
-        0.18
-      ],
-      "rust": 0.4
+      ]
     }
-  },
-  "finish": {
-    "wear": 0.6,
-    "grime": 0.8,
-    "light": 0.35
   },
   "parts": [
     {
       "id": "body",
       "kind": "turn",
-      "material": "drum",
-      "sides": 14,
-      "rings": [
-        {
-          "s": 0,
-          "r": 10.8,
-          "crease": true
-        },
-        {
-          "s": 0.6,
-          "r": 11.2,
-          "crease": true
-        },
-        {
-          "s": 34.3,
-          "r": 11.2,
-          "crease": true
-        },
-        {
-          "s": 35,
-          "r": 10.9,
-          "crease": true
-        }
-      ],
+      "material": "steel",
+      "sides": 12,
       "caps": [
         true,
         true
+      ],
+      "rings": [
+        [
+          0,
+          10.2
+        ],
+        [
+          1.2,
+          12
+        ],
+        [
+          33.8,
+          12
+        ],
+        [
+          35,
+          10.2
+        ]
       ],
       "marks": [
         {
           "path": [
             [
-              0.34,
+              0.42,
               0
             ],
             [
-              0.34,
+              0.42,
               360
             ]
           ],
-          "width": 0.9,
-          "material": "hoop"
-        },
-        {
-          "path": [
-            [
-              0.67,
-              0
-            ],
-            [
-              0.67,
-              360
-            ]
-          ],
-          "width": 0.9,
-          "material": "hoop"
-        },
-        {
-          "path": [
-            [
-              0.8,
-              0
-            ],
-            [
-              0.8,
-              360
-            ]
-          ],
-          "width": 3.6,
-          "material": "haz"
-        },
-        {
-          "path": [
-            [
-              0.15,
-              40
-            ],
-            [
-              0.25,
-              55
-            ]
-          ],
-          "width": 3.5,
-          "material": "rustpatch"
-        },
-        {
-          "path": [
-            [
-              0.5,
-              200
-            ],
-            [
-              0.6,
-              215
-            ]
-          ],
-          "width": 2.6,
-          "material": "rustpatch"
-        },
-        {
-          "path": [
-            [
-              0.98,
-              120
-            ],
-            [
-              0.55,
-              125
-            ]
-          ],
-          "width": 1.2,
-          "material": "rustpatch",
-          "ends": "point"
-        },
-        {
-          "path": [
-            [
-              0.98,
-              300
-            ],
-            [
-              0.6,
-              296
-            ]
-          ],
-          "width": 1,
-          "material": "rustpatch",
-          "ends": "point"
-        },
-        {
-          "path": [
-            [
-              0.02,
-              0
-            ],
-            [
-              0.02,
-              360
-            ]
-          ],
-          "width": 1.6,
-          "material": "rustpatch"
+          "width": 4.5,
+          "material": "hazard",
+          "ends": "round"
         }
       ]
     },
     {
       "id": "bung",
-      "kind": "cylinder",
-      "material": "dark",
-      "radius": 1.2,
-      "height": 0.5,
-      "sides": 6,
-      "at": [
-        6,
-        0,
-        34.8
-      ]
+      "kind": "boss",
+      "material": "steel",
+      "on": {
+        "part": "body",
+        "s": 0.82,
+        "angle": 0
+      },
+      "radius": 1.6,
+      "height": 1.2
     }
   ]
 }

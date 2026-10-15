@@ -1,0 +1,147 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/fw_steam.spr",
+      "class": "smoke puff",
+      "size": [
+        64,
+        96
+      ],
+      "frames": 12,
+      "fps": 10,
+      "format": "additive",
+      "layers": [
+        {
+          "kind": "billow",
+          "at": [
+            0,
+            -0.45
+          ],
+          "count": 14,
+          "spread": 0.25,
+          "size": 0.22,
+          "growth": 1.6,
+          "rise": 1,
+          "drift": 0.1,
+          "ramp": [
+            [
+              0,
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            [
+              0.5,
+              [
+                0.55,
+                0.56,
+                0.55
+              ]
+            ],
+            [
+              1,
+              [
+                0.85,
+                0.86,
+                0.84
+              ]
+            ]
+          ],
+          "hot": 0,
+          "cool": 0,
+          "dissolve": 0.9,
+          "env": {
+            "attack": 0.08,
+            "decay": 0.92
+          }
+        }
+      ]
+    },
+    {
+      "name": "sprites/fw_glow.spr",
+      "class": "glow",
+      "use": "env_glow",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 1,
+      "format": "additive",
+      "layers": [
+        {
+          "kind": "glow",
+          "radius": 1,
+          "core": 0.18,
+          "falloff": "power",
+          "power": 2,
+          "colour": [
+            1,
+            0.62,
+            0.22
+          ]
+        },
+        {
+          "kind": "glow",
+          "radius": 0.3,
+          "core": 0.1,
+          "colour": [
+            1,
+            0.88,
+            0.6
+          ],
+          "gain": 0.6
+        }
+      ]
+    },
+    {
+      "name": "sprites/fw_spit.spr",
+      "class": "sparks",
+      "use": "tempent",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 10,
+      "fps": 15,
+      "format": "additive",
+      "layers": [
+        {
+          "kind": "blobs",
+          "count": 16,
+          "radius": 0.3,
+          "spread": 0.7,
+          "core": 0.25,
+          "soft": 0.3,
+          "colour": [
+            0.42,
+            0.5,
+            0.28
+          ],
+          "env": {
+            "attack": 0.02,
+            "decay": 0.55
+          }
+        },
+        {
+          "kind": "sparks",
+          "count": 26,
+          "speed": 1.4,
+          "gravity": 2.2,
+          "trail": 0.15,
+          "colour": [
+            0.5,
+            0.6,
+            0.32
+          ],
+          "env": {
+            "attack": 0.02,
+            "decay": 0.95
+          }
+        }
+      ]
+    }
+  ]
+}

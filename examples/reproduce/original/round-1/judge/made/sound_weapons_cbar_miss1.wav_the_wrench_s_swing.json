@@ -1,0 +1,79 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_miss1.wav: the wrench's swing",
+ "measured": {
+  "features": {
+   "length": 0.34,
+   "peak": -5,
+   "rms": -20,
+   "crest": 15,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.075,
+   "peakAt": 0.125,
+   "t20": 0.105,
+   "t40": 0.175,
+   "centroid": 545,
+   "rolloff": 775,
+   "flatness": 0.013,
+   "bands": {
+    "<150": 1.5,
+    "150-600": 66.4,
+    "600-2k": 31.4,
+    "2k-5k": 0.6,
+    ">5k": 0.2
+   },
+   "onsets": 1
+  },
+  "class": "swing",
+  "against": {
+   "score": 20,
+   "of": 22,
+   "lines": [
+    "centroid 545 Hz (608 to 912): too dark: more 600 to 5000 Hz",
+    "flatness 0.013 (0.03 to 0.13): too pure: more noise"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The waveform rises smoothly to a peak around 0.125 s and fades out by 0.34 s, with no impulse at the start and a single onset. That is the shape of a swing's whoosh, and the harness classes it as a swing. One doubt: it sounds tonal and dark for a swish (see S3 and S4). It has no strike transient, so it is not mistaken for the hit sound. I cannot listen to it; this is judged from the picture and the features only."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "It is 0.34 s long, with a 0.075 s attack, the peak at 0.125 s and T20 (the decay time) at 0.105 s. The tail fades cleanly with no lead-in silence. The class check flags nothing on the envelope, so it is within the range of Half-Life's own swing sounds."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The centroid (the average frequency of its energy) is 545 Hz, below the swing class's range of 608 to 912 Hz. 66.4% of the energy sits in 150-600 Hz, and almost none is above 2 kHz (2k-5k 0.6%, >5k 0.2%). The spectrogram agrees: the energy is concentrated in the lower half and the top rows are nearly empty. It needs more energy from 600 to 5000 Hz to have the airy swish of a swing."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The single onset is right for a swing. But flatness is 0.013, below the class's range of 0.03 to 0.13, so the sound is too pure where a swing should be broadband noise. It will read more like a low hum or rumble than a swish of air. Neither the picture nor the features show a pitch or band sweep through the swing."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file is under the name the game looks for, sound/weapons/cbar_miss1.wav. It has no clipping (clipped 0), no DC offset (dc 0), and the peak is at -5 dBFS. The harness reports no engine faults (its format check found no fault: mono PCM at an accepted rate and bit depth). A one-shot needs no loop cue."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

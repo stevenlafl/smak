@@ -1,0 +1,74 @@
+{
+ "kind": "model",
+ "label": "models/fw_pipejunction.mdl: two pipes meeting at a flanged elbow, bolted",
+ "measured": {
+  "size": [
+   24,
+   24,
+   24
+  ],
+  "sizeAsked": null,
+  "sizeOff": null,
+  "triangles": 12,
+  "halfLifeMedianOfThisSize": 62,
+  "checkErrors": [],
+  "lineup": "ours is one of A to D in lineup.png beside models/testsphere.mdl, models/gib_legbone.mdl, models/ribcage.mdl: the judge does not know which"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "All ten views in sides.png show a plain cube: square outlines front, left, back, right, top and below, and a box in all four corners. Nothing in it matches the brief's two pipes meeting at a flanged elbow. No round pipe sections, no bend, no flange rings."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The brief gives no size for the pipe junction (sizeAsked is null), so there is nothing to measure against. 24 x 24 x 24 is a believable bounding box for a small elbow fitting. The wrong shape is scored under M1 and M3, not here."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "None of the brief's parts are there: no first pipe, no second pipe, no elbow, no flanges, no bolts. The model is one box with six faces."
+  },
+  "M4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Every face wears the same mottled flat grey that reads as concrete or plaster. The brief's setting asks for rusted steel or painted pipe, and nothing here shows metal, rust or paint, and no part is coloured differently from the rest."
+  },
+  "M5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "No surface detail anywhere: no bolt heads, flange edges, weld seams, rust streaks or paint wear. Each face carries the same soft mottle and nothing else."
+  },
+  "M6": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "In lineup.png, C is the textured cube beside A (a ribcage), B (a leg bone gib) and D (a checkered test sphere). No player would take a bare cube for one of the game's props, let alone for a pipe junction."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "A cube looks the same from every side, so there is no front to check against an elbow's facing. It sits upright and centred, but the pictures cannot show whether it rests on its origin."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "checkErrors is empty. 12 triangles is far under twice the median of 62 for Half-Life's props of this size. The box is closed and nothing floats or turns inside out."
+  }
+ },
+ "total": 5,
+ "of": 16,
+ "passes": false
+}

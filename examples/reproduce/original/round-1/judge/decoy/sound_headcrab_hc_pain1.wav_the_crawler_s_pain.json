@@ -1,0 +1,87 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_pain1.wav: the crawler's pain",
+ "measured": {
+  "features": {
+   "length": 0.5,
+   "peak": -10.5,
+   "rms": -15.3,
+   "crest": 4.8,
+   "dc": -0.0013,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.01,
+   "peakAt": 0.499,
+   "t20": 0.005,
+   "t40": 0.005,
+   "centroid": 2716,
+   "rolloff": 4640,
+   "flatness": 0.95,
+   "bands": {
+    "<150": 2.9,
+    "150-600": 8.3,
+    "600-2k": 25.7,
+    "2k-5k": 54.4,
+    ">5k": 8.8
+   },
+   "onsets": 0
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.795,
+    "centroid": 2682,
+    "t20": 0.544,
+    "bands": {
+     "<150": 0.2,
+     "150-600": 0,
+     "600-2k": 15.6,
+     "2k-5k": 83.8,
+     ">5k": 0.3
+    }
+   }
+  },
+  "engineFaults": [
+   "its last samples are at 0.28 of full scale: it ends in a click; fade its end"
+  ]
+ },
+ "caps": {
+  "S5": 0
+ },
+ "scores": {
+  "S1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The waveform is a flat block of constant-level noise from 0 to 0.50 s, with no shape at all, and the spectrogram is the same even broadband wash from start to end. Flatness is 0.95, which is white noise. Nothing in the picture reads as a creature's pained cry. The game's own pain sound below it is a pulsed, voiced shriek that fades, and this has none of that. It is a hiss of the right length, not the brief's crawler pain."
+  },
+  "S2": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "It is 0.50 s against the game's 0.795 s, about 37% short. No class was found (class is null), so I compared against the game's own sound, as the decay rule allows. The envelope has no attack shape and never decays: t20 and t40 of 0.005 s only show that the level is flat. The peak sits at 0.499 s, the very last sample, and the sound stops abruptly with no fade. The game's own sound decays over 0.544 s (t20)."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The centroid of 2716 Hz is close to the game's 2682 Hz, but only because white noise centres there by chance. The band shares miss badly: 2k-5k is 54.4% against 83.8% (29 points off), 600-2k is 25.7 against 15.6 (10.1 off), >5k is 8.8 against 0.3, and 150-600 is 8.3 against 0. That is four of the five bands outside 10 points. The spectrogram shows even energy across all frequencies, where the game's sound is concentrated in a formant band."
+  },
+  "S4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "It has 0 onsets and steady noise at flatness 0.95, with no pitch and no movement. The game's sound is a voiced, pulsed cry: the waveform shows a run of amplitude pulses with harmonic striations in the spectrogram, fading over time. Neither the tone nor the pulsing nor the pitch movement is present."
+  },
+  "S5": {
+   "judge": 1,
+   "cap": 0,
+   "score": 0,
+   "reason": "It has the same name, no clipping, and negligible DC (-0.0013), and no loop is needed. However, the engine check reports that the last samples are at 0.28 of full scale, so it ends in an audible click in game. That is a fault in the file the engine plays. The sample rate and bit depth are not given in the measurements to confirm."
+  }
+ },
+ "total": 0,
+ "of": 10,
+ "passes": false
+}

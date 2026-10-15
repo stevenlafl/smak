@@ -1,0 +1,92 @@
+{
+ "kind": "mod",
+ "label": "the mod as a whole",
+ "measured": {
+  "missing": [
+   "videos/fw_wrench.mp4",
+   "videos/fw_crawler.mp4",
+   "videos/fw_pumphall.mp4",
+   "pictures/fw_props.png"
+  ],
+  "failedChecks": [
+   "maps/fw_yard.bsp: the station's yard at dusk, open to the sky, a gatehouse door, drums, a pipe section; start by the gate, out by the pump house's double doors",
+   "maps/fw_pumphall.bsp: the flooded hall: water deep enough to swim, three pumps, catwalks both sides joined by a bridge, ladders; the wrench on a catwalk, three crawlers in the water; out by a stair to a corridor",
+   "maps/fw_control.bsp: the control room over the hall: consoles under windows onto the hall, a lift down to the valve room with the main valve wheel; two crawlers"
+  ],
+  "chain": [
+   {
+    "map": "fw_yard",
+    "leadsTo": [],
+    "landmarks": [],
+    "asked": "fw_pumphall"
+   },
+   {
+    "map": "fw_pumphall",
+    "leadsTo": [],
+    "landmarks": [],
+    "asked": "fw_control"
+   },
+   {
+    "map": "fw_control",
+    "leadsTo": [],
+    "landmarks": [],
+    "asked": null
+   }
+  ],
+  "shown": [
+   {
+    "file": "videos/fw_wrench.mp4",
+    "there": false,
+    "bytes": 0
+   },
+   {
+    "file": "videos/fw_crawler.mp4",
+    "there": false,
+    "bytes": 0
+   },
+   {
+    "file": "videos/fw_pumphall.mp4",
+    "there": false,
+    "bytes": 0
+   },
+   {
+    "file": "pictures/fw_props.png",
+    "there": false,
+    "bytes": 0
+   }
+  ]
+ },
+ "caps": {
+  "O1": 0,
+  "O2": 0
+ },
+ "scores": {
+  "O1": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The files are there by name, but none of them is the asset the brief asks for, and all three maps fail their checks (fw_yard, fw_pumphall and fw_control each fail the brief's description). On the sheet, the five props, the crawler and the wrench are all plain grey boxes: the 'wrench' is a thin flat bar with no jaw and no red handle, and the 'crawler' is a box with no legs, teeth or grey-green body. Each map is one bare room. The videos fw_wrench.mp4, fw_crawler.mp4 and fw_pumphall.mp4 are missing, and so is the picture fw_props.png."
+  },
+  "O2": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "Nothing links the maps. In the measured chain, fw_yard leads nowhere (it should lead to fw_pumphall), fw_pumphall leads nowhere (it should lead to fw_control), and none of the three has a landmark. The walk test cannot reach any level change because there isn't one."
+  },
+  "O3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The sheet does not read as one place. Every model is the same untextured grey box with no rust, hazard paint, red paint or sodium orange. The map views are flat pastel cyan, lavender and lime, which is nothing like the brief's concrete, rusted steel and green-grey water, or Half-Life's palette. There is no shared wear or material across maps and props."
+  },
+  "O4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "All four show files are missing: the wrench and crawler turntable videos, the pump hall flight-through and the props sheet (each 0 bytes, there: false)."
+  }
+ },
+ "total": 0,
+ "of": 8,
+ "passes": false
+}

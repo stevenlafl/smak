@@ -49,39 +49,10 @@
  "caps": {
   "S5": 0
  },
- "scores": {
-  "S1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The picture shows a steady hiss at one level for its full 0.50 s. The waveform is a flat band with no shape, and the spectrogram is uniform yellow noise from top to bottom with no voiced or wet structure. There is no lunge, screech or bite in it. The game's attack has two loud vocal bursts near 0.05 s and 0.25 s followed by clicks. A player would not hear this as a creature attacking, let alone a low wet sludge crawler. The brief asks for the crawler's attack."
-  },
-  "S2": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The measurements give no class (class null). Against the game's own sound it stands in for, the length is 0.50 s versus 0.906 s, about 45% shorter, which is outside 25%. The waveform holds one level from the first sample to the last and then stops dead, so there is no attack shape and no decay at all. The measured t20 = t40 = 0.359 s reflects noise fluctuation, not a real decay. The level does not fall before the cut, and the engine fault confirms it ends at 0.18 of full scale."
-  },
-  "S3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The centroid is 2734 Hz against 921 Hz for the game's sound, about three times higher and far beyond 20%. The band shares are well off: 150-600 Hz is 9.3% versus 68.1%, 2k-5k is 55.2% versus 10.9%, and >5k is 8.7% versus 1.6%. The energy is spread like broadband noise (rolloff 4651 Hz) rather than sitting in the low-mid body expected of a creature's attack sound."
-  },
-  "S4": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "Flatness is 0.949, which is near-white noise with no tone. Onsets are 0, so there are no hits, bursts or clicks, while the game's sound has two distinct vocal bursts and later clicks. The spectrogram shows no pitch movement, only even noise in every frame."
-  },
-  "S5": {
-   "judge": 1,
-   "cap": 0,
-   "score": 0,
-   "reason": "It is under the game's name, sound/headcrab/hc_attack1.wav, with no clipping and DC near zero (0.0016). The engine fault says it ends abruptly at 0.18 of full scale, so it will click every time it plays. The fade is missing at the end of the file. The sample rate, bit depth and channel count were not given, so they cannot be confirmed."
-  }
- },
+ "passes": false,
+ "failedByMeasure": [
+  "S5"
+ ],
  "total": 0,
- "of": 10,
- "passes": false
+ "of": 10
 }

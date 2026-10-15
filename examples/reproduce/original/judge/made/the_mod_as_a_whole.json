@@ -2,9 +2,7 @@
  "kind": "mod",
  "label": "the mod as a whole",
  "measured": {
-  "missing": [
-   "pictures/fw_props.png"
-  ],
+  "missing": [],
   "failedChecks": [],
   "chain": [
    {
@@ -13,7 +11,7 @@
      "fw_pumphall"
     ],
     "landmarks": [
-     "fw_lm_yard"
+     "yard_exit"
     ],
     "asked": "fw_pumphall"
    },
@@ -23,8 +21,8 @@
      "fw_control"
     ],
     "landmarks": [
-     "fw_lm_yard",
-     "fw_lm_hall"
+     "yard_exit",
+     "hall_exit"
     ],
     "asked": "fw_control"
    },
@@ -32,7 +30,7 @@
     "map": "fw_control",
     "leadsTo": [],
     "landmarks": [
-     "fw_lm_hall"
+     "hall_exit"
     ],
     "asked": null
    }
@@ -41,56 +39,56 @@
    {
     "file": "videos/fw_wrench.mp4",
     "there": true,
-    "bytes": 266306
+    "bytes": 307069
    },
    {
     "file": "videos/fw_crawler.mp4",
     "there": true,
-    "bytes": 419265
+    "bytes": 235747
    },
    {
     "file": "videos/fw_pumphall.mp4",
     "there": true,
-    "bytes": 1075029
+    "bytes": 832278
    },
    {
     "file": "pictures/fw_props.png",
-    "there": false,
-    "bytes": 0
+    "there": true,
+    "bytes": 1084670
    }
   ]
  },
  "caps": {
-  "O1": 0,
+  "O1": 2,
   "O2": 2
  },
  "scores": {
   "O1": {
-   "judge": 1,
-   "cap": 0,
-   "score": 0,
-   "reason": "Not every listed asset is there. The brief's 'To show it' section asks for a sheet of pictures of every prop, and pictures/fw_props.png is reported missing (0 bytes). SMAK reports no failed checks (failedChecks is empty), but a missing listed deliverable rules out a 2. The sheet of everything also shows that some assets may not be what the brief means even if they pass the checks. The wrench (bottom row, second from left) is a red rod with two separate grey blocks, with no clear heavy toothed jaw. The drum (top row, second) is mostly clean blue paint with one small rust patch rather than rusted."
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements list nothing missing and no failed SMAK checks. Every shown file (videos/fw_wrench.mp4, videos/fw_crawler.mp4, videos/fw_pumphall.mp4, pictures/fw_props.png) is present. The measurements do not list the .wad, sounds or sprites, so this score rests on the missing and failedChecks fields alone."
   },
   "O2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured chain matches the brief. fw_yard leads to fw_pumphall through landmark fw_lm_yard, which fw_pumphall also contains. fw_pumphall leads to fw_control through fw_lm_hall, which fw_control also contains. fw_control leads nowhere, as the brief wants, since the valve ends the mod. Each map's asked target equals its leadsTo. No check failed, so nothing a map names is missing from the mod's or the game's files."
+   "reason": "The chain is fw_yard to fw_pumphall through yard_exit, then fw_pumphall to fw_control through hall_exit, and fw_control ends the mod at hall_exit. Each change is measured as reached from the start, and each map's landmarks match the change it names."
   },
   "O3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The props agree with each other: muted grey-green paint, rust, worn red on the valve wheel, hazard yellow-black stripes on the drum and the pipe, and sodium orange in the lamp. The pump hall view (third map panel) fits them, with olive steel and rusted pipes. The other maps break from that place. The fw_yard view (first map panel) shows a desert skybox with red rock mesas over cracked dirt and a brick-like wall, which reads as a desert canyon, not a municipal pumping station yard. The fw_control view (last panel) is clean, bright silver riveted panelling with no wear or rust, so it does not match the worn industrial props. The crawler (bottom-left) is a smooth, glossy mint green with a red and white candy-like tooth ring, and looks cartoonish against the grimy palette. The drum's clean saturated blue also sits outside the worn palette."
+   "reason": "Most of the set shares a rusted, worn, hazard-striped palette: the drum, the pipe junction, the wheel's rim and the wrench's steel all agree. The break is in the picture. The control console is a clean, unrusted light grey, unlike the rest of the props. The yard's sky is a flat, bright blue, not the dusk the brief asks for, and the pump hall's tan tiles and the control floor's tan tiles do not match the green-grey water and the sodium-lit scene the brief describes. The lamp's bright orange glass is also hotter than the rest of the palette. These are clear differences, short of a failure of the whole place."
   },
   "O4": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Three of the four showings exist with plausible sizes: fw_wrench.mp4 (266 KB), fw_crawler.mp4 (419 KB) and fw_pumphall.mp4 (1.08 MB). The sheet of every prop the brief asks for, pictures/fw_props.png, is missing. The judge was given no frames from the videos, so it cannot confirm they show each asset as it is."
+   "score": 2,
+   "reason": "Every item the brief asks to show is present: turntable videos of the wrench and the crawler, a flight through the pump hall, and a sheet of props. The everything.png picture shows each prop, the crawler, the wrench and a view of each map, with each asset shown as it is."
   }
  },
- "total": 4,
+ "total": 7,
  "of": 8,
  "passes": false
 }

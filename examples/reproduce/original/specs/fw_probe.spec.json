@@ -1,26 +1,26 @@
 {
-  "spec": "smak.model/1",
-  "name": "fw_probe.mdl",
-  "kind": "character",
-  "base": {
-    "file": "models/headcrab.mdl"
+  "spec": "smak.map/1",
+  "name": "fw_probe",
+  "theme": {
+    "floor": "stone",
+    "wall": "stone",
+    "ceiling": "stone"
   },
-  "floor": 0,
-  "parts": [
+  "rooms": [
     {
-      "id": "body",
-      "kind": "box",
+      "id": "hall",
       "size": [
-        10,
-        10,
-        5
-      ],
-      "at": [
-        0,
-        0,
-        2
-      ],
-      "material": "plaster"
+        256,
+        256,
+        128
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "hall",
+      "at": "centre"
     }
   ]
 }

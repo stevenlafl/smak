@@ -1,0 +1,1052 @@
+{
+  "spec": "smak.wad/1",
+  "name": "fw.wad",
+  "materials": {
+    "conc": {
+      "base": "plaster",
+      "tone": [
+        0.5,
+        0.49,
+        0.45
+      ]
+    },
+    "wetconc": {
+      "base": "stone",
+      "tone": [
+        0.34,
+        0.35,
+        0.32
+      ]
+    },
+    "steel": {
+      "base": "metal",
+      "tone": [
+        0.42,
+        0.43,
+        0.42
+      ],
+      "rust": 0.25
+    },
+    "rust": {
+      "base": "metal",
+      "tone": [
+        0.42,
+        0.3,
+        0.22
+      ],
+      "rust": 0.8
+    },
+    "yellow": {
+      "base": "paint",
+      "tone": [
+        0.78,
+        0.62,
+        0.12
+      ]
+    },
+    "panelgrey": {
+      "base": "metal",
+      "tone": [
+        0.38,
+        0.4,
+        0.38
+      ],
+      "cell": 64
+    },
+    "greenpaint": {
+      "base": "paint",
+      "tone": [
+        0.33,
+        0.4,
+        0.34
+      ]
+    }
+  },
+  "textures": [
+    {
+      "name": "fw_concwall",
+      "size": [
+        128,
+        128
+      ],
+      "material": "conc",
+      "grime": 0.6,
+      "wear": {
+        "stains": 0.7,
+        "streaks": 0.6,
+        "cracks": 0.3,
+        "speckle": 0.8
+      },
+      "relief": [
+        {
+          "kind": "seam",
+          "from": [
+            0,
+            64
+          ],
+          "to": [
+            128,
+            64
+          ],
+          "width": 2
+        },
+        {
+          "kind": "seam",
+          "from": [
+            64,
+            0
+          ],
+          "to": [
+            64,
+            64
+          ],
+          "width": 2
+        },
+        {
+          "kind": "seam",
+          "from": [
+            0,
+            64
+          ],
+          "to": [
+            0,
+            128
+          ],
+          "width": 2
+        }
+      ]
+    },
+    {
+      "name": "fw_concceil",
+      "size": [
+        128,
+        128
+      ],
+      "material": "conc",
+      "grime": 0.2,
+      "wear": {
+        "stains": 0.6,
+        "speckle": 0.8,
+        "cracks": 0.2
+      }
+    },
+    {
+      "name": "fw_wetfloor",
+      "size": [
+        128,
+        128
+      ],
+      "material": "wetconc",
+      "grime": 0.3,
+      "wear": {
+        "stains": 0.9,
+        "streaks": 0.2,
+        "cracks": 0.5,
+        "speckle": 0.9
+      }
+    },
+    {
+      "name": "{fw_grate",
+      "size": [
+        64,
+        64
+      ],
+      "material": {
+        "base": "mesh",
+        "cell": 6,
+        "tone": [
+          0.38,
+          0.37,
+          0.34
+        ]
+      }
+    },
+    {
+      "name": "fw_catwalk",
+      "size": [
+        64,
+        64
+      ],
+      "material": "steel",
+      "grime": 0.4,
+      "wear": {
+        "scratches": 0.6,
+        "stains": 0.4,
+        "speckle": 0.5
+      },
+      "relief": [
+        {
+          "kind": "seam",
+          "from": [
+            0,
+            0
+          ],
+          "to": [
+            64,
+            0
+          ],
+          "width": 2
+        },
+        {
+          "kind": "seam",
+          "from": [
+            0,
+            32
+          ],
+          "to": [
+            64,
+            32
+          ],
+          "width": 1,
+          "notched": true
+        },
+        {
+          "kind": "rivets",
+          "from": [
+            4,
+            4
+          ],
+          "to": [
+            60,
+            4
+          ],
+          "count": 6,
+          "radius": 1.2
+        },
+        {
+          "kind": "rivets",
+          "from": [
+            4,
+            60
+          ],
+          "to": [
+            60,
+            60
+          ],
+          "count": 6,
+          "radius": 1.2
+        }
+      ]
+    },
+    {
+      "name": "fw_pipewall",
+      "size": [
+        128,
+        128
+      ],
+      "material": "conc",
+      "grime": 0.6,
+      "wear": {
+        "stains": 0.6,
+        "streaks": 0.6,
+        "speckle": 0.7
+      },
+      "relief": [
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              104
+            ],
+            [
+              128,
+              104
+            ]
+          ],
+          "radius": 9,
+          "material": "steel"
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              78
+            ],
+            [
+              128,
+              78
+            ]
+          ],
+          "radius": 6,
+          "material": "rust"
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              36
+            ],
+            [
+              40,
+              36
+            ],
+            [
+              40,
+              8
+            ],
+            [
+              128,
+              8
+            ]
+          ],
+          "radius": 5,
+          "material": "greenpaint"
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              96,
+              0
+            ],
+            [
+              96,
+              128
+            ]
+          ],
+          "radius": 7,
+          "material": "steel"
+        },
+        {
+          "kind": "bars",
+          "at": [
+            20,
+            60
+          ],
+          "size": [
+            10,
+            96
+          ],
+          "count": 1,
+          "width": 3,
+          "axis": "y"
+        }
+      ]
+    },
+    {
+      "name": "fw_hazard",
+      "size": [
+        64,
+        32
+      ],
+      "material": {
+        "base": "hazard",
+        "tone": [
+          0.82,
+          0.64,
+          0.1
+        ],
+        "stripe": 8
+      },
+      "grime": 0.5,
+      "wear": {
+        "scratches": 0.7,
+        "stains": 0.4,
+        "speckle": 0.5
+      }
+    },
+    {
+      "name": "fw_rustplate",
+      "size": [
+        128,
+        128
+      ],
+      "material": "rust",
+      "grime": 0.5,
+      "wear": {
+        "stains": 0.7,
+        "streaks": 0.8,
+        "scratches": 0.3,
+        "speckle": 0.6
+      },
+      "relief": [
+        {
+          "kind": "rivets",
+          "from": [
+            6,
+            6
+          ],
+          "to": [
+            122,
+            6
+          ],
+          "count": 10,
+          "radius": 1.6
+        },
+        {
+          "kind": "rivets",
+          "from": [
+            6,
+            122
+          ],
+          "to": [
+            122,
+            122
+          ],
+          "count": 10,
+          "radius": 1.6
+        },
+        {
+          "kind": "seam",
+          "from": [
+            0,
+            0
+          ],
+          "to": [
+            128,
+            0
+          ],
+          "width": 2
+        }
+      ]
+    },
+    {
+      "name": "fw_panel",
+      "size": [
+        128,
+        64
+      ],
+      "material": "panelgrey",
+      "grime": 0.3,
+      "wear": {
+        "scratches": 0.4,
+        "stains": 0.3
+      },
+      "panels": [
+        {
+          "at": [
+            20,
+            44
+          ],
+          "size": [
+            22,
+            22
+          ],
+          "shape": "round",
+          "radius": 11,
+          "style": "inset",
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.85,
+              0.83,
+              0.72
+            ]
+          }
+        },
+        {
+          "at": [
+            48,
+            44
+          ],
+          "size": [
+            22,
+            22
+          ],
+          "shape": "round",
+          "radius": 11,
+          "style": "inset",
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.85,
+              0.83,
+              0.72
+            ]
+          }
+        },
+        {
+          "at": [
+            76,
+            44
+          ],
+          "size": [
+            22,
+            22
+          ],
+          "shape": "round",
+          "radius": 11,
+          "style": "inset",
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.85,
+              0.83,
+              0.72
+            ]
+          }
+        },
+        {
+          "at": [
+            20,
+            44
+          ],
+          "size": [
+            2,
+            9
+          ],
+          "style": "flat",
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.1,
+              0.1,
+              0.1
+            ]
+          }
+        },
+        {
+          "at": [
+            50,
+            46
+          ],
+          "size": [
+            8,
+            2
+          ],
+          "style": "flat",
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.6,
+              0.1,
+              0.08
+            ]
+          }
+        },
+        {
+          "at": [
+            75,
+            46
+          ],
+          "size": [
+            2,
+            8
+          ],
+          "style": "flat",
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.1,
+              0.1,
+              0.1
+            ]
+          }
+        },
+        {
+          "at": [
+            108,
+            44
+          ],
+          "size": [
+            24,
+            24
+          ],
+          "style": "inset",
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.12,
+              0.22,
+              0.14
+            ]
+          }
+        },
+        {
+          "at": [
+            16,
+            14
+          ],
+          "size": [
+            6,
+            10
+          ],
+          "style": "raised",
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.75,
+              0.15,
+              0.1
+            ]
+          }
+        },
+        {
+          "at": [
+            30,
+            14
+          ],
+          "size": [
+            6,
+            10
+          ],
+          "style": "raised",
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.2,
+              0.2,
+              0.2
+            ]
+          }
+        },
+        {
+          "at": [
+            44,
+            14
+          ],
+          "size": [
+            6,
+            10
+          ],
+          "style": "raised",
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.2,
+              0.2,
+              0.2
+            ]
+          }
+        },
+        {
+          "at": [
+            58,
+            14
+          ],
+          "size": [
+            6,
+            10
+          ],
+          "style": "raised",
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.78,
+              0.6,
+              0.1
+            ]
+          }
+        },
+        {
+          "at": [
+            72,
+            14
+          ],
+          "size": [
+            6,
+            10
+          ],
+          "style": "raised",
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.2,
+              0.2,
+              0.2
+            ]
+          }
+        },
+        {
+          "at": [
+            100,
+            14
+          ],
+          "size": [
+            4,
+            4
+          ],
+          "shape": "round",
+          "radius": 2,
+          "style": "flat",
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.2,
+              0.75,
+              0.2
+            ]
+          }
+        },
+        {
+          "at": [
+            110,
+            14
+          ],
+          "size": [
+            4,
+            4
+          ],
+          "shape": "round",
+          "radius": 2,
+          "style": "flat",
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.85,
+              0.2,
+              0.1
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "~fw_sodium",
+      "size": [
+        64,
+        64
+      ],
+      "material": "steel",
+      "relief": [
+        {
+          "kind": "lamp",
+          "at": [
+            32,
+            32
+          ],
+          "size": [
+            52,
+            52
+          ],
+          "colour": [
+            1,
+            0.6,
+            0.2
+          ]
+        },
+        {
+          "kind": "bars",
+          "at": [
+            32,
+            32
+          ],
+          "size": [
+            56,
+            56
+          ],
+          "count": 4,
+          "width": 3,
+          "axis": "x"
+        }
+      ]
+    },
+    {
+      "name": "!fw_water",
+      "size": [
+        64,
+        64
+      ],
+      "material": {
+        "base": "water",
+        "tone": [
+          0.28,
+          0.34,
+          0.27
+        ]
+      }
+    },
+    {
+      "name": "fw_pump3",
+      "size": [
+        128,
+        64
+      ],
+      "material": "yellow",
+      "grime": 0.4,
+      "wear": {
+        "scratches": 0.5,
+        "stains": 0.4,
+        "speckle": 0.4
+      },
+      "panels": [
+        {
+          "at": [
+            64,
+            32
+          ],
+          "size": [
+            120,
+            56
+          ],
+          "style": "raised",
+          "edge": 2
+        }
+      ],
+      "print": {
+        "text": "PUMP 3",
+        "size": 0.5,
+        "ink": [
+          0.08,
+          0.08,
+          0.07
+        ]
+      },
+      "relief": [
+        {
+          "kind": "rivets",
+          "from": [
+            6,
+            6
+          ],
+          "to": [
+            6,
+            58
+          ],
+          "count": 2,
+          "radius": 1.5
+        },
+        {
+          "kind": "rivets",
+          "from": [
+            122,
+            6
+          ],
+          "to": [
+            122,
+            58
+          ],
+          "count": 2,
+          "radius": 1.5
+        }
+      ]
+    },
+    {
+      "name": "fw_door",
+      "size": [
+        64,
+        128
+      ],
+      "material": "greenpaint",
+      "grime": 0.6,
+      "wear": {
+        "scratches": 0.6,
+        "stains": 0.5,
+        "streaks": 0.4,
+        "speckle": 0.5
+      },
+      "panels": [
+        {
+          "at": [
+            32,
+            94
+          ],
+          "size": [
+            48,
+            40
+          ],
+          "style": "inset",
+          "edge": 2
+        },
+        {
+          "at": [
+            32,
+            34
+          ],
+          "size": [
+            48,
+            48
+          ],
+          "style": "inset",
+          "edge": 2
+        },
+        {
+          "at": [
+            54,
+            62
+          ],
+          "size": [
+            6,
+            12
+          ],
+          "style": "raised",
+          "material": "steel"
+        },
+        {
+          "at": [
+            32,
+            6
+          ],
+          "size": [
+            60,
+            6
+          ],
+          "style": "flat",
+          "material": "rust"
+        }
+      ]
+    },
+    {
+      "name": "fw_pumpbody",
+      "size": [
+        128,
+        128
+      ],
+      "material": "greenpaint",
+      "grime": 0.6,
+      "wear": {
+        "scratches": 0.5,
+        "stains": 0.6,
+        "streaks": 0.7,
+        "speckle": 0.5
+      },
+      "relief": [
+        {
+          "kind": "rivets",
+          "from": [
+            4,
+            8
+          ],
+          "to": [
+            124,
+            8
+          ],
+          "count": 12,
+          "radius": 1.6
+        },
+        {
+          "kind": "rivets",
+          "from": [
+            4,
+            120
+          ],
+          "to": [
+            124,
+            120
+          ],
+          "count": 12,
+          "radius": 1.6
+        },
+        {
+          "kind": "seam",
+          "from": [
+            0,
+            64
+          ],
+          "to": [
+            128,
+            64
+          ],
+          "width": 2
+        }
+      ]
+    },
+    {
+      "name": "fw_yardwall",
+      "size": [
+        128,
+        128
+      ],
+      "material": {
+        "base": "brick",
+        "tone": [
+          0.45,
+          0.33,
+          0.27
+        ]
+      },
+      "grime": 0.7,
+      "wear": {
+        "stains": 0.6,
+        "streaks": 0.6,
+        "speckle": 0.6
+      }
+    },
+    {
+      "name": "fw_asphalt",
+      "size": [
+        128,
+        128
+      ],
+      "material": {
+        "base": "asphalt",
+        "tone": [
+          0.3,
+          0.3,
+          0.29
+        ]
+      },
+      "wear": {
+        "stains": 0.7,
+        "cracks": 0.6,
+        "speckle": 0.9
+      }
+    },
+    {
+      "name": "fw_metalwall",
+      "size": [
+        128,
+        128
+      ],
+      "material": "steel",
+      "grime": 0.5,
+      "wear": {
+        "stains": 0.5,
+        "streaks": 0.6,
+        "scratches": 0.3
+      },
+      "relief": [
+        {
+          "kind": "seam",
+          "from": [
+            64,
+            0
+          ],
+          "to": [
+            64,
+            128
+          ],
+          "width": 2
+        },
+        {
+          "kind": "rivets",
+          "from": [
+            60,
+            6
+          ],
+          "to": [
+            60,
+            122
+          ],
+          "count": 8,
+          "radius": 1.2
+        },
+        {
+          "kind": "rivets",
+          "from": [
+            68,
+            6
+          ],
+          "to": [
+            68,
+            122
+          ],
+          "count": 8,
+          "radius": 1.2
+        }
+      ]
+    },
+    {
+      "name": "fw_glass",
+      "size": [
+        64,
+        64
+      ],
+      "material": {
+        "base": "glass",
+        "tone": [
+          0.5,
+          0.58,
+          0.55
+        ]
+      },
+      "wear": {
+        "stains": 0.6,
+        "streaks": 0.5
+      }
+    }
+  ]
+}

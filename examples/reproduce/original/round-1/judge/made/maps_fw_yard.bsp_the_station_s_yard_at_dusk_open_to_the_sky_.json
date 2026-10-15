@@ -1,0 +1,91 @@
+{
+ "kind": "map",
+ "label": "maps/fw_yard.bsp: the station's yard at dusk, open to the sky, a gatehouse door, drums, a pipe section; start by the gate, out by the pump house's double doors",
+ "measured": {
+  "size": [
+   1504,
+   1504
+  ],
+  "sizeAsked": [
+   1500,
+   1500
+  ],
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [
+   {
+    "map": "fw_pumphall",
+    "landmark": "fw_lm_yard"
+   }
+  ],
+  "landmarks": [
+   "fw_lm_yard"
+  ],
+  "itemsAsked": [],
+  "itemsFound": []
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The plan shows every area the brief asks for, joined as it says. The walled yard is about 1500 square. The gatehouse sits bottom left with a door (func_door 1) and a window (func_breakable 2), beside the fixed gate (func_wall 5) at the bottom centre. The pump house sits at the top, its double doors (func_door 3 and 4) opening off a step. The way out runs through those doors to the level change inside."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured at 1504 x 1504 against the 1500 x 1500 asked, well within 25%. The gatehouse and pump house are of a plausible size for the yard."
+  },
+  "P3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief asks for a flat open yard and nothing more. The plan gives a flat yard at z 0, a z 8 step at the pump house doors, a pump house roof at z 208 and small blocks at z 40 and z 88. The perimeter walls rise well above eye level in the close views. Nothing contradicts the brief."
+  },
+  "P4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The start (info_player_start 25) is just inside the gate at the bottom centre. The gatehouse door (func_door 1) and the pump house double doors (func_door 3 and 4) are door entities. The measurements report a changelevel to fw_pumphall with landmark fw_lm_yard (landmark 26 is inside the pump house) and nothing unreached."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The views show red brick on every perimeter wall, where the brief's palette is concrete, rusted steel and hazard paint. The ground is a cracked dirt or concrete texture. A yellow hazard stripe appears only over the gatehouse door (yaw 180 view). The sky is Half-Life's desert mesa skybox. Brick plus desert reads as a generic Half-Life yard, not the pumping station's materials."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Lights and glow sprites are placed sensibly, but the views show no lit areas. Lamps 27 and 28 flank the pump house doors, 29 and 30 are on the side walls, 31 is at the gate and 38 is in the gatehouse, with env_sprite glows. Only the pump house interior shows warm pools on the plan. In every yard view the ground and walls are lit evenly and flatly, with no sodium-orange pools or dusk contrast near the lamps."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The gatehouse with its hazard-trimmed door and the drum clusters are there (cycler_sprite 7-11 at bottom right and 12-14 at top left; drums are visible in the yaw 0 view). The broken truck-sized pipe section is not there. Between the two pillars on the right of the plan is only cycler_sprite 16, which shows in the views as a tiny cyan object at ground level, nowhere near truck size. The wall reads as ordinary brick rather than a high station wall."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements show no check errors, nothing unreached and no reach warnings, and the level change is reached from the start."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From the start it reads as a Half-Life outdoor area, but a sparse one and not this place. The views show a big mostly empty square of red brick walls under the desert mesa sky, with small low buildings far off. Two of the five views are just a blank brick wall. It does not look like an industrial pumping station yard at dusk: no concrete, little rusted steel, no visible pipe, no sodium-lit pools. A player would take it for a bare test yard rather than a map of the game's quality."
+  }
+ },
+ "total": 14,
+ "of": 18,
+ "passes": false
+}
