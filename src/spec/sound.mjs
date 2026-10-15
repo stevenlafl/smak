@@ -28,6 +28,10 @@ const FILTERS = ["lowpass", "highpass", "bandpass", "peak", "notch", "lowshelf",
  * 10% on Half-Life's sounds; more in the lowest band of a short one).
  */
 const PICTURE_CENTROID = 0.15;
+/** The classes whose sounds strike: every one of the game's starts within 25 ms. A swing, a reload and a loop swell. */
+const STRUCK = new Set(["metal hit", "flesh hit", "gunshot", "click", "pump", "shell", "launcher", "grenade bounce", "explosion", "step concrete", "step metal", "step dirt", "step tile", "step grate", "step vent"]);
+/** An attack slower than this, in a struck class, is warned of: Steven heard a .357 that took 0.14 s as played backwards. */
+const SWELL = 0.05;
 const PICTURE_BANDS = 7;
 /** The longest a sound's path may be from the mod's folder: the engine's 64 with its zero, `sound/` added. */
 const LONGEST_NAME = 63 - "sound/".length;
@@ -251,6 +255,14 @@ export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (
         `${take.name}: attack ${Math.round(f.attack * 1000)} ms, T20 ${f.t20} s, T40 ${f.t40} s, centroid ${f.centroid} Hz, flatness ${f.flatness}, onsets ${f.onsets}; power ${Object.entries(f.bands).map(([b, v]) => `${b} ${v}%`).join(", ")}`,
       );
       if (sound.class) {
+        // what a listener hears where the numbers are off its class (Steven's listening, 2026-10-15): a hit that
+        // swells to its peak is heard played backwards, and one that dies sooner than the game's as dry, in a
+        // padded room
+        if (STRUCK.has(sound.class) && f.attack > SWELL)
+          warnings.push(`${take.name}: it takes ${f.attack} s to reach its peak, where the game's ${sound.class} sounds strike at once: a swell into a hit is heard as a sound played backwards. Start it at its hit (a sample's from: "onset"), an env with attack 0.002, or a crack at 0 (post: true)`);
+        const t20Range = sound.loop ? null : rangesOf(sound.class).t20;
+        if (t20Range && f.t20 < t20Range[0])
+          warnings.push(`${take.name}: it dies to -20 dB in ${f.t20} s, sooner than the game's ${sound.class} sounds (${Math.round(t20Range[0] * 100) / 100} s at least): heard dry, as in a padded room. A short room (finish.room: { decay: 0.25, wet: 0.12 }) or a longer decay gives it the space theirs have; not noise, which is heard as static`);
         const scored = scoreAgainst(f, sound.class);
         entry.score = `${scored.score} of ${scored.of}`;
         report.facts.push(`${take.name}: against the game's ${sound.class} sounds, ${scored.score} of ${scored.of}${scored.lines.length ? `; off: ${scored.lines.join("; ")}` : ": every feature in range"}`);

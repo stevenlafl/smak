@@ -288,3 +288,12 @@ test("noise over a take, and smooth noise ringing past 0.3 s, are warned of as s
   const short = buildSoundSpec({ ...base, layers: [{ id: "crack", kind: "noise", env: { decay: 0.05 } }, { kind: "modes", f: 600, decay: 0.6 }] }, { folder });
   sure(!short.report.warnings.some((w) => /static/.test(w)), short.report.warnings.join(" | "));
 });
+
+test("a hit that swells to its peak is warned of as played backwards, and one that dies early as dry", () => {
+  const swell = buildSoundSpec({ spec: "smak.sound/1", name: "x/shot.wav", class: "gunshot", layers: [{ kind: "noise", color: "pink", env: { attack: 0.15, decay: 0.2 }, filter: [{ type: "lowpass", f: 2000 }] }] });
+  sure(swell.report.warnings.some((w) => /x\/shot\.wav: it takes [\d.]+ s to reach its peak.*played backwards/.test(w)), swell.report.warnings.join(" | "));
+  const dry = buildSoundSpec({ spec: "smak.sound/1", name: "x/step.wav", class: "step metal", layers: [{ kind: "modes", f: 300, decay: 0.12 }] });
+  sure(dry.report.warnings.some((w) => /x\/step\.wav: it dies to -20 dB in [\d.]+ s, sooner than the game's step metal sounds.*padded room/.test(w)), dry.report.warnings.join(" | "));
+  const fine = buildSoundSpec({ spec: "smak.sound/1", name: "x/ok.wav", class: "step metal", layers: [{ kind: "modes", f: 300, decay: 1.3 }] });
+  sure(!fine.report.warnings.some((w) => /played backwards|padded room/.test(w)), fine.report.warnings.join(" | "));
+});

@@ -511,7 +511,10 @@ layer of noise and modes reaches. Ask for the event in plain words (the thing, t
 heavy steel wrench striking a metal pipe, one sharp clang, close-miked, dry, no reverb": a take carries the room
 it imagines, which a game's own sounds mostly lack), its `length`, its `class`, and 4 to 8 seeds; read
 each take's measures against the class and the picture; put the nearest in a `sample` layer `from: "onset"`.
-Add no `noise` layer over a take: it has its texture already, and steady noise added to it is heard as static
+Read the picture before you prompt: steady lines across its spectrogram are a machine's tone (a motor's whine, an
+electronic alarm, a hum), and a prompt that names only the object gets the object moved by hand ("a sliding door"
+is a door pushed along; "a sliding door driven by an electric motor, a rising electronic whine" is the machine).
+Name the event's source, not only the thing. Add no `noise` layer over a take: it has its texture already, and steady noise added to it is heard as static
 (and, fading, as reverb; the build warns of it). Then shape it in the spec toward the original: its `length`, a `filter` (a generated hit is often brighter than
 the game's: a `lowpass` or a `highshelf` cut), the finish's `saturate` and `limit` (to the class's crest), and
 layers of your own under or over it (a `modes` ring, a noise crack, a `tone` thump). Build, read the class
@@ -521,8 +524,12 @@ report's facts say when it is non-commercial: tell the person, whose call it is.
 
 **Static and reverb.** A steady `noise` layer is heard as static, and one that fades slowly as a reverb the sound
 does not have: a real hit, shot or slide is grains and tones, not a smooth wash. Keep noise short (a crack, a
-blast's first tenth of a second); make a long tail of `particles` (their `rate` falling) and `modes`, or of a noise
-whose `shape` moves through keys. The build warns of smooth noise ringing past 0.3 s.
+blast's first tenth of a second), and grains under about 3 kHz unless the sound sparkles (particles' `band` up
+past 4 kHz is heard as glitter on a blast); make a long tail of `particles` (their `rate` falling) and `modes`, or of a noise
+whose `shape` moves through keys. The build warns of smooth noise ringing past 0.3 s; with a `class`, of a struck
+sound (a hit, a shot, a step) that takes over 50 ms to reach its peak (heard as played backwards) and of one that
+dies sooner than the game's of its class (heard dry, as in a padded room: a short `room` gives it space, noise
+does not).
 
 **From a picture.** `audio.fromPicture(png)` reads a sound's picture as the kit draws it (its label gives the
 length, its marks the rate) and returns a draft spec of tens of numbers: one noise layer whose `shape` moves
