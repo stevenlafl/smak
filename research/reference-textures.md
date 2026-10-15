@@ -60,7 +60,9 @@ CRETE3_WALL01 before any number was read:
   alike -0.09, flagged as noise). It is grit of the same two sizes now (fine 0.087, alike 0.28 at 1), so the
   remedy a "little grain" warning points to adds grain that is the material's.
 - **Wood's grain lines** were 1.5 texels apart at a map's scale (`wood(x * 0.5)`): drawn at 0.2, about five texels
-  apart, with half again their contrast (`WOOD_LINES` 1.6), as Valve's boards have. **Iron's pits** likewise drawn
+  apart, with 2.2 times their contrast about the grain's own mean (`WOOD_LINES`), as Valve's boards have. At
+  1.6 about the base's tone the re-test showed planks and door leaves darker than their tone; about the mean they
+  keep it, and 2.2 reads as boards beside CRATE02 and OUT_WD (looked at 2x), still softer than theirs. **Iron's pits** likewise drawn
   larger. **Siding's lap line** was under a texel and vanished in the average: a texel wide at least.
 
 Tried and dropped: making the grit's specks crisp (a tanh on the noise) raised `fine` to Valve's 10th and read as
@@ -70,9 +72,9 @@ camouflage at 5x. Soft grit at 0.3 reads as stucco.
 | --- | --- | --- | --- |
 | plaster | 0.090 / 0.048 | -0.157 / 0.14 | nothing (concrete's 10th is 0.044) |
 | stone | 0.090 / 0.048 | -0.153 / 0.15 | nothing |
-| wood | 0.108 / 0.107 | -0.077 / 0.21 | nothing |
-| planks | 0.147 / 0.145 | 0.111 / 0.27 | nothing |
-| door | 0.114 / 0.105 | -0.010 / 0.26 | nothing |
+| wood | 0.108 / 0.104 | -0.077 / 0.21 | nothing |
+| planks | 0.147 / 0.143 | 0.111 / 0.27 | nothing |
+| door | 0.114 / 0.09 | -0.010 / 0.25 | nothing (held to all of Valve's) |
 | iron | 0.138 / 0.071 | -0.094 / 0.08 | nothing |
 | dirt, grass, cloth, paint, rope, bone, leather, snow | about 0.09 / 0.044 to 0.050 | about -0.15 / 0.12 to 0.17 | little grain |
 

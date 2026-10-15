@@ -167,15 +167,16 @@ export function colourAt(material, x, y, light = 1, px = 8) {
   // noise finer than a pixel is static, not grain: at a map's texel a unit (px 1) it is kept to a quarter, and
   // the map's picture has a grit of its own two to four texels across (surfacePicture)
   const sub = Math.min(1, px / 4);
-  // wood's grain at `k` units a step (or [along, across]); at a map's texel a unit its light and dark lines a
-  // half again as far apart in brightness, as Valve's boards have them (their wood is the grainiest of their
-  // surfaces: research/texture-stats.mjs), where the workshop's grain was made for a model's finer pixels
+  // wood's grain at `k` units a step (or [along, across]); at a map's texel a unit its light and dark lines
+  // twice as far apart in brightness, about their mean, as Valve's boards have them (their wood is the grainiest
+  // of their surfaces: research/texture-stats.mjs), where the workshop's grain was made for a model's finer pixels
   const boards = (x, y, k, px) => {
     const [ka, kb] = Array.isArray(k) ? k : [k, k];
     const c = wood(x * ka, y * kb, 1, s);
     if (px >= 4) return c;
-    const own = MATERIALS.wood.tone;
-    return c.map((v, i) => Math.max(0, own[i] + WOOD_LINES * (v - own[i])));
+    // about the grain's own mean, so the tone stays the tone
+    const mean = woodMean(s);
+    return c.map((v, i) => Math.max(0, mean[i] + WOOD_LINES * (v - mean[i])));
   };
   switch (base) {
     case "mesh": {
@@ -361,7 +362,17 @@ export const UNWORN = new Set(["glass", "flame", "neon", "water"]);
  */
 const MOTTLE = 0.3;
 /** How much more a map's wood shows its grain than a model's (above). */
-const WOOD_LINES = 1.6;
+const WOOD_LINES = 2.2;
+/** The mean colour of the workshop's wood of a seed, over a board's worth of it: what its grain is spread about. */
+const woodMeans = new Map();
+function woodMean(s) {
+  if (!woodMeans.has(s)) {
+    const sum = [0, 0, 0];
+    for (let y = 0; y < 64; y++) for (let x = 0; x < 64; x++) wood(x * 0.5, y * 0.5, 1, s).forEach((v, i) => (sum[i] += v / 4096));
+    woodMeans.set(s, sum);
+  }
+  return woodMeans.get(s);
+}
 const CELL_TONE = 0.1;
 const GRAIN = 0.3;
 /** Where in a texel a map's picture is sampled, four times, and averaged. */
