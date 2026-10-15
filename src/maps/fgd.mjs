@@ -314,6 +314,13 @@ function resolved(classes, name, path = []) {
   }
   for (const [key, value] of Object.entries(own.keys)) {
     const { name: _name, ...rest } = value;
+    // flags are joined with the bases', as Hammer joins them: Half-Life's func_door_rotating lists 2, 16, 64 and
+    // 128, and its Door base 1, 4, 8, 32, 256 and 512, all of which the game reads
+    const under = made.keys[key];
+    if (rest.flags && under?.flags) {
+      rest.flags = [...new Set([...under.flags, ...rest.flags])].sort((a, b) => a - b);
+      rest.labels = { ...(under.labels ?? {}), ...(rest.labels ?? {}) };
+    }
     made.keys[key] = { ...rest, defined: true };
   }
   made.size = own.size ?? made.size;
