@@ -338,7 +338,7 @@ function billowOf(layer, seed, p) {
  * frames; a loop gets one more, the first again); `loop`; `layers` [{ kind, gain, env, ...its own }]; `edge`
  * (pixels faded at the border; a beam's only at its sides).
  */
-export function framesOf({ size: [width, height], frames: count, loop = false, layers, seed = 1, edge = 2, use }) {
+export function framesOf({ size: [width, height], frames: count, loop = false, layers, seed = 1, edge = 2, use, masks = null }) {
   const longer = Math.max(width, height);
   const aspect = [width / longer, height / longer];
   const cells = 8;
@@ -346,6 +346,8 @@ export function framesOf({ size: [width, height], frames: count, loop = false, l
   const out = [];
   for (let n = 0; n < distinct; n++) {
     const p = loop ? n / distinct : distinct > 1 ? n / (distinct - 1) : 0;
+    // a masked layer's outline this frame: the reference's frame at the same point of its play
+    const mask = masks?.length ? masks[Math.min(masks.length - 1, Math.round(p * (masks.length - 1)))] : null;
     const rgb = new Float32Array(width * height * 3);
     const a = new Float32Array(width * height);
     for (let y = 0; y < height; y++)
@@ -362,7 +364,7 @@ export function framesOf({ size: [width, height], frames: count, loop = false, l
           const make = KINDS[layer.kind];
           if (!make) continue;
           const { e, rgb: c, a: layerA } = make(layer, u, v, p, { cells, seed: seed + k * 101, aspect, frame: n });
-          const g = (layer.gain ?? 1) * envelopeOf(layer.env)(p) * fade;
+          const g = (layer.gain ?? 1) * envelopeOf(layer.env)(p) * fade * (layer.mask && mask ? mask[y * width + x] : 1);
           sum = sum.map((s, j) => s + c[j] * e * g);
           const la = clamp01((layerA ?? e) * g);
           cover = cover + la * (1 - cover);

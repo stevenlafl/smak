@@ -642,7 +642,7 @@ measured against Half-Life's own of its kind, and drawn as a sheet of its frames
 | `frames`, `loop`, `fps` | A loop of `frames` is written with its first frame again at the end, as the engine wraps; an `env_sprite` changes frame at most 10 times a second |
 | `type`, `format` | `parallel` (unless told: faces the camera), `upright`, `facing upright`, `oriented`, `parallel oriented`; `additive` (unless told: black is clear), `index alpha` (coverage, tinted by `colour`), `alpha test` (holes), `normal` |
 | `origin` | `centre` (unless told), `bottom` (a flame on its base), or `[x, y]` pixels |
-| `layers` | Each `{ kind, gain, env: { attack, decay }, ... }`, summed: the kinds below. Coordinates run -1 to 1 across the longer side; `v` is up |
+| `layers` | Each `{ kind, gain, env: { attack, decay }, mask, ... }`, summed: the kinds below. Coordinates run -1 to 1 across the longer side; `v` is up. `mask: "reference"` (with a `reference`) keeps a layer inside the reference's lit area, frame by frame: its outline, eased in from 4% to 30% of each frame's brightest (`{ from: "reference", low, high }`), never its colours. A broad layer masked so takes the reference's shape (a cloud that rises off to one side, a flame's tongues) where layers alone do not reach it; the light inside it is still the layer's |
 | `finish` | `edge`: pixels faded at the border (2) |
 | `reference` | A contact sheet of the sprite this one reproduces (the picture given as input), `"pictures/frames.png"` or `{ picture, cell, cols }` as it was drawn (128 and 8): the report measures this sprite against it. Measures only: nothing of it goes into a frame |
 

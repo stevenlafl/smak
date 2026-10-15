@@ -28,6 +28,7 @@ const WRAP_MOST = 2.5;
 /** The classes that play once and must end dark. */
 const ONE_SHOTS = new Set(["explosion", "smoke puff", "sparks", "ring"]);
 const isNumber = (v) => typeof v === "number" && Number.isFinite(v);
+const clamp01 = (v) => Math.max(0, Math.min(1, v));
 /**
  * Where a reproduction is told it is off its reference: the judge's bars (research/asset-reproduction-failures.md,
  * 3). The shape's is 0.8: in sprites round 3 the judges gave its shape full marks (R2) at 0.76 and over, and
@@ -63,6 +64,10 @@ export function validateSpriteSpec(spec) {
         if (layer?.ramp !== undefined && typeof layer.ramp === "string" && !RAMP_NAMES.includes(layer.ramp)) errors.push(`${at}.layers[${k}].ramp: one of ${RAMP_NAMES.join(", ")}, or a list of [heat, [r, g, b]] stops`);
         // colours are 0 to 1: one of 0 to 255 summed into the frame is a white blot (three words legs of round 2)
         if (layer?.colour !== undefined && rgbFault(layer.colour)) errors.push(`${at}.layers[${k}].colour: ${rgbFault(layer.colour)}`);
+        if (layer?.mask !== undefined) {
+          if (layer.mask !== "reference" && !(layer.mask?.from === "reference")) errors.push(`${at}.layers[${k}].mask: "reference" (the reference's lit area, frame by frame), or { from: "reference", low, high }`);
+          else if (s.reference === undefined) errors.push(`${at}.layers[${k}].mask: the sprite has no reference to take its outline from`);
+        }
         if (Array.isArray(layer?.ramp))
           layer.ramp.forEach((stop, j) => {
             if (!Array.isArray(stop) || typeof stop[0] !== "number" || rgbFault(stop[1])) errors.push(`${at}.layers[${k}].ramp[${j}]: [heat 0 to 1, [r, g, b] 0 to 1]${Array.isArray(stop) && rgbFault(stop[1]) ? `: ${rgbFault(stop[1])}` : ""}`);
@@ -148,7 +153,34 @@ export function buildSpriteSpec(spec, { readPicture = (path) => unpicture(readFi
     const use = s.use ?? "env_sprite";
     const format = s.format ?? "additive";
     const loop = s.loop ?? false;
-    const made = framesOf({ size: s.size, frames: s.frames ?? 1, loop, layers: s.layers, seed: s.seed ?? 1, edge: s.finish?.edge ?? 2, use });
+    // a masked layer's outline: the reference's lit area frame by frame (Steven, 2026-10-15: its outline, never its
+    // colours), read off its sheet as the measures read it, each frame scaled to its own brightest and eased in
+    // between `low` and `high` of that
+    let masks = null;
+    const masked = s.layers.find((layer) => layer.mask);
+    if (masked) {
+      const ref = typeof s.reference === "string" ? { picture: s.reference } : s.reference;
+      let read;
+      try {
+        read = measureSheet(readPicture(ref.picture), { size: s.size, format, cols: ref.cols ?? 8, cell: ref.cell ?? 128, tint: s.colour ?? [1, 1, 1] });
+      } catch (error) {
+        read = { error: error.message.split("\n")[0] };
+      }
+      if (read.error) {
+        errors.push(`${s.name}: its masked layer's reference: ${read.error}`);
+        continue;
+      }
+      const { low = 0.04, high = 0.3 } = typeof masked.mask === "object" ? masked.mask : {};
+      masks = read.masks.map((m) => {
+        const most = Math.max(...m) || 1;
+        return Float32Array.from(m, (v) => {
+          const t = clamp01((v / most - low) / (high - low));
+          return t * t * (3 - 2 * t);
+        });
+      });
+      report.facts.push(`${s.name}: ${s.layers.filter((l) => l.mask).length} layer(s) masked by the reference's lit area, its ${masks.length} frames over this one's ${s.frames ?? 1}: its outline, not its colours`);
+    }
+    const made = framesOf({ size: s.size, frames: s.frames ?? 1, loop, layers: s.layers, seed: s.seed ?? 1, edge: s.finish?.edge ?? 2, use, masks });
     const { palette, pixels, error, colours } = quantiseFrames(made, format, { colour: s.colour ?? [1, 1, 1] });
     const [w, h] = s.size;
     const frames = pixels.map((p) => ({ ...originOf(s.origin, w, h), width: w, height: h, pixels: p }));

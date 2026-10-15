@@ -187,3 +187,25 @@ test("a colour of 0 to 255 is refused, in a sprite's layers and ramps and in a m
   }
   sure(/materials\.oak\.tone: \[r, g, b\] from 0 to 1, not \[200,100,50\]: as 0 to 255 it is \[0\.784,0\.392,0\.196\]/.test(said), said);
 });
+
+test("a layer masked by its reference: the reference's lit area frame by frame, its colours never taken", () => {
+  // the reference: a small glow off to one side; ours: one broad glow over the whole frame, masked by it
+  const ref = buildSpriteSpec({ spec: "smak.sprite/1", name: "sprites/ref.spr", size: [32, 32], frames: 4, layers: [{ kind: "glow", radius: 0.35, at: [0.4, 0.3], colour: [0.2, 0.4, 1] }] });
+  const sheet = sheetOf(smak.maps.readSpr(ref.files[0].bytes), { cols: 8, cell: 128 });
+  const file = join(tmp, "ref-sheet.png");
+  writeFileSync(file, smak.png(sheet.width, sheet.height, sheet.rgba));
+  const spec = (mask) => ({ spec: "smak.sprite/1", name: "sprites/ours.spr", size: [32, 32], frames: 4, reference: file, layers: [{ kind: "glow", radius: 1.6, core: 0.9, colour: [1, 0.6, 0.2], ...(mask ? { mask: "reference" } : {}) }] });
+  // the outline's overlap: the faint edge's level, the first of the three the measure gives
+  const overlap = (r) => Number(/the share of pixels lit in both: ([\d.]+)/.exec(r.report.facts.find((f) => /its shape against its reference's/.test(f)))?.[1]);
+  const plain = buildSpriteSpec(spec(false));
+  const masked = buildSpriteSpec(spec(true));
+  sure(masked.report.facts.some((f) => /1 layer\(s\) masked by the reference's lit area, its 4 frames over this one's 4: its outline, not its colours/.test(f)), masked.report.facts.join(" | "));
+  sure(overlap(masked) >= 0.8 && overlap(masked) > overlap(plain) + 0.2, `masked ${overlap(masked)}, plain ${overlap(plain)}`);
+  // its colour is its own: orange, not the reference's blue
+  const c = smak.maps.readSpr(masked.files[0].bytes);
+  const lit = c.frames[0].pixels.reduce((best, v, i) => (v > c.frames[0].pixels[best] ? i : best), 0);
+  const [r, , b] = c.palette.subarray(c.frames[0].pixels[lit] * 3, c.frames[0].pixels[lit] * 3 + 3);
+  sure(r > b, `its brightest pixel ${r} red against ${b} blue`);
+  const refused = validateSpriteSpec({ ...spec(true), reference: undefined });
+  sure(refused.errors.some((e) => /mask: the sprite has no reference/.test(e)), refused.errors.join(" | "));
+});
