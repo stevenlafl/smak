@@ -120,14 +120,14 @@ export const flagsOf = (material) =>
 /** A colour `k` times as bright, kept to 0..1. */
 const shade = (c, k) => c.map((v) => Math.max(0, Math.min(1, v * k)));
 /**
- * How much a material's tone differs from its base's own, to carry the workshop's paints over to it. A tone
- * lighter than its base's keeps less of the pattern, as paint over grain does: scaled up as it is, wood's grain
- * on a white door clips into marble.
+ * How much a material's tone differs from its base's own, to carry the workshop's paints over to it. A pattern
+ * is about half again as bright as its mean at its brightest, so a tone near white keeps only as much of it as
+ * fits under white: scaled up as it is, wood's grain on a white door clips into marble.
  */
 const lum = (c) => 0.3 * c[0] + 0.59 * c[1] + 0.11 * c[2];
 const toned = (colour, base, tone) => {
   const own = MATERIALS[base].tone;
-  const keep = Math.min(1, (1 - lum(tone)) / Math.max(0.05, 1 - lum(own)));
+  const keep = Math.min(1, (1 - lum(tone)) / (0.5 * Math.max(0.05, lum(tone))));
   return colour.map((v, i) => Math.max(0, Math.min(1, tone[i] * (1 + keep * (v / (own[i] || 1) - 1)))));
 };
 

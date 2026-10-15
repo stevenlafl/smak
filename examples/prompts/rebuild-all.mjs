@@ -6,6 +6,7 @@
 //   node examples/prompts/rebuild-all.mjs <out folder> [--kit <folder of a smak checkout>] [--compilers <folder>]
 //          [--game <folder>] [--only <case word>]
 //   node examples/prompts/rebuild-all.mjs --compare <summary a.json> <summary b.json>
+//   node examples/prompts/rebuild-all.mjs --compare-pictures <out a> <out b> [--least 2]   textures whose colours moved
 //
 // A kit from another commit: `git worktree add <folder> <commit>`, then --kit <folder>.
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync, statSync } from "node:fs";
@@ -40,6 +41,55 @@ if (args[0] === "--compare") {
     }
   }
   console.log(`${changed} of ${names.length} specs changed`);
+  process.exit(0);
+}
+
+if (args[0] === "--compare-pictures") {
+  // what a change to the paint does, which the sentences never show: every texture of every .mdl and .wad in two
+  // rebuilt folders, set side by side by name, with how far its colours moved (0 to 255, a pixel's mean)
+  const kit = resolve(option("--kit") ?? join(HERE, "..", ".."));
+  const { readMdl, textureOf } = await import(pathToFileURL(join(kit, "src", "mdl.mjs")).href);
+  const { readWad } = await import(pathToFileURL(join(kit, "src", "maps", "wad.mjs")).href);
+  const [a, b] = [resolve(args[1]), resolve(args[2])];
+  const least = Number(option("--least") ?? 2);
+  const picturesIn = (folder) => {
+    const found = new Map();
+    const walk = (dir) => {
+      for (const n of readdirSync(dir)) {
+        const f = join(dir, n);
+        if (statSync(f).isDirectory()) walk(f);
+        else if (/\.(mdl|wad)$/i.test(n)) {
+          const bytes = readFileSync(f);
+          let list = [];
+          try {
+            list = /\.wad$/i.test(n) ? readWad(bytes).textures : readMdl(bytes).textures.map((_, i) => textureOf(bytes, i));
+          } catch {
+            continue;
+          }
+          for (const t of list) found.set(`${relative(folder, f)} ${t.name}`, t);
+        }
+      }
+    };
+    walk(folder);
+    return found;
+  };
+  const [x, y] = [picturesIn(a), picturesIn(b)];
+  const moved = [];
+  for (const [key, t] of y) {
+    const s = x.get(key);
+    if (!s) continue;
+    if (s.width !== t.width || s.height !== t.height) {
+      moved.push({ key, by: Infinity, note: `${s.width}x${s.height} -> ${t.width}x${t.height}` });
+      continue;
+    }
+    let sum = 0;
+    for (let i = 0; i < t.pixels.length; i++) for (let c = 0; c < 3; c++) sum += Math.abs(s.palette[s.pixels[i] * 3 + c] - t.palette[t.pixels[i] * 3 + c]);
+    const by = sum / (t.pixels.length * 3);
+    if (by >= least) moved.push({ key, by });
+  }
+  moved.sort((p, q) => q.by - p.by);
+  for (const m of moved) console.log(`${m.note ?? m.by.toFixed(1).padStart(6)}  ${m.key}`);
+  console.log(`${moved.length} of ${y.size} textures moved by ${least} or more (${[...y.keys()].filter((k) => !x.has(k)).length} only in the second)`);
   process.exit(0);
 }
 
