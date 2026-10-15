@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "fire",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.275,
+     "mean": 0.028
+    },
+    "envelope": {
+     "peakAt": 0.07,
+     "first": 0.9,
+     "last": 0.84
+    },
+    "dark": 0.42,
+    "wrap": 1.13,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.102,
+     "mean": 0.002
+    },
+    "envelope": {
+     "peakAt": 0.67,
+     "first": 0.88,
+     "last": 0.88
+    },
+    "dark": 0.76,
+    "wrap": 0.86,
+    "jitter": 1.65
+   }
+  },
+  "meanColourDeltaE": 7.4
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are flames: tongues of fire rising from a base on a dark background, with the same fire look in each frame. The effect is the same kind."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frames are the same 32 x 96 size, but the effect does not fill them as the original's does. The original's flames rise to the top of each frame. In the reproduction, frames 0 to 7 are short, dim flames sitting in the lower third with dark space above, and frames 8 to 15 reach only about halfway up. The border measure (0.102 against 0.275) and the dark measure (0.76 against 0.42) agree."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The hue is the same orange, and the mean colour difference of 7.4 is under 15. But the reproduction is visibly darker overall (dark 0.76 against 0.42), with much of each frame left as dark background. Its brightness envelope is also shifted: it peaks at 0.67 of the way through the sequence, the original at 0.07. The frames' average colour therefore differs in brightness from the original's, even though the colour of the flame pixels matches."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frame count is 16 against 15, within 25%. The kind of motion is a flickering rise in both. But the loop does not close as the original's does: the wrap measure is 0.86 against 1.13, and in the contact sheet frame 15 is tall and bright while frame 0 is short and dim. The envelope peaks in a different place (0.67 against 0.07), and the first and last values differ from the original's by only a little (first 0.88 against 0.90, last 0.88 against 0.84), so the one-shot and loop shape are not the original's."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The type (parallel oriented) and format (additive) both match the original's. The sprite is a 32 x 96 frame set of the same kind. The measures given do not include the file name, so the name is not confirmed here; that is the one part of this item not checked."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "debris-bustmetal1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.873,
+   "peak": -0.1,
+   "rms": -12.8,
+   "crest": 12.7,
+   "dc": -0.0076,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.105,
+   "attack": 0.025,
+   "peakAt": 0.075,
+   "t20": 0.439,
+   "t40": 0.629,
+   "centroid": 1968,
+   "rolloff": 3241,
+   "flatness": 0.569,
+   "bands": {
+    "<150": 0.2,
+    "150-600": 8.8,
+    "600-2k": 47,
+    "2k-5k": 41.3,
+    ">5k": 2.7
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.87,
+   "peak": -0.6,
+   "rms": -12.6,
+   "crest": 12,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0,
+   "peakAt": 0.005,
+   "t20": 0.489,
+   "t40": 0.858,
+   "centroid": 2083,
+   "rolloff": 3187,
+   "flatness": 0.202,
+   "bands": {
+    "<150": 0,
+    "150-600": 3.8,
+    "600-2k": 49.9,
+    "2k-5k": 45.6,
+    ">5k": 0.6
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "none: the original's own decay",
+   "t20Range": [
+    0.329,
+    0.549
+   ],
+   "t20": 0.489,
+   "inRange": true
+  },
+  "lengthOff": 0.003,
+  "centroidOff": 0.058,
+  "bandsOffMost": 5,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Cannot listen; judged from the picture and features. Both waveforms open with a dense, broadband burst that decays over about 0.87 s, and both spectrograms are broadband noise without a clear pitch. That is the same kind of event, a metal debris impact. The original's peak sits at 0.075 s against the reproduction's 0.005 s, a small envelope difference that does not change the event."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 0.870 s against 0.873 s, 0.3% off, well within 25%. T20 is 0.489 s, inside the measured range 0.329 to 0.549 s (inRange true). Attack is 0 against the original's 0.025 s, which is a small difference that the range check does not penalise."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 2083 against 1968 Hz, 5.8% off, within 20%. Band shares differ by at most 5.0 points (150-600 Hz: 8.8 vs 3.8; 600-2k: 47 vs 49.9; 2k-5k: 41.3 vs 45.6; >5k: 2.7 vs 0.6; <150: 0.2 vs 0). All are within the 10-point limit. The field bandsOffMost is 5, which I could not reconcile with these per-band figures, so I relied on the per-band numbers."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. Flatness is 0.202 against the original's 0.569, so the reproduction is clearly more tonal and the original clearly more noise-like. The reproduction's spectrogram shows persistent horizontal bright ridges (near the middle and lower third, through most of the decay) that the original's does not have, so the tone is there and wrong. Onsets are 0 in both, which matches. Pitch movement looks static in the reproduction, while the original shows none to match."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono, 8-bit, 11025 Hz, which the engine plays. Peak is -0.6 dBFS with no clipping. DC is 0 (the original's -0.0076 is not carried over). No loop cue is needed for a one-shot. The name matches (sameName true)."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

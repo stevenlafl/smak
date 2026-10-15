@@ -1,0 +1,15 @@
+{
+ "kit": "2de487c",
+ "from": "spec.json",
+ "ok": true,
+ "report": [
+  "OK: built, and every check passed",
+  "WARN  weapons/explode3.wav: 8 bits adds a hiss under its quiet tail, heard as static (and, on a long tail, as reverb); the game plays 16 bits as well and a copy is not held to the original's depth: leave bits out (16) unless the file must be small",
+  "fact  weapons/explode3.wav: 22050 Hz 8-bit mono, 1.33 s, 29 KB, peak -0.6 dBFS, RMS -9.2, crest 8.6 dB",
+  "fact  weapons/explode3.wav: attack 5 ms, T20 0.993 s, T40 1.287 s, centroid 555 Hz, flatness 0.043, onsets 0; power <150 33.9%, 150-600 38.1%, 600-2k 23%, 2k-5k 4.4%, >5k 0.6%",
+  "fact  weapons/explode3.wav: against the game's explosion sounds, 21 of 22; off: flatness 0.043 (0.05 to 0.15): too pure: more noise",
+  "fact  weapons/explode3.wav: against its picture (1.3 s): length 1.33 s (2% off), centroid 555 Hz to 605 (8% off), bands 2.8 points off at most (<150), T20 0.993 s (0.668 to 1.113), crest 8.6 dB to about 8.1 (+0.5; read off the outline, within 3 dB), onsets 0 to 3",
+  "fact  what cannot be checked here: how it sounds to a person, and in the game: its volume and pitch as the code plays it, the map's room (env_sound), the mix. Listen in the game.",
+  "written: work:sound/weapons/explode3.wav (they take the place of the game's own of those names when put in <mod>/sound)"
+ ]
+}

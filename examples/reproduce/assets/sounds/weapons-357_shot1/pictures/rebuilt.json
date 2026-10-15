@@ -1,0 +1,15 @@
+{
+ "kit": "2de487c",
+ "from": "spec.json",
+ "ok": true,
+ "report": [
+  "OK: built, and every check passed",
+  "WARN  weapons/357_shot1.wav: 8 bits adds a hiss under its quiet tail, heard as static (and, on a long tail, as reverb); the game plays 16 bits as well and a copy is not held to the original's depth: leave bits out (16) unless the file must be small",
+  "fact  weapons/357_shot1.wav: 22050 Hz 8-bit mono, 1.083 s, 23 KB, peak -0.6 dBFS, RMS -10.2, crest 9.6 dB",
+  "fact  weapons/357_shot1.wav: attack 5 ms, T20 0.783 s, T40 1.053 s, centroid 874 Hz, flatness 0.028, onsets 0; power <150 20.1%, 150-600 23.9%, 600-2k 48.6%, 2k-5k 7.1%, >5k 0.3%",
+  "fact  weapons/357_shot1.wav: against the game's gunshot sounds, 22 of 22: every feature in range",
+  "fact  weapons/357_shot1.wav: against its picture (1.06 s): length 1.083 s (2% off), centroid 874 Hz to 921 (5% off), bands 2.8 points off at most (600-2k), T20 0.783 s (0.458 to 1.013), crest 9.6 dB to about 10 (-0.4; read off the outline, within 3 dB), onsets 0 to 3",
+  "fact  what cannot be checked here: how it sounds to a person, and in the game: its volume and pitch as the code plays it, the map's room (env_sound), the mix. Listen in the game.",
+  "written: work:sound/weapons/357_shot1.wav (they take the place of the game's own of those names when put in <mod>/sound)"
+ ]
+}

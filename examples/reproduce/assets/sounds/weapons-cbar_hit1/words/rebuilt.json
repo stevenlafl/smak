@@ -1,0 +1,14 @@
+{
+ "kit": "2de487c",
+ "from": "spec.json",
+ "ok": true,
+ "report": [
+  "OK: built, and every check passed",
+  "WARN  weapons/cbar_hit1.wav: 8 bits adds a hiss under its quiet tail, heard as static (and, on a long tail, as reverb); the game plays 16 bits as well and a copy is not held to the original's depth: leave bits out (16) unless the file must be small",
+  "fact  weapons/cbar_hit1.wav: 11025 Hz 8-bit mono, 0.69 s, 7 KB, peak -0.6 dBFS, RMS -8.6, crest 8 dB",
+  "fact  weapons/cbar_hit1.wav: attack 20 ms, T20 0.663 s, T40 0.668 s, centroid 890 Hz, flatness 0.138, onsets 0; power <150 18.3%, 150-600 32.9%, 600-2k 34.8%, 2k-5k 14%, >5k 0%",
+  "fact  weapons/cbar_hit1.wav: against the game's metal hit sounds, 16 of 22; off: centroid 890 Hz (1074 to 1654): too dark: more 600 to 5000 Hz; flatness 0.138 (0.16 to 0.28): too pure: more noise; band <150 18.3% (0 to 14.9): over the range; band 150-600 32.9% (0 to 16.8): over the range; band 600-2k 34.8% (63.7 to 83.8): under the range",
+  "fact  what cannot be checked here: how it sounds to a person, and in the game: its volume and pitch as the code plays it, the map's room (env_sound), the mix. Listen in the game.",
+  "written: work:sound/weapons/cbar_hit1.wav (they take the place of the game's own of those names when put in <mod>/sound)"
+ ]
+}

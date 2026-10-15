@@ -1,0 +1,14 @@
+{
+ "kit": "2de487c",
+ "from": "spec.json",
+ "ok": true,
+ "report": [
+  "OK: built, and every check passed",
+  "WARN  weapons/sbarrel1.wav: 8 bits adds a hiss under its quiet tail, heard as static (and, on a long tail, as reverb); the game plays 16 bits as well and a copy is not held to the original's depth: leave bits out (16) unless the file must be small",
+  "fact  weapons/sbarrel1.wav: 22050 Hz 8-bit mono, 1.04 s, 22 KB, peak -0.6 dBFS, RMS -11.4, crest 10.8 dB",
+  "fact  weapons/sbarrel1.wav: attack 15 ms, T20 0.574 s, T40 0.863 s, centroid 915 Hz, flatness 0.188, onsets 0; power <150 40.8%, 150-600 27.8%, 600-2k 18%, 2k-5k 9.1%, >5k 4.2%",
+  "fact  weapons/sbarrel1.wav: against the game's gunshot sounds, 22 of 22: every feature in range",
+  "fact  what cannot be checked here: how it sounds to a person, and in the game: its volume and pitch as the code plays it, the map's room (env_sound), the mix. Listen in the game.",
+  "written: work:sound/weapons/sbarrel1.wav (they take the place of the game's own of those names when put in <mod>/sound)"
+ ]
+}

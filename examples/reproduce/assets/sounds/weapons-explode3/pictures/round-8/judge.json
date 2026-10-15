@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-explode3",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 1.301,
+   "peak": -0.4,
+   "rms": -6.2,
+   "crest": 5.7,
+   "dc": -0.0048,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.254,
+   "t20": 0.893,
+   "t40": 1.028,
+   "centroid": 616,
+   "rolloff": 947,
+   "flatness": 0.097,
+   "bands": {
+    "<150": 36.4,
+    "150-600": 37.6,
+    "600-2k": 19.5,
+    "2k-5k": 4.6,
+    ">5k": 1.9
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 1.33,
+   "peak": -0.6,
+   "rms": -9.2,
+   "crest": 8.6,
+   "dc": -0.0007,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.005,
+   "peakAt": 0.01,
+   "t20": 0.993,
+   "t40": 1.287,
+   "centroid": 555,
+   "rolloff": 883,
+   "flatness": 0.043,
+   "bands": {
+    "<150": 33.9,
+    "150-600": 38.1,
+    "600-2k": 23,
+    "2k-5k": 4.4,
+    ">5k": 0.6
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "explosion",
+   "t20Range": [
+    0.668,
+    1.113
+   ],
+   "t20": 0.993,
+   "inRange": true
+  },
+  "lengthOff": 0.022,
+  "centroidOff": 0.099,
+  "bandsOffMost": 3.5,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture only, since I cannot listen. Both waveforms open with a dense, loud burst of the same shape that decays into a long, thin tail over about 1.3 s, and both spectrograms have their energy low and bright at the bottom. That reads as the same event, an explosion, and the envelope class is explosion in both. The identification rests on the picture and the features, not on hearing it."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 1.33 s against 1.301 s, about 2% off, well within 25%. Attack is 0.005 s in both. T20 is 0.993 s against 0.893 s for the original, and 0.993 is inside the explosion class range of 0.668 to 1.113 (inRange true). The decay is also similar in the picture: the amplitude falls off over the same span."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 555 against 616, a difference of 9.9%, inside 20%. Band shares differ by at most 3.5 points (<150: 33.9 vs 36.4; 150-600: 38.1 vs 37.6; 600-2k: 23.0 vs 19.5; 2k-5k: 4.4 vs 4.6; >5k: 0.6 vs 1.9), all within 10 points. Rolloff is 883 against 947. The spectrograms agree in layout: bright low band fading upward."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only, since I cannot listen. The original has one onset and the reproduction has none, so the sharp hit that opens the original is less defined in the reproduction. Its waveform does show a dense opening burst, so the attack is close but not a match. Flatness is 0.097 against 0.043, so the reproduction is more tonal than the original, roughly half the flatness. Pitch movement looks similar in the spectrogram, with no clear drift in either."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file is mono, 22050 Hz, 8-bit, which the engine plays. Clipped is 0, DC is -0.0007 (negligible), peak is -0.6 dBFS, and the lead and tail are 0 and 0.01 s, so there is no stray silence. The name matches the original (sameName true). Explosions have no loop cue, so none is needed."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

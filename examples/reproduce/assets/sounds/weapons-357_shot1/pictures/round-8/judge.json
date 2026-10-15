@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-357_shot1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 1.064,
+   "peak": 0,
+   "rms": -8.5,
+   "crest": 8.5,
+   "dc": -0.0012,
+   "clipped": 265,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.748,
+   "t40": 1.003,
+   "centroid": 937,
+   "rolloff": 1658,
+   "flatness": 0.11,
+   "bands": {
+    "<150": 20.3,
+    "150-600": 27.5,
+    "600-2k": 43.9,
+    "2k-5k": 6.7,
+    ">5k": 1.6
+   },
+   "onsets": 3
+  },
+  "reproduction": {
+   "length": 1.083,
+   "peak": -0.6,
+   "rms": -10.2,
+   "crest": 9.6,
+   "dc": 0.0011,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.005,
+   "peakAt": 0.005,
+   "t20": 0.783,
+   "t40": 1.053,
+   "centroid": 874,
+   "rolloff": 1593,
+   "flatness": 0.028,
+   "bands": {
+    "<150": 20.1,
+    "150-600": 23.9,
+    "600-2k": 48.6,
+    "2k-5k": 7.1,
+    ">5k": 0.3
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "gunshot",
+   "t20Range": [
+    0.458,
+    1.013
+   ],
+   "t20": 0.783,
+   "inRange": true
+  },
+  "lengthOff": 0.018,
+  "centroidOff": 0.067,
+  "bandsOffMost": 4.7,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture and features only, since I cannot listen. Both waveforms open with a dense, loud burst that decays over about a second, and the reproduction's spectrogram shows the same broadband onset above a low-frequency body. That is the shape of a single gunshot, and the original's t20 (0.748 s) and the reproduction's (0.783 s) both fall in the gunshot class range."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 1.083 s against 1.064 s, 1.8% off, well within 25%. Attack is 0.005 s in both. t20 is 0.783 s, inside the gunshot class range of 0.458 to 1.013 s. The t40 values (1.003 and 1.053 s) are also close."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 874 Hz against 937 Hz, 6.7% off, within 20%. Band shares differ by at most 4.7 points: <150 Hz 20.1 vs 20.3, 150-600 Hz 23.9 vs 27.5, 600-2k Hz 48.6 vs 43.9, 2k-5k Hz 7.1 vs 6.7, >5k Hz 0.3 vs 1.6. All are within 10 points."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features, not by ear. The original has 3 onsets (sharp hits in the first 0.1 s, visible as a clipped, ragged burst in its waveform) and the reproduction has 0, so the reproduction's start is a smooth ramp. Flatness is 0.11 in the original and 0.028 in the reproduction, so the reproduction is much more tonal and less noisy than the original. The spectrogram shows the reproduction's bands as smooth where the original's are ragged. Clearly off, though not a must-have item."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The format is mono, 22050 Hz, 8 bits, which the engine accepts. Clipping is 0 (the original has 265, which is not a requirement). DC is 0.0011, which is negligible. Peak is -0.6 dBFS. It is a one-shot, so there is no loop cue to match. The name matches the original's (sameName true)."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

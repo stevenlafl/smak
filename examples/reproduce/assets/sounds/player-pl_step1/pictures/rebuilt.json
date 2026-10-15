@@ -1,0 +1,16 @@
+{
+ "kit": "2de487c",
+ "from": "spec.json",
+ "ok": true,
+ "report": [
+  "OK: built, and every check passed",
+  "WARN  player/pl_step1.wav: 8 bits adds a hiss under its quiet tail, heard as static (and, on a long tail, as reverb); the game plays 16 bits as well and a copy is not held to the original's depth: leave bits out (16) unless the file must be small",
+  "WARN  player/pl_step1.wav: further from its picture than a copy should be: T20 0.264 s outside 0.315 to 0.525. Bring it nearer (a filter, a layer's gain, the decay, another take) and build again",
+  "fact  player/pl_step1.wav: 11025 Hz 8-bit mono, 0.27 s, 3 KB, peak -0.6 dBFS, RMS -17.4, crest 16.8 dB",
+  "fact  player/pl_step1.wav: attack 0 ms, T20 0.264 s, T40 0.269 s, centroid 919 Hz, flatness 0.281, onsets 0; power <150 11.3%, 150-600 60.3%, 600-2k 10.7%, 2k-5k 16.1%, >5k 1.6%",
+  "fact  player/pl_step1.wav: against the game's step metal sounds, 13 of 22; off: length 0.27 s (0.43 to 0.73): too short; t20 0.264 s (0.32 to 0.53): dies too soon: a longer decay; centroid 919 Hz (260 to 460): too bright: less over 2000 Hz; flatness 0.281 (0.01 to 0.11): too noisy: more tone (modes); band <150 11.3% (24.8 to 44.8): under the range; band 150-600 60.3% (33.8 to 53.8): over the range; band 2k-5k 16.1% (0 to 11.8): over the range",
+  "fact  player/pl_step1.wav: against its picture (0.27 s): length 0.27 s (0% off), centroid 919 Hz to 902 (2% off), bands 1.8 points off at most (<150), T20 0.264 s (0.315 to 0.525: out), crest 16.8 dB to about 21.8 (-5; read off the outline, within 3 dB), onsets 0 to 1",
+  "fact  what cannot be checked here: how it sounds to a person, and in the game: its volume and pitch as the code plays it, the map's room (env_sound), the mix. Listen in the game.",
+  "written: work:sound/player/pl_step1.wav (they take the place of the game's own of those names when put in <mod>/sound)"
+ ]
+}

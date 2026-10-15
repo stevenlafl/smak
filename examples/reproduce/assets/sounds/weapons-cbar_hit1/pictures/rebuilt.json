@@ -1,0 +1,14 @@
+{
+ "kit": "2de487c",
+ "from": "spec.json",
+ "ok": true,
+ "report": [
+  "OK: built, and every check passed",
+  "fact  weapons/cbar_hit1.wav: 22050 Hz 16-bit mono, 0.709 s, 31 KB, peak -0.5 dBFS, RMS -10, crest 9.5 dB",
+  "fact  weapons/cbar_hit1.wav: attack 5 ms, T20 0.544 s, T40 0.683 s, centroid 1617 Hz, flatness 0.126, onsets 0; power <150 0.3%, 150-600 8.8%, 600-2k 66.7%, 2k-5k 22%, >5k 2.1%",
+  "fact  weapons/cbar_hit1.wav: against the game's metal hit sounds, 21 of 22; off: flatness 0.126 (0.16 to 0.28): too pure: more noise",
+  "fact  weapons/cbar_hit1.wav: against its picture (0.69 s): length 0.709 s (3% off), centroid 1617 Hz to 1467 (10% off), bands 3.2 points off at most (2k-5k), T20 0.544 s (0.24 to 0.7), crest 9.5 dB to about 9.8 (-0.3; read off the outline, within 3 dB), onsets 0 to 0",
+  "fact  what cannot be checked here: how it sounds to a person, and in the game: its volume and pitch as the code plays it, the map's room (env_sound), the mix. Listen in the game.",
+  "written: work:sound/weapons/cbar_hit1.wav (they take the place of the game's own of those names when put in <mod>/sound)"
+ ]
+}

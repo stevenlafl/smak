@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-explode3",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 1.301,
+   "peak": -0.4,
+   "rms": -6.2,
+   "crest": 5.7,
+   "dc": -0.0048,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.254,
+   "t20": 0.893,
+   "t40": 1.028,
+   "centroid": 616,
+   "rolloff": 947,
+   "flatness": 0.097,
+   "bands": {
+    "<150": 36.4,
+    "150-600": 37.6,
+    "600-2k": 19.5,
+    "2k-5k": 4.6,
+    ">5k": 1.9
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 1.3,
+   "peak": -0.6,
+   "rms": -6.6,
+   "crest": 6,
+   "dc": 0.005,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.01,
+   "peakAt": 0.205,
+   "t20": 1.058,
+   "t40": 1.093,
+   "centroid": 700,
+   "rolloff": 1227,
+   "flatness": 0.107,
+   "bands": {
+    "<150": 40.1,
+    "150-600": 36.4,
+    "600-2k": 12.7,
+    "2k-5k": 8.5,
+    ">5k": 2.4
+   },
+   "onsets": 1
+  },
+  "envelope": {
+   "class": "explosion",
+   "t20Range": [
+    0.668,
+    1.113
+   ],
+   "t20": 1.058,
+   "inRange": true
+  },
+  "lengthOff": 0.001,
+  "centroidOff": 0.136,
+  "bandsOffMost": 6.8,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Cannot listen; judged from the picture and features. Both waveforms are dense, broadband, low-frequency-heavy bursts that start loud and decay, and the spectrograms show the same kind of blast: heavy energy in the bottom bands, fading toward the top. The original is front-loaded with its peak at 0.254 s, while the reproduction stays loud for longer, but both read as an explosion, which is the class the envelope measure places them in (t20 1.058 s, within the explosion range of 0.668 to 1.113 s)."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 1.30 s against the original's 1.301 s, well within 25%. Attack 0.01 s against 0.005 s, both fast. T20 (decay to 20 dB below peak) is 1.058 s, inside the explosion class range, and the measure reports inRange true. The t40 time (1.093 s against 1.028 s) is close and does not change the verdict."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid 700 Hz against 616 Hz, a 13.6% difference, inside the 20% limit (centroidOff 0.136). Band shares are all within 10 points: under 150 Hz 40.1 against 36.4 (3.7 points), 150 to 600 Hz 36.4 against 37.6 (1.2), 600 Hz to 2 kHz 12.7 against 19.5 (6.8), 2 to 5 kHz 8.5 against 4.6 (3.9), above 5 kHz 2.4 against 1.9 (0.5). The worst is 6.8 points (bandsOffMost), so it passes."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. Onsets match (one each). Flatness is close, 0.107 against 0.097, so the noise-versus-tone balance is about the same. But the picture shows a different shape: the original's energy falls off smoothly after its early peak, while the reproduction stays dense and loud through about 1.0 s before its tail, and its high-frequency content holds longer. Pitch movement cannot be confirmed from a waveform and spectrogram. This item is not a must, and the character differs visibly, so 1 rather than 2."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The format is mono PCM at 22050 Hz, 8 bits, which the engine plays. No clipping (0 samples). DC is 0.005, below one 8-bit step (about 0.008) and about the same as the original's own -0.0048, so it is at quantisation level rather than a real offset. No leading or trailing silence (lead and tail both 0). Same name as the original (sameName true), engineFaults empty. No loop cue is needed since the original has none."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

@@ -1,0 +1,15 @@
+{
+ "kit": "2de487c",
+ "from": "spec.json",
+ "ok": true,
+ "report": [
+  "OK: built, and every check passed",
+  "WARN  doors/doormove1.wav: 8 bits adds a hiss under its quiet tail, heard as static (and, on a long tail, as reverb); the game plays 16 bits as well and a copy is not held to the original's depth: leave bits out (16) unless the file must be small",
+  "fact  doors/doormove1.wav: layers[0] (motor): sample work:gen/doormove_s0.wav: 48000 Hz from 0 s, 5 s at 11025; made by woosh-dflow seed 0 from \"a heavy metal sliding door moving along its track: a low motor hum with rolling wheel rumble and a few rattling clanks, then a final heavy metal stop with a ring, quiet room, one take\", licence CC-BY-NC 4.0 (weights; code MIT) (non-commercial)",
+  "fact  doors/doormove1.wav: 11025 Hz 8-bit mono, 5.04 s, 54 KB, peak -0.6 dBFS, RMS -15.3, crest 14.8 dB",
+  "fact  doors/doormove1.wav: attack 4180 ms, T20 0.434 s, T40 0.848 s, centroid 585 Hz, flatness 0.133, onsets 2; power <150 33.7%, 150-600 37.3%, 600-2k 22.2%, 2k-5k 6.8%, >5k 0%",
+  "fact  doors/doormove1.wav: against its picture (5.04 s): length 5.04 s (0% off), centroid 585 Hz to 589 (1% off), bands 5.4 points off at most (600-2k), T20 0.434 s (0.348 to 0.58), crest 14.8 dB to about 12.7 (+2.1; read off the outline, within 3 dB), onsets 2 to 7",
+  "fact  what cannot be checked here: how it sounds to a person, and in the game: its volume and pitch as the code plays it, the map's room (env_sound), the mix. Listen in the game.",
+  "written: work:sound/doors/doormove1.wav (they take the place of the game's own of those names when put in <mod>/sound)"
+ ]
+}

@@ -1,0 +1,16 @@
+{
+ "kit": "2de487c",
+ "from": "spec.json",
+ "ok": true,
+ "report": [
+  "OK: built, and every check passed",
+  "WARN  sprites/fire.spr: its shape fills its frames otherwise than its reference's (overlap 0.75; the bar is 0.8). frame 0: the reference lit at columns 0-31, rows 18-94 (its core at columns 9-27, rows 46-84), this one at columns 0-31, rows 19-93 (core columns 6-25, rows 48-77). Bring it nearer and build again",
+  "note  sprites/fire.spr: placed as an env_sprite, render mode 5 (Additive), framerate 10",
+  "fact  sprites/fire.spr: 2 layer(s) masked by the reference's lit area, its 15 frames over this one's 15: its outline, not its colours",
+  "fact  sprites/fire.spr: 32x96, 15 frames, additive, 254 colours, quantising lost 0.0037; border 0.018 (brightest 0.189), dark 0.44, jitter 1.89, envelope peaks at 1 (first 0.97, last 1)",
+  "fact  sprites/fire.spr against Half-Life's fire loop: 3 of 4 in range; jitter 1.89 (1.33 to 1.79): flickers: more coherence from frame to frame",
+  "fact  sprites/fire.spr against its reference (pictures/frames.png, measured, nothing copied; the reference's, then this one's): mean colour delta E 7.6, dark 0.38 and 0.39, border brightest 0.275 and 0.189 (mean 0.028 and 0.018), frames 15 and 15",
+  "fact  sprites/fire.spr: its shape against its reference's, frame by frame (at its faint edge, its body and its core, the share of pixels lit in both: 0.95, 0.75, 0.56): mean 0.75; 0.8 0.82 0.8 0.78 0.78 0.74 0.73 0.68 0.74 0.75 0.72 0.7 0.69 0.77 0.78",
+  "written: work:sprites/fire.spr (with -sheet.png and -animated.png beside it)"
+ ]
+}

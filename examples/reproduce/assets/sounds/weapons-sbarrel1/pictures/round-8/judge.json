@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-sbarrel1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 1.039,
+   "peak": -0.4,
+   "rms": -8.7,
+   "crest": 8.3,
+   "dc": -0.0044,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.614,
+   "t40": 0.958,
+   "centroid": 604,
+   "rolloff": 991,
+   "flatness": 0.081,
+   "bands": {
+    "<150": 31.7,
+    "150-600": 37.9,
+    "600-2k": 24.4,
+    "2k-5k": 4.8,
+    ">5k": 1.3
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 1.04,
+   "peak": -0.6,
+   "rms": -11.1,
+   "crest": 10.5,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.05,
+   "t20": 0.793,
+   "t40": 0.988,
+   "centroid": 538,
+   "rolloff": 1055,
+   "flatness": 0.048,
+   "bands": {
+    "<150": 37.9,
+    "150-600": 32.8,
+    "600-2k": 24.8,
+    "2k-5k": 3.8,
+    ">5k": 0.6
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "gunshot",
+   "t20Range": [
+    0.458,
+    1.013
+   ],
+   "t20": 0.793,
+   "inRange": true
+  },
+  "lengthOff": 0.001,
+  "centroidOff": 0.109,
+  "bandsOffMost": 6.2,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the waveform and spectrogram. Both are a broadband burst that decays over about 0.5 s into a long tail, and the envelope class is gunshot, so the event is plausibly a gun blast. But the original's front is a dense cluster of sharp hits in the first 0.3 s, with a dark low-frequency thump at the very start. The reproduction's front is a smooth, near-continuous noisy block with no discrete crack. That is a clear difference in the attack, so the same event cannot be confirmed from the pictures."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 1.04 s against 1.039 s, within 25%. T20 (time to fall 20 dB) is 0.793 s, inside the gunshot class range of 0.458 to 1.013 s (inRange true). Attack is 0 against 0.005 s, both within a few milliseconds. Peak timing differs (0.05 against 0.015 s) but that is not a measured item."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 538 against 604 Hz, a 10.9% difference, within 20%. Band shares differ by at most 6.2 points (bandsOffMost 6.2), within 10. The largest gap is the under-150 band (37.9 against 31.7). The rest are within about 5 points."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the pictures and features. The original has an onset (onsets 1): its opening hits and the low thump are visible as discrete events. The reproduction has none (onsets 0) and its attack is a smooth block, so a hit is missing. Flatness is 0.081 against 0.048, both low, so the reproduction is somewhat more tonal, though neither is clearly tonal. Pitch movement cannot be read from these pictures."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono, 22050 Hz, 8-bit, the same name (sameName true), no engine faults. Peak is -0.6 dBFS, no clipping, DC 0, no lead or tail silence. Both files are the same format in the picture and the features, and the reproduction has no loop cue to match."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

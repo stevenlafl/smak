@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "zerogxplode",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.818,
+     "mean": 0.005
+    },
+    "envelope": {
+     "peakAt": 0.36,
+     "first": 0.08,
+     "last": 0.03
+    },
+    "dark": 0.73,
+    "wrap": 0.81,
+    "jitter": 1.25
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.195,
+     "mean": 0.001
+    },
+    "envelope": {
+     "peakAt": 0.5,
+     "first": 0,
+     "last": 0
+    },
+    "dark": 0.69,
+    "wrap": 0.08,
+    "jitter": 1.29
+   }
+  },
+  "meanColourDeltaE": 3.6
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Reads as a solid, rocky, golden clump, not an explosion. The original is a fire burst: a white-hot core, flame edges, and flying sparks around it. The reproduction has no flame texture and no sparks, so it is the wrong kind of effect, though a glow-like blob is present."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 64x64 frames. The original's burst fills more of the frame in frames 2 to 5 and reaches the edges with sparks (border max 0.818). The reproduction stays a smaller, compact mass well inside the frame (border max 0.195), so it fills the frames less than the original does."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured mean colour difference is 3.6, which is within 15, but the look is off. The original runs white-hot, then bright yellow, then orange and dark red at the edges. The reproduction goes pale cream, then sandy tan, then dull olive-brown, with no orange or red glow in the later frames."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count matches (15). The original starts with a small spark in frame 0 and peaks near 0.36 of its envelope, then fades slowly with a dim tail. The reproduction is blank in frame 0 and peaks later, near 0.5, then fades to nothing by frame 13. The loop measure differs sharply (wrap 0.81 against 0.08), so the loop does not close where the original's does."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The type (parallel) and format (additive) match the original, and both are 15 frames at 64x64. The file name and the read-back were not among the material I was given, so this rests on the measurements and the harness."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

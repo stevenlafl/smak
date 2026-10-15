@@ -1,0 +1,16 @@
+{
+ "kit": "2de487c",
+ "from": "spec.json",
+ "ok": true,
+ "report": [
+  "OK: built, and every check passed",
+  "WARN  player/pl_metal1.wav: 8 bits adds a hiss under its quiet tail, heard as static (and, on a long tail, as reverb); the game plays 16 bits as well and a copy is not held to the original's depth: leave bits out (16) unless the file must be small",
+  "fact  player/pl_metal1.wav: layers[0] (step): sample work:gen/pl_metal1_s0.wav: 48000 Hz from 0.009 s, 0.58 s at 11025; made by woosh-dflow seed 0 from \"a single footstep on a metal floor, a boot stepping onto a steel plate, one sharp metallic clank with a short ring, dry, close, no reverb\", licence CC-BY-NC 4.0 (weights; code MIT) (non-commercial)",
+  "fact  player/pl_metal1.wav: 11025 Hz 8-bit mono, 0.58 s, 6 KB, peak -0.6 dBFS, RMS -14.6, crest 14 dB",
+  "fact  player/pl_metal1.wav: attack 20 ms, T20 0.394 s, T40 0.559 s, centroid 354 Hz, flatness 0.008, onsets 0; power <150 30.9%, 150-600 49.3%, 600-2k 19.6%, 2k-5k 0.1%, >5k 0%",
+  "fact  player/pl_metal1.wav: against the game's step metal sounds, 22 of 22: every feature in range",
+  "fact  player/pl_metal1.wav: against its picture (0.58 s): length 0.58 s (0% off), centroid 354 Hz to 361 (2% off), bands 2.6 points off at most (150-600), T20 0.394 s (0.315 to 0.525), crest 14 dB to about 16.3 (-2.3; read off the outline, within 3 dB), onsets 0 to 0",
+  "fact  what cannot be checked here: how it sounds to a person, and in the game: its volume and pitch as the code plays it, the map's room (env_sound), the mix. Listen in the game.",
+  "written: work:sound/player/pl_metal1.wav (they take the place of the game's own of those names when put in <mod>/sound)"
+ ]
+}

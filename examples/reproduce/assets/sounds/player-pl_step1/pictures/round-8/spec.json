@@ -1,0 +1,245 @@
+{
+  "spec": "smak.sound/1",
+  "name": "player/pl_step1.wav",
+  "class": "step metal",
+  "rate": 11025,
+  "bits": 8,
+  "length": 0.27,
+  "seed": 1,
+  "picture": {
+    "file": "pictures/sound.png",
+    "length": 0.27,
+    "rate": 11025
+  },
+  "layers": [
+    {
+      "id": "spike",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.0005,
+            0
+          ],
+          [
+            0.005,
+            -14
+          ],
+          [
+            0.02,
+            -30
+          ]
+        ]
+      },
+      "gain": 11.5
+    },
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 120,
+      "wave": "sine",
+      "sweep": {
+        "to": 70,
+        "time": 0.06
+      },
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.002,
+            0
+          ],
+          [
+            0.03,
+            -6
+          ],
+          [
+            0.1,
+            -16
+          ],
+          [
+            0.27,
+            -26
+          ]
+        ]
+      },
+      "gain": -9
+    },
+    {
+      "id": "body",
+      "kind": "tone",
+      "f": 320,
+      "wave": "sine",
+      "sweep": {
+        "to": 200,
+        "time": 0.05
+      },
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.002,
+            0
+          ],
+          [
+            0.04,
+            -10
+          ],
+          [
+            0.12,
+            -14
+          ],
+          [
+            0.27,
+            -16
+          ]
+        ]
+      },
+      "gain": -4
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 420,
+      "ratios": "bar",
+      "decay": 0.35,
+      "damping": 1.2,
+      "gain": -8
+    },
+    {
+      "id": "mid",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 500,
+          "q": 1.2
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.003,
+            0
+          ],
+          [
+            0.05,
+            -8
+          ],
+          [
+            0.15,
+            -12
+          ],
+          [
+            0.27,
+            -14
+          ]
+        ]
+      },
+      "gain": -2
+    },
+    {
+      "id": "hi",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1800,
+          "q": 1
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.002,
+            0
+          ],
+          [
+            0.02,
+            -8
+          ],
+          [
+            0.1,
+            -14
+          ],
+          [
+            0.27,
+            -20
+          ]
+        ]
+      },
+      "gain": 0
+    },
+    {
+      "id": "sizzle",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 3000
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.001,
+            0
+          ],
+          [
+            0.015,
+            -10
+          ],
+          [
+            0.08,
+            -24
+          ],
+          [
+            0.27,
+            -40
+          ]
+        ]
+      },
+      "gain": -24
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "limit": {
+      "crest": 21,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

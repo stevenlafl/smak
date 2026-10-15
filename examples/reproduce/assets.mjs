@@ -3,7 +3,9 @@
 // or from words, by a fresh agent with only the MCP server and no game folder; then judged by another fresh
 // agent from the harness's pictures and measurements. Decoys (a plain square, a hiss, flat colours) must fail.
 //
-//   node examples/reproduce/assets.mjs inputs|describe|reproduce|judge [sprites|sounds|textures] [subject ...] [--again]
+//   node examples/reproduce/assets.mjs inputs|describe|reproduce|rebuild|judge [sprites|sounds|textures] [subject ...] [--again]
+//        rebuild: each leg built again from its maker's spec (and the takes it kept), on the kit as it is now, with
+//                 no agent: what a change to the kit does to a result, and the proof a result needs no Claude
 //        [--generators <folder>]   the sound makers' server offers the tool generate (generators/README.md;
 //                                  SMAK_GENERATORS unless told): two makers at a time, each loads its model
 //        [--accept-licences]       a test condition: the sound makers are told the person accepts the generators'
@@ -17,6 +19,8 @@ import { tmpdir } from "node:os";
 import { execFileSync } from "node:child_process";
 import { HERE, KIT, GAME, savePng, besides } from "./lib.mjs";
 import { runAgent, runJudge, failedByMeasure } from "./agents.mjs";
+import { toolsFor } from "../../mcp/tools.mjs";
+import { openFolders } from "../../mcp/folders.mjs";
 import * as smak from "../../src/index.mjs";
 import { tile } from "../../src/render.mjs";
 import { sheetOf } from "../../src/sprite/draw.mjs";
@@ -224,6 +228,59 @@ async function reproduce(kind, subject, leg) {
   if (basename(made).startsWith("smak-repro-") && dirname(made) === tmpdir()) rmSync(made, { recursive: true, force: true });
   writeFileSync(join(out, "run.json"), `${JSON.stringify({ kit, model: r.model, generators: generators ? "generate" : null, licencesAccepted: kind === "sounds" && ACCEPT ? true : undefined, seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, built: found?.name ?? null }, null, 1)}\n`);
   return `${kind}/${subject.id}:${leg}: ${r.seconds} s, built ${found?.name ?? "nothing"}`;
+}
+
+/**
+ * A leg built again from its maker's spec, with no agent: the work folder remade as the maker had it (the leg's
+ * pictures under pictures/, the takes it kept under gen/, the spec), built by the MCP tool build on the kit as it
+ * is now. The last round's build and judgement are kept under round-<n>/ first; spec.json, answer.md and
+ * run.json stay (they are still the maker's), and rebuilt.json says which kit built it again.
+ */
+async function rebuild(kind, subject, leg) {
+  const base = folderOf(kind, subject.id);
+  const out = join(base, leg);
+  if (!existsSync(join(out, "spec.json"))) return `${kind}/${subject.id}:${leg}: no spec.json to build again`;
+  const work = mkdtempSync(join(tmpdir(), "smak-rebuild-"));
+  try {
+    if (leg === "pictures") {
+      mkdirSync(join(work, "pictures"));
+      for (const f of readdirSync(join(base, "input"))) copyFileSync(join(base, "input", f), join(work, "pictures", f));
+    }
+    const takes = join(out, "takes");
+    if (existsSync(takes))
+      for (const f of readdirSync(takes, { recursive: true }).map(String)) {
+        if (statSync(join(takes, f)).isDirectory()) continue;
+        mkdirSync(dirname(join(work, f)), { recursive: true });
+        copyFileSync(join(takes, f), join(work, f));
+      }
+    copyFileSync(join(out, "spec.json"), join(work, "spec.json"));
+    let models;
+    if (kind === "textures") {
+      models = mkdtempSync(join(tmpdir(), "smak-rebuild-map-"));
+      copyFileSync(join(GAME, subject.file), join(models, basename(subject.file)));
+    }
+    const folders = { ...openFolders({ work, models }), wads: [], fgd: [], hide: [], refuse: [] };
+    const build = toolsFor(folders, { allowRun: false }).find((tool) => tool.name === "build");
+    const said = (await build.call({ spec: "work:spec.json" })).filter((p) => p.type === "text").map((p) => p.text).join("\n");
+    const ext = kind === "sprites" ? ".spr" : kind === "sounds" ? ".wav" : ".wad";
+    const want = kind === "textures" ? "frenzy_new.wad" : basename(subject.file);
+    const files = readdirSync(work, { recursive: true }).map(String).filter((f) => f.endsWith(ext) && !f.startsWith("gen/")).map((f) => join(work, f));
+    const found = files.find((f) => basename(f) === want) ?? files.sort((a, b) => statSync(b).mtimeMs - statSync(a).mtimeMs)[0];
+    if (!found) return `${kind}/${subject.id}:${leg}: built nothing: ${said.split("\n").slice(0, 3).join(" | ")}`;
+    const n = readdirSync(out).filter((f) => /^round-\d+$/.test(f)).length + 1;
+    const keep = join(out, `round-${n}`);
+    mkdirSync(keep);
+    for (const f of ["judge.json", "built", "rebuilt.json"]) if (existsSync(join(out, f))) renameSync(join(out, f), join(keep, f));
+    for (const f of ["spec.json", "answer.md", "run.json"]) if (existsSync(join(out, f))) copyFileSync(join(out, f), join(keep, f));
+    mkdirSync(join(out, "built"), { recursive: true });
+    copyFileSync(found, join(out, "built", want));
+    const kit = execFileSync("git", ["-C", HERE, "rev-parse", "--short", "HEAD"], { encoding: "utf8" }).trim();
+    writeFileSync(join(out, "rebuilt.json"), `${JSON.stringify({ kit, from: "spec.json", ok: /^OK/.test(said), report: said.split("\n").slice(0, 12) }, null, 1)}\n`);
+    return `${kind}/${subject.id}:${leg}: rebuilt on ${kit}${/^OK/.test(said) ? "" : " (NOT OK)"}`;
+  } finally {
+    // only the folders this call made, directly in the system's temporary folder
+    for (const made of [work]) if (basename(made).startsWith("smak-rebuild-") && dirname(made) === tmpdir()) rmSync(made, { recursive: true, force: true });
+  }
 }
 
 // ── measuring ─────────────────────────────────────────────────────────────
@@ -447,6 +504,7 @@ if (!direct);
 else if (step === "inputs") for (const kind of kinds) for (const s of chosen(kind)) console.log(`${kind}/${s.id}: ${inputs(kind, s)}`);
 else if (step === "describe") await pool(kinds.flatMap((kind) => chosen(kind).filter((s) => again || !existsSync(join(folderOf(kind, s.id), "words.md"))).map((s) => () => describe(kind, s))), 6);
 else if (step === "reproduce") await pool(kinds.flatMap((kind) => chosen(kind).flatMap((s) => LEGS.map((leg) => () => reproduce(kind, s, leg)))), GENERATORS && kinds.includes("sounds") ? 2 : 5);
+else if (step === "rebuild") await pool(kinds.flatMap((kind) => chosen(kind).flatMap((s) => LEGS.map((leg) => () => rebuild(kind, s, leg)))), 4);
 else if (step === "judge") {
   const jobs = [];
   for (const kind of kinds)
@@ -458,4 +516,4 @@ else if (step === "judge") {
       jobs.push(() => judgeOne(kind, s, "decoy", decoyOf(kind, s), { decoy: "plain" }).then((r) => (writeFileSync(join(folderOf(kind, s.id), "judge", "decoy.json"), `${JSON.stringify(r, null, 1)}\n`), `${kind}/${s.id} decoy: ${r.error ?? `${r.total} of ${r.of}, ${r.passes ? "PASSES (the judge is lenient)" : "fails, as it must"}`}`)));
     }
   await pool(jobs, 4);
-} else console.log("node examples/reproduce/assets.mjs inputs|describe|reproduce|judge [sprites|sounds|textures] [subject ...] [--again]");
+} else console.log("node examples/reproduce/assets.mjs inputs|describe|reproduce|rebuild|judge [sprites|sounds|textures] [subject ...] [--again]");

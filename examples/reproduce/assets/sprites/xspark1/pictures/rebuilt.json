@@ -1,0 +1,15 @@
+{
+ "kit": "2de487c",
+ "from": "spec.json",
+ "ok": true,
+ "report": [
+  "OK: built, and every check passed",
+  "WARN  sprites/xspark1.spr: its shape fills its frames otherwise than its reference's (overlap 0.68; the bar is 0.8). frame 0: the reference lit at columns 3-30, rows 2-31 (its core at columns 7-24, rows 8-25), this one at columns 1-29, rows 1-29 (core columns 7-27, rows 8-25). Bring it nearer and build again",
+  "note  sprites/xspark1.spr: placed as an env_sprite, render mode 5 (Additive)",
+  "fact  sprites/xspark1.spr: 32x32, 11 frames (a loop of 10, its first again at the end), additive, 250 colours, quantising lost 0.0026; border 0.006 (brightest 0.233), dark 0.45, wrap 0.93, jitter 1.79, envelope peaks at 0.8 (first 0.89, last 0.89)",
+  "fact  sprites/xspark1.spr against Half-Life's glow: 0 of 1 in range; border 0.006 (0 to 0.005): light at the edge: fade more (finish.edge) or shrink the effect",
+  "fact  sprites/xspark1.spr against its reference (pictures/frames.png, measured, nothing copied; the reference's, then this one's): mean colour delta E 5.6, dark 0.46 and 0.45, border brightest 0.145 and 0.233 (mean 0.004 and 0.006), frames 11 and 11",
+  "fact  sprites/xspark1.spr: its shape against its reference's, frame by frame (at its faint edge, its body and its core, the share of pixels lit in both: 0.71, 0.69, 0.64): mean 0.68; 0.67 0.69 0.65 0.72 0.69 0.63 0.71 0.69 0.67 0.72 0.66",
+  "written: work:sprites/xspark1.spr (with -sheet.png and -animated.png beside it)"
+ ]
+}

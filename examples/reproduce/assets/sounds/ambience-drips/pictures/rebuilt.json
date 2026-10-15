@@ -1,0 +1,15 @@
+{
+ "kit": "2de487c",
+ "from": "spec.json",
+ "ok": true,
+ "report": [
+  "OK: built, and every check passed",
+  "WARN  ambience/drips.wav: 8 bits adds a hiss under its quiet tail, heard as static (and, on a long tail, as reverb); the game plays 16 bits as well and a copy is not held to the original's depth: leave bits out (16) unless the file must be small",
+  "fact  ambience/drips.wav: 11025 Hz 8-bit mono, looped from its start, 7.29 s, 79 KB, peak -0.6 dBFS, RMS -25, crest 24.5 dB",
+  "fact  ambience/drips.wav: attack 1362 ms, T20 4.689 s, T40 5.498 s, centroid 881 Hz, flatness 0.093, onsets 8; power <150 0.4%, 150-600 18.5%, 600-2k 78.8%, 2k-5k 2.3%, >5k 0.1%",
+  "fact  ambience/drips.wav: against the game's loop drips sounds, 20 of 20: every feature in range",
+  "fact  ambience/drips.wav: against its picture (7.31 s): length 7.29 s (0% off), centroid 881 Hz to 795 (11% off), bands 4.8 points off at most (600-2k), T20 4.689 s, crest 24.5 dB to about 24.9 (-0.4; read off the outline, within 3 dB), onsets 8 to 8",
+  "fact  what cannot be checked here: how it sounds to a person, and in the game: its volume and pitch as the code plays it, the map's room (env_sound), the mix. Listen in the game.",
+  "written: work:sound/ambience/drips.wav (they take the place of the game's own of those names when put in <mod>/sound)"
+ ]
+}

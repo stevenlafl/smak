@@ -1,0 +1,14 @@
+{
+ "kit": "2de487c",
+ "from": "spec.json",
+ "ok": true,
+ "report": [
+  "OK: built, and every check passed",
+  "WARN  items/smallmedkit1.wav: 8 bits adds a hiss under its quiet tail, heard as static (and, on a long tail, as reverb); the game plays 16 bits as well and a copy is not held to the original's depth: leave bits out (16) unless the file must be small",
+  "fact  items/smallmedkit1.wav: 22050 Hz 8-bit mono, 0.76 s, 16 KB, peak -0.6 dBFS, RMS -12.6, crest 12 dB",
+  "fact  items/smallmedkit1.wav: attack 0 ms, T20 0.668 s, T40 0.748 s, centroid 2131 Hz, flatness 0.225, onsets 1; power <150 2.5%, 150-600 15.2%, 600-2k 60.1%, 2k-5k 3.6%, >5k 18.7%",
+  "fact  items/smallmedkit1.wav: against its picture (0.76 s): length 0.76 s (0% off), centroid 2131 Hz to 1936 (10% off), bands 4.3 points off at most (600-2k), T20 0.668 s (0.41 to 0.683), crest 12 dB to about 11.5 (+0.5; read off the outline, within 3 dB), onsets 1 to 1",
+  "fact  what cannot be checked here: how it sounds to a person, and in the game: its volume and pitch as the code plays it, the map's room (env_sound), the mix. Listen in the game.",
+  "written: work:sound/items/smallmedkit1.wav (they take the place of the game's own of those names when put in <mod>/sound)"
+ ]
+}

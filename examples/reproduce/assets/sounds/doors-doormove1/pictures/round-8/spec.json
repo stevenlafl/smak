@@ -1,0 +1,143 @@
+{
+  "spec": "smak.sound/1",
+  "name": "doors/doormove1.wav",
+  "rate": 11025,
+  "bits": 8,
+  "length": 5.04,
+  "seed": 3,
+  "picture": {
+    "file": "pictures/sound.png",
+    "length": 5.04,
+    "rate": 11025
+  },
+  "layers": [
+    {
+      "id": "motor",
+      "kind": "sample",
+      "file": "work:gen/doormove_s0.wav",
+      "from": "onset",
+      "length": 5.04,
+      "env": {
+        "points": [
+          [
+            0,
+            -16
+          ],
+          [
+            1.5,
+            -16
+          ],
+          [
+            3.5,
+            -14
+          ],
+          [
+            4,
+            -9
+          ],
+          [
+            4.2,
+            -1
+          ],
+          [
+            4.3,
+            -4
+          ],
+          [
+            4.4,
+            -10
+          ],
+          [
+            4.6,
+            -20
+          ],
+          [
+            4.9,
+            -34
+          ],
+          [
+            5.04,
+            -40
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 100
+        },
+        {
+          "type": "peak",
+          "f": 350,
+          "q": 0.8,
+          "gain": 4
+        },
+        {
+          "type": "lowpass",
+          "f": 2500
+        }
+      ]
+    },
+    {
+      "id": "grit",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 900,
+          "q": 0.6
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -24
+          ],
+          [
+            1.5,
+            -22
+          ],
+          [
+            3.5,
+            -18
+          ],
+          [
+            4,
+            -10
+          ],
+          [
+            4.2,
+            -3
+          ],
+          [
+            4.3,
+            -6
+          ],
+          [
+            4.4,
+            -12
+          ],
+          [
+            4.6,
+            -22
+          ],
+          [
+            4.9,
+            -34
+          ],
+          [
+            5.04,
+            -40
+          ]
+        ]
+      },
+      "gain": -18
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "peak": -0.5
+  }
+}

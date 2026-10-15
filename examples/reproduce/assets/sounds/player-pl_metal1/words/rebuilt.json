@@ -1,0 +1,14 @@
+{
+ "kit": "2de487c",
+ "from": "spec.json",
+ "ok": true,
+ "report": [
+  "OK: built, and every check passed",
+  "WARN  player/pl_metal1.wav: 8 bits adds a hiss under its quiet tail, heard as static (and, on a long tail, as reverb); the game plays 16 bits as well and a copy is not held to the original's depth: leave bits out (16) unless the file must be small",
+  "fact  player/pl_metal1.wav: 11025 Hz 8-bit mono, 0.58 s, 6 KB, peak -0.6 dBFS, RMS -13.4, crest 12.9 dB",
+  "fact  player/pl_metal1.wav: attack 180 ms, T20 0.344 s, T40 0.399 s, centroid 971 Hz, flatness 0.405, onsets 0; power <150 21.2%, 150-600 34%, 600-2k 29.7%, 2k-5k 13.5%, >5k 1.6%",
+  "fact  player/pl_metal1.wav: against the game's step metal sounds, 15 of 22; off: centroid 971 Hz (260 to 460): too bright: less over 2000 Hz; flatness 0.405 (0.01 to 0.11): too noisy: more tone (modes); band <150 21.2% (24.8 to 44.8): under the range; band 600-2k 29.7% (9.6 to 29.6): over the range; band 2k-5k 13.5% (0 to 11.8): over the range",
+  "fact  what cannot be checked here: how it sounds to a person, and in the game: its volume and pitch as the code plays it, the map's room (env_sound), the mix. Listen in the game.",
+  "written: work:sound/player/pl_metal1.wav (they take the place of the game's own of those names when put in <mod>/sound)"
+ ]
+}
