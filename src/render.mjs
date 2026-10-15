@@ -230,7 +230,9 @@ function cutNear(polygon, near) {
  *               then say nothing
  *   within      orbit: { mid, far } to frame the picture by instead of this pose's own size (see framing):
  *               several pictures to one scale
- *               "side", "front" or "top": an orbit view from there (NAMED_VIEWS), whatever yaw and pitch say
+ *               "side", "front" or "top": an orbit view from there (NAMED_VIEWS). A `yaw` or `pitch` given with
+               one turns the camera on from there: "front" with yaw 205 looks from 205, "side" with yaw 30 from
+               120 (the left side, turned 30 further round), "top" with yaw 90 has the model's left at the top
  *   ground      true: a line across the picture where z = 0 is, the floor a thing stands on, drawn over the
  *               model so that a foot under it is seen crossed. Only a level orbit view has such a line
  *               (pitch 0: "side", "front"); any other is refused
@@ -243,7 +245,10 @@ function cutNear(polygon, near) {
  * round.
  */
 export function render(src, opts = {}) {
-  if (NAMED_VIEWS[opts.view]) opts = { ...opts, ...NAMED_VIEWS[opts.view], view: "orbit" };
+  if (NAMED_VIEWS[opts.view]) {
+    const named = NAMED_VIEWS[opts.view];
+    opts = { ...opts, yaw: named.yaw + (opts.yaw ?? 0), pitch: named.pitch + (opts.pitch ?? 0), view: "orbit" };
+  }
   const first = opts.view === "first";
   const perspective = first || opts.dist > 0;
   const {

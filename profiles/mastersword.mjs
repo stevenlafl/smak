@@ -487,6 +487,10 @@ const PLAY = {
     answer:
       /^TRIAL nearest (?<id>\S+) hp (?<hp>\S+) at \((?<x>[-\d.]+),(?<y>[-\d.]+),(?<z>[-\d.]+)\) far (?<far>\S+) count (?<count>\d+) close (?<close>\d+) name (?<name>.*)$/,
     none: /^TRIAL nearest none/,
+    // `trial prefer <word>`: from then on `trial nearest` answers with the nearest whose name holds the word
+    // (lowercase), the nearest of all when none does; `trial prefer none` undoes it. A fight's `prefer`
+    prefer: ["trial prefer {word}"],
+    unprefer: ["trial prefer none"],
   },
   fight: {
     attack: [{ tap: "left", ms: 200, every: 700 }],
@@ -748,10 +752,14 @@ export default function masterSword({ game, folders, scripts = [], cache } = {})
       // place of one area with different ranges are the same monster for different parties: the ranges are
       // to meet, so that someone appears whatever the health, and not to overlap, so that two do not.
       // The numbers are whole (atoi): "1;2000" and "2001" meet, as the game's own maps write them.
+      // A place left empty in a band on purpose says so on its templates: `reqhp_none "150;500"` (ranges
+      // parted by commas). The game reads no such key (it is ours, a note for this check), and the gap is
+      // then no fault; a band said to be empty that a template has is one.
       {
         rule: "bands",
         classes: TEMPLATES,
         key: "reqhp",
+        open: "reqhp_none",
         among: ["spawnarea", "origin"],
         separator: ";",
         words: ["avg"],

@@ -311,6 +311,8 @@ function checkDefined(entities, definitions, mod, gathered) {
         // a key the profile says names another entity is one the game reads
         if (mod.targets.keys.includes(key)) continue;
         if (key === "model" && entity.brush) continue;
+        // a key a rule of the profile reads, which the game does not (a bands rule's `open`: a note for the check)
+        if (mod.rules?.some((rule) => rule?.open === key && (!rule.classes || isNamed(rule.classes, classname)))) continue; // prettier-ignore
         // a key that is itself a file's name (a profile's `files`)
         if (mod.files.some((rule) => rule.keys && isNamed([rule.keys].flat(), key) && (!rule.classes || isNamed(rule.classes, classname)))) continue; // prettier-ignore
         const other = keysLower.get(key.toLowerCase());
@@ -488,18 +490,26 @@ const KINDS = {
   bands(rule, { live, gathered }) {
     const separator = rule.separator ?? ";";
     const groups = new Map();
+    const headline = (key) => `entities give a ${key} that is no range (from${separator}to, or from)${whyOf(rule)}`;
     for (const entity of ofClasses(live, rule.classes)) {
-      const value = entity.get(rule.key);
       const place = (rule.among ?? ["origin"]).map((key) => entity.get(key));
-      if (value === undefined || !value.trim() || place.some((part) => part === undefined)) continue;
-      const range = rangeOf(value, separator, rule.words);
-      const headline = `entities give a ${rule.key} that is no range (from${separator}to, or from)${whyOf(rule)}`;
-      if (!range || range.to < range.from) {
-        gathered.add(rule.level ?? "warning", headline, `${entity.named} ${rule.key} "${value}"`);
-        continue;
-      }
+      if (place.some((part) => part === undefined)) continue;
       const key = place.join(" | ");
-      groups.set(key, [...(groups.get(key) ?? []), { ...range, entity }]);
+      const value = entity.get(rule.key);
+      if (value !== undefined && value.trim()) {
+        const range = rangeOf(value, separator, rule.words);
+        if (!range || range.to < range.from)
+          gathered.add(rule.level ?? "warning", headline(rule.key), `${entity.named} ${rule.key} "${value}"`);
+        else groups.set(key, [...(groups.get(key) ?? []), { ...range, entity }]);
+      }
+      // `open`: the ranges the map leaves empty at this place on purpose, a gap that is no fault
+      const open = rule.open ? entity.get(rule.open) : undefined;
+      for (const each of open?.split(/[\s,]+/).filter(Boolean) ?? []) {
+        const range = rangeOf(each, separator, rule.words);
+        if (!range || range.to < range.from)
+          gathered.add(rule.level ?? "warning", headline(rule.open), `${entity.named} ${rule.open} "${open}"`);
+        else groups.set(key, [...(groups.get(key) ?? []), { ...range, text: `${each} (left empty)`, entity, open: true }]);
+      }
     }
     const reach = rule.whole ? 1 : 0;
     for (const [place, ranges] of groups) {
@@ -509,9 +519,9 @@ const KINDS = {
       for (let index = 1; index < ranges.length; index++) {
         const before = ranges[index - 1];
         const next = ranges[index];
-        // the same range twice is one band given to two
-        if (next.from === before.from && next.to === before.to) continue;
-        if (next.from < before.to)
+        // the same range twice is one band given to two, or one gap said by two
+        if (next.from === before.from && next.to === before.to && before.open === next.open) continue;
+        if (next.from < before.to || (next.from === before.from && next.to === before.to))
           faults.push(`${before.text} and ${next.text} overlap (${before.entity.named}, ${next.entity.named})`);
         else if (next.from - before.to > reach)
           faults.push(`nothing has ${before.to} to ${next.from}, between ${before.text} and ${next.text} (${next.entity.named})`); // prettier-ignore

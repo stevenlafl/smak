@@ -46,7 +46,7 @@ It makes a model from nothing and exercises every part of the kit. If every test
 | Add bones to a model | Run or test anything inside the game |
 | Check a model against GoldSrc's and Xash's limits | |
 | Draw a model from any side, or as the player sees a weapon, into a PNG | |
-| Paint a model by where a point is on its body, across all its textures | Give the two sides of a body different marks where they share the same pixels of a texture |
+| Paint a model by where a point is on its body, across all its textures | Give the two sides of a body different marks where they share the same pixels of a texture, until one side has pixels of its own (`ownPixels`: a copy in a texture of its own) |
 | Add a body again as a new body in a texture of its own, and paint a garment on chosen islands of it | |
 | Tell what an old picture is, pixel by pixel (mail, plate, a strap), as layers that every pass of paint reads, with the distance to their edges and their regions' places on the body | Tell what a picture shows without a rule from you: a layer is your function of colour, texture and place |
 | Find a model's loose pieces and take them off; move a part between models on one skeleton | Put a body under armour that has none: taking such a piece off leaves a gap |
@@ -84,6 +84,7 @@ old data unused inside it, so stacking runs makes it grow. Keep the originals un
 node bin/smak.mjs info <mdl> [--json] [--hitboxes] [--boxes]   bones, bodyparts with their body numbers, textures, animations
                                                    (activity, travel and speed), events, attachments, hit boxes
 node bin/smak.mjs check <mdl> [--engine xash]      errors and warnings; exit code 1 on an error
+                                                   (--source original.mdl: what the original has too is marked "inherited")
 node bin/smak.mjs sheet <mdl> -o s.png             six views in one picture
 node bin/smak.mjs render <mdl> -o r.png --yaw 30 --pitch 15 [--view first|side|front|top] [--ground]
 node bin/smak.mjs strip <mdl> -o a.png --seq reload --count 12 [--view first]   (a walk: --view side --ground)
@@ -94,6 +95,9 @@ node bin/smak.mjs layers <mdl> [layers.mjs] ["name=expression" ...] --texture t 
                                                    layers of a texture (what is mail, what is strap): their regions listed; with -o, drawn tinted
 node bin/smak.mjs retexture <mdl> <texture> <picture> -o out.mdl
 node bin/smak.mjs sequence <mdl> <anim> -o a.json  /  sequence-set  /  sequence-add
+node bin/smak.mjs sequence-add <mdl> --from sitstand --frames 80-57 --name kneel_down -o out.mdl [--loop] [--fps 25]
+                                                   a new animation of frames of one it has ("80-57": backwards; "57,58,57")
+node bin/smak.mjs reskin <mdl> rules.mjs -o out.mdl [--body n] [--pictures dir]   a game's model re-skinned by rules
 node bin/smak.mjs inline <mdl> -o out.mdl          put the textures of <name>t.mdl inside the model
 node bin/smak.mjs obj <file.obj> -o out.mdl [--scale n] [--up y|z] [--turn deg] [--ground] [--centre] [--name x.mdl]
                                                    a model from a Wavefront .obj, its .mtl and pictures found beside it
@@ -161,7 +165,9 @@ it when they are done. It is for them to look and compare; your own checking is 
 `render`, `sheet` and `strip` take `--seq <name|number|rest>`, `--frame`, `--body`, `--skin`, `--width`,
 `--height`, `--no-light` (the texture as it is) and `--no-cull` (both sides of every triangle). `--view side`,
 `front` and `top` look from there with no perspective (`side` is the left side: the front is to the picture's
-left), and with `side` or `front`, `--ground` draws the floor (z = 0) as a line across the picture.
+left), and with `side` or `front`, `--ground` draws the floor (z = 0) as a line across the picture. `--yaw`
+and `--pitch` with one of them turn the camera on from there: `--view front --yaw 205` looks from 205,
+`--view side --yaw 30` from 120.
 
 **If a picture comes out empty**, the body number shows an empty submodel. Many models keep a blank submodel at
 body 0. `info` lists the body number of each submodel; pass it with `--body`.
@@ -187,6 +193,11 @@ file into a repository: its licence almost always forbids it.
 - To test a fight, write `{ "fight": { "heal": 0.5, "post": [...] }, "until": "<the line that ends it>" }`,
   not a loop outside: the summary line is the measure of difficulty.
 - A held mouse button charges in Master Sword: use `tap`.
+- A fight strikes the nearest unless told: `prefer: "lantern"` goes for the healer first, `chase` walks
+  round a crowd to it (sidesteps), `dodge` steps out of a place a line warns of (a test copy's line: the
+  real game shows a sprite). Their counts are in the fight's line. `docs/PLAY.md`, "A fight".
+- A session (`--serve`) keeps a fight of any length; `--over msc=<folder>` puts a model rebuilt since the
+  game started.
 - `map-measure new.bsp game.bsp --every --mod <profile>` and `map-compare new.bsp game.bsp -o same.png --z
   100,-` set a new map beside the game's.
 
@@ -227,7 +238,7 @@ You need this model in your head; the API mirrors it exactly.
 | A triangle (in the kit) | Three corners `{ p: [x, y, z], uv: [u, v] }`, `uv` from 0 to 1 from the picture's top left. |
 | An image | `{ width, height, rgb }`, three bytes a pixel. |
 | A texture | `{ name, width, height, pixels, palette, flags }`: one palette index a pixel, 768 bytes of palette. |
-| Texture flags | 1 flat shaded, 2 chrome, 4 full bright, 32 additive (a glow), 64 masked (palette index 255 is a hole). |
+| Texture flags | 1 flat shaded, 2 chrome, 4 full bright (unlit: Xash draws it so; Steam's GoldSrc is not known to), 32 additive (a glow), 64 masked (palette index 255 is a hole). Added together; docs/API.md, "Changing textures". |
 | Which way triangles go | Decided for you by `meshOf` / `buildMdl` / `swapMesh`. `check` reports triangles that face inwards. |
 
 ## Rules that keep a model working in the game
@@ -462,13 +473,64 @@ const mdl = buildMdl({
   size and its hull, and decide what a hit group or an attachment means. Ask the person, and read one of the
   mod's own monsters with `info` first.
 
+### A re-skin by rules: a game's monster in new colours, in one step
+
+The person's monsters are re-skins: a game's model (or a bought rigged body) with its bones, bodies, animations
+and events kept, its pictures repainted. `reskin` does it from a list of rules, each one thing on some pixels:
+
+```js
+import { readFileSync, writeFileSync } from "node:fs";
+import { reskin, check, png } from "./smak/src/index.mjs";
+
+const src = readFileSync(".../msc/models/monsters/skeleton.mdl");
+const PLATE = ["front.bmp", "helmet2.bmp", "shoe.bmp", "arm.bmp"];
+const { mdl, changed, pictures } = reskin(src, [
+  { only: PLATE, light: [0.1, 1], recolour: [0.2, 0.205, 0.215] },          // bright steel made old iron, its shading kept
+  { only: ["helmet2.bmp"], hue: [15, 65], sat: [0.15, 1], recolour: [0.3, 0.22, 0.11] },   // brass to bronze
+  { only: ["zombie5.bmp"], box: [120, 0, 205, 140], hue: [160, 210], recolour: [1, 0.6, 0.16] },   // cyan eyes amber
+  { only: PLATE, sat: [0, 0.2], rust: 0.6 },                               // rust in patches and streaks, by place
+  { only: PLATE, moss: 0.5 },                                              // moss on what faces up and low down
+  { only: ["front.bmp"], soft: 2, paint: ({ u, v }) => (Math.abs(u - 56) < 27 && v > 37 ? [0.17, 0.25, 0.17] : undefined) },
+], { body: 40 });
+for (const { name, image } of pictures) writeFileSync(`${name}.png`, png(image.width, image.height, image.rgba));
+console.log(changed, check(mdl, "goldsrc", { source: src }).warnings);   // what the original has too is marked inherited
+```
+
+- A rule's filters read the colour the picture HAD (`hue`, `sat`, `light`, `box`) and the place of the body
+  (`near`, `above`, `below`, `facing`), so a later rule still finds the brass after an earlier one darkened it.
+  `colourOf(rgb)` gives a pixel's hue, saturation and light to choose ranges by; `smak textures` and `smak
+  islands` show where things are.
+- Order matters: weather first, then what is painted over it (a tabard), then a little weather again on it.
+- **A part a picture shares with others** (the game's skeleton_boss1 lays one rust over every plate: chest, arms,
+  greaves and helm wear the same pixels) cannot be marked alone until it has pixels of its own:
+  `ownPixels(src, { islands: 172 })` moves that island's triangles to a copy of the pixels they wore, in a texture
+  of their own (`rust16_own.bmp`; made smaller when the box is over 512). In `reskin`, `own: [{ islands: [172] }]`
+  does it first, and a rule says `only: ["rust16_own.bmp"]`. The islands are numbered again afterwards (the moved
+  ones last): read them again before choosing by id.
+- From the command line: `smak reskin skeleton.mdl rules.mjs -o guard.mdl --pictures pics` (a `.mjs` that exports
+  `rules`, and `body`, `own`; or a `.json` of the same without functions). It prints which textures changed and
+  checks the result against the original.
+- A new animation for a re-skin is often in the game's own frames: `smak sequence-add boss.mdl --from sitstand
+  --frames 80-57 --name kneel_down --fps 25 -o out.mdl` (`addSequenceFrom` in a script).
+- docs/API.md, "A re-skin by rules", lists every word of a rule.
+
+### Composing on a bought rig, holding things, keeping on the ground
+
+`importRigged` gives back `parts`, what the model was built from: add a bone and a mesh on it, then
+`buildMdl(parts)` (docs/IMPORT.md). In the animations, `animate.reach(rig, pose, { bones, to, aim: { axis, dir,
+edge, edgeDir }, grip })` turns the hand so that what it holds points along `dir` with its grip at `to`;
+`animate.hold(rig, pose, "lantern")` keeps a bone at its own turn in the model whatever its parents do (call it in
+`each`); `animate.grounded(mdl, { seqs: ["diesimple"] })` lifts every frame whose lowest point went under the
+floor. The quaternion helpers (`qmul`, `qturn`, `qframes`, `turnOf` ...) are exported from `animate` for the rest.
+A body built limb by limb from nothing has `workshop.skinned()` (tubes, lofts and cards, each corner on its bone).
+
 ### Wear, damage and markings by place: `examples/05-by-place.mjs`
 
 A character has several textures and a wound, a burn or a layer of mud crosses them. `paint` calls your function
 for every pixel that some triangle wears, with the point of the body that pixel colours:
 
 ```js
-import { paint, surface, spot, workshop as W } from "./smak/src/index.mjs";
+import { paint, surface, spot, workshop as W } from "./smak/src/index.mjs";   // or fbm3, step, mix, times by name
 
 const pose = { seq: "idle", frame: 0 };                       // measure in a pose the model is usually seen in
 const surf = surface(src, pose), hit = spot(surf, [20, 0, 50], [1, 0, 0]);        // the place on its front nearest that point
@@ -1041,7 +1103,7 @@ or `smak wad-make my_stone.png "{my_bars.png" -o mine.wad`, each texture named a
 | `moves further than its scale holds` | Should not happen: `replaceSequence` and `addSequence` widen a bone's scale themselves. Tell the person; it is a fault in the kit. |
 | `too long for one animation` | Over 64 KB of values. Fewer frames, or split it in two. |
 | Texture looks blurry in the game but not in the picture | Larger than `gl_max_size`, or not a power of two. See `docs/ENGINES.md`. |
-| A mark painted on one arm is on both | The two share the same pixels (`paint` reports it as `shared`). It cannot be one-sided without laying that texture out again. |
+| A mark painted on one arm is on both | The two share the same pixels (`paint` reports it as `shared`). Give one of them pixels of its own first: `ownPixels(src, { islands: id })` (or `own` in `reskin`). |
 | A hole where a piece was taken off | It was part of the body, not gear over it. Leave it on. |
 | The model shows in the picture and not in the game | Run `check`. If it passes, the game is loading another file: ask where the mod looks first. |
 

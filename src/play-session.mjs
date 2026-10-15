@@ -13,14 +13,23 @@
 // It speaks HTTP on this machine only, with Node's own server and nothing else:
 //   GET  /        the session's state: { smak: "play session", up, map, entered, runs, busy }
 //   POST /run     a run, as `playSession`'s run takes it, in JSON. The answer is a line of JSON for each
-//                 thing done, `{ "tell": "..." }`, as it is done, and a last one: `{ "result": {...} }` or
-//                 `{ "failure": "the sentence", ... }`. One run at a time: a second is refused while one goes
+//                 thing done, `{ "tell": "..." }`, as it is done, a `{ "beat": seconds }` every half a minute
+//                 while nothing else is said (a fight of ten minutes says nothing until its end), and a last
+//                 one: `{ "result": {...} }` or `{ "failure": "the sentence", ... }`. One run at a time: a
+//                 second is refused while one goes
+//
+// A run may be long, and the run's answer is read with node:http and not with fetch: fetch (undici) gives up
+// on an answer whose headers, or whose next bytes, take over 300 seconds ("terminated"), while the run goes on
+// in the session. The beat keeps any other client that reads it so (curl, a proxy) awake as well.
 //   POST /close   the game closed and the server ended
-import { createServer } from "node:http";
+import { createServer, request as httpRequest } from "node:http";
+import { request as httpsRequest } from "node:https";
 import { resolve } from "node:path";
 
 /** The port a session is served on unless told. */
 export const SESSION_PORT = 8098;
+/** Milliseconds between two beats of a run's answer while the run says nothing. */
+export const BEAT = 30000;
 const NAME = "play session";
 const shown = (value) => (value === undefined ? "nothing" : JSON.stringify(value));
 
@@ -41,12 +50,15 @@ const bodyOf = (request) =>
  *   session   a `playSession`
  *   port      the port (8098); host: the address listened on ("127.0.0.1": this machine only)
  *   tell      a function handed a line for what the server does (a run begun, its end)
+ *   beat      milliseconds between the beats of a run's answer while it says nothing (30000)
  */
-export async function serveSession({ session, port = SESSION_PORT, host = "127.0.0.1", tell } = {}) {
+export async function serveSession({ session, port = SESSION_PORT, host = "127.0.0.1", tell, beat = BEAT } = {}) {
   if (typeof session?.run !== "function" || typeof session.ready !== "function")
     throw new Error("play: session is what playSession gives, with its ready, run and close");
   if (!(Number.isInteger(port) && port > 0 && port < 65536))
     throw new Error(`play: port is a port's number, not ${shown(port)}`);
+  if (!(typeof beat === "number" && beat > 0))
+    throw new Error(`play: beat is a number of milliseconds over 0, not ${shown(beat)}`);
   let busy = false;
   let ended = null;
   const closed = new Promise((done) => (ended = done));
@@ -74,7 +86,17 @@ export async function serveSession({ session, port = SESSION_PORT, host = "127.0
       }
       busy = true;
       response.writeHead(200, { "content-type": "application/x-ndjson" });
-      const line = (value) => response.write(`${JSON.stringify(value)}\n`);
+      // the headers now, and not with the first line: a run's first step may be long
+      response.flushHeaders();
+      const began = Date.now();
+      let said = began;
+      const line = (value) => {
+        said = Date.now();
+        response.write(`${JSON.stringify(value)}\n`);
+      };
+      const beating = setInterval(() => {
+        if (Date.now() - said >= beat) line({ beat: Math.round((Date.now() - began) / 1000) });
+      }, Math.min(beat, 1000));
       tell?.(
         `run: ${run.stay ? "staying" : `map ${run.map}`}, ${run.steps?.length ?? 0} steps -> ${run.out}`,
       );
@@ -93,6 +115,8 @@ export async function serveSession({ session, port = SESSION_PORT, host = "127.0
         const { pictures, logFile, sheet, expectations, fights } = error;
         line({ failure: error.message, pictures, logFile, sheet, expectations, fights });
         tell?.(`     ${error.message}`);
+      } finally {
+        clearInterval(beating);
       }
       busy = false;
       response.end();
@@ -145,6 +169,35 @@ async function ask(address, path, options) {
   }
 }
 
+const parsed = (text) => {
+  try {
+    return JSON.parse(text);
+  } catch {
+    return null;
+  }
+};
+const textOf = async (stream) => {
+  const chunks = [];
+  for await (const chunk of stream) chunks.push(chunk);
+  return Buffer.concat(chunks).toString("utf8");
+};
+
+/**
+ * A POST whose answer may be long in coming and long: node:http, with no time it gives up at (fetch's
+ * undici gives up at 300 seconds of silence). Resolves to the answer, a stream, once its headers are in.
+ */
+async function posted(address, path, body) {
+  const url = new URL(path, address);
+  const send = url.protocol === "https:" ? httpsRequest : httpRequest;
+  return new Promise((done, failed) => {
+    const asked = send(url, { method: "POST", headers: { "content-type": "application/json" } }, done);
+    asked.on("error", (error) =>
+      failed(new Error(`play: the session at ${address} went away during the run (${error.code ?? error.message})`, { cause: error })), // prettier-ignore
+    );
+    asked.end(body);
+  });
+}
+
 /** A session's state: `{ up, map, entered, runs, busy }`. */
 export async function sessionState(address) {
   const state = await (await ask(address, "/")).json().catch(() => null);
@@ -163,8 +216,9 @@ export async function closeSession(address) {
  * `sheet` and `expectations` on the error.
  *
  *   address   where the session is served
- *   run       `{ map, stay, steps, out, expect, expectNot, put, loads, pause, sheet }`; `out` and the files
- *             of `put` are taken from this process's folder, whatever folder the session was started in
+ *   run       `{ map, stay, steps, out, expect, expectNot, put, over, loads, pause, sheet }`; `out`, the
+ *             files of `put` and the folders of `over` are taken from this process's folder, whatever folder
+ *             the session was started in
  *   tell      a function handed each line as the session does a thing
  */
 export async function attachSession(address, run = {}, { tell } = {}) {
@@ -173,21 +227,29 @@ export async function attachSession(address, run = {}, { tell } = {}) {
     ...run,
     out: typeof run.out === "string" ? resolve(run.out) : run.out,
     put: (run.put ?? []).map((each) => (each?.file ? { ...each, file: resolve(each.file) } : each)),
+    ...(run.over ? { over: [run.over].flat().map((each) => (typeof each?.folder === "string" ? { ...each, folder: resolve(each.folder) } : each)) } : {}), // prettier-ignore
   };
-  const response = await ask(address, "/run", { method: "POST", body: JSON.stringify(sent) });
-  if (!response.ok) throw new Error((await response.json().catch(() => null))?.failure ?? "play: the run was refused"); // prettier-ignore
+  const response = await posted(address, "/run", JSON.stringify(sent));
+  if (response.statusCode !== 200) {
+    const said = await textOf(response);
+    throw new Error(parsed(said)?.failure ?? "play: the run was refused");
+  }
   let last = null;
   let kept = "";
   const take = (text) => {
     const told = JSON.parse(text);
     if (told.tell !== undefined) tell?.(told.tell);
-    else last = told;
+    else if (told.beat === undefined) last = told;
   };
   const decoder = new TextDecoder();
-  for await (const chunk of response.body) {
-    const lines = (kept + decoder.decode(chunk, { stream: true })).split("\n");
-    kept = lines.pop();
-    for (const each of lines) if (each.trim()) take(each);
+  try {
+    for await (const chunk of response) {
+      const lines = (kept + decoder.decode(chunk, { stream: true })).split("\n");
+      kept = lines.pop();
+      for (const each of lines) if (each.trim()) take(each);
+    }
+  } catch (error) {
+    throw new Error(`play: the session at ${address} went away during the run (${error.code ?? error.message})`, { cause: error }); // prettier-ignore
   }
   if (kept.trim()) take(kept);
   if (last?.result) return last.result;

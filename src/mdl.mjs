@@ -756,6 +756,74 @@ export function filterMesh(src, where, keep) {
 }
 
 /**
+ * Returns a copy of the file with some triangles of one mesh moved into a mesh of their own, after the others
+ * of the same submodel, wearing `texture`: { mdl, mesh (the new mesh's number), moved }.
+ *   where    { bodypart, model, mesh }: the mesh they are in
+ *   pick(i)  true for a triangle that moves (`i`: its number in the mesh, as `readMesh` lists them)
+ *   uvOf(i, corner, [s, t])  where that corner is in the new picture, in its pixels; unless given, where it
+ *            was in the old one
+ * The triangles keep their points and normals, copied into the new mesh, which keeps its normals in a block
+ * of its own as the engine lights them, mesh by mesh. The old mesh keeps the rest of its triangles; every
+ * mesh, submodel and body keeps its number. As in `replaceMesh`, `texture` is added to the file unless one of
+ * its name is there (that one is then worn); in a model of several skin families the new mesh wears it in
+ * each. A mesh of which nothing is picked is left alone (`mesh` -1).
+ */
+export function moveTriangles(src, where, pick, texture, uvOf) {
+  const model = readMdl(src).bodyparts[where.bodypart].models[where.model];
+  const mesh = model.meshes[where.mesh];
+  const all = readTris(src, mesh.triindex).tris;
+  const moving = all.map((_, i) => Boolean(pick(i)));
+  if (!moving.includes(true)) return { mdl: src, mesh: -1, moved: 0 };
+  const fieldOf = (field) => int32(src, model.at + field);
+  // each old point and normal the moved triangles use, once, with its bone: numbered anew for their mesh
+  const gather = (vecField, boneField) => {
+    const list = [];
+    const bonesOf = [];
+    const numbers = new Map();
+    const numberOf = (old) => {
+      if (!numbers.has(old)) {
+        numbers.set(old, list.length);
+        list.push(vec3At(src, fieldOf(vecField) + old * VEC3));
+        bonesOf.push(src[fieldOf(boneField) + old]);
+      }
+      return numbers.get(old);
+    };
+    return { list, bonesOf, numberOf };
+  };
+  const points = gather(MODEL.vertindex, MODEL.vertinfoindex);
+  const normals = gather(MODEL.normindex, MODEL.norminfoindex);
+  const moved = [];
+  all.forEach((tri, i) => {
+    if (!moving[i]) return;
+    moved.push(
+      tri.map(([vertex, normal, s, t], corner) => {
+        const [u, v] = uvOf ? uvOf(i, corner, [s, t]) : [s, t];
+        return [points.numberOf(vertex), normals.numberOf(normal), Math.round(u), Math.round(v)];
+      }),
+    );
+  });
+  // the old mesh without them (its normals stay, so the meshes after it keep their turn)
+  const file = growing(Buffer.from(src));
+  const kept = all.filter((_, i) => !moving[i]);
+  file.head.writeInt32LE(kept.length, mesh.at + MESH.numtris);
+  file.head.writeInt32LE(file.add(stripsOf(kept)), mesh.at + MESH.triindex);
+  const added = model.meshes.length;
+  const out = replaceMesh(
+    addMesh(engineLayout(file.whole()), where),
+    { ...where, mesh: added },
+    {
+      verts: points.list,
+      vertBones: points.bonesOf,
+      norms: normals.list,
+      normBones: normals.bonesOf,
+      tris: moved,
+    },
+    texture,
+  );
+  return { mdl: out, mesh: added, moved: moved.length };
+}
+
+/**
  * How many corners the engine draws for each submodel: its meshes' triangle commands, corner by
  * corner. The renderer keeps them in a table of MAXSTUDIOVERTS (16384): one more and it writes past it.
  */
@@ -1852,6 +1920,70 @@ export function addSequence(
     bbmax: bbmax ?? (copied ? vec3At(src, likeIt + SEQ.bbmax) : undefined),
   });
   return engineLayout(itsEvents?.length ? setEvents(out, count, itsEvents) : out);
+}
+
+/**
+ * Frames of an animation by number, from what is written on a command line or in a script: "80-57" (80 down
+ * to 57: played backwards), "57-80", "57,58,57", "80-57,57" (a list of either), or a list of numbers. Each
+ * must be a frame the animation has (0 to `count` - 1); it throws, saying which, when one is not.
+ */
+export function frameNumbers(spec, count) {
+  const list = [];
+  const parts = Array.isArray(spec) ? spec.map(String) : String(spec).split(",");
+  for (const part of parts) {
+    const range = /^\s*(\d+)\s*(?:-\s*(\d+)\s*)?$/.exec(part);
+    if (!range) throw new Error(`frames: a frame, a range "a-b" or a list of them, not "${part}"`);
+    const a = Number(range[1]);
+    const b = range[2] === undefined ? a : Number(range[2]);
+    for (const n of [a, b])
+      if (n >= count) throw new Error(`frames: ${n} is past the last frame, ${count - 1}`);
+    const way = b >= a ? 1 : -1;
+    for (let n = a; n !== b + way; n += way) list.push(n);
+  }
+  if (!list.length) throw new Error("frames: none given");
+  return list;
+}
+
+/**
+ * Returns a copy of the file with one more animation, made of frames of one it has: a kneel out of a
+ * sit-and-stand, played backwards; a held pose out of one frame and the next. The new animation's number is
+ * the old count, as with `addSequence`.
+ *   from     the animation the frames are taken from: a name or a number
+ *   frames   which, in order: see `frameNumbers` ("80-57", "57,58,57", [57, 58, 57])
+ *   name     the new animation's
+ *   fps      its rate (unless told, that of `from`); `loops` (false); `activity` (0) and `actweight`
+ *   events   true: the events of `from` on the frames taken go with them, each to its frame's first place in
+ *            the new animation (unless told, none: a sound timed for the whole motion seldom fits a piece)
+ *   movement how far one play of it travels (none unless told: the frames are taken as they stand)
+ *   like     as `addSequence`: its box is that animation's (true: `from`'s) instead of being measured
+ * Several blends: the first is taken.
+ */
+export function addSequenceFrom(
+  src,
+  { from, frames, name, fps, loops = false, activity = 0, actweight, events: carry = false, movement, like },
+) {
+  if (typeof name !== "string" || !name) throw new Error("addSequenceFrom: name the new animation");
+  const source = readSequence(src, from);
+  if (!source.frames.length) throw new Error(`addSequenceFrom: ${source.name} has no frames`);
+  const numbers = frameNumbers(frames, source.frames.length);
+  const taken = numbers.map((n) => source.frames[n].map((six) => [...six]));
+  const carried = carry
+    ? events(src, source.index).flatMap((event) => {
+        const at = numbers.indexOf(event.frame);
+        return at < 0 ? [] : [{ ...event, frame: at }];
+      })
+    : [];
+  return addSequence(src, {
+    name,
+    fps: fps ?? source.fps,
+    loops,
+    frames: taken,
+    activity,
+    actweight,
+    movement,
+    events: carried,
+    like: like === true ? source.index : like,
+  });
 }
 
 // ── what an animation sets off, and where things are fastened ──────────────

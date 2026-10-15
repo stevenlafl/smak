@@ -52,8 +52,8 @@
 // its profile names it (`play.goto`); then `{ goto: [x, y, z] }` runs it and, where the driver knows where
 // the player stands, makes sure he is there. Without one: walk, or `{ command: ["sv_cheats 1", "noclip"] }`
 // and fly, which a listen server allows, with `{ where: "name" }` to read the place as you go.
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
+import { join, resolve } from "node:path";
 import { GOLDSRC, modOf } from "./maps/mod.mjs";
 import { sheetOf } from "./play-sheet.mjs";
 import { MOUSE_BUTTONS } from "./play-browser.mjs";
@@ -76,7 +76,28 @@ const LOOPS = ["repeat", "fight"];
 /** The lines of a fight a profile's `play.fight` may give the pattern of. */
 const FIGHT_LINES = ["dealt", "taken", "missed", "slain", "died", "health", "maxHealth"];
 /** What a `fight` step may say in its object. */
-const FIGHT = ["radius", "heal", "post", "attack", "chase", "quiet"];
+const FIGHT = ["radius", "heal", "post", "attack", "chase", "quiet", "prefer", "sidestep", "dodge"];
+/** What a fight's `dodge` may say in its object. */
+const DODGE = ["line", "far", "ms", "hold"];
+/** A word of an enemy's name a fight prefers: what a game's command takes as one word. */
+const WORD = /^[A-Za-z0-9_-]+$/;
+/** Milliseconds of one sidestep round a crowd; how far a fight goes from a place it was warned of, the longest
+ * it takes to, and how long after it walks at nobody; units a chase must gain on its enemy to be getting on. */
+const SIDESTEP = 600;
+const DODGE_FAR = 150;
+const DODGE_MS = 1500;
+const DODGE_HOLD = 2000;
+const GAINED = 16;
+/** A chase's walk: units a second it is timed by, the longest one step of it, and how far beyond `chase` the
+ * enemy may still be for the blow after it to be struck when nobody else is on the player. */
+const PACE = 200;
+const CHASE_MOST = 1500;
+const OUT_OF_REACH = 100;
+/** Blows a round strikes at an enemy within `chase` before it asks for him again. */
+const FLURRY = 3;
+/** Sidesteps after which a preferred enemy who comes no nearer is let be, and for how long (milliseconds). */
+const LET_BE_AFTER = 4;
+const LET_BE = 20000;
 /** The kinds that only read: nothing is done to the game, so no wait follows them unless one is given. */
 const READS = ["where", "expect", "expectNot"];
 /** Where a walk goes, as the client library's buttons name it (the SDK's cl_dll/input.cpp). */
@@ -215,7 +236,10 @@ export const MESSAGE_READERS = {
  *              says there is no enemy; `within` the milliseconds an answer is given (3000). Or a function
  *              `({ radius, command, heard, view })` that resolves to `{ origin: [x, y, z], id, name, hp, far,
  *              count, close }` or null: `command(text)` runs a console command, `heard(pattern, within)`
- *              resolves to the match of the first line said from then on (or null), `view()` is the driver's
+ *              resolves to the match of the first line said from then on (or null), `view()` is the driver's,
+ *              `prefer` the words of the names a fight goes for first (a list, maybe empty). With commands:
+ *              `prefer`, the commands that make the game answer with the nearest enemy whose name holds
+ *              `{word}` (and the nearest of all when none does), and `unprefer`, those that undo it
  *   heal       how the player's health is given back in a test: console commands, or a function that gives
  *              them; null where the game has no such command
  *   fight      what a `fight` step does and reads: `{ attack, dealt, taken, missed, slain, died, health,
@@ -282,7 +306,15 @@ export function playPartOf(mod) {
     const none = asked.none == null ? null : patternOf(asked.none, "mod: play.target.none");
     if (asked.within !== undefined && !(isCount(asked.within) && asked.within > 0))
       throw new Error(`mod: play.target.within is a number of milliseconds over 0, not ${shown(asked.within)}`);
-    part.target = { commands: asked.commands, answer, none, within: asked.within ?? TARGET_WITHIN };
+    for (const name of ["prefer", "unprefer"])
+      if (asked[name] != null && !commands(asked[name]))
+        throw new Error(
+          `mod: play.target.${name} is a list of console commands${name === "prefer" ? " with {word} in them (the enemy whose name holds that word is the one answered)" : " that undo a prefer"}, or a function, not ${shown(asked[name])}`,
+        ); // prettier-ignore
+    part.target = {
+      ...{ commands: asked.commands, answer, none, within: asked.within ?? TARGET_WITHIN },
+      ...{ prefer: asked.prefer ?? null, unprefer: asked.unprefer ?? null },
+    };
   }
   if (whole.play?.fight !== undefined && (typeof whole.play.fight !== "object" || !whole.play.fight || Array.isArray(whole.play.fight))) // prettier-ignore
     throw new Error(
@@ -369,8 +401,13 @@ function sayCommands(part, text, where) {
  *                                     (a distance: he walks at an enemy farther off than that), `quiet`
  *                                     (milliseconds: the fight is over when no enemy has been found for
  *                                     that long, which stops nothing), `attack` (the steps of one blow,
- *                                     for the profile's). What happened is written to the log as a line
- *                                     of the kind "fight", and is the run's `fights`
+ *                                     for the profile's), `prefer` (a word of a name, or a list: that
+ *                                     enemy first, by the profile's `play.target.prefer`), `sidestep`
+ *                                     (milliseconds, 600, or false: with `chase`, a step to the side
+ *                                     round others in the way), `dodge` (the pattern of a line that warns
+ *                                     of a blow to a place, its `(?<x>)` and `(?<y>)`; or `{ line, far,
+ *                                     ms, hold }`: stepped away from). What happened is written to the
+ *                                     log as a line of the kind "fight", and is the run's `fights`
  * and any step may also carry:
  *   until: "Skeleton .* dies"         after it, a line the game says is waited for (and not the clock). A
  *                                     step that DOES a thing hears from when it began doing it; one that
@@ -403,7 +440,8 @@ function sayCommands(part, text, where) {
  * "mouse" `mouse`, `ms`; "mouseDown", "mouseUp" `mouse`; "tap" `mouse`, `ms`, `times`, `every`; "look" `yaw`,
  * `pitch` (one of them); "faceAt" `place` (or `target: true` with `radius`); "goto" `commands`, `place`;
  * "where" `name`; "map" `map`; "expect", "expectNot" `pattern`, `within`, `since`; "repeat" `actions`, `times`,
- * `for`; "fight" `actions` (one blow), `radius`, `heal`, `post`, `chase`, `quiet`, `for`; "wait" nothing more. One with
+ * `for`; "fight" `actions` (one blow), `radius`, `heal`, `post`, `chase`, `quiet`, `for`, `prefer` (and
+ * `prefers`, `unprefers`: the commands), `sidestep`, `dodge`; "wait" nothing more. One with
  * `until` has `until` (a RegExp), `within`, `every` (or null) and `since` too. `step` is the step as written.
  */
 export function playOf(steps, { mod, pause = PAUSE, what = "step" } = {}) {
@@ -597,6 +635,38 @@ function actionOf(step, where, part, pause) {
       quiet: asked.quiet === undefined ? null : held(asked.quiet, "is over when no enemy was found for"),
       for: step.for ?? null,
     });
+    // what it goes for first: words of a name, the first the most
+    action.prefer = asked.prefer === undefined ? [] : [asked.prefer].flat();
+    if (asked.prefer !== undefined && !(action.prefer.length && action.prefer.every((word) => typeof word === "string" && WORD.test(word)))) // prettier-ignore
+      refuse(`prefers ${shown(asked.prefer)}: a word of an enemy's name ("lantern"), or a list of them, the first preferred most`); // prettier-ignore
+    if (action.prefer.length && typeof part.target !== "function" && !part.target.prefer)
+      refuse("prefers an enemy, and the profile names no way to ask the game for one (play.target.prefer)");
+    if (action.prefer.length && typeof part.target !== "function") {
+      action.prefers = action.prefer.map((word) => commandsOf(part.target.prefer, { word }, [word], "play.target.prefer")); // prettier-ignore
+      action.unprefers = part.target.unprefer ? commandsOf(part.target.unprefer, {}, [], "play.target.unprefer") : null; // prettier-ignore
+    }
+    // round a crowd: only on the way to an enemy farther than chase
+    if (asked.sidestep !== undefined && action.chase === null)
+      refuse("sidesteps, which a fight does on its way to an enemy farther off than its chase: give chase too");
+    action.sidestep = asked.sidestep === false ? null : asked.sidestep === undefined ? SIDESTEP : held(asked.sidestep, "sidesteps for"); // prettier-ignore
+    // out of a place the game warns of
+    action.dodge = null;
+    if (asked.dodge !== undefined) {
+      const dodge = typeof asked.dodge === "string" ? { line: asked.dodge } : asked.dodge;
+      if (!dodge || typeof dodge !== "object" || Array.isArray(dodge) || dodge.line === undefined)
+        refuse(`dodges ${shown(asked.dodge)}: the pattern of the line that warns, or { line, far, ms, hold }`);
+      const strange = Object.keys(dodge).filter((key) => !DODGE.includes(key));
+      if (strange.length) refuse(`dodges with ${strange.join(", ")}, which a dodge has not: ${DODGE.join(", ")}`);
+      const line = pattern(dodge.line, "dodges at");
+      if (/\(\?<x>/.test(line.source) !== /\(\?<y>/.test(line.source))
+        refuse(`dodges at ${line}, which names one of the groups (?<x>...) and (?<y>...): the place is both, or neither`); // prettier-ignore
+      action.dodge = {
+        line,
+        far: far(dodge.far ?? DODGE_FAR, "dodges as far as"),
+        ms: held(dodge.ms ?? DODGE_MS, "dodges for at most"),
+        hold: dodge.hold === 0 ? 0 : held(dodge.hold ?? DODGE_HOLD, "after a dodge walks at nobody for"),
+      };
+    }
     if (action.post) action.back = commandsOf(part.goto, { x: action.post[0], y: action.post[1], z: action.post[2] }, action.post, "play.goto"); // prettier-ignore
     if (action.heal !== null) action.heals = commandsOf(part.heal, {}, [], "play.heal");
   } else if (kind === "goto") {
@@ -678,6 +748,9 @@ const placeText = (origin) => (origin ? origin.map(rounded).join(" ") : "nowhere
  *   mod      the mod's profile
  *   pause    milliseconds waited after a step that does something and gives no `wait` (1000)
  *   tell     a function handed a line as each thing is done; a run may give its own
+ *   over     folders laid over the game's files, marked as the session begins: `[{ path: "msc", folder }]`
+ *            (the folder's files are the engine's `<path>/...`). A run that names one again puts what changed
+ *            in it since (see the run's `over`)
  *
  * `session.state` is `{ up, map, entered, runs }`. A run takes:
  *   map        the map to load, as `map <name>` takes it. Loaded afresh even when it is the map the session
@@ -689,6 +762,12 @@ const placeText = (origin) => (origin ? origin.map(rounded).join(" ") : "nowhere
  *   put        files written into the engine before the map loads: `[{ path: "msc/maps/yard.bsp", file }]`
  *              (or `bytes`). A driver that cannot (`put`) refuses. The map the session is in is left first
  *              (the driver's `leave`): a game may write its own files as a map ends, over what was put
+ *   over       folders laid over the game's files, `[{ path: "msc", folder }]`: every file in one that is new
+ *              or changed (its size or its time) since the session marked it is put, as `put` puts, and the
+ *              mark is moved on. A game that is up reads a file once (a model it failed to find stays
+ *              failed): this is how one edited since is tried without starting the engine again. A folder
+ *              the session has not marked (not given to `playSession`, nor to a run before) is marked by
+ *              this run, and nothing of it is put
  *   loads, pause, tell   as `play`'s
  *   sheet      false for no contact sheet (unless told: `sheet.png`, when a picture was taken)
  *
@@ -704,7 +783,10 @@ const placeText = (origin) => (origin ? origin.map(rounded).join(" ") : "nowhere
  *     fights        one for each `fight` step: { where, seconds, ended: "line" | "time" | "quiet", line, rounds, blows,
  *                   dealt: { hits, sum, missed }, taken: { hits, sum }, heals, deaths, down (seconds dead),
  *                   slain: [names], enemies: { asked, none, most, mean, closeMost, closeMean }, health:
- *                   { least, most } }, counted by the profile's `play.fight` patterns
+ *                   { least, most } }, counted by the profile's `play.fight` patterns; with `prefer`, `prefer:
+ *                   { words, slain, rounds, letBe }` (the slain whose names hold a word; the rounds that faced one;
+ *                   the times one was let be);
+ *                   with `chase`, `sidesteps`; with `dodge`, `dodge: { warned, dodged, clear }`
  *     passed        true when every expectation held
  *     lines         what was heard in the run: { at, kind, text }, `at` in milliseconds from its start and
  *                   `kind` "console", "error", a message's name, "where", or "play" for the run's own notes
@@ -716,13 +798,16 @@ const placeText = (origin) => (origin ? origin.map(rounded).join(" ") : "nowhere
  * (`pictures`, `logFile`, `sheet`, `expectations`). An expectation that does not hold does not stop a run:
  * it is in `expectations`, and `passed` is false.
  */
-export function playSession({ driver, mod, pause: sessionPause, tell: sessionTell } = {}) {
+export function playSession({ driver, mod, pause: sessionPause, tell: sessionTell, over: sessionOver = [] } = {}) {
   const lacks = DRIVER.filter((name) => typeof driver?.[name] !== "function");
   if (lacks.length)
     throw new Error(
       `play: driver is an object with ${DRIVER.join(", ")} (browserDriver makes one)${driver ? `: this one has no ${lacks.join(", ")}` : ""}`,
     );
   const part = playPartOf(mod);
+  /** The folders laid over the game's, each with its files' marks as the engine last had them. */
+  const laid = new Map();
+  for (const each of oversOf(sessionOver)) laid.set(each.key, { ...each, marks: marksOf(each.folder) });
   const hears = typeof driver.lines === "function";
   const state = { up: false, map: null, entered: false, runs: 0 };
   /** Everything heard since the session began: `{ at, kind, text }`, `at` the clock's milliseconds. */
@@ -795,6 +880,7 @@ export function playSession({ driver, mod, pause: sessionPause, tell: sessionTel
     expectNot = [],
     put = [],
     sheet = true,
+    over = [],
   } = {}) {
     const staying = stay === true;
     if (staying && !state.entered)
@@ -826,6 +912,18 @@ export function playSession({ driver, mod, pause: sessionPause, tell: sessionTel
       throw new Error(
         `play: put is a list of { path, file } (or bytes): a place in the engine's files and what goes there, not ${shown(put)}`,
       );
+    const overs = oversOf(over);
+    /** What changed in each folder laid over since the session marked it, as files to put; and the new marks. */
+    const moved = overs.map((each) => {
+      const marks = marksOf(each.folder);
+      const had = laid.get(each.key)?.marks;
+      const files = had ? [...marks].filter(([file, mark]) => had.get(file) !== mark).map(([file]) => file) : null;
+      return { ...each, marks, files };
+    });
+    put = [
+      ...put,
+      ...moved.flatMap(({ path, folder, files }) => (files ?? []).map((file) => ({ path: `${path}/${file}`, file: join(folder, file) }))), // prettier-ignore
+    ];
     if (put.length && typeof driver.put !== "function")
       throw new Error("play: this driver cannot put a file into the engine (it has no put())");
 
@@ -911,7 +1009,7 @@ export function playSession({ driver, mod, pause: sessionPause, tell: sessionTel
       return Math.hypot(flat, dz);
     };
     /** The nearest living enemy within `radius`, as the profile finds one, or null: `{ origin, ... }`. */
-    const targetOf = async (radius) => {
+    const targetOf = async (radius, prefer = []) => {
       await listen();
       const asked = heard.length;
       if (typeof part.target === "function") {
@@ -924,6 +1022,7 @@ export function playSession({ driver, mod, pause: sessionPause, tell: sessionTel
             return line ? expression.exec(line.text) : null;
           },
           view: () => driver.view(),
+          prefer,
         });
         if (told == null) return null;
         if (!(Array.isArray(told.origin) && told.origin.length === 3 && told.origin.every(isNumber)))
@@ -1017,6 +1116,9 @@ export function playSession({ driver, mod, pause: sessionPause, tell: sessionTel
         ...{ heals: 0, deaths: 0, slain: [], down: 0 },
         ...{ enemies: { asked: 0, none: 0, most: 0, sum: 0, closeMost: 0, closeSum: 0, closeAsked: 0 } },
         ...{ health: { least: null, most: null } },
+        ...(action.prefer.length ? { prefer: { words: action.prefer, slain: 0, rounds: 0, letBe: 0 } } : {}),
+        ...(action.chase !== null && action.sidestep !== null ? { sidesteps: 0 } : {}),
+        ...(action.dodge ? { dodge: { warned: 0, dodged: 0, clear: 0 } } : {}),
       };
       let read = from;
       let fallen = null;
@@ -1039,6 +1141,7 @@ export function playSession({ driver, mod, pause: sessionPause, tell: sessionTel
           if (lines.missed?.test(text)) tally.dealt.missed++;
           const slain = lines.slain?.exec(text);
           if (slain) tally.slain.push(slain[1] ?? text);
+          if (slain && tally.prefer && preferred(slain[1] ?? text)) tally.prefer.slain++;
           if (lines.died?.test(text) && fallen === null) {
             tally.deaths++;
             fallen = clock();
@@ -1063,10 +1166,109 @@ export function playSession({ driver, mod, pause: sessionPause, tell: sessionTel
         for (const [index, inner] of action.actions.entries()) await act(inner, `${where}'s blow, step ${index + 1}`);
         tally.blows++;
       };
+      /** The first word of `prefer` a name holds, or null. */
+      const preferred = (name) =>
+        action.prefer.find((word) => String(name ?? "").toLowerCase().includes(word.toLowerCase())) ?? null;
+      /** The word the game was last told to prefer, by this fight; until when the preferred are let be. */
+      let preferSaid = null;
+      let letBe = -Infinity;
+      /** The enemy to strike: of the words of `prefer`, the first that one within the radius has; else the nearest. */
+      const find = async () => {
+        // a preferred one that could not be got at is let be a while: the nearest meanwhile
+        if (clock() < letBe) {
+          if (preferSaid !== null && action.unprefers) await done(action.unprefers);
+          preferSaid = null;
+          return targetOf(action.radius);
+        }
+        if (!action.prefers) return targetOf(action.radius, action.prefer);
+        let enemy = null;
+        for (const [index, word] of action.prefer.entries()) {
+          if (preferSaid !== word) {
+            await done(action.prefers[index]);
+            preferSaid = word;
+          }
+          enemy = await targetOf(action.radius);
+          // none at all, or one of this word: the answer stands; else the next word is asked for
+          if (!enemy || preferred(enemy.name) === word) return enemy;
+        }
+        return enemy;
+      };
+      /** Buttons held for a while and let go: a move the fight makes. Gives the milliseconds it took. */
+      const moving = async (buttons, ms, stop) => {
+        for (const button of buttons) await driver.command(`+${button}`);
+        let went = 0;
+        try {
+          while (went < ms) {
+            const step = Math.min(POLL, ms - went);
+            await driver.wait(step);
+            went += step;
+            if (await stop?.()) break;
+          }
+        } finally {
+          for (const button of buttons) await driver.command(`-${button}`);
+        }
+        return went;
+      };
+      /** The buttons that move the player towards a yaw of the world while his view is turned to `yaw`. */
+      const towards = (way, yaw) => {
+        const turned = ((way - yaw) * Math.PI) / 180;
+        const [ahead, left] = [Math.cos(turned), Math.sin(turned)];
+        return [
+          ...(ahead > 0.38 ? ["forward"] : ahead < -0.38 ? ["back"] : []),
+          ...(left > 0.38 ? ["moveleft"] : left < -0.38 ? ["moveright"] : []),
+        ];
+      };
+      // a warning heard is dodged once; after a dodge he walks at nobody for its `hold`
+      let warnedRead = from;
+      let calm = -Infinity;
+      let aside = 1;
+      /** A line that warns of a blow to a place, dodged: true when he moved. */
+      const evade = async () => {
+        if (!action.dodge) return false;
+        await listen();
+        let warned = null;
+        let said = "";
+        for (; warnedRead < heard.length; warnedRead++) {
+          const got = heard[warnedRead].kind === OWN ? null : action.dodge.line.exec(heard[warnedRead].text);
+          if (got) [warned, said] = [got, heard[warnedRead].text];
+        }
+        if (!warned) return false;
+        tally.dodge.warned++;
+        const { far, ms, hold } = action.dodge;
+        const named = warned.groups?.x !== undefined ? [Number(warned.groups.x), Number(warned.groups.y)] : null;
+        const spot = named?.every(isNumber) ? named : null;
+        const { origin, yaw = 0 } = await driver.view();
+        if (!origin) return false;
+        const off = (at) => Math.hypot(at[0] - spot[0], at[1] - spot[1]);
+        if (spot && off(origin) >= far) {
+          tally.dodge.clear++;
+          note(OWN, `${where}: warned (${shown(said)}), and ${rounded(off(origin))} off it already`);
+          return false;
+        }
+        // away from the place; straight over it (or with no place said), to one side and the other the next time
+        aside = -aside;
+        const way = spot && off(origin) > 8 ? (Math.atan2(origin[1] - spot[1], origin[0] - spot[0]) * 180) / Math.PI : yaw + 90 * aside; // prettier-ignore
+        const away = async () => Boolean(spot) && off((await driver.view()).origin ?? origin) >= far;
+        const took = await moving(towards(way, yaw), ms, away);
+        const now = (await driver.view()).origin ?? origin;
+        tally.dodge.dodged++;
+        calm = clock() + hold;
+        note(OWN, `${where}: dodged ${shown(said)}: ${spot ? `from ${rounded(off(origin))} to ${rounded(off(now))} off ${spot.join(" ")}` : `a step aside, ${rounded(Math.hypot(now[0] - origin[0], now[1] - origin[1]))} units`} in ${took} ms`); // prettier-ignore
+        return true;
+      };
+      /** The enemy chased: how near it has come, the rounds that came no nearer, the blows that landed on others. */
+      let chased = null;
+      let chasing = false;
+      let hitsBefore = 0;
+      let side = 1;
       const { line, over, took } = await again(action, where, from, async (ended) => {
         tally.rounds++;
         await listen();
         count();
+        // the last round's blow, struck on the way to an enemy out of reach, landed: on another, in the way
+        if (chasing && chased && tally.dealt.hits > hitsBefore) chased.others++;
+        chasing = false;
+        if (await evade()) return false;
         if (fallen !== null) {
           // down: a game may want a button pressed to rise, so the blows go on; risen when his health is back
           if (health !== null && health > 0 && lines.health) {
@@ -1095,7 +1297,7 @@ export function playSession({ driver, mod, pause: sessionPause, tell: sessionTel
           await waitFor(lines.health, told, 1000);
           count();
         }
-        const enemy = await targetOf(action.radius);
+        const enemy = await find();
         tally.enemies.asked++;
         if (!enemy) {
           tally.enemies.none++;
@@ -1113,23 +1315,65 @@ export function playSession({ driver, mod, pause: sessionPause, tell: sessionTel
           tally.enemies.closeSum += enemy.close;
           tally.enemies.closeMost = Math.max(tally.enemies.closeMost, enemy.close);
         }
+        if (tally.prefer && preferred(enemy.name)) tally.prefer.rounds++;
         const far = await aim(enemy.origin);
-        if (action.chase !== null && far > action.chase) {
-          // a step towards him, and the blow all the same: he may be in reach before it lands
-          await driver.command("+forward");
-          try {
-            await driver.wait(Math.min(600, Math.max(100, ((far - action.chase) / 200) * 1000)));
-          } finally {
-            await driver.command("-forward");
+        if (action.chase !== null && far > action.chase && clock() >= calm) {
+          // the same enemy chased: is he any nearer?
+          const who = enemy.id ?? enemy.name ?? "";
+          if (chased?.who !== who) chased = { who, best: far, stalled: 0, others: 0, tries: 0 };
+          else if (far < chased.best - GAINED) Object.assign(chased, { best: far, stalled: 0, tries: 0 });
+          else chased.stalled++;
+          // as long as it takes him at a walk's pace, up to CHASE_MOST: one that keeps away is followed, not edged at
+          const step = Math.min(CHASE_MOST, Math.max(100, ((far - action.chase) / PACE) * 1000));
+          const held = chased.others >= 2 || chased.stalled >= 3;
+          // four sidesteps that did not get him nearer: the preferred one is let be for a while, and the
+          // nearest (who stands in the way) fought, where the game can be told to prefer nobody
+          const canLetBe = action.prefer.length && (action.unprefers || !action.prefers);
+          if (held && canLetBe && preferred(enemy.name) && chased.tries >= LET_BE_AFTER) {
+            letBe = clock() + LET_BE;
+            tally.prefer.letBe++;
+            note(OWN, `${where}: ${enemy.name} is not got at (${chased.tries} sidesteps, ${rounded(far)} off): the nearest for ${LET_BE / 1000} s`); // prettier-ignore
+            chased = null;
+            await blow();
+            return false;
           }
-          if (await ended()) return true;
-          await aim(enemy.origin);
+          if (action.sidestep !== null && held) {
+            // held up by others in the way, or getting no nearer: round them, a step to the side, then on.
+            // Twice to one side, then twice to the other: a side that got him on is kept for the next time
+            if (chased.tries && chased.tries % 2 === 0) side = -side;
+            chased.tries++;
+            Object.assign(chased, { stalled: 0, others: 0 });
+            tally.sidesteps++;
+            await moving([side > 0 ? "moveright" : "moveleft"], action.sidestep);
+            note(OWN, `${where}: a sidestep to the ${side > 0 ? "right" : "left"}, round what stands between him and ${enemy.name ?? "the enemy"} (${rounded(far)} off)`); // prettier-ignore
+            await aim(enemy.origin);
+          }
+          // a step towards him, and the blow all the same: he may be in reach before it lands
+          await moving(["forward"], step);
+          // a fight whose time ran out in the step is ended by its time, at the loop's next look
+          if (await ended()) return false;
+          if (await evade()) return false;
+          const left = await aim(enemy.origin);
+          chasing = true;
+          hitsBefore = tally.dealt.hits;
+          // still well out of reach of where he was, and nobody on the player: no blow at the air, the next
+          // round walks on. With others on him the blow is struck, and lands on whoever is in front
+          if (left > action.chase + OUT_OF_REACH && enemy.close === 0) return false;
         }
         await blow();
+        // in reach (a fight that says its reach with chase): more blows before he is asked for again, as a player
+        // swings while the one before him stands; each with a look at the time and at a warning
+        if (action.chase !== null && far <= action.chase)
+          for (let more = 1; more < FLURRY; more++) {
+            if ((await ended()) || (await evade())) return false;
+            await blow();
+          }
+        await evade();
         return false;
       });
       await listen();
       count();
+      if (preferSaid !== null && action.unprefers) await done(action.unprefers);
       if (fallen !== null) tally.down += clock() - fallen;
       tally.seconds = rounded(took / 1000);
       tally.down = rounded(tally.down / 1000);
@@ -1336,6 +1580,14 @@ export function playSession({ driver, mod, pause: sessionPause, tell: sessionTel
         note(OWN, `put ${each.path} (${bytes.length} bytes)`);
         tell?.(`put ${each.path} (${bytes.length} bytes)`);
       }
+      for (const each of moved) {
+        laid.set(each.key, { ...each });
+        const said = each.files
+          ? `over ${each.path}: ${each.files.length} files of ${each.folder} changed since the session had them${each.files.length ? `: ${each.files.slice(0, 8).join(", ")}${each.files.length > 8 ? ", ..." : ""}` : ""}` // prettier-ignore
+          : `over ${each.path}: ${each.folder} is new to the session: marked now, and nothing of it put (what changes in it from now on is)`; // prettier-ignore
+        note(OWN, said);
+        tell?.(said);
+      }
       if (!staying) await load(map, true);
       await through("steps", asked);
       for (const each of held.flat()) await expecting(each, "the run", heard.length);
@@ -1397,6 +1649,34 @@ export function playSession({ driver, mod, pause: sessionPause, tell: sessionTel
   }
 
   return { ready, run, close, state };
+}
+
+/** Folders laid over the game's files, checked: `[{ path, folder, key }]`, the folder made whole. */
+function oversOf(list) {
+  if (!Array.isArray(list) || !list.every((each) => isText(each?.path) && isText(each?.folder)))
+    throw new Error(
+      `play: over is a list of { path, folder }: a place in the engine's files and the folder laid over it there, not ${shown(list)}`,
+    );
+  return list.map(({ path, folder }) => {
+    const whole = resolve(folder);
+    if (!existsSync(whole) || !statSync(whole).isDirectory())
+      throw new Error(`play: over: ${folder} is no folder, to lay over ${path}`);
+    const place = path.replace(/\\/g, "/").replace(/\/+$/, "");
+    return { path: place, folder: whole, key: `${place}=${whole}` };
+  });
+}
+
+/** Every file under a folder, `a/b.mdl` from it, with its size and time as a mark: what changed is told by it. */
+function marksOf(folder, under = "", marks = new Map()) {
+  for (const entry of readdirSync(join(folder, under), { withFileTypes: true })) {
+    const name = `${under}${entry.name}`;
+    if (entry.isDirectory()) marksOf(folder, `${name}/`, marks);
+    else if (entry.isFile()) {
+      const { size, mtimeMs } = statSync(join(folder, name));
+      marks.set(name, `${size}:${mtimeMs}`);
+    }
+  }
+  return marks;
 }
 
 /**
@@ -1478,6 +1758,9 @@ export function fightLine(fight) {
     `slain ${slain.length}${dead ? `: ${dead}` : ""}`,
     `enemies at once: ${enemies.most} at most, ${enemies.mean} on average${enemies.closeMost === undefined ? "" : `; on the player: ${enemies.closeMost} at most, ${enemies.closeMean} on average`}${enemies.none ? ` (none found in ${enemies.none} of ${enemies.asked} rounds)` : ""}`,
     `health ${health.least ?? "not said"} at its least${health.most ? ` of ${health.most}` : ""}`,
+    ...(fight.prefer ? [`preferred (${fight.prefer.words.join(", ")}): ${fight.prefer.slain} of the ${slain.length} slain, faced in ${fight.prefer.rounds} of ${rounds} rounds${fight.prefer.letBe ? `, let be ${fight.prefer.letBe} ${fight.prefer.letBe === 1 ? "time" : "times"} (not got at)` : ""}`] : []), // prettier-ignore
+    ...(fight.sidesteps !== undefined ? [`${fight.sidesteps} ${fight.sidesteps === 1 ? "sidestep" : "sidesteps"} round others in the way`] : []), // prettier-ignore
+    ...(fight.dodge ? [`dodged ${fight.dodge.dodged} of ${fight.dodge.warned} warnings${fight.dodge.clear ? ` (${fight.dodge.clear} heard off the place already)` : ""}`] : []), // prettier-ignore
   ].join("; ");
 }
 

@@ -4,7 +4,7 @@ Tools for making and changing GoldSrc models (`.mdl`: Half-Life and its mods), b
 coding agent such as Claude Code. You say what you want; the agent writes small scripts with this kit, draws the
 result into pictures to check its own work, and hands you a `.mdl` to try in the game.
 
-Version 0.14.0. An early release, made for an agent to work. For the person it has two pages in the browser: a
+Version 0.15.0. An early release, made for an agent to work. For the person it has two pages in the browser: a
 **viewer** that shows any two models side by side, turning and playing their animations together, and an
 **editor** for touching up a model by hand (its animations, events and textures; not its shape), on a project
 file the agent can work on too (`editor/README.md`).
@@ -121,6 +121,15 @@ body 0: `info` shows the body numbers, and `--body N` picks one.
   the game is the real test.
 - Many models give the left and right side of the body the same pixels of a texture. A mark painted on one side
   then shows on the other; the kit reports how much of each texture is shared.
+
+## What changed in 0.15.0
+
+- **A re-skin by rules** (`smak reskin`, docs/API.md): a game's model recoloured, rusted, mossed or painted by
+  place; one plate given pixels of its own (`ownPixels`); an animation from another's frames
+  (`smak sequence-add --from`); a held thing aimed, a fall kept on the floor, a lantern hung straight.
+- **A fight that chooses and moves** (docs/PLAY.md): `prefer` a healer, sidestep round a crowd, `dodge` a marked
+  circle; runs of any length; files changed while the game is up put into it (`--over`).
+- **A band left empty on purpose** is no longer a warning (`bands` rule, `open`).
 
 ## What changed in 0.14.0
 

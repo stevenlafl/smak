@@ -3,6 +3,49 @@
 The newest first. A version that changes what a model's file looks like, or that a model made before needs
 mending for, says so under **Mind**.
 
+## 0.15.0 (2026-10-15)
+
+Re-skins in one step, and a fight that chooses and moves. Agents making a map's monsters found that a body made
+from nothing reads as crude beside a game's own, and that the person wanted the game's models re-skinned: this
+version makes a re-skin a short list of rules. And a fight played by one step could not go for a healer first,
+walk round a crowd or step out of a marked circle, so every reading of difficulty was a worst case.
+
+- **Re-skins in one step, and composing on a bought rig.** `reskin` repaints a game's model by rules (in a script
+  or `smak reskin`): a rule recolours a hue keeping the shading, darkens or tints, rusts, mosses, dirties or greens
+  by place on the body, or paints, kept to textures, islands, colour ranges, pixel boxes or places; each changed
+  texture comes out before and after. `ownPixels` gives an island, body or mesh a texture of its own copied from
+  the pixels it wore, so one plate of an armour whose one rust covers every plate can be marked alone.
+  `addSequenceFrom` and `smak sequence-add --from x --frames 80-57` make an animation from another's frames,
+  forward or backward. `importRigged` returns `parts`, so a bone and a piece can be added before `buildMdl`.
+  `animate.reach` takes `aim` and `grip`; new `animate.hold` keeps a bone at its own turn in the model,
+  `animate.grounded` lifts falls onto the floor; the quaternion helpers are exported. `workshop.skinned`,
+  `zoneOn`, `span` hold the scarecrow's tubes and lofts. `check --source` marks warnings the original also has as
+  inherited. `--yaw`/`--pitch` now turn front/side/top views. Texture flags are documented (flag 4, full bright:
+  Xash honours it; GoldSrc not known). New: src/reskin.mjs, src/skinned.mjs, tests 46-49.
+- **Long runs, and files changed while the game is up.** `attachSession` reads a run's answer by `node:http`,
+  with no limit of time; the server sends its headers at once and a `{ beat }` line every 30 s of a quiet run
+  (`serveSession({ beat })`). A run of over five minutes used to end in the attaching process with
+  `FAILED: terminated` while it went on in the game; runs of 10 and 11 minutes now say their real result.
+  `smak play --serve --over msc=<folder>` marks a folder laid over the game's files, and each `--attach ...
+  --over` puts what changed in it since (`playSession({ over })`, `run({ over })`).
+- **A fight that chooses and moves.** `prefer: "lantern"` (or a list) goes for that kind first, by the profile's
+  new `play.target.prefer` and `unprefer` (Master Sword: `trial prefer {word}`); one that cannot be got at is let
+  be for 20 s while the nearest is fought. With `chase`, the bot sidesteps round others in the way (`sidestep`,
+  600 ms or `false`), walks at a far enemy as long as the way takes (up to 1.5 s a round), swings no blow at the
+  air, and strikes three blows a round in reach. `dodge` steps away from a place a line warns of (a test copy's
+  line: the game shows a sprite). The fight line gains preferred kills, sidesteps and dodges. In a map's bay
+  with a healer behind a guard, all of it now dies (nothing did); a boss's marks struck 19 of 41 times with
+  `dodge`, 31 of 32 without. A fight whose time ran out on a chase step is "ended by its time". `block` is not
+  made: Master Sword says nothing before a blow lands.
+- **A band left empty on purpose.** The `bands` rule takes `open`, a key naming ranges a place leaves empty
+  (Master Sword: `reqhp_none "150;500"`): the check names only true faults (a map's 18 warnings to 0, its
+  monsters unchanged).
+- New: tests 50-52.
+
+**Mind**: a named view given a yaw or pitch no longer ignores it. `ownPixels` renumbers islands (the moved
+  ones last). Moved triangles are written as strips of three (more corners drawn). Fights with `chase` read otherwise than in 0.14 (sidesteps, longer walks, three
+blows a round). A fight runs in the serving process: after a change to SMAK, stop the session and serve again.
+
 ## 0.14.0 (2026-10-13)
 
 Bought models, and a fight played by one step. A person's folder of bought low-poly packs (some 1750 .fbx,

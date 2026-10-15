@@ -111,7 +111,7 @@ const some = (list) =>
   `${list.slice(0, NAMES_LISTED).join(", ")}${list.length > NAMES_LISTED ? ` and ${list.length - NAMES_LISTED} more` : ""}`;
 
 /** The textures: each one whole inside the file, and the sizes the engine draws less well. */
-function checkTextures(src, info, engine, { errors, warnings, facts }) {
+function checkTextures(src, info, engine, { errors, warnings, facts }, sourceTextures = null) {
   const limits = LIMITS[engine];
   const tooBig = [];
   const notPow2 = [];
@@ -126,12 +126,15 @@ function checkTextures(src, info, engine, { errors, warnings, facts }) {
         `the chrome texture ${t.name} is ${t.width}x${t.height}: older GoldSrc draws chrome right only at 64x64`,
       );
   }
-  if (tooBig.length)
-    warnings.push(
-      engine === "goldsrc"
-        ? `${tooBig.length} textures larger than 512 (${some(tooBig)}): GoldSrc draws nothing finer than gl_max_size (512 by default, 256 in builds before 2023) and shrinks them`
-        : `${tooBig.length} textures larger than ${limits.texture} (${some(tooBig)})`,
-    );
+  // with a source: the ones it has at the same size are told apart, as the source's and not this file's doing
+  const fromSource = (list) => list.filter((entry) => sourceTextures?.has(entry));
+  const ownOnly = (list) => list.filter((entry) => !sourceTextures?.has(entry));
+  const tooBigSaid = (list) =>
+    engine === "goldsrc"
+      ? `${list.length} textures larger than 512 (${some(list)}): GoldSrc draws nothing finer than gl_max_size (512 by default, 256 in builds before 2023) and shrinks them`
+      : `${list.length} textures larger than ${limits.texture} (${some(list)})`;
+  if (ownOnly(tooBig).length) warnings.push(tooBigSaid(ownOnly(tooBig)));
+  if (fromSource(tooBig).length) warnings.push(`${INHERITED}${tooBigSaid(fromSource(tooBig))}`);
   if (notPow2.length && engine === "goldsrc")
     facts.push(
       `${notPow2.length} textures have a side that is not a power of two (${some(notPow2)}): GoldSrc stretches those to one when it loads them, a little softer`,
@@ -387,7 +390,7 @@ function inspect(src, engine, info, report) {
     warnings.push(
       "its textures are kept in another file (the same name with a t before .mdl): put them inside with withTextures before working on it",
     );
-  checkTextures(src, info, engine, report);
+  checkTextures(src, info, engine, report, report.sourceTextures);
 
   checkBases(src, info, report);
 
@@ -431,13 +434,19 @@ const cutShort = (src) =>
 /**
  * Returns { errors, warnings, facts }, each a list of sentences. A file that is cut short or broken is
  * reported as an error like any other: nothing is thrown for what is wrong with the model.
+ * `source`: the file this one was made from (the game's own, for a re-skin). A warning that it has too is then
+ * begun with INHERITED ("inherited from the source: "), and textures it has at the same name and size are
+ * said apart from this file's own; `inherited` counts those warnings.
  */
-export function check(src, engine = "goldsrc") {
+export function check(src, engine = "goldsrc", { source, sourceTextures } = {}) {
   if (!LIMITS[engine]) throw new Error(`engine: goldsrc or xash, not ${engine}`);
+  if (source) return withSource(check(src, engine, { sourceTextures: texturesOf(source) }), check(source, engine));
   const errors = [];
   const warnings = [];
   const facts = [];
   const report = { errors, warnings, facts };
+  // (from `withSource`: the textures of the file this one was made from, by name and size)
+  if (sourceTextures) report.sourceTextures = sourceTextures;
   let info;
   try {
     info = readMdl(src);
@@ -451,5 +460,28 @@ export function check(src, engine = "goldsrc") {
     if (!(e instanceof RangeError)) throw e;
     errors.push(cutShort(src));
   }
+  delete report.sourceTextures;
   return report;
+}
+
+/** What starts a warning that the file it was made from has too (`check`'s `source`). */
+export const INHERITED = "inherited from the source: ";
+/** A model's textures as "name WxH", as `checkTextures` lists them; none for a file that cannot be read. */
+function texturesOf(source) {
+  try {
+    return new Set(readMdl(source).textures.map((t) => `${t.name} ${t.width}x${t.height}`));
+  } catch {
+    return new Set();
+  }
+}
+/**
+ * A report with the warnings the source's own report has word for word marked as inherited, and `inherited`,
+ * how many warnings are so marked (the source's textures kept at their size were told apart already).
+ */
+function withSource(report, ofSource) {
+  const theirs = new Set(ofSource.warnings);
+  const warnings = report.warnings.map((warning) =>
+    !warning.startsWith(INHERITED) && theirs.has(warning) ? INHERITED + warning : warning,
+  );
+  return { ...report, warnings, inherited: warnings.filter((w) => w.startsWith(INHERITED)).length };
 }

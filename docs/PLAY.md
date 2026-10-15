@@ -42,8 +42,22 @@ run in a session after 6, where the fixed waits of 0.11 took 79.
   without starting the engine again. The map the session is in is left first, because a game may write its own
   files as a map ends. What an engine reads only once is not changed by this: a game's list of items, read
   when its libraries load, wants a new session; so may a model the engine still holds.
+- `--over <place>=<folder>`: a folder laid over the game's files (`--over msc=content/assets/msc`). Given
+  to `--serve`, the session marks every file in it (its size and time) as the engine starts; a run
+  `--attach`ed with the same `--over` puts every file of it that is new or changed since, and the mark moves
+  on. A game that is up reads a model once (one it failed to find stays failed): this is how a model rebuilt
+  is tried in the game that is up. A folder the session never marked is marked by the first run that names
+  it, and nothing of it is put then. A run that names no `--over` puts nothing of it: what changed waits.
+- `--port <n>` (with `--serve`): several sessions side by side, each with its own engine and port, for
+  several agents testing at once.
 - `--expect <pattern>`, `--expect-not <pattern>`: lines the whole run is held to.
 - `--no-sheet`, `--show` (the browser's window seen), `--loads <ms>`, `--width`, `--height`.
+
+**A long run** (a fight of ten minutes) is answered as it goes: the session sends its answer's headers at
+once, a line for each thing done, and a beat (`{ "beat": seconds }`) every 30 seconds in which the run says
+nothing; `--attach` reads the answer with Node's own `http` and no time limit. Before 0.15 it read it with
+`fetch`, which gives up after 300 seconds of silence: a run of over five minutes ended in the attaching
+process with `FAILED: terminated` while it went on in the game.
 
 What a run leaves in its folder: `NN_name.png` for each picture, `sheet.png` (all of them in one, each under
 its name), `log.txt` and `log.jsonl` (what was heard), `result.json` (the steps with their times, the
@@ -151,9 +165,22 @@ its object:
 | `radius` | how far round the player an enemy is looked for (768) |
 | `heal` | a share of the player's health (`0.5`): under it he is healed by the profile's `play.heal`, once a wound |
 | `post` | `[x, y, z]`: where he is put back (by the profile's `play.goto`) when he has died and risen |
-| `chase` | a distance: an enemy farther off than it is walked at (+forward, a moment) before the blow |
+| `chase` | a distance, the reach of a blow: an enemy farther off than it is walked at (+forward) before the blow, for as long as the way takes at 200 units a second (at most 1.5 s a round: one that keeps away is followed); one still over 100 beyond it, with nobody on the player, is not struck at. An enemy within it takes three blows a round before he is asked for again |
 | `quiet` | milliseconds: the fight is over when no enemy has been found for that long, which stops nothing (a fight that has no line to wait for) |
 | `attack` | the steps of one blow, for the profile's |
+| `prefer` | a word of an enemy's name, or a list of them (`"lantern"`, `["lantern", "guard"]`): the enemy whose name holds the first word is struck first, wherever he stands within the radius; then the second word's; the nearest when nobody has one. Matched without regard to capitals. It needs the profile's `play.target.prefer` (below). One that four sidesteps got no nearer (behind others in a corridor) is let be for 20 seconds, the nearest fought meanwhile (the profile's `unprefer`), and then asked for again: `let be N times` in the line |
+| `sidestep` | milliseconds of a step to the side (600), or `false` for none. With `chase`, when the enemy chased is held up (two blows swung at him landed on others in the way, or three rounds brought him no nearer by 16) the fight strafes that long, twice to one side and then twice to the other, and walks on |
+| `dodge` | the pattern of a line that warns of a blow to a place, or `{ line, far, ms, hold }`. When it is heard the player steps away: from the place the line names in the groups `(?<x>...)` and `(?<y>...)` until he is `far` (150) off it, or (no place named, or he stands on it) to one side; at most `ms` (1500). For `hold` (2000) after it he strikes and does not chase, so as not to walk back in |
+
+**Choosing and moving.** A fight without these strikes whoever is nearest, never gets past a crowd and never
+steps out of anything, so what it counts is the worst case. `prefer` goes for the healer first; `sidestep`
+(on unless told, wherever `chase` is) gets round a front line to it; `dodge` steps out of a marked place.
+**A dodge by a line is an aid for tests only**: a game that shows its warning as a picture (Master Sword's
+First Warden marks the ground with a sprite and says nothing) is heard by a test only through a copy of the
+monster's script that says it (`WARDEN marks the ground under <name> at <x> <y>` in msr-web's test copy). A
+player sees the sprite; the bot hears the line. What a fight with `dodge` counts is how a player who sees
+every mark fares. No `block`: Master Sword says nothing before a blow lands (its lines come after the hit),
+so there is nothing to block on; a profile cannot name a warning that is not there.
 
 What happened is a line in the log, of the kind `fight` (an `expect` can be held to it), printed at the end
 of the run, and `fights` in `result.json`, counted by the profile's patterns of the game's lines:
@@ -164,6 +191,13 @@ dealt 80 hits, 776.5 in all (0.62 hits a second), 11 missed; taken 500 hits, 400
 19 heals, 0 deaths; slain 5: the Enraged Skeleton x2, the Fallen Knight, the Awakened Guardian x2; enemies at
 once: 5 at most, 3.53 on average; on the player: 5 at most, 3.36 on average; health 104 at its least of 339
 ```
+
+With `prefer`, `chase` or `dodge` the line goes on: `; preferred (lantern): 2 of the 3 slain, faced in 60
+of 98 rounds, let be 1 time (not got at); 3 sidesteps round others in the way; dodged 9 of 11 warnings (2 heard off the place already)`,
+and `result.json`'s fight has `prefer: { words, slain, rounds, letBe }`, `sidesteps` and `dodge: { warned, dodged,
+clear }`. Each sidestep and each dodge is a line of the log (`step 4: a sidestep to the right, round what
+stands between him and Lantern-bearer (212.4 off)`, `step 4: dodged "WARDEN marks the ground under Deoroot at
+1700 1950": from 12.3 to 151.6 off 1700 1950 in 700 ms`).
 
 `enemies at once` are those the game counted within the radius each time it was asked; `on the player` those
 it counts as on him (Master Sword's helper: within 128), when the profile reads such a count. A death is the
@@ -220,6 +254,8 @@ play: {
     commands: ["trial nearest {radius}"],
     answer: /^TRIAL nearest (?<id>\S+) hp (?<hp>\S+) at \((?<x>[-\d.]+),(?<y>[-\d.]+),(?<z>[-\d.]+)\) far (?<far>\S+) count (?<count>\d+) close (?<close>\d+) name (?<name>.*)$/,
     none: /^TRIAL nearest none/,
+    prefer: ["trial prefer {word}"],               // the commands after which the answer is the nearest whose name holds {word}
+    unprefer: ["trial prefer none"],               // and those that undo it (sent when a fight that preferred ends)
   },
   fight: {                                         // a blow, and the lines a fight is counted by
     attack: [{ tap: "left", ms: 200, every: 700 }],
@@ -231,7 +267,7 @@ play: {
 }
 ```
 
-`target` may instead be a function `({ radius, command, heard, view })` that resolves to `{ origin: [x, y, z],
+`target` may instead be a function `({ radius, command, heard, view, prefer })` that resolves to `{ origin: [x, y, z],
 name, hp, far, count, close }` or null: a game whose engine can be asked another way. Its `answer` names the
 place to aim at in the groups `x`, `y`, `z` (the middle of the enemy, for a blow); the rest are read when they
 are there.
@@ -281,3 +317,8 @@ waited on and expected of, with `view()` and `look()` it turns exactly, with `mo
 | `the game did not answer "trial nearest 768" ... (the profile's play.target)` | The map has not the command that finds an enemy: for Master Sword, the trial helper script (tools/playtest.mjs adds it to any map's map_startup) |
 | A fight lands few blows | `chase` an enemy that keeps off; a `radius` that takes in enemies behind a wall aims at them. The log has the answer of each `target` asked, and `enemies at once` says how many there were |
 | A held mouse button does nothing in the game | It charges a blow: `tap` |
+| A change to the kit (or to a profile) does nothing in `--attach` runs | The steps are done by the serving process, with the code it started with: close the session and serve it again |
+| `FAILED: terminated` after five minutes (0.14 and before) | `fetch` gave up on a long run's answer. 0.15 reads it with no limit; update the kit |
+| `play: the session at ... went away during the run (ECONNRESET)` | The serving process ended in the run (closed, killed, out of memory). Its `session.log`, or the terminal that serves, says why |
+| `step 4 prefers an enemy, and the profile names no way to ask the game for one` | The profile's `play.target` has no `prefer` commands: the game cannot be asked. Add them, or a `target` function that takes `prefer` |
+| A fight with `prefer` strikes the others all the same | The preferred one is out of reach behind them: give `chase` (and its sidesteps). Or the word is not in his name as the game says it (`trial nearest`'s `name`) |

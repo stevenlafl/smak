@@ -98,6 +98,7 @@ const VALUE_FLAGS = [
   "expect",
   "expect-not",
   "put",
+  "over",
   "family",
   "base",
   "shipped",
@@ -118,6 +119,8 @@ const VALUE_FLAGS = [
   "only",
   "save-pictures",
   "fps",
+  "frames",
+  "source",
 ];
 // the flags of the map commands that may be given more than once: each time adds to a list
 const LISTED_FLAGS = [
@@ -138,6 +141,7 @@ const LISTED_FLAGS = [
   "expect",
   "expect-not",
   "put",
+  "over",
 ];
 // `map-entities` and `map-plan` print no more lines than this of one list unless told all of it is wanted
 const MARKS_PRINTED = 40;
@@ -476,11 +480,14 @@ function info({ file, src, flags }) {
 // ── check ──────────────────────────────────────────────────────────────────
 function check({ src, flags }) {
   const engine = flags.engine ?? "goldsrc";
-  const report = smak.check(src, engine);
+  // --source: the file it was made from; what that has too is said as inherited
+  const source = flags.source === undefined ? undefined : readModel(existing(flags.source), "check");
+  const report = smak.check(src, engine, { source });
   for (const fact of report.facts) console.log(`      ${fact}`);
   for (const warning of report.warnings) console.log(`WARN  ${warning}`);
   for (const error of report.errors) console.log(`ERROR ${error}`);
-  const warned = report.warnings.length ? `, with ${report.warnings.length} warnings` : "";
+  const inherited = report.inherited ? ` (${report.inherited} inherited from ${flags.source})` : "";
+  const warned = report.warnings.length ? `, with ${report.warnings.length} warnings${inherited}` : "";
   console.log(
     report.errors.length
       ? `${report.errors.length} errors: not fit for ${engine}`
@@ -497,7 +504,7 @@ function draw({ command, src, flags }) {
   const options = defined(viewOptions(src, flags));
   // the ground is a line only in a level view: said before anything is drawn
   const level = smak.NAMED_VIEWS[options.view]
-    ? smak.NAMED_VIEWS[options.view].pitch === 0
+    ? smak.NAMED_VIEWS[options.view].pitch + (options.pitch ?? 0) === 0
     : options.view !== "first" && options.pitch === 0;
   if (options.ground && (command === "sheet" || !level))
     fail(
@@ -616,6 +623,7 @@ function animationIn(command, jsonFile, named) {
  */
 function sequenceFromFile({ command, src, rest, flags }) {
   const adding = command === "sequence-add";
+  if (adding && flags.from !== undefined) return sequenceFromFrames({ command, src, flags });
   const jsonFile = need(command, adding ? rest[0] : rest[1], "seq.json");
   const to = need(command, flags.o, "-o out.mdl");
   const json = animationIn(command, jsonFile, adding);
@@ -631,6 +639,60 @@ function sequenceFromFile({ command, src, rest, flags }) {
     ? `${json.name} added as animation ${smak.sequences(out).length - 1}`
     : `animation ${rest[0]} now ${json.frames.length} frames`;
   console.log(`${to}: ${said}`);
+}
+
+/**
+ * sequence-add --from: a new animation made of frames of one the model has, in the order --frames gives
+ * ("80-57": backwards).
+ */
+function sequenceFromFrames({ command, src, flags }) {
+  const to = need(command, flags.o, "-o out.mdl");
+  const name = need(command, flags.name, "--name <the new animation's name>");
+  const frames = need(command, flags.frames, '--frames <"80-57", "57,58,57">');
+  const from = nameOrNumber(flags.from);
+  const out = smak.addSequenceFrom(src, {
+    from,
+    frames,
+    name: String(name),
+    fps: numberOf(flags, "fps"),
+    loops: Boolean(flags.loop),
+    events: Boolean(flags.events),
+  });
+  save(to, out);
+  const made = smak.sequences(out).at(-1);
+  console.log(
+    `${to}: ${made.name} added as animation ${smak.sequences(out).length - 1}: ${made.frames} frames of ${smak.readSequence(src, from).name} (${frames}) at ${made.fps} fps${made.loops ? ", looping" : ""}`,
+  );
+}
+
+// ── re-skin by rules ───────────────────────────────────────────────────────
+/** reskin: a file of rules (.json, or .mjs exporting `rules`) applied to the model, its textures before and after. */
+async function reskin({ command, src, rest, flags }) {
+  const rulesFile = existing(need(command, rest[0], "<rules.json|rules.mjs>"));
+  const to = need(command, flags.o, "-o out.mdl");
+  if (flags.pictures === true) fail(`${command}: --pictures needs a folder after it`);
+  const read = /\.m?js$/i.test(rulesFile)
+    ? await import(pathToFileURL(resolve(rulesFile)).href)
+    : JSON.parse(readFileSync(rulesFile, "utf8"));
+  const given = smak.rulesOf(read.default ?? read, rulesFile);
+  const body = numberOf(flags, "body") ?? given.body ?? 0;
+  const made = smak.reskin(src, given.rules, { body, pose: given.pose, own: given.own });
+  save(to, made.mdl);
+  for (const own of made.owned)
+    console.log(`  own pixels: ${own.moved} triangles now wear ${own.texture} (${own.width}x${own.height}), islands ${own.islands.join(", ")}`);
+  console.log(`${to}: body ${body}; ${made.changed.length} textures changed: ${made.changed.join(", ") || "none"}`);
+  const shared = Object.entries(made.shared).filter(([, share]) => share > 0);
+  if (shared.length)
+    console.log(`  worn by two places of the body (a mark on one shows on the other): ${shared.map(([n, v]) => `${n} ${v}`).join(", ")}`);
+  if (typeof flags.pictures === "string")
+    for (const { name, image } of made.pictures) {
+      const file = join(flags.pictures, `${fileNameOf(name)}_before_after.png`);
+      save(file, smak.png(image.width, image.height, image.rgba));
+      console.log(`  ${file}`);
+    }
+  const report = smak.check(made.mdl, "goldsrc", { source: src });
+  for (const error of report.errors) console.log(`ERROR ${error}`);
+  for (const warning of report.warnings) console.log(`WARN  ${warning}`);
 }
 
 // ── pieces, islands, layers ────────────────────────────────────────────────
@@ -2158,6 +2220,12 @@ async function playMap({ command, file: url, flags, listed }) {
       if (!path || !rest.length) fail(`${command}: --put <place in the game's files>=<file>, not ${each}`);
       return { path, file: existing(rest.join("=")) };
     });
+    // a folder laid over the game's: what changed in it since the session had it is put
+    const over = (listed.over ?? []).map((each) => {
+      const [path, ...rest] = each.split("=");
+      if (!path || !rest.length) fail(`${command}: --over <place in the game's files>=<folder>, not ${each}`);
+      return { path, folder: rest.join("=") };
+    });
     const out = flags.o ?? "play";
     const runs = (stay ? [null] : mapsGiven).map((map, index, all) => ({
       ...(stay ? { stay: true } : { map }),
@@ -2167,6 +2235,7 @@ async function playMap({ command, file: url, flags, listed }) {
       ...{ expect, expectNot, sheet: flags.sheet !== false },
       // the files are put once, before the first map
       put: index ? [] : put,
+      ...(over.length ? { over } : {}),
     }));
 
     // a session served elsewhere: the steps are checked there, against its profile
@@ -2192,7 +2261,7 @@ async function playMap({ command, file: url, flags, listed }) {
     );
     if (wide && (width !== wide || height !== high))
       console.log(`WARN  the profile's clicks were measured on a page of ${wide} by ${high}, and this one is ${width} by ${height}`); // prettier-ignore
-    const session = playSession({ driver, mod, tell: (line) => console.log(line) });
+    const session = playSession({ driver, mod, over, tell: (line) => console.log(line) });
 
     if (flags.serve) {
       const began = Date.now();
@@ -2239,7 +2308,8 @@ const COMMANDS = {
   },
   check: {
     run: check,
-    help: `  check <mdl> [--engine goldsrc|xash]       what would break or draw wrong in the game (exit code 1 on an error)`,
+    help: `  check <mdl> [--engine goldsrc|xash] [--source original.mdl]   what would break or draw wrong in the game (exit code 1 on
+                                            an error); --source: warnings the original has too are marked "inherited"`,
   },
   render: {
     run: draw,
@@ -2295,7 +2365,15 @@ const COMMANDS = {
   },
   "sequence-add": {
     run: sequenceFromFile,
-    help: `  sequence-add <mdl> seq.json -o out.mdl    as a new animation after the others (seq.json: { name, fps, loops, frames })`,
+    help: `  sequence-add <mdl> seq.json -o out.mdl    as a new animation after the others (seq.json: { name, fps, loops, frames })
+  sequence-add <mdl> --from <name|n> --frames 80-57 --name kneel_down -o out.mdl [--loop] [--fps 25] [--events]
+                                            a new animation of frames of one it has, in that order ("80-57": backwards; "57,58,57")`,
+  },
+  reskin: {
+    run: reskin,
+    help: `  reskin <mdl> <rules.json|rules.mjs> -o out.mdl [--body n] [--pictures <folder>]
+                                            its textures recoloured, weathered and painted over by rules (AGENTS.md, "A re-skin
+                                            by rules"); --pictures: each changed texture before and after; checked against the original`,
   },
   inline: {
     run: inline,
@@ -2563,10 +2641,11 @@ const COMMANDS = {
                                             run each, in one start of the engine. --put: a file written into the engine first.
                                             It needs Playwright, an outside program: --playwright names the folder that holds its
                                             node_modules (or PLAYWRIGHT_DIR)
-  play <url> --serve [--port 8098] [--mod ...] [--playwright ...]
+  play <url> --serve [--port 8098] [--over <place>=<folder> ...] [--mod ...] [--playwright ...]
                                             the game started and KEPT: a session served on this machine, for runs that pay for
-                                            their map and not for the engine
-  play <session> --attach --map <name> [--steps steps.json] [-o <folder>] [--expect ...] [--put ...]   a run in that session
+                                            their map and not for the engine. --over: a folder laid over the game's (msc=mine/msc),
+                                            marked now; a run with the same --over puts what changed in it since
+  play <session> --attach --map <name> [--steps steps.json] [-o <folder>] [--expect ...] [--put ...] [--over ...]   a run in that session
   play <session> --attach --stay [--steps steps.json] [-o <folder>]      more steps where the last run left the player
   play <session> --attach --close                                        the session ended
 `,
