@@ -5,24 +5,23 @@
       "name": "sprites/flare1.spr",
       "class": "flare",
       "use": "env_sprite",
+      "type": "parallel",
+      "format": "additive",
       "size": [
         64,
         64
       ],
       "frames": 1,
-      "type": "parallel",
-      "format": "additive",
-      "finish": {
-        "edge": 5
-      },
+      "origin": "centre",
       "layers": [
         {
-          "kind": "glow",
-          "radius": 0.72,
-          "core": 0.28,
-          "falloff": "power",
-          "power": 2.2,
-          "reach": 0.95,
+          "kind": "flare",
+          "core": 0.3,
+          "at": [
+            0,
+            0
+          ],
+          "streaks": [],
           "ramp": [
             [
               0,
@@ -33,27 +32,35 @@
               ]
             ],
             [
-              0.12,
+              0.2,
               [
-                0.2,
-                0.12,
-                0.22
+                0.157,
+                0.098,
+                0.196
               ]
             ],
             [
-              0.35,
+              0.45,
               [
-                0.58,
-                0.42,
-                0.52
+                0.549,
+                0.353,
+                0.49
               ]
             ],
             [
-              0.6,
+              0.7,
               [
-                0.86,
-                0.75,
-                0.82
+                0.902,
+                0.745,
+                0.843
+              ]
+            ],
+            [
+              0.9,
+              [
+                1,
+                0.941,
+                0.961
               ]
             ],
             [
@@ -64,23 +71,13 @@
                 1
               ]
             ]
-          ]
-        },
-        {
-          "kind": "flare",
-          "core": 0.03,
-          "colour": [
-            1,
-            0.9,
-            1
           ],
-          "streaks": [],
           "rays": {
             "count": 48,
-            "length": 0.75,
-            "jitter": 0.3,
-            "width": 0.02,
-            "gain": 0.2
+            "length": 0.9,
+            "jitter": 0.5,
+            "width": 0.012,
+            "gain": 0.25
           }
         }
       ]

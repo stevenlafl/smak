@@ -46,20 +46,22 @@
      64
     ],
     "border": {
-     "max": 0,
-     "mean": 0
+     "max": 0.019,
+     "mean": 0.003
     },
     "envelope": {
      "peakAt": 0,
      "first": 1,
      "last": 1
     },
-    "dark": 0.43,
+    "dark": 0.36,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 6.5
+  "meanColourDeltaE": 12.4,
+  "sameName": true,
+  "readsBack": true
  },
  "caps": {
   "R2": 2,
@@ -72,34 +74,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Both are a flare: a bright white core with a soft halo. The reproduction's halo has sharp starburst spikes that the original's diffuse, grainy haze does not show, so the look is clearly different at the edge of the glow."
+   "reason": "Both are light glows, but the original is a soft, round, radially fading halo with no hard features. The reproduction adds a bright point core with a cross-shaped starburst of horizontal, vertical and diagonal streaks. That is a lens-flare look the original does not have, so it is the same family of effect but clearly off in what it looks like."
   },
   "R2": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Both are 64 x 64 and the glow fills the frame in the same way, with the core centred and the halo reaching the edges. The reproduction's halo is slightly tighter, which is within what a close look would accept."
+   "score": 1,
+   "reason": "Both are 64 x 64 with one frame. The original's glow spreads across the frame and fades out gradually. The reproduction concentrates its light in a small central core, and its streaks reach toward the edges, so it does not fill the frame the way the original does. The shape is there but off."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean colour difference is 6.5, well under 15. The original's halo has a faint mauve tint that the reproduction's greyer halo lacks, but that is subtle at this size and does not make the colour clearly wrong. The measured dark fraction is 0.39 against 0.43."
+   "reason": "The measured mean colour difference is 12.4, under the line of 15. Both are white-centred with a pinkish-to-violet fall-off. The reproduction's halo leans slightly bluer and lavender, which is within the measure's allowance, so I score it at the top of the band rather than below it."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both have 1 frame, so the frame count matches. Both envelopes are first 1, last 1 with peak at frame 0, and both are one still frame that loops trivially. The original shows no motion to match."
+   "reason": "Both are one-shot single frames, so the frame count matches exactly. The dark measure is 0.39 for the original and 0.36 for the reproduction, which is close. The border is 0 for the original and 0.019 at most for the reproduction, a faint trace of the rays at the edge that does not change the motion."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are type parallel, format additive and 64 x 64, matching the original. The file name is not in the measures, so it is taken as written; the format and size match."
+   "reason": "The harness measures both as additive, with the same name, and the reproduction reads back as written (sameName true, readsBack true)."
   }
  },
- "total": 9,
+ "total": 8,
  "of": 10,
  "passes": false
 }

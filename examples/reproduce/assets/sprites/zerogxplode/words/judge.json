@@ -46,20 +46,22 @@
      64
     ],
     "border": {
-     "max": 0.195,
-     "mean": 0.001
+     "max": 0.204,
+     "mean": 0.005
     },
     "envelope": {
      "peakAt": 0.5,
      "first": 0,
      "last": 0
     },
-    "dark": 0.69,
-    "wrap": 0.08,
-    "jitter": 1.29
+    "dark": 0.52,
+    "wrap": 0.93,
+    "jitter": 1.41
    }
   },
-  "meanColourDeltaE": 3.6
+  "meanColourDeltaE": 12.5,
+  "sameName": true,
+  "readsBack": true
  },
  "caps": {
   "R2": 2,
@@ -72,31 +74,31 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Reads as a solid, rocky, golden clump, not an explosion. The original is a fire burst: a white-hot core, flame edges, and flying sparks around it. The reproduction has no flame texture and no sparks, so it is the wrong kind of effect, though a glow-like blob is present."
+   "reason": "Both are explosions, but they look different. The original is a billowing yellow-white cloud that turns brown and smoky as it fades. The reproduction is a red-orange disc with a starburst core and a grey skirt, which reads as a static blob rather than a billowing blast."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both are 64x64 frames. The original's burst fills more of the frame in frames 2 to 5 and reaches the edges with sparks (border max 0.818). The reproduction stays a smaller, compact mass well inside the frame (border max 0.195), so it fills the frames less than the original does."
+   "reason": "Both are 64x64 frames, so the size is right. The filling is not. The original's cloud reaches the frame edge at its peak (border max 0.818), while the reproduction's disc stays inside (border max 0.204). The reproduction's frame 0 is empty (first 0), where the original has a small flash (first 0.08)."
   },
   "R3": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The measured mean colour difference is 3.6, which is within 15, but the look is off. The original runs white-hot, then bright yellow, then orange and dark red at the edges. The reproduction goes pale cream, then sandy tan, then dull olive-brown, with no orange or red glow in the later frames."
+   "reason": "The measured mean colour difference of 12.5 passes the line of 15, but the pictures show a clear mismatch the mean hides. The original is yellow-white at its core, going to brown. The reproduction is red-orange with a grey-white halo over the black background, and the grey plate lingers into frames 10 to 13 where the original has none."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Frame count matches (15). The original starts with a small spark in frame 0 and peaks near 0.36 of its envelope, then fades slowly with a dim tail. The reproduction is blank in frame 0 and peaks later, near 0.5, then fades to nothing by frame 13. The loop measure differs sharply (wrap 0.81 against 0.08), so the loop does not close where the original's does."
+   "reason": "Both have 15 frames and both grow and then fade to dark, so the kind and count match. The envelope does not: the original peaks at 0.36 of its life and the reproduction at 0.5, and the reproduction's first frames are empty. The reproduction's grey plate also stays visible until frame 13, so the fade is slower than the original's."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The type (parallel) and format (additive) match the original, and both are 15 frames at 64x64. The file name and the read-back were not among the material I was given, so this rests on the measurements and the harness."
+   "reason": "The measures give additive format for both, the same name (sameName true), and a read-back (readsBack true). Nothing in the measures or the pictures suggests a fault in type, format or name."
   }
  },
  "total": 6,

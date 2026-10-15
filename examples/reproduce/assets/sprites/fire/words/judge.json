@@ -36,30 +36,32 @@
     32,
     96
    ],
-   "frames": 16,
+   "frames": 15,
    "type": "parallel oriented",
    "format": "additive",
    "measures": {
-    "frames": 16,
+    "frames": 15,
     "size": [
      32,
      96
     ],
     "border": {
-     "max": 0.102,
-     "mean": 0.002
+     "max": 0.115,
+     "mean": 0.005
     },
     "envelope": {
-     "peakAt": 0.67,
-     "first": 0.88,
-     "last": 0.88
+     "peakAt": 0.86,
+     "first": 0.92,
+     "last": 0.92
     },
-    "dark": 0.76,
-    "wrap": 0.86,
-    "jitter": 1.65
+    "dark": 0.6,
+    "wrap": 0.67,
+    "jitter": 1.69
    }
   },
-  "meanColourDeltaE": 7.4
+  "meanColourDeltaE": 13.3,
+  "sameName": true,
+  "readsBack": true
  },
  "caps": {
   "R2": 2,
@@ -72,31 +74,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are flames: tongues of fire rising from a base on a dark background, with the same fire look in each frame. The effect is the same kind."
+   "reason": "Both are the same effect: a flame rising from the base in each frame, tapering to flickering tips. The original's flame is ragged and stacked; the reproduction's reads as a flame too."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frames are the same 32 x 96 size, but the effect does not fill them as the original's does. The original's flames rise to the top of each frame. In the reproduction, frames 0 to 7 are short, dim flames sitting in the lower third with dark space above, and frames 8 to 15 reach only about halfway up. The border measure (0.102 against 0.275) and the dark measure (0.76 against 0.42) agree."
+   "reason": "The frames are 32 x 96 as the original's are, but the effect fills them less. The original's flames reach the top edge of most frames and fill the width; the reproduction's are narrower, end lower, and leave dark space above the tips."
   },
   "R3": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The hue is the same orange, and the mean colour difference of 7.4 is under 15. But the reproduction is visibly darker overall (dark 0.76 against 0.42), with much of each frame left as dark background. Its brightness envelope is also shifted: it peaks at 0.67 of the way through the sequence, the original at 0.07. The frames' average colour therefore differs in brightness from the original's, even though the colour of the flame pixels matches."
+   "reason": "The measured mean colour difference of 13.3 is under the line of 15, but the picture shows a visible hue shift the mean hides. The reproduction's cores are yellow-white and its frames read brighter at the base, where the original is orange-red and darker. The judge scores lower than the measure allows, so this is a 1."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frame count is 16 against 15, within 25%. The kind of motion is a flickering rise in both. But the loop does not close as the original's does: the wrap measure is 0.86 against 1.13, and in the contact sheet frame 15 is tall and bright while frame 0 is short and dim. The envelope peaks in a different place (0.67 against 0.07), and the first and last values differ from the original's by only a little (first 0.88 against 0.90, last 0.88 against 0.84), so the one-shot and loop shape are not the original's."
+   "reason": "The frame count matches (15 against 15) and both flicker, so the kind of motion is right. The loop differs: the original's envelope peaks early (0.07) and the reproduction's late (0.86), and the reproduction's brightness rises through the second half of the sequence where the original's does not. The wrap measure is 1.13 against 0.67, so the reproduction's wrap is not what the original's is, and the one-shot/loop check is not clean."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The type (parallel oriented) and format (additive) both match the original's. The sprite is a 32 x 96 frame set of the same kind. The measures given do not include the file name, so the name is not confirmed here; that is the one part of this item not checked."
+   "reason": "Type (parallel oriented) and format (additive) match the original, the name matches, and the file reads back as written. Nothing wrong with the file itself."
   }
  },
  "total": 7,

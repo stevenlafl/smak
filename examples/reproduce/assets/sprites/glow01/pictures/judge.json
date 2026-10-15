@@ -54,12 +54,14 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.45,
+    "dark": 0.47,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 1.3
+  "meanColourDeltaE": 4.9,
+  "sameName": true,
+  "readsBack": true
  },
  "caps": {
   "R2": 2,
@@ -72,31 +74,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both pictures show the same effect: a soft, round additive glow, bright at the centre and fading out to the edges. Nothing else appears in either frame."
+   "reason": "Both frames show the same effect: a single soft radial glow, bright at the centre and fading to a dark field at the edges. The reproduction is a glow as well."
   },
   "R2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both frames are 64 x 64. In each, the glow fills the frame to about the same radius, with the dark corners left as the engine blends them."
+   "reason": "Both are 64 x 64 with one frame, and in both the glow fills the frame the same way, with a dark margin in the corners. The bright core in the reproduction sits a few pixels further toward the lower right than the original's, which is a minor offset and not a size or shape difference."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The mean colour is within the measured limit (meanColourDeltaE 1.3, far under 15), and the dark fraction is close (0.47 original, 0.45 reproduction). By eye the reproduction's core looks a touch brighter and tighter, but that does not reach a colour fault."
+   "reason": "The measured mean colour difference is 4.9 (CIE76 delta E), well under the line of 15. The pictures agree: the same grey-to-white falloff and the same dark level (both measure 0.47 dark)."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are single frames, so the frame counts match (1 and 1), and the envelope measures agree. Neither is animated, so the motion is the same: none."
+   "reason": "Both have one frame, matching the original's count. The original is a single frame with no loop or one-shot ending to match, so the measures agree and the picture is consistent with the original's fade to dark at the edges."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type (parallel) and format (additive) match in the measures. The file name is not among the judge's inputs, so it is not checked here; the marker in the top-left corner is identical in both pictures."
+   "reason": "Both are type parallel and format additive, which is the original's type and format. The names match (sameName is true) and the file reads back (readsBack is true)."
   }
  },
  "total": 10,

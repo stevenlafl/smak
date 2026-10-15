@@ -1,17 +1,28 @@
-`sprites/glow01.spr` is built and the build says OK, with no warnings left. It is a 64x64, single-frame, parallel, additive sprite: a white glow with a bright core and a soft falloff. I tuned it on the build's own measures against `frames.png`; I did not compare it with the original any other way.
+The sprite builds OK with no warnings left. It's written to `work:sprites/glow01.spr` as a 64x64 single-frame glow.
 
-It is a single `glow` layer, white, with a `power` falloff (power 2.2, core 0.36, reach 1.15), placed as an `env_glow`.
+**The final spec:**
 
-How it measures against the original:
+```json
+{"spec":"smak.sprite/1","sprites":[{"name":"sprites/glow01.spr","class":"glow","use":"env_sprite","size":[64,64],"frames":1,"type":"parallel","format":"additive","origin":"centre","reference":"pictures/frames.png","layers":[{"kind":"glow","radius":1.1,"core":0.24,"colour":[1,1,1]}]}]}
+```
 
-| Measure | Original | Mine |
+**What it is and how it matches the original:**
+
+| Measure | Original | This sprite |
 | --- | --- | --- |
-| Mean colour difference (delta E) | n/a | 1.3 (15 or under counts as near) |
-| Dark share | 0.47 | 0.44 |
-| Border brightness | 0 | 0 |
-| Frame count | 1 | 1 |
-| Shape overlap, mean (judges stop giving full marks under 0.8) | n/a | 0.81 |
+| Shape | Soft white centre fading to grey at the edge, centred | Same, a radial glow centred in the frame |
+| Size | 64x64, 1 frame | 64x64, 1 frame |
+| Colour | White centre, neutral grey falloff | White (`[1,1,1]`) |
+| Mean colour, delta E (15 or under is near) | | 4.9 |
+| Dark share (within 0.05 is near) | 0.47 | 0.46 |
+| Shape overlap (bar 0.8) | | 0.82 (frame 0) |
+| Border light | 0 | 0 |
+| Type, format | parallel, additive | parallel, additive (render mode 5) |
+| Motion | none (one frame) | none |
 
-The shape overlap is only just over the 0.8 bar. Broken down, it is 0.9 at the faint edge, 0.81 in the body and 0.72 in the core. I stopped there because the build says OK and the shape warning is gone.
+**Choices I made:**
+- Used a smooth radial glow layer, the closest fit to the original's falloff. A power-law falloff scored worse (overlap 0.73, delta E 8.2), so I dropped it.
+- Took the radius (1.1) and core (0.24) by building and reading the report's measures; these are the values that cleared every warning.
+- Used `env_sprite` as the default `use` and `centre` as the default origin, since the original is a centred glow and nothing asked otherwise.
 
-The build also wrote `-sheet.png` and `-animated.png` beside the sprite in the work folder.
+**Caveat:** I judged the shape from the report's measures and the rendered picture, not by a pixel-level side-by-side. The dark share and shape overlap are both near the bars but not exact (the shape overlap of 0.82 is only just over the 0.8 bar), so a stricter judge could still see a small difference in the outer falloff.

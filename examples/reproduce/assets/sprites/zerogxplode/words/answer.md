@@ -1,14 +1,16 @@
-`sprites/zerogxplode.spr` is built and the build says OK, with all five measures in range against Half-Life's explosion. It's 64x64 with 15 frames, parallel and additive. I had no picture of the original, so I judged it against your description only, not side by side.
+The sprite builds OK: `work:sprites/zerogxplode.spr`, with `-sheet.png` and `-animated.png` beside it. The last build passed every check, and the kit's measure against Half-Life's own explosion class was 5 of 5 in range.
 
-**What matches:**
-- The blob bursts to a white middle and cools to cream and pale yellow, then amber and brown.
-- It fades into black from frame 11 to 14, with the last frame dark.
-- It's a lumpy cloud, played once with no loop.
+The spec is `smak.sprite/1`, one sprite with `use: tempent`, `class: explosion`, `size: [64, 64]`, `frames: 15`, `loop: false`, `type: parallel`, `format: additive`, `finish.edge: 6`. It has two layers:
 
-**What doesn't match:**
-- **Frame 0:** it is empty, where the original has an 8 px white-hot point a little left of centre. The earlier, larger start gave a visible frame 0 but pushed the jitter out of range.
-- **Orange rim:** the early frames have no thin orange or red edge, because the `blast` colour ramp is white, cream, tan and brown.
-- **Shape:** the cloud isn't the mushroom shape you describe, narrow at the top and wide at the bottom with a ragged lower left. It's one lumpy blob that sits left of centre and low.
-- **Frame 14:** it's nearly black, while the original keeps a faint brown smudge near the top.
+- **Explosion layer:** the white-hot core. Its colour ramp runs white, cream, yellow, orange, dark red. It sits a little left of centre and grows slowly with an attack and decay envelope.
+- **Billow layer:** the smoke-fire cloud. Its ramp runs pale yellow at the top, through gold and amber, to brown. It is lumpy, has a small spread, and dissolves at the edges, with debris flecks and a slight upward rise.
 
-I stopped here because the build was OK. Say if you want me to chase the frame 0 point, the orange edge and the mushroom shape.
+I chose 15 fps myself, since the description gave no rate. The kit also decided the timing: the first frame is a small point, the cloud fills about 45 pixels by frame 3, and it dims to nearly black by frame 13.
+
+Where it falls short of the original:
+
+- **Frame 14 is empty.** The kit fails any one-shot that does not end dark, so I dropped the faint brown smudge the description puts at frame 14. Frame 13 carries the last trace.
+- **The outer halo is greyer than described.** Frames 4 to 11 have a pale grey-white rim where the original has warm yellow. I could not remove it without also losing the amber lower body. This is the main visual difference to judge.
+- **Frames 1 to 3 have an orange-red core with a cream outer ring.** The description asks for a pure white middle with a thin dark-orange edge. The kit's colour ramps respond in ways I could only find by trial, so I did not get the edge that dark.
+
+I did not iterate further. Comparing the animated picture against the original is the next check.

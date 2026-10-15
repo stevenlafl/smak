@@ -1,0 +1,34 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/glow01.spr",
+      "class": "glow",
+      "use": "env_glow",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 1,
+      "type": "parallel",
+      "format": "additive",
+      "reference": "pictures/frames.png",
+      "layers": [
+        {
+          "kind": "glow",
+          "radius": 0.9,
+          "core": 0.36,
+          "colour": [
+            1,
+            1,
+            1
+          ],
+          "falloff": "power",
+          "power": 2.2,
+          "reach": 1.15,
+          "gain": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "steam1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.341,
+     "mean": 0.002
+    },
+    "envelope": {
+     "peakAt": 0.4,
+     "first": 0.04,
+     "last": 0.03
+    },
+    "dark": 0.64,
+    "wrap": 0.5,
+    "jitter": 1.1
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.565,
+     "mean": 0.001
+    },
+    "envelope": {
+     "peakAt": 0.53,
+     "first": 0.04,
+     "last": 0
+    },
+    "dark": 0.67,
+    "wrap": 0.33,
+    "jitter": 1.34
+   }
+  },
+  "meanColourDeltaE": 6
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are a smoke puff that grows, billows, then thins and drifts upward. The reproduction shows the same effect in the same places in every frame."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The frames are the same 32 x 48 size, and the puff fills them the same way: a compact cloud in the upper-middle that spreads downward as it fades. The first-frame and mid-frame extents match closely."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured mean colour difference is 6, under the line of 15. Both use the same grey-white over the same grey background. The reproduction has more grey shading on its edges in frames 10 to 13, but that sits inside the colour tolerance."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frame count (16) and first-frame brightness (0.04) match, and both fade to near dark. The envelope peak is clearly later in the reproduction (0.53 against 0.40), so it stays bright through frames 6 to 9 where the original is already fading. Its loop-wrap value (0.33 against 0.50) is also lower. The start is the same, but the timing is visibly off."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The format is index alpha in both, and the type is parallel oriented in both. The frames are a 16-frame sheet at the original's size and read back in the same form."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

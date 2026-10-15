@@ -46,20 +46,22 @@
      64
     ],
     "border": {
-     "max": 0.867,
-     "mean": 0.444
+     "max": 0.843,
+     "mean": 0.236
     },
     "envelope": {
      "peakAt": 0,
      "first": 1,
      "last": 1
     },
-    "dark": 0,
+    "dark": 0.06,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 10.9
+  "meanColourDeltaE": 8.9,
+  "sameName": true,
+  "readsBack": true
  },
  "caps": {
   "R2": 2,
@@ -72,31 +74,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are a vertical beam of light filling the frame, the same effect. The original has a bright core with darker blue-grey sides, and the reproduction is a lighter column, but the effect itself is the same."
+   "reason": "Both are the same effect: a vertical additive beam, with a bright core running the full height and dimmer edges. The original has a grainy, streaked core and the reproduction a smoother one, but the effect itself is the same."
   },
   "R2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Both are 32 x 64 with one frame, so the size matches. The original fades toward its edges (border mean 0.261, max 1) and the reproduction is bright to the edges (border mean 0.444, max 0.867), so it fills the frame more evenly than the original does."
+   "score": 2,
+   "reason": "Both are 32 x 64 and the beam fills the frame top to bottom and edge to edge, as the original does. Border measures are close (original max 1.0, mean 0.261; reproduction max 0.843, mean 0.236)."
   },
   "R3": {
-   "judge": 1,
+   "judge": 0,
    "cap": 2,
-   "score": 1,
-   "reason": "The measured mean colour difference is 10.9, under 15, but the picture is clearly off: the reproduction is a near-uniform light grey-white, while the original is blue-grey with a bright core and dark blue edges (dark 0.02 vs 0). The measure allows a 2, but the picture does not support one."
+   "score": 0,
+   "reason": "Measured mean colour difference is 8.9, under the line of 15. Visually both are blue-grey at the edges with a pale core. The reproduction is a little more uniformly pale, which the measure already covers."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both have one frame, matching the original within 25%. Envelope (peak at 0, first and last 1) and the dark measure (0.02 vs 0) agree, and wrap and jitter are null in both. A single frame shows no motion to compare, so nothing more is measurable here."
+   "reason": "Both have 1 frame, so the frame count matches. Both have peak at frame 0 and first and last frames at 1, so the single frame neither fades nor ends dark in either. The dark-pixel share (0.02 vs 0.06) is close, and a one-frame beam has no other motion to compare."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are parallel type with additive format, matching the original. The size is 32 x 64 in both. The file name is not in the measurements or the pictures I was given, so the name is not checked here."
+   "reason": "Both are type parallel and format additive, the same name is kept, and the file reads back as written (sameName true, readsBack true)."
   }
  },
  "total": 8,

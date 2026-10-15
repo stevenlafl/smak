@@ -59,7 +59,9 @@
     "jitter": null
    }
   },
-  "meanColourDeltaE": 1.6
+  "meanColourDeltaE": 1.7,
+  "sameName": true,
+  "readsBack": true
  },
  "caps": {
   "R2": 2,
@@ -72,31 +74,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both pictures show the same effect: a soft radial glow with a bright core fading to the frame's dark background."
+   "reason": "Both frames show the same effect: a soft white radial glow, brightest at the centre and fading out to the dark background. Nothing in the reproduction is a different effect."
   },
   "R2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Frames are 64 x 64 in both, but the reproduction's halo falls off sooner, so it fills less of the frame than the original's. The measured dark share is 0.56 against 0.47, a visible gap in the outer ring. Clearly off, though not by much."
+   "score": 2,
+   "reason": "Both are 64 x 64, and the glow fills the frame the same way: a bright core with a fall-off reaching toward the edges. At this picture size I see no difference in extent."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured mean colour difference is 1.6 (CIE76 delta E, smoothed), far inside the 15 line. The core and the falloff both read as the same white-to-grey ramp."
+   "reason": "The measured mean colour difference is ΔE 1.7, far inside the 15 limit. The pictures show the same white-to-grey-to-black blend."
   },
   "R4": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Both are a single frame, so the frame count matches. Envelope is identical (peak at 0, first and last 1). The effect is a static glow with no loop or one-shot ending to compare, so nothing is off."
+   "score": 1,
+   "reason": "Both are one frame, so the frame count matches and the motion is static, with no loop or one-shot to check. The measured dark fraction differs, though: 0.47 in the original against 0.56 in the reproduction. The reproduction's glow reads as a tighter bright core with a darker surround, so its fall-off is not the original's. That is a clear, measured difference in how the glow fades, and it is not within what the pictures can excuse."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are type parallel, format additive, 64 x 64, as the original. The file name is not in the measures, so it could not be checked here; the type and format match."
+   "reason": "The type and format are both additive, the name matches, and the reproduction reads back as written."
   }
  },
  "total": 9,

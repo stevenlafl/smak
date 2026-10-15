@@ -46,20 +46,22 @@
      32
     ],
     "border": {
-     "max": 0.233,
-     "mean": 0.006
+     "max": 0.136,
+     "mean": 0.002
     },
     "envelope": {
-     "peakAt": 0.8,
-     "first": 0.89,
-     "last": 0.89
+     "peakAt": 0.1,
+     "first": 0.96,
+     "last": 0.96
     },
-    "dark": 0.45,
-    "wrap": 0.93,
-    "jitter": 1.79
+    "dark": 0.51,
+    "wrap": 0.89,
+    "jitter": 1.84
    }
   },
-  "meanColourDeltaE": 5.6
+  "meanColourDeltaE": 12.7,
+  "sameName": true,
+  "readsBack": true
  },
  "caps": {
   "R2": 2,
@@ -72,34 +74,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are the same effect: an additive cyan-blue glow with a bright white core and a soft halo that flickers from frame to frame. Nothing in the reproduction is a different effect from the original."
+   "reason": "Both are the same effect: a soft, flickering cyan-to-blue glow with a bright core and halo spread over the frames. The reproduction is more irregular and bluer, but it reads as the same glow."
   },
   "R2": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "Frames are 32 by 32, as the original's are, but the reproduction's glow is a tighter, more centred single blob. The original's halo spreads out to the frame edges (frames 0, 1, 4 and 10 reach the bottom or sides), and the reproduction leaves more empty dark border around its blob."
-  },
-  "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured meanColourDeltaE is 5.6, under the line of 15. The picture agrees: the same cyan-blue hue and white core, with the reproduction's halo a little flatter and less deep blue than the original's."
+   "reason": "Both are 32 x 32 with 11 frames, and the glow fills the frame the same way in each. The border measures are close (max 0.145 original, 0.136 reproduction), so nothing spills past the edge or sits too small."
   },
-  "R4": {
+  "R3": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frame count matches (11 and 11, within 25%), and the envelope closes at the loop (first and last both 0.89; the original is 0.94 and 1.00). The motion is not the same, though: the reproduction jitters more (1.79 against the original's 1.51), its brightest frame falls at 0.8 where the original's falls at 1, and its loop seam is smooth (wrap 0.93) where the original's seam is a visible step (wrap 1.61). Its lobes also jump sideways more in frames 2, 4 and 5 than the original's drift does."
+   "reason": "The measured mean colour difference is 12.7, inside the line of 15, so the measurement does not fail it. By eye, though, the original's core is white-cyan and the reproduction's is a deeper royal blue with pinkish-lavender highlights that the original does not have. That is a visible hue shift, so it is scored 1."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Frame count is 11, exactly the original's. Both flicker by shifting the blob pattern and the brightness. The reproduction's first and last frames match (0.96 each) and its wrap (0.89) is smaller than the original's (1.61), so its loop closes at least as well. The brightest frame differs (peak at 0.1 against 1), which is a timing detail rather than a different kind of motion."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured type (parallel) and format (additive) match the original, and the frame count and size match. The name cannot be checked from the pictures and measures the judge was given, so this is scored on what is measured."
+   "reason": "Type and format are both additive, the name matches (sameName true), and the file reads back (readsBack true)."
   }
  },
- "total": 8,
+ "total": 9,
  "of": 10,
  "passes": false
 }

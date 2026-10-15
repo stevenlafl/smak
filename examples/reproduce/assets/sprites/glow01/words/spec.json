@@ -4,7 +4,7 @@
     {
       "name": "sprites/glow01.spr",
       "class": "glow",
-      "use": "env_glow",
+      "use": "env_sprite",
       "size": [
         64,
         64
@@ -12,11 +12,13 @@
       "frames": 1,
       "type": "parallel",
       "format": "additive",
+      "origin": "centre",
       "layers": [
         {
           "kind": "glow",
+          "radius": 1,
+          "core": 0.3125,
           "falloff": "power",
-          "core": 0.31,
           "power": 2,
           "reach": 1,
           "colour": [

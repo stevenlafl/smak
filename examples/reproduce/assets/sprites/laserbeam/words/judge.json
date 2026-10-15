@@ -47,59 +47,32 @@
     ],
     "border": {
      "max": 1,
-     "mean": 0.123
+     "mean": 0.117
     },
     "envelope": {
      "peakAt": 0,
      "first": 1,
      "last": 1
     },
-    "dark": 0.37,
+    "dark": 0.31,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 13.8
+  "meanColourDeltaE": 21.9,
+  "sameName": true,
+  "readsBack": true
  },
  "caps": {
   "R2": 2,
-  "R3": 2,
+  "R3": 1,
   "R4": 2,
   "R5": 2
  },
- "scores": {
-  "R1": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Both are the same effect: a vertical, bluish-white beam running the full height of the frame. The original's beam is a bit wider and brighter, but it is clearly a laser beam in both."
-  },
-  "R2": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "Both are 32x64. The effect does not fill the frames as the original's does. The original's beam runs out to the frame edges (border mean 0.261, max 1), while the reproduction has dark margins down both sides (border mean 0.123, dark 0.37 against the original's 0.02). Its bright core is narrower and sits nearer the centre. Clearly off, but present."
-  },
-  "R3": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The measured mean colour difference is 13.8, under the line of 15. The hue is the same blue-grey-white in both. The reproduction is visibly darker around the core, which is already counted in that 13.8, so this is a near pass rather than a comfortable one."
-  },
-  "R4": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Both are single frames (frames 1 and 1), a parallel beam with no motion to differ on. The envelope matches (peak at frame 0, first and last both 1). Wrap and jitter are null in both. Nothing in the measures shows a fault."
-  },
-  "R5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The type (parallel) and format (additive) match the original's. The file name and whether it reads back as written are not in the measures I was given, so this rests on the type and format alone."
-  }
- },
- "total": 9,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "R3"
+ ],
+ "total": 0,
+ "of": 10
 }

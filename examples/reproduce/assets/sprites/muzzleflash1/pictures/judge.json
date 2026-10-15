@@ -54,12 +54,14 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.77,
+    "dark": 0.74,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 4.8
+  "meanColourDeltaE": 2.9,
+  "sameName": true,
+  "readsBack": true
  },
  "caps": {
   "R2": 2,
@@ -69,37 +71,37 @@
  },
  "scores": {
   "R1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Both show the same effect: a five-pointed star flash with a bright white-orange core and soft spikes fading outward. Nothing in the reproduction is missing or added."
+   "score": 1,
+   "reason": "Both are a bright orange-white core with rays, but the original is a five-ray starburst muzzle flash, while the reproduction is a round orb with a faint four-point cross. The five-ray star that makes it read as a muzzle flash is missing, so it reads as a generic glow."
   },
   "R2": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Both are 64 x 64 and the star fills the frame the same way, with a border of 0.02 max in the original and 0 in the reproduction, which is negligible. The spikes reach the same extent in both."
+   "score": 1,
+   "reason": "Both are 64 x 64 frames. In the original the rays reach toward the frame edges and fill it; in the reproduction the effect is a smaller round halo with short rays, so it does not fill the frame as the original does."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The engine-blended frames look alike in colour: a white-hot core fading to orange spikes on a dark ground. The original is slightly warmer and the reproduction's core a touch more yellow-white, but the measured colour difference of 4.8 is well inside the 15 limit."
+   "reason": "The measured mean colour difference is 2.9, well under 15. Both are the same warm orange-white, with a bright white core fading to orange."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Frame count matches (2) and both end at full brightness (last 1 and 1), with the same dark level (0.76 against 0.77). But the envelope peaks in different frames: the original at frame 1 (first 0.95), the reproduction at frame 0 (first 1). The brightness swing runs the other way, a clear difference in motion that a measure picks up."
+   "reason": "Both have 2 frames and close dark values (0.76 and 0.74). The envelope differs, though: the original peaks at frame 1 (first 0.95, last 1), while the reproduction peaks at frame 0 (first 1, last 1). The reproduction's peak is in the wrong frame, and it shows no change from frame to frame that the original has."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The type (parallel) and format (additive) match the original exactly, and both read as 64 x 64 with two frames. The sprite's name is not in the measurements I was given, so I can't confirm it; I have not scored it down for something I cannot see."
+   "reason": "The type and format are both additive, the name matches (sameName true), and the file reads back (readsBack true)."
   }
  },
- "total": 9,
+ "total": 7,
  "of": 10,
  "passes": false
 }

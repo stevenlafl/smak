@@ -301,7 +301,7 @@ function meanLab(picture, ground) {
 const deltaE = (a, b) => (a && b ? round(Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2])) : null);
 const band = (v, two, one, lowerBetter = true) => (v === null || v === undefined ? 0 : lowerBetter ? (v <= two ? 2 : v <= one ? 1 : 0) : v >= two ? 2 : v >= one ? 1 : 0);
 
-export function measureSpriteCopy(original, copy, dir) {
+export function measureSpriteCopy(original, copy, dir, { sameName = true } = {}) {
   const o = maps.readSpr(original);
   const c = maps.readSpr(copy);
   const so = sheetOf(o, { cols: 8, cell: 128 });
@@ -317,12 +317,15 @@ export function measureSpriteCopy(original, copy, dir) {
     original: { size: [o.width, o.height], frames: o.frames.length, type: o.type, format: o.format, measures: mo },
     reproduction: { size: [c.width, c.height], frames: c.frames.length, type: c.type, format: c.format, measures: mc },
     meanColourDeltaE: colour,
+    // R5's facts: written under the original's name, and read back by the engine's reader as written
+    sameName,
+    readsBack: c.frames.length > 0 && c.frames.every((f) => f.pixels?.length === f.width * f.height),
   };
-  const caps = { R2: o.width === c.width && o.height === c.height ? 2 : 1, R3: band(colour, 15, 25), R4: band(frameShare, 0.25, 0.5), R5: o.type === c.type && o.format === c.format ? 2 : 0 };
+  const caps = { R2: o.width === c.width && o.height === c.height ? 2 : 1, R3: band(colour, 15, 25), R4: band(frameShare, 0.25, 0.5), R5: o.type === c.type && o.format === c.format ? (sameName && measured.readsBack ? 2 : 1) : 0 };
   return { measured, caps, pictures: `${dir}/original.png (the original's frames as the engine blends them, numbered) and ${dir}/reproduction.png (the reproduction's, the same way)` };
 }
 
-export function measureSoundCopy(original, copy, dir, subject) {
+export function measureSoundCopy(original, copy, dir, subject, { sameName = true } = {}) {
   const o = A.readWav(original);
   const c = A.readWav(copy);
   savePng(join(dir, "sounds.png"), A.soundPicture([{ name: `ORIGINAL ${subject.name}`, x: o.x, rate: o.rate, loop: o.cue?.length ? 0 : undefined }, { name: "REPRODUCTION", x: c.x, rate: c.rate, loop: c.cue?.length ? 0 : undefined }], { width: 960 }));
@@ -337,8 +340,8 @@ export function measureSoundCopy(original, copy, dir, subject) {
   const loop = Boolean(o.cue?.length);
   const t20Range = loop ? null : subject.class ? A.rangesOf(subject.class).t20 : [fo.t20 - Math.max(0.05, fo.t20 * 0.25), fo.t20 + Math.max(0.05, fo.t20 * 0.25)];
   const t20In = !t20Range || (fc.t20 >= t20Range[0] && fc.t20 <= t20Range[1]);
-  const measured = { original: fo, reproduction: fc, envelope: { class: subject.class ?? "none: the original's own decay", t20Range: t20Range && t20Range.map((v) => round(v, 3)), t20: round(fc.t20, 3), inRange: t20In }, lengthOff: round(lengthShare, 3), centroidOff: round(centroidShare, 3), bandsOffMost: round(bandsOff), engineFaults: checks.faults, sameName: true, format: { rate: c.rate, bits: c.bits, channels: c.channels } };
-  const caps = { S2: Math.min(band(lengthShare, 0.25, 0.5), t20In ? 2 : 1), S3: Math.min(band(centroidShare, 0.2, 0.4), band(bandsOff, 10, 20)), S5: checks.faults.length ? 0 : 2 };
+  const measured = { original: fo, reproduction: fc, envelope: { class: subject.class ?? "none: the original's own decay", t20Range: t20Range && t20Range.map((v) => round(v, 3)), t20: round(fc.t20, 3), inRange: t20In }, lengthOff: round(lengthShare, 3), centroidOff: round(centroidShare, 3), bandsOffMost: round(bandsOff), engineFaults: checks.faults, sameName, format: { rate: c.rate, bits: c.bits, channels: c.channels } };
+  const caps = { S2: Math.min(band(lengthShare, 0.25, 0.5), t20In ? 2 : 1), S3: Math.min(band(centroidShare, 0.2, 0.4), band(bandsOff, 10, 20)), S5: checks.faults.length ? 0 : sameName ? 2 : 1 };
   return { measured, caps, pictures: `${dir}/sounds.png (the original's waveform over its spectrogram above, the reproduction's below, at one time scale)` };
 }
 
@@ -438,7 +441,11 @@ async function judgeOne(kind, subject, leg, copyFile, { decoy } = {}) {
     const passed = results.filter((x) => x.passes).length;
     return { kind, subject: subject.id, leg: decoy ? `decoy: ${decoy}` : leg, textures: results, passed, of: results.length, passes: passed >= 0.8 * results.length, total: passed, error: Object.keys(judged).length ? undefined : "the judge's answer was not JSON" };
   }
-  const m = kind === "sprites" ? measureSpriteCopy(original, copy, dir) : measureSoundCopy(original, copy, dir, subject);
+  // the name the maker wrote it under (run.json's built): the harness copies the build under the original's name
+  // either way, so the judge is told whether the maker named it so (R5, S5), and does not have to guess
+  const ran = !decoy && existsSync(join(folderOf(kind, subject.id), leg, "run.json")) ? JSON.parse(readFileSync(join(folderOf(kind, subject.id), leg, "run.json"), "utf8")) : null;
+  const sameName = ran ? ran.built === basename(subject.file) : true;
+  const m = kind === "sprites" ? measureSpriteCopy(original, copy, dir, { sameName }) : measureSoundCopy(original, copy, dir, subject, { sameName });
   const failed = failedByMeasure(m.caps, MUST[kind]);
   if (failed.length) return { kind, subject: subject.id, leg: decoy ? `decoy: ${decoy}` : leg, measured: m.measured, caps: m.caps, passes: false, failedByMeasure: failed, total: 0, of: 2 * ITEMS[kind].length };
   const r = await runJudge({

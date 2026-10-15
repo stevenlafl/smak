@@ -4,7 +4,7 @@
     {
       "name": "sprites/flare1.spr",
       "class": "flare",
-      "use": "tempent",
+      "use": "env_sprite",
       "size": [
         64,
         64
@@ -12,43 +12,34 @@
       "frames": 1,
       "type": "parallel",
       "format": "additive",
-      "reference": "pictures/frames.png",
       "finish": "edge",
+      "reference": "pictures/frames.png",
       "layers": [
         {
           "kind": "glow",
-          "radius": 1.3,
+          "radius": 0.95,
+          "core": 0.35,
           "colour": [
-            0.6,
-            0.35,
-            0.45
+            0.7,
+            0.5,
+            0.78
           ],
-          "gain": 0.8
-        },
-        {
-          "kind": "glow",
-          "radius": 0.75,
-          "colour": [
-            1,
-            0.85,
-            0.92
-          ],
-          "gain": 1
+          "falloff": "power",
+          "power": 2
         },
         {
           "kind": "flare",
           "core": 0.3,
           "colour": [
             1,
-            0.9,
-            0.95
+            1,
+            1
           ],
-          "streaks": [],
           "rays": {
-            "count": 96,
-            "length": 1,
-            "jitter": 0.15,
-            "width": 0.02,
+            "count": 48,
+            "length": 0.9,
+            "jitter": 0.5,
+            "width": 0.012,
             "gain": 0.35
           }
         }
