@@ -227,3 +227,26 @@ test("a glow of one colour is a ramp of 255 steps, and a middle hotter than its 
   const same = buildSpriteSpec({ spec: "smak.sprite/1", name: "sprites/same.spr", size: [64, 64], frames: 1, reference: file, layers: [{ kind: "glow", radius: 1.1, core: 0.08, colour: [0.9, 0.9, 0.9] }] });
   sure(!same.report.warnings.some((w) => /its middle is/.test(w)), same.report.warnings.join(" | "));
 });
+
+test("against a reference: a late brightest frame and a halo short of the border are told", () => {
+  const ref = buildSpriteSpec({ spec: "smak.sprite/1", name: "sprites/ref.spr", size: [32, 32], frames: 10, layers: [{ kind: "glow", radius: 2.5, core: 0.9, colour: [0.5, 0.7, 1], env: { attack: 0.05, decay: 0.9 } }] });
+  const sheet = sheetOf(smak.maps.readSpr(ref.files[0].bytes), { cols: 8, cell: 128 });
+  const file = join(tmp, "env-ref.png");
+  writeFileSync(file, smak.png(sheet.width, sheet.height, sheet.rgba));
+  const late = buildSpriteSpec({ spec: "smak.sprite/1", name: "sprites/late.spr", size: [32, 32], frames: 10, reference: file, layers: [{ kind: "glow", radius: 0.6, core: 0.15, colour: [0.5, 0.7, 1], env: { attack: 0.5, decay: 0.5 } }] });
+  sure(late.report.warnings.some((w) => /its brightest frame comes at [\d.]+ of its play, its reference's at/.test(w)), late.report.warnings.join(" | "));
+  sure(late.report.warnings.some((w) => /falls off too soon/.test(w)), late.report.warnings.join(" | "));
+});
+
+test("a loop with a reference starts at the frame where its light over the loop follows the reference's", () => {
+  const spec = { spec: "smak.sprite/1", name: "sprites/flame.spr", size: [32, 64], frames: 12, loop: true, layers: [{ kind: "fire", width: 0.8 }, { kind: "glow", radius: 0.5, core: 0.2, colour: [1, 0.6, 0.2], env: { attack: 0.3, decay: 0.3 } }] };
+  const plain = smak.maps.readSpr(buildSpriteSpec(spec).files[0].bytes);
+  // the reference: the same loop cut open five frames on (and its first again at the end)
+  const cycle = plain.frames.slice(0, -1);
+  const turned = { ...plain, frames: [...cycle.slice(5), ...cycle.slice(0, 5), cycle[5]] };
+  const sheet = sheetOf(turned, { cols: 8, cell: 128 });
+  const file = join(tmp, "loop-ref.png");
+  writeFileSync(file, smak.png(sheet.width, sheet.height, sheet.rgba));
+  const built = buildSpriteSpec({ ...spec, reference: file });
+  sure(built.report.facts.some((f) => /its loop starts at its frame 5,/.test(f)), built.report.facts.filter((f) => /loop/.test(f)).join(" | "));
+});

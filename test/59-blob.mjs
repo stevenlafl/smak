@@ -92,3 +92,16 @@ test("symmetric: a lopsided mesh made the mirror of its +y half, and a blob give
   const bad = buildModelSpec({ spec: "smak.model/1", name: "x.mdl", kind: "prop", parts: [{ id: "body", kind: "mesh", file: "lop.obj", size: [8, 8, 8], symmetric: "yes" }] }, { folder });
   sure(bad.report.errors.some((e) => /\(body\)\.symmetric: true/.test(e)), bad.report.errors.join(" | "));
 });
+
+test("a generated or carved body on a base: each corner on the limb nearest it, so one shape bends at the joints", () => {
+  // a long box down the leg, as a generator's .obj would come: its top on the hip's limb, its foot on the knee's
+  writeFileSync(join(folder, "post.obj"), ["v -1 -1 0", "v 1 -1 0", "v 1 1 0", "v -1 1 0", "v -1 -1 24", "v 1 -1 24", "v 1 1 24", "v -1 1 24", "v -1 -1 12", "v 1 -1 12", "v 1 1 12", "v -1 1 12"].join("\n") + "\n" +
+    ["f 1 3 2", "f 1 4 3", "f 5 6 7", "f 5 7 8", "f 1 2 10", "f 1 10 9", "f 9 10 6", "f 9 6 5", "f 2 3 11", "f 2 11 10", "f 10 11 7", "f 10 7 6", "f 3 4 12", "f 3 12 11", "f 11 12 8", "f 11 8 7", "f 4 1 9", "f 4 9 12", "f 12 9 5", "f 12 5 8"].join("\n") + "\n");
+  const { report, mdl } = buildModelSpec({ spec: "smak.model/1", name: "legmesh.mdl", kind: "character", base: { file: "leg.mdl" }, parts: [{ id: "leg", kind: "mesh", file: "post.obj", up: "z", size: [4, 4, 26], at: [0, 0, -1], material: "cloth" }] }, { folder });
+  sure(report.ok && mdl, [...report.errors, ...report.faults].join("; "));
+  const info = readMdl(mdl);
+  const sub = info.bodyparts[0].models.find((m) => m.meshes.some((x) => x.numtris > 0));
+  const corners = sub.meshes.flatMap((mesh) => readMesh(mdl, sub, mesh).flat());
+  const bones = new Set(corners.map((c) => c.bone));
+  sure(bones.has(0) && bones.has(1), `bones used: ${[...bones]}`);
+});

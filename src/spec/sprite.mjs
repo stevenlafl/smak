@@ -125,6 +125,22 @@ function againstReference(name, ref, back, s, readPicture) {
   if (hotOurs.peak > hotTheirs.peak + 0.15 || hotOurs.core > Math.max(2, 1.5 * hotTheirs.core))
     notes.push(`${name}: its middle is hotter than its reference's (brightest ${hotOurs.peak} against ${hotTheirs.peak}, ${Math.round(hotOurs.core)} pixels over 0.7 against ${Math.round(hotTheirs.core)}): a smaller core, a dimmer colour or a gentler falloff`);
   else if (hotOurs.peak < hotTheirs.peak - 0.15) notes.push(`${name}: its middle is dimmer than its reference's (brightest ${hotOurs.peak} against ${hotTheirs.peak}): a brighter colour or core`);
+  // when its light comes, frame by frame, and how far it reaches the border: the judges mark both down (R4: the
+  // envelope's peak two frames late; R2: a halo that falls off before the reference's reaches the edge)
+  const envelope = (m) => {
+    const sums = m.map((f) => f.reduce((a, b) => a + b, 0));
+    const most = Math.max(...sums, 1e-9);
+    const at = sums.indexOf(Math.max(...sums));
+    return { peakAt: sums.length > 1 ? Math.round((at / (sums.length - 1)) * 100) / 100 : 0, first: Math.round((sums[0] / most) * 100) / 100, last: Math.round((sums[sums.length - 1] / most) * 100) / 100 };
+  };
+  if (theirs.masks.length > 1 && ours.masks.length > 1) {
+    const [a, b] = [envelope(theirs.masks), envelope(ours.masks)];
+    facts.push(`${name}: its light over its frames against its reference's: brightest at ${a.peakAt} and ${b.peakAt} of its play, first frame ${a.first} and ${b.first}, last ${a.last} and ${b.last} of the brightest`);
+    if (Math.abs(a.peakAt - b.peakAt) > 0.08) notes.push(`${name}: its brightest frame comes at ${b.peakAt} of its play, its reference's at ${a.peakAt}: move its envelope (env's attack, or the layer's own timing) so that it peaks where the reference does`);
+    if (Math.abs(a.first - b.first) > 0.2) notes.push(`${name}: its first frame is ${b.first} of its brightest, its reference's ${a.first}: it ${b.first < a.first ? "starts too faint" : "starts too bright"}`);
+  }
+  if (Math.abs(theirs.border.max - ours.border.max) > 0.08)
+    notes.push(`${name}: its light reaches its frame's border at ${ours.border.max} at most, its reference's at ${theirs.border.max}: ${ours.border.max < theirs.border.max ? "it falls off too soon: a wider radius or falloff, so it fills its frame as the reference's does" : "it spills past where the reference's stops: a smaller radius"}`);
   if (ours.frames !== theirs.frames) notes.push(`${name}: ${ours.frames} frames against its reference's ${theirs.frames}`);
   // the shape, frame by frame: the lit pixels of each against the reference's at the same point of its play
   if (theirs.masks[0]?.length === ours.masks[0]?.length) {
@@ -192,7 +208,47 @@ export function buildSpriteSpec(spec, { readPicture = (path) => unpicture(readFi
       });
       report.facts.push(`${s.name}: ${s.layers.filter((l) => l.mask).length} layer(s) masked by the reference's lit area, its ${masks.length} frames over this one's ${s.frames ?? 1}: its outline, not its colours`);
     }
-    const made = framesOf({ size: s.size, frames: s.frames ?? 1, loop, layers: s.layers, seed: s.seed ?? 1, edge: s.finish?.edge ?? 2, use, masks });
+    let made = framesOf({ size: s.size, frames: s.frames ?? 1, loop, layers: s.layers, seed: s.seed ?? 1, edge: s.finish?.edge ?? 2, use, masks });
+    // a loop has no first frame of its own: with a reference, it starts at the frame that puts its light over the
+    // loop as the reference's is (the judges marked flames down for a brightest frame "two frames later", which in
+    // a loop is only where it was cut open)
+    if (loop && s.reference !== undefined && made.length > 3) {
+      const ref = typeof s.reference === "string" ? { picture: s.reference } : s.reference;
+      let read = null;
+      try {
+        read = measureSheet(readPicture(ref.picture), { size: s.size, format, cols: ref.cols ?? 8, cell: ref.cell ?? 128, tint: s.colour ?? [1, 1, 1] });
+      } catch {
+        // its reference unread: said by the measures below
+      }
+      if (read && !read.error && read.masks.length > 2) {
+        const cycle = made.slice(0, -1);
+        const energy = (f) => {
+          let sum = 0;
+          for (let i = 0; i < f.width * f.height; i++) sum += (0.299 * f.rgb[i * 3] + 0.587 * f.rgb[i * 3 + 1] + 0.114 * f.rgb[i * 3 + 2]) * (f.a ? f.a[i] : 1);
+          return sum;
+        };
+        const norm = (list) => {
+          const most = Math.max(...list, 1e-9);
+          return list.map((v) => v / most);
+        };
+        const ours = norm(cycle.map(energy));
+        // the reference's loop, its first frame again at its end left out when it has one more frame than ours
+        let theirs = norm(read.masks.map((m) => m.reduce((x, y) => x + y, 0)));
+        if (theirs.length === cycle.length + 1) theirs = theirs.slice(0, -1);
+        const at = (i) => theirs[Math.round((i * theirs.length) / cycle.length) % theirs.length];
+        let best = { r: 0, d: Infinity };
+        for (let r = 0; r < cycle.length; r++) {
+          let d = 0;
+          for (let i = 0; i < cycle.length; i++) d += Math.abs(ours[(i + r) % cycle.length] - at(i));
+          if (d < best.d - 1e-9) best = { r, d };
+        }
+        if (best.r) {
+          const turned = cycle.map((_, i) => cycle[(i + best.r) % cycle.length]);
+          made = [...turned, turned[0]];
+          report.facts.push(`${s.name}: its loop starts at its frame ${best.r}, where its light over the loop follows its reference's`);
+        }
+      }
+    }
     const { palette, pixels, error, colours } = quantiseFrames(made, format, { colour: s.colour ?? [1, 1, 1] });
     const [w, h] = s.size;
     const frames = pixels.map((p) => ({ ...originOf(s.origin, w, h), width: w, height: h, pixels: p }));

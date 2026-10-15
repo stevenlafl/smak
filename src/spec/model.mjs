@@ -46,6 +46,8 @@ import { paintProjections, viewFit, VIEW_NAMES } from "./project.mjs";
 import { outlineFit } from "./posefit.mjs";
 /** An outline sharing less than this with its picture's is warned of: the reproduction test's own line (M1). */
 const OUTLINE_FAIR = 0.8;
+/** A character's outline sharing less than this with a picture's is a fault. */
+const OUTLINE_FAULT = 0.7;
 /**
  * A painted look is warned of past these against a picture: set between Steven's reviews of round 8 (the filing
  * cabinet at 98% and the headcrab at 95% gave means of 4 to 8 and worst cells to 34; the medkit he failed for its
@@ -247,6 +249,37 @@ function nearestJoint(skeleton, p) {
     if (!best || d < best.d) best = { name, d };
   }
   return best.name;
+}
+
+/**
+ * A skeleton's limbs: each bone's joint to each of its children's, the stretch that moves with it, and each joint
+ * with no child on its own. Bones at one place (Bip01 on its pelvis) make no limb.
+ */
+function limbsOf(skeleton) {
+  const list = bonesOf(skeleton.src);
+  const limbs = [];
+  list.forEach((bone, i) => {
+    const a = skeleton.joints.get(bone.name);
+    const children = list.filter((other) => other.parent === i);
+    for (const child of children) {
+      const b = skeleton.joints.get(child.name);
+      if (Math.hypot(...a.map((v, k) => v - b[k])) > 0.5) limbs.push({ bone: bone.name, a, b });
+    }
+    if (!children.length) limbs.push({ bone: bone.name, a, b: a });
+  });
+  return limbs;
+}
+
+/** The bone whose limb is nearest a point. */
+function nearestLimb(limbs, p) {
+  let best = null;
+  for (const { bone, a, b } of limbs) {
+    const ab = b.map((v, k) => v - a[k]);
+    const t = Math.max(0, Math.min(1, ab.reduce((s, v, k) => s + v * (p[k] - a[k]), 0) / (ab.reduce((s, v) => s + v * v, 0) || 1)));
+    const d = Math.hypot(...p.map((v, k) => v - a[k] - ab[k] * t));
+    if (!best || d < best.d) best = { bone, d };
+  }
+  return best.bone;
 }
 
 /** How far the size may be off what the spec asks before it is warned of, and before it is an error. */
@@ -1200,6 +1233,13 @@ function piecesOf(given, context) {
         for (const { mesh, i } of trianglesOf(part.id)) meshes[mesh].tris[i] = meshes[mesh].tris[i].map((c) => ({ ...c, bone: nearestPiece(part.blobPieces, c.p).bone }));
         continue;
       }
+      // a carved or generated body on a skeleton, unless told its bone: each corner on the limb it is nearest, so
+      // that one shape cut from the pictures bends at the base's joints (research/character-texturing.md, CT 2)
+      if ((part.kind === "carved" || part.kind === "mesh") && !part.bone && !part.attach && !part.span) {
+        const limbs = limbsOf(skeleton);
+        for (const { mesh, i } of trianglesOf(part.id)) meshes[mesh].tris[i] = meshes[mesh].tris[i].map((c) => ({ ...c, bone: nearestLimb(limbs, c.p) }));
+        continue;
+      }
       const bone = boneOfPart(part);
       for (const { mesh, i } of trianglesOf(part.id)) meshes[mesh].tris[i] = meshes[mesh].tris[i].map((c) => ({ ...c, bone }));
     }
@@ -1601,7 +1641,13 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
       const fits = outlineFit(meshes.flatMap((mesh) => mesh.tris.map((t) => t.map((c) => c.p))), views);
       const named = (i) => spec.project[i].view ?? `yaw ${spec.project[i].yaw ?? 0} pitch ${spec.project[i].pitch ?? 0}`;
       report.facts.push(`the shape's outline against each picture's (cells in both of those in either): ${fits.map((f, i) => `${named(i)} ${f ?? "-"}`).join(", ")}`);
-      const short = fits.map((f, i) => [f, i]).filter(([f]) => f !== null && f < OUTLINE_FAIR);
+      // a character's under OUTLINE_FAULT is a fault: its texture follows its shape, and on a shape that far off
+      // the pictures no projection comes near (research/character-texturing.md: the zombie's own shape took the
+      // same projector to 5.4 where the maker's took it to 16.6, the judges' line 15)
+      const far = kind === "character" ? fits.map((f, i) => [f, i]).filter(([f]) => f !== null && f < OUTLINE_FAULT) : [];
+      if (far.length)
+        report.faults.push(`the body's outline is far off the pictures' in ${far.map(([f, i]) => `${named(i)} (${f})`).join(", ")}: under ${OUTLINE_FAULT}, its texture cannot follow. Carve the body from the pictures (kind carved: its corners hang on the limbs nearest them), or turn the base's pose to theirs (pose: { fit: true }, the forearms down to where the pictures' hands are)`);
+      const short = fits.map((f, i) => [f, i]).filter(([f]) => f !== null && f < OUTLINE_FAIR && !(kind === "character" && f < OUTLINE_FAULT));
       if (short.length)
         warnings.push(`the shape's outline is off the pictures' in ${short.map(([f, i]) => `${named(i)} (${f})`).join(", ")}: under ${OUTLINE_FAIR}, a part is missing, too big or misplaced there. Look at those views beside the pictures (reference), or carve the body from them (kind carved)`);
     } catch (error) {

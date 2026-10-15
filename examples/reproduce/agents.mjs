@@ -101,8 +101,12 @@ export async function runAgent({ prompt, read = null, server = null, files = {},
  */
 export const JUDGE_MODEL = process.env.SMAK_JUDGE_MODEL || "haiku";
 
-/** The model the makers run on: the claude command's own (Opus) unless SMAK_MAKER_MODEL names one ("haiku"). */
-export const MAKER_MODEL = process.env.SMAK_MAKER_MODEL || null;
+/**
+ * The model the makers run on: Haiku, Steven's choice for every round (2026-10-15: "it makes sense to continue
+ * haiku"), unless SMAK_MAKER_MODEL names another for a question about the maker. It was the claude command's own
+ * (Opus) unless told, and a sprite round forgot to tell it: $6.53 of Opus where Haiku was meant.
+ */
+export const MAKER_MODEL = process.env.SMAK_MAKER_MODEL || "haiku";
 
 /**
  * The must-have items a measurement already holds under 2: an asset with any fails whatever a judge says, so no

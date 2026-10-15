@@ -247,6 +247,13 @@ a part that comes apart in any of them is a fault (`in run2 frame 11: ... thumb_
   squared stays as parts: a vest, a helmet, a holster, boots (`superquadric`, `box`); a blob rounds every corner, and
   one that swallowed a squared vest lost the outline. Keep a blob to what is round: its outline against the
   pictures says so at once. 40 triangles a piece unless told, 600 at most.
+- **Given pictures of the character, carve its body from them** (`carved`, with `sheet` or `pictures`, placed by
+  `at` with its feet on the floor): each corner hangs on the base's limb nearest it, so the one shape bends at the
+  knees and elbows, and its outline is the pictures' at once. Turn the base to the pictures' stance first (`pose:
+  { fit: true }`, or keys: the forearms down where the pictures' hands hang; Gordon's first frame holds a gun
+  forward in both hands). Then add what a carve loses (fingers, a jaw) as parts on their bones. With `project`, a
+  character whose outline shares under 0.7 with a picture's is a FAULT: its texture follows its shape, and on a
+  shape that far off no projection comes near.
 - GoldSrc holds 2048 points and 2048 normals a body: a character of many round parts wants few `sides`
   (6 for a limb, 4 or 5 for a finger). The check says when it is over.
 
@@ -717,7 +724,10 @@ colour (delta E; 15 or under is near), the share that is dark (within 0.05 is ne
 frame count, its shape frame by frame (the share of lit pixels both have) and its hot middle (its brightest, and
 the pixels over 0.7), with a warning for each that is off: a colour over 15, a shape under 0.8 (where the judges
 stop giving a shape full marks), a middle half again as large as the reference's or 0.15 brighter (a glow's core
-too large reads at once to the eye). Build until they are gone, not only until `OK`. A light of one colour (a
+too large reads at once to the eye), its brightest frame more than 0.08 of its play from the reference's or its first
+frame 0.2 brighter or fainter, and its light at the border 0.08 short of or past the reference's (a halo that falls
+off too soon, or spills). A loop with a reference starts at the frame where its light over the loop follows the
+reference's: a loop has no first frame of its own. Build until they are gone, not only until `OK`. A light of one colour (a
 white glow) is written as 255 steps of that colour, so its falloff shows no bands.
 FAULTs: a loop that jumps at its wrap, a one-shot that does not end dark, light at the border.
 
