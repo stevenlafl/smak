@@ -124,7 +124,7 @@ the brief asks**, and these measures in place of the ones against an original:
 
 | Kind | Measured in place of the original's |
 | --- | --- |
-| A prop, the weapon, the enemy | M1: its outline judged against the brief's words; M2: within 15% of a size the brief gives; M6: beside three of Half-Life's own of its kind at the same scale (a line-up the harness draws), a player would take it for one of the game's; M8: no more than twice the median triangles of Half-Life's own of its kind and size (`docs/SPEC.md`, "How many triangles") |
+| A prop, the weapon, the enemy | M1: its outline judged against the brief's words; M2: within 15% of a size the brief gives; M6: beside three of Half-Life's own of its kind at the same scale (a line-up the harness draws), a player would take it for one of the game's; M8: no more than twice the median triangles of Half-Life's own of its kind and size, or than three quarters of them have, whichever is more (`docs/SPEC.md`, "How many triangles"; amended 2026-10-14) |
 | The enemy | C2: it keeps the headcrab's contract (`compareContract`, measured), so the game's own headcrab plays it |
 | A map | P1 to P3: the brief's areas, joined as it says, at its sizes within 25%; P4: the entities it names (starts, the wrench, the crawlers, the doors, the lift) are there and reached; P8 measured as for any map (compiles, no leak, the walk test reaches every item and the way out); P9: from inside, a player would take it for a map of Half-Life's |
 | A texture | T2: its colour as the brief says; T3: its pattern at a scale a wall of the game's has; T5: beside Half-Life's own textures of its kind, flat and on a wall, at least as good (its fine detail within Valve's band, measured as in research/asset-reproduction-failures.md, Table 4) |
@@ -273,3 +273,7 @@ walk test, not the game.
   16 units, 8 cells or more) is counted too: Valve's frenzy has none, frenzy_pictures one slab and frenzy_words
   two. The measure caps nothing yet.
 
+- **2026-10-14, later: M8's triangles for an original prop.** Steven's call. Twice the median of Half-Life's props
+  of a size failed more than a quarter of Valve's own props of that size (a box 40 to 64 across: median 62, three
+  quarters under 156) and the kit's own toilet. An original prop now fails M8 on triangles only past both twice the
+  median and the third quartile. Haiku's pipe junction, valve wheel and wall lamp (388, 278, 172) fail either way.

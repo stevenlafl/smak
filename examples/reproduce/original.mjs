@@ -225,7 +225,8 @@ ${RUBRIC}`,
 /** How many triangles a model's first body has. */
 const trianglesOf = (src) => smak.readMdl(src).bodyparts.reduce((n, b) => n + (b.models[0]?.meshes.reduce((m, x) => m + x.numtris, 0) ?? 0), 0);
 /** Half-Life's props by size: the median triangles a prop of this size has (docs/SPEC.md, "How many triangles"). */
-const PROP_MEDIAN = [[16, 20], [32, 51], [64, 62], [128, 105], [Infinity, 288]];
+// Half-Life's props by size (their box's diagonal under): the median triangles and the third quartile (src/spec/model.mjs)
+const PROP_MEDIAN = [[16, 20, 32], [32, 51, 88], [64, 62, 156], [128, 105, 238], [Infinity, 288, 288]];
 /** A size the brief gives against the model's: the share it is off by, at the worst of those given. */
 function sizeOff(asked, size) {
   const offs = [];
@@ -242,11 +243,11 @@ async function judgeModelAsset(kind, label, src, dir, { asked, list, extra = {},
   const { size } = boxOf(src);
   const line = lineupOf(src, list, dir, label);
   const triangles = trianglesOf(src);
-  const median = PROP_MEDIAN.find(([under]) => Math.hypot(...size) < under)[1];
+  const [, median, q3] = PROP_MEDIAN.find(([under]) => Math.hypot(...size) < under);
   const off = sizeOff(asked, size);
   const check = smak.check(src);
-  const measured = { size: size.map((v) => round(v)), sizeAsked: asked ?? null, sizeOff: off, triangles, ...(kind === "model" ? { halfLifeMedianOfThisSize: median } : {}), checkErrors: check.errors, lineup: `ours is one of A to D in lineup.png beside ${line.others.join(", ")}: the judge does not know which`, ...extra.measured };
-  const caps = { M2: off === null ? 2 : band(off <= 0.15, off <= 0.3), M8: check.errors.length ? 0 : kind === "model" && triangles > 2 * median ? 1 : 2, ...extra.caps };
+  const measured = { size: size.map((v) => round(v)), sizeAsked: asked ?? null, sizeOff: off, triangles, ...(kind === "model" ? { halfLifeMedianOfThisSize: median, halfLifeThreeQuartersUnder: q3 } : {}), checkErrors: check.errors, lineup: `ours is one of A to D in lineup.png beside ${line.others.join(", ")}: the judge does not know which`, ...extra.measured };
+  const caps = { M2: off === null ? 2 : band(off <= 0.15, off <= 0.3), M8: check.errors.length ? 0 : kind === "model" && triangles > 2 * median && triangles > q3 ? 1 : 2, ...extra.caps };
   return judge(kind, label, dir, `${dir}/sides.png (ten views at one scale), ${dir}/lineup.png (four models at one scale: one is this mod's, three are Half-Life's own of its size; M6 asks whether a player would take this mod's for one of the game's)${extraPictures}`, measured, caps);
 }
 
