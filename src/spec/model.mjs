@@ -14,6 +14,7 @@ import { fitPose, fitMotion } from "./posefit.mjs";
 import { carve, masksFromPicture, sheetViews } from "./carve.mjs";
 import { readObj, objMeshes } from "../obj.mjs";
 import { reduce } from "../qem.mjs";
+import { viewCharts } from "./charts.mjs";
 import { blob, nearestPiece } from "./blob.mjs";
 import { sub, cross } from "../vec.mjs";
 import { readFileSync, existsSync } from "node:fs";
@@ -76,9 +77,9 @@ const KINDS = {
   cylinder: ["radius", "height", "sides", "top"],
   sphere: ["radius", "sides"],
   superquadric: ["size", "round", "sides"],
-  carved: ["size", "sheet", "pictures", "cells", "triangles", "symmetric"],
-  mesh: ["size", "file", "triangles", "up", "turn", "symmetric"],
-  blob: ["pieces", "blend", "cells", "triangles", "symmetric"],
+  carved: ["size", "sheet", "pictures", "cells", "triangles", "symmetric", "layout"],
+  mesh: ["size", "file", "triangles", "up", "turn", "symmetric", "layout"],
+  blob: ["pieces", "blend", "cells", "triangles", "symmetric", "layout"],
   turn: ["rings", "caps", "sides", "lining", "axis"],
   tube: ["path", "sides", "caps"],
   leaf: ["width", "height", "rows", "bend"],
@@ -434,6 +435,8 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
     for (const key of Object.keys(part))
       if (!COMMON.includes(key) && !KINDS[part.kind].includes(key))
         warnings.push(`${label}.${key}: a ${part.kind} takes no ${key}, left out.${nearest(key, [...COMMON, ...KINDS[part.kind]])}`);
+    if (KINDS[part.kind].includes("layout") && part.layout !== undefined && !["charts", "sides"].includes(part.layout))
+      errors.push(`${label}.layout: "sides" (six patches, one a side) or "charts" (regions by the side that sees them best, packed)`);
     if (KINDS[part.kind].includes("symmetric") && part.symmetric !== undefined && typeof part.symmetric !== "boolean")
       errors.push(`${label}.symmetric: true (its right half made the mirror of its left, +y) or false`);
     if (part.material !== undefined && !part.kind.startsWith("kit:") && part.kind !== "prefab") {
@@ -882,6 +885,23 @@ function buildPart(part, M, S, zone, px, material, hostSurface, capZones = []) {
     case "blob":
     case "mesh":
     case "carved": {
+      // `layout: "charts"`: each face to the side that sees it best, smoothed into regions, a region split where
+      // two of its layers would share texels, the regions packed to fill the zone (research/character-texturing.md,
+      // E4: the six patches below share texels between faces of one side, which shows as speckle)
+      // the default since 2026-10-15: on all four characters of the held test it lowered the colour difference
+      // in most views and took the dark blotches off Barney's trousers (layout "sides" keeps the old)
+      if (part.layout !== "sides") {
+        const tris = part.carvedTris.map((t) => t.map((c) => c.p));
+        const { uv } = viewCharts(tris, [[0, 0], [90, 0], [180, 0], [270, 0], [0, 90], [0, -90]], { size: [zone.w, zone.h] });
+        part.carvedTris.forEach((t, f) => {
+          const n = cross(sub(t[1].p, t[0].p), sub(t[2].p, t[0].p));
+          const mid = [0, 1, 2].map((k) => (t[0].p[k] + t[1].p[k] + t[2].p[k]) / 3);
+          const corner = (k) => M.V(t[k].p, [zone.x + uv[f][k][0] * zone.w, zone.y + uv[f][k][1] * zone.h]);
+          M.tri(corner(0), corner(1), corner(2), mid.map((v, k) => v - n[k]));
+        });
+        const Z = part.size[2];
+        return { ends: [[0, 0, 0], [0, 0, Z]] };
+      }
       // the carved hull's triangles, each laid flat on the patch of the zone for the way it most faces: seen
       // from that side, as a picture of that side would paint it (project paints it from the pictures)
       const most = Math.max(...part.size);
@@ -1742,7 +1762,10 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
       return votes.find((id, k) => votes.indexOf(id) !== k) ?? votes[0] ?? t.tex?.name ?? "untextured";
     };
     for (const pose of posesOf(mdl)) {
-      const moving = soundness(mdl, { ...pose, names }).faults.filter((fault) => /float apart/.test(fault));
+      // what may float when still may float in motion (a carved body's pieces are what its pictures show apart:
+      // Barney's and the zombie's makers were stopped by their arms' pieces, which `allow` did not reach here)
+      const mayFloat = allow.flatMap((id) => [id, ...Object.keys(report.parts).filter((p) => p.startsWith(`${id}.`))]);
+      const moving = soundness(mdl, { ...pose, names, allow: mayFloat }).faults.filter((fault) => /float apart/.test(fault));
       for (const fault of moving) report.faults.push(`in ${pose.label}: ${fault}`);
     }
   } else
