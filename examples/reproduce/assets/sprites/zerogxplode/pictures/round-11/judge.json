@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "zerogxplode",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.818,
+     "mean": 0.005
+    },
+    "envelope": {
+     "peakAt": 0.36,
+     "first": 0.08,
+     "last": 0.03
+    },
+    "dark": 0.73,
+    "wrap": 0.81,
+    "jitter": 1.25
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.641,
+     "mean": 0.001
+    },
+    "envelope": {
+     "peakAt": 0.43,
+     "first": 0,
+     "last": 0
+    },
+    "dark": 0.7,
+    "wrap": 0.01,
+    "jitter": 1.31
+   }
+  },
+  "meanColourDeltaE": 4.1,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Both are explosions: a bright burst that grows, then breaks into embers. The reproduction does not match the original's kind of effect. Its frames 0 to 5 show a grey, smoke-like blob rather than a white-hot flash, and frames 8 to 12 read as a dusty tan cloud, not the original's glowing fireball with sparks falling off it. The original's fireball is clearly the same effect; the reproduction reads as smoke."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 64 by 64 with 15 frames, and the effect fills the frame at its peak in both. But the original starts as a small point of light in frame 0 and grows to fill the frame by frame 3. The reproduction's frame 0 is empty, and its frames 13 and 14 are fully dark, while the original still shows a faint ember there. Its spread is also wider and softer through the late frames, so the shape does not fill the frames as the original's does."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured mean colour difference is 4.1, which is within 15, so the average passes. Looking at the frames, though, the reproduction's early frames (0 to 5) carry a grey, desaturated cast where the original is white and yellow-white, and its later frames (8 to 12) are a flatter tan-brown where the original is warm amber-orange. The judge may score lower than the measurement, so the visible cast in the early frames counts against it."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both have 15 frames, and both grow then fade, which is the right kind of motion. Two differences show. First, the original opens with a visible flash at frame 0 (envelope first 0.08) while the reproduction opens dark (first 0). Second, the reproduction's peak sits later (0.43 against 0.36) and it holds bright through frame 7 before dropping off. The one-shot ends dark in both (last 0.03 against 0), so that part holds. The timing and start are off, which is what the 25% band is measuring."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measures give both as additive, with the same name (sameName true) and read back as written (readsBack true). Nothing in the pictures contradicts the format. The grey tone in the early frames is pixel colour, not a format fault, and the colour is charged to R3."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

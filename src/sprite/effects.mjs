@@ -77,8 +77,10 @@ function ramp(name, heat) {
 /** An envelope over the phase: { attack, decay } as shares of the length (0 none): 0 to 1 to 0. */
 function envelopeOf(env) {
   if (!env) return () => 1;
-  const { attack = 0, decay = 0 } = env;
-  return (p) => Math.min(attack ? clamp01(p / attack) : 1, decay ? clamp01((1 - p) / decay) : 1);
+  // `start`: the level at the first frame (0 unless told), so that an explosion opens on a small flash and still
+  // peaks at its attack
+  const { attack = 0, decay = 0, start = 0 } = env;
+  return (p) => Math.min(attack ? start + (1 - start) * clamp01(p / attack) : 1, decay ? clamp01((1 - p) / decay) : 1);
 }
 
 /** Particles that a seed always places the same: [{ angle, speed, delay }]. */
@@ -348,6 +350,11 @@ export function framesOf({ size: [width, height], frames: count, loop = false, l
   const out = [];
   for (let n = 0; n < distinct; n++) {
     const p = loop ? n / distinct : distinct > 1 ? n / (distinct - 1) : 0;
+    // a ramp given frame by frame ({ frames: [stops, ...] }, as ramp "reference" reads an explosion that cools from
+    // white to orange at one brightness): this frame's, at the same point of its play
+    const layersNow = layers.map((layer) =>
+      layer.ramp?.frames ? { ...layer, ramp: layer.ramp.frames[Math.min(layer.ramp.frames.length - 1, Math.round(p * (layer.ramp.frames.length - 1)))] } : layer,
+    );
     // a masked layer's outline this frame: the reference's frame at the same point of its play
     const mask = masks?.length ? masks[Math.min(masks.length - 1, Math.round(p * (masks.length - 1)))] : null;
     const rgb = new Float32Array(width * height * 3);
@@ -362,7 +369,7 @@ export function framesOf({ size: [width, height], frames: count, loop = false, l
         const fade = edge ? clamp01(fromSide / edge) * (use === "beam" ? 1 : clamp01(fromEnd / edge)) : 1;
         let sum = [0, 0, 0];
         let cover = 0;
-        for (const [k, layer] of layers.entries()) {
+        for (const [k, layer] of layersNow.entries()) {
           const make = KINDS[layer.kind];
           if (!make) continue;
           const { e, rgb: c, a: layerA } = make(layer, u, v, p, { cells, seed: seed + k * 101, aspect, frame: n });

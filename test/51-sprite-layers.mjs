@@ -260,7 +260,7 @@ test("ramp reference: a layer wears the reference's own colour at each brightnes
   const violet = buildSpriteSpec(spec([[0, [0, 0, 0]], [0.5, [0.4, 0.2, 0.6]], [1, [1, 0.9, 1]]]));
   const taken = buildSpriteSpec(spec("reference"));
   const deltaOf = (r) => Number(/mean colour delta E ([\d.]+)/.exec(r.report.facts.find((f) => /delta E/.test(f)))[1]);
-  sure(taken.report.facts.some((f) => /ramp "reference": \d+ steps of the reference's own colour/.test(f)), taken.report.facts.join(" | "));
+  sure(taken.report.facts.some((f) => /ramp "reference": the reference.s own colour at each brightness/.test(f)), taken.report.facts.join(" | "));
   sure(deltaOf(taken) < 4 && deltaOf(taken) < deltaOf(violet), `taken ${deltaOf(taken)}, violet ${deltaOf(violet)}`);
   sure(validateSpriteSpec({ ...spec("reference"), reference: undefined }).errors.some((e) => /ramp: "reference" takes the reference's colours/.test(e)), "no reference, refused");
 });
@@ -270,4 +270,23 @@ test("a ramp's stops in any order make the same colours", () => {
   const a = one({ kind: "glow", radius: 1, core: 0.3, ramp: up });
   const b = one({ kind: "glow", radius: 1, core: 0.3, ramp: [...up].reverse() });
   sure(same(a, b), "reversed stops, other colours");
+});
+
+test("an envelope's start lights the first frame; a reference's ramp is read frame by frame", () => {
+  const dark = framesOf({ size: [16, 16], frames: 6, layers: [{ kind: "glow", env: { attack: 0.5 } }] });
+  const lit = framesOf({ size: [16, 16], frames: 6, layers: [{ kind: "glow", env: { attack: 0.5, start: 0.2 } }] });
+  const sum = (f) => f.rgb.reduce((a, b) => a + b, 0);
+  sure(sum(dark[0]) < 1e-6 && sum(lit[0]) > 0.5, `first frames ${sum(dark[0])} and ${sum(lit[0])}`);
+  sure(Math.abs(sum(dark[3]) - sum(lit[3])) < 1e-3, "the peak is where it was");
+  // a reference white early and orange late: the copy's late frame is orange too
+  const ref = buildSpriteSpec({ spec: "smak.sprite/1", name: "sprites/ref.spr", size: [32, 32], frames: 8, layers: [{ kind: "glow", radius: 1.2, core: 0.3, ramp: { frames: [[[0, [0, 0, 0]], [1, [1, 1, 1]]], [[0, [0, 0, 0]], [1, [1, 0.5, 0.1]]]] } }] });
+  const sheet = sheetOf(smak.maps.readSpr(ref.files[0].bytes), { cols: 8, cell: 128 });
+  const file = join(tmp, "cooling-ref.png");
+  writeFileSync(file, smak.png(sheet.width, sheet.height, sheet.rgba));
+  const ours = buildSpriteSpec({ spec: "smak.sprite/1", name: "sprites/ours.spr", size: [32, 32], frames: 8, reference: file, layers: [{ kind: "glow", radius: 1.2, core: 0.3, ramp: "reference" }] });
+  sure(ours.report.facts.some((f) => /frame by frame over its 8 frames/.test(f)), ours.report.facts.join(" | "));
+  const spr = smak.maps.readSpr(ours.files[0].bytes);
+  const centre = (f) => { const i = f.pixels[16 * 32 + 16]; return [...spr.palette.subarray(i * 3, i * 3 + 3)]; };
+  const [first, last] = [centre(spr.frames[0]), centre(spr.frames[7])];
+  sure(first[2] > 200 && last[2] < 120 && last[0] > 200, `first ${first}, last ${last}`);
 });

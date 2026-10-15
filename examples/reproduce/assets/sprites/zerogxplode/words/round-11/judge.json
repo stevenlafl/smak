@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "zerogxplode",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.818,
+     "mean": 0.005
+    },
+    "envelope": {
+     "peakAt": 0.36,
+     "first": 0.08,
+     "last": 0.03
+    },
+    "dark": 0.73,
+    "wrap": 0.81,
+    "jitter": 1.25
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.058,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0.5,
+     "first": 0.12,
+     "last": 0
+    },
+    "dark": 0.75,
+    "wrap": 0.62,
+    "jitter": 1.32
+   }
+  },
+  "meanColourDeltaE": 10.2,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Both are a fireball that brightens, then fades into smoke, so the effect is the same. The reproduction is not the same look: frames 8 to 12 read as a dusty tan cloud with radial streaks, not a fire, and the original's hot orange-to-dark glow and flying sparks are weak or missing."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both use 64 by 64 frames with the effect in the upper-centre. The reproduction's cloud is compact in frames 0 to 1 and spreads sideways in frames 8 to 12, while the original stays a tighter upper-centred mass. By frames 13 to 14 the reproduction has almost vanished where the original keeps a visible ember."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Early frames match (white core). From frame 7 the reproduction goes beige, grey-tan and brown, where the original stays gold and orange through frames 8 to 11 before it darkens to dark red. Mean colour is visibly off in the middle and late frames, well beyond a 15 difference there."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count is 15 in both, and both end dark, but the timing is off. The measured envelope peaks at 0.5 in the reproduction against 0.36 in the original, and its first frame is 0.12 against 0.08. The loop-closing measure is also lower (wrap 0.62 against 0.81). Growth and fade are present, but the original peaks earlier and fades slower."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: type parallel and format additive match the original, the name matches, and it reads back as written. Nothing in the pictures contradicts this."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

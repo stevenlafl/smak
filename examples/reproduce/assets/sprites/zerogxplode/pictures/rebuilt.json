@@ -1,15 +1,19 @@
 {
- "kit": "2de487c",
+ "kit": "70011a2",
  "from": "spec.json",
  "ok": true,
  "report": [
   "OK: built, and every check passed",
-  "note  sprites/zerogxplode.spr: placed as a tempent, render mode 5 (Additive)",
+  "WARN  sprites/zerogxplode.spr: its light reaches its frame's border at 0.635 at most, its reference's at 0.818: it falls off too soon: a wider radius or falloff, so it fills its frame as the reference's does. Bring it nearer and build again",
+  "WARN  sprites/zerogxplode.spr: its shape fills its frames otherwise than its reference's (overlap 0.5; the bar is 0.8). frame 0: the reference lit at columns 23-42, rows 28-46 (its core at columns 25-41, rows 30-42), this one at nothing lit (core nothing lit); frame 1: the reference lit at columns 18-46, rows 22-48 (its core at columns 20-44, rows 23-46), this one at columns 19-45, rows 19-47 (core columns 30-32, rows 30-33); frame 10: the reference lit at columns 0-55, rows 1-53 (its core at columns 0-44, rows 2-46), this one at columns 0-58, rows 1-58 (core columns 11-43, rows 5-42); frame 11: the reference lit at columns 0-57, rows 0-55 (its core at columns 3-42, rows 1-54), this one at columns 3-55, rows 0-54 (core columns 20-21, rows 38-38). Bring it nearer and build again",
+  "note  sprites/zerogxplode.spr: placed as a tempent, render mode 5 (Additive), framerate 30",
   "fact  sprites/zerogxplode.spr: 1 layer(s) masked by the reference's lit area, its 15 frames over this one's 15: its outline, not its colours",
-  "fact  sprites/zerogxplode.spr: 64x64, 15 frames, additive, 253 colours, quantising lost 0.0013; border 0.003 (brightest 0.538), dark 0.75, jitter 1.65, envelope peaks at 0.29 (first 0.09, last 0.05)",
-  "fact  sprites/zerogxplode.spr against Half-Life's explosion: 3 of 5 in range; jitter 1.65 (1.04 to 1.48): flickers: more coherence from frame to frame; last 0.05 (0 to 0.03): does not end dark: a decay in its envelope",
-  "fact  sprites/zerogxplode.spr against its reference (pictures/frames.png, measured, nothing copied; the reference's, then this one's): mean colour delta E 14.8, dark 0.72 and 0.74, border brightest 0.818 and 0.538 (mean 0.005 and 0.003), frames 15 and 15",
-  "fact  sprites/zerogxplode.spr: its shape against its reference's, frame by frame (at its faint edge, its body and its core, the share of pixels lit in both: 0.92, 0.85, 0.63): mean 0.8; 0.77 0.91 0.88 0.89 0.91 0.88 0.86 0.86 0.86 0.83 0.77 0.71 0.65 0.56 0.68",
-  "written: work:sprites/zerogxplode.spr (with -sheet.png and -animated.png beside it)"
+  "fact  sprites/zerogxplode.spr: ramp \"reference\": the reference's own colour at each brightness, frame by frame over its 15 frames (its middle: from 0.098 0.011 0.004 at its faintest to 0.921 0.893 0.663 at its brightest)",
+  "fact  sprites/zerogxplode.spr: 64x64, 15 frames, additive, 256 colours, quantising lost 0.0026; border 0.001 (brightest 0.635), dark 0.7, jitter 1.32, envelope peaks at 0.43 (first 0, last 0)",
+  "fact  sprites/zerogxplode.spr against Half-Life's explosion: 5 of 5 in range",
+  "fact  sprites/zerogxplode.spr against its reference (pictures/frames.png, measured, nothing copied; the reference's, then this one's): mean colour delta E 4.4, dark 0.72 and 0.7, border brightest 0.818 and 0.635 (mean 0.005 and 0.001), frames 15 and 15",
+  "fact  sprites/zerogxplode.spr: its brightest 0.91 and 0.91, pixels over 0.7 a frame 476 and 356",
+  "fact  sprites/zerogxplode.spr: its light over its frames against its reference's: brightest at 0.36 and 0.43 of its play, first frame 0.08 and 0, last 0.03 and 0 of the brightest",
+  "fact  sprites/zerogxplode.spr: its shape against its reference's, frame by frame (at its faint edge, its body and its core, the share of pixels lit in both: 0.58, 0.55, 0.41): mean 0.5; 0 0.55 0.74 0.75 0.77 0.78 0.76 0.74 0.72 0.68 0.53 0.36 0.17 0.02 0"
  ]
 }

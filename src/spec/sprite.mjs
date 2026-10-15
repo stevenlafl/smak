@@ -13,7 +13,7 @@ import { framesOf, LAYER_KINDS, RAMP_NAMES } from "../sprite/effects.mjs";
 import { quantiseFrames } from "../sprite/palette.mjs";
 import { writeSpr } from "../sprite/spr.mjs";
 import { readSpr, SPRITE_TYPES, SPRITE_FORMATS } from "../maps/sprites.mjs";
-import { measureSprite, measureSheet, shapeOverlap, SHAPE_LEVELS, rampOfSheet, againstClass, SPRITE_CLASSES } from "../sprite/measure.mjs";
+import { measureSprite, measureSheet, shapeOverlap, SHAPE_LEVELS, rampOfSheet, rampOfFrames, againstClass, SPRITE_CLASSES } from "../sprite/measure.mjs";
 import { sheetOf, animationOf } from "../sprite/draw.mjs";
 import { png, unpicture } from "../image.mjs";
 
@@ -215,7 +215,10 @@ export function buildSpriteSpec(spec, { readPicture = (path) => unpicture(readFi
       const ref = typeof s.reference === "string" ? { picture: s.reference } : s.reference;
       let stops = null;
       try {
-        stops = rampOfSheet(readPicture(ref.picture), { format });
+        const picture = readPicture(ref.picture);
+        // frame by frame where it has more than one: its colour may change as it plays (an explosion cools)
+        const count = measureSheet(picture, { size: s.size, format, cols: ref.cols ?? 8, cell: ref.cell ?? 128 }).frames ?? 1;
+        stops = count > 1 ? rampOfFrames(picture, { size: s.size, format, cols: ref.cols ?? 8, cell: ref.cell ?? 128, frames: count }) : rampOfSheet(picture, { format });
       } catch (error) {
         errors.push(`${s.name}: its ramp's reference: ${error.message.split("\n")[0]}`);
         continue;
@@ -225,7 +228,8 @@ export function buildSpriteSpec(spec, { readPicture = (path) => unpicture(readFi
         continue;
       }
       layers = layers.map((layer) => (layer.ramp === "reference" ? { ...layer, ramp: stops } : layer));
-      report.facts.push(`${s.name}: ramp "reference": ${stops.length - 1} steps of the reference's own colour, from ${stops[1][1].join(" ")} at its faintest to ${stops.at(-1)[1].join(" ")} at its brightest`);
+      const whole = stops.frames ? stops.frames[Math.floor(stops.frames.length / 2)] : stops;
+      report.facts.push(`${s.name}: ramp "reference": the reference's own colour at each brightness${stops.frames ? `, frame by frame over its ${stops.frames.length} frames` : ""} (its middle: from ${whole[1][1].join(" ")} at its faintest to ${whole.at(-1)[1].join(" ")} at its brightest)`);
     }
     let made = framesOf({ size: s.size, frames: s.frames ?? 1, loop, layers, seed: s.seed ?? 1, edge: s.finish?.edge ?? 2, use, masks });
     // a loop has no first frame of its own: with a reference, it starts at the frame that puts its light over the

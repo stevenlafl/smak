@@ -249,7 +249,7 @@ export function shapeOverlap(theirs, ours) {
  * step's mean colour. A layer with `ramp: "reference"` wears it: its colour at each brightness is the reference's
  * own there (Steven, 2026-10-15: a flare's halo peach in the original and violet in the copy).
  */
-export function rampOfSheet(picture, { format = "additive", count = 12 } = {}) {
+export function rampOfSheet(picture, { format = "additive", count = 12, most: given = null } = {}) {
   const ground = format === "additive" ? DARK : GREY;
   const { width, height, rgba } = picture;
   const lumOf = (r, g, b) => 0.299 * r + 0.587 * g + 0.114 * b;
@@ -265,6 +265,7 @@ export function rampOfSheet(picture, { format = "additive", count = 12 } = {}) {
     most = Math.max(most, l);
   }
   if (!lits.length) return null;
+  if (given) most = given;
   const sums = Array.from({ length: count }, () => ({ n: 0, c: [0, 0, 0] }));
   for (const [l, c] of lits) {
     const k = Math.min(count - 1, Math.floor((l / most) * count));
@@ -274,4 +275,35 @@ export function rampOfSheet(picture, { format = "additive", count = 12 } = {}) {
   const stops = [[0, [0, 0, 0]]];
   sums.forEach((s, k) => s.n && stops.push([(k + 0.5) / count, s.c.map((v) => Math.round((v / s.n) * 1000) / 1000)]));
   return stops;
+}
+
+/**
+ * The reference's colour by brightness frame by frame: `{ frames: [stops, ...] }`, each frame's own (its brightness
+ * against the whole sheet's brightest, so a dim late frame keeps its place), a frame with few lit pixels taking the
+ * whole sheet's. An explosion is white at its height and orange as it cools, at the same brightness.
+ */
+export function rampOfFrames(picture, { size: [w, h], format = "additive", cols = 8, cell = 128, frames }) {
+  const whole = rampOfSheet(picture, { format });
+  if (!whole) return null;
+  const k = cellOf([w, h], cell);
+  const [cw, ch] = [w * k, h * k];
+  const ground = format === "additive" ? DARK : GREY;
+  let most = 0;
+  for (let i = 0; i < picture.width * picture.height; i++) {
+    const c = [0, 1, 2].map((j) => Math.max(0, picture.rgba[i * 4 + j] - ground[j]) / 255);
+    if ([0, 1, 2].every((j) => picture.rgba[i * 4 + j] === NUMBER.colour[j])) continue;
+    most = Math.max(most, 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]);
+  }
+  const across = Math.min(cols, Math.floor(picture.width / cw));
+  const list = [];
+  for (let n = 0; n < frames; n++) {
+    const [left, top] = [(n % across) * cw, Math.floor(n / across) * ch];
+    if (top + ch > picture.height) break;
+    const rgba = new Uint8Array(cw * ch * 4);
+    for (let y = 0; y < ch; y++) rgba.set(picture.rgba.subarray(((top + y) * picture.width + left) * 4, ((top + y) * picture.width + left + cw) * 4), y * cw * 4);
+    // the frame's number in its corner is left out by its colour
+    const own = rampOfSheet({ width: cw, height: ch, rgba }, { format, most });
+    list.push(own && own.length >= 4 ? own : whole);
+  }
+  return list.length ? { frames: list } : whole;
 }
