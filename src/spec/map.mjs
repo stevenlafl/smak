@@ -846,6 +846,12 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       else {
         brushes.push(...stairBrushes(min, max, high, textureOf("floor"), { steps: count, top: false, tread: TREAD }));
         railings(min, max, axis, toward, count, lower);
+        // the stairs and the floor at their foot are kept clear as a doorway's floor is, from the lower floor up
+        // to a player's head at the top (Kaupo's blocks by its stairs, Steven's play-test)
+        const foot = { link: i, kind: "stairs", z0: floorLow, high: floorHigh - floorLow + PLAYER.high, along, least, min: [min[0], min[1]], max: [max[0], max[1]], in: [] };
+        if (toward > 0) foot.min[axis] -= CLEAR;
+        else foot.max[axis] += CLEAR;
+        ways.push(foot);
         report.facts.push(`links[${i}]: stairs of ${count} steps in ${lower.id} up to the way at ${floorHigh}`);
         const middle = w0 + width / 2;
         const ends = [Math.min(a.min[axis], b.min[axis]) - 8, Math.max(a.max[axis], b.max[axis]) + 8];
@@ -1172,7 +1178,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       const over = [0, 1].map((k) => Math.min(at[k] + own.max[k], way.max[k]) - Math.max(at[k] + own.min[k], way.min[k]));
       if (!over.every((v) => v > INTO_WALL)) return false;
       const pieces = prefabHeights(prefab).map(([lo, hi]) => [at[2] + lo - way.z0, at[2] + hi - way.z0]);
-      const standing = pieces.filter(([lo, hi]) => hi > STEP && lo < PLAYER.high);
+      const standing = pieces.filter(([lo, hi]) => hi > STEP && lo < (way.high ?? PLAYER.high));
       if (!standing.length) return false;
       const tops = [...new Set(pieces.map(([, hi]) => hi).filter((hi) => hi > 0))].sort((a, b) => a - b);
       return !tops.every((top, k) => top - (tops[k - 1] ?? 0) <= STEP);
@@ -1285,7 +1291,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     const free = freeAcross(way);
     const wanted = Math.min(way.least, way.max[way.along] - way.min[way.along]);
     if (free < wanted)
-      report.faults.push(`${way.in.map((t) => t.name).join(", ")} ${way.in.length > 1 ? "stand" : "stands"} in front of links[${way.link}], ${way.kind === "opening" ? "an" : "a"} ${way.kind}, leaving ${Math.round(free)} of it free (a player passes at ease at ${wanted}; the floor ${CLEAR} deep each side, from ${way.min.join(" ")} to ${way.max.join(" ")}, is kept clear): move ${way.in.length > 1 ? "them" : "it"} out of the way`);
+      report.faults.push(`${way.in.map((t) => t.name).join(", ")} ${way.in.length > 1 ? "stand" : "stands"} ${way.kind === "stairs" ? "on or at the foot of the stairs of" : "in front of"} links[${way.link}]${way.kind === "stairs" ? "" : `, ${way.kind === "opening" ? "an" : "a"} ${way.kind}`}, leaving ${Math.round(free)} of ${way.kind === "stairs" ? "them" : "it"} free (a player passes at ease at ${wanted}; ${way.kind === "stairs" ? `the stairs and the floor ${CLEAR} deep at their foot` : `the floor ${CLEAR} deep each side`}, from ${way.min.join(" ")} to ${way.max.join(" ")}, ${way.kind === "stairs" ? "are" : "is"} kept clear): move ${way.in.length > 1 ? "them" : "it"} out of the way`);
   }
   for (const mark of marks) {
     if (!mark.meaning.prefab) continue;

@@ -489,6 +489,32 @@ test("a map spec keeps its ways through at ease: no furniture in front of a door
   sure(short.some((f) => /links\[0\]: the wall a and b share is 40 long/.test(f)), short.join("; "));
 });
 
+test("stairs are kept clear as a doorway is: on them and at their foot (Kaupo's blocks by its stairs)", () => {
+  const spec = (furniture) => ({
+    spec: "smak.map/1", name: "stairs",
+    rooms: [{ id: "a", size: [320, 256, 200] }, { id: "b", size: [256, 256, 200], place: { east_of: "a" }, floor: 64 }],
+    prefabs: { chest: { pieces: [{ box: [[-16, -16, 0], [16, 16, 40]] }] } },
+    links: [{ between: ["a", "b"], kind: "opening" }],
+    furniture,
+    entities: [{ class: "info_player_start", room: "a", at: [-100, 0] }],
+  });
+  const build = (s) => buildMapSpec(s, { out: join(folder, "stairs"), compilers: { found: false, message: "" } }).report;
+  const plain = build(spec([]));
+  const steps = Number(plain.facts.map((f) => /stairs of (\d+) steps in a/.exec(f)).find(Boolean)?.[1]);
+  sure(steps > 0, plain.facts.join("; "));
+  // the stairs run west from a's east wall (x 160): a chest 20 past their foot, and one on them, stand in the way
+  const run = 24 * steps; // a tread is 24
+  for (const x of [160 - run - 20, 160 - run / 2]) {
+    const faults = build(spec([{ prefab: "chest", room: "a", at: [x, 0] }])).faults;
+    sure(faults.some((f) => /furniture\[0\] \(chest\) stands on or at the foot of the stairs of links\[0\]/.test(f)), `${x}: ${faults.join("; ")}`);
+  }
+  // one beside them, and one well clear of their foot, do not
+  for (const at of [[160 - run / 2, 100], [160 - run - 80, 0]]) {
+    const faults = build(spec([{ prefab: "chest", room: "a", at }])).faults;
+    sure(!faults.some((f) => /stairs of links/.test(f)), `${at}: ${faults.join("; ")}`);
+  }
+});
+
 test("a way through clears a step: raised to Valve's 96, and 90 over the lower floor (Kaupo's shed, ducked through)", () => {
   const spec = (high) => ({ spec: "smak.map/1", name: "step", rooms: [{ id: "yard", size: [256, 256, high] }, { id: "shed", size: [256, 256, high], place: { east_of: "yard" }, floor: 8 }], links: [{ between: ["yard", "shed"], kind: "opening", height: 76 }], entities: [{ class: "info_player_start", room: "yard", at: "centre" }] });
   const tall = buildMapSpec(spec(160), { out: join(folder, "step"), compilers: { found: false, message: "" } }).report;
