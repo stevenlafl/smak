@@ -11,7 +11,7 @@ file the agent can work on too (`editor/README.md`).
 
 ## What it does
 
-- **Textures**: takes them out of a model, puts new ones in (PNG or BMP), recolours, or paints them by rule.
+- **Textures**: takes them out of a model, puts new ones in (PNG, BMP or JPEG), recolours, or paints them by rule.
 - **Shapes**: replaces a weapon or item inside an existing model, keeping its hands, skeleton and animations;
   or writes a whole new model for a prop or pickup, from triangles or from a Wavefront `.obj` file made in
   any other tool (`smak obj`).

@@ -2038,10 +2038,11 @@ function wad({ file, flags }) {
 function wadMake({ command, file, rest, flags }) {
   const to = need(command, flags.o, "-o out.wad");
   const textures = [file, ...rest].map((pictureFile) => {
-    const name = basename(pictureFile).replace(/\.(png|bmp)$/i, "");
+    const name = basename(pictureFile).replace(/\.(png|bmp|jpe?g)$/i, "");
     const bytes = readFileSync(existing(pictureFile));
     const isBmp = bytes.toString("latin1", 0, 2) === "BM";
-    const read = isBmp ? smak.unbmp(bytes) : smak.unpng(bytes);
+    const isJpeg = bytes[0] === 0xff && bytes[1] === 0xd8;
+    const read = isBmp ? smak.unbmp(bytes) : isJpeg ? smak.unjpeg(bytes) : smak.unpng(bytes);
     return read.pixels ? { name, ...read } : { name, image: read };
   });
   save(to, maps.writeWad(textures));
@@ -2684,7 +2685,7 @@ const COMMANDS = {
   "wad-make": {
     run: wadMake,
     own: true,
-    help: `  wad-make <picture.png|.bmp> [more ...] -o out.wad   a .wad of pictures, each texture named after its file (15 letters at most,
+    help: `  wad-make <picture.png|.bmp|.jpg> [more ...] -o out.wad   a .wad of pictures, each texture named after its file (15 letters at most,
                                             sides multiples of 16; a name that begins with { has holes where its PNG is see-through)`,
   },
   "map-light": {

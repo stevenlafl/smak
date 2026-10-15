@@ -14,6 +14,7 @@ import { buildMdl } from "./build.mjs";
 import { meshOf } from "./mesh.mjs";
 import { check, LIMITS } from "./check.mjs";
 import { indexed, shrink, unpng, unbmp, rgbOf, rgbaOf } from "./image.mjs";
+import { unjpeg } from "./jpeg.mjs";
 import { sub, dot, cross, box } from "./vec.mjs";
 
 // ── what the two formats hold ──────────────────────────────────────────────
@@ -419,12 +420,13 @@ export function objMeshes(
 // ── pictures ───────────────────────────────────────────────────────────────
 /**
  * What a caller gives for a material's picture, as an image ({ width, height, rgb }) or, when it comes with a
- * palette of its own, a texture: a PNG or BMP file's bytes, a texture, or an image.
+ * palette of its own, a texture: a PNG, BMP or JPEG file's bytes, a texture, or an image.
  */
 function pictureGiven(given, material) {
   if (Buffer.isBuffer(given) || given instanceof Uint8Array) {
     const file = Buffer.from(given);
     if (file.toString("latin1", 0, 2) === "BM") return unbmp(file);
+    if (file[0] === 0xff && file[1] === 0xd8) return unjpeg(file);
     return rgbOf(unpng(file));
   }
   if (given?.pixels && given.palette) return given;

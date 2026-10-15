@@ -1182,11 +1182,11 @@ export function toolsFor(folders, { allowRun = true } = {}) {
     {
       name: "build",
       description:
-        'A model, map, textures, sound, sprite or video from a JSON spec (guide { doc: "spec" }): built, checked (holes, leaks, reach, light; a sound or sprite against the game\'s; a video\'s smoothness), compiled, drawn. Says OK or what to fix, and what changed since the last build.',
+        'A model, map, textures, sound, sprite or video from a JSON spec (guide { doc: "spec" }): built, checked (holes, leaks, reach, light; a sound or sprite against the game\'s; a video\'s smoothness), compiled, drawn. A map\'s or a .wad\'s material may take a photograph of the work folder (`picture`; `filter` valve, literal or aged). Says OK or what to fix, and what changed since the last build.',
       inputSchema: object(
         {
           spec: { description: "the spec, or a .json file of the folders" },
-          reference: { type: "string", description: "a PNG drawn beside the result" },
+          reference: { type: "string", description: "a picture (PNG, BMP or JPEG) drawn beside the result" },
           focus: { type: "array", items: { type: "string" }, description: "model parts to see close" },
           preview: { type: "boolean", description: "a video: false renders and encodes it (default: a contact sheet)" },
         },

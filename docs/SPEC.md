@@ -304,13 +304,59 @@ stripe width and slant (1.06 at 45 degrees). `rust` (0 to 1) a metal's rust; `fl
 (`flame` and `neon` are so already; such parts get a texture of their own).
 
 A map's pictures are painted as used surfaces, as Valve's are: patches a little lighter and darker, each tile and
-panel a tone of its own with its bevel lit from the top left, and grain texel by texel (not glass, flames, neon or
-water). Pick tones within Valve's: nine in ten of Half-Life's walls and floors are no brighter than 0.57 and no
-more coloured than 0.18 (a pixel's highest channel less its lowest), and half are under 0.33 and 0.08. A white
-wall is 0.55 to 0.6 there, not 0.9: the game's light brightens it again. A pale tone keeps less of a wood's grain,
-as paint over it does. The report warns of each of the map's own pictures past nine in ten of Valve's (`WARN N of
-the map's own textures look unlike...`), saying which way: brighter, more coloured, or too even. Snow and bone may
-be bright, and brass, gold, copper, leather, rope, `paint` and `hazard` coloured.
+panel a tone of its own with its bevel lit from the top left, and a soft grit two to four texels across (not glass,
+flames, neon or water). Pick tones within Valve's: nine in ten of Half-Life's walls and floors are no brighter than
+0.57 and no more coloured than 0.18 (a pixel's highest channel less its lowest), and half are under 0.33 and 0.08.
+A white wall is 0.55 to 0.6 there, not 0.9: the game's light brightens it again. A pale tone keeps less of a
+wood's grain, as paint over it does. The report warns of each of the map's own pictures past nine in ten of Valve's
+(`WARN N of the map's own textures look unlike...`), saying which way: brighter, more coloured, too even, little
+grain, or grain that is noise (texels unlike their neighbours: static, not a material). Grain and patches are
+held to Valve's of the material's kind (their wood is grainier than their concrete). Snow and bone may be bright,
+and brass, gold, copper, leather, rope, `paint` and `hazard` coloured. The softest bases (cloth, dirt, grass,
+paint, snow...) have less texel contrast than nine in ten of Valve's and say so: a photograph gives them more.
+
+#### A material from a photograph (maps and .wad textures)
+
+Valve's textures are photographs cut down: their fine detail is the material's own. Give a map's or a .wad's
+material a photograph and its picture is made from it:
+
+```json
+"textures": {
+  "wall": { "base": "plaster", "picture": "work:refs/plaster.jpg", "size": 96 },
+  "front": { "base": "door", "tone": "dark green", "picture": "work:refs/painted_planks.jpg" },
+  "notice": { "base": "paint", "picture": "work:refs/notice.png", "filter": "literal", "size": [32, 48] }
+}
+```
+
+- **Getting one.** Search the web for a photograph of the material seen straight on and evenly lit (plain white
+  plaster wall, raw plywood, poured concrete, a painted panel door), and save it in the work folder (`refs/`), named
+  for what it is. Texture sites that give scans away (Poly Haven, ambientCG: CC0) say their real size; a photo of a
+  wall from a few steps away works too. PNG, BMP or JPEG (baseline or progressive). The picture is the material's
+  detail, or a picture the person made or may use: never a game's own texture (AGENTS.md, rule 7).
+- `picture`: its path in the work folder (`work:refs/oak.jpg`) or beside the spec. Any base takes one but `mesh`;
+  a model's parts take theirs by `project` instead.
+- `filter`: what is done with it.
+  - `valve` (unless told): the material's detail. The largest part of the picture that is one material is taken
+    (or `rect`), its broad light divided out, laid one texel a unit at its real size, made to tile, its mean colour
+    made the `tone` (the base's own unless told), and its grain, patches and colour moved into the range of Valve's
+    textures of that kind. Then the base's own structure is drawn over it with no grain of its own: a door's frame,
+    panels, bevels and handle; a tile's grout and bevels; bricks' courses; planks' seams; metal's panels. Use it for
+    a surface: a wall, a floor, a door's wood or paint. A picture with a pattern of its own (tiles, bricks) doubles
+    the base's: give it to `plaster` or `stone`, or use `aged`.
+  - `literal`: the picture itself, cropped by `rect` and laid over the texture, nothing changed: a sign, a poster,
+    a mural, a photo of one particular door. Made to tile only with `"tile": true`. It is not held to Valve's look.
+  - `aged`: the picture's content as `literal`, its light flattened and its grain, patches, colour and brightness
+    moved into Valve's range: a person's photo of a tiled floor, a brick wall or a door made to sit among Valve's
+    textures, its pattern its own.
+- `rect`: `[x0, y0, x1, y1]`, the part of the picture to take, in its pixels (a door in a photo of a street).
+- `size`: the units of the game the picture's part spans across (or `[width, height]`), a unit about an inch: a
+  door 36 wide, a sheet of plywood 48, a metre 39. For `valve` it sets the scale of the detail (unless told: about
+  a photo of a surface of that kind, 48 for wood to 128 for ground); a part smaller than the texture repeats, so
+  take a photo of more of the surface where the repeat shows. For `literal` and `aged` in a map it is the texture's
+  own size (a 32 by 48 poster); in a .wad the texture's `size` is, and `size` makes the picture repeat within it.
+- The report says what was done to each (`fact texture SM_WALL: valve: 1451x1963 of the picture at 341,85 ..., as
+  79 across units, 2 by 1 times; its light divided out, made to tile; grain x2.33 ...`): look at the sheet, and
+  give a `rect` when the part it took is not the material.
 
 ### The finish
 
@@ -506,8 +552,10 @@ grille over a dark hole), `louvre` (`at`, `size`, `count`), `rivets` (`from`, `t
 middle; name the texture with `~` and light it with the map's texture lights). A game's concrete
 has a texel's own grain all over it (`speckle`) and blotches (`stains`); its machinery, streaks and scratches.
 A plain fill reads as flat beside it; every material is painted with some patches and grain already, and the
-report warns, as a map's does, of a texture brighter, more coloured or more even than nine in ten of Valve's
-("Materials"). A name
+report warns, as a map's does, of a texture brighter, more coloured, more even or noisier than nine in ten of
+Valve's ("Materials"). A material may take a photograph (`picture`, with `filter`, `rect`, `size`, `tile`: "A
+material from a photograph"), read beside the spec or from the work folder: its detail under the texture's panels
+and print (`valve`), or the photograph itself (`literal`, `aged`) as a sign or a mural. A name
 is one word of 15 letters at most and its first letters mean what a map's do (`{` holes, `!` a liquid, `+0` an
 animation's first frame, `-0` the first of random tiles); sides are multiples of 16, 512 at most. The build
 writes the .wad and a sheet of its textures. With `preview.map`, a compiled map of the models or work folder is

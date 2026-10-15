@@ -285,7 +285,7 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | 8. `audio.fromPicture` to a draft spec | DONE | `src/audio/picture.mjs` (commit ee496d7) |
 | 9. Sprite `billow` and `blobs` | DONE | Commit 603c920. Missing: steam1's column of wisps, fire's heat that falls with height |
 | 10. Texture relief: pipes, bars, louvres, rivets, seams, lamps | DONE | `src/spec/relief.mjs` (commit 17f9552) |
-| 11. Room early reflections; statistics matching for textures | PARTLY | Heeger-Bergen tried (`research/grain-trial.mjs`, not wired): on four of frenzy's textures from their views, blotchy grain with the right colours and no cracks, seams or panel lines. Missing: Portilla-Simoncelli's joint statistics; room early reflections |
+| 11. Room early reflections; statistics matching for textures | PARTLY | Heeger-Bergen tried (`research/grain-trial.mjs`, not wired): on four of frenzy's textures from their views, blotchy grain with the right colours and no cracks, seams or panel lines. A photograph's detail matched to Valve's grain, patches and colour by kind is built (`reference.mjs`, `reference-textures.md`). Missing: Portilla-Simoncelli's joint statistics; room early reflections |
 | Read-back of pictures into pixels (sprites, textures) or samples | DECLINED until Steven decides | Section 7: measures and drafts are in; texels and samples are copying |
 
 ## held-reproduction-failures.md (weapons and characters, round 1)
@@ -315,15 +315,28 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | A judge charges texture to shape | DONE | Prompt: paint differences are M4 or M5 |
 | Haiku makes up surface-detail faults on identical inputs | DONE | Two readings a model; controls 16 of 16 |
 | Forklift: the lift shifted in the side view, the back's slopes built as blocks, a half-sphere helmet; the medkit's strap route | OPEN | Maker faults the outline warning names; the strap route still wrong in three rounds |
-| Maps: Steven's walks of kaupo_v2 | DONE | First walk: hinged doors opened and closed with the use key; ways through raised to 96 and 90 over a step (the shed's ducked lintel); props of the kit's own furniture (`kit:toilet`...) with CLIP collision instead of boxes; a room under 64 by 96 that a way leads into is a fault (the closet); stairs and the floor at their foot kept clear of furniture. Second walk: every leaf painted as a panelled door with a handle in its material's tone (a pale tone keeps only the grain that fits under white), door and ladder pictures fitted to their faces, wall pictures standing on their room's floor, railings on stairs' open sides, every door toggled by use. The original maker spec now builds NOT OK on all of it. Texture choice: the kit's map pictures were flatter than nine in ten of 347 Valve walls and floors; they are now painted worn (patches, a tone a tile with lit bevels, grain), and `src/spec/look.mjs` warns of any map or wad picture, the kit's or a spec's own `.wad`'s, past Valve's 90th in brightness or colour or under their 10th in grain and patches (`research/texture-stats.mjs`). Open: whether that is what Steven sees as better (his walk), the maker acting on the warning, a sloped handrail in place of the stepped one |
+| Maps: Steven's walks of kaupo_v2 | DONE | First walk: hinged doors opened and closed with the use key; ways through raised to 96 and 90 over a step (the shed's ducked lintel); props of the kit's own furniture (`kit:toilet`...) with CLIP collision instead of boxes; a room under 64 by 96 that a way leads into is a fault (the closet); stairs and the floor at their foot kept clear of furniture. Second walk: every leaf painted as a panelled door with a handle in its material's tone (a pale tone keeps only the grain that fits under white), door and ladder pictures fitted to their faces, wall pictures standing on their room's floor, railings on stairs' open sides, every door toggled by use. The original maker spec now builds NOT OK on all of it. Texture choice: the kit's map pictures were flatter than nine in ten of 347 Valve walls and floors; they are now painted worn (patches, a tone a tile with lit bevels, grain), and `src/spec/look.mjs` warns of any map or wad picture, the kit's or a spec's own `.wad`'s, past Valve's 90th in brightness or colour or under their 10th in grain and patches (`research/texture-stats.mjs`). His next walk found the added grain read as static: it is now grit, the measure names noise (`structure`), and a material may take its detail from a photograph (`research/reference-textures.md`). Open: whether that is what Steven sees as better (his walk), the maker acting on the warning, a sloped handrail in place of the stepped one |
 | Maps: Steven's checklist (reviews/maps-2026-10-14.json) | PARTLY | Done: the env_glow crash refused at the writers; the sweep (`smak map-sweep`: drops that hurt, lights in mid-air) in builds and the map judge; every spec lamp hung from the ceiling; furniture that floats is a fault; hinged doors stay open; `ladders` built as Valve's (func_ladder and see-through rungs). Floating solid (the sweep, checked finely for thin posts), floating glows (not the game's invisible lights), wall textures on their floor: done. Open: uneven stairs (a check by rises found nothing in frenzy_words, whose stairs are stacked furniture, and flagged a seam in Valve's: needs where Steven saw it, or treads measured too); walls meeting floors by a vertex or overhanging them (furniture set on an edge or a corner is now warned of; in frenzy_pictures they are rock left between carved rooms, over a pit, which needs a check of its own); texture alignment across a wall (vertical done: each wall's picture stands on its room's floor; across, from the room's corner, not yet) |
+
+## reference-textures.md (map pictures from photographs; grain that is not noise)
+
+| Item | Status | Where / what is missing |
+| --- | --- | --- |
+| A JPEG reader: baseline and progressive, CMYK, restarts, EXIF orientation; every picture reader takes it | DONE | `src/jpeg.mjs` (within 3 of 255 of ImageMagick's decode), `unpicture` in `src/image.mjs`; `test/56-reference-textures.mjs` |
+| A measure white noise cannot meet: how alike a texel's grain is to its neighbours' (`structure`), and Valve's ranges by kind | DONE | `src/spec/look.mjs` (`VALVE_KINDS`, "grain that is noise"); `research/texture-stats.mjs` |
+| Procedural grain as grit, pictures sampled four times a texel, wood and iron drawn at a texel's scale | DONE | `src/spec/paint.mjs`. The softest bases stay under Valve's 10th in texel contrast and are told "little grain" (the decision in the report) |
+| A material's `picture`: the valve, literal and aged filters, `rect`, `size`, `tile`; maps, .wads and the MCP build | DONE | `src/spec/reference.mjs`; docs/SPEC.md, "A material from a photograph" |
+| A seam cut along the least different path (image quilting) instead of a cross-fade | OPEN | |
+| A small crop's repeat hidden by quilting patches of it at random | OPEN | |
+| Valve's scale measured: whether their features are drawn larger than an inch a texel | OPEN | |
+| A model part's material from a photograph | DECLINED for now | A model's parts take pictures by `project` |
 
 ## Open, by priority
 
 Most value for least work first. Each line names its report: CF compiler-features, GR generation-research,
 L3 local-3d-generators, SG sound-generation, FM 3d-fidelity-methods, IR improvements-research, DV
 directed-video, PE photo-to-model-experiments, SP sprite-generation, RF repeated-failures, MF
-map-reproduction-failures, LS local-sound-generators, LM local-music-generators.
+map-reproduction-failures, LS local-sound-generators, LM local-music-generators, RT reference-textures.
 
 1. Words-to-box before the cut-out (Grounding DINO or OWLv2, Apache 2.0), to pick one subject of several (FM 1, PE). (The BiRefNet switch is done.)
 2. Two doc lines on SDHLT's faults (`-subdivide 512`, `%NAME`), and SPLITFACE in `SEALS_NOTHING` (CF).
@@ -333,6 +346,7 @@ map-reproduction-failures, LS local-sound-generators, LM local-music-generators.
 4b. A map spec's `sprites` field; `sprite-make` from PNG frames; worked sprite and video cases (SP 2, 7; DV 5).
 4c. The review page for Steven, and the map checklist from his frenzy review (the reviews section above).
 4d. Texture-space matching for the identification tool (MF 7); polygon room outlines (MF 5); the views part kind is done (RF 4).
+4d2. Map pictures from photographs: a seam by the least different path, a small crop's repeat hidden by quilting, Valve's scale measured (RT).
 4e. The held list's open items: a weapon's per-file budgets and sides, the joint-chain skin, a monster's activities against its base, its motion from pictures (HF 3, 8, 9); room early reflections and texture statistics matching (AF 11).
 5. Quantise palettes in OKLab with k-means refinement (IR 2, FM).
 6. Map graph measures: loops, dead ends, choke points, depth, fill, light rhythm, against stock maps (IR 3).

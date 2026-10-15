@@ -212,7 +212,7 @@ Options of `objModel` and `objToMdl`:
 | Option | Default | |
 | --- | --- | --- |
 | `name` | `"model.mdl"` | What the file calls itself. |
-| `textures` | `{}` | `{ material: picture }`: a PNG or BMP file's bytes, a texture, or an image. A material without one wears 16x16 of its `Kd` colour (grey when it has none). |
+| `textures` | `{}` | `{ material: picture }`: a PNG, BMP or JPEG file's bytes, a texture, or an image. A material without one wears 16x16 of its `Kd` colour (grey when it has none). |
 | `scale` | 1 | Units for one of the file's: 39.37 for metres. |
 | `up` | `"y"` | `"y"`: the file's `+y` becomes `+z`, its `+z` (its front) `+x`, its `+x` the model's left (`+y`); a turn, not a mirror. `"z"`: as it is. |
 | `turn` | 0 | Degrees about the upright axis, anticlockwise seen from above. |
@@ -534,7 +534,9 @@ const head = bodyIn(reference, 3, "Bip01 Head", { only: true, bodypart: 1 }), fi
 | `indexed(image, name, most = 256)` | An image cut down to a texture (median cut). |
 | `masked({ width, height, rgba }, name)` | A texture with holes where alpha is under 128: 255 colours, index 255 the hole, `flags: 64`. |
 | `shrink(image, k)` | The image `k` times smaller each way, averaged. |
-| `textureFrom(fileBuffer, name, { holes })` | A PNG or BMP file as a texture. An 8-bit BMP keeps its palette exactly. |
+| `textureFrom(fileBuffer, name, { holes })` | A PNG, BMP or JPEG file as a texture. An 8-bit BMP keeps its palette exactly. |
+| `unjpeg(bytes, { orient })` | A JPEG (baseline or progressive; grey, colour or CMYK) as `{ width, height, rgb, orientation }`, turned upright by its EXIF orientation unless `orient: false`. |
+| `unpicture(bytes)` | A PNG, BMP or JPEG file as `{ width, height, rgba }`: what a spec's pictures are read by. |
 | `rgbaOf(texture, masked = false)` | A texture as RGBA bytes. |
 | `rgbOf({ width, height, rgba })` | RGBA as an image. |
 | `png(width, height, rgba)` | A PNG file (a Buffer). |

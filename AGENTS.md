@@ -44,7 +44,7 @@ It makes a model from nothing and exercises every part of the kit. If every test
 | Read everything in a `.mdl`: bones, meshes, textures, animations (with their activity, how far they travel, their box), events, attachments, hit boxes, bone controllers | Read Source engine models (`.mdl` version 44+), or `.smd` / `.qc` source files |
 | Write a whole new model from triangles, with bones and animations | Write an animation of several blends into a new model (one that is there keeps and takes them) |
 | Give a model, new or old, what a monster has: hit boxes (yours, or the ones studiomdl would make), attachments, bone controllers, where it sees from, each animation's activity and travel | Take a walk's travel out of its frames: you give the frames walking on the spot and say the travel. Say what a mod's code does with an activity or a hit group: that is the mod's |
-| Make a model from a Wavefront `.obj` file (Blender, a script, any tool), with its `.mtl` and PNG or BMP pictures | Read `.fbx`, `.gltf` or `.blend`, or JPG or TGA pictures |
+| Make a model from a Wavefront `.obj` file (Blender, a script, any tool), with its `.mtl` and PNG, BMP or JPEG pictures | Read `.blend`, or TGA pictures |
 | Replace a mesh inside an existing model, keeping its skeleton and animations | Weight one vertex to several bones (the format has one bone a vertex) |
 | Replace or add textures; recolour by palette; export and import PNG / BMP | Edit animations kept in separate `name01.mdl` files |
 | Replace or add animations, and the events (sounds) on their frames | Show the engine's real lighting: its pictures are a plain stand-in |
@@ -137,7 +137,7 @@ node bin/smak.mjs map-storeys <bsp|map> -o s.png [--z a,b,c] [--reach]   one pla
 node bin/smak.mjs map-openings <bsp|map> -o o.png [--both]   a view through each gate and doorway the walk test finds
 node bin/smak.mjs map-textures <bsp> -o dir        every texture of a map as a PNG
 node bin/smak.mjs wad <file.wad> [-o dir]          a .wad's textures listed; with -o, each as a PNG
-node bin/smak.mjs wad-make <pictures...> -o out.wad   a .wad from PNG or BMP pictures, each named after its file
+node bin/smak.mjs wad-make <pictures...> -o out.wad   a .wad from PNG, BMP or JPEG pictures, each named after its file
 node bin/smak.mjs map-compile <file.map> -o out.bsp --wad a.wad [--wadinclude] [--fast] [--vhlt <folder>]
 node bin/smak.mjs map-compile <file.map> ... [--timeout 600 | --timeout hlvis=600,hlrad=1200] [--progress]   a stage seen and stopped
 node bin/smak.mjs map-decompile <bsp> -o out.map [--game <folder> ...]   a compiled map back into brush source, its own .wad beside it (docs/MAPS.md, "Decompiling")
@@ -284,7 +284,7 @@ import { textureOf, replaceTexture, textureFrom, check } from "./smak/src/index.
 const src = readFileSync("v_knife.mdl"), old = textureOf(src, "knife.bmp");
 // 1. the palette alone: every pixel keeps its place
 const dark = replaceTexture(src, "knife.bmp", { ...old, palette: old.palette.map((v) => Math.round(v * 0.6)) });
-// 2. a picture painted elsewhere (PNG or BMP, any size): corners are moved to match a new size
+// 2. a picture painted elsewhere (PNG, BMP or JPEG, any size): corners are moved to match a new size
 const mine = replaceTexture(src, "knife.bmp", { ...textureFrom(readFileSync("painted.png"), old.name), flags: old.flags });
 ```
 
@@ -328,7 +328,7 @@ swap a mesh in an existing one instead.
 ### From an .obj file: `examples/06-from-obj.mjs`
 
 For a shape made elsewhere: Blender, a script, any tool that writes Wavefront .obj. One line when the .obj has
-its .mtl and its pictures (PNG or BMP) beside it:
+its .mtl and its pictures (PNG, BMP or JPEG) beside it:
 
 ```
 node bin/smak.mjs obj hut.obj -o hut.mdl --scale 39.37 --ground
@@ -340,7 +340,7 @@ or in a script, where the pictures are yours to read:
 import { readObj, objModel, check, sheet, png } from "./smak/src/index.mjs";
 
 const obj = readObj(readFileSync("hut.obj", "utf8"), { mtl: readFileSync("hut.mtl", "utf8") });
-const textures = { planks: readFileSync("hut_planks.png") };          // by material: a PNG or BMP file, a texture or an image
+const textures = { planks: readFileSync("hut_planks.png") };          // by material: a PNG, BMP or JPEG file, a texture or an image
 const { mdl, warnings, report } = objModel(obj, { name: "hut.mdl", textures, scale: 39.37, up: "y", ground: true });
 console.log(warnings, report.textures, check(mdl).errors);            // then draw it: sheet(mdl, { seq: "idle" })
 ```
@@ -1006,13 +1006,17 @@ writeFileSync("mine.wad", maps.writeWad([{ name: "my_stone", image: stone }, { n
 or `smak wad-make my_stone.png "{my_bars.png" -o mine.wad`, each texture named after its file.
 
 - An image is `{ width, height, rgb }` or `{ width, height, rgba }`, drawn by code (as the models' textures are)
-  or read from a file (`unpng`). **Both sides are multiples of 16**; a name is at most 15 letters, one word.
+  or read from a file (`unpicture`: PNG, BMP or JPEG). **Both sides are multiples of 16**; a name is at most 15 letters, one word.
 - **A name's first letters mean something**: `{name` has holes where the picture is see-through (bars, a
   fence), and goes on a brush entity with `rendermode: 4, renderamt: 255`; `!name` is a liquid; `sky` is the
   sky; `+0name` an animation's frame. The table is in `docs/MAPS-MAKING.md`, "Textures".
 - A texture is drawn one texel a unit: a 64 wide picture repeats every 64 units. Draw it to tile.
 - `smak wad <file.wad>` lists a `.wad`; `smak map-textures <bsp> -o dir` takes a map's out as PNGs. A game's
   textures are its authors': do not put them, or a map compiled with them inside, in anything shared (rule 7).
+- **From a photograph**: a spec's material takes a `picture` (PNG, BMP or JPEG) of the material, found on the web or
+  given by the person, and makes its texture from it: its detail made Valve-like under the base's structure
+  (`filter: "valve"`), or the picture itself (`literal`, `aged`). `docs/SPEC.md`, "A material from a photograph".
+  The photograph is the material's or the person's, never a game's texture.
 
 ## When something is wrong
 
