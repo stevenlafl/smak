@@ -1099,7 +1099,7 @@ function paintedOnly(folders, spec) {
   if (!folders.materials) return null;
   const all = [...Object.values(spec.materials ?? {}), ...Object.values(spec.textures && !Array.isArray(spec.textures) ? spec.textures : {}), ...(Array.isArray(spec.textures) ? spec.textures.map((t) => t.material) : [])];
   if (all.some((m) => m && typeof m === "object" && typeof m.picture === "string")) return null;
-  return `note  every material is painted: this server has a library of ${folders.materials.list.length} photographed materials (the tool materials). A wall, a floor, metal, rust or wood made from a real surface reads as Valve's do, where painted grain reads as noise: materials { match: "rusty metal", show: [...] }, then { "base": ..., "picture": "library:<name>", "size": <its width in units> }`;
+  return `note  every material is painted: this server has a library of ${folders.materials.list.length} photographed materials (the tool materials). A wall, a floor, metal, rust or wood made from a real surface reads as Valve's do, where painted grain reads as noise: materials { match: "rusty metal", show: [...] }, then { "base": ..., "picture": "library:<name>", "size": <its width in units> }. These are photographs of real surfaces, free to use (CC0): not a game's textures, which stay out`;
 }
 
 // ── the tools as a client is told of them ──────────────────────────────────

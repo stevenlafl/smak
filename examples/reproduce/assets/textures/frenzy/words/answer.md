@@ -1,21 +1,29 @@
-The build says OK, and the `.wad` is written to `work:frenzy_new/frenzy_new.wad`. It has 29 of the map's 37 textures. The map also wears 8 it doesn't have a description for, and I haven't made those.
+`frenzy_new.wad` is built and the build says OK. It holds 29 textures, written to `work:frenzy_new/frenzy_new.wad`, with the sheet at `work:frenzy_new/frenzy_new-textures.png`. I did not check it against the original pictures because I don't have them.
 
-**Made (29):** your 25, plus 4 I derived from the same descriptions: `-1genpipe1` and `-2genpipe1` (random-tile variants of `-0genpipe1`), and `+a~fifts_lght01` and `+a~generic86` (the unlit alternates of the lights). The last two don't appear on the map's world faces.
+**What's in it**
 
-**Not made (8):** `+0medkit`, `+amedkit`, `medkitedge1`, `c2a3rustdoor1`, `aaatrigger`, `{grate4a`, `{ladder1`, `{rail1b`. You didn't describe them, and the map's info lists the `{` ones as coming from the game's own `.wad` files. I didn't copy game textures. If you want these, send a description or a picture of each.
+- **Your 25 textures**, each at its exact name and size. Concrete walls and floors are built from CC0 library photos (for example concrete_floor_worn_001 and brushed_concrete_04), with their pattern, scale and tone set to your descriptions. The tile floors use a grid of 32 px tiles. The pipe wall, the window machinery, the stair nosing, the hazard strips and the light faces are built from shapes and colour, not photos.
+- **Four variants the map also uses:** +a~fifts_lght01 and +a~generic86 (the second light frames), and -1genpipe1 and -2genpipe1 (other random-tile pipe walls). Your list didn't name these, so I made them the way their counterparts are described. They don't appear on the map's world faces in the preview, so I couldn't check them in place.
+- **Colours** are taken as the paint colour itself. If your RGB values were what someone saw in the game under the lights, the paint should be divided by the light the preview reports for each face. Some faces would then need paint above 1.0, which can't be right, so I didn't do that. Tell me if you meant seen colours and I'll switch.
 
-The preview draws each texture on its own place in the map from the camera and brightness of your pictures. I can't compare against the originals, since they aren't here.
+**What's approximate**
 
-**Known gaps:**
-- `c2a4x_glu`: its flat, hard-edged blue shapes are approximated with round pipes, so the shapes look soft and tubular. This is the weakest texture.
-- `c3a2a_tnk1b`: the black lower 40% is a dark radius-13 pipe, so it shades rather than being flat black.
-- `c3a1b_w1` and `c3a1b_w1a`: the olive and cream paint stripes are round pipes, so they shade like tubes.
-- `c3a1b_w1a`: the optional yellow-and-black hazard band at the bottom is left out.
-- `c3a1_w2`: the darker band above the seam is not drawn.
-- `c3a1_w3a`: the build warns that its grain reads as noise. Two photos were tried and the warning stayed, so this one is worth a look.
-- The build warns that `c3a1b_w7` is brighter than most of Valve's. That is the colour you gave, so I kept it.
-- The black, pure-blue and yellow textures are uniform by design. The lights are brighter than Valve's by design.
+- The c2a4x_glu wedge is a stepped shape, and its thin navy edge is missing.
+- c3a1_w2 has the seam but not the darker band above it.
+- The hazard stripes are yellow and black, not yellow and dark olive-grey.
+- The window gauges are small rivets, and the vent grilles are simple bars.
+- The c3a2a_tnk1b swirl is simplified to a few bands.
+- The +0~generic86 glow is three flat rings, not a smooth gradient.
+- The +0~fifties_lgt2 corner tints are missing.
 
-**Names:** I kept the names exactly as you gave them. `c2a4x_glu` and `c3a2a_tnk1b` have no `{` prefix, so their blue draws as solid blue rather than as holes. If the originals are holes, those names need the `{` prefix.
+**Warnings the build still gives**
 
-The spec was passed to the build inline. I have no tool to save a JSON file, so it exists only in this session's build call. The preview PNG is at `work:frenzy_new/frenzy_new-textures.png`.
+These come from the descriptions and can't be fixed without going against them: black, pure blue and pure yellow are too even; the light faces are much brighter than Valve's; c3a1b_w7 is brighter; and c3a2_bth1 is more coloured. Two more warnings were about crete2_flr01 and the light faces (little grain).
+
+**Not made**
+
+Eight textures on the map have no description from you, so I didn't invent their looks: +0medkit, +amedkit, medkitedge1, aaatrigger, c2a3rustdoor1, {grate4a, {ladder1 and {rail1b. The preview draws the ones on the map's faces flat. If you describe them, I'll add them.
+
+**One thing to check**
+
+You described the yellow rod as looking very dark in the map. In our preview at the map's brightness it reads bright yellow. Either the original is lit differently there, or the description is off. I left the texture as you described it.

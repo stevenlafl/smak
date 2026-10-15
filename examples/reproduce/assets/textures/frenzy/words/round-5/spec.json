@@ -1,0 +1,2635 @@
+{
+  "spec": "smak.wad/1",
+  "name": "frenzy_new.wad",
+  "textures": [
+    {
+      "name": "c3a1_w3a",
+      "size": [
+        256,
+        208
+      ],
+      "material": {
+        "base": "plaster",
+        "picture": "library:concrete_floor_worn_001",
+        "size": 128,
+        "tone": [
+          0.098,
+          0.106,
+          0.118
+        ]
+      },
+      "grime": 0.3,
+      "wear": {
+        "stains": 0.5,
+        "streaks": 0.3,
+        "cracks": 0.5,
+        "speckle": 0.4
+      }
+    },
+    {
+      "name": "c3a1_w2",
+      "size": [
+        256,
+        160
+      ],
+      "material": {
+        "base": "plaster",
+        "picture": "library:brushed_concrete_04",
+        "size": 96,
+        "tone": [
+          0.216,
+          0.227,
+          0.275
+        ]
+      },
+      "grime": 0.4,
+      "wear": {
+        "speckle": 0.7,
+        "streaks": 0.4,
+        "stains": 0.3
+      },
+      "relief": [
+        {
+          "kind": "seam",
+          "from": [
+            0,
+            105
+          ],
+          "to": [
+            256,
+            105
+          ],
+          "width": 2
+        }
+      ]
+    },
+    {
+      "name": "c3a1b_w3",
+      "size": [
+        128,
+        160
+      ],
+      "material": {
+        "base": "plaster",
+        "picture": "library:concrete_layers_02",
+        "size": 96,
+        "tone": [
+          0.431,
+          0.463,
+          0.529
+        ]
+      },
+      "grime": 0.3,
+      "wear": {
+        "streaks": 0.7,
+        "stains": 0.4,
+        "speckle": 0.6
+      },
+      "relief": [
+        {
+          "kind": "seam",
+          "from": [
+            0,
+            148
+          ],
+          "to": [
+            128,
+            148
+          ],
+          "width": 2
+        },
+        {
+          "kind": "seam",
+          "from": [
+            4,
+            0
+          ],
+          "to": [
+            4,
+            160
+          ],
+          "width": 3,
+          "notched": true
+        },
+        {
+          "kind": "seam",
+          "from": [
+            124,
+            0
+          ],
+          "to": [
+            124,
+            160
+          ],
+          "width": 3,
+          "notched": true
+        }
+      ]
+    },
+    {
+      "name": "c3a1b_w1",
+      "size": [
+        128,
+        160
+      ],
+      "material": {
+        "base": "plaster",
+        "picture": "library:concrete",
+        "size": 96,
+        "tone": [
+          0.588,
+          0.608,
+          0.627
+        ]
+      },
+      "grime": 0.4,
+      "wear": {
+        "streaks": 0.5,
+        "stains": 0.4,
+        "cracks": 0.3,
+        "speckle": 0.4
+      },
+      "panels": [
+        {
+          "at": [
+            64,
+            80
+          ],
+          "size": [
+            112,
+            40
+          ],
+          "style": "inset",
+          "edge": 2
+        },
+        {
+          "at": [
+            64,
+            41
+          ],
+          "size": [
+            128,
+            18
+          ],
+          "style": "raised",
+          "edge": 1
+        }
+      ],
+      "relief": [
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              10,
+              70
+            ],
+            [
+              118,
+              70
+            ]
+          ],
+          "radius": 3,
+          "material": {
+            "base": "metal",
+            "tone": [
+              0.47,
+              0.5,
+              0.25
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              10,
+              78
+            ],
+            [
+              118,
+              78
+            ]
+          ],
+          "radius": 3,
+          "material": {
+            "base": "metal",
+            "tone": [
+              0.78,
+              0.74,
+              0.6
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              10,
+              86
+            ],
+            [
+              118,
+              86
+            ]
+          ],
+          "radius": 3,
+          "material": {
+            "base": "metal",
+            "tone": [
+              0.5,
+              0.48,
+              0.3
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              10,
+              94
+            ],
+            [
+              118,
+              94
+            ]
+          ],
+          "radius": 3,
+          "material": {
+            "base": "metal",
+            "tone": [
+              0.78,
+              0.74,
+              0.6
+            ]
+          }
+        },
+        {
+          "kind": "rivets",
+          "from": [
+            16,
+            64
+          ],
+          "to": [
+            112,
+            64
+          ],
+          "count": 6,
+          "radius": 3,
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.9,
+              0.9,
+              0.88
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              41
+            ],
+            [
+              128,
+              41
+            ]
+          ],
+          "radius": 9,
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.47,
+              0.51,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "louvre",
+          "at": [
+            64,
+            12
+          ],
+          "size": [
+            24,
+            8
+          ],
+          "count": 5
+        }
+      ]
+    },
+    {
+      "name": "c3a1b_w1a",
+      "size": [
+        128,
+        160
+      ],
+      "material": {
+        "base": "plaster",
+        "picture": "library:concrete",
+        "size": 96,
+        "tone": [
+          0.588,
+          0.608,
+          0.627
+        ]
+      },
+      "grime": 0.4,
+      "wear": {
+        "streaks": 0.5,
+        "stains": 0.4,
+        "cracks": 0.2,
+        "speckle": 0.4
+      },
+      "panels": [
+        {
+          "at": [
+            32,
+            80
+          ],
+          "size": [
+            56,
+            40
+          ],
+          "style": "inset",
+          "edge": 2
+        },
+        {
+          "at": [
+            96,
+            80
+          ],
+          "size": [
+            56,
+            40
+          ],
+          "style": "inset",
+          "edge": 2
+        }
+      ],
+      "relief": [
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              6,
+              70
+            ],
+            [
+              58,
+              70
+            ]
+          ],
+          "radius": 3,
+          "material": {
+            "base": "metal",
+            "tone": [
+              0.7,
+              0.66,
+              0.5
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              6,
+              80
+            ],
+            [
+              58,
+              80
+            ]
+          ],
+          "radius": 3,
+          "material": {
+            "base": "metal",
+            "tone": [
+              0.85,
+              0.82,
+              0.7
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              6,
+              90
+            ],
+            [
+              58,
+              90
+            ]
+          ],
+          "radius": 3,
+          "material": {
+            "base": "metal",
+            "tone": [
+              0.6,
+              0.56,
+              0.4
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              70,
+              70
+            ],
+            [
+              122,
+              70
+            ]
+          ],
+          "radius": 3,
+          "material": {
+            "base": "metal",
+            "tone": [
+              0.85,
+              0.82,
+              0.7
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              70,
+              80
+            ],
+            [
+              122,
+              80
+            ]
+          ],
+          "radius": 3,
+          "material": {
+            "base": "metal",
+            "tone": [
+              0.7,
+              0.66,
+              0.5
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              70,
+              90
+            ],
+            [
+              122,
+              90
+            ]
+          ],
+          "radius": 3,
+          "material": {
+            "base": "metal",
+            "tone": [
+              0.6,
+              0.56,
+              0.4
+            ]
+          }
+        },
+        {
+          "kind": "rivets",
+          "from": [
+            10,
+            64
+          ],
+          "to": [
+            54,
+            64
+          ],
+          "count": 4,
+          "radius": 3,
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.9,
+              0.9,
+              0.88
+            ]
+          }
+        },
+        {
+          "kind": "rivets",
+          "from": [
+            74,
+            64
+          ],
+          "to": [
+            118,
+            64
+          ],
+          "count": 4,
+          "radius": 3,
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.9,
+              0.9,
+              0.88
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              41
+            ],
+            [
+              128,
+              41
+            ]
+          ],
+          "radius": 9,
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.745,
+              0.706,
+              0.431
+            ]
+          }
+        },
+        {
+          "kind": "louvre",
+          "at": [
+            32,
+            12
+          ],
+          "size": [
+            16,
+            8
+          ],
+          "count": 4
+        },
+        {
+          "kind": "louvre",
+          "at": [
+            112,
+            12
+          ],
+          "size": [
+            16,
+            8
+          ],
+          "count": 4
+        }
+      ]
+    },
+    {
+      "name": "c3a1b_w2",
+      "size": [
+        128,
+        160
+      ],
+      "material": {
+        "base": "plaster",
+        "picture": "library:brushed_concrete_04",
+        "size": 96,
+        "tone": [
+          0.353,
+          0.361,
+          0.373
+        ]
+      },
+      "grime": 0.5,
+      "wear": {
+        "speckle": 0.9,
+        "streaks": 0.6,
+        "stains": 0.5
+      },
+      "panels": [
+        {
+          "at": [
+            64,
+            124
+          ],
+          "size": [
+            120,
+            68
+          ],
+          "style": "inset",
+          "edge": 6
+        }
+      ],
+      "relief": [
+        {
+          "kind": "bars",
+          "at": [
+            64,
+            124
+          ],
+          "size": [
+            112,
+            64
+          ],
+          "count": 9,
+          "width": 3,
+          "axis": "vertical",
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.22,
+              0.22,
+              0.24
+            ]
+          }
+        },
+        {
+          "kind": "bars",
+          "at": [
+            64,
+            124
+          ],
+          "size": [
+            112,
+            64
+          ],
+          "count": 4,
+          "width": 3,
+          "axis": "horizontal",
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.22,
+              0.22,
+              0.24
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              10,
+              112
+            ],
+            [
+              118,
+              112
+            ]
+          ],
+          "radius": 3,
+          "material": {
+            "base": "metal",
+            "tone": [
+              0.45,
+              0.43,
+              0.28
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "c3a1b_w7",
+      "size": [
+        96,
+        96
+      ],
+      "material": {
+        "base": "plaster",
+        "picture": "library:brushed_concrete_04",
+        "size": 64,
+        "tone": [
+          0.627,
+          0.647,
+          0.765
+        ]
+      },
+      "wear": {
+        "speckle": 0.9,
+        "streaks": 0.2
+      }
+    },
+    {
+      "name": "tnnl_flr7",
+      "size": [
+        128,
+        128
+      ],
+      "material": {
+        "base": "tile",
+        "cell": 32,
+        "picture": "library:concrete_floor_02",
+        "size": 79,
+        "tone": [
+          0.451,
+          0.439,
+          0.49
+        ]
+      },
+      "wear": {
+        "stains": 0.5,
+        "speckle": 0.5
+      }
+    },
+    {
+      "name": "tnnl_flr7c",
+      "size": [
+        128,
+        128
+      ],
+      "material": {
+        "base": "tile",
+        "cell": 32,
+        "picture": "library:concrete_floor_02",
+        "size": 79,
+        "tone": [
+          0.373,
+          0.314,
+          0.275
+        ]
+      },
+      "wear": {
+        "stains": 0.7,
+        "speckle": 0.5
+      }
+    },
+    {
+      "name": "silo2_wetdr",
+      "size": [
+        192,
+        128
+      ],
+      "material": {
+        "base": "iron",
+        "rust": 0.3,
+        "tone": [
+          0.098,
+          0.086,
+          0.098
+        ]
+      },
+      "relief": [
+        {
+          "kind": "bars",
+          "at": [
+            96,
+            64
+          ],
+          "size": [
+            192,
+            128
+          ],
+          "count": 4,
+          "width": 6,
+          "axis": "horizontal",
+          "material": {
+            "base": "iron",
+            "rust": 0.2,
+            "tone": [
+              0.25,
+              0.24,
+              0.25
+            ]
+          }
+        },
+        {
+          "kind": "bars",
+          "at": [
+            96,
+            64
+          ],
+          "size": [
+            192,
+            128
+          ],
+          "count": 4,
+          "width": 6,
+          "axis": "vertical",
+          "material": {
+            "base": "iron",
+            "rust": 0.2,
+            "tone": [
+              0.25,
+              0.24,
+              0.25
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "-0genpipe1",
+      "size": [
+        64,
+        128
+      ],
+      "material": {
+        "base": "paint",
+        "tone": [
+          0.04,
+          0.04,
+          0.045
+        ]
+      },
+      "relief": [
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              4
+            ],
+            [
+              64,
+              4
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              12
+            ],
+            [
+              64,
+              12
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              20
+            ],
+            [
+              64,
+              20
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              28
+            ],
+            [
+              64,
+              28
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              36
+            ],
+            [
+              64,
+              36
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              44
+            ],
+            [
+              64,
+              44
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              52
+            ],
+            [
+              64,
+              52
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              60
+            ],
+            [
+              64,
+              60
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              68
+            ],
+            [
+              64,
+              68
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              76
+            ],
+            [
+              64,
+              76
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              84
+            ],
+            [
+              64,
+              84
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              92
+            ],
+            [
+              64,
+              92
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              100
+            ],
+            [
+              64,
+              100
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              108
+            ],
+            [
+              64,
+              108
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              116
+            ],
+            [
+              64,
+              116
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              124
+            ],
+            [
+              64,
+              124
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              21,
+              0
+            ],
+            [
+              21,
+              128
+            ]
+          ],
+          "radius": 3,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.2,
+              0.2,
+              0.22
+            ]
+          }
+        },
+        {
+          "kind": "rivets",
+          "from": [
+            56,
+            24
+          ],
+          "to": [
+            56,
+            100
+          ],
+          "count": 2,
+          "radius": 2,
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.8,
+              0.1,
+              0.1
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "-1genpipe1",
+      "size": [
+        64,
+        128
+      ],
+      "material": {
+        "base": "paint",
+        "tone": [
+          0.04,
+          0.04,
+          0.045
+        ]
+      },
+      "relief": [
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              8
+            ],
+            [
+              64,
+              8
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              16
+            ],
+            [
+              64,
+              16
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              24
+            ],
+            [
+              64,
+              24
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              32
+            ],
+            [
+              64,
+              32
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              40
+            ],
+            [
+              64,
+              40
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              48
+            ],
+            [
+              64,
+              48
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              56
+            ],
+            [
+              64,
+              56
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              64
+            ],
+            [
+              64,
+              64
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              72
+            ],
+            [
+              64,
+              72
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              80
+            ],
+            [
+              64,
+              80
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              88
+            ],
+            [
+              64,
+              88
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              96
+            ],
+            [
+              64,
+              96
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              104
+            ],
+            [
+              64,
+              104
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              112
+            ],
+            [
+              64,
+              112
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              120
+            ],
+            [
+              64,
+              120
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              0
+            ],
+            [
+              64,
+              0
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              44,
+              0
+            ],
+            [
+              44,
+              128
+            ]
+          ],
+          "radius": 3,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.2,
+              0.2,
+              0.22
+            ]
+          }
+        },
+        {
+          "kind": "rivets",
+          "from": [
+            12,
+            40
+          ],
+          "to": [
+            12,
+            110
+          ],
+          "count": 2,
+          "radius": 2,
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.8,
+              0.1,
+              0.1
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "-2genpipe1",
+      "size": [
+        64,
+        128
+      ],
+      "material": {
+        "base": "paint",
+        "tone": [
+          0.04,
+          0.04,
+          0.045
+        ]
+      },
+      "relief": [
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              4
+            ],
+            [
+              64,
+              4
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              12
+            ],
+            [
+              64,
+              12
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              20
+            ],
+            [
+              64,
+              20
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              28
+            ],
+            [
+              64,
+              28
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              36
+            ],
+            [
+              64,
+              36
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              44
+            ],
+            [
+              64,
+              44
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              52
+            ],
+            [
+              64,
+              52
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              60
+            ],
+            [
+              64,
+              60
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              68
+            ],
+            [
+              64,
+              68
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              76
+            ],
+            [
+              64,
+              76
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              84
+            ],
+            [
+              64,
+              84
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              92
+            ],
+            [
+              64,
+              92
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              100
+            ],
+            [
+              64,
+              100
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              108
+            ],
+            [
+              64,
+              108
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              116
+            ],
+            [
+              64,
+              116
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              124
+            ],
+            [
+              64,
+              124
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              12,
+              0
+            ],
+            [
+              12,
+              128
+            ]
+          ],
+          "radius": 3,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.2,
+              0.2,
+              0.22
+            ]
+          }
+        },
+        {
+          "kind": "rivets",
+          "from": [
+            50,
+            60
+          ],
+          "to": [
+            50,
+            116
+          ],
+          "count": 2,
+          "radius": 2,
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.8,
+              0.1,
+              0.1
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "c3a2b_reac2c",
+      "size": [
+        128,
+        64
+      ],
+      "material": {
+        "base": "paint",
+        "tone": [
+          0.549,
+          0.451,
+          0.118
+        ]
+      },
+      "grime": 0.2,
+      "wear": {
+        "stains": 0.3,
+        "speckle": 0.3
+      },
+      "panels": [
+        {
+          "at": [
+            64,
+            60
+          ],
+          "size": [
+            128,
+            8
+          ],
+          "style": "inset",
+          "edge": 1
+        },
+        {
+          "at": [
+            96,
+            32
+          ],
+          "size": [
+            56,
+            48
+          ],
+          "style": "raised",
+          "edge": 2
+        }
+      ],
+      "relief": [
+        {
+          "kind": "louvre",
+          "at": [
+            28,
+            32
+          ],
+          "size": [
+            52,
+            44
+          ],
+          "count": 6
+        },
+        {
+          "kind": "rivets",
+          "from": [
+            4,
+            56
+          ],
+          "to": [
+            56,
+            56
+          ],
+          "count": 6,
+          "radius": 1.5,
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.3,
+              0.25,
+              0.1
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "c3a2_bth1",
+      "size": [
+        192,
+        32
+      ],
+      "material": {
+        "base": "paint",
+        "picture": "library:rust_coarse_01",
+        "size": 96,
+        "tone": [
+          0.392,
+          0.294,
+          0.118
+        ]
+      },
+      "wear": {
+        "stains": 0.5,
+        "speckle": 0.3
+      }
+    },
+    {
+      "name": "black",
+      "size": [
+        32,
+        32
+      ],
+      "material": {
+        "base": "paint",
+        "tone": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "name": "crete2_flr01",
+      "size": [
+        128,
+        128
+      ],
+      "material": {
+        "base": "paint",
+        "tone": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "name": "+0~fifts_lght01",
+      "size": [
+        64,
+        80
+      ],
+      "material": {
+        "base": "paint",
+        "tone": [
+          1,
+          1,
+          1
+        ],
+        "flags": [
+          "fullbright"
+        ]
+      },
+      "relief": [
+        {
+          "kind": "rivets",
+          "from": [
+            60,
+            8
+          ],
+          "to": [
+            60,
+            72
+          ],
+          "count": 8,
+          "radius": 1,
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.7,
+              0.8,
+              1
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "+a~fifts_lght01",
+      "size": [
+        64,
+        80
+      ],
+      "material": {
+        "base": "paint",
+        "tone": [
+          0.9,
+          0.92,
+          0.96
+        ],
+        "flags": [
+          "fullbright"
+        ]
+      },
+      "relief": [
+        {
+          "kind": "rivets",
+          "from": [
+            60,
+            8
+          ],
+          "to": [
+            60,
+            72
+          ],
+          "count": 8,
+          "radius": 1,
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.7,
+              0.8,
+              1
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "tnnl_brd1",
+      "size": [
+        16,
+        128
+      ],
+      "material": {
+        "base": "hazard",
+        "stripe": 8,
+        "angle": 1.06,
+        "tone": [
+          0.667,
+          0.588,
+          0.157
+        ]
+      },
+      "wear": {
+        "stains": 0.4,
+        "speckle": 0.3
+      }
+    },
+    {
+      "name": "crete4_stp01",
+      "size": [
+        128,
+        16
+      ],
+      "material": {
+        "base": "plaster",
+        "picture": "library:concrete_floor_02",
+        "size": 64,
+        "tone": [
+          0.235,
+          0.243,
+          0.216
+        ]
+      },
+      "grime": 0.5,
+      "panels": [
+        {
+          "at": [
+            64,
+            14
+          ],
+          "size": [
+            128,
+            4
+          ],
+          "style": "raised",
+          "edge": 1
+        }
+      ],
+      "relief": [
+        {
+          "kind": "rivets",
+          "from": [
+            16,
+            8
+          ],
+          "to": [
+            112,
+            8
+          ],
+          "count": 4,
+          "radius": 1.5,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.3,
+              0.3,
+              0.3
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "+0~fifties_lgt2",
+      "size": [
+        16,
+        64
+      ],
+      "material": {
+        "base": "paint",
+        "tone": [
+          1,
+          1,
+          1
+        ],
+        "flags": [
+          "fullbright"
+        ]
+      }
+    },
+    {
+      "name": "+a~fifties_lgt2",
+      "size": [
+        16,
+        64
+      ],
+      "material": {
+        "base": "paint",
+        "tone": [
+          0.9,
+          0.96,
+          0.94
+        ],
+        "flags": [
+          "fullbright"
+        ]
+      },
+      "relief": [
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              1.5,
+              0
+            ],
+            [
+              1.5,
+              64
+            ]
+          ],
+          "radius": 1.5,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.45,
+              0.47,
+              0.5
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "+0~generic86",
+      "size": [
+        16,
+        16
+      ],
+      "material": {
+        "base": "paint",
+        "tone": [
+          1,
+          1,
+          1
+        ],
+        "flags": [
+          "fullbright"
+        ]
+      },
+      "relief": [
+        {
+          "kind": "lamp",
+          "at": [
+            8,
+            8
+          ],
+          "size": [
+            16,
+            16
+          ],
+          "colour": [
+            1,
+            0.85,
+            0.4
+          ]
+        }
+      ]
+    },
+    {
+      "name": "+a~generic86",
+      "size": [
+        16,
+        16
+      ],
+      "material": {
+        "base": "paint",
+        "tone": [
+          1,
+          1,
+          1
+        ],
+        "flags": [
+          "fullbright"
+        ]
+      },
+      "relief": [
+        {
+          "kind": "lamp",
+          "at": [
+            8,
+            8
+          ],
+          "size": [
+            16,
+            16
+          ],
+          "colour": [
+            1,
+            0.85,
+            0.4
+          ]
+        }
+      ]
+    },
+    {
+      "name": "c3a2a_tnk1b",
+      "size": [
+        64,
+        64
+      ],
+      "material": {
+        "base": "paint",
+        "tone": [
+          0.07,
+          0.14,
+          0.6
+        ]
+      },
+      "wear": {
+        "stains": 0.6,
+        "streaks": 0.2
+      },
+      "relief": [
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              13
+            ],
+            [
+              64,
+              13
+            ]
+          ],
+          "radius": 13,
+          "material": {
+            "base": "paint",
+            "tone": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "c2a4x_glu",
+      "size": [
+        64,
+        64
+      ],
+      "material": {
+        "base": "paint",
+        "tone": [
+          0,
+          0,
+          0
+        ]
+      },
+      "relief": [
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              32,
+              0
+            ],
+            [
+              32,
+              64
+            ]
+          ],
+          "radius": 10,
+          "material": {
+            "base": "paint",
+            "tone": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              60,
+              6
+            ],
+            [
+              38,
+              40
+            ]
+          ],
+          "radius": 8,
+          "material": {
+            "base": "paint",
+            "tone": [
+              0,
+              0,
+              1
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "babtech_ceil01",
+      "size": [
+        64,
+        64
+      ],
+      "material": {
+        "base": "plaster",
+        "picture": "library:concrete_layers_02",
+        "size": 64,
+        "tone": [
+          0.5,
+          0.5,
+          0.47
+        ]
+      },
+      "grime": 0.2,
+      "wear": {
+        "cracks": 0.7,
+        "stains": 0.7,
+        "streaks": 0.2
+      }
+    },
+    {
+      "name": "yellow",
+      "size": [
+        16,
+        16
+      ],
+      "material": {
+        "base": "paint",
+        "tone": [
+          1,
+          1,
+          0
+        ]
+      }
+    }
+  ],
+  "preview": {
+    "map": "models:frenzy.bsp",
+    "each": true
+  }
+}

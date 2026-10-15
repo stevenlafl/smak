@@ -335,7 +335,10 @@ material a photograph and its picture is made from it:
   plaster wall, raw plywood, poured concrete, a painted panel door), and save it in the work folder (`refs/`), named
   for what it is. Texture sites that give scans away (Poly Haven, ambientCG: CC0) say their real size; a photo of a
   wall from a few steps away works too. PNG, BMP or JPEG (baseline or progressive). The picture is the material's
-  detail, or a picture the person made or may use: never a game's own texture (AGENTS.md, rule 7).
+  detail, or a picture the person made or may use: never a game's own texture (AGENTS.md, rule 7). The two are not
+  alike: a photograph of a real surface (the library's, a CC0 scan, the person's) is what `picture` is for, and making
+  a game's texture again from one is the point; a game's texture, or a view of the game you were given to copy from,
+  is the game's, to measure and match by eye but never to feed in.
 - `picture`: its path in the work folder (`work:refs/oak.jpg`) or beside the spec. Any base takes one but `mesh`;
   a model's parts take theirs by `project` instead.
 - `filter`: what is done with it.
