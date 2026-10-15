@@ -104,6 +104,8 @@ body 0: `info` shows the body numbers, and `--body N` picks one.
 | `examples/` | Seven scripts, one for each kind of work; the seventh makes a small map. |
 | `profiles/` | One mod's profile (Master Sword Classic's), as an example of what a mod's own is: what its maps' entities are checked against. No part of the kit's core, and it holds no game content. |
 | `mcp/` | The kit as an MCP server, for a client with no shell: `mcp/README.md`. |
+| `generators/` | Optional: sound, music and shape models run on your own GPU for the MCP tool `generate` (Python, tens of GB, installed apart): `generators/README.md`. |
+| `scripts/` | `no-game-files.mjs`: every file the repository tracks held against a game's folders. |
 | `test/` | The kit checking itself: `selftest.mjs` runs the files beside it, one an area. `test/fixtures/` holds the kit's own small map. |
 
 ## Limits worth knowing first
@@ -264,3 +266,6 @@ agent builds shapes from the workshop's parts (`AGENTS.md`, "Making a shape").
 
 MIT (see `LICENSE`): use it, change it and pass it on freely, for any purpose. That covers the kit's code only.
 The models and textures of a game belong to that game's authors, and what you make from them is theirs to allow.
+None is in this repository: `node scripts/no-game-files.mjs` holds every tracked file against Half-Life's and The
+Specialists' folders (their bytes, every texture of their `.wad` files and models by its pixels, every sound by its
+samples) and exits 1 on any match. Run it before a push.
