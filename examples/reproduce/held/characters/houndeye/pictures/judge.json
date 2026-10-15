@@ -4,9 +4,9 @@
  "leg": "pictures",
  "measured": {
   "silhouetteOverlap": {
-   "front/back": 0.991,
-   "left/right": 0.992,
-   "top/below": 0.993
+   "front/back": 0.9,
+   "left/right": 0.972,
+   "top/below": 0.956
   },
   "size": {
    "original": [
@@ -15,74 +15,74 @@
     44.7
    ],
    "reproduction": [
-    49.2,
-    33.6,
-    44.6
+    48.9,
+    33.5,
+    44.7
    ],
    "offShare": [
-    0.002,
-    0.001,
-    0.002
+    0.009,
+    0,
+    0
    ]
   },
   "colour": {
-   "meanDeltaE": 10.5,
+   "meanDeltaE": 11.7,
    "byView": [
     {
      "view": "front",
-     "deltaE": 9.3,
-     "shared": 0.99
+     "deltaE": 10.4,
+     "shared": 0.9
     },
     {
      "view": "left",
-     "deltaE": 8.6,
-     "shared": 0.992
+     "deltaE": 10.3,
+     "shared": 0.972
     },
     {
      "view": "back",
-     "deltaE": 14.8,
-     "shared": 0.99
+     "deltaE": 16.2,
+     "shared": 0.898
     },
     {
      "view": "right",
-     "deltaE": 8.4,
-     "shared": 0.992
+     "deltaE": 8.8,
+     "shared": 0.973
     },
     {
      "view": "top",
-     "deltaE": 10,
-     "shared": 0.993
+     "deltaE": 12.2,
+     "shared": 0.957
     },
     {
      "view": "below",
-     "deltaE": 8.1,
-     "shared": 0.993
+     "deltaE": 8.6,
+     "shared": 0.956
     },
     {
      "view": "front-left",
-     "deltaE": 10.1,
-     "shared": 0.991
+     "deltaE": 11.9,
+     "shared": 0.935
     },
     {
      "view": "front-right",
-     "deltaE": 10.9,
-     "shared": 0.991
+     "deltaE": 13,
+     "shared": 0.907
     },
     {
      "view": "back-left",
-     "deltaE": 12.3,
-     "shared": 0.992
+     "deltaE": 12.5,
+     "shared": 0.913
     },
     {
      "view": "back-right",
-     "deltaE": 12.1,
-     "shared": 0.993
+     "deltaE": 13.2,
+     "shared": 0.928
     }
    ]
   },
   "triangles": {
    "original": 308,
-   "reproduction": 800
+   "reproduction": 360
   },
   "checkErrors": []
  },
@@ -90,12 +90,70 @@
   "M1": 2,
   "M2": 2,
   "M4": 2,
-  "M8": 1
+  "M8": 2,
+  "M6": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "M8"
- ],
- "total": 0,
- "of": 18
+ "lineup": {
+  "picked": "C",
+  "right": "C"
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Every view's measured overlap clears 0.80 (front/back 0.90, left/right 0.972, top/below 0.956), but the reproduction's legs stick out as ragged shards. The back and back-left views show thin strips at the lower legs, the left view has a flat plate at the foreleg (about x 1290, y 230 to 320), and the front view's legs splay outward. The outline is right overall but parts stick out."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 48.9 x 33.5 x 44.7 against the original's 49.3 x 33.5 x 44.7, all within 1%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Four legs, the dark ringed mouth opening at the front, the cyan-and-yellow dorsal spines and the pale belly are all present. The legs are the problem: each is a flat, shard-like plate that splits into several pieces at the back, not the original's rounded, jointed legs with clawed feet. The back view shows two or three loose strips where the original has one leg per corner."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mean colour difference inside the shared outline is 11.7, under 15. Hide colour, cyan stripes and the pale belly read as the original's. The back view is the highest single view at 16.2, but the view-by-view figures are within what one would still call the same colours."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The chevron stripes, dorsal spines, belly veins and mouth pits are in their places. The reproduction's shell is streaky and grainy along the back, and the mouth pits are coarser than the original's smoother wrinkling, so the sharpness is not similar."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Each still reads as a houndeye at a glance, but the legs are visibly wrong in every view and in motion. A player would not take this for the original."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The mouth opening faces forward as in the original, the body is upright and it stands on four feet at the origin."
+  },
+  "M8": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "SMAK's check reports no errors and 360 triangles is 1.17 times the original's 308. But the lower leg pieces in the back-left view and the motion frames look like loose, open sheets, not closed geometry, which the measures cannot show."
+  },
+  "C1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The body stays together through the run, but the rear limbs come apart from it. In run frames 6/22, 9/22, 13/22 and 22/22 they hang as flat sheets off the body, and they do not swing the way the original's legs do. Clearly off, not missing."
+  }
+ },
+ "total": 12,
+ "of": 18,
+ "passes": false
 }

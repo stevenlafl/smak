@@ -1,15 +1,19 @@
-`houndeye.mdl` is built. The build says OK, and it is in the work folder with its spec (`houndeye.spec.json`).
+The model is built: `work:houndeye.mdl`, and the build says OK. It is a character on Gordon's skeleton (`player/gordon/gordon.mdl`, found in your Steam install), with `floor: 0`, and it keeps Gordon's 77 animations.
 
-**How it's made**
-- **Base:** Gordon's skeleton from the Half-Life install (`player/gordon/gordon.mdl`), with `floor: 0` so the feet stand at the origin.
-- **Body:** one carved part from the six-sided sheet plus the four quarter views. The shape is a visual hull, so its outline matches the pictures, and it sits in the stance of the original's first frame.
-- **Colours:** the original's pictures are projected onto the shape. The maw, stripes and spines come from the pictures, not from paint.
-- **Size:** 49.2 long, 33.6 wide, 44.6 high, against the original's 49.3, 33.5, 44.7.
-- **Triangles:** 800, which is over the 362 of Gordon's own body but within the 500 to 1,000 the spec gives for a large monster. I raised it because at 362 the dorsal spines were soft bumps instead of fins.
+**What I built**
+- **Body:** one carved shape from the six-view sheet (`sides.png`) plus the four three-quarter pictures, at 96 cells. It is 48.9 long, 33.6 wide and 44.7 high against the original's 49.3, 33.5 and 44.7. It is 360 triangles, symmetric about the middle.
+- **Colours and markings:** projected from the original pictures, so the olive-yellow body, teal and brown back stripes, pale underside and the dark maw at the front all come from the pictures.
+- **Outline:** each view matches its own picture closely (0.98 or better). Measured against the picture's outline, front and back come out at 0.89 and the sides at 0.94. The report has no faults.
 
-**Outline match:** the shape shares 0.94 to 0.995 of its outline with each of the ten pictures.
+**What is not as close as I would like**
+- **Back spikes:** the fin ridge is flattened in the carve. From the back the top reads as a dome, where the original has five sharp peaks. Fixing this means adding the spikes as separate parts. I did not do that.
+- **Back colour:** the report warns that the back views' colours differ from the pictures (mean difference 12 on a scale where 10 is the warning line). The worst spot is the upper back.
+- **Motion:** the carved body hangs on Gordon's bones, so the limbs stretch into long shards in the run frames (the motion strip). The standing first frame is clean, but the running animation looks wrong.
+- **Not verified in game:** I checked the first frame only in renders from front-left and back-right, beside the originals. I have not run it in the game.
 
-**Known gaps**
-- **Run animation:** Gordon's skeleton is biped and the houndeye is four-legged, so its animations use Gordon's human gait. The run strip shows the legs stretching into thin wedges. I did not fit the original's run from `motion.png`; that would only partly fix a biped gait on a four-legged body. A proper match needs a quadruped skeleton.
-- **Warnings still showing:** the build warns that the back view's colours differ from the picture (mean 11.4, worst at the top middle of the back, where the chevron stripes are). It also warns that 800 triangles is over twice Gordon's body. Both are advisory, and the build still passes.
-- **Fine detail:** the original's dark maw is slightly flatter and more recessed than mine, and its legs are a little thicker in the front view. I did not chase these.
+**Choices I made**
+- I passed the spec inline. The Write tool is disabled in this session, so I could not save a `.json` file. The build saved the spec beside the model as `work:houndeye.spec.json`.
+- The houndeye's own skeleton is not available, so I used Gordon's, as you suggested.
+- I used the default body finish and the gentler character wear and grime. I did not add a pose, because the carved outline already sits where the pictures show it.
+
+Tell me if you want the spikes built as parts, or the body rebuilt on a skeleton that bends less under the run animations.
