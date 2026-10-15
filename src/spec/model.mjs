@@ -320,22 +320,56 @@ function nearestJoint(skeleton, p) {
 function limbsOf(skeleton) {
   const list = bonesOf(skeleton.src);
   const limbs = [];
+  // a bone with no child (a foot, a hand, a head) reaches along its own x, the way a biped's bones point, for half
+  // its parent's length: as a point at the ankle, a boot's toes hung on the shin and stretched into wedges when the
+  // foot turned in the run (Barney, 2026-10-15)
+  let matrices = null;
+  // only the bones the base's own body hangs on, and those between them: Gordon's gun bones (Bone05, Bone13)
+  // took corners of Barney's carved body and swung them with a gun that is not drawn (2026-10-15)
+  let carried = null;
+  try {
+    const drawn = posed(skeleton.src, { ...skeleton.pose, body: skeleton.bodies?.[0] ?? 0 });
+    matrices = drawn.pose;
+    const used = new Set(drawn.tris.flatMap((t) => t.c.map((c) => c.bone)));
+    // (a real body's: a stand-in base, a body stub on one bone, keeps every bone)
+    if (used.size >= 8) {
+      carried = new Set();
+      for (const b of used) for (let k = b; k >= 0 && !carried.has(k); k = list[k].parent) carried.add(k);
+    }
+  } catch {
+    // no pose to read: every bone, a foot as a point, as before
+  }
   list.forEach((bone, i) => {
+    if (carried && !carried.has(i)) return;
     const a = skeleton.joints.get(bone.name);
-    const children = list.filter((other) => other.parent === i);
+    const children = list.filter((other, j) => other.parent === i && (!carried || carried.has(j)));
     for (const child of children) {
       const b = skeleton.joints.get(child.name);
       if (Math.hypot(...a.map((v, k) => v - b[k])) > 0.5) limbs.push({ bone: bone.name, a, b });
     }
-    if (!children.length) limbs.push({ bone: bone.name, a, b: a });
+    if (!children.length) {
+      const parent = bone.parent >= 0 ? skeleton.joints.get(list[bone.parent].name) : null;
+      const reach = parent ? Math.hypot(...a.map((v, k) => v - parent[k])) * 0.5 : 0;
+      const m = matrices?.[i];
+      const x = m ? [m[0][0], m[1][0], m[2][0]] : null;
+      const len = x ? Math.hypot(...x) : 0;
+      limbs.push({ bone: bone.name, a, b: len > 1e-6 && reach > 0.5 ? a.map((v, k) => v + (x[k] / len) * reach) : a });
+    }
   });
   return limbs;
 }
 
-/** The bone whose limb is nearest a point. */
+/** Which side of the model a bone is on by its name: 1 left (+y), -1 right, 0 the middle (Biped's names, English or Italian). */
+const sideOfBone = (name) => (/( L |Left| SX |^L |_L$|\.L$)/.test(name) ? 1 : /( R |Right| DX |^R |_R$|\.R$)/.test(name) ? -1 : 0);
+/** Further than this from the middle (units), a point is on its side: it hangs on no bone of the other. */
+const SIDE_MARGIN = 1.5;
+
+/** The bone whose limb is nearest a point, never one of the other side's (a shin crossing under the body). */
 function nearestLimb(limbs, p) {
   let best = null;
   for (const { bone, a, b } of limbs) {
+    const side = sideOfBone(bone);
+    if (side && p[1] * side < -SIDE_MARGIN) continue;
     const ab = b.map((v, k) => v - a[k]);
     const t = Math.max(0, Math.min(1, ab.reduce((s, v, k) => s + v * (p[k] - a[k]), 0) / (ab.reduce((s, v) => s + v * v, 0) || 1)));
     const d = Math.hypot(...p.map((v, k) => v - a[k] - ab[k] * t));
