@@ -159,6 +159,8 @@ function pictureOf(material, where) {
 export const flagsOf = (material) =>
   material.flags.reduce((bits, name) => bits | (FLAG_BITS[name] ?? 0), 0);
 
+/** A door this light is taken as painted (a white or cream door), unless the material says `painted`. */
+const PAINTED_LIGHT = 0.45;
 /** A colour `k` times as bright, kept to 0..1. */
 const shade = (c, k) => c.map((v) => Math.max(0, Math.min(1, v * k)));
 /**
@@ -205,19 +207,39 @@ export function colourAt(material, x, y, light = 1, px = 8) {
       return on(a) || on(b) ? shade(tone, light) : HOLE_RGB;
     }
     case "door": {
-      // one door on a picture 64 wide and 128 high, y down: a frame, two panels sunk in with their bevels lit
-      // from the top left, and a brass handle at hand height on the right (seen from the other side, the left)
+      // one door on a picture 64 wide and 128 high, y down: a frame of stiles and rails round two panels sunk in
+      // with their bevels lit from the top left, and a brass handle at hand height on the right (seen from the
+      // other side, the left). Wood is fine grain along each piece, up the stiles and panels and across the
+      // rails, each piece a little its own tone, as boards are; a painted door (a pale tone, or `painted`) is flat
+      // paint with only a brush's faint streaks. Not mottled: Steven saw the old blotches as noise, not grain
       const [u, v] = [((x % 64) + 64) % 64, ((y % 128) + 128) % 128];
-      // a reference picture's detail is its surface (surfacePicture), the panels and the handle drawn over it
-      const woodAt = (k) => shade(material.surface ? material.surface(x, y) : toned(boards(x, y, [0.5, 0.08], px), "wood", tone), light * k);
       if (Math.hypot(u - 53, v - 68) < 3.2) return shade([0.78, 0.62, 0.3], light * (1.15 - 0.12 * Math.hypot(u - 52, v - 67)));
-      for (const [y0, y1] of [[12, 58], [70, 116]]) {
-        const [x0, x1] = [11, 53];
-        if (u >= x0 && u < x1 && v >= y0 && v < y1) {
-          const edge = Math.min(u - x0, x1 - 1 - u, v - y0, y1 - 1 - v);
-          if (edge < 2.5) return woodAt(u - x0 < 2.5 || v - y0 < 2.5 ? 0.62 : 1.18);
-          return woodAt(0.88);
-        }
+      const panel = [[12, 58], [70, 116]].findIndex(([y0, y1]) => u >= 11 && u < 53 && v >= y0 && v < y1);
+      const stile = panel < 0 && (u < 11 || u >= 53);
+      // which piece, and which way its grain runs: along v (up) for stiles and panels, along u for the rails
+      const piece = panel >= 0 ? 10 + panel : stile ? (u < 11 ? 1 : 2) : v < 12 ? 3 : v < 70 ? 4 : 5;
+      const [along, across] = panel >= 0 || stile ? [y, x] : [x, y];
+      const painted = material.painted ?? lum(tone) > PAINTED_LIGHT;
+      const own = 1 + (painted ? 0.02 : 0.13) * (rand(piece, 0, s + 31) - 0.5) * 2;
+      // where a door is worn, as Valve's photographed doors are: hands round the handle, feet along the bottom
+      const handled = Math.max(0, 1 - Math.hypot(u - 52, v - 68) / 14);
+      const kicked = Math.max(0, 1 - (127 - v) / 22);
+      const worn = 1 - (painted ? 0.16 : 0.12) * handled - (painted ? 0.14 : 0.1) * kicked * (0.6 + 0.4 * fbm(x * 0.2, y * 0.3, s + 13, 2));
+      let surface;
+      if (material.surface) surface = material.surface(x, y);
+      else if (painted) surface = shade(tone, own * worn * (1 + 0.04 * (noise(along * 0.05, across * 0.9, s + 7) - 0.5) * 2));
+      else {
+        // the grain: lines about three texels apart, gently wavy along the piece, with finer fibres between
+        const lines = 0.5 + 0.5 * Math.sin(across * 1.9 + 2.2 * fbm(along * 0.03, across * 0.25, s + 3, 2) * Math.PI);
+        const fibres = noise(along * 0.12, across * 1.7, s + 5);
+        surface = shade(tone, own * worn * (1 + 0.32 * (lines - 0.5) + 0.2 * (fibres - 0.5)));
+      }
+      const woodAt = (k) => shade(surface, light * k);
+      if (panel >= 0) {
+        const [y0, y1] = [[12, 58], [70, 116]][panel];
+        const edge = Math.min(u - 11, 52 - u, v - y0, y1 - 1 - v);
+        if (edge < 2.5) return woodAt(u - 11 < 2.5 || v - y0 < 2.5 ? 0.62 : 1.18);
+        return woodAt(0.88);
       }
       // the frame round it, its rim a little darker
       const rim = Math.min(u, 63 - u, v, 127 - v);
@@ -525,7 +547,7 @@ export function surfacePicture(given, size = 64, height = size, { readPicture } 
         c = times(c, edge < 1 ? 0.55 : rivet ? 1.35 : own * bevel);
       }
       // a used surface's patches and grain, unless a photograph gives them (its patches, where it repeats)
-      if (!UNWORN.has(base) && !detail) {
+      if (!UNWORN.has(base) && !detail && base !== "door") {
         const patch = roundNoise(x, y, size, height, 32, s + 17);
         c = times(c, (1 + MOTTLE * (patch - 0.5) * 2) * (1 + GRAIN * grit(x, y, size, height, s + 23)));
       } else if (!UNWORN.has(base) && repeats) {
