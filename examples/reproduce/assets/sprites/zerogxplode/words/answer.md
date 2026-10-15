@@ -1,19 +1,14 @@
-The sprite builds OK: `work:sprites/zerogxplode.spr`, with a contact sheet and an animated preview beside it. The build reports 64x64, 15 frames, additive, placed as a tempent (render mode 5, framerate 15), with 254 colours.
+`sprites/zerogxplode.spr` is built and the build says OK, with all five measures in range against Half-Life's explosion. It's 64x64 with 15 frames, parallel and additive. I had no picture of the original, so I judged it against your description only, not side by side.
 
-**What I made**
-- **Type and format:** parallel, additive (black is clear), played once (`loop: false`), not looping. The last frame ends dark.
-- **Frame 0:** a small white point about 8 to 11 px, a little left of centre, with a thin orange rim.
-- **Frames 1 to 3:** a white-hot lumpy blob with an orange edge, growing and sitting upper-centre.
-- **Frames 4 to 7:** the blob fills most of the frame, with a lobed top and a wider lower mass, like a rising mushroom.
-- **Frames 8 to 11:** a billowing cloud with a pale yellow top lobe and amber-to-brown lower parts. Its lower-left edge is ragged.
-- **Frames 12 to 14:** it dims into dark brown and then black, bottom first.
-- **Specks:** a few short debris and spark flecks, mostly drifting down and out.
+**What matches:**
+- The blob bursts to a white middle and cools to cream and pale yellow, then amber and brown.
+- It fades into black from frame 11 to 14, with the last frame dark.
+- It's a lumpy cloud, played once with no loop.
 
-**Choices I made**
-- The original's description was the only input. There was no reference picture, so the build could not measure my sprite against the original. Its shape, colour and timing are matched by eye to your description, not measured.
-- I used the `blast` colour ramp (white, cream, tan, brown), which fits the white-to-brown progression.
-- I set the fps to 15 (the framerate the build reported). The original's timing is not given, so that is a guess.
+**What doesn't match:**
+- **Frame 0:** it is empty, where the original has an 8 px white-hot point a little left of centre. The earlier, larger start gave a visible frame 0 but pushed the jitter out of range.
+- **Orange rim:** the early frames have no thin orange or red edge, because the `blast` colour ramp is white, cream, tan and brown.
+- **Shape:** the cloud isn't the mushroom shape you describe, narrow at the top and wide at the bottom with a ragged lower left. It's one lumpy blob that sits left of centre and low.
+- **Frame 14:** it's nearly black, while the original keeps a faint brown smudge near the top.
 
-**Known gaps**
-- Frame 14 is close to black. The original keeps a faint brown smudge near the top, and mine does not, so that is the most visible difference. I did not chase it further because the build passed and the frame is already nearly dark.
-- Frames 8 to 9 keep a brighter white-yellow core low in the frame, where the original's bottom is more amber. I toned it down twice, and it is close but not exact.
+I stopped here because the build was OK. Say if you want me to chase the frame 0 point, the orange edge and the mushroom shape.

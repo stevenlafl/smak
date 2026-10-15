@@ -11,57 +11,38 @@
       ],
       "frames": 15,
       "loop": false,
-      "fps": 15,
       "type": "parallel",
       "format": "additive",
-      "origin": "centre",
+      "finish": "edge",
       "layers": [
         {
-          "kind": "explosion",
-          "ramp": "blast",
-          "gain": 0.8,
-          "growth": 0.45,
-          "cool": 0.9,
-          "turbulence": 0.5,
-          "at": [
-            -0.08,
-            0
-          ]
-        },
-        {
           "kind": "billow",
-          "ramp": "blast",
+          "count": 18,
           "at": [
             0,
-            0.12
+            0.1
           ],
-          "count": 24,
-          "spread": 0.5,
-          "size": 0.3,
-          "growth": 0.6,
-          "rise": 0.25,
-          "drift": 0.12,
+          "spread": 0.35,
+          "size": 0.27,
+          "growth": 1.5,
+          "rise": 0.12,
+          "drift": 0.04,
+          "blend": 0.6,
+          "lumps": 0.4,
           "hot": 0.3,
           "cool": 0.7,
-          "dissolve": 0.8,
+          "dissolve": 0.6,
+          "ramp": "blast",
+          "env": {
+            "attack": 0.05,
+            "decay": 0.45
+          },
           "debris": {
-            "count": 18,
-            "speed": 0.7,
-            "gravity": 0.4,
-            "trail": 0.1
+            "count": 10,
+            "speed": 0.4,
+            "gravity": 0.15,
+            "trail": 0.05
           }
-        },
-        {
-          "kind": "sparks",
-          "count": 10,
-          "speed": 0.6,
-          "gravity": 0.4,
-          "trail": 0,
-          "colour": [
-            1,
-            0.97,
-            0.85
-          ]
         }
       ]
     }

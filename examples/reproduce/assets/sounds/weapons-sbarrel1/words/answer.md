@@ -1,19 +1,20 @@
-The sound is built and the build says OK: `work:sound/weapons/sbarrel1.wav`, 22050 Hz, 8-bit, mono, 1.043 s, peak -0.6 dBFS. It is a layered synthesis, with no recording.
+The build says OK, and all 22 of 22 features are within the range of the game's own gunshots. The sound is written to `work:sound/weapons/sbarrel1.wav`, so it replaces the original when you put it in `<mod>/sound`.
 
-The build measures it at 22 of 22 features in the range of the game's gunshot sounds. Those are the class ranges, not a side-by-side comparison, because the game's own `weapons/sbarrel1.wav` was not in any game folder the server was given. So I could not check it against the original itself, and the numbers are only as close as the class ranges allow.
+| | Original (as described) | Mine |
+|---|---|---|
+| Format | 22050 Hz, 8-bit, mono, played once | 22050 Hz, 8-bit, mono |
+| Length | 1.04 s | 1.054 s |
+| Attack | instant, full scale in a few ms | 0 ms |
+| T20 (time to fall 20 dB) | in the gunshot range, 0.46 to 1.01 s | 0.499 s |
+| T40 (time to fall 40 dB) | not stated | 0.639 s |
+| Centroid (spectral centre) | not stated | 567 Hz |
+| Flatness (0 is a pure tone, 1 is white noise) | fully noisy, no pitch | 0.078 |
+| Crest (peak over RMS) | not stated | 9.9 dB |
 
-What the spec does:
-- **Boom:** a sine tone sweeping from 170 Hz down to 70 Hz over 0.3 s, decaying over 0.6 s, at -10 dB.
-- **Body:** white noise bandpassed 120 Hz to 1 kHz, driven hard for grit, held for 0.2 s and then decaying over 0.9 s. This carries the 50 to 500 Hz thick low-mid body.
-- **Crack:** white noise with a spectrum that moves from broadband (up to about 9 to 11 kHz) at the start to dark by 0.3 s, decaying over 0.35 s. This gives the bite and the highs dying first.
-- **Snap:** a 4 ms burst of white noise high-passed at 2 kHz, added after the saturation so the onset is sharp.
-- **Pops:** a sparse train of short grains between 300 and 3000 Hz in the first 0.3 s.
-- **Rumble:** brown noise lowpassed at 400 Hz, fading to silence by the end.
-- **Finish:** saturation at 4 for the clipped roar, a limiter at a crest of 8 dB, and no room reverb.
+- **Spectrum:** power sits mostly low, with 47.8% under 150 Hz, 26.1% from 150 to 600 Hz and 19.7% from 600 Hz to 2 kHz. The highs are thin and die first, as in your description.
+- **Envelope:** a clipped, crackling opening, a ragged fall from about 0.3 s to 0.6 s, then a low rumble that fades to silence.
+- **Layers:** a hard-clipped low-passed noise burst, a moving-spectrum noise blast that darkens over time, a 110 to 50 Hz thump, a few faint echo pops, and a brown-noise rumble tail.
 
-Measured figures: T20 0.66 s, T40 0.89 s, centroid 942 Hz, flatness 0.17, power in the 150 to 600 Hz band 31%.
-
-Things I could not verify:
-- How it sounds. The numbers and the picture show how it measures, not whether it sounds like the original. Listen to it in the game.
-- The original's exact envelope and spectrum over time. The description is the only reference I had, so the match is to that description.
-- Length: it is 1.043 s against the target 1.04 s, which is within sample rounding.
+- **Length:** it runs 1.054 s against 1.04 s, about 1.3% long. The build reports it as within tolerance.
+- **Not checked:** I had no original to compare against, so the comparison is to your description and the game's gunshot class. The build can't judge how it sounds or how the game plays it (volume, pitch, the map's room). That needs a listen in the game.
+- **Source:** it is built from layers alone, not from a generated recording. A generated take might add more grain and room character, if the side-by-side shows it falls short.

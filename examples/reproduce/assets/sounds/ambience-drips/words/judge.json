@@ -29,39 +29,39 @@
    "onsets": 4
   },
   "reproduction": {
-   "length": 7.3,
-   "peak": -1.6,
-   "rms": -24.3,
-   "crest": 22.7,
+   "length": 7.29,
+   "peak": -0.6,
+   "rms": -27.6,
+   "crest": 27.1,
    "dc": 0,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
-   "attack": 0.02,
-   "peakAt": 0.08,
-   "t20": 7.019,
-   "t40": 7.149,
-   "centroid": 928,
-   "rolloff": 1346,
-   "flatness": 0.131,
+   "attack": 0.005,
+   "peakAt": 0.055,
+   "t20": 5.961,
+   "t40": 7.239,
+   "centroid": 1426,
+   "rolloff": 1949,
+   "flatness": 0.068,
    "bands": {
-    "<150": 1.7,
-    "150-600": 17.2,
-    "600-2k": 78.4,
-    "2k-5k": 2.4,
-    ">5k": 0.2
+    "<150": 3.7,
+    "150-600": 4.2,
+    "600-2k": 86.7,
+    "2k-5k": 5.3,
+    ">5k": 0
    },
    "onsets": 4
   },
   "envelope": {
    "class": "loop drips",
    "t20Range": null,
-   "t20": 7.019,
+   "t20": 5.961,
    "inRange": true
   },
-  "lengthOff": 0.001,
-  "centroidOff": 0.106,
-  "bandsOffMost": 6.1,
+  "lengthOff": 0.002,
+  "centroidOff": 0.7,
+  "bandsOffMost": 19,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -72,42 +72,13 @@
  },
  "caps": {
   "S2": 2,
-  "S3": 2,
+  "S3": 0,
   "S5": 2
  },
- "scores": {
-  "S1": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Judged from the picture and features only, since I cannot listen. The waveform shows four sharp onsets with decaying tails, and the reproduction has the same four at the same times (about 0s, 1.9s, 3.7s, 4.0s and 5.8s, read from the 7.3 s scale). That is the same event, drips in an ambience loop. The reproduction's spectrogram is smeared and more uniform, but that is texture, not the event."
-  },
-  "S2": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "Length matches (7.30 s against 7.306 s, 0.1% off). The decay does not. The original's t20 is 0.434 s, so each drip falls 20 dB within about half a second. The reproduction's t20 is 7.019 s from its peak at 0.08 s, so it stays within 20 dB of its peak for almost the whole clip. The picture agrees: the reproduction's waveform stays thick between hits, while the original's falls back to a thin line. The harness marks it in range with no numeric class range given, but the measured decay is about 16 times the original's, so this scores 1."
-  },
-  "S3": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Centroid is 928 against 839, 10.6% off, inside 20%. Band shares differ by at most 6.1 points (150-600 Hz: 23.2 against 17.2; 600-2k Hz: 72.3 against 78.4), inside 10 points in every band. The spectrogram brightness is consistent with these figures."
-  },
-  "S4": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Judged from the picture and features only. Onset count matches (4 and 4) at the same times, so that part holds. The noise character does not: flatness is 0.131 against 0.095, about 38% more noise-like. The original's spectrogram shows horizontal streaks and banding in its upper bands that the reproduction only hints at near each onset. The sustained tail, which the envelope shows, also changes the character between hits."
-  },
-  "S5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The file is mono, 8-bit, 11025 Hz, which the engine plays. No clipping (peak -1.6 dBFS), DC is 0, there are no lead or tail silences, and the name matches (sameName true). Engine faults are empty. The loop cue is not among the measurements; neither waveform shows a visible cue at either end, so I scored it on the format and faults alone."
-  }
- },
- "total": 8,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "S3"
+ ],
+ "total": 0,
+ "of": 10
 }

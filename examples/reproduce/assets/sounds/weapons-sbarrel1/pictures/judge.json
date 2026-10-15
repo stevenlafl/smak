@@ -29,27 +29,27 @@
    "onsets": 1
   },
   "reproduction": {
-   "length": 1.051,
-   "peak": -0.5,
-   "rms": -11.1,
-   "crest": 10.6,
-   "dc": 0.0014,
+   "length": 1.045,
+   "peak": -0.6,
+   "rms": -12.5,
+   "crest": 11.9,
+   "dc": 0.0007,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.01,
-   "attack": 0.005,
+   "tail": 0.005,
+   "attack": 0,
    "peakAt": 0.005,
-   "t20": 0.668,
+   "t20": 0.823,
    "t40": 1.033,
-   "centroid": 664,
-   "rolloff": 1292,
-   "flatness": 0.063,
+   "centroid": 628,
+   "rolloff": 1077,
+   "flatness": 0.081,
    "bands": {
-    "<150": 35.3,
-    "150-600": 32.2,
-    "600-2k": 24.9,
-    "2k-5k": 6.7,
-    ">5k": 0.8
+    "<150": 34.2,
+    "150-600": 35.5,
+    "600-2k": 23.7,
+    "2k-5k": 5.5,
+    ">5k": 1.2
    },
    "onsets": 0
   },
@@ -59,17 +59,17 @@
     0.458,
     1.013
    ],
-   "t20": 0.668,
+   "t20": 0.823,
    "inRange": true
   },
-  "lengthOff": 0.012,
-  "centroidOff": 0.099,
-  "bandsOffMost": 5.7,
+  "lengthOff": 0.006,
+  "centroidOff": 0.04,
+  "bandsOffMost": 2.5,
   "engineFaults": [],
   "sameName": true,
   "format": {
    "rate": 22050,
-   "bits": 16,
+   "bits": 8,
    "channels": 1
   }
  },
@@ -83,31 +83,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Judged from the picture only, since I cannot listen. Both waveforms show a dense broadband burst in the first few tenths of a second, followed by a long decaying tail with little energy above 5 kHz, which is the shape of a gunshot. The reproduction's burst is continuous where the original has a stuttered start, but the event is the same."
+   "reason": "Cannot listen; judged from the picture and features. Both are short, low-frequency, broadband, decaying bursts that read as a gunshot: the original's energy sits in the bottom bands and fades over about a second, and the reproduction shows the same bottom-heavy, decaying shape. The original's sharper opening crack is a detail of the event, not a different event, so the event matches."
   },
   "S2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Length is 1.051 s against 1.039 s (about 1% off, well within 25%). Attack is 0.005 s in both. T20 is 0.668 s, inside the gunshot class range of 0.458 to 1.013 s (inRange true)."
+   "reason": "Length 1.045 s against 1.039 s is 0.6% off, well inside 25%. T20 is 0.823 s, inside the gunshot class range of 0.458 to 1.013 s (the measure holds). Attack is 0 s against 0.005 s, a difference of 5 ms, so the attack matches too."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Centroid is 664 against 604 Hz, about 10% off, within 20%. Band shares differ by at most 5.7 points (150 to 600 Hz is the largest: 37.9 against 32.2; <150 Hz is 31.7 against 35.3), all within 10 points. The bands measure is 5.7 off at most."
+   "reason": "Centroid 628 Hz against 604 Hz is 4% off, within 20%. Band shares differ by at most 2.5 points (bandsOffMost 2.5, under 10): <150 Hz 34.2 vs 31.7, 150-600 Hz 35.5 vs 37.9, 600-2k 23.7 vs 24.4, 2k-5k 5.5 vs 4.8, >5k 1.2 vs 1.3."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged from the picture, since I cannot listen. The original has a distinct onset: a click at the very start (a vertical low-frequency stripe in the spectrogram) and a gated, stuttered first 0.1 s. The reproduction has no such onset (onsets 0 against 1) and goes straight into a continuous burst. Flatness is 0.063 against 0.081, a modest difference. The onset miss is a clear, visible fault in character."
+   "reason": "Cannot listen; judged from the picture and features. Onsets are 1 in the original and 0 in the reproduction. The original opens with a sharp, rhythmic high-amplitude burst and a crack in the first 0.1 s; the reproduction ramps up as a continuous noisy burst with no distinct hit. Flatness matches exactly at 0.081 for both, so the tone or noise character is right, but the onset is clearly missing. No pitch movement was measured, so that part is not scored."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Mono, 16-bit, 22050 Hz, which the engine plays. Peak is -0.5 dB, no clipping, DC offset 0.0014 (near zero). No leading or trailing silence to speak of (tail 0.01). Same name as the original (sameName true). This is a one-shot, so no loop cue is needed."
+   "reason": "Mono, 8-bit, 22050 Hz, which the engine accepts. Peak -0.6 dBFS with zero clipped samples. DC offset 0.0007, negligible. No loop cue is recorded for the original, so none is needed. The name matches (sameName true) and the engine-fault list is empty."
   }
  },
  "total": 9,

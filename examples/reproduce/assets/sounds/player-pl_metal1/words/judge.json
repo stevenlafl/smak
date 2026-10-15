@@ -30,28 +30,28 @@
   },
   "reproduction": {
    "length": 0.58,
-   "peak": -0.6,
-   "rms": -14.6,
-   "crest": 14,
-   "dc": 0.003,
+   "peak": -1,
+   "rms": -17.5,
+   "crest": 16.5,
+   "dc": 0,
    "clipped": 0,
    "lead": 0,
    "tail": 0.005,
-   "attack": 0.005,
-   "peakAt": 0.005,
-   "t20": 0.444,
-   "t40": 0.544,
-   "centroid": 404,
-   "rolloff": 635,
-   "flatness": 0.076,
+   "attack": 0,
+   "peakAt": 0.01,
+   "t20": 0.314,
+   "t40": 0.564,
+   "centroid": 556,
+   "rolloff": 711,
+   "flatness": 0.003,
    "bands": {
-    "<150": 35.6,
-    "150-600": 47.7,
-    "600-2k": 14.3,
-    "2k-5k": 2.3,
-    ">5k": 0.1
+    "<150": 4.8,
+    "150-600": 38.3,
+    "600-2k": 56.9,
+    "2k-5k": 0.1,
+    ">5k": 0
    },
-   "onsets": 1
+   "onsets": 0
   },
   "envelope": {
    "class": "step metal",
@@ -59,12 +59,12 @@
     0.315,
     0.525
    ],
-   "t20": 0.444,
-   "inRange": true
+   "t20": 0.314,
+   "inRange": false
   },
   "lengthOff": 0.003,
-  "centroidOff": 0.122,
-  "bandsOffMost": 5.3,
+  "centroidOff": 0.544,
+  "bandsOffMost": 37.3,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -74,43 +74,15 @@
   }
  },
  "caps": {
-  "S2": 2,
-  "S3": 2,
+  "S2": 1,
+  "S3": 0,
   "S5": 2
  },
- "scores": {
-  "S1": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Judged from the picture and features only; I cannot listen. Both waveforms open with a dense broadband transient burst that decays into noisy ringing with no tonal part, the signature of a metal footstep or clatter. The original's burst is centred near 0.045 s and the reproduction's near the start. The reproduction also has a sharper extra spike near 0.17 s that the original lacks; that is a second hit, so it is charged to S4, not to the event's identity."
-  },
-  "S2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Length is 0.580 s against 0.582 s (0.3% off, within 25%). T20 is 0.444 s, inside the step-metal class range of 0.315 to 0.525 s. The reproduction's attack is 0.005 s against the original's 0.025 s; both are sharp transients, and the rubric's envelope test is met."
-  },
-  "S3": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Centroid is 404 Hz against 360 Hz (12% off, within 20%). Band shares against the original: <150 Hz 35.6 vs 34.8 (0.8 points), 150-600 Hz 47.7 vs 43.8 (3.9 points), 600-2k Hz 14.3 vs 19.6 (5.3 points), 2k-5k Hz 2.3 vs 1.8 (0.5 points), >5k Hz 0.1 vs 0.1. All are within 10 points. The spectrogram's warm low-band mass matches the original's."
-  },
-  "S4": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Judged partly from the picture; I cannot listen. The reproduction has one onset the original lacks: a distinct spike near 0.17 s, and the measurement gives 1 onset against the original's 0. Flatness is 0.076 against 0.057, both noise-like, so the noise character matches. There is no visible pitch movement in either. The extra hit is a real difference, so it scores 1, not 2."
-  },
-  "S5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Format is mono, 8-bit, 11025 Hz, which the engine plays. The reproduction does not clip (the original does, and that is not copied). DC is 0.003 against the original's -0.0104, within the limit. Lead and tail are 0 and 0.005. The engine reports no faults and the name matches. Loop cue does not apply to this one-shot."
-  }
- },
- "total": 9,
- "of": 10,
- "passes": true
+ "passes": false,
+ "failedByMeasure": [
+  "S2",
+  "S3"
+ ],
+ "total": 0,
+ "of": 10
 }

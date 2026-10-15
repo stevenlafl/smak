@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "player-pl_metal1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.582,
+   "peak": 0,
+   "rms": -15.5,
+   "crest": 15.5,
+   "dc": -0.0104,
+   "clipped": 1,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.025,
+   "peakAt": 0.045,
+   "t20": 0.424,
+   "t40": 0.539,
+   "centroid": 360,
+   "rolloff": 624,
+   "flatness": 0.057,
+   "bands": {
+    "<150": 34.8,
+    "150-600": 43.8,
+    "600-2k": 19.6,
+    "2k-5k": 1.8,
+    ">5k": 0.1
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.58,
+   "peak": -0.6,
+   "rms": -16.4,
+   "crest": 15.9,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.005,
+   "peakAt": 0.005,
+   "t20": 0.339,
+   "t40": 0.574,
+   "centroid": 369,
+   "rolloff": 797,
+   "flatness": 0.009,
+   "bands": {
+    "<150": 32.5,
+    "150-600": 43.4,
+    "600-2k": 23.6,
+    "2k-5k": 0.4,
+    ">5k": 0.1
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "step metal",
+   "t20Range": [
+    0.315,
+    0.525
+   ],
+   "t20": 0.339,
+   "inRange": true
+  },
+  "lengthOff": 0.003,
+  "centroidOff": 0.025,
+  "bandsOffMost": 4,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. Both waveforms open with a dense transient burst of about 0.1 s, then decay over the rest of the 0.58 s, which fits a short metal step. But the original's onset is broadband and irregular, while the reproduction's spectrogram shows sustained horizontal bands (a ringing tone), and its flatness is 0.009 against the original's 0.057. The same kind of event is plausible, but it is not clearly the same sound, so 1."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 0.580 s against the original's 0.582 s, 0.3% off, well within 25%. The T20 (time to decay 20 dB below peak) is 0.339 s, inside the step metal class range of 0.315 to 0.525 s (inRange true). The attack figures differ (0.005 against 0.025 s), but the rubric measures attack through T20, which holds."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid 369 Hz against 360 Hz, 2.5% off, within 20%. Band shares: <150 Hz 32.5 vs 34.8 (2.3 points), 150-600 Hz 43.4 vs 43.8 (0.4), 600-2k Hz 23.6 vs 19.6 (4.0), 2k-5k Hz 0.4 vs 1.8 (1.4), >5k Hz 0.1 vs 0.1. Every band is within 10 points. The rolloff differs (797 against 624 Hz) but is not part of this item's measure."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen. Onsets: both have 0. Tone or noise: flatness is 0.009 in the reproduction against 0.057 in the original, so the reproduction is clearly more tonal, and the picture shows its sustained horizontal bands where the original is broadband. Pitch movement cannot be judged from one spectrogram. The character is present but clearly off in tone or noise, so 1."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Format is mono, 8-bit, 11025 Hz, which the engine plays. Peak is -0.6 dBFS with no clipping flag, DC is 0, and the reproduction's tail is 0.005, so it is clean. The original is a one-shot with no loop cue to match. The name is the same (player/pl_metal1), as sameName is true."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

@@ -5,73 +5,67 @@
       "name": "sprites/muzzleflash1.spr",
       "class": "flare",
       "use": "tempent",
-      "type": "parallel",
-      "format": "additive",
       "size": [
         64,
         64
       ],
       "frames": 2,
       "loop": false,
-      "fps": 20,
-      "origin": "centre",
-      "finish": "edge",
+      "type": "parallel",
+      "format": "additive",
+      "finish": {
+        "edge": 4
+      },
       "layers": [
         {
-          "kind": "glow",
-          "radius": 0.15,
-          "core": 0.06,
-          "ramp": "muzzle",
-          "at": [
-            0,
-            0
-          ],
-          "gain": 1
-        },
-        {
           "kind": "flare",
-          "core": 0.04,
+          "core": 0.1,
           "ramp": "muzzle",
           "streaks": [
             {
               "angle": 90,
+              "length": 1.15,
+              "width": 0.06,
               "half": true,
-              "length": 0.9,
-              "width": 0.04,
-              "taper": 3,
-              "gain": 2.2
+              "taper": 0,
+              "blur": 0.1,
+              "gain": 1.6
             },
             {
-              "angle": 20,
+              "angle": 172,
+              "length": 1.08,
+              "width": 0.06,
               "half": true,
-              "length": 0.84,
-              "width": 0.04,
-              "taper": 3,
-              "gain": 2.2
+              "taper": 0,
+              "blur": 0.1,
+              "gain": 1.6
             },
             {
-              "angle": 160,
+              "angle": 8,
+              "length": 1.15,
+              "width": 0.06,
               "half": true,
-              "length": 0.84,
-              "width": 0.04,
-              "taper": 3,
-              "gain": 2.2
+              "taper": 0,
+              "blur": 0.1,
+              "gain": 1.6
             },
             {
-              "angle": 240,
+              "angle": 235,
+              "length": 1.1,
+              "width": 0.06,
               "half": true,
-              "length": 0.82,
-              "width": 0.04,
-              "taper": 3,
-              "gain": 2.2
+              "taper": 0,
+              "blur": 0.1,
+              "gain": 1.6
             },
             {
-              "angle": 300,
+              "angle": 305,
+              "length": 1.12,
+              "width": 0.06,
               "half": true,
-              "length": 0.82,
-              "width": 0.04,
-              "taper": 3,
-              "gain": 2.2
+              "taper": 0,
+              "blur": 0.1,
+              "gain": 1.6
             }
           ]
         }

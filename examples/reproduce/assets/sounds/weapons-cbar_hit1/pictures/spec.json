@@ -5,86 +5,130 @@
   "seed": 3,
   "rate": 11025,
   "bits": 8,
-  "length": 0.66,
+  "length": 0.69,
+  "picture": "pictures/sound.png",
   "layers": [
     {
       "id": "body",
       "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 200
-        },
-        {
-          "type": "lowpass",
-          "f": 4500
-        }
-      ],
+      "iterations": 32,
       "env": {
-        "attack": 0.001,
-        "decay": 0.45
+        "points": [
+          [
+            0,
+            -2
+          ],
+          [
+            0.1,
+            -1
+          ],
+          [
+            0.25,
+            0
+          ],
+          [
+            0.35,
+            -5
+          ],
+          [
+            0.45,
+            -12
+          ],
+          [
+            0.69,
+            -24
+          ]
+        ]
       },
-      "gain": -2
-    },
-    {
-      "id": "air",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 2500
-        },
-        {
-          "type": "lowpass",
-          "f": 5000
-        }
-      ],
-      "env": {
-        "attack": 0.001,
-        "decay": 0.12
-      },
-      "gain": -9
+      "shape": {
+        "keys": [
+          {
+            "at": 0,
+            "curve": [
+              [
+                60,
+                -14
+              ],
+              [
+                300,
+                -4
+              ],
+              [
+                700,
+                0
+              ],
+              [
+                1500,
+                -1
+              ],
+              [
+                2500,
+                -5
+              ],
+              [
+                4000,
+                -14
+              ],
+              [
+                5000,
+                -26
+              ]
+            ]
+          },
+          {
+            "at": 0.4,
+            "curve": [
+              [
+                60,
+                -18
+              ],
+              [
+                300,
+                -7
+              ],
+              [
+                700,
+                -3
+              ],
+              [
+                1500,
+                -4
+              ],
+              [
+                2500,
+                -10
+              ],
+              [
+                4000,
+                -22
+              ],
+              [
+                5000,
+                -34
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "ring",
       "kind": "modes",
-      "f": 760,
-      "ratios": "bar",
-      "decay": 0.6,
-      "damping": 1.2,
-      "gain": -10
-    },
-    {
-      "id": "crack",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 2000
-        }
+      "f": 1650,
+      "ratios": [
+        1
       ],
-      "env": {
-        "attack": 0.001,
-        "decay": 0.004
-      },
-      "post": true,
-      "gain": -6
+      "gains": [
+        0
+      ],
+      "decay": 1.2,
+      "gain": -17
     }
   ],
   "finish": {
     "saturate": 1.5,
-    "room": {
-      "decay": 0.2,
-      "wet": 0.1
-    },
     "limit": {
-      "crest": 9.8,
-      "release": 0.002
-    },
-    "peak": -0.5
-  },
-  "picture": "pictures/sound.png"
+      "crest": 8
+    }
+  }
 }

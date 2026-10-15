@@ -1,24 +1,16 @@
-The sprite is built and the build says OK: `work:sprites/steam1.spr`, with a contact sheet and an animated preview beside it. I had no copy of the original to compare against, so everything below is measured against your description, not side by side with the game's file.
+`sprites/steam1.spr` is built and the build says OK, but it is only a partial match to your description. I had no reference sheet, so I judged it by eye against the description. I built it three times.
 
-**What it is:** a one-shot steam puff, 32x48 pixels, 16 frames, parallel oriented, index alpha (coverage carries the shading), no loop, placed as an `env_sprite` at 10 frames a second. The build's measures give 256 colours, a faded border, and a last frame that ends dark.
+It is 32x48 with 16 frames, type parallel oriented, format index alpha, and it plays once without looping. I set it to render as a tempent (Solid) at 10 frames per second.
 
-**How it matches your description:**
-- Frame 0 is a small white dot low and a little left of centre.
-- Frames 1 to 3 grow into a dense, lumpy white cloud.
-- By frames 4 to 7 it nearly fills the 32-pixel width, bright in the middle with grey shading.
-- Frames 12 to 15 break into grey fragments that fade out by frame 15.
-- Only white and greys are used.
+- **Frames 0–7:** a small white dot grows into a lumpy white cloud with grey shading, ending nearly as wide as the frame.
+- **Frames 8–11:** it is the broadest part of the cloud at the top, with gaps opening between the puffs.
+- **Frames 12–15:** it breaks into faint grey streaks and is dark by frame 15.
 
-**Known gaps:**
-- **Frame 0** is about 7 pixels across, not 3.
-- **Frames 8 to 11** read as a broad blob rather than a tall column with a narrower grey trail below.
-- **Frame-to-frame flicker** measures 1.62 against the judge's 1.5 limit. I tried several settings and this did not move; the wisps from the break-up seem to cause it. Reducing the lumps would bring it down but loses the cauliflower edge you described, so I kept the lumps.
-- **Frame rate** of 10 a second is my guess; your description doesn't give one.
+The sheet is in `-sheet.png` next to the sprite, and the build also wrote an animated version beside it.
 
-**The spec used** (layer `billow`, in `sprites/steam1.spr`):
+- **Flicker:** the build still warns that frame-to-frame flicker is 1.6 (Half-Life's smoke puffs run 0.9 to 1.5). The other four measures against Half-Life's smoke puff are in range.
+- **Position:** the cloud sits a little low and does not stretch into a tall, ragged column filling the height.
+- **Trail and wisp:** it has no separate trail of grey vapour hanging below. The ending is scattered flecks rather than the thin vertical wisp you described.
+- **Frame 0:** I did not check the dot's exact size or its position left of centre.
 
-```json
-{"spec":"smak.sprite/1","sprites":[{"name":"sprites/steam1.spr","class":"smoke puff","use":"env_sprite","size":[32,48],"frames":16,"loop":false,"fps":10,"type":"parallel oriented","format":"index alpha","origin":"centre","finish":{"edge":5},"layers":[{"kind":"billow","at":[-0.05,-0.45],"count":60,"spread":0.3,"size":0.2,"growth":1.3,"rise":0.6,"drift":0.03,"blend":0.6,"lumps":0.4,"hot":0.3,"cool":0.5,"dissolve":0.95,"ramp":[[0,[0.27,0.27,0.27]],[0.5,[0.63,0.63,0.63]],[1,[1,1,1]]]}]}]}
-```
-
-If you have the original `steam1.spr` or a contact sheet of it, I can add it as a `reference` and tune the shape and timing against it frame by frame.
+I stopped here because tuning the shape for a tall column pushed the ending out of range (it stopped fading to dark). The shape and flicker would need more passes, ideally against the actual reference sheet.

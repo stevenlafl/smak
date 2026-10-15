@@ -12,19 +12,23 @@
       "frames": 1,
       "type": "parallel",
       "format": "additive",
+      "reference": "pictures/frames.png",
       "layers": [
         {
           "kind": "glow",
-          "radius": 1,
-          "core": 0.26,
+          "radius": 0.9,
+          "core": 0.36,
           "colour": [
             1,
             1,
             1
-          ]
+          ],
+          "falloff": "power",
+          "power": 2.2,
+          "reach": 1.15,
+          "gain": 1
         }
-      ],
-      "reference": "pictures/frames.png"
+      ]
     }
   ]
 }

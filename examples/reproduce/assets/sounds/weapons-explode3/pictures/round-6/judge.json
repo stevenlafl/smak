@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-explode3",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 1.301,
+   "peak": -0.4,
+   "rms": -6.2,
+   "crest": 5.7,
+   "dc": -0.0048,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.254,
+   "t20": 0.893,
+   "t40": 1.028,
+   "centroid": 616,
+   "rolloff": 947,
+   "flatness": 0.097,
+   "bands": {
+    "<150": 36.4,
+    "150-600": 37.6,
+    "600-2k": 19.5,
+    "2k-5k": 4.6,
+    ">5k": 1.9
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 1.308,
+   "peak": -0.6,
+   "rms": -9.5,
+   "crest": 8.9,
+   "dc": -0.0056,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.02,
+   "peakAt": 0.03,
+   "t20": 0.943,
+   "t40": 1.197,
+   "centroid": 666,
+   "rolloff": 1292,
+   "flatness": 0.044,
+   "bands": {
+    "<150": 35.2,
+    "150-600": 32,
+    "600-2k": 25.2,
+    "2k-5k": 6.6,
+    ">5k": 1
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "explosion",
+   "t20Range": [
+    0.668,
+    1.113
+   ],
+   "t20": 0.943,
+   "inRange": true
+  },
+  "lengthOff": 0.005,
+  "centroidOff": 0.081,
+  "bandsOffMost": 5.7,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture and features only, since I cannot listen. Both waveforms open with a dense, loud broadband burst that decays over about a second, and both spectrograms show the same wide, low-weighted energy fading into a thin tail. The original's class is explosion, and the reproduction's envelope and spectrum fit that class, so it reads as the same event."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 1.308 s against 1.301 s, a 0.5% difference, well inside 25%. t20 is 0.943 s, inside the explosion class range of 0.668 to 1.113 (inRange true). Attack is 0.02 s against the original's 0.005 s, which is fast for the class. Both waveforms fall to a thin tail at about the same point. The peakAt values differ (0.03 s against 0.254 s), but that is a peak position, not a decay or attack fault."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 666 Hz against 616 Hz, a difference of 8%, inside 20%. Band shares differ by 1.2 (<150 Hz), 5.6 (150-600 Hz), 5.7 (600-2k Hz), 2.0 (2k-5k Hz) and 0.9 (>5k Hz), all within 10 points (bandsOffMost 5.7). The spectrogram agrees: the reproduction is slightly brighter in the mid-high region, which matches the measured shift."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Onsets do not match: the original has one sharp onset at the start (a crack visible as a dense, loud opening in its waveform), while the reproduction has none (onsets 0) and opens less abruptly. Flatness is 0.097 for the original and 0.044 for the reproduction, so the reproduction is clearly more tonal and less noisy at the start. Pitch movement cannot be checked from the picture alone, and I cannot listen to it. Judged on the measurements and picture, the character is clearly off."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The format is mono, 22050 Hz, 8-bit, which the engine plays. Clipping is 0 and peak is -0.4 dBFS. The name matches (sameName true). DC is -0.0056, under one 8-bit step (about 0.0078), and the original's own offset is -0.0048, so the reproduction is no worse on DC. The loop cue does not apply, since the original has none and this is a one-shot with a 0.01 tail."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

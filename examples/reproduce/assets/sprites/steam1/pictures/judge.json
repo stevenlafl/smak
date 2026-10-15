@@ -46,20 +46,20 @@
      48
     ],
     "border": {
-     "max": 0.435,
-     "mean": 0.005
+     "max": 0.565,
+     "mean": 0.001
     },
     "envelope": {
-     "peakAt": 0.33,
-     "first": 0.23,
+     "peakAt": 0.53,
+     "first": 0.04,
      "last": 0
     },
     "dark": 0.67,
-    "wrap": 1.4,
-    "jitter": 1.07
+    "wrap": 0.33,
+    "jitter": 1.34
    }
   },
-  "meanColourDeltaE": 0.6
+  "meanColourDeltaE": 6
  },
  "caps": {
   "R2": 2,
@@ -72,34 +72,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are the same effect, a smoke or cloud puff that grows, then fades. The original has a rising trail under the cloud and the reproduction is a rounder cloud, but both read as smoke."
+   "reason": "Both are a smoke puff that grows, billows, then thins and drifts upward. The reproduction shows the same effect in the same places in every frame."
   },
   "R2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Frame size matches (32 x 48), but the filling differs. The original's puff reaches the bottom of the frame in frames 4 to 8 with a tail trailing down. The reproduction stays higher and rounder, lacks the tail, and in frames 0 and 1 is a larger blob than the original's near-invisible dot."
+   "score": 2,
+   "reason": "The frames are the same 32 x 48 size, and the puff fills them the same way: a compact cloud in the upper-middle that spreads downward as it fades. The first-frame and mid-frame extents match closely."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Same palette as the engine blends it: white-grey smoke on the same grey background. The measured mean colour difference of 0.6 is well inside 15. The reproduction's later frames are a little greyer than the original's, which is a brightness fade (R4), not a colour fault."
+   "reason": "The measured mean colour difference is 6, under the line of 15. Both use the same grey-white over the same grey background. The reproduction has more grey shading on its edges in frames 10 to 13, but that sits inside the colour tolerance."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Frame count is 16 in both, and both end dark (last 0.03 and 0). But the motion differs: the original starts from a tiny dot (first 0.04) and the reproduction starts already bright (first 0.23). The reproduction greys and breaks into noisy fragments in frames 12 to 14 where the original fades smoothly. Its wrap measure is 1.4 against the original's 0.5, so the step across the loop is larger."
+   "reason": "The frame count (16) and first-frame brightness (0.04) match, and both fade to near dark. The envelope peak is clearly later in the reproduction (0.53 against 0.40), so it stays bright through frames 6 to 9 where the original is already fading. Its loop-wrap value (0.33 against 0.50) is also lower. The start is the same, but the timing is visibly off."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type (parallel oriented), format (index alpha), frame count and size (32 x 48) all match the original's measures. The file name is not in the measurements I was given, so the name part is unverified; nothing in the pictures suggests it is wrong."
+   "reason": "The format is index alpha in both, and the type is parallel oriented in both. The frames are a 16-frame sheet at the original's size and read back in the same form."
   }
  },
- "total": 8,
+ "total": 9,
  "of": 10,
  "passes": false
 }

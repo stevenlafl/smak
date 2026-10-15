@@ -1,25 +1,22 @@
-The sound builds OK and every check passed. It is at `work:sound/weapons/explode3.wav`, 22050 Hz, 8-bit mono, 1.3 s. To use it, copy it into `<mod>/sound/weapons/` so it takes the place of the game's own file.
+`weapons/explode3.wav` is built and the build says OK with every check passed. It is written to `work:sound/weapons/explode3.wav`. Against the game's explosion sounds it scores 21 of 22 features. I haven't heard it, and I haven't compared it with the original file, only against the game's explosion class.
 
-I could not compare it with the original. The reference file `weapons/explode3.wav` was not in any game folder the server was given, so the check ran against the description you gave, not the real sound. Against the kit's set of game explosion sounds, all 22 measured features are in range.
+- **Format:** 22050 Hz, 8-bit, mono, 1.3 s. It plays once, with no loop.
+- **Onset:** it starts at full level with no fade-in. Attack is 10 ms, and the build reports no separate onset.
+- **Body:** noise saturated hard to hold a clipped, dense roar for the first 0.4 s. The peak is -0.6 dBFS and RMS is -9 dB.
+- **Decay:** the envelope falls to about -9.5 dB (a third of full scale) at 0.8 s. It is a low rumble by 1.1 s and near silence at 1.3 s, with no cutoff.
+- **Spectrum:** the build reports these figures.
 
-| Measure | Result | Target from your description |
-| --- | --- | --- |
-| Start | Full scale at the first sample, no fade-in | Same |
-| Plateau | Pinned and clipped to about 0.4 s | Same |
-| T20 (time to -20 dB) | 0.93 s | Fits a fade that is about a third of full scale by 0.8 s and quiet by 1.1 s |
-| Centroid | 497 Hz | Dark, low-weighted |
-| Flatness | 0.05 | Noisy, with no tonal part |
-| Power below 150 Hz | 33% | Strongest part under 300 Hz |
-| Power 150 to 600 Hz | 46% | Heavy low-mid body |
-| Power 600 Hz to 2 kHz | 16% | Gritty crackle, weaker than the lows |
-| Power 2 to 5 kHz | 4% | Highs present but weaker |
-| Power above 5 kHz | 0.7% | Highs die fastest |
+  | Band | Share of power |
+  | --- | --- |
+  | under 150 Hz | 37% |
+  | 150–600 Hz | 36% |
+  | 600 Hz–2 kHz | 21% |
+  | 2–5 kHz | 6% |
+  | over 5 kHz | 0.6% |
 
-The spec has three parts:
-- **Blast:** broadband noise shaped to the low end, with a steady treble roll-off that gets stronger after 0.7 s. Its loudness follows a decay from full scale at the start to -9.5 dB at 0.8 s, -20 dB at 1.1 s and -42 dB at 1.3 s.
-- **Crackle:** short grains of noise between 300 Hz and 2 kHz, which give the bursty grain inside the body.
-- **Finish:** a hard saturation of 6 to pin the start, and a limiter with a crest of 8 dB.
+  The centroid (the spectrum's centre of weight) is 572 Hz. The highs fall away over time, so the tail is darker.
+- **Crackle:** a thin layer of short grains from 400 Hz to 3 kHz adds the bursty debris texture inside the body. There are no distinct hits after the onset.
 
-The spectrogram shows the drop in the highs after about 0.7 s, and the waveform shows the full-scale start.
+**The one miss:** flatness is 0.046 against a range of 0.05 to 0.15, so it is slightly too tonal. I lowered it from a brighter attempt that overshot the centroid.
 
-I did not use a generated take. The description is of a noise blast with no tonal part, so layers of noise were the closer match. Nothing was copied into a game folder. Listen to it in the game: the kit cannot judge how it sounds, its volume, or the map's room.
+**T20 varies:** T20 (time to fall 20 dB) moved between 0.68 and 1.1 s across my last few builds. At 0.68 s the tail may fall a bit early next to the original.

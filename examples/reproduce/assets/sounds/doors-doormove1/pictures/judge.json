@@ -29,29 +29,29 @@
    "onsets": 2
   },
   "reproduction": {
-   "length": 5.093,
+   "length": 5.04,
    "peak": -0.6,
-   "rms": -13.4,
-   "crest": 12.9,
-   "dc": 0.0001,
+   "rms": -12.6,
+   "crest": 12,
+   "dc": 0,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.015,
-   "attack": 4.091,
-   "peakAt": 4.555,
-   "t20": 0.419,
-   "t40": 0.484,
-   "centroid": 591,
-   "rolloff": 969,
-   "flatness": 0.17,
+   "tail": 0,
+   "attack": 0.394,
+   "peakAt": 2.759,
+   "t20": 2.01,
+   "t40": 2.28,
+   "centroid": 563,
+   "rolloff": 1066,
+   "flatness": 0.102,
    "bands": {
-    "<150": 24.3,
-    "150-600": 42.9,
-    "600-2k": 28,
-    "2k-5k": 4.6,
-    ">5k": 0.2
+    "<150": 29.2,
+    "150-600": 36.7,
+    "600-2k": 31,
+    "2k-5k": 3.1,
+    ">5k": 0
    },
-   "onsets": 5
+   "onsets": 1
   },
   "envelope": {
    "class": "none: the original's own decay",
@@ -59,12 +59,12 @@
     0.386,
     0.643
    ],
-   "t20": 0.419,
-   "inRange": true
+   "t20": 2.01,
+   "inRange": false
   },
-  "lengthOff": 0.011,
-  "centroidOff": 0.05,
-  "bandsOffMost": 7.7,
+  "lengthOff": 0.001,
+  "centroidOff": 0.095,
+  "bandsOffMost": 2.6,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -74,43 +74,14 @@
   }
  },
  "caps": {
-  "S2": 2,
+  "S2": 1,
   "S3": 2,
   "S5": 2
  },
- "scores": {
-  "S1": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "I cannot listen, so this is judged from the waveform and spectrogram. Both show one long swell that peaks near the end (original peak at 4.43 s, reproduction at 4.56 s), which fits a door's slide. But the original's spectrogram has curved tonal glides in its harmonics, and the reproduction is a broadband noise bed with vertical click lines. The event is plausibly a door move, yet its character is not clearly the same, so it scores 1."
-  },
-  "S2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Length is 5.093 s against 5.037 s, a 1.1% difference, well within 25%. Attack is 4.09 s against 4.25 s. The reproduction's t20 decay time (0.419 s) falls inside the class range of 0.386 to 0.643 s, which is the original's own decay within a quarter or 0.05 s. The envelope is correct."
-  },
-  "S3": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Centroid is 591 Hz against 622 Hz, a 5% difference, within 20%. Band shares are within 10 points: below 150 Hz is 24.3 against 31.1 (6.8 off), 150 to 600 Hz is 42.9 against 35.2 (7.7 off, the largest), 600 Hz to 2 kHz is 28.0 against 28.4, 2 to 5 kHz is 4.6 against 5.0, and above 5 kHz is 0.2 against 0.2. The largest band gap is 7.7 points."
-  },
-  "S4": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "I cannot listen, so this is judged from the picture and features. Flatness matches (0.170 against 0.158), so both are similarly noisy. But the onsets do not match: the reproduction has 5 against the original's 2, and the picture shows vertical click lines at roughly 1.0, 2.5 and 2.9 s that the original lacks. The original's tonal pitch glides are also absent from the reproduction. It scores 1, since S4 is not a must-have."
-  },
-  "S5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Fit for the game: mono, 11025 Hz, 8-bit, the same file name. Peak is -0.6 dBFS with 0 clipped samples. DC offset is 0.0001, against a limit of none stated. Neither file carries a loop cue in the measures, so there is nothing to match. The file is in the engine's format."
-  }
- },
- "total": 8,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "S2"
+ ],
+ "total": 0,
+ "of": 10
 }

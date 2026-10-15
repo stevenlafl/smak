@@ -1,0 +1,104 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/357_shot1.wav",
+  "class": "gunshot",
+  "seed": 1,
+  "length": 1.06,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "at": 0,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.004
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "gain": -4,
+      "post": true
+    },
+    {
+      "id": "blast",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0,
+      "env": {
+        "attack": 0.002,
+        "hold": 0.01,
+        "decay": 0.22
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 4500,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 1200,
+          "q": 0.8,
+          "gain": 4
+        }
+      ],
+      "gain": 0
+    },
+    {
+      "id": "boom",
+      "kind": "tone",
+      "f": 150,
+      "wave": "sine",
+      "sweep": {
+        "to": 55,
+        "time": 0.2
+      },
+      "env": {
+        "attack": 0.001,
+        "decay": 0.18
+      },
+      "gain": -10
+    },
+    {
+      "id": "tail",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0.02,
+      "env": {
+        "attack": 0.02,
+        "decay": 0.55
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2800,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 1200,
+          "q": 0.8,
+          "gain": 4
+        }
+      ],
+      "gain": -8
+    }
+  ],
+  "finish": {
+    "saturate": 3,
+    "room": {
+      "decay": 0.25,
+      "wet": 0.1
+    },
+    "limit": {
+      "crest": 8,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

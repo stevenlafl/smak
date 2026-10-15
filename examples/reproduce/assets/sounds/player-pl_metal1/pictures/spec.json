@@ -4,91 +4,149 @@
   "class": "step metal",
   "rate": 11025,
   "bits": 8,
+  "seed": 5,
   "length": 0.58,
-  "seed": 1,
   "picture": "pictures/sound.png",
   "layers": [
     {
-      "id": "click",
+      "id": "clank",
       "kind": "noise",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 1200
-        }
-      ],
+      "iterations": 16,
       "env": {
-        "attack": 0.001,
-        "decay": 0.008
+        "points": [
+          [
+            0,
+            -8
+          ],
+          [
+            0.04,
+            -2
+          ],
+          [
+            0.18,
+            0
+          ],
+          [
+            0.35,
+            -8
+          ],
+          [
+            0.58,
+            -22
+          ]
+        ]
       },
-      "gain": -6
-    },
-    {
-      "id": "grit",
-      "kind": "noise",
-      "filter": [
-        {
-          "type": "bandpass",
-          "f": 1500,
-          "q": 0.5
-        }
-      ],
-      "env": {
-        "attack": 0.001,
-        "decay": 0.08
-      },
-      "gain": -6
-    },
-    {
-      "id": "hiss",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 300
-        }
-      ],
-      "env": {
-        "attack": 0.001,
-        "decay": 0.2
-      },
-      "gain": -6
+      "shape": {
+        "keys": [
+          {
+            "at": 0,
+            "curve": [
+              [
+                40,
+                -4
+              ],
+              [
+                120,
+                1
+              ],
+              [
+                300,
+                -3
+              ],
+              [
+                800,
+                -5
+              ],
+              [
+                1500,
+                -13
+              ],
+              [
+                3000,
+                -28
+              ],
+              [
+                5000,
+                -40
+              ]
+            ]
+          },
+          {
+            "at": 0.4,
+            "curve": [
+              [
+                40,
+                -4
+              ],
+              [
+                120,
+                -1
+              ],
+              [
+                300,
+                -6
+              ],
+              [
+                800,
+                -11
+              ],
+              [
+                1500,
+                -19
+              ],
+              [
+                3000,
+                -34
+              ],
+              [
+                5000,
+                -48
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "ring",
       "kind": "modes",
-      "f": 250,
+      "f": 330,
       "ratios": "plate",
-      "decay": 1.2,
-      "damping": 1,
-      "gain": -4
+      "decay": 0.7,
+      "damping": 1.2,
+      "gain": -13,
+      "at": 0.01
     },
     {
-      "id": "mid",
-      "kind": "modes",
-      "f": 800,
-      "ratios": "plate",
-      "decay": 0.5,
-      "damping": 1,
-      "gain": -1
-    },
-    {
-      "id": "low",
+      "id": "thump",
       "kind": "tone",
-      "f": 110,
+      "f": 95,
       "wave": "sine",
       "env": {
-        "attack": 0.002,
-        "decay": 0.9
+        "attack": 0.01,
+        "decay": 0.32
       },
-      "gain": -3
+      "gain": -8
+    },
+    {
+      "id": "scuff",
+      "kind": "particles",
+      "count": 30,
+      "band": [
+        500,
+        2500
+      ],
+      "grain": 0.005,
+      "env": {
+        "decay": 0.3
+      },
+      "gain": -7
     }
   ],
   "finish": {
-    "saturate": 1.5,
     "limit": {
-      "crest": 18
+      "crest": 15,
+      "release": 0.002
     }
   }
 }

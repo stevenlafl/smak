@@ -54,52 +54,23 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.47,
+    "dark": 0.62,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 13.3
+  "meanColourDeltaE": 15.4
  },
  "caps": {
   "R2": 2,
-  "R3": 2,
+  "R3": 1,
   "R4": 2,
   "R5": 2
  },
- "scores": {
-  "R1": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Both are a single soft glow: a bright white core fading into a halo, the same effect in the same place. The original has faint radial streaks in its halo and the reproduction has a slight speckle near its edge, but the effect itself is the same."
-  },
-  "R2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Both are 64 x 64, and the glow fills the frame and fades out before the edges in each (border max 0 in both). The reproduction's halo is somewhat tighter, with more dark area (dark 0.47 against 0.39), but it still fills the frame as the original does."
-  },
-  "R3": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "The halo reads clearly more violet in the reproduction than the original's pinkish-mauve. The mean colour difference of 13.3 is inside the 15 line, so the measure passes, but the hue shift is visible. The reproduction's halo is also tighter and darker than the original's, so the blended colour falls off faster."
-  },
-  "R4": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Both have one frame, and the envelope measures match exactly (peak at frame 0, first and last both 1). A single still has no motion to compare, and nothing in the measures or pictures shows a difference in how it would loop or end."
-  },
-  "R5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Type (parallel), format (additive) and size (64 x 64) match the original's measures exactly. The name is not among the measures the judge was given, so it is not scored against the name. The read-back as written is not shown in the pictures or measures and is taken as not disputed."
-  }
- },
- "total": 9,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "R3"
+ ],
+ "total": 0,
+ "of": 10
 }

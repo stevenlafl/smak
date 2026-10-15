@@ -46,20 +46,20 @@
      48
     ],
     "border": {
-     "max": 0.302,
-     "mean": 0.002
+     "max": 0.141,
+     "mean": 0
     },
     "envelope": {
      "peakAt": 0.6,
-     "first": 0.05,
+     "first": 0.11,
      "last": 0
     },
-    "dark": 0.74,
-    "wrap": 0.28,
-    "jitter": 1.62
+    "dark": 0.83,
+    "wrap": 0.58,
+    "jitter": 1.6
    }
   },
-  "meanColourDeltaE": 10.2
+  "meanColourDeltaE": 6.5
  },
  "caps": {
   "R2": 2,
@@ -72,31 +72,31 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Both are a cloud puff that grows and fades, but the reproduction changes kind in the later frames. From frame 10 it breaks into hard-edged chunks and holes (frames 11 to 13 read as scattered debris), where the original keeps a soft smoke that thins into a trailing wisp."
+   "reason": "Both are smoke clouds that grow and thin out, but the reproduction reads as solid white lumps that break into scattered specks by frames 12 to 15. The original is a soft, continuous smoke cloud with a trailing tail that fades out smoothly. The effect is recognisable as smoke but clearly off."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frames are the same size and the effect fills them in the middle frames. The original's plume trails down and out in a long tail (frames 5 to 9), while the reproduction is a compact rounded mass with no trailing shape, and its effect shrinks to small pieces in frames 12 to 15."
+   "reason": "The frames are 32 by 48, as the original's are. But the effect does not fill them the same way: the reproduction starts as a small ball and stays compact and off-centre, and in frames 11 to 15 it is mostly empty space with specks. The original fills the frame with a rising cloud and tail through the middle frames."
   },
   "R3": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The measured mean colour difference (10.2) is inside 15, but the tones do not match. The reproduction's peak frames are flat, near-pure white, while the original shows grey shading and soft halftone edges. The reproduction's late fragments are bright white on grey, where the original's are faint grey smoke."
+   "reason": "The reproduction's blended frames are brighter and more opaque, almost pure white, with dark holes inside the cloud. The original is a softer mid-grey to white with translucent edges over the grey background. The dark-pixel share is 0.83 against the original's 0.64, which matches the look. The measured mean colour difference of 6.5 is within 15, but the visible tone is clearly different."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frame count matches (16) and both end dark (last 0.03 and 0). The kind of motion does not: the original grows, rises and fades, while the reproduction grows and then fragments and vanishes. Its peak comes later (0.6 against 0.4), and its jitter is higher (1.62 against 1.1)."
+   "reason": "Both have 16 frames, and both grow and then fade to dark by the last frame (last envelope 0 against 0.03), so the one-shot ends dark as the original does. But the peak comes at 0.6 of the run against the original's 0.4, and the first frame is brighter (0.11 against 0.04). The reproduction also fades by breaking apart into specks rather than thinning smoothly, which is a different kind of motion."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The type (parallel oriented) and format (index alpha) match the original, and the file reads back with the same measured size (32 by 48) and frame count. The name is not visible to the judge, so it is taken as the measurement gives it."
+   "reason": "The type (parallel oriented) and format (index alpha) match the original exactly, and the size is 32 by 48 in both. The frame count and the file's read-back measures agree. The name cannot be checked from the pictures, but nothing on the type, format or size is wrong."
   }
  },
  "total": 6,

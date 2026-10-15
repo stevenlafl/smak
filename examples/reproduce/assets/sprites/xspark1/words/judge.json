@@ -46,20 +46,20 @@
      32
     ],
     "border": {
-     "max": 0.032,
+     "max": 0,
      "mean": 0
     },
     "envelope": {
      "peakAt": 0.3,
-     "first": 0.92,
-     "last": 0.92
+     "first": 0.97,
+     "last": 0.9
     },
-    "dark": 0.52,
-    "wrap": 1.16,
-    "jitter": 1.92
+    "dark": 0.77,
+    "wrap": 1.06,
+    "jitter": 1.73
    }
   },
-  "meanColourDeltaE": 8
+  "meanColourDeltaE": 3.2
  },
  "caps": {
   "R2": 2,
@@ -72,34 +72,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Both are a cyan-white glow with a bright core, but the original is a cluster of lobes that reads as a spark burst, while the reproduction is one soft, smooth blob with only faint side bumps in a few frames. The effect is recognisable as a glow in both, but it is not the same kind of spark."
+   "reason": "Both are a cyan glow, so the effect is the same kind. The original is a billowing cloud of many overlapping blobs that fills the frame, while the reproduction is a bright core with a few faint satellite lobes, so the original's fuller spark cloud is missing."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both are 32 x 32. The original's effect spreads out to the frame edges (border max 0.145), with lobes reaching the corners of frames 0, 1, 2, 8 and 10. The reproduction keeps a clear dark margin (border max 0.032) and a smaller, rounder core, so it does not fill the frames as the original does."
+   "reason": "Both are 32 x 32. The original's glow fills most of each frame to its edges, but the reproduction's effect is a small central core in a large dark margin, so it does not fill the frames as the original does."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both show the same cyan-to-white core with blue halo and a similar dark background share (0.46 original, 0.52 reproduction). The mean colour difference is 8, well under the line of 15, and the frames look the same colour when viewed side by side."
+   "reason": "Measured mean colour difference is 3.2 (CIE76 delta E, under the line of 15). Both use the same cyan hue with a white-hot centre. The reproduction's larger dark area is a coverage difference, charged under R2 and R4, not a colour one."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both have 11 frames, and both loops close (reproduction first and last 0.92; original 0.94 and 1). But the envelope peaks at different frames (original at frame 1, reproduction at 0.3). The original's lobes flicker and shift from frame to frame in a way the reproduction does not copy, which makes the motion look different even though the jitter numbers are near (1.51 against 1.92)."
+   "reason": "Frame count matches (11 in both). The envelope does not: the original peaks at frame 1 and the reproduction at about frame 3 (peakAt 0.3). The loop closure is roughly similar (first 0.94 / last 1.0 against 0.97 / 0.9). The kind of motion differs: the original's cloud billows and reshapes, while the reproduction flickers as a core with drifting lobes."
   },
   "R5": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "The reproduction is additive, the same type and format as the original, is 32 x 32 with the same name, and reads back as written."
+   "score": 1,
+   "reason": "Type and format match (both additive) and the size and frame count match. The file name and read-back as written are not in the evidence given to me, so this cannot be scored 2 on what was seen."
   }
  },
- "total": 7,
+ "total": 6,
  "of": 10,
  "passes": false
 }

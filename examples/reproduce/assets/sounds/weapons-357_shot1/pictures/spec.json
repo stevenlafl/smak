@@ -2,103 +2,150 @@
   "spec": "smak.sound/1",
   "name": "weapons/357_shot1.wav",
   "class": "gunshot",
-  "seed": 1,
+  "seed": 7,
+  "bits": 8,
   "length": 1.06,
   "picture": "pictures/sound.png",
   "layers": [
     {
-      "id": "crack",
-      "kind": "noise",
-      "color": "white",
-      "at": 0,
-      "env": {
-        "attack": 0.001,
-        "decay": 0.004
-      },
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 2000
-        }
-      ],
-      "gain": -4,
-      "post": true
-    },
-    {
       "id": "blast",
       "kind": "noise",
-      "color": "pink",
-      "at": 0,
+      "iterations": 16,
       "env": {
-        "attack": 0.002,
-        "hold": 0.01,
-        "decay": 0.22
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.4,
+            -2
+          ],
+          [
+            0.55,
+            -8
+          ],
+          [
+            0.75,
+            -20
+          ],
+          [
+            0.95,
+            -38
+          ],
+          [
+            1.06,
+            -50
+          ]
+        ]
       },
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 4500,
-          "q": 0.7
-        },
-        {
-          "type": "peak",
-          "f": 1200,
-          "q": 0.8,
-          "gain": 4
-        }
-      ],
-      "gain": 0
+      "shape": {
+        "keys": [
+          {
+            "at": 0,
+            "curve": [
+              [
+                60,
+                -4
+              ],
+              [
+                150,
+                -3
+              ],
+              [
+                500,
+                0
+              ],
+              [
+                1500,
+                -4
+              ],
+              [
+                4000,
+                -14
+              ],
+              [
+                8000,
+                -26
+              ],
+              [
+                11000,
+                -34
+              ]
+            ]
+          },
+          {
+            "at": 0.5,
+            "curve": [
+              [
+                60,
+                -10
+              ],
+              [
+                150,
+                -9
+              ],
+              [
+                500,
+                -4
+              ],
+              [
+                1500,
+                -10
+              ],
+              [
+                4000,
+                -24
+              ],
+              [
+                8000,
+                -38
+              ],
+              [
+                11000,
+                -48
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "boom",
       "kind": "tone",
-      "f": 150,
+      "f": 110,
       "wave": "sine",
       "sweep": {
         "to": 55,
-        "time": 0.2
+        "time": 0.25
       },
       "env": {
-        "attack": 0.001,
-        "decay": 0.18
+        "decay": 0.3
       },
-      "gain": -10
+      "gain": -7
     },
     {
-      "id": "tail",
+      "id": "crack",
       "kind": "noise",
-      "color": "pink",
-      "at": 0.02,
-      "env": {
-        "attack": 0.02,
-        "decay": 0.55
-      },
       "filter": [
         {
-          "type": "lowpass",
-          "f": 2800,
+          "type": "bandpass",
+          "f": 1800,
           "q": 0.7
-        },
-        {
-          "type": "peak",
-          "f": 1200,
-          "q": 0.8,
-          "gain": 4
         }
       ],
-      "gain": -8
+      "env": {
+        "decay": 0.04
+      },
+      "gain": -3
     }
   ],
   "finish": {
-    "saturate": 3,
+    "saturate": 4.5,
+    "peak": -0.5,
     "room": {
-      "decay": 0.25,
-      "wet": 0.1
-    },
-    "limit": {
-      "crest": 8,
-      "release": 0.002
-    },
-    "peak": -0.5
+      "decay": 0.1,
+      "wet": 0.04
+    }
   }
 }

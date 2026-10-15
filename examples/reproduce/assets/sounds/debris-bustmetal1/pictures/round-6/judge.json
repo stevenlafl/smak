@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "debris-bustmetal1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.873,
+   "peak": -0.1,
+   "rms": -12.8,
+   "crest": 12.7,
+   "dc": -0.0076,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.105,
+   "attack": 0.025,
+   "peakAt": 0.075,
+   "t20": 0.439,
+   "t40": 0.629,
+   "centroid": 1968,
+   "rolloff": 3241,
+   "flatness": 0.569,
+   "bands": {
+    "<150": 0.2,
+    "150-600": 8.8,
+    "600-2k": 47,
+    "2k-5k": 41.3,
+    ">5k": 2.7
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.87,
+   "peak": -0.6,
+   "rms": -12.6,
+   "crest": 12,
+   "dc": -0.0001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0,
+   "peakAt": 0.005,
+   "t20": 0.374,
+   "t40": 0.758,
+   "centroid": 1940,
+   "rolloff": 3198,
+   "flatness": 0.698,
+   "bands": {
+    "<150": 1.2,
+    "150-600": 9.2,
+    "600-2k": 48.1,
+    "2k-5k": 39.7,
+    ">5k": 1.8
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "none: the original's own decay",
+   "t20Range": [
+    0.329,
+    0.549
+   ],
+   "t20": 0.374,
+   "inRange": true
+  },
+  "lengthOff": 0.003,
+  "centroidOff": 0.014,
+  "bandsOffMost": 1.6,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture and features only, since I cannot listen. Both are the same kind of event: a broadband, noise-like metal burst that starts loud and decays over about 0.85 s, with energy concentrated between 600 Hz and 5 kHz in both. The original has a sharper first hit and a small second bump around 0.1 to 0.2 s that the reproduction smooths over, but that is a detail of the same event, not a different one."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 0.870 s against 0.873 s, well within 25%. T20 is 0.374 s against the original's 0.439 s, inside the class range of 0.329 to 0.549 s. The attack differs (0 against 0.025 s) and the original has a 0.105 s silent tail that the reproduction lacks. Neither is checked by the S2 range, so the measured envelope passes."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 1940 Hz against 1968 Hz, a 1.4% difference, well inside 20%. Every band is within 1.6 points of the original: under 150 Hz 1.2 against 0.2, 150 to 600 Hz 9.2 against 8.8, 600 Hz to 2 kHz 48.1 against 47, 2 to 5 kHz 39.7 against 41.3, above 5 kHz 1.8 against 2.7. All are within the 10-point limit."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Onsets match (0 in both). Flatness does not: the original is 0.569 and the reproduction 0.698, so the reproduction is noticeably more noise-like. The original's spectrogram shows some banded, more tonal structure that the reproduction lacks. Pitch movement looks flat in both pictures. Judged from the picture and features only, since I cannot listen."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Format is mono, 8-bit, 11025 Hz, as the engine plays it. No clipping (peak -0.6 dBFS), DC is -0.0001 (near zero), no lead silence, the name matches, and no loop cue is indicated for the original."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

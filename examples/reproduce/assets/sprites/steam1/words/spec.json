@@ -4,7 +4,7 @@
     {
       "name": "sprites/steam1.spr",
       "class": "smoke puff",
-      "use": "env_sprite",
+      "use": "tempent",
       "size": [
         32,
         48
@@ -14,43 +14,47 @@
       "fps": 10,
       "type": "parallel oriented",
       "format": "index alpha",
-      "origin": "centre",
-      "finish": {
-        "edge": 5
-      },
+      "colour": [
+        1,
+        1,
+        1
+      ],
       "layers": [
         {
           "kind": "billow",
-          "at": [
-            -0.05,
-            -0.45
-          ],
-          "count": 60,
-          "spread": 0.3,
-          "size": 0.2,
-          "growth": 1.3,
-          "rise": 0.6,
+          "count": 22,
+          "spread": 0.28,
+          "size": 0.25,
+          "growth": 0.7,
+          "rise": 0.8,
           "drift": 0.03,
-          "blend": 0.6,
-          "lumps": 0.4,
-          "hot": 0.3,
-          "cool": 0.5,
-          "dissolve": 0.95,
+          "blend": 0.4,
+          "lumps": 0.5,
+          "hot": 0.5,
+          "cool": 0.6,
+          "dissolve": 0.85,
+          "at": [
+            0,
+            -0.4
+          ],
+          "env": {
+            "decay": 0.3
+          },
           "ramp": [
             [
               0,
               [
-                0.27,
-                0.27,
-                0.27
+                0,
+                0,
+                0
               ]
             ],
             [
               0.5,
               [
-                0.63,
-                0.63,
-                0.63
+                0.67,
+                0.67,
+                0.67
               ]
             ],
             [

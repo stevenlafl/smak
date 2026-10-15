@@ -29,27 +29,27 @@
    "onsets": 0
   },
   "reproduction": {
-   "length": 0.87,
+   "length": 0.85,
    "peak": -0.6,
    "rms": -12.6,
    "crest": 12,
-   "dc": -0.0001,
+   "dc": 0,
    "clipped": 0,
    "lead": 0,
    "tail": 0.005,
    "attack": 0,
-   "peakAt": 0.005,
-   "t20": 0.374,
+   "peakAt": 0.085,
+   "t20": 0.499,
    "t40": 0.758,
-   "centroid": 1940,
-   "rolloff": 3198,
-   "flatness": 0.698,
+   "centroid": 2100,
+   "rolloff": 3338,
+   "flatness": 0.643,
    "bands": {
-    "<150": 1.2,
-    "150-600": 9.2,
-    "600-2k": 48.1,
-    "2k-5k": 39.7,
-    ">5k": 1.8
+    "<150": 0.3,
+    "150-600": 5.2,
+    "600-2k": 46,
+    "2k-5k": 47.4,
+    ">5k": 1.1
    },
    "onsets": 0
   },
@@ -59,12 +59,12 @@
     0.329,
     0.549
    ],
-   "t20": 0.374,
+   "t20": 0.499,
    "inRange": true
   },
-  "lengthOff": 0.003,
-  "centroidOff": 0.014,
-  "bandsOffMost": 1.6,
+  "lengthOff": 0.026,
+  "centroidOff": 0.067,
+  "bandsOffMost": 6.1,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -83,31 +83,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Judged from the picture and features only, since I cannot listen. Both are the same kind of event: a broadband, noise-like metal burst that starts loud and decays over about 0.85 s, with energy concentrated between 600 Hz and 5 kHz in both. The original has a sharper first hit and a small second bump around 0.1 to 0.2 s that the reproduction smooths over, but that is a detail of the same event, not a different one."
+   "reason": "Judged from the picture only, since I cannot listen. Both waveforms show the same event: a broadband metal-debris burst with a dense, loud onset in the first ~0.1 s, then a long decay to about 0.87-0.85 s. The spectrograms share the same broad energy band from 600 Hz to 5 kHz that fades with time. The original's onset is a little sharper (attack 0.025 s against 0), but that is a difference of texture, which S4 charges, not of event."
   },
   "S2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Length is 0.870 s against 0.873 s, well within 25%. T20 is 0.374 s against the original's 0.439 s, inside the class range of 0.329 to 0.549 s. The attack differs (0 against 0.025 s) and the original has a 0.105 s silent tail that the reproduction lacks. Neither is checked by the S2 range, so the measured envelope passes."
+   "reason": "Length is 0.85 s against 0.873 s, 2.6% off, well inside 25%. The reproduction's T20 is 0.499 s against 0.439 s and sits inside the class range of 0.329 to 0.549 s, which is the original's own decay within a quarter. Attack is 0 against 0.025 s; the 25 ms gap is small, and the class gives no attack range to test it against, so it does not drop the item. The picture shows the same fast rise and a peak at 0.085 s against 0.075 s."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Centroid is 1940 Hz against 1968 Hz, a 1.4% difference, well inside 20%. Every band is within 1.6 points of the original: under 150 Hz 1.2 against 0.2, 150 to 600 Hz 9.2 against 8.8, 600 Hz to 2 kHz 48.1 against 47, 2 to 5 kHz 39.7 against 41.3, above 5 kHz 1.8 against 2.7. All are within the 10-point limit."
+   "reason": "Centroid is 2100 Hz against 1968 Hz, 6.7% off, inside 20%. Band shares differ by at most 6.1 points (2k-5k: 47.4 against 41.3; 150-600: 5.2 against 8.8), all within the 10-point limit. The spectrogram's energy sits in the same bands with the same falloff above 5 kHz."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Onsets match (0 in both). Flatness does not: the original is 0.569 and the reproduction 0.698, so the reproduction is noticeably more noise-like. The original's spectrogram shows some banded, more tonal structure that the reproduction lacks. Pitch movement looks flat in both pictures. Judged from the picture and features only, since I cannot listen."
+   "reason": "Onsets match (0 in both), but the tone-or-noise character does not. Flatness is 0.643 against 0.569, so the reproduction is more noise-like, and the original's spectrogram shows horizontal streaks of resonance that the reproduction's smoother, more uniform bands lack. There is no pitch movement to compare. Not a must item, so this is a clear but minor fault; judged from the picture and features only, not by listening."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Format is mono, 8-bit, 11025 Hz, as the engine plays it. No clipping (peak -0.6 dBFS), DC is -0.0001 (near zero), no lead silence, the name matches, and no loop cue is indicated for the original."
+   "reason": "Format is 11025 Hz, 8-bit, mono, which the engine plays. Clipped is 0 and DC is 0. Peak is -0.6 dBFS, so there is headroom. The name matches (sameName true), and no engine faults are listed. The original is a one-shot, so no loop cue is needed."
   }
  },
  "total": 9,

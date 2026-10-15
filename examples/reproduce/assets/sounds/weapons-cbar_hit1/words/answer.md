@@ -1,25 +1,15 @@
-The sound is built: `work:sound/weapons/cbar_hit1.wav`. The build says OK and every class check passes (22 of 22 features in range). To put it in the game, copy it to `<mod>/sound/weapons/`.
+`weapons/cbar_hit1.wav` builds with the build saying OK and every check passed. It is not yet a close match to the original: 17 of 22 features fall within the range of the game's own metal hits.
 
-I had no copy of the original to draw beside it, so the match is to your description and to the game's measured metal-hit range, not a side-by-side with the real file.
+It is 0.69 s, mono, 11025 Hz, 8-bit, written to `work:sound/weapons/cbar_hit1.wav`, and plays once. It is made of layers only, with no generated recording.
 
-| Feature | Made | Game's metal hit range |
-|---|---|---|
-| Length | 0.69 s, 11025 Hz, 8-bit mono | 0.69 s |
-| Attack (time to full level) | 0 ms, a broadband crack | (in range) |
-| Time to -20 dB | 0.49 s | in range |
-| Time to -40 dB | 0.69 s | in range |
-| Crest (peak over average level) | 11.4 dB | in range |
-| Flatness (0 tone, 1 noise) | 0.28 | 0.16 to 0.28 |
-| Power 600 Hz to 2 kHz | 67% | in range |
-| Power 150 to 600 Hz | 7.6% | in range |
+- **Onset:** it starts instantly at full scale (attack 0 ms), with a short broadband crack.
+- **Loud stretch:** noise heaviest around 150 to 1000 Hz, with a rattle layer for the chatter and a bump of extra roughness around 0.2 to 0.3 s.
+- **Drop:** the level falls to roughly a third at 0.31 s, then fades in an exponential die-off to the end. The picture shows this clearly.
+- **Ring:** a steady 1 kHz line with a fainter 3 kHz partial, at constant pitch, that carries the tail.
 
-How the layers follow the description:
-- **Loud part (0 to 0.3 s):** broadband noise, heaviest in the low mids per frequency, plus a rattle layer for the chatter. It swells slightly at 0.2 to 0.3 s.
-- **Drop:** at 0.31 s the level falls by 9.5 dB (to about a third), then fades steadily to near silence at 0.69 s.
-- **Tone:** a steady line at 1 kHz that runs through the sound and is the main thing in the tail, plus a fainter partial at 3 kHz.
-- **Onset:** a short high-passed white-noise crack at full scale, with no fade-in.
+Still off, from the build's own report:
+- **Too bright:** 2–5 kHz holds 44.8% of the power, against the game's 3.7–24.6%. The centroid is 1797 Hz against the game's 1074–1654 Hz.
+- **Too tonal:** flatness is 0.088 against the game's 0.16–0.28.
+- **Mid band short:** 600–2 kHz holds 38.1%, against the game's 63.7–83.8%.
 
-Three things to know:
-- **Low-mid share:** the description says the low mids are heaviest, but the game's metal hits put only 0 to 17% of their power at 150 to 600 Hz. I followed the game's measured range, so the low mids lead per frequency in the loud part but are a small share of the whole sound.
-- **Flatness:** getting it into the game's range took the tone at 1 kHz set very quiet relative to the noise. The modes layer's `gain` is relative to the other layers, so its numbers are not in dB at face value.
-- **Listening:** the measures cannot say how it sounds, so the mix and volume in the game are still for you to judge.
+I stopped here rather than keep tuning. The excess highs probably come from 8-bit quantisation noise and the saturation, but I haven't tested that. A recording from `generate` might also come closer to the original's grain, but it comes with a non-commercial licence, which is your call. I can't judge how it sounds or how the game plays it (volume, pitch, the map's room), so it needs a listen in the game.

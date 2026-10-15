@@ -11,37 +11,83 @@
       ],
       "frames": 15,
       "loop": false,
-      "fps": 15,
       "type": "parallel",
       "format": "additive",
-      "origin": "centre",
-      "finish": "edge",
-      "reference": {
-        "picture": "pictures/frames.png",
-        "cell": 128,
-        "cols": 8
-      },
+      "reference": "pictures/frames.png",
       "layers": [
         {
           "kind": "billow",
-          "ramp": "blast",
-          "count": 32,
-          "spread": 0.8,
-          "size": 0.4,
-          "growth": 0.5,
-          "rise": 0.25,
-          "hot": 0.3,
-          "cool": 0.8,
-          "dissolve": 0.8,
-          "env": {
-            "attack": 0.05,
-            "decay": 0.3
-          },
+          "ramp": [
+            [
+              0,
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            [
+              0.15,
+              [
+                0.28,
+                0.1,
+                0.02
+              ]
+            ],
+            [
+              0.35,
+              [
+                0.62,
+                0.31,
+                0.07
+              ]
+            ],
+            [
+              0.6,
+              [
+                0.88,
+                0.62,
+                0.2
+              ]
+            ],
+            [
+              0.8,
+              [
+                1,
+                0.86,
+                0.5
+              ]
+            ],
+            [
+              1,
+              [
+                1,
+                1,
+                0.9
+              ]
+            ]
+          ],
+          "count": 30,
+          "spread": 0.55,
+          "size": 0.45,
+          "growth": 1.4,
+          "rise": 0.2,
+          "hot": 0.4,
+          "cool": 0.72,
+          "dissolve": 0.3,
+          "lumps": 0.35,
+          "blend": 0.5,
+          "gain": 0.93,
           "debris": {
-            "count": 10,
-            "speed": 0.9,
+            "count": 14,
+            "speed": 0.5,
             "gravity": 0.3,
             "trail": 0.1
+          },
+          "mask": {
+            "from": "reference",
+            "low": 0.03,
+            "high": 0.25
           }
         }
       ]

@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "items-smallmedkit1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.763,
+   "peak": -3,
+   "rms": -14.1,
+   "crest": 11.1,
+   "dc": -0.0033,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.09,
+   "t20": 0.673,
+   "t40": 0.673,
+   "centroid": 2177,
+   "rolloff": 6072,
+   "flatness": 0.128,
+   "bands": {
+    "<150": 0.1,
+    "150-600": 14.7,
+    "600-2k": 59.5,
+    "2k-5k": 3.9,
+    ">5k": 21.7
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 0.76,
+   "peak": -0.6,
+   "rms": -13.9,
+   "crest": 13.3,
+   "dc": -0.0001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.06,
+   "peakAt": 0.2,
+   "t20": 0.559,
+   "t40": 0.564,
+   "centroid": 2201,
+   "rolloff": 5922,
+   "flatness": 0.246,
+   "bands": {
+    "<150": 0,
+    "150-600": 9.7,
+    "600-2k": 63.2,
+    "2k-5k": 8.6,
+    ">5k": 18.5
+   },
+   "onsets": 1
+  },
+  "envelope": {
+   "class": "none: the original's own decay",
+   "t20Range": [
+    0.505,
+    0.841
+   ],
+   "t20": 0.559,
+   "inRange": true
+  },
+  "lengthOff": 0.004,
+  "centroidOff": 0.011,
+  "bandsOffMost": 5,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. The original is three evenly spaced tonal bursts (about 0 to 0.13 s, 0.17 to 0.3 s, 0.35 to 0.5 s), a click near 0.6 s, then a broadband noise swell from about 0.67 s to the end. The reproduction is a longer run of about seven uneven, shorter pulses from 0.1 to 0.33 s, a click near 0.5 s, and a weaker noise rise that peaks at the very end. Both read as a pulsed item-pickup chime with a noise tail, so the kind of event is plausibly the same, but the pulse pattern is clearly different from the original's three-burst structure. Scored 1 for that clear difference, not 0 for the kind of event."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 0.760 s against the original's 0.763 s (0.4% off, well within 25%). The decay measure T20 is 0.559 s, inside the class range of 0.505 to 0.841 s that the harness gives (inRange true). Attack is 0.06 s against the original's 0, with both starting on their first sample in the picture; no attack range is given, and a 60 ms difference does not register as a visible envelope fault."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid 2201 Hz against 2177 Hz (1.1% off, within 20%). Band shares against the original, reproduction minus original: under 150 Hz 0 vs 0.1 (0.1 pt), 150 to 600 Hz 9.7 vs 14.7 (5.0 pt), 600 to 2k 63.2 vs 59.5 (3.7 pt), 2k to 5k 8.6 vs 3.9 (4.7 pt), above 5k 18.5 vs 21.7 (3.2 pt). Every band is within 10 points, and the largest gap is 5.0. The rolloff, 5922 Hz against 6072 Hz, agrees too."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. Onsets agree on the measure (1 each), but the picture shows the original with three clear pulses and the reproduction with about seven, so the onset character differs. Flatness is 0.246 against 0.128, nearly double, so the reproduction is clearly noisier. The reproduction also has a tonal line that is stacked and broader through 0.33 s, where the original's is sharper and confined to the pulses. Pitch movement looks roughly similar. Non-must item, scored 1 for the clear onset and flatness differences."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Fit for the game: format is mono, 22050 Hz, 8 bits, one channel, which is one of the engine's allowed formats. Clipped 0, DC -0.0001 (negligible), peak -0.6 dB, engineFaults empty, and sameName true. The original has no loop cue to match, and none is reported for the reproduction."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

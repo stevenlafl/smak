@@ -1,0 +1,181 @@
+{
+  "spec": "smak.sound/1",
+  "name": "debris/bustmetal1.wav",
+  "class": "metal hit",
+  "rate": 11025,
+  "bits": 8,
+  "length": 0.87,
+  "seed": 7,
+  "layers": [
+    {
+      "id": "crash",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 120
+        },
+        {
+          "type": "peak",
+          "f": 1200,
+          "q": 0.8,
+          "gain": 4
+        },
+        {
+          "type": "lowpass",
+          "f": 2800
+        },
+        {
+          "type": "lowpass",
+          "f": 2800
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.01,
+            -0.5
+          ],
+          [
+            0.1,
+            -2
+          ],
+          [
+            0.15,
+            -3
+          ],
+          [
+            0.3,
+            -6
+          ],
+          [
+            0.45,
+            -12
+          ],
+          [
+            0.6,
+            -22
+          ],
+          [
+            0.75,
+            -35
+          ],
+          [
+            0.87,
+            -60
+          ]
+        ]
+      }
+    },
+    {
+      "id": "hiss",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 3000
+        },
+        {
+          "type": "lowpass",
+          "f": 5400
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -2
+          ],
+          [
+            0.1,
+            -3
+          ],
+          [
+            0.3,
+            -9
+          ],
+          [
+            0.6,
+            -22
+          ],
+          [
+            0.87,
+            -60
+          ]
+        ]
+      },
+      "gain": -17
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 2000,
+          "q": 1
+        },
+        {
+          "type": "lowpass",
+          "f": 3500
+        },
+        {
+          "type": "lowpass",
+          "f": 3500
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.015
+      },
+      "gain": -2
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "modes": [
+        {
+          "f": 620,
+          "gain": 0,
+          "decay": 0.25
+        },
+        {
+          "f": 1190,
+          "gain": 0,
+          "decay": 0.35
+        },
+        {
+          "f": 1930,
+          "gain": 0,
+          "decay": 0.45
+        },
+        {
+          "f": 2810,
+          "gain": -2,
+          "decay": 0.55
+        },
+        {
+          "f": 3870,
+          "gain": -10,
+          "decay": 0.65
+        }
+      ],
+      "gain": -24
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "limit": {
+      "crest": 11,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

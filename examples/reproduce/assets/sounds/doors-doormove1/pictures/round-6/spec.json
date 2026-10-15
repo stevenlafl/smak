@@ -1,0 +1,233 @@
+{
+  "spec": "smak.sound/1",
+  "name": "doors/doormove1.wav",
+  "rate": 11025,
+  "bits": 8,
+  "length": 5.04,
+  "seed": 7,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "body",
+      "kind": "noise",
+      "shape": [
+        [
+          40,
+          -12
+        ],
+        [
+          120,
+          -4
+        ],
+        [
+          300,
+          -2
+        ],
+        [
+          600,
+          -6
+        ],
+        [
+          1200,
+          -12
+        ],
+        [
+          2500,
+          -20
+        ],
+        [
+          5000,
+          -30
+        ]
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -30
+          ],
+          [
+            0.2,
+            -14
+          ],
+          [
+            1,
+            -12
+          ],
+          [
+            2,
+            -11
+          ],
+          [
+            3.5,
+            -11
+          ],
+          [
+            3.9,
+            -9
+          ],
+          [
+            4.1,
+            -4
+          ],
+          [
+            4.6,
+            -4
+          ],
+          [
+            4.9,
+            -10
+          ],
+          [
+            5.04,
+            -30
+          ]
+        ]
+      },
+      "gain": 0
+    },
+    {
+      "id": "rumble",
+      "kind": "tone",
+      "f": 60,
+      "wave": "sine",
+      "env": {
+        "points": [
+          [
+            0,
+            -40
+          ],
+          [
+            0.3,
+            -22
+          ],
+          [
+            3.5,
+            -22
+          ],
+          [
+            4.3,
+            -16
+          ],
+          [
+            5.04,
+            -40
+          ]
+        ]
+      },
+      "gain": -10
+    },
+    {
+      "id": "knock1",
+      "kind": "noise",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 900
+        }
+      ],
+      "env": {
+        "decay": 0.02
+      },
+      "at": 0.6,
+      "gain": -10
+    },
+    {
+      "id": "knock2",
+      "kind": "noise",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 900
+        }
+      ],
+      "env": {
+        "decay": 0.02
+      },
+      "at": 1.9,
+      "gain": -10
+    },
+    {
+      "id": "knock3",
+      "kind": "noise",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 900
+        }
+      ],
+      "env": {
+        "decay": 0.02
+      },
+      "at": 2.8,
+      "gain": -10
+    },
+    {
+      "id": "ratchet",
+      "kind": "particles",
+      "every": 0.04,
+      "jitter": 0.4,
+      "band": [
+        800,
+        2500
+      ],
+      "grain": 0.003,
+      "at": 3.85,
+      "length": 0.8,
+      "env": {
+        "points": [
+          [
+            0,
+            -14
+          ],
+          [
+            0.5,
+            -6
+          ],
+          [
+            0.8,
+            -30
+          ]
+        ]
+      },
+      "gain": -5
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 900,
+      "ratios": "bar",
+      "decay": 0.6,
+      "damping": 1,
+      "at": 4.2,
+      "gain": -14
+    },
+    {
+      "id": "clunk",
+      "kind": "tone",
+      "f": 110,
+      "wave": "sine",
+      "sweep": {
+        "to": 40,
+        "time": 0.12
+      },
+      "at": 4.55,
+      "env": {
+        "decay": 0.25
+      },
+      "gain": -10
+    }
+  ],
+  "finish": {
+    "room": {
+      "decay": 0.2,
+      "wet": 0.1
+    },
+    "saturate": 2,
+    "limit": {
+      "crest": 13,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

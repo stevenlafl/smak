@@ -2,205 +2,196 @@
   "spec": "smak.sound/1",
   "name": "weapons/explode3.wav",
   "class": "explosion",
-  "seed": 3,
-  "length": 1.3,
   "rate": 22050,
   "bits": 8,
+  "length": 1.3,
+  "seed": 7,
   "picture": "pictures/sound.png",
   "layers": [
     {
-      "id": "boom",
-      "kind": "tone",
-      "f": 120,
-      "wave": "sine",
-      "sweep": {
-        "to": 55,
-        "time": 0.5
-      },
-      "env": {
-        "attack": 0.003,
-        "hold": 0.03,
-        "decay": 0.6
-      },
-      "gain": -14
-    },
-    {
-      "id": "body",
-      "kind": "noise",
-      "color": "pink",
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 450
-        }
-      ],
-      "env": {
-        "attack": 0.003,
-        "hold": 0.03,
-        "decay": 0.6
-      },
-      "gain": -8
-    },
-    {
       "id": "blast",
       "kind": "noise",
-      "color": "pink",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 150
-        },
-        {
-          "type": "lowpass",
-          "f": 1300,
-          "q": 0.7
-        }
-      ],
+      "iterations": 32,
+      "length": 1.3,
       "env": {
-        "attack": 0.002,
-        "hold": 0.04,
-        "decay": 0.7
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.5,
+            -1
+          ],
+          [
+            0.8,
+            -7
+          ],
+          [
+            1,
+            -15
+          ],
+          [
+            1.15,
+            -28
+          ],
+          [
+            1.3,
+            -50
+          ]
+        ]
       },
-      "gain": -4
+      "shape": {
+        "keys": [
+          {
+            "at": 0,
+            "curve": [
+              [
+                50,
+                0
+              ],
+              [
+                200,
+                0
+              ],
+              [
+                600,
+                -4
+              ],
+              [
+                1500,
+                -9
+              ],
+              [
+                3000,
+                -14
+              ],
+              [
+                8000,
+                -26
+              ],
+              [
+                11000,
+                -34
+              ]
+            ]
+          },
+          {
+            "at": 0.5,
+            "curve": [
+              [
+                50,
+                0
+              ],
+              [
+                200,
+                0
+              ],
+              [
+                600,
+                -5
+              ],
+              [
+                1500,
+                -11
+              ],
+              [
+                3000,
+                -20
+              ],
+              [
+                8000,
+                -38
+              ],
+              [
+                11000,
+                -48
+              ]
+            ]
+          },
+          {
+            "at": 1.2,
+            "curve": [
+              [
+                50,
+                -2
+              ],
+              [
+                200,
+                0
+              ],
+              [
+                600,
+                -8
+              ],
+              [
+                3000,
+                -28
+              ],
+              [
+                11000,
+                -55
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
-      "id": "rumble",
-      "kind": "noise",
-      "color": "pink",
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 700
-        }
-      ],
-      "env": {
-        "attack": 0.01,
-        "hold": 0.08,
-        "decay": 0.7
+      "id": "boom",
+      "kind": "tone",
+      "f": 80,
+      "wave": "sine",
+      "sweep": {
+        "to": 45,
+        "time": 0.8
       },
-      "gain": -10
-    },
-    {
-      "id": "hiss",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 300
-        },
-        {
-          "type": "lowpass",
-          "f": 1500
-        }
-      ],
+      "length": 1.3,
       "env": {
-        "attack": 0.02,
-        "hold": 0.1,
-        "decay": 0.7
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.5,
+            -2
+          ],
+          [
+            0.9,
+            -15
+          ],
+          [
+            1.3,
+            -40
+          ]
+        ]
       },
       "gain": -16
     },
     {
-      "id": "air",
+      "id": "grit",
       "kind": "noise",
       "color": "white",
+      "length": 1,
+      "env": {
+        "decay": 0.45
+      },
       "filter": [
         {
-          "type": "highpass",
-          "f": 300
-        },
-        {
-          "type": "lowpass",
-          "f": 6000
+          "type": "bandpass",
+          "f": 1500,
+          "q": 0.5
         }
       ],
-      "env": {
-        "attack": 0.02,
-        "hold": 0.1,
-        "decay": 0.7
-      },
-      "gain": -28
-    },
-    {
-      "id": "crack1",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 2000
-        }
-      ],
-      "env": {
-        "attack": 0.001,
-        "decay": 0.02
-      },
-      "gain": -18,
-      "post": true
-    },
-    {
-      "id": "crack2",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 2000
-        }
-      ],
-      "env": {
-        "attack": 0.001,
-        "decay": 0.02
-      },
-      "gain": -18,
-      "at": 0.2,
-      "post": true
-    },
-    {
-      "id": "crack3",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 2000
-        }
-      ],
-      "env": {
-        "attack": 0.001,
-        "decay": 0.02
-      },
-      "gain": -19,
-      "at": 0.45,
-      "post": true
-    },
-    {
-      "id": "debris",
-      "kind": "particles",
-      "rate": 80,
-      "band": [
-        300,
-        3000
-      ],
-      "grain": 0.004,
-      "env": {
-        "attack": 0.1,
-        "decay": 0.6
-      },
-      "gain": -12,
-      "at": 0.15
+      "gain": -20
     }
   ],
   "finish": {
-    "room": {
-      "decay": 0.25,
-      "wet": 0.1
-    },
     "saturate": 3,
     "limit": {
-      "crest": 7,
-      "release": 0.002
+      "crest": 8,
+      "release": 0.004
     },
     "peak": -0.5
   }

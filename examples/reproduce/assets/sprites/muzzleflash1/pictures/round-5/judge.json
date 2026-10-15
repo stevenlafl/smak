@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "muzzleflash1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 2,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 2,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.02,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.95,
+     "last": 1
+    },
+    "dark": 0.76,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 2,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 2,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.72,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 6.4
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are the same effect: a bright core with five thin additive rays and a soft glow, the classic muzzle-flash starburst. The reproduction's rays and core sit where the original's do."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are 64 x 64. The star fills the frame to about the same extent in both. The reproduction has a faint grey haze disc around the star that the original lacks, but it is subtle and does not change the frame's size or fill."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured mean colour difference is 6.4, under the line of 15. Visually the reproduction's core is a little whiter and less orange than the original's warmer amber, which the measure already allows for."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count matches (2). The original's envelope rises into its last frame (first 0.95, peak at frame 1, last 1), so it grows and brightens. The reproduction peaks at frame 0 and is flat across both frames (first 1, last 1, peak at 0). Its motion is the opposite of the original's, though the difference is small. Neither ends dark, as the original does not."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The type and format match the measurements (additive on both), and the frame size is 64 x 64. The sprite's file name is not in the pictures or the measurements I was given, so I cannot confirm it is the same name, and I cannot score this item higher than that."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "zerogxplode",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.818,
+     "mean": 0.005
+    },
+    "envelope": {
+     "peakAt": 0.36,
+     "first": 0.08,
+     "last": 0.03
+    },
+    "dark": 0.73,
+    "wrap": 0.81,
+    "jitter": 1.25
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.229,
+     "mean": 0.001
+    },
+    "envelope": {
+     "peakAt": 0.43,
+     "first": 0,
+     "last": 0
+    },
+    "dark": 0.74,
+    "wrap": 0.01,
+    "jitter": 1.41
+   }
+  },
+  "meanColourDeltaE": 5.2
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original is a fireball: a white-hot core with a soft fringe, loose sparks flying off it, and a rising smoke-like cloud. The reproduction reads as a solid, bumpy golden lump with no sparks and no soft fringe. It is an explosion-shaped blob, but it is clearly not the same effect."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 64 x 64 frames with the effect centred. The reproduction's blob is compact and fills less of the frame than the original's cloud, which spreads wider and throws sparks to the edges (border max 0.82 against 0.23). Its first frame is empty where the original starts from a small seed (first 0 against 0.08)."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both run from white through yellow-gold to dark orange-brown. The reproduction's late frames lean more tan and olive than the original's red-brown fringe, but the measured mean colour difference is 5.2, well under 15."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both have 15 frames, peak at similar times (0.36 against 0.43), and end dark. The motion differs: the original grows, then fades softly while drifting, whereas the reproduction breaks up into holed fragments from frame 10 on. The reproduction also starts blank (first 0 against 0.08), and the loop measure is 0.01 against 0.81."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are additive, parallel, 64 x 64 and 15 frames, matching the original's type and format. The judge is not shown the name, so the name is not scored here; nothing in the pictures or measures contradicts it."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

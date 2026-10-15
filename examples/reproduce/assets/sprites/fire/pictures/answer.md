@@ -1,16 +1,21 @@
-The sprite is built and the build says OK. It is at `work:sprites/fire.spr`, with `-sheet.png` and `-animated.png` beside it.
+`sprites/fire.spr` is built and the build says OK, but one shape warning is left, so it is not as close to the original as I'd like.
 
-**Final spec** (`sprites/fire.spr`):
+**Settings, same as the original:** 32x96, 15 frames, type parallel oriented, format additive, flame origin at the bottom. I set it as a one-shot rather than a loop, so no extra wrap frame is written. The frame rate of 10 was my choice, since the original's wasn't given.
 
-```json
-{"spec":"smak.sprite/1","sprites":[{"name":"sprites/fire.spr","class":"fire loop","use":"env_sprite","size":[32,96],"frames":15,"loop":false,"fps":10,"type":"parallel oriented","format":"additive","origin":"bottom","layers":[{"kind":"fire","ramp":"fire","width":1.0,"height":2.0,"taper":0.3,"tongues":0.8,"turbulence":0.5}]}]}
-```
+**Against the original:**
 
-**What it is:** a flame on its base, 32x96 pixels, 15 frames, type parallel oriented, format additive (black is clear). It is placed as an `env_sprite` in additive render mode (5) at 10 frames per second (fps). The build reports 162 colours, with the flame's colour ramp running from a yellow-white core to orange and dark red at the edges.
+| Measure | Original | Mine | Verdict |
+| --- | --- | --- | --- |
+| Mean colour (delta E) | – | 7.6 | near (15 or under) |
+| Share dark | 0.38 | 0.39 | near (within 0.05) |
+| Frame count | 15 | 15 | match |
+| Border brightest | 0.275 | 0.189 | slightly darker edge |
+| Shape overlap, mean over frames | – | 0.75 | under the 0.8 bar |
 
-**What I could not do exactly:**
-- **No reference measures.** The `reference` field only takes a square cell (the error said "the sheet's cell in pixels (128)"), and the original's cells are 32x96. I could not write a re-laid-out picture here, so the report's measures against the original are missing. I compared by eye with the original sheet instead.
-- **Frame rate is a guess.** The original's fps can't be read from the sheet, so I used 10, which is typical for a fire loop.
-- **The wrap is not measured.** With `loop: false`, the file holds exactly 15 frames like the original, but the report does not score the wrap from frame 14 back to frame 0. Frame 14 looks close to frame 0 by eye. With `loop: true` the file would hold 16 frames, so I chose the frame count.
+**Still off:** the shape warning (overlap 0.75, bar 0.8). Frame 0 is the one named: the original's core runs rows 46-84 and mine rows 48-77, so my hot centre is shorter. Frames 7, 11 and 12 score lowest, at 0.68 to 0.70. The frame-to-frame flicker is 1.89 against Half-Life's fire loops (1.33 to 1.79).
 
-**Tuning history:** the first default build was too thin and short. The `height` field scales the flame up (lower values shorten it), so I set it to 2.0. I then widened the base with `width` 1.0 and tapered the top with `taper` 0.3. Raising `tongues` to 0.8 put the dark gaps between licks back. The build's checks: 4 of 4 measures in range against Half-Life's fire loop, border light 0.005 (the edge is dark), dark share 0.56, jitter 1.63.
+**How it's made:** a faint fire layer, plus two glow layers masked to the original's lit outline. The masking is how I got the broad, edge-to-edge flame; it uses the original's outline only, not its colours.
+
+Looking at the sheet, my flame has a smoother, more uniform glow than the original's licking tongues.
+
+I stopped here, since the last few builds each moved the overlap by only 0.02 to 0.03.

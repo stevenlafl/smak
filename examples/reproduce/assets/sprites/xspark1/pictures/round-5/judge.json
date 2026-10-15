@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "xspark1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    32
+   ],
+   "frames": 11,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 11,
+    "size": [
+     32,
+     32
+    ],
+    "border": {
+     "max": 0.145,
+     "mean": 0.004
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.94,
+     "last": 1
+    },
+    "dark": 0.46,
+    "wrap": 1.61,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    32
+   ],
+   "frames": 11,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 11,
+    "size": [
+     32,
+     32
+    ],
+    "border": {
+     "max": 0.146,
+     "mean": 0.001
+    },
+    "envelope": {
+     "peakAt": 0.1,
+     "first": 0.95,
+     "last": 0.95
+    },
+    "dark": 0.5,
+    "wrap": 0.89,
+    "jitter": 1.84
+   }
+  },
+  "meanColourDeltaE": 12.5
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are the same effect: a bright glowing blob with a soft, blue-tinted halo that flickers from frame to frame. The reproduction is not a different kind of effect (no smoke, no sparks, no beam)."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 32 x 32 and the border measures match (0.145 vs 0.146), so the frames are the right size. The shape is clearly off: the original is a centred core with a cloudy halo, while the reproduction's white core is larger, more lopsided and blown out, and in frames 0, 1, 7 and 8 it reaches the frame edges where the original does not."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured mean colour difference is 12.5, under the line of 15, but the pictures show a clear difference. The original's bulk is cyan-blue with a white centre and a dark teal halo. The reproduction's bulk is near-white with a thin blue rim, so it reads as washed out. Scored lower than the measure allows, as the rubric permits."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frame count matches (11 against 11) and both flicker in the same way. The envelope does not: the original peaks at frame 1 (peakAt 1) while the reproduction's peak sits at 0.1, and the wrap differs (1.61 against 0.89). Both first and last values are close to 1, so the loop roughly closes in both, but the motion is not clearly the same."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The type (parallel) and format (additive) match, and the frame size matches at 32 x 32. The name and the read-back were not in the measurements I was given, so this score covers only the measured fields."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

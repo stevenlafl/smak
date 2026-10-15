@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "glow01",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.47,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.47,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 1
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both frames show the same effect: a soft radial glow with a bright core and a falloff to the frame edges, which is what the original is."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are 64 x 64, the same size, and the glow fills the frame the same way: the falloff reaches the same radius and the edges are dark in both. The reproduction's core sits a few pixels further down and right than the original's, which a close look shows but which does not change the shape or size."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured mean colour difference is 1 (CIE76), well under 15. Both have the same white core falling to the same dark background, and the measured dark fraction is 0.47 in each."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are single frames, so the frame count matches, and there is no motion to differ. The envelope measures are identical (peak at frame 0, first and last both 1), and both are dark at the edges. No loop or one-shot ending is measured on either side, so nothing here is worse than the original."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are type parallel and format additive, as the measures state. The sprite's file name is not in the measures or the pictures I was given, so the same-name part of this item is not confirmed by what I saw; nothing shown contradicts it."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

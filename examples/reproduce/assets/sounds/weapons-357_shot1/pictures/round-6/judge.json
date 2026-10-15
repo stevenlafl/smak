@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-357_shot1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 1.064,
+   "peak": 0,
+   "rms": -8.5,
+   "crest": 8.5,
+   "dc": -0.0012,
+   "clipped": 265,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.748,
+   "t40": 1.003,
+   "centroid": 937,
+   "rolloff": 1658,
+   "flatness": 0.11,
+   "bands": {
+    "<150": 20.3,
+    "150-600": 27.5,
+    "600-2k": 43.9,
+    "2k-5k": 6.7,
+    ">5k": 1.6
+   },
+   "onsets": 3
+  },
+  "reproduction": {
+   "length": 1.059,
+   "peak": -0.5,
+   "rms": -11.6,
+   "crest": 11.1,
+   "dc": 0.003,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0,
+   "peakAt": 0.005,
+   "t20": 0.693,
+   "t40": 0.893,
+   "centroid": 883,
+   "rolloff": 1744,
+   "flatness": 0.014,
+   "bands": {
+    "<150": 21.4,
+    "150-600": 26.3,
+    "600-2k": 42.1,
+    "2k-5k": 10,
+    ">5k": 0.2
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "gunshot",
+   "t20Range": [
+    0.458,
+    1.013
+   ],
+   "t20": 0.693,
+   "inRange": true
+  },
+  "lengthOff": 0.005,
+  "centroidOff": 0.058,
+  "bandsOffMost": 3.3,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 16,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture and measured features only; I cannot listen. Both files are one broadband burst with a near-instant attack, about 0.45 s of dense energy, then a decay with a long quiet tail. The envelope class is gunshot, and the spectrum (centroid 883 vs 937, energy mostly 150 Hz to 2 kHz) is the same kind of shot. The original's layered crack is missing in the reproduction, but that belongs to S4."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 1.059 s against 1.064 s, within 25%. T20 (time to fall 20 dB) is 0.693 s, inside the gunshot range of 0.458 to 1.013 s. The attack is 0 s against 0.005 s, and both are instantaneous. The decay is within the class range."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 883 against 937, about 6% off, inside 20%. Band shares differ by at most 3.3 points: under 150 Hz 21.4 vs 20.3, 150 to 600 Hz 26.3 vs 27.5, 600 Hz to 2 kHz 42.1 vs 43.9, 2 to 5 kHz 10.0 vs 6.7, above 5 kHz 0.2 vs 1.6. All are within 10 points."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only; I cannot listen. The original has 3 onsets (the spikes across the first ~0.1 s of its waveform, plus a dark low-band gap at the very start of its spectrogram), and the reproduction has 0, so the hits are missing. Flatness is 0.014 against 0.11, so by measure the reproduction is far more tonal, although its waveform looks noisy. Decay and any pitch movement look similar in both spectrograms. Half the item is clearly off."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono, 16-bit PCM at 22050 Hz, which the engine plays. Clipped samples are 0 (the original has 265). DC is 0.003, peak is -0.5 dBFS, lead and tail are 0 and 0.01 s, and there are no engine faults. The name matches (sameName true). A one-shot needs no loop cue."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

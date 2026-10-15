@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "player-pl_step1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 0.266,
+   "peak": -0.1,
+   "rms": -21.1,
+   "crest": 21,
+   "dc": -0.0043,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.005,
+   "t20": 0.09,
+   "t40": 0.264,
+   "centroid": 853,
+   "rolloff": 2326,
+   "flatness": 0.27,
+   "bands": {
+    "<150": 26.8,
+    "150-600": 48.3,
+    "600-2k": 8.5,
+    "2k-5k": 15.1,
+    ">5k": 1.4
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.27,
+   "peak": -0.6,
+   "rms": -16.6,
+   "crest": 16,
+   "dc": -0.0001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0,
+   "peakAt": 0,
+   "t20": 0.11,
+   "t40": 0.205,
+   "centroid": 872,
+   "rolloff": 2067,
+   "flatness": 0.304,
+   "bands": {
+    "<150": 21.8,
+    "150-600": 44.7,
+    "600-2k": 18.3,
+    "2k-5k": 14.5,
+    ">5k": 0.7
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "step concrete",
+   "t20Range": [
+    0.04,
+    0.18
+   ],
+   "t20": 0.11,
+   "inRange": true
+  },
+  "lengthOff": 0.015,
+  "centroidOff": 0.022,
+  "bandsOffMost": 9.8,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture and features only; I cannot listen. Both waveforms open with one short, sharp transient that decays within about 0.1 s, and both spectrograms show the same brief broadband burst fading into low-mid energy. That reads as the same kind of event, a footstep-type impact on a hard surface."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 0.27 s against the original's 0.266 s (lengthOff 0.015, well inside 25%). Decay t20 is 0.11 s against 0.09 s, inside the step concrete class range of 0.04 to 0.18 s (inRange true). Attack is 0 in both."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 872 Hz against 853 Hz (centroidOff 0.022, inside 20%). Band shares differ by at most 9.8 points (bandsOffMost 9.8, inside 10): <150 is 21.8 against 26.8, 150-600 is 44.7 against 48.3, 600-2k is 18.3 against 8.5, 2k-5k is 14.5 against 15.1, >5k is 0.7 against 1.4. The 600-2k gap is close to the limit, so it is noted, but it passes."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only; I cannot listen. Measured onsets are 0 in both and flatness is close (0.27 against 0.304), so the measures do not show a fault. The picture does show a difference: the original starts with a crisp single click, while the reproduction's opening is a denser, smeared burst lasting about 0.05 s with extra noise after it. That is visibly different, though not large, so it scores 1 rather than 2."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file is mono, 8-bit PCM at 11025 Hz, which the engine plays. Peak is -0.6 dBFS with no clipping (clipped 0). DC is -0.0001, negligible. It is not a loop, so no loop cue is needed. The name matches (sameName true)."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

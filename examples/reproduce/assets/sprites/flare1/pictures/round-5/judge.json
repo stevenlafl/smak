@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "flare1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.39,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.39,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 7.1
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are a soft radial glow with a bright core and faint streaks, the same effect. Nothing in the reproduction is a different kind of effect."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are 64 x 64 with one frame, and the glow fills the frame the same way: a bright centre fading out to the edges, with a similar radius. The measured border is 0 in both."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured mean colour difference (7.1) passes the line of 15. Side by side, though, the reproduction's halo is a more saturated pink-magenta, while the original's is a greyer white-pink. The core is also more pink in the reproduction. That visible cast is clearly off, so this scores 1."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Frame count is 1 in both, so it matches. The one-frame glow is static in both. Measured darkness is 0.39 in both, so the fade and end state agree."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Type and format match in the measures (both additive, both 64 x 64, both 1 frame). The sprite name and the read-back of the file are not in the inputs I was given, so I cannot confirm them. This is not a visible fault, but a must-have item I could not verify, so it scores 1 rather than 2."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

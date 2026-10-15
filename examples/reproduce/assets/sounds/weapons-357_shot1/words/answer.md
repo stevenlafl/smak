@@ -1,15 +1,9 @@
-The sound is built and the build says OK: `work:sound/weapons/357_shot1.wav`, 22050 Hz, 8-bit mono, 1.08 s long (the 1.06 s target, 2% over), peak -0.6 dBFS.
+I built `weapons/357_shot1.wav` to the original's format: 22,050 Hz, 8-bit, mono, 1.057 s, played once. The build says OK and every check passed. Against the game's gunshot sounds, 21 of 22 features are in range. I haven't heard it, and I haven't tried it in the game.
 
-I built it from layers, so it has no recorded source. The layers are:
-- **Click:** a 2 kHz high-passed noise crack at t=0 that is added after the saturation, so it stays a sharp onset.
-- **Blast:** broadband noise from 4 ms, with a spectrum that darkens over time. Its level holds from 0.004 s to 0.4 s, then falls to -50 dB by the end.
-- **Boom:** a sine that sweeps from 110 Hz down to 45 Hz for the low punch.
-- **Rumble:** brown noise, low-passed at 500 Hz, that swells around 0.35 s and fades out by the end.
-- **Finish:** a 5x saturation for the clipped wall, a limiter at a 7 dB crest, and a short room tail (0.08 s).
+- **One feature still off:** the 150–600 Hz band holds 54.6% of the power, just over the range of 16 to 47.9%. I stopped there rather than keep tuning.
+- **Onset:** a 3 ms high-passed click, added after the saturation, then the main blast at 8 ms. Measured attack is 10 ms. The report counted 0 onsets, so the double transient may not show as two hits. I didn't check it on the drawn waveform.
+- **Body:** one broadband noise layer, saturated hard so it is gritty and clipped, with no tone or pitch. It stays at full level to about 0.44 s, then decays to quiet by about 0.75 s and nearly silent at 1.0 s.
+- **Darkening tail:** the spectrum moves over time, so the highs die first and the tail is low rumble. The measured centroid is 558 Hz, inside the game's range of 421 to 1258 Hz.
+- **Decay timing:** T20 is 0.50 s and T40 is 0.75 s, so it reaches -40 dB right around the 0.75 s mark in your description.
 
-The report puts all 22 of its measured features in the gunshot range. Its T20 (time to fall 20 dB) is 0.98 s, its centroid is 942 Hz, and its 600 Hz to 2 kHz band is 25%.
-
-Things to know:
-- **No game reference.** No game folder was given to the server, so the sound was not measured against the original `357_shot1.wav`. The check was only against the class ranges and your description. For a true side-by-side, give the server the game folder and I'll rebuild against the real file.
-- **Not heard.** The report cannot say how it sounds or how loud it plays in the game. Listen to it in the game before judging it.
-- **Choices I made:** the rumble's exact envelope, the blast's spectrum curve, and the room settings were my own picks from your description, so they are the first things to adjust if it sounds off.
+I made it from layers alone, with no generated recording. The server offers one for gunshots, and a take might have more grain. The spec is the last `build` call in this conversation. It is not saved to a file, and the audio is at `work:sound/weapons/357_shot1.wav`.

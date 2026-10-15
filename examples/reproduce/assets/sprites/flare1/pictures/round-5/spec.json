@@ -1,0 +1,51 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/flare1.spr",
+      "class": "flare",
+      "use": "env_sprite",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 1,
+      "type": "parallel",
+      "format": "additive",
+      "origin": "centre",
+      "reference": "pictures/frames.png",
+      "finish": "edge",
+      "layers": [
+        {
+          "kind": "glow",
+          "radius": 1,
+          "core": 0.5,
+          "colour": [
+            1,
+            0.7,
+            0.9
+          ],
+          "gain": 1
+        },
+        {
+          "kind": "flare",
+          "core": 0.12,
+          "colour": [
+            1,
+            0.95,
+            1
+          ],
+          "gain": 0.7,
+          "streaks": [],
+          "rays": {
+            "count": 48,
+            "length": 0.9,
+            "jitter": 0.5,
+            "width": 0.012,
+            "gain": 0.35
+          }
+        }
+      ]
+    }
+  ]
+}

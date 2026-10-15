@@ -1,0 +1,111 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/sbarrel1.wav",
+  "class": "gunshot",
+  "seed": 1,
+  "length": 1.04,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.012
+      },
+      "gain": -10
+    },
+    {
+      "id": "blast",
+      "kind": "noise",
+      "shape": [
+        [
+          60,
+          -2
+        ],
+        [
+          150,
+          -3
+        ],
+        [
+          400,
+          -8
+        ],
+        [
+          1200,
+          -13
+        ],
+        [
+          4000,
+          -25
+        ],
+        [
+          11000,
+          -42
+        ]
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -1
+          ],
+          [
+            0.03,
+            0
+          ],
+          [
+            0.25,
+            -6
+          ],
+          [
+            0.45,
+            -18
+          ],
+          [
+            0.7,
+            -30
+          ],
+          [
+            1.04,
+            -45
+          ]
+        ]
+      }
+    },
+    {
+      "id": "body",
+      "kind": "tone",
+      "f": 100,
+      "wave": "sine",
+      "sweep": {
+        "to": 45,
+        "time": 0.2
+      },
+      "env": {
+        "attack": 0.002,
+        "decay": 0.2
+      },
+      "gain": -2
+    }
+  ],
+  "finish": {
+    "room": {
+      "decay": 0.1,
+      "wet": 0.05
+    },
+    "saturate": 1,
+    "limit": {
+      "crest": 11,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

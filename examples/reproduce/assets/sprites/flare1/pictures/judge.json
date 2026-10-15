@@ -54,12 +54,12 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.39,
+    "dark": 0.43,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 7.1
+  "meanColourDeltaE": 6.5
  },
  "caps": {
   "R2": 2,
@@ -69,37 +69,37 @@
  },
  "scores": {
   "R1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Both are a soft radial glow with a bright core and faint streaks, the same effect. Nothing in the reproduction is a different kind of effect."
+   "score": 1,
+   "reason": "Both are a flare: a bright white core with a soft halo. The reproduction's halo has sharp starburst spikes that the original's diffuse, grainy haze does not show, so the look is clearly different at the edge of the glow."
   },
   "R2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are 64 x 64 with one frame, and the glow fills the frame the same way: a bright centre fading out to the edges, with a similar radius. The measured border is 0 in both."
+   "reason": "Both are 64 x 64 and the glow fills the frame in the same way, with the core centred and the halo reaching the edges. The reproduction's halo is slightly tighter, which is within what a close look would accept."
   },
   "R3": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The measured mean colour difference (7.1) passes the line of 15. Side by side, though, the reproduction's halo is a more saturated pink-magenta, while the original's is a greyer white-pink. The core is also more pink in the reproduction. That visible cast is clearly off, so this scores 1."
+   "score": 2,
+   "reason": "The measured mean colour difference is 6.5, well under 15. The original's halo has a faint mauve tint that the reproduction's greyer halo lacks, but that is subtle at this size and does not make the colour clearly wrong. The measured dark fraction is 0.39 against 0.43."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Frame count is 1 in both, so it matches. The one-frame glow is static in both. Measured darkness is 0.39 in both, so the fade and end state agree."
+   "reason": "Both have 1 frame, so the frame count matches. Both envelopes are first 1, last 1 with peak at frame 0, and both are one still frame that loops trivially. The original shows no motion to match."
   },
   "R5": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Type and format match in the measures (both additive, both 64 x 64, both 1 frame). The sprite name and the read-back of the file are not in the inputs I was given, so I cannot confirm them. This is not a visible fault, but a must-have item I could not verify, so it scores 1 rather than 2."
+   "score": 2,
+   "reason": "Both are type parallel, format additive and 64 x 64, matching the original. The file name is not in the measures, so it is taken as written; the format and size match."
   }
  },
- "total": 8,
+ "total": 9,
  "of": 10,
  "passes": false
 }

@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "fire",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.275,
+     "mean": 0.028
+    },
+    "envelope": {
+     "peakAt": 0.07,
+     "first": 0.9,
+     "last": 0.84
+    },
+    "dark": 0.42,
+    "wrap": 1.13,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.152,
+     "mean": 0.013
+    },
+    "envelope": {
+     "peakAt": 0.71,
+     "first": 0.93,
+     "last": 0.93
+    },
+    "dark": 0.59,
+    "wrap": 0.73,
+    "jitter": 1.68
+   }
+  },
+  "meanColourDeltaE": 13
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are a flame: a column of licking fire that is brightest at the base and breaks into tongues at the top, with a dark background between flames. Nothing in the reproduction reads as a different effect."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 32 x 96 with 15 frames, but the original's flames fill each cell from the bottom edge up to the top edge. In the reproduction the flames stop about two thirds of the way up, leaving a dark band across the top of every frame. The measures agree: the reproduction is darker (dark 0.59 against 0.42)."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The mean colour difference is 13, inside the 15 line, but the picture is visibly off. The original is orange-red overall, while the reproduction's cores are yellow-white, so its flames read as hotter and yellower. Colour is shifted, not just smoothed."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count matches (15). The envelope does not: the original's brightness peaks early (peakAt 0.07) and eases down to last 0.84, while the reproduction peaks at 0.71 with first and last both 0.93. The loop seam also differs (wrap 1.13 against 0.73). Both flicker, so the kind of motion is roughly right, but the timing of the brightness does not match."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type (parallel oriented) and format (additive) match, and the size is 32 x 96 in both. The name is not in the pictures or the measures, so I could not check it; nothing measured is short of the rubric."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "glow01",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.47,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.6,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 1.1
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both pictures show the same effect, a soft additive radial glow with a bright centre fading to the dark background, and the single-frame marker sits in the same top-left corner in each."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both frames are 64 x 64, but the reproduction's glow looks tighter, with its halo falling off sooner toward the edges. The dark-pixel measure is 0.60 against the original's 0.47, so the glow does not fill the frame as the original's does."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mean colour difference is 1.1 (CIE76 delta E), far inside the limit of 15. The pictures show the same bright-to-dark colour ramp."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count matches (1) and the envelope is identical (peak at frame 0, first and last 1), so there is no motion to contradict. But the final frame's dark measure is 0.60 against the original's 0.47, so the reproduction ends darker than the original, which is a measured mismatch in how the frame ends."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Type (parallel) and format (additive) match and the size is 64 x 64. The name and the read-back-as-written check are not in the measures given, so a 2 cannot be shown; the 1 is held for that gap, not for a fault found in the file."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

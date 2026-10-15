@@ -46,20 +46,20 @@
      64
     ],
     "border": {
-     "max": 0.427,
+     "max": 0.195,
      "mean": 0.001
     },
     "envelope": {
-     "peakAt": 0.57,
-     "first": 0.16,
+     "peakAt": 0.5,
+     "first": 0,
      "last": 0
     },
-    "dark": 0.76,
-    "wrap": 1,
-    "jitter": 1.39
+    "dark": 0.69,
+    "wrap": 0.08,
+    "jitter": 1.29
    }
   },
-  "meanColourDeltaE": 3.3
+  "meanColourDeltaE": 3.6
  },
  "caps": {
   "R2": 2,
@@ -69,37 +69,37 @@
  },
  "scores": {
   "R1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Both are an explosion: a bright fireball that turns into a smoke cloud, with sparks thrown off. The effect reads the same in both sheets."
+   "score": 1,
+   "reason": "Reads as a solid, rocky, golden clump, not an explosion. The original is a fire burst: a white-hot core, flame edges, and flying sparks around it. The reproduction has no flame texture and no sparks, so it is the wrong kind of effect, though a glow-like blob is present."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both are 64x64 and the cloud fills the middle of each frame. The original's cloud is taller and two-lobed, reaching the frame edges (border max 0.818, wrap 0.81) with sparks at the edges. The reproduction is rounder, more compact and centred, and does not reach the edges (border max 0.427, wrap 1). That is clearly off."
+   "reason": "Both are 64x64 frames. The original's burst fills more of the frame in frames 2 to 5 and reaches the edges with sparks (border max 0.818). The reproduction stays a smaller, compact mass well inside the frame (border max 0.195), so it fills the frames less than the original does."
   },
   "R3": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Both run white-hot at the core and fade through gold and orange to dark. The frames' mean colour is close (meanColourDeltaE 3.3, under 15). The reproduction's late frames have a more beige top and brown base than the original's gold, but this does not move the mean past the line."
+   "score": 1,
+   "reason": "The measured mean colour difference is 3.6, which is within 15, but the look is off. The original runs white-hot, then bright yellow, then orange and dark red at the edges. The reproduction goes pale cream, then sandy tan, then dull olive-brown, with no orange or red glow in the later frames."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both have 15 frames and both grow, then fade to dark. The timing is off: the original peaks at frame about 5 (envelope peak 0.36), the reproduction at about 8 (0.57). The original starts dimmer (0.08 vs 0.16). The original's cloud billows upward and drifts, while the reproduction's sparks fall down the frame. Both end dark (last 0.03 vs 0), so the loop and one-shot end are fine."
+   "reason": "Frame count matches (15). The original starts with a small spark in frame 0 and peaks near 0.36 of its envelope, then fades slowly with a dim tail. The reproduction is blank in frame 0 and peaks later, near 0.5, then fades to nothing by frame 13. The loop measure differs sharply (wrap 0.81 against 0.08), so the loop does not close where the original's does."
   },
   "R5": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Type (parallel) and format (additive) match, and the frame count matches. The name and the read-back as written are not among the measurements given, so this cannot be scored 2 on the evidence provided. Scored 1 until the name and read-back are shown."
+   "score": 2,
+   "reason": "The type (parallel) and format (additive) match the original, and both are 15 frames at 64x64. The file name and the read-back were not among the material I was given, so this rests on the measurements and the harness."
   }
  },
- "total": 7,
+ "total": 6,
  "of": 10,
  "passes": false
 }

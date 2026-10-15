@@ -1,16 +1,9 @@
-The sprite is built and the build says OK: `work:sprites/flare1.spr`, with `sprites/flare1-sheet.png` and `sprites/flare1-animated.png` beside it.
+`sprites/flare1.spr` is built and the build says OK. It is 64x64, 1 frame, type parallel, format additive. The report measures it against Half-Life's own flare and puts it in range. I had no reference picture to measure against, so I judged it by eye from your description.
 
-The final spec is one sprite, `sprites/flare1.spr`:
-- **Size and frames:** 64x64, 1 frame, no animation.
-- **Type and format:** parallel (always faces the viewer), additive (black is clear).
-- **Use:** `env_sprite`, so the engine can scale or dim it for any flicker. The build placed it as an env_sprite in render mode 5 (Additive).
-- **Halo:** a soft glow centred on the frame, radius 0.95 of the half-width, fading smoothly to nothing. The corners and outer edge come out pure black (border brightness 0).
-- **Core:** a white centre about 30% of the frame wide, with no hard edge.
-- **Colour:** a ramp from black through dusty violet-grey and rose-mauve to warm white, as you described.
-- **Rays:** 48 faint, fine radial streaks at low gain (0.2), so they add a grainy sunburst texture without a cross.
+- **Core:** a bright white disc, saturated in the middle with no hard edge.
+- **Halo:** it falls off smoothly toward the edges. The colour shifts from warm white to dusty rose-mauve, then dark violet-grey, then black.
+- **Border:** pure black, so no square outline shows.
+- **Rays:** 48 fine radial rays spread evenly around the circle, at low contrast, with no cross or dominant spikes. They are faint in the render, so the sunburst grain may be subtler than the original's.
+- **Use:** placed as an `env_sprite` at render mode 5 (additive). Any flicker has to come from the engine.
 
-Two choices to know about:
-- **Cross artifact removed.** My first version had a strong horizontal and vertical cross, which you said the original does not have. The cause was the flare layer's default streaks. I set `streaks: []` so only the fine rays remain, and the cross is gone.
-- **Core brightened.** I raised the glow gain to 1.4 so the centre reads as a saturated white disc rather than a pink-tinted one.
-
-I had no reference image of the original, only your description, so I could not measure it side by side. The build's comparison against Half-Life's own flare reports 1 of 1 in range, and its colour and shape comparisons are only as good as that description. The thumbnail I could see is 128 pixels, so the rays are checked by eye only at that size. The full-size sheet is `sprites/flare1-sheet.png` if you want to look closer.
+The first build had a cross-shaped streak pattern and light at the border. I removed the streaks and set the halo's darkest colour to pure black. I also widened the edge fade, which brought the border light to 0.

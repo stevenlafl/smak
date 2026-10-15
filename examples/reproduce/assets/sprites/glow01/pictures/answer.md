@@ -1,24 +1,17 @@
-The sprite is built: `work:sprites/glow01.spr`, and the build says OK with no warnings.
+`sprites/glow01.spr` is built and the build says OK, with no warnings left. It is a 64x64, single-frame, parallel, additive sprite: a white glow with a bright core and a soft falloff. I tuned it on the build's own measures against `frames.png`; I did not compare it with the original any other way.
 
-What I made, as a `smak.sprite/1` spec:
-- **Name and use:** `sprites/glow01.spr`, placed as an `env_glow` (render mode 3, Glow).
-- **Class:** `glow`.
-- **Size and frames:** 64x64, one frame, no loop.
-- **Type and format:** `parallel` and `additive`, so black is clear.
-- **Shape:** one glow layer, `radius` 1.0, `core` 0.26, `colour` [1, 1, 1] (white). The core is a bright white centre that falls off smoothly to dark at the frame's edge.
+It is a single `glow` layer, white, with a `power` falloff (power 2.2, core 0.36, reach 1.15), placed as an `env_glow`.
 
-Against the reference, measured by the kit's judge:
+How it measures against the original:
 
-| Measure | Reference | Ours |
+| Measure | Original | Mine |
 | --- | --- | --- |
-| Mean colour (delta E, 15 or under is near) | | 1 |
-| Share that is dark (within 0.05 is near) | 0.47 | 0.46 |
+| Mean colour difference (delta E) | n/a | 1.3 (15 or under counts as near) |
+| Dark share | 0.47 | 0.44 |
 | Border brightness | 0 | 0 |
-| Frames | 1 | 1 |
-| Shape overlap, mean (bar 0.8) | | 0.84 |
+| Frame count | 1 | 1 |
+| Shape overlap, mean (judges stop giving full marks under 0.8) | n/a | 0.81 |
 
-The shape overlap is only just above the 0.8 bar, so it is the figure most likely to slip if the judge sees the two side by side. The colour came out close on the first pass after I changed it from the default warm tan to white.
+The shape overlap is only just over the 0.8 bar. Broken down, it is 0.9 at the faint edge, 0.81 in the body and 0.72 in the core. I stopped there because the build says OK and the shape warning is gone.
 
-Two things to check:
-- I could not read the original's `facts.txt` or the source folder under `Packages/`, because the tools refuse paths outside the models and work folders. I worked from the copy in the work folder, `pictures/frames.png`, which I looked at by eye and measured the build against. If the original differs in a way the reference copy doesn't show, that is the first place to look.
-- The build also wrote `sprites/glow01-sheet.png` and `sprites/glow01-animated.png` beside the sprite in the work folder. I did not open them.
+The build also wrote `-sheet.png` and `-animated.png` beside the sprite in the work folder.

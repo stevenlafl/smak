@@ -46,7 +46,7 @@
      64
     ],
     "border": {
-     "max": 0,
+     "max": 0.023,
      "mean": 0
     },
     "envelope": {
@@ -54,23 +54,52 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.75,
+    "dark": 0.59,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 22
+  "meanColourDeltaE": 0.9
  },
  "caps": {
   "R2": 2,
-  "R3": 1,
+  "R3": 2,
   "R4": 2,
   "R5": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "R3"
- ],
- "total": 0,
- "of": 10
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both frames show the same effect: a bright star-shaped muzzle flash with a hot core and thin rays radiating out. The reproduction's rays are softer and wider, but the effect is the same."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are 64 x 64 and the star fills the frames the same way. Border measures are near zero in both (original max 0.02, reproduction max 0.023), so neither bleeds past the edge. The reproduction's glow is a little broader, but the outline and extent match."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured mean colour difference is 0.9 (CIE76), far inside the line of 15. Visually the original's rays are warmer and more amber, and the reproduction's core is closer to white with a broader bright halo, but the frames' mean colour is the same."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count matches (2 and 2) and neither shows a border or wrap problem. The motion differs: the original's envelope peaks at frame 1 (first 0.95, last 1), building slightly across the frames, while the reproduction peaks at frame 0 (first 1, last 1) and stays at full strength. The 'dark' measure also differs (0.76 against 0.59). The kind of motion is not the same, so this is clearly off, though small."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type and format match (additive in both), and the size (64 x 64) and frame count (2) match. The file name and the read-back of the written file were not among the inputs I was given, so I could not check them and scored on the measured fields only."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
 }

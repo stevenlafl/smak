@@ -1,26 +1,23 @@
-The sound is built and the build says OK with no warnings: `work:sound/doors/doormove1.wav`. It takes the game's name, so it replaces the original when put in the mod's `sound` folder. I can't listen to it, so the judgement of how it sounds is yours.
+`doors/doormove1.wav` builds OK and the picture warning is gone. It's written to `work:sound/doors/doormove1.wav`, and it matches the original's length, rate and bit depth. I haven't listened to it, and I can't check how the game plays it (volume, pitch, the map's room). Listen in the game.
 
-The sound is made from layers, not from a generated take. I generated four door takes, but none came near the original (too short, or the wrong spectrum), so none went into the spec. Those four takes are still in `work:gen/` and are under a non-commercial licence, so don't use them.
+It's 5.04 s, 11025 Hz, 8-bit mono, one-shot. Measured against the original's picture:
 
-The comparison is against the numbers the tool reads off the original's picture (`pictures/sound.png`). I couldn't read the original `.wav` itself, since the file tool doesn't open binary audio.
+| Measure | Original (read off picture) | Mine |
+|---|---|---|
+| Length | 5.04 s | 5.04 s |
+| Centroid (brightness) | 589 Hz | 563 Hz (4% off) |
+| Band power, worst of the five | n/a | 3.4 points off (600–2k Hz) |
+| Crest | about 12.7 dB | 12 dB |
+| Onsets | 7 | 1 |
 
-```
-Measure               Original (picture)   Built
-Length                5.04 s               5.09 s
-Centroid              589 Hz               591 Hz
-Power under 150 Hz    30.1%                24.3%
-Power 600 Hz to 2 kHz 27.6%                28.0%
-T20 (time to -20 dB)  0.348 to 0.58 s      0.419 s
-Crest                 about 12.7 dB        12.9 dB
-Attack (burst onset)  about 4.1 s          4.09 s
-Onsets                about 7              5
-```
+What's in it:
+- A continuous grinding noise, weighted to 150 Hz–2 kHz and falling off above that.
+- A low rumble under it.
+- Four rising sweeps (about 400 to 600 Hz) at 0.1, 1.35, 2.6 and 3.7 s, like the arcs in the original's spectrogram.
+- A thud and short low ring around 4.3 s for the door stopping, then a decay to the end.
 
-The build's sound layers are:
-- A broadband noise body over the whole length, shaped to the original's spectrum, that holds up after the burst.
-- A low sine rumble under it.
-- Three short knocks at 0.6, 1.9 and 2.8 s.
-- A ratchet train at 3.85 to 4.65 s, a ring at 4.2 s and a falling clunk at 4.55 s.
-- Light room, saturation and a limiter set to a 13 dB crest, at 11025 Hz, 8-bit mono.
-
-The main gap is the onset count: 5 built against about 7 read off the picture. The report doesn't flag it, but it is the next thing I'd tune if the ratchet sounds too sparse in the game. The under-150 Hz power is also 6 points heavy, which is within the tolerance of 7.
+Weak spots:
+- The onsets count is 1 against the picture's 7. The original's waveform is lumpier than mine, and I didn't model that.
+- The generic "loop machine" class check scores 10 of 20 and flags it as too bright and too noisy. I treated that as less relevant than the picture comparison, since the class is a loose stand-in for a door and the 5 s length is right for this sound.
+- The sweeps are synthetic, so the character is close but not identical.
+- I used no generated recording, so there's no licence to worry about.

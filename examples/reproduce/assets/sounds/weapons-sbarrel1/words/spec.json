@@ -3,214 +3,257 @@
   "name": "weapons/sbarrel1.wav",
   "class": "gunshot",
   "seed": 7,
-  "length": 1.04,
   "rate": 22050,
   "bits": 8,
+  "length": 1.04,
   "layers": [
     {
-      "id": "boom",
-      "kind": "tone",
-      "f": 170,
-      "wave": "sine",
-      "sweep": {
-        "to": 70,
-        "time": 0.3
-      },
-      "env": {
-        "attack": 0.001,
-        "decay": 0.6
-      },
-      "gain": -10
-    },
-    {
-      "id": "body",
+      "id": "burst",
       "kind": "noise",
       "color": "white",
+      "length": 0.3,
+      "drive": 4,
+      "gain": -10,
       "filter": [
         {
-          "type": "highpass",
-          "f": 120,
-          "q": 0.7
+          "type": "lowpass",
+          "f": 1200
         },
         {
-          "type": "lowpass",
-          "f": 1000,
-          "q": 0.7
+          "type": "highpass",
+          "f": 100
         }
       ],
       "env": {
-        "attack": 0.001,
-        "hold": 0.2,
-        "decay": 0.9
-      },
-      "drive": 4,
-      "gain": -2
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.002,
+            0
+          ],
+          [
+            0.2,
+            -6
+          ],
+          [
+            0.3,
+            -30
+          ]
+        ]
+      }
     },
     {
-      "id": "crack",
+      "id": "blast",
       "kind": "noise",
-      "color": "white",
-      "iterations": 32,
+      "iterations": 16,
+      "gain": 3,
+      "length": 1.04,
       "shape": {
         "keys": [
           {
             "at": 0,
             "curve": [
               [
-                60,
-                -10
+                40,
+                -20
               ],
               [
-                300,
-                -4
-              ],
-              [
-                1200,
-                -2
-              ],
-              [
-                4000,
+                100,
                 -8
               ],
               [
-                9000,
-                -16
+                300,
+                0
               ],
               [
-                11000,
-                -24
+                1000,
+                2
+              ],
+              [
+                4000,
+                -6
+              ],
+              [
+                10000,
+                -14
               ]
             ]
           },
           {
-            "at": 0.3,
+            "at": 0.4,
             "curve": [
               [
-                60,
-                -18
+                40,
+                -12
+              ],
+              [
+                100,
+                -4
+              ],
+              [
+                300,
+                0
+              ],
+              [
+                1000,
+                -10
+              ],
+              [
+                4000,
+                -30
+              ],
+              [
+                10000,
+                -50
+              ]
+            ]
+          },
+          {
+            "at": 1,
+            "curve": [
+              [
+                40,
+                -4
+              ],
+              [
+                100,
+                0
               ],
               [
                 300,
                 -10
               ],
               [
-                1200,
-                -8
+                1000,
+                -36
               ],
               [
                 4000,
-                -18
+                -55
               ],
               [
-                9000,
-                -30
-              ],
-              [
-                11000,
-                -40
+                10000,
+                -60
               ]
             ]
           }
         ]
       },
       "env": {
-        "attack": 0.001,
-        "hold": 0.1,
-        "decay": 0.35
-      },
-      "drive": 8,
-      "gain": -3
+        "points": [
+          [
+            0,
+            -4
+          ],
+          [
+            0.45,
+            -8
+          ],
+          [
+            0.65,
+            -16
+          ],
+          [
+            0.8,
+            -26
+          ],
+          [
+            0.92,
+            -40
+          ],
+          [
+            1.04,
+            -60
+          ]
+        ]
+      }
     },
     {
-      "id": "snap",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 2000,
-          "q": 0.7
-        }
-      ],
+      "id": "thump",
+      "kind": "tone",
+      "f": 110,
+      "wave": "sine",
+      "sweep": {
+        "to": 50,
+        "time": 0.2
+      },
+      "length": 0.6,
       "env": {
-        "attack": 0.0005,
-        "decay": 0.004
+        "attack": 0.001,
+        "decay": 0.3
       },
-      "post": true,
-      "gain": -6
+      "gain": -14
     },
     {
-      "id": "pops",
+      "id": "echo",
       "kind": "particles",
-      "every": 0.09,
-      "jitter": 0.4,
+      "count": 14,
       "band": [
-        300,
+        200,
         3000
       ],
-      "grain": 0.004,
+      "grain": 0.015,
+      "at": 0.08,
+      "length": 0.5,
+      "gain": 0,
       "env": {
         "points": [
           [
             0,
-            -6
+            -10
           ],
           [
-            0.3,
-            -20
-          ],
-          [
-            0.32,
-            -60
+            0.5,
+            -30
           ]
         ]
-      },
-      "gain": -8
+      }
     },
     {
       "id": "rumble",
       "kind": "noise",
       "color": "brown",
+      "length": 1.04,
       "filter": [
         {
           "type": "lowpass",
-          "f": 400,
-          "q": 0.7
+          "f": 220
         }
       ],
       "env": {
         "points": [
           [
             0,
-            -14
+            -26
           ],
           [
-            0.4,
-            -8
+            0.5,
+            -20
           ],
           [
-            0.6,
-            -12
+            0.8,
+            -26
           ],
           [
-            1.04,
-            -70
+            1,
+            -60
           ]
         ]
-      },
-      "gain": -6
+      }
     }
   ],
   "finish": {
-    "saturate": 4,
-    "room": {
-      "decay": 0.1,
-      "wet": 0
-    },
+    "saturate": 2,
     "limit": {
-      "crest": 8,
-      "release": 0.002
+      "crest": 10,
+      "release": 0.15
     },
-    "peak": -0.5
+    "room": {
+      "decay": 0.05,
+      "wet": 0.05
+    }
   }
 }

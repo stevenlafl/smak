@@ -46,20 +46,20 @@
      96
     ],
     "border": {
-     "max": 0.106,
-     "mean": 0.005
+     "max": 0.189,
+     "mean": 0.018
     },
     "envelope": {
-     "peakAt": 0.71,
-     "first": 0.87,
-     "last": 0.87
+     "peakAt": 1,
+     "first": 0.97,
+     "last": 1
     },
-    "dark": 0.56,
-    "wrap": 0.66,
-    "jitter": 1.66
+    "dark": 0.44,
+    "wrap": 0.81,
+    "jitter": 1.87
    }
   },
-  "meanColourDeltaE": 3.7
+  "meanColourDeltaE": 7.6
  },
  "caps": {
   "R2": 2,
@@ -72,34 +72,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are a flame: a rising, tapering fire column in the same orange-to-yellow falloff, filling the 15 frames the same way."
+   "reason": "Both sheets show the same effect: a flame that rises from a bright base and flickers. The reproduction's tongues are as recognisably fire as the original's."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both frames are 32 x 96. The original's flame reaches the frame edges more (border max 0.275 against 0.106, mean 0.028 against 0.005), and it fills the width more fully. In the reproduction, several frames (3 to 6, and 10 to 14) are narrower, thinner wisps that leave much of the frame dark."
+   "reason": "The frame size matches (32x96) and the dark fraction is close (0.44 against 0.42). But the original's flame runs as full columns across most of the width and reaches the top in many frames. The reproduction gathers its brightness into a round glowing ball at the base, with thinner tongues that often stop around mid-frame. The effect does not fill the frame as the original's does."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured mean colour difference is 3.7, well under 15. Both use the same orange and yellow hues with a bright core. The reproduction is somewhat darker overall (dark 0.56 against 0.42), but the colours it does show match the engine-blended original."
+   "reason": "The palette matches: orange flame with yellow at the base and dark red at the edges. The measured mean colour difference is 7.6, within 15. The reproduction's base core looks whiter and more concentrated than the original's, but that is inside the measured bound."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Frame count matches (15 of 15), and the loop closes: first and last envelope are 0.87 and 0.87 against the original's 0.9 and 0.84. The envelope peak is clearly off, though: the original is brightest at its start (peakAt 0.07), while the reproduction peaks late (0.71), and its middle frames are dim while the original's stay full. The kind of motion therefore differs in the middle of the loop."
+   "reason": "The frame count matches (15) and the jitter (1.87 against 1.51) is within 25%. The wrap seam (0.81 against 1.13) is no worse, so the loop closes. But the brightness envelope differs: the original peaks at the first frames (0.07) and ends at 0.84, while the reproduction peaks at its last frame (1.0). Over the run the two do not brighten and dim in the same way."
   },
   "R5": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Type (parallel oriented) and format (additive) match the original's in the measurements, and nothing in the pictures suggests a fault in the read-back. The name is not among the measures or the pictures, so it is taken as not contrary rather than confirmed."
+   "score": 1,
+   "reason": "The type and format match (additive, parallel oriented) and the size and frame count match. The sheets and measurements do not show the file name or a read-back of the written file, so the same-name and read-back parts of the item cannot be confirmed from what I was given. Scored as unverified rather than wrong."
   }
  },
- "total": 8,
+ "total": 7,
  "of": 10,
  "passes": false
 }

@@ -1,16 +1,15 @@
-The sound is built and the build says OK, with no warnings. It is at `work:sound/weapons/357_shot1.wav`, ready to go in `<mod>/sound/weapons/` so the game loads it in place of the original.
+`weapons/357_shot1.wav` is built and the build says OK with no warnings. It matches the original on length and overall tone. Loudness is the one remaining gap, and I haven't heard it. The file is at `work:sound/weapons/357_shot1.wav`, and the game plays it in the original's place once it's in `<mod>/sound`.
 
-I could not listen to it, and I could not read the original's `.wav` directly, so the comparison is against the original's picture (the work folder's `pictures/sound.png`) and the numbers read off it. The last build against that picture:
+It is made from layers alone: a shaped noise blast, a falling 110 to 55 Hz boom and a short mid crack, saturated and written as 8-bit, 22050 Hz mono. I didn't try a generated take.
 
-| Measure | Made sound | Original (from picture) | Result |
-| --- | --- | --- | --- |
-| Length | 1.059 s | 1.06 s | 0% off |
-| Centroid (the spectral centre, where the energy sits) | 883 Hz | about 921 Hz | 4% off |
-| Worst band (2k to 5k) | 10% | about 6% | 3.9 points off (aim within 7) |
-| T20 (time to fall 20 dB) | 0.693 s | 0.458 to 1.013 s | in range |
-| Crest (peak over average level) | 11.1 dB | about 10 dB | within 3 dB |
-| Against the game's own gunshots | 22 of 22 | | every feature in range |
+| | Original | Mine |
+| --- | --- | --- |
+| Length | 1.06 s | 1.063 s |
+| Centroid (the spectrum's centre, in Hz) | 921 Hz | 1035 Hz (12% off, inside the 15% limit) |
+| Time to fall 20 dB (T20) | 0.458 to 1.013 s (the class range) | 0.654 s |
+| Crest (peak over RMS) | about 10 dB | 11.3 dB |
+| Power, over 600 Hz | not read | 57.7% |
 
-How it is made: a sharp high-passed crack, a pink-noise blast with a fast fall (0.22 s), a short falling sine thump (150 Hz sweeping to 55 Hz), and a longer low-passed tail, all with a saturation and a limiter for the crest. The seed is 1, so the same spec gives the same bytes.
-
-I did not use a generated recording as a base layer. That would probably add more grain and real room character than layers can, so it is the next thing to try if the side-by-side listen finds it too synthetic. The volume and pitch in the game, and the map's room, can only be judged by listening in the game.
+- **Where it's weakest:** the build puts the low-end power, under 150 Hz, 6.4 points off the original, the worst of the bands.
+- **Against the game's gunshots:** it is in range on 21 of 22 measures. The 22nd is RMS (average level), at -11.9 dBFS against a floor of -11.7, so it is slightly quieter than the game's own shots.
+- **What I can't check:** how it sounds, and how the game plays it (volume, pitch, the map's room). That needs a listen in the game.

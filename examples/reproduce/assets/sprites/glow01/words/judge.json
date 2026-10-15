@@ -54,12 +54,12 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.6,
+    "dark": 0.56,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 1.1
+  "meanColourDeltaE": 1.6
  },
  "caps": {
   "R2": 2,
@@ -72,34 +72,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both pictures show the same effect, a soft additive radial glow with a bright centre fading to the dark background, and the single-frame marker sits in the same top-left corner in each."
+   "reason": "Both pictures show the same effect: a soft radial glow with a bright core fading to the frame's dark background."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both frames are 64 x 64, but the reproduction's glow looks tighter, with its halo falling off sooner toward the edges. The dark-pixel measure is 0.60 against the original's 0.47, so the glow does not fill the frame as the original's does."
+   "reason": "Frames are 64 x 64 in both, but the reproduction's halo falls off sooner, so it fills less of the frame than the original's. The measured dark share is 0.56 against 0.47, a visible gap in the outer ring. Clearly off, though not by much."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Mean colour difference is 1.1 (CIE76 delta E), far inside the limit of 15. The pictures show the same bright-to-dark colour ramp."
+   "reason": "Measured mean colour difference is 1.6 (CIE76 delta E, smoothed), far inside the 15 line. The core and the falloff both read as the same white-to-grey ramp."
   },
   "R4": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Frame count matches (1) and the envelope is identical (peak at frame 0, first and last 1), so there is no motion to contradict. But the final frame's dark measure is 0.60 against the original's 0.47, so the reproduction ends darker than the original, which is a measured mismatch in how the frame ends."
+   "score": 2,
+   "reason": "Both are a single frame, so the frame count matches. Envelope is identical (peak at 0, first and last 1). The effect is a static glow with no loop or one-shot ending to compare, so nothing is off."
   },
   "R5": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Type (parallel) and format (additive) match and the size is 64 x 64. The name and the read-back-as-written check are not in the measures given, so a 2 cannot be shown; the 1 is held for that gap, not for a fault found in the file."
+   "score": 2,
+   "reason": "Both are type parallel, format additive, 64 x 64, as the original. The file name is not in the measures, so it could not be checked here; the type and format match."
   }
  },
- "total": 7,
+ "total": 9,
  "of": 10,
  "passes": false
 }

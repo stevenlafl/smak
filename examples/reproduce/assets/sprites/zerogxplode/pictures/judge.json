@@ -46,20 +46,20 @@
      64
     ],
     "border": {
-     "max": 0.229,
-     "mean": 0.001
+     "max": 0.538,
+     "mean": 0.003
     },
     "envelope": {
-     "peakAt": 0.43,
-     "first": 0,
-     "last": 0
+     "peakAt": 0.29,
+     "first": 0.09,
+     "last": 0.05
     },
-    "dark": 0.74,
-    "wrap": 0.01,
-    "jitter": 1.41
+    "dark": 0.75,
+    "wrap": 0.73,
+    "jitter": 1.65
    }
   },
-  "meanColourDeltaE": 5.2
+  "meanColourDeltaE": 14.8
  },
  "caps": {
   "R2": 2,
@@ -69,34 +69,34 @@
  },
  "scores": {
   "R1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The original is a fireball: a white-hot core with a soft fringe, loose sparks flying off it, and a rising smoke-like cloud. The reproduction reads as a solid, bumpy golden lump with no sparks and no soft fringe. It is an explosion-shaped blob, but it is clearly not the same effect."
+   "score": 2,
+   "reason": "Both are an explosion: a hot core that swells, throws sparks, then cools to a dim ember. The reproduction has the same bloom, sparks and fade in the same order."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both are 64 x 64 frames with the effect centred. The reproduction's blob is compact and fills less of the frame than the original's cloud, which spreads wider and throws sparks to the edges (border max 0.82 against 0.23). Its first frame is empty where the original starts from a small seed (first 0 against 0.08)."
+   "reason": "Frames are 64x64 in both, but the original's peak frames (2 and 3) run out to the frame edges and the reproduction's stop short. The measured border maximum is 0.82 for the original against 0.54 for the reproduction. The mean is close (0.005 against 0.003)."
   },
   "R3": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Both run from white through yellow-gold to dark orange-brown. The reproduction's late frames lean more tan and olive than the original's red-brown fringe, but the measured mean colour difference is 5.2, well under 15."
+   "score": 1,
+   "reason": "The measured mean colour difference is 14.8, just under 15, so it passes on the number only. By eye, the reproduction's mid and late frames (7 to 14) are a tan to brown with less saturation, while the original's are a rich yellow-orange with dark red edges. The white-hot early frames match."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both have 15 frames, peak at similar times (0.36 against 0.43), and end dark. The motion differs: the original grows, then fades softly while drifting, whereas the reproduction breaks up into holed fragments from frame 10 on. The reproduction also starts blank (first 0 against 0.08), and the loop measure is 0.01 against 0.81."
+   "reason": "Frame count matches (15 in both) and the motion is the same kind: grow, peak, fade, ending dark. But the envelope peaks at 0.29 in the reproduction against 0.36 in the original, about a frame early. Frame-to-frame jitter is 1.65 against 1.25, so the reproduction changes more abruptly and looks more speckled between frames."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are additive, parallel, 64 x 64 and 15 frames, matching the original's type and format. The judge is not shown the name, so the name is not scored here; nothing in the pictures or measures contradicts it."
+   "reason": "Type (parallel) and format (additive) match the original's. The shown material does not include the file name, so the name is not verified here; the score rests on the matching type and format and on the reproduction reading back as written."
   }
  },
  "total": 7,

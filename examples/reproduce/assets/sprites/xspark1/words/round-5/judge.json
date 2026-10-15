@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "xspark1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    32
+   ],
+   "frames": 11,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 11,
+    "size": [
+     32,
+     32
+    ],
+    "border": {
+     "max": 0.145,
+     "mean": 0.004
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.94,
+     "last": 1
+    },
+    "dark": 0.46,
+    "wrap": 1.61,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    32
+   ],
+   "frames": 11,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 11,
+    "size": [
+     32,
+     32
+    ],
+    "border": {
+     "max": 0.032,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0.3,
+     "first": 0.92,
+     "last": 0.92
+    },
+    "dark": 0.52,
+    "wrap": 1.16,
+    "jitter": 1.92
+   }
+  },
+  "meanColourDeltaE": 8
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Both are a cyan-white glow with a bright core, but the original is a cluster of lobes that reads as a spark burst, while the reproduction is one soft, smooth blob with only faint side bumps in a few frames. The effect is recognisable as a glow in both, but it is not the same kind of spark."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 32 x 32. The original's effect spreads out to the frame edges (border max 0.145), with lobes reaching the corners of frames 0, 1, 2, 8 and 10. The reproduction keeps a clear dark margin (border max 0.032) and a smaller, rounder core, so it does not fill the frames as the original does."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both show the same cyan-to-white core with blue halo and a similar dark background share (0.46 original, 0.52 reproduction). The mean colour difference is 8, well under the line of 15, and the frames look the same colour when viewed side by side."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both have 11 frames, and both loops close (reproduction first and last 0.92; original 0.94 and 1). But the envelope peaks at different frames (original at frame 1, reproduction at 0.3). The original's lobes flicker and shift from frame to frame in a way the reproduction does not copy, which makes the motion look different even though the jitter numbers are near (1.51 against 1.92)."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The reproduction is additive, the same type and format as the original, is 32 x 32 with the same name, and reads back as written."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

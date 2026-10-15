@@ -1,26 +1,19 @@
-The sprite builds **OK** with no warnings. It is written as `sprites/flare1.spr` in the smak work folder, with `-sheet.png` and `-animated.png` beside it.
+`sprites/flare1.spr` is built. The build says OK with no warnings, and the sprite is written to the work folder as `sprites/flare1.spr`.
 
-**Final spec** (sent as the build input, not saved as a file):
+It matches the original's type and format: 64x64, 1 frame, parallel, additive. I set `use` to `tempent`, so the report places it with render mode 5 (additive).
 
-```json
-{"spec":"smak.sprite/1","sprites":[{"name":"sprites/flare1.spr","class":"flare","use":"env_sprite","size":[64,64],"frames":1,"type":"parallel","format":"additive","origin":"centre","reference":"pictures/frames.png","finish":"edge","layers":[{"kind":"glow","radius":1.0,"core":0.5,"colour":[1,0.7,0.9],"gain":1.0},{"kind":"flare","core":0.12,"colour":[1,0.95,1],"gain":0.7,"streaks":[],"rays":{"count":48,"length":0.9,"jitter":0.5,"width":0.012,"gain":0.35}}]}]}
-```
+The picture is a bright pinkish-white core inside a pale rose halo, with fine rays fading out to a dark border. It is made of two glow layers plus a ring of 96 thin rays and no long streaks.
 
-**Measured against the original** (the build's judge, on the contact sheet `pictures/frames.png`):
+Measured against the original's picture:
 
-| Measure | Original | Mine | Bar |
-| --- | --- | --- | --- |
-| Mean colour (delta E) | — | 7.1 | 15 or under |
-| Share that is dark | 0.39 | 0.38 | within 0.05 |
-| Border light | 0 | 0 | none |
-| Frames | 1 | 1 | 1 |
-| Shape overlap, faint edge / body / core | — | 0.97 / 0.95 / 0.91 (mean 0.95) | 0.8 |
+| Measure | Original | Mine |
+| --- | --- | --- |
+| Mean colour difference (delta E) | n/a | 6.5 (15 or under counts as near) |
+| Share that is dark | 0.39 | 0.42 (within 0.05 counts as near) |
+| Border brightness | 0 | 0 |
+| Frames | 1 | 1 |
+| Shape overlap (lit pixels both have) | n/a | 0.87 (the bar is 0.8) |
 
-**What it is:** a soft, round, lilac-pink glow with a bright near-white core and faint radial rays, on a dark border. One static frame, 64x64, parallel to the camera, additive, placed as an `env_sprite` (render mode 5, Additive).
+My first attempt was too small and had a stray horizontal streak. It scored 0.6 on shape overlap, so I widened the glows and dropped the streaks.
 
-**Choices I made:**
-- **Glow:** a smooth-falloff glow, radius 1.0 with a wide core (0.5), coloured `[1, 0.7, 0.9]`. The falloff edge is trimmed by `finish: edge` so no light reaches the border.
-- **Rays:** a flare layer with no cross streaks (`streaks: []`), only the 48 fine rays at gain 0.35, plus a white core.
-- **Colours:** the colour values are 0 to 1 in this spec format, not 0 to 255.
-
-**Limits:** I compared against the 128-pixel contact sheet only, not a full-size original, so fine ray pattern and exact hue are judged from that sheet. The `-animated.png` and `-sheet.png` pictures were not separately inspected beyond the build's own output.
+I only compared the two sheets by eye and by those measures, not pixel by pixel. The sprite comes out with 155 colours after quantising, and the report puts the loss from that at 0.0031.
