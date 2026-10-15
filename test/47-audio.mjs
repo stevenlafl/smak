@@ -297,3 +297,12 @@ test("a hit that swells to its peak is warned of as played backwards, and one th
   const fine = buildSoundSpec({ spec: "smak.sound/1", name: "x/ok.wav", class: "step metal", layers: [{ kind: "modes", f: 300, decay: 1.3 }] });
   sure(!fine.report.warnings.some((w) => /played backwards|padded room/.test(w)), fine.report.warnings.join(" | "));
 });
+
+test("a sound held to the band shares a description gives: off by more than 7 points is warned of", () => {
+  const spec = (bands) => ({ spec: "smak.sound/1", name: "x/low.wav", bands, layers: [{ kind: "tone", f: 100, env: { decay: 0.3 } }] });
+  const near = buildSoundSpec(spec({ "<150": 95 }));
+  sure(near.report.facts.some((f) => /its bands against the shares asked: <150 9\d(\.\d)?% for 95%/.test(f)) && !near.report.warnings.some((w) => /bands asked/.test(w)), [...near.report.facts, ...near.report.warnings].join(" | "));
+  const far = buildSoundSpec(spec({ "<150": 10, "600-2k": 60 }));
+  sure(far.report.warnings.some((w) => /further from the bands asked than a copy should be: <150 \+\d+/.test(w)), far.report.warnings.join(" | "));
+  sure(validateSoundSpec(spec({ low: 5 })).errors.some((e) => /bands: the share of its power/.test(e)), "a band by another name refused");
+});

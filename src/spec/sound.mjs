@@ -16,7 +16,7 @@ import { pictureMeasures } from "../audio/picture.mjs";
 import { unpicture } from "../image.mjs";
 
 export const SOUND_SPEC = "smak.sound/1";
-const TOP = ["spec", "name", "class", "rate", "bits", "seed", "length", "pitch", "layers", "finish", "loop", "variants", "reference", "picture", "sounds", "note"];
+const TOP = ["spec", "name", "class", "rate", "bits", "seed", "length", "pitch", "layers", "finish", "loop", "variants", "reference", "picture", "bands", "sounds", "note"];
 const LAYER = ["id", "kind", "file", "from", "at", "length", "gain", "env", "filter", "color", "shape", "iterations", "wave", "f", "sweep", "ratio", "index", "indexDecay", "ratios", "modes", "gains", "decay", "damping", "detune", "count", "rate", "every", "jitter", "band", "grain", "drive", "post", "note"];
 const KINDS = ["noise", "tone", "fm", "modes", "particles", "sample"];
 /** Licences a take's sidecar may name that do not allow selling what is made with it: told so in the report's facts. */
@@ -33,6 +33,8 @@ const STRUCK = new Set(["metal hit", "flesh hit", "gunshot", "click", "pump", "s
 /** An attack slower than this, in a struck class, is warned of: Steven heard a .357 that took 0.14 s as played backwards. */
 const SWELL = 0.05;
 const PICTURE_BANDS = 7;
+/** The bands a sound's power is told in (features' bands), as a spec's `bands` names them. */
+const BAND_NAMES = ["<150", "150-600", "600-2k", "2k-5k", ">5k"];
 /** The longest a sound's path may be from the mod's folder: the engine's 64 with its zero, `sound/` added. */
 const LONGEST_NAME = 63 - "sound/".length;
 
@@ -98,6 +100,8 @@ export function validateSoundSpec(spec) {
     const limit = sound.finish?.limit;
     if (limit !== undefined && !(isNumber(limit?.crest) && limit.crest >= 1 && limit.crest <= 40 && (limit.release === undefined || (isNumber(limit.release) && limit.release > 0))))
       errors.push(`${where("finish.limit")}: { crest: the peak over the RMS it is squashed to, in dB (Valve's weapons 6 to 10), release: seconds (0.05) }`);
+    if (sound.bands !== undefined && !(sound.bands && typeof sound.bands === "object" && Object.entries(sound.bands).every(([k, v]) => BAND_NAMES.includes(k) && isNumber(v) && v >= 0 && v <= 100)))
+      errors.push(`${where("bands")}: the share of its power in each band, in %, as a description of the sound gives it: { ${BAND_NAMES.map((k) => `"${k}": n`).join(", ")} } (any of them)`);
     if (sound.picture !== undefined && typeof sound.picture !== "string" && typeof sound.picture?.file !== "string")
       errors.push(`${where("picture")}: the sound's picture (as soundPicture draws it) to measure against: a file, or { file, length, rate, row }`);
     for (const [k, variant] of (sound.variants ?? []).entries())
@@ -266,6 +270,13 @@ export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (
         const scored = scoreAgainst(f, sound.class);
         entry.score = `${scored.score} of ${scored.of}`;
         report.facts.push(`${take.name}: against the game's ${sound.class} sounds, ${scored.score} of ${scored.of}${scored.lines.length ? `; off: ${scored.lines.join("; ")}` : ": every feature in range"}`);
+      }
+      // the shares a description gives (a words leg has no picture): each band held to them as to a picture's
+      if (sound.bands && take.name === sound.name) {
+        const off = Object.entries(sound.bands).map(([k, want]) => [k, Math.round((f.bands[k] - want) * 10) / 10]);
+        report.facts.push(`${take.name}: its bands against the shares asked: ${off.map(([k, d]) => `${k} ${f.bands[k]}% for ${sound.bands[k]}% (${d > 0 ? "+" : ""}${d})`).join(", ")}`);
+        const far = off.filter(([, d]) => Math.abs(d) > PICTURE_BANDS);
+        if (far.length) warnings.push(`${take.name}: further from the bands asked than a copy should be: ${far.map(([k, d]) => `${k} ${d > 0 ? "+" : ""}${d} points`).join(", ")} (aim within ${PICTURE_BANDS}). A filter (lowpass, highpass, a shelf) or a layer's gain moves them; build again`);
       }
       if (seen && take.name === sound.name) {
         const p = (entry.picture = againstPicture(f, seen, sound));

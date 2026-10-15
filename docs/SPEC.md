@@ -483,6 +483,7 @@ told), checked as the engine needs them, and measured against the game's own sou
 | `loop` | `true` or `{ crossfade }`: a cue point at its start, its seam crossfaded; the engine loops it |
 | `variants` | More files from the same layers: `{ name, seed, pitch, gain }` (`cbar_hit2`, `pl_step1` to `4`) |
 | `reference` | The game's files to draw beside it (unless told, the first of its class), read from the game folders the server was given and never copied |
+| `bands` | The share of its power in each band, in %, as a description gives them: `{ "<150": 5, "150-600": 35, "600-2k": 45, "2k-5k": 12, ">5k": 3 }` (any of them). The report holds the made sound to them and warns of a band more than 7 points off, as it does against a `picture` |
 | `picture` | A picture of the sound it is to be, as the kit draws one (a waveform over a spectrogram, its length in its label): `"sound.png"`, or `{ file, length, rate, row }` when its label or marks cannot be read. The report then gives the numbers read off it beside the made sound's (below) |
 | `sounds` | A set: a list of sounds, the spec's other fields their defaults |
 
