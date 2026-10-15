@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 // Proof that no game file is committed: every file git tracks, held against every file of the game's folders.
 //
-//   node scripts/no-game-files.mjs [<game folder> ...]    (unless told: Half-Life's valve folder, and ts beside it)
+//   node scripts/no-game-files.mjs [--history] [<game folder> ...]    (unless told: Half-Life's valve folder, and ts beside it)
+//
+// --history: every version of every file ever committed (each blob in the repository's history), not only the
+// files tracked now: a game file once committed and later removed is still in the history.
 //
 // Three ways a game's file could come in, each checked:
 //   1. the same bytes: a tracked file whose SHA-256 is a game file's
@@ -22,7 +25,9 @@ import { readWav } from "../src/audio/wav.mjs";
 
 const KIT = resolve(fileURLToPath(import.meta.url), "../..");
 const STEAM_HL = join(homedir(), ".steam/steam/steamapps/common/Half-Life");
-const games = process.argv.slice(2).length ? process.argv.slice(2) : ["valve", "ts"].map((g) => join(STEAM_HL, g)).filter(existsSync);
+const history = process.argv.includes("--history");
+const given = process.argv.slice(2).filter((a) => a !== "--history");
+const games = given.length ? given : ["valve", "ts"].map((g) => join(STEAM_HL, g)).filter(existsSync);
 if (!games.length) {
   console.error("no game folder: name one (node scripts/no-game-files.mjs <folder>)");
   process.exit(2);
@@ -85,16 +90,22 @@ for (const game of games)
     }
   }
 
-// the kit's tracked files, each held against them
-const tracked = execFileSync("git", ["-C", KIT, "ls-files", "-z"], { encoding: "utf8" }).split("\0").filter(Boolean);
+// the kit's files, each held against them: those tracked now, or with --history every blob ever committed (by a
+// path it had)
+const git = (args, options = {}) => execFileSync("git", ["-C", KIT, ...args], { maxBuffer: 1 << 30, ...options });
+const tracked = history
+  ? [...new Map(git(["rev-list", "--objects", "--all"], { encoding: "utf8" }).split("\n").filter((l) => l.includes(" ")).map((l) => [l.slice(0, l.indexOf(" ")), l.slice(l.indexOf(" ") + 1)])).entries()]
+      .filter(([sha]) => git(["cat-file", "-t", sha], { encoding: "utf8" }).trim() === "blob")
+      .map(([sha, name]) => ({ name: `${name} (${sha.slice(0, 10)})`, ext: name, read: () => git(["cat-file", "blob", sha]) }))
+  : git(["ls-files", "-z"], { encoding: "utf8" }).split("\0").filter(Boolean).map((name) => ({ name, ext: name, read: () => readFileSync(join(KIT, name)), path: join(KIT, name) }));
 const found = [];
-for (const name of tracked) {
-  const path = join(KIT, name);
-  if (!existsSync(path) || !statSync(path).isFile()) continue;
-  const bytes = readFileSync(path);
+for (const { name: shown, ext: extOf, read, path } of tracked) {
+  if (path && (!existsSync(path) || !statSync(path).isFile())) continue;
+  const name = shown;
+  const bytes = read();
   const same = bytesOf.get(sha(bytes));
   if (same) found.push(`${name}: the same bytes as ${same}`);
-  const ext = extname(name).toLowerCase();
+  const ext = extname(extOf).toLowerCase();
   try {
     if (ext === ".png" || ext === ".bmp") {
       const p = unpicture(bytes);
@@ -108,7 +119,7 @@ for (const name of tracked) {
     // not a picture or a sound the kit reads: its bytes were held above
   }
 }
-console.log(`${tracked.length} tracked files held against ${counted.files} files of ${games.join(", ")} (${counted.textures} textures, ${counted.sounds} sounds)`);
+console.log(`${tracked.length} ${history ? "file versions in the history" : "tracked files"} held against ${counted.files} files of ${games.join(", ")} (${counted.textures} textures, ${counted.sounds} sounds)`);
 if (found.length) {
   console.log(`FOUND ${found.length}:\n${found.map((f) => `  ${f}`).join("\n")}`);
   process.exit(1);

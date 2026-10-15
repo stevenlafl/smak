@@ -268,4 +268,4 @@ MIT (see `LICENSE`): use it, change it and pass it on freely, for any purpose. T
 The models and textures of a game belong to that game's authors, and what you make from them is theirs to allow.
 None is in this repository: `node scripts/no-game-files.mjs` holds every tracked file against Half-Life's and The
 Specialists' folders (their bytes, every texture of their `.wad` files and models by its pixels, every sound by its
-samples) and exits 1 on any match. Run it before a push.
+samples) and exits 1 on any match; `--history` holds every version ever committed. Run it before a push.
