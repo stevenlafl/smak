@@ -168,7 +168,7 @@ async function reproduce(kind, subject, leg) {
     const n = readdirSync(out).filter((f) => /^round-\d+$/.test(f)).length + 1;
     const keep = join(out, `round-${n}`);
     mkdirSync(keep);
-    for (const f of ["spec.json", "answer.md", "run.json", "judge.json", "built"]) if (existsSync(join(out, f))) renameSync(join(out, f), join(keep, f));
+    for (const f of ["spec.json", "answer.md", "run.json", "judge.json", "built", "takes"]) if (existsSync(join(out, f))) renameSync(join(out, f), join(keep, f));
   }
   const input = join(base, "input");
   const files = {};
@@ -200,6 +200,18 @@ async function reproduce(kind, subject, leg) {
   const newest = (test) => all.filter((f) => test(f.name, f.p)).sort((a, b) => b.at - a.at)[0];
   const spec = newest((n) => n.endsWith(".spec.json"));
   if (spec) writeFileSync(join(out, "spec.json"), readFileSync(spec.p));
+  // the generated takes the spec names (work:gen/...), with their sidecars, kept beside it under takes/ (not
+  // committed, as built/ is not): the spec is rebuilt from them with no agent, after the maker's folder is gone
+  if (spec) {
+    const takes = join(out, "takes");
+    rmSync(takes, { recursive: true, force: true });
+    for (const name of new Set([...readFileSync(spec.p, "utf8").matchAll(/"(?:work:)?(gen\/[^"]+\.(?:wav|obj|png))"/g)].map((m) => m[1])))
+      for (const file of [name, name.replace(/\.(wav|obj|png)$/, ".json")])
+        if (existsSync(join(r.work, file))) {
+          mkdirSync(dirname(join(takes, file)), { recursive: true });
+          copyFileSync(join(r.work, file), join(takes, file));
+        }
+  }
   const built = join(out, "built");
   rmSync(built, { recursive: true, force: true });
   mkdirSync(built, { recursive: true });
