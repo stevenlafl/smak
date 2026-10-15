@@ -55,6 +55,8 @@ const CHARACTER_REAL = 150;
  * body's outline at a player's size.
  */
 const CHARACTER_CARVE = 600;
+/** A carved body placed further than this from the base's feet (units) is a fault. */
+const FEET_OFF = 6;
 /** A character's outline sharing less than this with a picture's is a fault. */
 const OUTLINE_FAULT = 0.7;
 /**
@@ -1517,6 +1519,32 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
       return { mdl: null, report };
     }
   }
+  // a carved or generated body on a base stands on the base's feet unless told where: its own space is from z 0 up,
+  // and a base's skeleton stands where its animation puts it (Gordon's feet at -36 until the floor is lifted at the
+  // end). Placed at 0 it hung 36 over its bones, each corner on the wrong limb, and a maker's fingers on the hands
+  // landed at its knees (2026-10-15)
+  // the soles of the base's own body as it stands (its lowest joint is an ankle, a few units up), else that joint
+  // (or its lowest joint, where that is lower: a stand-in base's body may be a stub on its top bone)
+  const baseFeet = (() => {
+    if (!skeleton) return null;
+    const joint = Math.min(...[...skeleton.joints.values()].map((p) => p[2]));
+    try {
+      const body = skeleton.bodies?.[0] ?? 0;
+      const tris = posed(skeleton.src, { ...skeleton.pose, body }).tris;
+      if (tris.length) return Math.min(joint, ...tris.flatMap((t) => t.c.map((c) => c.p[2])));
+    } catch {
+      // a base whose body cannot be drawn: its lowest joint
+    }
+    return joint;
+  })();
+  const feetOn = (part) => (skeleton && part.at === undefined && !part.attach && !part.span ? { at: [0, 0, baseFeet] } : {});
+  if (skeleton && spec.parts.some((part) => (part.kind === "carved" || part.kind === "mesh") && part.at === undefined && !part.attach && !part.span))
+    report.facts.push(`a body carved or generated stands on the base's feet, at z ${Math.round(baseFeet * 10) / 10} as its first frame stands`);
+  // one placed by hand far from them is a fault: Barney's and the scientist's makers put theirs at z 0, 36 over
+  // Gordon's feet, and their runs went stiff-legged with every corner on the wrong limb
+  for (const part of skeleton ? spec.parts.filter((p) => (p.kind === "carved" || p.kind === "mesh") && Array.isArray(p.at)) : [])
+    if (Math.abs(part.at[2] - baseFeet) > FEET_OFF)
+      report.faults.push(`${part.id}: its feet at z ${part.at[2]}, the base's at ${Math.round(baseFeet * 10) / 10}: the body hangs off its bones and bends at the wrong joints. Leave at out (it stands on the base's feet), or give z ${Math.round(baseFeet * 10) / 10}`);
   // carved parts: their hull worked out from their pictures before anything is built (carve.mjs)
   if (spec.parts.some((part) => part.kind === "carved")) {
     const readCarved = readPicture ?? ((name) => unpicture(readFileSync(resolve(folder ?? ".", name.replace(/^(work|models):/, "")))));
@@ -1571,7 +1599,7 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
           const lost = hull.report.lost ?? [];
           if (lost.length)
             warnings.push(`${part.id}: the carve lost ${lost.length} thin piece${lost.length > 1 ? "s" : ""} the pictures show, thinner than its cells (${(Math.max(...part.size) / (hull.cells ?? part.cells ?? 64)).toFixed(2)} units) can hold: ${lost.slice(0, 6).map((l) => `${l.view} view, ${l.length} long and ${l.across} across, near pixel ${l.at.join(" ")} of that view`).join("; ")}. Make each a part of its own (a tube, a leaf, a box) where the picture has it`);
-          return { ...part, carvedTris: part.symmetric ? symmetrized(hull.tris, part, report) : hull.tris };
+          return { ...part, ...feetOn(part), carvedTris: part.symmetric ? symmetrized(hull.tris, part, report) : hull.tris };
         }),
       };
     } catch (error) {
@@ -1583,7 +1611,7 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
   if (spec.parts.some((part) => part.kind === "mesh")) {
     const readText = readFile ?? ((name) => readFileSync(resolve(folder ?? ".", name.replace(/^(work|models):/, ""))));
     try {
-      spec = { ...spec, parts: spec.parts.map((part) => (part.kind === "mesh" ? { ...part, carvedTris: ((t) => (part.symmetric ? symmetrized(t, part, report) : t))(meshPart(part, readText, report, warnings)) } : part)) };
+      spec = { ...spec, parts: spec.parts.map((part) => (part.kind === "mesh" ? { ...part, ...feetOn(part), carvedTris: ((t) => (part.symmetric ? symmetrized(t, part, report) : t))(meshPart(part, readText, report, warnings)) } : part)) };
     } catch (error) {
       errors.push(`mesh: ${error.message}`);
       return { mdl: null, report };
