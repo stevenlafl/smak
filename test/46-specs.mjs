@@ -505,6 +505,26 @@ test("a weapon laid \"as drawn\" is fitted without a crash (case 26, the lunchbo
   sure(fit && fit.name === "as drawn" && Number.isFinite(fit.k), JSON.stringify(fit && { name: fit.name, k: fit.k }));
 });
 
+test("a door's picture is fitted to its leaf, a ladder's across its width; every door opens and shuts by use", () => {
+  // Steven's walk of kaupo_v2: doors "solid wood, no handles", a ladder "-|- rather than |--|"
+  const spec = (door) => ({ spec: "smak.map/1", name: "fit", rooms: [{ id: "a", size: [256, 256, 128] }, { id: "b", size: [256, 256, 128], place: { east_of: "a" } }], links: [{ between: ["a", "b"], kind: "door", door }], ladders: [{ room: "a", side: "north", height: 120 }], entities: [{ class: "info_player_start", room: "a", at: "centre" }] });
+  for (const door of [{ swing: true }, undefined]) {
+    const { files } = buildMapSpec(spec(door), { out: join(folder, "fit"), compilers: { found: false, message: "" } });
+    const map = smak.maps.readMap(readFileSync(files.map, "utf8"));
+    const leaf = map.entities.find((e) => /^func_door/.test(e.classname));
+    sure(leaf.spawnflags === "288", `${leaf.classname} spawnflags ${leaf.spawnflags}`);
+    // the leaf, 96 high and as wide as the doorway (64 unless told, less 4 at a hinge): its broad faces
+    // (looking along x) span exactly one 64 x 128 picture
+    const corners = smak.maps.shapeOf(leaf.brushes[0]).corners;
+    const wide = Math.max(...corners.map((p) => p[1])) - Math.min(...corners.map((p) => p[1]));
+    const broad = leaf.brushes[0].faces.filter((f) => Math.abs(f.v[2] + 1) < 1e-9 && Math.abs(f.u[1]) === 1);
+    sure(broad.length === 2 && broad.every((f) => Math.abs(f.scale[0] * 64 - wide) < 1e-6 && Math.abs(f.scale[1] * 128 - 96) < 1e-6), JSON.stringify({ wide, scales: broad.map((f) => f.scale) }));
+    const rungs = map.entities.find((e) => e.classname === "func_wall").brushes[0].faces.filter((f) => Math.abs(f.u[0]) === 1 && Math.abs(f.v[2] + 1) < 1e-9);
+    // 32 wide, its rungs one picture across (the map's own mesh, 128 wide, without the game's .wad) and tiling up
+    sure(rungs.length && rungs.every((f) => f.scale[1] === 1 && Math.abs(f.scale[0] * 128 - 32) < 1e-6), JSON.stringify(rungs.map((f) => [f.scale, f.u[3]])));
+  }
+});
+
 test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ files, the gloved hands kept", () => {
   // a stand-in for a game's files: a first-person model of a glove and a stick, and a world one of the stick
   const meshOn = (build, name) => {

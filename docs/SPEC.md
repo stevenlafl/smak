@@ -287,7 +287,8 @@ player sees it. `examples/prompts/22-weapon-wrench` is a worked one.
 
 `base` is one of: `wood`, `darkwood`, `planks`, `iron`, `steel`, `brass`, `gold`, `copper`, `leather`,
 `cloth`, `rope`, `stone`, `brick`, `plaster`, `tile`, `metal`, `grass`, `dirt`, `glass`, `flame`, `neon`,
-`hazard` (stripes of its tone and black), `asphalt`, `water`, `paint`, `bone`, `mesh` (a net, a wire fence,
+`hazard` (stripes of its tone and black), `asphalt`, `water`, `paint`, `bone`, `door` (maps: a panelled door with
+its handle, fitted to the leaf), `mesh` (a net, a wire fence,
 a grille: cords in its tone with holes between, seen through as in the game; `cell` the holes' size, 2;
 `weave: "diamond"` runs the cords on the diagonals, as chain-link's do). `tone: [r, g, b]` (0 to 1)
 changes its colour, or words: `"tone": "dark warm grey"` (the XKCD colour survey's 949 names, with `dark`,
@@ -699,7 +700,9 @@ stacked) with the wall's rock between them, and the link goes through that rock:
   `door: { swing: true }` a door on hinges (`func_door_rotating`), as a house's are, turning a quarter away
   from whoever opens it about its hinge at the start of the way (`hinge: "end"` the other edge), opened and
   closed with the use key and never by walking into it (`spawnflags` 256 + 32: use only, toggle). Other keys of
-  `door` are the entity's (`speed`, `wait`, `targetname`); `material` its own, the theme's `door` unless told.
+  `door` are the entity's (`speed`, `wait`, `targetname`); `material` its own, the theme's `door` unless told,
+  which is the `door` base: a panelled wooden door with a brass handle, one picture fitted to the leaf. A sliding
+  door is opened and closed by use too. Any door's picture is fitted to its leaf, one whole picture across it.
 - `window`: 48 by 48, `sill` (40) over the higher floor. Nothing walks through a window. `glass: true` (or
   `{ alpha, health, material }`) glazes it: a `func_breakable` pane, half see-through, that shatters.
 - `stairs`: for rooms stacked one above the other: a stair in the lower room up through a hole in the

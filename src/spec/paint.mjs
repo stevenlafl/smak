@@ -28,6 +28,7 @@ export const MATERIALS = {
   plaster: { tone: [0.78, 0.75, 0.68], what: "a plain wall" },
   tile: { tone: [0.62, 0.6, 0.56], what: "a floor of square tiles" },
   planks: { tone: [0.45, 0.31, 0.18], what: "a floor or a wall of boards (maps)" },
+  door: { tone: [0.42, 0.28, 0.16], what: "a panelled wooden door with its handle, one picture 64 by 128 fitted to the leaf (maps)" },
   metal: { tone: [0.4, 0.39, 0.37], what: "plates of metal with seams (maps: a lab, a ship)" },
   grass: { tone: [0.28, 0.42, 0.18], what: "a lawn, a field (maps)" },
   dirt: { tone: [0.4, 0.3, 0.2], what: "bare earth, a path (maps)" },
@@ -137,6 +138,24 @@ export function colourAt(material, x, y, light = 1, px = 8) {
       // a diamond weave (chain-link) runs its cords along the diagonals
       const [a, b] = material.weave === "diamond" ? [x + y, x - y] : [x, y];
       return on(a) || on(b) ? shade(tone, light) : HOLE_RGB;
+    }
+    case "door": {
+      // one door on a picture 64 wide and 128 high, y down: a frame, two panels sunk in with their bevels lit
+      // from the top left, and a brass handle at hand height on the right (seen from the other side, the left)
+      const [u, v] = [((x % 64) + 64) % 64, ((y % 128) + 128) % 128];
+      const woodAt = (k) => toned(wood(x * 0.5, y * 0.08, light * k, s), "wood", tone);
+      if (Math.hypot(u - 53, v - 68) < 3.2) return shade([0.78, 0.62, 0.3], light * (1.15 - 0.12 * Math.hypot(u - 52, v - 67)));
+      for (const [y0, y1] of [[12, 58], [70, 116]]) {
+        const [x0, x1] = [11, 53];
+        if (u >= x0 && u < x1 && v >= y0 && v < y1) {
+          const edge = Math.min(u - x0, x1 - 1 - u, v - y0, y1 - 1 - v);
+          if (edge < 2.5) return woodAt(u - x0 < 2.5 || v - y0 < 2.5 ? 0.62 : 1.18);
+          return woodAt(0.88);
+        }
+      }
+      // the frame round it, its rim a little darker
+      const rim = Math.min(u, 63 - u, v, 127 - v);
+      return woodAt(rim < 1.5 ? 0.7 : 1);
     }
     case "wood":
     case "darkwood":

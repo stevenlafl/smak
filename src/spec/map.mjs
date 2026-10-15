@@ -189,7 +189,7 @@ export function withIncludes(spec, folder = ".") {
   const out = { ...spec, rooms: [...(spec.rooms ?? [])], links: [...(spec.links ?? [])], entities: [...(spec.entities ?? [])] };
   for (const key of ["furniture", "props", "sounds"]) out[key] = [...(spec[key] ?? [])];
   for (const key of ["prefabs", "models", "textures"]) out[key] = { ...(spec[key] ?? {}) };
-  const hostTheme = { floor: "stone", wall: "plaster", ceiling: "planks", door: "metal", furniture: "darkwood", outside: "siding", roof: "shingles", ...(spec.theme ?? {}) };
+  const hostTheme = { floor: "stone", wall: "plaster", ceiling: "planks", door: "door", furniture: "darkwood", outside: "siding", roof: "shingles", ...(spec.theme ?? {}) };
   for (const [n, given] of spec.include.entries()) {
     const file = resolve(folder, given.spec);
     const inner = withIncludes(JSON.parse(readFileSync(file, "utf8")), dirname(file));
@@ -576,7 +576,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   errors.push(...placing);
 
   // ── textures: the theme's and every other the spec names, each made a picture of its own ──
-  const theme = { floor: "stone", wall: "plaster", ceiling: "planks", door: "metal", furniture: "darkwood", outside: "siding", roof: "shingles", ...(spec.theme ?? {}) };
+  const theme = { floor: "stone", wall: "plaster", ceiling: "planks", door: "door", furniture: "darkwood", outside: "siding", roof: "shingles", ...(spec.theme ?? {}) };
   const materials = { ...theme, ...(spec.textures ?? {}) };
   const used = new Map();
   /** a texture name for a word of the spec (a key of theme/textures, or a base material) */
@@ -642,6 +642,28 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     const holed = (typeof material === "string" ? material : material.base) === "mesh";
     if (holed) meshed.add(key);
     return textureName(key, liquid, holed);
+  };
+  // a texture's size: the game's from its .wad, the map's own as it is drawn (a door 64 by 128, the rest 128)
+  const pictureSize = (key, material) => (key === "sky" ? [64, 64] : (typeof material === "string" ? material : material?.base) === "door" ? [64, 128] : [128, 128]);
+  const sizeOfTexture = (name) => {
+    const game = catalog.find((t) => t.name.toUpperCase() === String(name).toUpperCase());
+    if (game) return [game.width, game.height];
+    for (const [key, material] of used) if (nameOfKey(key) === name) return pictureSize(key, material);
+    return [128, 128];
+  };
+  /**
+   * A texture fitted to the four upright faces of a box: one whole picture across each (a door, a sign) or
+   * across and tiling up from the floor (a ladder), its left edge at the face's start. Laid on the world's
+   * grid, a door showed a piece of one and a ladder's rails stood in its middle, -|- for |--| (Steven).
+   */
+  const fitted = (name, min, max, { whole = true } = {}) => {
+    const [tw, th] = sizeOfTexture(name);
+    const face = (along) => {
+      const su = (max[along] - min[along]) / tw;
+      const sv = whole ? (max[2] - min[2]) / th : 1;
+      return { name, scale: [su, sv], offset: [-min[along] / su, (whole ? max[2] : min[2]) / sv] };
+    };
+    return { top: name, bottom: name, east: face(1), west: face(1), north: face(0), south: face(0) };
   };
   let themeNames;
   try {
@@ -816,7 +838,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         pin.min[along] = at - 2;
         pin.max[along] = at + 2;
         entities.push(
-          brushEntity("func_door_rotating", [box(leaf.min, leaf.max, textureOf(link.material ?? "door")), box(pin.min, pin.max, "ORIGIN")], {
+          brushEntity("func_door_rotating", [box(leaf.min, leaf.max, fitted(textureOf(link.material ?? "door"), leaf.min, leaf.max)), box(pin.min, pin.max, "ORIGIN")], {
             speed: 100,
             // opened and closed by the player, as a house's are: use only (256), and each use toggles it (32,
             // no auto return). One that shut by itself after 4 s closed on Steven in the doorway; one that never
@@ -834,7 +856,8 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         const leaf = { min: [...hole.min], max: [...hole.max] };
         leaf.min[axis] = middle - 4;
         leaf.max[axis] = middle + 4;
-        entities.push(brushEntity("func_door", [box(leaf.min, leaf.max, textureOf(link.material ?? "door"))], { angle: -1, speed: 120, wait: 4, lip: 0, ...keys }));
+        // opened and closed with the use key as the hinged ones are, not by walking into it
+        entities.push(brushEntity("func_door", [box(leaf.min, leaf.max, fitted(textureOf(link.material ?? "door"), leaf.min, leaf.max))], { angle: -1, speed: 120, wait: -1, spawnflags: 256 + 32, lip: 0, ...keys }));
       }
     }
   });
@@ -1170,8 +1193,8 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     max[across] = min[across] + width;
     if (side.sign > 0) [min[side.axis], max[side.axis]] = [room.max[side.axis] - LADDER.depth, room.max[side.axis]];
     else [min[side.axis], max[side.axis]] = [room.min[side.axis], room.min[side.axis] + LADDER.depth];
-    entities.push(brushEntity("func_ladder", [box(min, max, rungs)], {}));
-    entities.push(brushEntity("func_wall", [box(min, max, rungs)], { rendermode: 4, renderamt: 255 }));
+    entities.push(brushEntity("func_ladder", [box(min, max, fitted(rungs, min, max, { whole: false }))], {}));
+    entities.push(brushEntity("func_wall", [box(min, max, fitted(rungs, min, max, { whole: false }))], { rendermode: 4, renderamt: 255 }));
     furniturePieces.push({ name: `ladders[${i}]`, room, min, max });
     report.facts.push(`ladders[${i}]: against ${room.id}'s ${given.side} wall, ${width} wide, ${max[2] - min[2]} high, its rungs ${rungs}`);
   });
@@ -1403,7 +1426,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   // ── the files: the .wad of its pictures, and the .map ──
   mkdirSync(out, { recursive: true });
   const wadFile = join(out, `${name}.wad`);
-  writeFileSync(wadFile, writeWad([...used.entries()].map(([key, material]) => ({ name: nameOfKey(key), image: surfacePicture(material, key === "sky" ? 64 : 128) }))));
+  writeFileSync(wadFile, writeWad([...used.entries()].map(([key, material]) => ({ name: nameOfKey(key), image: surfacePicture(material, ...pictureSize(key, material)) }))));
   files.wad = wadFile;
   const gameWads = [...new Set(gameTextures.values())];
   // a sky of the map's own, made from its words, in gfx/env/<map>/ as its models are in models/<map>/; its sun where
