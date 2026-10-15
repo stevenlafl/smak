@@ -25,7 +25,7 @@
    ]
   },
   "colour": {
-   "meanDeltaE": 8,
+   "meanDeltaE": 8.6,
    "byView": [
     {
      "view": "front",
@@ -34,47 +34,47 @@
     },
     {
      "view": "left",
-     "deltaE": 8.2,
+     "deltaE": 9.6,
      "shared": 0.96
     },
     {
      "view": "back",
-     "deltaE": 7.1,
+     "deltaE": 7.2,
      "shared": 0.963
     },
     {
      "view": "right",
-     "deltaE": 8.3,
-     "shared": 0.96
+     "deltaE": 9.5,
+     "shared": 0.961
     },
     {
      "view": "top",
-     "deltaE": 7.4,
+     "deltaE": 7.9,
      "shared": 0.932
     },
     {
      "view": "below",
-     "deltaE": 8.6,
+     "deltaE": 9,
      "shared": 0.933
     },
     {
      "view": "front-left",
-     "deltaE": 8.6,
+     "deltaE": 9.6,
      "shared": 0.945
     },
     {
      "view": "front-right",
-     "deltaE": 7.8,
+     "deltaE": 8.4,
      "shared": 0.96
     },
     {
      "view": "back-left",
-     "deltaE": 7.5,
+     "deltaE": 8,
      "shared": 0.974
     },
     {
      "view": "back-right",
-     "deltaE": 8,
+     "deltaE": 8.4,
      "shared": 0.944
     }
    ]
@@ -114,49 +114,49 @@
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Silhouette overlap is 0.93 to 0.96 in all ten views (measured), and the outlines match in every view: the pale dome, the two front legs with black claws, the two rear legs, and the rear shell all sit where the original's do. No part sticks out or is missing."
+   "reason": "Outlines match in all six views and the four angles. Measured overlap is 0.961 front/back, 0.960 left/right and 0.933 top/below. In the left and right views the front arm, the rear legs and the shell's lower lip sit where the original's do, and no part sticks out or is missing."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured size original [25.9, 19.2, 13.2] against reproduction [26, 18.4, 13.1]: length off 0.4%, width off 4.2%, height off 0.8%, all within 10%."
+   "reason": "Measured size: length 25.9 vs 26.0 (0.4% off), width 19.2 vs 18.4 (4.2% off), height 13.2 vs 13.1 (0.8% off). All three are within 10%."
   },
   "M3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The parts are all present: pale dome, toothed maw below, two small eyes, four legs, and black claws at the leg tips. The dome is the doubt. In front-left and front-right the reproduction's dome shows a hard polygon ridge across its top where the original's dome is smoothly rounded, so the dome may have a different number of sides. The outline does not show this, so I can't confirm it from the pictures, and the score is held at 1 for that reason."
+   "reason": "The original's claws are missing or greatly reduced on every leg tip. They show clearly in the left and right views and the below view (dark claws at about x 870 and 1050, y 1070 in the original, with only small stubs at x 1255 and 1430 in the reproduction). A small part is missing, so M3 is capped at 1. The reproduction also has a block-like step and seam on the body's front-left and back-left (about x 570, y 140 and y 600) that the original does not show. The number and placement of the legs, mouth and teeth otherwise match."
   },
   "M4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured mean colour difference inside the shared outline is 8 (CIE76), well under 15. The pale dome, the brown shell, and the red-tipped legs match in every view."
+   "reason": "Measured mean colour difference is 8.6 (CIE76), under 15 in every view. The cream belly, brown carapace and red legs read as the same colours and materials side by side."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The original's fine detail is softer in the reproduction. In the back view the ribbed bands on the shell are blurred, the head's mottled pale texture is smoother, and the teeth in the below view are less sharp than the original's bony ring."
+   "reason": "The original's fleshy veining and ribbed striations on the back (back view, y 510 to 600) are softer in the reproduction, and the teeth in the below view are less crisp. The reproduction's seams also show on the body, where the original is smooth. Paint and detail only, so M5, not M1 or M3."
   },
   "M6": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "At game size the two read as the same creature, but side by side the reproduction is softer than the original, especially on the shell's ribbing and the head's texture, and the dome's ridge in front-left and front-right shows it is not the original's geometry. A player might take it for the original at a glance, but not on a close look."
+   "reason": "Side by side at game size, the reproduction is recognisably the same creature, but a player who knows the original would notice the missing claws on each leg tip and the seams on the body. It is not yet a fair copy."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The front is the original's front: the maw faces down and forward in the below view, the legs are where they should be, and it stands upright on its origin in the side and front views, as the original does."
+   "reason": "Upright, same front (the mouth faces the same way in the back and below views), and standing on the same points as the original in the front and left views."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The harness's checkErrors list is empty. Triangles are 600 against the original's 478 (1.26 times, under the 2x limit). The silhouettes show no open or floating parts."
+   "reason": "The harness reports no check errors. Triangles are 600 against the original's 478 (1.26 times, within 2 times). The reproduction shows no open, inside-out or floating parts in any view."
   }
  },
  "total": 13,
@@ -164,7 +164,7 @@
  "passes": false,
  "readings": [
   {
-   "M1": 2,
+   "M1": 1,
    "M2": 2,
    "M3": 1,
    "M4": 2,

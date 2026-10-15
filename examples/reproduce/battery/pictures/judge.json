@@ -25,56 +25,56 @@
    ]
   },
   "colour": {
-   "meanDeltaE": 6.7,
+   "meanDeltaE": 6.9,
    "byView": [
     {
      "view": "front",
-     "deltaE": 6,
+     "deltaE": 6.3,
      "shared": 0.99
     },
     {
      "view": "left",
-     "deltaE": 6.4,
-     "shared": 0.992
-    },
-    {
-     "view": "back",
-     "deltaE": 5.9,
-     "shared": 0.99
-    },
-    {
-     "view": "right",
      "deltaE": 6.6,
      "shared": 0.992
     },
     {
+     "view": "back",
+     "deltaE": 6.1,
+     "shared": 0.99
+    },
+    {
+     "view": "right",
+     "deltaE": 6.3,
+     "shared": 0.992
+    },
+    {
      "view": "top",
-     "deltaE": 7.6,
+     "deltaE": 8.6,
      "shared": 0.998
     },
     {
      "view": "below",
-     "deltaE": 5.3,
-     "shared": 0.573
+     "deltaE": 4.5,
+     "shared": 0.572
     },
     {
      "view": "front-left",
-     "deltaE": 7.3,
+     "deltaE": 7.7,
      "shared": 0.99
     },
     {
      "view": "front-right",
-     "deltaE": 7.5,
+     "deltaE": 7.7,
      "shared": 0.99
     },
     {
      "view": "back-left",
-     "deltaE": 7.3,
+     "deltaE": 7.7,
      "shared": 0.987
     },
     {
      "view": "back-right",
-     "deltaE": 7.3,
+     "deltaE": 7.6,
      "shared": 0.989
     }
    ]
@@ -114,49 +114,49 @@
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "All six views and all four angles have the original's outline. Measured overlap is 0.988 to 0.999, and every top part sits within the original's silhouette in each view."
+   "reason": "Every view's outline matches the original at true scale (measured overlap 0.988 to 0.999). The octagonal body, the top hub and the bottom chamfer sit where they do in the original in all six views and the four close angles. The top's yellow part differs in shape (see M3), but it does not stick out or go missing."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured size is 10.3 x 10.3 x 18.4 for both original and reproduction, so every dimension is within 10%."
+   "reason": "Measured size is 10.3 x 10.3 x 18.4 for both original and reproduction, offShare 0 to 0.001. All three dimensions are exact."
   },
   "M3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The original's parts are the yellow striped top block, a grey cylindrical cap with a rim, a grey plinth on top, four red warning lights, two white side panels on each face, six or eight body faces with green glass, the yellow hazard band and a dark base. The reproduction has all of them except that the top block differs in shape and placement: it is a tilted wedge at the front-left and a flatter slab at the back, and the cap's rim is less defined. The top assembly is the part that is wrong."
+   "reason": "The parts are all present: the lamps on the top rim, the teal panels, the white slots, the yellow hazard band, the grey hub and the yellow striped part on top. The yellow striped part is wrong in shape. In the original (left and right views, front-right) it is a rounded, striped canister, but in the reproduction it reads as a flat, angled block with a jagged, notched top edge. The top rim's grey bracket also looks flatter and more ragged. These are shape differences, not only paint, and they show in the side outlines."
   },
   "M4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Mean colour difference is 6.7 (under 15), and the yellow hazard bands, grey metal, cream panels, red lights and green glass read as the same colours and materials in every view."
+   "reason": "Measured colour difference is 6.9 (CIE76) on average, well under 15. The teal glow, the cream rim, the grey metal, the yellow hazard stripes and the dark base all match in colour and material across the views. The top view's 8.6 is still within the same colours."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The hazard stripes on the top block run diagonally in the reproduction and vertically on the original's drum. The top rim shows a jagged, noisy white glossy patch in the front-right and back-left views that the original does not have. The green glass mottling and the hazard band are close to the original."
+   "reason": "The top rim and the upper edges of the yellow part are smeared and fuzzy, with a noisy white grain where the original has a clean cream edge. The hazard stripes are slightly softer than the original's. The teal glow and the panel lines are close, so the fault is limited to the top."
   },
   "M6": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Side by side, the body, glass and hazard band look like the original, but the top assembly is visibly different in every angle view (block tilt, stripe direction, glossy white patch). A player who knows the prop would see the difference at game size."
+   "reason": "Side by side, the body, glow panels and hazard band look like the original, but the top does not: the yellow striped part is a different shape and the top rim is fuzzy. A player who looked closely would see the difference at the game's size. It is not a fault a glance would catch, so it is not a 0."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The front is on the same face as the original (red light and white panels in the same place), the prop stands upright, and the base sits in the same place in the below view."
+   "reason": "The front is the original's front: the single large teal panel, the red lamp and the yellow hazard band face the same way. The model stands upright on its origin, and the below view shows the same footprint and base as the original."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "checkErrors is empty; the reproduction has 88 triangles against the original's 116 (under twice); the silhouette and below views show no open or floating parts."
+   "reason": "The SMAK check reports no errors. Triangles are 88 against the original's 116, well under twice. The below view shows a closed base, with no open or floating parts visible in any view."
   }
  },
  "total": 13,
@@ -164,7 +164,7 @@
  "passes": false,
  "readings": [
   {
-   "M1": 1,
+   "M1": 2,
    "M2": 2,
    "M3": 1,
    "M4": 2,
@@ -174,7 +174,7 @@
    "M8": 2
   },
   {
-   "M1": 2,
+   "M1": 1,
    "M2": 2,
    "M3": 1,
    "M4": 2,

@@ -1,0 +1,187 @@
+{
+ "subject": "battery",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.988,
+   "left/right": 0.992,
+   "top/below": 0.999
+  },
+  "size": {
+   "original": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "reproduction": [
+    10.3,
+    10.3,
+    18.4
+   ],
+   "offShare": [
+    0,
+    0.001,
+    0
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 6.7,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 6,
+     "shared": 0.99
+    },
+    {
+     "view": "left",
+     "deltaE": 6.4,
+     "shared": 0.992
+    },
+    {
+     "view": "back",
+     "deltaE": 5.9,
+     "shared": 0.99
+    },
+    {
+     "view": "right",
+     "deltaE": 6.6,
+     "shared": 0.992
+    },
+    {
+     "view": "top",
+     "deltaE": 7.6,
+     "shared": 0.998
+    },
+    {
+     "view": "below",
+     "deltaE": 5.3,
+     "shared": 0.573
+    },
+    {
+     "view": "front-left",
+     "deltaE": 7.3,
+     "shared": 0.99
+    },
+    {
+     "view": "front-right",
+     "deltaE": 7.5,
+     "shared": 0.99
+    },
+    {
+     "view": "back-left",
+     "deltaE": 7.3,
+     "shared": 0.987
+    },
+    {
+     "view": "back-right",
+     "deltaE": 7.3,
+     "shared": 0.989
+    }
+   ]
+  },
+  "triangles": {
+   "original": 116,
+   "reproduction": 88
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "B",
+  "right": "B",
+  "letters": {
+   "A": "models/w_security.mdl",
+   "B": "models/w_battery.mdl",
+   "C": "models/w_longjump.mdl",
+   "D": "models/filecabinet.mdl",
+   "E": "models/can.mdl",
+   "F": "models/forklift.mdl",
+   "G": "models/w_medkit.mdl",
+   "H": "models/w_9mmclip.mdl",
+   "I": "models/headcrab.mdl",
+   "J": "models/mbarrel.mdl"
+  },
+  "answer": "B",
+  "ended": "success"
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "All six views and all four angles have the original's outline. Measured overlap is 0.988 to 0.999, and every top part sits within the original's silhouette in each view."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 10.3 x 10.3 x 18.4 for both original and reproduction, so every dimension is within 10%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original's parts are the yellow striped top block, a grey cylindrical cap with a rim, a grey plinth on top, four red warning lights, two white side panels on each face, six or eight body faces with green glass, the yellow hazard band and a dark base. The reproduction has all of them except that the top block differs in shape and placement: it is a tilted wedge at the front-left and a flatter slab at the back, and the cap's rim is less defined. The top assembly is the part that is wrong."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mean colour difference is 6.7 (under 15), and the yellow hazard bands, grey metal, cream panels, red lights and green glass read as the same colours and materials in every view."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The hazard stripes on the top block run diagonally in the reproduction and vertically on the original's drum. The top rim shows a jagged, noisy white glossy patch in the front-right and back-left views that the original does not have. The green glass mottling and the hazard band are close to the original."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Side by side, the body, glass and hazard band look like the original, but the top assembly is visibly different in every angle view (block tilt, stripe direction, glossy white patch). A player who knows the prop would see the difference at game size."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front is on the same face as the original (red light and white panels in the same place), the prop stands upright, and the base sits in the same place in the below view."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "checkErrors is empty; the reproduction has 88 triangles against the original's 116 (under twice); the silhouette and below views show no open or floating parts."
+  }
+ },
+ "total": 13,
+ "of": 16,
+ "passes": false,
+ "readings": [
+  {
+   "M1": 1,
+   "M2": 2,
+   "M3": 1,
+   "M4": 2,
+   "M5": 1,
+   "M6": 1,
+   "M7": 2,
+   "M8": 2
+  },
+  {
+   "M1": 2,
+   "M2": 2,
+   "M3": 1,
+   "M4": 2,
+   "M5": 1,
+   "M6": 1,
+   "M7": 2,
+   "M8": 2
+  }
+ ]
+}
