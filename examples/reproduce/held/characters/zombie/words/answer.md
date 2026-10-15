@@ -1,21 +1,23 @@
-The zombie is built and passes every check: `OK: built, and every check passed`, with no faults. The file is `zombie.mdl` in the work folder (`/tmp/smak-repro-KkGvtS/`, with its spec as `zombie.spec.json`). I haven't put it in the game's models folder.
+The zombie model is built and the build says **OK**. It is at `work:zombie.mdl`, with its spec at `work:zombie.spec.json`. I couldn't compare it against the original's pictures (none were supplied), so the match rests on the description and the build's measurements.
 
-**What it is built on:** Gordon's skeleton from the Half-Life install, with all 77 of his animations kept and `floor: 0`. Its first animation is `look_idle`, and the pose is set for that frame.
+**What I built**
+- **Base:** `player/gordon/gordon.mdl` from the game folder. Its skeleton and all 77 animations are kept, as you asked, so the walk is Gordon's, not a shamble.
+- **Floor:** `floor: 0`, so the feet stand at the origin.
+- **Height:** 67.9 units against the 68 asked for.
+- **Stance:** the spine leans forward with the head bowed, the right forearm is brought down to hang like the left, and the knees are slightly bent. The hands hang to about knee height.
+- **Head:** a cream-white dome with a separate ochre-brown rim egg at the jaw.
+- **Torso:** an off-white coat with grey tones, sleeves to the elbow, and a hem to mid-thigh. A dark vertical gash runs down the front, and two dark openings sit on the back.
+- **Legs:** pale grey trousers and dark red-brown shoes.
+- **Arms:** near-black forearms and large palms, with five long finger tubes per hand. Each finger ends in a small crimson claw.
+- **Triangles:** 708, under the 724 the checks allow (twice the base body).
 
-**Shape and stance, against your description:**
-- **Height and build:** about 68.5 units tall with the feet at 0. The torso is slim and the legs run from about 0 to 39 units. The shoulders are about 13 units wide, and the arms reach down to about knee height (claw tips around 24).
-- **Stoop:** the spine leans forward, the neck juts and the head hangs forward. Both arms hang down, with the right forearm turned to match the left.
-- **Head:** a cream dome with an ochre rim, coming down to the jaw, with a few red strands below.
-- **Coat:** off-white, hanging to about mid-thigh, with blood smears on the chest, hem and back.
-- **Torso:** a dark, painted gash down the front with three pale rib bars, and two dark painted holes on the back.
-- **Arms and hands:** dark, long, spindly fingers, five per hand, with crimson-tipped claws.
-- **Legs:** pale grey trousers and dark red-brown boots.
+**What is missing or approximate**
+- **Blood:** the coat, cuffs and trousers have no blood smears. The coat is a soft shape with no paint, and the kit can't paint a soft shape from a description alone.
+- **Collar and lapels:** not modelled.
+- **Face:** no red strands where the face and chin would be.
+- **Claws:** short, and they read as thin crimson tips.
+- **Neck and collar:** the coat has no collar and the neck is a plain flesh tube.
+- **Head:** I didn't check the head close up; the last close-up focused on the legs and hands.
+- **Look:** the coat and trousers are grey-white and the textures are plain paint, not photographs. The kit warns that its pictures look unlike Valve's; that warning is still open.
 
-**Where it falls short:**
-- **Walk:** the animations are Gordon's, so the walk is his, not the shamble you described. I had no pictures of the original to fit a walk to.
-- **Coat detail:** no collar or lapels are modelled.
-- **Wounds:** the chest tear, rib bars, back holes, claw tips and blood smears are painted onto the surface, not built as geometry. From a distance they read, but they add no depth.
-- **Hit boxes:** the model keeps Gordon's 20 hit boxes. A monster that is shot at needs its own, which I did not set up.
-- **Size:** 680 triangles against the base's 362. The check passes, but it is heavier than a player body.
-
-Your side-by-side judgement is the real test, and I have only the description, so the proportions are my reading of it. The pictures from the build show a body that matches the description in silhouette, stance and colour.
+To close the gaps, the next steps would be a photo or painted reference of the original (a side and front view would help most) so the coat, blood and head colours can be matched, and a sample of the shamble to fit the walk.

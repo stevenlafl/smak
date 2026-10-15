@@ -1,11 +1,11 @@
-The model builds to OK and is written as `scientist.mdl` in the work folder (`work:scientist.mdl`, with its spec at `work:scientist.spec.json`). It is not a close match yet, so treat it as a first pass.
+I can't build the scientist yet. The character needs a game skeleton to keep its bones and animations, and the SMAK server has no game models it can read.
 
-**What I built:** a character on Gordon's skeleton from the Half-Life install (`floor: 0`, so the feet stand at the origin). The body is one carved shape made from the six-view sheet and the four angle pictures, at 33.4 × 21.6 × 68 units against the original's 33.3 × 21.7 × 68. The pose was fitted to the pictures (outline overlap 0.88), and the colours and markings come from projecting the pictures onto the shape. The tie, glasses, grey side hair, blue shirt and brown shoes are in the texture, not in separate geometry. The carve is 680 triangles, under the base's double-count warning.
+**What's stuck:** The build names `player/gordon/gordon.mdl` as its base, and the server's models folder is empty. The `models` listing shows only the work folder, and `info` on the Gordon file reports "no such file". Pointing `info` at the absolute path under `Projects/goldsrc.net/hlds-win/ts/models/` is refused, because the server only reads its models folder and work folder. I can't copy the file into either folder with the tools I have, and I can't restart the server.
 
-**What is still off:**
-- **Texture:** the projected colour is blotchy. The blue shirt and striped tie read as dark smudges, not clean stripes, and the front shows a few grey streaks on the coat.
-- **Below view:** the report warns that the underside's colour differs from the picture (mean 11.7, worst cell 41, at the bottom middle).
-- **Run animation:** the carved body's lower corners flare into long triangles at the feet in the run strip. The report does not flag this, and I did not fit the run to `motion.png`, so it still shows the base's run with the carved body.
-- **Parts:** there is no separate tie, glasses or shoe geometry, so anything the pictures do not show exactly comes out soft.
+**What I checked:** The reference pictures, the facts file (33.3 long, 21.7 wide, 68 high) and the motion strip, which together show a bald scientist with grey hair at the sides, glasses, a white coat over a blue shirt and a red-striped tie, white trousers and brown shoes. I also read the SMAK guide on characters and monsters. The guide's worked Gordon skeleton example uses the same Biped bone names I would need, so the parts can be planned against them. I have not written the spec, because the bone names and rest pose can only be confirmed from the real base file.
 
-I did not change the game's files or the base skeleton. The kit reports the base as the Half-Life install's `valve/models/player/gordon/gordon.mdl`, which is the only game file it used.
+**What I need from you (pick one):**
+1. Point the SMAK server's models folder at a folder that holds `player/gordon/gordon.mdl`. The likely source is `/media/Data3/Projects/goldsrc.net/hlds-win/ts/models/`, which is The Specialists' copy of Gordon. Restart the server with that folder set (or copy the file into the folder it already reads), then tell me and I'll build it.
+2. Name a different base that is in the models folder, and I'll use that one.
+
+Once the base loads, I'll write `scientist.mdl` with `floor: 0`, fit its stance to the reference outlines, build the coat, shirt, tie, trousers, shoes, glasses and hair, then check the report and pictures against the originals before calling it done.

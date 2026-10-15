@@ -1,34 +1,26 @@
-The build is **NOT OK**, so I'm not delivering it as finished. The file on disk is the best variant I reached, `work:zombie.mdl`, but it still has faults the build reports.
+The zombie character builds and the build says OK, with some warnings left. The file is `zombie.mdl` in the work folder (with `zombie.spec.json` beside it). I did not copy it into the game folder.
 
-**What the current file is**
-- Kind `character` on `player/gordon/gordon.mdl` (found in Half-Life's `valve/models`), `floor: 0`, size requested 38.5 × 53.8 × 68.4. The report measures 38.3 × 52.9 × 68.2.
-- One carved body from the six-sided sheet plus the four angle pictures, at 160 cells and 720 triangles. Its pose is pinned to the stance the fit chose: left thigh turned 9 degrees, left upper arm turned 21 degrees and 6 degrees out.
-- Paint comes from `project` (the sheet and the four angles), at 512 × 512.
-- The per-view outline match against your pictures is 0.79 to 0.87.
+**What it is:** a character on Gordon's skeleton (`valve/models/player/gordon/gordon.mdl`, found under the Half-Life install), `floor: 0`, keeping all of Gordon's 77 animations. The original zombie's own model was not used.
 
-**What still fails**
-- **FAULT, loose pieces at rest** (`look_idle` frame 0): 19 pieces, two of them 9.1 and 3.6 units from the body. These are finger tips the carve kept as separate shards. The same problem shows in every animation.
-- **WARN, thin parts lost:** the carve dropped 57 fingers and claws thinner than a cell. The tool asks for these as parts of their own.
-- **WARN, outline:** the left view is at 0.792, under the 0.8 line.
+- **Body:** carved from the six-side sheet (`sides.png`), 450 triangles, so its outline follows the original's silhouette.
+- **Claws:** eight tubes, four per hand, hung on the hand bones, 16 triangles each.
+- **Colours and markings:** projected from the sheet and the four angled pictures onto the texture, 512 by 512.
+- **Stance:** the arms are set forward and the spine leans forward 8 degrees, by fixed keys rather than the automatic fit, because the fit moved with every part I added.
 
-**What I tried, and why I stopped there**
+| Measure | Original | Built |
+| --- | --- | --- |
+| Length (x) | 38.5 | 37.7 |
+| Width (y) | 53.8 | 53.2 |
+| Height (z) | 68.4 | 68.4 |
+| Triangles | none given | 578 (limit 724, twice the base's 362) |
 
-| Variant | Worst outline | Loose pieces at rest | Result |
-|---|---|---|---|
-| Carve 128 cells, 700 triangles, pinned pose | 0.77 (yaw 35) | 6.7 and 6.1 | Floats, outline warn |
-| Carve 160 cells, 720 triangles (on disk) | 0.79 (left) | 9.1 and 3.6 | Floats, thin-part warn, outline warn |
-| Plus 8 claw tubes on the hand bones | 0.37 to 0.64 (yaw -35, yaw 145, back, top) | 3.7 to 5 | Outline faults |
-| Carve 380 triangles | 0.28 (yaw -35) | 7 | Outline fault |
-| Blobs at the joints | Pose fit collapsed (0.43) | Blobs fell below the floor | Abandoned |
+**Warnings still in the build (not faults):**
+- The carve drops the thinnest strands of the original, so the claws are four solid tubes per hand, not the original's fine fingers.
+- Outline overlap with the pictures is 0.70 to 0.80 in most views, under the 0.8 the check wants. The front-left and back-left views sit at 0.71 and 0.70.
 
-- **Claws break the outline check.** Thin claw tubes placed a few units off the picture's claws lower the cell-based match a lot. Dropping the top and below views did not help.
-- **The pose fit moves with the parts.** Adding claws changed the fitted arm angles, so I pinned the keys.
-- **Attach offsets use the unlifted base frame.** Parts attached to a bone take offsets in the base's frame, which is 36 units lower than the model's floor-lifted frame. This cost me a few runs; it may be worth a note in the smak docs.
-- **Motion not used.** `motion.png` (the walk) is not matched; the build holds the standing pose only.
+**Known gaps:**
+- The body is boxier than the original. The torso and legs are bulkier, and the coat does not taper as it does in the pictures.
+- The right arm's claws are faint from the front-left camera.
+- Walking is rough: dark slivers appear at the feet in the walk strip. The first frame is what I checked. I tried fitting the walk to `motion.png`, but the fit scored worse (0.53), so I left the walk as Gordon's own.
 
-**Choices for you**
-1. **Accept with waivers:** allow the body's loose pieces (`allow.floating`) and accept the thin-part and outline warnings. That gets to OK, with the fingers visibly as dark shards rather than claws.
-2. **Hands rebuilt by hand:** make the claws as proper parts, accept a lower outline on the arms, and have the build name the faults for the arms.
-3. **Closer pictures of the hands:** if you can give me close-ups of each hand from front and side, I can place the claws precisely enough to pass the outline check.
-
-I'd pick option 3, then option 1 as the fallback. Tell me which, and I'll finish it.
+I did not save a memory note on this: the memory tool is disabled in this session.

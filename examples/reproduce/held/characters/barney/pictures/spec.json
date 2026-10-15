@@ -16,6 +16,16 @@
     "height": 512
   },
   "smooth": 80,
+  "materials": {
+    "cloth": {
+      "base": "cloth",
+      "tone": [
+        0.3,
+        0.32,
+        0.5
+      ]
+    }
+  },
   "project": [
     {
       "picture": "work:pictures/sides.png",
@@ -98,14 +108,23 @@
       "pitch": 20
     }
   ],
+  "pose": {
+    "fit": true
+  },
   "parts": [
     {
       "id": "body",
       "kind": "carved",
+      "material": "cloth",
       "size": [
         22.8,
         30.2,
         75.3
+      ],
+      "at": [
+        0,
+        0,
+        0
       ],
       "sheet": "work:pictures/sides.png",
       "pictures": [
@@ -130,13 +149,8 @@
           "pitch": 20
         }
       ],
-      "cells": 192,
-      "triangles": 600,
-      "at": [
-        0,
-        0,
-        0
-      ]
+      "cells": 96,
+      "triangles": 720
     }
   ]
 }

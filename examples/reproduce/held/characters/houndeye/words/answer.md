@@ -1,25 +1,19 @@
-The model builds OK: `houndeye.mdl` is in the work folder (the tool reports it as `work:houndeye.mdl`), with its spec at `work:houndeye.spec.json`. It is a `character` on Gordon's skeleton (`player/gordon/gordon.mdl`, which the kit found in the Half-Life install), with `floor: 0`, and it keeps Gordon's 77 animations. The build reports 714 triangles, under the 724 limit (twice the base body's 362) that would have been a fault. The height comes out at 47.6 units against the 45 asked, and there are no faults.
+The model is built and the build says OK: `houndeye.mdl` is in the work folder, with `houndeye.spec.json` (the spec) and `houndeye-sheet.png` (the six-view sheet). It's on Gordon's skeleton (`player/gordon/gordon.mdl` from the Half-Life install), with `"floor": 0`, keeping all 77 of Gordon's animations. The GoldSrc check says it fits. It has 696 triangles against 362 for Gordon's body, and the build's triangle fault goes off past twice that.
 
-I only had the written description, so I checked it against the description and the kit's six-view sheet, not against the original's pictures. Those pictures will show where it falls short.
+I had no picture of the original, only your description, so I could not compare it side by side. Everything below is built from the description and the sheet.
 
-**What is in it**
-- **Body:** one turned shape along the x axis, a teardrop from above (narrow tail, broad front) and about 30 units tall. Its belly is cream, its back is olive-mustard leather, and it has chevron-style stripes in cyan, brown and gold that wrap down the upper sides.
-- **Back ridge:** six small triangular spines leaning back, from behind the eye to the rump.
-- **Face:** a flat front with twelve dark maroon spheres in a 4 by 3 grid, and a pinkish-red ring painted round the edge.
-- **Underside:** a dark red oval mouth just behind the front.
-- **Legs:** two front legs on Gordon's left and right leg bones, and one rear leg hung on the pelvis under the tail. Each front leg has a thigh, a shin and two cream toes. The rear leg has no toes.
-- **Marks:** navel spots on the flanks, and fine veins.
+**What matches the description**
+- Bean-shaped body with a teardrop plan, about 50 long, 35 wide and 46 high. The body sits over the lower legs, and only about 14 units of leg show below it.
+- A big dark-maroon eye cluster (12 spheres) on the front, inside a pinkish-red rim, with a dark red mouth on the underside behind it.
+- Six spine plates along the back and five raised stripes wrapping the upper sides in cyan, brown, gold, cyan and cream, pointing forward.
+- Two front legs splayed out with pale feet, and one rear leg under the tail.
+- Olive-yellow skin and two small dark pores on the flanks.
 
-**Where it falls short of the original**
-- **Rear leg:** it is hung on the pelvis, so it does not swing in the walk. The skeleton has only two legs, so the third can't follow a leg bone.
-- **Eye spheres:** four-sided, so they read as dark dots rather than round glossy beads. There is no white highlight.
-- **Pose:** the body is level, not hunched forward with the eye tilted down, and the back does not arch.
-- **Teeth:** the mouth has no pale teeth ridges.
-- **Legs:** the thighs are chunky, and the bend backward at the shin is not as pronounced as the original's.
+**Where it falls short**
+- **Skeleton and gait.** The base is a human skeleton, so the front legs hang from the body rather than following the arm bones, and the rear leg is Gordon's left leg. The right leg has no mesh. In the game the creature will move with Gordon's animations, so the bounding gait won't look like the original's.
+- **Colour and surface.** Each part takes one flat colour. There's no cream belly fading into the skin, no blue-green veins, no wrinkles and no pinkish-red socket gradient.
+- **Shapes.** The spines are small blocks, not triangular backward-leaning plates. The stripes are raised ridges in their own colours, not painted bands.
+- **Build.** The eye rim sits 0.48 units off the eye cluster. The build reports it as a note, not a fault.
+- **Check output.** The GoldSrc check counts 1392 triangles because the model holds two body variants (`lowcount` and `highcount`), 696 each, both ours. Gordon's own bodies are replaced.
 
-**Choices I made**
-- Height kept at the 45 asked, with the spines counting toward the top.
-- Triangle budget kept under the fault line, which limited the eye spheres to four sides and the legs to 90 triangles.
-- The rim and the stripes are painted rather than built, to save triangles.
-
-I did not change any configuration. If you can share a picture of the original, the next step would be to compare it side by side and address the pose and the eye detail.
+If you can get a picture of the original (a front, a side and a top view), I can run the spec's `project` and `pose: fit` steps to bring the outline and proportions closer. I can also reduce the spine blocks to triangular plates if you want that before then.

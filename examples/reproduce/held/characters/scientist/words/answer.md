@@ -1,20 +1,32 @@
-`scientist.mdl` is built and the build says **OK**. The GoldSrc check also passes. Files are in the work folder: `work:scientist.mdl`, the spec `work:scientist.spec.json`, and the sheet `work:scientist-sheet.png`.
+The scientist model is built, and the build says OK. It is saved as `scientist.mdl` in the work folder, with its spec beside it as `scientist.spec.json`. I had no reference pictures, so I could not put it side by side with the original. Everything was built from your description, so the judge's comparison is the real test.
 
-**What it is**
-- **Base:** Gordon's model from the Half-Life install (`valve/models/player/gordon/gordon.mdl`). It keeps his 42 bones and 77 animations, with `floor: 0` so the feet stand on the origin.
-- **Size:** 68 units tall, head about 8.5 (one eighth), fists at mid-thigh, coat hem at about 24.
-- **Parts and colours:** white coat, off-white trousers, blue shirt collar and front strip, navy tie with red stripes, black belt with steel buckle, dark brown shoes, pale skin, grey hair band, black-rimmed glasses, nose, ears and a painted mouth.
-- **Pose:** Gordon's right forearm is turned 90 degrees so that hand hangs, since his first frame holds a gun forward.
+**Build result**
 
-**Choices I made**
-- **Triangle count is 722.** The build warns above twice Gordon's own 362, so I kept under that. The price is faceted surfaces, most visible on the coat and head.
-- **Joints hold in motion.** Each blob piece is bound to the bone it sits on, and the report finds no floating parts in its 22 run and walk frames.
-- **Coat tone is muted** (0.74 on plaster) to avoid the "too clean to be GoldSrc" warning.
+| Check | Result |
+|---|---|
+| Build | OK, every check passed |
+| GoldSrc engine check | Fit for GoldSrc |
+| Triangles | 704 (Gordon's own body is 362; a character over 724 would fail) |
+| Height | 68.2 units, feet at 0 (`floor: 0`) |
+| Base | `player/gordon/gordon.mdl` in the Half-Life `valve` folder; all of Gordon's animations kept |
 
-**Where it falls short of the description**
-- No lapels or turned-down collar on the coat.
-- The tie stripes are horizontal dashes, because the tool can't angle panels on a box.
-- No hunched stance. The spine is Gordon's upright one, and the head only sits forward by offset.
-- The animations are Gordon's, so the run is his gait, not the 19-frame scientist run. You asked to keep the skeleton's animations, so I left them.
-- Front-to-back depth standing is 13.4 units, not 33.3. The 33.3 in your description is a mid-stride measure, so I matched the standing pose.
-- The GoldSrc check counts 1444 triangles against the build's 722. I didn't establish why, so check it if the count matters.
+**What is modelled**
+- **Head:** a bald, elongated skull with ears, a long nose, a thin mouth, and a grey-white hair band from ear to ear round the back.
+- **Glasses:** black rectangular frames with pale lenses and arms running back to the ears.
+- **Coat:** a white lab coat with a narrow, slightly stooped torso, long sleeves ending at the wrists, and a flared, flat hem at about knee height.
+- **Shirt, tie, belt:** a blue shirt visible in the open front, a navy tie to the belt, and a black belt with a grey buckle.
+- **Trousers and shoes:** off-white trousers and dark reddish-brown lace-up shoes.
+- **Hands:** skin-coloured fists at about mid-thigh.
+
+**Choices I made that you should know about**
+- **Pose changes:** Gordon's first frame holds his right arm forward, so I turned his right forearm down to hang straight. I tilted both upper arms about 10 degrees inward to bring the hands to about 22 units across, and leaned the spine forward about 3 to 4 degrees so the head juts forward. These turns apply to every frame of his first animation, so his idle and run keep their timing but are not Gordon's exact pose.
+- **Proportions:** Gordon's skeleton sets the hip line and arm length. The hips sit higher than the original's (the belt is at about 56 percent of height against the description's hip line at about 47). The mid-thigh hands are the cuffs and fists hung on the forearm bone, so the arms look longer than the skeleton's own.
+- **Animations:** I kept Gordon's animations. I did not make a scientist run cycle, so the running pose is Gordon's, not the 19-frame lean-and-flail you described.
+
+**What I left out or simplified**
+- The tie is solid navy, without the diagonal red stripes.
+- No lapels or collar shape; the coat folds are not modelled.
+- The glasses and mouth are painted on the face rather than modelled.
+- The face has no sunken eyes or cheek hollows; those need more triangles than the budget allows.
+
+If you can send a picture of the original (or point me to one), I can compare the silhouette and colours and tune the coat, the stance and the face.

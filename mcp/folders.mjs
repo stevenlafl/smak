@@ -65,8 +65,17 @@ export function pathOf(folders, name, { write = false } = {}) {
       `${name} is outside the ${write ? "work folder" : "models and work folders"}: refused. Name files by their path under one of them`,
     );
   if (write) return allowed[0];
-  const found = allowed.find((path) => existsSync(path) && statSync(path).isFile());
-  if (!found) throw new Error(`no such file: ${name} (the tool \`models\` lists what there is)`);
+  let found = allowed.find((path) => existsSync(path) && statSync(path).isFile());
+  // a game's model by its path in the game (player/gordon/gordon.mdl), found where the build finds a base: in the
+  // game folders (--wads). A maker that asked `info` for its base and was told "no such file" stopped there,
+  // though the build would have read it (2026-10-15). A file the server refuses (a blind test's original) stays so
+  if (!found && /\.mdl$/i.test(bare) && said !== "work") {
+    const own = bare.replace(/^models\//, "");
+    const refused = [...(folders.refuse ?? []), ...(folders.hide ?? [])].some((r) => r.replace(/^models\//, "") === own);
+    if (!refused)
+      found = (folders.wads ?? []).flatMap((game) => [resolve(game, "models", own), resolve(game, own)]).find((path) => existsSync(path) && statSync(path).isFile());
+  }
+  if (!found) throw new Error(`no such file: ${name} (the tool \`models\` lists what there is${folders.wads?.length ? "; a game's model is named by its path in the game, player/gordon/gordon.mdl" : ""})`);
   return found;
 }
 

@@ -57,3 +57,20 @@ await testAsync("materials: a library searched and seen, its pictures read as li
   const without = toolsFor(openFolders({ work: join(tmp, "library-work") }));
   sure(!without.some((t) => t.name === "materials"), "no library, no tool");
 });
+
+test("a game's model is found by its path in the game, where the build finds a base; a refused one is not", () => {
+  const game = join(tmp, "game-folder");
+  mkdirSync(join(game, "models", "player", "gordon"), { recursive: true });
+  writeFileSync(join(game, "models", "player", "gordon", "gordon.mdl"), "stand-in");
+  writeFileSync(join(game, "models", "scientist.mdl"), "the original");
+  const folders = { ...openFolders({ work: join(tmp, "game-work") }), wads: [game], refuse: ["scientist.mdl"] };
+  sure(pathOf(folders, "player/gordon/gordon.mdl").endsWith(join("models", "player", "gordon", "gordon.mdl")), "found in the game folder");
+  sure(pathOf(folders, "models/player/gordon/gordon.mdl").endsWith("gordon.mdl"), "with models/ before it too");
+  let said = "";
+  try {
+    pathOf(folders, "scientist.mdl");
+  } catch (error) {
+    said = error.message;
+  }
+  sure(/no such file: scientist\.mdl/.test(said), `refused: ${said}`);
+});

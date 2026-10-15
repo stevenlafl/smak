@@ -1,19 +1,29 @@
-The model is built: `work:houndeye.mdl`, and the build says OK. It is a character on Gordon's skeleton (`player/gordon/gordon.mdl`, found in your Steam install), with `floor: 0`, and it keeps Gordon's 77 animations.
+The houndeye is built as `work:houndeye.mdl`, and the build says OK. It is not on the Gordon skeleton you suggested, because the kit refuses the houndeye's own skeleton as a blind test's original. I used the headcrab's skeleton instead.
 
-**What I built**
-- **Body:** one carved shape from the six-view sheet (`sides.png`) plus the four three-quarter pictures, at 96 cells. It is 48.9 long, 33.6 wide and 44.7 high against the original's 49.3, 33.5 and 44.7. It is 360 triangles, symmetric about the middle.
-- **Colours and markings:** projected from the original pictures, so the olive-yellow body, teal and brown back stripes, pale underside and the dark maw at the front all come from the pictures.
-- **Outline:** each view matches its own picture closely (0.98 or better). Measured against the picture's outline, front and back come out at 0.89 and the sides at 0.94. The report has no faults.
+**Base and animations.** Gordon is a biped, and the bullsquid has only two real legs. The headcrab is the closest game creature with four limbs: two hind legs and two forelimbs off the neck. Its 21 animations are all in its own file, so none are lost. The spec is `floor: 0`, sized to 49.3 long, 33.5 wide and 44.7 high.
 
-**What is not as close as I would like**
-- **Back spikes:** the fin ridge is flattened in the carve. From the back the top reads as a dome, where the original has five sharp peaks. Fixing this means adding the spikes as separate parts. I did not do that.
-- **Back colour:** the report warns that the back views' colours differ from the pictures (mean difference 12 on a scale where 10 is the warning line). The worst spot is the upper back.
-- **Motion:** the carved body hangs on Gordon's bones, so the limbs stretch into long shards in the run frames (the motion strip). The standing first frame is clean, but the running animation looks wrong.
-- **Not verified in game:** I checked the first frame only in renders from front-left and back-right, beside the originals. I have not run it in the game.
+**Body.** The body is carved from your six sides and four angle pictures, and its texture is projected from the same pictures, so colours and stripes come from the originals. The fitted pose was dropped: it lifted the right hind foot about 9 units off the floor. With the rest stance, all four feet stand on the floor.
 
-**Choices I made**
-- I passed the spec inline. The Write tool is disabled in this session, so I could not save a `.json` file. The build saved the spec beside the model as `work:houndeye.spec.json`.
-- The houndeye's own skeleton is not available, so I used Gordon's, as you suggested.
-- I used the default body finish and the gentler character wear and grime. I did not add a pose, because the carved outline already sits where the pictures show it.
+**Comparison.** I checked the front-left and back-right views by eye against the originals. Maw, crest and legs fall in the same places. The texture smears a little on the lower body.
 
-Tell me if you want the spikes built as parts, or the body rebuilt on a skeleton that bends less under the run animations.
+```
+view (outline overlap, 1.0 is exact)   overlap
+front                                  0.89
+left                                   0.94
+back                                   0.89
+right                                  0.95
+top                                    0.95
+below                                  0.96
+yaw 35 pitch 20                        0.91
+yaw -35 pitch 20                       0.89
+yaw 145 pitch 20                       0.93
+yaw 215 pitch 20                       0.90
+run (motion strip, fitted)             0.53
+```
+
+**Known gaps:**
+- The run fits the motion strip poorly (0.53). The body stays together through the run, but its pose is only approximate.
+- The report warns that the back views' colours differ from the pictures, on the crest (mean 12, against 10 for a warning). The build still passes.
+- The limbs are thinner than the originals, and the maw is a little less round. The headcrab's rig is much smaller than the houndeye, so its limbs deform only roughly in motion.
+
+**Clutter to remove.** I left probe files in the work folder: `probe_bullsquid.mdl`, `probe_chumtoad.mdl`, `probe_headcrab.mdl`, and the probe spec and sheet PNGs. I have no delete tool here, so they are yours to remove. The houndeye's spec is `work:houndeye.spec.json`, and the pictures I drew for review are in the work folder.
