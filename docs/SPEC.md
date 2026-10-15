@@ -877,6 +877,8 @@ and pass the picture as `reference`: it is then drawn beside the plan of the res
 - `FAULT ... reaches N into <room>'s <side> wall`: furniture or a prop standing in a wall.
 - `FAULT furniture[n] ... stands in front of links[m]`: in the way of a door or an opening; move it aside.
   `... stands on or at the foot of the stairs of links[m]`: the same for a flight of stairs.
+- `WARN N rooms of a building have nothing in them`: a house's rooms are furnished unless the person asks for them
+  bare; corridors and open rooms are not counted.
 - `WARN N pieces of furniture are boxes where the kit has a model`: a prefab named for a thing the kit furnishes
   (`toilet`, `tub`, `wall_sink`, `fridge`) is built of boxes, which read as blocks in the game: put the kit's in
   as props (`"model": "kit:toilet"`), unless the boxes are meant.

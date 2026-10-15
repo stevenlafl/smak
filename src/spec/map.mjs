@@ -1308,6 +1308,13 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     if (free < wanted)
       report.faults.push(`${way.in.map((t) => t.name).join(", ")} ${way.in.length > 1 ? "stand" : "stands"} ${way.kind === "stairs" ? "on or at the foot of the stairs of" : "in front of"} links[${way.link}]${way.kind === "stairs" ? "" : `, ${way.kind === "opening" ? "an" : "a"} ${way.kind}`}, leaving ${Math.round(free)} of ${way.kind === "stairs" ? "them" : "it"} free (a player passes at ease at ${wanted}; ${way.kind === "stairs" ? `the stairs and the floor ${CLEAR} deep at their foot` : `the floor ${CLEAR} deep each side`}, from ${way.min.join(" ")} to ${way.max.join(" ")}, ${way.kind === "stairs" ? "are" : "is"} kept clear): move ${way.in.length > 1 ? "them" : "it"} out of the way`);
   }
+  // a building's rooms with nothing in them: a house is lived in (Haiku's Kaupo had no furniture at all, and the
+  // report never said so). Corridors and open rooms may be bare, as Valve's are
+  const holds = new Set([...(spec.furniture ?? []), ...(spec.props ?? []), ...(spec.entities ?? [])].filter((t) => !/^light/.test(t.class ?? "")).map((t) => t.room));
+  const across = (room) => [room.max[0] - room.min[0], room.max[1] - room.min[1]].sort((p, q) => p - q);
+  // a corridor (three times as long as it is wide or more) and a cupboard may be bare
+  const bare = [...rooms.values()].filter((room) => room.building && !holds.has(room.id) && across(room)[0] >= ROOM_LEAST && across(room)[1] < 3 * across(room)[0]);
+  if (bare.length) warnings.push(`${bare.length} rooms of a building have nothing in them: ${bare.map((room) => room.id).join(", ")}: furnish each as the person's words or pictures say (props of the kit's furniture, "kit:bed"), or leave it bare on purpose`);
   // furniture of boxes named for a thing the kit furnishes as a model: Kaupo's bathroom was a toilet, a tub and a
   // sink of boxes, read as blocks (Steven's walk). Its name, or its last word, is the kit's or a common other name
   const kitNames = readdirSync(KIT_FURNITURE).map((f) => f.replace(/\.json$/, ""));

@@ -517,6 +517,12 @@ test("a building raised over its yard gets steps out from its door, and is walke
   const report = buildMapSpec(spec, { out: join(folder, "raised"), compilers: { found: false, message: "" } }).report;
   sure(!report.errors.length && !report.faults.some((f) => !/not compiled/.test(f)), [...report.errors, ...report.faults].join("; "));
   sure(report.facts.some((f) => /stairs of 3 steps in yard up to the way at 48/.test(f)), report.facts.filter((f) => /links/.test(f)).join("; "));
+  // a house's room with nothing in it is told; the yard round it is not
+  const bare = buildMapSpec({ ...spec, entities: spec.entities.slice(0, 1) }, { out: join(folder, "raised"), compilers: { found: false, message: "" } }).report.warnings;
+  sure(bare.some((w) => /^1 rooms of a building have nothing in them: a:/.test(w)), bare.join("; "));
+  sure(!report.warnings.some((w) => /nothing in them/.test(w)), report.warnings.join("; "));
+  const hall = buildMapSpec({ ...spec, rooms: [spec.rooms[0], { ...spec.rooms[1], size: [400, 64, 112] }], entities: spec.entities.slice(0, 1) }, { out: join(folder, "raised"), compilers: { found: false, message: "" } }).report.warnings;
+  sure(!hall.some((w) => /nothing in them/.test(w)), `a corridor may be bare: ${hall.join("; ")}`);
 });
 
 test("a building's doors open through walls of any thickness, and a room no floor of which is walked is a fault", () => {
