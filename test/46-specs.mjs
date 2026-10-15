@@ -633,28 +633,15 @@ test("a weapon laid \"as drawn\" is fitted without a crash (case 26, the lunchbo
   sure(fit && fit.name === "as drawn" && Number.isFinite(fit.k), JSON.stringify(fit && { name: fit.name, k: fit.k }));
 });
 
-test("a door's picture is fitted to its leaf, a ladder's across its width; every door opens and shuts by use", () => {
+test("a door's picture is fitted to its leaf, a ladder's across its width; every door opens to a touch and shuts by itself", () => {
   // Steven's walk of kaupo_v2: doors "solid wood, no handles", a ladder "-|- rather than |--|"
   const spec = (door) => ({ spec: "smak.map/1", name: "fit", rooms: [{ id: "a", size: [256, 256, 128] }, { id: "b", size: [256, 256, 128], place: { east_of: "a" } }], links: [{ between: ["a", "b"], kind: "door", door }], ladders: [{ room: "a", side: "north", height: 120 }], entities: [{ class: "info_player_start", room: "a", at: "centre" }] });
   for (const door of [{ swing: true }, undefined]) {
     const { files } = buildMapSpec(spec(door), { out: join(folder, "fit"), compilers: { found: false, message: "" } });
     const map = smak.maps.readMap(readFileSync(files.map, "utf8"));
     const leaf = map.entities.find((e) => /^func_door/.test(e.classname));
-    if (leaf.classname === "func_door") sure(leaf.spawnflags === "288", `${leaf.classname} spawnflags ${leaf.spawnflags}`);
-    else {
-      // on hinges: toggled (32) by a still button in its frame, both jambs and the lintel, whose box spans the
-      // doorway and never turns as the open door's does (PlayerUse finds an open door's cube only looking up)
-      sure(leaf.spawnflags === "32" && leaf.targetname, `${leaf.classname} spawnflags ${leaf.spawnflags}, named ${leaf.targetname}`);
-      const button = map.entities.find((e) => e.classname === "func_button" && e.target === leaf.targetname);
-      sure(button && button.spawnflags === "1" && button.brushes.length === 3, JSON.stringify(button && { flags: button.spawnflags, brushes: button.brushes.length }));
-      const span = (es, i) => [Math.min(...es.flatMap((b) => smak.maps.shapeOf(b).corners.map((p) => p[i]))), Math.max(...es.flatMap((b) => smak.maps.shapeOf(b).corners.map((p) => p[i])))];
-      const [ly, lz] = [span(leaf.brushes.slice(0, 1), 1), span(leaf.brushes.slice(0, 1), 2)];
-      const [by, bz] = [span(button.brushes, 1), span(button.brushes, 2)];
-      sure(by[0] < ly[0] && by[1] > ly[1] && bz[0] <= lz[0] && bz[1] > lz[1], JSON.stringify({ ly, lz, by, bz }));
-      // and the frame is in the wall's rock: no part of it in either room
-      const [bx, lx] = [span(button.brushes, 0), span(leaf.brushes.slice(0, 1), 0)];
-      sure(bx[1] - bx[0] <= 16 && bx[0] <= lx[0] && bx[1] >= lx[1], JSON.stringify({ bx, lx }));
-    }
+    // every door as Valve's are: opened by walking into it, shut by itself two seconds later (Steven, 2026-10-15)
+    sure(leaf.spawnflags === "0" && leaf.wait === "2" && !map.entities.some((e) => e.classname === "func_button"), `${leaf.classname} spawnflags ${leaf.spawnflags}, wait ${leaf.wait}`);
     // the leaf, 96 high and as wide as the doorway (64 unless told, less 4 at a hinge): its broad faces
     // (looking along x) span exactly one 64 x 128 picture
     const corners = smak.maps.shapeOf(leaf.brushes[0]).corners;

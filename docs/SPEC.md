@@ -839,15 +839,13 @@ stacked) with the wall's rock between them, and the link goes through that rock:
 - `opening` (unless told): a way through, 64 wide and 96 high unless told.
 - `door`: the same with a door in it: a `func_door` that slides up into the wall over it, all the way, or with
   `door: { swing: true }` a door on hinges (`func_door_rotating`), as a house's are, turning a quarter away
-  from whoever opens it about its hinge at the start of the way (`hinge: "end"` the other edge), opened and
-  closed with the use key and never by walking into it (`spawnflags` 32, toggle, and named: a named door opens
-  to no touch). The use key finds it through a still `func_button` hidden in its frame (both jambs and the
-  lintel, in the wall's rock) that toggles it: the game looks for an open door in a cube about its hinge, so
-  a door used by itself could not be shut from beside it. Other keys of `door` are the entity's (`speed`,
-  `wait`, `targetname`: the name the frame's button targets, `door<n>` unless told); `material` its own, the theme's `door` unless told,
+  from whoever opens it about its hinge at the start of the way (`hinge: "end"` the other edge), opened as
+  a player walks into it and shut by itself two seconds later, as Valve's doors are (`wait`: the seconds it stays
+  open; a door that swings shut on a player turns back). A door to be used rather than walked into is a mod's to
+  make, with a trigger. Other keys of `door` are the entity's (`speed`, `wait`, `targetname`); `material` its own, the theme's `door` unless told,
   which is the `door` base: a panelled wooden door with a brass handle, one picture fitted to the leaf. A
   material of another base (`{ "base": "wood", "tone": "white" }`) is painted as that door in its tone, unless
-  it names a game's texture. A sliding door is opened and closed by use too. Any door's picture is fitted to its
+  it names a game's texture. A sliding door opens and shuts the same way. Any door's picture is fitted to its
   leaf, one whole picture across it.
 - `window`: 48 by 48, `sill` (40) over the higher floor. Nothing walks through a window. `glass: true` (or
   `{ alpha, health, material }`) glazes it: a `func_breakable` pane, half see-through, that shatters.
