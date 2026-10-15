@@ -38,10 +38,11 @@ grooves and steady drones**: the game's action tracks rise and fall (loudness ra
 models' hardly move (ACE-Step 2.0 to 2.5 LU). And all of them put far more of their power under 150 Hz than the
 game does. Neither model makes a stinger as the game's are: they make short pieces of music.
 
-Recommendation (section 9): if Steven hears what the pictures suggest, **ACE-Step 1.5 turbo** is the music
-generator: MIT, twenty times faster than real time here, with tempo, key and metre as inputs and its own repaint
-for loops and fixes. It shares the sound leg's `generate` tool (a `model` that is a music model) and a small
-spec of its own, `smak.music/1`, that cuts, loops, levels and names the file for the game.
+Steven listened (section 6a): ACE-Step follows music theory best, XL varies more between takes, and MusicGen
+is out. So **ACE-Step 1.5 turbo (2B)** is the music default and XL a choice for variety: MIT, twenty times faster
+than real time here, with tempo, key and metre as inputs and its own repaint for loops and fixes. It shares the
+sound leg's `generate` tool (a `model` that is a music model) and a small spec of its own, `smak.music/1`, that
+cuts, loops, levels and names the file for the game.
 
 ## 1. Candidates
 
@@ -336,6 +337,18 @@ ffplay -nodisp -autoexit $G/Half-Life07.mp3;  pw-play $R/acestep-lm/bed_x3.wav; 
 `acestep-v2/action*` is the first prompts' action again (same prompt and seed; the files differ only in float
 rounding).
 
+## 6a. What Steven heard (2026-10-15)
+
+| Model | His words |
+| --- | --- |
+| ACE-Step 2B | "seems to follow music theory the best" |
+| ACE-Step XL | "Variability was higher" |
+| ACE-Step with planner | "didn't care for" |
+| MusicGen | "sucked" |
+
+So: ACE-Step 2B is the default music model, XL stays in the manifest for an agent that wants more varied
+takes, and the planner and MusicGen are dropped.
+
 ## 7. What each did, by the numbers and the pictures
 
 Not by ear: that is section 6.
@@ -462,12 +475,12 @@ player through these entities.
 
 ## 9. Recommendation
 
-1. **Steven listens first** (section 6). The numbers put every model's best takes about as near the game's as
-   each other (dist 0.85 to 1.15 for action) and cannot say which sounds like Half-Life.
-2. If they are good enough to his ear: **ACE-Step 1.5 turbo (2B) in bf16** as the music generator: MIT weights
-   and a card that allows commercial use, 4 s a 75 s track, tempo and key as inputs, repaint for loops and fixes.
-   XL where Steven hears a difference worth three times the time (by the pictures, its ambient's outline). MusicGen adds
-   nothing ACE-Step lacks here and is NC and forty times slower.
+1. The numbers put every model's best takes about as near the game's as each other (dist 0.85 to 1.15 for
+   action) and could not say which sounds like Half-Life; Steven's ear did (section 6a).
+2. **ACE-Step 1.5 turbo (2B) in bf16** as the music default: MIT weights and a card that allows commercial use,
+   4 s a 75 s track, tempo and key as inputs, repaint for loops and fixes, and to Steven's ear the one that
+   follows music theory best. **XL** as a selectable model for more varied takes, at three times the time.
+   The planner and MusicGen are dropped (his ear, and MusicGen is NC and forty times slower).
 3. Prompts: give a tempo only to music that should have a beat; say "beatless, no drums, no rhythm" for ambient.
    Ask for the game's tempo range (100 to 136) rather than 140 to 170. Make loops a whole number of bars.
 4. Build order: the sound leg's `generate` tool with music entries in its manifest; `smak.music/1` (cut, loop,

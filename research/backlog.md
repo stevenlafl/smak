@@ -147,13 +147,13 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | Item | Status | Where / what is missing |
 | --- | --- | --- |
 | ACE-Step 1.5 (2B turbo, XL turbo, 2B with its planner) and MusicGen stereo large installed on ROCm; four cues by four seeds each; the game's 27 tracks measured in place | DONE | `/media/Data3/Packages/local-audio/` (`scripts/install-music.sh`, `generate-music.py`, `finish-music.py`, `measure-music.py`, `music-pictures.mjs`); takes in `~/stignored/music-review/` |
-| Steven listens to the takes beside the game's tracks | OPEN | Commands in the report, section 6, and `~/stignored/music-review/README.txt` |
-| Music entries in the `generate` tool's manifest (`kind: "music"`, `bpm`, `key`, `metre`, `loop`), ACE-Step 2B in bf16 as the music default if Steven agrees; loops by turn-and-repaint in whole bars | OPEN | Waits on the sound leg's `generate` tool; report section 8 |
+| Steven listens to the takes beside the game's tracks | DONE | 2026-10-15: ACE-Step follows music theory best, XL varies more, the planner and MusicGen out (report, section 6a) |
+| Music entries in the `generate` tool's manifest (`kind: "music"`, `bpm`, `key`, `metre`, `loop`), ACE-Step 2B in bf16 as the music default and XL selectable for variety; loops by turn-and-repaint in whole bars | OPEN | Waits on the sound leg's `generate` tool; report section 8 |
 | `smak.music/1`: a take cut, looped, faded, levelled to -14 LUFS, EQ, sound layers mixed in, written as 44.1 kHz stereo MP3 under a `media/` name or a CD `track`, or a looped WAV for `ambient_generic`; measured against the game's groups | OPEN | Needs LUFS, a 24-bit and float WAV reader, a resampler (sound items), and ffmpeg with libmp3lame found on the path |
 | Map spec `music`: `trigger_cdaudio` / `target_cdaudio` (with `trigger_auto` for the start) by track, single-player warning, the mod profile saying when the mod plays music its own way | OPEN | Report section 8 |
 | In-game tests: a mod's `media/Half-LifeNN.mp3` found before valve's, the MP3 loop gap through Miles, `worldspawn` `sounds`, the `mp3` subcommands' arguments | OPEN | Read from code and engine strings only |
 | Magenta RealTime 2 (CC-BY, MIDI input) through JAX on ROCm; Stable Audio 3 music models once their terms are accepted | OPEN | Report sections 1, 10 |
-| MusicGen as the music generator | DECLINED | This report: NC, forty times slower than ACE-Step here, 30 s windows; nothing ACE-Step lacks |
+| MusicGen, and ACE-Step with its planner, as the music generator | DECLINED | Steven's ear (section 6a); MusicGen is also NC, forty times slower than ACE-Step here, in 30 s windows |
 | Song models (YuE2, DiffRhythm 2, HeartMuLa, SongGeneration, SongBloom, MiniMax Music 3) | DECLINED | This report, section 1: built for vocals; NC, CUDA-only or 24 GB |
 
 ## 3d-fidelity-methods.md (photo or prompt to a prop that keeps its look)
@@ -350,7 +350,7 @@ map-reproduction-failures, LS local-sound-generators, LM local-music-generators.
 18. AO and curvature bake, warm-cool light and value bands in `finish` (IR 4).
 19. Sound presets from the recipe table, each scored against its class as a test (SG).
 19a. The `sample` layer kind, then the MCP `generate` tool with `--generators` (Woosh-DFlow by default, Steven's call); the Stable Audio models once he accepts their terms (LS).
-19b. After Steven listens: music entries in the `generate` manifest (ACE-Step 2B), `smak.music/1`, and the map spec's `music`; the in-game tests of a mod's `media/` file and the MP3 loop gap (LM).
+19b. Music entries in the `generate` manifest (ACE-Step 2B by default, XL selectable), `smak.music/1`, and the map spec's `music`; the in-game tests of a mod's `media/` file and the MP3 loop gap (LM).
 20. Footsteps with `materials.txt`, the per-weapon role table of code-named sounds, mod profiles naming sounds (SG).
 21. Loop start other than 0, loop RMS and whole-cycle checks, seam picture, LUFS (SG).
 22. Sound layer kinds `sequence` and `sound` (SG).
