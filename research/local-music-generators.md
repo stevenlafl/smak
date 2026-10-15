@@ -353,6 +353,19 @@ His favourite take: `acestep/action.wav` ("I quite like it"), the 2B's seed 0 on
 Then, after the 2B's and XL's four action seeds side by side: "the sound fidelity is great with XL, I would
 almost prefer it", and "XL wins overall".
 
+Then two new action prompts on XL, four seeds each (`music-prompts-v3a.json`, `-v3b.json` in
+`local-audio/scripts`; takes in `~/stignored/music-review/acestep-xl-v3a`, `-v3b`), after he heard the first
+prompt's action as "a trance-y dub/dnb" (140 BPM is dubstep's tempo):
+
+| Prompt | BPM measured | Under 150 Hz | 150 to 600 Hz | His words |
+| --- | --- | --- | --- | --- |
+| v3a, 120 BPM, D minor: "late 1990s big beat and industrial rock instrumental, sampled acoustic breakbeat drum loop, gritty distorted electric guitar riffs, analog synth stabs, mid-range bass guitar, metallic percussion, dark sci-fi action, lo-fi sampler production, no vocals" | 117.5 | 72 to 76% | 15 to 18% | "I love the ones under A" |
+| v3b, 112 BPM, E minor: "1998 PC game soundtrack, industrial electronic instrumental, heavy sampled funk breakbeat, clanging metal percussion, distorted guitar chugs, eerie synth pads, short sampled orchestral hits, tense and mechanical, tracker music, no vocals" | 108 to 112 | 41 to 61% | 26 to 39% | "B sucks" |
+
+v3a is the action prompt to start from. The band shares are no guide to his ear: v3b sat on the game's median
+and lost, v3a kept the heavy bass and won. Do not EQ towards the game's bands, or rank takes by `dist`, on the
+strength of these numbers.
+
 So: ACE-Step XL is the default music model (12.4 GB with its DiT offloaded, 10 to 13.5 s a 75 s track), the 2B
 stays in the manifest as the fast choice (4 s), and the planner and MusicGen are dropped.
 
@@ -489,7 +502,7 @@ player through these entities.
    10 to 13.5 s a 75 s track. **The 2B** as the fast choice, 4 s a track.
    The planner and MusicGen are dropped (his ear, and MusicGen is NC and forty times slower).
 3. Prompts: give a tempo only to music that should have a beat; say "beatless, no drums, no rhythm" for ambient.
-   Ask for the game's tempo range (100 to 136) rather than 140 to 170. Make loops a whole number of bars.
+   For action, start from v3a (section 6a): 120 BPM, big beat and industrial rock, sampled breaks, guitar. Make loops a whole number of bars.
 4. Build order: the sound leg's `generate` tool with music entries in its manifest; `smak.music/1` (cut, loop,
    level, EQ, MP3 through ffmpeg); the map spec's `music`. The MP3 loop gap and `worldspawn`'s `sounds` want a
    test in the game.
