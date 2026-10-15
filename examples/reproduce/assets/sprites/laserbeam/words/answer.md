@@ -1,18 +1,19 @@
-The sprite builds OK: `work:sprites/laserbeam.spr`, with `-sheet.png` and `-animated.png` beside it. It is 32x64, 1 frame, parallel type, additive format, placed as a beam with render mode 5 (Additive).
+The sprite builds OK: `sprites/laserbeam.spr` is written to the work folder, with its `-sheet.png` and `-animated.png` beside it.
 
-Final spec:
+The spec, as built:
 
-```json
-{"spec":"smak.sprite/1","sprites":[{"name":"sprites/laserbeam.spr","class":"beam","use":"beam","type":"parallel","format":"additive","size":[32,64],"frames":1,"loop":false,"finish":{"edge":6},"layers":[{"kind":"beam","core":0.45,"profile":"round","noise":0.5,"streaks":0.6,"gain":1.3,"colour":[0.9,0.94,1.0]}]}]}
-```
+- **Class and use:** `beam`, so it tiles along its length. Type `parallel`, format `additive`, one frame, no loop.
+- **Size:** 32x64.
+- **Core:** `core: 0.31`, a flat-topped stripe about 10 px wide at the centre, white.
+- **Falloff:** `shoulder: 0.2`, the glow fading to black, leaving the outer edges dark.
+- **Colour:** a ramp of pure white, then 0.55, 0.56, 0.60, then 0.12, 0.12, 0.14, then black, as you gave it.
+- **Texture:** `noise: 0.25` and `streaks: 0.35` for the blotchy vertical streaking on the flanks.
+- **Gain:** 2, so the core reaches full white. At the default gain it peaked at about 0.55.
 
-What the build reports: 164 colours, brightest 0.97, dark share 0.22, border 0.13. The border figure comes from the core running full height, which the original does too, so I left it.
+The build's measures for the final version are: brightest pixel 0.994, border light 0.055, and 105 colours after quantising. The report did not measure the brightness ramp per column, and the tool gave no pixel readout, so I could not check the stripe's exact column positions or the glow widths directly.
 
-Where it falls short of the description:
+Things to know:
 
-- **Core offset:** the beam layer has no position setting, so the core is centred rather than leaning a pixel or two left.
-- **Halo asymmetry:** the right halo is not made wider and brighter than the left.
-- **Halo mottling:** streaks and noise give some blotchy texture, but I could not inspect it at full size. The thumbnails I could see are too small to judge the striations or the 10 to 20 pixel brightness alternation.
-- **Core width:** I could not measure the core in pixels. By eye it looks a little narrower than the 8 to 10 pixels described.
-
-I had no reference sheet, so nothing was measured against the original. The judge will see these differences, so the core offset and the halo asymmetry are the first things to check by eye.
+- **No reference to compare against.** I only had your description, and the engine has no beam sprite stats to compare with, so "0 of 0 in range" means nothing was compared. The match is to the description, not to the original file.
+- **Shoulder units are inferred.** I read `shoulder` as a fraction of the full width, which fits the measured border light. The build's own documentation doesn't say so, so treat that as my reading.
+- **Looks unverified by eye.** The preview is too small for me to confirm the core is centred or the streaks look right, so it's worth a look in the sheet image.

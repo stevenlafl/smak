@@ -3,8 +3,8 @@
   "sprites": [
     {
       "name": "sprites/muzzleflash1.spr",
-      "class": "flare",
       "use": "tempent",
+      "class": "flare",
       "size": [
         64,
         64
@@ -15,17 +15,15 @@
       "type": "parallel",
       "format": "additive",
       "origin": "centre",
-      "finish": {
-        "edge": 2
-      },
+      "finish": "edge",
       "layers": [
         {
-          "kind": "flare",
-          "core": 0.09,
-          "colour": [
-            1,
-            0.925,
-            0.784
+          "kind": "glow",
+          "radius": 0.36,
+          "core": 0.12,
+          "at": [
+            0,
+            0
           ],
           "ramp": [
             [
@@ -37,96 +35,168 @@
               ]
             ],
             [
-              0.15,
+              0.2,
               [
-                0.471,
-                0.235,
-                0.059
+                0.45,
+                0.28,
+                0.14
               ]
             ],
             [
-              0.4,
+              0.6,
               [
-                0.902,
-                0.471,
-                0.118
-              ]
-            ],
-            [
-              0.65,
-              [
-                0.98,
-                0.745,
-                0.353
-              ]
-            ],
-            [
-              0.85,
-              [
-                1,
-                0.922,
-                0.745
+                0.92,
+                0.62,
+                0.36
               ]
             ],
             [
               1,
               [
                 1,
-                0.988,
-                0.941
+                0.96,
+                0.88
               ]
             ]
           ],
+          "gain": 0.2
+        },
+        {
+          "kind": "glow",
+          "radius": 0.12,
+          "core": 0.05,
+          "at": [
+            0,
+            0
+          ],
+          "ramp": [
+            [
+              0,
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            [
+              0.2,
+              [
+                0.45,
+                0.28,
+                0.14
+              ]
+            ],
+            [
+              0.6,
+              [
+                0.92,
+                0.62,
+                0.36
+              ]
+            ],
+            [
+              1,
+              [
+                1,
+                0.96,
+                0.88
+              ]
+            ]
+          ],
+          "gain": 1.5
+        },
+        {
+          "kind": "flare",
+          "core": 0.03,
+          "at": [
+            0,
+            0
+          ],
+          "ramp": [
+            [
+              0,
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            [
+              0.2,
+              [
+                0.45,
+                0.28,
+                0.14
+              ]
+            ],
+            [
+              0.6,
+              [
+                0.92,
+                0.62,
+                0.36
+              ]
+            ],
+            [
+              1,
+              [
+                1,
+                0.96,
+                0.88
+              ]
+            ]
+          ],
+          "gain": 2.5,
           "streaks": [
             {
-              "angle": 88,
+              "angle": 80,
               "length": 0.92,
-              "width": 0.06,
-              "gain": 1.6,
+              "width": 0.05,
               "half": true,
-              "taper": 0.5,
+              "taper": 1.5,
               "blur": 0,
-              "haze": 0
+              "haze": 0,
+              "gain": 1
             },
             {
-              "angle": 8,
-              "length": 0.88,
-              "width": 0.06,
-              "gain": 1.5,
+              "angle": 15,
+              "length": 0.9,
+              "width": 0.05,
               "half": true,
-              "taper": 0.5,
+              "taper": 1.5,
               "blur": 0,
-              "haze": 0
+              "haze": 0,
+              "gain": 0.8
             },
             {
-              "angle": 172,
-              "length": 0.88,
-              "width": 0.06,
-              "gain": 1.5,
+              "angle": 165,
+              "length": 0.9,
+              "width": 0.05,
               "half": true,
-              "taper": 0.5,
+              "taper": 1.5,
               "blur": 0,
-              "haze": 0
+              "haze": 0,
+              "gain": 0.8
             },
             {
-              "angle": 212,
-              "length": 0.8,
-              "width": 0.06,
-              "gain": 1.4,
+              "angle": 310,
+              "length": 1,
+              "width": 0.05,
               "half": true,
-              "taper": 0.5,
+              "taper": 1.5,
               "blur": 0,
-              "haze": 0
+              "haze": 0,
+              "gain": 0.7
             },
             {
-              "angle": 332,
-              "length": 0.8,
-              "width": 0.06,
-              "gain": 1.4,
+              "angle": 230,
+              "length": 1,
+              "width": 0.05,
               "half": true,
-              "taper": 0.5,
+              "taper": 1.5,
               "blur": 0,
-              "haze": 0
+              "haze": 0,
+              "gain": 0.7
             }
           ]
         }

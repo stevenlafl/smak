@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "muzzleflash1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 2,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 2,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.02,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.95,
+     "last": 1
+    },
+    "dark": 0.76,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 2,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 2,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.98,
+     "last": 1
+    },
+    "dark": 0.71,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 2.7,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are the same effect: a five-pointed star of rays around a bright core, the usual muzzle flash. The reproduction's rays are softer and wider, but it is the same kind of flash."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are 64 x 64, and the border measure is 0.02 against 0, so nothing spills past the edge. The original's rays are thinner and reach the frame edges a little more sharply, but the star fills the frame in the same way."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The frames' mean colour difference is 2.7, well under 15. The warm orange-white core and rays match in both pictures. The dark fraction is 0.76 against 0.71, a small difference."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Two frames in both. The envelope peaks at frame 1 in both, with first at 0.95 against 0.98 and last at 1 in both, so the same brightening motion with the same ending. The original's second frame is marginally brighter, which is within the tolerance."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured as 64 x 64, two frames, parallel, additive, the same name (sameName true), and it reads back (readsBack true). The format and type match the original's."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

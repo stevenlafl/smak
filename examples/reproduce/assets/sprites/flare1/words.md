@@ -1,7 +1,14 @@
-A soft, round light flare, the kind used for a lamp glow, a muzzle flash halo or a bright spark of energy. It is a single 64x64 frame with no animation, drawn additively, so black counts as transparent and only the light adds to what's behind it. It always faces the viewer.
+A soft, round light flare: a bright glowing ball like a small sun or lamp seen head-on. It is a single static frame, 64x64, drawn additively over black, so black reads as see-through.
 
-The flare sits dead centre and is radially symmetric. The core is a bright white disc about a quarter to a third of the frame wide, fully saturated in the middle, with no hard edge. Around it a broad halo falls off smoothly and reaches almost to the frame's edges. It fades to pure black at the corners and stays black along the outermost few pixels, so no square outline shows.
+Shape and size: a circular glow centred in the frame. The burned-out white core is solid and about a quarter of the frame across (roughly 16 px). Around it a halo fades smoothly outward and nearly reaches the frame edges, with a radius of about 28 to 30 px. The corners are black. The halo is not perfectly smooth. Fine, faint radial streaks, like thin spokes or rays, run outward from the core all the way round. They give a slightly starry, grainy texture that is most visible in the outer half. There are no long spikes or cross-shaped rays.
 
-The halo is a pale pink-lavender: warm white near the core, shifting to a dusty rose-mauve tint, then dimming to dark violet-grey before black. Faint, fine radial streaks spread outward from the core like thin starburst rays, a few dozen of them. They show slightly brighter and darker in alternation, which gives the glow a grainy, sunburst texture rather than a perfectly smooth gradient. The streaks are subtle, low contrast and evenly spread around the full circle, with no dominant spikes or cross shape.
+Colours from core to rim, as seen on screen:
+- Core: pure white, fully saturated to white, RGB about (1.0, 1.0, 1.0).
+- Middle: very pale pinkish white, mostly white with a faint warm pink-lilac tint, RGB about (0.95, 0.82, 0.90).
+- Rim: dim dusty pink-mauve, low brightness and only mildly saturated, RGB about (0.35, 0.22, 0.32), fading evenly to black at the edge.
 
-Since there is only one frame, any flicker or pulsing must come from the engine, by scaling it or changing its brightness, not from the image itself.
+The tint is pink leaning slightly toward lavender, never a true violet or blue. The overall look is white light with a rosy haze.
+
+Animation: none. It is one frame held still, with no growth, flicker or fade of its own, so any pulsing would come from the game scaling or fading it.
+
+Special: it always faces the viewer and is meant to sit on top of light sources as a bright glare.

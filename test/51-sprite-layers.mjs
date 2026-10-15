@@ -264,3 +264,10 @@ test("ramp reference: a layer wears the reference's own colour at each brightnes
   sure(deltaOf(taken) < 4 && deltaOf(taken) < deltaOf(violet), `taken ${deltaOf(taken)}, violet ${deltaOf(violet)}`);
   sure(validateSpriteSpec({ ...spec("reference"), reference: undefined }).errors.some((e) => /ramp: "reference" takes the reference's colours/.test(e)), "no reference, refused");
 });
+
+test("a ramp's stops in any order make the same colours", () => {
+  const up = [[0, [0, 0, 0]], [0.5, [0.6, 0.3, 0.1]], [1, [1, 0.9, 0.8]]];
+  const a = one({ kind: "glow", radius: 1, core: 0.3, ramp: up });
+  const b = one({ kind: "glow", radius: 1, core: 0.3, ramp: [...up].reverse() });
+  sure(same(a, b), "reversed stops, other colours");
+});

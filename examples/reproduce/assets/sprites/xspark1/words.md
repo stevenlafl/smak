@@ -1,7 +1,12 @@
-A small glowing ball of electric energy, like a blue-white spark or plasma orb. It is 32x32 pixels with 11 frames, always faces the viewer, and is drawn additively over black, so dark pixels count as transparent.
+A small electric-blue energy spark or plasma glow, 32x32, 11 frames, drawn additively, so black is transparent and the colours brighten whatever is behind them.
 
-Each frame has a hot core, roughly 10 to 12 pixels across, that burns to nearly pure white and sits about in the middle of the frame. Around the core is a bright cyan glow (about RGB 60,220,255). Further out, softer and dimmer blobs of teal-blue (about RGB 20,90,130) puff out in four to six lumpy lobes, so the outline looks like a rough cloverleaf or cloud rather than a clean circle. The glow reaches about 26 to 30 pixels across and fades smoothly to black before the frame edge, with a hard border nowhere.
+Shape: a fuzzy, lumpy blob centred in the frame. The bright core is a rough square or rounded diamond about 10 to 12 pixels across. Around it sits a soft halo made of four to six overlapping round puffs, which gives a cloverleaf or cross-like outline reaching almost to the frame edges, about 26 to 30 pixels across. The edges are soft and mottled with dithered speckle noise. There are no hard lines and no sharp rays.
 
-The frames do not grow, shrink or fade overall. Instead the outer lobes shift around at random from frame to frame, swelling on one side and pulling in on another, while the core drifts only a pixel or two and wobbles a little in shape. Brightness stays about the same, apart from a slight boil, and a few frames show small dark specks or flecks inside the white core, like crackling. The effect reads as a steady, buzzing, flickering charge.
+Colours, core to rim:
+- Core: near-white with a faint cyan tint, almost fully white (RGB 0.92, 1.0, 1.0).
+- Middle: saturated bright cyan to aqua, with no white left in it (RGB 0.2, 0.85, 1.0).
+- Rim: dim, deep teal-blue puffs fading smoothly to black (RGB 0.05, 0.3, 0.45).
 
-It loops continuously at a fairly fast rate, about 10 to 15 frames per second. No frame is a clear start or end, so it cycles seamlessly. It suits an energy projectile, a charged spark or a hovering plasma point.
+There is no green, purple or warm tint anywhere.
+
+Animation: a looping flicker that stays the same size and position throughout. Each frame rearranges the outer puffs at random: they shift around the core, so the lobes bulge to different sides (up-right in one frame, down-left in the next) and the outline jitters irregularly. The core stays roughly the same brightness and size, with a slight wobble. Nothing grows, rises or fades out. It should read as crackling, unstable electrical energy that buzzes in place, and it loops without a break.

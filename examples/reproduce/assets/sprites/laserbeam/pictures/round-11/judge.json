@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "laserbeam",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     32,
+     64
+    ],
+    "border": {
+     "max": 1,
+     "mean": 0.261
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.02,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     32,
+     64
+    ],
+    "border": {
+     "max": 0.905,
+     "mean": 0.238
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.06,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 3.3,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both pictures show a vertical glowing beam: a bright core with darker blue-grey edges, running the full height of the frame. The reproduction is the same effect."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are 32 x 64 and the beam fills the frame edge to edge in each, as the original's does. The reproduction's brightness is more mottled, but its shape and size match."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured mean colour difference is 3.3 (CIE76), well under 15. The pictures show the same blue-grey edges and white core. The reproduction's bright spots are within the same colour range."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both have one frame, and the envelope measures agree (peak at frame 0, first and last 1). Both are a single static beam, so there is no motion to differ. The one-shot ending dark is not applicable as both end at full level."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are additive, both have the same name (sameName true), and the reproduction reads back as written (readsBack true). Nothing in the format or name is wrong."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

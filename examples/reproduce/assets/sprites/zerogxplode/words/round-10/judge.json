@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "zerogxplode",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.818,
+     "mean": 0.005
+    },
+    "envelope": {
+     "peakAt": 0.36,
+     "first": 0.08,
+     "last": 0.03
+    },
+    "dark": 0.73,
+    "wrap": 0.81,
+    "jitter": 1.25
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.262,
+     "mean": 0.003
+    },
+    "envelope": {
+     "peakAt": 0.43,
+     "first": 0.05,
+     "last": 0
+    },
+    "dark": 0.56,
+    "wrap": 0.25,
+    "jitter": 1.34
+   }
+  },
+  "meanColourDeltaE": 3.4,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Both are explosions: a bright core that grows, then fades to embers. The reproduction lacks the original's scattered bright sparks and its soft, two-lobed, mushroom-like cloud. It is a rounder mass with radial streaks, so it reads as a different explosion."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 64x64 frames, and the effect is centred in each. The original's cloud reaches the frame edges in frames 2 to 4 (border max 0.818), while the reproduction stays further in (border max 0.262). The reproduction's cloud is also larger and more evenly filled in the middle frames, so its fill differs from the original's."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Colours match closely. Both go from white-hot core to yellow-orange to dim brown-red edges. The measured frame colour difference is 3.4 (under 15). The reproduction's late frames look slightly more tan and muted, but this is within the measurement and not a visible fault."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count matches (15). Both grow, peak and then fade, which is the same kind of motion. The envelope differs: the original peaks at 0.36 and the reproduction at 0.43, so its peak comes later. The original's embers linger faintly in frames 13 and 14 (last 0.03), while the reproduction is fully dark from frame 13 (last 0). The original's rising, drifting top is also absent from the reproduction."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The type (parallel) and format (additive) match the original, the name matches (sameName true), and the file reads back (readsBack true)."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

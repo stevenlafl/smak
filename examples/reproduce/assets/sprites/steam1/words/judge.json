@@ -46,20 +46,20 @@
      48
     ],
     "border": {
-     "max": 0.749,
-     "mean": 0.017
+     "max": 0,
+     "mean": 0
     },
     "envelope": {
-     "peakAt": 0.47,
-     "first": 0.07,
+     "peakAt": 0.4,
+     "first": 0,
      "last": 0
     },
-    "dark": 0.71,
-    "wrap": 0.43,
-    "jitter": 1.26
+    "dark": 0.88,
+    "wrap": 0.18,
+    "jitter": 1.1
    }
   },
-  "meanColourDeltaE": 5.6,
+  "meanColourDeltaE": 4.4,
   "sameName": true,
   "readsBack": true
  },
@@ -74,34 +74,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are a soft smoke puff: a cloud that grows from a dot, billows, then thins and fades. The reproduction's lobed clumps read as smoke at this size, and the original's rising, trailing motion is the same kind of effect."
+   "reason": "Both are a smoke puff: a cloud that swells, rises and drifts, with a tail trailing below in the middle frames, then thins out. The same effect."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The original's smoke is one soft mass centred in each frame. The reproduction is several separate round lobes that spread to the right and up, and in frames 6 to 9 they run into the frame's top-right edge. The border measure (max 0.749 against the original's 0.341, mean 0.017 against 0.002) confirms the effect spills past the frame instead of filling it as the original does."
+   "reason": "Both frames are 32x48, but the reproduction's puff is clearly smaller than the original's from frame 1 to frame 7. Frame 1 is about 14 px wide against about 25 px in the original, and frame 3 about 30 px against 40 px. The original's cloud fills the frame more fully, so the reproduction is there but clearly off in size."
   },
   "R3": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "The measured mean colour difference is 5.6 (CIE76), within the 15 line. Both are light grey-white on the same mid-grey ground. The reproduction is somewhat more contrasty, with bright highlights on the lobes, but the mean tone matches."
+   "score": 1,
+   "reason": "The reproduction's cloud is whiter in the early and middle frames, but it darkens much sooner. Frames 8 to 12 are a duller grey in the reproduction than in the original, which keeps its bright body further into the fade. The measured dark fraction is 0.88 against the original's 0.64, which confirms the reproduction is too dark overall. The colour is there but clearly off."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Frame count matches (16) and the effect grows then fades as the original does, ending dark (last 0 against 0.03). But the reproduction's peak is later (0.47 against 0.4) and it starts larger (first 0.07 against 0.04). From frame 11 its fade breaks into speckled, blotchy fragments that the original's smooth thinning does not show. Its wrap of 0.43 against 0.5 and jitter of 1.26 against 1.1 also differ from the original."
+   "reason": "Frame count matches (16 each), and both grow then fade with a peak at 0.4 of the way through. The fade differs: the reproduction is nearly empty by frames 13 to 15, while the original still shows a faint plume there. The original's first frame is faintly lit (envelope first 0.04) where the reproduction's is blank (0). The wrap measure also differs (0.5 against 0.18). The motion is the right kind but its timing is clearly off."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Format is index alpha in both, the same name, and it reads back (sameName true, readsBack true). The engine's additive blend is the same type as the original's."
+   "reason": "Both are parallel oriented with index alpha format, the same name, and the reproduction reads back (readsBack true, sameName true). Type and format match the original."
   }
  },
- "total": 8,
+ "total": 7,
  "of": 10,
  "passes": false
 }

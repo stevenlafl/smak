@@ -3,8 +3,8 @@
   "sprites": [
     {
       "name": "sprites/laserbeam.spr",
-      "class": "beam",
       "use": "beam",
+      "class": "beam",
       "size": [
         32,
         64
@@ -17,15 +17,11 @@
       "layers": [
         {
           "kind": "beam",
-          "core": 0.6,
-          "shoulder": 0.5,
-          "streaks": 0.3,
-          "colour": [
-            0.8,
-            0.88,
-            1
-          ],
-          "profile": "flat"
+          "core": 0.7,
+          "shoulder": 0.15,
+          "profile": "flat",
+          "ramp": "reference",
+          "streaks": 0.3
         }
       ]
     }

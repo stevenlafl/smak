@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "steam1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.341,
+     "mean": 0.002
+    },
+    "envelope": {
+     "peakAt": 0.4,
+     "first": 0.04,
+     "last": 0.03
+    },
+    "dark": 0.64,
+    "wrap": 0.5,
+    "jitter": 1.1
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.749,
+     "mean": 0.017
+    },
+    "envelope": {
+     "peakAt": 0.47,
+     "first": 0.07,
+     "last": 0
+    },
+    "dark": 0.71,
+    "wrap": 0.43,
+    "jitter": 1.26
+   }
+  },
+  "meanColourDeltaE": 5.6,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are a soft smoke puff: a cloud that grows from a dot, billows, then thins and fades. The reproduction's lobed clumps read as smoke at this size, and the original's rising, trailing motion is the same kind of effect."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The original's smoke is one soft mass centred in each frame. The reproduction is several separate round lobes that spread to the right and up, and in frames 6 to 9 they run into the frame's top-right edge. The border measure (max 0.749 against the original's 0.341, mean 0.017 against 0.002) confirms the effect spills past the frame instead of filling it as the original does."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured mean colour difference is 5.6 (CIE76), within the 15 line. Both are light grey-white on the same mid-grey ground. The reproduction is somewhat more contrasty, with bright highlights on the lobes, but the mean tone matches."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count matches (16) and the effect grows then fades as the original does, ending dark (last 0 against 0.03). But the reproduction's peak is later (0.47 against 0.4) and it starts larger (first 0.07 against 0.04). From frame 11 its fade breaks into speckled, blotchy fragments that the original's smooth thinning does not show. Its wrap of 0.43 against 0.5 and jitter of 1.26 against 1.1 also differ from the original."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Format is index alpha in both, the same name, and it reads back (sameName true, readsBack true). The engine's additive blend is the same type as the original's."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

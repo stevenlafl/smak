@@ -1,18 +1,23 @@
-The sprite builds OK: `work:sprites/zerogxplode.spr`, with `-sheet.png` and `-animated.png` beside it. It's a 64x64, 15-frame, additive, parallel tempent that plays once at 15 fps.
+The sprite is built and the build says **OK**: `work:sprites/zerogxplode.spr` (with `-sheet.png` and `-animated.png` beside it).
 
-I built it from the description alone. There's no reference picture, so the report measured it against Half-Life's own explosion class, not the original. It came back 5 of 5 in range, with a border light of 0.003 and an envelope that ends dark.
+I had no reference picture, only your description, so every measure is against Half-Life's own explosion class, not the original. The judge's comparison to the original can't be run here.
 
-How it matches the description:
-- **Frame 0:** a small white point, a little left of centre, about 8 px across.
-- **Frames 1–3:** a white burst that grows into a lumpy blob, with a thin orange rim.
-- **Frames 4–7:** the blob fills most of the frame, with a narrower top lobe and a wider bottom, and the colour moves from white to gold.
-- **Frames 8–11:** a billowing cloud about 50x60 px. The top stays brightest and the bottom goes amber and brown with a ragged lower-left edge.
-- **Frames 12–14:** it dims quickly through dark brown to black.
+**Spec used**, written inline (not saved to a file in the work folder):
 
-Where it falls short of the description:
-- Frame 14 is fully black. The description has a faint brown smudge near the top, and I couldn't get one without the one-shot failing its "ends dark" check.
-- The top lobe is more white-gold than the pale cream-yellow described.
-- The debris sparks are faint. I raised their count to 60, but they hardly show in the sheet.
-- The edge fade is set to 4 px, which brings the border light under the threshold.
+```json
+{"spec":"smak.sprite/1","sprites":[{"name":"sprites/zerogxplode.spr","class":"explosion","use":"tempent","size":[64,64],"frames":15,"loop":false,"fps":15,"type":"parallel","format":"additive","origin":"centre","finish":"edge","layers":[{"kind":"billow","at":[0.1,0.05],"count":18,"spread":0.42,"size":0.3,"growth":1.0,"rise":0.2,"drift":0.1,"hot":0.4,"cool":0.6,"lumps":0.5,"blend":0.4,"dissolve":0.7,"env":{"attack":0.0,"decay":0.5},"ramp":[[0,[0.3,0.15,0.05]],[0.35,[0.75,0.5,0.2]],[0.65,[1.0,0.9,0.55]],[0.85,[1.0,0.92,0.75]],[1,[1.0,0.98,0.92]]],"debris":{"count":24,"speed":0.9,"gravity":0.4,"trail":0.3}}]}]}
+```
 
-The spec was passed inline to the build tool and isn't saved as a file in the work folder. If you want it kept for rebuilding, I can write it out as a `.json` alongside the sprite.
+**What the build reports:** 64x64, 15 frames, additive, `tempent` (render mode 5), 15 fps. Against Half-Life's explosion, all five measures are in range. Border light is 0 and the last frame is dark.
+
+**Choices I made:**
+- **Frame rate:** 15 fps. You didn't give one.
+- **Shape:** one lumpy billow, weighted to the upper right, with debris flecks thrown left and below. The bright speck in frame 0 comes from the billow's own start, not a separate glow.
+- **Colours:** the ramp runs from the deep brown edge through amber and gold to the white core. The rim is brown at low brightness, not your exact (0.45, 0.12, 0.05).
+- **Fade:** the tool's fade-out is what sets the brightness over the frames, so the envelope is a fitted guess, not your numbers.
+
+**Where it differs from your description:**
+- Frame 14 is fully dark. You describe a faint smudge there. I kept it dark because the tool fails a one-shot that does not end dark. A faint smudge at frame 13 is the closest I could get.
+- The grey-white spark flecks use the debris default colour. I did not check that colour against yours.
+- The speck in frame 0 sits near the centre, not a little left of it, because the billow is weighted right.
+- Frames 1 to 4 read as near-solid white, and frames 5 to 8 turn cream then gold, as described.

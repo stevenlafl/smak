@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "flare1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.39,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.024,
+     "mean": 0.003
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.36,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 9.8,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Both are a soft central glow with a white core and pink halo, but the original is a flare with radiating starburst streaks reaching toward the frame edges, and the reproduction has none of them. It is a glow where the original is a flare."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are 64 x 64, and the measured borders are near zero (original 0, reproduction 0.024 max). The glow spreads over the frame to about the same radius in both, so the effect fills the frame as the original's does."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The core is white and the halo pinkish-purple in both, with similar brightness falloff. The measured mean colour difference is 9.8 (CIE76), under the 15 line, and I see no clear colour fault."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are single frames (1 and 1, within 25%), with the same envelope measures (peak at frame 0, first 1, last 1) and a dark-measure close to the original's (0.36 against 0.39). There is no motion in either, and the measured values agree."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are type parallel and format additive, the name matches (sameName true), and the file reads back as written (readsBack true)."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

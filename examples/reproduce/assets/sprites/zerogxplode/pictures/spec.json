@@ -5,17 +5,16 @@
       "name": "sprites/zerogxplode.spr",
       "class": "explosion",
       "use": "tempent",
+      "type": "parallel",
+      "format": "additive",
       "size": [
         64,
         64
       ],
       "frames": 15,
       "loop": false,
-      "fps": 15,
-      "type": "parallel",
-      "format": "additive",
+      "fps": 30,
       "origin": "centre",
-      "finish": "edge",
       "reference": {
         "picture": "pictures/frames.png",
         "cell": 128,
@@ -24,39 +23,50 @@
       "layers": [
         {
           "kind": "billow",
-          "gain": 1.15,
-          "count": 20,
-          "spread": 0.48,
-          "size": 0.4,
           "at": [
-            0.02,
-            0.02
+            0,
+            0
           ],
-          "growth": 1.2,
-          "rise": 0.1,
-          "drift": 0.08,
-          "blend": 0.4,
-          "lumps": 0.6,
-          "ramp": "blast",
+          "count": 26,
+          "spread": 0.6,
+          "size": 0.36,
+          "growth": 0.7,
+          "rise": 0.2,
+          "ramp": "reference",
           "hot": 0.2,
-          "cool": 0.7,
-          "dissolve": 0.5,
+          "cool": 0.6,
+          "gain": 0.8,
           "env": {
-            "attack": 0.03,
-            "decay": 0.4
-          },
-          "mask": "reference",
-          "reference": {
-            "picture": "pictures/frames.png",
-            "cell": 128,
-            "cols": 8
+            "attack": 0.36,
+            "decay": 0.6
           },
           "debris": {
-            "count": 8,
-            "speed": 0.5,
-            "gravity": 0.2,
-            "trail": 0.1
+            "count": 14,
+            "speed": 0.8,
+            "gravity": 0.3,
+            "trail": 0.2
           }
+        },
+        {
+          "kind": "billow",
+          "at": [
+            0,
+            0
+          ],
+          "count": 36,
+          "spread": 0.9,
+          "size": 0.62,
+          "growth": 0.7,
+          "rise": 0.2,
+          "ramp": "reference",
+          "hot": 0.2,
+          "cool": 0.6,
+          "gain": 1,
+          "env": {
+            "attack": 0.36,
+            "decay": 0.6
+          },
+          "mask": "reference"
         }
       ]
     }

@@ -15,71 +15,33 @@
       "type": "parallel",
       "format": "additive",
       "origin": "centre",
-      "finish": {
-        "edge": 2
-      },
       "reference": "pictures/frames.png",
       "layers": [
         {
-          "kind": "blobs",
-          "count": 9,
-          "radius": 0.34,
-          "spread": 0.6,
-          "core": 0.35,
-          "soft": 0.6,
-          "ramp": [
-            [
-              0,
-              [
-                0,
-                0,
-                0
-              ]
-            ],
-            [
-              0.3,
-              [
-                0,
-                0.235,
-                0.353
-              ]
-            ],
-            [
-              0.6,
-              [
-                0,
-                0.588,
-                0.824
-              ]
-            ],
-            [
-              0.85,
-              [
-                0.549,
-                0.941,
-                1
-              ]
-            ],
-            [
-              1,
-              [
-                1,
-                1,
-                1
-              ]
-            ]
-          ]
+          "kind": "glow",
+          "radius": 0.95,
+          "core": 0.3,
+          "colour": [
+            0.16,
+            0.75,
+            1
+          ],
+          "gain": 0.6,
+          "mask": "reference",
+          "reference": {
+            "from": "reference",
+            "low": 0.04,
+            "high": 0.3
+          }
         },
         {
-          "kind": "glow",
-          "radius": 1,
+          "kind": "blobs",
+          "count": 9,
+          "radius": 0.32,
+          "spread": 0.6,
           "core": 0.4,
-          "gain": 0.7,
-          "colour": [
-            0,
-            0.45,
-            0.65
-          ]
+          "soft": 0.5,
+          "ramp": "reference"
         }
       ]
     }

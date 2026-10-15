@@ -46,20 +46,20 @@
      48
     ],
     "border": {
-     "max": 0.267,
-     "mean": 0.002
+     "max": 0.341,
+     "mean": 0.003
     },
     "envelope": {
-     "peakAt": 0.6,
+     "peakAt": 0.33,
      "first": 0,
      "last": 0
     },
-    "dark": 0.72,
-    "wrap": 0.12,
+    "dark": 0.67,
+    "wrap": 0.38,
     "jitter": 0.96
    }
   },
-  "meanColourDeltaE": 2.5,
+  "meanColourDeltaE": 2.7,
   "sameName": true,
   "readsBack": true
  },
@@ -74,31 +74,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are a soft smoke puff that grows, billows and thins out, with a trailing tail in the original. The same effect is there in both."
+   "reason": "Both are the same effect, a grey-white smoke puff that grows, thickens and thins out over the frames. The original's plume trails lower and further, but the kind of effect is the same."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both are 32x48 and the puff fills the frames in the middle of the run. The reproduction's late frames (11 to 15) break into hard-edged fragments, and its early frames are fainter, unlike the original's soft, continuous cloud. The original's downward tail is mostly missing from the reproduction."
+   "reason": "Frames are the original's 32x48 and the puff fills them through the middle frames. The original's smoke sits lower and runs into a long tail to the bottom of the frame in frames 4 to 11, which the reproduction's compact blob lacks, so it does not fill the frame the way the original does."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean colour difference is 2.5, well under 15. Both are the same light grey-white over the same dark grey, and the picture shows no colour mismatch."
+   "reason": "The harness measured the frames' mean colour difference at 2.7 CIE76 delta E, well within 15. Visually the bright core and the grey-blue background match frame by frame."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Frame count matches (16). The motion differs: the measured envelope peaks at 0.6 in the reproduction against 0.4 in the original, so it grows and peaks later. The original ends faintly (last 0.03) where the reproduction ends fully dark (0), and the wrap measure is 0.12 against 0.5. In the picture the reproduction also breaks up into fragments that the original does not."
+   "reason": "Frame count is 16 in both, the one-shot ends dark in both (last 0.03 and 0), and the peak is close (0.4 against 0.33). The kind of motion differs, though: the original's puff rises and drifts with a trailing plume, while the reproduction mostly grows and fades in place. The loop measure also differs (wrap 0.5 against 0.38, jitter 1.1 against 0.96)."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are parallel oriented, index alpha, and the same name, and the reproduction reads back as written."
+   "reason": "Type (additive) and format (index alpha) match the original, the name is the same (sameName true), and the file reads back as written (readsBack true)."
   }
  },
  "total": 8,

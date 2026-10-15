@@ -54,54 +54,25 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.66,
+    "dark": 0.69,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 8.8,
+  "meanColourDeltaE": 23.8,
   "sameName": true,
   "readsBack": true
  },
  "caps": {
   "R2": 2,
-  "R3": 2,
+  "R3": 1,
   "R4": 2,
   "R5": 2
  },
- "scores": {
-  "R1": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Both are the same effect: a star-shaped muzzle flash with a bright core and rays spreading from it on a dark ground, with the same additive look."
-  },
-  "R2": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "Both are 64x64 and the flash fills the frame. But the original has thin, long rays reaching toward the edges, while the reproduction has stubby, blunt points and a faint circular halo filling more of the frame (dark fraction 0.66 against the original's 0.76). Clearly off in shape, though not missing."
-  },
-  "R3": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Measured mean colour difference is 8.8, under the 15 line. Visually both are white-hot cores with orange falloff; the reproduction runs a little more saturated orange-yellow, which is within the same colour family."
-  },
-  "R4": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "Both have 2 frames, so the count matches. But the motion differs: the original's envelope peaks at frame 1 (first 0.95, last 1), so it grows slightly, while the reproduction peaks at frame 0 (first 1, last 1), so it is flat or decays. The kind of motion is not the same. The loop endpoints are both bright, so the loop itself is fine."
-  },
-  "R5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Both are additive, the name matches (sameName true), and the file reads back (readsBack true)."
-  }
- },
- "total": 8,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "R3"
+ ],
+ "total": 0,
+ "of": 10
 }

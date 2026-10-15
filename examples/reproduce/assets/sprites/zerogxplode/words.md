@@ -1,13 +1,7 @@
-A fireball explosion seen head-on, 64x64 pixels, 15 frames, played once. It is additive, so black means transparent and the bright parts glow.
+This is a small explosion fireball that plays once over 15 frames. It is 64x64 pixels, faces the viewer, and is drawn additively over a dark background.
 
-Frame 0: a small white-hot point with a tiny orange rim, a little left of centre, about 8 pixels across, with a few grey-white specks around it.
+Shape: in frame 0 it is a tiny bright speck with a reddish edge, about 8 px across, a little left of centre. It grows fast. By frame 2 it is a lumpy, rounded blob about 30 px wide, and by frames 3 to 5 it fills about 40 px. It is not a circle. It is made of rough, cauliflower-like puffs, with a bigger lobe at the upper right and a lower lobe that sags toward the bottom left. Small grey-white spark flecks and debris are scattered to the left and below it from frame 1 to about frame 11.
 
-Frames 1 to 3: it bursts outward quickly into a rounded, lumpy blob, pure white in the middle with a thin dark-orange or red edge. By frame 3 it fills about 45 pixels and sits upper-centre. Fine pale sparks and debris specks fly out to the left and lower left.
+Colour: frames 1 to 4 are almost solid white, with a thin dark red-brown rim. The core is (1.0, 0.98, 0.92), the body is (1.0, 0.92, 0.75) and the rim is (0.45, 0.12, 0.05). From frame 5 the white turns cream-yellow, then gold. The top lobe stays brightest at (1.0, 0.9, 0.55). The lower billows turn amber at (0.75, 0.5, 0.2) and their mottled edges go deep brown at (0.3, 0.15, 0.05).
 
-Frames 4 to 7: the blob keeps growing until it nearly fills the frame. Its outline settles into a bumpy cloud shape, with a narrower lobe at the top and a wider mass at the bottom, a bit like a rising mushroom. The white cools to cream and pale yellow, and the lower parts turn golden-orange with soft darker billows. A few specks keep drifting.
-
-Frames 8 to 11: it is now a full billowing smoke-fire cloud, about 50x60 pixels. The top lobe stays the brightest, pale yellow. The bottom darkens to amber and brown with mottled puffs and a ragged lower-left edge.
-
-Frames 12 to 14: it dims fast. The colour goes from dull amber to dark brown and fades into the black, the bottom first and the upper lobe last. By frame 14 only a faint brown smudge is left near the top.
-
-The motion is hand-painted and turbulent, with no flickering or looping. The cloud ends soft and slightly drifted upward.
+Change over time: it grows quickly to full size by frame 4 and then keeps that size. It cools from white to gold to orange-brown and dims steadily. The lower left part fades first. By frame 12 only dim brown smoky patches are left. Frame 14 is a faint brown smudge at the top right that has almost disappeared. It does not loop. There is no black smoke, only a glow that dims to nothing.

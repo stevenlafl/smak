@@ -1,39 +1,27 @@
-The sprite is built and the build says OK with no warnings. It is written to the work folder as `sprites/glow01.spr`, with a sheet and an animated preview beside it.
+The sprite is built and written to `work:sprites/glow01.spr` (with a sheet and an animated preview beside it). The build says OK, but one quality warning remains, so the result is close rather than exact.
 
-**What it is:** a soft round glow with a bright white centre fading to black, the same picture as the original. The original is a 64x64 sprite with one frame, type parallel (faces the camera) and format additive (black is clear). The build places it as an `env_sprite` with render mode 5 (Additive).
+**What it is:** a soft white radial glow, one 64x64 frame, parallel to the camera, additive (black is clear), placed as an `env_sprite`. It matches the original's stated facts: 64x64, 1 frame, parallel, additive.
 
-**Final spec (as built):**
+**Final settings:** one glow layer, radius 1.0, core 0.26, colour white, centred. Full spec:
 
 ```json
-{
-  "spec": "smak.sprite/1",
-  "sprites": [{
-    "name": "sprites/glow01.spr", "class": "glow", "use": "env_sprite",
-    "size": [64, 64], "frames": 1, "type": "parallel", "format": "additive", "origin": "centre",
-    "reference": "pictures/frames.png",
-    "layers": [
-      { "kind": "glow", "radius": 1.0, "core": 0.4, "colour": [1, 1, 1], "at": [0, 0], "falloff": "smooth", "gain": 0.6 },
-      { "kind": "glow", "radius": 0.4, "core": 0.1, "colour": [1, 1, 1], "at": [0, 0], "falloff": "smooth", "gain": 0.3 }
-    ]
-  }]
-}
+{"spec": "smak.sprite/1", "sprites": [{"name": "sprites/glow01.spr", "class": "glow", "use": "env_sprite", "size": [64, 64], "frames": 1, "type": "parallel", "format": "additive", "origin": "centre", "reference": "pictures/frames.png", "layers": [{"kind": "glow", "radius": 1.0, "core": 0.26, "colour": [1, 1, 1], "at": [0, 0]}]}]}
 ```
 
-**Measured against the original (the contact sheet, `pictures/frames.png`):**
+**Measured against the original (from the final build):**
 
-| Measure | Original | Built |
+| Measure | Original | Mine |
 | --- | --- | --- |
-| Colour (mean delta E, 15 or under is near) | — | 1.3 |
-| Share that is dark (within 0.05 is near) | 0.47 | 0.43 |
-| Brightest pixel | 0.91 | 0.88 |
-| Pixels over 0.7 brightness, per frame | 37 | 32 |
+| Mean colour (delta E, 15 or under is near) | — | 0.9 |
+| Share that is dark (within 0.05 is near) | 0.47 | 0.46 |
+| Brightest | 0.91 | 0.91 |
+| Pixels over 0.7 in a frame | 37 | 88 |
 | Shape overlap (bar 0.8) | — | 0.84 |
-| Frames | 1 | 1 |
+| Border light | 0 | 0 |
 
-The first attempts were off in two ways: the glow was too tight, or too hot at the centre, and too broad. Splitting it into a broad halo and a small, dimmer centre fixed both.
+**Still off:** the hot middle. My centre has about 88 pixels over 0.7 brightness against the original's 37, so the centre is a little too broad and bright. I tried core sizes from 0.2 to 0.3, a power falloff, a dimmer white and a smaller radius. Smaller cores fixed the middle but lost shape overlap (down to 0.68), and the other changes made things worse. I stopped at the best trade-off.
 
 **Choices I made:**
-- The original's colour is pure white, so I used `[1, 1, 1]` as the 0-to-1 colour value.
-- The shape match is 0.84, so I did not push it further. The core's overlap (0.76) is the weakest of the three bands.
-- The file is in the work folder. I did not copy it into `examples/reproduce/assets/sprites/glow01/` because that folder is inside the smak repo, and you did not ask for that.
-- I have not checked it in the game itself. The measures are from the build report only.
+- Used the work folder's `pictures/frames.png` as the reference. I could not read the input folder directly (the tool rejects directories and I could not find the picture file by name), so the reference is the contact-sheet copy the server holds.
+- Set the colour to pure white, since the original's centre and mean colour match that.
+- Did not add a flicker or an animation; the original is a single frame.

@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "fire",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.275,
+     "mean": 0.028
+    },
+    "envelope": {
+     "peakAt": 0.07,
+     "first": 0.9,
+     "last": 0.84
+    },
+    "dark": 0.42,
+    "wrap": 1.13,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.119,
+     "mean": 0.009
+    },
+    "envelope": {
+     "peakAt": 0.71,
+     "first": 0.86,
+     "last": 0.86
+    },
+    "dark": 0.38,
+    "wrap": 0.74,
+    "jitter": 1.6
+   }
+  },
+  "meanColourDeltaE": 6.3,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are a flame rising from the bottom of each frame, the same effect, with the same tongues and flicker."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frames are the original's 32x96, but the flame does not fill them as the original's does. The original's tongues reach the side edges in most frames (border max 0.275 against 0.119), and the reproduction's flame is narrower, with dark space at the top and sides of frames 0, 2, 9 and 12 to 14. The shape is there but thinner and less filled."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured mean colour difference is 6.3, inside the line of 15, so the measure alone would allow 2. Looking closer, though, the reproduction's flames are dimmer and more brown-red, with less of the original's yellow-white core, especially in frames 0 to 3 and 8 to 10. The measure misses this, so I score it lower."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both have 15 frames and the same flicker and rise, and the loop seam is no worse (wrap 0.74 against 1.13). But the brightness envelope peaks at 0.71 in the reproduction and at 0.07 in the original, so the run's shape differs. The original's first frames are its brightest; the reproduction's are dim and build later."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Additive in both, same name, and the reproduction reads back. Nothing in the file-fit measures is wrong."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

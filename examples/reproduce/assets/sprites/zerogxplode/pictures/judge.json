@@ -46,7 +46,7 @@
      64
     ],
     "border": {
-     "max": 0.361,
+     "max": 0.641,
      "mean": 0.001
     },
     "envelope": {
@@ -54,12 +54,12 @@
      "first": 0,
      "last": 0
     },
-    "dark": 0.78,
-    "wrap": 0.06,
-    "jitter": 1.57
+    "dark": 0.7,
+    "wrap": 0.01,
+    "jitter": 1.31
    }
   },
-  "meanColourDeltaE": 9,
+  "meanColourDeltaE": 4.1,
   "sameName": true,
   "readsBack": true
  },
@@ -74,31 +74,31 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Both are an explosion: a bright core that grows, then cools to brown. The reproduction lacks the original's flying spark dots at every frame. Its frame 0 is blank where the original shows a small flash, and frames 13 and 14 nearly vanish, so the effect reads as a lumpy cloud more than the original's fireball."
+   "reason": "Both are explosions: a bright burst that grows, then breaks into embers. The reproduction does not match the original's kind of effect. Its frames 0 to 5 show a grey, smoke-like blob rather than a white-hot flash, and frames 8 to 12 read as a dusty tan cloud, not the original's glowing fireball with sparks falling off it. The original's fireball is clearly the same effect; the reproduction reads as smoke."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both are 64 x 64 frames, but the effect fills them differently. The original's blast swells to a broad, rounded bloom by frames 2 to 4 and keeps its width. The reproduction starts smaller, stays a narrower, ragged shape, and its frame 0 is empty."
+   "reason": "Both are 64 by 64 with 15 frames, and the effect fills the frame at its peak in both. But the original starts as a small point of light in frame 0 and grows to fill the frame by frame 3. The reproduction's frame 0 is empty, and its frames 13 and 14 are fully dark, while the original still shows a faint ember there. Its spread is also wider and softer through the late frames, so the shape does not fill the frames as the original's does."
   },
   "R3": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The early frames match: a white-hot core. From frame 8 on, the reproduction turns pale khaki or olive-tan where the original stays deep orange-brown, and its fade looks paler. The measured mean colour difference of 9 is within 15, but it averages away this visible drift in the later frames, so the score is held at 1."
+   "reason": "The measured mean colour difference is 4.1, which is within 15, so the average passes. Looking at the frames, though, the reproduction's early frames (0 to 5) carry a grey, desaturated cast where the original is white and yellow-white, and its later frames (8 to 12) are a flatter tan-brown where the original is warm amber-orange. The judge may score lower than the measurement, so the visible cast in the early frames counts against it."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The count matches at 15 frames, and both grow then fade. The original's first frame has a small flash (first 0.08) and its last frame keeps a faint glow (last 0.03), so it ends near-dark rather than fully dark. The reproduction is dark at both ends (first 0, last 0) and fades out early, going blank by frame 13. Its jitter is higher (1.57 against 1.25), so its shape flickers more across frames, and the peak falls at 0.43 against the original's 0.36."
+   "reason": "Both have 15 frames, and both grow then fade, which is the right kind of motion. Two differences show. First, the original opens with a visible flash at frame 0 (envelope first 0.08) while the reproduction opens dark (first 0). Second, the reproduction's peak sits later (0.43 against 0.36) and it holds bright through frame 7 before dropping off. The one-shot ends dark in both (last 0.03 against 0), so that part holds. The timing and start are off, which is what the 25% band is measuring."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The type and format are both additive, the name is the same (sameName true), and it reads back as written (readsBack true). Nothing in the measurements or the pictures shows a fault here."
+   "reason": "The measures give both as additive, with the same name (sameName true) and read back as written (readsBack true). Nothing in the pictures contradicts the format. The grey tone in the early frames is pixel colour, not a format fault, and the colour is charged to R3."
   }
  },
  "total": 6,

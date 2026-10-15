@@ -54,25 +54,54 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.51,
+    "dark": 0.47,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 16.5,
+  "meanColourDeltaE": 8.3,
   "sameName": true,
   "readsBack": true
  },
  "caps": {
   "R2": 2,
-  "R3": 1,
+  "R3": 2,
   "R4": 2,
   "R5": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "R3"
- ],
- "total": 0,
- "of": 10
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are the same effect: a soft, bright central glow with a radial halo and faint rays on a dark ground. Nothing is missing or added."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are 64 x 64. The glow is centred and fills the frame in the same way in each, with the same bright core and falloff to the edges."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured mean colour difference is 8.3, inside the line of 15, but the picture is clearly off in hue. The original's halo is neutral grey-pink, while the reproduction's halo is a more saturated magenta-purple. The core is white in both, so the difference is in the outer glow, not the centre."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "One frame in each, matching the original's count, and the envelope is identical (first 1, last 1, peak at 0). The dark fraction differs (0.39 against 0.47), which reads as a slightly tighter falloff in the reproduction. That is a small difference in a single static frame, not a change of motion, so it does not lower the score."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are parallel and additive, the names match, and the reproduction reads back as written."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
 }

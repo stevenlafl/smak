@@ -1,25 +1,22 @@
-The sprite is built and the build says OK, but it does not clear every warning the judge gives. The shape and the border light are still well short of the original, so this is the closest the rules rendered in the time I spent, not a finished match.
+The sprite is built and written to `work:sprites/fire.spr`. The build says "OK: built, and every check passed", but it still prints two warnings, so it is not as close to the original as I'd like.
 
-The file is `sprites/fire.spr` in the work folder (`work:sprites/fire.spr`, with a contact sheet and an animated preview beside it). The spec used: a `fire loop` class, parallel oriented, additive, 32 by 96, origin at the bottom, one `fire` layer with width 1.1, height 2.4, taper 0.1, tongues 0.6, gain 0.7, and the original's contact sheet as the reference.
+**What it is:** a flame on its base, 32x96 pixels, 15 frames, a loop that wraps back to its first frame. It is an `env_sprite`, type `parallel oriented`, format `additive` (black is clear), render mode 5, 10 frames a second. The colours follow the original's own colour at each brightness, from dark red-brown to orange-cream.
 
-Measured against the original (the judge's figures from the last build):
+**How it was made:** one fire layer, `ramp: "reference"`, `tongues: 0.5`, `width: 1.5`, `height: 2.4`, `taper: 0.3`, with `mask: "reference"`, so its outline follows the original's lit area frame by frame. The spec is saved as `sprites_fire.spec.json` in the work folder.
 
-| Measure | Original | Mine | Status |
-|---|---|---|---|
-| Size, frames, type, format | 32x96, 15, parallel oriented, additive | 32x96, 15, parallel oriented, additive | matches |
-| Mean colour (delta E, 15 or under is near) | reference | 6.3 | near |
-| Share that is dark | 0.38 | 0.35 | near |
-| Brightest light and pixels over 0.7 | 0.69, 0 | 0.67, 0 | matches |
-| Loop wrap | n/a | 0.74, in Half-Life's range | ok |
-| Border light (brightest at the frame edge) | 0.275 | 0.119 | warning |
-| Shape overlap, frame by frame (bar 0.8) | 1.0 | 0.59 | warning |
-| Brightest frame's place in its play | 0.07 | 0.71 | warning |
+**Measured against the original:**
 
-The two warnings I could not clear:
-- **Shape.** The original's bright body sits higher, and its flame runs the full width at the base. I tried six variants of width, height, taper, tongues and gain. The best overlap was 0.62. Masking the fire layer by the reference (`mask: "reference"`) barely moved the overlap and made the flame too dark, so I dropped it.
-- **Brightest frame.** The original peaks at frame 1. Setting an envelope to move the peak made the first and last frames dark and broke the loop, so I left the envelope out.
+| Measure | Original | Mine | Bar |
+| --- | --- | --- | --- |
+| Mean colour (delta E) | reference | 7 | 15 or under |
+| Share that is dark | 0.38 | 0.46 | within 0.05 |
+| Border light (brightest) | 0.275 | 0.248 | within 0.08 |
+| Frames | 15 | 15 | match |
+| Hot middle (pixels over 0.7) | 0 | 0 | match |
+| Shape overlap (mean) | 1.00 | 0.63 | 0.8 |
 
-Choices I made that you can redirect:
-- **Frame rate 10 fps.** The original's rate is not in its facts file, so this is a guess. 10 is also the cap for an `env_sprite`.
-- **14 frames with loop on.** The builder writes the first frame again at the end, so 14 gives the original's 15 frames written.
-- **Origin bottom**, so the flame stands on its base.
+**Still open:**
+- **Shape, frames 9 to 12:** the original's bright core sits mid-flame, while mine sits low, near the base. The mask fixes the outline but not where the light falls inside it. I tried more tongues, extra glow layers, `rise` and `gain`. The glow layers and extra gain each made colour or hot middle worse, and `rise` changed nothing. I stopped at the best of those.
+- **Dark share:** 0.46 against 0.38, slightly too much dark.
+
+I could not read the smak source to see what `rise` and `width` are in, so I tuned them by the reported numbers only. Getting the shape bar to 0.8 probably needs a change to how the fire layer places its core, which is beyond what the spec exposes.

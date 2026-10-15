@@ -1,0 +1,71 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/steam1.spr",
+      "class": "smoke puff",
+      "use": "env_sprite",
+      "size": [
+        32,
+        48
+      ],
+      "frames": 16,
+      "loop": false,
+      "fps": 10,
+      "type": "parallel oriented",
+      "format": "index alpha",
+      "finish": {
+        "edge": 2
+      },
+      "layers": [
+        {
+          "kind": "billow",
+          "at": [
+            -0.08,
+            -0.45
+          ],
+          "count": 24,
+          "spread": 0.5,
+          "size": 0.2,
+          "growth": 1,
+          "rise": 0.35,
+          "drift": 0.1,
+          "blend": 0.4,
+          "lumps": 0.4,
+          "hot": 0.4,
+          "dissolve": 0.7,
+          "env": {
+            "attack": 0,
+            "decay": 0.5
+          },
+          "ramp": [
+            [
+              0,
+              [
+                1,
+                1,
+                1
+              ]
+            ],
+            [
+              0.5,
+              [
+                0.88,
+                0.88,
+                0.88
+              ]
+            ],
+            [
+              1,
+              [
+                0.47,
+                0.47,
+                0.47
+              ]
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

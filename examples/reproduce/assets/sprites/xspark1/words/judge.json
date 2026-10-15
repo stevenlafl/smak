@@ -46,20 +46,20 @@
      32
     ],
     "border": {
-     "max": 0.092,
-     "mean": 0.001
+     "max": 0,
+     "mean": 0
     },
     "envelope": {
      "peakAt": 0.3,
-     "first": 0.89,
-     "last": 0.92
+     "first": 0.72,
+     "last": 0.72
     },
-    "dark": 0.44,
-    "wrap": 1.07,
+    "dark": 0.67,
+    "wrap": 1.06,
     "jitter": 1.92
    }
   },
-  "meanColourDeltaE": 8.8,
+  "meanColourDeltaE": 12.2,
   "sameName": true,
   "readsBack": true
  },
@@ -74,31 +74,31 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Both are cyan glows, but the original is a lumpy cluster of spark-like lobes with dark blue fragments fanning out from a bright core, while the reproduction is a clean soft orb with only a few faint bumps. It reads as a generic glow, not the original's spark burst, so it is clearly off."
+   "reason": "Both are cyan-white glow clusters, so the family matches. The reproduction reads as a few drifting, off-centre cores with a smaller halo (frames 2, 4, 5, 6 and 10 show separate lumps), not the original's soft, evenly spread glow puff. It is not clearly the same effect."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both are 32 x 32 frames, but the original's effect spreads to and past the frame edges in several frames (3, 4, 10), while the reproduction stays centred in a rounder, smaller footprint with more empty margin. The effect does not fill the frames as the original's does."
+   "reason": "Both are 32x32, but the original's glow fills the frame to its edges with a wide dark-teal halo (border max 0.145). The reproduction's blob is concentrated, sits off-centre and is cut short in frames 0, 8, 9 and 10 (border 0). Its dark share is 0.67 against the original's 0.46, so less of the frame is covered."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean colour difference is 8.8, under the 15 line, and the dark-fraction measures match (0.46 against 0.44). Both are the same cyan with a white core. The reproduction's halo is slightly brighter, which the measure already accounts for."
+   "reason": "The measured mean colour difference is 12.2, under the line of 15. Visually both are cyan cores with white centres on the same near-black background. The original's outer halo is a deeper teal, but the mean colours agree."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frame count matches (11), and both flicker with a bright core. But the envelope peaks at frame 1 in the original and near frame 3 in the reproduction, and the reproduction jitters more (1.92 against 1.51). Its loop measure (wrap 1.07 against 1.61) is the better of the two, but the motion is not the same kind: the original's lobes shift and fragment, while the reproduction's pulse is smoother."
+   "reason": "Both have 11 frames and close their loop (first equals last), so frame count and loop closure match. The envelope does not: the original holds near full strength (first 0.94, peak at frame 1, last 1), while the reproduction sits at 0.72 at both ends and peaks at frame 3 (0.3). Its jitter is higher (1.92 against 1.51), so its motion looks more erratic than the original's steady flicker."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are additive, the same name, and the reproduction reads back as written, as the measurement says."
+   "reason": "Both are additive with the same name, and the reproduction reads back (readsBack true, sameName true)."
   }
  },
  "total": 7,

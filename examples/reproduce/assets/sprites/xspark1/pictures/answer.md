@@ -1,33 +1,28 @@
-The sprite builds OK: `work:sprites/xspark1.spr`, with `-sheet.png` and `-animated.png` beside it. The build's warnings remain, so it is close to the original but not a match on every measure.
+The sprite builds OK and is written to `work:sprites/xspark1.spr`, with `-sheet.png` and `-animated.png` beside it. Two warnings are still open, so it is not as close as the report's bars ask.
 
-**What it is:** a soft, flickering cyan spark glow with a white hot centre. It uses the `glow` class, `env_sprite` use, and the `blobs` layer, which places soft discs afresh each frame so the flicker has no motion to follow.
+**What it is:** a soft cyan spark cluster on a dark ground. Each frame has a bright white-cyan core, lumpy edges, and a dim cyan halo that falls off to nothing at the border.
 
-**Shape and size:** 32x32 pixels, centred origin. The lit cloud fills most of the frame, with a dark rim, and no square edge (the edge is faded with `finish: edge 2`).
+**Spec used** (`smak.sprite/1`):
+- Name `sprites/xspark1.spr`, `use: env_sprite`, `type: parallel`, `format: additive`, `origin: centre`, size 32×32.
+- `reference: pictures/frames.png`, so the report measures against your original sheet.
+- `frames: 10`, `loop: true`, `fps: 10`. The file has 11 frames, the first repeated at the end, matching the original's 11.
+- Layer 1, `glow`: radius 0.95, core 0.3, colour (0.16, 0.75, 1), gain 0.6, masked to the reference's lit outline so the halo stays inside the original's shape.
+- Layer 2, `blobs`: 9 blobs, radius 0.32, spread 0.6, core 0.4, soft 0.5, with `ramp: "reference"` so its colours are the original's own.
 
-**Colours:** a ramp from black through deep blue and cyan to white at the centre. A faint halo layer in a dark cyan (0, 0.45, 0.65) fills the frame outside the core.
+**Choices I made:**
+- Class `glow`, not `sparks`. `sparks` is a one-shot that must end dark, and the original stays lit through all its frames.
+- The frame rate of 10 is my guess. The input folder gives no fps.
+- The glow's outline is taken from your original's pictures via the reference mask. That is the spec's documented way to match a shape, and the input is the sprite you asked me to reproduce.
 
-**Frames and motion:** 11 frames, written as a loop of 10 with its first frame repeated at the end, so the wrap is smooth (wrap 1.2 against a limit of 2.5). Playback is 10 fps. The frame rate is my guess: the original's timing is not in `facts.txt`, so check it against the original if it matters.
-
-**Type and format:** `parallel` and `additive`, as the original.
-
-**Measured against the original (the report's figures):**
-
-| Measure | Original | Mine | Bar |
-| --- | --- | --- | --- |
-| Colour difference | — | 2.7 | 15 or under |
-| Share that is dark | 0.46 | 0.51 | within 0.05 |
-| Shape overlap, frame by frame | — | 0.72 | 0.8 |
-| Brightest frame's position | 1 (last) | 0.3 | should match |
-| Border light | 0.145 | 0.044 | — |
+**Measured against the original:**
+- Colour: mean delta E 5.1 (bar 15).
+- Dark share: 0.50 against 0.46.
+- Border light: 0 against 0.145 at its brightest, within range.
+- Frame count: 11 against 11.
+- Shape overlap: mean 0.75 (bar 0.8).
 
 **Still open:**
-- **Shape overlap (0.72, under the 0.8 bar):** the original's blobs sit in a different arrangement in each frame. I widened them, but the overlap plateaued around 0.72–0.73. Closing this needs the blob placement itself to match, which the layer does not do.
-- **Brightest frame:** the report puts the original's peak at its last frame and mine at 30% through the loop. Moving the envelope to fix that made the loop jump and start faint, so I reverted it. The flicker sets the peak here, not a fixed envelope.
+- **Shape overlap, 0.75 against the 0.8 bar.** The original's core sits in a steady cluster; my blobs are placed afresh each frame, so they do not follow its shape closely. I tried more blobs, larger spread and a stronger envelope. Those lowered the overlap or broke the loop, so I kept this version.
+- **Peak timing.** My brightest frame falls at 0.8 of the loop, against 1.0 in the original. The original is nearly flat in brightness, so this matters less than the overlap.
 
-The spec used for the final build (rebuild with this if the file is lost):
-
-```json
-{"spec":"smak.sprite/1","sprites":[{"name":"sprites/xspark1.spr","class":"glow","use":"env_sprite","size":[32,32],"frames":10,"loop":true,"fps":10,"type":"parallel","format":"additive","origin":"centre","finish":{"edge":2},"reference":"pictures/frames.png","layers":[{"kind":"blobs","count":9,"radius":0.34,"spread":0.6,"core":0.35,"soft":0.6,"ramp":[[0,[0,0,0]],[0.3,[0,0.235,0.353]],[0.6,[0,0.588,0.824]],[0.85,[0.549,0.941,1]],[1,[1,1,1]]]},{"kind":"glow","radius":1,"core":0.4,"gain":0.7,"colour":[0,0.45,0.65]}]}]}
-```
-
-I did not copy the `.spr` into the Packages example folder; it is only in the server's work folder. Tell me if you want it placed there.
+If you want the overlap closed, the next step is hand-placing the blobs to match the original's cluster in each frame, or accepting 0.75 as the best the blob layer can reach.

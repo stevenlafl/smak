@@ -1,7 +1,12 @@
-A gunfire muzzle flash: a small five-pointed starburst of light, drawn additively on black so the black areas are fully transparent. The canvas is 64x64 pixels with 2 frames, and the sprite always turns to face the viewer.
+A muzzle flash: a soft, blurry five-pointed starburst on black, drawn additively so black counts as transparent. It's 64x64 with 2 frames and always faces the viewer.
 
-Shape: a hot, roughly round core about 10 to 12 pixels across sits at the centre of the frame. Five thin, tapering rays come out of it like a lopsided star. One points almost straight up. Two point sideways, left and right, a little above horizontal. Two point down and outward, at about the 7 o'clock and 5 o'clock positions. The rays are about 3 to 4 pixels wide at the base and taper to soft points about 26 to 30 pixels from the centre, so the whole star nearly fills the frame with a small margin. The edges are soft and blurry, with no hard outlines, and a faint haze surrounds the core.
+Shape: a bright round core sits just about at the centre, about 10 pixels across. Five thin, tapering rays come out of it, laid out like a star with one point up. The top ray leans slightly right and reaches near the top edge. The two upper side rays run out almost level, a little upward, nearly to the left and right edges. The two lower rays slant down-left and down-right and end about 8 pixels above the bottom corners. The rays are about 4 to 6 pixels wide at the base and thin to a soft point. Every edge is feathered, with no hard outlines, and there's a faint haze around the core.
 
-Colour: the core is near-white with a slight warm cream tint. Moving outward along the rays it turns pale gold, then amber-orange, then dim brownish orange at the tips before fading into black. Brightness falls off smoothly from the centre.
+Colours from core to rim:
+- Core: nearly pure white with a slight warm tint, RGB (1.0, 0.96, 0.88).
+- Middle of the rays: soft peach-orange, clearly coloured but still fairly light, RGB (0.92, 0.62, 0.36).
+- Rim and ray tips: dim amber-brown fading to black, RGB (0.45, 0.28, 0.14).
 
-Animation: two nearly identical frames that alternate quickly as a flicker loop while the weapon fires. The second frame is the same star with slightly different ray lengths and angles. The rays shift by a pixel or two and are a touch shorter or longer, so the flash looks like it shimmers rather than standing still. The core stays the same size and brightness in both frames, and nothing grows, rises or fades across the cycle.
+There's no blue or red cast anywhere, just a warm firelight tone.
+
+Animation: the two frames are nearly the same. In the second frame the rays are rotated a few degrees and their lengths change slightly, some a bit longer and some a bit shorter, so the flash seems to jitter when the frames swap. The brightness doesn't fade. The game shows one frame at random, or flickers quickly between the two, for each shot. It plays briefly and doesn't grow or move.

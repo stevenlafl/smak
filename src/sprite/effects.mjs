@@ -62,7 +62,9 @@ const RAMPS = {
 };
 export const RAMP_NAMES = Object.keys(RAMPS);
 function ramp(name, heat) {
-  const stops = Array.isArray(name) ? name : RAMPS[name] ?? RAMPS.fire;
+  // stops in any order: a laser beam's maker listed its from bright to dark, and read in that order its colours
+  // came out wrong (delta E 43.7, scored 0)
+  const stops = Array.isArray(name) ? [...name].sort((a, b) => a[0] - b[0]) : RAMPS[name] ?? RAMPS.fire;
   const h = clamp01(heat);
   for (let i = 1; i < stops.length; i++)
     if (h <= stops[i][0]) {

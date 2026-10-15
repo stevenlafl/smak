@@ -13,21 +13,48 @@
       ],
       "frames": 1,
       "loop": false,
-      "finish": {
-        "edge": 6
-      },
       "layers": [
         {
           "kind": "beam",
-          "core": 0.45,
-          "profile": "round",
-          "noise": 0.5,
-          "streaks": 0.6,
-          "gain": 1.3,
-          "colour": [
-            0.9,
-            0.94,
-            1
+          "gain": 2,
+          "core": 0.31,
+          "profile": "flat",
+          "shoulder": 0.2,
+          "noise": 0.25,
+          "streaks": 0.35,
+          "ramp": [
+            [
+              1,
+              [
+                1,
+                1,
+                1
+              ]
+            ],
+            [
+              0.55,
+              [
+                0.55,
+                0.56,
+                0.6
+              ]
+            ],
+            [
+              0.12,
+              [
+                0.12,
+                0.12,
+                0.14
+              ]
+            ],
+            [
+              0,
+              [
+                0,
+                0,
+                0
+              ]
+            ]
           ]
         }
       ]

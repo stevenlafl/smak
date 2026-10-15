@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "glow01",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.47,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.44,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 1.3,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both pictures show one soft radial glow, bright at the centre and fading to the dark edge. The reproduction is the same effect."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are 64 x 64 and the glow fills the frame the same way: a wide falloff reaching the edges with the centre near the middle. The measured size matches and the border is 0 in both."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The mean colour difference is 1.3 CIE76 delta E, far under the line of 15. The dark-fraction measure is 0.47 for the original and 0.44 for the reproduction, close enough to read as the same brightness."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both have 1 frame, and the envelope (peak at frame 0, first and last at 1) is identical. A single static frame has no motion to differ in, so the frame count and the end state match. Nothing here suggests a loop or fade the reproduction lacks."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are type parallel and format additive, the same as the original. The name matches (sameName true) and the file reads back (readsBack true)."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

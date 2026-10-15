@@ -1,28 +1,31 @@
-The sprite builds with no warnings: `sprites/flare1.spr` is written to the work folder, with its `-sheet.png` and `-animated.png` beside it.
+The sprite builds OK with no warnings. It is written as `work:sprites/flare1.spr`, with `-sheet.png` and `-animated.png` beside it.
 
-**What it is:** a soft, round glow. A bright white-pink core sits in the middle, fading through a lavender-pink halo to black at the edge.
+**Spec used:**
 
-**Spec as built:**
-- **Name:** `sprites/flare1.spr`, `use: env_sprite`, `class: flare`
-- **Size and frames:** 64x64, 1 frame, origin centred
-- **Type and format:** `parallel`, `additive` (matches the original's facts line)
-- **Layers:**
-  - A broad halo: radius 0.95, smooth falloff, colour `[1, 0.62, 0.85]`, gain 0.7, with `finish: edge`
-  - A hot core: radius 0.6, power falloff, colour `[1, 0.92, 0.97]`, gain 1.0
+```json
+{"spec": "smak.sprite/1", "sprites": [{"name": "sprites/flare1.spr", "class": "flare", "use": "env_sprite", "size": [64, 64], "frames": 1, "type": "parallel", "format": "additive", "reference": "pictures/frames.png", "layers": [{"kind": "glow", "radius": 1.0, "core": 0.4, "falloff": "smooth", "gain": 1.0, "ramp": "reference"}, {"kind": "flare", "core": 0.1, "gain": 0.3, "ramp": "reference", "rays": {"count": 48, "length": 0.9, "jitter": 0.5, "width": 0.012, "gain": 0.25}}]}]}
+```
 
-**Measured against the original (from the report):**
+**What it is:** a lens-flare glow, a white-to-mauve soft halo with a bright centre and faint cross rays. It is 64x64, one frame, parallel to the camera, additive (black is clear), and placed as an `env_sprite` in render mode 5 (Additive).
+
+**Final measures against the original (from the build report):**
 
 | Measure | Original | Mine |
-|---|---|---|
-| Mean colour (delta E, 15 or under is near) | reference | 9.8 |
-| Share that is dark | 0.39 | 0.35 |
-| Shape overlap, faint edge / body / core | reference | 0.94 / 0.95 / 0.90 (mean 0.93) |
-| Frames | 1 | 1 |
-| Brightest / pixels over 0.7 | 0.91 / 530 | 0.91 / 408 |
+| --- | --- | --- |
+| Mean colour (delta E, 15 or under is near) | reference | 8.7 |
+| Share that is dark (0.39 reference) | 0.39 | 0.38 |
+| Brightest pixel | 0.91 | 0.91 |
+| Pixels over 0.7 brightness | 530 | 222 |
+| Border light | 0 | 0 |
+| Shape overlap, frame by frame | | 0.97, 0.91, 0.66 (mean 0.85) |
 
-**Where it still differs:**
-- The original's hot middle is larger (530 pixels over 0.7, against my 408), so its core reads slightly bigger. The report gave no warning for this, but it is the most visible gap.
-- The original has faint radial rays across the halo. I tried a flare layer with rays, but it drew a hard horizontal and vertical cross that the original does not have, so I dropped it. The halo is smoother than the original as a result.
-- The original's contact sheet has a small "0" index marker in its corner. That is part of the sheet, not the sprite, and I did not copy it.
+**Known gaps:**
+- The original's hot middle covers more pixels over 0.7 (530 against 222). The build does not flag this because it is under the warning bar, but it is the largest visible difference.
+- The original's rays are fainter and more even than mine. Mine read as a sharper cross.
+- The overlap at the faint outer edge (0.97) is close, but the core overlap (0.66) is the weakest of the three bands.
 
-Iterations: I tried four variants before this one. The first two gave a strong cross streak. A third was too diffuse. The fourth was close, and tuning the halo's radius and adding `finish: edge` brought the last warnings to zero.
+**Things I learned about the tool, since they affect the spec:**
+- A `glow` with `falloff: "power"` ignores `radius`; it reaches to 1.5 regardless. I switched to `"smooth"` so that `radius` took effect.
+- The `finish: "edge"` I tried first made no difference to the output, so I dropped it.
+
+I did not copy the sprite into the examples folder under `assets/sprites/flare1/`; it is only in the work folder.

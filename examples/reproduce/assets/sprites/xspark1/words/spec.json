@@ -3,28 +3,26 @@
   "sprites": [
     {
       "name": "sprites/xspark1.spr",
+      "use": "env_sprite",
       "class": "glow",
-      "use": "tempent",
       "type": "parallel",
       "format": "additive",
       "size": [
         32,
         32
       ],
-      "frames": 11,
-      "loop": false,
-      "fps": 12,
+      "frames": 10,
+      "loop": true,
+      "fps": 10,
       "origin": "centre",
       "layers": [
         {
           "kind": "glow",
-          "radius": 0.9,
-          "core": 0.34,
-          "falloff": "smooth",
-          "colour": [
-            0.235,
-            0.863,
-            1
+          "radius": 0.3,
+          "core": 0.22,
+          "at": [
+            0,
+            0
           ],
           "ramp": [
             [
@@ -36,25 +34,25 @@
               ]
             ],
             [
-              0.25,
+              0.2,
               [
-                0.078,
-                0.353,
-                0.51
+                0.05,
+                0.3,
+                0.45
               ]
             ],
             [
-              0.6,
+              0.5,
               [
-                0.235,
-                0.863,
+                0.2,
+                0.85,
                 1
               ]
             ],
             [
               1,
               [
-                1,
+                0.92,
                 1,
                 1
               ]
@@ -64,10 +62,10 @@
         {
           "kind": "blobs",
           "count": 6,
-          "radius": 0.36,
-          "spread": 0.7,
-          "core": 0.4,
-          "soft": 0.5,
+          "radius": 0.34,
+          "spread": 0.5,
+          "core": 0.3,
+          "soft": 0.3,
           "ramp": [
             [
               0,
@@ -78,18 +76,26 @@
               ]
             ],
             [
+              0.2,
+              [
+                0.05,
+                0.3,
+                0.45
+              ]
+            ],
+            [
               0.5,
               [
-                0.078,
-                0.353,
-                0.51
+                0.2,
+                0.85,
+                1
               ]
             ],
             [
               1,
               [
-                0.235,
-                0.863,
+                0.92,
+                1,
                 1
               ]
             ]

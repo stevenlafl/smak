@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "glow01",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.47,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.024,
+     "mean": 0.003
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.27,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 5.5,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are a soft white radial glow: a bright core fading outward to dark. Same effect."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 64 x 64. The original's soft halo reaches toward the frame's edges, while the reproduction's glow is tighter, with a sharper core and darker surround. Measured dark is 0.47 against 0.27, so the effect does not fill the frame as the original does."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are neutral white-to-grey additive blends with the same hue. The measured mean colour difference is 5.5, under the 15 line."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both have one frame and the same peak position, so frame count and envelope match. But the measured dark fraction differs (0.47 against 0.27), so the fade's falloff profile is off, with the reproduction's halo falling away faster. Motion and loop measures are null for a single frame, so this rests on the dark measure."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type is parallel and format additive in both, size 64 x 64, frame count 1, same name, and it reads back as written."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

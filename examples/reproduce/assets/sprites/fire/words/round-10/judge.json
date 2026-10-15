@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "fire",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.275,
+     "mean": 0.028
+    },
+    "envelope": {
+     "peakAt": 0.07,
+     "first": 0.9,
+     "last": 0.84
+    },
+    "dark": 0.42,
+    "wrap": 1.13,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.127,
+     "mean": 0.008
+    },
+    "envelope": {
+     "peakAt": 0.64,
+     "first": 0.89,
+     "last": 0.89
+    },
+    "dark": 0.59,
+    "wrap": 0.77,
+    "jitter": 1.65
+   }
+  },
+  "meanColourDeltaE": 9.6,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are a rising fire flame, bright at the base and tapering to a tip, with the same tongue-like flicker across 15 frames. The effect is the same."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Size (32x96) and frame count match. But the reproduction's flames are narrower and pointed, and do not fill the frame width as the original's do. The border measure shows it: max 0.127 against the original's 0.275, mean 0.008 against 0.028, so the reproduction's flame stops short of the frame edges. The reproduction's frames are also darker overall (dark 0.59 against 0.42)."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured mean colour difference is 9.6, under the line of 15. Visually the reproduction's tips are a little more yellow-white and its bases a little darker, but the mean colour is within tolerance. The higher dark fraction is a matter of density (R2), not of colour."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count matches (15) and jitter is close (1.51 against 1.65), so the flicker is the same kind. The envelope does not: the original's brightness peaks at 0.07 through the loop and the reproduction's at 0.64, so the rise and fall are timed differently. The loop closes in both (original first 0.90, last 0.84; reproduction 0.89 and 0.89), but the wrap measure differs (1.13 against 0.77). The motion's timing is off, so this is 1, not 2."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type and format both additive, same name, and it reads back as written (sameName true, readsBack true)."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

@@ -46,33 +46,62 @@
      64
     ],
     "border": {
-     "max": 0.973,
-     "mean": 0.13
+     "max": 1,
+     "mean": 0.194
     },
     "envelope": {
      "peakAt": 0,
      "first": 1,
      "last": 1
     },
-    "dark": 0.22,
+    "dark": 0.29,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 17.7,
+  "meanColourDeltaE": 6.6,
   "sameName": true,
   "readsBack": true
  },
  "caps": {
   "R2": 2,
-  "R3": 1,
+  "R3": 2,
   "R4": 2,
   "R5": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "R3"
- ],
- "total": 0,
- "of": 10
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are a vertical beam of light in a 32x64 frame, so it is the same effect. The reproduction is a hard, narrow beam rather than the original's soft, wide glow, but that is a difference in shape (R2), not in what the effect is."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frame size matches (32x64), but the effect does not fill the frame as the original does. The original is a bright grey haze across nearly the whole width, with grain. The reproduction is a thin white core on a near-black field, with dark columns down both sides (dark 0.29 against the original's 0.02)."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured mean colour difference is 6.6, inside the line of 15, so the measurement allows a 2. Judged by eye, the colour distribution is off: the original's frame is a mid-grey to white haze throughout, while the reproduction is mostly black with a bright centre line. The judge scores lower than the measure allows here, for that difference in where the light sits across the frame."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are single frames (1 and 1), with the same envelope (peak at frame 0, first 1, last 1). Neither has wrap or jitter, so the kind of motion is the same, a static additive beam with nothing to loop or end dark."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are type parallel and format additive, the name matches (sameName true), and the file reads back (readsBack true)."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
 }

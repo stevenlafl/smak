@@ -1,27 +1,32 @@
-The sprite is built: `work:sprites/steam1.spr`, with `-sheet.png` and `-animated.png` beside it. The build says **OK** with no faults, but it still lists warnings. Most of them come from how the reference was read, not from the sprite itself.
+The sprite is built and the build says OK, but four warnings remain, mainly on how closely the shape matches the original. It is at `work:sprites/steam1.spr`, with `-sheet.png` and `-animated.png` beside it.
 
-**The spec I built:**
+**What it is:** a steam puff. It starts as a small dot, grows to its fullest in frames 4 to 8, then thins into wisps and is gone by frame 14. It is one-shot, not a loop.
 
-```json
-{"spec":"smak.sprite/1","sprites":[{"name":"sprites/steam1.spr","class":"smoke puff","use":"env_sprite",
- "type":"parallel oriented","format":"index alpha","size":[32,48],"frames":16,"loop":false,"fps":10,
- "reference":{"picture":"pictures/frames.png","cell":64,"cols":8},
- "layers":[
-  {"kind":"billow","at":[0,0],"count":24,"spread":0.26,"size":0.27,"growth":1.1,"rise":0.2,"drift":0.05,"ramp":"blast","env":{"attack":0.5,"decay":0.4}},
-  {"kind":"billow","at":[0,-0.3],"count":12,"spread":0.14,"size":0.12,"growth":0.9,"rise":0.1,"drift":0.03,"ramp":"blast","env":{"attack":0.5,"decay":0.4}}],
- "finish":{"edge":4}}]}
-```
+**The spec as built:**
 
-**What it matches:**
-- **What it is:** a smoke puff, one-shot (`loop: false`), placed as an `env_sprite` at 10 frames a second.
-- **Shape and size:** 32x48 with 16 frames. It starts as a dot, grows to a lobed cloud about 26 pixels wide, then breaks up and fades. The second, smaller cloud sits below the main one to give the downward tail seen in frames 3 to 12.
-- **Colours:** white to grey with shaded lobes, from the `blast` ramp. Colour difference against the original is 7.8 (the bar is 15, and 15 or under is near).
-- **Timing:** brightest at 0.6 of its play, against the original's 0.57. It ends dark.
-- **Type and format:** parallel oriented, index alpha. The tool places it with render mode 4 (Solid).
-- **Class check:** all 5 measures against Half-Life's own smoke puff are in range.
+| Field | Value |
+| --- | --- |
+| Name | `sprites/steam1.spr` |
+| Class, use | smoke puff, `env_sprite` (renders as render mode 4, Solid, at 10 fps) |
+| Size, frames | 32x48, 16 frames, not looped |
+| Type, format | parallel oriented, index alpha |
+| Origin | centre |
+| Layer | one billow (a lit cloud): 24 spheres, spread 0.5, size 0.34, growth 0.6, rise 0.25, drift 0.12, dissolve 0.5, envelope attack 0.1, decay 0.8, finish edge 2 |
+| Colour | `ramp: "reference"`, the original's own colour at each brightness, read off the contact sheet |
 
-**Warnings still showing, and why:**
-- **Frame count (16 against 8) and shape overlap (0.12 against a bar of 0.8):** these come from the reference reader. The original sheet has 64x96 cells in two rows. The `reference.cell` setting only takes a square size in pixels, and I have no shell here to re-lay the sheet with square cells. The reader therefore finds 8 frames and misaligned rows. The frames themselves match the original by eye.
-- **Border light (0.27 against 0.958) and "covers too little of its frame" (dark share 0.71 against 0.62):** the original's border number comes from the same misread sheet. My sprite is slightly sparser in its mid frames than the original, which I did not push further, because each step I tried either clipped the frame edge or looked like a separate ball.
+**How it measures against the original:**
 
-I stopped there because the remaining warnings are measurements of a reference the tool cannot read correctly. If you can supply the sheet with square cells (for example 96x96 per frame, 8 columns), I can rerun the measures and tune against them.
+| Measure | Original | Mine |
+| --- | --- | --- |
+| Mean colour difference (delta E, 15 or under is near) | | 2.7 |
+| Share that is dark | 0.63 | 0.66 |
+| Light at the frame border | 0.341 | 0.341 |
+| Brightest frame's place in its play | 0.40 | 0.33 |
+| Frames 0 and 15 | dot / faint | empty / empty |
+| Shape overlap (bar 0.8) | | 0.49 |
+
+**What is still off:**
+- **Shape overlap, 0.49 against the 0.8 bar.** Frame by frame the puff matches the lit area well in frames 2 to 9 (about 0.65 to 0.71), but misses the original's late frames 11 to 13, where its core lingers. Frame 0 is empty where the original has a small dot. I tried four routes and none passed the bar: a larger cloud (it spilled past the frame edge), a longer attack, a slower dissolve, and the layer mask below.
+- **The mask.** Adding `mask: "reference"` raised the overlap to 0.56 to 0.58, but it dragged the border light down to 0.02 to 0.05 against 0.341 and moved the peak early to 0.27. I left it out, so the final version is the unmasked one.
+
+**The reference:** the input folder was not readable from here (a permission prompt), so I used the server's copy of the same contact sheet, `pictures/frames.png`, and `pictures/facts.txt` (32x48, 16 frames, parallel oriented, index alpha). The colours come from that sheet, via `ramp: "reference"`, as the guide suggests for copying a picture. The report measures the sprite against that same sheet.
