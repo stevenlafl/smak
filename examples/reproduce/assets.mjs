@@ -8,6 +8,7 @@
 //                 no agent: what a change to the kit does to a result, and the proof a result needs no Claude
 //        [--generators <folder>]   the sound makers' server offers the tool generate (generators/README.md;
 //                                  SMAK_GENERATORS unless told): two makers at a time, each loads its model
+//        [--materials <folder>]    the texture and sprite makers' server offers the material library (SMAK_MATERIALS)
 //        [--accept-licences]       a test condition: the sound makers are told the person accepts the generators'
 //                                  licences (to measure what takes add; the tool itself decides nothing)
 //
@@ -21,6 +22,7 @@ import { HERE, KIT, GAME, savePng, besides } from "./lib.mjs";
 import { runAgent, runJudge, failedByMeasure } from "./agents.mjs";
 import { toolsFor } from "../../mcp/tools.mjs";
 import { openFolders } from "../../mcp/folders.mjs";
+import { openMaterials } from "../../mcp/materials.mjs";
 import * as smak from "../../src/index.mjs";
 import { tile } from "../../src/render.mjs";
 import { sheetOf } from "../../src/sprite/draw.mjs";
@@ -37,6 +39,8 @@ const again = words.includes("--again") && words.splice(words.indexOf("--again")
 const GENERATORS = words.includes("--generators") ? words.splice(words.indexOf("--generators"), 2)[1] : process.env.SMAK_GENERATORS;
 // a test condition, never the tool's default: the makers told the person accepts the generators' licences
 const ACCEPT = words.includes("--accept-licences") && words.splice(words.indexOf("--accept-licences"), 1);
+// the texture makers' server offers the material library (the tool materials, library: pictures)
+const MATERIALS = words.includes("--materials") ? words.splice(words.indexOf("--materials"), 2)[1] : process.env.SMAK_MATERIALS;
 const KINDS = ["sprites", "sounds", "textures"];
 const kinds = KINDS.filter((k) => !words.some((w) => KINDS.includes(w)) || words.includes(k));
 const named = words.filter((w) => !KINDS.includes(w));
@@ -189,7 +193,7 @@ async function reproduce(kind, subject, leg) {
   }
   const kit = execFileSync("git", ["-C", HERE, "rev-parse", "--short", "HEAD"], { encoding: "utf8" }).trim();
   const generators = kind === "sounds" ? GENERATORS : undefined;
-  const r = await runAgent({ prompt: reproducePrompt(kind, subject, leg, given), read: leg === "pictures" ? input : null, server: { wads: false, models, generators }, files, hours: kind === "textures" ? 2 : 1 });
+  const r = await runAgent({ prompt: reproducePrompt(kind, subject, leg, given), read: leg === "pictures" ? input : null, server: { wads: false, models, generators, materials: kind === "textures" || kind === "sprites" ? MATERIALS : undefined }, files, hours: kind === "textures" ? 2 : 1 });
   mkdirSync(out, { recursive: true });
   writeFileSync(join(out, "answer.md"), `${r.answer.trim()}\n`);
   const all = [];
@@ -259,7 +263,7 @@ async function rebuild(kind, subject, leg) {
       models = mkdtempSync(join(tmpdir(), "smak-rebuild-map-"));
       copyFileSync(join(GAME, subject.file), join(models, basename(subject.file)));
     }
-    const folders = { ...openFolders({ work, models }), wads: [], fgd: [], hide: [], refuse: [] };
+    const folders = { ...openFolders({ work, models }), wads: [], fgd: [], hide: [], refuse: [], materials: MATERIALS ? openMaterials(MATERIALS) : null };
     const build = toolsFor(folders, { allowRun: false }).find((tool) => tool.name === "build");
     const said = (await build.call({ spec: "work:spec.json" })).filter((p) => p.type === "text").map((p) => p.text).join("\n");
     const ext = kind === "sprites" ? ".spr" : kind === "sounds" ? ".wav" : ".wad";

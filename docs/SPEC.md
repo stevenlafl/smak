@@ -329,7 +329,9 @@ material a photograph and its picture is made from it:
 }
 ```
 
-- **Getting one.** Search the web for a photograph of the material seen straight on and evenly lit (plain white
+- **Getting one.** When the server has a material library (the tool `materials`: hundreds of CC0 scans, each with
+  its real size), search it first: `materials { match: "cracked concrete", show: [...] }`, then `"picture":
+  "library:<name>", "size": <its width in units>`. Otherwise search the web for a photograph of the material seen straight on and evenly lit (plain white
   plaster wall, raw plywood, poured concrete, a painted panel door), and save it in the work folder (`refs/`), named
   for what it is. Texture sites that give scans away (Poly Haven, ambientCG: CC0) say their real size; a photo of a
   wall from a few steps away works too. PNG, BMP or JPEG (baseline or progressive). The picture is the material's

@@ -46,3 +46,11 @@ stderr. Measured here (RX 9070 XT): Woosh-DFlow loads in 45 to 65 s and makes a 
 loads in 45 to 65 s and makes 12 s of music in 3 s, XL loads in about 3 minutes and makes 4 minutes in 20 s;
 Hunyuan3D-2mini loads in about 2 minutes and makes a shape (a picture drawn, cut out, 30 steps, reduced to
 20,000 triangles) in under a minute.
+
+## A library of materials
+
+Not a model: photographs. `node generators/fetch-materials.mjs <folder>` fetches every texture Poly Haven gives away
+(CC0: 862 of them, their diffuse map at 1k, about 600 MB) with an index of what each is and its real size in game
+units. The MCP server takes it as `--materials <folder>` (or `SMAK_MATERIALS`): the tool `materials` searches it, and a
+map's or a .wad's material takes `picture: "library:<name>"`. Idempotent; rerun it to fetch what failed. On this
+machine the folder is `/media/Data3/Packages/material-library`.

@@ -4,7 +4,8 @@
 //   models  the game's models (or anyone's): only ever read
 //   work    where everything made is written, and read back
 //
-// A name is a path under one of the two. "work:pot.mdl" and "models:player/gordon.mdl" say which; a bare
+// A name is a path under one of the two ("library:<name>" reads a picture of the material library, when the server
+// has one). "work:pot.mdl" and "models:player/gordon.mdl" say which; a bare
 // "pot.mdl" is looked for in the work folder first, then among the models, so that a model that was changed
 // is found before the one it was made from.
 import { existsSync, mkdirSync, readdirSync, realpathSync, statSync } from "node:fs";
@@ -42,6 +43,15 @@ export function openFolders({ models, work }) {
  */
 export function pathOf(folders, name, { write = false } = {}) {
   if (typeof name !== "string" || !name) throw new Error("a file's name is needed");
+  // the material library (--materials): read only, by a name the tool `materials` lists ("library:concrete_wall_006")
+  if (name.startsWith("library:")) {
+    if (!folders.materials) throw new Error(`${name}: this server has no material library (--materials <folder>)`);
+    if (write) throw new Error(`${name}: the material library is only read`);
+    const bare = name.slice("library:".length).replace(/\.jpg$/i, "");
+    const path = resolve(folders.materials.folder, `${bare}.jpg`);
+    if (!isInside(folders.materials.folder, realOf(path)) || !existsSync(path)) throw new Error(`no material ${bare} in the library (the tool \`materials\` lists them)`);
+    return path;
+  }
   const said = PREFIX.exec(name)?.[1];
   const bare = name.replace(PREFIX, "");
   const roots = [said !== "models" && folders.work, said !== "work" && !write && folders.models].filter(

@@ -30,6 +30,7 @@ import { buildMapSpec } from "../src/spec/map.mjs";
 import { summaryOf, changesOf } from "../src/spec/changes.mjs";
 import { run, pictureWithin, TIMEOUT_SECONDS, OUTPUT_MOST, SHOWN_MOST, PICTURE_MOST } from "./run.mjs";
 import { generate } from "./generate.mjs";
+import { materials } from "./materials.mjs";
 
 /** A picture's longer side in pixels when the call does not say: of one view, and of several in one. */
 const SIZE_ONE = 512;
@@ -1258,6 +1259,17 @@ export function toolsFor(folders, { allowRun = true } = {}) {
       call: (args, extra) => run(folders, args, extra),
     },
   ];
+  if (folders.materials)
+    tools.push({
+      name: "materials",
+      description: `A library of ${folders.materials.list.length} photographed materials (CC0 scans: concrete, brick, metal, rust, wood, tile, plaster, ground...), each with its real size: search it by words, see them (show), and give a map's or a .wad's material one as its picture ("library:<name>") so its texture is made from a real surface rather than painted noise.`,
+      inputSchema: object({
+        match: { type: "string", description: 'words all found in a material\'s name, title, categories or tags ("rusty metal", "cracked concrete")' },
+        category: { type: "string", description: "one of the library's categories" },
+        show: { type: "array", items: { type: "string" }, description: "up to 12 names: their pictures, side by side" },
+      }),
+      call: (args) => materials(folders, args),
+    });
   if (folders.generators) {
     const names = folders.generators.models.map((m) => `${m.name} (${m.kind}${m.default ? ", the default" : ""}${m.licence ? `, ${m.licence}` : ""})`).join("; ");
     tools.push({

@@ -34,6 +34,7 @@ export async function runAgent({ prompt, read = null, server = null, files = {},
     for (const file of server.refuse ?? []) extra.push("--refuse", file);
     // local generators (the tool generate): only when a leg gives them
     if (server.generators) extra.push("--generators", server.generators);
+    if (server.materials) extra.push("--materials", server.materials);
     if (server.wads) {
       // a mod's game folder first (its models and skeletons), then Half-Life's
       for (const game of [...(server.games ?? []), GAME]) extra.push("--wads", game);
