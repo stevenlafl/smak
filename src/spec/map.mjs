@@ -752,7 +752,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         return;
       }
       if (kind !== "window" && !fronts.has(inner.building)) fronts.set(inner.building, link.side);
-      const sliver = { id: open.id, min: [...inner.min], max: [...inner.max], spec: open.spec };
+      const sliver = { id: open.id, min: [...inner.min], max: [...inner.max], spec: open.spec, sliver: true };
       sliver.min[2] = open.min[2];
       sliver.max[2] = open.max[2];
       if (side.sign > 0) [sliver.min[side.axis], sliver.max[side.axis]] = [inner.max[side.axis] + wall, inner.max[side.axis] + wall + 1];
@@ -853,10 +853,14 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         max[axis] = lower.min[axis] + run;
       }
       const high = `${toward > 0 ? "+" : "-"}${"xyz"[axis]}`;
-      if (run > lower.max[axis] - lower.min[axis] - PLAYER.wide) errors.push(`links[${i}]: stairs up ${floorHigh - floorLow} need ${run} of ${lower.id}'s floor; it is ${lower.max[axis] - lower.min[axis]} long that way`);
+      // a building's way out comes down into the open room round it: its steps stand out from the outer wall
+      // into that room (a house raised on piers, its front steps), measured against the whole of it
+      const ground = lower.sliver ? rooms.get(lower.id) : lower;
+      const room = toward > 0 ? lower.max[axis] - ground.min[axis] : ground.max[axis] - lower.min[axis];
+      if (run > room - PLAYER.wide) errors.push(`links[${i}]: stairs up ${floorHigh - floorLow} need ${run} of ${ground.id}'s floor; it is ${room} long that way`);
       else {
         brushes.push(...stairBrushes(min, max, high, textureOf("floor"), { steps: count, top: false, tread: TREAD }));
-        railings(min, max, axis, toward, count, lower);
+        railings(min, max, axis, toward, count, ground);
         // the stairs and the floor at their foot are kept clear as a doorway's floor is, from the lower floor up
         // to a player's head at the top (Kaupo's blocks by its stairs, Steven's play-test)
         const foot = { link: i, kind: "stairs", z0: floorLow, high: floorHigh - floorLow + PLAYER.high, along, least, min: [min[0], min[1]], max: [max[0], max[1]], in: [] };

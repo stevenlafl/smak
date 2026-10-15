@@ -512,6 +512,13 @@ test("a map's pictures look as Valve's walls do: grain, patches, colour and brig
   sure(!game.warnings.some((w) => /spec's own .wad/.test(w)), game.warnings.join("; "));
 });
 
+test("a building raised over its yard gets steps out from its door, and is walked into", () => {
+  const spec = { spec: "smak.map/1", name: "raised", rooms: [{ id: "yard", size: [1024, 1024, 320], sky: true }, { id: "a", size: [256, 256, 112], floor: 48, place: { in: "yard", offset: [384, 384], stand: true }, building: { roof: false } }], links: [{ between: ["a", "yard"], kind: "door", side: "south", door: { swing: true } }], entities: [{ class: "info_player_start", room: "yard", at: [-300, -300] }, { class: "item_battery", room: "a", at: "centre" }] };
+  const report = buildMapSpec(spec, { out: join(folder, "raised"), compilers: { found: false, message: "" } }).report;
+  sure(!report.errors.length && !report.faults.some((f) => !/not compiled/.test(f)), [...report.errors, ...report.faults].join("; "));
+  sure(report.facts.some((f) => /stairs of 3 steps in yard up to the way at 48/.test(f)), report.facts.filter((f) => /links/.test(f)).join("; "));
+});
+
 test("a building's doors open through walls of any thickness, and a room no floor of which is walked is a fault", () => {
   // walls under 16 once left each room's own lining standing in the next, across its doorway (a maker's house of 6)
   const house = (wall, furniture = []) => ({

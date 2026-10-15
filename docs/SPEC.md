@@ -693,8 +693,9 @@ open room with `stand: true`, and the rooms placed against that one (`east_of`, 
 - Its roof is a gable over its longer side (`roof: { material, pitch, overhang }`, the theme's `roof`,
   shingles unless told), or flat with `roof: false`. The open room's sky must clear the ridge.
 - A way out is a link between a room of it and the open room round it, with `side`: the wall it goes
-  through (`"south"`). A door, a window and glass are as between rooms. Keep its floor within a step (18)
-  of the open room's.
+  through (`"south"`). A door, a window and glass are as between rooms. A floor higher than a step (18) over
+  the open room's (a house raised on piers or a crawl space) gets steps out from the wall into the open room,
+  railed where they stand free: leave them room there (24 a step of 8 and a player's width past their foot).
 - A storey over it is a room `above` one of its rooms, with stairs as between any stacked rooms.
 - `siding` (clapboards) and `shingles` are materials of their own, for its outside and its roof. A theme
   word may name one of the spec's `textures` (`"outside": "siding_blue"`).
