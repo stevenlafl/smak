@@ -1682,7 +1682,18 @@ function animOf(mdl, blends, name) {
       for (const j of CHANNELS) {
         const rest = restOn(all[i], j);
         const scale = all[i].scale[j];
-        const steps = frames.map((frame) => (scale ? Math.round(awayFrom(rest, frame[i][j], j) / scale) : 0));
+        const steps = frames.map((frame) => {
+          if (!scale) return 0;
+          const away = awayFrom(rest, frame[i][j], j);
+          const step = Math.round(away / scale);
+          // a half turn read back a hair past it lands one step over the range; a turn the other way is the same
+          // angle (a bicycle's crank at half a turn from rest, read back after another bone widened its scale)
+          if (isAngle(j) && (step > STEP_MAX || step < STEP_MIN)) {
+            const other = Math.round((away - Math.sign(away) * TURN) / scale);
+            if (other <= STEP_MAX && other >= STEP_MIN) return other;
+          }
+          return step;
+        });
         if (steps.every((step) => !step)) continue;
         if (steps.some((step) => step > STEP_MAX || step < STEP_MIN))
           throw new Error(`${name}: ${all[i].name} moves further than its scale holds`);

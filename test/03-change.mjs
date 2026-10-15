@@ -176,3 +176,17 @@ test("textures kept in another file are put inside", () => {
   );
   sure(!errorsOf(inlined).length, errorsOf(inlined).join("; "));
 });
+
+test("an angle at exactly half a turn survives a rewrite of the animations (a bicycle's crank)", () => {
+  // the crank rests at 0 with a rotation scale of a half turn over 32768 steps, kept in float32 a hair over it:
+  // read back after another bone widens its scale, half a turn came out a step past the range and was refused
+  const bones = [{ name: "root", parent: -1, pos: [0, 0, 0] }, { name: "crank", parent: 0, pos: [0, 0, 10] }, { name: "arm", parent: 0, pos: [5, 0, 0] }];
+  const tri = [{ p: [0, 0, 0], uv: [0, 0], bone: 1 }, { p: [4, 0, 0], uv: [1, 0], bone: 1 }, { p: [0, 0, 4], uv: [0, 1], bone: 1 }];
+  const still = bones.map((b) => [...b.pos, 0, 0, 0]);
+  const texture = smak.indexed({ width: 8, height: 8, rgb: new Uint8Array(192).fill(128) }, "t.bmp");
+  let mdl = smak.buildMdl({ name: "t.mdl", bones, bodyparts: [{ name: "b", models: [{ name: "m", meshes: [{ texture, tris: [tri] }] }] }], sequences: ["idle", "spin", "swing"].map((name) => ({ name, fps: 10, frames: [still, still] })) });
+  mdl = smak.replaceSequence(mdl, "spin", { frames: [0, Math.PI, 2 * Math.PI - 1e-9].map((a) => still.map((v, i) => (i === 1 ? [...v.slice(0, 3), a, 0, 0] : v))) });
+  mdl = smak.replaceSequence(mdl, "swing", { frames: [0, 3000].map((d) => still.map((v, i) => (i === 2 ? [v[0] + d, v[1], v[2], 0, 0, 3] : v))) });
+  const back = smak.readSequence(mdl, "spin").frames[1][1][3];
+  near(Math.abs(back), Math.PI, 1e-3, "the crank at half a turn, either way round");
+});
