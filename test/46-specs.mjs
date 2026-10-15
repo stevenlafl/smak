@@ -499,9 +499,17 @@ test("a map's pictures look as Valve's walls do: grain, patches, colour and brig
   // a flat white wall, and a picture of one colour, are named
   const flat = { width: 64, height: 64, rgb: new Uint8Array(64 * 64 * 3).fill(230) };
   sure(lookFaults(lookOf(flat)).join() === "too even (no grain, no patches),brighter (0.90; Valve's 0.332)", lookFaults(lookOf(flat)).join());
-  const spec = { spec: "smak.map/1", name: "looks", materials: { wall: { base: "plaster", tone: [0.95, 0.95, 0.95] } }, theme: { wall: "wall" }, rooms: [{ id: "a", size: [256, 256, 128] }], entities: [{ class: "info_player_start", room: "a", at: "centre" }] };
+  const spec = { spec: "smak.map/1", name: "looks", textures: { wall: { base: "plaster", tone: [0.95, 0.95, 0.95] } }, theme: { wall: "wall" }, rooms: [{ id: "a", size: [256, 256, 128] }], entities: [{ class: "info_player_start", room: "a", at: "centre" }] };
   const report = buildMapSpec(spec, { out: join(folder, "looks"), compilers: { found: false, message: "" } }).report;
   sure(report.warnings.some((w) => /look unlike nine in ten of Valve's.*brighter/.test(w)), report.warnings.join("; "));
+  // a .wad beside the spec is the maker's own, measured too (Kaupo's white wallboard); one in the game's folder is not
+  const own = join(folder, "looks-own");
+  mkdirSync(own, { recursive: true });
+  writeFileSync(join(own, "mine.wad"), smak.maps.writeWad([{ name: "my_white", image: { width: 64, height: 64, rgb: new Uint8Array(64 * 64 * 3).fill(235) } }]));
+  const named = buildMapSpec({ ...spec, wads: ["mine.wad"], textures: { wall: { texture: "my_white" } } }, { out: join(own, "out"), folder: own, compilers: { found: false, message: "" } }).report;
+  sure(named.warnings.some((w) => /textures of the spec's own .wad files.*my_white \(mine\.wad\) too even.*brighter/.test(w)), named.warnings.join("; "));
+  const game = buildMapSpec({ ...spec, wads: ["mine.wad"], textures: { wall: { texture: "my_white" } } }, { out: join(own, "out2"), folder: join(own, "elsewhere"), wads: [own], compilers: { found: false, message: "" } }).report;
+  sure(!game.warnings.some((w) => /spec's own .wad/.test(w)), game.warnings.join("; "));
 });
 
 test("stairs are kept clear as a doorway is: on them and at their foot (Kaupo's blocks by its stairs)", () => {

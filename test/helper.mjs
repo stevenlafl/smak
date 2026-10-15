@@ -20,6 +20,14 @@ export const tmp = mkdtempSync(join(tmpdir(), "smak-"));
 
 let passed = 0;
 const failed = [];
+// one file of cases run alone (`node test/46-specs.mjs`) never calls finish: it still ends with exit code 1 and
+// the count when a case failed, so a failure is not read as a pass from the exit code
+process.on("exit", (code) => {
+  if (code === 0 && failed.length) {
+    console.log(`\n${passed} passed, ${failed.length} failed: ${failed.join(", ")}`);
+    process.exitCode = 1;
+  }
+});
 
 /** Runs one case and prints `ok    name`, or `FAIL  name` with the reason under it. */
 export const test = (name, run) => {

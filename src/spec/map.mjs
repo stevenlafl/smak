@@ -16,7 +16,7 @@ import { carve, box, cylinder, wedge, prism, stairs as stairBrushes, light, sunL
 import { checkPlan } from "../maps/plan.mjs";
 import { definitionsOf } from "../maps/fgd.mjs";
 import { reachOf } from "../maps/reach.mjs";
-import { writeWad } from "../maps/wad.mjs";
+import { writeWad, readWad } from "../maps/wad.mjs";
 import { compileMap, findCompilers } from "../maps/compile.mjs";
 import { readBsp } from "../maps/bsp.mjs";
 import { lightReport } from "../maps/light.mjs";
@@ -592,9 +592,11 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   // that finds nothing is a gap, made from its `else` into the map's own .wad and told
   // a .wad the spec names is looked for as a path from the spec's folder, then by its name in the folders the
   // build was given (a game's valve or mod folder): a spec names "halflife.wad", never a machine's path
+  // the .wad files beside the spec are the maker's own work, held to Valve's look as the map's own pictures are
+  const ownWads = new Set();
   const wadFiles = [...[spec.wads ?? []].flat()].map((given) => {
     const near = resolve(folder ?? ".", given);
-    if (existsSync(near)) return near;
+    if (existsSync(near)) return (ownWads.add(near), near);
     for (const place of [wads].flat()) if (existsSync(join(place, basename(given)))) return join(place, basename(given));
     throw new Error(`wads: ${given} is neither beside the spec nor in the game folders given (${[wads].flat().join(", ") || "none: --wads <folder>"})`);
   });
@@ -1484,6 +1486,19 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   // a picture flatter, brighter or more coloured than nine in ten of Valve's walls looks cheap in the game
   const looks = lookSentence(pictures.filter((p) => !p.image.rgba && !UNWORN.has(p.base)).map((p) => ({ ...p, allow: ALLOWED[p.base] })), "of the map's own textures");
   if (looks) report.warnings.push(looks);
+  const theirs = [...gameTextures.entries()].filter(([, file]) => ownWads.has(file));
+  if (theirs.length) {
+    const read = new Map();
+    const named = theirs.map(([texture, file]) => {
+      if (!read.has(file)) read.set(file, readWad(readFileSync(file)).textures);
+      const t = read.get(file).find((x) => x.name.toLowerCase() === texture.toLowerCase());
+      const rgb = new Uint8Array(t.width * t.height * 3);
+      for (let i = 0; i < t.width * t.height; i++) rgb.set(t.palette.subarray(t.pixels[i] * 3, t.pixels[i] * 3 + 3), i * 3);
+      return { name: `${texture} (${basename(file)})`, image: { width: t.width, height: t.height, rgb } };
+    });
+    const said = lookSentence(named.filter((n) => !/^[{!+~-]|^sky$/i.test(n.name)), "textures of the spec's own .wad files");
+    if (said) report.warnings.push(said);
+  }
   files.wad = wadFile;
   const gameWads = [...new Set(gameTextures.values())];
   // a sky of the map's own, made from its words, in gfx/env/<map>/ as its models are in models/<map>/; its sun where
