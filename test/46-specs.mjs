@@ -512,6 +512,22 @@ test("a map's pictures look as Valve's walls do: grain, patches, colour and brig
   sure(!game.warnings.some((w) => /spec's own .wad/.test(w)), game.warnings.join("; "));
 });
 
+test("a building's doors open through walls of any thickness, and a room no floor of which is walked is a fault", () => {
+  // walls under 16 once left each room's own lining standing in the next, across its doorway (a maker's house of 6)
+  const house = (wall, furniture = []) => ({
+    spec: "smak.map/1", name: "thin", wall,
+    rooms: [{ id: "yard", size: [1024, 1024, 256], sky: true }, { id: "a", size: [256, 256, 112], floor: 8, place: { in: "yard", offset: [256, 256], stand: true }, building: { roof: false } }, { id: "b", size: [256, 256, 112], place: { east_of: "a" } }],
+    links: [{ between: ["a", "b"], kind: "door", door: { swing: true } }, { between: ["a", "yard"], kind: "door", side: "south" }],
+    prefabs: { fill: { pieces: [{ box: [[-128, -128, 0], [128, 128, 112]] }] } }, furniture,
+    entities: [{ class: "info_player_start", room: "yard", at: [-300, -300] }],
+  });
+  const faults = (s) => buildMapSpec(s, { out: join(folder, "thin"), compilers: { found: false, message: "" } }).report.faults.filter((f) => !/not compiled/.test(f));
+  for (const wall of [16, 6, 4]) sure(faults(house(wall)).length === 0, `${wall}: ${faults(house(wall)).join("; ")}`);
+  // b filled from wall to wall: its door leads nowhere
+  const shut = faults(house(16, [{ prefab: "fill", room: "b", at: [0, 0] }]));
+  sure(shut.some((f) => /no floor of b is walked to, though a way leads into it/.test(f)), shut.join("; "));
+});
+
 test("furniture of boxes named for a thing the kit has a model of is warned of (Kaupo's bathroom of blocks)", () => {
   const spec = (prefabs) => ({
     spec: "smak.map/1", name: "boxed", rooms: [{ id: "a", size: [256, 256, 128] }],

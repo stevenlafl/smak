@@ -882,6 +882,8 @@ and pass the picture as `reference`: it is then drawn beside the plan of the res
 - `WARN N of the map's own textures look unlike nine in ten of Valve's walls and floors`: each picture named
   with what is off: brighter or more coloured than Valve's (with the number and Valve's middle), or too even.
   Darken or soften its tone ("Materials").
+- `FAULT no floor of <room> is walked to, though a way leads into it`: the way in is shut (furniture across it,
+  a wall, or a step too high on the way there); `smak map-reach` draws the walk on the plan.
 - `FAULT N pieces of furniture float`: touching no floor, wall, ceiling or other piece; each named with its height.
 - `WARN N pieces of furniture stand on ... under half their footprint`: set on others, not on the floor or a wall,
   with less than half of what they stand on under them (on an edge or a corner when almost none): line each up

@@ -176,7 +176,7 @@ async function runJob({ kind, subject, leg }) {
         kept.push(file.name);
       }
     }
-  writeFileSync(join(out, "run.json"), `${JSON.stringify({ kit, model: MAKER_MODEL ?? "opus (the command's own)", seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, built: kept, folder: r.folder }, null, 1)}\n`);
+  writeFileSync(join(out, "run.json"), `${JSON.stringify({ kit, model: r.model, seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, built: kept, folder: r.folder }, null, 1)}\n`);
   return `${subject.id}:${leg}: ${r.seconds} s, ${r.turns} turns, built ${kept.join(", ") || "nothing"}${r.error ? ` (${r.error})` : ""}`;
 }
 

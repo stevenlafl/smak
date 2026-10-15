@@ -13,7 +13,10 @@ import { KIT, GAME, SDHLT, STEAM } from "./lib.mjs";
  * models, hide, refuse } (wads: true gives the game's folder for .wad textures and skeletons, with `games`, a
  * mod's folders, before it; models: a folder its tools may read, such as one holding a compiled map); `files`: { "path in the work folder": "file to copy there" }; `hours`. Resolves to { answer, seconds, turns, cost, error, work, folder }.
  */
-export async function runAgent({ prompt, read = null, server = null, files = {}, hours = 1, model }) {
+// An agent given the MCP server is a maker, and runs on the makers' model unless told: every leg's script gets
+// SMAK_MAKER_MODEL without passing it (the blueprint leg once ran on Opus when Haiku was asked). Judges and
+// describers have no server and name their own.
+export async function runAgent({ prompt, read = null, server = null, files = {}, hours = 1, model = server ? MAKER_MODEL ?? undefined : undefined }) {
   const folder = mkdtempSync(join(tmpdir(), "smak-repro-"));
   const work = join(folder, "work");
   mkdirSync(work);
@@ -68,6 +71,7 @@ export async function runAgent({ prompt, read = null, server = null, files = {},
   } catch {}
   const result = messages.find((m) => m.type === "result") ?? {};
   return {
+    model: model ?? "opus (the command's own)",
     answer: result.result ?? run.stderr ?? "(no answer)",
     // how the session ended (success, error_max_turns, error_during_execution...), and what it said on stderr
     ended: result.subtype ?? null,

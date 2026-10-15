@@ -581,6 +581,10 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   if (errors.length) return { report, files, map: null };
   const name = spec.name ?? "specmap";
   const { rooms, errors: placing, marks, wall } = layoutOf(spec);
+  // a room's own floor, ceiling or walls are a slab laid into the rock round it: never more than half the rock
+  // between two rooms, or one room's slab stands inside the next and its doorway stays shut (a house of walls 6
+  // thick: every door led into a wall, and the report said OK)
+  const lining = Math.min(LINING, Math.max(1, Math.floor(wall / 2)));
   errors.push(...placing);
 
   // ── textures: the theme's and every other the spec names, each made a picture of its own ──
@@ -823,7 +827,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     // the threshold: rooms with a floor of their own are carved a lining deeper under it, and the way between
     // them was carved down with them, a slot across the doorway a foot catches in. A slab fills it to the floor
     if (kind !== "window") {
-      thresholds.push({ min: [hole.min[0], hole.min[1], z0 - LINING * 2], max: [hole.max[0], hole.max[1], z0] });
+      thresholds.push({ min: [hole.min[0], hole.min[1], z0 - lining * 2], max: [hole.max[0], hole.max[1], z0] });
       // the floor in front of it on both sides, which furniture keeps clear of
       const clear = { link: i, kind, z0, along, least, min: [hole.min[0], hole.min[1]], max: [hole.max[0], hole.max[1]], in: [] };
       clear.min[axis] -= CLEAR;
@@ -922,7 +926,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   });
 
   // ── rooms: carved in one block, lined where they wear another texture ──
-  // A floor, a ceiling or walls of its own are a lining: the room is carved LINING further that way, and a
+  // A floor, a ceiling or walls of its own are a lining: the room is carved `lining` further that way, and a
   // slab of the other texture fills what was carved, so its face is where the room's was. A way through it
   // (a stair's shaft, a doorway) is cut out of the slab.
   const boxes = [];
@@ -938,24 +942,24 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       }
       let pieces;
       if (face === "walls") {
-        // four slabs round the room, each LINING thick, the room carved out to their backs: its walls wear the
+        // four slabs round the room, each `lining` thick, the room carved out to their backs: its walls wear the
         // texture whatever the rock round it wears (a module's own walls, kept in a larger map)
         for (const k of [0, 1]) {
-          carved.min[k] -= LINING;
-          carved.max[k] += LINING;
+          carved.min[k] -= lining;
+          carved.max[k] += lining;
         }
         const [x0, y0, z0] = room.min;
         const [x1, y1, z1] = room.max;
         pieces = [
-          { min: [x0 - LINING, y0 - LINING, z0], max: [x0, y1 + LINING, z1] },
-          { min: [x1, y0 - LINING, z0], max: [x1 + LINING, y1 + LINING, z1] },
-          { min: [x0, y0 - LINING, z0], max: [x1, y0, z1] },
-          { min: [x0, y1, z0], max: [x1, y1 + LINING, z1] },
+          { min: [x0 - lining, y0 - lining, z0], max: [x0, y1 + lining, z1] },
+          { min: [x1, y0 - lining, z0], max: [x1 + lining, y1 + lining, z1] },
+          { min: [x0, y0 - lining, z0], max: [x1, y0, z1] },
+          { min: [x0, y1, z0], max: [x1, y1 + lining, z1] },
         ];
       } else {
-        const z = face === "floor" ? [room.min[2] - LINING, room.min[2]] : [room.max[2], room.max[2] + LINING];
-        if (face === "floor") carved.min[2] -= LINING;
-        else carved.max[2] += LINING;
+        const z = face === "floor" ? [room.min[2] - lining, room.min[2]] : [room.max[2], room.max[2] + lining];
+        if (face === "floor") carved.min[2] -= lining;
+        else carved.max[2] += lining;
         pieces = [{ min: [room.min[0], room.min[1], z[0]], max: [room.max[0], room.max[1], z[1]] }];
       }
       for (const hole of holes) pieces = pieces.flatMap((piece) => subtract(piece, hole));
@@ -1568,10 +1572,18 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   const tight = (walk.openings ?? []).filter((opening) => opening.width < PASSABLE.opening);
   if (tight.length)
     report.faults.push(`${tight.length} ways a player walks through are under ${PASSABLE.opening} wide (furniture, or walls, too close together): ${tight.slice(0, 6).map((o) => `${o.width} wide at ${o.at.map(Math.round).join(" ")}`).join("; ")}: move what narrows each`);
+  // a room a way leads into whose floor is not walked anywhere is shut off: a fault (a house's doors that led
+  // into walls passed as OK while only the middle was asked). Its middle alone not walked is furniture there
+  const ledInto = new Set((spec.links ?? []).filter((link) => (link.kind ?? "opening") !== "window").flatMap((link) => link.between ?? []));
   for (const room of rooms.values()) {
+    if (room.spec.walk === false) continue;
     const c = mid(room);
-    if (!walk.on(c[0], c[1], room.max[2]).walked && !(room.spec.walk === false))
-      warnings.push(`the middle of ${room.id} is not walked to (furniture there, or the room is shut off)`);
+    if (walk.on(c[0], c[1], room.max[2]).walked) continue;
+    let any = false;
+    for (let x = room.min[0] + 16; x < room.max[0] - 15 && !any; x += 16)
+      for (let y = room.min[1] + 16; y < room.max[1] - 15 && !any; y += 16) any = walk.on(x, y, room.max[2]).walked;
+    if (!any && ledInto.has(room.id)) report.faults.push(`no floor of ${room.id} is walked to, though a way leads into it: the way is shut (a wall, a lining or furniture across it, or a step too high on the way); draw the plan with the walk on it (\`smak map-reach\`)`);
+    else warnings.push(`the middle of ${room.id} is not walked to (furniture there, or the room is shut off)`);
   }
   report.facts.push(...walk.facts.slice(0, 4));
   const save = (key, picture) => {

@@ -175,7 +175,7 @@ async function reproduce(kind, s, leg) {
       kept.push(want);
     }
   }
-  writeFileSync(join(out, "run.json"), `${JSON.stringify({ kit, seconds: r.seconds, turns: r.turns, cost: r.cost, error: r.error, built: kept }, null, 1)}\n`);
+  writeFileSync(join(out, "run.json"), `${JSON.stringify({ kit, model: r.model, seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, built: kept }, null, 1)}\n`);
   return `${kind}/${s.id}:${leg}: ${r.seconds} s, built ${kept.join(", ") || "nothing"}`;
 }
 

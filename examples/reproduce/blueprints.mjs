@@ -87,7 +87,7 @@ async function make(house) {
   }
   // the map's own .wad files beside it, by their own names, so its textures are found
   for (const f of all.filter((x) => x.name.endsWith(".wad"))) copyFileSync(f.p, join(built, f.name));
-  writeFileSync(join(dir, "run.json"), `${JSON.stringify({ kit, seconds: r.seconds, turns: r.turns, cost: r.cost, error: r.error, ended: r.ended, built: kept, folder: r.folder }, null, 1)}\n`);
+  writeFileSync(join(dir, "run.json"), `${JSON.stringify({ kit, model: r.model, seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, ended: r.ended, built: kept, folder: r.folder }, null, 1)}\n`);
   return `${house}: ${r.seconds} s, ${r.turns} turns, built ${kept.join(", ") || "nothing"}${r.error ? ` (${r.error})` : ""}`;
 }
 

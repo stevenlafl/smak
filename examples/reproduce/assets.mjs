@@ -199,7 +199,7 @@ async function reproduce(kind, subject, leg) {
   const want = kind === "textures" ? "frenzy_new.wad" : basename(subject.file);
   const found = newest((n) => n === want) ?? newest((n) => n.endsWith(ext));
   if (found) copyFileSync(found.p, join(built, basename(want)));
-  writeFileSync(join(out, "run.json"), `${JSON.stringify({ kit, seconds: r.seconds, turns: r.turns, cost: r.cost, error: r.error, built: found?.name ?? null }, null, 1)}\n`);
+  writeFileSync(join(out, "run.json"), `${JSON.stringify({ kit, model: r.model, seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, built: found?.name ?? null }, null, 1)}\n`);
   return `${kind}/${subject.id}:${leg}: ${r.seconds} s, built ${found?.name ?? "nothing"}`;
 }
 

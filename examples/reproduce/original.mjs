@@ -87,7 +87,7 @@ async function make() {
   const r = await runAgent({ prompt: makePrompt(), server: { wads: true }, hours: 10 });
   writeFileSync(join(ROOT, "answer.md"), `${r.answer.trim()}\n`);
   const { found } = collect(r.work);
-  writeFileSync(join(ROOT, "run.json"), `${JSON.stringify({ kit, seconds: r.seconds, turns: r.turns, cost: r.cost, error: r.error, ended: r.ended, found, missing: LOOKED_FOR.filter((f) => !found.includes(f)), folder: r.folder }, null, 1)}\n`);
+  writeFileSync(join(ROOT, "run.json"), `${JSON.stringify({ kit, model: r.model, seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, ended: r.ended, found, missing: LOOKED_FOR.filter((f) => !found.includes(f)), folder: r.folder }, null, 1)}\n`);
   console.log(`made in ${r.seconds} s, ${r.turns} turns: ${found.length} of ${LOOKED_FOR.length} files${r.error ? ` (${r.error})` : ""}`);
 }
 
