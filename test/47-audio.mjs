@@ -253,3 +253,18 @@ test("a music spec: a take made a game track (cut, faded, levelled by loudness) 
   sure(by("trigger_auto")[0]?.target === "music0" && by("target_cdaudio")[0]?.health === "5" && by("trigger_cdaudio").map((e) => e.health).join(",") === "2,-1", JSON.stringify(map.entities.filter((e) => /cdaudio|auto/.test(e.classname))));
   sure(report.facts.some((f) => /music\[1\]: plays track 2 \(media\/Half-Life01\.mp3\) when a player first walks into lab/.test(f)) && report.facts.some((f) => /first player only/.test(f)), report.facts.filter((f) => /music/.test(f)).join(" | "));
 });
+
+test("a sound further from its picture than a copy is held to is warned of, and one near it is not", () => {
+  const folder = join(tmp, "near-picture");
+  mkdirSync(folder, { recursive: true });
+  // the picture: a low thump; one sound made like it, one bright hiss
+  const thump = { kind: "tone", f: 120, env: { decay: 0.25 } };
+  const made = buildSoundSpec({ spec: "smak.sound/1", name: "x/thump.wav", layers: [thump] }, { folder });
+  const wav = A.readWav(made.files[0].bytes);
+  const pic = A.soundPicture([{ name: "x/thump.wav", x: wav.x, rate: wav.rate }], { width: 960 });
+  writeFileSync(join(folder, "thump.png"), smak.png(pic.width, pic.height, pic.rgba));
+  const near = buildSoundSpec({ spec: "smak.sound/1", name: "x/near.wav", picture: "thump.png", layers: [thump] }, { folder });
+  sure(!near.report.warnings.some((w) => /further from its picture/.test(w)), near.report.warnings.join(" | "));
+  const far = buildSoundSpec({ spec: "smak.sound/1", name: "x/far.wav", picture: "thump.png", layers: [{ kind: "noise", filter: [{ type: "highpass", f: 3000 }], env: { decay: 0.25 } }] }, { folder });
+  sure(far.report.warnings.some((w) => /x\/far\.wav: further from its picture than a copy should be: centroid \d+% off \(aim within 15%\)/.test(w)), far.report.warnings.join(" | "));
+});

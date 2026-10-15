@@ -530,7 +530,10 @@ onsets, and its power in five bands; then, with a `class`, how many of its featu
 the game's own of that kind, and each one off in words with which way to go (`centroid 881 Hz (1074 to
 1654): too dark: more 600 to 5000 Hz`); with a `picture`, the numbers read off it beside its own: length,
 centroid and the band most off (each with how far off), T20 against its class's range (or the picture's own
-within a quarter), crest (the picture's is read off its outline, within 3 dB) and onsets. `FAULT`s are what the engine would do wrong: clipping, an offset,
+within a quarter), crest (the picture's is read off its outline, within 3 dB) and onsets, and a warning (`further from
+its picture than a copy should be`) while its centroid is more than 15% off, a band more than 7 points, its length
+more than 10% or its T20 out of range: a copy is judged at 20% and 10 points, and a picture's reading may be a few
+off. Build until it is gone, not only until `OK`. `FAULT`s are what the engine would do wrong: clipping, an offset,
 silence before it starts (it plays late), an end that clicks, a loop with no cue or a seam that jumps, and a loop
 silent more than 60% of the time (the game's own are at most about half silent: a drip loop is many drips). The
 picture is each file's waveform over its spectrogram (log frequency, 50 Hz at the bottom), the game's own

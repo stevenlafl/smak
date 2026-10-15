@@ -22,6 +22,13 @@ const KINDS = ["noise", "tone", "fm", "modes", "particles", "sample"];
 /** Licences a take's sidecar may name that do not allow selling what is made with it. */
 const NON_COMMERCIAL = /\bNC\b|non-?commercial|research only/i;
 const FILTERS = ["lowpass", "highpass", "bandpass", "peak", "notch", "lowshelf", "highshelf"];
+/**
+ * How near a sound should come to its picture before the report stops warning: inside the reproduction test's
+ * lines (a centroid within 20%, each band within 10 points) by the error of reading a picture (about 3 points and
+ * 10% on Half-Life's sounds; more in the lowest band of a short one).
+ */
+const PICTURE_CENTROID = 0.15;
+const PICTURE_BANDS = 7;
 /** The longest a sound's path may be from the mod's folder: the engine's 64 with its zero, `sound/` added. */
 const LONGEST_NAME = 63 - "sound/".length;
 
@@ -238,6 +245,15 @@ export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (
         report.facts.push(
           `${take.name}: against its picture (${p.length} s): length ${f.length} s (${Math.round(p.lengthOff * 100)}% off), centroid ${f.centroid} Hz to ${p.centroid} (${Math.round(p.centroidOff * 100)}% off), bands ${p.bandsOffMost} points off at most (${p.bandMostOff}), T20 ${f.t20} s${p.t20Range ? ` (${p.t20Range[0]} to ${p.t20Range[1]}${p.t20In ? "" : ": out"})` : ""}, crest ${f.crest} dB to about ${p.crest} (${p.crestOff > 0 ? "+" : ""}${p.crestOff}; read off the outline, within 3 dB), onsets ${f.onsets} to ${p.onsets}`,
         );
+        // a copy is held to its original within 20% of centroid, 10 points of each band and its decay's range (the
+        // reproduction test's S2 and S3): warned of short of those, by the margin a picture's reading may be off
+        const far = [
+          p.centroidOff > PICTURE_CENTROID ? `centroid ${Math.round(p.centroidOff * 100)}% off (aim within ${PICTURE_CENTROID * 100}%)` : null,
+          p.bandsOffMost > PICTURE_BANDS ? `${p.bandMostOff} ${p.bandsOffMost} points off (aim within ${PICTURE_BANDS}: ${f.bands[p.bandMostOff]}% against ${p.bands[p.bandMostOff]}%)` : null,
+          p.lengthOff > 0.1 ? `length ${Math.round(p.lengthOff * 100)}% off` : null,
+          p.t20Range && !p.t20In ? `T20 ${f.t20} s outside ${p.t20Range[0]} to ${p.t20Range[1]}` : null,
+        ].filter(Boolean);
+        if (far.length) warnings.push(`${take.name}: further from its picture than a copy should be: ${far.join("; ")}. Bring it nearer (a filter, a layer's gain, the decay, another take) and build again`);
       }
       report.sounds[take.name] = entry;
       files.push({ name: take.name, bytes });
