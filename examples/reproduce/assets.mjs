@@ -4,6 +4,8 @@
 // agent from the harness's pictures and measurements. Decoys (a plain square, a hiss, flat colours) must fail.
 //
 //   node examples/reproduce/assets.mjs inputs|describe|reproduce|judge [sprites|sounds|textures] [subject ...] [--again]
+//        [--generators <folder>]   the sound makers' server offers the tool generate (generators/README.md;
+//                                  SMAK_GENERATORS unless told): two makers at a time, each loads its model
 //
 // Each subject's folder under assets/<kind>/<id>/: input/ (the pictures: Valve's, kept out of git), words.md,
 // <leg>/ (spec.json, answer.md, run.json, built/ out of git), <leg>/judge.json. assets/scores.md: every result.
@@ -26,6 +28,7 @@ const RUBRIC = readFileSync(join(HERE, "rubric.md"), "utf8");
 const words = process.argv.slice(2);
 const step = words.shift();
 const again = words.includes("--again") && words.splice(words.indexOf("--again"), 1);
+const GENERATORS = words.includes("--generators") ? words.splice(words.indexOf("--generators"), 2)[1] : process.env.SMAK_GENERATORS;
 const KINDS = ["sprites", "sounds", "textures"];
 const kinds = KINDS.filter((k) => !words.some((w) => KINDS.includes(w)) || words.includes(k));
 const named = words.filter((w) => !KINDS.includes(w));
@@ -177,7 +180,8 @@ async function reproduce(kind, subject, leg) {
     copyFileSync(join(GAME, subject.file), join(models, basename(subject.file)));
   }
   const kit = execFileSync("git", ["-C", HERE, "rev-parse", "--short", "HEAD"], { encoding: "utf8" }).trim();
-  const r = await runAgent({ prompt: reproducePrompt(kind, subject, leg, given), read: leg === "pictures" ? input : null, server: { wads: false, models }, files, hours: kind === "textures" ? 2 : 1 });
+  const generators = kind === "sounds" ? GENERATORS : undefined;
+  const r = await runAgent({ prompt: reproducePrompt(kind, subject, leg, given), read: leg === "pictures" ? input : null, server: { wads: false, models, generators }, files, hours: kind === "textures" ? 2 : 1 });
   mkdirSync(out, { recursive: true });
   writeFileSync(join(out, "answer.md"), `${r.answer.trim()}\n`);
   const all = [];
@@ -199,7 +203,7 @@ async function reproduce(kind, subject, leg) {
   const want = kind === "textures" ? "frenzy_new.wad" : basename(subject.file);
   const found = newest((n) => n === want) ?? newest((n) => n.endsWith(ext));
   if (found) copyFileSync(found.p, join(built, basename(want)));
-  writeFileSync(join(out, "run.json"), `${JSON.stringify({ kit, model: r.model, seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, built: found?.name ?? null }, null, 1)}\n`);
+  writeFileSync(join(out, "run.json"), `${JSON.stringify({ kit, model: r.model, generators: generators ? "generate" : null, seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, built: found?.name ?? null }, null, 1)}\n`);
   return `${kind}/${subject.id}:${leg}: ${r.seconds} s, built ${found?.name ?? "nothing"}`;
 }
 
@@ -423,7 +427,7 @@ const direct = process.argv[1] && import.meta.url.endsWith(basename(process.argv
 if (!direct);
 else if (step === "inputs") for (const kind of kinds) for (const s of chosen(kind)) console.log(`${kind}/${s.id}: ${inputs(kind, s)}`);
 else if (step === "describe") await pool(kinds.flatMap((kind) => chosen(kind).filter((s) => again || !existsSync(join(folderOf(kind, s.id), "words.md"))).map((s) => () => describe(kind, s))), 6);
-else if (step === "reproduce") await pool(kinds.flatMap((kind) => chosen(kind).flatMap((s) => LEGS.map((leg) => () => reproduce(kind, s, leg)))), 5);
+else if (step === "reproduce") await pool(kinds.flatMap((kind) => chosen(kind).flatMap((s) => LEGS.map((leg) => () => reproduce(kind, s, leg)))), GENERATORS && kinds.includes("sounds") ? 2 : 5);
 else if (step === "judge") {
   const jobs = [];
   for (const kind of kinds)
