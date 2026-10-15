@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "xspark1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    32
+   ],
+   "frames": 11,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 11,
+    "size": [
+     32,
+     32
+    ],
+    "border": {
+     "max": 0.145,
+     "mean": 0.004
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.94,
+     "last": 1
+    },
+    "dark": 0.46,
+    "wrap": 1.61,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    32
+   ],
+   "frames": 11,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 11,
+    "size": [
+     32,
+     32
+    ],
+    "border": {
+     "max": 0.136,
+     "mean": 0.004
+    },
+    "envelope": {
+     "peakAt": 0.3,
+     "first": 0.93,
+     "last": 0.94
+    },
+    "dark": 0.46,
+    "wrap": 0.89,
+    "jitter": 1.79
+   }
+  },
+  "meanColourDeltaE": 8.3
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Same effect: a flickering cyan-white spark glow with a hot white core and a soft blue halo, fixed in place in every frame, as in the original."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Frames are 32x32 like the original's. The glow fills them about the same way (dark share 0.46 in both, border max 0.136 against 0.145, border mean 0.004 in both). One small difference: the original's halo is a cluster of soft round puffs, while the reproduction's is a bit more compact with jagged, finger-like lobes (frames 2, 3, 6). The extent and fill still match."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured mean colour difference is 8.3, under 15. Both show the same white core fading through cyan to dark blue. The reproduction's core and inner cyan are slightly brighter and more saturated, but a player would call them the same colour."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Same frame count (11). Both have the same kind of motion: a steady-brightness flicker whose halo shape shifts from frame to frame, with no growth or fade (envelope first 0.93 and last 0.94 against 0.94 and 1). The loop closes: the step from the last frame back to the first (0.89) is smaller than the average step between frames (jitter 1.79), and the original's equivalents are 1.61 and 1.51. The reproduction's frame-to-frame jitter is a little higher than the original's, but it is the same kind of flicker."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type (parallel) and format (additive) match the original's, read back from the file. Size and frame count also match."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

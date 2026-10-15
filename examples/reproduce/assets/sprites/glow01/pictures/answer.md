@@ -1,23 +1,31 @@
-`sprites/glow01.spr` is built, and the build says OK with every check passing. It's in the work folder with `-sheet.png` and `-animated.png` beside it.
+The sprite is built and the build says OK with no notes. It is written to `work:sprites/glow01.spr`, with `-sheet.png` and `-animated.png` beside it.
 
-It's a 64x64 sprite with 1 frame, type parallel and format additive, as specified. It's a soft white-grey glow: a small bright white core fading into a wide grey haze that reaches most of the frame and goes fully dark before the border.
+**What it is:** a soft white glow, one frame, 64x64. It is a round, neutral-white light that is brightest at the centre and fades out smoothly to black at its edge, so the frame's corners stay empty.
 
-How it compares to the original, as the build measured it:
+**Spec used:**
 
-```
-measure                         original   mine    bar
-mean colour (delta E)           -          7.9     15 or under is near
-share of frame that's dark      0.47       0.42    within 0.05 is near
-border brightness (brightest)   0          0       -
-frames                          1          1       -
+```json
+{"spec":"smak.sprite/1","sprites":[{"name":"sprites/glow01.spr","class":"glow","size":[64,64],"frames":1,"type":"parallel","format":"additive","reference":"pictures/frames.png","layers":[{"kind":"glow","radius":0.94,"core":0.3,"colour":[1,1,1]}]}]}
 ```
 
-The build also checks it against Half-Life's own glow sprites, and it's within their range.
+**Measured against the original** (the report's own measures, read off the original's contact sheet):
 
-It has two layers:
-- **Core:** pure white with a power falloff (core 0.1, power 1.6, gain 0.8).
-- **Haze:** pale grey-blue with a smooth falloff (radius 1.1, core 0.4, gain 0.38).
+| Measure | Original | Mine |
+| --- | --- | --- |
+| Share of frame that is dark | 0.47 | 0.48 |
+| Mean colour difference (delta E; 15 or under is near) | — | 3.6 |
+| Shape overlap (bar 0.7) | — | 0.83 |
+| Border brightness | 0 | 0 |
+| Frames | 1 | 1 |
 
-The build also set it up for an `env_glow` entity, which places it with render mode 3 (Glow). I picked that because it's a glow; it doesn't change anything in the file.
+**Type and format:** parallel (faces the camera), additive (black is clear). The report places it as an `env_sprite` with render mode 5 (additive).
 
-The first few builds came out as a solid white disc because I gave colours on a 0 to 255 scale, and the spec wants 0 to 1. I also tried a narrower haze (radius 1.06). It left too much of the frame dark (0.52 against 0.47), so I went back to the 1.1 version above.
+**Choices I made:**
+- **Colour:** neutral white. My first build used the glow's default, which came out warm tan, and the original is not warm.
+- **Size of the glow:** `radius` 0.94 means the lit disc reaches about 0.94 of the half-width, which matches the original's fade-out at its edge. The dark share only matched once I went past my first guesses (0.8, then 0.9).
+- **Core:** `core` 0.3 gives a bright centre about 20 pixels across, close to the original's.
+
+**Caveats:**
+- The reference is `pictures/frames.png` in the work folder. It is the same 2937-byte file as the input's `frames.png`, but I did not compare the bytes directly.
+- I could not read the original's pixel values myself (no shell here), so the colour and falloff match rests on the report's measures and a visual comparison, not on a pixel-by-pixel check.
+- The sprite is not copied into `/media/Data3/Packages/smak/examples/reproduce/assets/sprites/glow01/`. It is in the work folder only.

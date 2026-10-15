@@ -50,56 +50,27 @@
      "mean": 0
     },
     "envelope": {
-     "peakAt": 1,
+     "peakAt": 0,
      "first": 1,
      "last": 1
     },
-    "dark": 0.72,
+    "dark": 0.5,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 4.3
+  "meanColourDeltaE": 20.6
  },
  "caps": {
   "R2": 2,
-  "R3": 2,
+  "R3": 1,
   "R4": 2,
   "R5": 2
  },
- "scores": {
-  "R1": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Both are the same effect: a muzzle flash drawn as a five-pointed star with a white-hot core and warm orange rays that blur outward on a dark background. Both frames point their rays the same way: up, upper-left, upper-right, lower-left, lower-right."
-  },
-  "R2": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "The frames are the original's size (64x64, measured). The effect does not fill them the same way. The original's rays are thicker and blurrier and reach almost to the frame edges; the top ray gets within about 5 of 128 px of the top in the picture. The reproduction's rays are thinner, taper sooner and stop shorter, around 10 px from the top. The reproduction also has a faint round halo around the star, behind the rays, which the original does not have; you can see it in both frames as a soft disc between the arms. Dark area is 0.72 against 0.76, which fits that added glow."
-  },
-  "R3": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Measured mean colour difference is 4.3, well under the 15 line. Both show the same white core fading to a warm orange-tan along the rays as the engine blends them additively."
-  },
-  "R4": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Both have 2 frames, the same count. Like the original, the reproduction's two frames are slight variants of one star, a flicker between them, which is how this parallel sprite is shown. The envelope peaks at frame 1 in both. In the original, frame 0 is a little dimmer (0.95 against 1); in the reproduction both frames are 1. The original has no loop to close and does not end dark, and the reproduction matches it."
-  },
-  "R5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The original is a parallel sprite in additive format, and the reproduction is too, at the same size and frame count, as measured from the file read back."
-  }
- },
- "total": 9,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "R3"
+ ],
+ "total": 0,
+ "of": 10
 }

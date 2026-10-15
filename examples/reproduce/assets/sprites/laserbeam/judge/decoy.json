@@ -67,39 +67,10 @@
   "R4": 2,
   "R5": 2
  },
- "scores": {
-  "R1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The original is a laser beam: a narrow, bright white vertical core running the full 64-dot height, fading through soft grey falloff to near-black at the left and right edges. The reproduction is a single flat light-grey fill over the whole 32x64 frame. It has no core, no falloff and no beam shape, so it does not read as the same effect."
-  },
-  "R2": {
-   "judge": 0,
-   "cap": 2,
-   "score": 0,
-   "reason": "The frame size matches (32x64), but the effect does not fill it the way the original's does. The original's light sits in a central vertical band, with border brightness mean 0.261 and dark edges (dark 0.02). The reproduction is uniform edge to edge, with border max and mean both 0.784 and no dark area at all. Its whole frame is lit where the original's sides are dark."
-  },
-  "R3": {
-   "judge": 1,
-   "cap": 1,
-   "score": 1,
-   "reason": "The measured mean colour difference is 17.6, over the pass line of 15, so this item cannot score 2. Both are achromatic grey and white, so the hue family is there. But the reproduction's one flat mid-light grey replaces the original's white core and dark grey sides, so the blended colours are clearly off."
-  },
-  "R4": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Both have 1 frame, and both are static, with peakAt 0, first 1 and last 1. A single-frame beam has no motion to match, and the reproduction adds none."
-  },
-  "R5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Both are type parallel and format additive, as measured, and the reproduction was read back with the same frame count and size."
-  }
- },
- "total": 5,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "R3"
+ ],
+ "total": 0,
+ "of": 10
 }

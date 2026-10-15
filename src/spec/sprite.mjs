@@ -7,6 +7,7 @@
 // One sprite, or a set: `sprites: [...]` with the spec's own fields as their defaults. A sprite that names a
 // `reference` (a contact sheet of the one it reproduces) is measured against it as the judge measures: mean
 // colour, dark share, border, frame count. Measures only: no pixel of the reference goes into a frame.
+import { rgbFault } from "./paint.mjs";
 import { readFileSync } from "node:fs";
 import { framesOf, LAYER_KINDS, RAMP_NAMES } from "../sprite/effects.mjs";
 import { quantiseFrames } from "../sprite/palette.mjs";
@@ -56,7 +57,14 @@ export function validateSpriteSpec(spec) {
       s.layers.forEach((layer, k) => {
         if (!LAYER_KINDS.includes(layer?.kind)) errors.push(`${at}.layers[${k}].kind: one of ${LAYER_KINDS.join(", ")}`);
         if (layer?.ramp !== undefined && typeof layer.ramp === "string" && !RAMP_NAMES.includes(layer.ramp)) errors.push(`${at}.layers[${k}].ramp: one of ${RAMP_NAMES.join(", ")}, or a list of [heat, [r, g, b]] stops`);
+        // colours are 0 to 1: one of 0 to 255 summed into the frame is a white blot (three words legs of round 2)
+        if (layer?.colour !== undefined && rgbFault(layer.colour)) errors.push(`${at}.layers[${k}].colour: ${rgbFault(layer.colour)}`);
+        if (Array.isArray(layer?.ramp))
+          layer.ramp.forEach((stop, j) => {
+            if (!Array.isArray(stop) || typeof stop[0] !== "number" || rgbFault(stop[1])) errors.push(`${at}.layers[${k}].ramp[${j}]: [heat 0 to 1, [r, g, b] 0 to 1]${Array.isArray(stop) && rgbFault(stop[1]) ? `: ${rgbFault(stop[1])}` : ""}`);
+          });
       });
+    if (s.colour !== undefined && rgbFault(s.colour)) errors.push(`${at}.colour: ${rgbFault(s.colour)}`);
     const ref = s.reference;
     if (ref !== undefined && typeof ref !== "string" && typeof ref?.picture !== "string") errors.push(`${at}.reference: a contact sheet's path, or { picture, cell, cols } (as it was drawn: 128 and 8)`);
     else if (ref?.cell !== undefined && !(Number.isInteger(ref.cell) && ref.cell >= 8)) errors.push(`${at}.reference.cell: the sheet's cell in pixels (128)`);

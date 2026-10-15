@@ -54,12 +54,12 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.4,
+    "dark": 0.39,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 10
+  "meanColourDeltaE": 5.6
  },
  "caps": {
   "R2": 2,
@@ -72,31 +72,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both frames are the same effect: a round flare glow with a white-hot centre and a pink halo that fades into black. The reproduction's star-point spikes are a variation on the original's fine radial streaks. Both read as a light flare."
+   "reason": "Both pictures show the same effect: a bright white core with a soft halo and radial streaks. Both are a glow flare, so the effect is the same."
   },
   "R2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The frame size matches (64x64) and the dark share is nearly the same (0.39 against 0.40), so the glow covers the same area. How it fills that area is clearly different, though. In the original the glow fades smoothly and evenly from the centre out to the edge, with faint radial streaks. In the reproduction the bright core is a larger flat disc with a hard rim at about half the frame's radius. It also has distinct spikes at the top, bottom and diagonals that reach toward the corners, and the original has none."
+   "score": 2,
+   "reason": "Both are one 64 x 64 frame, and the measured size matches. The glow fills the frame in both, with the halo reaching the edges similarly."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean colour difference is 10, under the line of 15. The core is white and the halo pink, as in the original. The reproduction's rim leans slightly more violet and saturated than the original's paler pink-grey, but it is still the same colour family."
+   "reason": "The measured mean colour difference is 5.6, under the line of 15. Visually the reproduction's halo is a little more violet and saturated than the original's pinker, greyer halo, but this stays well within the bound."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both have one frame (envelope peakAt 0, first 1, last 1) and no motion, so the frame count and motion match."
+   "reason": "Both have one frame, and the envelope (first 1, last 1, peak at 0) and dark fraction (0.39) match. The motion is a single still, so there is no loop or fade to differ on, and nothing in the measures shows a mismatch."
   },
   "R5": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Both are parallel and additive at 64x64, the same type and format as the original. The reproduction was read back with those values."
+   "score": 1,
+   "reason": "Type (parallel) and format (additive) match in the measures. The name is only inferred from the shared folder 'flare1'; the name and a read-back of the written file are not in the measurements, so this item is not shown to be right."
   }
  },
  "total": 9,

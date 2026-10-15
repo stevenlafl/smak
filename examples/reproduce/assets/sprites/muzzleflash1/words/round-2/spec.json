@@ -1,0 +1,132 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/muzzleflash1.spr",
+      "use": "tempent",
+      "class": "flare",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 2,
+      "loop": false,
+      "fps": 20,
+      "type": "parallel",
+      "format": "additive",
+      "layers": [
+        {
+          "kind": "flare",
+          "core": 0.1,
+          "ramp": "muzzle",
+          "gain": 0.9,
+          "env": {
+            "attack": 0,
+            "decay": 0.5
+          },
+          "streaks": [
+            {
+              "angle": 92,
+              "length": 0.9,
+              "width": 0.055,
+              "half": true,
+              "taper": 0.4,
+              "blur": 0.025
+            },
+            {
+              "angle": 12,
+              "length": 0.87,
+              "width": 0.055,
+              "half": true,
+              "taper": 0.4,
+              "blur": 0.025
+            },
+            {
+              "angle": 167,
+              "length": 0.86,
+              "width": 0.055,
+              "half": true,
+              "taper": 0.4,
+              "blur": 0.025
+            },
+            {
+              "angle": 238,
+              "length": 0.88,
+              "width": 0.055,
+              "half": true,
+              "taper": 0.4,
+              "blur": 0.025
+            },
+            {
+              "angle": 303,
+              "length": 0.87,
+              "width": 0.055,
+              "half": true,
+              "taper": 0.4,
+              "blur": 0.025
+            }
+          ]
+        },
+        {
+          "kind": "flare",
+          "core": 0.1,
+          "ramp": "muzzle",
+          "gain": 0.9,
+          "env": {
+            "attack": 0.9,
+            "decay": 0
+          },
+          "streaks": [
+            {
+              "angle": 89,
+              "length": 0.86,
+              "width": 0.055,
+              "half": true,
+              "taper": 0.4,
+              "blur": 0.025
+            },
+            {
+              "angle": 15,
+              "length": 0.9,
+              "width": 0.055,
+              "half": true,
+              "taper": 0.4,
+              "blur": 0.025
+            },
+            {
+              "angle": 164,
+              "length": 0.89,
+              "width": 0.055,
+              "half": true,
+              "taper": 0.4,
+              "blur": 0.025
+            },
+            {
+              "angle": 241,
+              "length": 0.84,
+              "width": 0.055,
+              "half": true,
+              "taper": 0.4,
+              "blur": 0.025
+            },
+            {
+              "angle": 300,
+              "length": 0.9,
+              "width": 0.055,
+              "half": true,
+              "taper": 0.4,
+              "blur": 0.025
+            }
+          ]
+        },
+        {
+          "kind": "glow",
+          "radius": 0.4,
+          "core": 0.07,
+          "ramp": "muzzle",
+          "gain": 0.15
+        }
+      ]
+    }
+  ]
+}

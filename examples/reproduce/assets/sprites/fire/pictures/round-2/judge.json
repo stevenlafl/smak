@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "fire",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.275,
+     "mean": 0.028
+    },
+    "envelope": {
+     "peakAt": 0.07,
+     "first": 0.9,
+     "last": 0.84
+    },
+    "dark": 0.42,
+    "wrap": 1.13,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.119,
+     "mean": 0.01
+    },
+    "envelope": {
+     "peakAt": 0.64,
+     "first": 0.87,
+     "last": 0.87
+    },
+    "dark": 0.48,
+    "wrap": 0.85,
+    "jitter": 1.56
+   }
+  },
+  "meanColourDeltaE": 4.1
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are the same effect: a looping orange flame rising from the bottom of a tall frame. A player would call both a fire."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frame size matches at 32x96, but the flame fills it differently. The original's flame is several separate pointed tongues with dark gaps between them, narrowing toward the top, and it reaches the frame edges more (border max 0.275 vs 0.119). The reproduction's flame is one soft, blurred column that stays wide and bright across the bottom of every frame (most visible in 0, 7, 8 and 14), with smudged tips and no distinct tongues. The effect is there but its shape inside the frame is clearly off."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured mean colour difference is 4.1, well under 15. Both flames are orange on black as the engine blends them, and the darkness is close (0.42 vs 0.48). The reproduction's base runs hotter, more yellow-white than the original's orange, but it is still what one would call the same colour."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both have 15 frames. Both flicker in place rather than growing or fading, and both loop: first and last brightness are 0.90/0.84 vs 0.87/0.87, wrap is 1.13 vs 0.85, jitter is 1.51 vs 1.56. The brightness peak falls in a different place (0.07 vs 0.64), but in a looping flicker that position doesn't matter. The reproduction's flicker is a softer wobble than the original's shifting tongues, which is a shape issue already marked down under R2."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type and format match exactly as read back: parallel oriented, additive, 32x96, 15 frames."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

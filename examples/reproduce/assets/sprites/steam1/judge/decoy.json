@@ -67,39 +67,11 @@
   "R4": 0,
   "R5": 2
  },
- "scores": {
-  "R1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The original is a puff of white steam: it starts as a small dot (frame 0), swells into a bright billowing cloud (frames 2-7), then thins, rises and breaks into wisps (frames 8-15). The reproduction's single frame is a flat grey field with nothing visible in it, so it has no steam, glow or other effect at all."
-  },
-  "R2": {
-   "judge": 0,
-   "cap": 2,
-   "score": 0,
-   "reason": "The frame size matches at 32x48, but nothing fills the frame. The original's cloud takes up most of the frame at its peak and sits in the lower part as it rises. The reproduction's frame is empty: its border measure is a uniform 0.004 everywhere and no shape can be seen."
-  },
-  "R3": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The measured mean colour difference is 33.4, more than twice the limit of 15. The original blends to bright white-grey steam over the background, and the reproduction shows nothing but the background."
-  },
-  "R4": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The reproduction has 1 frame against the original's 16, far outside 25%. The original is a one-shot that grows, peaks at 0.4 of its length (envelope first 0.04, last 0.03) and fades nearly dark while it rises and drifts (jitter 1.1). The reproduction has no motion and no envelope (peak at 0, first and last both 1), so it has no growth, no rise and no fade to dark."
-  },
-  "R5": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "The type (parallel oriented) and format (index alpha) match the original's. Nothing given here shows that the name is the same or that the file reads back as written, so the item cannot be confirmed at 2. Its content also fails every other item."
-  }
- },
- "total": 1,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "R3",
+  "R4"
+ ],
+ "total": 0,
+ "of": 10
 }

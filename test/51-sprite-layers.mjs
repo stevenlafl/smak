@@ -9,6 +9,7 @@ import { framesOf, RAMP_NAMES, LAYER_KINDS } from "../src/sprite/effects.mjs";
 import { measureSprite, measureSheet, shapeOverlap } from "../src/sprite/measure.mjs";
 import { sheetOf } from "../src/sprite/draw.mjs";
 import { buildSpriteSpec, validateSpriteSpec } from "../src/spec/sprite.mjs";
+import { materialOf } from "../src/spec/paint.mjs";
 import { test, sure, near, tmp } from "./helper.mjs";
 
 const lum = (f, x, y) => {
@@ -173,4 +174,16 @@ test("shapeOverlap: a sprite's shape against its reference's at its edge, body a
   sure(same.mean === 1 && same.levels.every((v) => v === 1), JSON.stringify(same));
   const wideCore = shapeOverlap([disc(12, 4)], [disc(12, 10)]);
   sure(wideCore.levels[0] === 1 && wideCore.levels[2] < 0.3 && wideCore.mean < 0.8, `a core too wide shows at the core: ${JSON.stringify(wideCore)}`);
+});
+
+test("a colour of 0 to 255 is refused, in a sprite's layers and ramps and in a material's tone, with what it would be", () => {
+  const { errors } = validateSpriteSpec({ spec: "smak.sprite/1", sprites: [{ name: "sprites/g.spr", size: [64, 64], colour: [1, 0.5, 0.2], layers: [{ kind: "glow", colour: [255, 255, 255] }, { kind: "fire", ramp: [[0, [0, 0, 0]], [1, [255, 128, 0]]] }] }] });
+  sure(errors.some((e) => /layers\[0\]\.colour: \[r, g, b\] from 0 to 1, not \[255,255,255\]: as 0 to 255 it is \[1,1,1\]/.test(e)) && errors.some((e) => /layers\[1\]\.ramp\[1\]/.test(e)) && errors.length === 2, errors.join(" | "));
+  let said = "";
+  try {
+    materialOf({ base: "wood", tone: [200, 100, 50] }, "materials.oak");
+  } catch (error) {
+    said = error.message;
+  }
+  sure(/materials\.oak\.tone: \[r, g, b\] from 0 to 1, not \[200,100,50\]: as 0 to 255 it is \[0\.784,0\.392,0\.196\]/.test(said), said);
 });

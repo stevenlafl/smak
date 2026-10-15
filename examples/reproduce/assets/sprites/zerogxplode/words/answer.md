@@ -1,18 +1,21 @@
-I built `sprites/zerogxplode.spr` and the build says OK. All checks passed, and it scores 5 of 5 in range against Half-Life's own explosion.
+The sprite builds OK: `sprites/zerogxplode.spr` is written to the work folder, with a sheet and an animated preview beside it. I had only your description, not the original, so I matched the description and could not measure it against the original.
 
-**Facts:** 64x64, 15 frames, played once at 15 fps, type parallel, format additive (placed as a temporary effect with render mode 5, additive). The border stays dark and the last frame ends black.
+**Settings (as specified):** 64x64, 15 frames, played once (not looping), 15 fps, type parallel (faces the camera), format additive (black is clear), tempent use, centred origin.
 
-**How it plays, frame by frame:**
-- **Frame 0:** a small white-hot blob a little left of centre.
-- **Frames 1 to 3:** it bursts into a lumpy white blob with a dark tan edge, sitting upper-centre.
-- **Frames 4 to 7:** two billow layers grow into the mushroom shape: a narrower bright lobe on top and a wider mass below. The white cools to cream and pale yellow, and the lower parts go golden-orange.
-- **Frames 8 to 11:** a full billowing cloud, nearly filling the frame. The top lobe stays the brightest and the bottom darkens to amber and brown, with dissolving puffs and debris specks low on the left and right.
-- **Frames 12 to 14:** the bottom breaks up first and the upper lobe fades last.
+**How it is made:**
+- An explosion layer (fire ramp) gives the white-hot point in frame 0 and the early burst, fading out by about frame 5.
+- A billow layer (blast ramp, a white middle cooling to cream, tan and brown) gives the lumpy cloud. It is nudged up slightly so the top lobe reads as the mushroom head, carries debris specks, and dissolves into wisps as it ages.
 
-**Where it falls short of the description:**
-- **Frame 0** is about 12 to 14 pixels wide, not the 8 described. It has no separate orange rim or specks around it. I tried adding a separate glow for the opening flash, but its brightness didn't change over time, so it stayed on through every frame. I dropped it.
-- **Frame 14** is fully black, not a faint brown smudge. The last visible bit of the upper lobe is in frame 13. The kit treats a one-shot that doesn't end dark as a fault, so I didn't push past that.
-- **The debris specks** are faint and land low on both sides, not mainly to the left and lower left. The early sparks don't stand out much.
-- **Measurements:** I had no picture of the original, so the build couldn't compare it directly. The match comes from the written description and Half-Life's own explosion.
+**What the frames show against your description:**
+- Frame 0 is a small white point, and frames 1 to 3 burst into a blob of about 45 pixels.
+- Frames 4 to 7 fill most of the frame, with a white core and an orange rim.
+- Frames 8 to 11 are the billowing cloud, bright at the top and browning at the bottom.
+- Frames 12 and 13 dim to dark brown, and the sprite ends dark.
 
-The sprite is at `work:sprites/zerogxplode.spr`, with a contact sheet and an animated preview saved next to it.
+**Where it differs from your description:**
+- Frame 0 is centred, not a little left of centre. The explosion layer has no position setting, so I could not move it.
+- The white core stays too bright through frame 9. I tried a custom amber ramp and a faster cool-down, but both made the core harder-edged and more flickery, so I went back.
+- Frame 14 is fully black. Your description has a faint brown smudge left near the top. Lengthening the decay removed frames 12 and 13 too early, so I kept the cleaner fade.
+- The build reports the border is a little lit (0.018, where Half-Life's own is 0 to 0.005). It also reports the sprite's last frame as dark (0), which is the one-shot rule.
+
+Two more reasons for the frame-14 smudge and the lit border to matter: the judge compares measured values, so they are the first things to check against the original. If you can share a contact sheet of the original, I can add it as a `reference` and tune the layers against it.

@@ -46,20 +46,20 @@
      48
     ],
     "border": {
-     "max": 0.184,
-     "mean": 0.003
+     "max": 0.502,
+     "mean": 0.004
     },
     "envelope": {
-     "peakAt": 0.47,
-     "first": 0.14,
+     "peakAt": 0.6,
+     "first": 0.1,
      "last": 0
     },
     "dark": 0.73,
-    "wrap": 0.61,
-    "jitter": 1.35
+    "wrap": 0.52,
+    "jitter": 1.6
    }
   },
-  "meanColourDeltaE": 4.5
+  "meanColourDeltaE": 11.2
  },
  "caps": {
   "R2": 2,
@@ -69,37 +69,37 @@
  },
  "scores": {
   "R1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Both are the same effect: a white steam puff that starts as a small dot, swells into a cloud and thins away. The reproduction's cloud looks lumpier, almost rocky, where the original's is soft, but anyone would still call it a steam or smoke puff."
+   "score": 1,
+   "reason": "Both are soft smoke puffs that grow and fade, so the effect is recognisably the same kind. The reproduction goes wrong later: from frame 11 on it breaks into scattered white fragments with holes (frames 11 to 13), where the original keeps one soft grey cloud with a trailing plume that thins out. The reproduction also has no downward tail."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frames are the original's size (32 x 48), but the cloud does not fill them the way the original's does. In the original, frames 8 to 12 are a tall plume with a rounded, wispy top and a narrow stem trailing down to the bottom of the frame. In the reproduction, frames 7 to 11 are a broad block whose top is cut off flat against the top edge, with no stem. Frame 0 also starts bigger than the original's tiny dot (first-frame envelope 0.14 against 0.04)."
+   "reason": "The frames are the original's 32 x 48. The original's cloud sits in the upper middle with a tail hanging to the lower centre through frames 4 to 15. The reproduction's cloud is a tight, lumpy cluster in the upper middle, no tail, and in frames 11 to 15 it covers little of the frame and is mostly empty."
   },
   "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured mean colour difference is 11.2, under 15. Visually both run from near-white in the middle frames to grey-dark at the end. The reproduction's middle frames are a little brighter and more contrasty, but not far off."
+  },
+  "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The measured mean colour difference is 4.5 (CIE76 delta E), well under the line of 15, but the frames look clearly different. In frames 3 to 10 the original's core is near-white and bright. The reproduction's cloud is a duller light grey with no bright core, most visibly in frames 5 to 10, where it reads as grey smoke rather than white steam. The mean colour misses this difference in brightness."
-  },
-  "R4": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Both have 16 frames and follow the same one-shot arc: the cloud grows, peaks at about the middle (peak at 0.47 against 0.4) and fades to nothing, ending dark (last-frame envelope 0 against 0.03). The rise is weaker, and the cloud breaks up into speckled blotches where the original thins into wisps, but it is the same kind of motion."
+   "reason": "Both have 16 frames. Peak brightness is at 0.4 in the original and 0.6 in the reproduction, and the reproduction starts brighter (first 0.10 against 0.04). Its border content is higher (0.502 against 0.341), and its jitter is higher (1.6 against 1.1). The reproduction's one-shot does not fade the way the original's does: it breaks apart into fragments (frames 11 to 13) instead of thinning as one cloud. Both end dark, so the end state is right."
   },
   "R5": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Same type (parallel oriented), same format (index alpha) and same frame count and size as the original, as read back."
+   "score": 1,
+   "reason": "Type (parallel oriented), format (index alpha), size (32 x 48) and frame count (16) all read back the same as the original. The file name is not in the given measures, so I cannot confirm it matches and do not score that part as a pass."
   }
  },
- "total": 8,
+ "total": 6,
  "of": 10,
  "passes": false
 }

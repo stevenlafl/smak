@@ -67,8 +67,24 @@ export const FLAG_BITS = { flat: 1, chrome: 2, fullbright: 4, additive: 32, mask
 export const SEEN_LIGHT = 0.8;
 
 /** A colour as given: [r, g, b] (0 to 1), or words ("warm dark grey"): the XKCD names and the modifiers. */
+/**
+ * What is wrong with a colour given as numbers: three, each 0 to 1. Null when nothing is. A colour of 0 to 255
+ * (the way a picture program writes one) is told so: taken as it is, it paints 255 times too bright.
+ */
+export function rgbFault(given) {
+  if (!Array.isArray(given) || given.length !== 3 || !given.every((v) => typeof v === "number" && Number.isFinite(v))) return "[r, g, b], three numbers from 0 to 1";
+  if (given.some((v) => v < 0)) return `[r, g, b] from 0 to 1, not ${JSON.stringify(given)}`;
+  if (given.some((v) => v > 1))
+    return `[r, g, b] from 0 to 1, not ${JSON.stringify(given)}: ${given.every((v) => v <= 255) ? `as 0 to 255 it is ${JSON.stringify(given.map((v) => Math.round((v / 255) * 1000) / 1000))}` : "each 1 at most"}`;
+  return null;
+}
+
 export function colourOfGiven(given, where) {
-  if (Array.isArray(given)) return given;
+  if (Array.isArray(given)) {
+    const fault = rgbFault(given);
+    if (fault) throw new Error(`${where}: ${fault}`);
+    return given;
+  }
   if (typeof given === "string") {
     const found = colourFromWords(given);
     if (!found) throw new Error(`${where}: no colour named in "${given}" (the XKCD survey's names: grey, teal, brick red...; with dark, light, pale, muted, warm, cool, grimy)`);

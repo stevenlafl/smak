@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "laserbeam",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     32,
+     64
+    ],
+    "border": {
+     "max": 1,
+     "mean": 0.261
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.02,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     32,
+     64
+    ],
+    "border": {
+     "max": 1,
+     "mean": 0.235
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.19,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 11.6
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both show the same effect: a vertical laser beam with a bright white core running the full height of the frame and a cooler halo on either side."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frame size matches (32x64). The beam fills it differently, though. In the original a soft grey-blue halo with mottled streaks fades gradually to the side edges and leaves almost nothing dark (dark 0.02). In the reproduction the white core is wider, its sides drop off sharply, it has thin blue lines at the edges, and the outer columns are near-black (dark 0.19). The original's streaky texture along its length is also missing."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The mean colour difference is 11.6, under 15. The palette is the same white core with a cool grey-blue tint. The difference in how far the halo spreads is counted under R2, not here."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both have 1 frame and are static. The envelope matches (peak at 0, first 1, last 1). There is no loop or one-shot to close."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The type (parallel) and format (additive) are the same as the original's, and the size is 32x64 as written."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

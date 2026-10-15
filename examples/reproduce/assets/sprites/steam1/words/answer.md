@@ -1,20 +1,25 @@
-I've built `sprites/steam1.spr` and the build says OK. It passes every check and is within range on all 5 measures against Half-Life's own smoke puffs.
+The sprite builds OK: `work:sprites/steam1.spr`, with `-sheet.png` and `-animated.png` beside it.
 
-**Facts:** 32x48, 16 frames, parallel oriented, index alpha (a white tint), plays once. It uses render mode 4 (Solid) as a temporary effect at 15 frames a second. It ends fully clear, and no light reaches the border.
+Final spec, which is the last build that passed:
 
-**How it compares to the description:**
+```json
+{"spec": "smak.sprite/1", "sprites": [{"name": "sprites/steam1.spr", "class": "smoke puff", "use": "env_sprite",
+  "type": "parallel oriented", "format": "index alpha", "size": [32, 48], "frames": 16, "loop": false, "fps": 10,
+  "origin": "bottom", "finish": {"edge": 3},
+  "layers": [{"kind": "billow", "at": [-0.05, -0.25], "size": 0.25, "rise": 0.6, "growth": 0.8, "dissolve": 0.9, "env": {"attack": 0}}]}]}
+```
 
-- **Frame 0:** a small white puff low and a little left of centre. It's about 5 to 6 px across, a bit bigger than the 3 px dot described. I tried a separate dot that would show only in frame 0, but I couldn't get it to fade fast enough. It either left a faint speck in later frames or disappeared from frame 0 too, so I dropped it.
-- **Frames 1 to 3:** a dense, bright white, lumpy cloud. It's about 12 px wide in frame 1 and close to 22 px by frame 3, in the lower middle.
-- **Frames 4 to 7:** it swells to nearly the full width and rises, white in the middle with grey shading.
-- **Frames 8 to 11:** it fades to light grey and breaks open with gaps, filling most of the height.
-- **Frames 12 to 15:** faint grey patches that fade to almost nothing by frame 15.
+Against your description, from the contact sheet:
+- **Frames 0-3:** a small dot that grows to a white cloud, about 12 px in frame 1 and about 22 px in frame 3, low and near the middle.
+- **Frames 4-7:** the cloud swells to nearly the full 32 px width, with a lumpy cauliflower edge.
+- **Frames 8-11:** it rises into a taller, ragged column with gaps opening between the puffs.
+- **Frames 12-15:** it breaks into thin streaks and is almost gone by frame 15.
+- **Format:** 32x48, 16 frames, parallel oriented, index alpha, render mode 4 (solid), not looping.
 
-**Where it falls short:**
+Where it differs from the original:
+- **Frame 0 dot:** about 6 px across, not 3 px. I could not shrink it without losing the frame 1-3 growth, so I kept the larger growth.
+- **Greys:** the cloud reads as white with soft grey shading. I did not add separate grey tones for the underside.
+- **Frames 12-15:** the wisp is thinner and more broken than the vertical column in your description, not a clean thin column near the middle.
+- **Frame rate and origin:** you gave neither, so I chose 10 fps (the most an `env_sprite` can change, which avoids a frame-skip warning) and a bottom origin, so the steam rises from its base.
 
-- **Frames 8 to 11:** the cloud stays a wide, ragged mass. It doesn't narrow into a column with the top broadest and a thinner trail underneath.
-- **Frames 12 to 15:** the remains are scattered patches. They don't pull in to one thin vertical wisp in the middle.
-
-The cloud tool fades it out by thinning it away, not by drawing it in. With the settings it offers, I couldn't get a closer match for those last frames.
-
-The sprite is at `work:sprites/steam1.spr`, with `-sheet.png` and `-animated.png` previews beside it.
+I had no picture of the original, only your description, so the build's comparison is against Half-Life's smoke puff class, not against this sprite. It is not a measured side-by-side match. If you can give me a contact sheet of the original, I can add it as `reference` and tune against it.

@@ -67,39 +67,11 @@
   "R4": 0,
   "R5": 2
  },
- "scores": {
-  "R1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The original is a flame: 15 frames of orange-yellow fire tongues, bright at the base, narrowing and flickering upward, on black. The reproduction's single frame is a flat, even light grey that fills the whole 32x96 frame. It has no flame shape and nothing that reads as fire, glow or any other effect."
-  },
-  "R2": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "The frame size matches (32x96). But the effect does not fill the frame the way the original's does. The original's flame sits in the lower and middle part with tapering tips, and its edges are mostly dark (border mean 0.028, max 0.275). The reproduction is lit edge to edge (border max and mean both 0.784), with no shape at all."
-  },
-  "R3": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The measured mean colour difference is 64.3, far beyond the pass line of 15. The original is orange and yellow fire on black (dark fraction 0.42). The reproduction is a uniform pale grey with no dark area (dark 0)."
-  },
-  "R4": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The reproduction has 1 frame against the original's 15, far outside 25%. So there is no motion at all: none of the original's flicker and rise (jitter 1.51), no loop (wrap null against the original's 1.13), and a flat envelope (first and last both 1, against peak at 0.07 and last 0.84)."
-  },
-  "R5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Type (parallel oriented) and format (additive) match the original, and the harness read the file back at the right size. Nothing in what I was given contradicts the name. This is the only item it gets right."
-  }
- },
- "total": 3,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "R3",
+  "R4"
+ ],
+ "total": 0,
+ "of": 10
 }

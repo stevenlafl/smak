@@ -46,20 +46,20 @@
      32
     ],
     "border": {
-     "max": 0.136,
+     "max": 0.026,
      "mean": 0.004
     },
     "envelope": {
-     "peakAt": 0.3,
-     "first": 0.93,
-     "last": 0.94
+     "peakAt": 0,
+     "first": 1,
+     "last": 0.98
     },
-    "dark": 0.46,
-    "wrap": 0.89,
-    "jitter": 1.79
+    "dark": 0.37,
+    "wrap": 1.18,
+    "jitter": 1.84
    }
   },
-  "meanColourDeltaE": 8.3
+  "meanColourDeltaE": 7.3
  },
  "caps": {
   "R2": 2,
@@ -69,37 +69,37 @@
  },
  "scores": {
   "R1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Same effect: a flickering cyan-white spark glow with a hot white core and a soft blue halo, fixed in place in every frame, as in the original."
+   "score": 1,
+   "reason": "Both are cyan additive glows, so the effect type matches. The original is a clustered burst of several puffs with dim outer lobes, while the reproduction is one soft round disc with a white core. The multi-lobed burst is not reproduced."
   },
   "R2": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Frames are 32x32 like the original's. The glow fills them about the same way (dark share 0.46 in both, border max 0.136 against 0.145, border mean 0.004 in both). One small difference: the original's halo is a cluster of soft round puffs, while the reproduction's is a bit more compact with jagged, finger-like lobes (frames 2, 3, 6). The extent and fill still match."
+   "score": 1,
+   "reason": "Both are 32x32 frames. The original's lobes reach the frame edges (border max 0.145), so the effect fills the frame. The reproduction is a centred disc with an empty margin (border max 0.026), so it does not fill the frames as the original does."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured mean colour difference is 8.3, under 15. Both show the same white core fading through cyan to dark blue. The reproduction's core and inner cyan are slightly brighter and more saturated, but a player would call them the same colour."
+   "reason": "Measured: the frames' mean colour difference is 7.3, under the line of 15. Both use the same cyan with a white core. The reproduction's core is somewhat larger and whiter, which the measure allows for."
   },
   "R4": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Same frame count (11). Both have the same kind of motion: a steady-brightness flicker whose halo shape shifts from frame to frame, with no growth or fade (envelope first 0.93 and last 0.94 against 0.94 and 1). The loop closes: the step from the last frame back to the first (0.89) is smaller than the average step between frames (jitter 1.79), and the original's equivalents are 1.61 and 1.51. The reproduction's frame-to-frame jitter is a little higher than the original's, but it is the same kind of flicker."
+   "score": 1,
+   "reason": "Frame count matches (11), and the loop closes in both (original first 0.94 and last 1; reproduction first 1 and last 0.98). The motion does not match closely: the original's brightest frame is frame 1 and the reproduction's is frame 0, and the reproduction jitters more (1.84 against 1.51). The original's shifting lobes are not reproduced as motion."
   },
   "R5": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Type (parallel) and format (additive) match the original's, read back from the file. Size and frame count also match."
+   "score": 1,
+   "reason": "Type and format match (both additive), and the size and frame count match. The name is not in the measurements or the pictures, so I cannot confirm that it is the same name or that it reads back as written."
   }
  },
- "total": 10,
+ "total": 6,
  "of": 10,
- "passes": true
+ "passes": false
 }

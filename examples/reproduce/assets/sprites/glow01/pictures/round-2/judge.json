@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "glow01",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.47,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.43,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 7.9
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both sheets show a soft white-grey radial glow with a small bright centre fading into the dark. It is the same effect."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both frames are 64x64. The glow is centred and fills the frame the same way, with a bright core and a falloff that reaches near the edges. The border is clean in both (max 0), and the dark share is close (0.43 against 0.47). The reproduction's outer halo ends in a slightly more visible circular edge than the original's smoother fade, but this is only noticeable on close inspection and does not change the shape or how it fills the frame."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are neutral white to grey on black as the engine blends them. The measured mean colour difference is 7.9, under the 15 line. The reproduction's core is slightly brighter, which stays within the measurement."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both have 1 frame and are a static glow, with the envelope peak at frame 0 and first and last both at 1. There is no loop or one-shot to match, and none is added."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The type (parallel) and format (additive) match the original's, and the harness read the reproduction back at the same size and frame count."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

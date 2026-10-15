@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "muzzleflash1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 2,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 2,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.02,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.95,
+     "last": 1
+    },
+    "dark": 0.76,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 2,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 2,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.77,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 2.8
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are the same effect: a five-pointed star muzzle flash with a hot white-orange core and warm orange arms that fade out at the tips."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are 64x64 with 2 frames. The star fills the frame the same way in both: the arms nearly reach the edges, the corners stay dark (dark share 0.76 vs 0.77) and the border is empty (max 0 vs 0.02). The reproduction's core is a slightly rounder, crisper white blob and its arms are a little smoother than the original's grainy, feathered ones. That is a small detail, and the overall shape and size still match."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The mean colour difference is 2.8, well under 15. The core and arms are the same warm orange-white. The original's arms have a slight pinkish, grainy tint that the reproduction smooths over, but a player would call it the same colour."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both have 2 frames, and both make the same kind of motion: a near-flat two-frame flicker of the same star with the arms shifted slightly. The envelopes differ a little. The original is brightest in frame 1 (frame 0 at 0.95), while the reproduction is equal in both frames (1, 1). That gap of under 5% is too small to see when the engine plays it. Neither sprite is a fading one-shot that has to end dark, and neither is a loop that has to close."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are parallel and additive, so the type and format match the original's. The measurements read back as written."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

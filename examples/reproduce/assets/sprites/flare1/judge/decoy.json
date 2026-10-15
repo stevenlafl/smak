@@ -67,39 +67,10 @@
   "R4": 2,
   "R5": 2
  },
- "scores": {
-  "R1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The original is a lens flare or glow: a bright pinkish-white core with soft radial rays fading to black at the edges. The reproduction is one flat, uniform grey square with no core, no rays and no falloff, so no effect is shown at all."
-  },
-  "R2": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "The frame size matches (64x64), but the effect does not fill it the way the original's does. The original's glow sits in the centre and fades to fully dark at the border (border max 0, dark 0.39). The reproduction is solid grey right up to every edge (border max and mean 0.784, dark 0), so it reads as a lit square, not a round glow."
-  },
-  "R3": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The measured mean colour difference is 42.4, far over the pass line of 15. The original is a pinkish-white glow on black, while the reproduction is an even light grey that has neither the pink tint nor the dark surround."
-  },
-  "R4": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Both have 1 frame with the peak at frame 0, so the original has no motion to match. The reproduction is also a single static frame and adds nothing wrong."
-  },
-  "R5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The type (parallel) and format (additive) match the original's as measured and read back. The reproduction fails on content, not on fit for the game."
-  }
- },
- "total": 5,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "R3"
+ ],
+ "total": 0,
+ "of": 10
 }

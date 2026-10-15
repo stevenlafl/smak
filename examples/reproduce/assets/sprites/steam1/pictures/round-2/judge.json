@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "steam1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.341,
+     "mean": 0.002
+    },
+    "envelope": {
+     "peakAt": 0.4,
+     "first": 0.04,
+     "last": 0.03
+    },
+    "dark": 0.64,
+    "wrap": 0.5,
+    "jitter": 1.1
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.239,
+     "mean": 0.004
+    },
+    "envelope": {
+     "peakAt": 0.4,
+     "first": 0.06,
+     "last": 0
+    },
+    "dark": 0.64,
+    "wrap": 0.51,
+    "jitter": 1.1
+   }
+  },
+  "meanColourDeltaE": 0.3
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are a puff of white steam that swells from a small dot into a billowing cloud and then thins out. A player would call it the same effect."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frames are the original's 32 x 48 and the peak cloud fills them about as much (frames 5-7). From frame 8 on they differ. The original's cloud stretches into a tall, streaky column of wisps reaching the bottom of the frame (frames 9-14). The reproduction's stays one rounded blob in the upper part of the frame, with only a faint smear below, all the way to frame 13."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured mean colour difference is 0.3, so the average colour is right. Looking closely, the fading frames add colours the original lacks: dark specks darker than the background inside the cloud (frames 8-10), and mottled flat-grey patches with hard edges (frames 11-13). The original fades as soft white-grey wisps. The bright white peak frames have an embossed, hard-shaded look; the original's are soft."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both have 16 frames, peak at 0.4 of the way through (measured) and grow then fade. The measured last frame is 0 against the original's 0.03: the reproduction's frame 15 is empty, while the original's still shows a faint wisp, which is close enough for a one-shot. The kind of motion differs, though. The original rises and spreads into wisps as it fades (frames 8-15). The reproduction dissolves in place in blotchy, dithered patches (frames 10-14), and its cloud barely rises or changes shape."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The type (parallel oriented) and format (index alpha) are both the original's, and the size and frame count read back the same as written."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

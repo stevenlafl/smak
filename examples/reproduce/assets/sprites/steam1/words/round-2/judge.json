@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "steam1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.341,
+     "mean": 0.002
+    },
+    "envelope": {
+     "peakAt": 0.4,
+     "first": 0.04,
+     "last": 0.03
+    },
+    "dark": 0.64,
+    "wrap": 0.5,
+    "jitter": 1.1
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.184,
+     "mean": 0.003
+    },
+    "envelope": {
+     "peakAt": 0.47,
+     "first": 0.14,
+     "last": 0
+    },
+    "dark": 0.73,
+    "wrap": 0.61,
+    "jitter": 1.35
+   }
+  },
+  "meanColourDeltaE": 4.5
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are the same effect: a white steam puff that starts as a small dot, swells into a cloud and thins away. The reproduction's cloud looks lumpier, almost rocky, where the original's is soft, but anyone would still call it a steam or smoke puff."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frames are the original's size (32 x 48), but the cloud does not fill them the way the original's does. In the original, frames 8 to 12 are a tall plume with a rounded, wispy top and a narrow stem trailing down to the bottom of the frame. In the reproduction, frames 7 to 11 are a broad block whose top is cut off flat against the top edge, with no stem. Frame 0 also starts bigger than the original's tiny dot (first-frame envelope 0.14 against 0.04)."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured mean colour difference is 4.5 (CIE76 delta E), well under the line of 15, but the frames look clearly different. In frames 3 to 10 the original's core is near-white and bright. The reproduction's cloud is a duller light grey with no bright core, most visibly in frames 5 to 10, where it reads as grey smoke rather than white steam. The mean colour misses this difference in brightness."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both have 16 frames and follow the same one-shot arc: the cloud grows, peaks at about the middle (peak at 0.47 against 0.4) and fades to nothing, ending dark (last-frame envelope 0 against 0.03). The rise is weaker, and the cloud breaks up into speckled blotches where the original thins into wisps, but it is the same kind of motion."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Same type (parallel oriented), same format (index alpha) and same frame count and size as the original, as read back."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

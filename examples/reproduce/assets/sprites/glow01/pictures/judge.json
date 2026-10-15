@@ -54,12 +54,12 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.43,
+    "dark": 0.49,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 7.9
+  "meanColourDeltaE": 3.6
  },
  "caps": {
   "R2": 2,
@@ -72,34 +72,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both sheets show a soft white-grey radial glow with a small bright centre fading into the dark. It is the same effect."
+   "reason": "Both frames show the same effect: a soft radial glow, brightest at the centre and fading to the dark edge, with the same frame-number marker in the top-left corner. Nothing in either picture suggests a different effect."
   },
   "R2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both frames are 64x64. The glow is centred and fills the frame the same way, with a bright core and a falloff that reaches near the edges. The border is clean in both (max 0), and the dark share is close (0.43 against 0.47). The reproduction's outer halo ends in a slightly more visible circular edge than the original's smoother fade, but this is only noticeable on close inspection and does not change the shape or how it fills the frame."
+   "reason": "Both are 64 x 64 with one frame. The glow fills the frame the same way in each, with its falloff reaching roughly the same radius. The reproduction's bright core looks marginally wider, which is not visible at a close look."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are neutral white to grey on black as the engine blends them. The measured mean colour difference is 7.9, under the 15 line. The reproduction's core is slightly brighter, which stays within the measurement."
+   "reason": "The measured mean colour difference is 3.6 CIE76 delta E, well under the line of 15. Both are neutral grey on a near-black ground, with the same white-hot centre."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both have 1 frame and are a static glow, with the envelope peak at frame 0 and first and last both at 1. There is no loop or one-shot to match, and none is added."
+   "reason": "Both have one frame, so the frame count matches exactly. Neither is a loop or a one-shot that could fail to close or end dark. The dark fraction is 0.49 against the original's 0.47, a close match."
   },
   "R5": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "The type (parallel) and format (additive) match the original's, and the harness read the reproduction back at the same size and frame count."
+   "score": 1,
+   "reason": "The type (parallel) and format (additive) match in both. The sprite's name and whether it reads back as written are not in the measurements or the pictures, so the must-have part of this item is unverified and is scored 1, not 2."
   }
  },
- "total": 10,
+ "total": 9,
  "of": 10,
- "passes": true
+ "passes": false
 }

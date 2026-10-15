@@ -1,0 +1,64 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/xspark1.spr",
+      "class": "glow",
+      "use": "env_sprite",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 10,
+      "loop": true,
+      "fps": 10,
+      "type": "parallel",
+      "format": "additive",
+      "origin": "centre",
+      "layers": [
+        {
+          "kind": "glow",
+          "radius": 0.35,
+          "core": 0.1,
+          "falloff": "power",
+          "power": 3,
+          "reach": 0.6,
+          "colour": [
+            255,
+            255,
+            255
+          ],
+          "gain": 0.09
+        },
+        {
+          "kind": "glow",
+          "radius": 0.5,
+          "core": 0.2,
+          "falloff": "power",
+          "power": 3,
+          "reach": 0.8,
+          "colour": [
+            60,
+            220,
+            255
+          ],
+          "gain": 0.04
+        },
+        {
+          "kind": "blobs",
+          "count": 6,
+          "radius": 0.34,
+          "spread": 0.72,
+          "core": 0.28,
+          "soft": 1,
+          "gain": 0.018,
+          "colour": [
+            20,
+            90,
+            130
+          ]
+        }
+      ]
+    }
+  ]
+}

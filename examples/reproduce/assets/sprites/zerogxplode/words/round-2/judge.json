@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "zerogxplode",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.818,
+     "mean": 0.005
+    },
+    "envelope": {
+     "peakAt": 0.36,
+     "first": 0.08,
+     "last": 0.03
+    },
+    "dark": 0.73,
+    "wrap": 0.81,
+    "jitter": 1.25
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.402,
+     "mean": 0.004
+    },
+    "envelope": {
+     "peakAt": 0.5,
+     "first": 0.13,
+     "last": 0
+    },
+    "dark": 0.67,
+    "wrap": 1.5,
+    "jitter": 1.35
+   }
+  },
+  "meanColourDeltaE": 6.2
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are the same effect: a one-shot fireball explosion. Each starts as a white-hot core, swells into a billowing two-lobed cloud, cools through yellow and orange to brown, and burns out."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frames are the original's size (64x64), but the effect does not fill them the way the original's does. In the original, frame 0 is a tiny point with a few sparks, and the cloud stays a compact upright two-lobed mass well inside the frame. In the reproduction, frame 0 is already a solid blob about a quarter of the frame across. From frame 7 to frame 11 its cloud spreads wider and lower, reaching the left and bottom edges. The measured wrap is 1.5 against the original's 0.81. The original's scattered sparks and debris flecks around the cloud (frames 0 to 11) are missing. In their place the reproduction shows a smooth-edged blob with flat, banded shading."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured mean colour difference is 6.2, well under 15. The palette matches: a white core going to yellow, orange and dark brown on black, blended additively. There are small differences that don't change the reading. The reproduction misses the thin red-orange rim on the original's early white frames (1 to 3), and its mid frames (5 to 10) have a duller, khaki-tan outer cloud where the original's is warmer orange-brown."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both have 15 frames and the same kind of motion: it ignites, grows, peaks, then cools and fades. Both are one-shots that end dark (last frame 0 against the original's 0.03). The differences are within what a 2 allows but noted: the reproduction peaks later (0.5 against 0.36), it starts brighter and larger (first 0.13 against 0.08, with no point-sized ignition), and frame 14 is fully empty where the original keeps a faint ember."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The type (parallel), format (additive) and size (64x64) match the original's and were read back from the written file."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

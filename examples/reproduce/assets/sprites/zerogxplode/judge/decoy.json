@@ -67,39 +67,11 @@
   "R4": 0,
   "R5": 2
  },
- "scores": {
-  "R1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The original is an explosion: a small bright spark in frame 0 grows into a white-hot fireball with flying debris, then cools to orange-brown smoke and fades out by frame 14. The reproduction is a single flat light-grey square covering the whole frame, with no flame, fireball, smoke or debris, so it is not the same effect."
-  },
-  "R2": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "The frame size is right at 64x64. The shape is wrong: the original's effect is an irregular blob that stays off the edges (border mean 0.005), but the reproduction fills the entire frame edge to edge (border mean 0.784, max 0.784). There is no explosion shape at all."
-  },
-  "R3": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The measured mean colour difference is 39.5 ΔE (CIE76), far above the 15 limit. The original is white-yellow at the peak, moving to orange and brown on a dark background (dark fraction 0.73). The reproduction is uniform pale grey with no dark area (dark 0)."
-  },
-  "R4": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The reproduction has 1 frame against the original's 15, well outside 25%. It has no motion: the envelope is flat (first 1, last 1, peak at 0), while the original grows to a peak at about 36% of the way through and fades to dark (last 0.03). The one-shot does not end dark, and wrap and jitter cannot be measured."
-  },
-  "R5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The type (parallel) and format (additive) match the original's as measured. The name and the read-back are not shown separately in the measurements, so this score rests on the type and format alone."
-  }
- },
- "total": 3,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "R3",
+  "R4"
+ ],
+ "total": 0,
+ "of": 10
 }

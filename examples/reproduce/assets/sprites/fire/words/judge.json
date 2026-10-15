@@ -36,70 +36,70 @@
     32,
     96
    ],
-   "frames": 16,
+   "frames": 15,
    "type": "parallel oriented",
    "format": "additive",
    "measures": {
-    "frames": 16,
+    "frames": 15,
     "size": [
      32,
      96
     ],
     "border": {
-     "max": 0,
-     "mean": 0
+     "max": 0.103,
+     "mean": 0.003
     },
     "envelope": {
-     "peakAt": 0.73,
-     "first": 0.88,
-     "last": 0.88
+     "peakAt": 0.71,
+     "first": 0.86,
+     "last": 0.86
     },
-    "dark": 0.82,
-    "wrap": 0.79,
-    "jitter": 1.75
+    "dark": 0.71,
+    "wrap": 0.8,
+    "jitter": 1.66
    }
   },
-  "meanColourDeltaE": 57.4
+  "meanColourDeltaE": 5.4
  },
  "caps": {
   "R2": 2,
-  "R3": 0,
+  "R3": 2,
   "R4": 2,
   "R5": 2
  },
  "scores": {
   "R1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Both are a looping flame, but the original is a soft, wispy, ragged patch of orange fire with several tongues licking up. The reproduction is a single smooth, hard-edged cone with a white core, which reads as a candle or torch tongue rather than the same burning-fire effect."
+   "score": 2,
+   "reason": "Both are a flame: a tongue of orange fire rising from the bottom of each frame, with the same look of a fire seen head-on."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Frame size matches (32x96). The fill does not. The original's flame spreads across most of the frame's width with soft edges that reach the border (border max 0.275, dark 0.42). The reproduction is a narrow, sharp-edged triangle on a mostly empty frame (border 0, dark 0.82), with none of the original's wide base or wisps on either side."
+   "reason": "Both are 32x96 as the original is, but the original's flame fills the frame top to bottom in every frame. In the reproduction, frames 0 to 7 leave the top third dark and the flame sits low, with weak tips, so the effect does not fill its frames as the original's does. Frames 8 to 14 fill them better."
   },
   "R3": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The measured mean colour difference is 57.4, far over the line of 15. The original is a dim, soft orange-red. The reproduction is mostly saturated white and yellow with orange only at the edges, so it is much brighter and hotter in colour."
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The hue is the same orange-to-yellow blend in both, and the measured mean colour difference of 5.4 is within 15. The darker stretches (frames 5, 6, 12, 13 in the reproduction) are a motion fault, charged to R4 rather than here."
   },
   "R4": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "16 frames against 15, well within 25%. Both are flickering loops with nearly flat envelopes (first/last 0.90/0.84 against 0.88/0.88), and both close their loop (wrap 0.79 against 1.13), so the measures allow a 2. The peak frame falls in a different place (0.73 against 0.07), but with envelopes this flat that is not a real difference in motion. The reproduction's tip sways more stiffly than the original's turbulent flicker, but it is the same kind of motion."
+   "score": 1,
+   "reason": "The frame count matches (15 against 15) and the loop closes (first 0.86, last 0.86, against the original's 0.9 and 0.84). The motion is wrong, though: the original stays bright and full through all frames with its envelope peaking near the start (0.07), while the reproduction peaks at 0.71 and drops into near-black troughs in frames 5, 6, 12 and 13. Its dark fraction is 0.71 against 0.42. The kind of motion, a flickering rise, is right, but the envelope is not the original's."
   },
   "R5": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "The type (parallel oriented) and format (additive) match the original's, as the harness read back from the file."
+   "score": 1,
+   "reason": "The type and format match: both are additive, and both are 32x96 with 15 frames. The name and the read-back of the file as written are not in the measurements or pictures I was given, so I cannot confirm them."
   }
  },
- "total": 6,
+ "total": 7,
  "of": 10,
  "passes": false
 }
