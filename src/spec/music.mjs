@@ -188,7 +188,7 @@ export function buildMusicSpec(spec, { readFile, ffmpeg = "ffmpeg" } = {}) {
   const mono = Float32Array.from(channels[0], (v, i) => (channels.length > 1 ? (v + channels[1][i]) / 2 : v));
   const f = features({ x: resample(mono, rate, 22050), rate: 22050 });
   const bands = Object.values(f.bands).map((b) => Math.round(b));
-  report.facts.push(`${name}: ${as === "mp3" ? "MP3, 44.1 kHz stereo, VBR quality 2" : "WAV, 22050 Hz mono 16-bit"}${spec.loop && as === "wav" ? ", a cue at its start: it loops" : ""}, ${round(channels[0].length / rate, 100)} s, ${Math.round(bytes.length / 1024)} KB; from ${spec.from.file} at ${spec.from.start ?? 0} s${made ? ` (made by ${made.model}${made.seed !== undefined ? ` seed ${made.seed}` : ""}${made.prompt ? ` from "${made.prompt}"` : ""}, licence ${made.licence ?? "not given"})` : ""}`);
+  report.facts.push(`${name}: ${as === "mp3" ? "MP3, 44.1 kHz stereo, VBR quality 2" : "WAV, 22050 Hz mono 16-bit"}${spec.loop && as === "wav" ? ", a cue at its start: it loops" : ""}, ${round(channels[0].length / rate, 100)} s, ${Math.round(bytes.length / 1024)} KB; from ${spec.from.file} at ${spec.from.start ?? 0} s${made ? ` (made by ${made.model}${made.seed !== undefined ? ` seed ${made.seed}` : ""}${made.prompt ? ` from "${made.prompt}"` : ""}, licence ${made.licence ?? "not given"}${made.licence && /\bNC\b|non-?commercial/i.test(made.licence) ? ", non-commercial" : ""})` : ""}`);
   report.facts.push(`${name}: ${after.lufs} LUFS (it was ${before.lufs}), loudness range ${after.range} LU, peak ${after.peak} dBFS; power under 150, 600, 2000, 5000 Hz and over: ${bands.join("/")}%`);
   if (spec.group) {
     const g = GROUPS[spec.group];
@@ -196,7 +196,7 @@ export function buildMusicSpec(spec, { readFile, ffmpeg = "ffmpeg" } = {}) {
   }
   if (spec.track !== undefined) report.facts.push(`track ${spec.track}: a map plays it with trigger_cdaudio or target_cdaudio, health ${spec.track} (one player only: the game sends it to the first client); it stands in for the game's own ${TRACKS[spec.track - 2]}.mp3 when put in <mod>/media/`);
   else if (as === "mp3" && /^media\//i.test(name) && !TRACKS.some((t) => name.toLowerCase() === `media/${t.toLowerCase()}.mp3`)) warnings.push(`${name}: the engine plays from media/ only the names of its CD track table (track 2 to 27): a map cannot play this one; a mod's own code may (mp3 play)`);
-  if (made?.licence && /\bNC\b|non-?commercial/i.test(made.licence)) warnings.push(`the take was made by ${made.model} under ${made.licence}: what is made with it may not be sold`);
+
   if (spec.loop && as === "mp3") warnings.push("an MP3 has no loop point: the game plays it once (cd play), or loops it with a small gap at each turn (the encoder's padding), untested; a bed that must loop without a gap is better a WAV (as: \"wav\") under an ambient_generic");
   report.ok = !errors.length && !report.faults.length;
   const picture = soundPicture([{ name, x: resample(mono, rate, 22050), rate: 22050 }], { width: 960 });

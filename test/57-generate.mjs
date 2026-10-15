@@ -98,7 +98,7 @@ async function generateCase() {
   // a take used in a sound spec through build
   const built = (await tools.build.call({ spec: { spec: "smak.sound/1", name: "weapons/hit.wav", layers: [{ kind: "sample", file: "work:gen/hit_s0.wav", from: "onset" }] } }))[0].text;
   sure(!/made of layers alone/.test(built), "no note once a take is used");
-  sure(/^OK/.test(built) && /made by clang seed 0 from "a wrench on a pipe", licence CC-BY-NC 4\.0/.test(built) && /may not be sold/.test(built), built);
+  sure(/^OK/.test(built) && /made by clang seed 0 from "a wrench on a pipe", licence CC-BY-NC 4\.0 \(non-commercial\)/.test(built) && !/may not be sold/.test(built), built);
   // refused in words
   for (const [args, said] of [[{ prompt: "", length: 1 }, /prompt:/], [{ prompt: "x", length: 0 }, /length:/], [{ prompt: "x", length: 1, model: "none" }, /model: one of clang \(sound\), tune \(music\)/], [{ prompt: "x", length: 1, seeds: 99 }, /seeds:/]]) {
     let message = "";

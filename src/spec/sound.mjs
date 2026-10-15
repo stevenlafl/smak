@@ -19,7 +19,7 @@ export const SOUND_SPEC = "smak.sound/1";
 const TOP = ["spec", "name", "class", "rate", "bits", "seed", "length", "pitch", "layers", "finish", "loop", "variants", "reference", "picture", "sounds", "note"];
 const LAYER = ["id", "kind", "file", "from", "at", "length", "gain", "env", "filter", "color", "shape", "iterations", "wave", "f", "sweep", "ratio", "index", "indexDecay", "ratios", "modes", "gains", "decay", "damping", "detune", "count", "rate", "every", "jitter", "band", "grain", "drive", "post", "note"];
 const KINDS = ["noise", "tone", "fm", "modes", "particles", "sample"];
-/** Licences a take's sidecar may name that do not allow selling what is made with it. */
+/** Licences a take's sidecar may name that do not allow selling what is made with it: told so in the report's facts. */
 const NON_COMMERCIAL = /\bNC\b|non-?commercial|research only/i;
 const FILTERS = ["lowpass", "highpass", "bandpass", "peak", "notch", "lowshelf", "highshelf"];
 /**
@@ -133,8 +133,8 @@ function sampleOf(layer, rate, readFile, fact, warn) {
   } catch {
     made = null;
   }
-  fact(`sample ${layer.file}: ${wav.rate} Hz ${wav.channels > 1 ? `${wav.channels} channels mixed, ` : ""}from ${Math.round(from * 1000) / 1000} s, ${Math.round((pcm.length / rate) * 1000) / 1000} s at ${rate}${made ? `; made by ${made.model ?? "?"}${made.seed !== undefined ? ` seed ${made.seed}` : ""}${made.prompt ? ` from "${made.prompt}"` : ""}, licence ${made.licence ?? "not given"}` : "; no sidecar says what made it"}`);
-  if (made?.licence && NON_COMMERCIAL.test(made.licence)) warn(`the sample ${layer.file} was made by ${made.model} under ${made.licence}: what is made with it may not be sold`);
+  fact(`sample ${layer.file}: ${wav.rate} Hz ${wav.channels > 1 ? `${wav.channels} channels mixed, ` : ""}from ${Math.round(from * 1000) / 1000} s, ${Math.round((pcm.length / rate) * 1000) / 1000} s at ${rate}${made ? `; made by ${made.model ?? "?"}${made.seed !== undefined ? ` seed ${made.seed}` : ""}${made.prompt ? ` from "${made.prompt}"` : ""}, licence ${made.licence ?? "not given"}${made.licence && NON_COMMERCIAL.test(made.licence) ? " (non-commercial)" : ""}` : "; no sidecar says what made it"}`);
+  // the licence is a fact the person weighs, not a warning: a warning read as a reason to drop every take (Steven, 2026-10-15)
   if (!pcm.length) throw new Error(`the sample ${layer.file} has nothing after ${from} s`);
   return { ...layer, pcm, pcmRate: rate };
 }

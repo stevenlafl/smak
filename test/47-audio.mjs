@@ -207,7 +207,7 @@ test("a sample layer: a generator's take cut at its first hit, brought to the so
   const firstLoud = made.x.findIndex((v) => Math.abs(v) > 0.05);
   sure(made.rate === RATE && firstLoud < RATE * 0.02 && made.samples <= RATE * 0.52, `rate ${made.rate}, first loud sample ${firstLoud}, ${made.samples} samples`);
   sure(report.facts.some((f) => /sample gen\/hit_s2\.wav: 48000 Hz 2 channels mixed, from 0\.29\d? s.*woosh-dflow seed 2 from "a wrench hitting a pipe", licence CC-BY-NC 4\.0/.test(f)), report.facts.join(" | "));
-  sure(report.warnings.some((w) => /may not be sold/.test(w)), report.warnings.join(" | "));
+  sure(report.facts.some((f) => /licence CC-BY-NC 4\.0 \(non-commercial\)/.test(f)) && !report.warnings.some((w) => /licen/i.test(w)), [...report.facts, ...report.warnings].join(" | "));
   sure(spec.layers[0].pcm === undefined, "the caller's spec left as it was");
   const missing = buildSoundSpec({ ...spec, layers: [{ kind: "sample", file: "gen/none.wav" }] }, { folder });
   sure(missing.report.errors.some((e) => /the sample gen\/none\.wav/.test(e)), missing.report.errors.join("; "));

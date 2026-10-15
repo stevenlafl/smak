@@ -482,7 +482,7 @@ The kinds of layer:
 | `fm` | `f`, `ratio`, `index`, `indexDecay` | a bell, a metallic ring, a machine |
 | `modes` | `f` and `ratios` (`bar`, `clamped`, `plate`, `bell`, `tube`, or a list), `gains`, `decay` (s to -60 dB), `damping`, `detune`; or `modes: [{ f, gain, decay }]` | a struck thing ringing: a wrench, a bell, a casing, a plate |
 | `particles` | `count` or `rate` (a second), `band: [lo, hi]` Hz, `grain` (s); or `every` (s) and `jitter` (0 to 1 of `every`) | gravel, a rattle, debris, crackle; with `every`, a train of pulses: a door's stop, a ratchet |
-| `sample` | `file` (a `.wav` in the work folder: a generator's take, any rate, channels and PCM or float), `from` (seconds into it, or `"onset"`: its first hit), `length` | a recording: brought to the sound's rate, cut, then filtered, enveloped (only when `env` is given: it keeps its own loudness otherwise), pitched and finished as any layer. A sidecar beside it (`hit_s2.json`: `model`, `prompt`, `seed`, `licence`) is told in the report, and a non-commercial licence warned of |
+| `sample` | `file` (a `.wav` in the work folder: a generator's take, any rate, channels and PCM or float), `from` (seconds into it, or `"onset"`: its first hit), `length` | a recording: brought to the sound's rate, cut, then filtered, enveloped (only when `env` is given: it keeps its own loudness otherwise), pitched and finished as any layer. A sidecar beside it (`hit_s2.json`: `model`, `prompt`, `seed`, `licence`) is told in the report's facts, a non-commercial licence said so |
 
 `env`: `{ attack, hold, decay }` in seconds (`decay` to -60 dB), `{ shape: "bell", decay }` (a swell up and
 down, a swing's whoosh), or `points: [[t, dB], ...]`. `filter`: a list of `{ type: lowpass | highpass |
@@ -515,7 +515,7 @@ the game's: a `lowpass` or a `highshelf` cut), the finish's `saturate` and `limi
 layers of your own under or over it (a `modes` ring, a noise crack, a `tone` thump). Build, read the class
 score, and change one thing at a time; another seed is another take. Layers alone are for what has no real
 source (a beep, a drone) or where no take comes near. Each take's sidecar names its model's licence, and the
-report warns of a non-commercial one: say so to the person.
+report's facts say when it is non-commercial: tell the person, whose call it is.
 
 **From a picture.** `audio.fromPicture(png)` reads a sound's picture as the kit draws it (its label gives the
 length, its marks the rate) and returns a draft spec of tens of numbers: one noise layer whose `shape` moves
@@ -565,7 +565,7 @@ the game plays: the game's music is 44.1 kHz stereo MP3 under `media/`, levelled
 | `group` | `action`, `ambient`, `between` or `stinger`: the game's tracks of that kind, their medians told beside it (not held to it: to the person's ear the share of bass said nothing of which take was better) |
 
 The report gives its loudness before and after, its loudness range, its peak, its power by band, what made the
-take (its sidecar) with a warning on a non-commercial licence, and, for a track, how a map plays it. Its file is
+take (its sidecar) and whether its licence is non-commercial, and, for a track, how a map plays it. Its file is
 written as the mod has it: `work:media/Half-Life01.mp3`, `work:sound/ambience/lab_bed.wav`. The map spec's
 `music` plays a track.
 
