@@ -712,7 +712,9 @@ stacked) with the wall's rock between them, and the link goes through that rock:
 - A way a player walks through is never narrower than they pass at ease: an opening or a sliding door 48, a door
   on hinges 56 (its leaf stands in the way when open). A narrower `width` (a house's drawing gives 36) is widened
   and the report says so; a shared wall too short to hold it is a fault: make the rooms share more wall, or leave
-  the way out. 32, a player's own width, is a squeeze the game may not let through.
+  the way out. 32, a player's own width, is a squeeze the game may not let through. And it is 96 high at least,
+  Valve's door height, and 90 over the lower floor where there is a step (the engine lifts the body by up to 18
+  before it moves over one), as far as the rooms' ceilings allow.
 
 ### Where things go in a room
 
