@@ -38,8 +38,9 @@ grooves and steady drones**: the game's action tracks rise and fall (loudness ra
 models' hardly move (ACE-Step 2.0 to 2.5 LU). And all of them put far more of their power under 150 Hz than the
 game does. Neither model makes a stinger as the game's are: they make short pieces of music.
 
-Steven listened (section 6a): ACE-Step follows music theory best, XL varies more between takes, and MusicGen
-is out. So **ACE-Step 1.5 turbo (2B)** is the music default and XL a choice for variety: MIT, twenty times faster
+Steven listened (section 6a): ACE-Step follows music theory best, and over all four action seeds XL wins on
+sound; the planner and MusicGen are out. So **ACE-Step 1.5 XL turbo** is the music default and the 2B the fast
+choice: MIT, twenty times faster
 than real time here, with tempo, key and metre as inputs and its own repaint for loops and fixes. It shares the
 sound leg's `generate` tool (a `model` that is a music model) and a small spec of its own, `smak.music/1`, that
 cuts, loops, levels and names the file for the game.
@@ -349,8 +350,11 @@ rounding).
 His favourite take: `acestep/action.wav` ("I quite like it"), the 2B's seed 0 on the first action prompt (75 s,
 140 BPM, D minor; section 3). That prompt is the starting point for an action cue.
 
-So: ACE-Step 2B is the default music model, XL stays in the manifest for an agent that wants more varied
-takes, and the planner and MusicGen are dropped.
+Then, after the 2B's and XL's four action seeds side by side: "the sound fidelity is great with XL, I would
+almost prefer it", and "XL wins overall".
+
+So: ACE-Step XL is the default music model (12.4 GB with its DiT offloaded, 10 to 13.5 s a 75 s track), the 2B
+stays in the manifest as the fast choice (4 s), and the planner and MusicGen are dropped.
 
 ## 7. What each did, by the numbers and the pictures
 
@@ -388,8 +392,8 @@ its worker script, rate, window, licence and VRAM. Music adds entries, not a too
 ```
 
 - **Inputs**: `{ model, prompt, length, seeds, name }` as for a sound, plus for music `bpm`, `key`, `metre` and
-  `loop: true`. With no `model`, a `kind: "music"` call takes the manifest's first music model (ACE-Step 2B if
-  Steven agrees; Woosh-DFlow stays the sound default, his call), so an agent says what it wants, not which
+  `loop: true`. With no `model`, a `kind: "music"` call takes the manifest's first music model (ACE-Step XL,
+  Steven's pick; Woosh-DFlow stays the sound default, his call), so an agent says what it wants, not which
   model. A model's `inputs` says what it honours; a field it does not take is reported, not dropped silently.
 - **Loops in the worker**: for a model that can repaint (ACE-Step), the turn-and-repaint of section 4, with the
   length rounded to whole bars when there is a tempo; for one that cannot, the take 4 s long for the spec's
@@ -398,9 +402,9 @@ its worker script, rate, window, licence and VRAM. Music adds entries, not a too
   tempo, key, licence), and for each take the measures of this report (length, LUFS, loudness range, tempo,
   pulse, percussive share, bands), its distance from the game's group when a `group` is given, the loop seam,
   and one picture of all the takes, one under another (`soundPicture`), returned as an image.
-- **Time**: one worker process kept alive per server, as for sounds. ACE-Step 2B is 4 s a 75 s track after a
-  40 to 75 s load, so four seeds of a track cost about 20 s; the tool's timeout is minutes.
-- **Memory**: ACE-Step 2B 11 GB, the planner 15 GB: one model loaded at a time, and the worker stopped after
+- **Time**: one worker process kept alive per server, as for sounds. ACE-Step XL is 10 to 13.5 s a 75 s track
+  after a 150 s load, so four seeds of a track cost about a minute (the 2B: 4 s, about 20 s); the tool's timeout is minutes.
+- **Memory**: ACE-Step XL 12.4 GB with its DiT offloaded, the 2B 11 GB: one model loaded at a time, and the worker stopped after
   idle minutes so a game can have the card back.
 
 ### The spec: `smak.music/1`
@@ -480,9 +484,9 @@ player through these entities.
 
 1. The numbers put every model's best takes about as near the game's as each other (dist 0.85 to 1.15 for
    action) and could not say which sounds like Half-Life; Steven's ear did (section 6a).
-2. **ACE-Step 1.5 turbo (2B) in bf16** as the music default: MIT weights and a card that allows commercial use,
-   4 s a 75 s track, tempo and key as inputs, repaint for loops and fixes, and to Steven's ear the one that
-   follows music theory best. **XL** as a selectable model for more varied takes, at three times the time.
+2. **ACE-Step 1.5 XL turbo in bf16** as the music default: MIT weights and a card that allows commercial use,
+   tempo and key as inputs, repaint for loops and fixes, and to Steven's ear the best sound (section 6a), at
+   10 to 13.5 s a 75 s track. **The 2B** as the fast choice, 4 s a track.
    The planner and MusicGen are dropped (his ear, and MusicGen is NC and forty times slower).
 3. Prompts: give a tempo only to music that should have a beat; say "beatless, no drums, no rhythm" for ambient.
    Ask for the game's tempo range (100 to 136) rather than 140 to 170. Make loops a whole number of bars.
