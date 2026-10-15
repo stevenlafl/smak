@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "player-pl_step1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.266,
+   "peak": -0.1,
+   "rms": -21.1,
+   "crest": 21,
+   "dc": -0.0043,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.005,
+   "t20": 0.09,
+   "t40": 0.264,
+   "centroid": 853,
+   "rolloff": 2326,
+   "flatness": 0.27,
+   "bands": {
+    "<150": 26.8,
+    "150-600": 48.3,
+    "600-2k": 8.5,
+    "2k-5k": 15.1,
+    ">5k": 1.4
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.27,
+   "peak": -0.6,
+   "rms": -22.1,
+   "crest": 21.5,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0,
+   "peakAt": 0,
+   "t20": 0.095,
+   "t40": 0.254,
+   "centroid": 866,
+   "rolloff": 2121,
+   "flatness": 0.317,
+   "bands": {
+    "<150": 18.6,
+    "150-600": 49.2,
+    "600-2k": 16.5,
+    "2k-5k": 14.9,
+    ">5k": 0.8
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "step concrete",
+   "t20Range": [
+    0.04,
+    0.18
+   ],
+   "t20": 0.095,
+   "inRange": true
+  },
+  "lengthOff": 0.015,
+  "centroidOff": 0.015,
+  "bandsOffMost": 8.2,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the pictures and features only, since I cannot listen. Both are a short footstep on a hard surface. Each has one sharp impact right at the start, a small second scuff at about 0.08-0.09 s in the same place, and a low tail that decays to near silence by 0.27 s. The coarse spectrogram columns line up, including the bright band in the fourth column of each. Nothing points to a different event."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: length 0.270 s against 0.266 s, 1.5% off, inside the 25% allowed. The attack is instant in both. T20 is 0.095 s against the original's 0.09 s, inside the step-concrete class range of 0.04-0.18 s. T40 is close too (0.254 s against 0.264 s)."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: the centroid is 866 Hz against 853 Hz, 1.5% off. Every band share is within 10 points, but two are near the limit. The <150 Hz band is 18.6 against 26.8, 8.2 points down, and the 600-2k band is 16.5 against 8.5, 8.0 points up. So the reproduction is somewhat less bassy and more mid-heavy than the original, but it stays inside the rubric's line. Rolloff is 2121 Hz against 2326 Hz. The spectrograms agree to a close look."
+  },
+  "S4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the pictures and features only, since I cannot listen. Neither has any detected onsets (0 and 0). Both have the same single impact followed by one small secondary scuff at the same time. Flatness is 0.317 against 0.27: slightly noisier, but the same noise-like texture. Neither has any pitch movement. One small difference: the original's first burst has a few separate swings over about 0.02 s, with its peak at 5 ms, while the reproduction peaks at 0 ms and its burst is a little denser. That is fine detail and does not change the character."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono PCM, 11025 Hz, 8 bits, the same format as the original. Nothing is clipped, DC is 0, the peak is at -0.6 dB and the name is the same. A footstep has no loop cue and none is needed. No engine faults were reported."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

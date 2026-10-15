@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "items-smallmedkit1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 0.763,
+   "peak": -3,
+   "rms": -14.1,
+   "crest": 11.1,
+   "dc": -0.0033,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.09,
+   "t20": 0.673,
+   "t40": 0.673,
+   "centroid": 2177,
+   "rolloff": 6072,
+   "flatness": 0.128,
+   "bands": {
+    "<150": 0.1,
+    "150-600": 14.7,
+    "600-2k": 59.5,
+    "2k-5k": 3.9,
+    ">5k": 21.7
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 0.76,
+   "peak": -0.6,
+   "rms": -10.8,
+   "crest": 10.2,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.08,
+   "t20": 0.678,
+   "t40": 0.683,
+   "centroid": 1741,
+   "rolloff": 5642,
+   "flatness": 0.156,
+   "bands": {
+    "<150": 0.2,
+    "150-600": 67.5,
+    "600-2k": 11.7,
+    "2k-5k": 3.9,
+    ">5k": 16.8
+   },
+   "onsets": 1
+  },
+  "envelope": {
+   "class": "none: the original's own decay",
+   "t20Range": [
+    0.505,
+    0.841
+   ],
+   "t20": 0.678,
+   "inRange": true
+  },
+  "lengthOff": 0.004,
+  "centroidOff": 0.2,
+  "bandsOffMost": 52.8,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 0,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture and features only; I cannot listen. Both have the same three-part event: three gated beeps (about 0 to 0.34 s), a quiet stretch, then a broadband hiss burst from about 0.66 s to the end. That reads as the same medkit beep-then-spray pickup. The differences in tone and the quiet middle section are scored under S3 and S4."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: length 0.760 s against 0.763 s (0.4% off). Both have an instant attack (0). T20 is 0.678 s, inside the original's own-decay range of 0.505 to 0.841 s. The waveforms line up segment for segment in time."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": 0,
+   "score": 0,
+   "reason": "The band shares are far off. The original's energy sits in 600-2k (59.5%), from a single strong beep tone near the middle of its spectrogram. The reproduction moves it to 150-600 (67.5%), with only 11.7% in 600-2k. Most-off band is 52.8 points against the 10-point limit. The >5k share is 16.8 against 21.7. The centroid is 1741 Hz against 2177 Hz, 20% off, which is right at the limit. The reproduction's beeps are pitched lower and are a stack of many harmonics, where the original has a near-pure line."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only; I cannot listen. The onsets match: one measured onset each, and the beeps are gated at the same rhythm. Flatness is close (0.156 against 0.128). Two things are clearly off. First, the original's beeps are a near-pure tone, while the reproduction's are a buzzy, harmonic-rich square-like tone. Second, the original's middle section (about 0.34 to 0.65 s) has broadband clicks and rattles, strongest around 0.41 s and 0.51 s; in the reproduction that section is nearly empty, with only a faint blip. The end hiss in the original also has a band-limited high streak that the reproduction spreads into broader noise."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono 8-bit PCM at 22050 Hz, no clipping (0), DC 0, peak -0.6 dB, same name, and the harness reports no engine faults. Nothing shows a loop cue in the original that would be missing here."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

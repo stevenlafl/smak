@@ -1,25 +1,23 @@
-The build says OK: `weapons/cbar_hit1.wav` is in the work folder at `sound/weapons/cbar_hit1.wav`. It's 11025 Hz, 8-bit mono, 0.69 s, and every engine check passed. Drop it into `<mod>/sound/weapons/` and the game plays it in place of the crowbar's own hit, with no code change.
+The sound is built and the build says OK: `work:sound/weapons/cbar_hit1.wav`, 11025 Hz, 8-bit mono, 0.69 s, peak -0.6 dBFS. It is written under `sound/` so it takes the place of the game's own `weapons/cbar_hit1.wav` when put in a mod's `sound` folder.
 
-Measured against the original's picture:
+**Measured against the original's picture:**
 
-```
-               original (read off picture)   mine
-length         0.69 s                        0.69 s
-centroid       1467 Hz                       1435 Hz   (2% off)
-crest          ~9.8 dB (+/-3)                10.0 dB
-T20            0.24-0.7 s (class range)      0.474 s
-bands          -                             6.3 points off at most (600-2k Hz)
-onsets         0                             0
-```
+| Feature | Original (from picture) | Made sound |
+| --- | --- | --- |
+| Length | 0.69 s | 0.69 s (exact) |
+| Centroid | 1467 Hz | 1332 Hz (9% off) |
+| Band 600 Hz to 2 kHz | about 80% (read off the picture) | 75% (6 points off) |
+| Crest | about 9.8 dB | 9 dB |
+| Attack | instant | 0 ms |
+| T20 | 0.24 to 0.7 s | 0.53 s |
 
-What it's made of: a shaped noise body that stays loud for about 0.3 s, drops sharply around 0.33 s and then fades out. Its top end darkens over time, as in the original. On top of that are a band-limited rattle, a 20 ms strike and a 1060 Hz sine ring, which draws as the same tone line the original shows. The whole thing runs through light saturation.
+Against the game's own metal hits, all 22 features are in range.
 
-Two things to know:
-- **Noisiness:** it scores 21 of 22 against the game's metal hits. The one miss is that it's a bit noisier than the class: spectral flatness (0 is a pure tone, 1 is white noise) is 0.35 against a range of 0.16 to 0.28. The picture doesn't give the original's own flatness, so I can't tell whether the original sits in that range too. Turning the ring up fixes the score, but then the tone line drowns the noise and the bands go off.
-- **The `modes` layer misbehaved:**
-  - Changing the layer gain from -6 to -5 dB gave identical output.
-  - Quieter overtones (per-mode gains of -12 and -18 dB) came out louder than the main tone.
-  
-  I switched the ring to a plain `tone` layer, which behaved as expected. It may be a smak bug worth a look.
+**Choices I made:**
+- **Layers:** a short high-passed crack at the start, a broadband body that starts at full level and falls after about 0.3 s, a small bloom near 0.28 s (the second bump in the picture), and a 1 kHz modal ring for the metallic tone.
+- **No room reverb:** the room tail pushed the length to 0.98 s, past the original's 0.69 s, so I left it out. The map's `env_sound` can add room.
+- **Seed 3:** the same spec always gives the same bytes.
 
-The build can't check how it sounds or how it sits in-game (volume, pitch as the code plays it, the map's room), so it needs a listen in the game.
+**What I could not check:** I can't listen, so "at least as good" is judged only by the measurements above, not by ear. The picture's numbers are read off the spectrogram, so they are approximate. I also did not check the sound's volume or pitch as the game plays it. Listening in the game is the real test.
+
+The spec itself is only in this chat, not saved to a file. Say if you want it saved next to the work folder so it can be re-run.

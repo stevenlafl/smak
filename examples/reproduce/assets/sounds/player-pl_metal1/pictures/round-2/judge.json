@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "player-pl_metal1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.582,
+   "peak": 0,
+   "rms": -15.5,
+   "crest": 15.5,
+   "dc": -0.0104,
+   "clipped": 1,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.025,
+   "peakAt": 0.045,
+   "t20": 0.424,
+   "t40": 0.539,
+   "centroid": 360,
+   "rolloff": 624,
+   "flatness": 0.057,
+   "bands": {
+    "<150": 34.8,
+    "150-600": 43.8,
+    "600-2k": 19.6,
+    "2k-5k": 1.8,
+    ">5k": 0.1
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.58,
+   "peak": -0.6,
+   "rms": -16.6,
+   "crest": 16,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.005,
+   "peakAt": 0.005,
+   "t20": 0.409,
+   "t40": 0.569,
+   "centroid": 409,
+   "rolloff": 646,
+   "flatness": 0.1,
+   "bands": {
+    "<150": 32.8,
+    "150-600": 50.9,
+    "600-2k": 13.2,
+    "2k-5k": 3,
+    ">5k": 0.1
+   },
+   "onsets": 1
+  },
+  "envelope": {
+   "class": "step metal",
+   "t20Range": [
+    0.315,
+    0.525
+   ],
+   "t20": 0.409,
+   "inRange": true
+  },
+  "lengthOff": 0.003,
+  "centroidOff": 0.136,
+  "bandsOffMost": 7.1,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the pictures and features only, since I cannot listen. Both read as a short footstep on metal. Energy is front-loaded with no lead-in and decays smoothly over about 0.58 s. Most of the energy is low (about 78% to 84% below 600 Hz) and above 5 kHz is empty in both. The spectrogram keeps the original's horizontal resonance bands through the decay, though they are fainter (that is S4's item). The burst near 0.17 s in the reproduction's waveform and its smoother ring are not enough to make it a different event."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 0.580 s against 0.582 s, 0.3% off. T20 is 0.409 s, inside the step-metal class range of 0.315 to 0.525 (the original's is 0.424). T40 is 0.569 against 0.539. The attack is sharper than the original's: 0.005 s against 0.025 s, with the peak at 0.005 s against 0.045 s. For a footstep that is still a percussive attack of the same kind, and the measured decay is in range."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 409 Hz against 360, 13.6% off, inside 20%. Rolloff is 646 against 624. The largest band difference is 7.1 points, in 150-600 Hz (50.9 against 43.8), with 600-2k at 13.2 against 19.6 (6.4 points). Every band is within 10 points. The spectrograms agree: low-dominant, with the top fading through the decay."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the pictures and features only, since I cannot listen. Flatness is 0.10 against 0.057, nearly twice as noisy. In the original's spectrogram, distinct horizontal tonal lines (the metal's resonance) run through the decay. In the reproduction those lines are fainter and smeared into broadband texture. The onset count differs: 1 against 0. The reproduction's waveform has a second strong burst at about 0.17 s that the original lacks, since the original's energy is concentrated in its first ~0.12 s. The ringing, tonal metal character is weaker, and the transient structure differs."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono PCM at 11025 Hz, 8-bit, the original's format. Peak is -0.6 dBFS with no clipped samples and a DC offset of 0 (the original itself has 1 clipped sample and DC of -0.0104). The name is the same. Nothing indicates a loop cue in the original, and none is needed."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

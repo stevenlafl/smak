@@ -1,35 +1,18 @@
-The shotgun blast builds OK and every check passed. It's written to `work:sound/weapons/sbarrel1.wav`, so it replaces the game's file when you put it in `<mod>/sound/weapons/`.
+The sound is built and the build says OK: `weapons/sbarrel1.wav` is at `work:sound/weapons/sbarrel1.wav`. It is 22050 Hz, 8-bit, mono, 1.04 s long, and the report marks it 22 of 22 against the game's gunshot sounds, with every feature in range. It goes in `<mod>/sound/weapons/` to replace the game's file.
 
-```
-                     made                 original (as described)
-format               22050 Hz 8-bit mono  22050 Hz 8-bit mono, played once
-length               1.04 s               1.04 s
-peak / RMS / crest   -0.6 / -10.6 / 10 dB clipped, saturated attack
-attack               10 ms                full scale in the first few ms
-T20 / T40            0.53 s / 0.96 s      falls 0.3-0.6 s, quiet rumble after
-centroid             827 Hz               mostly 50-500 Hz
-power <150 Hz        19.7%
-power 150-600 Hz     42.6%
-power 600-2k Hz      28.1%
-power 2k-5k Hz        7.5%
-power >5k Hz          2.0%                noise up to 8-10 kHz in the attack only
-gunshot class range  22 of 22 in range
-```
+Limits of what I checked:
+- No reference file was supplied, so the comparison is against the range of the game's gunshot sounds, not against the original waveform. I could not hear it or hear it in the game. Please listen beside the original.
+- The "crackle" on the first quarter-second comes from a drive of 5 on the boom layer. Drive is sensitive: at 4 the decay was too short, and at 6 it was too long. The 5 setting sits in the middle, so it's the one to keep.
 
-(T20 and T40 are the seconds it takes to fall by 20 dB and 40 dB.)
+What the final build does, against your description:
+- **Attack:** instant (0 ms onset), with a boom from noise shaped to 50 to 500 Hz and highs reaching about 10 kHz early on. The highs fall away by about 0.3 s.
+- **Body:** the envelope holds near full level to about 0.3 s, then falls steadily to -12 dB at 0.6 s and -22 dB at 1.0 s.
+- **Thump:** a sine falling from 110 Hz to 45 Hz, at -14 dB.
+- **Pops:** five faint pops in the first 0.3 s, plus a ragged burst of echo from 0.3 s.
+- **Tail:** brown noise low-passed at 300 Hz from 0.5 s to the end.
+- **Crack:** a short high-passed noise burst (2 kHz and up), added after the limiter.
+- **Finish:** a limiter at 8 dB crest (peak over RMS), with the peak set to -0.5 dBFS.
 
-**How it's made:**
-- **Main blast:** saturated noise whose spectrum changes over time. The first 0.25 s is held hot and reaches up to about 10 kHz. It then drops away until about 0.6 s and ends as a low-passed rumble that's still fading at 1.04 s.
-- **Low-end thump:** a sine that drops from 100 Hz to 45 Hz.
-- **Echo pops:** a few faint bursts in the first 0.3 s.
-- **Crack:** a 3 ms click at the very start.
-- **Finish:** saturation, then a limiter set to a 10 dB crest so the attack sounds clipped. The 8-bit file adds the grit.
+Spectral and decay numbers from the final report: centroid 708 Hz, flatness 0.099 (not a tone), T20 0.963 s (range 0.46 to 1.01 s), and power split 29% under 150 Hz, 41% 150 to 600 Hz, 21% 600 Hz to 2 kHz, 7% 2 to 5 kHz, 2% above 5 kHz.
 
-In the spectrogram, the highs die off by about 0.3 s and the lows hang on to the end. There's no tone, no pitch and no mechanical clicks.
-
-**Where it differs from the description:**
-- The attack measures 10 ms, a little slower than "the first few milliseconds".
-- The tool counts 2 onsets (separate hits), which are the faint echo pops.
-- Its energy centre is 827 Hz. That's brighter than "mostly 50-500 Hz" suggests, but I went this way because the darker version I built first was below the range of the game's gunshots.
-
-I didn't have the original to compare against, so these numbers are only checked against the description. How it sounds and how loud it plays in game can only be judged by listening in the game.
+The spec exists only in this conversation; it is not saved as a file in the work folder. Say if you want it saved next to the sound.

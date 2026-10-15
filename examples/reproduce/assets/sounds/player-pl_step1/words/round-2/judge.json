@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "player-pl_step1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 0.266,
+   "peak": -0.1,
+   "rms": -21.1,
+   "crest": 21,
+   "dc": -0.0043,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.005,
+   "t20": 0.09,
+   "t40": 0.264,
+   "centroid": 853,
+   "rolloff": 2326,
+   "flatness": 0.27,
+   "bands": {
+    "<150": 26.8,
+    "150-600": 48.3,
+    "600-2k": 8.5,
+    "2k-5k": 15.1,
+    ">5k": 1.4
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.27,
+   "peak": -0.6,
+   "rms": -17.6,
+   "crest": 17,
+   "dc": -0.0015,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0,
+   "peakAt": 0.005,
+   "t20": 0.085,
+   "t40": 0.205,
+   "centroid": 688,
+   "rolloff": 1174,
+   "flatness": 0.242,
+   "bands": {
+    "<150": 18.4,
+    "150-600": 57.6,
+    "600-2k": 12.9,
+    "2k-5k": 10.9,
+    ">5k": 0.3
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "step concrete",
+   "t20Range": [
+    0.04,
+    0.18
+   ],
+   "t20": 0.085,
+   "inRange": true
+  },
+  "lengthOff": 0.015,
+  "centroidOff": 0.193,
+  "bandsOffMost": 9.3,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the pictures and features only, since I cannot listen. Both are a single footstep on a hard floor. Each has a sharp broadband hit at 0.005 s, a quick decay and a smaller second scuff at about 0.08 s. Flatness is about the same (0.27 vs 0.242), with no pitched tone in either. The reproduction reads as the same event."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 0.27 s against 0.266 s, only 1.5% off. Attack is 0 in both. T20 is 0.085 s, inside the step concrete class range of 0.04 to 0.18 s, and close to the original's 0.09 s."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured terms only just pass: the centroid is 19.3% off against a 20% limit, and the largest band gap is 9.3 points (150-600 Hz, 57.6 vs 48.3) against a 10-point limit. The measurement misses something the picture shows. The rolloff falls by half, from 2326 Hz to 1174 Hz. The 2k-5k band drops from 15.1 to 10.9 and the >5k band from 1.4 to 0.3. In the spectrogram, the reproduction's upper half goes dark red to purple from the fifth column on, while the original stays orange through to the end. The reproduction is duller and has less high-frequency grit than the original."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the pictures and features only, since I cannot listen. Flatness is close and there is no pitch movement in either, but the shape of the hit differs. The original is one narrow spike that dies within about 0.02 s, with a faint scuff near 0.08 s. The reproduction's first burst is a dense cluster of large peaks lasting about 0.05 s, and its second scuff at 0.08 s is much stronger relative to the hit. Crest factor is lower (17 vs 21) and RMS is 3.5 dB louder. The heel-toe rhythm is there, but the impact is smeared rather than a single crack."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono 8-bit PCM at 11025 Hz, the same format as the original. Nothing is clipped, and the DC offset of -0.0015 is negligible, smaller than the original's -0.0043. It keeps the same name, player/pl_step1.wav. A one-shot footstep needs no loop cue, and the engine reports no faults."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

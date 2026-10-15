@@ -1,24 +1,18 @@
-The sound is built as `debris/bustmetal1.wav` and the build says OK. It's 11025 Hz, 8-bit mono, 0.87 s, so it drops in where the original goes.
+`debris/bustmetal1.wav` is built and the build says OK. It is written to the server's work folder as `sound/debris/bustmetal1.wav`, so it takes the game's place when put in `<mod>/sound`. I can't listen to it, so the match rests on the measurements below.
 
-Measured against the original's picture:
+I read the original's picture (`input/sound.png`) and the build's report against it:
 
-```
-measure        ours        original (read off picture)
-length         0.87 s      0.87 s
-centroid       1968 Hz     1896 Hz   (4% off)
-worst band     150-600 Hz, 2.4 points off
-T20            0.559 s     0.24 to 0.7 s range
-crest          12 dB       ~12.4 dB  (within 3 dB read accuracy)
-onsets         0           0
-```
+| Measure | Original (from its picture) | Built | Off by |
+| --- | --- | --- | --- |
+| Length | 0.87 s | 0.87 s | 0% |
+| Centroid (brightness) | 1896 Hz | 1987 Hz | 5% |
+| Crest (peak over RMS) | about 12.4 dB | 12 dB | within 3 dB |
+| Decay T20 | 0.24 to 0.7 s range | 0.53 s | in range |
+| Onsets | 0 | 0 | none |
+| Worst band (150-600 Hz) | | | 2.9 points |
 
-The centroid is the "average" frequency, which tells you how bright it sounds. T20 is how long it takes to drop 20 dB.
+Format: 11025 Hz, 8-bit, mono, peak -0.6 dBFS. The spec is a broadband noise body with a crisp onset, a fine grit of short particles, and a short plate-like ring. The final spec is in this conversation, not saved to a file. I can save it into the project if you want it kept.
 
-How it's built:
-- **Main crash:** a broadband noise layer whose spectrum moves over time. It's loud and full for the first ~0.1 s, then fades steadily to silence near 0.8 s, like the original.
-- **Metal ring:** two ringing layers, a plate and a bell, slightly detuned. They give the faint pitched lines seen in the original's spectrogram.
-- **Rattle and onset:** a scatter of fragment ticks, plus a 20 ms high crack at the start.
+Two flags in the report stay, on purpose. The game's metal hit sounds are shorter and more tonal (flatness 0.16 to 0.28, length 0.37 to 0.86 s). The original is a long, noisy crash, so matching it means not matching those.
 
-The report also flags 5 of 22 features as outside the range of the game's "metal hit" sounds: too long, too bright, too noisy, and too much energy above 2 kHz relative to the 600-2k band. I left those alone on purpose. The original's own centroid of about 1896 Hz is outside that range too, and it's a debris crash, not a single strike. Making it fit the metal-hit range would have pulled it away from the original.
-
-All of this comes from pictures and numbers. I haven't heard it, and how it plays depends on the game's volume and pitch and the map's room. Give it a listen in game next to the original. It's in the work folder at `sound/debris/bustmetal1.wav`; copy it to `<mod>/sound/debris/` to use it.
+Listen to it in the game before calling it done. Volume and pitch as the engine plays it, and the map's room, can't be checked from here.

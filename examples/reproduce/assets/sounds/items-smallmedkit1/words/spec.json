@@ -1,18 +1,19 @@
 {
   "spec": "smak.sound/1",
   "name": "items/smallmedkit1.wav",
-  "bits": 8,
   "rate": 22050,
+  "bits": 8,
   "length": 0.76,
   "seed": 7,
   "layers": [
     {
-      "id": "p1",
+      "id": "pulse1",
       "kind": "tone",
-      "f": 270,
+      "f": 265,
       "wave": "square",
       "at": 0,
       "length": 0.035,
+      "gain": -8,
       "env": {
         "points": [
           [
@@ -20,7 +21,7 @@
             0
           ],
           [
-            0.033,
+            0.0345,
             0
           ],
           [
@@ -28,22 +29,16 @@
             -60
           ]
         ]
-      },
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 4000
-        }
-      ],
-      "gain": -2
+      }
     },
     {
-      "id": "p2",
+      "id": "pulse2",
       "kind": "tone",
-      "f": 270,
+      "f": 265,
       "wave": "square",
       "at": 0.05,
       "length": 0.1,
+      "gain": -8,
       "env": {
         "points": [
           [
@@ -51,7 +46,7 @@
             0
           ],
           [
-            0.098,
+            0.0995,
             0
           ],
           [
@@ -59,22 +54,16 @@
             -60
           ]
         ]
-      },
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 4000
-        }
-      ],
-      "gain": -2
+      }
     },
     {
-      "id": "p3",
+      "id": "pulse3",
       "kind": "tone",
-      "f": 270,
+      "f": 265,
       "wave": "square",
       "at": 0.17,
       "length": 0.09,
+      "gain": -8,
       "env": {
         "points": [
           [
@@ -82,7 +71,7 @@
             0
           ],
           [
-            0.088,
+            0.0895,
             0
           ],
           [
@@ -90,124 +79,211 @@
             -60
           ]
         ]
-      },
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 4000
-        }
-      ],
-      "gain": -2
+      }
     },
     {
-      "id": "e1",
+      "id": "edge1",
       "kind": "noise",
       "color": "white",
       "at": 0,
-      "length": 0.01,
+      "length": 0.006,
+      "gain": -8,
       "env": {
-        "decay": 0.006
-      },
-      "gain": -14
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.002,
+            -6
+          ],
+          [
+            0.006,
+            -60
+          ]
+        ]
+      }
     },
     {
-      "id": "e2",
+      "id": "edge2",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.035,
+      "length": 0.006,
+      "gain": -8,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.002,
+            -6
+          ],
+          [
+            0.006,
+            -60
+          ]
+        ]
+      }
+    },
+    {
+      "id": "edge3",
       "kind": "noise",
       "color": "white",
       "at": 0.05,
-      "length": 0.01,
+      "length": 0.006,
+      "gain": -8,
       "env": {
-        "decay": 0.006
-      },
-      "gain": -14
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.002,
+            -6
+          ],
+          [
+            0.006,
+            -60
+          ]
+        ]
+      }
     },
     {
-      "id": "e3",
-      "kind": "noise",
-      "color": "white",
-      "at": 0.17,
-      "length": 0.01,
-      "env": {
-        "decay": 0.006
-      },
-      "gain": -14
-    },
-    {
-      "id": "e4",
+      "id": "edge4",
       "kind": "noise",
       "color": "white",
       "at": 0.15,
-      "length": 0.008,
+      "length": 0.006,
+      "gain": -8,
       "env": {
-        "decay": 0.005
-      },
-      "gain": -18
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.002,
+            -6
+          ],
+          [
+            0.006,
+            -60
+          ]
+        ]
+      }
     },
     {
-      "id": "e5",
+      "id": "edge5",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.17,
+      "length": 0.006,
+      "gain": -8,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.002,
+            -6
+          ],
+          [
+            0.006,
+            -60
+          ]
+        ]
+      }
+    },
+    {
+      "id": "edge6",
       "kind": "noise",
       "color": "white",
       "at": 0.26,
-      "length": 0.008,
+      "length": 0.006,
+      "gain": -8,
       "env": {
-        "decay": 0.005
-      },
-      "gain": -18
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.002,
+            -6
+          ],
+          [
+            0.006,
+            -60
+          ]
+        ]
+      }
     },
     {
       "id": "rustle",
       "kind": "noise",
-      "color": "pink",
+      "color": "white",
       "at": 0.26,
       "length": 0.26,
+      "gain": -28,
       "filter": [
         {
-          "type": "bandpass",
-          "f": 1500,
-          "q": 0.6
+          "type": "highpass",
+          "f": 300
+        },
+        {
+          "type": "lowpass",
+          "f": 4000
         }
       ],
       "env": {
         "points": [
           [
             0,
-            -6
-          ],
-          [
-            0.08,
             0
           ],
           [
-            0.16,
-            -4
+            0.05,
+            0
+          ],
+          [
+            0.22,
+            0
           ],
           [
             0.26,
-            -2
+            -60
           ]
         ]
-      },
-      "gain": -18
+      }
     },
     {
       "id": "ticks",
       "kind": "particles",
-      "at": 0.27,
-      "length": 0.24,
-      "count": 6,
+      "every": 0.035,
+      "jitter": 0.6,
       "band": [
-        1000,
-        5000
+        800,
+        3000
       ],
-      "grain": 0.002,
-      "gain": -20
+      "grain": 0.004,
+      "at": 0.26,
+      "length": 0.26,
+      "gain": -28
     },
     {
-      "id": "click",
+      "id": "fumbleclick",
       "kind": "noise",
       "color": "white",
       "at": 0.4,
-      "length": 0.006,
+      "length": 0.01,
+      "gain": -14,
       "filter": [
         {
           "type": "highpass",
@@ -215,62 +291,87 @@
         }
       ],
       "env": {
-        "decay": 0.004
-      },
-      "gain": -10
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.001,
+            -3
+          ],
+          [
+            0.01,
+            -60
+          ]
+        ]
+      }
     },
     {
       "id": "hiss",
       "kind": "noise",
+      "color": "white",
       "at": 0.52,
       "length": 0.24,
-      "iterations": 32,
+      "gain": 0,
       "shape": [
         [
-          200,
-          -35
+          60,
+          -30
         ],
         [
-          1500,
-          -22
+          300,
+          -24
         ],
         [
-          4000,
-          -6
+          1000,
+          -16
         ],
         [
-          5500,
+          3000,
+          -8
+        ],
+        [
+          5000,
+          -2
+        ],
+        [
+          7000,
           0
         ],
         [
-          9500,
-          0
+          9000,
+          -1
         ],
         [
-          11000,
-          -6
+          10000,
+          -4
+        ],
+        [
+          12000,
+          -12
+        ],
+        [
+          16000,
+          -28
         ]
       ],
       "env": {
         "points": [
           [
             0,
-            -60
+            0
           ],
           [
-            0.003,
+            0.235,
             0
           ],
           [
             0.24,
-            0
+            -60
           ]
         ]
-      },
-      "gain": -1
+      }
     }
-  ],
-  "finish": {
-    "peak": -0.5
-  }
+  ]
 }

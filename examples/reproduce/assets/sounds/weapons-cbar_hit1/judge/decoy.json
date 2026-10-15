@@ -31,25 +31,25 @@
   "reproduction": {
    "length": 0.694,
    "peak": -10.5,
-   "rms": -15.2,
+   "rms": -15.3,
    "crest": 4.8,
-   "dc": 0.0008,
+   "dc": 0.0007,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
-   "attack": 0.01,
-   "peakAt": 0.569,
-   "t20": 0.125,
-   "t40": 0.13,
-   "centroid": 2812,
-   "rolloff": 4716,
-   "flatness": 0.958,
+   "attack": 0.125,
+   "peakAt": 0.339,
+   "t20": 0.354,
+   "t40": 0.359,
+   "centroid": 2791,
+   "rolloff": 4694,
+   "flatness": 0.959,
    "bands": {
-    "<150": 2.4,
-    "150-600": 8.4,
-    "600-2k": 23.8,
-    "2k-5k": 55.8,
-    ">5k": 9.7
+    "<150": 2,
+    "150-600": 8,
+    "600-2k": 25.8,
+    "2k-5k": 55.2,
+    ">5k": 8.9
    },
    "onsets": 0
   },
@@ -59,12 +59,12 @@
     0.24,
     0.7
    ],
-   "t20": 0.125,
-   "inRange": false
+   "t20": 0.354,
+   "inRange": true
   },
   "lengthOff": 0,
-  "centroidOff": 1.094,
-  "bandsOffMost": 50,
+  "centroidOff": 1.078,
+  "bandsOffMost": 48,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -74,43 +74,14 @@
   }
  },
  "caps": {
-  "S2": 1,
+  "S2": 2,
   "S3": 0,
   "S5": 2
  },
- "scores": {
-  "S1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "Judged from the picture and features only, since I cannot listen. The original is a crowbar striking metal: one sharp onset at 0.03 s, a ringing tone visible as the bright horizontal line in its spectrogram, energy concentrated at 600-2k (73.8%), and a decay to a quiet tail. The reproduction is steady broadband noise. Its waveform keeps the same amplitude from start to end, its spectrogram is uniform yellow with no tonal line, it has 0 onsets, and its flatness is 0.958. That is a hiss, not a strike."
-  },
-  "S2": {
-   "judge": 1,
-   "cap": 1,
-   "score": 1,
-   "reason": "The length matches exactly (0.694 s against 0.694 s). The envelope does not. Its measured T20 of 0.125 s is outside the metal-hit class range of 0.24 to 0.7 s, which caps S2 at 1. The picture also shows no attack and no decay at all: the waveform is a flat band, and peakAt is 0.569 s against the original's 0.03 s."
-  },
-  "S3": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The centroid is 2812 Hz against 1343 Hz, 109% off where 2 requires within 20%. Band shares are far outside 10 points: 600-2k is 23.8% against 73.8% (50 points off), 2k-5k is 55.8% against 13.7% (42 off), and >5k is 9.7% against 0.9% (9 off). The rolloff is 4716 Hz against 1938 Hz."
-  },
-  "S4": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "Judged from the picture and features only, since I cannot listen. The original has one clear onset, a tonal ring (flatness 0.215) and a narrowband partial that holds across its length. The reproduction has no onset (0 counted), is pure noise (flatness 0.958) and has no tonal component or pitch content anywhere in its spectrogram."
-  },
-  "S5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The file is mono 16-bit PCM at 11025 Hz under the same name. Nothing is clipped, the DC offset is negligible (0.0008), the engine reported no faults, and the original shows no loop cue that would need keeping."
-  }
- },
- "total": 3,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "S3"
+ ],
+ "total": 0,
+ "of": 10
 }

@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "debris-bustmetal1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 0.873,
+   "peak": -0.1,
+   "rms": -12.8,
+   "crest": 12.7,
+   "dc": -0.0076,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.105,
+   "attack": 0.025,
+   "peakAt": 0.075,
+   "t20": 0.439,
+   "t40": 0.629,
+   "centroid": 1968,
+   "rolloff": 3241,
+   "flatness": 0.569,
+   "bands": {
+    "<150": 0.2,
+    "150-600": 8.8,
+    "600-2k": 47,
+    "2k-5k": 41.3,
+    ">5k": 2.7
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.87,
+   "peak": -0.6,
+   "rms": -12.6,
+   "crest": 12,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0,
+   "peakAt": 0.02,
+   "t20": 0.474,
+   "t40": 0.708,
+   "centroid": 1788,
+   "rolloff": 2864,
+   "flatness": 0.414,
+   "bands": {
+    "<150": 2.1,
+    "150-600": 5.1,
+    "600-2k": 61.3,
+    "2k-5k": 31.1,
+    ">5k": 0.5
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "none: the original's own decay",
+   "t20Range": [
+    0.329,
+    0.549
+   ],
+   "t20": 0.474,
+   "inRange": true
+  },
+  "lengthOff": 0.003,
+  "centroidOff": 0.091,
+  "bandsOffMost": 14.3,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 1,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged only from the pictures and features, because I cannot listen. Both sounds are a single broadband burst of metal debris with no separate hits (0 onsets in each). Each is strongest in the 600 Hz to 5 kHz range and dies away steadily over about 0.87 s. They read as the same event, a sheet of metal busting apart."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 0.870 s against 0.873 s, under 1% off. The decay time to -20 dB (T20) is 0.474 s, inside the allowed range of 0.329 to 0.549 s. The attack is 0 s against the original's 0.025 s, and the loudest point comes at 0.02 s against 0.075 s. That is a small difference, covered under S4."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "The spectral centroid is 1788 Hz against 1968 Hz, 9.1% off, which is within the 20% allowed. The band shares miss the 10-point limit. The 600 Hz to 2 kHz band has 61.3% against 47%, which is 14.3 points over. The 2 to 5 kHz band has 31.1% against 41.3%, which is 10.2 points under. The above-5 kHz band has 0.5% against 2.7%. In the spectrogram, the reproduction's energy sits lower and its top end is darker, especially later in the sound."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged only from the pictures and features, because I cannot listen. Flatness is 0.414 against 0.569, so the reproduction is more tonal and less noisy than the original. The original's spectrogram has sharp horizontal bands from ringing resonances and column-to-column flicker from rattling all through its decay. The reproduction's spectrogram is smoother, with weaker banding and more energy at the bottom. The original swells over its first ~0.07 s, but the reproduction starts at full level. The original also stops dead into about 0.1 s of silence, while the reproduction fades all the way to its end. Neither sound has distinct hits, which matches."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file is mono PCM at 11025 Hz and 8 bits, the same format as the original. It has no clipped samples and a DC offset of 0. It carries the same name, and there is no loop cue to keep because the original has none."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

@@ -6,191 +6,142 @@
   "bits": 8,
   "seed": 1,
   "length": 0.27,
-  "picture": "pictures/sound.png",
   "layers": [
     {
       "id": "heel",
-      "kind": "noise",
-      "iterations": 32,
-      "env": {
-        "attack": 0.0005,
-        "hold": 0.003,
-        "decay": 0.06
+      "kind": "tone",
+      "f": 120,
+      "wave": "sine",
+      "sweep": {
+        "to": 50,
+        "time": 0.03
       },
-      "shape": [
-        [
-          60,
-          -9
-        ],
-        [
-          150,
-          -3
-        ],
-        [
-          220,
-          0
-        ],
-        [
-          550,
-          0
-        ],
-        [
-          750,
-          -10
-        ],
-        [
-          1500,
-          -18
-        ],
-        [
-          2500,
-          -11
-        ],
-        [
-          4000,
-          -13
-        ],
-        [
-          5500,
-          -20
-        ]
-      ]
-    },
-    {
-      "id": "thud",
-      "kind": "modes",
-      "modes": [
+      "env": {
+        "attack": 0.001,
+        "decay": 0.04
+      },
+      "filter": [
         {
-          "f": 110,
-          "gain": -3,
-          "decay": 0.06
-        },
-        {
-          "f": 240,
-          "gain": 0,
-          "decay": 0.05
+          "type": "highpass",
+          "f": 30
         }
       ],
-      "gain": -18
+      "gain": -1.5
     },
     {
       "id": "crack",
       "kind": "noise",
       "color": "white",
-      "length": 0.003,
-      "env": {
-        "attack": 0.0002,
-        "decay": 0.003
-      },
       "filter": [
         {
           "type": "highpass",
-          "f": 2000
+          "f": 1800
         }
       ],
-      "post": true,
-      "gain": -8
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.008
+      },
+      "gain": -5
+    },
+    {
+      "id": "snap",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 3500,
+          "q": 0.8
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.015
+      },
+      "gain": -5
+    },
+    {
+      "id": "shimmer",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.005,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 4000,
+          "q": 0.7
+        }
+      ],
+      "env": {
+        "attack": 0.003,
+        "decay": 0.12
+      },
+      "gain": -13
+    },
+    {
+      "id": "grit",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 330,
+          "q": 0.5
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.05
+      },
+      "gain": -6
     },
     {
       "id": "toe",
       "kind": "noise",
-      "at": 0.088,
-      "iterations": 32,
-      "env": {
-        "attack": 0.001,
-        "decay": 0.045
-      },
-      "shape": [
-        [
-          60,
-          -9
-        ],
-        [
-          200,
-          0
-        ],
-        [
-          550,
-          0
-        ],
-        [
-          900,
-          -11
-        ],
-        [
-          1500,
-          -17
-        ],
-        [
-          3000,
-          -12
-        ],
-        [
-          5500,
-          -20
-        ]
+      "color": "pink",
+      "at": 0.085,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 400,
+          "q": 0.8
+        }
       ],
-      "gain": -14
+      "env": {
+        "attack": 0.002,
+        "decay": 0.06
+      },
+      "gain": -9
     },
     {
       "id": "tail",
       "kind": "noise",
+      "color": "pink",
       "at": 0.01,
-      "length": 0.26,
-      "env": {
-        "points": [
-          [
-            0,
-            -25
-          ],
-          [
-            0.12,
-            -28
-          ],
-          [
-            0.26,
-            -34
-          ]
-        ]
-      },
-      "shape": [
-        [
-          60,
-          -8
-        ],
-        [
-          250,
-          0
-        ],
-        [
-          550,
-          0
-        ],
-        [
-          900,
-          -9
-        ],
-        [
-          1500,
-          -15
-        ],
-        [
-          3000,
-          -11
-        ],
-        [
-          5500,
-          -18
-        ]
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 600
+        },
+        {
+          "type": "highpass",
+          "f": 120
+        }
       ],
-      "gain": -8
+      "env": {
+        "attack": 0.004,
+        "decay": 0.42
+      },
+      "gain": -12
     }
   ],
   "finish": {
     "limit": {
-      "crest": 21.5,
+      "crest": 21,
       "release": 0.002
     },
     "peak": -0.5
-  }
+  },
+  "picture": "pictures/sound.png"
 }

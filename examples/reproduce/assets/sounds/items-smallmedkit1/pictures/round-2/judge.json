@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "items-smallmedkit1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.763,
+   "peak": -3,
+   "rms": -14.1,
+   "crest": 11.1,
+   "dc": -0.0033,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.09,
+   "t20": 0.673,
+   "t40": 0.673,
+   "centroid": 2177,
+   "rolloff": 6072,
+   "flatness": 0.128,
+   "bands": {
+    "<150": 0.1,
+    "150-600": 14.7,
+    "600-2k": 59.5,
+    "2k-5k": 3.9,
+    ">5k": 21.7
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 0.76,
+   "peak": -0.6,
+   "rms": -11.2,
+   "crest": 10.6,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.055,
+   "peakAt": 0.1,
+   "t20": 0.654,
+   "t40": 0.659,
+   "centroid": 1941,
+   "rolloff": 5319,
+   "flatness": 0.153,
+   "bands": {
+    "<150": 0,
+    "150-600": 13.8,
+    "600-2k": 64.3,
+    "2k-5k": 5.8,
+    ">5k": 16
+   },
+   "onsets": 1
+  },
+  "envelope": {
+   "class": "none: the original's own decay",
+   "t20Range": [
+    0.505,
+    0.841
+   ],
+   "t20": 0.654,
+   "inRange": true
+  },
+  "lengthOff": 0.004,
+  "centroidOff": 0.108,
+  "bandsOffMost": 5.7,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "I could not listen, so this is judged from the picture and the features. Both files show the same event in the same order: a short tonal beep, then two longer beeps at the same pitch with the same strong band in the 600-2k range, then a quiet stretch, then a broadband hiss from about 0.68 s to the end. This is the medkit's beep-and-spray pickup in both, and the reproduction's segments sit at the same times as the original's."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: the length is 0.760 s against 0.763 s (0.4% off). T20 is 0.654 s, inside the range 0.505-0.841 s set by the original's own decay. Peak position is 0.10 s against 0.09 s. Two small envelope differences show in the picture but stay within what S2 measures. The reproduction's beeps swell and fade in a diamond shape, which gives a 0.055 s attack, where the original's beeps are flat-topped blocks with an instant attack. The original's closing hiss also holds its level to the end, while the reproduction's tapers over its last 0.1 s."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: the centroid is 1941 Hz against 2177 Hz (10.8% off, within 20%). The largest band difference is 5.7 points, in the >5k band (16.0 against 21.7), within 10. The other bands are 600-2k at 64.3 against 59.5, 2k-5k at 5.8 against 3.9 and 150-600 at 13.8 against 14.7. In the spectrogram, the hiss's bright high band and the beeps' tone line sit at the same heights in both."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "I could not listen, so this is judged from the picture and the features. Onsets match (1 and 1), flatness is close (0.153 against 0.128), and the beep pitch is steady in both with no pitch movement. The quiet middle section (about 0.33-0.67 s) is clearly off, though. The original has distinct transients there: broadband vertical streaks around 0.37 s and 0.50 s, and a sharp spike in the waveform near 0.50 s, which read as mechanical clicks of the kit. The reproduction's middle is an even, featureless low noise with none of these clicks. The beeps also have a swelling diamond envelope with more visible harmonics in place of the original's steady flat tone."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file is mono PCM at 22050 Hz, 8 bits, matching the original's format. It has 0 clipped samples (peak -0.6 dBFS), a DC offset of 0, the same name, and no engine faults. The original has no loop cue, so none is needed."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

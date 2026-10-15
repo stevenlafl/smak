@@ -31,25 +31,25 @@
   "reproduction": {
    "length": 0.266,
    "peak": -10.5,
-   "rms": -15.5,
-   "crest": 5,
-   "dc": 0.0012,
+   "rms": -15.3,
+   "crest": 4.9,
+   "dc": 0.0058,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
-   "attack": 0.005,
-   "peakAt": 0.249,
-   "t20": 0.02,
-   "t40": 0.02,
-   "centroid": 2757,
-   "rolloff": 4673,
-   "flatness": 0.881,
+   "attack": 0.015,
+   "peakAt": 0.075,
+   "t20": 0.195,
+   "t40": 0.195,
+   "centroid": 2807,
+   "rolloff": 4662,
+   "flatness": 0.866,
    "bands": {
-    "<150": 3.3,
-    "150-600": 8.3,
-    "600-2k": 23.4,
-    "2k-5k": 56.6,
-    ">5k": 8.3
+    "<150": 2,
+    "150-600": 6.8,
+    "600-2k": 25.5,
+    "2k-5k": 57.4,
+    ">5k": 8.2
    },
    "onsets": 0
   },
@@ -59,12 +59,12 @@
     0.04,
     0.18
    ],
-   "t20": 0.02,
+   "t20": 0.195,
    "inRange": false
   },
   "lengthOff": 0,
-  "centroidOff": 2.232,
-  "bandsOffMost": 41.5,
+  "centroidOff": 2.291,
+  "bandsOffMost": 42.3,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -78,39 +78,11 @@
   "S3": 0,
   "S5": 2
  },
- "scores": {
-  "S1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "I couldn't listen, so this is judged from the picture and the features. The original's waveform has a sharp heel strike at the start (peak at 0.005 s), which decays quickly, then a smaller second scuff about a third of the way in. Its energy sits low (75% below 600 Hz), the way a footstep on a hard floor does. The reproduction's waveform is flat, steady broadband noise across the whole 0.27 s, with no strike and no decay. Its spectrogram is evenly bright from top to bottom. That is a hiss, not a footstep."
-  },
-  "S2": {
-   "judge": 0,
-   "cap": 1,
-   "score": 0,
-   "reason": "The length matches (0.266 s for both). The measured T20 (time to fall 20 dB) is 0.02 s, outside the step-concrete range of 0.04 to 0.18 s, which caps this item at 1. I scored it 0 because the picture shows no envelope at all: the level is constant from start to end, with the peak at 0.249 s against the original's 0.005 s. The original's attack and decay are missing. Crest factor is 5 against 21."
-  },
-  "S3": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The spectral centroid is 2757 Hz against 853 Hz, 223% off where the limit is 20%. The band shares are inverted: below 150 Hz is 3.3 against 26.8, 150-600 Hz is 8.3 against 48.3, and 2k-5k Hz is 56.6 against 15.1. The worst band is off by 41.5 points where the limit is 10. The original's low-frequency weight is missing."
-  },
-  "S4": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "I couldn't listen, so this is judged from the picture and the features. Spectral flatness is 0.881 (near-white noise) against the original's 0.27, which is mostly tonal and low. The original's two impacts, the heel strike and the later scuff visible in its waveform, have no counterpart in the reproduction. Its waveform has no transients."
-  },
-  "S5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The file is mono 16-bit PCM at 11025 Hz under the same name. Nothing is clipped, and the DC offset is negligible at 0.0012. A footstep has no loop cue, so none is needed."
-  }
- },
- "total": 2,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "S2",
+  "S3"
+ ],
+ "total": 0,
+ "of": 10
 }

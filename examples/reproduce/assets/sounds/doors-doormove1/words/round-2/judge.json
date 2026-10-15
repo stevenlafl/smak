@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "doors-doormove1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 5.037,
+   "peak": -3.2,
+   "rms": -17.1,
+   "crest": 13.9,
+   "dc": -0.0041,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.035,
+   "attack": 4.25,
+   "peakAt": 4.425,
+   "t20": 0.514,
+   "t40": 0.579,
+   "centroid": 622,
+   "rolloff": 1421,
+   "flatness": 0.158,
+   "bands": {
+    "<150": 31.1,
+    "150-600": 35.2,
+    "600-2k": 28.4,
+    "2k-5k": 5,
+    ">5k": 0.2
+   },
+   "onsets": 2
+  },
+  "reproduction": {
+   "length": 5.042,
+   "peak": -0.6,
+   "rms": -12.5,
+   "crest": 11.9,
+   "dc": -0.0001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 4.101,
+   "peakAt": 4.495,
+   "t20": 0.274,
+   "t40": 0.439,
+   "centroid": 722,
+   "rolloff": 1335,
+   "flatness": 0.147,
+   "bands": {
+    "<150": 21.7,
+    "150-600": 32.6,
+    "600-2k": 40.3,
+    "2k-5k": 5.5,
+    ">5k": 0
+   },
+   "onsets": 3
+  },
+  "envelope": {
+   "class": "none: the original's own decay",
+   "t20Range": [
+    0.386,
+    0.643
+   ],
+   "t20": 0.274,
+   "inRange": false
+  },
+  "lengthOff": 0.001,
+  "centroidOff": 0.161,
+  "bandsOffMost": 11.9,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 1,
+  "S3": 1,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only; I cannot listen. Both are about 5 s of sustained mechanical noise that swells near the end (around 4.0 to 4.6 s) and then cuts off, which fits a door moving. The original's spectrogram has clear structure: rising pitched sweeps at about 0.3, 1.5, 2.7 and 3.3 s over a grainy, banded grind, and a run of separate rattling pulses near 4.2 to 4.6 s. The reproduction's spectrogram is an almost even broadband wash. Its sweeps are only faint thin lines, and the end is one dense swell instead of pulses. It reads closer to shaped hiss than to the original's grinding mechanism, so it is clearly off from the same event."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "The length is right (5.042 s against 5.037 s, 0.1% off), and the attack and peak timing are close (peak at 4.50 s against 4.43 s). But T20, the decay time, is 0.274 s, outside the original's own range of 0.386 to 0.643 s (inRange false). That caps S2 at 1. The picture agrees: the reproduction's fade after the final swell is shorter and steeper than the original's tapering tail."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "The centroid is 722 Hz against 622 Hz, 16.1% off, which is inside 20%. But the 600-2k band is 40.3% against 28.4%, 11.9 points off, which is over the 10-point limit. The <150 band is also 9.4 points short (21.7% against 31.1%). The reproduction moves energy from the low end into the upper mids, and its spectrogram is evenly bright where the original's is darker and more textured above the low band."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only; I cannot listen. Flatness is close (0.147 against 0.158), so the balance of noise to tone is about right. The onsets are 3 against 2. The original's pitch movement (strong rising squeal arcs) is there only very faintly in the reproduction. The original's discrete rattling pulses near the end, visible as a comb in its waveform, are replaced by a smooth dense swell. The reproduction's waveform is also more even and louder throughout (RMS -12.5 dB against -17.1 dB), which loses the original's grainy variation."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The format matches the original: mono PCM, 11025 Hz, 8 bits, same name. No clipping (peak -0.6 dB), DC is negligible (-0.0001), and there are no engine faults. Nothing shows the original has a loop cue for the reproduction to keep."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

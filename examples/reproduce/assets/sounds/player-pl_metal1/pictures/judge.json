@@ -33,25 +33,25 @@
    "peak": -0.6,
    "rms": -16.6,
    "crest": 16,
-   "dc": 0,
+   "dc": -0.0001,
    "clipped": 0,
    "lead": 0,
    "tail": 0.005,
    "attack": 0.005,
    "peakAt": 0.005,
-   "t20": 0.409,
-   "t40": 0.569,
-   "centroid": 409,
-   "rolloff": 646,
-   "flatness": 0.1,
+   "t20": 0.334,
+   "t40": 0.574,
+   "centroid": 343,
+   "rolloff": 312,
+   "flatness": 0.013,
    "bands": {
-    "<150": 32.8,
-    "150-600": 50.9,
-    "600-2k": 13.2,
-    "2k-5k": 3,
-    ">5k": 0.1
+    "<150": 42,
+    "150-600": 45,
+    "600-2k": 10.9,
+    "2k-5k": 2.1,
+    ">5k": 0
    },
-   "onsets": 1
+   "onsets": 0
   },
   "envelope": {
    "class": "step metal",
@@ -59,12 +59,12 @@
     0.315,
     0.525
    ],
-   "t20": 0.409,
+   "t20": 0.334,
    "inRange": true
   },
   "lengthOff": 0.003,
-  "centroidOff": 0.136,
-  "bandsOffMost": 7.1,
+  "centroidOff": 0.047,
+  "bandsOffMost": 8.7,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -80,37 +80,37 @@
  },
  "scores": {
   "S1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Judged from the pictures and features only, since I cannot listen. Both read as a short footstep on metal. Energy is front-loaded with no lead-in and decays smoothly over about 0.58 s. Most of the energy is low (about 78% to 84% below 600 Hz) and above 5 kHz is empty in both. The spectrogram keeps the original's horizontal resonance bands through the decay, though they are fainter (that is S4's item). The burst near 0.17 s in the reproduction's waveform and its smoother ring are not enough to make it a different event."
+   "score": 1,
+   "reason": "Judged from the picture only, since I cannot listen. Both files open with a sharp broadband transient, so the event class plausibly matches. After the strike, though, the original is a decaying clank with irregular ringing that dies out by about 0.3 s. The reproduction holds a regular, periodic buzz at near-constant level for the whole 0.58 s, with horizontal tone lines in its spectrogram. That reads as a buzzing or humming tail, not a metal impact decaying. Clearly off in the tail, so 1."
   },
   "S2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Length is 0.580 s against 0.582 s, 0.3% off. T20 is 0.409 s, inside the step-metal class range of 0.315 to 0.525 (the original's is 0.424). T40 is 0.569 against 0.539. The attack is sharper than the original's: 0.005 s against 0.025 s, with the peak at 0.005 s against 0.045 s. For a footstep that is still a percussive attack of the same kind, and the measured decay is in range."
+   "reason": "Length is 0.580 s against the original's 0.582 s (0.003 off, well within 25%). The t20 measure is 0.334 s, inside the step metal class range of 0.315 to 0.525 (inRange true). The t40 values are 0.574 and 0.539. The attack differs (0.005 against 0.025), but the rubric's attack check is the class range, which it meets. Nothing in the measurements puts it out of range."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Centroid is 409 Hz against 360, 13.6% off, inside 20%. Rolloff is 646 against 624. The largest band difference is 7.1 points, in 150-600 Hz (50.9 against 43.8), with 600-2k at 13.2 against 19.6 (6.4 points). Every band is within 10 points. The spectrograms agree: low-dominant, with the top fading through the decay."
+   "reason": "Centroid is 343 against 360, a 4.7% difference, inside 20%. Band shares: under 150 Hz 42 against 34.8 (7.2 points), 150 to 600 Hz 45 against 43.8 (1.2), 600 Hz to 2 kHz 10.9 against 19.6 (8.7), 2 to 5 kHz 2.1 against 1.8 (0.3), over 5 kHz 0 against 0.1. The largest gap is 8.7 points, inside the 10-point limit. Rolloff differs (312 against 624), but the rubric does not score rolloff."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged from the pictures and features only, since I cannot listen. Flatness is 0.10 against 0.057, nearly twice as noisy. In the original's spectrogram, distinct horizontal tonal lines (the metal's resonance) run through the decay. In the reproduction those lines are fainter and smeared into broadband texture. The onset count differs: 1 against 0. The reproduction's waveform has a second strong burst at about 0.17 s that the original lacks, since the original's energy is concentrated in its first ~0.12 s. The ringing, tonal metal character is weaker, and the transient structure differs."
+   "reason": "Judged from the picture and features only, since I cannot listen. Onsets are 0 in both, which matches. Flatness does not: 0.013 against the original's 0.057, so the reproduction is far more tonal. The spectrogram shows steady horizontal lines at fixed frequencies and a regular periodic pattern through the tail, where the original is noise-like with a decaying, irregular character. This is clearly off, so 1. S4 is not a must-have item."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Mono PCM at 11025 Hz, 8-bit, the original's format. Peak is -0.6 dBFS with no clipped samples and a DC offset of 0 (the original itself has 1 clipped sample and DC of -0.0104). The name is the same. Nothing indicates a loop cue in the original, and none is needed."
+   "reason": "Measured format is mono, 11025 Hz, 8 bits, one channel, which the engine plays. No clipping (peak -0.6 dBFS, clipped 0). DC is -0.0001, effectively none. No lead or tail silence problems (lead 0, tail 0.005). The name matches (sameName true), and there are no engine faults. No loop cue is recorded for this sound."
   }
  },
- "total": 9,
+ "total": 8,
  "of": 10,
- "passes": true
+ "passes": false
 }

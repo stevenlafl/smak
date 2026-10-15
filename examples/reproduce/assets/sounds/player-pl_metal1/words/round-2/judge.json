@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "player-pl_metal1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 0.582,
+   "peak": 0,
+   "rms": -15.5,
+   "crest": 15.5,
+   "dc": -0.0104,
+   "clipped": 1,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.025,
+   "peakAt": 0.045,
+   "t20": 0.424,
+   "t40": 0.539,
+   "centroid": 360,
+   "rolloff": 624,
+   "flatness": 0.057,
+   "bands": {
+    "<150": 34.8,
+    "150-600": 43.8,
+    "600-2k": 19.6,
+    "2k-5k": 1.8,
+    ">5k": 0.1
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.58,
+   "peak": -0.6,
+   "rms": -17.1,
+   "crest": 16.5,
+   "dc": -0.0003,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.005,
+   "peakAt": 0.005,
+   "t20": 0.339,
+   "t40": 0.564,
+   "centroid": 405,
+   "rolloff": 689,
+   "flatness": 0.068,
+   "bands": {
+    "<150": 28.6,
+    "150-600": 53.7,
+    "600-2k": 15.7,
+    "2k-5k": 2,
+    ">5k": 0.1
+   },
+   "onsets": 1
+  },
+  "envelope": {
+   "class": "step metal",
+   "t20Range": [
+    0.315,
+    0.525
+   ],
+   "t20": 0.339,
+   "inRange": true
+  },
+  "lengthOff": 0.003,
+  "centroidOff": 0.125,
+  "bandsOffMost": 9.9,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture and features only; I cannot listen. Both are a short (0.58 s), dull, low-pitched metallic impact that rings down. Most of the energy is under 600 Hz in both (78.6% vs 82.3%), with almost nothing above 2 kHz. The spectrograms show the same dark, low-heavy texture fading to the low bands. It reads as the same event, a footstep on a metal floor."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: length 0.580 s vs 0.582 s (0.3% off, limit 25%). T20 is 0.339 s, inside the step-metal class range of 0.315 to 0.525 s. Attack is 0.005 s vs 0.025 s. No class range for attack was given, so I can't mark it outside one, and the overall rise-and-decay shape matches in the waveforms. The differences in where the peak falls (0.005 s vs 0.045 s) and the missing second burst are counted under S4, not here."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: centroid 405 Hz vs 360 Hz (12.5% off, limit 20%). The largest band difference is 9.9 points, at 150-600 Hz (53.7 vs 43.8), just inside the limit of 10. The other bands differ by at most 6.2 points (<150 Hz: 28.6 vs 34.8). The spectrograms agree: energy is concentrated low and dies out at the top over time. The reproduction is slightly less bass-heavy, but it passes."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only; I cannot listen. Tone/noise matches: flatness is 0.068 vs 0.057, and neither shows any pitch movement. The onsets don't match. The original rises over its first ~25 ms to a peak at 0.045 s, then has a second distinct burst at about 0.13-0.17 s (seen in the waveform as a second cluster of spikes), like a two-part heel-and-toe step. The reproduction is one hit at 0 s (1 onset measured vs the original's 0) followed by a smooth exponential decay with no second burst."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono PCM at 11025 Hz, 8 bits, the same format as the original. No clipping: peak is -0.6 dBFS and 0 clipped samples, where the original itself has 1. DC is -0.0003, which is negligible. The original has no loop cue, so none is needed. The name is the same (player/pl_metal1.wav). No engine faults."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

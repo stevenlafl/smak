@@ -29,39 +29,39 @@
    "onsets": 4
   },
   "reproduction": {
-   "length": 7.31,
-   "peak": -1.1,
-   "rms": -28.7,
-   "crest": 27.6,
+   "length": 7.3,
+   "peak": -0.6,
+   "rms": -26,
+   "crest": 25.5,
    "dc": 0,
    "clipped": 0,
-   "lead": 0,
-   "tail": 0,
-   "attack": 5.802,
-   "peakAt": 5.852,
-   "t20": 0.254,
-   "t40": 1.462,
-   "centroid": 975,
-   "rolloff": 1357,
-   "flatness": 0.138,
+   "lead": 0.01,
+   "tail": 0.015,
+   "attack": 5.807,
+   "peakAt": 5.857,
+   "t20": 1.342,
+   "t40": 1.412,
+   "centroid": 814,
+   "rolloff": 1227,
+   "flatness": 0.071,
    "bands": {
-    "<150": 1.6,
-    "150-600": 17.2,
-    "600-2k": 77.1,
-    "2k-5k": 4.1,
-    ">5k": 0.1
+    "<150": 11.1,
+    "150-600": 22,
+    "600-2k": 64.8,
+    "2k-5k": 2.1,
+    ">5k": 0
    },
    "onsets": 4
   },
   "envelope": {
    "class": "loop drips",
    "t20Range": null,
-   "t20": 0.254,
+   "t20": 1.342,
    "inRange": true
   },
   "lengthOff": 0.001,
-  "centroidOff": 0.162,
-  "bandsOffMost": 6,
+  "centroidOff": 0.03,
+  "bandsOffMost": 9.9,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -80,31 +80,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Judged from the pictures and features only; I could not listen. Both files show the same event: isolated water drips over an ambient bed. Each has five hits at the same moments, near 0, 1.85, 3.65, 4.0 and 5.8 s, and the loudest hit is the last one in both (peakAt 5.83 vs 5.85 s). The energy sits mostly in 600-2k Hz in both (72% vs 77%)."
+   "reason": "Judged from the picture and features only, since the judge cannot listen. Both waveforms show the same event: a loop of water drips, with sharp percussive hits and decaying tails. The hits sit at the same places across the 7.3 s, about 0, 1.9, 3.7, 4.0 and 5.8 s, with the largest at about 5.8 s in both. The measured attack and peak times (5.777 and 5.832 against 5.807 and 5.857) agree."
   },
   "S2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Length matches (7.31 s vs 7.306 s). Attack timing matches (5.80 vs 5.78 s). Decay is off. The harness gives the class 'loop drips' no T20 range (t20Range null), so under the 2026-10-14 amendment the original's own decay applies: 0.434 s within a quarter, or 0.326-0.543 s. The reproduction's T20 is 0.254 s, outside that range, which caps S2 at 1 even though the harness reports inRange true. The waveforms agree: after each hit, the original's ring lasts visibly longer than the reproduction's."
+   "score": 2,
+   "reason": "Length is 7.300 against 7.306, far inside 25%. The attack and decay are within the class range by the harness's measure (loop drips, t20 range not given, inRange true). The t20 values differ (0.434 against 1.342), but the t40 values agree (1.477 against 1.412), and the harness's measure allows a 2. The judge cannot listen, so the decay's feel is not checked beyond these numbers."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured: centroid 975 vs 839 Hz, 16.2% off, inside the 20% line. The largest band difference is 6 points (150-600 Hz: 17.2 vs 23.2), inside the 10-point line. The rolloff is higher (1357 vs 1066 Hz) and 2k-5k has a little more energy (4.1 vs 2.5), but both are within tolerance."
+   "reason": "Centroid is 839 against 814, a 3% difference, inside 20%. Every band is within 10 points: under 150 Hz 1.2 against 11.1 (9.9 points, just inside), 150 to 600 Hz 23.2 against 22.0, 600 to 2k 72.3 against 64.8, 2k to 5k 2.5 against 2.1, above 5k 0.7 against 0. Under the line on every band, though the low band is close to its limit."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged from the pictures and features only; I could not listen. Onsets match: 4 measured in each, and the hits line up in time. Tone is off. In the original's spectrogram each drip leaves steady horizontal lines, several stable resonant pitches that ring on after the hit. The reproduction shows instead a single bright line sweeping downward after each hit (most visible after the hits at 0, 1.85 and 5.8 s), a pitch glide the original does not have, over broadband noise. The original's sustained multi-tone ring is missing. It is also noisier: flatness 0.138 vs 0.095."
+   "reason": "The onsets match in number (4 and 4) and in place, and the flatness is low in both (0.095 against 0.071), so both are tonal-leaning rather than hissy. But the original has a continuous noise bed between the drips and horizontal ringing lines in its tails (visible in the spectrogram around the middle band), while the reproduction's gaps are nearly empty and its decays are smooth diagonal streaks with no ringing. The tone and noise character is therefore only partly the same. Judged from the picture only; the judge cannot listen."
   },
   "S5": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Mono 8-bit PCM at 11025 Hz, which the engine accepts. No clipping (0), DC 0, and the same name (sameName true). The harness reports no engine faults. The measurements do not say whether the original has a loop cue; with engineFaults empty there is nothing to mark down."
+   "score": 1,
+   "reason": "Format is right: mono, 8-bit, 11025 Hz, clipped 0, DC 0 against -0.0039 on the original, and the name matches (sameName true). A loop's cue is required where the original has one, but the measurements give no cue for either sound, and the lead and tail (0.01 and 0.015 s) are the only related values. The cue cannot be confirmed from the pictures, so it is scored 1, not 2."
   }
  },
  "total": 8,

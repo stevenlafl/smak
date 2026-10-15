@@ -1,23 +1,33 @@
-The build says OK, and the numbers match the original closely. The file is `work:sound/weapons/357_shot1.wav`: 22050 Hz, 8-bit mono, 1.06 s. Putting it in `<mod>/sound/weapons/` makes the game play it in place of the original.
+The sound builds OK: `work:sound/weapons/357_shot1.wav`, named so the game loads it in place of the original.
 
-How it compares with the original's picture:
+The final build measures:
 
+| Feature | Result | Original (from its picture) |
+| --- | --- | --- |
+| Length | 1.06 s | 1.06 s |
+| T20 (time to fall 20 dB) | 0.718 s | 0.458 to 1.013 s |
+| Centroid (brightness) | 932 Hz | 921 Hz |
+| Crest (peak over RMS) | 10.9 dB | about 10 dB |
+| Peak | -0.5 dBFS | n/a |
+| RMS | -11.4 dBFS | n/a |
+| Gunshot features in the game's range | 22 of 22 | n/a |
+
+The check reports no faults. The bands are up to 10 points off the picture's, mostly in the under-150 Hz band.
+
+I worked from the spectrogram picture and its facts line, not the original WAV, so the match is to those measurements. I can't hear either file here, so the report's note stands: listen to it in the game, since its volume and the map's room are not checked.
+
+The sound is built from three layers: a 120 Hz sine thump that falls to 45 Hz, a pink-noise blast with a fast fall after 0.46 s, and a band-limited white-noise layer for brightness. A white-noise crack sits after the saturation. Saturation at 6 gives the sustained body, and I dropped the limiter because it lifted the tail and pushed T20 past the original's range.
+
+This is the spec that produced it. It was passed inline, so I haven't saved it to a file in the project; say where you want it kept and I'll write it there.
+
+```json
+{"spec":"smak.sound/1","name":"weapons/357_shot1.wav","class":"gunshot","seed":1,"length":1.06,"picture":"pictures/sound.png",
+ "layers":[
+  {"id":"thump","kind":"tone","f":120,"wave":"sine","sweep":{"to":45,"time":0.15},"env":{"attack":0.001,"decay":0.25},"gain":4},
+  {"id":"blast","kind":"noise","color":"pink","filter":[{"type":"bandpass","f":700,"q":0.8},{"type":"lowpass","f":7000,"q":0.7}],
+   "env":{"points":[[0,-3],[0.01,0],[0.3,-4],[0.46,-10],[0.6,-18],[0.8,-26],[1.06,-40]]},"gain":10.5},
+  {"id":"bright","kind":"noise","color":"white","filter":[{"type":"highpass","f":1500},{"type":"lowpass","f":4000}],
+   "env":{"points":[[0,-3],[0.01,0],[0.3,-4],[0.46,-10],[0.6,-18],[0.8,-26],[1.06,-40]]},"gain":-10},
+  {"id":"crack","kind":"noise","color":"white","filter":[{"type":"highpass","f":2000}],"env":{"attack":0.0005,"decay":0.012},"gain":-4,"post":true}],
+ "finish":{"saturate":6,"peak":-0.5}}
 ```
-                     made        original (picture)
-length               1.06 s      1.06 s
-centroid             959 Hz      921 Hz (4% off)
-worst band           150-600 Hz, 2.8 points off
-T20 (time to -20dB)  0.61 s      0.46 to 1.01 s range
-crest                10.7 dB     about 10 dB (±3 dB)
-onsets               0           3
-gunshot class check  22 of 22 features in range
-```
-
-How it's built:
-- **Main blast:** a shaped noise layer. It stays loud and saturated until about 0.4 s, then fades to silence by 1.06 s, getting darker as it goes. Most of its energy is between 150 and 2000 Hz.
-- **Opening:** a short high crack, with a brief dip at about 0.03 s like the original's.
-- **Low thump:** a falling tone from 100 Hz down to 50 Hz underneath.
-
-**Still off:** onsets. The original's picture shows 3 separate hits and mine shows 0. I tried adding two short bursts at 0.045 s and 0.12 s, but the saturation smooths them into the body and they don't register.
-
-The check only measures the waveform and spectrum. It can't tell how the sound actually sounds or how it plays in the game, so it needs a listen in the game.

@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-357_shot1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 1.064,
+   "peak": 0,
+   "rms": -8.5,
+   "crest": 8.5,
+   "dc": -0.0012,
+   "clipped": 265,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.748,
+   "t40": 1.003,
+   "centroid": 937,
+   "rolloff": 1658,
+   "flatness": 0.11,
+   "bands": {
+    "<150": 20.3,
+    "150-600": 27.5,
+    "600-2k": 43.9,
+    "2k-5k": 6.7,
+    ">5k": 1.6
+   },
+   "onsets": 3
+  },
+  "reproduction": {
+   "length": 1.06,
+   "peak": -0.6,
+   "rms": -11.3,
+   "crest": 10.7,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0,
+   "peakAt": 0.05,
+   "t20": 0.609,
+   "t40": 0.898,
+   "centroid": 959,
+   "rolloff": 1593,
+   "flatness": 0.102,
+   "bands": {
+    "<150": 21.6,
+    "150-600": 22.8,
+    "600-2k": 45.5,
+    "2k-5k": 8.6,
+    ">5k": 1.5
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "gunshot",
+   "t20Range": [
+    0.458,
+    1.013
+   ],
+   "t20": 0.609,
+   "inRange": true
+  },
+  "lengthOff": 0.004,
+  "centroidOff": 0.023,
+  "bandsOffMost": 4.7,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the pictures and features only; I could not listen. It reads as a gunshot-class event: a broadband burst that decays over about 1 s with low-mid weight, and its centroid and bands are close to the original's. But the original's defining crack is missing. At 0 to 0.03 s the original's spectrogram has bright full-height vertical streaks, and its waveform is a dense, saturated (265 clipped samples) body out to about 0.4 s. The reproduction's spectrogram fades in smoothly with no impulsive column at the start. Its peak comes at 0.05 s instead of 0.015 s, and no onsets were detected. Taken as a whole it looks more like a shaped noise blast than a revolver's sharp report, so I can't call it the same event to a close look."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: the length is 1.06 s against 1.064 s, 0.4% off, well within 25%. T20 is 0.609 s, inside the gunshot class's range of 0.458 to 1.013 s. Attack is 0 s against 0.005 s. The decay is faster than the original's own (T20 0.748 s, T40 0.898 s against 1.003 s), but the class range governs, and the waveforms taper over a similar span."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: the centroid is 959 Hz against 937 Hz, 2.3% off, within 20%. The largest band-share gap is 4.7 points (150-600 Hz: 22.8 against 27.5), within 10. Rolloff is 1593 Hz against 1658 Hz. The spectrograms put energy in the same places, with the heaviest energy low and the high band fading by about 0.6 s."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the pictures and features only; I could not listen. Flatness matches (0.102 against 0.11), so the noise-versus-tone character agrees. The onsets do not: the original has 3 detected onsets and visible separate broadband transients in its first tens of milliseconds, while the reproduction has 0 and a smooth spectrogram onset. The original's spectrogram is also grainier, with streaks that vary from frame to frame through the body. The reproduction's is a smooth gradient, and its waveform's first 0.4 s shows a regular sawtooth-like pattern of spikes, not the original's irregular saturated mass. Neither picture shows pitch movement."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: mono PCM at 22050 Hz, 8 bits, a format the engine plays. No clipped samples (the original has 265), DC is 0, the name is the same, and there are no engine faults. A one-shot gunshot has no loop cue, and nothing suggests the original has one."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

@@ -31,25 +31,25 @@
   "reproduction": {
    "length": 0.582,
    "peak": -10.5,
-   "rms": -15.3,
-   "crest": 4.9,
-   "dc": 0.0009,
+   "rms": -15.2,
+   "crest": 4.8,
+   "dc": 0.0039,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
-   "attack": 0,
-   "peakAt": 0.045,
-   "t20": 0.539,
-   "t40": 0.539,
-   "centroid": 2792,
-   "rolloff": 4727,
-   "flatness": 0.957,
+   "attack": 0.005,
+   "peakAt": 0.095,
+   "t20": 0.489,
+   "t40": 0.489,
+   "centroid": 2743,
+   "rolloff": 4683,
+   "flatness": 0.958,
    "bands": {
-    "<150": 2.3,
-    "150-600": 7.9,
-    "600-2k": 25,
-    "2k-5k": 54.8,
-    ">5k": 10
+    "<150": 2.6,
+    "150-600": 9,
+    "600-2k": 25.4,
+    "2k-5k": 53.7,
+    ">5k": 9.3
    },
    "onsets": 0
   },
@@ -59,12 +59,12 @@
     0.315,
     0.525
    ],
-   "t20": 0.539,
-   "inRange": false
+   "t20": 0.489,
+   "inRange": true
   },
   "lengthOff": 0,
-  "centroidOff": 6.756,
-  "bandsOffMost": 53,
+  "centroidOff": 6.619,
+  "bandsOffMost": 51.9,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -74,43 +74,14 @@
   }
  },
  "caps": {
-  "S2": 1,
+  "S2": 2,
   "S3": 0,
   "S5": 2
  },
- "scores": {
-  "S1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "Judged from the picture and features only, since I cannot listen. The original is a metal footstep. Its waveform shows an impact near 0.045 s that rings down over the clip, and its energy sits mostly below 600 Hz (78.6%). The reproduction's waveform is a flat band of constant amplitude for the whole 0.58 s, and its spectrogram is uniform broadband noise (flatness 0.957). That is a steady hiss, not a footstep on metal."
-  },
-  "S2": {
-   "judge": 1,
-   "cap": 1,
-   "score": 1,
-   "reason": "The length matches (0.582 s against 0.582 s, 0% off). The envelope does not: attack is 0 and T20 is 0.539 s, outside the step metal class range of 0.315 to 0.525 s. The waveform shows no decay at all, and an out-of-range decay caps S2 at 1."
-  },
-  "S3": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The centroid is 2792 Hz against the original's 360 Hz, about 676% off where 20% is allowed. Band shares miss by up to 53 points: <150 Hz is 2.3 against 34.8, 150-600 Hz is 7.9 against 43.8, and 2k-5k Hz is 54.8 against 1.8. The spectrogram shows even energy up the whole range where the original's is concentrated low and fades high."
-  },
-  "S4": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "Judged from the picture and features only, since I cannot listen. Flatness is 0.957 (pure noise) against the original's 0.057 (tonal metallic ring). The original's peak and its ringing, decaying partials are missing. The reproduction has no transient, no tone and no change over time."
-  },
-  "S5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The file is mono 16-bit PCM at 11025 Hz under the same name, with no clipping (peak -10.5 dB) and no DC (0.0009). The original has no loop cue to keep, and no engine faults were reported."
-  }
- },
- "total": 3,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "S3"
+ ],
+ "total": 0,
+ "of": 10
 }

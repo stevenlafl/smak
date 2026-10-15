@@ -31,27 +31,27 @@
   "reproduction": {
    "length": 1.04,
    "peak": -0.6,
-   "rms": -10.6,
-   "crest": 10,
-   "dc": -0.0004,
+   "rms": -8.6,
+   "crest": 8,
+   "dc": 0.006,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.005,
-   "attack": 0.01,
-   "peakAt": 0.01,
-   "t20": 0.529,
-   "t40": 0.963,
-   "centroid": 827,
-   "rolloff": 1421,
-   "flatness": 0.115,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.045,
+   "t20": 0.963,
+   "t40": 0.993,
+   "centroid": 708,
+   "rolloff": 1270,
+   "flatness": 0.099,
    "bands": {
-    "<150": 19.7,
-    "150-600": 42.6,
-    "600-2k": 28.1,
-    "2k-5k": 7.5,
-    ">5k": 2
+    "<150": 29.2,
+    "150-600": 41.3,
+    "600-2k": 20.6,
+    "2k-5k": 7.3,
+    ">5k": 1.7
    },
-   "onsets": 2
+   "onsets": 0
   },
   "envelope": {
    "class": "gunshot",
@@ -59,12 +59,12 @@
     0.458,
     1.013
    ],
-   "t20": 0.529,
+   "t20": 0.963,
    "inRange": true
   },
   "lengthOff": 0.001,
-  "centroidOff": 0.369,
-  "bandsOffMost": 12,
+  "centroidOff": 0.172,
+  "bandsOffMost": 3.8,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -75,7 +75,7 @@
  },
  "caps": {
   "S2": 2,
-  "S3": 1,
+  "S3": 2,
   "S5": 2
  },
  "scores": {
@@ -83,31 +83,31 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged from the picture and features only, since I cannot listen. Both are a single loud blast that fills the first ~0.3 s and dies away over about 1 s, so the reproduction is clearly some kind of gunshot. It does not have the original's weight, though. The original's energy sits heavily below 150 Hz (31.7% against 19.7%), and its spectrogram is grainy, with vertical transient streaks in the first 0.1 s and broken texture all through the decay. The reproduction's spectrogram is a smooth, even noise gradient whose energy sits higher (centroid 827 Hz against 604 Hz). It reads as a lighter, brighter noise burst, not the original's heavy boom."
+   "reason": "I cannot listen; judging from the picture and features only. Both are a loud, broadband, noise-like burst with energy concentrated below about 600 Hz, which fits a gunshot family. The original is a blast with a sharp start, a dense burst to about 0.4 s and a clear fall after it. The reproduction is a dense roar that stays near full level to about 0.9 s and only then tapers. The same kind of event is plausible, but its shape reads as a sustained roar, not a blast."
   },
   "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Length 1.04 s against 1.039 s is within 25%, and the measured t20 of 0.963 s is inside the gunshot class range of 0.458 to 1.013 s, so the measure does not fail it. The picture does show a different decay: the original's energy falls by roughly half within the first 0.4 s, while the reproduction holds near full level almost to the end. The attack is 0 against 0.005 s. The envelope is in range numerically but its shape is visibly wrong, so I score it lower than the measure allows."
+  },
+  "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Length is 1.040 s against 1.039 s (0.1% off). Attack is 0.010 s against 0.005 s, with the peak at 0.010 s against 0.015 s. T20 is 0.529 s, inside the gunshot class's range of 0.458 to 1.013 s, and T40 is 0.963 s against 0.958 s. The waveform outlines match closely."
-  },
-  "S3": {
-   "judge": 1,
-   "cap": 1,
-   "score": 1,
-   "reason": "The centroid is 827 Hz against 604 Hz, 36.9% off, outside the 20% limit. The rolloff is 1421 Hz against 991 Hz. The <150 Hz band's share is 19.7% against 31.7%, 12 points off, outside the 10-point limit. The other bands are within 10 points but all shifted upward (150-600 +4.7, 600-2k +3.7, 2k-5k +2.7). Overall the spectrum is clearly brighter and thinner in the low end than the original's."
+   "reason": "Centroid 708 against 604 is 17.2% off, inside the 20% limit. Band shares differ by at most 3.8 points (bandsOffMost 3.8), inside 10 points in every band: under 150 Hz 31.7 vs 29.2, 150 to 600 Hz 37.9 vs 41.3, 600 Hz to 2 kHz 24.4 vs 20.6, 2 to 5 kHz 4.8 vs 7.3, above 5 kHz 1.3 vs 1.7. Rolloff is higher (1270 vs 991), but that is not a must-have item."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged from the picture and features only, since I cannot listen. The reproduction shows 2 onsets where the original has 1. Its flatness is 0.115 against 0.081, so it is noisier and less tonal than the original. The original's spectrogram has distinct vertical transient lines at the start and grainy, uneven texture through the tail. The reproduction's is smooth and uniform, so that texture and the low-frequency body are missing. No pitch movement is visible in either."
+   "reason": "I cannot listen; judging from the picture and features only. The original has one onset: a sharp vertical feature at the very start of its spectrogram and a crisp attack. The reproduction has none (onsets 0, attack 0), so the click or crack at the start is missing. Flatness is close (0.099 against 0.081), so both are noise-like. The spectrogram of the original shows its pitch band shifting through the decay, while the reproduction's energy stays flat. Not a must-have, so 1."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The file is mono PCM at 22050 Hz, 8-bit. Peak is -0.6 dB with nothing clipped. DC offset is -0.0004, which is negligible. The name is the same as the original's. The original is a one-shot, so no loop cue is needed, and the engine reported no faults."
+   "reason": "The file is mono, 8-bit, 22050 Hz, which the engine plays. Clipped is 0, engineFaults is empty, and the name matches (sameName true). DC is 0.006, which is small and close to the original's own -0.0044, and the measure raises no fault for it. Peak is -0.6 dBFS, so there is headroom. The sound is not a loop, so there is no loop cue to match."
   }
  },
  "total": 7,

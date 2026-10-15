@@ -29,27 +29,27 @@
    "onsets": 2
   },
   "reproduction": {
-   "length": 5.002,
+   "length": 5.04,
    "peak": -0.6,
-   "rms": -13.5,
-   "crest": 13,
+   "rms": -13.7,
+   "crest": 13.1,
    "dc": 0,
    "clipped": 0,
    "lead": 0,
    "tail": 0.005,
-   "attack": 4.166,
-   "peakAt": 4.19,
-   "t20": 0.424,
-   "t40": 0.609,
-   "centroid": 622,
-   "rolloff": 1260,
-   "flatness": 0.184,
+   "attack": 4.215,
+   "peakAt": 4.215,
+   "t20": 0.703,
+   "t40": 0.823,
+   "centroid": 594,
+   "rolloff": 1109,
+   "flatness": 0.195,
    "bands": {
-    "<150": 30.2,
-    "150-600": 36.1,
-    "600-2k": 27.1,
-    "2k-5k": 6.5,
-    ">5k": 0.1
+    "<150": 29.2,
+    "150-600": 39.9,
+    "600-2k": 25.7,
+    "2k-5k": 5,
+    ">5k": 0.3
    },
    "onsets": 5
   },
@@ -59,12 +59,12 @@
     0.386,
     0.643
    ],
-   "t20": 0.424,
-   "inRange": true
+   "t20": 0.703,
+   "inRange": false
   },
-  "lengthOff": 0.007,
-  "centroidOff": 0,
-  "bandsOffMost": 1.5,
+  "lengthOff": 0.001,
+  "centroidOff": 0.045,
+  "bandsOffMost": 4.7,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -74,43 +74,14 @@
   }
  },
  "caps": {
-  "S2": 2,
+  "S2": 1,
   "S3": 2,
   "S5": 2
  },
- "scores": {
-  "S1": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Judged from the pictures and features only; I cannot listen. Both are a long door slide that ends in a stop: a sustained low-to-mid rumble, then an impact near 4.2 s (original 4.43 s, reproduction 4.19 s). The original's slide has curved, rising tonal sweeps in its spectrogram, roughly every second at about 0.2, 1.9, 3.6 and 4.2 s, low in the band. They read as the grinding or squealing of the moving door. The reproduction has none of them. Its slide is uniform broadband noise in blocks about 0.65 s long with hard vertical seams at about 0.65, 1.3, 1.95, 2.6, 3.25 and 3.9 s. Only a faint, flat, constant tone line runs through it. It reads as looped noise with a thump at the end, not as the original's grinding slide. The event is recognisable but clearly off in what makes it this door."
-  },
-  "S2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Length 5.002 s against 5.037 s (0.7% off). Attack and peak sit near the end as in the original (attack 4.17 s against 4.25 s, peak at 4.19 s against 4.43 s). T20 is 0.424 s, inside the original's own decay range of 0.386 to 0.643 s. The reproduction fades to silence a little earlier after the impact than the original's ringing tail, but every measure is within its range."
-  },
-  "S3": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Centroid 622 Hz in both (0% off). Band shares differ by 1.5 points at most: <150 Hz 30.2 against 31.1, 150-600 Hz 36.1 against 35.2, 600 Hz-2 kHz 27.1 against 28.4, 2-5 kHz 6.5 against 5.0, >5 kHz 0.1 against 0.2. Rolloff is 1260 Hz against 1421 Hz. The reproduction's spectrogram is smoother and more uniform than the original's textured one, but the measured balance matches."
-  },
-  "S4": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Judged from the pictures and features only; I cannot listen. Flatness is close but noisier (0.184 against 0.158). The closing impact is in the right place. Onsets are 5 against the original's 2: the extra ones come from the hard block seams in the reproduction's slide, which the original does not have. The original's pitch movement, its recurring rising tonal sweeps, is missing; the reproduction has only a flat steady tone line. Its ringing after the impact (the fine regular oscillations from about 4.2 to 4.7 s in the waveform) is replaced by a smooth fade."
-  },
-  "S5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Mono PCM at 11025 Hz, 8 bits, the same format as the original. No clipped samples, DC 0, same name, no engine faults. The peak is -0.6 dB, so nothing clips. No loop cue is reported for the original. The reproduction is louder than the original (RMS -13.5 against -17.1 dB), but S5 does not test level."
-  }
- },
- "total": 8,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "S2"
+ ],
+ "total": 0,
+ "of": 10
 }

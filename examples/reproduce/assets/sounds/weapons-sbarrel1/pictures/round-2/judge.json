@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-sbarrel1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 1.039,
+   "peak": -0.4,
+   "rms": -8.7,
+   "crest": 8.3,
+   "dc": -0.0044,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.614,
+   "t40": 0.958,
+   "centroid": 604,
+   "rolloff": 991,
+   "flatness": 0.081,
+   "bands": {
+    "<150": 31.7,
+    "150-600": 37.9,
+    "600-2k": 24.4,
+    "2k-5k": 4.8,
+    ">5k": 1.3
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 1.04,
+   "peak": -0.6,
+   "rms": -12.1,
+   "crest": 11.5,
+   "dc": 0.0012,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0,
+   "peakAt": 0.03,
+   "t20": 0.773,
+   "t40": 1.003,
+   "centroid": 676,
+   "rolloff": 1249,
+   "flatness": 0.09,
+   "bands": {
+    "<150": 35.1,
+    "150-600": 31,
+    "600-2k": 27.3,
+    "2k-5k": 5.2,
+    ">5k": 1.4
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "gunshot",
+   "t20Range": [
+    0.458,
+    1.013
+   ],
+   "t20": 0.773,
+   "inRange": true
+  },
+  "lengthOff": 0.001,
+  "centroidOff": 0.119,
+  "bandsOffMost": 6.9,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "I could not listen, so this is judged from the pictures and features only. The reproduction is a broadband, low-heavy burst that decays like a gunshot, so it is the right kind of event. But it lacks the original's punch. In the original, the first ~0.13 s is a dense, near full-scale block of waveform. The reproduction starts at about half that height and never builds that block. Its RMS is 3.4 dB lower (-12.1 vs -8.7 dBFS), its crest factor is 11.5 vs 8.3, and the harness finds no onset (0 vs 1). It reads as a softer, longer rumble rather than the same shotgun blast."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: length 1.040 s vs 1.039 s (0.1% off), attack 0 vs 0.005 s, and T20 0.773 s, inside the gunshot class range of 0.458 to 1.013 s. Every criterion is met. One thing the measurement misses, visible in the waveform: the reproduction's body is lower and decays more slowly than the original's (T20 0.773 vs 0.614 s). The class range allows this."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: centroid 676 Hz vs 604 Hz (11.9% off, within 20%). The largest band difference is 6.9 points, in 150-600 Hz (31.0 vs 37.9), within 10. The other bands are within 3.4 points. The spectrograms show the same low-weighted distribution, with highs fading over the length."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "I could not listen, so this is judged from the pictures and features only. Flatness is close (0.090 vs 0.081), so the balance of tone and noise is similar, and neither shows pitch movement. The onsets do not match: the original has one detected hit, the reproduction none. The original's spectrogram is ragged and grainy, with uneven bursts through the decay. The reproduction's is a smooth, uniform fade, so the fine character of the original's tail is missing."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono PCM at 22050 Hz, 8-bit, same name as the original. No clipped samples, and DC offset is negligible (0.0012). The original has no loop cue to keep. The 0.005 s of trailing silence is harmless."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,196 @@
+{
+  "spec": "smak.sound/1",
+  "name": "player/pl_step1.wav",
+  "class": "step concrete",
+  "rate": 11025,
+  "bits": 8,
+  "seed": 1,
+  "length": 0.27,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "heel",
+      "kind": "noise",
+      "iterations": 32,
+      "env": {
+        "attack": 0.0005,
+        "hold": 0.003,
+        "decay": 0.06
+      },
+      "shape": [
+        [
+          60,
+          -9
+        ],
+        [
+          150,
+          -3
+        ],
+        [
+          220,
+          0
+        ],
+        [
+          550,
+          0
+        ],
+        [
+          750,
+          -10
+        ],
+        [
+          1500,
+          -18
+        ],
+        [
+          2500,
+          -11
+        ],
+        [
+          4000,
+          -13
+        ],
+        [
+          5500,
+          -20
+        ]
+      ]
+    },
+    {
+      "id": "thud",
+      "kind": "modes",
+      "modes": [
+        {
+          "f": 110,
+          "gain": -3,
+          "decay": 0.06
+        },
+        {
+          "f": 240,
+          "gain": 0,
+          "decay": 0.05
+        }
+      ],
+      "gain": -18
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "length": 0.003,
+      "env": {
+        "attack": 0.0002,
+        "decay": 0.003
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "post": true,
+      "gain": -8
+    },
+    {
+      "id": "toe",
+      "kind": "noise",
+      "at": 0.088,
+      "iterations": 32,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.045
+      },
+      "shape": [
+        [
+          60,
+          -9
+        ],
+        [
+          200,
+          0
+        ],
+        [
+          550,
+          0
+        ],
+        [
+          900,
+          -11
+        ],
+        [
+          1500,
+          -17
+        ],
+        [
+          3000,
+          -12
+        ],
+        [
+          5500,
+          -20
+        ]
+      ],
+      "gain": -14
+    },
+    {
+      "id": "tail",
+      "kind": "noise",
+      "at": 0.01,
+      "length": 0.26,
+      "env": {
+        "points": [
+          [
+            0,
+            -25
+          ],
+          [
+            0.12,
+            -28
+          ],
+          [
+            0.26,
+            -34
+          ]
+        ]
+      },
+      "shape": [
+        [
+          60,
+          -8
+        ],
+        [
+          250,
+          0
+        ],
+        [
+          550,
+          0
+        ],
+        [
+          900,
+          -9
+        ],
+        [
+          1500,
+          -15
+        ],
+        [
+          3000,
+          -11
+        ],
+        [
+          5500,
+          -18
+        ]
+      ],
+      "gain": -8
+    }
+  ],
+  "finish": {
+    "limit": {
+      "crest": 21.5,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

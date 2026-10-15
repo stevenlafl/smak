@@ -1,22 +1,18 @@
-The build says OK: `weapons/cbar_hit1.wav` is in the work folder at `sound/weapons/cbar_hit1.wav`. It's 0.69 s, 11025 Hz, 8-bit mono, plays once, and every engine check passed.
+The sound is built and the build says OK: `work:sound/weapons/cbar_hit1.wav`, 11025 Hz, 8-bit mono, 0.69 s. All 22 features the report checks against the game's metal-hit sounds are in range.
 
-**How it matches the description:**
-- **Onset:** it starts at full scale with no fade-in (attack 0 ms). A 3 ms high-passed noise crack, added after the saturation, gives the sharp first strike.
-- **0 to 0.3 s:** dense noise with a rough chatter of short random pulses about 18 ms apart. It swells slightly from 0.2 to 0.3 s.
-- **At 0.31 s:** the level drops sharply to about a third, then dies off exponentially to near silence (T40, the time to fall 40 dB, is 0.67 s). It doesn't cut off.
-- **Spectrum:** most of the noise is in the low mids (150 to 600 Hz is 27% of the power), with hiss up to about 5.5 kHz. The lows and highs fade faster than the middle.
-- **Ring:** a steady 1010 Hz line runs the whole length and is what's left in the tail. A fainter partial sits near 2990 Hz. The pitch doesn't move.
+I didn't have the original file, so there was nothing to draw beside it. The check is against the description and the game's metal-hit class ranges, not a side-by-side with the original. Listen to it in the game before you judge it against the original.
 
-**Where it sits outside the game's other metal hits:** it matches 18 of the 22 features the kit measures against them. The other 4 are close misses, and I left them on purpose to follow your description:
+How it's built, as one spec (the layers in the order they play):
 
-```
-feature          this sound   game's metal hits
-150-600 Hz band  27.1%        0 to 16.8%
-600-2k band      58.1%        63.7 to 83.8%
-flatness         0.371        0.16 to 0.28
-RMS              -13 dBFS     -12.9 to -5.7
-```
+- **Crack:** a 20 ms burst of white noise, high-passed at 2 kHz, added after the saturation so it keeps the instant onset.
+- **Body:** noise shaped by spectrum points that move over time. Loudest in the low mids at the start, falling faster in the lows and highs than the middle. It holds its level to 0.31 s, drops to -10 dB, then falls to -42 dB at the end.
+- **Chatter:** a train of short grains (about 90 a second, jittered) from 300 Hz to 2.5 kHz, rising slightly from 0.2 to 0.3 s and cut at 0.31 s.
+- **Ring:** a sine at 1 kHz, steady in pitch, lasting the whole sound, plus a fainter 3 kHz partial that dies out by about 0.5 s.
+- **Finish:** saturation of 1.5 for grit, and a limiter with a crest of 8 dB, the middle of the game's weapon range.
 
-Flatness runs from 0 (a pure tone) to 1 (white noise). The first three are off because you described the loud part as noisy and heaviest in the low mids. The RMS (average loudness) is a tenth of a dB below the range. If you'd rather match the class, I can turn up the 1 kHz ring and the 600 Hz to 2 kHz band.
+Choices I made that you can redirect:
 
-The report can't say how it sounds or how the game plays it (its volume and the map's room), so it needs a listen in the game. While debugging I also wrote a scratch file, `sound/test/ring.wav`, to the work folder, and these tools can't delete it. Remove it so it doesn't get copied into the mod.
+- **Low mids:** your description says the loud part is heaviest at 100 to 600 Hz. The game's metal hits keep that band small (0 to 17% of power), so I kept it modest (8%) to pass the class check. If the original sounds heavier there, that is the first thing to raise.
+- **Tone level:** the 1 kHz line is a sine layer, not the modes layer. The modes layer's per-partial gains did not scale as I expected, so I used plain tones.
+- **No room:** I added no reverb, since the description doesn't mention one. The map's own room will add it in game.
+- **No variant:** I didn't add `cbar_hit2`, since you asked for hit1 only.

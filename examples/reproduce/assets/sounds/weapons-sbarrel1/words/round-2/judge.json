@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-sbarrel1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 1.039,
+   "peak": -0.4,
+   "rms": -8.7,
+   "crest": 8.3,
+   "dc": -0.0044,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.614,
+   "t40": 0.958,
+   "centroid": 604,
+   "rolloff": 991,
+   "flatness": 0.081,
+   "bands": {
+    "<150": 31.7,
+    "150-600": 37.9,
+    "600-2k": 24.4,
+    "2k-5k": 4.8,
+    ">5k": 1.3
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 1.04,
+   "peak": -0.6,
+   "rms": -10.6,
+   "crest": 10,
+   "dc": -0.0004,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.01,
+   "peakAt": 0.01,
+   "t20": 0.529,
+   "t40": 0.963,
+   "centroid": 827,
+   "rolloff": 1421,
+   "flatness": 0.115,
+   "bands": {
+    "<150": 19.7,
+    "150-600": 42.6,
+    "600-2k": 28.1,
+    "2k-5k": 7.5,
+    ">5k": 2
+   },
+   "onsets": 2
+  },
+  "envelope": {
+   "class": "gunshot",
+   "t20Range": [
+    0.458,
+    1.013
+   ],
+   "t20": 0.529,
+   "inRange": true
+  },
+  "lengthOff": 0.001,
+  "centroidOff": 0.369,
+  "bandsOffMost": 12,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 1,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only, since I cannot listen. Both are a single loud blast that fills the first ~0.3 s and dies away over about 1 s, so the reproduction is clearly some kind of gunshot. It does not have the original's weight, though. The original's energy sits heavily below 150 Hz (31.7% against 19.7%), and its spectrogram is grainy, with vertical transient streaks in the first 0.1 s and broken texture all through the decay. The reproduction's spectrogram is a smooth, even noise gradient whose energy sits higher (centroid 827 Hz against 604 Hz). It reads as a lighter, brighter noise burst, not the original's heavy boom."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 1.040 s against 1.039 s (0.1% off). Attack is 0.010 s against 0.005 s, with the peak at 0.010 s against 0.015 s. T20 is 0.529 s, inside the gunshot class's range of 0.458 to 1.013 s, and T40 is 0.963 s against 0.958 s. The waveform outlines match closely."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "The centroid is 827 Hz against 604 Hz, 36.9% off, outside the 20% limit. The rolloff is 1421 Hz against 991 Hz. The <150 Hz band's share is 19.7% against 31.7%, 12 points off, outside the 10-point limit. The other bands are within 10 points but all shifted upward (150-600 +4.7, 600-2k +3.7, 2k-5k +2.7). Overall the spectrum is clearly brighter and thinner in the low end than the original's."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only, since I cannot listen. The reproduction shows 2 onsets where the original has 1. Its flatness is 0.115 against 0.081, so it is noisier and less tonal than the original. The original's spectrogram has distinct vertical transient lines at the start and grainy, uneven texture through the tail. The reproduction's is smooth and uniform, so that texture and the low-frequency body are missing. No pitch movement is visible in either."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file is mono PCM at 22050 Hz, 8-bit. Peak is -0.6 dB with nothing clipped. DC offset is -0.0004, which is negligible. The name is the same as the original's. The original is a one-shot, so no loop cue is needed, and the engine reported no faults."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

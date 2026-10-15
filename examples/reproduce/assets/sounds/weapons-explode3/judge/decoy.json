@@ -38,20 +38,20 @@
    "lead": 0,
    "tail": 0,
    "attack": 0,
-   "peakAt": 0.828,
-   "t20": 0.474,
-   "t40": 0.474,
-   "centroid": 5526,
-   "rolloff": 9410,
+   "peakAt": 0.858,
+   "t20": 0.444,
+   "t40": 0.444,
+   "centroid": 5516,
+   "rolloff": 9388,
    "flatness": 0.991,
    "bands": {
-    "<150": 1.3,
-    "150-600": 4,
-    "600-2k": 12.1,
-    "2k-5k": 28,
-    ">5k": 54.6
+    "<150": 1.1,
+    "150-600": 4.4,
+    "600-2k": 12.4,
+    "2k-5k": 27.6,
+    ">5k": 54.4
    },
-   "onsets": 2
+   "onsets": 1
   },
   "envelope": {
    "class": "explosion",
@@ -59,12 +59,12 @@
     0.668,
     1.113
    ],
-   "t20": 0.474,
+   "t20": 0.444,
    "inRange": false
   },
   "lengthOff": 0,
-  "centroidOff": 7.971,
-  "bandsOffMost": 52.7,
+  "centroidOff": 7.955,
+  "bandsOffMost": 52.5,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -78,39 +78,11 @@
   "S3": 0,
   "S5": 2
  },
- "scores": {
-  "S1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "Judged from the picture and features only, since I cannot listen. The original is an explosion: one sharp low-heavy blast at the start (peak at 0.254 s) that decays over about a second, with its energy below 600 Hz (74% of the energy in the <150 and 150-600 bands) and the highs dying away toward the end of the spectrogram. The reproduction is steady, broadband hiss from start to end. Its waveform is a flat band with no blast and no decay, and its spectrogram is uniform bright orange up to the top. Nobody would call it the same event."
-  },
-  "S2": {
-   "judge": 0,
-   "cap": 1,
-   "score": 0,
-   "reason": "The length matches (1.301 s for both). Measured T20 (the time for the sound to fall 20 dB) is 0.474 s, outside the explosion class's range of 0.668 to 1.113 s, which caps this item at 1. I score it lower than that cap because the picture shows no envelope at all. The waveform holds the same level from 0 to 1.30 s, with no attack transient and no decay. The original's waveform has a big early peak and a long fade to near silence. Only the length is right."
-  },
-  "S3": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The spectral centroid (the sound's average frequency) is 5526 Hz against the original's 616 Hz, about 8 times too high, far outside the 20% limit. The band shares are inverted. Below 150 Hz the reproduction has 1.3% of the energy against 36.4%, 150-600 Hz has 4% against 37.6%, and above 5 kHz has 54.6% against 1.9%. The worst band is off by 52.7 points, against a limit of 10. In the spectrogram the original's energy sits in the low rows and fades out of the highs over time. The reproduction's is even top to bottom."
-  },
-  "S4": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "Judged from the picture and features only, since I cannot listen. Flatness (0 means tonal, 1 means pure noise) is 0.991, white noise, against the original's 0.097, which is a rumble with body. The measured onsets are 2 against 1, and the waveform shows no single strong hit like the original's blast. The original's highs darken over time, as an explosion's low-pass tail does. The reproduction's spectrum never changes."
-  },
-  "S5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Mono 16-bit PCM at 22050 Hz. No clipping (0 clipped samples). DC offset is 0.0012, which is negligible. Same name as the original. No engine faults. The original is a one-shot with no loop cue, and the reproduction adds none."
-  }
- },
- "total": 2,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "S2",
+  "S3"
+ ],
+ "total": 0,
+ "of": 10
 }

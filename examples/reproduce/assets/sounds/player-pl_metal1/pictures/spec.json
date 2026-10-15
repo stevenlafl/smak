@@ -4,212 +4,105 @@
   "class": "step metal",
   "rate": 11025,
   "bits": 8,
-  "seed": 7,
   "length": 0.58,
-  "picture": "pictures/sound.png",
+  "seed": 1,
   "layers": [
     {
-      "id": "body",
+      "id": "click",
       "kind": "noise",
-      "iterations": 32,
-      "env": {
-        "points": [
-          [
-            0,
-            -2
-          ],
-          [
-            0.1,
-            -5
-          ],
-          [
-            0.18,
-            -1
-          ],
-          [
-            0.26,
-            -6
-          ],
-          [
-            0.4,
-            -14
-          ],
-          [
-            0.58,
-            -28
-          ]
-        ]
-      },
-      "shape": {
-        "keys": [
-          {
-            "at": 0,
-            "curve": [
-              [
-                50,
-                0
-              ],
-              [
-                150,
-                0
-              ],
-              [
-                400,
-                -6
-              ],
-              [
-                1000,
-                -11
-              ],
-              [
-                2500,
-                -18
-              ],
-              [
-                5500,
-                -25
-              ]
-            ]
-          },
-          {
-            "at": 0.25,
-            "curve": [
-              [
-                50,
-                0
-              ],
-              [
-                150,
-                -1
-              ],
-              [
-                400,
-                -9
-              ],
-              [
-                1000,
-                -17
-              ],
-              [
-                2500,
-                -29
-              ],
-              [
-                5500,
-                -40
-              ]
-            ]
-          },
-          {
-            "at": 0.55,
-            "curve": [
-              [
-                50,
-                0
-              ],
-              [
-                150,
-                -3
-              ],
-              [
-                400,
-                -13
-              ],
-              [
-                1000,
-                -26
-              ],
-              [
-                2500,
-                -42
-              ],
-              [
-                5500,
-                -55
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "scuff",
-      "kind": "particles",
-      "count": 40,
-      "band": [
-        300,
-        2500
-      ],
-      "grain": 0.003,
-      "length": 0.22,
-      "gain": -9
-    },
-    {
-      "id": "heel",
-      "kind": "noise",
-      "color": "pink",
       "filter": [
         {
+          "type": "highpass",
+          "f": 1200
+        },
+        {
           "type": "lowpass",
-          "f": 2500
+          "f": 2600
         }
       ],
       "env": {
         "attack": 0.001,
-        "decay": 0.06
+        "decay": 0.02
       },
-      "gain": -8
+      "gain": -6
     },
     {
-      "id": "toe",
+      "id": "thump",
+      "kind": "tone",
+      "f": 110,
+      "wave": "sine",
+      "sweep": {
+        "to": 55,
+        "time": 0.1
+      },
+      "env": {
+        "attack": 0.001,
+        "decay": 0.3
+      },
+      "gain": -3
+    },
+    {
+      "id": "rumble",
       "kind": "noise",
       "color": "pink",
-      "at": 0.175,
       "filter": [
         {
           "type": "lowpass",
-          "f": 3000
+          "f": 900
         }
       ],
       "env": {
-        "attack": 0.0005,
-        "decay": 0.03
+        "attack": 0.001,
+        "decay": 0.3
       },
-      "gain": 0
+      "gain": -9
+    },
+    {
+      "id": "grit",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 300
+        },
+        {
+          "type": "lowpass",
+          "f": 4000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.25
+      },
+      "gain": -12
     },
     {
       "id": "ring",
       "kind": "modes",
-      "modes": [
-        {
-          "f": 118,
-          "gain": 0,
-          "decay": 0.6
-        },
-        {
-          "f": 205,
-          "gain": -3,
-          "decay": 0.5
-        },
-        {
-          "f": 330,
-          "gain": -6,
-          "decay": 0.4
-        },
-        {
-          "f": 515,
-          "gain": -10,
-          "decay": 0.3
-        }
-      ],
-      "detune": 0.03,
-      "gain": -36
+      "f": 300,
+      "ratios": "bar",
+      "decay": 2,
+      "damping": 0.6,
+      "gain": -15
+    },
+    {
+      "id": "clang",
+      "kind": "modes",
+      "f": 1000,
+      "ratios": "bar",
+      "decay": 0.25,
+      "damping": 1,
+      "gain": -18
     }
   ],
   "finish": {
+    "saturate": 1.5,
     "limit": {
-      "crest": 16
+      "crest": 16,
+      "release": 0.002
     },
     "peak": -0.5
-  }
+  },
+  "picture": "pictures/sound.png"
 }

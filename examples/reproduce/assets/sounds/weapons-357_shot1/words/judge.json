@@ -31,27 +31,27 @@
   "reproduction": {
    "length": 1.06,
    "peak": -0.6,
-   "rms": -8.6,
-   "crest": 8,
-   "dc": 0,
+   "rms": -8.7,
+   "crest": 8.2,
+   "dc": -0.0012,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.01,
-   "attack": 0.01,
-   "peakAt": 0.05,
-   "t20": 0.569,
-   "t40": 0.833,
-   "centroid": 1018,
-   "rolloff": 1873,
-   "flatness": 0.194,
+   "tail": 0,
+   "attack": 0.065,
+   "peakAt": 0.344,
+   "t20": 0.713,
+   "t40": 0.713,
+   "centroid": 1022,
+   "rolloff": 1852,
+   "flatness": 0.193,
    "bands": {
-    "<150": 23.3,
-    "150-600": 37.2,
-    "600-2k": 25.5,
-    "2k-5k": 10.1,
-    ">5k": 3.9
+    "<150": 19.5,
+    "150-600": 39.1,
+    "600-2k": 27.7,
+    "2k-5k": 9.9,
+    ">5k": 3.8
    },
-   "onsets": 0
+   "onsets": 1
   },
   "envelope": {
    "class": "gunshot",
@@ -59,12 +59,12 @@
     0.458,
     1.013
    ],
-   "t20": 0.569,
+   "t20": 0.713,
    "inRange": true
   },
   "lengthOff": 0.004,
-  "centroidOff": 0.086,
-  "bandsOffMost": 18.4,
+  "centroidOff": 0.091,
+  "bandsOffMost": 16.2,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -78,39 +78,10 @@
   "S3": 1,
   "S5": 2
  },
- "scores": {
-  "S1": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Judged from the pictures and features only; I cannot listen. Both are loud, broadband bursts about 1.06 s long that hold strong for roughly 0.45 s and then decay. That is gunshot-like, and the envelope class is gunshot. The original opens with a sharp crack: dense vertical broadband strikes in the first ~0.05 s of its spectrogram, a peak at 0.015 s, 3 onsets, and heavy clipping that reads as a hard-driven blast. The reproduction has no distinct crack. Its first ~0.45 s looks like evenly shaped noise with no striking transient (0 onsets, peak not until 0.05 s), and its energy sits lower, in the 150-600 Hz band, instead of the original's mid-range bark. A player would probably take it for some shot, but not clearly this revolver's sharp report."
-  },
-  "S2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Measured: the length is 1.060 s against 1.064 s (0.4% off). T20 is 0.569 s, inside the gunshot class's range of 0.458 to 1.013 s. Attack is 0.01 s against 0.005 s. In the waveforms, both hold a full-scale body to about 0.45 s and then tail off. The reproduction's tail fades sooner (T20 0.569 against 0.748, T40 0.833 against 1.003), but it stays within the class range the rubric sets."
-  },
-  "S3": {
-   "judge": 1,
-   "cap": 1,
-   "score": 1,
-   "reason": "Measured: the centroid is 1018 Hz against 937 Hz (8.6% off, within 20%). The band shares are not all within 10 points. 600-2k Hz is 25.5% against 43.9% (18.4 points off), and 150-600 Hz is 37.2% against 27.5% (9.7 points off, just inside). 2k-5k and >5k are a little high (10.1 against 6.7, 3.9 against 1.6). The spectrogram agrees: the reproduction's energy runs smoothly downward from the bottom, while the original keeps a strong mid band through its body and tail."
-  },
-  "S4": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Judged from the pictures and features only; I cannot listen. Onsets: the original has 3 (the crack and the strikes after it, visible as vertical bars near the start of its spectrogram), and the reproduction has 0, with nothing comparable in its picture. Flatness is 0.194 against 0.11, so the reproduction is noticeably noisier and less tonal. The original's tail shows faint horizontal banding (resonant ring); the reproduction's tail is a smooth noise fade. Neither shows pitch movement. The decaying noise-blast character is there, but the transient structure is missing."
-  },
-  "S5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Measured: mono, 22050 Hz, 8-bit PCM, same name. 0 clipped samples (peak -0.6 dB), DC 0, and no engine faults. The original is a one-shot, so no loop cue is needed."
-  }
- },
- "total": 7,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "S3"
+ ],
+ "total": 0,
+ "of": 10
 }

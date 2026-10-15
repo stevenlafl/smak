@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "debris-bustmetal1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.873,
+   "peak": -0.1,
+   "rms": -12.8,
+   "crest": 12.7,
+   "dc": -0.0076,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.105,
+   "attack": 0.025,
+   "peakAt": 0.075,
+   "t20": 0.439,
+   "t40": 0.629,
+   "centroid": 1968,
+   "rolloff": 3241,
+   "flatness": 0.569,
+   "bands": {
+    "<150": 0.2,
+    "150-600": 8.8,
+    "600-2k": 47,
+    "2k-5k": 41.3,
+    ">5k": 2.7
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.87,
+   "peak": -0.6,
+   "rms": -12.6,
+   "crest": 12,
+   "dc": 0.0001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.005,
+   "peakAt": 0.005,
+   "t20": 0.559,
+   "t40": 0.803,
+   "centroid": 1968,
+   "rolloff": 3499,
+   "flatness": 0.67,
+   "bands": {
+    "<150": 0.1,
+    "150-600": 12,
+    "600-2k": 45.5,
+    "2k-5k": 40,
+    ">5k": 2.3
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "none: the original's own decay",
+   "t20Range": [
+    0.329,
+    0.549
+   ],
+   "t20": 0.559,
+   "inRange": false
+  },
+  "lengthOff": 0.003,
+  "centroidOff": 0,
+  "bandsOffMost": 3.2,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 1,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only, since I cannot listen. The original looks like a metal piece breaking. Its waveform swells to a peak at 0.075 s. Its spectrogram shows several distinct horizontal resonant lines in the 600 Hz to 5 kHz range that ring and flicker irregularly through the decay, like rattling metal. The reproduction is a smooth, instant-onset burst of broadband noise that decays exponentially. It has one bright tonal line low in the spectrogram, but the original's cluster of ringing partials and its uneven rattle are largely missing. It reads as a generic noisy impact, not clearly the same metal-break event."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 1,
+   "score": 1,
+   "reason": "The length matches (0.870 s vs 0.873 s, off by 0.003 s). The decay misses: the reproduction's T20 is 0.559 s, outside the allowed range of 0.329 to 0.549 s (measured inRange false), which caps S2 at 1. The attack is also off. The reproduction peaks at 0.005 s, while the original builds to its peak at 0.075 s with a 0.025 s attack. The original falls to near silence by about 0.77 s (0.105 s tail). The reproduction is still audible to the end (0.005 s tail), with T40 at 0.803 s vs 0.629 s."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The centroid is identical, 1968 Hz in both (0% off). The largest band share difference is 3.2 points (150-600 Hz: 12.0 vs 8.8), well inside the 10-point limit. The rolloff is 3499 Hz vs 3241 Hz. The spectrogram shows a similar overall energy distribution."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only, since I cannot listen. Neither sound has onsets (0 and 0), so that part agrees. The reproduction is noisier: flatness is 0.67 vs 0.569. The spectrogram backs this up. The original has several sharp, irregular resonant streaks and clear frame-to-frame flicker. The reproduction is a smooth wash with only one prominent tonal line, so the original's metallic ringing and rattle are not matched."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono PCM at 11025 Hz, 8-bit, the same format as the original. No clipping (0), DC offset 0.0001, same name (sameName true), no engine faults. The original is a one-shot debris sound with no loop cue shown, so none is needed."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

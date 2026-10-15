@@ -31,27 +31,27 @@
   "reproduction": {
    "length": 5.037,
    "peak": -10.5,
-   "rms": -15.2,
+   "rms": -15.3,
    "crest": 4.8,
-   "dc": -0.0003,
+   "dc": 0.0003,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
-   "attack": 0.005,
-   "peakAt": 0.748,
-   "t20": 4.29,
-   "t40": 4.29,
-   "centroid": 2746,
-   "rolloff": 4662,
-   "flatness": 0.995,
+   "attack": 0.02,
+   "peakAt": 0.03,
+   "t20": 5.009,
+   "t40": 5.009,
+   "centroid": 2760,
+   "rolloff": 4673,
+   "flatness": 0.996,
    "bands": {
-    "<150": 2.6,
-    "150-600": 8.2,
-    "600-2k": 25.7,
-    "2k-5k": 54.3,
-    ">5k": 9.2
+    "<150": 2.5,
+    "150-600": 8,
+    "600-2k": 25.4,
+    "2k-5k": 55,
+    ">5k": 9.1
    },
-   "onsets": 1
+   "onsets": 3
   },
   "envelope": {
    "class": "none: the original's own decay",
@@ -59,12 +59,12 @@
     0.386,
     0.643
    ],
-   "t20": 4.29,
+   "t20": 5.009,
    "inRange": false
   },
   "lengthOff": 0,
-  "centroidOff": 3.415,
-  "bandsOffMost": 49.3,
+  "centroidOff": 3.437,
+  "bandsOffMost": 50,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -78,39 +78,11 @@
   "S3": 0,
   "S5": 2
  },
- "scores": {
-  "S1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "I couldn't listen to either sound, so this is judged from the picture and the measurements. The original is a door moving: a rumble with most of its energy below 600 Hz, a pitch line that rises and repeats about four times across the spectrogram, and a final clunk with a decay near 4.4 s. The reproduction is flat white noise. Its waveform is a constant band, its spectrogram is the same from top to bottom, and its flatness is 0.995. It doesn't read as a door or any other mechanical event."
-  },
-  "S2": {
-   "judge": 0,
-   "cap": 1,
-   "score": 0,
-   "reason": "The length matches (5.037 s against 5.037 s). The envelope does not. The reproduction has no shape: its attack is 0.005 s where the original's is 4.25 s, its peak comes at 0.75 s where the original's comes at 4.43 s, and it has no tail. Its T20 decay of 4.29 s is far outside the allowed 0.386 to 0.643 s (inRange false). The original's build-up to a final clunk is missing."
-  },
-  "S3": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The centroid is 2746 Hz against 622 Hz, which is 341% off where the limit is 20%. Every band is off. The 2k-5k band holds 54.3% against 5.0% (49.3 points off), <150 Hz holds 2.6% against 31.1%, 150-600 Hz holds 8.2% against 35.2%, and >5k holds 9.2% against 0.2%. The energy sits high where the original's sits low."
-  },
-  "S4": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "I couldn't listen to either sound, so this is judged from the picture and the measurements. The original has two onsets, including the clunk near 4.4 s, and is fairly tonal (flatness 0.158), with a rising pitch line that repeats. The reproduction is pure noise (flatness 0.995) with one onset at the start, no pitch movement and no clunk."
-  },
-  "S5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The file is what the engine plays: mono, 16-bit PCM at 11025 Hz, no clipping, DC of -0.0003, the same name, and no engine faults. The original has no loop cue to match."
-  }
- },
- "total": 2,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "S2",
+  "S3"
+ ],
+ "total": 0,
+ "of": 10
 }

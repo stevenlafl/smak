@@ -1,25 +1,20 @@
-The build says OK on all checks. The file is `work:sound/doors/doormove1.wav`: 11025 Hz, 8-bit, mono, 5.04 s, played once. Copy it into `<mod>/sound/doors/` and the game plays it in place of the original.
+The sound is built and the build says OK: `work:sound/doors/doormove1.wav`, 11025 Hz, 8-bit mono, 5.04 s, played once. It goes into `<mod>/sound/doors/` to replace the game's file of that name.
 
-I couldn't put the two side by side. The original isn't in any game folder the server can read, so the only thing I could compare against was your description.
+I could not compare it with the original. No game folder was given, so the report drew no reference beside it, and I have not listened to it. The figures below are what the build measured.
 
-**How it's built, against your description:**
-- **Grind:** shaped noise across 100 Hz to 4 kHz, strongest from 200 Hz to 1.5 kHz, with a dull top. Fine grit on top gives the small grainy ripples.
-- **Envelope:** fades in over 0.1 s with no hit, holds level to 4.0 s, swells from 4.1 to 4.6 s, then dies out by about 4.9 s with a short soft tail.
-- **Low rumble:** a quiet layer under 150 Hz that comes up about 11 dB in the final section.
-- **Rattle:** a train of pulses about 32 ms apart from 4.05 to 4.8 s, the shudder at the end of travel.
-- **Squeals:** four soft tones rising from 300 to about 600 Hz, each about 1 s long, starting at 0.3, 1.5, 2.8 and 3.9 s. They show as faint rising lines on the spectrogram.
+| Feature (from your description) | What the build made |
+| --- | --- |
+| Length 5.04 s, 11025 Hz, 8-bit | 5.04 s, 11025 Hz, 8-bit mono |
+| Fast fade-in to a steady level | Body fades in over 0.1 s; no initial hit (onsets: 1) |
+| Steady body 0.1 to 4.0 s, grainy | Broadband noise, held level |
+| Swell at 4.1 s, rattling about 0.5 s | Loudest section, with a 25 Hz particle flutter from 4.1 to 4.6 s |
+| Taper to silence by 4.9 s | Fades out 4.9 to 5.04 s |
+| Firm rumble under 150 Hz | Brown noise low-passed at 150 Hz, at a lower level than the body |
+| Energy densest 200 Hz to 1.5 kHz, dull top | Shaped noise, 600 to 2k Hz at 40% of power, above 5 kHz at 0% |
+| Squeals rising 300 to 600 Hz, about 1 s each, at 0.3, 1.5, 2.8, 3.9 s | Four rising sweeps at those times, band-passed around 450 Hz |
 
-**Measured:**
+The spectrogram shows the four squeal arcs at the right times. The fade-in and the swell are in the envelope. The build reports a crest of 11 dB and an RMS of -11.6 dBFS.
 
-```
-peak       -0.6 dBFS
-RMS        -12.5 dBFS
-crest      11.9 dB
-centroid   722 Hz
-bands      <150 Hz 22%  |  150-600 Hz 33%  |  600 Hz-2 kHz 40%  |  2-5 kHz 5.5%
-```
+Two of the build's complaints are about the class I chose, not the sound. I used `loop machine` because the kit has no door class. Its length and centroid ranges come from looping machines, so "too long" and "too bright" do not apply to a one-shot door. The flatness complaint asks for more tone. I kept the noise-dominant texture you described, with the tonal squeals as the only tone.
 
-**Caveats:**
-- **"Loop machine" mismatches:** there's no door class, so the report measured it against the game's "loop machine" sounds. It flags length, brightness and band balance as off from those. I left those alone, because following them would move it away from your description.
-- **Rattle vs. limiter:** I added a peak limiter to tame the spikiness the report flagged in the previous build. It also flattened the end's beating a little. If the side-by-side shows the rattle less pulsing than the original's, lowering the limiter's setting or taking it out brings the beats back.
-- **Not heard:** none of this tells you how it sounds or how the game plays it (volume, pitch, the map's room). It needs a listen in the game.
+The spec is inline in my build calls and nothing was saved beside the work file. If you want to tune it, the next steps are to listen in the game and, if the game folder is available, rebuild with `reference: "doors/doormove1.wav"` so the report draws the original beside it.

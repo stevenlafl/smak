@@ -1,0 +1,276 @@
+{
+  "spec": "smak.sound/1",
+  "name": "items/smallmedkit1.wav",
+  "bits": 8,
+  "rate": 22050,
+  "length": 0.76,
+  "seed": 7,
+  "layers": [
+    {
+      "id": "p1",
+      "kind": "tone",
+      "f": 270,
+      "wave": "square",
+      "at": 0,
+      "length": 0.035,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.033,
+            0
+          ],
+          [
+            0.035,
+            -60
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 4000
+        }
+      ],
+      "gain": -2
+    },
+    {
+      "id": "p2",
+      "kind": "tone",
+      "f": 270,
+      "wave": "square",
+      "at": 0.05,
+      "length": 0.1,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.098,
+            0
+          ],
+          [
+            0.1,
+            -60
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 4000
+        }
+      ],
+      "gain": -2
+    },
+    {
+      "id": "p3",
+      "kind": "tone",
+      "f": 270,
+      "wave": "square",
+      "at": 0.17,
+      "length": 0.09,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.088,
+            0
+          ],
+          [
+            0.09,
+            -60
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 4000
+        }
+      ],
+      "gain": -2
+    },
+    {
+      "id": "e1",
+      "kind": "noise",
+      "color": "white",
+      "at": 0,
+      "length": 0.01,
+      "env": {
+        "decay": 0.006
+      },
+      "gain": -14
+    },
+    {
+      "id": "e2",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.05,
+      "length": 0.01,
+      "env": {
+        "decay": 0.006
+      },
+      "gain": -14
+    },
+    {
+      "id": "e3",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.17,
+      "length": 0.01,
+      "env": {
+        "decay": 0.006
+      },
+      "gain": -14
+    },
+    {
+      "id": "e4",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.15,
+      "length": 0.008,
+      "env": {
+        "decay": 0.005
+      },
+      "gain": -18
+    },
+    {
+      "id": "e5",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.26,
+      "length": 0.008,
+      "env": {
+        "decay": 0.005
+      },
+      "gain": -18
+    },
+    {
+      "id": "rustle",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0.26,
+      "length": 0.26,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1500,
+          "q": 0.6
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -6
+          ],
+          [
+            0.08,
+            0
+          ],
+          [
+            0.16,
+            -4
+          ],
+          [
+            0.26,
+            -2
+          ]
+        ]
+      },
+      "gain": -18
+    },
+    {
+      "id": "ticks",
+      "kind": "particles",
+      "at": 0.27,
+      "length": 0.24,
+      "count": 6,
+      "band": [
+        1000,
+        5000
+      ],
+      "grain": 0.002,
+      "gain": -20
+    },
+    {
+      "id": "click",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.4,
+      "length": 0.006,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ],
+      "env": {
+        "decay": 0.004
+      },
+      "gain": -10
+    },
+    {
+      "id": "hiss",
+      "kind": "noise",
+      "at": 0.52,
+      "length": 0.24,
+      "iterations": 32,
+      "shape": [
+        [
+          200,
+          -35
+        ],
+        [
+          1500,
+          -22
+        ],
+        [
+          4000,
+          -6
+        ],
+        [
+          5500,
+          0
+        ],
+        [
+          9500,
+          0
+        ],
+        [
+          11000,
+          -6
+        ]
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.003,
+            0
+          ],
+          [
+            0.24,
+            0
+          ]
+        ]
+      },
+      "gain": -1
+    }
+  ],
+  "finish": {
+    "peak": -0.5
+  }
+}

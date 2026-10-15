@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-cbar_hit1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.694,
+   "peak": -0.4,
+   "rms": -9.9,
+   "crest": 9.5,
+   "dc": 0.0043,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.03,
+   "t20": 0.559,
+   "t40": 0.649,
+   "centroid": 1343,
+   "rolloff": 1938,
+   "flatness": 0.215,
+   "bands": {
+    "<150": 4.9,
+    "150-600": 6.8,
+    "600-2k": 73.8,
+    "2k-5k": 13.7,
+    ">5k": 0.9
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 0.69,
+   "peak": -0.6,
+   "rms": -10.6,
+   "crest": 10,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.025,
+   "t20": 0.474,
+   "t40": 0.663,
+   "centroid": 1435,
+   "rolloff": 2164,
+   "flatness": 0.352,
+   "bands": {
+    "<150": 0.6,
+    "150-600": 6.1,
+    "600-2k": 75.2,
+    "2k-5k": 17.7,
+    ">5k": 0.4
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "metal hit",
+   "t20Range": [
+    0.24,
+    0.7
+   ],
+   "t20": 0.474,
+   "inRange": true
+  },
+  "lengthOff": 0.006,
+  "centroidOff": 0.069,
+  "bandsOffMost": 4.3,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "I could not listen, so this is judged from the pictures and the features only. Both are a single sharp strike at time zero. Each holds loud for about the first 0.2 s, decays to a long low ring by about 0.69 s, and has a steady tonal line across the whole spectrogram. That reads as the same metal hit as the original, the crowbar striking metal, and both fall in the 'metal hit' envelope class."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 0.690 s against 0.694 s (0.6% off, limit 25%). T20 0.474 s is inside the metal-hit class range of 0.24 to 0.70 s. The original's is 0.559, so this one decays somewhat faster, but it is still in range. Attack 0 s against 0.005 s and peak at 0.025 s against 0.03 s are both close. The waveform shapes match: a dense plateau, then a drop and a long tail."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid 1435 Hz against 1343 Hz (6.9% off, limit 20%). The largest band difference is 4.3 points (limit 10): the 2k-5k band is 17.7 against 13.7, <150 Hz is 0.6 against 4.9, and 600-2k is 75.2 against 73.8. Rolloff 2164 Hz against 1938 Hz. Both spectrograms put their energy in the same low-middle region."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "I could not listen, so this is judged from the pictures and the features only. Flatness is 0.352 against the original's 0.215, so the reproduction is clearly noisier and less tonal. In the original's spectrogram several distinct horizontal ring partials run through the whole decay, and its frames show sharp striations. The reproduction has one fainter tonal line over smooth, smeared noise, and most of the original's partials are missing. The onset count is 0 against 1: the detector found no distinct strike transient in the reproduction, though its waveform does start at full level. The ring's tonal character does not match."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono PCM at 11025 Hz, 8-bit. No clipped samples, DC offset 0 (the original's is 0.0043), no leading or trailing silence. The original is a one-shot with no loop cue, so none is needed, and the name is the same, weapons/cbar_hit1.wav. No engine faults were reported."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

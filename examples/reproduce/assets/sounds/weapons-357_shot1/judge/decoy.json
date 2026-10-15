@@ -31,27 +31,27 @@
   "reproduction": {
    "length": 1.064,
    "peak": -10.5,
-   "rms": -15.3,
-   "crest": 4.8,
-   "dc": 0.0004,
+   "rms": -15.2,
+   "crest": 4.7,
+   "dc": -0.0011,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
    "attack": 0.005,
-   "peakAt": 0.604,
-   "t20": 0.464,
-   "t40": 0.464,
-   "centroid": 5485,
+   "peakAt": 0.14,
+   "t20": 0.928,
+   "t40": 0.928,
+   "centroid": 5508,
    "rolloff": 9367,
    "flatness": 0.988,
    "bands": {
-    "<150": 1.2,
-    "150-600": 4.3,
-    "600-2k": 12.7,
-    "2k-5k": 28,
-    ">5k": 53.9
+    "<150": 1.3,
+    "150-600": 4.1,
+    "600-2k": 13.3,
+    "2k-5k": 27,
+    ">5k": 54.4
    },
-   "onsets": 0
+   "onsets": 1
   },
   "envelope": {
    "class": "gunshot",
@@ -59,12 +59,12 @@
     0.458,
     1.013
    ],
-   "t20": 0.464,
+   "t20": 0.928,
    "inRange": true
   },
   "lengthOff": 0,
-  "centroidOff": 4.854,
-  "bandsOffMost": 52.3,
+  "centroidOff": 4.878,
+  "bandsOffMost": 52.8,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -78,39 +78,10 @@
   "S3": 0,
   "S5": 2
  },
- "scores": {
-  "S1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "Judged only from the picture and the measurements, since I cannot listen. The original is a gunshot: a full-scale burst at the start (peak at 0.015 s, clipped), energy concentrated below 2 kHz (centroid 937 Hz), and a long ringing decay that fades over about 1 s. The reproduction is steady broadband hiss from start to end, with a flat waveform and an evenly bright spectrogram at every frequency. No one would call it the same event, or any shot at all."
-  },
-  "S2": {
-   "judge": 0,
-   "cap": 2,
-   "score": 0,
-   "reason": "The length matches (1.064 s, 0% off), but the envelope is missing. The waveform is a constant band of level for the whole 1.06 s, with no transient at the start and no decay: the peak falls at 0.604 s, mid-sound, and the crest factor is 4.8 against 8.5. The measured T20 of 0.464 s lands in the gunshot range (0.458 to 1.013) only by chance. In the picture the level never drops 20 dB, so the reported T20 is a measurement artifact and not a real decay. That puts the score below what the measurement alone would allow."
-  },
-  "S3": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "Centroid 5485 Hz against 937 Hz (485% off, the limit is 20%). Rolloff 9367 Hz against 1658 Hz. Every band misses its 10-point limit: >5k is 53.9% against 1.6%, 2k-5k 28% against 6.7%, 600-2k 12.7% against 43.9%, 150-600 4.3% against 27.5%, <150 1.2% against 20.3% (worst gap 52.3 points). The spectrogram shows uniform energy from top to bottom where the original's sits in the low and mid range and dims at the top."
-  },
-  "S4": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "Judged from the picture and the measurements, since I cannot listen. The original has 3 onsets (the shot and its follow-up hits, visible as the bright vertical striping at the start of the spectrogram) and a mostly tonal, resonant body (flatness 0.11). The reproduction has 0 onsets and is pure white noise (flatness 0.988), with no pitch content or movement, against the original's darkening, narrowing tail."
-  },
-  "S5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Mono 16-bit PCM at 22050 Hz, no clipped samples, DC at 0.0004 (negligible), same name as the original. The original shows no loop cue, so none is needed."
-  }
- },
- "total": 2,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "S3"
+ ],
+ "total": 0,
+ "of": 10
 }

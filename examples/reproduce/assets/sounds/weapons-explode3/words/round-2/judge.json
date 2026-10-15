@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-explode3",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 1.301,
+   "peak": -0.4,
+   "rms": -6.2,
+   "crest": 5.7,
+   "dc": -0.0048,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.254,
+   "t20": 0.893,
+   "t40": 1.028,
+   "centroid": 616,
+   "rolloff": 947,
+   "flatness": 0.097,
+   "bands": {
+    "<150": 36.4,
+    "150-600": 37.6,
+    "600-2k": 19.5,
+    "2k-5k": 4.6,
+    ">5k": 1.9
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 1.3,
+   "peak": -0.3,
+   "rms": -7.4,
+   "crest": 7,
+   "dc": 0.0002,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.025,
+   "peakAt": 0.155,
+   "t20": 0.978,
+   "t40": 1.137,
+   "centroid": 590,
+   "rolloff": 1077,
+   "flatness": 0.086,
+   "bands": {
+    "<150": 37.1,
+    "150-600": 38.7,
+    "600-2k": 17.3,
+    "2k-5k": 5.5,
+    ">5k": 1.4
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "explosion",
+   "t20Range": [
+    0.668,
+    1.113
+   ],
+   "t20": 0.978,
+   "inRange": true
+  },
+  "lengthOff": 0.001,
+  "centroidOff": 0.042,
+  "bandsOffMost": 2.2,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture and features only, since I cannot listen. Both are a loud broadband noise burst that holds near full level for about the first 0.5 s and then rumbles down over 1.3 s. Most of the energy is low: about 75% below 600 Hz in both (36.4/37.6 vs 37.1/38.7). Centroid is 616 vs 590 Hz and flatness 0.097 vs 0.086. It reads as the same event, an explosion with a low rumbling tail."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: length 1.300 vs 1.301 s (0.1% off). T20 is 0.978 s, inside the explosion class range of 0.668 to 1.113 s. Attack is 25 ms vs the original's 5 ms. That is slower, but still a fast onset for this class, and the waveform reaches near full amplitude almost at once. The sustained loud body up to about 0.5 s and the decay after it follow the original's shape. The peak comes earlier (0.155 vs 0.254 s), but in both it sits inside the loud body."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: centroid 590 vs 616 Hz (4.2% off, limit 20%). The largest band difference is 2.2 points (600-2k: 17.3 vs 19.5), well inside the 10-point limit. Rolloff is 1077 vs 947 Hz. The spectrograms agree: energy is heaviest in the low bands, and the highs die away over the tail in both."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only, since I cannot listen. Flatness is close (0.086 vs 0.097), so the noise character matches. The onsets do not: the harness finds 1 in the original and 0 in the reproduction, and the attack is 25 ms against 5 ms, so the original's sharp initial hit is softened. The spectrograms also differ in texture. The original's is grainy and irregular, with crackle-like streaks through the decay. The reproduction's fades in a smooth, even gradient, especially from about 0.6 s on, which suggests a smoother, more synthetic rumble than the original's debris-like crackle."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono PCM at 22050 Hz, 8 bits. No clipped samples, DC offset 0.0002, no leading or trailing silence, same name as the original, and the engine check reports no faults. A one-shot explosion has no loop cue to keep."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

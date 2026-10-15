@@ -30,26 +30,26 @@
   },
   "reproduction": {
    "length": 1.06,
-   "peak": -0.6,
-   "rms": -11.3,
-   "crest": 10.7,
+   "peak": -0.5,
+   "rms": -11.4,
+   "crest": 10.9,
    "dc": 0,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.01,
-   "attack": 0,
-   "peakAt": 0.05,
-   "t20": 0.609,
-   "t40": 0.898,
-   "centroid": 959,
-   "rolloff": 1593,
-   "flatness": 0.102,
+   "tail": 0.005,
+   "attack": 0.005,
+   "peakAt": 0.005,
+   "t20": 0.718,
+   "t40": 1.048,
+   "centroid": 932,
+   "rolloff": 1550,
+   "flatness": 0.041,
    "bands": {
-    "<150": 21.6,
-    "150-600": 22.8,
-    "600-2k": 45.5,
-    "2k-5k": 8.6,
-    ">5k": 1.5
+    "<150": 10.8,
+    "150-600": 32.2,
+    "600-2k": 47.5,
+    "2k-5k": 8.8,
+    ">5k": 0.7
    },
    "onsets": 0
   },
@@ -59,17 +59,17 @@
     0.458,
     1.013
    ],
-   "t20": 0.609,
+   "t20": 0.718,
    "inRange": true
   },
   "lengthOff": 0.004,
-  "centroidOff": 0.023,
-  "bandsOffMost": 4.7,
+  "centroidOff": 0.005,
+  "bandsOffMost": 9.5,
   "engineFaults": [],
   "sameName": true,
   "format": {
    "rate": 22050,
-   "bits": 8,
+   "bits": 16,
    "channels": 1
   }
  },
@@ -80,37 +80,37 @@
  },
  "scores": {
   "S1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Judged from the pictures and features only; I could not listen. It reads as a gunshot-class event: a broadband burst that decays over about 1 s with low-mid weight, and its centroid and bands are close to the original's. But the original's defining crack is missing. At 0 to 0.03 s the original's spectrogram has bright full-height vertical streaks, and its waveform is a dense, saturated (265 clipped samples) body out to about 0.4 s. The reproduction's spectrogram fades in smoothly with no impulsive column at the start. Its peak comes at 0.05 s instead of 0.015 s, and no onsets were detected. Taken as a whole it looks more like a shaped noise blast than a revolver's sharp report, so I can't call it the same event to a close look."
+   "score": 2,
+   "reason": "Judged from the picture only, since I cannot listen. Both waveforms open with a dense, loud burst that decays over roughly a second, the shape of a gunshot. The original's first 0.4 s is more heavily packed and clipped, and it has a dark notch near 0.02 s in the spectrogram that the reproduction lacks, but both are the same kind of event and the same envelope class."
   },
   "S2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured: the length is 1.06 s against 1.064 s, 0.4% off, well within 25%. T20 is 0.609 s, inside the gunshot class's range of 0.458 to 1.013 s. Attack is 0 s against 0.005 s. The decay is faster than the original's own (T20 0.748 s, T40 0.898 s against 1.003 s), but the class range governs, and the waveforms taper over a similar span."
+   "reason": "Length 1.06 s against the original's 1.064 s (0.4% off, within 25%). Attack is 0.005 s in both. T20 is 0.718 s, inside the gunshot class range of 0.458 to 1.013 s. The picture shows the same fast rise and long tail."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured: the centroid is 959 Hz against 937 Hz, 2.3% off, within 20%. The largest band-share gap is 4.7 points (150-600 Hz: 22.8 against 27.5), within 10. Rolloff is 1593 Hz against 1658 Hz. The spectrograms put energy in the same places, with the heaviest energy low and the high band fading by about 0.6 s."
+   "reason": "Centroid 932 Hz against 937 Hz (0.5% off, within 20%). Band shares differ by at most 9.5 points (the under-150 band: 10.8 against 20.3), which is inside the 10-point limit. The 150-600 band is off by 4.7, 600-2k by 3.6, 2k-5k by 2.1, and above 5k by 0.9. The under-150 band is close to its limit, but it passes."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged from the pictures and features only; I could not listen. Flatness matches (0.102 against 0.11), so the noise-versus-tone character agrees. The onsets do not: the original has 3 detected onsets and visible separate broadband transients in its first tens of milliseconds, while the reproduction has 0 and a smooth spectrogram onset. The original's spectrogram is also grainier, with streaks that vary from frame to frame through the body. The reproduction's is a smooth gradient, and its waveform's first 0.4 s shows a regular sawtooth-like pattern of spikes, not the original's irregular saturated mass. Neither picture shows pitch movement."
+   "reason": "Judged from the picture and features, since I cannot listen. The original has 3 onsets (the hard hits at the start, visible as dense bursts and the notch) and the reproduction has 0, so its attack is smooth where the original's is struck. Flatness is 0.11 in the original and 0.041 in the reproduction, so the reproduction is clearly more tonal and less noisy. The overall decay shape matches, so it is not a fault of 0."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured: mono PCM at 22050 Hz, 8 bits, a format the engine plays. No clipped samples (the original has 265), DC is 0, the name is the same, and there are no engine faults. A one-shot gunshot has no loop cue, and nothing suggests the original has one."
+   "reason": "Format is mono, 16-bit, 22050 Hz, which the engine plays. The reproduction has 0 clipped samples (the original has 265, which the reproduction avoids), DC is 0, and the peak is -0.5 dB with no clipping. Lead and tail are 0 and 0.005 s, and the name matches. A one-shot gunshot has no loop cue to keep."
   }
  },
- "total": 8,
+ "total": 9,
  "of": 10,
- "passes": false
+ "passes": true
 }

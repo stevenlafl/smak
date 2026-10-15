@@ -31,25 +31,25 @@
   "reproduction": {
    "length": 0.763,
    "peak": -10.5,
-   "rms": -15.3,
+   "rms": -15.2,
    "crest": 4.8,
-   "dc": 0.0023,
+   "dc": -0.0017,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
    "attack": 0,
-   "peakAt": 0.454,
-   "t20": 0.309,
-   "t40": 0.309,
-   "centroid": 5497,
+   "peakAt": 0.733,
+   "t20": 0.03,
+   "t40": 0.03,
+   "centroid": 5534,
    "rolloff": 9388,
-   "flatness": 0.985,
+   "flatness": 0.982,
    "bands": {
     "<150": 1.2,
-    "150-600": 3.7,
-    "600-2k": 13,
-    "2k-5k": 27.9,
-    ">5k": 54.2
+    "150-600": 3.8,
+    "600-2k": 12.3,
+    "2k-5k": 28.2,
+    ">5k": 54.6
    },
    "onsets": 1
   },
@@ -59,12 +59,12 @@
     0.505,
     0.841
    ],
-   "t20": 0.309,
+   "t20": 0.03,
    "inRange": false
   },
   "lengthOff": 0,
-  "centroidOff": 1.525,
-  "bandsOffMost": 46.5,
+  "centroidOff": 1.542,
+  "bandsOffMost": 47.2,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -78,39 +78,11 @@
   "S3": 0,
   "S5": 2
  },
- "scores": {
-  "S1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "Judged from the picture and features only; I could not listen. The original is a medkit pickup with several events in sequence. First comes a tonal, gated burst of about 0.33 s with a steady line near 1 kHz and four amplitude lobes. Then come quieter clicks and rattles from about 0.34 to 0.65 s, and finally a bright hiss from about 0.67 s to the end. The reproduction is steady broadband noise over the whole 0.76 s, with an even waveform and a uniformly bright spectrogram. It has no tonal opening and no clicks, so it is not the same event."
-  },
-  "S2": {
-   "judge": 1,
-   "cap": 1,
-   "score": 1,
-   "reason": "The length matches exactly (0.763 s against 0.763 s). The decay does not: T20 is 0.309 s, outside the original's own range of 0.505 to 0.841 s, and that caps S2 at 1. The waveform also has no shape at all. It is flat from start to end, with none of the original's gated lobes, quiet middle or late noise section."
-  },
-  "S3": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The centroid is 5497 Hz against 2177 Hz, 152% off where the limit is 20%. Every band is far off. The 600-2k band holds 13% against 59.5%, 150-600 holds 3.7% against 14.7%, 2k-5k holds 27.9% against 3.9%, and >5k holds 54.2% against 21.7%. The worst band is 46.5 points off where the limit is 10. In the spectrogram the reproduction's energy is spread evenly to the top, while the original's sits low and mid-range until the hiss at the end."
-  },
-  "S4": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "Judged from the picture and features only; I could not listen. Flatness is 0.985, which is pure noise, against the original's 0.128, which is mostly tonal. The original's steady ~1 kHz tone and its four gated pulses are missing. So are the clicks at about 0.35, 0.42 and 0.52 s, and the change at 0.67 s to a brighter noise. The reproduction has no pitch, no internal onsets and no change in character."
-  },
-  "S5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Mono, 16-bit PCM at 22050 Hz, which matches the original. Nothing is clipped. DC offset is 0.0023, which is negligible (the original's is -0.0033). It has the same name. The original has no loop cue and none was needed. No engine faults were reported."
-  }
- },
- "total": 3,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "S2",
+  "S3"
+ ],
+ "total": 0,
+ "of": 10
 }

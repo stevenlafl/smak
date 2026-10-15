@@ -1,0 +1,232 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/explode3.wav",
+  "class": "explosion",
+  "bits": 8,
+  "length": 1.3,
+  "seed": 3,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "blast",
+      "kind": "noise",
+      "iterations": 32,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.45,
+            -2
+          ],
+          [
+            0.65,
+            -9
+          ],
+          [
+            0.9,
+            -20
+          ],
+          [
+            1.1,
+            -30
+          ],
+          [
+            1.3,
+            -45
+          ]
+        ]
+      },
+      "shape": {
+        "keys": [
+          {
+            "at": 0,
+            "curve": [
+              [
+                50,
+                -4
+              ],
+              [
+                120,
+                0
+              ],
+              [
+                400,
+                0
+              ],
+              [
+                1200,
+                -8
+              ],
+              [
+                3000,
+                -16
+              ],
+              [
+                6000,
+                -23
+              ],
+              [
+                11000,
+                -30
+              ]
+            ]
+          },
+          {
+            "at": 0.5,
+            "curve": [
+              [
+                50,
+                -3
+              ],
+              [
+                120,
+                0
+              ],
+              [
+                400,
+                -2
+              ],
+              [
+                1200,
+                -11
+              ],
+              [
+                3000,
+                -20
+              ],
+              [
+                6000,
+                -29
+              ],
+              [
+                11000,
+                -37
+              ]
+            ]
+          },
+          {
+            "at": 1,
+            "curve": [
+              [
+                50,
+                -2
+              ],
+              [
+                120,
+                0
+              ],
+              [
+                400,
+                -5
+              ],
+              [
+                1200,
+                -17
+              ],
+              [
+                3000,
+                -29
+              ],
+              [
+                6000,
+                -39
+              ],
+              [
+                11000,
+                -49
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "boom",
+      "kind": "tone",
+      "f": 75,
+      "sweep": {
+        "to": 40,
+        "time": 0.9
+      },
+      "env": {
+        "attack": 0.002,
+        "hold": 0.2,
+        "decay": 0.8
+      },
+      "gain": -14
+    },
+    {
+      "id": "burst2",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0.15,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 1800
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.15
+      },
+      "gain": -4
+    },
+    {
+      "id": "burst3",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0.36,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 1600
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.2
+      },
+      "gain": -5
+    },
+    {
+      "id": "debris",
+      "kind": "particles",
+      "rate": 40,
+      "band": [
+        600,
+        4000
+      ],
+      "grain": 0.004,
+      "at": 0.05,
+      "length": 0.8,
+      "env": {
+        "decay": 0.6
+      },
+      "gain": -20
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.003
+      },
+      "post": true,
+      "gain": -3
+    }
+  ],
+  "finish": {
+    "saturate": 8,
+    "peak": -0.5
+  }
+}
