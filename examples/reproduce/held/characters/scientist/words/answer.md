@@ -1,32 +1,25 @@
-The scientist model is built, and the build says OK. It is saved as `scientist.mdl` in the work folder, with its spec beside it as `scientist.spec.json`. I had no reference pictures, so I could not put it side by side with the original. Everything was built from your description, so the judge's comparison is the real test.
+The model builds OK: `scientist.mdl` is at `work:scientist.mdl`, built on Gordon's skeleton with `floor: 0`, and every check passes. I only had your written description, not a picture of the original, so I checked it against that description and the build report, not side by side with the original.
 
-**Build result**
+Measures from the final build:
 
-| Check | Result |
-|---|---|
-| Build | OK, every check passed |
-| GoldSrc engine check | Fit for GoldSrc |
-| Triangles | 704 (Gordon's own body is 362; a character over 724 would fail) |
-| Height | 68.2 units, feet at 0 (`floor: 0`) |
-| Base | `player/gordon/gordon.mdl` in the Half-Life `valve` folder; all of Gordon's animations kept |
+```
+Item                     Original (described)   Built
+Height                   68                     68.1
+Width, across the hands  21.7                   about 20.2 (hand cylinders)
+Overall width            (not given)            23.1
+Length front to back     33.3 (mid-stride)      16.1 (standing)
+Hip line                 about 34               about 39
+Triangles                (limit 724)            676
+Checks                                          OK, no faults
+```
 
-**What is modelled**
-- **Head:** a bald, elongated skull with ears, a long nose, a thin mouth, and a grey-white hair band from ear to ear round the back.
-- **Glasses:** black rectangular frames with pale lenses and arms running back to the ears.
-- **Coat:** a white lab coat with a narrow, slightly stooped torso, long sleeves ending at the wrists, and a flared, flat hem at about knee height.
-- **Shirt, tie, belt:** a blue shirt visible in the open front, a navy tie to the belt, and a black belt with a grey buckle.
-- **Trousers and shoes:** off-white trousers and dark reddish-brown lace-up shoes.
-- **Hands:** skin-coloured fists at about mid-thigh.
+Where it differs from the original:
 
-**Choices I made that you should know about**
-- **Pose changes:** Gordon's first frame holds his right arm forward, so I turned his right forearm down to hang straight. I tilted both upper arms about 10 degrees inward to bring the hands to about 22 units across, and leaned the spine forward about 3 to 4 degrees so the head juts forward. These turns apply to every frame of his first animation, so his idle and run keep their timing but are not Gordon's exact pose.
-- **Proportions:** Gordon's skeleton sets the hip line and arm length. The hips sit higher than the original's (the belt is at about 56 percent of height against the description's hip line at about 47). The mid-thigh hands are the cuffs and fists hung on the forearm bone, so the arms look longer than the skeleton's own.
-- **Animations:** I kept Gordon's animations. I did not make a scientist run cycle, so the running pose is Gordon's, not the 19-frame lean-and-flail you described.
+- **Hip line and legs.** Gordon's skeleton puts the hips about 39 units up, against about 34 for the scientist, so his legs read longer. Changing that means changing the skeleton, which you asked me to keep.
+- **Length.** I did not force 33.3. That figure comes from a mid-stride walk, and a standing figure is about 16 deep.
+- **Hands.** The hands are bare skin cylinders that reach mid-thigh, not curled fists. A fist I tried floated in one crouch frame, so I replaced it.
+- **Coat, shirt, tie, belt, glasses and hair.** The coat, trousers and sleeves are simple boxes and cylinders. The shirt, tie (navy with two small red patches, not diagonal stripes), belt and lens panels are painted on the coat front and glasses. The hair is a grey-white band from ear to ear. The coat is a muted 0.8 grey-white rather than bright white, to avoid the "used grey" warning.
+- **Posture.** The spine is leaned forward about 8 degrees, the head is held roughly level, and the arms are angled in slightly to bring the hands in.
+- **Running.** The run and walk animations are Gordon's, not the scientist's. I had no reference pictures to fit a stride to, so his running lean and coat flap are not reproduced.
 
-**What I left out or simplified**
-- The tie is solid navy, without the diagonal red stripes.
-- No lapels or collar shape; the coat folds are not modelled.
-- The glasses and mouth are painted on the face rather than modelled.
-- The face has no sunken eyes or cheek hollows; those need more triangles than the budget allows.
-
-If you can send a picture of the original (or point me to one), I can compare the silhouette and colours and tune the coat, the stance and the face.
+Files: `work:scientist.spec.json` holds the spec. If you install `scientist.mdl` over the game's own file, it replaces the original, so keep a copy of the stock file. A new file name would need the map or mod code to load it at map start.

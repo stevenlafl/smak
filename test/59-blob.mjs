@@ -135,3 +135,22 @@ test("symmetric keeps the count: the half cut at the middle is reduced again bef
   sure(half * 2 <= 420, `mirrored ${half * 2} against 400 asked (plain ${count(plain)})`);
   sure(mirroredIn(even.mdl).unmatched === 0, "still the mirror of itself");
 });
+
+test("fingers: tubes out of a hand along its forearm's line, curled forward, to points, on the hand", () => {
+  // the leg's three bones stand in for an arm: the ankle is the hand, the knee its forearm
+  const { report, mdl } = buildModelSpec({ spec: "smak.model/1", name: "claws.mdl", kind: "character", base: { file: "leg.mdl" }, parts: [
+    { id: "arm", kind: "blob", pieces: [{ span: ["knee", "ankle"], radius: 1.5 }] },
+    { id: "claw", kind: "fingers", hand: "ankle", count: 3, length: 8, radius: [0.4, 0.15], curl: 40 },
+  ] }, { folder });
+  sure(report.ok, [...report.errors, ...report.faults].join("; "));
+  sure(report.facts.some((f) => /claw: 3 fingers out of ankle, 8 long, curled 40 degrees forward/.test(f)), report.facts.filter((f) => /claw/.test(f)).join(" | "));
+  const info = readMdl(mdl);
+  const sub = info.bodyparts[0].models.find((m) => m.meshes.some((x) => x.numtris > 0));
+  const bones = new Set(sub.meshes.flatMap((mesh) => readMesh(mdl, sub, mesh).flat()).map((c) => c.bone));
+  sure(bones.has(2), `the fingers on the hand: bones ${[...bones]}`);
+  // they reach below the ankle (the arm points down) and forward of it (curled)
+  const box = ["claw_1", "claw_2", "claw_3"].map((id) => report.parts[id]);
+  sure(box.every((b) => b && b.from[2] < -4 && b.to[0] > 0.5), JSON.stringify(box));
+  const bad = buildModelSpec({ spec: "smak.model/1", name: "b.mdl", kind: "prop", parts: [{ id: "c", kind: "fingers", count: 20 }] }, { folder });
+  sure(bad.report.errors.some((e) => /\.hand: the base's hand bone/.test(e)) && bad.report.errors.some((e) => /count: 1 to 8/.test(e)), bad.report.errors.join(" | "));
+});

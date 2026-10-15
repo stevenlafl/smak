@@ -1,11 +1,21 @@
-I can't build the scientist yet. The character needs a game skeleton to keep its bones and animations, and the SMAK server has no game models it can read.
+The character is built: `scientist.mdl` is in the work folder, and the build says OK with every check passed.
 
-**What's stuck:** The build names `player/gordon/gordon.mdl` as its base, and the server's models folder is empty. The `models` listing shows only the work folder, and `info` on the Gordon file reports "no such file". Pointing `info` at the absolute path under `Projects/goldsrc.net/hlds-win/ts/models/` is refused, because the server only reads its models folder and work folder. I can't copy the file into either folder with the tools I have, and I can't restart the server.
+**What I built**
+- **Base:** `player/gordon/gordon.mdl` skeleton, keeping all 77 of Gordon's animations, with `floor: 0`.
+- **Body:** one carved shape from the six-view sheet and the four three-quarter pictures, at 33.3 × 21.5 × 68 units, feet on the floor. It has 700 triangles, against 362 for Gordon's own body.
+- **Colours and markings:** projected from your pictures, so the glasses, grey hair band, blue shirt, striped tie, white coat and brown shoes come from the originals.
+- **Stance:** fitted to the outlines, so the first frame stands as the originals do. The left arm is swung back 24 degrees from Gordon's rest.
 
-**What I checked:** The reference pictures, the facts file (33.3 long, 21.7 wide, 68 high) and the motion strip, which together show a bald scientist with grey hair at the sides, glasses, a white coat over a blue shirt and a red-striped tie, white trousers and brown shoes. I also read the SMAK guide on characters and monsters. The guide's worked Gordon skeleton example uses the same Biped bone names I would need, so the parts can be planned against them. I have not written the spec, because the bone names and rest pose can only be confirmed from the real base file.
+**How close it is**
+- Outline overlap against the pictures is 0.86 to 0.91 in the views I checked; the report's fault threshold is 0.8.
+- The quarter views, the side view and the back views line up with the originals. The body has no separate arms or legs, so the gaps between arm and coat are less sharp than the originals.
+- The tie and hair look softer than the originals, because the carved surface blurs the projected texture slightly.
 
-**What I need from you (pick one):**
-1. Point the SMAK server's models folder at a folder that holds `player/gordon/gordon.mdl`. The likely source is `/media/Data3/Projects/goldsrc.net/hlds-win/ts/models/`, which is The Specialists' copy of Gordon. Restart the server with that folder set (or copy the file into the folder it already reads), then tell me and I'll build it.
-2. Name a different base that is in the models folder, and I'll use that one.
+**Known issue**
+- In some frames of the run animation (frames 3, 6 and 19 of `run2`, from the build's strip), the shoes drift slightly away from the trousers. The report does not flag this. The carved body hangs on the nearest bones, so the legs do not bend cleanly.
 
-Once the base loads, I'll write `scientist.mdl` with `floor: 0`, fit its stance to the reference outlines, build the coat, shirt, tie, trousers, shoes, glasses and hair, then check the report and pictures against the originals before calling it done.
+**Choices I made**
+- I used a 96-cell carve (the spec's `cells` setting). It gives a slightly better front outline than the 64-cell default, at the same triangle count.
+- I did not fit the run animation to `motion.png`, because you asked for the standing pose and to keep the skeleton's animations. Adding `motion` would make the run match the original more closely.
+
+**Files:** `work:scientist.mdl`, the spec at `work:scientist.spec.json`, and the sheet at `work:scientist-sheet.png`. I could not run the model in the game, so these checks are from the kit's renders only.

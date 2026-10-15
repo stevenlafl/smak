@@ -82,6 +82,7 @@ const KINDS = {
   blob: ["pieces", "blend", "cells", "triangles", "symmetric", "layout"],
   turn: ["rings", "caps", "sides", "lining", "axis"],
   tube: ["path", "sides", "caps"],
+  fingers: ["hand", "count", "length", "radius", "spread", "curl", "palm", "sides"],
   leaf: ["width", "height", "rows", "bend"],
   cards: ["size", "count", "card", "tilt"],
   band: ["on", "width", "height"],
@@ -255,6 +256,49 @@ function symmetrized(tris, part, report) {
   const mirrored = kept.map(([a, b, c]) => [c, b, a].map((v) => ({ p: [v.p[0], -v.p[1], v.p[2]] })));
   report.facts.push(`${part.id}: symmetric: its +y half kept (${kept.length} triangles) and mirrored`);
   return [...kept, ...mirrored];
+}
+
+/** A fingers part as tube parts on the base's hand, in model space as the base stands. */
+function fingersOf(part, skeleton, report) {
+  const hand = skeleton.joints.get(part.hand);
+  if (!hand) throw new Error(`${part.id}.hand: the base has no bone "${part.hand}". Its hands: ${[...skeleton.joints.keys()].filter((n) => /Hand|Mano/.test(n)).join(", ")}`);
+  const list = bonesOf(skeleton.src);
+  const own = list.find((b) => b.name === part.hand);
+  const forearm = own && own.parent >= 0 ? skeleton.joints.get(list[own.parent].name) : null;
+  const norm = (a) => {
+    const l = Math.hypot(...a) || 1;
+    return a.map((v) => v / l);
+  };
+  const crossOf = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+  const d = norm(forearm ? hand.map((v, k) => v - forearm[k]) : [0, 0, -1]);
+  let side = crossOf(d, [1, 0, 0]);
+  if (Math.hypot(...side) < 0.2) side = crossOf(d, [0, 0, 1]);
+  side = norm(side);
+  let forward = norm(crossOf(side, d));
+  if (forward[0] < 0) forward = forward.map((v) => -v);
+  const count = part.count ?? 4;
+  const length = part.length ?? 6;
+  const [r0, r1] = Array.isArray(part.radius) ? part.radius : [part.radius ?? 0.4, (part.radius ?? 0.4) * 0.4];
+  const spread = ((part.spread ?? 40) * Math.PI) / 180;
+  const curl = ((part.curl ?? 30) * Math.PI) / 180;
+  const start = hand.map((v, k) => v + d[k] * (part.palm ?? 1.5));
+  const tubes = [];
+  for (let i = 0; i < count; i++) {
+    const a = count > 1 ? spread * (i / (count - 1) - 0.5) : 0;
+    const dir = d.map((v, k) => Math.cos(a) * v + Math.sin(a) * side[k]);
+    // a little apart across the palm, then three joints, each bent further forward
+    let p = start.map((v, k) => v + side[k] * (count > 1 ? (i / (count - 1) - 0.5) * r0 * 2.2 * (count - 1) * 0.5 : 0));
+    const path = [[...p, r0]];
+    for (let j = 1; j <= 3; j++) {
+      const bend = (curl * j) / 3;
+      const step = dir.map((v, k) => Math.cos(bend) * v + Math.sin(bend) * forward[k]);
+      p = p.map((v, k) => v + (step[k] * length) / 3);
+      path.push([...p, j === 3 ? 0 : r0 + ((r1 - r0) * j) / 3]);
+    }
+    tubes.push({ id: `${part.id}_${i + 1}`, kind: "tube", path, sides: part.sides ?? 4, bone: part.hand, ...(part.material !== undefined ? { material: part.material } : {}), ...(part.texels !== undefined ? { texels: part.texels } : {}) });
+  }
+  report.facts.push(`${part.id}: ${count} fingers out of ${part.hand}, ${length} long, curled ${part.curl ?? 30} degrees forward`);
+  return tubes;
 }
 
 /** The joint of a skeleton nearest a point. */
@@ -575,6 +619,13 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
             }
           });
         if (part.axis !== undefined && !["x", "y", "z"].includes(part.axis)) errors.push(`${label}.axis: "x", "y" or "z"`);
+        break;
+      case "fingers":
+        if (typeof part.hand !== "string") errors.push(`${label}.hand: the base's hand bone the fingers grow from ("Bip01 L Hand")`);
+        if (!spec.base) errors.push(`${label}: fingers grow from a base's hand: give the spec a base`);
+        for (const [key, lo, hi] of [["count", 1, 8], ["length", 0.5, 60], ["spread", 0, 120], ["curl", -90, 120], ["palm", 0, 20]])
+          if (part[key] !== undefined && !(isNumber(part[key]) && part[key] >= lo && part[key] <= hi)) errors.push(`${label}.${key}: ${lo} to ${hi}`);
+        if (part.radius !== undefined && !(isNumber(part.radius) || (Array.isArray(part.radius) && part.radius.length === 2 && part.radius.every(isNumber)))) errors.push(`${label}.radius: a number, or [at the hand, near the tip]`);
         break;
       case "tube":
         if (!Array.isArray(part.path) || part.path.length < 2 || part.path.some((q) => !Array.isArray(q) || q.length !== 4 || !q.every(isNumber)))
@@ -1456,6 +1507,15 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
     };
     if (renamed.length) report.notes.push(`bones named as the base names them: ${renamed.join(", ")}`);
     report.facts.push(`base ${skeleton.file}: ${skeleton.joints.size} bones, ${sequencesOf(skeleton.src).length} animations; its joints as it stands in ${JSON.stringify(skeleton.pose)}: ${[...skeleton.joints].filter(([n]) => !/Finger|Dito|Toe0|Toe1|Toe2|Bip01$/.test(n)).map(([n, p]) => `${n} ${p.map((v) => Math.round(v)).join(" ")}`).join("; ")}`);
+    // fingers: tubes out of a hand along the way its forearm points, fanned across and curled forward, each to a
+    // point and hung on the hand. Long thin claws are thinner than a carve's cells and come out of it as fragments
+    // (the zombie's, 2026-10-15): they are built as fingers on the carved body instead
+    try {
+      spec = { ...spec, parts: spec.parts.flatMap((part) => (part.kind === "fingers" ? fingersOf({ ...part, hand: own(part.hand) }, skeleton, report) : [part])) };
+    } catch (error) {
+      errors.push(error.message);
+      return { mdl: null, report };
+    }
   }
   // carved parts: their hull worked out from their pictures before anything is built (carve.mjs)
   if (spec.parts.some((part) => part.kind === "carved")) {

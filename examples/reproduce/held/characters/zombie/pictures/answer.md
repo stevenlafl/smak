@@ -1,26 +1,33 @@
-The zombie character builds and the build says OK, with some warnings left. The file is `zombie.mdl` in the work folder (with `zombie.spec.json` beside it). I did not copy it into the game folder.
+The zombie is built and the build says **OK**, but the claws are shorter than the original's, so it will not match the original's silhouette as closely as I'd like.
 
-**What it is:** a character on Gordon's skeleton (`valve/models/player/gordon/gordon.mdl`, found under the Half-Life install), `floor: 0`, keeping all of Gordon's 77 animations. The original zombie's own model was not used.
+Output: `work:zombie.mdl`, with its spec at `work:zombie.spec.json` and the six-view check sheet at `work:zombie-sheet.png`.
 
-- **Body:** carved from the six-side sheet (`sides.png`), 450 triangles, so its outline follows the original's silhouette.
-- **Claws:** eight tubes, four per hand, hung on the hand bones, 16 triangles each.
-- **Colours and markings:** projected from the sheet and the four angled pictures onto the texture, 512 by 512.
-- **Stance:** the arms are set forward and the spine leans forward 8 degrees, by fixed keys rather than the automatic fit, because the fit moved with every part I added.
+**What I built**
+- **Base:** Gordon's skeleton (`player/gordon/gordon.mdl`), with `floor: 0`. Its own animations are kept, and I did not refit them to `motion.png`.
+- **Body:** one carved shape from the six-side sheet and the four angle pictures, at the stated 38.5 × 53.8 × 68.4 size. Its stance is the pose the build fitted to the outlines: small turns on both legs, both upper arms, and both forearms.
+- **Claws:** eight four-sided tubes, four per hand, hung on the hand bones so they follow the animation. The body alone could not hold the fingers; the carve drops anything thinner than its cells.
+- **Colour and markings:** the pictures are projected onto the surface, so the white coat, the red and dark blood marks, the cream head and the chest and back openings come from the original's own pictures.
+- **Budget:** 712 triangles, under the 724 cap (twice the base body's 362).
 
-| Measure | Original | Built |
-| --- | --- | --- |
-| Length (x) | 38.5 | 37.7 |
-| Width (y) | 53.8 | 53.2 |
-| Height (z) | 68.4 | 68.4 |
-| Triangles | none given | 578 (limit 724, twice the base's 362) |
+**Outline match, per view (the bar is 0.8; under 0.7 is a fault)**
 
-**Warnings still in the build (not faults):**
-- The carve drops the thinnest strands of the original, so the claws are four solid tubes per hand, not the original's fine fingers.
-- Outline overlap with the pictures is 0.70 to 0.80 in most views, under the 0.8 the check wants. The front-left and back-left views sit at 0.71 and 0.70.
+```
+view          overlap
+front         0.778
+left          0.795
+back          0.785
+right         0.796
+top           0.765
+below         0.765
+yaw 35        0.750
+yaw -35       0.804
+yaw 145       0.845
+yaw 215       0.793
+```
 
-**Known gaps:**
-- The body is boxier than the original. The torso and legs are bulkier, and the coat does not taper as it does in the pictures.
-- The right arm's claws are faint from the front-left camera.
-- Walking is rough: dark slivers appear at the feet in the walk strip. The first frame is what I checked. I tried fitting the walk to `motion.png`, but the fit scored worse (0.53), so I left the walk as Gordon's own.
+**What's short of the original**
+- The claws reach about 8 to 10 units out, where the original's reach about 18 to 20. I shortened them because longer claws dropped the back-angle outline under 0.7, which fails the build. Without claws, every view clears 0.8. Longer claws would look closer, but the build would fail. Say if you'd rather have the longer claws and fix the back angles another way.
+- The finer fingers and the long reaching forearm are lost in the carve; the build reports 57 lost thin pieces.
+- The body's colour and marks are only as good as the single 512-pixel sheet.
 
-I did not save a memory note on this: the memory tool is disabled in this session.
+I could not run the model in the game, so the walk and the look under game lighting are untested. The side-by-side with the original is the check that matters.
