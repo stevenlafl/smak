@@ -29,27 +29,27 @@
    "onsets": 0
   },
   "reproduction": {
-   "length": 0.269,
+   "length": 0.26,
    "peak": -0.6,
-   "rms": -18.6,
-   "crest": 18,
-   "dc": -0.0012,
+   "rms": -18.4,
+   "crest": 17.8,
+   "dc": -0.0004,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.015,
-   "attack": 0,
-   "peakAt": 0,
-   "t20": 0.1,
-   "t40": 0.215,
-   "centroid": 896,
-   "rolloff": 1712,
-   "flatness": 0.307,
+   "tail": 0.02,
+   "attack": 0.005,
+   "peakAt": 0.005,
+   "t20": 0.09,
+   "t40": 0.16,
+   "centroid": 972,
+   "rolloff": 2487,
+   "flatness": 0.249,
    "bands": {
-    "<150": 21.2,
-    "150-600": 39.4,
-    "600-2k": 25.3,
-    "2k-5k": 13,
-    ">5k": 1.1
+    "<150": 20.2,
+    "150-600": 44.7,
+    "600-2k": 16.3,
+    "2k-5k": 18.7,
+    ">5k": 0.1
    },
    "onsets": 0
   },
@@ -59,12 +59,12 @@
     0.04,
     0.18
    ],
-   "t20": 0.1,
+   "t20": 0.09,
    "inRange": true
   },
-  "lengthOff": 0.011,
-  "centroidOff": 0.05,
-  "bandsOffMost": 16.8,
+  "lengthOff": 0.023,
+  "centroidOff": 0.14,
+  "bandsOffMost": 7.8,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -75,13 +75,42 @@
  },
  "caps": {
   "S2": 2,
-  "S3": 1,
+  "S3": 2,
   "S5": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "S3"
- ],
- "total": 0,
- "of": 10
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "I cannot listen to this sound, so this is judged from the waveform and spectrogram only. Both show one sharp impact at the start, followed by a low, decaying noise tail and a small secondary blip at about 0.09 to 0.10 s in the same place. That reads as the same event, a footstep on concrete. The envelope difference (the original's tail runs to the end, the reproduction's fades earlier) is an S2 matter, not a different event."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 0.260 s against 0.266 s, 2.3% off and within 25%. T20 is 0.09 s in both, inside the step concrete class range of 0.04 to 0.18 s (inRange true). Attack is 0.005 s against 0, which is negligible. The picture shows the original's tail lasting longer (t40 0.264 s against 0.16 s), which the measured rubric does not score, so it is noted but not docked."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 972 Hz against 853 Hz, a 14% difference, inside 20%. The largest band-share difference is 7.8 points (600 to 2k: 8.5 against 16.3), inside 10 points; the other bands differ by 1.3 to 6.6 points. The measured spectrum therefore passes."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "I cannot listen to this sound, so this is judged from the picture and features. The original's impact is a single sharp hit (attack 0) that the picture shows as one spike at 0.005 s. The reproduction's impact (attack 0.005 s) shows as a cluster of several peaks over about 30 ms, which is a visibly different hit. Its tail is also a broader, denser noise band over 0.03 to 0.15 s, where the original's is a thin line. Flatness (0.27 against 0.249) and onset counts (0 and 0) agree, so this is a clear but not a wrong character difference."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file is mono, 8-bit PCM at 11025 Hz, which the engine plays. Peak is -0.6 dBFS with no clipping, DC is -0.0004 (negligible), and it is not a loop, so no cue is needed. The name matches the original (sameName true), and the engine check reports no faults."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
 }

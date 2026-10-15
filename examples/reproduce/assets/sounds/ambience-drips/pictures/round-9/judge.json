@@ -1,0 +1,113 @@
+{
+ "kind": "sounds",
+ "subject": "ambience-drips",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 7.306,
+   "peak": -0.4,
+   "rms": -27.3,
+   "crest": 26.9,
+   "dc": -0.0039,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 5.777,
+   "peakAt": 5.832,
+   "t20": 0.434,
+   "t40": 1.477,
+   "centroid": 839,
+   "rolloff": 1066,
+   "flatness": 0.095,
+   "bands": {
+    "<150": 1.2,
+    "150-600": 23.2,
+    "600-2k": 72.3,
+    "2k-5k": 2.5,
+    ">5k": 0.7
+   },
+   "onsets": 4
+  },
+  "reproduction": {
+   "length": 7.29,
+   "peak": -0.6,
+   "rms": -25,
+   "crest": 24.5,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0.005,
+   "tail": 0.055,
+   "attack": 1.362,
+   "peakAt": 1.671,
+   "t20": 4.689,
+   "t40": 5.498,
+   "centroid": 881,
+   "rolloff": 1109,
+   "flatness": 0.093,
+   "bands": {
+    "<150": 0.4,
+    "150-600": 18.5,
+    "600-2k": 78.8,
+    "2k-5k": 2.3,
+    ">5k": 0.1
+   },
+   "onsets": 8
+  },
+  "envelope": {
+   "class": "loop drips",
+   "t20Range": null,
+   "t20": 4.689,
+   "inRange": true
+  },
+  "lengthOff": 0.002,
+  "centroidOff": 0.05,
+  "bandsOffMost": 6.5,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only, since I cannot listen. Both sounds are drips: the original has four irregular drip onsets in a reverberant wash, with long bright tails in the spectrogram. The reproduction has eight evenly spaced sharp clicks over a steady noise bed with almost no tails. The event type matches, but the character reads as a different sound: clicks in a bed rather than drips in a reverberant cave."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Length is within tolerance (7.29 s against 7.306 s, 0.2%). The envelope measure reports inRange true, but its class range is null, so the rubric's fallback applies: the original's own decay within a quarter or 0.05 s. The original's t20 is 0.434 s and the reproduction's is 4.689 s, far outside that. The attack also differs (1.362 s against 5.777 s, and the peaks sit at 1.67 s against 5.83 s). Capped at 1 as the rubric requires for a decay outside the range."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 881 against 839 Hz, a 5% difference (limit 20%). Band shares differ by at most 6.5 points (600-2k: 78.8 against 72.3; 150-600: 18.5 against 23.2; the other bands differ by under 1 point each), inside the 10-point limit. bandsOffMost is 6.5."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Onset count is 8 against the original's 4, double the original, and the picture shows evenly spaced clicks where the original's drips are irregular. Flatness matches closely (0.093 against 0.095), which fits. Pitch movement cannot be judged from pictures; the original's tails are absent in the reproduction."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file meets the engine's format: mono, 11025 Hz, 8-bit PCM. It has no clipping (0), no DC offset (0), the same name (sameName true), and a peak of -0.6 dBFS. Lead and tail silence are 5 ms and 55 ms, where the original has none, but no loop cue is among the measurements, so whether one is needed cannot be checked from the data given. Scored on the measured fit items."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

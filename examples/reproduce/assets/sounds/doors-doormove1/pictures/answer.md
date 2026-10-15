@@ -1,63 +1,35 @@
-The sound builds OK with no warnings: `work:sound/doors/doormove1.wav`, 11025 Hz, 8-bit mono, 5.04 s. It will take the place of the game's `doors/doormove1.wav` when it is put in `<mod>/sound`.
+The sound is built and written to `work:sound/doors/doormove1.wav`. The build says OK, but it is not as close to the original as I wanted on loudness shape: the crest is about 5 dB off. I could not hear it, and I could not open the original's picture directly, so the targets below are the numbers the build read off that picture.
 
-**The spec (what the final build used):**
-
-```json
-{
-  "spec": "smak.sound/1",
-  "name": "doors/doormove1.wav",
-  "rate": 11025,
-  "bits": 8,
-  "length": 5.04,
-  "seed": 3,
-  "picture": { "file": "pictures/sound.png", "length": 5.04, "rate": 11025 },
-  "layers": [
-    {
-      "id": "motor",
-      "kind": "sample",
-      "file": "work:gen/doormove_s0.wav",
-      "from": "onset",
-      "length": 5.04,
-      "env": { "points": [[0,-16],[1.5,-16],[3.5,-14],[4.0,-9],[4.2,-1],[4.3,-4],[4.4,-10],[4.6,-20],[4.9,-34],[5.04,-40]] },
-      "filter": [
-        { "type": "highpass", "f": 100 },
-        { "type": "peak", "f": 350, "q": 0.8, "gain": 4 },
-        { "type": "lowpass", "f": 2500 }
-      ]
-    },
-    {
-      "id": "grit",
-      "kind": "noise",
-      "color": "white",
-      "filter": [{ "type": "bandpass", "f": 900, "q": 0.6 }],
-      "env": { "points": [[0,-24],[1.5,-22],[3.5,-18],[4.0,-10],[4.2,-3],[4.3,-6],[4.4,-12],[4.6,-22],[4.9,-34],[5.04,-40]] },
-      "gain": -18
-    }
-  ],
-  "finish": { "saturate": 1.5, "peak": -0.5 }
-}
-```
-
-**Choices I made:**
-- **Source take:** of the four woosh-dflow takes, seed 0 had the closest shape to the original: sustained activity with a burst late in the clip. It is in a `sample` layer, from its onset.
-- **Envelope:** the loudest point is at about 4.2 s, where the original's final burst is. The tail falls to -20 dB about 0.4 s after the peak.
-- **Brightness:** a 2.5 kHz lowpass, a mid lift at 350 Hz and a bandpassed noise layer bring the centroid to match the original's.
-- **Licence:** the take is from woosh-dflow (CC-BY-NC 4.0, non-commercial). You said that is accepted for this test.
-
-**Where it stands against the picture of the original:**
+**Measured against the original's picture**
 
 ```
-measure         original (picture)   ours (final build)
-length          5.04 s               5.04 s
-centroid        589 Hz               585 Hz
-T20             0.35 to 0.58 s       0.43 s
-crest           about 12.7 dB        14.8 dB (within the 3 dB the report allows)
-600-2k band     about 28% of power   22%, within the 7-point aim
+Measure            Made sound        Original (read off picture)   Result
+Length             5.04 s            5.04 s                        matches
+T20 (time to -20)  0.48 s            0.35 to 0.58 s                in range
+Centroid           578 Hz            589 Hz                        2% off
+Below 150 Hz       24.8%             30.1%                         5.3 points off
+150 to 600 Hz      41.9%             37.8%                         in range
+2k to 5k Hz        5.1%              4.4%                          in range
+Crest              17.6 dB           about 12.7 dB                 4.9 dB off (outside 3 dB)
+Format             11025 Hz, 8-bit mono (same as original)
 ```
 
-**What I could not do:**
-- I could not read the original WAV. The read of its `input` folder was refused, so every comparison is against the spectrogram picture of the original (the report's own readings from it), not sample for sample.
-- Our sound is smoother than the original. The original has clear clanks and harmonic bands; ours is a steadier roar with the right loudness shape. The report does not measure that, so it needs a listen.
-- It has not been heard in the game. Its volume, pitch and the map's room are not checked by the build.
+The original's 600 Hz to 2 kHz share and its top band were not in the picture readings, so I could not check those.
 
-If you can make the original file available to read, I can compare the two directly and tighten the match.
+**How it was made**
+
+- A generated take of a sliding steel door, from the woosh-dflow model (seed 0). Its licence is CC-BY-NC 4.0, which is non-commercial. You said the licences were accepted for this test.
+- Layer 1, `burst`: the first 0.6 s of that take, with a 12× drive to flatten its peaks, and a shaped envelope that drops by 20 dB at about 0.58 s.
+- Layer 2, `tail`: the rest of the same take, very quiet, fading to -42 dB, so the file runs its full 5 s.
+- Layer 3, `rumble`: low pink noise under 140 Hz, to restore the bass share.
+- The same filter on both take layers: a cut around 280 Hz, a lift around 900 Hz, and a lowpass at 2.6 kHz.
+- Finish: peak normalised to -0.5 dBFS. No limiter: a limiter pumped the quiet tail up and broke the decay.
+
+**Open issues**
+
+- Crest is the main miss. The burst's peaks still sit about 5 dB above its average level. I tried higher drive and flatter envelopes; the best I got was 16.9 dB, which then cost centroid and band accuracy.
+- The build warns that 8-bit depth adds a hiss under the quiet tail. The original is also 8-bit, so I kept it for a like-for-like format. Switching to 16-bit would remove the hiss if it is audible in the game.
+- The build also warns that a steady pink noise layer is heard as static. The rumble layer is a short low-pass noise, so I judged it acceptable, but listen for it.
+- The spec was only passed inline. I have no file-write tool here, so it is not saved in the work folder. The shape of it is in the layers above and in the build calls.
+
+Nothing here has been listened to. Please play it in the game, check the crest and the hiss, and tell me which way it is off.

@@ -1,31 +1,24 @@
-The sound is built and the build says OK: `work:sound/weapons/357_shot1.wav`, 22050 Hz, 16-bit mono, 1.06 s, peak -0.5 dBFS. It is written in place of the game's own file of that name.
+The sound is built and the build says OK: `work:sound/weapons/357_shot1.wav`. It is written as the game's own file name, so it takes the place of the original when placed in the mod's `sound` folder.
 
-**Measured against your description of the original**
+I didn't use the generated takes in the final sound. The four takes were too dark and not clipped, so the sound is built from layers alone. That means no non-commercial model output is in the file.
 
-| Feature | Original | Built |
+The spec is one shaped noise blast with a 25 ms dip at the onset, a 2 ms high-passed crack at the start, and clipping on the blast layer (drive 4). The clipping is only on the blast, so the tail keeps its own decay. I first ran a crest limiter on the finish, but it lifted the tail and flattened the decay, so I removed it.
+
+| Measure | Target from the description | Made file |
 |---|---|---|
-| Length | 1.06 s | 1.06 s |
-| Energy under 150 Hz | about 30% | 33% |
-| 150 to 600 Hz | about 30% | 23% |
-| 600 to 2000 Hz | about 22% | 24% |
-| 2000 to 5000 Hz | about 13% | 16% |
-| Over 5000 Hz | about 5% | 6% |
-| Onset | hard crack at 0 | one transient counted at the start |
-| Dip at 20 to 30 ms | yes | yes, a 5 dB dip at 22 ms |
-| Tail | quarter level by 0.6 s, near silent by 0.95 s | T20 0.81 s (time to fall 20 dB) |
+| Length | 1.06 s | 1.057 s |
+| Format | 22050 Hz, 8-bit, mono | 22050 Hz, 8-bit, mono |
+| Under 150 Hz | about 30% | 30.3% |
+| 150 to 600 Hz | about 30% | 29.2% |
+| 600 to 2000 Hz | about 22% | 22.9% |
+| 2000 to 5000 Hz | about 13% | 12.5% |
+| Over 5000 Hz | about 5% | 5.0% |
+| T20 (time to fall 20 dB) | about 0.7 s | 0.71 s |
+| T40 (time to fall 40 dB) | about 0.95 s | 0.94 s |
+| Peak | full scale | -0.6 dBFS |
 
-**What it is made of**
+Against the game's gunshot class, 21 of 22 features are in range. The one that is off is flatness (how noise-like a sound is): 0.225 against the class's 0 to 0.2. I left it that way on purpose, because your description says the sound has no tonal component, and adding tone to match the class would break that.
 
-- **Blast:** a generated take of a revolver shot from the local woosh-dflow model (seed 2), trimmed to start at its first hit, with the dip and a fade shaped to your envelope. It is driven hard to pin it near full scale.
-- **Crack:** a 12 ms burst of high-passed white noise on the first sample, for the instant broadband onset.
-- **Air:** shaped white noise that falls off faster in the top end over time, for the top end and the grainy texture.
-- **Rumble:** brown noise low-passed at 350 Hz, for the low boom in the tail.
-- **Finish:** saturation at 4, then a limiter set to a 7 dB crest.
-
-**What does not match, and why**
-
-- **Flatness 0.256, against the game's gunshot range of 0 to 0.2.** The class check wants more tone. Your description says the sound has no tonal component, so I kept it noisy. If you want it closer to the game's own gunshots, a faint tonal ring would bring this into range.
-- **Attack reads 140 ms, not 0.** The waveform starts at full scale, but the tool's attack figure is measured from the level envelope, and the clipped body takes that long to settle. I did not force it lower, since that would mean changing the blast itself.
-- **Licence:** the blast comes from woosh-dflow, whose weights are CC-BY-NC 4.0 (non-commercial). You said this test accepts the local generators' licences, so I have used it. Before this goes into a commercial mod, that needs a different source.
-
-The sound has not been heard in the game, and its volume and room are set by the map. Listen to it there before judging the mix.
+Things to check:
+- **8-bit hiss:** the build warns that 8-bit adds a faint hiss under the quiet tail. I kept 8-bit because you gave it as a fact of the original. If you'd rather have a cleaner tail, 16-bit would sound cleaner, but it would no longer match the original's depth.
+- **I did not have the original file.** The numbers above are checked against your description, not against a side-by-side with the recording. Listen in the game before you judge it, because the build can't tell how it sounds to a person or what the map's room adds.

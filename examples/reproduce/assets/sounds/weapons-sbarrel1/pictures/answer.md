@@ -1,21 +1,10 @@
-The sound is built and the build says OK: `weapons/sbarrel1.wav` is in the work folder at `work:sound/weapons/sbarrel1.wav`, ready to go in a mod's `sound` folder in place of the game's file.
+The sound builds OK: `work:sound/weapons/sbarrel1.wav`, 22050 Hz, 16-bit mono, 1.04 s long, matching the original's length. Its report puts all 22 of its features within the game's gunshot range.
 
-I used the spec path with no generated recording. The generator's shotgun takes were poor: none matched the blast's density, and their crest and length were far off. So the sound is layered from scratch, shaped to the original's picture.
+The spec is layers only, with no generated take, so the generator licence question doesn't arise.
 
-| Feature | Original (from picture) | Made |
-| --- | --- | --- |
-| Length | 1.04 s | 1.04 s |
-| Crest (peak over RMS) | about 11.2 dB | 10.5 dB |
-| T20 (time to -20 dB) | 0.46 to 1.01 s | 0.79 s |
-| Centroid (brightness) | 615 Hz | 538 Hz (13% off) |
-| Power under 150 Hz | 36% | 38% |
-| Power 150 to 600 Hz | 32% | 33% |
-| Power 600 to 2k Hz | 26% | 25% |
+**What it is:** a white-noise blast with a spectrum shaped to the original's (strongest below 600 Hz, falling off above 2 kHz), a 110 Hz sine that sweeps down to 45 Hz for the low thump, and a sparse grain tail. The finish saturates at 8 and has no limiter. The sound comes out at T20 0.644 s, T40 1.023 s, centroid 702 Hz, crest 11 dB and RMS -11.5 dBFS.
 
-The build's own checks: the class `gunshot` has 22 of 22 features in range, with no faults reported. The picture check puts every band within 2 points of the original's.
-
-The construction: a noise blast that holds for about 0.3 s then decays, driven hard for its dense body, with a low sine boom sweeping from 110 Hz to 45 Hz, a short high crack, and a saturation of 5. The rate is 22050 Hz, 8-bit, mono.
-
-What I could not check: how it sounds. I can't hear it, so the match rests on measurements from the picture, which is only a rough reading. Please listen to it in the game against the original, especially the attack and the tail. The spec is inline in this session and not saved to a file; I can write it to the project if you want it kept.
-
-The scratch file `work:sound/test/diag.wav` from my experiments is still in the work folder and can be deleted.
+**Where I departed from the original:**
+- **Bit depth:** 16-bit, not the original's 8-bit. The spec warns that 8-bit adds a hiss under the quiet tail that reads as static. Say if you want 8-bit to match the original's format.
+- **No measurements of the original:** the picture path was refused because it is outside the work folder, and I couldn't copy it in, so the original's numbers were never read. The comparison is by eye on the two pictures, plus the game's gunshot ranges. Both pictures show a sharp onset, a dense early blast, and a thin tail to about 1 s, but I haven't measured the original's crest or RMS, so "as close as I can" is judged by eye, not by numbers.
+- **Not in the game yet:** I haven't put it in a mod's `sound` folder or heard it in a game. The report says the game's volume, pitch and map room can't be checked here, so listen to it in the game before you call it done.

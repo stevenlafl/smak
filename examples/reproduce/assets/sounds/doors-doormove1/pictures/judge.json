@@ -31,25 +31,25 @@
   "reproduction": {
    "length": 5.04,
    "peak": -0.6,
-   "rms": -15.3,
-   "crest": 14.8,
+   "rms": -18.1,
+   "crest": 17.6,
    "dc": 0,
    "clipped": 0,
    "lead": 0,
    "tail": 0.005,
-   "attack": 4.18,
-   "peakAt": 4.185,
-   "t20": 0.434,
-   "t40": 0.848,
-   "centroid": 585,
-   "rolloff": 1270,
-   "flatness": 0.133,
+   "attack": 0.145,
+   "peakAt": 0.145,
+   "t20": 0.484,
+   "t40": 4.889,
+   "centroid": 578,
+   "rolloff": 1109,
+   "flatness": 0.15,
    "bands": {
-    "<150": 33.7,
-    "150-600": 37.3,
-    "600-2k": 22.2,
-    "2k-5k": 6.8,
-    ">5k": 0
+    "<150": 24.8,
+    "150-600": 41.9,
+    "600-2k": 28,
+    "2k-5k": 5.1,
+    ">5k": 0.1
    },
    "onsets": 2
   },
@@ -59,12 +59,12 @@
     0.386,
     0.643
    ],
-   "t20": 0.434,
+   "t20": 0.484,
    "inRange": true
   },
   "lengthOff": 0.001,
-  "centroidOff": 0.059,
-  "bandsOffMost": 6.2,
+  "centroidOff": 0.071,
+  "bandsOffMost": 6.7,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -83,34 +83,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Cannot listen; judged from the waveform and spectrogram. Both have a steady low rumble with a burst near 4.2 to 4.6 s and a decaying tail, which fits a door's slide. But the original's spectrogram shows curved tonal bands (a moving pitch), while the reproduction is a broadband noise bed with no structure. It reads as a rumble that could be a door, not clearly the same event."
+   "reason": "Cannot listen; judged from the picture and features. The original is a sustained rumble across the full 5.04 s with clatter-like transients near 2.6 s and 4.2 to 4.6 s, which reads as a door moving on its track. The reproduction is one short broadband thump at the start (about 0 to 0.6 s), then near silence for the remaining 4.4 s. It is a plausible door-related sound, but it does not show the same slide-and-stop event, so it is clearly off."
   },
   "S2": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Length 5.04 s against 5.037 s (0.1% off, well within 25%). T20 is 0.434 s against the original's 0.514 s, inside the class range of 0.386 to 0.643 s (inRange true). Attack is 4.18 s against 4.25 s, and the peak lands at the same place in the burst."
+   "score": 1,
+   "reason": "Length is 5.04 s against 5.037 s, and the attack-side t20 (0.484 s) is inside the class range (0.386 to 0.643), so the measures pass. The picture shows the envelope is clearly off: the original keeps its level through the whole clip and swells again at about 4.4 s, while the reproduction drops to a thin line after about 0.6 s. The decay is wrong, and the measured t40 (4.889 s against 0.579 s) disagrees with the picture, so the score is held at 1."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Centroid 585 Hz against 622 Hz (5.9% off, within 20%). Band shares: under 150 Hz 33.7 vs 31.1 (2.6 points), 150 to 600 Hz 37.3 vs 35.2 (2.1), 600 to 2k 22.2 vs 28.4 (6.2, the largest gap), 2k to 5k 6.8 vs 5.0 (1.8), above 5k 0 vs 0.2. All within 10 points."
+   "reason": "Measured: centroid 578 Hz against 622 Hz (about 7% off, inside 20%). Band shares differ by at most 6.7 points (below 150 Hz: 24.8 against 31.1; 150 to 600 Hz: 41.9 against 35.2; 600 to 2k: 28.0 against 28.4; 2k to 5k: 5.1 against 5.0; above 5k: 0.1 against 0.2), all inside 10 points. The spectrograms show the same broad low-mid weighting."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Cannot listen; judged from the pictures and features. Onset count matches (2 and 2) and flatness is close (0.133 against 0.158, both noise-leaning). But the original's spectrogram has sliding pitch bands that the reproduction lacks entirely, so the pitch movement does not match. The reproduction's spectrum is also more uniform than the original's."
+   "reason": "Cannot listen; judged from features and the picture. The onset count (2) and flatness (0.150 against 0.158) match. But the original's transients are spread through the clip, at about 2.6 s and 4.2 to 4.6 s, with horizontal tonal bands that drift, while the reproduction's only transient is at the start and its spectrogram is an even broadband blob with no visible pitch movement. The character is clearly off."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Mono, 11025 Hz, 8-bit, which the engine plays. No clipping (0), peak -0.6 dBFS (not clipped), DC 0 (against -0.0041 for the original, negligible). Same name as the original and no engine faults. The original is not a loop, so no loop cue is needed."
+   "reason": "The file is mono, 11025 Hz, 8-bit PCM, which the engine plays. The peak is -0.6 dB with clipped 0, DC is 0, the length matches the original's (5.04 s), and the name is the same. No loop cue is needed, as the original shows none in its measures."
   }
  },
- "total": 8,
+ "total": 7,
  "of": 10,
  "passes": false
 }

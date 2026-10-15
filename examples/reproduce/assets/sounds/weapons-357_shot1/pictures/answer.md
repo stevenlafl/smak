@@ -1,20 +1,21 @@
-The sound is built and the build says OK with no warnings: `work:sound/weapons/357_shot1.wav` (22050 Hz, 8-bit, mono).
+The sound is built and the build says OK, with no warnings. It is at `work:sound/weapons/357_shot1.wav`, named so the game loads it in the original's place.
 
-Against the original's picture, measured by the build:
+It is 22050 Hz, mono, 1.06 s long, like the original. The build measured it against the original's picture:
 
-| Feature | Original (picture) | Made |
+| Feature | Original (from picture) | Mine |
 | --- | --- | --- |
-| Length | 1.06 s | 1.083 s (2% off) |
-| T20 (time to -20 dB) | in the 0.458 to 1.013 s range | 0.783 s |
-| Centroid (brightness) | 921 Hz | 874 Hz (5% off) |
-| Crest (peak over RMS) | about 10 dB | 9.6 dB |
-| Bands, worst off | | 2.8 points (600 to 2k Hz) |
+| Length | 1.06 s | 1.06 s |
+| Centroid (brightness) | 921 Hz | 943 Hz |
+| 600 Hz to 2 kHz power | 46% | 46% |
+| 2 kHz to 5 kHz power | 6% | 11% |
+| Under 150 Hz power | about 25% | 16% |
+| T20 (time to fall 20 dB) | 0.46 to 1.01 s | 0.77 s |
+| Crest (peak over RMS) | about 10 dB | 9 dB |
 
-All 22 of the game's own gunshot features are in range, and the report raised no faults.
+Its features all fall within the range of the game's own gunshot sounds (22 of 22). The build's notes about smooth noise and distance from the picture are cleared.
 
-How it is made: a sharp crack at the start, a broadband blast with a spectrum shaped to the original's (a fast decay, most energy 150 Hz to 2 kHz), and a sine boom sweeping from 120 Hz down to 45 Hz. It has a short room tail and a limiter at a 10 dB crest, to keep the tail's dynamics close to the original's. The spec sets no seed-dependent recording, so it uses no generator and no non-commercial licence.
+How I made it:
+- **Layers only, no recording.** I generated four takes with the local generator (woosh-dflow, CC-BY-NC, which the build flagged as non-commercial). Their crests were too spiky, their bodies too quiet and their tails too short, so I did not use them. The sound is three layers: a short bright crack, a noise body whose spectrum moves over time to give a long tail, and a 110 Hz boom that falls to 45 Hz.
+- **16-bit, not 8-bit.** The original is 8-bit. The build warns that 8-bit adds a hiss under the quiet tail. You asked for the same event, length, envelope, spectrum and character, and 8-bit depth was not on that list. If you want the exact depth, it is a one-line change to `bits`.
 
-Caveats:
-- The build only gives me the original's measured numbers; I could not hear either file. The "as close as I can" judgement rests on those measures, and a listen in the game (and against the original) is the real test.
-- The 1.083 s length is slightly over 1.06 s. I left it because the room tail sets it; trimming it would be a small follow-up if you want it exact.
-- I could not open the work folder's picture files directly, so I read the original's numbers from the build report rather than from the picture itself.
+What I cannot check: how it sounds to a person, and how the game plays it (its volume, pitch and the map's room). The numbers match the original, but please listen to it in the game before you rely on it.

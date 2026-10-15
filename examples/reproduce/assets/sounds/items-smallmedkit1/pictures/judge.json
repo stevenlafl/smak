@@ -30,26 +30,26 @@
   },
   "reproduction": {
    "length": 0.76,
-   "peak": -0.6,
-   "rms": -12.6,
-   "crest": 12,
-   "dc": -0.0001,
+   "peak": -0.5,
+   "rms": -14.9,
+   "crest": 14.4,
+   "dc": 0,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.005,
-   "attack": 0,
-   "peakAt": 0.005,
-   "t20": 0.668,
-   "t40": 0.748,
-   "centroid": 2131,
-   "rolloff": 6740,
-   "flatness": 0.225,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.055,
+   "t20": 0.673,
+   "t40": 0.703,
+   "centroid": 2078,
+   "rolloff": 6503,
+   "flatness": 0.099,
    "bands": {
-    "<150": 2.5,
-    "150-600": 15.2,
-    "600-2k": 60.1,
-    "2k-5k": 3.6,
-    ">5k": 18.7
+    "<150": 0,
+    "150-600": 13.8,
+    "600-2k": 65.4,
+    "2k-5k": 2,
+    ">5k": 18.8
    },
    "onsets": 1
   },
@@ -59,17 +59,17 @@
     0.505,
     0.841
    ],
-   "t20": 0.668,
+   "t20": 0.673,
    "inRange": true
   },
   "lengthOff": 0.004,
-  "centroidOff": 0.021,
-  "bandsOffMost": 3,
+  "centroidOff": 0.045,
+  "bandsOffMost": 5.9,
   "engineFaults": [],
   "sameName": true,
   "format": {
    "rate": 22050,
-   "bits": 8,
+   "bits": 16,
    "channels": 1
   }
  },
@@ -80,37 +80,37 @@
  },
  "scores": {
   "S1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Judged from the picture only, since I cannot listen. The original is three pulsed, tonal bursts (horizontal line near 1.5 kHz) from 0 to about 0.33 s, a quiet gap with a small click near 0.5 s, then a broadband noise swell from about 0.6 s to the end. The reproduction has the same overall shape: pulsed bursts to about 0.35 s, then a noise swell peaking near 0.6 s. The event reads as the same kind of pickup sound, but the first bursts are broadband noise, not tonal beeps, and the pulse pattern differs, so it is clearly off in detail."
+   "score": 2,
+   "reason": "Judged from the picture only, since I cannot listen. Both waveforms share the same event shape: a run of tonal pulses (three groups in the original, roughly three in the reproduction), a gap, a quieter tail, then a loud noise swell that rises to the end. The reproduction's first group is more smeared and its tail thinner, which is a matter of character (S4), not of what the event is."
   },
   "S2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Length is 0.760 s against 0.763 s (0.4% off, well inside 25%). T20 is 0.668 s against 0.673 s, inside the envelope range of 0.505 to 0.841 s. The class is the original's own decay, and both attacks are 0. Nothing here falls outside the range."
+   "reason": "Length is 0.76 s against 0.763 s (0.4% off, within 25%). The attack is 0.005 s against 0 s, and both are in range. T20 is 0.673 s in both, inside the class's range of 0.505 to 0.841 s (the original's own decay, so no class range applies), and inRange is true."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Centroid is 2131 Hz against 2177 Hz (2.1% off, inside 20%). Band shares against the original: <150 Hz 2.5 vs 0.1 (2.4 points), 150-600 Hz 15.2 vs 14.7 (0.5), 600-2k Hz 60.1 vs 59.5 (0.6), 2k-5k Hz 3.6 vs 3.9 (0.3), >5k Hz 18.7 vs 21.7 (3.0). Every band is within 10 points."
+   "reason": "Centroid is 2078 Hz against 2177 Hz, 4.6% off (within 20%). Band shares differ by at most 5.9 points (600 to 2k: 65.4 against 59.5), and every band is within 10 points: under 150 Hz 0 against 0.1, 150 to 600 Hz 13.8 against 14.7, 2k to 5k 2 against 3.9, over 5k 18.8 against 21.7."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged from the picture and features, since I cannot listen. Flatness is 0.225 against 0.128, so the reproduction is noisier than the original's more tonal bursts, and the picture confirms it: the original's early bursts are tonal stripes, the reproduction's are broadband. The measured onset count is 1 for both, but the picture shows three pulse groups in the original and about two clear groups in the reproduction, so the onsets do not match. Pitch movement cannot be judged from a spectrogram of noise-like bursts. The character is clearly off."
+   "reason": "Judged from the picture and features, not by ear. Onsets match (1 each) and flatness is near (0.099 against 0.128). But the original's quiet tail is a sustained noisy smear with clicks at about 0.4 s and 0.6 s, and the reproduction's tail is nearly empty with sparse dots. The reproduction's tonal bursts also show more banding and blur, so the tone and pitch movement do not clearly match. Not a must-have item, but the difference is clear in the picture."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The file is mono, 22050 Hz, 8-bit, the format the engine plays. Peak is -0.6 dBFS with 0 clipped samples. DC is -0.0001, well within tolerance. The original has no loop cue (lead and tail 0), and the reproduction's tail is 0.005 s with no loop. The name matches."
+   "reason": "The features give mono, 16-bit PCM at 22050 Hz, which the engine plays. Peak is -0.5 dBFS with no clipping, DC is 0, and there is no lead or tail silence. The name matches (sameName true), and the engine reports no faults. The original has no loop cue to match, so none is missing."
   }
  },
- "total": 8,
+ "total": 9,
  "of": 10,
- "passes": false
+ "passes": true
 }

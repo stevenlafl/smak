@@ -1,0 +1,150 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/cbar_hit1.wav",
+  "class": "metal hit",
+  "rate": 11025,
+  "bits": 8,
+  "length": 0.69,
+  "seed": 3,
+  "layers": [
+    {
+      "id": "body",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 60
+        },
+        {
+          "type": "lowpass",
+          "f": 2400,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 110,
+          "q": 0.8,
+          "gain": 6
+        },
+        {
+          "type": "peak",
+          "f": 800,
+          "q": 0.8,
+          "gain": -3
+        },
+        {
+          "type": "peak",
+          "f": 1600,
+          "q": 1,
+          "gain": -12
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.003,
+            0
+          ],
+          [
+            0.3,
+            -1
+          ],
+          [
+            0.36,
+            -0.5
+          ],
+          [
+            0.43,
+            -8
+          ],
+          [
+            0.46,
+            -60
+          ]
+        ]
+      },
+      "gain": 0
+    },
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 105,
+      "wave": "sine",
+      "env": {
+        "attack": 0.01,
+        "decay": 0.3
+      },
+      "gain": -1
+    },
+    {
+      "id": "tail",
+      "kind": "noise",
+      "color": "white",
+      "post": true,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 500,
+          "q": 0.7
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -50
+          ],
+          [
+            0.3,
+            -30
+          ],
+          [
+            0.43,
+            -10
+          ],
+          [
+            0.5,
+            -18
+          ],
+          [
+            0.6,
+            -36
+          ],
+          [
+            0.69,
+            -60
+          ]
+        ]
+      },
+      "gain": -6
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "modes": [
+        {
+          "f": 1100,
+          "gain": -8,
+          "decay": 1.2
+        }
+      ],
+      "env": {
+        "attack": 0.02,
+        "decay": 1.2
+      },
+      "gain": -36
+    }
+  ],
+  "finish": {
+    "limit": {
+      "crest": 8,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

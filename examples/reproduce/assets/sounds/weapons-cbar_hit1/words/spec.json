@@ -4,50 +4,56 @@
   "class": "metal hit",
   "rate": 11025,
   "bits": 8,
-  "length": 0.69,
   "seed": 3,
+  "length": 0.69,
   "layers": [
     {
-      "id": "body",
+      "id": "click",
       "kind": "noise",
-      "color": "white",
       "filter": [
         {
           "type": "highpass",
-          "f": 60
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.012
+      },
+      "gain": -12,
+      "post": true
+    },
+    {
+      "id": "hit",
+      "kind": "sample",
+      "file": "work:gen/cbar_hit_s2.wav",
+      "from": 0.18,
+      "length": 0.69,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 50
         },
         {
-          "type": "lowpass",
-          "f": 2400,
+          "type": "peak",
+          "f": 300,
+          "gain": 3,
           "q": 0.7
         },
         {
           "type": "peak",
-          "f": 110,
-          "q": 0.8,
-          "gain": 6
+          "f": 1200,
+          "gain": -9,
+          "q": 0.8
         },
         {
-          "type": "peak",
-          "f": 800,
-          "q": 0.8,
-          "gain": -3
-        },
-        {
-          "type": "peak",
-          "f": 1600,
-          "q": 1,
-          "gain": -12
+          "type": "lowpass",
+          "f": 5000
         }
       ],
       "env": {
         "points": [
           [
             0,
-            -60
-          ],
-          [
-            0.003,
             0
           ],
           [
@@ -56,88 +62,189 @@
           ],
           [
             0.36,
-            -0.5
-          ],
-          [
-            0.43,
-            -8
-          ],
-          [
-            0.46,
-            -60
-          ]
-        ]
-      },
-      "gain": 0
-    },
-    {
-      "id": "thump",
-      "kind": "tone",
-      "f": 105,
-      "wave": "sine",
-      "env": {
-        "attack": 0.01,
-        "decay": 0.3
-      },
-      "gain": -1
-    },
-    {
-      "id": "tail",
-      "kind": "noise",
-      "color": "white",
-      "post": true,
-      "filter": [
-        {
-          "type": "bandpass",
-          "f": 500,
-          "q": 0.7
-        }
-      ],
-      "env": {
-        "points": [
-          [
-            0,
-            -50
-          ],
-          [
-            0.3,
-            -30
+            0
           ],
           [
             0.43,
             -10
           ],
           [
-            0.5,
-            -18
-          ],
-          [
-            0.6,
-            -36
+            0.55,
+            -16
           ],
           [
             0.69,
-            -60
+            -40
           ]
         ]
       },
+      "gain": -4
+    },
+    {
+      "id": "thud",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 220
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.3,
+            -1
+          ],
+          [
+            0.36,
+            0
+          ],
+          [
+            0.43,
+            -10
+          ],
+          [
+            0.55,
+            -16
+          ],
+          [
+            0.69,
+            -40
+          ]
+        ]
+      },
+      "gain": -9
+    },
+    {
+      "id": "scrape",
+      "kind": "particles",
+      "rate": 400,
+      "band": [
+        600,
+        2500
+      ],
+      "grain": 0.001,
+      "env": {
+        "points": [
+          [
+            0,
+            -3
+          ],
+          [
+            0.3,
+            -2
+          ],
+          [
+            0.43,
+            -10
+          ],
+          [
+            0.55,
+            -16
+          ],
+          [
+            0.69,
+            -40
+          ]
+        ]
+      },
+      "length": 0.69,
       "gain": -6
+    },
+    {
+      "id": "clatter",
+      "kind": "particles",
+      "rate": 300,
+      "band": [
+        2000,
+        5000
+      ],
+      "grain": 0.001,
+      "env": {
+        "points": [
+          [
+            0,
+            -3
+          ],
+          [
+            0.2,
+            -6
+          ],
+          [
+            0.4,
+            -16
+          ],
+          [
+            0.5,
+            -30
+          ],
+          [
+            0.6,
+            -40
+          ]
+        ]
+      },
+      "length": 0.6,
+      "gain": 4
+    },
+    {
+      "id": "rattle",
+      "kind": "particles",
+      "rate": 60,
+      "band": [
+        800,
+        4000
+      ],
+      "grain": 0.002,
+      "env": {
+        "points": [
+          [
+            0,
+            -3
+          ],
+          [
+            0.2,
+            -6
+          ],
+          [
+            0.4,
+            -18
+          ],
+          [
+            0.45,
+            -40
+          ]
+        ]
+      },
+      "length": 0.45,
+      "gain": -14
     },
     {
       "id": "ring",
       "kind": "modes",
+      "gain": -14,
       "modes": [
         {
           "f": 1100,
-          "gain": -8,
-          "decay": 1.2
+          "gain": 1,
+          "decay": 0.9
+        },
+        {
+          "f": 320,
+          "gain": 0.25,
+          "decay": 0.5
+        },
+        {
+          "f": 460,
+          "gain": 0.2,
+          "decay": 0.45
         }
-      ],
-      "env": {
-        "attack": 0.02,
-        "decay": 1.2
-      },
-      "gain": -36
+      ]
     }
   ],
   "finish": {

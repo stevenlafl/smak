@@ -1,25 +1,29 @@
-The sound is built and the build says OK: `work:sound/debris/bustmetal1.wav`, placed so the game plays it in the original's spot (`debris/bustmetal1.wav` under `sound/`). It is 11025 Hz, 8-bit, mono, 0.87 s, built from layers with no generated recording in it.
+The sound is built and the build says OK: `work:sound/debris/bustmetal1.wav`, 11025 Hz, 8-bit mono, 0.87 s. It is written under the game's own name, so it takes the place of `debris/bustmetal1.wav` when placed in a mod's `sound` folder.
 
-| Measure | Original (your description) | Built | Notes |
-| --- | --- | --- | --- |
-| Length | 0.87 s | 0.87 s | Matches |
-| Start | instant, full level | attack 0 ms | Matches |
-| Level at 0.3 s / 0.45 s | about -6 dB / -12 dB | set in the envelope, not measured directly | Check by ear |
-| Tail | near silent by 0.75 s, silent at the end | T40 (seconds to -40 dB) 0.81 s | Close |
-| Under 150 Hz | 8% | 6.6% | Close |
-| 150 to 600 Hz | 22% | 25.6% | About 4 points over |
-| 600 to 2000 Hz | 38% | 37.9% | Matches |
-| 2000 to 5000 Hz | 30% | 29.1% | Matches |
-| Over 5000 Hz | 2% | 0.7% | Cut by the 5.5 kHz limit of the rate |
+**What I made.** The spec layers a short high-passed crack at the start, a low thump under the first hit, a shaped noise body, a grain clatter, two struck-plate ring modes, and a generated take (woosh-dflow, seed 1) brought in from its first hit. The body and clatter fall over the 0.87 s to the envelope you gave (about -6 dB by 0.3 s, -12 dB by 0.45 s, silent at the end). The plate modes give the faint inharmonic bands.
 
-**How it is built:** a noise impact whose spectrum falls and darkens over the decay (low end first, highs last), a fast envelope, a dense particle clatter for the first 0.15 s, a thin rattle train for the spikes in the decay, two narrow resonant noise bands (1190 and 2710 Hz) for the faint ringing, then saturation and a limiter (crest 12 dB).
+**Measured against your brief** (the build's readings of the file):
 
-**What I could not match or check:**
-- **Flatness:** the sound measures 0.6 (1 is pure noise). The game's metal-hit range is 0.16 to 0.28. I kept it noisy because your description says "mainly noisy", so the class score will flag it. Tell me if the original is more tonal.
-- **Faint bands:** these are narrow noise resonances, not true tonal modes. My attempts at a modes layer came out loud and tonal, so I dropped it.
-- **Length warning:** the check flags 0.87 s as "too long" for a metal hit. That is the length you specified, so I kept it.
-- **Not checkable here:** no game files were on this machine, so there was no reference sound to compare against. Only the description and the numbers were used. Listen in the game to judge it.
+```
+Measure           Original (brief)   Made
+Under 150 Hz      8%                 6.6%
+150-600 Hz        22%                24.9%
+600-2000 Hz       38%                37%
+2000-5000 Hz      30%                31.4%
+Over 5000 Hz      2%                 0.1%
+Length            0.87 s             0.87 s
+Attack            instant            5 ms
+T20 / T40         -                  0.60 s / 0.78 s
+Centroid          -                  1523 Hz
+```
 
-**Licence:** I generated four takes with woosh-dflow (non-commercial, CC-BY-NC 4.0 weights) and used none of them. The shipped file has no generated material in it.
+The bands are within about 3 points of your figures. The top band sits lower because the 11025 Hz rate cuts off near 5.5 kHz, and the file has almost nothing above 5 kHz.
 
-**Leftovers:** the diagnostic files `work:sound/debris/diag_impact.wav`, `diag_mix.wav` and `diag_plate.wav` and the takes `work:gen/bustmetal_s0` to `s3` are still in the work folder. They are not in the game's path, so they do nothing in the game. I have no tool to delete them, so remove them by hand if you want the folder clean.
+**Where it departs from the game's metal-hit class, on purpose:**
+- Flatness is 0.39, above the class range (0.16 to 0.28). Your brief says the sound is mainly noisy, so I kept the grain dominant rather than adding tone.
+- Length 0.87 s is above the class range (0.37 to 0.86). That is the length you asked for.
+
+**Things you should know:**
+- **Licence:** the generated take is from woosh-dflow, CC-BY-NC 4.0 (weights; code MIT). That is non-commercial. You accepted it for this test; it would need replacing before any commercial release.
+- **Warnings left in:** the build warns that the noise body sits over the take (possible static under the tail) and that 8-bit adds a hiss under the quiet tail. You asked for 8-bit, so I kept it. I did not remove the body noise, because it carries the clatter's spectrum.
+- **Not checked:** I could not hear the file. No original was in the folders the server was given, so the comparison is against your figures and the class ranges, not a side-by-side with the real file. The volume and how it sits in the game's mix are untested. Listen to it in the game.

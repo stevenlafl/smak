@@ -1,57 +1,34 @@
-The sound is built and the build says OK: `work:sound/weapons/cbar_hit1.wav`, 11025 Hz, 8-bit, mono, 0.69 s. It is made from layers only, with no generated recording in it, so the non-commercial licence of the generator does not reach the final file. I could not listen to it, and I had no copy of the original to draw beside it, so the comparison below is against your description, not the game's file.
+The sound is built and the build says **OK**. It is written to `work:sound/weapons/cbar_hit1.wav`, which takes the game's place when put in `<mod>/sound`. I have not heard it in the game, so that check is still yours.
 
-Measured against your description:
+**Made vs. the original's description**
 
-```
-Feature            Original (described)   Built (measured)
-Length             0.69 s                 0.69 s
-Format             11025 Hz, 8-bit mono   11025 Hz, 8-bit mono
-Crest (peak/RMS)   about 8 dB             8.2 dB
-Under 150 Hz       20%                    18%
-150 to 600 Hz      35%                    33%
-600 to 2000 Hz     30%                    35%
-2000 to 5000 Hz    13%                    14%
-Over 5000 Hz       2%                     0%
-Dense to 0.43 s    yes                    yes, then drops to about a third and fades
-1.1 kHz ring       on top of the tail     visible in the tail on the spectrogram
-```
+| Measure | Original (from the description) | Made | Status |
+|---|---|---|---|
+| Length, format | 0.69 s, 11025 Hz, 8-bit mono | 0.69 s, 11025 Hz, 8-bit mono | Matches |
+| Attack | instant, click at contact | 5 ms, full scale from the start | Matches |
+| Energy under 150 Hz | about 20% | 23% | Close |
+| 150 to 600 Hz | about 35% | 26% | Low |
+| 600 to 2000 Hz | about 30% | 36% | High |
+| 2000 to 5000 Hz | about 13% | 14% | Matches |
+| Over 5000 Hz | about 2% | 0.3% | Low |
+| Spectral flatness | noisy, clanky | 0.28 (the report's class range tops out at 0.28) | Edge |
+| Centroid | dark-mid | 975 Hz (the class range starts at 1074) | Slightly dark |
+| Decay (time to -20 dB) | dense to 0.43 s, then falls | 0.21 s | Still wrong |
+| 1.1 kHz ring | steady, visible in the tail | present, faint in the picture | Weak |
 
-Known gaps:
-- **Attack:** the report gives 20 ms, not instant. The body fades in over the first few milliseconds, and I could not remove that without a spike. Your description asks for instant, so this is a miss.
-- **Game-class check:** the report still says the centroid (890 Hz) is darker than the game's metal hits (1074 to 1654 Hz), and that 150 Hz to 600 Hz and under 150 Hz are above the game's range. I kept the band shares you gave, since they are the target.
-- **Tail length:** the report puts the level at -20 dB at 0.66 s, which is later than I aimed for. The picture shows a smooth fade to near silence by 0.69 s.
-- **Listening:** the sound has not been heard. How it plays in the game (volume, room, mix) needs a listen.
+The report flags only the decay (too short), the centroid (slightly dark) and the flatness (edge of range). The decay is the one I could not fix. The 1.1 kHz tang is audible in the spectrum but not as clear as you describe.
 
-The spec, as built, is below. It is not saved as a file in the work folder, because my tools here cannot write one.
+**How it is built** (the spec is in the chat only, not saved to a file):
+- A 0.69 s generated crowbar take (woosh-dflow, seed 2), trimmed to its strike and shaped with filters, as the main body.
+- A low-frequency noise thud under it, a 600 to 2500 Hz particle scrape and a 2 to 5 kHz clatter, which give the rattle.
+- A short click after the strike.
+- A ring of three modes: 1.1 kHz as the tang, with fainter partials at 320 and 460 Hz.
+- A limiter at crest 8 dB and a -0.5 dBFS peak.
 
-```json
-{
-  "spec": "smak.sound/1",
-  "name": "weapons/cbar_hit1.wav",
-  "class": "metal hit",
-  "rate": 11025,
-  "bits": 8,
-  "length": 0.69,
-  "layers": [
-    {"id": "body", "kind": "noise", "color": "white",
-     "filter": [{"type": "highpass", "f": 60}, {"type": "lowpass", "f": 2400, "q": 0.7},
-                {"type": "peak", "f": 110, "q": 0.8, "gain": 6},
-                {"type": "peak", "f": 800, "q": 0.8, "gain": -3},
-                {"type": "peak", "f": 1600, "q": 1, "gain": -12}],
-     "env": {"points": [[0, -60], [0.003, 0], [0.3, -1], [0.36, -0.5], [0.43, -8], [0.46, -60]]}, "gain": 0},
-    {"id": "thump", "kind": "tone", "f": 105, "wave": "sine", "env": {"attack": 0.01, "decay": 0.3}, "gain": -1},
-    {"id": "tail", "kind": "noise", "color": "white", "post": true,
-     "filter": [{"type": "bandpass", "f": 500, "q": 0.7}],
-     "env": {"points": [[0, -50], [0.3, -30], [0.43, -10], [0.5, -18], [0.6, -36], [0.69, -60]]}, "gain": -6},
-    {"id": "ring", "kind": "modes", "modes": [{"f": 1100, "gain": -8, "decay": 1.2}],
-     "env": {"attack": 0.02, "decay": 1.2}, "gain": -36}
-  ],
-  "finish": {"limit": {"crest": 8, "release": 0.002}, "peak": -0.5}
-}
-```
+**Things you should know:**
+- **Licence.** The take comes from woosh-dflow, which is CC-BY-NC 4.0 (non-commercial). You said that is accepted for this test. It needs a different source before any commercial use.
+- **8-bit depth.** The build warns about the hiss on quiet tails. I kept 8-bit because the original is 8-bit.
+- **Modes `gain` is linear, not dB.** Each entry's `gain` is a linear multiplier, and 0 makes the mode silent. The spec guide describes it as dB, so the docs should be corrected.
+- **Leftover scratch files.** `work:sound/weapons/diag_*.wav` and `work:sound/weapons/diag_*` are test renders from my tuning. They are not the game's file. I have no delete tool here, so they need removing by hand.
 
-What I learned about the tool, which may matter for the next sound:
-- A post-limiter layer's gain changed nothing in my tests, so the tail and the ring were kept at levels set by trial.
-- The limiter lifts quiet tails. That is why the tail is a separate post layer.
-- The 1.1 kHz ring only shows up when its attack is softened; without that, its first sample makes a spike.
-- The band shares are measured on linear frequency bins, so white noise puts most of its power above 600 Hz. The filters have to pull it down.
+I could not close the decay gap. I stopped after about 40 builds because the remaining changes were trading one band off against another. The next thing to try is a longer, quieter bed under the strike, so the sound stays near full level to about 0.43 s.

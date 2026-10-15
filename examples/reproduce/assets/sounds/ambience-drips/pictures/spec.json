@@ -3,182 +3,150 @@
   "name": "ambience/drips.wav",
   "class": "loop drips",
   "rate": 11025,
-  "bits": 8,
+  "bits": 16,
+  "seed": 3,
   "length": 7.31,
-  "seed": 1,
-  "loop": {
-    "crossfade": 0.02
-  },
   "layers": [
     {
-      "id": "bed",
-      "kind": "noise",
-      "iterations": 16,
-      "gain": -13,
-      "env": {
-        "attack": 0.1,
-        "hold": 7,
-        "decay": 0.2
-      },
-      "shape": [
-        [
-          100,
-          -20
-        ],
-        [
-          300,
-          -6
-        ],
-        [
-          600,
-          -8
-        ],
-        [
-          1200,
-          -12
-        ],
-        [
-          2500,
-          -22
-        ],
-        [
-          5000,
-          -34
-        ],
-        [
-          9000,
-          -46
-        ]
+      "id": "a",
+      "kind": "sample",
+      "file": "work:gen/drips_s3.wav",
+      "from": "onset",
+      "length": 5,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 350,
+          "q": 1,
+          "gain": 4
+        },
+        {
+          "type": "lowpass",
+          "f": 2000,
+          "q": 0.7
+        }
       ]
     },
     {
-      "id": "d1",
-      "kind": "tone",
-      "at": 0.31,
-      "f": 1000,
-      "wave": "sine",
-      "sweep": {
-        "to": 500,
-        "time": 0.04
-      },
-      "env": {
-        "attack": 0.002,
-        "decay": 0.06
-      },
-      "gain": -6
+      "id": "b",
+      "kind": "sample",
+      "file": "work:gen/drips_s0.wav",
+      "from": "onset",
+      "length": 2.56,
+      "at": 5,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 350,
+          "q": 1,
+          "gain": 4
+        },
+        {
+          "type": "lowpass",
+          "f": 2000,
+          "q": 0.7
+        }
+      ]
     },
     {
-      "id": "d2",
-      "kind": "tone",
-      "at": 0.92,
-      "f": 1150,
-      "wave": "sine",
-      "sweep": {
-        "to": 580,
-        "time": 0.04
-      },
-      "env": {
-        "attack": 0.002,
-        "decay": 0.05
-      },
-      "gain": -8
+      "id": "c",
+      "kind": "sample",
+      "file": "work:gen/drips_s1.wav",
+      "from": "onset",
+      "length": 5,
+      "at": 1.2,
+      "gain": -6,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 350,
+          "q": 1,
+          "gain": 4
+        },
+        {
+          "type": "lowpass",
+          "f": 2000,
+          "q": 0.7
+        }
+      ]
     },
     {
-      "id": "d3",
-      "kind": "tone",
-      "at": 1.67,
-      "f": 900,
-      "wave": "sine",
-      "sweep": {
-        "to": 450,
-        "time": 0.04
-      },
-      "env": {
-        "attack": 0.002,
-        "decay": 0.07
-      },
-      "gain": -5
+      "id": "d",
+      "kind": "sample",
+      "file": "work:gen/drips_s2.wav",
+      "from": "onset",
+      "length": 5,
+      "at": 3.6,
+      "gain": -8,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 350,
+          "q": 1,
+          "gain": 4
+        },
+        {
+          "type": "lowpass",
+          "f": 2000,
+          "q": 0.7
+        }
+      ]
     },
     {
-      "id": "d4",
-      "kind": "tone",
-      "at": 2.13,
-      "f": 1250,
-      "wave": "sine",
-      "sweep": {
-        "to": 640,
-        "time": 0.03
-      },
-      "env": {
-        "attack": 0.002,
-        "decay": 0.05
-      },
-      "gain": -9
-    },
-    {
-      "id": "d5",
-      "kind": "tone",
-      "at": 3.4,
-      "f": 950,
-      "wave": "sine",
-      "sweep": {
-        "to": 520,
-        "time": 0.04
-      },
-      "env": {
-        "attack": 0.002,
-        "decay": 0.06
-      },
-      "gain": -6
-    },
-    {
-      "id": "d6",
-      "kind": "tone",
-      "at": 4.05,
-      "f": 1200,
-      "wave": "sine",
-      "sweep": {
-        "to": 600,
-        "time": 0.04
-      },
-      "env": {
-        "attack": 0.002,
-        "decay": 0.05
-      },
-      "gain": -8
-    },
-    {
-      "id": "d7",
-      "kind": "tone",
-      "at": 5.2,
-      "f": 850,
-      "wave": "sine",
-      "sweep": {
-        "to": 430,
-        "time": 0.04
-      },
-      "env": {
-        "attack": 0.002,
-        "decay": 0.07
-      },
-      "gain": -5
-    },
-    {
-      "id": "d8",
-      "kind": "tone",
-      "at": 6.31,
-      "f": 1080,
-      "wave": "sine",
-      "sweep": {
-        "to": 540,
-        "time": 0.04
-      },
-      "env": {
-        "attack": 0.002,
-        "decay": 0.06
-      },
-      "gain": -7
+      "id": "e",
+      "kind": "sample",
+      "file": "work:gen/drips_s0.wav",
+      "from": "onset",
+      "length": 4,
+      "at": 2.2,
+      "gain": -10,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 350,
+          "q": 1,
+          "gain": 4
+        },
+        {
+          "type": "lowpass",
+          "f": 2000,
+          "q": 0.7
+        }
+      ]
     }
   ],
-  "picture": "pictures/sound.png"
+  "finish": {
+    "limit": {
+      "crest": 24.9,
+      "release": 0.002
+    },
+    "peak": -0.5
+  },
+  "loop": true,
+  "picture": "work:pictures/sound.png"
 }

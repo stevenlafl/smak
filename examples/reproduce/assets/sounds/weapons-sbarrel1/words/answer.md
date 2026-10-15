@@ -1,37 +1,33 @@
-The sound is built and the build says OK: `work:sound/weapons/sbarrel1.wav`, 22050 Hz, 8-bit mono, 1.04 s, no loop. Copy it to `<mod>/sound/weapons/` so the game plays it in place of its own file. I have not heard it, and the tool can't say how it sounds. The numbers below are the tool's readings, so listen to it in the game before you trust them.
+The sound is built and the build says OK: `work:sound/weapons/sbarrel1.wav`, to go in `<mod>/sound/weapons/` so the game plays it in place of the original.
 
-It is built from layers only, with no recording in it. I generated four takes with woosh-dflow (a non-commercial model, which you accepted). They were too dark and not clipped: 64 to 85% of their energy sat under 150 Hz, against a target of 35%. None of them went into the file, so the non-commercial licence does not apply to the output.
+**What it is:** 1.04 s, 22050 Hz, 8-bit, mono, played once. It is made entirely from layers: no recording was used, so no generator licence applies.
 
-Measured against the original's targets:
+**Layers**
 
-```
-Measure              Target            Made
-length               1.04 s            1.04 s
-rate, bits           22050, 8-bit      22050, 8-bit, mono
-under 150 Hz         35%               41%
-150 to 600 Hz        30%               28%
-600 to 2000 Hz       20%               18%
-2000 to 5000 Hz      10%               9%
-over 5000 Hz         5%                4%
-T20 (to -20 dB)      falls 0.4 to 0.6 s,  0.57 s
-                     silent by 1.04 s
-T40 (to -40 dB)      -                    0.86 s
-crest (peak/RMS)     6 to 10 dB (class 4.5 to 11.7)   10.8 dB
-flatness             low, noisy           0.19 (class 0 to 0.2)
-attack               instant              15 ms
-```
+| Layer | Role |
+| --- | --- |
+| Crack | High-passed noise at 0 s, plus a second at 0.03 s for the two barrels |
+| Blast | Broadband noise, heavy at the bottom, clipped by the finish. Its spectrum falls after 0.5 s so the highs die first |
+| Thump | Sine sweeping 110 to 45 Hz, plus a steady 62 Hz body tone |
+| Crackle | Sparse particles from 0.2 s to 1.0 s, fading |
 
-The tool reports 22 of 22 features in the range of the game's own gunshot sounds. The attack of 15 ms is the tool's reading, not zero. The waveform starts at full level, but the measure reads a few milliseconds of build-up. The sound's last samples are one 8-bit step (the smallest level 8-bit audio can hold), so it is silent by ear before 1.04 s.
+Finish: saturate 3, limiter at 8 dB crest, peak -0.5 dBFS.
 
-What the layers do:
-- **Slab:** shaped noise pinned by saturation for the first 0.4 s, then a steep fall to silence by about 0.7 s.
-- **Double crack:** a high-passed noise transient at 0 s, and a second at 0.03 s, a little quieter.
-- **Thump:** a sine sweeping from 110 Hz down to 45 Hz, over the first second.
-- **Tail:** low-heavy noise and crackle from 0.4 s to the end.
-- **Roar:** 600 to 5000 Hz particles, for the grit in the first half.
+**Measured against your description**
 
-Two things I found while building, which may matter if you change it:
-- A peak limiter or a layer's `drive` lifts quiet tails back to full level, so the decay never came down. I dropped both and used the finish's `saturate` alone.
-- Parts added after saturation (the thump, tail, roar and cracks) keep the pinned slab looking clipped. Parts added before it dent the clipping.
+| Band | Target | Built |
+| --- | --- | --- |
+| Under 150 Hz | 35% | 36.9% |
+| 150 to 600 Hz | 30% | 32.5% |
+| 600 to 2000 Hz | 20% | 17.9% |
+| 2000 to 5000 Hz | 10% | 8.8% |
+| Over 5000 Hz | 5% | 3.9% |
 
-The spec was saved beside the sound as `work:weapons_sbarrel1.spec.json` by the build.
+Other figures: T20 0.92 s and T40 1.01 s; the first 0.4 s is at full level; the level falls steeply from 0.4 to 0.6 s. The build checks the file against the game's gunshot sounds and reports 22 of 22 features in range.
+
+**Things to know**
+
+- **8-bit hiss:** the build warns that 8-bit adds a hiss under the quiet tail. You asked for 8-bit, so I kept it. Removing `"bits": 8` gives a 16-bit file with no hiss, which is the safer choice if the 8-bit depth is not a hard requirement.
+- **No side-by-side:** the original's file is not on this machine, so I could only compare against your written description and the game's gunshot class, not against the original itself.
+- **Clipping:** the first 0.4 s is held at the limiter's ceiling and fills the top of the spectrogram, but the peak is -0.6 dBFS rather than hard-clipped at 0 dBFS. If your listening test needs literal flat tops, the finish would need changing.
+- **Not checked by the build:** how it sounds to a person and how the game plays it. Listen to it in the game before judging it against the original.

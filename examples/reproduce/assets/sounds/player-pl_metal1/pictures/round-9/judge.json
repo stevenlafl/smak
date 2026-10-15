@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "player-pl_metal1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.582,
+   "peak": 0,
+   "rms": -15.5,
+   "crest": 15.5,
+   "dc": -0.0104,
+   "clipped": 1,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.025,
+   "peakAt": 0.045,
+   "t20": 0.424,
+   "t40": 0.539,
+   "centroid": 360,
+   "rolloff": 624,
+   "flatness": 0.057,
+   "bands": {
+    "<150": 34.8,
+    "150-600": 43.8,
+    "600-2k": 19.6,
+    "2k-5k": 1.8,
+    ">5k": 0.1
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.58,
+   "peak": -0.6,
+   "rms": -14.6,
+   "crest": 14,
+   "dc": -0.0003,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.02,
+   "peakAt": 0.02,
+   "t20": 0.394,
+   "t40": 0.559,
+   "centroid": 354,
+   "rolloff": 678,
+   "flatness": 0.008,
+   "bands": {
+    "<150": 30.9,
+    "150-600": 49.3,
+    "600-2k": 19.6,
+    "2k-5k": 0.1,
+    ">5k": 0
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "step metal",
+   "t20Range": [
+    0.315,
+    0.525
+   ],
+   "t20": 0.394,
+   "inRange": true
+  },
+  "lengthOff": 0.003,
+  "centroidOff": 0.017,
+  "bandsOffMost": 5.5,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Cannot listen; judged from the picture and features. Both waveforms open with a dense, broadband burst that decays over about half a second, with small ringing bumps in the tail. Both spectrograms are broadband and concentrated in the low-mid range, with the energy fading the same way. That is consistent with one metal strike or step on metal, the event the original is named for."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 0.580 s against 0.582 s, 0.3% off, well within 25%. Attack is 0.020 s against 0.025 s, and T20 is 0.394 s, inside the metal-step class range of 0.315 to 0.525 s."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 354 Hz against 360 Hz, 1.7% off, within 20%. Band shares are all within 10 points: under 150 Hz 30.9 against 34.8 (3.9), 150 to 600 Hz 49.3 against 43.8 (5.5), 600 to 2k Hz 19.6 against 19.6 (0), 2k to 5k Hz 0.1 against 1.8 (1.7), above 5k Hz 0 against 0.1. The largest gap is 5.5 points."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. Onsets match (0 in both). Flatness does not: the original is 0.057 and the reproduction 0.008, roughly seven times more tonal. The reproduction's spectrogram shows more horizontal striping than the original's smear, consistent with a more tonal sound. No pitch movement is visible in either. The character is clearly off on tone versus noise, though this is not a must-have item."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The format is mono, 8-bit, 11025 Hz, which the engine plays. The reproduction does not clip (peak -0.6 dBFS). Its DC is -0.0003, negligible. The original, by contrast, is clipped with DC -0.0104; the reproduction fixes both. The name matches (sameName true) and the engine reports no faults. No loop cue is involved."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

@@ -1,29 +1,28 @@
-The sound is built and the build says **OK**: `work:sound/items/smallmedkit1.wav`, 22050 Hz, 8-bit, mono, 0.76 s, one shot. It goes in the game's `sound` folder under that name, so the game plays it in place of the original.
+The sound is built and the build says OK: `work:sound/items/smallmedkit1.wav`. Put it in `<mod>/sound/items/` and the game plays it in the original's place. I could not listen to it, so how it sounds is for you to judge in the game.
 
-I couldn't compare it against the original file itself, because the server has no copy of the game folders. Every target below comes from the description you gave, so the match is to those numbers.
+It is 0.76 s, 22050 Hz, 8-bit, mono, and plays once with no loop. It is made from layers only, with no generated take in the file. The generator's takes were too quiet and too bright to use, so none went into the file.
 
-Energy share by band, from the final build against your targets:
+| Part | Your description | Built |
+| --- | --- | --- |
+| Four beeps | 0 to 0.33 s, square wave near 600 Hz, hard starts and stops | Square 600 Hz at 0.01, 0.10, 0.19 and 0.27 s; the first is 0.05 s, the rest 0.065 s |
+| Quiet fumble | 0.33 to 0.58 s, noise 150 to 2000 Hz, about a fifth of the beep level | Band-limited noise from 0.33 s; three dry clicks at 0.38, 0.42 and 0.48 s |
+| Spray burst | 0.58 to 0.76 s, loudest, bright 4 to 8 kHz, low body, cut off with no fade | Shaped noise from 0.58 s, a 90 Hz body under it, a hard cut at the end |
+
+Energy share over the whole sound:
 
 ```
-band               target   made
-under 150 Hz         5%     3.8%
-150 to 600 Hz       25%    26.7%
-600 to 2000 Hz      30%    31.2%
-2000 to 5000 Hz     15%    14.0%
-over 5000 Hz        25%    24.2%
+Band          Target   Built
+under 150 Hz    5%      3.8%
+150-600 Hz     25%     23.1%
+600-2000 Hz    30%     31.1%
+2000-5000 Hz   15%     15.8%
+over 5000 Hz   25%     26.3%
 ```
 
-The timing follows your description: four square-wave beeps at 592 Hz (a short first blip, then three of 0.065 s with gaps), a quiet pink-noise fumble at about a fifth of the beep level with three dry clicks at 0.38, 0.42 and 0.48 s, then a loud noise burst from 0.58 s with a bright 4 to 8 kHz shape and a light low body, cut hard at 0.76 s. The build's sharp-attack and tone checks pass, and the picture shows the same four layers.
+Choices I made:
+- **Class:** I used `click`, the nearest class, since there is none for a medkit. Its ranges are for short clicks, so the report's "too long" and centroid notes do not apply here.
+- **Brightness:** the centroid is 2716 Hz, which the report calls dark. I kept the band shares, which you gave exactly, over a brighter centroid. The report's flatness is also a little low for a click, which is expected for a sound with tonal beeps.
+- **8-bit:** the build warns that 8-bit adds a hiss under quiet tails. I kept 8-bit because the original is 8-bit, and the hiss sits under the beeps and fumble, not under a long tail.
+- **Attack:** the build warns the file takes 0.59 s to reach its peak. That is the quiet beeps leading into the loud burst, the structure you described, so I did not reshape it.
 
-Things to know:
-
-- **Band shares are sensitive to the beep pitch.** Moving the beep from 595 to 588 Hz pushed the 150 to 600 band from about 20% to 32%, so I settled on 592 Hz. Your "near 600 Hz" allows that.
-- **The report's class scores don't apply here.** It scores against the game's click sounds, so it flags length ("too long") and a dark centroid. Those are about the class, not your original, so I left them.
-- **I did not use the generated spray takes.** I generated four with the local model (woosh-dflow, non-commercial licence). They came out quiet and had a lead-in before the hiss, and they did not fit the clean, abrupt-cut burst you described, so the final sound is built from layers alone. The licence therefore does not apply to this file. The four takes are still in `work:gen/spray_hiss_s0` to `s3` if you want one later.
-- **I have not listened to it.** The build measures it but cannot say how it sounds, so a listen in the game is the real check, especially the burst's loudness against the beeps.
-
-The spec, to rebuild it exactly:
-
-```json
-{"spec":"smak.sound/1","name":"items/smallmedkit1.wav","class":"click","rate":22050,"bits":8,"seed":7,"length":0.76,"layers":[{"id":"beep1","kind":"tone","f":592,"wave":"square","at":0.0,"length":0.04,"gain":-13,"env":{"points":[[0,-60],[0.001,0],[0.039,0],[0.04,-60]]}},{"id":"beep2","kind":"tone","f":592,"wave":"square","at":0.07,"length":0.065,"gain":-13,"env":{"points":[[0,-60],[0.001,0],[0.064,0],[0.065,-60]]}},{"id":"beep3","kind":"tone","f":592,"wave":"square","at":0.165,"length":0.065,"gain":-13,"env":{"points":[[0,-60],[0.001,0],[0.064,0],[0.065,-60]]}},{"id":"beep4","kind":"tone","f":592,"wave":"square","at":0.26,"length":0.065,"gain":-13,"env":{"points":[[0,-60],[0.001,0],[0.064,0],[0.065,-60]]}},{"id":"fumble","kind":"noise","color":"pink","at":0.33,"length":0.25,"gain":-24,"filter":[{"type":"highpass","f":150},{"type":"lowpass","f":1200}],"env":{"points":[[0,-60],[0.02,-3],[0.07,-1],[0.12,-4],[0.17,-2],[0.23,-3],[0.25,-60]]}},{"id":"click1","kind":"noise","color":"white","at":0.38,"length":0.012,"gain":-8,"filter":[{"type":"highpass","f":1500}],"env":{"decay":0.004}},{"id":"click2","kind":"noise","color":"white","at":0.42,"length":0.012,"gain":-8,"filter":[{"type":"highpass","f":1500}],"env":{"decay":0.004}},{"id":"click3","kind":"noise","color":"white","at":0.48,"length":0.012,"gain":-8,"filter":[{"type":"highpass","f":1500}],"env":{"decay":0.004}},{"id":"body","kind":"noise","color":"pink","at":0.58,"length":0.18,"gain":-7,"filter":[{"type":"highpass","f":40},{"type":"lowpass","f":160}],"env":{"points":[[0,-60],[0.005,0],[0.17,0],[0.175,-60]]}},{"id":"burst","kind":"noise","color":"white","at":0.58,"length":0.18,"gain":-2,"shape":[[60,-6],[150,-6],[300,-10],[600,-10],[1200,-14],[2500,-13],[4000,-5],[6000,-3],[8000,-7],[10000,-18],[11000,-30]],"env":{"points":[[0,-60],[0.005,0],[0.17,0],[0.175,-60]]}}]}
-```
+The spec lives in this conversation only. I have no file-writing tool here, so it is not saved in the work folder.

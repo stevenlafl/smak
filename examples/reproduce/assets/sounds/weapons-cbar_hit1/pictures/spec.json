@@ -2,112 +2,88 @@
   "spec": "smak.sound/1",
   "name": "weapons/cbar_hit1.wav",
   "class": "metal hit",
+  "rate": 11025,
+  "bits": 8,
   "seed": 3,
-  "picture": "pictures/sound.png",
   "length": 0.69,
+  "picture": "pictures/sound.png",
   "layers": [
     {
-      "id": "crack",
-      "kind": "noise",
-      "color": "white",
+      "id": "take",
+      "kind": "sample",
+      "file": "work:gen/cbar_hit_s0.wav",
+      "from": "onset",
+      "length": 0.69,
+      "env": {
+        "attack": 0.001,
+        "hold": 0,
+        "decay": 1
+      },
       "filter": [
         {
           "type": "highpass",
-          "f": 900
+          "f": 120
         },
         {
           "type": "lowpass",
-          "f": 4000
+          "f": 2200
         }
-      ],
-      "env": {
-        "attack": 0.001,
-        "decay": 0.03
-      },
-      "gain": -4
-    },
-    {
-      "id": "body",
-      "kind": "noise",
-      "shape": [
-        [
-          50,
-          -16
-        ],
-        [
-          200,
-          -10
-        ],
-        [
-          500,
-          -3
-        ],
-        [
-          1000,
-          0
-        ],
-        [
-          2000,
-          -3
-        ],
-        [
-          4000,
-          -14
-        ],
-        [
-          8000,
-          -24
-        ],
-        [
-          11000,
-          -36
-        ]
-      ],
-      "env": {
-        "points": [
-          [
-            0,
-            -1
-          ],
-          [
-            0.08,
-            -3
-          ],
-          [
-            0.22,
-            -7
-          ],
-          [
-            0.4,
-            -16
-          ],
-          [
-            0.69,
-            -40
-          ]
-        ]
-      },
-      "gain": 0
+      ]
     },
     {
       "id": "ring",
       "kind": "modes",
-      "f": 900,
+      "f": 760,
       "ratios": "bar",
       "decay": 0.4,
       "damping": 1.2,
-      "gain": -14
+      "gain": -20,
+      "length": 0.69,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.4
+      }
+    },
+    {
+      "id": "body",
+      "kind": "tone",
+      "f": 220,
+      "wave": "sine",
+      "sweep": {
+        "to": 140,
+        "time": 0.12
+      },
+      "env": {
+        "attack": 0.001,
+        "decay": 0.15
+      },
+      "gain": -19
+    },
+    {
+      "id": "grit",
+      "kind": "particles",
+      "count": 800,
+      "band": [
+        300,
+        2000
+      ],
+      "grain": 0.008,
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.2
+      },
+      "gain": -1
     }
   ],
   "finish": {
-    "saturate": 2.5,
-    "limit": {
-      "crest": 10,
-      "release": 0.002
-    },
+    "saturate": 1.5,
     "room": {
-      "decay": 0.1,
-      "wet": 0.05
-    }
+      "decay": 0.35,
+      "wet": 0.15
+    },
+    "limit": {
+      "crest": 8
+    },
+    "peak": -0.5
   }
 }

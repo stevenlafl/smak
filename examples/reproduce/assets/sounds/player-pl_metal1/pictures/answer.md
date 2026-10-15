@@ -1,23 +1,30 @@
-The sound is built and the build says OK with no warnings. The file is `player/pl_metal1.wav` at 11025 Hz, 8-bit, mono, 0.58 s long, written to the server's work folder as `work:sound/player/pl_metal1.wav`. I have not listened to it, and the build can't judge how it sounds, so a listen in the game is still needed.
+The sound is built and the report says OK. It is written as `work:sound/player/pl_metal1.wav`, named so the game loads it in place of the original.
 
-The sound is built from one generated take of a metal footstep, which I chose from four seeds, plus two synthesized layers: a low sine thump and a dark pink-noise tail. The take is the sample for the click and the first hit. The tail carries the body.
+The build's report now has every class feature in range (22 of 22), and no warnings remain.
 
-Measured against the original's picture:
+| Measure | Made sound | Original (read from its picture) |
+| --- | --- | --- |
+| Length | 0.58 s | 0.58 s |
+| Centroid (the centre of the spectrum, bright or dark) | 351 Hz | 361 Hz |
+| Power under 150 Hz | 30% | about 32% |
+| Power 150 to 600 Hz | 47% | about 47% |
+| Power 600 Hz to 2 kHz | 21% | about 20% |
+| Power 2 to 5 kHz | 2% | about 1.6% |
+| T20 (time to fall 20 dB) | 0.33 s | 0.315 to 0.525 s range |
+| Crest (peak over loudness) | 16 dB | about 16 dB |
+| Flatness (0 pure tone, 1 noise) | 0.009 | class range 0.01 to 0.11 |
 
-```
-measure        original   built
-length         0.58 s     0.58 s
-centroid       361 Hz     354 Hz
-T20            0.315-0.525 s (in range)   0.394 s
-band <150 Hz   32%        31%
-band 150-600   47%        49%
-band 600-2k    ~20%       20%
-crest          ~16 dB     14 dB
-peak           -0.6 dBFS
-```
+The band splits for the original are inferred from the report's "points off" figures, not read directly, so treat them as approximate. Flatness is at the bottom edge of its range.
 
-T20 is the time for the sound to fall 20 dB from its peak. Against the game's own metal steps, all 22 features are in range. The report's only numbers that differ from the original are the crest (14 dB against about 16) and the 150-600 band (2.6 points off), both within the tolerances the kit uses.
+How I got there:
+- **Strike:** a short, low-passed noise burst, plus a sine thump that falls from 300 to 180 Hz. That carries most of the energy.
+- **Ring:** the bar-style modes at 730 Hz, with partials at about 2 and 3.9 kHz, kept quiet so they don't dominate.
+- **Texture:** a short noise grit and a high-band noise fill, for flatness.
+- **Finish:** a limiter at 16 dB crest, peak at -0.5 dBFS.
 
-The build used a `picture` of the original, and I set the spec's `class` to `step metal`. The spec's `seed` is 4, so rebuilding gives the same bytes.
+Three things to know:
+- **Bit depth:** I made it 16-bit rather than the original's 8. The 8-bit build flagged a hiss under the quiet tail, which the game would hear as static. If you want the original's 8-bit character, set `bits: 8` and accept that hiss.
+- **Source:** I couldn't read the original WAV itself (the input is a folder and the read was denied), so everything is measured against the picture the kit drew of it. A side-by-side listen is the real test, and I haven't heard it.
+- **Licences:** no generator was used, so no non-commercial licence applies to this file.
 
-Licence: the take comes from woosh-dflow (CC-BY-NC 4.0, non-commercial). You said that was acceptable for this test, but it means the file can't ship in a commercial product as is.
+One gap for the guide: the `modes` list's `gains` are linear multipliers, not dB. A negative value turns the partial's level up rather than down, which cost me a few builds. The guide doesn't say so.

@@ -1,0 +1,75 @@
+{
+  "spec": "smak.sound/1",
+  "name": "player/pl_metal1.wav",
+  "class": "step metal",
+  "rate": 11025,
+  "bits": 8,
+  "length": 0.58,
+  "seed": 4,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "step",
+      "kind": "sample",
+      "file": "work:gen/pl_metal1_s0.wav",
+      "from": "onset",
+      "length": 0.58,
+      "env": {
+        "attack": 0.001,
+        "hold": 0.02,
+        "decay": 0.2
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 900
+        }
+      ]
+    },
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 110,
+      "wave": "sine",
+      "sweep": {
+        "to": 60,
+        "time": 0.08
+      },
+      "env": {
+        "attack": 0.002,
+        "hold": 0.05,
+        "decay": 0.3
+      },
+      "gain": -14
+    },
+    {
+      "id": "tail",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0.01,
+      "env": {
+        "attack": 0.005,
+        "hold": 0.15,
+        "decay": 0.8
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 800
+        },
+        {
+          "type": "highpass",
+          "f": 100
+        }
+      ],
+      "gain": -2
+    }
+  ],
+  "finish": {
+    "limit": {
+      "crest": 14,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

@@ -30,26 +30,26 @@
   },
   "reproduction": {
    "length": 0.58,
-   "peak": -0.6,
-   "rms": -14.6,
-   "crest": 14,
-   "dc": -0.0003,
+   "peak": -0.5,
+   "rms": -16.5,
+   "crest": 16,
+   "dc": 0.0001,
    "clipped": 0,
    "lead": 0,
    "tail": 0.005,
-   "attack": 0.02,
-   "peakAt": 0.02,
-   "t20": 0.394,
-   "t40": 0.559,
-   "centroid": 354,
-   "rolloff": 678,
-   "flatness": 0.008,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.334,
+   "t40": 0.564,
+   "centroid": 351,
+   "rolloff": 732,
+   "flatness": 0.009,
    "bands": {
-    "<150": 30.9,
-    "150-600": 49.3,
-    "600-2k": 19.6,
-    "2k-5k": 0.1,
-    ">5k": 0
+    "<150": 30.2,
+    "150-600": 46.5,
+    "600-2k": 21.1,
+    "2k-5k": 2,
+    ">5k": 0.2
    },
    "onsets": 0
   },
@@ -59,17 +59,17 @@
     0.315,
     0.525
    ],
-   "t20": 0.394,
+   "t20": 0.334,
    "inRange": true
   },
   "lengthOff": 0.003,
-  "centroidOff": 0.017,
-  "bandsOffMost": 5.5,
+  "centroidOff": 0.025,
+  "bandsOffMost": 4.6,
   "engineFaults": [],
   "sameName": true,
   "format": {
    "rate": 11025,
-   "bits": 8,
+   "bits": 16,
    "channels": 1
   }
  },
@@ -80,37 +80,37 @@
  },
  "scores": {
   "S1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Cannot listen; judged from the picture and features. Both waveforms open with a dense, broadband burst that decays over about half a second, with small ringing bumps in the tail. Both spectrograms are broadband and concentrated in the low-mid range, with the energy fading the same way. That is consistent with one metal strike or step on metal, the event the original is named for."
+   "score": 1,
+   "reason": "Cannot listen; judged from the waveform and spectrogram only. Both start with the same sharp broadband transient, so a metal impact or step is plausible. But the original keeps broadband ringing across its length, while the reproduction after about 0.2 s is a thud over a steady tone, so the event reads as a different sound. Clearly off, not the same event."
   },
   "S2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Length is 0.580 s against 0.582 s, 0.3% off, well within 25%. Attack is 0.020 s against 0.025 s, and T20 is 0.394 s, inside the metal-step class range of 0.315 to 0.525 s."
+   "reason": "Length 0.580 s against 0.582 s (0.3% off, within 25%). T20 is 0.334 s, inside the step metal class range of 0.315 to 0.525 s. Attack is 0.005 s against 0.025 s and the peak comes earlier (0.015 s against 0.045 s), but the rubric measures the envelope by length and T20, and both hold."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Centroid is 354 Hz against 360 Hz, 1.7% off, within 20%. Band shares are all within 10 points: under 150 Hz 30.9 against 34.8 (3.9), 150 to 600 Hz 49.3 against 43.8 (5.5), 600 to 2k Hz 19.6 against 19.6 (0), 2k to 5k Hz 0.1 against 1.8 (1.7), above 5k Hz 0 against 0.1. The largest gap is 5.5 points."
+   "reason": "Centroid 351 Hz against 360 Hz (2.5% off, within 20%). Band shares are within 4.6 points on every band (bandsOffMost 4.6, within 10). The measured spectrum passes. The time-resolved spectrogram differences are scored under S4."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Cannot listen; judged from the picture and features. Onsets match (0 in both). Flatness does not: the original is 0.057 and the reproduction 0.008, roughly seven times more tonal. The reproduction's spectrogram shows more horizontal striping than the original's smear, consistent with a more tonal sound. No pitch movement is visible in either. The character is clearly off on tone versus noise, though this is not a must-have item."
+   "reason": "Cannot listen; judged from the spectrogram and flatness. Flatness is 0.009 against 0.057, so the reproduction is far more tonal. The spectrogram shows a steady horizontal line in the reproduction that the original lacks. Above about 1 kHz the reproduction goes dark after roughly 0.2 s while the original keeps mid and high content through the whole clip, so its ring is lost. Onsets match (0 each). Pitch movement cannot be judged from the picture."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The format is mono, 8-bit, 11025 Hz, which the engine plays. The reproduction does not clip (peak -0.6 dBFS). Its DC is -0.0003, negligible. The original, by contrast, is clipped with DC -0.0104; the reproduction fixes both. The name matches (sameName true) and the engine reports no faults. No loop cue is involved."
+   "reason": "Measured format is mono, 16-bit, 11025 Hz, which the engine plays. Peak is -0.5 dBFS with no clipping, DC is 0.0001, and the file name is the same (sameName true). engineFaults is empty. The original is a one-shot footstep with no loop cue needed."
   }
  },
- "total": 9,
+ "total": 8,
  "of": 10,
- "passes": true
+ "passes": false
 }

@@ -3,71 +3,113 @@
   "name": "player/pl_metal1.wav",
   "class": "step metal",
   "rate": 11025,
-  "bits": 8,
+  "bits": 16,
   "length": 0.58,
-  "seed": 4,
-  "picture": "pictures/sound.png",
+  "seed": 1,
+  "picture": {
+    "file": "pictures/sound.png",
+    "length": 0.58,
+    "rate": 11025
+  },
   "layers": [
     {
-      "id": "step",
-      "kind": "sample",
-      "file": "work:gen/pl_metal1_s0.wav",
-      "from": "onset",
-      "length": 0.58,
-      "env": {
-        "attack": 0.001,
-        "hold": 0.02,
-        "decay": 0.2
-      },
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 900
-        }
-      ]
-    },
-    {
-      "id": "thump",
+      "id": "sub",
       "kind": "tone",
       "f": 110,
       "wave": "sine",
       "sweep": {
-        "to": 60,
-        "time": 0.08
+        "to": 75,
+        "time": 0.12
       },
       "env": {
-        "attack": 0.002,
-        "hold": 0.05,
-        "decay": 0.3
+        "attack": 0.0005,
+        "decay": 0.9
       },
-      "gain": -14
+      "gain": -7
     },
     {
-      "id": "tail",
-      "kind": "noise",
-      "color": "pink",
-      "at": 0.01,
-      "env": {
-        "attack": 0.005,
-        "hold": 0.15,
-        "decay": 0.8
+      "id": "thump",
+      "kind": "tone",
+      "f": 300,
+      "wave": "sine",
+      "sweep": {
+        "to": 180,
+        "time": 0.1
       },
+      "env": {
+        "attack": 0.0005,
+        "decay": 1
+      },
+      "gain": -6
+    },
+    {
+      "id": "grit",
+      "kind": "noise",
+      "color": "white",
       "filter": [
+        {
+          "type": "highpass",
+          "f": 300
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.15
+      },
+      "gain": -10
+    },
+    {
+      "id": "fill",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 3000
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.25
+      },
+      "gain": -8
+    },
+    {
+      "id": "strike",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150
+        },
         {
           "type": "lowpass",
           "f": 800
-        },
-        {
-          "type": "highpass",
-          "f": 100
         }
       ],
-      "gain": -2
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.05
+      },
+      "gain": -4
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 730,
+      "ratios": "bar",
+      "gains": [
+        0.3,
+        0.1,
+        0.04
+      ],
+      "decay": 1.2
     }
   ],
   "finish": {
     "limit": {
-      "crest": 14,
+      "crest": 16,
       "release": 0.002
     },
     "peak": -0.5

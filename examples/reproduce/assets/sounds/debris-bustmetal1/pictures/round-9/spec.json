@@ -1,0 +1,148 @@
+{
+  "spec": "smak.sound/1",
+  "name": "debris/bustmetal1.wav",
+  "class": "metal hit",
+  "rate": 11025,
+  "bits": 8,
+  "length": 0.87,
+  "seed": 1,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "shape": [
+        [
+          200,
+          -30
+        ],
+        [
+          600,
+          -26
+        ],
+        [
+          1200,
+          -20
+        ],
+        [
+          2000,
+          -3
+        ],
+        [
+          2800,
+          -2
+        ],
+        [
+          3500,
+          -6
+        ],
+        [
+          5000,
+          -14
+        ],
+        [
+          7000,
+          -26
+        ],
+        [
+          11000,
+          -40
+        ]
+      ],
+      "env": {
+        "decay": 0.04
+      },
+      "gain": -1
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "color": "white",
+      "shape": [
+        [
+          200,
+          -30
+        ],
+        [
+          600,
+          -26
+        ],
+        [
+          1200,
+          -20
+        ],
+        [
+          2000,
+          -3
+        ],
+        [
+          2800,
+          -2
+        ],
+        [
+          3500,
+          -6
+        ],
+        [
+          5000,
+          -14
+        ],
+        [
+          7000,
+          -26
+        ],
+        [
+          11000,
+          -40
+        ]
+      ],
+      "env": {
+        "attack": 0.003,
+        "decay": 0.6
+      },
+      "gain": -5
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 2600,
+      "ratios": "bell",
+      "decay": 1,
+      "damping": 0.8,
+      "gain": -20
+    },
+    {
+      "id": "low",
+      "kind": "modes",
+      "f": 300,
+      "ratios": "plate",
+      "decay": 0.3,
+      "damping": 1.2,
+      "gain": -16
+    },
+    {
+      "id": "debris",
+      "kind": "particles",
+      "rate": 200,
+      "band": [
+        2000,
+        5000
+      ],
+      "grain": 0.004,
+      "env": {
+        "attack": 0.03,
+        "decay": 0.9
+      },
+      "gain": -11
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "limit": {
+      "crest": 12,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

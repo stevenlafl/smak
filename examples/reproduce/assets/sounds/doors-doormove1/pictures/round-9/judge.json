@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "doors-doormove1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 5.037,
+   "peak": -3.2,
+   "rms": -17.1,
+   "crest": 13.9,
+   "dc": -0.0041,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.035,
+   "attack": 4.25,
+   "peakAt": 4.425,
+   "t20": 0.514,
+   "t40": 0.579,
+   "centroid": 622,
+   "rolloff": 1421,
+   "flatness": 0.158,
+   "bands": {
+    "<150": 31.1,
+    "150-600": 35.2,
+    "600-2k": 28.4,
+    "2k-5k": 5,
+    ">5k": 0.2
+   },
+   "onsets": 2
+  },
+  "reproduction": {
+   "length": 5.04,
+   "peak": -0.6,
+   "rms": -15.3,
+   "crest": 14.8,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 4.18,
+   "peakAt": 4.185,
+   "t20": 0.434,
+   "t40": 0.848,
+   "centroid": 585,
+   "rolloff": 1270,
+   "flatness": 0.133,
+   "bands": {
+    "<150": 33.7,
+    "150-600": 37.3,
+    "600-2k": 22.2,
+    "2k-5k": 6.8,
+    ">5k": 0
+   },
+   "onsets": 2
+  },
+  "envelope": {
+   "class": "none: the original's own decay",
+   "t20Range": [
+    0.386,
+    0.643
+   ],
+   "t20": 0.434,
+   "inRange": true
+  },
+  "lengthOff": 0.001,
+  "centroidOff": 0.059,
+  "bandsOffMost": 6.2,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the waveform and spectrogram. Both have a steady low rumble with a burst near 4.2 to 4.6 s and a decaying tail, which fits a door's slide. But the original's spectrogram shows curved tonal bands (a moving pitch), while the reproduction is a broadband noise bed with no structure. It reads as a rumble that could be a door, not clearly the same event."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 5.04 s against 5.037 s (0.1% off, well within 25%). T20 is 0.434 s against the original's 0.514 s, inside the class range of 0.386 to 0.643 s (inRange true). Attack is 4.18 s against 4.25 s, and the peak lands at the same place in the burst."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid 585 Hz against 622 Hz (5.9% off, within 20%). Band shares: under 150 Hz 33.7 vs 31.1 (2.6 points), 150 to 600 Hz 37.3 vs 35.2 (2.1), 600 to 2k 22.2 vs 28.4 (6.2, the largest gap), 2k to 5k 6.8 vs 5.0 (1.8), above 5k 0 vs 0.2. All within 10 points."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the pictures and features. Onset count matches (2 and 2) and flatness is close (0.133 against 0.158, both noise-leaning). But the original's spectrogram has sliding pitch bands that the reproduction lacks entirely, so the pitch movement does not match. The reproduction's spectrum is also more uniform than the original's."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono, 11025 Hz, 8-bit, which the engine plays. No clipping (0), peak -0.6 dBFS (not clipped), DC 0 (against -0.0041 for the original, negligible). Same name as the original and no engine faults. The original is not a loop, so no loop cue is needed."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}
