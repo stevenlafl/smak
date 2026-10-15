@@ -367,10 +367,19 @@ prompt's action as "a trance-y dub/dnb" (140 BPM is dubstep's tempo):
 | v3a, 120 BPM, D minor: "late 1990s big beat and industrial rock instrumental, sampled acoustic breakbeat drum loop, gritty distorted electric guitar riffs, analog synth stabs, mid-range bass guitar, metallic percussion, dark sci-fi action, lo-fi sampler production, no vocals" | 117.5 | 72 to 76% | 15 to 18% | "I love the ones under A" |
 | v3b, 112 BPM, E minor: "1998 PC game soundtrack, industrial electronic instrumental, heavy sampled funk breakbeat, clanging metal percussion, distorted guitar chugs, eerie synth pads, short sampled orchestral hits, tense and mechanical, tracker music, no vocals" | 108 to 112 | 41 to 61% | 26 to 39% | "B sucks" |
 
-His description of v3a: "kind of like a little electric guitar, and it's really upbeat. I love it". v3a is
-the action prompt to start from. The band shares are no guide to his ear: v3b sat on the game's median
+His description of v3a: "kind of like a little electric guitar, and it's really upbeat. I love it". His
+favourite of everything made: v3a's seed 3 on XL (`~/stignored/music-review/acestep-xl-v3a/takes/action_s3.wav`,
+"my all time favorite"). v3a is the action prompt to start from. The band shares are no guide to his ear: v3b sat on the game's median
 and lost, v3a kept the heavy bass and won. Do not EQ towards the game's bands, or rank takes by `dist`, on the
 strength of these numbers.
+
+Then four-minute takes of two prompts that asked for EDM by name (`music-prompts-edm-a.json`: the first action
+prompt with "EDM structure with long build-ups, breakdowns and big drops"; `-edm-b.json`: an EDM prompt from
+nothing), on both models: "it is worse if you actually tell it to do EDM". Naming the genre made it worse than the
+action prompt that happened to sound like it: "however you did action the original time, a similar style is more
+like EDM than anything else". So for EDM, vary the first action prompt (section 3: late 1990s industrial
+electronic, driving breakbeat drums at 140 BPM, distorted analog synth bass, metallic percussion, a sparse
+detuned lead) and leave the genre unnamed; the rest is left to try together.
 
 So: ACE-Step XL is the default music model (12.4 GB with its DiT offloaded, 10 to 13.5 s a 75 s track), the 2B
 stays in the manifest as the fast choice (4 s), and the planner and MusicGen are dropped.

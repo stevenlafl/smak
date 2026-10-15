@@ -12,7 +12,7 @@ stdout, one message a line) is written out in `protocol.mjs`.
 ## Starting it
 
 ```
-node mcp/server.mjs --models <folder> --work <folder> [--no-run] [--compilers <folder>] [--fgd <file> ...] [--wads <folder> ...]
+node mcp/server.mjs --models <folder> --work <folder> [--no-run] [--compilers <folder>] [--fgd <file> ...] [--wads <folder> ...] [--generators <folder>]
 ```
 
 |            |                                                                                                                              |
@@ -23,6 +23,7 @@ node mcp/server.mjs --models <folder> --work <folder> [--no-run] [--compilers <f
 | `--compilers` | The map compilers' folder (SDHLT or VHLT), for `build` of a map. `VHLT_DIR` and the PATH are looked in unless told.         |
 | `--fgd`    | An entity definitions file: the game's `.fgd` (Half-Life's is in the SDK, `Hammer Editor/fgd/half-life/halflife.fgd`) and the compilers' own (`sdhlt.fgd`). `build` holds a map's entities against them; `entities` lists them. Again for more. |
 | `--wads`   | A game folder whose `.wad` files a map spec's `wads` name (`valve`, a mod's folder). Again for more.                            |
+| `--generators` | A folder of sound and music models run on this machine (`SMAK_GENERATORS` unless told): adds the tool `generate`. `generators/README.md` says how to fill one. |
 
 A client starts it itself; you only tell it how.
 
@@ -76,6 +77,7 @@ eight, maps included), so the long guidance stays behind `guide` and is read onl
 | `build`  | A model or a map from a spec (`docs/SPEC.md`, `guide { doc: "spec" }`): what a person's words, or drawing, are turned into. Built, checked (holes, gaps, faces turned inwards, parts floating apart; a map's leaks, walk, light, entities against the FGD), compiled, drawn. Says `OK` or what to fix, and what changed since the last build of the same name. Writes the result and its spec to the work folder. Runs no code of the client's. | `spec` (an object, JSON text, or a `.json` file of the folders), `reference` (a PNG drawn beside the result), `focus` (a model's parts to see close) |
 | `entities` | The entity classes of the server's FGDs, a line each; with `class`, its keys, types, defaults, choices and flags by name. | `match`, `class` |
 | `run`    | Runs an ES module with Node in the work folder, with the kit importable. Returns what it printed, the files it wrote, and up to three of its PNG files as images. | `script`, `show`, `timeout` (seconds; 120 unless told, 600 at most), `name` (keep the script as `<name>.mjs`), `edits` (change a kept script in place)              |
+| `generate` | With `--generators` only. A sound or music made by a model run on this machine, a take a seed: each written to `work:gen/<name>_s<seed>.wav` with a sidecar `.json` (model, prompt, seed, licence), measured at the game's rate (against a class of the game's sounds when given) and drawn one under another. The first call to a model loads it (a minute or three) and keeps it loaded; later calls take seconds. A sound spec takes the chosen take as a `sample` layer. | `prompt`, `length` (seconds), `kind` (`sound`, `music`), `model`, `seeds` (a count, 4, or a list), `from` (the first seed), `name`, `class`; music: `bpm`, `key`, `loop` |
 
 A map's `.wad` files are looked for beside it and in the models folder; when that folder is the game's own
 (it has `gfx/env` and `sprites`), a view shows the sky's picture and the sprites too. Models in a map's
@@ -162,7 +164,8 @@ What a person might ask, and the calls a client makes for it.
 | `guide.mjs`    | The guide and the reference cut at their headings, read from the kit's own files each time.         |
 | `tools.mjs`    | The tools: their descriptions as a client is told them, and `models`, `info`, `check`, `render`, `build`, `entities`. |
 | `run.mjs`      | The tool `run`: the link to the kit, the child process, its time limit, what it wrote.              |
+| `generate.mjs` | The tool `generate`: the generators folder's manifest, the worker (`generators/worker.py`) kept loaded, the takes and their sidecars. |
 
-The cases that start the server and speak to it are in `test/16-mcp.mjs`, `test/22-maps-draw.mjs` and
-`test/46-specs.mjs`; `examples/prompts/run.mjs` builds every worked case through it, and
+The cases that start the server and speak to it are in `test/16-mcp.mjs`, `test/22-maps-draw.mjs`,
+`test/46-specs.mjs` and `test/57-generate.mjs` (with a stand-in for the model); `examples/prompts/run.mjs` builds every worked case through it, and
 `examples/prompts/blind.mjs` hands a case's words to a fresh agent that has nothing else.

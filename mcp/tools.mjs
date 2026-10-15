@@ -28,6 +28,7 @@ import { buildVideoSpec } from "../src/spec/video.mjs";
 import { buildMapSpec } from "../src/spec/map.mjs";
 import { summaryOf, changesOf } from "../src/spec/changes.mjs";
 import { run, pictureWithin, TIMEOUT_SECONDS, OUTPUT_MOST, SHOWN_MOST, PICTURE_MOST } from "./run.mjs";
+import { generate } from "./generate.mjs";
 
 /** A picture's longer side in pixels when the call does not say: of one view, and of several in one. */
 const SIZE_ONE = 512;
@@ -1234,5 +1235,29 @@ export function toolsFor(folders, { allowRun = true } = {}) {
       call: (args, extra) => run(folders, args, extra),
     },
   ];
+  if (folders.generators) {
+    const names = folders.generators.models.map((m) => `${m.name} (${m.kind}${m.default ? ", the default" : ""}${m.licence ? `, ${m.licence}` : ""})`).join("; ");
+    tools.push({
+      name: "generate",
+      description: `A sound or music made by a model run on this machine, several seeds at once: each take written to work:gen/<name>_s<seed>.wav with a sidecar .json (model, prompt, seed, licence), measured and drawn one under another. Then use the take you choose in a sound spec as a layer { kind: "sample", file, from: "onset" } and shape it there. Models: ${names}. The first call to a model loads it (a minute or three); later calls take seconds.`,
+      inputSchema: object(
+        {
+          prompt: { type: "string", description: "what it is, in plain words: the thing, the action, the material, the space (\"a heavy wrench hitting a steel pipe, one sharp metallic clang, short ring\")" },
+          length: { type: "number", description: "seconds (a sound model makes 5 at most; music 10 to 600)" },
+          kind: { type: "string", enum: ["sound", "music"], description: "which kind's default model (sound unless told)" },
+          model: { type: "string", description: "a model by name, in place of the kind's default" },
+          seeds: { description: "how many takes (4), or a list of seeds: other seeds of a prompt are other takes" },
+          from: { type: "number", description: "with seeds as a count: the first seed (0); a second call with from 4 gives four more" },
+          name: { type: "string", description: "the takes' file name under work:gen/ (the prompt's first words unless told)" },
+          class: { type: "string", description: "each take held against the game's sounds of this kind (as a sound spec's class)" },
+          bpm: { type: "number", description: "music: beats a minute (leave out for music with no beat)" },
+          key: { type: "string", description: "music: \"D minor\"" },
+          loop: { type: "boolean", description: "music: made to loop (its join regenerated, in whole bars with a bpm)" },
+        },
+        ["prompt", "length"],
+      ),
+      call: (args) => generate(folders, args),
+    });
+  }
   return allowRun ? tools : tools.filter((tool) => tool.name !== "run");
 }

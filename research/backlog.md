@@ -134,8 +134,8 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | --- | --- | --- |
 | Generators installed and run on ROCm: TangoFlux, EzAudio, Woosh Flow and DFlow, six sounds by four seeds | DONE | `/media/Data3/Packages/local-audio/` (`scripts/install.sh`, `generate.py`, `finish.mjs`); outside the kit |
 | Steven listens to the four models' takes beside Haiku's and Valve's | DONE | 2026-10-15: Woosh-DFlow the most accurate and the default, iterated over seeds; Woosh-Flow the best hit; other models selectable (report, "Steven's listening") |
-| Sound layer kind `sample`: a work-folder WAV, cut by `from`/`length` or `onset`, with the layer's env, filter, pitch and gain; provenance from a sidecar, a warning on an NC licence | OPEN | Needs `readWav` for 24-bit, 32-bit and float data, a resampler, onset times from `features`; `KINDS` in `src/spec/sound.mjs` |
-| MCP `generate` tool running a locally installed model, found by `--generators` or `SMAK_GENERATORS` (option A) | OPEN | Woosh-DFlow by default, `model` selectable, many seeds a call; waits on the `sample` kind; a manifest and worker script in `local-audio` |
+| Sound layer kind `sample`: a work-folder WAV, cut by `from`/`length` or `onset`, with the layer's env, filter, pitch and gain; provenance from a sidecar, a warning on an NC licence | DONE | `src/spec/sound.mjs`, `readWav` (24, 32-bit, float, extensible) and `resample` in `src/audio/wav.mjs`; `test/47-audio.mjs` |
+| MCP `generate` tool running a locally installed model, found by `--generators` or `SMAK_GENERATORS` (option A) | DONE | `mcp/generate.mjs`, `generators/worker.py` (one model kept loaded), `generators/install.sh` and `install-music.sh`, `generators.json` (Woosh-DFlow and ACE-Step XL the defaults); `test/57-generate.mjs` with a stand-in worker; run end to end here. Missing: EzAudio and Stable Audio in the worker |
 | Stable Audio Open 1.0, Open Small, Stable Audio 3 small SFX | OPEN | Gated on HF: Steven accepts the terms and logs in (report, section 8); `generate.py sao` is written, not run |
 | Per-model prompts and lengths, more DFlow seeds; EzAudio inpainting for loop seams and longer loops | OPEN | Report, "Next" |
 | A takes-picker that prefers one onset for a one-shot and shows the picture | OPEN | The class score picked noise beds over hits (report, section 4) |
@@ -148,7 +148,7 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | --- | --- | --- |
 | ACE-Step 1.5 (2B turbo, XL turbo, 2B with its planner) and MusicGen stereo large installed on ROCm; four cues by four seeds each; the game's 27 tracks measured in place | DONE | `/media/Data3/Packages/local-audio/` (`scripts/install-music.sh`, `generate-music.py`, `finish-music.py`, `measure-music.py`, `music-pictures.mjs`); takes in `~/stignored/music-review/` |
 | Steven listens to the takes beside the game's tracks | DONE | 2026-10-15: ACE-Step follows music theory best and XL wins on sound over four seeds; the planner and MusicGen out (report, section 6a) |
-| Music entries in the `generate` tool's manifest (`kind: "music"`, `bpm`, `key`, `metre`, `loop`), ACE-Step XL in bf16 as the music default and the 2B as the fast choice; loops by turn-and-repaint in whole bars | OPEN | Waits on the sound leg's `generate` tool; report section 8 |
+| Music entries in the `generate` tool's manifest (`kind: "music"`, `bpm`, `key`, `metre`, `loop`), ACE-Step XL in bf16 as the music default and the 2B as the fast choice; loops by turn-and-repaint in whole bars | DONE | `generators/worker.py`, `generators.example.json`. Missing: `metre`; prompts for EDM (naming the genre made it worse, Steven 2026-10-15) |
 | `smak.music/1`: a take cut, looped, faded, levelled to -14 LUFS, EQ, sound layers mixed in, written as 44.1 kHz stereo MP3 under a `media/` name or a CD `track`, or a looped WAV for `ambient_generic`; measured against the game's groups | OPEN | Needs LUFS, a 24-bit and float WAV reader, a resampler (sound items), and ffmpeg with libmp3lame found on the path |
 | Map spec `music`: `trigger_cdaudio` / `target_cdaudio` (with `trigger_auto` for the start) by track, single-player warning, the mod profile saying when the mod plays music its own way | OPEN | Report section 8 |
 | In-game tests: a mod's `media/Half-LifeNN.mp3` found before valve's, the MP3 loop gap through Miles, `worldspawn` `sounds`, the `mp3` subcommands' arguments | OPEN | Read from code and engine strings only |
@@ -364,8 +364,8 @@ map-reproduction-failures, LS local-sound-generators, LM local-music-generators,
 17. Judge: prompt-only DSG questions, a non-Claude VLM, recognition without the prompt, pairwise ranking, run on the 38 cases, an agreement figure against Steven's reviews (IR 1).
 18. AO and curvature bake, warm-cool light and value bands in `finish` (IR 4).
 19. Sound presets from the recipe table, each scored against its class as a test (SG).
-19a. The `sample` layer kind, then the MCP `generate` tool with `--generators` (Woosh-DFlow by default, Steven's call); the Stable Audio models once he accepts their terms (LS).
-19b. Music entries in the `generate` manifest (ACE-Step XL by default, the 2B the fast choice), `smak.music/1`, and the map spec's `music`; the in-game tests of a mod's `media/` file and the MP3 loop gap (LM).
+19a. The Stable Audio models in the generate worker once Steven accepts their terms (LS). (The `sample` layer and the `generate` tool are done.)
+19b. `smak.music/1` and the map spec's `music`; the in-game tests of a mod's `media/` file and the MP3 loop gap (LM). (Music in `generate` is done.)
 20. Footsteps with `materials.txt`, the per-weapon role table of code-named sounds, mod profiles naming sounds (SG).
 21. Loop start other than 0, loop RMS and whole-cycle checks, seam picture, LUFS (SG).
 22. Sound layer kinds `sequence` and `sound` (SG).

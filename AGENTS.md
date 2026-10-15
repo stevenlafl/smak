@@ -107,7 +107,8 @@ node bin/smak.mjs obj <file.obj> -o out.mdl [--scale n] [--up y|z] [--turn deg] 
                                                    a model from a Wavefront .obj, its .mtl and pictures found beside it
 node bin/smak.mjs pieces <mdl> [--body n]          its loose pieces, each with its number, place and size (--body: that body's only)
 node bin/smak.mjs view <folder|mdl> [more ...]     the viewer, for the person: two models side by side in the browser
-node bin/smak.mjs mcp --work <dir> [--models <dir>]  the kit as an MCP server, for a client with no shell (mcp/README.md)
+node bin/smak.mjs mcp --work <dir> [--models <dir>] [--generators <dir>]  the kit as an MCP server, for a client with no shell (mcp/README.md);
+                                                   with --generators, the tool generate makes sounds and music with local models (generators/README.md)
 node bin/smak.mjs edit <folder|mdl>                the editor, for the person: animations, events and textures by hand
 node bin/smak.mjs video <spec.json> -o dir [--preview]   a video of models and maps from a shot list (docs/SPEC.md, "A video")
 node bin/smak.mjs contract <mdl> [--against ref.mdl]   what a mod's code asks of a model (bones, animations by number, attachments)

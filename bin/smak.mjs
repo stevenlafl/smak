@@ -1214,7 +1214,7 @@ async function edit({ file, flags }) {
 async function mcp({ flags, listed }) {
   const { start } = await import("../mcp/server.mjs");
   try {
-    await start({ models: flags.models, work: flags.work, run: flags.run !== false, compilers: flags.compilers, fgd: listed?.fgd ?? [], wads: listed?.wads ?? [] });
+    await start({ models: flags.models, work: flags.work, run: flags.run !== false, compilers: flags.compilers, fgd: listed?.fgd ?? [], wads: listed?.wads ?? [], ...(flags.generators ? { generators: flags.generators } : {}) });
   } catch (error) {
     fail(`mcp: ${error.message}`);
   }
@@ -2793,7 +2793,7 @@ const COMMANDS = {
   },
   mcp: {
     run: mcp,
-    help: `  mcp --work <folder> [--models <folder>] [--no-run] [--compilers <folder>] [--fgd <file> ...] [--wads <folder> ...]
+    help: `  mcp --work <folder> [--models <folder>] [--no-run] [--compilers <folder>] [--fgd <file> ...] [--wads <folder> ...] [--generators <folder>]
                                             an MCP server on stdin and stdout, for a client with no shell (mcp/README.md);
                                             --no-run: without the tool that runs scripts`,
   },
