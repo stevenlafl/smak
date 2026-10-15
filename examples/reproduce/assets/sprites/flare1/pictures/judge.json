@@ -54,12 +54,12 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.39,
+    "dark": 0.44,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 5.6
+  "meanColourDeltaE": 5
  },
  "caps": {
   "R2": 2,
@@ -69,34 +69,34 @@
  },
  "scores": {
   "R1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Both pictures show the same effect: a bright white core with a soft halo and radial streaks. Both are a glow flare, so the effect is the same."
+   "score": 1,
+   "reason": "Both are a soft additive glow with a bright core, so the effect is the same. The reproduction adds a sharp four-point cross streak through the centre that the original does not show, so it reads as a star-shaped lens flare rather than the original's plain radial glow."
   },
   "R2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are one 64 x 64 frame, and the measured size matches. The glow fills the frame in both, with the halo reaching the edges similarly."
+   "reason": "Both are 64 x 64 single frames, and the glow fills the frame in the same way, fading to the edges with a similar halo."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean colour difference is 5.6, under the line of 15. Visually the reproduction's halo is a little more violet and saturated than the original's pinker, greyer halo, but this stays well within the bound."
+   "reason": "Measured mean colour difference is 5 (CIE76 delta E), well under 15. The dark fraction is 0.39 in the original and 0.44 in the reproduction, a small difference that does not change the colours."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both have one frame, and the envelope (first 1, last 1, peak at 0) and dark fraction (0.39) match. The motion is a single still, so there is no loop or fade to differ on, and nothing in the measures shows a mismatch."
+   "reason": "Both have one frame, the envelope is identical (peak at frame 0, first and last 1), and the sprite is a single static frame, so the frame count and the lack of motion match. No loop or fade can be measured from one frame."
   },
   "R5": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Type (parallel) and format (additive) match in the measures. The name is only inferred from the shared folder 'flare1'; the name and a read-back of the written file are not in the measurements, so this item is not shown to be right."
+   "score": 2,
+   "reason": "Both are type parallel and format additive at 64 x 64, and the reproduction sits under the same name, flare1, as the original. Nothing in the measures suggests it will not read back as written."
   }
  },
  "total": 9,

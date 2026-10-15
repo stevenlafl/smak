@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "glow01",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.47,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.49,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 3.6
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both frames show the same effect: a soft radial glow, brightest at the centre and fading to the dark edge, with the same frame-number marker in the top-left corner. Nothing in either picture suggests a different effect."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are 64 x 64 with one frame. The glow fills the frame the same way in each, with its falloff reaching roughly the same radius. The reproduction's bright core looks marginally wider, which is not visible at a close look."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured mean colour difference is 3.6 CIE76 delta E, well under the line of 15. Both are neutral grey on a near-black ground, with the same white-hot centre."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both have one frame, so the frame count matches exactly. Neither is a loop or a one-shot that could fail to close or end dark. The dark fraction is 0.49 against the original's 0.47, a close match."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The type (parallel) and format (additive) match in both. The sprite's name and whether it reads back as written are not in the measurements or the pictures, so the must-have part of this item is unverified and is scored 1, not 2."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

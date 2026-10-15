@@ -1,0 +1,89 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/muzzleflash1.spr",
+      "class": "flare",
+      "use": "tempent",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 2,
+      "loop": false,
+      "fps": 20,
+      "type": "parallel",
+      "format": "additive",
+      "origin": "centre",
+      "layers": [
+        {
+          "kind": "flare",
+          "core": 0.05,
+          "gain": 0.12,
+          "colour": [
+            255,
+            190,
+            100
+          ],
+          "rays": {
+            "count": 0,
+            "gain": 0
+          },
+          "streaks": [
+            {
+              "angle": 90,
+              "half": true,
+              "length": 0.9,
+              "width": 0.045,
+              "taper": 0.6,
+              "gain": 1
+            },
+            {
+              "angle": 10,
+              "half": true,
+              "length": 0.88,
+              "width": 0.045,
+              "taper": 0.6,
+              "gain": 1
+            },
+            {
+              "angle": 170,
+              "half": true,
+              "length": 0.88,
+              "width": 0.045,
+              "taper": 0.6,
+              "gain": 1
+            },
+            {
+              "angle": 240,
+              "half": true,
+              "length": 0.84,
+              "width": 0.045,
+              "taper": 0.6,
+              "gain": 1
+            },
+            {
+              "angle": 300,
+              "half": true,
+              "length": 0.84,
+              "width": 0.045,
+              "taper": 0.6,
+              "gain": 1
+            }
+          ]
+        },
+        {
+          "kind": "glow",
+          "radius": 0.2,
+          "core": 0.1,
+          "colour": [
+            255,
+            240,
+            210
+          ],
+          "gain": 0.4
+        }
+      ]
+    }
+  ]
+}

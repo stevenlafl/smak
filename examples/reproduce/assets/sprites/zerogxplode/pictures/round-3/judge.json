@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "zerogxplode",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.818,
+     "mean": 0.005
+    },
+    "envelope": {
+     "peakAt": 0.36,
+     "first": 0.08,
+     "last": 0.03
+    },
+    "dark": 0.73,
+    "wrap": 0.81,
+    "jitter": 1.25
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.665,
+     "mean": 0.004
+    },
+    "envelope": {
+     "peakAt": 0.43,
+     "first": 0.23,
+     "last": 0
+    },
+    "dark": 0.62,
+    "wrap": 1.14,
+    "jitter": 1.34
+   }
+  },
+  "meanColourDeltaE": 6.6
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original is a fireball: a hot white core at frames 0 to 4, a rising mushroom-like cloud with lobes, orange-brown embers and scattered sparks, fading to dark. The reproduction is a single lumpy, craggy tan blob that reads as a rock or boulder. It has a bright start and a fade, so a burst is there, but it has no explosion character, no sparks and no rising cloud."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 64 x 64 frames and the effect is about the same size in the middle frames. The shape is wrong: the original is tall with a column and lobes that rise toward the top of the frame, while the reproduction is a squarish lump sitting in the centre."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured mean colour difference is 6.6, inside the line of 15, so the average holds. Visibly, though, the reproduction's palette is a flat tan and beige with dull brown crevices and no red-orange fringe or white-hot core glow of the kind the original shows in its mid frames. The colour reads as an opaque lit surface, not an additively blended glow, so it is scored one notch below its measure."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frame count matches (15 in both, within 25%) and both end dark (last 0.03 in the original, 0 in the reproduction). The envelope is off at the start: the reproduction opens at 0.23 brightness where the original opens at 0.08, and its peak is at 0.43 against 0.36. The motion differs too: the original grows and then rises and sprays upward, while the reproduction grows, holds in place and fades. The reproduction's wrap value (1.14 against 0.81) also suggests its loop closes less cleanly, though this is a one-shot."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type (parallel) and format (additive) match, and the frame size (64 x 64) and frame count (15) read back as the original's. The name is not in the pictures or the measurements, so I could not check it and have scored on the measured fields only."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

@@ -1,22 +1,27 @@
-The sprite builds OK and is written as `work:sprites/laserbeam.spr`, with `-sheet.png` and `-animated.png` beside it. The build passes every check, but it is not a close match yet: the dark share is off, and the colour is only just inside the bar.
+The sprite is built but the build does not say OK. One fault remains, and the original shows the same thing.
 
-**The spec I settled on** (`smak.sprite/1`, one sprite):
-- **What it is:** a vertical laser beam, `class: beam`, `use: beam`, placed as a beam with render mode 5 (additive).
-- **Shape and size:** 32×64, one frame, `loop: true`, `fps: 10`, `origin: centre`, `type: parallel`, `format: additive`.
-- **Colours:** a round beam with a ramp of black at the rim, blue-grey `[40,60,100]` to `[60,80,120]` through the middle, and white at the core. The ramp's lowest stop has to be black: any non-black floor lights the whole frame in additive mode, which I saw when I tried it.
-- **Edges:** `finish: edge` fades the border so it stays dark, matching the reference's border light.
-- **Motion:** none. The source is a single frame, and I did not invent any animation.
+**What I built:** `sprites/laserbeam.spr` in the work folder, with its sheet and animated picture beside it.
 
-**Measured against the original** (the `reference` is `pictures/frames.png`):
+- **Shape and size:** 32 by 64 pixels, one frame, a vertical beam filling its frame edge to edge, with a flat bright core and soft shoulders.
+- **Colour:** a pale blue-white, `[0.8, 0.9, 1]`.
+- **Type and format:** `parallel`, `additive` (black is clear), placed as an `env_sprite` with render mode 5 (Additive).
+- **Origin:** centre.
 
-| Measure | Original | Mine | Bar |
-| --- | --- | --- | --- |
-| Mean colour (delta E) | — | 13.2 | 15 or under: near (pass) |
-| Dark share | 0.02 | 0.12 | within 0.05: near (miss) |
-| Border brightness (mean) | 0.251 | 0.246 | — |
-| Shape match (mean) | — | 0.91 | — |
-| Frames | 1 | 1 | — |
+**Against the original (the build's reference measures, since I could not open the original picture myself):**
 
-The remaining miss is the dark share. The report says the beam covers too little of its frame, so too many pixels fall to black at the rim. I tried a wider core, a flat profile, and a lighter rim, and each made something else worse: a wider core or a flat profile brought back the bright border, and a non-black floor lit the whole frame. The rim black cannot be lifted without one of those, so I stopped here rather than keep guessing.
+```
+measure                    original   built
+colour difference (dE)     -          10.5   (15 or under is near)
+border light (mean)        0.251      0.264
+share dark                 0.02       0.00
+shape overlap              -          0.88   (the bar is 0.7)
+```
 
-The build is OK, but the dark share does not match the original. If you want that closed, the next step is probably a different beam profile or a per-pixel fill, which needs a call from you.
+**The one remaining fault:** "light at its border". The original has light at its border too (mean 0.25), so fading the edge to clear the fault moves the sprite away from the original. I tried edge fades of 2, 4, 6 and 10 pixels. Each time the fault stayed, and the colour difference and shape overlap got worse as the fade grew. At 2 pixels the match is closest. The build clears the fault only if the border goes near-black, which the original does not do.
+
+**Choices I made:**
+- Used the flat beam profile, because the round profile left too much of the frame dark.
+- Used a pale blue-white colour, because white and red both measured further from the original.
+- Kept a 2-pixel edge fade, which gave the closest match.
+
+**Decision for you:** keep the sprite as it is, matching the original and carrying its border fault, or clear the fault by dropping the border light, which moves it away from the original. I recommend keeping it as is, since the original has the same border.

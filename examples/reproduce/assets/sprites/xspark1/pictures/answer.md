@@ -1,38 +1,24 @@
-The sprite builds OK: `sprites/xspark1.spr` is written to the work folder, with its `-sheet.png` and `-animated.png` beside it. The last build reports no faults, and the report has it as 32x32, 11 frames, additive, type parallel.
+The sprite builds OK and is written to `work:sprites/xspark1.spr`, with `-sheet.png` and `-animated.png` beside it.
 
-What it is and how I matched the original:
-- **Shape and size:** 32x32 per frame, centred. A round cyan cluster with a lumpy edge and a whiter middle, fading to dark at the border.
-- **Colours:** cyan-blue (about RGB 30, 150, 220) with a small white core, from a glow layer and a blobs layer.
-- **Frames and motion:** 11 frames, not looping, at 10 frames per second as an `env_sprite`. The frames flicker rather than move in one direction, so the blobs layer is re-placed every frame.
-- **Type and format:** parallel, additive (black is clear), rendered in mode 5 (Additive).
+**What it is:** a flickering cyan spark-cloud, the kind of soft glow you'd see at a Xen spark. The original's 11 frames are clusters of soft cyan blobs, each with a bright white core, on a dark ground.
 
-Measured against your reference sheet (`pictures/frames.png`, 8 columns of 128):
+**The spec I built:**
+- **Class:** `glow`. The `sparks` class is held to a one-shot that must end dark, and the original doesn't do that: its last frame is as bright as its first.
+- **Size:** 32x32, origin at centre.
+- **Frames:** 11, looping at 10 fps. The spec writes the first frame again at the end, so the report counts 12.
+- **Type and format:** parallel and additive, as your facts file says. The report places it as an `env_sprite`, render mode 5 (Additive), framerate 10.
+- **Layer:** 9 soft blobs (`blobs`), with radius 0.3, spread 0.5 and core 0.4. The blobs are redrawn each frame, which gives the flicker the original shows.
+- **Colour:** a ramp from black at the rim, through a mid cyan, to a pale cyan and white at the core. Black is clear in additive, so the border goes dark.
+- **Finish:** an edge fade of 2 pixels, so no light reaches the square's border.
 
-| Measure | Original | Mine | Bar |
-| --- | --- | --- | --- |
-| Mean colour (delta E) | n/a | 7.3 | 15 or under |
-| Share that is dark | 0.46 | 0.36 | within 0.05 |
-| Border brightness | 0.145 brightest | 0.026 | near 0 |
-| Frame count | 11 | 11 | exact |
-| Shape overlap | n/a | 0.70 | 0.7 |
+**Measured against your reference sheet:**
+- Mean colour delta E is 3.9, inside the 15 "near" band.
+- Border light is 0, against the reference's brightest 0.145.
+- Shape overlap with the reference is 0.74 on average; the judge's bar is 0.7.
 
-The one remaining note is that the dark share is 0.10 low, so my cluster covers slightly more of the frame than the original's. Raising the cyan glow gain from 0.12 to 0.15 changed nothing in the measures, so I stopped there rather than keep tuning.
+**Left open:**
+- Dark share is 0.53 against the original's 0.46. The spec's near band is 0.05 and this is 0.07 outside it. Widening the blobs from 0.26 to 0.3 barely moved it, so I stopped there rather than keep tuning.
+- The 12-against-11 frame count is the loop's wrap copy, which the spec writes by design. Dropping the loop would fail the sprite's own check, since it would then have to end dark.
+- I guessed the 10 fps and the looping. Your facts file doesn't give either, and the original's frame rate isn't recorded anywhere I could read.
 
-Choices I made that you may want to change:
-- **`loop: false`:** with `loop: true` the build adds a 12th frame, which doesn't match the original's 11. The original's frame count is what the judge measures.
-- **Class `glow`:** the closest of the listed classes. The original is a cluster of sparks, so `sparks` is an alternative if the judge scores class.
-
-Final spec, as built:
-
-```json
-{ "spec": "smak.sprite/1", "sprites": [{ "name": "sprites/xspark1.spr", "class": "glow", "use": "env_sprite",
-  "size": [32, 32], "frames": 11, "loop": false, "fps": 10, "type": "parallel", "format": "additive",
-  "origin": "centre", "finish": { "edge": 2 },
-  "reference": { "picture": "pictures/frames.png", "cell": 128, "cols": 8 },
-  "layers": [
-    { "kind": "blobs", "count": 9, "radius": 0.2, "spread": 0.5, "core": 0.4, "soft": 0.5, "colour": [30, 150, 220], "gain": 0.04 },
-    { "kind": "glow", "radius": 0.42, "core": 0.3, "colour": [30, 150, 220], "gain": 0.12 }
-  ] }] }
-```
-
-The file is in the server's work folder only. I haven't copied it into `/media/Data3/Packages/smak/examples/reproduce/assets/sprites/xspark1/`, since you didn't ask for that.
+I couldn't read the input folder directly: it's a directory, and the render tool wouldn't take the PNG. I worked from the `frames.png` contact sheet, which is what the build's reference uses.

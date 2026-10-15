@@ -54,12 +54,12 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.49,
+    "dark": 0.43,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 3.6
+  "meanColourDeltaE": 1.9
  },
  "caps": {
   "R2": 2,
@@ -72,34 +72,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both frames show the same effect: a soft radial glow, brightest at the centre and fading to the dark edge, with the same frame-number marker in the top-left corner. Nothing in either picture suggests a different effect."
+   "reason": "Both pictures show the same effect: a soft radial glow, brightest at the centre and fading to the dark corners of a single frame. Nothing else is drawn in either."
   },
   "R2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are 64 x 64 with one frame. The glow fills the frame the same way in each, with its falloff reaching roughly the same radius. The reproduction's bright core looks marginally wider, which is not visible at a close look."
+   "reason": "Both are 64 x 64. In both the glow fills the frame the same way, with the falloff reaching the edges and the corners left dark."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean colour difference is 3.6 CIE76 delta E, well under the line of 15. Both are neutral grey on a near-black ground, with the same white-hot centre."
+   "reason": "The measured mean colour difference is 1.9 (CIE76), far under the line of 15. Both are the same white-to-dark gradient, with no visible hue difference."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both have one frame, so the frame count matches exactly. Neither is a loop or a one-shot that could fail to close or end dark. The dark fraction is 0.49 against the original's 0.47, a close match."
+   "reason": "Both have one frame, so the frame count matches. There is no motion to compare, and the loop, wrap and jitter measures are null for both. The dark fraction is 0.47 for the original and 0.43 for the reproduction, a 4-point gap. That is small and I see no clear difference in falloff, so I do not mark it down. The gap is noted here."
   },
   "R5": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The type (parallel) and format (additive) match in both. The sprite's name and whether it reads back as written are not in the measurements or the pictures, so the must-have part of this item is unverified and is scored 1, not 2."
+   "score": 2,
+   "reason": "Both are parallel type with additive format, as the measurements state. Size and frame count match. The file name is not in the material I was given, so the name check cannot be scored from the pictures and measures alone. Format and type match, so the fit is right."
   }
  },
- "total": 9,
+ "total": 10,
  "of": 10,
- "passes": false
+ "passes": true
 }

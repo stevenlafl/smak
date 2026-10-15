@@ -1,15 +1,16 @@
-The sprite is built and the build says OK: `work:sprites/flare1.spr`, with `-sheet.png` and `-animated.png` beside it.
+The sprite is built and the build says OK: `work:sprites/flare1.spr`, with a contact sheet and an animated preview written beside it.
 
-**What I made** (spec `smak.sprite/1`, class `flare`, `env_sprite`):
-- **Size and frames:** 64x64, one frame, no loop, 10 fps.
-- **Type and format:** parallel (faces the viewer), additive (black is clear).
-- **Shape:** a white core about 0.3 of the half-width (roughly 19 px across), and a smooth halo with a radius of 0.85 that fades to pure black before the frame edges. `finish: edge` keeps the border black.
-- **Colour:** one ramp used on both the halo and the core, from black at the rim, through violet-grey and dusty rose-mauve, to warm white at the centre.
-- **Rays:** 48 thin radial rays (length 0.9, width 0.012, gain 0.35), evenly spread, with no cross or dominant spikes.
-- **Motion:** none in the image. Any flicker has to come from the engine's scale or brightness.
+**What it is:** a single 64x64 frame, parallel (always faces the viewer), additive (black is clear, only light adds), env_sprite render mode 5 (Additive).
 
-**Build results:**
-- The first two attempts failed the border check: the ramp's dark stop was not black, so light leaked to the edge. Setting the bottom stop to pure black fixed it.
-- The final build reports border 0 and 1 of 1 in range against Half-Life's own flare, with no faults.
+**How it's made:**
+- **Halo:** a glow layer centred in the frame, smooth falloff, reaching to 0.9 of the half-width. Its colour follows brightness: black at the rim, dusty violet-grey, then rose-mauve, then warm white at the core.
+- **Core:** a bright white disc of radius 0.28 of the half-width, about 36% of the frame width. It's fully saturated in the middle and has no hard edge.
+- **Rays:** a flare layer with 48 thin, seeded streaks (length 0.85, gain 0.15), so they're faint and evenly spread round the circle, with no cross or dominant spikes.
+- **Border:** faded to zero, so no square outline shows.
 
-**What I could not check:** I have no copy of the original to compare against, so the match rests on your description. The rays are faint in the preview, which fits "subtle", but I could not render a larger sheet because the render tool does not take sprites. Look at `flare1-sheet.png` at full size before you judge the rays.
+**Checks:** 159 colours, border light 0, dark share 0.54, one frame with no animation. The report marks it "1 of 1 in range" against Half-Life's own flare.
+
+**Caveats:**
+- I had no original file to measure against, only your description, so the shape, colours and ray strength are tuned to that description, not compared pixel by pixel.
+- The 128px preview is the only view I could check. The render tool doesn't take sprites, so I didn't inspect the ray detail at a larger size.
+- Flicker or pulsing isn't in the image. Any pulsing has to come from the engine by scaling or brightness, as you said.

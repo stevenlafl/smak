@@ -1,25 +1,29 @@
-The sprite builds with OK, but it falls short of the original on shape. I'd call it a close approximation, not a match for the judge.
+The sprite builds OK and is at `work:sprites/zerogxplode.spr` on the server, with `-sheet.png` and `-animated.png` beside it. It is 64x64, 15 frames, parallel type, additive format, placed as a temporary entity (`tempent`) in render mode 5 (additive).
 
-**Output:** `work:sprites/zerogxplode.spr`, with `-sheet.png` and `-animated.png` beside it. It is in the server's work folder, not in the reproduce folder, so copy it from there if you want it in the repo.
+**Built with the final spec**
 
-**What I built** (spec in this chat, not saved to a file):
-- **What it is:** a one-shot explosion, a cloud of lit smoke-ball lobes with debris flecks, placed as a temporary entity (`tempent`).
-- **Size and frames:** 64x64, 15 frames, not looped. The cloud starts small at frame 0, is largest around frames 2 to 5, then shrinks and cools.
-- **Colours:** a white-hot core early, then cream, tan and brown with a dark rim, using the explosion colour ramp.
-- **Motion and fade:** the envelope peaks mid-life and ends at zero, so the last frame is dark and the border stays dark.
-- **Type and format:** `parallel` (faces the camera), `additive` (black is clear), render mode 5, 15 frames per second.
+- **Body:** an `explosion` layer, a ball that grows and turns lumpy with turbulence. Its colours are my own stops: black at the rim, dark red, orange, cream, and near-white at the core. It fades to black by the last frame.
+- **Core flash:** a `glow` at the centre, cream-coloured, that fades quickly.
+- **Flicker:** 12 `blobs` (soft discs redrawn each frame) for frame-to-frame sparkle.
+- **Flecks:** 30 `sparks`, pale grey, short trails, to match the scattered dots in the original.
+- **Edges:** `finish: edge` fades the border so no square shows.
 
-**Measured against the original:**
-| Measure | Original | Mine | Bar |
-| --- | --- | --- | --- |
-| Mean colour (colour difference, delta E) | reference | 6.6 | 15 or under |
-| Share that is dark | 0.72 | 0.62 | within 0.05 |
-| Shape overlap across frames | | 0.42 | 0.7 |
-| Border light | 0.005 | 0.004 | dark |
+**Against the original (the judge's measures)**
 
-**Known gaps:**
-- The shape overlap is well under the bar. The original is broader in frames 2 to 5 and has a more even lit body. I could not close that with the tuning I tried: larger growth filled the square and left light on the border.
-- Frame 0 starts a little too bright against the Half-Life explosion range, and it is blank where the original has a small flash. Setting the attack to zero gives the flash, but the attack at 0.03 or above drops it.
-- The original's late frames keep a faint ember at frame 14. Mine goes blank there.
+| Measure | Original | Mine | Bar | Result |
+| --- | --- | --- | --- | --- |
+| Mean colour (delta E, colour difference) | reference | 10.3 | 15 or under | in range |
+| Dark share of pixels | 0.72 | 0.57 | within 0.05 | out (mine too bright) |
+| Shape overlap | reference | 0.42 | 0.7 or over | out |
+| Flicker (jitter) | 1.04 to 1.48 band | 1.13 | in band | in range |
+| Half-Life explosion range | — | 5 of 5 | — | in range |
+| Frame 0 | small dot | small dot | — | matches |
+| Final frame | dark | dark | — | matches |
 
-If you want me to keep going, the next thing I'd try is a second, smaller billow layer for the early flash, then re-measure the overlap.
+The two misses are the ones I could not close with this layer set: my cloud has a brighter rim than the original's, and its outline doesn't follow the original's lobes frame by frame. The `billow` layer (a lit cloud of spheres) would match the lobes better, but it renders grey whichever colour ramp I give it, so I did not use it.
+
+**Things I could not check**
+
+- The original's playback rate. I set 15 frames per second because I could not read one from the original's files, so its timing is a guess.
+- The original's folder listing. I could only open `frames.png` from the input folder, not list the folder. The `facts.txt` in the work folder is the only other file I saw, and I did not read it.
+- The spec is in this conversation only; I did not save it to the repo.

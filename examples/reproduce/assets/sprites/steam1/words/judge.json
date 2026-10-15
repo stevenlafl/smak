@@ -46,20 +46,20 @@
      48
     ],
     "border": {
-     "max": 0.502,
-     "mean": 0.004
+     "max": 0.282,
+     "mean": 0
     },
     "envelope": {
      "peakAt": 0.6,
-     "first": 0.1,
+     "first": 0.14,
      "last": 0
     },
-    "dark": 0.73,
-    "wrap": 0.52,
-    "jitter": 1.6
+    "dark": 0.78,
+    "wrap": 0.71,
+    "jitter": 1.61
    }
   },
-  "meanColourDeltaE": 11.2
+  "meanColourDeltaE": 8.7
  },
  "caps": {
   "R2": 2,
@@ -72,34 +72,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Both are soft smoke puffs that grow and fade, so the effect is recognisably the same kind. The reproduction goes wrong later: from frame 11 on it breaks into scattered white fragments with holes (frames 11 to 13), where the original keeps one soft grey cloud with a trailing plume that thins out. The reproduction also has no downward tail."
+   "reason": "Both are soft white puffs that grow, so the basic effect is a smoke puff. But the reproduction breaks into scattered flakes and specks from frame 11 on, and the original stays one billowing cloud with a trailing tail. The reproduction does not read as the same smoke effect throughout."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frames are the original's 32 x 48. The original's cloud sits in the upper middle with a tail hanging to the lower centre through frames 4 to 15. The reproduction's cloud is a tight, lumpy cluster in the upper middle, no tail, and in frames 11 to 15 it covers little of the frame and is mostly empty."
+   "reason": "Both sheets are 32x48 per frame, which matches. The original's puffs fill most of each frame and carry a downward tail. The reproduction's puffs are smaller, sit as compact lumps in the middle, and have no tail. From frame 11 they are fragments that barely fill the frame."
   },
   "R3": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "The measured mean colour difference is 11.2, under 15. Visually both run from near-white in the middle frames to grey-dark at the end. The reproduction's middle frames are a little brighter and more contrasty, but not far off."
+   "score": 1,
+   "reason": "The palette is similar: grey background with white to light-grey smoke. The brightness profile differs, though. The reproduction starts brighter (first 0.14 against 0.04) and is darker overall (dark 0.78 against 0.64), with dark holes in frames 8 to 10. No colour delta was given for sprites, so this is judged by eye and the measures."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both have 16 frames. Peak brightness is at 0.4 in the original and 0.6 in the reproduction, and the reproduction starts brighter (first 0.10 against 0.04). Its border content is higher (0.502 against 0.341), and its jitter is higher (1.6 against 1.1). The reproduction's one-shot does not fade the way the original's does: it breaks apart into fragments (frames 11 to 13) instead of thinning as one cloud. Both end dark, so the end state is right."
+   "reason": "Both have 16 frames, so the count is within 25%. The original grows fast in frames 1 to 3, holds, and fades to a faint grey by frame 15 (last 0.03). The reproduction grows more slowly, peaks later (0.6 against 0.4), and then shreds into fragments and vanishes by frame 14. Its wrap is 0.71 against 0.5. The kind of motion is wrong from frame 11 on, even though it ends dark."
   },
   "R5": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Type (parallel oriented), format (index alpha), size (32 x 48) and frame count (16) all read back the same as the original. The file name is not in the given measures, so I cannot confirm it matches and do not score that part as a pass."
+   "reason": "The measures give the same type (parallel oriented) and format (index alpha) for both. The name is not in the material I was given, so the read-back cannot be confirmed. I cannot score it 2 without seeing the name, so I hold it at 1."
   }
  },
- "total": 6,
+ "total": 5,
  "of": 10,
  "passes": false
 }

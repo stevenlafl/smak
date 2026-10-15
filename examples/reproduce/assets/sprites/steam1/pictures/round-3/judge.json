@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "steam1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.341,
+     "mean": 0.002
+    },
+    "envelope": {
+     "peakAt": 0.4,
+     "first": 0.04,
+     "last": 0.03
+    },
+    "dark": 0.64,
+    "wrap": 0.5,
+    "jitter": 1.1
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.616,
+     "mean": 0.014
+    },
+    "envelope": {
+     "peakAt": 0.67,
+     "first": 0.09,
+     "last": 0
+    },
+    "dark": 0.66,
+    "wrap": 0.93,
+    "jitter": 1.45
+   }
+  },
+  "meanColourDeltaE": 12.7
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Both are smoke puffs that grow, drift and fade, so the effect is recognisable. The reproduction breaks apart from frame 11 into scattered white speckles and fragments, where the original dims into a soft grey wisp. That is a different way of ending."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frames are 32 by 48 as the original's are, but the fill is off. The reproduction's cloud is larger from frame 1 on and reaches the frame edges (border max 0.616 against the original's 0.341). Its envelope peaks at 0.67 against the original's 0.4, and the original's downward trailing wisp is missing."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured colour difference is 12.7, under the line of 15, but the pictures show the reproduction whiter and harsher than the original in frames 2 to 7, with white highlights where the original has grey mid-tones. Frames 11 to 15 show white speckles on the grey ground that the original does not have. The measure allows a 2, but the pictures show a visible tonal difference, so I score it lower."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both have 16 frames and both end dark (last envelope 0.03 against 0). The original grows and fades smoothly, and the reproduction's first frame is brighter (0.09 against 0.04). The reproduction's frames 11 to 15 dissolve into fragments, which is a different kind of motion. Its jitter is 1.45 against the original's 1.1, and its wrap is 0.93 against 0.5."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The type (parallel oriented) and format (index alpha) match the original's, as measured. The name and read-back are not in the measurements I was given, so I cannot confirm them."
+  }
+ },
+ "total": 5,
+ "of": 10,
+ "passes": false
+}

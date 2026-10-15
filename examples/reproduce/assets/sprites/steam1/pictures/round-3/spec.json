@@ -1,0 +1,35 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/steam1.spr",
+      "class": "smoke puff",
+      "size": [
+        32,
+        48
+      ],
+      "frames": 16,
+      "loop": false,
+      "fps": 10,
+      "type": "parallel oriented",
+      "format": "index alpha",
+      "origin": "centre",
+      "finish": {
+        "edge": 2
+      },
+      "layers": [
+        {
+          "kind": "billow",
+          "lumps": 0.12,
+          "spread": 0.45,
+          "size": 0.28
+        }
+      ],
+      "reference": {
+        "picture": "pictures/frames.png",
+        "cell": 128,
+        "cols": 8
+      }
+    }
+  ]
+}

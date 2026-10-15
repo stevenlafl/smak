@@ -1,37 +1,24 @@
-The sprite builds OK: `sprites/steam1.spr` is written to the work folder as `work:sprites/steam1.spr`, with its contact sheet and animated picture beside it. The last build is the one on disk.
+The sprite is built and the build says OK: `work:sprites/steam1.spr`, with `-sheet.png` and `-animated.png` beside it. It is not as close as I'd like yet. The shape overlap with the original is 0.52 against the kit's 0.7 bar, and I didn't find a setting that closed that gap.
 
-**What it is:** a steam puff. A small dot appears low in the frame, swells into a lumpy white cloud over frames 1–7, then breaks into grey wisps and fades by frame 15.
+**What it is:** a soft white steam puff, a lit billow cloud. Frame 0 is a small dot. It grows to its largest around frames 3 to 7, then thins into a grey wisp by frame 14. Frame 15 is empty, as in the original.
 
-**Final spec** (inline, since the work folder has no spec file; save it if you want to rebuild):
+**Spec:** `smak.sprite/1`, `sprites/steam1.spr`, 32x48, 16 frames, `parallel oriented`, `index alpha`, `use: env_sprite`, `origin: centre`, `finish: edge`, not looping, 10 frames a second. Two billow layers: a main cloud and a smaller tail below it. The spec is inline in this session and I did not save it to a file.
 
-```json
-{"spec":"smak.sprite/1","sprites":[{"name":"sprites/steam1.spr","class":"smoke puff","size":[32,48],"frames":16,"loop":false,"fps":10,"type":"parallel oriented","format":"index alpha","origin":"centre","finish":{"edge":2},"layers":[{"kind":"billow","lumps":0.12,"spread":0.45,"size":0.28}],"reference":{"picture":"pictures/frames.png","cell":128,"cols":8}}]}
+**Measured against the original (from the build report):**
+
+```
+Measure                         Original   Build
+Mean colour (delta E, lower =   -          3.5   (15 or under is near)
+  closer)
+Share of frame that is dark     0.63       0.68  (within 0.05 is near)
+Border brightness               0.341      0.406 (no FAULT for light at edge)
+Frame count                     16         16
+Shape overlap (bar 0.7)         -          0.52  (not met)
+Kit's check vs Half-Life smoke  -          5 of 5 in range
 ```
 
-**Settings:**
-
-| Setting | Value | Why |
-| --- | --- | --- |
-| Size | 32x48 | As the original |
-| Frames | 16, one-shot, 10 per second | Original's 16 frames; it plays once and ends dark |
-| Type, format | parallel oriented, index alpha | As the original |
-| Colour | Neutral white-grey (default billow shading) | Matches the original's greys |
-| Edge | 2 px fade | Keeps the frame's border dark |
-
-**Measures against the original** (the tool's reading of the reference):
-
-| Measure | Original | Ours | Verdict |
-| --- | --- | --- | --- |
-| Mean colour difference (delta E, 15 or under is near) | — | 12.7 | Near |
-| Share dark | 0.63 | 0.65 | Near |
-| Border light (mean) | 0.002 | 0.015 | Within the build's limit, slightly brighter |
-| Frame count | 16 | 16 | Match |
-| Shape overlap (bar 0.7) | — | 0.49 | Below the bar |
-| Flicker (jitter, range 0.9–1.5) | — | 1.52 | Just over |
-| Peak timing (class range 0.2–0.6) | — | 0.67 | Peaks late |
-
-**Notes:**
-- **Reading the reference:** the sheet's cells are 64 px in the picture, but the tool reads 16 frames only with `cell` set to 128, so I used 128.
-- **Shape is the main gap:** the cloud's lobes are whiter and more regular than the original's. The original is greyer, taller in the middle frames, and has a lower stalk. Matching that exactly would need a hand-tuned shape rather than a procedural cloud.
-- **Flicker and peak timing:** lowering the lumpiness did not bring jitter into range, and I did not chase the peak timing further.
-- **Input files:** I could not read the original's input folder directly (permission denied), so the comparison uses the copy in `pictures/frames.png`.
+**Judgement calls and gaps:**
+- The original's frame rate isn't in its facts file, so 10 frames a second is my guess. Check it against the original in the game.
+- The report places the sprite with render mode 4 (solid). I took that as given and did not check it against the original.
+- I could read the original's frames and facts from the input folder, but not the reproduce folder above it (permission denied), so I could not look for an existing spec there.
+- Overlap is limited by the cloud's exact shape, which differs frame by frame. More layers or seeds might move it, but I stopped once the mean colour and dark share were near and the build passed.

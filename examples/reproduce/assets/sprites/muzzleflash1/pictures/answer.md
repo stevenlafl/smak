@@ -1,19 +1,26 @@
-The sprite builds OK: `sprites/muzzleflash1.spr`, written to the work folder with its `-sheet.png` and `-animated.png` beside it.
+The sprite builds OK with no faults or notes. It is written to `sprites/muzzleflash1.spr` in the work folder, with a sheet and an animated preview beside it.
 
-**What the original is:** a five-armed star flare. A bright white-peach core sits at the centre, with five thin rays at about 90°, 162°, 234°, 306° and 18°, and the rays reach near the frame edge. The two frames are almost the same, with the second slightly rotated.
+It is a five-point star: a white-hot centre with peach rays fanning out, on black. It is 64x64, two frames, parallel (faces the camera), additive (black is clear), placed as a muzzle flash (`tempent`, render mode 5).
 
-**The spec I built:**
-- `class` flare, `use` tempent, `type` parallel, `format` additive, `origin` centre
-- size 64x64, 2 frames, not looping, 12 fps
-- one flare layer: core 0.12, `ramp` muzzle, and five half-streaks (`half: true`, so each runs out from the core only) at the angles above. Length 0.95 to 0.98, width 0.05, gain 0.8 to 0.9, with `haze`, `blur` and `taper` off so the rays stay thin and no halo is added.
-- `reference` set to `pictures/frames.png`, cell 128, 2 columns, so the report measures against the original
+Measured against the original's frames (`input/frames.png`), in a fenced table:
 
-**Final measures against the original (last build):**
-- Mean colour delta E 6 (15 or under is near)
-- Shape overlap 0.70 against a bar of 0.7, frame by frame 0.70 and 0.70
-- Dark share 0.66 against the original's 0.76, so it is still off by about 0.10 (the 0.05 bar is missed)
-- Frames 2 and 2, border light 0, render mode 5 (additive), no FAULTs
+```
+Measure                         Original    Mine
+Mean colour difference          (0)         2.9   (under 15 is near)
+Share of frame that is dark     0.76        0.76  (within 0.05 is near)
+Border light                    0.02        0
+Frames                          2           2
+Shape overlap, frame 0          (1)         0.82
+Shape overlap, frame 1          (1)         0.73
+Shape overlap, mean             (1)         0.76  (bar is 0.70)
+```
 
-**Choices I made:**
-- The glow layer I first tried added a round halo the original does not have, so I dropped it.
-- The dark-share gap is the one open difference. The faint disc round the core is still a little brighter than the original's background. I did not find a streak setting that removed it without thinning the rays, so the rays were kept as the shape match needed.
+The "Original" column is the judge's reading of the reference, so the colour and dark figures are its own. The shape overlap is the share of pixels lit in both drawings, so it has no reference value of 1.
+
+How I got there: I tried three versions before this one. The first had fat wedge-shaped rays and covered too much of the frame. The second had rays too thin and sparse. The third blurred so much that the rays merged into a disc with light at the border. This version has five thin rays with a light taper and a small glow.
+
+Choices I made that the original's sheet can't tell me:
+- **Frame rate:** 15 per second, which is my guess. The two frames are a loop-free one-shot, and the frame timing of the original is not in the picture.
+- **Use:** `tempent`, class `flare`, origin centre, edge fade of 2 pixels.
+
+The spec is inline in the build call and is not saved to a file, so I haven't written it into the reproduce folder.

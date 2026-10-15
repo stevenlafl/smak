@@ -36,41 +36,70 @@
     32,
     32
    ],
-   "frames": 12,
+   "frames": 11,
    "type": "parallel",
    "format": "additive",
    "measures": {
-    "frames": 12,
+    "frames": 11,
     "size": [
      32,
      32
     ],
     "border": {
-     "max": 0,
+     "max": 0.07,
      "mean": 0
     },
     "envelope": {
-     "peakAt": 0.27,
+     "peakAt": 0.8,
      "first": 0.99,
      "last": 0.99
     },
-    "dark": 0.46,
-    "wrap": 0.97,
-    "jitter": 1.86
+    "dark": 0.55,
+    "wrap": 0.99,
+    "jitter": 1.69
    }
   },
-  "meanColourDeltaE": 24.1
+  "meanColourDeltaE": 1.9
  },
  "caps": {
   "R2": 2,
-  "R3": 1,
+  "R3": 2,
   "R4": 2,
   "R5": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "R3"
- ],
- "total": 0,
- "of": 10
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Both are the same kind of effect, a cyan glow with a bright white core. The original is a clustered spark with several lobes and dark outer blobs that shift from frame to frame. The reproduction is a single soft, compact glow with only occasional small side bumps, so the spark character is lost."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 32 x 32. The original's lobes reach toward the frame edges (border max 0.145), while the reproduction sits compact in the middle with a wider dark margin (border max 0.07). The reproduction does not fill the frame as the original does, though the size is right."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Same cyan hue and white-hot core in every frame. The mean colour difference is 1.9 CIE76, far under the 15 line, and the dark-pixel fraction (0.46 vs 0.55) is close."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count matches (11) and both flicker and drift, but the envelope peaks at frame 1 in the original and at frame 8 (0.8) in the reproduction. The original's loop seam is a larger step (wrap 1.61) than its interior steps, while the reproduction's is typical (0.99). The motion timing is clearly off, though the loop closes at about the same brightness (last 0.99 vs 1)."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The type (parallel) and format (additive) match, and the size is 32 x 32 with 11 frames. The name and the read-back-as-written check are not shown in the pictures or measures I was given, so they cannot be confirmed."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
 }

@@ -1,16 +1,22 @@
-The sprite is built and the build says OK: `sprites/fire.spr` is in the work folder, with a `-sheet.png` and `-animated.png` beside it.
+The sprite is built and the build says OK: `work:sprites/fire.spr`, with `-sheet.png` and `-animated.png` beside it. I could not compare it against the original (no reference picture was given), so the match is by your description and the report's measures, not by eye against the real file.
 
-The spec I used, as built:
+**Final spec**
 
-- **Size and frames:** 32x96, 15 frames in the file. The tool writes a loop of 14 and repeats the first frame at the end, so the wrap is seamless.
-- **Type and format:** parallel oriented, additive. The build placed it as an `env_sprite` in additive render mode (5) at 10 frames a second. I used 10 rather than 12, because the tool warns that an `env_sprite` changes frame at most 10 times a second.
-- **Shape:** one fire layer, origin at the bottom. Width 1.0 so the base fills the frame, taper 0.3 so it narrows upward, tongues 0.9 for the ragged licks. Height 1.5 with rise 1.1 brings the tongues up to roughly the top quarter of the frame.
-- **Colour:** the built-in fire ramp, which runs from white-hot through orange to dark red and fades to black. There is no blue or smoke.
-- **Motion:** turbulence 0.6 makes the tongues sway and split from frame to frame. The envelope peaks around the middle of the loop, which gives the height and brightness variation.
+```json
+{"spec":"smak.sprite/1","sprites":[{"name":"sprites/fire.spr","class":"fire loop","type":"parallel oriented","format":"additive","size":[32,96],"frames":14,"loop":true,"fps":10,"origin":"bottom","layers":[{"kind":"fire","ramp":"fire","width":1.25,"height":1.6,"taper":0.4,"tongues":0.5,"rise":0.35,"turbulence":0.4},{"kind":"glow","at":[0,-0.6],"radius":0.7,"core":0.3,"colour":[1,0.549,0.157],"gain":0.25}],"finish":"edge"}]}
+```
 
-The build's measures: border light 0.003 (effectively black at the edge), dark share 0.71, wrap 0.8, jitter 1.66. All five class checks against Half-Life's fire loop are in range.
+**What the report says**
+- 32x96, 15 frames in the file, additive, parallel oriented. The file is 15 frames as you described, but this is a loop of 14 with its first frame repeated at the end, so the loop closes without a jump.
+- Against Half-Life's own fire loop, all 5 measures are in range. The border is dark (0.024), so the square frame does not show.
+- Wrap 0.76 and jitter 1.64. The wrap is the loop's smoothness and it is not perfect, so the cycle joins a little less cleanly than I would like.
 
-Limits:
-- I had no reference sheet, so I could not measure against your original. The match rests on your description alone.
-- The tips reach about the top quarter of the frame, not the 10 to 20 pixels below the top your description gives. I tried taller settings, but they lowered the wrap score (0.87 down to 0.78), and the wrap is what matters most for a seamless loop. I kept the middle setting.
-- I did not add a separate glow for a brighter core, since your description did not ask for one. It can be added as a second layer if the core looks too dim against the original.
+**Choices I made**
+- **Frame rate: 10 fps.** You did not give one. The engine's limit for an env_sprite is 10 changes a second.
+- **Shape:** the flame fills about 40 of the 96 pixels in width at its base and reaches to within about 10 to 15 pixels of the top. Its tongues are soft, not sharply split. Wider or taller settings either hit the frame edges or lost the loop smoothness.
+- **Colour:** the fire ramp gives white-hot to orange to red-brown, with a warm glow added low in the frame.
+- **Frame count:** I used 14 plus the wrap, so the file has 15 frames as the original does.
+
+**Where it may differ from the original**
+- Its tongues are less ragged and split than a painted flame would be.
+- The flicker is procedural, so the sway and pulse are a fair approximation, not a copy of the original's motion.

@@ -157,7 +157,7 @@ test("a sprite against its reference sheet: itself measures the same; another is
   sure(again.files[0].bytes.equals(made.files[0].bytes), "a reference changes nothing that is made");
   const other = buildSpriteSpec(spec({ ...sprite, reference: { picture: file, cell: 128 }, layers: [{ kind: "fire", ramp: "blue", width: 0.2 }] }));
   const off = other.report.reference["sprites/t.spr"];
-  sure(off.colourDeltaE > 15 && other.report.notes.some((n) => /colour is .* from its reference's/.test(n)) && other.report.notes.some((n) => /more of it is dark/.test(n)), `${JSON.stringify(off)} ${other.report.notes.join(" | ")}`);
+  sure(off.colourDeltaE > 15 && other.report.warnings.some((n) => /colour is .* from its reference's.*build again/.test(n)) && other.report.warnings.some((n) => /more of it is dark/.test(n)), `${JSON.stringify(off)} ${other.report.warnings.join(" | ")}`);
   const missing = buildSpriteSpec(spec({ ...sprite, reference: join(tmp, "no-such.png") }));
   sure(missing.report.warnings.some((w) => /could not be read/.test(w)) && missing.files.length === 1, missing.report.warnings.join(" | "));
   const wrongGrid = buildSpriteSpec(spec({ ...sprite, size: [48, 48], reference: file }));

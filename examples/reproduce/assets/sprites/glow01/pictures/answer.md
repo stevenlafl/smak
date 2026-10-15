@@ -1,31 +1,23 @@
-The sprite is built and the build says OK with no notes. It is written to `work:sprites/glow01.spr`, with `-sheet.png` and `-animated.png` beside it.
+The sprite builds OK: `sprites/glow01.spr` is written to the work folder, with `-sheet.png` and `-animated.png` beside it. The build reported no errors and no notes about the sprite's shape or colour.
 
-**What it is:** a soft white glow, one frame, 64x64. It is a round, neutral-white light that is brightest at the centre and fades out smoothly to black at its edge, so the frame's corners stay empty.
+What it is, and how I matched the original:
 
-**Spec used:**
+- **Shape and size:** a round, soft-edged white glow, 64x64, centred, with one frame. It is a `glow` class with a smooth falloff, so it fades to nothing well inside the frame's edge.
+- **Radius and core:** the glow radius is 1.0 and the bright core is 0.3. These were set by measuring against the reference: the first try (radius 0.9, core 0.12) covered too little of the frame, and radius 1.1 covered too much.
+- **Colour:** pure white on black, which is what additive needs (black is clear).
+- **Type and format:** `parallel` (faces the camera) and `additive`, as in `facts.txt`.
+- **Use:** `env_sprite`, placed in render mode 5 (Additive).
 
-```json
-{"spec":"smak.sprite/1","sprites":[{"name":"sprites/glow01.spr","class":"glow","size":[64,64],"frames":1,"type":"parallel","format":"additive","reference":"pictures/frames.png","layers":[{"kind":"glow","radius":0.94,"core":0.3,"colour":[1,1,1]}]}]}
-```
-
-**Measured against the original** (the report's own measures, read off the original's contact sheet):
+Measured against `pictures/frames.png` by the build's report:
 
 | Measure | Original | Mine |
 | --- | --- | --- |
-| Share of frame that is dark | 0.47 | 0.48 |
-| Mean colour difference (delta E; 15 or under is near) | — | 3.6 |
-| Shape overlap (bar 0.7) | — | 0.83 |
-| Border brightness | 0 | 0 |
+| Mean colour (delta E, 15 or under is near) | | 1.9 |
+| Share that is dark (within 0.05 is near) | 0.47 | 0.43 |
+| Shape overlap (the bar is 0.7) | | 0.83 |
 | Frames | 1 | 1 |
+| Border light | 0 | 0 |
 
-**Type and format:** parallel (faces the camera), additive (black is clear). The report places it as an `env_sprite` with render mode 5 (additive).
+The build also confirmed it places as Half-Life's glow class (1 of 1 in range).
 
-**Choices I made:**
-- **Colour:** neutral white. My first build used the glow's default, which came out warm tan, and the original is not warm.
-- **Size of the glow:** `radius` 0.94 means the lit disc reaches about 0.94 of the half-width, which matches the original's fade-out at its edge. The dark share only matched once I went past my first guesses (0.8, then 0.9).
-- **Core:** `core` 0.3 gives a bright centre about 20 pixels across, close to the original's.
-
-**Caveats:**
-- The reference is `pictures/frames.png` in the work folder. It is the same 2937-byte file as the input's `frames.png`, but I did not compare the bytes directly.
-- I could not read the original's pixel values myself (no shell here), so the colour and falloff match rests on the report's measures and a visual comparison, not on a pixel-by-pixel check.
-- The sprite is not copied into `/media/Data3/Packages/smak/examples/reproduce/assets/sprites/glow01/`. It is in the work folder only.
+One thing I did not verify: the reference sheet has a small bracket mark in its top-left corner. I did not reproduce it, since it looks like a sheet marker rather than part of the sprite.

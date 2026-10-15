@@ -13,41 +13,35 @@
       "type": "parallel",
       "format": "additive",
       "origin": "centre",
+      "reference": "pictures/frames.png",
       "finish": "edge",
-      "reference": {
-        "picture": "pictures/frames.png",
-        "cell": 128,
-        "cols": 8
-      },
       "layers": [
         {
           "kind": "glow",
-          "radius": 0.98,
-          "core": 0.5,
-          "gain": 1,
-          "falloff": "smooth",
+          "radius": 0.97,
+          "core": 0.42,
           "colour": [
             0.8,
-            0.55,
-            0.75
-          ]
+            0.6,
+            0.72
+          ],
+          "falloff": "smooth",
+          "gain": 0.8
         },
         {
           "kind": "flare",
-          "core": 0.3,
-          "gain": 0.8,
+          "core": 0.26,
           "colour": [
             1,
-            0.95,
-            1
+            0.92,
+            0.97
           ],
-          "streaks": [],
           "rays": {
             "count": 48,
-            "length": 0.9,
+            "length": 0.8,
             "jitter": 0.5,
             "width": 0.012,
-            "gain": 0.4
+            "gain": 0.2
           }
         }
       ]

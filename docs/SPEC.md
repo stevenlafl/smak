@@ -669,7 +669,9 @@ The report gives each sprite's colours, the border's light, how it starts and en
 and how much it flickers, each against Half-Life's own of its class, and the render mode to place it with.
 With a `reference`, it gives the judge's measures of both, each read off a sheet of the same drawing: mean
 colour (delta E; 15 or under is near), the share that is dark (within 0.05 is near), the border's light and the
-frame count, with a note for each that is off.
+frame count, and its shape frame by frame (the share of lit pixels both have), with a warning for each that is
+off: a colour over 15, a shape under 0.8 (where the judges stop giving a shape full marks). Build until they are
+gone, not only until `OK`.
 FAULTs: a loop that jumps at its wrap, a one-shot that does not end dark, light at the border.
 
 ## A video

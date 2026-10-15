@@ -54,23 +54,52 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.3,
+    "dark": 0.46,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 54.8
+  "meanColourDeltaE": 3.5
  },
  "caps": {
   "R2": 2,
-  "R3": 0,
+  "R3": 2,
   "R4": 2,
   "R5": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "R3"
- ],
- "total": 0,
- "of": 10
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both pictures show the same effect: a radial glow, bright at the centre and fading to the dark background, with the same falloff shape."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are 64 x 64 with one frame, and the glow fills the frame the same way in both. The reproduction's bright core looks a touch softer and wider, but not enough to call it off at a close look."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured mean colour difference is 3.5 (CIE76 delta E), well inside 15. The dark-pixel fraction is 0.47 for the original and 0.46 for the reproduction."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "A single still frame, the same count as the original (1). The envelope matches (peak at frame 0, first and last both 1). Neither has wrap or jitter, so there is no loop or motion to differ."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Type (parallel) and format (additive) match the original, and the size is 64 x 64. The name and the read-back-as-written check are not in the measurements or the pictures I was given, so I cannot confirm them. The score is held at 1 for that gap, not because a fault was seen."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
 }

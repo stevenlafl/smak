@@ -46,20 +46,20 @@
      48
     ],
     "border": {
-     "max": 0.616,
-     "mean": 0.014
+     "max": 0.404,
+     "mean": 0.002
     },
     "envelope": {
-     "peakAt": 0.67,
-     "first": 0.09,
+     "peakAt": 0.4,
+     "first": 0.2,
      "last": 0
     },
-    "dark": 0.66,
-    "wrap": 0.93,
-    "jitter": 1.45
+    "dark": 0.69,
+    "wrap": 1.6,
+    "jitter": 0.95
    }
   },
-  "meanColourDeltaE": 12.7
+  "meanColourDeltaE": 3.5
  },
  "caps": {
   "R2": 2,
@@ -69,37 +69,37 @@
  },
  "scores": {
   "R1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Both are smoke puffs that grow, drift and fade, so the effect is recognisable. The reproduction breaks apart from frame 11 into scattered white speckles and fragments, where the original dims into a soft grey wisp. That is a different way of ending."
+   "score": 2,
+   "reason": "Both are a soft smoke puff that grows, rises and thins into the same grey plume, so it is the same effect."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frames are 32 by 48 as the original's are, but the fill is off. The reproduction's cloud is larger from frame 1 on and reaches the frame edges (border max 0.616 against the original's 0.341). Its envelope peaks at 0.67 against the original's 0.4, and the original's downward trailing wisp is missing."
+   "reason": "Frame size matches (32x48), but the envelope differs at the start: frame 0 is a tiny dot in the original (first 0.04) and a medium blob in the reproduction (first 0.2). The original also trails a plume downward over frames 3 to 9 that the reproduction's blob mostly lacks, so it does not fill the frames as the original does."
   },
   "R3": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The measured colour difference is 12.7, under the line of 15, but the pictures show the reproduction whiter and harsher than the original in frames 2 to 7, with white highlights where the original has grey mid-tones. Frames 11 to 15 show white speckles on the grey ground that the original does not have. The measure allows a 2, but the pictures show a visible tonal difference, so I score it lower."
+   "reason": "From the pictures, the reproduction's mid and late frames (7 to 14) carry darker, mottled inner shading and more contrast than the original's lighter, smoother greys. Dark-pixel share is close (0.69 against 0.64), so the gap is in tone and shading rather than coverage. The mean-colour measure is not given, so this is a visual judgement, not a measured fault."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both have 16 frames and both end dark (last envelope 0.03 against 0). The original grows and fades smoothly, and the reproduction's first frame is brighter (0.09 against 0.04). The reproduction's frames 11 to 15 dissolve into fragments, which is a different kind of motion. Its jitter is 1.45 against the original's 1.1, and its wrap is 0.93 against 0.5."
+   "reason": "Frame count matches (16 against 16) and both end dark (last 0.03 against 0), so it is a one-shot in both. The kind of motion matches: growth to frames 3 to 7, then a drift and fade. The loop wrap is measured worse, 1.6 against the original's 0.5, which is more than three times the original's, and the first frame is too large (0.2 against 0.04)."
   },
   "R5": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The type (parallel oriented) and format (index alpha) match the original's, as measured. The name and read-back are not in the measurements I was given, so I cannot confirm them."
+   "score": 2,
+   "reason": "Type (parallel oriented) and format (index alpha) match the original, and the frame count and size are read back as written. The sprite's file name is not in the pictures or measures, so the name part of R5 is unverified here."
   }
  },
- "total": 5,
+ "total": 7,
  "of": 10,
  "passes": false
 }

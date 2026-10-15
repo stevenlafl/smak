@@ -1,0 +1,105 @@
+{
+ "kind": "sprites",
+ "subject": "fire",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.275,
+     "mean": 0.028
+    },
+    "envelope": {
+     "peakAt": 0.07,
+     "first": 0.9,
+     "last": 0.84
+    },
+    "dark": 0.42,
+    "wrap": 1.13,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.106,
+     "mean": 0.008
+    },
+    "envelope": {
+     "peakAt": 0.71,
+     "first": 0.85,
+     "last": 0.85
+    },
+    "dark": 0.39,
+    "wrap": 0.77,
+    "jitter": 1.58
+   }
+  },
+  "meanColourDeltaE": 9.2
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are the same effect: a column of additive fire that flickers upward. The reproduction's flames sit where the original's do, in the same 15-cell grid."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frames are 32x96 as in the original, but the reproduction's flame is narrower and more tapered, pulled into a bright base and thin tip (frames 7 and 14 especially). The original fills its frame wider and more evenly, with more of the frame lit (border max 0.275 vs 0.106)."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mean colour difference is 9.2, under the line of 15. The palette matches: orange to yellow with dark red edges. The reproduction's core is somewhat brighter and yellower, which the measure allows for."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count is 15 in both, and both flicker as the original does. The loop does not close the same way: the original's brightest frame is at 0.07 of the loop and the reproduction's at 0.71, and the wrap seam is 1.13 in the original vs 0.77 in the reproduction. Jitter (1.51 vs 1.58) and dark share (0.42 vs 0.39) agree."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type (parallel oriented) and format (additive) match, and size and frame count match at 32x96 and 15. The name and read-back are not in the pictures or measures I was given, so they are not confirmed here."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

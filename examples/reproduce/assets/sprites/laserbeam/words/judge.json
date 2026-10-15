@@ -47,30 +47,59 @@
     ],
     "border": {
      "max": 1,
-     "mean": 0.261
+     "mean": 0.138
     },
     "envelope": {
      "peakAt": 0,
      "first": 1,
      "last": 1
     },
-    "dark": 0.13,
+    "dark": 0.36,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 16.9
+  "meanColourDeltaE": 8.7
  },
  "caps": {
   "R2": 2,
-  "R3": 1,
+  "R3": 2,
   "R4": 2,
   "R5": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "R3"
- ],
- "total": 0,
- "of": 10
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are a vertical laser beam, a bright band down a 32 x 64 frame with a blue-grey glow. The reproduction reads as the same effect."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frames are 32 x 64 as the original is, but the effect does not fill them as the original's does. The original glows across nearly the full width with a noisy, blotchy body. The reproduction is a thin bright core on a black field, and the measured dark fraction is 0.36 against the original's 0.02."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured mean colour difference (8.7) is under 15, but the colour is not spread the same way. The original's blue-grey glow covers the frame. The reproduction is mostly black with a narrow white stripe and a faint blue halo, so the frame's colour distribution is clearly off even where the mean agrees. Scored lower than the measurement allows, from the picture."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are a single frame, parallel type, so the frame count matches and there is no motion to differ. The envelope (first and last frame at full value, peak at frame 0) is the same in both."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are format additive and type parallel, as the measurements show. The name and read-back match as written."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
 }

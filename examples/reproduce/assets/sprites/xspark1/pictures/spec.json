@@ -10,7 +10,7 @@
         32
       ],
       "frames": 11,
-      "loop": false,
+      "loop": true,
       "fps": 10,
       "type": "parallel",
       "format": "additive",
@@ -18,38 +18,55 @@
       "finish": {
         "edge": 2
       },
-      "reference": {
-        "picture": "pictures/frames.png",
-        "cell": 128,
-        "cols": 8
-      },
       "layers": [
         {
           "kind": "blobs",
           "count": 9,
-          "radius": 0.2,
+          "radius": 0.3,
           "spread": 0.5,
           "core": 0.4,
           "soft": 0.5,
-          "colour": [
-            30,
-            150,
-            220
-          ],
-          "gain": 0.04
-        },
-        {
-          "kind": "glow",
-          "radius": 0.42,
-          "core": 0.3,
-          "colour": [
-            30,
-            150,
-            220
-          ],
-          "gain": 0.12
+          "ramp": [
+            [
+              0,
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            [
+              0.4,
+              [
+                0,
+                0.55,
+                0.75
+              ]
+            ],
+            [
+              0.8,
+              [
+                0.35,
+                0.9,
+                1
+              ]
+            ],
+            [
+              1,
+              [
+                1,
+                1,
+                1
+              ]
+            ]
+          ]
         }
-      ]
+      ],
+      "reference": {
+        "picture": "pictures/frames.png",
+        "cell": 128,
+        "cols": 8
+      }
     }
   ]
 }

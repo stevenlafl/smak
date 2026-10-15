@@ -11,19 +11,24 @@
       ],
       "frames": 2,
       "loop": false,
-      "fps": 12,
+      "fps": 15,
       "type": "parallel",
       "format": "additive",
       "origin": "centre",
-      "reference": {
-        "picture": "pictures/frames.png",
-        "cell": 128,
-        "cols": 2
-      },
       "layers": [
         {
+          "kind": "glow",
+          "radius": 0.22,
+          "core": 0.1,
+          "ramp": "muzzle",
+          "at": [
+            0,
+            0
+          ]
+        },
+        {
           "kind": "flare",
-          "core": 0.12,
+          "core": 0.08,
           "ramp": "muzzle",
           "at": [
             0,
@@ -32,57 +37,65 @@
           "streaks": [
             {
               "angle": 90,
-              "length": 0.98,
+              "length": 0.95,
               "width": 0.05,
               "half": true,
-              "gain": 0.9,
-              "haze": false,
-              "blur": false,
-              "taper": 0
+              "gain": 1.2,
+              "taper": 0.15,
+              "blur": 0,
+              "haze": 0
             },
             {
               "angle": 162,
               "length": 0.95,
               "width": 0.05,
               "half": true,
-              "gain": 0.8,
-              "haze": false,
-              "blur": false,
-              "taper": 0
+              "gain": 1.2,
+              "taper": 0.15,
+              "blur": 0,
+              "haze": 0
             },
             {
               "angle": 234,
               "length": 0.95,
               "width": 0.05,
               "half": true,
-              "gain": 0.8,
-              "haze": false,
-              "blur": false,
-              "taper": 0
+              "gain": 1.2,
+              "taper": 0.15,
+              "blur": 0,
+              "haze": 0
             },
             {
               "angle": 306,
               "length": 0.95,
               "width": 0.05,
               "half": true,
-              "gain": 0.8,
-              "haze": false,
-              "blur": false,
-              "taper": 0
+              "gain": 1.2,
+              "taper": 0.15,
+              "blur": 0,
+              "haze": 0
             },
             {
               "angle": 18,
               "length": 0.95,
               "width": 0.05,
               "half": true,
-              "gain": 0.8,
-              "haze": false,
-              "blur": false,
-              "taper": 0
+              "gain": 1.2,
+              "taper": 0.15,
+              "blur": 0,
+              "haze": 0
             }
           ]
         }
-      ]
+      ],
+      "finish": {
+        "edge": 2
+      },
+      "reference": {
+        "picture": "pictures/frames.png",
+        "cell": 128,
+        "cols": 2
+      }
     }
   ]
 }

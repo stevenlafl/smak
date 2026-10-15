@@ -28,8 +28,12 @@ const WRAP_MOST = 2.5;
 /** The classes that play once and must end dark. */
 const ONE_SHOTS = new Set(["explosion", "smoke puff", "sparks", "ring"]);
 const isNumber = (v) => typeof v === "number" && Number.isFinite(v);
-/** Where a reproduction is told it is off its reference: the judge's bars (research/asset-reproduction-failures.md, 3). */
-const REFERENCE_BARS = { shape: 0.7, colour: 15, dark: 0.05 };
+/**
+ * Where a reproduction is told it is off its reference: the judge's bars (research/asset-reproduction-failures.md,
+ * 3). The shape's is 0.8: in sprites round 3 the judges gave its shape full marks (R2) at 0.76 and over, and
+ * mostly not under.
+ */
+const REFERENCE_BARS = { shape: 0.8, colour: 15, dark: 0.05 };
 
 /** The sprites of a spec, each with the spec's own fields as its defaults. */
 const spritesOf = (spec) => (spec.sprites?.length ? spec.sprites.map((s) => ({ ...spec, sprites: undefined, ...s })) : [spec]);
@@ -171,7 +175,8 @@ export function buildSpriteSpec(spec, { readPicture = (path) => unpicture(readFi
       if (against.error) report.warnings.push(against.error);
       else {
         report.facts.push(...against.facts);
-        report.notes.push(...against.notes);
+        // warnings, not notes: in round 3 of the reproduction test makers stopped at OK with their shape at 0.4 to 0.6
+        report.warnings.push(...against.notes.map((line) => `${line}. Bring it nearer and build again`));
         (report.reference ??= {})[s.name] = against.measured;
       }
     }

@@ -3,31 +3,45 @@
   "sprites": [
     {
       "name": "sprites/laserbeam.spr",
-      "use": "beam",
       "class": "beam",
+      "use": "beam",
       "size": [
         32,
         64
       ],
       "frames": 1,
+      "loop": false,
+      "fps": 10,
       "type": "parallel",
       "format": "additive",
       "origin": "centre",
-      "finish": {
-        "edge": 3
-      },
       "layers": [
         {
           "kind": "beam",
-          "core": 0.3,
-          "profile": "round",
+          "core": 0.32,
           "noise": 0.5,
-          "streaks": 0.6,
+          "profile": "flat",
+          "shoulder": 0.2,
+          "streaks": 0.7,
           "colour": [
-            226,
-            234,
-            248
-          ]
+            0.55,
+            0.6,
+            0.7
+          ],
+          "gain": 0.9
+        },
+        {
+          "kind": "beam",
+          "core": 0.28,
+          "noise": 0,
+          "profile": "flat",
+          "shoulder": 0.04,
+          "colour": [
+            1,
+            1,
+            1
+          ],
+          "gain": 1
         }
       ]
     }

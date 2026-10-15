@@ -1,14 +1,15 @@
-The sprite builds OK: `work:sprites/glow01.spr`, with a preview sheet and animated picture beside it. I could not confirm that the falloff matches the original, so the match is unverified.
+The glow is built and the build says **OK**: `work/sprites/glow01.spr`, with a contact sheet and an animated preview beside it.
 
-**What's in the file**
-- 64 by 64, one frame, type `parallel`, format `additive` (black is clear), white with no tint, no animation.
-- The build's report: border light 0, dark share 0.30 (the original's black ring beyond about 31 px would give roughly 0.26), no faults.
-- Placed as an `env_sprite` with render mode 5 (Additive). I left `use` at the spec default because you didn't name one. If the original is meant for `env_glow`, say so and I'll change it.
+What it is, as specified:
 
-**How I got the falloff**
-- The spec's `power` falloff ignored `radius` and left the frame border bright (0.84 mean), so I dropped it.
-- The `smooth` falloff with `radius` 0.97 fades to black at the frame edge. I stacked four of those discs with gains 0.3, 0.3, 0.25 and 0.15 and radii 0.97, 0.6, 0.35 and 0.15 (of the half-frame). The aim was a bright centre, mid grey near 10 px, dim near 20 px, and black by about 31 px.
+- **Size and frames:** 64 by 64 pixels, one frame, no animation. The engine's own sprite header is written with the first frame as the only frame.
+- **Type and format:** `parallel` (always faces the viewer) and `additive` (black is clear, brighter pixels add light). The build places it as an `env_sprite` with render mode 5 (Additive).
+- **Shape:** one circular radial glow centred in the frame, with no rays, rings or noise. The build reports the border as black (brightest 0), so no square outline should show.
+- **Colour:** neutral white (1, 1, 1), so the game can tint it with render colour.
+- **Falloff:** a glow layer with radius 0.97 of the half-frame (about 31 pixels) and core 0.31 (about 10 pixels). The falloff is the smooth kind, which is cut to nothing between 0.55 and 1 of the radius.
 
-**What I could not check**
-- The report's "brightest" figure does not fit the preview: a flat white disc reported 0.02 and a gain of 0.1 reported 0. So I could not read the actual grey levels, and the preview may be contrast-stretched. The mid grey at 10 px and dim grey at 20 px are my estimate from the stacking, not a measurement.
-- I had no reference picture of the original, only the description, so there was no side-by-side measure. If you can give me the original file or a sheet of it as `reference`, I can check the mean colour and dark share against it.
+Where I'm not sure:
+
+- **I could not measure the pixels.** The tools here show only a 128-pixel thumbnail and summary figures, and I had no way to read the PNG values. The mid-grey at 10 pixels, the dim grey at 20 and the black by 30 to 32 come from my reading of how the spec's smooth falloff is built, not from a measured profile. Please check those three points against the original.
+- **I had no reference sheet.** The build's comparison against Half-Life's own glow passes (1 of 1 in range), but I could not compare against your original, so no delta-E or dark-share figure against it. The build reports a dark share of 0.46 for this glow.
+- **Choices I made:** I tried radius 1.0 and core 0.5 along the way and kept radius 0.97 and core 0.31, which best matched the described falloff. The final file is the last build.

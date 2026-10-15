@@ -54,12 +54,12 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.66,
+    "dark": 0.76,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 6
+  "meanColourDeltaE": 2.9
  },
  "caps": {
   "R2": 2,
@@ -72,34 +72,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both frames show the same effect: a bright core with five tapering rays, the muzzle-flash star, on a dark ground."
+   "reason": "Both show a five-armed star flash with a bright core and soft glow, the same effect as the original."
   },
   "R2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Both are 64 x 64 and the star fills the frame in the same way, but the reproduction adds a faint round halo around the core that the original does not show, so the frame is filled differently. The reproduction's rays also look thinner and sharper than the original's softer ones."
+   "score": 2,
+   "reason": "Both are 64 x 64 as measured, and the star's rays reach toward the frame edges in both, filling the frame much as the original does."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean colour difference is 6 (CIE76), well inside 15. Both are warm white-orange cores fading to orange rays. The dark measure is 0.66 against 0.76, a difference the colour measure already accounts for."
+   "reason": "The measured mean colour difference is 2.9, far under 15. Both have the same warm white-to-orange core and fade, and the picture shows no visible colour difference."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both have 2 frames, which matches. The envelope differs: the original peaks at frame 1 (first 0.95, last 1, so it grows slightly into the second frame), while the reproduction peaks at frame 0 (first 1, last 1, so it fades). The kind of motion is therefore not the same, and the original's peak frame is not reproduced. Both end at 1, so the end-state measure is not the problem."
+   "reason": "Frame count matches (2), but the envelope differs: the original peaks at frame 1 (first frame 0.95), while the reproduction is equal in both frames (peak at 0, first 1, last 1). The original brightens across the loop and the reproduction does not, so the kind of motion is only partly the same."
   },
   "R5": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The type and format are right: both are additive, 2 frames, 64 x 64. The sprite's name and its read-back as written are not in the measures given, so this item cannot be confirmed as a 2."
+   "score": 2,
+   "reason": "The measured type (parallel) and format (additive) match, the size is 64 x 64 for both, and the frames read back in the same form. The sprite's file name is not in the pictures or measurements, so that part is unchecked."
   }
  },
- "total": 7,
+ "total": 9,
  "of": 10,
  "passes": false
 }

@@ -1,0 +1,88 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/muzzleflash1.spr",
+      "class": "flare",
+      "use": "tempent",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 2,
+      "loop": false,
+      "fps": 12,
+      "type": "parallel",
+      "format": "additive",
+      "origin": "centre",
+      "reference": {
+        "picture": "pictures/frames.png",
+        "cell": 128,
+        "cols": 2
+      },
+      "layers": [
+        {
+          "kind": "flare",
+          "core": 0.12,
+          "ramp": "muzzle",
+          "at": [
+            0,
+            0
+          ],
+          "streaks": [
+            {
+              "angle": 90,
+              "length": 0.98,
+              "width": 0.05,
+              "half": true,
+              "gain": 0.9,
+              "haze": false,
+              "blur": false,
+              "taper": 0
+            },
+            {
+              "angle": 162,
+              "length": 0.95,
+              "width": 0.05,
+              "half": true,
+              "gain": 0.8,
+              "haze": false,
+              "blur": false,
+              "taper": 0
+            },
+            {
+              "angle": 234,
+              "length": 0.95,
+              "width": 0.05,
+              "half": true,
+              "gain": 0.8,
+              "haze": false,
+              "blur": false,
+              "taper": 0
+            },
+            {
+              "angle": 306,
+              "length": 0.95,
+              "width": 0.05,
+              "half": true,
+              "gain": 0.8,
+              "haze": false,
+              "blur": false,
+              "taper": 0
+            },
+            {
+              "angle": 18,
+              "length": 0.95,
+              "width": 0.05,
+              "half": true,
+              "gain": 0.8,
+              "haze": false,
+              "blur": false,
+              "taper": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

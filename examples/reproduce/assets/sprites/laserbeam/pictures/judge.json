@@ -46,20 +46,20 @@
      64
     ],
     "border": {
-     "max": 1,
-     "mean": 0.267
+     "max": 0.637,
+     "mean": 0.271
     },
     "envelope": {
      "peakAt": 0,
      "first": 1,
      "last": 1
     },
-    "dark": 0.13,
+    "dark": 0,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 13.2
+  "meanColourDeltaE": 10.5
  },
  "caps": {
   "R2": 2,
@@ -69,34 +69,34 @@
  },
  "scores": {
   "R1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Both are a vertical laser beam, the same effect. The original is a soft, mottled beam and the reproduction a crisper one, but both read as a beam of light."
+   "score": 1,
+   "reason": "The original is a vertical laser beam: a bright core with streaks running down the frame and darker sides. The reproduction is a flat pale-blue panel with no streaks or core, so it reads as a glow card rather than a beam. The effect is there but clearly off."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both frames are 32 by 64, as the original's are. The original's beam fills the width edge to edge with a mottled glow. The reproduction is a narrow bright core with dark bands on both sides, which the dark-pixel share shows (0.13 against 0.02)."
+   "reason": "Both are 32 x 64, so the size matches. The effect does not fill the frame as the original's does: the original is brightest at its edges (border max 1.0, mean 0.261), while the reproduction is an even wash (border max 0.637, mean 0.271) with no shaped band."
   },
   "R3": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The measured mean colour difference of 13.2 passes the line of 15, but the picture is visibly off. The original is grey-blue and mottled, while the reproduction has a near-white core with cyan edges and more black."
+   "score": 2,
+   "reason": "The measured frame colour difference is 10.5, under the line of 15. The pictures agree in overall tone, though the original's dark-to-white banding is not in the reproduction, so this scores on the measure and not on the look."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both have one frame, and the envelope measures agree (first 1, last 1, peak at frame 0). Nothing moves in either to compare beyond that."
+   "reason": "Both have one frame, matching the original's count. The envelope (first 1, last 1, peak at 0) is the same in both, so there is no loop or fade to contradict. The original's dark measure is 0.02 against 0 here, which is not a meaningful difference."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are additive, 32 by 64, with one frame, so the type and format match. The file name cannot be seen in the pictures, and nothing in the measures disagrees with it."
+   "reason": "Both are type parallel and format additive, and the size matches. The file name is not shown in the pictures or measurements I was given, so I could not check it read back as written; that is the only part not verified."
   }
  },
  "total": 8,
