@@ -668,6 +668,20 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     };
     return { top: name, bottom: name, east: face(1), west: face(1), north: face(0), south: face(0) };
   };
+  // a door is painted as a door, panels and a handle, in the colour of the material it is given: a maker names a
+  // colour for a door ("door_white"), not a door's picture. A game's texture is worn as it is
+  const doorTextureOf = (word) => {
+    // the word a theme's word comes to (door -> "oak" -> { base: wood }): the picture is named after it, so two
+    // words for one material share it
+    let named = word;
+    let material = materials[word] ?? word;
+    while (typeof material === "string" && materials[material] !== undefined && materials[material] !== material) [named, material] = [material, materials[material]];
+    if (material && typeof material === "object" && (material.texture || material.pick)) return textureOf(word);
+    if ((typeof material === "string" ? material : material?.base) === "door") return textureOf(word);
+    const key = `${named}_leaf`;
+    materials[key] ??= { base: "door", tone: materialOf(material, `door ${word}`).tone };
+    return textureOf(key);
+  };
   let themeNames;
   try {
     themeNames = { floor: textureOf("floor"), wall: textureOf("wall"), ceiling: textureOf("ceiling") };
@@ -870,7 +884,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         pin.min[along] = at - 2;
         pin.max[along] = at + 2;
         entities.push(
-          brushEntity("func_door_rotating", [box(leaf.min, leaf.max, fitted(textureOf(link.material ?? "door"), leaf.min, leaf.max)), box(pin.min, pin.max, "ORIGIN")], {
+          brushEntity("func_door_rotating", [box(leaf.min, leaf.max, fitted(doorTextureOf(link.material ?? "door"), leaf.min, leaf.max)), box(pin.min, pin.max, "ORIGIN")], {
             speed: 100,
             // opened and closed by the player, as a house's are: use only (256), and each use toggles it (32,
             // no auto return). One that shut by itself after 4 s closed on Steven in the doorway; one that never
@@ -889,7 +903,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         leaf.min[axis] = middle - 4;
         leaf.max[axis] = middle + 4;
         // opened and closed with the use key as the hinged ones are, not by walking into it
-        entities.push(brushEntity("func_door", [box(leaf.min, leaf.max, fitted(textureOf(link.material ?? "door"), leaf.min, leaf.max))], { angle: -1, speed: 120, wait: -1, spawnflags: 256 + 32, lip: 0, ...keys }));
+        entities.push(brushEntity("func_door", [box(leaf.min, leaf.max, fitted(doorTextureOf(link.material ?? "door"), leaf.min, leaf.max))], { angle: -1, speed: 120, wait: -1, spawnflags: 256 + 32, lip: 0, ...keys }));
       }
     }
   });

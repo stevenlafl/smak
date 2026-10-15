@@ -119,8 +119,17 @@ export const flagsOf = (material) =>
 
 /** A colour `k` times as bright, kept to 0..1. */
 const shade = (c, k) => c.map((v) => Math.max(0, Math.min(1, v * k)));
-/** How much a material's tone differs from its base's own, to carry the workshop's paints over to it. */
-const toned = (colour, base, tone) => colour.map((v, i) => v * (tone[i] / (MATERIALS[base].tone[i] || 1)));
+/**
+ * How much a material's tone differs from its base's own, to carry the workshop's paints over to it. A tone
+ * lighter than its base's keeps less of the pattern, as paint over grain does: scaled up as it is, wood's grain
+ * on a white door clips into marble.
+ */
+const lum = (c) => 0.3 * c[0] + 0.59 * c[1] + 0.11 * c[2];
+const toned = (colour, base, tone) => {
+  const own = MATERIALS[base].tone;
+  const keep = Math.min(1, (1 - lum(tone)) / Math.max(0.05, 1 - lum(own)));
+  return colour.map((v, i) => Math.max(0, Math.min(1, tone[i] * (1 + keep * (v / (own[i] || 1) - 1)))));
+};
 
 /**
  * The colour of a material at a point given in units on its surface: `x` along, `y` across, `light` the
@@ -143,7 +152,7 @@ export function colourAt(material, x, y, light = 1, px = 8) {
       // one door on a picture 64 wide and 128 high, y down: a frame, two panels sunk in with their bevels lit
       // from the top left, and a brass handle at hand height on the right (seen from the other side, the left)
       const [u, v] = [((x % 64) + 64) % 64, ((y % 128) + 128) % 128];
-      const woodAt = (k) => toned(wood(x * 0.5, y * 0.08, light * k, s), "wood", tone);
+      const woodAt = (k) => shade(toned(wood(x * 0.5, y * 0.08, 1, s), "wood", tone), light * k);
       if (Math.hypot(u - 53, v - 68) < 3.2) return shade([0.78, 0.62, 0.3], light * (1.15 - 0.12 * Math.hypot(u - 52, v - 67)));
       for (const [y0, y1] of [[12, 58], [70, 116]]) {
         const [x0, x1] = [11, 53];
@@ -160,11 +169,11 @@ export function colourAt(material, x, y, light = 1, px = 8) {
     case "wood":
     case "darkwood":
     case "planks":
-      return toned(wood(x * 0.5, y * 0.5, light, s), "wood", tone);
+      return shade(toned(wood(x * 0.5, y * 0.5, 1, s), "wood", tone), light);
     case "iron":
-      return toned(iron(x * 0.33, y * 0.33, light, s, rust - 0.3), "iron", tone);
+      return shade(toned(iron(x * 0.33, y * 0.33, 1, s, rust - 0.3), "iron", tone), light);
     case "steel":
-      return toned(steel(x * 0.4, y * 0.4, light, s, rust * 2 - 1), "steel", tone);
+      return shade(toned(steel(x * 0.4, y * 0.4, 1, s, rust * 2 - 1), "steel", tone), light);
     case "brass":
     case "gold":
     case "copper": {
