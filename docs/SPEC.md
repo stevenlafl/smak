@@ -462,7 +462,7 @@ told), checked as the engine needs them, and measured against the game's own sou
 | --- | --- |
 | `name` | Its path under `sound/`, lower case, `.wav`. A sound the game's code plays keeps the game's name (the crowbar's hit is `weapons/cbar_hit1.wav`): that name is the one the game loads, with no code |
 | `class` | What it is held against: `metal hit`, `flesh hit`, `swing`, `gunshot`, `reload`, `click`, `pump`, `shell`, `launcher`, `grenade cock`, `grenade bounce`, `explosion`, `step concrete`, `step metal`, `step dirt`, `step tile`, `step grate`, `step vent`, `loop drips`, `loop crickets`, `loop machine`, `loop drone`, `loop fire` |
-| `rate`, `bits` | 22050 and 16 unless told; 11025, 44100 and 8 too. Never stereo: GoldSrc plays mono only |
+| `rate`, `bits` | 22050 and 16 unless told; 11025, 44100 and 8 too. Never stereo: GoldSrc plays mono only. 8 bits is warned of: its dither is a hiss under every quiet tail, heard as static and as a reverb that is not there; Valve's own sounds are often 8-bit, and a copy is not held to their depth |
 | `seed` | Every random choice: the same spec makes the same bytes |
 | `length`, `pitch` | Seconds (unless told, the longest layer's end); a pitch in percent |
 | `layers` | Each `{ id, kind, at (s), length (s), gain (dB), env, filter }` (below) |
@@ -507,8 +507,9 @@ gives its loudness.
 
 **From a recording.** When the server offers the tool `generate`, a sound of a real thing (a hit, a shot, a step, a
 door, debris, a medkit's click) begins best from a generated take, which has the grain, the ring and the room no
-layer of noise and modes reaches. Ask for the event in plain words (the thing, the action, the material: "a
-heavy steel wrench striking a metal pipe, one sharp clang"), its `length`, its `class`, and 4 to 8 seeds; read
+layer of noise and modes reaches. Ask for the event in plain words (the thing, the action, the material, and how it was heard: "a
+heavy steel wrench striking a metal pipe, one sharp clang, close-miked, dry, no reverb": a take carries the room
+it imagines, which a game's own sounds mostly lack), its `length`, its `class`, and 4 to 8 seeds; read
 each take's measures against the class and the picture; put the nearest in a `sample` layer `from: "onset"`.
 Then shape it in the spec toward the original: its `length`, a `filter` (a generated hit is often brighter than
 the game's: a `lowpass` or a `highshelf` cut), the finish's `saturate` and `limit` (to the class's crest), and

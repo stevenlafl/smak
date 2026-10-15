@@ -268,3 +268,9 @@ test("a sound further from its picture than a copy is held to is warned of, and 
   const far = buildSoundSpec({ spec: "smak.sound/1", name: "x/far.wav", picture: "thump.png", layers: [{ kind: "noise", filter: [{ type: "highpass", f: 3000 }], env: { decay: 0.25 } }] }, { folder });
   sure(far.report.warnings.some((w) => /x\/far\.wav: further from its picture than a copy should be: centroid \d+% off \(aim within 15%\)/.test(w)), far.report.warnings.join(" | "));
 });
+
+test("an 8-bit sound is warned of for its hiss; 16 bits, the default, is not", () => {
+  const spec = (bits) => ({ spec: "smak.sound/1", name: "x/tick.wav", ...(bits ? { bits } : {}), layers: [{ kind: "tone", f: 440, env: { decay: 0.2 } }] });
+  sure(buildSoundSpec(spec(8)).report.warnings.some((w) => /x\/tick\.wav: 8 bits adds a hiss under its quiet tail/.test(w)), "8 bits warned of");
+  sure(!buildSoundSpec(spec()).report.warnings.some((w) => /8 bits/.test(w)), "16 bits not");
+});

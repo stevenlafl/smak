@@ -195,6 +195,10 @@ export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (
     const sound = { ...given };
     const rate = sound.rate ?? 22050;
     const bits = sound.bits ?? 16;
+    // 8 bits is 256 steps: the dither that hides them is a hiss under every quiet tail, heard as static and as a
+    // room that is not there (Steven, listening to the reproduction test's sounds, 2026-10-15). The engine plays
+    // 16 as well: 8 only where the file must be small
+    if (bits === 8) warnings.push(`${sound.name}: 8 bits adds a hiss under its quiet tail, heard as static (and, on a long tail, as reverb); the game plays 16 bits as well and a copy is not held to the original's depth: leave bits out (16) unless the file must be small`);
     const takes = [{ name: sound.name }, ...(sound.variants ?? [])];
     // its recordings read once, at the sound's rate
     try {
