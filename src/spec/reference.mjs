@@ -141,12 +141,25 @@ export function materialRect(image) {
   // falling off across it can make (a skirting, a sky or a doorway is darker, brighter or another colour)
   const relative = (b) => b.spread / Math.max(0.02, b.mean);
   const mRelative = median(blocks.map(relative));
-  const like = blocks.map(
+  const alone = blocks.map(
     (b) =>
       Math.abs(b.mean - m.mean) < 0.5 * m.mean + 0.03 &&
       relative(b) < 2.5 * mRelative + 0.03 &&
-      b.chroma.every((v, c) => Math.abs(v - m.chroma[c]) < 0.18),
+      b.chroma.every((v, c) => Math.abs(v - m.chroma[c]) < 0.3),
   );
+  // a block unlike the rest among blocks that are like it is the material's own mark (a tie hole in concrete, a
+  // knot in a board): it counts as like when five of its eight neighbours are
+  const like = alone.map((ok, i) => {
+    if (ok) return true;
+    const [bx, by] = [i % across, Math.floor(i / across)];
+    let near = 0;
+    for (let dy = -1; dy <= 1; dy++)
+      for (let dx = -1; dx <= 1; dx++) {
+        const [x, y] = [bx + dx, by + dy];
+        if ((dx || dy) && x >= 0 && y >= 0 && x < across && y < down && alone[y * across + x]) near++;
+      }
+    return near >= 5;
+  });
   // the largest rectangle of blocks that are like it: a histogram of heights row by row
   const heights = new Array(across).fill(0);
   let best = { area: 0, x0: 0, y0: 0, x1: across, y1: down };
@@ -156,13 +169,15 @@ export function materialRect(image) {
       let tallest = Infinity;
       for (let x2 = x; x2 < across && heights[x2]; x2++) {
         tallest = Math.min(tallest, heights[x2]);
-        const area = tallest * (x2 - x + 1);
-        if (area > best.area) best = { area, x0: x, y0: y - tallest + 1, x1: x2 + 1, y1: y + 1 };
+        // the largest, a long strip counted for less: it is laid as more copies of a smaller cell
+        const [across, down] = [x2 - x + 1, tallest];
+        const area = across * down * Math.sqrt(Math.min(across, down) / Math.max(across, down));
+        if (area > best.area) best = { area, cells: across * down, x0: x, y0: y - tallest + 1, x1: x2 + 1, y1: y + 1 };
       }
     }
   }
   // too little of it is like the rest (a picture of many things): the whole picture
-  if (best.area < 0.2 * across * down) return [0, 0, w, h];
+  if ((best.cells ?? 0) < 0.2 * across * down) return [0, 0, w, h];
   return [Math.round((best.x0 * w) / across), Math.round((best.y0 * h) / down), Math.round((best.x1 * w) / across), Math.round((best.y1 * h) / down)];
 }
 
@@ -395,5 +410,6 @@ export function referencePicture(material, width, height) {
   facts.push(
     `valve: ${said}, as ${unitsSaid} units${copies[0] * copies[1] > 1 ? `, ${copies[0]} by ${copies[1]} times` : ""}; its light divided out, made to tile; grain x${matched.gains.fine.toFixed(2)}${matched.gains.alike ? ` (softened ${matched.gains.alike})` : ""}, patches x${matched.gains.coarse.toFixed(2)}, colour x${matched.gains.chroma.toFixed(2)} into Valve's range`,
   );
-  return { image: imageOf(repeated(matched.picture, width, height)), facts };
+  // a cell repeated: paint.mjs lays the base's patches over the whole texture, so the repeat is not a grid
+  return { image: imageOf(repeated(matched.picture, width, height)), facts, repeats: copies[0] * copies[1] > 1 };
 }

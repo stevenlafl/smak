@@ -95,7 +95,10 @@ map is not warned of its own look. `test/46-specs.mjs` holds the soft list, so a
 - **valve** (the default): the material's detail.
   1. The crop: `rect`, or the largest rectangle of blocks like the median block in colour, brightness (within half,
      so a light falling off across the photo does not split it) and contrast for that brightness
-     (`materialRect`). A skirting along a wall's foot is left out (the test's stand-in photo).
+     (`materialRect`). A block unlike the rest with five of its eight neighbours like it is the material's own
+     mark (concrete's tie holes cut the first crop of concrete_wall_006 down to a strip, laid as 2 by 4 copies of
+     a small cell); a long strip counts for less than a squarer part. A skirting along a wall's foot is left out
+     (the test's stand-in photo).
   2. Laid one texel a unit: `size` units across the crop (`DEFAULT_UNITS` by base otherwise). Where the crop is
      larger than the texture, the middle of it is taken; smaller, it repeats a whole number of times.
   3. The broad light divided out: each texel over a blur of the brightness at 18% of the crop's shorter side.
@@ -108,7 +111,9 @@ map is not warned of its own look. `test/46-specs.mjs` holds the soft list, so a
      kind's 90th; the mean colour made the tone. A photo cut down a long way (2048 pixels to 96 texels) can give
      grain that is noise again: a share of the grain blurred by a texel (0.25 steps) is mixed in until `structure`
      is 0.05 or more. Patches are not matched on a cell under 48 texels: it repeats too soon to have any.
-  6. The base's structure is drawn over it with no grain of its own: a door's frame, panels, bevels and handle
+  6. Where the cell repeats (a photograph smaller than the texture), the base's patches 16 to 64 texels across
+     (`MOTTLE`) are laid over the whole texture, so the copies differ and the repeat is not a grid; no grain.
+  7. The base's structure is drawn over it with no grain of its own: a door's frame, panels, bevels and handle
      (`colourAt` takes the picture as its `surface`), a tile's grout, bricks' courses, planks' seams, metal's
      panels.
 - **literal**: the crop laid over the texture as it is (repeated if `size` is smaller), made to tile only with
@@ -125,12 +130,16 @@ photograph, and a Valve texture of that kind from halflife.wad (read in place). 
 | --- | --- | --- | --- | --- |
 | plaster | white_plaster_02, 39 | 0.05 | 0.16 | 4 by 4 times; grain x3.9 |
 | plaster | the same, default 96 | 0.04 | 0.13 | grain x8 and softened 0.75 (the scan is very smooth) |
-| stone | concrete_wall_006, 79 | 0.05 | 0.05 | the crop found at 341,85; grain x2.3, softened 0.25 |
-| planks | plywood, 20 | 0.11 | 0.34 | 8 by 8 times, softened 0.75; reads as boards |
+| stone | concrete_wall_006, 79 | 0.05 | 0.06 | the whole scan, 2 by 2 times; grain x1.9 |
+| planks | plywood, 20 | 0.11 | 0.34 | 8 by 8 times, grain x8, softened 0.75; reads as boards |
 | tile | floor_tiles_06, 118, aged | 0.05 | 0.20 | the photo's own checker, made to tile |
 | metal | metal_plate, 20 | 0.10 | 0.25 | 8 by 8 times |
-| door | distressed_painted_planks, 63 | 0.12 | 0.21 | panels, bevels and handle over painted boards |
+| door | distressed_painted_planks, 63 | 0.11 | 0.21 | panels, bevels and handle over painted boards |
 | door | a Fort Atkinson door, literal, rect | 0.10 | 0.24 | the door itself, stretched to 64 by 128 |
+
+A map of them, compiled with SDHLT and drawn from inside (`~/stignored/reference-textures/door-map/`,
+`door-east.png`, `door-north.png`): concrete walls, a plywood floor, a door's panels over painted boards and the
+photographed door as it is.
 
 Looked at: concrete, the door over painted boards, the photographed door and the aged tiles read as material and
 not noise. Small photographs at their real size repeat visibly (plaster at 39 units is a 4 by 4 grid of 32

@@ -427,6 +427,7 @@ export function surfacePicture(given, size = 64, height = size, { readPicture } 
   const { base, tone, seed: s } = material;
   // a picture from a photograph: the whole texture (literal, aged), or the material's detail under its structure
   let detail = null;
+  let repeats = false;
   const facts = [];
   if (material.picture) {
     if (typeof material.picture === "string") {
@@ -442,6 +443,7 @@ export function surfacePicture(given, size = 64, height = size, { readPicture } 
       return [made.image.rgb[i] / 255, made.image.rgb[i + 1] / 255, made.image.rgb[i + 2] / 255];
     };
     detail = at;
+    repeats = made.repeats;
     material = { ...material, surface: at };
   }
   const rgb = new Uint8Array(size * height * 3);
@@ -506,10 +508,13 @@ export function surfacePicture(given, size = 64, height = size, { readPicture } 
         const bevel = u < 2 || v < 2 ? 1.15 : cw - 1 - u < 2 || ch - 1 - v < 2 ? 0.82 : 1;
         c = times(c, edge < 1 ? 0.55 : rivet ? 1.35 : own * bevel);
       }
-      // a used surface's patches and grain, unless a photograph gives them
+      // a used surface's patches and grain, unless a photograph gives them (its patches, where it repeats)
       if (!UNWORN.has(base) && !detail) {
         const patch = roundNoise(x, y, size, height, 32, s + 17);
         c = times(c, (1 + MOTTLE * (patch - 0.5) * 2) * (1 + GRAIN * grit(x, y, size, height, s + 23)));
+      } else if (!UNWORN.has(base) && repeats) {
+        // a photograph smaller than the texture repeats: the patches go over the whole of it, so the copies differ
+        c = times(c, 1 + MOTTLE * (roundNoise(x, y, size, height, 32, s + 17) - 0.5) * 2);
       }
       rgb.set(c.map((v) => Math.max(0, Math.min(255, Math.round(v * 255)))), (y * size + x) * 3);
     }
