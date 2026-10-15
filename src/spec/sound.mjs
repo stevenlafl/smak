@@ -198,6 +198,17 @@ export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (
     // 8 bits is 256 steps: the dither that hides them is a hiss under every quiet tail, heard as static and as a
     // room that is not there (Steven, listening to the reproduction test's sounds, 2026-10-15). The engine plays
     // 16 as well: 8 only where the file must be small
+    // steady noise is heard as static, and steady noise fading slowly as a reverb that is not there: Steven heard
+    // both in the reproduction test's sounds, and their spectrograms showed an even wash where the game's own
+    // break into grains and tones; taken out, the take under it was clean (2026-10-15)
+    const noisy = sound.layers.map((layer, k) => ({ layer, k })).filter(({ layer }) => layer.kind === "noise" && !layer.post);
+    if (sound.layers.some((layer) => layer.kind === "sample") && noisy.length)
+      warnings.push(`${sound.name}: ${noisy.length} noise layer${noisy.length > 1 ? "s" : ""} (${noisy.map(({ layer, k }) => layer.id ?? `layers[${k}]`).join(", ")}) over a recorded take: a take has its own texture, and steady noise added to it is heard as static (fading, as reverb). Shape the take with its filter and env instead; add a short crack (post: true) or particles for grain`);
+    else {
+      const ringing = noisy.filter(({ layer }) => (layer.length ?? (layer.env?.points ? layer.env.points.at(-1)[0] : (layer.env?.attack ?? 0) + (layer.env?.hold ?? 0) + (layer.env?.decay ?? 0.3))) > 0.3 && !layer.shape?.keys);
+      if (ringing.length)
+        warnings.push(`${sound.name}: ${ringing.map(({ layer, k }) => layer.id ?? `layers[${k}]`).join(", ")}: smooth noise ringing past 0.3 s is heard as static and, as it fades, as a reverb; a real tail breaks into grains (particles, rate falling) and tones (modes): use those for a long tail, or a noise shape that moves (keys)`);
+    }
     if (bits === 8) warnings.push(`${sound.name}: 8 bits adds a hiss under its quiet tail, heard as static (and, on a long tail, as reverb); the game plays 16 bits as well and a copy is not held to the original's depth: leave bits out (16) unless the file must be small`);
     const takes = [{ name: sound.name }, ...(sound.variants ?? [])];
     // its recordings read once, at the sound's rate

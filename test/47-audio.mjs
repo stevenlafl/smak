@@ -274,3 +274,17 @@ test("an 8-bit sound is warned of for its hiss; 16 bits, the default, is not", (
   sure(buildSoundSpec(spec(8)).report.warnings.some((w) => /x\/tick\.wav: 8 bits adds a hiss under its quiet tail/.test(w)), "8 bits warned of");
   sure(!buildSoundSpec(spec()).report.warnings.some((w) => /8 bits/.test(w)), "16 bits not");
 });
+
+test("noise over a take, and smooth noise ringing past 0.3 s, are warned of as static and reverb", () => {
+  const folder = join(tmp, "noisy");
+  mkdirSync(join(folder, "gen"), { recursive: true });
+  const take = Float32Array.from({ length: 24000 }, (_, i) => 0.5 * Math.exp(-i / 3000) * Math.sin((2 * Math.PI * 500 * i) / 48000));
+  writeFileSync(join(folder, "gen", "t_s0.wav"), generated(take, take));
+  const base = { spec: "smak.sound/1", name: "x/hit.wav" };
+  const over = buildSoundSpec({ ...base, layers: [{ kind: "sample", file: "gen/t_s0.wav" }, { id: "body", kind: "noise", env: { decay: 0.2 } }] }, { folder });
+  sure(over.report.warnings.some((w) => /1 noise layer \(body\) over a recorded take/.test(w)), over.report.warnings.join(" | "));
+  const long = buildSoundSpec({ ...base, layers: [{ id: "wash", kind: "noise", env: { decay: 0.8 } }] }, { folder });
+  sure(long.report.warnings.some((w) => /wash: smooth noise ringing past 0\.3 s/.test(w)), long.report.warnings.join(" | "));
+  const short = buildSoundSpec({ ...base, layers: [{ id: "crack", kind: "noise", env: { decay: 0.05 } }, { kind: "modes", f: 600, decay: 0.6 }] }, { folder });
+  sure(!short.report.warnings.some((w) => /static/.test(w)), short.report.warnings.join(" | "));
+});

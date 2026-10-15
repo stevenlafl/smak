@@ -511,12 +511,18 @@ layer of noise and modes reaches. Ask for the event in plain words (the thing, t
 heavy steel wrench striking a metal pipe, one sharp clang, close-miked, dry, no reverb": a take carries the room
 it imagines, which a game's own sounds mostly lack), its `length`, its `class`, and 4 to 8 seeds; read
 each take's measures against the class and the picture; put the nearest in a `sample` layer `from: "onset"`.
-Then shape it in the spec toward the original: its `length`, a `filter` (a generated hit is often brighter than
+Add no `noise` layer over a take: it has its texture already, and steady noise added to it is heard as static
+(and, fading, as reverb; the build warns of it). Then shape it in the spec toward the original: its `length`, a `filter` (a generated hit is often brighter than
 the game's: a `lowpass` or a `highshelf` cut), the finish's `saturate` and `limit` (to the class's crest), and
 layers of your own under or over it (a `modes` ring, a noise crack, a `tone` thump). Build, read the class
 score, and change one thing at a time; another seed is another take. Layers alone are for what has no real
 source (a beep, a drone) or where no take comes near. Each take's sidecar names its model's licence, and the
 report's facts say when it is non-commercial: tell the person, whose call it is.
+
+**Static and reverb.** A steady `noise` layer is heard as static, and one that fades slowly as a reverb the sound
+does not have: a real hit, shot or slide is grains and tones, not a smooth wash. Keep noise short (a crack, a
+blast's first tenth of a second); make a long tail of `particles` (their `rate` falling) and `modes`, or of a noise
+whose `shape` moves through keys. The build warns of smooth noise ringing past 0.3 s.
 
 **From a picture.** `audio.fromPicture(png)` reads a sound's picture as the kit draws it (its label gives the
 length, its marks the rate) and returns a draft spec of tens of numbers: one noise layer whose `shape` moves
