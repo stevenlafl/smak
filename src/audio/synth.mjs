@@ -121,6 +121,13 @@ function layerSamples(layer, seconds, rate, random) {
   const filter = filterChain(layer.filter, rate);
   const env = (t) => envelopeAt(layer.env, t);
   switch (layer.kind) {
+    case "sample": {
+      // a recording (a generator's take), already at this rate (buildSoundSpec reads and resamples it): its
+      // own loudness kept unless the layer gives an envelope
+      const pcm = layer.pcm ?? new Float32Array(0);
+      for (let i = 0; i < n && i < pcm.length; i++) out[i] = filter(pcm[i], i / rate) * (layer.env ? env(i / rate) : 1);
+      break;
+    }
     case "noise": {
       if (layer.shape) {
         // its spectrum given as a curve: made in the frequency domain, then filtered and enveloped as any noise
@@ -300,6 +307,7 @@ function crestOf(x) {
 /** How long a layer takes to die away when it is not told: its envelope's attack, hold and decay (to -60 dB). */
 function naturalLength(layer) {
   if (layer.length) return layer.length;
+  if (layer.kind === "sample") return (layer.pcm?.length ?? 0) / (layer.pcmRate || 22050);
   const env = layer.env ?? {};
   if (env.points) return env.points.at(-1)[0];
   const decay = layer.kind === "modes" ? (layer.modes ? Math.max(...layer.modes.map((m) => m.decay)) : (layer.decay ?? 0.5)) : (env.decay ?? 0.3);

@@ -908,7 +908,7 @@ function build(folders, args) {
   }
   if (spec?.spec === "smak.sound/1") {
     // sounds: each file under work:sound/, as the game's own folder has them; the picture of them all
-    const { report, files, picture } = buildSoundSpec(spec, { games: folders.wads ?? [], readPicture: (name) => smak.unpicture(readFileSync(pathOf(folders, name))) });
+    const { report, files, picture } = buildSoundSpec(spec, { games: folders.wads ?? [], readPicture: (name) => smak.unpicture(readFileSync(pathOf(folders, name))), readFile: (name) => readFileSync(pathOf(folders, name)) });
     const lines = reportLines(report);
     // the spec kept beside what it made, as a model's and a map's are (named after its first sound)
     const first = spec.name ?? spec.sounds?.[0]?.name ?? "sound";

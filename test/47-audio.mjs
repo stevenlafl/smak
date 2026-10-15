@@ -7,6 +7,7 @@ import { test, testAsync, sure, tmp } from "./helper.mjs";
 import { toolsFor } from "../mcp/tools.mjs";
 import { buildMapSpec } from "../src/spec/map.mjs";
 import { buildModelSpec } from "../src/spec/model.mjs";
+import { buildSoundSpec, validateSoundSpec } from "../src/spec/sound.mjs";
 import { writeFileSync, mkdirSync } from "node:fs";
 
 const { audio: A } = smak;
@@ -147,3 +148,68 @@ test("a weapon's sounds: made with it, one an animation plays written as its eve
   sure(/reload plays weapons\/rod_reload.wav at frame 4 \(event 5004\), with 1.60 s of the animation left/.test(report.facts.join("\n")), report.facts.join(" | "));
 });
 
+
+/** The bytes of a WAVE file a generator writes: stereo, at 48 kHz, as 24-bit whole numbers or 32-bit floats, plain or extensible. */
+function generated(left, right, { rate = 48000, bits = 32, float = true, extensible = false } = {}) {
+  const width = bits / 8;
+  const data = Buffer.alloc(left.length * 2 * width);
+  left.forEach((v, i) =>
+    [v, right[i]].forEach((s, c) => {
+      const o = (i * 2 + c) * width;
+      if (float) data.writeFloatLE(s, o);
+      else data.writeIntLE(Math.round(s * 8388607), o, 3);
+    }),
+  );
+  const fmt = Buffer.alloc(extensible ? 40 : 16);
+  fmt.writeUInt16LE(extensible ? 0xfffe : float ? 3 : 1, 0);
+  fmt.writeUInt16LE(2, 2);
+  fmt.writeUInt32LE(rate, 4);
+  fmt.writeUInt32LE(rate * 2 * width, 8);
+  fmt.writeUInt16LE(2 * width, 12);
+  fmt.writeUInt16LE(bits, 14);
+  if (extensible) {
+    fmt.writeUInt16LE(22, 16);
+    fmt.writeUInt16LE(float ? 3 : 1, 24);
+  }
+  const chunk = (id, body) => Buffer.concat([Buffer.from(id, "ascii"), Buffer.from(Uint32Array.of(body.length).buffer), body]);
+  return chunk("RIFF", Buffer.concat([Buffer.from("WAVE", "ascii"), chunk("fmt ", fmt), chunk("data", data)]));
+}
+
+test("a generator's take read whole: 24-bit and float, plain and extensible, its channels mixed, brought to the game's rate", () => {
+  const n = 4800;
+  const left = Float32Array.from({ length: n }, (_, i) => 0.5 * Math.sin((2 * Math.PI * 1000 * i) / 48000));
+  const right = Float32Array.from(left, (v) => v * 0.5);
+  for (const kind of [{ float: true }, { float: false, bits: 24 }, { float: true, extensible: true }, { float: false, bits: 24, extensible: true }]) {
+    const wav = A.readWav(generated(left, right, kind));
+    sure(wav.rate === 48000 && wav.channels === 2 && wav.samples === n && wav.x.every((v, i) => Math.abs(v - 0.75 * left[i]) < 1e-5), `${JSON.stringify(kind)}: ${wav.format} ${wav.bits}`);
+  }
+  // to 22050: the tone kept at its level, a tone over the new rate's half taken out, not folded down
+  const both = Float32Array.from({ length: 48000 }, (_, i) => Math.sin((2 * Math.PI * 1000 * i) / 48000) + 0.5 * Math.sin((2 * Math.PI * 20000 * i) / 48000));
+  const y = A.resample(both, 48000, RATE);
+  const inner = y.subarray(500, -500);
+  const rms = Math.sqrt(inner.reduce((s, v) => s + v * v, 0) / inner.length);
+  sure(y.length === RATE && Math.abs(rms - Math.SQRT1_2) < 0.005, `${y.length} samples, rms ${rms}`);
+});
+
+test("a sample layer: a generator's take cut at its first hit, brought to the sound's rate, filtered, and what made it told", () => {
+  const folder = join(tmp, "sampled");
+  mkdirSync(join(folder, "gen"), { recursive: true });
+  // 0.3 s of nothing, then a ringing hit for 0.5 s, at 48 kHz in stereo floats
+  const hit = Float32Array.from({ length: 38400 }, (_, i) => (i < 14400 ? 0 : 0.8 * Math.exp(-(i - 14400) / 4000) * Math.sin((2 * Math.PI * 800 * (i - 14400)) / 48000)));
+  writeFileSync(join(folder, "gen", "hit_s2.wav"), generated(hit, hit));
+  writeFileSync(join(folder, "gen", "hit_s2.json"), JSON.stringify({ model: "woosh-dflow", seed: 2, prompt: "a wrench hitting a pipe", licence: "CC-BY-NC 4.0" }));
+  const spec = { spec: "smak.sound/1", name: "weapons/cbar_hit1.wav", class: "metal hit", layers: [{ id: "take", kind: "sample", file: "gen/hit_s2.wav", from: "onset", filter: [{ type: "highpass", f: 200 }] }] };
+  const { report, files } = buildSoundSpec(spec, { folder });
+  sure(!report.errors.length, report.errors.join("; "));
+  const made = A.readWav(files[0].bytes);
+  // its first hit at the start, not 0.3 s in, and the file not cut longer than the take after it
+  const firstLoud = made.x.findIndex((v) => Math.abs(v) > 0.05);
+  sure(made.rate === RATE && firstLoud < RATE * 0.02 && made.samples <= RATE * 0.52, `rate ${made.rate}, first loud sample ${firstLoud}, ${made.samples} samples`);
+  sure(report.facts.some((f) => /sample gen\/hit_s2\.wav: 48000 Hz 2 channels mixed, from 0\.29\d? s.*woosh-dflow seed 2 from "a wrench hitting a pipe", licence CC-BY-NC 4\.0/.test(f)), report.facts.join(" | "));
+  sure(report.warnings.some((w) => /may not be sold/.test(w)), report.warnings.join(" | "));
+  sure(spec.layers[0].pcm === undefined, "the caller's spec left as it was");
+  const missing = buildSoundSpec({ ...spec, layers: [{ kind: "sample", file: "gen/none.wav" }] }, { folder });
+  sure(missing.report.errors.some((e) => /the sample gen\/none\.wav/.test(e)), missing.report.errors.join("; "));
+  const bad = validateSoundSpec({ ...spec, layers: [{ kind: "sample", from: -1 }] });
+  sure(bad.errors.some((e) => /\.file: a \.wav/.test(e)) && bad.errors.some((e) => /\.from: seconds/.test(e)), bad.errors.join("; "));
+});

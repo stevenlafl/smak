@@ -8,7 +8,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { render, MODE_SETS } from "../audio/synth.mjs";
-import { writeWav, readWav, RATES } from "../audio/wav.mjs";
+import { writeWav, readWav, resample, RATES } from "../audio/wav.mjs";
 import { checks } from "../audio/measure.mjs";
 import { CLASSES, scoreAgainst, rangesOf } from "../audio/classes.mjs";
 import { soundPicture } from "../audio/draw.mjs";
@@ -17,8 +17,10 @@ import { unpicture } from "../image.mjs";
 
 export const SOUND_SPEC = "smak.sound/1";
 const TOP = ["spec", "name", "class", "rate", "bits", "seed", "length", "pitch", "layers", "finish", "loop", "variants", "reference", "picture", "sounds", "note"];
-const LAYER = ["id", "kind", "at", "length", "gain", "env", "filter", "color", "shape", "iterations", "wave", "f", "sweep", "ratio", "index", "indexDecay", "ratios", "modes", "gains", "decay", "damping", "detune", "count", "rate", "every", "jitter", "band", "grain", "drive", "post", "note"];
-const KINDS = ["noise", "tone", "fm", "modes", "particles"];
+const LAYER = ["id", "kind", "file", "from", "at", "length", "gain", "env", "filter", "color", "shape", "iterations", "wave", "f", "sweep", "ratio", "index", "indexDecay", "ratios", "modes", "gains", "decay", "damping", "detune", "count", "rate", "every", "jitter", "band", "grain", "drive", "post", "note"];
+const KINDS = ["noise", "tone", "fm", "modes", "particles", "sample"];
+/** Licences a take's sidecar may name that do not allow selling what is made with it. */
+const NON_COMMERCIAL = /\bNC\b|non-?commercial|research only/i;
 const FILTERS = ["lowpass", "highpass", "bandpass", "peak", "notch"];
 /** The longest a sound's path may be from the mod's folder: the engine's 64 with its zero, `sound/` added. */
 const LONGEST_NAME = 63 - "sound/".length;
@@ -64,6 +66,10 @@ export function validateSoundSpec(spec) {
       for (const key of Object.keys(layer ?? {})) if (!LAYER.includes(key)) warnings.push(`${label}.${key}: not a field of a layer, left out`);
       if (!KINDS.includes(layer?.kind)) errors.push(`${label}.kind: ${KINDS.join(", ")}`);
       if (["tone", "fm"].includes(layer?.kind) && !isNumber(layer.f)) errors.push(`${label}.f: its frequency in Hz`);
+      if (layer?.kind === "sample") {
+        if (typeof layer.file !== "string" || !/\.wav$/i.test(layer.file)) errors.push(`${label}.file: a .wav in the work folder (a generator's take: "work:gen/hit_s2.wav")`);
+        if (layer.from !== undefined && layer.from !== "onset" && !(isNumber(layer.from) && layer.from >= 0)) errors.push(`${label}.from: seconds into the file to start at, or "onset" (its first hit)`);
+      } else if (layer?.file !== undefined || layer?.from !== undefined) warnings.push(`${label}: file and from are a sample layer's, left out`);
       if (layer?.kind === "modes" && !isNumber(layer.f) && !Array.isArray(layer.modes))
         errors.push(`${label}: f (the lowest mode's Hz) with ratios (${Object.keys(MODE_SETS).join(", ")} or a list), or modes: [{ f, gain, decay }]`);
       if (layer?.kind === "modes" && typeof layer.ratios === "string" && !MODE_SETS[layer.ratios]) errors.push(`${label}.ratios: ${Object.keys(MODE_SETS).join(", ")}, or a list of numbers`);
@@ -87,6 +93,43 @@ export function validateSoundSpec(spec) {
       if (typeof variant?.name !== "string" || !/^[a-z0-9_\-/]+\.wav$/.test(variant.name)) errors.push(`${where(`variants[${k}]`)}.name: the variant's own file under sound/`);
   }
   return { errors, warnings };
+}
+
+/** The seconds from a recording's start to its first hit: 5 ms before the first sample over a thirtieth of its peak. */
+function onsetOf(x, rate) {
+  let peak = 0;
+  for (const v of x) peak = Math.max(peak, Math.abs(v));
+  const over = peak / 31.6;
+  const i = x.findIndex((v) => Math.abs(v) >= over);
+  return Math.max(0, i / rate - 0.005);
+}
+
+/**
+ * A sample layer with its recording: the file read (any PCM or float WAV, its channels mixed), brought to the
+ * sound's rate, cut from `from` (seconds, or "onset": its first hit) for `length`, and what made it told from the
+ * sidecar a generator writes beside it (`<file>.json`: model, prompt, seed, licence), a licence that does not
+ * allow selling warned of.
+ */
+function sampleOf(layer, rate, readFile, fact, warn) {
+  let wav;
+  try {
+    wav = readWav(readFile(layer.file));
+  } catch (error) {
+    throw new Error(`the sample ${layer.file}: ${error.message}`);
+  }
+  let pcm = resample(wav.x, wav.rate, rate);
+  const from = layer.from === "onset" ? onsetOf(pcm, rate) : (layer.from ?? 0);
+  pcm = pcm.subarray(Math.min(pcm.length, Math.round(from * rate)), layer.length ? Math.round((from + layer.length) * rate) : undefined);
+  let made = null;
+  try {
+    made = JSON.parse(readFile(layer.file.replace(/\.wav$/i, ".json")).toString("utf8"));
+  } catch {
+    made = null;
+  }
+  fact(`sample ${layer.file}: ${wav.rate} Hz ${wav.channels > 1 ? `${wav.channels} channels mixed, ` : ""}from ${Math.round(from * 1000) / 1000} s, ${Math.round((pcm.length / rate) * 1000) / 1000} s at ${rate}${made ? `; made by ${made.model ?? "?"}${made.seed !== undefined ? ` seed ${made.seed}` : ""}${made.prompt ? ` from "${made.prompt}"` : ""}, licence ${made.licence ?? "not given"}` : "; no sidecar says what made it"}`);
+  if (made?.licence && NON_COMMERCIAL.test(made.licence)) warn(`the sample ${layer.file} was made by ${made.model} under ${made.licence}: what is made with it may not be sold`);
+  if (!pcm.length) throw new Error(`the sample ${layer.file} has nothing after ${from} s`);
+  return { ...layer, pcm, pcmRate: rate };
 }
 
 /** A game's own file of the sound folders given, read: { name, x, rate } or null. */
@@ -134,16 +177,25 @@ function againstPicture(f, seen, sound) {
  * (unless given, from `folder`). Returns { report: { ok, errors, faults, warnings, facts, sounds }, files:
  * [{ name, bytes }], picture }.
  */
-export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (name) => unpicture(readFileSync(resolve(folder, name))) } = {}) {
+export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (name) => unpicture(readFileSync(resolve(folder, name))), readFile = (name) => readFileSync(resolve(folder, name)) } = {}) {
   const { errors, warnings } = validateSoundSpec(spec);
   const report = { ok: false, errors, faults: [], warnings, facts: [], sounds: {} };
   const files = [];
   const rows = [];
   if (errors.length) return { report, files, picture: null };
-  for (const sound of soundsOf(spec)) {
+  for (const given of soundsOf(spec)) {
+    // a copy: its sample layers are given their recordings below, and the caller's spec is left as it was
+    const sound = { ...given };
     const rate = sound.rate ?? 22050;
     const bits = sound.bits ?? 16;
     const takes = [{ name: sound.name }, ...(sound.variants ?? [])];
+    // its recordings read once, at the sound's rate
+    try {
+      sound.layers = sound.layers.map((layer, k) => (layer.kind === "sample" ? sampleOf(layer, rate, readFile, (line) => report.facts.push(`${sound.name}: layers[${k}]${layer.id ? ` (${layer.id})` : ""}: ${line}`), (line) => warnings.push(`${sound.name}: layers[${k}]${layer.id ? ` (${layer.id})` : ""}: ${line}`)) : layer));
+    } catch (error) {
+      errors.push(`${sound.name}: ${error.message}`);
+      continue;
+    }
     // the picture it is to be, read once: its numbers, never its samples
     let seen = null;
     if (sound.picture) {

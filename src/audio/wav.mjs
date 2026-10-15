@@ -4,11 +4,16 @@
 //
 //   readWav(bytes)                          -> { format, channels, rate, bits, samples, x (Float32Array, -1..1), cue, chunks }
 //   writeWav(x, { rate, bits, loop, seed }) -> bytes: mono, a cue at `loop` (a sample) when given
+//   resample(x, from, to)                   -> x at another rate, band-limited (a generator's 44.1 or 48 kHz to the game's)
 
 /** The rates both engines take as they are. */
 export const RATES = [11025, 22050, 44100];
 
-/** A file's samples and what it says of itself. A stereo file is read as the mean of its channels. */
+/**
+ * A file's samples and what it says of itself. A stereo file is read as the mean of its channels. Any PCM
+ * the game's tools or a generator write: 8, 16, 24 or 32-bit whole numbers, 32 or 64-bit floats, plain or in
+ * the extensible format's wrapper (`format` is then the one inside it).
+ */
 export function readWav(bytes) {
   if (bytes.toString("ascii", 0, 4) !== "RIFF" || bytes.toString("ascii", 8, 12) !== "WAVE") throw new Error("not a WAVE file (RIFF/WAVE)");
   let at = 12;
@@ -21,7 +26,11 @@ export function readWav(bytes) {
     const length = bytes.readUInt32LE(at + 4);
     const body = bytes.subarray(at + 8, Math.min(bytes.length, at + 8 + length));
     chunks.push(id);
-    if (id === "fmt ") fmt = { format: body.readUInt16LE(0), channels: body.readUInt16LE(2), rate: body.readUInt32LE(4), bits: body.readUInt16LE(14) };
+    if (id === "fmt ") {
+      fmt = { format: body.readUInt16LE(0), channels: body.readUInt16LE(2), rate: body.readUInt32LE(4), bits: body.readUInt16LE(14) };
+      // WAVE_FORMAT_EXTENSIBLE: the real format is the first two bytes of its sub-format's GUID
+      if (fmt.format === 0xfffe && body.length >= 26) fmt.format = body.readUInt16LE(24);
+    }
     else if (id === "data") data = body;
     else if (id === "cue ") {
       const count = body.readUInt32LE(0);
@@ -30,14 +39,28 @@ export function readWav(bytes) {
     at += 8 + length + (length & 1);
   }
   if (!fmt || !data) throw new Error("a WAVE file without its fmt or data chunk");
+  if (fmt.format !== 1 && fmt.format !== 3) throw new Error(`a WAVE file of format ${fmt.format}: PCM (1) or float (3) only`);
+  if (fmt.format === 1 ? ![8, 16, 24, 32].includes(fmt.bits) : ![32, 64].includes(fmt.bits)) throw new Error(`a WAVE file of ${fmt.bits}-bit ${fmt.format === 1 ? "PCM" : "float"}`);
   const width = fmt.bits / 8;
+  const sample =
+    fmt.format === 3
+      ? width === 4
+        ? (o) => data.readFloatLE(o)
+        : (o) => data.readDoubleLE(o)
+      : width === 1
+        ? (o) => (data[o] - 128) / 128
+        : width === 2
+          ? (o) => data.readInt16LE(o) / 32768
+          : width === 3
+            ? (o) => data.readIntLE(o, 3) / 8388608
+            : (o) => data.readInt32LE(o) / 2147483648;
   const samples = Math.floor(data.length / width / fmt.channels);
   const x = new Float32Array(samples);
   for (let i = 0; i < samples; i++) {
     let sum = 0;
     for (let c = 0; c < fmt.channels; c++) {
       const o = (i * fmt.channels + c) * width;
-      sum += width === 1 ? (data[o] - 128) / 128 : data.readInt16LE(o) / 32768;
+      sum += sample(o);
     }
     x[i] = sum / fmt.channels;
   }
@@ -88,4 +111,31 @@ export function writeWav(x, { rate = 22050, bits = 16, loop = null, seed = 1 } =
   }
   const body = Buffer.concat([Buffer.from("WAVE", "ascii"), ...parts]);
   return chunk("RIFF", body);
+}
+
+/**
+ * `x` at the rate `to` from the rate `from`: each new sample a windowed sinc (Blackman, 16 zero crossings a
+ * side) of the old ones, cut off under the lower rate's half, so that a 48 kHz take brought to 22050 does not
+ * fold its top octave back down as hiss.
+ */
+export function resample(x, from, to) {
+  if (from === to) return Float32Array.from(x);
+  const ratio = to / from;
+  const cut = Math.min(1, ratio) * 0.95;
+  const half = Math.ceil(16 / cut);
+  const out = new Float32Array(Math.max(1, Math.round(x.length * ratio)));
+  for (let i = 0; i < out.length; i++) {
+    const centre = i / ratio;
+    const j0 = Math.max(0, Math.ceil(centre - half));
+    const j1 = Math.min(x.length - 1, Math.floor(centre + half));
+    let sum = 0;
+    for (let j = j0; j <= j1; j++) {
+      const d = j - centre;
+      const sinc = d === 0 ? 1 : Math.sin(Math.PI * cut * d) / (Math.PI * cut * d);
+      const w = 0.42 + 0.5 * Math.cos((Math.PI * d) / half) + 0.08 * Math.cos((2 * Math.PI * d) / half);
+      sum += x[j] * cut * sinc * w;
+    }
+    out[i] = sum;
+  }
+  return out;
 }

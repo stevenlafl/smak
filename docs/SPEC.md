@@ -481,6 +481,7 @@ The kinds of layer:
 | `fm` | `f`, `ratio`, `index`, `indexDecay` | a bell, a metallic ring, a machine |
 | `modes` | `f` and `ratios` (`bar`, `clamped`, `plate`, `bell`, `tube`, or a list), `gains`, `decay` (s to -60 dB), `damping`, `detune`; or `modes: [{ f, gain, decay }]` | a struck thing ringing: a wrench, a bell, a casing, a plate |
 | `particles` | `count` or `rate` (a second), `band: [lo, hi]` Hz, `grain` (s); or `every` (s) and `jitter` (0 to 1 of `every`) | gravel, a rattle, debris, crackle; with `every`, a train of pulses: a door's stop, a ratchet |
+| `sample` | `file` (a `.wav` in the work folder: a generator's take, any rate, channels and PCM or float), `from` (seconds into it, or `"onset"`: its first hit), `length` | a recording: brought to the sound's rate, cut, then filtered, enveloped (only when `env` is given: it keeps its own loudness otherwise), pitched and finished as any layer. A sidecar beside it (`hit_s2.json`: `model`, `prompt`, `seed`, `licence`) is told in the report, and a non-commercial licence warned of |
 
 `env`: `{ attack, hold, decay }` in seconds (`decay` to -60 dB), `{ shape: "bell", decay }` (a swell up and
 down, a swing's whoosh), or `points: [[t, dB], ...]`. `filter`: a list of `{ type: lowpass | highpass |
