@@ -219,6 +219,9 @@ async function reproduce(kind, subject, leg) {
   const want = kind === "textures" ? "frenzy_new.wad" : basename(subject.file);
   const found = newest((n) => n === want) ?? newest((n) => n.endsWith(ext));
   if (found) copyFileSync(found.p, join(built, basename(want)));
+  // the maker's folder, all of it kept above that is wanted: removed, and only ever a folder this run made
+  const made = dirname(r.work);
+  if (basename(made).startsWith("smak-repro-") && dirname(made) === tmpdir()) rmSync(made, { recursive: true, force: true });
   writeFileSync(join(out, "run.json"), `${JSON.stringify({ kit, model: r.model, generators: generators ? "generate" : null, licencesAccepted: kind === "sounds" && ACCEPT ? true : undefined, seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, built: found?.name ?? null }, null, 1)}\n`);
   return `${kind}/${subject.id}:${leg}: ${r.seconds} s, built ${found?.name ?? "nothing"}`;
 }
