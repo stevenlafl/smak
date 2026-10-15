@@ -9,10 +9,14 @@
 //   flags  the texture's flags in words: "fullbright" (not dimmed by the room: a flame, a lamp's glass),
 //          "additive" (a glow), "chrome", "masked"
 // Colours are [r, g, b] from 0 to 1, as the workshop's.
-import { wood, iron, steel, fbm, noise, mix, times, bell, step } from "../workshop.mjs";
+import { wood, iron, steel, fbm, noise, rand, smooth, mix, times, bell, step } from "../workshop.mjs";
 import { colourFromWords } from "./colours.mjs";
 
-/** Each base with the colour it has unless told, in words for the guide. */
+/**
+ * Each base with the colour it has unless told, in words for the guide. A map's plain surfaces (plaster, siding,
+ * brick, grass) are no brighter or more coloured than nine in ten of Valve's walls and floors (src/spec/look.mjs);
+ * wood, iron and steel keep theirs, since a given tone is painted as its share of them.
+ */
 export const MATERIALS = {
   wood: { tone: [0.46, 0.32, 0.19], what: "planks, a barrel, a handle" },
   darkwood: { tone: [0.25, 0.16, 0.1], what: "old oak, a dark stained post" },
@@ -24,13 +28,13 @@ export const MATERIALS = {
   leather: { tone: [0.33, 0.2, 0.11], what: "a strap, a saddle, a bag" },
   cloth: { tone: [0.6, 0.55, 0.45], what: "sacking, a banner, a cushion" },
   stone: { tone: [0.5, 0.49, 0.46], what: "carved or rough stone" },
-  brick: { tone: [0.55, 0.27, 0.19], what: "a wall of bricks (maps: laid in courses)" },
-  plaster: { tone: [0.78, 0.75, 0.68], what: "a plain wall" },
+  brick: { tone: [0.51, 0.285, 0.22], what: "a wall of bricks (maps: laid in courses)" },
+  plaster: { tone: [0.56, 0.54, 0.49], what: "a plain wall" },
   tile: { tone: [0.62, 0.6, 0.56], what: "a floor of square tiles" },
   planks: { tone: [0.45, 0.31, 0.18], what: "a floor or a wall of boards (maps)" },
   door: { tone: [0.42, 0.28, 0.16], what: "a panelled wooden door with its handle, one picture 64 by 128 fitted to the leaf (maps)" },
   metal: { tone: [0.4, 0.39, 0.37], what: "plates of metal with seams (maps: a lab, a ship)" },
-  grass: { tone: [0.28, 0.42, 0.18], what: "a lawn, a field (maps)" },
+  grass: { tone: [0.29, 0.41, 0.21], what: "a lawn, a field (maps)" },
   dirt: { tone: [0.4, 0.3, 0.2], what: "bare earth, a path (maps)" },
   glass: { tone: [0.55, 0.7, 0.75], what: "a pane; with fullbright, a lit window" },
   flame: { tone: [1, 0.7, 0.25], what: "a flame or a glowing coal: fullbright on its own" },
@@ -42,7 +46,7 @@ export const MATERIALS = {
   bone: { tone: [0.86, 0.82, 0.7], what: "bone, ivory, a skull" },
   rope: { tone: [0.62, 0.52, 0.34], what: "rope, twine, straw" },
   snow: { tone: [0.92, 0.94, 0.97], what: "snow lying on the ground or a roof" },
-  siding: { tone: [0.82, 0.84, 0.8], what: "a house's outside: painted clapboards, laid level (maps: the walls of a building)" },
+  siding: { tone: [0.62, 0.64, 0.61], what: "a house's outside: painted clapboards, laid level (maps: the walls of a building)" },
   shingles: { tone: [0.3, 0.27, 0.25], what: "a roof: rows of shingles, staggered (maps: a building's roof)" },
   mesh: { tone: [0.12, 0.12, 0.12], what: "a net, a wire fence, a grille: a grid of cords in its tone with holes between (masked: seen through). `cell`: the holes' size in units (2); `weave: \"diamond\"` a chain-link's diagonal cords" },
 };
@@ -281,6 +285,41 @@ export function zonePainter(material, zone, px, { round = null } = {}) {
  * when laid side by side, one texel a unit as the map draws it. Bricks, tiles, planks and metal are laid in their
  * courses; the rest are the material's own grain, made to tile. Returns { width, height, rgb }.
  */
+/**
+ * Smooth noise that comes round exactly every `w` by `h` texels: lumps `cell` texels across, then three finer
+ * layers, each half as strong. 0 to 1, about 0.5 on the whole.
+ */
+function roundNoise(x, y, w, h, cell, s) {
+  let sum = 0;
+  let total = 0;
+  for (let k = 0, strength = 1; k < 3; k++, strength *= 0.5) {
+    const size = cell / 2 ** k;
+    const [px, py] = [Math.max(1, Math.round(w / size)), Math.max(1, Math.round(h / size))];
+    const [u, v] = [(x / w) * px, (y / h) * py];
+    const [xi, yi] = [Math.floor(u), Math.floor(v)];
+    const [fx, fy] = [smooth(u - xi), smooth(v - yi)];
+    const at = (i, j) => rand(((i % px) + px) % px, ((j % py) + py) % py, s + 31 * k);
+    const [a, b, c, d] = [at(xi, yi), at(xi + 1, yi), at(xi, yi + 1), at(xi + 1, yi + 1)];
+    sum += strength * (a + (b - a) * fx + (c - a) * fy + (a - b - c + d) * fx * fy);
+    total += strength;
+  }
+  return sum / total;
+}
+
+/**
+ * Bases a map's picture is left even on: light passes through or comes out of them, or they move.
+ */
+export const UNWORN = new Set(["glass", "flame", "neon", "water"]);
+/**
+ * How much a used surface varies, as Valve's walls and floors do (research/texture-stats.mjs: 347 of
+ * halflife.wad's): patches 16 to 64 texels across a little lighter and darker (`MOTTLE`), each tile or panel a
+ * tone of its own (`CELL_TONE`), and grain texel by texel (`GRAIN`). Even, the kit's pictures were flatter than
+ * nine in ten of Valve's, which Steven saw as cheap.
+ */
+const MOTTLE = 0.3;
+const CELL_TONE = 0.1;
+const GRAIN = 0.16;
+
 export function surfacePicture(given, size = 64, height = size) {
   // a mesh (a fence, a grille): cords and holes laid exactly on the tile, one texel a unit, the holes as
   // see-through pixels (rgba): no seamless blending, which would mix the holes into the cords
@@ -334,9 +373,12 @@ export function surfacePicture(given, size = 64, height = size) {
         const brick = times(c, 0.85 + 0.3 * (noise(Math.floor(shifted / brickL), course, s) - 0.5));
         c = edge < 1.5 ? times(mortar, 0.9 * (0.9 + 0.2 * (noise(x, y, s + 3) - 0.5))) : brick;
       } else if (base === "tile") {
+        // grout, then each tile's bevel lit from the top left and in shadow at the bottom right
         const [u, v] = [x % cw, y % ch];
         const edge = Math.min(u, cw - 1 - u, v, ch - 1 - v);
-        c = edge < 1 ? times(tone, 0.55) : times(c, edge < 3 ? 1.08 : 1);
+        const own = 1 + CELL_TONE * (rand(Math.floor(x / cw), Math.floor(y / ch), s + 5) - 0.5) * 2;
+        const bevel = u < 2 || v < 2 ? 1.12 : cw - 1 - u < 2 || ch - 1 - v < 2 ? 0.86 : 1;
+        c = edge < 1 ? times(tone, 0.5) : times(c, own * bevel);
       } else if (base === "planks") {
         // boards 16 wide along x (`board`), their ends staggered
         const board = Math.floor(y / boardW);
@@ -348,7 +390,13 @@ export function surfacePicture(given, size = 64, height = size) {
         const [u, v] = [x % cw, y % ch];
         const edge = Math.min(u, cw - 1 - u, v, ch - 1 - v);
         const rivet = Math.hypot(u - 4, v - 4) < 1.5;
-        c = times(c, edge < 1 ? 0.55 : rivet ? 1.35 : edge < 2 ? 1.15 : 1);
+        const own = 1 + CELL_TONE * (rand(Math.floor(x / cw), Math.floor(y / ch), s + 5) - 0.5) * 2;
+        const bevel = u < 2 || v < 2 ? 1.15 : cw - 1 - u < 2 || ch - 1 - v < 2 ? 0.82 : 1;
+        c = times(c, edge < 1 ? 0.55 : rivet ? 1.35 : own * bevel);
+      }
+      if (!UNWORN.has(base)) {
+        const patch = roundNoise(x, y, size, height, 32, s + 17);
+        c = times(c, (1 + MOTTLE * (patch - 0.5) * 2) * (1 + GRAIN * (rand(x, y, s + 23) - 0.5) * 2));
       }
       rgb.set(c.map((v) => Math.max(0, Math.min(255, Math.round(v * 255)))), (y * size + x) * 3);
     }

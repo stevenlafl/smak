@@ -302,6 +302,15 @@ picture (made to divide it, so that it tiles): `cell` a `tile`'s or a `metal` pa
 stripe width and slant (1.06 at 45 degrees). `rust` (0 to 1) a metal's rust; `flags: ["fullbright"]` makes it shine in the dark
 (`flame` and `neon` are so already; such parts get a texture of their own).
 
+A map's pictures are painted as used surfaces, as Valve's are: patches a little lighter and darker, each tile and
+panel a tone of its own with its bevel lit from the top left, and grain texel by texel (not glass, flames, neon or
+water). Pick tones within Valve's: nine in ten of Half-Life's walls and floors are no brighter than 0.57 and no
+more coloured than 0.18 (a pixel's highest channel less its lowest), and half are under 0.33 and 0.08. A white
+wall is 0.55 to 0.6 there, not 0.9: the game's light brightens it again. A pale tone keeps less of a wood's grain,
+as paint over it does. The report warns of each of the map's own pictures past nine in ten of Valve's (`WARN N of
+the map's own textures look unlike...`), saying which way: brighter, more coloured, or too even. Snow and bone may
+be bright, and brass, gold, copper, leather, rope, `paint` and `hazard` coloured.
+
 ### The finish
 
 Over its material, each part's picture is painted from the shape itself, unless the spec says `"finish":
@@ -494,7 +503,9 @@ grille over a dark hole), `louvre` (`at`, `size`, `count`), `rivets` (`from`, `t
 (`from`, `to`, `width`, `notched`: a groove) and `lamp` (`at`, `size`, `colour`: a lamp's face bright in its
 middle; name the texture with `~` and light it with the map's texture lights). A game's concrete
 has a texel's own grain all over it (`speckle`) and blotches (`stains`); its machinery, streaks and scratches.
-A plain fill reads as flat beside it. A name
+A plain fill reads as flat beside it; every material is painted with some patches and grain already, and the
+report warns, as a map's does, of a texture brighter, more coloured or more even than nine in ten of Valve's
+("Materials"). A name
 is one word of 15 letters at most and its first letters mean what a map's do (`{` holes, `!` a liquid, `+0` an
 animation's first frame, `-0` the first of random tiles); sides are multiples of 16, 512 at most. The build
 writes the .wad and a sheet of its textures. With `preview.map`, a compiled map of the models or work folder is
@@ -701,8 +712,10 @@ stacked) with the wall's rock between them, and the link goes through that rock:
   from whoever opens it about its hinge at the start of the way (`hinge: "end"` the other edge), opened and
   closed with the use key and never by walking into it (`spawnflags` 256 + 32: use only, toggle). Other keys of
   `door` are the entity's (`speed`, `wait`, `targetname`); `material` its own, the theme's `door` unless told,
-  which is the `door` base: a panelled wooden door with a brass handle, one picture fitted to the leaf. A sliding
-  door is opened and closed by use too. Any door's picture is fitted to its leaf, one whole picture across it.
+  which is the `door` base: a panelled wooden door with a brass handle, one picture fitted to the leaf. A
+  material of another base (`{ "base": "wood", "tone": "white" }`) is painted as that door in its tone, unless
+  it names a game's texture. A sliding door is opened and closed by use too. Any door's picture is fitted to its
+  leaf, one whole picture across it.
 - `window`: 48 by 48, `sill` (40) over the higher floor. Nothing walks through a window. `glass: true` (or
   `{ alpha, health, material }`) glazes it: a `func_breakable` pane, half see-through, that shatters.
 - `stairs`: for rooms stacked one above the other: a stair in the lower room up through a hole in the
@@ -730,7 +743,8 @@ it). `z`: over the floor. `id` names a thing for `beside` (an entity's `id` is a
 Furniture and props must stay in their room: one that reaches into a wall is a fault. The floor 40 deep on
 each side of a door or an opening is kept clear: furniture standing there, between a step over its floor and
 a player's head, that leaves less than 48 of its width free is a fault (steps up to it, a slab, a hedge beside
-a wide opening are not). Nothing floats: each piece of furniture rests on its room's floor, stands against a
+a wide opening are not). So are stairs, over their treads and 40 past their foot, up to a player's head at their
+top. Nothing floats: each piece of furniture rests on its room's floor, stands against a
 wall (or a building standing in the room), reaches its ceiling, or touches a piece that does; one that touches
 none is a fault (flush means flush: a sign 2 off a wall floats). A thing put
 `against` a wall stands 48 from it; a prefab whose origin is its back (a shelf, a bed's headboard) is put at
@@ -861,6 +875,10 @@ and pass the picture as `reference`: it is then drawn beside the plan of the res
   walk test's own sentences, each saying why (no way in, a step too high, a gap of 28 where 32 is wanted).
 - `FAULT ... reaches N into <room>'s <side> wall`: furniture or a prop standing in a wall.
 - `FAULT furniture[n] ... stands in front of links[m]`: in the way of a door or an opening; move it aside.
+  `... stands on or at the foot of the stairs of links[m]`: the same for a flight of stairs.
+- `WARN N of the map's own textures look unlike nine in ten of Valve's walls and floors`: each picture named
+  with what is off: brighter or more coloured than Valve's (with the number and Valve's middle), or too even.
+  Darken or soften its tone ("Materials").
 - `FAULT N pieces of furniture float`: touching no floor, wall, ceiling or other piece; each named with its height.
 - `WARN N pieces of furniture stand on ... under half their footprint`: set on others, not on the floor or a wall,
   with less than half of what they stand on under them (on an edge or a corner when almost none): line each up

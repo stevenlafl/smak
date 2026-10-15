@@ -26,7 +26,8 @@ import { sweepOf, SAFE_DROP, LIGHT_REACH } from "../maps/sweep.mjs";
 import { planOfSource, planOf, drawMap, sectionOf } from "../maps/draw.mjs";
 import { tile, label, render } from "../render.mjs";
 import { png } from "../image.mjs";
-import { materialOf, surfacePicture, MATERIALS } from "./paint.mjs";
+import { materialOf, surfacePicture, MATERIALS, UNWORN } from "./paint.mjs";
+import { lookSentence, ALLOWED } from "./look.mjs";
 import { wadCatalog, pickTexture } from "./wads.mjs";
 import { buildModelSpec, validateModelSpec } from "./model.mjs";
 import { buildSoundSpec } from "./sound.mjs";
@@ -1478,7 +1479,11 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   // ── the files: the .wad of its pictures, and the .map ──
   mkdirSync(out, { recursive: true });
   const wadFile = join(out, `${name}.wad`);
-  writeFileSync(wadFile, writeWad([...used.entries()].map(([key, material]) => ({ name: nameOfKey(key), image: surfacePicture(material, ...pictureSize(key, material)) }))));
+  const pictures = [...used.entries()].map(([key, material]) => ({ name: nameOfKey(key), image: surfacePicture(material, ...pictureSize(key, material)), base: materialOf(material).base }));
+  writeFileSync(wadFile, writeWad(pictures));
+  // a picture flatter, brighter or more coloured than nine in ten of Valve's walls looks cheap in the game
+  const looks = lookSentence(pictures.filter((p) => !p.image.rgba && !UNWORN.has(p.base)).map((p) => ({ ...p, allow: ALLOWED[p.base] })), "of the map's own textures");
+  if (looks) report.warnings.push(looks);
   files.wad = wadFile;
   const gameWads = [...new Set(gameTextures.values())];
   // a sky of the map's own, made from its words, in gfx/env/<map>/ as its models are in models/<map>/; its sun where

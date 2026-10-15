@@ -16,7 +16,8 @@ import { sheet as workshopSheet, fbm } from "../workshop.mjs";
 import { tile } from "../render.mjs";
 import { png } from "../image.mjs";
 import { writeWad } from "../maps/wad.mjs";
-import { materialOf, surfacePicture } from "./paint.mjs";
+import { materialOf, surfacePicture, UNWORN } from "./paint.mjs";
+import { lookSentence, ALLOWED } from "./look.mjs";
 import { paintPanels, paintWords } from "./faces.mjs";
 import { weather, WEAR_LAYERS } from "./weather.mjs";
 import { relief, RELIEF_KINDS } from "./relief.mjs";
@@ -180,6 +181,12 @@ export function buildWadSpec(spec, { out }) {
   const sheetFile = join(out, spec.name.replace(/\.wad$/i, "-textures.png"));
   writeFileSync(sheetFile, png(shown.width, shown.height, shown.rgba));
   report.facts.push(`${textures.length} textures: ${textures.map((t) => `${t.name} ${t.image.width}x${t.image.height}`).join(", ")}`);
+  const bases = spec.textures.map((texture) => {
+    const given = texture.material ?? "plaster";
+    return materialOf(typeof given === "string" && spec.materials?.[given] !== undefined ? spec.materials[given] : given).base;
+  });
+  const looks = lookSentence(textures.map((t, i) => ({ ...t, base: bases[i], allow: ALLOWED[bases[i]] })).filter((t) => !t.image.rgba && !UNWORN.has(t.base)));
+  if (looks) warnings.push(looks);
   report.ok = true;
   return { report, files: { wad, sheet: sheetFile }, textures };
 }

@@ -8,7 +8,8 @@ import { tmpdir } from "node:os";
 import * as smak from "../src/index.mjs";
 import { buildModelSpec, validateModelSpec } from "../src/spec/model.mjs";
 import { buildMapSpec, layoutOf, withIncludes } from "../src/spec/map.mjs";
-import { materialOf, surfacePicture } from "../src/spec/paint.mjs";
+import { materialOf, surfacePicture, MATERIALS, UNWORN } from "../src/spec/paint.mjs";
+import { lookOf, lookFaults, ALLOWED } from "../src/spec/look.mjs";
 import { changesOf } from "../src/spec/changes.mjs";
 import { validateWadSpec } from "../src/spec/wad.mjs";
 import { sword, taper } from "../kits/swordkit.mjs";
@@ -487,6 +488,20 @@ test("a map spec keeps its ways through at ease: no furniture in front of a door
   // a room that shares 40 of wall: a door there is too narrow, and the build says so
   const short = faults({ ...spec([], [40, 40, 128]), rooms: [{ id: "a", size: [256, 256, 128] }, { id: "b", size: [40, 40, 128], place: { east_of: "a" } }] });
   sure(short.some((f) => /links\[0\]: the wall a and b share is 40 long/.test(f)), short.join("; "));
+});
+
+test("a map's pictures look as Valve's walls do: grain, patches, colour and brightness within nine in ten of theirs", () => {
+  // every base the kit paints, at its own tone, passes; it did not while the pictures were even
+  for (const base of Object.keys(MATERIALS).filter((b) => b !== "mesh" && !UNWORN.has(b))) {
+    const said = lookFaults(lookOf(surfacePicture(materialOf({ base }), 128, 128)), ALLOWED[base]);
+    sure(said.length === 0, `${base}: ${said.join(", ")}`);
+  }
+  // a flat white wall, and a picture of one colour, are named
+  const flat = { width: 64, height: 64, rgb: new Uint8Array(64 * 64 * 3).fill(230) };
+  sure(lookFaults(lookOf(flat)).join() === "too even (no grain, no patches),brighter (0.90; Valve's 0.332)", lookFaults(lookOf(flat)).join());
+  const spec = { spec: "smak.map/1", name: "looks", materials: { wall: { base: "plaster", tone: [0.95, 0.95, 0.95] } }, theme: { wall: "wall" }, rooms: [{ id: "a", size: [256, 256, 128] }], entities: [{ class: "info_player_start", room: "a", at: "centre" }] };
+  const report = buildMapSpec(spec, { out: join(folder, "looks"), compilers: { found: false, message: "" } }).report;
+  sure(report.warnings.some((w) => /look unlike nine in ten of Valve's.*brighter/.test(w)), report.warnings.join("; "));
 });
 
 test("stairs are kept clear as a doorway is: on them and at their foot (Kaupo's blocks by its stairs)", () => {
