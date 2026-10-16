@@ -5,7 +5,7 @@
 // texel's. Steven (2026-10-15): "When you have photos, I am not sure why you can't literally use the photo for the
 // reference": a textures leg given views of each texture on its wall takes the texture itself from them.
 //
-//   liftTexture(bsp, name, view, { brightness }) -> { image: { width, height, rgb }, seen, saturated }
+//   liftTexture(bsp, name, view, { brightness }) -> { image: { width, height, rgb }, seen, saturated, tinted }
 // `view`: { width, height, rgba } as placeView drew it. `seen`: the share of the texture's texels the view
 // shows; the rest are filled from the nearest seen, wrapping, since a texture repeats. `saturated`: the share of
 // the seen texels whose view was white (their colour only a floor).
@@ -18,6 +18,12 @@ const texture = (name, width, height, pixels, palette) => ({ name, width, height
 const GREYS = Uint8Array.from({ length: 768 }, (_, i) => Math.floor(i / 3));
 const paletteOf = (c) => Uint8Array.from({ length: 768 }, (_, i) => c[i % 3]);
 
+/** A view pixel whose light's weakest channel is under this share of its strongest is tinted past reading. */
+const TINTED = 0.15;
+
+/** How far (texels) a gap between seen texels is closed from them before the texture is filled by repeating. */
+const CLOSE = 2;
+
 export function liftTexture(bsp, name, view, { brightness = PLACE_BRIGHTNESS, views = null } = {}) {
   const place = texturePlaces(bsp).find((p) => p.name.toLowerCase() === name.toLowerCase());
   if (!place) throw new Error(`no face of the map wears ${name}`);
@@ -29,6 +35,7 @@ export function liftTexture(bsp, name, view, { brightness = PLACE_BRIGHTNESS, vi
   const sum = new Float64Array(W * H * 3);
   const count = new Uint32Array(W * H);
   let saturated = 0;
+  let tinted = 0;
   // each shot: its picture and how to draw from its camera (the place view, and the map's views when given)
   const shots = [{ picture: view, at: brightness, draw: (pixels, palette, light, b) => placeView(bsp, place, { textures: wearing(pixels, palette), brightness: b, light, wearing: "given" }) }];
   if (views) {
@@ -76,6 +83,11 @@ export function liftTexture(bsp, name, view, { brightness = PLACE_BRIGHTNESS, vi
       if (white255) saturated++;
       const at = v * W + u;
       const unlit = grey.rgba[k] === greyBright.rgba[k] && grey.rgba[k + 1] === greyBright.rgba[k + 1] && grey.rgba[k + 2] === greyBright.rgba[k + 2];
+      // a light of one strong colour (a blue lamp on a teal tank) leaves the other channels nearly dark: they
+      // cannot be divided back (c3a2a_tnk1b came back blue, 83 of delta E off)
+      const lights = [0, 1, 2].map((c) => white.rgba[k + c]);
+      // (a black texel is black under any light: not counted)
+      if (!unlit && Math.max(...lights) >= 32 && Math.min(...lights) < TINTED * Math.max(...lights) && Math.max(picture.rgba[k], picture.rgba[k + 1], picture.rgba[k + 2]) > 8) tinted++;
       for (let c = 0; c < 3; c++) {
         const light = unlit ? 1 : (white.rgba[k + c] / 255) * shot.at;
         const seen = picture.rgba[k + c];
@@ -94,7 +106,31 @@ export function liftTexture(bsp, name, view, { brightness = PLACE_BRIGHTNESS, vi
       for (let c = 0; c < 3; c++) rgb[i * 3 + c] = Math.round(sum[i * 3 + c] / count[i]);
       have[i] = 1;
     }
-  // first by repeating the largest seen rectangle across the texture, as the texture repeats on a wall: a wall the
+  // first the gaps of a texture seen sparsely (a far wall: a pixel every few texels) closed from the seen texels
+  // near them, each the mean of those within CLOSE: filled by the largest seen rectangle, which is one texel on
+  // such a grid, they came back speckled (c3a2_bth1, its texel noise 14.8 against the game's 8.6)
+  {
+    const was = have.slice();
+    const near = rgb.slice();
+    for (let v = 0; v < H; v++)
+      for (let u = 0; u < W; u++) {
+        const i = v * W + u;
+        if (was[i]) continue;
+        const pooled = [0, 0, 0];
+        let n = 0;
+        for (let dv = -CLOSE; dv <= CLOSE; dv++)
+          for (let du = -CLOSE; du <= CLOSE; du++) {
+            const j = ((v + dv + H) % H) * W + ((u + du + W) % W);
+            if (!was[j]) continue;
+            for (let c = 0; c < 3; c++) pooled[c] += near[j * 3 + c];
+            n++;
+          }
+        if (n < 2) continue;
+        for (let c = 0; c < 3; c++) rgb[i * 3 + c] = Math.round(pooled[c] / n);
+        have[i] = 1;
+      }
+  }
+  // then by repeating the largest seen rectangle across the texture, as the texture repeats on a wall: a wall the
   // view shows a fifth of came back as streaks when it was filled from its edges alone
   const box = largestSeen(have, W, H);
   if (box && box.w * box.h >= 64) {
@@ -129,7 +165,7 @@ export function liftTexture(bsp, name, view, { brightness = PLACE_BRIGHTNESS, vi
     if (!grew) break;
     left -= grew;
   }
-  return { image: { width: W, height: H, rgb }, seen: Math.round((seen / (W * H)) * 1000) / 1000, saturated: Math.round((saturated / Math.max(1, count.reduce((a, b) => a + b, 0))) * 1000) / 1000 };
+  return { image: { width: W, height: H, rgb }, seen: Math.round((seen / (W * H)) * 1000) / 1000, saturated: Math.round((saturated / Math.max(1, count.reduce((a, b) => a + b, 0))) * 1000) / 1000, tinted: Math.round((tinted / Math.max(1, count.reduce((a, b) => a + b, 0))) * 1000) / 1000 };
 }
 
 /** The largest rectangle of seen texels (the maximal-rectangle-in-a-histogram walk, row by row). */

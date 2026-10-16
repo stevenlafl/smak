@@ -107,9 +107,10 @@ function paintTexture(texture, materials, readPicture, readMap, readText) {
         const i = (Math.floor((y * image.height) / height) * image.width + Math.floor((x * image.width) / width)) * 3;
         rgb.set(image.rgb.subarray(i, i + 3), (y * width + x) * 3);
       }
-    const facts = [`lifted off ${texture.lift.view}: ${Math.round(lifted.seen * 100)}% of its texels seen, ${Math.round(lifted.saturated * 100)}% of those white in the view`];
+    const facts = [`lifted off ${texture.lift.view}: ${Math.round(lifted.seen * 100)}% of its texels seen, ${Math.round(lifted.saturated * 100)}% of those white in the view, ${Math.round(lifted.tinted * 100)}% under a light of one strong colour`];
     const warnings = [];
     if (lifted.seen < 0.3) warnings.push(`lifted off ${texture.lift.view}, which shows ${Math.round(lifted.seen * 100)}% of it: its colour and grain are the texture's own (on frenzy, within 2 to 5 of delta E from 5% seen), and the rest is that part repeated, so a pattern larger than the part (a row of studs, a panel) is not there: add the map's views (views, cameras) to see more of it`);
+    if (lifted.tinted > 0.3) warnings.push(`lifted off ${texture.lift.view}, ${Math.round(lifted.tinted * 100)}% of whose texels are under a light of one strong colour (a blue lamp): their other colours are not there to read and come back as the light's. Paint it, its colour from another view of it or from its name's kind`);
     if (lifted.saturated > 0.3) warnings.push(`lifted off ${texture.lift.view}, ${Math.round(lifted.saturated * 100)}% of whose texels are white in the view (a lamp, a bright light): their colour is not there to read. Paint it instead`);
     return { width, height, rgb, facts, warnings };
   }
