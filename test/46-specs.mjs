@@ -1375,3 +1375,32 @@ test("the compilers' chart of the engine's limits is read; a map spec's furnitur
   sure(/"classname" "func_detail"/.test(text()), "unless told, furniture is func_detail");
   sure(!/func_detail/.test(text("world")), "as: world keeps it in the world");
 });
+
+test("a body torn in motion is told where: a skirt of one surface over two legs that part in a run", () => {
+  const folder = join(tmp, "torn");
+  mkdirSync(folder, { recursive: true });
+  const box = (lo, hi, bone) => {
+    const c = [[lo[0], lo[1], lo[2]], [hi[0], lo[1], lo[2]], [hi[0], hi[1], lo[2]], [lo[0], hi[1], lo[2]], [lo[0], lo[1], hi[2]], [hi[0], lo[1], hi[2]], [hi[0], hi[1], hi[2]], [lo[0], hi[1], hi[2]]];
+    return [[0, 2, 1], [0, 3, 2], [4, 5, 6], [4, 6, 7], [0, 1, 5], [0, 5, 4], [1, 2, 6], [1, 6, 5], [2, 3, 7], [2, 7, 6], [3, 0, 4], [3, 4, 7]].map((f) => f.map((i) => ({ p: c[i], uv: [0.5, 0.5], bone })));
+  };
+  const legs = buildMdl({
+    name: "legs.mdl",
+    bones: [{ name: "Bip01", parent: -1 }, { name: "Bip01 L Thigh", parent: 0, pos: [0, 4, 40] }, { name: "Bip01 R Thigh", parent: 0, pos: [0, -4, 40] }],
+    bodyparts: [{ name: "body", models: [{ name: "b", meshes: [{ tris: [...box([-2, 2, 20], [2, 6, 40], 1), ...box([-2, -6, 20], [2, -2, 40], 2)], texture: indexed(W.sheet(16, 16).image(), "b.bmp") }] }] }],
+    sequences: [
+      { name: "idle", fps: 10, frames: [[[0, 0, 0, 0, 0, 0], [0, 4, 40, 0, 0, 0], [0, -4, 40, 0, 0, 0]]] },
+      { name: "run", fps: 20, frames: [-40, 0, 40].map((d) => [[0, 0, 0, 0, 0, 0], [0, 4, 40, 0, (d * Math.PI) / 180, 0], [0, -4, 40, 0, (-d * Math.PI) / 180, 0]]) },
+    ],
+  });
+  writeFileSync(join(folder, "legs.mdl"), legs);
+  const leg = (side) => ({ at: `Bip01 ${side} Thigh`, radius: [4, 6, 10], offset: [0, 0, -10] });
+  const spec = (parts) => ({ spec: "smak.model/1", name: "skirt.mdl", kind: "character", base: { file: "legs.mdl" }, parts });
+  // one surface over both legs: torn between them in the run
+  const skirt = buildModelSpec(spec([{ id: "skirt", kind: "blob", material: "cloth", pieces: [leg("L"), leg("R")], blend: 6 }]), { folder });
+  sure(skirt.report.warnings.some((w) => /\d+% of its triangles stretch past 3 times their length in motion \(run frame \d+.*L Thigh \+ R Thigh/.test(w)), skirt.report.warnings.join(" | "));
+  // each leg its own part: nothing joins them, nothing tears
+  const apart = buildModelSpec(spec([{ id: "left", kind: "blob", material: "cloth", pieces: [leg("L")] }, { id: "right", kind: "blob", material: "cloth", pieces: [leg("R")] }]), { folder });
+  sure(!apart.report.warnings.some((w) => /stretch past/.test(w)), apart.report.warnings.join(" | "));
+  // a carved garment kept above its hem: the height checked
+  sure(validateModelSpec({ spec: "smak.model/1", name: "x.mdl", kind: "prop", parts: [{ id: "coat", kind: "carved", size: [10, 10, 40], clip: 50, sheet: "s.png" }] }).errors.some((e) => /clip: a height in its own space/.test(e)), "a clip over the top refused");
+});

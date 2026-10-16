@@ -79,7 +79,7 @@ const KINDS = {
   cylinder: ["radius", "height", "sides", "top"],
   sphere: ["radius", "sides"],
   superquadric: ["size", "round", "sides"],
-  carved: ["size", "sheet", "pictures", "cells", "triangles", "symmetric", "layout"],
+  carved: ["size", "sheet", "pictures", "cells", "triangles", "symmetric", "layout", "clip"],
   mesh: ["size", "file", "triangles", "up", "turn", "symmetric", "layout"],
   blob: ["pieces", "blend", "cells", "triangles", "symmetric", "layout"],
   turn: ["rings", "caps", "sides", "lining", "axis"],
@@ -258,6 +258,30 @@ function symmetrized(tris, part, report) {
   const mirrored = kept.map(([a, b, c]) => [c, b, a].map((v) => ({ p: [v.p[0], -v.p[1], v.p[2]] })));
   report.facts.push(`${part.id}: symmetric: its +y half kept (${kept.length} triangles) and mirrored`);
   return [...kept, ...mirrored];
+}
+
+/**
+ * A carved shape kept only above a height (its own space, z from 0 up), each triangle crossing it cut there: a
+ * garment carved from a character's pictures (a coat to its hem), the limbs under it built as parts of their own,
+ * as the game's own characters are made. A body carved whole has the garment fused to the legs, and in a run what
+ * joins them tears (the build warns of it).
+ */
+function clipBelow(tris, z) {
+  const out = [];
+  for (const tri of tris) {
+    const poly = [];
+    for (let i = 0; i < 3; i++) {
+      const [a, b] = [tri[i], tri[(i + 1) % 3]];
+      const [ina, inb] = [a.p[2] >= z, b.p[2] >= z];
+      if (ina) poly.push({ p: [...a.p] });
+      if (ina !== inb) {
+        const t = (z - a.p[2]) / (b.p[2] - a.p[2]);
+        poly.push({ p: [a.p[0] + (b.p[0] - a.p[0]) * t, a.p[1] + (b.p[1] - a.p[1]) * t, z] });
+      }
+    }
+    for (let i = 1; i + 1 < poly.length; i++) out.push([poly[0], poly[i], poly[i + 1]]);
+  }
+  return out;
 }
 
 /** A fingers part as tube parts on the base's hand, in model space as the base stands. */
@@ -535,6 +559,11 @@ function leastStretched(skeleton, tris, candidates) {
 /** An edge longer than this many times its length in some frame of motion is torn: its triangle goes to the hips. */
 const TORN = 2;
 
+/** A triangle stretched past this many times an edge's length in some pose of motion is torn. */
+const TORN_IN_MOTION = 3;
+/** Past this share of a body's triangles torn so, the build warns. */
+const TORN_SHARE = 0.08;
+
 /** A template point further than this share of the body's size from a corner is no guide to its bone. */
 const TEMPLATE_FAR = 0.15;
 
@@ -695,6 +724,8 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
         warnings.push(`${label}.${key}: a ${part.kind} takes no ${key}, left out.${nearest(key, [...COMMON, ...KINDS[part.kind]])}`);
     if (KINDS[part.kind].includes("layout") && part.layout !== undefined && !["charts", "sides"].includes(part.layout))
       errors.push(`${label}.layout: "sides" (six patches, one a side) or "charts" (regions by the side that sees them best, packed)`);
+    if (part.kind === "carved" && part.clip !== undefined && !(isNumber(part.clip) && part.clip > 0 && (!Array.isArray(part.size) || part.clip < part.size[2])))
+      errors.push(`${label}.clip: a height in its own space (z from 0 up to its size's) under which the carve is left out: a coat carved to its hem, the legs built under it as parts of their own`);
     if (KINDS[part.kind].includes("symmetric") && part.symmetric !== undefined && typeof part.symmetric !== "boolean")
       errors.push(`${label}.symmetric: true (its right half made the mirror of its left, +y) or false`);
     if (part.material !== undefined && !part.kind.startsWith("kit:") && part.kind !== "prefab") {
@@ -1828,7 +1859,11 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
           const lost = hull.report.lost ?? [];
           if (lost.length)
             warnings.push(`${part.id}: the carve lost ${lost.length} thin piece${lost.length > 1 ? "s" : ""} the pictures show, thinner than its cells (${(Math.max(...part.size) / (hull.cells ?? part.cells ?? 64)).toFixed(2)} units) can hold: ${lost.slice(0, 6).map((l) => `${l.view} view, ${l.length} long and ${l.across} across, near pixel ${l.at.join(" ")} of that view`).join("; ")}. Make each a part of its own (a tube, a leaf, a box) where the picture has it`);
-          return { ...part, ...feetOn(part), carvedTris: part.symmetric ? symmetrized(hull.tris, part, report) : hull.tris };
+          const whole = part.symmetric ? symmetrized(hull.tris, part, report) : hull.tris;
+          if (part.clip === undefined) return { ...part, ...feetOn(part), carvedTris: whole };
+          const kept = clipBelow(whole, part.clip);
+          report.facts.push(`${part.id}: kept above ${part.clip} (${kept.length} of ${whole.length} triangles): what was below is to be built as parts of its own`);
+          return { ...part, ...feetOn(part), carvedTris: kept };
         }),
       };
     } catch (error) {
@@ -2084,6 +2119,43 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
       const mayFloat = allow.flatMap((id) => [id, ...Object.keys(report.parts).filter((p) => p.startsWith(`${id}.`))]);
       const moving = soundness(mdl, { ...pose, names, allow: mayFloat }).faults.filter((fault) => /float apart/.test(fault));
       for (const fault of moving) report.faults.push(`in ${pose.label}: ${fault}`);
+    }
+    // and stretched in them: a surface whose corners hang on several bones (a carved or generated body, a blob) is
+    // torn where a garment is fused to the limbs under it, a coat's hem pulled into slabs from the hips to the
+    // trailing foot (the scientist's pictures copy: 13% of its triangles past three times their length in the run,
+    // which the judges failed on C1; Barney's, at 6%, held)
+    try {
+      const edgesOf = (tris) => tris.map((t) => [0, 1, 2].map((k) => Math.hypot(...t.c[k].p.map((v, i) => v - t.c[(k + 1) % 3].p[i]))));
+      const still = posed(mdl, { seq: 0, frame: 0 }).tris;
+      const rest = edgesOf(still);
+      const worst = new Float64Array(rest.length);
+      const where = new Array(rest.length);
+      // in its runs and walks: a crouch or a jump folds every knee, and Barney's held body tore 11% so
+      const strides = sequencesOf(mdl).map((q, n) => [q, n]).filter(([q]) => /run|walk/i.test(q.name) && !q.group).slice(0, 3);
+      const poses = strides.flatMap(([q, n]) => Array.from({ length: Math.ceil(q.frames / 3) }, (_, k) => ({ seq: n, frame: k * 3, label: `${q.name} frame ${k * 3}` })));
+      for (const pose of poses) {
+        const now = edgesOf(posed(mdl, pose).tris);
+        now.forEach((t, i) =>
+          t.forEach((l, k) => {
+            const r = l / Math.max(0.3, rest[i]?.[k] ?? l);
+            if (r > worst[i]) [worst[i], where[i]] = [r, pose.label];
+          }),
+        );
+      }
+      const boneNames = bonesOf(mdl).map((b) => b.name.replace(/^Bip0\d /, ""));
+      const torn = still.map((t, i) => [t, i]).filter(([, i]) => worst[i] > TORN_IN_MOTION);
+      if (torn.length > TORN_SHARE * still.length) {
+        const pairs = new Map();
+        for (const [t] of torn) {
+          const key = [...new Set(t.c.map((c) => boneNames[c.bone]))].sort().join(" + ");
+          pairs.set(key, (pairs.get(key) ?? 0) + 1);
+        }
+        const most = [...pairs].sort((a, b) => b[1] - a[1]).slice(0, 4).map(([k, n]) => `${k} (${n})`).join(", ");
+        const when = [...new Set(torn.map(([, i]) => where[i]))].slice(0, 3).join(", ");
+        warnings.push(`${Math.round((torn.length / still.length) * 100)}% of its triangles stretch past ${TORN_IN_MOTION} times their length in motion (${when}), where corners on different bones are pulled apart: most between ${most}. A garment fused to the limbs under it (a coat, a robe, a skirt) tears so: make the garment a part of its own over limbs built apart, as the game's own characters are (a carved part's clip: the height of its hem, the legs below as a blob or parts on their bones), or hang what tears on one bone`);
+      }
+    } catch {
+      // a pose that cannot be drawn: the soundness above says so
     }
   } else
   try {
