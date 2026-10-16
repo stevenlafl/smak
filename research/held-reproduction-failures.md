@@ -463,13 +463,16 @@ surface, the coat's hem joined to the trouser legs under it, and a corner has on
 | the torn triangles dropped | | | holes down the legs, shoes off: rejected |
 | the hull cut across at the hem (z 24) and below it down the middle (y 0), each piece rigged alone, with parents as candidates | 16.9% | 64.9x | worse: a leg stub hung whole on the pelvis stretches nothing, so least stretch picks it |
 | the same cut, candidates the template's and the nearest limb's only | 15.5% | 54.4x | worse: in the fitted stride the legs part along x, not y, so the middle cut leaves them webbed; some tears are the knee bending (thigh against calf) |
+| the carve kept above the hem (z 22) and the legs a `blob` on Gordon's leg bones | 6.5% | 10.2x | the run holds, but the legs follow the base's fitted stride, not the pictures': side outline 0.56 (M1 0), build FAULT under 0.7 |
 
 No choice of one bone a corner mends it, and plane cuts do not either: the legs of a body carved in a stride are
 joined by the hull wherever a view sees them overlap, and they part along the stride, not across the body. What
 would: legs that are not carved at all. Carve the coat and trunk alone (from pictures cropped above the hem, or a
 hull clipped there) and build the legs under it as `blob` pieces spanning the leg bones, as Valve's scientist is
-made (`Sci3(C-Tail)` its own texture over the legs'). That is a spec pattern a maker can follow today if the
-carve can be clipped; the clip is the kit's part.
+made (`Sci3(C-Tail)` its own texture over the legs'). Tried (last row): the run holds, and the outline is lost, since
+the legs are where the base's pose puts them and not where the pictures do. Either way a must-have fails; what
+is left is a pose fit good enough that blob legs land on the pictures' legs, or legs carved one at a time, each
+from the pictures with the other masked out.
 
 ## Build list
 
