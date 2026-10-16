@@ -613,6 +613,9 @@ function placedPrefab(prefab, at, quarters, textureOf) {
  * every model it puts in, and <name>.bsp when the compilers are found (`compilers`: what findCompilers gave,
  * or a folder). Returns { report, files, map }: report is { ok, errors, faults, warnings, facts, rooms }.
  */
+/** A floor plan with more floor than this (square units) and no areas is told it wears one look throughout. */
+const ONE_LOOK_AREA = 1_000_000;
+
 export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [], readPicture, readFile } = {}) {
   let spec;
   try {
@@ -656,6 +659,11 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       const layers = Array.from({ length: legend.layers }, (_, L) => ({ floor: picture(`floor-${L}.png`), room: picture(`room-${L}.png`) }));
       floorPlan = openBoxesOf(layers, legend, { grow: spec.floorplan.grow ?? 1 });
       report.facts.push(`floorplan ${spec.floorplan.dir}: ${floorPlan.layers} layers, ${floorPlan.cells} cells of ${legend.cell} with a floor, ${floorPlan.boxes.length} boxes of open space`);
+      // one set of textures over a whole level reads as no place in particular: frenzy's height-plan copy wore one
+      // wall texture everywhere, and the judges gave its textures and its views 0 ("flat grey", "blank walls")
+      const floorArea = floorPlan.cells * legend.cell * legend.cell;
+      if (floorArea > ONE_LOOK_AREA && (spec.floorplan.areas?.length ?? 0) < 2)
+        report.warnings.push(`floorplan: ${Math.round(floorArea / 1e4) / 100} million square units of floor, ${floorPlan.layers} layers, all wearing one floor, wall and ceiling: a level's parts look apart (a hall, a corridor, a store). Give floorplan.areas, each part its own textures and light, read off pictures of the place where there are some`);
     } catch (error) {
       errors.push(`floorplan: ${error.message.split("\n")[0]}`);
       return { report, files, map: null };

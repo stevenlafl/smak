@@ -108,3 +108,19 @@ testAsync("a lift may take the map's views too, by the cameras kept beside them:
   const more = liftTexture(bsp, place.name, view, { brightness: 1, views });
   sure(more.seen >= alone.seen, `${alone.seen} alone, ${more.seen} with the views`);
 });
+
+test("a large floor plan wearing one look throughout is told to give its parts their own", () => {
+  // the same plan at cells of 256: 48 of them, three million square units of floor
+  const folder = join(tmp, "floorplan-large");
+  mkdirSync(join(folder, "plans"), { recursive: true });
+  layers.forEach(({ floor, room }, L) => {
+    writeFileSync(join(folder, "plans", `floor-${L}.png`), png(floor.width, floor.height, floor.rgba));
+    writeFileSync(join(folder, "plans", `room-${L}.png`), png(room.width, room.height, room.rgba));
+  });
+  writeFileSync(join(folder, "plans", "legend.json"), JSON.stringify({ ...legend, cell: 256 }));
+  const spec = { spec: "smak.map/1", name: "large", floorplan: { dir: "plans/", grow: 0 }, entities: [{ class: "info_player_start", room: "plan", at: [100, 40] }] };
+  const one = buildMapSpec(spec, { out: join(folder, "out"), folder, compilers: { found: false, message: "" } });
+  sure(one.report.warnings.some((w) => /floorplan: [\d.]+ million square units of floor, 2 layers, all wearing one floor, wall and ceiling/.test(w)), one.report.warnings.join(" | "));
+  const parted = buildMapSpec({ ...spec, name: "large2", floorplan: { ...spec.floorplan, areas: [{ min: [-100, -2000], max: [1000, 2000], wall: "plaster" }, { min: [1000, -2000], max: [3000, 2000], wall: "brick" }] } }, { out: join(folder, "out2"), folder, compilers: { found: false, message: "" } });
+  sure(!parted.report.warnings.some((w) => /wearing one floor, wall and ceiling/.test(w)), parted.report.warnings.join(" | "));
+});

@@ -875,7 +875,10 @@ floor at or under it), `z` over it:
 `areas: [{ min: [x, y] or [x, y, z], max, floor, wall, ceiling, light }]` gives parts of the plan their own: the
 words of `theme`, `textures` or a base for the faces under, beside and over each (concrete in the hall, tiles in the
 washroom, wood on the gallery), and `light` as a room's (`"auto"`, `"none"`, `{ brightness, color }`). The plan's
-open space is cut at the areas' edges; the first area that holds a piece's middle is its. Unless it has lights of
+open space is cut at the areas' edges; the first area that holds a piece's middle is its. A plan of more than a
+million square units of floor with fewer than two areas is warned of: one wall texture over a whole level reads as no
+place in particular (frenzy's copy so wore one, and the judges gave its textures and its views 0). Give a level's
+parts their own, each read off pictures of the place with the `info` tool's `like` and `rect`. Unless it has lights of
 its own, in its entities or its areas, a lamp hangs under the ceiling of each of its largest open spaces (24 at most).
 Frenzy's height plans read back so overlap its walked floor 0.898 (research/map-geometry.md); the textures, the
 light and every entity are still the map's to give.
