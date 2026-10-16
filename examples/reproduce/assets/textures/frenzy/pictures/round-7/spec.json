@@ -1,0 +1,1046 @@
+{
+  "spec": "smak.wad/1",
+  "name": "frenzy_new.wad",
+  "textures": [
+    {
+      "name": "c3a1_w3a",
+      "size": [
+        256,
+        208
+      ],
+      "material": {
+        "base": "stone",
+        "picture": "library:concrete_floor_damaged_01",
+        "size": 128,
+        "tone": [
+          0.14,
+          0.14,
+          0.15
+        ]
+      },
+      "grime": 0.5,
+      "wear": {
+        "cracks": 0.5,
+        "stains": 0.4,
+        "speckle": 0.6
+      }
+    },
+    {
+      "name": "c3a1_w2",
+      "size": [
+        256,
+        160
+      ],
+      "material": {
+        "base": "plaster",
+        "picture": "library:concrete_floor_02",
+        "size": 96,
+        "tone": [
+          0.27,
+          0.27,
+          0.31
+        ]
+      },
+      "wear": {
+        "speckle": 0.7,
+        "stains": 0.3
+      },
+      "relief": [
+        {
+          "kind": "seam",
+          "from": [
+            0,
+            103
+          ],
+          "to": [
+            256,
+            103
+          ],
+          "width": 2
+        }
+      ]
+    },
+    {
+      "name": "c3a1b_w3",
+      "size": [
+        128,
+        160
+      ],
+      "material": {
+        "base": "plaster",
+        "picture": "library:concrete",
+        "size": 96,
+        "tone": [
+          0.52,
+          0.54,
+          0.58
+        ]
+      },
+      "wear": {
+        "streaks": 0.7,
+        "stains": 0.4,
+        "speckle": 0.6
+      },
+      "relief": [
+        {
+          "kind": "seam",
+          "from": [
+            0,
+            20
+          ],
+          "to": [
+            128,
+            20
+          ],
+          "width": 2
+        },
+        {
+          "kind": "seam",
+          "from": [
+            12,
+            0
+          ],
+          "to": [
+            12,
+            160
+          ],
+          "width": 2,
+          "notched": true
+        },
+        {
+          "kind": "seam",
+          "from": [
+            122,
+            0
+          ],
+          "to": [
+            122,
+            160
+          ],
+          "width": 2,
+          "notched": true
+        }
+      ]
+    },
+    {
+      "name": "c3a1b_w1",
+      "size": [
+        128,
+        160
+      ],
+      "material": {
+        "base": "plaster",
+        "picture": "library:concrete_layers",
+        "size": 96,
+        "tone": [
+          0.5,
+          0.5,
+          0.49
+        ]
+      },
+      "wear": {
+        "stains": 0.4,
+        "streaks": 0.3,
+        "speckle": 0.6
+      },
+      "relief": [
+        {
+          "kind": "louvre",
+          "at": [
+            0,
+            70
+          ],
+          "size": [
+            128,
+            48
+          ],
+          "count": 6,
+          "material": {
+            "base": "metal",
+            "tone": [
+              0.2,
+              0.27,
+              0.18
+            ]
+          }
+        },
+        {
+          "kind": "louvre",
+          "at": [
+            0,
+            40
+          ],
+          "size": [
+            128,
+            22
+          ],
+          "count": 1,
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.42,
+              0.42,
+              0.2
+            ]
+          }
+        },
+        {
+          "kind": "bars",
+          "at": [
+            40,
+            6
+          ],
+          "size": [
+            48,
+            22
+          ],
+          "count": 5,
+          "width": 2
+        }
+      ]
+    },
+    {
+      "name": "tnnl_flr7",
+      "size": [
+        128,
+        128
+      ],
+      "material": {
+        "base": "tile",
+        "picture": "library:floor_tiles_09",
+        "size": 64,
+        "cell": 32,
+        "tone": [
+          0.5,
+          0.5,
+          0.52
+        ]
+      },
+      "wear": {
+        "stains": 0.2,
+        "speckle": 0.5,
+        "scratches": 0.1
+      }
+    },
+    {
+      "name": "c3a1b_w7",
+      "size": [
+        96,
+        96
+      ],
+      "material": {
+        "base": "plaster",
+        "picture": "library:concrete_floor_worn_001",
+        "size": 96,
+        "tone": [
+          0.47,
+          0.5,
+          0.56
+        ]
+      },
+      "wear": {
+        "speckle": 0.6,
+        "stains": 0.5
+      }
+    },
+    {
+      "name": "tnnl_flr7c",
+      "size": [
+        128,
+        128
+      ],
+      "material": {
+        "base": "tile",
+        "picture": "library:brown_floor_tiles",
+        "size": 64,
+        "cell": 32,
+        "tone": [
+          0.4,
+          0.36,
+          0.33
+        ]
+      },
+      "wear": {
+        "stains": 0.4,
+        "speckle": 0.5
+      }
+    },
+    {
+      "name": "silo2_wetdr",
+      "size": [
+        192,
+        128
+      ],
+      "material": {
+        "base": "planks",
+        "picture": "library:dark_planks",
+        "size": 48,
+        "tone": [
+          0.2,
+          0.2,
+          0.17
+        ]
+      },
+      "wear": {
+        "stains": 0.5,
+        "streaks": 0.4,
+        "speckle": 0.4
+      },
+      "relief": [
+        {
+          "kind": "seam",
+          "from": [
+            0,
+            30
+          ],
+          "to": [
+            192,
+            30
+          ],
+          "width": 4
+        },
+        {
+          "kind": "seam",
+          "from": [
+            0,
+            70
+          ],
+          "to": [
+            192,
+            70
+          ],
+          "width": 4
+        },
+        {
+          "kind": "seam",
+          "from": [
+            0,
+            110
+          ],
+          "to": [
+            192,
+            110
+          ],
+          "width": 4
+        },
+        {
+          "kind": "seam",
+          "from": [
+            30,
+            0
+          ],
+          "to": [
+            30,
+            128
+          ],
+          "width": 4
+        },
+        {
+          "kind": "seam",
+          "from": [
+            95,
+            0
+          ],
+          "to": [
+            95,
+            128
+          ],
+          "width": 4
+        },
+        {
+          "kind": "seam",
+          "from": [
+            160,
+            0
+          ],
+          "to": [
+            160,
+            128
+          ],
+          "width": 4
+        }
+      ]
+    },
+    {
+      "name": "c3a1b_w1a",
+      "size": [
+        128,
+        160
+      ],
+      "material": {
+        "base": "plaster",
+        "picture": "library:brushed_concrete_2",
+        "size": 96,
+        "tone": [
+          0.52,
+          0.52,
+          0.53
+        ]
+      },
+      "wear": {
+        "speckle": 0.6,
+        "stains": 0.3
+      },
+      "relief": [
+        {
+          "kind": "bars",
+          "at": [
+            10,
+            92
+          ],
+          "size": [
+            44,
+            40
+          ],
+          "count": 6,
+          "width": 3
+        },
+        {
+          "kind": "bars",
+          "at": [
+            74,
+            92
+          ],
+          "size": [
+            44,
+            40
+          ],
+          "count": 6,
+          "width": 3
+        },
+        {
+          "kind": "louvre",
+          "at": [
+            0,
+            40
+          ],
+          "size": [
+            128,
+            22
+          ],
+          "count": 1,
+          "material": {
+            "base": "paint",
+            "tone": [
+              0.5,
+              0.42,
+              0.16
+            ]
+          }
+        },
+        {
+          "kind": "bars",
+          "at": [
+            40,
+            4
+          ],
+          "size": [
+            48,
+            20
+          ],
+          "count": 5,
+          "width": 2
+        }
+      ]
+    },
+    {
+      "name": "-0genpipe1",
+      "size": [
+        64,
+        128
+      ],
+      "material": {
+        "base": "plaster",
+        "picture": "library:concrete_floor_01",
+        "size": 64,
+        "tone": [
+          0.52,
+          0.54,
+          0.56
+        ]
+      },
+      "wear": {
+        "stains": 0.3,
+        "speckle": 0.4
+      },
+      "relief": [
+        {
+          "kind": "louvre",
+          "at": [
+            24,
+            0
+          ],
+          "size": [
+            40,
+            128
+          ],
+          "count": 1,
+          "material": {
+            "base": "metal",
+            "tone": [
+              0.16,
+              0.14,
+              0.11
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              24,
+              100
+            ],
+            [
+              64,
+              100
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.42,
+              0.36,
+              0.14
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              24,
+              60
+            ],
+            [
+              64,
+              60
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.42,
+              0.36,
+              0.14
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              24,
+              20
+            ],
+            [
+              64,
+              20
+            ]
+          ],
+          "radius": 4,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.42,
+              0.36,
+              0.14
+            ]
+          }
+        },
+        {
+          "kind": "seam",
+          "from": [
+            24,
+            0
+          ],
+          "to": [
+            24,
+            128
+          ],
+          "width": 2
+        }
+      ]
+    },
+    {
+      "name": "c3a2b_reac2c",
+      "size": [
+        128,
+        64
+      ],
+      "material": {
+        "base": "metal",
+        "picture": "library:metal_plate_02",
+        "size": 64,
+        "tone": [
+          0.36,
+          0.33,
+          0.19
+        ]
+      },
+      "wear": {
+        "stains": 0.4,
+        "speckle": 0.4,
+        "streaks": 0.2
+      },
+      "relief": [
+        {
+          "kind": "louvre",
+          "at": [
+            6,
+            8
+          ],
+          "size": [
+            70,
+            46
+          ],
+          "count": 7,
+          "material": {
+            "base": "metal",
+            "tone": [
+              0.2,
+              0.18,
+              0.08
+            ]
+          }
+        },
+        {
+          "kind": "rivets",
+          "from": [
+            96,
+            40
+          ],
+          "to": [
+            120,
+            40
+          ],
+          "count": 3,
+          "radius": 2
+        },
+        {
+          "kind": "seam",
+          "from": [
+            0,
+            18
+          ],
+          "to": [
+            128,
+            18
+          ],
+          "width": 2
+        }
+      ]
+    },
+    {
+      "name": "c3a1b_w2",
+      "size": [
+        128,
+        160
+      ],
+      "material": {
+        "base": "plaster",
+        "picture": "library:concrete_floor_03",
+        "size": 96,
+        "tone": [
+          0.48,
+          0.48,
+          0.5
+        ]
+      },
+      "wear": {
+        "speckle": 0.5,
+        "stains": 0.3
+      },
+      "relief": [
+        {
+          "kind": "bars",
+          "at": [
+            6,
+            96
+          ],
+          "size": [
+            116,
+            44
+          ],
+          "count": 9,
+          "width": 3
+        },
+        {
+          "kind": "bars",
+          "at": [
+            40,
+            4
+          ],
+          "size": [
+            48,
+            18
+          ],
+          "count": 5,
+          "width": 2
+        }
+      ]
+    },
+    {
+      "name": "c3a2_bth1",
+      "size": [
+        192,
+        32
+      ],
+      "material": {
+        "base": "paint",
+        "tone": [
+          0.36,
+          0.28,
+          0.14
+        ]
+      },
+      "grime": 0.6,
+      "wear": {
+        "speckle": 0.3
+      }
+    },
+    {
+      "name": "black",
+      "size": [
+        32,
+        32
+      ],
+      "material": {
+        "base": "paint",
+        "tone": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "name": "crete2_flr01",
+      "size": [
+        128,
+        128
+      ],
+      "material": {
+        "base": "paint",
+        "tone": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "name": "+0~fifts_lght01",
+      "size": [
+        64,
+        80
+      ],
+      "material": {
+        "base": "neon",
+        "tone": [
+          0.78,
+          0.84,
+          1
+        ]
+      },
+      "relief": [
+        {
+          "kind": "lamp",
+          "at": [
+            4,
+            4
+          ],
+          "size": [
+            56,
+            72
+          ],
+          "colour": [
+            1,
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "name": "tnnl_brd1",
+      "size": [
+        16,
+        128
+      ],
+      "material": {
+        "base": "hazard",
+        "tone": [
+          0.55,
+          0.46,
+          0.16
+        ]
+      },
+      "wear": {
+        "speckle": 0.4,
+        "stains": 0.3
+      },
+      "relief": [
+        {
+          "kind": "seam",
+          "from": [
+            6,
+            0
+          ],
+          "to": [
+            6,
+            128
+          ],
+          "width": 1
+        },
+        {
+          "kind": "seam",
+          "from": [
+            10,
+            0
+          ],
+          "to": [
+            10,
+            128
+          ],
+          "width": 1
+        }
+      ]
+    },
+    {
+      "name": "crete4_stp01",
+      "size": [
+        128,
+        16
+      ],
+      "material": {
+        "base": "metal",
+        "picture": "library:metal_plate",
+        "size": 32,
+        "tone": [
+          0.3,
+          0.29,
+          0.27
+        ]
+      },
+      "wear": {
+        "speckle": 0.4
+      },
+      "relief": [
+        {
+          "kind": "rivets",
+          "from": [
+            10,
+            8
+          ],
+          "to": [
+            118,
+            8
+          ],
+          "count": 8,
+          "radius": 1.5
+        }
+      ]
+    },
+    {
+      "name": "+a~fifties_lgt2",
+      "size": [
+        16,
+        64
+      ],
+      "material": {
+        "base": "neon",
+        "tone": [
+          0.85,
+          0.9,
+          1
+        ]
+      },
+      "relief": [
+        {
+          "kind": "lamp",
+          "at": [
+            1,
+            1
+          ],
+          "size": [
+            14,
+            62
+          ],
+          "colour": [
+            1,
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "name": "+0~fifties_lgt2",
+      "size": [
+        16,
+        64
+      ],
+      "material": {
+        "base": "neon",
+        "tone": [
+          0.9,
+          0.85,
+          1
+        ]
+      },
+      "relief": [
+        {
+          "kind": "lamp",
+          "at": [
+            1,
+            1
+          ],
+          "size": [
+            14,
+            62
+          ],
+          "colour": [
+            1,
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "name": "+0~generic86",
+      "size": [
+        16,
+        16
+      ],
+      "material": {
+        "base": "neon",
+        "tone": [
+          1,
+          0.85,
+          0.25
+        ]
+      },
+      "relief": [
+        {
+          "kind": "lamp",
+          "at": [
+            3,
+            3
+          ],
+          "size": [
+            10,
+            10
+          ],
+          "colour": [
+            1,
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "name": "c3a2a_tnk1b",
+      "size": [
+        64,
+        64
+      ],
+      "material": {
+        "base": "paint",
+        "tone": [
+          0.1,
+          0.2,
+          0.85
+        ]
+      },
+      "grime": 0.9
+    },
+    {
+      "name": "c2a4x_glu",
+      "size": [
+        64,
+        64
+      ],
+      "material": {
+        "base": "paint",
+        "tone": [
+          0,
+          0,
+          1
+        ]
+      },
+      "relief": [
+        {
+          "kind": "louvre",
+          "at": [
+            0,
+            0
+          ],
+          "size": [
+            18,
+            64
+          ],
+          "count": 1,
+          "material": {
+            "base": "paint",
+            "tone": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "babtech_ceil01",
+      "size": [
+        64,
+        64
+      ],
+      "material": {
+        "base": "plaster",
+        "picture": "library:clay_plaster",
+        "size": 64,
+        "tone": [
+          0.5,
+          0.5,
+          0.47
+        ]
+      },
+      "wear": {
+        "stains": 0.5,
+        "speckle": 0.4
+      }
+    },
+    {
+      "name": "yellow",
+      "size": [
+        16,
+        16
+      ],
+      "material": {
+        "base": "plaster",
+        "picture": "library:clay_plaster",
+        "size": 64,
+        "tone": [
+          0.5,
+          0.47,
+          0.36
+        ]
+      },
+      "wear": {
+        "stains": 0.7,
+        "speckle": 0.5
+      }
+    }
+  ],
+  "preview": {
+    "map": "models:frenzy.bsp",
+    "each": true
+  }
+}

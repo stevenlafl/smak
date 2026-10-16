@@ -1,28 +1,20 @@
-The build says OK: `frenzy_new.wad` holds all 37 textures under the map's names and sizes, and every check passes. The file is at `work:frenzy_new/frenzy_new.wad`, with a texture sheet beside it.
+The build says OK. The spec wrote `work:frenzy_new/frenzy_new.wad` (plus a sheet, `frenzy_new-textures.png`), with all 25 textures at the sizes you listed. I checked the map preview (`each: true`) and looked at each texture on its place.
 
-**What I built**
+**Built from your descriptions, not the originals.** No pictures of the originals were in the work folder, and I didn't use the `lift` option, which would copy colours from the game's own textures in `frenzy.bsp`. So I can't measure a match. Each texture was painted from your RGB values and layout notes.
 
-- You listed 25 textures, but the map wears 37. I made all 37, so the 12 extras are my own designs: `-1genpipe1`, `-2genpipe1`, `+a~fifts_lght01`, `+a~generic86`, `c2a3rustdoor1`, `+0medkit`, `+amedkit`, `medkitedge1`, `aaatrigger`, `{grate4a`, `{ladder1`, `{rail1b`.
-- Concrete textures use CC0 concrete photographs from the library, with colour set to your numbers. Machinery, pipes, panels, vents and hazard bands are built from the spec's relief and panel parts. Lights are neon-based, and the colour-keyed pieces are plain fills.
-- The preview draws each texture on its own face of the map. Brightness and camera are the build's own, since the originals are not in this environment.
+**Fixes made on the second build:**
+- Yellow, black and pure blue were mottled. They now use a flat, grit-free surface, and they render uniform.
 
-**Warnings left (6)**
+**Warnings left in place, since they come from your values:**
+- `c3a1b_w1`, `c3a1b_w1a` and `c3a1b_w7` are brighter than Valve's walls, because your colours are pale.
+- `c3a2b_reac2c` is more saturated than Valve's.
+- `c3a2_bth1` has little grain.
 
-- `black`, `crete2_flr01` and `yellow` are uniform in the original, so I kept them flat. The checker only flags a lack of grain.
-- `c3a1b_w7` is brighter than Valve's walls (0.66 against 0.33 typical). That matches your description (160, 165, 195).
-- `+a~generic86` and `aaatrigger` are flat and have no pattern. `aaatrigger` is invisible in the game.
+**Approximations to check side by side:**
+- The `c3a1b_w1` family's windows, gauges and vent are built from pipes, rivets and bars, not painted.
+- The olive and cream stripes and the `crete4_stp01` nosing come out as shaded panels, not their own colours.
+- `c2a4x_glu`'s wedge is a single diagonal pipe.
+- `c3a2a_tnk1b`'s black lower part is a heavy grime gradient.
+- `+0~generic86` has its gradient edge as a flat orange frame.
 
-**Known differences from the descriptions**
-
-- `c3a1_w3a`: the cracks are dark, not lighter.
-- `c2a4x_glu`: the diagonal wedge is a five-pixel staircase, not a true slope.
-- `c3a1b_w7`: no faint horizontal banding.
-- `tnnl_flr7`: the doubled joints are not there.
-- `c3a1b_w1` and `c3a1b_w1a`: the window corners are square.
-- `c3a2a_tnk1b` and `c2a4x_glu`: the names have no `{`, so they are solid in the game, as the map names them. Your description calls them masked or cut-out, so tell me if you want holes.
-- The medkit and the unlit light variants are guesses, since you gave no description of them.
-
-**Open points**
-
-- The preview shows a pale strip under `c3a2b_reac2c`. It is not in the texture: the sheet and the texture built alone are both clean. I think it comes from the preview's surroundings, but I did not confirm that. Check it in the game.
-- The spec exists only in this conversation, because I can't write files here. To rebuild, save it as a `.json` file and build that. I can do this if you tell me where it should go.
+**Textures not in your list:** the map also wears `+0medkit`, `+amedkit`, `+a~fifts_lght01`, `+a~generic86`, `-1genpipe1`, `-2genpipe1`, `aaatrigger`, `c2a3rustdoor1`, `medkitedge1`, `{grate4a`, `{ladder1` and `{rail1b`. I didn't make these. The report flags five of them as missing from this .wad. The `-1` and `-2` pipe variants may be needed beside `-0genpipe1`, since they're random-tile siblings. Tell me if you want them.
