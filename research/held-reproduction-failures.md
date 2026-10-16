@@ -420,6 +420,36 @@ same pictures, all measures:
 | `weapon.turn: "as drawn"` does not keep the drawn axes | The shotgun pictures agent: "as drawn doesn't keep the drawn orientation"; the pistol's 2-degree roll (M7 1) | Measure the piece in the spec's own axes, not its principal axes (section 2.2) |
 | A hidden weapon file gets the piece at its own size | Table 3a and Table 4 | Section 2.2 |
 
+## 8. Later: the words leg's outline gate against a real body (2026-10-16)
+
+After `pose.from` (7e33658) the scientist's words copy stood in Gordon's walk and came within 2% of the
+original's size, yet still failed M1 (worst outline 0.51) and M4 (delta E 16.2); Barney's words copy failed both
+too (0.59, 23.7). The question was whether a better body would pass. The control (`research/outline-control.mjs`):
+Gordon's own body, as Valve made it, set against the original by the judge's `measureModel`, in every other frame
+of his walk.
+
+#### Table 9: Gordon's own body against the originals (the judge's three outlines)
+
+| Against | Gordon in | Front | Side | Above | Worst |
+| --- | --- | --- | --- | --- | --- |
+| scientist (first animation a walk) | walk, best frame for the worst (12) | 0.693 | 0.586 | 0.557 | 0.557 |
+| scientist | walk, frame 14 (nearest the size) | 0.671 | 0.462 | 0.535 | 0.462 |
+| scientist | walk, frame 4 (worst) | 0.673 | 0.288 | 0.358 | 0.288 |
+| barney (standing) | look_idle, first frame | 0.826 | 0.799 | 0.576 | 0.576 |
+| barney | idle, first frame | 0.844 | 0.798 | 0.596 | 0.596 |
+
+Readings:
+
+- **A real human body of the game fails the gate.** M1 gives 2 at a worst outline of 0.8 and 1 at 0.6; Gordon's
+  own body scores 0 against both originals in every frame tried. The words copies' 0.51 and 0.59 are already
+  about where Valve's own body lands.
+- **The worst view is the one from above**, for Barney even standing: where the arms hang and how far the
+  shoulders and feet reach, which words seldom say. From the side, the scientist's outline swings from 0.29 to
+  0.59 with the phase of the stride alone.
+- So in the words leg M1 measures stance, not body. A better body template would not by itself move it; a
+  description that gives the stance in numbers (the arms' angle out and forward, the stride's length and which
+  foot leads) might, and the gate's thresholds for a words leg are the rubric's question, for Steven.
+
 ## Build list
 
 In order. Each: what, where, its first test.
