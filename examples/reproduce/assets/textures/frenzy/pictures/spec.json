@@ -1,32 +1,6 @@
 {
   "spec": "smak.wad/1",
   "name": "frenzy_new.wad",
-  "materials": {
-    "crete": {
-      "base": "stone",
-      "tone": [
-        0.45,
-        0.45,
-        0.45
-      ]
-    },
-    "tank": {
-      "base": "metal",
-      "tone": [
-        0.3,
-        0.32,
-        0.36
-      ]
-    },
-    "glu": {
-      "base": "metal",
-      "tone": [
-        0.2,
-        0.2,
-        0.22
-      ]
-    }
-  },
   "textures": [
     {
       "name": "c3a1_w3a",
@@ -75,8 +49,7 @@
       ],
       "lift": {
         "map": "models:frenzy.bsp",
-        "view": "work:pictures/c3a1b_w1-dark.png",
-        "brightness": 0.5,
+        "view": "work:pictures/c3a1b_w1.png",
         "views": "work:pictures/views.png",
         "cameras": "work:pictures/views.json"
       }
@@ -102,8 +75,7 @@
       ],
       "lift": {
         "map": "models:frenzy.bsp",
-        "view": "work:pictures/c3a1b_w7-dark.png",
-        "brightness": 0.5,
+        "view": "work:pictures/c3a1b_w7.png",
         "views": "work:pictures/views.png",
         "cameras": "work:pictures/views.json"
       }
@@ -142,8 +114,7 @@
       ],
       "lift": {
         "map": "models:frenzy.bsp",
-        "view": "work:pictures/c3a1b_w1a-dark.png",
-        "brightness": 0.5,
+        "view": "work:pictures/c3a1b_w1a.png",
         "views": "work:pictures/views.png",
         "cameras": "work:pictures/views.json"
       }
@@ -160,6 +131,120 @@
         "views": "work:pictures/views.png",
         "cameras": "work:pictures/views.json"
       }
+    },
+    {
+      "name": "-1genpipe1",
+      "size": [
+        64,
+        128
+      ],
+      "material": {
+        "base": "metal",
+        "tone": "dark olive",
+        "rust": 0.2,
+        "grime": 0.3
+      },
+      "relief": [
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              12,
+              0
+            ],
+            [
+              12,
+              128
+            ]
+          ],
+          "radius": 6
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              30,
+              0
+            ],
+            [
+              30,
+              128
+            ]
+          ],
+          "radius": 5
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              64
+            ],
+            [
+              64,
+              64
+            ]
+          ],
+          "radius": 5
+        }
+      ]
+    },
+    {
+      "name": "-2genpipe1",
+      "size": [
+        64,
+        128
+      ],
+      "material": {
+        "base": "metal",
+        "tone": "dark olive",
+        "rust": 0.2,
+        "grime": 0.3
+      },
+      "relief": [
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              14,
+              0
+            ],
+            [
+              14,
+              128
+            ]
+          ],
+          "radius": 6
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              34,
+              0
+            ],
+            [
+              34,
+              128
+            ]
+          ],
+          "radius": 5
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              40
+            ],
+            [
+              64,
+              40
+            ]
+          ],
+          "radius": 5
+        }
+      ]
     },
     {
       "name": "c3a2b_reac2c",
@@ -214,6 +299,22 @@
       }
     },
     {
+      "name": "crete2_flr01",
+      "size": [
+        128,
+        128
+      ],
+      "grime": 0.4,
+      "material": {
+        "base": "stone",
+        "tone": "medium grey",
+        "wear": {
+          "stains": 0.4,
+          "speckle": 0.6
+        }
+      }
+    },
+    {
       "name": "+0~fifts_lght01",
       "size": [
         64,
@@ -226,6 +327,39 @@
         "views": "work:pictures/views.png",
         "cameras": "work:pictures/views.json"
       }
+    },
+    {
+      "name": "+a~fifts_lght01",
+      "size": [
+        64,
+        80
+      ],
+      "material": {
+        "base": "metal",
+        "tone": "mid grey",
+        "wear": {
+          "stains": 0.4,
+          "speckle": 0.5
+        }
+      },
+      "relief": [
+        {
+          "kind": "lamp",
+          "at": [
+            32,
+            40
+          ],
+          "size": [
+            56,
+            72
+          ],
+          "colour": [
+            0.7,
+            0.7,
+            0.68
+          ]
+        }
+      ]
     },
     {
       "name": "tnnl_brd1",
@@ -296,12 +430,50 @@
       }
     },
     {
+      "name": "+a~generic86",
+      "size": [
+        16,
+        16
+      ],
+      "material": {
+        "base": "darkwood",
+        "tone": "dark brown",
+        "wear": {
+          "stains": 0.5,
+          "streaks": 0.4
+        }
+      },
+      "relief": [
+        {
+          "kind": "lamp",
+          "at": [
+            8,
+            8
+          ],
+          "size": [
+            12,
+            12
+          ],
+          "colour": [
+            1,
+            0.92,
+            0.6
+          ]
+        }
+      ]
+    },
+    {
       "name": "c3a2a_tnk1b",
       "size": [
         64,
         64
       ],
-      "material": "tank"
+      "material": {
+        "base": "metal",
+        "tone": "dark steel grey",
+        "rust": 0.3,
+        "grime": 0.3
+      }
     },
     {
       "name": "c2a4x_glu",
@@ -309,7 +481,14 @@
         64,
         64
       ],
-      "material": "glu"
+      "material": {
+        "base": "metal",
+        "tone": "dark grey",
+        "wear": {
+          "stains": 0.3,
+          "scratches": 0.3
+        }
+      }
     },
     {
       "name": "babtech_ceil01",
@@ -339,12 +518,134 @@
       }
     },
     {
-      "name": "crete2_flr01",
+      "name": "+0medkit",
       "size": [
-        128,
+        64,
+        96
+      ],
+      "grime": 0.2,
+      "material": {
+        "base": "plaster",
+        "tone": "mid grey",
+        "wear": {
+          "stains": 0.4,
+          "speckle": 0.6
+        }
+      },
+      "print": {
+        "text": "+",
+        "size": 0.6,
+        "ink": [
+          0.75,
+          0.1,
+          0.1
+        ]
+      }
+    },
+    {
+      "name": "+amedkit",
+      "size": [
+        64,
+        96
+      ],
+      "grime": 0.2,
+      "material": {
+        "base": "plaster",
+        "tone": "mid grey",
+        "wear": {
+          "stains": 0.4,
+          "speckle": 0.6
+        }
+      },
+      "print": {
+        "text": "+",
+        "size": 0.6,
+        "ink": [
+          0.75,
+          0.1,
+          0.1
+        ]
+      }
+    },
+    {
+      "name": "medkitedge1",
+      "size": [
+        64,
+        32
+      ],
+      "material": {
+        "base": "metal",
+        "tone": "mid grey",
+        "wear": {
+          "stains": 0.4,
+          "scratches": 0.3
+        }
+      }
+    },
+    {
+      "name": "c2a3rustdoor1",
+      "size": [
+        96,
         128
       ],
-      "material": "crete"
+      "grime": 0.4,
+      "material": {
+        "base": "metal",
+        "tone": "dark brown grey",
+        "rust": 0.6
+      }
+    },
+    {
+      "name": "aaatrigger",
+      "size": [
+        16,
+        16
+      ],
+      "grime": 0.4,
+      "material": {
+        "base": "stone",
+        "tone": "mid grey",
+        "wear": {
+          "stains": 0.6,
+          "speckle": 0.9
+        }
+      }
+    },
+    {
+      "name": "{grate4a",
+      "size": [
+        64,
+        64
+      ],
+      "material": {
+        "base": "mesh",
+        "cell": 8,
+        "tone": "dark grey"
+      }
+    },
+    {
+      "name": "{ladder1",
+      "size": [
+        32,
+        32
+      ],
+      "material": {
+        "base": "mesh",
+        "cell": 4,
+        "tone": "steel grey"
+      }
+    },
+    {
+      "name": "{rail1b",
+      "size": [
+        48,
+        32
+      ],
+      "material": {
+        "base": "mesh",
+        "cell": 4,
+        "tone": "grey"
+      }
     }
   ],
   "preview": {
