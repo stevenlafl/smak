@@ -1,28 +1,24 @@
-The map is built and the build says OK: `frenzy_copy` compiles with VHLT (Vluzacn's compilers), all 10 textures are found in halflife.wad, and all 64 entities a player goes to are reached on foot. It is not a faithful match yet: the lighting, the brush entities and a few item positions are my approximations, listed below.
+`frenzy_copy` builds OK: it compiles, has no leak, and all 64 entities a player goes to are reached on foot. It is a close approximation, not a match. The original was given only as pictures, so the brush boxes, heights and lights are estimates, and I could not check them against the real map.
 
-**Files (in the work folder under `frenzy_copy/`):** `frenzy_copy.bsp` (the compiled map), `frenzy_copy.map` (the source), `frenzy_copy.wad`, and the plan and view pictures.
+**Files** (in `/tmp/smak-repro-o9K2C3/work/frenzy_copy/`): `frenzy_copy.bsp` (the compiled map, the `.bsp` the game loads), `.map` (its source), `.wad` (textures), and plan and view pictures.
 
 **What matches the original**
-- **Layout and floors:** the walked floor, the four layers and the stairs come from the height plan through `floorplan`. The map has 98 entities, checked against the FGD (the game's entity definitions).
-- **Entities:** all 14 deathmatch starts, the player start, the 14 weapons and the ammunition and items sit at the marked places and heights. The 8 light marks and their 8 glow sprites are in place.
-- **Textures:**
+- **Layout and floors:** from the four height-plan layers, with the walk reaching 84.2% of the standable floor.
+- **Starts, weapons, ammo, items:** all 98 marks placed at their x, y and height. Two of the 98 are not where the marks say; see below.
+- **Lights:** the eight marked lights, plus the glow sprites on them.
 
-| Surface | Texture | Why (match from views.png) |
-| --- | --- | --- |
-| Walls | LAB2_W4 | grey panelled concrete |
-| Spine corridor floor | STEEL | smooth light grey |
-| Other floors | -0CRETE2_FLR5 | brown tile |
-| Ceiling | BABTECH_CEIL01 | dark grey |
-| Doors | LAB1_DR5B | striped metal |
+**What is approximate**
+- **Walls, doors, ladders, charger, triggers:** boxes read off the plan's outlines. Thicknesses, lengths and the 128-unit wall height are guesses.
+- **Textures:** picked by matching the views to the wad. Walls are C3A1_W1, floor C1A3FLOOR02, ceiling C2A4_PAN3, doors LAB1_PANEL1, brush furniture LAB1_SLOT1. The shelves with bins in the original are not modelled.
+- **Light:** the marked lights alone left the views under 24 of 255, so I added automatic lamps over the whole plan (163 entities in all, 65 of them added by the compiler). The original's light values were not available, so the brightness of 300 is my choice.
+- **Items moved for the walk:** two `ammo_ARgrenades` (at -664, ±152, height 336) and the `item_longjump` sit on 320-unit platforms the walk cannot climb from the height plan's floors. I moved them to nearby reachable floor, at (-592, ±120) and (-176, -72).
 
-**Where it differs**
-- **Light:** the original's 8 fixtures are all in the east. At intensity 600 they were not enough to light the rooms, so I added 26 automatic lamps in the areas (the `light: "auto"` setting). The views are now lit, but the walls look brighter and greyer than the original's. Bounce lighting did not change the result, so I left it out.
-- **Items on the high platforms:** the walk test could not reach the tops of the platforms, so:
-  - the 4 items on the func_wall spots (2 handgrenades, a buckshot, a gauss clip) sit at 16 units on 16-unit curbs, not at the marked 336;
-  - the 2 AR grenade packs and the long jump moved about 90 to 105 units onto the nearest reachable 320 floor.
-- **Brush entities:** the func_walls, doors, triggers, health charger and ladders are boxes I estimated from the plan's orange and magenta marks. Their sizes and heights are guesses (func_walls 128 tall, doors 96 by 16 by 96).
-- **Shelves:** the wall-mounted shelves in the views are not modelled.
-- **Drops:** the 48 drops of more than 210 units are the original's ledges. The build warns about them, and I did not rail them.
-- **One dark view:** the view from the south spine start (-440, -992, 384) is nearly black.
+**Left as warnings**
+- 48 drops of more than 210 units (the worst at -520, 416, from 336 down). The height plan has these, and I did not rail them.
+- 18 patches of floor not walked to, mostly the 320 platforms and the tops of things.
+- No stairs added where the height plan has steep ramps.
+- Ladders are plain `func_ladder` boxes with no rung texture.
 
-**Caveat:** the spec was passed inline, because the Write tool is disabled in this session, so it is not saved as a file. The compiled `frenzy_copy.map` is the reproducible source. If you enable Write or give me a path, I'll save the spec beside it.
+I compared two views with the original: the start at yaw 130 and the room at (640, 642, 64). Walls and floor are now in the right colour range, but the original's shelving is missing. Some high corridors, such as the one at (-384, 992, 384), are still dark.
+
+**Not yet reproducible from disk:** the spec exists only in this session, since I have no file-writing tool here. The build call took it inline, and the `.map` and `.bsp` above are its output. To make it a committed file, the JSON needs saving in the work folder. Tell me a path I can write to and I'll save it there.

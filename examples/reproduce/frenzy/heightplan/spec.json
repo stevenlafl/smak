@@ -1,24 +1,9 @@
 {
   "spec": "smak.map/1",
   "name": "frenzy_copy",
-  "wads": [
-    "halflife.wad"
-  ],
   "floorplan": {
     "dir": "work:heightplan/",
     "areas": [
-      {
-        "min": [
-          -512,
-          -1056
-        ],
-        "max": [
-          -262,
-          1040
-        ],
-        "floor": "steel",
-        "light": "auto"
-      },
       {
         "min": [
           -1500,
@@ -28,151 +13,106 @@
           1000,
           1100
         ],
-        "floor": "floor",
         "light": "auto"
       }
     ]
   },
+  "wads": [
+    "halflife.wad"
+  ],
   "theme": {
     "floor": "floor",
     "wall": "wall",
     "ceiling": "ceiling",
     "door": "door",
-    "furniture": "shelf"
+    "furniture": "furniture"
   },
   "textures": {
     "floor": {
-      "texture": "-0CRETE2_FLR5"
-    },
-    "steel": {
-      "texture": "STEEL"
+      "texture": "C1A3FLOOR02"
     },
     "wall": {
-      "texture": "LAB2_W4"
+      "texture": "C3A1_W1"
     },
     "ceiling": {
-      "texture": "BABTECH_CEIL01"
+      "texture": "C2A4_PAN3"
     },
     "door": {
-      "texture": "LAB1_DR5B"
+      "texture": "LAB1_PANEL1"
     },
-    "shelf": {
-      "texture": "LAB1_SLOT6B"
-    },
-    "charger": {
-      "texture": "OUT_GAD1"
-    },
-    "trigger": {
-      "texture": "LAB2_W4"
+    "furniture": {
+      "texture": "LAB1_SLOT1"
     }
   },
   "prefabs": {
-    "fw_x64": {
-      "pieces": [
-        {
-          "box": [
-            [
-              -32,
-              -4,
-              0
-            ],
-            [
-              32,
-              4,
-              128
-            ]
-          ],
-          "texture": "wall"
-        }
-      ]
-    },
-    "fw_y64": {
+    "w_v128": {
       "pieces": [
         {
           "box": [
             [
               -4,
-              -32,
-              0
-            ],
-            [
-              4,
-              32,
-              128
-            ]
-          ],
-          "texture": "wall"
-        }
-      ]
-    },
-    "curb_x64": {
-      "pieces": [
-        {
-          "box": [
-            [
-              -32,
-              -4,
-              0
-            ],
-            [
-              32,
-              4,
-              16
-            ]
-          ],
-          "texture": "wall"
-        }
-      ]
-    },
-    "curb_y64": {
-      "pieces": [
-        {
-          "box": [
-            [
-              -4,
-              -32,
-              0
-            ],
-            [
-              4,
-              32,
-              16
-            ]
-          ],
-          "texture": "wall"
-        }
-      ]
-    },
-    "fw_x96": {
-      "pieces": [
-        {
-          "box": [
-            [
-              -48,
-              -4,
-              0
-            ],
-            [
-              48,
-              4,
-              128
-            ]
-          ],
-          "texture": "wall"
-        }
-      ]
-    },
-    "fw_x128": {
-      "pieces": [
-        {
-          "box": [
-            [
               -64,
+              0
+            ],
+            [
+              4,
+              64,
+              128
+            ]
+          ],
+          "texture": "wall"
+        }
+      ]
+    },
+    "w_v96": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -4,
+              -48,
+              0
+            ],
+            [
+              4,
+              48,
+              128
+            ]
+          ],
+          "texture": "wall"
+        }
+      ]
+    },
+    "w_v616": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -4,
+              -308,
+              0
+            ],
+            [
+              4,
+              308,
+              128
+            ]
+          ],
+          "texture": "wall"
+        }
+      ]
+    },
+    "w_h96": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -48,
               -4,
               0
             ],
             [
-              64,
+              48,
               4,
               128
             ]
@@ -181,22 +121,136 @@
         }
       ]
     },
-    "door_x": {
+    "w_h64": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -32,
+              -4,
+              0
+            ],
+            [
+              32,
+              4,
+              128
+            ]
+          ],
+          "texture": "wall"
+        }
+      ]
+    },
+    "w_h160": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -80,
+              -4,
+              0
+            ],
+            [
+              80,
+              4,
+              128
+            ]
+          ],
+          "texture": "wall"
+        }
+      ]
+    },
+    "w_h448": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -224,
+              -4,
+              0
+            ],
+            [
+              224,
+              4,
+              128
+            ]
+          ],
+          "texture": "wall"
+        }
+      ]
+    },
+    "w_h190": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -95,
+              -4,
+              0
+            ],
+            [
+              95,
+              4,
+              128
+            ]
+          ],
+          "texture": "wall"
+        }
+      ]
+    },
+    "door": {
       "pieces": [
         {
           "box": [
             [
               -48,
-              -8,
+              -4,
               0
             ],
             [
               48,
-              8,
-              96
+              4,
+              112
             ]
           ],
           "texture": "door"
+        }
+      ]
+    },
+    "ladder": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -16,
+              -4,
+              0
+            ],
+            [
+              16,
+              4,
+              128
+            ]
+          ],
+          "texture": "furniture"
+        }
+      ]
+    },
+    "charger": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -16,
+              -12,
+              0
+            ],
+            [
+              16,
+              12,
+              48
+            ]
+          ],
+          "texture": "furniture"
         }
       ]
     },
@@ -212,55 +266,137 @@
             [
               48,
               32,
-              64
-            ]
-          ],
-          "texture": "trigger"
-        }
-      ]
-    },
-    "ladder": {
-      "pieces": [
-        {
-          "box": [
-            [
-              -4,
-              -12,
-              0
-            ],
-            [
-              4,
-              12,
               128
             ]
           ],
-          "texture": "wall"
-        }
-      ]
-    },
-    "charger": {
-      "pieces": [
-        {
-          "box": [
-            [
-              -4,
-              -16,
-              0
-            ],
-            [
-              4,
-              16,
-              64
-            ]
-          ],
-          "texture": "charger"
+          "texture": "furniture"
         }
       ]
     }
   },
   "furniture": [
     {
-      "prefab": "door_x",
+      "prefab": "w_h96",
+      "room": "plan",
+      "at": [
+        -208,
+        -184
+      ],
+      "layer": 0,
+      "entity": "func_wall"
+    },
+    {
+      "prefab": "w_v128",
+      "room": "plan",
+      "at": [
+        -217,
+        145
+      ],
+      "layer": 0,
+      "entity": "func_wall"
+    },
+    {
+      "prefab": "w_h96",
+      "room": "plan",
+      "at": [
+        -208,
+        184
+      ],
+      "layer": 0,
+      "entity": "func_wall"
+    },
+    {
+      "prefab": "w_h96",
+      "room": "plan",
+      "at": [
+        -560,
+        184
+      ],
+      "layer": 0,
+      "entity": "func_wall"
+    },
+    {
+      "prefab": "w_h96",
+      "room": "plan",
+      "at": [
+        -560,
+        -184
+      ],
+      "layer": 0,
+      "entity": "func_wall"
+    },
+    {
+      "prefab": "w_h160",
+      "room": "plan",
+      "at": [
+        -106,
+        578
+      ],
+      "layer": 0,
+      "entity": "func_wall"
+    },
+    {
+      "prefab": "w_v96",
+      "room": "plan",
+      "at": [
+        -296,
+        -882
+      ],
+      "layer": 0,
+      "entity": "func_wall"
+    },
+    {
+      "prefab": "w_h64",
+      "room": "plan",
+      "at": [
+        -386,
+        -1000
+      ],
+      "layer": 0,
+      "entity": "func_wall"
+    },
+    {
+      "prefab": "w_h96",
+      "room": "plan",
+      "at": [
+        -217,
+        -145
+      ],
+      "layer": 0,
+      "entity": "func_wall"
+    },
+    {
+      "prefab": "w_v616",
+      "room": "plan",
+      "at": [
+        -450,
+        48
+      ],
+      "layer": 0,
+      "entity": "func_wall"
+    },
+    {
+      "prefab": "w_h448",
+      "room": "plan",
+      "at": [
+        -736,
+        578
+      ],
+      "layer": 0,
+      "entity": "func_wall"
+    },
+    {
+      "prefab": "w_h190",
+      "room": "plan",
+      "at": [
+        -608,
+        -578
+      ],
+      "layer": 0,
+      "entity": "func_wall"
+    },
+    {
+      "prefab": "door",
       "room": "plan",
       "at": [
         -1312,
@@ -269,13 +405,12 @@
       "layer": 0,
       "entity": {
         "class": "func_door",
-        "targetname": "door_w1",
-        "speed": 100,
-        "wait": 4
+        "targetname": "door_s",
+        "wait": "4"
       }
     },
     {
-      "prefab": "door_x",
+      "prefab": "door",
       "room": "plan",
       "at": [
         -1312,
@@ -284,10 +419,39 @@
       "layer": 0,
       "entity": {
         "class": "func_door",
-        "targetname": "door_w2",
-        "speed": 100,
-        "wait": 4
+        "targetname": "door_n",
+        "wait": "4"
       }
+    },
+    {
+      "prefab": "ladder",
+      "room": "plan",
+      "at": [
+        -296,
+        -886
+      ],
+      "layer": 0,
+      "entity": "func_ladder"
+    },
+    {
+      "prefab": "ladder",
+      "room": "plan",
+      "at": [
+        -390,
+        -1000
+      ],
+      "layer": 0,
+      "entity": "func_ladder"
+    },
+    {
+      "prefab": "charger",
+      "room": "plan",
+      "at": [
+        -20,
+        0
+      ],
+      "layer": 0,
+      "entity": "func_healthcharger"
     },
     {
       "prefab": "trig",
@@ -299,8 +463,8 @@
       "layer": 0,
       "entity": {
         "class": "trigger_multiple",
-        "target": "door_w1",
-        "wait": 10
+        "target": "door_s",
+        "wait": "1"
       }
     },
     {
@@ -313,188 +477,8 @@
       "layer": 0,
       "entity": {
         "class": "trigger_multiple",
-        "target": "door_w2",
-        "wait": 10
-      }
-    },
-    {
-      "prefab": "charger",
-      "room": "plan",
-      "at": [
-        -20,
-        0
-      ],
-      "layer": 0,
-      "entity": {
-        "class": "func_healthcharger"
-      }
-    },
-    {
-      "prefab": "ladder",
-      "room": "plan",
-      "at": [
-        -296,
-        -886
-      ],
-      "layer": 0,
-      "entity": {
-        "class": "func_ladder"
-      }
-    },
-    {
-      "prefab": "ladder",
-      "room": "plan",
-      "at": [
-        -390,
-        -1000
-      ],
-      "layer": 0,
-      "entity": {
-        "class": "func_ladder"
-      }
-    },
-    {
-      "prefab": "curb_y64",
-      "room": "plan",
-      "at": [
-        -208,
-        -184
-      ],
-      "layer": 0,
-      "entity": {
-        "class": "func_wall"
-      }
-    },
-    {
-      "prefab": "fw_y64",
-      "room": "plan",
-      "at": [
-        -217,
-        145
-      ],
-      "layer": 0,
-      "entity": {
-        "class": "func_wall"
-      }
-    },
-    {
-      "prefab": "curb_x64",
-      "room": "plan",
-      "at": [
-        -208,
-        184
-      ],
-      "layer": 0,
-      "entity": {
-        "class": "func_wall"
-      }
-    },
-    {
-      "prefab": "curb_x64",
-      "room": "plan",
-      "at": [
-        -560,
-        184
-      ],
-      "layer": 0,
-      "entity": {
-        "class": "func_wall"
-      }
-    },
-    {
-      "prefab": "curb_x64",
-      "room": "plan",
-      "at": [
-        -560,
-        -184
-      ],
-      "layer": 0,
-      "entity": {
-        "class": "func_wall"
-      }
-    },
-    {
-      "prefab": "fw_x96",
-      "room": "plan",
-      "at": [
-        -96,
-        578
-      ],
-      "layer": 0,
-      "entity": {
-        "class": "func_wall"
-      }
-    },
-    {
-      "prefab": "fw_y64",
-      "room": "plan",
-      "at": [
-        -296,
-        -882
-      ],
-      "layer": 0,
-      "entity": {
-        "class": "func_wall"
-      }
-    },
-    {
-      "prefab": "fw_x64",
-      "room": "plan",
-      "at": [
-        -386,
-        -1000
-      ],
-      "layer": 0,
-      "entity": {
-        "class": "func_wall"
-      }
-    },
-    {
-      "prefab": "fw_y64",
-      "room": "plan",
-      "at": [
-        -217,
-        -145
-      ],
-      "layer": 0,
-      "entity": {
-        "class": "func_wall"
-      }
-    },
-    {
-      "prefab": "fw_x64",
-      "room": "plan",
-      "at": [
-        -450,
-        48
-      ],
-      "layer": 0,
-      "entity": {
-        "class": "func_wall"
-      }
-    },
-    {
-      "prefab": "fw_x128",
-      "room": "plan",
-      "at": [
-        -736,
-        578
-      ],
-      "layer": 0,
-      "entity": {
-        "class": "func_wall"
-      }
-    },
-    {
-      "prefab": "fw_x96",
-      "room": "plan",
-      "at": [
-        -608,
-        -578
-      ],
-      "layer": 0,
-      "entity": {
-        "class": "func_wall"
+        "target": "door_n",
+        "wait": "1"
       }
     }
   ],
@@ -516,6 +500,15 @@
         992
       ],
       "height": 384
+    },
+    {
+      "class": "weapon_rpg",
+      "room": "plan",
+      "at": [
+        -384,
+        928
+      ],
+      "height": 336
     },
     {
       "class": "info_player_deathmatch",
@@ -635,15 +628,6 @@
       "height": 64
     },
     {
-      "class": "weapon_rpg",
-      "room": "plan",
-      "at": [
-        -384,
-        928
-      ],
-      "height": 336
-    },
-    {
       "class": "weapon_gauss",
       "room": "plan",
       "at": [
@@ -667,107 +651,6 @@
       "at": [
         -816,
         -288
-      ],
-      "height": 176
-    },
-    {
-      "class": "weapon_9mmAR",
-      "room": "plan",
-      "at": [
-        -384,
-        0
-      ],
-      "height": 176
-    },
-    {
-      "class": "weapon_9mmAR",
-      "room": "plan",
-      "at": [
-        608,
-        448
-      ],
-      "height": 16
-    },
-    {
-      "class": "weapon_handgrenade",
-      "room": "plan",
-      "at": [
-        -560,
-        -184
-      ],
-      "layer": 0,
-      "z": 16
-    },
-    {
-      "class": "weapon_handgrenade",
-      "room": "plan",
-      "at": [
-        -560,
-        184
-      ],
-      "layer": 0,
-      "z": 16
-    },
-    {
-      "class": "weapon_shotgun",
-      "room": "plan",
-      "at": [
-        176,
-        0
-      ],
-      "height": 16
-    },
-    {
-      "class": "weapon_hornetgun",
-      "room": "plan",
-      "at": [
-        -1064,
-        0
-      ],
-      "height": 16
-    },
-    {
-      "class": "weapon_snark",
-      "room": "plan",
-      "at": [
-        752,
-        536
-      ],
-      "height": 8
-    },
-    {
-      "class": "weapon_tripmine",
-      "room": "plan",
-      "at": [
-        -536,
-        -624
-      ],
-      "height": 184
-    },
-    {
-      "class": "weapon_tripmine",
-      "room": "plan",
-      "at": [
-        -536,
-        -664
-      ],
-      "height": 184
-    },
-    {
-      "class": "weapon_tripmine",
-      "room": "plan",
-      "at": [
-        488,
-        208
-      ],
-      "height": 176
-    },
-    {
-      "class": "weapon_tripmine",
-      "room": "plan",
-      "at": [
-        488,
-        -208
       ],
       "height": 176
     },
@@ -830,18 +713,27 @@
       "room": "plan",
       "at": [
         -592,
-        104
+        120
       ],
-      "height": 336
+      "height": 16
     },
     {
       "class": "ammo_ARgrenades",
       "room": "plan",
       "at": [
         -592,
-        -104
+        -120
       ],
-      "height": 336
+      "height": 16
+    },
+    {
+      "class": "weapon_9mmAR",
+      "room": "plan",
+      "at": [
+        -384,
+        0
+      ],
+      "height": 176
     },
     {
       "class": "ammo_9mmAR",
@@ -871,6 +763,15 @@
       "height": 16
     },
     {
+      "class": "weapon_9mmAR",
+      "room": "plan",
+      "at": [
+        608,
+        448
+      ],
+      "height": 16
+    },
+    {
       "class": "ammo_9mmAR",
       "room": "plan",
       "at": [
@@ -893,20 +794,36 @@
       "room": "plan",
       "at": [
         -208,
-        -184
+        -120
       ],
-      "layer": 0,
-      "z": 16
+      "height": 336
+    },
+    {
+      "class": "weapon_handgrenade",
+      "room": "plan",
+      "at": [
+        -560,
+        -120
+      ],
+      "height": 336
+    },
+    {
+      "class": "weapon_handgrenade",
+      "room": "plan",
+      "at": [
+        -560,
+        120
+      ],
+      "height": 336
     },
     {
       "class": "ammo_gaussclip",
       "room": "plan",
       "at": [
         -208,
-        184
+        120
       ],
-      "layer": 0,
-      "z": 16
+      "height": 336
     },
     {
       "class": "item_longjump",
@@ -915,7 +832,16 @@
         -176,
         -72
       ],
-      "height": 336
+      "height": 16
+    },
+    {
+      "class": "weapon_shotgun",
+      "room": "plan",
+      "at": [
+        176,
+        0
+      ],
+      "height": 16
     },
     {
       "class": "ammo_buckshot",
@@ -945,6 +871,15 @@
       "height": 16
     },
     {
+      "class": "weapon_hornetgun",
+      "room": "plan",
+      "at": [
+        -1064,
+        0
+      ],
+      "height": 16
+    },
+    {
       "class": "ammo_rpgclip",
       "room": "plan",
       "at": [
@@ -961,6 +896,33 @@
         -792
       ],
       "height": 16
+    },
+    {
+      "class": "weapon_snark",
+      "room": "plan",
+      "at": [
+        752,
+        536
+      ],
+      "height": 8
+    },
+    {
+      "class": "weapon_tripmine",
+      "room": "plan",
+      "at": [
+        -536,
+        -624
+      ],
+      "height": 184
+    },
+    {
+      "class": "weapon_tripmine",
+      "room": "plan",
+      "at": [
+        -536,
+        -664
+      ],
+      "height": 184
     },
     {
       "class": "ammo_ARgrenades",
@@ -1026,6 +988,24 @@
       "height": 176
     },
     {
+      "class": "weapon_tripmine",
+      "room": "plan",
+      "at": [
+        488,
+        208
+      ],
+      "height": 176
+    },
+    {
+      "class": "weapon_tripmine",
+      "room": "plan",
+      "at": [
+        488,
+        -208
+      ],
+      "height": 176
+    },
+    {
       "class": "light",
       "room": "plan",
       "at": [
@@ -1033,9 +1013,7 @@
         704
       ],
       "height": 256,
-      "keys": {
-        "_light": "255 255 230 600"
-      }
+      "_light": "255 240 210 300"
     },
     {
       "class": "env_glow",
@@ -1046,7 +1024,10 @@
       ],
       "height": 260,
       "keys": {
-        "model": "sprites/glow01.spr"
+        "model": "sprites/glow01.spr",
+        "rendermode": "5",
+        "renderamt": "200",
+        "scale": "1"
       }
     },
     {
@@ -1057,9 +1038,7 @@
         640
       ],
       "height": 256,
-      "keys": {
-        "_light": "255 255 230 600"
-      }
+      "_light": "255 240 210 300"
     },
     {
       "class": "env_glow",
@@ -1070,7 +1049,10 @@
       ],
       "height": 260,
       "keys": {
-        "model": "sprites/glow01.spr"
+        "model": "sprites/glow01.spr",
+        "rendermode": "5",
+        "renderamt": "200",
+        "scale": "1"
       }
     },
     {
@@ -1081,9 +1063,7 @@
         416
       ],
       "height": 256,
-      "keys": {
-        "_light": "255 255 230 600"
-      }
+      "_light": "255 240 210 300"
     },
     {
       "class": "env_glow",
@@ -1094,7 +1074,10 @@
       ],
       "height": 260,
       "keys": {
-        "model": "sprites/glow01.spr"
+        "model": "sprites/glow01.spr",
+        "rendermode": "5",
+        "renderamt": "200",
+        "scale": "1"
       }
     },
     {
@@ -1105,9 +1088,7 @@
         176
       ],
       "height": 256,
-      "keys": {
-        "_light": "255 255 230 600"
-      }
+      "_light": "255 240 210 300"
     },
     {
       "class": "env_glow",
@@ -1118,7 +1099,10 @@
       ],
       "height": 260,
       "keys": {
-        "model": "sprites/glow01.spr"
+        "model": "sprites/glow01.spr",
+        "rendermode": "5",
+        "renderamt": "200",
+        "scale": "1"
       }
     },
     {
@@ -1129,9 +1113,7 @@
         0
       ],
       "height": 288,
-      "keys": {
-        "_light": "255 255 230 600"
-      }
+      "_light": "255 240 210 300"
     },
     {
       "class": "env_glow",
@@ -1142,7 +1124,10 @@
       ],
       "height": 292,
       "keys": {
-        "model": "sprites/glow01.spr"
+        "model": "sprites/glow01.spr",
+        "rendermode": "5",
+        "renderamt": "200",
+        "scale": "1"
       }
     },
     {
@@ -1153,9 +1138,7 @@
         448
       ],
       "height": 256,
-      "keys": {
-        "_light": "255 255 230 600"
-      }
+      "_light": "255 240 210 300"
     },
     {
       "class": "env_glow",
@@ -1166,7 +1149,10 @@
       ],
       "height": 260,
       "keys": {
-        "model": "sprites/glow01.spr"
+        "model": "sprites/glow01.spr",
+        "rendermode": "5",
+        "renderamt": "200",
+        "scale": "1"
       }
     },
     {
@@ -1177,9 +1163,7 @@
         384
       ],
       "height": 104,
-      "keys": {
-        "_light": "255 255 230 600"
-      }
+      "_light": "255 240 210 300"
     },
     {
       "class": "env_glow",
@@ -1190,7 +1174,10 @@
       ],
       "height": 108,
       "keys": {
-        "model": "sprites/glow01.spr"
+        "model": "sprites/glow01.spr",
+        "rendermode": "5",
+        "renderamt": "200",
+        "scale": "1"
       }
     },
     {
@@ -1201,9 +1188,7 @@
         192
       ],
       "height": 104,
-      "keys": {
-        "_light": "255 255 230 600"
-      }
+      "_light": "255 240 210 300"
     },
     {
       "class": "env_glow",
@@ -1214,7 +1199,10 @@
       ],
       "height": 108,
       "keys": {
-        "model": "sprites/glow01.spr"
+        "model": "sprites/glow01.spr",
+        "rendermode": "5",
+        "renderamt": "200",
+        "scale": "1"
       }
     }
   ]
