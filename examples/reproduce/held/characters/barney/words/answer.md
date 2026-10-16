@@ -1,27 +1,14 @@
-The model builds OK and passes the GoldSrc check ("fit for goldsrc"). It is at `work:barney.mdl`, with its spec beside it at `work:barney.spec.json`.
+The character is built and the build says OK: `barney.mdl`, written to the work folder (`work:barney.mdl`, with its spec at `work:barney.spec.json`). I rendered it from the front, back, sides, top, quarter and a run strip to check it.
 
-**What it is**
-- A character on `player/gordon/gordon.mdl`, keeping all 77 of that skeleton's animations, with `floor: 0` so the feet stand at the origin.
-- Height 74.8, width 28.4, depth 22.4 units. The description asked for about 75, 30 and 23.
-- 624 triangles. The base's own body is 362, and the build's fault limit is twice that.
+**What I did**
+- **Base:** `player/gordon/gordon.mdl`, with `floor: 0`. Its 42 bones and 77 animations are kept, so the game plays Gordon's animations on this body.
+- **Pose:** Gordon's first frame holds his right forearm forward. I turned it down so the arms hang, with both fists by the hips.
+- **Build:** shirt, trousers, vest, helmet, and the rest are separate parts that follow the bones. The vest has ribbed plates, the orange emblem on the left chest, the grey ID badge on the right, and "SECURITY" printed on the back. The helmet has the violet band around the back. Boots, holster, belt, tie and collar are included.
+- **Size:** 74.9 units tall and 30.7 wide, against the description's 75 and 30. It is 24.4 deep against 23, which is within the tolerance.
+- **Triangles:** 722. The limit is 724 (twice the base's own body of 362), so there is almost no room left.
 
-**What is on it**
-- Helmet: a rounded dark grey-black shell down over the forehead, with dark padded ear pads on each side.
-- Violet-blue band: a hoop of the trouser colour around the lower helmet, from the temples round the back.
-- Face: pale peach skin, a narrow head with a straight nose and a long jaw, and short dark brown sideburns.
-- Shirt: pale periwinkle sleeves, a dark tie at the neck, and cuffs at the wrists.
-- Vest: black, from the collarbones to just above the belt, with the "SECURITY" print in olive-yellow on the back, an orange round emblem on the left chest (+y), and a grey-white badge on the right chest.
-- Trousers: blue-violet, with the same shade on the legs.
-- Belt, and a black holster on the right hip reaching to mid-thigh.
-- Tall black boots to mid-shin, with squared toes.
-- Small clenched fists.
-
-**Choices I made that you may want changed**
-- The pose is the base's own first frame, not a new one. I did not add a `pose` to hang the arms. The arms sit out a little from the body and the forearms are only slightly bent. If the original's arms are closer to the body, that needs a `pose` on the upper arms.
-- The trousers are straight. The description's gathered, baggy knees are not modelled.
-- The band shows as two dark knobs at the temples from the front. I meant to taper its ends, but I rebuilt without making that edit, so it is still as it was.
-- The sideburns and nose are small boxes, not sculpted.
-
-**What I could not do**
-- There is no picture of the original here, so I could not compare the model side by side with it. I built it from your description alone. The build's own checks and pictures are the only comparison I have.
-- I did not test it in the game.
+**What is not verified**
+- No pictures of the original were available, so I could not compare the two side by side. The match comes from the description alone.
+- The run is Gordon's own run cycle, not the stride you described. The spec only supports fitting a run to a strip of pictures of the original, and there are none.
+- The face is small under the helmet and is only a few painted marks (sideburns, eyes). The description's face detail is largely lost at this size.
+- The build reports one sliver: the collar and jaw are 0.26 units apart. It is not a fault, but it may show up close up.
