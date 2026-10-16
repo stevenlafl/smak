@@ -3,15 +3,15 @@
  "label": "the crawler (models/headcrab.mdl): a sludge crawler: low, wet, six-legged, the size of a headcrab, grey-green with a pale belly and a ring of teeth",
  "measured": {
   "size": [
-   27.5,
-   42.1,
-   21
+   28.5,
+   26,
+   18.2
   ],
   "sizeAsked": null,
   "sizeOff": null,
-  "triangles": 660,
+  "triangles": 428,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/houndeye.mdl, models/chumtoad.mdl, models/roach.mdl: the judge does not know which",
+  "lineup": "ours is one of A to D in lineup.png beside models/chumtoad.mdl, models/roach.mdl, models/leech.mdl: the judge does not know which",
   "contract": "keeps the headcrab's bones, animations, attachments and bodyparts"
  },
  "caps": {
@@ -24,64 +24,64 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Low and six-legged, but the body is two boxy, faceted lobes (sides.png LEFT and TOP) rather than a wet, low dome, and the teeth stick out as a small cluster at the front (FRONT, LEFT, BELOW) rather than the brief's ring. The outline is not the brief's."
+   "reason": "Low, dome-bodied and six-legged-ish, with splayed legs, so the outline roughly matches the brief. But the teeth sit on a separate front piece rather than in a ring, and the top view shows two side spikes that read as horns. Nothing reads as wet. Off in the front and top views."
   },
   "M2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The brief gives no number (sizeAsked null, sizeOff null), so nothing was measured against it. By eye the 42-unit length, legs included, reads larger than a headcrab in the lineup (C, beside the chumtoad and roach). Clearly off or not, this is unverified, so the score is held at 1."
+   "score": 2,
+   "reason": "Measured 28.5 x 26 x 18.2 units, which is headcrab scale. No size was asked (sizeAsked null, sizeOff null), so this rests on the look of the picture against a headcrab, not a number. Pass."
   },
   "M3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Six legs are visible (LEFT shows three per side, FRONT shows two at the sides). The teeth are not a ring: they are a scattered cluster at the front (FRONT, LEFT, BELOW). The pale belly is missing: the underside in BELOW is dark green with a few bumps, and the pale is only a stripe on the front face."
+   "reason": "The front view shows dark teeth as scattered spots in a patch, not a ring; the below view shows a short row of spikes on the front piece. Six legs are roughly there (front, side and below views). No separate pale belly part is visible. The teeth and belly are wrong."
   },
   "M4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The body is grey-green as asked. The pale belly is not there: the pale is a front stripe and a few triangles on the top (FRONT, FRONT-LEFT), not the underside. The material reads as flat painted plastic with no wet sheen."
+   "reason": "The whole body is one mid green, with no pale belly in the below or side views. The brief asks for grey-green with a pale belly. The teeth are dark brown-black, which is close enough. The belly is the clear miss."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Surface detail is minimal: flat facets and no wet highlights, no markings or wear beyond the pale front stripe. The brief's wet, sludgy surface is not conveyed."
+   "reason": "Surface detail is flat facets with no wet sheen or wear. The only marks are dark tooth spots in the front view, scattered rather than a ring. The brief asks for wetness and a ring of teeth, so both are missing."
   },
   "M6": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "In the lineup (C, beside the chumtoad, roach and houndeye) the model is flat-shaded and plain, with no skin or texture detail, so a player would likely notice it is not one of the game's. Not a clear fail, since the game's own simple models are not heavily textured either."
+   "reason": "In the line-up, C (ours) is a flat, untextured green blob beside the leech, roach and chumtoad, which are textured and read at once as Half-Life's. A player would not take it for one of the game's. It is clearly off in finish."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "It stands upright on its six legs, with the teeth at the front end (LEFT, FRONT) and the legs under the body; nothing sticks through the floor or floats."
+   "reason": "The teeth piece faces forward in the left and front views, the body stands on its legs and is upright, and the pose holds in the side views. Nothing in the brief fixes an origin, so this is judged on the look of the stance."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "checkErrors is empty and 660 triangles is well under twice what a headcrab-sized prop usually has. The median for Half-Life's own kind was not supplied, so this rests on the empty check and the count, not a direct comparison."
+   "reason": "SMAK's check reports no errors, and 428 triangles is well under twice the median of Half-Life's creatures of this size (those run well above 1,000), so the count is not a problem. Nothing is visibly open or floating in the stills."
   },
   "C1": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The run (run.png, WALK frames) keeps the body and legs together. In the attack (attack.png, JUMP frames 9, 13, 17, 21, 26) the teeth appear to hang off the front of the body with a visible gap, and in frames 17 and 21 sit above the body edge, so they look like they come apart from the head."
+   "reason": "In attack.png (labelled JUMP, not ATTACK, so it is not the attack the brief asks for) the front piece looks detached: at frames 9, 13, 17 and 21 of 30 it floats above the body with a gap and the legs do not visibly join it. The run in run.png holds together and the legs stay on the floor line. The jump is the failure."
   },
   "C2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The contract measure (compareContract) reports that it keeps the headcrab's bones, animations, attachments and bodyparts. Nothing in the pictures contradicts that."
+   "reason": "The harness reports the contract as kept (the headcrab's bones, animations, attachments and bodyparts), so the game's own headcrab plays it. Measured by compareContract, as the rubric asks, and it holds."
   }
  },
- "total": 13,
+ "total": 14,
  "of": 20,
  "passes": false
 }

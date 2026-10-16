@@ -11,7 +11,7 @@
      "fw_pumphall"
     ],
     "landmarks": [
-     null
+     "fw_to_pumphall"
     ],
     "asked": "fw_pumphall"
    },
@@ -21,8 +21,8 @@
      "fw_control"
     ],
     "landmarks": [
-     null,
-     null
+     "fw_to_pumphall",
+     "fw_to_control"
     ],
     "asked": "fw_control"
    },
@@ -30,7 +30,7 @@
     "map": "fw_control",
     "leadsTo": [],
     "landmarks": [
-     null
+     "fw_to_control"
     ],
     "asked": null
    }
@@ -39,22 +39,22 @@
    {
     "file": "videos/fw_wrench.mp4",
     "there": true,
-    "bytes": 311482
+    "bytes": 212467
    },
    {
     "file": "videos/fw_crawler.mp4",
     "there": true,
-    "bytes": 203314
+    "bytes": 159594
    },
    {
     "file": "videos/fw_pumphall.mp4",
     "there": true,
-    "bytes": 619757
+    "bytes": 1290709
    },
    {
     "file": "pictures/fw_props.png",
     "there": true,
-    "bytes": 1233250
+    "bytes": 840765
    }
   ]
  },
@@ -67,25 +67,25 @@
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measurements report no missing assets and no failed SMAK checks. All five props (valve wheel, drum with hazard stripe, console, pipe junction, caged lamp) are visible in the picture, and the crawler is in view. The wrench, the textures and the sprites are not in this picture, so this score rests on the measurements, not on what I could see."
+   "reason": "The measurements list nothing missing and no failed SMAK checks, and the four shown files (fw_wrench.mp4, fw_crawler.mp4, fw_pumphall.mp4, fw_props.png) are all present with nonzero sizes. The sheet shows the five brief props (valve wheel, drum, console, pipe junction, caged lamp) and the crawler, and the three maps are present in the chain. The wrench is not clearly identifiable on the sheet, but the measurements cover its presence, so I score on them."
   },
   "O2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The chain is right: fw_yard leads to fw_pumphall, fw_pumphall leads to fw_control, and fw_control ends the mod. But every level-change landmark is null, so the brief's 'by a level change with its landmark' and the arrival point are not shown to be wired. Whether every named model, sprite and sound is in the mod or the game is not measured."
+   "score": 2,
+   "reason": "The chain runs fw_yard to fw_pumphall to fw_control, with each map's leadsTo matching the next map, and each change has its landmark (fw_to_pumphall, fw_to_control) on both sides. fw_control ends the chain with no further map, as the brief's valve-room ending requires. The arrival points are not reported separately, but the landmark pairing is consistent with arriving where the last map left."
   },
   "O3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The props and map views share a rusted-steel, grey-green, hazard-yellow palette, which fits the brief. But the valve wheel's saturated red and the lamp's bright orange glow look more toy-like than the worn maps. The yard's view has a bright blue daytime sky, not the dusk the brief asks for. The control room's wood-plank ceiling does not match the concrete and steel the brief describes."
+   "reason": "Most of the set shares one palette: grey-green concrete, rust, hazard yellow and black, and a sodium-orange lamp. Three things break it. The yard's sky is a bright daytime blue where the brief says dusk. The control room's doors are saturated flat red. The bottom-middle prop reads as a rusted grate with a bright red handle, which does not match the other props' worn-metal look. The brief's palette is not held across the maps and props."
   },
   "O4": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "The measurements show the three videos (wrench, crawler, pump hall flight) and the props picture (fw_props.png, 1.2 MB) are present. The props shown in the picture are each clearly what they are, and the crawler is recognisable."
+   "score": 1,
+   "reason": "The three required videos and the props sheet are present, and the sheet shows the five props and the crawler clearly. The wrench is not recognisable as a wrench on the sheet: the bottom-middle item looks like a rusted grate with a red stub, so the sheet does not show that asset as it is."
   }
  },
  "total": 6,

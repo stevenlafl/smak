@@ -1,0 +1,526 @@
+{
+  "spec": "smak.map/1",
+  "name": "fw_pumphall_flight",
+  "theme": {
+    "floor": {
+      "base": "stone",
+      "tone": [
+        0.36,
+        0.38,
+        0.36
+      ]
+    },
+    "wall": {
+      "base": "plaster",
+      "tone": [
+        0.48,
+        0.47,
+        0.45
+      ]
+    },
+    "ceiling": {
+      "base": "plaster",
+      "tone": [
+        0.48,
+        0.47,
+        0.45
+      ]
+    },
+    "door": {
+      "base": "door",
+      "tone": [
+        0.36,
+        0.37,
+        0.36
+      ]
+    },
+    "furniture": {
+      "base": "metal",
+      "tone": [
+        0.44,
+        0.4,
+        0.36
+      ],
+      "rust": 0.6
+    }
+  },
+  "textures": {
+    "catwalk": {
+      "base": "metal",
+      "tone": [
+        0.42,
+        0.42,
+        0.4
+      ]
+    },
+    "rust": {
+      "base": "metal",
+      "tone": [
+        0.44,
+        0.4,
+        0.36
+      ],
+      "rust": 0.6
+    },
+    "pool": {
+      "base": "water"
+    }
+  },
+  "prefabs": {
+    "catwalks": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -1100,
+              -400,
+              185
+            ],
+            [
+              800,
+              -260,
+              200
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -1100,
+              260,
+              185
+            ],
+            [
+              800,
+              400,
+              200
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -100,
+              -260,
+              185
+            ],
+            [
+              60,
+              260,
+              200
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -1080,
+              -390,
+              0
+            ],
+            [
+              -1056,
+              -366,
+              185
+            ]
+          ],
+          "texture": "rust"
+        },
+        {
+          "box": [
+            [
+              -700,
+              -390,
+              0
+            ],
+            [
+              -676,
+              -366,
+              185
+            ]
+          ],
+          "texture": "rust"
+        },
+        {
+          "box": [
+            [
+              -320,
+              -390,
+              0
+            ],
+            [
+              -296,
+              -366,
+              185
+            ]
+          ],
+          "texture": "rust"
+        },
+        {
+          "box": [
+            [
+              400,
+              -390,
+              0
+            ],
+            [
+              424,
+              -366,
+              185
+            ]
+          ],
+          "texture": "rust"
+        },
+        {
+          "box": [
+            [
+              700,
+              -390,
+              0
+            ],
+            [
+              724,
+              -366,
+              185
+            ]
+          ],
+          "texture": "rust"
+        },
+        {
+          "box": [
+            [
+              -1080,
+              366,
+              0
+            ],
+            [
+              -1056,
+              390,
+              185
+            ]
+          ],
+          "texture": "rust"
+        },
+        {
+          "box": [
+            [
+              -700,
+              366,
+              0
+            ],
+            [
+              -676,
+              390,
+              185
+            ]
+          ],
+          "texture": "rust"
+        },
+        {
+          "box": [
+            [
+              -320,
+              366,
+              0
+            ],
+            [
+              -296,
+              390,
+              185
+            ]
+          ],
+          "texture": "rust"
+        },
+        {
+          "box": [
+            [
+              400,
+              366,
+              0
+            ],
+            [
+              424,
+              390,
+              185
+            ]
+          ],
+          "texture": "rust"
+        },
+        {
+          "box": [
+            [
+              700,
+              366,
+              0
+            ],
+            [
+              724,
+              390,
+              185
+            ]
+          ],
+          "texture": "rust"
+        },
+        {
+          "box": [
+            [
+              -52,
+              -142,
+              0
+            ],
+            [
+              -28,
+              -118,
+              185
+            ]
+          ],
+          "texture": "rust"
+        },
+        {
+          "box": [
+            [
+              -52,
+              118,
+              0
+            ],
+            [
+              -28,
+              142,
+              185
+            ]
+          ],
+          "texture": "rust"
+        }
+      ]
+    },
+    "landing": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -1250,
+              -400,
+              0
+            ],
+            [
+              -1000,
+              400,
+              200
+            ]
+          ],
+          "texture": "rust"
+        }
+      ]
+    },
+    "trigger": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -40,
+              -100,
+              0
+            ],
+            [
+              40,
+              100,
+              72
+            ]
+          ],
+          "texture": "rust"
+        }
+      ],
+      "entity": {
+        "class": "trigger_changelevel",
+        "map": "fw_control",
+        "landmark": "fw_to_control"
+      }
+    }
+  },
+  "rooms": [
+    {
+      "id": "hall",
+      "size": [
+        2500,
+        800,
+        400
+      ],
+      "water": {
+        "depth": 150,
+        "material": "pool"
+      }
+    },
+    {
+      "id": "corridor",
+      "size": [
+        700,
+        240,
+        240
+      ],
+      "place": {
+        "east_of": "hall"
+      },
+      "floor": 200,
+      "surfaces": {
+        "floor": "catwalk"
+      }
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "hall",
+        "corridor"
+      ],
+      "kind": "opening",
+      "width": 96,
+      "height": 128
+    }
+  ],
+  "furniture": [
+    {
+      "prefab": "catwalks",
+      "room": "hall",
+      "at": [
+        0,
+        0
+      ]
+    },
+    {
+      "prefab": "landing",
+      "room": "hall",
+      "at": [
+        0,
+        0
+      ]
+    },
+    {
+      "prefab": "trigger",
+      "room": "corridor",
+      "at": [
+        260,
+        0
+      ]
+    }
+  ],
+  "ladders": [
+    {
+      "room": "hall",
+      "side": "south",
+      "along": 0.2,
+      "width": 32,
+      "height": 200
+    },
+    {
+      "room": "hall",
+      "side": "north",
+      "along": 0.7,
+      "width": 32,
+      "height": 200
+    }
+  ],
+  "models": {
+    "pump": {
+      "file": "fw_pump.spec.json"
+    }
+  },
+  "props": [
+    {
+      "model": "pump",
+      "room": "hall",
+      "at": [
+        -600,
+        0
+      ],
+      "solid": true
+    },
+    {
+      "model": "pump",
+      "room": "hall",
+      "at": [
+        200,
+        0
+      ],
+      "solid": true
+    },
+    {
+      "model": "pump",
+      "room": "hall",
+      "at": [
+        900,
+        0
+      ],
+      "solid": true
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "hall",
+      "at": [
+        -1100,
+        0
+      ],
+      "z": 200,
+      "facing": "east"
+    },
+    {
+      "class": "info_landmark",
+      "room": "hall",
+      "at": [
+        -1100,
+        0
+      ],
+      "z": 200,
+      "id": "fw_to_pumphall"
+    },
+    {
+      "class": "weapon_crowbar",
+      "room": "hall",
+      "at": [
+        -700,
+        330
+      ],
+      "z": 215
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "hall",
+      "at": [
+        -400,
+        -150
+      ],
+      "z": 60
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "hall",
+      "at": [
+        300,
+        200
+      ],
+      "z": 60
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "hall",
+      "at": [
+        1000,
+        -120
+      ],
+      "z": 60
+    },
+    {
+      "class": "info_landmark",
+      "room": "corridor",
+      "at": [
+        260,
+        0
+      ],
+      "id": "fw_to_control"
+    }
+  ]
+}

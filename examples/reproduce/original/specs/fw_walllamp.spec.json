@@ -3,17 +3,17 @@
   "name": "fw_walllamp.mdl",
   "kind": "piece",
   "size": {
-    "height": 20,
-    "width": 16,
-    "length": 16
+    "length": 12,
+    "width": 15,
+    "height": 22
   },
   "materials": {
     "plate": {
-      "base": "steel",
+      "base": "metal",
       "tone": [
-        0.4,
-        0.4,
-        0.38
+        0.36,
+        0.36,
+        0.34
       ],
       "rust": 0.4
     },
@@ -23,13 +23,13 @@
       "tone": [
         0.3,
         0.3,
-        0.3
+        0.28
       ]
     },
-    "lens": {
+    "glass": {
       "base": "glass",
       "tone": [
-        0.95,
+        1,
         0.6,
         0.22
       ]
@@ -39,55 +39,27 @@
     {
       "id": "plate",
       "kind": "box",
-      "material": "plate",
       "size": [
-        2,
-        14,
-        20
-      ],
-      "at": [
-        0,
-        0,
-        4
-      ]
-    },
-    {
-      "id": "arm",
-      "kind": "box",
-      "material": "plate",
-      "size": [
-        4,
-        2.5,
-        2.5
-      ],
-      "at": [
         3,
-        0,
-        12
-      ]
+        12,
+        22
+      ],
+      "material": "plate"
     },
     {
       "id": "cage",
       "kind": "turn",
       "axis": "x",
       "material": "cage",
-      "sides": 10,
+      "sides": 8,
       "rings": [
         [
           0,
-          6.5
-        ],
-        [
-          3,
-          8
-        ],
-        [
-          7,
-          8
+          7.5
         ],
         [
           10,
-          6.5
+          7.5
         ]
       ],
       "caps": [
@@ -96,21 +68,51 @@
       ],
       "open": true,
       "at": [
-        5,
+        1,
         0,
-        14
+        12
       ]
     },
     {
-      "id": "lens",
-      "kind": "sphere",
-      "material": "lens",
-      "radius": 6,
+      "id": "lamp",
+      "kind": "turn",
+      "axis": "x",
+      "material": "glass",
       "sides": 10,
+      "rings": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          4.5
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          9,
+          4.5
+        ],
+        [
+          10,
+          0
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
       "at": [
-        10,
+        1,
         0,
-        8
+        12
       ],
       "finish": false
     }

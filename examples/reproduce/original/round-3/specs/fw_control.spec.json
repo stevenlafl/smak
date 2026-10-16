@@ -1,0 +1,246 @@
+{
+  "spec": "smak.map/1",
+  "name": "fw_control",
+  "wads": [
+    "fw/fw.wad"
+  ],
+  "textures": {
+    "concrete": {
+      "texture": "fw_concrete"
+    },
+    "floor": {
+      "texture": "fw_floor"
+    },
+    "rust": {
+      "texture": "fw_rust"
+    },
+    "panel": {
+      "texture": "fw_panel"
+    },
+    "pipes": {
+      "texture": "fw_pipes"
+    },
+    "door": {
+      "texture": "fw_door"
+    }
+  },
+  "theme": {
+    "floor": "floor",
+    "wall": "concrete",
+    "ceiling": "rust",
+    "door": "door"
+  },
+  "rooms": [
+    {
+      "id": "control",
+      "size": [
+        896,
+        384,
+        288
+      ],
+      "surfaces": {
+        "floor": "floor",
+        "walls": "panel",
+        "ceiling": "rust"
+      }
+    },
+    {
+      "id": "valve",
+      "size": [
+        448,
+        384,
+        224
+      ],
+      "place": {
+        "below": "control"
+      },
+      "surfaces": {
+        "floor": "floor",
+        "walls": "concrete"
+      }
+    },
+    {
+      "id": "pit",
+      "size": [
+        896,
+        320,
+        192
+      ],
+      "place": {
+        "east_of": "control"
+      },
+      "floor": -96,
+      "surfaces": {
+        "floor": "floor",
+        "walls": "concrete"
+      }
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "control",
+        "pit"
+      ],
+      "kind": "window",
+      "along": 0.15,
+      "glass": true
+    },
+    {
+      "between": [
+        "control",
+        "pit"
+      ],
+      "kind": "window",
+      "along": 0.4,
+      "glass": true
+    },
+    {
+      "between": [
+        "control",
+        "pit"
+      ],
+      "kind": "window",
+      "along": 0.65,
+      "glass": true
+    },
+    {
+      "between": [
+        "control",
+        "pit"
+      ],
+      "kind": "window",
+      "along": 0.85,
+      "glass": true
+    },
+    {
+      "between": [
+        "valve",
+        "control"
+      ],
+      "kind": "stairs"
+    }
+  ],
+  "prefabs": {
+    "endtrig": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -64,
+              -64,
+              0
+            ],
+            [
+              64,
+              64,
+              96
+            ]
+          ],
+          "texture": "concrete"
+        }
+      ],
+      "entity": {
+        "class": "trigger_endsection"
+      }
+    }
+  },
+  "furniture": [
+    {
+      "prefab": "endtrig",
+      "room": "valve",
+      "at": [
+        40,
+        0
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "control",
+      "at": [
+        -300,
+        0
+      ]
+    },
+    {
+      "class": "info_landmark",
+      "targetname": "lm_control",
+      "room": "control",
+      "at": [
+        -300,
+        0
+      ]
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "control",
+      "at": [
+        -200,
+        60
+      ]
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "valve",
+      "at": [
+        100,
+        -60
+      ]
+    },
+    {
+      "class": "ambient_generic",
+      "room": "valve",
+      "at": "centre",
+      "message": "ambience/fw_pump.wav",
+      "health": 8,
+      "spawnflags": 4
+    }
+  ],
+  "props": [
+    {
+      "model": "models/fw_console.mdl",
+      "room": "control",
+      "at": [
+        360,
+        -90
+      ],
+      "facing": "west"
+    },
+    {
+      "model": "models/fw_console.mdl",
+      "room": "control",
+      "at": [
+        360,
+        90
+      ],
+      "facing": "west"
+    },
+    {
+      "model": "models/fw_valvewheel.mdl",
+      "room": "valve",
+      "at": [
+        -120,
+        0
+      ],
+      "facing": "east"
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "valve",
+      "at": [
+        120,
+        -100
+      ]
+    },
+    {
+      "model": "models/fw_pipejunction.mdl",
+      "room": "valve",
+      "at": [
+        120,
+        100
+      ]
+    }
+  ]
+}

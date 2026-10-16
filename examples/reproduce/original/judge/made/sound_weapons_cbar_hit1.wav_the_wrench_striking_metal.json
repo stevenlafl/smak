@@ -3,41 +3,37 @@
  "label": "sound/weapons/cbar_hit1.wav: the wrench striking metal",
  "measured": {
   "features": {
-   "length": 0.653,
+   "length": 0.6,
    "peak": -0.5,
-   "rms": -13.9,
-   "crest": 13.4,
+   "rms": -9.5,
+   "crest": 9,
    "dc": 0,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.005,
-   "attack": 0,
-   "peakAt": 0,
-   "t20": 0.334,
-   "t40": 0.599,
-   "centroid": 724,
-   "rolloff": 646,
+   "tail": 0,
+   "attack": 0.085,
+   "peakAt": 0.19,
+   "t20": 0.324,
+   "t40": 0.409,
+   "centroid": 1220,
+   "rolloff": 1120,
    "flatness": 0,
    "bands": {
     "<150": 0,
-    "150-600": 0.3,
-    "600-2k": 98,
-    "2k-5k": 1.4,
-    ">5k": 0.3
+    "150-600": 0,
+    "600-2k": 95.2,
+    "2k-5k": 4,
+    ">5k": 0.8
    },
-   "onsets": 0
+   "onsets": 1
   },
   "class": "metal hit",
   "against": {
-   "score": 15,
+   "score": 19,
    "of": 22,
    "lines": [
-    "crest 13.4 dB (5.3 to 12.5): too spiky: saturate more, or hold its body longer",
-    "rms -13.9 dBFS (-12.9 to -5.7): under the range",
-    "centroid 724 Hz (1074 to 1654): too dark: more 600 to 5000 Hz",
     "flatness 0 (0.16 to 0.28): too pure: more noise",
-    "band 600-2k 98% (63.7 to 83.8): over the range",
-    "band 2k-5k 1.4% (3.7 to 24.6): under the range"
+    "band 600-2k 95.2% (63.7 to 83.8): over the range"
    ]
   },
   "engineFaults": []
@@ -47,37 +43,37 @@
  },
  "scores": {
   "S1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The picture shows a sharp strike at the start and a long decaying ring, which reads as struck metal rather than a blow on wood or flesh. But the spectrogram is one sustained horizontal tone line, not the broadband clatter of a wrench on metal, and flatness is 0 (a pure tone). So it is recognisably a metal hit, clearly off in character."
+   "score": 2,
+   "reason": "The picture shows a dense broadband transient with its peak near 0.19 s, then a long ring that decays to 0.6 s. That is the shape of a metal strike, a clang that rings out, so it reads as the wrench hitting metal."
   },
   "S2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Length 0.653 s. Attack 0 and t20 0.334 s, t40 0.599 s are not among the six failing lines in the measurement, so the envelope is within the metal-hit class's range. The picture shows the same: a fast onset and a decay of about the same length. The length is not measured against the class range, so this is taken from the absence of a flag."
+   "reason": "Length 0.6 s, attack 0.085 s, t20 0.324 s and t40 0.409 s. The measure reports no envelope fault against the class range; the only two lines it gives are flatness and the 600-2k band. Within the measured range, so 2."
   },
   "S3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Centroid 724 Hz is below the class range of 1074 to 1654 Hz, about a third too low, so it is outside the 20% tolerance. The 600 to 2k band holds 98% against a range of 63.7 to 83.8%, over by about 14 points, and the 2k to 5k band holds 1.4% against 3.7 to 24.6%. The spectrogram agrees: nearly all energy sits in the low-mid red and yellow, and the bright upper bands are nearly empty. Clearly off, not wholly wrong."
+   "reason": "The 600-2k band holds 95.2% of the energy, above the class range of 63.7 to 83.8%, which is 11.4 points over the top, outside the 10-point tolerance. The spectrogram shows the energy concentrated in one bright horizontal tone near the middle of the band. The centroid of 1220 Hz is not flagged. The sound is there but its spectrum is clearly off, so 1."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Not a must-have. Flatness 0 against 0.16 to 0.28 means the sound is a pure tone with no noise, the spectrogram confirms a single sustained ring line. Onsets are 0, so there are no separate hits or clicks, and crest 13.4 dB is above the 5.3 to 12.5 range, so it is spikier than a metal hit should be. The pitch-movement check is not measured here."
+   "reason": "Flatness is 0, against a class range of 0.16 to 0.28, so the ring is too pure and the noise a metal strike should carry is missing. The spectrogram shows a steady horizontal tone with no visible pitch movement, which is not what a struck wrench usually gives. One onset, which is plausible for a single hit. Character is off in the tone and noise, so 1."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "No clipping (0), no DC offset (0), and the engine-fault list is empty, so SMAK's checks pass. The sample rate and bit depth are not in the picture or the measurements, so this rests on the empty fault list. The file name matches the engine's sound/weapons/cbar_hit1.wav. The sound is one-shot, so no loop cue applies."
+   "reason": "Clipped 0, DC 0, and engineFaults is empty, so nothing in the measures shows a fault that would stop the engine playing it. The measures do not report the sample rate or bit depth, so this score rests on the absence of faults, not on a confirmed format."
   }
  },
- "total": 7,
+ "total": 8,
  "of": 10,
  "passes": false
 }

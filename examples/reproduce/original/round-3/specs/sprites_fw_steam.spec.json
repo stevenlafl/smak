@@ -1,0 +1,91 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/fw_steam.spr",
+      "class": "smoke puff",
+      "use": "env_sprite",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 12,
+      "loop": false,
+      "fps": 10,
+      "type": "parallel",
+      "format": "additive",
+      "origin": "bottom",
+      "layers": [
+        {
+          "kind": "smoke",
+          "density": 0.7,
+          "spread": 0.5,
+          "colour": [
+            0.75,
+            0.78,
+            0.78
+          ],
+          "rise": 0.4,
+          "env": {
+            "attack": 0.2,
+            "decay": 0.8
+          }
+        }
+      ]
+    },
+    {
+      "name": "sprites/fw_glow.spr",
+      "class": "glow",
+      "use": "env_glow",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 1,
+      "loop": false,
+      "fps": 1,
+      "type": "parallel",
+      "format": "additive",
+      "layers": [
+        {
+          "kind": "glow",
+          "radius": 0.95,
+          "core": 0.25,
+          "colour": [
+            1,
+            0.62,
+            0.22
+          ],
+          "falloff": "power"
+        }
+      ]
+    },
+    {
+      "name": "sprites/fw_spit.spr",
+      "class": "sparks",
+      "use": "env_sprite",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 8,
+      "loop": false,
+      "fps": 14,
+      "type": "parallel",
+      "format": "alpha test",
+      "origin": "centre",
+      "layers": [
+        {
+          "kind": "blobs",
+          "count": 9,
+          "radius": 0.32,
+          "colour": [
+            0.45,
+            0.6,
+            0.3
+          ]
+        }
+      ]
+    }
+  ]
+}

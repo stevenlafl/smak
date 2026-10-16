@@ -1,0 +1,220 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_console.mdl",
+  "kind": "prop",
+  "size": {
+    "height": 36,
+    "width": 42,
+    "length": 30
+  },
+  "materials": {
+    "cab": {
+      "base": "metal",
+      "tone": [
+        0.36,
+        0.38,
+        0.36
+      ],
+      "rust": 0.2
+    },
+    "screen": {
+      "base": "glass",
+      "tone": [
+        0.2,
+        0.38,
+        0.32
+      ]
+    },
+    "brass": {
+      "base": "brass",
+      "tone": [
+        0.5,
+        0.42,
+        0.22
+      ]
+    },
+    "steel": {
+      "base": "steel",
+      "tone": [
+        0.42,
+        0.42,
+        0.4
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "body",
+      "kind": "box",
+      "material": "cab",
+      "size": [
+        28,
+        40,
+        34
+      ],
+      "panels": [
+        {
+          "face": "front",
+          "at": [
+            9,
+            23
+          ],
+          "size": [
+            13,
+            11
+          ],
+          "style": "inset",
+          "material": "screen"
+        },
+        {
+          "face": "front",
+          "at": [
+            31,
+            23
+          ],
+          "size": [
+            13,
+            11
+          ],
+          "style": "inset",
+          "material": "screen"
+        },
+        {
+          "face": "front",
+          "at": [
+            9,
+            10
+          ],
+          "size": [
+            6,
+            6
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "brass"
+        },
+        {
+          "face": "front",
+          "at": [
+            20,
+            10
+          ],
+          "size": [
+            6,
+            6
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "brass"
+        },
+        {
+          "face": "front",
+          "at": [
+            31,
+            10
+          ],
+          "size": [
+            6,
+            6
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "brass"
+        },
+        {
+          "face": "front",
+          "at": [
+            5,
+            4
+          ],
+          "size": [
+            3,
+            3
+          ],
+          "style": "raised",
+          "material": "steel"
+        },
+        {
+          "face": "front",
+          "at": [
+            11,
+            4
+          ],
+          "size": [
+            3,
+            3
+          ],
+          "style": "raised",
+          "material": "steel"
+        },
+        {
+          "face": "front",
+          "at": [
+            17,
+            4
+          ],
+          "size": [
+            3,
+            3
+          ],
+          "style": "raised",
+          "material": "steel"
+        },
+        {
+          "face": "front",
+          "at": [
+            23,
+            4
+          ],
+          "size": [
+            3,
+            3
+          ],
+          "style": "raised",
+          "material": "steel"
+        },
+        {
+          "face": "front",
+          "at": [
+            29,
+            4
+          ],
+          "size": [
+            3,
+            3
+          ],
+          "style": "raised",
+          "material": "steel"
+        },
+        {
+          "face": "front",
+          "at": [
+            35,
+            4
+          ],
+          "size": [
+            3,
+            3
+          ],
+          "style": "raised",
+          "material": "steel"
+        }
+      ]
+    },
+    {
+      "id": "lip",
+      "kind": "box",
+      "material": "steel",
+      "size": [
+        30,
+        42,
+        2
+      ],
+      "at": [
+        0,
+        0,
+        34
+      ]
+    }
+  ]
+}

@@ -6,39 +6,39 @@
   "least": 12,
   "textures": [
    {
-    "name": "fw_concrete",
+    "name": "FW_CONC1",
     "size": [
      128,
      128
     ],
-    "detail": 27
+    "detail": 27.5
    },
    {
-    "name": "fw_floor",
+    "name": "FW_CONC2",
     "size": [
      128,
      128
     ],
-    "detail": 15.2
+    "detail": 26.1
    },
    {
-    "name": "{fw_grate",
+    "name": "FW_WETFLR",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 21.4
+   },
+   {
+    "name": "{FW_GRATE",
     "size": [
      64,
      64
     ],
-    "detail": 31.1
+    "detail": 0.6
    },
    {
-    "name": "fw_catwalk",
-    "size": [
-     128,
-     128
-    ],
-    "detail": 21.5
-   },
-   {
-    "name": "fw_pipes",
+    "name": "FW_CATWLK",
     "size": [
      128,
      128
@@ -46,68 +46,68 @@
     "detail": 24
    },
    {
-    "name": "fw_hazard",
+    "name": "FW_PIPES",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 22.7
+   },
+   {
+    "name": "FW_HAZARD",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 146.4
+   },
+   {
+    "name": "FW_RUSTP",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 24.9
+   },
+   {
+    "name": "FW_CTRLPN",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 22.6
+   },
+   {
+    "name": "~FW_LAMP",
     "size": [
      64,
      64
     ],
-    "detail": 25.7
+    "detail": 10.3
    },
    {
-    "name": "fw_rust",
+    "name": "!FW_WATER",
     "size": [
      128,
      128
     ],
-    "detail": 17.3
+    "detail": 2.3
    },
    {
-    "name": "fw_panel",
-    "size": [
-     128,
-     128
-    ],
-    "detail": 19.7
-   },
-   {
-    "name": "~fw_lamp",
-    "size": [
-     64,
-     64
-    ],
-    "detail": 9.7
-   },
-   {
-    "name": "!fw_water",
-    "size": [
-     128,
-     128
-    ],
-    "detail": 3.1
-   },
-   {
-    "name": "fw_sign",
+    "name": "FW_PUMP3",
     "size": [
      128,
      64
     ],
-    "detail": 23
+    "detail": 23.9
    },
    {
-    "name": "fw_door",
+    "name": "FW_DOOR",
     "size": [
      128,
      128
     ],
-    "detail": 16.8
-   },
-   {
-    "name": "fw_brick",
-    "size": [
-     128,
-     128
-    ],
-    "detail": 25.8
+    "detail": 17.1
    }
   ],
   "halfLifeDetail": {
@@ -124,40 +124,40 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Eleven of the thirteen read as the material the brief names: fw_concrete, fw_floor, fw_grate, fw_catwalk, fw_hazard, fw_rust, fw_lamp, fw_water, fw_sign, fw_door and fw_brick. fw_pipes is a panel grid with one horizontal pipe band, not a pipe-covered wall. fw_panel has three brown blobs and no screens or switches, so it does not read as a control panel with dials."
+   "reason": "Most read correctly: FW_CONC1 and FW_CONC2 (concrete), FW_WETFLR, FW_CATWLK, FW_RUSTP, FW_PUMP3 (readable PUMP 3), FW_LAMP and FW_DOOR (two leaves with knobs). Four do not: FW_HAZARD is a yellow hatch with no black-and-yellow stripes, FW_PIPES is a grey panel grid with two dark bars and no pipes, FW_CTRLPN has five black slots and no dials, and FW_GRATE is a black frame with blue holes rather than a steel grate. Any one of these fails a must-have item."
   },
   "T2": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "No colour measure was supplied for this set, so this is judged by eye. Concrete and catwalk are grey, hazard is yellow and black, rust is brown, the lamp is sodium orange, the water is green-grey, the door is grey-green and the brick is red-brown. All sit in the brief's palette. The grate's blue is the transparent palette index, not a colour on the wall."
+   "score": 1,
+   "reason": "No colour measure was supplied for this set, so this is judged by eye. FW_GRATE's metal is near black where a steel grate should be grey. FW_HAZARD is a dull olive-yellow rather than a clear hazard yellow. FW_WATER is dark blue-teal and fairly close to the brief's green-grey. The rest look plausible for their surfaces. The grate and hazard are enough to fail this item, pending the harness's colour measure."
   },
   "T3": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Panel and seam spacing (catwalk, pipes, panel, rust, door leaves) reads as a wall tile scale, the brick courses and hazard stripes are at a wall's scale, and the grate has eight holes across its 64 texture. No original spacing is given for this set, so this is judged against a wall's scale only."
+   "score": 1,
+   "reason": "The concrete, wet floor, catwalk plate, rusted plate and door panels sit at a plausible scale for a wall. FW_PIPES has no pipes at the scale a pipe wall needs, FW_CTRLPN has no dials, and FW_HAZARD has no stripe pitch at all. Those three do not show the layout the brief asks for."
   },
   "T4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "No seam shows at the tile edges in the flat views of any texture. The repeat step is not measured for this set and no measure was supplied, so this is by eye only."
+   "reason": "No visible seam or step across the edges of the plain and panelled textures in the flat picture. FW_CONC2's panel border falls on the repeat, but it reads as a seam the original's wall would also show, not a tiling break. Not measured here, judged by eye."
   },
   "T5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Measured detail is under Valve's band (q1 19.7) for fw_floor (15.2), fw_rust (17.3), fw_door (16.8), fw_lamp (9.7) and fw_water (3.1). fw_panel sits at the band's floor (19.7) and its dials are blurred blobs. The lamp is a smooth gradient and the water is near flat with faint streaks. Concrete, grate, catwalk, pipes, hazard, sign and brick are inside the band and look sharp at flat size."
+   "reason": "Measured fine detail is out of Valve's band for four textures: FW_HAZARD at 146.4 is about three times Half-Life's third quartile (45) and reads as noise; FW_WATER at 2.3 and FW_GRATE at 0.6 sit far below its first quartile (19.7), so they look smeared or flat; FW_DOOR at 17.1 sits just below it. The concrete, wet floor, catwalk, pipes, rust, panel and sign are inside the band and look sharp."
   },
   "T6": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The kinds are kept: fw_grate is a { texture with holes (its blue is the transparent index), fw_water is a ! liquid, and ~fw_lamp is a lit face. The brief asks for no + animation and none is in the set. Sizes are 128x128 for most, 64x64 for grate, hazard and lamp, and 128x64 for the sign. The brief fixes no sizes, so there is no original size to match."
+   "reason": "Names and sizes match the list: FW_CONC1, FW_CONC2, FW_WETFLR, FW_CATWLK, FW_PIPES, FW_HAZARD, FW_RUSTP, FW_CTRLPN, FW_PUMP3 and FW_DOOR at 128x128 (FW_PUMP3 at 128x64), {FW_GRATE and ~FW_LAMP at 64x64, !FW_WATER at 128x128. The grate has holes as transparent cells, the lamp face is lit, and the water keeps its liquid name. The set has no +0 animation, and none was asked for in the textures list."
   }
  },
- "total": 10,
+ "total": 8,
  "of": 12,
  "passes": false
 }

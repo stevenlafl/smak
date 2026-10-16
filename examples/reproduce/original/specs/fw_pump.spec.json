@@ -1,0 +1,93 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_pump.mdl",
+  "kind": "prop",
+  "size": {
+    "height": 180,
+    "width": 140,
+    "length": 140
+  },
+  "materials": {
+    "yellow": {
+      "base": "paint",
+      "tone": [
+        0.7,
+        0.55,
+        0.12
+      ]
+    },
+    "steel": {
+      "base": "metal",
+      "tone": [
+        0.36,
+        0.4,
+        0.38
+      ],
+      "rust": 0.35
+    },
+    "dark": {
+      "base": "metal",
+      "tone": [
+        0.2,
+        0.2,
+        0.19
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "base",
+      "kind": "cylinder",
+      "material": "yellow",
+      "radius": 70,
+      "height": 30,
+      "sides": 16
+    },
+    {
+      "id": "body",
+      "kind": "cylinder",
+      "material": "steel",
+      "radius": 52,
+      "height": 110,
+      "sides": 16,
+      "attach": {
+        "to": "base"
+      }
+    },
+    {
+      "id": "band_low",
+      "kind": "band",
+      "material": "dark",
+      "on": {
+        "part": "body",
+        "s": 0.2
+      },
+      "width": 2.5,
+      "height": 2
+    },
+    {
+      "id": "band_high",
+      "kind": "band",
+      "material": "dark",
+      "on": {
+        "part": "body",
+        "s": 0.8
+      },
+      "width": 2.5,
+      "height": 2
+    },
+    {
+      "id": "motor",
+      "kind": "box",
+      "size": [
+        96,
+        84,
+        40
+      ],
+      "material": "dark",
+      "attach": {
+        "to": "body"
+      }
+    }
+  ]
+}

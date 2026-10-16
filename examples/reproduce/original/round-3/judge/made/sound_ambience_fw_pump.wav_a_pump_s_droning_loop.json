@@ -1,0 +1,83 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_pump.wav: a pump's droning loop",
+ "measured": {
+  "features": {
+   "length": 1.85,
+   "peak": -0.5,
+   "rms": -15.8,
+   "crest": 15.3,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0.01,
+   "tail": 0.534,
+   "attack": 0.155,
+   "peakAt": 0.314,
+   "t20": 0.314,
+   "t40": 0.693,
+   "centroid": 56,
+   "rolloff": 86,
+   "flatness": 0,
+   "bands": {
+    "<150": 100,
+    "150-600": 0,
+    "600-2k": 0,
+    "2k-5k": 0,
+    ">5k": 0
+   },
+   "onsets": 2
+  },
+  "class": "loop machine",
+  "against": {
+   "score": 12,
+   "of": 20,
+   "lines": [
+    "length 1.85 s (2.03 to 3.39): too short",
+    "crest 15.3 dB (8.3 to 14.3): too spiky: saturate more, or hold its body longer",
+    "rms -15.8 dBFS (-14.7 to -8.7): under the range",
+    "centroid 56 Hz (237 to 437): too dark: more 600 to 5000 Hz",
+    "band <150 100% (0 to 13.9): over the range",
+    "band 150-600 0% (84.2 to 100): under the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The picture reads as a low, pulsing machine drone: about 20 regular pulses in the first half second, all energy under roughly 150 Hz. It is less clearly a pump's steady loop, because the level dies to near silence over the last half second and a stray click sits near 1.0 s (the second onset)."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length is 1.85 s against the class range of 2.03 to 3.39 s, and the measure marks it too short. Attack (0.155 s) and the decay (t40 at 0.693 s) are not flagged, so the envelope is only partly off."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The spectrum is wrong. The centroid is 56 Hz against 237 to 437 Hz, the under-150 Hz band holds 100% against a range of 0 to 13.9%, and the 150 to 600 Hz band holds 0% against 84.2 to 100%. The spectrogram shows all energy at the bottom with nothing above about 600 Hz."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The character is partly off. A stray click at about 1.0 s is a second onset that a steady drone should not have. The flatness of 0 makes it a pure tone with no grit or hiss, which suits a drone but is thin for a pump. The tail fades out rather than holding the drone, and the pitch movement cannot be checked from the picture."
+  },
+  "S5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The name is right (SOUND/AMBIENCE/FW_PUMP.WAV), there is no clipping (peak -0.5 dBFS), no DC and no engine faults. The sample rate, bit depth and channel count are not in the measurements, so the format cannot be confirmed. The loop cue cannot be seen, and a join from near-silence back to the start would not be seamless."
+  }
+ },
+ "total": 4,
+ "of": 10,
+ "passes": false
+}

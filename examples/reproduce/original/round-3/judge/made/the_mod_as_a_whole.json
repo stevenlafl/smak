@@ -1,0 +1,94 @@
+{
+ "kind": "mod",
+ "label": "the mod as a whole",
+ "measured": {
+  "missing": [],
+  "failedChecks": [],
+  "chain": [
+   {
+    "map": "fw_yard",
+    "leadsTo": [
+     "fw_pumphall"
+    ],
+    "landmarks": [
+     null
+    ],
+    "asked": "fw_pumphall"
+   },
+   {
+    "map": "fw_pumphall",
+    "leadsTo": [
+     "fw_control"
+    ],
+    "landmarks": [
+     null,
+     null
+    ],
+    "asked": "fw_control"
+   },
+   {
+    "map": "fw_control",
+    "leadsTo": [],
+    "landmarks": [
+     null
+    ],
+    "asked": null
+   }
+  ],
+  "shown": [
+   {
+    "file": "videos/fw_wrench.mp4",
+    "there": true,
+    "bytes": 311482
+   },
+   {
+    "file": "videos/fw_crawler.mp4",
+    "there": true,
+    "bytes": 203314
+   },
+   {
+    "file": "videos/fw_pumphall.mp4",
+    "there": true,
+    "bytes": 619757
+   },
+   {
+    "file": "pictures/fw_props.png",
+    "there": true,
+    "bytes": 1233250
+   }
+  ]
+ },
+ "caps": {
+  "O1": 2,
+  "O2": 2
+ },
+ "scores": {
+  "O1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements report no missing assets and no failed SMAK checks. All five props (valve wheel, drum with hazard stripe, console, pipe junction, caged lamp) are visible in the picture, and the crawler is in view. The wrench, the textures and the sprites are not in this picture, so this score rests on the measurements, not on what I could see."
+  },
+  "O2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The chain is right: fw_yard leads to fw_pumphall, fw_pumphall leads to fw_control, and fw_control ends the mod. But every level-change landmark is null, so the brief's 'by a level change with its landmark' and the arrival point are not shown to be wired. Whether every named model, sprite and sound is in the mod or the game is not measured."
+  },
+  "O3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The props and map views share a rusted-steel, grey-green, hazard-yellow palette, which fits the brief. But the valve wheel's saturated red and the lamp's bright orange glow look more toy-like than the worn maps. The yard's view has a bright blue daytime sky, not the dusk the brief asks for. The control room's wood-plank ceiling does not match the concrete and steel the brief describes."
+  },
+  "O4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The measurements show the three videos (wrench, crawler, pump hall flight) and the props picture (fw_props.png, 1.2 MB) are present. The props shown in the picture are each clearly what they are, and the crawler is recognisable."
+  }
+ },
+ "total": 6,
+ "of": 8,
+ "passes": false
+}

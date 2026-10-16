@@ -3,27 +3,27 @@
  "label": "sound/weapons/cbar_miss1.wav: the wrench's swing",
  "measured": {
   "features": {
-   "length": 0.283,
+   "length": 0.26,
    "peak": -0.5,
-   "rms": -16,
-   "crest": 15.5,
+   "rms": -17,
+   "crest": 16.5,
    "dc": 0,
    "clipped": 0,
-   "lead": 0.005,
+   "lead": 0,
    "tail": 0.01,
-   "attack": 0.055,
-   "peakAt": 0.085,
-   "t20": 0.085,
-   "t40": 0.135,
-   "centroid": 2043,
-   "rolloff": 3144,
-   "flatness": 0.128,
+   "attack": 0.02,
+   "peakAt": 0.035,
+   "t20": 0.065,
+   "t40": 0.14,
+   "centroid": 1431,
+   "rolloff": 2304,
+   "flatness": 0.006,
    "bands": {
-    "<150": 0,
-    "150-600": 2.4,
-    "600-2k": 59,
-    "2k-5k": 34,
-    ">5k": 4.6
+    "<150": 0.5,
+    "150-600": 12.3,
+    "600-2k": 61.9,
+    "2k-5k": 25.3,
+    ">5k": 0.1
    },
    "onsets": 0
   },
@@ -32,11 +32,12 @@
    "score": 13,
    "of": 22,
    "lines": [
-    "rms -16 dBFS (-25.8 to -19.8): over the range",
-    "centroid 2043 Hz (608 to 912): too bright: less over 2000 Hz",
-    "band 150-600 2.4% (55.8 to 75.8): under the range",
-    "band 600-2k 59% (15 to 35): over the range",
-    "band 2k-5k 34% (0 to 16.7): over the range"
+    "rms -17 dBFS (-25.8 to -19.8): over the range",
+    "centroid 1431 Hz (608 to 912): too bright: less over 2000 Hz",
+    "flatness 0.006 (0.03 to 0.13): too pure: more noise",
+    "band 150-600 12.3% (55.8 to 75.8): under the range",
+    "band 600-2k 61.9% (15 to 35): over the range",
+    "band 2k-5k 25.3% (0 to 16.7): over the range"
    ]
   },
   "engineFaults": []
@@ -49,34 +50,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The waveform is a noise burst that swells from about 0.05 s, peaks near 0.085 s and dies away by about 0.28 s, with no sharp transient, which reads as a swing's whoosh rather than a strike. The judge cannot listen, so this rests on the picture and the class, not on hearing it."
+   "reason": "The waveform is a short noisy burst with a fast rise (attack 0.02 s, peak at 0.035 s) that falls away over about 0.1 s, then a faint tail. The spectrogram is broadband noise, which fits a crowbar-class swing or miss. The measures show no onset, so there is no hit inside it, which is right for a swing. Nothing in the picture contradicts the event."
   },
   "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length 0.26 s, attack 0.02 s, t20 0.065 s and t40 0.14 s are not on the failure list. The against lines name only the level, spectrum and flatness as out of range, so the envelope is within the class's range as measured. The picture agrees: a fast onset and a decay that is mostly over by about 0.15 s."
+  },
+  "S3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Length 0.283 s, attack 0.055 s and t20 0.085 s give a plausible rise-peak-decay shape. The class range for length and attack/decay is not among the measures given, so the envelope cannot be confirmed within the class's range and is held at 1."
-  },
-  "S3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "Measured against the class range: centroid 2043 Hz against 608 to 912 Hz is too bright. Bands: 150-600 Hz at 2.4% is under its 55.8 to 75.8% range; 600-2k at 59% is over its 15 to 35% range; 2k-5k at 34% is over its 0 to 16.7% range. The spectrogram's energy sits in the mid and upper-mid bands, matching these figures. Each band is far outside the 10-point tolerance."
+   "reason": "Clearly off in the spectrum, and the measures fail it. The centroid is 1431 Hz against a range of 608 to 912 Hz, too bright, with too little energy below 2 kHz. The 600 to 2k band holds 61.9% against 15 to 35%. The 2k to 5k band holds 25.3% against 0 to 16.7%. The 150 to 600 band holds 12.3% against 55.8 to 75.8%. The spectrogram shows the bright warm colour across the lower and middle of the frame and little above, which matches the numbers. The sound is present but its balance is wrong, so it is held at 1, not 2."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Onsets are 0, which suits a swing with no strike. Flatness is 0.128, which is tonal rather than the noisy whoosh a swing usually has, and the spectrogram shows horizontal banding (tonal stripes) rather than broadband noise. Pitch movement is not evident in the picture. This item is not a must, but the character is off."
+   "reason": "Flatness is 0.006 against a range of 0.03 to 0.13, too pure. The picture shows it: the spectrogram has horizontal banding, and the tail after about 0.1 s is smooth and tonal rather than hissy. The onset count of 0 matches a swing, and nothing in the picture shows a pitch slide, so the fault is the tone and noise balance alone."
   },
   "S5": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Clipped 0, DC 0, peak -0.5 dBFS with a lead and tail, the file name matches, and engineFaults is empty, so the engine check raised no fault. The sample rate, bit depth and mono format are not stated in the features, so this rests on the empty fault list and the clean measures."
+   "score": 1,
+   "reason": "Held at 1 because the format is not in the measures: sample rate, bit depth and channel count are absent, so mono PCM at an engine rate cannot be confirmed. The measures that exist are clean: no clipping, DC is 0, and the name is sound/weapons/cbar_miss1.wav. This is a gap in the evidence, not a measured fault. It should be re-scored once the harness reports the format."
   }
  },
- "total": 6,
+ "total": 7,
  "of": 10,
  "passes": false
 }

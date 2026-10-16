@@ -3,27 +3,27 @@
  "label": "sound/headcrab/hc_pain1.wav: the crawler's pain",
  "measured": {
   "features": {
-   "length": 0.442,
+   "length": 0.332,
    "peak": -0.5,
-   "rms": -15,
-   "crest": 14.5,
-   "dc": 0,
+   "rms": -9.7,
+   "crest": 9.2,
+   "dc": 0.0005,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.015,
-   "attack": 0.01,
-   "peakAt": 0.01,
-   "t20": 0.145,
-   "t40": 0.299,
-   "centroid": 691,
-   "rolloff": 1292,
-   "flatness": 0.001,
+   "tail": 0.01,
+   "attack": 0,
+   "peakAt": 0.005,
+   "t20": 0.185,
+   "t40": 0.254,
+   "centroid": 660,
+   "rolloff": 1206,
+   "flatness": 0.005,
    "bands": {
-    "<150": 0,
-    "150-600": 73.3,
-    "600-2k": 23.1,
-    "2k-5k": 3.6,
-    ">5k": 0
+    "<150": 48.7,
+    "150-600": 0.1,
+    "600-2k": 50.4,
+    "2k-5k": 0.7,
+    ">5k": 0.1
    },
    "onsets": 0
   },
@@ -52,31 +52,31 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The picture shows one sharp attack at the start, then a single decaying tone over 0.44 s. The game's pain (0.80 s) is a run of about 20 separate pulses. Nothing in the waveform or spectrogram shows a pulsed, vocal creature cry, so it reads as a short impact or grunt, not clearly a crawler's pain. Listening was not possible, so this is judged from the picture and features only."
+   "reason": "From the picture, the replacement is a 0.33 s tone that starts at about 660 Hz and sweeps down, with clean harmonic lines and no noise. The original is about 0.8 s of pulsed, broadband bursts of a creature's cry. A pain sound from a creature is plausible, but this reads as a single synthetic blip, not the same event."
   },
   "S2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Length is 0.442 s against the original's 0.795 s, about 44% short (the rule is within 25%). T20 is 0.145 s against 0.544 s, about a quarter of the original's decay, and the waveform falls silent around 0.44 s where the original runs on. Attack matches at 0.01 s. The class range from src/audio/classes.mjs was not in my inputs, so I scored against the original's own envelope, and the shortfall is clear either way."
+   "reason": "Length is 0.332 s against the original's 0.795 s, about 58% short where the must-have limit is 25%. The 20% point (t20) is 0.185 s against 0.544 s. The waveform shows a fast attack and a decay, but the envelope is clearly off in length and decay."
   },
   "S3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The spectrum is far from the original's. Centroid is 691 Hz against 2682 Hz, about 74% lower (the rule is within 20%). Band shares are 73.3% in 150-600 Hz against 0% in the original, and 3.6% in 2k-5k Hz against 83.8%. The energy sits in the low-mid band where the original has almost none. Each band is off by far more than 10 points. The measure already fails this, so it is 0."
+   "reason": "Centroid is 660 Hz against 2682 Hz, about 75% off where the limit is 20%. Band shares miss on every band: under 150 Hz is 48.7 against 0.2, 600 to 2k is 50.4 against 15.6, 2k to 5k is 0.7 against 83.8. Energy sits in the low and mid range, where the original's sits at 2 to 5 kHz."
   },
   "S4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The original has many onsets (repeated hits visible in its waveform), and the replacement has 0. Its flatness of 0.001 marks it as a pure tone, while the original's spectrogram is broadband and noisy. The pulse pattern, the character of a pained cry, is missing entirely. The rubric says 0 is wrong or missing."
+   "reason": "The original is a run of pulses (many onsets), and the replacement has none (onsets 0). The replacement is very tonal (flatness 0.005) where the original is broadband and gritty. Its falling glide is the only trait that could match, and the picture gives no pitch contour for the original to check it against."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The file's name is sound/headcrab/hc_pain1.wav, the same as the original's. Clipping is 0, DC is 0, peak is -0.5 dB, and engineFaults is empty. This is a non-loop one-shot, so no loop cue is needed. The measurements don't list sample rate, channel count or bit depth separately, so this relies on the empty engineFaults list covering the format check."
+   "reason": "Peak is -0.5 dBFS with no clipping, DC is 0.0005 (effectively none), no engine faults are reported, and the name is sound/headcrab/hc_pain1.wav. The sample rate and bit depth are not in the given measurements, so the format rests on the empty engineFaults list and the name. It is not a loop, so no cue is needed."
   }
  },
  "total": 4,

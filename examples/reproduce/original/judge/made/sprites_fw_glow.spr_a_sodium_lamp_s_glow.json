@@ -24,7 +24,7 @@
     "first": 1,
     "last": 1
    },
-   "dark": 0.49,
+   "dark": 0.59,
    "wrap": null,
    "jitter": null
   },
@@ -48,31 +48,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The frame shows one soft, centred orange radial glow falling off to nothing at the edges, which reads as a sodium lamp's glow, the effect the brief asks for."
+   "reason": "Reads as a sodium lamp's glow: a soft radial halo, brightest at the centre and fading out, which is the effect the brief asks for."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The frame is 64 by 64, as measured. The border is 0, so the glow dies out inside the frame and does not clip at the edges. The bright core fills the middle of the frame, and the falloff is smooth."
+   "reason": "One 64x64 frame with the glow filling it and falling off to the edges. The border measure is 0 (max 0, mean 0), so nothing is clipped or left as a hard edge."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The core is warm orange, shading to yellow-orange at the brightest point and to dark grey-black where the additive blend adds nothing. That matches a sodium lamp's colour. No mean-colour figure is given against Half-Life's glow class, so this rests on the picture alone."
+   "reason": "The glow is warm amber-orange, matching the sodium-orange the brief names, with no neon or off-palette hue. No original colour measure is given in the measurements, so this is a visual judgement only, not a measured ΔE."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "A glow is a single still frame, and the envelope is flat across the one frame, so the motion is right in kind. The measurements do not give the class's frame count, so the 25% check against Half-Life's glow class is unverified. I have scored on the picture, which shows no motion and no fault."
+   "reason": "A single static frame, which is the expected motion for a steady lamp glow in this class. The frame count (1) cannot be checked against Half-Life's own glows of this class, since the against-class measure covers only the border. Scored on the picture and the stated frame count."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The measurements give the type as parallel and the format as additive, which is what a glow sprite of this kind uses. The name fw_glow.spr matches the brief's sprite. Read-back of the written file is not shown in the pictures, so this rests on the measures given."
+   "reason": "The measurements give type parallel and format additive, which is what a light glow normally uses, and the name fw_glow matches the brief's sprite. The file itself was not read back, so this rests on the stated type and format."
   }
  },
  "total": 10,

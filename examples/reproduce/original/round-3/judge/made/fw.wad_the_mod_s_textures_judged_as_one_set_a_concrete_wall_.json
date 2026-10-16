@@ -1,0 +1,163 @@
+{
+ "kind": "texture",
+ "label": "fw.wad, the mod's textures, judged as one set: a concrete wall, a wet concrete floor, a steel grate with holes, a catwalk floor, a pipe-covered wall, a hazard-striped trim, a rusted steel plate, a control panel with dials, a sodium lamp's face (lit), the water, a sign reading PUMP 3, a door",
+ "measured": {
+  "count": 13,
+  "least": 12,
+  "textures": [
+   {
+    "name": "fw_concrete",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 27
+   },
+   {
+    "name": "fw_floor",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 15.2
+   },
+   {
+    "name": "{fw_grate",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 31.1
+   },
+   {
+    "name": "fw_catwalk",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 21.5
+   },
+   {
+    "name": "fw_pipes",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 24
+   },
+   {
+    "name": "fw_hazard",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 25.7
+   },
+   {
+    "name": "fw_rust",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 17.3
+   },
+   {
+    "name": "fw_panel",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 19.7
+   },
+   {
+    "name": "~fw_lamp",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 9.7
+   },
+   {
+    "name": "!fw_water",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 3.1
+   },
+   {
+    "name": "fw_sign",
+    "size": [
+     128,
+     64
+    ],
+    "detail": 23
+   },
+   {
+    "name": "fw_door",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 16.8
+   },
+   {
+    "name": "fw_brick",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 25.8
+   }
+  ],
+  "halfLifeDetail": {
+   "q1": 19.7,
+   "median": 30.1,
+   "q3": 45
+  }
+ },
+ "caps": {
+  "T6": 2
+ },
+ "scores": {
+  "T1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Eleven of the thirteen read as the material the brief names: fw_concrete, fw_floor, fw_grate, fw_catwalk, fw_hazard, fw_rust, fw_lamp, fw_water, fw_sign, fw_door and fw_brick. fw_pipes is a panel grid with one horizontal pipe band, not a pipe-covered wall. fw_panel has three brown blobs and no screens or switches, so it does not read as a control panel with dials."
+  },
+  "T2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "No colour measure was supplied for this set, so this is judged by eye. Concrete and catwalk are grey, hazard is yellow and black, rust is brown, the lamp is sodium orange, the water is green-grey, the door is grey-green and the brick is red-brown. All sit in the brief's palette. The grate's blue is the transparent palette index, not a colour on the wall."
+  },
+  "T3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Panel and seam spacing (catwalk, pipes, panel, rust, door leaves) reads as a wall tile scale, the brick courses and hazard stripes are at a wall's scale, and the grate has eight holes across its 64 texture. No original spacing is given for this set, so this is judged against a wall's scale only."
+  },
+  "T4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "No seam shows at the tile edges in the flat views of any texture. The repeat step is not measured for this set and no measure was supplied, so this is by eye only."
+  },
+  "T5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Measured detail is under Valve's band (q1 19.7) for fw_floor (15.2), fw_rust (17.3), fw_door (16.8), fw_lamp (9.7) and fw_water (3.1). fw_panel sits at the band's floor (19.7) and its dials are blurred blobs. The lamp is a smooth gradient and the water is near flat with faint streaks. Concrete, grate, catwalk, pipes, hazard, sign and brick are inside the band and look sharp at flat size."
+  },
+  "T6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The kinds are kept: fw_grate is a { texture with holes (its blue is the transparent index), fw_water is a ! liquid, and ~fw_lamp is a lit face. The brief asks for no + animation and none is in the set. Sizes are 128x128 for most, 64x64 for grate, hazard and lamp, and 128x64 for the sign. The brief fixes no sizes, so there is no original size to match."
+  }
+ },
+ "total": 10,
+ "of": 12,
+ "passes": false
+}

@@ -1,0 +1,97 @@
+{
+ "kind": "map",
+ "label": "maps/fw_pumphall.bsp: the flooded hall: water deep enough to swim, three pumps, catwalks both sides joined by a bridge, ladders; the wrench on a catwalk, three crawlers in the water; out by a stair to a corridor",
+ "measured": {
+  "size": [
+   3072,
+   1008
+  ],
+  "sizeAsked": {
+   "long": 2500
+  },
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [
+   {
+    "map": "fw_control",
+    "landmark": "lm_control"
+   }
+  ],
+  "landmarks": [
+   null,
+   null
+  ],
+  "itemsAsked": [
+   "weapon_crowbar",
+   "monster_headcrab"
+  ],
+  "itemsFound": [
+   "weapon_crowbar: 1",
+   "monster_headcrab: 3"
+  ]
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan shows one open hall, a stair on its east end leading to a small landing room, and the changelevel trigger there. The brief's catwalks on both sides, the bridge joining them and the ladders from water to catwalk are absent, so the hall's arrangement is only partly right."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The hall's footprint is about 2500 units long and about 1000 wide, matching the brief's 'about 2500 long'. The walkable floor is about right in place and size. No overlap figure was supplied, so this is judged from the plan alone and the catwalk areas that are missing are not counted here."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The views show a flat floor with a water-like surface and no raised catwalk level, ledges, or ladder drops. Only the stair up to the corridor matches the brief's level structure, so the water-to-catwalk height change the brief describes is missing."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The start, the three headcrabs (one per crawler), and the changelevel to fw_control are present and roughly placed. The single weapon_crowbar marker sits in the middle of the hall floor near a pump, not on a catwalk as the brief says. The ladders are not at any catwalk, since none exists."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The walls read as a mottled grey concrete, close to the brief. The ceiling is a brown wood-like truss texture that does not read as industrial steel, and the water is a flat dark teal. No hazard paint, grate, or rusted steel shows in the views."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan has a regular grid of about 49 light entities, and the views are lit evenly. The brief asks for sodium-orange lamps that are lit and bright in places, and no warm sodium colour or pool of light shows in the views, so the light is off in colour and in its bright and dark areas."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Three pumps are present as brown cylinders on pedestals, and there are hanging pipes or poles in the views. The distinctive features the brief names (catwalks, bridge, ladders, caged wall lamps, grates, hazard trim) are not visible in the views or on the plan, so only the pumps and pipes count."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements show no check errors, no unreached items, and no reach warnings. The map compiles, and the walk test reaches its items and the changelevel. No leak is reported."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From the start and the three view angles, the hall looks like a generic room with pillars and a wood-looking ceiling. A player who knows Half-Life's flooded pumping station would not recognise it: there are no catwalks, bridge, ladders or hazard-painted steel, and the water reads as a flat teal floor rather than a deep, swimmable pool."
+  }
+ },
+ "total": 11,
+ "of": 18,
+ "passes": false
+}

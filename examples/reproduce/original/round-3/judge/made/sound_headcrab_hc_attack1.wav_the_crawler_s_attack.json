@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_attack1.wav: the crawler's attack",
+ "measured": {
+  "features": {
+   "length": 0.195,
+   "peak": -0.5,
+   "rms": -14.7,
+   "crest": 14.2,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.015,
+   "attack": 0.005,
+   "peakAt": 0.005,
+   "t20": 0.05,
+   "t40": 0.145,
+   "centroid": 151,
+   "rolloff": 129,
+   "flatness": 0,
+   "bands": {
+    "<150": 94,
+    "150-600": 2.6,
+    "600-2k": 3,
+    "2k-5k": 0.3,
+    ">5k": 0
+   },
+   "onsets": 0
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.906,
+    "centroid": 921,
+    "t20": 0.394,
+    "bands": {
+     "<150": 0.5,
+     "150-600": 68.1,
+     "600-2k": 18.8,
+     "2k-5k": 10.9,
+     ">5k": 1.6
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The picture shows one short, low, decaying burst of about 0.2 s, with energy almost all under 150 Hz. The game's sound is a longer run of several sharp hits and scrapes, roughly 0.9 s, spread across the spectrum. A thump can stand in for a bite, but the multi-hit attack of a crawler is not there, so it reads as a different event that is only partly the same."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Measured length is 0.195 s against the original's 0.906 s, about 78% short, far outside the 25% allowed. The attack (0.005 s) is fast and the decay is present, but the envelope as a whole is clearly off. The must-have fails on the measure alone."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Measured centroid is 151 Hz against 921 Hz, 84% off where 20% is allowed. The bands are wrong throughout: under 150 Hz is 94 against 0.5, 150 to 600 Hz is 2.6 against 68.1, and 600 Hz to 2 kHz is 3 against 18.8. Each is far outside 10 points. The spectrum is almost all sub-bass, where the game's sits in the 150 to 600 Hz range, so it is wrong, not just off."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Not a must-have, but clearly off. The measure shows 0 onsets, while the original has several hits (visible as sharp transients around 0.1, 0.4, 0.6 and 0.85 s in its waveform). The replacement is one tonal, ringing decay with no hits, and the original's rougher, noise-laced texture is absent. Only the decaying tone is similar."
+  },
+  "S5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The name matches (sound/headcrab/hc_attack1.wav) and the measures show no clipping (0) and no DC (0), with peak at -0.5 dBFS. But the measures do not report channels, sample rate or bit depth, so mono PCM at 11025, 22050 or 44100 Hz at 8 or 16 bits is not confirmed. Since this must-have cannot be verified from what was given, it does not reach 2."
+  }
+ },
+ "total": 4,
+ "of": 10,
+ "passes": false
+}

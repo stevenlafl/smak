@@ -1,0 +1,91 @@
+{
+ "kind": "map",
+ "label": "maps/fw_yard.bsp: the station's yard at dusk, open to the sky, a gatehouse door, drums, a pipe section; start by the gate, out by the pump house's double doors",
+ "measured": {
+  "size": [
+   1448,
+   1448
+  ],
+  "sizeAsked": [
+   1500,
+   1500
+  ],
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [
+   {
+    "map": "fw_pumphall",
+    "landmark": "lm_pumphall"
+   }
+  ],
+  "landmarks": [
+   null
+  ],
+  "itemsAsked": [],
+  "itemsFound": []
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The yard, a gatehouse (func_door 1, bottom left) and a pump house (func_door 2 and the changelevel, top right) are present and joined by doors. But the start (entity 11) sits at the far west edge with no gate in view, the drums and broken pipe section the brief names are absent from both pictures, and the brief's arrangement of gate, yard and pump house is only partly shown."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 1448 by 1448 against the asked 1500 by 1500, about 3.5% short, well inside 25%. The gatehouse (about 245 units square) and pump house (about 375 by 310) read as plausible areas on the plan. The walkable-floor overlap was not measured, so this rests on the plan and the size alone."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The views from the start show a flat, open ground plane with no visible ramp, stair or ledge. The brown and grey floor tones on the plan suggest different floor heights, but no section or storey data confirms them, so the level arrangement is unverified and likely off from the brief's raised pump house and gatehouse."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The two func_door entities and the trigger_changelevel are present in plausible places. The measurement shows landmarks as [null], so the changelevel's landmark lm_pumphall does not resolve, though an info_landmark (entity 12) sits in the pump house. The start is not visibly by the gate. The brief names no weapons or crawlers for this yard."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The views show a stock-looking grey tiled ground and red brick walls. The brief asks for concrete walls, a wet concrete floor, and hazard-striped trim and a rusted plate in its texture list, and none of those can be seen. The brick reads as a generic texture rather than the station's concrete."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Two light entities (15 in the gatehouse, 16 in the pump house) and a light_environment (17) are placed, but the views show a bright blue daytime sky and even lighting, not the dusk and sodium-orange lamps the brief asks for. The lamps' glow and bright and dark areas are not visible."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The gatehouse with its door and the pump house box are present. But the drums, the broken pipe section, the hazard paint, the sign and the caged lamp that give the yard its character are not in the views. The seven cycler sprites are placed in the yard with no visible steam or detail."
+  },
+  "P8": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The compile check is clean (no checkErrors, notReached or reachWarnings), so the walk test reaches the changelevel. But the landmark resolves to null (landmarks: [null]) while the changelevel names lm_pumphall, so the arrival in fw_pumphall is not wired correctly. That fault is in the works item, not in the measurement."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From inside, the yard reads as a generic grey tiled lot with brick walls, under a blue daytime sky. A player would not take it for the dusk pumping station the brief describes, nor for a Half-Life map at once. The gatehouse and pump house are recognisable only as small brick boxes."
+  }
+ },
+ "total": 10,
+ "of": 18,
+ "passes": false
+}

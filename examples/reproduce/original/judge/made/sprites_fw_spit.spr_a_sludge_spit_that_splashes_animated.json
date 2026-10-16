@@ -8,7 +8,7 @@
   ],
   "frames": 8,
   "type": "parallel",
-  "format": "alpha test",
+  "format": "additive",
   "measures": {
    "frames": 8,
    "size": [
@@ -24,21 +24,21 @@
     "first": 0,
     "last": 0
    },
-   "dark": 0.89,
-   "wrap": 0,
-   "jitter": 1.65
+   "dark": 0.77,
+   "wrap": 0.54,
+   "jitter": 1.46
   },
   "class": "explosion",
   "againstClass": [
    {
     "measure": "jitter",
-    "value": 1.65,
+    "value": 1.46,
     "range": [
      1.04,
      1.48
     ],
-    "ok": false,
-    "words": "flickers: more coherence from frame to frame"
+    "ok": true,
+    "words": ""
    },
    {
     "measure": "border",
@@ -88,31 +88,31 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Reads as a green blob that swells, sags and fades, not a splash. The frames show no spray, droplets or spreading lip, so the 'splashes' part of the brief is not clear. The sludge spit is there, but the splash effect is weak."
+   "reason": "The frames show a soft green-grey cloud with a bright core that grows, then thins. It reads as a glow or smoke puff. A splash is only faintly suggested by a few spatter specks in frames 4 and 5 and the ragged edge of frame 5, so the effect is only partly the sludge splash the brief asks for."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Frames are 32 x 32 as the measurements give. The blob fills roughly 16 to 20 dots across and sits near the centre of each cell. The border measure is 0, so nothing touches the edge."
+   "reason": "Each frame is a square with the effect filling about two-thirds of it. The edges fall off to empty background (border measure 0), so the sprite has no clipped or hard-edged frame."
   },
   "R3": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Lime and mid green with darker edges fits the brief's sludge and the sodium-lit green-grey palette. No colour measure against an original is supplied, so this is judged by eye only."
-  },
-  "R4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Jitter is 1.65, outside the explosion class range of 1.04 to 1.48, and the measure reads it as flicker. Frames 1 to 3 change shape a lot from one frame to the next. The count of 8 frames, the peak near 0.43 and the fade to empty at the end (first and last both 0) are in range. A measured fault caps this at 1."
+   "reason": "No colour measure against the class is given, so the colour can't be checked. By eye the frames are a pale green-grey that suits the brief's green-grey sludge, but that is unverified."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Eight frames. The envelope is within the class ranges: peak at 0.43 (range 0.22 to 0.71), first frame 0 (0 to 0.22), last frame 0 (0 to 0.03). Frames 0 and 7 are dark, so it is a one-shot that starts and ends dark. The motion grows, spreads and fades. Jitter is 1.46, inside 1.04 to 1.48 but near the top, and the frame-to-frame shifts are visible but within the class's band."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Declared type parallel and format alpha test are valid GoldSrc values and the file was read back with them. The name is not in the measures, and no original is supplied to check that the type and format match Valve's explosion sprites. This is a read-back of the declared values, not a comparison."
+   "reason": "The file name is fw_spit.spr and the format is additive with parallel type, 32 by 32, 8 frames, as the brief's sprite family needs. The read-back measures agree with what was written. No class comparison of type or format is given, so this rests on the measures alone."
   }
  },
  "total": 8,

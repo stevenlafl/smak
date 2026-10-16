@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_pain1.wav: the crawler's pain",
+ "measured": {
+  "features": {
+   "length": 0.442,
+   "peak": -0.5,
+   "rms": -15,
+   "crest": 14.5,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.015,
+   "attack": 0.01,
+   "peakAt": 0.01,
+   "t20": 0.145,
+   "t40": 0.299,
+   "centroid": 691,
+   "rolloff": 1292,
+   "flatness": 0.001,
+   "bands": {
+    "<150": 0,
+    "150-600": 73.3,
+    "600-2k": 23.1,
+    "2k-5k": 3.6,
+    ">5k": 0
+   },
+   "onsets": 0
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.795,
+    "centroid": 2682,
+    "t20": 0.544,
+    "bands": {
+     "<150": 0.2,
+     "150-600": 0,
+     "600-2k": 15.6,
+     "2k-5k": 83.8,
+     ">5k": 0.3
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The picture shows one sharp attack at the start, then a single decaying tone over 0.44 s. The game's pain (0.80 s) is a run of about 20 separate pulses. Nothing in the waveform or spectrogram shows a pulsed, vocal creature cry, so it reads as a short impact or grunt, not clearly a crawler's pain. Listening was not possible, so this is judged from the picture and features only."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length is 0.442 s against the original's 0.795 s, about 44% short (the rule is within 25%). T20 is 0.145 s against 0.544 s, about a quarter of the original's decay, and the waveform falls silent around 0.44 s where the original runs on. Attack matches at 0.01 s. The class range from src/audio/classes.mjs was not in my inputs, so I scored against the original's own envelope, and the shortfall is clear either way."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The spectrum is far from the original's. Centroid is 691 Hz against 2682 Hz, about 74% lower (the rule is within 20%). Band shares are 73.3% in 150-600 Hz against 0% in the original, and 3.6% in 2k-5k Hz against 83.8%. The energy sits in the low-mid band where the original has almost none. Each band is off by far more than 10 points. The measure already fails this, so it is 0."
+  },
+  "S4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The original has many onsets (repeated hits visible in its waveform), and the replacement has 0. Its flatness of 0.001 marks it as a pure tone, while the original's spectrogram is broadband and noisy. The pulse pattern, the character of a pained cry, is missing entirely. The rubric says 0 is wrong or missing."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file's name is sound/headcrab/hc_pain1.wav, the same as the original's. Clipping is 0, DC is 0, peak is -0.5 dB, and engineFaults is empty. This is a non-loop one-shot, so no loop cue is needed. The measurements don't list sample rate, channel count or bit depth separately, so this relies on the empty engineFaults list covering the format check."
+  }
+ },
+ "total": 4,
+ "of": 10,
+ "passes": false
+}

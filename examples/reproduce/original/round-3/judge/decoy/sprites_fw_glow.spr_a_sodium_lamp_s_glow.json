@@ -1,0 +1,81 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_glow.spr: a sodium lamp's glow",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.56,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "glow",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The picture is one flat, light grey disc with a hard edge and no falloff, so it reads as a disc rather than a lamp's glow. The brief asks for a sodium lamp's glow, which should fade out from the lamp. The shape alone matches the rubric's description of a decoy sprite (one disc), which is consistent with the path's 'decoy' folder, but the score rests on the picture."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frame is 32 x 32, as measured. The disc covers about 44% of it (the measured dark fraction is 0.56), with a dark margin all round. A glow should fill its frame with a gradient to the edges, so the effect does not fill the frame the way a glow does."
+  },
+  "R3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The disc is neutral light grey-white, with no orange. The brief's sodium lamp has sodium orange, and an additive glow of that colour should show it. The colour is wrong, not just a shade off."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "One frame, with no motion measured (peakAt 0, first and last 1, jitter null). The brief names no motion for the glow, unlike the steam and the spit, so a static glow is the expected kind. Nothing in the frame or the measures is wrong for it."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Additive format, as a glow should be. Parallel type, 32 x 32, and the file name fw_glow.spr matches what the brief asks for. The measures read it back without fault."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

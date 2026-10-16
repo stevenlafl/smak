@@ -1,6 +1,6 @@
 {
   "spec": "smak.video/1",
-  "name": "videos/fw_pumphall",
+  "name": "fw_pumphall",
   "size": [
     960,
     540
@@ -14,18 +14,44 @@
     },
     {
       "kind": "flyover",
-      "map": "fw_pumphall/fw_pumphall.bsp",
+      "map": "fw_pumphall_flight/fw_pumphall_flight.bsp",
       "seconds": 6,
-      "height": 420,
-      "turns": 0.4
+      "height": 700,
+      "turns": 0.25
     },
     {
-      "kind": "walk",
-      "map": "fw_pumphall/fw_pumphall.bsp",
-      "from": "info_player_start",
-      "to": "weapon_crowbar",
-      "seconds": 6,
-      "speed": 160
+      "kind": "path",
+      "map": "fw_pumphall_flight/fw_pumphall_flight.bsp",
+      "seconds": 14,
+      "keys": [
+        {
+          "t": 0,
+          "at": [
+            -1050,
+            0,
+            235
+          ],
+          "look": "ahead"
+        },
+        {
+          "t": 7,
+          "at": [
+            -100,
+            0,
+            250
+          ],
+          "look": "ahead"
+        },
+        {
+          "t": 14,
+          "at": [
+            1000,
+            -60,
+            235
+          ],
+          "look": "ahead"
+        }
+      ]
     }
   ]
 }

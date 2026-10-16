@@ -1,0 +1,118 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_walllamp.mdl",
+  "kind": "piece",
+  "size": {
+    "height": 20,
+    "width": 16,
+    "length": 16
+  },
+  "materials": {
+    "plate": {
+      "base": "steel",
+      "tone": [
+        0.4,
+        0.4,
+        0.38
+      ],
+      "rust": 0.4
+    },
+    "cage": {
+      "base": "mesh",
+      "cell": 3,
+      "tone": [
+        0.3,
+        0.3,
+        0.3
+      ]
+    },
+    "lens": {
+      "base": "glass",
+      "tone": [
+        0.95,
+        0.6,
+        0.22
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "plate",
+      "kind": "box",
+      "material": "plate",
+      "size": [
+        2,
+        14,
+        20
+      ],
+      "at": [
+        0,
+        0,
+        4
+      ]
+    },
+    {
+      "id": "arm",
+      "kind": "box",
+      "material": "plate",
+      "size": [
+        4,
+        2.5,
+        2.5
+      ],
+      "at": [
+        3,
+        0,
+        12
+      ]
+    },
+    {
+      "id": "cage",
+      "kind": "turn",
+      "axis": "x",
+      "material": "cage",
+      "sides": 10,
+      "rings": [
+        [
+          0,
+          6.5
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          10,
+          6.5
+        ]
+      ],
+      "caps": [
+        false,
+        false
+      ],
+      "open": true,
+      "at": [
+        5,
+        0,
+        14
+      ]
+    },
+    {
+      "id": "lens",
+      "kind": "sphere",
+      "material": "lens",
+      "radius": 6,
+      "sides": 10,
+      "at": [
+        10,
+        0,
+        8
+      ],
+      "finish": false
+    }
+  ]
+}

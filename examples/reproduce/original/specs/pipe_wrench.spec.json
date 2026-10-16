@@ -1,0 +1,189 @@
+{
+  "spec": "smak.model/1",
+  "name": "pipe_wrench.mdl",
+  "kind": "held",
+  "size": {
+    "length": 18.6
+  },
+  "weapon": {
+    "like": "crowbar",
+    "size": "own"
+  },
+  "materials": {
+    "paint": {
+      "base": "paint",
+      "tone": [
+        0.6,
+        0.12,
+        0.1
+      ]
+    },
+    "iron": {
+      "base": "iron"
+    }
+  },
+  "parts": [
+    {
+      "id": "handle",
+      "kind": "turn",
+      "axis": "x",
+      "material": "paint",
+      "sides": 8,
+      "rings": [
+        [
+          0,
+          1.2
+        ],
+        [
+          0.6,
+          1.4
+        ],
+        [
+          10.4,
+          1.4
+        ],
+        [
+          11,
+          1.2
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.15,
+              0
+            ],
+            [
+              0.4,
+              0
+            ]
+          ],
+          "width": 1.6,
+          "material": "iron",
+          "ends": "round"
+        }
+      ]
+    },
+    {
+      "id": "nut",
+      "kind": "turn",
+      "axis": "x",
+      "material": "iron",
+      "sides": 10,
+      "rings": [
+        [
+          0,
+          2.4
+        ],
+        [
+          1.4,
+          2.4
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "at": [
+        10.4,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "head",
+      "kind": "box",
+      "size": [
+        6,
+        3,
+        11
+      ],
+      "material": "iron",
+      "at": [
+        14,
+        0,
+        -5.5
+      ]
+    },
+    {
+      "id": "tooth1",
+      "kind": "box",
+      "size": [
+        2,
+        3,
+        2.2
+      ],
+      "material": "iron",
+      "at": [
+        17.9,
+        0,
+        -5.2
+      ]
+    },
+    {
+      "id": "tooth2",
+      "kind": "box",
+      "size": [
+        2,
+        3,
+        2.2
+      ],
+      "material": "iron",
+      "at": [
+        17.9,
+        0,
+        -2.5
+      ]
+    },
+    {
+      "id": "tooth3",
+      "kind": "box",
+      "size": [
+        2,
+        3,
+        2.2
+      ],
+      "material": "iron",
+      "at": [
+        17.9,
+        0,
+        0.2
+      ]
+    },
+    {
+      "id": "tooth4",
+      "kind": "box",
+      "size": [
+        2,
+        3,
+        2.2
+      ],
+      "material": "iron",
+      "at": [
+        17.9,
+        0,
+        2.9
+      ]
+    },
+    {
+      "id": "moving_jaw",
+      "kind": "box",
+      "size": [
+        6,
+        3,
+        3
+      ],
+      "material": "iron",
+      "at": [
+        14,
+        0,
+        5.5
+      ]
+    }
+  ]
+}

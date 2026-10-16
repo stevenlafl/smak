@@ -1,0 +1,75 @@
+{
+ "kind": "model",
+ "label": "models/fw_pipejunction.mdl: two pipes meeting at a flanged elbow, bolted",
+ "measured": {
+  "size": [
+   24,
+   24,
+   24
+  ],
+  "sizeAsked": null,
+  "sizeOff": null,
+  "triangles": 12,
+  "halfLifeMedianOfThisSize": 62,
+  "halfLifeThreeQuartersUnder": 156,
+  "checkErrors": [],
+  "lineup": "ours is one of A to D in lineup.png beside models/testsphere.mdl, models/gib_legbone.mdl, models/ribcage.mdl: the judge does not know which"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The outline is a plain square in front, back, left, right, top and below, and a plain cube in the four oblique views. The brief asks for two pipes meeting at a flanged elbow, which has an elbow-shaped, branching outline. No pipe, elbow or flange shows in any of the six views, so the silhouette does not match the brief's words."
+  },
+  "M2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The brief gives no size for the pipe junction, so the item cannot be measured against one. The asset is a 24 x 24 x 24 cube with no pipe length or elbow span, so the dimensions are unverified and do not fit the described object."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief's parts are two pipes, a flanged elbow and bolts. None are present: the sides show one solid block with no pipe bores, no flange rim and no bolt heads in any of the ten views."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The whole block is one mottled mid-grey, which is close to a neutral steel tone. The surface reads as stone or concrete, though, not painted or rusted pipe steel, and the brief's materials are not shown."
+  },
+  "M5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "There are no bolts, flange lines, rust streaks, hazard markings or panel lines. The only surface is an even noise texture, which does not match the wear and markings a pipe junction would carry."
+  },
+  "M6": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "In the line-up the grey block is plainly a box, next to the other three objects in the lineup. A player would not take it for Half-Life's pipe junction; it reads as a placeholder crate, not a pipe fitting."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "A cube has no true front, so the 'front is the original's front' check cannot be met. It is upright, sits symmetrically, and is consistent with standing on its origin, but the facing has no meaning as a pipe junction."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The harness reports no check errors and 12 triangles. Against the Half-Life median of 62 for a prop of this size, that is well under twice the median and under the third quartile (156), so the triangle budget is met. The block is closed, with no open faces or inside-out faces in any view."
+  }
+ },
+ "total": 5,
+ "of": 16,
+ "passes": false
+}
