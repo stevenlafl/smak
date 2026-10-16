@@ -524,7 +524,9 @@ function prefabFromMap(file, at, quarters, tag = null) {
   // that name). A name it uses and does not give (a map's own door) is left as it is
   const own = new Set(map.entities.map((e) => e.targetname).filter((n) => typeof n === "string" && n));
   const renamed = (n) => (tag !== null && own.has(n) ? `${n}_${tag}` : n);
-  const NAME_KEYS = ["targetname", "target", "killtarget", "master", "netname", "parent", "message"];
+  // keys that name an entity (the FGD's target_destination and target_source keys of Half-Life's classes, and the
+  // string keys its code reads as a name: research/map-geometry.md)
+  const NAME_KEYS = ["targetname", "target", "killtarget", "master", "netname", "parent", "message", "LightningStart", "LightningEnd", "LaserTarget", "altpath", "toptrack", "bottomtrack", "TriggerTarget", "m_iszEntity", "m_iszNewTarget", "m_iszIdle", "m_iszPlay", "combatsound", "train", "fireonbreak"];
   const place = (brushes) => brushes.map((brush) => moved(turnedBrush(brush, quarters), at));
   const textures = new Set(map.brushes.flatMap((b) => b.faces.map((f) => f.texture)));
   const entities = map.entities.map((entity) => {
@@ -541,6 +543,9 @@ function prefabFromMap(file, at, quarters, tag = null) {
       const p = quarterTurn(entity.origin.split(/\s+/).map(Number), quarters);
       out.origin = p.map((v, k) => v + at[k]);
     }
+    // `angle` (one yaw: a button's or a door's way of moving) turns with it too, -1 and -2 (up and down) as they are:
+    // the soda machine's buttons say angle 90, and turned they would press sideways
+    if (entity.angle !== undefined && Number(entity.angle) >= 0) out.angle = String((Number(entity.angle) + 90 * quarters) % 360);
     if (typeof entity.angles === "string") {
       const [pitch, yaw, roll] = entity.angles.split(/\s+/).map(Number);
       out.angles = [pitch, (yaw + 90 * quarters) % 360, roll];

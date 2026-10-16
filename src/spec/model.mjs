@@ -24,7 +24,7 @@ import { buildMdl, swapMesh } from "../build.mjs";
 import { HANDS } from "../fit.mjs";
 import { indexed, shrink, masked } from "../image.mjs";
 import { check } from "../check.mjs";
-import { readMdl, bones as bonesOf, sequences as sequencesOf, withTextures, addMesh, replaceMesh, inverse34, apply34, readSequence, replaceSequence, events as eventsOf, setEvents } from "../mdl.mjs";
+import { readMdl, bones as bonesOf, sequences as sequencesOf, withTextures, addMesh, replaceMesh, inverse34, apply34, mul34, readSequence, replaceSequence, events as eventsOf, setEvents } from "../mdl.mjs";
 import { buildSoundSpec } from "./sound.mjs";
 import * as A from "../animate.mjs";
 import { posed, render } from "../render.mjs";
@@ -363,6 +363,119 @@ function limbsOf(skeleton) {
 const sideOfBone = (name) => (/( L |Left| SX |^L |_L$|\.L$)/.test(name) ? 1 : /( R |Right| DX |^R |_R$|\.R$)/.test(name) ? -1 : 0);
 /** Further than this from the middle (units), a point is on its side: it hangs on no bone of the other. */
 const SIDE_MARGIN = 1.5;
+
+/**
+ * The base's own body as a template for hanging another body's corners: its points as it stands, scaled and moved
+ * box to box onto the other's `points`, each with its bone. `boneAt(p)` is the bone of the nearest point on the
+ * same side (null past TEMPLATE_FAR, the body there being not like the base's), or null when the base has no body
+ * worth the name (a stand-in, under 100 points).
+ */
+function templateOf(skeleton, points) {
+  let tris;
+  try {
+    tris = posed(skeleton.src, { ...skeleton.pose, body: skeleton.bodies?.[0] ?? 0 }).tris;
+  } catch {
+    return null;
+  }
+  const names = bonesOf(skeleton.src).map((b) => b.name);
+  const seen = new Map();
+  for (const t of tris) for (const c of t.c) seen.set(c.p.map((v) => v.toFixed(2)).join(","), { p: c.p, bone: names[c.bone] });
+  const base = [...seen.values()];
+  if (base.length < 100 || !points.length) return null;
+  const boxOfPoints = (list) => [0, 1, 2].map((k) => [Math.min(...list.map((p) => p[k])), Math.max(...list.map((p) => p[k]))]);
+  const from = boxOfPoints(base.map((b) => b.p));
+  const to = boxOfPoints(points);
+  const fit = (p) => p.map((v, k) => to[k][0] + ((v - from[k][0]) / (from[k][1] - from[k][0] || 1)) * (to[k][1] - to[k][0]));
+  const placed = base.map((b) => ({ p: fit(b.p), bone: b.bone, side: sideOfBone(b.bone) }));
+  const far = TEMPLATE_FAR * Math.max(...to.map(([lo, hi]) => hi - lo));
+  return {
+    points: placed.length,
+    boneAt(p) {
+      let best = null;
+      let bestD = Infinity;
+      for (const q of placed) {
+        if (q.side && p[1] * q.side < -SIDE_MARGIN) continue;
+        const d = (q.p[0] - p[0]) ** 2 + (q.p[1] - p[1]) ** 2 + (q.p[2] - p[2]) ** 2;
+        if (d < bestD) [best, bestD] = [q.bone, d];
+      }
+      return Math.sqrt(bestD) <= far ? best : null;
+    },
+  };
+}
+/**
+ * Each point's bone chosen so that the body stretches least in motion: the edges between points measured through
+ * frames of the base's own runs and walks (and its first animations), every point tried with its candidates' bones
+ * (`candidates(p)`: the template's and the nearest limb's) and its neighbours', a few sweeps over all. What a judge
+ * looks at in the run: a vest on an arm's bone leaves the chest, a boot's toes on the shin stretch into wedges.
+ * Returns bone(p) for any point of `tris`.
+ */
+function leastStretched(skeleton, tris, candidates) {
+  const keyOf = (p) => p.map((v) => v.toFixed(3)).join(",");
+  const index = new Map();
+  const points = [];
+  for (const t of tris) for (const p of t) if (!index.has(keyOf(p))) (index.set(keyOf(p), points.length), points.push(p));
+  const near = points.map(() => new Set());
+  for (const t of tris)
+    for (let k = 0; k < 3; k++) {
+      const [a, b] = [index.get(keyOf(t[k])), index.get(keyOf(t[(k + 1) % 3]))];
+      if (a !== b) (near[a].add(b), near[b].add(a));
+    }
+  const names = bonesOf(skeleton.src).map((b) => b.name);
+  const number = new Map(names.map((n, i) => [n, i]));
+  // the frames: the base's runs and walks first, else its first animations, four frames each
+  const seqs = sequencesOf(skeleton.src);
+  const chosen = seqs.map((s, i) => [s, i]).filter(([s]) => /run|walk/i.test(s.name)).slice(0, 2);
+  const use = chosen.length ? chosen : seqs.slice(0, 2).map((s, i) => [s, i]);
+  const rest = posed(skeleton.src, skeleton.pose).pose;
+  const restInv = rest.map((m) => inverse34(m));
+  const moves = [];
+  for (const [s, i] of use)
+    for (let f = 0; f < 4; f++) {
+      const frame = Math.round((f / 4) * Math.max(0, (s.numframes ?? s.frames ?? 1) - 1));
+      try {
+        const m = posed(skeleton.src, { seq: i, frame }).pose;
+        moves.push(m.map((mm, b) => mul34(mm, restInv[b])));
+      } catch {
+        // a frame that cannot be read: left out
+      }
+    }
+  const first = points.map((p) => candidates(p));
+  let bone = first.map((c) => c[0] ?? names[0]);
+  if (!moves.length) return (p) => bone[index.get(keyOf(p))] ?? first[0][0];
+  const placed = (b, p) => moves.map((m) => apply34(m[number.get(b)], p));
+  const cache = new Map();
+  const at = (i, b) => {
+    const key = `${i}|${b}`;
+    if (!cache.has(key)) cache.set(key, placed(b, points[i]));
+    return cache.get(key);
+  };
+  const stretchOf = (i, b) => {
+    let sum = 0;
+    for (const j of near[i]) {
+      const length = Math.hypot(...points[i].map((v, k) => v - points[j][k]));
+      const [pi, pj] = [at(i, b), at(j, bone[j])];
+      for (let f = 0; f < moves.length; f++) sum += Math.abs(Math.hypot(...pi[f].map((v, k) => v - pj[f][k])) - length);
+    }
+    return sum;
+  };
+  for (let sweep = 0; sweep < 4; sweep++)
+    bone = bone.map((current, i) => {
+      const tried = new Set([...first[i], ...[...near[i]].map((j) => bone[j])]);
+      let best = current;
+      let bestCost = stretchOf(i, current);
+      for (const b of tried) {
+        const side = sideOfBone(b);
+        if (b === current || (side && points[i][1] * side < -SIDE_MARGIN)) continue;
+        const cost = stretchOf(i, b) * 0.999;
+        if (cost < bestCost) [best, bestCost] = [b, cost];
+      }
+      return best;
+    });
+  return (p) => bone[index.get(keyOf(p))] ?? candidates(p)[0];
+}
+
+/** A template point further than this share of the body's size from a corner is no guide to its bone. */
+const TEMPLATE_FAR = 0.15;
 
 /** The bone whose limb is nearest a point, never one of the other side's (a shin crossing under the body). */
 function nearestLimb(limbs, p) {
@@ -1358,8 +1471,14 @@ function piecesOf(given, context) {
       // a carved or generated body on a skeleton, unless told its bone: each corner on the limb it is nearest, so
       // that one shape cut from the pictures bends at the base's joints (research/character-texturing.md, CT 2)
       if ((part.kind === "carved" || part.kind === "mesh") && !part.bone && !part.attach && !part.span) {
+        // by the base's own body where it has one: each corner takes the bone of the nearest point of it, fitted to
+        // this body's box (Valve rigged it by hand: a vest's corners take the chest's bone where the nearest limb
+        // was an arm's, and a boot's the foot's). By the nearest limb otherwise, or when the two are far apart
+        const list = trianglesOf(part.id);
+        const own = templateOf(skeleton, list.flatMap(({ mesh, i }) => meshes[mesh].tris[i].map((c) => c.p)));
         const limbs = limbsOf(skeleton);
-        for (const { mesh, i } of trianglesOf(part.id)) meshes[mesh].tris[i] = meshes[mesh].tris[i].map((c) => ({ ...c, bone: nearestLimb(limbs, c.p) }));
+        const rigged = leastStretched(skeleton, list.map(({ mesh, i }) => meshes[mesh].tris[i].map((c) => c.p)), (p) => [own?.boneAt(p), nearestLimb(limbs, p)].filter(Boolean));
+        for (const { mesh, i } of list) meshes[mesh].tris[i] = meshes[mesh].tris[i].map((c) => ({ ...c, bone: rigged(c.p) }));
         continue;
       }
       const bone = boneOfPart(part);
