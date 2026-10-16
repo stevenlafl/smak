@@ -29,29 +29,29 @@
    "onsets": 0
   },
   "reproduction": {
-   "length": 0.87,
+   "length": 0.868,
    "peak": -0.6,
-   "rms": -12.6,
-   "crest": 12,
+   "rms": -11.6,
+   "crest": 11.1,
    "dc": 0.0001,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.01,
+   "tail": 0.005,
    "attack": 0,
    "peakAt": 0,
-   "t20": 0.569,
-   "t40": 0.808,
-   "centroid": 1896,
-   "rolloff": 3391,
-   "flatness": 0.346,
+   "t20": 0.459,
+   "t40": 0.748,
+   "centroid": 1781,
+   "rolloff": 2864,
+   "flatness": 0.516,
    "bands": {
-    "<150": 2.9,
-    "150-600": 9.7,
-    "600-2k": 52.3,
-    "2k-5k": 34.8,
-    ">5k": 0.3
+    "<150": 0.1,
+    "150-600": 9.4,
+    "600-2k": 52.6,
+    "2k-5k": 36.6,
+    ">5k": 1.2
    },
-   "onsets": 1
+   "onsets": 0
   },
   "envelope": {
    "class": "none: the original's own decay",
@@ -59,12 +59,12 @@
     0.329,
     0.549
    ],
-   "t20": 0.569,
-   "inRange": false
+   "t20": 0.459,
+   "inRange": true
   },
-  "lengthOff": 0.003,
-  "centroidOff": 0.037,
-  "bandsOffMost": 6.5,
+  "lengthOff": 0.006,
+  "centroidOff": 0.095,
+  "bandsOffMost": 5.6,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -74,14 +74,43 @@
   }
  },
  "caps": {
-  "S2": 1,
+  "S2": 2,
   "S3": 2,
   "S5": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "S2"
- ],
- "total": 0,
- "of": 10
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "I cannot listen, so this is judged from the picture and features only. Both waveforms show the same event shape: a dense broadband burst at the start that decays over about 0.8 s, with a similar spectrogram of warm mid-band energy fading to dark at the top. That fits a metal debris impact, the same class of event as debris/bustmetal1. The centroid and band shares agree closely."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 0.868 s against 0.873 s (0.6% off, within 25%). T20 is 0.459 s, inside the range 0.329 to 0.549 s. Attack is 0 against 0.025 s, a 25 ms difference that is within tolerance. The picture shows the reproduction starting loud where the original has a very short lead-in, but the measured envelope is in range."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 1781 against 1968 Hz, 9.5% off (within 20%). Band shares differ by at most 5.6 points (600 to 2k: 52.6 against 47; 2k to 5k: 36.6 against 41.3; each other band is within 1.5 points), all within the 10-point limit."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Partly judged blind: I cannot hear the tone or any pitch movement. Onsets are 0 in both, and flatness is close (0.516 against 0.569). But the picture shows a clear difference in how the sound ends. The original is quiet for its last roughly 0.1 s (tail 0.105 s, the dark block at the right edge of its spectrogram), while the reproduction carries low-level sound to the end (tail 0.005 s). The reproduction also has no short lead-in before the burst. That is a visible character difference, scored 1 rather than 2."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The format is what the engine plays: mono, 8-bit PCM at 11025 Hz, with the same name (sameName true). It has no clipping (peak -0.6 dBFS), and DC is 0.0001 against the original's -0.0076, which is negligible. No loop cue is involved."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
 }

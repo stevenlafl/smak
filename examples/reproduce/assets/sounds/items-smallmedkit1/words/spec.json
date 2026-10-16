@@ -3,15 +3,8 @@
   "name": "items/smallmedkit1.wav",
   "rate": 22050,
   "bits": 8,
-  "seed": 1,
+  "seed": 7,
   "length": 0.76,
-  "bands": {
-    "<150": 0,
-    "150-600": 14,
-    "600-2k": 64,
-    "2k-5k": 5,
-    ">5k": 17
-  },
   "layers": [
     {
       "id": "beep1",
@@ -20,17 +13,18 @@
       "f": 675,
       "at": 0,
       "length": 0.04,
-      "gain": -9,
+      "gain": -5,
       "filter": [
         {
           "type": "lowpass",
-          "f": 2200
+          "f": 1500,
+          "q": 0.7
         }
       ],
       "env": {
         "attack": 0.001,
-        "hold": 0.037,
-        "decay": 0.001
+        "hold": 0.035,
+        "decay": 0.002
       }
     },
     {
@@ -44,13 +38,14 @@
       "filter": [
         {
           "type": "lowpass",
-          "f": 2200
+          "f": 1500,
+          "q": 0.7
         }
       ],
       "env": {
         "attack": 0.001,
         "hold": 0.118,
-        "decay": 0.001
+        "decay": 0.002
       }
     },
     {
@@ -60,129 +55,27 @@
       "f": 675,
       "at": 0.22,
       "length": 0.11,
-      "gain": -2,
+      "gain": -6,
       "filter": [
         {
           "type": "lowpass",
-          "f": 2200
+          "f": 1500,
+          "q": 0.7
         }
       ],
       "env": {
         "attack": 0.001,
         "hold": 0.108,
-        "decay": 0.001
+        "decay": 0.002
       }
     },
     {
-      "id": "sub1",
-      "kind": "tone",
-      "wave": "sine",
-      "f": 337,
-      "at": 0,
-      "length": 0.04,
-      "gain": -10,
-      "env": {
-        "attack": 0.001,
-        "hold": 0.037,
-        "decay": 0.001
-      }
-    },
-    {
-      "id": "sub2",
-      "kind": "tone",
-      "wave": "sine",
-      "f": 337,
-      "at": 0.06,
-      "length": 0.12,
-      "gain": -8,
-      "env": {
-        "attack": 0.001,
-        "hold": 0.118,
-        "decay": 0.001
-      }
-    },
-    {
-      "id": "sub3",
-      "kind": "tone",
-      "wave": "sine",
-      "f": 337,
-      "at": 0.22,
-      "length": 0.11,
-      "gain": -8,
-      "env": {
-        "attack": 0.001,
-        "hold": 0.108,
-        "decay": 0.001
-      }
-    },
-    {
-      "id": "crack1",
+      "id": "click1",
       "kind": "noise",
       "color": "white",
       "at": 0,
-      "length": 0.003,
-      "gain": -8,
-      "post": true,
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 2000
-        }
-      ],
-      "env": {
-        "attack": 0.0002,
-        "hold": 0.001,
-        "decay": 0.001
-      }
-    },
-    {
-      "id": "crack2",
-      "kind": "noise",
-      "color": "white",
-      "at": 0.06,
-      "length": 0.003,
-      "gain": -8,
-      "post": true,
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 2000
-        }
-      ],
-      "env": {
-        "attack": 0.0002,
-        "hold": 0.001,
-        "decay": 0.001
-      }
-    },
-    {
-      "id": "crack3",
-      "kind": "noise",
-      "color": "white",
-      "at": 0.22,
-      "length": 0.003,
-      "gain": -8,
-      "post": true,
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 2000
-        }
-      ],
-      "env": {
-        "attack": 0.0002,
-        "hold": 0.001,
-        "decay": 0.001
-      }
-    },
-    {
-      "id": "crack4",
-      "kind": "noise",
-      "color": "white",
-      "at": 0.45,
-      "length": 0.004,
-      "gain": -12,
-      "post": true,
+      "length": 0.006,
+      "gain": -4,
       "filter": [
         {
           "type": "highpass",
@@ -190,64 +83,137 @@
         }
       ],
       "env": {
-        "attack": 0.0002,
-        "hold": 0.002,
-        "decay": 0.001
+        "attack": 0.0003,
+        "decay": 0.003
+      }
+    },
+    {
+      "id": "click2",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.06,
+      "length": 0.006,
+      "gain": -4,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ],
+      "env": {
+        "attack": 0.0003,
+        "decay": 0.003
+      }
+    },
+    {
+      "id": "click3",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.22,
+      "length": 0.006,
+      "gain": -4,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ],
+      "env": {
+        "attack": 0.0003,
+        "decay": 0.003
       }
     },
     {
       "id": "rustle",
-      "kind": "particles",
-      "band": [
-        300,
-        2000
-      ],
-      "rate": 220,
-      "grain": 0.003,
+      "kind": "noise",
+      "color": "pink",
       "at": 0.35,
       "length": 0.18,
-      "gain": -6,
-      "env": {
-        "attack": 0.005,
-        "hold": 0.14,
-        "decay": 0.03
-      }
-    },
-    {
-      "id": "spray",
-      "kind": "sample",
-      "file": "work:gen/medkit_spray_s0.wav",
-      "from": "onset",
-      "at": 0.53,
-      "length": 0.23,
-      "gain": 22,
+      "gain": 8,
       "filter": [
         {
-          "type": "highpass",
-          "f": 4500
+          "type": "bandpass",
+          "f": 350,
+          "q": 0.5
         }
       ],
       "env": {
         "points": [
           [
             0,
-            -6
-          ],
-          [
-            0.02,
             0
           ],
           [
-            0.1,
-            2
+            0.01,
+            -2
           ],
           [
             0.15,
-            8
+            -4
+          ],
+          [
+            0.18,
+            -30
+          ]
+        ]
+      }
+    },
+    {
+      "id": "rustleClick",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.45,
+      "length": 0.008,
+      "gain": -10,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1200
+        }
+      ],
+      "env": {
+        "attack": 0.0003,
+        "decay": 0.004
+      }
+    },
+    {
+      "id": "spray",
+      "kind": "sample",
+      "file": "work:gen/medkit_spray_s1.wav",
+      "from": "onset",
+      "at": 0.53,
+      "length": 0.23,
+      "gain": 14,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 300
+        },
+        {
+          "type": "lowpass",
+          "f": 9000,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 7000,
+          "q": 0.8,
+          "gain": 9
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -1
+          ],
+          [
+            0.2,
+            -1
           ],
           [
             0.22,
-            10
+            -3
           ],
           [
             0.23,
@@ -258,6 +224,19 @@
     }
   ],
   "finish": {
+    "saturate": 1.2,
+    "limit": {
+      "crest": 14,
+      "release": 0.002
+    },
     "peak": -0.5
-  }
+  },
+  "bands": {
+    "<150": 0,
+    "150-600": 14,
+    "600-2k": 64,
+    "2k-5k": 5,
+    ">5k": 17
+  },
+  "t20": 0.546
 }

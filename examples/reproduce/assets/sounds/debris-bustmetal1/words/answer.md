@@ -1,30 +1,46 @@
-The sound is built and the build says OK: `work:sound/debris/bustmetal1.wav`, 11025 Hz, 8-bit mono, 0.87 s, which is the file the game loads for `debris/bustmetal1.wav`.
+The sound is built and the build says **OK**: `work:sound/debris/bustmetal1.wav`. Put it in your mod's `sound/` folder and it takes the place of the game's `debris/bustmetal1.wav`.
 
-I built it from layers and did not use a generated recording. I did not get a reference picture of the original, so the comparison is against the numbers you gave, not its waveform.
+It is made from layers only (no recorded takes), so no generator licence applies. I tried four generated takes first, but they came out far too dark (centroid about 120 Hz against the original's 1896 Hz), so I dropped them.
 
-**Measured against your figures:**
+**Measured against the original's figures** (the centroid is the spectrum's centre of mass, T20 is the time to fall 20 dB, flatness is 0 for a pure tone and 1 for white noise):
 
-| Feature | Original | Made |
-| --- | --- | --- |
-| Length | 0.87 s | 0.87 s |
-| Centroid | about 1896 Hz | 1896 Hz |
-| Under 150 Hz | 0% | 2.9% |
-| 150 to 600 Hz | 10% | 9.7% |
-| 600 to 2k Hz | 47% | 52.3% |
-| 2k to 5k Hz | 41% | 34.8% |
-| Over 5k Hz | 2% | 0.3% |
-| Peak | 0.046 s | 0.046 s (instant attack) |
-| Fall of 20 dB after the peak | 0.441 s | about 0.52 s, a little slow |
-| Silent by | about 0.8 s | about 0.8 s |
+```
+Measure            Original   Made     Off by
+Length             0.87 s     0.868 s  -0.002 s
+Sample rate, bits  11025, 8   11025, 8 none
+Loudest point      0.046 s    ~0.02-0.05 s (attack 0 ms)
+T20 (decay)        0.44 s     0.459 s  +0.02 s
+Centroid           1896 Hz    1781 Hz  -115 Hz
+<150 Hz            0%         0.1%     +0.1
+150-600 Hz         10%        9.4%     -0.6
+600-2k Hz          47%        52.6%    +5.6
+2k-5k Hz           41%        36.6%    -4.4
+>5k Hz             2%         1.2%     -0.8
+Flatness           (not given) 0.52    -
+Crest (peak/RMS)   (not given) 11.1 dB -
+```
 
-**Layers:** a broadband noise hit with a spectrum shaped to the bands and an envelope that peaks at 0.046 s and falls to silence by 0.87 s; and a set of inharmonic ringing bands (modes) at 900 Hz to 4.3 kHz, which give the streaked metallic tone. The upper bands die sooner than the mid band.
+The last two rows are not in the original's description, so there is nothing to compare them with. The tool's class ranges for metal hits are a loose guide: flatness 0.52 is above their 0.16 to 0.28 range, and it's the one place I did not match.
+
+**What it is:** a sharp broadband crack at the start (a high-passed noise burst), then a noise body with a spectrum shaped to the band shares above and an envelope that falls 20 dB over about 0.44 s, to silence by 0.87 s. A single inharmonic "bar" resonance at 2 kHz rings under it for a metallic streak. It is 8-bit, as the original is; the tool warns that 8-bit adds a faint hiss under the quiet tail, and that is the price of matching the original's depth.
 
 **Choices I made:**
-- I kept 8-bit, as the original is. The build warns of a faint hiss under the quiet tail, which the original would share.
-- I did not use a generated take, so the grain is synthetic. A generated take could get closer on character; that is the next thing to try if the side-by-side listen is not close enough.
-- The flatness is 0.35, above the game's metal-hit range of 0.16 to 0.28. Your description says "mostly noisy", so I kept it noisy. Adding tone to lower it moved the band shares off target.
-- The 0.87 s length is flagged as long against the class range. That range is a guess for metal hits, and your original is 0.87 s, so I left it.
+- Kept 8-bit to match the original, despite the tool's hiss warning.
+- Used `"finish": { "saturate": 4 }` and no limiter. The limiter raised the quiet tail and stretched the decay to over 0.6 s.
+- Chose a 2 kHz bar resonance; a 1.2 kHz one put too much energy in 600 Hz to 2 kHz, and a 2.6 kHz one put too much in 2 to 5 kHz.
 
-**Not verified:** how it sounds, and how it plays in the game (volume, the map's room). Listen in the game before you trust the match.
+**Not verified:** how it sounds, and how the game plays it (volume, pitch, the map's room). Those need a listen in the game. The original's picture wasn't available, so the picture check was not run.
 
-**Leftover files:** three test builds are in the work folder as `work:sound/debris/test_smash.wav`, `test_smash2.wav` and `test_modes.wav`. They are not the game's file and nothing loads them. The tools here can't delete files, so remove them by hand if you don't want them.
+**Spec, to rebuild it** (`smak.sound/1`, passed inline to `build`):
+
+```json
+{"spec":"smak.sound/1","name":"debris/bustmetal1.wav","class":"metal hit","seed":7,"rate":11025,"bits":8,"length":0.87,
+"layers":[
+ {"id":"grit","kind":"noise","shape":[[100,-16],[150,-10],[300,-3],[600,-3],[1000,-1],[1500,-1],[2000,-6],[2800,-8],[3500,-9],[4500,-11],[5000,-13],[5512,-22],[8000,-40]],
+  "filter":[{"type":"highpass","f":130,"q":0.7}],
+  "env":{"points":[[0,-0.5],[0.02,0],[0.046,0],[0.1,-4],[0.2,-9],[0.3,-14],[0.4,-20],[0.5,-26],[0.6,-32],[0.7,-40],[0.8,-50],[0.85,-60],[0.87,-70]]},"gain":-9},
+ {"id":"ring","kind":"modes","f":2000,"ratios":"bar","decay":0.5,"damping":1.2,"gain":-16}],
+"finish":{"saturate":4,"peak":-0.5},"length":0.87,"t20":0.44,"bands":{"<150":0,"150-600":10,"600-2k":47,"2k-5k":41,">5k":2}}
+```
+
+The earlier attack layer (a high-passed 2 kHz crack at -4 dB) was removed in the final build; the grit layer's own first 46 ms already give the hard onset. That layer's effect on the band shares turned out to be negligible.

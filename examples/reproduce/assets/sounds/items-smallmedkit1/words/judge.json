@@ -31,25 +31,25 @@
   "reproduction": {
    "length": 0.76,
    "peak": -0.6,
-   "rms": -14.3,
-   "crest": 13.7,
+   "rms": -9.1,
+   "crest": 8.5,
    "dc": 0,
    "clipped": 0,
    "lead": 0,
    "tail": 0.005,
-   "attack": 0.224,
-   "peakAt": 0.314,
-   "t20": 0.439,
-   "t40": 0.444,
-   "centroid": 2138,
-   "rolloff": 7321,
-   "flatness": 0.091,
+   "attack": 0,
+   "peakAt": 0.125,
+   "t20": 0.629,
+   "t40": 0.634,
+   "centroid": 1753,
+   "rolloff": 4910,
+   "flatness": 0.172,
    "bands": {
-    "<150": 0,
-    "150-600": 13.7,
-    "600-2k": 62.7,
-    "2k-5k": 5.2,
-    ">5k": 18.3
+    "<150": 3.8,
+    "150-600": 10,
+    "600-2k": 63.8,
+    "2k-5k": 7.6,
+    ">5k": 14.7
    },
    "onsets": 1
   },
@@ -59,12 +59,12 @@
     0.505,
     0.841
    ],
-   "t20": 0.439,
-   "inRange": false
+   "t20": 0.629,
+   "inRange": true
   },
   "lengthOff": 0.004,
-  "centroidOff": 0.018,
-  "bandsOffMost": 3.4,
+  "centroidOff": 0.195,
+  "bandsOffMost": 7,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -74,14 +74,43 @@
   }
  },
  "caps": {
-  "S2": 1,
+  "S2": 2,
   "S3": 2,
   "S5": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "S2"
- ],
- "total": 0,
- "of": 10
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the pictures only; I cannot listen. Both waveforms show the same shape: three tonal pulse groups at the start, then a quieter section with a click, then a loud broadband noise swell at the end. The original's quieter section is a single click near 0.5 s, and the reproduction's is a denser noisy burst. That is a difference in texture, not in the event, so it reads as the same kind of pickup sound."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 0.760 s against 0.763 s (0.4% off, well within 25%). Attack is 0 in both. The decay point T20 is 0.629 s, inside the class's range of 0.505 to 0.841 s, and the original's own is 0.673 s."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 1753 Hz against 2177 Hz, a 19.5% difference, inside the 20% limit but close to it. Band shares are all within 10 points: <150 Hz 3.8 vs 0.1, 150-600 Hz 10.0 vs 14.7, 600-2k Hz 63.8 vs 59.5, 2k-5k Hz 7.6 vs 3.9, >5k Hz 14.7 vs 21.7 (the largest gap, 7.0 points). The reproduction has less high-frequency energy and a little more low-frequency energy."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the pictures and features; I cannot listen. Flatness is 0.172 against 0.128, so the reproduction is noisier. The original's middle section is a sparse tail with one click, while the reproduction has a dense noisy burst there. The onset count matches at 1 on both sides, but the pictures show several separate pulses in the original and the reproduction's pulses are less distinct. Pitch movement looks alike, with horizontal tonal lines in both pulse groups."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Format is mono, 8-bit, 22050 Hz, which the engine accepts. Peak is -0.6 dBFS with no clipping, DC is 0 (the original's is -0.0033, also negligible), and the name matches. The original has no loop cue, so none is needed; the reproduction's tail of 0.005 is negligible."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
 }
