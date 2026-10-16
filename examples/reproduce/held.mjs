@@ -24,6 +24,8 @@ const RUBRIC = readFileSync(join(HERE, "rubric.md"), "utf8");
 const words = process.argv.slice(2);
 const step = words.shift();
 const again = words.includes("--again") && words.splice(words.indexOf("--again"), 1);
+// --generators <folder>: the words leg's server offers the tool generate (generators/README.md), an experiment
+const GENERATORS = words.includes("--generators") ? words.splice(words.indexOf("--generators"), 2)[1] : null;
 const KINDS = ["weapons", "characters", "players"];
 /** The Specialists, a mod whose code uses its player models' bones and animations by name and number. */
 const TS = join(GAME, "..", "ts");
@@ -149,7 +151,8 @@ async function reproduce(kind, s, leg) {
   } else given = `The original, as someone who has seen it describes it:\n\n${readFileSync(join(base, "words.md"), "utf8")}`;
   const hidden = kind === "weapons" ? s.files : [s.file];
   const kit = execFileSync("git", ["-C", HERE, "rev-parse", "--short", "HEAD"], { encoding: "utf8" }).trim();
-  const r = await runAgent({ prompt: reproducePrompt(kind, s, given), read: leg === "pictures" ? input : null, server: { wads: true, games: s.root ? [s.root] : [], hide: hidden, refuse: hidden }, files, hours: 1.5 });
+  // the words leg may be offered the local generators (--generators): a shape made from words, carved by no picture
+  const r = await runAgent({ prompt: reproducePrompt(kind, s, given), read: leg === "pictures" ? input : null, server: { wads: true, games: s.root ? [s.root] : [], hide: hidden, refuse: hidden, ...(GENERATORS && leg === "words" ? { generators: GENERATORS } : {}) }, files, hours: 1.5 });
   mkdirSync(out, { recursive: true });
   writeFileSync(join(out, "answer.md"), `${r.answer.trim()}\n`);
   const all = [];
@@ -175,7 +178,7 @@ async function reproduce(kind, s, leg) {
       kept.push(want);
     }
   }
-  writeFileSync(join(out, "run.json"), `${JSON.stringify({ kit, model: r.model, seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, built: kept }, null, 1)}\n`);
+  writeFileSync(join(out, "run.json"), `${JSON.stringify({ kit, model: r.model, generators: GENERATORS && leg === "words" ? "generate" : null, seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, built: kept }, null, 1)}\n`);
   return `${kind}/${s.id}:${leg}: ${r.seconds} s, built ${kept.join(", ") || "nothing"}`;
 }
 
