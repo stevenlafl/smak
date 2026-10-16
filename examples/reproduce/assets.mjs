@@ -4,7 +4,7 @@
 // pictures and measurements. Decoys (a plain square, flat colours) must fail. Valve's sounds are replaced from a
 // modder's brief (leg "brief"): the engine's checks here, the verdict the person's ear (rubric.md, 2026-10-16).
 //
-//   node examples/reproduce/assets.mjs inputs|describe|reproduce|rebuild|judge [sprites|sounds|textures] [subject ...] [--again]
+//   node examples/reproduce/assets.mjs inputs|describe|reproduce|rebuild|judge [sprites|sounds|textures] [subject ...] [--again] [--judges n]
 //        rebuild: each leg built again from its maker's spec (and the takes it kept), on the kit as it is now, with
 //                 no agent: what a change to the kit does to a result, and the proof a result needs no Claude
 //        [--generators <folder>]   the sound makers' server offers the tool generate (generators/README.md;
@@ -37,6 +37,8 @@ const RUBRIC = readFileSync(join(HERE, "rubric.md"), "utf8");
 const words = process.argv.slice(2);
 const step = words.shift();
 const again = words.includes("--again") && words.splice(words.indexOf("--again"), 1);
+// --judges n: the judge asked n times, each item the middle of their scores (1 unless told)
+const JUDGES = words.includes("--judges") ? Number(words.splice(words.indexOf("--judges"), 2)[1]) : 1;
 const GENERATORS = words.includes("--generators") ? words.splice(words.indexOf("--generators"), 2)[1] : process.env.SMAK_GENERATORS;
 // a test condition, never the tool's default: the makers told the person accepts the generators' licences
 const ACCEPT = words.includes("--accept-licences") && words.splice(words.indexOf("--accept-licences"), 1);
@@ -478,6 +480,32 @@ const parse = (answer) => {
   }
 };
 
+/**
+ * The judge asked JUDGES times over the same pictures and measures (--judges n; 1 unless told), each item's score
+ * the middle of theirs, its reason one of those that gave it. A single Haiku judging of near-identical work swung by
+ * about three textures of 25 (2026-10-16): the middle of three steadies the reading without changing the rubric.
+ */
+async function judged(ask) {
+  const answers = (await Promise.all(Array.from({ length: JUDGES }, () => runJudge(ask)))).map((r) => ({ r, json: parse(r.answer) }));
+  const good = answers.filter((a) => a.json);
+  if (!good.length) return { json: null, r: answers[0].r };
+  if (good.length === 1) return { json: good[0].json, r: good[0].r };
+  const middle = (list) => {
+    const scored = list.filter((x) => x && Number.isFinite(x.score)).sort((a, b) => a.score - b.score);
+    return scored.length ? { ...scored[Math.floor((scored.length - 1) / 2)], of: scored.map((x) => x.score) } : undefined;
+  };
+  // one level of items ({ R1: { score } }), or two (textures: { name: { T1: { score } } })
+  const merge = (objects) => {
+    const keys = [...new Set(objects.flatMap((o) => Object.keys(o ?? {})))];
+    return Object.fromEntries(keys.map((k) => {
+      const vals = objects.map((o) => o?.[k]);
+      const leaf = vals.some((v) => v && typeof v === "object" && "score" in v);
+      return [k, leaf ? middle(vals) : merge(vals)];
+    }));
+  };
+  return { json: merge(good.map((a) => a.json)), r: good[0].r };
+}
+
 async function judgeOne(kind, subject, leg, copyFile, { decoy } = {}) {
   const dir = join(folderOf(kind, subject.id), "judge", decoy ? `decoy-${decoy}` : leg);
   rmSync(dir, { recursive: true, force: true });
@@ -488,18 +516,18 @@ async function judgeOne(kind, subject, leg, copyFile, { decoy } = {}) {
   const head = `You are an independent judge. A ${kind === "textures" ? "set of replacement textures" : kind === "sounds" ? "replacement sound" : "reproduction of a sprite"} was made of a game's own by someone who could not open the original's files. Judge it strictly by the rubric below (the "${TITLE[kind]}" table, and "Passing" and "Keeping the judge honest"). A measured item may score lower than its measurement allows, never higher.`;
   if (kind === "textures") {
     const m = measureTexturesCopy(original, copy, dir);
-    const r = await runJudge({
+    const { json: textureJudged } = await judged({
       read: dir,
       hours: 1,
       prompt: `${head}\n\nThe pictures: ${m.pictures}. Look at every picture closely.\n\nThe measurements, texture by texture (deltaE: the mean colour of its view, original against replacement; flatDeltaE: the same of the textures themselves, flat; present and sizeKept: the replacement has the name and its size; frames: an animation's frames or a random set's tiles, the original's and those the replacement has, allKept true when it has every one, each frame shown flat as its own tile labelled "frame n of m of <name>"):\n${JSON.stringify(m.rows)}\n\nScore EVERY texture, items ${items.join(", ")}, 0, 1 or 2 each with a reason. Reply with JSON alone: { "<texture name>": { ${items.map((i) => `"${i}": { "score": 0, "reason": "..." }`).join(", ")} }, ... }\n\nTHE RUBRIC\n${RUBRIC}`,
     });
-    const judged = parse(r.answer) ?? {};
+    const byTexture = textureJudged ?? {};
     const results = m.rows.map((row) => {
       const caps = { T2: band(Math.max(row.deltaE ?? 0, row.flatDeltaE ?? 0), 15, 25), T6: row.sizeKept ? 2 : 0 };
-      return { texture: row.name, measured: row, caps, ...settle(kind, judged[row.name], caps) };
+      return { texture: row.name, measured: row, caps, ...settle(kind, byTexture[row.name], caps) };
     });
     const passed = results.filter((x) => x.passes).length;
-    return { kind, subject: subject.id, leg: decoy ? `decoy: ${decoy}` : leg, textures: results, passed, of: results.length, passes: passed >= 0.8 * results.length, total: passed, error: Object.keys(judged).length ? undefined : "the judge's answer was not JSON" };
+    return { kind, subject: subject.id, leg: decoy ? `decoy: ${decoy}` : leg, judges: JUDGES, textures: results, passed, of: results.length, passes: passed >= 0.8 * results.length, total: passed, error: Object.keys(byTexture).length ? undefined : "the judge's answer was not JSON" };
   }
   // the name the maker wrote it under (run.json's built): the harness copies the build under the original's name
   // either way, so the judge is told whether the maker named it so (R5, S5), and does not have to guess
@@ -508,14 +536,13 @@ async function judgeOne(kind, subject, leg, copyFile, { decoy } = {}) {
   const m = kind === "sprites" ? measureSpriteCopy(original, copy, dir, { sameName }) : measureSoundCopy(original, copy, dir, subject, { sameName });
   const failed = failedByMeasure(m.caps, MUST[kind]);
   if (failed.length) return { kind, subject: subject.id, leg: decoy ? `decoy: ${decoy}` : leg, measured: m.measured, caps: m.caps, passes: false, failedByMeasure: failed, total: 0, of: 2 * ITEMS[kind].length };
-  const r = await runJudge({
+  const { json: itemJudged, r } = await judged({
     read: dir,
     hours: 0.5,
     prompt: `${head}\n\nThe pictures: ${m.pictures}. Look closely.\n\nThe measurements:\n${JSON.stringify(m.measured, null, 1)}\n\n${kind === "sounds" ? "You cannot listen: judge S1 and S4 from the pictures and features, and say so in their reasons.\n\n" : ""}Score every item, ${items.join(", ")}, 0, 1 or 2, each with a reason. Reply with JSON alone: {${items.map((i) => `"${i}": { "score": 0, "reason": "..." }`).join(", ")}}\n\nTHE RUBRIC\n${RUBRIC}`,
   });
-  const judged = parse(r.answer);
-  if (!judged) return { kind, subject: subject.id, leg, error: "the judge's answer was not JSON", answer: r.answer };
-  return { kind, subject: subject.id, leg: decoy ? `decoy: ${decoy}` : leg, measured: m.measured, caps: m.caps, ...settle(kind, judged, m.caps) };
+  if (!itemJudged) return { kind, subject: subject.id, leg, error: "the judge's answer was not JSON", answer: r.answer };
+  return { kind, subject: subject.id, leg: decoy ? `decoy: ${decoy}` : leg, judges: JUDGES, measured: m.measured, caps: m.caps, ...settle(kind, itemJudged, m.caps) };
 }
 
 /** The decoys: a plain square sprite of the original's size, a hiss of the original's length, flat textures. */
