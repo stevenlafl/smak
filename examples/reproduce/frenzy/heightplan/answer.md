@@ -1,24 +1,40 @@
-`frenzy_copy` builds OK: it compiles, has no leak, and all 64 entities a player goes to are reached on foot. It is a close approximation, not a match. The original was given only as pictures, so the brush boxes, heights and lights are estimates, and I could not check them against the real map.
+frenzy_copy is built and compiled, but the build still says **NOT OK**. Three items are unreachable on foot, and the views are much darker than the original.
 
-**Files** (in `/tmp/smak-repro-o9K2C3/work/frenzy_copy/`): `frenzy_copy.bsp` (the compiled map, the `.bsp` the game loads), `.map` (its source), `.wad` (textures), and plan and view pictures.
+**Build status**
 
-**What matches the original**
-- **Layout and floors:** from the four height-plan layers, with the walk reaching 84.2% of the standable floor.
-- **Starts, weapons, ammo, items:** all 98 marks placed at their x, y and height. Two of the 98 are not where the marks say; see below.
-- **Lights:** the eight marked lights, plus the glow sprites on them.
+| Check | Result |
+| --- | --- |
+| Compiled (BSP, the game's map file) | Yes, to `work:frenzy_copy/frenzy_copy.bsp` |
+| Leaks | None reported |
+| Entities checked against the FGD (the entity definitions) | 117 entities, all pass |
+| Places reached | 61 of 64 entities reached on foot |
+| Unreached | `ammo_ARgrenades` at (-664, 152, 320) and (-664, -152, 320), and `item_longjump` at (-72, 0, 320) |
 
-**What is approximate**
-- **Walls, doors, ladders, charger, triggers:** boxes read off the plan's outlines. Thicknesses, lengths and the 128-unit wall height are guesses.
-- **Textures:** picked by matching the views to the wad. Walls are C3A1_W1, floor C1A3FLOOR02, ceiling C2A4_PAN3, doors LAB1_PANEL1, brush furniture LAB1_SLOT1. The shelves with bins in the original are not modelled.
-- **Light:** the marked lights alone left the views under 24 of 255, so I added automatic lamps over the whole plan (163 entities in all, 65 of them added by the compiler). The original's light values were not available, so the brightness of 300 is my choice.
-- **Items moved for the walk:** two `ammo_ARgrenades` (at -664, ±152, height 336) and the `item_longjump` sit on 320-unit platforms the walk cannot climb from the height plan's floors. I moved them to nearby reachable floor, at (-592, ±120) and (-176, -72).
+The three unreached items sit on the 320-high platforms. The walk test cannot find a way up to them. I tried shortening the walls that border those platforms. That made two handgrenades need a jump, so I reverted to the 3-fault version.
 
-**Left as warnings**
-- 48 drops of more than 210 units (the worst at -520, 416, from 336 down). The height plan has these, and I did not rail them.
-- 18 patches of floor not walked to, mostly the 320 platforms and the tops of things.
-- No stairs added where the height plan has steep ramps.
-- Ladders are plain `func_ladder` boxes with no rung texture.
+**What matches**
 
-I compared two views with the original: the start at yaw 130 and the room at (640, 642, 64). Walls and floor are now in the right colour range, but the original's shelving is missing. Some high corridors, such as the one at (-384, 992, 384), are still dark.
+- Layout, floor heights and room sizes come from the height plan (153 by 131 cells of 16 units, the walkable floor is about 84% of its area).
+- All 64 entities are placed at their marks and heights, including the 8 `light` and 8 `env_glow` pairs.
+- The brush entities are real: 12 `func_wall`, 2 `func_door`, 2 `func_ladder`, 1 `func_healthcharger`, 2 `trigger_multiple`.
+- Textures were picked by picture from `halflife.wad`: floor TNNL_FLR7C, upper walls CRETE1_WALL01, ceiling -0FIFTIES_W12, a lab-panel wall (LAB1_SLOT1B) in the west, and CRETE3_FLR05 floor in the east.
 
-**Not yet reproducible from disk:** the spec exists only in this session, since I have no file-writing tool here. The build call took it inline, and the `.map` and `.bsp` above are its output. To make it a committed file, the JSON needs saving in the work folder. Tell me a path I can write to and I'll save it there.
+**What does not match**
+
+- **Light.** The views are still dark. I raised the lamp brightness to 800 and the areas to brightness 2, and the lamps now show on the plan. The views are still far darker than `views.png`.
+- **Brush sizes are guesses.** The `func_wall` slabs are 96 by 16 by 320, doors 96 by 16 by 112, ladders 32 by 16 by 160. The plan only shows thin orange outlines, so their true sizes are not in the inputs.
+- **Items on top of walls.** Four items marked at z 336 sit on top of walls, because the height plan has no 320 floor there. I put them over floor 0 at z 336.
+- **Sweep warning.** 55 places drop more than 210 units. This is a warning, not a fault. The original has its ledges too.
+
+**Gotcha I found on the way**
+
+A brush entity's `entity` key belongs on the `furniture` entry that places the prefab, not on the prefab piece. On the piece it is silently a solid `func_detail`, which blocks the walk. I could not save this to memory because the Write tool is disabled in this session.
+
+**Not saved to disk**
+
+I have no file-writing tool here, so the spec lives only inline in this conversation. The built files are in `work:frenzy_copy/`: the `.map` source, `.wad`, `.bsp`, and the plan and view pictures. If you want the spec as a `.json` file, say where, and I'll write it on the next turn.
+
+**Next steps if you want to push further**
+
+- Lights: a brighter setting for the lamps, or light entities placed closer to the ceilings in the views.
+- Platforms: a route up to the 320 level, or moving the three items.
