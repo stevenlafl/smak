@@ -1,0 +1,49 @@
+{
+  "spec": "smak.sound/1",
+  "name": "debris/bustmetal1.wav",
+  "class": "metal hit",
+  "length": 0.8,
+  "layers": [
+    {
+      "id": "panel",
+      "kind": "sample",
+      "file": "work:gen/bustmetal_s0.wav",
+      "from": 0.62,
+      "length": 0.8,
+      "env": {
+        "attack": 0.002,
+        "hold": 0.05,
+        "decay": 0.5
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 300
+        },
+        {
+          "type": "peak",
+          "f": 400,
+          "q": 0.8,
+          "gain": -4
+        },
+        {
+          "type": "peak",
+          "f": 1400,
+          "q": 0.8,
+          "gain": 3
+        }
+      ]
+    }
+  ],
+  "finish": {
+    "room": {
+      "decay": 0.25,
+      "wet": 0.12
+    },
+    "limit": {
+      "crest": 12,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

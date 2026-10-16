@@ -1,0 +1,43 @@
+{
+  "spec": "smak.sound/1",
+  "name": "doors/doormove1.wav",
+  "seed": 0,
+  "length": 1.6,
+  "layers": [
+    {
+      "id": "door",
+      "kind": "sample",
+      "file": "work:gen/a_heavy_metal_s0.wav",
+      "from": "onset",
+      "length": 1.6,
+      "env": {
+        "attack": 0.005,
+        "hold": 1.2,
+        "decay": 0.3
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 60
+        },
+        {
+          "type": "peak",
+          "f": 1500,
+          "q": 0.8,
+          "gain": 4
+        }
+      ]
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "limit": {
+      "crest": 10,
+      "release": 0.002
+    },
+    "room": {
+      "decay": 0.2,
+      "wet": 0.05
+    }
+  }
+}
