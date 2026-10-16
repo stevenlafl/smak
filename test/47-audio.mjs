@@ -317,6 +317,16 @@ test("a sound held to the band shares a description gives: off by more than 7 po
   sure(validateSoundSpec(spec({ low: 5 })).errors.some((e) => /bands: the share of its power/.test(e)), "a band by another name refused");
 });
 
+test("a sound held to the decay a description gives: a T20 more than a fifth off is warned of", () => {
+  const spec = (t20, decay) => ({ spec: "smak.sound/1", name: "x/ring.wav", t20, layers: [{ kind: "modes", f: 600, decay }] });
+  // modes decay is to -60 dB: a third of it is to -20
+  const near = buildSoundSpec(spec(0.3, 0.9));
+  sure(near.report.facts.some((f) => /T20 [\d.]+ s against the 0\.3 s asked/.test(f)) && !near.report.warnings.some((w) => /its decay is/.test(w)), [...near.report.facts, ...near.report.warnings].join(" | "));
+  const long = buildSoundSpec(spec(0.3, 2.4));
+  sure(long.report.warnings.some((w) => /x\/ring\.wav: its decay is [\d.]+ s to 20 dB under its loudest, against the 0\.3 s asked \(\d+% long/.test(w)), long.report.warnings.join(" | "));
+  sure(validateSoundSpec(spec(-1, 1)).errors.some((e) => /t20: the seconds from its loudest/.test(e)), "a negative t20 refused");
+});
+
 test("a sound's spectrum off its class is warned of, which way, as a judge measures it", () => {
   // a metal hit made of a low thud alone: far too dark for the game's metal hits
   const dark = buildSoundSpec({ spec: "smak.sound/1", name: "weapons/thud.wav", class: "metal hit", length: 0.5, layers: [{ kind: "tone", f: 90, env: { attack: 0.002, decay: 0.3 } }] }, { games: [] });

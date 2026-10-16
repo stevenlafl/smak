@@ -16,7 +16,7 @@ import { pictureMeasures } from "../audio/picture.mjs";
 import { unpicture } from "../image.mjs";
 
 export const SOUND_SPEC = "smak.sound/1";
-const TOP = ["spec", "name", "class", "rate", "bits", "seed", "length", "pitch", "layers", "finish", "loop", "variants", "reference", "picture", "bands", "sounds", "note"];
+const TOP = ["spec", "name", "class", "rate", "bits", "seed", "length", "pitch", "layers", "finish", "loop", "variants", "reference", "picture", "bands", "t20", "sounds", "note"];
 const LAYER = ["id", "kind", "file", "from", "at", "length", "gain", "env", "filter", "color", "shape", "iterations", "wave", "f", "sweep", "ratio", "index", "indexDecay", "ratios", "modes", "gains", "decay", "damping", "detune", "count", "rate", "every", "jitter", "band", "grain", "drive", "post", "note"];
 const KINDS = ["noise", "tone", "fm", "modes", "particles", "sample"];
 /** Licences a take's sidecar may name that do not allow selling what is made with it: told so in the report's facts. */
@@ -33,6 +33,8 @@ const STRUCK = new Set(["metal hit", "flesh hit", "gunshot", "click", "pump", "s
 /** An attack slower than this, in a struck class, is warned of: Steven heard a .357 that took 0.14 s as played backwards. */
 const SWELL = 0.05;
 const PICTURE_BANDS = 7;
+/** A sound's T20 more than this share off the one its spec asks (`t20`) is warned of: a judge holds a copy to a quarter, less a margin. */
+const T20_ASKED = 0.2;
 /**
  * Flatness off its picture's by more than this many times, either way, is warned of. A picture's reading is within
  * a tenth on nine of Half-Life's ten sounds tried (the crowbar's hit, read 0.34 for 0.22, the worst).
@@ -107,6 +109,8 @@ export function validateSoundSpec(spec) {
       errors.push(`${where("finish.limit")}: { crest: the peak over the RMS it is squashed to, in dB (Valve's weapons 6 to 10), release: seconds (0.05) }`);
     if (sound.bands !== undefined && !(sound.bands && typeof sound.bands === "object" && Object.entries(sound.bands).every(([k, v]) => BAND_NAMES.includes(k) && isNumber(v) && v >= 0 && v <= 100)))
       errors.push(`${where("bands")}: the share of its power in each band, in %, as a description of the sound gives it: { ${BAND_NAMES.map((k) => `"${k}": n`).join(", ")} } (any of them)`);
+    if (sound.t20 !== undefined && !(isNumber(sound.t20) && sound.t20 > 0 && sound.t20 < 30))
+      errors.push(`${where("t20")}: the seconds from its loudest to 20 dB under it, as a description of the sound gives it ("falls about 20 dB in the next 0.44 s": 0.44)`);
     if (sound.picture !== undefined && typeof sound.picture !== "string" && typeof sound.picture?.file !== "string")
       errors.push(`${where("picture")}: the sound's picture (as soundPicture draws it) to measure against: a file, or { file, length, rate, row }`);
     for (const [k, variant] of (sound.variants ?? []).entries())
@@ -304,6 +308,13 @@ export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (
         report.facts.push(`${take.name}: its bands against the shares asked: ${off.map(([k, d]) => `${k} ${f.bands[k]}% for ${sound.bands[k]}% (${d > 0 ? "+" : ""}${d})`).join(", ")}`);
         const far = off.filter(([, d]) => Math.abs(d) > PICTURE_BANDS);
         if (far.length) warnings.push(`${take.name}: further from the bands asked than a copy should be: ${far.map(([k, d]) => `${k} ${d > 0 ? "+" : ""}${d} points`).join(", ")} (aim within ${PICTURE_BANDS}). A filter (lowpass, highpass, a shelf) or a layer's gain moves them; build again`);
+      }
+      // the decay a description gives: held as a judge holds a copy with no class of its own, within a quarter
+      if (sound.t20 !== undefined && take.name === sound.name) {
+        const off = (f.t20 - sound.t20) / sound.t20;
+        report.facts.push(`${take.name}: T20 ${f.t20} s against the ${sound.t20} s asked (${off > 0 ? "+" : ""}${Math.round(off * 100)}%)`);
+        if (Math.abs(off) > T20_ASKED && Math.abs(f.t20 - sound.t20) > 0.05)
+          warnings.push(`${take.name}: its decay is ${f.t20} s to 20 dB under its loudest, against the ${sound.t20} s asked (${Math.round(Math.abs(off) * 100)}% ${off > 0 ? "long: a shorter decay or a lower tail" : "short: a longer decay, or more of its tail"}; aim within ${T20_ASKED * 100}%)`);
       }
       if (seen && take.name === sound.name) {
         const p = (entry.picture = againstPicture(f, seen, sound));
