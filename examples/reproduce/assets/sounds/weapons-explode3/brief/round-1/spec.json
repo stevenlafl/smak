@@ -1,0 +1,83 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/explode3.wav",
+  "class": "explosion",
+  "seed": 7,
+  "length": 1.6,
+  "layers": [
+    {
+      "id": "blast",
+      "kind": "sample",
+      "file": "work:gen/grenade_explode_s0.wav",
+      "from": 0.28,
+      "length": 1.5,
+      "env": {
+        "attack": 0.002,
+        "hold": 0.3,
+        "decay": 0.6
+      },
+      "filter": [
+        {
+          "type": "peak",
+          "f": 1500,
+          "q": 0.8,
+          "gain": 5
+        },
+        {
+          "type": "peak",
+          "f": 350,
+          "q": 0.7,
+          "gain": 3
+        },
+        {
+          "type": "lowpass",
+          "f": 4000,
+          "q": 0.7
+        }
+      ]
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.008
+      },
+      "gain": -2,
+      "post": true
+    },
+    {
+      "id": "grit",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 800,
+          "q": 0.6
+        }
+      ],
+      "env": {
+        "attack": 0.002,
+        "decay": 0.12
+      },
+      "gain": -6,
+      "post": true
+    }
+  ],
+  "finish": {
+    "saturate": 3,
+    "limit": {
+      "crest": 7,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

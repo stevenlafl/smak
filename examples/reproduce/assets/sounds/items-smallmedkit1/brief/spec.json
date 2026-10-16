@@ -1,40 +1,67 @@
 {
   "spec": "smak.sound/1",
   "name": "items/smallmedkit1.wav",
-  "class": "click",
-  "seed": 1,
-  "length": 0.4,
+  "seed": 7,
+  "length": 1.6,
   "layers": [
     {
-      "id": "click",
-      "kind": "sample",
-      "file": "work:gen/medkit_click_s1.wav",
-      "from": "onset",
-      "length": 0.4,
+      "id": "beep1",
+      "kind": "tone",
+      "f": 1760,
+      "wave": "sine",
+      "at": 0,
+      "length": 0.09,
+      "gain": -10,
       "env": {
-        "attack": 0.002,
-        "decay": 0.25
+        "attack": 0.003,
+        "hold": 0.05,
+        "decay": 0.03
+      }
+    },
+    {
+      "id": "beep2",
+      "kind": "tone",
+      "f": 1760,
+      "wave": "sine",
+      "at": 0.15,
+      "length": 0.09,
+      "gain": -10,
+      "env": {
+        "attack": 0.003,
+        "hold": 0.05,
+        "decay": 0.03
+      }
+    },
+    {
+      "id": "spray",
+      "kind": "sample",
+      "file": "work:gen/hypospray_hiss_s0.wav",
+      "from": 0,
+      "at": 0.34,
+      "length": 0.9,
+      "gain": -9,
+      "env": {
+        "attack": 0.02,
+        "hold": 0.2,
+        "decay": 0.45
       },
       "filter": [
         {
           "type": "highpass",
-          "f": 200
+          "f": 900
         },
         {
-          "type": "peak",
-          "f": 6000,
-          "q": 0.8,
-          "gain": 5
+          "type": "lowpass",
+          "f": 5000,
+          "q": 0.7
         }
-      ],
-      "gain": -3
+      ]
     }
   ],
   "finish": {
-    "limit": {
-      "crest": 14,
-      "release": 0.002
-    },
-    "peak": -0.5
+    "room": {
+      "decay": 0.2,
+      "wet": 0.08
+    }
   }
 }

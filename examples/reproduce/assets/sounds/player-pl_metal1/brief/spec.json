@@ -3,80 +3,55 @@
   "name": "player/pl_metal1.wav",
   "class": "step metal",
   "seed": 2,
-  "length": 0.6,
+  "length": 0.5,
   "layers": [
     {
-      "id": "step",
+      "id": "tap",
       "kind": "sample",
-      "file": "work:gen/step_metal_s2.wav",
+      "file": "work:gen/vent_step_s2.wav",
       "from": "onset",
-      "length": 0.6,
+      "length": 0.3,
       "env": {
         "attack": 0.002,
-        "hold": 0.1,
-        "decay": 0.35
+        "decay": 0.12
       },
+      "gain": -2,
       "filter": [
         {
           "type": "highpass",
-          "f": 120
+          "f": 350
         },
         {
-          "type": "peak",
-          "f": 2500,
-          "q": 1,
-          "gain": 4
+          "type": "lowpass",
+          "f": 4000
         }
       ]
     },
     {
-      "id": "click",
+      "id": "crack",
       "kind": "noise",
       "color": "white",
       "filter": [
         {
           "type": "highpass",
-          "f": 1500
+          "f": 2000
         }
       ],
       "env": {
-        "decay": 0.015
+        "attack": 0.0005,
+        "decay": 0.004
       },
-      "gain": -6,
+      "gain": 0,
       "post": true
-    },
-    {
-      "id": "ring",
-      "kind": "modes",
-      "f": 800,
-      "ratios": "plate",
-      "decay": 0.5,
-      "damping": 1,
-      "gain": -20
-    },
-    {
-      "id": "grit",
-      "kind": "particles",
-      "count": 40,
-      "band": [
-        1500,
-        4000
-      ],
-      "grain": 0.004,
-      "env": {
-        "decay": 0.2
-      },
-      "gain": -16
     }
   ],
   "finish": {
     "room": {
-      "decay": 0.35,
-      "wet": 0.15
+      "decay": 0.3,
+      "wet": 0.12
     },
-    "saturate": 1.5,
     "limit": {
-      "crest": 16,
+      "crest": 12,
       "release": 0.002
     },
     "peak": -0.5

@@ -3,25 +3,27 @@
   "name": "ambience/drips.wav",
   "class": "loop drips",
   "seed": 1,
-  "length": 5,
+  "loop": true,
   "layers": [
     {
       "id": "drips",
       "kind": "sample",
-      "file": "work:gen/drips_tunnel_s0.wav",
+      "file": "work:gen/drips_s0.wav",
       "from": 0,
       "length": 5,
       "filter": [
         {
-          "type": "highpass",
-          "f": 620
+          "type": "lowpass",
+          "f": 2800,
+          "q": 0.7
         },
         {
-          "type": "lowpass",
-          "f": 1300
+          "type": "peak",
+          "f": 300,
+          "q": 1,
+          "gain": 10
         }
       ]
     }
-  ],
-  "loop": true
+  ]
 }

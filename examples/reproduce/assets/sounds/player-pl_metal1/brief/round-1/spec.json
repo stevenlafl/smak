@@ -1,0 +1,84 @@
+{
+  "spec": "smak.sound/1",
+  "name": "player/pl_metal1.wav",
+  "class": "step metal",
+  "seed": 2,
+  "length": 0.6,
+  "layers": [
+    {
+      "id": "step",
+      "kind": "sample",
+      "file": "work:gen/step_metal_s2.wav",
+      "from": "onset",
+      "length": 0.6,
+      "env": {
+        "attack": 0.002,
+        "hold": 0.1,
+        "decay": 0.35
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 120
+        },
+        {
+          "type": "peak",
+          "f": 2500,
+          "q": 1,
+          "gain": 4
+        }
+      ]
+    },
+    {
+      "id": "click",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ],
+      "env": {
+        "decay": 0.015
+      },
+      "gain": -6,
+      "post": true
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 800,
+      "ratios": "plate",
+      "decay": 0.5,
+      "damping": 1,
+      "gain": -20
+    },
+    {
+      "id": "grit",
+      "kind": "particles",
+      "count": 40,
+      "band": [
+        1500,
+        4000
+      ],
+      "grain": 0.004,
+      "env": {
+        "decay": 0.2
+      },
+      "gain": -16
+    }
+  ],
+  "finish": {
+    "room": {
+      "decay": 0.35,
+      "wet": 0.15
+    },
+    "saturate": 1.5,
+    "limit": {
+      "crest": 16,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

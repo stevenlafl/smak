@@ -1,22 +1,15 @@
-The sound is built and the build says OK, with two warnings left. The file is `work:sound/player/pl_metal1.wav`. Put it in `<mod>/sound/player/` and the game plays it in place of its own `pl_metal1.wav`. I haven't listened to it, so whether it beats the game's own is the modder's call.
+The sound is built and the build says OK: `work:sound/player/pl_metal1.wav`, 0.39 s, 22050 Hz, 16-bit mono WAV (uncompressed audio), peak -0.5 dBFS. To use it, put it in the mod's `sound/player/` folder with the same name, and it replaces the game's `pl_metal1.wav`. I have not heard it, and the build cannot judge how it sounds in the game, so the modder's ear decides.
 
-**What it is**
+**What it is:** a generated take from a local model (stable-audio-3-sfx, Stability AI Community Licence). That licence is free for organisations under US$1M annual revenue, and the take is not flagged as non-commercial. The prompt I sent was "a light footstep on a thin metal vent, one hollow tinny tap, close-miked, dry". That is your wording with "one" added and the recording terms ("close-miked, dry") appended, so the modder can ask for their own wording if they prefer. The take is seed 2 of four. The spec takes its hit from the start of the take, filters it to 350 Hz to 4 kHz, gives it a 0.12 s decay, adds a short click at the very start, and applies a light room and limiter.
 
-- **Source:** a generated take from the local `woosh-dflow` model, prompted "a boot footstep on a metal floor, one heavy step, close-miked, dry". I sent the modder's words almost as they were, with the room words added.
-- **Licence:** `woosh-dflow` is CC-BY-NC 4.0 (non-commercial) for its weights. You said the test accepts that, but a mod that is ever sold or monetised would not be covered by it.
-- **Build:** 22050 Hz, 16-bit, mono, 0.48 s, peak -0.5 dBFS, with the take's footstep at the start.
-- **Layers:**
-  - The take, cut from its first hit, high-passed at 120 Hz, with a presence lift at 2.5 kHz and a short decay.
-  - A short high-passed click for the crack of a boot on metal.
-  - A plate-style metal ring at 800 Hz that decays over half a second.
-  - A small scatter of grit between 1.5 and 4 kHz.
-- **Finish:** a short room, mild saturation and a limiter, to give it the metal step's squashed punch.
+**What I tried and dropped:**
+- The raw takes were a continuous wash of noise, not a tap, so I did not use them as they came.
+- Synthesised layers (a click, a body tone and ringing metal modes) gave a dull thud with a long pure whine. The build called it too pure and too dark.
+- Ringing modes laid over the take made it sound like a bell, and the build warns against that. I removed them.
 
-**Where it stands against the game's step metal sounds:** 20 of 22 features are in range. The two that are not:
+**What the build still warns about, which the modder should weigh by ear:**
+- Its brightness is far above the game's own metal steps (centroid 1840 Hz against 260 to 460 Hz). That is on purpose for a tinny sound, but it is the biggest departure from the game's class.
+- It dies away in 0.135 s, where the game's steps take 0.32 s or more. It will sound drier and shorter than the original.
+- It is a little loud for the class and still takes 0.075 s to reach its peak, so the onset is not perfectly sharp.
 
-- It dies away faster than the game's metal steps: the -20 dB point is at 0.16 s, against 0.32 s at least for the game's.
-- It is too pure: the flatness, which measures how much of the sound is noise, is 0.003 against 0.01 to 0.11 for the game's.
-
-I tried a longer tail and a bigger room. That brought the spectrum too bright (18 of 22), so I kept the 20 of 22 version. Whether the short tail matters is for the modder to hear.
-
-The spec is passed inline in this session, not saved to a file. Say if you want it written into the project so it can be rebuilt.
+The build is clean of faults. Whether it is at least as good as the game's sound is for the modder to judge in the game. If it is too short or too bright, the next things to try are a longer decay on the take and a lower filter cut.

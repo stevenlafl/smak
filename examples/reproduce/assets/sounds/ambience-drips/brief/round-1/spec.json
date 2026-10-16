@@ -1,0 +1,27 @@
+{
+  "spec": "smak.sound/1",
+  "name": "ambience/drips.wav",
+  "class": "loop drips",
+  "seed": 1,
+  "length": 5,
+  "layers": [
+    {
+      "id": "drips",
+      "kind": "sample",
+      "file": "work:gen/drips_tunnel_s0.wav",
+      "from": 0,
+      "length": 5,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 620
+        },
+        {
+          "type": "lowpass",
+          "f": 1300
+        }
+      ]
+    }
+  ],
+  "loop": true
+}

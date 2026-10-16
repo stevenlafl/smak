@@ -8,46 +8,33 @@
     {
       "id": "shot",
       "kind": "sample",
-      "file": "work:gen/357_shot_s0.wav",
+      "file": "work:gen/357_shot_s1.wav",
       "from": "onset",
       "length": 1.2,
-      "env": {
-        "attack": 0.002,
-        "hold": 0.05,
-        "decay": 0.6
-      },
       "filter": [
         {
+          "type": "highpass",
+          "f": 35
+        },
+        {
           "type": "lowpass",
-          "f": 5000,
-          "q": 0.7
+          "f": 9000
         },
         {
           "type": "peak",
-          "f": 90,
+          "f": 1200,
           "q": 0.8,
-          "gain": 5
-        },
-        {
-          "type": "peak",
-          "f": 320,
-          "q": 1,
-          "gain": -5
+          "gain": 7
         }
       ]
     }
   ],
   "finish": {
-    "room": {
-      "decay": 0.25,
-      "wet": 0.12
-    },
     "saturate": 2,
     "limit": {
       "crest": 9,
       "release": 0.002
     },
     "peak": -0.5
-  },
-  "variants": []
+  }
 }

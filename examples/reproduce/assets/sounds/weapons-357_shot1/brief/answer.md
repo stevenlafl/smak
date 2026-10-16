@@ -1,35 +1,18 @@
-The sound is built and the build says OK: `work:sound/weapons/357_shot1.wav`, a 22050 Hz, 16-bit mono WAV, 1.06 s long, peak -0.5 dBFS. To use it, copy it to `<mod>/sound/weapons/357_shot1.wav`. The game then loads it in place of its own file, with no code change.
+The `.357` shot is built and the build says OK: every check passed, and all 22 of the game's gunshot measures are in range. The file is at `work:sound/weapons/357_shot1.wav`. For the mod, it goes in `<mod>/sound/weapons/357_shot1.wav`, where it replaces the game's own file with no code.
 
-**What I made**
+**What it is:** a 1.2 second, 22050 Hz, 16-bit mono WAV, peak -0.5 dBFS. It is one take from a local generator, `stable-audio-3-sfx`, given the prompt "a heavy revolver gunshot, a loud sharp crack and deep boom, outdoors, close-miked, dry". I generated four takes and picked seed 1, the cleanest and the quickest. The take's tail was too long for a gunshot and its peak was too spiky, so I trimmed it to 1.2 seconds and squashed the peaks.
 
-- I generated four takes with the local `woosh-dflow` model from the caption "a large revolver firing a single loud gunshot, sharp crack, metallic hammer click, outdoor echo". I used take 0, the one with the clearest, earliest hit. Takes 1 to 3 were weaker or started late.
-- The spec takes that take from its first hit onward and shapes it:
-  - A loudness envelope (fast attack, about 0.6 s decay) so the tail falls at a gunshot's rate instead of ringing.
-  - A low-pass at 5 kHz to take off the harshest top end.
-  - A small boost at 90 Hz and a cut at 320 Hz to shift the body away from the boxy middle.
-  - A short room, and a saturation and limiter stage so it hits hard for its peak level.
-
-The spec, to redo or change it:
+**How it was made:** the spec's one layer is that take, cut from its first hit. Its filters cut the rumble below 35 Hz and the hiss above 9 kHz, and lift 1.2 kHz by 7 dB to get the crack and body the first build lacked. The finish adds a saturation of 2 and a limiter with a crest of 9 dB. The spec, to rebuild it:
 
 ```json
 {"spec":"smak.sound/1","name":"weapons/357_shot1.wav","class":"gunshot","seed":1,"length":1.2,
- "layers":[{"id":"shot","kind":"sample","file":"work:gen/357_shot_s0.wav","from":"onset","length":1.2,
-   "env":{"attack":0.002,"hold":0.05,"decay":0.6},
-   "filter":[{"type":"lowpass","f":5000,"q":0.7},{"type":"peak","f":90,"q":0.8,"gain":5},{"type":"peak","f":320,"q":1,"gain":-5}]}],
- "finish":{"room":{"decay":0.25,"wet":0.12},"saturate":2,"limit":{"crest":9,"release":0.002},"peak":-0.5},
- "variants":[]}
+ "layers":[{"id":"shot","kind":"sample","file":"work:gen/357_shot_s1.wav","from":"onset","length":1.2,
+   "filter":[{"type":"highpass","f":35},{"type":"lowpass","f":9000},{"type":"peak","f":1200,"q":0.8,"gain":7}]}],
+ "finish":{"saturate":2,"limit":{"crest":9,"release":0.002},"peak":-0.5}}
 ```
 
-**How it measures**
+The first build warned that 600 Hz to 2 kHz held too little power (13% against a range of 13 to 54), so the peak lift was added for that.
 
-- The final build says OK and reports 22 of 22 features in range for the game's gunshot sounds: decay, brightness, loudness spread and tonal balance.
-- The first builds failed in two directions. The raw take had a tail of about 1.5 s, which was too long. Cutting the tail short made it too brief and too bright, so I settled between the two.
-
-**Licence**
-
-- The take comes from `woosh-dflow`, licensed CC-BY-NC 4.0 (non-commercial). You accepted that for this test. If the mod is ever sold or otherwise used commercially, this sound needs replacing or a different generator.
-
-**What I could not check**
-
-- I did not listen to it, and the build cannot judge how it sounds to a person. The 22 of 22 result is a measurement, not a verdict on quality. The modder needs to play it in the game next to the original and decide.
-- The game's own volume and the map's room can change how it sounds, and those are not in the file. If it sounds too quiet or too loud in play, the level can be changed in the spec's `peak` value.
+**Things to know:**
+- **Licence:** the take comes from Stability AI's Community Licence. It is free for an organisation under US$1M annual revenue, and needs an enterprise licence above that. You said the licences of the local generators are accepted for this test. For a release, that limit needs checking.
+- **Not checked here:** how it sounds, and how the game plays it (its volume and the map's room). Only a listen in the game can settle whether it is at least as good as the original. If it is too loud or too boomy, the filters and the `peak` in the spec are the places to change.

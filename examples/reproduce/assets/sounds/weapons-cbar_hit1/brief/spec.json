@@ -2,73 +2,36 @@
   "spec": "smak.sound/1",
   "name": "weapons/cbar_hit1.wav",
   "class": "metal hit",
-  "length": 0.8,
+  "seed": 1,
   "layers": [
     {
-      "id": "hit",
+      "id": "clang",
       "kind": "sample",
-      "file": "work:gen/cbar_hit_metal_s0.wav",
+      "file": "work:gen/crowbar_metal_s1.wav",
       "from": "onset",
-      "length": 0.3,
+      "length": 0.8,
       "env": {
         "attack": 0.001,
-        "decay": 0.15
+        "hold": 0.08,
+        "decay": 0.5
       },
       "filter": [
         {
           "type": "lowpass",
-          "f": 1400,
+          "f": 2200,
           "q": 0.7
-        }
-      ],
-      "gain": 6
-    },
-    {
-      "id": "ring",
-      "kind": "modes",
-      "modes": [
-        {
-          "f": 1000,
-          "gain": -40,
-          "decay": 0.8
-        },
-        {
-          "f": 1600,
-          "gain": -44,
-          "decay": 0.6
-        },
-        {
-          "f": 2600,
-          "gain": -52,
-          "decay": 0.4
-        }
-      ]
-    },
-    {
-      "id": "crack",
-      "kind": "noise",
-      "color": "white",
-      "post": true,
-      "gain": -10,
-      "env": {
-        "attack": 0.001,
-        "decay": 0.005
-      },
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 2000
         }
       ]
     }
   ],
   "finish": {
+    "saturate": 2,
     "room": {
-      "decay": 0.3,
-      "wet": 0.15
+      "decay": 0.25,
+      "wet": 0.12
     },
     "limit": {
-      "crest": 12,
+      "crest": 9,
       "release": 0.002
     },
     "peak": -0.5

@@ -1,0 +1,40 @@
+{
+  "spec": "smak.sound/1",
+  "name": "items/smallmedkit1.wav",
+  "class": "click",
+  "seed": 1,
+  "length": 0.4,
+  "layers": [
+    {
+      "id": "click",
+      "kind": "sample",
+      "file": "work:gen/medkit_click_s1.wav",
+      "from": "onset",
+      "length": 0.4,
+      "env": {
+        "attack": 0.002,
+        "decay": 0.25
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 200
+        },
+        {
+          "type": "peak",
+          "f": 6000,
+          "q": 0.8,
+          "gain": 5
+        }
+      ],
+      "gain": -3
+    }
+  ],
+  "finish": {
+    "limit": {
+      "crest": 14,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

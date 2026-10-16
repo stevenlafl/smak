@@ -1,11 +1,24 @@
-The sound is built and the build says OK: `work:sound/doors/doormove1.wav`, 22050 Hz 16-bit mono, 1.5 s, peak -0.5 dBFS. To use it, copy it to `<mod>/sound/doors/doormove1.wav`. The game loads it in place of its own file, with no code.
+The sound is built and the build says OK. It is at `work:sound/doors/doormove1.wav`, and goes into the mod at `<mod>/sound/doors/doormove1.wav`, where it replaces the game's file with no code.
 
-**What I made:** A take from a local text-to-sound model (woosh-dflow), prompted with "a heavy metal sliding door moving, steel rollers rumbling along a track, a long low metallic grinding slide." I sent more words than the modder's own phrase, so they can ask for theirs instead. I tried four seeds (random takes of the same prompt) and picked seed 0, because it has the most continuous grind and a clear start. The spec then:
-- shortens it to 1.6 s and cuts the top above 5 kHz,
-- adds a small boost around 1.5 kHz so it is less dark,
-- applies a mild saturation and a limiter (a peak limiter that evens out loud spikes), so it does not jump out of the mix,
-- adds a little room.
+**What it is**
+- A 2.4 s mono WAV at 22050 Hz, 16-bit, peak -0.5 dBFS.
+- It is one generated take, not layers. The motor whine rises in pitch with stacked harmonics, and a heavy thud comes at about 1.75 s. A rumbling tail runs for about 0.6 s after the thud.
+- The take came from the local model `stable-audio-3-sfx`, prompted with: "an electric motor whine rising in pitch like an alarm, then a heavy metal door thud as it stops, close-miked, dry". I picked this wording over an earlier one ("a sliding door driven by an electric motor, ...") because its takes showed a clearer rising whine and a clearer thud. I chose seed 2 of four takes.
+- The spec adds only a limiter (crest 14 dB), so the thud stays punchy.
 
-**Licence:** The model's weights are CC-BY-NC 4.0 (Creative Commons Attribution-NonCommercial). That is fine for a test and for a non-commercial mod. If the mod is ever sold or monetised, it needs a different take. That is the modder's call.
+**Measured by the build**
 
-**What I could not verify:** I can only read the waveform and spectrogram, not listen. The first version had a slow swell (about 2.2 s before its peak) and was too dark, so I reshaped it. The final version still rises for about 0.7 s, and its spectrum is not checked against the game's own `doormove1.wav`: the report compared it to the metal-hit class, which is a poor fit for a door. The modder should listen in the game and compare it with the original. If it sounds too much like a wash rather than a grind, tell me and I will try another seed.
+| Measure | Value |
+| --- | --- |
+| Attack | 1437 ms (the whine builds slowly, so the first sound is quiet) |
+| T20 (time to fall 20 dB) | 0.51 s |
+| Centroid | 366 Hz (dark) |
+| Power below 150 Hz | 49.6% |
+| Power 150 to 600 Hz | 38.3% |
+| Onsets counted | 3 |
+
+**Things to know before listening**
+- The build did not compare it to the game's own `doors/doormove1.wav`. The spec had no class for doors, and no game folder was given, so it has no reference. The comparison is by ear.
+- The thud is about 0.6 s before the end. If it sounds like it trails off too long, the length can be cut to around 2.0 s.
+- The take is non-commercial-limited only in the sense that the Stability AI Community Licence applies: commercial use is free for an organisation under US$1M annual revenue, and an enterprise licence is needed above that. You accepted the local generators' licences for this test, so that is noted here for any later release.
+- The report cannot say how it sounds in the game, or what volume and room the map gives it. Those are for the modder to judge by listening.

@@ -1,16 +1,17 @@
-The sound is built and the build says OK: `work:sound/items/smallmedkit1.wav`, 0.21 s, 22050 Hz 16-bit mono, the game's format for that file name.
+The modder's medkit sound is built and passes the check: `work:sound/items/smallmedkit1.wav`. Put it in `<mod>/sound/items/` and it replaces the game's `items/smallmedkit1.wav`, with no code.
 
-**What I made**
+**What it sounds like:** two short 1760 Hz sine beeps about 0.15 s apart, then a hiss of about half a second that fades out. The file runs about 1.0 s, mono, 22050 Hz, 16-bit, the same format as the game's own.
 
-- **Source:** one take from the local `woosh-dflow` sound generator (seed 1). I sent it the caption "a plastic case snapping shut, one short soft click, close-miked, dry", with a class of `click`.
-- **Shaping:** a 200 Hz highpass, a 5 dB lift around 6 kHz to brighten it, a short decay, a 3 dB cut, and a limiter with the peak at -0.5 dBFS.
-- **Measures:** the spectrum passes against the game's click sounds (22 of 22 features in range). There are no warnings and no faults. The first build warned that it was too dark, and the lift fixed it.
-- **Licence:** the generator's weights are CC-BY-NC 4.0 (Creative Commons, non-commercial). That's fine for this test, but the file can't ship in a commercial mod without a different source.
+**How I made it (the spec, `smak.sound/1`):**
+- **Beep 1 and beep 2:** `tone` layers at 1760 Hz, sine wave, each 0.09 s with a quick attack and decay, at -10 dB. The second starts at 0.15 s.
+- **Hiss:** a `sample` layer at 0.34 s, taken from the generated take `work:gen/hypospray_hiss_s0.wav` (seed 0). It is high-passed at 900 Hz and low-passed at 5000 Hz, with its level set to -9 dB. Its envelope is a 20 ms attack, a 0.2 s hold and a 0.45 s decay.
+- **Finish:** a small room (0.2 s decay, 8% wet).
 
-**Where it differs from the ask**
+**Choices I made:**
+- The hiss is a generated take from the local model `stable-audio-3-sfx`, prompted with "a hypospray injector hissing, a short pressurized spray of air, close-miked, dry". I picked seed 0 of four takes. Its licence is the Stability AI Community Licence. Commercial use is free for organisations under US$1M annual revenue, and it needs an enterprise licence above that. You said the person accepts the local generators' licences for this test, so I used it. The sidecar is at `work:gen/hypospray_hiss_s0.json`.
+- The first take was too bright (39% of its power above 5 kHz) and too loud against the beeps. The low-pass and the level change fixed that. The second build passes with no warnings. Its measured centroid is 2428 Hz, and 4.6% of its power is above 5 kHz.
 
-- **It is a click, not a heal.** The modder asked for "a small medkit to heal". My first caption, "a small plastic medkit being picked up, a soft rustle then a light click", gave four takes that were noisy, too long, or too quiet, so I switched captions. The result sounds like a plastic case closing, not a healing sound. If they want something that reads as a heal, say so and I'll generate more takes with a different caption.
-- **I can't hear it.** The checks are numbers and a picture. Whether it's at least as good as the game's own is for them to judge in the game, and the in-game volume and room aren't checked here.
-- **The spec is inline only.** To rebuild it, the sound spec is the JSON above with the `sample` layer pointing at `work:gen/medkit_click_s1.wav`. That take is in the work folder with its sidecar `.json`.
-
-To use it, they copy the file into `<mod>/sound/items/` so it replaces the game's `smallmedkit1.wav` there.
+**What I could not check:**
+- I did not compare it to the game's own `items/smallmedkit1.wav`. The server was given no game folders, so the reference warning fired. I dropped the reference from the spec, and the build no longer checks against the game's sound.
+- Whether it is "at least as good" is a judgement only the modder can make. Play it in the game next to the original. Check its volume, since the game plays it at its own level, and check how it sounds in the map's room.
+- The hypospray hiss is synthetic-sounding, not a recording of a real device. If the modder prefers a different hiss, I can generate more takes or change the beep pitch.
