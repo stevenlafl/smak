@@ -461,10 +461,15 @@ surface, the coat's hem joined to the trouser legs under it, and a corner has on
 | plus parents as candidates, torn triangles whole to one bone or the ancestor (09d0cef) | 10.9% | 32.2x | one slab fewer, two left |
 | plus every still-torn triangle whole on one bone, its corners its own (a seam) | 0.0% | 2.4x | shards float by the feet, a shoe comes off: rejected |
 | the torn triangles dropped | | | holes down the legs, shoes off: rejected |
+| the hull cut across at the hem (z 24) and below it down the middle (y 0), each piece rigged alone, with parents as candidates | 16.9% | 64.9x | worse: a leg stub hung whole on the pelvis stretches nothing, so least stretch picks it |
+| the same cut, candidates the template's and the nearest limb's only | 15.5% | 54.4x | worse: in the fitted stride the legs part along x, not y, so the middle cut leaves them webbed; some tears are the knee bending (thigh against calf) |
 
-No choice of one bone a corner mends it: the hem must be cut from the legs. That is the carve's to do: a garment
-shell (the coat, on the hips and spine) and the limbs under it carved as separate pieces, as Valve's scientist
-is made (`Sci3(C-Tail)` its own texture over the legs').
+No choice of one bone a corner mends it, and plane cuts do not either: the legs of a body carved in a stride are
+joined by the hull wherever a view sees them overlap, and they part along the stride, not across the body. What
+would: legs that are not carved at all. Carve the coat and trunk alone (from pictures cropped above the hem, or a
+hull clipped there) and build the legs under it as `blob` pieces spanning the leg bones, as Valve's scientist is
+made (`Sci3(C-Tail)` its own texture over the legs'). That is a spec pattern a maker can follow today if the
+carve can be clipped; the clip is the kit's part.
 
 ## Build list
 
