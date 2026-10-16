@@ -299,3 +299,8 @@ walk test, not the game.
   least as good as the game's own is Steven's verdict by ear (reviews/), the goal's "replace Valve textures and
   sounds with versions judged at least as good". S1 to S5 and the decoy are not used for it. The pictures and words
   legs' results stand as they were judged.
+- **2026-10-16, later: an animation's frames counted for the judge.** With every frame of frenzy's four lamps
+  made and each shown flat as a tile of its own, the judge gave T6 a 1 on all four, "the animation frames are not
+  shown": it did not tie `+a~generic86`'s tile to `+0~generic86`. Each row now carries `frames` (the original's
+  frames or tiles, those the replacement has, and whether it has all), and each flat tile says "frame n of m of
+  <name>". T6 is unchanged in what it asks. Earlier rounds keep their scores.

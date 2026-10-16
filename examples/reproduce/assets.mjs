@@ -429,7 +429,9 @@ export function measureTexturesCopy(originalBsp, wadBytes, dir) {
       const o = game.get(name.toLowerCase());
       const r = mine.get(name.toLowerCase());
       const blank = (w, h) => ({ width: w, height: h, rgba: new Uint8Array(w * h * 4).fill(40) });
-      flats.push({ name, pair: besides([onCanvas(scaled(o ? flatOf(o) : blank(p.width, p.height)), 256, 256), onCanvas(scaled(r ? flatOf(r) : blank(p.width, p.height)), 256, 256)]) });
+      const set = siblingsOf(p.name, game);
+      const label = set.length > 1 ? `${name} (frame ${set.indexOf(name) + 1} of ${set.length} of ${p.name})` : name;
+      flats.push({ name: label, pair: besides([onCanvas(scaled(o ? flatOf(o) : blank(p.width, p.height)), 256, 256), onCanvas(scaled(r ? flatOf(r) : blank(p.width, p.height)), 256, 256)]) });
     }
   // T2 by the texture itself too: a face lit by a coloured light (a blue lamp on a wall) hides its colour in
   // the view, so the larger of the two differences is the measure (rubric amendment of 2026-10-14)
@@ -437,6 +439,10 @@ export function measureTexturesCopy(originalBsp, wadBytes, dir) {
     const o = game.get(row.name.toLowerCase());
     const r = mine.get(row.name.toLowerCase());
     row.flatDeltaE = o && r ? deltaE(meanLab(flatOf(o), null), meanLab(flatOf(r), null)) : null;
+    // an animation's frames (a random set's tiles) counted, not left to the judge to find among the flat pictures:
+    // with every frame made and shown, each its own tile, it judged four lamps "the frames are not shown" (T6 1)
+    const frames = siblingsOf(row.name, game);
+    if (frames.length > 1) row.frames = { original: frames, replacement: frames.filter((n) => mine.has(n.toLowerCase())), allKept: frames.every((n) => mine.has(n.toLowerCase())) };
   }
   for (let i = 0; i < flats.length; i += 8)
     savePng(join(dir, `flat-${i / 8 + 1}.png`), tile(flats.slice(i, i + 8).map((f) => f.pair), 2, flats.slice(i, i + 8).map((f) => `${f.name}: ORIGINAL | REPLACEMENT (flat)`)));
@@ -485,7 +491,7 @@ async function judgeOne(kind, subject, leg, copyFile, { decoy } = {}) {
     const r = await runJudge({
       read: dir,
       hours: 1,
-      prompt: `${head}\n\nThe pictures: ${m.pictures}. Look at every picture closely.\n\nThe measurements, texture by texture (deltaE: the mean colour of its view, original against replacement; flatDeltaE: the same of the textures themselves, flat; present and sizeKept: the replacement has the name and its size):\n${JSON.stringify(m.rows)}\n\nScore EVERY texture, items ${items.join(", ")}, 0, 1 or 2 each with a reason. Reply with JSON alone: { "<texture name>": { ${items.map((i) => `"${i}": { "score": 0, "reason": "..." }`).join(", ")} }, ... }\n\nTHE RUBRIC\n${RUBRIC}`,
+      prompt: `${head}\n\nThe pictures: ${m.pictures}. Look at every picture closely.\n\nThe measurements, texture by texture (deltaE: the mean colour of its view, original against replacement; flatDeltaE: the same of the textures themselves, flat; present and sizeKept: the replacement has the name and its size; frames: an animation's frames or a random set's tiles, the original's and those the replacement has, allKept true when it has every one, each frame shown flat as its own tile labelled "frame n of m of <name>"):\n${JSON.stringify(m.rows)}\n\nScore EVERY texture, items ${items.join(", ")}, 0, 1 or 2 each with a reason. Reply with JSON alone: { "<texture name>": { ${items.map((i) => `"${i}": { "score": 0, "reason": "..." }`).join(", ")} }, ... }\n\nTHE RUBRIC\n${RUBRIC}`,
     });
     const judged = parse(r.answer) ?? {};
     const results = m.rows.map((row) => {
