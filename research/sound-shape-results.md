@@ -120,6 +120,32 @@ Sound by sound (C: crest within 2 dB):
 Round 1's own pictures-leg specs, rebuilt by today's kit, meet S2 and S3 on 7 of 10. The failure research
 counted S3 on 6 for that leg; I did not trace the one difference.
 
+## Later: flatness and onsets off the picture (2026-10-16)
+
+The judges' S4 (character: onsets, tone or noise, pitch movement) was the point most often lost on the pictures leg.
+Two of its parts were checked against the picture, each read off the original's input picture and off the copy
+drawn the same way, beside the samples' own (`features`):
+
+| Sound | Flatness: Valve / its picture | Onsets: Valve / its picture |
+| --- | --- | --- |
+| ambience/drips | 0.095 / 0.086 | 4 / 8 |
+| debris/bustmetal1 | 0.569 / 0.625 | 0 / 0 |
+| doors/doormove1 | 0.158 / 0.149 | 2 / 7 |
+| items/smallmedkit1 | 0.128 / 0.131 | 1 / 1 |
+| player/pl_metal1 | 0.057 / 0.059 | 0 / 0 |
+| player/pl_step1 | 0.27 / 0.279 | 0 / 1 |
+| weapons/357_shot1 | 0.11 / 0.106 | 3 / 3 |
+| weapons/cbar_hit1 | 0.215 / 0.337 | 1 / 0 |
+| weapons/explode3 | 0.097 / 0.091 | 1 / 3 |
+| weapons/sbarrel1 | 0.081 / 0.087 | 1 / 1 |
+
+- **Flatness reads well** (within a tenth on nine of ten), and the copies were two to twenty times more tonal than
+  their originals (the medkit 0.006, the shotgun 0.012). The build now warns past 1.6 times (9dfd126). The five
+  copies it fired on, made again: four came within a third of the original's, and the .357 passed (f559bf4).
+- **Onsets do not read well** (four of ten off, by up to five): the picture's 46 ms frames see a drip's splash as
+  several. Not warned of. What the judges now dock is the opening crack (the .357's three hits made one, the
+  shotgun's one made none); measuring it needs the samples' first milliseconds, which the outline is too coarse for.
+
 ## What I could not verify
 
 - How any of this sounds. No listening was possible here.
