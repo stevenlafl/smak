@@ -2,7 +2,7 @@
  "subject": "frenzy",
  "leg": "heightplan",
  "measured": {
-  "floorOverlap": 0.898,
+  "floorOverlap": 0.883,
   "alignment": {
    "move": [
     0,
@@ -40,7 +40,7 @@
    "reproduction": {
     "hurtingDrops": 48,
     "glowsInMidAir": 0,
-    "lightEntitiesInOpenAir": 32,
+    "lightEntitiesInOpenAir": 26,
     "solidInMidAir": 0
    }
   },
@@ -56,58 +56,58 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Same core arrangement in the plans: the two octagonal halls, the central north-south corridor, and the east wing with stairs. But the original's doors and ladders are not in the reproduction at all (the storey pictures show no brush entities in the reproduction: no func_door at the west side near the trigger_multiples, no func_ladder at the bottom, no func_healthcharger), so the ways between areas are not the same. The top-right block also differs: the original has one L-shaped room, the reproduction two separate rooms with a stepped edge."
+   "reason": "The plans show the same overall shape: two octagonal wings either side of a central light shaft, with a stair block on the far right. The inner partitions differ in several places. The original's north-west and south-west rooms are cut by diagonal walls that the reproduction draws as stepped blocks, and the reproduction's north-east room sits in a different position. The doors and ways between rooms cannot be checked from the pictures, and the func_door pair on the original's upper storey has no matching door marked in the reproduction's storey view."
   },
   "P2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured floor overlap is 0.898 against the 0.70 bar. The plans match in size and place: the octagonal halls, the central corridor and the east wing line up. The alignment offset is 16 units in height only."
+   "reason": "The walkable floor overlaps at 0.883 with the plans aligned, above the 0.70 line. The only alignment offset is 16 units in height, so the footprints in the plans agree to within a few percent."
   },
   "P3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The section shows the same main floors (0, 64, 160, 320, 512) and ceilings, but the reproduction adds storeys at 360 and 440 (the storey labels 'Z 556' and 'Z 372' show '2 440' and '2 360' where the original has none). The original's sloped walls at the far left and right of the section (roughly x 50-75 and x 830-860) are built as steps in the reproduction."
+   "reason": "The floor heights are close but off by 16 to 32 units at several levels. Storey ceilings read 578 against 556 (ground storey), 372 against 336 (middle storey) and 228 against 196 (upper storey). In the section, the ground floor, the 320 and 512 ledges and the 640 ceilings line up, but the upper ledges and the start heights sit a little lower in the reproduction. The stairs at the far right are in the same place."
   },
   "P4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The point entities match at 51 of 58 (88%, above the 80% bar), but the reproduction has none of the original's moving or triggering brush entities: two func_door (the west wall, beside the trigger_multiple pair), about ten func_wall, two func_ladder and a func_healthcharger. Seven items are also missing or misplaced: two ammo_ARgrenades, ammo_buckshot, two weapon_handgrenade, ammo_gaussclip and item_longjump, all at height 336. The doors are the clearest miss, since a player cannot get through the west doors."
+   "reason": "51 of 58 entities match within 64 units (0.879), which passes the measure. Seven are missing or misplaced: ammo_ARgrenades at -664 ±152 336, ammo_buckshot at -208 -184 336, weapon_handgrenade at -560 ±184 336, ammo_gaussclip at -208 184 336, and item_longjump at -72 0 336. The longjump is the one a player would miss most. The reproduction has the same count of entities, so the seven it lacks are placed elsewhere or as other classes."
   },
   "P5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "In the views the walls read as the same concrete, but the original's shelving with bottles (starts 1, 2, 3 and 6) is a flat or dark grey panel in the reproduction. The concrete is also pixelated and smeared (start 4 and start 7). Start 4's blue-grey panel comes out pale green-grey."
+   "reason": "The reproduction's surfaces are the right kind of grey concrete panel, but they are blotchy and noisy. In START 4 and START 5 to 7 the wall looks like smeared noise where the original has clean panels. The original's bookshelf walls (START 1, 2, 3, 6, 8) are missing entirely from the reproduction's textures. Panel seams are roughly at the right spacing in START 1 and START 2."
   },
   "P6": {
-   "judge": 1,
+   "judge": 0,
    "cap": null,
-   "score": 1,
-   "reason": "The reproduction has about 30 LIGHT entities scattered across the rooms of the storeys, where the original has about five LIGHT and six ENV_GLOW. The sweep puts 32 light entities in open air against the original's 2. Start 8 shows the original's lit corridor with its ceiling fitting, while the reproduction from the same point is near black. Starts 5 to 7 are darker in the reproduction than in the original."
+   "score": 0,
+   "reason": "The reproduction has far more light entities than the original and they are in the wrong places. The sweep counts 26 light entities in open air against the original's 2, and the storey plans show dozens of LIGHT marks spread across the reproduction where the original has about twenty. In START 8 the original shows a lit fluorescent tube in the corridor ceiling, which the reproduction does not have, and most of the reproduction's views are darker than the original's."
   },
   "P7": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The central corridor, the octagonal halls, the square pillars in the rooms and the east stairs are all there. The original's distinctive shelving with bottles is missing (starts 1, 2, 3, 6), its diagonal ramps are steps, and its bars and bright ceiling fittings are absent (start 8)."
+   "reason": "The central light shaft, the two octagonal rooms, the stair block at the far right and the steps on the storeys are all there and in place. The original's distinctive bookshelf corridor (START 1, 2, 3, 8) is missing from the reproduction, and the grating and trim that the original shows in the central shaft are not picked out in the reproduction."
   },
   "P8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "checkErrors is empty, so the map compiles. The walk test reaches every item and start in the reproduction (0 unreached), and the drop sweep matches the original (48 hurting drops each, 0 glows and 0 solid in mid-air). The 32 light entities in open air are a P6 fault, not a failure here."
+   "reason": "The reproduction compiles (checkErrors is empty) and the walk test reaches every item and way out (0 unreached in the reproduction). The sweep shows the same 48 hurting drops and no glows in mid-air as the original, and no solid in mid-air. The measurements do not report a leak check, so this relies on the empty checkErrors."
   },
   "P9": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Start 1, 2 and 3 show the same kind of concrete corridor with the same pillars and ceilings, but the shelving that makes the original recognisable is missing. Start 8 is the clearest miss: the original's lit corridor is near black in the reproduction. A player who knows the map would see the layout but not the place."
+   "reason": "From the start points the reproduction keeps the panelled corridor shapes of the original in START 1 and START 2, but the bookshelves that a player would use to recognise the place are missing, and the lighting is too dark in START 3 to 7. START 8 (the corridor with the bookshelves and ceiling light) is the view a player would know best, and in the reproduction it is a dark corridor with no shelves and no light. A player who knows the map would not recognise it at once."
   }
  },
- "total": 11,
+ "total": 10,
  "of": 18,
  "passes": false
 }
