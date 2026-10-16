@@ -1,25 +1,34 @@
-The map builds OK: `frenzy_copy` compiles with no leak, and every entity a player goes to is reached on foot. It is not a faithful match yet. I did not compare the picture sets from the same cameras, and several parts of the original are missing or changed.
+The build says OK: compiled, no leaks, and all 58 entities a player goes to are reached on foot. It is not a faithful copy yet. Several things from the original are missing or changed, and the spec only exists inside the build call, not in a file.
 
-Output: `/tmp/smak-repro-lR70Et/work/frenzy_copy/frenzy_copy.bsp` (with `.map`, `.wad` and plan pictures beside it). The spec used the height plans through `floorplan`, with `halflife.wad` textures, all 93 entity marks, and two areas with shelf walls.
+Output: `/tmp/smak-repro-sF7Gsn/work/frenzy_copy/frenzy_copy.bsp`, with the `.map`, `.wad` and plan and views pictures beside it.
 
 **What matches**
-- Layout, room sizes, floor heights, and the stairs and ledges come from the height plans.
-- All the start points and item marks are placed at their heights: 15 starts, the weapons, ammo, batteries, longjump, and the glow sprites.
-- The plan picture lines up with the original's storeys picture.
+- Layout: the walls, floors and four height layers come from the height plans. The plan read back matches the original's outline.
+- Starts, weapons, ammo, batteries and the longjump are placed from `entities.txt`, each at its mark's height.
+- Textures come from `halflife.wad`: a grey block wall, a concrete floor, a dark ceiling, and brown tile in the western rooms.
+- Lighting: eight lights at the original's marks, plus automatic lamps across the plan, which lights the rooms. It is dimmer than the original's brightest spots, not brighter.
 
-**What I changed to get OK**
-| Change | Why |
-|---|---|
-| Two gauss-clip and AR-grenade pickups at z 320 moved to floor 16 at (-592, ±104) | Their platform is reached only by the original's moving walls, which plan mode can't express |
-| Longjump moved to (-176, -72), floor 16 | Same reason |
-| Four lights at z 256 to 292 removed | No ceiling in the headroom picture, so their lamp rods ran to 4000+ units |
-| My eight light entities replaced by the map's 24 automatic lamps | Explicit lights left most rooms black; the floor light went from 54 to 74 of 255 |
-| Two `func_door` boxes at (-1312, ±336) | Orientation is a guess |
+**What differs** (all deliberate or unavoidable with this tool)
 
-**What is missing or approximate**
-- Not reproduced: 13 `func_wall` (the orange moving walls, the lifts), 2 `func_ladder`, 2 `trigger_multiple`, and 1 `func_healthcharger`.
-- The upper plateaus (160 to 512) are not walked to; the original reaches them by those lifts and ladders. The build reports this as a fact, not a fault, so it still says OK.
-- Textures are a close pick, not a per-area match: floor `TNNL_FLR7C`, walls `CRETE1_WALL01`, ceiling `CRETE3_CEIL01`, shelves `C1A4_W4` in the two long halls. The original's lower wall band and hazard ceilings are not reproduced.
-- The build warns of 48 drops over 210 units (the original has these too).
+```
+Item                              Original                    Frenzy copy
+ammo_ARgrenades x2 (ledge)        at (-664, +-152), z 336     moved to (-592, +-104), z 336
+item_longjump (raised platform)   at (-72, 0), z 336          moved to (-176, -72), z 336
+light at (880, 416)              present                     removed (its rod ran to z 4100)
+lights at (656,0), (624,448)      z 288 / 256                 z 128 (rods ran to z 4256)
+env_glow sprites x8               present                     removed (they hang in open air)
+func_wall x12, func_ladder x2     present                     not reproduced (brushes, not in the plan)
+func_door x2, trigger_multiple x2 present                     not reproduced (no doors or door triggers)
+func_healthcharger                present                     not reproduced
+shelving walls, left rooms        dark cabinets, yellow trim  grey brick, brown tile
+```
 
-I could not read the `reproduce/frenzy` folder listing (permission denied), but the files I needed read fine.
+- Doors, lifts and ladders are not in the copy. The height plan carries floors only, and a door or ladder needs a room or brush entity the floor-plan path does not make.
+- The raised ledges at z 320–336 are reached in the original by ladders and ramps the height plan does not carry. I moved the three items onto the nearest reachable floor to pass the walk test.
+- The sweep reports 48 spots where a player can step off a drop of more than 210 units. Those are warnings, and the original has drops of this kind.
+
+**Open choices for you**
+- To put the doors, ladders and healthcharger back, the next step is hand-placed brushes or a `furniture` or `prefab` pass for those. I can add it if you want it.
+- I can restore the glows by hanging each one from a solid fixture.
+
+**Reproduction:** the Write tool is disabled in this session, so the spec is only in my build calls. A rebuild needs it saved as a JSON file in the repo before this work can be repeated from a fresh clone. I can save it once a writable path is available.

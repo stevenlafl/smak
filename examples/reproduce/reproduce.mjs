@@ -108,7 +108,10 @@ ${input}/views.png shows it from inside at a player's eye (also in the work fold
 from the game's halflife.wad as those views show them, area by area (floorplan's areas: each part of the plan with its
 own floor, wall and ceiling, and its light), and its light from its own light entities and what the views show lit.
 Find each texture by its picture, not by its name: the info tool on halflife.wad with like: "work:pictures/views.png"
-and rect: [x0, y0, x1, y1] round a patch of wall, floor or ceiling in a view gives the textures most like it.`,
+and rect: [x0, y0, x1, y1] round a patch of wall, floor or ceiling in a view gives the textures most like it.
+Its brush entities (doors, ladders, chargers, walls that are entities: entities.txt lists them with their places)
+go on the plan as furniture of a box of their own with entity: { class, keys } (docs/SPEC.md, "Prefabs of
+brushes"), room "plan" and at as the entities are.`,
       read: input,
       files: { "pictures/plan.png": join(input, "plan.png"), "pictures/storeys.png": join(input, "storeys.png"), "pictures/views.png": join(input, "views.png"), ...Object.fromEntries(plans.map((f) => [`heightplan/${f}`, join(input, "heightplan", f)])) },
     };

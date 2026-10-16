@@ -1973,6 +1973,10 @@ function planRoom(plan, at, layer = 0, height = undefined) {
   // at 176 stands on the ledge at 160 over the hall at 0
   const under = height === undefined ? [] : floors.filter((f) => f <= height + 1);
   const floor = under.length ? under[under.length - 1] : floors.length ? floors[Math.min(layer, floors.length - 1)] : 0;
+  // and its ceiling: the top of the open space over that floor there (a lamp hangs its rod to it; at 4096 over the
+  // floor, a maker's lamps ran rods to z 4100 and were taken out)
+  const over = plan.boxes.filter((b) => x >= b.min[0] && x <= b.max[0] && y >= b.min[1] && y <= b.max[1] && b.min[2] <= floor + 1 && b.max[2] > floor);
+  const ceiling = over.length ? Math.max(...over.map((b) => b.max[2])) : floor + 4096;
   const BIG = 1 << 16;
-  return { id: "plan", min: [-BIG, -BIG, floor], max: [BIG, BIG, floor + 4096], spec: { id: "plan" } };
+  return { id: "plan", min: [-BIG, -BIG, floor], max: [BIG, BIG, ceiling], spec: { id: "plan" } };
 }

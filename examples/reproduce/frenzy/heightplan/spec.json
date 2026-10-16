@@ -1,100 +1,54 @@
 {
   "spec": "smak.map/1",
   "name": "frenzy_copy",
+  "wads": [
+    "halflife.wad"
+  ],
   "floorplan": {
     "dir": "work:heightplan/",
     "areas": [
       {
         "min": [
-          -1300,
-          -520
+          -1488,
+          -1040
         ],
         "max": [
-          -560,
-          520
+          -480,
+          1040
         ],
-        "wall": "shelf_t"
+        "floor": {
+          "texture": "TNNL_FLR7C"
+        },
+        "light": {
+          "brightness": 150
+        }
       },
       {
         "min": [
-          560,
-          380
+          -1488,
+          -1040
         ],
         "max": [
-          940,
-          720
+          1100,
+          1100
         ],
-        "wall": "shelf_t"
+        "light": {
+          "brightness": 150
+        }
       }
     ]
   },
-  "wads": [
-    "halflife.wad"
-  ],
-  "textures": {
-    "floor_t": {
-      "texture": "TNNL_FLR7C"
-    },
-    "wall_t": {
-      "texture": "CRETE1_WALL01"
-    },
-    "ceil_t": {
-      "texture": "CRETE3_CEIL01"
-    },
-    "door_t": {
-      "texture": "LAB1_DOOR1"
-    },
-    "shelf_t": {
-      "texture": "C1A4_W4"
-    }
-  },
   "theme": {
-    "floor": "floor_t",
-    "wall": "wall_t",
-    "ceiling": "ceil_t",
-    "door": "door_t"
-  },
-  "prefabs": {
-    "door_w": {
-      "pieces": [
-        {
-          "box": [
-            [
-              -8,
-              -48,
-              0
-            ],
-            [
-              8,
-              48,
-              112
-            ]
-          ],
-          "texture": "door_t"
-        }
-      ]
-    }
-  },
-  "furniture": [
-    {
-      "prefab": "door_w",
-      "room": "plan",
-      "at": [
-        -1312,
-        -336
-      ],
-      "entity": "func_door"
+    "floor": {
+      "texture": "-0CRETE2_FLR5"
     },
-    {
-      "prefab": "door_w",
-      "room": "plan",
-      "at": [
-        -1312,
-        336
-      ],
-      "entity": "func_door"
+    "wall": {
+      "texture": "-0OUT_WALL3"
+    },
+    "ceiling": {
+      "texture": "CRETE1_WALL01"
     }
-  ],
+  },
   "entities": [
     {
       "class": "info_player_start",
@@ -106,6 +60,93 @@
       "height": 64
     },
     {
+      "class": "light",
+      "keys": {
+        "_light": "255 230 180 450"
+      },
+      "room": "plan",
+      "at": [
+        640,
+        704
+      ],
+      "height": 256
+    },
+    {
+      "class": "light",
+      "keys": {
+        "_light": "255 230 180 450"
+      },
+      "room": "plan",
+      "at": [
+        832,
+        640
+      ],
+      "height": 256
+    },
+    {
+      "class": "light",
+      "keys": {
+        "_light": "255 230 180 450"
+      },
+      "room": "plan",
+      "at": [
+        880,
+        176
+      ],
+      "height": 64,
+      "z": 64
+    },
+    {
+      "class": "light",
+      "keys": {
+        "_light": "255 230 180 450"
+      },
+      "room": "plan",
+      "at": [
+        656,
+        0
+      ],
+      "height": 128,
+      "z": 128
+    },
+    {
+      "class": "light",
+      "keys": {
+        "_light": "255 230 180 450"
+      },
+      "room": "plan",
+      "at": [
+        624,
+        448
+      ],
+      "height": 128,
+      "z": 128
+    },
+    {
+      "class": "light",
+      "keys": {
+        "_light": "255 230 180 450"
+      },
+      "room": "plan",
+      "at": [
+        640,
+        384
+      ],
+      "height": 104
+    },
+    {
+      "class": "light",
+      "keys": {
+        "_light": "255 230 180 450"
+      },
+      "room": "plan",
+      "at": [
+        656,
+        192
+      ],
+      "height": 104
+    },
+    {
       "class": "info_player_deathmatch",
       "room": "plan",
       "at": [
@@ -113,6 +154,15 @@
         992
       ],
       "height": 384
+    },
+    {
+      "class": "weapon_rpg",
+      "room": "plan",
+      "at": [
+        -384,
+        928
+      ],
+      "height": 336
     },
     {
       "class": "info_player_deathmatch",
@@ -223,24 +273,6 @@
       "height": 64
     },
     {
-      "class": "info_player_deathmatch",
-      "room": "plan",
-      "at": [
-        -48,
-        0
-      ],
-      "height": 64
-    },
-    {
-      "class": "weapon_rpg",
-      "room": "plan",
-      "at": [
-        -384,
-        928
-      ],
-      "height": 336
-    },
-    {
       "class": "weapon_gauss",
       "room": "plan",
       "at": [
@@ -264,105 +296,6 @@
       "at": [
         -816,
         -288
-      ],
-      "height": 176
-    },
-    {
-      "class": "weapon_9mmAR",
-      "room": "plan",
-      "at": [
-        -384,
-        0
-      ],
-      "height": 176
-    },
-    {
-      "class": "weapon_9mmAR",
-      "room": "plan",
-      "at": [
-        608,
-        448
-      ],
-      "height": 16
-    },
-    {
-      "class": "weapon_handgrenade",
-      "room": "plan",
-      "at": [
-        -560,
-        -184
-      ],
-      "height": 336
-    },
-    {
-      "class": "weapon_handgrenade",
-      "room": "plan",
-      "at": [
-        -560,
-        184
-      ],
-      "height": 336
-    },
-    {
-      "class": "weapon_shotgun",
-      "room": "plan",
-      "at": [
-        176,
-        0
-      ],
-      "height": 16
-    },
-    {
-      "class": "weapon_hornetgun",
-      "room": "plan",
-      "at": [
-        -1064,
-        0
-      ],
-      "height": 16
-    },
-    {
-      "class": "weapon_snark",
-      "room": "plan",
-      "at": [
-        752,
-        536
-      ],
-      "height": 8
-    },
-    {
-      "class": "weapon_tripmine",
-      "room": "plan",
-      "at": [
-        -536,
-        -624
-      ],
-      "height": 184
-    },
-    {
-      "class": "weapon_tripmine",
-      "room": "plan",
-      "at": [
-        -536,
-        -664
-      ],
-      "height": 184
-    },
-    {
-      "class": "weapon_tripmine",
-      "room": "plan",
-      "at": [
-        488,
-        208
-      ],
-      "height": 176
-    },
-    {
-      "class": "weapon_tripmine",
-      "room": "plan",
-      "at": [
-        488,
-        -208
       ],
       "height": 176
     },
@@ -394,15 +327,6 @@
       "height": 16
     },
     {
-      "class": "ammo_gaussclip",
-      "room": "plan",
-      "at": [
-        -208,
-        184
-      ],
-      "height": 336
-    },
-    {
       "class": "ammo_buckshot",
       "room": "plan",
       "at": [
@@ -412,40 +336,22 @@
       "height": 16
     },
     {
-      "class": "ammo_buckshot",
+      "class": "item_battery",
       "room": "plan",
       "at": [
-        -208,
-        -184
+        488,
+        -360
       ],
-      "height": 336
+      "height": 176
     },
     {
-      "class": "ammo_buckshot",
+      "class": "item_battery",
       "room": "plan",
       "at": [
-        -296,
-        -848
+        488,
+        360
       ],
-      "height": 16
-    },
-    {
-      "class": "ammo_buckshot",
-      "room": "plan",
-      "at": [
-        -1224,
-        -128
-      ],
-      "height": 16
-    },
-    {
-      "class": "ammo_buckshot",
-      "room": "plan",
-      "at": [
-        -224,
-        512
-      ],
-      "height": 16
+      "height": 176
     },
     {
       "class": "ammo_ARgrenades",
@@ -454,7 +360,7 @@
         -592,
         104
       ],
-      "height": 16
+      "height": 336
     },
     {
       "class": "ammo_ARgrenades",
@@ -463,40 +369,22 @@
         -592,
         -104
       ],
-      "height": 16
+      "height": 336
     },
     {
-      "class": "ammo_ARgrenades",
+      "class": "info_player_deathmatch",
       "room": "plan",
       "at": [
-        640,
-        448
+        -48,
+        0
       ],
-      "height": 16
+      "height": 64
     },
     {
-      "class": "ammo_ARgrenades",
+      "class": "weapon_9mmAR",
       "room": "plan",
       "at": [
-        -936,
-        808
-      ],
-      "height": 184
-    },
-    {
-      "class": "ammo_ARgrenades",
-      "room": "plan",
-      "at": [
-        -128,
-        -808
-      ],
-      "height": 184
-    },
-    {
-      "class": "ammo_ARgrenades",
-      "room": "plan",
-      "at": [
-        -344,
+        -384,
         0
       ],
       "height": 176
@@ -529,6 +417,15 @@
       "height": 16
     },
     {
+      "class": "weapon_9mmAR",
+      "room": "plan",
+      "at": [
+        608,
+        448
+      ],
+      "height": 16
+    },
+    {
       "class": "ammo_9mmAR",
       "room": "plan",
       "at": [
@@ -538,6 +435,78 @@
       "height": 16
     },
     {
+      "class": "ammo_ARgrenades",
+      "room": "plan",
+      "at": [
+        640,
+        448
+      ],
+      "height": 16
+    },
+    {
+      "class": "ammo_buckshot",
+      "room": "plan",
+      "at": [
+        -208,
+        -184
+      ],
+      "height": 336
+    },
+    {
+      "class": "weapon_handgrenade",
+      "room": "plan",
+      "at": [
+        -560,
+        -184
+      ],
+      "height": 336
+    },
+    {
+      "class": "weapon_handgrenade",
+      "room": "plan",
+      "at": [
+        -560,
+        184
+      ],
+      "height": 336
+    },
+    {
+      "class": "ammo_gaussclip",
+      "room": "plan",
+      "at": [
+        -208,
+        184
+      ],
+      "height": 336
+    },
+    {
+      "class": "item_longjump",
+      "room": "plan",
+      "at": [
+        -176,
+        -72
+      ],
+      "height": 336
+    },
+    {
+      "class": "weapon_shotgun",
+      "room": "plan",
+      "at": [
+        176,
+        0
+      ],
+      "height": 16
+    },
+    {
+      "class": "ammo_buckshot",
+      "room": "plan",
+      "at": [
+        -296,
+        -848
+      ],
+      "height": 16
+    },
+    {
       "class": "ammo_rpgclip",
       "room": "plan",
       "at": [
@@ -556,6 +525,15 @@
       "height": 16
     },
     {
+      "class": "weapon_hornetgun",
+      "room": "plan",
+      "at": [
+        -1064,
+        0
+      ],
+      "height": 16
+    },
+    {
       "class": "ammo_rpgclip",
       "room": "plan",
       "at": [
@@ -570,6 +548,51 @@
       "at": [
         -920,
         -792
+      ],
+      "height": 16
+    },
+    {
+      "class": "weapon_snark",
+      "room": "plan",
+      "at": [
+        752,
+        536
+      ],
+      "height": 8
+    },
+    {
+      "class": "weapon_tripmine",
+      "room": "plan",
+      "at": [
+        -536,
+        -624
+      ],
+      "height": 184
+    },
+    {
+      "class": "weapon_tripmine",
+      "room": "plan",
+      "at": [
+        -536,
+        -664
+      ],
+      "height": 184
+    },
+    {
+      "class": "ammo_ARgrenades",
+      "room": "plan",
+      "at": [
+        -936,
+        808
+      ],
+      "height": 184
+    },
+    {
+      "class": "ammo_buckshot",
+      "room": "plan",
+      "at": [
+        -1224,
+        -128
       ],
       "height": 16
     },
@@ -592,127 +615,49 @@
       "height": 16
     },
     {
-      "class": "item_battery",
+      "class": "ammo_buckshot",
       "room": "plan",
       "at": [
-        488,
-        -360
-      ],
-      "height": 176
-    },
-    {
-      "class": "item_battery",
-      "room": "plan",
-      "at": [
-        488,
-        360
-      ],
-      "height": 176
-    },
-    {
-      "class": "item_longjump",
-      "room": "plan",
-      "at": [
-        -176,
-        -72
+        -224,
+        512
       ],
       "height": 16
     },
     {
-      "class": "env_glow",
+      "class": "ammo_ARgrenades",
       "room": "plan",
       "at": [
-        641,
-        704
+        -128,
+        -808
       ],
-      "height": 260,
-      "keys": {
-        "model": "sprites/glow01.spr"
-      }
+      "height": 184
     },
     {
-      "class": "env_glow",
+      "class": "ammo_ARgrenades",
       "room": "plan",
       "at": [
-        833,
-        640
-      ],
-      "height": 260,
-      "keys": {
-        "model": "sprites/glow01.spr"
-      }
-    },
-    {
-      "class": "env_glow",
-      "room": "plan",
-      "at": [
-        881,
-        416
-      ],
-      "height": 260,
-      "keys": {
-        "model": "sprites/glow01.spr"
-      }
-    },
-    {
-      "class": "env_glow",
-      "room": "plan",
-      "at": [
-        881,
-        176
-      ],
-      "height": 260,
-      "keys": {
-        "model": "sprites/glow01.spr"
-      }
-    },
-    {
-      "class": "env_glow",
-      "room": "plan",
-      "at": [
-        657,
+        -344,
         0
       ],
-      "height": 292,
-      "keys": {
-        "model": "sprites/glow01.spr"
-      }
+      "height": 176
     },
     {
-      "class": "env_glow",
+      "class": "weapon_tripmine",
       "room": "plan",
       "at": [
-        625,
-        448
+        488,
+        208
       ],
-      "height": 260,
-      "keys": {
-        "model": "sprites/glow01.spr"
-      }
+      "height": 176
     },
     {
-      "class": "env_glow",
+      "class": "weapon_tripmine",
       "room": "plan",
       "at": [
-        641,
-        384
+        488,
+        -208
       ],
-      "height": 108,
-      "keys": {
-        "model": "sprites/glow01.spr"
-      }
-    },
-    {
-      "class": "env_glow",
-      "room": "plan",
-      "at": [
-        657,
-        192
-      ],
-      "height": 108,
-      "keys": {
-        "model": "sprites/glow01.spr"
-      }
+      "height": 176
     }
   ]
 }

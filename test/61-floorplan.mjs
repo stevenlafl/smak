@@ -63,6 +63,10 @@ test("a map spec's floorplan: its space carved from the plan, a start on the gal
   const lit = buildMapSpec({ ...spec, name: "gallery5", floorplan: { ...spec.floorplan, areas: [{ min: [-100, -100], max: [127, 200], light: { brightness: 180 } }] } }, { out: join(folder, "out5"), folder, compilers: { found: false, message: "" } });
   const lights = readFileSync(lit.files.map, "utf8").match(/"classname" "light"/g) ?? [];
   sure(lights.length >= 1 && /"_light" "[\d ]+ 180"/.test(readFileSync(lit.files.map, "utf8")), `the hall's west half lit as asked: ${lights.length} lamps`);
+  // a lamp placed on the plan hangs from the ceiling over it, not from a sky 4096 up
+  const hung = buildMapSpec({ ...spec, name: "gallery6", entities: [...spec.entities, { class: "light", room: "plan", at: [40, 40] }] }, { out: join(folder, "out6"), folder, compilers: { found: false, message: "" } });
+  const zs = [...readFileSync(hung.files.map, "utf8").matchAll(/\( -?[\d.]+ -?[\d.]+ (-?[\d.]+) \)/g)].map((m) => Number(m[1]));
+  sure(Math.max(...zs) < 1000, `nothing reaches past the plan's top: ${Math.max(...zs)}`);
   const marked = buildMapSpec({ ...spec, name: "gallery3", entities: [...spec.entities, { class: "item_healthkit", room: "plan", at: [208, 40], height: 140, z: 2 }] }, { out: join(folder, "out3"), folder, compilers: { found: false, message: "" } });
   sure(/"origin" "208 40 130"/.test(readFileSync(marked.files.map, "utf8")), "marked at 140: on the gallery's floor at 128");
   const missing = validateMapSpec({ spec: "smak.map/1", name: "x", entities: [{ class: "info_player_start", room: "plan" }] });
