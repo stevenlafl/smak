@@ -1,41 +1,29 @@
-The sound is built and the build says OK: `work:sound/weapons/explode3.wav`, to go in `<mod>/sound/weapons/` so the game plays it in place of the original. I did not compare it against the original file, which I don't have here. The measurements below are from the build's own report, and how it sounds is for you to judge in the game.
+The sound is built and the build says OK: `work:sound/weapons/explode3.wav`, 1.3 s, 22050 Hz, 8-bit mono, one shot with no loop. It is a layers-only sound. I did not use a generated recording, so the grain is from particle layers, not a real explosion.
 
-| Feature | Built file | Original (as described) |
-|---|---|---|
+The build has one warning, that 8-bit adds a hiss under the quiet tail. I kept 8-bit because the original is 8-bit. Leaving `bits` out would give 16-bit with less hiss, if you prefer that.
+
+The original is not in the game folders I could read, so the build compared against the class ranges for explosions, not against the original file itself. Against those ranges, all 22 features are in range.
+
+| Measure | Target (original) | Built |
+| --- | --- | --- |
 | Length | 1.3 s | 1.3 s |
-| Format | 22050 Hz, 8-bit, mono | 22050 Hz, 8-bit, mono |
-| Start | 0 ms attack, full level | instant, full level |
-| Half amplitude | about 0.8 s | about 0.8 s |
-| T20 (time to −20 dB) | 0.83 s (class range 0.67 to 1.11) | not given |
-| Band below 150 Hz | 40% | 35% |
-| Band 150 to 600 Hz | 35% | 30% |
-| Band 600 to 2000 Hz | 16% | 20% |
-| Band 2000 to 5000 Hz | 6.5% | 10% |
-| Band above 5000 Hz | 2.8% | 5% |
-| Centroid | 705 Hz | not given |
-| Flatness | 0.135 | noisy, no tone |
+| Onset | instant, no attack | 0 ms attack |
+| Loudness fall (T20: time to -20 dB) | about half amplitude by 0.8 s, nearly silent by 1.3 s | 1.00 s |
+| Spectrum below 150 Hz | 35% | 40% |
+| 150 to 600 Hz | 30% | 33% |
+| 600 Hz to 2 kHz | 20% | 18% |
+| 2 to 5 kHz | 10% | 7% |
+| Above 5 kHz | 5% | 2% |
+| Centroid (brightness centre) | class range 493 to 739 Hz | 661 Hz |
+| Crest (peak over average level) | class range 2.7 to 8.7 dB | 8.5 dB |
 
-The build reports all 22 features in the range of the game's own explosion sounds.
+How it is built, in the spec's terms:
+- **Body:** brown noise shaped by a spectrum that moves over time. It starts full, darkens after 0.45 s, and its level falls from -1 dB at 0.45 s to -50 dB at 1.3 s.
+- **Clipped wall:** a second copy driven hard for the first 0.45 s, so the start is saturated and then cuts into the body.
+- **Crackle:** particles from 400 to 3000 Hz, fading out by about 0.7 s.
+- **Blast transient:** a 12 ms highpassed noise crack at the start.
+- **Finish:** saturation of 2 and a limiter.
 
-**What it is:** a pink-noise body with a spectrum that falls over time, so the highs fade faster than the lows. It is driven hard by saturation for the clipped wall, and has a slow crackle of debris under it. There is no tone and no separate impact after the first blast. Nothing was generated, so there is no licence to declare.
+I could not check how it sounds to a person, or how the game plays it (its volume and the map's room). Those need a listen in the game. The spec itself was passed inline and is not saved as a file in the work folder, so it will need writing down if this has to be reproduced.
 
-**Gaps to know about:**
-- **Flatness is above the class range** (0.135 is inside it, but the build's first readings were 0.19 and 0.20 in the range of 0.05 to 0.15). The original's flatness is not given, so this may be fine. Bringing it down would need some tonal content, which the character you gave rules out.
-- **The high-band shares are a little low** (600 to 2000 Hz at 16% against 20%, and above 2 kHz at 9% against 15%). I tried to close that and overshot: the centroid went to 968 Hz, which is too bright for the class. I rebuilt the version above, which is the best balance I got.
-- **8-bit has a hiss warning** under the quiet tail. You asked for 8-bit, so I kept it.
-
-The spec, for reproducing it:
-
-```json
-{"spec":"smak.sound/1","name":"weapons/explode3.wav","class":"explosion","rate":22050,"bits":8,"seed":7,"length":1.3,
- "layers":[
-  {"id":"body","kind":"noise","color":"pink","iterations":32,
-   "shape":{"keys":[{"at":0,"curve":[[40,4],[100,5],[150,3],[300,-4],[600,-5],[1000,-7],[2000,-9],[5000,-14],[11000,-22]]},
-                    {"at":0.45,"curve":[[40,4],[100,5],[150,3],[300,-4],[600,-8],[1000,-13],[2000,-20],[5000,-28],[11000,-40]]}]},
-   "env":{"points":[[0,0],[0.45,-0.5],[0.8,-6],[1.0,-14],[1.15,-26],[1.3,-45]]},"gain":0},
-  {"id":"debris","kind":"particles","rate":260,"band":[200,1500],"grain":0.004,
-   "env":{"points":[[0,-6],[0.45,-4],[0.9,-16],[1.3,-40]]},"gain":-11}],
- "finish":{"saturate":8,"peak":-0.5}}
-```
-
-The spec is not saved as a file in the work folder, so the JSON above is the only copy of it.
+If the side-by-side judgement finds it too thin or too clean, the next step is a generated explosion take as a sample layer, with the licence noted.

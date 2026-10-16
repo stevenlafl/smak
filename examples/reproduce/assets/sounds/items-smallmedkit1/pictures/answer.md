@@ -1,26 +1,24 @@
-The sound is built and the build says OK: `work:sound/items/smallmedkit1.wav`, which takes the place of the game's `items/smallmedkit1.wav` when placed in `<mod>/sound`.
+The sound is built and the build says OK with no warnings. It is at `work:sound/items/smallmedkit1.wav`, so it takes the place of the game's `items/smallmedkit1.wav` when it is put in a mod's `sound` folder.
 
-**Method:** I wrote the spec from the original's picture (`pictures/sound.png`) and ran the build against it, adjusting one thing at a time. The original has three pulsed bursts around a 620 Hz tone (0 to 0.26 s), a quiet tail with one tick at 0.40 s, and a rising air hiss (0.50 to 0.76 s). The spec rebuilds those with a sine pulse layer, a band-limited body, a crackle layer, a tick, a faint room bed and a shaped hiss.
+I built it from layers only, with no generated take. The original reads as a synthetic buzz and blip, not a recording of a real thing, so layers seemed the right tool. I did not try a generated take to compare.
 
-**Measured against the original (read off its picture):**
+I could not listen to the original or hear the result. The only thing I could read of the original was its picture, so the match is by the numbers the build reads off that picture, not by ear. Final numbers, from the build's report:
 
-| Measure | Original | Made |
+| Measure | Original (from picture) | Made sound |
 | --- | --- | --- |
 | Length | 0.76 s | 0.76 s |
-| Centroid (brightness) | 1936 Hz | 2200 Hz (14% off) |
-| Bands 150 to 600 Hz | 14.2% | 9.3% |
-| Bands 600 to 2 kHz | 64.4% | 62.3% |
-| Bands 2 to 5 kHz | about 4.5% | 8.5% |
-| Bands over 5 kHz | 16.8% | 19.4% |
-| T20 (time to fall 20 dB) | 0.41 to 0.68 s | 0.59 s |
-| Crest (peak over RMS) | about 11.5 dB | 12.1 dB |
+| Centroid | 1936 Hz | 1704 Hz (12% off) |
+| 150-600 Hz share | about 14% | 17.7% |
+| 600-2k Hz share | 64.4% | 66.5% |
+| 2k-5k Hz share | 4.5% | 2.8% |
+| Over 5k Hz share | 16.8% | 12.7% |
+| T20 (time to -20 dB) | 0.41 to 0.683 s | 0.649 s |
+| Crest | about 11.5 dB | 12 dB |
 | Onsets | 1 | 1 |
 
-Every measure is inside the tolerance the build uses for a copy, and the build's picture check raises no warning. I did not give it a class: the closest class, `click`, grades a medkit's ring as "too long", which doesn't apply here.
+The layers follow the picture's sections: a 630 Hz buzz in three pulses (about 0 to 0.27 s), two short clicks at the start of the second and third pulses, a small blip at 0.40 s, a low 180 Hz tail with a little hiss (0.27 to 0.52 s), and a broadband swell that rises to the end (0.52 to 0.76 s).
 
-**Choices you may want to change:**
-- **16-bit, not 8-bit.** The original is 8-bit, but the build warns that 8-bit adds hiss under the quiet tail, and a copy isn't held to the original's depth. To match the original's depth exactly, add `"bits": 8` to the spec.
-- **No generated take.** I generated four takes with the local `woosh-dflow` model (its licence is non-commercial). None came near the original: their brightness and band balance were far off, and two had the hiss in the wrong place. So the file has no recorded layer and nothing non-commercial in it.
-- **A stray probe file.** While tuning I wrote `work:sound/test/t20probe.wav`. My tools can't delete files, so please remove it by hand. It is not the game's file.
-
-I can't judge how it sounds. Listen to it in the game, where its volume and the map's room will change how it lands.
+Choices you may want to change:
+- **16-bit, not 8-bit.** The original is 8-bit. The guide warns that 8-bit adds a hiss under the quiet tail, so I kept 16-bit. The rate is the original's 22050 Hz. If you want the 8-bit grit, that is a one-field change, `bits: 8`, and the hiss warning will come back.
+- **No class.** None of the built-in classes fits a medkit, so the sound is not held against the game's own sounds of a kind. It is measured against the picture only.
+- **Licences.** No generator was used, so there is no non-commercial licence to flag.

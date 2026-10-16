@@ -1,38 +1,35 @@
-The sound is built and the build says OK: `work:sound/player/pl_step1.wav`, 11025 Hz, 8-bit mono, 0.25 s. Copy it to `<mod>/sound/player/pl_step1.wav` to replace the game's file.
+The sound is built to the picture: `work:sound/player/pl_step1.wav`, 11025 Hz, 8-bit mono, 0.27 s. I could not hear it or open the original's audio, so this is matched to the picture and its numbers, not to the recording itself.
 
-**What it is:** a concrete footstep. A generated take of a footstep on concrete (seed 3) carries the heel strike. A short noise crack adds the high-frequency edge, a small second hit at 0.09 s stands in for the toe, and a faint particle tail carries the end.
+**Where it stands against the picture of the original** (the build reads its numbers off `pictures/sound.png`):
 
-**Against the original's picture (what the report measures):**
-
-| Feature | Original | Copy | Note |
+| Measure | Original (from picture) | Made sound | Off by |
 | --- | --- | --- | --- |
-| Length | 0.27 s | 0.25 s | 7% short |
-| Centroid (brightness) | 902 Hz | 854 Hz | 5% off |
-| Band 150 to 600 Hz | about 60% | 55.5% | within 5 points |
-| T20 (time to -20 dB) | in range | 0.10 s | in the class range |
-| Crest (peak over RMS) | about 21.8 dB | 17.8 dB | the picture's figure is read off its outline, within 3 dB |
+| Length | 0.27 s | 0.273 s | 1% |
+| Centroid (brightness) | about 902 Hz | 897 Hz | 1% |
+| Under 150 Hz | 13.1% | 11.6% | 1.5 points |
+| 600 to 2k Hz | 9.1% | 11.2% | 2.1 points |
+| T20 (time to -20 dB) | 0.04 to 0.18 s | 0.12 s | in range |
+| Crest (peak over RMS) | about 21.8 dB | 19.1 dB | within 3 dB |
 
-Against the game's own step-on-concrete sounds, 20 of 22 features are in range. The two off are flatness (0.165, a little too pure) and the under-150 Hz band (14.8%, a little low).
+The build reports only the worst band, so the other band shares (150 to 600 Hz and 2 to 5 kHz) are not checked individually.
 
-**Remaining warnings, which I left in place:**
-- **8-bit hiss:** the original is 8-bit, so I kept 8-bit to match the format. The build says 16-bit would be cleaner. Switch with `"bits": 16` if the hiss is audible in the game.
-- **Noise over a take:** the crack and the toe are short (about 30 ms and 50 ms), not steady. The build still flags them as static risk. Moving the crack to `post: true` made the spectrum too dark, so I reverted it.
+**What is in the spec:**
+- **Thud:** pink noise low-passed at 160 Hz, which sets the sub-150 Hz weight.
+- **Body:** pink noise between 200 and 500 Hz, the bulk of the energy.
+- **Tail:** pink noise from 20 ms, between 250 and 500 Hz, with envelope points that end at 0.27 s.
+- **Grit:** white noise band-passed at 3.5 kHz, Q 0.5.
+- **Sizzle:** white noise high-passed at 5 kHz.
+- **Crack:** a short high-passed burst added after the limiter, which gives the sharp onset.
+- **Finish:** a short room (decay 0.15 s, wet 0.08), saturation 1.5, and a limiter at crest 21 dB.
 
-**Licence:** the take comes from woosh-dflow, CC-BY-NC 4.0 (weights; code MIT). You said to accept the local generators' licences for this test, so it is in. It is non-commercial only.
+**Choices I made:**
+- I kept 8-bit because the original is 8-bit. The build warns about hiss under the quiet tail; that is the cost of matching the depth.
+- I did not use a generator, so no licence applies to this file.
+- The top-level `length` does not pad a sound, so the tail's envelope points set the length.
 
-**Limits:** I could not listen to it, and I could not read the original's folder directly (permission was denied). I worked from the copy in the work folder's `pictures/` (`sound.png`, `facts.txt`), which the build also reads. The final check is hearing it in the game.
+**What is still open:**
+- Flatness is 0.194 against the class's 0.2 floor. It is close and I stopped there.
+- The build still lists the sub-150 Hz and 150 to 600 Hz shares as just outside the generic step-on-concrete ranges. The picture is the more specific target, so I went by it.
+- I could not read the original's `.wav` (the tool refused the directory and the binary file), so I could not compare the waveform or the sound itself.
 
-**Spec used** (inline; I could not write a file in this session, so this is the record for rebuilding):
-
-```json
-{"spec":"smak.sound/1","name":"player/pl_step1.wav","class":"step concrete","rate":11025,"bits":8,"seed":3,"length":0.27,"picture":"pictures/sound.png",
- "layers":[
-  {"id":"heel","kind":"sample","file":"work:gen/step_concrete_s3.wav","from":"onset","length":0.27,"env":{"attack":0.001,"decay":0.22},
-   "filter":[{"type":"highpass","f":180},{"type":"peak","f":300,"q":1,"gain":4},{"type":"peak","f":1200,"q":0.8,"gain":-6}]},
-  {"id":"crack","kind":"noise","color":"white","shape":[[150,-26],[600,-16],[1500,-4],[3000,0],[6000,-2],[10000,-8]],"env":{"attack":0.001,"decay":0.03},"gain":-4},
-  {"id":"toe","kind":"noise","color":"pink","at":0.09,"length":0.05,"filter":[{"type":"bandpass","f":300,"q":0.6}],"env":{"attack":0.002,"decay":0.025},"gain":-14},
-  {"id":"tail","kind":"particles","rate":60,"band":[300,3000],"grain":0.006,"at":0.1,"length":0.17,"env":{"attack":0.005,"decay":0.16},"gain":-14}],
- "finish":{"room":{"decay":0.25,"wet":0.12},"saturate":1,"limit":{"crest":21,"release":0.002},"peak":-0.5}}
-```
-
-The generated take `work:gen/step_concrete_s3.wav` must exist first (`generate`, prompt "a single footstep on a concrete floor, a leather-soled boot heel landing once, short, dry, close-miked, no reverb, no background noise", length 1, seed 3).
+**To check it:** copy the file into the game's `<mod>/sound/player/` folder and play it beside the original.

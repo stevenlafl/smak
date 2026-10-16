@@ -1,29 +1,25 @@
-The sound is built and the build says **OK**, with no warnings left. It's written as `doors/doormove1.wav` in the server's work folder (`sound/doors/doormove1.wav`), so it takes the place of the game's file of that name.
+The sound is built at `work:sound/doors/doormove1.wav`, which is the game's name for it, so it replaces `doors/doormove1.wav` when placed in `<mod>/sound`. The build says OK, but one picture warning remains, so it is not yet as close to the original as you asked. I have not heard it, and I could not compare it against the game's own file because no game folders were given to the tool.
 
-**How it's made**
+Measured against the original's picture:
 
-- **Source:** one take from the local generator `woosh-dflow` (seed 0), prompted as an electric sliding door motor with a rumble, then ratchet clicks as it reaches the stop. Its licence is CC-BY-NC 4.0 (non-commercial). You accepted that for this test; it would need a different take for a commercial release.
-- **Motor body:** the take, low-passed at 2.3 kHz, held to 3.9 s and decayed over 0.6 s.
-- **Sub-bass:** a second copy of the take, low-passed at 200 Hz, +1 dB, so the energy below 150 Hz matches the original's share.
-- **Ratchet:** a train of clicks every 0.1 s (jitter 25%), band 900 to 3000 Hz, starting at 4.0 s and running to the end of the file.
-- **Finish:** saturation at 1.5, a limiter at 12 dB crest, peak at -0.5 dBFS.
+| Measure | Original (from picture) | Made sound | Off by |
+| --- | --- | --- | --- |
+| Length | 5.04 s | 5.04 s | 0% |
+| Centroid | 589 Hz | 586 Hz | 1% |
+| 600 Hz to 2 kHz power | 27.6% | 23.5% | 4.1 points |
+| Under 150 Hz power | 30.1% | 29.7% | within band limit |
+| Crest | about 12.7 dB | 12 dB | within 3 dB |
+| T20 (seconds to -20 dB) | 0.35 to 0.58 s | 1.74 s | out of range |
 
-**Measured against the original's picture**
+What it is: a low rumble of grains from 40 to 600 Hz, a mid texture of grains from 600 Hz to 2 kHz, a rise over the first half second, and a fast tick train from 4.3 s that fades out at the end. All of it is particles and no smooth noise, which keeps it from sounding like static.
 
-| Feature | Original (from picture) | Ours |
-| --- | --- | --- |
-| Length | 5.04 s | 5.02 s |
-| Centroid (brightness) | 589 Hz | 534 Hz (9% off, within the 15% aim) |
-| Power under 150 Hz | about 30% | 26% |
-| Band error (worst) | | 3.9 points (aim within 7) |
-| Crest | about 12.7 dB | 12 dB |
-| Onsets | 4 to 7 | 4 |
+Choices I made that you did not specify:
+- **16-bit, not 8-bit.** The original is 8-bit, but the tool warns that 8-bit adds hiss under the quiet tail. Say if you want 8-bit to match the file exactly.
+- **No generated take and no licence to note.** Everything is built from layers, so no local generator's licence applies.
+- **Class left out.** The tool has no door class, so the spectrum was matched to the picture alone.
 
-**Where it differs from the original**
+Not resolved:
+- **T20.** I could not make it land within 0.35 to 0.58 s. The tool's own readings do not move as I would expect when I change individual layers, so I could not find what sets it. The envelope still looks right on the picture, but this is the one measure I know is off.
+- **Other bands.** The picture gave me only the 600 Hz to 2 kHz share and the under-150 Hz share, so I have no target for the 150 to 600 Hz or 2 to 5 kHz bands and did not match them.
 
-- **Bit depth:** I made it 16-bit at the original's 11025 Hz, not 8-bit. The build warns that 8-bit adds hiss under the quiet tail, and the spec says a copy is not held to the original's depth. If you want the exact 8-bit character, it's a one-line change (`bits: 8`) and the build will warn again.
-- **Comparison method:** the original wasn't in the game folders the server can read, so I compared against numbers read off the picture, not the original file. Those numbers are approximate.
-- **Not checked by ear:** the build can't judge how it sounds to a person or how the game mixes it. Listen to it in the game before you call it done.
-- **Class:** the spec has no door class, so I scored it against `loop machine`, the closest one.
-
-The spec was passed inline and isn't saved to a file in the project. If you want it kept for re-running, I can write it out.
+The spec and every intermediate build were in the work folder. I did not copy the file into the reproduce assets folder, since you did not ask for that.

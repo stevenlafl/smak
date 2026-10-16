@@ -2,99 +2,200 @@
   "spec": "smak.sound/1",
   "name": "player/pl_metal1.wav",
   "class": "step metal",
+  "seed": 7,
   "rate": 11025,
   "bits": 8,
   "length": 0.58,
-  "seed": 7,
+  "bands": {
+    "<150": 20,
+    "150-600": 35,
+    "600-2k": 30,
+    "2k-5k": 13,
+    ">5k": 2
+  },
   "layers": [
     {
-      "id": "crackle",
+      "id": "rattle",
       "kind": "particles",
-      "every": 0.009,
+      "every": 0.006,
       "jitter": 0.6,
       "band": [
-        1200,
-        4500
+        1500,
+        4000
       ],
       "grain": 0.002,
+      "at": 0,
+      "length": 0.12,
+      "gain": -3,
       "env": {
         "attack": 0.001,
-        "hold": 0.08,
-        "decay": 0.03
-      },
-      "gain": -6
+        "hold": 0.02,
+        "decay": 0.1
+      }
     },
     {
-      "id": "hit",
-      "kind": "sample",
-      "file": "work:gen/pl_metal1_s2.wav",
-      "from": "onset",
-      "length": 0.4,
-      "at": 0.165,
+      "id": "grit",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1200,
+          "q": 0.8
+        }
+      ],
+      "at": 0,
+      "length": 0.12,
+      "gain": -2,
       "env": {
-        "attack": 0.002,
-        "hold": 0,
-        "decay": 0.8
+        "attack": 0.001,
+        "decay": 0.06
+      }
+    },
+    {
+      "id": "heel",
+      "kind": "tone",
+      "f": 110,
+      "wave": "sine",
+      "sweep": {
+        "to": 60,
+        "time": 0.1
       },
+      "at": 0,
+      "length": 0.16,
+      "gain": 5,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.12
+      }
+    },
+    {
+      "id": "toe",
+      "kind": "noise",
+      "color": "white",
       "filter": [
         {
           "type": "highpass",
-          "f": 600,
-          "q": 0.7
-        },
-        {
-          "type": "peak",
-          "f": 1300,
-          "q": 1,
-          "gain": 8
-        },
-        {
-          "type": "peak",
-          "f": 3000,
-          "q": 1,
-          "gain": 7
+          "f": 800
         },
         {
           "type": "lowpass",
-          "f": 5500,
-          "q": 0.7
+          "f": 2500
         }
       ],
-      "gain": 10
+      "at": 0.17,
+      "length": 0.06,
+      "gain": 4,
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.04
+      }
     },
     {
-      "id": "thump",
+      "id": "toe_click",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        },
+        {
+          "type": "lowpass",
+          "f": 5000
+        }
+      ],
+      "at": 0.17,
+      "length": 0.02,
+      "gain": 7,
+      "env": {
+        "attack": 0.0003,
+        "decay": 0.008
+      }
+    },
+    {
+      "id": "toe_thud",
       "kind": "tone",
-      "f": 120,
+      "f": 210,
       "wave": "sine",
       "sweep": {
-        "to": 70,
-        "time": 0.1
+        "to": 140,
+        "time": 0.05
       },
-      "at": 0.165,
-      "length": 0.2,
+      "at": 0.17,
+      "length": 0.12,
+      "gain": -10,
       "env": {
         "attack": 0.001,
-        "hold": 0,
-        "decay": 0.14
-      },
-      "gain": -17
+        "decay": 0.05
+      }
     },
     {
       "id": "plate",
       "kind": "modes",
-      "f": 260,
+      "f": 600,
       "ratios": "plate",
-      "decay": 0.8,
+      "decay": 0.5,
       "damping": 1.2,
-      "at": 0.27,
-      "length": 0.3,
+      "at": 0.17,
+      "length": 0.4,
+      "gain": -16,
       "env": {
-        "attack": 0.005,
-        "hold": 0,
+        "attack": 0.002,
+        "decay": 0.4
+      }
+    },
+    {
+      "id": "ring175",
+      "kind": "tone",
+      "f": 175,
+      "wave": "sine",
+      "at": 0.25,
+      "length": 0.33,
+      "gain": -17,
+      "env": {
+        "attack": 0.04,
+        "decay": 0.9
+      }
+    },
+    {
+      "id": "ring260",
+      "kind": "tone",
+      "f": 260,
+      "wave": "sine",
+      "at": 0.25,
+      "length": 0.33,
+      "gain": -17,
+      "env": {
+        "attack": 0.04,
+        "decay": 0.8
+      }
+    },
+    {
+      "id": "ring360",
+      "kind": "tone",
+      "f": 360,
+      "wave": "sine",
+      "at": 0.25,
+      "length": 0.33,
+      "gain": -22,
+      "env": {
+        "attack": 0.04,
+        "decay": 0.6
+      }
+    },
+    {
+      "id": "ring980",
+      "kind": "tone",
+      "f": 980,
+      "wave": "sine",
+      "at": 0.25,
+      "length": 0.33,
+      "gain": -14,
+      "env": {
+        "attack": 0.04,
         "decay": 0.5
-      },
-      "gain": -24
+      }
     }
   ],
   "finish": {
@@ -102,6 +203,7 @@
     "limit": {
       "crest": 17,
       "release": 0.002
-    }
+    },
+    "peak": -0.5
   }
 }

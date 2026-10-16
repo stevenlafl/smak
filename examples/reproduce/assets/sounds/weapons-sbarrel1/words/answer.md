@@ -1,28 +1,49 @@
-The sound is built and passes: `weapons/sbarrel1.wav` is at `work:sound/weapons/sbarrel1.wav`, and the build says OK. It drops in as the game's own file of that name when placed in `<mod>/sound`.
+The sound is built and the build says OK: `work:sound/weapons/sbarrel1.wav`, 1.04 s, 22050 Hz, 8-bit mono. I did not use a generator, since the sound is pure noise and layers cover it, so no licence applies here.
 
-The final build's measures against the original's description:
+**Not verified against the original.** The server found no game folders, so `reference` could not load `weapons/sbarrel1.wav`. Every comparison below is against your description, not the real file. Put the game's folders in the server's config and rebuild to get a side-by-side picture and measures.
 
-| Feature | Original (described) | Built |
+| Measure | Target (your description) | Made |
 | --- | --- | --- |
 | Length | 1.04 s | 1.04 s |
-| Format | 22050 Hz, 8-bit, mono | 22050 Hz, 8-bit, mono |
-| Under 150 Hz | 35% | 36.8% |
-| 150 to 600 Hz | 30% | 31.2% |
-| 600 to 2000 Hz | 20% | 18.2% |
-| 2000 to 5000 Hz | 10% | 9.9% |
-| Over 5000 Hz | 5% | 3.9% |
-| Fall from full level (T20) | steep by 0.6 s | 0.66 s |
-| Class check | n/a | 22 of 22 features in the gunshot range |
+| Under 150 Hz | 35% | 40.8% |
+| 150 to 600 Hz | 30% | 31.8% |
+| 600 to 2000 Hz | 20% | 15.9% |
+| 2000 to 5000 Hz | 10% | 8% |
+| Over 5000 Hz | 5% | 3.5% |
+| Time to fall 20 dB (T20) | fades by about 0.9 s | 0.86 s |
+| Class check (gunshot) | n/a | 22 of 22 in range |
 
-How it is made, all from layers, with no recording:
-- **Opening:** a 3 ms high-passed noise crack at 0 s, and a second, slightly quieter crack at 0.03 s for the second barrel.
-- **Blast:** broadband noise, driven hard, held at full level to 0.4 s, then falling to -26 dB at 0.6 s and to silence by 1.04 s. Its spectrum sits lowest at the bottom and loses its highs first.
-- **Thump:** a sine that falls from 140 Hz to 45 Hz, adding the tone the flatness check needed.
-- **Tail:** 400 particles in the 100 to 900 Hz band, starting at 0.3 s and fading out with the blast.
-- **Finish:** saturation of 3, a limiter at an 8 dB crest, and a peak of -0.5 dBFS.
+Shape of the sound:
+- Full level from the first sample, with a short hard crack at the start and a second burst at 0.03 s.
+- Held at full level to 0.4 s, falling from 0.4 to 0.6 s, then a low crackling tail that is silent by 1.04 s.
+- Noise only, no tones and no pitch movement.
 
-Things to know:
-- **8-bit hiss:** the build warns that 8-bit adds a hiss under the quiet tail. I kept 8-bit because the facts you gave say so. If the hiss sounds wrong side by side, 16-bit is the fix and the game plays either.
-- **Not checked by ear:** the build measures the file, not how it sounds or plays. Its volume in the game, and the room the map adds, are for you to listen to.
-- **Licences:** no generated recording is used, so nothing non-commercial is in this file.
-- **Spec:** the spec was passed inline and not saved as a file in the work folder. If you want it kept for re-running, I can write it out as a `.json` next to the sound.
+Two warnings remain, and I kept both on purpose:
+- The 8-bit hiss under the quiet tail: the original is 8-bit as described, so I matched it.
+- The flatness is 0.16, inside the gunshot range. Your description asks for noise, so I kept it.
+
+The spec I built from (passed inline, since I have no file-writing tool here, so save it into the project if you want it kept):
+
+```json
+{"spec":"smak.sound/1","name":"weapons/sbarrel1.wav","class":"gunshot","seed":1,"rate":22050,"bits":8,"length":1.04,
+"bands":{"<150":35,"150-600":30,"600-2k":20,"2k-5k":10,">5k":5},
+"layers":[
+{"id":"blast","kind":"noise","iterations":32,
+ "env":{"points":[[0,0],[0.01,-0.5],[0.4,-0.5],[0.5,-10],[0.6,-18],[0.8,-30],[0.9,-40],[1.04,-60]]},
+ "shape":{"keys":[{"at":0,"curve":[[40,4],[100,4],[150,1],[300,-4],[600,-7],[2000,-12],[5000,-16],[11000,-24]]},
+                  {"at":0.5,"curve":[[40,4],[100,3],[150,0],[300,-5],[600,-10],[2000,-20],[5000,-30],[11000,-42]]}]}},
+{"id":"barrel2","kind":"noise","at":0.03,"length":0.35,"gain":-3,
+ "env":{"points":[[0,0],[0.01,-1],[0.2,-6],[0.35,-40]]},
+ "shape":{"keys":[{"at":0,"curve":[[40,4],[100,4],[150,1],[300,-4],[600,-7],[2000,-12],[5000,-16],[11000,-24]]}]}},
+{"id":"crack","kind":"noise","length":0.003,"filter":[{"type":"highpass","f":2000}],"env":{"decay":0.002},"post":true,"gain":2},
+{"id":"crackle","kind":"particles","rate":60,"band":[200,1500],"grain":0.004,"at":0.45,"length":0.55,"gain":-10,
+ "env":{"points":[[0,-60],[0.05,-6],[0.2,-12],[0.55,-60]]}}],
+"finish":{"saturate":6,"limit":{"crest":8,"release":0.002},"peak":-0.5}}
+```
+
+Choices I made that you can redirect:
+- The double barrel is a second noise burst 0.03 s after the first, slightly quieter.
+- The tail's crackle is a train of short grains, not a smooth wash, which the checker prefers.
+- I left out a room effect. It pushed the length past 1.04 s.
+
+The next step that matters is listening in the game, since the checks cannot say how it sounds to a person.

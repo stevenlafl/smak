@@ -130,8 +130,14 @@ function inputs(kind, subject) {
     writeFileSync(join(out, "facts.txt"), `${spr.width}x${spr.height}, ${spr.frames.length} frame${spr.frames.length === 1 ? "" : "s"}, type ${spr.type}, format ${spr.format}.\n`);
   } else if (kind === "sounds") {
     const wav = A.readWav(readFileSync(file));
-    savePng(join(out, "sound.png"), A.soundPicture([{ name: subject.name, x: wav.x, rate: wav.rate, loop: wav.cue?.length ? wav.cue[0] : undefined }], { width: 960 }));
-    writeFileSync(join(out, "facts.txt"), `${subject.name}: ${round(wav.x.length / wav.rate, 2)} s, ${wav.rate} Hz, ${wav.bits} bits${wav.cue?.length ? ", looped (a cue point at its start)" : ", played once"}.\n`);
+    const picture = A.soundPicture([{ name: subject.name, x: wav.x, rate: wav.rate, loop: wav.cue?.length ? wav.cue[0] : undefined }], { width: 960 });
+    savePng(join(out, "sound.png"), picture);
+    // and what a careful eye reads off that picture, measured off the picture itself (not the samples): its centroid
+    // and band shares. Read by eye, a describer gave the crowbar's hit 30% at 600 to 2000 Hz where it has 74%, and
+    // two sounds the same five shares; the words leg then built to the wrong numbers (2026-10-16)
+    const read = A.pictureMeasures(smak.unpng(smak.png(picture.width, picture.height, picture.rgba)), { length: wav.x.length / wav.rate, rate: wav.rate });
+    const shares = Object.entries(read.bands).map(([k, v]) => `${k} Hz ${Math.round(v)}%`).join(", ");
+    writeFileSync(join(out, "facts.txt"), `${subject.name}: ${round(wav.x.length / wav.rate, 2)} s, ${wav.rate} Hz, ${wav.bits} bits${wav.cue?.length ? ", looped (a cue point at its start)" : ", played once"}.\nRead off its picture: centroid about ${Math.round(read.centroid)} Hz; power ${shares}.\n`);
   } else {
     const bsp = maps.readBsp(readFileSync(file));
     const places = texturePlaces(bsp).sort((a, b) => b.area - a.area);

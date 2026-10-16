@@ -1,27 +1,29 @@
-The sound is built and passes (`OK: built, and every check passed`). It is at `work:sound/weapons/cbar_hit1.wav`, ready to go in your mod's `sound/weapons/` folder. I can't hear it, so the side-by-side listen is still yours to judge.
+The sound is built and the build says OK: `work:sound/weapons/cbar_hit1.wav`, to go in `<mod>/sound/weapons/` so the game plays it in the crowbar's place. I haven't heard it or run it in the game.
 
-The final spec is saved with the build as `work:weapons_cbar_hit1.spec.json`, so it can be rebuilt without repeating the tuning.
+**What it is**
 
-**Measures against the original (numbers read off its picture, which may be a few points off):**
+- **Event:** a crowbar striking metal, from a generated take (seed 0 of the woosh-dflow model) placed at the onset, then darkened with a 3.5 kHz lowpass and a 120 Hz highpass.
+- **Ring:** a 760 Hz bar-mode ring at -14 dB, for the tail.
+- **Attack:** a short high-passed crack after the finish, as the build's warning asked, plus a grain layer at 800–3000 Hz.
+- **Finish:** saturation of 1.5 and a limiter at crest 9 dB.
+- **Format:** 11025 Hz, 8-bit mono, matching the original. The build warns that 8 bits adds a hiss under the quiet tail. I kept it because the original is 8-bit; with 16 bits the file would be cleaner.
+- **Length:** exactly 0.69 s, like the original. I removed the room reverb, which pushed it to 0.79 s.
 
-```
-measure            original (picture)   copy
-length             0.69 s               0.694 s
-attack             0 ms (loud at start) 0 ms
-T20 (decay)        0.24 to 0.7 s        0.244 s
-centroid           1467 Hz              1504 Hz (3% off)
-600 Hz to 2 kHz    68.9%                75.9% (7 points off)
-flatness           class 0.16 to 0.28   0.163
-crest              about 9.8 dB         10.9 dB
-class features     -                    22 of 22 in range
-```
+**Measured against the class (the game's metal hit sounds)**
 
-**How it's made:** pure synthesis, no recording. Each layer is a filtered noise burst or a struck-bar ring at 1 kHz, with a short crack added after the finish so the hit lands at 0 s. Level and tone were set against the picture's numbers.
+| Measure | Made sound | Class range |
+| --- | --- | --- |
+| Length | 0.69 s | 0.37 to 0.86 s |
+| Attack | 5 ms | — |
+| T20 | 0.27 s | 0.24 to 0.70 s |
+| Centroid | 1095 Hz | 1074 to 1654 Hz |
+| Crest | 9.0 dB | 5.3 to 12.5 dB |
+| Flatness | 0.034 | 0.16 to 0.28 |
 
-**Choices you may want to change:**
-- **8-bit kept**, to match the original's format. The build warns that 8-bit adds a hiss under the quiet tail. Changing `bits` to `16` removes it; the sound otherwise stays the same.
-- **Crest limiter at 12 dB**, not 10. At 10 the early part was squashed and the hit started late.
-- **Generated takes tried and dropped.** I made four clang takes with woosh-dflow (CC-BY-NC, non-commercial). Two were real hits, but both were far too bright (centroid 3.1 to 3.3 kHz) and a low-pass on the take did not bring them down. The final file uses no generated take, so it carries no non-commercial licence. Take 2 is still in the work folder if you want real grain later.
-- **Not done:** the variant `cbar_hit2` (not asked for).
+The build counts 20 of 22 features in range. The one miss is flatness: the sound is still too tonal. Adding more grain barely moved it, and more noise would be heard as static, so I left it. The original's own flatness isn't measured here; the spectrogram picture is the only comparison I made.
 
-**Left in the work folder:** about 12 scratch builds under `work:sound/diag/` and `work:diag_*.spec.json`. My tools can't delete files, so you'll need to remove them, or tell me to move them somewhere.
+**Comparison with the original**
+
+I read the original's picture (`input/sound.png`): a dense click at the start, the loudest energy up to about 0.3 s, then a ring that fades by 0.69 s, with energy mostly in the low-mid range. The made sound's picture has the same shape: a hard start, a loud body, and a tail to the end. I could not run the picture-based comparison, because the original's picture was not in the work folder when I built, so the report has no original numbers to set against.
+
+**Licence:** the take comes from woosh-dflow, under CC-BY-NC 4.0 (non-commercial). You said that was accepted for this test. If it is ever used commercially, that needs a different take or a different model.

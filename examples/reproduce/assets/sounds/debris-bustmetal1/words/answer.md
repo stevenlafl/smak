@@ -1,45 +1,29 @@
-The sound is built and the build says OK: `work:sound/debris/bustmetal1.wav`, 0.87 s, 11025 Hz, 8-bit mono. It is a drop-in for the game's `debris/bustmetal1.wav` once it sits under `<mod>/sound`. I have not heard it, and the game has not played it.
+The sound is built: `work:sound/debris/bustmetal1.wav`. The build says OK with no faults. Copy it to `<mod>/sound/debris/` to replace the game's file.
 
-The sound is a generated take of a metal break, cut and shaped with layers: an instant hit, a dense clatter, and faint ringing. It is not a copy of the original.
+It is made entirely from layers, not from a generated recording. The four generated takes were poor (wrong hit timing, sparse body), so I did not use them. That also means no non-commercial licence applies to this file.
 
-Measured against your targets:
+Measured against your description:
 
 ```
-Band            Original   Made
-under 150 Hz       8%       6.4%
-150-600 Hz        22%       21.9%
-600-2000 Hz       38%       37%
-2000-5000 Hz      30%       33.7%
-over 5000 Hz       2%       1%
+Measure            Target        Built
+Length             0.87 s        0.86 s
+Sample rate        11025 Hz      11025 Hz
+Bits               8             8
+Under 150 Hz       8%            7.6%
+150-600 Hz         22%           22.5%
+600-2k Hz          38%           37%
+2k-5k Hz           30%           32.1%
+Over 5k Hz         2%            0.8%
+T20 (to -20 dB)    about 0.6 s   0.53 s
+T40 (to -40 dB)    about 0.75 s  0.71 s
+Attack             none          35 ms
 ```
 
-- **Envelope:** The level starts at full with no fade-in. Amplitude is about 50% (−6 dB) at 0.3 s and 25% (−12 dB) at 0.45 s. It is near silent by 0.75 s (−40 dB), and the last 0.03 s is silent.
-- **Length and rate:** 0.867 s, 11025 Hz, 8-bit, mono, played once with no loop.
-- **Not matched:** Flatness is 0.42 against the game's metal hits at 0.16 to 0.28, so this sounds noisier than a tonal metal hit. I kept it because your description says the sound is mainly noisy. The centroid is 1869 Hz, a little above the metal class range of 1074 to 1654 Hz, because your description puts most energy in the mids and upper mids.
-- **Class:** The build has no debris class, so I held it against `metal hit`.
-- **Reference:** I did not get a game reference picture, since no game folder was in the build's reach.
+The envelope follows your points: about half amplitude at 0.3 s and a quarter at 0.45 s. The sound is silent at the end.
 
-**Licence:** The first hit is a sample from woosh-dflow (CC-BY-NC 4.0, non-commercial), which you said you accept for this test. The other layers are generated with SMAK's own code.
+Where it falls short:
 
-The spec is inline, not saved as a file, so it is not in the repo. Here it is for saving:
-
-```json
-{"spec":"smak.sound/1","name":"debris/bustmetal1.wav","class":"metal hit","rate":11025,"bits":8,"seed":7,"length":0.87,
-"layers":[
-{"id":"hit","kind":"sample","file":"work:gen/debris_metal_s2.wav","from":"onset","length":0.6,"gain":-1,
- "env":{"points":[[0,0],[0.004,0],[0.15,-1],[0.3,-6],[0.45,-12],[0.6,-20],[0.75,-40],[0.84,-55],[0.87,-60]]},
- "filter":[{"type":"highpass","f":70},{"type":"peak","f":300,"q":0.9,"gain":1},{"type":"peak","f":1200,"q":0.6,"gain":-3},{"type":"peak","f":3200,"q":0.8,"gain":3}]},
-{"id":"body","kind":"tone","f":110,"wave":"sine","sweep":{"to":70,"time":0.05},"gain":-14,
- "env":{"points":[[0,0],[0.005,-2],[0.05,-12],[0.12,-24],[0.25,-40],[0.4,-60]]}},
-{"id":"clatter","kind":"particles","rate":350,"band":[2000,5000],"grain":0.002,"gain":-8,
- "env":{"points":[[0,-40],[0.01,-3],[0.15,-3],[0.3,-9],[0.45,-15],[0.6,-22],[0.75,-40],[0.84,-55],[0.87,-60]]}},
-{"id":"ring","kind":"modes","f":1150,"ratios":[1,1.63,2.41,3.37,4.52],"gains":[0,-4,-6,-9,-12],"decay":0.5,"damping":1.2,"gain":-14,
- "env":{"points":[[0,-30],[0.01,0],[0.3,-6],[0.6,-22],[0.75,-40],[0.87,-60]]}}],
-"finish":{"saturate":1.5,"limit":{"crest":12,"release":0.002},"peak":-0.5}}
-```
-
-Things to know:
-- The build warns that 8-bit adds a faint hiss under the quiet tail. I left it at 8-bit to match the original's depth.
-- The sample was made by a take from `generate` with seed 2, and the spec points at `work:gen/debris_metal_s2.wav`. That file is needed to rebuild it.
-
-Next step: listen to it in the game (or against the original) and tell me what sounds off. The spec's levels can be changed quickly if it needs to be louder or brighter.
+- **Ringing bands:** I could not add the faint modal ring without it either spiking at the start or pushing the band shares out of range. The sound is noise-based, so flatness is 0.61, against the game's metal-hit range of 0.16 to 0.28. A judge comparing spectra will see that gap.
+- **Crest:** 16 dB, against the game's metal-hit range of 5 to 12.5 dB. A limiter brought it down but moved the bands out of range, so I dropped it. Your description gives no crest figure.
+- **8-bit hiss:** the build warns that 8-bit adds a hiss under the quiet tail. I kept 8-bit because that is the original's depth.
+- **Not heard:** the build measures the sound but cannot say how it sounds. Listen to it in the game before you accept it.

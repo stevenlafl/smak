@@ -1,26 +1,39 @@
-The sound is built and the build says OK, with no faults. It's at `work:sound/weapons/sbarrel1.wav`, and it replaces the game's file of that name when placed in `<mod>/sound`.
+The sound builds OK with no warnings, and the file is at `work:sound/weapons/sbarrel1.wav`. I could not hear it, and I could not open the original WAV itself, so the comparison is against the original's picture and facts file, not its samples.
 
-I built it from layers only. I didn't call a generator, so no generator licence applies to this file.
+**What it is:** a shotgun blast, class `gunshot`. It is built from layers only: a sub-boom, a low-mid body of pink noise, a mid blast, a particle tail, and a short crack added after the limiter. No recording generator was used, so no licence applies to this file.
 
-**What the final build measures against the original's picture (1.04 s, 22050 Hz, 8-bit):**
+**Measured against the original's picture (same length, close decay, close spectrum):**
 
-| Feature | Ours | Original (from picture) | Notes |
-| --- | --- | --- | --- |
-| Length | 1.04 s | 1.04 s | Exact |
-| Centroid (brightness) | 678 Hz | 615 Hz | 10% off, within the 15% aim |
-| Band under 150 Hz | 35.7% | about 36% | |
-| Band 150 to 600 Hz | 28.1% | within 3.8 points | |
-| Band 600 Hz to 2 kHz | 28.5% | within 3.8 points | |
-| T20 (decay to -20 dB) | 0.70 s | 0.46 to 1.01 s range | In range |
-| Crest (peak over RMS) | 10.5 dB | about 11.2 dB | Within 3 dB |
-| Attack | 0 ms | loud from the start | |
+| Measure | Original (from picture) | Made |
+| --- | --- | --- |
+| Length | 1.04 s | 1.04 s |
+| T20 (time to -20 dB) | 0.458 to 1.013 s | 0.868 s |
+| Centroid (brightness) | 615 Hz | 536 Hz (13% low) |
+| Under 150 Hz | 36% | 34% |
+| 150 to 600 Hz | 32% | 36% |
+| 600 Hz to 2 kHz | 26% | 26% |
+| Crest (peak over RMS) | about 11 dB | 10 dB |
 
-Against the game's gunshot sounds, all 22 features are in range.
+All 22 of the game's gunshot features are in range. The centroid is inside the 15% tolerance, but it is the weakest match.
 
-**How it's built:** a noise blast whose spectrum falls over time, a 90 Hz sine that sweeps down to 40 Hz for the thump, and a short high-passed crack. There is a limiter at 10.5 dB crest and no saturation, because saturation lifted the tail and made it ring for a full second.
+**Choices I made that you may want to change:**
+- **16-bit, not 8-bit.** The original is 8-bit, but 8-bit adds a hiss under the tail that the build flags as static. I left the depth out. Say so if you want 8-bit to match the original's grain.
+- **Tail fades to silence by 1 s.** The build's limiter was lifting a held quiet floor into a loud tail. I ended each envelope at -90 dB to stop that.
 
-**Choice for you:** I kept 8-bit, because the original is 8-bit and its quantization is part of its character. The build warns that 8-bit adds a hiss under the quiet tail. If that hiss is a problem in the game, change `bits` to 16 and the rest of the sound stays the same.
+Next step, if you want it in the game: copy `sound/weapons/sbarrel1.wav` from the work folder into your mod's `sound/` folder. I have not copied it anywhere.
 
-**What I could not check:** how it sounds, and how the game plays it (volume, pitch, the map's room). I have no listening test, so you should hear it in the game next to the original. I also could not compare against the original file itself, only against its picture and the game's gunshot range.
+Final spec:
 
-The spec I used lives only in this chat. Say the word and I'll save it into the project next to the reference assets.
+```json
+{"spec":"smak.sound/1","name":"weapons/sbarrel1.wav","class":"gunshot","rate":22050,"seed":7,"length":1.04,"picture":"pictures/sound.png",
+ "layers":[
+  {"id":"sub","kind":"tone","f":70,"wave":"sine","sweep":{"to":40,"time":0.35},"env":{"attack":0.002,"decay":0.25},"gain":2},
+  {"id":"boom","kind":"tone","f":110,"wave":"sine","sweep":{"to":50,"time":0.3},"env":{"attack":0.002,"decay":0.3},"gain":-1},
+  {"id":"body","kind":"noise","color":"pink","filter":[{"type":"lowpass","f":850,"q":0.7},{"type":"highpass","f":120,"q":0.7}],"env":{"points":[[0,-3],[0.008,0],[0.1,-8],[0.2,-20],[0.25,-40],[0.28,-90]]},"gain":2},
+  {"id":"blast","kind":"noise","color":"white","filter":[{"type":"bandpass","f":1000,"q":0.9}],"env":{"attack":0.001,"decay":0.12},"gain":-7},
+  {"id":"tail","kind":"particles","rate":700,"band":[150,600],"grain":0.004,"env":{"points":[[0,-40],[0.05,-12],[0.3,-16],[0.7,-24],[0.95,-40],[1.0,-90]]},"gain":-4},
+  {"id":"crack","kind":"noise","color":"white","filter":[{"type":"highpass","f":2000}],"env":{"attack":0.0005,"decay":0.008},"gain":-12,"post":true}],
+ "finish":{"saturate":2.5,"limit":{"crest":10,"release":0.002},"peak":-0.5}}
+```
+
+I did not save a memory note: the memory write tool is disabled in this session.

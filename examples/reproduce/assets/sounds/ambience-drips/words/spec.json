@@ -2,602 +2,483 @@
   "spec": "smak.sound/1",
   "name": "ambience/drips.wav",
   "class": "loop drips",
-  "seed": 7,
   "rate": 11025,
   "bits": 8,
-  "length": 7.33,
+  "length": 7.36,
+  "seed": 1,
   "loop": {
-    "crossfade": 0.02
+    "crossfade": 0.05
   },
   "layers": [
     {
-      "id": "bed",
+      "id": "murmur",
       "kind": "noise",
-      "color": "pink",
-      "length": 7.33,
+      "color": "brown",
       "filter": [
         {
           "type": "highpass",
-          "f": 60
+          "f": 400
         },
         {
           "type": "lowpass",
-          "f": 5000
+          "f": 2000
         }
       ],
       "env": {
-        "points": [
-          [
-            0,
-            0
-          ],
-          [
-            7.33,
-            0
-          ]
-        ]
+        "attack": 0.05,
+        "hold": 7.36,
+        "decay": 0.1
       },
-      "gain": -21
+      "gain": -5
     },
     {
       "id": "rumble",
       "kind": "noise",
       "color": "brown",
-      "length": 7.33,
       "filter": [
         {
           "type": "lowpass",
-          "f": 150
+          "f": 200
         }
       ],
+      "gain": -18,
       "env": {
-        "points": [
-          [
-            0,
-            0
-          ],
-          [
-            7.33,
-            0
-          ]
-        ]
-      },
-      "gain": -50
+        "attack": 0.05,
+        "hold": 7.36,
+        "decay": 0.1
+      }
     },
     {
-      "id": "click1",
+      "id": "splash1",
       "kind": "noise",
       "color": "white",
       "at": 0.06,
-      "length": 0.03,
+      "length": 0.12,
       "filter": [
         {
           "type": "highpass",
-          "f": 3000
+          "f": 2000
         },
         {
           "type": "lowpass",
-          "f": 5500
+          "f": 4000
         }
       ],
       "env": {
-        "decay": 0.004
+        "attack": 0.0005,
+        "decay": 0.05
       },
-      "gain": 1
+      "gain": 19.5
     },
     {
       "id": "bloop1",
       "kind": "tone",
-      "f": 460,
+      "f": 430,
       "wave": "sine",
-      "at": 0.06,
-      "length": 0.5,
       "sweep": {
-        "to": 540,
-        "time": 0.08
+        "to": 520,
+        "time": 0.05
       },
+      "at": 0.06,
+      "length": 0.25,
       "env": {
-        "attack": 0.002,
-        "decay": 0.22
+        "attack": 0.001,
+        "decay": 0.07
       },
-      "gain": -16
+      "gain": 4
     },
     {
       "id": "ring1",
       "kind": "modes",
-      "f": 600,
-      "ratios": [
-        1,
-        1.18,
-        1.4
-      ],
-      "gains": [
-        1,
-        0.6,
-        0.3
-      ],
       "at": 0.06,
       "length": 0.9,
-      "decay": 0.5,
-      "gain": -18
+      "gain": -22,
+      "modes": [
+        {
+          "f": 520,
+          "gain": -6,
+          "decay": 0.45
+        },
+        {
+          "f": 610,
+          "gain": -10,
+          "decay": 0.35
+        },
+        {
+          "f": 690,
+          "gain": -12,
+          "decay": 0.25
+        }
+      ]
     },
     {
-      "id": "bright1",
-      "kind": "particles",
-      "rate": 500,
-      "band": [
-        400,
-        900
-      ],
-      "grain": 0.004,
-      "at": 0.06,
-      "length": 0.9,
-      "env": {
-        "attack": 0.002,
-        "decay": 0.6
-      },
-      "gain": -12
-    },
-    {
-      "id": "mid1",
-      "kind": "particles",
-      "rate": 400,
-      "band": [
-        900,
-        2000
-      ],
-      "grain": 0.004,
-      "at": 0.06,
-      "length": 0.6,
-      "env": {
-        "attack": 0.002,
-        "decay": 0.4
-      },
-      "gain": -10
-    },
-    {
-      "id": "streak1",
-      "kind": "particles",
-      "rate": 300,
-      "band": [
-        1800,
-        2200
-      ],
-      "grain": 0.005,
-      "at": 0.06,
-      "length": 0.4,
-      "env": {
-        "decay": 0.12
-      },
-      "gain": -10
-    },
-    {
-      "id": "click2",
+      "id": "tail1",
       "kind": "noise",
-      "color": "white",
-      "at": 1.87,
-      "length": 0.03,
+      "color": "pink",
+      "at": 0.06,
+      "length": 0.9,
       "filter": [
         {
           "type": "highpass",
-          "f": 3000
+          "f": 150
         },
         {
           "type": "lowpass",
-          "f": 5500
+          "f": 700
         }
       ],
       "env": {
-        "decay": 0.004
+        "attack": 0.003,
+        "decay": 0.6
       },
-      "gain": 1
+      "gain": 13
+    },
+    {
+      "id": "splash2",
+      "kind": "noise",
+      "color": "white",
+      "at": 1.87,
+      "length": 0.12,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        },
+        {
+          "type": "lowpass",
+          "f": 4000
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.05
+      },
+      "gain": 19.5
     },
     {
       "id": "bloop2",
       "kind": "tone",
-      "f": 460,
+      "f": 430,
       "wave": "sine",
-      "at": 1.87,
-      "length": 0.5,
       "sweep": {
-        "to": 540,
-        "time": 0.08
+        "to": 520,
+        "time": 0.05
       },
+      "at": 1.87,
+      "length": 0.25,
       "env": {
-        "attack": 0.002,
-        "decay": 0.22
+        "attack": 0.001,
+        "decay": 0.07
       },
-      "gain": -16
+      "gain": 4
     },
     {
       "id": "ring2",
       "kind": "modes",
-      "f": 600,
-      "ratios": [
-        1,
-        1.18,
-        1.4
-      ],
-      "gains": [
-        1,
-        0.6,
-        0.3
-      ],
       "at": 1.87,
       "length": 0.9,
-      "decay": 0.5,
-      "gain": -18
+      "gain": -22,
+      "modes": [
+        {
+          "f": 520,
+          "gain": -6,
+          "decay": 0.45
+        },
+        {
+          "f": 610,
+          "gain": -10,
+          "decay": 0.35
+        },
+        {
+          "f": 690,
+          "gain": -12,
+          "decay": 0.25
+        }
+      ]
     },
     {
-      "id": "bright2",
-      "kind": "particles",
-      "rate": 500,
-      "band": [
-        400,
-        900
-      ],
-      "grain": 0.004,
-      "at": 1.87,
-      "length": 0.9,
-      "env": {
-        "attack": 0.002,
-        "decay": 0.6
-      },
-      "gain": -12
-    },
-    {
-      "id": "mid2",
-      "kind": "particles",
-      "rate": 400,
-      "band": [
-        900,
-        2000
-      ],
-      "grain": 0.004,
-      "at": 1.87,
-      "length": 0.6,
-      "env": {
-        "attack": 0.002,
-        "decay": 0.4
-      },
-      "gain": -10
-    },
-    {
-      "id": "streak2",
-      "kind": "particles",
-      "rate": 300,
-      "band": [
-        1800,
-        2200
-      ],
-      "grain": 0.005,
-      "at": 1.87,
-      "length": 0.4,
-      "env": {
-        "decay": 0.12
-      },
-      "gain": -10
-    },
-    {
-      "id": "click3",
+      "id": "tail2",
       "kind": "noise",
-      "color": "white",
-      "at": 3.68,
-      "length": 0.03,
+      "color": "pink",
+      "at": 1.87,
+      "length": 0.9,
       "filter": [
         {
           "type": "highpass",
-          "f": 3000
+          "f": 150
         },
         {
           "type": "lowpass",
-          "f": 5500
+          "f": 700
         }
       ],
       "env": {
-        "decay": 0.004
+        "attack": 0.003,
+        "decay": 0.6
       },
-      "gain": -5
+      "gain": 13
+    },
+    {
+      "id": "splash3",
+      "kind": "noise",
+      "color": "white",
+      "at": 3.68,
+      "length": 0.12,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        },
+        {
+          "type": "lowpass",
+          "f": 4000
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.05
+      },
+      "gain": 16
     },
     {
       "id": "bloop3",
       "kind": "tone",
-      "f": 460,
+      "f": 430,
       "wave": "sine",
-      "at": 3.68,
-      "length": 0.5,
       "sweep": {
-        "to": 540,
-        "time": 0.08
+        "to": 520,
+        "time": 0.05
       },
+      "at": 3.68,
+      "length": 0.25,
       "env": {
-        "attack": 0.002,
-        "decay": 0.22
+        "attack": 0.001,
+        "decay": 0.07
       },
-      "gain": -24
+      "gain": -2
     },
     {
       "id": "ring3",
       "kind": "modes",
-      "f": 600,
-      "ratios": [
-        1,
-        1.18,
-        1.4
-      ],
-      "gains": [
-        1,
-        0.6,
-        0.3
-      ],
       "at": 3.68,
       "length": 0.9,
-      "decay": 0.5,
-      "gain": -26
+      "gain": -24,
+      "modes": [
+        {
+          "f": 520,
+          "gain": -6,
+          "decay": 0.45
+        },
+        {
+          "f": 610,
+          "gain": -10,
+          "decay": 0.35
+        },
+        {
+          "f": 690,
+          "gain": -12,
+          "decay": 0.25
+        }
+      ]
     },
     {
-      "id": "bright3",
-      "kind": "particles",
-      "rate": 500,
-      "band": [
-        400,
-        900
-      ],
-      "grain": 0.004,
-      "at": 3.68,
-      "length": 0.9,
-      "env": {
-        "attack": 0.002,
-        "decay": 0.6
-      },
-      "gain": -18
-    },
-    {
-      "id": "mid3",
-      "kind": "particles",
-      "rate": 400,
-      "band": [
-        900,
-        2000
-      ],
-      "grain": 0.004,
-      "at": 3.68,
-      "length": 0.6,
-      "env": {
-        "attack": 0.002,
-        "decay": 0.4
-      },
-      "gain": -16
-    },
-    {
-      "id": "streak3",
-      "kind": "particles",
-      "rate": 300,
-      "band": [
-        1800,
-        2200
-      ],
-      "grain": 0.005,
-      "at": 3.68,
-      "length": 0.4,
-      "env": {
-        "decay": 0.12
-      },
-      "gain": -16
-    },
-    {
-      "id": "click4",
+      "id": "tail3",
       "kind": "noise",
-      "color": "white",
-      "at": 3.97,
-      "length": 0.03,
+      "color": "pink",
+      "at": 3.68,
+      "length": 0.9,
       "filter": [
         {
           "type": "highpass",
-          "f": 3000
+          "f": 150
         },
         {
           "type": "lowpass",
-          "f": 5500
+          "f": 700
         }
       ],
       "env": {
-        "decay": 0.004
+        "attack": 0.003,
+        "decay": 0.6
       },
-      "gain": -5
+      "gain": 7
+    },
+    {
+      "id": "splash4",
+      "kind": "noise",
+      "color": "white",
+      "at": 3.97,
+      "length": 0.12,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        },
+        {
+          "type": "lowpass",
+          "f": 4000
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.05
+      },
+      "gain": 16
     },
     {
       "id": "bloop4",
       "kind": "tone",
-      "f": 460,
+      "f": 430,
       "wave": "sine",
-      "at": 3.97,
-      "length": 0.5,
       "sweep": {
-        "to": 540,
-        "time": 0.08
+        "to": 520,
+        "time": 0.05
       },
+      "at": 3.97,
+      "length": 0.25,
       "env": {
-        "attack": 0.002,
-        "decay": 0.22
+        "attack": 0.001,
+        "decay": 0.07
       },
-      "gain": -24
+      "gain": -2
     },
     {
       "id": "ring4",
       "kind": "modes",
-      "f": 600,
-      "ratios": [
-        1,
-        1.18,
-        1.4
-      ],
-      "gains": [
-        1,
-        0.6,
-        0.3
-      ],
       "at": 3.97,
       "length": 0.9,
-      "decay": 0.5,
-      "gain": -26
+      "gain": -24,
+      "modes": [
+        {
+          "f": 520,
+          "gain": -6,
+          "decay": 0.45
+        },
+        {
+          "f": 610,
+          "gain": -10,
+          "decay": 0.35
+        },
+        {
+          "f": 690,
+          "gain": -12,
+          "decay": 0.25
+        }
+      ]
     },
     {
-      "id": "bright4",
-      "kind": "particles",
-      "rate": 500,
-      "band": [
-        400,
-        900
-      ],
-      "grain": 0.004,
-      "at": 3.97,
-      "length": 0.9,
-      "env": {
-        "attack": 0.002,
-        "decay": 0.6
-      },
-      "gain": -18
-    },
-    {
-      "id": "mid4",
-      "kind": "particles",
-      "rate": 400,
-      "band": [
-        900,
-        2000
-      ],
-      "grain": 0.004,
-      "at": 3.97,
-      "length": 0.6,
-      "env": {
-        "attack": 0.002,
-        "decay": 0.4
-      },
-      "gain": -16
-    },
-    {
-      "id": "streak4",
-      "kind": "particles",
-      "rate": 300,
-      "band": [
-        1800,
-        2200
-      ],
-      "grain": 0.005,
-      "at": 3.97,
-      "length": 0.4,
-      "env": {
-        "decay": 0.12
-      },
-      "gain": -16
-    },
-    {
-      "id": "click5",
+      "id": "tail4",
       "kind": "noise",
-      "color": "white",
-      "at": 5.84,
-      "length": 0.03,
+      "color": "pink",
+      "at": 3.97,
+      "length": 0.9,
       "filter": [
         {
           "type": "highpass",
-          "f": 3000
+          "f": 150
         },
         {
           "type": "lowpass",
-          "f": 5500
+          "f": 700
         }
       ],
       "env": {
-        "decay": 0.004
+        "attack": 0.003,
+        "decay": 0.6
       },
-      "gain": 1
+      "gain": 7
+    },
+    {
+      "id": "splash5",
+      "kind": "noise",
+      "color": "white",
+      "at": 5.84,
+      "length": 0.12,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        },
+        {
+          "type": "lowpass",
+          "f": 4000
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.05
+      },
+      "gain": 19.5
     },
     {
       "id": "bloop5",
       "kind": "tone",
-      "f": 460,
+      "f": 430,
       "wave": "sine",
-      "at": 5.84,
-      "length": 0.5,
       "sweep": {
-        "to": 540,
-        "time": 0.08
+        "to": 520,
+        "time": 0.05
       },
+      "at": 5.84,
+      "length": 0.25,
       "env": {
-        "attack": 0.002,
-        "decay": 0.22
+        "attack": 0.001,
+        "decay": 0.07
       },
-      "gain": -16
+      "gain": 4
     },
     {
       "id": "ring5",
       "kind": "modes",
-      "f": 600,
-      "ratios": [
-        1,
-        1.18,
-        1.4
-      ],
-      "gains": [
-        1,
-        0.6,
-        0.3
-      ],
       "at": 5.84,
       "length": 0.9,
-      "decay": 0.5,
-      "gain": -18
+      "gain": -22,
+      "modes": [
+        {
+          "f": 520,
+          "gain": -6,
+          "decay": 0.45
+        },
+        {
+          "f": 610,
+          "gain": -10,
+          "decay": 0.35
+        },
+        {
+          "f": 690,
+          "gain": -12,
+          "decay": 0.25
+        }
+      ]
     },
     {
-      "id": "bright5",
-      "kind": "particles",
-      "rate": 500,
-      "band": [
-        400,
-        900
-      ],
-      "grain": 0.004,
+      "id": "tail5",
+      "kind": "noise",
+      "color": "pink",
       "at": 5.84,
       "length": 0.9,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150
+        },
+        {
+          "type": "lowpass",
+          "f": 700
+        }
+      ],
       "env": {
-        "attack": 0.002,
+        "attack": 0.003,
         "decay": 0.6
       },
-      "gain": -12
-    },
-    {
-      "id": "mid5",
-      "kind": "particles",
-      "rate": 400,
-      "band": [
-        900,
-        2000
-      ],
-      "grain": 0.004,
-      "at": 5.84,
-      "length": 0.6,
-      "env": {
-        "attack": 0.002,
-        "decay": 0.4
-      },
-      "gain": -10
-    },
-    {
-      "id": "streak5",
-      "kind": "particles",
-      "rate": 300,
-      "band": [
-        1800,
-        2200
-      ],
-      "grain": 0.005,
-      "at": 5.84,
-      "length": 0.4,
-      "env": {
-        "decay": 0.12
-      },
-      "gain": -10
+      "gain": 13
     }
-  ]
+  ],
+  "bands": {
+    "<150": 15,
+    "150-600": 35,
+    "600-2k": 30,
+    "2k-5k": 18,
+    ">5k": 2
+  }
 }

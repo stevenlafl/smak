@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "player-pl_metal1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.582,
+   "peak": 0,
+   "rms": -15.5,
+   "crest": 15.5,
+   "dc": -0.0104,
+   "clipped": 1,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.025,
+   "peakAt": 0.045,
+   "t20": 0.424,
+   "t40": 0.539,
+   "centroid": 360,
+   "rolloff": 624,
+   "flatness": 0.057,
+   "bands": {
+    "<150": 34.8,
+    "150-600": 43.8,
+    "600-2k": 19.6,
+    "2k-5k": 1.8,
+    ">5k": 0.1
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.614,
+   "peak": -0.6,
+   "rms": -13.5,
+   "crest": 13,
+   "dc": -0.0001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.015,
+   "peakAt": 0.04,
+   "t20": 0.319,
+   "t40": 0.539,
+   "centroid": 406,
+   "rolloff": 431,
+   "flatness": 0.007,
+   "bands": {
+    "<150": 43.1,
+    "150-600": 43.4,
+    "600-2k": 11.1,
+    "2k-5k": 2.4,
+    ">5k": 0
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "step metal",
+   "t20Range": [
+    0.315,
+    0.525
+   ],
+   "t20": 0.319,
+   "inRange": true
+  },
+  "lengthOff": 0.055,
+  "centroidOff": 0.128,
+  "bandsOffMost": 8.5,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. The original is one hard metal-like strike: a broadband burst at the start with a few irregular spikes (peak at 0.045 s) and a noisy decay. The reproduction opens with a regular, comb-like train of evenly spaced pulses, then a sustained tone line across the mid band. The onset and the decay length are close, so the event is partly recognisable, but the regular buzz and ringing read as a different sound from a single strike on metal."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 0.614 s against 0.582 s is 5.5% off, within 25%. T20 is 0.319 s against 0.424 s and lies inside the step metal class range of 0.315 to 0.525 s (inRange true). Attack is 0.015 s against 0.025 s, and the tail is 0.01 against 0. All within the rubric's bounds."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 406 Hz against 360 Hz, 12.8% off, within 20%. Band shares differ by at most 8.5 points (bandsOffMost 8.5, within 10): <150 Hz 43.1 vs 34.8 (8.3), 150-600 Hz 43.4 vs 43.8, 600-2k Hz 11.1 vs 19.6 (8.5), 2k-5k Hz 2.4 vs 1.8, >5k Hz 0 vs 0.1. Passes the measured spectrum."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. Flatness is 0.007 against 0.057, so the reproduction is far more tonal and the original far more noisy: clearly off. The onset count reads 0 for both, yet the picture shows the original's few irregular hits and the reproduction's many regular clicks in its first 0.1 s, a clear difference in character. The hit and decay are present, so this is 1 rather than 0. Pitch movement is not measured."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Format is mono, 8-bit PCM at 11025 Hz, which the engine plays. Peak is -0.6 dB with no clipping (clipped 0), DC is -0.0001, and the name matches (sameName true). The original has no loop cue to match (lead 0, tail 0 in the original)."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

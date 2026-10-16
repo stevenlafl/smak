@@ -1,0 +1,89 @@
+{
+  "spec": "smak.sound/1",
+  "name": "debris/bustmetal1.wav",
+  "class": "metal hit",
+  "rate": 11025,
+  "bits": 8,
+  "seed": 7,
+  "length": 0.87,
+  "picture": {
+    "file": "pictures/sound.png",
+    "length": 0.87,
+    "rate": 11025
+  },
+  "layers": [
+    {
+      "id": "take",
+      "kind": "sample",
+      "file": "work:gen/bustmetal_s2.wav",
+      "from": "onset",
+      "length": 0.87,
+      "env": {
+        "attack": 0.002,
+        "hold": 0.03,
+        "decay": 0.4
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 520,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 2500,
+          "q": 0.9,
+          "gain": 6
+        },
+        {
+          "type": "lowpass",
+          "f": 4400,
+          "q": 0.7
+        }
+      ]
+    },
+    {
+      "id": "rattle",
+      "kind": "particles",
+      "rate": 60,
+      "band": [
+        1200,
+        3500
+      ],
+      "grain": 0.004,
+      "env": {
+        "attack": 0.002,
+        "hold": 0.08,
+        "decay": 0.5
+      },
+      "gain": -6
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "at": 0,
+      "length": 0.012,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.008
+      },
+      "gain": 6,
+      "post": true
+    }
+  ],
+  "finish": {
+    "saturate": 1.8,
+    "limit": {
+      "crest": 12,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

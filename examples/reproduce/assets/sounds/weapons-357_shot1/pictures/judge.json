@@ -29,27 +29,27 @@
    "onsets": 3
   },
   "reproduction": {
-   "length": 1.06,
+   "length": 1.124,
    "peak": -0.5,
-   "rms": -9.5,
-   "crest": 9,
-   "dc": 0,
+   "rms": -13,
+   "crest": 12.5,
+   "dc": -0.0001,
    "clipped": 0,
    "lead": 0,
-   "tail": 0,
+   "tail": 0.01,
    "attack": 0,
    "peakAt": 0.02,
-   "t20": 0.793,
-   "t40": 1.038,
-   "centroid": 841,
-   "rolloff": 1443,
-   "flatness": 0.018,
+   "t20": 0.988,
+   "t40": 1.043,
+   "centroid": 942,
+   "rolloff": 1830,
+   "flatness": 0.069,
    "bands": {
-    "<150": 14.2,
-    "150-600": 30.8,
-    "600-2k": 49.1,
-    "2k-5k": 5.8,
-    ">5k": 0.2
+    "<150": 25.1,
+    "150-600": 22.3,
+    "600-2k": 40.1,
+    "2k-5k": 11.8,
+    ">5k": 0.7
    },
    "onsets": 0
   },
@@ -59,12 +59,12 @@
     0.458,
     1.013
    ],
-   "t20": 0.793,
+   "t20": 0.988,
    "inRange": true
   },
-  "lengthOff": 0.004,
-  "centroidOff": 0.102,
-  "bandsOffMost": 6.1,
+  "lengthOff": 0.056,
+  "centroidOff": 0.005,
+  "bandsOffMost": 5.2,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -80,37 +80,37 @@
  },
  "scores": {
   "S1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Judged from the picture only, since I cannot listen. Both waveforms show the same gunshot shape: a sharp broadband onset at the start, a dense burst over the first few hundred milliseconds, then a long decay to near silence by about 1 s. The spectrograms agree on a loud low-to-mid band that fades over the same span. The original's first 0.4 s is clipped, which the reproduction is not, but that is a fault of the file (S5), not of the event."
+   "score": 1,
+   "reason": "Judged from the picture and features only; I cannot listen. The original is a sharp broadband crack at about 0.015 s, with clipping and three onsets, then a decay. The reproduction has no crack: its waveform is an even, dense oscillation from start to finish, and its spectrogram is a smeared band that falls away slowly. The envelope class is gunshot and the reproduction's t20 is in range, but without the transient it reads as a generic decaying noise or whoosh. Same event is not clearly shown."
   },
   "S2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Length is 1.06 s against the original's 1.064 s, well within 25%. Time to 20% of peak is 0.793 s, inside the class range of 0.458 to 1.013 s (inRange true). Peak timing is 0.02 s against 0.015 s, and the attack difference (0 against 0.005 s) is negligible."
+   "reason": "Length is 1.124 s against 1.064 s, 5.6% off (limit 25%). T20 is 0.988 s, inside the gunshot class range of 0.458 to 1.013 s (inRange true). Attack is 0 against 0.005 s, a 5 ms difference that is well within tolerance for the envelope class."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Centroid is 841 Hz against 937 Hz, a 10.2% difference, within 20%. Every band is within 10 points of the original: <150 Hz is 14.2 against 20.3 (6.1 off, the largest), 150-600 Hz 30.8 against 27.5, 600-2k Hz 49.1 against 43.9, 2k-5k Hz 5.8 against 6.7, and >5k Hz 0.2 against 1.6. The measured bandsOffMost of 6.1 is inside the limit."
+   "reason": "Centroid is 942 Hz against 937 Hz, 0.5% off (limit 20%). Band shares are off by at most 5.2 points (limit 10): <150 Hz 25.1 vs 20.3; 150-600 Hz 22.3 vs 27.5; 600-2k Hz 40.1 vs 43.9; 2k-5k Hz 11.8 vs 6.7; >5k Hz 0.7 vs 1.6. Every band is within the 10-point limit."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged from the picture and features, not by listening. The original's waveform has three clear onsets: a blocky, clipped burst opening the shot and a second, separate hit at the start. The reproduction has none (onsets 0) and its waveform is a smooth, continuous decay. Flatness is 0.11 in the original and 0.018 in the reproduction, so the reproduction is much more tonal and less noisy than the original. Pitch movement is not measured, so it is not scored. This is there but clearly off, and it is not a must-have item."
+   "reason": "Judged from the picture and features only; I cannot listen. The original has three onsets (the crack and its repeats) and the reproduction has none, so the hit character is missing. Flatness is 0.069 against 0.11, so the reproduction is more tonal than the original. The reproduction's waveform shows a regular periodic pattern at the start that the original does not have. The decay shape is similar, but the character is clearly off. This item is not a must."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The file is mono, 22050 Hz, 16-bit, the format the engine plays. It has no clipping (0 samples, against the original's 265), no DC offset (0), a peak of -0.5 dBFS, and no leading or trailing silence. The name is the same as the original's (sameName true). It is a one-shot, so no loop cue is needed, and none is claimed."
+   "reason": "Format is mono, 16-bit, 22050 Hz, which the engine plays. Clipped samples are 0 (the original has 265, so the reproduction is cleaner). Peak is -0.5 dBFS. DC offset is -0.0001. A one-shot needs no loop cue, and the name matches (sameName true)."
   }
  },
- "total": 9,
+ "total": 8,
  "of": 10,
- "passes": true
+ "passes": false
 }

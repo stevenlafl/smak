@@ -1,0 +1,213 @@
+{
+  "spec": "smak.sound/1",
+  "name": "doors/doormove1.wav",
+  "rate": 11025,
+  "bits": 8,
+  "length": 5.04,
+  "seed": 1,
+  "layers": [
+    {
+      "id": "grind",
+      "kind": "sample",
+      "file": "work:gen/doormove1_s0.wav",
+      "from": 0,
+      "length": 5.04,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 130
+        },
+        {
+          "type": "peak",
+          "f": 1200,
+          "q": 0.8,
+          "gain": 7
+        },
+        {
+          "type": "peak",
+          "f": 3500,
+          "q": 0.7,
+          "gain": 9
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -12
+          ],
+          [
+            0.1,
+            0
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            4.5,
+            3
+          ],
+          [
+            4.64,
+            0
+          ],
+          [
+            5.04,
+            -60
+          ]
+        ]
+      }
+    },
+    {
+      "id": "arc1",
+      "kind": "tone",
+      "f": 380,
+      "wave": "sine",
+      "sweep": {
+        "to": 520,
+        "time": 0.3
+      },
+      "at": 0.2,
+      "length": 0.4,
+      "gain": -22,
+      "env": {
+        "attack": 0.03,
+        "hold": 0.05,
+        "decay": 0.2
+      }
+    },
+    {
+      "id": "arc2",
+      "kind": "tone",
+      "f": 380,
+      "wave": "sine",
+      "sweep": {
+        "to": 520,
+        "time": 0.3
+      },
+      "at": 1.4,
+      "length": 0.4,
+      "gain": -22,
+      "env": {
+        "attack": 0.03,
+        "hold": 0.05,
+        "decay": 0.2
+      }
+    },
+    {
+      "id": "arc3",
+      "kind": "tone",
+      "f": 380,
+      "wave": "sine",
+      "sweep": {
+        "to": 520,
+        "time": 0.3
+      },
+      "at": 2.6,
+      "length": 0.4,
+      "gain": -22,
+      "env": {
+        "attack": 0.03,
+        "hold": 0.05,
+        "decay": 0.2
+      }
+    },
+    {
+      "id": "arc4",
+      "kind": "tone",
+      "f": 380,
+      "wave": "sine",
+      "sweep": {
+        "to": 520,
+        "time": 0.3
+      },
+      "at": 3.8,
+      "length": 0.4,
+      "gain": -22,
+      "env": {
+        "attack": 0.03,
+        "hold": 0.05,
+        "decay": 0.2
+      }
+    },
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 110,
+      "wave": "sine",
+      "sweep": {
+        "to": 50,
+        "time": 0.6
+      },
+      "at": 4,
+      "length": 1.04,
+      "gain": -20,
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.02,
+            0
+          ],
+          [
+            0.6,
+            -6
+          ],
+          [
+            1.04,
+            -60
+          ]
+        ]
+      }
+    },
+    {
+      "id": "judder",
+      "kind": "particles",
+      "every": 0.04,
+      "jitter": 0.25,
+      "band": [
+        150,
+        1200
+      ],
+      "grain": 0.008,
+      "at": 4,
+      "length": 1.04,
+      "gain": -4,
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.03,
+            0
+          ],
+          [
+            0.5,
+            0
+          ],
+          [
+            0.64,
+            -2
+          ],
+          [
+            1.04,
+            -60
+          ]
+        ]
+      }
+    }
+  ],
+  "finish": {
+    "limit": {
+      "crest": 15,
+      "release": 0.002
+    },
+    "peak": -3
+  }
+}

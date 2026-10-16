@@ -1,27 +1,18 @@
-The sound is built and the build says OK: `work:sound/player/pl_metal1.wav`, 11025 Hz, 8-bit, mono, 0.575 s. Copy it into `<mod>/sound/player/` and GoldSrc will play it in place of the original's footstep.
+The sound is built and the build says OK: `work:sound/player/pl_metal1.wav`. It is 0.58 s, mono, 11025 Hz, 8-bit, played once. I can't hear it, so it has not been checked by ear; the numbers below are what the build measured.
 
-I didn't have the original file, so the comparison is against the figures in your description, not a side-by-side listen.
+The band shares you gave, against the build's measurement:
 
 ```
-Band (Hz)        Target   Built
-under 150          20%      21%
-150 to 600         35%      38%
-600 to 2000        30%      30%
-2000 to 5000       13%      10%
-over 5000           2%       0%
-Length        0.58 s    0.575 s
-Loudest peak  ~0.17 s    0.165 s
-T20 (to -20 dB)  -       0.35 s
+band        asked   made    off
+under 150    20%    20.5%   +0.5
+150-600      35%    37.1%   +2.1
+600-2k       30%    31.8%   +1.8
+2k-5k        13%    10.6%   -2.4
+over 5k       2%     0.1%   -1.9
 ```
 
-**How it's made:** The main layer is a generated take (`woosh-dflow`, seed 2 of `pl_metal1`), high-passed at 600 Hz and boosted around 1.3 kHz and 3 kHz, so it lands as the heel hit at 0.165 s. A short sine thump at 120 Hz (sweeping to 70 Hz) adds the low end. A quiet plate-ring layer at 260 Hz starts at 0.27 s for the hollow tail. A burst of clicks over the first 0.12 s gives the crackly attack. The file is put through a saturate-and-limit finish with a crest of 14 dB.
-
-**Known gaps:**
-- The tail is noisier than a real plate ring. The measured flatness is 0.17 against a tonal target of about 0.01 to 0.11. Raising the ring to fix it pushed the low-mid band out of balance, so I kept the balance.
-- Above 5 kHz is empty, though the original has about 2%.
-- The build warns that the decay to -20 dB (0.35 s) is a little shorter than the game's own step sounds (0.32 s is the minimum), and that the rise to peak is slower than those sounds. Both match your description of the original, so I left them.
-- I kept 8-bit as you specified. The build warns that 8-bit adds a faint hiss under the quiet tail.
-
-**Licence:** The take is from `woosh-dflow`, whose weights are CC-BY-NC 4.0 (non-commercial). You said you accept the local generators' licences for this test. If the mod is ever sold or distributed commercially, this sound will need replacing.
-
-The spec was passed inline to `build`, so it isn't saved as a file. Say if you want it written into the work folder so the sound can be rebuilt.
+- **Event:** the first hit is a dense rattle of clicks for about 0.12 s. The second hit at 0.17 s is the loudest peak. The tail is a low, hollow ring around 175 to 360 Hz with a softer partial near 1 kHz.
+- **Decay:** the level falls by 20 dB at 0.40 s and 40 dB at 0.57 s, so it is near a tenth by the end.
+- **Built from layers, not a recording:** I generated four takes with the local generator, but none matched the shape (the second hit at 0.17 s and the quiet tail), so I used them only for measurement. The sound has no generator output in it, so the non-commercial licence does not attach to this file.
+- **Left as is:** the build flags the centroid (776 Hz) against the game's own step-on-metal sounds (260 to 460 Hz). I followed your band shares, which imply a brighter sound, so I left it there. The build also warns about the 8-bit hiss under the quiet tail. I kept 8-bit because you asked for it; 16-bit would be the quieter choice.
+- **Scratch files:** `work:sound/test/` holds my isolation tests. They are not part of the deliverable and can be deleted.

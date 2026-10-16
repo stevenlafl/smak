@@ -1,0 +1,236 @@
+{
+  "spec": "smak.sound/1",
+  "name": "items/smallmedkit1.wav",
+  "class": "click",
+  "rate": 22050,
+  "bits": 8,
+  "seed": 11,
+  "length": 0.76,
+  "layers": [
+    {
+      "id": "beep1",
+      "kind": "tone",
+      "f": 600,
+      "wave": "square",
+      "at": 0,
+      "length": 0.05,
+      "env": {
+        "attack": 0.001,
+        "hold": 0.045,
+        "decay": 0.002
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2500
+        }
+      ],
+      "gain": -16
+    },
+    {
+      "id": "beep2",
+      "kind": "tone",
+      "f": 600,
+      "wave": "square",
+      "at": 0.09,
+      "length": 0.065,
+      "env": {
+        "attack": 0.001,
+        "hold": 0.06,
+        "decay": 0.002
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2500
+        }
+      ],
+      "gain": -16
+    },
+    {
+      "id": "beep3",
+      "kind": "tone",
+      "f": 600,
+      "wave": "square",
+      "at": 0.185,
+      "length": 0.065,
+      "env": {
+        "attack": 0.001,
+        "hold": 0.06,
+        "decay": 0.002
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2500
+        }
+      ],
+      "gain": -16
+    },
+    {
+      "id": "beep4",
+      "kind": "tone",
+      "f": 600,
+      "wave": "square",
+      "at": 0.27,
+      "length": 0.065,
+      "env": {
+        "attack": 0.001,
+        "hold": 0.06,
+        "decay": 0.002
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2500
+        }
+      ],
+      "gain": -16
+    },
+    {
+      "id": "fumble",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0.33,
+      "length": 0.25,
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.02,
+            -14
+          ],
+          [
+            0.2,
+            -16
+          ],
+          [
+            0.25,
+            -60
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150
+        },
+        {
+          "type": "lowpass",
+          "f": 2000
+        }
+      ],
+      "gain": -16
+    },
+    {
+      "id": "click1",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.38,
+      "length": 0.006,
+      "env": {
+        "attack": 0.0005,
+        "hold": 0.001,
+        "decay": 0.004
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 2500,
+          "q": 1
+        }
+      ],
+      "gain": -10
+    },
+    {
+      "id": "click2",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.42,
+      "length": 0.006,
+      "env": {
+        "attack": 0.0005,
+        "hold": 0.001,
+        "decay": 0.004
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 2500,
+          "q": 1
+        }
+      ],
+      "gain": -10
+    },
+    {
+      "id": "click3",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.48,
+      "length": 0.006,
+      "env": {
+        "attack": 0.0005,
+        "hold": 0.001,
+        "decay": 0.004
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 2500,
+          "q": 1
+        }
+      ],
+      "gain": -10
+    },
+    {
+      "id": "spray",
+      "kind": "sample",
+      "file": "work:gen/medkit_spray_s0.wav",
+      "from": "onset",
+      "length": 0.18,
+      "at": 0.58,
+      "env": {
+        "attack": 0.004,
+        "hold": 0.16,
+        "decay": 0.008
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        },
+        {
+          "type": "lowpass",
+          "f": 6500
+        }
+      ],
+      "gain": 8
+    },
+    {
+      "id": "spray_body",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0.58,
+      "length": 0.18,
+      "env": {
+        "attack": 0.004,
+        "hold": 0.16,
+        "decay": 0.008
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 700
+        },
+        {
+          "type": "highpass",
+          "f": 120
+        }
+      ],
+      "gain": -2
+    }
+  ]
+}

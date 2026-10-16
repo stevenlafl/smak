@@ -1,0 +1,82 @@
+{
+  "spec": "smak.sound/1",
+  "name": "diag/samp_s2b.wav",
+  "class": "metal hit",
+  "rate": 11025,
+  "bits": 8,
+  "seed": 3,
+  "length": 0.69,
+  "layers": [
+    {
+      "id": "take",
+      "kind": "sample",
+      "file": "work:gen/cbar_clang_s2.wav",
+      "from": "onset",
+      "length": 0.69,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 1400,
+          "q": 0.9
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.45
+      },
+      "gain": 0
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 500
+        },
+        {
+          "type": "lowpass",
+          "f": 2200
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.14
+      },
+      "gain": -5
+    },
+    {
+      "id": "low",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 60
+        },
+        {
+          "type": "lowpass",
+          "f": 600
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.15
+      },
+      "gain": 2
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "room": {
+      "decay": 0.2,
+      "wet": 0.1
+    },
+    "limit": {
+      "crest": 12
+    },
+    "peak": -0.5
+  },
+  "picture": "pictures/sound.png"
+}

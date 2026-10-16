@@ -1,0 +1,276 @@
+{
+  "spec": "smak.sound/1",
+  "name": "ambience/drips.wav",
+  "class": "loop drips",
+  "rate": 11025,
+  "bits": 16,
+  "length": 7.31,
+  "seed": 1,
+  "loop": true,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "bed",
+      "kind": "noise",
+      "color": "white",
+      "shape": [
+        [
+          40,
+          -12
+        ],
+        [
+          100,
+          -6
+        ],
+        [
+          150,
+          -6
+        ],
+        [
+          400,
+          -5
+        ],
+        [
+          600,
+          0
+        ],
+        [
+          900,
+          1
+        ],
+        [
+          1200,
+          -4
+        ],
+        [
+          1800,
+          -10
+        ],
+        [
+          2500,
+          -18
+        ],
+        [
+          4000,
+          -26
+        ],
+        [
+          11000,
+          -40
+        ]
+      ],
+      "env": {
+        "attack": 0,
+        "hold": 7.31,
+        "decay": 0.01
+      },
+      "gain": 4
+    },
+    {
+      "id": "k1",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.002
+      },
+      "at": 0.04,
+      "gain": 13,
+      "post": true
+    },
+    {
+      "id": "b1",
+      "kind": "tone",
+      "at": 0.04,
+      "f": 2200,
+      "wave": "sine",
+      "sweep": {
+        "to": 1100,
+        "time": 0.05
+      },
+      "env": {
+        "attack": 0.002,
+        "decay": 0.06
+      },
+      "gain": -30
+    },
+    {
+      "id": "k2",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.002
+      },
+      "at": 1.87,
+      "gain": 13,
+      "post": true
+    },
+    {
+      "id": "b2",
+      "kind": "tone",
+      "at": 1.87,
+      "f": 2000,
+      "wave": "sine",
+      "sweep": {
+        "to": 1000,
+        "time": 0.05
+      },
+      "env": {
+        "attack": 0.002,
+        "decay": 0.07
+      },
+      "gain": -30
+    },
+    {
+      "id": "k3",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.002
+      },
+      "at": 2.55,
+      "gain": 13,
+      "post": true
+    },
+    {
+      "id": "k4",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.002
+      },
+      "at": 3.7,
+      "gain": 13,
+      "post": true
+    },
+    {
+      "id": "b4",
+      "kind": "tone",
+      "at": 3.7,
+      "f": 2200,
+      "wave": "sine",
+      "sweep": {
+        "to": 1100,
+        "time": 0.05
+      },
+      "env": {
+        "attack": 0.002,
+        "decay": 0.06
+      },
+      "gain": -30
+    },
+    {
+      "id": "k5",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.002
+      },
+      "at": 3.98,
+      "gain": 13,
+      "post": true
+    },
+    {
+      "id": "k6",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.002
+      },
+      "at": 4.55,
+      "gain": 13,
+      "post": true
+    },
+    {
+      "id": "k7",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.002
+      },
+      "at": 5.84,
+      "gain": 13,
+      "post": true
+    },
+    {
+      "id": "b7",
+      "kind": "tone",
+      "at": 5.84,
+      "f": 2200,
+      "wave": "sine",
+      "sweep": {
+        "to": 1100,
+        "time": 0.05
+      },
+      "env": {
+        "attack": 0.002,
+        "decay": 0.08
+      },
+      "gain": -30
+    },
+    {
+      "id": "k8",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.002
+      },
+      "at": 6.45,
+      "gain": 13,
+      "post": true
+    }
+  ],
+  "finish": {
+    "room": {
+      "decay": 0.2,
+      "wet": 0.1
+    }
+  }
+}

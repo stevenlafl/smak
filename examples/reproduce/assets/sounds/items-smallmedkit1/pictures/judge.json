@@ -31,25 +31,25 @@
   "reproduction": {
    "length": 0.76,
    "peak": -0.5,
-   "rms": -12.6,
-   "crest": 12.1,
-   "dc": 0,
+   "rms": -12.5,
+   "crest": 12,
+   "dc": 0.0001,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
-   "attack": 0.005,
-   "peakAt": 0.17,
-   "t20": 0.589,
-   "t40": 0.594,
-   "centroid": 2200,
-   "rolloff": 5900,
-   "flatness": 0.341,
+   "attack": 0.06,
+   "peakAt": 0.11,
+   "t20": 0.649,
+   "t40": 0.654,
+   "centroid": 1704,
+   "rolloff": 2519,
+   "flatness": 0.158,
    "bands": {
-    "<150": 0.4,
-    "150-600": 9.3,
-    "600-2k": 62.3,
-    "2k-5k": 8.5,
-    ">5k": 19.4
+    "<150": 0.2,
+    "150-600": 17.7,
+    "600-2k": 66.5,
+    "2k-5k": 2.8,
+    ">5k": 12.7
    },
    "onsets": 1
   },
@@ -59,12 +59,12 @@
     0.505,
     0.841
    ],
-   "t20": 0.589,
+   "t20": 0.649,
    "inRange": true
   },
   "lengthOff": 0.004,
-  "centroidOff": 0.011,
-  "bandsOffMost": 5.4,
+  "centroidOff": 0.217,
+  "bandsOffMost": 9,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -75,42 +75,13 @@
  },
  "caps": {
   "S2": 2,
-  "S3": 2,
+  "S3": 1,
   "S5": 2
  },
- "scores": {
-  "S1": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Cannot listen; judged from the picture. The original is three pulsed bursts (about 0 to 0.05, 0.07 to 0.20 and 0.21 to 0.33 s), a small click near 0.40 s, then a noise swell rising from about 0.52 s to the end. The reproduction has three bursts at the same times, a sharp click at the same time (about 0.40 s), and the same rising swell from about 0.52 s. That is the same event shape. The bursts are noisier and smeared, which is a difference of character and is charged to S4, not to what the sound is."
-  },
-  "S2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Length 0.760 s against 0.763 s (0.4% off, within 25%). The class is 'none: the original's own decay', so the range is the original's t20 of 0.673 s plus or minus a quarter: 0.505 to 0.841 s. The reproduction's t20 is 0.589 s, inside it. Attack is 0 s in the original and 0.005 s in the reproduction, both effectively instant. The loudest point differs (0.09 s against 0.17 s), but that is not measured by the rubric."
-  },
-  "S3": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Measured. Centroid 2200 Hz against 2177 Hz (1.1% off, within 20%). The largest band-share difference is 5.4 points (150 to 600 Hz: 14.7 against 9.3), and the rest are within 5 points, so every band is within 10 points. The picture agrees: both spectrograms carry a horizontal line near 1 kHz in the first bursts and a broadband top in the swell."
-  },
-  "S4": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Partly off, judged from the picture and features only; it cannot listen. Onset timing matches (three bursts, a click, a swell at the same places), but the harness's onset count of 1 for both misses the bursts, so it says little here. The clear fault is tone against noise: flatness is 0.128 in the original and 0.341 in the reproduction, and the original's bursts are clean, regular, tonal pulses where the reproduction's are noisy and smeared. The reproduction's click is also far more prominent in the waveform than the original's small one. Those are the clearly off parts."
-  },
-  "S5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Fits the engine: 22050 Hz, 16-bit, mono PCM, which the engine plays. Peak -0.5 dB with no clipping, DC 0, and no lead or tail silence in either. The name matches the original's (sameName true). No loop cue is needed, since the original has none in the measures given. Engine faults list is empty."
-  }
- },
- "total": 9,
- "of": 10,
- "passes": true
+ "passes": false,
+ "failedByMeasure": [
+  "S3"
+ ],
+ "total": 0,
+ "of": 10
 }

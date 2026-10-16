@@ -1,0 +1,107 @@
+{
+  "spec": "smak.sound/1",
+  "name": "player/pl_metal1.wav",
+  "class": "step metal",
+  "rate": 11025,
+  "bits": 8,
+  "length": 0.58,
+  "seed": 7,
+  "layers": [
+    {
+      "id": "crackle",
+      "kind": "particles",
+      "every": 0.009,
+      "jitter": 0.6,
+      "band": [
+        1200,
+        4500
+      ],
+      "grain": 0.002,
+      "env": {
+        "attack": 0.001,
+        "hold": 0.08,
+        "decay": 0.03
+      },
+      "gain": -6
+    },
+    {
+      "id": "hit",
+      "kind": "sample",
+      "file": "work:gen/pl_metal1_s2.wav",
+      "from": "onset",
+      "length": 0.4,
+      "at": 0.165,
+      "env": {
+        "attack": 0.002,
+        "hold": 0,
+        "decay": 0.8
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 600,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 1300,
+          "q": 1,
+          "gain": 8
+        },
+        {
+          "type": "peak",
+          "f": 3000,
+          "q": 1,
+          "gain": 7
+        },
+        {
+          "type": "lowpass",
+          "f": 5500,
+          "q": 0.7
+        }
+      ],
+      "gain": 10
+    },
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 120,
+      "wave": "sine",
+      "sweep": {
+        "to": 70,
+        "time": 0.1
+      },
+      "at": 0.165,
+      "length": 0.2,
+      "env": {
+        "attack": 0.001,
+        "hold": 0,
+        "decay": 0.14
+      },
+      "gain": -17
+    },
+    {
+      "id": "plate",
+      "kind": "modes",
+      "f": 260,
+      "ratios": "plate",
+      "decay": 0.8,
+      "damping": 1.2,
+      "at": 0.27,
+      "length": 0.3,
+      "env": {
+        "attack": 0.005,
+        "hold": 0,
+        "decay": 0.5
+      },
+      "gain": -24
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "limit": {
+      "crest": 17,
+      "release": 0.002
+    }
+  }
+}

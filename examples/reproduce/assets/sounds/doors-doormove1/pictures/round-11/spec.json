@@ -1,0 +1,78 @@
+{
+  "spec": "smak.sound/1",
+  "name": "doors/doormove1.wav",
+  "class": "loop machine",
+  "rate": 11025,
+  "bits": 16,
+  "length": 5.04,
+  "seed": 1,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "motor",
+      "kind": "sample",
+      "file": "work:gen/doormove1_s0.wav",
+      "from": 0,
+      "length": 5.04,
+      "env": {
+        "attack": 0.05,
+        "hold": 3.9,
+        "decay": 0.6
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2300,
+          "q": 0.7
+        }
+      ]
+    },
+    {
+      "id": "sub",
+      "kind": "sample",
+      "file": "work:gen/doormove1_s0.wav",
+      "from": 0,
+      "length": 5.04,
+      "env": {
+        "attack": 0.05,
+        "hold": 3.9,
+        "decay": 0.6
+      },
+      "gain": 1,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 200,
+          "q": 0.7
+        }
+      ]
+    },
+    {
+      "id": "ratchet",
+      "kind": "particles",
+      "every": 0.1,
+      "jitter": 0.25,
+      "band": [
+        900,
+        3000
+      ],
+      "grain": 0.004,
+      "at": 4,
+      "length": 1.2,
+      "env": {
+        "attack": 0.01,
+        "hold": 0.5,
+        "decay": 0.6
+      },
+      "gain": -6
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "limit": {
+      "crest": 12,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

@@ -4,89 +4,118 @@
   "class": "step metal",
   "rate": 11025,
   "bits": 8,
-  "seed": 1,
   "length": 0.58,
-  "picture": "pictures/sound.png",
+  "seed": 1,
   "layers": [
     {
       "id": "click",
       "kind": "noise",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 600
-        },
-        {
-          "type": "peak",
-          "f": 900,
-          "q": 1,
-          "gain": 6
-        },
-        {
-          "type": "lowpass",
-          "f": 1800
-        }
+      "shape": [
+        [
+          300,
+          -30
+        ],
+        [
+          700,
+          -6
+        ],
+        [
+          1500,
+          -2
+        ],
+        [
+          3000,
+          -8
+        ],
+        [
+          6000,
+          -20
+        ],
+        [
+          11000,
+          -30
+        ]
       ],
       "env": {
         "attack": 0.001,
-        "decay": 0.06
+        "hold": 0,
+        "decay": 0.05
       },
-      "gain": 0
-    },
-    {
-      "id": "thump",
-      "kind": "tone",
-      "f": 120,
-      "wave": "sine",
-      "sweep": {
-        "to": 60,
-        "time": 0.1
-      },
-      "env": {
-        "attack": 0.001,
-        "decay": 0.35
-      },
-      "gain": -6
+      "gain": -2
     },
     {
       "id": "grit",
-      "kind": "noise",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 300
-        },
-        {
-          "type": "lowpass",
-          "f": 1200
-        }
+      "kind": "particles",
+      "count": 160,
+      "band": [
+        600,
+        1600
       ],
+      "grain": 0.003,
       "env": {
         "attack": 0.001,
-        "decay": 0.25
+        "hold": 0,
+        "decay": 0.15
       },
-      "gain": -1
+      "gain": 13
     },
     {
       "id": "ring",
       "kind": "modes",
-      "f": 420,
-      "ratios": "bar",
+      "f": 380,
+      "ratios": "plate",
       "decay": 1.2,
-      "damping": 0.6,
-      "gain": -16
+      "damping": 0.8,
+      "gain": -21,
+      "env": {
+        "points": [
+          [
+            0,
+            -2
+          ],
+          [
+            0.1,
+            -3
+          ],
+          [
+            0.5,
+            -12
+          ],
+          [
+            0.58,
+            -22
+          ]
+        ]
+      }
+    },
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 130,
+      "wave": "sine",
+      "sweep": {
+        "to": 50,
+        "time": 0.1
+      },
+      "env": {
+        "attack": 0.001,
+        "hold": 0,
+        "decay": 0.7
+      },
+      "gain": -18
     }
   ],
   "finish": {
-    "saturate": 1,
+    "saturate": 1.5,
     "room": {
-      "decay": 0.2,
-      "wet": 0.1
+      "decay": 0.25,
+      "wet": 0.12
     },
     "limit": {
-      "crest": 14,
+      "crest": 16,
       "release": 0.002
     },
     "peak": -0.5
-  }
+  },
+  "picture": "pictures/sound.png"
 }

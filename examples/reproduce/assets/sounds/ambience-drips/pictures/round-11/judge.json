@@ -1,0 +1,113 @@
+{
+ "kind": "sounds",
+ "subject": "ambience-drips",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 7.306,
+   "peak": -0.4,
+   "rms": -27.3,
+   "crest": 26.9,
+   "dc": -0.0039,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 5.777,
+   "peakAt": 5.832,
+   "t20": 0.434,
+   "t40": 1.477,
+   "centroid": 839,
+   "rolloff": 1066,
+   "flatness": 0.095,
+   "bands": {
+    "<150": 1.2,
+    "150-600": 23.2,
+    "600-2k": 72.3,
+    "2k-5k": 2.5,
+    ">5k": 0.7
+   },
+   "onsets": 4
+  },
+  "reproduction": {
+   "length": 7.26,
+   "peak": -0.5,
+   "rms": -23.7,
+   "crest": 23.2,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 2.549,
+   "peakAt": 3.981,
+   "t20": 3.283,
+   "t40": 3.283,
+   "centroid": 903,
+   "rolloff": 1292,
+   "flatness": 0.118,
+   "bands": {
+    "<150": 2.2,
+    "150-600": 21.1,
+    "600-2k": 73.7,
+    "2k-5k": 3,
+    ">5k": 0.1
+   },
+   "onsets": 7
+  },
+  "envelope": {
+   "class": "loop drips",
+   "t20Range": null,
+   "t20": 3.283,
+   "inRange": true
+  },
+  "lengthOff": 0.006,
+  "centroidOff": 0.076,
+  "bandsOffMost": 2.1,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 16,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Judged from the pictures and features only; I cannot listen. The original is four clear drip events (about 0.4 s, 3.6 s, 4.6 s and 6.1 s in the waveform, which carry the decaying plinks of a drip loop) over a quiet bed. The reproduction is one continuous broadband wash with no decaying events, only faint thin ticks. Its spectrogram is uniform noise, so it does not read as drips."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Length is 7.26 s against 7.306 s, well inside 25%. The envelope is clearly off: t20 is 3.283 s against the original's 0.434 s, and attack is 2.549 s against 5.777 s. The reproduction does not decay between events the way the original does. The class is 'loop drips', which has no t20 range, so the original's own decay is the yardstick and the reproduction falls far outside it. That caps S2 at 1."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 903 against 839 (7.6% off, inside 20%). Every band is within 10 points of the original (bandsOffMost 2.1): <150 2.2 vs 1.2, 150-600 21.1 vs 23.2, 600-2k 73.7 vs 72.3, 2k-5k 3.0 vs 2.5, >5k 0.1 vs 0.7. The spectrogram's energy sits in the same low-mid region as the original's. Rolloff differs, but rolloff is not an S3 item."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the pictures and features only; I cannot listen. Onsets are 7 against the original's 4, and the reproduction's extra ticks are thin spikes, not the original's decaying hits. Flatness is 0.118 against 0.095, so it is noisier than the original. The original's tonal bands are replaced by a uniform noise texture. Some clicks exist, but count and character are clearly off."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono, 11025 Hz, 16 bits, as the engine plays it. Clipped 0, DC 0, same name as the original (sameName true). The measures do not report a loop cue, so I cannot confirm one against the original; the file otherwise passes every measured fit check."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

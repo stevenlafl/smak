@@ -281,7 +281,9 @@ export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (
           if (v < lo) spectrum.push(`${key.slice(5)} Hz holds ${v}% (the class's ${Math.round(lo)} to ${Math.round(hi)}): more there`);
           else if (v > hi) spectrum.push(`${key.slice(5)} Hz holds ${v}% (the class's ${Math.round(lo)} to ${Math.round(hi)}): less there`);
         }
-        if (spectrum.length)
+        // only where the sound has no target of its own: a copy is held to its original (a description's bands, a
+        // picture), and the class's range pulled the words leg's copies off theirs (a round of 0 of 10, 2026-10-16)
+        if (spectrum.length && !sound.bands && !sound.picture)
           warnings.push(`${take.name}: its spectrum is off the game's ${sound.class} sounds, as a judge measures it: ${spectrum.join("; ")}. Filter the layers (lowpass, highpass, a band) or change what makes it, and build again`);
         const scored = scoreAgainst(f, sound.class);
         entry.score = `${scored.score} of ${scored.of}`;

@@ -1,0 +1,217 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/sbarrel1.wav",
+  "class": "gunshot",
+  "seed": 7,
+  "rate": 22050,
+  "bits": 8,
+  "length": 1.04,
+  "layers": [
+    {
+      "id": "crack1",
+      "kind": "noise",
+      "color": "white",
+      "at": 0,
+      "length": 0.003,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "attack": 0.0003,
+        "decay": 0.002
+      },
+      "gain": 0,
+      "post": true
+    },
+    {
+      "id": "crack2",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.03,
+      "length": 0.004,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "attack": 0.0003,
+        "decay": 0.003
+      },
+      "gain": -2,
+      "post": true
+    },
+    {
+      "id": "blast",
+      "kind": "noise",
+      "iterations": 32,
+      "drive": 4,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.4,
+            0
+          ],
+          [
+            0.6,
+            -26
+          ],
+          [
+            0.9,
+            -50
+          ],
+          [
+            1.04,
+            -60
+          ]
+        ]
+      },
+      "shape": {
+        "keys": [
+          {
+            "at": 0,
+            "curve": [
+              [
+                30,
+                3
+              ],
+              [
+                80,
+                7
+              ],
+              [
+                150,
+                4
+              ],
+              [
+                300,
+                -1
+              ],
+              [
+                600,
+                -5
+              ],
+              [
+                2000,
+                -10
+              ],
+              [
+                5000,
+                -14
+              ],
+              [
+                11000,
+                -24
+              ]
+            ]
+          },
+          {
+            "at": 0.5,
+            "curve": [
+              [
+                30,
+                3
+              ],
+              [
+                80,
+                7
+              ],
+              [
+                150,
+                4
+              ],
+              [
+                300,
+                -2
+              ],
+              [
+                600,
+                -7
+              ],
+              [
+                2000,
+                -15
+              ],
+              [
+                5000,
+                -22
+              ],
+              [
+                11000,
+                -34
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 140,
+      "wave": "sine",
+      "sweep": {
+        "to": 45,
+        "time": 0.25
+      },
+      "env": {
+        "attack": 0.001,
+        "decay": 0.3
+      },
+      "gain": -5
+    },
+    {
+      "id": "tail",
+      "kind": "particles",
+      "count": 400,
+      "band": [
+        100,
+        900
+      ],
+      "grain": 0.004,
+      "at": 0.3,
+      "length": 0.74,
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.1,
+            -6
+          ],
+          [
+            0.3,
+            -14
+          ],
+          [
+            0.6,
+            -30
+          ],
+          [
+            0.74,
+            -60
+          ]
+        ]
+      },
+      "gain": -8
+    }
+  ],
+  "finish": {
+    "saturate": 3,
+    "limit": {
+      "crest": 8,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}
