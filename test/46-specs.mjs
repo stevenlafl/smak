@@ -285,6 +285,28 @@ test("a character spec: a place on a part laid along a limb is where the part we
   const line = moved.report.facts.find((f) => /^motion\[0\]/.test(f)) ?? "";
   const [was, now] = (line.match(/overlap ([\d.]+) as it was, ([\d.]+) fitted/) ?? []).slice(1).map(Number);
   sure(moved.report.ok && now > was + 0.05 && smak.sequences(moved.mdl)[0].frames === 3, `the run fitted to its strip: ${line.slice(0, 200)} ${moved.report.errors}`);
+  // pose.from: the first animation made of the base's walk, at the frame whose box fits the size asked (the
+  // thigh, a body 2 x 2 x 20 on it, swung 0, 30 and 60 degrees: 60 makes it about 18 long)
+  const leg20 = [[-1, -1, -20], [1, -1, -20], [1, 1, -20], [-1, 1, -20], [-1, -1, 0], [1, -1, 0], [1, 1, 0], [-1, 1, 0]];
+  const faces = [[0, 2, 1], [0, 3, 2], [4, 5, 6], [4, 6, 7], [0, 1, 5], [0, 5, 4], [1, 2, 6], [1, 6, 5], [2, 3, 7], [2, 7, 6], [3, 0, 4], [3, 4, 7]];
+  const walker = buildMdl({
+    name: "walker.mdl",
+    bones: [{ name: "Bip01", parent: -1 }, { name: "Bip01 L Thigh", parent: 0, pos: [0, 0, 40] }, { name: "Bip01 L Calf", parent: 1, pos: [0, 0, -20] }],
+    bodyparts: [{ name: "body", models: [{ name: "b", meshes: [{ tris: faces.map((f) => f.map((i) => ({ p: leg20[i].map((v, k) => v + (k === 2 ? 40 : 0)), uv: [0.5, 0.5], bone: 1 }))), texture: indexed(W.sheet(16, 16).image(), "b.bmp") }] }] }],
+    sequences: [
+      { name: "idle", fps: 10, frames: [[[0, 0, 0, 0, 0, 0], [0, 0, 40, 0, 0, 0], [0, 0, -20, 0, 0, 0]]] },
+      { name: "walk", fps: 20, frames: [0, 30, 60].map((d) => [[0, 0, 0, 0, 0, 0], [0, 0, 40, 0, (-d * Math.PI) / 180, 0], [0, 0, -20, 0, 0, 0]]) },
+    ],
+  });
+  writeFileSync(join(folder, "walker.mdl"), walker);
+  const walked = buildModelSpec({ ...legSpec({ from: "walk" }), base: { file: "walker.mdl" }, size: { length: 18 } }, { folder });
+  const took = walked.report.facts.find((f) => /^pose: the first animation is/.test(f)) ?? "";
+  const first = smak.sequences(walked.mdl)[0];
+  sure(!walked.report.errors.length && /walk from its frame 2/.test(took) && first.frames === 1 && first.fps === 20, `the walk's last frame taken: ${took} ${walked.report.errors} ${JSON.stringify(first)}`);
+  const atFrame = buildModelSpec({ ...legSpec({ from: "walk", frame: 1 }), base: { file: "walker.mdl" } }, { folder });
+  sure(atFrame.report.facts.some((f) => /walk from its frame 1$/.test(f)), atFrame.report.facts.join("; "));
+  const wrong = buildModelSpec({ ...legSpec({ from: "jog" }), base: { file: "walker.mdl" } }, { folder });
+  sure(wrong.report.errors.some((e) => /pose\.from: no animation jog in the base: its animations are idle, walk/.test(e)), wrong.report.errors.join("; "));
 });
 
 test("a superquadric: a rounded block and an egg at their sizes, a wrong round refused", () => {

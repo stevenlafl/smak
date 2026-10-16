@@ -227,6 +227,11 @@ a part that comes apart in any of them is a fault (`in run2 frame 11: ... thumb_
   built again in it. Only forward and back swings of the hips, knees, spine and arms, and the upper arms a
   little out, are tried. The report gives the outlines' overlap before and after and the keys it chose, to
   keep or change; `keys` given beside `fit` win over it.
+  `"pose": { "from": "walk" }` makes the first animation one of the base's own (its frames, rate, looping and
+  travel), starting at `frame`, or, with none given, at the frame whose box of the base's body comes nearest the
+  spec's `size`: an original whose first animation is a walk stands mid-stride in it (Half-Life's scientist is
+  33 long so, where a standing body is 22), and words that say so are a frame of the base's walk, not a stride
+  turned by hand. `keys` and `fit` then turn it further. `smak info` on the base lists its animations.
 - `motion`: an animation of the base fitted to a strip of pictures of the original doing it, as the kit's
   `strip` draws one from the side with the floor as a line: `"motion": [{ "seq": "run2", "fit": { "picture":
   "pictures/motion.png", "count": 8, "cols": 4 } }]`. The strip's cycle is matched to the animation's (it may
@@ -470,8 +475,11 @@ the front, not a corner), and a part the pictures show stands where they show it
 - `WARN its pictures look unlike nine in ten of Valve's models'`: a picture with more near-white texels than
   Valve's (over 23%), more strongly coloured ones (over 30%), brighter on the whole (over 0.61), or with little grain
   (under 0.048), each against 287 textures of Half-Life's own models. Clean whites, toy colours and flat paint read as
-  The Sims, not GoldSrc: a white thing there is a used grey of 0.5 to 0.6, its colours muted, its surfaces worn. Give
-  tones nearer Valve's and the materials a photograph (`picture`). Not told of pictures projected from the person's.
+  The Sims, not GoldSrc: a painted or manufactured white there (a fridge, a wall, a sign) is a used grey of 0.5 to
+  0.6, its colours muted, its surfaces worn. Give tones nearer Valve's and the materials a photograph (`picture`).
+  What is white by what it is stays white: the scientist's lab coat is 70 to 100% near white at 0.8 to 0.94, so a
+  copy of a white garment keeps its original's white and the warning is read and left. Not told of pictures
+  projected from the person's.
 - `FAULT height ... where the spec asks`: the size is not what was asked.
 - `fact from the lowest part up`: each part's height from and to. A roof under a floor is a stack built
   upside down.

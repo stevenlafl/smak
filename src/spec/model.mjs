@@ -558,8 +558,12 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
     if (spec.pose?.fit !== undefined && spec.pose.fit !== true && !Array.isArray(spec.pose.fit))
       errors.push("pose.fit: true (fitted to the outlines of the spec's project pictures) or a list of views as project takes them");
     if (spec.pose?.fit && !Array.isArray(spec.pose.fit) && !spec.project?.length) errors.push("pose.fit: true fits to the project pictures, and the spec has none: give fit a list of views");
-    if (keys === undefined && spec.pose?.fit) {
-      // fitted alone: no keys of its own
+    if (spec.pose?.from !== undefined && !(typeof spec.pose.from === "string" || Number.isInteger(spec.pose.from)))
+      errors.push(`pose.from: the name (or number) of the base's animation whose frames the first animation takes ("walk": a character the original shows mid-stride)`);
+    if (spec.pose?.frame !== undefined && !(Number.isInteger(spec.pose.frame) && spec.pose.frame >= 0)) errors.push("pose.frame: the frame of pose.from the first animation starts at (by default the one whose box fits size best)");
+    if (spec.pose?.frame !== undefined && spec.pose?.from === undefined) errors.push("pose.frame: of pose.from; give from");
+    if (keys === undefined && (spec.pose?.fit || spec.pose?.from !== undefined)) {
+      // fitted, or taken from an animation, alone: no keys of its own
     } else if (!keys || typeof keys !== "object" || Array.isArray(keys) || !Object.keys(keys).length)
       errors.push(`pose: { keys: { "<bone>": { turn: { x, y, z } } } }: degrees about the model's axes, as the bone stands in the first frame (a leg back: "Bip01 L Thigh": { turn: { y: 20 } })`);
     else
@@ -1572,7 +1576,8 @@ function buildPosed(spec, options = {}) {
   // views (spec.project's, or pose.fit's own), then built again in that stance; the keys given win over it
   if (!spec?.pose?.fit) return buildOnce(spec, options);
   const given = spec.pose.keys ?? null;
-  const first = buildOnce({ ...spec, pose: given ? { keys: given } : undefined }, options);
+  const took = spec.pose.from !== undefined ? { from: spec.pose.from, ...(spec.pose.frame !== undefined ? { frame: spec.pose.frame } : {}) } : {};
+  const first = buildOnce({ ...spec, pose: given || spec.pose.from !== undefined ? { ...took, ...(given ? { keys: given } : {}) } : undefined }, options);
   if (!first.mdl) return first;
   const read = options.readPicture ?? ((name) => unpicture(readFileSync(resolve(options.folder ?? ".", name.replace(/^(work|models):/, "")))));
   const asked = Array.isArray(spec.pose.fit) ? spec.pose.fit : spec.project ?? [];
@@ -1589,7 +1594,7 @@ function buildPosed(spec, options = {}) {
     return first;
   }
   const keys = { ...fit.keys, ...(given ?? {}) };
-  const second = buildOnce({ ...spec, pose: { keys } }, options);
+  const second = buildOnce({ ...spec, pose: { ...took, keys } }, options);
   second.report.facts.push(`pose fitted to ${asked.length} views (their outlines' overlap ${fit.before} as built, ${fit.after} fitted, ${fit.tried} stances tried): "pose": { "keys": ${JSON.stringify(keys)} }`);
   return second;
 }
@@ -1631,6 +1636,16 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
     // the stance it is built in and judged in: the first animation's every frame turned by the pose's keys,
     // about the model's axes as each bone stands there (its number, length and activity kept); the parts are
     // then placed as the base stands in it
+    if (spec.pose?.from !== undefined) {
+      try {
+        const took = skeletonFrom(skeleton, spec.pose, spec.size);
+        skeleton = took.skeleton;
+        report.facts.push(took.fact);
+      } catch (error) {
+        errors.push(`pose.from: ${error.message}`);
+        return { mdl: null, report };
+      }
+    }
     if (spec.pose?.keys) {
       try {
         skeleton = posedSkeleton(skeleton, spec.pose.keys);
@@ -1962,7 +1977,7 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
       if (said.length) off.push(`${mesh.name} ${said.join(", ")}`);
     }
     if (off.length)
-      warnings.push(`its pictures look unlike nine in ten of Valve's models': ${off.join("; ")}. A white thing in Half-Life is a used grey (0.5 to 0.6: the game's light brightens it), its colours muted, its surfaces worn: give tones nearer Valve's and its materials a photograph (\`picture\`, docs/SPEC.md "A material from a photograph")`);
+      warnings.push(`its pictures look unlike nine in ten of Valve's models': ${off.join("; ")}. A painted or manufactured white in Half-Life (a fridge, a wall, a sign) is a used grey (0.5 to 0.6: the game's light brightens it), its colours muted, its surfaces worn: give tones nearer Valve's and its materials a photograph (\`picture\`, docs/SPEC.md "A material from a photograph"). What is white by what it is stays white: most of Valve's scientist's lab coat textures are white (70 to 100% of their texels, at 0.8 to 0.94), so a copy of a white garment keeps the original's white`);
   }
 
   // written: one bone, one still animation
@@ -2384,6 +2399,52 @@ function posedSkeleton(skeleton, keys) {
   const matrices = posed(src, skeleton.pose).pose;
   const joints = new Map(bonesOf(src).map((bone, i) => [bone.name, apply34(matrices[i], [0, 0, 0])]));
   return { ...skeleton, src, joints };
+}
+
+/**
+ * The skeleton with its first animation made of another of the base's (`from`, by name or number): its frames,
+ * rate, looping and travel, starting at `frame`, or (no frame given) at the frame whose box of the base's body
+ * comes nearest `size`, a looping one's cycle turned to start there. The first animation is the stance a
+ * character is built and judged in, and an original whose first is a walk (Half-Life's scientist) stands
+ * mid-stride in it: words that say so are a walk's frame, not a stance turned by hand.
+ */
+function skeletonFrom(skeleton, { from, frame }, size = {}) {
+  const list = sequencesOf(skeleton.src);
+  const at = typeof from === "number" ? from : list.findIndex((seq) => seq.name.toLowerCase() === String(from).toLowerCase());
+  if (!list[at]) throw new Error(`no animation ${from} in the base: its animations are ${list.slice(0, 40).map((seq) => seq.name).join(", ")}${list.length > 40 ? " ..." : ""}`);
+  const seq = list[at];
+  if (seq.group) throw new Error(`${seq.name} is kept in another file`);
+  const frames = readSequence(skeleton.src, at, 0).frames;
+  if (frame !== undefined && frame >= frames.length) throw new Error(`${seq.name} has ${frames.length} frames: frame ${frame} is past its last`);
+  const want = [size.length, size.width, size.height];
+  let start = frame ?? 0;
+  let fit = null;
+  if (frame === undefined && want.some(isNumber)) {
+    const body = skeleton.bodies?.[0] ?? 0;
+    let best = Infinity;
+    for (let f = 0; f < frames.length - (seq.loops ? 1 : 0); f++) {
+      let tris;
+      try {
+        tris = posed(skeleton.src, { seq: at, frame: f, body }).tris;
+      } catch {
+        break;
+      }
+      const points = tris.flatMap((t) => t.c.map((c) => c.p));
+      if (!points.length) break;
+      const side = [0, 1, 2].map((k) => Math.max(...points.map((p) => p[k])) - Math.min(...points.map((p) => p[k])));
+      const off = want.reduce((sum, w, k) => (isNumber(w) ? sum + Math.abs(side[k] - w) / w : sum), 0);
+      if (off < best) [best, start, fit] = [off, f, side.map((v) => Math.round(v * 10) / 10)];
+    }
+  }
+  // a loop's last frame is its first again: the cycle without it, turned to start at `start`, closed again
+  const cycle = seq.loops ? frames.slice(0, -1) : frames;
+  const turned = seq.loops ? [...cycle.slice(start), ...cycle.slice(0, start)] : frames.slice(start);
+  const out = seq.loops ? [...turned, turned[0]] : turned;
+  const src = replaceSequence(skeleton.src, 0, { frames: out, fps: seq.fps, loops: !!seq.loops, ...(seq.movement ? { movement: seq.movement } : {}) });
+  const matrices = posed(src, skeleton.pose).pose;
+  const joints = new Map(bonesOf(src).map((bone, i) => [bone.name, apply34(matrices[i], [0, 0, 0])]));
+  const fact = `pose: the first animation is the base's ${seq.name} from its frame ${start}${fit ? ` (the base's body ${fit.join(" x ")} there, nearest the size asked)` : ""}`;
+  return { skeleton: { ...skeleton, src, joints }, fact };
 }
 
 /** Every animation's root bones moved `lift` units up, blend by blend: the whole model stands higher. */
