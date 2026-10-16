@@ -466,7 +466,7 @@ function settle(kind, judged, caps) {
   const scores = {};
   for (const item of items) {
     const given = Math.max(0, Math.min(2, Number(judged?.[item]?.score ?? 0)));
-    scores[item] = { judge: given, cap: caps[item] ?? null, score: Math.min(given, caps[item] ?? 2), reason: judged?.[item]?.reason ?? "" };
+    scores[item] = { judge: given, cap: caps[item] ?? null, score: Math.min(given, caps[item] ?? 2), reason: judged?.[item]?.reason ?? "", ...(judged?.[item]?.of ? { judges: judged[item].of } : {}) };
   }
   const total = items.reduce((s, i) => s + scores[i].score, 0);
   return { scores, total, of: 2 * items.length, passes: MUST[kind].every((i) => scores[i].score === 2) && total >= 0.85 * 2 * items.length };
@@ -486,7 +486,7 @@ const parse = (answer) => {
  * about three textures of 25 (2026-10-16): the middle of three steadies the reading without changing the rubric.
  */
 async function judged(ask) {
-  const answers = (await Promise.all(Array.from({ length: JUDGES }, () => runJudge(ask)))).map((r) => ({ r, json: parse(r.answer) }));
+  const answers = (await Promise.all(Array.from({ length: JUDGES }, (_, draw) => runJudge({ ...ask, draw })))).map((r) => ({ r, json: parse(r.answer) }));
   const good = answers.filter((a) => a.json);
   if (!good.length) return { json: null, r: answers[0].r };
   if (good.length === 1) return { json: good[0].json, r: good[0].r };

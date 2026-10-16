@@ -122,6 +122,8 @@ const JUDGED = join(KIT, "examples", "reproduce", ".judged");
 /** A key for a judge's question: its model, its prompt and every picture of the folder it reads. */
 function judgedKey(options) {
   const hash = createHash("sha256").update(JUDGE_MODEL).update(options.model ?? "").update(options.prompt ?? "");
+  // a second or third judge of the same work is a draw of its own (assets.mjs --judges); the first keeps the key it had
+  if (options.draw) hash.update(`draw ${options.draw}`);
   const look = (dir) => {
     if (!dir || !existsSync(dir)) return;
     for (const e of readdirSync(dir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
