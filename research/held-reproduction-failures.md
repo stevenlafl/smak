@@ -450,6 +450,22 @@ Readings:
   description that gives the stance in numbers (the arms' angle out and forward, the stride's length and which
   foot leads) might, and the gate's thresholds for a words leg are the rubric's question, for Steven.
 
+**The pictures leg's torn coat.** The scientist's pictures copy passes every measured gate and loses C1 (0, a
+must-have): in the run its coat tears into slabs from the hips to the trailing foot. The carved hull is one
+surface, the coat's hem joined to the trouser legs under it, and a corner has one bone. Measured over Gordon's
+`run2` (`stretch.mjs`: the share of triangles whose edges grow past 3x their first frame's):
+
+| Rigging | Past 3x | Worst | Run, looked at |
+| --- | --- | --- | --- |
+| least stretch (as judged) | 13.0% | 52.6x | slabs from hips to foot |
+| plus parents as candidates, torn triangles whole to one bone or the ancestor (09d0cef) | 10.9% | 32.2x | one slab fewer, two left |
+| plus every still-torn triangle whole on one bone, its corners its own (a seam) | 0.0% | 2.4x | shards float by the feet, a shoe comes off: rejected |
+| the torn triangles dropped | | | holes down the legs, shoes off: rejected |
+
+No choice of one bone a corner mends it: the hem must be cut from the legs. That is the carve's to do: a garment
+shell (the coat, on the hips and spine) and the limbs under it carved as separate pieces, as Valve's scientist
+is made (`Sci3(C-Tail)` its own texture over the legs').
+
 ## Build list
 
 In order. Each: what, where, its first test.
