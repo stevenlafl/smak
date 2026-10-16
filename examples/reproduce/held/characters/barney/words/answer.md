@@ -1,18 +1,20 @@
-The model builds **OK** as `work:barney.mdl`. Every check passes: 560 triangles against a limit of 724, no normal-count or floating-part faults, and feet on the floor. I did not compare it with the original, because the reference pictures you named (sides.png and motion.png) are not in the work folder. Everything was built from your written description.
+`barney.mdl` is built in the work folder and passes its checks: the build says OK, and the GoldSrc check says "fit for goldsrc". The spec is `barney.spec.json` and a contact sheet is `barney-sheet.png`. It uses Gordon's skeleton and all 77 of its animations, with the feet on the floor and a height of 74.9 against the 75.3 you gave. It is 576 triangles, under the 724 limit.
 
-**What I built**
-- **Base and animations:** Gordon's skeleton with all 77 of its animations kept. Floor is 0 and height is 75.3.
-- **Stance:** torso leans 5° forward, head level, upper arms out 12° at the front and 5° back, forearms bent 15°, fists hanging at hip height. The feet keep Gordon's stride, which already matches your 0.12 forward and 0.10 apart.
-- **Build:** blob bodies for the shirt, sleeves and trousers, a dome helmet with a blue band and dark front rim, a box vest with raised plates, an orange emblem on the figure's right chest, a grey ID badge on the left, a black belt and holster, and dark boots to mid-calf.
-- **Colours:** taken from your RGB values, applied per part.
-- **Lettering:** SECURITY is printed on the vest back in olive-yellow.
+**Two things I could not do as asked**
 
-**Gaps against your list**
-- **Run cycle:** the running animation is Gordon's own `run2`, not one fitted to motion.png, because that file is not available.
-- **Face:** no dark hair at the sideburns or forehead, no eye or brow shading, no tie or collar.
-- **Legs:** the 8° knee bend is not applied.
-- **Wear:** the scuff on the right thigh is not done.
-- **Lettering:** SECURITY is not clearly visible in the back render at this scale. I have not confirmed it lands on the texture.
-- **Helmet:** its dome is more pointed than a half sphere.
+- **The reference pictures are missing.** `sides.png` and `motion.png` are not in the work folder, so I built from your written description alone. Without `motion.png` the run is not fitted: the model moves with Gordon's own run. If you put both pictures in the work folder, I can fit the stance to the side view and the run to the 16 frames.
+- **Nothing has been compared to the original.** I have no pictures of it to set beside the build.
 
-If you can put sides.png and motion.png in the work folder, I can fit the stance and the run to them. The spec is at `work:barney.spec.json` if you want to change any of these numbers.
+**What's in it**
+
+- **Stance:** upper arms 12 degrees out and 5 back, elbows bent 15, legs at 8 and -4 degrees with knees bent 8, torso leaning 5 degrees forward.
+- **Head and helmet:** grey crown, blue band round the sides and back, dark front rim, skin, sideburns.
+- **Torso:** periwinkle shirt sleeves, black ribbed vest with an orange-yellow emblem on the wearer's right and a grey badge on the left, and "SECURITY" in olive across the upper back.
+- **Lower body:** black belt, holster on the right hip, dark blue trousers, black boots to mid-calf, fists at the hips.
+- **Colours:** the ones you gave, read as seen.
+
+**Left out or simplified**
+
+- **Tie:** left out. As a built part it floated away from the chest when crouching and jumping. Painted onto the shirt, the paint step found no surface to take it.
+- **Smaller details:** the pistol grip on the holster (the holster itself is there), the forehead hair, the cheek and eye shading, the trouser highlights and the scuff on the thigh.
+- **Lettering:** the print step dropped the word whenever the vest also had ribs on its back. The "SECURITY" lettering is therefore 48 small painted patches in a block font, about 9.3 by 2.6 units.

@@ -10,37 +10,35 @@
     "height": 75.3
   },
   "pose": {
+    "aim": {
+      "L arm": {
+        "out": 12,
+        "forward": -5,
+        "bend": 15
+      },
+      "R arm": {
+        "out": 12,
+        "forward": -5,
+        "bend": 15
+      },
+      "L leg": {
+        "forward": 8,
+        "bend": 8
+      },
+      "R leg": {
+        "forward": -4,
+        "bend": 8
+      }
+    },
     "keys": {
       "Bip01 Spine": {
-        "turn": {
-          "y": 5
-        }
-      },
-      "Bip01 Head": {
         "turn": {
           "y": -5
         }
       },
-      "Bip01 L Arm1": {
+      "Bip01 Head": {
         "turn": {
-          "x": 12,
           "y": 5
-        }
-      },
-      "Bip01 R Arm1": {
-        "turn": {
-          "x": -12,
-          "y": 5
-        }
-      },
-      "Bip01 L Arm2": {
-        "turn": {
-          "y": -15
-        }
-      },
-      "Bip01 R Arm2": {
-        "turn": {
-          "y": 75
         }
       }
     }
@@ -48,15 +46,15 @@
   "materials": {
     "skin": {
       "base": "paint",
-      "tone": [
+      "seen": [
         0.745,
         0.588,
         0.51
       ]
     },
     "hair": {
-      "base": "cloth",
-      "tone": [
+      "base": "paint",
+      "seen": [
         0.176,
         0.137,
         0.118
@@ -64,55 +62,71 @@
     },
     "shirt": {
       "base": "cloth",
-      "tone": [
+      "seen": [
         0.529,
         0.529,
         0.804
       ]
     },
-    "trousers": {
-      "base": "cloth",
-      "tone": [
-        0.275,
-        0.275,
-        0.627
-      ]
-    },
     "vest": {
-      "base": "leather",
-      "tone": [
+      "base": "cloth",
+      "seen": [
         0.118,
         0.118,
         0.137
       ]
     },
-    "vestplate": {
-      "base": "metal",
-      "tone": [
+    "vest_hi": {
+      "base": "cloth",
+      "seen": [
         0.314,
         0.314,
         0.353
       ]
     },
+    "ink": {
+      "base": "paint",
+      "seen": [
+        0.588,
+        0.588,
+        0.235
+      ]
+    },
     "emblem": {
       "base": "paint",
-      "tone": [
-        0.82,
-        0.59,
-        0.16
+      "seen": [
+        0.824,
+        0.588,
+        0.157
       ]
     },
     "badge": {
       "base": "metal",
-      "tone": [
+      "seen": [
         0.588,
         0.588,
         0.627
       ]
     },
+    "trousers": {
+      "base": "cloth",
+      "seen": [
+        0.275,
+        0.275,
+        0.627
+      ]
+    },
+    "boot": {
+      "base": "leather",
+      "seen": [
+        0.098,
+        0.098,
+        0.11
+      ]
+    },
     "helmet": {
-      "base": "metal",
-      "tone": [
+      "base": "steel",
+      "seen": [
         0.451,
         0.451,
         0.49
@@ -120,68 +134,86 @@
     },
     "helmet_band": {
       "base": "paint",
-      "tone": [
+      "seen": [
         0.294,
         0.294,
         0.686
       ]
     },
-    "helmet_front": {
-      "base": "paint",
-      "tone": [
-        0.05,
-        0.05,
-        0.05
-      ]
-    },
     "black": {
       "base": "leather",
-      "tone": [
-        0.05,
-        0.05,
-        0.05
-      ]
-    },
-    "boot": {
-      "base": "leather",
-      "tone": [
-        0.098,
-        0.098,
-        0.11
+      "seen": [
+        0.07,
+        0.07,
+        0.07
       ]
     }
   },
   "parts": [
     {
-      "id": "head_skin",
-      "kind": "blob",
+      "id": "neck",
+      "kind": "superquadric",
       "material": "skin",
-      "blend": 2,
-      "triangles": 40,
-      "pieces": [
-        {
-          "at": "Bip01 Head",
-          "offset": [
-            0.5,
-            0,
-            5
-          ],
-          "radius": [
-            4.4,
-            4,
-            4.6
-          ]
-        },
-        {
-          "span": [
-            "Bip01 Neck",
-            "Bip01 Head"
-          ],
-          "radius": [
-            2.8,
-            2.6
-          ]
-        }
+      "sides": 4,
+      "span": {
+        "bones": [
+          "Bip01 Neck",
+          "Bip01 Head"
+        ],
+        "over": 2
+      },
+      "size": [
+        4,
+        4,
+        1
+      ],
+      "round": [
+        0.3,
+        0.5
+      ]
+    },
+    {
+      "id": "head",
+      "kind": "superquadric",
+      "material": "skin",
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "centre",
+        "offset": [
+          0,
+          0,
+          5
+        ]
+      },
+      "size": [
+        6.6,
+        6.2,
+        8.4
+      ],
+      "round": [
+        0.5,
+        0.7
+      ]
+    },
+    {
+      "id": "sideburn",
+      "kind": "box",
+      "material": "hair",
+      "mirror": "y",
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "centre",
+        "offset": [
+          0,
+          3,
+          3.5
+        ]
+      },
+      "size": [
+        1.4,
+        1.2,
+        3
       ]
     },
     {
@@ -189,59 +221,100 @@
       "kind": "turn",
       "material": "helmet",
       "sides": 8,
+      "open": true,
       "attach": {
         "bone": "Bip01 Head",
-        "at": "start",
+        "at": "centre",
         "offset": [
           0,
           0,
-          0
+          7.2
         ]
       },
       "rings": [
         [
           0,
-          5
+          [
+            4.6,
+            4.9
+          ]
         ],
         [
-          2,
-          5.1
+          1.5,
+          [
+            4.5,
+            4.8
+          ]
         ],
         [
-          4,
-          4.9
+          3,
+          [
+            4.2,
+            4.47
+          ]
         ],
         [
-          6,
-          4.2
+          4.5,
+          [
+            3.6,
+            3.86
+          ]
         ],
         [
-          8,
-          3.1
+          5.5,
+          [
+            3,
+            3.2
+          ]
         ],
         [
-          9.3,
-          1.8
+          6.5,
+          [
+            2.1,
+            2.24
+          ]
         ],
         [
-          10,
-          0.5
+          7.1,
+          [
+            1,
+            1.06
+          ]
+        ],
+        [
+          7.3,
+          [
+            0.2,
+            0.2
+          ]
         ]
       ],
       "caps": [
-        true,
+        false,
         true
       ],
       "marks": [
         {
           "path": [
             [
-              0.13,
-              40
+              0.18,
+              30
             ],
             [
-              0.13,
-              320
+              0.18,
+              90
+            ],
+            [
+              0.18,
+              180
+            ],
+            [
+              0.18,
+              270
+            ],
+            [
+              0.18,
+              330
             ]
           ],
           "width": 2.6,
@@ -250,339 +323,121 @@
         {
           "path": [
             [
-              0.13,
-              320
+              0.18,
+              -30
             ],
             [
-              0.13,
-              400
+              0.18,
+              0
+            ],
+            [
+              0.18,
+              30
             ]
           ],
           "width": 2.6,
-          "material": "helmet_front"
+          "material": "black"
         }
       ]
     },
     {
       "id": "shirt",
-      "kind": "blob",
-      "material": "shirt",
-      "blend": 3,
-      "triangles": 60,
-      "pieces": [
-        {
-          "span": [
-            "Bip01 Spine",
-            "Bip01 Spine2"
-          ],
-          "radius": [
-            7.6,
-            8
-          ]
-        },
-        {
-          "span": [
-            "Bip01 Spine2",
-            "Bip01 Neck"
-          ],
-          "radius": [
-            8,
-            4
-          ]
-        },
-        {
-          "at": "Bip01 Spine3",
-          "radius": [
-            7.5,
-            9.5,
-            4
-          ]
-        }
-      ]
-    },
-    {
-      "id": "arms",
-      "kind": "blob",
-      "material": "shirt",
-      "blend": 2,
-      "triangles": 60,
-      "symmetric": true,
-      "pieces": [
-        {
-          "span": [
-            "Bip01 L Arm",
-            "Bip01 L Arm1"
-          ],
-          "radius": [
-            3.3,
-            2.7
-          ]
-        },
-        {
-          "span": [
-            "Bip01 L Arm1",
-            "Bip01 L Arm2"
-          ],
-          "radius": [
-            2.5,
-            2.2
-          ]
-        },
-        {
-          "span": [
-            "Bip01 L Arm2",
-            "Bip01 L Hand"
-          ],
-          "radius": [
-            2.2,
-            1.9
-          ]
-        }
-      ]
-    },
-    {
-      "id": "fist_left",
       "kind": "superquadric",
-      "size": [
-        3.8,
-        3.5,
-        3.8
-      ],
-      "round": [
-        0.3,
-        0.3
-      ],
-      "sides": 8,
-      "material": "skin",
-      "attach": {
-        "bone": "Bip01 L Hand",
-        "at": "centre",
-        "offset": [
-          1,
-          0,
-          -1
-        ]
+      "material": "shirt",
+      "sides": 6,
+      "span": {
+        "bones": [
+          "Bip01 Pelvis",
+          "Bip01 Neck"
+        ],
+        "over": 0.5
       },
-      "mirror": "y"
-    },
-    {
-      "id": "trousers",
-      "kind": "blob",
-      "material": "trousers",
-      "blend": 2,
-      "triangles": 60,
-      "symmetric": true,
-      "pieces": [
-        {
-          "at": "Bip01 Pelvis",
-          "offset": [
-            0,
-            0,
-            -1
-          ],
-          "radius": [
-            6.5,
-            8,
-            5
-          ]
-        },
-        {
-          "span": [
-            "Bip01 L Leg",
-            "Bip01 L Leg1"
-          ],
-          "radius": [
-            5.2,
-            4.3
-          ]
-        },
-        {
-          "span": [
-            "Bip01 L Leg1",
-            "Bip01 L Foot"
-          ],
-          "radius": [
-            4.4,
-            3.7
-          ]
-        },
-        {
-          "at": "Bip01 L Foot",
-          "offset": [
-            1.5,
-            0,
-            -2
-          ],
-          "radius": [
-            4.2,
-            3.6,
-            5
-          ]
-        }
-      ]
-    },
-    {
-      "id": "boot_left",
-      "kind": "superquadric",
       "size": [
-        10.5,
-        7.5,
-        13
-      ],
-      "round": [
-        0.25,
-        0.3
-      ],
-      "sides": 8,
-      "material": "boot",
-      "attach": {
-        "bone": "Bip01 L Foot",
-        "at": "bottom",
-        "offset": [
-          1.5,
-          0,
-          -4
-        ]
-      },
-      "mirror": "y"
-    },
-    {
-      "id": "belt",
-      "kind": "box",
-      "size": [
+        8.2,
         16.5,
-        17.5,
-        1.6
+        1
       ],
-      "material": "black",
-      "attach": {
-        "bone": "Bip01 Pelvis",
-        "at": "bottom",
-        "offset": [
-          0,
-          0,
-          -1
-        ]
-      }
-    },
-    {
-      "id": "holster",
-      "kind": "box",
-      "size": [
-        3.2,
-        2.6,
-        11
-      ],
-      "material": "black",
-      "attach": {
-        "bone": "Bip01 Pelvis",
-        "at": "bottom",
-        "offset": [
-          0,
-          -9.5,
-          -11
-        ]
-      }
+      "round": [
+        0.4,
+        0.6
+      ]
     },
     {
       "id": "vest",
       "kind": "box",
-      "size": [
-        17,
-        25,
-        18
-      ],
       "material": "vest",
       "attach": {
-        "bone": "Bip01 Spine1",
-        "at": "bottom",
+        "bone": "Bip01 Spine2",
+        "at": "centre",
         "offset": [
           0,
           0,
-          0
+          -2
         ]
       },
-      "print": {
-        "text": "SECURITY",
-        "face": "back",
-        "ink": [
-          0.588,
-          0.588,
-          0.235
-        ],
-        "size": 0.15
-      },
+      "size": [
+        9.2,
+        19.6,
+        17
+      ],
       "panels": [
         {
           "face": "front",
           "at": [
-            12.5,
-            3
+            9.8,
+            3.5
           ],
           "size": [
-            23,
+            17.6,
             1.1
           ],
           "style": "raised",
-          "material": "vestplate"
+          "material": "vest_hi"
         },
         {
           "face": "front",
           "at": [
-            12.5,
-            6
+            9.8,
+            6.5
           ],
           "size": [
-            23,
+            17.6,
             1.1
           ],
           "style": "raised",
-          "material": "vestplate"
+          "material": "vest_hi"
         },
         {
           "face": "front",
           "at": [
-            12.5,
-            9
+            9.8,
+            9.5
           ],
           "size": [
-            23,
+            17.6,
             1.1
           ],
           "style": "raised",
-          "material": "vestplate"
+          "material": "vest_hi"
         },
         {
           "face": "front",
           "at": [
-            12.5,
+            9.8,
+            12.5
+          ],
+          "size": [
+            17.6,
+            1.1
+          ],
+          "style": "raised",
+          "material": "vest_hi"
+        },
+        {
+          "face": "front",
+          "at": [
+            4.8,
             12
-          ],
-          "size": [
-            23,
-            1.1
-          ],
-          "style": "raised",
-          "material": "vestplate"
-        },
-        {
-          "face": "front",
-          "at": [
-            12.5,
-            15
-          ],
-          "size": [
-            23,
-            1.1
-          ],
-          "style": "raised",
-          "material": "vestplate"
-        },
-        {
-          "face": "front",
-          "at": [
-            5.5,
-            11
           ],
           "size": [
             2.4,
@@ -595,12 +450,12 @@
         {
           "face": "front",
           "at": [
-            19.5,
-            11
+            14.8,
+            10.5
           ],
           "size": [
-            2.8,
-            3.4
+            2.4,
+            3
           ],
           "style": "raised",
           "material": "badge"
@@ -608,29 +463,839 @@
         {
           "face": "back",
           "at": [
-            12.5,
-            3
+            9.8,
+            3.5
           ],
           "size": [
-            23,
+            17.6,
             1.1
           ],
-          "style": "raised",
-          "material": "vestplate"
+          "style": "flat",
+          "material": "vest_hi"
         },
         {
           "face": "back",
           "at": [
-            12.5,
-            6
+            9.8,
+            6.5
           ],
           "size": [
-            23,
+            17.6,
             1.1
           ],
+          "style": "flat",
+          "material": "vest_hi"
+        },
+        {
+          "face": "back",
+          "at": [
+            5.6,
+            13.04
+          ],
+          "size": [
+            0.9,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            5.3,
+            12.52
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            5.6,
+            12
+          ],
+          "size": [
+            0.9,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            5.9,
+            11.48
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            5.6,
+            10.96
+          ],
+          "size": [
+            0.9,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            6.8,
+            13.04
+          ],
+          "size": [
+            0.9,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            6.5,
+            12.52
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            6.65,
+            12
+          ],
+          "size": [
+            0.6,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            6.5,
+            11.48
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            6.8,
+            10.96
+          ],
+          "size": [
+            0.9,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            8,
+            13.04
+          ],
+          "size": [
+            0.9,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            7.7,
+            12.52
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            7.7,
+            12
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            7.7,
+            11.48
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            8,
+            10.96
+          ],
+          "size": [
+            0.9,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            8.9,
+            13.04
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            9.5,
+            13.04
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            8.9,
+            12.52
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            9.5,
+            12.52
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            8.9,
+            12
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            9.5,
+            12
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            8.9,
+            11.48
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            9.5,
+            11.48
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            9.2,
+            10.96
+          ],
+          "size": [
+            0.9,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            10.4,
+            13.04
+          ],
+          "size": [
+            0.9,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            10.1,
+            12.52
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            10.7,
+            12.52
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            10.4,
+            12
+          ],
+          "size": [
+            0.9,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            10.25,
+            11.48
+          ],
+          "size": [
+            0.6,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            10.1,
+            10.96
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            10.7,
+            10.96
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            11.6,
+            13.04
+          ],
+          "size": [
+            0.9,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            11.6,
+            12.52
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            11.6,
+            12
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            11.6,
+            11.48
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            11.6,
+            10.96
+          ],
+          "size": [
+            0.9,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            12.8,
+            13.04
+          ],
+          "size": [
+            0.9,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            12.8,
+            12.52
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            12.8,
+            12
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            12.8,
+            11.48
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            12.8,
+            10.96
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            13.7,
+            13.04
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            14.3,
+            13.04
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            13.7,
+            12.52
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            14.3,
+            12.52
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            14,
+            12
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            14,
+            11.48
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "back",
+          "at": [
+            14,
+            10.96
+          ],
+          "size": [
+            0.3,
+            0.52
+          ],
+          "style": "flat",
+          "material": "ink"
+        },
+        {
+          "face": "left",
+          "at": [
+            4.6,
+            8
+          ],
+          "size": [
+            8.6,
+            1
+          ],
           "style": "raised",
-          "material": "vestplate"
+          "material": "vest_hi"
+        },
+        {
+          "face": "right",
+          "at": [
+            4.6,
+            8
+          ],
+          "size": [
+            8.6,
+            1
+          ],
+          "style": "raised",
+          "material": "vest_hi"
         }
+      ]
+    },
+    {
+      "id": "belt",
+      "kind": "box",
+      "material": "black",
+      "attach": {
+        "bone": "Bip01 Spine",
+        "at": "centre"
+      },
+      "size": [
+        9.6,
+        17.2,
+        1.5
+      ]
+    },
+    {
+      "id": "holster",
+      "kind": "box",
+      "material": "black",
+      "attach": {
+        "bone": "Bip01 Pelvis",
+        "at": "top",
+        "offset": [
+          0,
+          -6.5,
+          0
+        ]
+      },
+      "size": [
+        3.4,
+        3,
+        11.3
+      ]
+    },
+    {
+      "id": "thigh_left",
+      "kind": "superquadric",
+      "material": "trousers",
+      "sides": 6,
+      "mirror": "y",
+      "span": {
+        "bones": [
+          "Bip01 L Leg",
+          "Bip01 L Leg1"
+        ],
+        "over": 0.5
+      },
+      "size": [
+        7.6,
+        7.6,
+        1
+      ],
+      "round": [
+        0.3,
+        0.6
+      ]
+    },
+    {
+      "id": "shin_left",
+      "kind": "superquadric",
+      "material": "trousers",
+      "sides": 6,
+      "mirror": "y",
+      "span": {
+        "bones": [
+          "Bip01 L Leg1",
+          "Bip01 L Foot"
+        ],
+        "over": 0.5
+      },
+      "size": [
+        6.6,
+        6.6,
+        1
+      ],
+      "round": [
+        0.3,
+        0.6
+      ]
+    },
+    {
+      "id": "boot_left",
+      "kind": "box",
+      "material": "boot",
+      "mirror": "y",
+      "attach": {
+        "bone": "Bip01 L Foot",
+        "at": "bottom",
+        "offset": [
+          2,
+          0,
+          -3
+        ]
+      },
+      "size": [
+        10.4,
+        5.6,
+        12.8
+      ]
+    },
+    {
+      "id": "upper_arm_left",
+      "kind": "superquadric",
+      "material": "shirt",
+      "sides": 4,
+      "mirror": "y",
+      "span": {
+        "bones": [
+          "Bip01 L Arm1",
+          "Bip01 L Arm2"
+        ],
+        "over": 0.8
+      },
+      "size": [
+        3.8,
+        3.8,
+        1
+      ],
+      "round": [
+        0.4,
+        0.5
+      ]
+    },
+    {
+      "id": "forearm_left",
+      "kind": "superquadric",
+      "material": "shirt",
+      "sides": 4,
+      "mirror": "y",
+      "span": {
+        "bones": [
+          "Bip01 L Arm2",
+          "Bip01 L Hand"
+        ],
+        "over": 0.8
+      },
+      "size": [
+        3.6,
+        3.6,
+        1
+      ],
+      "round": [
+        0.4,
+        0.5
+      ]
+    },
+    {
+      "id": "fist_left",
+      "kind": "box",
+      "material": "skin",
+      "mirror": "y",
+      "attach": {
+        "bone": "Bip01 L Hand",
+        "at": "centre"
+      },
+      "size": [
+        3.4,
+        3.6,
+        3.8
       ]
     }
   ]

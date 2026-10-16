@@ -1,12 +1,22 @@
-`scientist.mdl` builds OK. It is a character on Gordon's skeleton with `floor: 0`, and it keeps Gordon's animations. The build is at `work:scientist.mdl`, with the spec at `work:scientist.spec.json` and the six-view sheet at `work:scientist-sheet.png`.
+The model builds **OK** with every check passing. It is `scientist.mdl` in the work folder, on Gordon's skeleton (`player/gordon/gordon.mdl` from the game's `valve/models` folder), with `"floor": 0`. All 77 of Gordon's animations are kept, and the first frame of the first animation is posed to your stance numbers.
 
-I could not match it as closely as you asked, for these reasons:
+**What it has:**
+- **Head:** bald egg-shaped skin head with prominent ears and a short grey band of hair at ear level, painted on the sides and back. Heavy black glasses (lenses, bridge and temples) are built as parts.
+- **Coat:** one soft white body over the torso, skirt and sleeves, with the hem at about 0.32 height.
+- **Shirt, tie, belt and buckle:** painted onto the coat front, so the blue band, the red tie and the black belt show through the open coat.
+- **Trousers and shoes:** off-white tube legs, brown leather shoes.
+- **Hands:** skin-coloured fists.
 
-- **No reference pictures.** The work folder is empty, so `sides.png` and `motion.png` are not available. The stance, colours and markings come from your written numbers alone, and nothing was fitted to pictures.
-- **Proportions are Gordon's, not the scientist's.** The model is 72 units tall against the 68 you asked for. Its hip joint sits at about 0.54 of the height, where the description has the crotch at 0.42, and the skeleton fixes the leg length. Barney's skeleton has the same leg length, so switching bases would not help.
-- **Stance reading.** I took the mid-walking-step stance from the STANCE section, not a standing pose. Gordon's first animation (`look_idle`) starts standing, so the two readings differ. I used the walking stance because the description gives exact angles for it and the judge's pictures show it.
-- **Motion.** The 18-frame run in `motion.png` was not fitted, because that picture is missing. The model runs Gordon's own `run2` animation, which is what keeping the skeleton's animations means.
-- **Not done:** the painted fold creases on the coat, and a close-up check of the glasses and hair. I looked at them only at overview scale.
-- **Triangles:** 720, just under the 724 limit (twice the base body's 362). The coat is off-white, so the near-white warning is expected and left, as the guide advises.
+**Stance:** upright torso leaning 5° forward, level head, left arm 8° out and 25° forward with a 15° elbow bend, right arm 8° out and 20° back, right leg forward at 15° with a 5° knee, left leg back at 11°.
 
-The build also reports the head's hair and glasses, the belt and buckle, and the coat hem just above the knee. The coat is painted rather than textured, because the cloth texture showed a knit-like pattern.
+**Where it differs from the description, and why:**
+- **Leg length:** Gordon's skeleton puts the crotch about 39 units above the sole. The description says about 29. The skeleton's hip joint can't be moved, so the coat hides the difference below the belt. Visually the legs below the hem still read as the original's length. No other human skeleton on this machine is shorter; Barney's is about the same.
+- **Head width:** the description gives 0.08 width and says the head is "a little taller than wide". I used the numbers, so the head is 8.8 units tall and 5.6 wide.
+- **Left fist:** the arm angles as given put the fist about 14 units in front of the shoulder, not "just in front of the thigh". I followed the angles. Check this against the original.
+- **Triangles:** 608, under the 724 limit (twice Gordon's body).
+- **Left out:** the coat's fold creases, the trouser creases, a painted mouth, and the lighter grey strands. The coat's "near white" warning is left on purpose, since the description says the coat is white.
+- **Motion:** `sides.png`, `motion.png` and `facts.txt` are not in the work folder, so I built from your text only. I did not fit the run cycle, so the run and walk animations are Gordon's.
+
+I couldn't see the original, so I have not compared the pictures to it. The views I checked (six sides, a quarter view, a back view and a close view of the lower body) match the stance numbers and read as the described figure, but the head and face are rough at this scale.
+
+The probe files from my first trial builds (`scientist_probe.*`) are still in the work folder. I have no delete tool here, so they need removing by hand.
