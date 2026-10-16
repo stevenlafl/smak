@@ -94,6 +94,9 @@ Latest round: 0 of 10 pass.
 | 1 | frenzy | words | 5 of 18 | no | P1 1, P2 0, P3 1, P4 0, P5 0, P6 0, P7 1, P8 2, P9 0 |  |
 | 2 | frenzy | words | 6 of 18 | no | P1 1, P2 0, P3 1, P4 0, P5 1, P6 0, P7 1, P8 2, P9 0 | 13c7c25 |
 | 4 | frenzy | heightplan | 9 of 18 | no | P1 1, P2 2, P3 1, P4 1, P5 0, P6 1, P7 1, P8 2, P9 0 | 37a626c |
+| 5 | frenzy | heightplan | 9 of 18 | no | P1 1, P2 2, P3 1, P4 1, P5 0, P6 1, P7 1, P8 2, P9 0 | bde50bb |
+| 6 | frenzy | heightplan | 11 of 18 | no | P1 2, P2 2, P3 1, P4 1, P5 1, P6 0, P7 1, P8 2, P9 1 | a92fab0 |
+| 7 | frenzy | heightplan | 9 of 18 | no | P1 1, P2 2, P3 1, P4 1, P5 0, P6 1, P7 1, P8 2, P9 0 | 7ecc66b |
 | 1 | frenzy | bsp | 11 of 18 | no | P1 1, P2 2, P3 1, P4 1, P5 1, P6 1, P7 1, P8 2, P9 1 |  |
 | 2 | frenzy | bsp | 11 of 18 | no | P1 1, P2 2, P3 1, P4 1, P5 1, P6 1, P7 1, P8 2, P9 1 | 13c7c25 |
 

@@ -1,23 +1,25 @@
-The map is built and the build says OK: it compiled, nothing leaks, and all 58 places a player goes to are reached on foot. It is at `/tmp/smak-repro-ydVBIx/work/frenzy_copy/frenzy_copy.bsp`, with the `.map` and `.wad` beside it. It is an approximation, not a match. The layout, floors and ledges come from your height plans. The textures, lighting and some entities are my choices or are missing.
+The map builds OK: `frenzy_copy` compiles with no leak, and every entity a player goes to is reached on foot. It is not a faithful match yet. I did not compare the picture sets from the same cameras, and several parts of the original are missing or changed.
 
-**What's in it**
-- **Layout and heights:** the floor plan carves the space and floors from the four height-plan layers. The plan picture lines up with the original.
-- **Starts and items:** all 14 deathmatch starts, the one player start, and every weapon, ammo and item from `entities.txt` are placed on the floor under their marks.
-- **Textures from `halflife.wad`:** walls are CRETE1_WALL01, floors are CRETE3_FLR05, and the western rooms use FIFTIES_CMP3A2 for the shelving. The ceiling is a dark grey metal paint because I found no clean Half-Life match for the orange-striped ceilings.
+Output: `/tmp/smak-repro-lR70Et/work/frenzy_copy/frenzy_copy.bsp` (with `.map`, `.wad` and plan pictures beside it). The spec used the height plans through `floorplan`, with `halflife.wad` textures, all 93 entity marks, and two areas with shelf walls.
 
-**What differs from the original**
-- **Missing:** the two doors and their triggers, the two ladders, the 13 moving wall panels (the orange lines), and the health charger. They are brush entities, and a floor plan only carves space, so they are not in the map.
-- **Lights:** four of the eight marked lights (at the top-right plaza) are removed. Their lamp rods ran to the top of the world. The other four are kept at their marked heights.
-- **Lamps I added:** SMAK has no ambient light setting, so the rooms only read as lit with automatic lamps. That adds 146 lamps the original doesn't have. Their colour (230, 235, 255) and brightness (120) are my choices, not measured from the views.
-- **Glows:** the glow sprites on the lights are not added. The build rejected the sprite key I wrote, and I did not get it working.
-- **Three items moved:** the walk test found three items on a ledge with no walkable access. I moved each onto the walkable spot it named:
-  - ammo_ARgrenades (-664, 152) to (-592, 104)
-  - ammo_ARgrenades (-664, -152) to (-592, -104)
-  - item_longjump (-72, 0) to (-176, -72)
-  Heights are unchanged.
-- **Start heights:** the starts stand 36 above the floor, the engine's standard, not at the marked heights of 64 to 384.
-- **Drops:** the build warns of 48 places where a player can fall more than 210 units, from the upper ledges. These come straight from your height plan. I did not add railings.
+**What matches**
+- Layout, room sizes, floor heights, and the stairs and ledges come from the height plans.
+- All the start points and item marks are placed at their heights: 15 starts, the weapons, ammo, batteries, longjump, and the glow sprites.
+- The plan picture lines up with the original's storeys picture.
 
-**Not done**
-- **Side-by-side check:** I did not do a close comparison with `views.png`. The views now show lit rooms, but the start room is still not as bright as the original's.
-- **Saved spec:** I could not save the spec as a file, because the Write tool is disabled in this session. It is in this conversation, and I can write it to the work folder if you enable Write.
+**What I changed to get OK**
+| Change | Why |
+|---|---|
+| Two gauss-clip and AR-grenade pickups at z 320 moved to floor 16 at (-592, ±104) | Their platform is reached only by the original's moving walls, which plan mode can't express |
+| Longjump moved to (-176, -72), floor 16 | Same reason |
+| Four lights at z 256 to 292 removed | No ceiling in the headroom picture, so their lamp rods ran to 4000+ units |
+| My eight light entities replaced by the map's 24 automatic lamps | Explicit lights left most rooms black; the floor light went from 54 to 74 of 255 |
+| Two `func_door` boxes at (-1312, ±336) | Orientation is a guess |
+
+**What is missing or approximate**
+- Not reproduced: 13 `func_wall` (the orange moving walls, the lifts), 2 `func_ladder`, 2 `trigger_multiple`, and 1 `func_healthcharger`.
+- The upper plateaus (160 to 512) are not walked to; the original reaches them by those lifts and ladders. The build reports this as a fact, not a fault, so it still says OK.
+- Textures are a close pick, not a per-area match: floor `TNNL_FLR7C`, walls `CRETE1_WALL01`, ceiling `CRETE3_CEIL01`, shelves `C1A4_W4` in the two long halls. The original's lower wall band and hazard ceilings are not reproduced.
+- The build warns of 48 drops over 210 units (the original has these too).
+
+I could not read the `reproduce/frenzy` folder listing (permission denied), but the files I needed read fine.

@@ -106,7 +106,9 @@ floor at or under it) or layer: the layer of floor it stands on (0 the lowest, a
 them), z over that floor. heightplan/entities.txt lists every mark: its number, class and place (x y z), lights too.
 ${input}/views.png shows it from inside at a player's eye (also in the work folder under pictures/): take the textures
 from the game's halflife.wad as those views show them, area by area (floorplan's areas: each part of the plan with its
-own floor, wall and ceiling, and its light), and its light from its own light entities and what the views show lit.`,
+own floor, wall and ceiling, and its light), and its light from its own light entities and what the views show lit.
+Find each texture by its picture, not by its name: the info tool on halflife.wad with like: "work:pictures/views.png"
+and rect: [x0, y0, x1, y1] round a patch of wall, floor or ceiling in a view gives the textures most like it.`,
       read: input,
       files: { "pictures/plan.png": join(input, "plan.png"), "pictures/storeys.png": join(input, "storeys.png"), "pictures/views.png": join(input, "views.png"), ...Object.fromEntries(plans.map((f) => [`heightplan/${f}`, join(input, "heightplan", f)])) },
     };
