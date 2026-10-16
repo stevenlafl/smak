@@ -1,0 +1,1112 @@
+{
+  "spec": "smak.map/1",
+  "name": "frenzy_copy",
+  "compile": {
+    "quality": "normal"
+  },
+  "floorplan": {
+    "dir": "work:heightplan/",
+    "areas": [
+      {
+        "min": [
+          -1400,
+          -900
+        ],
+        "max": [
+          -900,
+          900
+        ],
+        "wall": "wall_lab",
+        "light": {
+          "brightness": 2
+        }
+      },
+      {
+        "min": [
+          480,
+          -420
+        ],
+        "max": [
+          920,
+          720
+        ],
+        "floor": "floor_crete",
+        "light": {
+          "brightness": 2
+        }
+      }
+    ]
+  },
+  "wads": [
+    "halflife.wad"
+  ],
+  "textures": {
+    "floor_tile": {
+      "texture": "TNNL_FLR7C"
+    },
+    "wall_grey": {
+      "texture": "CRETE1_WALL01"
+    },
+    "ceil_panel": {
+      "texture": "-0FIFTIES_W12"
+    },
+    "wall_lab": {
+      "texture": "LAB1_SLOT1B"
+    },
+    "floor_crete": {
+      "texture": "CRETE3_FLR05"
+    }
+  },
+  "theme": {
+    "floor": "floor_tile",
+    "wall": "wall_grey",
+    "ceiling": "ceil_panel"
+  },
+  "prefabs": {
+    "block": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -48,
+              -8,
+              0
+            ],
+            [
+              48,
+              8,
+              320
+            ]
+          ],
+          "texture": "wall_grey"
+        }
+      ]
+    },
+    "block_short": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -24,
+              -8,
+              0
+            ],
+            [
+              24,
+              8,
+              320
+            ]
+          ],
+          "texture": "wall_grey"
+        }
+      ]
+    },
+    "ladder": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -16,
+              -8,
+              0
+            ],
+            [
+              16,
+              8,
+              160
+            ]
+          ],
+          "texture": "wall_grey"
+        }
+      ]
+    },
+    "door": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -48,
+              -8,
+              0
+            ],
+            [
+              48,
+              8,
+              112
+            ]
+          ],
+          "texture": "wall_grey"
+        }
+      ]
+    },
+    "trigger": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -80,
+              -40,
+              0
+            ],
+            [
+              80,
+              40,
+              72
+            ]
+          ],
+          "texture": "wall_grey"
+        }
+      ]
+    },
+    "charger": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -8,
+              -16,
+              0
+            ],
+            [
+              8,
+              16,
+              64
+            ]
+          ],
+          "texture": "wall_grey"
+        }
+      ]
+    }
+  },
+  "furniture": [
+    {
+      "prefab": "block",
+      "room": "plan",
+      "at": [
+        -208,
+        -184
+      ],
+      "entity": {
+        "class": "func_wall"
+      }
+    },
+    {
+      "prefab": "block",
+      "room": "plan",
+      "at": [
+        -217,
+        145
+      ],
+      "entity": {
+        "class": "func_wall"
+      }
+    },
+    {
+      "prefab": "block",
+      "room": "plan",
+      "at": [
+        -208,
+        184
+      ],
+      "entity": {
+        "class": "func_wall"
+      }
+    },
+    {
+      "prefab": "block",
+      "room": "plan",
+      "at": [
+        -560,
+        184
+      ],
+      "entity": {
+        "class": "func_wall"
+      }
+    },
+    {
+      "prefab": "block",
+      "room": "plan",
+      "at": [
+        -560,
+        -184
+      ],
+      "entity": {
+        "class": "func_wall"
+      }
+    },
+    {
+      "prefab": "block",
+      "room": "plan",
+      "at": [
+        -96,
+        578
+      ],
+      "entity": {
+        "class": "func_wall"
+      }
+    },
+    {
+      "prefab": "block",
+      "room": "plan",
+      "at": [
+        -296,
+        -882
+      ],
+      "entity": {
+        "class": "func_wall"
+      }
+    },
+    {
+      "prefab": "block",
+      "room": "plan",
+      "at": [
+        -386,
+        -1000
+      ],
+      "entity": {
+        "class": "func_wall"
+      }
+    },
+    {
+      "prefab": "ladder",
+      "room": "plan",
+      "at": [
+        -296,
+        -886
+      ],
+      "entity": {
+        "class": "func_ladder"
+      }
+    },
+    {
+      "prefab": "ladder",
+      "room": "plan",
+      "at": [
+        -390,
+        -1000
+      ],
+      "entity": {
+        "class": "func_ladder"
+      }
+    },
+    {
+      "prefab": "block_short",
+      "room": "plan",
+      "at": [
+        -217,
+        -145
+      ],
+      "entity": {
+        "class": "func_wall"
+      }
+    },
+    {
+      "prefab": "block",
+      "room": "plan",
+      "at": [
+        -450,
+        48
+      ],
+      "entity": {
+        "class": "func_wall"
+      }
+    },
+    {
+      "prefab": "block",
+      "room": "plan",
+      "at": [
+        -736,
+        578
+      ],
+      "entity": {
+        "class": "func_wall"
+      }
+    },
+    {
+      "prefab": "block",
+      "room": "plan",
+      "at": [
+        -608,
+        -578
+      ],
+      "entity": {
+        "class": "func_wall"
+      }
+    },
+    {
+      "prefab": "door",
+      "room": "plan",
+      "at": [
+        -1312,
+        -336
+      ],
+      "entity": {
+        "class": "func_door"
+      }
+    },
+    {
+      "prefab": "door",
+      "room": "plan",
+      "at": [
+        -1312,
+        336
+      ],
+      "entity": {
+        "class": "func_door"
+      }
+    },
+    {
+      "prefab": "charger",
+      "room": "plan",
+      "at": [
+        -20,
+        0
+      ],
+      "entity": {
+        "class": "func_healthcharger"
+      }
+    },
+    {
+      "prefab": "trigger",
+      "room": "plan",
+      "at": [
+        -1297,
+        -374
+      ],
+      "entity": {
+        "class": "trigger_multiple"
+      }
+    },
+    {
+      "prefab": "trigger",
+      "room": "plan",
+      "at": [
+        -1297,
+        374
+      ],
+      "entity": {
+        "class": "trigger_multiple"
+      }
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "plan",
+      "at": [
+        240,
+        -320
+      ],
+      "height": 64
+    },
+    {
+      "class": "env_glow",
+      "keys": {
+        "model": "sprites/glow01.spr"
+      },
+      "room": "plan",
+      "at": [
+        641,
+        704
+      ],
+      "height": 260
+    },
+    {
+      "class": "light",
+      "keys": {
+        "_light": "255 255 220 800"
+      },
+      "room": "plan",
+      "at": [
+        640,
+        704
+      ],
+      "height": 256
+    },
+    {
+      "class": "env_glow",
+      "keys": {
+        "model": "sprites/glow01.spr"
+      },
+      "room": "plan",
+      "at": [
+        833,
+        640
+      ],
+      "height": 260
+    },
+    {
+      "class": "light",
+      "keys": {
+        "_light": "255 255 220 800"
+      },
+      "room": "plan",
+      "at": [
+        832,
+        640
+      ],
+      "height": 256
+    },
+    {
+      "class": "env_glow",
+      "keys": {
+        "model": "sprites/glow01.spr"
+      },
+      "room": "plan",
+      "at": [
+        881,
+        416
+      ],
+      "height": 260
+    },
+    {
+      "class": "light",
+      "keys": {
+        "_light": "255 255 220 800"
+      },
+      "room": "plan",
+      "at": [
+        880,
+        416
+      ],
+      "height": 256
+    },
+    {
+      "class": "env_glow",
+      "keys": {
+        "model": "sprites/glow01.spr"
+      },
+      "room": "plan",
+      "at": [
+        881,
+        176
+      ],
+      "height": 260
+    },
+    {
+      "class": "light",
+      "keys": {
+        "_light": "255 255 220 800"
+      },
+      "room": "plan",
+      "at": [
+        880,
+        176
+      ],
+      "height": 256
+    },
+    {
+      "class": "env_glow",
+      "keys": {
+        "model": "sprites/glow01.spr"
+      },
+      "room": "plan",
+      "at": [
+        657,
+        0
+      ],
+      "height": 292
+    },
+    {
+      "class": "light",
+      "keys": {
+        "_light": "255 255 220 800"
+      },
+      "room": "plan",
+      "at": [
+        656,
+        0
+      ],
+      "height": 288
+    },
+    {
+      "class": "env_glow",
+      "keys": {
+        "model": "sprites/glow01.spr"
+      },
+      "room": "plan",
+      "at": [
+        625,
+        448
+      ],
+      "height": 260
+    },
+    {
+      "class": "light",
+      "keys": {
+        "_light": "255 255 220 800"
+      },
+      "room": "plan",
+      "at": [
+        624,
+        448
+      ],
+      "height": 256
+    },
+    {
+      "class": "env_glow",
+      "keys": {
+        "model": "sprites/glow01.spr"
+      },
+      "room": "plan",
+      "at": [
+        641,
+        384
+      ],
+      "height": 108
+    },
+    {
+      "class": "light",
+      "keys": {
+        "_light": "255 255 220 800"
+      },
+      "room": "plan",
+      "at": [
+        640,
+        384
+      ],
+      "height": 104
+    },
+    {
+      "class": "env_glow",
+      "keys": {
+        "model": "sprites/glow01.spr"
+      },
+      "room": "plan",
+      "at": [
+        657,
+        192
+      ],
+      "height": 108
+    },
+    {
+      "class": "light",
+      "keys": {
+        "_light": "255 255 220 800"
+      },
+      "room": "plan",
+      "at": [
+        656,
+        192
+      ],
+      "height": 104
+    },
+    {
+      "class": "info_player_deathmatch",
+      "room": "plan",
+      "at": [
+        -384,
+        992
+      ],
+      "height": 384
+    },
+    {
+      "class": "weapon_rpg",
+      "room": "plan",
+      "at": [
+        -384,
+        928
+      ],
+      "height": 336
+    },
+    {
+      "class": "info_player_deathmatch",
+      "room": "plan",
+      "at": [
+        -440,
+        -992
+      ],
+      "height": 384
+    },
+    {
+      "class": "info_player_deathmatch",
+      "room": "plan",
+      "at": [
+        -552,
+        -632
+      ],
+      "height": 224
+    },
+    {
+      "class": "info_player_deathmatch",
+      "room": "plan",
+      "at": [
+        -416,
+        544
+      ],
+      "height": 64
+    },
+    {
+      "class": "info_player_deathmatch",
+      "room": "plan",
+      "at": [
+        -416,
+        352
+      ],
+      "height": 64
+    },
+    {
+      "class": "info_player_deathmatch",
+      "room": "plan",
+      "at": [
+        -432,
+        -384
+      ],
+      "height": 64
+    },
+    {
+      "class": "info_player_deathmatch",
+      "room": "plan",
+      "at": [
+        -912,
+        -768
+      ],
+      "height": 64
+    },
+    {
+      "class": "info_player_deathmatch",
+      "room": "plan",
+      "at": [
+        160,
+        -768
+      ],
+      "height": 64
+    },
+    {
+      "class": "info_player_deathmatch",
+      "room": "plan",
+      "at": [
+        656,
+        -16
+      ],
+      "height": 64
+    },
+    {
+      "class": "info_player_deathmatch",
+      "room": "plan",
+      "at": [
+        608,
+        496
+      ],
+      "height": 224
+    },
+    {
+      "class": "info_player_deathmatch",
+      "room": "plan",
+      "at": [
+        448,
+        0
+      ],
+      "height": 224
+    },
+    {
+      "class": "info_player_deathmatch",
+      "room": "plan",
+      "at": [
+        288,
+        0
+      ],
+      "height": 64
+    },
+    {
+      "class": "info_player_deathmatch",
+      "room": "plan",
+      "at": [
+        -1152,
+        0
+      ],
+      "height": 64
+    },
+    {
+      "class": "weapon_gauss",
+      "room": "plan",
+      "at": [
+        -832,
+        0
+      ],
+      "height": 176
+    },
+    {
+      "class": "weapon_tripmine",
+      "room": "plan",
+      "at": [
+        -816,
+        272
+      ],
+      "height": 176
+    },
+    {
+      "class": "weapon_tripmine",
+      "room": "plan",
+      "at": [
+        -816,
+        -288
+      ],
+      "height": 176
+    },
+    {
+      "class": "ammo_gaussclip",
+      "room": "plan",
+      "at": [
+        600,
+        344
+      ],
+      "height": 176
+    },
+    {
+      "class": "ammo_gaussclip",
+      "room": "plan",
+      "at": [
+        600,
+        376
+      ],
+      "height": 176
+    },
+    {
+      "class": "ammo_gaussclip",
+      "room": "plan",
+      "at": [
+        -48,
+        144
+      ],
+      "height": 16
+    },
+    {
+      "class": "ammo_buckshot",
+      "room": "plan",
+      "at": [
+        -48,
+        -144
+      ],
+      "height": 16
+    },
+    {
+      "class": "item_battery",
+      "room": "plan",
+      "at": [
+        488,
+        -360
+      ],
+      "height": 176
+    },
+    {
+      "class": "item_battery",
+      "room": "plan",
+      "at": [
+        488,
+        360
+      ],
+      "height": 176
+    },
+    {
+      "class": "ammo_ARgrenades",
+      "room": "plan",
+      "at": [
+        -664,
+        152
+      ],
+      "height": 336
+    },
+    {
+      "class": "ammo_ARgrenades",
+      "room": "plan",
+      "at": [
+        -664,
+        -152
+      ],
+      "height": 336
+    },
+    {
+      "class": "info_player_deathmatch",
+      "room": "plan",
+      "at": [
+        -48,
+        0
+      ],
+      "height": 64
+    },
+    {
+      "class": "weapon_9mmAR",
+      "room": "plan",
+      "at": [
+        -384,
+        0
+      ],
+      "height": 176
+    },
+    {
+      "class": "ammo_9mmAR",
+      "room": "plan",
+      "at": [
+        -384,
+        48
+      ],
+      "height": 176
+    },
+    {
+      "class": "ammo_9mmAR",
+      "room": "plan",
+      "at": [
+        -384,
+        -48
+      ],
+      "height": 176
+    },
+    {
+      "class": "ammo_9mmAR",
+      "room": "plan",
+      "at": [
+        608,
+        480
+      ],
+      "height": 16
+    },
+    {
+      "class": "weapon_9mmAR",
+      "room": "plan",
+      "at": [
+        608,
+        448
+      ],
+      "height": 16
+    },
+    {
+      "class": "ammo_9mmAR",
+      "room": "plan",
+      "at": [
+        608,
+        416
+      ],
+      "height": 16
+    },
+    {
+      "class": "ammo_ARgrenades",
+      "room": "plan",
+      "at": [
+        640,
+        448
+      ],
+      "height": 16
+    },
+    {
+      "class": "ammo_buckshot",
+      "room": "plan",
+      "at": [
+        -208,
+        -184
+      ],
+      "height": 0,
+      "z": 336
+    },
+    {
+      "class": "weapon_handgrenade",
+      "room": "plan",
+      "at": [
+        -560,
+        -184
+      ],
+      "height": 0,
+      "z": 336
+    },
+    {
+      "class": "weapon_handgrenade",
+      "room": "plan",
+      "at": [
+        -560,
+        184
+      ],
+      "height": 0,
+      "z": 336
+    },
+    {
+      "class": "ammo_gaussclip",
+      "room": "plan",
+      "at": [
+        -208,
+        184
+      ],
+      "height": 0,
+      "z": 336
+    },
+    {
+      "class": "item_longjump",
+      "room": "plan",
+      "at": [
+        -72,
+        0
+      ],
+      "height": 336
+    },
+    {
+      "class": "weapon_shotgun",
+      "room": "plan",
+      "at": [
+        176,
+        0
+      ],
+      "height": 16
+    },
+    {
+      "class": "ammo_buckshot",
+      "room": "plan",
+      "at": [
+        -296,
+        -848
+      ],
+      "height": 16
+    },
+    {
+      "class": "ammo_rpgclip",
+      "room": "plan",
+      "at": [
+        152,
+        -744
+      ],
+      "height": 16
+    },
+    {
+      "class": "ammo_rpgclip",
+      "room": "plan",
+      "at": [
+        152,
+        -792
+      ],
+      "height": 16
+    },
+    {
+      "class": "weapon_hornetgun",
+      "room": "plan",
+      "at": [
+        -1064,
+        0
+      ],
+      "height": 16
+    },
+    {
+      "class": "ammo_rpgclip",
+      "room": "plan",
+      "at": [
+        -920,
+        -744
+      ],
+      "height": 16
+    },
+    {
+      "class": "ammo_rpgclip",
+      "room": "plan",
+      "at": [
+        -920,
+        -792
+      ],
+      "height": 16
+    },
+    {
+      "class": "weapon_snark",
+      "room": "plan",
+      "at": [
+        752,
+        536
+      ],
+      "height": 8
+    },
+    {
+      "class": "weapon_tripmine",
+      "room": "plan",
+      "at": [
+        -536,
+        -624
+      ],
+      "height": 184
+    },
+    {
+      "class": "weapon_tripmine",
+      "room": "plan",
+      "at": [
+        -536,
+        -664
+      ],
+      "height": 184
+    },
+    {
+      "class": "ammo_ARgrenades",
+      "room": "plan",
+      "at": [
+        -936,
+        808
+      ],
+      "height": 184
+    },
+    {
+      "class": "ammo_buckshot",
+      "room": "plan",
+      "at": [
+        -1224,
+        -128
+      ],
+      "height": 16
+    },
+    {
+      "class": "ammo_rpgclip",
+      "room": "plan",
+      "at": [
+        -416,
+        472
+      ],
+      "height": 16
+    },
+    {
+      "class": "ammo_rpgclip",
+      "room": "plan",
+      "at": [
+        -416,
+        424
+      ],
+      "height": 16
+    },
+    {
+      "class": "ammo_buckshot",
+      "room": "plan",
+      "at": [
+        -224,
+        512
+      ],
+      "height": 16
+    },
+    {
+      "class": "ammo_ARgrenades",
+      "room": "plan",
+      "at": [
+        -128,
+        -808
+      ],
+      "height": 184
+    },
+    {
+      "class": "ammo_ARgrenades",
+      "room": "plan",
+      "at": [
+        -344,
+        0
+      ],
+      "height": 176
+    },
+    {
+      "class": "weapon_tripmine",
+      "room": "plan",
+      "at": [
+        488,
+        208
+      ],
+      "height": 176
+    },
+    {
+      "class": "weapon_tripmine",
+      "room": "plan",
+      "at": [
+        488,
+        -208
+      ],
+      "height": 176
+    }
+  ]
+}

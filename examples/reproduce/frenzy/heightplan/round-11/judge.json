@@ -1,0 +1,105 @@
+{
+ "subject": "frenzy",
+ "leg": "heightplan",
+ "measured": {
+  "floorOverlap": 0.888,
+  "alignment": {
+   "move": [
+    0,
+    0,
+    -16
+   ],
+   "note": "the reproduction is this far from where the original has the same floor"
+  },
+  "entities": {
+   "original": 58,
+   "reproduction": 58,
+   "matched": 58,
+   "share": 1,
+   "missing": []
+  },
+  "walkTest": {
+   "unreachedInReproduction": 3,
+   "unreachedInOriginal": 3
+  },
+  "sweep": {
+   "original": {
+    "hurtingDrops": 48,
+    "glowsInMidAir": 0,
+    "lightEntitiesInOpenAir": 2,
+    "solidInMidAir": 0
+   },
+   "reproduction": {
+    "hurtingDrops": 55,
+    "glowsInMidAir": 0,
+    "lightEntitiesInOpenAir": 0,
+    "solidInMidAir": 0
+   }
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "P2": 2,
+  "P4": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "plans.png: both maps have a full-height central corridor, two octagonal wings, the stepped north-east extension with stairs at the right edge, and the same doors (two func_door on the upper storey) and healthcharger. The walk test leaves the same 3 items unreached in each. Partition lines in the north-west room differ, but the arrangement and joins match."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured floor overlap is 0.888 against the 0.70 line, with alignment shifted only 16 units in height. The plan outlines match to the eye."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "storeys-reproduction.png: the Z 556 storey has a '2 440' ledge in the north-west octagon that storeys-original.png lacks. The Z 372 storey labels '2 360' where the original has '2 320'. The reproduction's north-east ramp reads higher than the original's in the Z 196 vs Z 228 storeys. Section and storey heights agree in most places but not all."
+  },
+  "P4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 58 of 58 entities matched within 64 units, the same classes. The storey pictures show the same starts (info_player_start at the south edge, deathmatch starts in the same rooms on the ground storey), the same ammo, weapons and healthcharger in the same rooms."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The reproduction's surfaces cannot be seen in views.png (its half is black). In plans.png the reproduction's north-east and top-right floors are pale tan where the original's are dark grey-brown, so at least those surfaces differ in tone."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Light entities sit where the original has none: the reproduction's left octagon has about eight lights (storeys-reproduction Z 556 and Z 372 panels) while the original's storeys show none there. The sweep counts 2 original lights in open air and 0 in the reproduction. Bright and dark areas do not match."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The central corridor, the two octagon wings and the hexagonal pit are there. The reproduction's diagonal walls are stair-stepped (plans.png, around x 1065-1200 and 1600-1750), where the original has smooth diagonal walls with black railing strips (around x 110-240 and 580-700). Those railings and the original's diagonal trim are missing."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "checkErrors is empty (compiles, no leak reported). The walk test leaves 3 items unreached in each map, the same count as the original, so it matches the original's behaviour. No solid is floating in either. Note: 55 hurting drops against the original's 48, which the rubric does not count but which may be worth a look. The equal count does not prove the same 3 items."
+  },
+  "P9": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "In views.png the reproduction's half of every one of the eight start views is black, so no reproduction view can be compared with the original. Only the original's views are visible. This may be a render fault in the picture rather than the map, but as drawn nothing shows the same place, so the item cannot pass. A re-draw of the views is needed before it can be judged."
+  }
+ },
+ "total": 12,
+ "of": 18,
+ "passes": false
+}

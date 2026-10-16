@@ -2,24 +2,33 @@
  "subject": "frenzy",
  "leg": "heightplan",
  "measured": {
-  "floorOverlap": 0.888,
+  "floorOverlap": 0.826,
+  "floorMeasured": "every floor a player fits on (storeys: 61% of its floor under or over another)",
   "alignment": {
    "move": [
     0,
     0,
-    -16
+    16
    ],
    "note": "the reproduction is this far from where the original has the same floor"
   },
   "entities": {
    "original": 58,
    "reproduction": 58,
-   "matched": 58,
-   "share": 1,
-   "missing": []
+   "matched": 51,
+   "share": 0.879,
+   "missing": [
+    "ammo_ARgrenades at -664 152 336",
+    "ammo_ARgrenades at -664 -152 336",
+    "ammo_buckshot at -208 -184 336",
+    "weapon_handgrenade at -560 -184 336",
+    "weapon_handgrenade at -560 184 336",
+    "ammo_gaussclip at -208 184 336",
+    "item_longjump at -72 0 336"
+   ]
   },
   "walkTest": {
-   "unreachedInReproduction": 3,
+   "unreachedInReproduction": 0,
    "unreachedInOriginal": 3
   },
   "sweep": {
@@ -30,9 +39,9 @@
     "solidInMidAir": 0
    },
    "reproduction": {
-    "hurtingDrops": 55,
+    "hurtingDrops": 48,
     "glowsInMidAir": 0,
-    "lightEntitiesInOpenAir": 0,
+    "lightEntitiesInOpenAir": 1,
     "solidInMidAir": 0
    }
   },
@@ -45,61 +54,61 @@
  },
  "scores": {
   "P1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "plans.png: both maps have a full-height central corridor, two octagonal wings, the stepped north-east extension with stairs at the right edge, and the same doors (two func_door on the upper storey) and healthcharger. The walk test leaves the same 3 items unreached in each. Partition lines in the north-west room differ, but the arrangement and joins match."
+   "score": 1,
+   "reason": "The plans show the same parts in the same arrangement: a central north-south spine, two octagonal halves with side rooms, and a stair block at the upper right. Some joins differ. In the original's storeys the upper-left wall has doors (func_door 41 and 46 at z 228) that the reproduction's upper storey does not show, and the reproduction's room outlines are stepped where the original's are chamfered."
   },
   "P2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured floor overlap is 0.888 against the 0.70 line, with alignment shifted only 16 units in height. The plan outlines match to the eye."
+   "reason": "The plans, drawn at one scale, line up closely: the footprints match in size and place, and the measured floor overlap is 0.826 over every floor a player fits on, above the 0.70 line. The reproduction's diagonal edges are stair-stepped, but each room is within the 10% band by eye."
   },
   "P3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "storeys-reproduction.png: the Z 556 storey has a '2 440' ledge in the north-west octagon that storeys-original.png lacks. The Z 372 storey labels '2 360' where the original has '2 320'. The reproduction's north-east ramp reads higher than the original's in the Z 196 vs Z 228 storeys. Section and storey heights agree in most places but not all."
+   "reason": "The section agrees in broad strokes: the 160-unit ceilings in the lower rooms, the 512 ledges and the 320 bridges sit at the same heights. The differences are in the detail. The original's right-hand outer slope (x 838 to 862, 165 to 28) is a stepped wall in the reproduction, and its raised block at about height 300 sits a little differently. The reproduction also has an extra ledge at about 142 over the left room, which the original does not show."
   },
   "P4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured 58 of 58 entities matched within 64 units, the same classes. The storey pictures show the same starts (info_player_start at the south edge, deathmatch starts in the same rooms on the ground storey), the same ammo, weapons and healthcharger in the same rooms."
+   "reason": "The measured match is 51 of 58 entities (0.879), within 64 units after alignment, above the 80% line. Starts, the handgrenade pair, the gauss clip, the buckshot and the longjump sit on the middle storey in both maps, close to the same places. The seven unmatched entities are at z 336 and are a few units further off than the match allows."
   },
   "P5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The reproduction's surfaces cannot be seen in views.png (its half is black). In plans.png the reproduction's north-east and top-right floors are pale tan where the original's are dark grey-brown, so at least those surfaces differ in tone."
+   "reason": "The original's walls show bookshelf and rack textures with panel seams (START 1, 2, 3, 8), and the reproduction's walls are plain grey concrete or stone-like panels. START 2's reproduction wall is a metal panel with bolts, which the original does not have there. The texture kinds are clearly different."
   },
   "P6": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Light entities sit where the original has none: the reproduction's left octagon has about eight lights (storeys-reproduction Z 556 and Z 372 panels) while the original's storeys show none there. The sweep counts 2 original lights in open air and 0 in the reproduction. Bright and dark areas do not match."
+   "reason": "The reproduction is much darker in the views: START 3, 4, 5, 6 and 7 are close to black where the original is lit. START 8 shows a bright lamp in the distance, where the original has a fluorescent fitting over the hall. The light entities are in roughly the same count and places in the storeys, but their brightness and the bright and dark areas do not match."
   },
   "P7": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The central corridor, the two octagon wings and the hexagonal pit are there. The reproduction's diagonal walls are stair-stepped (plans.png, around x 1065-1200 and 1600-1750), where the original has smooth diagonal walls with black railing strips (around x 110-240 and 580-700). Those railings and the original's diagonal trim are missing."
+   "reason": "The central corridor and the stair block are in place. The original's shelf rows, grates and vents in the side walls (START 1, 2, 3, 8) are missing or replaced by plain panels in the reproduction, and the original's plan detail (the diagonal rails and the darker sloped roof areas) is simplified."
   },
   "P8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "checkErrors is empty (compiles, no leak reported). The walk test leaves 3 items unreached in each map, the same count as the original, so it matches the original's behaviour. No solid is floating in either. Note: 55 hurting drops against the original's 48, which the rubric does not count but which may be worth a look. The equal count does not prove the same 3 items."
+   "reason": "The checks are clean: checkErrors is empty, the reproduction has 0 unreached items on the walk test (the original has 3), and it has no solid floating in mid-air or glows in mid-air. Its count of 48 hurting drops matches the original's 48, and it has one light in open air against the original's two."
   },
   "P9": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "In views.png the reproduction's half of every one of the eight start views is black, so no reproduction view can be compared with the original. Only the original's views are visible. This may be a render fault in the picture rather than the map, but as drawn nothing shows the same place, so the item cannot pass. A re-draw of the views is needed before it can be judged."
+   "reason": "The views from the original's starts do not show the same place. START 1, 3, 4, 5, 6 and 7 are dark or black in the reproduction where the original is lit with shelves. START 2 shows a metal-panel wall the original does not have at that point, and START 8 is a dark hall with a different wall where the original is a lit corridor of shelves. A player who knows the map would not recognise it at once."
   }
  },
- "total": 12,
+ "total": 11,
  "of": 18,
  "passes": false
 }

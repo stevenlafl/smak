@@ -418,7 +418,9 @@ export async function judgeMap(map, leg, copyFile, { decoy } = {}) {
   const starts = entitiesOf(original).filter((e) => /^info_player_/.test(e.classname ?? "") && e.origin).slice(0, 8);
   const pairs = [];
   for (const [n, e] of starts.entries()) {
-    const yaw = Number(String(e.angles ?? "0 0 0").split(/\s+/)[1] ?? e.angle ?? 0) || 0;
+    // the way the player faces: `angles`' second number, or `angle` (frenzy's starts give only `angle`; read as
+    // "0 0 0" they were all drawn facing east, into walls the original's player does not face)
+    const yaw = e.angles !== undefined ? Number(String(e.angles).split(/\s+/)[1]) || 0 : Number(e.angle ?? 0) || 0;
     const eye = [e.origin[0], e.origin[1], e.origin[2] + 28];
     const there = eye.map((v, i) => v + move[i]);
     smak("map-view", originalFile, "-o", join(dir, `v${n}a.png`), "--from", eye.join(","), "--yaw", String(yaw), "--width", "480", "--height", "300", "--entities", "game", "--no-labels", ...game);

@@ -435,7 +435,7 @@ async function judgeAll(which) {
 function firstView(file) {
   const bsp = maps.readBsp(readFileSync(file));
   const start = bsp.entities.map((e) => Object.fromEntries(e)).find((e) => /info_player_(start|deathmatch)/.test(e.classname));
-  if (start?.origin) return { from: start.origin.split(" ").map(Number).map((v, k) => (k === 2 ? v + 28 : v)), yaw: Number((start.angles ?? "0 0 0").split(" ")[1]) || 0 };
+  if (start?.origin) return { from: start.origin.split(" ").map(Number).map((v, k) => (k === 2 ? v + 28 : v)), yaw: start.angles !== undefined ? Number(String(start.angles).split(" ")[1]) || 0 : Number(start.angle ?? 0) || 0 };
   const { mins, maxs } = bsp.models[0];
   return { from: [0, 1, 2].map((k) => (mins[k] + maxs[k]) / 2), yaw: 0 };
 }
