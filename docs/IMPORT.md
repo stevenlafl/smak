@@ -105,6 +105,26 @@ reads each animation at `fps` poses a second, names it by what follows its last 
 gives the model hit boxes about its bones. It is not yet a monster: activities, events, eyes and a walk
 that travels are added as for any monster (AGENTS.md, "A monster's parts").
 
+**Something added to a rigged character before it is built** (a lantern in a hand, a pack on a back).
+`importRigged` gives back `parts`, what it built the model from, as `buildMdl` takes it: the bones, each mesh's
+triangles in the model at rest (corners `{ p, uv, n, bone }`, `bone` a number) with its texture, the
+sequences. Add a bone after the others, its value in every frame, and a mesh on it; then build again:
+
+```js
+const zombie = importRigged(read, { name: "bearer.mdl", pictures, origin: "base", animations: [] });
+const { parts } = zombie, hand = parts.bones.findIndex((b) => b.name === "Hand_l");
+parts.bones.push({ name: "lantern", parent: hand, pos: [0, 5.5, 0], rot: [0, 0, 0] });
+for (const s of parts.sequences) for (const frame of s.frames) frame.push([0, 5.5, 0, 0, 0, 0]);
+const at = animate.worldOf(animate.rigOf(parts.bones), animate.rigOf(parts.bones).rest).at(-1).p;   // the new bone at rest
+parts.bodyparts[0].models[0].meshes.push({ texture: lampTexture, tris: lampTris.map((t) => t.map((c) => ({ ...c, p: add(c.p, at), bone: parts.bones.length - 1 }))) });
+const mdl = buildMdl(parts);
+```
+
+A prop to hang there comes the same way: `importRigged` of a file with no skin gives its one mesh in `parts` too
+(`fit` and `origin` as for a prop). Then animate with `animate.hold(rig, pose, "lantern")` in `each` (it hangs
+straight whatever the fist does) and `animate.grounded(mdl, { seqs: ["die"] })` (a fall lies on the floor, not
+in it). `buildMdl(zombie.parts)` with nothing added gives the same bytes as `zombie.mdl`.
+
 ## Limits
 
 - **One bone a point.** GoldSrc holds each point on one bone: where the file shares a point between bones

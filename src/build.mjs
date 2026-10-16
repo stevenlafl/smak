@@ -20,7 +20,16 @@ import { into, out, box, uniq } from "./vec.mjs";
  *              tris: corners { p (where it is in the model, the bones at rest), uv, bone (a bone's name or
  *              number; the first unless told) }
  *              texture: { name, width, height, pixels, palette, flags } (see image.mjs: indexed, masked,
- *              textureFrom); meshes that give a texture of the same name share it
+ *              textureFrom); meshes that give a texture of the same name share it. `flags` are studio.h's
+ *              STUDIO_NF_ bits, added together (`TEXTURE` in render.mjs names the ones the kit draws):
+ *                1  flat shaded: one light for each face, no smoothing
+ *                2  chrome: the picture taken from the way the surface faces the eye (older GoldSrc draws it
+ *                   right only at 64x64)
+ *                4  full bright: drawn unlit, at the picture's own colours (a lantern's panes, eyes that glow).
+ *                   Xash's gl_studio.c does so; Steam's GoldSrc is closed and is not known to: try it there
+ *                8  no mipmaps; 16 alpha (Xash: a picture's own see-through); neither is drawn by the kit
+ *                32 additive: added to what is behind it, a glow that hides nothing
+ *                64 masked: palette index 255 is a hole (`masked` makes such a texture)
  *   sequences  [{ name, fps, loops, frames: [for each frame, for each bone, [x, y, z, about x, about y,
  *              about z]] }]; one, "idle", holding the bones at rest, unless told. Each may also say
  *              activity, actweight, movement [x, y, z] (how far the model travels in one play of it, the

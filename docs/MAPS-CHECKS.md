@@ -129,3 +129,29 @@ Without rooms, the dark of the floor is gathered into stretches and listed with 
 The numbers are the bytes hlrad stored. The engine (Xash's GL renderer, its defaults) shows texture x
 sample x 2; this kit's views use 1.55. Both are a straight multiply, so a view is as true as the lightmaps
 are: of a draft it shows the draft's light.
+
+## A band left empty on purpose
+
+A spawn area's place has one template for each strength of party (`reqhp` "0;150", "150;500", "500" in
+Master Sword), and the profile's `bands` rule warns when the ranges at a place do not meet: "nothing has 150
+to 500, between 0;150 and 500". A map may leave a place empty in one band on purpose (the Barrow Road keeps
+some of its places for the weak and the strong only), and then the warning hid the true faults among 18 that
+were meant.
+
+The rule's `open` names a key by which the map says so, on the place's templates: Master Sword's profile reads
+`reqhp_none`, the ranges left empty there parted by commas.
+
+```
+msmonster_skeleton  spawnarea road1_spawn  reqhp "0;150"  reqhp_none "150;500"   (and the one of "500" the same)
+```
+
+- A range said to be empty fills the gap: the place's ranges meet, and nothing is said.
+- A gap the key does not cover is still told ("nothing has 500 to 600, between 150;500 (left empty) and
+  600"), and so is a range said to be empty that a template has ("150;500 (left empty) and 150;500
+  overlap"), and a value that is no range.
+- The game reads no such key: it is a note for the check, and the check of keys a class does not define
+  passes over a key a rule of the profile names as its `open`. A profile without `open` reads none (the key
+  is then a key its class does not define, and the gap a gap).
+
+Measured: maps/barrowroad (msr-web) had 18 such warnings, each a place meant to be empty in the middle band;
+with `reqhp_none` on its templates (its monsters the same) its `checkPlan` and `checkBsp` say 0 warnings.

@@ -7,6 +7,8 @@
 //
 // Plain arrays, no browser and no library.
 import { sub, dot, cross, unit } from "./vec.mjs";
+// a body built limb by limb, each corner on its own bone (skinned.mjs): lofts, tubes and cards
+export { skinned, zoneOn, span } from "./skinned.mjs";
 
 /** A triangle of less than this (twice its area, in units) is no triangle, and is left out. */
 const NO_AREA = 1e-9;

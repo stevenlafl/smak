@@ -19,6 +19,9 @@ export * from "./obj.mjs";
 export * from "./biped.mjs";
 export * from "./contract.mjs";
 export * as workshop from "./workshop.mjs";
+// the workshop's noise and colour helpers by name too, for painting by place (`paint` is in place.mjs)
+export { rand, noise, fbm, fbm3, seeded, step, mix, times, bell } from "./workshop.mjs";
+export * from "./reskin.mjs";
 export * as maps from "./maps/index.mjs";
 export * as play from "./play.mjs";
 export * as animate from "./animate.mjs";

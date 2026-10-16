@@ -109,7 +109,7 @@ function nearestAngles(six, before) {
 }
 
 /**
- * A studio model with a file's skeleton and animations: { mdl, warnings, report }.
+ * A studio model with a file's skeleton and animations: { mdl, parts, textures, warnings, report }.
  *   name         what the file calls itself
  *   animations   the names of the animations to take, in that order (unless told: all of them). A name may be
  *                the whole of one or its end ("Walk" finds "Armature|Walk"). An empty list: none, and the model
@@ -129,6 +129,12 @@ function nearestAngles(six, before) {
  * `report` is { name, triangles, points, bodyparts, box, textures, scale, format, heavy, bones (their names),
  * sequences: [{ name, from, frames, fps, loops, seconds }], shared (how many points were held by several bones
  * and went to the heaviest), lostStretch (the animations in which a bone's stretch changes) }.
+ * `parts` is what the model was built from, as `buildMdl` takes it: { name, bones, bodyparts (each mesh's
+ * `tris` with corners { p (in the model, at rest), uv, n, bone (a number) } and its `texture`), sequences,
+ * hitboxes, smooth, ownNormals }. Add to it (a bone after the others, a mesh on that bone, a frame value for
+ * the new bone in every sequence) and `buildMdl(parts)` again: a piece composed before building, with no
+ * reading back. `textures` lists the textures the meshes wear. The lists are the model's own: change copies
+ * when the original is wanted again.
  * A monster needs more than this gives: its animations' activities and events, where it sees from, and a walk
  * that travels (`movement`): see "A monster's parts" in AGENTS.md, and `addSequence`, `setEvents`.
  */
@@ -340,7 +346,7 @@ export function importRigged(imported, options = {}) {
     );
 
   const modelName = fileName.replace(/\.mdl$/i, "");
-  const mdl = buildMdl({
+  const parts = {
     name: fileName,
     bones,
     smooth,
@@ -351,7 +357,8 @@ export function importRigged(imported, options = {}) {
       models: [{ name: nth ? `${modelName}${nth + 1}`.slice(0, FILE_NAME_MOST) : modelName, meshes: submodel.meshes }],
     })),
     sequences: sequences.map(({ name, fps: rate, loops, frames }) => ({ name, fps: rate, loops, frames })),
-  });
+  };
+  const mdl = buildMdl(parts);
   for (const engine of ["goldsrc", "xash"]) {
     const errors = check(mdl, engine).errors;
     if (errors.length) throw new Error(`importRigged: the model would not load in ${engine}: ${errors.join("; ")}`);
@@ -359,6 +366,8 @@ export function importRigged(imported, options = {}) {
   const placedBox = { mn: low.map((value, a) => value + shift[a]), mx: high.map((value, a) => value + shift[a]) };
   return {
     mdl,
+    parts,
+    textures: [...new Map(submodels.flatMap((s) => s.meshes.map((m) => [m.texture.name, m.texture]))).values()],
     warnings,
     report: {
       name: fileName,

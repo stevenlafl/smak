@@ -61,6 +61,13 @@ const areas = [
   "51-sprite-layers", // sprites' layers: a glow with no cut, a flare's wedges and rays, a flat beam, tongues, a lit billow, blobs, a reference measured
   "53-texture-places", // where a map's textures are best seen, a material seen under a map's light, the wad preview from there
   "52-sound-shape", // sounds shaped to a curve, squashed to a crest, a crack after it, grains at a period, a picture read back
+  "46-reskin", // an island given pixels of its own, a re-skin by rules with its pictures before and after, `smak reskin`, check --source
+  "47-sequence-from", // an animation of frames of another, backwards or held; `smak sequence-add --from`
+  "48-animate-hold", // a held thing aimed and gripped, a bone held at a turn of its own, the quaternions, a fall kept on the ground, yaw with a named view
+  "49-compose", // a piece composed on an imported rig's parts before building; the workshop's skinned body
+  "50-play-session-long", // a session's run quiet for long still answered (headers at once, a beat, no fetch); folders laid over, what changed put
+  "51-map-bands-open", // a band left empty at a place on purpose, said by a key the bands rule reads: only the true faults told
+  "52-play-fight-ways", // a fight that prefers a kind of enemy, sidesteps round a crowd to it, dodges a place it is warned of
   "19-example-and-kit-faults", // the examples' wrong arguments and refused models; the kits' fittings and rings
   "54-carve", // fewer triangles by quadric error (a sphere, a box, a sheet's border), a shape carved from its outlines
   "55-sky", // skies made from words: written as the game's Targa files, read back with no seam, made by a map spec
