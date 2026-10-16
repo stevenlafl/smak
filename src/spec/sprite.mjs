@@ -125,6 +125,10 @@ function againstReference(name, ref, back, s, readPicture) {
   facts.push(`${name}: its brightest ${hotTheirs.peak} and ${hotOurs.peak}, pixels over 0.7 a frame ${Math.round(hotTheirs.core)} and ${Math.round(hotOurs.core)}`);
   if (hotOurs.peak > hotTheirs.peak + 0.15 || hotOurs.core > Math.max(2, 1.5 * hotTheirs.core))
     notes.push(`${name}: its middle is hotter than its reference's (brightest ${hotOurs.peak} against ${hotTheirs.peak}, ${Math.round(hotOurs.core)} pixels over 0.7 against ${Math.round(hotTheirs.core)}): a smaller core, a dimmer colour or a gentler falloff`);
+  // and smaller: flare1's core of 222 pixels over 0.7 against the reference's 530 was "roughly half the original's
+  // width" to the judges (R2 1), with its shape's mean at 0.85 and nothing said
+  else if (hotTheirs.core > 4 && hotOurs.core < hotTheirs.core / 1.5)
+    notes.push(`${name}: its middle is smaller than its reference's (${Math.round(hotOurs.core)} pixels over 0.7 a frame against ${Math.round(hotTheirs.core)}): a larger core, a brighter colour or a slower falloff`);
   else if (hotOurs.peak < hotTheirs.peak - 0.15) notes.push(`${name}: its middle is dimmer than its reference's (brightest ${hotOurs.peak} against ${hotTheirs.peak}): a brighter colour or core`);
   // when its light comes, frame by frame, and how far it reaches the border: the judges mark both down (R4: the
   // envelope's peak two frames late; R2: a halo that falls off before the reference's reaches the edge)

@@ -226,6 +226,13 @@ test("a glow of one colour is a ramp of 255 steps, and a middle hotter than its 
   sure(hot.report.warnings.some((w) => /its middle is hotter than its reference's/.test(w)), hot.report.warnings.join(" | "));
   const same = buildSpriteSpec({ spec: "smak.sprite/1", name: "sprites/same.spr", size: [64, 64], frames: 1, reference: file, layers: [{ kind: "glow", radius: 1.1, core: 0.08, colour: [0.9, 0.9, 0.9] }] });
   sure(!same.report.warnings.some((w) => /its middle is/.test(w)), same.report.warnings.join(" | "));
+  // and the reverse: a small core against a reference with a broad one
+  const broad = buildSpriteSpec({ spec: "smak.sprite/1", name: "sprites/broad.spr", size: [64, 64], frames: 1, layers: [{ kind: "glow", radius: 1.1, core: 0.3, colour: [1, 1, 1] }] });
+  const broadSheet = sheetOf(smak.maps.readSpr(broad.files[0].bytes), { cols: 8, cell: 128 });
+  const broadFile = join(tmp, "broad-ref.png");
+  writeFileSync(broadFile, smak.png(broadSheet.width, broadSheet.height, broadSheet.rgba));
+  const small = buildSpriteSpec({ spec: "smak.sprite/1", name: "sprites/small.spr", size: [64, 64], frames: 1, reference: broadFile, layers: [{ kind: "glow", radius: 1.1, core: 0.08, colour: [1, 1, 1] }] });
+  sure(small.report.warnings.some((w) => /its middle is smaller than its reference's/.test(w)), small.report.warnings.join(" | "));
 });
 
 test("against a reference: a late brightest frame and a halo short of the border are told", () => {
