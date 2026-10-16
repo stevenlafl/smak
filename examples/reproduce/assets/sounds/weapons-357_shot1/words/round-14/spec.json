@@ -1,0 +1,243 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/357_shot1.wav",
+  "class": "gunshot",
+  "rate": 22050,
+  "bits": 8,
+  "seed": 3,
+  "length": 1.06,
+  "layers": [
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 130,
+      "wave": "sine",
+      "sweep": {
+        "to": 45,
+        "time": 0.1
+      },
+      "at": 0,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.02,
+            -2
+          ],
+          [
+            0.1,
+            -14
+          ],
+          [
+            0.2,
+            -30
+          ],
+          [
+            0.35,
+            -50
+          ]
+        ]
+      },
+      "post": true,
+      "gain": -4
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.02,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.012
+      },
+      "post": true,
+      "gain": -9
+    },
+    {
+      "id": "rumble",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 40
+        },
+        {
+          "type": "lowpass",
+          "f": 150
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -6
+          ],
+          [
+            0.012,
+            0
+          ],
+          [
+            0.45,
+            -2
+          ],
+          [
+            0.8,
+            -22
+          ],
+          [
+            1,
+            -40
+          ],
+          [
+            1.06,
+            -60
+          ]
+        ]
+      },
+      "post": true,
+      "gain": 13
+    },
+    {
+      "id": "body",
+      "kind": "sample",
+      "file": "work:gen/357_shot_s0.wav",
+      "from": "onset",
+      "length": 1.06,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 4000
+        },
+        {
+          "type": "peak",
+          "f": 100,
+          "q": 1.2,
+          "gain": 5
+        },
+        {
+          "type": "peak",
+          "f": 300,
+          "q": 0.7,
+          "gain": -12
+        },
+        {
+          "type": "peak",
+          "f": 1000,
+          "q": 0.8,
+          "gain": -1
+        },
+        {
+          "type": "peak",
+          "f": 2500,
+          "q": 0.8,
+          "gain": -3
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -4
+          ],
+          [
+            0.012,
+            0
+          ],
+          [
+            0.45,
+            0
+          ],
+          [
+            0.6,
+            -12
+          ],
+          [
+            0.825,
+            -30
+          ],
+          [
+            1,
+            -46
+          ],
+          [
+            1.06,
+            -60
+          ]
+        ]
+      },
+      "gain": 3
+    },
+    {
+      "id": "blast_hold",
+      "kind": "sample",
+      "file": "work:gen/357_shot_s0.wav",
+      "from": "onset",
+      "length": 0.45,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 4000
+        },
+        {
+          "type": "peak",
+          "f": 100,
+          "q": 1.2,
+          "gain": 5
+        },
+        {
+          "type": "peak",
+          "f": 300,
+          "q": 0.7,
+          "gain": -12
+        },
+        {
+          "type": "peak",
+          "f": 1000,
+          "q": 0.8,
+          "gain": -2
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -6
+          ],
+          [
+            0.012,
+            0
+          ],
+          [
+            0.45,
+            -2
+          ]
+        ]
+      },
+      "gain": 0
+    }
+  ],
+  "finish": {
+    "saturate": 8,
+    "limit": {
+      "crest": 11,
+      "release": 0.002
+    },
+    "peak": -0.5
+  },
+  "bands": {
+    "<150": 21,
+    "150-600": 26,
+    "600-2k": 46,
+    "2k-5k": 6,
+    ">5k": 2
+  }
+}

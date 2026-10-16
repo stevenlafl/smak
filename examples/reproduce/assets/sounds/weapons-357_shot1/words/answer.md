@@ -1,30 +1,25 @@
-The sound is built and the build says OK: `work:sound/weapons/357_shot1.wav`, 22050 Hz, 8-bit mono, 1.06 s. To use it, put it in `<mod>/sound/weapons/`, where it replaces the game's file of that name.
+The sound is built at `work:sound/weapons/357_shot1.wav`, named so the game loads it in place of the original. The build says OK. It is made from layers only, with no recording, so the file carries no non-commercial licence.
 
-I did not have the original to put beside it, so every comparison below is against your description and the gunshot class ranges, not the recording.
+| Measure | Original | Made | Note |
+|---|---|---|---|
+| Length | 1.06 s | 1.06 s | Matches |
+| Rate and depth | 22050 Hz, 8-bit | 22050 Hz, 8-bit | Matches |
+| Attack | full level within about 12 ms | 5 ms | Matches |
+| Decay, 20 dB under loudest (T20) | 0.813 s | 0.783 s | Within 4% |
+| Power under 150 Hz | 21% | 25% | Within 4 points |
+| Power 150 to 600 Hz | 26% | 23.6% | Within 2.4 points |
+| Power 600 to 2000 Hz | 46% | 46.5% | Matches |
+| Power 2000 to 5000 Hz | 6% | 4.9% | Within 1.1 points |
+| Power over 5000 Hz | 2% | 0.1% | Under the target, within the 7-point tolerance |
+| Centroid (centre of energy) | about 921 Hz | 733 Hz | Darker than the original, not flagged by the build |
+| Onsets (hits counted) | 3 | 0 | Open, see below |
 
-**How it is made:** a generated .357 shot (take 0 of four, the one that starts on its hit) is the body. It is shaped with a tail that falls about 20 dB by 0.8 s, then saturated to the top setting. A thump and a crack sit at the start, and a low rumble under 150 Hz follows the same tail. The generator is woosh-dflow, with a CC-BY-NC 4.0 licence (non-commercial). You accepted that for this test, and the build records it in its facts.
+How it is built: a low sine thump at 0.01 s that falls from 110 Hz to 38 Hz, a short bandpassed crack at 0.03 s, and a blast of noise at 0.045 s. Its spectrum moves darker over time. A rough tail follows from 0.3 s, and a faint high hiss sits at the very end. The mix is saturated and limited to a crest of 11 dB.
 
-```
-Measure                   Made        Original (your description)
-------------------------  ----------  ----------------------------
-Length                    1.06 s      1.06 s
-Full level by             ~5-20 ms    ~12 ms
-T20 (drop 20 dB)          0.99 s      ~0.81 s after the peak
-T40 (drop 40 dB)          1.01 s      near silence at ~1.0 s
-Crest                     11 dB       (class 4.5 to 11.7)
-RMS                       -11.6 dBFS  (class -11.7 to -4.5)
-Under 150 Hz              17%         21%
-150-600 Hz                31%         26%
-600-2000 Hz               43%         46%
-2000-5000 Hz              7%          6%
-Over 5000 Hz              1%          2%
-```
+Three things to check:
 
-The build reports 22 of 22 of the gunshot class's features in range.
+- **Onset count is 0, not 3.** The build's judge merges hits under 50 ms apart, so three hits inside the first 40 ms can't be counted as three. I kept the 40 ms layout from the description. Spacing them 50 ms or more apart would make the count, but it would stretch the opening beyond what the original describes. Say if you want that trade.
+- **Centroid is about 190 Hz low.** Brightening it would push the 600 to 2000 Hz share over its target, so I kept the band shares.
+- **Not heard or tested in the game.** The build can't judge how it sounds to a person or how the game plays it, so listen to it in the game before you ship it.
 
-**Where it is off:**
-- The attack is about 20 ms, not 12 ms. The limiter that brings the crest down slows it.
-- The tail is about 0.18 s longer than the original's 20 dB drop. Tightening it lifted the tail again through the limiter, so I kept the level that held the crest.
-- The 8-bit depth adds a faint hiss under the quiet tail. I kept 8 bits because your facts say the original is 8-bit. Leaving out `bits` gives a 16-bit file with no hiss, if you prefer that.
-
-Nothing here was checked by ear in the game. Please listen to it there, since level and mix there matter as much as these numbers.
+I also generated four takes with the local generator (woosh-dflow, non-commercial licence) while trying a recording as a base. None of them went into the final file, so there is no licence issue in the output. The takes are in `work:gen/`.

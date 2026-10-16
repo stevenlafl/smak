@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-357_shot1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 1.064,
+   "peak": 0,
+   "rms": -8.5,
+   "crest": 8.5,
+   "dc": -0.0012,
+   "clipped": 265,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.748,
+   "t40": 1.003,
+   "centroid": 937,
+   "rolloff": 1658,
+   "flatness": 0.11,
+   "bands": {
+    "<150": 20.3,
+    "150-600": 27.5,
+    "600-2k": 43.9,
+    "2k-5k": 6.7,
+    ">5k": 1.6
+   },
+   "onsets": 3
+  },
+  "reproduction": {
+   "length": 1.06,
+   "peak": -0.6,
+   "rms": -11.6,
+   "crest": 11,
+   "dc": 0.0003,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.02,
+   "peakAt": 0.045,
+   "t20": 0.988,
+   "t40": 1.013,
+   "centroid": 821,
+   "rolloff": 1400,
+   "flatness": 0.072,
+   "bands": {
+    "<150": 17.2,
+    "150-600": 31.3,
+    "600-2k": 43.4,
+    "2k-5k": 7.2,
+    ">5k": 1
+   },
+   "onsets": 2
+  },
+  "envelope": {
+   "class": "gunshot",
+   "t20Range": [
+    0.458,
+    1.013
+   ],
+   "t20": 0.988,
+   "inRange": true
+  },
+  "lengthOff": 0.004,
+  "centroidOff": 0.124,
+  "bandsOffMost": 3.8,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. The original's waveform opens with a dense, clipped, broadband burst (about 0.4 s of full-scale block) and then decays, which reads as a shot. The reproduction's waveform is a near-constant band of noise from start to end with no distinct crack and no burst-then-tail shape, and its spectrogram shows a flat, sustained hiss rather than a blast. Same length and similar spectral tilt, but the event is not clearly a shot from the picture; clearly off, not wrong outright."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Length 1.06 s against 1.064 s is within 25%. The measured t20 (0.988 s, class range 0.458 to 1.013) is inside the range, but the picture contradicts the measured envelope's character: the original's loud burst ends near 0.75 s and the reproduction stays at roughly the same level almost to the end. The attack also differs (0.02 s against 0.005 s, peak at 0.045 s against 0.015 s), and the reproduction has no sharp transient. The envelope is clearly off in shape, so 1 rather than 2."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured. Centroid 821 Hz against 937 Hz is 12.4% off, within 20%. Band shares differ by at most 3.8 points (150 to 600 Hz: 31.3 against 27.5; under 150 Hz: 17.2 against 20.3; 600 Hz to 2 kHz: 43.4 against 43.9; 2 to 5 kHz: 7.2 against 6.7; over 5 kHz: 1.0 against 1.6), within 10 points. The spectrogram colours agree in broad distribution."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; from the picture and features. The original has about three distinct hits at its start (onsets 3) and a dense, impulsive texture. The reproduction has two onsets and a smooth, steady texture with no visible hits or clicks in its waveform. Flatness is 0.072 against 0.11, so it is also less noisy than the original. The spectrogram shows no pitch movement in either, so that part matches. Clearly off on hits and texture, though this item is not a must-have."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Fit for the game. Mono, PCM, 22050 Hz, 8 bits, the same name (sameName true), no clipping (0 samples against the original's 265), DC offset 0.0003 (negligible), peak -0.6 dB. No loop cue is claimed or needed for a one-shot shot sound. The file is what the engine plays."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,233 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/cbar_hit1.wav",
+  "class": "metal hit",
+  "rate": 11025,
+  "bits": 8,
+  "seed": 3,
+  "length": 0.69,
+  "layers": [
+    {
+      "id": "take",
+      "kind": "sample",
+      "file": "work:gen/cbar_take_s2.wav",
+      "from": "onset",
+      "length": 0.69,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 5000
+        },
+        {
+          "type": "highpass",
+          "f": 300
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -20
+          ],
+          [
+            0.02,
+            0
+          ],
+          [
+            0.12,
+            -2
+          ],
+          [
+            0.3,
+            -4
+          ],
+          [
+            0.34,
+            -10
+          ],
+          [
+            0.5,
+            -16
+          ],
+          [
+            0.69,
+            -24
+          ]
+        ]
+      },
+      "gain": -14
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1000,
+          "q": 0.7
+        },
+        {
+          "type": "highpass",
+          "f": 300
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -12
+          ],
+          [
+            0.02,
+            0
+          ],
+          [
+            0.12,
+            -2
+          ],
+          [
+            0.3,
+            -4
+          ],
+          [
+            0.34,
+            -10
+          ],
+          [
+            0.5,
+            -16
+          ],
+          [
+            0.69,
+            -22
+          ]
+        ]
+      },
+      "gain": -9
+    },
+    {
+      "id": "grit",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 3200,
+          "q": 0.6
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -4
+          ],
+          [
+            0.02,
+            0
+          ],
+          [
+            0.1,
+            -4
+          ],
+          [
+            0.3,
+            -12
+          ],
+          [
+            0.5,
+            -22
+          ]
+        ]
+      },
+      "gain": -1
+    },
+    {
+      "id": "lowmid",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 330,
+          "q": 1
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -10
+          ],
+          [
+            0.02,
+            0
+          ],
+          [
+            0.3,
+            -4
+          ],
+          [
+            0.6,
+            -16
+          ]
+        ]
+      },
+      "gain": -2
+    },
+    {
+      "id": "sub",
+      "kind": "tone",
+      "f": 110,
+      "wave": "sine",
+      "env": {
+        "decay": 0.15
+      },
+      "gain": -6
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 1000,
+      "modes": [
+        {
+          "f": 1000,
+          "gain": 0,
+          "decay": 0.65
+        },
+        {
+          "f": 1480,
+          "gain": -6,
+          "decay": 0.45
+        },
+        {
+          "f": 2170,
+          "gain": -10,
+          "decay": 0.35
+        },
+        {
+          "f": 640,
+          "gain": -12,
+          "decay": 0.5
+        }
+      ],
+      "gain": -4
+    }
+  ],
+  "finish": {
+    "lowpass": 5500,
+    "saturate": 1.5,
+    "limit": {
+      "crest": 9
+    },
+    "peak": -1
+  },
+  "bands": {
+    "<150": 3,
+    "150-600": 8,
+    "600-2k": 69,
+    "2k-5k": 19,
+    ">5k": 1
+  }
+}
