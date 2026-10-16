@@ -321,6 +321,8 @@ export function validateMapSpec(spec) {
       errors.push(`floorplan: { dir: "work:plans/" }: the folder of a height plan (legend.json, floor-0.png, room-0.png, floor-1.png...), as \`smak map-heights\` draws one`);
     if (f?.grow !== undefined && !(Number.isInteger(f.grow) && f.grow >= 0 && f.grow <= 4)) errors.push("floorplan.grow: cells the walked floor is grown by to its walls, 0 to 4 (1)");
     if (!spec.rooms) spec = { ...spec, rooms: [] };
+    for (const [i, e] of (spec.entities ?? []).entries())
+      if (e?.layer !== undefined && !(Number.isInteger(e.layer) && e.layer >= 0)) errors.push(`entities[${i}].layer: the layer of floor it stands on, as the height plan numbers them (0 the lowest)`);
   }
   if (spec.spec !== MAP_SPEC) errors.push(`spec: "${MAP_SPEC}" says what this is; it has ${JSON.stringify(spec.spec)}`);
   for (const key of Object.keys(spec)) if (!TOP.includes(key)) warnings.push(`${key}: not a field of a map spec, left out`);
@@ -1246,7 +1248,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   const place = (list, what, each, printOf = () => ({ min: [-16, -16], max: [16, 16] })) =>
     (list ?? []).forEach((thing, i) => {
       try {
-        const room = rooms.get(thing.room) ?? (thing.room === "plan" && floorPlan ? planRoom(floorPlan, thing.at) : undefined);
+        const room = rooms.get(thing.room) ?? (thing.room === "plan" && floorPlan ? planRoom(floorPlan, thing.at, thing.layer ?? 0) : undefined);
         const own = printOf(thing);
         const xy = thing.at && typeof thing.at === "object" && !Array.isArray(thing.at) ? besideOf(thing.at, own) : pointIn(room, thing.at);
         // a kit model put in for boxes (fidelity high) is moved back into the room by what it reaches past a wall:
@@ -1919,10 +1921,13 @@ export { sectionOf };
 const PLAN_LAMP_AREA = 128 * 128;
 const PLAN_LAMPS_MOST = 24;
 
-function planRoom(plan, at) {
+function planRoom(plan, at, layer = 0) {
   const [x, y] = Array.isArray(at) ? at : [0, 0];
-  const under = plan.boxes.filter((b) => x >= b.min[0] && x <= b.max[0] && y >= b.min[1] && y <= b.max[1]);
-  const floor = under.length ? Math.min(...under.map((b) => b.min[2])) : 0;
+  // the floors under the point, lowest first: `layer` picks one as the height plan numbers them (0 the lowest; past
+  // the highest, the highest). Without it an entity on a gallery stood on the hall's floor under it (frenzy: 46
+  // of 58 off, most of them upstairs)
+  const floors = [...new Set(plan.boxes.filter((b) => x >= b.min[0] && x <= b.max[0] && y >= b.min[1] && y <= b.max[1]).map((b) => b.min[2]))].sort((p, q) => p - q);
+  const floor = floors.length ? floors[Math.min(layer, floors.length - 1)] : 0;
   const BIG = 1 << 16;
   return { id: "plan", min: [-BIG, -BIG, floor], max: [BIG, BIG, floor + 4096], spec: { id: "plan" } };
 }

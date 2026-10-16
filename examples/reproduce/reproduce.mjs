@@ -99,10 +99,13 @@ floor-0.png, floor-1.png... one picture for each layer of floor (layer 0 the low
 above it), each cell's floor height as a colour, room-N.png the headroom over it, and legend.json: the colour of each
 height and headroom, the cell's size, and the world's x at the pictures' left edge (x0) and y at their top (y1). Give
 your map spec floorplan: { dir: "work:heightplan/" } and its space is carved from them (docs/SPEC.md, "A floor plan").
-${input}/plan.png marks every entity with its class (and the same in the work folder under pictures/): put them on
-the plan with room: "plan" and at: [x, y] of the world, z over the floor there. The textures and the light are yours.`,
+${input}/plan.png marks every entity with its class and storeys.png shows each storey's own (the same in the work
+folder under pictures/): put them on
+the plan with room: "plan", at: [x, y] of the world, and layer: the layer of floor it stands on (0 the lowest, as the
+floor-N.png pictures number them: one on a gallery over a hall is on the gallery's layer), z over that floor. The
+textures and the light are yours.`,
       read: input,
-      files: { "pictures/plan.png": join(input, "plan.png"), ...Object.fromEntries(plans.map((f) => [`heightplan/${f}`, join(input, "heightplan", f)])) },
+      files: { "pictures/plan.png": join(input, "plan.png"), "pictures/storeys.png": join(input, "storeys.png"), ...Object.fromEntries(plans.map((f) => [`heightplan/${f}`, join(input, "heightplan", f)])) },
     };
   }
   // decompile: the compiled map, with the server's decompile tool to make it source again (reported apart:
