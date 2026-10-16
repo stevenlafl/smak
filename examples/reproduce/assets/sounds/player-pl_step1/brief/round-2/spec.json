@@ -1,0 +1,92 @@
+{
+  "spec": "smak.sound/1",
+  "name": "player/pl_step1.wav",
+  "class": "step concrete",
+  "seed": 1,
+  "length": 0.3,
+  "layers": [
+    {
+      "id": "step",
+      "kind": "sample",
+      "file": "work:gen/step_concrete_s3.wav",
+      "from": "onset",
+      "length": 0.3,
+      "env": {
+        "attack": 0.002,
+        "hold": 0.02,
+        "decay": 0.08
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 180
+        },
+        {
+          "type": "peak",
+          "f": 300,
+          "q": 1,
+          "gain": -12
+        },
+        {
+          "type": "peak",
+          "f": 480,
+          "q": 1,
+          "gain": -8
+        },
+        {
+          "type": "highshelf",
+          "f": 1500,
+          "gain": 3
+        }
+      ]
+    },
+    {
+      "id": "grit",
+      "kind": "particles",
+      "count": 300,
+      "band": [
+        900,
+        4000
+      ],
+      "grain": 0.002,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.06
+      },
+      "gain": -10
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "env": {
+        "attack": 0.001,
+        "decay": 0.006
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        },
+        {
+          "type": "lowpass",
+          "f": 6000
+        }
+      ],
+      "gain": -2,
+      "post": true
+    }
+  ],
+  "finish": {
+    "room": {
+      "decay": 0.25,
+      "wet": 0.12
+    },
+    "limit": {
+      "crest": 22,
+      "release": 0.002
+    },
+    "peak": -0.5
+  },
+  "variants": []
+}

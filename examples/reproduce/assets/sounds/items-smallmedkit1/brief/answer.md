@@ -1,17 +1,16 @@
-The modder's medkit sound is built and passes the check: `work:sound/items/smallmedkit1.wav`. Put it in `<mod>/sound/items/` and it replaces the game's `items/smallmedkit1.wav`, with no code.
+I made the replacement `items/smallmedkit1.wav`. The build says OK with no warnings, but I can't listen to it, so the in-game listen is the real test.
 
-**What it sounds like:** two short 1760 Hz sine beeps about 0.15 s apart, then a hiss of about half a second that fades out. The file runs about 1.0 s, mono, 22050 Hz, 16-bit, the same format as the game's own.
+**What it is:** about 0.6 seconds, mono, 22050 Hz, 16-bit (the game's format).
+- **Beeps:** two short sine tones at 2600 Hz, 0.13 seconds apart.
+- **Hiss:** a short burst of hypospray air starting about 0.26 seconds in, band-limited to roughly 2 to 7 kHz, with a fast fade.
 
-**How I made it (the spec, `smak.sound/1`):**
-- **Beep 1 and beep 2:** `tone` layers at 1760 Hz, sine wave, each 0.09 s with a quick attack and decay, at -10 dB. The second starts at 0.15 s.
-- **Hiss:** a `sample` layer at 0.34 s, taken from the generated take `work:gen/hypospray_hiss_s0.wav` (seed 0). It is high-passed at 900 Hz and low-passed at 5000 Hz, with its level set to -9 dB. Its envelope is a 20 ms attack, a 0.2 s hold and a 0.45 s decay.
-- **Finish:** a small room (0.2 s decay, 8% wet).
+**How I made it:**
+- I built the beeps from synthesis layers, since electronic beeps have no real source to record.
+- For the hiss, I asked the local sound generator (woosh-dflow) for "a medical injector hypospray releasing a short hiss of compressed air, close-miked, dry". Its takes ran a full second with a steady hiss, too long and too bright. I used take 3 and cut it to half a second, with its own onset as the start, then filtered and faded it.
+- The first two drafts had build warnings (a long, smooth hiss and a spectrum too dark for the game's clicks). I dropped the click class, since a medkit is not a click, and the final build has none.
 
-**Choices I made:**
-- The hiss is a generated take from the local model `stable-audio-3-sfx`, prompted with "a hypospray injector hissing, a short pressurized spray of air, close-miked, dry". I picked seed 0 of four takes. Its licence is the Stability AI Community Licence. Commercial use is free for organisations under US$1M annual revenue, and it needs an enterprise licence above that. You said the person accepts the local generators' licences for this test, so I used it. The sidecar is at `work:gen/hypospray_hiss_s0.json`.
-- The first take was too bright (39% of its power above 5 kHz) and too loud against the beeps. The low-pass and the level change fixed that. The second build passes with no warnings. Its measured centroid is 2428 Hz, and 4.6% of its power is above 5 kHz.
+**Licence:** the hiss comes from a generated take under CC-BY-NC 4.0 (Creative Commons Attribution, non-commercial). That is fine for this test, but the mod can't be sold with it. The beeps are plain synthesis.
 
-**What I could not check:**
-- I did not compare it to the game's own `items/smallmedkit1.wav`. The server was given no game folders, so the reference warning fired. I dropped the reference from the spec, and the build no longer checks against the game's sound.
-- Whether it is "at least as good" is a judgement only the modder can make. Play it in the game next to the original. Check its volume, since the game plays it at its own level, and check how it sounds in the map's room.
-- The hypospray hiss is synthetic-sounding, not a recording of a real device. If the modder prefers a different hiss, I can generate more takes or change the beep pitch.
+**Not checked:** I did not compare it to the game's own `smallmedkit1.wav`, because no game folders were set up for the reference. The volume and how the game plays it are also unchecked.
+
+The file is at `work:sound/items/smallmedkit1.wav`. The modder puts it in `<mod>/sound/items/`, where it replaces the game's file with no code.

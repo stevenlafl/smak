@@ -3,69 +3,80 @@
   "name": "debris/bustmetal1.wav",
   "class": "metal hit",
   "seed": 1,
-  "length": 0.85,
+  "length": 0.66,
   "layers": [
     {
-      "id": "panel",
+      "id": "crate",
       "kind": "sample",
       "file": "work:gen/bustmetal_s0.wav",
-      "from": 0.09,
-      "length": 0.85,
+      "from": "onset",
+      "length": 0.66,
       "env": {
         "attack": 0.002,
-        "hold": 0.6,
-        "decay": 0.2
+        "hold": 0.03,
+        "decay": 0.25
       },
       "filter": [
         {
-          "type": "lowpass",
-          "f": 1700
+          "type": "highpass",
+          "f": 300,
+          "q": 0.7
         },
         {
-          "type": "highpass",
-          "f": 120
+          "type": "peak",
+          "f": 1200,
+          "q": 1,
+          "gain": 4
+        },
+        {
+          "type": "lowpass",
+          "f": 2200,
+          "q": 0.7
         }
-      ],
-      "gain": 0
+      ]
     },
     {
-      "id": "grit",
+      "id": "rattle",
       "kind": "particles",
-      "count": 400,
+      "rate": 120,
       "band": [
-        500,
-        1700
+        800,
+        2500
       ],
-      "grain": 0.006,
+      "grain": 0.003,
+      "at": 0.02,
       "env": {
-        "attack": 0.002,
-        "hold": 0.1,
-        "decay": 0.35
+        "attack": 0.001,
+        "hold": 0.02,
+        "decay": 0.25
       },
-      "gain": -12
+      "gain": -4
     },
     {
       "id": "crack",
       "kind": "noise",
       "color": "white",
-      "env": {
-        "attack": 0.0005,
-        "decay": 0.006
-      },
+      "post": true,
+      "at": 0,
       "filter": [
         {
           "type": "highpass",
-          "f": 2000
+          "f": 2000,
+          "q": 0.7
         }
       ],
-      "gain": -4,
-      "post": true
+      "env": {
+        "attack": 0.001,
+        "hold": 0.002,
+        "decay": 0.01
+      },
+      "gain": -6
     }
   ],
   "finish": {
     "saturate": 2,
     "limit": {
-      "crest": 10,
+      "crest": 11,
       "release": 0.002
     },
     "peak": -0.5

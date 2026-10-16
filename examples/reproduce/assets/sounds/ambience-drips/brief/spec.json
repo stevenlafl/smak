@@ -3,7 +3,10 @@
   "name": "ambience/drips.wav",
   "class": "loop drips",
   "seed": 1,
-  "loop": true,
+  "length": 5,
+  "loop": {
+    "crossfade": 0.25
+  },
   "layers": [
     {
       "id": "drips",
@@ -14,16 +17,34 @@
       "filter": [
         {
           "type": "lowpass",
-          "f": 2800,
+          "f": 2600,
           "q": 0.7
         },
         {
           "type": "peak",
-          "f": 300,
-          "q": 1,
-          "gain": 10
+          "f": 1100,
+          "q": 0.8,
+          "gain": 5
+        },
+        {
+          "type": "peak",
+          "f": 320,
+          "q": 0.8,
+          "gain": -4
+        },
+        {
+          "type": "highpass",
+          "f": 120,
+          "q": 0.7
         }
       ]
     }
-  ]
+  ],
+  "finish": {
+    "limit": {
+      "crest": 26,
+      "release": 0.002
+    },
+    "peak": -1
+  }
 }

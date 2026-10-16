@@ -1,26 +1,16 @@
-The build says OK, with spectrum warnings. The file is `work:sound/ambience/drips.wav`, and it is ready for the modder to listen to in the game.
+The drip loop is built and the build says OK. It's at `work:sound/ambience/drips.wav`, and it goes in the mod as `<mod>/sound/ambience/drips.wav` to replace the game's file. I have not heard it, and the build can't check how it plays in the game. Volume, pitch and the map's room are for the modder to judge in-game.
 
 **What I made**
 
-- **Source:** a generated take from the local `stable-audio-3-sfx` model, prompt "water dripping slowly into a pool in a cave, each drop echoing off the rock walls". I made four seeds and chose seed 0. It had the clearest separate drips; seed 1 sounded like a steady hiss.
-- **Spec:** a single `sample` layer of that take, class `loop drips`, `loop: true`, at 22050 Hz, 16-bit mono (what GoldSrc plays). The take is 5 s; the loop is 4.75 s after the build.
-- **Filter:** a lowpass at 2800 Hz and a +10 dB peak at 300 Hz. This pulls the brightness toward the game's drip loops.
-- **Loop:** no clicks or silent gaps were flagged, so the seam holds.
+- **Source:** a 5-second take from the local `woosh-dflow` generator, prompted "slow water drips falling one by one into a still pool in a cave, echoing." I generated four takes and picked seed 0. It had the most separate drips and the cleanest body.
+- **Shaping:** a band-limit filter (lowpass at 2.6 kHz, highpass at 120 Hz), a lift around 1.1 kHz, a cut around 320 Hz, and a light limiter to bring the quiet drips up.
+- **Loop:** it loops from its start with a 0.25-second crossfade at the seam.
+- **Format:** 22050 Hz, 16-bit, mono, 4.75 seconds, 205 KB.
 
-**What the checks say**
+**Licence:** `woosh-dflow` is CC-BY-NC 4.0, which is non-commercial. You accepted that for this test. If the mod is ever sold or monetised, this take can't be used as it is.
 
-- The build reports no faults. It says OK.
-- It still warns that the sound is brighter than the game's drip loops (centroid 1200 Hz against 671 to 1007 Hz for the class), and that it has less energy at 150 to 600 Hz and more at 2 to 5 kHz than those loops. The unfiltered take was brighter still (centroid 2017 Hz), so the filter helped but did not close the gap.
-- It is shorter than the game's loop drips (4.75 s against about 5.5 to 9 s).
-- The loudest drip falls about 2.4 s into the loop, so the start is quiet. That is not a fault, but it is worth a listen.
+**Against the game's own drip loops:** 18 of 20 features are in range. Two are off:
+- **Length:** 4.75 s, against the game's 5.5 to 9 s. The game's loops hold more drips. I tried joining a second take to lengthen it. That made the spectrum worse, with too much 600 Hz to 2 kHz energy and a brighter centroid, so I kept the single take.
+- **Flatness:** the take is very clean and tonal (0.003, where the game's loops are about 0.05 to 0.15). Adding noise to fix it would be heard as hiss, so I left it.
 
-**Licence:** the take comes from the Stability AI Community Licence. Commercial use is free for an organisation under US$1M annual revenue, and needs an enterprise licence above that. You said non-commercial is accepted for this test, so I did not treat it as a blocker. It would matter before shipping commercially.
-
-**What I could not check:** how it sounds. The numbers do not say whether it is better than the game's own. The room echo comes from the take itself; a map's `env_sound` would add more. The volume and the mix only show in the game. I did not compare against the game's own `ambience/drips.wav` because the game folders were not given to the build.
-
-**Choices I made that you can redirect:**
-- Seed 0 of the four takes.
-- The filter values above. Heavier filtering matched the numbers better but made the drips too pure and dull, so I stopped there.
-- No extra layers. The take already has its texture, so steady noise would only add static.
-
-To use it, the modder copies `work:sound/ambience/drips.wav` into their mod's `sound/ambience/` folder, which replaces the game's file with the same name.
+The big splash at about 3 seconds is one loud event in the middle of the loop. It is the take's own, and it is the most likely thing to sound out of place. If it does, the take can be swapped for another seed, or the layer can be turned down.

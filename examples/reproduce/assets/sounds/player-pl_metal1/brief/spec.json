@@ -1,57 +1,45 @@
 {
   "spec": "smak.sound/1",
   "name": "player/pl_metal1.wav",
-  "class": "step metal",
-  "seed": 2,
-  "length": 0.5,
+  "class": "step vent",
+  "length": 1,
   "layers": [
     {
       "id": "tap",
       "kind": "sample",
-      "file": "work:gen/vent_step_s2.wav",
+      "file": "work:gen/pl_metal1b_s4.wav",
       "from": "onset",
-      "length": 0.3,
+      "length": 1,
       "env": {
         "attack": 0.002,
-        "decay": 0.12
+        "hold": 0.4,
+        "decay": 0.5
       },
-      "gain": -2,
       "filter": [
         {
           "type": "highpass",
-          "f": 350
+          "f": 1000
+        },
+        {
+          "type": "peak",
+          "f": 2800,
+          "q": 1.2,
+          "gain": 4
         },
         {
           "type": "lowpass",
-          "f": 4000
+          "f": 7000
         }
       ]
-    },
-    {
-      "id": "crack",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 2000
-        }
-      ],
-      "env": {
-        "attack": 0.0005,
-        "decay": 0.004
-      },
-      "gain": 0,
-      "post": true
     }
   ],
   "finish": {
     "room": {
-      "decay": 0.3,
-      "wet": 0.12
+      "decay": 0.35,
+      "wet": 0.2
     },
     "limit": {
-      "crest": 12,
+      "crest": 16,
       "release": 0.002
     },
     "peak": -0.5

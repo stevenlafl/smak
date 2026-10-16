@@ -1,0 +1,39 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/cbar_hit1.wav",
+  "class": "metal hit",
+  "seed": 1,
+  "layers": [
+    {
+      "id": "clang",
+      "kind": "sample",
+      "file": "work:gen/crowbar_metal_s1.wav",
+      "from": "onset",
+      "length": 0.8,
+      "env": {
+        "attack": 0.001,
+        "hold": 0.08,
+        "decay": 0.5
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2200,
+          "q": 0.7
+        }
+      ]
+    }
+  ],
+  "finish": {
+    "saturate": 2,
+    "room": {
+      "decay": 0.25,
+      "wet": 0.12
+    },
+    "limit": {
+      "crest": 9,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

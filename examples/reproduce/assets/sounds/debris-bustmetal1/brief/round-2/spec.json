@@ -1,0 +1,73 @@
+{
+  "spec": "smak.sound/1",
+  "name": "debris/bustmetal1.wav",
+  "class": "metal hit",
+  "seed": 1,
+  "length": 0.85,
+  "layers": [
+    {
+      "id": "panel",
+      "kind": "sample",
+      "file": "work:gen/bustmetal_s0.wav",
+      "from": 0.09,
+      "length": 0.85,
+      "env": {
+        "attack": 0.002,
+        "hold": 0.6,
+        "decay": 0.2
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 1700
+        },
+        {
+          "type": "highpass",
+          "f": 120
+        }
+      ],
+      "gain": 0
+    },
+    {
+      "id": "grit",
+      "kind": "particles",
+      "count": 400,
+      "band": [
+        500,
+        1700
+      ],
+      "grain": 0.006,
+      "env": {
+        "attack": 0.002,
+        "hold": 0.1,
+        "decay": 0.35
+      },
+      "gain": -12
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.006
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "gain": -4,
+      "post": true
+    }
+  ],
+  "finish": {
+    "saturate": 2,
+    "limit": {
+      "crest": 10,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

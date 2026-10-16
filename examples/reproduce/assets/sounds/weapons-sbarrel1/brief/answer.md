@@ -1,31 +1,14 @@
-The sound is built and the build says OK with no warnings. It is at `work:sound/weapons/sbarrel1.wav`, and it replaces the game's `weapons/sbarrel1.wav` when placed in the mod's `sound` folder. Nobody has heard it yet. The modder needs to listen in the game to decide.
+The sound is built and the build says OK. It's at `work:sound/weapons/sbarrel1.wav`, and the modder copies it to `<mod>/sound/weapons/sbarrel1.wav` to replace the game's `sbarrel1.wav`.
 
-**What I made**
+**What it is:** a clip of a pump shotgun firing, taken from a generated take, then shaped into the game's format: mono, 22050 Hz, 16-bit, 1.39 s long, with the peak at -0.5 dBFS. The shot hits at once (attack 5 ms), with a body around 150 to 600 Hz and little above 2 kHz. The spec is `smak.sound/1`, with one sample layer and a small crack added so the start stays sharp.
 
-- **Source:** a generated take from the local `stable-audio-3-sfx` model, prompt "a pump action shotgun firing, a loud blast followed by a metallic pump rack, close-miked, dry", seed 1. Its licence is the Stability AI Community Licence, which you said you accept for this test. Commercial use is free for organisations under US$1M annual revenue, and an enterprise licence is needed above that.
-- **Cut:** the blast only, starting at the take's onset and lasting about 0.8 s. The take's pump rack is not in this cut. Seed 0 has a rack after the blast, but I did not use it because a firing sound that ends in a rack would play the rack on every shot. If the modder wants the pump in the shot, say so and I'll use seed 0.
-- **Shaping:**
-  - A high-pass at 35 Hz removes a DC offset the first build flagged.
-  - A low-pass at 1900 Hz tames the brightness of the raw take.
-  - A small boost at 350 Hz adds body.
-  - A short sine boom (120 Hz falling to 50 Hz, quiet) adds weight under the blast.
-  - A short room (0.3 s decay, 12% wet) gives it the space the game's gunshots have.
-  - Saturation of 3 and a limiter at a 9 dB crest keep it punchy, like Valve's weapon sounds.
-- **Checks:** 22 of 22 features are in range of the game's gunshot sounds. Length is 0.8 s, T20 (time to fall 20 dB) is 0.51 s, centroid is 1094 Hz, and the peak is -0.5 dBFS.
+**How I made it:**
+1. I asked the local sound generator (woosh-dflow) for four takes of "a pump action shotgun firing, sharp blast then a metallic slide rack". I picked take 0, which has the blast and then a second hit for the slide.
+2. The spec starts the take 0.07 s in, where its peak is, and cuts it to 1.15 s. A low lift at 160 Hz adds body, a cut at 900 Hz and 3 kHz removes the harsh top, and a lowpass at 1.5 kHz tames the brightness.
+3. A short white-noise crack (2 kHz and up, 4 ms) sits on the onset, and a small room gives a little space. Saturation and a limiter (crest 9 dB) make it loud for its peak.
 
-**The spec used** (inline, so it can be rebuilt; I did not save it as a file):
+**Licence:** the generator's weights are CC-BY-NC 4.0, non-commercial. You accepted that for this test. The build's facts record it on the sample, so it will show up if anyone checks the file later.
 
-```json
-{"spec":"smak.sound/1","name":"weapons/sbarrel1.wav","class":"gunshot","seed":1,"length":1.0,
- "layers":[
-  {"id":"shot","kind":"sample","file":"work:gen/shotgun_pump_s1.wav","from":"onset","length":1.0,
-   "env":{"attack":0.002,"hold":0.3,"decay":0.6},
-   "filter":[{"type":"highpass","f":35},{"type":"lowpass","f":1900,"q":0.7},{"type":"peak","f":350,"q":0.8,"gain":4}]},
-  {"id":"body","kind":"tone","f":120,"wave":"sine","sweep":{"to":50,"time":0.2},"at":0,
-   "env":{"attack":0.002,"decay":0.18},"gain":-12}],
- "finish":{"saturate":3,"room":{"decay":0.3,"wet":0.12},"limit":{"crest":9,"release":0.002},"peak":-0.5}}
-```
+**What the build reports:** 21 of the 22 measured features of the game's gunshot class are in range. The one left is the tail: it falls 20 dB in 0.44 s, against the game's at least 0.46 s, so it is a touch dry. The build also notes it has no game folders to compare against, so the comparison is with the class's typical figures, not the game's own `sbarrel1.wav`. I tried several settings: the longer room gave a tail that rang too long, and the shorter one dried it out, so I kept the middle setting.
 
-**What the build cannot tell**
-
-The checks measure the sound against the game's gunshots, not against how it feels to play. Whether it is at least as good as the original depends on the listening test, so the modder should compare it with the original in the game. Two things they should check by ear: the volume, since the peak is at full level and the original may sit lower, and the mix with the map's room, which this build does not include.
+**For the modder to judge by ear:** whether it sounds like a shotgun at least as good as the game's, whether the second hit (the slide) belongs in a single shot, and whether the tail is too dry in the map's room. The numbers can't show how it sounds, so this needs listening in the game.

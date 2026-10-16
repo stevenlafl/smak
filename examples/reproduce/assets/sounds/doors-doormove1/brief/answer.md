@@ -1,24 +1,14 @@
-The sound is built and the build says OK. It is at `work:sound/doors/doormove1.wav`, and goes into the mod at `<mod>/sound/doors/doormove1.wav`, where it replaces the game's file with no code.
+The sound is built and the build says OK. It is at `work:sound/doors/doormove1.wav`, and the mod puts it at `<mod>/sound/doors/doormove1.wav`, where it replaces the game's own file of that name.
 
-**What it is**
-- A 2.4 s mono WAV at 22050 Hz, 16-bit, peak -0.5 dBFS.
-- It is one generated take, not layers. The motor whine rises in pitch with stacked harmonics, and a heavy thud comes at about 1.75 s. A rumbling tail runs for about 0.6 s after the thud.
-- The take came from the local model `stable-audio-3-sfx`, prompted with: "an electric motor whine rising in pitch like an alarm, then a heavy metal door thud as it stops, close-miked, dry". I picked this wording over an earlier one ("a sliding door driven by an electric motor, ...") because its takes showed a clearer rising whine and a clearer thud. I chose seed 2 of four takes.
-- The spec adds only a limiter (crest 14 dB), so the thud stays punchy.
+**What it is:** a 2.85-second mono 16-bit file at 22050 Hz, the game's rate for these sounds. It is made from synthesised layers, not a recording:
 
-**Measured by the build**
+- **Whine:** a sawtooth rising from 420 Hz to 1400 Hz over 2.4 seconds, with a low-pass filter.
+- **Harmonic:** a square wave rising from 630 Hz to 2100 Hz, band-passed and quieter, which adds the electronic edge.
+- **Thud:** at 2.5 seconds, a sine that drops from 95 Hz to 38 Hz in a quarter second, then decays over about a third of a second.
+- **Clack:** a short high-passed noise burst at the same moment as the thud, for the impact.
 
-| Measure | Value |
-| --- | --- |
-| Attack | 1437 ms (the whine builds slowly, so the first sound is quiet) |
-| T20 (time to fall 20 dB) | 0.51 s |
-| Centroid | 366 Hz (dark) |
-| Power below 150 Hz | 49.6% |
-| Power 150 to 600 Hz | 38.3% |
-| Onsets counted | 3 |
+**What I tried and dropped:** I generated eight takes with the local generator (woosh-dflow). None had a clear rising whine followed by a thud, so none went in. Because of that, nothing from the generator is in the final file, and its non-commercial licence does not apply to this sound. I also removed a steady motor-noise layer, since the build flagged it as static-like hiss.
 
-**Things to know before listening**
-- The build did not compare it to the game's own `doors/doormove1.wav`. The spec had no class for doors, and no game folder was given, so it has no reference. The comparison is by ear.
-- The thud is about 0.6 s before the end. If it sounds like it trails off too long, the length can be cut to around 2.0 s.
-- The take is non-commercial-limited only in the sense that the Stability AI Community Licence applies: commercial use is free for an organisation under US$1M annual revenue, and an enterprise licence is needed above that. You accepted the local generators' licences for this test, so that is noted here for any later release.
-- The report cannot say how it sounds in the game, or what volume and room the map gives it. Those are for the modder to judge by listening.
+**What the build did not check:**
+- It could not compare the sound to the game's own `doors/doormove1.wav`, because no game folders were given to it. So there is no measured comparison, only the sound itself.
+- It cannot tell how the sound feels in play. The volume, the pitch the engine applies and the map's room are all unknown to it. The mod's author will need to listen in the game and compare it with the original.

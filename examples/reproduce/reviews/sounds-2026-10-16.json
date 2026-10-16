@@ -18,14 +18,44 @@
     "explode3": "great",
     "drips": "exactly like the prompt, but the game's is more cave-like, water dripping into a pool, where this hits a floor"
    },
-   "passes": ["357_shot1", "explode3", "drips"],
-   "close": ["sbarrel1", "pl_step1", "bustmetal1"],
+   "passes": [
+    "357_shot1",
+    "explode3",
+    "drips"
+   ],
+   "close": [
+    "sbarrel1",
+    "pl_step1",
+    "bustmetal1"
+   ],
    "found": "Two kinds of miss. The bell and the metal thud are the makers': both laid synthesised modes (a ring of partials) over the take, and the other eight did not. The door, the medkit, the metal step and the drips are the briefs': each named the event (a door moving, a medkit used) where the game's sound is something else (an electronic whine and a thud, two beeps and a hiss, a tinny vent step, drops into a pool). A modder asking for those would describe the sound."
   },
   {
    "set": "blind pick of the generator models, one unpicked take each (first seed): Stable Audio 3 small SFX, MOSS-SoundEffect v2, Woosh-DFlow, EzAudio",
-   "picks": { "crowbar_hit": "none, inconclusive, would re-prompt", "revolver": "none sounds like the prompt", "step": "C (Woosh-DFlow)", "door": "all great, B (Stable Audio 3)", "drips": "A and D, prefers A (Stable Audio 3; D Woosh-DFlow)" },
+   "picks": {
+    "crowbar_hit": "none, inconclusive, would re-prompt",
+    "revolver": "none sounds like the prompt",
+    "step": "C (Woosh-DFlow)",
+    "door": "all great, B (Stable Audio 3)",
+    "drips": "A and D, prefers A (Stable Audio 3; D Woosh-DFlow)"
+   },
    "found": "Stable Audio 3 picked twice, Woosh-DFlow once and second once, MOSS and EzAudio never. Stable Audio 3 made the default."
+  },
+  {
+   "set": "round 2 (Stable Audio 3, four briefs that say the sound) against round 1 (Woosh-DFlow, the first briefs), each after the game's own",
+   "said": {
+    "cbar_hit1": "2 is superior",
+    "357_shot1": "2 is superior",
+    "sbarrel1": "1 is superior, but neither I would consider great",
+    "pl_step1": "prefer 1",
+    "pl_metal1": "prefer 2 but neither are great",
+    "doormove1": "2 is better because it's a different prompt. You didn't use the new prompt to regenerate the old",
+    "smallmedkit1": "2 is better because it's a different prompt. You didn't use the new prompt to regenerate the old",
+    "bustmetal1": "1. 2 sounds like 3 sounds played in sequence",
+    "explode3": "2",
+    "drips": "1. 2 sounds like it is almost reversing the sound after playing it forward, multiple times"
+   },
+   "found": "Round 2 preferred on 6 of 10, round 1 on 4. Two things changed at once (the model and four briefs), so the door and the medkit say nothing of the model: the next set holds the briefs and changes the model alone."
   }
  ]
 }
