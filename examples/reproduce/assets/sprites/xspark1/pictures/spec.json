@@ -3,14 +3,14 @@
   "sprites": [
     {
       "name": "sprites/xspark1.spr",
-      "class": "glow",
+      "class": "sparks",
       "use": "env_sprite",
       "size": [
         32,
         32
       ],
-      "frames": 10,
-      "loop": true,
+      "frames": 11,
+      "loop": false,
       "fps": 10,
       "type": "parallel",
       "format": "additive",
@@ -19,32 +19,149 @@
       "layers": [
         {
           "kind": "glow",
+          "radius": 0.3,
+          "core": 0.14,
           "at": [
-            0.125,
-            -0.15
+            0,
+            0
           ],
-          "radius": 0.9,
-          "core": 0.4,
-          "gain": 0.75,
-          "ramp": "reference",
+          "ramp": [
+            [
+              0,
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            [
+              0.3,
+              [
+                0.35,
+                0.28,
+                0.18
+              ]
+            ],
+            [
+              0.6,
+              [
+                0.75,
+                0.63,
+                0.45
+              ]
+            ],
+            [
+              1,
+              [
+                1,
+                0.97,
+                0.88
+              ]
+            ]
+          ],
+          "gain": 1,
           "env": {
-            "start": 0.94,
-            "attack": 0.9
+            "attack": 0.25,
+            "decay": 0.5,
+            "start": 0
           }
         },
         {
-          "kind": "blobs",
-          "count": 9,
-          "radius": 0.34,
-          "spread": 0.66,
-          "core": 0.4,
-          "soft": 0.5,
-          "gain": 0.6,
-          "ramp": "reference",
+          "kind": "flare",
+          "core": 0.1,
+          "at": [
+            0,
+            0
+          ],
+          "ramp": [
+            [
+              0,
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            [
+              0.3,
+              [
+                0.35,
+                0.28,
+                0.18
+              ]
+            ],
+            [
+              0.6,
+              [
+                0.75,
+                0.63,
+                0.45
+              ]
+            ],
+            [
+              1,
+              [
+                1,
+                0.97,
+                0.88
+              ]
+            ]
+          ],
           "env": {
-            "start": 0.94,
-            "attack": 0.9
-          }
+            "attack": 0.6,
+            "decay": 0.35,
+            "start": 0
+          },
+          "streaks": [
+            {
+              "angle": 25,
+              "length": 0.6,
+              "width": 0.05,
+              "gain": 1
+            },
+            {
+              "angle": 70,
+              "length": 0.45,
+              "width": 0.045,
+              "gain": 0.8
+            },
+            {
+              "angle": 115,
+              "length": 0.62,
+              "width": 0.05,
+              "gain": 0.9
+            },
+            {
+              "angle": 160,
+              "length": 0.5,
+              "width": 0.045,
+              "gain": 0.8
+            },
+            {
+              "angle": 205,
+              "length": 0.58,
+              "width": 0.05,
+              "gain": 1
+            },
+            {
+              "angle": 250,
+              "length": 0.45,
+              "width": 0.045,
+              "gain": 0.7
+            },
+            {
+              "angle": 300,
+              "length": 0.55,
+              "width": 0.05,
+              "gain": 0.9
+            },
+            {
+              "angle": 340,
+              "length": 0.42,
+              "width": 0.045,
+              "gain": 0.7
+            }
+          ]
         }
       ]
     }

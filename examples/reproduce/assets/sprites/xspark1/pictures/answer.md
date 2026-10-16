@@ -1,41 +1,22 @@
-The sprite builds OK, but it is not clean: three of the reference warnings remain. The file is `sprites/xspark1.spr` in the work folder (with `-sheet.png` and `-animated.png` beside it). I did not save the spec JSON to the repo; it exists only in this session.
+The sprite is built and the build says **OK**, but it still carries warnings. Four of them conflict with the reference picture, and I left those as they are.
 
-**What it is:** a cyan glow with a hot white middle and a dark ground, the same as the original's contact sheet (`pictures/frames.png`). It is a flickering blob, looped, and drawn over black, which additive blending treats as clear.
+**Output:** `work:sprites/xspark1.spr`, with `sprites/xspark1-sheet.png` and `sprites/xspark1-animated.png` beside it. The spec is `sprites_xspark1.spec.json` in the work folder.
 
-| Field | Original | Mine |
-| --- | --- | --- |
-| Size | 32×32 | 32×32 |
-| Frames | 11 | 11 (10 written as a loop, first frame again at the end) |
-| Type | parallel | parallel |
-| Format | additive | additive |
-| Class | not stated | `glow` |
-| Playback | not stated | `env_sprite`, 10 fps (the cap for an env_sprite) |
-| Origin | not stated | centre |
-| Colours | from the sheet | `ramp: reference`, read off the original frame by frame |
+**What I built** (the spec in the work folder has the exact values):
+- **Type and format:** parallel, additive (black is clear), 32x32, 11 frames, one-shot (not looping), played as an env_sprite at 10 fps, centred.
+- **Shape:** a small glow core, plus a flare with eight thin streaks at uneven angles, the longest reaching about 6 px from the centre.
+- **Timing:** dark at frame 0, a small point from frame 1, brightest around frames 6 to 7 (0.6 of the play), fading to nearly dark by frame 9 and fully dark at frame 10.
+- **Colour:** a ramp from black through tan and brown to cream-white at the peak, read off the sheet.
+- **Class:** `sparks`.
 
-**How it is built:** a `glow` layer (radius 0.9, core 0.4, offset slightly right and down to match the original's centre) for the body, and a `blobs` layer (9 soft discs, redrawn each frame) for the flicker. The envelope holds near full brightness through the loop.
+**What I could not do:** I could not open the original's `input` folder or its `facts.txt`. I worked from the contact sheet (`pictures/frames.png`) as the build drew it, so the match is by eye and by the build's measures, not by the original's own numbers.
 
-**Measured against the original:**
+**Warnings left, and why:**
+- **Colour difference 28 (bar 15):** the reference's sheet has a dark teal background that the judge counts as colour. An additive sprite cannot add that, so the mean colour will stay apart.
+- **Dark share 0.86 against 0.46:** the same background effect. The reference's lit area is larger than mine, and I widened the glow to match. A wider glow made a visible dark-brown disc, so I backed off.
+- **Middle smaller (19 pixels over 0.7 against 128):** I widened the cores as far as the look allowed.
+- **Loop, first frame and peak timing:** the judge reads the reference's first frame as 0.94 bright and its last frame as bright, and asks for `loop: true`. The sheet shows frames 0 and 10 empty, so I kept it a one-shot. If the judge is right, change `loop` and the envelope.
+- **Shape overlap 0.2 (bar 0.8):** mostly the background again. The core positions match the reference's.
+- **Jitter "too smooth" against Half-Life's sparks:** the reference is a steady star, not a flickering spark, so I did not add flicker to chase that number.
 
-| Measure | Original | Mine | Bar |
-| --- | --- | --- | --- |
-| Mean colour (delta E) | — | 3.4 | 15 or under |
-| Share that is dark | 0.46 | 0.41 | within 0.05 |
-| Border light (brightest) | 0.145 | 0.124 | near |
-| Hot middle (pixels over 0.7) | 128 | 145 | not over 1.5× |
-| Shape overlap, mean | — | 0.72 | 0.8 |
-| Peak frame (share of play) | 1.0 | 0.8 | near |
-
-**Still off (the spec asks for these gone; they are not):**
-- **Dark share** is 0.41 against 0.46: my sprite covers slightly more of its frame than the original.
-- **Shape overlap** is 0.72 against the 0.8 bar: the flicker shapes do not line up frame by frame with the original's.
-- **Peak timing** stays at 0.8 of play however I set the attack; the original peaks on its last frame. I could not find the cause from the report alone.
-
-I made six builds. The change that fixed the most was the glow core widened to 0.4 with the blob gain held at 0.6. Pushing the glow further in on the dark share cost the hot middle, so I stopped there.
-
-**Other choices I made:**
-- `class: glow`, not `sparks`: the `sparks` class plays once and must end dark, which this does not do.
-- `frames: 10` with `loop: true`, because a loop writes one extra frame and the original is 11.
-- Both `frames` and `fps` are my reading; the facts file gives only size, frame count, type and format.
-
-I could not list the input folder (access was denied), so I used the copies in the work folder and the facts file.
+If you want, I can try `loop: true` next to see if the judge's numbers settle, or check the animated picture.

@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "xspark1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    32
+   ],
+   "frames": 11,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 11,
+    "size": [
+     32,
+     32
+    ],
+    "border": {
+     "max": 0.145,
+     "mean": 0.004
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.94,
+     "last": 1
+    },
+    "dark": 0.46,
+    "wrap": 1.61,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    32
+   ],
+   "frames": 11,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 11,
+    "size": [
+     32,
+     32
+    ],
+    "border": {
+     "max": 0.124,
+     "mean": 0.003
+    },
+    "envelope": {
+     "peakAt": 0.8,
+     "first": 0.94,
+     "last": 0.94
+    },
+    "dark": 0.41,
+    "wrap": 0.97,
+    "jitter": 1.83
+   }
+  },
+  "meanColourDeltaE": 3.4,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are the same effect: a bright white-cyan core with a blue halo that flickers across frames. The reproduction is softer and less lobed than the original, but it reads as the same glow."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are 32x32 frames with the glow filling the frame. Border measures are near zero on both (original max 0.145, reproduction 0.124), so neither clips or leaves empty edges. The original's lobes reach the edges more often, which is a small difference."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured mean colour difference is 3.4, well under 15. Visually the reproduction's cores carry some grey-white tops (frames 0, 1, 7, 8) where the original is cleaner cyan-white. The measure does not see this, so it is noted but not charged past the measurement."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count matches (11 vs 11). The kind of motion is the same, a flickering glow (jitter 1.51 vs 1.83). But the envelope peak sits at frame 1 in the original and at frame 0.8 in the reproduction, and the last frame is 1.0 in the original against 0.94 in the reproduction. The wrap also differs (1.61 vs 0.97). The loop seam and the timing of the swell are off, so this is clearly off rather than right."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type and format are both additive, the name matches, the size is 32x32, and it reads back as written."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

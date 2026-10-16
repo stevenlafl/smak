@@ -46,20 +46,20 @@
      96
     ],
     "border": {
-     "max": 0.2,
-     "mean": 0.018
+     "max": 0.187,
+     "mean": 0.017
     },
     "envelope": {
-     "peakAt": 0.71,
-     "first": 0.91,
-     "last": 0.9
+     "peakAt": 0.07,
+     "first": 0.93,
+     "last": 0.93
     },
-    "dark": 0.35,
-    "wrap": 0.86,
-    "jitter": 1.57
+    "dark": 0.5,
+    "wrap": 1.15,
+    "jitter": 1.56
    }
   },
-  "meanColourDeltaE": 0.3,
+  "meanColourDeltaE": 7.2,
   "sameName": true,
   "readsBack": true
  },
@@ -74,31 +74,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are fire/flame effects: tongues rising from a base, bright orange at the bottom and fading upward. The reproduction is the same effect."
+   "reason": "Both are a rising flame on a dark ground, with tongues that flicker up from the base in the same way. The effect is the same."
   },
   "R2": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Both are 32x96 frames, and the flames fill them from the bottom edge to near the top in both sheets. Border measures are low in both (original max 0.275, reproduction max 0.2), so nothing is cut off or floating. The reproduction's flames look a little smoother and less broken into wisps than the original's, which is a texture point more than a fill point."
+   "score": 1,
+   "reason": "The frames are the original's size (32 x 96) and the envelope peaks at the same point (0.07), but the reproduction's flame sits lower and softer. In its frames the top of the cell stays dark where the original's flames reach it, and its flame is less full across the frame. The measures don't capture this, so it is a visual fault."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean colour difference is 0.3, well inside 15. The reproduction is slightly dimmer and browner than the original (dark measure 0.35 against 0.42), but the hue is the same orange-yellow flame in both. The measure allows 2 and I see nothing to lower it."
+   "reason": "The measured mean colour difference is 7.2, under the line of 15. Both are the same orange-to-yellow on near-black, with the same bright and dark spread."
   },
   "R4": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Frame count matches (15). The motion does not: the original's brightness envelope peaks at 0.07 of the way through the sheet, the reproduction's at 0.71, so the original is brightest early and fades while the reproduction builds up late. That is the same kind of effect with a clearly different motion. Loop closure is roughly similar (wrap 1.13 against 0.86, last-frame envelope 0.84 against 0.90), and jitter is close (1.51 against 1.57), so those parts hold."
+   "score": 2,
+   "reason": "Both have 15 frames, a wrap of 1.13 against 1.15 and a jitter of 1.51 against 1.56, so the loop closes and the flicker is the same kind. The envelope curves agree (peak at 0.07 in both, first frame 0.9 against 0.93). The dark measure (0.42 against 0.5) is a small gap, within what the measurement can separate."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type and format match the original (parallel oriented, additive), the size is 32x96 in both, the name matches (sameName true), and the file reads back (readsBack true)."
+   "reason": "The type is parallel oriented and the format additive in both, the name is the same, and the reproduction reads back as written."
   }
  },
  "total": 9,
