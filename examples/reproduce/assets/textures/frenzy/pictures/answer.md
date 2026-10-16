@@ -1,38 +1,25 @@
-The set is built and the build says OK: `work:frenzy_new/frenzy_new.wad`, with a sheet of its textures beside it. It holds all 25 of the map's textures, each under its original name and size.
+The build says OK. `frenzy_new.wad` has all 37 textures the map references, each at its original name and size. The spec is saved as `work:frenzy_new/frenzy_new.spec.json`, and the contact sheet is `work:frenzy_new/frenzy_new-textures.png`. I read "every texture" as every name in the map's texture table, not only the faces' textures. Six of them (`-1genpipe1`, `-2genpipe1`, `+a~fifts_lght01`, `+a~generic86`, `+amedkit`, `aaatrigger`) have no face wearing them, so the build refuses to lift them and I painted them instead.
 
-**How each texture was made**
+**Where each texture came from**
 
-```
-Lifted off the map's own view (17): the build's views sheet was added to
-  each lift where it shows more of the wall
-  c3a1_w3a, c3a1_w2, c3a1b_w3, c3a1b_w1, tnnl_flr7, c3a1b_w7, tnnl_flr7c,
-  silo2_wetdr, c3a1b_w1a, -0genpipe1, c3a2b_reac2c, c3a1b_w2, c3a2_bth1,
-  black, tnnl_brd1, crete4_stp01, babtech_ceil01
+| Source | Count | Textures |
+|---|---|---|
+| Lifted from the normal picture | 14 | `c3a1_w3a`, `c3a1_w2`, `c3a1b_w3`, `tnnl_flr7`, `tnnl_flr7c`, `silo2_wetdr`, `c3a2b_reac2c`, `c3a1b_w2`, `c3a2_bth1`, `black`, `tnnl_brd1`, `crete4_stp01`, `babtech_ceil01`, `-0genpipe1` |
+| Lifted from the darker picture at brightness 0.5 | 7 | `c3a1b_w1`, `c3a1b_w7`, `c3a1b_w1a`, `+0~fifts_lght01`, `+a~fifties_lgt2`, `+0~fifties_lgt2`, `+0~generic86` |
+| Painted: the picture was lit by one strong colour | 4 | `crete2_flr01`, `c2a4x_glu`, `c3a2a_tnk1b`, `yellow` |
+| Painted: no picture of the texture | 12 | `-1genpipe1`, `-2genpipe1`, `+a~fifts_lght01`, `+a~generic86`, `+0medkit`, `+amedkit`, `medkitedge1`, `c2a3rustdoor1`, `aaatrigger`, `{grate4a`, `{ladder1`, `{rail1b` |
 
-Painted (8): the view is white or tinted there, so a lift would copy the lamp
-  crete2_flr01        stone, mid grey, stains, speckle, cracks
-  c3a2a_tnk1b         metal, dark blue grey, grime, streaks
-  c2a4x_glu           hazard stripes, blue
-  yellow              paint, muted yellow, speckle, stains
-  +0~generic86        paint, yellow frame, lamp face in the middle
-  +0~fifts_lght01     metal, lamp face over most of it
-  +0~fifties_lgt2     metal, lamp face, speckled
-  +a~fifties_lgt2     metal, lamp face, speckled
-```
+The lifts used the map's views as well, so they show more of each texture. The `c3a1_w3a` lift covers 29% of its texels and `babtech_ceil01` covers 5%. The build reports the rest as repeated from that part.
 
-**What the build still reports**
+**What is a guess**
 
-- Five textures are brighter than Valve's, which is expected for lamp faces. `yellow` and `+0~generic86` are also flagged as having no grain, so I added wear to both.
-- `c3a1_w3a` shows 29% of its texels, `black` 12% and `babtech_ceil01` 5%. The views sheet was added to each, so that is as much of each as the map's views show.
-- The colours of `crete2_flr01`, `c3a2a_tnk1b` and `c2a4x_glu` are my estimates. Their views are a single strong blue light that hides red and green, so only the blue can be read. The name and the shape of each place set the rest. These three are the most likely to be off against the originals.
+- **The 12 painted with no picture.** Their looks come from their names. The red cross on the medkit, the rust on the door, and the grate, ladder and rail holes are my reading, not the originals. These are the ones most likely to differ from the originals.
+- **The 4 blue-lit ones.** The views show `crete2_flr01`, `c2a4x_glu` and `c3a2a_tnk1b` only under blue light, and `yellow` only as a white lamp, so their real colours can't be read. On the map they read blue, which matches the blue originals in their views.
+- **Duplicates.** `-1genpipe1` and `-2genpipe1` are painted pipes rather than copies of `-0genpipe1`, because the build can't lift a texture no face wears. `+a~fifts_lght01` and `+a~generic86` are painted lamp frames for the same reason.
 
-**What I checked**
+**Warnings still open**
 
-- The build's sheet shows all 25 textures.
-- I rendered the map's six start views with the .wad worn in place. The map's start views look right and the lamps read as the originals do.
-- I did not compare each texture's own place against its original picture one by one. The per-texture previews (`preview.each`) are in the build, but I did not open them individually.
+- `+a~generic86` and `aaatrigger` have no visible patches. Both are small (16x16), and I left them that way.
+- `yellow` is more coloured than Valve's walls (0.20 against 0.076). I kept it yellow on purpose, since the name says so.
 
-**Not done**
-
-- The map also wears six textures that are not in your list and have no picture here: `+0medkit`, `c2a3rustdoor1`, `medkitedge1`, `{grate4a`, `{ladder1`, `{rail1b`. I did not make them. If you send their pictures, they can go in the same spec.
-- The spec was passed to the build inline. I have no file-writing tool here, so it is not saved in the work folder. I can save it as a JSON file beside the .wad if you want it kept for a rebuild.
+I did not compare the finished textures side by side with the originals beyond the contact sheet and the map preview. The preview's per-texture readings are in the build output if you want to check them against the pictures.
