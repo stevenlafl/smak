@@ -522,6 +522,7 @@ told), checked as the engine needs them, and measured against the game's own sou
 | `reference` | The game's files to draw beside it (unless told, the first of its class), read from the game folders the server was given and never copied |
 | `bands` | The share of its power in each band, in %, as a description gives them: `{ "<150": 5, "150-600": 35, "600-2k": 45, "2k-5k": 12, ">5k": 3 }` (any of them). The report holds the made sound to them and warns of a band more than 7 points off, as it does against a `picture` |
 | `t20` | The seconds from its loudest to 20 dB under it, as a description gives its decay ("falls about 20 dB in the next 0.44 s": 0.44). The report holds the made sound to it and warns past a fifth off (a copy is judged at a quarter) |
+| `onsets` | How many hits a description counts ("three closely spaced hits": 3). The report counts the made sound's as a judge does (spectral flux peaks well over the sound's own mean: no hit in its first frames counts, and of several equal hits fewer count) and warns when they differ: build, read the count, and move the hits |
 | `picture` | A picture of the sound it is to be, as the kit draws one (a waveform over a spectrogram, its length in its label): `"sound.png"`, or `{ file, length, rate, row }` when its label or marks cannot be read. The report then gives the numbers read off it beside the made sound's (below) |
 | `sounds` | A set: a list of sounds, the spec's other fields their defaults |
 

@@ -16,7 +16,7 @@ import { pictureMeasures } from "../audio/picture.mjs";
 import { unpicture } from "../image.mjs";
 
 export const SOUND_SPEC = "smak.sound/1";
-const TOP = ["spec", "name", "class", "rate", "bits", "seed", "length", "pitch", "layers", "finish", "loop", "variants", "reference", "picture", "bands", "t20", "sounds", "note"];
+const TOP = ["spec", "name", "class", "rate", "bits", "seed", "length", "pitch", "layers", "finish", "loop", "variants", "reference", "picture", "bands", "t20", "onsets", "sounds", "note"];
 const LAYER = ["id", "kind", "file", "from", "at", "length", "gain", "env", "filter", "color", "shape", "iterations", "wave", "f", "sweep", "ratio", "index", "indexDecay", "ratios", "modes", "gains", "decay", "damping", "detune", "count", "rate", "every", "jitter", "band", "grain", "drive", "post", "note"];
 const KINDS = ["noise", "tone", "fm", "modes", "particles", "sample"];
 /** Licences a take's sidecar may name that do not allow selling what is made with it: told so in the report's facts. */
@@ -109,6 +109,8 @@ export function validateSoundSpec(spec) {
       errors.push(`${where("finish.limit")}: { crest: the peak over the RMS it is squashed to, in dB (Valve's weapons 6 to 10), release: seconds (0.05) }`);
     if (sound.bands !== undefined && !(sound.bands && typeof sound.bands === "object" && Object.entries(sound.bands).every(([k, v]) => BAND_NAMES.includes(k) && isNumber(v) && v >= 0 && v <= 100)))
       errors.push(`${where("bands")}: the share of its power in each band, in %, as a description of the sound gives it: { ${BAND_NAMES.map((k) => `"${k}": n`).join(", ")} } (any of them)`);
+    if (sound.onsets !== undefined && !(Number.isInteger(sound.onsets) && sound.onsets >= 0 && sound.onsets <= 64))
+      errors.push(`${where("onsets")}: how many hits a description of the sound counts ("three closely spaced hits": 3; "no separate impacts": 0), as a judge counts them`);
     if (sound.t20 !== undefined && !(isNumber(sound.t20) && sound.t20 > 0 && sound.t20 < 30))
       errors.push(`${where("t20")}: the seconds from its loudest to 20 dB under it, as a description of the sound gives it ("falls about 20 dB in the next 0.44 s": 0.44)`);
     if (sound.picture !== undefined && typeof sound.picture !== "string" && typeof sound.picture?.file !== "string")
@@ -315,6 +317,15 @@ export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (
         report.facts.push(`${take.name}: T20 ${f.t20} s against the ${sound.t20} s asked (${off > 0 ? "+" : ""}${Math.round(off * 100)}%)`);
         if (Math.abs(off) > T20_ASKED && Math.abs(f.t20 - sound.t20) > 0.05)
           warnings.push(`${take.name}: its decay is ${f.t20} s to 20 dB under its loudest, against the ${sound.t20} s asked (${Math.round(Math.abs(off) * 100)}% ${off > 0 ? "long: a shorter decay or a lower tail" : "short: a longer decay, or more of its tail"}; aim within ${T20_ASKED * 100}%)`);
+      }
+      // the hits a description counts, by the judge's own count (spectral flux peaks over its mean and two
+      // deviations, which sees no hit in a sound's first frames: at 22050 Hz a lone hit 60 ms in counted, one 40 ms in
+      // did not, and of three equal hits one counted): the .357's three made
+      // two, the shotgun's and the crowbar's one made none, and the judges took S4 for each
+      if (sound.onsets !== undefined && take.name === sound.name) {
+        report.facts.push(`${take.name}: ${f.onsets} onsets against the ${sound.onsets} asked`);
+        if (f.onsets !== sound.onsets)
+          warnings.push(`${take.name}: ${f.onsets} onsets, as a judge counts them, against the ${sound.onsets} asked: ${f.onsets < sound.onsets ? "a hit the count does not see: a strike in its first frames is not counted (let it start a little quieter, the hit some 40 to 60 ms in), hits under 50 ms apart are one, and of several only those well over the sound's own mean rise count (make each later hit a step up from what is sounding, not a swell): build again and read the count" : "more hits than asked: a layer's grains or a ring that swells again counts as one"}`);
       }
       if (seen && take.name === sound.name) {
         const p = (entry.picture = againstPicture(f, seen, sound));

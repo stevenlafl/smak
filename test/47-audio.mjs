@@ -327,6 +327,18 @@ test("a sound held to the decay a description gives: a T20 more than a fifth off
   sure(validateSoundSpec(spec(-1, 1)).errors.some((e) => /t20: the seconds from its loudest/.test(e)), "a negative t20 refused");
 });
 
+test("a sound held to the hits a description counts, as a judge counts them", () => {
+  const hit = (at) => ({ kind: "noise", at, filter: [{ type: "highpass", f: 800 }], env: { decay: 0.3 } });
+  const bed = { kind: "noise", color: "brown", gain: -30, length: 0.8, env: { attack: 0.001, hold: 0.5, decay: 0.3 } };
+  const spec = (layers) => ({ spec: "smak.sound/1", name: "x/hit.wav", onsets: 1, layers: [bed, ...layers] });
+  // a strike at once is no onset to the count; one after a quieter start is
+  const atOnce = buildSoundSpec(spec([hit(0)]));
+  sure(atOnce.report.warnings.some((w) => /x\/hit\.wav: 0 onsets, as a judge counts them, against the 1 asked: a hit the count does not see/.test(w)), atOnce.report.warnings.join(" | "));
+  const later = buildSoundSpec(spec([hit(0.06)]));
+  sure(later.report.facts.some((f) => /1 onsets against the 1 asked/.test(f)) && !later.report.warnings.some((w) => /onsets, as a judge/.test(w)), [...later.report.facts, ...later.report.warnings].join(" | "));
+  sure(validateSoundSpec({ ...spec([]), onsets: 1.5 }).errors.some((e) => /onsets: how many hits/.test(e)), "a fraction of a hit refused");
+});
+
 test("a sound's spectrum off its class is warned of, which way, as a judge measures it", () => {
   // a metal hit made of a low thud alone: far too dark for the game's metal hits
   const dark = buildSoundSpec({ spec: "smak.sound/1", name: "weapons/thud.wav", class: "metal hit", length: 0.5, layers: [{ kind: "tone", f: 90, env: { attack: 0.002, decay: 0.3 } }] }, { games: [] });
