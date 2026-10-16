@@ -1,21 +1,21 @@
-The map builds **OK**: it compiles, has no leaks, and every start and deathmatch point is reached on foot. It is not yet a faithful copy in three respects: the doors, ladders and triggers are missing, the lighting is a guess, and the entity positions are read by eye.
+The map builds OK: `frenzy_copy` compiles to a `.bsp`, the build reports no leaks, and all 54 entities a player goes to are reached on foot. It does not match the original closely yet. The layout and floor heights come from your height plans, but the entity positions, the lighting and the textures are my approximations, and several of the original's entities are missing.
 
-**Output:** `work:frenzy_copy/frenzy_copy.bsp` (with `.map`, `.wad` and plan pictures beside it).
+**What the build does** (`/tmp/smak-repro-cbayz2/work/frenzy_copy/frenzy_copy.bsp`, source `frenzy_copy.map`)
+- Layout and floor heights: the four height-plan layers carve the space (`floorplan: work:heightplan/`), so the rooms, stairs, ledges and drops follow your pictures.
+- Starts: `info_player_start` and 14 `info_player_deathmatch`, placed from the labels on `plan.png`.
+- Weapons, ammo and items: 33 point entities placed from the plan and storey labels.
+- Textures: Half-Life's own, picked by name words and colour: floor `C1A3FLOOR02`, walls `METAL_BORD08`, ceiling `BABTECH_CEIL02`.
+- Light: the engine's 24 automatic lamps under the largest spaces.
 
-**What matches**
-- **Layout, sizes, floor heights, stairs, ledges and drops:** carved from the four height layers with `floorplan: { dir: "work:heightplan/" }`. The plan picture has the same octagonal rooms, the central shaft and the east stairs as the original plan.
-- **Starts:** 1 `info_player_start` and 14 `info_player_deathmatch`, all reached on foot.
-- **Textures** from halflife.wad: floor `CRETE4_FLR01`, walls `BASEWALL01A`, ceilings `CRETE3_CEIL01`, doors `LAB1_DOOR1`. These are my choices, since the originals were not given as pictures.
+**What is not reproduced, and why**
+- Not placed: 12 `func_wall`, 2 `func_door`, 2 `func_ladder`, 1 `func_healthcharger`, 2 `trigger_multiple` and 8 `env_glow`. Floor-plan entities are points only, and the spec has no brush entities on the plan, so the doors, lifts and ladders are missing. The gallery that depends on a ladder is unreachable as a result.
+- Lights: I placed the original's 8 lights by hand, but any light entity switches off the automatic lamps, and eight of them came out far dimmer. I went back to the automatic lamps.
+- `ammo_snarks` is not a class in Half-Life's entity list, so I used `weapon_snark`. The other ammo names were corrected to the list's spelling.
 
-**What does not match, or is a guess**
-- **Doors and lifts:** none. The floor plan carves every space open, and a map built this way has no rooms or links to hang doors on. The original has 2 `func_door`, 2 `func_ladder` and 12 `func_wall` brushes, plus 2 triggers. None are placed.
-- **Entity positions:** read by eye from `plan.png` at about 2.5 units a pixel, so expect errors of roughly 8 units.
-- **Item and weapon classes:** the plan's legend text was too small to read each number, so the classes on the cyan dots are approximate. Counts and types may differ from the original.
-- **Lights:** 9 `light` entities at z 80, brightness 300 (6 at the original's yellow dots, 3 added in large rooms). The original's 8 `env_glow` sprites are not placed. Floor light is low: the build reports an average of 19 of 255, so the views are dark. The brightness was my choice, since the light was left to me.
-- **Dropped lights:** three candidate lights sat over open sky or inside rock and made lamp rods reach 4000+ units, so I removed them.
+**Accuracy caveats**
+- Entity positions and floor layers are read by eye from `plan.png` and the storey pictures. Only one entity (the deathmatch start at 611,503) is on the upper layer; the rest are on layer 0.
+- I could not compare against the original's views: the input folder is not readable as a directory, and there is no original `.bsp` to draw. So the "matches side by side" judgement is still open.
+- The build warns "floorplan: not a field of a map spec" on every run, yet the floor plan is used (the build reports 4 layers). I did not resolve that warning.
+- The walk test finds 48 places where a player can fall more than 210 units. I left them, since the upper galleries are the source of those drops; the build asks to rail or mean each one.
 
-**Open warnings**
-- The build warns `floorplan: not a field of a map spec, left out`. The carve still happens (the fact line confirms it), so I left it alone. Someone should check whether the key is spelled right for this kit version.
-- The walk test reports 49 drops of 336 units that a player can fall from. These are the level's own ledges, so I kept them, but the warning says to rail or mean each one.
-
-**Limits of this session:** I have no file-writing tool, so the spec exists only in my build calls and is not saved as a script in the repo. Someone who wants to rebuild it needs that spec saved to a file.
+Next steps, if you want to push closer: add the brush entities (doors, ladders, the healthcharger) once the spec can place them, and check the upper-gallery entity layers against the original's views.

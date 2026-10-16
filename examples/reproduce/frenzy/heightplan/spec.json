@@ -7,500 +7,591 @@
   "wads": [
     "halflife.wad"
   ],
-  "textures": {
-    "floor_tex": {
-      "texture": "CRETE4_FLR01"
+  "theme": {
+    "floor": {
+      "pick": {
+        "words": [
+          "floor"
+        ],
+        "tone": [
+          0.45,
+          0.45,
+          0.42
+        ]
+      }
     },
-    "wall_tex": {
-      "texture": "BASEWALL01A"
+    "wall": {
+      "pick": {
+        "words": [
+          "metal"
+        ],
+        "tone": [
+          0.5,
+          0.5,
+          0.5
+        ]
+      }
     },
-    "ceil_tex": {
-      "texture": "CRETE3_CEIL01"
+    "ceiling": {
+      "pick": {
+        "words": [
+          "ceil"
+        ],
+        "tone": [
+          0.4,
+          0.4,
+          0.4
+        ]
+      }
     },
-    "door_tex": {
-      "texture": "LAB1_DOOR1"
+    "door": {
+      "base": "metal",
+      "tone": "grey"
     }
   },
-  "theme": {
-    "floor": "floor_tex",
-    "wall": "wall_tex",
-    "ceiling": "ceil_tex",
-    "door": "door_tex"
+  "compile": {
+    "quality": "normal"
   },
   "entities": [
     {
       "class": "info_player_start",
       "room": "plan",
       "at": [
-        235,
-        -325
-      ]
+        242,
+        -313
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
       "class": "info_player_deathmatch",
       "room": "plan",
       "at": [
-        -392,
-        990
-      ]
+        -384,
+        999
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
       "class": "info_player_deathmatch",
       "room": "plan",
       "at": [
-        -445,
-        -995
-      ]
+        -442,
+        -976
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
       "class": "info_player_deathmatch",
       "room": "plan",
       "at": [
-        -558,
-        -635
-      ]
+        -397,
+        -537
+      ],
+      "layer": 0,
+      "z": 0
+    },
+    {
+      "class": "info_player_deathmatch",
+      "room": "plan",
+      "at": [
+        -384,
+        609
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
       "class": "info_player_deathmatch",
       "room": "plan",
       "at": [
         -420,
-        540
-      ]
+        362
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
       "class": "info_player_deathmatch",
       "room": "plan",
       "at": [
-        -382,
-        350
-      ]
+        -431,
+        -380
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
       "class": "info_player_deathmatch",
       "room": "plan",
       "at": [
-        -440,
-        -390
-      ]
-    },
-    {
-      "class": "info_player_deathmatch",
-      "room": "plan",
-      "at": [
-        -923,
-        -775
-      ]
+        -920,
+        -766
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
       "class": "info_player_deathmatch",
       "room": "plan",
       "at": [
         152,
-        -775
-      ]
+        -767
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
       "class": "info_player_deathmatch",
       "room": "plan",
       "at": [
-        652,
-        -17
-      ]
+        656,
+        -10
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
       "class": "info_player_deathmatch",
       "room": "plan",
       "at": [
-        607,
-        492
-      ]
+        611,
+        503
+      ],
+      "layer": 1,
+      "z": 0
     },
     {
       "class": "info_player_deathmatch",
       "room": "plan",
       "at": [
-        178,
-        -2
-      ]
+        200,
+        -10
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
       "class": "info_player_deathmatch",
       "room": "plan",
       "at": [
-        445,
-        -2
-      ]
+        150,
+        40
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
       "class": "info_player_deathmatch",
       "room": "plan",
       "at": [
-        -1163,
-        -2
-      ]
+        -1160,
+        8
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
       "class": "info_player_deathmatch",
       "room": "plan",
       "at": [
-        -50,
-        -2
-      ]
-    },
-    {
-      "class": "light",
-      "room": "plan",
-      "at": [
-        638,
-        702
+        -100,
+        8
       ],
-      "z": 80,
-      "_light": "255 255 220 300"
-    },
-    {
-      "class": "light",
-      "room": "plan",
-      "at": [
-        830,
-        635
-      ],
-      "z": 80,
-      "_light": "255 255 220 300"
-    },
-    {
-      "class": "light",
-      "room": "plan",
-      "at": [
-        638,
-        382
-      ],
-      "z": 80,
-      "_light": "255 255 220 300"
-    },
-    {
-      "class": "light",
-      "room": "plan",
-      "at": [
-        652,
-        187
-      ],
-      "z": 80,
-      "_light": "255 255 220 300"
-    },
-    {
-      "class": "light",
-      "room": "plan",
-      "at": [
-        880,
-        170
-      ],
-      "z": 80,
-      "_light": "255 255 220 300"
-    },
-    {
-      "class": "light",
-      "room": "plan",
-      "at": [
-        652,
-        445
-      ],
-      "z": 80,
-      "_light": "255 255 220 300"
-    },
-    {
-      "class": "light",
-      "room": "plan",
-      "at": [
-        -820,
-        500
-      ],
-      "z": 80,
-      "_light": "255 255 220 300"
-    },
-    {
-      "class": "light",
-      "room": "plan",
-      "at": [
-        -1080,
-        -300
-      ],
-      "z": 80,
-      "_light": "255 255 220 300"
-    },
-    {
-      "class": "light",
-      "room": "plan",
-      "at": [
-        -257,
-        0
-      ],
-      "z": 80,
-      "_light": "255 255 220 300"
+      "layer": 0,
+      "z": 0
     },
     {
       "class": "weapon_rpg",
       "room": "plan",
       "at": [
-        -940,
-        808
-      ]
+        -374,
+        1008
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
       "class": "weapon_gauss",
       "room": "plan",
       "at": [
-        488,
-        -363
-      ]
-    },
-    {
-      "class": "weapon_shotgun",
-      "room": "plan",
-      "at": [
-        -1235,
-        -133
-      ]
-    },
-    {
-      "class": "weapon_hornetgun",
-      "room": "plan",
-      "at": [
-        485,
-        357
-      ]
-    },
-    {
-      "class": "weapon_snark",
-      "room": "plan",
-      "at": [
-        -303,
-        -858
-      ]
-    },
-    {
-      "class": "weapon_snark",
-      "room": "plan",
-      "at": [
-        -137,
-        -815
-      ]
+        -792,
+        85
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
       "class": "weapon_tripmine",
       "room": "plan",
       "at": [
-        150,
-        -750
-      ]
+        -813,
+        354
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
-      "class": "weapon_satchel",
+      "class": "weapon_tripmine",
       "room": "plan",
       "at": [
-        -928,
-        -750
-      ]
+        -813,
+        -199
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
-      "class": "ammo_gaussclip",
+      "class": "weapon_tripmine",
       "room": "plan",
       "at": [
-        -53,
-        140
-      ]
+        430,
+        326
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
-      "class": "ammo_gaussclip",
+      "class": "weapon_tripmine",
       "room": "plan",
       "at": [
-        -213,
-        180
-      ]
+        516,
+        -122
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
-      "class": "ammo_buckshot",
+      "class": "weapon_tripmine",
       "room": "plan",
       "at": [
-        -568,
-        180
-      ]
+        -833,
+        -536
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
-      "class": "ammo_buckshot",
+      "class": "weapon_hornetgun",
       "room": "plan",
       "at": [
-        -670,
-        150
-      ]
+        -1199,
+        122
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
-      "class": "ammo_buckshot",
+      "class": "weapon_shotgun",
       "room": "plan",
       "at": [
-        -390,
-        48
-      ]
+        142,
+        77
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
-      "class": "item_battery",
+      "class": "weapon_snark",
       "room": "plan",
       "at": [
-        -420,
-        425
-      ]
+        -264,
+        81
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
-      "class": "item_battery",
+      "class": "weapon_snark",
       "room": "plan",
       "at": [
-        -420,
-        470
-      ]
+        773,
+        614
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
-      "class": "item_battery",
+      "class": "weapon_handgrenade",
       "room": "plan",
       "at": [
-        488,
-        208
-      ]
+        -914,
+        -97
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
-      "class": "item_battery",
+      "class": "weapon_handgrenade",
       "room": "plan",
       "at": [
-        -230,
-        510
-      ]
+        -914,
+        268
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
       "class": "ammo_ARgrenades",
       "room": "plan",
       "at": [
-        -670,
-        -153
-      ]
+        -930,
+        735
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
       "class": "ammo_ARgrenades",
       "room": "plan",
       "at": [
-        -820,
-        -290
-      ]
+        -114,
+        -715
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
-      "class": "ammo_rpgclip",
+      "class": "ammo_ARgrenades",
       "room": "plan",
       "at": [
-        -568,
-        -188
-      ]
+        -671,
+        85
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
-      "class": "ammo_rpgclip",
+      "class": "ammo_ARgrenades",
       "room": "plan",
       "at": [
-        -213,
-        -188
-      ]
+        325,
+        516
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
-      "class": "ammo_rpgclip",
+      "class": "ammo_ARgrenades",
       "room": "plan",
       "at": [
-        -53,
-        -145
-      ]
+        -467,
+        236
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
-      "class": "ammo_rpgclip",
+      "class": "ammo_buckshot",
       "room": "plan",
       "at": [
-        -928,
-        -795
-      ]
+        102,
+        -57
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
-      "class": "item_healthkit",
+      "class": "ammo_buckshot",
       "room": "plan",
       "at": [
-        607,
-        445
-      ]
+        -264,
+        -138
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
-      "class": "item_healthkit",
+      "class": "ammo_buckshot",
       "room": "plan",
       "at": [
-        750,
-        532
-      ]
+        -272,
+        -768
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
-      "class": "item_healthkit",
+      "class": "ammo_buckshot",
       "room": "plan",
       "at": [
-        150,
-        -795
-      ]
-    },
-    {
-      "class": "item_longjump",
-      "room": "plan",
-      "at": [
-        597,
-        350
-      ]
-    },
-    {
-      "class": "ammo_357",
-      "room": "plan",
-      "at": [
-        -348,
-        -3
-      ]
-    },
-    {
-      "class": "ammo_9mmclip",
-      "room": "plan",
-      "at": [
-        -390,
+        -1199,
         -53
-      ]
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
-      "class": "ammo_9mmclip",
+      "class": "ammo_buckshot",
       "room": "plan",
       "at": [
-        -820,
-        273
-      ]
-    },
-    {
-      "class": "ammo_crossbow",
-      "room": "plan",
-      "at": [
-        -545,
-        -668
-      ]
-    },
-    {
-      "class": "weapon_egon",
-      "room": "plan",
-      "at": [
-        -537,
-        -638
-      ]
+        -215,
+        470
+      ],
+      "layer": 0,
+      "z": 0
     },
     {
       "class": "ammo_9mmAR",
       "room": "plan",
       "at": [
-        488,
-        -213
-      ]
+        407,
+        455
+      ],
+      "layer": 0,
+      "z": 0
+    },
+    {
+      "class": "ammo_9mmAR",
+      "room": "plan",
+      "at": [
+        134,
+        228
+      ],
+      "layer": 0,
+      "z": 0
+    },
+    {
+      "class": "ammo_9mmAR",
+      "room": "plan",
+      "at": [
+        -345,
+        313
+      ],
+      "layer": 0,
+      "z": 0
+    },
+    {
+      "class": "ammo_rpgclip",
+      "room": "plan",
+      "at": [
+        -28,
+        -667
+      ],
+      "layer": 0,
+      "z": 0
+    },
+    {
+      "class": "ammo_rpgclip",
+      "room": "plan",
+      "at": [
+        163,
+        -711
+      ],
+      "layer": 0,
+      "z": 0
+    },
+    {
+      "class": "ammo_rpgclip",
+      "room": "plan",
+      "at": [
+        -1138,
+        -667
+      ],
+      "layer": 0,
+      "z": 0
+    },
+    {
+      "class": "ammo_rpgclip",
+      "room": "plan",
+      "at": [
+        -906,
+        -711
+      ],
+      "layer": 0,
+      "z": 0
+    },
+    {
+      "class": "ammo_rpgclip",
+      "room": "plan",
+      "at": [
+        -378,
+        545
+      ],
+      "layer": 0,
+      "z": 0
+    },
+    {
+      "class": "ammo_rpgclip",
+      "room": "plan",
+      "at": [
+        -378,
+        488
+      ],
+      "layer": 0,
+      "z": 0
+    },
+    {
+      "class": "weapon_snark",
+      "room": "plan",
+      "at": [
+        -386,
+        175
+      ],
+      "layer": 0,
+      "z": 0
+    },
+    {
+      "class": "weapon_snark",
+      "room": "plan",
+      "at": [
+        -325,
+        33
+      ],
+      "layer": 0,
+      "z": 0
+    },
+    {
+      "class": "weapon_snark",
+      "room": "plan",
+      "at": [
+        651,
+        549
+      ],
+      "layer": 0,
+      "z": 0
+    },
+    {
+      "class": "weapon_snark",
+      "room": "plan",
+      "at": [
+        651,
+        516
+      ],
+      "layer": 0,
+      "z": 0
+    },
+    {
+      "class": "item_battery",
+      "room": "plan",
+      "at": [
+        508,
+        -272
+      ],
+      "layer": 0,
+      "z": 0
+    },
+    {
+      "class": "item_battery",
+      "room": "plan",
+      "at": [
+        366,
+        402
+      ],
+      "layer": 0,
+      "z": 0
+    },
+    {
+      "class": "item_longjump",
+      "room": "plan",
+      "at": [
+        -61,
+        85
+      ],
+      "layer": 0,
+      "z": 0
     }
   ]
 }

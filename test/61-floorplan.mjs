@@ -55,6 +55,8 @@ test("a map spec's floorplan: its space carved from the plan, a start on the gal
   // the same point on the gallery over it: layer 1, its floor at 128
   const up = buildMapSpec({ ...spec, name: "gallery2", entities: [...spec.entities, { class: "item_healthkit", room: "plan", at: [208, 40], layer: 1, z: 2 }] }, { out: join(folder, "out2"), folder, compilers: { found: false, message: "" } });
   sure(/"origin" "208 40 130"/.test(readFileSync(up.files.map, "utf8")), "the kit on the gallery, 2 over its floor at 128");
+  const marked = buildMapSpec({ ...spec, name: "gallery3", entities: [...spec.entities, { class: "item_healthkit", room: "plan", at: [208, 40], height: 140, z: 2 }] }, { out: join(folder, "out3"), folder, compilers: { found: false, message: "" } });
+  sure(/"origin" "208 40 130"/.test(readFileSync(marked.files.map, "utf8")), "marked at 140: on the gallery's floor at 128");
   const missing = validateMapSpec({ spec: "smak.map/1", name: "x", entities: [{ class: "info_player_start", room: "plan" }] });
   sure(missing.errors.some((e) => /rooms: a list of one room at least \(or a floorplan\)/.test(e)), missing.errors.join("; "));
 });

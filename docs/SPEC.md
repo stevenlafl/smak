@@ -829,7 +829,8 @@ the cell's size, and the world's x at the pictures' left edge, `x0`, and y at th
 space is carved out of rock in one, so a gallery over a hall and the hall under it are one space; the walked floor
 is grown `grow` cells (1) to the walls, since a player's middle keeps 16 off them. Rooms may be left out; what
 stands on the plan is in the room `"plan"`, `at: [x, y]` of the world, on the floor of its `layer` there (0, the
-lowest, unless told; numbered as the height plan's pictures are), `z` over it:
+lowest, unless told; numbered as the height plan's pictures are) or under the `height` a plan gives it (the highest
+floor at or under it), `z` over it:
 
 ```json
 { "spec": "smak.map/1", "name": "arena", "floorplan": { "dir": "work:plans/" },

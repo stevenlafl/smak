@@ -50,5 +50,7 @@ for (const map of SUBJECTS.maps.filter((m) => chosen(m.id))) {
   smak("map-views", bsp, "-o", join(out, "views.png"), "--count", "16", "--models", ...game);
   // the height plans of the heightplan leg: a layer of floor a picture, its height and headroom as colours
   smak("map-heights", bsp, "-o", join(out, "heightplan"));
+  // and the plan's marks as text, each entity's number, class and place (x y z), as map-plan --list gives them
+  writeFileSync(join(out, "heightplan", "entities.txt"), smak("map-plan", bsp, "-o", join(out, "plan-list.png"), "--list", ...game));
   console.log(`${map.id}: plan, storeys, two sections, sixteen views, height plans`);
 }
