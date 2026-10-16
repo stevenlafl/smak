@@ -179,7 +179,12 @@ function inputs(kind, subject) {
     savePng(join(out, "views.png"), views);
     // each view's camera beside the sheet, so that a texture can be lifted off them too (lift.views)
     writeFileSync(join(out, "views.json"), `${JSON.stringify({ width: 320, height: 240, cols: Math.min(4, views.facts.views.length), cameras: views.facts.views.map(({ name, from, yaw, pitch }) => ({ name, from, yaw, pitch })) }, null, 1)}\n`);
-    writeFileSync(join(out, "list.txt"), `${places.map((p) => `${p.name} ${p.width}x${p.height} (${p.name.replace(/[^\w~+{!-]/g, "_")}.png${dark.has(p.name) ? `; darker, at brightness ${DARK_VIEW}: ${p.name.replace(/[^\w~+{!-]/g, "_")}-dark.png` : ""})`).join("\n")}\n`);
+    // an animation's other frames and a random set's other tiles, by name: the map names its first, the game's .wad
+    // holds the rest, and a modder replacing them sees them there (a maker who made only the first lost T6 on all
+    // four lamps). Names only: their pictures are the game's
+    const game = gameTextures(bsp);
+    const frames = (name) => siblingsOf(name, game).filter((n) => n.toLowerCase() !== name.toLowerCase());
+    writeFileSync(join(out, "list.txt"), `${places.map((p) => `${p.name} ${p.width}x${p.height} (${p.name.replace(/[^\w~+{!-]/g, "_")}.png${dark.has(p.name) ? `; darker, at brightness ${DARK_VIEW}: ${p.name.replace(/[^\w~+{!-]/g, "_")}-dark.png` : ""}${frames(p.name).length ? `; its other frames in the game: ${frames(p.name).join(", ")}` : ""})`).join("\n")}\n`);
   }
   return out;
 }
@@ -229,7 +234,7 @@ async function reproduce(kind, subject, leg) {
   else if (leg === "pictures") {
     for (const f of readdirSync(input)) files[`pictures/${f}`] = join(input, f);
     given = `The original, in pictures: every file of ${input} (also in the server's work folder under pictures/). ${readdirSync(input).filter((f) => f.endsWith(".txt")).map((f) => readFileSync(join(input, f), "utf8")).join("\n")}${kind === "textures" ? `\nEach texture's picture is the map's own view of its place: a texture's lift: { map: "models:${subject.map ?? "frenzy"}.bsp", view: "work:pictures/<its picture>" } takes the texture itself off it (docs/SPEC.md, "Textures for maps"), its light divided out (add views: "work:pictures/views.png", cameras: "work:pictures/views.json" to take what the map's views show of it too); the build says how much of it the view shows and how much is white there. Where list.txt gives a darker view (a lamp, white at the place view's brightness), lift it off that one with brightness: ${DARK_VIEW}. Use it on every texture the build does not warn is white or tinted in its view, however little of it the view shows (its colour and grain come back true from a small part), and paint only those.` : ""}`;
-  } else given = `The original, as someone who has seen it describes it:\n\n${readFileSync(join(base, "words.md"), "utf8")}${kind !== "textures" ? `\nIts facts: ${readFileSync(join(input, "facts.txt"), "utf8")}` : ""}${kind === "textures" ? `\nThe textures, each name and size:\n${readFileSync(join(input, "list.txt"), "utf8").replace(/ \(.*\)/g, "")}\nThe colours in these words were read off each texture's place in the map as lit there, from the camera and brightness the preview draws yours from: match them to what the preview says yours reads as in each view, not to the paint.` : ""}`;
+  } else given = `The original, as someone who has seen it describes it:\n\n${readFileSync(join(base, "words.md"), "utf8")}${kind !== "textures" ? `\nIts facts: ${readFileSync(join(input, "facts.txt"), "utf8")}` : ""}${kind === "textures" ? `\nThe textures, each name and size:\n${readFileSync(join(input, "list.txt"), "utf8").replace(/ \((?:.*; )?(its other frames in the game: [^)]*)\)/g, " ($1)").replace(/ \([^)]*\.png[^)]*\)/g, "")}\nThe colours in these words were read off each texture's place in the map as lit there, from the camera and brightness the preview draws yours from: match them to what the preview says yours reads as in each view, not to the paint.` : ""}`;
   // the map, for a textures leg: alone in the server's models folder, with no game folder for its textures
   let models = null;
   if (kind === "textures") {
