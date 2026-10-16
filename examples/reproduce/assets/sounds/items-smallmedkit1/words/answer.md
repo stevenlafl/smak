@@ -1,34 +1,26 @@
-The sound is built and the build says **OK**. It's written to `work:sound/items/smallmedkit1.wav`, so it takes the place of the game's own file when it sits in `<mod>/sound`.
+The sound is built at `work:sound/items/smallmedkit1.wav`, and the build says OK. The game will play it in place of its own `items/smallmedkit1.wav`. I had no copy of the original to compare against, so every target below comes from the description you gave.
 
-I made it from layers only, with no generated take, so no non-commercial licence applies.
+| Measure | Original (from description) | Built |
+| --- | --- | --- |
+| Length | 0.76 s, plays once | 0.76 s, no loop |
+| Format | 22050 Hz, 8-bit | 22050 Hz, 8-bit mono |
+| Loudest point | 0.209 s | about 0.22 s (attack reads 224 ms) |
+| Band share, under 150 Hz | 0% | 0% |
+| Band share, 150–600 Hz | 14% | 13.7% |
+| Band share, 600–2k Hz | 64% | 62.7% |
+| Band share, 2k–5k Hz | 5% | 5.2% |
+| Band share, over 5k Hz | 17% | 18.3% |
+| Spectral centroid | about 1936 Hz | 2138 Hz (about 10% high) |
+| Decay time, T20 (time to fall 20 dB after the peak) | about 0.55 s | 0.44 s (short) |
 
-**Measured against your description**
+How it is built:
+- **0–0.35 s:** three 675 Hz square beeps at 0.00–0.04, 0.06–0.18 and 0.22–0.33 s, with hard edges. Each has a faint 337 Hz sine under it and a short broadband click at its onset.
+- **0.35–0.53 s:** a particle rustle in the 300–2000 Hz band, with a click at 0.45 s.
+- **0.53–0.76 s:** a spray hiss from a generated take, high-passed at 4.5 kHz, starting abruptly and cut at the end.
+- **Finish:** the file is 8-bit as the original is, and the build's warning about static under the quiet tail is accepted for that reason.
 
-| Check | Original (your figures) | Built file | Off by |
-|---|---|---|---|
-| Length | 0.76 s | 0.76 s | none |
-| Sample rate and depth | 22050 Hz, 8-bit | 22050 Hz, 8-bit | none |
-| Power under 150 Hz | 0% | 1.7% | +1.7 points |
-| Power 150 to 600 Hz | 14% | 13.1% | -0.9 points |
-| Power 600 to 2k Hz | 64% | 64.3% | +0.3 points |
-| Power 2k to 5k Hz | 5% | 6.5% | +1.5 points |
-| Power over 5k Hz | 17% | 14.4% | -2.6 points |
-| Spectral centroid | about 1936 Hz | 1821 Hz | about 6% low |
+Two things to know:
+- **Hiss source and licence:** the hiss is a take from the local `woosh-dflow` generator (`work:gen/medkit_spray_s0.wav`). Its licence is CC-BY-NC 4.0, which is non-commercial. You accepted that for this test, so the file is fine here, but it is not cleared for commercial use.
+- **Known gaps:** the decay is about 0.1 s shorter than the original's, and the centroid is about 200 Hz high. Closing the decay gap pushes the band shares off target, because the beeps and the hiss have to keep their ratio. I stopped there rather than trade the band match for it. I dropped the "click" class, since none of the built-in classes fits a medkit pickup, and its comparison was misleading.
 
-**How it's built**
-
-- **Beeps (0 to 0.35 s):** three sine tones at 700 Hz, lengths 0.03, 0.12 and 0.15 s, with 0.02 and 0.03 s gaps. Each has a 2 ms edge and a short high-passed click at its start.
-- **Rustle (0.35 to 0.68 s):** pink noise band-limited to 150 to 2000 Hz, with four small ticks and one clearer click at 0.52 s.
-- **Hiss (0.68 to 0.76 s):** white noise band-limited to 4 to 9 kHz, held steady and cut off at the end, with a weak low rumble under it.
-- **Finish:** a short high-passed crack at 0 s so the sound starts at full level, then a limiter and a -0.5 dBFS peak.
-
-**Where I departed from your description**
-
-- **Rustle and hiss are louder than you described.** Your 15 to 20% amplitude for the rustle can't produce the 14% low-mid power share. The shares are measured, so I matched them. The rustle now sits near the beeps' peak level, not well below it. If the level matters more than the shares, tell me and I'll rebalance.
-- **The hiss is close to the beeps' peak level,** as you described.
-- **Attack reads 708 ms.** The sound starts at full level, but the report's attack figure is measured on the overall envelope, which is dominated by the later hiss. I did not change this, since the build raised no warning on it.
-
-**Left as is**
-
-- **8-bit:** kept because your description says the original is 8-bit. The build warns that 8-bit adds a faint hiss under quiet tails, which is the grainy noise floor you described. If you'd rather avoid that, it's one line (`bits`) to change to 16.
-- **No game file to compare against:** the game's original wasn't in the folders I had, so the build measured against your numbers, not the real file. Listening in the game is the real test.
+The real test is still listening in the game, which the build cannot do.

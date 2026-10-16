@@ -1,1 +1,12 @@
-A heavy door or gate sliding or grinding open, the sound of a big mechanism moving. It lasts 5.04 seconds, mono, 11025 Hz, 8-bit, and plays once with no loop. It starts almost at once with a short fade-in of about 0.1 s. After that it holds a fairly steady, moderately loud rumble with a gritty, fluttering texture for about 4 seconds. Near 4.1 s it swells to its loudest point, with heavier pulsing, then fades out over the last half second instead of ending on a slam. Most of the energy is low-mid, with a centroid around 600 Hz. Roughly 30% sits under 150 Hz, 38% at 150 to 600, 28% at 600 to 2000, 4% at 2000 to 5000 and close to nothing above 5000, so it sounds dull and boomy. The sound is mostly noise: a scraping, rolling grind with a constant low motor drone underneath. Faint tonal squeal bands around 300 to 500 Hz rise and fall in slow arcs about every second, near 0.3, 1.3, 2.4, 3.0 and 4.0 s, like a wheel squeaking or a track grinding as it turns. There are no sharp clicks. Weak periodic bumps sit in the texture, and the last second has a coarser, faster pulse that could be gears or rollers before it stops. Apart from those wavering squeal arcs, the pitch doesn't change overall.
+A heavy sliding or rolling door moving along its track, like a big metal door or gate grinding open or shut. It plays once and lasts 5.04 seconds (mono, 11025 Hz sample rate, 8-bit).
+
+It starts at once, at a fairly full level, with no slow fade-in. For about four seconds the loudness stays steady and rough, with a gritty grinding texture that wavers a little. Near the end the motion gets heavier and more jerky. The peak comes at about 4.4 seconds, as a short run of strong low pulses where the door bumps to its stop. After that it dies fast, falling about 20 dB in roughly half a second, and a short low tail runs out to 5.04 seconds.
+
+Energy is low to mid and dull, centred near 600 Hz:
+under 150 Hz: about 30%
+150 to 600 Hz: about 38%
+600 to 2000 Hz: about 28%
+2000 to 5000 Hz: about 4%
+over 5000 Hz: nothing
+
+Mostly it is broadband grinding noise. Faint tonal squeal arcs ride over it at a few hundred hertz. Each one bends upward and then flattens, and they recur about every 1.2 to 1.5 seconds, near 0.3, 1.6, 2.9 and 4.0 seconds, like a wheel or hinge squeaking as it turns. There are about seven distinct hits: small bumps scattered through the slide and a cluster of rattling knocks around 4.2 to 4.6 seconds. Beyond the squeal arcs there is no steady pitch. It does not loop.

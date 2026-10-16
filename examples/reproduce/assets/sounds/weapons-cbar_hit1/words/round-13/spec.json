@@ -1,0 +1,134 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/cbar_hit1.wav",
+  "class": "metal hit",
+  "rate": 11025,
+  "bits": 8,
+  "length": 0.69,
+  "seed": 3,
+  "layers": [
+    {
+      "id": "click",
+      "kind": "noise",
+      "at": 0,
+      "gain": -2,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.008
+      }
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "color": "white",
+      "gain": -1,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 550
+        },
+        {
+          "type": "lowpass",
+          "f": 1700,
+          "q": 0.7
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -2
+          ],
+          [
+            0.01,
+            0
+          ],
+          [
+            0.3,
+            -1
+          ],
+          [
+            0.4,
+            -9.5
+          ],
+          [
+            0.43,
+            -30
+          ]
+        ]
+      }
+    },
+    {
+      "id": "rattle",
+      "kind": "particles",
+      "at": 0.25,
+      "length": 0.15,
+      "rate": 300,
+      "band": [
+        1200,
+        3000
+      ],
+      "grain": 0.002,
+      "gain": -2,
+      "drive": 3,
+      "env": {
+        "points": [
+          [
+            0,
+            -30
+          ],
+          [
+            0.03,
+            -6
+          ],
+          [
+            0.15,
+            -14
+          ],
+          [
+            0.2,
+            -30
+          ]
+        ]
+      }
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "gain": -15,
+      "modes": [
+        {
+          "f": 1000,
+          "gain": 0,
+          "decay": 0.9
+        },
+        {
+          "f": 2300,
+          "gain": -18,
+          "decay": 0.1
+        }
+      ]
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "limit": {
+      "crest": 9,
+      "release": 0.002
+    },
+    "peak": -0.5
+  },
+  "bands": {
+    "<150": 3,
+    "150-600": 8,
+    "600-2k": 69,
+    "2k-5k": 19,
+    ">5k": 1
+  }
+}

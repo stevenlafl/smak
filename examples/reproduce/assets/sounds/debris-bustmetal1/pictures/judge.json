@@ -29,27 +29,27 @@
    "onsets": 0
   },
   "reproduction": {
-   "length": 0.835,
-   "peak": -0.6,
-   "rms": -12.4,
-   "crest": 11.8,
-   "dc": -0.0002,
+   "length": 0.87,
+   "peak": -0.5,
+   "rms": -13,
+   "crest": 12.5,
+   "dc": 0.0002,
    "clipped": 0,
    "lead": 0,
    "tail": 0.005,
-   "attack": 0,
-   "peakAt": 0.18,
-   "t20": 0.394,
-   "t40": 0.614,
-   "centroid": 2002,
-   "rolloff": 3553,
-   "flatness": 0.521,
+   "attack": 0.045,
+   "peakAt": 0.045,
+   "t20": 0.454,
+   "t40": 0.773,
+   "centroid": 1936,
+   "rolloff": 3133,
+   "flatness": 0.398,
    "bands": {
     "<150": 0,
-    "150-600": 11.4,
-    "600-2k": 45,
-    "2k-5k": 43.2,
-    ">5k": 0.4
+    "150-600": 15.2,
+    "600-2k": 43.2,
+    "2k-5k": 40.7,
+    ">5k": 0.8
    },
    "onsets": 0
   },
@@ -59,17 +59,17 @@
     0.329,
     0.549
    ],
-   "t20": 0.394,
+   "t20": 0.454,
    "inRange": true
   },
-  "lengthOff": 0.044,
-  "centroidOff": 0.017,
-  "bandsOffMost": 2.6,
+  "lengthOff": 0.003,
+  "centroidOff": 0.016,
+  "bandsOffMost": 6.4,
   "engineFaults": [],
   "sameName": true,
   "format": {
    "rate": 11025,
-   "bits": 8,
+   "bits": 16,
    "channels": 1
   }
  },
@@ -80,34 +80,34 @@
  },
  "scores": {
   "S1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Cannot listen; judged from the picture and features. Both are a broadband noise burst that decays over about 0.9 s, which fits one class of impact event. But the original opens with a sharp hit in its first few milliseconds (attack 0.025 s, peak at 0.075 s), while the reproduction has no attack (0 s) and builds to its peak at 0.18 s. The picture shows a softer, swelling onset rather than a strike, so it reads as a different attack on the same kind of event."
+   "score": 2,
+   "reason": "Judged from the picture and features only, since I cannot listen. Both waveforms open with a sharp broadband transient and a dense noise burst that decays over about 0.6 s, with the same overall shape. That reads as the same event, a metal debris break. Nothing in the picture points to a different event."
   },
   "S2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Length 0.835 s against 0.873 s is 4.4% off, well within 25%. The T20 decay of 0.394 s sits inside the range the harness gives for this sound (0.329 to 0.549 s, inRange true). The class is 'none', so the original's own decay applies, and the decay curves in the picture look alike."
+   "reason": "Length is 0.870 s against 0.873 s, about 0.3% off, well within 25%. T20 is 0.454 s against 0.439 s, inside the original's own decay range of 0.329 to 0.549 s; the class is 'none', so the original's decay is the reference. Attack is 0.045 s against 0.025 s and the peak comes earlier in the original, a small envelope difference that the rubric does not gate. The reproduction's t40 is later (0.773 s against 0.629 s), so its tail is longer, but the tail is outside what S2 measures."
   },
   "S3": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Centroid 2002 Hz against 1968 Hz is 1.7% off, within 20%. Band shares differ by at most 2.6 points (150-600 Hz 11.4 vs 8.8; 600-2k 45 vs 47; 2k-5k 43.2 vs 41.3; >5k 0.4 vs 2.7; <150 0 vs 0.2), all within 10 points. The spectrogram's energy layout matches."
+   "score": 1,
+   "reason": "The clip-wide measures pass: centroid 1936 against 1968 Hz (1.6% off), and every band within 10 points (the largest gap is 150-600 Hz at 6.4 points). The picture shows what those averages hide. From about 0.4 s onward the reproduction's lower frequencies go dark while the original keeps energy across its full height, and the reproduction carries more energy in the upper-mid region. That is a clear spectral difference over time, so I score it below the measure."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Cannot listen; judged from the picture and features. Onset counts are both 0 by measure. Flatness is close (0.569 against 0.521), so both are noise-like. But the picture shows a sharp click-like spike at the original's start that the reproduction lacks, and its peak comes about 0.1 s later. The hit character is therefore not fully matched."
+   "reason": "Onsets match (0 against 0). Flatness does not: 0.398 against 0.569, so the reproduction is more tonal than the original. The spectrogram shows a bright, sustained horizontal line at about two-thirds height that the original lacks, which is consistent with that tonal character. Pitch movement cannot be checked from the picture. This is judged from picture and features only, since I cannot listen."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The format is mono, 8-bit PCM at 11025 Hz, which the engine plays. Clipping is 0, DC is -0.0002 (the original's is -0.0076, so both are negligible), the peak is -0.6 dBFS with no overrun, the lead is 0 and the tail is 0.005 s. The name matches (sameName true), and the engine faults list is empty. The original shows no loop cue in the measures, so none is needed."
+   "reason": "Mono, 16-bit, 11025 Hz, which the engine plays. Peak is -0.5 dBFS with no clipping, DC is 0.0002, and there is no lead-in and a 5 ms tail. Engine faults are empty and the name matches the original (debris/bustmetal1.wav). The measures give no loop cue; the original reads as a one-shot, so none is needed."
   }
  },
  "total": 8,

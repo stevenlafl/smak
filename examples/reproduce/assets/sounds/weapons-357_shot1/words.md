@@ -1,11 +1,17 @@
-A single shot from a large-calibre revolver (.357 magnum). It lasts 1.06 seconds and plays once, with no loop. The file is mono, 22050 Hz, 8-bit.
+A single gunshot from a heavy revolver (a .357 Magnum), lasting 1.06 seconds and played once. It does not loop.
 
-Onset: there is no fade-in. The first few milliseconds are a sharp transient that clips at full scale. In that first instant the low end flashes very bright, a hard punch down near 50 Hz.
+The attack is instant. The sound hits full level within about 12 ms, and the first few tenths of a second are crushed against full scale, so it reads as dense and saturated. Inside that opening there are three closely spaced hits within roughly the first 40 ms. The first is a hard low thump, then there's a tiny gap and the main crack and blast. The waveform stays at full level until about 0.45 s. After that it drops into a rough decaying tail of echo, about 20 dB down by 0.8 s, and fades to near silence at around 1.0 s with a faint hiss at the very end.
 
-Loudness: the clipped, saturated blast holds for about the first 0.4 s. It is ragged, with jagged spikes and dropouts, and shows no smooth decay. After that the level falls steadily, about to half by 0.6 s, and fades into a thin, noisy tail. That tail is nearly silent by 0.9 to 1.0 s and ends cleanly at 1.06 s.
+It is pure noise with no tonal parts and no pitch movement. The first instant has a strong boom under 150 Hz. After that the energy is broadband noise centred around 900 Hz. The highs fade out first, so the tail grows darker and duller as it decays, leaving a low-mid rumble.
 
-Frequency: the energy is weighted toward the low mids, with a spectral centroid of about 900 Hz. Rough shares: under 150 Hz about 21%, 150 to 600 Hz about 26%, 600 to 2000 Hz about 46%, 2000 to 5000 Hz about 6%, over 5000 Hz about 2%. The top end is dull and band-limited. The upper bands die first, so as the tail decays it darkens toward a low-mid rumble around 200 to 1000 Hz.
+Approximate energy share by frequency band:
 
-Hits: there is one main crack at the start. Small crackly sub-impulses follow inside the saturated body, like distortion grit, but there is no second distinct shot and no mechanical click.
+```
+under 150 Hz     21%
+150 to 600 Hz    26%
+600 to 2000 Hz   46%
+2000 to 5000 Hz   6%
+over 5000 Hz      2%
+```
 
-Character: it is entirely noisy, an overdriven broadband blast with no tonal pitch. It has no pitch sweep, only the gradual low-pass darkening of a reverberant room tail.
+It is low fidelity, like 8-bit audio at 22 kHz: gritty, with little top-end sparkle. The overall effect is a loud, compressed bang followed by a short, rough echo tail.

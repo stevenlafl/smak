@@ -2,8 +2,8 @@
   "spec": "smak.sound/1",
   "name": "player/pl_step1.wav",
   "class": "step metal",
-  "seed": 1,
   "rate": 11025,
+  "seed": 1,
   "length": 0.27,
   "layers": [
     {
@@ -13,73 +13,84 @@
       "from": "onset",
       "length": 0.27,
       "env": {
-        "attack": 0.001,
-        "hold": 0.12,
-        "decay": 0.22
+        "attack": 0.002,
+        "decay": 0.5
       },
       "filter": [
         {
           "type": "highpass",
-          "f": 215,
-          "q": 0.8
+          "f": 160
+        },
+        {
+          "type": "highpass",
+          "f": 160
         },
         {
           "type": "peak",
-          "f": 320,
-          "q": 0.9,
-          "gain": 4
-        },
-        {
-          "type": "peak",
-          "f": 1100,
+          "f": 350,
           "q": 1,
-          "gain": -6
+          "gain": 6
         },
         {
           "type": "peak",
-          "f": 3500,
-          "q": 0.8,
-          "gain": 2
+          "f": 1200,
+          "q": 1,
+          "gain": 0
+        },
+        {
+          "type": "peak",
+          "f": 3000,
+          "q": 1,
+          "gain": 6
         },
         {
           "type": "lowpass",
-          "f": 4200,
-          "q": 0.7
+          "f": 5000
         }
-      ],
-      "gain": 1
+      ]
+    },
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 110,
+      "wave": "sine",
+      "sweep": {
+        "to": 70,
+        "time": 0.08
+      },
+      "env": {
+        "attack": 0.001,
+        "decay": 0.12
+      },
+      "gain": -5.5
     },
     {
       "id": "crack",
       "kind": "noise",
       "color": "white",
-      "at": 0,
-      "length": 0.04,
       "env": {
-        "attack": 0.0005,
-        "decay": 0.02
+        "attack": 0.001,
+        "decay": 0.004
       },
       "filter": [
         {
-          "type": "bandpass",
-          "f": 3300,
-          "q": 0.5
+          "type": "highpass",
+          "f": 2000
         }
       ],
-      "gain": -7,
+      "gain": -12,
       "post": true
     }
   ],
   "finish": {
     "room": {
-      "decay": 0.25,
-      "wet": 0.12
+      "decay": 0.2,
+      "wet": 0.08
     },
     "limit": {
-      "crest": 18,
+      "crest": 16,
       "release": 0.002
-    },
-    "peak": -0.5
+    }
   },
   "bands": {
     "<150": 13,

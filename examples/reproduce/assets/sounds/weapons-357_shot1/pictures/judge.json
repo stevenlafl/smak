@@ -29,29 +29,29 @@
    "onsets": 3
   },
   "reproduction": {
-   "length": 1.074,
+   "length": 1.06,
    "peak": -0.5,
-   "rms": -11.7,
-   "crest": 11.2,
-   "dc": 0,
+   "rms": -10.5,
+   "crest": 10,
+   "dc": 0.0009,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.01,
-   "attack": 0,
+   "tail": 0,
+   "attack": 0.005,
    "peakAt": 0.005,
-   "t20": 0.978,
+   "t20": 0.948,
    "t40": 1.053,
-   "centroid": 902,
+   "centroid": 887,
    "rolloff": 1615,
-   "flatness": 0.026,
+   "flatness": 0.054,
    "bands": {
-    "<150": 16.3,
-    "150-600": 25.8,
-    "600-2k": 49.9,
-    "2k-5k": 7.8,
-    ">5k": 0.2
+    "<150": 21.3,
+    "150-600": 23.9,
+    "600-2k": 45.8,
+    "2k-5k": 8.4,
+    ">5k": 0.6
    },
-   "onsets": 0
+   "onsets": 2
   },
   "envelope": {
    "class": "gunshot",
@@ -59,12 +59,12 @@
     0.458,
     1.013
    ],
-   "t20": 0.978,
+   "t20": 0.948,
    "inRange": true
   },
-  "lengthOff": 0.009,
-  "centroidOff": 0.037,
-  "bandsOffMost": 6,
+  "lengthOff": 0.004,
+  "centroidOff": 0.053,
+  "bandsOffMost": 3.6,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -83,31 +83,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Judged from the picture and features, not by listening. Both waveforms are a broadband burst that hits at the start and decays over about a second, and the envelope class is 'gunshot' with t20 (0.978 s) inside its range [0.458, 1.013]. The original's sharp crack at the very start is softer in the reproduction (attack 0 against 0.005, peak at 0.005 s against 0.015 s), but the event reads as the same shot."
+   "reason": "Cannot listen, so judged from the picture and features. Both waveforms show the same event: a dense, broadband burst through roughly the first 0.4 s, then a long decay to about 1.06 s. The spectrograms show a bright low band at the start, and the envelope class is gunshot. The original is louder and clipped, but the event is the same kind of shot."
   },
   "S2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Length is 1.074 s against 1.064 s (0.9% off, well inside 25%). The decay t20 is 0.978 s against 0.748 s, both inside the gunshot class range, and t40 is 1.053 s against 1.003 s. The attack is 0 against 0.005 s, a difference of 5 ms. The reproduction's tail is a little longer, which the class range allows."
+   "reason": "Measured. Length is 1.06 s against 1.064 s, well within 25%. Attack is 0.005 s in both. The T20 (time to fall 20 dB) is 0.948 s, inside the gunshot class range of 0.458 to 1.013 s (inRange true), though the original's T20 is 0.748 s. The peak moves from 0.015 s to 0.005 s, which is minor."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Centroid is 902 Hz against 937 Hz (3.7% off, inside 20%). Band shares against the original: <150 Hz 16.3 vs 20.3 (4.0 points), 150-600 Hz 25.8 vs 27.5 (1.7), 600-2k 49.9 vs 43.9 (6.0), 2-5k 7.8 vs 6.7 (1.1), >5k 0.2 vs 1.6 (1.4). All are within 10 points. I read bandsOffMost = 6 as the largest single gap, 600-2k at 6.0 points; the measure does not define that field, so this reading is an assumption."
+   "reason": "Measured. Centroid is 887 Hz against 937 Hz, a 5% difference, within 20%. Every band share is within 10 points: under 150 Hz 21.3 vs 20.3, 150-600 Hz 23.9 vs 27.5 (largest gap, 3.6), 600-2k Hz 45.8 vs 43.9, 2k-5k Hz 8.4 vs 6.7, over 5k Hz 0.6 vs 1.6. bandsOffMost is 3.6."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged from the picture and features, not by listening. The original has 3 onsets (the crack and its click, visible as a dark gap near 0.03 s in its spectrogram) and the reproduction has 0, so the hits are missing. Flatness is 0.11 against 0.026, so the reproduction is far more tonal and the original is noisier. The picture shows a smoother, more uniform spectrogram with no break at the start. The shared decay and the broadband body still match, so this is clearly off, not missing. Pitch movement cannot be read from these measures."
+   "reason": "Cannot listen, so judged from the picture and features. The original has three onsets and the reproduction two, and the picture shows the reproduction's early hits as a smoother, more even run of spikes. Flatness is 0.11 in the original and 0.054 in the reproduction, so the reproduction is about half as noise-like and more tonal. The pitch movement in the spectrograms looks similar. Character is not a must-have, but these differences are clearly off."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The format is mono, 16-bit, 22050 Hz, which the engine plays. Clipped is 0 (the original has 265, which the reproduction does not copy), DC is 0, and the peak is -0.5 dBFS. The name matches (sameName true). The sound is not a loop, so no loop cue is needed, and the lead and tail are 0 and 0.01 s."
+   "reason": "Format is mono, 16-bit, 22050 Hz, which the engine plays. The original clips 265 samples and the reproduction clips 0, so no clipping. DC offset is 0.0009, negligible. Peak is -0.5 dBFS, with headroom. The name matches. A loop cue is not applicable to a single shot."
   }
  },
  "total": 9,

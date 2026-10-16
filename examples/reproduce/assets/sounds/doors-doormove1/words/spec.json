@@ -4,187 +4,259 @@
   "rate": 11025,
   "bits": 8,
   "length": 5.04,
-  "seed": 7,
+  "seed": 3,
   "layers": [
     {
       "id": "grind",
       "kind": "sample",
-      "file": "work:gen/doors_doormove1_s0.wav",
+      "file": "work:gen/doormove1_s0.wav",
       "from": "onset",
-      "length": 5.04,
-      "env": {
-        "points": [
-          [
-            0,
-            -30
-          ],
-          [
-            0.1,
-            -6
-          ],
-          [
-            3.9,
-            -6
-          ],
-          [
-            4.1,
-            0
-          ],
-          [
-            4.5,
-            -3
-          ],
-          [
-            4.54,
-            -8
-          ],
-          [
-            5.04,
-            -30
-          ]
-        ]
-      },
+      "length": 5,
       "filter": [
         {
+          "type": "highpass",
+          "f": 200
+        },
+        {
           "type": "peak",
-          "f": 90,
+          "f": 250,
           "q": 0.7,
-          "gain": 6
+          "gain": -16
         },
         {
           "type": "peak",
-          "f": 280,
+          "f": 450,
           "q": 0.8,
-          "gain": -7
+          "gain": -6
         },
         {
           "type": "peak",
-          "f": 480,
+          "f": 800,
           "q": 0.8,
-          "gain": -7
+          "gain": 5
         },
         {
           "type": "peak",
           "f": 1200,
-          "q": 0.6,
-          "gain": 10
+          "q": 0.7,
+          "gain": 14
         },
         {
           "type": "peak",
-          "f": 2200,
-          "q": 0.7,
-          "gain": 4
-        },
-        {
-          "type": "lowpass",
-          "f": 4000,
-          "q": 0.7
+          "f": 2500,
+          "q": 1,
+          "gain": 6
         }
-      ]
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -8
+          ],
+          [
+            0.1,
+            -4
+          ],
+          [
+            1,
+            -3
+          ],
+          [
+            3.9,
+            -3
+          ],
+          [
+            4.2,
+            -2
+          ],
+          [
+            4.435,
+            0
+          ],
+          [
+            4.9,
+            -20
+          ],
+          [
+            5.04,
+            -40
+          ]
+        ]
+      }
     },
     {
       "id": "squeal1",
       "kind": "tone",
-      "wave": "triangle",
       "f": 320,
+      "wave": "sine",
       "sweep": {
-        "to": 470,
-        "time": 0.8
+        "to": 420,
+        "time": 0.2
       },
       "at": 0.3,
-      "length": 0.8,
-      "gain": -26,
+      "length": 0.35,
       "env": {
-        "shape": "bell",
-        "decay": 0.3
-      }
+        "attack": 0.03,
+        "hold": 0.05,
+        "decay": 0.12
+      },
+      "gain": -22
     },
     {
       "id": "squeal2",
       "kind": "tone",
-      "wave": "triangle",
       "f": 320,
+      "wave": "sine",
       "sweep": {
-        "to": 470,
-        "time": 0.8
+        "to": 420,
+        "time": 0.2
       },
-      "at": 1.3,
-      "length": 0.8,
-      "gain": -26,
+      "at": 1.6,
+      "length": 0.35,
       "env": {
-        "shape": "bell",
-        "decay": 0.3
-      }
+        "attack": 0.03,
+        "hold": 0.05,
+        "decay": 0.12
+      },
+      "gain": -22
     },
     {
       "id": "squeal3",
       "kind": "tone",
-      "wave": "triangle",
       "f": 320,
+      "wave": "sine",
       "sweep": {
-        "to": 470,
-        "time": 0.8
+        "to": 420,
+        "time": 0.2
       },
-      "at": 2.4,
-      "length": 0.8,
-      "gain": -26,
+      "at": 2.9,
+      "length": 0.35,
       "env": {
-        "shape": "bell",
-        "decay": 0.3
-      }
+        "attack": 0.03,
+        "hold": 0.05,
+        "decay": 0.12
+      },
+      "gain": -22
     },
     {
       "id": "squeal4",
       "kind": "tone",
-      "wave": "triangle",
       "f": 320,
+      "wave": "sine",
       "sweep": {
-        "to": 470,
-        "time": 0.8
-      },
-      "at": 3,
-      "length": 0.8,
-      "gain": -26,
-      "env": {
-        "shape": "bell",
-        "decay": 0.3
-      }
-    },
-    {
-      "id": "squeal5",
-      "kind": "tone",
-      "wave": "triangle",
-      "f": 320,
-      "sweep": {
-        "to": 470,
-        "time": 0.8
+        "to": 420,
+        "time": 0.2
       },
       "at": 4,
-      "length": 0.8,
-      "gain": -26,
+      "length": 0.35,
       "env": {
-        "shape": "bell",
-        "decay": 0.3
-      }
+        "attack": 0.03,
+        "hold": 0.05,
+        "decay": 0.12
+      },
+      "gain": -22
     },
     {
-      "id": "pulse",
+      "id": "bumps",
+      "kind": "particles",
+      "count": 5,
+      "band": [
+        80,
+        250
+      ],
+      "grain": 0.02,
+      "at": 0.9,
+      "length": 0.12,
+      "gain": -16
+    },
+    {
+      "id": "bumps2",
+      "kind": "particles",
+      "count": 5,
+      "band": [
+        80,
+        250
+      ],
+      "grain": 0.02,
+      "at": 2.2,
+      "length": 0.12,
+      "gain": -16
+    },
+    {
+      "id": "bumps3",
+      "kind": "particles",
+      "count": 5,
+      "band": [
+        80,
+        250
+      ],
+      "grain": 0.02,
+      "at": 3.5,
+      "length": 0.12,
+      "gain": -16
+    },
+    {
+      "id": "knocks",
       "kind": "particles",
       "every": 0.09,
-      "jitter": 0.2,
+      "jitter": 0.3,
       "band": [
-        800,
+        600,
         2000
       ],
-      "grain": 0.01,
-      "at": 4,
-      "length": 1.04,
-      "gain": -10
+      "grain": 0.006,
+      "at": 4.2,
+      "length": 0.45,
+      "gain": -4
+    },
+    {
+      "id": "stop",
+      "kind": "particles",
+      "every": 0.06,
+      "jitter": 0.1,
+      "band": [
+        40,
+        140
+      ],
+      "grain": 0.03,
+      "at": 4.35,
+      "length": 0.2,
+      "gain": -14
+    },
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 60,
+      "wave": "sine",
+      "sweep": {
+        "to": 40,
+        "time": 0.25
+      },
+      "at": 4.4,
+      "length": 0.3,
+      "env": {
+        "attack": 0.003,
+        "hold": 0.02,
+        "decay": 0.15
+      },
+      "gain": -16
+    },
+    {
+      "id": "tail",
+      "kind": "tone",
+      "f": 45,
+      "wave": "sine",
+      "at": 4.6,
+      "length": 0.44,
+      "env": {
+        "attack": 0.02,
+        "hold": 0.05,
+        "decay": 0.5
+      },
+      "gain": -18
     }
   ],
-  "finish": {
-    "peak": -0.5
-  },
   "bands": {
     "<150": 30,
     "150-600": 38,

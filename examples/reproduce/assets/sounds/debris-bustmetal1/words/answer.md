@@ -1,31 +1,30 @@
-The sound is built and the build says OK: `work:sound/debris/bustmetal1.wav`, 0.87 s, 11025 Hz, 8-bit mono, played once. Put it in `<mod>/sound/debris/` and the game plays it in the original's place.
+The sound is built and the build says OK: `work:sound/debris/bustmetal1.wav`, 11025 Hz, 8-bit mono, 0.87 s, which is the file the game loads for `debris/bustmetal1.wav`.
 
-No game folders were given, so I could not measure it against the original file. The comparison below is against your description.
+I built it from layers and did not use a generated recording. I did not get a reference picture of the original, so the comparison is against the numbers you gave, not its waveform.
 
-| Feature | Original (your figures) | Made | Within tolerance? |
-|---|---|---|---|
-| Length | 0.87 s | 0.87 s | yes |
-| Start | instant, full-scale | attack 0 ms, peak -0.6 dBFS | yes |
-| Centroid (power-weighted middle frequency) | about 1896 Hz | 1780 Hz | yes (about 6% low) |
-| Under 150 Hz | 0% | 0.1% | yes |
-| 150 to 600 Hz | 10% | 10.6% | yes |
-| 600 to 2k Hz | 47% | 53% | yes (6 points high) |
-| 2k to 5k Hz | 41% | 36.2% | yes (4.8 points low) |
-| Above 5k Hz | 2% | 0.1% | yes |
-| Decay | T20 (time to fall 20 dB) and T40 (time to fall 40 dB) | T20 0.40 s, T40 0.79 s | not checked against the original's figures |
+**Measured against your figures:**
 
-The build's band warnings are gone; the last ones were a few points off, within the 7-point aim. Its tail is set to reach silence near 0.8 s, though I did not measure the half-level (0.25 s) and quarter-level (0.45 s) points directly.
+| Feature | Original | Made |
+| --- | --- | --- |
+| Length | 0.87 s | 0.87 s |
+| Centroid | about 1896 Hz | 1896 Hz |
+| Under 150 Hz | 0% | 2.9% |
+| 150 to 600 Hz | 10% | 9.7% |
+| 600 to 2k Hz | 47% | 52.3% |
+| 2k to 5k Hz | 41% | 34.8% |
+| Over 5k Hz | 2% | 0.3% |
+| Peak | 0.046 s | 0.046 s (instant attack) |
+| Fall of 20 dB after the peak | 0.441 s | about 0.52 s, a little slow |
+| Silent by | about 0.8 s | about 0.8 s |
 
-How it is made:
-- **Source:** the hit and the rattle come from a generated take ("a thin metal sheet bursting and breaking apart…", `work:gen/debris_bustmetal_s1.wav`, seed 1). I chose that seed because it has the cleanest onset of the four.
-- **Layers:** a short high-passed crack at the start, a noise crash with the spectrum shaped to the band split, two low-mid resonances that die fast, five narrow inharmonic ringing partials from 900 to 2900 Hz for the tinny tail, and a faint rattle at 2 to 4.5 kHz through the decay.
-- **Finish:** a peak limiter is left out. With it on, the crash's spectrum shifted into the mids and the band split was wrong.
+**Layers:** a broadband noise hit with a spectrum shaped to the bands and an envelope that peaks at 0.046 s and falls to silence by 0.87 s; and a set of inharmonic ringing bands (modes) at 900 Hz to 4.3 kHz, which give the streaked metallic tone. The upper bands die sooner than the mid band.
 
-Things you should know:
-- **Licence:** the take comes from woosh-dflow, whose weights are CC-BY-NC 4.0 (non-commercial). You said you accept that for this test.
-- **Hiss:** the 8-bit depth adds a faint hiss under the quiet tail. That is the depth you specified, so I kept it. The build's warning says the game plays 16 bits too.
-- **Crest:** the peak-to-level ratio is about 17 dB, higher than the game's metal hits. That matches the hard impact you described, but it is spikier than a typical game sound.
-- **Flatness:** the sound is noisier than a typical game metal hit (flatness 0.39 against a range of 0.16 to 0.28). That matches "mostly noisy", but it is more noise than a judge would expect from the class.
-- **Listen in the game:** the build cannot tell how it sounds, only how close its numbers are.
+**Choices I made:**
+- I kept 8-bit, as the original is. The build warns of a faint hiss under the quiet tail, which the original would share.
+- I did not use a generated take, so the grain is synthetic. A generated take could get closer on character; that is the next thing to try if the side-by-side listen is not close enough.
+- The flatness is 0.35, above the game's metal-hit range of 0.16 to 0.28. Your description says "mostly noisy", so I kept it noisy. Adding tone to lower it moved the band shares off target.
+- The 0.87 s length is flagged as long against the class range. That range is a guess for metal hits, and your original is 0.87 s, so I left it.
 
-Scratch files I left in `work:sound/debris/`: `probe_crash.wav`, `probe_mix.wav`, `probe_s40.wav`, `probe_climit.wav`, `probe_nosample.wav`, `probe_noring.wav`. They are test builds and can be deleted. I have no tool to delete them, so you will need to remove them by hand if you want them gone.
+**Not verified:** how it sounds, and how it plays in the game (volume, the map's room). Listen in the game before you trust the match.
+
+**Leftover files:** three test builds are in the work folder as `work:sound/debris/test_smash.wav`, `test_smash2.wav` and `test_modes.wav`. They are not the game's file and nothing loads them. The tools here can't delete files, so remove them by hand if you don't want them.

@@ -1,0 +1,143 @@
+{
+  "spec": "smak.sound/1",
+  "name": "player/pl_metal1.wav",
+  "class": "step metal",
+  "rate": 11025,
+  "bits": 8,
+  "length": 0.58,
+  "seed": 7,
+  "layers": [
+    {
+      "id": "heel",
+      "kind": "tone",
+      "f": 90,
+      "wave": "sine",
+      "sweep": {
+        "to": 45,
+        "time": 0.08
+      },
+      "env": {
+        "attack": 0.001,
+        "decay": 0.12
+      },
+      "gain": -4
+    },
+    {
+      "id": "sole",
+      "kind": "tone",
+      "f": 75,
+      "wave": "sine",
+      "sweep": {
+        "to": 40,
+        "time": 0.06
+      },
+      "env": {
+        "attack": 0.001,
+        "decay": 0.1
+      },
+      "gain": -12,
+      "at": 0.035
+    },
+    {
+      "id": "clicks",
+      "kind": "particles",
+      "count": 80,
+      "band": [
+        700,
+        2500
+      ],
+      "grain": 0.003,
+      "env": {
+        "decay": 0.12
+      },
+      "gain": -3
+    },
+    {
+      "id": "grate",
+      "kind": "sample",
+      "file": "work:gen/pl_metal1_s2.wav",
+      "from": "onset",
+      "length": 0.58,
+      "env": {
+        "attack": 0.002,
+        "decay": 0.6
+      },
+      "filter": [
+        {
+          "type": "peak",
+          "f": 300,
+          "q": 0.7,
+          "gain": -9
+        },
+        {
+          "type": "peak",
+          "f": 420,
+          "q": 0.9,
+          "gain": -10
+        },
+        {
+          "type": "peak",
+          "f": 1400,
+          "q": 0.8,
+          "gain": 11
+        },
+        {
+          "type": "peak",
+          "f": 2200,
+          "q": 1,
+          "gain": 2
+        }
+      ],
+      "gain": -2
+    },
+    {
+      "id": "rattle",
+      "kind": "particles",
+      "count": 12,
+      "band": [
+        800,
+        3000
+      ],
+      "grain": 0.003,
+      "env": {
+        "decay": 0.05
+      },
+      "gain": -2,
+      "at": 0.16
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 220,
+      "ratios": "plate",
+      "decay": 1.2,
+      "damping": 0.8,
+      "gain": -21,
+      "at": 0.05,
+      "env": {
+        "attack": 0.005,
+        "hold": 0.15,
+        "decay": 0.3
+      }
+    }
+  ],
+  "finish": {
+    "saturate": 1.6,
+    "room": {
+      "decay": 0.25,
+      "wet": 0.12
+    },
+    "limit": {
+      "crest": 16,
+      "release": 0.002
+    },
+    "peak": -0.5
+  },
+  "bands": {
+    "<150": 32,
+    "150-600": 47,
+    "600-2k": 20,
+    "2k-5k": 2,
+    ">5k": 0
+  }
+}

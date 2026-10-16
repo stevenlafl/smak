@@ -1,0 +1,120 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/sbarrel1.wav",
+  "class": "gunshot",
+  "seed": 3,
+  "length": 1.04,
+  "rate": 22050,
+  "bits": 16,
+  "layers": [
+    {
+      "id": "body",
+      "kind": "sample",
+      "file": "work:gen/sbarrel_s1.wav",
+      "from": "onset",
+      "length": 1.04,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.3,
+            -6
+          ],
+          [
+            0.7,
+            -16
+          ],
+          [
+            1.04,
+            -30
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150
+        },
+        {
+          "type": "lowpass",
+          "f": 4500
+        },
+        {
+          "type": "peak",
+          "f": 300,
+          "q": 0.7,
+          "gain": 6
+        },
+        {
+          "type": "peak",
+          "f": 1400,
+          "q": 0.8,
+          "gain": 3
+        },
+        {
+          "type": "peak",
+          "f": 3000,
+          "q": 1,
+          "gain": 6
+        }
+      ]
+    },
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 110,
+      "wave": "sine",
+      "sweep": {
+        "to": 50,
+        "time": 0.2
+      },
+      "env": {
+        "attack": 0.001,
+        "hold": 0.02,
+        "decay": 0.3
+      },
+      "gain": -24,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 35
+        }
+      ]
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.01
+      },
+      "gain": -6,
+      "post": true
+    }
+  ],
+  "finish": {
+    "saturate": 2,
+    "limit": {
+      "crest": 9,
+      "release": 0.002
+    },
+    "peak": -0.5
+  },
+  "bands": {
+    "<150": 36,
+    "150-600": 32,
+    "600-2k": 26,
+    "2k-5k": 4,
+    ">5k": 1
+  },
+  "picture": "pictures/sound.png"
+}

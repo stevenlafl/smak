@@ -1,9 +1,16 @@
-A weapon explosion, like a grenade or rocket blast, heard fairly close. It lasts 1.3 seconds and plays once, with no loop. The source is 22050 Hz, 8-bit mono.
+A weapon explosion, such as a grenade or rocket blast: one big, rough detonation that rolls off into a rumbling tail. It runs 1.3 seconds and plays once, without looping. The file is 22050 Hz, 8-bit mono, so it should sound gritty and lo-fi.
 
-Onset: there is no build-up. It starts instantly at full scale, a hard clipped slam. For the first 0.4 seconds the waveform is pinned flat against the ceiling, a dense, saturated, crackling roar. From about 0.4 to 0.9 seconds the level falls off steadily as rumbling debris. After that a low tail fades smoothly to near silence by 1.3 seconds. The overall shape is a fast-attack, roughly exponential decay with a long low rumble trailing behind.
+Onset: it starts instantly at full, clipped loudness with no fade-in. The waveform stays pinned near maximum for about the first 0.4 seconds, and the peak is around 0.25 s. Inside that block there are about three distinct hits or crackles in the first third of a second, like a blast with debris bursts.
 
-Frequency: the energy is heavily weighted toward the bass, with a centroid near 600 Hz. Roughly 37% lies under 150 Hz, 36% between 150 and 600 Hz, 21% between 600 and 2000 Hz, 4% between 2000 and 5000 Hz, and 2% above 5000 Hz. Early on the spectrum is broad and full, with grit reaching up into the treble. The highs die first, so by the middle only lows and low mids remain, and the tail is almost pure sub-bass rumble under about 300 Hz.
+Decay: after the peak the level falls steadily, about 20 dB over the next 0.87 seconds. By 0.8 s it is a moderate rumble, and from about 1.0 s on it is a faint, low tremor that fades to near silence at 1.3 s. The end is a smooth tail, not a cut.
 
-Hits: there is one big initial impact and no separate later hits. The first half carries a grainy, crackling texture of small irregular bursts, like flying debris and distortion, which thins out as it decays.
+Spectrum: the energy is heavily weighted to the low end, and the centroid is around 600 Hz. Approximate shares:
+- under 150 Hz: 37%
+- 150 to 600 Hz: 36%
+- 600 to 2000 Hz: 21%
+- 2000 to 5000 Hz: 4%
+- over 5000 Hz: 2%
 
-Character: fully noisy, with no tonal component or steady pitch. The sound darkens over time as the high frequencies roll off, but there is no real pitch sweep.
+The highs are present only in the first half second as a crackly broadband wash, and they die first. After that, mostly bass and low-mid rumble remain.
+
+Character: entirely noisy, with no tone and no pitch. The noise is grainy and turbulent, and the tail has a slightly lumpy, rolling quality. Its only movement is that the timbre gets darker over time as the high frequencies decay faster than the lows. There is no pitch sweep.

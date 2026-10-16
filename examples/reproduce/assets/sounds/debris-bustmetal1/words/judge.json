@@ -31,27 +31,27 @@
   "reproduction": {
    "length": 0.87,
    "peak": -0.6,
-   "rms": -17.7,
-   "crest": 17.2,
-   "dc": 0,
+   "rms": -12.6,
+   "crest": 12,
+   "dc": 0.0001,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.005,
+   "tail": 0.01,
    "attack": 0,
-   "peakAt": 0.06,
-   "t20": 0.404,
-   "t40": 0.793,
-   "centroid": 1780,
-   "rolloff": 2907,
-   "flatness": 0.387,
+   "peakAt": 0,
+   "t20": 0.569,
+   "t40": 0.808,
+   "centroid": 1896,
+   "rolloff": 3391,
+   "flatness": 0.346,
    "bands": {
-    "<150": 0.1,
-    "150-600": 10.6,
-    "600-2k": 53,
-    "2k-5k": 36.2,
-    ">5k": 0.1
+    "<150": 2.9,
+    "150-600": 9.7,
+    "600-2k": 52.3,
+    "2k-5k": 34.8,
+    ">5k": 0.3
    },
-   "onsets": 0
+   "onsets": 1
   },
   "envelope": {
    "class": "none: the original's own decay",
@@ -59,12 +59,12 @@
     0.329,
     0.549
    ],
-   "t20": 0.404,
-   "inRange": true
+   "t20": 0.569,
+   "inRange": false
   },
   "lengthOff": 0.003,
-  "centroidOff": 0.096,
-  "bandsOffMost": 6,
+  "centroidOff": 0.037,
+  "bandsOffMost": 6.5,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -74,43 +74,14 @@
   }
  },
  "caps": {
-  "S2": 2,
+  "S2": 1,
   "S3": 2,
   "S5": 2
  },
- "scores": {
-  "S1": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Judged from the picture and features only; I cannot listen. Both waveforms show a broadband noise burst with a dense front that decays over the full 0.87 s, with onsets at 0 in both. That is the shape of a metal debris impact, so the same kind of event. The reproduction's front is less sharp, but the event reads the same."
-  },
-  "S2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Length 0.870 s against 0.873 s (0.3% off, within 25%). T20 is 0.404 s against the class range 0.329 to 0.549 s, so it is inRange. Attack is 0 against 0.025 s, a 25 ms difference the measured range allows. The class is 'none: the original's own decay', so the original's decay within a quarter or 0.05 s applies, and the reproduction's t40 (0.793 s vs 0.629 s) is not part of this item."
-  },
-  "S3": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Centroid 1780 Hz against 1968 Hz is 9.6% off, within 20%. Each band's share is within 10 points: <150 Hz 0.1 vs 0.2, 150-600 Hz 10.6 vs 8.8, 600-2k Hz 53 vs 47 (6 points, the largest gap), 2k-5k Hz 36.2 vs 41.3, >5k Hz 0.1 vs 2.7. The >5k gap is small in points but the reproduction has almost no top end, which the reproduction's spectrogram also shows."
-  },
-  "S4": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Judged from the picture and features only; I cannot listen. Onsets match (0 in both), and the pitch bands in the spectrograms show no clear sweep in either. But flatness is 0.569 in the original against 0.387 in the reproduction, so the reproduction is clearly more tonal, and its waveform lacks the original's dense crash front. Not a must-have item, so 1 for a clear difference."
-  },
-  "S5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Mono, 8-bit, 11025 Hz, which is a rate the engine plays. No clipping (peak -0.6 dBFS), DC 0, no lead silence. The name is the same (sameName true). The original has a tail of 0.105 s of silence, which the reproduction does not need, and no loop cue is required for a one-shot debris sound."
-  }
- },
- "total": 9,
- "of": 10,
- "passes": true
+ "passes": false,
+ "failedByMeasure": [
+  "S2"
+ ],
+ "total": 0,
+ "of": 10
 }

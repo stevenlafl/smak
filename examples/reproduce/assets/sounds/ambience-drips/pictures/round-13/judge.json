@@ -1,0 +1,113 @@
+{
+ "kind": "sounds",
+ "subject": "ambience-drips",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 7.306,
+   "peak": -0.4,
+   "rms": -27.3,
+   "crest": 26.9,
+   "dc": -0.0039,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 5.777,
+   "peakAt": 5.832,
+   "t20": 0.434,
+   "t40": 1.477,
+   "centroid": 839,
+   "rolloff": 1066,
+   "flatness": 0.095,
+   "bands": {
+    "<150": 1.2,
+    "150-600": 23.2,
+    "600-2k": 72.3,
+    "2k-5k": 2.5,
+    ">5k": 0.7
+   },
+   "onsets": 4
+  },
+  "reproduction": {
+   "length": 7.06,
+   "peak": -0.6,
+   "rms": -25.4,
+   "crest": 24.8,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0.005,
+   "tail": 0.01,
+   "attack": 1.841,
+   "peakAt": 1.896,
+   "t20": 4.445,
+   "t40": 4.969,
+   "centroid": 893,
+   "rolloff": 1357,
+   "flatness": 0.079,
+   "bands": {
+    "<150": 0.3,
+    "150-600": 27.9,
+    "600-2k": 68.9,
+    "2k-5k": 2.9,
+    ">5k": 0
+   },
+   "onsets": 4
+  },
+  "envelope": {
+   "class": "loop drips",
+   "t20Range": null,
+   "t20": 4.445,
+   "inRange": true
+  },
+  "lengthOff": 0.034,
+  "centroidOff": 0.064,
+  "bandsOffMost": 4.7,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Cannot listen; judged from the picture and features. Both files show the same event: discrete drip strikes over a continuous ambient bed. The four onsets sit at about the same times in both (near 1.8 s, 3.6 s, 3.9 s and 5.8 s), and the onset count matches (4 and 4)."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Length is 7.06 s against 7.306 s (3.4% off, within 25%), and the measure reports the t20 as in range. The picture shows a clear difference in decay, though. The original's drips fall away quickly over a lower bed (t20 0.434 s), while the reproduction holds a near-constant level for seconds (t20 4.445 s). The class range is null, so the measure's inRange verdict is the only check, and it does not capture this. Scored below the measure's allowance."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 839 against 893 (6.4% off, within 20%). Band shares are close: <150 1.2 vs 0.3, 150-600 23.2 vs 27.9, 600-2k 72.3 vs 68.9, 2k-5k 2.5 vs 2.9, >5k 0.7 vs 0. The largest gap is 4.7 points, within 10. The spectrogram shows the same warm mid band."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. Onset count (4 and 4) and flatness (0.095 vs 0.079) are close, and the drip positions match. But the original's drips ring out with tonal streaks in the mid bands, which the reproduction lacks: its bed is broadband noise with no visible pitch movement. Not a must-have item, but clearly off."
+  },
+  "S5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Format passes: mono, 8-bit, 11025 Hz, no clipping, DC 0 on the reproduction, same name. The loop cue is not in the measurements for either file, and the picture shows no marked loop point, so a cue where the original has one cannot be confirmed. A must-have item I cannot verify, so it does not reach 2."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

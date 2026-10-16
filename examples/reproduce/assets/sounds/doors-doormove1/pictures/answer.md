@@ -1,35 +1,24 @@
-The sound builds OK and is written to `work:sound/doors/doormove1.wav`. It has no warnings, but I have not listened to it, so please hear it in the game before you call it done.
+The sound is built at `work:sound/doors/doormove1.wav`, but the build does not fully say OK. It reports "built, and every check passed" with one picture warning left: T20 is 1.34 s against the original's 0.35 to 0.58 s.
 
-**Result against the original (measured, from the build report)**
+**Result against your numbers** (measured by the build on my copy):
 
-```
-Measure           Original        Built           Gap
-length            5.04 s          4.98 s          1% short
-centroid          589 Hz          534 Hz          9% low (inside the 15% aim)
-power <150 Hz     30%             28.7%           -1.3
-power 150-600 Hz  38%             38.2%           +0.2
-power 600-2k Hz   28%             30.1%           +2.1
-power 2k-5k Hz    4%              2.9%            -1.1
-power >5k Hz      0%              0%              0
-T20 (to -20 dB)   0.35-0.58 s     0.374 s         in range
-crest             about 12.7 dB   17.9 dB         5 dB high (see below)
-```
+| Measure | Original (your reading) | Copy |
+| --- | --- | --- |
+| Length | 5.04 s | 5.04 s |
+| Rate | 11025 Hz | 11025 Hz |
+| Centroid | 589 Hz | 517 Hz (12% off, inside the 15% tolerance) |
+| Power <150 Hz | 30% | 25.5% |
+| Power 150-600 Hz | 38% | 43.7% |
+| Power 600-2k Hz | 28% | 28.5% |
+| Power 2k-5k Hz | 4% | 2.3% |
+| Power >5k Hz | 0% | 0% |
+| Onsets (hits) | 7 | 7 |
+| T20 (time to -20 dB from the loudest sample) | 0.46 s | 1.34 s (out of range) |
+| Crest | about 12.7 dB | 14 dB (within 3 dB) |
 
-**What I built from**
+**What I built:** a grain train of clacks (about every 0.7 s, low-passed at 650 Hz) plus a grain bed at 150 to 750 Hz and a quiet 100 to 80 Hz sine. The envelope swells into a peak at 4.435 s and falls about 24 dB in 0.47 s after it, close to your 20 dB in 0.464 s. Layers and filters are all in the spec, and it is seeded (seed 7), so rebuilding gives the same bytes. I did not use a generator or a sample, so no licence applies.
 
-- **Body:** the `woosh-dflow` take seed 1 (a generated door-on-track take), starting at the onset. It had the closest band shares of the four takes.
-- **Shaping:** a high-pass at 90 Hz, a 5 dB bass lift at 110 Hz, a 1.5 dB lift at 1.2 kHz, and a low-pass at 2.6 kHz. The envelope holds the body near -12 dB and peaks on the stop at about 4.5 s, then falls.
-- **Stop rattle:** a train of grains at 300 to 1200 Hz, at 4.2 to 4.9 s, for the rattle at the end.
-- **Format:** 11025 Hz, 16-bit mono. I left out the original's 8-bit depth, because the build warns that 8-bit adds hiss under the quiet tail and a copy is not held to the original's depth. It is the same rate as the original.
-
-**What is left open**
-
-- **Crest:** the picture's outline reads about 12.7 dB, and mine is 17.9 dB. I tried limiter settings of 13 and 15 dB, but either one moved the loudest point to the early body and broke the T20 match, so I kept 18 dB.
-- **Centroid:** 9% low. Pushing it up further cost the bands, so I stopped at the balance that keeps all bands within 2.5 points.
-- **Licence:** the body is from `woosh-dflow`, under CC-BY-NC 4.0 (non-commercial, weights; code MIT). You said you accept that for this test. It would need a different take before any commercial use.
-
-**Other notes**
-
-- The spec lives only in this session. The Write tool is disabled here, so I could not save it as a file in the project. The layer list is in the build call above.
-- Two of my own mistakes along the way, both fixed: the picture path must be `pictures/sound.png`, not `sound.png`, and T20 is measured from the loudest point, not from the start. The final build reads the picture correctly.
-- To use it, copy the file into a mod's `sound/doors/` folder so the game plays it in place of its own `doormove1.wav`.
+**What is still open:**
+- **T20.** The kit defines it from the loudest sample, not from the 4.435 s peak. Changes to the early envelope, removing the slam, and a post-limiter crack all left T20 at 1.34 s, so I could not move it without breaking the bands. Smooth noise gave a longer T20 (3.4 s) and the grains gave 1.3 s. I did not find the cause in this session. The likely next step is reading how the kit picks its loudest sample, or making the peak unambiguous differently.
+- **Bit depth.** I left it at 16-bit. The original is 8-bit, and the spec warns that 8-bit adds hiss under quiet tails. Set `"bits": 8` if you want the original's depth.
+- **Not checked.** I could not draw the original's picture or read the original WAV: the render tool and the Read tool both failed on them. The numbers are the ones you gave. I also did not listen to it, and the game's volume and room will change how it sounds.

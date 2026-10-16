@@ -6,178 +6,86 @@
   "length": 0.76,
   "layers": [
     {
-      "id": "tick1",
-      "kind": "tone",
-      "f": 700,
-      "wave": "saw",
-      "at": 0,
-      "length": 0.04,
-      "gain": -3,
-      "env": {
-        "attack": 0.002,
-        "hold": 0.008,
-        "decay": 0.02
-      },
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 3000
-        }
-      ]
-    },
-    {
-      "id": "tick2",
-      "kind": "tone",
-      "f": 700,
-      "wave": "saw",
-      "at": 0.05,
-      "length": 0.1,
-      "gain": -3,
-      "env": {
-        "attack": 0.003,
-        "hold": 0.06,
-        "decay": 0.03
-      },
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 3000
-        }
-      ]
-    },
-    {
-      "id": "tick3",
-      "kind": "tone",
-      "f": 700,
-      "wave": "saw",
-      "at": 0.17,
-      "length": 0.1,
-      "gain": -3,
-      "env": {
-        "attack": 0.003,
-        "hold": 0.06,
-        "decay": 0.03
-      },
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 3000
-        }
-      ]
-    },
-    {
-      "id": "body",
-      "kind": "tone",
-      "f": 320,
-      "wave": "sine",
-      "at": 0,
-      "length": 0.3,
-      "gain": -15,
-      "env": {
-        "attack": 0.002,
-        "hold": 0.2,
-        "decay": 0.06
-      }
-    },
-    {
-      "id": "tail",
+      "id": "lead",
       "kind": "noise",
-      "at": 0.26,
-      "length": 0.26,
-      "shape": [
-        [
-          300,
-          -30
-        ],
-        [
-          700,
-          -22
-        ],
-        [
-          2000,
-          -14
-        ],
-        [
-          5000,
-          -8
-        ],
-        [
-          11000,
-          -4
-        ]
+      "at": 0,
+      "length": 0.2,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 2500,
+          "q": 1
+        }
       ],
       "env": {
         "points": [
           [
             0,
-            -40
+            -48
           ],
           [
-            0.1,
-            -30
+            0.19,
+            -40
           ],
           [
             0.2,
-            -26
-          ],
-          [
-            0.26,
-            -40
+            -36
           ]
         ]
-      }
+      },
+      "gain": 0
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "at": 0.205,
+      "modes": [
+        {
+          "f": 900,
+          "gain": 0.8,
+          "decay": 1.9
+        },
+        {
+          "f": 1500,
+          "gain": 0.5,
+          "decay": 1.5
+        },
+        {
+          "f": 2900,
+          "gain": 0.5,
+          "decay": 0.8
+        },
+        {
+          "f": 400,
+          "gain": 0.6,
+          "decay": 1
+        },
+        {
+          "f": 5500,
+          "gain": 1.8,
+          "decay": 0.35
+        }
+      ]
     },
     {
       "id": "crack",
       "kind": "noise",
-      "at": 0.52,
-      "length": 0.24,
-      "shape": [
-        [
-          300,
-          -20
-        ],
-        [
-          1000,
-          -12
-        ],
-        [
-          2000,
-          -10
-        ],
-        [
-          5000,
-          -6
-        ],
-        [
-          11000,
-          -3
-        ]
+      "at": 0.205,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 5000
+        }
       ],
       "env": {
-        "points": [
-          [
-            0,
-            -30
-          ],
-          [
-            0.04,
-            -8
-          ],
-          [
-            0.12,
-            -6
-          ],
-          [
-            0.24,
-            -12
-          ]
-        ]
-      }
+        "attack": 0.001,
+        "decay": 0.02
+      },
+      "gain": -3,
+      "post": true
     }
   ],
   "finish": {
-    "saturate": 1.5,
     "limit": {
       "crest": 12,
       "release": 0.002

@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-cbar_hit1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.694,
+   "peak": -0.4,
+   "rms": -9.9,
+   "crest": 9.5,
+   "dc": 0.0043,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.03,
+   "t20": 0.559,
+   "t40": 0.649,
+   "centroid": 1343,
+   "rolloff": 1938,
+   "flatness": 0.215,
+   "bands": {
+    "<150": 4.9,
+    "150-600": 6.8,
+    "600-2k": 73.8,
+    "2k-5k": 13.7,
+    ">5k": 0.9
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 0.69,
+   "peak": -0.5,
+   "rms": -10,
+   "crest": 9.5,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0,
+   "peakAt": 0.005,
+   "t20": 0.479,
+   "t40": 0.683,
+   "centroid": 1599,
+   "rolloff": 3101,
+   "flatness": 0,
+   "bands": {
+    "<150": 0,
+    "150-600": 8.1,
+    "600-2k": 72.6,
+    "2k-5k": 19.3,
+    ">5k": 0
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "metal hit",
+   "t20Range": [
+    0.24,
+    0.7
+   ],
+   "t20": 0.479,
+   "inRange": true
+  },
+  "lengthOff": 0.006,
+  "centroidOff": 0.191,
+  "bandsOffMost": 5.6,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 16,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. The reproduction has the same shape as the original: a sharp attack at the start and a decay of about 0.6 s, the class of a metal hit. But its spectrogram is blue above roughly 2 kHz after about 0.3 s, while the original stays broadband across the full height to the end. The reproduction's late sound is narrow horizontal tonal lines, so it reads more as a metallic ring than the original's noisy clang. Same class of event, but not clearly the same sound from the pictures."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 0.69 s against the original's 0.694 s (0.6% off, well within 25%). T20 is 0.479 s, inside the metal-hit class range of 0.24 to 0.70 s (inRange true). Attack is 0 s against the original's 0.005 s, both effectively instantaneous. Peak at 0.005 s against 0.03 s is within the decay shape the picture shows."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: centroid 1599 Hz against 1343 Hz, 19.1% off, inside the 20% limit. Band shares are within 10 points: <150 Hz 0 against 4.9 (4.9 points), 150-600 Hz 8.1 against 6.8, 600-2k Hz 72.6 against 73.8, 2k-5k Hz 19.3 against 13.7 (5.6 points, the largest), >5k Hz 0 against 0.9. The centroid is close to its limit, but the measure passes it, so this is a 2."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from features and the picture. Onsets: the original has one (the hit), the reproduction has none by measure, though its waveform does start sharply. Tone against noise: the original's flatness is 0.215 (noisy), the reproduction's is 0 (pure tonal lines in the spectrogram), a clear mismatch. The reproduction's stable horizontal lines show no pitch movement, which the original's spectrogram does not clearly show either. Clearly off on the noise-or-tone character, so 1."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono (1 channel), 16-bit PCM at 11025 Hz, the rate the engine plays. No clipping (0 samples). DC 0 against the original's 0.0043, so no offset. Same name as the original (sameName true). No loop cue is needed for a one-shot hit, and none is shown as missing. SMAK's engine faults list is empty."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

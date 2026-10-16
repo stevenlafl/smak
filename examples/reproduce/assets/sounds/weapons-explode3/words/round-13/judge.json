@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-explode3",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 1.301,
+   "peak": -0.4,
+   "rms": -6.2,
+   "crest": 5.7,
+   "dc": -0.0048,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.254,
+   "t20": 0.893,
+   "t40": 1.028,
+   "centroid": 616,
+   "rolloff": 947,
+   "flatness": 0.097,
+   "bands": {
+    "<150": 36.4,
+    "150-600": 37.6,
+    "600-2k": 19.5,
+    "2k-5k": 4.6,
+    ">5k": 1.9
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 1.3,
+   "peak": -0.5,
+   "rms": -8.5,
+   "crest": 8,
+   "dc": -0.0025,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.274,
+   "t20": 0.803,
+   "t40": 1.018,
+   "centroid": 549,
+   "rolloff": 991,
+   "flatness": 0.067,
+   "bands": {
+    "<150": 36.8,
+    "150-600": 36.6,
+    "600-2k": 21.3,
+    "2k-5k": 4.2,
+    ">5k": 1.1
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "explosion",
+   "t20Range": [
+    0.668,
+    1.113
+   ],
+   "t20": 0.803,
+   "inRange": true
+  },
+  "lengthOff": 0.001,
+  "centroidOff": 0.109,
+  "bandsOffMost": 1.8,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 16,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture and features only; I could not listen. Both waveforms open at full amplitude in a dense, broadband burst and decay over about a second into a thin tail, and both spectrograms are bright and low-frequency at the bottom, fading upward. Both fit an explosion, and the measured envelope class is explosion with t20 in range."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 1.30 s against 1.301 s (0.1% off, well within 25%). Attack is 0 against 0.005 s, both effectively instant. t20 is 0.803 s, inside the explosion class range of 0.668 to 1.113 s (inRange true). Peak-to-t40 shape matches (t40 1.018 against 1.028)."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid 549 Hz against 616 Hz is about 11% off, within 20%. Band shares against the original: <150 Hz 36.8 vs 36.4 (0.4 points), 150-600 Hz 36.6 vs 37.6 (1.0), 600-2k 21.3 vs 19.5 (1.8), 2k-5k 4.2 vs 4.6 (0.4), >5k 1.1 vs 1.9 (0.8). Every band is within 10 points."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from features and the picture; I could not listen, so tone and pitch movement are not assessed. The measured onset count is 0 against the original's 1: the original has a sharp, countable transient the reproduction lacks. Flatness is low in both (0.097 against 0.067), so both are tonal-leaning rather than hiss. The reproduction's spectrogram shows more vertical striping in the late decay, which the original does not, so the character differs clearly enough to score 1."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured fit: mono, 22050 Hz, 16-bit, the same file name (sameName true), clipped 0, lead 0, tail 0, no engine faults. DC is -0.0025, a small offset of about 80 LSB at 16 bits, and smaller than the original's own -0.0048. It is inaudible, but it is not zero, so a strict reader of 'no DC' could mark it down; I scored it 2 on the basis that the original carries the same kind of offset and the rubric sets no threshold. No loop cue applies to a one-shot explosion."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

@@ -29,44 +29,44 @@
    "onsets": 4
   },
   "reproduction": {
-   "length": 7.06,
-   "peak": -0.6,
-   "rms": -25.4,
-   "crest": 24.8,
+   "length": 7.36,
+   "peak": -0.5,
+   "rms": -22.3,
+   "crest": 21.8,
    "dc": 0,
    "clipped": 0,
-   "lead": 0.005,
+   "lead": 0,
    "tail": 0.01,
-   "attack": 1.841,
-   "peakAt": 1.896,
-   "t20": 4.445,
-   "t40": 4.969,
-   "centroid": 893,
-   "rolloff": 1357,
-   "flatness": 0.079,
+   "attack": 0.773,
+   "peakAt": 0.843,
+   "t20": 5.054,
+   "t40": 6.465,
+   "centroid": 904,
+   "rolloff": 1217,
+   "flatness": 0.04,
    "bands": {
-    "<150": 0.3,
-    "150-600": 27.9,
-    "600-2k": 68.9,
-    "2k-5k": 2.9,
+    "<150": 1.3,
+    "150-600": 26.4,
+    "600-2k": 71,
+    "2k-5k": 1.3,
     ">5k": 0
    },
-   "onsets": 4
+   "onsets": 6
   },
   "envelope": {
    "class": "loop drips",
    "t20Range": null,
-   "t20": 4.445,
+   "t20": 5.054,
    "inRange": true
   },
-  "lengthOff": 0.034,
-  "centroidOff": 0.064,
-  "bandsOffMost": 4.7,
+  "lengthOff": 0.007,
+  "centroidOff": 0.077,
+  "bandsOffMost": 3.2,
   "engineFaults": [],
   "sameName": true,
   "format": {
    "rate": 11025,
-   "bits": 8,
+   "bits": 16,
    "channels": 1
   }
  },
@@ -77,37 +77,37 @@
  },
  "scores": {
   "S1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Cannot listen; judged from the picture and features. Both files show the same event: discrete drip strikes over a continuous ambient bed. The four onsets sit at about the same times in both (near 1.8 s, 3.6 s, 3.9 s and 5.8 s), and the onset count matches (4 and 4)."
+   "score": 1,
+   "reason": "Judged from the picture only, since I cannot listen. Both files are a drip loop: sharp hits over a decaying bed, roughly similar in count. But the reproduction opens with a loud broadband noise burst (about 0 to 0.8 s) that the original lacks. Its spectrogram is a dim, broadband noise floor with vertical click lines, where the original shows sustained resonant bands that drift. It reads as drips over hiss, not clearly the same event."
   },
   "S2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Length is 7.06 s against 7.306 s (3.4% off, within 25%), and the measure reports the t20 as in range. The picture shows a clear difference in decay, though. The original's drips fall away quickly over a lower bed (t20 0.434 s), while the reproduction holds a near-constant level for seconds (t20 4.445 s). The class range is null, so the measure's inRange verdict is the only check, and it does not capture this. Scored below the measure's allowance."
+   "reason": "Length passes: 7.36 s against 7.306 s, well within 25%. The envelope fails. The original's t20 is 0.434 s and the reproduction's is 5.054 s. The attack measure is 0.773 s against 5.777 s, and the reproduction's peak falls at 0.843 s against 5.832 s. The harness reports inRange true, but the class's t20Range is null, so the rubric falls back to the original's own decay within a quarter or 0.05 s. That range is 0.33 to 0.54 s, and 5.054 s is far outside it. Outside the range caps S2 at 1."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Centroid is 839 against 893 (6.4% off, within 20%). Band shares are close: <150 1.2 vs 0.3, 150-600 23.2 vs 27.9, 600-2k 72.3 vs 68.9, 2k-5k 2.5 vs 2.9, >5k 0.7 vs 0. The largest gap is 4.7 points, within 10. The spectrogram shows the same warm mid band."
+   "reason": "Measured and passing. Centroid is 904 against 839, a 7.7% difference, inside 20%. Every band is within 10 points: <150 by 0.1, 150-600 by 3.2, 600-2k by 1.3, 2k-5k by 1.2, >5k by 0.7. The picture agrees on overall energy placement, with the main energy in the mid bands."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Cannot listen; judged from the picture and features. Onset count (4 and 4) and flatness (0.095 vs 0.079) are close, and the drip positions match. But the original's drips ring out with tonal streaks in the mid bands, which the reproduction lacks: its bed is broadband noise with no visible pitch movement. Not a must-have item, but clearly off."
+   "reason": "Not a must-have, and judged from the picture and features only; I cannot listen. Onsets are 6 against the original's 4. Flatness is 0.04 against 0.095, so the reproduction is markedly more tonal by the measure, and the picture shows a broadband noise bed rather than the original's drifting resonant bands. Hits are present, but the character differs in count, tone and pitch movement."
   },
   "S5": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Format passes: mono, 8-bit, 11025 Hz, no clipping, DC 0 on the reproduction, same name. The loop cue is not in the measurements for either file, and the picture shows no marked loop point, so a cue where the original has one cannot be confirmed. A must-have item I cannot verify, so it does not reach 2."
+   "reason": "Format passes: mono, 11025 Hz, 16 bit, no clipping, DC 0 against -0.0039, same name. The loop cue is not in the measurements, so I cannot confirm one where the original has one. The tail of 0.01 and lead of 0 are reported without a rule that they fail. Held at 1 until the cue is checked."
   }
  },
- "total": 7,
+ "total": 6,
  "of": 10,
  "passes": false
 }

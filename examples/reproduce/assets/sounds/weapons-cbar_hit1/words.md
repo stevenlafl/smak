@@ -1,18 +1,7 @@
-A crowbar striking a hard surface: a metal bar hitting flesh or a solid object, giving a dull smack with a short metallic ring after it. Total length is 0.69 seconds, played once with no loop. The recording is low fidelity, at 11025 Hz and 8 bits.
+A crowbar or metal bar striking a hard metal surface: one clanging hit with a ringing tail. It lasts 0.69 seconds and plays once, with no loop.
 
-The attack is instant, with a sharp click at the very start. The body is loud and dense for about the first 0.3 seconds. There is a second burst of slightly rougher, grittier noise between about 0.25 and 0.4 seconds, as if the bar scrapes or rattles after the impact. After about 0.4 seconds it drops to roughly a third of its peak level. From there it decays slowly into a thin, even ring that fades almost to silence by the end, with no abrupt cutoff.
+It starts instantly with a sharp transient and peaks at about 0.02 s. A dense, gritty, full-level clang holds for roughly the first 0.3 s. Then it drops and settles into a thinner, wavering ring that fades evenly to near silence by the end. In total it falls about 20 dB over the 0.58 s after the peak. There is only the one strike, with no further hits or clicks, though the first 0.3 s are rough and rattly in texture.
 
-The energy is mostly in the low mids:
+The energy is centred on the midrange, with a centroid near 1.5 kHz. Approximate shares: under 150 Hz 3%, 150 to 600 Hz 8%, 600 to 2000 Hz 69%, 2000 to 5000 Hz 19%, over 5000 Hz 1%. The sound is band-limited at about 5.5 kHz, low-fidelity and slightly grainy, like an 8-bit sample.
 
-```
-Band          Share
-under 150 Hz   3%
-150-600 Hz     8%
-600-2000 Hz   69%
-2000-5000 Hz  19%
-over 5000 Hz   1%
-```
-
-The spectral centroid is about 1.5 kHz. The impact is mostly broadband noise, thick between about 300 Hz and 3 kHz. On top of it, one clear, narrow tonal line near 1 kHz runs through the whole sound. That line is the metal ringing, and it outlasts the noise, so the tail is mostly this single tone with faint hiss. Weaker partials appear around 2 to 3 kHz early on and fade quickly.
-
-The pitch stays steady, with no sweep. There is one main hit plus the rattle burst just after it. Overall it is a noisy thud with a sustained metallic tone underneath.
+It is mostly tonal over a noisy body. A clear, steady metallic partial sits near 1 kHz and rings through the whole sound, outlasting the rest. Weaker inharmonic partials fill out the clang around it. The broadband noise of the impact covers the first third and then thins out. The pitch does not move: the ring holds a constant frequency and only loses level and brightness as it decays.

@@ -1,0 +1,56 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/cbar_hit1.wav",
+  "class": "metal hit",
+  "seed": 3,
+  "rate": 11025,
+  "length": 0.69,
+  "layers": [
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 240,
+      "wave": "sine",
+      "sweep": {
+        "to": 180,
+        "time": 0.2
+      },
+      "env": {
+        "decay": 0.8
+      },
+      "gain": 10
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "modes": [
+        {
+          "f": 1350,
+          "gain": 8,
+          "decay": 0.9
+        },
+        {
+          "f": 3100,
+          "gain": 4.2,
+          "decay": 0.9
+        }
+      ]
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "limit": {
+      "crest": 9.5,
+      "release": 0.002
+    },
+    "peak": -0.5
+  },
+  "bands": {
+    "<150": 3,
+    "150-600": 8,
+    "600-2k": 69,
+    "2k-5k": 19,
+    ">5k": 1
+  },
+  "picture": "pictures/sound.png"
+}

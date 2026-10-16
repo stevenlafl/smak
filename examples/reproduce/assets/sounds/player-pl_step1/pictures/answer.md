@@ -1,23 +1,27 @@
-The sound is built and the build says OK: `work:sound/player/pl_step1.wav`, 11025 Hz, 16-bit mono, 0.266 s. It is not a copy of the original's full character yet. The bands and spectrum are close, but the decay is short, and I could not listen to it.
+The sound is built and the build says OK. It is written to `work:sound/player/pl_step1.wav`, which replaces the game's file of that name when it is put in `<mod>/sound`.
 
-**How it was made:** I generated a take with the local `woosh-dflow` model, prompted as a boot stepping onto a metal floor plate, dry and close-miked. I used its seed 0 take, cut at its onset, then shaped it with a high-pass at 215 Hz, a 320 Hz body boost, a dip at 1.1 kHz, a 3.5 kHz lift, and a low-pass at 4.2 kHz. A short 40 ms bandpassed crack at 3.3 kHz sits on top for the bright click.
+**What it is:** a sample layer from the first woosh-dflow take (seed 0, a generated boot step on a metal plate), cut at its onset. The take is high-passed at 160 Hz twice, with peak filters at 350 Hz (+6 dB), 1.2 kHz (0 dB) and 3 kHz (+6 dB), and a lowpass at 5 kHz. A short 110 Hz sine thump at -5.5 dB sits under it, and a 2 kHz-high white-noise crack at -12 dB is added after the limiter. The finish is a short room (decay 0.2 s, wet 0.08) and a limiter at crest 16 dB. Output is 11025 Hz, 16-bit mono, 0.273 s.
 
-| Measure | Original (given) | Made | Note |
-| --- | --- | --- | --- |
-| Length | 0.27 s | 0.266 s | close |
-| Centroid | 902 Hz | 782 Hz | 13% off, inside the 15% tolerance |
-| Under 150 Hz | 13% | 13.5% | |
-| 150–600 Hz | 60% | 60.4% | |
-| 600–2k Hz | 9% | 11.6% | 2.6 points off |
-| 2k–5k Hz | 16% | 14.6% | 1.4 points off |
-| Over 5k Hz | 1% | 0% | |
-| Bit depth | 8-bit | 16-bit | see below |
+**Against your numbers (the build's measures):**
 
-**Still off:**
-- **Decay:** the sound falls 20 dB in about 0.105 s. The game's own step sounds fall in 0.32 s or more. I tried a longer envelope and room, but the file grew to 0.33 s and broke the 0.27 s length. I kept the length, so the sound is drier and shorter-tailed than the class norm. The "0.315 to 0.525" T20 range from the picture cannot fit inside a 0.27 s file, so I treated that as a class range, not the original's measure.
-- **Bit depth:** the original is 8-bit. The build warned that 8-bit adds audible hiss under quiet tails, so I used 16-bit, which the game also plays.
-- **Character:** the build measures numbers only. How it sounds to a person, its volume, and how the game plays it are unchecked. Please listen in the game.
+| Measure | Original | Ours |
+| --- | --- | --- |
+| Length | 0.27 s | 0.273 s |
+| T20 (time to -20 dB) | 0.116 s | 0.105 s |
+| Power <150 Hz | 13% | 13.2% |
+| Power 150-600 Hz | 60% | 63.2% |
+| Power 600-2k Hz | 9% | 10.9% |
+| Power 2k-5k Hz | 16% | 12.8% |
+| Power >5k Hz | 1% | 0% |
+| Centroid | 902 Hz | 712 Hz |
 
-**Licence:** the take comes from `woosh-dflow`, licensed CC-BY-NC 4.0 (Creative Commons, Attribution, Non-Commercial). You said you accept that for this test; it rules out commercial use of this file.
+Every band is within 3.2 points of yours, and the build gives no band warning. The centroid is the one clear miss, about 190 Hz low. I could not push it up without throwing the bands off, so I kept the band shares.
 
-**Not saved:** I was going to write the spec to a JSON file in the working folder, but the file-write tool is disabled in this session. The spec is the one above, and I can save it if you enable writes. The take is at `work:gen/pl_step1_take_s0.wav` on the smak server.
+**Choices I made that you may want to change:**
+- **16-bit, not 8-bit.** The build warns that 8-bit adds a hiss under the quiet tail. Your original is 8-bit, so if you want the exact format, say so and I will switch.
+- **The class warnings are not met.** The build says the sound dies sooner than the game's metal steps. Those ranges are for typical steps, and your original's T20 is 0.116 s, so I matched your original rather than the class. The build also says the length is short for a metal step; that is the same reason.
+- **The take is generated.** woosh-dflow is CC-BY-NC 4.0, non-commercial. You accepted that for this test, so I have not changed anything over it.
+- **The spec is not saved as a file.** It exists only in the build calls. If you want it kept, I can write it into the project.
+- **The original's waveform picture was not read.** The Read tool could not reach the picture, so I worked from the numbers in your message.
+
+I have not heard it. Please listen to it in the game, since the build cannot judge how it sounds or how the game's volume and room affect it.

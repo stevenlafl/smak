@@ -1,0 +1,216 @@
+{
+  "spec": "smak.sound/1",
+  "name": "ambience/drips.wav",
+  "class": "loop drips",
+  "seed": 7,
+  "rate": 11025,
+  "bits": 8,
+  "length": 7.31,
+  "layers": [
+    {
+      "id": "bed",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1000,
+          "q": 1
+        }
+      ],
+      "env": {
+        "attack": 0.3,
+        "hold": 6.4,
+        "decay": 0.5
+      },
+      "gain": -50
+    },
+    {
+      "id": "drip1",
+      "kind": "sample",
+      "file": "work:gen/drip_s1.wav",
+      "from": "onset",
+      "length": 0.6,
+      "at": 0.04,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.3
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 480
+        },
+        {
+          "type": "peak",
+          "f": 800,
+          "q": 1,
+          "gain": 5
+        },
+        {
+          "type": "lowpass",
+          "f": 1400,
+          "q": 0.8
+        },
+        {
+          "type": "lowpass",
+          "f": 1600,
+          "q": 0.7
+        }
+      ],
+      "gain": 4
+    },
+    {
+      "id": "drip2",
+      "kind": "sample",
+      "file": "work:gen/drip_s1.wav",
+      "from": "onset",
+      "length": 0.6,
+      "at": 1.87,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.3
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 480
+        },
+        {
+          "type": "peak",
+          "f": 800,
+          "q": 1,
+          "gain": 5
+        },
+        {
+          "type": "lowpass",
+          "f": 1400,
+          "q": 0.8
+        },
+        {
+          "type": "lowpass",
+          "f": 1600,
+          "q": 0.7
+        }
+      ],
+      "gain": -2
+    },
+    {
+      "id": "drip3",
+      "kind": "sample",
+      "file": "work:gen/drip_s1.wav",
+      "from": "onset",
+      "length": 0.5,
+      "at": 3.68,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.25
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 480
+        },
+        {
+          "type": "peak",
+          "f": 800,
+          "q": 1,
+          "gain": 5
+        },
+        {
+          "type": "lowpass",
+          "f": 1400,
+          "q": 0.8
+        },
+        {
+          "type": "lowpass",
+          "f": 1600,
+          "q": 0.7
+        }
+      ],
+      "gain": -6
+    },
+    {
+      "id": "drip4",
+      "kind": "sample",
+      "file": "work:gen/drip_s1.wav",
+      "from": "onset",
+      "length": 0.5,
+      "at": 3.98,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.25
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 480
+        },
+        {
+          "type": "peak",
+          "f": 800,
+          "q": 1,
+          "gain": 5
+        },
+        {
+          "type": "lowpass",
+          "f": 1400,
+          "q": 0.8
+        },
+        {
+          "type": "lowpass",
+          "f": 1600,
+          "q": 0.7
+        }
+      ],
+      "gain": -4
+    },
+    {
+      "id": "drip5",
+      "kind": "sample",
+      "file": "work:gen/drip_s1.wav",
+      "from": "onset",
+      "length": 0.6,
+      "at": 5.79,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.3
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 480
+        },
+        {
+          "type": "peak",
+          "f": 800,
+          "q": 1,
+          "gain": 5
+        },
+        {
+          "type": "lowpass",
+          "f": 1400,
+          "q": 0.8
+        },
+        {
+          "type": "lowpass",
+          "f": 1600,
+          "q": 0.7
+        }
+      ],
+      "gain": -3
+    }
+  ],
+  "finish": {
+    "peak": -0.5
+  },
+  "loop": true,
+  "bands": {
+    "<150": 1,
+    "150-600": 22,
+    "600-2k": 74,
+    "2k-5k": 2,
+    ">5k": 1
+  },
+  "picture": "pictures/sound.png"
+}

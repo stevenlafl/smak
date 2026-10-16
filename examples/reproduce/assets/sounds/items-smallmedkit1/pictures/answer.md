@@ -1,26 +1,26 @@
-The sound is built and the build says OK: `work:sound/items/smallmedkit1.wav`, which takes the place of the game's `items/smallmedkit1.wav` when put in `<mod>/sound`.
+The sound is built and the build says **OK**. The file is `work:sound/items/smallmedkit1.wav`, ready to go in `<mod>/sound/items/`, so the game plays it in place of the original.
 
-Measured against the original's numbers from the picture:
+**Measured against the original's picture (the build's own readings):**
 
-| Measure | Original | Made | Off by |
+| Feature | Original | Mine | Status |
 | --- | --- | --- | --- |
-| Length | 0.76 s | 0.76 s | 0% |
-| Centroid (brightness) | 1936 Hz | 1872 Hz | 3% |
-| Power 150-600 Hz | 14% | 14.1% | 0.1 pt |
-| Power 600-2k Hz | 64% | 64.1% | 0.1 pt |
-| Power 2k-5k Hz | 5% | 9.4% | 4.4 pt |
-| Power >5k Hz | 17% | 12.4% | 4.6 pt |
-| Time to -20 dB (T20) | 0.663 s | 0.659 s | 0.4% |
-| Crest | about 11.5 dB | 10.9 dB | within 0.6 dB |
-| Onsets | 1 | 1 | none |
+| Length | 0.76 s | 0.76 s | Match |
+| Fall of 20 dB after the loudest point (T20) | 0.546 s | 0.544 s | Match |
+| Crest | about 11.5 dB | 12 dB | Match |
+| Power under 150 Hz | 0% | 0% | Match |
+| Power 150–600 Hz | 14% | 11.1% | 2.9 points off |
+| Power 600–2k Hz | 64% | 68.7% | 4.7 points off |
+| Power 2k–5k Hz | 5% | 5.2% | Match |
+| Power over 5k Hz | 17% | 15% | 2 points off |
+| Centroid | 1936 Hz | 1737 Hz | 10% off |
 
-The build's own limit is 7 points on a band and 15% on the centroid, so every band and the centroid are inside it. The picture's shape matches the original's: three quick tone bursts, a quiet gap, then a louder bright noise tail at about 0.52 s.
+Every band is within the 7-point tolerance and the centroid is within 15%. The build reports no faults. The one remaining gap is that my centroid is still about 200 Hz low; I stopped there because the last few adjustments were trading one band against another.
 
-Choices I made that you may want to change:
-- **Sample depth: 16-bit, not 8-bit.** The original is 8-bit, but the spec warns that 8-bit adds hiss under quiet tails, and the game plays either depth. Say if you want 8-bit to match the original's grit.
-- **No generated take.** I built it only from layers (three sawtooth bursts at 700 Hz with a 320 Hz body, and two noise bursts). The build suggested a recording might sound more natural, but it would bring in a generator licence, and the layers already hit the numbers. So nothing is non-commercial here.
-- **No game reference drawn.** I didn't give the game's own files as a reference, so the check is against the picture and the band numbers only.
+**What I built:** a pre-hit whisper of band-passed noise from 0 s (so the sound doesn't start late), then a struck ring at 400, 900, 1500, 2900 and 5500 Hz with decays of 0.35 to 1.9 s, and a short high-passed crack at 0.205 s where the loudest point falls. The finish limits the peak to -0.5 dBFS.
 
-Not checked: how it sounds to a person and how the game plays it (volume, pitch, the map's room). That needs a listen in the game.
+**Choices you may want to change:**
+- **Layers only, no recording.** I generated four takes with the local woosh-dflow model (non-commercial licence). They were rustle- and click-heavy and their spectra didn't fit the original's ringing, so none went in. Nothing from that model is in the final file, so its licence doesn't apply to this output.
+- **No `class` set.** The click class expects a T20 of at most 0.1 s, which the original doesn't meet. Keeping it would have flagged a correct sound as wrong.
+- **16-bit, not 8-bit.** The original is 8-bit. The build warns that 8-bit adds hiss under the quiet tail, which would read as static against the original. The tool's own guidance is that a copy isn't held to the original's bit depth. If you want the exact 8-bit format, that's a one-line change.
 
-Two things I couldn't do here. The file-writing tool is disabled in this session, so the spec exists only in the build calls and not as a `.json` file in the work folder. And I didn't write anything into the `reproduce` folder. The final spec is the last build call above: layers `tick1` to `tick3`, `body`, `tail`, `crack`, with `finish` saturate 1.5 and limit crest 12.
+I have not listened to it. The numbers say it matches the original's measures, but whether it sounds like the original is a call for you to make in the game.

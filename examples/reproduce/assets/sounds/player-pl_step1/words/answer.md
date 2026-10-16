@@ -1,33 +1,29 @@
-The sound is built and the build says **OK**. It's at `work:sound/player/pl_step1.wav`, ready to go in `<mod>/sound/player/`, so the game plays it in place of the original.
+The sound is built and the build says **OK**. It is written to `work:sound/player/pl_step1.wav`, so it takes the place of the game's own file when put in `<mod>/sound`.
 
-I built it from layers, not a generated recording. The description was specific about the spectrum and envelope, and a generated take would have brought a room and grain I couldn't match to those numbers. I didn't try the generator, so that's the one alternative I haven't tested.
+I built it from layers only, with no generated take, so no generator licence applies. The spec is inline in this conversation; I didn't save it as a file.
 
-**Measured against your targets** (the build's measurements of the file):
+Measured against your facts:
 
-| Measure | Original (your figures) | Built file |
-| --- | --- | --- |
-| Length | 0.27 s | 0.27 s |
-| Format | 11025 Hz, 8-bit | 11025 Hz, 8-bit |
-| Centroid (spectral centre) | about 902 Hz | 896 Hz |
-| Power under 150 Hz | 13% | 14.3% |
-| Power 150 to 600 Hz | 60% | 59.7% |
-| Power 600 to 2k Hz | 9% | 10.2% |
-| Power 2k to 5k Hz | 16% | 15.2% |
-| Power over 5k Hz | 1% | 0.6% |
-| T20 (time to fall 20 dB) | not given | 0.115 s |
-| T40 (time to fall 40 dB) | not given | 0.254 s |
+```
+Measure            Original (your figures)   Built
+Length             0.27 s                    0.27 s
+Format             11025 Hz, 8-bit, mono     11025 Hz, 8-bit, mono
+Centroid           about 900 Hz              993 Hz
+Band <150 Hz       13%                       9.6%
+Band 150-600 Hz    60%                       62.4%
+Band 600-2k Hz     9%                        8.5%
+Band 2-5k Hz       16%                       18.8%
+Band >5k Hz        1%                        0.7%
+T20 (to -20 dB)    about 0.12 s after peak   0.135 s from onset
+Flatness           noisy                     0.24 (class range 0.2 to 0.35)
+```
 
-Every band is within 1.3 points of its target, and the centroid is within 6 Hz. The build reports the flatness (how noisy against tonal, 0 to 1) at 0.20, which is at the bottom edge of the range for this class of sound and reads as slightly too tonal.
+- **Event and envelope:** a heel click cluster peaks at 0.023 s, then falls away. A quieter toe tap sits at 0.10 s, 12 dB under the first hit. After that, a faint hiss fades out by the end.
+- **Character:** all noise, no tone, no reverb, and a crest of 17.8 dB, in the range of Valve's steps.
 
-**How it's built.** Four layers, all on one clock:
-- A heel strike: three short clicks in the first 13 ms, high-passed noise, with the thud body sitting at 260 to 420 Hz.
-- A thud tone that sweeps from 150 Hz down to 80 Hz.
-- A second, softer tap at 0.11 s, about 12 dB under the first, with a duller spectrum.
-- A low grit tail that runs to the end, plus a faint bright scrape in the first 0.12 s.
+Things to know:
 
-**Choices I made that you should know about:**
-- **8-bit kept.** You gave 8-bit as the original's format, so I matched it. The build warns that 8-bit adds a hiss under quiet tails, which could be heard as static. If that shows up in the game, switching to 16-bit is a one-line change to `bits`.
-- **Class: "step concrete".** Your description said concrete or tile. I picked concrete, and the file scores 20 of 22 against the game's own concrete steps.
-- **No variants.** You asked for `pl_step1.wav` only. The game also has `pl_step2` to `4`. I can add them if you want the other steps.
-
-I could not listen to the file, and there's no copy of the original on this machine to compare it against. The judgement of how it sounds is yours, in the game. The spec is passed inline, so if you want it kept, tell me where and I'll write it to a file.
+- **Reference not drawn:** no game folders were given, so the build did not check against the original `pl_step1.wav` itself. It checked against the game's concrete step class, and the sound passes on 20 of 22 features. I did not compare the waveform or spectrogram against your original file, so listen to it in the game.
+- **8-bit warning:** the build warns that 8-bit adds a hiss under the quiet tail. I kept 8-bit because you asked for the original's format. If it sounds static-y in the game, 16-bit would fix that.
+- **Centroid:** 993 Hz is above your 900 Hz figure, but inside the class range. Getting closer would have pushed the 2-5 kHz share past its target.
+- **Variants:** I made only `pl_step1.wav`, as asked, with no `pl_step2` to `4`.

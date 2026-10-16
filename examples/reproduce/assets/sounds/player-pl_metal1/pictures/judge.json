@@ -29,26 +29,26 @@
    "onsets": 0
   },
   "reproduction": {
-   "length": 0.585,
+   "length": 0.58,
    "peak": -0.6,
-   "rms": -13.3,
-   "crest": 12.8,
-   "dc": 0.0004,
+   "rms": -12.6,
+   "crest": 12,
+   "dc": 0.0029,
    "clipped": 0,
    "lead": 0,
    "tail": 0.005,
-   "attack": 0,
-   "peakAt": 0.005,
-   "t20": 0.329,
-   "t40": 0.574,
-   "centroid": 381,
-   "rolloff": 635,
-   "flatness": 0.012,
+   "attack": 0.075,
+   "peakAt": 0.075,
+   "t20": 0.354,
+   "t40": 0.504,
+   "centroid": 396,
+   "rolloff": 646,
+   "flatness": 0.048,
    "bands": {
-    "<150": 32.3,
-    "150-600": 50,
-    "600-2k": 17.5,
-    "2k-5k": 0.2,
+    "<150": 34,
+    "150-600": 50.6,
+    "600-2k": 13.3,
+    "2k-5k": 2,
     ">5k": 0
    },
    "onsets": 0
@@ -59,12 +59,12 @@
     0.315,
     0.525
    ],
-   "t20": 0.329,
+   "t20": 0.354,
    "inRange": true
   },
-  "lengthOff": 0.005,
-  "centroidOff": 0.058,
-  "bandsOffMost": 6.2,
+  "lengthOff": 0.003,
+  "centroidOff": 0.1,
+  "bandsOffMost": 6.8,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -83,31 +83,31 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "I cannot listen, so this is from the picture only. Both are a sharp onset followed by a decay, which fits a metal impact. The reproduction's onset, though, is a regular train of pulses across the first ~0.1 s, more like a ratchet or buzz than one strike. Its spectrogram also lacks the original's bright high-band energy at the start (the original's yellow reaches up through the mid bands; the reproduction's is dark red above them). It is not clearly the same event, so 1."
+   "reason": "Cannot listen; judged from the picture and features. Both start with a broad, noisy transient of similar length, which fits a metal impact. The reproduction then turns into a steady, ringing tone from about 0.08 s to the end, with a single bright horizontal line in its spectrogram. The original has no such ring: its energy decays irregularly, with several knocks around 0.2 to 0.3 s. Same kind of event, but the tail is clearly off."
   },
   "S2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Length 0.585 s against 0.582 s, 0.5% off (limit 25%). t20 is 0.329 s, inside the metal step class's range of 0.315 to 0.525 s (inRange true). The original's t20 is 0.424 s, also in range. The attack differs (0 against 0.025 s, peak at 0.005 s against 0.045 s), a 25 ms gap that the class range absorbs. Envelope passes."
+   "reason": "Length is 0.58 s against the original's 0.582 s, well within 25%. T20 is 0.354 s against the original's 0.424 s, inside the class range of 0.315 to 0.525 s (inRange true). The attack peak is later, at 0.075 s against 0.045 s, but the measured envelope passes."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Centroid 381 Hz against 360 Hz, 5.8% off (limit 20%). Band shares: <150 Hz 32.3 against 34.8 (2.5 points), 150-600 Hz 50 against 43.8 (6.2), 600-2k Hz 17.5 against 19.6 (2.1), 2k-5k Hz 0.2 against 1.8 (1.6), >5k Hz 0 against 0.1. Largest gap is 6.2 points, within the 10-point limit. Rolloff 635 against 624 Hz."
+   "reason": "Centroid is 396 Hz against 360 Hz, about 10% off, inside 20%. Band shares are within 6.8 points at worst (150 to 600 Hz: 50.6 against 43.8), inside 10 points (bandsOffMost 6.8). The spectrograms show similar broad low-mid energy."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Cannot listen; judged from the features and picture. Onsets are 0 in both, so that part matches. Flatness is 0.057 in the original against 0.012 in the reproduction, so the reproduction is clearly more tonal and less noisy. The picture agrees: the original opens with a broad noise burst, while the reproduction's start is periodic. Pitch movement cannot be checked from a picture. Not a must-have, but the character is clearly off."
+   "reason": "Cannot listen; judged from the picture and features. Onsets are 0 in both, and flatness is close (0.048 against 0.057). But the reproduction has a steady pitched tone from about 0.08 s to the end, with a fixed horizontal line in its spectrogram. The original has no sustained pitch, and its decay is irregular with knocks around 0.2 to 0.3 s. Character differs in the tail."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Format is 11025 Hz, 8-bit, mono, which the engine plays. No clipping (peak -0.6 dBFS, clipped 0). DC 0.0004, negligible. No engine faults. Same name as the original (sameName true). The measurements show no loop, so no loop cue is needed; I cannot confirm that from the picture alone."
+   "reason": "Measured fit: 11025 Hz, 8-bit, mono, matching the original's format. Peak is -0.6 dB with no clipping. DC is 0.0029, small. Leading and trailing silence are 0 and 0.005 s. The name matches (sameName true). Not a loop, so no cue is needed."
   }
  },
  "total": 8,

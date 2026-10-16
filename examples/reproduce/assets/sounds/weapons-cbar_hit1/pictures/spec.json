@@ -7,40 +7,101 @@
   "length": 0.69,
   "layers": [
     {
-      "id": "thump",
-      "kind": "tone",
-      "f": 240,
-      "wave": "sine",
-      "sweep": {
-        "to": 180,
-        "time": 0.2
-      },
+      "id": "hit",
+      "kind": "sample",
+      "file": "work:gen/cbar_hit_s2.wav",
+      "from": "onset",
+      "length": 0.69,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 1300,
+          "q": 0.8
+        }
+      ],
       "env": {
-        "decay": 0.8
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.02,
+            0
+          ],
+          [
+            0.58,
+            -20
+          ],
+          [
+            0.69,
+            -36
+          ]
+        ]
       },
-      "gain": 10
+      "gain": -10
+    },
+    {
+      "id": "body",
+      "kind": "particles",
+      "rate": 3000,
+      "band": [
+        100,
+        600
+      ],
+      "grain": 0.001,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.25
+      },
+      "gain": 14
+    },
+    {
+      "id": "hi",
+      "kind": "particles",
+      "rate": 3000,
+      "band": [
+        2000,
+        4000
+      ],
+      "grain": 0.0008,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.2
+      },
+      "gain": 12
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.012
+      },
+      "gain": 0,
+      "post": true
     },
     {
       "id": "ring",
       "kind": "modes",
-      "modes": [
-        {
-          "f": 1350,
-          "gain": 8,
-          "decay": 0.9
-        },
-        {
-          "f": 3100,
-          "gain": 4.2,
-          "decay": 0.9
-        }
-      ]
+      "f": 1000,
+      "ratios": "bar",
+      "decay": 0.7,
+      "damping": 1,
+      "gain": -40
     }
   ],
   "finish": {
-    "saturate": 1.5,
+    "saturate": 2,
     "limit": {
-      "crest": 9.5,
+      "crest": 9,
       "release": 0.002
     },
     "peak": -0.5

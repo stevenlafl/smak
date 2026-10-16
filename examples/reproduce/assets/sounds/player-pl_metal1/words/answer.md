@@ -1,31 +1,30 @@
-The sound is built and written to `work:sound/player/pl_metal1.wav`. The build says OK with two warnings, which I left in place, and it is not a full match to the original.
+The sound is built and the build says OK: `work:sound/player/pl_metal1.wav`, 0.58 s, 11025 Hz, 8-bit mono, one shot, no loop. It's a procedural sound with no recording in it. None of the four generated takes came close enough to use, so there's no non-commercial licence in the output.
 
-I did not have the original file. The kit only has your description, so the comparison is against those numbers and the stock `step metal` class, not a waveform side by side.
+I did not have the original file, so every comparison below is against the figures in your brief, not a side-by-side listen.
 
-| Measure | Original (as described) | Built | Note |
-| --- | --- | --- | --- |
-| Length | 0.58 s | 0.60 s | Tail reaches -60 dB at 0.598 s; 3% over |
-| Rate, depth | 11025 Hz, 8-bit | 11025 Hz, 8-bit | As asked |
-| Centroid | about 361 Hz | 406 Hz | Slightly brighter |
-| Under 150 Hz | 32% | 35.5% | +3.5 points |
-| 150 to 600 Hz | 47% | 47.1% | +0.1 |
-| 600 to 2k Hz | 20% | 15.8% | -4.2 |
-| 2k to 5k Hz | 2% | 1.5% | -0.5 |
-| Over 5k Hz | 0% | 0% | |
-| Decay to -20 dB (T20) | not given | 0.25 s | Step metal class minimum is 0.32 s |
+```
+Feature              Original (brief)    Made          Verdict
+Length               0.58 s              0.58 s        match
+Rate, depth          11025 Hz, 8-bit     11025 Hz, 8-bit  match
+Loudest point        0.046 s             about 0.05 s  match
+Drop 20 dB after peak 0.441 s            0.419 s       close
+Centroid             361 Hz              426 Hz        a little bright
+<150 Hz              32%                 33.2%         within 1.2 points
+150-600 Hz           47%                 45.8%         within 1.2 points
+600-2k Hz            20%                 18.5%         within 1.5 points
+2k-5k Hz             2%                  2.5%          within 0.5 points
+>5k Hz               0%                  0%            match
+Hits                 0                   0             match
+```
 
-**Build**
-- **Base:** a generated take of a boot on a steel grate (woosh-dflow, seed 2, CC-BY-NC 4.0 licence, non-commercial). It sets the grit and the scrape. Its onset is used, and it is EQ'd to pull 300 and 420 Hz down and lift 1.4 and 2.2 kHz.
-- **Thumps:** a heel (90 Hz) and a sole (75 Hz), 35 ms apart, for the two quick contacts.
-- **Clicks:** a short burst of grains at 0.7 to 2.5 kHz for the sharp opening clicks.
-- **Second contact:** a grain burst at 0.16 s, the rattle near the original's 0.18 s spike.
-- **Ring:** a 220 Hz plate-style hum with a 1.2 s decay, faded by 0.5 s, for the hollow tail.
-- **Finish:** a little saturation, a short room (0.25 s, 12% wet), and a limiter at 16 dB crest.
+How it's built, from the spec's layers:
+- **Scuff:** white noise, 500 Hz high-pass and 1.6 kHz low-pass, over the first 0.16 s, loudest at the start.
+- **Grit:** a sparse crackle of particles, 150-700 Hz, over the first half second.
+- **Heel flick:** a short high-passed noise burst at 0.18 s.
+- **Panel tail:** five sine tones at 62, 98, 180, 260 and 380 Hz, each with a 1.4 s decay, so the tail rings and never ends in silence.
 
-**Warnings left in place**
-- **8-bit hiss:** the build warns that 8-bit adds a faint hiss under the quiet tail. You asked for 8-bit, and the original is 8-bit, so I kept it. Set `bits` to 16 if the hiss is audible in the game.
-- **Decay:** T20 is 0.25 s against a class minimum of 0.32 s, so it dies a little quicker than a stock step. I tried a longer heel thump and a later spike; neither lifted T20 without pushing the sub band off. The original's tail is fine by T40 (0.57 s, as you described), so I think this is the closest I can get within the bands.
-
-**To use it:** copy `work:sound/player/pl_metal1.wav` into your mod's `sound/player/` folder, which replaces the game's own file of that name. I have not tested it in the game. The mix and volume there are for you to judge by ear.
-
-**Licence:** the take comes from woosh-dflow, whose weights are CC-BY-NC 4.0. That's non-commercial. You accepted that for this test; if the mod is ever sold or monetised, the take would need replacing.
+Things to know:
+- **Misses:** the centroid is 65 Hz brighter than the original, and the 40 dB point comes at 0.55 s, where the original's would fall past the end of the file. Both could be pulled closer, but each costs a band share.
+- **8-bit hiss:** the build warns that 8-bit adds a faint hiss under the quiet tail. You asked for 8-bit, and the original is 8-bit, so I kept it.
+- **Spec not saved:** the spec was passed inline and is not written to a file. If you want it kept for rebuilding, I can save it into the work folder.
+- **Not yet heard:** the build can't judge how it sounds to a person, or its volume and pitch in the game. Please listen to it in the game before you accept it.

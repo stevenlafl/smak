@@ -2,15 +2,13 @@
   "spec": "smak.sound/1",
   "name": "weapons/sbarrel1.wav",
   "class": "gunshot",
-  "seed": 3,
+  "seed": 2,
   "length": 1.04,
-  "rate": 22050,
-  "bits": 16,
   "layers": [
     {
-      "id": "body",
+      "id": "take",
       "kind": "sample",
-      "file": "work:gen/sbarrel_s1.wav",
+      "file": "work:gen/sbarrel_s2.wav",
       "from": "onset",
       "length": 1.04,
       "env": {
@@ -20,85 +18,26 @@
             0
           ],
           [
-            0.3,
-            -6
+            0.023,
+            0
           ],
           [
-            0.7,
-            -16
+            0.25,
+            -20
           ],
           [
             1.04,
-            -30
+            -40
           ]
         ]
       },
       "filter": [
         {
-          "type": "highpass",
-          "f": 150
-        },
-        {
           "type": "lowpass",
-          "f": 4500
-        },
-        {
-          "type": "peak",
-          "f": 300,
-          "q": 0.7,
-          "gain": 6
-        },
-        {
-          "type": "peak",
-          "f": 1400,
-          "q": 0.8,
-          "gain": 3
-        },
-        {
-          "type": "peak",
-          "f": 3000,
-          "q": 1,
-          "gain": 6
+          "f": 4000,
+          "q": 0.7
         }
       ]
-    },
-    {
-      "id": "thump",
-      "kind": "tone",
-      "f": 110,
-      "wave": "sine",
-      "sweep": {
-        "to": 50,
-        "time": 0.2
-      },
-      "env": {
-        "attack": 0.001,
-        "hold": 0.02,
-        "decay": 0.3
-      },
-      "gain": -24,
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 35
-        }
-      ]
-    },
-    {
-      "id": "crack",
-      "kind": "noise",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 2000
-        }
-      ],
-      "env": {
-        "attack": 0.001,
-        "decay": 0.01
-      },
-      "gain": -6,
-      "post": true
     }
   ],
   "finish": {

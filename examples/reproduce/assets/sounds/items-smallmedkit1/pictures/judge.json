@@ -31,25 +31,25 @@
   "reproduction": {
    "length": 0.76,
    "peak": -0.5,
-   "rms": -11.4,
-   "crest": 10.9,
+   "rms": -12.5,
+   "crest": 12,
    "dc": 0,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
    "attack": 0.005,
-   "peakAt": 0.1,
-   "t20": 0.659,
-   "t40": 0.659,
-   "centroid": 1872,
-   "rolloff": 3510,
-   "flatness": 0.184,
+   "peakAt": 0.21,
+   "t20": 0.544,
+   "t40": 0.549,
+   "centroid": 1737,
+   "rolloff": 5103,
+   "flatness": 0.006,
    "bands": {
     "<150": 0,
-    "150-600": 14.1,
-    "600-2k": 64.1,
-    "2k-5k": 9.4,
-    ">5k": 12.4
+    "150-600": 11.1,
+    "600-2k": 68.7,
+    "2k-5k": 5.2,
+    ">5k": 15
    },
    "onsets": 1
   },
@@ -59,12 +59,12 @@
     0.505,
     0.841
    ],
-   "t20": 0.659,
+   "t20": 0.544,
    "inRange": true
   },
   "lengthOff": 0.004,
-  "centroidOff": 0.14,
-  "bandsOffMost": 9.3,
+  "centroidOff": 0.202,
+  "bandsOffMost": 9.2,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -75,42 +75,13 @@
  },
  "caps": {
   "S2": 2,
-  "S3": 2,
+  "S3": 1,
   "S5": 2
  },
- "scores": {
-  "S1": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Judged from the picture only, since I cannot listen. Both sounds have the same shape: three pulsed bursts at about the same times (roughly 0.00 to 0.03, 0.05 to 0.15 and 0.17 to 0.27 s), a quiet middle, and a noise swell from about 0.52 s to the end. That reads as the same kind of event. But the original's bursts carry harmonic stripes in the mid band and a faint texture with a click (around 0.4 s) in the middle, while the reproduction's bursts sit in a low-frequency tone and its middle is almost empty. A close look does not confirm the same event, so this is 1."
-  },
-  "S2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Length is 0.760 s against 0.763 s (0.4% off, well within 25%). The attack is 0.005 s against 0, and T20 is 0.659 s against 0.673 s, inside the class's range of 0.505 to 0.841 s. The envelope passes on every measure."
-  },
-  "S3": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Centroid is 1872 Hz against 2177 Hz, 14% off, within 20%. Each band's share is within 10 points: <150 Hz off by 0.1, 150 to 600 Hz by 0.6, 600 Hz to 2 kHz by 4.6, 2 to 5 kHz by 5.5, and >5 kHz by 9.3, which is close to the edge but inside it. The spectrum passes on the measures."
-  },
-  "S4": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Judged from the picture and features, since I cannot listen. Onset count matches (1 each by the measure, though the picture shows three bursts in both). Flatness is 0.184 against 0.128, so the reproduction is noisier. In the picture the bursts' tone sits lower and lacks the original's mid-band harmonic stripes, and the middle lacks the original's faint texture and click, so the character differs. Pitch movement cannot be confirmed from the picture. Scored 1."
-  },
-  "S5": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The measures give mono, 22050 Hz, 16-bit, no clipping and no DC (0). The peak is -0.5 dBFS, hotter than the original's -3 but not clipped. It is a one-shot with no loop cue to match. The name is the same, so the engine will play it."
-  }
- },
- "total": 8,
- "of": 10,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "S3"
+ ],
+ "total": 0,
+ "of": 10
 }

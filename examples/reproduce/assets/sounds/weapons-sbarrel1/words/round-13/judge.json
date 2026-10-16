@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-sbarrel1",
+ "leg": "words",
+ "measured": {
+  "original": {
+   "length": 1.039,
+   "peak": -0.4,
+   "rms": -8.7,
+   "crest": 8.3,
+   "dc": -0.0044,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.614,
+   "t40": 0.958,
+   "centroid": 604,
+   "rolloff": 991,
+   "flatness": 0.081,
+   "bands": {
+    "<150": 31.7,
+    "150-600": 37.9,
+    "600-2k": 24.4,
+    "2k-5k": 4.8,
+    ">5k": 1.3
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 1.04,
+   "peak": -0.6,
+   "rms": -8.6,
+   "crest": 8,
+   "dc": 0.0018,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.03,
+   "peakAt": 0.16,
+   "t20": 0.803,
+   "t40": 0.878,
+   "centroid": 608,
+   "rolloff": 1400,
+   "flatness": 0.034,
+   "bands": {
+    "<150": 37.1,
+    "150-600": 31.5,
+    "600-2k": 24.1,
+    "2k-5k": 6.8,
+    ">5k": 0.4
+   },
+   "onsets": 1
+  },
+  "envelope": {
+   "class": "gunshot",
+   "t20Range": [
+    0.458,
+    1.013
+   ],
+   "t20": 0.803,
+   "inRange": true
+  },
+  "lengthOff": 0.001,
+  "centroidOff": 0.007,
+  "bandsOffMost": 6.4,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only; I could not listen. Both are a broadband blast with a low-frequency body, which fits a gunshot (the class is gunshot). But the original's signature is a sharp opening crack, with its peak at 0.015 s and attack 0.005 s. The reproduction's peak comes at 0.16 s with attack 0.03 s, and its loud body runs on to about 0.7 s, so from the waveform it reads more as a sustained rumble than a crisp shot."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Length 1.04 s against 1.039 s is within 25%, and t20 0.803 s is inside the gunshot range 0.458 to 1.013 s. The attack is off, though: 0.03 s against the original's 0.005 s, with the peak at 0.16 s against 0.015 s. The class range was given only for t20, so the attack cannot be confirmed in range, and the shape of the rise is visibly different in the waveform."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 608 against 604 (0.7% off, within 20%). The largest band difference is 6.4 points (the 150-600 band, 31.5 against 37.9), within the 10-point limit. Every band is within the limit, so the spectrum matches on the measured terms."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only; I could not listen. Onset count matches (1 each), but flatness is 0.034 against 0.081, so the reproduction is clearly more tonal and less noisy. The spectrogram shows smooth horizontal bands with no noise texture, and the waveform shows a dense, evenly sustained spike pattern rather than the original's burst that thins out. The character is off."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono, 8-bit, 22050 Hz, which the engine plays. The name matches (sameName true). Peak is -0.6 dBFS, with no clipping. DC is 0.0018, which is negligible. No engine faults are reported. No loop cue is measured, and the original shows none, so nothing is missing."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

@@ -1,30 +1,30 @@
-The sound is built and the build says OK: `work:sound/weapons/357_shot1.wav` (22050 Hz, 8-bit mono, 1.06 s). It is not yet in the game folders; put it in `<mod>/sound/weapons/` to replace the original.
+The sound is built and the build says OK: `work:sound/weapons/357_shot1.wav`, 22050 Hz, 8-bit mono, 1.06 s. To use it, put it in `<mod>/sound/weapons/`, where it replaces the game's file of that name.
 
-**How it was made**
+I did not have the original to put beside it, so every comparison below is against your description and the gunshot class ranges, not the recording.
 
-- **Source take:** a generated shot from the local `woosh-dflow` model (seed 2), the only take with a sharp onset and a crack. Its licence is CC-BY-NC 4.0, non-commercial. You said that's accepted for this test; it's flagged in the file's facts, so it's there if the mod ever goes commercial.
-- **Shaping:** the take is cut to 1.06 s and filtered: a high-pass at 60 Hz, a cut at 350 Hz (−6 dB), a dip at 1.2 kHz (−3 dB) and a low-pass at 4 kHz. Its envelope holds to 0.4 s, is −6 dB at 0.6 s, and is −40 dB by 0.95 s.
-- **Extras:** a short white-noise crack at the onset, and crackly grit (2 to 5 kHz pulses) inside the body.
-- **Finish:** saturation of 6 and a limiter at a crest of 9 dB to get the clipped body.
+**How it is made:** a generated .357 shot (take 0 of four, the one that starts on its hit) is the body. It is shaped with a tail that falls about 20 dB by 0.8 s, then saturated to the top setting. A thump and a crack sit at the start, and a low rumble under 150 Hz follows the same tail. The generator is woosh-dflow, with a CC-BY-NC 4.0 licence (non-commercial). You accepted that for this test, and the build records it in its facts.
 
-**Measured against the figures you gave**
+```
+Measure                   Made        Original (your description)
+------------------------  ----------  ----------------------------
+Length                    1.06 s      1.06 s
+Full level by             ~5-20 ms    ~12 ms
+T20 (drop 20 dB)          0.99 s      ~0.81 s after the peak
+T40 (drop 40 dB)          1.01 s      near silence at ~1.0 s
+Crest                     11 dB       (class 4.5 to 11.7)
+RMS                       -11.6 dBFS  (class -11.7 to -4.5)
+Under 150 Hz              17%         21%
+150-600 Hz                31%         26%
+600-2000 Hz               43%         46%
+2000-5000 Hz              7%          6%
+Over 5000 Hz              1%          2%
+```
 
-| Feature | Original | Made |
-| --- | --- | --- |
-| Length | 1.06 s | 1.06 s |
-| Under 150 Hz | 21% | 25.8% |
-| 150 to 600 Hz | 26% | 26.5% |
-| 600 to 2k Hz | 46% | 46.3% |
-| 2k to 5k Hz | 6% | 1.4% |
-| Over 5k Hz | 2% | 0% |
-| Centroid | ~921 Hz | 611 Hz |
-| Class check | — | 22 of 22 features in range |
+The build reports 22 of 22 of the gunshot class's features in range.
 
-**What's still off**
+**Where it is off:**
+- The attack is about 20 ms, not 12 ms. The limiter that brings the crest down slows it.
+- The tail is about 0.18 s longer than the original's 20 dB drop. Tightening it lifted the tail again through the limiter, so I kept the level that held the crest.
+- The 8-bit depth adds a faint hiss under the quiet tail. I kept 8 bits because your facts say the original is 8-bit. Leaving out `bits` gives a 16-bit file with no hiss, if you prefer that.
 
-- **Brightness:** the 2k to 5k band is the weak spot. The grit layer is the lever, but its gain barely moved the result in my last tries. The tool's band warning passes it, but the centroid is about 300 Hz darker than the original's.
-- **Shot body:** the sound is not as ragged as the original's. The generated take is smoother than a real clipped blast.
-- **8-bit hiss:** the build warns that 8 bits adds a hiss under the quiet tail. I kept 8 bits because you said the original is 8-bit.
-- **Reference:** I did not have the original file, only your description and figures. So there is no side-by-side picture or waveform comparison, and the numbers are checked against your description, not the real sound.
-
-I stopped at this point because the rest is listening. Put it in the game and compare it with the original; if the tail or the top end still sounds off, tell me which way and I'll adjust.
+Nothing here was checked by ear in the game. Please listen to it there, since level and mix there matter as much as these numbers.

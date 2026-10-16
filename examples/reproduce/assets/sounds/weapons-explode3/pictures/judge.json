@@ -29,29 +29,29 @@
    "onsets": 1
   },
   "reproduction": {
-   "length": 1.368,
+   "length": 1.3,
    "peak": -0.5,
-   "rms": -9.2,
-   "crest": 8.7,
-   "dc": -0.0008,
+   "rms": -8.5,
+   "crest": 8,
+   "dc": 0,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.03,
-   "attack": 0.01,
-   "peakAt": 0.035,
-   "t20": 1.107,
-   "t40": 1.267,
-   "centroid": 653,
-   "rolloff": 1163,
-   "flatness": 0.053,
+   "tail": 0,
+   "attack": 0.025,
+   "peakAt": 0.05,
+   "t20": 0.853,
+   "t40": 1.247,
+   "centroid": 648,
+   "rolloff": 1012,
+   "flatness": 0.097,
    "bands": {
-    "<150": 31.1,
+    "<150": 34.3,
     "150-600": 35.5,
-    "600-2k": 26.1,
-    "2k-5k": 6.5,
-    ">5k": 0.8
+    "600-2k": 24.8,
+    "2k-5k": 3.6,
+    ">5k": 1.8
    },
-   "onsets": 0
+   "onsets": 2
   },
   "envelope": {
    "class": "explosion",
@@ -59,12 +59,12 @@
     0.668,
     1.113
    ],
-   "t20": 1.107,
+   "t20": 0.853,
    "inRange": true
   },
-  "lengthOff": 0.051,
-  "centroidOff": 0.06,
-  "bandsOffMost": 6.6,
+  "lengthOff": 0.001,
+  "centroidOff": 0.052,
+  "bandsOffMost": 5.3,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -83,31 +83,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Cannot listen; judged from the picture and features only. Both waveforms are a dense, loud broadband burst that decays over about 1.2 s, and both spectrograms are concentrated in the low bands and fade upward. That is the shape of an explosion, and the original's and reproduction's classes both read as explosion (envelope class 'explosion')."
+   "reason": "Cannot listen; judged from the picture and features. Both waveforms show the same event shape: a dense, loud, broadband burst in the first 0.5 to 0.6 s that decays over about a second into a low tail, and the class is explosion for both. The original's peak sits later (0.254 s, against 0.05 s in the reproduction), a difference in build-up, not in the kind of event."
   },
   "S2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Length is 1.368 s against 1.301 s, a 5% difference, well within 25%. The t20 decay of 1.107 s is inside the explosion class range of 0.668 to 1.113 s, though near its upper edge. The attack is 0.01 s against 0.005 s. The reproduction holds its level longer than the original (t40 1.267 s against 1.028 s), but that stays within the class range."
+   "reason": "Cannot listen; judged from the measures. Length is 1.301 s against 1.300 s, within 25%. T20 is 0.853 s, inside the explosion class range of 0.668 to 1.113 s. Attack is 0.025 s against 0.005 s, still a sharp onset in both pictures, and the class gives no attack range to measure it against. The tail is slower in the reproduction (T40 1.247 s against 1.028 s), but T40 is not the rubric's measure, so it is not docked here."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Centroid is 653 Hz against 616 Hz, a 6% difference, within 20%. Band shares differ by at most 6.6 points (600-2k: 26.1 against 19.5), within the 10-point limit. The other bands are within 5.3 points."
+   "reason": "Measured. Centroid is 648 Hz against 616 Hz, about 5% off, within 20%. Band shares differ by 2.1 (under 150 Hz), 2.1 (150 to 600 Hz), 5.3 (600 Hz to 2 kHz), 1.0 (2 to 5 kHz) and 0.1 (above 5 kHz), all within 10 points. The largest gap, 600 Hz to 2 kHz, is visible in the spectrogram as slightly more upper-mid energy in the reproduction, and it still passes."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Cannot listen; judged from the picture and features only. The original has one onset (its sharp leading crack), and the reproduction has none detected. The flatness is 0.053 against 0.097, so the reproduction is about half as noise-like and shows a more regular, periodic pattern in its first 0.6 s. Both have low pitch movement in the spectrogram, but the onset and noise character are clearly off."
+   "reason": "Cannot listen; judged from the measures and picture. Flatness matches at 0.097 for both, so the tone or noise character agrees. The onset count does not: the original has 1 and the reproduction has 2, and the reproduction's envelope shows an early secondary rise near 0.05 s that the original lacks. No pitch movement is clear in either spectrogram. Short of 2 because of the extra onset, which is what the rubric's onsets item checks."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Mono 16-bit PCM at 22050 Hz, which the engine plays. No clipping (peak -0.5 dB), DC is -0.0008, small. A one-shot, so no loop cue is needed. The name matches the original (sameName true), and the file starts with no lead-in."
+   "reason": "Measured. Mono, 22050 Hz, 16 bit, which the engine plays. Peak is -0.5 dBFS with 0 clipped samples. DC is 0 against -0.0048 in the original, which is negligible. Lead and tail are 0. Sound is not a loop, so no cue is needed. The name matches the original's (sameName true)."
   }
  },
  "total": 9,

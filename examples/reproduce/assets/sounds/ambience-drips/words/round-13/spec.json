@@ -1,0 +1,346 @@
+{
+  "spec": "smak.sound/1",
+  "name": "ambience/drips.wav",
+  "class": "loop drips",
+  "rate": 11025,
+  "bits": 8,
+  "length": 7.31,
+  "seed": 7,
+  "loop": true,
+  "finish": {
+    "room": {
+      "decay": 0.2,
+      "wet": 0.08
+    },
+    "peak": -0.5
+  },
+  "bands": {
+    "<150": 1,
+    "150-600": 22,
+    "600-2k": 74,
+    "2k-5k": 2,
+    ">5k": 1
+  },
+  "layers": [
+    {
+      "id": "bed",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0,
+      "length": 7.31,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 320,
+          "q": 0.6
+        }
+      ],
+      "env": {
+        "attack": 0.3,
+        "hold": 6.7,
+        "decay": 0.3
+      },
+      "gain": -18
+    },
+    {
+      "id": "hiss",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0,
+      "length": 7.31,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1000,
+          "q": 0.6
+        }
+      ],
+      "env": {
+        "attack": 0.3,
+        "hold": 6.7,
+        "decay": 0.3
+      },
+      "gain": -30
+    },
+    {
+      "id": "plop0",
+      "kind": "noise",
+      "color": "white",
+      "at": 0,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.004
+      },
+      "gain": -10
+    },
+    {
+      "id": "ring0",
+      "kind": "modes",
+      "at": 0,
+      "f": 700,
+      "ratios": "tube",
+      "decay": 0.35,
+      "damping": 1,
+      "gain": -11
+    },
+    {
+      "id": "grain0",
+      "kind": "particles",
+      "at": 0,
+      "count": 30,
+      "band": [
+        600,
+        1500
+      ],
+      "grain": 0.01,
+      "env": {
+        "decay": 0.3
+      },
+      "gain": -16
+    },
+    {
+      "id": "blip0",
+      "kind": "tone",
+      "at": 0,
+      "f": 1000,
+      "wave": "sine",
+      "sweep": {
+        "to": 1400,
+        "time": 0.02
+      },
+      "env": {
+        "decay": 0.02
+      },
+      "gain": -26
+    },
+    {
+      "id": "plop1",
+      "kind": "noise",
+      "color": "white",
+      "at": 1.9,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.004
+      },
+      "gain": -10
+    },
+    {
+      "id": "ring1",
+      "kind": "modes",
+      "at": 1.9,
+      "f": 700,
+      "ratios": "tube",
+      "decay": 0.35,
+      "damping": 1,
+      "gain": -11
+    },
+    {
+      "id": "grain1",
+      "kind": "particles",
+      "at": 1.9,
+      "count": 30,
+      "band": [
+        600,
+        1500
+      ],
+      "grain": 0.01,
+      "env": {
+        "decay": 0.3
+      },
+      "gain": -16
+    },
+    {
+      "id": "blip1",
+      "kind": "tone",
+      "at": 1.9,
+      "f": 1000,
+      "wave": "sine",
+      "sweep": {
+        "to": 1400,
+        "time": 0.02
+      },
+      "env": {
+        "decay": 0.02
+      },
+      "gain": -26
+    },
+    {
+      "id": "plop2",
+      "kind": "noise",
+      "color": "white",
+      "at": 3.7,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.004
+      },
+      "gain": -10
+    },
+    {
+      "id": "ring2",
+      "kind": "modes",
+      "at": 3.7,
+      "f": 700,
+      "ratios": "tube",
+      "decay": 0.35,
+      "damping": 1,
+      "gain": -11
+    },
+    {
+      "id": "grain2",
+      "kind": "particles",
+      "at": 3.7,
+      "count": 30,
+      "band": [
+        600,
+        1500
+      ],
+      "grain": 0.01,
+      "env": {
+        "decay": 0.3
+      },
+      "gain": -16
+    },
+    {
+      "id": "blip2",
+      "kind": "tone",
+      "at": 3.7,
+      "f": 1000,
+      "wave": "sine",
+      "sweep": {
+        "to": 1400,
+        "time": 0.02
+      },
+      "env": {
+        "decay": 0.02
+      },
+      "gain": -26
+    },
+    {
+      "id": "plop3",
+      "kind": "noise",
+      "color": "white",
+      "at": 4,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.004
+      },
+      "gain": -8
+    },
+    {
+      "id": "ring3",
+      "kind": "modes",
+      "at": 4,
+      "f": 700,
+      "ratios": "tube",
+      "decay": 0.35,
+      "damping": 1,
+      "gain": -9
+    },
+    {
+      "id": "grain3",
+      "kind": "particles",
+      "at": 4,
+      "count": 30,
+      "band": [
+        600,
+        1500
+      ],
+      "grain": 0.01,
+      "env": {
+        "decay": 0.3
+      },
+      "gain": -14
+    },
+    {
+      "id": "blip3",
+      "kind": "tone",
+      "at": 4,
+      "f": 1000,
+      "wave": "sine",
+      "sweep": {
+        "to": 1400,
+        "time": 0.02
+      },
+      "env": {
+        "decay": 0.02
+      },
+      "gain": -24
+    },
+    {
+      "id": "plop4",
+      "kind": "noise",
+      "color": "white",
+      "at": 5.9,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.004
+      },
+      "gain": -8
+    },
+    {
+      "id": "ring4",
+      "kind": "modes",
+      "at": 5.9,
+      "f": 700,
+      "ratios": "tube",
+      "decay": 0.35,
+      "damping": 1,
+      "gain": -9
+    },
+    {
+      "id": "grain4",
+      "kind": "particles",
+      "at": 5.9,
+      "count": 30,
+      "band": [
+        600,
+        1500
+      ],
+      "grain": 0.01,
+      "env": {
+        "decay": 0.3
+      },
+      "gain": -14
+    },
+    {
+      "id": "blip4",
+      "kind": "tone",
+      "at": 5.9,
+      "f": 1000,
+      "wave": "sine",
+      "sweep": {
+        "to": 1400,
+        "time": 0.02
+      },
+      "env": {
+        "decay": 0.02
+      },
+      "gain": -24
+    }
+  ]
+}

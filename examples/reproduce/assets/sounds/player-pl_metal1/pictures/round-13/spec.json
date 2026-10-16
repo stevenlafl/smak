@@ -1,0 +1,122 @@
+{
+  "spec": "smak.sound/1",
+  "name": "player/pl_metal1.wav",
+  "class": "step metal",
+  "seed": 3,
+  "rate": 11025,
+  "bits": 8,
+  "length": 0.58,
+  "layers": [
+    {
+      "id": "take",
+      "kind": "sample",
+      "file": "work:gen/pl_metal1_s0.wav",
+      "from": "onset",
+      "length": 0.3,
+      "env": {
+        "attack": 0.002,
+        "decay": 0.12
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 300
+        },
+        {
+          "type": "lowpass",
+          "f": 1500,
+          "q": 0.7
+        }
+      ],
+      "gain": -4
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "iterations": 32,
+      "shape": [
+        [
+          60,
+          -24
+        ],
+        [
+          150,
+          -12
+        ],
+        [
+          300,
+          -3
+        ],
+        [
+          500,
+          -2
+        ],
+        [
+          800,
+          -10
+        ],
+        [
+          1500,
+          -22
+        ],
+        [
+          3000,
+          -36
+        ],
+        [
+          6000,
+          -50
+        ]
+      ],
+      "env": {
+        "attack": 0.003,
+        "decay": 0.9
+      },
+      "gain": -2
+    },
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 140,
+      "wave": "sine",
+      "sweep": {
+        "to": 60,
+        "time": 0.12
+      },
+      "env": {
+        "attack": 0.002,
+        "decay": 0.25
+      },
+      "gain": -10
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 420,
+      "ratios": "plate",
+      "decay": 1.2,
+      "damping": 0.8,
+      "gain": -24
+    }
+  ],
+  "finish": {
+    "room": {
+      "decay": 0.2,
+      "wet": 0.08
+    },
+    "saturate": 1.5,
+    "limit": {
+      "crest": 14,
+      "release": 0.002
+    },
+    "peak": -0.5
+  },
+  "bands": {
+    "<150": 32,
+    "150-600": 47,
+    "600-2k": 20,
+    "2k-5k": 2,
+    ">5k": 0
+  },
+  "picture": "pictures/sound.png"
+}

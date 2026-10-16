@@ -4,135 +4,133 @@
   "class": "step metal",
   "rate": 11025,
   "bits": 8,
-  "length": 0.58,
   "seed": 7,
+  "length": 0.58,
   "layers": [
     {
-      "id": "heel",
-      "kind": "tone",
-      "f": 90,
-      "wave": "sine",
-      "sweep": {
-        "to": 45,
-        "time": 0.08
-      },
-      "env": {
-        "attack": 0.001,
-        "decay": 0.12
-      },
-      "gain": -4
-    },
-    {
-      "id": "sole",
-      "kind": "tone",
-      "f": 75,
-      "wave": "sine",
-      "sweep": {
-        "to": 40,
-        "time": 0.06
-      },
-      "env": {
-        "attack": 0.001,
-        "decay": 0.1
-      },
-      "gain": -12,
-      "at": 0.035
-    },
-    {
-      "id": "clicks",
-      "kind": "particles",
-      "count": 80,
-      "band": [
-        700,
-        2500
-      ],
-      "grain": 0.003,
-      "env": {
-        "decay": 0.12
-      },
-      "gain": -3
-    },
-    {
-      "id": "grate",
-      "kind": "sample",
-      "file": "work:gen/pl_metal1_s2.wav",
-      "from": "onset",
-      "length": 0.58,
-      "env": {
-        "attack": 0.002,
-        "decay": 0.6
-      },
+      "id": "scuff",
+      "kind": "noise",
+      "color": "white",
+      "at": 0,
+      "length": 0.16,
       "filter": [
         {
-          "type": "peak",
-          "f": 300,
-          "q": 0.7,
-          "gain": -9
+          "type": "highpass",
+          "f": 500
         },
         {
-          "type": "peak",
-          "f": 420,
-          "q": 0.9,
-          "gain": -10
-        },
-        {
-          "type": "peak",
-          "f": 1400,
-          "q": 0.8,
-          "gain": 11
-        },
-        {
-          "type": "peak",
-          "f": 2200,
-          "q": 1,
-          "gain": 2
+          "type": "lowpass",
+          "f": 1600
         }
       ],
+      "env": {
+        "attack": 0.002,
+        "hold": 0.05,
+        "decay": 0.09
+      },
+      "gain": 13.5
+    },
+    {
+      "id": "flick",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.18,
+      "length": 0.03,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        },
+        {
+          "type": "lowpass",
+          "f": 3000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.012
+      },
       "gain": -2
     },
     {
-      "id": "rattle",
+      "id": "grit",
       "kind": "particles",
-      "count": 12,
+      "rate": 300,
       "band": [
-        800,
-        3000
+        150,
+        700
       ],
-      "grain": 0.003,
+      "grain": 0.004,
+      "at": 0.02,
+      "length": 0.5,
       "env": {
-        "decay": 0.05
+        "attack": 0.003,
+        "hold": 0.03,
+        "decay": 1
       },
-      "gain": -2,
-      "at": 0.16
+      "gain": -10
     },
     {
-      "id": "ring",
-      "kind": "modes",
-      "f": 220,
-      "ratios": "plate",
-      "decay": 1.2,
-      "damping": 0.8,
-      "gain": -21,
-      "at": 0.05,
+      "id": "t62",
+      "kind": "tone",
+      "f": 62,
+      "wave": "sine",
       "env": {
-        "attack": 0.005,
-        "hold": 0.15,
-        "decay": 0.3
-      }
+        "attack": 0.003,
+        "hold": 0.03,
+        "decay": 1.4
+      },
+      "gain": -1
+    },
+    {
+      "id": "t98",
+      "kind": "tone",
+      "f": 98,
+      "wave": "sine",
+      "env": {
+        "attack": 0.003,
+        "hold": 0.03,
+        "decay": 1.4
+      },
+      "gain": -2
+    },
+    {
+      "id": "t180",
+      "kind": "tone",
+      "f": 180,
+      "wave": "sine",
+      "env": {
+        "attack": 0.003,
+        "hold": 0.03,
+        "decay": 1.4
+      },
+      "gain": -1
+    },
+    {
+      "id": "t260",
+      "kind": "tone",
+      "f": 260,
+      "wave": "sine",
+      "env": {
+        "attack": 0.003,
+        "hold": 0.03,
+        "decay": 1.4
+      },
+      "gain": -2
+    },
+    {
+      "id": "t380",
+      "kind": "tone",
+      "f": 380,
+      "wave": "sine",
+      "env": {
+        "attack": 0.003,
+        "hold": 0.03,
+        "decay": 1.4
+      },
+      "gain": -6
     }
   ],
-  "finish": {
-    "saturate": 1.6,
-    "room": {
-      "decay": 0.25,
-      "wet": 0.12
-    },
-    "limit": {
-      "crest": 16,
-      "release": 0.002
-    },
-    "peak": -0.5
-  },
   "bands": {
     "<150": 32,
     "150-600": 47,

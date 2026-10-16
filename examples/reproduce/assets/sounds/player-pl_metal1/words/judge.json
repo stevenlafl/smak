@@ -29,29 +29,29 @@
    "onsets": 0
   },
   "reproduction": {
-   "length": 0.6,
+   "length": 0.58,
    "peak": -0.6,
-   "rms": -15.2,
-   "crest": 14.6,
-   "dc": 0.0014,
+   "rms": -17.7,
+   "crest": 17.1,
+   "dc": 0,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.015,
-   "attack": 0,
-   "peakAt": 0.005,
-   "t20": 0.254,
-   "t40": 0.574,
-   "centroid": 406,
-   "rolloff": 1130,
-   "flatness": 0.018,
+   "tail": 0.005,
+   "attack": 0.01,
+   "peakAt": 0.025,
+   "t20": 0.419,
+   "t40": 0.554,
+   "centroid": 426,
+   "rolloff": 969,
+   "flatness": 0.027,
    "bands": {
-    "<150": 35.5,
-    "150-600": 47.1,
-    "600-2k": 15.8,
-    "2k-5k": 1.5,
+    "<150": 33.2,
+    "150-600": 45.8,
+    "600-2k": 18.5,
+    "2k-5k": 2.5,
     ">5k": 0
    },
-   "onsets": 0
+   "onsets": 1
   },
   "envelope": {
    "class": "step metal",
@@ -59,12 +59,12 @@
     0.315,
     0.525
    ],
-   "t20": 0.254,
-   "inRange": false
+   "t20": 0.419,
+   "inRange": true
   },
-  "lengthOff": 0.031,
-  "centroidOff": 0.128,
-  "bandsOffMost": 3.8,
+  "lengthOff": 0.003,
+  "centroidOff": 0.183,
+  "bandsOffMost": 2,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -74,14 +74,43 @@
   }
  },
  "caps": {
-  "S2": 1,
+  "S2": 2,
   "S3": 2,
   "S5": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "S2"
- ],
- "total": 0,
- "of": 10
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture only; I cannot listen. Both files open with a broadband burst of about 0.05 s, which fits a metal footstep or impact, so the event is plausibly the same. The reproduction then turns into a steady, sustained low-to-mid band across the whole 0.58 s, with no decay. The original's tail is a noisy ring that fades. The reproduction reads as a hum after the hit, not a metal ring, so it is only partly the same event."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 0.580 s against the original's 0.582 s (0.3% off, within 25%). T20 is 0.419 s, inside the measured class range of 0.315 to 0.525 s. The attack is 0.01 s against 0.025 s, and the peak sits at 0.025 s against 0.045 s, but both are in the first 50 ms and the measured envelope holds."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid 426 Hz against 360 Hz is 18% off, inside the 20% limit. Band shares differ by at most 2.0 points (<150: 33.2 vs 34.8; 150-600: 45.8 vs 43.8; 600-2k: 18.5 vs 19.6; 2k-5k: 2.5 vs 1.8; >5k: 0 vs 0.1), all inside 10 points. Rolloff differs more (969 vs 624), but the rubric does not test it."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features; I cannot listen. The reproduction counts one onset where the original has none, and its flatness is 0.027 against 0.057, so it is more tonal and less noisy than the original. The spectrogram shows steady horizontal bands in the tail where the original's bands wobble, so its pitch movement differs too. S4 is not a must-have, so the faults score 1."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file is mono, 8-bit, at 11025 Hz, which the engine plays. Peak is -0.6 dBFS, not clipped, and DC is 0. The name matches the original's (sameName true). Neither file is a loop, so no loop cue applies. The reproduction has no clipping where the original had one."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
 }

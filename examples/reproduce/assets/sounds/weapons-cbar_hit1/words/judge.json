@@ -30,26 +30,26 @@
   },
   "reproduction": {
    "length": 0.69,
-   "peak": -0.6,
-   "rms": -9.6,
-   "crest": 9,
-   "dc": -0.0004,
+   "peak": -1,
+   "rms": -10.1,
+   "crest": 9.1,
+   "dc": 0.0001,
    "clipped": 0,
    "lead": 0,
    "tail": 0.005,
    "attack": 0,
-   "peakAt": 0,
-   "t20": 0.419,
-   "t40": 0.688,
-   "centroid": 1407,
-   "rolloff": 2218,
-   "flatness": 0.127,
+   "peakAt": 0.005,
+   "t20": 0.678,
+   "t40": 0.683,
+   "centroid": 1194,
+   "rolloff": 2175,
+   "flatness": 0.178,
    "bands": {
-    "<150": 0,
-    "150-600": 8.9,
-    "600-2k": 71.1,
-    "2k-5k": 20,
-    ">5k": 0
+    "<150": 0.3,
+    "150-600": 8.4,
+    "600-2k": 70.2,
+    "2k-5k": 21,
+    ">5k": 0.1
    },
    "onsets": 0
   },
@@ -59,12 +59,12 @@
     0.24,
     0.7
    ],
-   "t20": 0.419,
+   "t20": 0.678,
    "inRange": true
   },
   "lengthOff": 0.006,
-  "centroidOff": 0.048,
-  "bandsOffMost": 6.3,
+  "centroidOff": 0.111,
+  "bandsOffMost": 7.3,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -83,31 +83,31 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Cannot listen; judged from the picture and features. The original is a sharp metal-like strike: a spike at about 0.03 s, then a ringing decay with a tonal line in the spectrogram. The reproduction is a dense broadband burst of about 0.4 s that cuts off, with no strike at its start and no ring. Same family of sound (an impact-like noise), but the picture does not show the same event, so it is clearly off rather than right."
+   "reason": "Judged from the picture only, not by listening. The original opens with a sharp impact near 0.03 s that rings and falls away, the strike of a metal hit. The reproduction has no impact at its start, only a dense, sustained wash across the whole length, so it reads more like noise than a single strike. Probably not the same event as drawn."
   },
   "S2": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Length 0.690 s against 0.694 s (0.6% off, inside 25%). The class is 'metal hit' with a t20 range of 0.24 to 0.70 s; the reproduction's t20 is 0.419 s, inside it. Attack is 0 against the original's 0.005 s, and the peak lands at 0 s against 0.03 s. The picture shows no separate transient, but the measured envelope passes, so I score it on the measures."
+   "score": 1,
+   "reason": "Length 0.690 s against 0.694 s (0.6% off), and T20 0.678 s against 0.559 s, both inside the metal hit range of 0.24 to 0.70 s, so the measure holds. The attack differs (0 against 0.005 s; peak at 0.005 s against 0.03 s). The picture shows the shape differs: the original is loud for its first quarter and falls away by about 0.3 s, while the reproduction holds a near-steady level to about 0.45 s. Scored 1 for that shape, below what the measure allows."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Centroid 1407 Hz against 1343 Hz (4.8% off, inside 20%). Bands: under 150 Hz 0 vs 4.9 (4.9 points), 150-600 Hz 8.9 vs 6.8 (2.1), 600-2k Hz 71.1 vs 73.8 (2.7), 2k-5k Hz 20.0 vs 13.7 (6.3), above 5k Hz 0 vs 0.9 (0.9). Every band is within 10 points."
+   "reason": "Centroid 1194 Hz against 1343 Hz, 11% off, inside 20%. Band gaps: under 150 Hz 4.6 points, 150-600 Hz 1.6, 600-2k Hz 3.6, 2k-5k Hz 7.3, over 5k Hz 0.8. All are inside 10 points; the worst is 7.3 at 2k-5k. In the spectrograms both share the bright band near the same height and similar colours. Passes."
   },
   "S4": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "The original has one onset (the strike) and the reproduction has none (onsets 1 against 0), so the hit that gives the sound its character is missing. The original's ringing tonal tail is also absent in the picture. Flatness differs: 0.215 against 0.127, so the reproduction reads more tonal by measure while its picture looks like plain noise. Cannot listen, so the tone and pitch movement are judged from the picture only."
+   "score": 1,
+   "reason": "Judged from the picture and features only, not by listening. The original's hit shows as a sharp onset at the start, visible as spikes in the waveform; the reproduction has no such onset (onsets 0 against 1), so the crisp click of the hit is missing. Flatness 0.215 against 0.178 means both are noise-like, which is close. Neither shows a clear pitch glide, and the horizontal band sits at a similar height in both. The missing onset is the one fault."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Mono, 11025 Hz, 8-bit, the format the engine plays. No clipping. DC -0.0004 (the original's is 0.0043, both negligible). Lead 0, tail 0.005 s. Same name as the original (sameName true). The original shows no loop, so no cue is needed."
+   "reason": "11025 Hz, 8-bit, mono, the format the engine plays. Clipped 0, DC 0.0001, peak -1 dBFS and not clipping, lead 0 and tail 0.005 s. It is not a loop, so no loop cue is needed. Same name as the original (sameName true), and no engine faults are reported."
   }
  },
  "total": 7,

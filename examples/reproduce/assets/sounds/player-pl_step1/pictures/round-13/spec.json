@@ -1,0 +1,91 @@
+{
+  "spec": "smak.sound/1",
+  "name": "player/pl_step1.wav",
+  "class": "step metal",
+  "seed": 1,
+  "rate": 11025,
+  "length": 0.27,
+  "layers": [
+    {
+      "id": "take",
+      "kind": "sample",
+      "file": "work:gen/pl_step1_take_s0.wav",
+      "from": "onset",
+      "length": 0.27,
+      "env": {
+        "attack": 0.001,
+        "hold": 0.12,
+        "decay": 0.22
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 215,
+          "q": 0.8
+        },
+        {
+          "type": "peak",
+          "f": 320,
+          "q": 0.9,
+          "gain": 4
+        },
+        {
+          "type": "peak",
+          "f": 1100,
+          "q": 1,
+          "gain": -6
+        },
+        {
+          "type": "peak",
+          "f": 3500,
+          "q": 0.8,
+          "gain": 2
+        },
+        {
+          "type": "lowpass",
+          "f": 4200,
+          "q": 0.7
+        }
+      ],
+      "gain": 1
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "at": 0,
+      "length": 0.04,
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.02
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 3300,
+          "q": 0.5
+        }
+      ],
+      "gain": -7,
+      "post": true
+    }
+  ],
+  "finish": {
+    "room": {
+      "decay": 0.25,
+      "wet": 0.12
+    },
+    "limit": {
+      "crest": 18,
+      "release": 0.002
+    },
+    "peak": -0.5
+  },
+  "bands": {
+    "<150": 13,
+    "150-600": 60,
+    "600-2k": 9,
+    "2k-5k": 16,
+    ">5k": 1
+  }
+}

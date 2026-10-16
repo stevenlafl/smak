@@ -1,52 +1,31 @@
-The sound builds OK and is written to `work:sound/weapons/cbar_hit1.wav`, so it takes the place of the game's file. It has no generated take, so the only licence involved is the one for the tools I used, which the person accepted.
+The sound is built and the build says OK, with no warnings. It is written to the work folder as `sound/weapons/cbar_hit1.wav`, so it takes the place of the game's own file of that name.
 
-Measured against the original's picture:
+I did not listen to it. Everything below is from the build's measurements and its picture, so the game is the final check.
 
 ```
-measure         original (from picture)   made sound
-length          0.69 s                    0.69 s
-centroid        1467 Hz                   1599 Hz (9% off)
-<150 Hz         3%                        0%
-150-600 Hz      8%                        8.1%
-600-2k Hz       69%                       72.6%
-2k-5k Hz        19%                       19.3%
->5k Hz          1%                        0%
-crest           about 9.8 dB              9.5 dB
-RMS             -                         -10 dBFS (class range -12.9 to -5.7)
-T20             -                         0.48 s (class range 0.24 to 0.7)
-format          11025 Hz, 8-bit           11025 Hz, 16-bit mono
+Measure           Original        Made        Note
+Length            0.69 s          0.69 s      exact
+Peak onset        0.023 s         0 s         strike at the start
+T20               0.58 s          0.55 s      time to fall 20 dB
+Centroid          1467 Hz         1365 Hz     7% low
+150-600 Hz        8%              6.5%
+600-2k Hz         69%             73.8%
+2k-5k Hz          19%             18%
+<150 Hz           3%              1.7%
+>5k Hz            1%              0.1%
+Flatness          0.16 to 0.28    0.25        in range
+Crest             about 9.8 dB    10.7 dB     within 3 dB
+Class check       metal hit       22 of 22 in range
 ```
 
-The build's class check has 20 of 22 features in the range of the game's metal hits. The miss is flatness: 0 against a class range of 0.16 to 0.28, so the sound is more tonal than a real hit. I tried a short noise crack to add it, and it did not move flatness at any level I tried, while it added a slow attack. I left it out.
+How it was made:
+- **Strike:** four takes of a crowbar on metal were generated with woosh-dflow (an open-weights sound model). Take 2 had the closest band shares, so I used it. Its tail was too bright, so I lowpassed it at 1.3 kHz and shaped its envelope to the original's: peak at 0.02 s, down 20 dB by 0.58 s.
+- **Body:** two particle layers, one for 100 to 600 Hz and one for 2 to 4 kHz, add grain. Steady noise over the take gave a static warning, so I used particles.
+- **Ring and crack:** a faint 1 kHz modal ring, and a short high-passed crack at the onset.
+- **Finish:** saturation of 2 and a limiter at crest 9, peak -0.5 dBFS, 11025 Hz.
 
-Choices I made:
-- **16-bit, not 8-bit.** The build warns that 8-bit adds hiss under the tail, which is heard as static. Setting `"bits": 8` is a one-line change if you want the original's depth exactly.
-- **No room.** A room made the sound die too soon, so I dropped it. The map's `env_sound` adds the room anyway.
+Two choices you may want to change:
+- **16-bit, not 8-bit.** The original is 8-bit, but the build warns that 8-bit adds hiss under the tail. Say if you want 8-bit to match the original's file format exactly.
+- **Licence.** The strike is from woosh-dflow, whose weights are CC-BY-NC 4.0 (non-commercial). You accepted that for this test, so it is noted here and the sound is not for commercial use as it stands.
 
-Things to know:
-- **I have not listened to it.** The numbers match the picture, but how it sounds is for you to judge in the game.
-- **`modes` gains look like linear amplitudes, not dB.** A gain of 0 silenced a mode and the results only fit that reading. The guide describes dB for layers and says nothing about this, so please check it.
-- **Lowpass on a sample layer behaved oddly.** A 2800 Hz lowpass on a generated take left only a 200 Hz body, and 8700 and 12000 Hz gave different odd results. I did not diagnose it and did not use it.
-- **I could not read smak's source.** Reading `src/audio/modes.mjs` was refused, so the gain finding is inferred from builds only.
-- **The spec is not saved to disk.** The file tool is disabled in this session, so here it is:
-
-```json
-{
-  "spec": "smak.sound/1",
-  "name": "weapons/cbar_hit1.wav",
-  "class": "metal hit",
-  "seed": 3,
-  "rate": 11025,
-  "length": 0.69,
-  "layers": [
-    { "id": "thump", "kind": "tone", "f": 240, "wave": "sine", "sweep": { "to": 180, "time": 0.2 }, "env": { "decay": 0.8 }, "gain": 10 },
-    { "id": "ring", "kind": "modes", "modes": [
-      { "f": 1350, "gain": 8, "decay": 0.9 },
-      { "f": 3100, "gain": 4.2, "decay": 0.9 }
-    ] }
-  ],
-  "finish": { "saturate": 1.5, "limit": { "crest": 9.5, "release": 0.002 }, "peak": -0.5 },
-  "bands": { "<150": 3, "150-600": 8, "600-2k": 69, "2k-5k": 19, ">5k": 1 },
-  "picture": "pictures/sound.png"
-}
-```
+The spec itself lives only in this conversation, not in a file. The four generated takes are in the work folder under `gen/`, and the chosen one is `gen/cbar_hit_s2.wav`.

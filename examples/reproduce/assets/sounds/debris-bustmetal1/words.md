@@ -1,9 +1,12 @@
-A metal object bursting or breaking apart: a sheet or crate of thin metal smashed, with a clang and a rattling, ringing scatter of debris afterward. It lasts 0.87 seconds, is mono at 11025 Hz and 8 bits, plays once and does not loop.
+A piece of sheet metal breaking or being bashed apart: a single harsh, clanging metallic crash with no separate impacts after it. It lasts 0.87 seconds, is mono, low-fidelity (11025 Hz, 8-bit) and plays once without looping.
 
-It starts instantly with a hard, full-scale impact and no fade-in. The loudest part is the first 0.1 seconds, a dense crash. After that the level falls fairly steadily: about half volume by 0.25 seconds, about a quarter by 0.45 seconds, and a faint ringing tail that thins out to silence around 0.8 seconds. The decay is smooth and exponential-like rather than stepped.
+The attack is nearly instant, a hard broadband smash that peaks about 0.05 seconds in. The first tenth of a second stays dense and loud. After that the level falls steadily and smoothly, about 20 dB in the next 0.44 seconds, leaving a thin, rattling, shimmering metallic tail. That tail fades to near silence by about 0.8 seconds, and the last few hundredths are silent. The decay has no new strikes or clicks. It stays grainy and slightly fluttery the whole way, like a struck panel buzzing as it settles.
 
-Most of the energy sits in the mids and upper mids, with a centroid near 1.9 kHz. Rough split: almost nothing under 150 Hz, about 10% at 150 to 600 Hz, about 47% at 600 to 2000 Hz, about 41% at 2000 to 5000 Hz, and about 2% above 5000 Hz, where the low sample rate cuts it off. There is no real bass thump. The low mids die first, so the tail leans brighter and thinner.
+The energy sits in the upper midrange and presence region, centered around 1.9 kHz. Rough shares:
+- under 150 Hz: almost none (0%)
+- 150 to 600 Hz: about 10%
+- 600 to 2000 Hz: about 47%
+- 2000 to 5000 Hz: about 41%
+- over 5000 Hz: about 2%, since the low sample rate cuts it off
 
-There is one main hit at the very start, with small jittery rattles inside the decay, like loose fragments clattering, but no separate later impacts stand out.
-
-The character is mostly noisy, a broadband metallic crash, with a lot of narrow inharmonic ringing partials (thin horizontal streaks across 600 to 4000 Hz) that keep sounding through the tail, giving it a tinny clang. The pitch doesn't glide or move anywhere; the partials stay put and just fade.
+There is essentially no bass or thump. The body is a bright, clattery clang. The sound is mostly noisy, but its spectrum is streaked with many closely spaced, inharmonic resonant bands, like ringing metal partials over crunch noise. It doesn't settle on one clear pitch. Those resonances hold steady with no pitch glide. The upper bands die a little sooner than the 600 to 2000 Hz band, so the tail sounds slightly duller than the hit.

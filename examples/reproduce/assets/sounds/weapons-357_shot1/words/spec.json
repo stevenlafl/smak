@@ -4,15 +4,19 @@
   "class": "gunshot",
   "rate": 22050,
   "bits": 8,
-  "seed": 7,
+  "seed": 3,
   "length": 1.06,
   "layers": [
     {
-      "id": "body",
-      "kind": "sample",
-      "file": "work:gen/357_shot_s2.wav",
-      "from": "onset",
-      "length": 1.06,
+      "id": "thump",
+      "kind": "tone",
+      "f": 130,
+      "wave": "sine",
+      "sweep": {
+        "to": 45,
+        "time": 0.1
+      },
+      "at": 0,
       "env": {
         "points": [
           [
@@ -20,19 +24,77 @@
             0
           ],
           [
-            0.4,
-            -1
+            0.02,
+            -2
           ],
           [
-            0.6,
+            0.1,
+            -14
+          ],
+          [
+            0.2,
+            -30
+          ],
+          [
+            0.35,
+            -50
+          ]
+        ]
+      },
+      "post": true,
+      "gain": -4
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "at": 0.02,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.012
+      },
+      "post": true,
+      "gain": -9
+    },
+    {
+      "id": "rumble",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 40
+        },
+        {
+          "type": "lowpass",
+          "f": 150
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
             -6
           ],
           [
-            0.8,
-            -20
+            0.012,
+            0
           ],
           [
-            0.95,
+            0.45,
+            -2
+          ],
+          [
+            0.8,
+            -22
+          ],
+          [
+            1,
             -40
           ],
           [
@@ -41,77 +103,132 @@
           ]
         ]
       },
+      "post": true,
+      "gain": 13
+    },
+    {
+      "id": "body",
+      "kind": "sample",
+      "file": "work:gen/357_shot_s0.wav",
+      "from": "onset",
+      "length": 1.06,
       "filter": [
-        {
-          "type": "highpass",
-          "f": 60
-        },
-        {
-          "type": "peak",
-          "f": 350,
-          "q": 1,
-          "gain": -6
-        },
-        {
-          "type": "peak",
-          "f": 1200,
-          "q": 0.7,
-          "gain": -3
-        },
         {
           "type": "lowpass",
           "f": 4000
+        },
+        {
+          "type": "peak",
+          "f": 100,
+          "q": 1.2,
+          "gain": 5
+        },
+        {
+          "type": "peak",
+          "f": 300,
+          "q": 0.7,
+          "gain": -12
+        },
+        {
+          "type": "peak",
+          "f": 1000,
+          "q": 0.8,
+          "gain": -1
+        },
+        {
+          "type": "peak",
+          "f": 2500,
+          "q": 0.8,
+          "gain": -3
         }
-      ]
-    },
-    {
-      "id": "grit",
-      "kind": "particles",
-      "band": [
-        2000,
-        5000
       ],
-      "grain": 0.003,
-      "every": 0.08,
-      "jitter": 0.6,
-      "length": 0.4,
-      "gain": -11,
       "env": {
-        "decay": 0.25
-      }
-    },
-    {
-      "id": "punch",
-      "kind": "tone",
-      "f": 50,
-      "wave": "sine",
-      "env": {
-        "decay": 0.2
+        "points": [
+          [
+            0,
+            -4
+          ],
+          [
+            0.012,
+            0
+          ],
+          [
+            0.45,
+            0
+          ],
+          [
+            0.6,
+            -12
+          ],
+          [
+            0.825,
+            -30
+          ],
+          [
+            1,
+            -46
+          ],
+          [
+            1.06,
+            -60
+          ]
+        ]
       },
-      "gain": 0
+      "gain": 3
     },
     {
-      "id": "crack",
-      "kind": "noise",
-      "color": "white",
-      "length": 0.003,
-      "post": true,
-      "gain": 2,
+      "id": "blast_hold",
+      "kind": "sample",
+      "file": "work:gen/357_shot_s0.wav",
+      "from": "onset",
+      "length": 0.45,
       "filter": [
         {
-          "type": "highpass",
-          "f": 2000
+          "type": "lowpass",
+          "f": 4000
+        },
+        {
+          "type": "peak",
+          "f": 100,
+          "q": 1.2,
+          "gain": 5
+        },
+        {
+          "type": "peak",
+          "f": 300,
+          "q": 0.7,
+          "gain": -12
+        },
+        {
+          "type": "peak",
+          "f": 1000,
+          "q": 0.8,
+          "gain": -2
         }
       ],
       "env": {
-        "decay": 0.002
-      }
+        "points": [
+          [
+            0,
+            -6
+          ],
+          [
+            0.012,
+            0
+          ],
+          [
+            0.45,
+            -2
+          ]
+        ]
+      },
+      "gain": 0
     }
   ],
   "finish": {
-    "saturate": 6,
+    "saturate": 8,
     "limit": {
-      "crest": 9,
+      "crest": 11,
       "release": 0.002
     },
     "peak": -0.5

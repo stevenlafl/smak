@@ -4,220 +4,7 @@
   "class": "explosion",
   "seed": 3,
   "length": 1.3,
-  "layers": [
-    {
-      "id": "blast",
-      "kind": "noise",
-      "iterations": 32,
-      "env": {
-        "points": [
-          [
-            0,
-            -40
-          ],
-          [
-            0.012,
-            0
-          ],
-          [
-            0.1,
-            -6
-          ],
-          [
-            0.2,
-            -18
-          ],
-          [
-            0.35,
-            -30
-          ],
-          [
-            0.6,
-            -45
-          ],
-          [
-            1.3,
-            -70
-          ]
-        ]
-      },
-      "shape": {
-        "keys": [
-          {
-            "at": 0,
-            "curve": [
-              [
-                60,
-                -2
-              ],
-              [
-                150,
-                -1
-              ],
-              [
-                300,
-                -2
-              ],
-              [
-                600,
-                -3
-              ],
-              [
-                1200,
-                -10
-              ],
-              [
-                2500,
-                -14
-              ],
-              [
-                5000,
-                -20
-              ],
-              [
-                11000,
-                -36
-              ]
-            ]
-          },
-          {
-            "at": 0.4,
-            "curve": [
-              [
-                60,
-                -6
-              ],
-              [
-                150,
-                -5
-              ],
-              [
-                300,
-                -6
-              ],
-              [
-                600,
-                -7
-              ],
-              [
-                1200,
-                -14
-              ],
-              [
-                2500,
-                -20
-              ],
-              [
-                5000,
-                -28
-              ],
-              [
-                11000,
-                -46
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "thump",
-      "kind": "tone",
-      "f": 60,
-      "wave": "sine",
-      "sweep": {
-        "to": 40,
-        "time": 0.4
-      },
-      "env": {
-        "attack": 0.003,
-        "hold": 0.05,
-        "decay": 0.2
-      },
-      "gain": -3
-    },
-    {
-      "id": "body",
-      "kind": "noise",
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 200
-        },
-        {
-          "type": "highpass",
-          "f": 40
-        }
-      ],
-      "env": {
-        "attack": 0.003,
-        "hold": 0.02,
-        "decay": 0.12
-      },
-      "gain": -1
-    },
-    {
-      "id": "crack",
-      "kind": "noise",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 1500
-        }
-      ],
-      "env": {
-        "decay": 0.02
-      },
-      "gain": -12
-    },
-    {
-      "id": "debris",
-      "kind": "particles",
-      "rate": 14,
-      "band": [
-        300,
-        1200
-      ],
-      "grain": 0.01,
-      "env": {
-        "points": [
-          [
-            0,
-            -30
-          ],
-          [
-            0.12,
-            -16
-          ],
-          [
-            0.3,
-            -30
-          ],
-          [
-            0.6,
-            -45
-          ],
-          [
-            1.3,
-            -70
-          ]
-        ]
-      },
-      "gain": -12
-    }
-  ],
-  "finish": {
-    "room": {
-      "decay": 0.2,
-      "wet": 0.05
-    },
-    "saturate": 1.5,
-    "limit": {
-      "crest": 8,
-      "release": 0.002
-    },
-    "peak": -0.5
-  },
+  "picture": "pictures/sound.png",
   "bands": {
     "<150": 37,
     "150-600": 36,
@@ -225,5 +12,297 @@
     "2k-5k": 4,
     ">5k": 2
   },
-  "picture": "pictures/sound.png"
+  "layers": [
+    {
+      "id": "sub",
+      "kind": "tone",
+      "f": 62,
+      "wave": "sine",
+      "sweep": {
+        "to": 38,
+        "time": 0.9
+      },
+      "env": {
+        "points": [
+          [
+            0,
+            -3
+          ],
+          [
+            0.02,
+            0
+          ],
+          [
+            0.12,
+            -1
+          ],
+          [
+            0.255,
+            0
+          ],
+          [
+            0.4,
+            -12
+          ],
+          [
+            0.5,
+            -24
+          ],
+          [
+            0.6,
+            -40
+          ],
+          [
+            0.7,
+            -60
+          ]
+        ]
+      },
+      "gain": -14
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "color": "pink",
+      "iterations": 32,
+      "shape": {
+        "keys": [
+          {
+            "at": 0,
+            "curve": [
+              [
+                60,
+                -6
+              ],
+              [
+                150,
+                -2
+              ],
+              [
+                400,
+                0
+              ],
+              [
+                1000,
+                -5
+              ],
+              [
+                2500,
+                -16
+              ],
+              [
+                5000,
+                -26
+              ],
+              [
+                11000,
+                -40
+              ]
+            ]
+          },
+          {
+            "at": 0.6,
+            "curve": [
+              [
+                60,
+                -8
+              ],
+              [
+                150,
+                -4
+              ],
+              [
+                400,
+                -2
+              ],
+              [
+                1000,
+                -9
+              ],
+              [
+                2500,
+                -22
+              ],
+              [
+                5000,
+                -32
+              ],
+              [
+                11000,
+                -45
+              ]
+            ]
+          }
+        ]
+      },
+      "env": {
+        "points": [
+          [
+            0,
+            -3
+          ],
+          [
+            0.02,
+            0
+          ],
+          [
+            0.12,
+            -1
+          ],
+          [
+            0.255,
+            0
+          ],
+          [
+            0.5,
+            -14
+          ],
+          [
+            0.7,
+            -28
+          ],
+          [
+            0.85,
+            -40
+          ],
+          [
+            1,
+            -55
+          ],
+          [
+            1.3,
+            -60
+          ]
+        ]
+      }
+    },
+    {
+      "id": "hit1",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1800,
+          "q": 0.8
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.03
+      },
+      "gain": -7
+    },
+    {
+      "id": "hit2",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1800,
+          "q": 0.8
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.03
+      },
+      "at": 0.12,
+      "gain": -7
+    },
+    {
+      "id": "hit3",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1800,
+          "q": 0.8
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.04
+      },
+      "at": 0.25,
+      "gain": -6
+    },
+    {
+      "id": "grit1",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.25
+      },
+      "gain": -16
+    },
+    {
+      "id": "grit2",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.25
+      },
+      "at": 0.12,
+      "gain": -16
+    },
+    {
+      "id": "grit3",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.25
+      },
+      "at": 0.25,
+      "gain": -13
+    },
+    {
+      "id": "onset",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.003
+      },
+      "gain": -6,
+      "post": true
+    }
+  ],
+  "finish": {
+    "saturate": 3,
+    "limit": {
+      "crest": 8,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
 }

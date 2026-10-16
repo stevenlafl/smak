@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "player-pl_metal1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.582,
+   "peak": 0,
+   "rms": -15.5,
+   "crest": 15.5,
+   "dc": -0.0104,
+   "clipped": 1,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.025,
+   "peakAt": 0.045,
+   "t20": 0.424,
+   "t40": 0.539,
+   "centroid": 360,
+   "rolloff": 624,
+   "flatness": 0.057,
+   "bands": {
+    "<150": 34.8,
+    "150-600": 43.8,
+    "600-2k": 19.6,
+    "2k-5k": 1.8,
+    ">5k": 0.1
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.585,
+   "peak": -0.6,
+   "rms": -13.3,
+   "crest": 12.8,
+   "dc": 0.0004,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0,
+   "peakAt": 0.005,
+   "t20": 0.329,
+   "t40": 0.574,
+   "centroid": 381,
+   "rolloff": 635,
+   "flatness": 0.012,
+   "bands": {
+    "<150": 32.3,
+    "150-600": 50,
+    "600-2k": 17.5,
+    "2k-5k": 0.2,
+    ">5k": 0
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "step metal",
+   "t20Range": [
+    0.315,
+    0.525
+   ],
+   "t20": 0.329,
+   "inRange": true
+  },
+  "lengthOff": 0.005,
+  "centroidOff": 0.058,
+  "bandsOffMost": 6.2,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "I cannot listen, so this is from the picture only. Both are a sharp onset followed by a decay, which fits a metal impact. The reproduction's onset, though, is a regular train of pulses across the first ~0.1 s, more like a ratchet or buzz than one strike. Its spectrogram also lacks the original's bright high-band energy at the start (the original's yellow reaches up through the mid bands; the reproduction's is dark red above them). It is not clearly the same event, so 1."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 0.585 s against 0.582 s, 0.5% off (limit 25%). t20 is 0.329 s, inside the metal step class's range of 0.315 to 0.525 s (inRange true). The original's t20 is 0.424 s, also in range. The attack differs (0 against 0.025 s, peak at 0.005 s against 0.045 s), a 25 ms gap that the class range absorbs. Envelope passes."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid 381 Hz against 360 Hz, 5.8% off (limit 20%). Band shares: <150 Hz 32.3 against 34.8 (2.5 points), 150-600 Hz 50 against 43.8 (6.2), 600-2k Hz 17.5 against 19.6 (2.1), 2k-5k Hz 0.2 against 1.8 (1.6), >5k Hz 0 against 0.1. Largest gap is 6.2 points, within the 10-point limit. Rolloff 635 against 624 Hz."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the features and picture. Onsets are 0 in both, so that part matches. Flatness is 0.057 in the original against 0.012 in the reproduction, so the reproduction is clearly more tonal and less noisy. The picture agrees: the original opens with a broad noise burst, while the reproduction's start is periodic. Pitch movement cannot be checked from a picture. Not a must-have, but the character is clearly off."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Format is 11025 Hz, 8-bit, mono, which the engine plays. No clipping (peak -0.6 dBFS, clipped 0). DC 0.0004, negligible. No engine faults. Same name as the original (sameName true). The measurements show no loop, so no loop cue is needed; I cannot confirm that from the picture alone."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "debris-bustmetal1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.873,
+   "peak": -0.1,
+   "rms": -12.8,
+   "crest": 12.7,
+   "dc": -0.0076,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.105,
+   "attack": 0.025,
+   "peakAt": 0.075,
+   "t20": 0.439,
+   "t40": 0.629,
+   "centroid": 1968,
+   "rolloff": 3241,
+   "flatness": 0.569,
+   "bands": {
+    "<150": 0.2,
+    "150-600": 8.8,
+    "600-2k": 47,
+    "2k-5k": 41.3,
+    ">5k": 2.7
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.835,
+   "peak": -0.6,
+   "rms": -12.4,
+   "crest": 11.8,
+   "dc": -0.0002,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0,
+   "peakAt": 0.18,
+   "t20": 0.394,
+   "t40": 0.614,
+   "centroid": 2002,
+   "rolloff": 3553,
+   "flatness": 0.521,
+   "bands": {
+    "<150": 0,
+    "150-600": 11.4,
+    "600-2k": 45,
+    "2k-5k": 43.2,
+    ">5k": 0.4
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "none: the original's own decay",
+   "t20Range": [
+    0.329,
+    0.549
+   ],
+   "t20": 0.394,
+   "inRange": true
+  },
+  "lengthOff": 0.044,
+  "centroidOff": 0.017,
+  "bandsOffMost": 2.6,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. Both are a broadband noise burst that decays over about 0.9 s, which fits one class of impact event. But the original opens with a sharp hit in its first few milliseconds (attack 0.025 s, peak at 0.075 s), while the reproduction has no attack (0 s) and builds to its peak at 0.18 s. The picture shows a softer, swelling onset rather than a strike, so it reads as a different attack on the same kind of event."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 0.835 s against 0.873 s is 4.4% off, well within 25%. The T20 decay of 0.394 s sits inside the range the harness gives for this sound (0.329 to 0.549 s, inRange true). The class is 'none', so the original's own decay applies, and the decay curves in the picture look alike."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid 2002 Hz against 1968 Hz is 1.7% off, within 20%. Band shares differ by at most 2.6 points (150-600 Hz 11.4 vs 8.8; 600-2k 45 vs 47; 2k-5k 43.2 vs 41.3; >5k 0.4 vs 2.7; <150 0 vs 0.2), all within 10 points. The spectrogram's energy layout matches."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. Onset counts are both 0 by measure. Flatness is close (0.569 against 0.521), so both are noise-like. But the picture shows a sharp click-like spike at the original's start that the reproduction lacks, and its peak comes about 0.1 s later. The hit character is therefore not fully matched."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The format is mono, 8-bit PCM at 11025 Hz, which the engine plays. Clipping is 0, DC is -0.0002 (the original's is -0.0076, so both are negligible), the peak is -0.6 dBFS with no overrun, the lead is 0 and the tail is 0.005 s. The name matches (sameName true), and the engine faults list is empty. The original shows no loop cue in the measures, so none is needed."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

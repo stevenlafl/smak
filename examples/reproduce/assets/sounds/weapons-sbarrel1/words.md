@@ -1,9 +1,16 @@
-A barrel explosion: a heavy, distorted blast followed by a rumbling, crackling decay. It is 1.04 seconds long, mono, 22050 Hz, 8-bit, and it plays once with no loop.
+An exploding barrel: a single heavy blast that turns into rolling debris rumble. It lasts 1.04 s, plays once and doesn't loop. The file is 22050 Hz, 8-bit.
 
-Start: there is no fade-in. It opens at full volume with a hard-clipped wall of noise. The first 0.1 seconds or so stay pinned at maximum, with a few sharp, dense transients like a detonation hitting the ceiling.
+Onset: there is no fade-in. It starts at full level, peaking about 0.02 s in. The first 0.4 s stays slammed near clipping with dense, jagged peaks. That's the main burst, a churning roar rather than one clean crack. Inside it are a few sharp spikes, for example near 0.03 s, plus a quick flutter of crackles.
 
-Loudness over time: after the opening slam the level drops a little, then swells again from about 0.3 to 0.45 s with a second cluster of ragged spikes, like debris or a secondary burst. From there it falls off steadily. By 0.6 s it is a quiet crackle, and by 0.75 s it is a faint hiss-rumble that thins to near silence at the end.
+Loudness: from about 0.4 s the level slides away steadily, about 20 dB down by 0.6 s after the peak. By 0.6 s only a thin, low rumbling tail is left, and it fades to near silence by 1.0 s. There's no sharp cutoff; it simply thins out.
 
-Frequency: the energy is mostly low and low-mid, centred around 600 Hz. Roughly 36% is under 150 Hz, 32% is 150 to 600 Hz, 26% is 600 to 2000 Hz, 4% is 2000 to 5000 Hz and 1% is over 5000 Hz. The opening has brief broadband reach up into the highs. As it decays the top end goes first, and the tail is mostly dull low rumble.
+Frequency: the energy is weighted heavily toward the low end, with the centroid around 600 Hz. Roughly:
+- under 150 Hz: 36%
+- 150 to 600 Hz: 32%
+- 600 to 2000 Hz: 26%
+- 2000 to 5000 Hz: 4%
+- over 5000 Hz: 1%
 
-Texture: entirely noisy, with no tone or pitch. It is gritty and crackling throughout, with many small irregular clicks and pops inside the noise, densest in the first half. The only "pitch" movement is a gradual darkening as the highs die faster than the lows.
+The top end is dull and muffled, like an old low-rate sample. The upper mids die first, so the tail is mostly a deep boom of sub-bass and low mids.
+
+Character: it is entirely noisy, with no tonal pitch and no pitch sweep. Treat it as one hit: a broadband noise burst run through a low-pass at about 2 to 3 kHz, with rough grit and crackle in the first 0.4 s. After that, an exponential decay where the low end lingers longest.
