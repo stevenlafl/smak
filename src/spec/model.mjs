@@ -439,7 +439,18 @@ function leastStretched(skeleton, tris, candidates) {
         // a frame that cannot be read: left out
       }
     }
-  const first = points.map((p) => candidates(p));
+  // each candidate's parents too, up to two: a coat between the legs stretches least on the hips, as Valve's own
+  // coat tails hang, where a corner on either leg is torn across to the other in a run (the scientist's, 2026-10-16)
+  const parents = bonesOf(skeleton.src).map((b) => b.parent);
+  const upFrom = (b) => {
+    const out = [];
+    for (let i = parents[number.get(b)] ?? -1, n = 0; i >= 0 && n < 2; i = parents[i], n++) out.push(names[i]);
+    return out;
+  };
+  const first = points.map((p) => {
+    const own = candidates(p);
+    return [...new Set([...own, ...own.flatMap(upFrom)])];
+  });
   let bone = first.map((c) => c[0] ?? names[0]);
   if (!moves.length) return (p) => bone[index.get(keyOf(p))] ?? first[0][0];
   const placed = (b, p) => moves.map((m) => apply34(m[number.get(b)], p));
@@ -458,8 +469,8 @@ function leastStretched(skeleton, tris, candidates) {
     }
     return sum;
   };
-  for (let sweep = 0; sweep < 4; sweep++)
-    bone = bone.map((current, i) => {
+  const sweepOnce = () =>
+    (bone = bone.map((current, i) => {
       const tried = new Set([...first[i], ...[...near[i]].map((j) => bone[j])]);
       let best = current;
       let bestCost = stretchOf(i, current);
@@ -470,9 +481,59 @@ function leastStretched(skeleton, tris, candidates) {
         if (cost < bestCost) [best, bestCost] = [b, cost];
       }
       return best;
-    });
+    }));
+  for (let sweep = 0; sweep < 4; sweep++) sweepOnce();
+  // a sheet torn between two limbs (a coat's hem between the legs, carved from a stride) is past what one point
+  // moved at a time mends: its neighbours hold it to a leg. A triangle whose corners hang on different limbs and
+  // that stretches past TORN in a frame goes whole to the bones' nearest common ancestor (the hips), then the
+  // sweeps run again
+  const chain = (b) => {
+    const out = [];
+    for (let i = number.get(b) ?? -1; i >= 0; i = parents[i]) out.push(i);
+    return out;
+  };
+  const common = (bs) => {
+    const chains = bs.map(chain);
+    return names[chains[0].find((i) => chains.every((c) => c.includes(i))) ?? 0];
+  };
+  const corners = tris.map((t) => t.map((p) => index.get(keyOf(p))));
+  for (let round = 0; round < 3; round++) {
+    let moved = 0;
+    for (const c of corners) {
+      const bs = [...new Set(c.map((i) => bone[i]))];
+      if (bs.length < 2) continue;
+      const shared = common(bs);
+      if (bs.includes(shared)) continue;
+      let torn = false;
+      for (let k = 0; k < 3 && !torn; k++) {
+        const [i, j] = [c[k], c[(k + 1) % 3]];
+        const length = Math.max(0.3, Math.hypot(...points[i].map((v, n) => v - points[j][n])));
+        const [pi, pj] = [at(i, bone[i]), at(j, bone[j])];
+        for (let f = 0; f < moves.length && !torn; f++) torn = Math.hypot(...pi[f].map((v, n) => v - pj[f][n])) > TORN * length;
+      }
+      if (!torn) continue;
+      // the whole triangle on whichever of its bones, or their common ancestor, stretches its corners least
+      const was = c.map((i) => bone[i]);
+      let best = null;
+      for (const b of [shared, ...bs]) {
+        for (const i of c) bone[i] = b;
+        const cost = c.reduce((sum, i) => sum + stretchOf(i, b), 0);
+        if (!best || cost < best.cost) best = { b, cost };
+      }
+      c.forEach((i, k) => (bone[i] = was[k]));
+      const before = c.reduce((sum, i) => sum + stretchOf(i, bone[i]), 0);
+      if (best.cost >= before) continue;
+      for (const i of c) bone[i] = best.b;
+      moved++;
+    }
+    if (!moved) break;
+    sweepOnce();
+  }
   return (p) => bone[index.get(keyOf(p))] ?? candidates(p)[0];
 }
+
+/** An edge longer than this many times its length in some frame of motion is torn: its triangle goes to the hips. */
+const TORN = 2;
 
 /** A template point further than this share of the body's size from a corner is no guide to its bone. */
 const TEMPLATE_FAR = 0.15;
