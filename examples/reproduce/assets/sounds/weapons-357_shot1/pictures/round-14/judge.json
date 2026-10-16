@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-357_shot1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 1.064,
+   "peak": 0,
+   "rms": -8.5,
+   "crest": 8.5,
+   "dc": -0.0012,
+   "clipped": 265,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.748,
+   "t40": 1.003,
+   "centroid": 937,
+   "rolloff": 1658,
+   "flatness": 0.11,
+   "bands": {
+    "<150": 20.3,
+    "150-600": 27.5,
+    "600-2k": 43.9,
+    "2k-5k": 6.7,
+    ">5k": 1.6
+   },
+   "onsets": 3
+  },
+  "reproduction": {
+   "length": 1.06,
+   "peak": -0.5,
+   "rms": -10.5,
+   "crest": 10,
+   "dc": 0.0009,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.005,
+   "t20": 0.948,
+   "t40": 1.053,
+   "centroid": 887,
+   "rolloff": 1615,
+   "flatness": 0.054,
+   "bands": {
+    "<150": 21.3,
+    "150-600": 23.9,
+    "600-2k": 45.8,
+    "2k-5k": 8.4,
+    ">5k": 0.6
+   },
+   "onsets": 2
+  },
+  "envelope": {
+   "class": "gunshot",
+   "t20Range": [
+    0.458,
+    1.013
+   ],
+   "t20": 0.948,
+   "inRange": true
+  },
+  "lengthOff": 0.004,
+  "centroidOff": 0.053,
+  "bandsOffMost": 3.6,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 16,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Cannot listen, so judged from the picture and features. Both waveforms show the same event: a dense, broadband burst through roughly the first 0.4 s, then a long decay to about 1.06 s. The spectrograms show a bright low band at the start, and the envelope class is gunshot. The original is louder and clipped, but the event is the same kind of shot."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured. Length is 1.06 s against 1.064 s, well within 25%. Attack is 0.005 s in both. The T20 (time to fall 20 dB) is 0.948 s, inside the gunshot class range of 0.458 to 1.013 s (inRange true), though the original's T20 is 0.748 s. The peak moves from 0.015 s to 0.005 s, which is minor."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured. Centroid is 887 Hz against 937 Hz, a 5% difference, within 20%. Every band share is within 10 points: under 150 Hz 21.3 vs 20.3, 150-600 Hz 23.9 vs 27.5 (largest gap, 3.6), 600-2k Hz 45.8 vs 43.9, 2k-5k Hz 8.4 vs 6.7, over 5k Hz 0.6 vs 1.6. bandsOffMost is 3.6."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen, so judged from the picture and features. The original has three onsets and the reproduction two, and the picture shows the reproduction's early hits as a smoother, more even run of spikes. Flatness is 0.11 in the original and 0.054 in the reproduction, so the reproduction is about half as noise-like and more tonal. The pitch movement in the spectrograms looks similar. Character is not a must-have, but these differences are clearly off."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Format is mono, 16-bit, 22050 Hz, which the engine plays. The original clips 265 samples and the reproduction clips 0, so no clipping. DC offset is 0.0009, negligible. Peak is -0.5 dBFS, with headroom. The name matches. A loop cue is not applicable to a single shot."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

@@ -1,0 +1,113 @@
+{
+ "kind": "sounds",
+ "subject": "ambience-drips",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 7.306,
+   "peak": -0.4,
+   "rms": -27.3,
+   "crest": 26.9,
+   "dc": -0.0039,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 5.777,
+   "peakAt": 5.832,
+   "t20": 0.434,
+   "t40": 1.477,
+   "centroid": 839,
+   "rolloff": 1066,
+   "flatness": 0.095,
+   "bands": {
+    "<150": 1.2,
+    "150-600": 23.2,
+    "600-2k": 72.3,
+    "2k-5k": 2.5,
+    ">5k": 0.7
+   },
+   "onsets": 4
+  },
+  "reproduction": {
+   "length": 7.36,
+   "peak": -0.5,
+   "rms": -22.3,
+   "crest": 21.8,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.773,
+   "peakAt": 0.843,
+   "t20": 5.054,
+   "t40": 6.465,
+   "centroid": 904,
+   "rolloff": 1217,
+   "flatness": 0.04,
+   "bands": {
+    "<150": 1.3,
+    "150-600": 26.4,
+    "600-2k": 71,
+    "2k-5k": 1.3,
+    ">5k": 0
+   },
+   "onsets": 6
+  },
+  "envelope": {
+   "class": "loop drips",
+   "t20Range": null,
+   "t20": 5.054,
+   "inRange": true
+  },
+  "lengthOff": 0.007,
+  "centroidOff": 0.077,
+  "bandsOffMost": 3.2,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 16,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture only, since I cannot listen. Both files are a drip loop: sharp hits over a decaying bed, roughly similar in count. But the reproduction opens with a loud broadband noise burst (about 0 to 0.8 s) that the original lacks. Its spectrogram is a dim, broadband noise floor with vertical click lines, where the original shows sustained resonant bands that drift. It reads as drips over hiss, not clearly the same event."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Length passes: 7.36 s against 7.306 s, well within 25%. The envelope fails. The original's t20 is 0.434 s and the reproduction's is 5.054 s. The attack measure is 0.773 s against 5.777 s, and the reproduction's peak falls at 0.843 s against 5.832 s. The harness reports inRange true, but the class's t20Range is null, so the rubric falls back to the original's own decay within a quarter or 0.05 s. That range is 0.33 to 0.54 s, and 5.054 s is far outside it. Outside the range caps S2 at 1."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured and passing. Centroid is 904 against 839, a 7.7% difference, inside 20%. Every band is within 10 points: <150 by 0.1, 150-600 by 3.2, 600-2k by 1.3, 2k-5k by 1.2, >5k by 0.7. The picture agrees on overall energy placement, with the main energy in the mid bands."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Not a must-have, and judged from the picture and features only; I cannot listen. Onsets are 6 against the original's 4. Flatness is 0.04 against 0.095, so the reproduction is markedly more tonal by the measure, and the picture shows a broadband noise bed rather than the original's drifting resonant bands. Hits are present, but the character differs in count, tone and pitch movement."
+  },
+  "S5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Format passes: mono, 11025 Hz, 16 bit, no clipping, DC 0 against -0.0039, same name. The loop cue is not in the measurements, so I cannot confirm one where the original has one. The tail of 0.01 and lead of 0 are reported without a rule that they fail. Held at 1 until the cue is checked."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

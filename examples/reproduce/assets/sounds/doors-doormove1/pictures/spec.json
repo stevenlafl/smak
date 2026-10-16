@@ -3,148 +3,226 @@
   "name": "doors/doormove1.wav",
   "rate": 11025,
   "length": 5.04,
-  "seed": 7,
+  "seed": 3,
   "layers": [
     {
-      "id": "motor",
-      "kind": "particles",
-      "rate": 90,
-      "band": [
-        150,
-        750
-      ],
-      "grain": 0.02,
+      "id": "roll",
+      "kind": "sample",
+      "file": "work:gen/doormove_s2.wav",
+      "from": "onset",
+      "length": 5,
       "env": {
         "points": [
           [
             0,
-            -34
+            -40
+          ],
+          [
+            1,
+            -30
           ],
           [
             2,
-            -30
+            -26
+          ],
+          [
+            3,
+            -18
           ],
           [
             3.5,
-            -20
-          ],
-          [
-            4.435,
-            -10
-          ],
-          [
-            4.6,
-            -18
-          ],
-          [
-            4.8,
-            -30
-          ],
-          [
-            5.04,
-            -50
-          ]
-        ]
-      },
-      "gain": -10
-    },
-    {
-      "id": "rumble",
-      "kind": "tone",
-      "f": 100,
-      "wave": "sine",
-      "sweep": {
-        "to": 80,
-        "time": 5
-      },
-      "env": {
-        "points": [
-          [
-            0,
-            -28
-          ],
-          [
-            2,
-            -24
-          ],
-          [
-            4.435,
-            -10
-          ],
-          [
-            4.6,
-            -18
-          ],
-          [
-            4.8,
-            -30
-          ],
-          [
-            5.04,
-            -48
-          ]
-        ]
-      },
-      "gain": -37
-    },
-    {
-      "id": "stops",
-      "kind": "particles",
-      "every": 0.7,
-      "jitter": 0.25,
-      "band": [
-        150,
-        1000
-      ],
-      "grain": 0.02,
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 650,
-          "q": 0.7
-        }
-      ],
-      "env": {
-        "points": [
-          [
-            0,
-            -18
-          ],
-          [
-            2,
-            -14
-          ],
-          [
-            3.5,
-            -8
+            -12
           ],
           [
             4.435,
             0
           ],
           [
-            4.6,
-            -10
-          ],
-          [
-            4.8,
-            -22
+            4.9,
+            -20
           ],
           [
             5.04,
-            -45
+            -40
           ]
         ]
       },
-      "gain": 4
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 60
+        },
+        {
+          "type": "peak",
+          "f": 90,
+          "q": 0.8,
+          "gain": 4
+        },
+        {
+          "type": "peak",
+          "f": 350,
+          "q": 0.9,
+          "gain": -5
+        },
+        {
+          "type": "peak",
+          "f": 1000,
+          "q": 0.8,
+          "gain": 1
+        },
+        {
+          "type": "lowpass",
+          "f": 2500
+        }
+      ]
+    },
+    {
+      "id": "c1",
+      "kind": "noise",
+      "color": "pink",
+      "at": 1.5,
+      "length": 0.05,
+      "env": {
+        "decay": 0.02
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 900,
+          "q": 1.2
+        }
+      ],
+      "gain": -12
+    },
+    {
+      "id": "c2",
+      "kind": "noise",
+      "color": "pink",
+      "at": 2.8,
+      "length": 0.05,
+      "env": {
+        "decay": 0.02
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 900,
+          "q": 1.2
+        }
+      ],
+      "gain": -12
+    },
+    {
+      "id": "c3",
+      "kind": "noise",
+      "color": "pink",
+      "at": 3.6,
+      "length": 0.05,
+      "env": {
+        "decay": 0.02
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 900,
+          "q": 1.2
+        }
+      ],
+      "gain": -11
+    },
+    {
+      "id": "c4",
+      "kind": "noise",
+      "color": "pink",
+      "at": 4.05,
+      "length": 0.05,
+      "env": {
+        "decay": 0.02
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 900,
+          "q": 1.2
+        }
+      ],
+      "gain": -10
+    },
+    {
+      "id": "c5",
+      "kind": "noise",
+      "color": "pink",
+      "at": 4.2,
+      "length": 0.05,
+      "env": {
+        "decay": 0.02
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 900,
+          "q": 1.2
+        }
+      ],
+      "gain": -10
+    },
+    {
+      "id": "c6",
+      "kind": "noise",
+      "color": "pink",
+      "at": 4.3,
+      "length": 0.05,
+      "env": {
+        "decay": 0.02
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 900,
+          "q": 1.2
+        }
+      ],
+      "gain": -9
+    },
+    {
+      "id": "c7",
+      "kind": "noise",
+      "color": "pink",
+      "at": 4.4,
+      "length": 0.05,
+      "env": {
+        "decay": 0.02
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 900,
+          "q": 1.2
+        }
+      ],
+      "gain": -8
+    },
+    {
+      "id": "slam",
+      "kind": "noise",
+      "color": "white",
+      "at": 4.43,
+      "length": 0.004,
+      "env": {
+        "decay": 0.002
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "gain": 0,
+      "post": true
     }
   ],
   "finish": {
-    "saturate": 1.2,
-    "limit": {
-      "crest": 14
-    },
-    "peak": -0.5
+    "saturate": 1.5
   },
   "bands": {
     "<150": 30,
@@ -152,6 +230,5 @@
     "600-2k": 28,
     "2k-5k": 4,
     ">5k": 0
-  },
-  "picture": "pictures/sound.png"
+  }
 }

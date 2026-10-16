@@ -2,46 +2,114 @@
   "spec": "smak.sound/1",
   "name": "weapons/sbarrel1.wav",
   "class": "gunshot",
-  "seed": 2,
+  "seed": 7,
   "length": 1.04,
   "layers": [
     {
-      "id": "take",
-      "kind": "sample",
-      "file": "work:gen/sbarrel_s2.wav",
-      "from": "onset",
-      "length": 1.04,
-      "env": {
-        "points": [
-          [
-            0,
-            0
-          ],
-          [
-            0.023,
-            0
-          ],
-          [
-            0.25,
-            -20
-          ],
-          [
-            1.04,
-            -40
-          ]
-        ]
-      },
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
       "filter": [
         {
+          "type": "highpass",
+          "f": 300
+        },
+        {
           "type": "lowpass",
-          "f": 4000,
+          "f": 1500
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.03
+      },
+      "gain": -5
+    },
+    {
+      "id": "sub",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 40
+        },
+        {
+          "type": "lowpass",
+          "f": 140
+        }
+      ],
+      "env": {
+        "attack": 0.002,
+        "decay": 1.2
+      },
+      "gain": -2
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 100
+        },
+        {
+          "type": "lowpass",
+          "f": 500
+        }
+      ],
+      "env": {
+        "attack": 0.002,
+        "decay": 1.2
+      },
+      "gain": -4
+    },
+    {
+      "id": "mid",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1300,
+          "q": 0.6
+        },
+        {
+          "type": "lowpass",
+          "f": 1800,
           "q": 0.7
         }
-      ]
+      ],
+      "env": {
+        "attack": 0.002,
+        "decay": 0.9
+      },
+      "gain": -5
+    },
+    {
+      "id": "floor",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 200
+        }
+      ],
+      "env": {
+        "attack": 0.002,
+        "decay": 0.8
+      },
+      "gain": -24
     }
   ],
   "finish": {
-    "saturate": 2,
+    "saturate": 2.5,
+    "room": {
+      "decay": 0.2,
+      "wet": 0.05
+    },
     "limit": {
       "crest": 9,
       "release": 0.002

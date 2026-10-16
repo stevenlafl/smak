@@ -1,0 +1,59 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/sbarrel1.wav",
+  "class": "gunshot",
+  "seed": 2,
+  "length": 1.04,
+  "layers": [
+    {
+      "id": "take",
+      "kind": "sample",
+      "file": "work:gen/sbarrel_s2.wav",
+      "from": "onset",
+      "length": 1.04,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.023,
+            0
+          ],
+          [
+            0.25,
+            -20
+          ],
+          [
+            1.04,
+            -40
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 4000,
+          "q": 0.7
+        }
+      ]
+    }
+  ],
+  "finish": {
+    "saturate": 2,
+    "limit": {
+      "crest": 9,
+      "release": 0.002
+    },
+    "peak": -0.5
+  },
+  "bands": {
+    "<150": 36,
+    "150-600": 32,
+    "600-2k": 26,
+    "2k-5k": 4,
+    ">5k": 1
+  },
+  "picture": "pictures/sound.png"
+}

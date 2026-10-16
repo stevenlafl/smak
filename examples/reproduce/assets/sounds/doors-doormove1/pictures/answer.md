@@ -1,24 +1,34 @@
-The sound is built at `work:sound/doors/doormove1.wav`, but the build does not fully say OK. It reports "built, and every check passed" with one picture warning left: T20 is 1.34 s against the original's 0.35 to 0.58 s.
+The sound is built and the build says OK, but it is not as close to the original as I wanted. The waveform's loudest point sits near 3 s, not at the original's 4.435 s, and I could not get it there.
 
-**Result against your numbers** (measured by the build on my copy):
+The file is `work:sound/doors/doormove1.wav` on the server's work folder, 11025 Hz, 5.00 s, mono. Its name keeps the game's path, so it takes the place of the original in the game.
 
-| Measure | Original (your reading) | Copy |
+| Measure | Original | Made |
 | --- | --- | --- |
-| Length | 5.04 s | 5.04 s |
-| Rate | 11025 Hz | 11025 Hz |
-| Centroid | 589 Hz | 517 Hz (12% off, inside the 15% tolerance) |
-| Power <150 Hz | 30% | 25.5% |
-| Power 150-600 Hz | 38% | 43.7% |
-| Power 600-2k Hz | 28% | 28.5% |
-| Power 2k-5k Hz | 4% | 2.3% |
-| Power >5k Hz | 0% | 0% |
-| Onsets (hits) | 7 | 7 |
-| T20 (time to -20 dB from the loudest sample) | 0.46 s | 1.34 s (out of range) |
-| Crest | about 12.7 dB | 14 dB (within 3 dB) |
+| Length | 5.04 s | 5.00 s |
+| Rate | 11025 Hz, 8-bit | 11025 Hz, 16-bit |
+| Power under 150 Hz | 30% | 34% |
+| Power 150-600 Hz | 38% | 36% |
+| Power 600 Hz-2 kHz | 28% | 28% |
+| Power 2-5 kHz | 4% | 2% |
+| Power over 5 kHz | 0% | 0% |
+| Centroid | 589 Hz | 491 Hz |
+| Hits | 7 | 7 |
+| Loudest point | 4.435 s | near 3 s |
 
-**What I built:** a grain train of clacks (about every 0.7 s, low-passed at 650 Hz) plus a grain bed at 150 to 750 Hz and a quiet 100 to 80 Hz sine. The envelope swells into a peak at 4.435 s and falls about 24 dB in 0.47 s after it, close to your 20 dB in 0.464 s. Layers and filters are all in the spec, and it is seeded (seed 7), so rebuilding gives the same bytes. I did not use a generator or a sample, so no licence applies.
+Choices I made:
 
-**What is still open:**
-- **T20.** The kit defines it from the loudest sample, not from the 4.435 s peak. Changes to the early envelope, removing the slam, and a post-limiter crack all left T20 at 1.34 s, so I could not move it without breaking the bands. Smooth noise gave a longer T20 (3.4 s) and the grains gave 1.3 s. I did not find the cause in this session. The likely next step is reading how the kit picks its loudest sample, or making the peak unambiguous differently.
-- **Bit depth.** I left it at 16-bit. The original is 8-bit, and the spec warns that 8-bit adds hiss under quiet tails. Set `"bits": 8` if you want the original's depth.
-- **Not checked.** I could not draw the original's picture or read the original WAV: the render tool and the Read tool both failed on them. The numbers are the ones you gave. I also did not listen to it, and the game's volume and room will change how it sounds.
+- **Texture:** a generated take (woosh-dflow seed 2) of "a heavy old metal sliding door rolling along its track…", with a high-pass at 60 Hz, a lowpass at 2.5 kHz and three peak filters to set the bands.
+- **Envelope:** the take's level rises to 0 dB at 4.435 s and falls 20 dB by 4.9 s, which is the original's 0.46 s decay.
+- **Hits:** seven short clacks at 1.5, 2.8, 3.6, 4.05, 4.2, 4.3 and 4.4 s. I placed these by eye from the picture, so their timing is approximate.
+- **Bit depth:** 16-bit, not the original's 8-bit. The build warns that 8-bit adds hiss under quiet tails. Say if you want 8-bit to match the original format exactly.
+
+What is still off:
+
+- **Loudest point:** the envelope puts the peak at 4.435 s, but the built sound's own burst near 3 s stays louder. Lowering the envelope there emptied the body of the sound, so I kept the body and accepted the mismatch.
+- **Decay:** the report's T20 (time to fall 20 dB) reads 1.15 s, against the original's 0.46 s. My envelope gives 0.46 s from the peak, so I think the report measures from the burst near 3 s, but I did not confirm that.
+- **Picture check:** the build could not read the original's picture because it sits outside the work folder, so I used the numbers I read off it. The build's report does not compare against the picture.
+- **Warnings:** the seven clacks are noise layers over the take. The build warns that steady noise over a take sounds like static. These are short transients, not steady noise, but the build still raises the warning.
+
+Licence: the take was made by woosh-dflow, whose weights are CC-BY-NC 4.0 (non-commercial). You said that is accepted for this test. Any use beyond the test needs that licence checked.
+
+The spec is not saved as a file. I have no file-writing tool in this session, so the spec exists only in this chat. Someone rebuilding it needs the JSON from the last build call and the take at `work:gen/doormove_s2.wav`.

@@ -1,0 +1,103 @@
+{
+  "spec": "smak.sound/1",
+  "name": "items/smallmedkit1.wav",
+  "seed": 1,
+  "rate": 22050,
+  "length": 0.76,
+  "layers": [
+    {
+      "id": "lead",
+      "kind": "noise",
+      "at": 0,
+      "length": 0.2,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 2500,
+          "q": 1
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -48
+          ],
+          [
+            0.19,
+            -40
+          ],
+          [
+            0.2,
+            -36
+          ]
+        ]
+      },
+      "gain": 0
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "at": 0.205,
+      "modes": [
+        {
+          "f": 900,
+          "gain": 0.8,
+          "decay": 1.9
+        },
+        {
+          "f": 1500,
+          "gain": 0.5,
+          "decay": 1.5
+        },
+        {
+          "f": 2900,
+          "gain": 0.5,
+          "decay": 0.8
+        },
+        {
+          "f": 400,
+          "gain": 0.6,
+          "decay": 1
+        },
+        {
+          "f": 5500,
+          "gain": 1.8,
+          "decay": 0.35
+        }
+      ]
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "at": 0.205,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 5000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.02
+      },
+      "gain": -3,
+      "post": true
+    }
+  ],
+  "finish": {
+    "limit": {
+      "crest": 12,
+      "release": 0.002
+    },
+    "peak": -0.5
+  },
+  "bands": {
+    "<150": 0,
+    "150-600": 14,
+    "600-2k": 64,
+    "2k-5k": 5,
+    ">5k": 17
+  },
+  "picture": "pictures/sound.png"
+}

@@ -1,26 +1,26 @@
-The sound is built and the build says **OK**. The file is `work:sound/items/smallmedkit1.wav`, ready to go in `<mod>/sound/items/`, so the game plays it in place of the original.
+The sound is built at `work:sound/items/smallmedkit1.wav`, and the last build says OK with no warnings. The game will load it under the original's name, `items/smallmedkit1.wav`, so it takes the original's place when it is put in `<mod>/sound`.
 
-**Measured against the original's picture (the build's own readings):**
+I did not use a generator take, so no licence applies to this file. It is built from layers only.
 
-| Feature | Original | Mine | Status |
-| --- | --- | --- | --- |
-| Length | 0.76 s | 0.76 s | Match |
-| Fall of 20 dB after the loudest point (T20) | 0.546 s | 0.544 s | Match |
-| Crest | about 11.5 dB | 12 dB | Match |
-| Power under 150 Hz | 0% | 0% | Match |
-| Power 150–600 Hz | 14% | 11.1% | 2.9 points off |
-| Power 600–2k Hz | 64% | 68.7% | 4.7 points off |
-| Power 2k–5k Hz | 5% | 5.2% | Match |
-| Power over 5k Hz | 17% | 15% | 2 points off |
-| Centroid | 1936 Hz | 1737 Hz | 10% off |
+How it measures against the original's picture and facts (the picture is `work:pictures/sound.png`, its facts `work:pictures/facts.txt`):
 
-Every band is within the 7-point tolerance and the centroid is within 15%. The build reports no faults. The one remaining gap is that my centroid is still about 200 Hz low; I stopped there because the last few adjustments were trading one band against another.
+| Measure | Original (from picture) | Made sound |
+| --- | --- | --- |
+| Length | 0.76 s | 0.76 s |
+| Peak time (loudest) | 0.209 s | about 0.21 s (attack 70 ms) |
+| Fall of 20 dB after peak | 0.546 s | 0.504 s |
+| Centroid | 1936 Hz | 1681 Hz (13% low) |
+| Power under 150 Hz | 0% | 0.6% |
+| Power 150-600 Hz | 14% | 9.9% |
+| Power 600-2k Hz | 64% | 68.4% |
+| Power 2k-5k Hz | 5% | 8.6% |
+| Power over 5k Hz | 17% | 12.5% |
+| Crest (peak over RMS) | about 11.5 dB | 11.5 dB |
+| Hits | 1 | 2 onsets (the report counts the picture's as 1) |
 
-**What I built:** a pre-hit whisper of band-passed noise from 0 s (so the sound doesn't start late), then a struck ring at 400, 900, 1500, 2900 and 5500 Hz with decays of 0.35 to 1.9 s, and a short high-passed crack at 0.205 s where the loudest point falls. The finish limits the peak to -0.5 dBFS.
+Choices I made that you can redirect:
+- **16-bit, not 8-bit.** The original is 8-bit, but the report warns that 8-bit adds hiss under quiet tails, and the game plays 16-bit. If you want the original's depth, add `"bits": 8`.
+- **No `class`.** The game's click class wanted a sharp attack and a much shorter ring, which would have pulled the sound away from the picture.
+- **Layers only.** Three bursts of filtered particles, a 380 Hz-ish filtered noise body, a faint 650 Hz sine line, and a bright noise tail from 0.5 s on.
 
-**Choices you may want to change:**
-- **Layers only, no recording.** I generated four takes with the local woosh-dflow model (non-commercial licence). They were rustle- and click-heavy and their spectra didn't fit the original's ringing, so none went in. Nothing from that model is in the final file, so its licence doesn't apply to this output.
-- **No `class` set.** The click class expects a T20 of at most 0.1 s, which the original doesn't meet. Keeping it would have flagged a correct sound as wrong.
-- **16-bit, not 8-bit.** The original is 8-bit. The build warns that 8-bit adds hiss under the quiet tail, which would read as static against the original. The tool's own guidance is that a copy isn't held to the original's bit depth. If you want the exact 8-bit format, that's a one-line change.
-
-I have not listened to it. The numbers say it matches the original's measures, but whether it sounds like the original is a call for you to make in the game.
+I could not listen to it, and the report can't say how it sounds or how the game plays it (volume, pitch, the map's room). Those need checking in the game. The spec is inline in this session and is not saved as a file in the work folder; I can save it if you want it kept.

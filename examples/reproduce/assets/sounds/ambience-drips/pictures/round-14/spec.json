@@ -1,0 +1,297 @@
+{
+  "spec": "smak.sound/1",
+  "name": "ambience/drips.wav",
+  "class": "loop drips",
+  "seed": 7,
+  "rate": 11025,
+  "length": 7.31,
+  "loop": true,
+  "layers": [
+    {
+      "id": "bed",
+      "kind": "particles",
+      "rate": 400,
+      "band": [
+        100,
+        600
+      ],
+      "grain": 0.01,
+      "env": {
+        "points": [
+          [
+            0,
+            -18
+          ],
+          [
+            0.07,
+            0
+          ],
+          [
+            6.3,
+            -20
+          ],
+          [
+            7.31,
+            -23
+          ]
+        ]
+      },
+      "gain": 4
+    },
+    {
+      "id": "d1",
+      "kind": "modes",
+      "at": 0.07,
+      "gain": -22,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 1100,
+          "q": 0.7
+        }
+      ],
+      "modes": [
+        {
+          "f": 760,
+          "gain": 0,
+          "decay": 0.35
+        },
+        {
+          "f": 1216,
+          "gain": -24,
+          "decay": 0.25
+        },
+        {
+          "f": 456,
+          "gain": 2,
+          "decay": 0.3
+        }
+      ]
+    },
+    {
+      "id": "d2",
+      "kind": "modes",
+      "at": 0.84,
+      "gain": -26,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 1100,
+          "q": 0.7
+        }
+      ],
+      "modes": [
+        {
+          "f": 720,
+          "gain": -4,
+          "decay": 0.35
+        },
+        {
+          "f": 1152,
+          "gain": -28,
+          "decay": 0.25
+        },
+        {
+          "f": 432,
+          "gain": 2,
+          "decay": 0.3
+        }
+      ]
+    },
+    {
+      "id": "d3",
+      "kind": "modes",
+      "at": 1.87,
+      "gain": -28,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 1100,
+          "q": 0.7
+        }
+      ],
+      "modes": [
+        {
+          "f": 800,
+          "gain": -6,
+          "decay": 0.35
+        },
+        {
+          "f": 1280,
+          "gain": -30,
+          "decay": 0.25
+        },
+        {
+          "f": 480,
+          "gain": 2,
+          "decay": 0.3
+        }
+      ]
+    },
+    {
+      "id": "d4",
+      "kind": "modes",
+      "at": 2.55,
+      "gain": -30,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 1100,
+          "q": 0.7
+        }
+      ],
+      "modes": [
+        {
+          "f": 690,
+          "gain": -8,
+          "decay": 0.35
+        },
+        {
+          "f": 1104,
+          "gain": -32,
+          "decay": 0.25
+        },
+        {
+          "f": 414,
+          "gain": 2,
+          "decay": 0.3
+        }
+      ]
+    },
+    {
+      "id": "d5",
+      "kind": "modes",
+      "at": 3.69,
+      "gain": -32,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 1100,
+          "q": 0.7
+        }
+      ],
+      "modes": [
+        {
+          "f": 740,
+          "gain": -10,
+          "decay": 0.35
+        },
+        {
+          "f": 1184,
+          "gain": -34,
+          "decay": 0.25
+        },
+        {
+          "f": 444,
+          "gain": 2,
+          "decay": 0.3
+        }
+      ]
+    },
+    {
+      "id": "d6",
+      "kind": "modes",
+      "at": 3.98,
+      "gain": -33,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 1100,
+          "q": 0.7
+        }
+      ],
+      "modes": [
+        {
+          "f": 710,
+          "gain": -11,
+          "decay": 0.35
+        },
+        {
+          "f": 1136,
+          "gain": -35,
+          "decay": 0.25
+        },
+        {
+          "f": 426,
+          "gain": 2,
+          "decay": 0.3
+        }
+      ]
+    },
+    {
+      "id": "d7",
+      "kind": "modes",
+      "at": 4.75,
+      "gain": -35,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 1100,
+          "q": 0.7
+        }
+      ],
+      "modes": [
+        {
+          "f": 780,
+          "gain": -13,
+          "decay": 0.35
+        },
+        {
+          "f": 1248,
+          "gain": -37,
+          "decay": 0.25
+        },
+        {
+          "f": 468,
+          "gain": 2,
+          "decay": 0.3
+        }
+      ]
+    },
+    {
+      "id": "d8",
+      "kind": "modes",
+      "at": 5.84,
+      "gain": -38,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 1100,
+          "q": 0.7
+        }
+      ],
+      "modes": [
+        {
+          "f": 680,
+          "gain": -16,
+          "decay": 0.35
+        },
+        {
+          "f": 1088,
+          "gain": -40,
+          "decay": 0.25
+        },
+        {
+          "f": 408,
+          "gain": 2,
+          "decay": 0.3
+        }
+      ]
+    }
+  ],
+  "finish": {
+    "room": {
+      "decay": 0.3,
+      "wet": 0.15
+    },
+    "peak": -0.5
+  },
+  "bands": {
+    "<150": 1,
+    "150-600": 22,
+    "600-2k": 74,
+    "2k-5k": 2,
+    ">5k": 1
+  },
+  "picture": "work:pictures/sound.png"
+}
