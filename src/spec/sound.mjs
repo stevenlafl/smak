@@ -267,6 +267,22 @@ export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (
         const t20Range = sound.loop ? null : rangesOf(sound.class).t20;
         if (t20Range && f.t20 < t20Range[0])
           warnings.push(`${take.name}: it dies to -20 dB in ${f.t20} s, sooner than the game's ${sound.class} sounds (${Math.round(t20Range[0] * 100) / 100} s at least): heard dry, as in a padded room. A short room (finish.room: { decay: 0.25, wet: 0.12 }) or a longer decay gives it the space theirs have; not noise, which is heard as static`);
+        // its spectrum against its class's, as a judge holds it (centroid within a fifth of the range, each band's share
+        // within 10 points): the original-creation mod's sounds kept these in their facts and scored 0 on spectrum
+        const ranges = rangesOf(sound.class);
+        const spectrum = [];
+        if (ranges.centroid) {
+          const [lo, hi] = ranges.centroid;
+          if (f.centroid < lo * 0.8) spectrum.push(`centroid ${f.centroid} Hz under the class's ${Math.round(lo)} to ${Math.round(hi)}: too dark, more energy 600 to 5000 Hz`);
+          else if (f.centroid > hi * 1.2) spectrum.push(`centroid ${f.centroid} Hz over the class's ${Math.round(lo)} to ${Math.round(hi)}: too bright, less over 2000 Hz`);
+        }
+        for (const [key, [lo, hi]] of Object.entries(ranges).filter(([k]) => k.startsWith("band "))) {
+          const v = f.bands[key.slice(5)];
+          if (v < lo - 10) spectrum.push(`${key.slice(5)} Hz holds ${v}% (the class's ${Math.round(lo)} to ${Math.round(hi)}): more there`);
+          else if (v > hi + 10) spectrum.push(`${key.slice(5)} Hz holds ${v}% (the class's ${Math.round(lo)} to ${Math.round(hi)}): less there`);
+        }
+        if (spectrum.length)
+          warnings.push(`${take.name}: its spectrum is off the game's ${sound.class} sounds, as a judge measures it: ${spectrum.join("; ")}. Filter the layers (lowpass, highpass, a band) or change what makes it, and build again`);
         const scored = scoreAgainst(f, sound.class);
         entry.score = `${scored.score} of ${scored.of}`;
         report.facts.push(`${take.name}: against the game's ${sound.class} sounds, ${scored.score} of ${scored.of}${scored.lines.length ? `; off: ${scored.lines.join("; ")}` : ": every feature in range"}`);

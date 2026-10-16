@@ -306,3 +306,10 @@ test("a sound held to the band shares a description gives: off by more than 7 po
   sure(far.report.warnings.some((w) => /further from the bands asked than a copy should be: <150 \+\d+/.test(w)), far.report.warnings.join(" | "));
   sure(validateSoundSpec(spec({ low: 5 })).errors.some((e) => /bands: the share of its power/.test(e)), "a band by another name refused");
 });
+
+test("a sound's spectrum off its class is warned of, which way, as a judge measures it", () => {
+  // a metal hit made of a low thud alone: far too dark for the game's metal hits
+  const dark = buildSoundSpec({ spec: "smak.sound/1", name: "weapons/thud.wav", class: "metal hit", length: 0.5, layers: [{ kind: "tone", f: 90, env: { attack: 0.002, decay: 0.3 } }] }, { games: [] });
+  const said = dark.report.warnings.find((w) => /spectrum is off the game's metal hit sounds/.test(w)) ?? "";
+  sure(/centroid \d+ Hz under the class's/.test(said) && /too dark/.test(said), dark.report.warnings.join(" | "));
+});
