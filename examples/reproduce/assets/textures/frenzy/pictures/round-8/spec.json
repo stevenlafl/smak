@@ -1,0 +1,666 @@
+{
+  "spec": "smak.wad/1",
+  "name": "frenzy_new.wad",
+  "textures": [
+    {
+      "name": "c3a1_w3a",
+      "size": [
+        256,
+        208
+      ],
+      "material": {
+        "base": "stone",
+        "tone": "dark grey"
+      },
+      "grime": 0.3,
+      "wear": {
+        "cracks": 0.5,
+        "stains": 0.3
+      }
+    },
+    {
+      "name": "c3a1_w2",
+      "size": [
+        256,
+        160
+      ],
+      "material": {
+        "base": "stone",
+        "tone": "dark grey"
+      },
+      "wear": {
+        "speckle": 0.6,
+        "stains": 0.3
+      },
+      "relief": [
+        {
+          "kind": "seam",
+          "from": [
+            0,
+            80
+          ],
+          "to": [
+            256,
+            80
+          ],
+          "width": 2
+        }
+      ]
+    },
+    {
+      "name": "c3a1b_w3",
+      "size": [
+        128,
+        160
+      ],
+      "lift": {
+        "map": "models:frenzy.bsp",
+        "view": "work:pictures/c3a1b_w3.png"
+      },
+      "material": {
+        "base": "metal",
+        "tone": "blue grey"
+      }
+    },
+    {
+      "name": "c3a1b_w1",
+      "size": [
+        128,
+        160
+      ],
+      "lift": {
+        "map": "models:frenzy.bsp",
+        "view": "work:pictures/c3a1b_w1.png"
+      },
+      "material": {
+        "base": "metal",
+        "tone": "grey"
+      }
+    },
+    {
+      "name": "c3a1b_w1a",
+      "size": [
+        128,
+        160
+      ],
+      "lift": {
+        "map": "models:frenzy.bsp",
+        "view": "work:pictures/c3a1b_w1a.png"
+      },
+      "material": {
+        "base": "metal",
+        "tone": "grey"
+      }
+    },
+    {
+      "name": "c3a1b_w2",
+      "size": [
+        128,
+        160
+      ],
+      "lift": {
+        "map": "models:frenzy.bsp",
+        "view": "work:pictures/c3a1b_w2.png"
+      },
+      "material": {
+        "base": "metal",
+        "tone": "grey"
+      }
+    },
+    {
+      "name": "c3a1b_w7",
+      "size": [
+        96,
+        96
+      ],
+      "lift": {
+        "map": "models:frenzy.bsp",
+        "view": "work:pictures/c3a1b_w7.png"
+      },
+      "material": {
+        "base": "stone",
+        "tone": "pale blue grey"
+      }
+    },
+    {
+      "name": "tnnl_flr7",
+      "size": [
+        128,
+        128
+      ],
+      "lift": {
+        "map": "models:frenzy.bsp",
+        "view": "work:pictures/tnnl_flr7.png"
+      },
+      "material": {
+        "base": "tile",
+        "tone": "grey"
+      }
+    },
+    {
+      "name": "tnnl_flr7c",
+      "size": [
+        128,
+        128
+      ],
+      "lift": {
+        "map": "models:frenzy.bsp",
+        "view": "work:pictures/tnnl_flr7c.png"
+      },
+      "material": {
+        "base": "tile",
+        "tone": "dark warm grey"
+      }
+    },
+    {
+      "name": "silo2_wetdr",
+      "size": [
+        192,
+        128
+      ],
+      "lift": {
+        "map": "models:frenzy.bsp",
+        "view": "work:pictures/silo2_wetdr.png"
+      },
+      "material": {
+        "base": "metal",
+        "tone": "dark brown grey",
+        "rust": 0.4
+      }
+    },
+    {
+      "name": "-0genpipe1",
+      "size": [
+        64,
+        128
+      ],
+      "lift": {
+        "map": "models:frenzy.bsp",
+        "view": "work:pictures/-0genpipe1.png"
+      },
+      "material": {
+        "base": "metal",
+        "tone": "pale blue grey"
+      }
+    },
+    {
+      "name": "c3a2b_reac2c",
+      "size": [
+        128,
+        64
+      ],
+      "lift": {
+        "map": "models:frenzy.bsp",
+        "view": "work:pictures/c3a2b_reac2c.png"
+      },
+      "material": {
+        "base": "metal",
+        "tone": "dull yellow"
+      }
+    },
+    {
+      "name": "c3a2_bth1",
+      "size": [
+        192,
+        32
+      ],
+      "material": {
+        "base": "metal",
+        "tone": "dark orange"
+      },
+      "wear": {
+        "streaks": 0.4
+      }
+    },
+    {
+      "name": "black",
+      "size": [
+        32,
+        32
+      ],
+      "material": {
+        "base": "paint",
+        "tone": "near black"
+      }
+    },
+    {
+      "name": "crete2_flr01",
+      "size": [
+        128,
+        128
+      ],
+      "material": {
+        "base": "paint",
+        "tone": "blue"
+      }
+    },
+    {
+      "name": "crete4_stp01",
+      "size": [
+        128,
+        16
+      ],
+      "material": {
+        "base": "stone",
+        "tone": "dark grey"
+      },
+      "grime": 0.4
+    },
+    {
+      "name": "tnnl_brd1",
+      "size": [
+        16,
+        128
+      ],
+      "material": {
+        "base": "hazard",
+        "tone": "yellow"
+      }
+    },
+    {
+      "name": "c2a4x_glu",
+      "size": [
+        64,
+        64
+      ],
+      "material": {
+        "base": "metal",
+        "tone": "dark blue"
+      }
+    },
+    {
+      "name": "c3a2a_tnk1b",
+      "size": [
+        64,
+        64
+      ],
+      "material": {
+        "base": "metal",
+        "tone": "dark blue"
+      }
+    },
+    {
+      "name": "babtech_ceil01",
+      "size": [
+        64,
+        64
+      ],
+      "material": {
+        "base": "plaster",
+        "tone": "grey"
+      },
+      "wear": {
+        "stains": 0.4,
+        "speckle": 0.5
+      }
+    },
+    {
+      "name": "yellow",
+      "size": [
+        16,
+        16
+      ],
+      "material": {
+        "base": "paint",
+        "tone": "pale yellow",
+        "flags": [
+          "fullbright"
+        ]
+      }
+    },
+    {
+      "name": "+0~fifts_lght01",
+      "size": [
+        64,
+        80
+      ],
+      "material": {
+        "base": "metal",
+        "tone": "pale grey"
+      },
+      "relief": [
+        {
+          "kind": "lamp",
+          "at": [
+            12,
+            12
+          ],
+          "size": [
+            40,
+            56
+          ],
+          "colour": [
+            1,
+            1,
+            0.95
+          ]
+        }
+      ]
+    },
+    {
+      "name": "+a~fifts_lght01",
+      "size": [
+        64,
+        80
+      ],
+      "material": {
+        "base": "metal",
+        "tone": "pale grey"
+      },
+      "relief": [
+        {
+          "kind": "lamp",
+          "at": [
+            12,
+            12
+          ],
+          "size": [
+            40,
+            56
+          ],
+          "colour": [
+            1,
+            1,
+            0.95
+          ]
+        }
+      ]
+    },
+    {
+      "name": "+0~fifties_lgt2",
+      "size": [
+        16,
+        64
+      ],
+      "material": {
+        "base": "metal",
+        "tone": "pale grey"
+      },
+      "relief": [
+        {
+          "kind": "lamp",
+          "at": [
+            1,
+            4
+          ],
+          "size": [
+            14,
+            56
+          ],
+          "colour": [
+            1,
+            1,
+            0.95
+          ]
+        }
+      ]
+    },
+    {
+      "name": "+a~fifties_lgt2",
+      "size": [
+        16,
+        64
+      ],
+      "material": {
+        "base": "metal",
+        "tone": "pale grey"
+      },
+      "relief": [
+        {
+          "kind": "lamp",
+          "at": [
+            1,
+            4
+          ],
+          "size": [
+            14,
+            56
+          ],
+          "colour": [
+            1,
+            1,
+            0.95
+          ]
+        }
+      ]
+    },
+    {
+      "name": "+0~generic86",
+      "size": [
+        16,
+        16
+      ],
+      "material": {
+        "base": "paint",
+        "tone": "yellow"
+      },
+      "relief": [
+        {
+          "kind": "lamp",
+          "at": [
+            3,
+            3
+          ],
+          "size": [
+            10,
+            10
+          ],
+          "colour": [
+            1,
+            1,
+            0.95
+          ]
+        }
+      ]
+    },
+    {
+      "name": "+a~generic86",
+      "size": [
+        16,
+        16
+      ],
+      "material": {
+        "base": "paint",
+        "tone": "yellow"
+      },
+      "relief": [
+        {
+          "kind": "lamp",
+          "at": [
+            3,
+            3
+          ],
+          "size": [
+            10,
+            10
+          ],
+          "colour": [
+            1,
+            1,
+            0.95
+          ]
+        }
+      ]
+    },
+    {
+      "name": "+0medkit",
+      "size": [
+        64,
+        96
+      ],
+      "material": {
+        "base": "paint",
+        "tone": "light grey"
+      },
+      "wear": {
+        "speckle": 0.4
+      },
+      "print": {
+        "text": "+",
+        "size": 0.6,
+        "ink": [
+          0.8,
+          0.1,
+          0.1
+        ]
+      }
+    },
+    {
+      "name": "+amedkit",
+      "size": [
+        64,
+        96
+      ],
+      "material": {
+        "base": "paint",
+        "tone": "light grey"
+      },
+      "wear": {
+        "speckle": 0.4
+      },
+      "print": {
+        "text": "+",
+        "size": 0.6,
+        "ink": [
+          0.8,
+          0.1,
+          0.1
+        ]
+      }
+    },
+    {
+      "name": "medkitedge1",
+      "size": [
+        64,
+        32
+      ],
+      "material": {
+        "base": "paint",
+        "tone": "light grey"
+      },
+      "wear": {
+        "speckle": 0.5
+      }
+    },
+    {
+      "name": "-1genpipe1",
+      "size": [
+        64,
+        128
+      ],
+      "material": {
+        "base": "metal",
+        "tone": "pale blue grey"
+      },
+      "relief": [
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              40
+            ],
+            [
+              64,
+              40
+            ]
+          ],
+          "radius": 5
+        }
+      ]
+    },
+    {
+      "name": "-2genpipe1",
+      "size": [
+        64,
+        128
+      ],
+      "material": {
+        "base": "metal",
+        "tone": "pale blue grey"
+      },
+      "relief": [
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              90
+            ],
+            [
+              64,
+              90
+            ]
+          ],
+          "radius": 5
+        }
+      ]
+    },
+    {
+      "name": "aaatrigger",
+      "size": [
+        16,
+        16
+      ],
+      "material": {
+        "base": "paint",
+        "tone": "dark grey"
+      },
+      "wear": {
+        "speckle": 0.4
+      }
+    },
+    {
+      "name": "c2a3rustdoor1",
+      "size": [
+        96,
+        128
+      ],
+      "material": {
+        "base": "metal",
+        "tone": "dark brown",
+        "rust": 0.7
+      }
+    },
+    {
+      "name": "{grate4a",
+      "size": [
+        64,
+        64
+      ],
+      "material": {
+        "base": "mesh",
+        "tone": "dark grey",
+        "cell": 8
+      }
+    },
+    {
+      "name": "{ladder1",
+      "size": [
+        32,
+        32
+      ],
+      "material": {
+        "base": "mesh",
+        "tone": "grey",
+        "cell": 4
+      }
+    },
+    {
+      "name": "{rail1b",
+      "size": [
+        48,
+        32
+      ],
+      "material": {
+        "base": "mesh",
+        "tone": "grey",
+        "cell": 8
+      }
+    }
+  ],
+  "preview": {
+    "map": "models:frenzy.bsp",
+    "each": true
+  }
+}

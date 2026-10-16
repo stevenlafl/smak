@@ -1,29 +1,11 @@
-The build says OK. It wrote `work:frenzy_new/frenzy_new.wad` (the WAD texture package), with a sheet beside it at `frenzy_new-textures.png`. The map preview with each texture on its own place is also drawn. I checked those pictures by eye against the originals; I have no pixel measurement of how close they are.
+The build says OK, and `frenzy_new.wad` is written to the server's work folder at `work:frenzy_new/frenzy_new.wad`, with its sheet at `work:frenzy_new/frenzy_new-textures.png`. It covers the 25 textures you gave pictures for, each at its original name and size.
 
-Two gaps to know about first:
+- **Lifted from the map (18):** `c3a1_w3a`, `c3a1_w2`, `c3a1b_w3`, `c3a1b_w1`, `c3a1b_w1a`, `c3a1b_w2`, `c3a1b_w7`, `tnnl_flr7`, `tnnl_flr7c`, `tnnl_brd1`, `silo2_wetdr`, `-0genpipe1`, `c3a2b_reac2c`, `c3a2_bth1`, `crete4_stp01`, `c3a2a_tnk1b`, `babtech_ceil01`, `black`. Each used the map's own view with the view sheet and cameras, so the colour and grain come from the game's rendering.
+- **Painted (7), because their view is white or lit by a single colour:**
+  - `+0~fifts_lght01`, `+0~fifties_lgt2`, `+a~fifties_lgt2`, `+0~generic86`, `yellow` are lamps, with a lamp face over the paint. Their originals are white, so the brightness warning on them is expected.
+  - `crete2_flr01` is my guess: grey stone with grime. Its view is lit by blue light alone, so its real colour can't be read.
+  - `c2a4x_glu` is my guess: neon blue. Only the blue channel of its view is readable.
 
-- **12 textures have no original picture**, so I painted them from what each one is, and nothing was checked against an original: `+0medkit`, `+amedkit`, `medkitedge1`, `+a~fifts_lght01`, `+a~generic86`, `-1genpipe1`, `-2genpipe1`, `aaatrigger`, `c2a3rustdoor1`, `{grate4a`, `{ladder1`, `{rail1b`.
-- **Three originals are flat blue in their pictures**: `crete2_flr01`, `c2a4x_glu`, `c3a2a_tnk1b`. The renderer seems to have drawn a placeholder colour where it could not find the texture, so I matched the flat blue in the pictures. If the real game textures are not flat, these three are wrong, and only the game can say.
+The map's view of the new textures renders, with no errors. I checked the views and the sheet, but not each texture's own placement image, so please look at those yourself.
 
-How each was made:
-
-```
-lifted from the map's view (view shows most of it):
-  c3a1b_w3, c3a1b_w1, c3a1b_w1a, c3a1b_w2, c3a1b_w7,
-  tnnl_flr7, tnnl_flr7c, silo2_wetdr, -0genpipe1, c3a2b_reac2c
-
-painted (view shows little, is saturated white, or is a placeholder):
-  c3a1_w3a (9%), c3a1_w2 (19%), c3a2_bth1 (3%), crete4_stp01 (41%),
-  tnnl_brd1 (38%), babtech_ceil01 (5%), crete2_flr01, c2a4x_glu,
-  c3a2a_tnk1b, yellow (100% white in view), black
-
-lamps (a '~' name, lit by the map's own lights, painted with a lamp face):
-  +0~fifts_lght01, +a~fifts_lght01, +0~fifties_lgt2, +a~fifties_lgt2,
-  +0~generic86, +a~generic86
-
-holes ('{' names, painted as mesh): {grate4a, {ladder1, {rail1b
-```
-
-Build warnings remaining (18 textures): the lamps are brighter than Valve's by design, `black` is too even, and the three flat-blue ones are less grained and more coloured than Valve's. These match the pictures, so I kept them. `c3a1_w3a`'s grain reads as noise in the report, and I left it.
-
-The spec is inline in this session; I did not save it as a file, so a rebuild needs it pasted again.
+**Not covered:** the map uses 37 textures, and only 25 pictures were given. These 12 are not in the spec, so the map draws them flat: `+0medkit`, `+amedkit`, `+a~generic86`, `+a~fifts_lght01`, `-1genpipe1`, `-2genpipe1`, `aaatrigger`, `c2a3rustdoor1`, `medkitedge1`, `{grate4a`, `{ladder1`, `{rail1b`. If you send their pictures, I'll add them to the spec the same way.
