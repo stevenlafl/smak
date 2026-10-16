@@ -1,21 +1,19 @@
-The map builds OK: `frenzy_copy` compiles to a `.bsp`, the build reports no leaks, and all 54 entities a player goes to are reached on foot. It does not match the original closely yet. The layout and floor heights come from your height plans, but the entity positions, the lighting and the textures are my approximations, and several of the original's entities are missing.
+I could not build frenzy_copy. The map is not built and nothing has been written to disk.
 
-**What the build does** (`/tmp/smak-repro-cbayz2/work/frenzy_copy/frenzy_copy.bsp`, source `frenzy_copy.map`)
-- Layout and floor heights: the four height-plan layers carve the space (`floorplan: work:heightplan/`), so the rooms, stairs, ledges and drops follow your pictures.
-- Starts: `info_player_start` and 14 `info_player_deathmatch`, placed from the labels on `plan.png`.
-- Weapons, ammo and items: 33 point entities placed from the plan and storey labels.
-- Textures: Half-Life's own, picked by name words and colour: floor `C1A3FLOOR02`, walls `METAL_BORD08`, ceiling `BABTECH_CEIL02`.
-- Light: the engine's 24 automatic lamps under the largest spaces.
+**What's stuck:** this smak build does not accept the `floorplan` field. Every build reports `floorplan: not a field of a map spec, left out`, whatever the directory (`work:heightplan/`, `heightplan/`, or an absolute path) and whatever the key is spelt. The guide and the command line both describe `floorplan` as the way to carve the space from the height plans, so this build is probably older than its docs. With no floor plan and no rooms, the map has no space to build in. The API document doesn't mention floor-plan carving at all, so I couldn't find another route in the tools I have.
 
-**What is not reproduced, and why**
-- Not placed: 12 `func_wall`, 2 `func_door`, 2 `func_ladder`, 1 `func_healthcharger`, 2 `trigger_multiple` and 8 `env_glow`. Floor-plan entities are points only, and the spec has no brush entities on the plan, so the doors, lifts and ladders are missing. The gallery that depends on a ladder is unreachable as a result.
-- Lights: I placed the original's 8 lights by hand, but any light entity switches off the automatic lamps, and eight of them came out far dimmer. I went back to the automatic lamps.
-- `ammo_snarks` is not a class in Half-Life's entity list, so I used `weapon_snark`. The other ammo names were corrected to the list's spelling.
+**What I verified:**
+- All 93 point entities from `entities.txt` pass the build's FGD checks. Once the `env_glow` sprite key was added, the only remaining error was the missing rooms/floor plan.
+- The height plan, the entity list and `plan.png` read fine from the input folder.
 
-**Accuracy caveats**
-- Entity positions and floor layers are read by eye from `plan.png` and the storey pictures. Only one entity (the deathmatch start at 611,503) is on the upper layer; the rest are on layer 0.
-- I could not compare against the original's views: the input folder is not readable as a directory, and there is no original `.bsp` to draw. So the "matches side by side" judgement is still open.
-- The build warns "floorplan: not a field of a map spec" on every run, yet the floor plan is used (the build reports 4 layers). I did not resolve that warning.
-- The walk test finds 48 places where a player can fall more than 210 units. I left them, since the upper galleries are the source of those drops; the build asks to rail or mean each one.
+**What I left out, and why:**
+- The brush entities need brushes, so they are not in the spec yet: 14 `func_wall`, 2 `func_ladder`, 2 `func_door` with their 2 `trigger_multiple`, and 1 `func_healthcharger`. They need the carved walls and openings, which depend on the floor plan.
+- Textures and light are unset. The theme words I tried (`concrete`, `metal`, `ceil`) are guesses, and the lights and glows use default brightness and colour.
+- The reference `research/map-geometry.md` and the reproduce folder's README and spec are outside the permissions granted to me, so I couldn't read them. They may say how the build should be called.
 
-Next steps, if you want to push closer: add the brush entities (doors, ladders, the healthcharger) once the spec can place them, and check the upper-gallery entity layers against the original's views.
+**Options:**
+1. **Recommended:** update the smak MCP server to the version that reads `floorplan` (the one the docs describe). Then I rebuild with the entity list above, add the brush entities once their brushes exist, set the textures and light, and check against the pictures.
+2. Run `smak map-compile` from the command line in the smak repo, if that version accepts the spec. I have no shell here, so I haven't tested it.
+3. Approximate the map with hand-drawn rooms. I don't recommend it: it won't match the original's layout, and that is what you're judging.
+
+Tell me which you want. If you can grant read access to the reproduce folder's README and `research/map-geometry.md`, I can check the expected build call before the rebuild.

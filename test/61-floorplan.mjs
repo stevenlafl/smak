@@ -46,6 +46,7 @@ test("a map spec's floorplan: its space carved from the plan, a start on the gal
   writeFileSync(join(folder, "plans", "legend.json"), JSON.stringify(legend));
   const spec = { spec: "smak.map/1", name: "gallery", floorplan: { dir: "plans/", grow: 0 }, entities: [{ class: "info_player_start", room: "plan", at: [24, 40] }, { class: "item_battery", room: "plan", at: [208, 40], z: 2 }] };
   sure(!validateMapSpec(spec).errors.length, validateMapSpec(spec).errors.join("; "));
+  sure(!validateMapSpec(spec).warnings.some((w) => /floorplan/.test(w)), `a known field: ${validateMapSpec(spec).warnings.join("; ")}`);
   const { report, files } = buildMapSpec(spec, { out: join(folder, "out"), folder, compilers: { found: false, message: "" } });
   sure(!report.errors.length, report.errors.join("; "));
   sure(report.facts.some((f) => /floorplan plans\/: 2 layers, 48 cells of 32 with a floor/.test(f)), report.facts.filter((f) => /floorplan/.test(f)).join(" | "));
