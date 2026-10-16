@@ -29,29 +29,29 @@
    "onsets": 1
   },
   "reproduction": {
-   "length": 1.328,
+   "length": 1.368,
    "peak": -0.5,
-   "rms": -8.5,
-   "crest": 8,
-   "dc": -0.0007,
+   "rms": -9.2,
+   "crest": 8.7,
+   "dc": -0.0008,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.015,
-   "attack": 0.005,
-   "peakAt": 0.005,
-   "t20": 1.078,
+   "tail": 0.03,
+   "attack": 0.01,
+   "peakAt": 0.035,
+   "t20": 1.107,
    "t40": 1.267,
-   "centroid": 616,
-   "rolloff": 1249,
-   "flatness": 0.054,
+   "centroid": 653,
+   "rolloff": 1163,
+   "flatness": 0.053,
    "bands": {
-    "<150": 35.7,
-    "150-600": 36.3,
-    "600-2k": 20.3,
-    "2k-5k": 6.7,
-    ">5k": 1
+    "<150": 31.1,
+    "150-600": 35.5,
+    "600-2k": 26.1,
+    "2k-5k": 6.5,
+    ">5k": 0.8
    },
-   "onsets": 1
+   "onsets": 0
   },
   "envelope": {
    "class": "explosion",
@@ -59,12 +59,12 @@
     0.668,
     1.113
    ],
-   "t20": 1.078,
+   "t20": 1.107,
    "inRange": true
   },
-  "lengthOff": 0.021,
-  "centroidOff": 0,
-  "bandsOffMost": 2.1,
+  "lengthOff": 0.051,
+  "centroidOff": 0.06,
+  "bandsOffMost": 6.6,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -83,31 +83,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Judged from the picture only, since I cannot listen. Both waveforms open with a loud broadband burst that decays over about 1.3 s, and both spectrograms show the low-band-heavy, decaying energy of an explosion. The features agree: the class is explosion and the attack is 0.005 s in both. The peak sits at 0.254 s in the original and 0.005 s in the reproduction, but that is a timing detail, not a difference in the event."
+   "reason": "Cannot listen; judged from the picture and features only. Both waveforms are a dense, loud broadband burst that decays over about 1.2 s, and both spectrograms are concentrated in the low bands and fade upward. That is the shape of an explosion, and the original's and reproduction's classes both read as explosion (envelope class 'explosion')."
   },
   "S2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Length is 1.328 s against 1.301 s, a 2% difference, well within 25%. Attack is 0.005 s in both. T20 is 1.078 s in the reproduction, inside the explosion class range of 0.668 to 1.113 (inRange true), and the original's T20 of 0.893 s is also inside it. T40 is 1.267 s against 1.028 s, which the rubric does not gate on."
+   "reason": "Length is 1.368 s against 1.301 s, a 5% difference, well within 25%. The t20 decay of 1.107 s is inside the explosion class range of 0.668 to 1.113 s, though near its upper edge. The attack is 0.01 s against 0.005 s. The reproduction holds its level longer than the original (t40 1.267 s against 1.028 s), but that stays within the class range."
   },
   "S3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Centroid is 616 Hz in both, 0% off, within 20%. Band shares differ by at most 2.1 points (bandsOffMost 2.1, within 10): <150 35.7 vs 36.4, 150-600 36.3 vs 37.6, 600-2k 20.3 vs 19.5, 2k-5k 6.7 vs 4.6, >5k 1.0 vs 1.9."
+   "reason": "Centroid is 653 Hz against 616 Hz, a 6% difference, within 20%. Band shares differ by at most 6.6 points (600-2k: 26.1 against 19.5), within the 10-point limit. The other bands are within 5.3 points."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Onsets match (1 in each). The tone or noise character does not: flatness is 0.054 in the reproduction against 0.097 in the original, so the reproduction is more peaked and tonal. The spectrogram shows the original's energy as grainy, with vertical streaks and mid-band texture, while the reproduction is a smooth gradient. The waveform's dense transients in the first half second look more uniform in the reproduction. Judged from the picture and features only; I cannot listen, so the perceived character may differ from what these show."
+   "reason": "Cannot listen; judged from the picture and features only. The original has one onset (its sharp leading crack), and the reproduction has none detected. The flatness is 0.053 against 0.097, so the reproduction is about half as noise-like and shows a more regular, periodic pattern in its first 0.6 s. Both have low pitch movement in the spectrogram, but the onset and noise character are clearly off."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Mono, 16-bit, 22050 Hz, which is one of the allowed formats. No clipping, peak -0.5 dBFS, DC -0.0007 (negligible). No lead silence, a tail of 0.015, and the same name as the original (sameName true). Not a loop, so no cue is needed."
+   "reason": "Mono 16-bit PCM at 22050 Hz, which the engine plays. No clipping (peak -0.5 dB), DC is -0.0008, small. A one-shot, so no loop cue is needed. The name matches the original (sameName true), and the file starts with no lead-in."
   }
  },
  "total": 9,

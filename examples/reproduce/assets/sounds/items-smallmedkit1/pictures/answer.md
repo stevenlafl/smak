@@ -1,24 +1,26 @@
-The sound is built and the build says OK with no warnings. It is at `work:sound/items/smallmedkit1.wav`, so it takes the place of the game's `items/smallmedkit1.wav` when it is put in a mod's `sound` folder.
+The sound is built and the build says OK: `work:sound/items/smallmedkit1.wav`, which takes the place of the game's `items/smallmedkit1.wav` when put in `<mod>/sound`.
 
-I built it from layers only, with no generated take. The original reads as a synthetic buzz and blip, not a recording of a real thing, so layers seemed the right tool. I did not try a generated take to compare.
+Measured against the original's numbers from the picture:
 
-I could not listen to the original or hear the result. The only thing I could read of the original was its picture, so the match is by the numbers the build reads off that picture, not by ear. Final numbers, from the build's report:
+| Measure | Original | Made | Off by |
+| --- | --- | --- | --- |
+| Length | 0.76 s | 0.76 s | 0% |
+| Centroid (brightness) | 1936 Hz | 1872 Hz | 3% |
+| Power 150-600 Hz | 14% | 14.1% | 0.1 pt |
+| Power 600-2k Hz | 64% | 64.1% | 0.1 pt |
+| Power 2k-5k Hz | 5% | 9.4% | 4.4 pt |
+| Power >5k Hz | 17% | 12.4% | 4.6 pt |
+| Time to -20 dB (T20) | 0.663 s | 0.659 s | 0.4% |
+| Crest | about 11.5 dB | 10.9 dB | within 0.6 dB |
+| Onsets | 1 | 1 | none |
 
-| Measure | Original (from picture) | Made sound |
-| --- | --- | --- |
-| Length | 0.76 s | 0.76 s |
-| Centroid | 1936 Hz | 1704 Hz (12% off) |
-| 150-600 Hz share | about 14% | 17.7% |
-| 600-2k Hz share | 64.4% | 66.5% |
-| 2k-5k Hz share | 4.5% | 2.8% |
-| Over 5k Hz share | 16.8% | 12.7% |
-| T20 (time to -20 dB) | 0.41 to 0.683 s | 0.649 s |
-| Crest | about 11.5 dB | 12 dB |
-| Onsets | 1 | 1 |
+The build's own limit is 7 points on a band and 15% on the centroid, so every band and the centroid are inside it. The picture's shape matches the original's: three quick tone bursts, a quiet gap, then a louder bright noise tail at about 0.52 s.
 
-The layers follow the picture's sections: a 630 Hz buzz in three pulses (about 0 to 0.27 s), two short clicks at the start of the second and third pulses, a small blip at 0.40 s, a low 180 Hz tail with a little hiss (0.27 to 0.52 s), and a broadband swell that rises to the end (0.52 to 0.76 s).
+Choices I made that you may want to change:
+- **Sample depth: 16-bit, not 8-bit.** The original is 8-bit, but the spec warns that 8-bit adds hiss under quiet tails, and the game plays either depth. Say if you want 8-bit to match the original's grit.
+- **No generated take.** I built it only from layers (three sawtooth bursts at 700 Hz with a 320 Hz body, and two noise bursts). The build suggested a recording might sound more natural, but it would bring in a generator licence, and the layers already hit the numbers. So nothing is non-commercial here.
+- **No game reference drawn.** I didn't give the game's own files as a reference, so the check is against the picture and the band numbers only.
 
-Choices you may want to change:
-- **16-bit, not 8-bit.** The original is 8-bit. The guide warns that 8-bit adds a hiss under the quiet tail, so I kept 16-bit. The rate is the original's 22050 Hz. If you want the 8-bit grit, that is a one-field change, `bits: 8`, and the hiss warning will come back.
-- **No class.** None of the built-in classes fits a medkit, so the sound is not held against the game's own sounds of a kind. It is measured against the picture only.
-- **Licences.** No generator was used, so there is no non-commercial licence to flag.
+Not checked: how it sounds to a person and how the game plays it (volume, pitch, the map's room). That needs a listen in the game.
+
+Two things I couldn't do here. The file-writing tool is disabled in this session, so the spec exists only in the build calls and not as a `.json` file in the work folder. And I didn't write anything into the `reproduce` folder. The final spec is the last build call above: layers `tick1` to `tick3`, `body`, `tail`, `crack`, with `finish` saturate 1.5 and limit crest 12.

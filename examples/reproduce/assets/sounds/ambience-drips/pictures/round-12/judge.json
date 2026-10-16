@@ -1,0 +1,113 @@
+{
+ "kind": "sounds",
+ "subject": "ambience-drips",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 7.306,
+   "peak": -0.4,
+   "rms": -27.3,
+   "crest": 26.9,
+   "dc": -0.0039,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 5.777,
+   "peakAt": 5.832,
+   "t20": 0.434,
+   "t40": 1.477,
+   "centroid": 839,
+   "rolloff": 1066,
+   "flatness": 0.095,
+   "bands": {
+    "<150": 1.2,
+    "150-600": 23.2,
+    "600-2k": 72.3,
+    "2k-5k": 2.5,
+    ">5k": 0.7
+   },
+   "onsets": 4
+  },
+  "reproduction": {
+   "length": 7.56,
+   "peak": -0.5,
+   "rms": -24.5,
+   "crest": 24,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0.349,
+   "tail": 0.175,
+   "attack": 0,
+   "peakAt": 4.001,
+   "t20": 3.183,
+   "t40": 3.307,
+   "centroid": 800,
+   "rolloff": 1249,
+   "flatness": 0.05,
+   "bands": {
+    "<150": 0.1,
+    "150-600": 23.6,
+    "600-2k": 72.9,
+    "2k-5k": 3.4,
+    ">5k": 0
+   },
+   "onsets": 8
+  },
+  "envelope": {
+   "class": "loop drips",
+   "t20Range": null,
+   "t20": 3.183,
+   "inRange": true
+  },
+  "lengthOff": 0.035,
+  "centroidOff": 0.046,
+  "bandsOffMost": 1.1,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 16,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. The original is a continuous noisy wash with broadband energy from about 150 Hz to 2 kHz, swelling at about four events. The reproduction is eight sharp, isolated pings, each with a harmonic stack and a steady horizontal tone line. Drips are plausibly the same kind of event, but the reproduction reads as tonal pings rather than the original's wet noise bed, so it is only partly the same event."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Length is 7.56 s against 7.306 s, 3.5% off, within 25%. The envelope fails: the class 'loop drips' has no t20 range (null), so the fallback applies and the decay must lie within a quarter of the original's or 0.05 s. The original's t20 is 0.434 s and the reproduction's is 3.183 s, far outside that, so the cap of 1 applies. The harness's inRange: true is not trusted because the range it was checked against is null. In the picture the reproduction's loudest drip is at 4.0 s and its level only reaches 20% at 3.18 s, while the original is at a level bed from the start."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured. Centroid 800 against 839 Hz is 4.6% off (limit 20%). Band shares: under 150 Hz 0.1 against 1.2; 150-600 Hz 23.6 against 23.2; 600-2k Hz 72.9 against 72.3; 2k-5k Hz 3.4 against 2.5; over 5k Hz 0 against 0.7. The largest gap is 1.1 points, well within 10. The bright band in the 600-2k region matches in the picture. The rolloff difference is not part of this item."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Not a must item, but clearly off in character. Onsets: 8 in the reproduction against 4 in the original, double the count. Flatness is 0.05 against 0.095, so the reproduction is markedly more tonal; the picture shows a steady horizontal tone line and harmonic stacks on each drip, which the original does not show. The original's noisy bed is missing. Silence of 0.349 s at the start and 0.175 s at the end, against none in the original, is also a difference in how the sound starts and ends. The sound is there but clearly off."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured fit: mono, 16-bit, 11025 Hz, which is an accepted rate; no clipping (0); DC 0 against the original's -0.0039, so the reproduction is cleaner; sameName true; engineFaults empty. The original shows no loop cue in its measures (lead 0, tail 0). The reproduction's silent lead and tail would leave a gap if looped, which the judge notes under S2 and S4 rather than failing the fit."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

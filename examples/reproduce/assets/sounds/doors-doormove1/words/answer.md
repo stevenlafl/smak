@@ -1,19 +1,30 @@
-The sound is built: `work:sound/doors/doormove1.wav`, 11025 Hz, 8-bit mono, 4.97 s. The build says OK with every check passing, and its five-band energy split is within 2.4 points of your targets (under 150 Hz 19.9% vs 20%, 150-600 Hz 34.3% vs 35%, 600-2k 32.4% vs 30%, 2k-5k 13.3% vs 13%, over 5k 0% vs 2%).
+The sound is built and the build says OK: `work:sound/doors/doormove1.wav`. It is 11025 Hz, 8-bit, mono, and plays once. I have not listened to it, so the judgement of how it sounds is still yours.
 
-**What it is built from**
-- **The slide:** a generated take of a heavy slab dragged along a track (woosh-dflow, seed 1, chosen for its band split). It has a 0.1 s fade-in, holds steady to 4.0 s, swells to 4.5 s, and fades out over the last 0.4 s. EQ cuts the low rumble and the 350 Hz build-up and lifts 1 kHz.
-- **Grit:** a dense band of short grains at 600-3500 Hz, rather than steady noise, so it does not sound like static.
-- **Judder:** a train of pulses about every 40 ms (jittered) from 4.0 to 4.5 s, with a 50-80 Hz thump under it.
-- **Squeal:** four short rising sine sweeps (330 to 480 Hz) at 0.2, 1.4, 2.6 and 3.8 s, about 1.2 s apart.
-- **Finish:** a mild saturation and a peak limiter at a 15 dB crest, the level of the class's heavy sounds.
+Measured against the figures you gave:
 
-**What is not settled**
-- **Attack:** the report gives 3.96 s, because it measures the time to reach the swell's peak. The file does fade in over 0.1 s, but I could not get the report's attack figure down, and I did not chase it further.
-- **Length:** 4.97 s, against 5.04 s. The tail is silent for its last part, so the trim is inaudible.
-- **Squeal arcs:** they are present as designed, but I have not checked them by ear, and the report cannot judge how they sound.
-- **8-bit hiss:** the build warns of hiss under the quiet tail. I kept 8-bit because you asked for the original's depth. Switching to 16-bit would remove the hiss.
-- **Side-by-side check:** I had no game folder to load the original from, so I could not compare the two drawn together. Please listen to it in the game.
+```
+Measure          Original    Made
+Length           5.04 s      5.015 s
+Centroid         589 Hz      573 Hz
+<150 Hz          30%         27.4%
+150-600 Hz       38%         44.6%
+600-2k Hz        28%         23.8%
+2k-5k Hz         4%          4.3%
+>5k Hz           0%          0%
+```
 
-**Licence:** the take comes from woosh-dflow (weights CC-BY-NC 4.0, non-commercial). You said the local generators' licences are accepted for this test. Anything shipped commercially would need a different source.
+How it's made:
+- **Grind:** a take from the local generator woosh-dflow (seed 0, prompted as a heavy sliding gate on a track with rollers, motor drone and squeal). It is shaped with EQ toward the band split, a 0.1 s fade-in, a swell to full at 4.1 s, and a fade over the last half second.
+- **Squeal:** five short triangle sweeps from 320 to 470 Hz, at 0.3, 1.3, 2.4, 3.0 and 4.0 s.
+- **End pulse:** a fast train of short crackles from 4 s to the end.
 
-The spec is inline in this session; I did not save it to a file, so a rebuild needs it pasted again.
+Things that differ from the original:
+- **Length:** 15 ms short of 5.04 s. The take is exactly 5 s, and I could not pad it without changing the pitch.
+- **8-bit:** you asked for it, so the build's warning about hiss under the quiet tail is accepted as it is.
+- **Band split:** the 150-600 Hz share is about 7 points high. I tried harder cuts and they pushed it further out, so I kept the setting with the least error.
+- **Squeal and pulse:** approximations. Their timing matches your description but they were not tuned against the original's real arcs.
+- **Class:** the kit has no door class, so the build did not score it against the game's own sounds.
+
+Licence: the take comes from woosh-dflow, whose weights are CC-BY-NC 4.0 (Creative Commons, non-commercial). You accepted that for this test. The build report flags the sound as non-commercial, so it should not go into a commercial mod without a decision on that.
+
+The spec was passed inline in the build call and is not saved as a file, since I have no tool to write one. The take it depends on is `work:gen/doors_doormove1_s0.wav`, so keep that file if you want to rebuild it. To use the sound in the game, copy it to `<mod>/sound/doors/doormove1.wav`. I don't know your mod's folder path, so I haven't placed it.

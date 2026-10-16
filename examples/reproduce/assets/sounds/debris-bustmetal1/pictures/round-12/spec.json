@@ -1,0 +1,102 @@
+{
+  "spec": "smak.sound/1",
+  "name": "debris/bustmetal1.wav",
+  "class": "metal hit",
+  "rate": 11025,
+  "bits": 8,
+  "length": 0.87,
+  "seed": 1,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "body",
+      "kind": "sample",
+      "file": "work:gen/bustmetal_s2.wav",
+      "from": 0,
+      "length": 0.87,
+      "env": {
+        "attack": 0.002,
+        "hold": 0.02,
+        "decay": 0.6
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 450,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 350,
+          "q": 0.8,
+          "gain": -6
+        },
+        {
+          "type": "peak",
+          "f": 1000,
+          "q": 0.8,
+          "gain": -12
+        },
+        {
+          "type": "peak",
+          "f": 1800,
+          "q": 1,
+          "gain": -6
+        },
+        {
+          "type": "peak",
+          "f": 3200,
+          "q": 0.8,
+          "gain": 13
+        },
+        {
+          "type": "peak",
+          "f": 5000,
+          "q": 0.8,
+          "gain": 4
+        }
+      ]
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "at": 0,
+      "length": 0.02,
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.012
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000,
+          "q": 0.7
+        }
+      ],
+      "gain": 1,
+      "post": true
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 1500,
+      "ratios": "bell",
+      "decay": 0.25,
+      "damping": 1.5,
+      "gain": -2
+    }
+  ],
+  "finish": {
+    "room": {
+      "decay": 0.15,
+      "wet": 0.08
+    },
+    "saturate": 2,
+    "limit": {
+      "crest": 11,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

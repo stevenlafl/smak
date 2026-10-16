@@ -1,21 +1,34 @@
-The sound is built and saved as `work:sound/weapons/cbar_hit1.wav`. The build says OK. It is a 0.69 s, 11025 Hz, 8-bit mono file under the game's own name, so it replaces the crowbar hit when put in the mod's `sound` folder. I could not listen to it or put it beside the original, because no game files were on this machine. Your side-by-side judgement is still the real test.
+The sound is built: `work:sound/weapons/cbar_hit1.wav`, which is the path the game loads in its place. The build says OK, with two warnings I could not clear. The spec is saved as `work:weapons_cbar_hit1.spec.json`.
 
-I used no generated takes, so no licence applies. The whole sound is made from layers: a click at contact, a noise body with a steep tilt that holds the attack, a faint 1.1 kHz sine ring with two partials near 320 and 430 Hz, a grainy rattle and hiss, and a limiter at 8 dB crest.
+**Result against the description**
 
-| Measure | Target from the description | Built |
-| --- | --- | --- |
-| Length | 0.69 s | 0.69 s |
-| Attack | instant | 0 ms |
-| Time to -20 dB | about 0.5 to 0.6 s | 0.59 s |
-| Under 150 Hz | 20% | 18.6% |
-| 150 to 600 Hz | 35% | 34.2% |
-| 600 to 2k Hz | 30% | 32.4% |
-| 2k to 5k Hz | 13% | 14.5% |
-| Over 5k Hz | 2% | 0.3% |
+```
+Measure            Original        Built
+Length             0.69 s          0.69 s
+Format             11025 Hz 8-bit  11025 Hz 8-bit mono
+Centroid           about 1467 Hz   1407 Hz
+under 150 Hz       3%              0%
+150-600 Hz         8%              8.9%
+600-2000 Hz        69%             71.1%
+2000-5000 Hz       19%             20%
+over 5000 Hz       1%              0%
+Time to -20 dB     (not given)     0.419 s
+Time to -40 dB     (not given)     0.688 s
+Flatness           class 0.16-0.28 0.127 (too pure)
+```
 
-Choices I made:
-- **8-bit kept:** the build warns that 8 bits adds hiss under the tail. I kept it because the original is 8-bit and its hiss is part of the character.
-- **Centroid left dark:** the build measures the centroid at about 982 Hz and says it is below its metal-hit range of 1074 to 1654 Hz. I followed your band shares rather than that range. If the original is brighter than your shares suggest, the band numbers are what to revisit.
-- **Ring audible but not dominant:** the 1.1 kHz line is steady across the spectrogram and sits above the body's tail, but it carries little power.
+The layers are a click at the start, a loud white-noise body band-limited to about 550 Hz to 1.7 kHz that falls off after 0.3 s, a grain rattle at 0.25 s, and a 1 kHz ring with a weak 2.3 kHz partial that carries the tail.
 
-The spec was passed inline and I have no file-writing tool here, so it is not saved to disk. If you want it kept for re-building, I can write it into the work folder.
+**Warnings left open**
+
+- **Flatness is too pure.** The tail is almost all the ring tone. Adding a faint hiss under the tail did not move flatness, so I reverted it.
+- **Smooth noise ringing past 0.3 s.** This is the body's fall from 0.3 s to 0.43 s, which the description calls for. It is the warning the checker gives for that shape.
+- **8 bits.** The build warns that the 8-bit depth adds hiss under the quiet tail. I kept 8 bits because you asked for them.
+
+**Generated takes**
+
+I generated four takes with the local `woosh-dflow` model, whose weights are CC-BY-NC 4.0 (non-commercial). None matched the spectrum: their centroids ran from 146 Hz to 3697 Hz. Seed 0 had the closest click, but it was too bright. The final file uses only the layers, so the non-commercial licence does not apply to it.
+
+**Not checked**
+
+I can't hear the sound, and the build cannot check how it plays in the game (volume, pitch, room). The build's report did not show a reference from the game's own folders, so the comparison is against the numbers in your description, not the game's file.

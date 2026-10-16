@@ -1,0 +1,75 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/cbar_hit1.wav",
+  "class": "metal hit",
+  "seed": 3,
+  "rate": 11025,
+  "bits": 8,
+  "length": 0.69,
+  "layers": [
+    {
+      "id": "hit",
+      "kind": "sample",
+      "file": "work:gen/cbar_hit_s0.wav",
+      "from": "onset",
+      "length": 0.69,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 3500,
+          "q": 0.7
+        },
+        {
+          "type": "highpass",
+          "f": 120
+        }
+      ]
+    },
+    {
+      "id": "grain",
+      "kind": "particles",
+      "count": 200,
+      "band": [
+        800,
+        3000
+      ],
+      "grain": 0.003,
+      "env": {
+        "decay": 0.25
+      },
+      "gain": -6
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.003
+      },
+      "gain": -6,
+      "post": true
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 760,
+      "ratios": "bar",
+      "decay": 0.5,
+      "damping": 1.2,
+      "gain": -14
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "limit": {
+      "crest": 9,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

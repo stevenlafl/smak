@@ -2,159 +2,140 @@
   "spec": "smak.sound/1",
   "name": "doors/doormove1.wav",
   "rate": 11025,
-  "seed": 1,
   "length": 5.04,
+  "seed": 7,
   "picture": "pictures/sound.png",
+  "bands": {
+    "<150": 30,
+    "150-600": 38,
+    "600-2k": 28,
+    "2k-5k": 4,
+    ">5k": 0
+  },
   "layers": [
     {
-      "id": "body",
-      "kind": "particles",
-      "rate": 150,
-      "band": [
-        40,
-        160
+      "id": "grind",
+      "kind": "sample",
+      "file": "work:gen/doormove1_s1.wav",
+      "from": "onset",
+      "length": 5.04,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 90,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 110,
+          "q": 0.7,
+          "gain": 5
+        },
+        {
+          "type": "peak",
+          "f": 1200,
+          "q": 0.7,
+          "gain": 1.5
+        },
+        {
+          "type": "lowpass",
+          "f": 2600,
+          "q": 0.7
+        }
       ],
-      "grain": 0.03,
       "env": {
         "points": [
           [
             0,
-            -24
+            -16
           ],
           [
-            0.5,
-            -2
+            0.3,
+            -12
           ],
           [
-            4,
-            -2
+            1,
+            -12
           ],
           [
-            4.4,
+            2.5,
+            -12
+          ],
+          [
+            3.5,
+            -12
+          ],
+          [
+            4.2,
             -8
           ],
           [
-            4.6,
-            -20
-          ],
-          [
-            5.04,
-            -40
-          ]
-        ]
-      }
-    },
-    {
-      "id": "mid",
-      "kind": "particles",
-      "rate": 320,
-      "band": [
-        600,
-        2000
-      ],
-      "grain": 0.004,
-      "env": {
-        "points": [
-          [
-            0,
-            -24
-          ],
-          [
-            0.5,
-            -12
-          ],
-          [
-            4,
-            -12
-          ],
-          [
             4.5,
-            -18
+            -5
           ],
           [
-            4.8,
-            -28
+            4.7,
+            -7
+          ],
+          [
+            4.85,
+            -11
           ],
           [
             5.04,
-            -45
-          ]
-        ]
-      }
-    },
-    {
-      "id": "ratchet",
-      "kind": "particles",
-      "every": 0.035,
-      "jitter": 0.3,
-      "band": [
-        900,
-        2400
-      ],
-      "grain": 0.004,
-      "at": 4.3,
-      "length": 0.7,
-      "gain": 0,
-      "env": {
-        "points": [
-          [
-            0,
-            -4
-          ],
-          [
-            0.4,
-            -4
-          ],
-          [
-            0.7,
             -30
           ]
         ]
       }
     },
     {
-      "id": "body2",
+      "id": "rattle",
       "kind": "particles",
-      "rate": 220,
+      "every": 0.09,
+      "jitter": 0.4,
       "band": [
-        160,
-        600
+        300,
+        1200
       ],
-      "grain": 0.012,
+      "grain": 0.01,
       "env": {
         "points": [
           [
             0,
-            -24
+            -60
           ],
           [
-            0.5,
-            -12
+            4.1,
+            -60
           ],
           [
-            4,
-            -12
+            4.2,
+            -14
           ],
           [
             4.4,
-            -18
+            -3
           ],
           [
             4.6,
-            -28
+            -4
+          ],
+          [
+            4.9,
+            -10
           ],
           [
             5.04,
-            -45
+            -30
           ]
         ]
-      }
+      },
+      "gain": -6
     }
   ],
   "finish": {
-    "saturate": 1.3,
     "limit": {
-      "crest": 12,
+      "crest": 18,
       "release": 0.002
     },
     "peak": -0.5

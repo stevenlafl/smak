@@ -1,35 +1,23 @@
-The sound is built to the picture: `work:sound/player/pl_step1.wav`, 11025 Hz, 8-bit mono, 0.27 s. I could not hear it or open the original's audio, so this is matched to the picture and its numbers, not to the recording itself.
+The sound is built and the build says OK: `work:sound/player/pl_step1.wav`, 11025 Hz, 16-bit mono, 0.266 s. It is not a copy of the original's full character yet. The bands and spectrum are close, but the decay is short, and I could not listen to it.
 
-**Where it stands against the picture of the original** (the build reads its numbers off `pictures/sound.png`):
+**How it was made:** I generated a take with the local `woosh-dflow` model, prompted as a boot stepping onto a metal floor plate, dry and close-miked. I used its seed 0 take, cut at its onset, then shaped it with a high-pass at 215 Hz, a 320 Hz body boost, a dip at 1.1 kHz, a 3.5 kHz lift, and a low-pass at 4.2 kHz. A short 40 ms bandpassed crack at 3.3 kHz sits on top for the bright click.
 
-| Measure | Original (from picture) | Made sound | Off by |
+| Measure | Original (given) | Made | Note |
 | --- | --- | --- | --- |
-| Length | 0.27 s | 0.273 s | 1% |
-| Centroid (brightness) | about 902 Hz | 897 Hz | 1% |
-| Under 150 Hz | 13.1% | 11.6% | 1.5 points |
-| 600 to 2k Hz | 9.1% | 11.2% | 2.1 points |
-| T20 (time to -20 dB) | 0.04 to 0.18 s | 0.12 s | in range |
-| Crest (peak over RMS) | about 21.8 dB | 19.1 dB | within 3 dB |
+| Length | 0.27 s | 0.266 s | close |
+| Centroid | 902 Hz | 782 Hz | 13% off, inside the 15% tolerance |
+| Under 150 Hz | 13% | 13.5% | |
+| 150–600 Hz | 60% | 60.4% | |
+| 600–2k Hz | 9% | 11.6% | 2.6 points off |
+| 2k–5k Hz | 16% | 14.6% | 1.4 points off |
+| Over 5k Hz | 1% | 0% | |
+| Bit depth | 8-bit | 16-bit | see below |
 
-The build reports only the worst band, so the other band shares (150 to 600 Hz and 2 to 5 kHz) are not checked individually.
+**Still off:**
+- **Decay:** the sound falls 20 dB in about 0.105 s. The game's own step sounds fall in 0.32 s or more. I tried a longer envelope and room, but the file grew to 0.33 s and broke the 0.27 s length. I kept the length, so the sound is drier and shorter-tailed than the class norm. The "0.315 to 0.525" T20 range from the picture cannot fit inside a 0.27 s file, so I treated that as a class range, not the original's measure.
+- **Bit depth:** the original is 8-bit. The build warned that 8-bit adds audible hiss under quiet tails, so I used 16-bit, which the game also plays.
+- **Character:** the build measures numbers only. How it sounds to a person, its volume, and how the game plays it are unchecked. Please listen in the game.
 
-**What is in the spec:**
-- **Thud:** pink noise low-passed at 160 Hz, which sets the sub-150 Hz weight.
-- **Body:** pink noise between 200 and 500 Hz, the bulk of the energy.
-- **Tail:** pink noise from 20 ms, between 250 and 500 Hz, with envelope points that end at 0.27 s.
-- **Grit:** white noise band-passed at 3.5 kHz, Q 0.5.
-- **Sizzle:** white noise high-passed at 5 kHz.
-- **Crack:** a short high-passed burst added after the limiter, which gives the sharp onset.
-- **Finish:** a short room (decay 0.15 s, wet 0.08), saturation 1.5, and a limiter at crest 21 dB.
+**Licence:** the take comes from `woosh-dflow`, licensed CC-BY-NC 4.0 (Creative Commons, Attribution, Non-Commercial). You said you accept that for this test; it rules out commercial use of this file.
 
-**Choices I made:**
-- I kept 8-bit because the original is 8-bit. The build warns about hiss under the quiet tail; that is the cost of matching the depth.
-- I did not use a generator, so no licence applies to this file.
-- The top-level `length` does not pad a sound, so the tail's envelope points set the length.
-
-**What is still open:**
-- Flatness is 0.194 against the class's 0.2 floor. It is close and I stopped there.
-- The build still lists the sub-150 Hz and 150 to 600 Hz shares as just outside the generic step-on-concrete ranges. The picture is the more specific target, so I went by it.
-- I could not read the original's `.wav` (the tool refused the directory and the binary file), so I could not compare the waveform or the sound itself.
-
-**To check it:** copy the file into the game's `<mod>/sound/player/` folder and play it beside the original.
+**Not saved:** I was going to write the spec to a JSON file in the working folder, but the file-write tool is disabled in this session. The spec is the one above, and I can save it if you enable writes. The take is at `work:gen/pl_step1_take_s0.wav` on the smak server.

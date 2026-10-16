@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-357_shot1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 1.064,
+   "peak": 0,
+   "rms": -8.5,
+   "crest": 8.5,
+   "dc": -0.0012,
+   "clipped": 265,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.015,
+   "t20": 0.748,
+   "t40": 1.003,
+   "centroid": 937,
+   "rolloff": 1658,
+   "flatness": 0.11,
+   "bands": {
+    "<150": 20.3,
+    "150-600": 27.5,
+    "600-2k": 43.9,
+    "2k-5k": 6.7,
+    ">5k": 1.6
+   },
+   "onsets": 3
+  },
+  "reproduction": {
+   "length": 1.124,
+   "peak": -0.5,
+   "rms": -13,
+   "crest": 12.5,
+   "dc": -0.0001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0,
+   "peakAt": 0.02,
+   "t20": 0.988,
+   "t40": 1.043,
+   "centroid": 942,
+   "rolloff": 1830,
+   "flatness": 0.069,
+   "bands": {
+    "<150": 25.1,
+    "150-600": 22.3,
+    "600-2k": 40.1,
+    "2k-5k": 11.8,
+    ">5k": 0.7
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "gunshot",
+   "t20Range": [
+    0.458,
+    1.013
+   ],
+   "t20": 0.988,
+   "inRange": true
+  },
+  "lengthOff": 0.056,
+  "centroidOff": 0.005,
+  "bandsOffMost": 5.2,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 22050,
+   "bits": 16,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only; I cannot listen. The original is a sharp broadband crack at about 0.015 s, with clipping and three onsets, then a decay. The reproduction has no crack: its waveform is an even, dense oscillation from start to finish, and its spectrogram is a smeared band that falls away slowly. The envelope class is gunshot and the reproduction's t20 is in range, but without the transient it reads as a generic decaying noise or whoosh. Same event is not clearly shown."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 1.124 s against 1.064 s, 5.6% off (limit 25%). T20 is 0.988 s, inside the gunshot class range of 0.458 to 1.013 s (inRange true). Attack is 0 against 0.005 s, a 5 ms difference that is well within tolerance for the envelope class."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 942 Hz against 937 Hz, 0.5% off (limit 20%). Band shares are off by at most 5.2 points (limit 10): <150 Hz 25.1 vs 20.3; 150-600 Hz 22.3 vs 27.5; 600-2k Hz 40.1 vs 43.9; 2k-5k Hz 11.8 vs 6.7; >5k Hz 0.7 vs 1.6. Every band is within the 10-point limit."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only; I cannot listen. The original has three onsets (the crack and its repeats) and the reproduction has none, so the hit character is missing. Flatness is 0.069 against 0.11, so the reproduction is more tonal than the original. The reproduction's waveform shows a regular periodic pattern at the start that the original does not have. The decay shape is similar, but the character is clearly off. This item is not a must."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Format is mono, 16-bit, 22050 Hz, which the engine plays. Clipped samples are 0 (the original has 265, so the reproduction is cleaner). Peak is -0.5 dBFS. DC offset is -0.0001. A one-shot needs no loop cue, and the name matches (sameName true)."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

@@ -1,24 +1,22 @@
-The sound is built and the build says OK: `work:sound/player/pl_metal1.wav`, 11025 Hz, 8-bit mono, 0.60 s. It is layers only, with no recording generator, so no generator licence applies to it.
+The sound is built and the build says **OK**, with every check passed. It's at `work:sound/player/pl_metal1.wav`, ready to drop into a mod's `sound/` folder so the game plays it in place of the original.
 
-I read the original as a metal footstep and built it as the game's `step metal` class. The class check passes on all 22 features.
+```
+Measure                  original        made
+length                   0.58 s          0.585 s
+centroid                 ~361 Hz         381 Hz
+power <150 Hz            32%             32.3%
+power 150-600 Hz         47%             50%
+power 600-2k Hz          20%             17.5%
+power 2k-5k Hz           2%              0.2%
+power >5k Hz             0%              0%
+T20 (time to -20 dB)     (in range)      0.329 s
+format                   11025 Hz, 8-bit 11025 Hz, 8-bit
+```
 
-Measured against the original's picture (the numbers read off its spectrogram):
+**How it's made:** a short hit taken from a generated take (the `woosh-dflow` model, seed 0, "a boot stepping onto a metal floor plate"), low-passed at 1.5 kHz and high-passed at 300 Hz. A shaped noise body gives the ring-out tail, plus a low sine thump at 140 Hz that sweeps down to 60 Hz and a plate-mode ring at 420 Hz. A light room and a soft saturation finish it.
 
-| Measure | Original (from picture) | Built | Status |
-| --- | --- | --- | --- |
-| Length | 0.58 s | 0.60 s | 4% off |
-| Time to fall 20 dB (T20) | 0.315 to 0.525 s | 0.32 s | in range |
-| Power below 150 Hz | 32% | 36% | 4 points off |
-| Power 150 to 600 Hz | 47% | 49% | 2 points off |
-| Power 600 Hz to 2 kHz | 20% | 13% | 6 points off |
-| Centroid (brightness) | 361 Hz | 413 Hz | 14% off |
-| Crest (peak over RMS) | about 16.3 dB | 14.6 dB | within 3 dB |
+**Choices I made:**
+- Kept 8-bit and 11025 Hz to match the original's format. The build warns that 8-bit adds a faint hiss under the tail. If that's audible in the game, dropping `bits` to 16 removes it, at the cost of not matching the original's depth.
+- The licence: the take is from `woosh-dflow`, CC-BY-NC 4.0 (weights). You said you accept that for this test, but it is non-commercial, so it's not cleared for a commercial release.
 
-The sound is made of four layers: a short noise crack, a band of grit between 600 Hz and 1.6 kHz, a ringing metal mode at 380 Hz, and a low sine thump that falls from 130 Hz to 50 Hz. Each was tuned by building and reading the report.
-
-What is left:
-- **Brightness:** the centroid is 14% high. My attempts to close that also broke the length or the T20, so I stopped there.
-- **Bit depth:** the build notes that 8 bits adds a hiss under the quiet tail. I kept 8-bit and 11025 Hz to match the original's format. Dropping to 16 bits would remove the hiss; say if you want that.
-- **Not checked:** I have only checked the numbers. I have not listened to it, and I have not played it in the game. The spectrogram of the built sound looks like the original's, but a side-by-side listen is the real test.
-
-One thing I found about the kit: the `modes: [...]` form of the modes layer normalises its level per layer, so a second modes layer swamped the whole mix whatever gain I gave it. I used a single `ring` mode instead.
+**What the build can't tell:** how it sounds to a person and how it plays in the game (volume, the map's room). Listen to it in the game before judging it against the original. The spec is not saved to a file, only the built `.wav`; say if you want the spec written into the repo.

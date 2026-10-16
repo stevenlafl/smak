@@ -29,39 +29,39 @@
    "onsets": 4
   },
   "reproduction": {
-   "length": 7.31,
+   "length": 7.26,
    "peak": -0.6,
-   "rms": -27.3,
-   "crest": 26.8,
+   "rms": -28.9,
+   "crest": 28.3,
    "dc": 0,
    "clipped": 0,
    "lead": 0,
-   "tail": 0,
-   "attack": 0,
-   "peakAt": 0.06,
-   "t20": 7.254,
-   "t40": 7.254,
-   "centroid": 1025,
-   "rolloff": 2283,
-   "flatness": 0.315,
+   "tail": 0.075,
+   "attack": 3.153,
+   "peakAt": 4.001,
+   "t20": 2.958,
+   "t40": 3.098,
+   "centroid": 822,
+   "rolloff": 926,
+   "flatness": 0.095,
    "bands": {
-    "<150": 14.5,
-    "150-600": 35.2,
-    "600-2k": 32.3,
-    "2k-5k": 18,
-    ">5k": 0.1
+    "<150": 4.8,
+    "150-600": 18,
+    "600-2k": 72.8,
+    "2k-5k": 4.2,
+    ">5k": 0.2
    },
    "onsets": 4
   },
   "envelope": {
    "class": "loop drips",
    "t20Range": null,
-   "t20": 7.254,
+   "t20": 2.958,
    "inRange": true
   },
-  "lengthOff": 0.001,
-  "centroidOff": 0.222,
-  "bandsOffMost": 40,
+  "lengthOff": 0.006,
+  "centroidOff": 0.02,
+  "bandsOffMost": 5.2,
   "engineFaults": [],
   "sameName": true,
   "format": {
@@ -72,13 +72,42 @@
  },
  "caps": {
   "S2": 2,
-  "S3": 0,
+  "S3": 2,
   "S5": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "S3"
- ],
- "total": 0,
- "of": 10
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original is drips in a reverberant room: loud resonant hits at roughly 0, 1.3, 3.0, 4.5 and 5.8 s, each with a decaying tail over a broadband bed (the waveform and the spectrogram's ringing bands). The reproduction has sharp clicks at about 1.0, 3.0, 3.3 and 5.8 s over a flat, even hiss. The timing of the drips is close, but the picture shows hiss with ticks, not drips that ring. I judged this from the picture and features only; I could not listen."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Length is 7.26 s against 7.306 s (0.6% off) and passes. The harness marks the t20 (2.958 s against 0.434 s for the original) as in range for the class 'loop drips', but the picture shows the envelope differs clearly. The original's hits drop away within about half a second, and the reproduction holds a near-constant bed for about 3 s after its first hit. I score it lower than the measurement allows because the decay shape is visibly wrong."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 822 against 839 (2% off, inside 20%). Band shares against the original: under 150 Hz 4.8 vs 1.2 (3.6 points), 150-600 Hz 18 vs 23.2 (5.2), 600-2k Hz 72.8 vs 72.3 (0.5), 2k-5k Hz 4.2 vs 2.5 (1.7), above 5k Hz 0.2 vs 0.7 (0.5). All are within 10 points, so it passes on the measurement."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Onset count matches (4 and 4) and flatness matches (0.095 on both). The original's tonal ring after each drip, visible as horizontal bands in its spectrogram, is missing from the reproduction, whose bed is broadband noise with thin click lines. Whether the pitch movement matches cannot be checked from pictures, so the character is only partly right."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The format is mono PCM at 11025 Hz, 8 bits, which the engine plays. Clipping is 0, DC is 0, the engine faults list is empty, and the name is the same. The loop cue is not in the measurements (the original has lead 0 and tail 0; the reproduction has tail 0.075 s of trailing silence). I score it 2 on what was measured and note that the loop cue itself was not checked."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
 }

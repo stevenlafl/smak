@@ -1,0 +1,147 @@
+{
+  "spec": "smak.sound/1",
+  "name": "player/pl_step1.wav",
+  "class": "step concrete",
+  "rate": 11025,
+  "bits": 8,
+  "seed": 1,
+  "length": 0.27,
+  "picture": "pictures/sound.png",
+  "layers": [
+    {
+      "id": "thud",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 160
+        }
+      ],
+      "env": {
+        "attack": 0.002,
+        "decay": 0.12
+      },
+      "gain": -8
+    },
+    {
+      "id": "body",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 500
+        },
+        {
+          "type": "highpass",
+          "f": 200
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.15
+      },
+      "gain": -16
+    },
+    {
+      "id": "tail",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0.02,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 500
+        },
+        {
+          "type": "highpass",
+          "f": 250
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.1,
+            -10
+          ],
+          [
+            0.2,
+            -20
+          ],
+          [
+            0.27,
+            -40
+          ]
+        ]
+      },
+      "gain": -18
+    },
+    {
+      "id": "grit",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 3500,
+          "q": 0.5
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.04
+      },
+      "gain": 3
+    },
+    {
+      "id": "sizzle",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 5000
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.02
+      },
+      "gain": -3
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "attack": 0.0005,
+        "decay": 0.006
+      },
+      "gain": -4,
+      "post": true
+    }
+  ],
+  "finish": {
+    "room": {
+      "decay": 0.15,
+      "wet": 0.08
+    },
+    "saturate": 1.5,
+    "limit": {
+      "crest": 21,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

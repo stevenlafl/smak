@@ -237,6 +237,8 @@ export function pictureMeasures(picture, options = {}) {
       break;
     }
   const t20 = ((frames[last].index + 1 - frames[topAt].index) * HOP) / rate;
+  // when its loudest moment comes, from its start: a door that slides 4 s before it bangs, a hit at once
+  const peakAt = round(frames[topAt].t, 3);
   // onsets: the flux of magnitudes frame to frame, over its mean and two deviations, 50 ms apart
   const flux = [];
   for (let i = 1; i < frames.length; i++) {
@@ -264,6 +266,7 @@ export function pictureMeasures(picture, options = {}) {
     peak: round(20 * Math.log10(peak)),
     crest: round(20 * Math.log10(peak / rms)),
     t20: round(t20, 3),
+    peakAt,
     centroid: Math.round(weighted / total),
     bands,
     onsets: onsets.length,

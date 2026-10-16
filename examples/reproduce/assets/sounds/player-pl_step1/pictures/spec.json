@@ -1,147 +1,91 @@
 {
   "spec": "smak.sound/1",
   "name": "player/pl_step1.wav",
-  "class": "step concrete",
-  "rate": 11025,
-  "bits": 8,
+  "class": "step metal",
   "seed": 1,
+  "rate": 11025,
   "length": 0.27,
-  "picture": "pictures/sound.png",
   "layers": [
     {
-      "id": "thud",
-      "kind": "noise",
-      "color": "pink",
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 160
-        }
-      ],
-      "env": {
-        "attack": 0.002,
-        "decay": 0.12
-      },
-      "gain": -8
-    },
-    {
-      "id": "body",
-      "kind": "noise",
-      "color": "pink",
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 500
-        },
-        {
-          "type": "highpass",
-          "f": 200
-        }
-      ],
+      "id": "take",
+      "kind": "sample",
+      "file": "work:gen/pl_step1_take_s0.wav",
+      "from": "onset",
+      "length": 0.27,
       "env": {
         "attack": 0.001,
-        "decay": 0.15
+        "hold": 0.12,
+        "decay": 0.22
       },
-      "gain": -16
-    },
-    {
-      "id": "tail",
-      "kind": "noise",
-      "color": "pink",
-      "at": 0.02,
       "filter": [
         {
-          "type": "lowpass",
-          "f": 500
+          "type": "highpass",
+          "f": 215,
+          "q": 0.8
         },
         {
-          "type": "highpass",
-          "f": 250
-        }
-      ],
-      "env": {
-        "points": [
-          [
-            0,
-            0
-          ],
-          [
-            0.1,
-            -10
-          ],
-          [
-            0.2,
-            -20
-          ],
-          [
-            0.27,
-            -40
-          ]
-        ]
-      },
-      "gain": -18
-    },
-    {
-      "id": "grit",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
+          "type": "peak",
+          "f": 320,
+          "q": 0.9,
+          "gain": 4
+        },
         {
-          "type": "bandpass",
+          "type": "peak",
+          "f": 1100,
+          "q": 1,
+          "gain": -6
+        },
+        {
+          "type": "peak",
           "f": 3500,
-          "q": 0.5
-        }
-      ],
-      "env": {
-        "attack": 0.0005,
-        "decay": 0.04
-      },
-      "gain": 3
-    },
-    {
-      "id": "sizzle",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
+          "q": 0.8,
+          "gain": 2
+        },
         {
-          "type": "highpass",
-          "f": 5000
+          "type": "lowpass",
+          "f": 4200,
+          "q": 0.7
         }
       ],
-      "env": {
-        "attack": 0.0005,
-        "decay": 0.02
-      },
-      "gain": -3
+      "gain": 1
     },
     {
       "id": "crack",
       "kind": "noise",
       "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 2000
-        }
-      ],
+      "at": 0,
+      "length": 0.04,
       "env": {
         "attack": 0.0005,
-        "decay": 0.006
+        "decay": 0.02
       },
-      "gain": -4,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 3300,
+          "q": 0.5
+        }
+      ],
+      "gain": -7,
       "post": true
     }
   ],
   "finish": {
     "room": {
-      "decay": 0.15,
-      "wet": 0.08
+      "decay": 0.25,
+      "wet": 0.12
     },
-    "saturate": 1.5,
     "limit": {
-      "crest": 21,
+      "crest": 18,
       "release": 0.002
     },
     "peak": -0.5
+  },
+  "bands": {
+    "<150": 13,
+    "150-600": 60,
+    "600-2k": 9,
+    "2k-5k": 16,
+    ">5k": 1
   }
 }

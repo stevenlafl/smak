@@ -1,28 +1,28 @@
-`ambience/drips.wav` builds OK with no faults and no warnings. It's written to `work:sound/ambience/drips.wav`, and it will take the place of the game's own file of that name when placed in `<mod>/sound`.
+The build now says OK. `ambience/drips.wav` is written to the work folder under `sound/ambience/`, ready to go in a mod's `sound` folder in place of the game's file of that name.
 
-I could not hear or see the original side by side. The reading tools refused the original .wav (it's binary) and the reproduce folder (permission denied). So the targets are the numbers the build reads from the original's picture (`pictures/sound.png`), not the original's audio.
+**What it is:** a loop of four water drips at the times read off the original's picture (about 0.04 s, 1.87 s, 3.68 s and 3.98 s, plus one at 5.79 s), over a faint mid-band hiss. It is 11025 Hz, 8-bit mono, with a loop cue at its start, as the original is.
 
-```
-Measure            Made sound        Target (from the original's picture)
-length             7.56 s            7.31 s (3% off)
-centroid           800 Hz            795 Hz (1% off)
-150-600 Hz share   23.6%             22%
-600-2k Hz share    72.9%             74%
-2-5k Hz share      3.4%              3%
-crest              24 dB             about 24.9 dB
-onsets             8                 8
-flatness           0.050             class 0.05 to 0.15
-RMS                -24.5 dBFS        class -30.3 to -24.3
-Class features     20 of 20 in range
-```
+**How it was made:** the drip events are a sample from a generated take (`woosh-dflow` seed 1, prompted for one drip in a stone cave). The take was low-passed and given a mid peak to bring its spectrum toward the original's. The bed is a quiet pink-noise band.
 
-**What the sound is:** eight drips at the same times as the picture's onsets. Each drip is a bell-like ring (1.4 s decay), a short falling 380 to 220 Hz body for the low share, and a 2 kHz band-passed crack for grain. The loop's start is the cue point, with a 0.05 s crossfade at the seam.
+**Measured against the original's picture:**
 
-**Choices you may want to change:**
-- **16-bit, not 8-bit.** The original is 8-bit. The build warns that 8-bit adds a hiss under quiet tails, and that a copy isn't held to the original's depth. Say if you want 8-bit to match the original exactly.
-- **Length 7.56 s, not 7.31 s.** The ring tails run past the 7.31 s cut, so the file comes out 3% longer. It is within the 10% the build allows.
-- **No generator used.** The sound is made from layers only, so no generator licence applies to it.
+| Measure | Original (read off picture) | Made sound |
+| --- | --- | --- |
+| Centroid | 795 Hz | 893 Hz (12% off, within 15%) |
+| Power <150 Hz | 1% | 0.3% |
+| Power 150-600 Hz | 22% | 27.9% |
+| Power 600-2k Hz | 74% | 68.9% |
+| Power 2k-5k Hz | 2% | 2.9% |
+| Power >5k Hz | 1% | 0% |
+| Length | 7.31 s | 7.06 s (3% off) |
+| Crest | about 24.9 dB | 24.8 dB |
 
-**Not checked:** how it sounds to a person, its volume and pitch in the game, and the map's room. Please listen in the game.
+The picture check raises no warnings, and the class check passes 20 of 20 features against the game's own drip loops. The checks don't cover how it sounds to a person or how the game plays it, so please listen in the game.
 
-**Not saved to a file:** the spec exists only in this conversation. I have no file-writing tool here, so I can't put it in the reproduce folder. I can write it there if you want the sound rebuilt from a fresh clone.
+**Remaining warnings (advisory, not failures):**
+- **Static:** the build flags the faint bed noise as possible static. I kept it because the original has a continuous low floor between drips. Removing it would make the gaps quieter than the original.
+- **8-bit hiss:** the build notes 8-bit adds a hiss under the quiet parts. I kept 8-bit to match the original's file format. If you'd rather have a cleaner tail, 16-bit is a one-line change (`bits`).
+
+**Licence:** the drip take comes from `woosh-dflow`, licensed CC-BY-NC 4.0 (non-commercial). You said that's acceptable for this test. It would need a different take before any commercial use.
+
+**Not matched exactly:** the 150-600 Hz band runs about 6 points high, and the length is 0.25 s short. Both are within the build's tolerances.

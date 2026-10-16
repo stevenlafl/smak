@@ -2,18 +2,17 @@
   "spec": "smak.sound/1",
   "name": "weapons/357_shot1.wav",
   "class": "gunshot",
-  "seed": 7,
   "rate": 22050,
   "bits": 8,
+  "seed": 7,
   "length": 1.06,
   "layers": [
     {
-      "id": "blast",
+      "id": "body",
       "kind": "sample",
-      "file": "work:gen/357_shot_s1.wav",
+      "file": "work:gen/357_shot_s2.wav",
       "from": "onset",
       "length": 1.06,
-      "gain": 0,
       "env": {
         "points": [
           [
@@ -21,32 +20,20 @@
             0
           ],
           [
-            0.02,
-            -0.5
-          ],
-          [
-            0.026,
-            -8
-          ],
-          [
-            0.032,
-            -0.5
-          ],
-          [
-            0.45,
+            0.4,
             -1
           ],
           [
             0.6,
-            -12
+            -6
           ],
           [
             0.8,
-            -30
+            -20
           ],
           [
             0.95,
-            -45
+            -40
           ],
           [
             1.06,
@@ -56,17 +43,60 @@
       },
       "filter": [
         {
+          "type": "highpass",
+          "f": 60
+        },
+        {
           "type": "peak",
-          "f": 3500,
-          "q": 0.8,
-          "gain": 4
+          "f": 350,
+          "q": 1,
+          "gain": -6
+        },
+        {
+          "type": "peak",
+          "f": 1200,
+          "q": 0.7,
+          "gain": -3
+        },
+        {
+          "type": "lowpass",
+          "f": 4000
         }
       ]
+    },
+    {
+      "id": "grit",
+      "kind": "particles",
+      "band": [
+        2000,
+        5000
+      ],
+      "grain": 0.003,
+      "every": 0.08,
+      "jitter": 0.6,
+      "length": 0.4,
+      "gain": -11,
+      "env": {
+        "decay": 0.25
+      }
+    },
+    {
+      "id": "punch",
+      "kind": "tone",
+      "f": 50,
+      "wave": "sine",
+      "env": {
+        "decay": 0.2
+      },
+      "gain": 0
     },
     {
       "id": "crack",
       "kind": "noise",
       "color": "white",
+      "length": 0.003,
+      "post": true,
+      "gain": 2,
       "filter": [
         {
           "type": "highpass",
@@ -74,25 +104,23 @@
         }
       ],
       "env": {
-        "decay": 0.003
-      },
-      "post": true,
-      "gain": 0
+        "decay": 0.002
+      }
     }
   ],
   "finish": {
-    "saturate": 5,
+    "saturate": 6,
     "limit": {
-      "crest": 8,
+      "crest": 9,
       "release": 0.002
     },
     "peak": -0.5
   },
   "bands": {
-    "<150": 30,
-    "150-600": 30,
-    "600-2k": 22,
-    "2k-5k": 13,
-    ">5k": 5
+    "<150": 21,
+    "150-600": 26,
+    "600-2k": 46,
+    "2k-5k": 6,
+    ">5k": 2
   }
 }

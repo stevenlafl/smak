@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "weapons-cbar_hit1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.694,
+   "peak": -0.4,
+   "rms": -9.9,
+   "crest": 9.5,
+   "dc": 0.0043,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.03,
+   "t20": 0.559,
+   "t40": 0.649,
+   "centroid": 1343,
+   "rolloff": 1938,
+   "flatness": 0.215,
+   "bands": {
+    "<150": 4.9,
+    "150-600": 6.8,
+    "600-2k": 73.8,
+    "2k-5k": 13.7,
+    ">5k": 0.9
+   },
+   "onsets": 1
+  },
+  "reproduction": {
+   "length": 0.69,
+   "peak": -0.6,
+   "rms": -9.6,
+   "crest": 9,
+   "dc": -0.0001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.005,
+   "peakAt": 0.234,
+   "t20": 0.269,
+   "t40": 0.439,
+   "centroid": 1095,
+   "rolloff": 2121,
+   "flatness": 0.034,
+   "bands": {
+    "<150": 0.2,
+    "150-600": 1,
+    "600-2k": 82.5,
+    "2k-5k": 16.2,
+    ">5k": 0
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "metal hit",
+   "t20Range": [
+    0.24,
+    0.7
+   ],
+   "t20": 0.269,
+   "inRange": true
+  },
+  "lengthOff": 0.006,
+  "centroidOff": 0.185,
+  "bandsOffMost": 8.7,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture only, since I cannot listen. Both waveforms are a dense, loud burst followed by a thin ring, so the family of event fits a metal strike. The original has a sharp impact at about 0.03 s (its peak), with a fast fall after it. The reproduction holds near full density until about 0.23 s and peaks there, which reads more like a scrape or rattle than a single strike. The impact is not clearly the same event, so 1."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 0.69 s against 0.694 s (0.006 off, within 25%). Attack is 0.005 s in both. T20 is 0.269 s, inside the metal hit class range of 0.24 to 0.7 s, so the measured envelope holds. The peak falls later (0.234 s against 0.03 s), but the rubric's S2 test is length, attack and decay, and those pass."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 1095 Hz against 1343 Hz, an 18.5% difference, inside the 20% limit. Band shares differ by at most 8.7 points (600 to 2k: 82.5 against 73.8), inside the 10-point limit. The low bands (under 150 Hz at 0.2 against 4.9, and 150 to 600 Hz at 1 against 6.8) are both small, so the spectrum passes on the measures."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the pictures and features, since I cannot listen. The original's onset count is 1 (the impact click) and the reproduction's is 0; the picture confirms the reproduction has no sharp start. Flatness is 0.215 in the original against 0.034 in the reproduction, so the reproduction is far more tonal, and its spectrogram shows bright horizontal bands the original lacks. The ring tail is similar. Two of the three character checks are clearly off, so 1."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Format is mono, 11025 Hz, 8-bit, which the engine plays. Peak is -0.6 dBFS with no clipping, DC is -0.0001 (effectively none), there is no lead or tail silence problem, the name matches (sameName true), and there are no engine faults. The hit is not a loop, so no loop cue is needed."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

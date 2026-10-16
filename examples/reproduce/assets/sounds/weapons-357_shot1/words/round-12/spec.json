@@ -1,0 +1,98 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/357_shot1.wav",
+  "class": "gunshot",
+  "seed": 7,
+  "rate": 22050,
+  "bits": 8,
+  "length": 1.06,
+  "layers": [
+    {
+      "id": "blast",
+      "kind": "sample",
+      "file": "work:gen/357_shot_s1.wav",
+      "from": "onset",
+      "length": 1.06,
+      "gain": 0,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.02,
+            -0.5
+          ],
+          [
+            0.026,
+            -8
+          ],
+          [
+            0.032,
+            -0.5
+          ],
+          [
+            0.45,
+            -1
+          ],
+          [
+            0.6,
+            -12
+          ],
+          [
+            0.8,
+            -30
+          ],
+          [
+            0.95,
+            -45
+          ],
+          [
+            1.06,
+            -60
+          ]
+        ]
+      },
+      "filter": [
+        {
+          "type": "peak",
+          "f": 3500,
+          "q": 0.8,
+          "gain": 4
+        }
+      ]
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.003
+      },
+      "post": true,
+      "gain": 0
+    }
+  ],
+  "finish": {
+    "saturate": 5,
+    "limit": {
+      "crest": 8,
+      "release": 0.002
+    },
+    "peak": -0.5
+  },
+  "bands": {
+    "<150": 30,
+    "150-600": 30,
+    "600-2k": 22,
+    "2k-5k": 13,
+    ">5k": 5
+  }
+}

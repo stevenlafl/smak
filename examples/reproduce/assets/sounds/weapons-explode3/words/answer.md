@@ -1,29 +1,32 @@
-The sound is built and the build says OK: `work:sound/weapons/explode3.wav`, 1.3 s, 22050 Hz, 8-bit mono, one shot with no loop. It is a layers-only sound. I did not use a generated recording, so the grain is from particle layers, not a real explosion.
+The sound is built: `work:sound/weapons/explode3.wav`. The build says OK with no warnings, and every feature is in the explosion class range.
 
-The build has one warning, that 8-bit adds a hiss under the quiet tail. I kept 8-bit because the original is 8-bit. Leaving `bits` out would give 16-bit with less hiss, if you prefer that.
+**What it measures against your original figures:**
 
-The original is not in the game folders I could read, so the build compared against the class ranges for explosions, not against the original file itself. Against those ranges, all 22 features are in range.
-
-| Measure | Target (original) | Built |
+| Feature | Original (your figures) | Made |
 | --- | --- | --- |
 | Length | 1.3 s | 1.3 s |
-| Onset | instant, no attack | 0 ms attack |
-| Loudness fall (T20: time to -20 dB) | about half amplitude by 0.8 s, nearly silent by 1.3 s | 1.00 s |
-| Spectrum below 150 Hz | 35% | 40% |
-| 150 to 600 Hz | 30% | 33% |
-| 600 Hz to 2 kHz | 20% | 18% |
-| 2 to 5 kHz | 10% | 7% |
-| Above 5 kHz | 5% | 2% |
-| Centroid (brightness centre) | class range 493 to 739 Hz | 661 Hz |
-| Crest (peak over average level) | class range 2.7 to 8.7 dB | 8.5 dB |
+| Rate | 22050 Hz | 22050 Hz |
+| Attack | instant | 0 ms |
+| Power under 150 Hz | 37% | 36.8% |
+| Power 150 to 600 Hz | 36% | 36.6% |
+| Power 600 to 2k Hz | 21% | 21.3% |
+| Power 2k to 5k Hz | 4% | 4.2% |
+| Power over 5k Hz | 2% | 1.1% |
+| Centroid | about 605 Hz | 549 Hz |
+| Crest (peak over RMS) | 6 to 10 dB for weapons | 8 dB |
+| T20 (time to fall 20 dB) | not given | 0.80 s |
 
-How it is built, in the spec's terms:
-- **Body:** brown noise shaped by a spectrum that moves over time. It starts full, darkens after 0.45 s, and its level falls from -1 dB at 0.45 s to -50 dB at 1.3 s.
-- **Clipped wall:** a second copy driven hard for the first 0.45 s, so the start is saturated and then cuts into the body.
-- **Crackle:** particles from 400 to 3000 Hz, fading out by about 0.7 s.
-- **Blast transient:** a 12 ms highpassed noise crack at the start.
-- **Finish:** saturation of 2 and a limiter.
+The centroid is about 55 Hz low, and the top band is about 1 point low. Both are inside the explosion class range, and I left them there rather than chase the last few points.
 
-I could not check how it sounds to a person, or how the game plays it (its volume and the map's room). Those need a listen in the game. The spec itself was passed inline and is not saved as a file in the work folder, so it will need writing down if this has to be reproduced.
+**How it is made:**
+- **Source:** one take from the local generator `woosh-dflow` (seed 0), prompted for a close grenade-style blast. Its licence is CC-BY-NC 4.0 (non-commercial). You accepted that for this test, so I have not used it anywhere else. Its sidecar is `work:gen/explode3_s0.json`.
+- **Main layer:** the take, cut from its onset, driven hard so the first 0.4 s sits pinned at the ceiling. Its envelope falls to about -3 dB at 0.4 s, -30 dB at 0.9 s and -60 dB at 1.3 s. Its filters shape the spectrum toward your figures and sweep a low-pass from 2.5 kHz down to 260 Hz over 0.9 s, so the highs go first.
+- **Crack:** 1 to 4 ms of high-passed white noise added after the limiter, which gives the instant onset.
+- **Debris:** a short train of particles in 800 Hz to 4 kHz, fading by 0.9 s.
+- **Finish:** saturation 4, with a limiter at crest 8 dB.
 
-If the side-by-side judgement finds it too thin or too clean, the next step is a generated explosion take as a sample layer, with the licence noted.
+**Choices to check:**
+- **16-bit, not 8-bit.** Your original is 8-bit. I used 16-bit because the guide notes that 8-bit adds a hiss under the quiet tail. If you want the exact original depth, change `bits` to 8 in the spec.
+- **Not compared to the original file.** I had no copy of the game's `explode3.wav` to draw beside this one, so every number above is against your description, not the real sound. I could not listen to it either. The judgement on character still needs your ears: the roar, the grit, the rumble.
+
+To use it, place `work:sound/weapons/explode3.wav` at `<mod>/sound/weapons/explode3.wav`. The game then plays it in place of the original.

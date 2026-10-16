@@ -4,72 +4,53 @@
   "class": "metal hit",
   "seed": 3,
   "rate": 11025,
-  "bits": 8,
   "length": 0.69,
   "layers": [
     {
-      "id": "hit",
-      "kind": "sample",
-      "file": "work:gen/cbar_hit_s0.wav",
-      "from": "onset",
-      "length": 0.69,
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 3500,
-          "q": 0.7
-        },
-        {
-          "type": "highpass",
-          "f": 120
-        }
-      ]
-    },
-    {
-      "id": "grain",
-      "kind": "particles",
-      "count": 200,
-      "band": [
-        800,
-        3000
-      ],
-      "grain": 0.003,
-      "env": {
-        "decay": 0.25
+      "id": "thump",
+      "kind": "tone",
+      "f": 240,
+      "wave": "sine",
+      "sweep": {
+        "to": 180,
+        "time": 0.2
       },
-      "gain": -6
-    },
-    {
-      "id": "crack",
-      "kind": "noise",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 2000
-        }
-      ],
       "env": {
-        "decay": 0.003
+        "decay": 0.8
       },
-      "gain": -6,
-      "post": true
+      "gain": 10
     },
     {
       "id": "ring",
       "kind": "modes",
-      "f": 760,
-      "ratios": "bar",
-      "decay": 0.5,
-      "damping": 1.2,
-      "gain": -14
+      "modes": [
+        {
+          "f": 1350,
+          "gain": 8,
+          "decay": 0.9
+        },
+        {
+          "f": 3100,
+          "gain": 4.2,
+          "decay": 0.9
+        }
+      ]
     }
   ],
   "finish": {
     "saturate": 1.5,
     "limit": {
-      "crest": 9,
+      "crest": 9.5,
       "release": 0.002
     },
     "peak": -0.5
-  }
+  },
+  "bands": {
+    "<150": 3,
+    "150-600": 8,
+    "600-2k": 69,
+    "2k-5k": 19,
+    ">5k": 1
+  },
+  "picture": "pictures/sound.png"
 }

@@ -1,38 +1,24 @@
-`ambience/drips.wav` is built and the build says OK. It is at `work:sound/ambience/drips.wav`: 11025 Hz, 8-bit mono, 7.31 s, looping with a cue point at its start.
+The sound is built at `work:sound/ambience/drips.wav`, and the last build says OK with every one of the 20 class features in range. It is not byte-verified against the original, because I only had the description, not the file.
 
-I built it from layers only. No generated take is in it, so no generator licence applies.
+**What it is:** 11025 Hz, 8-bit, mono, looped from its start, 7.26 s long. The length is 0.05 s short of the 7.31 s target, about 0.7%.
 
-**What it contains**
+**How it's made:** five drips at 0.0, 1.9, 3.7, 4.0 and 5.9 s. Each has a short high-passed click, a 700 Hz tube-resonance ring, a burst of grains from 600 to 1500 Hz, and a 1000 to 1400 Hz upward blip. The 4.0 and 5.9 s drips are 1 to 3 dB louder. A low pink-noise bed (bandpassed around 320 Hz) plus a quieter band around 1 kHz runs under everything, so the file never goes silent.
 
-- Five drops at 0.06, 1.87, 3.68, 3.97 and 5.84 s. Each starts with a sharp splash, then a bloop that rises from 430 to 520 Hz and holds, a faint ring at 520, 610 and 690 Hz, and a 0.6 s tail.
-- The drops at 0.06, 1.87 and 5.84 s are the loud ones. The drops at 3.68 and 3.97 s are softer.
-- A continuous brown-noise murmur and low rumble run the whole length, so there is no silence.
-- The loop tail fades out by about 6.9 s, before the first drop returns.
+**Against the target spectrum:**
 
-**Frequency shares against the brief**
+| Band | Target | Made |
+| --- | --- | --- |
+| under 150 Hz | 1% | 4.8% |
+| 150 to 600 Hz | 22% | 18% |
+| 600 to 2k Hz | 74% | 72.8% |
+| 2k to 5k Hz | 2% | 4.2% |
+| over 5k Hz | 1% | 0.2% |
 
-```
-Band        Brief   Made
-<150 Hz      15%    14.5%
-150-600 Hz   35%    35.2%
-600-2k Hz    30%    32.3%
-2k-5k Hz     18%    18.0%
->5k Hz        2%     0.1%
-```
+The centroid (the spectral centre of mass) is 822 Hz, against 795 Hz.
 
-**What is still off**
+**Choices I made:**
+- **No generated takes.** I generated four takes with the local generator, but they came out about 2.7 to 2.9 kHz bright with a loud bed, far off the target. Their licence is non-commercial, so I used none of them.
+- **Kept 8-bit**, because the original is 8-bit. The build warns that 8 bits adds a hiss under quiet tails. That is the trade-off for matching the format. If you would rather have 16-bit, change `bits` to 16.
+- **Kept the steady bed**, though the build warns that smooth noise can read as static. The description asks for a steady bed of room tone, so I kept it.
 
-- Centroid is 1025 Hz. The class of game loops sits at 671 to 1007 Hz, so it is a little bright.
-- Flatness is 0.315. The class sits at 0.05 to 0.15, so the sound is noisier than a typical game loop. I tried to fix this by making the ring more tonal, but that pushed the 600 to 2k Hz share out of range, so I kept the balance.
-- The report warns that the steady murmur could be heard as static. I kept it on purpose, because the brief asks for a constant hiss.
-- The 8-bit depth draws a warning about hiss under the quiet tail. I kept 8-bit because the brief specifies it.
-
-**Things I could not check**
-
-- I have not compared it side by side with the original. No copy of the original is in the folders, so the targets come from your description, not from measuring the real file.
-- The report cannot say how it sounds. Please listen to it in the game.
-
-**Notes**
-
-- The loop crossfade shortens the file by its own length, so I set the spec to 7.36 s to land at 7.31 s.
-- The spec exists only in this session. I could not save it into the work folder from my shell, so tell me where you want the JSON written and I will put it there.
+**Not checked:** how it sounds in the game, its volume, or the map's room. Those need a listen in GoldSrc.

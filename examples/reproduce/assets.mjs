@@ -137,7 +137,7 @@ function inputs(kind, subject) {
     // two sounds the same five shares; the words leg then built to the wrong numbers (2026-10-16)
     const read = A.pictureMeasures(smak.unpng(smak.png(picture.width, picture.height, picture.rgba)), { length: wav.x.length / wav.rate, rate: wav.rate });
     const shares = Object.entries(read.bands).map(([k, v]) => `${k} Hz ${Math.round(v)}%`).join(", ");
-    writeFileSync(join(out, "facts.txt"), `${subject.name}: ${round(wav.x.length / wav.rate, 2)} s, ${wav.rate} Hz, ${wav.bits} bits${wav.cue?.length ? ", looped (a cue point at its start)" : ", played once"}.\nRead off its picture: centroid about ${Math.round(read.centroid)} Hz; power ${shares}.\n`);
+    writeFileSync(join(out, "facts.txt"), `${subject.name}: ${round(wav.x.length / wav.rate, 2)} s, ${wav.rate} Hz, ${wav.bits} bits${wav.cue?.length ? ", looped (a cue point at its start)" : ", played once"}.\nRead off its picture: loudest at ${read.peakAt} s, falling 20 dB in ${read.t20} s after it, ${read.onsets} hit${read.onsets === 1 ? "" : "s"}; centroid about ${Math.round(read.centroid)} Hz; power ${shares}.\n`);
   } else {
     const bsp = maps.readBsp(readFileSync(file));
     const places = texturePlaces(bsp).sort((a, b) => b.area - a.area);

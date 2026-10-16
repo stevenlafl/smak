@@ -1,11 +1,11 @@
-A single gunshot from a heavy revolver (.357 magnum), fired once. It lasts 1.06 s, mono, 22050 Hz, 8-bit, and plays once with no loop.
+A single shot from a large-calibre revolver (.357 magnum). It lasts 1.06 seconds and plays once, with no loop. The file is mono, 22050 Hz, 8-bit.
 
-Onset: the attack is instant, a hard broadband crack at full scale. About 20 to 30 ms in there's a very brief dip, then the blast comes straight back.
+Onset: there is no fade-in. The first few milliseconds are a sharp transient that clips at full scale. In that first instant the low end flashes very bright, a hard punch down near 50 Hz.
 
-Loudness: the sound stays heavily clipped, pinned at full scale, from 0 to about 0.45 s. It's a dense, distorted roar with a few momentary dips inside it. After that it falls off fast, to about a quarter of full scale by 0.6 s and a faint rumbling tail by 0.8 s. It's near silence by 0.95 to 1.06 s.
+Loudness: the clipped, saturated blast holds for about the first 0.4 s. It is ragged, with jagged spikes and dropouts, and shows no smooth decay. After that the level falls steadily, about to half by 0.6 s, and fades into a thin, noisy tail. That tail is nearly silent by 0.9 to 1.0 s and ends cleanly at 1.06 s.
 
-Frequency: this is wideband noise with the weight in the lows and low mids. Rough energy shares: under 150 Hz about 30%, 150 to 600 Hz about 30%, 600 to 2000 Hz about 22%, 2000 to 5000 Hz about 13%, over 5000 Hz about 5%. The top end reaches about 11 kHz during the clipped blast. In the tail the highs die first and only a low boom and rumble (under about 600 Hz) is left at the end.
+Frequency: the energy is weighted toward the low mids, with a spectral centroid of about 900 Hz. Rough shares: under 150 Hz about 21%, 150 to 600 Hz about 26%, 600 to 2000 Hz about 46%, 2000 to 5000 Hz about 6%, over 5000 Hz about 2%. The top end is dull and band-limited. The upper bands die first, so as the tail decays it darkens toward a low-mid rumble around 200 to 1000 Hz.
 
-Hits: there's one main transient at the start. The sustained section has a grainy, crackling texture from the clipping and the reverb-like tail, but there are no separate second shots or mechanical clicks.
+Hits: there is one main crack at the start. Small crackly sub-impulses follow inside the saturated body, like distortion grit, but there is no second distinct shot and no mechanical click.
 
-Character: entirely noisy, with no tonal component and no pitch movement. The decay just gets darker over time, like an outdoor echo or room boom fading out.
+Character: it is entirely noisy, an overdriven broadband blast with no tonal pitch. It has no pitch sweep, only the gradual low-pass darkening of a reverberant room tail.

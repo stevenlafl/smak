@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "player-pl_metal1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.582,
+   "peak": 0,
+   "rms": -15.5,
+   "crest": 15.5,
+   "dc": -0.0104,
+   "clipped": 1,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.025,
+   "peakAt": 0.045,
+   "t20": 0.424,
+   "t40": 0.539,
+   "centroid": 360,
+   "rolloff": 624,
+   "flatness": 0.057,
+   "bands": {
+    "<150": 34.8,
+    "150-600": 43.8,
+    "600-2k": 19.6,
+    "2k-5k": 1.8,
+    ">5k": 0.1
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.601,
+   "peak": -0.6,
+   "rms": -15.2,
+   "crest": 14.6,
+   "dc": -0.0005,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.01,
+   "peakAt": 0.03,
+   "t20": 0.324,
+   "t40": 0.549,
+   "centroid": 413,
+   "rolloff": 603,
+   "flatness": 0.026,
+   "bands": {
+    "<150": 35.8,
+    "150-600": 49,
+    "600-2k": 13.4,
+    "2k-5k": 1.8,
+    ">5k": 0
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "step metal",
+   "t20Range": [
+    0.315,
+    0.525
+   ],
+   "t20": 0.324,
+   "inRange": true
+  },
+  "lengthOff": 0.033,
+  "centroidOff": 0.147,
+  "bandsOffMost": 6.2,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. The onset matches the original: the same sharp broadband burst at the start, which reads as a metal strike. The reproduction then holds a steady horizontal tone through the whole 0.6 s (a bright line near the middle of the spectrogram), where the original's tail is a noisy decay. The event reads as a strike with a whine underneath, so it is there but clearly off."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length 0.601 s against 0.582 s is 3% off, within 25%. t20 is 0.324 s, inside the step metal class range of 0.315 to 0.525 s. Attack is 0.01 s against 0.025 s, which the class range does not test, and the t20 check passes."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid 413 Hz against 360 Hz is 14.7% off, within 20%. Band shares differ by at most 6.2 points (600 Hz to 2 kHz: 13.4 against 19.6), within 10. The other bands differ by 5.2 or less, or 0.1 at the top."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Cannot listen; judged from the picture and features. Onsets are 0 in both, so the hits match. The character does not: the reproduction is more tonal (flatness 0.026 against 0.057), and its spectrogram shows a constant tone with no pitch movement, where the original is broadband noise that decays. Clearly off, though this item is not a must."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Mono, 8-bit, 11025 Hz, the same as the original's format. No clipping (the original clips and the reproduction does not), peak at -0.6 dBFS, DC -0.0005, and the name matches. The original has no loop cue to match."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

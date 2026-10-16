@@ -1,44 +1,58 @@
-The sound is built and the build says OK with no warnings: all 22 features are in the class range, and the picture comparison is within 2.5 points on the bands.
+The sound is built and the build says OK with no warnings. It's at `work:sound/weapons/explode3.wav`, ready to go in `<mod>/sound/weapons/`. I can't listen to it, so the comparison below is measured only, and the listening test is yours.
 
-**Output:** `work:sound/weapons/explode3.wav` (22050 Hz, mono, 16-bit, 1.33 s), which will take the place of the game's own `weapons/explode3.wav`.
+**Measured against the original (from the build report and your numbers):**
 
-**Measured against the original** (the picture and the class ranges the kit uses):
-
-| Measure | Original (picture) | Made | Result |
-|---|---|---|---|
-| Length | 1.30 s | 1.33 s | 2% long |
-| Time to fall 20 dB (T20) | within 0.67 to 1.11 s | 1.08 s | in range |
-| Centroid (brightness) | about 605 Hz | 616 Hz | 2% off |
-| Power below 150 Hz | about 30% | 36% | +6 points |
-| Power 150 to 600 Hz | about 35% | 36% | +1 point |
-| Power 600 Hz to 2 kHz | about 22% | 20% | -2 points |
-| Power 2 to 5 kHz | about 9% | 7% | -2 points |
-| Crest (peak over RMS) | about 8 dB | 8 dB | matched |
-| Flatness | class range 0.05 to 0.15 | 0.054 | in range |
-| Peak / RMS level | class range | -0.5 dBFS / -8.5 dB | in range |
-
-**Choices I made that you can redirect:**
-- **Bit depth: 16-bit, not 8-bit.** The original is 8-bit, but the kit warns that 8-bit adds a hiss under quiet tails. I chose 16-bit so the tail stays clean. Switching is one field (`bits: 8`) if you want the original's depth.
-- **Layers only, no generated recording.** The kit suggests a generated take for a real event like an explosion. I built it from layers because the layer version already passes every check, and I did not generate any takes, so no third-party licence is involved. If the judge says it sounds synthetic, a generated take is the next thing to try.
-- **Spectrum and crest were tuned to the picture, not to the file itself.** The picture is the only reference I had, so the numbers are read off it, not measured from the original WAV. I could not listen to the result, so nothing here is a listening judgement.
-
-**Final spec** (the last build, which is the one that stands; I have no file-write tool here, so it lives in this reply):
-
-```json
-{"spec":"smak.sound/1","name":"weapons/explode3.wav","class":"explosion","seed":3,"rate":22050,"bits":16,"length":1.3,
- "layers":[
-  {"id":"thump","kind":"noise","color":"pink","at":0,"filter":[{"type":"lowpass","f":300,"q":0.7}],"env":{"attack":0.002,"decay":0.25},"gain":0},
-  {"id":"blast","kind":"noise","color":"white","iterations":32,"filter":[{"type":"lowpass","f":3500,"q":0.7}],
-   "env":{"points":[[0,-3],[0.03,0],[0.3,-1],[0.6,-5],[0.9,-12],[1.15,-24],[1.3,-45]]},
-   "shape":{"keys":[{"at":0,"curve":[[30,0],[80,-1],[150,-5],[300,-7],[800,-14],[2000,-17],[3000,-21],[8000,-33]]},
-                    {"at":0.5,"curve":[[30,0],[80,-2],[150,-6],[300,-9],[800,-16],[2000,-21],[3000,-26],[8000,-38]]},
-                    {"at":1.0,"curve":[[30,-3],[80,-5],[150,-9],[300,-12],[800,-19],[2000,-25],[3000,-31],[8000,-43]]}]},"gain":-1},
-  {"id":"hiss","kind":"noise","color":"white","at":0,"filter":[{"type":"highpass","f":1000},{"type":"lowpass","f":6000}],"env":{"attack":0.002,"decay":0.18},"gain":-8},
-  {"id":"debris","kind":"particles","band":[300,3000],"grain":0.006,"count":60,"at":0.05,"length":0.9,"env":{"attack":0.001,"decay":0.4},"gain":-14},
-  {"id":"grit","kind":"particles","band":[800,3000],"grain":0.004,"count":200,"at":0.02,"length":0.5,"env":{"attack":0.001,"decay":0.3},"gain":-14}],
- "finish":{"room":{"decay":0.2,"wet":0.1},"saturate":8,"limit":{"crest":8.5,"release":0.002},"peak":-0.5},
- "bands":{"<150":30,"150-600":35,"600-2k":22,"2k-5k":9,">5k":4},
- "picture":{"file":"pictures/sound.png","length":1.3,"rate":22050}}
+```
+measure         original        made
+length          1.30 s          1.37 s   (+5%, the room tail)
+centroid        605 Hz          653 Hz   (+8%)
+power <150 Hz   37%             31%      (-6)
+power 150-600   36%             36%      (0)
+power 600-2k    21%             26%      (+5)
+power 2k-5k     4%              6.5%     (+2.5)
+power >5k       2%              0.8%     (-1.2)
+T20 (s)         0.67 to 1.11    1.11     (inside the game's range for the class)
+crest (dB)      about 8.1       8.7      (within 3 dB)
+flatness        in class range  in class range
+class check     -               22 of 22 features in the game's explosion range
 ```
 
-**What I learned on the way:** the limiter lifts quiet tails, which is why the first builds ran long and held their tail. Keeping the blast's energy up for longer, rather than limiting harder, is what gave the right level and T20.
+**Differences to know about:**
+- The original is 8-bit. I kept 16-bit, which is the default. A copy isn't held to the original's bit depth, and 8-bit would add hiss under the tail.
+- The length is 1.37 s, not 1.30 s. The room tail adds about 0.07 s. The build's 10% length tolerance is met.
+- No generated recording is in the mix. The sound is built from layers alone: a noise blast, a 60 to 40 Hz sine thump, a short high-passed crack, a low noise body, and some debris particles.
+
+**The spec, to reproduce it** (save as a `.json` and build it):
+
+```json
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/explode3.wav",
+  "class": "explosion",
+  "seed": 3,
+  "length": 1.3,
+  "layers": [
+    { "id": "blast", "kind": "noise", "iterations": 32,
+      "env": { "points": [[0, -40], [0.012, 0], [0.1, -6], [0.2, -18], [0.35, -30], [0.6, -45], [1.3, -70]] },
+      "shape": { "keys": [
+        { "at": 0, "curve": [[60, -2], [150, -1], [300, -2], [600, -3], [1200, -10], [2500, -14], [5000, -20], [11000, -36]] },
+        { "at": 0.4, "curve": [[60, -6], [150, -5], [300, -6], [600, -7], [1200, -14], [2500, -20], [5000, -28], [11000, -46]] } ] } },
+    { "id": "thump", "kind": "tone", "f": 60, "wave": "sine", "sweep": { "to": 40, "time": 0.4 },
+      "env": { "attack": 0.003, "hold": 0.05, "decay": 0.2 }, "gain": -3 },
+    { "id": "body", "kind": "noise", "filter": [{ "type": "lowpass", "f": 200 }, { "type": "highpass", "f": 40 }],
+      "env": { "attack": 0.003, "hold": 0.02, "decay": 0.12 }, "gain": -1 },
+    { "id": "crack", "kind": "noise", "filter": [{ "type": "highpass", "f": 1500 }],
+      "env": { "decay": 0.02 }, "gain": -12 },
+    { "id": "debris", "kind": "particles", "rate": 14, "band": [300, 1200], "grain": 0.01,
+      "env": { "points": [[0, -30], [0.12, -16], [0.3, -30], [0.6, -45], [1.3, -70]] }, "gain": -12 }
+  ],
+  "finish": { "room": { "decay": 0.2, "wet": 0.05 }, "saturate": 1.5, "limit": { "crest": 8, "release": 0.002 }, "peak": -0.5 },
+  "bands": { "<150": 37, "150-600": 36, "600-2k": 21, "2k-5k": 4, ">5k": 2 },
+  "picture": "pictures/sound.png"
+}
+```
+
+**Caveats:**
+- The bands and the picture numbers came from your description and the picture in the work folder. I couldn't open the original's audio directly from here.
+- The 60 Hz sine is what gives the sub-150 Hz power. Without it, the flatness and the band shares went the wrong way, which is why it stays.
+- The report can't say how it sounds or how it plays in the game (volume, pitch, the map's room). Please listen to it in the game next to the original.

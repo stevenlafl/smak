@@ -1,0 +1,116 @@
+{
+ "kind": "sounds",
+ "subject": "debris-bustmetal1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "length": 0.873,
+   "peak": -0.1,
+   "rms": -12.8,
+   "crest": 12.7,
+   "dc": -0.0076,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.105,
+   "attack": 0.025,
+   "peakAt": 0.075,
+   "t20": 0.439,
+   "t40": 0.629,
+   "centroid": 1968,
+   "rolloff": 3241,
+   "flatness": 0.569,
+   "bands": {
+    "<150": 0.2,
+    "150-600": 8.8,
+    "600-2k": 47,
+    "2k-5k": 41.3,
+    ">5k": 2.7
+   },
+   "onsets": 0
+  },
+  "reproduction": {
+   "length": 0.869,
+   "peak": -0.6,
+   "rms": -11.2,
+   "crest": 10.6,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0,
+   "peakAt": 0.025,
+   "t20": 0.514,
+   "t40": 0.733,
+   "centroid": 1853,
+   "rolloff": 3391,
+   "flatness": 0.266,
+   "bands": {
+    "<150": 0,
+    "150-600": 4.4,
+    "600-2k": 52.8,
+    "2k-5k": 42.4,
+    ">5k": 0.4
+   },
+   "onsets": 0
+  },
+  "envelope": {
+   "class": "none: the original's own decay",
+   "t20Range": [
+    0.329,
+    0.549
+   ],
+   "t20": 0.514,
+   "inRange": true
+  },
+  "lengthOff": 0.005,
+  "centroidOff": 0.058,
+  "bandsOffMost": 5.8,
+  "engineFaults": [],
+  "sameName": true,
+  "format": {
+   "rate": 11025,
+   "bits": 8,
+   "channels": 1
+  }
+ },
+ "caps": {
+  "S2": 2,
+  "S3": 2,
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture and features only; I cannot listen. Both waveforms show a dense broadband burst at the start that decays over about 0.9 s, and both spectrograms are broadband with energy mostly in the 600 Hz to 5 kHz range, which fits the same kind of event: a metal debris impact. The reproduction's burst starts at once rather than with the original's short ramp, but that does not change the event."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Length is 0.869 s against 0.873 s, well within 25%. T20 is 0.514 s against the original's 0.439 s, inside the range of 0.329 to 0.549 s, which is the original's own decay within a quarter or 0.05 s (the class is 'none'). The attack differs by 0.025 s (original 0.025, reproduction 0), a small gap that the rubric does not measure against the range."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Centroid is 1853 against 1968, a 5.8% difference (limit 20%). Band shares differ by at most 5.8 points (600 Hz to 2 kHz: 52.8 against 47), inside the 10-point limit. The other bands differ by 4.4 or less."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture and features only; I cannot listen. Onsets match (0 in both). Spectral flatness does not: 0.266 against the original's 0.569, so the reproduction is clearly more tonal and the original clearly more noise-like. The reproduction's spectrogram shows a bright horizontal line near the low end in the first 0.1 s that the original lacks, which is a tonal element the original does not have. The rubric's must-have items are not affected, but this character is clearly off."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Format is mono, 11025 Hz, 8-bit, the same format the original uses. Peak is -0.6 dBFS with no clipping, DC is 0, and the name matches. The original has no loop cue to preserve."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

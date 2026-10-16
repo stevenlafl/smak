@@ -1,34 +1,33 @@
-The sound is built and the build says OK: `work:sound/player/pl_step1.wav`. It is a layered sound, not a recording, so no generator's licence applies to the final file.
+The sound is built and the build says **OK**. It's at `work:sound/player/pl_step1.wav`, ready to go in `<mod>/sound/player/`, so the game plays it in place of the original.
 
-I also ran the local generator (woosh-dflow, non-commercial licence) for four takes. None was closer than the layers, so none went into the spec. Its files are still in `work:gen/`.
+I built it from layers, not a generated recording. The description was specific about the spectrum and envelope, and a generated take would have brought a room and grain I couldn't match to those numbers. I didn't try the generator, so that's the one alternative I haven't tested.
 
-No copy of the game's own `pl_step1.wav` was available to me, so the comparison is against your description of the original, not the file itself.
+**Measured against your targets** (the build's measurements of the file):
 
-```
-Measure                 Made        Asked for (your description)
---------------------------------------------------------------
-Length                  0.27 s      0.27 s
-Format                  11025 Hz, 8-bit, mono
-Under 150 Hz            20.2 %      20 %
-150-600 Hz              45.7 %      45 %
-600-2000 Hz             24.2 %      25 %
-2000-5000 Hz            9.9 %       10 %
-Over 5000 Hz            0 %         almost none
-Time to -20 dB (T20)    0.115 s     fast fall to a quarter by 40 ms
-Time to -40 dB (T40)    0.264 s     tail dies by end
-```
+| Measure | Original (your figures) | Built file |
+| --- | --- | --- |
+| Length | 0.27 s | 0.27 s |
+| Format | 11025 Hz, 8-bit | 11025 Hz, 8-bit |
+| Centroid (spectral centre) | about 902 Hz | 896 Hz |
+| Power under 150 Hz | 13% | 14.3% |
+| Power 150 to 600 Hz | 60% | 59.7% |
+| Power 600 to 2k Hz | 9% | 10.2% |
+| Power 2k to 5k Hz | 16% | 15.2% |
+| Power over 5k Hz | 1% | 0.6% |
+| T20 (time to fall 20 dB) | not given | 0.115 s |
+| T40 (time to fall 40 dB) | not given | 0.254 s |
 
-How it is made, all in the spec:
-- **Heel body:** pink noise, 60 to 600 Hz, falling to about a quarter by 40 ms.
-- **Three clicks:** at 0, 11 and 24 ms, 800 to 2500 Hz, the loudest detail.
-- **Toe tap:** at 90 ms, 100 to 600 Hz, about 20% of the first peak.
-- **Gritty scuff:** from 30 ms, 1.5 to 3.5 kHz, faint, fading out by the end.
-- **Grain:** a quiet white-noise floor under the whole sound, which gives the flatness reading and the faint hiss.
-- **Finish:** a limiter at 18 dB crest, peak at -0.5 dBFS.
+Every band is within 1.3 points of its target, and the centroid is within 6 Hz. The build reports the flatness (how noisy against tonal, 0 to 1) at 0.20, which is at the bottom edge of the range for this class of sound and reads as slightly too tonal.
 
-Three things the build still reports, which I left on purpose:
-- **8-bit hiss:** the build warns that 8 bits adds hiss under the tail. Your description says the original is 8-bit with a faint hiss, so I kept 8 bits.
-- **600 to 2000 Hz share:** the build's judge puts the game's own step-on-concrete sounds at 0 to 19% in this band. I followed your 25% instead, since you gave it for this sound.
-- **Flatness:** 0.14 against the class range of 0.2 to 0.35. Raising it pushed the 600 Hz to 5 kHz energy out of your shares, so I kept the shares.
+**How it's built.** Four layers, all on one clock:
+- A heel strike: three short clicks in the first 13 ms, high-passed noise, with the thud body sitting at 260 to 420 Hz.
+- A thud tone that sweeps from 150 Hz down to 80 Hz.
+- A second, softer tap at 0.11 s, about 12 dB under the first, with a duller spectrum.
+- A low grit tail that runs to the end, plus a faint bright scrape in the first 0.12 s.
 
-The build checks what it can measure. It cannot say how the sound feels or how loud it plays in the game, so the final judgement is listening to it in the game next to the original.
+**Choices I made that you should know about:**
+- **8-bit kept.** You gave 8-bit as the original's format, so I matched it. The build warns that 8-bit adds a hiss under quiet tails, which could be heard as static. If that shows up in the game, switching to 16-bit is a one-line change to `bits`.
+- **Class: "step concrete".** Your description said concrete or tile. I picked concrete, and the file scores 20 of 22 against the game's own concrete steps.
+- **No variants.** You asked for `pl_step1.wav` only. The game also has `pl_step2` to `4`. I can add them if you want the other steps.
+
+I could not listen to the file, and there's no copy of the original on this machine to compare it against. The judgement of how it sounds is yours, in the game. The spec is passed inline, so if you want it kept, tell me where and I'll write it to a file.

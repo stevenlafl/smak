@@ -1,13 +1,7 @@
-This is a single footstep: a shoe landing on a hard floor such as concrete or metal grating. It plays once and does not loop. It lasts 0.27 seconds, in mono at 11025 Hz with 8-bit samples, so the top usable frequency is about 5.5 kHz.
+A single footstep by the player character on a hard floor, like a boot heel and sole landing on concrete or tile. It lasts 0.27 seconds and plays once, with no loop. It sounds like an old low-fidelity sample: 11025 Hz, 8-bit.
 
-It starts instantly with a sharp heel strike that is the loudest part of the sound. That strike is a cluster of two or three fast clicks spread over about the first 30 milliseconds. The amplitude falls to around a quarter within 40 ms. At about 90 ms comes a second, much softer tap, roughly 20% of the first peak, as the toe or the rest of the sole comes down. After that, a faint gritty scuff of noise trails off almost to nothing by the end, with no ringing.
+The onset is instant. A sharp, loud heel strike made of two or three quick clicks in the first 30 ms reaches peak level right away. It then decays fast into a faint scuffing tail. At about 0.11 s comes a second, much softer tap, roughly a quarter of the first hit's level, which is the toe or sole settling. After that only a low, steady grit and noise floor remains to the end, nearly silent but not fully cut off.
 
-It is noisy, not tonal. There is no clear pitch and no pitch movement, only a dull, slightly woody thud colour. The energy is weighted toward the low-mids, and the brightest band is roughly 150 to 600 Hz in both impacts. Approximate share of energy:
+The energy is mostly in the low mids. Roughly 13% is under 150 Hz, 60% is between 150 and 600 Hz, 9% is between 600 and 2000 Hz, 16% is between 2000 and 5000 Hz, and about 1% is over 5000 Hz. The spectral center sits near 900 Hz. The first hit and the second tap both brighten the whole band for a moment. The thud body is around 200 to 500 Hz, with a crisp click of grit around 2 to 4 kHz.
 
-- Under 150 Hz: 20% (soft body thump)
-- 150 to 600 Hz: 45% (main thud)
-- 600 to 2000 Hz: 25% (the click and scrape detail)
-- 2000 to 5000 Hz: 10% (gritty edge, strongest during the two hits)
-- Over 5000 Hz: almost none
-
-The highs fade faster than the lows, so the tail is dull, low and mid noise. The coarse 8-bit grain adds a faint hiss under the tail.
+It is noisy, not tonal, with no clear pitch and no pitch movement. It is a dry, short, thumpy click with a slight gritty scrape, and the second tap sounds a little duller than the first.

@@ -2,147 +2,91 @@
   "spec": "smak.sound/1",
   "name": "weapons/sbarrel1.wav",
   "class": "gunshot",
-  "rate": 22050,
-  "seed": 7,
+  "seed": 3,
   "length": 1.04,
-  "picture": "pictures/sound.png",
+  "rate": 22050,
+  "bits": 16,
   "layers": [
     {
-      "id": "sub",
-      "kind": "tone",
-      "f": 70,
-      "wave": "sine",
-      "sweep": {
-        "to": 40,
-        "time": 0.35
-      },
+      "id": "body",
+      "kind": "sample",
+      "file": "work:gen/sbarrel_s1.wav",
+      "from": "onset",
+      "length": 1.04,
       "env": {
-        "attack": 0.002,
-        "decay": 0.25
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.3,
+            -6
+          ],
+          [
+            0.7,
+            -16
+          ],
+          [
+            1.04,
+            -30
+          ]
+        ]
       },
-      "gain": 2
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 150
+        },
+        {
+          "type": "lowpass",
+          "f": 4500
+        },
+        {
+          "type": "peak",
+          "f": 300,
+          "q": 0.7,
+          "gain": 6
+        },
+        {
+          "type": "peak",
+          "f": 1400,
+          "q": 0.8,
+          "gain": 3
+        },
+        {
+          "type": "peak",
+          "f": 3000,
+          "q": 1,
+          "gain": 6
+        }
+      ]
     },
     {
-      "id": "boom",
+      "id": "thump",
       "kind": "tone",
       "f": 110,
       "wave": "sine",
       "sweep": {
         "to": 50,
-        "time": 0.3
+        "time": 0.2
       },
-      "env": {
-        "attack": 0.002,
-        "decay": 0.3
-      },
-      "gain": -1
-    },
-    {
-      "id": "body",
-      "kind": "noise",
-      "color": "pink",
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 850,
-          "q": 0.7
-        },
-        {
-          "type": "highpass",
-          "f": 120,
-          "q": 0.7
-        }
-      ],
-      "env": {
-        "points": [
-          [
-            0,
-            -3
-          ],
-          [
-            0.008,
-            0
-          ],
-          [
-            0.1,
-            -8
-          ],
-          [
-            0.2,
-            -20
-          ],
-          [
-            0.25,
-            -40
-          ],
-          [
-            0.28,
-            -90
-          ]
-        ]
-      },
-      "gain": 2
-    },
-    {
-      "id": "blast",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "bandpass",
-          "f": 1000,
-          "q": 0.9
-        }
-      ],
       "env": {
         "attack": 0.001,
-        "decay": 0.12
+        "hold": 0.02,
+        "decay": 0.3
       },
-      "gain": -7
-    },
-    {
-      "id": "tail",
-      "kind": "particles",
-      "rate": 700,
-      "band": [
-        150,
-        600
-      ],
-      "grain": 0.004,
-      "env": {
-        "points": [
-          [
-            0,
-            -40
-          ],
-          [
-            0.05,
-            -12
-          ],
-          [
-            0.3,
-            -16
-          ],
-          [
-            0.7,
-            -24
-          ],
-          [
-            0.95,
-            -40
-          ],
-          [
-            1,
-            -90
-          ]
-        ]
-      },
-      "gain": -4
+      "gain": -24,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 35
+        }
+      ]
     },
     {
       "id": "crack",
       "kind": "noise",
-      "color": "white",
       "filter": [
         {
           "type": "highpass",
@@ -150,19 +94,27 @@
         }
       ],
       "env": {
-        "attack": 0.0005,
-        "decay": 0.008
+        "attack": 0.001,
+        "decay": 0.01
       },
-      "gain": -12,
+      "gain": -6,
       "post": true
     }
   ],
   "finish": {
-    "saturate": 2.5,
+    "saturate": 2,
     "limit": {
-      "crest": 10,
+      "crest": 9,
       "release": 0.002
     },
     "peak": -0.5
-  }
+  },
+  "bands": {
+    "<150": 36,
+    "150-600": 32,
+    "600-2k": 26,
+    "2k-5k": 4,
+    ">5k": 1
+  },
+  "picture": "pictures/sound.png"
 }

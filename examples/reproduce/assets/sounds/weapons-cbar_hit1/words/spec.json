@@ -2,252 +2,133 @@
   "spec": "smak.sound/1",
   "name": "weapons/cbar_hit1.wav",
   "class": "metal hit",
-  "seed": 7,
   "rate": 11025,
   "bits": 8,
   "length": 0.69,
+  "seed": 3,
   "layers": [
     {
-      "id": "contact",
+      "id": "click",
       "kind": "noise",
-      "color": "white",
+      "at": 0,
+      "gain": -2,
       "filter": [
         {
           "type": "highpass",
           "f": 1500
-        },
-        {
-          "type": "lowpass",
-          "f": 5000
         }
       ],
       "env": {
-        "decay": 0.01
-      },
-      "gain": -9
-    },
-    {
-      "id": "crack",
-      "kind": "noise",
-      "color": "white",
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 2000
-        }
-      ],
-      "env": {
-        "decay": 0.003
-      },
-      "post": true,
-      "gain": -3
+        "attack": 0.0005,
+        "decay": 0.008
+      }
     },
     {
       "id": "body",
       "kind": "noise",
-      "shape": [
-        [
-          30,
-          2
-        ],
-        [
-          150,
-          3
-        ],
-        [
-          300,
-          -2
-        ],
-        [
-          600,
-          -3
-        ],
-        [
-          1000,
-          -14
-        ],
-        [
-          2000,
-          -18
-        ],
-        [
-          3000,
-          -11
-        ],
-        [
-          5000,
-          -16
-        ],
-        [
-          5512,
-          -40
-        ]
+      "color": "white",
+      "gain": -1,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 550
+        },
+        {
+          "type": "lowpass",
+          "f": 1700,
+          "q": 0.7
+        }
       ],
       "env": {
         "points": [
           [
             0,
+            -2
+          ],
+          [
+            0.01,
             0
           ],
           [
-            0.28,
-            -0.5
-          ],
-          [
-            0.35,
-            0
-          ],
-          [
-            0.42,
+            0.3,
             -1
           ],
           [
-            0.46,
-            -9
+            0.4,
+            -9.5
           ],
           [
-            0.55,
-            -15
-          ],
-          [
-            0.62,
-            -24
-          ],
-          [
-            0.69,
-            -40
+            0.43,
+            -30
           ]
         ]
-      },
-      "gain": -1
+      }
     },
     {
       "id": "rattle",
       "kind": "particles",
-      "every": 0.035,
-      "jitter": 0.6,
+      "at": 0.25,
+      "length": 0.15,
+      "rate": 300,
       "band": [
-        1500,
-        4000
+        1200,
+        3000
       ],
-      "grain": 0.004,
+      "grain": 0.002,
+      "gain": -2,
+      "drive": 3,
       "env": {
         "points": [
           [
             0,
-            -6
-          ],
-          [
-            0.3,
-            -10
-          ],
-          [
-            0.4,
             -30
-          ]
-        ]
-      },
-      "gain": -12
-    },
-    {
-      "id": "hiss",
-      "kind": "particles",
-      "rate": 2500,
-      "band": [
-        1500,
-        5000
-      ],
-      "grain": 0.0004,
-      "env": {
-        "attack": 0,
-        "hold": 0.69,
-        "decay": 0.1
-      },
-      "gain": -36
-    },
-    {
-      "id": "ring",
-      "kind": "tone",
-      "f": 1100,
-      "wave": "sine",
-      "env": {
-        "points": [
+          ],
           [
-            0,
+            0.03,
             -6
           ],
           [
-            0.4,
-            -8
-          ],
-          [
-            0.69,
-            -12
-          ]
-        ]
-      },
-      "gain": -12
-    },
-    {
-      "id": "low1",
-      "kind": "tone",
-      "f": 320,
-      "wave": "sine",
-      "env": {
-        "points": [
-          [
-            0,
+            0.15,
             -14
           ],
           [
-            0.3,
-            -18
-          ],
-          [
-            0.5,
+            0.2,
             -30
           ]
         ]
-      },
-      "gain": -24
+      }
     },
     {
-      "id": "low2",
-      "kind": "tone",
-      "f": 430,
-      "wave": "sine",
-      "env": {
-        "points": [
-          [
-            0,
-            -18
-          ],
-          [
-            0.3,
-            -22
-          ],
-          [
-            0.5,
-            -34
-          ]
-        ]
-      },
-      "gain": -28
+      "id": "ring",
+      "kind": "modes",
+      "gain": -15,
+      "modes": [
+        {
+          "f": 1000,
+          "gain": 0,
+          "decay": 0.9
+        },
+        {
+          "f": 2300,
+          "gain": -18,
+          "decay": 0.1
+        }
+      ]
     }
   ],
   "finish": {
     "saturate": 1.5,
     "limit": {
-      "crest": 8,
+      "crest": 9,
       "release": 0.002
     },
     "peak": -0.5
   },
   "bands": {
-    "<150": 20,
-    "150-600": 35,
-    "600-2k": 30,
-    "2k-5k": 13,
-    ">5k": 2
+    "<150": 3,
+    "150-600": 8,
+    "600-2k": 69,
+    "2k-5k": 19,
+    ">5k": 1
   }
 }

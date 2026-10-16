@@ -1,0 +1,252 @@
+{
+  "spec": "smak.sound/1",
+  "name": "doors/doormove1.wav",
+  "rate": 11025,
+  "bits": 8,
+  "length": 5.04,
+  "seed": 3,
+  "layers": [
+    {
+      "id": "slide",
+      "kind": "sample",
+      "file": "work:gen/doormove1_s1.wav",
+      "from": 0,
+      "length": 5.04,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 40
+        },
+        {
+          "type": "peak",
+          "f": 100,
+          "q": 0.7,
+          "gain": -8
+        },
+        {
+          "type": "peak",
+          "f": 350,
+          "q": 0.7,
+          "gain": -2
+        },
+        {
+          "type": "peak",
+          "f": 1000,
+          "q": 0.8,
+          "gain": 4
+        }
+      ],
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.1,
+            0
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            4.5,
+            3
+          ],
+          [
+            4.64,
+            0
+          ],
+          [
+            5.04,
+            -60
+          ]
+        ]
+      }
+    },
+    {
+      "id": "grit",
+      "kind": "particles",
+      "rate": 900,
+      "band": [
+        600,
+        3500
+      ],
+      "grain": 0.002,
+      "at": 0,
+      "length": 5.04,
+      "gain": -16,
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.1,
+            0
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            4.5,
+            3
+          ],
+          [
+            4.64,
+            0
+          ],
+          [
+            5.04,
+            -60
+          ]
+        ]
+      }
+    },
+    {
+      "id": "judder",
+      "kind": "particles",
+      "every": 0.04,
+      "jitter": 0.3,
+      "band": [
+        80,
+        400
+      ],
+      "grain": 0.008,
+      "at": 4,
+      "length": 0.5,
+      "gain": -6,
+      "env": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.2,
+            0
+          ],
+          [
+            0.5,
+            -40
+          ]
+        ]
+      }
+    },
+    {
+      "id": "thump",
+      "kind": "tone",
+      "f": 80,
+      "wave": "sine",
+      "sweep": {
+        "to": 50,
+        "time": 0.4
+      },
+      "at": 4,
+      "length": 0.6,
+      "gain": -10,
+      "env": {
+        "points": [
+          [
+            0,
+            -60
+          ],
+          [
+            0.05,
+            0
+          ],
+          [
+            0.6,
+            -60
+          ]
+        ]
+      }
+    },
+    {
+      "id": "squeal1",
+      "kind": "tone",
+      "f": 330,
+      "wave": "sine",
+      "sweep": {
+        "to": 480,
+        "time": 0.4
+      },
+      "at": 0.2,
+      "length": 0.5,
+      "gain": -22,
+      "env": {
+        "shape": "bell",
+        "decay": 0.2
+      }
+    },
+    {
+      "id": "squeal2",
+      "kind": "tone",
+      "f": 330,
+      "wave": "sine",
+      "sweep": {
+        "to": 480,
+        "time": 0.4
+      },
+      "at": 1.4,
+      "length": 0.5,
+      "gain": -22,
+      "env": {
+        "shape": "bell",
+        "decay": 0.2
+      }
+    },
+    {
+      "id": "squeal3",
+      "kind": "tone",
+      "f": 330,
+      "wave": "sine",
+      "sweep": {
+        "to": 480,
+        "time": 0.4
+      },
+      "at": 2.6,
+      "length": 0.5,
+      "gain": -22,
+      "env": {
+        "shape": "bell",
+        "decay": 0.2
+      }
+    },
+    {
+      "id": "squeal4",
+      "kind": "tone",
+      "f": 330,
+      "wave": "sine",
+      "sweep": {
+        "to": 480,
+        "time": 0.4
+      },
+      "at": 3.8,
+      "length": 0.5,
+      "gain": -22,
+      "env": {
+        "shape": "bell",
+        "decay": 0.2
+      }
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "limit": {
+      "crest": 15,
+      "release": 0.002
+    },
+    "peak": -0.5
+  },
+  "bands": {
+    "<150": 20,
+    "150-600": 35,
+    "600-2k": 30,
+    "2k-5k": 13,
+    ">5k": 2
+  }
+}

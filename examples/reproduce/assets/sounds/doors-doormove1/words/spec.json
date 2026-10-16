@@ -4,249 +4,192 @@
   "rate": 11025,
   "bits": 8,
   "length": 5.04,
-  "seed": 3,
+  "seed": 7,
   "layers": [
     {
-      "id": "slide",
+      "id": "grind",
       "kind": "sample",
-      "file": "work:gen/doormove1_s1.wav",
-      "from": 0,
+      "file": "work:gen/doors_doormove1_s0.wav",
+      "from": "onset",
       "length": 5.04,
+      "env": {
+        "points": [
+          [
+            0,
+            -30
+          ],
+          [
+            0.1,
+            -6
+          ],
+          [
+            3.9,
+            -6
+          ],
+          [
+            4.1,
+            0
+          ],
+          [
+            4.5,
+            -3
+          ],
+          [
+            4.54,
+            -8
+          ],
+          [
+            5.04,
+            -30
+          ]
+        ]
+      },
       "filter": [
         {
-          "type": "highpass",
-          "f": 40
-        },
-        {
           "type": "peak",
-          "f": 100,
+          "f": 90,
           "q": 0.7,
-          "gain": -8
+          "gain": 6
         },
         {
           "type": "peak",
-          "f": 350,
-          "q": 0.7,
-          "gain": -2
-        },
-        {
-          "type": "peak",
-          "f": 1000,
+          "f": 280,
           "q": 0.8,
+          "gain": -7
+        },
+        {
+          "type": "peak",
+          "f": 480,
+          "q": 0.8,
+          "gain": -7
+        },
+        {
+          "type": "peak",
+          "f": 1200,
+          "q": 0.6,
+          "gain": 10
+        },
+        {
+          "type": "peak",
+          "f": 2200,
+          "q": 0.7,
           "gain": 4
+        },
+        {
+          "type": "lowpass",
+          "f": 4000,
+          "q": 0.7
         }
-      ],
-      "env": {
-        "points": [
-          [
-            0,
-            -60
-          ],
-          [
-            0.1,
-            0
-          ],
-          [
-            4,
-            0
-          ],
-          [
-            4.5,
-            3
-          ],
-          [
-            4.64,
-            0
-          ],
-          [
-            5.04,
-            -60
-          ]
-        ]
-      }
-    },
-    {
-      "id": "grit",
-      "kind": "particles",
-      "rate": 900,
-      "band": [
-        600,
-        3500
-      ],
-      "grain": 0.002,
-      "at": 0,
-      "length": 5.04,
-      "gain": -16,
-      "env": {
-        "points": [
-          [
-            0,
-            -60
-          ],
-          [
-            0.1,
-            0
-          ],
-          [
-            4,
-            0
-          ],
-          [
-            4.5,
-            3
-          ],
-          [
-            4.64,
-            0
-          ],
-          [
-            5.04,
-            -60
-          ]
-        ]
-      }
-    },
-    {
-      "id": "judder",
-      "kind": "particles",
-      "every": 0.04,
-      "jitter": 0.3,
-      "band": [
-        80,
-        400
-      ],
-      "grain": 0.008,
-      "at": 4,
-      "length": 0.5,
-      "gain": -6,
-      "env": {
-        "points": [
-          [
-            0,
-            0
-          ],
-          [
-            0.2,
-            0
-          ],
-          [
-            0.5,
-            -40
-          ]
-        ]
-      }
-    },
-    {
-      "id": "thump",
-      "kind": "tone",
-      "f": 80,
-      "wave": "sine",
-      "sweep": {
-        "to": 50,
-        "time": 0.4
-      },
-      "at": 4,
-      "length": 0.6,
-      "gain": -10,
-      "env": {
-        "points": [
-          [
-            0,
-            -60
-          ],
-          [
-            0.05,
-            0
-          ],
-          [
-            0.6,
-            -60
-          ]
-        ]
-      }
+      ]
     },
     {
       "id": "squeal1",
       "kind": "tone",
-      "f": 330,
-      "wave": "sine",
+      "wave": "triangle",
+      "f": 320,
       "sweep": {
-        "to": 480,
-        "time": 0.4
+        "to": 470,
+        "time": 0.8
       },
-      "at": 0.2,
-      "length": 0.5,
-      "gain": -22,
+      "at": 0.3,
+      "length": 0.8,
+      "gain": -26,
       "env": {
         "shape": "bell",
-        "decay": 0.2
+        "decay": 0.3
       }
     },
     {
       "id": "squeal2",
       "kind": "tone",
-      "f": 330,
-      "wave": "sine",
+      "wave": "triangle",
+      "f": 320,
       "sweep": {
-        "to": 480,
-        "time": 0.4
+        "to": 470,
+        "time": 0.8
       },
-      "at": 1.4,
-      "length": 0.5,
-      "gain": -22,
+      "at": 1.3,
+      "length": 0.8,
+      "gain": -26,
       "env": {
         "shape": "bell",
-        "decay": 0.2
+        "decay": 0.3
       }
     },
     {
       "id": "squeal3",
       "kind": "tone",
-      "f": 330,
-      "wave": "sine",
+      "wave": "triangle",
+      "f": 320,
       "sweep": {
-        "to": 480,
-        "time": 0.4
+        "to": 470,
+        "time": 0.8
       },
-      "at": 2.6,
-      "length": 0.5,
-      "gain": -22,
+      "at": 2.4,
+      "length": 0.8,
+      "gain": -26,
       "env": {
         "shape": "bell",
-        "decay": 0.2
+        "decay": 0.3
       }
     },
     {
       "id": "squeal4",
       "kind": "tone",
-      "f": 330,
-      "wave": "sine",
+      "wave": "triangle",
+      "f": 320,
       "sweep": {
-        "to": 480,
-        "time": 0.4
+        "to": 470,
+        "time": 0.8
       },
-      "at": 3.8,
-      "length": 0.5,
-      "gain": -22,
+      "at": 3,
+      "length": 0.8,
+      "gain": -26,
       "env": {
         "shape": "bell",
-        "decay": 0.2
+        "decay": 0.3
       }
+    },
+    {
+      "id": "squeal5",
+      "kind": "tone",
+      "wave": "triangle",
+      "f": 320,
+      "sweep": {
+        "to": 470,
+        "time": 0.8
+      },
+      "at": 4,
+      "length": 0.8,
+      "gain": -26,
+      "env": {
+        "shape": "bell",
+        "decay": 0.3
+      }
+    },
+    {
+      "id": "pulse",
+      "kind": "particles",
+      "every": 0.09,
+      "jitter": 0.2,
+      "band": [
+        800,
+        2000
+      ],
+      "grain": 0.01,
+      "at": 4,
+      "length": 1.04,
+      "gain": -10
     }
   ],
   "finish": {
-    "saturate": 1.5,
-    "limit": {
-      "crest": 15,
-      "release": 0.002
-    },
     "peak": -0.5
   },
   "bands": {
-    "<150": 20,
-    "150-600": 35,
-    "600-2k": 30,
-    "2k-5k": 13,
-    ">5k": 2
+    "<150": 30,
+    "150-600": 38,
+    "600-2k": 28,
+    "2k-5k": 4,
+    ">5k": 0
   }
 }

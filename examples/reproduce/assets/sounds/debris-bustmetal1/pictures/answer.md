@@ -1,29 +1,47 @@
-The sound is built at `work:sound/debris/bustmetal1.wav`, and the build says OK. It is 11025 Hz, 8-bit, mono, 0.869 s, so it takes the game's name and plays in the original's place.
+The sound is built and the build says OK: `work:sound/debris/bustmetal1.wav`, 11025 Hz, 8-bit mono, 0.835 s. It is built from a generated take of a metal bust, so it is non-commercial under the generator's licence, which you said is accepted for this test.
 
-I could not listen to it, so how it sounds is untested. Put it in `<mod>/sound/debris/` and listen in the game.
+I could not open the original's picture: the render tool refused it and the Read tool can't see the work folder. The numbers below come from the build's own reading of `pictures/sound.png` (its centroid came out at your 1896 Hz) and your band figures.
 
-**How it matches the picture** (read off the picture, not the original file):
-
-| Measure | Original (from picture) | Built | Note |
+| Measure | Original (picture) | Ours | Off by |
 | --- | --- | --- | --- |
-| Length | 0.87 s | 0.869 s | 0% off |
-| Attack | strikes at once | 0 ms | matches |
-| T20 (time to -20 dB) | 0.24 to 0.7 s range | 0.514 s | in range |
-| Centroid (brightness) | about 1896 Hz | 1853 Hz | 2% off |
-| Band 600 to 2k Hz | about 47% | 52.8% | 5.5 points off |
-| Band 2k to 5k Hz | about 41% | 42.4% | in tolerance |
-| Crest (peak over RMS) | about 12.4 dB | 10.6 dB | within 3 dB |
-| Flatness (tonal vs noisy) | metal-hit range 0.16 to 0.28 | 0.266 | in range |
+| Length | 0.87 s | 0.835 s | 4% |
+| Centroid | 1896 Hz | 2002 Hz | 6% |
+| Under 150 Hz | 0% | 0% | 0 |
+| 150-600 Hz | 10% | 11.4% | 1.4 points |
+| 600-2k Hz | 47% | 45% | 2 points |
+| 2k-5k Hz | 41% | 43.2% | 2.2 points |
+| Over 5k Hz | 2% | 0.4% | 1.6 points |
+| Attack | at the start | 0 ms | none |
+| T20 (class range 0.24-0.7 s) | n/a | 0.39 s | in range |
 
-**Choices I made:**
-- **Base:** the `woosh-dflow` take seed 2, which starts on its hit. I started from the generated take because a layers-only sound would not have its grain.
-- **Spectrum:** I cut 150 to 600 Hz and 1 to 1.8 kHz and lifted 3.2 kHz, to match the picture's brightness.
-- **Crack and ring:** a short high-passed noise crack at 0 s and a faint bell-ratio ring give the strike and the tonal lines.
-- **Room and finish:** a short room, saturation, and a limiter at 11 dB crest.
-- **8-bit:** kept, to match the original. The build warns of hiss under the quiet tail; a 16-bit copy would be cleaner but is not what the original is.
+Choices I made:
+- **Source:** a take from `woosh-dflow` (seed 0), with its band shape fixed by filters and its envelope set so its loudest point falls at the start.
+- **Class:** `metal hit`. The spec has no debris class, and a metal bust is the nearest.
+- **Format:** 8-bit at 11025 Hz to match the original. The build warns that 8-bit adds a faint hiss under the quiet tail. If that is audible in the game, the fix is `bits: 16`.
+- **Flatness (0.52 against a class range of 0.16-0.28):** the build calls the sound too noisy. I did not add a ringing layer, because nothing in the picture numbers says the original rings.
 
-**Warnings still open:** the build also measures the sound against the game's own metal-hit class, and it still reads the centroid as too bright and the 2 to 5 kHz band as high for that class. I followed the picture, because the target is this sound, not the class average. If it sounds too bright in the game, lower the 3.2 kHz lift (13 dB) first.
+The spec, for reproducing it:
 
-**Licence:** the take is from `woosh-dflow` (CC-BY-NC 4.0 weights, non-commercial). You accepted that for this test. It would need a different take before any commercial use.
+```json
+{
+  "spec": "smak.sound/1",
+  "name": "debris/bustmetal1.wav",
+  "class": "metal hit",
+  "rate": 11025,
+  "bits": 8,
+  "seed": 0,
+  "length": 0.87,
+  "layers": [
+    { "id": "bust", "kind": "sample", "file": "work:gen/bustmetal1_s0.wav", "from": 0.04, "length": 0.87,
+      "env": { "points": [[0, 0], [0.01, 0], [0.04, -4], [0.2, -10], [0.5, -20], [0.87, -60]] },
+      "filter": [{ "type": "highpass", "f": 620, "q": 0.8 }, { "type": "peak", "f": 3500, "q": 0.8, "gain": -1 }, { "type": "lowpass", "f": 5000, "q": 0.7 }] },
+    { "id": "crack", "kind": "noise", "color": "white", "at": 0, "length": 0.012,
+      "env": { "attack": 0.0005, "decay": 0.004 }, "filter": [{ "type": "highpass", "f": 1200 }], "gain": 0, "post": true }
+  ],
+  "finish": { "limit": { "crest": 12, "release": 0.002 }, "peak": -0.5 },
+  "bands": { "<150": 0, "150-600": 10, "600-2k": 47, "2k-5k": 41, ">5k": 2 },
+  "picture": "pictures/sound.png"
+}
+```
 
-The spec is inline in this session and was not saved to a file. Say if you want it written into the project so it can be rebuilt.
+The file is in the work folder, not in the reproduce input folder. To make the game play it, copy it to `<mod>/sound/debris/bustmetal1.wav`. It sounds like the original only in the measured terms above; the report cannot say how it sounds, so it needs a listen in the game before you call it done.
