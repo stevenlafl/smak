@@ -320,6 +320,9 @@ export function validateMapSpec(spec) {
     if (!f || typeof f !== "object" || typeof f.dir !== "string")
       errors.push(`floorplan: { dir: "work:plans/" }: the folder of a height plan (legend.json, floor-0.png, room-0.png, floor-1.png...), as \`smak map-heights\` draws one`);
     if (f?.grow !== undefined && !(Number.isInteger(f.grow) && f.grow >= 0 && f.grow <= 4)) errors.push("floorplan.grow: cells the walked floor is grown by to its walls, 0 to 4 (1)");
+    for (const [i, area] of (Array.isArray(f?.areas) ? f.areas : f?.areas === undefined ? [] : [null]).entries())
+      if (!area || !Array.isArray(area.min) || !Array.isArray(area.max) || area.min.length < 2 || area.max.length < 2 || ![...area.min, ...area.max].every((v) => typeof v === "number") || !["floor", "wall", "ceiling", "light"].some((k) => area[k] !== undefined))
+        errors.push(`floorplan.areas[${i}]: { min: [x, y] or [x, y, z], max: the same, floor, wall, ceiling, light }: a box of the plan wearing its own (words of the theme, textures or a base) and lit as a room is ("auto", "none", { brightness, color })`);
     if (!spec.rooms) spec = { ...spec, rooms: [] };
     for (const [i, e] of (spec.entities ?? []).entries())
       if (e?.layer !== undefined && !(Number.isInteger(e.layer) && e.layer >= 0)) errors.push(`entities[${i}].layer: the layer of floor it stands on, as the height plan numbers them (0 the lowest)`);
@@ -1097,10 +1100,41 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     }
   }
   if (floorPlan) {
-    boxes.push(...floorPlan.boxes.map((b) => ({ min: [...b.min], max: [...b.max] })));
+    // its areas, each wearing its own floor, walls and ceiling: the plan's boxes cut at their edges, each piece in the
+    // first area that holds its middle (the carve's faces then take that area's: research/map-geometry.md, P5)
+    const areas = (spec.floorplan.areas ?? []).map((a) => ({
+      min: [a.min[0], a.min[1], a.min[2] ?? -Infinity],
+      max: [a.max[0], a.max[1], a.max[2] ?? Infinity],
+      wears: Object.fromEntries(["floor", "wall", "ceiling"].filter((k) => a[k]).map((k) => [k, textureOf(a[k])])),
+      light: a.light,
+    }));
+    const cuts = [0, 1, 2].map((k) => [...new Set(areas.flatMap((a) => [a.min[k], a.max[k]]).filter(Number.isFinite))]);
+    for (const b of floorPlan.boxes) {
+      let pieces = [{ min: [...b.min], max: [...b.max] }];
+      for (const k of [0, 1, 2])
+        for (const at of cuts[k])
+          pieces = pieces.flatMap((p) => (at > p.min[k] && at < p.max[k] ? [{ min: p.min, max: p.max.map((v, j) => (j === k ? at : v)) }, { min: p.min.map((v, j) => (j === k ? at : v)), max: p.max }] : [p]));
+      for (const p of pieces) {
+        const mid = p.min.map((v, k) => (v + p.max[k]) / 2);
+        const area = areas.find((a) => [0, 1, 2].every((k) => mid[k] >= a.min[k] && mid[k] <= a.max[k]));
+        boxes.push(area ? { ...p, wears: area.wears } : p);
+        // an area's light, as a room's: "auto" a lamp for each 256 x 256 of its floor, hung no higher than 192 over
+        // it, or { brightness, color } at that spacing; "none" none
+        const lit = area?.light;
+        if (lit && lit !== "none") {
+          const per = lit === "auto" ? {} : lit;
+          const [w, d] = [p.max[0] - p.min[0], p.max[1] - p.min[1]];
+          const [nx, ny] = [Math.max(1, Math.round(w / 256)), Math.max(1, Math.round(d / 256))];
+          if (w * d >= 64 * 64)
+            for (let i = 0; i < nx; i++)
+              for (let j = 0; j < ny; j++)
+                entities.push(light([Math.round(p.min[0] + ((i + 0.5) * w) / nx), Math.round(p.min[1] + ((j + 0.5) * d) / ny), Math.round(Math.min(p.max[2] - 16, p.min[2] + 192))], { brightness: per.brightness ?? LAMP_BRIGHTNESS, color: per.color ?? [255, 240, 220] }));
+        }
+      }
+    }
     // its light, unless the spec gives its own: a lamp under the ceiling of each of the largest open spaces, about
     // Valve's density (13 light entities a campaign map at the median; the rest is its lamps' textures)
-    if (!(spec.entities ?? []).some((e) => /^light/.test(e.class ?? ""))) {
+    if (!(spec.entities ?? []).some((e) => /^light/.test(e.class ?? "")) && !areas.some((a) => a.light)) {
       const large = floorPlan.boxes
         .map((b) => ({ b, area: (b.max[0] - b.min[0]) * (b.max[1] - b.min[1]) }))
         .filter(({ b, area }) => area >= PLAN_LAMP_AREA && b.max[2] - b.min[2] >= 96)

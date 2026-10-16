@@ -975,10 +975,24 @@ export function carve(rooms, wall, texture) {
           if (shared > most) [best, most] = [room, shared];
         }
         // and from the room's corner along the wall (the walls facing x run their picture along y, the others along x)
-        return [name, best ? onFloor(wears.wall, best.min[2], best.min[axis === 0 ? 1 : 0]) : wears.wall];
+        const wall = best?.wears?.wall ?? wears.wall;
+        return [name, best ? onFloor(wall, best.min[2], best.min[axis === 0 ? 1 : 0]) : wall];
       }),
     );
-  return rock.map((piece) => box(piece.min, piece.max, { top: wears.floor, bottom: wears.ceiling, sides: wears.wall, ...sides(piece) }));
+  // a room may wear its own (`wears: { floor, ceiling, wall }`): the face under it, over it and beside it then
+  // takes its, the one it shares most with (a floor plan's areas: concrete in one hall, tiles in the next)
+  const facing = (piece, top) => {
+    const at = top ? piece.max[2] : piece.min[2];
+    let best = null;
+    let most = 0;
+    for (const room of rooms) {
+      if (!room.wears || Math.abs((top ? room.min[2] : room.max[2]) - at) > 1e-6) continue;
+      const shared = [0, 1].reduce((area, k) => area * Math.max(0, Math.min(piece.max[k], room.max[k]) - Math.max(piece.min[k], room.min[k])), 1);
+      if (shared > most) [best, most] = [room, shared];
+    }
+    return best?.wears;
+  };
+  return rock.map((piece) => box(piece.min, piece.max, { top: facing(piece, true)?.floor ?? wears.floor, bottom: facing(piece, false)?.ceiling ?? wears.ceiling, sides: wears.wall, ...sides(piece) }));
 }
 
 /**

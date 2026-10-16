@@ -56,6 +56,13 @@ test("a map spec's floorplan: its space carved from the plan, a start on the gal
   // the same point on the gallery over it: layer 1, its floor at 128
   const up = buildMapSpec({ ...spec, name: "gallery2", entities: [...spec.entities, { class: "item_healthkit", room: "plan", at: [208, 40], layer: 1, z: 2 }] }, { out: join(folder, "out2"), folder, compilers: { found: false, message: "" } });
   sure(/"origin" "208 40 130"/.test(readFileSync(up.files.map, "utf8")), "the kit on the gallery, 2 over its floor at 128");
+  // the gallery's area wears its own floor: the faces under it take that texture, the hall's keep the theme's
+  const worn = buildMapSpec({ ...spec, name: "gallery4", textures: { gallery: { base: "planks" } }, floorplan: { ...spec.floorplan, areas: [{ min: [128, -100, 100], max: [300, 200], floor: "gallery" }] } }, { out: join(folder, "out4"), folder, compilers: { found: false, message: "" } });
+  sure(!worn.report.errors.length, worn.report.errors.join("; "));
+  sure(/SM_GALLERY/.test(readFileSync(worn.files.map, "utf8")), "the gallery's floor in its own texture");
+  const lit = buildMapSpec({ ...spec, name: "gallery5", floorplan: { ...spec.floorplan, areas: [{ min: [-100, -100], max: [127, 200], light: { brightness: 180 } }] } }, { out: join(folder, "out5"), folder, compilers: { found: false, message: "" } });
+  const lights = readFileSync(lit.files.map, "utf8").match(/"classname" "light"/g) ?? [];
+  sure(lights.length >= 1 && /"_light" "[\d ]+ 180"/.test(readFileSync(lit.files.map, "utf8")), `the hall's west half lit as asked: ${lights.length} lamps`);
   const marked = buildMapSpec({ ...spec, name: "gallery3", entities: [...spec.entities, { class: "item_healthkit", room: "plan", at: [208, 40], height: 140, z: 2 }] }, { out: join(folder, "out3"), folder, compilers: { found: false, message: "" } });
   sure(/"origin" "208 40 130"/.test(readFileSync(marked.files.map, "utf8")), "marked at 140: on the gallery's floor at 128");
   const missing = validateMapSpec({ spec: "smak.map/1", name: "x", entities: [{ class: "info_player_start", room: "plan" }] });

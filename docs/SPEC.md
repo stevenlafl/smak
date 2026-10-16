@@ -837,7 +837,11 @@ floor at or under it), `z` over it:
   "entities": [{ "class": "info_player_deathmatch", "room": "plan", "at": [-512, 640] }, { "class": "weapon_shotgun", "room": "plan", "at": [128, 96], "z": 4 }] }
 ```
 
-Unless it has lights of its own, a lamp hangs under the ceiling of each of its largest open spaces (24 at most).
+`areas: [{ min: [x, y] or [x, y, z], max, floor, wall, ceiling, light }]` gives parts of the plan their own: the
+words of `theme`, `textures` or a base for the faces under, beside and over each (concrete in the hall, tiles in the
+washroom, wood on the gallery), and `light` as a room's (`"auto"`, `"none"`, `{ brightness, color }`). The plan's
+open space is cut at the areas' edges; the first area that holds a piece's middle is its. Unless it has lights of
+its own, in its entities or its areas, a lamp hangs under the ceiling of each of its largest open spaces (24 at most).
 Frenzy's height plans read back so overlap its walked floor 0.898 (research/map-geometry.md); the textures, the
 light and every entity are still the map's to give.
 
