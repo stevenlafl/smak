@@ -112,6 +112,7 @@ export function liftTexture(bsp, name, view, { brightness = PLACE_BRIGHTNESS, vi
   {
     const was = have.slice();
     const near = rgb.slice();
+    const closed = new Uint8Array(W * H);
     for (let v = 0; v < H; v++)
       for (let u = 0; u < W; u++) {
         const i = v * W + u;
@@ -128,6 +129,28 @@ export function liftTexture(bsp, name, view, { brightness = PLACE_BRIGHTNESS, vi
         if (n < 2) continue;
         for (let c = 0; c < 3; c++) rgb[i * 3 + c] = Math.round(pooled[c] / n);
         have[i] = 1;
+        closed[i] = 1;
+      }
+    // a closed texel is a mean, smoother than the texture: its grain is put back from the texel at the same place
+    // of the largest rectangle seen whole, that texel less the mean round it (c3a1_w2 came back at a texel noise
+    // of 5.3 against the game's 9.5, read by the judges as blocks where it has cracks)
+    const whole = largestSeen(was, W, H);
+    if (whole && whole.w * whole.h >= 16)
+      for (let i = 0; i < W * H; i++) {
+        if (!closed[i]) continue;
+        const [u, v] = [i % W, Math.floor(i / W)];
+        const [su, sv] = [whole.x + ((((u - whole.x) % whole.w) + whole.w) % whole.w), whole.y + ((((v - whole.y) % whole.h) + whole.h) % whole.h)];
+        const mean = [0, 0, 0];
+        let n = 0;
+        for (let dv = -1; dv <= 1; dv++)
+          for (let du = -1; du <= 1; du++) {
+            const j = ((sv + dv + H) % H) * W + ((su + du + W) % W);
+            if (!was[j]) continue;
+            for (let c = 0; c < 3; c++) mean[c] += near[j * 3 + c];
+            n++;
+          }
+        const j = sv * W + su;
+        for (let c = 0; c < 3; c++) rgb[i * 3 + c] = Math.max(0, Math.min(255, Math.round(rgb[i * 3 + c] + near[j * 3 + c] - mean[c] / n)));
       }
   }
   // then by repeating the largest seen rectangle across the texture, as the texture repeats on a wall: a wall the
