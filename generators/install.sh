@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 # Install the local sound generators of research/local-sound-generators.md (in SMAK) from nothing.
 # Idempotent: a step already done is skipped or a no-op. Needs uv, git with GitHub ssh access, gh (for the
-# Woosh release), curl, sox. No sudo; the ROCm runtime comes inside the PyTorch wheels.
+# Woosh release), curl, sox, and HF_TOKEN in the environment for Stable Audio 3 (gated). No sudo; the ROCm
+# runtime comes inside the PyTorch wheels.
 #   bash generators/install.sh <folder>      (here: /media/Data3/Packages/local-audio)
-# Undo: delete venvs/audio-rocm, repos/{TangoFlux,Woosh,EzAudio}, weights/ (about 50 GB in all).
+# Undo: delete venvs/{audio-rocm,moss-rocm,sa3-rocm}, repos/{TangoFlux,Woosh,EzAudio,MOSS-TTS,stable-audio-3},
+# weights/ (about 70 GB in all).
 set -euo pipefail
 ROOT=${1:?the generators folder: bash generators/install.sh <folder>}
 mkdir -p "$ROOT" && cd "$ROOT"
@@ -43,4 +45,41 @@ fi
 cp --update=none repos/EzAudio/ckpts/vae/config.json weights/ezaudio/vae/config.json
 # TangoFlux and EzAudio's text encoder (flan-t5-xl) come from Hugging Face on first use, into weights/hf
 "$P" -I -c "from huggingface_hub import snapshot_download as d; d('declare-lab/TangoFlux'); d('google/flan-t5-xl', allow_patterns=['*.json','*.model','*.safetensors'])"
+
+# MOSS-SoundEffect v2.0 (Apache-2.0) and Stable Audio 3 small SFX (Stability AI Community Licence), each in a venv
+# of its own on the same torch 2.9.1 ROCm wheels (their CUDA pins ignored): MOSS's descript-audiotools takes
+# protobuf down to 3.19 and it pins diffusers 0.37, where audio-rocm keeps diffusers < 0.36 for TangoFlux; Stable
+# Audio 3 wants transformers >= 5.8 and huggingface_hub >= 1.7. Neither needs flash-attn.
+clone MOSS-TTS git@github.com:OpenMOSS/MOSS-TTS.git 934d682
+clone stable-audio-3 git@github.com:Stability-AI/stable-audio-3.git 77e0398
+M=venvs/moss-rocm/bin/python
+[ -x "$M" ] || uv venv -p 3.12 venvs/moss-rocm
+uv pip install -p "$M" --index-url https://download.pytorch.org/whl/rocm6.4 torch==2.9.1 torchvision==0.24.1 torchaudio==2.9.1
+uv pip install -p "$M" "numpy<2" einops safetensors "transformers==4.57.1" "diffusers==0.37.1" ftfy regex soundfile \
+  imageio "descript-audiotools==0.7.2" tqdm pillow accelerate "huggingface_hub<1"
+uv pip install -p "$M" --no-deps -e repos/MOSS-TTS/moss_soundeffect_v2
+S=venvs/sa3-rocm/bin/python
+[ -x "$S" ] || uv venv -p 3.12 venvs/sa3-rocm
+uv pip install -p "$S" --index-url https://download.pytorch.org/whl/rocm6.4 torch==2.9.1 torchaudio==2.9.1
+uv pip install -p "$S" "einops>=0.8.2" "einops-exts>=0.0.4" "numpy>=2.2.6" packaging "safetensors>=0.7.0" tqdm \
+  "huggingface-hub>=1.7.1" "transformers>=5.8.0" "soundfile>=0.13.1" sentencepiece
+uv pip install -p "$S" --no-deps -e repos/stable-audio-3
+# MOSS's weights (11.2 GB, not gated) into weights/moss-sfx, at the revision tested
+[ -f weights/moss-sfx/transformer/diffusion_pytorch_model.safetensors ] || "$M" -I -c "from huggingface_hub import \
+snapshot_download as d; d('OpenMOSS-Team/MOSS-SoundEffect-v2.0', revision='e35df4d82fbe87fcd5d14e5d100e349c0c3c076d', local_dir='weights/moss-sfx')"
+# Stable Audio 3's (3.5 GB) into weights/hf. Gated: its terms accepted on Hugging Face by the account whose read
+# token is in HF_TOKEN (the environment only; never written here). Without it this step says so and goes on.
+"$S" -I -c "
+import os
+from huggingface_hub import snapshot_download as d, hf_hub_download as h
+R, V = 'stabilityai/stable-audio-3-small-sfx', '05ca3857881c94a2b84026b1111c537d78f5f9f0'
+try:  # the checkpoints themselves: the card alone is not gated, so its snapshot folder can be there without them
+    for f in ('model.safetensors', 't5gemma-b-b-ul2/model.safetensors'): h(R, f, revision=V, local_files_only=True)
+    print('stable-audio-3-small-sfx: in the cache')
+except Exception:
+    try:
+        d(R, revision=V); print('stable-audio-3-small-sfx: downloaded')
+    except Exception as e:
+        print(f'stable-audio-3-small-sfx NOT downloaded ({type(e).__name__}): set HF_TOKEN, and accept the terms at https://huggingface.co/{R}')
+"
 "$P" -I -c "import torch; print('torch', torch.__version__, 'GPU', torch.cuda.is_available())" 2>&1 | grep -v amdgpu.ids

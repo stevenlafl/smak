@@ -10,9 +10,11 @@ It loads one model once, then reads requests from stdin, one JSON object a line:
 
 and for each writes the take (the model's own rate and channels, 32-bit float) and answers on stdout, one line:
 
-  { "id": 1, "ok": true, "file": "...", "rate": 48000, "channels": 1, "seconds": 2.5, "took": 1.9 }
+  { "id": 1, "ok": true, "file": "...", "rate": 48000, "channels": 1, "seconds": 2.5, "took": 1.9, "vram": 3.8 }
   { "id": 2, "ok": true, "file": "...obj", "faces": 20000, "box": [[x, y, z], [x, y, z]], "picture": "...png", "took": 31 }
   { "id": 1, "ok": false, "error": "..." }
+
+(`vram`: the most GB torch has held on the card since the model loaded.)
 
 Its first line is { "ready": true, "model": ..., "load": seconds } once the model is in memory. Everything else
 the libraries print goes to stderr, so stdout carries nothing but these lines. The models and how each is
@@ -61,6 +63,56 @@ def load_woosh(root, model):
             a = ldm.autoencoder.inverse(sample(noise, cond))
         x = a[0].float().cpu().numpy().T
         return x[: int(min(5.0, r["length"]) * 48000)], 48000
+    return gen
+
+
+def load_ezaudio(root, model):
+    import numpy as np
+    sys.path.insert(0, str(root / "repos/EzAudio"))
+    os.chdir(root / "repos/EzAudio")  # its config is ckpts/ezaudio-xl.yml, by relative path
+    # Woosh's editable install also claims the top-level name `api`: EzAudio's file loaded by its path
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("ezaudio_api", root / "repos/EzAudio/api/ezaudio.py")
+    ez = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(ez)
+    m = ez.EzAudio("s3_xl", ckpt_path=str(root / "weights/ezaudio/ezaudio_s3_xl.pt"),
+                   vae_path=str(root / "weights/ezaudio/vae/1m.pt"), device="cuda")
+
+    def gen(r):
+        # generate_audio() multiplies seconds by the latent rate and fails on a fraction: the same call, in frames
+        frames = int(round(min(r["length"], 10) * m.params["autoencoder"]["latent_sr"]))
+        pred = ez.inference(m.autoencoder, m.unet, None, None, m.tokenizer, m.text_encoder, m.params,
+                            m.noise_scheduler, r["prompt"], None, frames, 5, 0.75, 50, 1, r["seed"], "cuda")
+        return pred.cpu().numpy().squeeze().astype(np.float32), m.params["autoencoder"]["sr"]
+    return gen
+
+
+def load_moss(root, model):
+    import torch
+    from moss_soundeffect_v2 import MossSoundEffectPipeline
+    pipe = MossSoundEffectPipeline.from_pretrained(str(root / "weights/moss-sfx"), torch_dtype=torch.bfloat16, device="cuda")
+    # it always denoises its 30 s window and crops; decoding all 30 s in float32 runs out of 16 GB beside the
+    # DiT and Qwen3, so only the latents the length asked needs (and half a second more) are decoded
+    whole, hop, keep = pipe.vae.decode, pipe.vae.hop_length, {"s": 30.0}
+    pipe.vae.decode = lambda z: whole(z[..., : int((keep["s"] + 0.5) * pipe.sample_rate / hop) + 1])
+
+    def gen(r):
+        keep["s"] = min(30.0, max(0.1, float(r["length"])))
+        a = pipe(prompt=r["prompt"], seconds=keep["s"], num_inference_steps=r.get("steps") or 100, cfg_scale=4.0,
+                 seed=int(r["seed"]), progress_bar_cmd=lambda x: x)
+        return a[0].float().cpu().numpy().T, pipe.sample_rate
+    return gen
+
+
+def load_sa3(root, model):
+    import torch
+    from stable_audio_3 import StableAudioModel
+    m = StableAudioModel.from_pretrained("small-sfx", device="cuda")  # gated on HF: HF_TOKEN, terms accepted
+
+    def gen(r):
+        # its defaults: 8 steps, cfg 1 (post-trained); it makes the length asked, not a fixed window
+        a = m.generate(prompt=r["prompt"], duration=min(120.0, float(r["length"])), seed=int(r["seed"]))
+        return a[0].float().cpu().numpy().T, m.model.sample_rate
     return gen
 
 
@@ -174,7 +226,8 @@ def load_hunyuan(root, model):
     return gen
 
 
-LOADERS = {"woosh-dflow": load_woosh, "woosh-flow": load_woosh, "acestep": load_acestep, "acestep-xl": load_acestep,
+LOADERS = {"woosh-dflow": load_woosh, "woosh-flow": load_woosh, "ezaudio": load_ezaudio, "moss-sfx": load_moss,
+           "stable-audio-3-sfx": load_sa3, "acestep": load_acestep, "acestep-xl": load_acestep,
            "hunyuan3d-mini": load_hunyuan}
 
 
@@ -211,7 +264,8 @@ def main():
             out.parent.mkdir(parents=True, exist_ok=True)
             sf.write(out, x, rate, subtype="FLOAT")
             say({"id": r["id"], "ok": True, "file": str(out), "rate": rate, "channels": 1 if x.ndim == 1 else x.shape[1],
-                 "seconds": round(len(x) / rate, 3), "took": round(time.time() - t, 2)})
+                 "seconds": round(len(x) / rate, 3), "took": round(time.time() - t, 2),
+                 "vram": round(torch.cuda.max_memory_allocated() / 1e9, 2)})
         except Exception as error:
             say({"id": r.get("id"), "ok": False, "error": f"{type(error).__name__}: {error}"})
     return 0

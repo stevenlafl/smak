@@ -16,6 +16,23 @@
    "longest": 5
   },
   {
+   "name": "moss-sfx",
+   "kind": "sound",
+   "python": "venvs/moss-rocm/bin/python",
+   "licence": "Apache-2.0 (weights and code; its Qwen3-1.7B text encoder Apache-2.0)",
+   "longest": 30
+  },
+  {
+   "name": "stable-audio-3-sfx",
+   "kind": "sound",
+   "python": "venvs/sa3-rocm/bin/python",
+   "licence": "Stability AI Community Licence: commercial use free for an organisation under US$1M annual revenue, an enterprise licence above; its T5Gemma text encoder under the Gemma Terms of Use",
+   "longest": 120,
+   "env": {
+    "HF_HUB_OFFLINE": "1"
+   }
+  },
+  {
    "name": "acestep-xl",
    "kind": "music",
    "python": "venvs/acestep-rocm/bin/python",
