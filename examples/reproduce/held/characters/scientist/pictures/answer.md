@@ -1,18 +1,20 @@
-The scientist is built as `work:scientist.mdl` on Gordon's skeleton with `floor: 0`. The build says OK, with one colour warning left.
+The scientist model builds OK with every check passed. It is saved as `scientist.mdl` in the work folder, with its spec as `scientist.spec.json`.
 
-**What it is**
-- Carved from the six-side sheet and the four angle pictures, so the outline follows the originals: 680 triangles, one body, painted from the pictures (glasses, grey hair at the sides, blue shirt, striped tie, white coat, brown shoes).
-- Stance fitted to the pictures. The first frame matches the original's stride, with the spine turned 3 degrees.
-- Size is 33 long, 21.5 wide and 68 high, against the original's 33.3, 21.7 and 68.
-- Each view's outline matches the picture at 0.85 to 0.91 (the report's measure, with 0.8 as the warning line), and its own carve at about 0.98.
+**How it was made**
+- **Base:** `player/gordon/gordon.mdl` (Gordon's skeleton and all 77 of its animations), with `floor: 0` so the feet stand at the origin.
+- **Body:** one carved part from the six-view sheet, plus the four quarter views (yaw ±35 and ±145/215 at pitch 20) for the hull. It is 700 triangles, against about 750 for Half-Life's own scientist.
+- **Paint:** all eight pictures are projected onto the shape, so the coat, blue shirt, striped tie, grey side hair, skin, glasses and brown shoes come from the originals.
+- **Stance:** the pose was fitted to the pictures. The only change from the base is a 3° turn at the spine, so the arms hang and the legs stride as in the pictures.
+- **Size:** 32.8 long, 21.6 wide, 68 high, against the original's 33.3, 21.7, 68.
 
-**What I chose**
-- Gordon's skeleton and animations, since the scientist has none of its own. The run cycle is Gordon's, so the coat hem flaps in a few frames of it (frames 9 and 13 of `run2`).
-- The triangle target is 680. The base body is 362, so a character over 724 is a fault.
-- Pictures' stance over a stock idle, since the original's first animation is not available to check.
+**How close it is**
+- Outline overlap with the pictures is 0.91 front, 0.87 side and 0.85 to 0.87 at the quarter views. The build warns below 0.8, so these pass.
+- I rendered the front-left and back-right cameras and compared them with the originals. The coat, shirt, tie, glasses and hair read the same.
+- The model has not been compared with the originals at high zoom, and no judge has seen it.
 
-**Left to fix or accept**
-- One warning remains: the head seen from below (colour mean 11.8, worst cell 37) takes some of the hair's colour. I tried 600 and 680 triangles, and each left one colour warning, in a different view.
-- The tie is a soft red patch at a distance, where the original has crisp stripes.
+**Known gaps**
+- **Run animation:** the coat hem and trouser legs fly out as flat slabs at the feet in the base's run. The checks did not flag this. I tried fitting the run to the original's `motion.png`, but the outline overlap only reached 0.61 and the slabs stayed, so I removed that fit and kept the base's own run. The standing pose is the one you asked for.
+- **Texture:** the trousers show some streaks in the back view, and the tie is blotchier than the original's clean stripes.
+- **Detail:** the glasses are small and the fingers are fists, since the carve drops thin detail. Adding fingers or a painted lens would be a next step.
 
-Previews are in the work folder as `scientist-fl.png` and `scientist-fr.png`, and the spec is `scientist.spec.json`.
+Renders I made for comparison are in the work folder: `scientist-fl.png` (front-left) and `scientist-br.png` (back-right).

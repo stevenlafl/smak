@@ -1,18 +1,21 @@
-The model is built and the build says OK: `work:barney.mdl` (1.1 MB), with its spec beside it at `work:barney.spec.json`.
+The model builds OK with no faults or warnings. It is written to `work:barney.mdl`, with its spec in `work:barney.spec.json` and a sheet picture in `work:barney-sheet.png`. I haven't copied it into the game folder or run it in the game.
 
-**What I made:** a character on Gordon's skeleton (`player/gordon/gordon.mdl`), so it keeps all 77 of that skeleton's animations. `floor` is 0, so it stands on its origin. The body is carved from your six-sided sheet plus the four angles, with the stance fitted to the pictures' outlines. The colours and markings come from projecting your pictures onto the shape, so the vest, the SECURITY lettering, the lavender shirt, the blue trousers, the black boots and the helmet all carry over. The size is 22.6 long, 30.3 wide and 75.4 high, against your 22.8, 30.2 and 75.3.
+**What I built**
 
-**Settings I chose:**
-- 110 cells and 700 triangles. The default of about 360 triangles gave a blocky silhouette, and 700 is well under twice Gordon's own body (about 780).
-- A smooth angle of 80, as the guide advises when projecting pictures.
-- A 512 by 512 texture.
-- The character's gentler finish: wear 0.15, grime 0.3.
+- **Base:** `player/gordon/gordon.mdl`, keeping its 42 bones and 77 animations. `floor: 0`, so the feet stand at the origin.
+- **Body:** one carved body (the shape is cut from the outlines of the pictures), 362 triangles, the same count as Gordon's own body.
+- **Colours and markings:** painted from the six-side sheet and the four angled pictures, so the vest, the SECURITY lettering, the helmet with its blue band, the shirt, trousers and boots come from the originals.
+- **Size:** 22.7 long, 29.9 wide, 75.1 high, against 22.8, 30.2 and 75.3 for the original.
+- **Stance:** the base's own first-frame pose, which already matched the pictures' stance. The pose fit made the outlines worse, so I left it out.
 
-**Where it falls short:**
-- **Face.** The head is only about 30 pixels across in your sheet, so the face reads as a blurred mask with dark eye sockets. It is the weakest part of the match. A carve can't give the head its own texel density, so a closer match would need a separate head part.
-- **Helmet.** It is a little flatter and less domed than the original.
-- **Silhouette.** The build's own outline check gives 0.84 to 0.91 against the pictures in the spec's views, which is below the 0.95 the carve reaches against its own pictures. I could not find a setting that closed that gap. Side by side the outlines look close, but a judge may see it.
-- **Edges.** A few speckled texels show along the silhouette where the projection meets the background.
-- **Motion.** I did not fit the run to `motion.png`. The stance is fitted to the first frame only, and the animations are Gordon's own.
+**Checks**
 
-The build also left several preview renders in the work folder (`front-check.png`, `front-zoom.png`, `front-left-check.png`). Delete them if you don't want them there.
+- The report has no faults and no warnings. The lowest outline match is 0.82 (the back-right view, against 0.8 needed).
+- The report notes the body as three loose pieces. It is allowed as it stands and gives no fault. I did not check whether any gap shows in the game.
+- I compared the front-left and back-left renders with the originals by eye. Build, shape and colours line up well. The face is small and plainer than the original's, and the helmet is a little different in shading.
+
+**Left out or to check**
+
+- **Running:** I did not fit Barney's run to `motion.png`. The run animations are still Gordon's. Say if you want the run fitted.
+- **Symmetry:** I left `symmetric` off. With it on, the length dropped to 18 units and the side and top outlines fell to about 0.67.
+- **Memory note:** I could not save a memory note because the Write tool is disabled in this session.

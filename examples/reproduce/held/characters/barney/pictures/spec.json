@@ -16,9 +16,40 @@
     "height": 512
   },
   "smooth": 80,
-  "pose": {
-    "fit": true
-  },
+  "parts": [
+    {
+      "id": "body",
+      "kind": "carved",
+      "size": [
+        22.8,
+        30.2,
+        75.3
+      ],
+      "sheet": "work:pictures/sides.png",
+      "pictures": [
+        {
+          "picture": "work:pictures/front-left.png",
+          "yaw": 35,
+          "pitch": 20
+        },
+        {
+          "picture": "work:pictures/front-right.png",
+          "yaw": -35,
+          "pitch": 20
+        },
+        {
+          "picture": "work:pictures/back-left.png",
+          "yaw": 145,
+          "pitch": 20
+        },
+        {
+          "picture": "work:pictures/back-right.png",
+          "yaw": 215,
+          "pitch": 20
+        }
+      ]
+    }
+  ],
   "project": [
     {
       "picture": "work:pictures/sides.png",
@@ -61,6 +92,26 @@
       ]
     },
     {
+      "picture": "work:pictures/sides.png",
+      "view": "top",
+      "area": [
+        512,
+        512,
+        1024,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "below",
+      "area": [
+        1024,
+        512,
+        1536,
+        1024
+      ]
+    },
+    {
       "picture": "work:pictures/front-left.png",
       "yaw": 35,
       "pitch": 20
@@ -79,42 +130,6 @@
       "picture": "work:pictures/back-right.png",
       "yaw": 215,
       "pitch": 20
-    }
-  ],
-  "parts": [
-    {
-      "id": "body",
-      "kind": "carved",
-      "sheet": "work:pictures/sides.png",
-      "size": [
-        22.8,
-        30.2,
-        75.3
-      ],
-      "cells": 110,
-      "triangles": 700,
-      "pictures": [
-        {
-          "picture": "work:pictures/front-left.png",
-          "yaw": 35,
-          "pitch": 20
-        },
-        {
-          "picture": "work:pictures/front-right.png",
-          "yaw": -35,
-          "pitch": 20
-        },
-        {
-          "picture": "work:pictures/back-left.png",
-          "yaw": 145,
-          "pitch": 20
-        },
-        {
-          "picture": "work:pictures/back-right.png",
-          "yaw": 215,
-          "pitch": 20
-        }
-      ]
     }
   ]
 }

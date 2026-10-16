@@ -1,25 +1,27 @@
-The build says OK: `work:barney.mdl` is written, with its spec at `work:barney.spec.json`. It is a character on Gordon's skeleton (`player/gordon/gordon.mdl`), `floor: 0`, keeping all 77 of that skeleton's animations.
+The model builds OK and passes the GoldSrc check ("fit for goldsrc"). It is at `work:barney.mdl`, with its spec beside it at `work:barney.spec.json`.
 
-I can't compare it against the original because I don't have the original. The checks below are against your description.
+**What it is**
+- A character on `player/gordon/gordon.mdl`, keeping all 77 of that skeleton's animations, with `floor: 0` so the feet stand at the origin.
+- Height 74.8, width 28.4, depth 22.4 units. The description asked for about 75, 30 and 23.
+- 624 triangles. The base's own body is 362, and the build's fault limit is twice that.
 
-| Measure | Your description | Built |
-| --- | --- | --- |
-| Height | about 75 | 75.4 |
-| Width across the hanging hands | about 30 | 29.3 |
-| Depth | 23 | 19.6 |
-| Triangles | (limit 724, twice the base body's 362) | 708 |
+**What is on it**
+- Helmet: a rounded dark grey-black shell down over the forehead, with dark padded ear pads on each side.
+- Violet-blue band: a hoop of the trouser colour around the lower helmet, from the temples round the back.
+- Face: pale peach skin, a narrow head with a straight nose and a long jaw, and short dark brown sideburns.
+- Shirt: pale periwinkle sleeves, a dark tie at the neck, and cuffs at the wrists.
+- Vest: black, from the collarbones to just above the belt, with the "SECURITY" print in olive-yellow on the back, an orange round emblem on the left chest (+y), and a grey-white badge on the right chest.
+- Trousers: blue-violet, with the same shade on the legs.
+- Belt, and a black holster on the right hip reaching to mid-thigh.
+- Tall black boots to mid-shin, with squared toes.
+- Small clenched fists.
 
-- **Helmet and band:** dark grey-black helmet, low on the forehead, with a violet-blue band painted round it and dark pads over the ears.
-- **Shirt:** pale periwinkle-lavender, with the sleeves to the wrists and a thin dark tie just above the vest.
-- **Vest:** black box, with horizontal ribs, a vertical seam, the orange emblem on the character's left chest, the grey ID badge on the right, and "SECURITY" in olive-yellow across the back.
-- **Trousers:** royal blue-violet, tucked into black boots that reach mid-shin.
-- **Gear:** black belt and a black holster on the right hip, down to mid-thigh.
-- **Hands and hair:** clenched fists, and dark brown sideburns under the helmet.
-- **Pose:** the first animation is turned so the legs stand straight and the right forearm hangs down. The arms hang slightly out from the body.
+**Choices I made that you may want changed**
+- The pose is the base's own first frame, not a new one. I did not add a `pose` to hang the arms. The arms sit out a little from the body and the forearms are only slightly bent. If the original's arms are closer to the body, that needs a `pose` on the upper arms.
+- The trousers are straight. The description's gathered, baggy knees are not modelled.
+- The band shows as two dark knobs at the temples from the front. I meant to taper its ends, but I rebuilt without making that edit, so it is still as it was.
+- The sideburns and nose are small boxes, not sculpted.
 
-Choices I made that you may want to change:
-- **Depth is short:** 19.6 against your 23. I kept the torso and vest at a believable width rather than stretching it to hit that number.
-- **No pictures were given,** so nothing is projected onto the model. All colours are painted tones I picked from your words, and they may read differently from the original.
-- **Simplified face:** the face is a plain skin shape with no eyes, nose or mouth. The jaw is not modelled separately.
-- **Simplified shapes:** the boots and fists are blocky, and the tie is small.
-- **Only the first animation is posed:** the other animations keep Gordon's gun-holding poses, because the game plays them by number.
+**What I could not do**
+- There is no picture of the original here, so I could not compare the model side by side with it. I built it from your description alone. The build's own checks and pictures are the only comparison I have.
+- I did not test it in the game.
