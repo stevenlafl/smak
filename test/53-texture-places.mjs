@@ -72,6 +72,9 @@ await testAsync("the build tool's wad preview `each`: the spec's textures from t
   const words = answer.find((piece) => piece.type === "text").text;
   sure(/^OK/.test(words), words.slice(0, 400));
   sure(/smakwall: on a .*the view spans \d+ texels across, the picture's top turned -?\d+ degrees .* light \[/.test(words), words);
+  // what it reads as there: a wall painted to be seen as [0.6, 0.55, 0.5] under that light reads near it
+  const reads = (words.match(/smakwall: .*yours reads as RGB (\d+), (\d+), (\d+)/) ?? []).slice(1).map(Number);
+  sure(reads.length === 3 && reads.every((v, k) => Math.abs(v - [153, 140, 128][k]) < 40), `smakwall reads as ${reads}: ${words}`);
   sure(answer.filter((piece) => piece.type === "image").length >= 3, "the sheet, the views and the places");
 });
 

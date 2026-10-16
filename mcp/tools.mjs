@@ -901,8 +901,18 @@ function build(folders, args) {
           for (let i = 0; i < shots.length; i += 8)
             show(smak.tile(shots.slice(i, i + 8), 4, places.slice(i, i + 8).map((p) => p.name)));
           lines.push(`each texture where the map shows it best, at brightness ${smak.maps.PLACE_BRIGHTNESS} (a colour read off such a view is the paint times the face's light: material seen: { colour, light }):`);
-          for (const p of places)
-            lines.push(`  ${p.name}: on a ${p.wall ? "wall" : "floor or ceiling"}, the view spans ${p.across} texels across, the picture's top turned ${p.turned} degrees from ${p.wall ? "up" : "north"}, light [${p.light.join(", ")}]${p.lit ? "" : " (unlit: black in any view)"}`);
+          // what yours reads as there, the middle half of its view: set beside a colour read off a picture of the
+          // original's place (a describer's "around RGB 25,27,30" is the wall as lit, not its paint)
+          const middleOf = (shot) => {
+            const sum = [0, 0, 0];
+            let n = 0;
+            for (let y = Math.floor(shot.height / 4); y < (3 * shot.height) / 4; y++)
+              for (let x = Math.floor(shot.width / 4); x < (3 * shot.width) / 4; x++, n++) for (let c = 0; c < 3; c++) sum[c] += shot.rgba[(y * shot.width + x) * 4 + c];
+            return sum.map((v) => Math.round(v / (n || 1)));
+          };
+          places.forEach((p, i) =>
+            lines.push(`  ${p.name}: on a ${p.wall ? "wall" : "floor or ceiling"}, the view spans ${p.across} texels across, the picture's top turned ${p.turned} degrees from ${p.wall ? "up" : "north"}, light [${p.light.join(", ")}]${p.lit ? "" : " (unlit: black in any view)"}; yours reads as RGB ${middleOf(shots[i]).join(", ")} in the middle of that view`),
+          );
           // a texture the map keeps inside itself is the one the game wears: a .wad does not replace it
           const kept = places.filter((p) => bsp.textures.some((t) => t.name.toLowerCase() === p.name.toLowerCase() && t.embedded && !t.absent)).map((p) => p.name);
           for (const name of kept) lines.push(`  the map keeps its own ${name} inside it: the game (and this view) wears that, not the .wad's. Only a recompile without it, or a map that names the .wad, wears yours`);

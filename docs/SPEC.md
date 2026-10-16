@@ -696,7 +696,8 @@ each texture is drawn on its own place in the map, its largest face lit in every
 the brightness (4.5) a reproduction test's judge looks from: set it beside a picture of the original's place.
 For each, the report says how many texels the view spans across (its scale), how far the picture's top is
 turned from up or north on that face (the map may turn it), and the light on the face, `[r, g, b]`, which a
-colour read off such a view is the paint times. A texture the map keeps inside itself is the one the game
+colour read off such a view is the paint times, and what yours reads as in the middle of that view (`yours reads as
+RGB ...`): a colour someone read off a picture of the original's place is set beside that, not beside the paint. A texture the map keeps inside itself is the one the game
 wears; the report says so. `render` takes `wad` to draw any map wearing one.
 
 ## A sprite
