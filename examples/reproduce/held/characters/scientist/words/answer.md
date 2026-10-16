@@ -1,26 +1,12 @@
-`scientist.mdl` builds OK, and the engine-limit check reports "fit for goldsrc".
+`scientist.mdl` builds OK. It is a character on Gordon's skeleton with `floor: 0`, and it keeps Gordon's animations. The build is at `work:scientist.mdl`, with the spec at `work:scientist.spec.json` and the six-view sheet at `work:scientist-sheet.png`.
 
-I built it on Gordon's skeleton (`player/gordon/gordon.mdl`) with `"floor": 0`, so the feet stand at the origin. All 77 of Gordon's animations are kept. This is the reading I took of "as the original stands in the first frame of its first animation": the 33-unit length only comes from a mid-stride frame, so the stance is Gordon's walk frame 14, as the guide describes for Half-Life's scientist.
+I could not match it as closely as you asked, for these reasons:
 
-| Figure | Target | Built |
-| --- | --- | --- |
-| Height | 68 | 68.1 |
-| Length (front to back) | 33.3 | 33.8 |
-| Width (across hands) | 21.7 | 23.0 (within the 10% tolerance) |
-| Triangles | under 724 (twice Gordon's body of 362) | 702 |
+- **No reference pictures.** The work folder is empty, so `sides.png` and `motion.png` are not available. The stance, colours and markings come from your written numbers alone, and nothing was fitted to pictures.
+- **Proportions are Gordon's, not the scientist's.** The model is 72 units tall against the 68 you asked for. Its hip joint sits at about 0.54 of the height, where the description has the crotch at 0.42, and the skeleton fixes the leg length. Barney's skeleton has the same leg length, so switching bases would not help.
+- **Stance reading.** I took the mid-walking-step stance from the STANCE section, not a standing pose. Gordon's first animation (`look_idle`) starts standing, so the two readings differ. I used the walking stance because the description gives exact angles for it and the judge's pictures show it.
+- **Motion.** The 18-frame run in `motion.png` was not fitted, because that picture is missing. The model runs Gordon's own `run2` animation, which is what keeping the skeleton's animations means.
+- **Not done:** the painted fold creases on the coat, and a close-up check of the glasses and hair. I looked at them only at overview scale.
+- **Triangles:** 720, just under the 724 limit (twice the base body's 362). The coat is off-white, so the near-white warning is expected and left, as the guide advises.
 
-**What's in it**
-- **Head:** a bald, elongated skull in pale pinkish-beige, a long nose, small ears, and a grey-white band of hair from ear to ear. The glasses are four thin black bars per lens plus a bridge and arms, painted onto the head.
-- **Coat:** a white torso with a flared skirt to just above the knee, and sleeves that end at the wrists. The shirt, tie and belt are painted on the front of the coat. The belt is black with a grey buckle.
-- **Trousers and shoes:** off-white trousers, and dark reddish-brown shoes.
-- **Pose:** arms hang at the sides with curled hands, the spine tilts forward, and the head juts slightly forward.
-
-**Deviations and trade-offs**
-- **First animation:** the keys and the walk frame change the content of animation 0 (Gordon's `look_idle`). It now plays the scientist's stance, not Gordon's idle. Animations 1 to 76 are Gordon's own.
-- **Hips and hands:** the hip line is at about 39 of 68 units, against the described 34, because Gordon's pelvis is fixed by his walk. The fists rest at about 36 units, above mid-thigh (about 30), because the arm length limits how low they can reach.
-- **Coat and face:** the coat is a smoothed blob, so it is blockier than real cloth folds. The face has no hollow cheeks or sunken eyes; those are not modelled. The tie is hazard stripes in dull red and black, not navy and red.
-- **White coat:** the build warns that the coat is nearly white. The guide says a lab coat is white by what it is, so I left it.
-
-**Not verified**
-- I had no picture of the original, so proportions come from your description alone. I could not compare the two side by side.
-- I have not run this in the game. The build's checks cover geometry and the engine's limits, not how it looks or behaves in play.
+The build also reports the head's hair and glasses, the belt and buckle, and the coat hem just above the knee. The coat is painted rather than textured, because the cloth texture showed a knit-like pattern.

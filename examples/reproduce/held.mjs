@@ -4,7 +4,7 @@
 // refused (--refuse). The judge scores M1 to M8 and W1 (in the hands) or C1 (in motion), with a line-up of
 // the originals of its kind and a plain decoy that must fail.
 //
-//   node examples/reproduce/held.mjs inputs|describe|reproduce|judge [weapons|characters] [subject ...] [--again]
+//   node examples/reproduce/held.mjs inputs|describe|reproduce|judge [weapons|characters] [subject ...] [--again] [--form]
 //
 // held/<kind>/<id>/: input/ (Valve's pictures, out of git), words.md, <leg>/ (spec.json, answer.md, run.json,
 // judge.json; built/ out of git).
@@ -24,6 +24,8 @@ const RUBRIC = readFileSync(join(HERE, "rubric.md"), "utf8");
 const words = process.argv.slice(2);
 const step = words.shift();
 const again = words.includes("--again") && words.splice(words.indexOf("--again"), 1);
+// --form: the describer fills in a form, not free prose (FORM_CHARACTER below), an experiment
+const FORM = words.includes("--form") && words.splice(words.indexOf("--form"), 1);
 // --generators <folder>: the words leg's server offers the tool generate (generators/README.md), an experiment
 const GENERATORS = words.includes("--generators") ? words.splice(words.indexOf("--generators"), 2)[1] : null;
 const KINDS = ["weapons", "characters", "players"];
@@ -115,6 +117,30 @@ const DESCRIBE = (kind, dir) =>
     ? `You are looking at pictures of one weapon of a video game, in ${dir}: the model that lies in the world (sides.png, all to one scale, and four close angles), the player's first-person view of it in the hands (first-person.png, and first-person-attack.png frame by frame), and the model another player holds (in-hand.png); facts.txt gives its size. Someone who will never see them must make it again from your words, and will be judged against it in all three: describe its shape, every part with its size against the whole, its colours and materials, its markings and wear, how it sits in the hands and which end points away, and how it moves in its attack. At most 450 words.`
     : `You are looking at pictures of one character of a video game, in ${dir}: sides.png (six sides, one scale), four close angles, and motion.png (it moving, frame by frame); facts.txt gives its size. Someone who will never see them must make it again from your words: describe its build and proportions, its head and face, its clothes or skin, every part and its colours and materials, its markings, and how it moves. At most 450 words.`;
 
+// --form: the description as a form, each field answered from the pictures, in place of free prose. What words lose
+// of a picture is its places, sizes and fine attributes (research: structured captions with fixed fields, a region
+// at a time, positions and relations spelled out); the characters words leg failed its outline gate on the stance,
+// which free prose left as "standing, arms at its sides". An experiment beside the prose describer, not in its place
+const FORM_CHARACTER = (dir) => `You are looking at pictures of one character of a video game, in ${dir}: sides.png (six sides, one scale, the character standing as it does in the first frame of its first animation), four close angles, and motion.png (it moving, frame by frame); facts.txt gives its size. Someone who will never see them must make it again from your words, and will be judged on its outline from every side, its size, its colours and its parts. Fill in this form from what the pictures show, every field, in plain text under these headings. Give lengths as a share of its height (0.5 is half its height), angles in degrees, and colours as RGB from 0 to 255 read off the pictures.
+
+WHAT IT IS: one line.
+SIZE AND BUILD: its height, its width across the shoulders and across the hips, how long its legs are against its body, how heavy or thin.
+STANCE, as sides.png shows it (the first frame of its first animation; the outline is judged in it):
+- torso: upright or leaning, and how many degrees forward or back
+- head: turned or tilted, which way
+- each upper arm: degrees out from the body seen from the front, degrees forward or back seen from the side
+- each forearm: the elbow's bend in degrees, and where the hand is (beside the hip, in front of the chest, at mid thigh)
+- legs: standing together, apart, or mid-stride; which foot is forward; the stride's length; each knee's bend
+- anything held, and in which hand
+REGIONS, each in turn (head and face; neck; torso front and back; each arm; hands; hips; each leg; feet), for each:
+- its shape and its size against the whole
+- what covers it (skin, cloth, armour) and its colour as RGB, with any second colour and where
+- details on it (a pocket, a badge, a seam, glasses, a strap, a buckle), each with its place, size and colour
+MARKINGS AND WEAR: any writing, logos, dirt, damage, and where.
+MOTION, as motion.png shows it: what it does, its stride, how the arms swing, any lean.
+
+At most 650 words.`;
+
 function reproducePrompt(kind, s, given) {
   const judged = "It will be judged side by side with the original, from the same cameras and at the same scale, to high standards, by someone who sees only the two sets of pictures.";
   if (kind === "weapons")
@@ -126,7 +152,8 @@ function reproducePrompt(kind, s, given) {
 
 async function describe(kind, s) {
   const dir = join(folderOf(kind, s.id), "input");
-  const r = await runAgent({ prompt: `${DESCRIBE(kind, dir)}\n${RULES}`, read: dir, hours: 0.5 });
+  const asked = FORM && kind === "characters" ? FORM_CHARACTER(dir) : DESCRIBE(kind, dir);
+  const r = await runAgent({ prompt: `${asked}\n${RULES}`, read: dir, hours: 0.5 });
   writeFileSync(join(folderOf(kind, s.id), "words.md"), `${r.answer.trim()}\n`);
   return `${kind}/${s.id}: ${r.answer.split(/\s+/).length} words`;
 }

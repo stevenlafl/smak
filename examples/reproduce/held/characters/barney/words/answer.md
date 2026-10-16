@@ -1,14 +1,18 @@
-The character is built and the build says OK: `barney.mdl`, written to the work folder (`work:barney.mdl`, with its spec at `work:barney.spec.json`). I rendered it from the front, back, sides, top, quarter and a run strip to check it.
+The model builds **OK** as `work:barney.mdl`. Every check passes: 560 triangles against a limit of 724, no normal-count or floating-part faults, and feet on the floor. I did not compare it with the original, because the reference pictures you named (sides.png and motion.png) are not in the work folder. Everything was built from your written description.
 
-**What I did**
-- **Base:** `player/gordon/gordon.mdl`, with `floor: 0`. Its 42 bones and 77 animations are kept, so the game plays Gordon's animations on this body.
-- **Pose:** Gordon's first frame holds his right forearm forward. I turned it down so the arms hang, with both fists by the hips.
-- **Build:** shirt, trousers, vest, helmet, and the rest are separate parts that follow the bones. The vest has ribbed plates, the orange emblem on the left chest, the grey ID badge on the right, and "SECURITY" printed on the back. The helmet has the violet band around the back. Boots, holster, belt, tie and collar are included.
-- **Size:** 74.9 units tall and 30.7 wide, against the description's 75 and 30. It is 24.4 deep against 23, which is within the tolerance.
-- **Triangles:** 722. The limit is 724 (twice the base's own body of 362), so there is almost no room left.
+**What I built**
+- **Base and animations:** Gordon's skeleton with all 77 of its animations kept. Floor is 0 and height is 75.3.
+- **Stance:** torso leans 5° forward, head level, upper arms out 12° at the front and 5° back, forearms bent 15°, fists hanging at hip height. The feet keep Gordon's stride, which already matches your 0.12 forward and 0.10 apart.
+- **Build:** blob bodies for the shirt, sleeves and trousers, a dome helmet with a blue band and dark front rim, a box vest with raised plates, an orange emblem on the figure's right chest, a grey ID badge on the left, a black belt and holster, and dark boots to mid-calf.
+- **Colours:** taken from your RGB values, applied per part.
+- **Lettering:** SECURITY is printed on the vest back in olive-yellow.
 
-**What is not verified**
-- No pictures of the original were available, so I could not compare the two side by side. The match comes from the description alone.
-- The run is Gordon's own run cycle, not the stride you described. The spec only supports fitting a run to a strip of pictures of the original, and there are none.
-- The face is small under the helmet and is only a few painted marks (sideburns, eyes). The description's face detail is largely lost at this size.
-- The build reports one sliver: the collar and jaw are 0.26 units apart. It is not a fault, but it may show up close up.
+**Gaps against your list**
+- **Run cycle:** the running animation is Gordon's own `run2`, not one fitted to motion.png, because that file is not available.
+- **Face:** no dark hair at the sideburns or forehead, no eye or brow shading, no tie or collar.
+- **Legs:** the 8° knee bend is not applied.
+- **Wear:** the scuff on the right thigh is not done.
+- **Lettering:** SECURITY is not clearly visible in the back render at this scale. I have not confirmed it lands on the texture.
+- **Helmet:** its dome is more pointed than a half sphere.
+
+If you can put sides.png and motion.png in the work folder, I can fit the stance and the run to them. The spec is at `work:barney.spec.json` if you want to change any of these numbers.
