@@ -1,26 +1,22 @@
-The map builds OK and compiles, but it is not yet a faithful copy. Its layout, floors and most item and player placements follow the height plans. Four things differ from the original, and I could not add the doors, ladders and walls.
+The build is OK: compiled, no leak, all 58 places a player goes to are reached on foot. It is not a full match, and several deviations were forced by how the floor-plan path works.
 
-**Result:** `work:frenzy_copy/frenzy_copy.bsp` (plus `frenzy_copy.map` and `frenzy_copy.wad`), in `/tmp/smak-repro-HforUB/work/frenzy_copy/`. The build reports every entity reached on foot (58 of 58), no leaks, and all engine limits within range. It has one warning: 48 ledges that drop 336 units. The original has the same ledges, so I left them.
+**Output:** `work:frenzy_copy/frenzy_copy.bsp` (source `frenzy_copy.map`, textures `frenzy_copy.wad`). It sits at `/tmp/smak-repro-FnOy1f/work/frenzy_copy/`.
 
-**What matches the original**
-- The floors, rooms, corridors and ledges are carved from the four height plans.
-- All 15 player starts, and every weapon, ammo and item from `entities.txt`, sit at their marked spots and heights, except the four below.
-- The eight glow sprites sit at their marked spots.
+**What matches**
+- Layout, room sizes and floor heights come from the height plan (`work:heightplan/`). The walk and the plan match the reference's plan.
+- All 85 point entities are placed at the marks' x and y: starts, 14 deathmatch starts, weapons, ammo, batteries, longjump, snark, and the 8 glows.
+- Textures, chosen by matching the views against halflife.wad: `CRETE1_WALL01` walls, `CRETE3_FLR05` floor, `LAB1_PANEL1` ceiling, `LAB1_DOOR2A` door. These are near matches, not exact.
+- The health charger is a brush entity at (-20, 0).
 
-**Where it differs**
-- **Lights:** the original's eight `light` entities are not placed. Four of them hang fixtures up to z 4120, past the engine's 4096 limit, because the height plan gives those spots no ceiling. I let the map place its own 24 lamps instead. Their brightness and colour are not the original's.
-- **Glow colour:** I set the glows to additive yellow (255 200 80). The original's colour is not in the inputs.
-- **Three items moved:** the two ammo_ARgrenades at (-664, ±152) and the item_longjump at (-72, 0) stand on a raised floor the walker cannot reach. I moved them to the nearest reachable floor at the same height: (-592, ±104) and (-176, -72), 87 to 126 units away.
-- **Textures:** the floor, wall and ceiling bases (metal, stone, metal) are my guesses from halflife.wad. The original's textures are not in the inputs.
+**Deviations, in order of how much they will show**
+1. **Lights.** The reference's 8 light entities are not used as lights. In a floor-plan map a user `light` gets a rod up to the nearest floor above, and where no floor is above, the rod runs past the 4096 limit and fails the build. The rooms are lit by the spec's own 24 lamps instead. The 8 marks are `env_glow` sprites only.
+2. **Shelves.** The reference's aisles are lined with shelves of cans. I did not model them; the walls are bare concrete. This is the most visible difference.
+3. **Doors.** Only the north door (-1312, 336) is in. The south door (-1312, -336) cuts the only route to the west strip, so the build fails with it. The door is a `func_door` that opens on touch; there are no triggers.
+4. **Items on raised floors.** The two `ammo_ARgrenades` at (-664, ±152) and the `item_longjump` at (-72, 0) sit on floor 0 at z 16, not on the z 320 gallery, which cannot be walked to in this layout. The other items on raised floors stay where the marks put them.
+5. **Not reproduced.** The 12 `func_wall` pieces, the 2 `func_ladder` pieces (ladders need rooms, and this path has none), and the 2 `trigger_multiple` pieces.
+6. **Heights.** The spec lowers placed entities from their marks: players by 28 units and items by 16. The marks are the reference's `z`, so the placed origins sit a little below them.
+7. **Warning left.** 48 places let a player fall more than 210 units, the worst 336 at (-520, 416, 336). These are the gallery edges. The reference has the same drops; railing them is a choice for you.
 
-**Not placed:** the brush entities. The height plans give only a mark for each, with no size, so I could not build them.
-- 15 `func_wall`
-- 2 `func_door`, with their 2 `trigger_multiple`
-- 2 `func_ladder`
-- 1 `func_healthcharger`
+I did not compare the views with `views.png` side by side at the reference's cameras, beyond checking that the start views are lit and concrete.
 
-So the doors, ladders and walls are missing. Their sizes and their wall openings would need to come from the original's `.map` or the game.
-
-**Not verified:** I have only the plan and storey pictures of the original, not its in-game views, so I could not compare the two side by side from the same cameras. The views I checked were of this map alone.
-
-**One limit on the saved work:** the spec was passed to the build inline, and the file tools are disabled here, so no spec file is saved. The `.map` in the work folder is the build's output and is the source to keep. To rebuild it from a clean copy, the spec would need to be written to a file.
+The spec JSON is not saved on disk: the Write tool is disabled in this session, so the build call is the only record of it. Saving it to the reproduce folder would need that tool or your go-ahead to use another way.

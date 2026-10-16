@@ -1,0 +1,113 @@
+{
+ "subject": "frenzy",
+ "leg": "heightplan",
+ "measured": {
+  "floorOverlap": 0.898,
+  "alignment": {
+   "move": [
+    0,
+    0,
+    -16
+   ],
+   "note": "the reproduction is this far from where the original has the same floor"
+  },
+  "entities": {
+   "original": 58,
+   "reproduction": 58,
+   "matched": 51,
+   "share": 0.879,
+   "missing": [
+    "ammo_ARgrenades at -664 152 336",
+    "ammo_ARgrenades at -664 -152 336",
+    "ammo_buckshot at -208 -184 336",
+    "weapon_handgrenade at -560 -184 336",
+    "weapon_handgrenade at -560 184 336",
+    "ammo_gaussclip at -208 184 336",
+    "item_longjump at -72 0 336"
+   ]
+  },
+  "walkTest": {
+   "unreachedInReproduction": 0,
+   "unreachedInOriginal": 3
+  },
+  "sweep": {
+   "original": {
+    "hurtingDrops": 48,
+    "glowsInMidAir": 0,
+    "lightEntitiesInOpenAir": 2,
+    "solidInMidAir": 0
+   },
+   "reproduction": {
+    "hurtingDrops": 48,
+    "glowsInMidAir": 0,
+    "lightEntitiesInOpenAir": 0,
+    "solidInMidAir": 0
+   }
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "P2": 2,
+  "P4": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Same overall arrangement: a central north-south corridor between two octagonal halves, with stairs on the east side and the same start areas. The reproduction's inner partitions differ: the original's central block (plan x about 280-590) is a diagonal-sided hall, and the reproduction's inner walls and raised platforms are stepped and placed differently. The walk test reaches all of the reproduction (unreachedInReproduction 0), so the ways join."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured floor overlap 0.898 after the (0,0,-16) alignment, above the 0.70 line. In the plans the footprints match in position and extent (2432 x 2080 against 2416 x 2080), with the corridor and both octagons in the same places."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The floors match in the storeys (0 and the upper level), but the upper level sits lower in the reproduction: the original cut is at z 372 with floors 0 to 371, the reproduction's at floors 0 to 336. In the section the original's left and right walls slope from floor to ceiling (about x 50-75 and x 840-860), while the reproduction's are vertical and stepped, and the block at the far right differs. The 512 and 320 ceilings and the 0 floor agree."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Measured 51 of 58 entities matched within 64 units (0.879, above the 0.80 line), so the measurement alone allows 2. Visually the misses cluster on the upper storey: the original's ammo_ARgrenades (two), ammo_buckshot, weapon_handgrenade (two), ammo_gaussclip and item_longjump at z 336 do not match, and that storey is 35 units lower in the reproduction (336 against 371). Scored lower than the measurement allows."
+  },
+  "P5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The views show the original's panelled concrete walls, seams and library shelving with green and brown books. The reproduction's walls are a blurred, noisy grey-brown with no panels, seams or shelves (start 1, start 2 bright noisy wall, starts 4 to 7 near-flat dark), so the surfaces wear a different texture a player would tell apart."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original has 2 light entities in open air and a lit ceiling tube at start 8; the reproduction has none in open air. Its views are much darker than the original's (starts 3, 5, 6, 7 and 8 are almost black), and its lamps (14, 19, 16, 5, 6 and so on in the section) sit at different places from the original's (21, 17, 1, 24 and so on)."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The central corridor, the two octagonal halves, the stairs on the east and the upper-level ledges are there. The original's distinctive features are missing from the views: the shelving with its glass-fronted bays (start 1, start 2, start 8), the concrete pillars and window openings, and the ceiling trim and vents (start 3). The reproduction shows none of these."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "checkErrors is empty, so it compiles and passes the check. The walk test reaches every item and the way out in the reproduction (unreachedInReproduction 0). The sweep matches the original: 48 hurting drops in both, no glows in mid-air, no solid in mid-air. Light entities in open air are 0 in the reproduction against 2 in the original, which is not a fault."
+  },
+  "P9": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "From the original's starts a player would not recognise the place. Start 8, the lit corridor with its tube light and shelves, is nearly black in the reproduction with no shelving or light. Start 1 and start 2 show a blurred noisy wall with no panels or shelves, and starts 3 to 7 are almost black in the reproduction, against the original's shelved corridors."
+  }
+ },
+ "total": 9,
+ "of": 18,
+ "passes": false
+}

@@ -7,11 +7,86 @@
   "wads": [
     "halflife.wad"
   ],
-  "theme": {
-    "floor": "metal",
-    "wall": "stone",
-    "ceiling": "metal"
+  "textures": {
+    "concrete_wall": {
+      "texture": "CRETE1_WALL01"
+    },
+    "concrete_floor": {
+      "texture": "CRETE3_FLR05"
+    },
+    "ceiling_panel": {
+      "texture": "LAB1_PANEL1"
+    },
+    "door_panel": {
+      "texture": "LAB1_DOOR2A"
+    }
   },
+  "theme": {
+    "floor": "concrete_floor",
+    "wall": "concrete_wall",
+    "ceiling": "ceiling_panel",
+    "door": "door_panel"
+  },
+  "prefabs": {
+    "door": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -8,
+              -48,
+              0
+            ],
+            [
+              8,
+              48,
+              112
+            ]
+          ],
+          "texture": "door_panel",
+          "entity": "func_door"
+        }
+      ]
+    },
+    "charger": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -16,
+              -16,
+              0
+            ],
+            [
+              16,
+              16,
+              48
+            ]
+          ],
+          "texture": "ceiling_panel",
+          "entity": "func_healthcharger"
+        }
+      ]
+    }
+  },
+  "furniture": [
+    {
+      "prefab": "door",
+      "room": "plan",
+      "at": [
+        -1312,
+        336
+      ]
+    },
+    {
+      "prefab": "charger",
+      "room": "plan",
+      "at": [
+        -20,
+        0
+      ]
+    }
+  ],
   "entities": [
     {
       "class": "info_player_start",
@@ -242,19 +317,21 @@
       "class": "ammo_ARgrenades",
       "room": "plan",
       "at": [
-        -592,
-        104
+        -664,
+        152
       ],
-      "height": 320
+      "layer": 0,
+      "z": 16
     },
     {
       "class": "ammo_ARgrenades",
       "room": "plan",
       "at": [
-        -592,
-        -104
+        -664,
+        -152
       ],
-      "height": 320
+      "layer": 0,
+      "z": 16
     },
     {
       "class": "weapon_9mmAR",
@@ -359,10 +436,11 @@
       "class": "item_longjump",
       "room": "plan",
       "at": [
-        -176,
-        -72
+        -72,
+        0
       ],
-      "height": 320
+      "layer": 0,
+      "z": 16
     },
     {
       "class": "weapon_shotgun",
@@ -539,120 +617,112 @@
       "class": "env_glow",
       "room": "plan",
       "at": [
-        640,
+        641,
         704
       ],
-      "height": 256,
+      "height": 260,
       "keys": {
         "model": "sprites/glow01.spr",
         "rendermode": 5,
-        "renderamt": 255,
-        "rendercolor": "255 200 80"
+        "renderamt": 255
       }
     },
     {
       "class": "env_glow",
       "room": "plan",
       "at": [
-        832,
+        833,
         640
       ],
-      "height": 256,
+      "height": 260,
       "keys": {
         "model": "sprites/glow01.spr",
         "rendermode": 5,
-        "renderamt": 255,
-        "rendercolor": "255 200 80"
+        "renderamt": 255
       }
     },
     {
       "class": "env_glow",
       "room": "plan",
       "at": [
-        880,
+        881,
         416
       ],
-      "height": 256,
+      "height": 260,
       "keys": {
         "model": "sprites/glow01.spr",
         "rendermode": 5,
-        "renderamt": 255,
-        "rendercolor": "255 200 80"
+        "renderamt": 255
       }
     },
     {
       "class": "env_glow",
       "room": "plan",
       "at": [
-        880,
+        881,
         176
       ],
-      "height": 256,
+      "height": 260,
       "keys": {
         "model": "sprites/glow01.spr",
         "rendermode": 5,
-        "renderamt": 255,
-        "rendercolor": "255 200 80"
+        "renderamt": 255
       }
     },
     {
       "class": "env_glow",
       "room": "plan",
       "at": [
-        656,
+        657,
         0
       ],
-      "height": 288,
+      "height": 292,
       "keys": {
         "model": "sprites/glow01.spr",
         "rendermode": 5,
-        "renderamt": 255,
-        "rendercolor": "255 200 80"
+        "renderamt": 255
       }
     },
     {
       "class": "env_glow",
       "room": "plan",
       "at": [
-        624,
+        625,
         448
       ],
-      "height": 256,
+      "height": 260,
       "keys": {
         "model": "sprites/glow01.spr",
         "rendermode": 5,
-        "renderamt": 255,
-        "rendercolor": "255 200 80"
+        "renderamt": 255
       }
     },
     {
       "class": "env_glow",
       "room": "plan",
       "at": [
-        640,
+        641,
         384
       ],
-      "height": 104,
+      "height": 108,
       "keys": {
         "model": "sprites/glow01.spr",
         "rendermode": 5,
-        "renderamt": 255,
-        "rendercolor": "255 200 80"
+        "renderamt": 255
       }
     },
     {
       "class": "env_glow",
       "room": "plan",
       "at": [
-        656,
+        657,
         192
       ],
-      "height": 104,
+      "height": 108,
       "keys": {
         "model": "sprites/glow01.spr",
         "rendermode": 5,
-        "renderamt": 255,
-        "rendercolor": "255 200 80"
+        "renderamt": 255
       }
     }
   ]
