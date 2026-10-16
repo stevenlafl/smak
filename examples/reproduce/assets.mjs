@@ -169,7 +169,8 @@ function inputs(kind, subject) {
       savePng(join(out, `${p.name.replace(/[^\w~+{!-]/g, "_")}.png`), view);
       let white = 0;
       for (let i = 0; i < view.width * view.height; i++) if (view.rgba[i * 4] === 255 || view.rgba[i * 4 + 1] === 255 || view.rgba[i * 4 + 2] === 255) white++;
-      if (white > 0.1 * view.width * view.height) {
+      // any of it white: a texture's face is often a small part of its view (yellow's, 1.6% of it, white all over)
+      if (white > 0.01 * view.width * view.height) {
         savePng(join(out, `${p.name.replace(/[^\w~+{!-]/g, "_")}-dark.png`), maps.placeView(bsp, p, { folders: [GAME], brightness: DARK_VIEW }));
         dark.add(p.name);
       }
