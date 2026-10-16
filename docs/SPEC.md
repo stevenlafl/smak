@@ -662,9 +662,11 @@ A texture of a compiled map that a picture shows on its wall, as the map's place
 and the light it was seen in, and the texel is its colour over that light; what the view does not show is the part
 it shows repeated; with `"views": "work:pictures/views.png", "cameras": "work:pictures/views.json"` (a sheet of the
 map's views and each tile's camera, as `viewsOf` drew them) the texels those show are taken too. The build says the
-share of texels seen and the share white in the view (a lamp's colour is
-not there to read): use it where the view shows most of a texture, and paint the rest. On frenzy's own views, half
-its textures come back within 10 levels a channel of the game's.
+share of texels seen and the share white in the view (a lamp's colour is not there to read): use it on every
+texture whose view is not white there, however little of it the view shows, and paint only the white ones (lamps,
+lights). On frenzy, a texture seen at 5% to 40% came back within 2 to 5 of delta E of the game's colour (a copy is
+held to 15), where makers who painted those instead missed by 21 to 32; what a small view lacks is a pattern
+larger than what it shows (a row of studs), which the map's views often add.
 
 Each texture is a material laid seamlessly (one texel a unit, as a map draws it), with `panels` and `print`
 as a box face has them (in texels from the bottom left) and `grime` (0 to 1) gathered toward its foot. `wear`

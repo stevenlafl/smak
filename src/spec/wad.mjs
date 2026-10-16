@@ -109,7 +109,7 @@ function paintTexture(texture, materials, readPicture, readMap, readText) {
       }
     const facts = [`lifted off ${texture.lift.view}: ${Math.round(lifted.seen * 100)}% of its texels seen, ${Math.round(lifted.saturated * 100)}% of those white in the view`];
     const warnings = [];
-    if (lifted.seen < 0.3) warnings.push(`lifted off ${texture.lift.view}, which shows ${Math.round(lifted.seen * 100)}% of it: the rest is that part repeated. A view that shows more of it, or a material of its kind from that part (picture with rect)`);
+    if (lifted.seen < 0.3) warnings.push(`lifted off ${texture.lift.view}, which shows ${Math.round(lifted.seen * 100)}% of it: its colour and grain are the texture's own (on frenzy, within 2 to 5 of delta E from 5% seen), and the rest is that part repeated, so a pattern larger than the part (a row of studs, a panel) is not there: add the map's views (views, cameras) to see more of it`);
     if (lifted.saturated > 0.3) warnings.push(`lifted off ${texture.lift.view}, ${Math.round(lifted.saturated * 100)}% of whose texels are white in the view (a lamp, a bright light): their colour is not there to read. Paint it instead`);
     return { width, height, rgb, facts, warnings };
   }
