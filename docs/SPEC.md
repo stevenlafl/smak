@@ -573,7 +573,9 @@ whose `shape` moves through keys. The build warns of smooth noise ringing past 0
 sound (a hit, a shot, a step) that takes over 50 ms to reach its peak (heard as played backwards) and of one that
 dies sooner than the game's of its class (heard dry, as in a padded room: a short `room` gives it space, noise
 does not), and of a spectrum off its class's as a judge measures it (its centroid more than a fifth outside the
-class's range, a band's share more than 10 points outside), saying which way to move it.
+class's range, a band's share more than 10 points outside), saying which way to move it. A sound named as one of the
+game's own (`headcrab/hc_pain1.wav`), with the game's folders given, is held to that sound the same way, and to its
+length within a quarter: it takes its place, and is judged beside it.
 
 **From a picture.** `audio.fromPicture(png)` reads a sound's picture as the kit draws it (its label gives the
 length, its marks the rate) and returns a draft spec of tens of numbers: one noise layer whose `shape` moves

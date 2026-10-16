@@ -1,6 +1,6 @@
 // Sounds: a GoldSrc file written and read back (8 and 16 bit, a cue point), measured in known signals, made
 // from a spec the same way every time, checked as the engine needs it, and built by the tool.
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, mkdirSync as mkdirOf, writeFileSync as writeOf } from "node:fs";
 import { join } from "node:path";
 import * as smak from "../src/index.mjs";
 import { test, testAsync, sure, tmp } from "./helper.mjs";
@@ -312,4 +312,15 @@ test("a sound's spectrum off its class is warned of, which way, as a judge measu
   const dark = buildSoundSpec({ spec: "smak.sound/1", name: "weapons/thud.wav", class: "metal hit", length: 0.5, layers: [{ kind: "tone", f: 90, env: { attack: 0.002, decay: 0.3 } }] }, { games: [] });
   const said = dark.report.warnings.find((w) => /spectrum is off the game's metal hit sounds/.test(w)) ?? "";
   sure(/centroid \d+ Hz under the class's/.test(said) && /too dark/.test(said), dark.report.warnings.join(" | "));
+});
+
+test("a sound in the place of one of the game's own is held to it: far in spectrum or length, warned of", () => {
+  const [mkdirSync, writeFileSync] = [mkdirOf, writeOf];
+  const game = join(tmp, "game-sounds");
+  mkdirSync(join(game, "sound", "headcrab"), { recursive: true });
+  // the game's own: a bright hiss of a quarter second
+  const theirs = smak.audio.render({ length: 0.25, layers: [{ kind: "noise", color: "white", filter: [{ type: "highpass", f: 2000 }], env: { attack: 0.002, decay: 0.2 } }] }, { rate: 22050 });
+  writeFileSync(join(game, "sound", "headcrab", "hc_pain1.wav"), smak.audio.writeWav(theirs, { rate: 22050 }));
+  const low = buildSoundSpec({ spec: "smak.sound/1", name: "headcrab/hc_pain1.wav", length: 0.25, layers: [{ kind: "tone", f: 120, env: { attack: 0.002, decay: 0.2 } }] }, { games: [game] });
+  sure(low.report.warnings.some((w) => /far from the game's own sound it takes the place of/.test(w) && /too dark/.test(w)), low.report.warnings.join(" | "));
 });

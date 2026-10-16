@@ -9,7 +9,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { render, MODE_SETS } from "../audio/synth.mjs";
 import { writeWav, readWav, resample, RATES } from "../audio/wav.mjs";
-import { checks } from "../audio/measure.mjs";
+import { checks, features } from "../audio/measure.mjs";
 import { CLASSES, scoreAgainst, rangesOf } from "../audio/classes.mjs";
 import { soundPicture } from "../audio/draw.mjs";
 import { pictureMeasures } from "../audio/picture.mjs";
@@ -308,6 +308,20 @@ export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (
           p.t20Range && !p.t20In ? `T20 ${f.t20} s outside ${p.t20Range[0]} to ${p.t20Range[1]}` : null,
         ].filter(Boolean);
         if (far.length) warnings.push(`${take.name}: further from its picture than a copy should be: ${far.join("; ")}. Bring it nearer (a filter, a layer's gain, the decay, another take) and build again`);
+      }
+      // a sound in the place of one of the game's own (its name, in the game folders given) is held to that sound as a
+      // judge holds it: its spectrum and length. The original-creation mod's crawler, given no class, scored 4 of 10
+      // with nothing to tell its maker why
+      const own = referenceOf(take.name, games);
+      if (own) {
+        const g = features({ x: own.x, rate: own.rate });
+        const off = [];
+        if (g.centroid > 0 && Math.abs(f.centroid - g.centroid) / g.centroid > 0.2)
+          off.push(`centroid ${f.centroid} Hz against its ${g.centroid}: ${f.centroid < g.centroid ? "too dark, more energy higher up" : "too bright, less higher up"}`);
+        for (const k of Object.keys(g.bands)) if (Math.abs(f.bands[k] - g.bands[k]) > 10) off.push(`${k} Hz ${f.bands[k]}% against its ${g.bands[k]}%`);
+        if (Math.abs(f.length - g.length) / Math.max(g.length, 0.01) > 0.25) off.push(`${f.length} s long against its ${Math.round(g.length * 1000) / 1000} s`);
+        report.facts.push(`${take.name}: takes the place of the game's own ${take.name} (centroid ${g.centroid} Hz, ${Math.round(g.length * 1000) / 1000} s)`);
+        if (off.length) warnings.push(`${take.name}: far from the game's own sound it takes the place of, as a judge measures it: ${off.join("; ")}. Bring it nearer and build again`);
       }
       report.sounds[take.name] = entry;
       files.push({ name: take.name, bytes });
