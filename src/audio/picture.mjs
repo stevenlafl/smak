@@ -9,7 +9,7 @@
 // the kit keeps to the side of measures and parameters.
 //
 //   readSoundPicture(picture, { row, length, rate }) -> { name, length, rate, loop, columns, outline, frames, binHz }
-//   pictureMeasures(picture, options)                -> { length, rate, peak, crest, t20, centroid, bands, onsets, ... }
+//   pictureMeasures(picture, options)                -> { length, rate, peak, crest, t20, centroid, flatness, bands, onsets, ... }
 //   fromPicture(picture, options)                    -> { spec, measures, lines, onsets }
 
 import { unpng } from "../image.mjs";
@@ -203,7 +203,7 @@ function levelsOf(frames) {
 }
 
 /**
- * What the judge measures of a sound, read off its picture: `length`, `centroid` (Hz) and `bands` (% of
+ * What the judge measures of a sound, read off its picture: `length`, `centroid` (Hz), `flatness` and `bands` (% of
  * power) from the spectrogram, `t20` (s, peak to -20 dB, by the picture's frames), `onsets` (the spectral
  * flux's peaks, as `features` counts them, on the picture's frames), `peak` (dBFS) off the outline and
  * `crest` (dB) about: the RMS is the outline's, each column's peak taken for the peak of noise of its
@@ -221,6 +221,11 @@ export function pictureMeasures(picture, options = {}) {
     weighted += binHz[k] * bins[k];
   }
   total ||= 1e-20;
+  // flatness as the judge's `features` takes it (the whole sound's spectrum, geometric over arithmetic mean), on
+  // the picture's bins: within a tenth of the samples' own on nine of the ten sounds of the reproduction test
+  let logs = 0;
+  for (let k = 1; k < BINS; k++) logs += Math.log(bins[k] + 1e-20);
+  const flatness = Math.exp(logs / (BINS - 1)) / (total / (BINS - 1));
   const bands = Object.fromEntries(
     BANDS.map(([name, lo, hi]) => {
       let e = 0;
@@ -268,6 +273,7 @@ export function pictureMeasures(picture, options = {}) {
     t20: round(t20, 3),
     peakAt,
     centroid: Math.round(weighted / total),
+    flatness: round(flatness, 3),
     bands,
     onsets: onsets.length,
     onsetTimes: onsets.map((o) => o.t),

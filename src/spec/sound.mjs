@@ -33,6 +33,11 @@ const STRUCK = new Set(["metal hit", "flesh hit", "gunshot", "click", "pump", "s
 /** An attack slower than this, in a struck class, is warned of: Steven heard a .357 that took 0.14 s as played backwards. */
 const SWELL = 0.05;
 const PICTURE_BANDS = 7;
+/**
+ * Flatness off its picture's by more than this many times, either way, is warned of. A picture's reading is within
+ * a tenth on nine of Half-Life's ten sounds tried (the crowbar's hit, read 0.34 for 0.22, the worst).
+ */
+const PICTURE_FLATNESS = 1.6;
 /** The bands a sound's power is told in (features' bands), as a spec's `bands` names them. */
 const BAND_NAMES = ["<150", "150-600", "600-2k", "2k-5k", ">5k"];
 /** The longest a sound's path may be from the mod's folder: the engine's 64 with its zero, `sound/` added. */
@@ -182,6 +187,10 @@ function againstPicture(f, seen, sound) {
     crest: seen.crest,
     crestOff: Math.round((f.crest - seen.crest) * 10) / 10,
     onsets: seen.onsets,
+    flatness: seen.flatness,
+    // how many times flatter or more tonal than the picture: the copies of the reproduction test came out two to
+    // twenty times more tonal than their originals, and the judges took S4 for it
+    flatnessOff: typeof seen.flatness === "number" && typeof f.flatness === "number" ? ((a, b) => Math.round((Math.max(a, b) / Math.min(a, b)) * 100) / 100)(Math.max(f.flatness, 0.001), Math.max(seen.flatness, 0.001)) : 1,
   };
 }
 
@@ -299,7 +308,7 @@ export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (
       if (seen && take.name === sound.name) {
         const p = (entry.picture = againstPicture(f, seen, sound));
         report.facts.push(
-          `${take.name}: against its picture (${p.length} s): length ${f.length} s (${Math.round(p.lengthOff * 100)}% off), centroid ${f.centroid} Hz to ${p.centroid} (${Math.round(p.centroidOff * 100)}% off), bands ${p.bandsOffMost} points off at most (${p.bandMostOff}), T20 ${f.t20} s${p.t20Range ? ` (${p.t20Range[0]} to ${p.t20Range[1]}${p.t20In ? "" : ": out"})` : ""}, crest ${f.crest} dB to about ${p.crest} (${p.crestOff > 0 ? "+" : ""}${p.crestOff}; read off the outline, within 3 dB), onsets ${f.onsets} to ${p.onsets}`,
+          `${take.name}: against its picture (${p.length} s): length ${f.length} s (${Math.round(p.lengthOff * 100)}% off), centroid ${f.centroid} Hz to ${p.centroid} (${Math.round(p.centroidOff * 100)}% off), bands ${p.bandsOffMost} points off at most (${p.bandMostOff}), T20 ${f.t20} s${p.t20Range ? ` (${p.t20Range[0]} to ${p.t20Range[1]}${p.t20In ? "" : ": out"})` : ""}, crest ${f.crest} dB to about ${p.crest} (${p.crestOff > 0 ? "+" : ""}${p.crestOff}; read off the outline, within 3 dB), flatness ${f.flatness} to ${p.flatness}, onsets ${f.onsets} to ${p.onsets}`,
         );
         // a copy is held to its original within 20% of centroid, 10 points of each band and its decay's range (the
         // reproduction test's S2 and S3): warned of short of those, by the margin a picture's reading may be off
@@ -308,6 +317,11 @@ export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (
           p.bandsOffMost > PICTURE_BANDS ? `${p.bandMostOff} ${p.bandsOffMost} points off (aim within ${PICTURE_BANDS}: ${f.bands[p.bandMostOff]}% against ${p.bands[p.bandMostOff]}%)` : null,
           p.lengthOff > 0.1 ? `length ${Math.round(p.lengthOff * 100)}% off` : null,
           p.t20Range && !p.t20In ? `T20 ${f.t20} s outside ${p.t20Range[0]} to ${p.t20Range[1]}` : null,
+          p.flatnessOff > PICTURE_FLATNESS
+            ? f.flatness < p.flatness
+              ? `flatness ${f.flatness} against ${p.flatness}: ${p.flatnessOff} times too tonal, its rings and lines louder than the picture's noise (shorten the modes' decay or lower their gain, raise the noise or particles under them, or take another take)`
+              : `flatness ${f.flatness} against ${p.flatness}: ${p.flatnessOff} times too noisy, the picture's tones under its noise (a modes or tone layer at the picture's lines, the noise lower)`
+            : null,
         ].filter(Boolean);
         if (far.length) warnings.push(`${take.name}: further from its picture than a copy should be: ${far.join("; ")}. Bring it nearer (a filter, a layer's gain, the decay, another take) and build again`);
       }

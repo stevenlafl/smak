@@ -267,6 +267,16 @@ test("a sound further from its picture than a copy is held to is warned of, and 
   sure(!near.report.warnings.some((w) => /further from its picture/.test(w)), near.report.warnings.join(" | "));
   const far = buildSoundSpec({ spec: "smak.sound/1", name: "x/far.wav", picture: "thump.png", layers: [{ kind: "noise", filter: [{ type: "highpass", f: 3000 }], env: { decay: 0.25 } }] }, { folder });
   sure(far.report.warnings.some((w) => /x\/far\.wav: further from its picture than a copy should be: centroid \d+% off \(aim within 15%\)/.test(w)), far.report.warnings.join(" | "));
+  // flatness: a crash of noise round 1 kHz in the picture; the same noise is near it, a ring at 1 kHz too tonal
+  const crash = { kind: "noise", filter: [{ type: "bandpass", f: 1000, q: 0.7 }], env: { decay: 0.3 } };
+  const crashed = buildSoundSpec({ spec: "smak.sound/1", name: "x/crash.wav", layers: [crash] }, { folder });
+  const cw = A.readWav(crashed.files[0].bytes);
+  const cpic = A.soundPicture([{ name: "x/crash.wav", x: cw.x, rate: cw.rate }], { width: 960 });
+  writeFileSync(join(folder, "crash.png"), smak.png(cpic.width, cpic.height, cpic.rgba));
+  const same = buildSoundSpec({ spec: "smak.sound/1", name: "x/same.wav", picture: "crash.png", layers: [crash] }, { folder });
+  sure(!same.report.warnings.some((w) => /flatness/.test(w)) && same.report.facts.some((f) => /flatness [\d.]+ to [\d.]+/.test(f)), [...same.report.warnings, ...same.report.facts].join(" | "));
+  const rung = buildSoundSpec({ spec: "smak.sound/1", name: "x/rung.wav", picture: "crash.png", layers: [{ kind: "modes", f: 1000, ratios: "bar", decay: 0.3 }] }, { folder });
+  sure(rung.report.warnings.some((w) => /x\/rung\.wav: further from its picture.*flatness [\d.]+ against [\d.]+: [\d.]+ times too tonal/.test(w)), rung.report.warnings.join(" | "));
 });
 
 test("an 8-bit sound is warned of for its hiss; 16 bits, the default, is not", () => {
