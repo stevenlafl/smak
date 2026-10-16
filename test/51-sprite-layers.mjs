@@ -260,6 +260,10 @@ test("a loop with a reference starts at the frame where its light over the loop 
   writeFileSync(file, smak.png(sheet.width, sheet.height, sheet.rgba));
   const built = buildSpriteSpec({ ...spec, reference: file });
   sure(built.report.facts.some((f) => /its loop starts at its frame 5,/.test(f)), built.report.facts.filter((f) => /loop/.test(f)).join(" | "));
+  // the same flame made a one-shot against a reference that is still lit at its end: told to loop
+  const once = buildSpriteSpec({ ...spec, loop: false, reference: file });
+  sure(once.report.warnings.some((w) => /its reference's last frame is still [\d.]+ of its brightest, as a loop's is .*make it loop: true/.test(w)), once.report.warnings.join(" | "));
+  sure(!built.report.warnings.some((w) => /make it loop/.test(w)), built.report.warnings.join(" | "));
 });
 
 test("ramp reference: a layer wears the reference's own colour at each brightness", () => {

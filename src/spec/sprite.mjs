@@ -23,6 +23,8 @@ const USES = ["env_sprite", "env_glow", "tempent", "beam", "hud"];
 /** The widest a frame is drawn as painted, and the widest at all (GoldSrc shrinks past `gl_max_size`). */
 const SIDE_WARN = 256;
 const SIDE_MOST = 512;
+/** A reference whose last frame is lit to this share of its brightest loops: a one-shot ends dark. */
+const LOOPS_LIT = 0.5;
 /** A sprite's light, frame by frame over the brightest, more than this from its reference's on average is warned of. */
 const CURVE_GAP = 0.08;
 /** Or any one frame further than this from the reference's at the same point of its play (steam1's growth: 0.41). */
@@ -144,6 +146,13 @@ function againstReference(name, ref, back, s, readPicture) {
   };
   if (theirs.masks.length > 1 && ours.masks.length > 1) {
     const [a, b] = [envelope(theirs.masks), envelope(ours.masks)];
+    // whether it loops: a one-shot ends dark, so a reference whose last frame is still lit loops. Unsaid in its
+    // facts, fire was made a one-shot in four rounds of twelve, and the judges took R4 for "the loop closes differently"
+    // (read off an additive sheet only, of four frames or more: a sheet drawn over grey reads a faint puff as lit,
+    // and a muzzle flash of two frames is a tempent shown and gone, never a loop)
+    const readable = (s.format ?? "additive") === "additive" && (s.use ?? "env_sprite") !== "tempent" && theirs.masks.length >= 4;
+    if (readable && !s.loop && a.last >= LOOPS_LIT) notes.push(`${name}: its reference's last frame is still ${a.last} of its brightest, as a loop's is (a one-shot ends dark): make it loop: true`);
+    else if (readable && s.loop && a.last < 0.1 && a.first < 0.1) notes.push(`${name}: its reference starts and ends dark (${a.first} and ${a.last} of its brightest), as a one-shot does: make it loop: false`);
     facts.push(`${name}: its light over its frames against its reference's: brightest at ${a.peakAt} and ${b.peakAt} of its play, first frame ${a.first} and ${b.first}, last ${a.last} and ${b.last} of the brightest`);
     if (Math.abs(a.peakAt - b.peakAt) > 0.08) notes.push(`${name}: its brightest frame comes at ${b.peakAt} of its play, its reference's at ${a.peakAt}: move its envelope (env's attack, or the layer's own timing) so that it peaks where the reference does`);
     if (Math.abs(a.first - b.first) > 0.2) notes.push(`${name}: its first frame is ${b.first} of its brightest, its reference's ${a.first}: it ${b.first < a.first ? "starts too faint" : "starts too bright"}`);
@@ -289,12 +298,20 @@ export function buildSpriteSpec(spec, { readPicture = (path) => unpicture(readFi
         let theirs = norm(read.masks.map((m) => m.reduce((x, y) => x + y, 0)));
         if (theirs.length === cycle.length + 1) theirs = theirs.slice(0, -1);
         const at = (i) => theirs[Math.round((i * theirs.length) / cycle.length) % theirs.length];
-        let best = { r: 0, d: Infinity };
+        const fits = [];
         for (let r = 0; r < cycle.length; r++) {
           let d = 0;
           for (let i = 0; i < cycle.length; i++) d += Math.abs(ours[(i + r) % cycle.length] - at(i));
-          if (d < best.d - 1e-9) best = { r, d };
+          fits.push({ r, d });
         }
+        // of the turns that follow it nearly as well, the one whose brightest frame falls where the reference's
+        // does: a flame's or a spark's light hardly moves over its loop, so the turn that fits best put fire's
+        // brightest frame at 0.71 of its play against the reference's 0.07, and the judges took R4 for it
+        const least = Math.min(...fits.map((f) => f.d));
+        const theirPeak = theirs.indexOf(Math.max(...theirs)) / theirs.length;
+        const peakOf = (r) => ((ours.indexOf(Math.max(...ours)) - r + cycle.length) % cycle.length) / cycle.length;
+        const ring = (x) => Math.min(Math.abs(x), 1 - Math.abs(x));
+        const best = fits.filter((f) => f.d <= least * 1.1 + 1e-9).reduce((a, b) => (ring(peakOf(b.r) - theirPeak) < ring(peakOf(a.r) - theirPeak) - 1e-9 ? b : a));
         if (best.r) {
           const turned = cycle.map((_, i) => cycle[(i + best.r) % cycle.length]);
           made = [...turned, turned[0]];

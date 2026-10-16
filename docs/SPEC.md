@@ -766,7 +766,9 @@ frame 0.2 brighter or fainter, its light frame by frame (over its brightest) mor
 average or 0.25 at any frame (a puff that grows three frames slower to the same peak, a flame that holds its light
 where the reference's sinks), naming the frames, and its light at the border 0.08 short of or past the reference's (a halo that falls
 off too soon, or spills). A loop with a reference starts at the frame where its light over the loop follows the
-reference's: a loop has no first frame of its own. Build until they are gone, not only until `OK`. A light of one colour (a
+reference's, and of the starts that follow it nearly as well, the one that puts its brightest frame where the
+reference's is: a loop has no first frame of its own. An additive sprite made a one-shot against a reference still lit
+at its last frame (a one-shot ends dark) is told to loop, and a loop against one that starts and ends dark, not to. Build until they are gone, not only until `OK`. A light of one colour (a
 white glow) is written as 255 steps of that colour, so its falloff shows no bands.
 FAULTs: a loop that jumps at its wrap, a one-shot that does not end dark, light at the border.
 
