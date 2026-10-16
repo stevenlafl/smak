@@ -11,6 +11,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from "no
 import { join, dirname, basename, resolve, relative } from "node:path";
 import { pathToFileURL } from "node:url";
 import * as smak from "../src/index.mjs";
+import { heightPlanOf } from "../src/maps/heightplan.mjs";
 
 // the ports the two pages listen on unless told with --port
 const VIEWER_PORT = 8098;
@@ -2060,6 +2061,21 @@ function wadMake({ command, file, rest, flags }) {
  * map-light: the light on a compiled map's floors, from its lightmaps: all of it, and room by room (--rooms:
  * a JSON file of { name: { min, max } }) or as the dark stretches of it.
  */
+function mapHeights({ command, file, flags }) {
+  const dir = need(command, flags.o, "-o <folder>");
+  const { bsp } = readCompiled(file);
+  const cell = flags.cell === undefined ? 16 : numberOf(flags, "cell");
+  const { legend, layers } = heightPlanOf(bsp, { cell, pixels: flags.pixels === undefined ? 4 : numberOf(flags, "pixels") });
+  mkdirSync(dir, { recursive: true });
+  layers.forEach(({ floor, room }, L) => {
+    writeFileSync(join(dir, `floor-${L}.png`), smak.png(floor.width, floor.height, floor.rgba));
+    writeFileSync(join(dir, `room-${L}.png`), smak.png(room.width, room.height, room.rgba));
+  });
+  writeFileSync(join(dir, "legend.json"), `${JSON.stringify(legend, null, 1)}\n`);
+  console.log(`${dir}: ${legend.layers} layers of ${legend.width} x ${legend.height} cells of ${legend.cell} units (floor-N.png the floor's height, room-N.png the headroom over it; legend.json says which colour is which, and where the world's x0 and y1 are)`);
+  console.log(`      ${legend.heights.length} floor heights from ${legend.heights[0]?.h} to ${legend.heights.at(-1)?.h}; read back by a map spec's floorplan: { dir }`);
+}
+
 function mapLight({ command, file, flags }) {
   const { bsp } = readCompiled(file);
   const rooms = flags.rooms === undefined ? null : JSON.parse(readFileSync(existing(flags.rooms), "utf8"));
@@ -2687,6 +2703,14 @@ const COMMANDS = {
     own: true,
     help: `  wad-make <picture.png|.bmp|.jpg> [more ...] -o out.wad   a .wad of pictures, each texture named after its file (15 letters at most,
                                             sides multiples of 16; a name that begins with { has holes where its PNG is see-through)`,
+  },
+  "map-heights": {
+    run: mapHeights,
+    own: true,
+    help: `  map-heights <bsp> -o <folder> [--cell 16]   the map's height plan: one picture a layer of floor (floor-0.png the lowest at each
+                                            place, floor-1.png the next above it...) with each cell's height as a colour, room-N.png
+                                            the headroom over it, legend.json the colours' heights. A map spec's floorplan: { dir }
+                                            reads it back as its space: storeys over storeys carved in one`,
   },
   "map-light": {
     run: mapLight,

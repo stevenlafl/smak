@@ -87,6 +87,24 @@ colours and the sections show. The same drawings are in the server's work folder
       files: Object.fromEntries(drawings.map((f) => [`pictures/${f}`, join(input, f)])),
     };
   }
+  // heightplan: the plan with each layer of floor's height and headroom as colours (smak map-heights), read by
+  // the spec's floorplan into the map's space: near the geometry itself, as bsp is, and reported apart
+  if (leg === "heightplan") {
+    const plans = readdirSync(join(input, "heightplan"));
+    return {
+      prompt: `${ask}
+
+The original, in height plans: the folder ${input}/heightplan (also in the server's work folder as heightplan/):
+floor-0.png, floor-1.png... one picture for each layer of floor (layer 0 the lowest floor at each place, 1 the next
+above it), each cell's floor height as a colour, room-N.png the headroom over it, and legend.json: the colour of each
+height and headroom, the cell's size, and the world's x at the pictures' left edge (x0) and y at their top (y1). Give
+your map spec floorplan: { dir: "work:heightplan/" } and its space is carved from them (docs/SPEC.md, "A floor plan").
+${input}/plan.png marks every entity with its class (and the same in the work folder under pictures/): put them on
+the plan with room: "plan" and at: [x, y] of the world, z over the floor there. The textures and the light are yours.`,
+      read: input,
+      files: { "pictures/plan.png": join(input, "plan.png"), ...Object.fromEntries(plans.map((f) => [`heightplan/${f}`, join(input, "heightplan", f)])) },
+    };
+  }
   // decompile: the compiled map, with the server's decompile tool to make it source again (reported apart:
   // it starts from the original's own brushes)
   if (leg === "decompile")

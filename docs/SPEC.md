@@ -819,6 +819,26 @@ command line: `smak video spec.json -o folder [--preview] [--models folder]`.
 | `music` | `[{ track, when }]`: the game's CD tracks, 2 to 27 (a music spec with that `track` makes the file): `when` `"start"` (unless told: a `trigger_auto` firing a `target_cdaudio` as the map begins) or `{ enter: "<room>" }` (a `trigger_cdaudio` over the room's floor, the first time a player walks in); `{ stop: true, when }` stops it. They play for the first player only, and each once: a multiplayer mod plays music its own way |
 | `sounds` | `[{ spec, room, at, z, volume, radius }]`: sounds made with the map (`spec`: a sound spec, or `{ file }`) and played where they are put by an `ambient_generic`: `volume` 1 to 10, `radius` `everywhere`, `small`, `medium` or `large`; looped when the sound loops (a hum, a fire), once otherwise. The files go under `sound/<map name>/` beside the map, and its `ambient_generic` names them there: copy that folder into `<mod>/sound/` |
 
+### A floor plan
+
+A map whose plan is drawn already (a level's storeys, a building of floors over floors) takes its space from height
+plans in place of rooms: `"floorplan": { "dir": "work:plans/" }`, the folder `smak map-heights` writes. One picture a
+layer of floor (`floor-0.png` the lowest floor at each place, `floor-1.png` the next above it...), each cell's floor
+height as a colour, `room-N.png` the headroom over it, and `legend.json` (the colour of each height and headroom,
+the cell's size, and the world's x at the pictures' left edge, `x0`, and y at their top, `y1`). Every cell's open
+space is carved out of rock in one, so a gallery over a hall and the hall under it are one space; the walked floor
+is grown `grow` cells (1) to the walls, since a player's middle keeps 16 off them. Rooms may be left out; what
+stands on the plan is in the room `"plan"`, `at: [x, y]` of the world, `z` over the floor there:
+
+```json
+{ "spec": "smak.map/1", "name": "arena", "floorplan": { "dir": "work:plans/" },
+  "entities": [{ "class": "info_player_deathmatch", "room": "plan", "at": [-512, 640] }, { "class": "weapon_shotgun", "room": "plan", "at": [128, 96], "z": 4 }] }
+```
+
+Unless it has lights of its own, a lamp hangs under the ceiling of each of its largest open spaces (24 at most).
+Frenzy's height plans read back so overlap its walked floor 0.898 (research/map-geometry.md); the textures, the
+light and every entity are still the map's to give.
+
 ### Rooms
 
 `{ id, size: [x, y, z], place: { east_of: "hall", align, gap }, floor }`:

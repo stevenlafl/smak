@@ -813,7 +813,7 @@ function build(folders, args) {
     const out = join(folders.work, name);
     mkdirSync(out, { recursive: true });
     writeFileSync(join(out, `${name}.spec.json`), `${JSON.stringify(spec, null, 2)}\n`);
-    const { report, files } = buildMapSpec(spec, { out, compilers: folders.compilers, folder, fgd: folders.fgd ?? [], wads: folders.wads ?? [], readPicture: pictureReader(folders, folder) });
+    const { report, files } = buildMapSpec(spec, { out, compilers: folders.compilers, folder, fgd: folders.fgd ?? [], wads: folders.wads ?? [], readPicture: pictureReader(folders, folder), readFile: (name) => readFileSync(pathOf(folders, name)) });
     const paintedMap = paintedOnly(folders, spec);
     const lines = reportLines(report);
     if (report.rooms && Object.keys(report.rooms).length) lines.splice(1, 0, ...changedSince(out, name, "map", spec, report));

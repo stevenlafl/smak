@@ -12,6 +12,7 @@
 import { writeFileSync, mkdirSync, readFileSync, existsSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { join, resolve, dirname, basename } from "node:path";
+import { openBoxesOf } from "../maps/heightplan.mjs";
 import { carve, box, cylinder, wedge, prism, stairs as stairBrushes, light, sunLight, textureLights, playerStart, pointEntity, brushEntity, writeMap, readMap, subtract, moved, shapeOf, onFloor } from "../maps/source.mjs";
 import { checkPlan } from "../maps/plan.mjs";
 import { definitionsOf } from "../maps/fgd.mjs";
@@ -23,7 +24,7 @@ import { lightReport } from "../maps/light.mjs";
 import { makeSky, skyFiles, SKY_KEYS } from "../maps/sky.mjs";
 import { PRECACHES_MODEL } from "../maps/entities.mjs";
 import { sweepOf, SAFE_DROP, LIGHT_REACH } from "../maps/sweep.mjs";
-import { planOfSource, planOf, drawMap, sectionOf } from "../maps/draw.mjs";
+import { planOfSource, planOf, drawMap, sectionOf, viewsOf } from "../maps/draw.mjs";
 import { tile, label, render } from "../render.mjs";
 import { png, unpicture } from "../image.mjs";
 import { materialOf, surfacePicture, MATERIALS, UNWORN } from "./paint.mjs";
@@ -312,6 +313,15 @@ export function validateMapSpec(spec) {
   const errors = [];
   const warnings = [];
   if (!spec || typeof spec !== "object") return { errors: ["the spec is not an object"], warnings };
+  // a floor plan of height plans (src/maps/heightplan.mjs) is the map's space: rooms may then be left out, and
+  // what stands on the plan is in the room "plan", at [x, y] of the world and z over its floor there
+  if (spec.floorplan !== undefined) {
+    const f = spec.floorplan;
+    if (!f || typeof f !== "object" || typeof f.dir !== "string")
+      errors.push(`floorplan: { dir: "work:plans/" }: the folder of a height plan (legend.json, floor-0.png, room-0.png, floor-1.png...), as \`smak map-heights\` draws one`);
+    if (f?.grow !== undefined && !(Number.isInteger(f.grow) && f.grow >= 0 && f.grow <= 4)) errors.push("floorplan.grow: cells the walked floor is grown by to its walls, 0 to 4 (1)");
+    if (!spec.rooms) spec = { ...spec, rooms: [] };
+  }
   if (spec.spec !== MAP_SPEC) errors.push(`spec: "${MAP_SPEC}" says what this is; it has ${JSON.stringify(spec.spec)}`);
   for (const key of Object.keys(spec)) if (!TOP.includes(key)) warnings.push(`${key}: not a field of a map spec, left out`);
   if (spec.sky !== undefined && typeof spec.sky !== "string") {
@@ -320,8 +330,8 @@ export function validateMapSpec(spec) {
   }
   if (spec.name !== undefined && !/^[a-z0-9_]{1,31}$/i.test(spec.name))
     errors.push(`name: the map's name, letters, digits and _ (it is typed in the console: map <name>)`);
-  if (!Array.isArray(spec.rooms) || !spec.rooms.length) {
-    errors.push("rooms: a list of one room at least");
+  if (!Array.isArray(spec.rooms) || (!spec.rooms.length && spec.floorplan === undefined)) {
+    errors.push("rooms: a list of one room at least (or a floorplan)");
     return { errors, warnings };
   }
   const layout = spec.layout ? readLayout(spec.layout) : null;
@@ -367,7 +377,7 @@ export function validateMapSpec(spec) {
     if (link?.width !== undefined && !(link.width >= PLAYER.wide && link.kind !== "window") && link.kind !== "window")
       errors.push(`${at}.width: a player is 32 wide; a way through needs that and more (64 is a door)`);
   });
-  const known = new Set([...ids.keys()]);
+  const known = new Set([...ids.keys(), ...(spec.floorplan ? ["plan"] : [])]);
   for (const [list, what] of [[spec.entities, "entities"], [spec.props, "props"], [spec.furniture, "furniture"]])
     (list ?? []).forEach((thing, i) => {
       if (!known.has(thing?.room)) errors.push(`${what}[${i}].room: the id of the room it is in (${[...known].join(", ")})`);
@@ -596,7 +606,7 @@ function placedPrefab(prefab, at, quarters, textureOf) {
  * every model it puts in, and <name>.bsp when the compilers are found (`compilers`: what findCompilers gave,
  * or a folder). Returns { report, files, map }: report is { ok, errors, faults, warnings, facts, rooms }.
  */
-export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [], readPicture } = {}) {
+export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [], readPicture, readFile } = {}) {
   let spec;
   try {
     spec = withIncludes(given, folder ?? ".");
@@ -627,6 +637,23 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     }
   }
   const name = spec.name ?? "specmap";
+  if (spec.floorplan && !spec.rooms) spec = { ...spec, rooms: [] };
+  // the floor plan's open space, read from its height plan: boxes of air carved with the rooms, in one
+  let floorPlan = null;
+  if (spec.floorplan) {
+    try {
+      const dir = spec.floorplan.dir.replace(/\/?$/, "/");
+      const text = (file) => (readFile ? readFile(dir + file) : readFileSync(resolve(folder ?? ".", (dir + file).replace(/^(work|models):/, "")))).toString("utf8");
+      const picture = (file) => (readPicture ? readPicture(dir + file) : unpicture(readFileSync(resolve(folder ?? ".", (dir + file).replace(/^(work|models):/, "")))));
+      const legend = JSON.parse(text("legend.json"));
+      const layers = Array.from({ length: legend.layers }, (_, L) => ({ floor: picture(`floor-${L}.png`), room: picture(`room-${L}.png`) }));
+      floorPlan = openBoxesOf(layers, legend, { grow: spec.floorplan.grow ?? 1 });
+      report.facts.push(`floorplan ${spec.floorplan.dir}: ${floorPlan.layers} layers, ${floorPlan.cells} cells of ${legend.cell} with a floor, ${floorPlan.boxes.length} boxes of open space`);
+    } catch (error) {
+      errors.push(`floorplan: ${error.message.split("\n")[0]}`);
+      return { report, files, map: null };
+    }
+  }
   const { rooms, errors: placing, marks, wall } = layoutOf(spec);
   // a room's own floor, ceiling or walls are a slab laid into the rock round it: never more than half the rock
   // between two rooms, or one room's slab stands inside the next and its doorway stays shut (a house of walls 6
@@ -1065,6 +1092,20 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       brushes.push(box(room.min, [room.max[0], room.max[1], room.min[2] + water.depth], texture));
     }
   }
+  if (floorPlan) {
+    boxes.push(...floorPlan.boxes.map((b) => ({ min: [...b.min], max: [...b.max] })));
+    // its light, unless the spec gives its own: a lamp under the ceiling of each of the largest open spaces, about
+    // Valve's density (13 light entities a campaign map at the median; the rest is its lamps' textures)
+    if (!(spec.entities ?? []).some((e) => /^light/.test(e.class ?? ""))) {
+      const large = floorPlan.boxes
+        .map((b) => ({ b, area: (b.max[0] - b.min[0]) * (b.max[1] - b.min[1]) }))
+        .filter(({ b, area }) => area >= PLAN_LAMP_AREA && b.max[2] - b.min[2] >= 96)
+        .sort((p, q) => q.area - p.area)
+        .slice(0, PLAN_LAMPS_MOST);
+      for (const { b } of large) entities.push(light([Math.round((b.min[0] + b.max[0]) / 2), Math.round((b.min[1] + b.max[1]) / 2), b.max[2] - 24], { brightness: LAMP_BRIGHTNESS, color: [255, 240, 220] }));
+      report.facts.push(`floorplan: ${large.length} lamps under the ceilings of its largest open spaces (give lights of your own to place them)`);
+    }
+  }
   const rock = carve([...boxes, ...holes], wall, themeNames);
   brushes.unshift(...rock);
   brushes.push(...linings);
@@ -1205,7 +1246,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   const place = (list, what, each, printOf = () => ({ min: [-16, -16], max: [16, 16] })) =>
     (list ?? []).forEach((thing, i) => {
       try {
-        const room = rooms.get(thing.room);
+        const room = rooms.get(thing.room) ?? (thing.room === "plan" && floorPlan ? planRoom(floorPlan, thing.at) : undefined);
         const own = printOf(thing);
         const xy = thing.at && typeof thing.at === "object" && !Array.isArray(thing.at) ? besideOf(thing.at, own) : pointIn(room, thing.at);
         // a kit model put in for boxes (fidelity high) is moved back into the room by what it reaches past a wall:
@@ -1811,7 +1852,8 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         viewSpots.push({ from, yaw, pitch });
         return drawMap(bsp, { ...drawing, from, yaw, pitch, width: 320, height: 240 });
       });
-      save("views", tile(views, Math.min(4, views.length), [...rooms.keys()]));
+      // a map of a floor plan has no rooms to look across: its views are from its starts and its largest spaces
+      save("views", views.length ? tile(views, Math.min(4, views.length), [...rooms.keys()]) : viewsOf(bsp, drawing));
       // each building from the open room it stands in, at a man's height, before its front: what no view of a
       // room shows (its walls, its roof, its door and windows)
       if (standing.length) {
@@ -1868,3 +1910,19 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
 }
 
 export { sectionOf };
+
+/**
+ * The room a thing on a floor plan is in: centred on the world's origin, so that its `at` is the world's [x, y],
+ * its floor the lowest floor of the plan's open space under that point (`z` is over it).
+ */
+/** A floor plan's open space this large (square units) or more gets a lamp, up to PLAN_LAMPS_MOST of the largest. */
+const PLAN_LAMP_AREA = 128 * 128;
+const PLAN_LAMPS_MOST = 24;
+
+function planRoom(plan, at) {
+  const [x, y] = Array.isArray(at) ? at : [0, 0];
+  const under = plan.boxes.filter((b) => x >= b.min[0] && x <= b.max[0] && y >= b.min[1] && y <= b.max[1]);
+  const floor = under.length ? Math.min(...under.map((b) => b.min[2])) : 0;
+  const BIG = 1 << 16;
+  return { id: "plan", min: [-BIG, -BIG, floor], max: [BIG, BIG, floor + 4096], spec: { id: "plan" } };
+}

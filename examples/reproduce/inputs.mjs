@@ -48,5 +48,7 @@ for (const map of SUBJECTS.maps.filter((m) => chosen(m.id))) {
   smak("map-section", bsp, "-o", join(out, "section-x.png"), "--from", `${mins[0]},${mid[1]}`, "--to", `${maxs[0]},${mid[1]}`, ...game);
   smak("map-section", bsp, "-o", join(out, "section-y.png"), "--from", `${mid[0]},${mins[1]}`, "--to", `${mid[0]},${maxs[1]}`, ...game);
   smak("map-views", bsp, "-o", join(out, "views.png"), "--count", "16", "--models", ...game);
-  console.log(`${map.id}: plan, storeys, two sections, sixteen views`);
+  // the height plans of the heightplan leg: a layer of floor a picture, its height and headroom as colours
+  smak("map-heights", bsp, "-o", join(out, "heightplan"));
+  console.log(`${map.id}: plan, storeys, two sections, sixteen views, height plans`);
 }

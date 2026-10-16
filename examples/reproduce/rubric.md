@@ -10,6 +10,8 @@ from one kind of input, a **leg**:
 | --- | --- | --- |
 | pictures | renders of the original from six sides and four close angles, and its size in units | a plan from above with floor heights, the storeys, a section, and views from inside at a player's eye |
 | words | a description written by another agent who looked at those pictures (no file or game name in it) | the same, for the map |
+| plans | | the plan from above with floor heights, the storeys and the sections: no view from inside |
+| heightplan | | the height plans (`smak map-heights`: a picture a layer of floor, height and headroom as colours, with their legend) and the plan's entity marks. Near the geometry itself: reported apart, as bsp is (added 2026-10-15, Steven's choice) |
 | bsp | | the compiled map itself, read through the server's tools (never its `.rmf` or `.map`) |
 
 A third agent, the **judge**, scores each reproduction. It sees this rubric, the original's pictures and the

@@ -136,6 +136,8 @@ node bin/smak.mjs map-reach <bsp|map> [-o walked.png] [--goal <n|class>] [--jump
 node bin/smak.mjs map-section <bsp|map> -o s.png --from x,y --to x,y   a side section along that line, floors with their heights
 node bin/smak.mjs map-storeys <bsp|map> -o s.png [--z a,b,c] [--reach]   one plan for each storey, side by side
 node bin/smak.mjs map-openings <bsp|map> -o o.png [--both]   a view through each gate and doorway the walk test finds
+node bin/smak.mjs map-heights <bsp> -o dir         its height plans: a picture a layer of floor, height and headroom as colours, and their
+                                                   legend; a map spec's floorplan: { dir } carves a map's space from them (docs/SPEC.md)
 node bin/smak.mjs map-textures <bsp> -o dir        every texture of a map as a PNG
 node bin/smak.mjs wad <file.wad> [-o dir]          a .wad's textures listed; with -o, each as a PNG
 node bin/smak.mjs wad-make <pictures...> -o out.wad   a .wad from PNG, BMP or JPEG pictures, each named after its file
