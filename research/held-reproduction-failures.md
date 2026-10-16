@@ -474,6 +474,15 @@ the legs are where the base's pose puts them and not where the pictures do. Eith
 is left is a pose fit good enough that blob legs land on the pictures' legs, or legs carved one at a time, each
 from the pictures with the other masked out.
 
+**The stance in words, by a form (2026-10-16, later).** Following the research on structured captions (fixed
+fields, a region at a time, positions and angles spelled out), `held.mjs --form` has the describer fill in a form.
+The angles came through, and `pose.aim` (03c3107) sets them whatever the base's stance, but the angles themselves
+are not the original's: read off 2D views by eye, the scientist's stride came out 27% long and Barney, who stands
+nearly still, 31%. Side outlines: scientist 0.51 (prose), 0.27 (form through keys), 0.45 (form with aim); Barney
+0.63, 0.54. The words leg stays at 0. What an LLM reads badly off pictures is 3D angle and extent; what it reads
+well is what a thing is and its parts. A form that asks for the visible extents (how far the front foot is ahead
+of the back one, as a share of height, which facts.txt's size already pins) may serve better than angles.
+
 ## Build list
 
 In order. Each: what, where, its first test.
