@@ -142,7 +142,10 @@ function inputs(kind, subject) {
     const bsp = maps.readBsp(readFileSync(file));
     const places = texturePlaces(bsp).sort((a, b) => b.area - a.area);
     for (const p of places) savePng(join(out, `${p.name.replace(/[^\w~+{!-]/g, "_")}.png`), placeView(bsp, p));
-    savePng(join(out, "views.png"), maps.viewsOf(bsp, { count: 8, folders: [GAME], entities: "none", labels: false, width: 320, height: 240 }));
+    const views = maps.viewsOf(bsp, { count: 8, folders: [GAME], entities: "none", labels: false, width: 320, height: 240 });
+    savePng(join(out, "views.png"), views);
+    // each view's camera beside the sheet, so that a texture can be lifted off them too (lift.views)
+    writeFileSync(join(out, "views.json"), `${JSON.stringify({ width: 320, height: 240, cols: Math.min(4, views.facts.views.length), cameras: views.facts.views.map(({ name, from, yaw, pitch }) => ({ name, from, yaw, pitch })) }, null, 1)}\n`);
     writeFileSync(join(out, "list.txt"), `${places.map((p) => `${p.name} ${p.width}x${p.height} (${p.name.replace(/[^\w~+{!-]/g, "_")}.png)`).join("\n")}\n`);
   }
   return out;
@@ -189,7 +192,7 @@ async function reproduce(kind, subject, leg) {
   let given;
   if (leg === "pictures") {
     for (const f of readdirSync(input)) files[`pictures/${f}`] = join(input, f);
-    given = `The original, in pictures: every file of ${input} (also in the server's work folder under pictures/). ${readdirSync(input).filter((f) => f.endsWith(".txt")).map((f) => readFileSync(join(input, f), "utf8")).join("\n")}${kind === "textures" ? `\nEach texture's picture is the map's own view of its place: a texture's lift: { map: "models:${subject.map ?? "frenzy"}.bsp", view: "work:pictures/<its picture>" } takes the texture itself off it (docs/SPEC.md, "Textures for maps"), its light divided out; the build says how much of it the view shows and how much is white there. Use it wherever the view shows most of a texture and is not white, and paint the rest.` : ""}`;
+    given = `The original, in pictures: every file of ${input} (also in the server's work folder under pictures/). ${readdirSync(input).filter((f) => f.endsWith(".txt")).map((f) => readFileSync(join(input, f), "utf8")).join("\n")}${kind === "textures" ? `\nEach texture's picture is the map's own view of its place: a texture's lift: { map: "models:${subject.map ?? "frenzy"}.bsp", view: "work:pictures/<its picture>" } takes the texture itself off it (docs/SPEC.md, "Textures for maps"), its light divided out (add views: "work:pictures/views.png", cameras: "work:pictures/views.json" to take what the map's views show of it too); the build says how much of it the view shows and how much is white there. Use it wherever the view shows most of a texture and is not white, and paint the rest.` : ""}`;
   } else given = `The original, as someone who has seen it describes it:\n\n${readFileSync(join(base, "words.md"), "utf8")}${kind !== "textures" ? `\nIts facts: ${readFileSync(join(input, "facts.txt"), "utf8")}` : ""}${kind === "textures" ? `\nThe textures, each name and size:\n${readFileSync(join(input, "list.txt"), "utf8").replace(/ \(.*\)/g, "")}` : ""}`;
   // the map, for a textures leg: alone in the server's models folder, with no game folder for its textures
   let models = null;

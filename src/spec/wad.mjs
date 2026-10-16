@@ -59,8 +59,8 @@ export function validateWadSpec(spec) {
       errors.push(error.message);
     }
     if (texture?.grime !== undefined && !(isNumber(texture.grime) && texture.grime >= 0 && texture.grime <= 1)) errors.push(`${at}.grime: 0 to 1`);
-    if (texture?.lift !== undefined && !(typeof texture.lift?.map === "string" && typeof texture.lift?.view === "string"))
-      errors.push(`${at}.lift: { map: "models:<the map>.bsp", view: "work:pictures/<its view>.png", texture }: the texture taken off a view of it on its wall, as the map's place view draws it`);
+    if (texture?.lift !== undefined && (!(typeof texture.lift?.map === "string" && typeof texture.lift?.view === "string") || (texture.lift.views !== undefined && typeof texture.lift.cameras !== "string")))
+      errors.push(`${at}.lift: { map: "models:<the map>.bsp", view: "work:pictures/<its view>.png", texture, views, cameras }: the texture taken off a view of it on its wall, as the map's place view draws it, and off the map's views too (views: their sheet, cameras: its .json)`);
     if (texture?.wear !== undefined) {
       if (typeof texture.wear !== "object" || Array.isArray(texture.wear)) errors.push(`${at}.wear: { ${WEAR_LAYERS.join(", ")} } each 0 to 1, and seed`);
       else
@@ -93,11 +93,12 @@ export function validateWadSpec(spec) {
 }
 
 /** One texture's picture: { width, height, rgb } (rgba for one with holes). */
-function paintTexture(texture, materials, readPicture, readMap) {
+function paintTexture(texture, materials, readPicture, readMap, readText) {
   // lifted off a view of it on its wall in a compiled map (src/maps/lift.mjs): the picture itself, its light divided out
   if (texture.lift) {
     const bsp = readMap(texture.lift.map);
-    const lifted = liftTexture(bsp, texture.lift.texture ?? texture.name, readPicture(texture.lift.view));
+    const extra = texture.lift.views ? { ...JSON.parse(readText(texture.lift.cameras)), picture: readPicture(texture.lift.views) } : null;
+    const lifted = liftTexture(bsp, texture.lift.texture ?? texture.name, readPicture(texture.lift.view), extra ? { views: extra } : {});
     const [width, height] = texture.size;
     const { image } = lifted;
     const rgb = new Uint8Array(width * height * 3);
@@ -205,7 +206,7 @@ export function buildWadSpec(spec, { out, folder = ".", readPicture, readFile } 
       if (!maps.has(name)) maps.set(name, readBsp(readFile ? readFile(name) : readFileSync(resolve(folder, name.replace(/^(work|models):/, "")))));
       return maps.get(name);
     };
-    textures = spec.textures.map((texture) => ({ name: texture.name, image: paintTexture(texture, spec.materials, readOnce, readMap), lifted: Boolean(texture.lift) }));
+    textures = spec.textures.map((texture) => ({ name: texture.name, image: paintTexture(texture, spec.materials, readOnce, readMap, (name) => (readFile ? readFile(name) : readFileSync(resolve(folder, name.replace(/^(work|models):/, "")))).toString("utf8")), lifted: Boolean(texture.lift) }));
   } catch (error) {
     errors.push(`textures: ${error.message}`);
     return { report, files: {} };

@@ -92,3 +92,19 @@ testAsync("a texture lifted off a view of it on its wall: the texels it shows co
   for (let i = 0; i < truth.width * truth.height; i++) for (let c = 0; c < 3; c++) (d += Math.abs(truth.palette[truth.pixels[i] * 3 + c] - lifted.image.rgb[i * 3 + c])), n++;
   sure(lifted.seen > 0.3 && d / n < 12, `${place.name}: ${Math.round(lifted.seen * 100)}% seen, ${(d / n).toFixed(1)} off a channel`);
 });
+
+testAsync("a lift may take the map's views too, by the cameras kept beside them: it sees no less of the texture", "lift views", async () => {
+  const maps = await import("../src/maps/index.mjs");
+  const { liftTexture } = await import("../src/maps/lift.mjs");
+  const { texturePlaces, placeView } = await import("../src/maps/places.mjs");
+  const fixtures = new URL("./fixtures/", import.meta.url).pathname;
+  const bsp = maps.readBsp(readFileSync(join(fixtures, "tworooms.bsp")));
+  const wad = maps.readWad(readFileSync(join(fixtures, "tworooms.wad")));
+  const place = texturePlaces(bsp).find((p) => wad.textures.some((t) => t.name.toLowerCase() === p.name.toLowerCase()) && p.lit);
+  const view = placeView(bsp, place, { textures: wad.textures, wearing: "given", brightness: 1 });
+  const sheet = maps.viewsOf(bsp, { count: 4, textures: wad.textures, wearing: "given", entities: "none", labels: false, width: 320, height: 240, brightness: 1 });
+  const views = { width: 320, height: 240, cols: Math.min(4, sheet.facts.views.length), brightness: 1, cameras: sheet.facts.views, picture: sheet };
+  const alone = liftTexture(bsp, place.name, view, { brightness: 1 });
+  const more = liftTexture(bsp, place.name, view, { brightness: 1, views });
+  sure(more.seen >= alone.seen, `${alone.seen} alone, ${more.seen} with the views`);
+});
