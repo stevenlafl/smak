@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "fire",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.275,
+     "mean": 0.028
+    },
+    "envelope": {
+     "peakAt": 0.07,
+     "first": 0.9,
+     "last": 0.84
+    },
+    "dark": 0.42,
+    "wrap": 1.13,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.305,
+     "mean": 0.02
+    },
+    "envelope": {
+     "peakAt": 0.07,
+     "first": 0.96,
+     "last": 0.96
+    },
+    "dark": 0.48,
+    "wrap": 0.92,
+    "jitter": 1.65
+   }
+  },
+  "meanColourDeltaE": 14.1,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are a rising, flickering flame: the same effect, with the same tongues and the same build from a bright base to thin tips across all 15 frames."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frames are the original's 32x96, but the reproduction fills them less. Its dark share is 0.48 against the original's 0.42, and in the pictures its flames look narrower at the top and leave more black between tongues, so the effect does not fill the frame as the original's does."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The mean colour difference is 14.1, under the line of 15, and the palette matches: orange body, yellow-white base, dark background. The reproduction is slightly darker overall, which is charged to R2's fill rather than here."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frame count (15) and the early peak (0.07) match. The end does not: the original's envelope falls from 0.90 to 0.84 by the last frame, while the reproduction holds 0.96 to 0.96, and the wrap is 1.13 against 0.92. So the loop closes differently and the original's gradual dimming is missing."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type (parallel oriented) and format (additive) match the original, the size is 32x96, the name is the same, and it reads back as written."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

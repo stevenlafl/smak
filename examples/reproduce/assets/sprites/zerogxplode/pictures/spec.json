@@ -10,55 +10,41 @@
         64
       ],
       "frames": 15,
-      "fps": 12,
+      "loop": false,
+      "fps": 15,
       "type": "parallel",
       "format": "additive",
       "origin": "centre",
-      "finish": "edge",
-      "reference": {
-        "picture": "pictures/frames.png",
-        "cell": 128,
-        "cols": 8
-      },
+      "reference": "pictures/frames.png",
       "layers": [
         {
-          "kind": "explosion",
-          "ramp": "reference",
-          "growth": 1,
-          "cool": 2,
-          "env": {
-            "attack": 0.03,
-            "decay": 0.4,
-            "start": 0.2
-          }
-        },
-        {
           "kind": "billow",
-          "ramp": "reference",
-          "count": 30,
-          "spread": 0.6,
-          "size": 0.4,
-          "rise": 0.3,
           "at": [
             0,
-            0.1
+            0.05
           ],
+          "ramp": "reference",
+          "size": 0.9,
+          "count": 40,
+          "spread": 0.8,
+          "growth": 0.9,
+          "rise": 0.2,
+          "hot": 0.4,
+          "cool": 0.6,
+          "dissolve": 0.3,
+          "gain": 1.4,
           "env": {
-            "attack": 0.05,
-            "decay": 0.8,
-            "start": 0.2
+            "attack": 0.35,
+            "start": 0.3,
+            "decay": 0.4
+          },
+          "mask": "reference",
+          "debris": {
+            "count": 6,
+            "speed": 0.6,
+            "gravity": 0.6,
+            "trail": 0
           }
-        },
-        {
-          "kind": "sparks",
-          "count": 14,
-          "speed": 0.7,
-          "gravity": 0.3,
-          "colour": [
-            1,
-            1,
-            1
-          ]
         }
       ]
     }

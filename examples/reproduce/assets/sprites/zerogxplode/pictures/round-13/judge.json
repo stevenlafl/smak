@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "zerogxplode",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.818,
+     "mean": 0.005
+    },
+    "envelope": {
+     "peakAt": 0.36,
+     "first": 0.08,
+     "last": 0.03
+    },
+    "dark": 0.73,
+    "wrap": 0.81,
+    "jitter": 1.25
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.58,
+     "mean": 0.015
+    },
+    "envelope": {
+     "peakAt": 0.36,
+     "first": 0.03,
+     "last": 0
+    },
+    "dark": 0.53,
+    "wrap": 0.15,
+    "jitter": 1.24
+   }
+  },
+  "meanColourDeltaE": 11.2,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Both are a bright blast that peaks and fades, so the effect is recognisable. But the original is a soft fireball with a cloud of sparks and debris flying off it, and the reproduction is a hard-edged rock-like blob with a cracked surface and no sparks. It reads as a different kind of effect (a rock or boulder), so this is clearly off."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 64 x 64. The original's cloud is rounded and sits inside the frame with ragged edges. The reproduction is a boxier, rock-shaped mass, and in frames 8 to 11 its lower edge runs flat against the frame's bottom, looking clipped. Border maxima differ (0.818 original, 0.58 reproduction), so it does not fill the frames as the original does."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: mean colour difference of 11.2, under the line of 15. The palette also matches: white-hot core in the early frames, then orange and a dark fade. The reproduction's late frames look a little browner than the original's golden glow, but the measure holds and nothing is off enough to take a point."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count is 15 in both, and both peak at the same point (0.36). Both are one-shots that end dark (last 0.03 and 0). But the reproduction starts dimmer (first 0.03 against 0.08), fades out sooner (frames 13 and 14 are nearly black where the original still glows), and its wrap measure is 0.15 against the original's 0.81. The motion is clearly different in its fade."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured and stated: additive format in both, same name, and it reads back as written. Size and frame count are as the original's."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,66 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/zerogxplode.spr",
+      "class": "explosion",
+      "use": "tempent",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 15,
+      "fps": 12,
+      "type": "parallel",
+      "format": "additive",
+      "origin": "centre",
+      "finish": "edge",
+      "reference": {
+        "picture": "pictures/frames.png",
+        "cell": 128,
+        "cols": 8
+      },
+      "layers": [
+        {
+          "kind": "explosion",
+          "ramp": "reference",
+          "growth": 1,
+          "cool": 2,
+          "env": {
+            "attack": 0.03,
+            "decay": 0.4,
+            "start": 0.2
+          }
+        },
+        {
+          "kind": "billow",
+          "ramp": "reference",
+          "count": 30,
+          "spread": 0.6,
+          "size": 0.4,
+          "rise": 0.3,
+          "at": [
+            0,
+            0.1
+          ],
+          "env": {
+            "attack": 0.05,
+            "decay": 0.8,
+            "start": 0.2
+          }
+        },
+        {
+          "kind": "sparks",
+          "count": 14,
+          "speed": 0.7,
+          "gravity": 0.3,
+          "colour": [
+            1,
+            1,
+            1
+          ]
+        }
+      ]
+    }
+  ]
+}

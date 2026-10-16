@@ -1,29 +1,41 @@
-The sprite builds OK, but the build still reports two warnings: the peak sits at 0.8 of the play rather than the last frame, and the shape overlap is 0.72 against the 0.8 bar.
+The sprite builds OK, but it is not clean: three of the reference warnings remain. The file is `sprites/xspark1.spr` in the work folder (with `-sheet.png` and `-animated.png` beside it). I did not save the spec JSON to the repo; it exists only in this session.
 
-**Result:** `sprites/xspark1.spr` is written to the work folder as `work:sprites/xspark1.spr`, with a sheet and an animated preview beside it. I could not open the original's input folder directly (it is outside the work folder), so I measured against the contact sheet in `pictures/frames.png` and `facts.txt`.
+**What it is:** a cyan glow with a hot white middle and a dark ground, the same as the original's contact sheet (`pictures/frames.png`). It is a flickering blob, looped, and drawn over black, which additive blending treats as clear.
 
-**What it is, as built:**
-- **Type and format:** `parallel`, `additive` (black is clear). The report places it as an `env_sprite`, render mode 5 (Additive).
-- **Class:** `glow`. The `sparks` class is one-shot and must end dark, and the original's last frame stays bright, so `sparks` faulted.
-- **Size and frames:** 32x32, 11 frames, played once (`loop: false`). A loop would write a repeated first frame and make 12 frames, so I did not loop it.
-- **Colours:** a cyan halo, colour (0.235, 0.745, 1), with a white hot centre. Colour is read from the reference frame by frame (`ramp: "reference"`).
-- **Shape:** a soft glow core (radius 0.9, smooth falloff, gain 0.5) plus nine soft blobs (radius 0.34, spread 0.65, gain 0.8) that are placed afresh each frame, so the cluster flickers the way the sheet shows.
+| Field | Original | Mine |
+| --- | --- | --- |
+| Size | 32×32 | 32×32 |
+| Frames | 11 | 11 (10 written as a loop, first frame again at the end) |
+| Type | parallel | parallel |
+| Format | additive | additive |
+| Class | not stated | `glow` |
+| Playback | not stated | `env_sprite`, 10 fps (the cap for an env_sprite) |
+| Origin | not stated | centre |
+| Colours | from the sheet | `ramp: reference`, read off the original frame by frame |
 
-**Measured against the original's sheet:**
+**How it is built:** a `glow` layer (radius 0.9, core 0.4, offset slightly right and down to match the original's centre) for the body, and a `blobs` layer (9 soft discs, redrawn each frame) for the flicker. The envelope holds near full brightness through the loop.
 
-| Measure | Original | Mine |
-|---|---|---|
-| Mean colour (delta E, 15 or under is near) | — | 1.9 |
-| Share of dark pixels | 0.46 | 0.44 |
-| Border brightness | 0.145 | 0.149 |
-| Frame count | 11 | 11 |
-| Shape overlap (bar 0.8) | — | 0.72 |
-| Brightest frame (share of play) | 1.0 | 0.8 |
+**Measured against the original:**
 
-**Guesses, not measured from the original:** the frame rate (10 fps), `use: env_sprite`, and `loop: false`. The sheet carries no timing, so I chose these defaults. They are the first things to check against the original's data if it has any.
+| Measure | Original | Mine | Bar |
+| --- | --- | --- | --- |
+| Mean colour (delta E) | — | 3.4 | 15 or under |
+| Share that is dark | 0.46 | 0.41 | within 0.05 |
+| Border light (brightest) | 0.145 | 0.124 | near |
+| Hot middle (pixels over 0.7) | 128 | 145 | not over 1.5× |
+| Shape overlap, mean | — | 0.72 | 0.8 |
+| Peak frame (share of play) | 1.0 | 0.8 | near |
 
-**Not yet passed:**
-- The peak timing. Changing the envelope attack to 1 still peaks at 0.8, so the peak is driven by where the blobs land, not by the envelope.
-- The shape overlap of 0.72. Widening the blobs or the halo pushed the dark share out of line, so I stopped at the best trade-off I found.
+**Still off (the spec asks for these gone; they are not):**
+- **Dark share** is 0.41 against 0.46: my sprite covers slightly more of its frame than the original.
+- **Shape overlap** is 0.72 against the 0.8 bar: the flicker shapes do not line up frame by frame with the original's.
+- **Peak timing** stays at 0.8 of play however I set the attack; the original peaks on its last frame. I could not find the cause from the report alone.
 
-The spec was passed inline to the build and not saved as a file. If you want it kept for re-running, I can write it into the project as a script.
+I made six builds. The change that fixed the most was the glow core widened to 0.4 with the blob gain held at 0.6. Pushing the glow further in on the dark share cost the hot middle, so I stopped there.
+
+**Other choices I made:**
+- `class: glow`, not `sparks`: the `sparks` class plays once and must end dark, which this does not do.
+- `frames: 10` with `loop: true`, because a loop writes one extra frame and the original is 11.
+- Both `frames` and `fps` are my reading; the facts file gives only size, frame count, type and format.
+
+I could not list the input folder (access was denied), so I used the copies in the work folder and the facts file.

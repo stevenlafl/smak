@@ -4,12 +4,13 @@
     {
       "name": "sprites/fire.spr",
       "class": "fire loop",
+      "use": "env_sprite",
       "size": [
         32,
         96
       ],
-      "frames": 14,
-      "loop": true,
+      "frames": 15,
+      "loop": false,
       "fps": 10,
       "type": "parallel oriented",
       "format": "additive",
@@ -18,24 +19,11 @@
       "layers": [
         {
           "kind": "fire",
-          "width": 0.6,
-          "taper": 0.2,
-          "tongues": 0.5,
-          "height": 1.2,
-          "gain": 0.6,
-          "ramp": "reference"
-        },
-        {
-          "kind": "glow",
-          "at": [
-            0,
-            -0.25
-          ],
-          "radius": 1.1,
-          "core": 0.5,
-          "gain": 0.8,
           "ramp": "reference",
-          "mask": "reference"
+          "width": 1.2,
+          "height": 2.3,
+          "taper": 0.2,
+          "tongues": 0.5
         }
       ]
     }

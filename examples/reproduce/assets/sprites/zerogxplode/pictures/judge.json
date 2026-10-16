@@ -46,20 +46,20 @@
      64
     ],
     "border": {
-     "max": 0.58,
-     "mean": 0.015
+     "max": 0.713,
+     "mean": 0.002
     },
     "envelope": {
-     "peakAt": 0.36,
-     "first": 0.03,
+     "peakAt": 0.29,
+     "first": 0.04,
      "last": 0
     },
-    "dark": 0.53,
-    "wrap": 0.15,
-    "jitter": 1.24
+    "dark": 0.76,
+    "wrap": 0.23,
+    "jitter": 1.6
    }
   },
-  "meanColourDeltaE": 11.2,
+  "meanColourDeltaE": 10.6,
   "sameName": true,
   "readsBack": true
  },
@@ -71,37 +71,37 @@
  },
  "scores": {
   "R1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Both are a bright blast that peaks and fades, so the effect is recognisable. But the original is a soft fireball with a cloud of sparks and debris flying off it, and the reproduction is a hard-edged rock-like blob with a cracked surface and no sparks. It reads as a different kind of effect (a rock or boulder), so this is clearly off."
+   "score": 2,
+   "reason": "Both are a fireball explosion: a bright core that swells, billows and fades, with flying debris sparks at the edges in the same places. The reproduction reads as the same effect."
   },
   "R2": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "Both are 64 x 64. The original's cloud is rounded and sits inside the frame with ragged edges. The reproduction is a boxier, rock-shaped mass, and in frames 8 to 11 its lower edge runs flat against the frame's bottom, looking clipped. Border maxima differ (0.818 original, 0.58 reproduction), so it does not fill the frames as the original does."
-  },
-  "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured: mean colour difference of 11.2, under the line of 15. The palette also matches: white-hot core in the early frames, then orange and a dark fade. The reproduction's late frames look a little browner than the original's golden glow, but the measure holds and nothing is off enough to take a point."
+   "reason": "Both are 64 x 64 frames. The effect grows to a similar footprint at frames 2 to 4 and fills the frame in the same way, with the same tall, two-lobed silhouette."
   },
-  "R4": {
+  "R3": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Frame count is 15 in both, and both peak at the same point (0.36). Both are one-shots that end dark (last 0.03 and 0). But the reproduction starts dimmer (first 0.03 against 0.08), fades out sooner (frames 13 and 14 are nearly black where the original still glows), and its wrap measure is 0.15 against the original's 0.81. The motion is clearly different in its fade."
+   "reason": "The measured mean colour difference (10.6) passes the line of 15, but the picture shows a clear fault the measure misses. The original's early frames are white-hot (frames 0 to 2 are white or cream with yellow). The reproduction's frames 0 to 2 are grey, and its frames 3 to 5 are white with brown mottling where the original is cream and yellow. Its late frames (8 to 12) run more saturated gold and olive than the original's orange-brown glow."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both have 15 frames. Both rise to a peak around frames 2 to 4, then fall away, with the glow shrinking and dimming to a dark end. The original ends with a faint tail (last 0.03) and the reproduction ends at black (last 0), both dark. The peak sits at 0.29 against 0.36, and the first frame is dimmer (0.04 against 0.08), within the 25% allowance on frame count and the same kind of motion."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured and stated: additive format in both, same name, and it reads back as written. Size and frame count are as the original's."
+   "reason": "Both are additive, the same name, and the reproduction reads back as written (readsBack true, sameName true)."
   }
  },
- "total": 7,
+ "total": 9,
  "of": 10,
  "passes": false
 }

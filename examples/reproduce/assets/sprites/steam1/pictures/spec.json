@@ -5,6 +5,8 @@
       "name": "sprites/steam1.spr",
       "class": "smoke puff",
       "use": "env_sprite",
+      "type": "parallel oriented",
+      "format": "index alpha",
       "size": [
         32,
         48
@@ -12,12 +14,13 @@
       "frames": 16,
       "loop": false,
       "fps": 10,
-      "type": "parallel oriented",
-      "format": "index alpha",
       "origin": "centre",
+      "finish": {
+        "edge": 2
+      },
       "reference": {
         "picture": "pictures/frames.png",
-        "cell": 96,
+        "cell": 64,
         "cols": 8
       },
       "layers": [
@@ -25,18 +28,20 @@
           "kind": "billow",
           "at": [
             0,
-            -0.1
+            -0.2
           ],
-          "spread": 0.6,
-          "size": 0.36,
-          "dissolve": 0.4,
-          "ramp": "reference",
-          "mask": "reference",
+          "spread": 0.5,
+          "size": 0.44,
+          "growth": 0.6,
+          "rise": 0.2,
+          "drift": 0.08,
+          "gain": 1,
           "env": {
-            "attack": 0.38,
-            "decay": 0.62,
-            "start": 0.1
-          }
+            "attack": 0.55,
+            "decay": 0.45,
+            "start": 0.02
+          },
+          "ramp": "reference"
         }
       ]
     }
