@@ -232,6 +232,13 @@ a part that comes apart in any of them is a fault (`in run2 frame 11: ... thumb_
   spec's `size`: an original whose first animation is a walk stands mid-stride in it (Half-Life's scientist is
   33 long so, where a standing body is 22), and words that say so are a frame of the base's walk, not a stride
   turned by hand. `keys` and `fit` then turn it further. `smak info` on the base lists its animations.
+  `"pose": { "aim": { "L arm": { "out": 8, "forward": 25, "bend": 15 }, "R leg": { "forward": -12 } } }` says where
+  each limb points, whatever the base's own stance: from its top joint, `out` degrees from the body seen from the
+  front, `forward` degrees (under 0 back) from hanging straight down seen from the side, and its elbow or knee bent
+  `bend` degrees, at the base's own lengths. A description that gives the stance in angles ("the left upper arm 8
+  degrees out and 25 forward, the elbow bent 15") is written so, number for number: `keys` turn a bone from where
+  the base has it, and Gordon's first frame holds a gun forward, so turns read off a description land elsewhere.
+  Limbs: `L arm`, `R arm`, `L leg`, `R leg`. After `from`, before `keys`.
 - `motion`: an animation of the base fitted to a strip of pictures of the original doing it, as the kit's
   `strip` draws one from the side with the floor as a line: `"motion": [{ "seq": "run2", "fit": { "picture":
   "pictures/motion.png", "count": 8, "cols": 4 } }]`. The strip's cycle is matched to the animation's (it may
@@ -564,20 +571,28 @@ gives its loudness.
 
 **From a recording.** When the server offers the tool `generate`, a sound of a real thing (a hit, a shot, a step, a
 door, debris, a medkit's click) begins best from a generated take, which has the grain, the ring and the room no
-layer of noise and modes reaches. Ask for the event in plain words (the thing, the action, the material, and how it was heard: "a
-heavy steel wrench striking a metal pipe, one sharp clang, close-miked, dry, no reverb": a take carries the room
-it imagines, which a game's own sounds mostly lack), its `length`, its `class`, and 4 to 8 seeds; read
-each take's measures against the class and the picture; put the nearest in a `sample` layer `from: "onset"`.
-Read the picture before you prompt: steady lines across its spectrogram are a machine's tone (a motor's whine, an
-electronic alarm, a hum), and a prompt that names only the object gets the object moved by hand ("a sliding door"
-is a door pushed along; "a sliding door driven by an electric motor, a rising electronic whine" is the machine).
-Name the event's source, not only the thing. Add no `noise` layer over a take: it has its texture already, and steady noise added to it is heard as static
-(and, fading, as reverb; the build warns of it). Then shape it in the spec toward the original: its `length`, a `filter` (a generated hit is often brighter than
-the game's: a `lowpass` or a `highshelf` cut), the finish's `saturate` and `limit` (to the class's crest), and
-layers of your own under or over it (a `modes` ring, a noise crack, a `tone` thump). Build, read the class
-score, and change one thing at a time; another seed is another take. Layers alone are for what has no real
-source (a beep, a drone) or where no take comes near. Each take's sidecar names its model's licence, and the
-report's facts say when it is non-commercial: tell the person, whose call it is.
+layer of noise and modes reaches. The models learned from short captions of real recordings (WavCaps' average 7.8
+words; AudioCaps': "a dog barking in the distance", "a train passes by, blowing its horns"), so ask as such a caption
+does: 5 to 15 plain words about the sound alone, its source, the action, the material and the space, the events in
+order when there are several ("a heavy steel wrench striking a metal pipe, one sharp clang, close-miked, dry"). No
+numbers, no frequencies, nothing only seen. Name the source of what is heard, not only the thing: "a sliding door" is
+a door pushed by hand, "a sliding door driven by an electric motor, a rising whine" is the machine. A take carries
+the room it imagines, which a game's own sounds mostly lack: say "dry" or "close-miked".
+
+**The person's own words.** When the person gives the words to generate from and asks that they be used, send them
+as they are. Otherwise you may write them as a caption, and then tell the person the exact prompt you sent and what
+you changed ("you asked for 'the crowbar hitting a wall'; I sent 'a steel crowbar striking a concrete wall, one sharp
+crack, close-miked, dry'"), so they can ask for theirs instead.
+
+Give its `length`, its `class`, and 4 to 8 seeds; another seed is another take, another wording another set. Choose
+the take that is what was asked for and is clean (the measures flag clipping, a slow attack, a ringing tail of noise),
+and put it in a `sample` layer `from: "onset"`. Add no `noise` layer over a take: it has its texture already, and
+steady noise added to it is heard as static (and, fading, as reverb; the build warns of it). Shape it in the spec only
+where it needs it: its `length`, a `filter` (a generated hit is often brighter than the game's: a `lowpass` or a
+`highshelf` cut), the finish's `saturate` and `limit` (a shot is loud for its peak). Layers alone are for what has no
+real source (a beep, a drone) or where no take comes near. Each take's sidecar names its model's licence, and the
+report's facts say when it is non-commercial: tell the person, whose call it is. How a sound sounds is the person's
+to say, by ear: the numbers find faults, not likeness.
 
 **Static and reverb.** A steady `noise` layer is heard as static, and one that fades slowly as a reverb the sound
 does not have: a real hit, shot or slide is grains and tones, not a smooth wash. Keep noise short (a crack, a
@@ -670,8 +685,10 @@ it shows repeated; with `"views": "work:pictures/views.png", "cameras": "work:pi
 map's views and each tile's camera, as `viewsOf` drew them) the texels those show are taken too. The build says the
 share of texels seen, the share white in the view (a lamp's colour is not there to read) and the share under a light
 of one strong colour (a blue lamp leaves a teal wall's red and green too dark to divide back): use it on every
-texture whose view is neither white nor tinted there, however little of it the view shows, and paint only those
-(lamps, lights, a wall under a coloured lamp). A wall seen sparsely (far off, a pixel every few texels) has the gaps
+texture whose view is neither white nor tinted there, however little of it the view shows. A lamp's face is white at
+the place view's brightness: drawn again darker (`placeView(bsp, place, { brightness: 0.5 })`), it is lifted with
+`"brightness": 0.5` (frenzy's lamps came back within 2.5 to 9 of delta E, against 28 to 46). Paint only what no view
+gives (a wall under a coloured lamp). A wall seen sparsely (far off, a pixel every few texels) has the gaps
 between its seen texels closed from them before the rest is filled. On frenzy, a texture seen at 5% to 40% came back within 2 to 5 of delta E of the game's colour (a copy is
 held to 15), where makers who painted those instead missed by 21 to 32; what a small view lacks is a pattern
 larger than what it shows (a row of studs), which the map's views often add.

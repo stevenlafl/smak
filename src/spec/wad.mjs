@@ -61,6 +61,8 @@ export function validateWadSpec(spec) {
     if (texture?.grime !== undefined && !(isNumber(texture.grime) && texture.grime >= 0 && texture.grime <= 1)) errors.push(`${at}.grime: 0 to 1`);
     if (texture?.lift !== undefined && (!(typeof texture.lift?.map === "string" && typeof texture.lift?.view === "string") || (texture.lift.views !== undefined && typeof texture.lift.cameras !== "string")))
       errors.push(`${at}.lift: { map: "models:<the map>.bsp", view: "work:pictures/<its view>.png", texture, views, cameras }: the texture taken off a view of it on its wall, as the map's place view draws it, and off the map's views too (views: their sheet, cameras: its .json)`);
+    if (texture?.lift?.brightness !== undefined && !(typeof texture.lift.brightness === "number" && texture.lift.brightness > 0 && texture.lift.brightness <= 8))
+      errors.push(`${at}.lift.brightness: the brightness its view was drawn at (4.5, the place view's, unless told; a darker view of a lamp, 0.5)`);
     if (texture?.wear !== undefined) {
       if (typeof texture.wear !== "object" || Array.isArray(texture.wear)) errors.push(`${at}.wear: { ${WEAR_LAYERS.join(", ")} } each 0 to 1, and seed`);
       else
@@ -98,7 +100,7 @@ function paintTexture(texture, materials, readPicture, readMap, readText) {
   if (texture.lift) {
     const bsp = readMap(texture.lift.map);
     const extra = texture.lift.views ? { ...JSON.parse(readText(texture.lift.cameras)), picture: readPicture(texture.lift.views) } : null;
-    const lifted = liftTexture(bsp, texture.lift.texture ?? texture.name, readPicture(texture.lift.view), extra ? { views: extra } : {});
+    const lifted = liftTexture(bsp, texture.lift.texture ?? texture.name, readPicture(texture.lift.view), { ...(extra ? { views: extra } : {}), ...(texture.lift.brightness !== undefined ? { brightness: texture.lift.brightness } : {}) });
     const [width, height] = texture.size;
     const { image } = lifted;
     const rgb = new Uint8Array(width * height * 3);
@@ -111,7 +113,7 @@ function paintTexture(texture, materials, readPicture, readMap, readText) {
     const warnings = [];
     if (lifted.seen < 0.3) warnings.push(`lifted off ${texture.lift.view}, which shows ${Math.round(lifted.seen * 100)}% of it: its colour and grain are the texture's own (on frenzy, within 2 to 5 of delta E from 5% seen), and the rest is that part repeated, so a pattern larger than the part (a row of studs, a panel) is not there: add the map's views (views, cameras) to see more of it`);
     if (lifted.tinted > 0.3) warnings.push(`lifted off ${texture.lift.view}, ${Math.round(lifted.tinted * 100)}% of whose texels are under a light of one strong colour (a blue lamp): their other colours are not there to read and come back as the light's. Paint it, its colour from another view of it or from its name's kind`);
-    if (lifted.saturated > 0.3) warnings.push(`lifted off ${texture.lift.view}, ${Math.round(lifted.saturated * 100)}% of whose texels are white in the view (a lamp, a bright light): their colour is not there to read. Paint it instead`);
+    if (lifted.saturated > 0.3) warnings.push(`lifted off ${texture.lift.view}, ${Math.round(lifted.saturated * 100)}% of whose texels are white in the view (a lamp, a bright light): their colour is not there to read. Lift it off a darker view of the same place (brightness: what it was drawn at, 0.5 or 1: frenzy's lamps came back within 2.5 to 9 of delta E so, against 28 to 46), or paint it`);
     return { width, height, rgb, facts, warnings };
   }
   const resolved = (given) => materialOf(typeof given === "string" && materials?.[given] !== undefined ? materials[given] : given);

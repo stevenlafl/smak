@@ -1404,3 +1404,29 @@ test("a body torn in motion is told where: a skirt of one surface over two legs 
   // a carved garment kept above its hem: the height checked
   sure(validateModelSpec({ spec: "smak.model/1", name: "x.mdl", kind: "prop", parts: [{ id: "coat", kind: "carved", size: [10, 10, 40], clip: 50, sheet: "s.png" }] }).errors.some((e) => /clip: a height in its own space/.test(e)), "a clip over the top refused");
 });
+
+test("pose.aim: a limb pointed where a description says, whatever the base's own stance", () => {
+  const folder = join(tmp, "aim");
+  mkdirSync(folder, { recursive: true });
+  // a leg of a thigh 20 and a calf 18, its first frame swung 50 degrees back: aimed 30 forward, its foot goes forward
+  const base = buildMdl({
+    name: "aimleg.mdl",
+    bones: [{ name: "Bip01", parent: -1 }, { name: "Bip01 L Thigh", parent: 0, pos: [0, 4, 40] }, { name: "Bip01 L Calf", parent: 1, pos: [0, 0, -20] }, { name: "Bip01 L Foot", parent: 2, pos: [0, 0, -18] }],
+    bodyparts: [{ name: "body", models: [{ name: "b", meshes: [{ tris: [], texture: indexed(W.sheet(16, 16).image(), "b.bmp") }] }] }],
+    sequences: [{ name: "idle", fps: 10, frames: [[[0, 0, 0, 0, 0, 0], [0, 4, 40, 0, (50 * Math.PI) / 180, 0], [0, 0, -20, 0, 0, 0], [0, 0, -18, 0, 0, 0]]] }],
+  });
+  writeFileSync(join(folder, "aimleg.mdl"), base);
+  const spec = (pose) => ({ spec: "smak.model/1", name: "aimed.mdl", kind: "character", base: { file: "aimleg.mdl" }, pose, parts: [{ id: "thigh", kind: "box", size: [3, 3, 18], material: "cloth", span: ["Bip01 L Thigh", "Bip01 L Calf"] }] });
+  const aimed = buildModelSpec(spec({ aim: { "L leg": { forward: 30 } } }), { folder });
+  sure(!aimed.report.errors.length && aimed.report.facts.some((f) => /pose: L leg aimed as given/.test(f)), [...aimed.report.errors, ...aimed.report.facts].join(" | "));
+  const foot = smak.posed(aimed.mdl, { seq: 0, frame: 0 }).pose[3];
+  const want = [Math.sin(Math.PI / 6) * 38, 4, 40 - Math.cos(Math.PI / 6) * 38];
+  sure([0, 2].every((k) => Math.abs(foot[k][3] - want[k]) < 1), `the foot at ${[foot[0][3], foot[1][3], foot[2][3]].map((v) => v.toFixed(1))}, aimed at ${want.map((v) => v.toFixed(1))}`);
+  sure(buildModelSpec(spec({ aim: { "L tail": { forward: 10 } } }), { folder }).report.errors.some((e) => /pose\.aim\.L tail: a limb of L arm, R arm, L leg, R leg/.test(e)), "an unknown limb refused");
+});
+
+test("a lift may say the brightness its view was drawn at (a lamp's face, white at the place view's)", () => {
+  const spec = (brightness) => ({ spec: "smak.wad/1", name: "x.wad", textures: [{ name: "lamp", size: [16, 16], lift: { map: "models:x.bsp", view: "work:pictures/lamp-dark.png", brightness } }] });
+  sure(!validateWadSpec(spec(0.5)).errors.length, validateWadSpec(spec(0.5)).errors.join("; "));
+  sure(validateWadSpec(spec(-1)).errors.some((e) => /lift\.brightness: the brightness its view was drawn at/.test(e)), validateWadSpec(spec(-1)).errors.join("; "));
+});

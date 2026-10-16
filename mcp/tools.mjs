@@ -1303,7 +1303,7 @@ export function toolsFor(folders, { allowRun = true } = {}) {
       description: `A sound, music or a shape (a mesh, from a picture or from words) made by a model run on this machine, several seeds at once: each take written to work:gen/<name>_s<seed> (.wav, or .obj with its picture) with a sidecar .json (model, prompt, seed, licence), measured and drawn. Then use the take you choose in a sound spec as a layer { kind: "sample", file, from: "onset" }, or the shape in a model spec as a part { kind: "mesh", file, size }, and shape it there. Models: ${names}. The first call to a model loads it (a minute or three); later calls take seconds.`,
       inputSchema: object(
         {
-          prompt: { type: "string", description: "what it is, in plain words: the thing, the action, the material, the space (\"a heavy wrench hitting a steel pipe, one sharp metallic clang, short ring\")" },
+          prompt: { type: "string", description: "a caption of the sound as the model learned them, 5 to 15 plain words about the sound alone: the source, the action, the material, the space (\"a heavy wrench hitting a steel pipe, one sharp metallic clang\"), events in order when several. No numbers, no frequencies. The person's own words, passed as they are when they ask; when you change them, tell them what you sent" },
           length: { type: "number", description: "seconds (a sound model makes 5 at most; music 10 to 600); not for a shape" },
           kind: { type: "string", enum: ["sound", "music", "shape"], description: "which kind's default model (sound unless told)" },
           picture: { type: "string", description: "a shape: a picture of the thing in the folders (one object, whole, plain background), in place of one drawn from the prompt" },

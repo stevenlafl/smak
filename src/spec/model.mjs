@@ -652,7 +652,17 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
       errors.push(`pose.from: the name (or number) of the base's animation whose frames the first animation takes ("walk": a character the original shows mid-stride)`);
     if (spec.pose?.frame !== undefined && !(Number.isInteger(spec.pose.frame) && spec.pose.frame >= 0)) errors.push("pose.frame: the frame of pose.from the first animation starts at (by default the one whose box fits size best)");
     if (spec.pose?.frame !== undefined && spec.pose?.from === undefined) errors.push("pose.frame: of pose.from; give from");
-    if (keys === undefined && (spec.pose?.fit || spec.pose?.from !== undefined)) {
+    if (spec.pose?.aim !== undefined) {
+      const aim = spec.pose.aim;
+      if (!aim || typeof aim !== "object" || Array.isArray(aim)) errors.push(`pose.aim: { "L arm": { out, forward, bend }, "R leg": { ... } }: where each limb points, in degrees`);
+      else
+        for (const [limb, a] of Object.entries(aim)) {
+          if (!LIMBS[limb]) errors.push(`pose.aim.${limb}: a limb of ${Object.keys(LIMBS).join(", ")}`);
+          else if (!a || typeof a !== "object" || !Object.entries(a).every(([k, v]) => ["out", "forward", "bend"].includes(k) && isNumber(v)))
+            errors.push(`pose.aim.${limb}: { out, forward, bend } in degrees: out from the body seen from the front, forward (under 0 back) seen from the side, and the elbow's or knee's bend`);
+        }
+    }
+    if (keys === undefined && (spec.pose?.fit || spec.pose?.from !== undefined || spec.pose?.aim !== undefined)) {
       // fitted, or taken from an animation, alone: no keys of its own
     } else if (!keys || typeof keys !== "object" || Array.isArray(keys) || !Object.keys(keys).length)
       errors.push(`pose: { keys: { "<bone>": { turn: { x, y, z } } } }: degrees about the model's axes, as the bone stands in the first frame (a leg back: "Bip01 L Thigh": { turn: { y: 20 } })`);
@@ -1668,8 +1678,8 @@ function buildPosed(spec, options = {}) {
   // views (spec.project's, or pose.fit's own), then built again in that stance; the keys given win over it
   if (!spec?.pose?.fit) return buildOnce(spec, options);
   const given = spec.pose.keys ?? null;
-  const took = spec.pose.from !== undefined ? { from: spec.pose.from, ...(spec.pose.frame !== undefined ? { frame: spec.pose.frame } : {}) } : {};
-  const first = buildOnce({ ...spec, pose: given || spec.pose.from !== undefined ? { ...took, ...(given ? { keys: given } : {}) } : undefined }, options);
+  const took = { ...(spec.pose.from !== undefined ? { from: spec.pose.from, ...(spec.pose.frame !== undefined ? { frame: spec.pose.frame } : {}) } : {}), ...(spec.pose.aim ? { aim: spec.pose.aim } : {}) };
+  const first = buildOnce({ ...spec, pose: given || Object.keys(took).length ? { ...took, ...(given ? { keys: given } : {}) } : undefined }, options);
   if (!first.mdl) return first;
   const read = options.readPicture ?? ((name) => unpicture(readFileSync(resolve(options.folder ?? ".", name.replace(/^(work|models):/, "")))));
   const asked = Array.isArray(spec.pose.fit) ? spec.pose.fit : spec.project ?? [];
@@ -1735,6 +1745,15 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
         report.facts.push(took.fact);
       } catch (error) {
         errors.push(`pose.from: ${error.message}`);
+        return { mdl: null, report };
+      }
+    }
+    if (spec.pose?.aim) {
+      try {
+        skeleton = aimedSkeleton(skeleton, spec.pose.aim);
+        report.facts.push(`pose: ${Object.keys(spec.pose.aim).join(", ")} aimed as given`);
+      } catch (error) {
+        errors.push(`pose.aim: ${error.message}`);
         return { mdl: null, report };
       }
     }
@@ -2578,6 +2597,63 @@ function skeletonFrom(skeleton, { from, frame }, size = {}) {
   const joints = new Map(bonesOf(src).map((bone, i) => [bone.name, apply34(matrices[i], [0, 0, 0])]));
   const fact = `pose: the first animation is the base's ${seq.name} from its frame ${start}${fit ? ` (the base's body ${fit.join(" x ")} there, nearest the size asked)` : ""}`;
   return { skeleton: { ...skeleton, src, joints }, fact };
+}
+
+/** The limbs pose.aim knows, by their end bone as a Biped names it (any language): the two bones over it are the limb. */
+const LIMBS = { "L arm": "Bip01 L Hand", "R arm": "Bip01 R Hand", "L leg": "Bip01 L Foot", "R leg": "Bip01 R Foot" };
+
+/**
+ * The skeleton with its first animation's limbs pointed where a description says, whatever the base's own stance:
+ * each limb from its top joint at `out` degrees from the body (seen from the front) and `forward` degrees (seen from
+ * the side; under 0 back) from hanging straight down, its elbow or knee bent `bend` degrees (an elbow forward, a
+ * knee back), its length the base's own; the limb is then laid there by `reach`. Keys turn a bone from where the
+ * base has it, and a base whose first frame holds a gun forward (Gordon's) took a described stride and arms 61%
+ * long (the characters words leg, described by a form, 2026-10-16).
+ */
+function aimedSkeleton(skeleton, aim) {
+  const rig = A.rigOf(skeleton.src);
+  const names = rig.names;
+  const deg = (d) => (d * Math.PI) / 180;
+  const unitOf = (v) => {
+    const l = Math.hypot(...v) || 1;
+    return v.map((x) => x / l);
+  };
+  const limbs = Object.entries(aim).map(([limb, a]) => {
+    const end = boneIn(LIMBS[limb], names);
+    if (!end) throw new Error(`the base has no ${LIMBS[limb]} for ${limb}: its bones are ${names.join(", ")}`);
+    const lower = rig.bones[rig.index(end)].parent;
+    const upper = lower >= 0 ? rig.bones[lower].parent : -1;
+    if (upper < 0) throw new Error(`${end} has no two bones over it to make ${limb} of`);
+    const bones = [names[upper], names[lower], end];
+    return { limb, a, bones, side: limb.startsWith("L") ? 1 : -1, leg: limb.endsWith("leg") };
+  });
+  const seq = sequencesOf(skeleton.src)[0];
+  const blends = Array.from({ length: Math.max(1, seq.blends ?? 1) }, (_, b) =>
+    readSequence(skeleton.src, 0, b).frames.map((frame) => {
+      let pose = A.poseOfValues(rig, frame);
+      for (const { a, bones, side, leg } of limbs) {
+        const world = A.worldOf(rig, pose);
+        const [top, middle, end] = bones.map((b) => world[rig.index(b)].p);
+        const upper = Math.hypot(...middle.map((v, k) => v - top[k]));
+        const lower = Math.hypot(...end.map((v, k) => v - middle[k]));
+        const [o, f, bend] = [deg(a.out ?? 0), deg(a.forward ?? 0), deg(a.bend ?? 0)];
+        const d = unitOf([Math.sin(f) * Math.cos(o), side * Math.sin(o), -Math.cos(f) * Math.cos(o)]);
+        const knee = top.map((v, k) => v + d[k] * upper);
+        // the lower bone bent from the upper's line: an elbow brings the hand forward, a knee takes the foot back
+        const towards = leg ? [-1, 0, 0] : [1, 0, 0];
+        const along = towards.reduce((sum, v, k) => sum + v * d[k], 0);
+        const across = unitOf(towards.map((v, k) => v - along * d[k]));
+        const d2 = d.map((v, k) => v * Math.cos(bend) + across[k] * Math.sin(bend));
+        const to = knee.map((v, k) => v + d2[k] * lower);
+        pose = A.reach(rig, pose, { bones, to, bend: leg ? [1, 0, 0] : [-1, 0, 0] });
+      }
+      return A.valuesOf(rig, pose);
+    }),
+  );
+  const src = replaceSequence(skeleton.src, 0, blends.length > 1 ? { blends } : { frames: blends[0] });
+  const matrices = posed(src, skeleton.pose).pose;
+  const joints = new Map(bonesOf(src).map((bone, i) => [bone.name, apply34(matrices[i], [0, 0, 0])]));
+  return { ...skeleton, src, joints };
 }
 
 /** Every animation's root bones moved `lift` units up, blend by blend: the whole model stands higher. */
