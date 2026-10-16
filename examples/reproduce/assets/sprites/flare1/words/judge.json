@@ -74,34 +74,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are the same effect: a soft, bright central glow with a radial halo and faint rays on a dark ground. Nothing is missing or added."
+   "reason": "Both are a soft radial glow: a bright white core with a halo fading out in the frame. The same effect is there in both."
   },
   "R2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are 64 x 64. The glow is centred and fills the frame in the same way in each, with the same bright core and falloff to the edges."
+   "reason": "Both frames are 64 x 64, and the glow fills the frame and fades toward the edges in both pictures. The size and fill match."
   },
   "R3": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The measured mean colour difference is 8.3, inside the line of 15, but the picture is clearly off in hue. The original's halo is neutral grey-pink, while the reproduction's halo is a more saturated magenta-purple. The core is white in both, so the difference is in the outer glow, not the centre."
+   "reason": "The measured mean colour difference is 8.3, inside the 15 line. Looking closely, though, the reproduction's halo is a clearly more magenta-pink than the original's pale, nearly neutral lavender-grey, so the hue is visibly off in the halo even though the core matches."
   },
   "R4": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "One frame in each, matching the original's count, and the envelope is identical (first 1, last 1, peak at 0). The dark fraction differs (0.39 against 0.47), which reads as a slightly tighter falloff in the reproduction. That is a small difference in a single static frame, not a change of motion, so it does not lower the score."
+   "score": 1,
+   "reason": "Both are one frame, which matches, and a single-frame glow has no motion to compare. The dark-pixel measure differs (0.39 original, 0.47 reproduction): the reproduction's halo reaches further and leaves fewer dark corners, so where the glow fades to dark is not the same."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are parallel and additive, the names match, and the reproduction reads back as written."
+   "reason": "Both are additive, the names match (sameName true), and the file reads back (readsBack true). The type and format are the original's."
   }
  },
- "total": 9,
+ "total": 8,
  "of": 10,
  "passes": false
 }

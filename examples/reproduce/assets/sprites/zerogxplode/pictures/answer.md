@@ -1,23 +1,28 @@
-The sprite builds OK and is written to `work:sprites/zerogxplode.spr` (with `-sheet.png` and `-animated.png` beside it). The build still prints warnings, though, so it does not fully match the original yet.
+The sprite is built and says OK, but it does not match the original closely. The build still lists four warnings, and the shape match is the weakest part. The file is `work:sprites/zerogxplode.spr`, with a sheet and an animated preview beside it.
 
-**What it is:** an explosion, drawn as a `tempent` (a map explosion), `parallel` (faces the camera), `additive` (black is clear), 64x64, 15 frames, one-shot (not looping), centred. The frames follow the original: a small white spot grows to a bright white ball by frame 2–4, cools to golden tan with dark crevices, then fades to dark red and is gone by frame 13–14.
+**What the original is:** a 64x64 explosion, 15 frames, a parallel sprite (it faces the camera) drawn additively (black is see-through). Frame 0 is a small grey-white flash with a few sparks. Frames 1 to 7 swell into a white-hot cloud that fills most of the frame, with a dark orange rim. Frames 8 to 11 cool to a tan and brown mottled cloud that rises and shrinks. Frames 12 to 14 are faint embers.
 
-**How it's built:** two billow layers (lit clouds of spheres). The first gives the body, plus flecks of debris. The second is wider and masked to the original's lit outline, so its shape follows the reference frame by frame. Colours come from the reference's own sheet (`ramp: "reference"`), and the reference is `pictures/frames.png`, 128px cells, 8 columns.
+**What I built:** one `explosion` layer for the hot ball, one `billow` layer (a lit cloud) for the body, and small white `sparks`. Colours come from the original's own brightness-to-colour ramp, read off the contact sheet. The sprite is tagged as a `tempent` explosion and fades to dark at its end.
 
-**Measured against the original (last build):**
+**Measured against the original (from the build report):**
 
-| Measure | Original | Ours | Bar |
+| Measure | Original | Mine | Bar |
 | --- | --- | --- | --- |
-| Mean colour (delta E) | — | 4.1 | 15 or under |
-| Share that is dark | 0.72 | 0.70 | within 0.05 |
-| Brightest frame (share of play) | 0.36 | 0.43 | within 0.08 |
-| Light at the border | 0.82 | 0.64 | 0.08 short or past |
-| Shape overlap, mean | — | 0.50 | 0.8 |
+| Colour difference (delta E) | — | 11.2 | 15 or under: met |
+| Share of frame that is dark | 0.72 | 0.52 | within 0.05: not met |
+| Light at the frame's edge (brightest) | 0.82 | 0.58 | not met |
+| Shape overlap, frame by frame | — | 0.35 | 0.8: not met |
+| Brightest frame's place in the play | 0.36 | 0.36 | met |
+| Frame count | 15 | 15 | met |
 
-**Still open:**
-- **Shape overlap (0.50 against a bar of 0.8).** Frame 0 is empty in ours; the original has a small spot there. The envelope starts at zero, and I couldn't find a setting that lights frame 0 without moving the peak. Frames 10–13 also fade faster than the original's.
-- **Border light (0.64 against 0.82).** It got closer as the masked layer widened; the remaining gap is not closed.
+The brightest moment, the frame count and the colours are right. The shape is not. My clouds sit a little high and sit too much in the middle, and the original's late frames are smaller and darker than mine.
 
-I tried several variants (a decay of 0.9 made colour and border worse, and a shorter attack moved the peak later), so I kept the best one.
+I tried about eight variants. Making the cloud larger filled the frame too much and lost the dark share. Making it smaller lost the edge light and the hot middle. Growing the cloud over time helped the edge but made the colour worse. The version above was the best balance I found. Reaching the 0.8 shape bar probably needs a different layer arrangement than this one, and I did not find it.
 
-**Assumptions I made, since the input gives only size, frames, type and format:** the frame rate is 30 fps (the original's rate is not recorded anywhere I could read), the class is explosion, and the origin is centred. Change any of these if you know the original's values.
+**Choices I made:**
+- Type `parallel`, format `additive`, origin centre, 64x64, 15 frames, 12 frames a second, `finish: edge`, use `tempent`.
+- Sparks are white. The original's flecks are white dots, so this is close but not exact.
+
+**Limits:**
+- I could not read the original's folder directly. I used the copy the server holds (`work:pictures/frames.png` and `facts.txt`) and checked it against the spec's reading of the sheet.
+- I was refused permission to read the sprite source files, so I learned what each setting does by trying it, not from the code.

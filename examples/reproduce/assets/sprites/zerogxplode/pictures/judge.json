@@ -46,20 +46,20 @@
      64
     ],
     "border": {
-     "max": 0.635,
-     "mean": 0.001
+     "max": 0.58,
+     "mean": 0.015
     },
     "envelope": {
-     "peakAt": 0.43,
-     "first": 0,
+     "peakAt": 0.36,
+     "first": 0.03,
      "last": 0
     },
-    "dark": 0.7,
-    "wrap": 0.02,
-    "jitter": 1.31
+    "dark": 0.53,
+    "wrap": 0.15,
+    "jitter": 1.24
    }
   },
-  "meanColourDeltaE": 4.4,
+  "meanColourDeltaE": 11.2,
   "sameName": true,
   "readsBack": true
  },
@@ -71,37 +71,37 @@
  },
  "scores": {
   "R1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Both are explosions: a bright hot core that swells, throws off sparks, and sheds smoke that fades to dull embers. The original's two-lobed column is simplified into one mass in the reproduction, but the effect is the same kind."
+   "score": 1,
+   "reason": "Both are a bright blast that peaks and fades, so the effect is recognisable. But the original is a soft fireball with a cloud of sparks and debris flying off it, and the reproduction is a hard-edged rock-like blob with a cracked surface and no sparks. It reads as a different kind of effect (a rock or boulder), so this is clearly off."
   },
   "R2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Both are 64 x 64 frames. The effect fills about the same area at its peak, centred similarly, with sparks at the edge. The measured border overlap (0.818 original, 0.635 reproduction) shows a modest difference in spread, but the frames fill the same way."
-  },
-  "R3": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The measured mean colour difference of 4.4 is under 15 and would allow a 2, but the picture shows a clear fault. In frames 1 to 6 the original is white-hot and yellow, while the reproduction is grey and ghostly (frames 0 to 2 and 4 to 5 are grey-white with a grey halo). The later gold and orange frames match well. The whole-sequence mean hides the early mismatch, so the judge scores the visible difference."
+   "reason": "Both are 64 x 64. The original's cloud is rounded and sits inside the frame with ragged edges. The reproduction is a boxier, rock-shaped mass, and in frames 8 to 11 its lower edge runs flat against the frame's bottom, looking clipped. Border maxima differ (0.818 original, 0.58 reproduction), so it does not fill the frames as the original does."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: mean colour difference of 11.2, under the line of 15. The palette also matches: white-hot core in the early frames, then orange and a dark fade. The reproduction's late frames look a little browner than the original's golden glow, but the measure holds and nothing is off enough to take a point."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Frame count matches (15 each) and the peak timing is close (0.36 original, 0.43 reproduction). The motion kind is the same: a grow then fade. But the reproduction's first frame is empty (first 0 against 0.08) and it fades to nothing by frame 13, while the original keeps a faint glow through frame 14 (last 0.03 against 0). The loop-closure measure also differs sharply (wrap 0.81 original, 0.02 reproduction), so the closing behaviour does not match."
+   "reason": "Frame count is 15 in both, and both peak at the same point (0.36). Both are one-shots that end dark (last 0.03 and 0). But the reproduction starts dimmer (first 0.03 against 0.08), fades out sooner (frames 13 and 14 are nearly black where the original still glows), and its wrap measure is 0.15 against the original's 0.81. The motion is clearly different in its fade."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type and format are both additive, the name matches, the size is the same 64 x 64, the frame count is the same, and it reads back as written (readsBack true)."
+   "reason": "Measured and stated: additive format in both, same name, and it reads back as written. Size and frame count are as the original's."
   }
  },
- "total": 8,
+ "total": 7,
  "of": 10,
  "passes": false
 }

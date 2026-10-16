@@ -74,31 +74,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are a smoke puff: a cloud that swells, rises and drifts, with a tail trailing below in the middle frames, then thins out. The same effect."
+   "reason": "Both are a rising and fading smoke puff: a round cloud that grows over the first frames, drifts up with a tail, and thins out. The same effect is clearly there in both sheets."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both frames are 32x48, but the reproduction's puff is clearly smaller than the original's from frame 1 to frame 7. Frame 1 is about 14 px wide against about 25 px in the original, and frame 3 about 30 px against 40 px. The original's cloud fills the frame more fully, so the reproduction is there but clearly off in size."
+   "reason": "Both frames are 32x48, but the original's smoke fills them and reaches the edges (border max 0.341, visible at the frame edges around frames 2 to 8), while the reproduction's cloud is smaller and never touches the border (border max 0). The effect does not fill the frames as the original's does."
   },
   "R3": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The reproduction's cloud is whiter in the early and middle frames, but it darkens much sooner. Frames 8 to 12 are a duller grey in the reproduction than in the original, which keeps its bright body further into the fade. The measured dark fraction is 0.88 against the original's 0.64, which confirms the reproduction is too dark overall. The colour is there but clearly off."
+   "reason": "The reproduction is visibly greyer and dimmer than the original. Its frames are darker overall (dark 0.88 against 0.64), and the original's peak frames (around 3 to 7) are bright white where the reproduction's are a duller grey. No colour difference is measured for sprites, so this is judged by eye and can't reach 2 on that evidence. Clearly off, not a total miss."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Frame count matches (16 each), and both grow then fade with a peak at 0.4 of the way through. The fade differs: the reproduction is nearly empty by frames 13 to 15, while the original still shows a faint plume there. The original's first frame is faintly lit (envelope first 0.04) where the reproduction's is blank (0). The wrap measure also differs (0.5 against 0.18). The motion is the right kind but its timing is clearly off."
+   "reason": "Frame count matches (16). The peak is at the same place (0.4), but the motion differs: the reproduction's cloud shrinks and fades earlier, and its frames 13 to 15 are nearly blank, while the original still shows a visible tail at 13 to 15 and faint smoke at its last frame (last 0.03 against 0). Wrap is also off (0.5 against 0.18), so the closing of the sequence doesn't match the original's."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are parallel oriented with index alpha format, the same name, and the reproduction reads back (readsBack true, sameName true). Type and format match the original."
+   "reason": "Type ('parallel oriented') and format ('index alpha') match the original. The name is the same (sameName true) and the file reads back as written (readsBack true)."
   }
  },
  "total": 7,

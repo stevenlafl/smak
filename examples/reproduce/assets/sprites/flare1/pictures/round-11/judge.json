@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "flare1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.39,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 1,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 1,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.39,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 8.7,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both frames show the same effect: a bright additive flare glow with a white-pink core and a soft halo. The reproduction adds a sharper horizontal and vertical starburst that the original lacks, but it is still a flare glow of the same kind."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 64x64 and the dark-pixel fraction matches (0.39), but the reproduction's bright core is roughly half the original's width and its halo falls off sooner. The original's glow fills the frame more broadly, so the effect does not fill the frame as the original does."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both frames are the same white-pink on black. The harness measures the mean colour difference at 8.7, under the line of 15, and the pictures agree."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are single-frame one-shots with the same envelope (first 1, last 1, peak at 0) and the same dark fraction (0.39), so the frame count and the ending match the original's. Motion does not apply to a single frame."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are additive, single-frame, 64x64, with the same name and read-back true. The measures match the original's type and format."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

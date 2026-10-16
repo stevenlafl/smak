@@ -54,12 +54,12 @@
      "first": 1,
      "last": 1
     },
-    "dark": 0.39,
+    "dark": 0.37,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 8.7,
+  "meanColourDeltaE": 3.6,
   "sameName": true,
   "readsBack": true
  },
@@ -74,34 +74,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both frames show the same effect: a bright additive flare glow with a white-pink core and a soft halo. The reproduction adds a sharper horizontal and vertical starburst that the original lacks, but it is still a flare glow of the same kind."
+   "reason": "Both frames are the same effect: a soft additive glow with a bright white core fading out to a pink-violet halo. The original's radial streaks are finer surface texture, not a different effect."
   },
   "R2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Both are 64x64 and the dark-pixel fraction matches (0.39), but the reproduction's bright core is roughly half the original's width and its halo falls off sooner. The original's glow fills the frame more broadly, so the effect does not fill the frame as the original does."
+   "score": 2,
+   "reason": "Both are 64x64, one frame, and the glow fills the frame the same way: bright centre, halo reaching the edges, dark corners. The reproduction's halo is a little smoother, but the spread and falloff match."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both frames are the same white-pink on black. The harness measures the mean colour difference at 8.7, under the line of 15, and the pictures agree."
+   "reason": "Measured colour difference is 3.6 CIE76 delta E, far under the 15 line. Dark share is 0.39 for the original and 0.37 for the reproduction, so brightness also matches."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are single-frame one-shots with the same envelope (first 1, last 1, peak at 0) and the same dark fraction (0.39), so the frame count and the ending match the original's. Motion does not apply to a single frame."
+   "reason": "Both are one frame, the envelope is the same (first 1, last 1, peak at frame 0), and neither wraps or jitters. The single-frame glow therefore has the same motion, which is none, and it ends at the same brightness as the original."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are additive, single-frame, 64x64, with the same name and read-back true. The measures match the original's type and format."
+   "reason": "Both are type parallel with format additive, the names match (sameName true), and the file reads back (readsBack true)."
   }
  },
- "total": 9,
+ "total": 10,
  "of": 10,
- "passes": false
+ "passes": true
 }

@@ -15,26 +15,27 @@
       "type": "parallel oriented",
       "format": "index alpha",
       "origin": "centre",
-      "finish": "edge",
-      "reference": "pictures/frames.png",
+      "reference": {
+        "picture": "pictures/frames.png",
+        "cell": 96,
+        "cols": 8
+      },
       "layers": [
         {
           "kind": "billow",
           "at": [
             0,
-            0
+            -0.1
           ],
-          "count": 24,
-          "spread": 0.5,
-          "size": 0.34,
-          "growth": 0.6,
-          "rise": 0.25,
-          "drift": 0.12,
-          "dissolve": 0.5,
+          "spread": 0.6,
+          "size": 0.36,
+          "dissolve": 0.4,
           "ramp": "reference",
+          "mask": "reference",
           "env": {
-            "attack": 0.1,
-            "decay": 0.8
+            "attack": 0.38,
+            "decay": 0.62,
+            "start": 0.1
           }
         }
       ]

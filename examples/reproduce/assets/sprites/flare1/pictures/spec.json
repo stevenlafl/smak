@@ -12,28 +12,18 @@
       "frames": 1,
       "type": "parallel",
       "format": "additive",
-      "reference": "pictures/frames.png",
+      "origin": "centre",
+      "reference": "work:pictures/frames.png",
+      "finish": {
+        "edge": 2
+      },
       "layers": [
         {
           "kind": "glow",
-          "radius": 1,
-          "core": 0.4,
-          "falloff": "smooth",
-          "gain": 1,
+          "radius": 0.98,
+          "core": 0.5,
+          "gain": 1.3,
           "ramp": "reference"
-        },
-        {
-          "kind": "flare",
-          "core": 0.1,
-          "gain": 0.3,
-          "ramp": "reference",
-          "rays": {
-            "count": 48,
-            "length": 0.9,
-            "jitter": 0.5,
-            "width": 0.012,
-            "gain": 0.25
-          }
         }
       ]
     }

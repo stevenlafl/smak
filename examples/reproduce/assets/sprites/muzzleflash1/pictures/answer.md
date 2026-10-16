@@ -1,22 +1,24 @@
-The sprite is built and the build says **OK**, written to `work:sprites/muzzleflash1.spr` (with `-sheet.png` and `-animated.png` beside it). It is not yet fully clean: two warnings remain, and I explain them below.
+The sprite builds OK with no warnings: `sprites/muzzleflash1.spr`, written to the work folder as `work:sprites/muzzleflash1.spr`, with its `-sheet.png` and `-animated.png` beside it.
 
-**What it is:** a 64x64 muzzle flash (`use: tempent`, class `flare`, type `parallel`, format `additive`, 2 frames, not looped, 20 fps). It is a bright white-peach core with five thin tapered rays at 90°, 18°, 162°, 306° and 234°, which matches the original's star. The colours are taken from the reference sheet with `ramp: "reference"`, so the halo is the original's own peach.
+**What it is:** a muzzle flash of five thin, tapering spikes radiating from a bright peach-white core, one spike pointing up. It is 64x64, 2 frames, parallel (faces the camera), additive (black is clear), placed as a `tempent` (rendered additive at 20 fps). It is a one-shot (not looping), so it ends dark.
 
-**Final spec (the layers and streaks):**
-- `glow`: radius 0.26, core 0.12, gain 0.45, `falloff: power`.
-- `flare`: core 0.1, five half-streaks of length 0.95–1.0, width 0.035, taper 0.5, no blur, haze 0.05, gains 0.95–1.0.
-- `finish: edge`, `origin: centre`, `reference: { picture: "pictures/frames.png", cell: 128, cols: 2 }`.
+**Spec choices:**
+- **Spikes:** a `flare` layer with five half-streaks at 90°, 18°, -54°, -126° and 162°, length 1.0, width 0.05, tapered. The `half` flag matters: without it each streak also drew its opposite arm, giving ten spikes.
+- **Core:** a `glow` layer at the centre, radius 0.3, core 0.12.
+- **Colour and timing:** both layers use `ramp: "reference"`, so the colours are read off your contact sheet rather than guessed. Both layers peak on the second frame, starting at 0.95 of peak, as the reference does.
+- **Reference:** `pictures/frames.png` read as two 128-pixel cells, two columns.
 
-**Measured against the original:**
+**Measured against the reference:**
 
-| Measure | Original | Mine | Bar |
-| --- | --- | --- | --- |
-| Mean colour (delta E) | – | 4 | 15 or under |
-| Share dark | 0.76 | 0.69 | within 0.05 |
-| Border light | 0.02 | 0 | no spill |
-| Frames | 2 | 2 | – |
-| Shape overlap, frame 0 / frame 1 | – | 0.76 / 0.76 | 0.8 |
+| Measure | Reference | Mine |
+| --- | --- | --- |
+| Mean colour (delta E, 15 or under is near) | | 0.7 |
+| Share that is dark | 0.76 | 0.74 |
+| Brightest (share of play) | 1 and 1 | 1 and 1 |
+| Shape overlap, frame 0 / frame 1 | | 0.82 / 0.82 (bar 0.8) |
 
-**Remaining warnings:**
-1. **Brightest frame:** the original peaks on frame 1, mine on frame 0. The original's frame 0 is 0.95 of its brightest, so the gap is small. An envelope attack shifts the peak, but it also empties frame 0 (tried 0.15, 0.6 and 0.9; 0.15 left frame 0 at 0.09 of its brightest). I found no setting that peaks on frame 1 while keeping frame 0 bright, so I left the envelope at its default.
-2. **Shape overlap 0.76:** just under the 0.8 bar. Every change that closed it further (longer rays, more haze, a bigger glow) also pushed the dark share or the border out of range. I stopped at the best balance I found.
+The first build had two warnings I fixed: the peak was on the first frame instead of the second, and the arms were too short for the shape to match. The last build is clean.
+
+**Caveats:**
+- The reference was measured from the contact sheet only. I could not list the original input folder (the read was denied), so I did not see any other files there.
+- I did not check the render in the game. The judge's measures above are the only check I have run.

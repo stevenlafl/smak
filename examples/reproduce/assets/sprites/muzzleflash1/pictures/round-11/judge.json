@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "muzzleflash1",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 2,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 2,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.02,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 1,
+     "first": 0.95,
+     "last": 1
+    },
+    "dark": 0.76,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 2,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 2,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0,
+     "mean": 0
+    },
+    "envelope": {
+     "peakAt": 0,
+     "first": 1,
+     "last": 1
+    },
+    "dark": 0.69,
+    "wrap": null,
+    "jitter": null
+   }
+  },
+  "meanColourDeltaE": 4,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are the same effect, a bright white-hot centre with a five-ray starburst, the usual muzzle flash. The reproduction's rays are a clean five-point star, and the original's are a softer, more diffuse starburst, but it reads as the same flash."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both are 64 x 64 and both borders are empty (0 and 0.02), so the frame size is right. The shape is off: the original's rays are rotated and spread more broadly, while the reproduction has a rigid vertical top ray. The reproduction also shows a faint pentagonal halo filling the frame that the original does not have."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The centre is white-hot and the rays are orange-tan in both, so the hue matches. But the reproduction's dim grey halo lifts the background where the original is black. The dark measure is 0.69 against 0.76, so the reproduction's frames carry more light across the frame. No colour delta is given for sprites, so the score rests on the picture and that measure."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count matches (2 against 2) and both end at 1, so neither fades to dark. The kind of motion differs: the original's envelope rises from 0.95 at frame 0 to a peak at frame 1, so it grows, while the reproduction peaks at frame 0 and holds steady. Its rays also barely change between frames, while the original's rotate."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The type and format are additive in both, the frame size is 64 x 64 in both, the names match (sameName true), and the reproduction reads back as written (readsBack true)."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

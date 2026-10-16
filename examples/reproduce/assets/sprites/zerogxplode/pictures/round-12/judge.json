@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "zerogxplode",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.818,
+     "mean": 0.005
+    },
+    "envelope": {
+     "peakAt": 0.36,
+     "first": 0.08,
+     "last": 0.03
+    },
+    "dark": 0.73,
+    "wrap": 0.81,
+    "jitter": 1.25
+   }
+  },
+  "reproduction": {
+   "size": [
+    64,
+    64
+   ],
+   "frames": 15,
+   "type": "parallel",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     64,
+     64
+    ],
+    "border": {
+     "max": 0.635,
+     "mean": 0.001
+    },
+    "envelope": {
+     "peakAt": 0.43,
+     "first": 0,
+     "last": 0
+    },
+    "dark": 0.7,
+    "wrap": 0.02,
+    "jitter": 1.31
+   }
+  },
+  "meanColourDeltaE": 4.4,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both are explosions: a bright hot core that swells, throws off sparks, and sheds smoke that fades to dull embers. The original's two-lobed column is simplified into one mass in the reproduction, but the effect is the same kind."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are 64 x 64 frames. The effect fills about the same area at its peak, centred similarly, with sparks at the edge. The measured border overlap (0.818 original, 0.635 reproduction) shows a modest difference in spread, but the frames fill the same way."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured mean colour difference of 4.4 is under 15 and would allow a 2, but the picture shows a clear fault. In frames 1 to 6 the original is white-hot and yellow, while the reproduction is grey and ghostly (frames 0 to 2 and 4 to 5 are grey-white with a grey halo). The later gold and orange frames match well. The whole-sequence mean hides the early mismatch, so the judge scores the visible difference."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frame count matches (15 each) and the peak timing is close (0.36 original, 0.43 reproduction). The motion kind is the same: a grow then fade. But the reproduction's first frame is empty (first 0 against 0.08) and it fades to nothing by frame 13, while the original keeps a faint glow through frame 14 (last 0.03 against 0). The loop-closure measure also differs sharply (wrap 0.81 original, 0.02 reproduction), so the closing behaviour does not match."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type and format are both additive, the name matches, the size is the same 64 x 64, the frame count is the same, and it reads back as written (readsBack true)."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,107 @@
+{
+ "kind": "sprites",
+ "subject": "fire",
+ "leg": "pictures",
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.275,
+     "mean": 0.028
+    },
+    "envelope": {
+     "peakAt": 0.07,
+     "first": 0.9,
+     "last": 0.84
+    },
+    "dark": 0.42,
+    "wrap": 1.13,
+    "jitter": 1.51
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    96
+   ],
+   "frames": 15,
+   "type": "parallel oriented",
+   "format": "additive",
+   "measures": {
+    "frames": 15,
+    "size": [
+     32,
+     96
+    ],
+    "border": {
+     "max": 0.248,
+     "mean": 0.012
+    },
+    "envelope": {
+     "peakAt": 0.07,
+     "first": 0.87,
+     "last": 0.87
+    },
+    "dark": 0.5,
+    "wrap": 1.25,
+    "jitter": 1.59
+   }
+  },
+  "meanColourDeltaE": 7,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Both sheets show a rising flame: a bright base, tongues that taper upward, and the same flicker across 15 frames. The effect is the same."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frames are the same 32x96 size, but the reproduction's flame is narrower and more tapered, with a sharper point. The original's body spreads wider and fills the frame more. The measured dark fraction is 0.50 against the original's 0.42, which agrees: the reproduction fills less of its frame."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The orange-to-yellow core and the darker red edges match the original. Mean colour difference is 7 CIE76 delta E, well under 15. Only a slight difference in saturation is visible on close look."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both have 15 frames, and the envelope peaks at the same point (0.07). The first and last frame levels line up well (reproduction 0.87 and 0.87, original 0.90 and 0.84). Wrap is 1.25 against 1.13 and jitter is 1.59 against 1.51, both close. The motion kind (flicker, rise) and the loop closure agree."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type is parallel oriented and format additive, both as the original. Name matches, and the file reads back as written."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

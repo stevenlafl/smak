@@ -1,0 +1,101 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/muzzleflash1.spr",
+      "use": "tempent",
+      "class": "flare",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 2,
+      "loop": false,
+      "fps": 20,
+      "type": "parallel",
+      "format": "additive",
+      "origin": "centre",
+      "finish": "edge",
+      "reference": {
+        "picture": "pictures/frames.png",
+        "cell": 128,
+        "cols": 2
+      },
+      "layers": [
+        {
+          "kind": "glow",
+          "radius": 0.26,
+          "core": 0.12,
+          "gain": 0.45,
+          "ramp": "reference",
+          "at": [
+            0,
+            0
+          ],
+          "falloff": "power"
+        },
+        {
+          "kind": "flare",
+          "core": 0.1,
+          "ramp": "reference",
+          "at": [
+            0,
+            0
+          ],
+          "streaks": [
+            {
+              "angle": 90,
+              "length": 1,
+              "width": 0.035,
+              "half": true,
+              "gain": 1,
+              "taper": 0.5,
+              "blur": 0,
+              "haze": 0.05
+            },
+            {
+              "angle": 18,
+              "length": 1,
+              "width": 0.035,
+              "half": true,
+              "gain": 0.95,
+              "taper": 0.5,
+              "blur": 0,
+              "haze": 0.05
+            },
+            {
+              "angle": 162,
+              "length": 1,
+              "width": 0.035,
+              "half": true,
+              "gain": 0.95,
+              "taper": 0.5,
+              "blur": 0,
+              "haze": 0.05
+            },
+            {
+              "angle": 306,
+              "length": 1,
+              "width": 0.035,
+              "half": true,
+              "gain": 0.95,
+              "taper": 0.5,
+              "blur": 0,
+              "haze": 0.05
+            },
+            {
+              "angle": 234,
+              "length": 1,
+              "width": 0.035,
+              "half": true,
+              "gain": 0.95,
+              "taper": 0.5,
+              "blur": 0,
+              "haze": 0.05
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

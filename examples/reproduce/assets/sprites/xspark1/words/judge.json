@@ -71,37 +71,37 @@
  },
  "scores": {
   "R1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Both are cyan-white glow clusters, so the family matches. The reproduction reads as a few drifting, off-centre cores with a smaller halo (frames 2, 4, 5, 6 and 10 show separate lumps), not the original's soft, evenly spread glow puff. It is not clearly the same effect."
+   "score": 2,
+   "reason": "Both are the same effect: a soft cyan glow with a white-hot core, the kind of glow a spark or flame sprite would show. The reproduction's lobed, offset shape is a looser version of the original's round glow, but it reads as the same effect."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both are 32x32, but the original's glow fills the frame to its edges with a wide dark-teal halo (border max 0.145). The reproduction's blob is concentrated, sits off-centre and is cut short in frames 0, 8, 9 and 10 (border 0). Its dark share is 0.67 against the original's 0.46, so less of the frame is covered."
+   "reason": "The original's glow fills the 32x32 frame and its dim halo reaches the edges (border max 0.145). The reproduction's glow is smaller and pulled off-centre in several frames (2, 5, 10), and it never touches the edges (border 0), so the effect does not fill the frames as the original's does."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean colour difference is 12.2, under the line of 15. Visually both are cyan cores with white centres on the same near-black background. The original's outer halo is a deeper teal, but the mean colours agree."
+   "reason": "The measured mean colour difference is 12.2, inside the 15 line. The reproduction keeps the same cyan and white. Its dim teal halo is thinner (dark measure 0.67 against the original's 0.46), but the measured colour passes, so I do not dock it again here."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both have 11 frames and close their loop (first equals last), so frame count and loop closure match. The envelope does not: the original holds near full strength (first 0.94, peak at frame 1, last 1), while the reproduction sits at 0.72 at both ends and peaks at frame 3 (0.3). Its jitter is higher (1.92 against 1.51), so its motion looks more erratic than the original's steady flicker."
+   "reason": "The frame count matches (11 in both). The loop closes in both (reproduction first and last both 0.72; original 0.94 and 1.0). But the original's brightness peaks at frame 1 and stays near-constant, while the reproduction's peaks at 0.3 and its shapes jump between frames (jitter 1.92 against the original's 1.51, about 27% more). The motion is busier than the original's."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are additive with the same name, and the reproduction reads back (readsBack true, sameName true)."
+   "reason": "Measured: additive format matches the original, the name matches, and the file reads back as written."
   }
  },
- "total": 7,
+ "total": 8,
  "of": 10,
  "passes": false
 }

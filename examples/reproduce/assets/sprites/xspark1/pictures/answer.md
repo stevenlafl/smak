@@ -1,28 +1,29 @@
-The sprite builds OK and is written to `work:sprites/xspark1.spr`, with `-sheet.png` and `-animated.png` beside it. Two warnings are still open, so it is not as close as the report's bars ask.
+The sprite builds OK, but the build still reports two warnings: the peak sits at 0.8 of the play rather than the last frame, and the shape overlap is 0.72 against the 0.8 bar.
 
-**What it is:** a soft cyan spark cluster on a dark ground. Each frame has a bright white-cyan core, lumpy edges, and a dim cyan halo that falls off to nothing at the border.
+**Result:** `sprites/xspark1.spr` is written to the work folder as `work:sprites/xspark1.spr`, with a sheet and an animated preview beside it. I could not open the original's input folder directly (it is outside the work folder), so I measured against the contact sheet in `pictures/frames.png` and `facts.txt`.
 
-**Spec used** (`smak.sprite/1`):
-- Name `sprites/xspark1.spr`, `use: env_sprite`, `type: parallel`, `format: additive`, `origin: centre`, size 32×32.
-- `reference: pictures/frames.png`, so the report measures against your original sheet.
-- `frames: 10`, `loop: true`, `fps: 10`. The file has 11 frames, the first repeated at the end, matching the original's 11.
-- Layer 1, `glow`: radius 0.95, core 0.3, colour (0.16, 0.75, 1), gain 0.6, masked to the reference's lit outline so the halo stays inside the original's shape.
-- Layer 2, `blobs`: 9 blobs, radius 0.32, spread 0.6, core 0.4, soft 0.5, with `ramp: "reference"` so its colours are the original's own.
+**What it is, as built:**
+- **Type and format:** `parallel`, `additive` (black is clear). The report places it as an `env_sprite`, render mode 5 (Additive).
+- **Class:** `glow`. The `sparks` class is one-shot and must end dark, and the original's last frame stays bright, so `sparks` faulted.
+- **Size and frames:** 32x32, 11 frames, played once (`loop: false`). A loop would write a repeated first frame and make 12 frames, so I did not loop it.
+- **Colours:** a cyan halo, colour (0.235, 0.745, 1), with a white hot centre. Colour is read from the reference frame by frame (`ramp: "reference"`).
+- **Shape:** a soft glow core (radius 0.9, smooth falloff, gain 0.5) plus nine soft blobs (radius 0.34, spread 0.65, gain 0.8) that are placed afresh each frame, so the cluster flickers the way the sheet shows.
 
-**Choices I made:**
-- Class `glow`, not `sparks`. `sparks` is a one-shot that must end dark, and the original stays lit through all its frames.
-- The frame rate of 10 is my guess. The input folder gives no fps.
-- The glow's outline is taken from your original's pictures via the reference mask. That is the spec's documented way to match a shape, and the input is the sprite you asked me to reproduce.
+**Measured against the original's sheet:**
 
-**Measured against the original:**
-- Colour: mean delta E 5.1 (bar 15).
-- Dark share: 0.50 against 0.46.
-- Border light: 0 against 0.145 at its brightest, within range.
-- Frame count: 11 against 11.
-- Shape overlap: mean 0.75 (bar 0.8).
+| Measure | Original | Mine |
+|---|---|---|
+| Mean colour (delta E, 15 or under is near) | — | 1.9 |
+| Share of dark pixels | 0.46 | 0.44 |
+| Border brightness | 0.145 | 0.149 |
+| Frame count | 11 | 11 |
+| Shape overlap (bar 0.8) | — | 0.72 |
+| Brightest frame (share of play) | 1.0 | 0.8 |
 
-**Still open:**
-- **Shape overlap, 0.75 against the 0.8 bar.** The original's core sits in a steady cluster; my blobs are placed afresh each frame, so they do not follow its shape closely. I tried more blobs, larger spread and a stronger envelope. Those lowered the overlap or broke the loop, so I kept this version.
-- **Peak timing.** My brightest frame falls at 0.8 of the loop, against 1.0 in the original. The original is nearly flat in brightness, so this matters less than the overlap.
+**Guesses, not measured from the original:** the frame rate (10 fps), `use: env_sprite`, and `loop: false`. The sheet carries no timing, so I chose these defaults. They are the first things to check against the original's data if it has any.
 
-If you want the overlap closed, the next step is hand-placing the blobs to match the original's cluster in each frame, or accepting 0.75 as the best the blob layer can reach.
+**Not yet passed:**
+- The peak timing. Changing the envelope attack to 1 still peaks at 0.8, so the peak is driven by where the blobs land, not by the envelope.
+- The shape overlap of 0.72. Widening the blobs or the halo pushed the dark share out of line, so I stopped at the best trade-off I found.
+
+The spec was passed inline to the build and not saved as a file. If you want it kept for re-running, I can write it into the project as a script.

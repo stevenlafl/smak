@@ -46,20 +46,20 @@
      48
     ],
     "border": {
-     "max": 0.341,
-     "mean": 0.003
+     "max": 0.4,
+     "mean": 0
     },
     "envelope": {
-     "peakAt": 0.33,
+     "peakAt": 0.4,
      "first": 0,
      "last": 0
     },
-    "dark": 0.67,
-    "wrap": 0.38,
-    "jitter": 0.96
+    "dark": 0.68,
+    "wrap": 0.19,
+    "jitter": 1
    }
   },
-  "meanColourDeltaE": 2.7,
+  "meanColourDeltaE": 0.7,
   "sameName": true,
   "readsBack": true
  },
@@ -74,31 +74,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are the same effect, a grey-white smoke puff that grows, thickens and thins out over the frames. The original's plume trails lower and further, but the kind of effect is the same."
+   "reason": "Both are a smoke puff: a small blob that grows, billows and fades to the background over 16 frames. The reproduction's shading is more bumpy and embossed than the original's soft, flat-white cloud, but it is the same effect."
   },
   "R2": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "Frames are the original's 32x48 and the puff fills them through the middle frames. The original's smoke sits lower and runs into a long tail to the bottom of the frame in frames 4 to 11, which the reproduction's compact blob lacks, so it does not fill the frame the way the original does."
-  },
-  "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The harness measured the frames' mean colour difference at 2.7 CIE76 delta E, well within 15. Visually the bright core and the grey-blue background match frame by frame."
+   "reason": "Both are 32x48 with 16 frames. The puff fills the frame in the same way: a large cloud in the middle frames, drifting down and thinning at the end, with a tail at the bottom in both."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The later peak frames (about 5 to 7) match in brightness, but the early ramp does not. The original's frames 1 and 2 are near-white blobs, while the reproduction's frames 1 to 3 are still grey, so the brightness of the first growth is clearly off. The overall meanColourDeltaE of 0.7 shows the average is close, which is why this is a 1 and not a 0."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Frame count is 16 in both, the one-shot ends dark in both (last 0.03 and 0), and the peak is close (0.4 against 0.33). The kind of motion differs, though: the original's puff rises and drifts with a trailing plume, while the reproduction mostly grows and fades in place. The loop measure also differs (wrap 0.5 against 0.38, jitter 1.1 against 0.96)."
+   "reason": "Frame count is 16 in both, and both grow, peak around frame 0.4 of the sequence, and end dark (last 0.03 and 0). The timing is off: the original reaches full brightness by frame 2 and the reproduction only by about frame 5, so the growth is slower. The wrap measure also differs (0.5 against 0.19), and I cannot read what it means well enough to excuse that gap."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type (additive) and format (index alpha) match the original, the name is the same (sameName true), and the file reads back as written (readsBack true)."
+   "reason": "The type (parallel oriented) and format (index alpha) match the original, the name is the same (sameName true), and the file reads back (readsBack true)."
   }
  },
  "total": 8,

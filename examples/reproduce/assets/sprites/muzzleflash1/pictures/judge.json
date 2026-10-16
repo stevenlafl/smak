@@ -50,16 +50,16 @@
      "mean": 0
     },
     "envelope": {
-     "peakAt": 0,
-     "first": 1,
+     "peakAt": 1,
+     "first": 0.96,
      "last": 1
     },
-    "dark": 0.69,
+    "dark": 0.74,
     "wrap": null,
     "jitter": null
    }
   },
-  "meanColourDeltaE": 4,
+  "meanColourDeltaE": 0.7,
   "sameName": true,
   "readsBack": true
  },
@@ -74,34 +74,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are the same effect, a bright white-hot centre with a five-ray starburst, the usual muzzle flash. The reproduction's rays are a clean five-point star, and the original's are a softer, more diffuse starburst, but it reads as the same flash."
+   "reason": "Both are the same effect: a bright core with five thin rays, the classic muzzle-flash star glow. The reproduction's rays are a little softer, but it is the same effect."
   },
   "R2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Both are 64 x 64 and both borders are empty (0 and 0.02), so the frame size is right. The shape is off: the original's rays are rotated and spread more broadly, while the reproduction has a rigid vertical top ray. The reproduction also shows a faint pentagonal halo filling the frame that the original does not have."
+   "score": 2,
+   "reason": "Both are 64 x 64. The star fills the frame to the same extent in both, with the tips reaching about the same distance from the edges. The reproduction's rays are broader and glowier than the original's crisper, thinner spikes, which is a sharpness difference rather than a shape or size one."
   },
   "R3": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The centre is white-hot and the rays are orange-tan in both, so the hue matches. But the reproduction's dim grey halo lifts the background where the original is black. The dark measure is 0.69 against 0.76, so the reproduction's frames carry more light across the frame. No colour delta is given for sprites, so the score rests on the picture and that measure."
+   "score": 2,
+   "reason": "The measured mean colour difference is 0.7 (CIE76), far under 15. Both show the same warm orange-to-white core fading to dark. The dark-pixel share is 0.76 against 0.74, so the brightness balance matches."
   },
   "R4": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Frame count matches (2 against 2) and both end at 1, so neither fades to dark. The kind of motion differs: the original's envelope rises from 0.95 at frame 0 to a peak at frame 1, so it grows, while the reproduction peaks at frame 0 and holds steady. Its rays also barely change between frames, while the original's rotate."
+   "score": 2,
+   "reason": "Both have 2 frames, which matches the original. Both brighten from frame 0 to frame 1, with the envelope peaking at frame 1 in each (first 0.95 against 0.96, last 1 in both). Both end at the same level, and the dark share is 0.76 against 0.74, so it is a one-shot that ends dark where the original does. The motion is the same kind: a growing flash."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The type and format are additive in both, the frame size is 64 x 64 in both, the names match (sameName true), and the reproduction reads back as written (readsBack true)."
+   "reason": "The type and format are additive in both, the size is 64 x 64, the name matches (sameName true), and the file reads back (readsBack true)."
   }
  },
- "total": 7,
+ "total": 10,
  "of": 10,
- "passes": false
+ "passes": true
 }

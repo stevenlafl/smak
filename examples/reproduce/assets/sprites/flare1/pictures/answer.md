@@ -1,31 +1,44 @@
-The sprite builds OK with no warnings. It is written as `work:sprites/flare1.spr`, with `-sheet.png` and `-animated.png` beside it.
+The sprite builds **OK** with no warnings, written as `work:sprites/flare1.spr` (with `-sheet.png` and `-animated.png` beside it).
 
-**Spec used:**
+Final spec:
 
 ```json
-{"spec": "smak.sprite/1", "sprites": [{"name": "sprites/flare1.spr", "class": "flare", "use": "env_sprite", "size": [64, 64], "frames": 1, "type": "parallel", "format": "additive", "reference": "pictures/frames.png", "layers": [{"kind": "glow", "radius": 1.0, "core": 0.4, "falloff": "smooth", "gain": 1.0, "ramp": "reference"}, {"kind": "flare", "core": 0.1, "gain": 0.3, "ramp": "reference", "rays": {"count": 48, "length": 0.9, "jitter": 0.5, "width": 0.012, "gain": 0.25}}]}]}
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/flare1.spr",
+      "class": "flare",
+      "use": "env_sprite",
+      "size": [64, 64],
+      "frames": 1,
+      "type": "parallel",
+      "format": "additive",
+      "origin": "centre",
+      "reference": "work:pictures/frames.png",
+      "finish": { "edge": 2 },
+      "layers": [{ "kind": "glow", "radius": 0.98, "core": 0.5, "gain": 1.3, "ramp": "reference" }]
+    }
+  ]
+}
 ```
 
-**What it is:** a lens-flare glow, a white-to-mauve soft halo with a bright centre and faint cross rays. It is 64x64, one frame, parallel to the camera, additive (black is clear), and placed as an `env_sprite` in render mode 5 (Additive).
+Measured against the original (the build's report, which reads both sheets the same way):
 
-**Final measures against the original (from the build report):**
+| Measure | Original | Made | Bar |
+| --- | --- | --- | --- |
+| Mean colour (delta E) | reference | 3.6 | 15 or under |
+| Share dark | 0.39 | 0.36 | within 0.05 |
+| Brightest | 0.91 | 0.91 | within 0.08 |
+| Pixels over 0.7 | 530 | 548 | not half again |
+| Shape overlap (frame 0) | | 0.91 | 0.8 or over |
+| Border light | 0 | 0 | none |
+| Frames | 1 | 1 | |
 
-| Measure | Original | Mine |
-| --- | --- | --- |
-| Mean colour (delta E, 15 or under is near) | reference | 8.7 |
-| Share that is dark (0.39 reference) | 0.39 | 0.38 |
-| Brightest pixel | 0.91 | 0.91 |
-| Pixels over 0.7 brightness | 530 | 222 |
-| Border light | 0 | 0 |
-| Shape overlap, frame by frame | | 0.97, 0.91, 0.66 (mean 0.85) |
+Choices I made:
+- **Type and format:** `parallel` and `additive`, the defaults you said to use, matching the original's stated type and format.
+- **Class and use:** `flare` and `env_sprite`. Half-Life's own flare is in range on the build's check.
+- **Colour:** `"ramp": "reference"`, so the glow takes the original's own colour at each brightness rather than a guessed tint.
+- **Shape:** a single soft glow with a power falloff softened by the build's edge fade. That gave the wide, dark-edged halo the original has.
 
-**Known gaps:**
-- The original's hot middle covers more pixels over 0.7 (530 against 222). The build does not flag this because it is under the warning bar, but it is the largest visible difference.
-- The original's rays are fainter and more even than mine. Mine read as a sharper cross.
-- The overlap at the faint outer edge (0.97) is close, but the core overlap (0.66) is the weakest of the three bands.
-
-**Things I learned about the tool, since they affect the spec:**
-- A `glow` with `falloff: "power"` ignores `radius`; it reaches to 1.5 regardless. I switched to `"smooth"` so that `radius` took effect.
-- The `finish: "edge"` I tried first made no difference to the output, so I dropped it.
-
-I did not copy the sprite into the examples folder under `assets/sprites/flare1/`; it is only in the work folder.
+Caveat: I couldn't open `frames.png` to look at it myself. The only copy I could reach through the tools is the work folder's (the path you gave was outside the tools' allowed folders), so my match rests on the build's measurements, not a side-by-side look. The rendered sheet looks like a soft white-pink glow, which fits the measured colours, but it's worth a visual check against the original before you judge it.

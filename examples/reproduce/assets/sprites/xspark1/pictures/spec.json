@@ -9,39 +9,51 @@
         32,
         32
       ],
-      "frames": 10,
-      "loop": true,
+      "frames": 11,
+      "loop": false,
       "fps": 10,
       "type": "parallel",
       "format": "additive",
       "origin": "centre",
-      "reference": "pictures/frames.png",
+      "reference": {
+        "picture": "pictures/frames.png",
+        "cell": 128,
+        "cols": 8
+      },
       "layers": [
         {
           "kind": "glow",
-          "radius": 0.95,
-          "core": 0.3,
+          "radius": 0.9,
+          "core": 0.25,
           "colour": [
-            0.16,
-            0.75,
+            0.235,
+            0.745,
             1
           ],
-          "gain": 0.6,
-          "mask": "reference",
-          "reference": {
-            "from": "reference",
-            "low": 0.04,
-            "high": 0.3
+          "gain": 0.5,
+          "at": [
+            0,
+            0
+          ],
+          "ramp": "reference",
+          "env": {
+            "attack": 0.95,
+            "start": 0.9
           }
         },
         {
           "kind": "blobs",
           "count": 9,
-          "radius": 0.32,
-          "spread": 0.6,
+          "radius": 0.34,
+          "spread": 0.65,
           "core": 0.4,
           "soft": 0.5,
-          "ramp": "reference"
+          "gain": 0.8,
+          "ramp": "reference",
+          "env": {
+            "attack": 0.95,
+            "start": 0.9
+          }
         }
       ]
     }

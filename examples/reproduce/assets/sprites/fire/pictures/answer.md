@@ -1,22 +1,25 @@
-The sprite is built and written to `work:sprites/fire.spr`. The build says "OK: built, and every check passed", but it still prints two warnings, so it is not as close to the original as I'd like.
+The sprite builds **OK** and is written to `work:sprites/fire.sprite` as `sprites/fire.spr`, with its sheet and animated picture beside it. The build still lists two warnings, which I did not clear.
 
-**What it is:** a flame on its base, 32x96 pixels, 15 frames, a loop that wraps back to its first frame. It is an `env_sprite`, type `parallel oriented`, format `additive` (black is clear), render mode 5, 10 frames a second. The colours follow the original's own colour at each brightness, from dark red-brown to orange-cream.
+**What it is:** a 32x96 flame on its base (origin bottom), type parallel oriented, format additive, 15 frames looping at 10 fps. Placed as an env_sprite, render mode 5 (Additive). The build also says it sits within Half-Life's fire-loop ranges (5 of 5).
 
-**How it was made:** one fire layer, `ramp: "reference"`, `tongues: 0.5`, `width: 1.5`, `height: 2.4`, `taper: 0.3`, with `mask: "reference"`, so its outline follows the original's lit area frame by frame. The spec is saved as `sprites_fire.spec.json` in the work folder.
+**The spec I settled on:**
 
-**Measured against the original:**
+```json
+{"spec":"smak.sprite/1","sprites":[{"name":"sprites/fire.spr","class":"fire loop","size":[32,96],"frames":14,"loop":true,"fps":10,"type":"parallel oriented","format":"additive","origin":"bottom","reference":"pictures/frames.png","layers":[
+  {"kind":"fire","width":0.6,"taper":0.2,"tongues":0.5,"height":1.2,"gain":0.6,"ramp":"reference"},
+  {"kind":"glow","at":[0,-0.25],"radius":1.1,"core":0.5,"gain":0.8,"ramp":"reference","mask":"reference"}]}]}
+```
 
-| Measure | Original | Mine | Bar |
-| --- | --- | --- | --- |
-| Mean colour (delta E) | reference | 7 | 15 or under |
-| Share that is dark | 0.38 | 0.46 | within 0.05 |
-| Border light (brightest) | 0.275 | 0.248 | within 0.08 |
-| Frames | 15 | 15 | match |
-| Hot middle (pixels over 0.7) | 0 | 0 | match |
-| Shape overlap (mean) | 1.00 | 0.63 | 0.8 |
+**Choices I made that you should know about:**
+- **`reference` and `mask: "reference"`:** the glow layer is masked to the original's lit area, frame by frame. Without the mask the flame's shape overlapped the original only 0.38. The guide describes this for matching a picture, but it means the shape is traced from the original's outline, not invented from scratch.
+- **`ramp: "reference"`:** the colours come from the original's own brightness-to-colour readings, not a guessed palette. Only the outline comes from the mask; the colours come from the ramp and the fire layer.
+- **`frames: 14`:** the build writes a loop of 14 and repeats its first frame at the end, giving the original's 15.
+- **Tuning:** I tried about ten builds, adjusting the fire's gain, the glow's gain, position and height, and checked each one's warnings. The best set is the one above.
 
-**Still open:**
-- **Shape, frames 9 to 12:** the original's bright core sits mid-flame, while mine sits low, near the base. The mask fixes the outline but not where the light falls inside it. I tried more tongues, extra glow layers, `rise` and `gain`. The glow layers and extra gain each made colour or hot middle worse, and `rise` changed nothing. I stopped at the best of those.
-- **Dark share:** 0.46 against 0.38, slightly too much dark.
+**Remaining warnings (not cleared):**
+- Shape overlap is 0.76 against the 0.8 bar. The core overlap is 0.51, which is the weakest part. The flame's bright core sits a little low and its top a little short against the original.
+- The lit share is 0.43 against the original's 0.38. That is just outside the 0.05 near-band.
 
-I could not read the smak source to see what `rise` and `width` are in, so I tuned them by the reported numbers only. Getting the shape bar to 0.8 probably needs a change to how the fire layer places its core, which is beyond what the spec exposes.
+Mean colour is 14.1 delta E, under the 15 bar. The brightest frame is 0.65 against 0.69. Neither the middle nor the border is flagged.
+
+I could not open the original's frames picture directly from the local path; the picture is only reachable through the server's work folder, so I measured the sprite against that copy through the build report, not by eye. Please look at `work:sprites/fire-sheet.png` and `work:sprites/fire-animated.png` beside the original before you judge it.

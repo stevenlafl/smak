@@ -74,31 +74,31 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Both are a fireball that brightens, then fades into smoke, so the effect is the same. The reproduction is not the same look: frames 8 to 12 read as a dusty tan cloud with radial streaks, not a fire, and the original's hot orange-to-dark glow and flying sparks are weak or missing."
+   "reason": "Both are a blast that grows, peaks and fades, but the reproduction reads as a rough tan boulder with radial spikes in frames 8 to 12, not a fireball. The original's white-hot core, bright sparks and glowing amber smoke are missing. The effect is there but clearly off."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both use 64 by 64 frames with the effect in the upper-centre. The reproduction's cloud is compact in frames 0 to 1 and spreads sideways in frames 8 to 12, while the original stays a tighter upper-centred mass. By frames 13 to 14 the reproduction has almost vanished where the original keeps a visible ember."
+   "reason": "Both are 64 x 64 and the cloud fills the frames at similar size. But the measured border maximum is 0.818 for the original and 0.058 for the reproduction: the original's bright bloom and sparks reach the frame edges in frames 2 to 4 and the reproduction's never do. The fill is off where the original runs to the edge."
   },
   "R3": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Early frames match (white core). From frame 7 the reproduction goes beige, grey-tan and brown, where the original stays gold and orange through frames 8 to 11 before it darkens to dark red. Mean colour is visibly off in the middle and late frames, well beyond a 15 difference there."
+   "reason": "The measured mean colour difference is 10.2, under the line of 15, so the measure alone would allow a 2. Visually, though, the original's frames 8 to 12 are saturated golden amber and the reproduction's are a greyish tan, with a flatter, duller white core. The measure smooths over that hue shift, so I lower it to 1."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Frame count is 15 in both, and both end dark, but the timing is off. The measured envelope peaks at 0.5 in the reproduction against 0.36 in the original, and its first frame is 0.12 against 0.08. The loop-closing measure is also lower (wrap 0.62 against 0.81). Growth and fade are present, but the original peaks earlier and fades slower."
+   "reason": "Both have 15 frames and both end dark. But the measured envelope peak is at 0.5 in the reproduction against 0.36 in the original, so it swells about two frames late. Its last frame is fully dark (0) where the original keeps a faint glow (0.03). The reproduction also shows radial streak motion in frames 8 to 12 that the original lacks, so the kind of motion differs."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured: type parallel and format additive match the original, the name matches, and it reads back as written. Nothing in the pictures contradicts this."
+   "reason": "Both are type parallel and format additive, the same name, 64 x 64 and 15 frames, and the reproduction reads back as written (readsBack true). Nothing is wrong with the fit for the game."
   }
  },
  "total": 6,

@@ -46,20 +46,20 @@
      96
     ],
     "border": {
-     "max": 0.248,
-     "mean": 0.012
+     "max": 0.305,
+     "mean": 0.02
     },
     "envelope": {
      "peakAt": 0.07,
-     "first": 0.87,
-     "last": 0.87
+     "first": 0.96,
+     "last": 0.96
     },
-    "dark": 0.5,
-    "wrap": 1.25,
-    "jitter": 1.59
+    "dark": 0.48,
+    "wrap": 0.92,
+    "jitter": 1.65
    }
   },
-  "meanColourDeltaE": 7,
+  "meanColourDeltaE": 14.1,
   "sameName": true,
   "readsBack": true
  },
@@ -74,34 +74,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both sheets show a rising flame: a bright base, tongues that taper upward, and the same flicker across 15 frames. The effect is the same."
+   "reason": "Both are a rising, flickering flame: the same effect, with the same tongues and the same build from a bright base to thin tips across all 15 frames."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Frames are the same 32x96 size, but the reproduction's flame is narrower and more tapered, with a sharper point. The original's body spreads wider and fills the frame more. The measured dark fraction is 0.50 against the original's 0.42, which agrees: the reproduction fills less of its frame."
+   "reason": "The frames are the original's 32x96, but the reproduction fills them less. Its dark share is 0.48 against the original's 0.42, and in the pictures its flames look narrower at the top and leave more black between tongues, so the effect does not fill the frame as the original's does."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The orange-to-yellow core and the darker red edges match the original. Mean colour difference is 7 CIE76 delta E, well under 15. Only a slight difference in saturation is visible on close look."
+   "reason": "The mean colour difference is 14.1, under the line of 15, and the palette matches: orange body, yellow-white base, dark background. The reproduction is slightly darker overall, which is charged to R2's fill rather than here."
   },
   "R4": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Both have 15 frames, and the envelope peaks at the same point (0.07). The first and last frame levels line up well (reproduction 0.87 and 0.87, original 0.90 and 0.84). Wrap is 1.25 against 1.13 and jitter is 1.59 against 1.51, both close. The motion kind (flicker, rise) and the loop closure agree."
+   "score": 1,
+   "reason": "The frame count (15) and the early peak (0.07) match. The end does not: the original's envelope falls from 0.90 to 0.84 by the last frame, while the reproduction holds 0.96 to 0.96, and the wrap is 1.13 against 0.92. So the loop closes differently and the original's gradual dimming is missing."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type is parallel oriented and format additive, both as the original. Name matches, and the file reads back as written."
+   "reason": "Type (parallel oriented) and format (additive) match the original, the size is 32x96, the name is the same, and it reads back as written."
   }
  },
- "total": 9,
+ "total": 8,
  "of": 10,
  "passes": false
 }

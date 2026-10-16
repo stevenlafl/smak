@@ -74,34 +74,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are a flame rising from the base of the frame, with the same tongues, flicker and tapering tips. A player would call the reproduction a flame."
+   "reason": "Both are a flame rising from the bottom of the frame, orange and yellow with a flickering edge. Same effect."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frames are 32 by 96 as the original's are, but the flame fills them less. The original's flames run across most of the 32-pixel width and reach the frame edges (border max 0.275 against 0.078). In the reproduction the flame is narrower and sits inward, with dark margins, especially in frames 1, 4, 5 and 6."
+   "reason": "The frames are 32 x 96, as the original's are, but the flame does not fill them the way the original's does. The original reaches the frame edges (border max 0.275) and the reproduction stays inside them (0.078). Its flames are narrower and more tapered, and in frames 0 and 7 they lean hard right and thin to a point. The original's flames are full and wide."
   },
   "R3": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Both are the same orange-yellow in the engine's additive blend, and the measured mean colour difference is 11.2, under 15. The reproduction is somewhat darker overall (dark 0.56 against 0.42), but that is inside the line."
+   "score": 1,
+   "reason": "The mean colour difference is 11.2, under the line of 15, so the average passes. But the reproduction is visibly darker in the flame bodies: dark is 0.56 against the original's 0.42, and its bright orange core is smaller. The average hides that, so this is marked down one point from what the measure allows."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frame count matches (15). The motion is the same kind, a rising flicker, but the brightness envelope differs: the original peaks at 0.07 of the sequence and the reproduction at 0.71, so the reproduction's tall flames come late. The first and last values (0.87 and 0.87 against 0.9 and 0.84) are close, and the loop closes about as well (wrap 0.67 against 1.13), so the fault is the timing of the peak, not the loop."
+   "reason": "The frame count is 15 against 15, within 25%, and the flicker is the same kind of motion. But the loop does not close as the original's does: wrap is 0.67 against 1.13. The brightness envelope peaks at 0.71 of the way through the loop against the original's 0.07, so the reproduction's brightest frame falls in a different place. Its first and last frames (0.87, 0.87) are close to the original's (0.9, 0.84)."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Additive format, parallel oriented type, 32 by 96 size and 15 frames all match the original. The name is the same and it reads back as written."
+   "reason": "Type and format both additive, the name is the same (sameName true), and the file reads back (readsBack true)."
   }
  },
- "total": 8,
+ "total": 7,
  "of": 10,
  "passes": false
 }
