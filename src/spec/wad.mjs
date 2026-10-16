@@ -17,6 +17,8 @@ import { sheet as workshopSheet, fbm } from "../workshop.mjs";
 import { tile } from "../render.mjs";
 import { png, unpicture } from "../image.mjs";
 import { writeWad } from "../maps/wad.mjs";
+import { readBsp } from "../maps/bsp.mjs";
+import { liftTexture } from "../maps/lift.mjs";
 import { materialOf, surfacePicture, UNWORN } from "./paint.mjs";
 import { lookSentence, ALLOWED } from "./look.mjs";
 import { paintPanels, paintWords } from "./faces.mjs";
@@ -25,7 +27,7 @@ import { relief, RELIEF_KINDS } from "./relief.mjs";
 
 export const WAD_SPEC = "smak.wad/1";
 const TOP = ["spec", "name", "materials", "textures", "preview", "note"];
-const FIELDS = ["name", "size", "material", "panels", "print", "relief", "grime", "wear", "note"];
+const FIELDS = ["name", "size", "material", "panels", "print", "relief", "grime", "wear", "note", "lift"];
 const isNumber = (v) => typeof v === "number" && Number.isFinite(v);
 /** The largest side a texture of GoldSrc's is drawn at as painted. */
 const SIDE_MOST = 512;
@@ -57,6 +59,8 @@ export function validateWadSpec(spec) {
       errors.push(error.message);
     }
     if (texture?.grime !== undefined && !(isNumber(texture.grime) && texture.grime >= 0 && texture.grime <= 1)) errors.push(`${at}.grime: 0 to 1`);
+    if (texture?.lift !== undefined && !(typeof texture.lift?.map === "string" && typeof texture.lift?.view === "string"))
+      errors.push(`${at}.lift: { map: "models:<the map>.bsp", view: "work:pictures/<its view>.png", texture }: the texture taken off a view of it on its wall, as the map's place view draws it`);
     if (texture?.wear !== undefined) {
       if (typeof texture.wear !== "object" || Array.isArray(texture.wear)) errors.push(`${at}.wear: { ${WEAR_LAYERS.join(", ")} } each 0 to 1, and seed`);
       else
@@ -89,7 +93,25 @@ export function validateWadSpec(spec) {
 }
 
 /** One texture's picture: { width, height, rgb } (rgba for one with holes). */
-function paintTexture(texture, materials, readPicture) {
+function paintTexture(texture, materials, readPicture, readMap) {
+  // lifted off a view of it on its wall in a compiled map (src/maps/lift.mjs): the picture itself, its light divided out
+  if (texture.lift) {
+    const bsp = readMap(texture.lift.map);
+    const lifted = liftTexture(bsp, texture.lift.texture ?? texture.name, readPicture(texture.lift.view));
+    const [width, height] = texture.size;
+    const { image } = lifted;
+    const rgb = new Uint8Array(width * height * 3);
+    for (let y = 0; y < height; y++)
+      for (let x = 0; x < width; x++) {
+        const i = (Math.floor((y * image.height) / height) * image.width + Math.floor((x * image.width) / width)) * 3;
+        rgb.set(image.rgb.subarray(i, i + 3), (y * width + x) * 3);
+      }
+    const facts = [`lifted off ${texture.lift.view}: ${Math.round(lifted.seen * 100)}% of its texels seen, ${Math.round(lifted.saturated * 100)}% of those white in the view`];
+    const warnings = [];
+    if (lifted.seen < 0.3) warnings.push(`lifted off ${texture.lift.view}, which shows ${Math.round(lifted.seen * 100)}% of it: the rest is that part repeated. A view that shows more of it, or a material of its kind from that part (picture with rect)`);
+    if (lifted.saturated > 0.3) warnings.push(`lifted off ${texture.lift.view}, ${Math.round(lifted.saturated * 100)}% of whose texels are white in the view (a lamp, a bright light): their colour is not there to read. Paint it instead`);
+    return { width, height, rgb, facts, warnings };
+  }
   const resolved = (given) => materialOf(typeof given === "string" && materials?.[given] !== undefined ? materials[given] : given);
   const material = resolved(texture.material ?? "plaster");
   const [width, height] = texture.size;
@@ -166,7 +188,7 @@ function fitted(image, side) {
 }
 
 /** Builds a wad spec into `out`: the .wad and a sheet of its textures. */
-export function buildWadSpec(spec, { out, folder = ".", readPicture } = {}) {
+export function buildWadSpec(spec, { out, folder = ".", readPicture, readFile } = {}) {
   const { errors, warnings } = validateWadSpec(spec);
   const report = { ok: false, errors, warnings, faults: [], notes: [], facts: [] };
   if (errors.length) return { report, files: {} };
@@ -178,12 +200,18 @@ export function buildWadSpec(spec, { out, folder = ".", readPicture } = {}) {
   };
   let textures;
   try {
-    textures = spec.textures.map((texture) => ({ name: texture.name, image: paintTexture(texture, spec.materials, readOnce) }));
+    const maps = new Map();
+    const readMap = (name) => {
+      if (!maps.has(name)) maps.set(name, readBsp(readFile ? readFile(name) : readFileSync(resolve(folder, name.replace(/^(work|models):/, "")))));
+      return maps.get(name);
+    };
+    textures = spec.textures.map((texture) => ({ name: texture.name, image: paintTexture(texture, spec.materials, readOnce, readMap), lifted: Boolean(texture.lift) }));
   } catch (error) {
     errors.push(`textures: ${error.message}`);
     return { report, files: {} };
   }
   for (const t of textures) for (const fact of t.image.facts ?? []) report.facts.push(`${t.name}: ${fact}`);
+  for (const t of textures) for (const line of t.image.warnings ?? []) warnings.push(`${t.name}: ${line}`);
   mkdirSync(out, { recursive: true });
   const wad = join(out, spec.name);
   writeFileSync(wad, writeWad(textures));
@@ -200,7 +228,7 @@ export function buildWadSpec(spec, { out, folder = ".", readPicture } = {}) {
     return materialOf(typeof named === "string" && spec.materials?.[named] !== undefined ? spec.materials[named] : named);
   });
   // a photograph laid as it is (literal) is the person's picture, not a surface to hold to Valve's
-  const looks = lookSentence(textures.map((t, i) => ({ ...t, base: given[i].base, filter: given[i].filter, allow: ALLOWED[given[i].base] })).filter((t) => !t.image.rgba && !UNWORN.has(t.base) && t.filter !== "literal"));
+  const looks = lookSentence(textures.map((t, i) => ({ ...t, base: given[i].base, filter: given[i].filter, allow: ALLOWED[given[i].base] })).filter((t) => !t.image.rgba && !UNWORN.has(t.base) && t.filter !== "literal" && !t.lifted));
   if (looks) warnings.push(looks);
   report.ok = true;
   return { report, files: { wad, sheet: sheetFile }, textures };

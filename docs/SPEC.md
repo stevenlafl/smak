@@ -646,6 +646,14 @@ written as the mod has it: `work:media/Half-Life01.mp3`, `work:sound/ambience/la
 }
 ```
 
+A texture of a compiled map that a picture shows on its wall, as the map's place view draws it (`texturePlaces`,
+`placeView`: the picture a textures leg is given), may be taken off that picture: `"lift": { "map":
+"models:frenzy.bsp", "view": "work:pictures/c3a1b_w1.png" }`. Each pixel is told which texel of the wall it shows
+and the light it was seen in, and the texel is its colour over that light; what the view does not show is the part
+it shows repeated. The build says the share of texels seen and the share white in the view (a lamp's colour is
+not there to read): use it where the view shows most of a texture, and paint the rest. On frenzy's own views, half
+its textures come back within 10 levels a channel of the game's.
+
 Each texture is a material laid seamlessly (one texel a unit, as a map draws it), with `panels` and `print`
 as a box face has them (in texels from the bottom left) and `grime` (0 to 1) gathered toward its foot. `wear`
 makes it a used surface and not a fill: `{ "stains": 0.6, "streaks": 0.5, "cracks": 0.4, "scratches": 0.3,

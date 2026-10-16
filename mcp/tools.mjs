@@ -876,7 +876,7 @@ function build(folders, args) {
   if (spec?.spec === "smak.wad/1") {
     // textures: the .wad and a sheet of them; with a map named, it drawn wearing them
     const out = join(folders.work, spec.name?.replace(/\.wad$/i, "") ?? "textures");
-    const { report, files } = buildWadSpec(spec, { out, readPicture: pictureReader(folders, folder) });
+    const { report, files } = buildWadSpec(spec, { out, readPicture: pictureReader(folders, folder), readFile: (name) => readFileSync(pathOf(folders, name)) });
     const lines = reportLines(report);
     const painted = paintedOnly(folders, spec);
     if (painted) lines.splice(1, 0, painted);

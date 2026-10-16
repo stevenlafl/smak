@@ -116,7 +116,7 @@ export function texturePlaces(bsp) {
  * A view of a texture's place: from its camera, at PLACE_BRIGHTNESS, the map wearing `textures` (a .wad's)
  * where given and the textures of `folders` otherwise. No entities, no labels: the texture and its wall.
  */
-export function placeView(bsp, place, { textures, folders = [], brightness = PLACE_BRIGHTNESS } = {}) {
+export function placeView(bsp, place, { textures, folders = [], brightness = PLACE_BRIGHTNESS, light, wearing } = {}) {
   return drawMap(bsp, {
     from: place.from,
     yaw: place.yaw,
@@ -129,5 +129,7 @@ export function placeView(bsp, place, { textures, folders = [], brightness = PLA
     entities: "none",
     labels: false,
     brightness,
+    ...(light === undefined ? {} : { light }),
+    ...(wearing ? { wearing } : {}),
   });
 }

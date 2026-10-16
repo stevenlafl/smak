@@ -189,7 +189,7 @@ async function reproduce(kind, subject, leg) {
   let given;
   if (leg === "pictures") {
     for (const f of readdirSync(input)) files[`pictures/${f}`] = join(input, f);
-    given = `The original, in pictures: every file of ${input} (also in the server's work folder under pictures/). ${readdirSync(input).filter((f) => f.endsWith(".txt")).map((f) => readFileSync(join(input, f), "utf8")).join("\n")}`;
+    given = `The original, in pictures: every file of ${input} (also in the server's work folder under pictures/). ${readdirSync(input).filter((f) => f.endsWith(".txt")).map((f) => readFileSync(join(input, f), "utf8")).join("\n")}${kind === "textures" ? `\nEach texture's picture is the map's own view of its place: a texture's lift: { map: "models:${subject.map ?? "frenzy"}.bsp", view: "work:pictures/<its picture>" } takes the texture itself off it (docs/SPEC.md, "Textures for maps"), its light divided out; the build says how much of it the view shows and how much is white there. Use it wherever the view shows most of a texture and is not white, and paint the rest.` : ""}`;
   } else given = `The original, as someone who has seen it describes it:\n\n${readFileSync(join(base, "words.md"), "utf8")}${kind !== "textures" ? `\nIts facts: ${readFileSync(join(input, "facts.txt"), "utf8")}` : ""}${kind === "textures" ? `\nThe textures, each name and size:\n${readFileSync(join(input, "list.txt"), "utf8").replace(/ \(.*\)/g, "")}` : ""}`;
   // the map, for a textures leg: alone in the server's models folder, with no game folder for its textures
   let models = null;

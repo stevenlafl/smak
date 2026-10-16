@@ -3,7 +3,7 @@
 // world's [x, y] on the floor there. research/map-geometry.md, experiment A.
 import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { test, sure, tmp } from "./helper.mjs";
+import { test, testAsync, sure, tmp } from "./helper.mjs";
 import { openBoxesOf, colourOf, EMPTY } from "../src/maps/heightplan.mjs";
 import { buildMapSpec, validateMapSpec } from "../src/spec/map.mjs";
 import { png } from "../src/image.mjs";
@@ -71,4 +71,24 @@ test("a map spec's floorplan: its space carved from the plan, a start on the gal
   sure(/"origin" "208 40 130"/.test(readFileSync(marked.files.map, "utf8")), "marked at 140: on the gallery's floor at 128");
   const missing = validateMapSpec({ spec: "smak.map/1", name: "x", entities: [{ class: "info_player_start", room: "plan" }] });
   sure(missing.errors.some((e) => /rooms: a list of one room at least \(or a floorplan\)/.test(e)), missing.errors.join("; "));
+});
+
+testAsync("a texture lifted off a view of it on its wall: the texels it shows come back, its light divided out", "lift", async () => {
+  const maps = await import("../src/maps/index.mjs");
+  const { liftTexture } = await import("../src/maps/lift.mjs");
+  const { texturePlaces, placeView } = await import("../src/maps/places.mjs");
+  const fixtures = new URL("./fixtures/", import.meta.url).pathname;
+  const bsp = maps.readBsp(readFileSync(join(fixtures, "tworooms.bsp")));
+  const wad = maps.readWad(readFileSync(join(fixtures, "tworooms.wad")));
+  // the place a texture is best seen at, drawn wearing the wad's own pictures (what a textures leg is given)
+  const place = texturePlaces(bsp).find((p) => wad.textures.some((t) => t.name.toLowerCase() === p.name.toLowerCase()) && p.lit);
+  sure(place, "a lit place of a texture the fixture's wad has");
+  // at brightness 1: the fixture's light at the places' usual brightness washes the wall to white
+  const view = placeView(bsp, place, { textures: wad.textures, wearing: "given", brightness: 1 });
+  const lifted = liftTexture(bsp, place.name, view, { brightness: 1 });
+  const truth = wad.textures.find((t) => t.name.toLowerCase() === place.name.toLowerCase());
+  let d = 0;
+  let n = 0;
+  for (let i = 0; i < truth.width * truth.height; i++) for (let c = 0; c < 3; c++) (d += Math.abs(truth.palette[truth.pixels[i] * 3 + c] - lifted.image.rgb[i * 3 + c])), n++;
+  sure(lifted.seen > 0.3 && d / n < 12, `${place.name}: ${Math.round(lifted.seen * 100)}% seen, ${(d / n).toFixed(1)} off a channel`);
 });

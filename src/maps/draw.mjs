@@ -924,7 +924,7 @@ function textureIdentity(texture) {
  * entities, and its faces as surfaces, each made the first time it is drawn. Kept for the map and these
  * options, so that the second picture of a map does not look for its textures again.
  */
-function sceneOf(bsp, { textures, folders, light = true, sky = true }) {
+function sceneOf(bsp, { textures, folders, light = true, sky = true, wearing }) {
   // textures are told apart by the very objects given, not their names: two sets under the same names (a
   // game's and their replacements) are two scenes
   const key = JSON.stringify([folders ?? [], (textures ?? []).map(textureIdentity), light, sky]);
@@ -952,7 +952,10 @@ function sceneOf(bsp, { textures, folders, light = true, sky = true }) {
     if (ready.has(index)) return ready.get(index);
     const entry = bsp.textures[index];
     const name = entry?.name ?? "";
-    let found = entry && !entry.absent && entry.embedded ? embeddedTexture(bsp, index) : null;
+    // given textures stand before the map's own where `wearing` is "given" (a texture lifted off a view is told
+    // texel by texel by drawing the place in pictures of the kit's own, even in a map that carries its textures)
+    let found = wearing === "given" ? given.get(name.toLowerCase()) ?? null : null;
+    found ??= entry && !entry.absent && entry.embedded ? embeddedTexture(bsp, index) : null;
     found ??= given.get(name.toLowerCase());
     if (!found && folders?.length) {
       fromWads ??= new Map(
