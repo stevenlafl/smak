@@ -693,6 +693,12 @@ between its seen texels closed from them before the rest is filled. On frenzy, a
 held to 15), where makers who painted those instead missed by 21 to 32; what a small view lacks is a pattern
 larger than what it shows (a row of studs), which the map's views often add.
 
+A texture may be made from another above it in the spec, `"from": "-0genpipe1"` or `{ texture, brightness, flip,
+shift }`: that one's picture, dimmed or brightened (`brightness`, a multiple: 0.4 a lamp switched off), flipped (`"x"`,
+`"y"`), shifted (`[x, y]` texels, wrapping) and fitted to its own size. A random set's other tiles (`-1`, `-2` beside
+a lifted `-0`) and an animation's other frames (a lamp's `+a`) are not on the map's faces to be lifted: made apart they
+do not match their set, made from it they do.
+
 Each texture is a material laid seamlessly (one texel a unit, as a map draws it), with `panels` and `print`
 as a box face has them (in texels from the bottom left) and `grime` (0 to 1) gathered toward its foot. `wear`
 makes it a used surface and not a fill: `{ "stains": 0.6, "streaks": 0.5, "cracks": 0.4, "scratches": 0.3,

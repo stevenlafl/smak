@@ -27,7 +27,7 @@ import { relief, RELIEF_KINDS } from "./relief.mjs";
 
 export const WAD_SPEC = "smak.wad/1";
 const TOP = ["spec", "name", "materials", "textures", "preview", "note"];
-const FIELDS = ["name", "size", "material", "panels", "print", "relief", "grime", "wear", "note", "lift"];
+const FIELDS = ["name", "size", "material", "panels", "print", "relief", "grime", "wear", "note", "lift", "from"];
 const isNumber = (v) => typeof v === "number" && Number.isFinite(v);
 /** The largest side a texture of GoldSrc's is drawn at as painted. */
 const SIDE_MOST = 512;
@@ -61,6 +61,14 @@ export function validateWadSpec(spec) {
     if (texture?.grime !== undefined && !(isNumber(texture.grime) && texture.grime >= 0 && texture.grime <= 1)) errors.push(`${at}.grime: 0 to 1`);
     if (texture?.lift !== undefined && (!(typeof texture.lift?.map === "string" && typeof texture.lift?.view === "string") || (texture.lift.views !== undefined && typeof texture.lift.cameras !== "string")))
       errors.push(`${at}.lift: { map: "models:<the map>.bsp", view: "work:pictures/<its view>.png", texture, views, cameras }: the texture taken off a view of it on its wall, as the map's place view draws it, and off the map's views too (views: their sheet, cameras: its .json)`);
+    if (texture?.from !== undefined) {
+      const f = typeof texture.from === "string" ? { texture: texture.from } : texture.from;
+      const earlier = spec.textures.slice(0, i).map((t) => t?.name?.toLowerCase());
+      if (!f || typeof f.texture !== "string" || !earlier.includes(f.texture.toLowerCase()))
+        errors.push(`${at}.from: the name of a texture above it in this spec ("-0genpipe1"), or { texture, brightness, flip: "x" | "y", shift: [x, y] }: this one made from that one's picture (a random set's other tiles, an animation's other frames)`);
+      else if ((f.brightness !== undefined && !(typeof f.brightness === "number" && f.brightness > 0 && f.brightness <= 4)) || (f.flip !== undefined && !["x", "y", "xy"].includes(f.flip)) || (f.shift !== undefined && !(Array.isArray(f.shift) && f.shift.length === 2 && f.shift.every(Number.isInteger))))
+        errors.push(`${at}.from: brightness (a multiple, 0.4 a lamp switched off), flip ("x", "y" or "xy") and shift ([x, y] texels, wrapping) are its changes`);
+    }
     if (texture?.lift?.brightness !== undefined && !(typeof texture.lift.brightness === "number" && texture.lift.brightness > 0 && texture.lift.brightness <= 8))
       errors.push(`${at}.lift.brightness: the brightness its view was drawn at (4.5, the place view's, unless told; a darker view of a lamp, 0.5)`);
     if (texture?.wear !== undefined) {
@@ -92,6 +100,38 @@ export function validateWadSpec(spec) {
       if (!Array.isArray(panel?.at) || !Array.isArray(panel?.size)) errors.push(`${at}.panels[${k}]: { at: [x, y], size: [w, h], shape, style, edge, material }`);
   });
   return { errors, warnings };
+}
+
+/**
+ * A texture made from another of the spec, above it: its picture brightened or dimmed, flipped and shifted (wrapping),
+ * then fitted to this one's size. A random set's other tiles (-1, -2 beside a lifted -0) and an animation's other
+ * frames (a lamp's +a, off) are not on the map's faces to be lifted, and painted apart they did not match their set
+ * (-0genpipe1's, unanimously docked by three judges).
+ */
+function fromTexture(texture, made) {
+  const f = typeof texture.from === "string" ? { texture: texture.from } : texture.from;
+  const source = made.find((t) => t.name.toLowerCase() === f.texture.toLowerCase()).image;
+  const [width, height] = texture.size;
+  const ch = source.rgba ? 4 : 3;
+  const px = source.rgba ?? source.rgb;
+  const out = new Uint8Array(width * height * ch);
+  const [dx, dy] = f.shift ?? [0, 0];
+  const k = f.brightness ?? 1;
+  for (let y = 0; y < height; y++)
+    for (let x = 0; x < width; x++) {
+      let sx = Math.floor((x * source.width) / width);
+      let sy = Math.floor((y * source.height) / height);
+      if (f.flip?.includes("x")) sx = source.width - 1 - sx;
+      if (f.flip?.includes("y")) sy = source.height - 1 - sy;
+      sx = (((sx + dx) % source.width) + source.width) % source.width;
+      sy = (((sy + dy) % source.height) + source.height) % source.height;
+      const i = (sy * source.width + sx) * ch;
+      const o = (y * width + x) * ch;
+      for (let c = 0; c < 3; c++) out[o + c] = Math.min(255, Math.round(px[i + c] * k));
+      if (ch === 4) out[o + 3] = px[i + 3];
+    }
+  const said = [f.brightness !== undefined ? `times ${f.brightness}` : null, f.flip ? `flipped ${f.flip}` : null, f.shift ? `shifted ${f.shift.join(", ")}` : null].filter(Boolean);
+  return { width, height, [ch === 4 ? "rgba" : "rgb"]: out, facts: [`made from ${f.texture}${said.length ? `, ${said.join(", ")}` : ""}`] };
 }
 
 /** One texture's picture: { width, height, rgb } (rgba for one with holes). */
@@ -209,7 +249,12 @@ export function buildWadSpec(spec, { out, folder = ".", readPicture, readFile } 
       if (!maps.has(name)) maps.set(name, readBsp(readFile ? readFile(name) : readFileSync(resolve(folder, name.replace(/^(work|models):/, "")))));
       return maps.get(name);
     };
-    textures = spec.textures.map((texture) => ({ name: texture.name, image: paintTexture(texture, spec.materials, readOnce, readMap, (name) => (readFile ? readFile(name) : readFileSync(resolve(folder, name.replace(/^(work|models):/, "")))).toString("utf8")), lifted: Boolean(texture.lift) }));
+    // in order: a texture `from` another takes that one's picture, made above it
+    textures = [];
+    for (const texture of spec.textures) {
+      const image = texture.from !== undefined ? fromTexture(texture, textures) : paintTexture(texture, spec.materials, readOnce, readMap, (name) => (readFile ? readFile(name) : readFileSync(resolve(folder, name.replace(/^(work|models):/, "")))).toString("utf8"));
+      textures.push({ name: texture.name, image, lifted: Boolean(texture.lift) || Boolean(texture.from && textures.find((t) => t.name.toLowerCase() === (texture.from.texture ?? texture.from).toLowerCase())?.lifted) });
+    }
   } catch (error) {
     errors.push(`textures: ${error.message}`);
     return { report, files: {} };

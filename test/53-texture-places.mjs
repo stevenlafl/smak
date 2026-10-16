@@ -11,7 +11,7 @@ import { readFileSync, mkdirSync, copyFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import * as smak from "../src/index.mjs";
 import { materialOf } from "../src/spec/paint.mjs";
-import { buildWadSpec } from "../src/spec/wad.mjs";
+import { buildWadSpec, validateWadSpec } from "../src/spec/wad.mjs";
 import { toolsFor } from "../mcp/tools.mjs";
 import { test, testAsync, sure, HERE, tmp } from "./helper.mjs";
 
@@ -172,4 +172,24 @@ await testAsync("the render tool: several models side by side, saved under the n
   sure(/2 models side by side.*saved: work:pictures\/both\.png/.test(answer[0].text), answer[0].text);
   const saved = smak.unpng(readFileSync(join(work, "pictures", "both.png")));
   sure(saved.width >= 600, `the sheet at full size: ${saved.width}`);
+});
+
+test("a texture made from another of the spec: a random set's other tile, a lamp's frame switched off", () => {
+  const out = join(tmp, "from");
+  const spec = {
+    spec: "smak.wad/1",
+    name: "from.wad",
+    textures: [
+      { name: "-0pipe", size: [32, 32], material: { base: "metal", tone: [0.5, 0.5, 0.5] } },
+      { name: "-1pipe", size: [32, 32], from: { texture: "-0pipe", flip: "x" } },
+      { name: "+alamp", size: [32, 32], from: { texture: "-0pipe", brightness: 0.4 } },
+    ],
+  };
+  const { report } = buildWadSpec(spec, { out });
+  sure(!report.errors.length && report.facts.some((f) => /-1pipe: made from -0pipe, flipped x/.test(f)), [...report.errors, ...report.facts].join(" | "));
+  const [a, b, c] = smak.maps.readWad(readFileSync(join(out, "from.wad"))).textures;
+  const at = (t, x, y) => t.palette[t.pixels[y * t.width + x] * 3];
+  sure(Math.abs(at(b, 0, 5) - at(a, 31, 5)) <= 8, `flipped: ${at(b, 0, 5)} against ${at(a, 31, 5)}`);
+  sure(at(c, 5, 5) < at(a, 5, 5) * 0.6, `dimmed: ${at(c, 5, 5)} against ${at(a, 5, 5)}`);
+  sure(validateWadSpec({ ...spec, textures: [{ name: "x", size: [16, 16], from: "later" }, { name: "later", size: [16, 16], material: "metal" }] }).errors.some((e) => /from: the name of a texture above it/.test(e)), "a texture below refused");
 });
