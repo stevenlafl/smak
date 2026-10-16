@@ -1,17 +1,38 @@
-The build says OK, and the map renders wearing the new wad (`work:frenzy_new/frenzy_new.wad`). All 25 textures are in it, each at its original name and size.
+The set is built and the build says OK: `work:frenzy_new/frenzy_new.wad`, with a sheet of its textures beside it. It holds all 25 of the map's textures, each under its original name and size.
 
-**How each one was made**
+**How each texture was made**
 
-- **17 are lifted from their pictures** (c3a1_w3a, c3a1_w2, c3a1b_w3, c3a1b_w1, tnnl_flr7, c3a1b_w7, tnnl_flr7c, silo2_wetdr, c3a1b_w1a, -0genpipe1, c3a2b_reac2c, c3a1b_w2, c3a2_bth1, black, tnnl_brd1, crete4_stp01, babtech_ceil01). Each lift also used the map's views and camera sheet. None of these got a white or tinted warning. Coverage ranges from 1% to 100% of the texels; c3a1_w3a is 29%, babtech_ceil01 is 5%, and black is 12%. The build warns about that coverage, but the colours it did see are within its accuracy bound.
-- **8 are painted**, because their views were white or lit by one strong colour, so the true colour can't be read back: crete2_flr01 (concrete floor, stone), +0~fifts_lght01 and +0~fifties_lgt2 / +a~fifties_lgt2 (light panels with a lamp face; the `~` in their names is what the lamp needs), +0~generic86 and yellow (yellow paint), c3a2a_tnk1b (steel) and c2a4x_glu (dark metal). These colours are my estimates from the names and the views, not measurements, so they are the part to check first against the originals.
+```
+Lifted off the map's own view (17): the build's views sheet was added to
+  each lift where it shows more of the wall
+  c3a1_w3a, c3a1_w2, c3a1b_w3, c3a1b_w1, tnnl_flr7, c3a1b_w7, tnnl_flr7c,
+  silo2_wetdr, c3a1b_w1a, -0genpipe1, c3a2b_reac2c, c3a1b_w2, c3a2_bth1,
+  black, tnnl_brd1, crete4_stp01, babtech_ceil01
 
-**Warnings left standing**
+Painted (8): the view is white or tinted there, so a lift would copy the lamp
+  crete2_flr01        stone, mid grey, stains, speckle, cracks
+  c3a2a_tnk1b         metal, dark blue grey, grime, streaks
+  c2a4x_glu           hazard stripes, blue
+  yellow              paint, muted yellow, speckle, stains
+  +0~generic86        paint, yellow frame, lamp face in the middle
+  +0~fifts_lght01     metal, lamp face over most of it
+  +0~fifties_lgt2     metal, lamp face, speckled
+  +a~fifties_lgt2     metal, lamp face, speckled
+```
 
-- +0~fifts_lght01 is brighter than Valve's walls (0.59 against 0.33). That is the light panel's look; the original is near white.
-- +0~generic86 and yellow are 16-texel textures and read as too even. Wear was added, but a 16-texel tile has little room for grain.
+**What the build still reports**
 
-**Not in this set**
+- Five textures are brighter than Valve's, which is expected for lamp faces. `yellow` and `+0~generic86` are also flagged as having no grain, so I added wear to both.
+- `c3a1_w3a` shows 29% of its texels, `black` 12% and `babtech_ceil01` 5%. The views sheet was added to each, so that is as much of each as the map's views show.
+- The colours of `crete2_flr01`, `c3a2a_tnk1b` and `c2a4x_glu` are my estimates. Their views are a single strong blue light that hides red and green, so only the blue can be read. The name and the shape of each place set the rest. These three are the most likely to be off against the originals.
 
-- The map also names textures that are not in the 25 pictures, so I did not make them: +0medkit, c2a3rustdoor1, medkitedge1, {grate4a, {ladder1, {rail1b. The build drew them flat. Two alternate frames, +a~fifts_lght01 and +a~generic86, are in the map's texture list but have no picture; the build did not name them as worn.
+**What I checked**
 
-The spec is the build call itself, not a file in the work folder. I could not read the `examples/reproduce` folder (permission denied), so I worked from the pictures and the spec guide only.
+- The build's sheet shows all 25 textures.
+- I rendered the map's six start views with the .wad worn in place. The map's start views look right and the lamps read as the originals do.
+- I did not compare each texture's own place against its original picture one by one. The per-texture previews (`preview.each`) are in the build, but I did not open them individually.
+
+**Not done**
+
+- The map also wears six textures that are not in your list and have no picture here: `+0medkit`, `c2a3rustdoor1`, `medkitedge1`, `{grate4a`, `{ladder1`, `{rail1b`. I did not make them. If you send their pictures, they can go in the same spec.
+- The spec was passed to the build inline. I have no file-writing tool here, so it is not saved in the work folder. I can save it as a JSON file beside the .wad if you want it kept for a rebuild.
