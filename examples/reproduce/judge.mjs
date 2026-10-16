@@ -317,13 +317,17 @@ export function alignMaps(a, b) {
   const ba = boxOfCells(a);
   const bb = boxOfCells(b);
   const start = [Math.round(((bb.x + bb.X) / 2 - (ba.x + ba.X) / 2) / 16) * 16, Math.round(((bb.y + bb.Y) / 2 - (ba.y + ba.Y) / 2) / 16) * 16, bb.h - ba.h];
-  let best = { overlap: floorOverlap(a, b, ...start), move: start };
-  for (const dz of [start[2] - 32, start[2] - 16, start[2], start[2] + 16, start[2] + 32])
-    for (let dx = start[0] - 128; dx <= start[0] + 128; dx += 16)
-      for (let dy = start[1] - 128; dy <= start[1] + 128; dy += 16) {
-        const o = floorOverlap(a, b, dx, dy, dz);
-        if (o > best.overlap) best = { overlap: o, move: [dx, dy, dz] };
-      }
+  // searched about the boxes' match and about where the copy was built (no move at all): a copy built where the
+  // original stands, whose walked floor reaches less far, scored 0.44 by its box where it scores 0.79 in place
+  // (c1a1, research/map-geometry.md)
+  let best = { overlap: -1, move: start };
+  for (const from of [start, [0, 0, 0]])
+    for (const dz of [from[2] - 32, from[2] - 16, from[2], from[2] + 16, from[2] + 32])
+      for (let dx = from[0] - 128; dx <= from[0] + 128; dx += 16)
+        for (let dy = from[1] - 128; dy <= from[1] + 128; dy += 16) {
+          const o = floorOverlap(a, b, dx, dy, dz);
+          if (o > best.overlap) best = { overlap: o, move: [dx, dy, dz] };
+        }
   return best;
 }
 
