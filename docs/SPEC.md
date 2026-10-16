@@ -762,7 +762,9 @@ the pixels over 0.7), with a warning for each that is off: a colour over 15, a s
 stop giving a shape full marks), a middle half again as large as the reference's or 0.15 brighter (a glow's core
 too large reads at once to the eye), or under two thirds its size (a flare's core half as wide, which the shape's
 mean over its levels did not see), its brightest frame more than 0.08 of its play from the reference's or its first
-frame 0.2 brighter or fainter, and its light at the border 0.08 short of or past the reference's (a halo that falls
+frame 0.2 brighter or fainter, its light frame by frame (over its brightest) more than 0.08 from the reference's on
+average or 0.25 at any frame (a puff that grows three frames slower to the same peak, a flame that holds its light
+where the reference's sinks), naming the frames, and its light at the border 0.08 short of or past the reference's (a halo that falls
 off too soon, or spills). A loop with a reference starts at the frame where its light over the loop follows the
 reference's: a loop has no first frame of its own. Build until they are gone, not only until `OK`. A light of one colour (a
 white glow) is written as 255 steps of that colour, so its falloff shows no bands.

@@ -23,6 +23,10 @@ const USES = ["env_sprite", "env_glow", "tempent", "beam", "hud"];
 /** The widest a frame is drawn as painted, and the widest at all (GoldSrc shrinks past `gl_max_size`). */
 const SIDE_WARN = 256;
 const SIDE_MOST = 512;
+/** A sprite's light, frame by frame over the brightest, more than this from its reference's on average is warned of. */
+const CURVE_GAP = 0.08;
+/** Or any one frame further than this from the reference's at the same point of its play (steam1's growth: 0.41). */
+const CURVE_FRAME = 0.25;
 /** A loop that jumps by more than this at its wrap, against its mean step, shows the seam every time round. */
 const WRAP_MOST = 2.5;
 /** The classes that play once and must end dark. */
@@ -143,6 +147,28 @@ function againstReference(name, ref, back, s, readPicture) {
     facts.push(`${name}: its light over its frames against its reference's: brightest at ${a.peakAt} and ${b.peakAt} of its play, first frame ${a.first} and ${b.first}, last ${a.last} and ${b.last} of the brightest`);
     if (Math.abs(a.peakAt - b.peakAt) > 0.08) notes.push(`${name}: its brightest frame comes at ${b.peakAt} of its play, its reference's at ${a.peakAt}: move its envelope (env's attack, or the layer's own timing) so that it peaks where the reference does`);
     if (Math.abs(a.first - b.first) > 0.2) notes.push(`${name}: its first frame is ${b.first} of its brightest, its reference's ${a.first}: it ${b.first < a.first ? "starts too faint" : "starts too bright"}`);
+    // the whole curve, frame by frame: steam1 peaked where its reference did and grew three frames slower (a mean
+    // gap of 0.11, 0.41 at its worst frame), and fire held its light to its last frame where the reference's sank
+    // (0.09); the judges took R4 for both, and for zerogxplode (0.11). muzzleflash1, which passed, is at 0.005
+    const curve = (m) => {
+      const sums = m.map((f) => f.reduce((x, y) => x + y, 0));
+      const most = Math.max(...sums, 1e-9);
+      return sums.map((v) => v / most);
+    };
+    const [ca, cb] = [curve(theirs.masks), curve(ours.masks)];
+    const atOurs = (i) => cb[Math.round((i / Math.max(1, ca.length - 1)) * (cb.length - 1))];
+    const gaps = ca.map((v, i) => atOurs(i) - v);
+    const meanGap = gaps.reduce((x, g) => x + Math.abs(g), 0) / gaps.length;
+    const worst = gaps.reduce((w, g, i) => (Math.abs(g) > Math.abs(gaps[w]) ? i : w), 0);
+    if (meanGap > CURVE_GAP || Math.abs(gaps[worst]) > CURVE_FRAME) {
+      // the frames about the worst that part the same way
+      const same = (i) => i >= 0 && i < gaps.length && Math.sign(gaps[i]) === Math.sign(gaps[worst]) && Math.abs(gaps[i]) > CURVE_GAP / 2;
+      let [from, to] = [worst, worst];
+      while (same(from - 1)) from--;
+      while (same(to + 1)) to++;
+      const run = [from, to];
+      notes.push(`${name}: its light over its play parts from its reference's by ${Math.round(meanGap * 100) / 100} a frame on average (aim within ${CURVE_GAP}, and no frame past ${CURVE_FRAME}): at the reference's frames ${run[0]} to ${run.at(-1)} it is ${gaps[worst] > 0 ? "brighter" : "fainter"} (${Math.round(atOurs(worst) * 100) / 100} of its brightest against ${Math.round(ca[worst] * 100) / 100}): ${gaps[worst] > 0 ? "a faster fall or a later rise there" : "a faster rise or a slower fall there"} (env's attack and decay, env.start, or a layer's own growth)`);
+    }
   }
   if (Math.abs(theirs.border.max - ours.border.max) > 0.08)
     notes.push(`${name}: its light reaches its frame's border at ${ours.border.max} at most, its reference's at ${theirs.border.max}: ${ours.border.max < theirs.border.max ? "it falls off too soon: a wider radius or falloff, so it fills its frame as the reference's does" : "it spills past where the reference's stops: a smaller radius"}`);

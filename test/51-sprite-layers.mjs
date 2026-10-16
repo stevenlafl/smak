@@ -243,6 +243,10 @@ test("against a reference: a late brightest frame and a halo short of the border
   const late = buildSpriteSpec({ spec: "smak.sprite/1", name: "sprites/late.spr", size: [32, 32], frames: 10, reference: file, layers: [{ kind: "glow", radius: 0.6, core: 0.15, colour: [0.5, 0.7, 1], env: { attack: 0.5, decay: 0.5 } }] });
   sure(late.report.warnings.some((w) => /its brightest frame comes at [\d.]+ of its play, its reference's at/.test(w)), late.report.warnings.join(" | "));
   sure(late.report.warnings.some((w) => /falls off too soon/.test(w)), late.report.warnings.join(" | "));
+  // the curve, frame by frame: a slow growth to the same light is told with its frames; the reference's own is not
+  sure(late.report.warnings.some((w) => /its light over its play parts from its reference's by [\d.]+ a frame on average .*at the reference's frames \d+ to \d+ it is fainter/.test(w)), late.report.warnings.join(" | "));
+  const same = buildSpriteSpec({ spec: "smak.sprite/1", name: "sprites/same.spr", size: [32, 32], frames: 10, reference: file, layers: [{ kind: "glow", radius: 2.5, core: 0.9, colour: [0.5, 0.7, 1], env: { attack: 0.05, decay: 0.9 } }] });
+  sure(!same.report.warnings.some((w) => /parts from its reference's/.test(w)), same.report.warnings.join(" | "));
 });
 
 test("a loop with a reference starts at the frame where its light over the loop follows the reference's", () => {
