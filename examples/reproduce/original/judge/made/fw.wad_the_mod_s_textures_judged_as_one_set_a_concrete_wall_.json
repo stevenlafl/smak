@@ -2,24 +2,24 @@
  "kind": "texture",
  "label": "fw.wad, the mod's textures, judged as one set: a concrete wall, a wet concrete floor, a steel grate with holes, a catwalk floor, a pipe-covered wall, a hazard-striped trim, a rusted steel plate, a control panel with dials, a sodium lamp's face (lit), the water, a sign reading PUMP 3, a door",
  "measured": {
-  "count": 12,
+  "count": 13,
   "least": 12,
   "textures": [
    {
     "name": "fw_concrete",
     "size": [
-     256,
-     256
+     128,
+     128
     ],
-    "detail": 47.1
+    "detail": 27
    },
    {
-    "name": "fw_wetconc",
+    "name": "fw_floor",
     "size": [
-     256,
-     256
+     128,
+     128
     ],
-    "detail": 19.9
+    "detail": 15.2
    },
    {
     "name": "{fw_grate",
@@ -27,7 +27,7 @@
      64,
      64
     ],
-    "detail": 16.1
+    "detail": 31.1
    },
    {
     "name": "fw_catwalk",
@@ -35,47 +35,47 @@
      128,
      128
     ],
-    "detail": 21.6
+    "detail": 21.5
    },
    {
-    "name": "fw_pipewall",
-    "size": [
-     256,
-     256
-    ],
-    "detail": 45.2
-   },
-   {
-    "name": "fw_hazard",
-    "size": [
-     128,
-     64
-    ],
-    "detail": 220.9
-   },
-   {
-    "name": "fw_rustplate",
-    "size": [
-     256,
-     256
-    ],
-    "detail": 11
-   },
-   {
-    "name": "fw_panel",
-    "size": [
-     256,
-     256
-    ],
-    "detail": 51
-   },
-   {
-    "name": "fw_lamp",
+    "name": "fw_pipes",
     "size": [
      128,
      128
     ],
-    "detail": 12
+    "detail": 24
+   },
+   {
+    "name": "fw_hazard",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 25.7
+   },
+   {
+    "name": "fw_rust",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 17.3
+   },
+   {
+    "name": "fw_panel",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 19.7
+   },
+   {
+    "name": "~fw_lamp",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 9.7
    },
    {
     "name": "!fw_water",
@@ -83,23 +83,31 @@
      128,
      128
     ],
-    "detail": 2.3
+    "detail": 3.1
    },
    {
-    "name": "fw_pump3",
+    "name": "fw_sign",
     "size": [
-     256,
-     128
+     128,
+     64
     ],
-    "detail": 40.2
+    "detail": 23
    },
    {
     "name": "fw_door",
     "size": [
-     256,
-     256
+     128,
+     128
     ],
-    "detail": 19
+    "detail": 16.8
+   },
+   {
+    "name": "fw_brick",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 25.8
    }
   ],
   "halfLifeDetail": {
@@ -116,40 +124,40 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Most of the set reads as its material: concrete, wet concrete, catwalk plate, pipes on a wall, rust plate, door, water. Four fail on what they are. fw_panel is a grid of riveted tiles with no dials, screens or switches. fw_pump3 shows PUMP with no visible \"3\", so it is not the sign the brief asks for. fw_lamp is a flat orange slab with no caged glass grille. fw_hazard is too faint and fine to read as bold yellow and black hazard stripes. fw_grate's solid parts are near-black, so they do not read as steel."
+   "reason": "Eleven of the thirteen read as the material the brief names: fw_concrete, fw_floor, fw_grate, fw_catwalk, fw_hazard, fw_rust, fw_lamp, fw_water, fw_sign, fw_door and fw_brick. fw_pipes is a panel grid with one horizontal pipe band, not a pipe-covered wall. fw_panel has three brown blobs and no screens or switches, so it does not read as a control panel with dials."
   },
   "T2": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Concrete, hazard yellow, the sodium orange of fw_lamp and the grey floors are on the brief's palette. fw_water is dark navy-teal, not the green-grey the brief gives, so it is clearly off. No harness colour measurement was given, so this rests on the flat sheet alone."
+   "score": 2,
+   "reason": "No colour measure was supplied for this set, so this is judged by eye. Concrete and catwalk are grey, hazard is yellow and black, rust is brown, the lamp is sodium orange, the water is green-grey, the door is grey-green and the brick is red-brown. All sit in the brief's palette. The grate's blue is the transparent palette index, not a colour on the wall."
   },
   "T3": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Not shown: the sheet is flat textures, with no map views. Spacing cannot be checked on a wall from this. Panel tiles and concrete look at a plausible scale, but the score stays at 1 until the map views show the original's spacing."
+   "score": 2,
+   "reason": "Panel and seam spacing (catwalk, pipes, panel, rust, door leaves) reads as a wall tile scale, the brick courses and hazard stripes are at a wall's scale, and the grate has eight holes across its 64 texture. No original spacing is given for this set, so this is judged against a wall's scale only."
   },
   "T4": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "No tiling measure was given, and the flat sheet cannot show seams. Concrete, wet concrete, water and rust plate look uniform with no visible seam at the edges. Not measured, so held at 1; not a must-have."
+   "score": 2,
+   "reason": "No seam shows at the tile edges in the flat views of any texture. The repeat step is not measured for this set and no measure was supplied, so this is by eye only."
   },
   "T5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Measured fail. Detail is far outside Valve's band (median 30, q3 45). fw_hazard at 220.9 is noisy, not crisp. fw_water at 2.3, fw_rustplate at 11 and fw_lamp at 12 are smooth to the point of smearing. fw_grate at 16.1 is also below the band. fw_concrete, fw_pipewall, fw_panel and fw_pump3 are in range and crisp."
+   "reason": "Measured detail is under Valve's band (q1 19.7) for fw_floor (15.2), fw_rust (17.3), fw_door (16.8), fw_lamp (9.7) and fw_water (3.1). fw_panel sits at the band's floor (19.7) and its dials are blurred blobs. The lamp is a smooth gradient and the water is near flat with faint streaks. Concrete, grate, catwalk, pipes, hazard, sign and brick are inside the band and look sharp at flat size."
   },
   "T6": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Names and kind are as the brief needs: {fw_grate has holes shown as the blue mask colour, !fw_water is a liquid, the rest are plain. The lamp reads as a lit face, and the door, pump sign and pipes are the right sizes. The lamp's fullbright flag cannot be seen on the flat sheet, so this is taken as lit."
+   "reason": "The kinds are kept: fw_grate is a { texture with holes (its blue is the transparent index), fw_water is a ! liquid, and ~fw_lamp is a lit face. The brief asks for no + animation and none is in the set. Sizes are 128x128 for most, 64x64 for grate, hazard and lamp, and 128x64 for the sign. The brief fixes no sizes, so there is no original size to match."
   }
  },
- "total": 7,
+ "total": 10,
  "of": 12,
  "passes": false
 }

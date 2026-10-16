@@ -1,0 +1,94 @@
+{
+ "kind": "mod",
+ "label": "the mod as a whole",
+ "measured": {
+  "missing": [],
+  "failedChecks": [],
+  "chain": [
+   {
+    "map": "fw_yard",
+    "leadsTo": [
+     "fw_pumphall"
+    ],
+    "landmarks": [
+     "yard_exit"
+    ],
+    "asked": "fw_pumphall"
+   },
+   {
+    "map": "fw_pumphall",
+    "leadsTo": [
+     "fw_control"
+    ],
+    "landmarks": [
+     "yard_exit",
+     "hall_exit"
+    ],
+    "asked": "fw_control"
+   },
+   {
+    "map": "fw_control",
+    "leadsTo": [],
+    "landmarks": [
+     "hall_exit"
+    ],
+    "asked": null
+   }
+  ],
+  "shown": [
+   {
+    "file": "videos/fw_wrench.mp4",
+    "there": true,
+    "bytes": 307069
+   },
+   {
+    "file": "videos/fw_crawler.mp4",
+    "there": true,
+    "bytes": 235747
+   },
+   {
+    "file": "videos/fw_pumphall.mp4",
+    "there": true,
+    "bytes": 832278
+   },
+   {
+    "file": "pictures/fw_props.png",
+    "there": true,
+    "bytes": 1084670
+   }
+  ]
+ },
+ "caps": {
+  "O1": 2,
+  "O2": 2
+ },
+ "scores": {
+  "O1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements list nothing missing and no failed SMAK checks. Every shown file (videos/fw_wrench.mp4, videos/fw_crawler.mp4, videos/fw_pumphall.mp4, pictures/fw_props.png) is present. The measurements do not list the .wad, sounds or sprites, so this score rests on the missing and failedChecks fields alone."
+  },
+  "O2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The chain is fw_yard to fw_pumphall through yard_exit, then fw_pumphall to fw_control through hall_exit, and fw_control ends the mod at hall_exit. Each change is measured as reached from the start, and each map's landmarks match the change it names."
+  },
+  "O3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Most of the set shares a rusted, worn, hazard-striped palette: the drum, the pipe junction, the wheel's rim and the wrench's steel all agree. The break is in the picture. The control console is a clean, unrusted light grey, unlike the rest of the props. The yard's sky is a flat, bright blue, not the dusk the brief asks for, and the pump hall's tan tiles and the control floor's tan tiles do not match the green-grey water and the sodium-lit scene the brief describes. The lamp's bright orange glass is also hotter than the rest of the palette. These are clear differences, short of a failure of the whole place."
+  },
+  "O4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Every item the brief asks to show is present: turntable videos of the wrench and the crawler, a flight through the pump hall, and a sheet of props. The everything.png picture shows each prop, the crawler, the wrench and a view of each map, with each asset shown as it is."
+  }
+ },
+ "total": 7,
+ "of": 8,
+ "passes": false
+}

@@ -1,0 +1,155 @@
+{
+ "kind": "texture",
+ "label": "fw.wad, the mod's textures, judged as one set: a concrete wall, a wet concrete floor, a steel grate with holes, a catwalk floor, a pipe-covered wall, a hazard-striped trim, a rusted steel plate, a control panel with dials, a sodium lamp's face (lit), the water, a sign reading PUMP 3, a door",
+ "measured": {
+  "count": 12,
+  "least": 12,
+  "textures": [
+   {
+    "name": "fw_plain0",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain1",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain2",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain3",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain4",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain5",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain6",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain7",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain8",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain9",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain10",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain11",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   }
+  ],
+  "halfLifeDetail": {
+   "q1": 19.7,
+   "median": 30.1,
+   "q3": 45
+  }
+ },
+ "caps": {
+  "T6": 2
+ },
+ "scores": {
+  "T1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Every texture is a flat mid-grey field (fw_plain0 to fw_plain11, 64x64). None reads as concrete wall, wet floor, grate, catwalk, pipe wall, hazard trim, rusted plate, control panel, lamp face, water, sign or door, so a player would not call any of them the brief's material."
+  },
+  "T2": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief asks for concrete grey, wet concrete, rust, yellow hazard paint, green-grey water and a sodium-orange lamp face. All twelve are the same neutral grey, with no hazard yellow, rust, green-grey water or sodium orange, so no texture's colour matches what the brief asks for."
+  },
+  "T3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "There are no panels, seams, bricks, tiles, grate holes, stripes or lettering in any of the twelve. Nothing at the scale a Half-Life wall uses can line up with a map's surfaces."
+  },
+  "T4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The fields are uniform, so no seam shows where they repeat, and a repeat test would pass trivially. But a featureless field is not a tiling texture of anything the brief names, so it scores 1 rather than 2."
+  },
+  "T5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Measured detail is 0 for every texture, against Half-Life's own median of 30.1 (inter-quartile 19.7 to 45). Seen flat, they have no grain, wear, edges or lettering, so they are far from as sharp or believable as Valve's textures."
+  },
+  "T6": {
+   "judge": 0,
+   "cap": 2,
+   "score": 0,
+   "reason": "The names are fw_plain0 to fw_plain11, not the brief's kinds. None is a '{' texture with holes, a '+0' animation with frames, a '!' liquid (the water), or a lit lamp face, and the sign and door are absent. The 64x64 size is not checked against any original here, but the kinds the names are meant to carry are all missing."
+  }
+ },
+ "total": 1,
+ "of": 12,
+ "passes": false
+}

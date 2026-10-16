@@ -1,0 +1,140 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_walllamp.mdl",
+  "kind": "piece",
+  "materials": {
+    "iron": {
+      "base": "iron",
+      "rust": 0.4,
+      "tone": "dark grey"
+    },
+    "cage": {
+      "base": "mesh",
+      "cell": 2,
+      "tone": "dark grey"
+    },
+    "sodium": {
+      "base": "glass",
+      "tone": [
+        1,
+        0.6,
+        0.15
+      ],
+      "flags": [
+        "fullbright"
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "plate",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        3,
+        16,
+        22
+      ],
+      "at": [
+        1.5,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "housing",
+      "kind": "turn",
+      "material": "iron",
+      "axis": "x",
+      "sides": 10,
+      "caps": [
+        true,
+        true
+      ],
+      "rings": [
+        [
+          0,
+          7
+        ],
+        [
+          2,
+          7.8
+        ],
+        [
+          6,
+          7.8
+        ],
+        [
+          8,
+          6
+        ]
+      ],
+      "at": [
+        3,
+        0,
+        11
+      ]
+    },
+    {
+      "id": "lens",
+      "kind": "turn",
+      "material": "sodium",
+      "axis": "x",
+      "sides": 10,
+      "caps": [
+        true,
+        true
+      ],
+      "rings": [
+        [
+          0,
+          0
+        ],
+        [
+          0.6,
+          5.6
+        ],
+        [
+          1.2,
+          5.6
+        ]
+      ],
+      "at": [
+        10.5,
+        0,
+        11
+      ]
+    },
+    {
+      "id": "cage",
+      "kind": "turn",
+      "material": "cage",
+      "axis": "x",
+      "sides": 10,
+      "caps": [
+        false,
+        false
+      ],
+      "open": true,
+      "rings": [
+        [
+          0,
+          8.6
+        ],
+        [
+          5,
+          8.6
+        ],
+        [
+          11,
+          8.6
+        ]
+      ],
+      "at": [
+        3,
+        0,
+        11
+      ]
+    }
+  ]
+}

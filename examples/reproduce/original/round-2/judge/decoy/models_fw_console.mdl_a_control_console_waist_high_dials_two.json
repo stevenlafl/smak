@@ -1,0 +1,76 @@
+{
+ "kind": "model",
+ "label": "models/fw_console.mdl: a control console, waist high, dials, two screens, a row of switches",
+ "measured": {
+  "size": [
+   24,
+   24,
+   40
+  ],
+  "sizeAsked": {
+   "high": 40
+  },
+  "sizeOff": 0,
+  "triangles": 12,
+  "halfLifeMedianOfThisSize": 62,
+  "checkErrors": [],
+  "lineup": "ours is one of A to D in lineup.png beside models/big_rock.mdl, models/testsphere.mdl, models/gib_legbone.mdl: the judge does not know which"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Every one of the ten views is the same plain upright rectangle (front, left, back, right) or square (top, below), with no console profile, no sloped control face and no step or panel edge in the outline. The brief's waist-high console is only loosely a block, so the outline is there but clearly off."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 24 x 24 x 40 against a requested 40 high, sizeOff 0, so every dimension is within 15% of the brief's size."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "None of the brief's parts are present: no dials, no two screens, no row of switches. Each face is bare mottled grey with nothing set into it."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "There is one grey region with a single mottled stone-like material. The brief asks for painted metal, screen glass and switches, none of which appear, so the materials are missing rather than merely off in colour."
+  },
+  "M5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The surface detail the brief asks for is absent: no panel lines, dial faces, screen glows, switch rows or hazard markings. The only texture is an even grey mottle. Not a must-have, but the brief names these features."
+  },
+  "M6": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "In lineup.png it is A, a plain grey box, beside a checkered sphere, a rust-brown rock and a bone. A player would see a placeholder block, not a Half-Life console, and nothing in it reads as a control console at game size."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "It stands upright on its base as a console should. There is no front to face, so the facing cannot be checked; the box has no control face, screen or dials to mark a front."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The harness check reports no errors, 12 triangles against a Half-Life median of 62 (well under twice it), and nothing open, inside out or floating in the views."
+  }
+ },
+ "total": 7,
+ "of": 16,
+ "passes": false
+}

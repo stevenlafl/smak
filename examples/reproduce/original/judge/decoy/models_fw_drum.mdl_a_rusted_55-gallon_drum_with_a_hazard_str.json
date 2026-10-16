@@ -14,6 +14,7 @@
   "sizeOff": 0,
   "triangles": 12,
   "halfLifeMedianOfThisSize": 62,
+  "halfLifeThreeQuartersUnder": 156,
   "checkErrors": [],
   "lineup": "ours is one of A to D in lineup.png beside models/testsphere.mdl, models/gib_legbone.mdl, models/big_rock.mdl: the judge does not know which"
  },
@@ -26,49 +27,49 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The outline is a plain rectangle in the four side views and a square from above and below. A 55-gallon drum is round in plan, so its top and bottom outlines are wrong. It is a box, not a drum, and the brief's drum outline is missing."
+   "reason": "The outline is a rectangular box in every view. The top and bottom views are squares, where a 55-gallon drum's would be round. The brief's drum is a cylinder, so the silhouette is wrong, not just off."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured size is 23 x 23 x 34, exactly the brief's 34 high and 23 across (sizeOff 0). Within 10%."
+   "reason": "The measured size is 23 x 23 x 34, which matches the asked 23 across and 34 high exactly (sizeOff 0)."
   },
   "M3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The drum's parts are missing: no rim or chime bands, no lid or bung, no seam. Only one solid block is there."
+   "reason": "A drum's parts are missing: no rims or hoops, no lid or bung, no rounded body. The model is one solid block."
   },
   "M4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "A single flat mid-grey throughout. The brief asks for a rusted steel drum, and no rust colouring or metal variation shows in any view or in the line-up. Colour is present but clearly off."
+   "reason": "The surface is a flat, even grey with a mottled, concrete-like noise. It is near steel's grey, but there is no rust colour and no yellow hazard paint, so the regions are clearly off."
   },
   "M5": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The hazard stripe the brief names is missing, and so is any rust or wear. The faces show only a faint noise texture, with no markings."
+   "reason": "The hazard stripe, the rust, and any panel or rim detail are absent. The only surface is uniform grain, so none of the brief's markings or wear are there."
   },
   "M6": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "In the line-up it is the plain grey box (B). Beside the testsphere, the bone and the rock, a player would not take it for one of Half-Life's props. It reads as a placeholder block."
+   "reason": "Side by side with Half-Life's own props in the line-up, it is recognisably a plain grey block (B), not a drum. A player would not take it for one of the game's props."
   },
   "M7": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "It stands upright with its tall axis vertical, which is the drum's pose. Front and facing cannot be told apart on a box, and the origin's placement cannot be verified from the pictures. Not a must-have item."
+   "reason": "It stands upright on its base, as a drum does, and its height is along the vertical. Nothing marks a front, though, so the front cannot be checked against the brief."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The SMAK check reports no errors. At 12 triangles it is under twice the Half-Life median of 62 (the limit is 124). The box is closed, with nothing open, inside out or floating."
+   "reason": "The SMAK check reports no errors. It has 12 triangles, far below the threshold (twice the median of 62, or the third quartile of 156). The box is closed, not inside out, and not floating."
   }
  },
  "total": 6,

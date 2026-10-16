@@ -78,31 +78,31 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The frame is one flat light-grey disc on a dark ground. There is no splash: no spread, droplets, crown or drip. Nothing reads as a sludge spit that splashes, so the effect the brief names is not there."
+   "reason": "The brief asks for a sludge spit that splashes. The single frame is a plain light-grey filled disc with no splash, spray, drips or sludge shape, so it is not the effect the brief names."
   },
   "R2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The frame is 32 x 32, a size the measures confirm, and the disc fills it evenly. The brief gives no frame size, and a splash would have a lobed or spreading silhouette, not a round fill, so the shape is clearly off."
+   "reason": "The frame is 32 x 32 with the disc filling most of it, which is a reasonable frame size. The filled, smooth disc does not show a splash spreading out from a spit, so the shape is clearly off from what the brief describes."
   },
   "R3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The colour is a neutral near-white grey. The brief asks for green-grey sludge, consistent with the water and the crawler, and nothing in the frame has that tint. It is clearly off but not a wholly wrong family, so 1 rather than 0."
+   "reason": "The colour is a neutral light grey-white on a dark ground. The brief's sludge is green-grey, so the colour is clearly off. Only one frame is shown, so this is judged from that frame alone."
   },
   "R4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief asks for an animated splash, but there is one frame, so the motion is absent. The measures fail the envelope for the explosion class: it starts bright (first 1, class range 0 to 0.22), peaks at frame 0 (class range 0.22 to 0.71), and does not end dark (last 1, class range 0 to 0.03). A measured must-have fails, so this cannot score 2."
+   "reason": "The sprite has one frame. The brief asks for an animated splash, and the measures show no motion: the envelope peaks at frame 0, starts at full brightness (first 1) and does not end dark (last 1). The class's envelope fails on all three counts, and there is no splash motion to be a fair match for."
   },
   "R5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The type (parallel) and format (additive) are plausible for a glow-like effect and no measure flags them. Whether the name and read-back match SPRITE_CLASSES cannot be confirmed from the picture, and the sprite fails R1 to R4, so this scores 1 rather than 2. Note that the picture's folder is named decoy, and the image matches the decoy's description: one disc per sprite. That is a reason to fail it, not to score it higher."
+   "reason": "The file name fw_spit.spr is the one asked for, the type is parallel and the format is additive, which is a valid GoldSrc setup. Nothing in the measures checks that type and format against a sludge-splash class, and the animation the brief needs is missing, so the fit is only partly shown. The single frame also points to a placeholder sprite rather than a finished asset, which matches the path's 'decoy' label."
   }
  },
  "total": 3,

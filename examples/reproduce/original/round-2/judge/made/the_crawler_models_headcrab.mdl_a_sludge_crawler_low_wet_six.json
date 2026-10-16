@@ -1,0 +1,87 @@
+{
+ "kind": "enemy",
+ "label": "the crawler (models/headcrab.mdl): a sludge crawler: low, wet, six-legged, the size of a headcrab, grey-green with a pale belly and a ring of teeth",
+ "measured": {
+  "size": [
+   21.2,
+   24.7,
+   16.4
+  ],
+  "sizeAsked": null,
+  "sizeOff": null,
+  "triangles": 496,
+  "checkErrors": [],
+  "lineup": "ours is one of A to D in lineup.png beside models/chumtoad.mdl, models/roach.mdl, models/leech.mdl: the judge does not know which",
+  "contract": "keeps the headcrab's bones, animations, attachments and bodyparts"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2,
+  "C2": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief asks for a low, wet, six-legged thing the size of a headcrab. The silhouette is low and squat, and the legs stick out, but it is a stacked two-tier drum with flat faces, not a wet, rounded body. Fins jut from the sides, which the brief does not ask for. Clearly off in the wet shape and the belly tier."
+  },
+  "M2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Measured size is 21.2 x 24.7 x 16.4 units. The measures give no headcrab size to check against (sizeAsked is null), so the 15% test cannot be confirmed. The dimensions look headcrab-sized by eye, so this is not a fault, but it is unverified and scores 1."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Read against the brief. Six legs are there in the views (two at the front, two at the back, others under the body), with dark claw tips. The ring of teeth is only a few small blocks on the upper rim in the front-left and front-right views, not a clear ring. The pale belly is missing: the underside is the same green as the top."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Read against the brief. The body is grey-green, as asked. The belly is not pale: the underside is only slightly lighter than the back, and the claws are dark brown. The belly colour the brief asks for is missing."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief asks for teeth and a pale belly as marking. Teeth read as a few blocks, the belly has no marking, and the wet sheen is absent. The streaked texture is not wrong, but the markings the brief names are weak or missing."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "In the lineup, the grey-green blocky creature beside the game's leech, roach and chumtoad is plainly coarser and more blocky than them, and it does not read as any of them. A player would not take it for one of the game's creatures, but the look is clearly unlike the game's own in detail and style, so it scores 1."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief names no front. The model stands upright on its floor line in the side and walk frames, and its legs rest on the floor. Nothing is misplaced."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The SMAK check reports no errors. It has 496 triangles, which is well within twice a headcrab's count for the kind. Nothing is shown open or floating. The median for Half-Life's own creature of this size is not given, so this rests on the check and the low count."
+  },
+  "C1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frames are labelled WALK and JUMP, though the files are named run and attack, so the motions checked are walk and jump. In the walk frames one leg swings and stays attached to the body; the other legs are mostly hidden, so the full six-leg motion can't be followed. In the jump frames the body tumbles and every part stays attached, nothing sinks or floats. Some motion cannot be checked from these frames, so it scores 1."
+  },
+  "C2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured contract is kept: the headcrab's bones, animations, attachments and bodyparts are all there, so the game's own headcrab can play it. No fault is reported."
+  }
+ },
+ "total": 13,
+ "of": 20,
+ "passes": false
+}

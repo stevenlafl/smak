@@ -1,109 +1,33 @@
 {
   "spec": "smak.map/1",
   "name": "fw_yard",
-  "theme": {
-    "floor": "fw_wetconc",
-    "wall": "fw_concrete",
-    "ceiling": "fw_concrete",
-    "door": "fw_door",
-    "furniture": "fw_panel",
-    "outside": "fw_rustplate",
-    "roof": "fw_rustplate"
-  },
+  "wads": [
+    "fw/fw.wad"
+  ],
   "textures": {
-    "fw_concrete": {
-      "base": "stone",
-      "tone": [
-        0.42,
-        0.42,
-        0.4
-      ],
-      "wear": {
-        "stains": 0.6,
-        "cracks": 0.5,
-        "speckle": 0.8
-      }
+    "concrete": {
+      "texture": "fw_concrete"
     },
-    "fw_wetconc": {
-      "base": "stone",
-      "tone": "dark grey",
-      "wear": {
-        "stains": 0.8,
-        "streaks": 0.6,
-        "speckle": 0.6
-      }
+    "floor": {
+      "texture": "fw_floor"
     },
-    "fw_rustplate": {
-      "base": "metal",
-      "tone": "dark brown",
-      "rust": 0.8,
-      "wear": {
-        "stains": 0.6,
-        "streaks": 0.5,
-        "speckle": 0.5
-      }
+    "rust": {
+      "texture": "fw_rust"
     },
-    "fw_panel": {
-      "base": "metal",
-      "tone": "grey"
+    "door": {
+      "texture": "fw_door"
     },
-    "fw_door": {
-      "base": "door"
+    "brick": {
+      "texture": "fw_brick"
     }
   },
-  "models": {
-    "fw_pipesection": {
-      "spec": "smak.model/1",
-      "name": "fw_pipesection.mdl",
-      "kind": "prop",
-      "materials": {
-        "rust": {
-          "base": "metal",
-          "tone": "dark brown",
-          "rust": 0.8
-        }
-      },
-      "parts": [
-        {
-          "id": "pipe",
-          "kind": "tube",
-          "material": "rust",
-          "sides": 10,
-          "path": [
-            [
-              -150,
-              0,
-              50,
-              50
-            ],
-            [
-              -60,
-              0,
-              50,
-              50
-            ],
-            [
-              60,
-              0,
-              50,
-              50
-            ],
-            [
-              150,
-              0,
-              50,
-              50
-            ],
-            [
-              175,
-              0,
-              50,
-              26
-            ]
-          ]
-        }
-      ]
-    }
+  "theme": {
+    "floor": "floor",
+    "wall": "concrete",
+    "ceiling": "rust",
+    "door": "door",
+    "outside": "brick",
+    "roof": "rust"
   },
   "sky": {
     "zenith": [
@@ -112,14 +36,14 @@
       0.2
     ],
     "horizon": [
-      0.7,
-      0.45,
-      0.3
+      0.5,
+      0.34,
+      0.22
     ],
     "ground": [
-      0.12,
       0.1,
-      0.09
+      0.1,
+      0.1
     ],
     "clouds": {
       "cover": 0.35
@@ -128,77 +52,65 @@
       "height": 4
     }
   },
-  "sun": {
-    "pitch": -40,
-    "yaw": 215,
-    "brightness": 4,
-    "color": [
-      1,
-      0.7,
-      0.45
-    ]
-  },
-  "compile": {
-    "quality": "draft"
-  },
   "rooms": [
     {
       "id": "yard",
       "size": [
-        1500,
-        1500,
+        1400,
+        1400,
         320
       ],
       "sky": true,
-      "light": "none"
+      "surfaces": {
+        "floor": "floor",
+        "walls": "concrete"
+      }
     },
     {
       "id": "gatehouse",
       "size": [
         192,
-        160,
-        128
+        192,
+        160
       ],
       "place": {
         "in": "yard",
         "offset": [
-          450,
-          40
+          120,
+          160
         ],
         "stand": true
       },
-      "floor": 8,
       "building": {
         "walls": "outside",
         "roof": {
-          "material": "roof",
-          "pitch": 25,
-          "overhang": 8
+          "material": "rust",
+          "pitch": 30,
+          "overhang": 12
         }
       }
     },
     {
       "id": "pumphouse",
       "size": [
-        288,
-        224,
-        200
+        320,
+        256,
+        224
       ],
       "place": {
         "in": "yard",
         "offset": [
-          906,
-          1012
+          880,
+          820
         ],
         "stand": true
       },
-      "floor": 8,
       "building": {
         "walls": "outside",
         "roof": {
-          "material": "roof",
-          "pitch": 20,
-          "overhang": 10
+          "material": "rust",
+          "pitch": 25,
+          "overhang": 12
         }
       }
     }
@@ -210,7 +122,7 @@
         "yard"
       ],
       "kind": "door",
-      "side": "north"
+      "side": "south"
     },
     {
       "between": [
@@ -218,19 +130,8 @@
         "yard"
       ],
       "kind": "door",
-      "side": "south",
-      "width": 56,
-      "along": 0.403
-    },
-    {
-      "between": [
-        "pumphouse",
-        "yard"
-      ],
-      "kind": "door",
-      "side": "south",
-      "width": 56,
-      "along": 0.597
+      "width": 96,
+      "side": "west"
     }
   ],
   "prefabs": {
@@ -239,22 +140,23 @@
         {
           "box": [
             [
-              -60,
-              -20,
+              -40,
+              -40,
               0
             ],
             [
-              60,
-              20,
+              40,
+              40,
               96
             ]
-          ]
+          ],
+          "texture": "concrete"
         }
       ],
       "entity": {
         "class": "trigger_changelevel",
         "map": "fw_pumphall",
-        "landmark": "yard_exit"
+        "landmark": "lm_pumphall"
       }
     }
   },
@@ -262,10 +164,40 @@
     {
       "prefab": "exit",
       "room": "pumphouse",
+      "at": "centre"
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "yard",
+      "at": "near gatehouse"
+    },
+    {
+      "class": "info_landmark",
+      "targetname": "lm_pumphall",
+      "room": "pumphouse",
+      "at": "centre"
+    },
+    {
+      "class": "ambient_generic",
+      "room": "pumphouse",
+      "at": "centre",
+      "z": 60,
+      "message": "ambience/fw_pump.wav",
+      "health": 8,
+      "spawnflags": 4
+    },
+    {
+      "class": "ambient_generic",
+      "room": "yard",
       "at": [
-        0,
-        -46
-      ]
+        -200,
+        -300
+      ],
+      "message": "ambience/fw_drips.wav",
+      "health": 5,
+      "spawnflags": 4
     }
   ],
   "props": [
@@ -273,149 +205,59 @@
       "model": "models/fw_drum.mdl",
       "room": "yard",
       "at": [
-        -560,
-        -420
+        -200,
+        -520
       ]
     },
     {
       "model": "models/fw_drum.mdl",
       "room": "yard",
       "at": [
-        -490,
-        -420
+        -240,
+        -480
       ]
     },
     {
       "model": "models/fw_drum.mdl",
       "room": "yard",
       "at": [
-        -525,
-        -350
+        -200,
+        -470
       ]
     },
     {
       "model": "models/fw_drum.mdl",
       "room": "yard",
       "at": [
-        -560,
-        -420
+        -200,
+        -520
       ],
       "z": 35
     },
     {
-      "model": "models/fw_yard/fw_pipesection.mdl",
+      "model": "models/fw_pipejunction.mdl",
       "room": "yard",
       "at": [
-        380,
-        -260
-      ],
-      "facing": 0
-    },
-    {
-      "model": "models/fw_walllamp.mdl",
-      "room": "yard",
-      "at": [
-        734,
-        0
-      ],
-      "facing": 180,
-      "z": 240
-    },
-    {
-      "model": "models/fw_walllamp.mdl",
-      "room": "yard",
-      "at": [
-        -734,
-        300
-      ],
-      "facing": 0,
-      "z": 240
-    },
-    {
-      "model": "models/fw_walllamp.mdl",
-      "room": "yard",
-      "at": [
-        300,
-        -734
-      ],
-      "facing": 90,
-      "z": 240
-    },
-    {
-      "model": "models/fw_walllamp.mdl",
-      "room": "yard",
-      "at": [
-        -734,
-        -400
-      ],
-      "facing": 0,
-      "z": 240
-    },
-    {
-      "model": "kit:bench",
-      "room": "gatehouse",
-      "at": "against west",
-      "facing": "east"
-    }
-  ],
-  "entities": [
-    {
-      "class": "info_player_start",
-      "room": "yard",
-      "at": [
-        -200,
-        -500
-      ],
-      "facing": "north"
-    },
-    {
-      "class": "info_landmark",
-      "id": "yard_exit",
-      "room": "pumphouse",
-      "at": [
-        0,
-        -46
+        200,
+        -320
       ]
     },
     {
-      "class": "light",
-      "room": "yard",
-      "at": [
-        700,
-        0
-      ],
-      "z": 140,
-      "_light": "1 0.66 0.31 300"
+      "model": "models/fw_console.mdl",
+      "room": "gatehouse",
+      "at": "against north",
+      "facing": "south"
     },
     {
-      "class": "light",
+      "model": "models/fw_walllamp.mdl",
       "room": "yard",
       "at": [
-        -700,
-        300
+        0,
+        650
       ],
-      "z": 140,
-      "_light": "1 0.66 0.31 300"
-    },
-    {
-      "class": "light",
-      "room": "yard",
-      "at": [
-        300,
-        -700
-      ],
-      "z": 140,
-      "_light": "1 0.66 0.31 300"
-    },
-    {
-      "class": "light",
-      "room": "yard",
-      "at": [
-        -700,
-        -400
-      ],
-      "z": 140,
-      "_light": "1 0.66 0.31 300"
+      "z": 180,
+      "facing": "south",
+      "solid": false
     }
   ]
 }

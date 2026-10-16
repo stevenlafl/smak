@@ -11,6 +11,7 @@
   "sizeOff": null,
   "triangles": 12,
   "halfLifeMedianOfThisSize": 62,
+  "halfLifeThreeQuartersUnder": 156,
   "checkErrors": [],
   "lineup": "ours is one of A to D in lineup.png beside models/testsphere.mdl, models/gib_legbone.mdl, models/ribcage.mdl: the judge does not know which"
  },
@@ -23,49 +24,49 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief asks for two pipes meeting at a flanged elbow, but the outline is a plain cube. The front, back, left, right, top, below and three-quarter views all show the same square or square-cornered box, with no pipe run, elbow or flange in any view."
+   "reason": "The outline is a plain square in front, back, left, right, top and below, and a plain cube in the four oblique views. The brief asks for two pipes meeting at a flanged elbow, which has an elbow-shaped, branching outline. No pipe, elbow or flange shows in any of the six views, so the silhouette does not match the brief's words."
   },
   "M2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The brief gives no size for the pipe junction, so the 15% check has no target. The measured size is 24 x 24 x 24, which is a plausible scale for a pipe junction, but the shape it measures is a box. Clearly off, not scored 2."
+   "reason": "The brief gives no size for the pipe junction, so the item cannot be measured against one. The asset is a 24 x 24 x 24 cube with no pipe length or elbow span, so the dimensions are unverified and do not fit the described object."
   },
   "M3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "None of the parts are there: no pipes, no flanged elbow, no bolts or bolt holes. The model is a single solid block with no components in any view."
+   "reason": "The brief's parts are two pipes, a flanged elbow and bolts. None are present: the sides show one solid block with no pipe bores, no flange rim and no bolt heads in any of the ten views."
   },
   "M4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The single region is a mottled grey that reads as concrete or stone, not the painted or rusted steel the brief's pipe junction needs. The colour is in a plausible grey range, but the material is wrong, so it is clearly off."
+   "reason": "The whole block is one mottled mid-grey, which is close to a neutral steel tone. The surface reads as stone or concrete, though, not painted or rusted pipe steel, and the brief's materials are not shown."
   },
   "M5": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief's junction has flange rims, bolt heads and pipe seams. The box has only a generic noise texture across all faces, with none of those markings or panel lines in place."
+   "reason": "There are no bolts, flange lines, rust streaks, hazard markings or panel lines. The only surface is an even noise texture, which does not match the wear and markings a pipe junction would carry."
   },
   "M6": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Beside Half-Life's own models in the line-up, the box (C) is a plain grey cube. Nobody would take it for a pipe junction or for any of the game's props, and a judge would not pick it as the junction."
+   "reason": "In the line-up the grey block is plainly a box, next to the other three objects in the lineup. A player would not take it for Half-Life's pipe junction; it reads as a placeholder crate, not a pipe fitting."
   },
   "M7": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The brief's pipe junction has a defined front (the elbow's orientation and the pipe run). The cube has no front to speak of, so the front cannot be the original's. The box does stand upright, but that is not a meaningful check here, so it is clearly off."
+   "reason": "A cube has no true front, so the 'front is the original's front' check cannot be met. It is upright, sits symmetrically, and is consistent with standing on its origin, but the facing has no meaning as a pipe junction."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured checks are clean: SMAK's check reports no errors, and the model is 12 triangles against a cap of 124 (twice the Half-Life median of 62). The views show a closed solid with no open faces, inside-out faces or floating parts."
+   "reason": "The harness reports no check errors and 12 triangles. Against the Half-Life median of 62 for a prop of this size, that is well under twice the median and under the third quartile (156), so the triangle budget is met. The block is closed, with no open faces or inside-out faces in any view."
   }
  },
  "total": 5,

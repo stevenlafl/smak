@@ -116,40 +116,40 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Every texture is a flat mid-grey field (fw_plain0 to fw_plain11, 64x64). None reads as concrete wall, wet floor, grate, catwalk, pipe wall, hazard trim, rusted plate, control panel, lamp face, water, sign or door, so a player would not call any of them the brief's material."
+   "reason": "The picture shows twelve identical flat mid-grey squares, each labelled FW_PLAIN0 to FW_PLAIN11. None is a concrete wall, wet floor, grate, catwalk, pipe wall, hazard trim, rusted plate, control panel, lit lamp face, water, sign or door, so no texture is what the brief names."
   },
   "T2": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief asks for concrete grey, wet concrete, rust, yellow hazard paint, green-grey water and a sodium-orange lamp face. All twelve are the same neutral grey, with no hazard yellow, rust, green-grey water or sodium orange, so no texture's colour matches what the brief asks for."
+   "reason": "The brief asks for concrete grey, hazard yellow, green-grey water and so on. Every texture is the same flat grey (about 128 on each channel), so no texture's colour matches its material."
   },
   "T3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "There are no panels, seams, bricks, tiles, grate holes, stripes or lettering in any of the twelve. Nothing at the scale a Half-Life wall uses can line up with a map's surfaces."
+   "reason": "There are no panels, seams, bricks, tiles, grate holes, pipes or dial layouts at any spacing. Nothing sets a scale a wall of the game's would have."
   },
   "T4": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The fields are uniform, so no seam shows where they repeat, and a repeat test would pass trivially. But a featureless field is not a tiling texture of anything the brief names, so it scores 1 rather than 2."
+   "score": 2,
+   "reason": "Each texture is one flat colour, so there is no seam where it repeats and the step across its edges is zero. This passes only because there is nothing to seam, not because a tile was made well."
   },
   "T5": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Measured detail is 0 for every texture, against Half-Life's own median of 30.1 (inter-quartile 19.7 to 45). Seen flat, they have no grain, wear, edges or lettering, so they are far from as sharp or believable as Valve's textures."
+   "reason": "The measured fine detail is 0 on all twelve, against Half-Life's own band of 19.7 to 45 (median 30.1). The picture confirms it: no sharpness, no grain, no wear, no believable surface at the size the game shows it."
   },
   "T6": {
    "judge": 0,
    "cap": 2,
    "score": 0,
-   "reason": "The names are fw_plain0 to fw_plain11, not the brief's kinds. None is a '{' texture with holes, a '+0' animation with frames, a '!' liquid (the water), or a lit lamp face, and the sign and door are absent. The 64x64 size is not checked against any original here, but the kinds the names are meant to carry are all missing."
+   "reason": "The names are FW_PLAIN0 to FW_PLAIN11, not the brief's names, and the kind each name would carry is absent. There is no { texture with holes, no +0 to +9 animation with frames, no ! liquid, no lit lamp face, no sign and no door. The 64 by 64 sizes are recorded, but the names and what they mean are not kept."
   }
  },
- "total": 1,
+ "total": 2,
  "of": 12,
  "passes": false
 }

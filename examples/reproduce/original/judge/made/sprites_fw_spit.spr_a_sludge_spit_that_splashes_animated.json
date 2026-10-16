@@ -3,20 +3,20 @@
  "label": "sprites/fw_spit.spr: a sludge spit that splashes, animated",
  "measured": {
   "size": [
-   64,
-   64
+   32,
+   32
   ],
   "frames": 8,
   "type": "parallel",
-  "format": "index alpha",
+  "format": "alpha test",
   "measures": {
    "frames": 8,
    "size": [
-    64,
-    64
+    32,
+    32
    ],
    "border": {
-    "max": 0.075,
+    "max": 0,
     "mean": 0
    },
    "envelope": {
@@ -24,21 +24,21 @@
     "first": 0,
     "last": 0
    },
-   "dark": 0.66,
-   "wrap": 1.21,
-   "jitter": 1.45
+   "dark": 0.89,
+   "wrap": 0,
+   "jitter": 1.65
   },
   "class": "explosion",
   "againstClass": [
    {
     "measure": "jitter",
-    "value": 1.45,
+    "value": 1.65,
     "range": [
      1.04,
      1.48
     ],
-    "ok": true,
-    "words": ""
+    "ok": false,
+    "words": "flickers: more coherence from frame to frame"
    },
    {
     "measure": "border",
@@ -88,34 +88,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Frames 1-2 show droplets flying off a bright core, and frames 3-5 add radial streaks, so it reads as a splash. But the core is a white flash, and frames 0-1 read more as a bright blob cluster than a sludge spit. It is a splash with the wrong character."
+   "reason": "Reads as a green blob that swells, sags and fades, not a splash. The frames show no spray, droplets or spreading lip, so the 'splashes' part of the brief is not clear. The sludge spit is there, but the splash effect is weak."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The sprite is 64 x 64, as the brief's size implies. The effect sits centred in each frame and grows to about the middle half of the cell. The border measures are 0.075 max and 0 mean, so nothing is clipped at the edges."
+   "reason": "Frames are 32 x 32 as the measurements give. The blob fills roughly 16 to 20 dots across and sits near the centre of each cell. The border measure is 0, so nothing touches the edge."
   },
   "R3": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The engine-blended frames are white and light grey throughout, with no green or grey-green tint in any of frames 0-7. The brief asks for a sludge colour, so the colour is clearly off. The original's mean colour was not given, so this is judged from the brief's words."
-  },
-  "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "There are 8 frames, the count the brief implies. The envelope peaks near frame 3 (0.43), grows from frame 0 to 5, then thins through 6 and 7. The first and last frames are both 0, so the one-shot ends dark. Jitter at 1.45 sits inside the class range of 1.04 to 1.48. The kind of motion is a splash that spreads and fades."
+   "reason": "Lime and mid green with darker edges fits the brief's sludge and the sodium-lit green-grey palette. No colour measure against an original is supplied, so this is judged by eye only."
   },
-  "R5": {
+  "R4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The file is named fw_spit.spr, is 64 x 64, has 8 frames, and is type parallel with index alpha format. The original's type and format were not given, so nothing shows they match the class's usual additive or alpha test type. This is stated but not verified against the original."
+   "reason": "Jitter is 1.65, outside the explosion class range of 1.04 to 1.48, and the measure reads it as flicker. Frames 1 to 3 change shape a lot from one frame to the next. The count of 8 frames, the peak near 0.43 and the fade to empty at the end (first and last both 0) are in range. A measured fault caps this at 1."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Declared type parallel and format alpha test are valid GoldSrc values and the file was read back with them. The name is not in the measures, and no original is supplied to check that the type and format match Valve's explosion sprites. This is a read-back of the declared values, not a comparison."
   }
  },
- "total": 7,
+ "total": 8,
  "of": 10,
  "passes": false
 }

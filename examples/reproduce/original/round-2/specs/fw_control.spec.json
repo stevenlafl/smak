@@ -1,0 +1,395 @@
+{
+  "spec": "smak.map/1",
+  "name": "fw_control",
+  "theme": {
+    "floor": "fw_wetconc",
+    "wall": "fw_pipewall",
+    "ceiling": "fw_concrete",
+    "door": "fw_door",
+    "furniture": "fw_panel",
+    "outside": "fw_rustplate",
+    "roof": "fw_rustplate"
+  },
+  "textures": {
+    "fw_concrete": {
+      "base": "stone",
+      "tone": [
+        0.42,
+        0.42,
+        0.4
+      ],
+      "wear": {
+        "stains": 0.6,
+        "cracks": 0.5,
+        "speckle": 0.8
+      }
+    },
+    "fw_wetconc": {
+      "base": "stone",
+      "tone": "dark grey",
+      "wear": {
+        "stains": 0.8,
+        "streaks": 0.6,
+        "speckle": 0.6
+      }
+    },
+    "fw_pipewall": {
+      "base": "plaster",
+      "tone": [
+        0.4,
+        0.4,
+        0.38
+      ],
+      "grime": 0.4
+    },
+    "fw_catwalk": {
+      "base": "metal",
+      "tone": "dark grey",
+      "wear": {
+        "speckle": 0.5,
+        "scratches": 0.4
+      }
+    },
+    "fw_panel": {
+      "base": "metal",
+      "tone": "grey"
+    },
+    "fw_door": {
+      "base": "door"
+    },
+    "!fw_water": {
+      "base": "water"
+    }
+  },
+  "compile": {
+    "quality": "draft"
+  },
+  "rooms": [
+    {
+      "id": "hall",
+      "size": [
+        1000,
+        800,
+        360
+      ],
+      "light": {
+        "count": 8,
+        "brightness": 380,
+        "color": [
+          255,
+          170,
+          80
+        ]
+      },
+      "surfaces": {
+        "floor": "fw_wetconc",
+        "walls": "fw_pipewall",
+        "ceiling": "fw_concrete"
+      },
+      "water": {
+        "depth": 120,
+        "material": "!fw_water"
+      }
+    },
+    {
+      "id": "control",
+      "size": [
+        700,
+        420,
+        240
+      ],
+      "place": {
+        "east_of": "hall"
+      },
+      "floor": 200,
+      "surfaces": {
+        "floor": "fw_catwalk",
+        "walls": "fw_concrete",
+        "ceiling": "fw_concrete"
+      },
+      "light": {
+        "count": 3,
+        "brightness": 300,
+        "color": [
+          255,
+          170,
+          80
+        ]
+      }
+    },
+    {
+      "id": "valve",
+      "size": [
+        400,
+        320,
+        360
+      ],
+      "place": {
+        "east_of": "control"
+      },
+      "floor": -200,
+      "surfaces": {
+        "floor": "fw_wetconc",
+        "walls": "fw_pipewall",
+        "ceiling": "fw_concrete"
+      },
+      "light": {
+        "count": 3,
+        "brightness": 300,
+        "color": [
+          255,
+          170,
+          80
+        ]
+      }
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "hall",
+        "control"
+      ],
+      "kind": "window",
+      "glass": true,
+      "along": 0.2
+    },
+    {
+      "between": [
+        "hall",
+        "control"
+      ],
+      "kind": "window",
+      "glass": true,
+      "along": 0.35
+    },
+    {
+      "between": [
+        "hall",
+        "control"
+      ],
+      "kind": "window",
+      "glass": true,
+      "along": 0.5
+    },
+    {
+      "between": [
+        "hall",
+        "control"
+      ],
+      "kind": "window",
+      "glass": true,
+      "along": 0.65
+    },
+    {
+      "between": [
+        "hall",
+        "control"
+      ],
+      "kind": "window",
+      "glass": true,
+      "along": 0.8
+    },
+    {
+      "between": [
+        "control",
+        "valve"
+      ],
+      "kind": "opening",
+      "width": 96,
+      "height": 150,
+      "along": 0.7
+    }
+  ],
+  "prefabs": {
+    "lift": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -32,
+              -32,
+              200
+            ],
+            [
+              32,
+              32,
+              212
+            ]
+          ]
+        }
+      ],
+      "entity": {
+        "class": "func_plat",
+        "height": 200,
+        "speed": 150
+      }
+    },
+    "button": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -10,
+              -16,
+              0
+            ],
+            [
+              10,
+              16,
+              30
+            ]
+          ]
+        }
+      ],
+      "entity": {
+        "class": "func_button",
+        "target": "fw_end"
+      }
+    },
+    "endtrig": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -8,
+              -8,
+              0
+            ],
+            [
+              8,
+              8,
+              16
+            ]
+          ]
+        }
+      ],
+      "entity": {
+        "class": "trigger_endsection",
+        "targetname": "fw_end"
+      }
+    }
+  },
+  "furniture": [
+    {
+      "prefab": "lift",
+      "room": "valve",
+      "at": [
+        -168,
+        -80
+      ]
+    },
+    {
+      "prefab": "button",
+      "room": "valve",
+      "at": [
+        110,
+        -88
+      ]
+    },
+    {
+      "prefab": "endtrig",
+      "room": "valve",
+      "at": [
+        -30,
+        -110
+      ]
+    }
+  ],
+  "props": [
+    {
+      "model": "models/fw_console.mdl",
+      "room": "control",
+      "at": [
+        -266,
+        -120
+      ],
+      "facing": 0
+    },
+    {
+      "model": "models/fw_console.mdl",
+      "room": "control",
+      "at": [
+        -266,
+        -40
+      ],
+      "facing": 0
+    },
+    {
+      "model": "models/fw_console.mdl",
+      "room": "control",
+      "at": [
+        -266,
+        40
+      ],
+      "facing": 0
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "control",
+      "at": [
+        -300,
+        190
+      ],
+      "facing": 270,
+      "z": 180
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "control",
+      "at": [
+        200,
+        190
+      ],
+      "facing": 270,
+      "z": 180
+    },
+    {
+      "model": "models/fw_valvewheel.mdl",
+      "room": "valve",
+      "at": [
+        150,
+        -88
+      ],
+      "facing": 180
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "control",
+      "at": [
+        284,
+        150
+      ],
+      "facing": "west"
+    },
+    {
+      "class": "info_landmark",
+      "id": "hall_exit",
+      "room": "control",
+      "at": [
+        284,
+        150
+      ]
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "control",
+      "at": [
+        -150,
+        -160
+      ],
+      "z": 0
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "control",
+      "at": [
+        -150,
+        160
+      ],
+      "z": 0
+    }
+  ]
+}

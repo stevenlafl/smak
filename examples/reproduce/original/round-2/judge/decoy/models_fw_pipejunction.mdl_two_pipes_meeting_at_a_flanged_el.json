@@ -1,0 +1,74 @@
+{
+ "kind": "model",
+ "label": "models/fw_pipejunction.mdl: two pipes meeting at a flanged elbow, bolted",
+ "measured": {
+  "size": [
+   24,
+   24,
+   24
+  ],
+  "sizeAsked": null,
+  "sizeOff": null,
+  "triangles": 12,
+  "halfLifeMedianOfThisSize": 62,
+  "checkErrors": [],
+  "lineup": "ours is one of A to D in lineup.png beside models/testsphere.mdl, models/gib_legbone.mdl, models/ribcage.mdl: the judge does not know which"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief asks for two pipes meeting at a flanged elbow, but the outline is a plain cube. The front, back, left, right, top, below and three-quarter views all show the same square or square-cornered box, with no pipe run, elbow or flange in any view."
+  },
+  "M2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The brief gives no size for the pipe junction, so the 15% check has no target. The measured size is 24 x 24 x 24, which is a plausible scale for a pipe junction, but the shape it measures is a box. Clearly off, not scored 2."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "None of the parts are there: no pipes, no flanged elbow, no bolts or bolt holes. The model is a single solid block with no components in any view."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The single region is a mottled grey that reads as concrete or stone, not the painted or rusted steel the brief's pipe junction needs. The colour is in a plausible grey range, but the material is wrong, so it is clearly off."
+  },
+  "M5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief's junction has flange rims, bolt heads and pipe seams. The box has only a generic noise texture across all faces, with none of those markings or panel lines in place."
+  },
+  "M6": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Beside Half-Life's own models in the line-up, the box (C) is a plain grey cube. Nobody would take it for a pipe junction or for any of the game's props, and a judge would not pick it as the junction."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief's pipe junction has a defined front (the elbow's orientation and the pipe run). The cube has no front to speak of, so the front cannot be the original's. The box does stand upright, but that is not a meaningful check here, so it is clearly off."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured checks are clean: SMAK's check reports no errors, and the model is 12 triangles against a cap of 124 (twice the Half-Life median of 62). The views show a closed solid with no open faces, inside-out faces or floating parts."
+  }
+ },
+ "total": 5,
+ "of": 16,
+ "passes": false
+}

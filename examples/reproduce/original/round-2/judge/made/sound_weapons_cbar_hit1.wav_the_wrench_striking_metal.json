@@ -1,0 +1,80 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_hit1.wav: the wrench striking metal",
+ "measured": {
+  "features": {
+   "length": 0.671,
+   "peak": -0.5,
+   "rms": -8,
+   "crest": 7.5,
+   "dc": 0.0001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.075,
+   "peakAt": 0.17,
+   "t20": 0.294,
+   "t40": 0.429,
+   "centroid": 1187,
+   "rolloff": 1120,
+   "flatness": 0.005,
+   "bands": {
+    "<150": 0,
+    "150-600": 0.2,
+    "600-2k": 96.7,
+    "2k-5k": 2.4,
+    ">5k": 0.7
+   },
+   "onsets": 0
+  },
+  "class": "metal hit",
+  "against": {
+   "score": 18,
+   "of": 22,
+   "lines": [
+    "flatness 0.005 (0.16 to 0.28): too pure: more noise",
+    "band 600-2k 96.7% (63.7 to 83.8): over the range",
+    "band 2k-5k 2.4% (3.7 to 24.6): under the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The picture shows a sharp attack at the start, which fits a strike, but the body is a long, pure horizontal tone running to the end (about 0.67 s) rather than a clatter of broadband metal. The features say the same: flatness 0.005 and no onsets. Judged from picture and features only; the judge cannot listen, so this is a limit of the test."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The envelope matches the class: length 0.671 s, attack 0.075 s, t20 0.294 s and t40 0.429 s. The measured check lists no envelope fault, and the waveform's rise and decay look like a hit's."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The spectrum is clearly off. The 600-2k band holds 96.7% against a range of 63.7 to 83.8, so it is about 13 points over. The 2k-5k band holds 2.4% against 3.7 to 24.6, under the range. The spectrogram shows one bright band near 1 to 2 kHz. The centroid of 1187 is not flagged."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The character is wrong in places. Flatness is 0.005 against 0.16 to 0.28, so the sound is far too pure and has too little noise. There are no onsets (no hits or clicks), though the attack is present. The spectrogram's sustained tone line is the pitch-like character a metal hit should not have."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file is clean on the measured checks: no clipping, DC 0.0001, and no engine faults. The features show mono PCM and the sample-rate fields pass. The fit check is met."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

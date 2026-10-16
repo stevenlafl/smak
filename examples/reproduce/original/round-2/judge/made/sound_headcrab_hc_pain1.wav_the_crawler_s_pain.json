@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_pain1.wav: the crawler's pain",
+ "measured": {
+  "features": {
+   "length": 0.3,
+   "peak": -0.5,
+   "rms": -9.5,
+   "crest": 9,
+   "dc": 0.0023,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.005,
+   "peakAt": 0.01,
+   "t20": 0.279,
+   "t40": 0.289,
+   "centroid": 1372,
+   "rolloff": 2649,
+   "flatness": 0.124,
+   "bands": {
+    "<150": 0,
+    "150-600": 36.4,
+    "600-2k": 41.2,
+    "2k-5k": 18.4,
+    ">5k": 3.9
+   },
+   "onsets": 0
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.795,
+    "centroid": 2682,
+    "t20": 0.544,
+    "bands": {
+     "<150": 0.2,
+     "150-600": 0,
+     "600-2k": 15.6,
+     "2k-5k": 83.8,
+     ">5k": 0.3
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The replacement is one 0.3 s burst with a sharp attack and a single decay, with no repeated pulses. The original (0.80 s) is a run of about 30 quick, wet pulses in the waveform. A short creature cry is a plausible pain class, but it is not clearly the same event. Judged from pictures and features only; the judge cannot listen."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length is 0.30 s against the original's 0.795 s, about 62% short; the 25% window is roughly 0.60 to 0.99 s. Attack is 0.005 s, which is fine. t20 is 0.279 s against 0.544 s, so the decay is clearly too fast. The envelope is present but clearly off."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Centroid is 1372 Hz against 2682 Hz, about 49% off (limit 20%). Band shares are off by far more than 10 points: 150-600 Hz is 36.4 vs 0, 600-2k is 41.2 vs 15.6, 2k-5k is 18.4 vs 83.8. The picture agrees: the replacement's energy sits low and mid, while the original's is concentrated at 2-5 kHz. The spectrum is wrong, not just off."
+  },
+  "S4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The original has about 30 onsets, the pulsed hits that make its character. The replacement has 0, so the hits are missing. Its spectrogram shows a steady horizontal tonal band with no pitch movement, while the original's bands move with each pulse. Flatness is 0.124, which is tonal, not the noisy wet quality of the original."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The name is sound/headcrab/hc_pain1.wav, the same as the game's. The engine-fault list is empty, there is no clipping (clipped 0), and DC is 0.0023, which is small. The measures do not report sample rate, channel count or bit depth, so the format is taken from the empty fault list and not checked directly."
+  }
+ },
+ "total": 4,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,337 @@
+{
+  "spec": "smak.model/1",
+  "name": "headcrab.mdl",
+  "kind": "character",
+  "base": {
+    "file": "headcrab.mdl"
+  },
+  "contract": {
+    "file": "headcrab.mdl"
+  },
+  "materials": {
+    "skin": {
+      "base": "paint",
+      "tone": [
+        0.36,
+        0.46,
+        0.34
+      ]
+    },
+    "belly": {
+      "base": "bone",
+      "tone": [
+        0.7,
+        0.68,
+        0.55
+      ]
+    },
+    "teeth": {
+      "base": "bone",
+      "tone": [
+        0.85,
+        0.82,
+        0.72
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "body",
+      "kind": "superquadric",
+      "material": "skin",
+      "size": [
+        20,
+        18,
+        11
+      ],
+      "round": [
+        0.4,
+        0.5
+      ],
+      "sides": 10,
+      "bone": "Bip01 Spine",
+      "at": [
+        0,
+        0,
+        5
+      ]
+    },
+    {
+      "id": "belly",
+      "kind": "superquadric",
+      "material": "belly",
+      "size": [
+        17,
+        16,
+        6
+      ],
+      "round": [
+        0.3,
+        0.5
+      ],
+      "sides": 8,
+      "bone": "Bip01 Spine",
+      "at": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "teeth",
+      "kind": "cylinder",
+      "material": "teeth",
+      "radius": 0.9,
+      "height": 3.4,
+      "sides": 4,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "bone": "Bip01 Spine",
+      "at": [
+        8,
+        0,
+        11.5
+      ],
+      "repeat": {
+        "count": 8,
+        "axis": "x",
+        "through": [
+          8,
+          0,
+          8
+        ]
+      }
+    },
+    {
+      "id": "leg_a",
+      "kind": "tube",
+      "material": "skin",
+      "sides": 5,
+      "bone": "Bone01",
+      "at": [
+        0,
+        4,
+        5
+      ],
+      "path": [
+        [
+          0,
+          -5,
+          2,
+          2.4
+        ],
+        [
+          0,
+          -1,
+          1,
+          1.6
+        ],
+        [
+          0,
+          3,
+          -2.5,
+          1
+        ],
+        [
+          0,
+          6,
+          -5,
+          0.6
+        ]
+      ]
+    },
+    {
+      "id": "leg_b",
+      "kind": "tube",
+      "material": "skin",
+      "sides": 5,
+      "bone": "Bone03",
+      "at": [
+        3,
+        5,
+        5
+      ],
+      "path": [
+        [
+          -2,
+          -5,
+          2,
+          2.4
+        ],
+        [
+          0,
+          -1,
+          1,
+          1.6
+        ],
+        [
+          0,
+          3,
+          -2.5,
+          1
+        ],
+        [
+          0,
+          6,
+          -5,
+          0.6
+        ]
+      ]
+    },
+    {
+      "id": "leg_c",
+      "kind": "tube",
+      "material": "skin",
+      "sides": 5,
+      "bone": "Bone08",
+      "at": [
+        10,
+        6,
+        5
+      ],
+      "path": [
+        [
+          -5,
+          -4,
+          2,
+          2.6
+        ],
+        [
+          -3,
+          0,
+          1,
+          1.8
+        ],
+        [
+          0,
+          3,
+          -2.5,
+          1
+        ],
+        [
+          0,
+          6,
+          -5,
+          0.6
+        ]
+      ]
+    },
+    {
+      "id": "leg_d",
+      "kind": "tube",
+      "material": "skin",
+      "sides": 5,
+      "bone": "Bone04",
+      "at": [
+        1,
+        -5,
+        5
+      ],
+      "path": [
+        [
+          0,
+          5,
+          2,
+          2.4
+        ],
+        [
+          0,
+          1,
+          1,
+          1.6
+        ],
+        [
+          0,
+          -3,
+          -2.5,
+          1
+        ],
+        [
+          0,
+          -6,
+          -5,
+          0.6
+        ]
+      ]
+    },
+    {
+      "id": "leg_e",
+      "kind": "tube",
+      "material": "skin",
+      "sides": 5,
+      "bone": "Bone05",
+      "at": [
+        3,
+        -6,
+        5
+      ],
+      "path": [
+        [
+          -2,
+          5,
+          2,
+          2.4
+        ],
+        [
+          0,
+          1,
+          1,
+          1.6
+        ],
+        [
+          0,
+          -3,
+          -2.5,
+          1
+        ],
+        [
+          0,
+          -6,
+          -5,
+          0.6
+        ]
+      ]
+    },
+    {
+      "id": "leg_f",
+      "kind": "tube",
+      "material": "skin",
+      "sides": 5,
+      "bone": "Bone06",
+      "at": [
+        10,
+        -6,
+        5
+      ],
+      "path": [
+        [
+          -5,
+          4,
+          2,
+          2.6
+        ],
+        [
+          -3,
+          0,
+          1,
+          1.8
+        ],
+        [
+          0,
+          -3,
+          -2.5,
+          1
+        ],
+        [
+          0,
+          -6,
+          -5,
+          0.6
+        ]
+      ]
+    }
+  ]
+}

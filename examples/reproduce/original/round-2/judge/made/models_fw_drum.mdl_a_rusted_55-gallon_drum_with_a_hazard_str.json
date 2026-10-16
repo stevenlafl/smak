@@ -1,0 +1,77 @@
+{
+ "kind": "model",
+ "label": "models/fw_drum.mdl: a rusted 55-gallon drum with a hazard stripe",
+ "measured": {
+  "size": [
+   25.2,
+   24,
+   35
+  ],
+  "sizeAsked": {
+   "high": 34,
+   "across": 23
+  },
+  "sizeOff": 0.096,
+  "triangles": 120,
+  "halfLifeMedianOfThisSize": 62,
+  "checkErrors": [],
+  "lineup": "ours is one of A to D in lineup.png beside models/big_rock.mdl, models/testsphere.mdl, models/gib_legbone.mdl: the judge does not know which"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Every view (front, side, back, right, top, below, and the four close angles) shows the same upright cylinder with slightly chamfered ends, which is the outline of a 55-gallon drum. The two small bungs on the sides stick out a little, but nothing is missing or sticks out enough to change the outline."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 25.2 x 24 x 35 against the brief's 23 across and 34 high: the largest difference is 9.6% (sizeOff 0.096), within the 10% line and inside the 15% the brief allows."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The drum body and the hazard stripe are there. The two bungs are on the side wall at about the upper third instead of in the lid, which a 55-gallon drum does not have, and the top has no rolled rim or chime. The lid and the rim are not built as a drum's are."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The body is a dark rust brown with lighter mottling, which reads as rusted steel. The hazard stripe is yellow and black, as the brief asks. Each region has the colour and material the brief gives it."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The hazard stripe is sharp and in place on every side, and the rust mottling and wear are visible across the body. The brief asks for no panel lines or lettering, so nothing it asks for is missing."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "At the same scale it reads as a rusted drum, but beside Half-Life's own props it looks less worn. The rust is a uniform noisy blotch with pale blue-grey speckles, and the stripe is clean and crisp. The side bungs look wrong for a drum. A player might notice these differences before taking it for one of the game's."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "It stands upright on its base, the closed bottom sits flat on the origin, and the stripe runs level around the body. A drum has no front, so the orientation is right."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's checks are empty. At 120 triangles it is under the 124 limit (twice the median of 62). The top and bottom are closed, and the bungs sit on the surface without floating."
+  }
+ },
+ "total": 14,
+ "of": 16,
+ "passes": false
+}

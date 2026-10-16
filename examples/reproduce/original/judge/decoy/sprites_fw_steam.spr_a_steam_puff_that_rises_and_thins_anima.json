@@ -78,34 +78,34 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The picture is a flat, light-grey disc with a hard edge, on a near-black ground. It has no billowing, no soft falloff and no vapour texture, so it does not read as a steam puff. It is a plain disc."
+   "reason": "The brief asks for a steam puff that rises and thins. The frame is one flat, hard-edged light-grey disc with no wisps, billowing, or soft falloff, so it reads as a plain disc, not steam or smoke."
   },
   "R2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "One 32 x 32 frame, with the disc filling most of it and an empty border (border measure 0, which is fine). The size suits a puff, but the effect does not fill the frame as a puff would: it is a hard-edged shape, not a cloud that spreads."
+   "reason": "The frame is 32x32 and the disc fills it, with no border (measured border 0). But the outline is a hard circle with no soft edge or spread, unlike a puff that thins into the air. Clearly off."
   },
   "R3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Uniform neutral light grey. It is plausible for an additive steam puff, but it is a flat fill with no tonal variation, and no class colour is measured to compare against. Not clearly off, but not steam-like either."
+   "reason": "The colour is one uniform light grey with no variation across the frame, so it cannot be checked against a reference here. A flat grey is plausible for an additive puff, but the mean colour is not measured against an original in this run, so this scores 1."
   },
   "R4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The sprite has one frame, so there is no rise, no thinning and no growth. The envelope measures fail on all three counts: the peak is at frame 0 (class 0.2 to 0.6), it starts at full brightness (first 1, class 0 to 0.35), and it does not end dark (last 1, class 0 to 0.1). The brief asks for an animated puff, and this is a still."
+   "reason": "The sprite has one frame where an animated puff needs several, and it does not rise, grow or fade. The envelope fails both ends: it peaks at frame 0 (class range 0.2 to 0.6), starts bright (first 1, range 0 to 0.35), and does not end dark (last 1, range 0 to 0.1). The measurements already fail this item, so it cannot score higher."
   },
   "R5": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "A valid GoldSrc sprite: type parallel, format additive, 32 x 32, one frame, named fw_steam to match sprites/fw_steam.spr. The file reads back with these values, and additive is a sensible format for steam."
+   "score": 1,
+   "reason": "The measures give type parallel and format additive, which may match a smoke puff, and the name is fw_steam.spr. The original's type and format are not given to the judge, so the match cannot be confirmed here; it is held at 1 for that reason."
   }
  },
- "total": 4,
+ "total": 3,
  "of": 10,
  "passes": false
 }

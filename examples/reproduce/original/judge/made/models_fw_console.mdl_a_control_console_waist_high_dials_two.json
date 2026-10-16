@@ -3,27 +3,75 @@
  "label": "models/fw_console.mdl: a control console, waist high, dials, two screens, a row of switches",
  "measured": {
   "size": [
-   35.7,
-   20,
-   47.8
+   30,
+   42,
+   36
   ],
   "sizeAsked": {
    "high": 40
   },
-  "sizeOff": 0.194,
+  "sizeOff": 0.1,
   "triangles": 24,
   "halfLifeMedianOfThisSize": 62,
+  "halfLifeThreeQuartersUnder": 156,
   "checkErrors": [],
   "lineup": "ours is one of A to D in lineup.png beside models/big_rock.mdl, models/testsphere.mdl, models/gib_legbone.mdl: the judge does not know which"
  },
  "caps": {
-  "M2": 1,
+  "M2": 2,
   "M8": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "M2"
- ],
- "total": 0,
- "of": 16
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Against the brief's 'control console', the outline is a plain upright box with a slightly overhanging lid. It has no sloped or angled control face, so it reads as a cabinet more than a console. The footprint and height are reasonable."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Height is 42 against the brief's 40, about 5% over and within the 15% band. The brief gives no length or width, so those are not held against it. The measurement reports sizeOff 0.1, which is still within the band."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Two green screens, a row of six small switches and three tan dials are all present. The dials are flat squares on the front rather than round dials, so the dial shape is wrong. The switches are tiny squares at the bottom edge."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Grey-green painted steel body, green-tinted glass screens and tan dial faces suit the brief's worn industrial palette. Each region reads as its material."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Edge wear and a faint rust mottle are present, but the front and sides are otherwise bare. There are no panel lines, labels, hazard stripe or glow on the screens, so the surface detail is thin for a control panel."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "In the line-up the box is clearly a game-style grey prop, but the front is flat and the dials and switches are crude squares at that scale. A player might take it for a Half-Life cabinet, but the front detail would give it away."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front with the screens, dials and switches faces the front view and is upright. The flat base sits on the floor as a standing cabinet should."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's check reports no errors. It has 24 triangles, well under twice the median of 62 and under the third quartile of 156. Nothing is open, inside out or floating in the views."
+  }
+ },
+ "total": 12,
+ "of": 16,
+ "passes": false
 }

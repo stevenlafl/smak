@@ -1,0 +1,224 @@
+{
+  "spec": "smak.model/1",
+  "name": "crowbar.mdl",
+  "kind": "held",
+  "size": {
+    "length": 18.5
+  },
+  "weapon": {
+    "like": "crowbar",
+    "size": "own"
+  },
+  "materials": {
+    "redpaint": {
+      "base": "paint",
+      "tone": [
+        0.6,
+        0.1,
+        0.08
+      ]
+    },
+    "iron": {
+      "base": "iron",
+      "rust": 0.25
+    }
+  },
+  "parts": [
+    {
+      "id": "handle",
+      "kind": "turn",
+      "axis": "x",
+      "material": "redpaint",
+      "sides": 8,
+      "rings": [
+        [
+          0,
+          1.5
+        ],
+        [
+          3,
+          1.8
+        ],
+        [
+          10,
+          1.8
+        ],
+        [
+          12,
+          1.5
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.2,
+              90
+            ],
+            [
+              0.78,
+              90
+            ]
+          ],
+          "width": 1.8,
+          "material": "iron",
+          "ends": "round"
+        },
+        {
+          "path": [
+            [
+              0.2,
+              270
+            ],
+            [
+              0.78,
+              270
+            ]
+          ],
+          "width": 1.8,
+          "material": "iron",
+          "ends": "round"
+        }
+      ]
+    },
+    {
+      "id": "head",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        4,
+        6,
+        7
+      ],
+      "at": [
+        12,
+        0,
+        -3.5
+      ]
+    },
+    {
+      "id": "jaw_fixed",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        5,
+        2,
+        7
+      ],
+      "at": [
+        16,
+        -4,
+        -3.5
+      ]
+    },
+    {
+      "id": "jaw_moving",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        5,
+        2,
+        7
+      ],
+      "at": [
+        16,
+        4,
+        -3.5
+      ]
+    },
+    {
+      "id": "tooth_f1",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        1.2,
+        1,
+        2
+      ],
+      "at": [
+        14.6,
+        -2.5,
+        -1
+      ]
+    },
+    {
+      "id": "tooth_f2",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        1.2,
+        1,
+        2
+      ],
+      "at": [
+        16,
+        -2.5,
+        -1
+      ]
+    },
+    {
+      "id": "tooth_f3",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        1.2,
+        1,
+        2
+      ],
+      "at": [
+        17.4,
+        -2.5,
+        -1
+      ]
+    },
+    {
+      "id": "tooth_m1",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        1.2,
+        1,
+        2
+      ],
+      "at": [
+        14.6,
+        2.5,
+        -1
+      ]
+    },
+    {
+      "id": "tooth_m2",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        1.2,
+        1,
+        2
+      ],
+      "at": [
+        16,
+        2.5,
+        -1
+      ]
+    },
+    {
+      "id": "tooth_m3",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        1.2,
+        1,
+        2
+      ],
+      "at": [
+        17.4,
+        2.5,
+        -1
+      ]
+    }
+  ]
+}

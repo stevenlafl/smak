@@ -3,35 +3,42 @@
  "label": "sound/ambience/fw_pump.wav: a pump's droning loop",
  "measured": {
   "features": {
-   "length": 2.45,
+   "length": 1.85,
    "peak": -0.5,
-   "rms": -14.2,
-   "crest": 13.7,
-   "dc": 0.0009,
+   "rms": -15.8,
+   "crest": 15.3,
+   "dc": 0,
    "clipped": 0,
-   "lead": 0,
-   "tail": 0.948,
-   "attack": 0.075,
-   "peakAt": 0.239,
-   "t20": 1.247,
-   "t40": 1.257,
-   "centroid": 351,
-   "rolloff": 538,
-   "flatness": 0.01,
+   "lead": 0.01,
+   "tail": 0.534,
+   "attack": 0.155,
+   "peakAt": 0.314,
+   "t20": 0.314,
+   "t40": 0.693,
+   "centroid": 56,
+   "rolloff": 86,
+   "flatness": 0,
    "bands": {
-    "<150": 1.1,
-    "150-600": 87,
-    "600-2k": 10.3,
-    "2k-5k": 1.3,
-    ">5k": 0.2
+    "<150": 100,
+    "150-600": 0,
+    "600-2k": 0,
+    "2k-5k": 0,
+    ">5k": 0
    },
-   "onsets": 3
+   "onsets": 2
   },
   "class": "loop machine",
   "against": {
-   "score": 20,
+   "score": 12,
    "of": 20,
-   "lines": []
+   "lines": [
+    "length 1.85 s (2.03 to 3.39): too short",
+    "crest 15.3 dB (8.3 to 14.3): too spiky: saturate more, or hold its body longer",
+    "rms -15.8 dBFS (-14.7 to -8.7): under the range",
+    "centroid 56 Hz (237 to 437): too dark: more 600 to 5000 Hz",
+    "band <150 100% (0 to 13.9): over the range",
+    "band 150-600 0% (84.2 to 100): under the range"
+   ]
   },
   "engineFaults": []
  },
@@ -43,34 +50,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The picture shows a drone only in the first ~0.6 s (the waveform is loud from 0 to about 0.5 s, and the spectrogram's harmonic stack fades by about 0.66 s). Two short impact bursts follow at about 1.25 s and 1.45 s, then about 1 s of near silence. That is a pump's drone with clanks, not a pump's droning loop. Judged from the picture and features only; the judge cannot listen."
+   "reason": "The picture reads as a low, pulsing machine drone: about 20 regular pulses in the first half second, all energy under roughly 150 Hz. It is less clearly a pump's steady loop, because the level dies to near silence over the last half second and a stray click sits near 1.0 s (the second onset)."
   },
   "S2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "No class range was supplied, so the length (2.45 s), attack (0.075 s) and decay (t20 at 1.247 s) cannot be checked against Half-Life's loop ambience. The picture shows the envelope is clearly off for a loop: the drone dies by about 0.66 s and the last 0.95 s is silent (the tail measure). Scored from the picture and features; the judge cannot listen."
+   "reason": "Length is 1.85 s against the class range of 2.03 to 3.39 s, and the measure marks it too short. Attack (0.155 s) and the decay (t40 at 0.693 s) are not flagged, so the envelope is only partly off."
   },
   "S3": {
-   "judge": 1,
+   "judge": 0,
    "cap": null,
-   "score": 1,
-   "reason": "The features put the centroid at 351 Hz and 87% of energy in 150 to 600 Hz, and the spectrogram is bright only below about 1 kHz, which fits a low drone. No class range or original measure was supplied, so the centroid and band shares cannot be confirmed within 20% and 10 points. Scored from the picture and features; the judge cannot listen."
+   "score": 0,
+   "reason": "The spectrum is wrong. The centroid is 56 Hz against 237 to 437 Hz, the under-150 Hz band holds 100% against a range of 0 to 13.9%, and the 150 to 600 Hz band holds 0% against 84.2 to 100%. The spectrogram shows all energy at the bottom with nothing above about 600 Hz."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The tone is steady and tonal (flatness 0.01), which fits a drone, and the pitch does not visibly move. But there are 3 onsets: two impacts at about 1.25 s and 1.45 s sit outside a droning loop, and the vertical line near 0.2 s is a click in the drone. Scored from the picture and features; the judge cannot listen."
+   "reason": "The character is partly off. A stray click at about 1.0 s is a second onset that a steady drone should not have. The flatness of 0 makes it a pure tone with no grit or hiss, which suits a drone but is thin for a pump. The tail fades out rather than holding the drone, and the pitch movement cannot be checked from the picture."
   },
   "S5": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The name sound/ambience/fw_pump.wav is right and the file is not clipped (clipped 0, peak -0.5 dB) with negligible DC (0.0009). But the format (mono, PCM, rate, bit depth) is not in the pictures or features, so it cannot be confirmed. No loop cue is shown, and the 0.95 s silent tail after the last event would not loop cleanly. Scored from the picture and features; the judge cannot listen."
+   "reason": "The name is right (SOUND/AMBIENCE/FW_PUMP.WAV), there is no clipping (peak -0.5 dBFS), no DC and no engine faults. The sample rate, bit depth and channel count are not in the measurements, so the format cannot be confirmed. The loop cue cannot be seen, and a join from near-silence back to the start would not be seamless."
   }
  },
- "total": 5,
+ "total": 4,
  "of": 10,
  "passes": false
 }

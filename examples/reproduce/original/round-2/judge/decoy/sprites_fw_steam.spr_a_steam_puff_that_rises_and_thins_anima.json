@@ -1,0 +1,111 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_steam.spr: a steam puff that rises and thins, animated",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.56,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "smoke puff",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0,
+    "range": [
+     0.2,
+     0.6
+    ],
+    "ok": false,
+    "words": "peaks too soon"
+   },
+   {
+    "measure": "first",
+    "value": 1,
+    "range": [
+     0,
+     0.35
+    ],
+    "ok": false,
+    "words": "starts too bright: an attack in its envelope"
+   },
+   {
+    "measure": "last",
+    "value": 1,
+    "range": [
+     0,
+     0.1
+    ],
+    "ok": false,
+    "words": "does not end dark: a decay in its envelope"
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The picture is a flat, light-grey disc with a hard edge, on a near-black ground. It has no billowing, no soft falloff and no vapour texture, so it does not read as a steam puff. It is a plain disc."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "One 32 x 32 frame, with the disc filling most of it and an empty border (border measure 0, which is fine). The size suits a puff, but the effect does not fill the frame as a puff would: it is a hard-edged shape, not a cloud that spreads."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Uniform neutral light grey. It is plausible for an additive steam puff, but it is a flat fill with no tonal variation, and no class colour is measured to compare against. Not clearly off, but not steam-like either."
+  },
+  "R4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The sprite has one frame, so there is no rise, no thinning and no growth. The envelope measures fail on all three counts: the peak is at frame 0 (class 0.2 to 0.6), it starts at full brightness (first 1, class 0 to 0.35), and it does not end dark (last 1, class 0 to 0.1). The brief asks for an animated puff, and this is a still."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "A valid GoldSrc sprite: type parallel, format additive, 32 x 32, one frame, named fw_steam to match sprites/fw_steam.spr. The file reads back with these values, and additive is a sensible format for steam."
+  }
+ },
+ "total": 4,
+ "of": 10,
+ "passes": false
+}

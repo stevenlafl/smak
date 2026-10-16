@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_steam.spr: a steam puff that rises and thins, animated",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 12,
+  "type": "parallel",
+  "format": "index alpha",
+  "measures": {
+   "frames": 12,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0.204,
+    "mean": 0.004
+   },
+   "envelope": {
+    "peakAt": 0.36,
+    "first": 0,
+    "last": 0
+   },
+   "dark": 0.67,
+   "wrap": 0.35,
+   "jitter": 1.36
+  },
+  "class": "smoke puff",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.36,
+    "range": [
+     0.9,
+     1.5
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0.004,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.36,
+    "range": [
+     0.2,
+     0.6
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0,
+    "range": [
+     0,
+     0.35
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.1
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Reads as a smoke puff: a soft grey-white column that rises off the bottom of the frame, widens and then breaks up into faint wisps, which is the steam effect the brief asks for."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "All 12 frames are 64 by 64 as measured, and the border measure (max 0.204, mean 0.004) shows the puff stays inside the frame. It fills a narrow central column rather than the full width, but no original extent is supplied to show that is wrong, and the puff reaches the bottom edge cleanly in frames 1 to 5."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "No colour measure against an original is supplied for this item. By eye the puff is neutral grey-white, which is plausible for steam on the grey engine blend, and no frame shows an odd tint. Judged by eye only, so the score is provisional."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Twelve frames, matching the measured count. Frame 0 and frame 11 are both empty, so the sequence starts and ends dark as the envelope measure says (first 0, last 0). The envelope peaks around frame 4 (0.36). The puff visibly rises from frame 1 to frame 10 and thins and fades from about frame 7 on, which is the rise-and-thin motion the brief asks for."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The measured type (parallel) and format (index alpha) are valid GoldSrc values and the name fw_steam matches the brief, but the original's type and format are not in the measurements, so the type cannot be checked against Valve's sprite. The judge cannot confirm the read-back or the type, so this is marked 1 as unverified rather than clearly wrong."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

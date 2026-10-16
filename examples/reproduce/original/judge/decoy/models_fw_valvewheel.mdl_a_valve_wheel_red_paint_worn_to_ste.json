@@ -13,6 +13,7 @@
   "sizeOff": 0,
   "triangles": 12,
   "halfLifeMedianOfThisSize": 62,
+  "halfLifeThreeQuartersUnder": 156,
   "checkErrors": [],
   "lineup": "ours is one of A to D in lineup.png beside models/big_rock.mdl, models/testsphere.mdl, models/gib_legbone.mdl: the judge does not know which"
  },
@@ -25,52 +26,52 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The outline is a plain square-cornered box in every view (sides.png, FRONT through BACK-RIGHT). A valve wheel's round rim, hub and spokes are absent in all ten views, so the silhouette does not match the brief's wheel."
+   "reason": "The silhouette is a plain cube in every view (front, side, top, below and the four corner angles). Nothing of a valve wheel's outline is there: no hub, no spokes, no rim, no round face. Measured against the brief's words, the outline is wrong throughout."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured sizeOff is 0 and the extent is 32 x 32 x 24, so the 32-unit across size the brief gives is met. The brief gives no height for the wheel, so only the across size is checked here."
+   "reason": "The measured size is 32 x 32 x 24, which matches the 32 across the brief asks, with sizeOff 0. The bounding box is correct, though the shape it encloses is not."
   },
   "M3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "No parts are present. The brief's wheel has a hub, spokes and a rim, and the model is one solid block with none of them, in any view."
+   "reason": "The wheel's components are missing: no hub, no spokes, no rim, no bolts or handle. The model is one solid block with no parts."
   },
   "M4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The whole block is one flat neutral grey with a noise texture. The brief's red paint is missing, and the worn-to-steel region at the rim is missing too."
+   "reason": "The brief's red paint is absent. The whole surface is a uniform grey, with no red on the body and no worn steel at a rim, because there is no rim. The colour regions do not match the brief's."
   },
   "M5": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "There is no paint wear, markings or stripes at the rim or anywhere else. The only surface is a uniform noise texture with no features that the brief describes."
+   "reason": "The brief's wear is missing: no red paint worn through to steel at the rim, and no stripes or markings. The surface is a noisy grey texture with no features in place."
   },
   "M6": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "In lineup.png (B), the reproduction is an obvious grey cube beside the rock, the gib and the sphere. A player would not take it for a valve wheel, and no Half-Life prop of this size looks like it."
+   "reason": "In the line-up it is B, a grey cube, beside a bone, a rock and a checkered sphere. Any player would see a box, not a valve wheel, and a player would not take it for one of Half-Life's own props."
   },
   "M7": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "The model has no wheel orientation or front. Its upright, faced, standing pose cannot be a wheel's, since a valve wheel stands on its edge with a hub facing the player, and this block has neither."
+   "score": 1,
+   "reason": "It stands on its origin, as a wheel would, and nothing sticks out. But a cube has no front, so there is no front for it to get right, and the item is not met in any real sense."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "checkErrors is empty. The model has 12 triangles, which is well under twice the median of 62 for Half-Life's props of this size, and the block is closed with no open faces or floating parts in the views."
+   "reason": "The SMAK check reports no errors. It has 12 triangles, under twice the median of 62 (124) and under the third quartile of 156. Nothing is open, inside out or floating, as far as the measures show."
   }
  },
- "total": 4,
+ "total": 5,
  "of": 16,
  "passes": false
 }

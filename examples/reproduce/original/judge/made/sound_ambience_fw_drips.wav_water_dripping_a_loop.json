@@ -3,39 +3,41 @@
  "label": "sound/ambience/fw_drips.wav: water dripping, a loop",
  "measured": {
   "features": {
-   "length": 5.9,
+   "length": 3.95,
    "peak": -0.5,
-   "rms": -30.8,
-   "crest": 30.3,
+   "rms": -22.9,
+   "crest": 22.4,
    "dc": 0,
    "clipped": 0,
-   "lead": 0,
-   "tail": 5.502,
-   "attack": 0.05,
-   "peakAt": 0.105,
-   "t20": 0.105,
-   "t40": 0.195,
-   "centroid": 941,
-   "rolloff": 1529,
-   "flatness": 0.003,
+   "lead": 0.005,
+   "tail": 0.03,
+   "attack": 0.055,
+   "peakAt": 0.1,
+   "t20": 3.751,
+   "t40": 3.786,
+   "centroid": 2174,
+   "rolloff": 2670,
+   "flatness": 0.109,
    "bands": {
-    "<150": 0.8,
-    "150-600": 35.7,
-    "600-2k": 56.4,
-    "2k-5k": 7.1,
-    ">5k": 0.1
+    "<150": 0.2,
+    "150-600": 3.2,
+    "600-2k": 39.5,
+    "2k-5k": 53.2,
+    ">5k": 3.9
    },
-   "onsets": 1
+   "onsets": 7
   },
   "class": "loop drips",
   "against": {
-   "score": 16,
+   "score": 11,
    "of": 20,
    "lines": [
-    "rms -30.8 dBFS (-30.3 to -24.3): under the range",
-    "flatness 0.003 (0.05 to 0.15): too pure: more noise",
-    "band 150-600 35.7% (13.2 to 33.2): over the range",
-    "band 600-2k 56.4% (62.3 to 82.3): under the range"
+    "length 3.95 s (5.48 to 9.14): too short",
+    "rms -22.9 dBFS (-30.3 to -24.3): over the range",
+    "centroid 2174 Hz (671 to 1007): too bright: less over 2000 Hz",
+    "band 150-600 3.2% (13.2 to 33.2): under the range",
+    "band 600-2k 39.5% (62.3 to 82.3): under the range",
+    "band 2k-5k 53.2% (0 to 12.5): over the range"
    ]
   },
   "engineFaults": []
@@ -48,31 +50,31 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The picture shows one short transient at the start (about 0 to 0.4 s, attack 0.05 s, peak at 0.105 s) and then nothing for the remaining 5.5 s. That reads as a single splash or plop. A drip loop should show repeated drops across its length, so the event is close to water but is not a dripping loop."
+   "reason": "The picture shows seven evenly spaced sharp transients (about every 0.5 s) over a continuous broadband bed. That pattern reads as drips only loosely. Real drips ring with a short resonant pitch after each hit, and the spectrogram shows only a few faint streaks at the onsets, not a clear ring. Plausible, but not clearly a drip."
   },
   "S2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The measures flag no attack or decay fault, but the length of 5.9 s is almost entirely silence (tail 5.502 s). The sound's real envelope is one decay of about 0.2 s, which is not the envelope of a loop of drips, so the length is not a fair match to a loop of that class. I cannot check the length against the original's own length from these inputs."
+   "reason": "Length is 3.95 s against the class range of 5.48 to 9.14 s, so it is too short and outside the 25% tolerance (the measure says 'too short'). Attack (0.055 s) and decay (t20 3.751 s, t40 3.786 s) are not flagged, so they are within range. Only the length is clearly off."
   },
   "S3": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The measure puts two bands outside their class ranges: 150-600 at 35.7% is over its 13.2 to 33.2 range, and 600-2k at 56.4% is under its 62.3 to 82.3 range. Both misses are small, 2.5 and 5.9 points, so this is a near miss, not a wrong spectrum. The centroid of 941 Hz cannot be checked here, since no class centroid is given. The lower band (under 150 Hz) and the top band (over 5 kHz) are both near zero, which matches a drip's pitch range."
-  },
-  "S4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The character is wrong on both measured counts. Flatness is 0.003 against a class range of 0.05 to 0.15, so the sound is a pure tone where drips should be noisy splashes. There is one onset, where a drip loop should have many hits. The spectrogram also shows no clear pitch movement to check against."
+   "reason": "Centroid is 2174 Hz against 671 to 1007 Hz, too bright by more than double the range's top. Band shares miss on all three measured bands: 150-600 Hz is 3.2% (range 13.2 to 33.2), 600-2k Hz is 39.5% (range 62.3 to 82.3), and 2k-5k Hz is 53.2% (range 0 to 12.5). Every band is outside the 10-point tolerance. The picture matches: the energy sits high and the lower bands are weak."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Seven onsets in 3.95 s with regular spacing is a plausible drip rhythm, and the picture shows no pitch movement. But the flatness of 0.109 points to a fairly peaky spectrum, and the bed is broadband hiss rather than the tone of a drip. No original onset count or flatness range is given to compare against, so this cannot be called a match."
   },
   "S5": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The engine faults list is empty, no clipping is recorded, the DC offset is 0, and the file has the right name. Those parts pass. The loop cue is not visible in the picture, and the loop's content is one drip followed by 5.5 s of silence, so the file plays one drip every 5.9 s rather than looping a drip pattern. A loop cue against the original cannot be checked from these inputs, so the loop is only partly fit for the game."
+   "reason": "The name sound/ambience/fw_drips.wav is right. The file has no clipping (peak -0.5 dBFS, clipped 0) and no DC (dc 0), and the lead (0.005 s) and tail (0.03 s) are short. The measurements do not give the sample rate, bit depth or channel count, and do not show whether the loop cue is where the original has one, so the file cannot be confirmed to be what the engine plays."
   }
  },
  "total": 4,

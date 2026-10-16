@@ -3,38 +3,40 @@
  "label": "sound/weapons/cbar_miss1.wav: the wrench's swing",
  "measured": {
   "features": {
-   "length": 0.247,
+   "length": 0.283,
    "peak": -0.5,
-   "rms": -14.4,
-   "crest": 13.9,
+   "rms": -16,
+   "crest": 15.5,
    "dc": 0,
    "clipped": 0,
-   "lead": 0.01,
+   "lead": 0.005,
    "tail": 0.01,
-   "attack": 0.07,
-   "peakAt": 0.125,
+   "attack": 0.055,
+   "peakAt": 0.085,
    "t20": 0.085,
-   "t40": 0.11,
-   "centroid": 995,
-   "rolloff": 1873,
-   "flatness": 0.108,
+   "t40": 0.135,
+   "centroid": 2043,
+   "rolloff": 3144,
+   "flatness": 0.128,
    "bands": {
-    "<150": 0.7,
-    "150-600": 52.7,
-    "600-2k": 33.2,
-    "2k-5k": 11.3,
-    ">5k": 2.1
+    "<150": 0,
+    "150-600": 2.4,
+    "600-2k": 59,
+    "2k-5k": 34,
+    ">5k": 4.6
    },
    "onsets": 0
   },
   "class": "swing",
   "against": {
-   "score": 19,
+   "score": 13,
    "of": 22,
    "lines": [
-    "rms -14.4 dBFS (-25.8 to -19.8): over the range",
-    "centroid 995 Hz (608 to 912): too bright: less over 2000 Hz",
-    "band 150-600 52.7% (55.8 to 75.8): under the range"
+    "rms -16 dBFS (-25.8 to -19.8): over the range",
+    "centroid 2043 Hz (608 to 912): too bright: less over 2000 Hz",
+    "band 150-600 2.4% (55.8 to 75.8): under the range",
+    "band 600-2k 59% (15 to 35): over the range",
+    "band 2k-5k 34% (0 to 16.7): over the range"
    ]
   },
   "engineFaults": []
@@ -47,34 +49,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The waveform is one noise burst that swells to a peak near 0.125 s and fades out over 0.25 s, and the spectrogram is broadband noise with no hits. That is the shape of a swing whoosh, not a strike, so it is the same event. Judged from the picture and features only; the judge cannot listen."
+   "reason": "The waveform is a noise burst that swells from about 0.05 s, peaks near 0.085 s and dies away by about 0.28 s, with no sharp transient, which reads as a swing's whoosh rather than a strike. The judge cannot listen, so this rests on the picture and the class, not on hearing it."
   },
   "S2": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Length is 0.247 s. Attack is 0.07 s, t20 is 0.085 s and t40 is 0.11 s. None of these is listed as out of range in the measured class comparison, which flags only rms, centroid and the 150-600 band, so the envelope holds."
-  },
-  "S3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Measured fail. Centroid is 995 Hz against the range 608 to 912, too bright, with too little energy above 2 kHz. The 150-600 Hz band is 52.7% against 55.8 to 75.8%, under the range. The spectrogram shows the mass sitting in a bright low-mid band around 150 to 300 Hz. Both must-have spectrum checks are off, though not grossly."
+   "reason": "Length 0.283 s, attack 0.055 s and t20 0.085 s give a plausible rise-peak-decay shape. The class range for length and attack/decay is not among the measures given, so the envelope cannot be confirmed within the class's range and is held at 1."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Measured against the class range: centroid 2043 Hz against 608 to 912 Hz is too bright. Bands: 150-600 Hz at 2.4% is under its 55.8 to 75.8% range; 600-2k at 59% is over its 15 to 35% range; 2k-5k at 34% is over its 0 to 16.7% range. The spectrogram's energy sits in the mid and upper-mid bands, matching these figures. Each band is far outside the 10-point tolerance."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Onsets are 0, which suits a swing. But flatness is 0.108, which is tonal rather than noise-like for a whoosh, and the spectrogram shows steady horizontal banding in one low-mid band with no visible sweep in pitch. This is clearly off from a swing's usual noisy, moving character."
+   "reason": "Onsets are 0, which suits a swing with no strike. Flatness is 0.128, which is tonal rather than the noisy whoosh a swing usually has, and the spectrogram shows horizontal banding (tonal stripes) rather than broadband noise. Pitch movement is not evident in the picture. This item is not a must, but the character is off."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Clipped 0, DC 0, peak -0.5 dBFS, and the engine-fault list is empty, so SMAK's format check passed. The sample rate and bit depth are not in the measurements, so they are taken from the empty fault list rather than read directly."
+   "reason": "Clipped 0, DC 0, peak -0.5 dBFS with a lead and tail, the file name matches, and engineFaults is empty, so the engine check raised no fault. The sample rate, bit depth and mono format are not stated in the features, so this rests on the empty fault list and the clean measures."
   }
  },
- "total": 8,
+ "total": 6,
  "of": 10,
  "passes": false
 }

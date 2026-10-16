@@ -24,64 +24,64 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The outline is a plain rectangular box in all ten views (sides.png). The brief asks for a low, six-legged crawler, and none of the views show legs, a low body profile or a ring of teeth, so the outline does not match the brief's description."
+   "reason": "The outline is a plain rectangular block (sides.png, all ten views). The brief asks for a low, wet, six-legged crawler with a ring of teeth, and none of that silhouette is there: no legs, no head, no teeth. Front-left and back-right show only a cuboid."
   },
   "M2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The measured size is 12 x 10 x 6 units, a box. The brief gives only 'the size of a headcrab' with no number (sizeAsked is null), so the size cannot be checked against a stated target. It is unverified rather than confirmed."
+   "reason": "The measured size is 12 x 10 x 6 units, but sizeAsked is null, so there is no number to check it against. The brief only says 'the size of a headcrab'. The footprint is roughly headcrab-scale, but it is not verified against a brief figure."
   },
   "M3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "None of the brief's parts are present: no six legs, no ring of teeth, no pale belly, no wet-looking body. The model is one solid block with no components."
+   "reason": "Missing: no six legs, no ring of teeth, no head, no pale belly region. The model is one solid box, and the 'below' view shows a flat dark face where a belly should be."
   },
   "M4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The whole block is a flat mid-grey (sides.png, lineup.png C). The brief asks for grey-green with a pale belly, so the green is missing and there is no pale region. The colour is clearly off, not just slightly different."
+   "reason": "The whole body is one flat mid-grey (lineup C, sides.png). The brief asks for grey-green with a pale belly; the hue is off and the belly is dark grey, not pale. The grey is at least a plausible wet-stone tone, so it is clearly off rather than absent."
   },
   "M5": {
-   "judge": 1,
+   "judge": 0,
    "cap": null,
-   "score": 1,
-   "reason": "There is only a faint mottled grain across every face. The brief's markings (the teeth ring, any wet sheen) are absent, so the detail is generic noise and not the asked-for markings."
+   "score": 0,
+   "reason": "No surface detail of the crawler is there: no wet sheen, no teeth, no wear or markings. The only texture is a faint mottled noise across every face, which is not the crawler's surface."
   },
   "M6": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "In lineup.png the grey block (C) is plainly a box with no creature form. A player would not take it for a Half-Life creature, and it is the object that stands out as not a creature among the line-up. Its shape fails the brief's description of a low, legged thing."
+   "reason": "In lineup.png the box is panel C, beside the three Half-Life creatures and a dart-like prop. A player would take it for a block, not a Half-Life creature. The line-up shows what it is at a glance."
   },
   "M7": {
-   "judge": 1,
+   "judge": 0,
    "cap": null,
-   "score": 1,
-   "reason": "A box has no defined front, so the brief's front cannot be checked. It sits upright and stands on its origin, so placement is plausible but the front is not established."
+   "score": 0,
+   "reason": "A box has no identifiable front, so the front cannot be the crawler's front. It stands on its base, but there is nothing to place as a creature facing a direction."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measurements show 12 triangles and no checkErrors. A closed box is neither open, inside out nor floating, and is far below twice the triangle median of Half-Life's creatures. The check passes, though this says nothing about whether the model is a crawler."
+   "reason": "The SMAK check reports no errors (checkErrors empty). Twelve triangles is well under the cap for a prop of this size. The box is closed, with no open, inside-out or floating faces."
   },
   "C1": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "In run.png and attack.png the block moves as one rigid body: it slides, shifts and rotates in the jump frames without any part coming apart or sinking. There are no limbs, so no part can detach, but the crawler's leg motion is absent entirely, which the brief's animation implies."
+   "reason": "In run.png (walk 0 to 34) the block slides and bobs along the floor line without coming apart. In attack.png (jump 0 to 30) it tumbles end over end as one rigid box. There are no legs moving, so it does not move as a six-legged crawler does. Nothing detaches, but the motion is clearly not the original's."
   },
   "C2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured contract reports that the model keeps the headcrab's bones, animations, attachments and bodyparts, with no compareContract fault listed. The judge cannot inspect the contract itself, so this takes the measurement as given."
+   "reason": "The measured contract line says the model keeps the headcrab's bones, animations, attachments and bodyparts, so no fault is recorded. This is the one item the measurement supports as a full pass, and it does not change the verdict on the shape."
   }
  },
- "total": 9,
+ "total": 7,
  "of": 20,
  "passes": false
 }

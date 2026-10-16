@@ -1,0 +1,100 @@
+{
+  "spec": "smak.sound/1",
+  "name": "ambience/fw_drips.wav",
+  "class": "loop drips",
+  "seed": 13,
+  "length": 4,
+  "loop": {
+    "crossfade": 0.05
+  },
+  "layers": [
+    {
+      "id": "bed",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 1600,
+          "q": 0.7
+        }
+      ],
+      "env": {
+        "attack": 0.05,
+        "hold": 3.8,
+        "decay": 0.1
+      },
+      "gain": -20
+    },
+    {
+      "id": "d1",
+      "kind": "modes",
+      "f": 2100,
+      "ratios": "bar",
+      "decay": 0.14,
+      "damping": 2,
+      "gain": -14,
+      "at": 0.1
+    },
+    {
+      "id": "d2",
+      "kind": "modes",
+      "f": 2400,
+      "ratios": "bar",
+      "decay": 0.14,
+      "damping": 2,
+      "gain": -16,
+      "at": 0.8
+    },
+    {
+      "id": "d3",
+      "kind": "modes",
+      "f": 1800,
+      "ratios": "bar",
+      "decay": 0.14,
+      "damping": 2,
+      "gain": -15,
+      "at": 1.45
+    },
+    {
+      "id": "d4",
+      "kind": "modes",
+      "f": 2700,
+      "ratios": "bar",
+      "decay": 0.14,
+      "damping": 2,
+      "gain": -17,
+      "at": 2.05
+    },
+    {
+      "id": "d5",
+      "kind": "modes",
+      "f": 2200,
+      "ratios": "bar",
+      "decay": 0.14,
+      "damping": 2,
+      "gain": -14,
+      "at": 2.7
+    },
+    {
+      "id": "d6",
+      "kind": "modes",
+      "f": 1900,
+      "ratios": "bar",
+      "decay": 0.14,
+      "damping": 2,
+      "gain": -16,
+      "at": 3.3
+    },
+    {
+      "id": "d7",
+      "kind": "modes",
+      "f": 2500,
+      "ratios": "bar",
+      "decay": 0.14,
+      "damping": 2,
+      "gain": -15,
+      "at": 3.75
+    }
+  ]
+}

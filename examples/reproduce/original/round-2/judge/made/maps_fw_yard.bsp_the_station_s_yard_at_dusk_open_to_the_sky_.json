@@ -1,0 +1,91 @@
+{
+ "kind": "map",
+ "label": "maps/fw_yard.bsp: the station's yard at dusk, open to the sky, a gatehouse door, drums, a pipe section; start by the gate, out by the pump house's double doors",
+ "measured": {
+  "size": [
+   1532,
+   1532
+  ],
+  "sizeAsked": [
+   1500,
+   1500
+  ],
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [
+   {
+    "map": "fw_pumphall",
+    "landmark": "yard_exit"
+   }
+  ],
+  "landmarks": [
+   "yard_exit"
+  ],
+  "itemsAsked": [],
+  "itemsFound": []
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The plan has the yard with two boxed areas, the bottom one with a door (func_door 1) and a start (info_player_start 15) just outside it, and the top one with double doors (func_door 2 and 3) holding the changelevel trigger and landmark. That fits the brief's gate-start and pump-house-exit arrangement. The gatehouse and pump house are inferred from their doors and entities, since the plan does not label them, and the high wall and the drums and pipe section are not visible in the plan."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured size is 1532 by 1532 against 1500 asked, well within 25%. Scaled from the plan's 256-unit bar, the yard's floor fills the plan and the two boxes read as plausible sizes (about 340 by 280 and 240 by 210 units). The brief gives no sizes for the boxes, so they cannot be checked further."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The floor reads as one flat level in every view, with no visible steps, ledges or height change between yard and boxes. The plan gives no floor heights or storey marks. The sky-open yard and the walls are present, but the brief's raised and worn features are not shown, so the levels are only partly evident."
+  },
+  "P4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The named entities are there: one info_player_start at the gate box, three func_door (the gatehouse door and the pump house's double doors), and a trigger_changelevel with its landmark inside the pump house. The brief names no items for this yard, and itemsAsked and itemsFound are both empty, so there is nothing further to match."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The walls and floor in the views are a flat, dark grey with a faint mottle. No hazard yellow, rust, wet concrete grain or grate shows in any view, so the surfaces do not visibly carry the brief's materials. Textures are only partly visible here, since the .wad is judged elsewhere."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Lamps sit near the start, the far wall and the gatehouse, and each reads as a soft glow. The glows are white-grey rather than the sodium orange the brief asks for, and the views are otherwise dim with no clear bright and dark pattern beyond the glow spots."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The gatehouse box and the wall are there. No drum, stacked drums, or broken pipe section appears in any of the four views or in the plan. The views cover one point only, so their absence is not proven, but nothing in the pictures shows the brief's named features."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements show no check errors, no unreached items, the changelevel's landmark present, and a changelevel to fw_pumphall that the walk test reaches with nothing unreached. Compile and leak are not reported separately, but no check errors were raised."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From inside, the views show a dim, nearly empty space: a flat floor, plain walls, a box and a few glow sprites, with no yard props, signage or hazard detail. A player would not recognise it as a Half-Life map at a glance, so it is clearly off from a place of the game's own kind."
+  }
+ },
+ "total": 13,
+ "of": 18,
+ "passes": false
+}

@@ -1,0 +1,77 @@
+{
+ "kind": "model",
+ "label": "models/fw_drum.mdl: a rusted 55-gallon drum with a hazard stripe",
+ "measured": {
+  "size": [
+   23,
+   23,
+   34
+  ],
+  "sizeAsked": {
+   "high": 34,
+   "across": 23
+  },
+  "sizeOff": 0,
+  "triangles": 12,
+  "halfLifeMedianOfThisSize": 62,
+  "checkErrors": [],
+  "lineup": "ours is one of A to D in lineup.png beside models/testsphere.mdl, models/gib_legbone.mdl, models/big_rock.mdl: the judge does not know which"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The outline is a plain rectangle in the four side views and a square from above and below. A 55-gallon drum is round in plan, so its top and bottom outlines are wrong. It is a box, not a drum, and the brief's drum outline is missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 23 x 23 x 34, exactly the brief's 34 high and 23 across (sizeOff 0). Within 10%."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The drum's parts are missing: no rim or chime bands, no lid or bung, no seam. Only one solid block is there."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "A single flat mid-grey throughout. The brief asks for a rusted steel drum, and no rust colouring or metal variation shows in any view or in the line-up. Colour is present but clearly off."
+  },
+  "M5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The hazard stripe the brief names is missing, and so is any rust or wear. The faces show only a faint noise texture, with no markings."
+  },
+  "M6": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "In the line-up it is the plain grey box (B). Beside the testsphere, the bone and the rock, a player would not take it for one of Half-Life's props. It reads as a placeholder block."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "It stands upright with its tall axis vertical, which is the drum's pose. Front and facing cannot be told apart on a box, and the origin's placement cannot be verified from the pictures. Not a must-have item."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The SMAK check reports no errors. At 12 triangles it is under twice the Half-Life median of 62 (the limit is 124). The box is closed, with nothing open, inside out or floating."
+  }
+ },
+ "total": 6,
+ "of": 16,
+ "passes": false
+}

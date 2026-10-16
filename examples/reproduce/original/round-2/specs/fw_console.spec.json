@@ -1,0 +1,274 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_console.mdl",
+  "kind": "prop",
+  "size": {
+    "height": 44,
+    "length": 36,
+    "width": 22
+  },
+  "materials": {
+    "paint": {
+      "base": "metal",
+      "tone": [
+        0.42,
+        0.45,
+        0.43
+      ]
+    },
+    "screen": {
+      "base": "glass",
+      "tone": [
+        0.2,
+        0.36,
+        0.3
+      ]
+    },
+    "chrome": {
+      "base": "steel",
+      "tone": [
+        0.7,
+        0.7,
+        0.68
+      ]
+    },
+    "switch": {
+      "base": "metal",
+      "tone": [
+        0.08,
+        0.08,
+        0.08
+      ]
+    },
+    "hazard": {
+      "base": "hazard",
+      "tone": [
+        0.85,
+        0.68,
+        0.1
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "cabinet",
+      "kind": "box",
+      "material": "paint",
+      "size": [
+        34,
+        20,
+        32
+      ],
+      "panels": [
+        {
+          "face": "front",
+          "at": [
+            10,
+            1.5
+          ],
+          "size": [
+            16,
+            2
+          ],
+          "style": "flat",
+          "material": "hazard"
+        },
+        {
+          "face": "front",
+          "at": [
+            10,
+            26
+          ],
+          "size": [
+            16,
+            10
+          ],
+          "style": "inset",
+          "material": "paint"
+        },
+        {
+          "face": "left",
+          "at": [
+            18,
+            26
+          ],
+          "size": [
+            12,
+            8
+          ],
+          "style": "inset",
+          "material": "paint"
+        }
+      ]
+    },
+    {
+      "id": "slope",
+      "kind": "box",
+      "material": "paint",
+      "size": [
+        6,
+        20,
+        16
+      ],
+      "at": [
+        16,
+        0,
+        32
+      ],
+      "rotate": [
+        0,
+        -25,
+        0
+      ],
+      "panels": [
+        {
+          "face": "front",
+          "at": [
+            5,
+            13
+          ],
+          "size": [
+            7,
+            6
+          ],
+          "style": "inset",
+          "material": "screen"
+        },
+        {
+          "face": "front",
+          "at": [
+            15,
+            13
+          ],
+          "size": [
+            7,
+            6
+          ],
+          "style": "inset",
+          "material": "screen"
+        },
+        {
+          "face": "front",
+          "at": [
+            4,
+            6
+          ],
+          "size": [
+            3.4,
+            3.4
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "chrome"
+        },
+        {
+          "face": "front",
+          "at": [
+            8,
+            6
+          ],
+          "size": [
+            3.4,
+            3.4
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "chrome"
+        },
+        {
+          "face": "front",
+          "at": [
+            12,
+            6
+          ],
+          "size": [
+            3.4,
+            3.4
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "chrome"
+        },
+        {
+          "face": "front",
+          "at": [
+            16,
+            6
+          ],
+          "size": [
+            3.4,
+            3.4
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "chrome"
+        },
+        {
+          "face": "front",
+          "at": [
+            4,
+            2.5
+          ],
+          "size": [
+            1.8,
+            2.6
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            7.5,
+            2.5
+          ],
+          "size": [
+            1.8,
+            2.6
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            11,
+            2.5
+          ],
+          "size": [
+            1.8,
+            2.6
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            14.5,
+            2.5
+          ],
+          "size": [
+            1.8,
+            2.6
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            18,
+            2.5
+          ],
+          "size": [
+            1.8,
+            2.6
+          ],
+          "style": "raised",
+          "material": "switch"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_pipejunction.mdl",
+  "kind": "prop",
+  "materials": {
+    "pipe": {
+      "base": "iron",
+      "rust": 0.45,
+      "tone": "dark grey"
+    },
+    "bolt": {
+      "base": "steel",
+      "tone": [
+        0.5,
+        0.5,
+        0.48
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "pipe",
+      "kind": "tube",
+      "material": "pipe",
+      "sides": 8,
+      "path": [
+        [
+          -26,
+          0,
+          14,
+          4
+        ],
+        [
+          0,
+          0,
+          14,
+          4
+        ],
+        [
+          0,
+          0,
+          36,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "elbow",
+      "kind": "sphere",
+      "material": "pipe",
+      "radius": 5,
+      "sides": 6,
+      "at": [
+        0,
+        0,
+        9
+      ]
+    },
+    {
+      "id": "flange_side",
+      "kind": "cylinder",
+      "material": "pipe",
+      "radius": 6.5,
+      "height": 2.5,
+      "sides": 8,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -28.5,
+        0,
+        14
+      ]
+    },
+    {
+      "id": "flange_top",
+      "kind": "cylinder",
+      "material": "pipe",
+      "radius": 6.5,
+      "height": 2.5,
+      "sides": 8,
+      "at": [
+        0,
+        0,
+        36
+      ]
+    },
+    {
+      "id": "bolt_side",
+      "kind": "cylinder",
+      "material": "bolt",
+      "radius": 0.9,
+      "height": 1.2,
+      "sides": 5,
+      "rotate": [
+        0,
+        -90,
+        0
+      ],
+      "at": [
+        -28.5,
+        4.6,
+        14
+      ],
+      "repeat": {
+        "count": 6,
+        "axis": "x",
+        "through": [
+          -28.5,
+          0,
+          14
+        ]
+      }
+    },
+    {
+      "id": "bolt_top",
+      "kind": "cylinder",
+      "material": "bolt",
+      "radius": 0.9,
+      "height": 1.2,
+      "sides": 5,
+      "at": [
+        4.6,
+        0,
+        38.5
+      ],
+      "repeat": {
+        "count": 6,
+        "axis": "z",
+        "through": [
+          0,
+          0,
+          36
+        ]
+      }
+    }
+  ]
+}

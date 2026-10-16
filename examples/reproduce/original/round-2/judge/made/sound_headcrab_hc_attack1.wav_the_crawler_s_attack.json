@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_attack1.wav: the crawler's attack",
+ "measured": {
+  "features": {
+   "length": 0.4,
+   "peak": -0.5,
+   "rms": -9.5,
+   "crest": 9,
+   "dc": -0.0016,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.02,
+   "peakAt": 0.055,
+   "t20": 0.274,
+   "t40": 0.339,
+   "centroid": 764,
+   "rolloff": 1572,
+   "flatness": 0.041,
+   "bands": {
+    "<150": 3.4,
+    "150-600": 60.6,
+    "600-2k": 26.7,
+    "2k-5k": 8.4,
+    ">5k": 0.8
+   },
+   "onsets": 0
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.906,
+    "centroid": 921,
+    "t20": 0.394,
+    "bands": {
+     "<150": 0.5,
+     "150-600": 68.1,
+     "600-2k": 18.8,
+     "2k-5k": 10.9,
+     ">5k": 1.6
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Picture only, so this is judged from shape. The made sound is a short, evenly pulsed burst that decays over 0.4 s, which reads as a creature's bite or chatter, a plausible attack. The game's own sound (0.91 s) is a burst with scattered sharp transients at roughly 0.2 s, 0.5 s and 0.7 s and a long low noisy tail. The made sound has none of those scattered hits and no tail, so it is the same kind of event but not the same one. Cannot listen; judged from the waveform and spectrogram."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The envelope is clearly off in length: 0.40 s against the original's 0.906 s is 44% of it, far outside the 25% allowed. The attack (0.02 s) and the time to 20% decay (0.274 s against 0.394 s) are close in shape, so the envelope is there, but the length is wrong. Capped at 1 as the length fails."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Measured to pass. Centroid 764 Hz against 921 Hz is 17% off, inside 20%. Band shares differ by at most 7.9 points (600-2k: 26.7 against 18.8), inside 10 points for every band (<150: 3.4 vs 0.5; 150-600: 60.6 vs 68.1; 2k-5k: 8.4 vs 10.9; >5k: 0.8 vs 1.6). The spectrogram agrees: energy sits in the same low-mid band, with a strong low band on the made sound. The centroid margin is close to the limit, so no higher score is possible."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Character is only partly there. The made sound has a regular pulse train, a noisy tone, and a fast onset. But its onset count is 0, while the original has several clear hits and clicks (the waveform shows them clearly). The pitch movement cannot be judged from pictures alone. Not a must-have, so the missing hits cost it."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Fit for the game passes on the measures given. No clipping (peak -0.5 dBFS). DC at -0.0016 is negligible. Engine faults are empty. The file has no loop, so no loop cue is needed. The name is sound/headcrab/hc_attack1.wav, the same as the original. The sample rate and bit depth are not in the measures given, so this relies on the engine check being complete."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

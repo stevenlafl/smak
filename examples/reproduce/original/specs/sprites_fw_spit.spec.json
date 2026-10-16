@@ -1,0 +1,36 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/fw_spit.spr",
+      "class": "sparks",
+      "use": "env_sprite",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 8,
+      "loop": false,
+      "fps": 10,
+      "type": "parallel",
+      "format": "alpha test",
+      "origin": "centre",
+      "layers": [
+        {
+          "kind": "blobs",
+          "count": 9,
+          "radius": 0.32,
+          "colour": [
+            0.45,
+            0.6,
+            0.3
+          ],
+          "env": {
+            "attack": 0.15,
+            "decay": 0.6
+          }
+        }
+      ]
+    }
+  ]
+}

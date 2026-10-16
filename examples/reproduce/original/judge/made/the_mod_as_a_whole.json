@@ -11,7 +11,7 @@
      "fw_pumphall"
     ],
     "landmarks": [
-     "yard_exit"
+     null
     ],
     "asked": "fw_pumphall"
    },
@@ -21,8 +21,8 @@
      "fw_control"
     ],
     "landmarks": [
-     "yard_exit",
-     "hall_exit"
+     null,
+     null
     ],
     "asked": "fw_control"
    },
@@ -30,7 +30,7 @@
     "map": "fw_control",
     "leadsTo": [],
     "landmarks": [
-     "hall_exit"
+     null
     ],
     "asked": null
    }
@@ -39,22 +39,22 @@
    {
     "file": "videos/fw_wrench.mp4",
     "there": true,
-    "bytes": 307069
+    "bytes": 311482
    },
    {
     "file": "videos/fw_crawler.mp4",
     "there": true,
-    "bytes": 235747
+    "bytes": 203314
    },
    {
     "file": "videos/fw_pumphall.mp4",
     "there": true,
-    "bytes": 832278
+    "bytes": 619757
    },
    {
     "file": "pictures/fw_props.png",
     "there": true,
-    "bytes": 1084670
+    "bytes": 1233250
    }
   ]
  },
@@ -67,28 +67,28 @@
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measurements list nothing missing and no failed SMAK checks. Every shown file (videos/fw_wrench.mp4, videos/fw_crawler.mp4, videos/fw_pumphall.mp4, pictures/fw_props.png) is present. The measurements do not list the .wad, sounds or sprites, so this score rests on the missing and failedChecks fields alone."
+   "reason": "The measurements report no missing assets and no failed SMAK checks. All five props (valve wheel, drum with hazard stripe, console, pipe junction, caged lamp) are visible in the picture, and the crawler is in view. The wrench, the textures and the sprites are not in this picture, so this score rests on the measurements, not on what I could see."
   },
   "O2": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "The chain is fw_yard to fw_pumphall through yard_exit, then fw_pumphall to fw_control through hall_exit, and fw_control ends the mod at hall_exit. Each change is measured as reached from the start, and each map's landmarks match the change it names."
+   "score": 1,
+   "reason": "The chain is right: fw_yard leads to fw_pumphall, fw_pumphall leads to fw_control, and fw_control ends the mod. But every level-change landmark is null, so the brief's 'by a level change with its landmark' and the arrival point are not shown to be wired. Whether every named model, sprite and sound is in the mod or the game is not measured."
   },
   "O3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Most of the set shares a rusted, worn, hazard-striped palette: the drum, the pipe junction, the wheel's rim and the wrench's steel all agree. The break is in the picture. The control console is a clean, unrusted light grey, unlike the rest of the props. The yard's sky is a flat, bright blue, not the dusk the brief asks for, and the pump hall's tan tiles and the control floor's tan tiles do not match the green-grey water and the sodium-lit scene the brief describes. The lamp's bright orange glass is also hotter than the rest of the palette. These are clear differences, short of a failure of the whole place."
+   "reason": "The props and map views share a rusted-steel, grey-green, hazard-yellow palette, which fits the brief. But the valve wheel's saturated red and the lamp's bright orange glow look more toy-like than the worn maps. The yard's view has a bright blue daytime sky, not the dusk the brief asks for. The control room's wood-plank ceiling does not match the concrete and steel the brief describes."
   },
   "O4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Every item the brief asks to show is present: turntable videos of the wrench and the crawler, a flight through the pump hall, and a sheet of props. The everything.png picture shows each prop, the crawler, the wrench and a view of each map, with each asset shown as it is."
+   "reason": "The measurements show the three videos (wrench, crawler, pump hall flight) and the props picture (fw_props.png, 1.2 MB) are present. The props shown in the picture are each clearly what they are, and the crawler is recognisable."
   }
  },
- "total": 7,
+ "total": 6,
  "of": 8,
  "passes": false
 }

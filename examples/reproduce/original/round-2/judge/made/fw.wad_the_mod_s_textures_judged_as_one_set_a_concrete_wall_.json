@@ -1,0 +1,155 @@
+{
+ "kind": "texture",
+ "label": "fw.wad, the mod's textures, judged as one set: a concrete wall, a wet concrete floor, a steel grate with holes, a catwalk floor, a pipe-covered wall, a hazard-striped trim, a rusted steel plate, a control panel with dials, a sodium lamp's face (lit), the water, a sign reading PUMP 3, a door",
+ "measured": {
+  "count": 12,
+  "least": 12,
+  "textures": [
+   {
+    "name": "fw_concrete",
+    "size": [
+     256,
+     256
+    ],
+    "detail": 47.1
+   },
+   {
+    "name": "fw_wetconc",
+    "size": [
+     256,
+     256
+    ],
+    "detail": 19.9
+   },
+   {
+    "name": "{fw_grate",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 16.1
+   },
+   {
+    "name": "fw_catwalk",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 21.6
+   },
+   {
+    "name": "fw_pipewall",
+    "size": [
+     256,
+     256
+    ],
+    "detail": 45.2
+   },
+   {
+    "name": "fw_hazard",
+    "size": [
+     128,
+     64
+    ],
+    "detail": 220.9
+   },
+   {
+    "name": "fw_rustplate",
+    "size": [
+     256,
+     256
+    ],
+    "detail": 11
+   },
+   {
+    "name": "fw_panel",
+    "size": [
+     256,
+     256
+    ],
+    "detail": 51
+   },
+   {
+    "name": "fw_lamp",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 12
+   },
+   {
+    "name": "!fw_water",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 2.3
+   },
+   {
+    "name": "fw_pump3",
+    "size": [
+     256,
+     128
+    ],
+    "detail": 40.2
+   },
+   {
+    "name": "fw_door",
+    "size": [
+     256,
+     256
+    ],
+    "detail": 19
+   }
+  ],
+  "halfLifeDetail": {
+   "q1": 19.7,
+   "median": 30.1,
+   "q3": 45
+  }
+ },
+ "caps": {
+  "T6": 2
+ },
+ "scores": {
+  "T1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Most of the set reads as its material: concrete, wet concrete, catwalk plate, pipes on a wall, rust plate, door, water. Four fail on what they are. fw_panel is a grid of riveted tiles with no dials, screens or switches. fw_pump3 shows PUMP with no visible \"3\", so it is not the sign the brief asks for. fw_lamp is a flat orange slab with no caged glass grille. fw_hazard is too faint and fine to read as bold yellow and black hazard stripes. fw_grate's solid parts are near-black, so they do not read as steel."
+  },
+  "T2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Concrete, hazard yellow, the sodium orange of fw_lamp and the grey floors are on the brief's palette. fw_water is dark navy-teal, not the green-grey the brief gives, so it is clearly off. No harness colour measurement was given, so this rests on the flat sheet alone."
+  },
+  "T3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Not shown: the sheet is flat textures, with no map views. Spacing cannot be checked on a wall from this. Panel tiles and concrete look at a plausible scale, but the score stays at 1 until the map views show the original's spacing."
+  },
+  "T4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "No tiling measure was given, and the flat sheet cannot show seams. Concrete, wet concrete, water and rust plate look uniform with no visible seam at the edges. Not measured, so held at 1; not a must-have."
+  },
+  "T5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Measured fail. Detail is far outside Valve's band (median 30, q3 45). fw_hazard at 220.9 is noisy, not crisp. fw_water at 2.3, fw_rustplate at 11 and fw_lamp at 12 are smooth to the point of smearing. fw_grate at 16.1 is also below the band. fw_concrete, fw_pipewall, fw_panel and fw_pump3 are in range and crisp."
+  },
+  "T6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Names and kind are as the brief needs: {fw_grate has holes shown as the blue mask colour, !fw_water is a liquid, the rest are plain. The lamp reads as a lit face, and the door, pump sign and pipes are the right sizes. The lamp's fullbright flag cannot be seen on the flat sheet, so this is taken as lit."
+  }
+ },
+ "total": 7,
+ "of": 12,
+ "passes": false
+}

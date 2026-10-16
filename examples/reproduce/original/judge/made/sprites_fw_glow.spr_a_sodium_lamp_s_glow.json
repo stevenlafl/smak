@@ -24,7 +24,7 @@
     "first": 1,
     "last": 1
    },
-   "dark": 0.56,
+   "dark": 0.49,
    "wrap": null,
    "jitter": null
   },
@@ -48,31 +48,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The frame is a soft radial glow that is brightest at the centre and fades to black at the edges, which is what a lamp's glow in an additive sprite looks like. The brief asks for a sodium lamp's glow, and this matches it."
+   "reason": "The frame shows one soft, centred orange radial glow falling off to nothing at the edges, which reads as a sodium lamp's glow, the effect the brief asks for."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The frame is 64 x 64 as measured. The glow fills the frame and fades out before the edges, so the border is 0 and nothing is clipped."
+   "reason": "The frame is 64 by 64, as measured. The border is 0, so the glow dies out inside the frame and does not clip at the edges. The bright core fills the middle of the frame, and the falloff is smooth."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The glow is warm orange at its centre, fading to dark, which fits a sodium lamp and the brief's warm, non-neon palette. No measured colour figure for Half-Life's own glows was given, so this rests on the picture and not on a number, and the score is not higher than the picture supports."
+   "reason": "The core is warm orange, shading to yellow-orange at the brightest point and to dark grey-black where the additive blend adds nothing. That matches a sodium lamp's colour. No mean-colour figure is given against Half-Life's glow class, so this rests on the picture alone."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The sprite is a single static frame (frames: 1, first and last both 1, no peak change). The brief asks for no motion from the glow, and a steady glow is the right kind of motion for a lamp, so there is nothing to fail here."
+   "reason": "A glow is a single still frame, and the envelope is flat across the one frame, so the motion is right in kind. The measurements do not give the class's frame count, so the 25% check against Half-Life's glow class is unverified. I have scored on the picture, which shows no motion and no fault."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The file is named fw_glow.spr, as the game expects, and is typed parallel and additive, which is the usual form for a glow in GoldSrc. The additive format matches the dark background that the blend needs. SMAK's read-back result was not among the measures, so this rests on the recorded type and format."
+   "reason": "The measurements give the type as parallel and the format as additive, which is what a glow sprite of this kind uses. The name fw_glow.spr matches the brief's sprite. Read-back of the written file is not shown in the pictures, so this rests on the measures given."
   }
  },
  "total": 10,

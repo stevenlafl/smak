@@ -1,0 +1,111 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_spit.spr: a sludge spit that splashes, animated",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.56,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "explosion",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0,
+    "range": [
+     0.22,
+     0.71
+    ],
+    "ok": false,
+    "words": "peaks too soon"
+   },
+   {
+    "measure": "first",
+    "value": 1,
+    "range": [
+     0,
+     0.22
+    ],
+    "ok": false,
+    "words": "starts too bright: an attack in its envelope"
+   },
+   {
+    "measure": "last",
+    "value": 1,
+    "range": [
+     0,
+     0.03
+    ],
+    "ok": false,
+    "words": "does not end dark: a decay in its envelope"
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The frame is one flat light-grey disc on a dark ground. There is no splash: no spread, droplets, crown or drip. Nothing reads as a sludge spit that splashes, so the effect the brief names is not there."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frame is 32 x 32, a size the measures confirm, and the disc fills it evenly. The brief gives no frame size, and a splash would have a lobed or spreading silhouette, not a round fill, so the shape is clearly off."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The colour is a neutral near-white grey. The brief asks for green-grey sludge, consistent with the water and the crawler, and nothing in the frame has that tint. It is clearly off but not a wholly wrong family, so 1 rather than 0."
+  },
+  "R4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief asks for an animated splash, but there is one frame, so the motion is absent. The measures fail the envelope for the explosion class: it starts bright (first 1, class range 0 to 0.22), peaks at frame 0 (class range 0.22 to 0.71), and does not end dark (last 1, class range 0 to 0.03). A measured must-have fails, so this cannot score 2."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The type (parallel) and format (additive) are plausible for a glow-like effect and no measure flags them. Whether the name and read-back match SPRITE_CLASSES cannot be confirmed from the picture, and the sprite fails R1 to R4, so this scores 1 rather than 2. Note that the picture's folder is named decoy, and the image matches the decoy's description: one disc per sprite. That is a reason to fail it, not to score it higher."
+  }
+ },
+ "total": 3,
+ "of": 10,
+ "passes": false
+}

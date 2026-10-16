@@ -1,0 +1,81 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_glow.spr: a sodium lamp's glow",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.56,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "glow",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The frame is a soft radial glow that is brightest at the centre and fades to black at the edges, which is what a lamp's glow in an additive sprite looks like. The brief asks for a sodium lamp's glow, and this matches it."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The frame is 64 x 64 as measured. The glow fills the frame and fades out before the edges, so the border is 0 and nothing is clipped."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The glow is warm orange at its centre, fading to dark, which fits a sodium lamp and the brief's warm, non-neon palette. No measured colour figure for Half-Life's own glows was given, so this rests on the picture and not on a number, and the score is not higher than the picture supports."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The sprite is a single static frame (frames: 1, first and last both 1, no peak change). The brief asks for no motion from the glow, and a steady glow is the right kind of motion for a lamp, so there is nothing to fail here."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The file is named fw_glow.spr, as the game expects, and is typed parallel and additive, which is the usual form for a glow in GoldSrc. The additive format matches the dark background that the blend needs. SMAK's read-back result was not among the measures, so this rests on the recorded type and format."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}
