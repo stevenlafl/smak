@@ -283,3 +283,19 @@ walk test, not the game.
   twice life size (a Glock 15 units, the .357 28, the crowbar 43), so the brief's real length is now held against
   the weapon in its first-person (`v_`) model, its hands left out: Valve's crowbar is 25.7 there. Haiku's wrench,
   18 asked, measures 19.1 there and 44 in the world.
+- **2026-10-16, a map of storeys is held on every floor (Steven's decision: "that makes sense when multi-story is
+  present").** P2 had measured the floor walked from the places to start, and a campaign map's walk is cut short by
+  what its scripts open (c1a2's covers 1,667 cells of the 6,000 a player fits on, so a copy right everywhere
+  scored 0.286, and 0.916 on every floor; research/map-geometry.md). Where a tenth or more of the original's
+  standable floor lies under or over another floor, P2 now measures every floor a player fits on in both maps
+  (`reachOf(...).stands`), walked to or not; a map of one storey keeps the walk. The judge's measures say which
+  (`floorMeasured`). P8's walk test is unchanged. Results judged before this date keep their scores.
+- **2026-10-16, sounds made from a brief and heard (Steven's decision).** A sound is not copied: "no one's going to
+  give a sound and say replicate this", and a spectrogram is no input a modder hands over; the words leg's
+  descriptions read the spectrogram, which no sound model was trained on, and none of the copies was near its
+  original by ear. Sounds now have one leg, `brief`: the maker is given a modder's line of what the sound is for ("the
+  crowbar hitting a metal surface"), written from the game's event its file plays and never from its sound, and the
+  file name it takes the place of. The harness records the engine's checks (a fault is a fail); whether it is at
+  least as good as the game's own is Steven's verdict by ear (reviews/), the goal's "replace Valve textures and
+  sounds with versions judged at least as good". S1 to S5 and the decoy are not used for it. The pictures and words
+  legs' results stand as they were judged.

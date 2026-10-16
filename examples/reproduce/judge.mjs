@@ -269,10 +269,15 @@ export const entitiesOf = (bytes) =>
 
 const GAMEPLAY = /^(info_player_|weapon_|ammo_|item_|func_door|func_plat|func_train|func_button|func_rot_button|func_tracktrain|trigger_teleport|trigger_push|func_ladder|func_breakable|func_pushable)/;
 
-/** The floor a player walks, as cells of 16: Map "x,y" -> [heights]. */
-export function floorOf(bsp) {
+/**
+ * The floor a player walks, as cells of 16: Map "x,y" -> [heights]. `every`: every floor a player fits on, walked
+ * to from the places to start or not (a campaign map's walk is cut short by what its scripts open: c1a2's covers
+ * 1,667 cells of the 6,000 a player fits on, research/map-geometry.md).
+ */
+export function floorOf(bsp, { every = false } = {}) {
   const read = maps.readBsp(bsp);
   const r = maps.reachOf(read);
+  const at = every ? r.stands : r.walked;
   const { mins, maxs } = read.models[0];
   const [x0, y0, x1, y1] = [mins[0], mins[1], maxs[0], maxs[1]];
   const cells = new Map();
@@ -281,7 +286,7 @@ export function floorOf(bsp) {
       const heights = [];
       let under;
       for (let k = 0; k < 6; k++) {
-        const h = r.walked(x + 8, y + 8, under);
+        const h = at(x + 8, y + 8, under);
         if (h === null || h === undefined) break;
         heights.push(h);
         under = h - 40;
@@ -290,6 +295,9 @@ export function floorOf(bsp) {
     }
   return { cells, reach: r };
 }
+
+/** A map whose standable floor is this share or more under or over another floor is held on every floor. */
+const MULTI_STOREY = 0.1;
 
 /** The overlap of two walked floors moved by (dx, dy, dz): cells with a floor in both within 24 units. */
 function floorOverlap(a, b, dx, dy, dz) {
@@ -358,11 +366,19 @@ export async function judgeMap(map, leg, copyFile, { decoy } = {}) {
   const dir = join(HERE, map.id, "judge", decoy ? `decoy-${decoy}` : leg);
   rmSync(dir, { recursive: true, force: true });
   mkdirSync(dir, { recursive: true });
-  const a = floorOf(original);
-  const b = floorOf(copy);
+  // a map of storeys over storeys is held on every floor a player fits on (rubric amendment, Steven 2026-10-16:
+  // "that makes sense when multi-story is present"): a tenth of its standable floor or more under or over another
+  const walkedA = floorOf(original);
+  const everyA = floorOf(original, { every: true });
+  const cellsOf = (f) => [...f.cells.values()].reduce((n, hs) => n + hs.length, 0);
+  const stacked = [...everyA.cells.values()].reduce((n, hs) => n + (hs.length > 1 ? hs.length : 0), 0);
+  const storeys = stacked >= MULTI_STOREY * cellsOf(everyA);
+  const a = storeys ? everyA : walkedA;
+  const b = floorOf(copy, { every: storeys });
   const { overlap, move } = alignMaps(a, b);
   const ents = matchEntities(entitiesOf(original), entitiesOf(copy), move);
   const unreached = b.reach.unreached?.length ?? 0;
+  const theirUnreached = walkedA.reach.unreached?.length ?? 0;
   let checkErrors = [];
   try {
     smak("map-check", copyFile, "--game", GAME);
@@ -371,9 +387,10 @@ export async function judgeMap(map, leg, copyFile, { decoy } = {}) {
   }
   const measured = {
     floorOverlap: Math.round(overlap * 1000) / 1000,
+    floorMeasured: storeys ? `every floor a player fits on (storeys: ${Math.round((100 * stacked) / cellsOf(everyA))}% of its floor under or over another)` : "the floor walked from the places to start",
     alignment: { move, note: "the reproduction is this far from where the original has the same floor" },
     entities: ents,
-    walkTest: { unreachedInReproduction: unreached, unreachedInOriginal: a.reach.unreached?.length ?? 0 },
+    walkTest: { unreachedInReproduction: unreached, unreachedInOriginal: theirUnreached },
     // what a player walking each finds (src/maps/sweep.mjs): drops that hurt, lights in mid-air, the original's beside
     sweep: Object.fromEntries([["original", original, a], ["reproduction", copy, b]].map(([name, bytes, floor]) => {
       const swept = maps.sweepOf(bytes, { reach: floor.reach });
@@ -384,7 +401,7 @@ export async function judgeMap(map, leg, copyFile, { decoy } = {}) {
   const caps = {
     P2: band(overlap, 0.7, 0.45),
     P4: band(ents.share, 0.8, 0.5),
-    P8: checkErrors.length ? 0 : unreached > (a.reach.unreached?.length ?? 0) ? 1 : 2,
+    P8: checkErrors.length ? 0 : unreached > theirUnreached ? 1 : 2,
   };
   // the pictures: both plans at one scale, the storeys, the same section through both, the same views
   const game = ["--game", GAME];
