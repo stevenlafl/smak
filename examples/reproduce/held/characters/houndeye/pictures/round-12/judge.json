@@ -1,0 +1,159 @@
+{
+ "kind": "characters",
+ "subject": "houndeye",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.986,
+   "left/right": 0.986,
+   "top/below": 0.992
+  },
+  "size": {
+   "original": [
+    49.3,
+    33.5,
+    44.7
+   ],
+   "reproduction": [
+    49.1,
+    33.5,
+    44.7
+   ],
+   "offShare": [
+    0.003,
+    0,
+    0.001
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 10.5,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 9.7,
+     "shared": 0.985
+    },
+    {
+     "view": "left",
+     "deltaE": 8.3,
+     "shared": 0.986
+    },
+    {
+     "view": "back",
+     "deltaE": 15.2,
+     "shared": 0.985
+    },
+    {
+     "view": "right",
+     "deltaE": 8.5,
+     "shared": 0.986
+    },
+    {
+     "view": "top",
+     "deltaE": 10,
+     "shared": 0.992
+    },
+    {
+     "view": "below",
+     "deltaE": 8.5,
+     "shared": 0.992
+    },
+    {
+     "view": "front-left",
+     "deltaE": 10.2,
+     "shared": 0.986
+    },
+    {
+     "view": "front-right",
+     "deltaE": 10.6,
+     "shared": 0.988
+    },
+    {
+     "view": "back-left",
+     "deltaE": 12.1,
+     "shared": 0.987
+    },
+    {
+     "view": "back-right",
+     "deltaE": 12.2,
+     "shared": 0.989
+    }
+   ]
+  },
+  "triangles": {
+   "original": 308,
+   "reproduction": 600
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2,
+  "M6": 2
+ },
+ "lineup": {
+  "picked": "C",
+  "right": "C"
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured silhouette overlap is 0.986 in front/back, left/right and 0.992 top/below, all above 0.80. In the six views and four close angles, no part sticks out or is missing, and the outlines match at true scale."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 49.1 x 33.5 x 44.7 against the original's 49.3 x 33.5 x 44.7, an off-share of 0.3% or less on each axis, well within 10%."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The main parts are present: the round maw, the back spines with blue stripes, four legs with clawed feet, the belly mouth and the side flaps. The maw's rim and inner nodules look shallower and flatter than the original's in the front and front-left views, and the foreleg joints differ slightly in the front-left view. Clearly off in those details."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured mean colour difference inside the shared outline is 10.5, under 15. Per view, the back is the highest at 15.2 but the mean is what the rubric sets. Skin, the blue-and-yellow stripes, the pale belly and the dark maw read as the same colours and materials."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The stripes, belly veining and maw nodules are in their places. Close views show the reproduction's stripes softer and blurrier on the back, and the top view has ragged edges along the stripe bands where the original's are clean. Clearly less sharp than the original."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "At game size the silhouette and colour pass for the original. A close look shows flatter shading on the sides and back, the blurred stripes and the shallower maw. The run frames also show the legs breaking away, which a player who knows the creature would notice, so a player would not reliably take it for the original."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The maw is at the front, the body stands upright in both side views, and the feet sit on the same ground line as the original's in the side and front views."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's check reports no errors, and the triangle count is 600 against the original's 308, 1.95 times, which is within the 2x limit. The static pictures show a closed, non-inverted mesh. The floating leg slabs appear only in motion and are charged to C1."
+  },
+  "C1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "In the run frames from 5/36 onward, the two rear legs unfold into flat, detached slabs that stick out far from the body and float. The parts come apart and move wrongly, where the original's legs stay on the body. This fails the 'nothing comes apart, sinks or floats' test in most frames."
+  }
+ },
+ "total": 13,
+ "of": 18,
+ "passes": false
+}

@@ -1,33 +1,19 @@
-The zombie is built and the build says **OK**, but the claws are shorter than the original's, so it will not match the original's silhouette as closely as I'd like.
+The zombie builds with **OK** (`zombie.mdl`, written to the work folder with its spec as `zombie.spec.json`). It stands on Gordon's skeleton with `floor: 0`, and keeps all 77 of that skeleton's animations.
 
-Output: `work:zombie.mdl`, with its spec at `work:zombie.spec.json` and the six-view check sheet at `work:zombie-sheet.png`.
+**What it is**
+- **Body:** carved from the six-sided sheet plus the four angle pictures, so the outline follows the original's lean, hunch, coat, head and arms. Its colours and wounds are projected from the same pictures.
+- **Claws:** eight tubes, four per hand, hung on the hand bones. The carve drops the thin claws, so these stand in for them.
+- **Size:** 38.9 long, 52.9 wide, 68.3 high, against the original's 38.5, 53.8 and 68.4.
+- **Triangles:** 628, under the 724 ceiling for a character (twice the base's 362).
+- **Pose:** the first frame of its first animation (`look_idle`), which is the stance the carve was fitted to.
 
-**What I built**
-- **Base:** Gordon's skeleton (`player/gordon/gordon.mdl`), with `floor: 0`. Its own animations are kept, and I did not refit them to `motion.png`.
-- **Body:** one carved shape from the six-side sheet and the four angle pictures, at the stated 38.5 × 53.8 × 68.4 size. Its stance is the pose the build fitted to the outlines: small turns on both legs, both upper arms, and both forearms.
-- **Claws:** eight four-sided tubes, four per hand, hung on the hand bones so they follow the animation. The body alone could not hold the fingers; the carve drops anything thinner than its cells.
-- **Colour and markings:** the pictures are projected onto the surface, so the white coat, the red and dark blood marks, the cream head and the chest and back openings come from the original's own pictures.
-- **Budget:** 712 triangles, under the 724 cap (twice the base body's 362).
+**Choices I made**
+- I read "standing" as the first frame of the first animation. I did not fit the walk in `motion.png`, since you asked for the standing pose.
+- The left-hand claws are shorter than the original's. Longer ones pushed the outline check for the back-left and front-right views under 0.7 (a FAULT), so I shortened them. They are the most likely place a side-by-side judge will see a difference.
+- The base's pose fit found no change and failed to build, so I used the carve's own outline for the stance instead.
 
-**Outline match, per view (the bar is 0.8; under 0.7 is a fault)**
+**What the report still says**
+- A WARN that the carve lost 52 thin pieces, mostly claw tips and fragments. The tubes cover most of them, not all.
+- A WARN that the front-left outline is 0.80, just above the 0.8 line.
 
-```
-view          overlap
-front         0.778
-left          0.795
-back          0.785
-right         0.796
-top           0.765
-below         0.765
-yaw 35        0.750
-yaw -35       0.804
-yaw 145       0.845
-yaw 215       0.793
-```
-
-**What's short of the original**
-- The claws reach about 8 to 10 units out, where the original's reach about 18 to 20. I shortened them because longer claws dropped the back-angle outline under 0.7, which fails the build. Without claws, every view clears 0.8. Longer claws would look closer, but the build would fail. Say if you'd rather have the longer claws and fix the back angles another way.
-- The finer fingers and the long reaching forearm are lost in the carve; the build reports 57 lost thin pieces.
-- The body's colour and marks are only as good as the single 512-pixel sheet.
-
-I could not run the model in the game, so the walk and the look under game lighting are untested. The side-by-side with the original is the check that matters.
+I checked the renders from front-left and back-right against the originals. The silhouettes and colours match closely. I did not check the model in the game.

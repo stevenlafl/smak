@@ -3,7 +3,7 @@
   "name": "houndeye.mdl",
   "kind": "character",
   "base": {
-    "file": "headcrab.mdl"
+    "file": "player/gordon/gordon.mdl"
   },
   "floor": 0,
   "size": {
@@ -11,18 +11,27 @@
     "width": 33.5,
     "height": 44.7
   },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
   "smooth": 80,
+  "materials": {
+    "hide": {
+      "base": "leather"
+    }
+  },
   "parts": [
     {
       "id": "body",
       "kind": "carved",
+      "material": "hide",
       "size": [
         49.3,
         33.5,
         44.7
       ],
       "sheet": "work:pictures/sides.png",
-      "cells": 96,
       "pictures": [
         {
           "picture": "work:pictures/front-left.png",
@@ -45,11 +54,8 @@
           "pitch": 20
         }
       ],
-      "at": [
-        0,
-        0,
-        0
-      ],
+      "cells": 120,
+      "triangles": 700,
       "symmetric": true
     }
   ],
@@ -133,16 +139,6 @@
       "picture": "work:pictures/back-right.png",
       "yaw": 215,
       "pitch": 20
-    }
-  ],
-  "motion": [
-    {
-      "seq": "run",
-      "fit": {
-        "picture": "work:pictures/motion.png",
-        "count": 8,
-        "cols": 4
-      }
     }
   ]
 }

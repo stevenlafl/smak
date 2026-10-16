@@ -11,52 +11,7 @@
     "length": 38.5,
     "width": 53.8
   },
-  "texture": {
-    "width": 512,
-    "height": 512
-  },
   "smooth": 80,
-  "pose": {
-    "keys": {
-      "Bip01 L Leg": {
-        "turn": {
-          "y": 3
-        }
-      },
-      "Bip01 R Leg": {
-        "turn": {
-          "y": 3
-        }
-      },
-      "Bip01 L Arm1": {
-        "turn": {
-          "y": 3,
-          "x": 3
-        }
-      },
-      "Bip01 R Arm1": {
-        "turn": {
-          "y": 3
-        }
-      },
-      "Bip01 L Arm2": {
-        "turn": {
-          "y": 6
-        }
-      },
-      "Bip01 R Arm2": {
-        "turn": {
-          "y": -3
-        }
-      }
-    }
-  },
-  "materials": {
-    "claw": {
-      "base": "leather",
-      "tone": "dark brown"
-    }
-  },
   "project": [
     {
       "picture": "work:pictures/sides.png",
@@ -99,26 +54,6 @@
       ]
     },
     {
-      "picture": "work:pictures/sides.png",
-      "view": "top",
-      "area": [
-        512,
-        512,
-        1024,
-        1024
-      ]
-    },
-    {
-      "picture": "work:pictures/sides.png",
-      "view": "below",
-      "area": [
-        1024,
-        512,
-        1536,
-        1024
-      ]
-    },
-    {
       "picture": "work:pictures/front-left.png",
       "yaw": 35,
       "pitch": 20
@@ -143,11 +78,14 @@
     {
       "id": "body",
       "kind": "carved",
+      "material": "cloth",
       "size": [
         38.5,
         53.8,
         68.4
       ],
+      "cells": 160,
+      "triangles": 500,
       "sheet": "work:pictures/sides.png",
       "pictures": [
         {
@@ -170,294 +108,279 @@
           "yaw": 215,
           "pitch": 20
         }
-      ],
-      "cells": 128,
-      "triangles": 520,
-      "at": [
-        0,
-        0,
-        0
       ]
     },
     {
       "id": "claw_r1",
       "kind": "tube",
-      "material": "claw",
       "sides": 4,
-      "attach": {
-        "bone": "Bip01 R Hand",
-        "at": "start",
-        "offset": [
-          -1,
-          -1,
-          22
-        ]
-      },
       "path": [
         [
           0,
           0,
           0,
-          1.3
+          2.2
         ],
         [
-          1.5,
-          -2.2,
-          -3,
-          0.8
+          7,
+          -2,
+          -5,
+          0.6
         ],
         [
-          2.5,
-          -4,
-          -7,
-          0.3
+          11,
+          -5,
+          -9,
+          0
         ]
-      ]
+      ],
+      "attach": {
+        "bone": "Bip01 R Hand",
+        "at": "start",
+        "offset": [
+          -3,
+          -2.5,
+          -10
+        ]
+      }
     },
     {
       "id": "claw_r2",
       "kind": "tube",
-      "material": "claw",
       "sides": 4,
-      "attach": {
-        "bone": "Bip01 R Hand",
-        "at": "start",
-        "offset": [
-          -1,
-          0,
-          20
-        ]
-      },
       "path": [
         [
           0,
           0,
           0,
-          1.3
+          2
         ],
         [
-          1.3,
+          7,
+          -4,
+          -4,
+          0.6
+        ],
+        [
+          12,
+          -8,
+          -7,
+          0
+        ]
+      ],
+      "attach": {
+        "bone": "Bip01 R Hand",
+        "at": "start",
+        "offset": [
           -2,
           -3,
-          0.8
-        ],
-        [
-          2.2,
-          -3,
-          -7,
-          0.3
+          -11
         ]
-      ]
+      }
     },
     {
       "id": "claw_r3",
       "kind": "tube",
-      "material": "claw",
       "sides": 4,
-      "attach": {
-        "bone": "Bip01 R Hand",
-        "at": "start",
-        "offset": [
-          -1,
-          2,
-          20
-        ]
-      },
       "path": [
         [
           0,
           0,
           0,
-          1.3
+          2
         ],
         [
-          1.2,
-          -1.2,
-          -3,
-          0.8
+          7,
+          -6,
+          -4.5,
+          0.6
         ],
         [
-          2,
-          -2.2,
+          11,
+          -11,
           -7,
-          0.3
+          0
         ]
-      ]
+      ],
+      "attach": {
+        "bone": "Bip01 R Hand",
+        "at": "start",
+        "offset": [
+          -2,
+          -3,
+          -11
+        ]
+      }
     },
     {
       "id": "claw_r4",
       "kind": "tube",
-      "material": "claw",
       "sides": 4,
+      "path": [
+        [
+          0,
+          0,
+          0,
+          2
+        ],
+        [
+          6,
+          -1,
+          -6,
+          0.6
+        ],
+        [
+          9,
+          -2,
+          -11,
+          0
+        ]
+      ],
       "attach": {
         "bone": "Bip01 R Hand",
         "at": "start",
         "offset": [
-          0,
-          3,
-          21
-        ]
-      },
-      "path": [
-        [
-          0,
-          0,
-          0,
-          1.3
-        ],
-        [
-          0.8,
-          -0.2,
+          -2,
           -3,
-          0.8
-        ],
-        [
-          1.2,
-          -0.6,
-          -6,
-          0.3
+          -11
         ]
-      ]
+      }
     },
     {
       "id": "claw_l1",
       "kind": "tube",
-      "material": "claw",
       "sides": 4,
-      "attach": {
-        "bone": "Bip01 L Hand",
-        "at": "start",
-        "offset": [
-          10,
-          -1,
-          31
-        ]
-      },
       "path": [
         [
           0,
           0,
           0,
-          1.3
+          2.5
         ],
         [
-          1.5,
-          2.2,
-          -3,
-          0.8
+          3,
+          1,
+          -2,
+          0.6
         ],
         [
-          2.5,
-          4,
-          -7,
-          0.3
+          5,
+          2,
+          -4,
+          0
         ]
-      ]
+      ],
+      "attach": {
+        "bone": "Bip01 L Hand",
+        "at": "start",
+        "offset": [
+          -2,
+          6,
+          -5
+        ]
+      }
     },
     {
       "id": "claw_l2",
       "kind": "tube",
-      "material": "claw",
       "sides": 4,
-      "attach": {
-        "bone": "Bip01 L Hand",
-        "at": "start",
-        "offset": [
-          10,
-          -2,
-          29
-        ]
-      },
       "path": [
         [
           0,
           0,
           0,
-          1.3
+          2.5
         ],
         [
-          1.3,
-          2,
-          -3,
-          0.8
-        ],
-        [
-          2.2,
           3,
-          -7,
-          0.3
+          2,
+          -1.5,
+          0.6
+        ],
+        [
+          6,
+          4,
+          -3,
+          0
         ]
-      ]
+      ],
+      "attach": {
+        "bone": "Bip01 L Hand",
+        "at": "start",
+        "offset": [
+          -2,
+          6,
+          -5
+        ]
+      }
     },
     {
       "id": "claw_l3",
       "kind": "tube",
-      "material": "claw",
       "sides": 4,
-      "attach": {
-        "bone": "Bip01 L Hand",
-        "at": "start",
-        "offset": [
-          10,
-          -4,
-          29
-        ]
-      },
       "path": [
         [
           0,
           0,
           0,
-          1.3
+          2.5
         ],
         [
-          1.2,
-          1.2,
-          -3,
-          0.8
+          3,
+          2.5,
+          -2,
+          0.6
         ],
         [
-          2,
-          2.2,
-          -7,
-          0.3
+          5,
+          5,
+          -4,
+          0
         ]
-      ]
+      ],
+      "attach": {
+        "bone": "Bip01 L Hand",
+        "at": "start",
+        "offset": [
+          -2,
+          6,
+          -5
+        ]
+      }
     },
     {
       "id": "claw_l4",
       "kind": "tube",
-      "material": "claw",
       "sides": 4,
-      "attach": {
-        "bone": "Bip01 L Hand",
-        "at": "start",
-        "offset": [
-          10,
-          -5,
-          29
-        ]
-      },
       "path": [
         [
           0,
           0,
           0,
-          1.3
+          2.5
         ],
         [
-          0.8,
-          0.2,
+          2,
+          0.5,
           -3,
-          0.8
+          0.6
         ],
         [
-          1.2,
-          0.6,
+          4,
+          1,
           -6,
-          0.3
+          0
         ]
-      ]
+      ],
+      "attach": {
+        "bone": "Bip01 L Hand",
+        "at": "start",
+        "offset": [
+          -2,
+          6,
+          -5
+        ]
+      }
     }
   ]
 }

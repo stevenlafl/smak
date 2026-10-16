@@ -1,0 +1,148 @@
+{
+  "spec": "smak.model/1",
+  "name": "houndeye.mdl",
+  "kind": "character",
+  "base": {
+    "file": "headcrab.mdl"
+  },
+  "floor": 0,
+  "size": {
+    "length": 49.3,
+    "width": 33.5,
+    "height": 44.7
+  },
+  "smooth": 80,
+  "parts": [
+    {
+      "id": "body",
+      "kind": "carved",
+      "size": [
+        49.3,
+        33.5,
+        44.7
+      ],
+      "sheet": "work:pictures/sides.png",
+      "cells": 96,
+      "pictures": [
+        {
+          "picture": "work:pictures/front-left.png",
+          "yaw": 35,
+          "pitch": 20
+        },
+        {
+          "picture": "work:pictures/front-right.png",
+          "yaw": -35,
+          "pitch": 20
+        },
+        {
+          "picture": "work:pictures/back-left.png",
+          "yaw": 145,
+          "pitch": 20
+        },
+        {
+          "picture": "work:pictures/back-right.png",
+          "yaw": 215,
+          "pitch": 20
+        }
+      ],
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "symmetric": true
+    }
+  ],
+  "project": [
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "front",
+      "area": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "left",
+      "area": [
+        512,
+        0,
+        1024,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "back",
+      "area": [
+        1024,
+        0,
+        1536,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "right",
+      "area": [
+        0,
+        512,
+        512,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "top",
+      "area": [
+        512,
+        512,
+        1024,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "below",
+      "area": [
+        1024,
+        512,
+        1536,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/front-left.png",
+      "yaw": 35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/front-right.png",
+      "yaw": -35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-left.png",
+      "yaw": 145,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-right.png",
+      "yaw": 215,
+      "pitch": 20
+    }
+  ],
+  "motion": [
+    {
+      "seq": "run",
+      "fit": {
+        "picture": "work:pictures/motion.png",
+        "count": 8,
+        "cols": 4
+      }
+    }
+  ]
+}

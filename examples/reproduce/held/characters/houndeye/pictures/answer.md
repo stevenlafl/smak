@@ -1,29 +1,16 @@
-The houndeye is built as `work:houndeye.mdl`, and the build says OK. It is not on the Gordon skeleton you suggested, because the kit refuses the houndeye's own skeleton as a blind test's original. I used the headcrab's skeleton instead.
+The model builds OK: `work:houndeye.mdl`, with its spec saved beside it as `work:houndeye.spec.json`.
 
-**Base and animations.** Gordon is a biped, and the bullsquid has only two real legs. The headcrab is the closest game creature with four limbs: two hind legs and two forelimbs off the neck. Its 21 animations are all in its own file, so none are lost. The spec is `floor: 0`, sized to 49.3 long, 33.5 wide and 44.7 high.
+**What I built**
+- **Base:** Gordon's skeleton (`player/gordon/gordon.mdl`), with `floor: 0` so the feet stand at the origin. All 77 of its animations are kept.
+- **Body:** one carved shape, sized 49.3 long, 33.5 wide and 44.7 high, carved from the six-side sheet plus the four angle pictures and made symmetric. Its outline matches the pictures at 0.89 to 0.99, depending on the view.
+- **Colours and markings:** projected from the reference pictures, so the yellow-olive hide, the teal and brown dorsal bands, the dark maw and the pale feet come from the original's own pixels.
+- **Triangles:** 698. The base's own body is 362, and the limit is twice that, so I stopped at 700. A first try at 800 failed that limit, and the cell count made no difference to the result.
 
-**Body.** The body is carved from your six sides and four angle pictures, and its texture is projected from the same pictures, so colours and stripes come from the originals. The fitted pose was dropped: it lifted the right hind foot about 9 units off the floor. With the rest stance, all four feet stand on the floor.
+**What the build still reports**
+- **Look warning on the back view:** the mean colour difference is 12 (limit 10), worst at the upper middle left of the back-left view, where the dorsal bands sit. I did not find a cheap fix.
+- **Running motion:** the carved body is hung on Gordon's biped bones, so in the run frames the dorsal plates and legs flap and stretch. The build calls this OK, but it is visibly wrong in motion. The standing stills, which are what you asked me to match, are the closest part.
+- **Not tested in the game:** I checked the model with SMAK's pictures and checks only.
 
-**Comparison.** I checked the front-left and back-right views by eye against the originals. Maw, crest and legs fall in the same places. The texture smears a little on the lower body.
-
-```
-view (outline overlap, 1.0 is exact)   overlap
-front                                  0.89
-left                                   0.94
-back                                   0.89
-right                                  0.95
-top                                    0.95
-below                                  0.96
-yaw 35 pitch 20                        0.91
-yaw -35 pitch 20                       0.89
-yaw 145 pitch 20                       0.93
-yaw 215 pitch 20                       0.90
-run (motion strip, fitted)             0.53
-```
-
-**Known gaps:**
-- The run fits the motion strip poorly (0.53). The body stays together through the run, but its pose is only approximate.
-- The report warns that the back views' colours differ from the pictures, on the crest (mean 12, against 10 for a warning). The build still passes.
-- The limbs are thinner than the originals, and the maw is a little less round. The headcrab's rig is much smaller than the houndeye, so its limbs deform only roughly in motion.
-
-**Clutter to remove.** I left probe files in the work folder: `probe_bullsquid.mdl`, `probe_chumtoad.mdl`, `probe_headcrab.mdl`, and the probe spec and sheet PNGs. I have no delete tool here, so they are yours to remove. The houndeye's spec is `work:houndeye.spec.json`, and the pictures I drew for review are in the work folder.
+**Choices I made that you may want to change**
+- The body is one carved piece rather than separate legs and plates. That keeps the outline closest to the pictures, at the cost of the motion above.
+- I used the leather base for the hide, since the projected pictures supply the real colour.

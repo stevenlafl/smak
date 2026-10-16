@@ -1,21 +1,18 @@
-The character is built: `scientist.mdl` is in the work folder, and the build says OK with every check passed.
+The scientist is built as `work:scientist.mdl` on Gordon's skeleton with `floor: 0`. The build says OK, with one colour warning left.
 
-**What I built**
-- **Base:** `player/gordon/gordon.mdl` skeleton, keeping all 77 of Gordon's animations, with `floor: 0`.
-- **Body:** one carved shape from the six-view sheet and the four three-quarter pictures, at 33.3 × 21.5 × 68 units, feet on the floor. It has 700 triangles, against 362 for Gordon's own body.
-- **Colours and markings:** projected from your pictures, so the glasses, grey hair band, blue shirt, striped tie, white coat and brown shoes come from the originals.
-- **Stance:** fitted to the outlines, so the first frame stands as the originals do. The left arm is swung back 24 degrees from Gordon's rest.
+**What it is**
+- Carved from the six-side sheet and the four angle pictures, so the outline follows the originals: 680 triangles, one body, painted from the pictures (glasses, grey hair at the sides, blue shirt, striped tie, white coat, brown shoes).
+- Stance fitted to the pictures. The first frame matches the original's stride, with the spine turned 3 degrees.
+- Size is 33 long, 21.5 wide and 68 high, against the original's 33.3, 21.7 and 68.
+- Each view's outline matches the picture at 0.85 to 0.91 (the report's measure, with 0.8 as the warning line), and its own carve at about 0.98.
 
-**How close it is**
-- Outline overlap against the pictures is 0.86 to 0.91 in the views I checked; the report's fault threshold is 0.8.
-- The quarter views, the side view and the back views line up with the originals. The body has no separate arms or legs, so the gaps between arm and coat are less sharp than the originals.
-- The tie and hair look softer than the originals, because the carved surface blurs the projected texture slightly.
+**What I chose**
+- Gordon's skeleton and animations, since the scientist has none of its own. The run cycle is Gordon's, so the coat hem flaps in a few frames of it (frames 9 and 13 of `run2`).
+- The triangle target is 680. The base body is 362, so a character over 724 is a fault.
+- Pictures' stance over a stock idle, since the original's first animation is not available to check.
 
-**Known issue**
-- In some frames of the run animation (frames 3, 6 and 19 of `run2`, from the build's strip), the shoes drift slightly away from the trousers. The report does not flag this. The carved body hangs on the nearest bones, so the legs do not bend cleanly.
+**Left to fix or accept**
+- One warning remains: the head seen from below (colour mean 11.8, worst cell 37) takes some of the hair's colour. I tried 600 and 680 triangles, and each left one colour warning, in a different view.
+- The tie is a soft red patch at a distance, where the original has crisp stripes.
 
-**Choices I made**
-- I used a 96-cell carve (the spec's `cells` setting). It gives a slightly better front outline than the 64-cell default, at the same triangle count.
-- I did not fit the run animation to `motion.png`, because you asked for the standing pose and to keep the skeleton's animations. Adding `motion` would make the run match the original more closely.
-
-**Files:** `work:scientist.mdl`, the spec at `work:scientist.spec.json`, and the sheet at `work:scientist-sheet.png`. I could not run the model in the game, so these checks are from the kit's renders only.
+Previews are in the work folder as `scientist-fl.png` and `scientist-fr.png`, and the spec is `scientist.spec.json`.

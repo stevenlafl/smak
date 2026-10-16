@@ -19,11 +19,6 @@
   "pose": {
     "fit": true
   },
-  "materials": {
-    "coat": {
-      "base": "cloth"
-    }
-  },
   "project": [
     {
       "picture": "work:pictures/sides.png",
@@ -66,6 +61,26 @@
       ]
     },
     {
+      "picture": "work:pictures/sides.png",
+      "view": "top",
+      "area": [
+        512,
+        512,
+        1024,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "below",
+      "area": [
+        1024,
+        512,
+        1536,
+        1024
+      ]
+    },
+    {
       "picture": "work:pictures/front-left.png",
       "yaw": 35,
       "pitch": 20
@@ -90,19 +105,15 @@
     {
       "id": "body",
       "kind": "carved",
-      "material": "coat",
+      "material": "scientist",
       "size": [
         33.3,
         21.7,
         68
       ],
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "sheet": "work:pictures/sides.png",
       "cells": 96,
+      "triangles": 680,
+      "sheet": "work:pictures/sides.png",
       "pictures": [
         {
           "picture": "work:pictures/front-left.png",
@@ -124,8 +135,12 @@
           "yaw": 215,
           "pitch": 20
         }
-      ],
-      "triangles": 700
+      ]
     }
-  ]
+  ],
+  "materials": {
+    "scientist": {
+      "base": "cloth"
+    }
+  }
 }

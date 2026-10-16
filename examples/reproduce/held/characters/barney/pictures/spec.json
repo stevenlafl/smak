@@ -16,15 +16,8 @@
     "height": 512
   },
   "smooth": 80,
-  "materials": {
-    "cloth": {
-      "base": "cloth",
-      "tone": [
-        0.3,
-        0.32,
-        0.5
-      ]
-    }
+  "pose": {
+    "fit": true
   },
   "project": [
     {
@@ -68,26 +61,6 @@
       ]
     },
     {
-      "picture": "work:pictures/sides.png",
-      "view": "top",
-      "area": [
-        512,
-        512,
-        1024,
-        1024
-      ]
-    },
-    {
-      "picture": "work:pictures/sides.png",
-      "view": "below",
-      "area": [
-        1024,
-        512,
-        1536,
-        1024
-      ]
-    },
-    {
       "picture": "work:pictures/front-left.png",
       "yaw": 35,
       "pitch": 20
@@ -108,25 +81,18 @@
       "pitch": 20
     }
   ],
-  "pose": {
-    "fit": true
-  },
   "parts": [
     {
       "id": "body",
       "kind": "carved",
-      "material": "cloth",
+      "sheet": "work:pictures/sides.png",
       "size": [
         22.8,
         30.2,
         75.3
       ],
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "sheet": "work:pictures/sides.png",
+      "cells": 110,
+      "triangles": 700,
       "pictures": [
         {
           "picture": "work:pictures/front-left.png",
@@ -148,9 +114,7 @@
           "yaw": 215,
           "pitch": 20
         }
-      ],
-      "cells": 96,
-      "triangles": 720
+      ]
     }
   ]
 }

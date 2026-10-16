@@ -7,567 +7,589 @@
   },
   "floor": 0,
   "size": {
-    "height": 68,
-    "width": 21.7
+    "height": 68
   },
   "pose": {
     "keys": {
       "Bip01 Spine": {
         "turn": {
-          "y": 2
+          "y": -6
         }
       },
       "Bip01 Spine1": {
         "turn": {
-          "y": 2
-        }
-      },
-      "Bip01 Spine2": {
-        "turn": {
-          "y": 2
-        }
-      },
-      "Bip01 Spine3": {
-        "turn": {
-          "y": 2
+          "y": -6
         }
       },
       "Bip01 Neck": {
         "turn": {
-          "y": 2
-        }
-      },
-      "Bip01 Head": {
-        "turn": {
-          "y": -4
-        }
-      },
-      "Bip01 L Arm": {
-        "turn": {
-          "x": -4
-        }
-      },
-      "Bip01 R Arm": {
-        "turn": {
-          "x": 4
+          "y": -10
         }
       },
       "Bip01 L Arm1": {
         "turn": {
-          "x": -8
+          "x": -15
         }
       },
       "Bip01 R Arm1": {
         "turn": {
-          "x": 8
+          "x": 15
         }
       }
     }
   },
   "materials": {
+    "skin": {
+      "base": "plaster",
+      "tone": [
+        0.66,
+        0.56,
+        0.5
+      ]
+    },
     "coat": {
       "base": "cloth",
       "tone": [
-        0.8,
-        0.8,
-        0.78
-      ]
-    },
-    "trousers": {
-      "base": "cloth",
-      "tone": [
-        0.78,
-        0.78,
-        0.76
+        0.7,
+        0.7,
+        0.68
       ]
     },
     "shirt": {
       "base": "cloth",
       "tone": [
-        0.36,
-        0.5,
-        0.62
+        0.34,
+        0.46,
+        0.56
       ]
     },
     "tie": {
-      "base": "cloth",
+      "base": "hazard",
       "tone": [
+        0.45,
         0.14,
-        0.17,
-        0.32
-      ]
-    },
-    "tie_red": {
-      "base": "cloth",
-      "tone": [
-        0.5,
-        0.2,
-        0.18
+        0.12
       ]
     },
     "belt": {
       "base": "leather",
-      "tone": "black"
+      "tone": [
+        0.07,
+        0.06,
+        0.06
+      ]
+    },
+    "buckle": {
+      "base": "steel",
+      "tone": [
+        0.5,
+        0.5,
+        0.5
+      ]
     },
     "shoe": {
       "base": "leather",
       "tone": [
-        0.32,
-        0.16,
-        0.1
-      ]
-    },
-    "skin": {
-      "base": "plaster",
-      "tone": [
-        0.85,
-        0.72,
-        0.64
-      ]
-    },
-    "lips": {
-      "base": "plaster",
-      "tone": [
-        0.55,
-        0.35,
-        0.32
+        0.3,
+        0.17,
+        0.12
       ]
     },
     "hair": {
       "base": "cloth",
       "tone": [
-        0.78,
-        0.78,
-        0.76
+        0.7,
+        0.7,
+        0.68
       ]
     },
     "frame": {
-      "base": "metal",
-      "tone": "black"
+      "base": "paint",
+      "tone": [
+        0.05,
+        0.05,
+        0.05
+      ]
     },
-    "lens": {
-      "base": "glass",
-      "tone": "pale grey"
+    "mouth": {
+      "base": "paint",
+      "tone": [
+        0.25,
+        0.14,
+        0.12
+      ]
     }
   },
   "parts": [
     {
-      "id": "torso",
-      "kind": "box",
-      "material": "coat",
-      "span": {
-        "bones": [
-          "Bip01 Pelvis",
-          "Bip01 Neck"
-        ]
-      },
-      "size": [
-        10,
-        13,
-        1
-      ],
-      "panels": [
-        {
-          "face": "front",
-          "at": [
-            6.5,
-            11
-          ],
-          "size": [
-            5,
-            17
-          ],
-          "material": "shirt",
-          "style": "flat"
-        },
-        {
-          "face": "front",
-          "at": [
-            6.5,
-            11
-          ],
-          "size": [
-            1.6,
-            14
-          ],
-          "material": "tie",
-          "style": "flat"
-        },
-        {
-          "face": "front",
-          "at": [
-            6.5,
-            8
-          ],
-          "size": [
-            1.2,
-            1.2
-          ],
-          "material": "tie_red",
-          "style": "flat"
-        },
-        {
-          "face": "front",
-          "at": [
-            6.5,
-            4
-          ],
-          "size": [
-            1.2,
-            1.2
-          ],
-          "material": "tie_red",
-          "style": "flat"
-        },
-        {
-          "face": "front",
-          "at": [
-            6.5,
-            1.5
-          ],
-          "size": [
-            13,
-            2.2
-          ],
-          "material": "belt",
-          "style": "flat"
-        }
-      ]
-    },
-    {
-      "id": "skirt",
-      "kind": "turn",
-      "material": "coat",
-      "bone": "Bip01 Pelvis",
-      "at": [
-        1,
-        0,
-        -12
-      ],
-      "rings": [
-        [
-          0,
-          [
-            6,
-            7.4
-          ]
-        ],
-        [
-          8,
-          [
-            5.4,
-            6.9
-          ]
-        ],
-        [
-          15,
-          [
-            4.9,
-            6.4
-          ]
-        ]
-      ],
-      "caps": [
-        true,
-        true
-      ],
-      "sides": 8
-    },
-    {
-      "id": "thigh_l",
-      "kind": "cylinder",
-      "material": "trousers",
-      "span": {
-        "bones": [
-          "Bip01 L Leg",
-          "Bip01 L Leg1"
-        ],
-        "over": 1
-      },
-      "radius": 3.3,
-      "height": 1,
-      "sides": 6,
-      "mirror": "y"
-    },
-    {
-      "id": "shin_l",
-      "kind": "cylinder",
-      "material": "trousers",
-      "span": {
-        "bones": [
-          "Bip01 L Leg1",
-          "Bip01 L Foot"
-        ],
-        "over": 4
-      },
-      "radius": 2.6,
-      "height": 1,
-      "sides": 6,
-      "mirror": "y"
-    },
-    {
-      "id": "shoe_l",
-      "kind": "superquadric",
-      "material": "shoe",
-      "size": [
-        9.5,
-        4.4,
-        3.8
-      ],
-      "round": [
-        0.25,
-        0.4
-      ],
-      "sides": 8,
-      "attach": {
-        "bone": "Bip01 L Foot",
-        "offset": [
-          2.6,
-          0,
-          -1.9
-        ]
-      },
-      "mirror": "y"
-    },
-    {
-      "id": "head",
+      "id": "coat",
       "kind": "blob",
-      "material": "skin",
-      "triangles": 120,
+      "material": "coat",
+      "blend": 3,
+      "triangles": 180,
+      "symmetric": true,
       "pieces": [
         {
-          "at": "Bip01 Head",
-          "radius": [
-            4.3,
-            3.7,
-            4
+          "span": [
+            "Bip01 Pelvis",
+            "Bip01 Spine1"
           ],
-          "offset": [
-            0,
-            0,
-            -1
+          "radius": [
+            3.3,
+            3.7
           ]
         },
         {
           "span": [
-            "Bip01 Spine3",
-            "Bip01 Head"
+            "Bip01 Spine1",
+            "Bip01 Neck"
           ],
-          "radius": 2.4
+          "radius": [
+            3.7,
+            3
+          ]
         },
         {
-          "at": "Bip01 Head",
-          "offset": [
-            4.2,
-            0,
-            -0.6
-          ],
-          "radius": 1.2
+          "at": "Bip01 Spine2",
+          "radius": 3.9
         },
         {
-          "at": "Bip01 Head",
-          "offset": [
-            -0.4,
-            3.8,
-            -0.6
-          ],
-          "radius": 1.2
+          "at": "Bip01 Pelvis",
+          "radius": 3.4
         },
         {
-          "at": "Bip01 Head",
-          "offset": [
-            -0.4,
-            -3.8,
-            -0.6
-          ],
-          "radius": 1.2
+          "at": "Bip01 L Arm",
+          "radius": 2.6
         }
-      ],
-      "blend": 1.5
+      ]
     },
     {
-      "id": "hair",
-      "kind": "tube",
-      "material": "hair",
-      "bone": "Bip01 Head",
-      "at": [
-        1,
-        0,
-        28
+      "id": "neck",
+      "kind": "cylinder",
+      "material": "skin",
+      "sides": 6,
+      "radius": 1.9,
+      "height": 6,
+      "span": {
+        "bones": [
+          "Bip01 Neck",
+          "Bip01 Head"
+        ],
+        "over": 0.5
+      }
+    },
+    {
+      "id": "head",
+      "kind": "superquadric",
+      "material": "skin",
+      "size": [
+        7.2,
+        6.4,
+        8.6
       ],
-      "path": [
-        [
+      "round": [
+        0.5,
+        0.6
+      ],
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "centre",
+        "offset": [
           0,
-          -3.8,
-          0.4,
-          0.9
-        ],
-        [
-          -2.2,
-          -3.3,
-          0.4,
-          0.9
-        ],
-        [
-          -3.8,
-          -1.9,
-          0.4,
-          0.9
-        ],
-        [
-          -4.5,
           0,
-          0.4,
-          0.9
-        ],
-        [
-          -3.8,
-          1.9,
-          0.4,
-          0.9
-        ],
-        [
-          -2.2,
-          3.3,
-          0.4,
-          0.9
-        ],
-        [
-          0,
-          3.8,
-          0.4,
-          0.9
+          2.2
         ]
-      ],
-      "sides": 4
+      }
     },
     {
-      "id": "frame",
+      "id": "nose",
+      "kind": "superquadric",
+      "material": "skin",
+      "size": [
+        1.6,
+        1.2,
+        2.6
+      ],
+      "round": [
+        0.3,
+        0.5
+      ],
+      "sides": 4,
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "centre",
+        "offset": [
+          3.9,
+          0,
+          -1
+        ]
+      }
+    },
+    {
+      "id": "lens",
       "kind": "box",
       "material": "frame",
-      "bone": "Bip01 Head",
-      "at": [
-        5,
-        2,
-        27.4
-      ],
+      "paint": true,
       "size": [
-        0.8,
-        3.4,
-        2.4
+        0.4,
+        2.6,
+        2
       ],
-      "panels": [
-        {
-          "face": "front",
-          "at": [
-            1.7,
-            1.2
-          ],
-          "size": [
-            2.5,
-            1.5
-          ],
-          "material": "lens",
-          "style": "flat"
-        }
-      ],
+      "texels": 2,
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "centre",
+        "offset": [
+          3.8,
+          1.6,
+          0.2
+        ]
+      },
       "mirror": "y"
     },
     {
       "id": "bridge",
       "kind": "box",
       "material": "frame",
-      "bone": "Bip01 Head",
-      "at": [
-        5,
-        0,
-        28.3
-      ],
+      "paint": true,
       "size": [
-        0.8,
+        0.4,
         1,
-        0.7
-      ]
+        0.4
+      ],
+      "texels": 2,
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "centre",
+        "offset": [
+          3.8,
+          0,
+          1
+        ]
+      }
     },
     {
-      "id": "temple",
+      "id": "hair",
       "kind": "box",
-      "material": "frame",
-      "bone": "Bip01 Head",
-      "at": [
-        2.6,
-        3.7,
-        28.6
-      ],
+      "material": "hair",
+      "paint": true,
       "size": [
-        4.4,
-        0.35,
-        0.35
+        1.4,
+        1,
+        2.6
       ],
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "centre",
+        "offset": [
+          0,
+          3.3,
+          -0.8
+        ]
+      },
       "mirror": "y"
+    },
+    {
+      "id": "hair_back",
+      "kind": "box",
+      "material": "hair",
+      "paint": true,
+      "size": [
+        1.2,
+        6.4,
+        2.6
+      ],
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "centre",
+        "offset": [
+          -3.4,
+          0,
+          -0.8
+        ]
+      }
     },
     {
       "id": "mouth",
       "kind": "box",
-      "material": "lips",
-      "bone": "Bip01 Head",
-      "at": [
-        3.7,
-        0,
-        25.2
-      ],
+      "material": "mouth",
+      "paint": true,
       "size": [
-        0.8,
-        2,
-        0.4
-      ]
+        0.3,
+        2.2,
+        0.3
+      ],
+      "texels": 2,
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "centre",
+        "offset": [
+          3.8,
+          0,
+          -3.8
+        ]
+      }
     },
     {
-      "id": "upper_arm_l",
+      "id": "shirt",
+      "kind": "box",
+      "material": "shirt",
+      "paint": true,
+      "size": [
+        0.5,
+        3.6,
+        9
+      ],
+      "attach": {
+        "bone": "Bip01 Spine2",
+        "at": "centre",
+        "offset": [
+          3.9,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "tie",
+      "kind": "box",
+      "material": "tie",
+      "size": [
+        0.5,
+        1.6,
+        22
+      ],
+      "attach": {
+        "bone": "Bip01 Spine2",
+        "at": "top",
+        "offset": [
+          4,
+          0,
+          13
+        ]
+      }
+    },
+    {
+      "id": "belt",
+      "kind": "box",
+      "material": "belt",
+      "paint": true,
+      "size": [
+        0.6,
+        9,
+        1.8
+      ],
+      "attach": {
+        "bone": "Bip01 Pelvis",
+        "at": "centre",
+        "offset": [
+          3.6,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "id": "buckle",
+      "kind": "box",
+      "material": "buckle",
+      "paint": true,
+      "size": [
+        0.4,
+        1.4,
+        1.2
+      ],
+      "attach": {
+        "bone": "Bip01 Pelvis",
+        "at": "centre",
+        "offset": [
+          4,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "id": "sleeve_upper",
       "kind": "cylinder",
       "material": "coat",
+      "sides": 6,
+      "radius": 2.1,
+      "height": 6,
       "span": {
         "bones": [
           "Bip01 L Arm1",
           "Bip01 L Arm2"
         ],
-        "over": 1
+        "over": 0.6
       },
-      "radius": 2.3,
-      "height": 1,
-      "sides": 8,
       "mirror": "y"
     },
     {
-      "id": "forearm_l",
+      "id": "elbow",
+      "kind": "superquadric",
+      "material": "coat",
+      "size": [
+        3.6,
+        3.6,
+        3.6
+      ],
+      "round": [
+        1,
+        1
+      ],
+      "sides": 4,
+      "attach": {
+        "bone": "Bip01 L Arm2",
+        "at": "centre",
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mirror": "y"
+    },
+    {
+      "id": "sleeve_fore",
       "kind": "cylinder",
       "material": "coat",
+      "sides": 4,
+      "radius": 1.7,
+      "height": 6,
       "span": {
         "bones": [
           "Bip01 L Arm2",
           "Bip01 L Hand"
         ],
-        "over": 3
+        "over": 0.6
       },
-      "radius": 2.3,
-      "height": 1,
-      "sides": 8,
       "mirror": "y"
     },
     {
-      "id": "hand_l",
+      "id": "cuff",
       "kind": "cylinder",
+      "material": "coat",
+      "sides": 4,
+      "radius": 1.8,
+      "height": 8,
+      "attach": {
+        "bone": "Bip01 L Hand",
+        "at": "top",
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mirror": "y"
+    },
+    {
+      "id": "fist",
+      "kind": "superquadric",
       "material": "skin",
+      "size": [
+        2.6,
+        2.2,
+        2.6
+      ],
+      "round": [
+        0.5,
+        0.5
+      ],
+      "sides": 4,
+      "attach": {
+        "bone": "Bip01 L Hand",
+        "at": "centre",
+        "offset": [
+          0.6,
+          0,
+          -6.2
+        ]
+      },
+      "mirror": "y"
+    },
+    {
+      "id": "thigh",
+      "kind": "cylinder",
+      "material": "coat",
+      "sides": 6,
+      "radius": 2.7,
+      "height": 6,
       "span": {
         "bones": [
-          "Bip01 L Hand",
-          "Bip01 L Finger12"
+          "Bip01 L Leg",
+          "Bip01 L Leg1"
         ],
-        "over": 4
+        "over": 0.6
       },
-      "radius": 1.7,
-      "height": 1,
+      "mirror": "y"
+    },
+    {
+      "id": "knee",
+      "kind": "superquadric",
+      "material": "coat",
+      "size": [
+        4.4,
+        4.4,
+        4.4
+      ],
+      "round": [
+        1,
+        1
+      ],
+      "sides": 4,
+      "attach": {
+        "bone": "Bip01 L Leg1",
+        "at": "centre",
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mirror": "y"
+    },
+    {
+      "id": "shin",
+      "kind": "cylinder",
+      "material": "coat",
       "sides": 6,
+      "radius": 2.1,
+      "height": 6,
+      "span": {
+        "bones": [
+          "Bip01 L Leg1",
+          "Bip01 L Foot"
+        ],
+        "over": 2
+      },
+      "mirror": "y"
+    },
+    {
+      "id": "shoe",
+      "kind": "superquadric",
+      "material": "shoe",
+      "size": [
+        5.4,
+        3.2,
+        3
+      ],
+      "round": [
+        0.2,
+        0.3
+      ],
+      "sides": 4,
+      "attach": {
+        "bone": "Bip01 L Foot",
+        "at": "centre",
+        "offset": [
+          1,
+          0,
+          -0.6
+        ]
+      },
       "mirror": "y"
     }
   ]
