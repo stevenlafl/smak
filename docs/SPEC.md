@@ -586,8 +586,9 @@ crack, close-miked, dry'"), so they can ask for theirs instead.
 
 Give its `length`, its `class`, and 4 to 8 seeds; another seed is another take, another wording another set. Choose
 the take that is what was asked for and is clean (the measures flag clipping, a slow attack, a ringing tail of noise),
-and put it in a `sample` layer `from: "onset"`. Add no `noise` layer over a take: it has its texture already, and
-steady noise added to it is heard as static (and, fading, as reverb; the build warns of it). Shape it in the spec only
+and put it in a `sample` layer `from: "onset"`. Add no `noise` or `modes` layer over a take: it has its texture and
+its ring already. Steady noise added to it is heard as static (and, fading, as reverb; the build warns of it), and
+modes laid on a hit or a step are heard as a bell. Shape it in the spec only
 where it needs it: its `length`, a `filter` (a generated hit is often brighter than the game's: a `lowpass` or a
 `highshelf` cut), the finish's `saturate` and `limit` (a shot is loud for its peak). Layers alone are for what has no
 real source (a beep, a drone) or where no take comes near. Each take's sidecar names its model's licence, and the

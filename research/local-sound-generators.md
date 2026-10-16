@@ -42,9 +42,9 @@ envelope, filters, a synthesised bed or click, the loop seam, the class checks).
 at it. Woosh's weights are non-commercial; EzAudio is the MIT fallback; the Stable Audio models need Steven to
 accept their licence on HF before they can be tried.
 
-Second round (section 9, 2026-10-16): MOSS-SoundEffect v2.0 (Apache-2.0) installed and run; it gave one
-clang per seed where the others often did not, but bright, at 15.5 s a take and 11 to 12 GB. Stable Audio 3
-small SFX is installed and waits on its terms being accepted on HF. Not yet listened to.
+Second round (section 9, 2026-10-16): MOSS-SoundEffect v2.0 (Apache-2.0) and Stable Audio 3 small SFX
+(Stability AI Community Licence) installed and run beside Woosh-DFlow and EzAudio. In Steven's blind
+listening Stable Audio 3 was picked most often, and it is now the default (section 10).
 
 ## Steven's listening (2026-10-15)
 
@@ -57,9 +57,9 @@ He listened to the best takes beside Valve's and Haiku's synthesis:
 | TangoFlux | Hit OK, but clanky like a pipe; the creature's attack and pain like a cat meowing |
 | All | The attack and pain sound like aliens: the prompts said "alien creature", "screech", "squealing yelp", where the brief's crawler is a low, wet, six-legged thing (a gurgle, a chitter, a hiss would fit) |
 
-His call: **Woosh-DFlow is the default**, iterated over seeds (its 0.4 s a take makes a seed search cheap),
-with the other installed models selectable. So the `generate` tool's default is Woosh-DFlow, it takes a
-`model`, and it is built to make many seeds a call.
+His call then: **Woosh-DFlow the default**, iterated over seeds (its 0.4 s a take makes a seed search cheap),
+with the other installed models selectable. So the `generate` tool takes a `model` and makes many seeds a
+call. The default became Stable Audio 3 after the blind listening of section 10.
 
 ## 1. Candidates
 
@@ -70,7 +70,7 @@ them.
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Stable Audio Open 1.0 (Stability) | 2024-06 | Stability AI Community Licence: free under $1M yearly revenue, else paid | 1.2B | 44.1 kHz stereo | 47 s | init audio (style transfer) through `stable-audio-tools` | yes | not tried: gated, no token here |
 | Stable Audio Open Small (Stability, Arm) | 2025-05 | same | 0.5B | 44.1 kHz stereo | 11 s | no | yes | not tried: gated |
-| Stable Audio 3 small SFX (Stability) | 2026-05 | same; Gemma terms for a bundled part | 433M (repository README) | 44.1 kHz stereo (repository README, its SAME autoencoder) | 120 s (repository README) | inpainting and continuation | yes ("auto") | installed, not run: terms not yet accepted (2026-10-16 round) |
+| Stable Audio 3 small SFX (Stability) | 2026-05 | same; Gemma terms for a bundled part | 433M (repository README) | 44.1 kHz stereo (repository README, its SAME autoencoder) | 120 s (repository README) | inpainting and continuation | yes ("auto") | **ran** (2026-10-16 round); the default since |
 | TangoFlux (declare-lab) | 2024-12 | NC research only, plus SAO's licence (it uses SAO's VAE) | 0.5B (secondary) | 44.1 kHz stereo | 30 s | no | no | **ran** |
 | EzAudio (Hai et al.) | 2024-09 paper; MIT weights | **MIT** (HF card; repository LICENSE MIT) | XL DiT, 3.5 GB checkpoint; flan-T5-XL text encoder | 24 kHz mono | 10 s | **editing and inpainting** (a masked span regenerated) | no | **ran** |
 | Woosh (Sony AI) | 2026-04 | CC-BY-NC 4.0; code MIT (video parts Apache 2.0) | Flow and distilled DFlow, 1.3 GB each, plus AE, CLAP, text conditioner | 48 kHz mono | a 5 s window (501 latent frames) | video-to-audio; none for audio | no (GitHub release) | **ran**, both forms |
@@ -367,16 +367,13 @@ The filters there answer the numbers of section 3 (its 2 to 5 kHz excess, its mi
 5. Do not judge generated sounds by the class score alone. A takes-picker should prefer one onset for a
    one-shot, and show the picture.
 
-## 8. What Steven has to do
+## 8. Gated models
 
-Nothing for what ran. The Stable Audio models are gated on HF (Stability AI Community Licence). A read token
-for the account `stevenlafl` is kept outside the folder, and the install reads it from `HF_TOKEN` in the
-environment only. What is missing is the terms, accepted while signed in as that account:
-
-1. https://huggingface.co/stabilityai/stable-audio-3-small-sfx (installed and wired into the worker, section 9;
-   its download was refused on 2026-10-16 with "not in the authorized list").
-2. If wanted, https://huggingface.co/stabilityai/stable-audio-open-1.0 (`generate.py sao out/sao` runs it
-   through diffusers; written, not yet run) and https://huggingface.co/stabilityai/stable-audio-open-small.
+The Stable Audio models are gated on HF (Stability AI Community Licence). A read token for the account
+`stevenlafl` is kept outside the folder, and the install reads it from `HF_TOKEN` in the environment only.
+Steven accepted the terms of Stable Audio 3 small SFX on 2026-10-16 and it was downloaded and run. Stable
+Audio Open 1.0 and Small (`generate.py sao out/sao` runs 1.0 through diffusers; written, not run) would need
+their own terms accepted.
 
 ## 9. Second round, 2026-10-16: models that may be used commercially
 
@@ -390,7 +387,7 @@ approved trying Stable Audio 3 under its community licence. Two were installed b
 | Weights | `OpenMOSS-Team/MOSS-SoundEffect-v2.0` at e35df4d, 11.2 GB, in `weights/moss-sfx` | `stabilityai/stable-audio-3-small-sfx` at 05ca385, 3.5 GB, into `weights/hf` |
 | Venv | `venvs/moss-rocm` | `venvs/sa3-rocm` |
 | Worker name | `moss-sfx` (longest 30 s) | `stable-audio-3-sfx` (longest 120 s) |
-| State | **installed and run** | installed, **not run**: the download is refused until the terms are accepted (section 8) |
+| State | **installed and run** | **installed and run** once the terms were accepted: loads in 31 s, 0.4 s a take (2.9 the first), 2.3 GB, 44.1 kHz stereo |
 
 ### How
 
@@ -411,7 +408,7 @@ Medium asks for flash-attn.
 `scripts/generate.py` runs it), so the comparison could go through the worker. Each answer line now carries
 `vram`, the peak GB torch has held since the load. `generators.json` has an entry for each new model with its
 licence. Stable Audio 3's entry sets `HF_HUB_OFFLINE=1`, because its loader looks the gated files up on the
-hub at every load, and the server's environment carries no token. Woosh-DFlow stays the default.
+hub at every load, and the server's environment carries no token.
 
 ### Problems and fixes
 
@@ -419,7 +416,7 @@ hub at every load, and the server's environment carries no token. Woosh-DFlow st
 | --- | --- | --- |
 | MOSS | it always denoises a 30 s window and crops it; decoding all 30 s with the DAC VAE in float32 ran out of the 16 GB card (11.7 GB already held by the DiT and Qwen3) | the worker decodes only the latents the length asked needs, plus half a second (`vae.decode` wrapped; DAC's hop is 960 samples, 50 latent frames a second) |
 | MOSS | its DiT is wrapped in `torch.compile` with Triton CUDA graphs, which its card says may fail | it worked on ROCm as shipped (pytorch-triton-rocm 3.5.1): about 25 s of compiling on the first take, none after, since the window's shape never changes |
-| Stable Audio 3 | gated "auto" on HF; the token's account was refused ("not in the authorized list") | none tried round the gate: the terms are Steven's to accept (section 8) |
+| Stable Audio 3 | gated "auto" on HF; the token's account was refused ("not in the authorized list") | Steven accepted the terms; nothing was tried round the gate |
 | install | a check of whether Stable Audio 3 was cached passed falsely, because the card (not gated) had been cached alone | it now looks for the checkpoints themselves |
 
 ### Test
@@ -490,21 +487,34 @@ it plays are copies in `blind/`, named by letter. `key.txt` says which is which.
 deals the letters again once Stable Audio 3 is added. All four seeds of every model are in
 `/media/Data3/Packages/local-audio/out/v2/<model>/final/`, their measures in `measures.json` beside them.
 
+Stable Audio 3 small SFX was run the same way once its terms were accepted (`bench-worker.py
+stable-audio-3-sfx out/v2/stable-audio-3-sfx`, `finish-v2.mjs`, then `blind-review.py` dealt four letters).
+Its clang came out short and bright too (0.3 s, centroid about 5.3 kHz, one onset).
+
 ### Not verified
 
-- Stable Audio 3 small SFX: not downloaded, so not run. Its loader in the worker is written from its
-  repository's README and `model.py` (its defaults: 8 steps, cfg 1) and only checked as far as importing on
-  ROCm and failing cleanly at load with the files missing. When the terms are accepted:
-  `HF_TOKEN=... bash scripts/install.sh`, then `python3 scripts/bench-worker.py stable-audio-3-sfx
-  out/v2/stable-audio-3-sfx`, `node scripts/finish-v2.mjs out/v2/stable-audio-3-sfx` and
-  `python3 scripts/blind-review.py`.
-- How any of these sound. Only the measures above are known.
 - MOSS with fewer steps, or a window shorter than 30 s, which would make it faster. Not tried, since the card's
   settings are what it was trained and tested with.
 - Why MOSS puts the shot late. The prompt it gets ends in " duration: 1.5s", as in its training, and the other
   sounds start at once.
 - Disk: 11.2 GB of MOSS weights; the two venvs' size was not measured (their torch is hardlinked from the
   shared uv cache).
+
+## 10. Steven's blind listening, 2026-10-16
+
+One unpicked take a model (first seed), lettered per sound; his picks, from `~/stignored/sound-review-models/`
+(the whole record is `examples/reproduce/reviews/sounds-2026-10-16.json`):
+
+| Sound | Pick |
+| --- | --- |
+| Crowbar hit | none: inconclusive, would re-prompt |
+| Revolver | none sounds like the prompt |
+| Step | Woosh-DFlow |
+| Door | Stable Audio 3 ("they're all great") |
+| Drips | Stable Audio 3, Woosh-DFlow second |
+
+Stable Audio 3 small SFX is the default from here (`generators.json`); Woosh-DFlow stays installed and
+selectable. MOSS and EzAudio were never picked.
 
 ## Next (not done here)
 

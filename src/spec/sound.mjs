@@ -225,9 +225,15 @@ export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (
     // both in the reproduction test's sounds, and their spectrograms showed an even wash where the game's own
     // break into grains and tones; taken out, the take under it was clean (2026-10-15)
     const noisy = sound.layers.map((layer, k) => ({ layer, k })).filter(({ layer }) => layer.kind === "noise" && !layer.post);
-    if (sound.layers.some((layer) => layer.kind === "sample") && noisy.length)
+    const overTake = sound.layers.some((layer) => layer.kind === "sample") && noisy.length;
+    if (overTake)
       warnings.push(`${sound.name}: ${noisy.length} noise layer${noisy.length > 1 ? "s" : ""} (${noisy.map(({ layer, k }) => layer.id ?? `layers[${k}]`).join(", ")}) over a recorded take: a take has its own texture, and steady noise added to it is heard as static (fading, as reverb). Shape the take with its filter and env instead; add a short crack (post: true) or particles for grain`);
-    else {
+    // modes laid over a take rang as a bell: Steven heard the crowbar's and the metal step's so, the only two of
+    // ten sounds from a brief whose makers added them (2026-10-16)
+    const rung = sound.layers.map((layer, k) => ({ layer, k })).filter(({ layer }) => layer.kind === "modes");
+    if (sound.layers.some((layer) => layer.kind === "sample") && rung.length)
+      warnings.push(`${sound.name}: ${rung.length} modes layer${rung.length > 1 ? "s" : ""} (${rung.map(({ layer, k }) => layer.id ?? `layers[${k}]`).join(", ")}) over a recorded take: a take has its own ring, and partials added to a hit or a step are heard as a bell. Choose a take that rings as wanted, or shape its own with a filter (a peak where it should ring) and its env`);
+    if (!overTake) {
       const ringing = noisy.filter(({ layer }) => (layer.length ?? (layer.env?.points ? layer.env.points.at(-1)[0] : (layer.env?.attack ?? 0) + (layer.env?.hold ?? 0) + (layer.env?.decay ?? 0.3))) > 0.3 && !layer.shape?.keys);
       if (ringing.length)
         warnings.push(`${sound.name}: ${ringing.map(({ layer, k }) => layer.id ?? `layers[${k}]`).join(", ")}: smooth noise ringing past 0.3 s is heard as static and, as it fades, as a reverb; a real tail breaks into grains (particles, rate falling) and tones (modes): use those for a long tail, or a noise shape that moves (keys)`);

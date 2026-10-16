@@ -304,3 +304,8 @@ walk test, not the game.
   shown": it did not tie `+a~generic86`'s tile to `+0~generic86`. Each row now carries `frames` (the original's
   frames or tiles, those the replacement has, and whether it has all), and each flat tile says "frame n of m of
   <name>". T6 is unchanged in what it asks. Earlier rounds keep their scores.
+- **2026-10-16, later: four briefs say the sound (after Steven's first listening, reviews/sounds-2026-10-16.json).**
+  The metal step, the door, the medkit and the drips were briefed by their event, and the game's sound is not what
+  the event's name suggests: a tinny vent step, an electronic whine and a thud, two beeps and a hypospray hiss, drops
+  into a pool. Their briefs now say that, as a modder who wanted a sound like it would. The other six are unchanged,
+  and the generator's default is Stable Audio 3 small SFX, Steven's blind pick. The first round's verdicts stand.

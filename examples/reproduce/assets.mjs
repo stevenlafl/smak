@@ -52,18 +52,22 @@ const LEGS = ["pictures", "words"];
 // replicate this"; the descriptions read the spectrogram, which no model was trained on): its one leg is a modder's
 // brief, a line of what the sound is for, and the verdict is the person's ear, at least as good as the game's own
 const legsOf = (kind) => (kind === "sounds" ? ["brief"] : LEGS);
-/** What a modder asks for, by the game's event its file plays, never by its sound. */
+/**
+ * What a modder asks for. First by the game's event alone; where Steven heard that the game's sound is not what the
+ * event's name suggests (a door that whines, a medkit that beeps), the brief says the sound, as a modder who wants
+ * one like it would (2026-10-16).
+ */
 const SOUND_BRIEF = {
   "weapons/cbar_hit1": "the crowbar hitting a metal surface",
   "weapons/357_shot1": "a .357 revolver firing",
   "weapons/sbarrel1": "a pump shotgun firing",
   "player/pl_step1": "a footstep on concrete",
-  "player/pl_metal1": "a footstep on a metal floor",
-  "doors/doormove1": "a heavy metal sliding door moving",
-  "items/smallmedkit1": "using a small medkit to heal",
+  "player/pl_metal1": "a light footstep on a thin metal vent, a hollow tinny tap",
+  "doors/doormove1": "a sci-fi sliding door: a rising electronic whine like an alarm, ending in a thud as it stops",
+  "items/smallmedkit1": "a medkit used: two short electronic beeps, then the hiss of a hypospray",
   "debris/bustmetal1": "a metal panel or crate breaking apart",
   "weapons/explode3": "a grenade exploding",
-  "ambience/drips": "a looping ambience of water dripping in a tunnel",
+  "ambience/drips": "a looping cave ambience of water dripping into a pool, echoing",
 };
 
 const SOUND_CLASS = { "weapons/cbar_hit1": "metal hit", "weapons/357_shot1": "gunshot", "weapons/sbarrel1": "gunshot", "player/pl_step1": "step concrete", "player/pl_metal1": "step metal", "weapons/explode3": "explosion", "ambience/drips": "loop drips" };

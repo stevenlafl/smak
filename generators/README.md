@@ -5,7 +5,8 @@ outside service. The kit stays Node alone; the models live in a folder of their 
 venv, and the server is pointed at it: `smak mcp --work <dir> --generators <folder>` (or `SMAK_GENERATORS`).
 
 Which models, and why: `research/local-sound-generators.md` and `research/local-music-generators.md`. In
-short, Woosh-DFlow for sounds (the most accurate to Steven's ear; Woosh-Flow had the best hit), ACE-Step 1.5
+short, Stable Audio 3 small SFX for sounds (picked most often in Steven's blind listening of four models;
+Woosh-DFlow next), ACE-Step 1.5
 XL for music (the 2B is the fast choice), and for shapes Hunyuan3D-2mini (`research/local-3d-generators.md`):
 a picture of the thing, its subject cut out by BiRefNet, made into a mesh; with words alone, SD-Turbo draws
 the picture first.
@@ -29,8 +30,9 @@ take the CUDA wheels instead. About 150 GB in all. On this machine the folders a
 ## generators.json
 
 ```json
-{ "models": [{ "name": "woosh-dflow", "kind": "sound", "python": "venvs/audio-rocm/bin/python",
-               "licence": "CC-BY-NC 4.0 (weights; code MIT)", "default": true, "longest": 5 }] }
+{ "models": [{ "name": "stable-audio-3-sfx", "kind": "sound", "python": "venvs/sa3-rocm/bin/python",
+               "licence": "Stability AI Community Licence", "default": true, "longest": 120,
+               "env": { "HF_HUB_OFFLINE": "1" } }] }
 ```
 
 `name` is one `worker.py` knows (`woosh-dflow`, `woosh-flow`, `moss-sfx`, `stable-audio-3-sfx`, `ezaudio`, `acestep`,
@@ -45,7 +47,7 @@ names none; `longest` the most seconds the model makes; `env` more environment f
 `worker.py` loads one model and keeps it: the server starts it on the first call to that model and stops it
 for another (one fits on a 16 GB card at a time) or after ten minutes unused. It reads a request a line on
 stdin and answers a line on stdout (its header has the format); everything the libraries print goes to
-stderr. Measured here (RX 9070 XT): Woosh-DFlow loads in 45 to 65 s and makes a take in 0.4 s; MOSS-SoundEffect
+stderr. Measured here (RX 9070 XT): Woosh-DFlow loads in 45 to 65 s and makes a take in 0.4 s, Stable Audio 3 small SFX loads in about 30 s and makes a take in 0.4 s, holding 2.3 GB; MOSS-SoundEffect
 loads in 80 to 115 s and makes any take up to 30 s in 15.5 s (its first in about 40, compiling), holding 11 to 12 GB;
 ACE-Step 2B
 loads in 45 to 65 s and makes 12 s of music in 3 s, XL loads in about 3 minutes and makes 4 minutes in 20 s;

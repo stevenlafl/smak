@@ -299,6 +299,18 @@ test("noise over a take, and smooth noise ringing past 0.3 s, are warned of as s
   sure(!short.report.warnings.some((w) => /static/.test(w)), short.report.warnings.join(" | "));
 });
 
+test("modes over a take are warned of as a bell; modes alone are not", () => {
+  const folder = join(tmp, "rung");
+  mkdirSync(join(folder, "gen"), { recursive: true });
+  const take = Float32Array.from({ length: 24000 }, (_, i) => 0.5 * Math.exp(-i / 3000) * Math.sin((2 * Math.PI * 500 * i) / 48000));
+  writeFileSync(join(folder, "gen", "t_s0.wav"), generated(take, take));
+  const base = { spec: "smak.sound/1", name: "x/hit.wav" }, ring = { id: "ring", kind: "modes", f: 1000, decay: 0.6 };
+  const over = buildSoundSpec({ ...base, layers: [{ kind: "sample", file: "gen/t_s0.wav" }, ring] }, { folder });
+  sure(over.report.warnings.some((w) => /1 modes layer \(ring\) over a recorded take/.test(w)), over.report.warnings.join(" | "));
+  const alone = buildSoundSpec({ ...base, layers: [ring] }, { folder });
+  sure(!alone.report.warnings.some((w) => /bell/.test(w)), alone.report.warnings.join(" | "));
+});
+
 test("a hit that swells to its peak is warned of as played backwards, and one that dies early as dry", () => {
   const swell = buildSoundSpec({ spec: "smak.sound/1", name: "x/shot.wav", class: "gunshot", layers: [{ kind: "noise", color: "pink", env: { attack: 0.15, decay: 0.2 }, filter: [{ type: "lowpass", f: 2000 }] }] });
   sure(swell.report.warnings.some((w) => /x\/shot\.wav: it takes [\d.]+ s to reach its peak.*played backwards/.test(w)), swell.report.warnings.join(" | "));

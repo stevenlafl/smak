@@ -1,0 +1,31 @@
+{
+ "kind": "sounds",
+ "reviewer": "Steven",
+ "at": "2026-10-16",
+ "blind": true,
+ "sets": [
+  {
+   "set": "the first round from a modder's brief (Haiku makers, Woosh-DFlow takes), each after the game's own: is ours at least as good, for that brief?",
+   "said": {
+    "cbar_hit1": "sounds like a bell, rather than a crowbar",
+    "357_shot1": "sounds pretty good",
+    "sbarrel1": "it does sound like a shotgun but I would need to run multiple iterations with an agent to get it to be better, listening as I go",
+    "pl_step1": "probably could work, might require revisions",
+    "pl_metal1": "a metal thud rather than a step, as if something dropped onto metal; the game's is a lighter vent-like sound. Might affect the prompt",
+    "doormove1": "like a garbage disposal without the power, a grinding, a metal fence dragged against a barrel drum; the game's is an electronic sound (a frictionless door) almost like Star Trek's red alert, then a thud when it completes",
+    "smallmedkit1": "a hard-bristle brush against a metal drum; the game's is not what I would call a medkit, more 2 beeps and a hypospray",
+    "bustmetal1": "matches the description, would need more iterations, doesn't sound like Half-Life",
+    "explode3": "great",
+    "drips": "exactly like the prompt, but the game's is more cave-like, water dripping into a pool, where this hits a floor"
+   },
+   "passes": ["357_shot1", "explode3", "drips"],
+   "close": ["sbarrel1", "pl_step1", "bustmetal1"],
+   "found": "Two kinds of miss. The bell and the metal thud are the makers': both laid synthesised modes (a ring of partials) over the take, and the other eight did not. The door, the medkit, the metal step and the drips are the briefs': each named the event (a door moving, a medkit used) where the game's sound is something else (an electronic whine and a thud, two beeps and a hiss, a tinny vent step, drops into a pool). A modder asking for those would describe the sound."
+  },
+  {
+   "set": "blind pick of the generator models, one unpicked take each (first seed): Stable Audio 3 small SFX, MOSS-SoundEffect v2, Woosh-DFlow, EzAudio",
+   "picks": { "crowbar_hit": "none, inconclusive, would re-prompt", "revolver": "none sounds like the prompt", "step": "C (Woosh-DFlow)", "door": "all great, B (Stable Audio 3)", "drips": "A and D, prefers A (Stable Audio 3; D Woosh-DFlow)" },
+   "found": "Stable Audio 3 picked twice, Woosh-DFlow once and second once, MOSS and EzAudio never. Stable Audio 3 made the default."
+  }
+ ]
+}
