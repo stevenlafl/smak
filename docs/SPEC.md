@@ -907,6 +907,9 @@ million square units of floor with fewer than two areas is warned of: one wall t
 place in particular (frenzy's copy so wore one, and the judges gave its textures and its views 0). Give a level's
 parts their own, each read off pictures of the place with the `info` tool's `like` and `rect`. Unless it has lights of
 its own, in its entities or its areas, a lamp hangs under the ceiling of each of its largest open spaces (24 at most).
+A light's `brightness` is a light entity's (a lamp's is 250), not a multiple: one under 40 is warned of. After the
+compile, each area and the plan's floor outside them is a fault when more than half of its floor is dark (under 24 of
+255; Valve's maps have 10 to 37% so), and an area whose box covers none of the plan's floor is warned of.
 Frenzy's height plans read back so overlap its walked floor 0.898 (research/map-geometry.md); the textures, the
 light and every entity are still the map's to give.
 

@@ -159,6 +159,19 @@ function stacked(pictures, names) {
  */
 const textureName = (key, liquid = false, holed = false) =>
   key === "sky" ? "sky" : `${liquid ? "!" : holed ? "{" : ""}SM_${key}`.toUpperCase().replace(/[^!{A-Z0-9_]/g, "").slice(0, 15);
+/**
+ * A light's brightness is a light entity's (a lamp LAMP_BRIGHTNESS): one far under it is all but dark, and read as a
+ * multiple it was (frenzy's height-plan copy lit its areas at 2, and every view from its starts was black).
+ */
+const DIM_LIGHT = 40;
+/** A floor plan's floor (or an area's) more than this share dark is held dark, whatever its mean (Valve's frenzy 13%,
+ * c1a0 10%, c2a3 31%, c1a2 37%). */
+const DARK_SHARE = 0.5;
+function lightWarning(light, at, warnings) {
+  const b = light && typeof light === "object" ? light.brightness : undefined;
+  if (typeof b === "number" && b < DIM_LIGHT) warnings.push(`${at}.brightness: ${b} is a light entity's brightness, all but dark (a lamp is ${LAMP_BRIGHTNESS}): not a multiple`);
+}
+
 /** A texture light's brightness for a material that glows, unless it says (`glow`). */
 const GLOW = 600;
 /** A map whose darkest room's floor is lit under this gets its views drawn again three times as bright. */
@@ -323,6 +336,7 @@ export function validateMapSpec(spec) {
     for (const [i, area] of (Array.isArray(f?.areas) ? f.areas : f?.areas === undefined ? [] : [null]).entries())
       if (!area || !Array.isArray(area.min) || !Array.isArray(area.max) || area.min.length < 2 || area.max.length < 2 || ![...area.min, ...area.max].every((v) => typeof v === "number") || !["floor", "wall", "ceiling", "light"].some((k) => area[k] !== undefined))
         errors.push(`floorplan.areas[${i}]: { min: [x, y] or [x, y, z], max: the same, floor, wall, ceiling, light }: a box of the plan wearing its own (words of the theme, textures or a base) and lit as a room is ("auto", "none", { brightness, color })`);
+    for (const [i, area] of (Array.isArray(f?.areas) ? f.areas : []).entries()) lightWarning(area?.light, `floorplan.areas[${i}].light`, warnings);
     if (!spec.rooms) spec = { ...spec, rooms: [] };
     for (const [i, e] of (spec.entities ?? []).entries())
       if (e?.layer !== undefined && !(Number.isInteger(e.layer) && e.layer >= 0)) errors.push(`entities[${i}].layer: the layer of floor it stands on, as the height plan numbers them (0 the lowest)`);
@@ -350,6 +364,7 @@ export function validateMapSpec(spec) {
   const ids = new Map();
   spec.rooms.forEach((room, i) => {
     const at = `rooms[${i}]${room?.id ? ` (${room.id})` : ""}`;
+    lightWarning(room?.light, `${at}.light`, warnings);
     if (typeof room?.id !== "string" || !/^[A-Za-z]\w*$/.test(room.id)) errors.push(`${at}.id: a name of letters, digits and _`);
     else if (ids.has(room.id)) errors.push(`${at}.id: "${room.id}" is given twice`);
     else ids.set(room.id, i);
@@ -1881,6 +1896,24 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         // a room meant to be dark (`dark: true`: a cellar, a dim corridor the original has) is told, not faulted
         else if (room.dark && rooms.get(room.name)?.spec.dark === true) report.facts.push(`${room.name} is dark, as meant: its floor's light is ${Math.round(room.mean)} of 255`);
         else if (room.dark) report.faults.push(`${room.name} is dark: its floor's light is ${Math.round(room.mean)} of 255 (under ${24}); \`dark: true\` on a room meant to be so`);
+      }
+      // a map of a floor plan has no rooms to hold to the dark line: its areas and the plan as a whole are
+      // held by the share of it that is dark, not its mean alone: frenzy's height-plan copy averaged 50 of 255 over the
+      // floor outside its areas with 78% of that floor dark, and every view from its starts was black
+      if (spec.floorplan) {
+        const whole = bsp.models[0];
+        const areas = spec.floorplan.areas ?? [];
+        const boxes = areas.length ? {} : { plan: { min: whole.mins, max: whole.maxs } };
+        areas.forEach((a, i) => (boxes[`floorplan.areas[${i}]`] = { min: [a.min[0], a.min[1], a.min[2] ?? whole.mins[2]], max: [a.max[0], a.max[1], a.max[2] ?? whole.maxs[2]] }));
+        for (const room of lightReport(bsp, { rooms: boxes }).rooms) {
+          const said = room.name === "plan" ? "the plan's floor" : room.name === "elsewhere" ? "the plan's floor outside its areas" : room.name;
+          if (!room.area) {
+            if (boxes[room.name]) report.warnings.push(`${said} covers none of the plan's floor: its box is not where the plan has floor (the legend's x0 and y1 place the pictures in the world)`);
+            continue;
+          }
+          if (room.mean < 24 || room.darkShare > DARK_SHARE) report.faults.push(`${said} is dark: its floor's light is ${Math.round(room.mean)} of 255, ${Math.round(room.darkShare * 100)}% of it under 24. Light it (an area's light, lamps of its own: a lamp's brightness is ${LAMP_BRIGHTNESS})`);
+          else report.facts.push(`${said}: its floor's light is ${Math.round(room.mean)} of 255, ${Math.round(room.darkShare * 100)}% of it dark`);
+        }
       }
       const walked = reachOf(bsp);
       if (walked.unreached.length + walked.stuck.length) report.faults.push(...walked.warnings.map((line) => `walk of the compiled map: ${line}`));

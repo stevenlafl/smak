@@ -124,3 +124,9 @@ test("a large floor plan wearing one look throughout is told to give its parts t
   const parted = buildMapSpec({ ...spec, name: "large2", floorplan: { ...spec.floorplan, areas: [{ min: [-100, -2000], max: [1000, 2000], wall: "plaster" }, { min: [1000, -2000], max: [3000, 2000], wall: "brick" }] } }, { out: join(folder, "out2"), folder, compilers: { found: false, message: "" } });
   sure(!parted.report.warnings.some((w) => /wearing one floor, wall and ceiling/.test(w)), parted.report.warnings.join(" | "));
 });
+
+test("a light's brightness far under a lamp's is warned of: it is a light entity's, not a multiple", () => {
+  const spec = { spec: "smak.map/1", name: "dim", floorplan: { dir: "plans/", areas: [{ min: [0, 0], max: [100, 100], light: { brightness: 2 } }] }, entities: [] };
+  sure(validateMapSpec(spec).warnings.some((w) => /floorplan\.areas\[0\]\.light\.brightness: 2 is a light entity's brightness, all but dark/.test(w)), validateMapSpec(spec).warnings.join(" | "));
+  sure(!validateMapSpec({ ...spec, floorplan: { ...spec.floorplan, areas: [{ ...spec.floorplan.areas[0], light: { brightness: 250 } }] } }).warnings.some((w) => /all but dark/.test(w)), "a lamp's not");
+});
