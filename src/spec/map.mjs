@@ -1118,22 +1118,28 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         const mid = p.min.map((v, k) => (v + p.max[k]) / 2);
         const area = areas.find((a) => [0, 1, 2].every((k) => mid[k] >= a.min[k] && mid[k] <= a.max[k]));
         boxes.push(area ? { ...p, wears: area.wears } : p);
-        // an area's light, as a room's: "auto" a lamp for each 256 x 256 of its floor, hung no higher than 192 over
-        // it, or { brightness, color } at that spacing; "none" none
-        const lit = area?.light;
-        if (lit && lit !== "none") {
-          const per = lit === "auto" ? {} : lit;
-          const [w, d] = [p.max[0] - p.min[0], p.max[1] - p.min[1]];
-          const [nx, ny] = [Math.max(1, Math.round(w / 256)), Math.max(1, Math.round(d / 256))];
-          if (w * d >= 64 * 64)
-            for (let i = 0; i < nx; i++)
-              for (let j = 0; j < ny; j++)
-                entities.push(light([Math.round(p.min[0] + ((i + 0.5) * w) / nx), Math.round(p.min[1] + ((j + 0.5) * d) / ny), Math.round(Math.min(p.max[2] - 16, p.min[2] + 192))], { brightness: per.brightness ?? LAMP_BRIGHTNESS, color: per.color ?? [255, 240, 220] }));
-        }
+        if (area) (area.pieces ??= []).push(p);
       }
     }
     // its light, unless the spec gives its own: a lamp under the ceiling of each of the largest open spaces, about
     // Valve's density (13 light entities a campaign map at the median; the rest is its lamps' textures)
+    // an area's light, as a room's: "auto" a lamp for each 256 x 256 of its floor, on each storey, hung no higher
+    // than 192 over it; { brightness, color } at that spacing; "none" none. By the area, not by its pieces: by piece,
+    // frenzy's copy hung 147 lamps where the original has 8
+    for (const area of areas) {
+      if (!area.light || area.light === "none" || !area.pieces?.length) continue;
+      const per = area.light === "auto" ? {} : area.light;
+      const lo = [0, 1].map((k) => Math.min(...area.pieces.map((p) => p.min[k])));
+      const hi = [0, 1].map((k) => Math.max(...area.pieces.map((p) => p.max[k])));
+      const n = [0, 1].map((k) => Math.max(1, Math.round((hi[k] - lo[k]) / 256)));
+      for (let i = 0; i < n[0]; i++)
+        for (let j = 0; j < n[1]; j++) {
+          const [x, y] = [lo[0] + ((i + 0.5) * (hi[0] - lo[0])) / n[0], lo[1] + ((j + 0.5) * (hi[1] - lo[1])) / n[1]];
+          const here = area.pieces.filter((p) => x >= p.min[0] && x <= p.max[0] && y >= p.min[1] && y <= p.max[1]);
+          const storeys = [...new Map(here.map((p) => [p.min[2], p])).values()];
+          for (const p of storeys) entities.push(light([Math.round(x), Math.round(y), Math.round(Math.min(p.max[2] - 16, p.min[2] + 192))], { brightness: per.brightness ?? LAMP_BRIGHTNESS, color: per.color ?? [255, 240, 220] }));
+        }
+    }
     if (!(spec.entities ?? []).some((e) => /^light/.test(e.class ?? "")) && !areas.some((a) => a.light)) {
       const large = floorPlan.boxes
         .map((b) => ({ b, area: (b.max[0] - b.min[0]) * (b.max[1] - b.min[1]) }))
