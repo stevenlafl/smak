@@ -1,0 +1,94 @@
+{
+ "kind": "mod",
+ "label": "the mod as a whole",
+ "measured": {
+  "missing": [],
+  "failedChecks": [],
+  "chain": [
+   {
+    "map": "fw_yard",
+    "leadsTo": [
+     "fw_pumphall"
+    ],
+    "landmarks": [
+     "fw_to_pumphall"
+    ],
+    "asked": "fw_pumphall"
+   },
+   {
+    "map": "fw_pumphall",
+    "leadsTo": [
+     "fw_control"
+    ],
+    "landmarks": [
+     "fw_to_pumphall",
+     "fw_to_control"
+    ],
+    "asked": "fw_control"
+   },
+   {
+    "map": "fw_control",
+    "leadsTo": [],
+    "landmarks": [
+     "fw_to_control"
+    ],
+    "asked": null
+   }
+  ],
+  "shown": [
+   {
+    "file": "videos/fw_wrench.mp4",
+    "there": true,
+    "bytes": 212467
+   },
+   {
+    "file": "videos/fw_crawler.mp4",
+    "there": true,
+    "bytes": 159594
+   },
+   {
+    "file": "videos/fw_pumphall.mp4",
+    "there": true,
+    "bytes": 1290709
+   },
+   {
+    "file": "pictures/fw_props.png",
+    "there": true,
+    "bytes": 840765
+   }
+  ]
+ },
+ "caps": {
+  "O1": 2,
+  "O2": 2
+ },
+ "scores": {
+  "O1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements list nothing missing and no failed SMAK checks, and the four shown files (fw_wrench.mp4, fw_crawler.mp4, fw_pumphall.mp4, fw_props.png) are all present with nonzero sizes. The sheet shows the five brief props (valve wheel, drum, console, pipe junction, caged lamp) and the crawler, and the three maps are present in the chain. The wrench is not clearly identifiable on the sheet, but the measurements cover its presence, so I score on them."
+  },
+  "O2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The chain runs fw_yard to fw_pumphall to fw_control, with each map's leadsTo matching the next map, and each change has its landmark (fw_to_pumphall, fw_to_control) on both sides. fw_control ends the chain with no further map, as the brief's valve-room ending requires. The arrival points are not reported separately, but the landmark pairing is consistent with arriving where the last map left."
+  },
+  "O3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Most of the set shares one palette: grey-green concrete, rust, hazard yellow and black, and a sodium-orange lamp. Three things break it. The yard's sky is a bright daytime blue where the brief says dusk. The control room's doors are saturated flat red. The bottom-middle prop reads as a rusted grate with a bright red handle, which does not match the other props' worn-metal look. The brief's palette is not held across the maps and props."
+  },
+  "O4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The three required videos and the props sheet are present, and the sheet shows the five props and the crawler clearly. The wrench is not recognisable as a wrench on the sheet: the bottom-middle item looks like a rusted grate with a red stub, so the sheet does not show that asset as it is."
+  }
+ },
+ "total": 6,
+ "of": 8,
+ "passes": false
+}

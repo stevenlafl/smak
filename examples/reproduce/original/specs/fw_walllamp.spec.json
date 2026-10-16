@@ -2,36 +2,31 @@
   "spec": "smak.model/1",
   "name": "fw_walllamp.mdl",
   "kind": "piece",
-  "size": {
-    "length": 12,
-    "width": 15,
-    "height": 22
-  },
   "materials": {
     "plate": {
       "base": "metal",
       "tone": [
         0.36,
-        0.36,
-        0.34
+        0.38,
+        0.37
       ],
-      "rust": 0.4
+      "rust": 0.5
     },
     "cage": {
       "base": "mesh",
-      "cell": 3,
+      "cell": 4,
       "tone": [
-        0.3,
-        0.3,
-        0.28
+        0.32,
+        0.32,
+        0.3
       ]
     },
     "glass": {
       "base": "glass",
       "tone": [
         1,
-        0.6,
-        0.22
+        0.66,
+        0.26
       ]
     }
   },
@@ -39,80 +34,83 @@
     {
       "id": "plate",
       "kind": "box",
+      "material": "plate",
       "size": [
         3,
         12,
-        22
+        16
       ],
-      "material": "plate"
+      "at": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "arm",
+      "kind": "box",
+      "material": "plate",
+      "size": [
+        7,
+        2.5,
+        2.5
+      ],
+      "at": [
+        5,
+        0,
+        7
+      ]
     },
     {
       "id": "cage",
       "kind": "turn",
       "axis": "x",
       "material": "cage",
-      "sides": 8,
-      "rings": [
-        [
-          0,
-          7.5
-        ],
-        [
-          10,
-          7.5
-        ]
-      ],
-      "caps": [
-        false,
-        false
-      ],
-      "open": true,
-      "at": [
-        1,
-        0,
-        12
-      ]
-    },
-    {
-      "id": "lamp",
-      "kind": "turn",
-      "axis": "x",
-      "material": "glass",
       "sides": 10,
-      "rings": [
-        [
-          0,
-          0
-        ],
-        [
-          1,
-          4.5
-        ],
-        [
-          3,
-          6
-        ],
-        [
-          7,
-          6
-        ],
-        [
-          9,
-          4.5
-        ],
-        [
-          10,
-          0
-        ]
-      ],
       "caps": [
         true,
         true
       ],
+      "rings": [
+        [
+          0,
+          6.5
+        ],
+        [
+          12,
+          6.5
+        ]
+      ],
       "at": [
-        1,
+        1.4,
         0,
-        12
+        8
+      ]
+    },
+    {
+      "id": "glass",
+      "kind": "turn",
+      "axis": "x",
+      "material": "glass",
+      "sides": 10,
+      "caps": [
+        true,
+        true
+      ],
+      "rings": [
+        [
+          0,
+          4.2
+        ],
+        [
+          10,
+          4.2
+        ]
+      ],
+      "at": [
+        2.5,
+        0,
+        8
       ],
       "finish": false
     }

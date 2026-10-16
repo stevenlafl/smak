@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_pain1.wav: the crawler's pain",
+ "measured": {
+  "features": {
+   "length": 0.332,
+   "peak": -0.5,
+   "rms": -9.7,
+   "crest": 9.2,
+   "dc": 0.0005,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0,
+   "peakAt": 0.005,
+   "t20": 0.185,
+   "t40": 0.254,
+   "centroid": 660,
+   "rolloff": 1206,
+   "flatness": 0.005,
+   "bands": {
+    "<150": 48.7,
+    "150-600": 0.1,
+    "600-2k": 50.4,
+    "2k-5k": 0.7,
+    ">5k": 0.1
+   },
+   "onsets": 0
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.795,
+    "centroid": 2682,
+    "t20": 0.544,
+    "bands": {
+     "<150": 0.2,
+     "150-600": 0,
+     "600-2k": 15.6,
+     "2k-5k": 83.8,
+     ">5k": 0.3
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From the picture, the replacement is a 0.33 s tone that starts at about 660 Hz and sweeps down, with clean harmonic lines and no noise. The original is about 0.8 s of pulsed, broadband bursts of a creature's cry. A pain sound from a creature is plausible, but this reads as a single synthetic blip, not the same event."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length is 0.332 s against the original's 0.795 s, about 58% short where the must-have limit is 25%. The 20% point (t20) is 0.185 s against 0.544 s. The waveform shows a fast attack and a decay, but the envelope is clearly off in length and decay."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Centroid is 660 Hz against 2682 Hz, about 75% off where the limit is 20%. Band shares miss on every band: under 150 Hz is 48.7 against 0.2, 600 to 2k is 50.4 against 15.6, 2k to 5k is 0.7 against 83.8. Energy sits in the low and mid range, where the original's sits at 2 to 5 kHz."
+  },
+  "S4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The original is a run of pulses (many onsets), and the replacement has none (onsets 0). The replacement is very tonal (flatness 0.005) where the original is broadband and gritty. Its falling glide is the only trait that could match, and the picture gives no pitch contour for the original to check it against."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Peak is -0.5 dBFS with no clipping, DC is 0.0005 (effectively none), no engine faults are reported, and the name is sound/headcrab/hc_pain1.wav. The sample rate and bit depth are not in the given measurements, so the format rests on the empty engineFaults list and the name. It is not a loop, so no cue is needed."
+  }
+ },
+ "total": 4,
+ "of": 10,
+ "passes": false
+}

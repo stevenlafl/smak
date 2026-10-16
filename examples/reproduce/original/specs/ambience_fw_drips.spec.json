@@ -1,0 +1,56 @@
+{
+  "spec": "smak.sound/1",
+  "sounds": [
+    {
+      "name": "ambience/fw_drips.wav",
+      "class": "loop drips",
+      "seed": 13,
+      "length": 8,
+      "loop": true,
+      "layers": [
+        {
+          "id": "bed",
+          "kind": "particles",
+          "rate": 40,
+          "band": [
+            900,
+            1800
+          ],
+          "grain": 0.06,
+          "at": 0,
+          "length": 8,
+          "env": {
+            "attack": 0.05,
+            "hold": 7.8,
+            "decay": 0.1
+          },
+          "gain": -6
+        },
+        {
+          "id": "drip",
+          "kind": "particles",
+          "rate": 2,
+          "band": [
+            600,
+            1400
+          ],
+          "grain": 0.05,
+          "at": 0,
+          "length": 8,
+          "env": {
+            "attack": 0.05,
+            "hold": 7.8,
+            "decay": 0.1
+          },
+          "gain": -2
+        }
+      ],
+      "finish": {
+        "saturate": 1.5,
+        "limit": {
+          "crest": 14
+        }
+      }
+    }
+  ]
+}

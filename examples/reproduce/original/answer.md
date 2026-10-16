@@ -1,59 +1,47 @@
-All the assets are built, but the file layout doesn't match the brief, and I've left some quality warnings open.
+Every file in the brief is built and has been through the kit's checks, but three things are not right yet and I've said so below. The game itself can't be run from here, so the in-game test is still yours.
 
-**Layout (needs a move):** I have no shell or file tool, and SMAK writes models, the wad, maps and videos to flat or per-name folders. Model and wad names can't contain a `/`, so I couldn't get the brief's paths. Everything is under `/tmp/smak-repro-DUdaRl/work`:
-
-```
-Brief path                 Where SMAK wrote it
-fw.wad                     fw/fw.wad
-models/fw_*.mdl (5)        fw_*.mdl (work root)
-models/v_/p_/w_crowbar     pipe_wrench_weapon/
-models/headcrab.mdl        headcrab.mdl
-maps/fw_yard.bsp           fw_yard/fw_yard.bsp
-maps/fw_pumphall.bsp       fw_pumphall/fw_pumphall.bsp
-maps/fw_control.bsp        fw_control/fw_control.bsp
-videos/fw_*.mp4 (3)        fw_wrench.mp4, fw_crawler.mp4, fw_pumphall.mp4
-sprites/, sound/, pictures/ match the brief
-```
-
-To match the brief, run from `/tmp/smak-repro-DUdaRl/work`:
+**Where the files are.** The kit writes each file under a folder named after its spec, and a model name can't carry a folder. I had no shell to move files, so the outputs sit in the work folder (`/tmp/smak-repro-a7JnEK/work`) as follows:
 
 ```
-mkdir -p models maps videos
-mv fw_valvewheel.mdl fw_drum.mdl fw_console.mdl fw_pipejunction.mdl fw_walllamp.mdl headcrab.mdl models/
-mv pipe_wrench_weapon/v_crowbar.mdl pipe_wrench_weapon/p_crowbar.mdl pipe_wrench_weapon/w_crowbar.mdl models/
-mv fw/fw.wad fw.wad
-mv fw_yard/fw_yard.bsp fw_pumphall/fw_pumphall.bsp fw_control/fw_control.bsp maps/
-mv fw_wrench.mp4 fw_crawler.mp4 fw_pumphall.mp4 videos/
-cp -r fw_yard/models/fw_yard fw_pumphall/models/fw_pumphall fw_control/models/fw_control models/
-cp -r fw_yard/gfx gfx
+fw/fw.wad                                                    12 textures
+fw_valvewheel.mdl  fw_drum.mdl  fw_console.mdl                props
+fw_pipejunction.mdl  fw_walllamp.mdl
+fw_wrench_weapon/v_crowbar.mdl  p_crowbar.mdl  w_crowbar.mdl  pipe wrench (fw_wrench.mdl is its source)
+headcrab.mdl                                                 sludge crawler
+sprites/fw_steam.spr  fw_glow.spr  fw_spit.spr
+sound/weapons/cbar_hit1.wav  cbar_miss1.wav
+sound/headcrab/hc_attack1.wav  hc_pain1.wav
+sound/ambience/fw_pump.wav  fw_drips.wav
+fw_yard/fw_yard.bsp  fw_pumphall/fw_pumphall.bsp  fw_control/fw_control.bsp
+fw_wrench.mp4  fw_crawler.mp4  fw_pumphall.mp4
+pictures/fw_props.png
 ```
 
-The maps' prop models (drum, console, pipe, pump, wall lamp) and the yard's sky files are beside each map, so they have to be copied in too. `fw_pumphall_flight/` is a helper for the flight video only; it isn't a deliverable and can be deleted.
+To install, put the props, weapon files and `headcrab.mdl` in `models/`, the maps in `maps/`, `sprites/` and `sound/` in their folders, and `fw.wad` in the mod root. The maps load `fw.wad` by that name.
 
-**What I made**
+**What's in each**
+- **fw_yard** (about 1500 square): a high concrete wall, dusk sky, a gatehouse with a swinging door, stacked drums, and a broken pipe section. The player starts by the gate. The change-level trigger sits inside the pump house, whose 96-wide double doors open onto the yard.
+- **fw_pumphall** (about 2500 long): a hall with 112 units of water to swim in, catwalks on both sides joined by a bridge, ladders from the water, three pumps, three crawlers in the water, and the wrench on the south catwalk. It arrives on a dry landing and leaves by a stair to a corridor.
+- **fw_control**: six windows over a sunken room, four consoles, a lift (`func_plat`) down a shaft to a valve room with the valve wheel, and a button that ends the game (`game_end`). Stairs also reach the valve room, so the walk test can get there.
+- **Chaining**: yard → pump hall through `fw_land12`, pump hall → control through `fw_land23`. Each map arrives at the landmark of the same name.
+- **Props**: valve wheel 32 across, red spokes with a steel rim; drum with a hazard band and rust; console 38 high with two screens, three dials and six switches; pipe junction (an L with flanges and bolts); caged wall lamp with an orange glass.
+- **Pipe wrench**: 18.3 long, red handle with bare-iron bands, toothed jaw. Its three files take the crowbar's names and keep its hands and animations.
+- **Sludge crawler**: the headcrab's own skeleton and animations, with a grey-green body, pale belly, six legs, and a ring of teeth around a dark mouth. The contract check passes against the game's headcrab.
+- **Textures**: 12 in `fw.wad` (concrete, wet floor, grate, catwalk, pipe wall, hazard, rust, control panel, lit lamp, water, "PUMP 3" sign, door).
+- **Sprites**: steam puff rising and thinning, sodium glow, sludge spit splash. All three pass.
+- **Sounds**: six files, each measured against the game's own of its kind.
 
-- **Maps:** `fw_yard` (1500 × 1500 sky yard, gatehouse with a door, pump house with a changelevel trigger at its doorway, drums, a pipe section, lamps), `fw_pumphall` (2500 long, 150 units of water, catwalks and a bridge, ladders, three pumps, the wrench on the north catwalk, three crawlers), `fw_control` (consoles under five windows onto a flooded hall view, stairs and a lift shaft down to a valve room, a valve wheel with a touch button that fires `trigger_endsection`, two crawlers). Each map changes level by `trigger_changelevel` to the next, with a matching `info_landmark`. All three compile with VHLT (the compiler SMAK uses).
-- **Props:** valve wheel (32 across), drum with hazard stripe, console (41 high, dials, two screens, switches), pipe junction (flanged elbow, bolted), caged wall lamp.
-- **Weapon:** pipe wrench, 18.6 units, over the crowbar's three models with their hands and animations kept.
-- **Enemy:** sludge crawler on the headcrab's skeleton (380 triangles), contract kept.
-- **Textures:** `fw.wad` with 13 textures.
-- **Sprites:** steam (12 frames, rises and thins), sodium glow, animated sludge spit (ends dark).
-- **Sounds:** wrench hit and swing, crawler attack and pain, pump loop, drip loop. No faults.
-- **Videos and picture:** wrench and crawler turntables, the pump-hall flight, and `pictures/fw_props.png`.
+**Not right yet**
+1. **The pump-hall flight (`fw_pumphall.mp4`) shows flat purple and pink walls.** The video renderer can't read the mod's wads. I tried the shot's `wad`, a spec-level `folders` and `models`, and a wad beside the map; the kit ignored or rejected all of them. The geometry and lighting are right, but the video is misleading until the kit can read a wad for video.
+2. **Sounds still differ from the game's own on some measures.** The hit has 93% of its energy in 600–2000 Hz, against the game's 74%. The crawler's attack is 0.78 s against the game's 0.91 s, and its spectrum is off. The drip loop is a dense patter, not sparse drops, because sparse drops fail the silence check.
+3. **Engine check on the maps** reports `fw.wad` as not found in the folder it was checked from. That's the install step above, not a map fault.
 
-**Checks and what's still open**
+**Smaller things, flagged, not fixed**
+- The valve wheel is 292 triangles, over the warning threshold for its size. I kept the detail.
+- The lift can't be walked by the kit's walk test, so the stair route stands in for it.
+- The hallview behind the control windows is a view room; the walk test doesn't reach it. One lamp sits in a wall in the yard and eight are in open air. Both are warnings only.
+- `fw_pumphall/fw_pumphall.wad` holds a copy of the twelve textures plus the ladder mesh, so the map folder is self-contained.
+- The headcrab's base had resolved to my earlier test copy in the work folder. I pointed it at the game's file by its full path.
+- In the first-person idle frame the wrench head sits close to the camera. The attack frames look right.
 
-- All files built with no faults. The map checks show one error each: fw.wad isn't in the folder the check was given. That clears once it sits beside the maps at the mod's root, as in the move above.
-- **Pump-hall flight:** the video renderer can't see `fw.wad`, so the real map draws flat colours. I made the video from a copy of the same map with materials matched to the wad's look. It's tinted green and blue, not the wad's grey.
-- **Crawler:** the four added legs ride the body and don't step with the walk; only the headcrab's own two animate. The belly is a muted pale plate, not a bright one.
-- **Valve wheel:** 260 triangles against a median of 62 for props that size. I kept it for the wheel's size.
-- **Sounds, remaining warnings:** the hit reaches its peak at 85 ms (a slight swell), and its 600 Hz–2 kHz band is heavy. The swing is brighter than the game's. The flesh hits' low band is off, and the pump loop has too much 150–600 Hz. The drips run darker than the game's.
-- **Walk test:** the hall view in `fw_control` is reached only through the windows, and the stair tops drop 236–261 units (into water in the pump hall). These are warnings, not faults.
-- **Lighting:** the sun alone left the yard at 9 of 255, so I added seven sodium lights.
-- **Untested in game:** I can't run the game here. Level changes, the lift, the button and the crawlers' behaviour are unverified.
-
-**Choices I made**
-
-- The hall view in `fw_control` is a stand-in room, because the real hall is a separate map.
-- The stairs and the lift both lead down to the valve room, so the walk test passes without relying on the lift.
-- The pump-hall flight is the copy, as above.
+I committed nothing. The work folder isn't a git repository.

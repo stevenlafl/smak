@@ -1,0 +1,87 @@
+{
+ "kind": "map",
+ "label": "maps/fw_control.bsp: the control room over the hall: consoles under windows onto the hall, a lift down to the valve room with the main valve wheel; two crawlers",
+ "measured": {
+  "size": [
+   1856,
+   548
+  ],
+  "sizeAsked": null,
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [],
+  "landmarks": [
+   "fw_to_control"
+  ],
+  "itemsAsked": [
+   "monster_headcrab"
+  ],
+  "itemsFound": [
+   "monster_headcrab: 2"
+  ]
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Two rooms on the plan: a large upper room (Z 0) with the start, two headcrab markers, a func_plat and a func_button, and a lower room (Z -200) at the right with no props. The lift shaft is not drawn in the upper room and no landing appears at Z -200, so the lift does not visibly join the two. The two rooms meet only along a row of func_breakable strips (1 to 4), which are not doors. The brief's consoles under windows onto the hall are not on the plan."
+  },
+  "P2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The brief gives no room sizes, so this is unmeasured (size is null). By the plan's scale bar (256 units is about 135 px) each room is roughly 900 by 500 units. That is plausible, but nothing shows it matches the brief's areas within 25%."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan labels two floors, Z 0 and Z -200, with a func_plat between them. No stairs, ramps or ledges appear, and the lift's bottom and top stops cannot be seen, so the storeys and the lift's drop are not shown to agree with the brief's valve room."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Present: info_player_start (13), info_landmark fw_to_control (14), two monster_headcrab (15 and 16, the count the brief asks for), and a func_plat (5). Missing: the main valve wheel, which the brief names as the thing that ends the mod, has no entity on the plan or in the list. The one trigger_changelevel (1) sends to fw_end, not to a valve. The lift's reach is unconfirmed."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The walls show a grey concrete-and-pipe look and the floor a grate-like pattern, which suggests the brief's materials. But the wall pattern is a repeated field of dark slots that reads more as stock panels than as the control room's windows and consoles, and the rest cannot be checked against fw.wad."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "About 16 light entities are spread over both rooms, which fits lamps being placed. In the views the rooms are dim and the lamps barely show, and the sodium-orange colour the brief asks for cannot be confirmed from these pictures."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Few of the brief's distinctive features are there: no consoles, no windows onto the hall that read as windows, and no valve wheel. The pipe-and-panel walls and the lift plate are the only landmarks."
+  },
+  "P8": {
+   "judge": 0,
+   "cap": 2,
+   "score": 0,
+   "reason": "The walk test reached the start and the landmark, but changelevels is empty: the way out (trigger_changelevel 1) was never reached on foot. The valve room, with the lift and wheel, is not reached either. compiles and no leak are not reported as failing, but the way out is a must-have check that fails."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From inside the walls and floors read as a Half-Life-style concrete room. The room is bare: no consoles, no visible hall windows and no lift or wheel. A player who knows the brief would not recognise it as the control room above the flooded hall."
+  }
+ },
+ "total": 8,
+ "of": 18,
+ "passes": false
+}

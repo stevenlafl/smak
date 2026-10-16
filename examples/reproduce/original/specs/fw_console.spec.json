@@ -3,86 +3,59 @@
   "name": "fw_console.mdl",
   "kind": "prop",
   "size": {
-    "height": 41,
-    "width": 48,
-    "length": 26
+    "height": 38
   },
   "materials": {
-    "grey": {
+    "steel": {
       "base": "metal",
       "tone": [
-        0.36,
         0.38,
-        0.36
+        0.4,
+        0.38
       ],
       "rust": 0.2
     },
     "screen": {
       "base": "paint",
       "tone": [
-        0.14,
-        0.26,
-        0.2
+        0.12,
+        0.2,
+        0.16
       ]
     },
     "brass": {
       "base": "brass",
-      "tone": [
-        0.5,
-        0.42,
-        0.25
-      ]
+      "rust": 0.3
     },
-    "dark": {
-      "base": "metal",
+    "switch": {
+      "base": "paint",
       "tone": [
-        0.12,
-        0.12,
-        0.12
-      ]
-    },
-    "hazard": {
-      "base": "hazard",
-      "tone": [
-        0.82,
-        0.66,
-        0.12
+        0.7,
+        0.1,
+        0.08
       ]
     }
   },
   "parts": [
     {
-      "id": "plinth",
-      "kind": "box",
-      "size": [
-        20,
-        44,
-        4
-      ],
-      "material": "dark"
-    },
-    {
       "id": "body",
       "kind": "box",
+      "material": "steel",
       "size": [
         24,
-        48,
-        34
+        60,
+        36
       ],
-      "material": "grey",
-      "attach": {
-        "to": "plinth"
-      },
       "panels": [
         {
           "face": "front",
           "at": [
-            12,
-            22
+            17,
+            25
           ],
           "size": [
-            17,
-            12
+            22,
+            14
           ],
           "style": "inset",
           "material": "screen"
@@ -90,12 +63,12 @@
         {
           "face": "front",
           "at": [
-            36,
-            22
+            43,
+            25
           ],
           "size": [
-            17,
-            12
+            22,
+            14
           ],
           "style": "inset",
           "material": "screen"
@@ -104,7 +77,7 @@
           "face": "front",
           "at": [
             8,
-            8
+            9
           ],
           "size": [
             6,
@@ -113,126 +86,133 @@
           "shape": "round",
           "style": "raised",
           "material": "brass"
-        },
-        {
-          "face": "front",
-          "at": [
-            24,
-            8
-          ],
-          "size": [
-            6,
-            6
-          ],
-          "shape": "round",
-          "style": "raised",
-          "material": "brass"
-        },
-        {
-          "face": "front",
-          "at": [
-            40,
-            8
-          ],
-          "size": [
-            6,
-            6
-          ],
-          "shape": "round",
-          "style": "raised",
-          "material": "brass"
-        },
-        {
-          "face": "front",
-          "at": [
-            9,
-            30
-          ],
-          "size": [
-            3,
-            3
-          ],
-          "style": "raised",
-          "material": "dark"
         },
         {
           "face": "front",
           "at": [
             17,
-            30
+            9
           ],
           "size": [
-            3,
-            3
+            6,
+            6
           ],
+          "shape": "round",
           "style": "raised",
-          "material": "dark"
+          "material": "brass"
         },
         {
           "face": "front",
           "at": [
-            25,
-            30
+            26,
+            9
           ],
           "size": [
-            3,
-            3
+            6,
+            6
           ],
+          "shape": "round",
           "style": "raised",
-          "material": "dark"
+          "material": "brass"
         },
         {
           "face": "front",
           "at": [
-            33,
-            30
+            36,
+            9
           ],
           "size": [
-            3,
-            3
+            2.5,
+            4
           ],
           "style": "raised",
-          "material": "dark"
+          "material": "switch"
         },
         {
           "face": "front",
           "at": [
-            41,
-            30
+            40,
+            9
           ],
           "size": [
-            3,
-            3
+            2.5,
+            4
           ],
           "style": "raised",
-          "material": "dark"
+          "material": "switch"
         },
         {
           "face": "front",
           "at": [
-            24,
-            2.5
-          ],
-          "size": [
             44,
-            3
+            9
           ],
-          "style": "flat",
-          "material": "hazard"
+          "size": [
+            2.5,
+            4
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            48,
+            9
+          ],
+          "size": [
+            2.5,
+            4
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            52,
+            9
+          ],
+          "size": [
+            2.5,
+            4
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            56,
+            9
+          ],
+          "size": [
+            2.5,
+            4
+          ],
+          "style": "raised",
+          "material": "switch"
         }
       ]
     },
     {
-      "id": "top",
+      "id": "lip",
       "kind": "box",
+      "material": "steel",
       "size": [
         26,
-        50,
-        3
+        62,
+        2
       ],
-      "material": "grey",
       "attach": {
-        "to": "body"
+        "to": "body",
+        "toAt": "top",
+        "at": "bottom",
+        "offset": [
+          0,
+          0,
+          -0.5
+        ]
       }
     }
   ]

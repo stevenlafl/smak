@@ -3,37 +3,37 @@
  "label": "sound/weapons/cbar_hit1.wav: the wrench striking metal",
  "measured": {
   "features": {
-   "length": 0.6,
+   "length": 0.776,
    "peak": -0.5,
-   "rms": -9.5,
-   "crest": 9,
+   "rms": -8.9,
+   "crest": 8.4,
    "dc": 0,
    "clipped": 0,
    "lead": 0,
-   "tail": 0,
-   "attack": 0.085,
-   "peakAt": 0.19,
-   "t20": 0.324,
-   "t40": 0.409,
-   "centroid": 1220,
+   "tail": 0.01,
+   "attack": 0.16,
+   "peakAt": 0.259,
+   "t20": 0.334,
+   "t40": 0.394,
+   "centroid": 1282,
    "rolloff": 1120,
-   "flatness": 0,
+   "flatness": 0.003,
    "bands": {
     "<150": 0,
     "150-600": 0,
-    "600-2k": 95.2,
-    "2k-5k": 4,
-    ">5k": 0.8
+    "600-2k": 93.2,
+    "2k-5k": 5.4,
+    ">5k": 1.4
    },
-   "onsets": 1
+   "onsets": 0
   },
   "class": "metal hit",
   "against": {
    "score": 19,
    "of": 22,
    "lines": [
-    "flatness 0 (0.16 to 0.28): too pure: more noise",
-    "band 600-2k 95.2% (63.7 to 83.8): over the range"
+    "flatness 0.003 (0.16 to 0.28): too pure: more noise",
+    "band 600-2k 93.2% (63.7 to 83.8): over the range"
    ]
   },
   "engineFaults": []
@@ -46,31 +46,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The picture shows a dense broadband transient with its peak near 0.19 s, then a long ring that decays to 0.6 s. That is the shape of a metal strike, a clang that rings out, so it reads as the wrench hitting metal."
+   "reason": "The waveform opens with a dense noisy burst (about 0 to 0.3 s), then a long decay with sustained tonal ringing lines in the spectrogram. That is the picture of a metal strike that rings, and the class is 'metal hit'. Judged from the picture only, since sound cannot be heard."
   },
   "S2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Length 0.6 s, attack 0.085 s, t20 0.324 s and t40 0.409 s. The measure reports no envelope fault against the class range; the only two lines it gives are flatness and the 600-2k band. Within the measured range, so 2."
+   "reason": "Length 0.776 s, peak at 0.259 s, t20 0.334 s, t40 0.394 s and attack 0.16. The against-check raises no envelope line (it fails only flatness and the 600-2k band), so the envelope is within the class range by the measurement. The class range itself was not given to me, so I rely on that check."
   },
   "S3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The 600-2k band holds 95.2% of the energy, above the class range of 63.7 to 83.8%, which is 11.4 points over the top, outside the 10-point tolerance. The spectrogram shows the energy concentrated in one bright horizontal tone near the middle of the band. The centroid of 1220 Hz is not flagged. The sound is there but its spectrum is clearly off, so 1."
+   "reason": "The 600-2k band is 93.2%, against a class range of 63.7 to 83.8%. The measurement marks it as over the range, and the spectrogram confirms the energy is concentrated in the mid band. Centroid 1282 and rolloff 1120 raise no flag. Clearly off in the band share, so not a 2."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Flatness is 0, against a class range of 0.16 to 0.28, so the ring is too pure and the noise a metal strike should carry is missing. The spectrogram shows a steady horizontal tone with no visible pitch movement, which is not what a struck wrench usually gives. One onset, which is plausible for a single hit. Character is off in the tone and noise, so 1."
+   "reason": "Flatness 0.003 against 0.16 to 0.28 is far too pure. The spectrogram shows the tail as narrow, steady harmonic lines with little noise after about 0.3 s, while the original's range expects noise. Onsets measure 0 although the start has a burst. Not a must-have, but clearly off on tone and noise."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Clipped 0, DC 0, and engineFaults is empty, so nothing in the measures shows a fault that would stop the engine playing it. The measures do not report the sample rate or bit depth, so this score rests on the absence of faults, not on a confirmed format."
+   "reason": "clipped 0, dc 0, and engineFaults is empty, so the file passes SMAK's checks. Sample rate and bit depth are not in the measures or the picture, so the format rests on the empty fault list, not on a direct reading."
   }
  },
  "total": 8,

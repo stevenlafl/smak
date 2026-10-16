@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_steam.spr: a steam puff that rises and thins, animated",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 12,
+  "type": "parallel",
+  "format": "index alpha",
+  "measures": {
+   "frames": 12,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0.208,
+    "mean": 0.003
+   },
+   "envelope": {
+    "peakAt": 0.27,
+    "first": 0,
+    "last": 0
+   },
+   "dark": 0.79,
+   "wrap": 0.33,
+   "jitter": 1.34
+  },
+  "class": "smoke puff",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.34,
+    "range": [
+     0.9,
+     1.5
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0.003,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.27,
+    "range": [
+     0.2,
+     0.6
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0,
+    "range": [
+     0,
+     0.35
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.1
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Reads as a steam or smoke puff: a grey, soft-edged wisp with a brighter base in frames 2 to 5 that thins and fades upward in frames 6 to 10. Its sharpness and the fade are plausible for the class."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The 64 by 64 frames are the size measured, but the effect is a narrow central column about a fifth of the frame wide, bottom-biased, with the upper half mostly empty. No original frame size or fill was given, so I cannot confirm it fills the frames as the original's does."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Colours are neutral greys and off-white over the blend background, plausible for steam. No measured mean colour against the original was supplied, so the colour difference is unverified rather than shown to be within 15."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Measures pass: the peak is at frame 3 of 12 (peakAt 0.27), frame 0 and frame 11 are dark (first 0, last 0), and jitter is 1.34. Visually the puff mostly thins and fades in place. The upward rise is not clear from the frames, and the original's frame count was not given to check the 12 frames against it."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Type parallel and format index alpha are both standard for a GoldSrc smoke sprite and match the rubric's format options. The sprite's name and a read-back as written are not shown, and the original's type was not given to compare against."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

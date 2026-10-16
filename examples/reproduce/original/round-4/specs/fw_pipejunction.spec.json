@@ -1,0 +1,171 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_pipejunction.mdl",
+  "kind": "prop",
+  "size": {
+    "length": 53,
+    "width": 20,
+    "height": 45
+  },
+  "materials": {
+    "iron": {
+      "base": "metal",
+      "tone": [
+        0.34,
+        0.34,
+        0.32
+      ],
+      "rust": 0.4
+    },
+    "steel": {
+      "base": "steel"
+    }
+  },
+  "parts": [
+    {
+      "id": "pipe_x",
+      "kind": "tube",
+      "material": "iron",
+      "sides": 6,
+      "path": [
+        [
+          -42,
+          0,
+          9,
+          6
+        ],
+        [
+          0,
+          0,
+          9,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "pipe_z",
+      "kind": "tube",
+      "material": "iron",
+      "sides": 6,
+      "path": [
+        [
+          0,
+          0,
+          9,
+          6
+        ],
+        [
+          0,
+          0,
+          44,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "elbow",
+      "kind": "sphere",
+      "material": "iron",
+      "radius": 6.5,
+      "sides": 6,
+      "at": [
+        0,
+        0,
+        2.5
+      ]
+    },
+    {
+      "id": "flange_x",
+      "kind": "turn",
+      "axis": "x",
+      "material": "steel",
+      "sides": 8,
+      "rings": [
+        [
+          0,
+          9
+        ],
+        [
+          3,
+          9
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "at": [
+        -43,
+        0,
+        9
+      ]
+    },
+    {
+      "id": "flange_z",
+      "kind": "turn",
+      "material": "steel",
+      "sides": 8,
+      "rings": [
+        [
+          0,
+          9
+        ],
+        [
+          3,
+          9
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "at": [
+        0,
+        0,
+        42
+      ]
+    },
+    {
+      "id": "bolts_x",
+      "kind": "studs",
+      "material": "steel",
+      "on": {
+        "part": "flange_x",
+        "path": [
+          [
+            0.5,
+            0
+          ],
+          [
+            0.5,
+            300
+          ]
+        ]
+      },
+      "count": 6,
+      "radius": 0.8,
+      "height": 1
+    },
+    {
+      "id": "bolts_z",
+      "kind": "studs",
+      "material": "steel",
+      "on": {
+        "part": "flange_z",
+        "path": [
+          [
+            0.5,
+            0
+          ],
+          [
+            0.5,
+            300
+          ]
+        ]
+      },
+      "count": 6,
+      "radius": 0.8,
+      "height": 1
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_spit.spr: a sludge spit that splashes, animated",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 8,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 8,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0.43,
+    "first": 0,
+    "last": 0
+   },
+   "dark": 0.77,
+   "wrap": 0.54,
+   "jitter": 1.46
+  },
+  "class": "explosion",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.46,
+    "range": [
+     1.04,
+     1.48
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.43,
+    "range": [
+     0.22,
+     0.71
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0,
+    "range": [
+     0,
+     0.22
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.03
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frames show a soft green-grey cloud with a bright core that grows, then thins. It reads as a glow or smoke puff. A splash is only faintly suggested by a few spatter specks in frames 4 and 5 and the ragged edge of frame 5, so the effect is only partly the sludge splash the brief asks for."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Each frame is a square with the effect filling about two-thirds of it. The edges fall off to empty background (border measure 0), so the sprite has no clipped or hard-edged frame."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "No colour measure against the class is given, so the colour can't be checked. By eye the frames are a pale green-grey that suits the brief's green-grey sludge, but that is unverified."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Eight frames. The envelope is within the class ranges: peak at 0.43 (range 0.22 to 0.71), first frame 0 (0 to 0.22), last frame 0 (0 to 0.03). Frames 0 and 7 are dark, so it is a one-shot that starts and ends dark. The motion grows, spreads and fades. Jitter is 1.46, inside 1.04 to 1.48 but near the top, and the frame-to-frame shifts are visible but within the class's band."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The file name is fw_spit.spr and the format is additive with parallel type, 32 by 32, 8 frames, as the brief's sprite family needs. The read-back measures agree with what was written. No class comparison of type or format is given, so this rests on the measures alone."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

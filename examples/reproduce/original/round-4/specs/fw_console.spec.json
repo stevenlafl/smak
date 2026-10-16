@@ -1,0 +1,239 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_console.mdl",
+  "kind": "prop",
+  "size": {
+    "height": 41,
+    "width": 48,
+    "length": 26
+  },
+  "materials": {
+    "grey": {
+      "base": "metal",
+      "tone": [
+        0.36,
+        0.38,
+        0.36
+      ],
+      "rust": 0.2
+    },
+    "screen": {
+      "base": "paint",
+      "tone": [
+        0.14,
+        0.26,
+        0.2
+      ]
+    },
+    "brass": {
+      "base": "brass",
+      "tone": [
+        0.5,
+        0.42,
+        0.25
+      ]
+    },
+    "dark": {
+      "base": "metal",
+      "tone": [
+        0.12,
+        0.12,
+        0.12
+      ]
+    },
+    "hazard": {
+      "base": "hazard",
+      "tone": [
+        0.82,
+        0.66,
+        0.12
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "plinth",
+      "kind": "box",
+      "size": [
+        20,
+        44,
+        4
+      ],
+      "material": "dark"
+    },
+    {
+      "id": "body",
+      "kind": "box",
+      "size": [
+        24,
+        48,
+        34
+      ],
+      "material": "grey",
+      "attach": {
+        "to": "plinth"
+      },
+      "panels": [
+        {
+          "face": "front",
+          "at": [
+            12,
+            22
+          ],
+          "size": [
+            17,
+            12
+          ],
+          "style": "inset",
+          "material": "screen"
+        },
+        {
+          "face": "front",
+          "at": [
+            36,
+            22
+          ],
+          "size": [
+            17,
+            12
+          ],
+          "style": "inset",
+          "material": "screen"
+        },
+        {
+          "face": "front",
+          "at": [
+            8,
+            8
+          ],
+          "size": [
+            6,
+            6
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "brass"
+        },
+        {
+          "face": "front",
+          "at": [
+            24,
+            8
+          ],
+          "size": [
+            6,
+            6
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "brass"
+        },
+        {
+          "face": "front",
+          "at": [
+            40,
+            8
+          ],
+          "size": [
+            6,
+            6
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "brass"
+        },
+        {
+          "face": "front",
+          "at": [
+            9,
+            30
+          ],
+          "size": [
+            3,
+            3
+          ],
+          "style": "raised",
+          "material": "dark"
+        },
+        {
+          "face": "front",
+          "at": [
+            17,
+            30
+          ],
+          "size": [
+            3,
+            3
+          ],
+          "style": "raised",
+          "material": "dark"
+        },
+        {
+          "face": "front",
+          "at": [
+            25,
+            30
+          ],
+          "size": [
+            3,
+            3
+          ],
+          "style": "raised",
+          "material": "dark"
+        },
+        {
+          "face": "front",
+          "at": [
+            33,
+            30
+          ],
+          "size": [
+            3,
+            3
+          ],
+          "style": "raised",
+          "material": "dark"
+        },
+        {
+          "face": "front",
+          "at": [
+            41,
+            30
+          ],
+          "size": [
+            3,
+            3
+          ],
+          "style": "raised",
+          "material": "dark"
+        },
+        {
+          "face": "front",
+          "at": [
+            24,
+            2.5
+          ],
+          "size": [
+            44,
+            3
+          ],
+          "style": "flat",
+          "material": "hazard"
+        }
+      ]
+    },
+    {
+      "id": "top",
+      "kind": "box",
+      "size": [
+        26,
+        50,
+        3
+      ],
+      "material": "grey",
+      "attach": {
+        "to": "body"
+      }
+    }
+  ]
+}

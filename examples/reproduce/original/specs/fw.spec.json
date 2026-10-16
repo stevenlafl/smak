@@ -1,152 +1,49 @@
 {
   "spec": "smak.wad/1",
   "name": "fw.wad",
-  "materials": {
-    "concrete": {
-      "base": "plaster",
-      "tone": [
-        0.48,
-        0.47,
-        0.45
-      ]
-    },
-    "wetfloor": {
-      "base": "stone",
-      "tone": [
-        0.36,
-        0.38,
-        0.36
-      ]
-    },
-    "grate": {
-      "base": "mesh",
-      "cell": 8
-    },
-    "catwalk": {
-      "base": "metal",
-      "tone": [
-        0.42,
-        0.42,
-        0.4
-      ],
-      "cell": 32
-    },
-    "pipes": {
-      "base": "metal",
-      "tone": [
-        0.4,
-        0.4,
-        0.38
-      ]
-    },
-    "hazard": {
-      "base": "hazard",
-      "tone": [
-        0.82,
-        0.66,
-        0.12
-      ]
-    },
-    "rustplate": {
-      "base": "metal",
-      "tone": [
-        0.44,
-        0.4,
-        0.36
-      ],
-      "rust": 0.6
-    },
-    "panel": {
-      "base": "metal",
-      "tone": [
-        0.4,
-        0.42,
-        0.4
-      ]
-    },
-    "lamp": {
-      "base": "glass",
-      "tone": [
-        1,
-        0.62,
-        0.2
-      ]
-    },
-    "water": {
-      "base": "water"
-    },
-    "sign": {
-      "base": "paint",
-      "tone": [
-        0.5,
-        0.49,
-        0.45
-      ]
-    },
-    "door": {
-      "base": "door",
-      "tone": [
-        0.36,
-        0.37,
-        0.36
-      ]
-    }
-  },
   "textures": [
     {
-      "name": "FW_CONC1",
+      "name": "FW_CONCRETE",
       "size": [
         128,
         128
       ],
-      "material": "concrete",
+      "material": {
+        "base": "stone",
+        "tone": [
+          0.52,
+          0.52,
+          0.5
+        ]
+      },
       "grime": 0.4,
       "wear": {
-        "stains": 0.6,
-        "streaks": 0.4,
+        "stains": 0.5,
+        "streaks": 0.3,
         "cracks": 0.4,
         "speckle": 0.8
       }
     },
     {
-      "name": "FW_CONC2",
+      "name": "FW_WETFLOOR",
       "size": [
         128,
         128
       ],
-      "material": "concrete",
-      "grime": 0.5,
-      "panels": [
-        {
-          "at": [
-            64,
-            64
-          ],
-          "size": [
-            120,
-            120
-          ],
-          "style": "raised",
-          "edge": 3
-        }
-      ],
-      "wear": {
-        "stains": 0.5,
-        "speckle": 0.7
-      }
-    },
-    {
-      "name": "FW_WETFLR",
-      "size": [
-        128,
-        128
-      ],
-      "material": "wetfloor",
+      "material": {
+        "base": "stone",
+        "tone": [
+          0.36,
+          0.38,
+          0.36
+        ]
+      },
       "grime": 0.6,
       "wear": {
         "stains": 0.8,
-        "speckle": 0.9,
-        "streaks": 0.3
+        "streaks": 0.6,
+        "cracks": 0.3,
+        "speckle": 0.6
       }
     },
     {
@@ -155,196 +52,277 @@
         64,
         64
       ],
-      "material": "grate"
-    },
-    {
-      "name": "FW_CATWLK",
-      "size": [
-        128,
-        128
-      ],
-      "material": "catwalk",
-      "grime": 0.3,
-      "wear": {
-        "speckle": 0.5,
-        "streaks": 0.3
+      "material": {
+        "base": "mesh",
+        "cell": 8,
+        "tone": [
+          0.4,
+          0.42,
+          0.38
+        ]
       }
     },
     {
-      "name": "FW_PIPES",
+      "name": "FW_CATWALK",
       "size": [
         128,
         128
       ],
-      "material": "pipes",
+      "material": {
+        "base": "metal",
+        "tone": [
+          0.45,
+          0.45,
+          0.42
+        ],
+        "rust": 0.3
+      },
+      "grime": 0.3,
       "relief": [
         {
-          "kind": "pipe",
-          "path": [
-            [
-              0,
-              40
-            ],
-            [
-              128,
-              40
-            ]
-          ],
-          "radius": 8
-        },
-        {
-          "kind": "pipe",
-          "path": [
-            [
-              0,
-              96
-            ],
-            [
-              128,
-              96
-            ]
-          ],
-          "radius": 6
-        },
-        {
-          "kind": "rivets",
-          "from": [
-            8,
-            8
-          ],
-          "to": [
-            120,
-            8
-          ],
-          "count": 8,
-          "radius": 1.2
-        }
-      ],
-      "grime": 0.3
-    },
-    {
-      "name": "FW_HAZARD",
-      "size": [
-        128,
-        128
-      ],
-      "material": "hazard",
-      "wear": {
-        "scratches": 0.3
-      }
-    },
-    {
-      "name": "FW_RUSTP",
-      "size": [
-        128,
-        128
-      ],
-      "material": "rustplate",
-      "grime": 0.4,
-      "wear": {
-        "stains": 0.7,
-        "streaks": 0.5,
-        "speckle": 0.6
-      },
-      "panels": [
-        {
+          "kind": "louvre",
           "at": [
             64,
             64
           ],
           "size": [
-            112,
-            112
+            120,
+            120
           ],
-          "edge": 3
+          "count": 10
         }
-      ]
+      ],
+      "wear": {
+        "streaks": 0.3,
+        "speckle": 0.4
+      }
     },
     {
-      "name": "FW_CTRLPN",
+      "name": "FW_PIPEWALL",
       "size": [
         128,
         128
       ],
-      "material": "panel",
-      "panels": [
-        {
-          "at": [
-            32,
-            96
-          ],
-          "size": [
-            40,
-            40
-          ],
-          "shape": "round",
-          "style": "raised",
-          "material": "panel"
-        },
-        {
-          "at": [
-            96,
-            96
-          ],
-          "size": [
-            40,
-            40
-          ],
-          "shape": "round",
-          "style": "raised",
-          "material": "panel"
-        },
-        {
-          "at": [
-            64,
-            40
-          ],
-          "size": [
-            104,
-            36
-          ],
-          "style": "inset"
-        }
-      ],
+      "material": {
+        "base": "metal",
+        "tone": [
+          0.42,
+          0.44,
+          0.44
+        ],
+        "rust": 0.2
+      },
       "relief": [
         {
-          "kind": "bars",
-          "at": [
-            64,
-            40
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              40
+            ],
+            [
+              128,
+              40
+            ]
           ],
-          "size": [
-            96,
-            28
+          "radius": 7
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              92
+            ],
+            [
+              128,
+              92
+            ]
           ],
-          "count": 6,
-          "width": 2,
-          "axis": "x"
+          "radius": 5
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              30,
+              0
+            ],
+            [
+              30,
+              128
+            ]
+          ],
+          "radius": 4
         }
-      ]
+      ],
+      "wear": {
+        "stains": 0.4,
+        "streaks": 0.4
+      }
     },
     {
-      "name": "~FW_LAMP",
+      "name": "FW_HAZARD",
       "size": [
         64,
         64
       ],
-      "material": "lamp",
+      "material": {
+        "base": "hazard",
+        "tone": [
+          0.74,
+          0.6,
+          0.2
+        ]
+      },
+      "grime": 0.2
+    },
+    {
+      "name": "FW_RUST",
+      "size": [
+        128,
+        128
+      ],
+      "material": {
+        "base": "metal",
+        "tone": [
+          0.44,
+          0.4,
+          0.36
+        ],
+        "rust": 0.8
+      },
+      "relief": [
+        {
+          "kind": "rivets",
+          "from": [
+            16,
+            16
+          ],
+          "to": [
+            112,
+            16
+          ],
+          "count": 6,
+          "radius": 2.5
+        },
+        {
+          "kind": "rivets",
+          "from": [
+            16,
+            112
+          ],
+          "to": [
+            112,
+            112
+          ],
+          "count": 6,
+          "radius": 2.5
+        }
+      ],
+      "wear": {
+        "stains": 0.7,
+        "streaks": 0.6,
+        "cracks": 0.3
+      }
+    },
+    {
+      "name": "FW_PANEL",
+      "size": [
+        128,
+        128
+      ],
+      "material": {
+        "base": "metal",
+        "tone": [
+          0.36,
+          0.4,
+          0.4
+        ]
+      },
+      "panels": [
+        {
+          "at": [
+            44,
+            40
+          ],
+          "size": [
+            64,
+            28
+          ],
+          "style": "inset"
+        },
+        {
+          "at": [
+            24,
+            94
+          ],
+          "size": [
+            32,
+            32
+          ],
+          "shape": "round",
+          "style": "raised"
+        },
+        {
+          "at": [
+            64,
+            94
+          ],
+          "size": [
+            32,
+            32
+          ],
+          "shape": "round",
+          "style": "raised"
+        },
+        {
+          "at": [
+            104,
+            94
+          ],
+          "size": [
+            32,
+            32
+          ],
+          "shape": "round",
+          "style": "raised"
+        }
+      ],
+      "wear": {
+        "speckle": 0.5,
+        "scratches": 0.3
+      }
+    },
+    {
+      "name": "~FW_LAMP",
+      "size": [
+        128,
+        128
+      ],
+      "material": {
+        "base": "metal",
+        "tone": [
+          0.4,
+          0.4,
+          0.38
+        ]
+      },
       "relief": [
         {
           "kind": "lamp",
           "at": [
-            32,
-            32
+            64,
+            64
           ],
           "size": [
-            48,
-            48
+            100,
+            80
           ],
           "colour": [
             1,
-            0.6,
-            0.2
+            0.82,
+            0.55
           ]
         }
       ]
@@ -355,43 +333,110 @@
         128,
         128
       ],
-      "material": "water"
+      "material": {
+        "base": "water"
+      }
     },
     {
-      "name": "FW_PUMP3",
+      "name": "FW_SIGN",
       "size": [
         128,
         64
       ],
-      "material": "sign",
-      "wear": {
-        "stains": 0.5,
-        "speckle": 0.6,
-        "streaks": 0.3
+      "material": {
+        "base": "paint",
+        "tone": [
+          0.24,
+          0.27,
+          0.25
+        ]
       },
-      "grime": 0.4,
       "print": {
         "text": "PUMP 3",
-        "size": 0.7,
+        "size": 0.45,
         "ink": [
-          0.8,
-          0.6,
-          0.1
+          0.92,
+          0.78,
+          0.22
         ]
+      },
+      "wear": {
+        "speckle": 0.5
       }
     },
     {
       "name": "FW_DOOR",
       "size": [
         128,
-        128
+        256
       ],
-      "material": "door",
-      "grime": 0.5,
+      "material": {
+        "base": "metal",
+        "tone": [
+          0.42,
+          0.44,
+          0.4
+        ],
+        "rust": 0.25
+      },
+      "panels": [
+        {
+          "at": [
+            64,
+            128
+          ],
+          "size": [
+            104,
+            232
+          ],
+          "style": "inset"
+        },
+        {
+          "at": [
+            64,
+            40
+          ],
+          "size": [
+            104,
+            40
+          ],
+          "style": "raised"
+        }
+      ],
+      "relief": [
+        {
+          "kind": "rivets",
+          "from": [
+            12,
+            12
+          ],
+          "to": [
+            116,
+            12
+          ],
+          "count": 5,
+          "radius": 2.5
+        },
+        {
+          "kind": "rivets",
+          "from": [
+            12,
+            244
+          ],
+          "to": [
+            116,
+            244
+          ],
+          "count": 5,
+          "radius": 2.5
+        }
+      ],
+      "grime": 0.4,
       "wear": {
-        "stains": 0.5,
-        "streaks": 0.4,
-        "speckle": 0.5
+        "stains": 0.6,
+        "streaks": 0.5,
+        "speckle": 0.7,
+        "scratches": 0.5
       }
     }
   ]

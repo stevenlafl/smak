@@ -10,29 +10,22 @@
         64
       ],
       "frames": 12,
-      "fps": 8,
+      "loop": false,
+      "fps": 10,
       "type": "parallel",
       "format": "index alpha",
-      "colour": [
-        0.85,
-        0.87,
-        0.85
-      ],
       "origin": "centre",
-      "finish": {
-        "edge": 4
-      },
       "layers": [
         {
           "kind": "smoke",
-          "density": 0.9,
-          "spread": 0.5,
+          "density": 0.55,
+          "spread": 0.45,
           "colour": [
-            0.85,
-            0.87,
-            0.85
+            0.9,
+            0.9,
+            0.88
           ],
-          "rise": 0.4,
+          "rise": 0.5,
           "env": {
             "attack": 0.2,
             "decay": 0.8
@@ -49,16 +42,15 @@
         64
       ],
       "frames": 1,
-      "type": "parallel",
       "layers": [
         {
           "kind": "glow",
           "radius": 0.9,
-          "core": 0.25,
+          "core": 0.15,
           "colour": [
             1,
             0.6,
-            0.2
+            0.25
           ],
           "gain": 1
         }
@@ -66,44 +58,31 @@
     },
     {
       "name": "sprites/fw_spit.spr",
-      "class": "sparks",
-      "use": "tempent",
+      "class": "smoke puff",
+      "use": "env_sprite",
       "size": [
         32,
         32
       ],
       "frames": 8,
+      "loop": false,
       "fps": 14,
+      "format": "index alpha",
+      "origin": "centre",
       "layers": [
         {
-          "kind": "sparks",
-          "count": 14,
-          "speed": 0.7,
-          "gravity": 0.6,
-          "trail": 0.2,
-          "colour": [
-            0.3,
-            0.4,
-            0.24
-          ],
-          "env": {
-            "attack": 0.05,
-            "decay": 0.5
-          }
-        },
-        {
           "kind": "blobs",
-          "count": 8,
-          "radius": 0.25,
-          "spread": 0.5,
+          "count": 12,
+          "radius": 0.22,
+          "spread": 0.6,
           "colour": [
-            0.28,
-            0.36,
-            0.22
+            0.5,
+            0.6,
+            0.35
           ],
           "env": {
-            "attack": 0.05,
-            "decay": 0.5
+            "attack": 0.1,
+            "decay": 0.9
           }
         }
       ]

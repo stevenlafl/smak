@@ -1,0 +1,341 @@
+{
+  "spec": "smak.map/1",
+  "name": "fw_control",
+  "theme": {
+    "floor": {
+      "texture": "FW_CATWLK"
+    },
+    "wall": {
+      "texture": "FW_CONC1"
+    },
+    "ceiling": {
+      "texture": "FW_CONC2"
+    },
+    "door": {
+      "texture": "FW_DOOR"
+    },
+    "furniture": {
+      "texture": "FW_RUSTP"
+    }
+  },
+  "wads": [
+    "fw/fw.wad",
+    "halflife.wad"
+  ],
+  "textures": {
+    "catwalk": {
+      "texture": "FW_CATWLK"
+    },
+    "rust": {
+      "texture": "FW_RUSTP"
+    },
+    "panel": {
+      "texture": "FW_CTRLPN"
+    },
+    "pool": {
+      "texture": "!FW_WATER"
+    }
+  },
+  "prefabs": {
+    "lift": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -44,
+              -44,
+              -8
+            ],
+            [
+              44,
+              44,
+              0
+            ]
+          ],
+          "texture": "rust"
+        }
+      ],
+      "entity": {
+        "class": "func_plat",
+        "height": 276,
+        "speed": 60
+      }
+    },
+    "button": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -8,
+              -40,
+              0
+            ],
+            [
+              8,
+              40,
+              40
+            ]
+          ],
+          "texture": "rust"
+        }
+      ],
+      "entity": {
+        "class": "func_button",
+        "spawnflags": 257,
+        "target": "fw_end",
+        "wait": -1
+      }
+    },
+    "endtrig": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -40,
+              -40,
+              0
+            ],
+            [
+              40,
+              40,
+              72
+            ]
+          ],
+          "texture": "rust"
+        }
+      ],
+      "entity": {
+        "class": "trigger_endsection",
+        "spawnflags": 1,
+        "targetname": "fw_end"
+      }
+    }
+  },
+  "rooms": [
+    {
+      "id": "control",
+      "size": [
+        900,
+        500,
+        320
+      ],
+      "surfaces": {
+        "floor": "catwalk",
+        "walls": "panel"
+      }
+    },
+    {
+      "id": "hallview",
+      "size": [
+        900,
+        500,
+        400
+      ],
+      "place": {
+        "east_of": "control"
+      },
+      "floor": -200,
+      "water": {
+        "depth": 120,
+        "material": "pool"
+      }
+    },
+    {
+      "id": "valve",
+      "size": [
+        500,
+        400,
+        260
+      ],
+      "place": {
+        "below": "control",
+        "gap": 16
+      }
+    },
+    {
+      "id": "shaft",
+      "size": [
+        96,
+        96,
+        320
+      ],
+      "place": {
+        "in": "control",
+        "offset": [
+          400,
+          308
+        ],
+        "floor": -276
+      }
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "control",
+        "hallview"
+      ],
+      "kind": "window",
+      "along": 0.15,
+      "glass": true
+    },
+    {
+      "between": [
+        "control",
+        "hallview"
+      ],
+      "kind": "window",
+      "along": 0.35,
+      "glass": true
+    },
+    {
+      "between": [
+        "control",
+        "hallview"
+      ],
+      "kind": "window",
+      "along": 0.55,
+      "glass": true
+    },
+    {
+      "between": [
+        "control",
+        "hallview"
+      ],
+      "kind": "window",
+      "along": 0.75,
+      "glass": true
+    },
+    {
+      "between": [
+        "control",
+        "valve"
+      ],
+      "kind": "stairs"
+    }
+  ],
+  "furniture": [
+    {
+      "prefab": "lift",
+      "room": "control",
+      "at": [
+        0,
+        100
+      ]
+    },
+    {
+      "prefab": "button",
+      "room": "valve",
+      "at": [
+        -190,
+        0
+      ]
+    },
+    {
+      "prefab": "endtrig",
+      "room": "valve",
+      "at": [
+        150,
+        128
+      ]
+    }
+  ],
+  "models": {
+    "console": {
+      "file": "fw_console.spec.json"
+    },
+    "valvewheel": {
+      "file": "fw_valvewheel.spec.json"
+    }
+  },
+  "props": [
+    {
+      "model": "console",
+      "room": "control",
+      "at": [
+        380,
+        -175
+      ],
+      "facing": "west",
+      "solid": true
+    },
+    {
+      "model": "console",
+      "room": "control",
+      "at": [
+        380,
+        -75
+      ],
+      "facing": "west",
+      "solid": true
+    },
+    {
+      "model": "console",
+      "room": "control",
+      "at": [
+        380,
+        25
+      ],
+      "facing": "west",
+      "solid": true
+    },
+    {
+      "model": "console",
+      "room": "control",
+      "at": [
+        380,
+        125
+      ],
+      "facing": "west",
+      "solid": true
+    },
+    {
+      "model": "valvewheel",
+      "room": "valve",
+      "at": [
+        -226,
+        0
+      ],
+      "facing": "east",
+      "solid": true
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "control",
+      "at": [
+        -380,
+        0
+      ],
+      "facing": "east"
+    },
+    {
+      "class": "info_landmark",
+      "room": "control",
+      "at": [
+        -380,
+        0
+      ],
+      "id": "fw_to_control"
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "control",
+      "at": [
+        -250,
+        -100
+      ],
+      "z": 0
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "control",
+      "at": [
+        -150,
+        120
+      ],
+      "z": 0
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_steam.spr: a steam puff that rises and thins, animated",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.56,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "smoke puff",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0,
+    "range": [
+     0.2,
+     0.6
+    ],
+    "ok": false,
+    "words": "peaks too soon"
+   },
+   {
+    "measure": "first",
+    "value": 1,
+    "range": [
+     0,
+     0.35
+    ],
+    "ok": false,
+    "words": "starts too bright: an attack in its envelope"
+   },
+   {
+    "measure": "last",
+    "value": 1,
+    "range": [
+     0,
+     0.1
+    ],
+    "ok": false,
+    "words": "does not end dark: a decay in its envelope"
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief asks for a steam puff that rises and thins. The frame is one flat, hard-edged light-grey disc with no wisps, billowing, or soft falloff, so it reads as a plain disc, not steam or smoke."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frame is 32x32 and the disc fills it, with no border (measured border 0). But the outline is a hard circle with no soft edge or spread, unlike a puff that thins into the air. Clearly off."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The colour is one uniform light grey with no variation across the frame, so it cannot be checked against a reference here. A flat grey is plausible for an additive puff, but the mean colour is not measured against an original in this run, so this scores 1."
+  },
+  "R4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The sprite has one frame where an animated puff needs several, and it does not rise, grow or fade. The envelope fails both ends: it peaks at frame 0 (class range 0.2 to 0.6), starts bright (first 1, range 0 to 0.35), and does not end dark (last 1, range 0 to 0.1). The measurements already fail this item, so it cannot score higher."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The measures give type parallel and format additive, which may match a smoke puff, and the name is fw_steam.spr. The original's type and format are not given to the judge, so the match cannot be confirmed here; it is held at 1 for that reason."
+  }
+ },
+ "total": 3,
+ "of": 10,
+ "passes": false
+}

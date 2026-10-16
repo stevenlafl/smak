@@ -8,48 +8,108 @@
   "fps": 30,
   "shots": [
     {
-      "kind": "title",
-      "seconds": 2,
-      "text": "FLOODED WORKS: PUMP HALL"
-    },
-    {
-      "kind": "flyover",
-      "map": "fw_pumphall_flight/fw_pumphall_flight.bsp",
-      "seconds": 6,
-      "height": 700,
-      "turns": 0.25
-    },
-    {
       "kind": "path",
-      "map": "fw_pumphall_flight/fw_pumphall_flight.bsp",
-      "seconds": 14,
+      "map": "fw_pumphall/fw_pumphall.bsp",
+      "seconds": 12,
+      "brightness": 1,
       "keys": [
         {
           "t": 0,
           "at": [
-            -1050,
+            -1100,
             0,
-            235
+            140
           ],
-          "look": "ahead"
+          "look": [
+            -600,
+            0,
+            130
+          ],
+          "fov": 85
+        },
+        {
+          "t": 3,
+          "at": [
+            -700,
+            150,
+            140
+          ],
+          "look": [
+            -200,
+            0,
+            130
+          ],
+          "fov": 85
+        },
+        {
+          "t": 5,
+          "at": [
+            -250,
+            0,
+            140
+          ],
+          "look": [
+            200,
+            0,
+            130
+          ],
+          "fov": 85
         },
         {
           "t": 7,
           "at": [
-            -100,
+            100,
+            -150,
+            140
+          ],
+          "look": [
+            500,
+            0,
+            130
+          ],
+          "fov": 85
+        },
+        {
+          "t": 9,
+          "at": [
+            600,
+            150,
+            150
+          ],
+          "look": [
+            1000,
+            0,
+            140
+          ],
+          "fov": 85
+        },
+        {
+          "t": 11,
+          "at": [
+            1200,
             0,
             250
           ],
-          "look": "ahead"
+          "look": [
+            1600,
+            0,
+            200
+          ],
+          "fov": 85
         },
         {
-          "t": 14,
+          "t": 12,
           "at": [
-            1000,
-            -60,
-            235
+            1350,
+            0,
+            240
           ],
-          "look": "ahead"
+          "look": [
+            1900,
+            0,
+            200
+          ],
+          "fov": 85
         }
       ]
     }

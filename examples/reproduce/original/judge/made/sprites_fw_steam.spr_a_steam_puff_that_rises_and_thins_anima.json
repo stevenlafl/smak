@@ -16,7 +16,7 @@
     64
    ],
    "border": {
-    "max": 0.208,
+    "max": 0.251,
     "mean": 0.003
    },
    "envelope": {
@@ -24,15 +24,15 @@
     "first": 0,
     "last": 0
    },
-   "dark": 0.79,
+   "dark": 0.85,
    "wrap": 0.33,
-   "jitter": 1.34
+   "jitter": 1.35
   },
   "class": "smoke puff",
   "againstClass": [
    {
     "measure": "jitter",
-    "value": 1.34,
+    "value": 1.35,
     "range": [
      0.9,
      1.5
@@ -85,37 +85,37 @@
  "caps": {},
  "scores": {
   "R1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Reads as a steam or smoke puff: a grey, soft-edged wisp with a brighter base in frames 2 to 5 that thins and fades upward in frames 6 to 10. Its sharpness and the fade are plausible for the class."
+   "score": 1,
+   "reason": "Reads more as a thin smoke column or wisp than a steam puff. Each frame is a narrow streak about 10 px wide (frames 1 to 9, centred in each cell), with little rounded, billowing volume. The effect of rising and thinning is there, and frames 0 and 11 are blank."
   },
   "R2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The 64 by 64 frames are the size measured, but the effect is a narrow central column about a fifth of the frame wide, bottom-biased, with the upper half mostly empty. No original frame size or fill was given, so I cannot confirm it fills the frames as the original's does."
+   "reason": "The frames are 64 x 64, as measured, but the effect fills only a narrow central strip. The top and sides of most frames are empty, and the bright base sits on the bottom edge (frames 1 to 3 and 8 to 9), where the content touches the frame border (border max 0.251). The effect does not fill its frames as a puff would."
   },
   "R3": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Colours are neutral greys and off-white over the blend background, plausible for steam. No measured mean colour against the original was supplied, so the colour difference is unverified rather than shown to be within 15."
+   "score": 2,
+   "reason": "Neutral grey-white steam over the engine's grey blend, brightest at the base and fading to the background. This fits a steam effect in Half-Life's muted palette. No colour measure was given against an original, so this is judged by eye."
   },
   "R4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Measures pass: the peak is at frame 3 of 12 (peakAt 0.27), frame 0 and frame 11 are dark (first 0, last 0), and jitter is 1.34. Visually the puff mostly thins and fades in place. The upward rise is not clear from the frames, and the original's frame count was not given to check the 12 frames against it."
+   "reason": "The frame count (12), one-shot ending (first 0, last 0, peak at 0.27) and fade are right. The motion is weak on 'rises': the bright base stays pinned to the bottom edge across frames 1 to 9, so the plume reads as a column growing up from the floor, not a puff drifting up and thinning. Frames 8 to 10 fade in place."
   },
   "R5": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Type parallel and format index alpha are both standard for a GoldSrc smoke sprite and match the rubric's format options. The sprite's name and a read-back as written are not shown, and the original's type was not given to compare against."
+   "score": 2,
+   "reason": "Type 'parallel' and format 'index alpha' are valid GoldSrc sprite settings, the size is 64 x 64 and the file is sprites/fw_steam.spr as the brief names it. The measures give no original type to compare with, so the match to the original's type is not confirmed, only that the file is valid."
   }
  },
- "total": 6,
+ "total": 7,
  "of": 10,
  "passes": false
 }

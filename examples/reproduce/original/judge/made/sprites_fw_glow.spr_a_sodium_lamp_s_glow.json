@@ -24,7 +24,7 @@
     "first": 1,
     "last": 1
    },
-   "dark": 0.59,
+   "dark": 0.69,
    "wrap": null,
    "jitter": null
   },
@@ -48,31 +48,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Reads as a sodium lamp's glow: a soft radial halo, brightest at the centre and fading out, which is the effect the brief asks for."
+   "reason": "A soft, warm radial glow with a bright core that fades to the edge. That is a lamp's glow, the effect the brief asks for, and it reads as light rather than a shape."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "One 64x64 frame with the glow filling it and falling off to the edges. The border measure is 0 (max 0, mean 0), so nothing is clipped or left as a hard edge."
+   "reason": "One 64 x 64 frame, as measured. The glow fills most of the frame, roughly 44 of 64 units across by eye, and the border is pure black (measured border max 0), so nothing is clipped at the edges."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The glow is warm amber-orange, matching the sodium-orange the brief names, with no neon or off-palette hue. No original colour measure is given in the measurements, so this is a visual judgement only, not a measured ΔE."
+   "reason": "The core reads as sodium amber-orange and falls off through darker orange to black. No colour measure against an original was given, so this is judged by eye at 128 px; nothing looks clearly off for a sodium lamp."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "A single static frame, which is the expected motion for a steady lamp glow in this class. The frame count (1) cannot be checked against Half-Life's own glows of this class, since the against-class measure covers only the border. Scored on the picture and the stated frame count."
+   "reason": "A single still frame, which is the expected motion for a static lamp glow (measured frames 1). Nothing in the brief asks for animation, so there is no loop or one-shot to get wrong."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The measurements give type parallel and format additive, which is what a light glow normally uses, and the name fw_glow matches the brief's sprite. The file itself was not read back, so this rests on the stated type and format."
+   "reason": "Measured type is parallel and format additive, the usual GoldSrc glow setup, so the frame blends onto the scene as light. The name fw_glow follows the mod's naming, and the sprite reads back at its stated 64 x 64 size."
   }
  },
  "total": 10,

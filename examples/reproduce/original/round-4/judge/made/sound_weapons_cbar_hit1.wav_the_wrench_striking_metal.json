@@ -1,0 +1,79 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_hit1.wav: the wrench striking metal",
+ "measured": {
+  "features": {
+   "length": 0.6,
+   "peak": -0.5,
+   "rms": -9.5,
+   "crest": 9,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.085,
+   "peakAt": 0.19,
+   "t20": 0.324,
+   "t40": 0.409,
+   "centroid": 1220,
+   "rolloff": 1120,
+   "flatness": 0,
+   "bands": {
+    "<150": 0,
+    "150-600": 0,
+    "600-2k": 95.2,
+    "2k-5k": 4,
+    ">5k": 0.8
+   },
+   "onsets": 1
+  },
+  "class": "metal hit",
+  "against": {
+   "score": 19,
+   "of": 22,
+   "lines": [
+    "flatness 0 (0.16 to 0.28): too pure: more noise",
+    "band 600-2k 95.2% (63.7 to 83.8): over the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture shows a dense broadband transient with its peak near 0.19 s, then a long ring that decays to 0.6 s. That is the shape of a metal strike, a clang that rings out, so it reads as the wrench hitting metal."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length 0.6 s, attack 0.085 s, t20 0.324 s and t40 0.409 s. The measure reports no envelope fault against the class range; the only two lines it gives are flatness and the 600-2k band. Within the measured range, so 2."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The 600-2k band holds 95.2% of the energy, above the class range of 63.7 to 83.8%, which is 11.4 points over the top, outside the 10-point tolerance. The spectrogram shows the energy concentrated in one bright horizontal tone near the middle of the band. The centroid of 1220 Hz is not flagged. The sound is there but its spectrum is clearly off, so 1."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Flatness is 0, against a class range of 0.16 to 0.28, so the ring is too pure and the noise a metal strike should carry is missing. The spectrogram shows a steady horizontal tone with no visible pitch movement, which is not what a struck wrench usually gives. One onset, which is plausible for a single hit. Character is off in the tone and noise, so 1."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Clipped 0, DC 0, and engineFaults is empty, so nothing in the measures shows a fault that would stop the engine playing it. The measures do not report the sample rate or bit depth, so this score rests on the absence of faults, not on a confirmed format."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

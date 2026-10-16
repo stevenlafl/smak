@@ -1,0 +1,77 @@
+{
+ "kind": "model",
+ "label": "models/fw_valvewheel.mdl: a valve wheel, red paint worn to steel at the rim",
+ "measured": {
+  "size": [
+   32,
+   32,
+   24
+  ],
+  "sizeAsked": {
+   "across": 32
+  },
+  "sizeOff": 0,
+  "triangles": 12,
+  "halfLifeMedianOfThisSize": 62,
+  "halfLifeThreeQuartersUnder": 156,
+  "checkErrors": [],
+  "lineup": "ours is one of A to D in lineup.png beside models/big_rock.mdl, models/testsphere.mdl, models/gib_legbone.mdl: the judge does not know which"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The silhouette is a plain cube in every view (front, side, top, below and the four corner angles). Nothing of a valve wheel's outline is there: no hub, no spokes, no rim, no round face. Measured against the brief's words, the outline is wrong throughout."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured size is 32 x 32 x 24, which matches the 32 across the brief asks, with sizeOff 0. The bounding box is correct, though the shape it encloses is not."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The wheel's components are missing: no hub, no spokes, no rim, no bolts or handle. The model is one solid block with no parts."
+  },
+  "M4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief's red paint is absent. The whole surface is a uniform grey, with no red on the body and no worn steel at a rim, because there is no rim. The colour regions do not match the brief's."
+  },
+  "M5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief's wear is missing: no red paint worn through to steel at the rim, and no stripes or markings. The surface is a noisy grey texture with no features in place."
+  },
+  "M6": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "In the line-up it is B, a grey cube, beside a bone, a rock and a checkered sphere. Any player would see a box, not a valve wheel, and a player would not take it for one of Half-Life's own props."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "It stands on its origin, as a wheel would, and nothing sticks out. But a cube has no front, so there is no front for it to get right, and the item is not met in any real sense."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The SMAK check reports no errors. It has 12 triangles, under twice the median of 62 (124) and under the third quartile of 156. Nothing is open, inside out or floating, as far as the measures show."
+  }
+ },
+ "total": 5,
+ "of": 16,
+ "passes": false
+}

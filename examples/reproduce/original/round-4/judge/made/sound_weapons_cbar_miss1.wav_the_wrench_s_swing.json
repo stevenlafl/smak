@@ -1,0 +1,83 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_miss1.wav: the wrench's swing",
+ "measured": {
+  "features": {
+   "length": 0.26,
+   "peak": -0.5,
+   "rms": -17,
+   "crest": 16.5,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.02,
+   "peakAt": 0.035,
+   "t20": 0.065,
+   "t40": 0.14,
+   "centroid": 1431,
+   "rolloff": 2304,
+   "flatness": 0.006,
+   "bands": {
+    "<150": 0.5,
+    "150-600": 12.3,
+    "600-2k": 61.9,
+    "2k-5k": 25.3,
+    ">5k": 0.1
+   },
+   "onsets": 0
+  },
+  "class": "swing",
+  "against": {
+   "score": 13,
+   "of": 22,
+   "lines": [
+    "rms -17 dBFS (-25.8 to -19.8): over the range",
+    "centroid 1431 Hz (608 to 912): too bright: less over 2000 Hz",
+    "flatness 0.006 (0.03 to 0.13): too pure: more noise",
+    "band 150-600 12.3% (55.8 to 75.8): under the range",
+    "band 600-2k 61.9% (15 to 35): over the range",
+    "band 2k-5k 25.3% (0 to 16.7): over the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The waveform is a short noisy burst with a fast rise (attack 0.02 s, peak at 0.035 s) that falls away over about 0.1 s, then a faint tail. The spectrogram is broadband noise, which fits a crowbar-class swing or miss. The measures show no onset, so there is no hit inside it, which is right for a swing. Nothing in the picture contradicts the event."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length 0.26 s, attack 0.02 s, t20 0.065 s and t40 0.14 s are not on the failure list. The against lines name only the level, spectrum and flatness as out of range, so the envelope is within the class's range as measured. The picture agrees: a fast onset and a decay that is mostly over by about 0.15 s."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Clearly off in the spectrum, and the measures fail it. The centroid is 1431 Hz against a range of 608 to 912 Hz, too bright, with too little energy below 2 kHz. The 600 to 2k band holds 61.9% against 15 to 35%. The 2k to 5k band holds 25.3% against 0 to 16.7%. The 150 to 600 band holds 12.3% against 55.8 to 75.8%. The spectrogram shows the bright warm colour across the lower and middle of the frame and little above, which matches the numbers. The sound is present but its balance is wrong, so it is held at 1, not 2."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Flatness is 0.006 against a range of 0.03 to 0.13, too pure. The picture shows it: the spectrogram has horizontal banding, and the tail after about 0.1 s is smooth and tonal rather than hissy. The onset count of 0 matches a swing, and nothing in the picture shows a pitch slide, so the fault is the tone and noise balance alone."
+  },
+  "S5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Held at 1 because the format is not in the measures: sample rate, bit depth and channel count are absent, so mono PCM at an engine rate cannot be confirmed. The measures that exist are clean: no clipping, DC is 0, and the name is sound/weapons/cbar_miss1.wav. This is a gap in the evidence, not a measured fault. It should be re-scored once the harness reports the format."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

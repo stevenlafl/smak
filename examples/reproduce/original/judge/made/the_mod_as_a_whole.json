@@ -11,7 +11,7 @@
      "fw_pumphall"
     ],
     "landmarks": [
-     "fw_to_pumphall"
+     "fw_land12"
     ],
     "asked": "fw_pumphall"
    },
@@ -21,8 +21,8 @@
      "fw_control"
     ],
     "landmarks": [
-     "fw_to_pumphall",
-     "fw_to_control"
+     "fw_land12",
+     "fw_land23"
     ],
     "asked": "fw_control"
    },
@@ -30,7 +30,7 @@
     "map": "fw_control",
     "leadsTo": [],
     "landmarks": [
-     "fw_to_control"
+     "fw_land23"
     ],
     "asked": null
    }
@@ -39,22 +39,22 @@
    {
     "file": "videos/fw_wrench.mp4",
     "there": true,
-    "bytes": 212467
+    "bytes": 277510
    },
    {
     "file": "videos/fw_crawler.mp4",
     "there": true,
-    "bytes": 159594
+    "bytes": 194589
    },
    {
     "file": "videos/fw_pumphall.mp4",
     "there": true,
-    "bytes": 1290709
+    "bytes": 599266
    },
    {
     "file": "pictures/fw_props.png",
     "there": true,
-    "bytes": 840765
+    "bytes": 955386
    }
   ]
  },
@@ -67,28 +67,28 @@
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measurements list nothing missing and no failed SMAK checks, and the four shown files (fw_wrench.mp4, fw_crawler.mp4, fw_pumphall.mp4, fw_props.png) are all present with nonzero sizes. The sheet shows the five brief props (valve wheel, drum, console, pipe junction, caged lamp) and the crawler, and the three maps are present in the chain. The wrench is not clearly identifiable on the sheet, but the measurements cover its presence, so I score on them."
+   "reason": "The measurements list nothing missing and no failed SMAK checks, and every shown file (the wrench and crawler videos, the pump hall video, the props picture) is present. The sheet shows the five props, the wrench, the crawler and the three maps. Textures, sprites and sounds are not visible in this picture, so their presence rests on the measurements alone."
   },
   "O2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The chain runs fw_yard to fw_pumphall to fw_control, with each map's leadsTo matching the next map, and each change has its landmark (fw_to_pumphall, fw_to_control) on both sides. fw_control ends the chain with no further map, as the brief's valve-room ending requires. The arrival points are not reported separately, but the landmark pairing is consistent with arriving where the last map left."
+   "reason": "The chain runs fw_yard to fw_pumphall through the landmark fw_land12, and fw_pumphall to fw_control through fw_land12 and fw_land23. fw_control is the last map and correctly leads nowhere. Each map's asked target is reached and each leads where the brief says. The map views show only game entity classes (cycler_sprite, monster_headcrab, a door), so no missing model or sound is visible."
   },
   "O3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Most of the set shares one palette: grey-green concrete, rust, hazard yellow and black, and a sodium-orange lamp. Three things break it. The yard's sky is a bright daytime blue where the brief says dusk. The control room's doors are saturated flat red. The bottom-middle prop reads as a rusted grate with a bright red handle, which does not match the other props' worn-metal look. The brief's palette is not held across the maps and props."
+   "reason": "The props share one palette: rusted brown, grey steel, hazard yellow and a green-grey crawler that suits the water. The maps do not fully agree with it. The map walls are a warm sandy tan, the yard's sky is a bright daytime blue where the brief asks for dusk, and the lit floor and grate read as a different material set from the cool grey props. This is clearly off, though not a wholly different place."
   },
   "O4": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The three required videos and the props sheet are present, and the sheet shows the five props and the crawler clearly. The wrench is not recognisable as a wrench on the sheet: the bottom-middle item looks like a rusted grate with a red stub, so the sheet does not show that asset as it is."
+   "score": 2,
+   "reason": "The brief's shown items are all present: the wrench and crawler videos, the pump hall flight video, and the props picture. The props sheet shows each prop, the wrench and the crawler as they are, with each of the six named props and the crawler in view."
   }
  },
- "total": 6,
+ "total": 7,
  "of": 8,
  "passes": false
 }

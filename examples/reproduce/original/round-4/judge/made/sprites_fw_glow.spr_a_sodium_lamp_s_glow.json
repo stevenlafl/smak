@@ -1,0 +1,81 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_glow.spr: a sodium lamp's glow",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.59,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "glow",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Reads as a sodium lamp's glow: a soft radial halo, brightest at the centre and fading out, which is the effect the brief asks for."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "One 64x64 frame with the glow filling it and falling off to the edges. The border measure is 0 (max 0, mean 0), so nothing is clipped or left as a hard edge."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The glow is warm amber-orange, matching the sodium-orange the brief names, with no neon or off-palette hue. No original colour measure is given in the measurements, so this is a visual judgement only, not a measured ΔE."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "A single static frame, which is the expected motion for a steady lamp glow in this class. The frame count (1) cannot be checked against Half-Life's own glows of this class, since the against-class measure covers only the border. Scored on the picture and the stated frame count."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The measurements give type parallel and format additive, which is what a light glow normally uses, and the name fw_glow matches the brief's sprite. The file itself was not read back, so this rests on the stated type and format."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}
