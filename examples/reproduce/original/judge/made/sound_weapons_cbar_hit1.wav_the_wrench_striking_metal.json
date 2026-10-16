@@ -3,37 +3,39 @@
  "label": "sound/weapons/cbar_hit1.wav: the wrench striking metal",
  "measured": {
   "features": {
-   "length": 0.776,
+   "length": 0.5,
    "peak": -0.5,
-   "rms": -8.9,
-   "crest": 8.4,
-   "dc": 0,
+   "rms": -9.5,
+   "crest": 9,
+   "dc": -0.0001,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.01,
-   "attack": 0.16,
-   "peakAt": 0.259,
-   "t20": 0.334,
-   "t40": 0.394,
-   "centroid": 1282,
-   "rolloff": 1120,
-   "flatness": 0.003,
+   "tail": 0,
+   "attack": 0.035,
+   "peakAt": 0.05,
+   "t20": 0.449,
+   "t40": 0.449,
+   "centroid": 2438,
+   "rolloff": 3338,
+   "flatness": 0.007,
    "bands": {
-    "<150": 0,
-    "150-600": 0,
-    "600-2k": 93.2,
-    "2k-5k": 5.4,
-    ">5k": 1.4
+    "<150": 1,
+    "150-600": 3.4,
+    "600-2k": 5.3,
+    "2k-5k": 88.2,
+    ">5k": 2.2
    },
-   "onsets": 0
+   "onsets": 1
   },
   "class": "metal hit",
   "against": {
-   "score": 19,
+   "score": 14,
    "of": 22,
    "lines": [
-    "flatness 0.003 (0.16 to 0.28): too pure: more noise",
-    "band 600-2k 93.2% (63.7 to 83.8): over the range"
+    "centroid 2438 Hz (1074 to 1654): too bright: less over 2000 Hz",
+    "flatness 0.007 (0.16 to 0.28): too pure: more noise",
+    "band 600-2k 5.3% (63.7 to 83.8): under the range",
+    "band 2k-5k 88.2% (3.7 to 24.6): over the range"
    ]
   },
   "engineFaults": []
@@ -46,34 +48,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The waveform opens with a dense noisy burst (about 0 to 0.3 s), then a long decay with sustained tonal ringing lines in the spectrogram. That is the picture of a metal strike that rings, and the class is 'metal hit'. Judged from the picture only, since sound cannot be heard."
+   "reason": "The picture shows a sharp broadband transient at about 0.035 s, then a ring that dies away: the shape of a metal strike. The measure classes it as a metal hit with one onset. Both fit a crowbar-type hit on metal."
   },
   "S2": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Length 0.776 s, peak at 0.259 s, t20 0.334 s, t40 0.394 s and attack 0.16. The against-check raises no envelope line (it fails only flatness and the 600-2k band), so the envelope is within the class range by the measurement. The class range itself was not given to me, so I rely on that check."
-  },
-  "S3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The 600-2k band is 93.2%, against a class range of 63.7 to 83.8%. The measurement marks it as over the range, and the spectrogram confirms the energy is concentrated in the mid band. Centroid 1282 and rolloff 1120 raise no flag. Clearly off in the band share, so not a 2."
+   "reason": "Attack 0.035 s and peak at 0.05 s are plausible for a hit, and the length is 0.5 s. But the picture shows the tail still at a clear level when the file stops, so the decay looks cut off rather than fading. The class range for attack and decay was not supplied, so this cannot be confirmed as within range; capped at 1."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Measured fail on three lines: centroid 2438 Hz against 1074 to 1654 Hz; band 600-2k at 5.3% against 63.7 to 83.8%; band 2k-5k at 88.2% against 3.7 to 24.6%. Nearly all the energy sits in one band the reference gives under 25%, so the spectrum is wrong, not just off."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Flatness 0.003 against 0.16 to 0.28 is far too pure. The spectrogram shows the tail as narrow, steady harmonic lines with little noise after about 0.3 s, while the original's range expects noise. Onsets measure 0 although the start has a burst. Not a must-have, but clearly off on tone and noise."
+   "reason": "One onset, which matches a single strike. The flatness of 0.007 is far outside 0.16 to 0.28 (too pure, less noise than a metal hit), and the spectrogram's horizontal bands read as ringing tones rather than noise. Character is clearly off, though it is not a must-have."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "clipped 0, dc 0, and engineFaults is empty, so the file passes SMAK's checks. Sample rate and bit depth are not in the measures or the picture, so the format rests on the empty fault list, not on a direct reading."
+   "reason": "Measures: clipped 0, DC -0.0001, peak -0.5 dB, no engine faults reported. Mono and the 16-bit format are not shown in the measures, so they are taken as met by the harness check; the file passes the fit checks it reports."
   }
  },
- "total": 8,
+ "total": 6,
  "of": 10,
  "passes": false
 }

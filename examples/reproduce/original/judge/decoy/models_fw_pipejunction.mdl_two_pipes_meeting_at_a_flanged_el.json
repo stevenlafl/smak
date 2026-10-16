@@ -24,52 +24,52 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The outline is a plain square in front, back, left, right, top and below, and a plain cube in the four oblique views. The brief asks for two pipes meeting at a flanged elbow, which has an elbow-shaped, branching outline. No pipe, elbow or flange shows in any of the six views, so the silhouette does not match the brief's words."
+   "reason": "The silhouette is a plain cube in all ten views (sides.png). The brief asks for two pipes meeting at a flanged elbow, which has a long, branched outline. Nothing of the elbow shows in any view."
   },
   "M2": {
-   "judge": 1,
+   "judge": 0,
    "cap": 2,
-   "score": 1,
-   "reason": "The brief gives no size for the pipe junction, so the item cannot be measured against one. The asset is a 24 x 24 x 24 cube with no pipe length or elbow span, so the dimensions are unverified and do not fit the described object."
+   "score": 0,
+   "reason": "The brief gives no size for the pipe junction, and sizeAsked and sizeOff are null, so there is nothing to be within 15% of. The model is a 24-unit cube, which is not a pipe junction at any size the brief implies."
   },
   "M3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief's parts are two pipes, a flanged elbow and bolts. None are present: the sides show one solid block with no pipe bores, no flange rim and no bolt heads in any of the ten views."
+   "reason": "The parts are missing: no pipes, no flanges, no elbow, no bolts. There is one solid block in every view, so nothing of the original's components is there."
   },
   "M4": {
-   "judge": 1,
+   "judge": 0,
    "cap": null,
-   "score": 1,
-   "reason": "The whole block is one mottled mid-grey, which is close to a neutral steel tone. The surface reads as stone or concrete, though, not painted or rusted pipe steel, and the brief's materials are not shown."
+   "score": 0,
+   "reason": "The colour is a flat mid-grey with a mottled, stone-like noise (sides.png). The brief's rusted steel with worn paint is not shown. The one region is in the wrong material, not a close match."
   },
   "M5": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "There are no bolts, flange lines, rust streaks, hazard markings or panel lines. The only surface is an even noise texture, which does not match the wear and markings a pipe junction would carry."
+   "reason": "There are no bolts, flange rims, rust streaks or panel detail. The only surface is a uniform noise pattern with no marking that belongs on a pipe junction."
   },
   "M6": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "In the line-up the grey block is plainly a box, next to the other three objects in the lineup. A player would not take it for Half-Life's pipe junction; it reads as a placeholder crate, not a pipe fitting."
+   "reason": "In lineup.png the model is C, a plain grey box beside a ribcage, a leg bone and a striped sphere. A player would not take it for a Half-Life prop, and the judge would not pick it as any of the game's originals."
   },
   "M7": {
-   "judge": 1,
+   "judge": 0,
    "cap": null,
-   "score": 1,
-   "reason": "A cube has no true front, so the 'front is the original's front' check cannot be met. It is upright, sits symmetrically, and is consistent with standing on its origin, but the facing has no meaning as a pipe junction."
+   "score": 0,
+   "reason": "A cube has no front to face, and no pipe orientation or base to stand on. The brief's pipe junction has a defined front and a resting pose, and neither is present."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The harness reports no check errors and 12 triangles. Against the Half-Life median of 62 for a prop of this size, that is well under twice the median and under the third quartile (156), so the triangle budget is met. The block is closed, with no open faces or inside-out faces in any view."
+   "reason": "checkErrors is empty, so SMAK's check passes. It has 12 triangles, well under twice the median of 62 for Half-Life props of this size and under the third quartile of 156. A closed cube has nothing open, inside out or floating. This item passes on the measures, although the shape does not meet the brief."
   }
  },
- "total": 5,
+ "total": 2,
  "of": 16,
  "passes": false
 }

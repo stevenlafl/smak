@@ -1,0 +1,389 @@
+{
+  "spec": "smak.map/1",
+  "name": "fw_yard",
+  "textures": {
+    "FW_CONCRETE": {
+      "texture": "FW_CONCRETE"
+    },
+    "FW_WETFLOOR": {
+      "texture": "FW_WETFLOOR"
+    },
+    "FW_PANEL": {
+      "texture": "FW_PANEL"
+    },
+    "FW_DOOR": {
+      "texture": "FW_DOOR"
+    },
+    "FW_RUST": {
+      "texture": "FW_RUST"
+    }
+  },
+  "theme": {
+    "floor": "FW_CONCRETE",
+    "wall": "FW_CONCRETE",
+    "ceiling": "FW_PANEL",
+    "door": "FW_DOOR",
+    "furniture": "FW_RUST",
+    "outside": "FW_RUST",
+    "roof": "FW_RUST"
+  },
+  "wads": [
+    "/tmp/smak-repro-a7JnEK/work/fw/fw.wad"
+  ],
+  "wall": 16,
+  "rooms": [
+    {
+      "id": "yard",
+      "size": [
+        1500,
+        1500,
+        320
+      ],
+      "sky": true,
+      "surfaces": {
+        "floor": "FW_WETFLOOR"
+      },
+      "light": {
+        "count": 10,
+        "color": [
+          255,
+          200,
+          150
+        ]
+      }
+    },
+    {
+      "id": "gatehouse",
+      "size": [
+        192,
+        160,
+        160
+      ],
+      "place": {
+        "in": "yard",
+        "offset": [
+          160,
+          160
+        ],
+        "stand": true
+      },
+      "building": {
+        "walls": "outside",
+        "roof": {
+          "material": "FW_RUST",
+          "pitch": 25,
+          "overhang": 8
+        }
+      }
+    },
+    {
+      "id": "pumphouse",
+      "size": [
+        448,
+        320,
+        224
+      ],
+      "place": {
+        "in": "yard",
+        "offset": [
+          880,
+          900
+        ],
+        "stand": true
+      },
+      "building": {
+        "walls": "outside",
+        "roof": {
+          "material": "FW_RUST",
+          "pitch": 20,
+          "overhang": 10
+        }
+      },
+      "light": {
+        "count": 3,
+        "color": [
+          255,
+          200,
+          150
+        ]
+      }
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "gatehouse",
+        "yard"
+      ],
+      "kind": "door",
+      "side": "east",
+      "width": 56,
+      "height": 96,
+      "door": {
+        "swing": true
+      }
+    },
+    {
+      "between": [
+        "pumphouse",
+        "yard"
+      ],
+      "kind": "door",
+      "side": "south",
+      "width": 96,
+      "height": 112
+    }
+  ],
+  "sky": {
+    "zenith": [
+      0.12,
+      0.14,
+      0.22
+    ],
+    "horizon": [
+      0.62,
+      0.38,
+      0.2
+    ],
+    "ground": [
+      0.12,
+      0.11,
+      0.1
+    ],
+    "clouds": {
+      "cover": 0.35
+    },
+    "hills": {
+      "height": 4
+    }
+  },
+  "sun": {
+    "pitch": 12,
+    "yaw": 240,
+    "brightness": 180,
+    "color": [
+      255,
+      160,
+      90
+    ]
+  },
+  "prefabs": {
+    "exit": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -48,
+              -48,
+              0
+            ],
+            [
+              48,
+              48,
+              72
+            ]
+          ]
+        }
+      ],
+      "entity": {
+        "class": "trigger_changelevel",
+        "map": "fw_pumphall",
+        "landmark": "fw_land12"
+      }
+    }
+  },
+  "furniture": [
+    {
+      "prefab": "exit",
+      "room": "pumphouse",
+      "at": "centre"
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "yard",
+      "at": [
+        -330,
+        -420
+      ],
+      "facing": "pumphouse"
+    },
+    {
+      "class": "info_landmark",
+      "id": "fw_land12",
+      "room": "pumphouse",
+      "at": "centre",
+      "z": 36
+    },
+    {
+      "class": "ambient_generic",
+      "room": "pumphouse",
+      "at": "centre",
+      "z": 60,
+      "message": "ambience/fw_pump.wav",
+      "health": 6,
+      "spawnflags": 8
+    },
+    {
+      "class": "ambient_generic",
+      "room": "yard",
+      "at": [
+        -420,
+        -220
+      ],
+      "z": 40,
+      "message": "ambience/fw_drips.wav",
+      "health": 5,
+      "spawnflags": 4
+    }
+  ],
+  "props": [
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "yard",
+      "at": [
+        -250,
+        -180
+      ],
+      "solid": true
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "yard",
+      "at": [
+        -210,
+        -180
+      ],
+      "solid": true
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "yard",
+      "at": [
+        -230,
+        -140
+      ],
+      "solid": true
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "yard",
+      "at": [
+        -250,
+        -180
+      ],
+      "z": 36,
+      "solid": true
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "yard",
+      "at": [
+        -212,
+        -140
+      ],
+      "solid": true
+    },
+    {
+      "model": "models/fw_yard/pipe.mdl",
+      "room": "yard",
+      "at": [
+        220,
+        -260
+      ],
+      "solid": true
+    }
+  ],
+  "models": {
+    "pipe": {
+      "spec": "smak.model/1",
+      "kind": "piece",
+      "name": "pipe.mdl",
+      "materials": {
+        "iron": {
+          "base": "iron",
+          "rust": 0.5
+        },
+        "paint": {
+          "base": "paint",
+          "tone": [
+            0.75,
+            0.6,
+            0.12
+          ]
+        }
+      },
+      "parts": [
+        {
+          "id": "barrel",
+          "kind": "tube",
+          "material": "iron",
+          "sides": 10,
+          "path": [
+            [
+              -150,
+              0,
+              50,
+              50
+            ],
+            [
+              150,
+              0,
+              50,
+              50
+            ]
+          ]
+        },
+        {
+          "id": "cut",
+          "kind": "box",
+          "material": "paint",
+          "size": [
+            8,
+            120,
+            12
+          ],
+          "at": [
+            150,
+            -60,
+            0
+          ]
+        },
+        {
+          "id": "cradle_a",
+          "kind": "box",
+          "material": "iron",
+          "size": [
+            40,
+            100,
+            50
+          ],
+          "at": [
+            -100,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "cradle_b",
+          "kind": "box",
+          "material": "iron",
+          "size": [
+            40,
+            100,
+            50
+          ],
+          "at": [
+            100,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "compile": {
+    "quality": "normal"
+  }
+}

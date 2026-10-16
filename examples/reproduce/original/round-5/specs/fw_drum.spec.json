@@ -1,0 +1,120 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_drum.mdl",
+  "kind": "prop",
+  "size": {
+    "height": 36,
+    "width": 23
+  },
+  "materials": {
+    "drum": {
+      "base": "metal",
+      "tone": [
+        0.38,
+        0.36,
+        0.32
+      ],
+      "rust": 0.9
+    },
+    "hazard": {
+      "base": "hazard",
+      "tone": [
+        0.85,
+        0.68,
+        0.12
+      ]
+    },
+    "hoop": {
+      "base": "iron",
+      "rust": 0.7
+    }
+  },
+  "parts": [
+    {
+      "id": "body",
+      "kind": "turn",
+      "material": "drum",
+      "sides": 12,
+      "caps": [
+        true,
+        true
+      ],
+      "rings": [
+        [
+          0,
+          11
+        ],
+        [
+          1.5,
+          11.6
+        ],
+        [
+          34.5,
+          11.6
+        ],
+        [
+          36,
+          11
+        ]
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.44,
+              0
+            ],
+            [
+              0.44,
+              360
+            ]
+          ],
+          "width": 9,
+          "material": "hazard",
+          "ends": "round"
+        }
+      ],
+      "finish": {
+        "light": 0.3,
+        "wear": 0.6,
+        "grime": 0.8,
+        "vary": 0.12
+      }
+    },
+    {
+      "id": "hoop_low",
+      "kind": "band",
+      "material": "hoop",
+      "on": {
+        "part": "body",
+        "s": 0.08
+      },
+      "width": 1.6,
+      "height": 0.6
+    },
+    {
+      "id": "hoop_high",
+      "kind": "band",
+      "material": "hoop",
+      "on": {
+        "part": "body",
+        "s": 0.92
+      },
+      "width": 1.6,
+      "height": 0.6
+    },
+    {
+      "id": "bung",
+      "kind": "cylinder",
+      "material": "hoop",
+      "radius": 1.6,
+      "height": 1.4,
+      "sides": 6,
+      "at": [
+        0,
+        0,
+        36
+      ]
+    }
+  ]
+}

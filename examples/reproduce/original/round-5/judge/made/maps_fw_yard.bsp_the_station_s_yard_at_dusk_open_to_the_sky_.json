@@ -1,0 +1,91 @@
+{
+ "kind": "map",
+ "label": "maps/fw_yard.bsp: the station's yard at dusk, open to the sky, a gatehouse door, drums, a pipe section; start by the gate, out by the pump house's double doors",
+ "measured": {
+  "size": [
+   1532,
+   1532
+  ],
+  "sizeAsked": [
+   1500,
+   1500
+  ],
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [
+   {
+    "map": "fw_pumphall",
+    "landmark": "fw_land12"
+   }
+  ],
+  "landmarks": [
+   "fw_land12"
+  ],
+  "itemsAsked": [],
+  "itemsFound": []
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief's areas are present: a walled yard, a gatehouse with a func_door, and a pump house with a func_door_rotating. The joins are wrong. The player starts at the pump house (info_player_start near the rotating door, lower left), not by the gate. The only trigger_changelevel sits inside the upper-right gatehouse, not at the pump house's double doors, so the way out is not where the brief puts it."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The map measures 1532 by 1532 against the 1500 asked, within 25%. The yard fills the plan as the brief describes. The pump house (about 240 by 210 units) and the gatehouse (about 500 by 370) are plausible sizes, and the brief gives no other areas to compare."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The yard floor looks flat in the views, which is what the brief implies. The gatehouse carries floor-height labels running from about 205 to 290 with no visible stair or ramp in any view, so the level change is unclear. The brief's open-to-sky yard and high wall are at the right scale. Not clearly off, but the storey and step detail cannot be checked."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The entities are present: info_player_start, func_door (gate), func_door_rotating (pump house), trigger_changelevel to fw_pumphall with landmark fw_land12, and 14 lights. The start is not by the gate, though; it is about 880 units away by the pump house. The changelevel is in the gatehouse, not at the pump house doors. The brief's start and exit placements are wrong."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The surfaces are a sandy, mottled stone and a grid-patterned gatehouse face. Nothing reads as concrete, wet floor, hazard-striped trim, or rusted steel as the brief lists. The surfaces are not clearly the wrong texture, but they do not match the brief's industrial materials."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan has 14 light entities and a light_environment, but no lamp glows or bright and dark pools appear in any view. The sky is a full daytime blue, not the dusk the brief asks for, and the light is flat across the yard."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The high wall and gatehouse door are present. The brief's distinctive features are missing from the views: no stacked drums, no broken truck-sized pipe section, no hazard paint, and no caged sodium lamps. The dark object in the start view is too small and unclear to be the drums."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements give checkErrors [], notReached [], and reachWarnings [], and the changelevel's landmark fw_land12 is present. The map compiles and the walk test reaches the changelevel. The leak check is not given in the measurements, so this is as far as the evidence goes."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From the start view the yard reads as a bare sandy pit with plain block walls and a flat blue sky. Nothing from the brief (lit lamps, hazard paint, drums, a pipe, dusk light) shows, so a player who knows Half-Life's maps would not take this for one of them. It is recognisable as a yard but clearly not the game's standard."
+  }
+ },
+ "total": 11,
+ "of": 18,
+ "passes": false
+}

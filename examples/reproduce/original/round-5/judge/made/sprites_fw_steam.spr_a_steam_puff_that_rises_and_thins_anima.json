@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_steam.spr: a steam puff that rises and thins, animated",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 12,
+  "type": "parallel",
+  "format": "index alpha",
+  "measures": {
+   "frames": 12,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0.251,
+    "mean": 0.003
+   },
+   "envelope": {
+    "peakAt": 0.27,
+    "first": 0,
+    "last": 0
+   },
+   "dark": 0.85,
+   "wrap": 0.33,
+   "jitter": 1.35
+  },
+  "class": "smoke puff",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.35,
+    "range": [
+     0.9,
+     1.5
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0.003,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.27,
+    "range": [
+     0.2,
+     0.6
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0,
+    "range": [
+     0,
+     0.35
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.1
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Reads more as a thin smoke column or wisp than a steam puff. Each frame is a narrow streak about 10 px wide (frames 1 to 9, centred in each cell), with little rounded, billowing volume. The effect of rising and thinning is there, and frames 0 and 11 are blank."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frames are 64 x 64, as measured, but the effect fills only a narrow central strip. The top and sides of most frames are empty, and the bright base sits on the bottom edge (frames 1 to 3 and 8 to 9), where the content touches the frame border (border max 0.251). The effect does not fill its frames as a puff would."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Neutral grey-white steam over the engine's grey blend, brightest at the base and fading to the background. This fits a steam effect in Half-Life's muted palette. No colour measure was given against an original, so this is judged by eye."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frame count (12), one-shot ending (first 0, last 0, peak at 0.27) and fade are right. The motion is weak on 'rises': the bright base stays pinned to the bottom edge across frames 1 to 9, so the plume reads as a column growing up from the floor, not a puff drifting up and thinning. Frames 8 to 10 fade in place."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Type 'parallel' and format 'index alpha' are valid GoldSrc sprite settings, the size is 64 x 64 and the file is sprites/fw_steam.spr as the brief names it. The measures give no original type to compare with, so the match to the original's type is not confirmed, only that the file is valid."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

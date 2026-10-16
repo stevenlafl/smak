@@ -3,29 +3,29 @@
  "label": "sound/ambience/fw_pump.wav: a pump's droning loop",
  "measured": {
   "features": {
-   "length": 2.15,
+   "length": 2.8,
    "peak": -0.5,
-   "rms": -11.1,
-   "crest": 10.6,
-   "dc": -0.0002,
+   "rms": -12.1,
+   "crest": 11.6,
+   "dc": 0,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
-   "attack": 0.22,
-   "peakAt": 0.574,
-   "t20": 0.853,
-   "t40": 1.576,
-   "centroid": 305,
-   "rolloff": 409,
+   "attack": 0.933,
+   "peakAt": 0.998,
+   "t20": 1.806,
+   "t40": 1.806,
+   "centroid": 272,
+   "rolloff": 323,
    "flatness": 0.006,
    "bands": {
-    "<150": 0.5,
-    "150-600": 94.3,
-    "600-2k": 4.7,
-    "2k-5k": 0.2,
-    ">5k": 0.3
+    "<150": 11.8,
+    "150-600": 85.3,
+    "600-2k": 2.2,
+    "2k-5k": 0.5,
+    ">5k": 0.2
    },
-   "onsets": 1
+   "onsets": 3
   },
   "class": "loop machine",
   "against": {
@@ -43,34 +43,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The picture reads as a sustained low drone, 94% of its energy in 150-600 Hz with a flat, tonal spectrum, which fits a pump drone. But the envelope swells to about 0.22 s, then fades steadily to the end (t20 0.85 s, t40 1.58 s), so it is not a steady drone. A single sharp spike at 0.574 s, bright in the spectrogram, is a one-off knock the brief does not ask for. Same kind of event, but not clearly a pump's droning loop."
+   "reason": "The picture shows a steady, low-weighted broadband rumble across the full 2.8 s, which can pass for a pump's drone. Nothing in the waveform or spectrogram shows a pump's motor or cycle, and the broadband texture reads more like hiss than a machine. The brief's event is a pump's droning loop, so this is there but clearly off. Note: the sound amendment dated 2026-10-16 says S1 to S5 are not used for brief-made sounds. I scored them as asked; the harness should decide whether they count."
   },
   "S2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The attack (0.22 s) and decay (t20 0.853 s, t40 1.576 s) are given, and the 'against' check reports 20 of 20 with no failing lines. That is consistent with the class range, but the range itself is not shown to me, so I cannot confirm it. The fade is slow and runs the whole 2.15 s, which is not the even hold a loop of this class usually has. Capped at 1 because the envelope cannot be checked against the class range from what is given."
+   "reason": "A 2.8 s length is plausible for a loop. The measures do not fit a steady drone, though: the attack is 0.933 s and the peak sits at 0.998 s, near the file's end. Its 20% and 40% points are both 1.806 s, which is ambiguous. The class's attack and decay range is not given to me, so I cannot check the range. The waveform looks evenly loud, so the envelope may be a measurement artifact. I cannot confirm S2 as a 2 without the class range."
   },
   "S3": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Centroid 305 Hz, rolloff 409 Hz, and bands of 0.5% below 150 Hz, 94.3% at 150-600 Hz, 4.7% at 600-2k, 0.2% at 2-5k and 0.3% above 5k. The 'against' check reports 20 of 20 with no failing lines, so the spectrum sits within the class's measured ranges. The picture matches: energy is concentrated in the low-mid band with little high end."
+   "score": 1,
+   "reason": "The band shares are consistent with the picture, which is brightest in its lower rows: 11.8% under 150 Hz, 85.3% at 150 to 600 Hz, 2.2% at 600 to 2k, and under 1% above that. The centroid is 272 Hz and the rolloff 323 Hz. No reference spectrum for the original is given, and the spectrogram's frequency axis is unlabelled, so I cannot check each band's share against the original's within 10 points. A drone with 85% of its energy in the mid band is a question to settle against the original."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Flatness 0.006 is strongly tonal, and the spectrogram shows steady horizontal harmonic lines with no visible pitch movement, which fits a drone. Onsets are 1, the spike at 0.574 s, and the picture shows it as a hard vertical stripe across all bands. A pump's drone usually has no such hit, so the onset character is off. Scored 1 because the tone is right and the extra hit is clearly wrong."
+   "reason": "The measured onsets (3) show as three tall spikes in the waveform, at roughly x=275, x=340 and x=520. A continuous drone should have none. The flatness of 0.006 means a strongly tonal spectrum, which may suit a hum, though the waveform looks noisy. The spectrogram shows no clear pitch movement over time, so pitch movement is consistent. The transients are the fault here."
   },
   "S5": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Measures pass where they are given: clipped 0, dc -0.0002, peak -0.5 dBFS, lead and tail 0, and engineFaults is empty. The sample rate, bit depth and channel count are not in the features, so the format is unverified. The loop cue is not reported. The envelope rises to a peak and fades over the whole file, so the start and end levels may not match as a loop needs. Scored 1 because the loop seam cannot be confirmed from the given data."
+   "reason": "The measures show no clipping (0), no DC offset (0), no lead or tail silence, and no engine faults, with the peak at -0.5 dBFS (decibels relative to full scale). The name sound/ambience/fw_pump.wav is shown on the picture. The sample rate, bit depth and channel count are not in the measures, so mono PCM at 11025, 22050 or 44100 Hz at 8 or 16 bits is unverified. The loop cue cannot be checked: the envelope's peak near the end, with a 0.93 s attack, suggests the file's start and end may not meet smoothly, which would be an audible seam."
   }
  },
- "total": 6,
+ "total": 5,
  "of": 10,
  "passes": false
 }

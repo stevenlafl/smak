@@ -11,7 +11,7 @@
      "fw_pumphall"
     ],
     "landmarks": [
-     "fw_land12"
+     null
     ],
     "asked": "fw_pumphall"
    },
@@ -21,8 +21,8 @@
      "fw_control"
     ],
     "landmarks": [
-     "fw_land12",
-     "fw_land23"
+     null,
+     null
     ],
     "asked": "fw_control"
    },
@@ -30,7 +30,7 @@
     "map": "fw_control",
     "leadsTo": [],
     "landmarks": [
-     "fw_land23"
+     null
     ],
     "asked": null
    }
@@ -39,22 +39,22 @@
    {
     "file": "videos/fw_wrench.mp4",
     "there": true,
-    "bytes": 277510
+    "bytes": 347628
    },
    {
     "file": "videos/fw_crawler.mp4",
     "there": true,
-    "bytes": 194589
+    "bytes": 365383
    },
    {
     "file": "videos/fw_pumphall.mp4",
     "there": true,
-    "bytes": 599266
+    "bytes": 794785
    },
    {
     "file": "pictures/fw_props.png",
     "there": true,
-    "bytes": 955386
+    "bytes": 827875
    }
   ]
  },
@@ -67,28 +67,28 @@
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measurements list nothing missing and no failed SMAK checks, and every shown file (the wrench and crawler videos, the pump hall video, the props picture) is present. The sheet shows the five props, the wrench, the crawler and the three maps. Textures, sprites and sounds are not visible in this picture, so their presence rests on the measurements alone."
+   "reason": "The harness reports nothing missing and no failed SMAK checks. The picture shows the five props (valve wheel, drum, console, pipe junction, caged lamp), the wrench, the crawler and the three maps, all under the brief's names. The sprites and sounds are not in the picture, so this rests on the harness's list and check results."
   },
   "O2": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "The chain runs fw_yard to fw_pumphall through the landmark fw_land12, and fw_pumphall to fw_control through fw_land12 and fw_land23. fw_control is the last map and correctly leads nowhere. Each map's asked target is reached and each leads where the brief says. The map views show only game entity classes (cycler_sprite, monster_headcrab, a door), so no missing model or sound is visible."
+   "score": 1,
+   "reason": "The walk test reaches each change: fw_yard leads to fw_pumphall, fw_pumphall leads to fw_control, and fw_control ends the chain, as the brief asks. But every change's landmark is null in the measurement, so the level-change landmark is not confirmed. The arrival point of each map and the names of the models, sprites and sounds the maps use are not measured here."
   },
   "O3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The props share one palette: rusted brown, grey steel, hazard yellow and a green-grey crawler that suits the water. The maps do not fully agree with it. The map walls are a warm sandy tan, the yard's sky is a bright daytime blue where the brief asks for dusk, and the lit floor and grate read as a different material set from the cool grey props. This is clearly off, though not a wholly different place."
+   "reason": "Most of the set agrees: grey concrete and steel, hazard yellow on the console and drum, the red wheel and wrench, and an orange sodium glow in the lamp. Three things pull against it. The drum is a clean blue and the pipe a bright green, both brighter than the rest of the palette. The console is almost unworn while the wheel's post is rusted. The wrench's head reads as a plain box, not a toothed jaw, so the wear does not match across the set."
   },
   "O4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The brief's shown items are all present: the wrench and crawler videos, the pump hall flight video, and the props picture. The props sheet shows each prop, the wrench and the crawler as they are, with each of the six named props and the crawler in view."
+   "reason": "The harness lists the wrench and crawler videos, the pump hall flight and the props sheet as present. The picture I was given is a sheet of everything rather than the props sheet itself, and I did not play the videos, so the content of those files is not checked here. Each prop, the wrench and the crawler appear in the sheet as themselves."
   }
  },
- "total": 7,
+ "total": 6,
  "of": 8,
  "passes": false
 }

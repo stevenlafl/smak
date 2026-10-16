@@ -3,27 +3,27 @@
  "label": "sound/headcrab/hc_pain1.wav: the crawler's pain",
  "measured": {
   "features": {
-   "length": 0.803,
+   "length": 0.402,
    "peak": -0.5,
-   "rms": -9.5,
-   "crest": 9,
-   "dc": 0,
+   "rms": -11.7,
+   "crest": 11.2,
+   "dc": 0.0003,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.005,
-   "attack": 0.065,
-   "peakAt": 0.165,
-   "t20": 0.254,
-   "t40": 0.484,
-   "centroid": 2777,
-   "rolloff": 2606,
-   "flatness": 0.002,
+   "tail": 0.01,
+   "attack": 0.15,
+   "peakAt": 0.195,
+   "t20": 0.095,
+   "t40": 0.16,
+   "centroid": 2142,
+   "rolloff": 3338,
+   "flatness": 0.172,
    "bands": {
     "<150": 0,
-    "150-600": 0,
-    "600-2k": 4,
-    "2k-5k": 90.4,
-    ">5k": 5.6
+    "150-600": 2.6,
+    "600-2k": 45.2,
+    "2k-5k": 49.4,
+    ">5k": 2.8
    },
    "onsets": 0
   },
@@ -52,34 +52,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "From the picture and features only (I cannot listen). The original is a pulsed, warbling pain cry: about a dozen separate bursts over 0.8 s, with a broadband, noisy texture. The replacement is one sharp onset followed by a long, nearly pure ringing tail, with its three or four sustained horizontal tones running to the end. It reads as a ring or whistle rather than the crawler's wet, pained cry, though both are pain-like bursts of about the same length."
+   "reason": "The original is a series of about 15 to 20 pulsed bursts over 0.8 s, which reads as a creature's vocal pain cry. The replacement is one continuous noisy blast that decays over 0.4 s, which reads as a hiss or impact noise rather than a headcrab's pain. The event is not clearly the same, though it is in the same family of sound."
   },
   "S2": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Length is 0.803 s against the original's 0.795 s, within 25%. The decay does not match: t20 is 0.254 s against the original's 0.544 s, a gap of 0.29 s. That is outside a quarter of the original's value (0.136 s) and outside 0.05 s, so the fallback range caps it at 1. The class range in src/audio/classes.mjs was not given to me, so I cannot say whether the class range would allow it. The attack of 0.065 s has no original figure to compare against."
-  },
-  "S3": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Centroid is 2777 Hz against 2682 Hz, a 3.5% difference, within 20%. The 600-2k band is 4% against the original's 15.6%, an 11.6-point gap that is over the 10-point limit. The other bands are within limits: 2k-5k 90.4 vs 83.8, >5k 5.6 vs 0.3, <150 0 vs 0.2, 150-600 0 vs 0. One band is clearly off, so this is a 1."
-  },
-  "S4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Onsets are 0, while the original's picture shows about a dozen separate pulses. Flatness is 0.002, a pure-tone character, against the original's broadband, noisy texture in its spectrogram. The original's pitch movement is a flutter across its pulses, and the replacement's tones are flat and sustained, so the character is wrong on onsets, tone and pitch."
+   "reason": "Length is 0.402 s against the original's 0.795 s, a ratio of 0.51. That is far outside the 25% tolerance (0.60 to 0.99 s). The measure already fails this must-have item."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Centroid is 2142 Hz against 2682 Hz, a 20.1% difference, just over the 20% limit. Band shares are off well beyond 10 points: 600-2k is 45.2% against 15.6% (29.6 points), and 2k-5k is 49.4% against 83.8% (34.4 points). The energy sits in the wrong bands."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Onsets are 0, while the original has roughly 15 to 20 pulses that the picture shows clearly. The replacement is one unbroken burst with no hits or clicks, so the pulsed character is missing. The tone or noise character is noisy in both, which is the one part that matches. Onsets are not measured against the original in the features, so this is judged from the picture."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "No clipping (clipped 0), no DC offset (dc 0), no lead (0), negligible tail (0.005), peak at -0.5 dBFS, and engineFaults is empty. The sample rate, bit depth and channel count are not in the measurements, so this score rests on the engine's own check passing. The file name matches the game's path, sound/headcrab/hc_pain1.wav."
+   "reason": "No clipping (clipped 0), DC of 0.0003, and peak at -0.5 dBFS. The name sound/headcrab/hc_pain1.wav matches the original, and no loop cue is needed. The engine checks report no faults (engineFaults empty). The sample rate and bit depth are not shown in the picture or the features, so this score rests on that empty fault list."
   }
  },
- "total": 5,
+ "total": 4,
  "of": 10,
  "passes": false
 }

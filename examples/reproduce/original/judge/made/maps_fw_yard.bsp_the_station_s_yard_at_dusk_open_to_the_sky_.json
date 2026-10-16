@@ -16,11 +16,11 @@
   "changelevels": [
    {
     "map": "fw_pumphall",
-    "landmark": "fw_land12"
+    "landmark": "fw_lm_yard"
    }
   ],
   "landmarks": [
-   "fw_land12"
+   null
   ],
   "itemsAsked": [],
   "itemsFound": []
@@ -34,55 +34,55 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The brief's areas are present: a walled yard, a gatehouse with a func_door, and a pump house with a func_door_rotating. The joins are wrong. The player starts at the pump house (info_player_start near the rotating door, lower left), not by the gate. The only trigger_changelevel sits inside the upper-right gatehouse, not at the pump house's double doors, so the way out is not where the brief puts it."
+   "reason": "The areas are there (perimeter wall, gatehouse with a func_door, pump house with a func_door, drums, a pipe section), but the arrangement is off from the brief. The start (INFO_PLAYER_START, plan bottom centre) sits by the pump house, not by the gate. The only trigger_changelevel is inside the gatehouse (plan top, around 672-730, 213-222), not at the pump house's double doors where the brief says the player leaves."
   },
   "P2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The map measures 1532 by 1532 against the 1500 asked, within 25%. The yard fills the plan as the brief describes. The pump house (about 240 by 210 units) and the gatehouse (about 500 by 370) are plausible sizes, and the brief gives no other areas to compare."
+   "reason": "The map measures about 1532 by 1532 units against the 1500 asked, within 25%, and the yard reads as roughly square at that size on the plan. The brief gives no sizes for the gatehouse or pump house, so there is nothing else to check against. No walkable-floor overlap was measured for this map, so this is judged from the plan alone."
   },
   "P3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The yard floor looks flat in the views, which is what the brief implies. The gatehouse carries floor-height labels running from about 205 to 290 with no visible stair or ramp in any view, so the level change is unclear. The brief's open-to-sky yard and high wall are at the right scale. Not clearly off, but the storey and step detail cannot be checked."
+   "reason": "The yard floor is flat at one height (the views show one level grey ground). The gatehouse's floor labels run 241 to 251 down one column of the plan, which suggests a step or slope that the views do not show clearly. The brief asks for an open-to-sky yard with stacked drums and a broken pipe section, and there are no stairs, ramps or ledges at all. The levels do not match what the brief describes."
   },
   "P4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The entities are present: info_player_start, func_door (gate), func_door_rotating (pump house), trigger_changelevel to fw_pumphall with landmark fw_land12, and 14 lights. The start is not by the gate, though; it is about 880 units away by the pump house. The changelevel is in the gatehouse, not at the pump house doors. The brief's start and exit placements are wrong."
+   "reason": "Two func_door entities are present: one on the gatehouse's south edge (plan around 676-700, 342) and one on the pump house's north edge (plan around 476-500, 798). One trigger_changelevel is present, but it sits in the gatehouse, not at the pump house doors. The start is by the pump house, not the gate. The brief names no yard weapons or items, and there are no crawlers in this map. The landmark measure is null, so it was not matched. Start, exit and door placement are partly wrong."
   },
   "P5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The surfaces are a sandy, mottled stone and a grid-patterned gatehouse face. Nothing reads as concrete, wet floor, hazard-striped trim, or rusted steel as the brief lists. The surfaces are not clearly the wrong texture, but they do not match the brief's industrial materials."
+   "reason": "The walls are a blotchy grey-white concrete, a generic cloud pattern that reads as concrete. The ground is a flat dark grey with no wet-concrete or grate character. The gatehouse door is plain orange, with no hazard stripe or sign. The textures are not clearly the brief's (wet floor, hazard trim, PUMP 3 sign), so this is off, not wrong."
   },
   "P6": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The plan has 14 light entities and a light_environment, but no lamp glows or bright and dark pools appear in any view. The sky is a full daytime blue, not the dusk the brief asks for, and the light is flat across the yard."
+   "reason": "The plan has 38 light entities in a rigid grid of rows and columns, plus one light_environment, which looks like a default placement rather than lamps at the gatehouse or yard. The views show a daytime blue sky and even grey light, not dusk. There is no sodium-orange light, no bright and dark areas, and no lamp by the door. The brief's lighting is clearly absent."
   },
   "P7": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The high wall and gatehouse door are present. The brief's distinctive features are missing from the views: no stacked drums, no broken truck-sized pipe section, no hazard paint, and no caged sodium lamps. The dark object in the start view is too small and unclear to be the drums."
+   "reason": "The high wall, gatehouse with door and pump house with double doors are present. The brief's stacked drums are missing: the views show one barrel, and the plan shows a single cylinder. The pipe section is a short round column about 120 units across (plan label 2 160), not a broken truck-sized section. The hazard trim and other details the brief names are not visible."
   },
   "P8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measurements give checkErrors [], notReached [], and reachWarnings [], and the changelevel's landmark fw_land12 is present. The map compiles and the walk test reaches the changelevel. The leak check is not given in the measurements, so this is as far as the evidence goes."
+   "reason": "The build reports no check errors, no unreached places and no reach warnings. The one changelevel was reached from the start on foot, and the map has no weapons or items in the yard to fail on. No leak measure was reported, so the leak check rests on the clean build result."
   },
   "P9": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "From the start view the yard reads as a bare sandy pit with plain block walls and a flat blue sky. Nothing from the brief (lit lamps, hazard paint, drums, a pipe, dusk light) shows, so a player who knows Half-Life's maps would not take this for one of them. It is recognisable as a yard but clearly not the game's standard."
+   "reason": "From inside, the yard is recognisable as a walled yard with a gatehouse and a barrel. But the views show a daytime blue sky (the brief asks for dusk), a flat empty dark ground, and very few props. The overlaid cycler-sprite boxes are visible. A player would not take it for a Half-Life map without looking closer, since it lacks the props and lighting that make Half-Life's own yards read as Half-Life's."
   }
  },
  "total": 11,

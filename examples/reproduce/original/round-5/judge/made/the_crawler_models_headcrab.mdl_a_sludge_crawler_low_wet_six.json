@@ -1,0 +1,87 @@
+{
+ "kind": "enemy",
+ "label": "the crawler (models/headcrab.mdl): a sludge crawler: low, wet, six-legged, the size of a headcrab, grey-green with a pale belly and a ring of teeth",
+ "measured": {
+  "size": [
+   30.3,
+   34.3,
+   23
+  ],
+  "sizeAsked": null,
+  "sizeOff": null,
+  "triangles": 484,
+  "checkErrors": [],
+  "lineup": "ours is one of A to D in lineup.png beside models/houndeye.mdl, models/chumtoad.mdl, models/roach.mdl: the judge does not know which",
+  "contract": "keeps the headcrab's bones, animations, attachments and bodyparts"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2,
+  "C2": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "All ten views read as one low, domed crawler with a red teeth ring at the front and limbs spread to the sides, so the outline is the crawler's. The six legs the brief asks for are not clear: the front and back views show two wide limbs on each side plus small stubs, and in the side views the legs are mostly hidden. No silhouette overlap was measured for this kind, so this is from the pictures."
+  },
+  "M2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The brief gives no number ('the size of a headcrab'), and sizeAsked is null, so there is nothing to test the measured 30.3 x 34.3 x 23 against within 15%. In the line-up it sits about headcrab-sized, smaller than the houndeye, but that is an estimate, not a check."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The mouth ring with its teeth, the pale belly and the limbs are there. The number of legs is wrong or unclear: six were asked and about four wide limbs plus small stubs show. The teeth are arranged as a ring on the front in the front view but stick out as separate clusters in the side and top views, which reads as a different arrangement from a single ring."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The colours are right: grey-green body, pale belly, pale teeth and a dark red mouth. The material is wrong for 'wet': the body is flat and matte, with no sheen or moisture in any view, and the pale belly is a flat tan area."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief names no markings, but it asks for a wet look, and the surface shows only a faint mottled noise. The belly and teeth have no wear or detail beyond flat shading. Not a must-have item, so it is scored on the wet look that is missing."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "In the line-up it is C, the grey-green blob. It reads as a Half-Life monster at that scale, but its smooth flat-shaded body and bare limbs look plainer than the textured houndeye, chumtoad and roach beside it, so a player would not take it for one of the game's without a second look."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The mouth and teeth face the front in the front view, the body sits upright on the floor line in every walk frame, and nothing is lying on its side or upside down in the still views. The origin itself is not visible in the pictures, so this is judged from the stance."
+  },
+  "M8": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "checkErrors is empty, so SMAK's check passes, and the views show no open or inside-out faces; the teeth look attached at the mouth ring. At 484 triangles it is within the budget only if the median of Half-Life's headcrab-sized enemies is at least 242, and that median was not given, so the triangle half of the item cannot be confirmed."
+  },
+  "C1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The run is a walk (WALK 0/34 to 34/34) and the file named attack.png is a jump (JUMP 0/30 to 30/30), not an attack, so the attack the rubric asks for is not drawn. In both sequences the body, teeth and belly stay together, with no part coming loose. The legs are too hidden in the walk frames to show they move, and in the jump frames the mouth ring rides over the top of the body as it turns."
+  },
+  "C2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measure reports that the contract is kept: the headcrab's bones, animations, attachments and bodyparts. I was given only that summary, not the compareContract output itself, so this rests on the measure."
+  }
+ },
+ "total": 12,
+ "of": 20,
+ "passes": false
+}

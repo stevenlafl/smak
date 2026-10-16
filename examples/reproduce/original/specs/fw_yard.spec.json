@@ -1,36 +1,65 @@
 {
   "spec": "smak.map/1",
   "name": "fw_yard",
-  "textures": {
-    "FW_CONCRETE": {
-      "texture": "FW_CONCRETE"
+  "wads": [
+    "fw/fw.wad"
+  ],
+  "theme": {
+    "floor": {
+      "texture": "fw_wetfloor"
     },
-    "FW_WETFLOOR": {
-      "texture": "FW_WETFLOOR"
+    "wall": {
+      "texture": "fw_concrete"
     },
-    "FW_PANEL": {
-      "texture": "FW_PANEL"
+    "ceiling": {
+      "texture": "fw_concrete"
     },
-    "FW_DOOR": {
-      "texture": "FW_DOOR"
+    "door": {
+      "texture": "fw_door"
     },
-    "FW_RUST": {
-      "texture": "FW_RUST"
+    "outside": {
+      "texture": "fw_concrete"
+    },
+    "roof": {
+      "texture": "fw_rustplate"
     }
   },
-  "theme": {
-    "floor": "FW_CONCRETE",
-    "wall": "FW_CONCRETE",
-    "ceiling": "FW_PANEL",
-    "door": "FW_DOOR",
-    "furniture": "FW_RUST",
-    "outside": "FW_RUST",
-    "roof": "FW_RUST"
+  "textures": {
+    "pipe": {
+      "texture": "fw_pipewall"
+    },
+    "trig": {
+      "texture": "fw_hazard"
+    }
   },
-  "wads": [
-    "/tmp/smak-repro-a7JnEK/work/fw/fw.wad"
-  ],
-  "wall": 16,
+  "sky": {
+    "zenith": [
+      0.12,
+      0.14,
+      0.22
+    ],
+    "horizon": [
+      0.8,
+      0.45,
+      0.2
+    ],
+    "clouds": {
+      "cover": 0.4
+    },
+    "hills": {
+      "height": 5
+    }
+  },
+  "sun": {
+    "pitch": -15,
+    "yaw": 240,
+    "brightness": 0.6,
+    "color": [
+      1,
+      0.6,
+      0.35
+    ]
+  },
   "rooms": [
     {
       "id": "yard",
@@ -40,37 +69,27 @@
         320
       ],
       "sky": true,
-      "surfaces": {
-        "floor": "FW_WETFLOOR"
-      },
-      "light": {
-        "count": 10,
-        "color": [
-          255,
-          200,
-          150
-        ]
-      }
+      "light": "auto"
     },
     {
       "id": "gatehouse",
       "size": [
         192,
-        160,
-        160
+        192,
+        144
       ],
       "place": {
         "in": "yard",
         "offset": [
-          160,
-          160
+          660,
+          40
         ],
         "stand": true
       },
       "building": {
         "walls": "outside",
         "roof": {
-          "material": "FW_RUST",
+          "material": "roof",
           "pitch": 25,
           "overhang": 8
         }
@@ -79,33 +98,25 @@
     {
       "id": "pumphouse",
       "size": [
-        448,
         320,
+        256,
         224
       ],
       "place": {
         "in": "yard",
         "offset": [
-          880,
-          900
+          940,
+          1000
         ],
         "stand": true
       },
       "building": {
         "walls": "outside",
         "roof": {
-          "material": "FW_RUST",
-          "pitch": 20,
-          "overhang": 10
+          "material": "roof",
+          "pitch": 15,
+          "overhang": 8
         }
-      },
-      "light": {
-        "count": 3,
-        "color": [
-          255,
-          200,
-          150
-        ]
       }
     }
   ],
@@ -116,12 +127,9 @@
         "yard"
       ],
       "kind": "door",
-      "side": "east",
-      "width": 56,
-      "height": 96,
-      "door": {
-        "swing": true
-      }
+      "side": "north",
+      "width": 64,
+      "height": 96
     },
     {
       "between": [
@@ -131,72 +139,68 @@
       "kind": "door",
       "side": "south",
       "width": 96,
-      "height": 112
+      "height": 120
     }
   ],
-  "sky": {
-    "zenith": [
-      0.12,
-      0.14,
-      0.22
-    ],
-    "horizon": [
-      0.62,
-      0.38,
-      0.2
-    ],
-    "ground": [
-      0.12,
-      0.11,
-      0.1
-    ],
-    "clouds": {
-      "cover": 0.35
-    },
-    "hills": {
-      "height": 4
-    }
-  },
-  "sun": {
-    "pitch": 12,
-    "yaw": 240,
-    "brightness": 180,
-    "color": [
-      255,
-      160,
-      90
-    ]
-  },
   "prefabs": {
-    "exit": {
+    "broken_pipe": {
+      "pieces": [
+        {
+          "cylinder": {
+            "centre": [
+              0,
+              0
+            ],
+            "radius": 56,
+            "from": 0,
+            "to": 160,
+            "sides": 12
+          },
+          "texture": "pipe"
+        }
+      ]
+    },
+    "exit_trigger": {
       "pieces": [
         {
           "box": [
             [
               -48,
-              -48,
+              -8,
               0
             ],
             [
               48,
-              48,
-              72
+              8,
+              96
             ]
-          ]
+          ],
+          "texture": "trig"
         }
       ],
       "entity": {
         "class": "trigger_changelevel",
         "map": "fw_pumphall",
-        "landmark": "fw_land12"
+        "landmark": "fw_lm_yard"
       }
     }
   },
   "furniture": [
     {
-      "prefab": "exit",
+      "prefab": "broken_pipe",
+      "room": "yard",
+      "at": [
+        300,
+        -200
+      ]
+    },
+    {
+      "prefab": "exit_trigger",
       "room": "pumphouse",
-      "at": "centre"
+      "at": [
+        0,
+        70
+      ]
     }
   ],
   "entities": [
@@ -204,38 +208,19 @@
       "class": "info_player_start",
       "room": "yard",
       "at": [
-        -330,
-        -420
+        6,
+        -450
       ],
-      "facing": "pumphouse"
+      "facing": "north"
     },
     {
       "class": "info_landmark",
-      "id": "fw_land12",
-      "room": "pumphouse",
-      "at": "centre",
-      "z": 36
-    },
-    {
-      "class": "ambient_generic",
-      "room": "pumphouse",
-      "at": "centre",
-      "z": 60,
-      "message": "ambience/fw_pump.wav",
-      "health": 6,
-      "spawnflags": 8
-    },
-    {
-      "class": "ambient_generic",
       "room": "yard",
       "at": [
-        -420,
-        -220
+        350,
+        230
       ],
-      "z": 40,
-      "message": "ambience/fw_drips.wav",
-      "health": 5,
-      "spawnflags": 4
+      "targetname": "fw_lm_yard"
     }
   ],
   "props": [
@@ -243,8 +228,8 @@
       "model": "models/fw_drum.mdl",
       "room": "yard",
       "at": [
-        -250,
-        -180
+        -420,
+        -300
       ],
       "solid": true
     },
@@ -252,8 +237,8 @@
       "model": "models/fw_drum.mdl",
       "room": "yard",
       "at": [
-        -210,
-        -180
+        -340,
+        -300
       ],
       "solid": true
     },
@@ -261,8 +246,8 @@
       "model": "models/fw_drum.mdl",
       "room": "yard",
       "at": [
-        -230,
-        -140
+        -380,
+        -380
       ],
       "solid": true
     },
@@ -270,120 +255,30 @@
       "model": "models/fw_drum.mdl",
       "room": "yard",
       "at": [
-        -250,
-        -180
+        -420,
+        -300
       ],
-      "z": 36,
+      "z": 35,
       "solid": true
     },
     {
       "model": "models/fw_drum.mdl",
       "room": "yard",
       "at": [
-        -212,
-        -140
+        -340,
+        -300
       ],
+      "z": 35,
       "solid": true
     },
     {
-      "model": "models/fw_yard/pipe.mdl",
+      "model": "models/fw_pipejunction.mdl",
       "room": "yard",
       "at": [
-        220,
-        -260
+        -200,
+        300
       ],
       "solid": true
     }
-  ],
-  "models": {
-    "pipe": {
-      "spec": "smak.model/1",
-      "kind": "piece",
-      "name": "pipe.mdl",
-      "materials": {
-        "iron": {
-          "base": "iron",
-          "rust": 0.5
-        },
-        "paint": {
-          "base": "paint",
-          "tone": [
-            0.75,
-            0.6,
-            0.12
-          ]
-        }
-      },
-      "parts": [
-        {
-          "id": "barrel",
-          "kind": "tube",
-          "material": "iron",
-          "sides": 10,
-          "path": [
-            [
-              -150,
-              0,
-              50,
-              50
-            ],
-            [
-              150,
-              0,
-              50,
-              50
-            ]
-          ]
-        },
-        {
-          "id": "cut",
-          "kind": "box",
-          "material": "paint",
-          "size": [
-            8,
-            120,
-            12
-          ],
-          "at": [
-            150,
-            -60,
-            0
-          ]
-        },
-        {
-          "id": "cradle_a",
-          "kind": "box",
-          "material": "iron",
-          "size": [
-            40,
-            100,
-            50
-          ],
-          "at": [
-            -100,
-            0,
-            0
-          ]
-        },
-        {
-          "id": "cradle_b",
-          "kind": "box",
-          "material": "iron",
-          "size": [
-            40,
-            100,
-            50
-          ],
-          "at": [
-            100,
-            0,
-            0
-          ]
-        }
-      ]
-    }
-  },
-  "compile": {
-    "quality": "normal"
-  }
+  ]
 }

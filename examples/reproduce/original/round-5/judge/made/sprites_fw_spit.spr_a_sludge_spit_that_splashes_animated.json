@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_spit.spr: a sludge spit that splashes, animated",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 8,
+  "type": "parallel",
+  "format": "index alpha",
+  "measures": {
+   "frames": 8,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0.004,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0.14,
+    "first": 0,
+    "last": 0
+   },
+   "dark": 0.71,
+   "wrap": 0.43,
+   "jitter": 1.43
+  },
+  "class": "explosion",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.43,
+    "range": [
+     1.04,
+     1.48
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.14,
+    "range": [
+     0.22,
+     0.71
+    ],
+    "ok": false,
+    "words": "peaks too soon"
+   },
+   {
+    "measure": "first",
+    "value": 0,
+    "range": [
+     0,
+     0.22
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.03
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frames show a soft cluster of pale blobs that grows, peaks and fades. That reads as a cloud or puff more than a splash, with no spread, rim or droplets to say splat. The brief asks for a sludge spit that splashes, so it is there but clearly off in what it is."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Each frame is 32 by 32 as the measurement gives, and the effect sits centred inside it with nothing clipped at the edges. The brief gives no size for the spit, so there is no further measure to hold it to."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The blended frames read as near white or pale grey against the grey background, not the green-grey of sludge. No colour measure against a Half-Life sprite of this class was given, so the judge can only see the pale look and score it clearly off."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "There are 8 frames, the right count to judge, and the motion is a burst that thins and fades. The envelope measure is out of its class range: the peak falls at 0.14 where the range is 0.22 to 0.71, so it peaks too soon. The first frame is blank and the last is dark, which is fine. The peak timing is the measured fault, so the score stays at 1."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The file is sprites/fw_spit.spr, the name the brief and the game use. The measurements give type parallel and format index alpha, which are valid sprite settings for a spit, and nothing in the pictures or measures shows a fault in reading it back."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

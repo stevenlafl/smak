@@ -2,31 +2,29 @@
   "spec": "smak.model/1",
   "name": "fw_walllamp.mdl",
   "kind": "piece",
+  "size": {
+    "height": 28,
+    "width": 20,
+    "length": 20
+  },
   "materials": {
-    "plate": {
-      "base": "metal",
-      "tone": [
-        0.36,
-        0.38,
-        0.37
-      ],
-      "rust": 0.5
+    "lamp_steel": {
+      "base": "steel",
+      "rust": 0.3
     },
-    "cage": {
+    "cage_mesh": {
       "base": "mesh",
-      "cell": 4,
-      "tone": [
-        0.32,
-        0.32,
-        0.3
-      ]
+      "cell": 2.5
     },
-    "glass": {
+    "sodium": {
       "base": "glass",
       "tone": [
         1,
-        0.66,
-        0.26
+        0.55,
+        0.15
+      ],
+      "flags": [
+        "fullbright"
       ]
     }
   },
@@ -34,85 +32,75 @@
     {
       "id": "plate",
       "kind": "box",
-      "material": "plate",
       "size": [
         3,
-        12,
-        16
+        16,
+        24
       ],
+      "material": "lamp_steel",
       "at": [
         0,
         0,
-        0
+        -12
       ]
     },
     {
       "id": "arm",
       "kind": "box",
-      "material": "plate",
       "size": [
-        7,
-        2.5,
-        2.5
+        10,
+        4,
+        4
       ],
+      "material": "lamp_steel",
       "at": [
         5,
         0,
-        7
+        -2
       ]
     },
     {
       "id": "cage",
-      "kind": "turn",
-      "axis": "x",
-      "material": "cage",
-      "sides": 10,
-      "caps": [
-        true,
-        true
+      "kind": "box",
+      "size": [
+        14,
+        18,
+        22
       ],
-      "rings": [
-        [
-          0,
-          6.5
-        ],
-        [
-          12,
-          6.5
-        ]
-      ],
+      "material": "cage_mesh",
       "at": [
-        1.4,
+        11,
         0,
-        8
+        -11
       ]
     },
     {
-      "id": "glass",
-      "kind": "turn",
-      "axis": "x",
-      "material": "glass",
+      "id": "bulb",
+      "kind": "sphere",
+      "material": "sodium",
+      "radius": 5.5,
       "sides": 10,
-      "caps": [
-        true,
-        true
-      ],
-      "rings": [
-        [
-          0,
-          4.2
-        ],
-        [
-          10,
-          4.2
-        ]
-      ],
       "at": [
-        2.5,
+        11,
         0,
-        8
+        -5.5
       ],
       "finish": false
+    },
+    {
+      "id": "hood",
+      "kind": "box",
+      "size": [
+        14,
+        20,
+        3
+      ],
+      "material": "lamp_steel",
+      "at": [
+        11,
+        0,
+        11
+      ]
     }
   ]
 }

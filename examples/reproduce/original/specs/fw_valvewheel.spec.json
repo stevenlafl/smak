@@ -3,42 +3,35 @@
   "name": "fw_valvewheel.mdl",
   "kind": "prop",
   "size": {
-    "width": 32,
-    "height": 36
+    "height": 35,
+    "width": 32
   },
   "materials": {
-    "red": {
+    "red_paint": {
       "base": "paint",
-      "tone": [
-        0.62,
-        0.1,
-        0.08
-      ]
+      "tone": "red"
     },
-    "steel": {
-      "base": "steel"
-    },
-    "iron": {
+    "stem_iron": {
       "base": "iron",
-      "rust": 0.35
+      "rust": 0.5
     }
   },
   "parts": [
     {
-      "id": "post",
+      "id": "stem",
       "kind": "cylinder",
-      "material": "iron",
-      "radius": 3.5,
-      "height": 20,
+      "material": "stem_iron",
+      "radius": 3,
+      "height": 17.5,
       "sides": 8
     },
     {
       "id": "hub",
       "kind": "cylinder",
-      "material": "red",
-      "radius": 3.6,
+      "material": "red_paint",
+      "radius": 4.5,
       "height": 6,
-      "sides": 8,
+      "sides": 10,
       "rotate": [
         0,
         90,
@@ -47,126 +40,149 @@
       "at": [
         -3,
         0,
-        20
-      ]
-    },
-    {
-      "id": "spoke",
-      "kind": "box",
-      "material": "red",
-      "size": [
-        3,
-        26.4,
-        2.4
+        17.5
       ],
-      "at": [
-        0,
-        0,
-        18.8
-      ],
-      "repeat": {
-        "count": 3,
-        "around": "hub",
-        "axis": "x"
+      "finish": {
+        "wear": 0.9
       }
     },
     {
-      "id": "rim",
+      "id": "rim_top",
       "kind": "tube",
-      "material": "steel",
-      "sides": 6,
+      "material": "red_paint",
+      "sides": 8,
+      "finish": {
+        "wear": 0.9
+      },
       "path": [
         [
           0,
-          14.2,
-          20,
-          1.8
+          16,
+          17.5,
+          0
         ],
         [
           0,
-          12.3,
-          27.1,
-          1.8
+          13.86,
+          25.5,
+          1.5
         ],
         [
           0,
-          7.1,
-          32.3,
-          1.8
-        ],
-        [
-          0,
-          0,
-          34.2,
-          1.8
-        ],
-        [
-          0,
-          -7.1,
-          32.3,
-          1.8
-        ],
-        [
-          0,
-          -12.3,
-          27.1,
-          1.8
-        ],
-        [
-          0,
-          -14.2,
-          20,
-          1.8
-        ],
-        [
-          0,
-          -12.3,
-          12.9,
-          1.8
-        ],
-        [
-          0,
-          -7.1,
-          7.7,
-          1.8
+          8,
+          31.36,
+          1.5
         ],
         [
           0,
           0,
-          5.8,
-          1.8
+          33.5,
+          1.5
         ],
         [
           0,
-          7.1,
-          7.7,
-          1.8
+          -8,
+          31.36,
+          1.5
         ],
         [
           0,
-          12.3,
-          12.9,
-          1.8
+          -13.86,
+          25.5,
+          1.5
         ],
         [
           0,
-          14.2,
-          20,
-          1.8
+          -16,
+          17.5,
+          0
         ]
       ]
     },
     {
-      "id": "weld",
-      "kind": "sphere",
-      "material": "steel",
-      "radius": 1.8,
-      "sides": 6,
-      "at": [
-        0,
-        14.2,
-        18.2
+      "id": "rim_low",
+      "kind": "tube",
+      "material": "red_paint",
+      "sides": 8,
+      "finish": {
+        "wear": 0.9
+      },
+      "path": [
+        [
+          0,
+          -16,
+          17.5,
+          0
+        ],
+        [
+          0,
+          -13.86,
+          9.5,
+          1.5
+        ],
+        [
+          0,
+          -8,
+          3.64,
+          1.5
+        ],
+        [
+          0,
+          0,
+          1.5,
+          1.5
+        ],
+        [
+          0,
+          8,
+          3.64,
+          1.5
+        ],
+        [
+          0,
+          13.86,
+          9.5,
+          1.5
+        ],
+        [
+          0,
+          16,
+          17.5,
+          0
+        ]
       ]
+    },
+    {
+      "id": "spoke",
+      "kind": "tube",
+      "material": "red_paint",
+      "sides": 6,
+      "finish": {
+        "wear": 0.9
+      },
+      "path": [
+        [
+          0,
+          0,
+          19,
+          1.3
+        ],
+        [
+          0,
+          0,
+          31.5,
+          1.3
+        ]
+      ],
+      "repeat": {
+        "count": 4,
+        "axis": "x",
+        "through": [
+          0,
+          0,
+          17.5
+        ]
+      }
     }
   ]
 }

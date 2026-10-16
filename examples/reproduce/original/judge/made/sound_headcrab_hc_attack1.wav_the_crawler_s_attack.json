@@ -3,29 +3,29 @@
  "label": "sound/headcrab/hc_attack1.wav: the crawler's attack",
  "measured": {
   "features": {
-   "length": 0.784,
+   "length": 0.744,
    "peak": -0.5,
-   "rms": -10.4,
-   "crest": 9.9,
-   "dc": -0.0003,
+   "rms": -9.9,
+   "crest": 9.4,
+   "dc": 0.0031,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.01,
-   "attack": 0.02,
-   "peakAt": 0.264,
-   "t20": 0.249,
-   "t40": 0.369,
-   "centroid": 831,
-   "rolloff": 1400,
-   "flatness": 0.06,
+   "tail": 0.02,
+   "attack": 0.095,
+   "peakAt": 0.095,
+   "t20": 0.474,
+   "t40": 0.559,
+   "centroid": 397,
+   "rolloff": 732,
+   "flatness": 0.001,
    "bands": {
-    "<150": 2.7,
-    "150-600": 59.3,
-    "600-2k": 28.8,
-    "2k-5k": 7.9,
-    ">5k": 1.3
+    "<150": 25.4,
+    "150-600": 55.3,
+    "600-2k": 19,
+    "2k-5k": 0.3,
+    ">5k": 0
    },
-   "onsets": 0
+   "onsets": 1
   },
   "class": null,
   "against": {
@@ -52,34 +52,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "I cannot listen, so this is judged from the picture and features only. The original is a bite or chomp: its waveform shows several sharp transients (around 0.05, 0.2, 0.45, 0.6 and 0.7 s) over a rough burst. The replacement is one broadband noise burst with a fast attack and a long smooth decay, with no discrete strikes (onsets 0). It reads more as a rush or hiss than a bite, so the event is there but clearly off."
+   "reason": "The picture shows a single dense noise burst that decays over about 0.5 s, with its energy in the 150-600 Hz band. That reads as a hit or swipe, which could be a crawler attack, but it is not clearly the event the brief asks for: the original's bite-like clicks and transients are missing, and the sound's identity cannot be confirmed by ear (this judge cannot listen)."
   },
   "S2": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Length is 0.784 s against the original's 0.906 s, 13.5% short, within 25%. The class is null in the measurements, so the class range cannot be checked. Against the original, t20 is 0.249 s against 0.394 s, about 37% shorter, outside 25%. The attack is 0.02 s and the peak sits at 0.264 s. The decay is clearly faster than the original's, so this is there but off."
-  },
-  "S3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Centroid is 831 Hz against 921 Hz, 9.8% off, within 20%. Band shares against the original: under 150 Hz 2.7 vs 0.5 (2.2 points), 150-600 Hz 59.3 vs 68.1 (8.8 points), 600-2k Hz 28.8 vs 18.8 (10.0 points, exactly on the limit), 2k-5k Hz 7.9 vs 10.9 (3.0 points), above 5k Hz 1.3 vs 1.6 (0.3 points). All are within 10 points, so the spectrum passes. The 600-2k band is on the line, which is why this is a close pass."
+   "reason": "Length is 0.744 s against the original's 0.906 s, about 18% short and inside 25%. The attack is 0.095 s, and t20 is 0.474 s against 0.394 s, a gap of about 20%. The class range the brief's test uses was not in the measurements, so this is read against the original's own envelope."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The centroid is 397 Hz against the original's 921 Hz, about 57% lower, well outside 20%. The band shares also miss by more than 10 points: <150 Hz is 25.4% against 0.5%, 150-600 Hz is 55.3% against 68.1%, and 2k-5k Hz is 0.3% against 10.9%."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Onsets are the clearest miss: the replacement has 0 onsets, while the original has several clicks and hits visible in its waveform. The replacement's flatness is 0.06, a peaky, tonal-leaning spectrum, and the original's flatness is not given, so that item cannot be checked. There is no pitch movement to compare. The character is therefore clearly off, though a broadband decaying noise is partly there."
+   "reason": "The waveform has one onset, a single burst at the start, where the original has several hits and clicks. The flatness of 0.001 is very low, which means strongly peaked rather than broadband noise, and the spectrogram shows a downward-drifting band that the original's does not match. The character is clearly off, though this is a 'not required' item."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Clipped is 0, DC is -0.0003, and peak is -0.5 dB, so no clipping and no DC. The name matches SOUND/HEADCRAB/HC_ATTACK1.WAV. The engineFaults list is empty, which is the engine's own check. The sample rate, bit depth and channel count are not in the measurements, so they are taken on the strength of that empty fault list, not read from the file."
+   "reason": "The file reports clipped 0, peak -0.5 dBFS, and DC 0.0031, which is negligible, and engineFaults is empty. The measurements do not give the sample rate or bit depth, so the format is taken from the empty fault list rather than read directly."
   }
  },
- "total": 7,
+ "total": 6,
  "of": 10,
  "passes": false
 }

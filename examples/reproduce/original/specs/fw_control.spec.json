@@ -1,220 +1,119 @@
 {
   "spec": "smak.map/1",
   "name": "fw_control",
-  "textures": {
-    "FW_CONCRETE": {
-      "texture": "FW_CONCRETE"
+  "wads": [
+    "fw/fw.wad"
+  ],
+  "theme": {
+    "floor": {
+      "texture": "fw_concrete"
     },
-    "FW_WETFLOOR": {
-      "texture": "FW_WETFLOOR"
+    "wall": {
+      "texture": "fw_panel"
     },
-    "FW_PANEL": {
-      "texture": "FW_PANEL"
+    "ceiling": {
+      "texture": "fw_concrete"
     },
-    "FW_DOOR": {
-      "texture": "FW_DOOR"
-    },
-    "FW_RUST": {
-      "texture": "FW_RUST"
-    },
-    "FW_CATWALK": {
-      "texture": "FW_CATWALK"
-    },
-    "FW_PIPEWALL": {
-      "texture": "FW_PIPEWALL"
-    },
-    "FW_HAZARD": {
-      "texture": "FW_HAZARD"
-    },
-    "WATER": {
-      "texture": "!FW_WATER"
+    "door": {
+      "texture": "fw_door"
     }
   },
-  "theme": {
-    "floor": "FW_CONCRETE",
-    "wall": "FW_CONCRETE",
-    "ceiling": "FW_PANEL",
-    "door": "FW_DOOR",
-    "furniture": "FW_RUST"
+  "textures": {
+    "trig": {
+      "texture": "fw_hazard"
+    },
+    "plat": {
+      "texture": "fw_rustplate"
+    },
+    "cfloor": {
+      "texture": "fw_concrete"
+    },
+    "water": {
+      "texture": "!fw_water"
+    }
   },
-  "wads": [
-    "/tmp/smak-repro-a7JnEK/work/fw/fw.wad"
-  ],
-  "wall": 16,
   "rooms": [
     {
       "id": "control",
       "size": [
-        1000,
-        480,
-        240
+        960,
+        512,
+        256
       ],
-      "surfaces": {
-        "floor": "FW_CATWALK"
-      },
-      "light": {
-        "count": 6,
-        "color": [
-          255,
-          200,
-          150
-        ]
-      }
+      "light": "auto"
     },
     {
-      "id": "hallview",
+      "id": "overlook",
       "size": [
-        1000,
-        400,
-        480
+        640,
+        512,
+        320
       ],
+      "floor": -160,
       "place": {
-        "north_of": "control"
+        "east_of": "control",
+        "align": "centre"
       },
-      "floor": -240,
-      "surfaces": {
-        "floor": "FW_WETFLOOR",
-        "walls": "FW_PIPEWALL"
-      },
+      "light": "auto",
       "water": {
-        "depth": 112,
-        "material": "WATER"
-      },
-      "light": {
-        "count": 6,
-        "color": [
-          255,
-          200,
-          150
-        ]
+        "depth": 80,
+        "material": "water"
       }
-    },
-    {
-      "id": "shaft",
-      "size": [
-        128,
-        128,
-        240
-      ],
-      "place": {
-        "in": "control",
-        "offset": [
-          872,
-          176
-        ]
-      },
-      "floor": -240
     },
     {
       "id": "valve",
       "size": [
-        480,
-        480,
-        400
+        320,
+        320,
+        192
       ],
+      "floor": -192,
       "place": {
-        "east_of": "control"
-      },
-      "floor": -240,
-      "surfaces": {
-        "floor": "FW_WETFLOOR"
-      },
-      "light": {
-        "count": 3,
-        "color": [
-          255,
-          200,
-          150
+        "in": "control",
+        "offset": [
+          40,
+          40
         ]
-      }
+      },
+      "light": "auto"
     }
   ],
   "links": [
     {
       "between": [
         "control",
-        "hallview"
+        "overlook"
       ],
       "kind": "window",
-      "width": 48,
-      "height": 48,
-      "along": 0.1,
+      "along": 0.15,
       "glass": true
     },
     {
       "between": [
         "control",
-        "hallview"
+        "overlook"
       ],
       "kind": "window",
-      "width": 48,
-      "height": 48,
-      "along": 0.26,
+      "along": 0.35,
       "glass": true
     },
     {
       "between": [
         "control",
-        "hallview"
+        "overlook"
       ],
       "kind": "window",
-      "width": 48,
-      "height": 48,
-      "along": 0.42,
+      "along": 0.55,
       "glass": true
     },
     {
       "between": [
         "control",
-        "hallview"
+        "overlook"
       ],
       "kind": "window",
-      "width": 48,
-      "height": 48,
-      "along": 0.58,
+      "along": 0.75,
       "glass": true
-    },
-    {
-      "between": [
-        "control",
-        "hallview"
-      ],
-      "kind": "window",
-      "width": 48,
-      "height": 48,
-      "along": 0.74,
-      "glass": true
-    },
-    {
-      "between": [
-        "control",
-        "hallview"
-      ],
-      "kind": "window",
-      "width": 48,
-      "height": 48,
-      "along": 0.9,
-      "glass": true
-    },
-    {
-      "between": [
-        "shaft",
-        "valve"
-      ],
-      "kind": "opening",
-      "width": 96,
-      "height": 112,
-      "along": 0.5
-    },
-    {
-      "between": [
-        "control",
-        "valve"
-      ],
-      "kind": "opening",
-      "width": 96,
-      "height": 112,
-      "along": 0.1
     }
   ],
   "prefabs": {
@@ -223,115 +122,89 @@
         {
           "box": [
             [
-              -64,
-              -64,
-              224
+              -48,
+              -48,
+              -12
             ],
             [
-              64,
-              64,
-              240
+              48,
+              48,
+              0
             ]
           ],
-          "texture": "FW_HAZARD"
+          "texture": "plat"
         }
       ],
       "entity": {
         "class": "func_plat",
-        "height": 224,
+        "height": 192,
         "speed": 60
       }
     },
-    "endbutton": {
+    "endtrig": {
       "pieces": [
         {
           "box": [
             [
-              -12,
-              -6,
+              -20,
+              -56,
               0
             ],
             [
-              12,
-              6,
-              24
+              20,
+              56,
+              96
             ]
           ],
-          "texture": "FW_HAZARD"
+          "texture": "trig"
         }
       ],
       "entity": {
-        "class": "func_button",
-        "target": "fw_end",
-        "wait": -1
+        "class": "trigger_endsection"
       }
+    },
+    "pit_ramp": {
+      "pieces": [
+        {
+          "wedge": [
+            [
+              -440,
+              -216,
+              -192
+            ],
+            [
+              -120,
+              -160,
+              0
+            ]
+          ],
+          "high": "+x",
+          "texture": "cfloor"
+        }
+      ]
     }
   },
   "furniture": [
     {
       "prefab": "lift",
-      "room": "shaft",
+      "room": "control",
+      "at": [
+        -392,
+        50
+      ]
+    },
+    {
+      "prefab": "pit_ramp",
+      "room": "control",
       "at": "centre"
     },
     {
-      "prefab": "endbutton",
+      "prefab": "endtrig",
       "room": "valve",
       "at": [
-        -120,
+        -80,
         0
       ]
-    }
-  ],
-  "props": [
-    {
-      "model": "models/fw_console.mdl",
-      "room": "control",
-      "at": [
-        -360,
-        60
-      ],
-      "facing": 90,
-      "solid": true
-    },
-    {
-      "model": "models/fw_console.mdl",
-      "room": "control",
-      "at": [
-        -180,
-        60
-      ],
-      "facing": 90,
-      "solid": true
-    },
-    {
-      "model": "models/fw_console.mdl",
-      "room": "control",
-      "at": [
-        0,
-        60
-      ],
-      "facing": 90,
-      "solid": true
-    },
-    {
-      "model": "models/fw_console.mdl",
-      "room": "control",
-      "at": [
-        180,
-        60
-      ],
-      "facing": 90,
-      "solid": true
-    },
-    {
-      "model": "models/fw_valvewheel.mdl",
-      "room": "valve",
-      "at": [
-        60,
-        0
-      ],
-      "facing": "west",
-      "solid": true
     }
   ],
   "entities": [
@@ -339,27 +212,26 @@
       "class": "info_player_start",
       "room": "control",
       "at": [
-        -420,
-        0
+        -280,
+        150
       ],
-      "facing": "north"
+      "facing": "east"
     },
     {
       "class": "info_landmark",
-      "id": "fw_land23",
       "room": "control",
       "at": [
-        -420,
-        0
+        -360,
+        -200
       ],
-      "z": 36
+      "targetname": "fw_lm_hall"
     },
     {
       "class": "monster_headcrab",
       "room": "control",
       "at": [
-        -200,
-        -120
+        -120,
+        -100
       ],
       "z": 0
     },
@@ -367,46 +239,89 @@
       "class": "monster_headcrab",
       "room": "control",
       "at": [
-        300,
-        -100
+        120,
+        120
       ],
       "z": 0
-    },
-    {
-      "class": "game_end",
-      "id": "fw_end",
-      "room": "valve",
-      "at": [
-        -200,
-        -100
-      ]
-    },
-    {
-      "class": "ambient_generic",
-      "room": "control",
-      "at": [
-        0,
-        -150
-      ],
-      "z": 60,
-      "message": "ambience/fw_pump.wav",
-      "health": 4,
-      "spawnflags": 8
-    },
-    {
-      "class": "ambient_generic",
-      "room": "valve",
-      "at": [
-        -100,
-        100
-      ],
-      "z": 40,
-      "message": "ambience/fw_drips.wav",
-      "health": 5,
-      "spawnflags": 4
     }
   ],
-  "compile": {
-    "quality": "normal"
-  }
+  "props": [
+    {
+      "model": "models/fw_console.mdl",
+      "room": "control",
+      "at": [
+        400,
+        -179
+      ],
+      "facing": "west",
+      "solid": true
+    },
+    {
+      "model": "models/fw_console.mdl",
+      "room": "control",
+      "at": [
+        400,
+        -77
+      ],
+      "facing": "west",
+      "solid": true
+    },
+    {
+      "model": "models/fw_console.mdl",
+      "room": "control",
+      "at": [
+        400,
+        25
+      ],
+      "facing": "west",
+      "solid": true
+    },
+    {
+      "model": "models/fw_console.mdl",
+      "room": "control",
+      "at": [
+        400,
+        128
+      ],
+      "facing": "west",
+      "solid": true
+    },
+    {
+      "model": "models/fw_valvewheel.mdl",
+      "room": "valve",
+      "at": [
+        -120,
+        0
+      ],
+      "facing": "east",
+      "solid": true
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "control",
+      "at": [
+        -380,
+        -80
+      ],
+      "solid": true
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "control",
+      "at": [
+        -380,
+        -30
+      ],
+      "solid": true
+    },
+    {
+      "model": "models/fw_pipejunction.mdl",
+      "room": "control",
+      "at": [
+        -200,
+        180
+      ],
+      "solid": true
+    }
+  ]
 }

@@ -1,0 +1,155 @@
+{
+ "kind": "texture",
+ "label": "fw.wad, the mod's textures, judged as one set: a concrete wall, a wet concrete floor, a steel grate with holes, a catwalk floor, a pipe-covered wall, a hazard-striped trim, a rusted steel plate, a control panel with dials, a sodium lamp's face (lit), the water, a sign reading PUMP 3, a door",
+ "measured": {
+  "count": 12,
+  "least": 12,
+  "textures": [
+   {
+    "name": "FW_CONCRETE",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 30.2
+   },
+   {
+    "name": "FW_WETFLOOR",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 18.6
+   },
+   {
+    "name": "{FW_GRATE",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 50.1
+   },
+   {
+    "name": "FW_CATWALK",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 45.7
+   },
+   {
+    "name": "FW_PIPEWALL",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 25.2
+   },
+   {
+    "name": "FW_HAZARD",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 84.5
+   },
+   {
+    "name": "FW_RUST",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 25.4
+   },
+   {
+    "name": "FW_PANEL",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 24.8
+   },
+   {
+    "name": "~FW_LAMP",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 13.5
+   },
+   {
+    "name": "!FW_WATER",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 2.3
+   },
+   {
+    "name": "FW_SIGN",
+    "size": [
+     128,
+     64
+    ],
+    "detail": 28.4
+   },
+   {
+    "name": "FW_DOOR",
+    "size": [
+     128,
+     256
+    ],
+    "detail": 27
+   }
+  ],
+  "halfLifeDetail": {
+   "q1": 19.7,
+   "median": 30.1,
+   "q3": 45
+  }
+ },
+ "caps": {
+  "T6": 2
+ },
+ "scores": {
+  "T1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The set has the right materials for most names, but FW_PANEL is a plain grey tiled panel with no dials, so it is not the brief's control panel with dials. FW_HAZARD reads as a muddy yellow-brown noise field rather than hazard stripes, so a player would not call it hazard trim. FW_WATER is a dark teal panel with faint vertical lines, which reads as water only loosely."
+  },
+  "T2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Concrete, wet floor, rust, catwalk, pipe wall and sign are in the brief's grey, brown and steel palette. FW_LAMP is a pale cream-yellow face, not the sodium orange the brief calls for. FW_HAZARD is a mud yellow with weak black contrast. FW_WATER is dark teal, a little bluer than the brief's green-grey."
+  },
+  "T3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Most patterns sit at a believable wall scale: the pipe wall and door panels, the rust plate's rivet grid, the panel and door seams. FW_HAZARD's stripes are too fine to read as trim at a wall's scale. FW_WETFLOOR and FW_CONCRETE have no seams at all, so their scale is only a grain."
+  },
+  "T4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "No visible seam at the tile edges in the flat views of the concrete, wet floor, catwalk, rust, panel, door or pipe wall. The repeat is not obvious at this picture size. Not a must-have, so no fault is charged."
+  },
+  "T5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Measured fine detail is outside Half-Life's band (q1 19.7, median 30.1, q3 45): FW_HAZARD at 84.5 is noisy and smeared, FW_GRATE at 50.1 and FW_CATWALK at 45.7 are above the band, FW_WETFLOOR at 18.6 is just below, and FW_WATER at 2.3 is nearly flat. FW_CONCRETE, FW_PIPEWALL, FW_RUST, FW_PANEL, FW_SIGN and FW_DOOR sit in the band and look clean."
+  },
+  "T6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Names and sizes match the brief's list: FW_CONCRETE, FW_WETFLOOR, {FW_GRATE 64x64 with blue holes that read as transparent, FW_CATWALK, FW_PIPEWALL, FW_HAZARD 64x64, FW_RUST, FW_PANEL, ~FW_LAMP lit, !FW_WATER, FW_SIGN 128x64 with PUMP 3 legible, FW_DOOR 128x256. The kind each name stands for is kept: holes, liquid, lit face and sign lettering are all there."
+  }
+ },
+ "total": 8,
+ "of": 12,
+ "passes": false
+}

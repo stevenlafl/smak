@@ -1,47 +1,56 @@
-Every file in the brief is built and has been through the kit's checks, but three things are not right yet and I've said so below. The game itself can't be run from here, so the in-game test is still yours.
+The mod is built to the brief, but it is not verified in the game. Every file exists, and every model, map, sprite, sound and video passed its build checks, apart from the items listed below.
 
-**Where the files are.** The kit writes each file under a folder named after its spec, and a model name can't carry a folder. I had no shell to move files, so the outputs sit in the work folder (`/tmp/smak-repro-a7JnEK/work`) as follows:
+**Where the files are.** The tool can't write model names with folders, so models sit at the work root, and the maps, wad, held weapon and sounds sit in folders named after them. Copy them into the mod's folders to match the brief.
 
 ```
-fw/fw.wad                                                    12 textures
-fw_valvewheel.mdl  fw_drum.mdl  fw_console.mdl                props
-fw_pipejunction.mdl  fw_walllamp.mdl
-fw_wrench_weapon/v_crowbar.mdl  p_crowbar.mdl  w_crowbar.mdl  pipe wrench (fw_wrench.mdl is its source)
-headcrab.mdl                                                 sludge crawler
-sprites/fw_steam.spr  fw_glow.spr  fw_spit.spr
-sound/weapons/cbar_hit1.wav  cbar_miss1.wav
-sound/headcrab/hc_attack1.wav  hc_pain1.wav
-sound/ambience/fw_pump.wav  fw_drips.wav
-fw_yard/fw_yard.bsp  fw_pumphall/fw_pumphall.bsp  fw_control/fw_control.bsp
-fw_wrench.mp4  fw_crawler.mp4  fw_pumphall.mp4
-pictures/fw_props.png
+brief                          written to (work folder)
+maps/fw_yard.bsp               fw_yard/fw_yard.bsp
+maps/fw_pumphall.bsp           fw_pumphall/fw_pumphall.bsp
+maps/fw_control.bsp            fw_control/fw_control.bsp
+models/fw_valvewheel.mdl       fw_valvewheel.mdl
+models/fw_drum.mdl             fw_drum.mdl
+models/fw_console.mdl          fw_console.mdl
+models/fw_pipejunction.mdl     fw_pipejunction.mdl
+models/fw_walllamp.mdl         fw_walllamp.mdl
+models/v_crowbar.mdl           fw_wrench_weapon/v_crowbar.mdl
+models/p_crowbar.mdl           fw_wrench_weapon/p_crowbar.mdl
+models/w_crowbar.mdl           fw_wrench_weapon/w_crowbar.mdl
+models/headcrab.mdl            headcrab.mdl
+fw.wad                         fw/fw.wad
+sprites/fw_steam.spr           sprites/fw_steam.spr
+sprites/fw_glow.spr            sprites/fw_glow.spr
+sprites/fw_spit.spr            sprites/fw_spit.spr
+sound/weapons/cbar_hit1.wav    sound/weapons/cbar_hit1.wav
+sound/weapons/cbar_miss1.wav   sound/weapons/cbar_miss1.wav
+sound/headcrab/hc_attack1.wav  sound/headcrab/hc_attack1.wav
+sound/headcrab/hc_pain1.wav    sound/headcrab/hc_pain1.wav
+sound/ambience/fw_pump.wav     sound/ambience/fw_pump.wav
+sound/ambience/fw_drips.wav    sound/ambience/fw_drips.wav
+videos/fw_wrench.mp4           videos/fw_wrench.mp4
+videos/fw_crawler.mp4          videos/fw_crawler.mp4
+videos/fw_pumphall.mp4         videos/fw_pumphall.mp4
+pictures/fw_props.png          pictures/fw_props.png
 ```
 
-To install, put the props, weapon files and `headcrab.mdl` in `models/`, the maps in `maps/`, `sprites/` and `sound/` in their folders, and `fw.wad` in the mod root. The maps load `fw.wad` by that name.
+Also in the work folder: `fw_wrench.mdl` (the held source for the weapon files) and each spec's JSON and preview sheets. Those can be ignored.
 
-**What's in each**
-- **fw_yard** (about 1500 square): a high concrete wall, dusk sky, a gatehouse with a swinging door, stacked drums, and a broken pipe section. The player starts by the gate. The change-level trigger sits inside the pump house, whose 96-wide double doors open onto the yard.
-- **fw_pumphall** (about 2500 long): a hall with 112 units of water to swim in, catwalks on both sides joined by a bridge, ladders from the water, three pumps, three crawlers in the water, and the wrench on the south catwalk. It arrives on a dry landing and leaves by a stair to a corridor.
-- **fw_control**: six windows over a sunken room, four consoles, a lift (`func_plat`) down a shaft to a valve room with the valve wheel, and a button that ends the game (`game_end`). Stairs also reach the valve room, so the walk test can get there.
-- **Chaining**: yard → pump hall through `fw_land12`, pump hall → control through `fw_land23`. Each map arrives at the landmark of the same name.
-- **Props**: valve wheel 32 across, red spokes with a steel rim; drum with a hazard band and rust; console 38 high with two screens, three dials and six switches; pipe junction (an L with flanges and bolts); caged wall lamp with an orange glass.
-- **Pipe wrench**: 18.3 long, red handle with bare-iron bands, toothed jaw. Its three files take the crowbar's names and keep its hands and animations.
-- **Sludge crawler**: the headcrab's own skeleton and animations, with a grey-green body, pale belly, six legs, and a ring of teeth around a dark mouth. The contract check passes against the game's headcrab.
-- **Textures**: 12 in `fw.wad` (concrete, wet floor, grate, catwalk, pipe wall, hazard, rust, control panel, lit lamp, water, "PUMP 3" sign, door).
-- **Sprites**: steam puff rising and thinning, sodium glow, sludge spit splash. All three pass.
-- **Sounds**: six files, each measured against the game's own of its kind.
+**What I made**
 
-**Not right yet**
-1. **The pump-hall flight (`fw_pumphall.mp4`) shows flat purple and pink walls.** The video renderer can't read the mod's wads. I tried the shot's `wad`, a spec-level `folders` and `models`, and a wad beside the map; the kit ignored or rejected all of them. The geometry and lighting are right, but the video is misleading until the kit can read a wad for video.
-2. **Sounds still differ from the game's own on some measures.** The hit has 93% of its energy in 600–2000 Hz, against the game's 74%. The crawler's attack is 0.78 s against the game's 0.91 s, and its spectrum is off. The drip loop is a dense patter, not sparse drops, because sparse drops fail the silence check.
-3. **Engine check on the maps** reports `fw.wad` as not found in the folder it was checked from. That's the install step above, not a map fault.
+- **Maps.** `fw_yard`: a 1500-unit dusk yard with the gatehouse (door) and pump house (double doors), drums, a broken pipe section and the pipe junction. `fw_pumphall`: the flooded hall, 80 units of water, three pumps, catwalks with a bridge, four ladders, a ramp to each catwalk, the wrench on the west catwalk and three crawlers in the water, leaving by a stair to a corridor. `fw_control`: consoles under four glass windows looking down on a lower water room, a valve pit with a lift and the wheel, which ends the game through `trigger_endsection`, and two crawlers. Level changes are `trigger_changelevel` brushes: yard → pump hall via landmark `fw_lm_yard`, pump hall → control via `fw_lm_hall`, with each landmark placed in both maps.
+- **Props.** Valve wheel (32 across, red paint worn at the rim), drum (rusted, hazard band), console (dials, two screens, switches), pipe junction (flanged elbow, bolts), caged lamp (sodium-orange glow).
+- **Wrench.** A held model on the crowbar's skeleton, 18 long, red handle and a toothed jaw. In the first-person views it holds with the red handle in the hand.
+- **Crawler.** A character on the headcrab's skeleton, with the same animations and contract. It has six legs (the hind and fore limbs plus two mid legs), a ring of teeth and a pale belly.
+- **Textures.** `fw.wad` holds all twelve named textures, including the lit lamp face, the water and the "PUMP 3" sign.
+- **Sprites.** Steam puff, sodium glow, and a splash, all checked against the game's own of their kind.
+- **Sounds.** The hit and swing are real recordings shaped with filters. The crawler's bite and pain, the pump drone and the drips are also recordings.
+- **Videos and sheet.** Wrench and crawler turntables, the pump hall flyover, and the props sheet.
 
-**Smaller things, flagged, not fixed**
-- The valve wheel is 292 triangles, over the warning threshold for its size. I kept the detail.
-- The lift can't be walked by the kit's walk test, so the stair route stands in for it.
-- The hallview behind the control windows is a view room; the walk test doesn't reach it. One lamp sits in a wall in the yard and eight are in open air. Both are warnings only.
-- `fw_pumphall/fw_pumphall.wad` holds a copy of the twelve textures plus the ladder mesh, so the map folder is self-contained.
-- The headcrab's base had resolved to my earlier test copy in the work folder. I pointed it at the game's file by its full path.
-- In the first-person idle frame the wrench head sits close to the camera. The attack frames look right.
+**What still needs your attention**
 
-I committed nothing. The work folder isn't a git repository.
+- **The pump hall video has pink walls.** The video renderer doesn't find the wad, so textures show as the engine's stand-in. The map views render with correct textures, so the cause is the video path, which I couldn't redirect. Fix it by running the video with `fw.wad` at the mod root, or by compiling with the textures embedded.
+- **Sounds still off their game classes.** The hit is too bright (about 2.4 kHz centroid, where the game's metal hits sit at 1.1 to 1.7 kHz). The bite and pain are off their flesh-hit range, and the drips loop is 4.8 seconds where the game's run 5.5 to 9. The pump drone passes.
+- **Licence.** The recordings were made by woosh-dflow, which is CC-BY-NC 4.0, non-commercial. That suits a free mod, but it's your call.
+- **Triangle counts.** The valve wheel (328) and pipe junction (432) are well over Half-Life's prop median of 62. The wrench head is blocky in first person.
+- **Fidelity.** The spit splash reads pale grey, not sludge green. The crawler's skin is green where the brief says grey-green.
+- **Maps.** All three compile with VHLT and pass the walk test (every entity reached, no one-way places). The overlook room is only a view, so it is not walkable by design. Nothing has been run in the game, so the lift, the doors and the monsters' behaviour are untested.
+- **Mod layout.** `fw.wad` must be at the mod root, because the maps name it and the checks say it is not in the folders given.

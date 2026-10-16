@@ -1,0 +1,118 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_walllamp.mdl",
+  "kind": "piece",
+  "materials": {
+    "plate": {
+      "base": "metal",
+      "tone": [
+        0.36,
+        0.38,
+        0.37
+      ],
+      "rust": 0.5
+    },
+    "cage": {
+      "base": "mesh",
+      "cell": 4,
+      "tone": [
+        0.32,
+        0.32,
+        0.3
+      ]
+    },
+    "glass": {
+      "base": "glass",
+      "tone": [
+        1,
+        0.66,
+        0.26
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "plate",
+      "kind": "box",
+      "material": "plate",
+      "size": [
+        3,
+        12,
+        16
+      ],
+      "at": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "arm",
+      "kind": "box",
+      "material": "plate",
+      "size": [
+        7,
+        2.5,
+        2.5
+      ],
+      "at": [
+        5,
+        0,
+        7
+      ]
+    },
+    {
+      "id": "cage",
+      "kind": "turn",
+      "axis": "x",
+      "material": "cage",
+      "sides": 10,
+      "caps": [
+        true,
+        true
+      ],
+      "rings": [
+        [
+          0,
+          6.5
+        ],
+        [
+          12,
+          6.5
+        ]
+      ],
+      "at": [
+        1.4,
+        0,
+        8
+      ]
+    },
+    {
+      "id": "glass",
+      "kind": "turn",
+      "axis": "x",
+      "material": "glass",
+      "sides": 10,
+      "caps": [
+        true,
+        true
+      ],
+      "rings": [
+        [
+          0,
+          4.2
+        ],
+        [
+          10,
+          4.2
+        ]
+      ],
+      "at": [
+        2.5,
+        0,
+        8
+      ],
+      "finish": false
+    }
+  ]
+}

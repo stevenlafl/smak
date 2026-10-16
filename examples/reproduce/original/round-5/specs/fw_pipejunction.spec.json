@@ -1,0 +1,187 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_pipejunction.mdl",
+  "kind": "prop",
+  "materials": {
+    "pipe": {
+      "base": "iron",
+      "rust": 0.4
+    },
+    "flange": {
+      "base": "iron",
+      "rust": 0.5
+    },
+    "yellow": {
+      "base": "paint",
+      "tone": [
+        0.75,
+        0.6,
+        0.12
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "pipe_a",
+      "kind": "cylinder",
+      "material": "pipe",
+      "radius": 4.5,
+      "height": 14,
+      "sides": 10,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -14,
+        0,
+        12
+      ]
+    },
+    {
+      "id": "elbow",
+      "kind": "sphere",
+      "material": "yellow",
+      "radius": 5.2,
+      "sides": 8,
+      "at": [
+        0,
+        0,
+        6.8
+      ]
+    },
+    {
+      "id": "pipe_b",
+      "kind": "cylinder",
+      "material": "pipe",
+      "radius": 4.5,
+      "height": 18,
+      "sides": 10,
+      "at": [
+        0,
+        0,
+        12
+      ]
+    },
+    {
+      "id": "flange_a1",
+      "kind": "turn",
+      "axis": "x",
+      "material": "flange",
+      "sides": 10,
+      "caps": [
+        true,
+        true
+      ],
+      "rings": [
+        [
+          0,
+          7
+        ],
+        [
+          2.5,
+          7
+        ]
+      ],
+      "at": [
+        -15.5,
+        0,
+        12
+      ]
+    },
+    {
+      "id": "bolts_a1",
+      "kind": "studs",
+      "material": "flange",
+      "on": {
+        "part": "flange_a1",
+        "path": [
+          [
+            0.5,
+            0
+          ],
+          [
+            0.5,
+            300
+          ]
+        ]
+      },
+      "count": 6,
+      "radius": 0.7,
+      "height": 0.7
+    },
+    {
+      "id": "flange_mid",
+      "kind": "turn",
+      "axis": "x",
+      "material": "flange",
+      "sides": 10,
+      "caps": [
+        true,
+        true
+      ],
+      "rings": [
+        [
+          0,
+          6.4
+        ],
+        [
+          2,
+          6.4
+        ]
+      ],
+      "at": [
+        -8,
+        0,
+        12
+      ]
+    },
+    {
+      "id": "flange_b",
+      "kind": "turn",
+      "material": "flange",
+      "sides": 10,
+      "caps": [
+        true,
+        true
+      ],
+      "rings": [
+        [
+          0,
+          7
+        ],
+        [
+          2.5,
+          7
+        ]
+      ],
+      "at": [
+        0,
+        0,
+        27.5
+      ]
+    },
+    {
+      "id": "bolts_b",
+      "kind": "studs",
+      "material": "flange",
+      "on": {
+        "part": "flange_b",
+        "path": [
+          [
+            0.5,
+            0
+          ],
+          [
+            0.5,
+            300
+          ]
+        ]
+      },
+      "count": 6,
+      "radius": 0.7,
+      "height": 0.7
+    }
+  ]
+}

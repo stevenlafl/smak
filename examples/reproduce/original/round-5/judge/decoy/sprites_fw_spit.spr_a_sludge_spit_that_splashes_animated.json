@@ -1,0 +1,111 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_spit.spr: a sludge spit that splashes, animated",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.56,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "explosion",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0,
+    "range": [
+     0.22,
+     0.71
+    ],
+    "ok": false,
+    "words": "peaks too soon"
+   },
+   {
+    "measure": "first",
+    "value": 1,
+    "range": [
+     0,
+     0.22
+    ],
+    "ok": false,
+    "words": "starts too bright: an attack in its envelope"
+   },
+   {
+    "measure": "last",
+    "value": 1,
+    "range": [
+     0,
+     0.03
+    ],
+    "ok": false,
+    "words": "does not end dark: a decay in its envelope"
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief asks for a sludge spit that splashes. The single frame is a plain light-grey filled disc with no splash, spray, drips or sludge shape, so it is not the effect the brief names."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frame is 32 x 32 with the disc filling most of it, which is a reasonable frame size. The filled, smooth disc does not show a splash spreading out from a spit, so the shape is clearly off from what the brief describes."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The colour is a neutral light grey-white on a dark ground. The brief's sludge is green-grey, so the colour is clearly off. Only one frame is shown, so this is judged from that frame alone."
+  },
+  "R4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The sprite has one frame. The brief asks for an animated splash, and the measures show no motion: the envelope peaks at frame 0, starts at full brightness (first 1) and does not end dark (last 1). The class's envelope fails on all three counts, and there is no splash motion to be a fair match for."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The file name fw_spit.spr is the one asked for, the type is parallel and the format is additive, which is a valid GoldSrc setup. Nothing in the measures checks that type and format against a sludge-splash class, and the animation the brief needs is missing, so the fit is only partly shown. The single frame also points to a placeholder sprite rather than a finished asset, which matches the path's 'decoy' label."
+  }
+ },
+ "total": 3,
+ "of": 10,
+ "passes": false
+}

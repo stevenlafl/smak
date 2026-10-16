@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_pain1.wav: the crawler's pain",
+ "measured": {
+  "features": {
+   "length": 0.803,
+   "peak": -0.5,
+   "rms": -9.5,
+   "crest": 9,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.065,
+   "peakAt": 0.165,
+   "t20": 0.254,
+   "t40": 0.484,
+   "centroid": 2777,
+   "rolloff": 2606,
+   "flatness": 0.002,
+   "bands": {
+    "<150": 0,
+    "150-600": 0,
+    "600-2k": 4,
+    "2k-5k": 90.4,
+    ">5k": 5.6
+   },
+   "onsets": 0
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.795,
+    "centroid": 2682,
+    "t20": 0.544,
+    "bands": {
+     "<150": 0.2,
+     "150-600": 0,
+     "600-2k": 15.6,
+     "2k-5k": 83.8,
+     ">5k": 0.3
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From the picture and features only (I cannot listen). The original is a pulsed, warbling pain cry: about a dozen separate bursts over 0.8 s, with a broadband, noisy texture. The replacement is one sharp onset followed by a long, nearly pure ringing tail, with its three or four sustained horizontal tones running to the end. It reads as a ring or whistle rather than the crawler's wet, pained cry, though both are pain-like bursts of about the same length."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length is 0.803 s against the original's 0.795 s, within 25%. The decay does not match: t20 is 0.254 s against the original's 0.544 s, a gap of 0.29 s. That is outside a quarter of the original's value (0.136 s) and outside 0.05 s, so the fallback range caps it at 1. The class range in src/audio/classes.mjs was not given to me, so I cannot say whether the class range would allow it. The attack of 0.065 s has no original figure to compare against."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Centroid is 2777 Hz against 2682 Hz, a 3.5% difference, within 20%. The 600-2k band is 4% against the original's 15.6%, an 11.6-point gap that is over the 10-point limit. The other bands are within limits: 2k-5k 90.4 vs 83.8, >5k 5.6 vs 0.3, <150 0 vs 0.2, 150-600 0 vs 0. One band is clearly off, so this is a 1."
+  },
+  "S4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Onsets are 0, while the original's picture shows about a dozen separate pulses. Flatness is 0.002, a pure-tone character, against the original's broadband, noisy texture in its spectrogram. The original's pitch movement is a flutter across its pulses, and the replacement's tones are flat and sustained, so the character is wrong on onsets, tone and pitch."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "No clipping (clipped 0), no DC offset (dc 0), no lead (0), negligible tail (0.005), peak at -0.5 dBFS, and engineFaults is empty. The sample rate, bit depth and channel count are not in the measurements, so this score rests on the engine's own check passing. The file name matches the game's path, sound/headcrab/hc_pain1.wav."
+  }
+ },
+ "total": 5,
+ "of": 10,
+ "passes": false
+}

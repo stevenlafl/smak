@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_attack1.wav: the crawler's attack",
+ "measured": {
+  "features": {
+   "length": 0.784,
+   "peak": -0.5,
+   "rms": -10.4,
+   "crest": 9.9,
+   "dc": -0.0003,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.02,
+   "peakAt": 0.264,
+   "t20": 0.249,
+   "t40": 0.369,
+   "centroid": 831,
+   "rolloff": 1400,
+   "flatness": 0.06,
+   "bands": {
+    "<150": 2.7,
+    "150-600": 59.3,
+    "600-2k": 28.8,
+    "2k-5k": 7.9,
+    ">5k": 1.3
+   },
+   "onsets": 0
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.906,
+    "centroid": 921,
+    "t20": 0.394,
+    "bands": {
+     "<150": 0.5,
+     "150-600": 68.1,
+     "600-2k": 18.8,
+     "2k-5k": 10.9,
+     ">5k": 1.6
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "I cannot listen, so this is judged from the picture and features only. The original is a bite or chomp: its waveform shows several sharp transients (around 0.05, 0.2, 0.45, 0.6 and 0.7 s) over a rough burst. The replacement is one broadband noise burst with a fast attack and a long smooth decay, with no discrete strikes (onsets 0). It reads more as a rush or hiss than a bite, so the event is there but clearly off."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length is 0.784 s against the original's 0.906 s, 13.5% short, within 25%. The class is null in the measurements, so the class range cannot be checked. Against the original, t20 is 0.249 s against 0.394 s, about 37% shorter, outside 25%. The attack is 0.02 s and the peak sits at 0.264 s. The decay is clearly faster than the original's, so this is there but off."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid is 831 Hz against 921 Hz, 9.8% off, within 20%. Band shares against the original: under 150 Hz 2.7 vs 0.5 (2.2 points), 150-600 Hz 59.3 vs 68.1 (8.8 points), 600-2k Hz 28.8 vs 18.8 (10.0 points, exactly on the limit), 2k-5k Hz 7.9 vs 10.9 (3.0 points), above 5k Hz 1.3 vs 1.6 (0.3 points). All are within 10 points, so the spectrum passes. The 600-2k band is on the line, which is why this is a close pass."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Onsets are the clearest miss: the replacement has 0 onsets, while the original has several clicks and hits visible in its waveform. The replacement's flatness is 0.06, a peaky, tonal-leaning spectrum, and the original's flatness is not given, so that item cannot be checked. There is no pitch movement to compare. The character is therefore clearly off, though a broadband decaying noise is partly there."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Clipped is 0, DC is -0.0003, and peak is -0.5 dB, so no clipping and no DC. The name matches SOUND/HEADCRAB/HC_ATTACK1.WAV. The engineFaults list is empty, which is the engine's own check. The sample rate, bit depth and channel count are not in the measurements, so they are taken on the strength of that empty fault list, not read from the file."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

@@ -116,37 +116,37 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The picture shows twelve identical flat mid-grey squares, each labelled FW_PLAIN0 to FW_PLAIN11. None is a concrete wall, wet floor, grate, catwalk, pipe wall, hazard trim, rusted plate, control panel, lit lamp face, water, sign or door, so no texture is what the brief names."
+   "reason": "The set is twelve flat mid-grey tiles labelled fw_plain0 to fw_plain11. None reads as the brief's materials (concrete wall, wet floor, grate, catwalk, pipes, hazard trim, rust plate, control panel, lamp face, water, PUMP 3 sign, door). Nothing in the picture is a concrete panel, a grate or a sign."
   },
   "T2": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief asks for concrete grey, hazard yellow, green-grey water and so on. Every texture is the same flat grey (about 128 on each channel), so no texture's colour matches its material."
+   "reason": "All twelve share one flat grey. The brief asks for green-grey water, sodium-orange lamp glow, yellow hazard paint and red-worn rust, so at least eleven of the twelve colours are wrong for their materials. The flat colour also cannot be checked in the map's views here."
   },
   "T3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "There are no panels, seams, bricks, tiles, grate holes, pipes or dial layouts at any spacing. Nothing sets a scale a wall of the game's would have."
+   "reason": "No panels, seams, bricks, tiles, stripes, holes or lettering appear anywhere in the picture, so there is no layout or scale to line up with the original's spacing."
   },
   "T4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Each texture is one flat colour, so there is no seam where it repeats and the step across its edges is zero. This passes only because there is nothing to seam, not because a tile was made well."
+   "reason": "A flat tile has no seam, so the step across its edges is zero and no repeat is visible. This is trivially met, not evidence of craft, and T4 is not a must-have item."
   },
   "T5": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The measured fine detail is 0 on all twelve, against Half-Life's own band of 19.7 to 45 (median 30.1). The picture confirms it: no sharpness, no grain, no wear, no believable surface at the size the game shows it."
+   "reason": "The measured fine detail is 0 on all twelve, against Half-Life's band of 19.7 (q1) to 45 (q3). The tiles are smooth and carry no detail, so they are not as sharp, detailed or believable as the game's own textures."
   },
   "T6": {
    "judge": 0,
    "cap": 2,
    "score": 0,
-   "reason": "The names are FW_PLAIN0 to FW_PLAIN11, not the brief's names, and the kind each name would carry is absent. There is no { texture with holes, no +0 to +9 animation with frames, no ! liquid, no lit lamp face, no sign and no door. The 64 by 64 sizes are recorded, but the names and what they mean are not kept."
+   "reason": "Each name is fw_plain plus a number, not what the brief's kinds mean. No texture is a { grate with holes, a +0 to +9 animation with frames, a ! liquid for the water, or a lit lamp face, and the sign and door are absent. Size is 64 by 64 for all twelve, which is the only part of the kind that holds. This matches the harness's decoy (one flat colour per texture), which must fail."
   }
  },
  "total": 2,

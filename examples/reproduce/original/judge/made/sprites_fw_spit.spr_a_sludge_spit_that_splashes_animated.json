@@ -3,8 +3,8 @@
  "label": "sprites/fw_spit.spr: a sludge spit that splashes, animated",
  "measured": {
   "size": [
-   32,
-   32
+   64,
+   64
   ],
   "frames": 8,
   "type": "parallel",
@@ -12,8 +12,8 @@
   "measures": {
    "frames": 8,
    "size": [
-    32,
-    32
+    64,
+    64
    ],
    "border": {
     "max": 0.004,
@@ -24,15 +24,15 @@
     "first": 0,
     "last": 0
    },
-   "dark": 0.71,
-   "wrap": 0.43,
-   "jitter": 1.43
+   "dark": 0.69,
+   "wrap": 0.42,
+   "jitter": 1.47
   },
   "class": "explosion",
   "againstClass": [
    {
     "measure": "jitter",
-    "value": 1.43,
+    "value": 1.47,
     "range": [
      1.04,
      1.48
@@ -88,34 +88,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The frames show a soft cluster of pale blobs that grows, peaks and fades. That reads as a cloud or puff more than a splash, with no spread, rim or droplets to say splat. The brief asks for a sludge spit that splashes, so it is there but clearly off in what it is."
+   "reason": "The brief asks for a sludge spit that splashes. The frames show a soft cluster of bright blobs that swells and fades, reading more as a puff or small explosion than a splash with droplets flying off the impact. The sludge character is not evident."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Each frame is 32 by 32 as the measurement gives, and the effect sits centred inside it with nothing clipped at the edges. The brief gives no size for the spit, so there is no further measure to hold it to."
+   "reason": "The frames are 64 x 64 as the brief's sprite size requires. The effect fills the centre of each frame with margin on all sides and is not cropped at any edge, and the measured border is 0.004 max, so nothing is clipped."
   },
   "R3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The blended frames read as near white or pale grey against the grey background, not the green-grey of sludge. No colour measure against a Half-Life sprite of this class was given, so the judge can only see the pale look and score it clearly off."
+   "reason": "The frames read as white to pale grey over the grey background, with no green-grey sludge tint visible. The brief's colour is grey-green with a pale belly, so this is clearly off. No colour measure was given, so this rests on the picture alone."
   },
   "R4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "There are 8 frames, the right count to judge, and the motion is a burst that thins and fades. The envelope measure is out of its class range: the peak falls at 0.14 where the range is 0.22 to 0.71, so it peaks too soon. The first frame is blank and the last is dark, which is fine. The peak timing is the measured fault, so the score stays at 1."
+   "reason": "There are 8 frames, the right count, and the motion is a swell, bloom and fade ending dark (last 0, first 0). The envelope peaks at 0.14, at frame 1, against the explosion class's range of 0.22 to 0.71, so it peaks too soon. The measure already holds this item short of 2, so it cannot score 2."
   },
   "R5": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "The file is sprites/fw_spit.spr, the name the brief and the game use. The measurements give type parallel and format index alpha, which are valid sprite settings for a spit, and nothing in the pictures or measures shows a fault in reading it back."
+   "score": 1,
+   "reason": "The name fw_spit.spr is right, and the format (index alpha) and type (parallel) are recorded. The measures give no reference type or format for Half-Life's own sprites of this class, so I cannot confirm the type is the original's, and I score it short of 2 on that account."
   }
  },
- "total": 7,
+ "total": 6,
  "of": 10,
  "passes": false
 }

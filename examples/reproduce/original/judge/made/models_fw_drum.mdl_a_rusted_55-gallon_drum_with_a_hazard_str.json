@@ -3,29 +3,76 @@
  "label": "models/fw_drum.mdl: a rusted 55-gallon drum with a hazard stripe",
  "measured": {
   "size": [
-   24.4,
-   24.4,
-   37.4
+   22.6,
+   22.6,
+   35
   ],
   "sizeAsked": {
    "high": 34,
    "across": 23
   },
-  "sizeOff": 0.1,
-  "triangles": 264,
+  "sizeOff": 0.029,
+  "triangles": 96,
   "halfLifeMedianOfThisSize": 62,
   "halfLifeThreeQuartersUnder": 156,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/big_rock.mdl, models/testsphere.mdl, models/gib_legbone.mdl: the judge does not know which"
+  "lineup": "ours is one of A to D in lineup.png beside models/testsphere.mdl, models/gib_legbone.mdl, models/big_rock.mdl: the judge does not know which"
  },
  "caps": {
   "M2": 2,
-  "M8": 1
+  "M8": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "M8"
- ],
- "total": 0,
- "of": 16
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The outline is a straight-sided cylinder with a slight taper at the rims, matching the brief's 55-gallon drum in every view from the six sides and four close angles. Nothing sticks out or is missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 22.6 x 22.6 x 35 units against the brief's 23 across and 34 high: about 3% off on height and under 2% on width, well inside the 15% band. The measured sizeOff is 0.029."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The parts a drum of this kind carries are all present: a top rim and a bottom rim, two rust bands at the rims, and the hazard stripe at the middle. The top and bottom are closed discs, as a drum is."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief asks for a rusted drum. The body is a clean blue-grey paint, and the rust shows only as thin brown bands at the rims. The body reads as painted metal, not rusted steel. The stripe's yellow and black are right, and the rust bands are the right colour where they appear."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The hazard stripe is sharp and the rim rust is speckled, but the stripe shows a vertical seam where it wraps, clearly visible on the front and front-left views. Between the bands the blue body is nearly plain, with little of the wear the brief's rusted drum calls for."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "In the line-up (B) the drum is clearly a drum in a flat, clean style with a blue body and a stripe. A player would probably not take it for one of Half-Life's props: the body is too clean for a rusted drum, and the stripe's seam shows. Note the judge cannot pick the right original from this line-up, since the other three are not drums."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The drum stands upright, with its axis vertical and its base on the floor. A drum has no true front, so the front the brief leaves open is just the stripe and its seam facing the viewer, which is acceptable."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's checks report no errors. The model has 96 triangles, well under twice the Half-Life median of 62 (124) and under the third quartile of 156, so it passes the triangle limit. Nothing is open or floating."
+  }
+ },
+ "total": 13,
+ "of": 16,
+ "passes": false
 }

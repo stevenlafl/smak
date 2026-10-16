@@ -3,27 +3,27 @@
  "label": "sound/weapons/cbar_miss1.wav: the wrench's swing",
  "measured": {
   "features": {
-   "length": 0.294,
+   "length": 0.35,
    "peak": -0.5,
-   "rms": -11.7,
-   "crest": 11.2,
-   "dc": -0.0001,
+   "rms": -12.5,
+   "crest": 12,
+   "dc": 0.0002,
    "clipped": 0,
-   "lead": 0.005,
-   "tail": 0.005,
-   "attack": 0.055,
-   "peakAt": 0.095,
-   "t20": 0.15,
-   "t40": 0.18,
-   "centroid": 989,
-   "rolloff": 2003,
-   "flatness": 0.006,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.015,
+   "peakAt": 0.045,
+   "t20": 0.17,
+   "t40": 0.224,
+   "centroid": 649,
+   "rolloff": 991,
+   "flatness": 0.002,
    "bands": {
-    "<150": 0.2,
-    "150-600": 53.7,
-    "600-2k": 31,
-    "2k-5k": 15,
-    ">5k": 0.2
+    "<150": 0.3,
+    "150-600": 60.3,
+    "600-2k": 38.2,
+    "2k-5k": 1.1,
+    ">5k": 0
    },
    "onsets": 0
   },
@@ -32,10 +32,10 @@
    "score": 17,
    "of": 22,
    "lines": [
-    "rms -11.7 dBFS (-25.8 to -19.8): over the range",
-    "centroid 989 Hz (608 to 912): too bright: less over 2000 Hz",
-    "flatness 0.006 (0.03 to 0.13): too pure: more noise",
-    "band 150-600 53.7% (55.8 to 75.8): under the range"
+    "rms -12.5 dBFS (-25.8 to -19.8): over the range",
+    "t20 0.17 s (0.05 to 0.15): rings too long: a shorter decay",
+    "flatness 0.002 (0.03 to 0.13): too pure: more noise",
+    "band 600-2k 38.2% (15 to 35): over the range"
    ]
   },
   "engineFaults": []
@@ -48,34 +48,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The waveform is one swell that peaks at 0.095 s and dies by about 0.3 s, which reads as a swipe, so the event is plausibly a swing. But the spectrogram is a few steady horizontal bands, not the broad rush of air a swipe would show, and the flatness of 0.006 is far below the swing range. It sounds purer than a swipe. The judge cannot listen, so this rests on the picture and features."
+   "reason": "The waveform is a noisy burst that rises at about 0.03 s, is loudest around 0.05 to 0.18 s and fades by about 0.25 s, which fits a swing's shape. The spectrogram is a steady low-to-mid band with nothing above 2 kHz, so it reads more like a hollow thump than the air rush of a swing. Limit: the judge cannot listen, so this rests on the picture and features alone."
   },
   "S2": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Length 0.294 s. The attack is 0.055 s to a peak at 0.095 s, and t20 and t40 (0.15 and 0.18 s) give a fast rise and a decay of about 0.2 s. No envelope line is among the out-of-range items. I could not read the class range in src/audio/classes.mjs, so this rests on the measures given."
+   "score": 1,
+   "reason": "Length 0.35 s and attack 0.015 s are not flagged. The decay fails: t20 is 0.17 s against the swing class's 0.05 to 0.15 s, so the measure already holds S2 under 2 and caps it at 1. The picture shows the same long ring after the burst."
   },
   "S3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Centroid 989 Hz is above its 608 to 912 range, about 8% over the top, so it is too bright. The 150-600 band is 53.7%, under its 55.8 to 75.8 range. Two spectral measures are clearly off, and the spectrogram's bright low band sits near 150 to 300 Hz early on. Not 0: the shape is roughly right, and the 600-2k (31%) and 2k-5k (15%) shares are not listed as out of range."
+   "reason": "Band 600-2k is 38.2%, above the class range of 15 to 35, so it is not within 10 points of the class's share. The 150-600 band carries 60.3% and the centroid is 649 Hz, but the measures give no range to check them against. Nothing above 5 kHz (0%) is consistent with a dull swing, but its share is not given a range here."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Flatness 0.006 against a range of 0.03 to 0.13 is too pure. The spectrogram shows steady horizontal bands where a swipe would show broad noise. Onsets 0 fits a swing with no hit. The picture shows no clear pitch movement to compare. Not a must item, and scored 1 on the flatness fault."
+   "reason": "No onsets (0), which fits a swing with no hit in it, and the picture shows no clear pitch sweep. The character is clearly off in tone and noise: flatness is 0.002 against the class range of 0.03 to 0.13, so the sound is far too pure where a swing should hiss. Not a must-have item."
   },
   "S5": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Peak -0.5 dBFS with clipped 0, DC -0.0001, and an empty engine fault list. The name sound/weapons/cbar_miss1.wav is the one the game looks for. The sample rate and bit depth are not in the measures, so this rests on the empty fault list."
+   "score": 1,
+   "reason": "The name sound/weapons/cbar_miss1.wav is right, there is no clipping (0), and DC is 0.0002, which is fine. The format (channels, sample rate, bit depth) is not in the measurements given, so mono PCM at an engine rate cannot be confirmed; this is unverified rather than shown faulty, and it is not scored 2 without that check."
   }
  },
- "total": 7,
+ "total": 5,
  "of": 10,
  "passes": false
 }

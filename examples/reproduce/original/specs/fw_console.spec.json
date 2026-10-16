@@ -3,36 +3,38 @@
   "name": "fw_console.mdl",
   "kind": "prop",
   "size": {
-    "height": 38
+    "height": 42,
+    "width": 64,
+    "length": 36
   },
   "materials": {
-    "steel": {
+    "console_grey": {
       "base": "metal",
-      "tone": [
-        0.38,
-        0.4,
-        0.38
-      ],
-      "rust": 0.2
+      "tone": "grey",
+      "rust": 0.15
+    },
+    "console_top": {
+      "base": "metal",
+      "tone": "dark grey",
+      "rust": 0.3
     },
     "screen": {
-      "base": "paint",
-      "tone": [
-        0.12,
-        0.2,
-        0.16
-      ]
+      "base": "metal",
+      "tone": "dark green grey"
     },
-    "brass": {
-      "base": "brass",
-      "rust": 0.3
+    "brass_dial": {
+      "base": "brass"
     },
     "switch": {
       "base": "paint",
+      "tone": "black"
+    },
+    "hazard_paint": {
+      "base": "hazard",
       "tone": [
+        0.9,
         0.7,
-        0.1,
-        0.08
+        0.05
       ]
     }
   },
@@ -40,44 +42,44 @@
     {
       "id": "body",
       "kind": "box",
-      "material": "steel",
       "size": [
-        24,
+        36,
         60,
         36
       ],
+      "material": "console_grey",
       "panels": [
         {
           "face": "front",
           "at": [
             17,
-            25
+            24
           ],
           "size": [
-            22,
-            14
+            20,
+            12
           ],
-          "style": "inset",
+          "style": "flat",
           "material": "screen"
         },
         {
           "face": "front",
           "at": [
             43,
-            25
+            24
           ],
           "size": [
-            22,
-            14
+            20,
+            12
           ],
-          "style": "inset",
+          "style": "flat",
           "material": "screen"
         },
         {
           "face": "front",
           "at": [
-            8,
-            9
+            10,
+            14
           ],
           "size": [
             6,
@@ -85,13 +87,13 @@
           ],
           "shape": "round",
           "style": "raised",
-          "material": "brass"
+          "material": "brass_dial"
         },
         {
           "face": "front",
           "at": [
-            17,
-            9
+            22,
+            14
           ],
           "size": [
             6,
@@ -99,13 +101,13 @@
           ],
           "shape": "round",
           "style": "raised",
-          "material": "brass"
+          "material": "brass_dial"
         },
         {
           "face": "front",
           "at": [
-            26,
-            9
+            38,
+            14
           ],
           "size": [
             6,
@@ -113,16 +115,69 @@
           ],
           "shape": "round",
           "style": "raised",
-          "material": "brass"
+          "material": "brass_dial"
         },
         {
           "face": "front",
           "at": [
-            36,
-            9
+            50,
+            14
           ],
           "size": [
-            2.5,
+            6,
+            6
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "brass_dial"
+        },
+        {
+          "face": "front",
+          "at": [
+            16,
+            6
+          ],
+          "size": [
+            3,
+            4
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            22,
+            6
+          ],
+          "size": [
+            3,
+            4
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            28,
+            6
+          ],
+          "size": [
+            3,
+            4
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            34,
+            6
+          ],
+          "size": [
+            3,
             4
           ],
           "style": "raised",
@@ -132,10 +187,10 @@
           "face": "front",
           "at": [
             40,
-            9
+            6
           ],
           "size": [
-            2.5,
+            3,
             4
           ],
           "style": "raised",
@@ -144,11 +199,11 @@
         {
           "face": "front",
           "at": [
-            44,
-            9
+            46,
+            6
           ],
           "size": [
-            2.5,
+            3,
             4
           ],
           "style": "raised",
@@ -157,62 +212,29 @@
         {
           "face": "front",
           "at": [
-            48,
-            9
+            30,
+            1.5
           ],
           "size": [
-            2.5,
-            4
+            60,
+            3
           ],
-          "style": "raised",
-          "material": "switch"
-        },
-        {
-          "face": "front",
-          "at": [
-            52,
-            9
-          ],
-          "size": [
-            2.5,
-            4
-          ],
-          "style": "raised",
-          "material": "switch"
-        },
-        {
-          "face": "front",
-          "at": [
-            56,
-            9
-          ],
-          "size": [
-            2.5,
-            4
-          ],
-          "style": "raised",
-          "material": "switch"
+          "style": "flat",
+          "material": "hazard_paint"
         }
       ]
     },
     {
-      "id": "lip",
+      "id": "top",
       "kind": "box",
-      "material": "steel",
       "size": [
-        26,
-        62,
-        2
+        40,
+        64,
+        4
       ],
+      "material": "console_top",
       "attach": {
-        "to": "body",
-        "toAt": "top",
-        "at": "bottom",
-        "offset": [
-          0,
-          0,
-          -0.5
-        ]
+        "to": "body"
       }
     }
   ]

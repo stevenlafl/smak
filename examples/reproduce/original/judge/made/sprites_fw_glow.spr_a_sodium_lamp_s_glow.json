@@ -3,8 +3,8 @@
  "label": "sprites/fw_glow.spr: a sodium lamp's glow",
  "measured": {
   "size": [
-   64,
-   64
+   128,
+   128
   ],
   "frames": 1,
   "type": "parallel",
@@ -12,8 +12,8 @@
   "measures": {
    "frames": 1,
    "size": [
-    64,
-    64
+    128,
+    128
    ],
    "border": {
     "max": 0,
@@ -24,7 +24,7 @@
     "first": 1,
     "last": 1
    },
-   "dark": 0.69,
+   "dark": 0.56,
    "wrap": null,
    "jitter": null
   },
@@ -48,31 +48,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "A soft, warm radial glow with a bright core that fades to the edge. That is a lamp's glow, the effect the brief asks for, and it reads as light rather than a shape."
+   "reason": "The picture is a soft, round, warm orange glow that brightens at the centre and fades out to the edges, which is what a sodium lamp's glow is. Nothing in it reads as a flame, smoke or a beam."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "One 64 x 64 frame, as measured. The glow fills most of the frame, roughly 44 of 64 units across by eye, and the border is pure black (measured border max 0), so nothing is clipped at the edges."
+   "reason": "The frame is 128 x 128, as measured. The glow fills the centre and fades to black well before the edges (border max and mean both 0), so the frame is used the way a glow sprite is normally drawn. The brief gives no size for this sprite, so the size itself cannot be checked against a target."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The core reads as sodium amber-orange and falls off through darker orange to black. No colour measure against an original was given, so this is judged by eye at 128 px; nothing looks clearly off for a sodium lamp."
+   "reason": "The colour is a sodium orange, warm and saturated at the core and fading toward dark, matching the brief's sodium-lamp palette. The background is near-black, which additive blending leaves invisible, so the colour the engine shows is the glow alone. No original colour measure was given to compare against numerically."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "A single still frame, which is the expected motion for a static lamp glow (measured frames 1). Nothing in the brief asks for animation, so there is no loop or one-shot to get wrong."
+   "reason": "There is one frame, and the brief asks only for a sodium lamp's glow, not an animated one, so a single still frame is the right motion. Wrap and jitter are null, consistent with a static glow. Judged against the brief's words rather than a Half-Life glow of its class, since no class measure for frame count was given here."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Measured type is parallel and format additive, the usual GoldSrc glow setup, so the frame blends onto the scene as light. The name fw_glow follows the mod's naming, and the sprite reads back at its stated 64 x 64 size."
+   "reason": "The type is parallel and the format is additive, which is the usual pairing for a light glow sprite. The file is named fw_glow, which matches sprites/fw_glow.spr, and the measured format reads back as additive. Border checks pass against the class."
   }
  },
  "total": 10,

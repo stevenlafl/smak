@@ -48,34 +48,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The picture is one flat, light grey disc with a hard edge and no falloff, so it reads as a disc rather than a lamp's glow. The brief asks for a sodium lamp's glow, which should fade out from the lamp. The shape alone matches the rubric's description of a decoy sprite (one disc), which is consistent with the path's 'decoy' folder, but the score rests on the picture."
+   "reason": "The picture shows one flat, hard-edged disc, not a lamp's glow. There is no falloff from a bright centre to a soft edge, so the effect is only loosely there."
   },
   "R2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The frame is 32 x 32, as measured. The disc covers about 44% of it (the measured dark fraction is 0.56), with a dark margin all round. A glow should fill its frame with a gradient to the edges, so the effect does not fill the frame the way a glow does."
+   "reason": "The frame is 32 x 32 as the measurements say, but the disc fills only about three quarters of it, with empty corners and a hard rim. A glow would fill the frame by fading out across it."
   },
   "R3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The disc is neutral light grey-white, with no orange. The brief's sodium lamp has sodium orange, and an additive glow of that colour should show it. The colour is wrong, not just a shade off."
+   "reason": "The disc is neutral grey-white. The brief asks for a sodium lamp's glow, which should be sodium orange. The colour is wrong, not just slightly off."
   },
   "R4": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "One frame, with no motion measured (peakAt 0, first and last 1, jitter null). The brief names no motion for the glow, unlike the steam and the spit, so a static glow is the expected kind. Nothing in the frame or the measures is wrong for it."
+   "score": 1,
+   "reason": "There is one frame and the envelope is flat (first and last at 1, peak at frame 0), which suits a static glow. But no original figures are given to compare the frame count or motion against, and the picture shows nothing to judge a loop or a fade by, so I cannot score it higher."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Additive format, as a glow should be. Parallel type, 32 x 32, and the file name fw_glow.spr matches what the brief asks for. The measures read it back without fault."
+   "reason": "The measurements give the type as parallel and the format as additive, which is what a glow needs. The size is 32 x 32 and the name is fw_glow.spr. The border measure is 0, within its class range of 0 to 0.005."
   }
  },
- "total": 6,
+ "total": 5,
  "of": 10,
  "passes": false
 }

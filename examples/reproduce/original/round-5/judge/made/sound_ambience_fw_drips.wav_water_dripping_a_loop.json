@@ -1,0 +1,82 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_drips.wav: water dripping, a loop",
+ "measured": {
+  "features": {
+   "length": 7.75,
+   "peak": -0.5,
+   "rms": -14.4,
+   "crest": 13.9,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 1.177,
+   "peakAt": 1.177,
+   "t20": 6.575,
+   "t40": 6.575,
+   "centroid": 1825,
+   "rolloff": 2519,
+   "flatness": 0.105,
+   "bands": {
+    "<150": 0,
+    "150-600": 1.7,
+    "600-2k": 71.1,
+    "2k-5k": 24.8,
+    ">5k": 2.4
+   },
+   "onsets": 16
+  },
+  "class": "loop drips",
+  "against": {
+   "score": 13,
+   "of": 20,
+   "lines": [
+    "crest 13.9 dB (20.17 to 33.63): too squashed",
+    "rms -14.4 dBFS (-30.3 to -24.3): over the range",
+    "centroid 1825 Hz (671 to 1007): too bright: less over 2000 Hz",
+    "band 150-600 1.7% (13.2 to 33.2): under the range",
+    "band 2k-5k 24.8% (0 to 12.5): over the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The waveform is dense, with swelling bursts and gaps, not a train of sharp drip transients. The spectrogram is broadband across the whole height, closer to a wash or rain bed than discrete drops. The 16 onsets fit a drip rate, so it reads as water, but it is not clearly drips."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The envelope passes the class range: attack, t20 and t40 are not among the failed lines, and the length has no figure in the brief to check against. The peak arrives late, at 1.18 s, and the sound holds above -20 dB for 6.6 s, which is less drip-like, but the measure does not flag it."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Clearly off the class range on three measures: centroid 1825 Hz against 671 to 1007 Hz (too bright), the 150-600 band at 1.7% against 13.2 to 33.2%, and the 2k-5k band at 24.8% against 0 to 12.5%. The spectrum is there but its balance is wrong."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Not a must. The 16 onsets and low flatness (0.105) suggest discrete, tonal events, which fits drips. The picture shows swells rather than clean clicks, and no pitch movement is measured to check against a drip's."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "No clipping (peak -0.5 dBFS, clipped 0), no DC offset, engineFaults is empty, and the name sound/ambience/fw_drips.wav is correct. The sample rate, bit depth and loop cue are not in the measures, so this rests on the engine check passing, not on a read of the format."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

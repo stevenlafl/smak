@@ -1,0 +1,268 @@
+{
+  "spec": "smak.model/1",
+  "name": "headcrab.mdl",
+  "kind": "character",
+  "base": {
+    "file": "/home/stevenlafl/.steam/steam/steamapps/common/Half-Life/valve/models/headcrab.mdl"
+  },
+  "contract": {
+    "file": "/home/stevenlafl/.steam/steam/steamapps/common/Half-Life/valve/models/headcrab.mdl"
+  },
+  "materials": {
+    "skin": {
+      "base": "paint",
+      "tone": [
+        0.27,
+        0.34,
+        0.28
+      ]
+    },
+    "belly": {
+      "base": "bone",
+      "tone": [
+        0.74,
+        0.72,
+        0.6
+      ]
+    },
+    "mouth": {
+      "base": "paint",
+      "tone": [
+        0.36,
+        0.1,
+        0.1
+      ]
+    },
+    "teeth": {
+      "base": "bone",
+      "tone": [
+        0.84,
+        0.82,
+        0.72
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "body",
+      "kind": "blob",
+      "material": "skin",
+      "blend": 3,
+      "triangles": 320,
+      "pieces": [
+        {
+          "at": "Bip01 Spine",
+          "radius": 9.5
+        },
+        {
+          "span": [
+            "Bip01 Pelvis",
+            "Bip01 Neck"
+          ],
+          "radius": [
+            8,
+            5
+          ]
+        },
+        {
+          "at": "Bip01 Neck",
+          "radius": 5
+        },
+        {
+          "span": [
+            "Bip01 L Leg",
+            "Bip01 L Leg1"
+          ],
+          "radius": [
+            2.2,
+            1.6
+          ]
+        },
+        {
+          "span": [
+            "Bip01 L Leg1",
+            "Bip01 L Foot"
+          ],
+          "radius": [
+            1.6,
+            0.9
+          ]
+        },
+        {
+          "span": [
+            "Bip01 R Leg",
+            "Bip01 R Leg1"
+          ],
+          "radius": [
+            2.2,
+            1.6
+          ]
+        },
+        {
+          "span": [
+            "Bip01 R Leg1",
+            "Bip01 R Foot"
+          ],
+          "radius": [
+            1.6,
+            0.9
+          ]
+        },
+        {
+          "span": [
+            "Bone04",
+            "Bone05"
+          ],
+          "radius": [
+            1.8,
+            1.4
+          ]
+        },
+        {
+          "span": [
+            "Bone05",
+            "Bone06"
+          ],
+          "radius": [
+            1.4,
+            0.8
+          ]
+        },
+        {
+          "span": [
+            "Bone01",
+            "Bone03"
+          ],
+          "radius": [
+            1.8,
+            1.4
+          ]
+        },
+        {
+          "span": [
+            "Bone03",
+            "Bone08"
+          ],
+          "radius": [
+            1.4,
+            0.8
+          ]
+        },
+        {
+          "from": [
+            -8,
+            7,
+            12
+          ],
+          "to": [
+            -7,
+            11,
+            6
+          ],
+          "radius": 2
+        },
+        {
+          "from": [
+            -7,
+            11,
+            6
+          ],
+          "to": [
+            -6,
+            16,
+            0.9
+          ],
+          "radius": 1.2
+        },
+        {
+          "from": [
+            -8,
+            -7,
+            12
+          ],
+          "to": [
+            -7,
+            -11,
+            6
+          ],
+          "radius": 2
+        },
+        {
+          "from": [
+            -7,
+            -11,
+            6
+          ],
+          "to": [
+            -6,
+            -16,
+            0.9
+          ],
+          "radius": 1.2
+        }
+      ]
+    },
+    {
+      "id": "belly",
+      "kind": "superquadric",
+      "material": "belly",
+      "size": [
+        16,
+        12,
+        4
+      ],
+      "round": [
+        0.3,
+        0.3
+      ],
+      "sides": 8,
+      "at": [
+        -2,
+        0,
+        1.5
+      ]
+    },
+    {
+      "id": "mouth",
+      "kind": "sphere",
+      "material": "mouth",
+      "radius": 3,
+      "sides": 6,
+      "bone": "Bip01 Neck",
+      "at": [
+        6,
+        0,
+        1
+      ]
+    },
+    {
+      "id": "tooth",
+      "kind": "cylinder",
+      "material": "teeth",
+      "radius": 0.55,
+      "top": 0,
+      "height": 4.5,
+      "sides": 4,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "bone": "Bip01 Neck",
+      "at": [
+        7.6,
+        0,
+        6.2
+      ],
+      "repeat": {
+        "count": 10,
+        "through": [
+          6,
+          0,
+          4
+        ],
+        "axis": "x"
+      }
+    }
+  ]
+}

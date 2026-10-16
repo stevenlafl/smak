@@ -3,117 +3,99 @@
   "name": "fw_drum.mdl",
   "kind": "prop",
   "size": {
-    "height": 36,
+    "height": 35,
     "width": 23
   },
   "materials": {
-    "drum": {
+    "drum_steel": {
       "base": "metal",
-      "tone": [
-        0.38,
-        0.36,
-        0.32
-      ],
-      "rust": 0.9
+      "rust": 0.6,
+      "tone": "dark grey blue"
     },
-    "hazard": {
+    "hazard_paint": {
       "base": "hazard",
       "tone": [
-        0.85,
-        0.68,
-        0.12
+        0.95,
+        0.75,
+        0.05
       ]
     },
-    "hoop": {
+    "hoop_iron": {
       "base": "iron",
-      "rust": 0.7
+      "rust": 0.4
     }
   },
   "parts": [
     {
       "id": "body",
       "kind": "turn",
-      "material": "drum",
+      "material": "drum_steel",
       "sides": 12,
-      "caps": [
-        true,
-        true
-      ],
       "rings": [
         [
           0,
-          11
+          10.6
         ],
         [
-          1.5,
-          11.6
+          2.5,
+          11.3
         ],
         [
-          34.5,
-          11.6
+          32.5,
+          11.3
         ],
         [
-          36,
-          11
+          35,
+          10.6
         ]
+      ],
+      "caps": [
+        true,
+        true
       ],
       "marks": [
         {
           "path": [
             [
-              0.44,
+              0.1,
               0
             ],
             [
-              0.44,
+              0.1,
               360
             ]
           ],
-          "width": 9,
-          "material": "hazard",
-          "ends": "round"
+          "width": 1.6,
+          "material": "hoop_iron"
+        },
+        {
+          "path": [
+            [
+              0.9,
+              0
+            ],
+            [
+              0.9,
+              360
+            ]
+          ],
+          "width": 1.6,
+          "material": "hoop_iron"
+        },
+        {
+          "path": [
+            [
+              0.47,
+              0
+            ],
+            [
+              0.47,
+              360
+            ]
+          ],
+          "width": 7,
+          "material": "hazard_paint"
         }
-      ],
-      "finish": {
-        "light": 0.3,
-        "wear": 0.6,
-        "grime": 0.8,
-        "vary": 0.12
-      }
-    },
-    {
-      "id": "hoop_low",
-      "kind": "band",
-      "material": "hoop",
-      "on": {
-        "part": "body",
-        "s": 0.08
-      },
-      "width": 1.6,
-      "height": 0.6
-    },
-    {
-      "id": "hoop_high",
-      "kind": "band",
-      "material": "hoop",
-      "on": {
-        "part": "body",
-        "s": 0.92
-      },
-      "width": 1.6,
-      "height": 0.6
-    },
-    {
-      "id": "bung",
-      "kind": "cylinder",
-      "material": "hoop",
-      "radius": 1.6,
-      "height": 1.4,
-      "sides": 6,
-      "at": [
-        0,
-        0,
-        36
       ]
     }
   ]

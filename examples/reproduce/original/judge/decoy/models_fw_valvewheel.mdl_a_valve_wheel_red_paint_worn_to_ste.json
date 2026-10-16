@@ -26,52 +26,52 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The silhouette is a plain cube in every view (front, side, top, below and the four corner angles). Nothing of a valve wheel's outline is there: no hub, no spokes, no rim, no round face. Measured against the brief's words, the outline is wrong throughout."
+   "reason": "The silhouette is a plain cube in all ten views (sides.png), with no hub, spokes or rim. The brief asks for a round valve wheel, so the outline is wrong in every view."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured size is 32 x 32 x 24, which matches the 32 across the brief asks, with sizeOff 0. The bounding box is correct, though the shape it encloses is not."
+   "reason": "The measured size is 32 x 32 x 24, with 32 across as the brief asks (sizeOff 0), which is within 15%. The size is right even though the shape is not."
   },
   "M3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The wheel's components are missing: no hub, no spokes, no rim, no bolts or handle. The model is one solid block with no parts."
+   "reason": "The valve wheel's parts are missing: no hub, no spokes, no rim. The model is one solid box with no components."
   },
   "M4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief's red paint is absent. The whole surface is a uniform grey, with no red on the body and no worn steel at a rim, because there is no rim. The colour regions do not match the brief's."
+   "reason": "The whole surface is uniform grey stone-like texture. The brief's red paint is absent everywhere, and the worn-to-steel rim is not there either."
   },
   "M5": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief's wear is missing: no red paint worn through to steel at the rim, and no stripes or markings. The surface is a noisy grey texture with no features in place."
+   "reason": "There is no rim wear, no paint loss, and no markings. The only surface detail is a generic noise texture that does not sit where a worn valve wheel's detail would be."
   },
   "M6": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "In the line-up it is B, a grey cube, beside a bone, a rock and a checkered sphere. Any player would see a box, not a valve wheel, and a player would not take it for one of Half-Life's own props."
+   "reason": "In lineup.png the item is the grey box B, beside a rock, a sphere and a bone. No player would take a plain grey cube for a Half-Life valve wheel, so this fails the visual fidelity test."
   },
   "M7": {
-   "judge": 1,
+   "judge": 0,
    "cap": null,
-   "score": 1,
-   "reason": "It stands on its origin, as a wheel would, and nothing sticks out. But a cube has no front, so there is no front for it to get right, and the item is not met in any real sense."
+   "score": 0,
+   "reason": "A valve wheel stands upright as a disc with a front face. The box has no front, no disc orientation, and no wheel face to stand on its origin the way one would."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The SMAK check reports no errors. It has 12 triangles, under twice the median of 62 (124) and under the third quartile of 156. Nothing is open, inside out or floating, as far as the measures show."
+   "reason": "SMAK's check reports no errors. The model has 12 triangles, far under twice the Half-Life median of 62 for this size (124), and the closed box has no holes, inversions or floating parts."
   }
  },
- "total": 5,
+ "total": 4,
  "of": 16,
  "passes": false
 }

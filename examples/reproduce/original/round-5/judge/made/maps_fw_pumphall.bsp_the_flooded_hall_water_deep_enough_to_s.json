@@ -1,0 +1,97 @@
+{
+ "kind": "map",
+ "label": "maps/fw_pumphall.bsp: the flooded hall: water deep enough to swim, three pumps, catwalks both sides joined by a bridge, ladders; the wrench on a catwalk, three crawlers in the water; out by a stair to a corridor",
+ "measured": {
+  "size": [
+   3076,
+   848
+  ],
+  "sizeAsked": {
+   "long": 2500
+  },
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [
+   {
+    "map": "fw_control",
+    "landmark": "fw_land23"
+   }
+  ],
+  "landmarks": [
+   "fw_land12",
+   "fw_land23"
+  ],
+  "itemsAsked": [
+   "weapon_crowbar",
+   "monster_headcrab"
+  ],
+  "itemsFound": [
+   "weapon_crowbar: 1",
+   "monster_headcrab: 3"
+  ]
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The plan shows the brief's areas joined as it asks: a start room at the west end, a hall with a top and a bottom catwalk strip (x 150 to 718), a N-S bridge band at x 418 to 455 joining them, three pumps, two ladders at the west wall, and a stair at x 810 to 910 up to a small room at the east end holding the changelevel. The east room is small for a corridor, but it is the stair's landing and the brief's way out."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measured length is 3076 units against the brief's 2500, 23% over, inside the rubric's 25% band but near its edge. The width of 848 is not specified by the brief. The plan's areas match the brief's sizes within that band."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan gives floor heights only as sparse labels ('2 160' on the top wall, '2 0' and '2 40' on the pumps), and no section or storey view is provided. Water depth, catwalk height over the water and the stair's rise cannot be verified from these pictures. The ladders and the stair are present, so this is not clearly wrong, but the brief's levels are not shown."
+  },
+  "P4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The start (info_player_start), one weapon_crowbar (the wrench's slot) on the bottom catwalk at (590, 265), and three monster_headcrab in the water at (338, 90), (590, 95) and (322, 190) are all there, matching the measured itemsFound. The changelevel is at the stair's end and two func_ladder join water and catwalk. The brief names no doors or lifts for this map."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The views show a mottled brown-grey concrete-like texture on the walls and floor. No hazard stripes, sign or grate are visible in the views, and the texture reads as generic noise. This is not a must-have, but the brief's textures are not evident here."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The 21 LIGHT entities are spread along the hall, but the views from the start show a dim, flat brown room with no sodium-orange glow, no bright and dark contrast, and no lit lamp faces. The brief asks for sodium lamps that buzz."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan has the catwalks, bridge, pumps and ladders, but the views (all taken from the start room) show none of them: only a small enclosed room, an opening with water and a dark ceiling. The pumps are plain boxes in the plan with no visible pump detail in any view."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "checkErrors is empty, notReached and reachWarnings are empty, and the changelevel to fw_control is listed with its landmark fw_land23. The walk test reaches every item and the way out. The leak check is not reported separately, but no check error was raised."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From inside, the views show an enclosed room with mottled walls, a dark ceiling and a water panel seen through an opening. Nothing in them says a flooded pumping hall: no catwalk, pump, ladder or bridge is in view, and the start room could be any small chamber. A player would not recognise a pump hall from these views."
+  }
+ },
+ "total": 13,
+ "of": 18,
+ "passes": false
+}

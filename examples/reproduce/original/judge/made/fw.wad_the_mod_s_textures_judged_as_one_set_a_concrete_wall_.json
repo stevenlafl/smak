@@ -6,100 +6,100 @@
   "least": 12,
   "textures": [
    {
-    "name": "FW_CONCRETE",
+    "name": "fw_concrete",
     "size": [
-     128,
-     128
+     256,
+     256
     ],
-    "detail": 30.2
+    "detail": 34.3
    },
    {
-    "name": "FW_WETFLOOR",
+    "name": "fw_wetfloor",
     "size": [
-     128,
-     128
+     256,
+     256
     ],
-    "detail": 18.6
+    "detail": 9.9
    },
    {
-    "name": "{FW_GRATE",
-    "size": [
-     64,
-     64
-    ],
-    "detail": 50.1
-   },
-   {
-    "name": "FW_CATWALK",
-    "size": [
-     128,
-     128
-    ],
-    "detail": 45.7
-   },
-   {
-    "name": "FW_PIPEWALL",
-    "size": [
-     128,
-     128
-    ],
-    "detail": 25.2
-   },
-   {
-    "name": "FW_HAZARD",
+    "name": "{fw_grate",
     "size": [
      64,
      64
     ],
-    "detail": 84.5
+    "detail": 0.6
    },
    {
-    "name": "FW_RUST",
+    "name": "fw_catwalk",
     "size": [
      128,
      128
     ],
-    "detail": 25.4
+    "detail": 11.8
    },
    {
-    "name": "FW_PANEL",
+    "name": "fw_pipewall",
     "size": [
      128,
      128
     ],
-    "detail": 24.8
+    "detail": 34.1
    },
    {
-    "name": "~FW_LAMP",
+    "name": "fw_hazard",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 101.6
+   },
+   {
+    "name": "fw_rustplate",
     "size": [
      128,
      128
     ],
-    "detail": 13.5
+    "detail": 11.8
    },
    {
-    "name": "!FW_WATER",
+    "name": "fw_panel",
     "size": [
      128,
      128
     ],
-    "detail": 2.3
+    "detail": 34.6
    },
    {
-    "name": "FW_SIGN",
+    "name": "fw_lamp",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 9.3
+   },
+   {
+    "name": "!fw_water",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 2.7
+   },
+   {
+    "name": "fw_pump3",
     "size": [
      128,
      64
     ],
-    "detail": 28.4
+    "detail": 31.3
    },
    {
-    "name": "FW_DOOR",
+    "name": "fw_door",
     "size": [
      128,
      256
     ],
-    "detail": 27
+    "detail": 14
    }
   ],
   "halfLifeDetail": {
@@ -116,40 +116,40 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The set has the right materials for most names, but FW_PANEL is a plain grey tiled panel with no dials, so it is not the brief's control panel with dials. FW_HAZARD reads as a muddy yellow-brown noise field rather than hazard stripes, so a player would not call it hazard trim. FW_WATER is a dark teal panel with faint vertical lines, which reads as water only loosely."
+   "reason": "Several textures are clearly not what they are named for. fw_grate is blue squares on black, not steel. fw_rustplate is dark grey with no visible rust. fw_panel shows faint outlines and no clear dials. fw_door is brown wood, which is off the steel-and-concrete palette for a pump house door. fw_hazard reads as dim yellow noise more than hazard stripes. Concrete, pipewall, catwalk, pump3 and water do read as their subjects."
   },
   "T2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Concrete, wet floor, rust, catwalk, pipe wall and sign are in the brief's grey, brown and steel palette. FW_LAMP is a pale cream-yellow face, not the sodium orange the brief calls for. FW_HAZARD is a mud yellow with weak black contrast. FW_WATER is dark teal, a little bluer than the brief's green-grey."
+   "reason": "Colours miss the brief in places. The grate is saturated blue where steel is grey. The rust plate has no rust orange. Concrete, water (dark green-grey), hazard yellow, lamp orange and the PUMP 3 sign are close to the brief's palette. The flat sheet cannot show colour in the map's views, so this is judged from the sheet alone."
   },
   "T3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Most patterns sit at a believable wall scale: the pipe wall and door panels, the rust plate's rivet grid, the panel and door seams. FW_HAZARD's stripes are too fine to read as trim at a wall's scale. FW_WETFLOOR and FW_CONCRETE have no seams at all, so their scale is only a grain."
+   "reason": "Scale cannot be confirmed from a flat sheet, since the wall-scale check needs the map's views, which were not given. The grate's 8 by 8 blue hole grid at 64 units does not read as a steel grate's spacing. Catwalk panel seams (4 by 4 in 128) and the pipewall's two pipes look plausible."
   },
   "T4": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "No visible seam at the tile edges in the flat views of the concrete, wet floor, catwalk, rust, panel, door or pipe wall. The repeat is not obvious at this picture size. Not a must-have, so no fault is charged."
+   "score": 1,
+   "reason": "The grate's top and bottom rows of holes are cut off at the edges, which suggests a visible seam where it repeats. Other tiles show panel seams at their borders; wrap continuity cannot be checked from one sheet with no tiling measure."
   },
   "T5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Measured fine detail is outside Half-Life's band (q1 19.7, median 30.1, q3 45): FW_HAZARD at 84.5 is noisy and smeared, FW_GRATE at 50.1 and FW_CATWALK at 45.7 are above the band, FW_WETFLOOR at 18.6 is just below, and FW_WATER at 2.3 is nearly flat. FW_CONCRETE, FW_PIPEWALL, FW_RUST, FW_PANEL, FW_SIGN and FW_DOOR sit in the band and look clean."
+   "reason": "Detail is uneven across the set. fw_hazard is grainy noise, measured at 101.6, far above Valve's band (median 30.1). fw_grate is flat blue and black. fw_wetfloor, fw_water, fw_lamp, fw_rustplate and fw_catwalk sit at 2.7 to 11.8, below Valve's lower quartile (19.7), so they look smeared or flat. fw_concrete, fw_pipewall and fw_pump3 are good."
   },
   "T6": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Names and sizes match the brief's list: FW_CONCRETE, FW_WETFLOOR, {FW_GRATE 64x64 with blue holes that read as transparent, FW_CATWALK, FW_PIPEWALL, FW_HAZARD 64x64, FW_RUST, FW_PANEL, ~FW_LAMP lit, !FW_WATER, FW_SIGN 128x64 with PUMP 3 legible, FW_DOOR 128x256. The kind each name stands for is kept: holes, liquid, lit face and sign lettering are all there."
+   "reason": "All twelve names are present, and each keeps its meaning: {fw_grate has holes, !fw_water is a liquid, fw_lamp is a bright lit orange face, and fw_pump3 carries legible PUMP 3 lettering. The sheet is twelve textures, meeting the brief's count. Sizes are as the measurements give them. No animation is in the set. No original sizes were supplied to compare against, so exact size match is not confirmed."
   }
  },
- "total": 8,
+ "total": 7,
  "of": 12,
  "passes": false
 }
