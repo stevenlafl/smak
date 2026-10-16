@@ -103,10 +103,12 @@ ${input}/plan.png marks every entity with its class and storeys.png shows each s
 folder under pictures/): put them on
 the plan with room: "plan", at: [x, y] of the world, and height: the height its mark gives (it stands on the highest
 floor at or under it) or layer: the layer of floor it stands on (0 the lowest, as the floor-N.png pictures number
-them), z over that floor. heightplan/entities.txt lists every mark: its number, class and place (x y z). The textures
-and the light are yours.`,
+them), z over that floor. heightplan/entities.txt lists every mark: its number, class and place (x y z), lights too.
+${input}/views.png shows it from inside at a player's eye (also in the work folder under pictures/): take the textures
+from the game's halflife.wad as those views show them (the entities tool and the build's wad preview help), and its
+light from its own light entities and what the views show lit.`,
       read: input,
-      files: { "pictures/plan.png": join(input, "plan.png"), "pictures/storeys.png": join(input, "storeys.png"), ...Object.fromEntries(plans.map((f) => [`heightplan/${f}`, join(input, "heightplan", f)])) },
+      files: { "pictures/plan.png": join(input, "plan.png"), "pictures/storeys.png": join(input, "storeys.png"), "pictures/views.png": join(input, "views.png"), ...Object.fromEntries(plans.map((f) => [`heightplan/${f}`, join(input, "heightplan", f)])) },
     };
   }
   // decompile: the compiled map, with the server's decompile tool to make it source again (reported apart:

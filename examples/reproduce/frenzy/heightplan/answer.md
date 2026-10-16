@@ -1,19 +1,26 @@
-I could not build frenzy_copy. The map is not built and nothing has been written to disk.
+The map builds OK and compiles, but it is not yet a faithful copy. Its layout, floors and most item and player placements follow the height plans. Four things differ from the original, and I could not add the doors, ladders and walls.
 
-**What's stuck:** this smak build does not accept the `floorplan` field. Every build reports `floorplan: not a field of a map spec, left out`, whatever the directory (`work:heightplan/`, `heightplan/`, or an absolute path) and whatever the key is spelt. The guide and the command line both describe `floorplan` as the way to carve the space from the height plans, so this build is probably older than its docs. With no floor plan and no rooms, the map has no space to build in. The API document doesn't mention floor-plan carving at all, so I couldn't find another route in the tools I have.
+**Result:** `work:frenzy_copy/frenzy_copy.bsp` (plus `frenzy_copy.map` and `frenzy_copy.wad`), in `/tmp/smak-repro-HforUB/work/frenzy_copy/`. The build reports every entity reached on foot (58 of 58), no leaks, and all engine limits within range. It has one warning: 48 ledges that drop 336 units. The original has the same ledges, so I left them.
 
-**What I verified:**
-- All 93 point entities from `entities.txt` pass the build's FGD checks. Once the `env_glow` sprite key was added, the only remaining error was the missing rooms/floor plan.
-- The height plan, the entity list and `plan.png` read fine from the input folder.
+**What matches the original**
+- The floors, rooms, corridors and ledges are carved from the four height plans.
+- All 15 player starts, and every weapon, ammo and item from `entities.txt`, sit at their marked spots and heights, except the four below.
+- The eight glow sprites sit at their marked spots.
 
-**What I left out, and why:**
-- The brush entities need brushes, so they are not in the spec yet: 14 `func_wall`, 2 `func_ladder`, 2 `func_door` with their 2 `trigger_multiple`, and 1 `func_healthcharger`. They need the carved walls and openings, which depend on the floor plan.
-- Textures and light are unset. The theme words I tried (`concrete`, `metal`, `ceil`) are guesses, and the lights and glows use default brightness and colour.
-- The reference `research/map-geometry.md` and the reproduce folder's README and spec are outside the permissions granted to me, so I couldn't read them. They may say how the build should be called.
+**Where it differs**
+- **Lights:** the original's eight `light` entities are not placed. Four of them hang fixtures up to z 4120, past the engine's 4096 limit, because the height plan gives those spots no ceiling. I let the map place its own 24 lamps instead. Their brightness and colour are not the original's.
+- **Glow colour:** I set the glows to additive yellow (255 200 80). The original's colour is not in the inputs.
+- **Three items moved:** the two ammo_ARgrenades at (-664, ±152) and the item_longjump at (-72, 0) stand on a raised floor the walker cannot reach. I moved them to the nearest reachable floor at the same height: (-592, ±104) and (-176, -72), 87 to 126 units away.
+- **Textures:** the floor, wall and ceiling bases (metal, stone, metal) are my guesses from halflife.wad. The original's textures are not in the inputs.
 
-**Options:**
-1. **Recommended:** update the smak MCP server to the version that reads `floorplan` (the one the docs describe). Then I rebuild with the entity list above, add the brush entities once their brushes exist, set the textures and light, and check against the pictures.
-2. Run `smak map-compile` from the command line in the smak repo, if that version accepts the spec. I have no shell here, so I haven't tested it.
-3. Approximate the map with hand-drawn rooms. I don't recommend it: it won't match the original's layout, and that is what you're judging.
+**Not placed:** the brush entities. The height plans give only a mark for each, with no size, so I could not build them.
+- 15 `func_wall`
+- 2 `func_door`, with their 2 `trigger_multiple`
+- 2 `func_ladder`
+- 1 `func_healthcharger`
 
-Tell me which you want. If you can grant read access to the reproduce folder's README and `research/map-geometry.md`, I can check the expected build call before the rebuild.
+So the doors, ladders and walls are missing. Their sizes and their wall openings would need to come from the original's `.map` or the game.
+
+**Not verified:** I have only the plan and storey pictures of the original, not its in-game views, so I could not compare the two side by side from the same cameras. The views I checked were of this map alone.
+
+**One limit on the saved work:** the spec was passed to the build inline, and the file tools are disabled here, so no spec file is saved. The `.map` in the work folder is the build's output and is the source to keep. To rebuild it from a clean copy, the spec would need to be written to a file.
