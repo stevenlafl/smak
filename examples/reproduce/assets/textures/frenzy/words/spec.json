@@ -9,20 +9,28 @@
         208
       ],
       "material": {
-        "base": "plaster",
-        "tone": [
-          0.1,
-          0.105,
-          0.12
-        ],
-        "grime": 0.5,
-        "wear": {
-          "stains": 0.6,
-          "streaks": 0.4,
-          "cracks": 0.6,
-          "speckle": 0.6
+        "base": "stone",
+        "seen": {
+          "colour": [
+            0.152,
+            0.164,
+            0.177
+          ],
+          "light": [
+            0.28,
+            0.29,
+            0.29
+          ]
         }
-      }
+      },
+      "wear": {
+        "stains": 0.6,
+        "streaks": 0.3,
+        "cracks": 0.5,
+        "speckle": 0.6,
+        "seed": 3
+      },
+      "grime": 0.3
     },
     {
       "name": "c3a1_w2",
@@ -31,17 +39,24 @@
         160
       ],
       "material": {
-        "base": "plaster",
-        "tone": [
-          0.216,
-          0.227,
-          0.275
-        ],
-        "grime": 0.3,
-        "wear": {
-          "streaks": 0.4,
-          "speckle": 0.9
+        "base": "stone",
+        "seen": {
+          "colour": [
+            0.216,
+            0.227,
+            0.275
+          ],
+          "light": [
+            0.27,
+            0.27,
+            0.28
+          ]
         }
+      },
+      "wear": {
+        "stains": 0.3,
+        "streaks": 0.4,
+        "speckle": 0.9
       },
       "relief": [
         {
@@ -65,18 +80,25 @@
         160
       ],
       "material": {
-        "base": "plaster",
-        "tone": [
-          0.43,
-          0.46,
-          0.53
-        ],
-        "grime": 0.3,
-        "wear": {
-          "stains": 0.5,
-          "streaks": 0.7,
-          "speckle": 0.5
+        "base": "stone",
+        "seen": {
+          "colour": [
+            0.431,
+            0.463,
+            0.529
+          ],
+          "light": [
+            0.92,
+            0.94,
+            1.03
+          ]
         }
+      },
+      "wear": {
+        "stains": 0.5,
+        "streaks": 0.7,
+        "speckle": 0.6,
+        "seed": 5
       },
       "panels": [
         {
@@ -88,7 +110,6 @@
             128,
             12
           ],
-          "edge": 1,
           "style": "raised"
         }
       ],
@@ -113,9 +134,9 @@
           ],
           "to": [
             5,
-            148
+            160
           ],
-          "width": 2,
+          "width": 3,
           "notched": true
         },
         {
@@ -126,9 +147,9 @@
           ],
           "to": [
             123,
-            148
+            160
           ],
-          "width": 2,
+          "width": 3,
           "notched": true
         }
       ]
@@ -140,20 +161,28 @@
         160
       ],
       "material": {
-        "base": "plaster",
-        "tone": [
-          0.59,
-          0.61,
-          0.63
-        ],
-        "grime": 0.4,
-        "wear": {
-          "stains": 0.4,
-          "streaks": 0.5,
-          "cracks": 0.5,
-          "speckle": 0.5
+        "base": "stone",
+        "seen": {
+          "colour": [
+            0.653,
+            0.675,
+            0.752
+          ],
+          "light": [
+            1.25,
+            1.3,
+            1.22
+          ]
         }
       },
+      "wear": {
+        "stains": 0.5,
+        "streaks": 0.6,
+        "cracks": 0.3,
+        "speckle": 0.6,
+        "seed": 7
+      },
+      "grime": 0.4,
       "panels": [
         {
           "at": [
@@ -161,219 +190,10 @@
             80
           ],
           "size": [
-            128,
-            48
-          ],
-          "edge": 2,
-          "style": "raised"
-        },
-        {
-          "at": [
-            64,
-            80
-          ],
-          "size": [
-            120,
+            112,
             40
           ],
-          "style": "recessed"
-        },
-        {
-          "at": [
-            64,
-            55
-          ],
-          "size": [
-            128,
-            10
-          ],
-          "edge": 1,
-          "style": "raised"
-        }
-      ],
-      "relief": [
-        {
-          "kind": "pipe",
-          "path": [
-            [
-              8,
-              68
-            ],
-            [
-              120,
-              68
-            ]
-          ],
-          "radius": 2.5,
-          "material": {
-            "base": "metal",
-            "tone": [
-              0.47,
-              0.51,
-              0.235
-            ]
-          }
-        },
-        {
-          "kind": "pipe",
-          "path": [
-            [
-              8,
-              80
-            ],
-            [
-              120,
-              80
-            ]
-          ],
-          "radius": 2.5,
-          "material": {
-            "base": "paint",
-            "tone": [
-              0.8,
-              0.78,
-              0.62
-            ]
-          }
-        },
-        {
-          "kind": "pipe",
-          "path": [
-            [
-              8,
-              92
-            ],
-            [
-              120,
-              92
-            ]
-          ],
-          "radius": 2.5,
-          "material": {
-            "base": "metal",
-            "tone": [
-              0.47,
-              0.51,
-              0.235
-            ]
-          }
-        },
-        {
-          "kind": "rivets",
-          "from": [
-            12,
-            63
-          ],
-          "to": [
-            116,
-            63
-          ],
-          "count": 4,
-          "radius": 2.5,
-          "material": {
-            "base": "paint",
-            "tone": [
-              0.9,
-              0.9,
-              0.88
-            ]
-          }
-        },
-        {
-          "kind": "seam",
-          "from": [
-            85,
-            60
-          ],
-          "to": [
-            85,
-            100
-          ],
-          "width": 4
-        },
-        {
-          "kind": "bars",
-          "at": [
-            64,
-            16
-          ],
-          "size": [
-            24,
-            8
-          ],
-          "count": 6,
-          "width": 1,
-          "axis": "vertical"
-        }
-      ]
-    },
-    {
-      "name": "c3a1b_w1a",
-      "size": [
-        128,
-        160
-      ],
-      "material": {
-        "base": "plaster",
-        "tone": [
-          0.59,
-          0.61,
-          0.63
-        ],
-        "grime": 0.4,
-        "wear": {
-          "stains": 0.4,
-          "streaks": 0.5,
-          "cracks": 0.3,
-          "speckle": 0.5
-        }
-      },
-      "panels": [
-        {
-          "at": [
-            64,
-            80
-          ],
-          "size": [
-            128,
-            48
-          ],
-          "edge": 2,
-          "style": "raised"
-        },
-        {
-          "at": [
-            32,
-            80
-          ],
-          "size": [
-            56,
-            40
-          ],
-          "style": "recessed"
-        },
-        {
-          "at": [
-            96,
-            80
-          ],
-          "size": [
-            56,
-            40
-          ],
-          "style": "recessed"
-        },
-        {
-          "at": [
-            64,
-            55
-          ],
-          "size": [
-            128,
-            10
-          ],
-          "edge": 1,
-          "style": "raised"
+          "edge": 2
         },
         {
           "at": [
@@ -389,36 +209,24 @@
       ],
       "relief": [
         {
-          "kind": "seam",
-          "from": [
-            64,
-            100
-          ],
-          "to": [
-            64,
-            160
-          ],
-          "width": 2
-        },
-        {
           "kind": "pipe",
           "path": [
             [
-              6,
-              68
+              10,
+              65
             ],
             [
-              58,
-              68
+              118,
+              65
             ]
           ],
           "radius": 2.5,
           "material": {
             "base": "metal",
             "tone": [
-              0.5,
-              0.48,
-              0.25
+              0.47,
+              0.51,
+              0.24
             ]
           }
         },
@@ -426,42 +234,232 @@
           "kind": "pipe",
           "path": [
             [
-              70,
-              80
+              10,
+              74
             ],
             [
-              122,
-              80
+              118,
+              74
             ]
           ],
           "radius": 2.5,
           "material": {
-            "base": "paint",
+            "base": "metal",
             "tone": [
               0.8,
               0.78,
-              0.62
+              0.6
             ]
           }
         },
         {
-          "kind": "rivets",
-          "from": [
-            10,
-            63
+          "kind": "pipe",
+          "path": [
+            [
+              10,
+              83
+            ],
+            [
+              118,
+              83
+            ]
           ],
-          "to": [
-            118,
-            63
-          ],
-          "count": 4,
           "radius": 2.5,
           "material": {
-            "base": "paint",
+            "base": "metal",
             "tone": [
-              0.9,
-              0.9,
-              0.88
+              0.47,
+              0.51,
+              0.24
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              10,
+              92
+            ],
+            [
+              118,
+              92
+            ]
+          ],
+          "radius": 2.5,
+          "material": {
+            "base": "metal",
+            "tone": [
+              0.8,
+              0.78,
+              0.6
+            ]
+          }
+        },
+        {
+          "kind": "bars",
+          "at": [
+            64,
+            10
+          ],
+          "size": [
+            24,
+            8
+          ],
+          "count": 6,
+          "width": 1
+        }
+      ]
+    },
+    {
+      "name": "c3a1b_w1a",
+      "size": [
+        128,
+        160
+      ],
+      "material": {
+        "base": "stone",
+        "seen": {
+          "colour": [
+            0.64,
+            0.663,
+            0.696
+          ],
+          "light": [
+            1.36,
+            1.41,
+            1.59
+          ]
+        }
+      },
+      "wear": {
+        "stains": 0.5,
+        "streaks": 0.6,
+        "speckle": 0.6,
+        "seed": 11
+      },
+      "grime": 0.4,
+      "panels": [
+        {
+          "at": [
+            32,
+            80
+          ],
+          "size": [
+            52,
+            40
+          ],
+          "edge": 2
+        },
+        {
+          "at": [
+            96,
+            80
+          ],
+          "size": [
+            52,
+            40
+          ],
+          "edge": 2
+        },
+        {
+          "at": [
+            64,
+            41
+          ],
+          "size": [
+            128,
+            18
+          ],
+          "style": "raised"
+        }
+      ],
+      "relief": [
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              10,
+              65
+            ],
+            [
+              54,
+              65
+            ]
+          ],
+          "radius": 2.5,
+          "material": {
+            "base": "metal",
+            "tone": [
+              0.8,
+              0.78,
+              0.6
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              10,
+              76
+            ],
+            [
+              54,
+              76
+            ]
+          ],
+          "radius": 2.5,
+          "material": {
+            "base": "metal",
+            "tone": [
+              0.47,
+              0.51,
+              0.24
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              74,
+              65
+            ],
+            [
+              118,
+              65
+            ]
+          ],
+          "radius": 2.5,
+          "material": {
+            "base": "metal",
+            "tone": [
+              0.47,
+              0.51,
+              0.24
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              74,
+              76
+            ],
+            [
+              118,
+              76
+            ]
+          ],
+          "radius": 2.5,
+          "material": {
+            "base": "metal",
+            "tone": [
+              0.8,
+              0.78,
+              0.6
             ]
           }
         },
@@ -469,51 +467,27 @@
           "kind": "bars",
           "at": [
             32,
-            16
+            10
           ],
           "size": [
-            16,
+            24,
             8
           ],
-          "count": 4,
-          "width": 1,
-          "axis": "vertical"
+          "count": 6,
+          "width": 1
         },
         {
           "kind": "bars",
           "at": [
-            110,
-            16
+            114,
+            10
           ],
           "size": [
-            16,
+            20,
             8
           ],
-          "count": 4,
-          "width": 1,
-          "axis": "vertical"
-        },
-        {
-          "kind": "pipe",
-          "path": [
-            [
-              0,
-              3
-            ],
-            [
-              128,
-              3
-            ]
-          ],
-          "radius": 3,
-          "material": {
-            "base": "hazard",
-            "tone": [
-              0.67,
-              0.59,
-              0.16
-            ]
-          }
+          "count": 5,
+          "width": 1
         }
       ]
     },
@@ -524,17 +498,25 @@
         160
       ],
       "material": {
-        "base": "plaster",
-        "tone": [
-          0.353,
-          0.36,
-          0.373
-        ],
-        "grime": 0.5,
-        "wear": {
-          "streaks": 0.6,
-          "speckle": 0.8
+        "base": "stone",
+        "seen": {
+          "colour": [
+            0.353,
+            0.361,
+            0.373
+          ],
+          "light": [
+            0.63,
+            0.65,
+            0.62
+          ]
         }
+      },
+      "wear": {
+        "stains": 0.6,
+        "streaks": 0.6,
+        "speckle": 0.9,
+        "seed": 13
       },
       "panels": [
         {
@@ -543,96 +525,37 @@
             124
           ],
           "size": [
-            128,
-            72
-          ],
-          "edge": 6,
-          "style": "raised"
-        },
-        {
-          "at": [
-            64,
-            124
-          ],
-          "size": [
-            116,
+            112,
             68
           ],
-          "style": "recessed"
+          "edge": 2
         }
       ],
       "relief": [
         {
-          "kind": "pipe",
-          "path": [
-            [
-              10,
-              108
-            ],
-            [
-              118,
-              108
-            ]
-          ],
-          "radius": 3,
-          "material": {
-            "base": "metal",
-            "tone": [
-              0.45,
-              0.42,
-              0.25
-            ]
-          }
-        },
-        {
-          "kind": "pipe",
-          "path": [
-            [
-              10,
-              132
-            ],
-            [
-              118,
-              132
-            ]
-          ],
-          "radius": 3,
-          "material": {
-            "base": "metal",
-            "tone": [
-              0.55,
-              0.48,
-              0.35
-            ]
-          }
-        },
-        {
           "kind": "bars",
           "at": [
             64,
             124
           ],
           "size": [
-            116,
+            112,
             68
           ],
           "count": 9,
-          "width": 3,
-          "axis": "vertical"
+          "width": 3
         },
         {
-          "kind": "bars",
+          "kind": "louvre",
           "at": [
             64,
             124
           ],
           "size": [
-            116,
+            112,
             68
           ],
-          "count": 4,
-          "width": 3,
-          "axis": "horizontal"
+          "count": 4
         }
       ]
     },
@@ -643,16 +566,25 @@
         96
       ],
       "material": {
-        "base": "plaster",
-        "tone": [
-          0.63,
-          0.65,
-          0.76
-        ],
-        "wear": {
-          "stains": 0.2,
-          "speckle": 0.9
+        "base": "stone",
+        "seen": {
+          "colour": [
+            0.627,
+            0.647,
+            0.765
+          ],
+          "light": [
+            1.4,
+            1.45,
+            1.65
+          ]
         }
+      },
+      "wear": {
+        "stains": 0.2,
+        "streaks": 0.2,
+        "speckle": 0.9,
+        "seed": 17
       }
     },
     {
@@ -664,15 +596,23 @@
       "material": {
         "base": "tile",
         "cell": 32,
-        "tone": [
-          0.45,
-          0.44,
-          0.49
-        ],
-        "wear": {
-          "stains": 0.5,
-          "speckle": 0.6
+        "seen": {
+          "colour": [
+            0.451,
+            0.439,
+            0.49
+          ],
+          "light": [
+            1.04,
+            1.07,
+            1.22
+          ]
         }
+      },
+      "wear": {
+        "stains": 0.5,
+        "speckle": 0.7,
+        "seed": 19
       }
     },
     {
@@ -684,15 +624,23 @@
       "material": {
         "base": "tile",
         "cell": 32,
-        "tone": [
-          0.373,
-          0.314,
-          0.275
-        ],
-        "wear": {
-          "stains": 0.8,
-          "speckle": 0.6
+        "seen": {
+          "colour": [
+            0.474,
+            0.399,
+            0.349
+          ],
+          "light": [
+            1.14,
+            1.17,
+            1.12
+          ]
         }
+      },
+      "wear": {
+        "stains": 0.6,
+        "speckle": 0.7,
+        "seed": 23
       }
     },
     {
@@ -703,58 +651,137 @@
       ],
       "material": {
         "base": "metal",
-        "tone": [
-          0.1,
-          0.09,
-          0.1
-        ],
-        "rust": 0.3,
-        "grime": 0.3
+        "rust": 0.4,
+        "seen": {
+          "colour": [
+            0.116,
+            0.1,
+            0.117
+          ],
+          "light": [
+            0.45,
+            0.46,
+            0.51
+          ]
+        }
+      },
+      "wear": {
+        "streaks": 0.5,
+        "speckle": 0.3,
+        "seed": 29
       },
       "relief": [
         {
-          "kind": "bars",
-          "at": [
-            96,
-            64
-          ],
-          "size": [
-            192,
-            128
-          ],
-          "count": 4,
-          "width": 4,
-          "axis": "horizontal",
-          "material": {
-            "base": "metal",
-            "tone": [
-              0.25,
-              0.25,
-              0.27
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              16
+            ],
+            [
+              192,
+              16
             ]
-          }
+          ],
+          "radius": 3
         },
         {
-          "kind": "bars",
-          "at": [
-            96,
-            64
-          ],
-          "size": [
-            192,
-            128
-          ],
-          "count": 4,
-          "width": 4,
-          "axis": "vertical",
-          "material": {
-            "base": "metal",
-            "tone": [
-              0.25,
-              0.25,
-              0.27
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              48
+            ],
+            [
+              192,
+              48
             ]
-          }
+          ],
+          "radius": 3
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              80
+            ],
+            [
+              192,
+              80
+            ]
+          ],
+          "radius": 3
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              112
+            ],
+            [
+              192,
+              112
+            ]
+          ],
+          "radius": 3
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              24,
+              0
+            ],
+            [
+              24,
+              128
+            ]
+          ],
+          "radius": 3
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              72,
+              0
+            ],
+            [
+              72,
+              128
+            ]
+          ],
+          "radius": 3
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              120,
+              0
+            ],
+            [
+              120,
+              128
+            ]
+          ],
+          "radius": 3
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              168,
+              0
+            ],
+            [
+              168,
+              128
+            ]
+          ],
+          "radius": 3
         },
         {
           "kind": "pipe",
@@ -768,37 +795,7 @@
               32
             ]
           ],
-          "radius": 2,
-          "material": {
-            "base": "steel",
-            "tone": [
-              0.2,
-              0.2,
-              0.22
-            ]
-          }
-        },
-        {
-          "kind": "pipe",
-          "path": [
-            [
-              192,
-              128
-            ],
-            [
-              144,
-              96
-            ]
-          ],
-          "radius": 2,
-          "material": {
-            "base": "steel",
-            "tone": [
-              0.2,
-              0.2,
-              0.22
-            ]
-          }
+          "radius": 2
         }
       ]
     },
@@ -816,17 +813,22 @@
           0.035
         ]
       },
+      "wear": {
+        "streaks": 0.3,
+        "speckle": 0.4,
+        "seed": 31
+      },
       "relief": [
         {
           "kind": "pipe",
           "path": [
             [
               0,
-              5
+              4
             ],
             [
               64,
-              5
+              4
             ]
           ],
           "radius": 3,
@@ -844,20 +846,20 @@
           "path": [
             [
               0,
-              15
+              12
             ],
             [
               64,
-              15
+              12
             ]
           ],
           "radius": 3,
           "material": {
             "base": "steel",
             "tone": [
-              0.3,
-              0.31,
-              0.34
+              0.25,
+              0.26,
+              0.28
             ]
           }
         },
@@ -866,11 +868,11 @@
           "path": [
             [
               0,
-              25
+              20
             ],
             [
               64,
-              25
+              20
             ]
           ],
           "radius": 3,
@@ -888,20 +890,20 @@
           "path": [
             [
               0,
-              35
+              28
             ],
             [
               64,
-              35
+              28
             ]
           ],
           "radius": 3,
           "material": {
             "base": "steel",
             "tone": [
-              0.3,
-              0.31,
-              0.34
+              0.25,
+              0.26,
+              0.28
             ]
           }
         },
@@ -910,11 +912,11 @@
           "path": [
             [
               0,
-              45
+              36
             ],
             [
               64,
-              45
+              36
             ]
           ],
           "radius": 3,
@@ -932,20 +934,20 @@
           "path": [
             [
               0,
-              55
+              44
             ],
             [
               64,
-              55
+              44
             ]
           ],
           "radius": 3,
           "material": {
             "base": "steel",
             "tone": [
-              0.3,
-              0.31,
-              0.34
+              0.25,
+              0.26,
+              0.28
             ]
           }
         },
@@ -954,11 +956,11 @@
           "path": [
             [
               0,
-              65
+              52
             ],
             [
               64,
-              65
+              52
             ]
           ],
           "radius": 3,
@@ -976,20 +978,20 @@
           "path": [
             [
               0,
-              75
+              60
             ],
             [
               64,
-              75
+              60
             ]
           ],
           "radius": 3,
           "material": {
             "base": "steel",
             "tone": [
-              0.3,
-              0.31,
-              0.34
+              0.25,
+              0.26,
+              0.28
             ]
           }
         },
@@ -998,11 +1000,11 @@
           "path": [
             [
               0,
-              85
+              68
             ],
             [
               64,
-              85
+              68
             ]
           ],
           "radius": 3,
@@ -1020,20 +1022,20 @@
           "path": [
             [
               0,
-              95
+              76
             ],
             [
               64,
-              95
+              76
             ]
           ],
           "radius": 3,
           "material": {
             "base": "steel",
             "tone": [
-              0.3,
-              0.31,
-              0.34
+              0.25,
+              0.26,
+              0.28
             ]
           }
         },
@@ -1042,11 +1044,11 @@
           "path": [
             [
               0,
-              105
+              84
             ],
             [
               64,
-              105
+              84
             ]
           ],
           "radius": 3,
@@ -1064,20 +1066,20 @@
           "path": [
             [
               0,
-              115
+              92
             ],
             [
               64,
-              115
+              92
             ]
           ],
           "radius": 3,
           "material": {
             "base": "steel",
             "tone": [
-              0.3,
-              0.31,
-              0.34
+              0.25,
+              0.26,
+              0.28
             ]
           }
         },
@@ -1086,11 +1088,11 @@
           "path": [
             [
               0,
-              125
+              100
             ],
             [
               64,
-              125
+              100
             ]
           ],
           "radius": 3,
@@ -1107,42 +1109,87 @@
           "kind": "pipe",
           "path": [
             [
-              20,
+              0,
+              108
+            ],
+            [
+              64,
+              108
+            ]
+          ],
+          "radius": 3,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              116
+            ],
+            [
+              64,
+              116
+            ]
+          ],
+          "radius": 3,
+          "material": {
+            "base": "brass",
+            "tone": [
+              0.55,
+              0.47,
+              0.235
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              124
+            ],
+            [
+              64,
+              124
+            ]
+          ],
+          "radius": 3,
+          "material": {
+            "base": "steel",
+            "tone": [
+              0.25,
+              0.26,
+              0.28
+            ]
+          }
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              21,
               0
             ],
             [
-              20,
+              21,
               128
             ]
           ],
-          "radius": 3,
+          "radius": 2.5,
           "material": {
             "base": "steel",
             "tone": [
-              0.3,
-              0.31,
-              0.34
-            ]
-          }
-        },
-        {
-          "kind": "rivets",
-          "from": [
-            56,
-            40
-          ],
-          "to": [
-            56,
-            40
-          ],
-          "count": 1,
-          "radius": 2,
-          "material": {
-            "base": "paint",
-            "tone": [
-              0.8,
-              0.1,
-              0.1
+              0.2,
+              0.2,
+              0.21
             ]
           }
         }
@@ -1155,40 +1202,36 @@
         64
       ],
       "material": {
-        "base": "metal",
-        "tone": [
-          0.549,
-          0.451,
-          0.118
-        ],
-        "grime": 0.3,
-        "wear": {
-          "stains": 0.3,
-          "speckle": 0.4
+        "base": "paint",
+        "seen": {
+          "colour": [
+            0.34,
+            0.3,
+            0.14
+          ],
+          "light": [
+            0.34,
+            0.34,
+            0.39
+          ]
         }
       },
+      "wear": {
+        "stains": 0.3,
+        "speckle": 0.3,
+        "seed": 37
+      },
+      "grime": 0.3,
       "panels": [
         {
           "at": [
-            64,
-            60
+            100,
+            36
           ],
           "size": [
-            128,
-            8
+            52,
+            40
           ],
-          "style": "raised"
-        },
-        {
-          "at": [
-            99,
-            30
-          ],
-          "size": [
-            56,
-            48
-          ],
-          "edge": 2,
           "style": "raised"
         }
       ],
@@ -1196,40 +1239,27 @@
         {
           "kind": "louvre",
           "at": [
-            35,
-            30
+            34,
+            32
           ],
           "size": [
-            70,
-            46
+            64,
+            40
           ],
           "count": 6
         },
         {
           "kind": "rivets",
           "from": [
-            4,
-            16
+            8,
+            20
           ],
           "to": [
-            124,
-            16
+            120,
+            20
           ],
-          "count": 13,
+          "count": 12,
           "radius": 1.5
-        },
-        {
-          "kind": "rivets",
-          "from": [
-            92,
-            6
-          ],
-          "to": [
-            106,
-            6
-          ],
-          "count": 2,
-          "radius": 2
         }
       ]
     },
@@ -1241,16 +1271,23 @@
       ],
       "material": {
         "base": "paint",
-        "tone": [
-          0.392,
-          0.294,
-          0.118
-        ],
-        "grime": 0.4,
-        "wear": {
-          "stains": 0.8,
-          "speckle": 0.4
+        "seen": {
+          "colour": [
+            0.6,
+            0.45,
+            0.177
+          ],
+          "light": [
+            0.66,
+            0.68,
+            0.78
+          ]
         }
+      },
+      "wear": {
+        "stains": 0.8,
+        "speckle": 0.4,
+        "seed": 41
       }
     },
     {
@@ -1260,7 +1297,7 @@
         32
       ],
       "material": {
-        "base": "glass",
+        "base": "paint",
         "tone": [
           0,
           0,
@@ -1275,7 +1312,7 @@
         128
       ],
       "material": {
-        "base": "glass",
+        "base": "paint",
         "tone": [
           0,
           0,
@@ -1292,34 +1329,11 @@
       "material": {
         "base": "neon",
         "tone": [
-          0.98,
-          0.98,
+          1,
+          1,
           1
         ]
-      },
-      "relief": [
-        {
-          "kind": "rivets",
-          "from": [
-            60,
-            8
-          ],
-          "to": [
-            60,
-            72
-          ],
-          "count": 6,
-          "radius": 1.2,
-          "material": {
-            "base": "paint",
-            "tone": [
-              0.6,
-              0.7,
-              1
-            ]
-          }
-        }
-      ]
+      }
     },
     {
       "name": "tnnl_brd1",
@@ -1330,16 +1344,17 @@
       "material": {
         "base": "hazard",
         "tone": [
-          0.67,
-          0.59,
-          0.157
+          1,
+          0.88,
+          0.24
         ],
         "stripe": 8,
-        "angle": 1.06,
-        "grime": 0.2,
-        "wear": {
-          "stains": 0.3
-        }
+        "angle": 1.06
+      },
+      "wear": {
+        "stains": 0.4,
+        "speckle": 0.4,
+        "seed": 43
       }
     },
     {
@@ -1350,12 +1365,23 @@
       ],
       "material": {
         "base": "stone",
-        "tone": [
-          0.235,
-          0.243,
-          0.216
-        ],
-        "grime": 0.5
+        "seen": {
+          "colour": [
+            0.235,
+            0.243,
+            0.216
+          ],
+          "light": [
+            0.44,
+            0.44,
+            0.34
+          ]
+        }
+      },
+      "wear": {
+        "stains": 0.5,
+        "speckle": 0.6,
+        "seed": 47
       },
       "panels": [
         {
@@ -1375,53 +1401,14 @@
           "kind": "rivets",
           "from": [
             16,
-            6
+            8
           ],
           "to": [
             112,
-            6
+            8
           ],
           "count": 4,
           "radius": 1.5
-        }
-      ]
-    },
-    {
-      "name": "+a~fifties_lgt2",
-      "size": [
-        16,
-        64
-      ],
-      "material": {
-        "base": "neon",
-        "tone": [
-          0.85,
-          0.95,
-          0.9
-        ]
-      },
-      "relief": [
-        {
-          "kind": "pipe",
-          "path": [
-            [
-              1.5,
-              0
-            ],
-            [
-              1.5,
-              64
-            ]
-          ],
-          "radius": 1.5,
-          "material": {
-            "base": "steel",
-            "tone": [
-              0.45,
-              0.46,
-              0.48
-            ]
-          }
         }
       ]
     },
@@ -1434,11 +1421,50 @@
       "material": {
         "base": "neon",
         "tone": [
-          0.97,
-          0.97,
+          0.95,
+          0.93,
           0.98
         ]
       }
+    },
+    {
+      "name": "+a~fifties_lgt2",
+      "size": [
+        16,
+        64
+      ],
+      "material": {
+        "base": "neon",
+        "tone": [
+          0.93,
+          0.97,
+          0.96
+        ]
+      },
+      "relief": [
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              64
+            ]
+          ],
+          "radius": 1.5,
+          "material": {
+            "base": "metal",
+            "tone": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "+0~generic86",
@@ -1447,11 +1473,11 @@
         16
       ],
       "material": {
-        "base": "neon",
+        "base": "paint",
         "tone": [
-          1,
-          0.72,
-          0.25
+          0.94,
+          0.59,
+          0.12
         ]
       },
       "relief": [
@@ -1468,7 +1494,7 @@
           "colour": [
             1,
             1,
-            0.95
+            1
           ]
         }
       ]
@@ -1482,36 +1508,32 @@
       "material": {
         "base": "paint",
         "tone": [
-          0.03,
-          0.12,
-          0.7
-        ],
-        "grime": 0.9,
-        "wear": {
-          "stains": 0.8,
-          "streaks": 0.3
-        }
+          0.05,
+          0.1,
+          0.9
+        ]
       },
-      "relief": [
+      "wear": {
+        "stains": 0.6,
+        "streaks": 0.3,
+        "seed": 53
+      },
+      "panels": [
         {
-          "kind": "pipe",
-          "path": [
-            [
-              0,
-              38
-            ],
-            [
-              64,
-              38
-            ]
+          "at": [
+            32,
+            13
           ],
-          "radius": 3,
+          "size": [
+            64,
+            26
+          ],
           "material": {
             "base": "paint",
             "tone": [
-              0.2,
-              0.45,
-              1
+              0,
+              0,
+              0
             ]
           }
         }
@@ -1524,51 +1546,25 @@
         64
       ],
       "material": {
-        "base": "glass",
+        "base": "paint",
         "tone": [
           0,
           0,
           0
         ]
       },
-      "relief": [
+      "panels": [
         {
-          "kind": "pipe",
-          "path": [
-            [
-              32,
-              0
-            ],
-            [
-              32,
-              64
-            ]
+          "at": [
+            32,
+            32
           ],
-          "radius": 10,
-          "material": {
-            "base": "glass",
-            "tone": [
-              0,
-              0,
-              1
-            ]
-          }
-        },
-        {
-          "kind": "pipe",
-          "path": [
-            [
-              64,
-              2
-            ],
-            [
-              36,
-              30
-            ]
+          "size": [
+            21,
+            64
           ],
-          "radius": 8,
           "material": {
-            "base": "glass",
+            "base": "paint",
             "tone": [
               0,
               0,
@@ -1585,17 +1581,18 @@
         64
       ],
       "material": {
-        "base": "plaster",
+        "base": "stone",
         "tone": [
-          0.55,
-          0.53,
-          0.5
-        ],
-        "wear": {
-          "stains": 0.8,
-          "cracks": 0.7,
-          "speckle": 0.4
-        }
+          0.42,
+          0.42,
+          0.4
+        ]
+      },
+      "wear": {
+        "stains": 0.8,
+        "cracks": 0.6,
+        "speckle": 0.4,
+        "seed": 59
       }
     },
     {
@@ -1605,7 +1602,7 @@
         16
       ],
       "material": {
-        "base": "glass",
+        "base": "paint",
         "tone": [
           1,
           1,
