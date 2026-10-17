@@ -29,6 +29,7 @@ import { dressingOf } from "../maps/dressing.mjs";
 import { familyOf } from "../maps/families.mjs";
 import { spaceOf } from "../maps/space.mjs";
 import { focusSpec, focusSeen } from "./focus.mjs";
+import { breaksOf, dressRooms, BREAK_WORDS, USE_WORDS, DRESS_MATERIALS } from "./dress.mjs";
 import { tile, label, render } from "../render.mjs";
 import { png, unpicture } from "../image.mjs";
 import { materialOf, surfacePicture, MATERIALS, UNWORN } from "./paint.mjs";
@@ -46,7 +47,7 @@ const MAP_SIZE_ERROR = 0.25;
 const TOP = ["spec", "name", "size", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "replace", "sounds", "fgd", "wads", "compile", "detail", "note", "ladders", "fidelity", "music", "floorplan", "frame", "lighting", "focus"];
 /** A ladder's depth off its wall, and its width unless told: Valve's frenzy's are 32 wide. */
 const LADDER = { depth: 6, width: 32 };
-const ROOM = ["id", "size", "at", "place", "floor", "sky", "surfaces", "light", "water", "test", "building", "dark", "note", "frame"];
+const ROOM = ["id", "size", "at", "place", "floor", "sky", "surfaces", "light", "water", "test", "building", "dark", "note", "frame", "use"];
 const LINK = ["between", "kind", "width", "height", "along", "sill", "stairs", "door", "glass", "side", "material", "note"];
 const PLACES = ["east_of", "west_of", "north_of", "south_of", "above", "below", "in"];
 const LINK_KINDS = ["door", "opening", "window", "stairs"];
@@ -706,9 +707,18 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       FRAME_NUMBERS.includes(key) ? (typeof value === "number" && value >= 0 ? [] : [`${at}.${key}: a number of units, 0 or more (0: none)`])
         : ["rib", "beam"].includes(key) ? (Array.isArray(value) && value.length === 2 && value.every((v) => typeof v === "number" && v > 0) ? [] : [`${at}.${key}: [wide, deep] in units`])
           : ["fixtures", "bands"].includes(key) ? (typeof value === "boolean" ? [] : [`${at}.${key}: true or false`])
-            : [`${at}.${key}: not a word of a frame (${[...FRAME_NUMBERS, "rib", "beam", "fixtures", "bands"].join(", ")})`],
+            : key === "breaks" ? breakFaults(value, `${at}.breaks`)
+              : [`${at}.${key}: not a word of a frame (${[...FRAME_NUMBERS, "rib", "beam", "fixtures", "bands", "breaks"].join(", ")})`],
     );
   };
+  // the silhouette's breaks (src/spec/dress.mjs): true, or its words over BREAKS
+  const breakFaults = (value, at) => {
+    if (typeof value === "boolean") return [];
+    if (!value || typeof value !== "object") return [`${at}: true, false, or { ${BREAK_WORDS.join(", ")} }`];
+    return Object.entries(value).flatMap(([key, v]) => (!BREAK_WORDS.includes(key) ? [`${at}.${key}: not a word of breaks (${BREAK_WORDS.join(", ")})`] : ["pillar", "cove", "pipe"].includes(key) ? (typeof v === "number" && v > 0 ? [] : [`${at}.${key}: a size in units, over 0`]) : typeof v === "boolean" ? [] : [`${at}.${key}: true or false`]));
+  };
+  for (const [k, room] of (spec.rooms ?? []).entries())
+    if (room?.use !== undefined && !USE_WORDS.includes(room.use)) errors.push(`rooms[${k}].use: what the room is for, dressed by it: ${USE_WORDS.join(", ")}`);
   errors.push(...frameFaults(spec.frame, "frame"), ...(spec.rooms ?? []).flatMap((room, k) => frameFaults(room?.frame, `rooms[${k}].frame`)));
   if (spec.lighting !== undefined && typeof spec.lighting !== "boolean") {
     if (!spec.lighting || typeof spec.lighting !== "object") errors.push(`lighting: true, false, or { ${[...COMPOSED_NUMBERS, "goalRoom"].join(", ")} }`);
@@ -778,6 +788,10 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   // ── textures: the theme's and every other the spec names, each made a picture of its own ──
   const theme = { floor: "stone", wall: "plaster", ceiling: "planks", door: "door", furniture: "darkwood", outside: "siding", roof: "shingles", trim: "darkwood", ...(spec.theme ?? {}) };
   const materials = { ...theme, ...(spec.textures ?? {}) };
+  // the words a silhouette's breaks and a room's dressing wear (src/spec/dress.mjs), where a spec asks for either:
+  // its own when it gives them, else these bases, each a texture of its own
+  const breaking = [spec.frame, ...(spec.rooms ?? []).map((room) => room?.frame)].some((f) => f && typeof f === "object" && f.breaks);
+  if (breaking || (spec.rooms ?? []).some((room) => room?.use)) for (const [word, base] of Object.entries(DRESS_MATERIALS)) materials[word] ??= base;
   // a framed room's lamp fixture: warm glass that glows and lights as a texture light, unless the spec names one
   materials.fixture ??= { base: "glass", tone: [1, 0.93, 0.78], flags: ["fullbright"] };
   const used = new Map();
@@ -1450,6 +1464,12 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         framing.push(prism("z", outline, z0, z1, trimOf("frame")));
         framedCount.corners++;
       }
+    // the silhouette broken (frame.breaks): round pillars in its corners, coves under its ceiling, a pipe run
+    if (f.breaks && wide) {
+      const broken = breaksOf(room, f.breaks, { kept, chamfer: c, beamDeep: f.beams > 0 ? f.beam[1] : 0, textureOf: (word) => (word === "pipe" ? textureOf("pipe") : trimOf("frame")) });
+      framing.push(...broken.brushes);
+      for (const [k, n] of Object.entries(broken.counts)) framedCount[k] = (framedCount[k] ?? 0) + n;
+    }
   }
   // a frame round each way through a framed room: jambs either side and a lintel over, `proud` off each face
   for (const way of frameWays) {
@@ -1627,7 +1647,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     });
 
   // furniture: brush prefabs, or plain boxes
-  const prefabs = spec.prefabs ?? {};
+  const prefabs = { ...(spec.prefabs ?? {}) };
   // a texture a prefab's .map names, as the word of the spec it was made from: SM_FURNITURE is "furniture"
   const wordOfTexture = new Map([...Object.keys(materials), ...Object.keys(MATERIALS)].flatMap((word) => [[textureName(word), word], [textureName(word, false, true), word]]));
   // a prefab's brushes go into the world, or into a brush entity when it says so (a crate that breaks, a
@@ -1715,10 +1735,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   const furniturePieces = [];
   /** what stands in each room (props, prefabs): where to look at it from */
   const propsAt = [];
-  place(
-    spec.furniture,
-    "furniture",
-    (thing, room, at, i) => {
+  const putFurniture = (thing, room, at, i) => {
       const prefab = prefabOf(thing);
       // a texture with holes ({: a mesh, a fence, or a game's grate) has them only on a brush entity in render mode 4
       const holed = (prefab.pieces ?? []).some((piece) => textureOf(piece.texture ?? "furniture").startsWith("{"));
@@ -1732,9 +1749,23 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       if (thing.prefab) propsAt.push({ room: room.id, at, half: 32 });
       const heights = prefabHeights(prefab);
       furniturePieces.push({ name: `furniture[${i}] (${thing.prefab ?? "box"})`, room, min: [at[0] + own.min[0], at[1] + own.min[1], at[2] + Math.min(...heights.map((h) => h[0]))], max: [at[0] + own.max[0], at[1] + own.max[1], at[2] + Math.max(...heights.map((h) => h[1]))] });
-    },
-    (thing) => turnedPrint(prefabPrint(prefabOf(thing)), 90 * Math.round((thing.rotate ?? 0) / 90)),
-  );
+    };
+  const furniturePrint = (thing) => turnedPrint(prefabPrint(prefabOf(thing)), 90 * Math.round((thing.rotate ?? 0) / 90));
+  place(spec.furniture, "furniture", putFurniture, furniturePrint);
+  // a room dressed for its use (src/spec/dress.mjs): its pieces placed clear of every way, of the landmark and of
+  // what the spec put there, as the spec's own furniture is
+  if ((spec.rooms ?? []).some((room) => room?.use)) {
+    const dressed = dressRooms({
+      rooms: [...rooms.values()].filter((room) => !room.sliver).map((room) => ({ id: room.id, min: room.min, max: room.max, spec: room.spec })),
+      ways,
+      taken: furniturePieces.map((p) => ({ min: [p.min[0], p.min[1]], max: [p.max[0], p.max[1]] })),
+      seed: [...String(spec.name ?? "map")].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) >>> 0, 7),
+    });
+    Object.assign(prefabs, dressed.prefabs);
+    const before = (spec.furniture ?? []).length;
+    place(dressed.furniture, "dressing", (thing, room, at, i) => putFurniture(thing, room, at, before + i), furniturePrint);
+    report.facts.push(`dressed by use: ${dressed.facts.join("; ")}`);
+  }
   // ladders, as Valve's maps make them: a func_ladder to climb (the game draws it not) and over it the rungs a
   // player sees, a func_wall in render mode 4 wearing a texture with holes ({LADDER1 when the game's .wad is
   // there): a ladder in a texture without holes reads as a vent (Steven's play-test of frenzy_pictures)

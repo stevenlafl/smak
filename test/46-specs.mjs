@@ -540,6 +540,33 @@ test("composed light: a lamp in each rhythm dimmed with its fixture, pooling und
   sure(buildMapSpec({ ...spec({ goalRoom: "attic" }), name: "composed_bad" }, { out: join(folder, "composed_bad"), compilers: { found: false, message: "" } }).report.errors.some((e) => /lighting\.goalRoom: a room's id/.test(e)), "a goal that is no room refused");
 });
 
+test("a room's silhouette broken and its floor dressed for its use: off the axes, clear of its ways, varied, still walked", () => {
+  const spec = (frame, use) => ({ spec: "smak.map/1", name: "dressed", frame, rooms: [{ id: "hall", size: [640, 512, 256], ...(use ? { use } : {}) }, { id: "side", size: [256, 96, 128], place: { east_of: "hall" } }], links: [{ between: ["hall", "side"], kind: "door" }], entities: [{ class: "info_player_start", room: "hall", at: [-220, 0] }, { class: "item_battery", room: "side", at: [80, 0] }] });
+  const build = (frame, use, name) => buildMapSpec({ ...spec(frame, use), name }, { out: join(folder, name), compilers: { found: false, message: "" } });
+  const plain = build({ bands: true }, undefined, "dress_off");
+  const done = build({ bands: true, breaks: true }, "storage", "dress_on");
+  const faults = done.report.faults.filter((f) => !/^not compiled/.test(f));
+  sure(done.report.errors.length === 0 && faults.length === 0, [...done.report.errors, ...faults].join(" | "));
+  // pillars in the corners (the room's corners are cut by the frame unless chamfer 0: none then), coves, a pipe run
+  const said = done.report.facts.find((f) => /^frame: \d+ brushes/.test(f)) ?? "";
+  sure(/coves/.test(said) && /pipes/.test(said), said);
+  const off = (built) => smak.maps.readMap(readFileSync(built.files.map, "utf8")).entities.filter((e) => e.classname === "func_detail").flatMap((e) => e.brushes).filter((b) => smak.maps.shapeOf(b).corners.length !== 8).length;
+  sure(off(done) > off(plain) + 4, `more brushes off the axes: ${off(plain)} unbroken, ${off(done)} broken`);
+  const pillared = build({ chamfer: 0, breaks: { coves: false, pipes: false } }, undefined, "dress_pillars");
+  sure(/4 pillars/.test(pillared.report.facts.find((f) => /^frame: \d+ brushes/.test(f)) ?? ""), pillared.report.facts.filter((f) => /^frame/.test(f)).join(" | "));
+  // the storage room dressed: crates and shelves at its walls and in its corners, no piece more than twice
+  const dressed = done.report.facts.find((f) => /^dressed by use: hall \(storage\): \d+ pieces/.test(f)) ?? done.report.facts.join(" | ");
+  sure(/crate/.test(dressed) && !/\b[3-9] dress_/.test(dressed), dressed);
+  const pieces = done.report.placed.filter((p) => p.what === "dressing");
+  sure(pieces.length >= 3 && pieces.every((p) => p.room === "hall"), JSON.stringify(pieces));
+  // nothing in front of the door, and the way still walked
+  sure(!done.report.faults.some((f) => /in front of|blocks/.test(f)) && smak.maps.reachOf(smak.maps.readMap(readFileSync(done.files.map, "utf8"))).entities.find((e) => e.classname === "item_battery")?.reached, "the way through still walked");
+  // the default is undressed; a use or a break that is no word is refused
+  sure(!plain.report.facts.some((f) => /dressed by use/.test(f)), "unasked, no dressing");
+  sure(build(true, "kitchenette", "dress_bad").report.errors.some((e) => /rooms\[0\]\.use: what the room is for, dressed by it: storage, lab/.test(e)), "a wrong use refused");
+  sure(build({ breaks: { arches: true } }, undefined, "breaks_bad").report.errors.some((e) => /frame\.breaks\.arches: not a word of breaks/.test(e)), "a wrong break refused");
+});
+
 test("a map's focus: a landmark in its main room, on a plinth, lit, seen from each way in; one hidden is told", () => {
   const spec = (more = {}) => ({
     spec: "smak.map/1", name: "focus", lighting: true,
