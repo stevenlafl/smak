@@ -34,8 +34,8 @@ export const VALVE_DRESSING = {
     lampFaces: { least: 0, q1: 3.154, median: 5, q3: 17.167, most: 101.143 },
     nonAxial: { least: 0.072, q1: 0.122, median: 0.215, q3: 0.404, most: 0.598 },
     detail: { least: 2.33, q1: 5.96, median: 10.657, q3: 15.011, most: 23.045 },
-    darkFloor: { least: 0.046, q1: 0.105, median: 0.181, q3: 0.299, most: 0.601 },
-    contrast: { least: 2.756, q1: 4.955, median: 8.205, q3: 24.806, most: 94.135 },
+    darkFloor: { least: 0.061, q1: 0.128, median: 0.211, q3: 0.317, most: 0.601 },
+    contrast: { least: 3.582, q1: 6.179, median: 12.917, q3: 55.667, most: 152 },
     panels: { least: 0.285, median: 0.39, most: 0.499 },
     strips: { least: 0.113, median: 0.153, most: 0.194 },
     litBrushes: { least: 0.107, median: 0.154, most: 0.206 },
@@ -168,14 +168,19 @@ function facesOfBsp(bsp) {
   return out;
 }
 
-/** How bright a face's light is: its steady light's mean over its samples (0 to 255), or null. */
-function brightnessOf(bsp, face) {
+/**
+ * A face's steady light sample by sample: [[brightness 0 to 255, area]], each sample its share of the face's area.
+ * By sample, not by face: a large floor face's mean evened out the pools under its lamps and the dark between
+ * them, so a map of few large faces read as evenly lit however its lamps were composed (2026-10-17).
+ */
+function samplesOf(bsp, face, area) {
   const light = faceLightmap(bsp, face);
   const steady = light?.styles.find((s) => s.style === 0) ?? light?.styles[0];
-  if (!steady) return null;
-  let sum = 0;
-  for (let i = 0; i < steady.rgb.length; i++) sum += steady.rgb[i];
-  return sum / steady.rgb.length;
+  if (!steady) return [];
+  const n = steady.rgb.length / 3;
+  const out = [];
+  for (let i = 0; i < n; i++) out.push([(steady.rgb[i * 3] + steady.rgb[i * 3 + 1] + steady.rgb[i * 3 + 2]) / 3, area / n]);
+  return out;
 }
 
 /**
@@ -240,9 +245,9 @@ export function measureDressing(bsp, { source = null, views = null } = {}) {
   let lampFaces = 0;
   for (let m = 0; m < bsp.models.length; m++) for (const face of modelFaces(bsp, m)) if (isLamp(faceTexture(bsp, face)?.name ?? "")) lampFaces++;
   const lights = bsp.entities.filter((e) => /^light(_spot)?$/.test(Object.fromEntries(e).classname ?? "")).length;
-  // floor light, by area
+  // floor light, sample by sample, each by its area
   const lit = bsp.lumps.lighting.length > 0;
-  const bright = lit ? floors.map((f) => [brightnessOf(bsp, f.face), f.area]).filter(([b]) => b !== null) : [];
+  const bright = lit ? floors.flatMap((f) => samplesOf(bsp, f.face, f.area)) : [];
   const lightArea = bright.reduce((s, [, a]) => s + a, 0);
   const measures = {
     scaleOne: textured.length ? atOne.length / textured.length : null,

@@ -26,6 +26,7 @@ import { PRECACHES_MODEL } from "../maps/entities.mjs";
 import { sweepOf, SAFE_DROP, LIGHT_REACH } from "../maps/sweep.mjs";
 import { planOfSource, planOf, drawMap, sectionOf, viewsOf, aimedStands } from "../maps/draw.mjs";
 import { dressingOf } from "../maps/dressing.mjs";
+import { familyOf } from "../maps/families.mjs";
 import { tile, label, render } from "../render.mjs";
 import { png, unpicture } from "../image.mjs";
 import { materialOf, surfacePicture, MATERIALS, UNWORN } from "./paint.mjs";
@@ -40,7 +41,7 @@ export const MAP_SPEC = "smak.map/1";
 const MAP_SIZE_WARN = 0.1;
 const MAP_SIZE_ERROR = 0.25;
 
-const TOP = ["spec", "name", "size", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "replace", "sounds", "fgd", "wads", "compile", "detail", "note", "ladders", "fidelity", "music", "floorplan", "frame"];
+const TOP = ["spec", "name", "size", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "replace", "sounds", "fgd", "wads", "compile", "detail", "note", "ladders", "fidelity", "music", "floorplan", "frame", "lighting"];
 /** A ladder's depth off its wall, and its width unless told: Valve's frenzy's are 32 wide. */
 const LADDER = { depth: 6, width: 32 };
 const ROOM = ["id", "size", "at", "place", "floor", "sky", "surfaces", "light", "water", "test", "building", "dark", "note", "frame"];
@@ -109,7 +110,28 @@ const TRIM = { base: 6, baseDeep: 1.5, casing: 3, proud: 1, sill: 3 };
  * rooms' 6 and none (research/map-geometry.md); the judges docked bare boxes, lights in the air and walls of one
  * texture tiled three times up (the original mod's maps, 2026-10-17). All of it func_detail: it cuts no portal.
  */
-const FRAME = { dado: 48, cornice: 24, proud: 2, ribs: 224, rib: [16, 8], beams: 192, beam: [16, 16], chamfer: 24, jamb: 8, fixtures: true, fill: 0 };
+const FRAME = { dado: 48, cornice: 24, proud: 2, ribs: 224, rib: [16, 8], beams: 192, beam: [16, 16], chamfer: 24, jamb: 8, fixtures: true, fill: 0, bands: false };
+/**
+ * A framed room's walls banded on their own faces (`frame.bands: true`), as Valve bands its own: the wall split up
+ * its height into a base band to `dado`, the field, and an upper band from the head of the room's highest way (a
+ * door's: Valve's joins sit a median 124 over a wall's foot, quartiles 48 to 176, research/level-dressing.md 2.3)
+ * to the ceiling, in a room this tall or taller. The bands are the rock's own faces, cut where they join, each
+ * texture standing on its band's foot: a join on the wall's plane, which a strip stood off it is not.
+ */
+const BAND_ROOM_LEAST = 128;
+/**
+ * Light composed, not spread (`lighting: true`, or these over them): a lamp in each `rhythm` along a room's run
+ * dimmed to `dim` of its brightness, the `goal` room's lamps `goal` times brighter (`goalRoom` names it), a weak
+ * light of `spill` in each way through so light spills from a doorway, and each lamp's light falling off `fade`
+ * times sooner (hlrad's `_fade`), so it pools under its lamp and leaves dark between. Valve's maps: a floor's dark
+ * share 5 to 60 in 100 (median 18) and its light's contrast 2.8 to 94 (median 8.2), where the kit's lamps, spread
+ * even, left 0 to 4 and 2.2 to 2.5 (src/maps/dressing.mjs; research/level-dressing.md 2.2: darkness on purpose,
+ * not every lamp on, the goal brightest, spill from doorways).
+ */
+const COMPOSED = { rhythm: 3, dim: 0.2, goal: 1.6, goalRoom: null, spill: 50, fade: 2.5, bounce: 2 };
+const COMPOSED_NUMBERS = ["rhythm", "dim", "goal", "spill", "fade", "bounce"];
+const BAND_HEAD = 112;
+const BAND_UPPER_LEAST = 32;
 const FRAME_NUMBERS = ["dado", "cornice", "proud", "ribs", "beams", "chamfer", "jamb", "fill"];
 /** A room under this across has no ribs, beams or cut corners: a corridor keeps its width */
 const FRAME_ROOM_LEAST = 128;
@@ -673,15 +695,28 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   if (spec.fidelity !== undefined && !["game", "high"].includes(spec.fidelity)) errors.push('fidelity: "game" or "high"');
   const frameFaults = (given, at) => {
     if (given === undefined || typeof given === "boolean") return [];
-    if (!given || typeof given !== "object") return [`${at}: true, false, or { ${[...FRAME_NUMBERS, "rib", "beam", "fixtures"].join(", ")} }`];
+    if (!given || typeof given !== "object") return [`${at}: true, false, or { ${[...FRAME_NUMBERS, "rib", "beam", "fixtures", "bands"].join(", ")} }`];
     return Object.entries(given).flatMap(([key, value]) =>
       FRAME_NUMBERS.includes(key) ? (typeof value === "number" && value >= 0 ? [] : [`${at}.${key}: a number of units, 0 or more (0: none)`])
         : ["rib", "beam"].includes(key) ? (Array.isArray(value) && value.length === 2 && value.every((v) => typeof v === "number" && v > 0) ? [] : [`${at}.${key}: [wide, deep] in units`])
-          : key === "fixtures" ? (typeof value === "boolean" ? [] : [`${at}.fixtures: true or false`])
-            : [`${at}.${key}: not a word of a frame (${[...FRAME_NUMBERS, "rib", "beam", "fixtures"].join(", ")})`],
+          : ["fixtures", "bands"].includes(key) ? (typeof value === "boolean" ? [] : [`${at}.${key}: true or false`])
+            : [`${at}.${key}: not a word of a frame (${[...FRAME_NUMBERS, "rib", "beam", "fixtures", "bands"].join(", ")})`],
     );
   };
   errors.push(...frameFaults(spec.frame, "frame"), ...(spec.rooms ?? []).flatMap((room, k) => frameFaults(room?.frame, `rooms[${k}].frame`)));
+  if (spec.lighting !== undefined && typeof spec.lighting !== "boolean") {
+    if (!spec.lighting || typeof spec.lighting !== "object") errors.push(`lighting: true, false, or { ${[...COMPOSED_NUMBERS, "goalRoom"].join(", ")} }`);
+    else
+      for (const [key, value] of Object.entries(spec.lighting)) {
+        if (COMPOSED_NUMBERS.includes(key)) {
+          if (!(typeof value === "number" && value >= 0)) errors.push(`lighting.${key}: a number, 0 or more`);
+        } else if (key === "goalRoom") {
+          if (!(spec.rooms ?? []).some((room) => room?.id === value)) errors.push(`lighting.goalRoom: a room's id, not ${JSON.stringify(value)}`);
+        } else errors.push(`lighting.${key}: not a word of lighting (${[...COMPOSED_NUMBERS, "goalRoom"].join(", ")})`);
+      }
+  }
+  /** the map's light composed (COMPOSED, the spec's over it), or null */
+  const composed = spec.lighting ? { ...COMPOSED, ...(typeof spec.lighting === "object" ? spec.lighting : {}) } : null;
   /** a room's framing, or null: its own `frame` over the map's, over FRAME */
   const frameOf = (room) => {
     const own = room.spec.frame;
@@ -1123,6 +1158,57 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     }
   });
 
+  // ── a framed room's walls banded on their own faces (frame.bands): base, field and upper, each its texture ──
+  // the spec's own `dado` and `upper` first; else a game's wall texture takes its family's (WALL_FAMILIES: what
+  // Valve stacks under and over it, at the heights it does) where the .wad files given have it; else a wall of a
+  // .wad's texture its `trim` at its foot; else the wall's own material darker at its foot, lighter over a door's
+  // head
+  // a game's texture a band wears is one the map uses: it goes in the map's .wad list as a named one does
+  const gameName = (name) => {
+    const found = catalog.find((t) => t.name.toUpperCase() === String(name).toUpperCase());
+    if (found) gameTextures.set(found.name, found.file);
+    return found?.name ?? null;
+  };
+  const ownTrimBand = spec.theme?.trim !== undefined || spec.textures?.trim !== undefined;
+  const shade = (word, k, as) => {
+    if (materials[as] !== undefined) return textureOf(as);
+    let material = materials[word] ?? word;
+    while (typeof material === "string" && materials[material] !== undefined && materials[material] !== material) material = materials[material];
+    if (material && typeof material === "object" && (material.texture || material.pick)) return as === "dado" && ownTrimBand ? textureOf("trim") : null;
+    const own = materialOf(material, `band ${as}`);
+    materials[`${word}_${as}`] ??= { ...(typeof material === "object" ? material : {}), base: typeof material === "string" ? material : material.base, tone: own.tone.map((v) => Math.min(1, v * k)) };
+    return textureOf(`${word}_${as}`);
+  };
+  const bandsDone = new Map();
+  /** a room's bands, [{ z0, z1, wall }] foot to head, or null: its framing asks for them and it is tall enough */
+  const bandsOf = (room) => {
+    if (bandsDone.has(room.id)) return bandsDone.get(room.id);
+    const f = frameOf(room);
+    let bands = null;
+    const [z0, z1] = [room.min[2], room.max[2]];
+    if (f?.bands && !room.spec.sky && z1 - z0 >= BAND_ROOM_LEAST) {
+      const word = room.spec.surfaces?.walls ?? "wall";
+      const field = textureOf(word);
+      const family = gameName(field) ? familyOf(field) : null;
+      const given = (as) => (materials[as] !== undefined ? textureOf(as) : null);
+      const under = given("dado") ?? (family?.under && gameName(family.under) ? gameName(family.under) : shade(word, 0.62, "dado"));
+      const over = given("upper") ?? (family?.over && gameName(family.over) ? gameName(family.over) : family ? null : shade(word, 1.15, "upper"));
+      // the upper band from the head of the room's highest way through its walls (a door's), else a door's height
+      const ways = holes.filter((hole) => [0, 1].some((k) => Math.abs(hole.max[k] - room.min[k]) < 1 || Math.abs(hole.min[k] - room.max[k]) < 1) && hole.min[2] < z1 && hole.max[2] > z0);
+      const head = family?.overAt ? z0 + family.overAt : Math.max(z0 + BAND_HEAD, ...ways.map((hole) => Math.min(hole.max[2], z1)));
+      const foot = z0 + (family?.underAt && family.underAt < head - z0 ? family.underAt : f.dado);
+      bands = [];
+      if (under && foot - z0 >= 8) bands.push({ z0, z1: foot, wall: under });
+      const top = over && z1 - head >= BAND_UPPER_LEAST ? head : z1;
+      bands.push({ z0: bands.length ? foot : z0, z1: top, wall: field });
+      if (top < z1) bands.push({ z0: top, z1, wall: over });
+      if (bands.length === 1) bands = null;
+    }
+    bandsDone.set(room.id, bands);
+    return bands;
+  };
+  const bandedCount = { rooms: 0, joins: 0 };
+
   // ── rooms: carved in one block, lined where they wear another texture ──
   // A floor, a ceiling or walls of its own are a lining: the room is carved `lining` further that way, and a
   // slab of the other texture fills what was carved, so its face is where the room's was. A way through it
@@ -1161,10 +1247,23 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         pieces = [{ min: [room.min[0], room.min[1], z[0]], max: [room.max[0], room.max[1], z[1]] }];
       }
       for (const hole of holes) pieces = pieces.flatMap((piece) => subtract(piece, hole));
-      // a lined wall's picture stands on its room's floor, as the rock's does (source.mjs onFloor)
-      const walls = face === "walls" ? { east: onFloor(textureOf(word), room.min[2], room.min[1]), west: onFloor(textureOf(word), room.min[2], room.min[1]), north: onFloor(textureOf(word), room.min[2], room.min[0]), south: onFloor(textureOf(word), room.min[2], room.min[0]) } : null;
-      const texture = walls ? { top: textureOf(word), bottom: textureOf(word), sides: textureOf(word), ...walls } : textureOf(word);
-      linings.push(...pieces.map((piece) => box(piece.min, piece.max, texture)));
+      // a banded room's lined walls: each slab cut at its bands' edges, each slice wearing its band
+      const banded = face === "walls" ? bandsOf(room) : null;
+      if (banded) pieces = pieces.flatMap((piece) => banded.map((b) => ({ min: [piece.min[0], piece.min[1], Math.max(piece.min[2], b.z0)], max: [piece.max[0], piece.max[1], Math.min(piece.max[2], b.z1)], band: b })).filter((p) => p.max[2] - p.min[2] > 0.5));
+      // a lined wall's picture stands on its room's floor (or its band's foot), as the rock's does (source.mjs onFloor)
+      const textureFor = (piece) => {
+        const name = piece.band?.wall ?? textureOf(word);
+        const z = piece.band?.z0 ?? room.min[2];
+        const walls = face === "walls" ? { east: onFloor(name, z, room.min[1]), west: onFloor(name, z, room.min[1]), north: onFloor(name, z, room.min[0]), south: onFloor(name, z, room.min[0]) } : null;
+        return walls ? { top: name, bottom: name, sides: name, ...walls } : name;
+      };
+      linings.push(...pieces.map((piece) => box(piece.min, piece.max, textureFor(piece))));
+    }
+    const bands = bandsOf(room);
+    if (bands) {
+      bandedCount.rooms++;
+      bandedCount.joins += bands.length - 1;
+      if (!surfaces.walls) carved.bands = bands;
     }
     boxes.push(carved);
     // water: a liquid brush over the room's floor, `depth` deep (it seals nothing, and is swum in)
@@ -1292,7 +1391,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     const c = wide && f.chamfer > 0 && Math.min(x1 - x0, y1 - y0) >= 4 * f.chamfer ? f.chamfer : 0;
     for (const wall of walls) {
       // the bands, broken where a way and its frame go through
-      for (const [zlo, zhi, word] of [[z0, z0 + f.dado, "dado"], [z1 - f.cornice, z1, "cornice"]]) {
+      for (const [zlo, zhi, word] of bandsOf(room) ? [] : [[z0, z0 + f.dado, "dado"], [z1 - f.cornice, z1, "cornice"]]) {
         if (!(zhi - zlo > 0.5) || zhi - zlo >= (z1 - z0) / 2) continue;
         let strips = [slab(wall, wall.a0 + c, wall.a1 - c, zlo, zhi, f.proud)];
         for (const cut of clear) strips = strips.flatMap((strip) => subtract(strip, cut));
@@ -1309,7 +1408,12 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
           const mid = wall.a0 + (length * k) / n;
           const rib = slab(wall, mid - f.rib[0] / 2, mid + f.rib[0] / 2, z0, z1, f.rib[1]);
           if (!kept(rib)) continue;
-          framing.push(box(rib.min, rib.max, trimOf("frame")));
+          // in a banded room the rib stands on the wall's base band, as Valve's pilasters stand on their skirting
+          const foot = bandsOf(room)?.[0];
+          if (foot && foot.wall !== bandsOf(room)[1].wall && foot.z1 - rib.min[2] > 0.5) {
+            framing.push(box(rib.min, [rib.max[0], rib.max[1], foot.z1], foot.wall));
+            framing.push(box([rib.min[0], rib.min[1], foot.z1], rib.max, trimOf("frame")));
+          } else framing.push(box(rib.min, rib.max, trimOf("frame")));
           framedCount.ribs++;
         }
       }
@@ -1364,6 +1468,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       if (kind === "window") piece(w0 - f.jamb, w1 + f.jamb, zb - f.jamb, zb);
     }
   }
+  if (bandedCount.rooms) report.facts.push(`frame: the walls of ${bandedCount.rooms} rooms banded on their own faces, ${bandedCount.joins} joins in all (${[...bandsDone].filter(([, b]) => b).slice(0, 4).map(([id, b]) => `${id}: ${b.map((band) => `${band.wall} to ${Math.round(band.z1 - b[0].z0)}`).join(", ")}`).join("; ")})`);
   if (framing.length) {
     entities.push(brushEntity("func_detail", framing, {}));
     report.facts.push(`frame: ${framing.length} brushes (${Object.entries(framedCount).filter(([, n]) => n).map(([k, n]) => `${n} ${k}`).join(", ")}) in ${[...rooms.values()].filter(frameOf).length} rooms`);
@@ -1805,20 +1910,30 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   // in a framed room with fixtures, a light under the ceiling is in a panel of glass that glows (a texture light, as
   // Valve lights its rooms), and a hung lamp's shade glows: a light with nothing about it read as "lights in the air"
   let fixtures = 0;
-  const hang = (room, [x, y, z]) => {
+  // composed light: a dimmed lamp's fixture glows dim too (its own glass, a fifth of the glow): a texture light
+  // at full glow over every lamp lit the floor even whatever the lamps' own light did
+  const fixtureOf = (dim) => {
+    if (!dim) return textureOf("fixture");
+    const glass = materialOf(materials.fixture, "fixture");
+    materials.fixture_dim ??= { ...(typeof materials.fixture === "object" ? materials.fixture : {}), base: glass.base ?? "glass", tone: glass.tone.map((v) => v * 0.6), flags: ["fullbright"], glow: Math.round((materials.fixture?.glow ?? GLOW) / 5) };
+    return textureOf("fixture_dim");
+  };
+  const hang = (room, [x, y, z], { dim = false } = {}) => {
     const lit = frameOf(room)?.fixtures && !room.spec.sky;
     if (lit && room.max[2] - z <= LAMP_UNDER + 8) {
       fixtures++;
-      entities.push(brushEntity("func_detail", [box([x - 16, y - 8, room.max[2] - 2], [x + 16, y + 8, room.max[2]], textureOf("fixture"))], {}));
+      entities.push(brushEntity("func_detail", [box([x - 16, y - 8, room.max[2] - 2], [x + 16, y + 8, room.max[2]], fixtureOf(dim))], {}));
       return;
     }
     if (room.max[2] - z <= LAMP_UNDER + 8 || room.spec.sky) return;
     if (lit) fixtures++;
-    const shade = box([x - 6, y - 6, z + 4], [x + 6, y + 6, z + 8], textureOf(lit ? "fixture" : "furniture"));
+    const shade = box([x - 6, y - 6, z + 4], [x + 6, y + 6, z + 8], lit ? fixtureOf(dim) : textureOf("furniture"));
     const rod = box([x - 1, y - 1, z + 8], [x + 1, y + 1, room.max[2]], textureOf("furniture"));
     entities.push(brushEntity("func_detail", [shade, rod], {}));
   };
   // the entities
+  const entityLamps = new Map();
+  const entityDimmed = { count: 0 };
   place(spec.entities, "entities", (thing, room, at) => {
     const yaw = yawOf(room, thing.facing, at);
     const keys = { ...(thing.keys ?? {}) };
@@ -1836,8 +1951,27 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         report.faults.push(`entities: ${thing.class} at ${p.map(Math.round).join(" ")} in ${room.id} hangs in the air, ${Math.round(Math.min(toRoom, toPiece))} from anything: put it on the lamp or the wall it shines from`);
       entities.push(pointEntity(thing.class, p, { angles: [0, yaw, 0], ...keys }));
     } else if (thing.class === "light") {
+      // composed: the spec's own lamps as the rooms' (a lamp in each `rhythm` of a room dimmed, the goal's brighter)
+      let dimmedLamp = false;
+      if (composed) {
+        const n = (entityLamps.get(room.id) ?? 0) + 1;
+        entityLamps.set(room.id, n);
+        const given = keys._light === undefined ? null : (Array.isArray(keys._light) ? keys._light : String(keys._light).trim().split(/\s+/)).map(Number);
+        const lit = Number(keys.brightness ?? given?.[3] ?? LAMP_BRIGHTNESS);
+        let brightness = lit;
+        if (composed.rhythm >= 2 && n % composed.rhythm === 0) (brightness *= composed.dim), entityDimmed.count++, (dimmedLamp = true);
+        if (composed.goalRoom === room.id) brightness *= composed.goal;
+        if (brightness !== lit) {
+          // a lamp given as `_light` "r g b brightness" keeps its colour: the brightness is changed in it
+          if (keys._light !== undefined) {
+            const parts = (Array.isArray(keys._light) ? keys._light : String(keys._light).trim().split(/\s+/)).map(Number);
+            keys._light = [...parts.slice(0, 3), Math.round(brightness)];
+          } else keys.brightness = Math.round(brightness);
+        }
+        if (composed.fade > 0 && keys._fade === undefined) keys._fade = composed.fade;
+      }
       entities.push(light([at[0], at[1], at[2] + (thing.height ?? 96)], keys));
-      hang(room, [at[0], at[1], at[2] + (thing.height ?? 96)]);
+      hang(room, [at[0], at[1], at[2] + (thing.height ?? 96)], { dim: dimmedLamp });
     }
     else entities.push(pointEntity(thing.class, at, { angles: [0, yaw, 0], ...keys }));
   });
@@ -1898,6 +2032,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
 
   // light: each room that asks lamps by its floor's area, a sun for rooms under the sky
   let sunny = false;
+  const composedCount = { dimmed: 0, spills: 0 };
   for (const room of rooms.values()) {
     const asked = room.spec.light ?? (room.spec.sky ? "none" : "auto");
     if (room.spec.sky) sunny = true;
@@ -1916,14 +2051,33 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       const over = flights.filter((f) => cx + 6 > f.min[0] && cx - 6 < f.max[0] && cy + 6 > f.min[1] && cy - 6 < f.max[1] && f.top > room.min[2]);
       const clear = Math.max(room.min[2] + LAMP_HIGHEST, ...over.map((f) => f.top + PLAYER.high - 4));
       const lampZ = Math.min(room.max[2] - LAMP_UNDER, clear);
-      entities.push(light([Math.round(cx), Math.round(cy), lampZ], { brightness: options.brightness ?? LAMP_BRIGHTNESS, color: options.color ?? [255, 240, 220] }));
-      hang(room, [Math.round(cx), Math.round(cy), lampZ]);
+      // composed: a lamp in each `rhythm` dimmed, the goal room's brighter, each pooling under itself
+      let brightness = options.brightness ?? LAMP_BRIGHTNESS;
+      const keys = {};
+      let dim = false;
+      if (composed) {
+        if (composed.rhythm >= 2 && count >= 2 && i % composed.rhythm === composed.rhythm - 1) (brightness *= composed.dim), composedCount.dimmed++, (dim = true);
+        if (composed.goalRoom === room.id) brightness *= composed.goal;
+        if (composed.fade > 0) keys._fade = composed.fade;
+      }
+      entities.push(light([Math.round(cx), Math.round(cy), lampZ], { brightness: Math.round(brightness), color: options.color ?? [255, 240, 220], ...keys }));
+      hang(room, [Math.round(cx), Math.round(cy), lampZ], { dim });
     }
     // a framed room's fill: a weak light low over its floor, so that a lower floor is not left black
     const fill = frameOf(room)?.fill;
     if (fill > 0) entities.push(light([Math.round((room.min[0] + room.max[0]) / 2), Math.round((room.min[1] + room.max[1]) / 2), room.min[2] + 48], { brightness: fill, color: [200, 205, 215] }));
   }
   if (fixtures) report.facts.push(`frame: ${fixtures} lamps in fixtures that glow (a texture light each)`);
+  // composed: a weak light in each way through, under its head, so a doorway spills light into the room beyond
+  if (composed?.spill > 0)
+    for (const way of frameWays) {
+      const { hole } = way;
+      if (hole.max[2] - hole.min[2] < PASSABLE_HIGH) continue;
+      entities.push(light([Math.round((hole.min[0] + hole.max[0]) / 2), Math.round((hole.min[1] + hole.max[1]) / 2), Math.round(hole.max[2] - 12)], { brightness: composed.spill, color: [255, 236, 210], ...(composed.fade > 0 ? { _fade: composed.fade } : {}) }));
+      composedCount.spills++;
+    }
+  composedCount.dimmed += entityDimmed.count;
+  if (composed) report.facts.push(`lighting: composed: ${composedCount.dimmed} lamps dimmed to ${composed.dim} (one in ${composed.rhythm}), ${composedCount.spills} doorways spilling light, each lamp's light falling off ${composed.fade} times sooner${composed.goalRoom ? `, ${composed.goalRoom} lit ${composed.goal} times brighter` : ""}`);
   if (sunny) {
     const sky = [...rooms.values()].find((room) => room.spec.sky);
     // at night the moon, and the sky's own light (`_diffuse_light`, which the compiler takes from the sun's
@@ -2070,7 +2224,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     report.facts.push(`not compiled: ${found.message}`);
     report.faults.push("not compiled: the compilers were not found, so the leak test of the compiler and the light could not run");
   } else {
-    const result = compileMap(mapFile, { wads: [wadFile, ...gameWads], compilers: found, out: join(out, `${name}.bsp`), ...compileOptions(spec.compile) });
+    const result = compileMap(mapFile, { wads: [wadFile, ...gameWads], compilers: found, out: join(out, `${name}.bsp`), ...compileOptions(composed && spec.compile?.light?.bounce === undefined ? { ...(spec.compile ?? {}), light: { ...(spec.compile?.light ?? {}), bounce: composed.bounce } } : spec.compile) });
     const limits = Object.entries(result.limits ?? {}).filter(([n]) => ["allocblock", "worldleaves", "worldfaces", "clipnodes", "models", "planes"].includes(n));
     if (limits.length) report.facts.push(`the engine's limits: ${limits.map(([n, l]) => `${n} ${l.used} of ${l.most}`).join(", ")}`);
     warnings.push(...result.warnings.filter((w) => /near the engine's limit/.test(w)));

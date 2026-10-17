@@ -498,6 +498,48 @@ test("a map spec's frame: bands, ribs, beams, cut corners and a frame round each
   sure(buildMapSpec({ ...spec({ ribs: "many" }), name: "frame_bad" }, { out: join(folder, "frame_bad"), compilers: { found: false, message: "" } }).report.errors.some((e) => /frame\.ribs: a number of units/.test(e)), "a wrong frame word refused");
 });
 
+test("a frame's bands are on the wall's own faces: base, field and upper meeting on one plane, as Valve bands its own", () => {
+  const spec = (frame) => ({ spec: "smak.map/1", name: "banded", frame, rooms: [{ id: "hall", size: [512, 384, 256] }, { id: "side", size: [256, 96, 128], place: { east_of: "hall" } }], links: [{ between: ["hall", "side"], kind: "door" }], entities: [{ class: "info_player_start", room: "hall", at: [-150, 0] }, { class: "item_battery", room: "side", at: [80, 0] }] });
+  const built = buildMapSpec(spec({ bands: true }), { out: join(folder, "banded"), compilers: { found: false, message: "" } });
+  sure(built.report.facts.some((f) => /^frame: the walls of 2 rooms banded on their own faces, 3 joins in all \(hall: \w+_DADO to 48, \w+ to 112, \w+_UPPER to 256; side: \w+_DADO to 48, \w+ to 128\)/.test(f)), built.report.facts.filter((f) => /frame/.test(f)).join(" | "));
+  // the hall's west wall (x = its min): its face's textures, foot to head, are the three bands, on one plane
+  const map = smak.maps.readMap(readFileSync(built.files.map, "utf8"));
+  const hall = { x: -256, z0: 0, z1: 256 };
+  const faces = map.brushes.flat().flatMap((b) => {
+    const s = smak.maps.shapeOf(b);
+    return s.faces.filter((f) => f.normal && Math.abs(f.normal[0] - 1) < 1e-6 && Math.abs(s.max[0] - hall.x) < 1e-6).map((f) => ({ texture: f.texture, z0: s.min[2], z1: s.max[2] }));
+  });
+  const bands = [...new Map(faces.filter((f) => f.z0 < hall.z1 && f.z1 > hall.z0).map((f) => [`${f.z0}`, f])).values()].sort((a, b) => a.z0 - b.z0);
+  sure(bands.length === 3 && bands[0].z1 === 48 && bands[1].z1 === 112 && /dado/i.test(bands[0].texture) && /upper/i.test(bands[2].texture) && bands[0].texture !== bands[1].texture, JSON.stringify(bands));
+  // a room with walls of its own is banded in its lining: the slabs cut at the bands, each wearing its own
+  const lined = buildMapSpec({ ...spec({ bands: true }), name: "banded_lined", textures: { tile: "tile" }, rooms: [{ id: "hall", size: [512, 384, 256], surfaces: { walls: "tile" } }, { id: "side", size: [256, 96, 128], place: { east_of: "hall" } }] }, { out: join(folder, "banded_lined"), compilers: { found: false, message: "" } });
+  const lining = smak.maps.readMap(readFileSync(lined.files.map, "utf8")).brushes.flat().map((b) => smak.maps.shapeOf(b)).filter((s) => Math.abs(s.max[0] + 256) < 1e-6 && s.max[0] - s.min[0] <= 16 && s.min[2] >= -1e-6);
+  const laid = [...new Map(lining.map((s) => [s.min[2], s.faces.find((f) => f.normal?.[0] > 0.9)?.texture])).entries()].sort((a, b) => a[0] - b[0]);
+  sure(laid.length === 3 && /TILE_DADO/i.test(JSON.stringify(laid[0][1])) && /TILE_UPPER/i.test(JSON.stringify(laid[2][1])), JSON.stringify(laid));
+  // no strip stood off the wall for the dado or the cornice in a banded room; the way is still walked
+  sure(!/\d+ bands/.test(built.report.facts.find((f) => /^frame: \d+ brushes/.test(f)) ?? ""), "the proud bands are not built where the wall is banded");
+  sure(smak.maps.reachOf(map).entities.find((e) => e.classname === "item_battery")?.reached, "the way through still walked");
+  // the default frame is unbanded, and a wrong word is refused
+  sure(!buildMapSpec({ ...spec(true), name: "unbanded" }, { out: join(folder, "unbanded"), compilers: { found: false, message: "" } }).report.facts.some((f) => /banded on their own faces/.test(f)), "frame: true alone does not band");
+  sure(buildMapSpec({ ...spec({ bands: "yes" }), name: "banded_bad" }, { out: join(folder, "banded_bad"), compilers: { found: false, message: "" } }).report.errors.some((e) => /frame\.bands: true or false/.test(e)), "a wrong bands refused");
+  // the game's own families: what Valve stacks under and over its wall textures, measured from its maps
+  const family = smak.maps.familyOf("c1a0_labw5");
+  sure(family?.under === "DUCT_VNT" && family.underAt === 48 && family.over === "C1A0_LABW7C" && family.overAt === 160, JSON.stringify(family));
+});
+
+test("composed light: a lamp in each rhythm dimmed with its fixture, pooling under itself, a doorway spilling light", () => {
+  const spec = (lighting) => ({ spec: "smak.map/1", name: "composed", frame: true, lighting, rooms: [{ id: "hall", size: [768, 512, 256], light: { count: 6 } }, { id: "side", size: [256, 96, 128], place: { east_of: "hall" } }], links: [{ between: ["hall", "side"], kind: "door" }], entities: [{ class: "info_player_start", room: "hall", at: [-200, 0] }] });
+  const built = buildMapSpec(spec(true), { out: join(folder, "composed"), compilers: { found: false, message: "" } });
+  sure(built.report.facts.some((f) => /^lighting: composed: 2 lamps dimmed to 0\.2 \(one in 3\), 1 doorways spilling light, each lamp's light falling off 2\.5 times sooner/.test(f)), built.report.facts.filter((f) => /lighting/.test(f)).join(" | "));
+  const map = smak.maps.readMap(readFileSync(built.files.map, "utf8"));
+  const lights = map.entities.filter((e) => e.classname === "light");
+  sure(lights.every((e) => e._fade === "2.5") && lights.some((e) => /\s50$/.test(e._light)) && lights.some((e) => / 250$/.test(e._light)), JSON.stringify(lights.map((e) => e._light)));
+  // the dimmed lamps' fixtures glow dim: a texture light of their own
+  sure(built.report.facts.some((f) => /texture lights: .*FIXTURE_DIM/.test(f)), built.report.facts.filter((f) => /texture lights/.test(f)).join(" | "));
+  sure(!buildMapSpec({ ...spec(undefined), name: "uncomposed" }, { out: join(folder, "uncomposed"), compilers: { found: false, message: "" } }).report.facts.some((f) => /^lighting/.test(f)), "unasked, the light is as it was");
+  sure(buildMapSpec({ ...spec({ goalRoom: "attic" }), name: "composed_bad" }, { out: join(folder, "composed_bad"), compilers: { found: false, message: "" } }).report.errors.some((e) => /lighting\.goalRoom: a room's id/.test(e)), "a goal that is no room refused");
+});
+
 test("a func_detail written by the kit says its detail level: SDHLT takes one without it as world", () => {
   const piece = smak.maps.brushEntity("func_detail", [smak.maps.box([0, 0, 0], [16, 16, 16], "X")]);
   sure(piece.zhlt_detaillevel === "1", JSON.stringify(Object.keys(piece)));

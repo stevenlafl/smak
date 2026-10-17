@@ -417,8 +417,9 @@ joinHeight         median height of a join over its wall's foot                 
 lampFaces          lamp faces a light entity (light, light_spot)                      0 to 101 (5)
 nonAxial           world face area off the axes                                       7% to 60% (22%)
 detail             world planes a 256 x 256 of floor (up-facing face area)             2.3 to 23 (10.7)
-darkFloor          floor area whose steady light is under 24 of 255                   5% to 60% (18%)
-contrast           the floor light's brightest tenth over its darkest                  2.8 to 94 (8.2)
+darkFloor          floor area whose steady light is under 24 of 255, sample by         6% to 60% (21%)
+                   sample (a face's mean evens out the pools under its lamps)
+contrast           the floor light's brightest tenth over its darkest, by sample       3.6 to 152 (12.9)
 panels, strips,    the brush roles, of source                                        about 39%, 15%, 15%, 6%
 litBrushes, angled
 edges              of views' pixels on an edge (six views aimed, 320 x 240)           1.6% to 15% (4.9%)
@@ -427,8 +428,12 @@ compression        a view's PNG bytes over its raw size                         
 
 What it is worth: each measure is of the faces as the compiler left them, Valve's measured the same way from
 their compiled maps; a band at the 5th to 95th says where most of Valve's own lie, not what is good. A frame's
-bands (`frame`, docs/SPEC.md) stand 2 off the wall as brushes of their own, so they add detail and not a join
-on the wall's plane: `bandedWalls` stays at 0 for them, as Valve's banded walls are not. The original mod's
+dado and cornice (`frame`, docs/SPEC.md) stand 2 off the wall as brushes of their own, so they add detail and not
+a join on the wall's plane: `bandedWalls` stays at 0 for them. `frame.bands` bands the wall's own faces, a join on
+its plane as Valve's are (the pump hall 23 in 100 of its tall walls, the guard room 50), and `lighting` composes
+the light (the control room's dark floor 0 to 5 in 100, contrast 1.8 to 2.9; research/map-dressing-trial.mjs).
+`WALL_FAMILIES` (`src/maps/families.mjs`, `familyOf(name)`) is what Valve stacks under and over each of its wall
+textures, and at what height, over the 96 campaign maps (research/valve-wall-families.mjs). The original mod's
 maps measure outside Valve's band on banding, one-texture walls, the share off the axes, the dark floor and the
 light's contrast; Valve's c1a0 only on the share off the axes, being among its boxiest. The views' edges and
 compression put the mod's three maps inside Valve's band (0.04 to 0.13, 0.28 to 0.40): photographic textures
