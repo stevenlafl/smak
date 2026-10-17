@@ -1,18 +1,18 @@
-The model is built and the build says OK. Its three game-named files are in `work:9mmhandgun_weapon/`: `v_9mmhandgun.mdl`, `p_9mmhandgun.mdl` and `w_9mmhandgun.mdl`. The stand-alone `work:9mmhandgun.mdl` is the same pistol as one held model, for looking at.
+The build says OK with no notes. The trigger now reads as its own steel blade in the guard's loop.
 
-**What I made**
+**What I changed**
 
-- A held pistol built from the game's own weapon files. Each file keeps the game's hands, bones, animations, events and attachments. Only the pistol meshes are replaced.
-- Size: 10 units long, 1.5 wide, 7.3 high. The first-person file sits at Valve's first-person scale, and the other two at Valve's lighter world and other-player scale.
-- Triangles: 192 for the pistol, 112 in the lighter `p_` and `w_` files. Valve's first-person weapon is in the same range.
-- Parts: a steel slide and barrel, a polymer grip, frame, trigger guard and magazine base, and front and rear sights. A black polymer finish on the frame and grip, grey steel on the slide and barrel.
-- The finish has a little wear and grime, so the slide shows some bright edges and light brown spots. I lowered it once to make the pistol look cleaner. It still has those spots, and they could read as rust. Tell me if they should go, and I can drop them further.
+- **Trigger:** it was a small steel box inside the guard's bar, so the bar hid it. It is now a 0.45-wide steel blade that runs from the frame down to the guard's bar, filling the loop between them. It is visible from the front and from below, as a light grey block set apart from the dark guard.
+- **Guard:** the bar moved down, from z -1.3 to -1.85, so the loop is open enough for the trigger to show.
+- **Joint:** the first version left the trigger 0.57 units off the guard, and the build flagged it. The trigger now sinks into the bar and the frame, and the build reports no near-touching parts.
 
-**How to use it in the game**
+Everything else is as it was: the slide with its ejection-port panels, the grip, the magazine base, the front and rear sights, and the muzzle. The length is still 10.5 units. The build reports 368 triangles, the same as before.
 
-Copy the three files into the mod's `models/` folder, next to nothing else. The game loads them in place of its own `v_`, `p_` and `w_` 9mm files, with no code change.
+**The files** (`work:9mmhandgun_weapon/`, same names; copy into `<mod>/models/`):
+- `v_9mmhandgun.mdl`, `p_9mmhandgun.mdl`, `w_9mmhandgun.mdl`
+- The spec is `work:9mmhandgun.spec.json`, and `work:9mmhandgun.mdl` is the single-file version.
 
-**What the build did not show**
+**Caveats**
 
-- The build flagged five pairs of parts that nearly touch and leave a gap of 0.3 to 0.56 units, for example the receiver and trigger. The build calls that a note, not a fault, but at close range the joints may show a sliver of light.
-- I have not run the game here. The pictures and checks are from the build. The modder should look at the first-person view and the world pickup in the game beside Half-Life's own to judge whether it is at least as good.
+- I could not run Half-Life here, so the check is the build's own pictures. I looked at the front and from-below views of the guard, where the trigger now shows. I did not render the front-left view the modder used, so the modder should confirm the trigger there.
+- In the spec, a box's `at` position is anchored at its bottom in z. I set the trigger's position with that in mind, and the build's part list confirms it spans -1.9 to -0.1.

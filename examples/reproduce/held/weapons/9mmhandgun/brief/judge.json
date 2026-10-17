@@ -5,84 +5,31 @@
  "label": "9mmhandgun, in the place of the game's models/v_9mmhandgun.mdl, models/p_9mmhandgun.mdl, models/w_9mmhandgun.mdl",
  "measured": {
   "size": [
-   10.2,
-   1.5,
-   9
+   9.5,
+   1.4,
+   8.8
   ],
   "sizeAsked": {
    "long": 10
   },
-  "sizeOff": 0.016,
-  "triangles": 112,
+  "sizeOff": 0.045,
+  "triangles": 216,
   "halfLifeMedianOfItsKind": 142,
   "halfLifeThreeQuartersUnder": 187,
   "halfLifeMost": 291,
   "checkErrors": [],
   "lineup": "the asset is one of A to D in lineup.png beside models/w_grenade.mdl, models/w_satchel.mdl, models/w_357.mdl",
-  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked A, A, A, D where the asset was B, D, A, B: passed for one of the game's"
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked A, D, A, B where the asset was B, D, A, B: told apart"
  },
  "caps": {
   "M2": 2,
   "M8": 2,
-  "M6": 2
+  "M6": 1
  },
- "scores": {
-  "M1": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Reads as a 9mm pistol in every view: a long grey slide with a black frame, a grip that drops from the slide's middle, a trigger guard loop (Top, Below, Back-left), and a muzzle end with a front sight. The outline matches the brief's words. Views checked: sides.png, first-person.png, in-hand.png."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Measured 10.2 long against the brief's about 10 (0.016 off), inside 15%. Width 1.5 and height 9 are not given by the brief and are consistent with a pistol."
-  },
-  "M3": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Parts a 9mm pistol has, checked one by one: slide, frame and grip (present); trigger guard (present, Top, Below, Back-left); front sight spike (present, Front, Top, Below); rear sight block at the back (present, Back, Back-right); ejection port window (present, Top, Below). Not found clearly: a separate trigger inside the guard, a magazine base plate distinct from the grip's end (Front-left, Front-right show only a box end), a hammer, and a magazine release. A small part missing caps M3 at 1."
-  },
-  "M4": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Black matte frame and grey steel slide, as the brief asks for black and grey polymer and steel. The brown-orange wear on the slide is a painted difference, charged to M5, not to the base colours."
-  },
-  "M5": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The rust-orange streak across the middle of the grey slide (Top, Below, Front-left, first-person) is wear the brief does not ask for and reads as a stripe on a steel pistol. The black ejection port and slide grooves are sharp enough. The wear is the fault."
-  },
-  "M6": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Scored 2 as instructed: M6 is measured apart by the line-up. In the line-up.png test the asset was picked as the non-Valve model in one of four readings (asset at A, picked A), short of the twice-in-three that would fail it."
-  },
-  "M7": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Lies on its side on the floor as the brief asks: from Top and Front the 9-unit height runs horizontal and the 1.5 width vertical. The front sight points to the muzzle end, with the grip rising from the slide's middle."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "SMAK's checks report no errors. 112 triangles is well under twice the median of Half-Life's weapons (142, so 284) and under the third quartile (187). No floating or inside-out parts are visible. A dark notch at the rear of the slide (Back-right) is an open slide end, which a pistol has, not a fault a player would see as open."
-  },
-  "W1": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "In first-person.png the pistol sits where the game's own sits (barrel up-left, grip down into the glove, same side), and through the 14 SHOOT frames in attack.png it stays above the glove at the same place, moving with the hand. It does not leave the hands where both are seen."
-  }
- },
- "total": 16,
- "of": 18,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M6"
+ ],
+ "total": 0,
+ "of": 18
 }
