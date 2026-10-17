@@ -1,11 +1,11 @@
 // A character from a generated shape on a base (the shape generator's route): a body that fuses limbs the
 // skeleton keeps apart is warned of, its back and sides carry the colours its front picture shows, its pictures
 // are pulled to the base's own palette, and its base's stance fitted to the shape's own outlines.
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { test, sure, tmp } from "./helper.mjs";
 import { buildModelSpec, validateModelSpec } from "../src/spec/model.mjs";
-import { buildMdl, workshop as W, textureOf, readMdl, png, indexed } from "../src/index.mjs";
+import { buildMdl, workshop as W, textureOf, readMdl, readSequence, png, indexed } from "../src/index.mjs";
 import { render } from "../src/render.mjs";
 
 const folder = join(tmp, "generated-character");
@@ -115,6 +115,17 @@ test("a character's pictures are pulled to its base's palette, and its back carr
   }
   sure(model > 100 && redder > 0.6 * model, `red on ${redder} of the ${model} dots seen from behind: the back carried`);
   sure(validateModelSpec(spec({ palette: "vivid" })).errors.some((e) => /palette: "own"/.test(e)), "another palette refused");
+});
+
+test("pose.bind: the body bound in the stance, the base's own first animation kept", () => {
+  const aim = { "L arm": { out: 40 }, "L leg": { out: 10 } };
+  const spec = (bind) => ({ spec: "smak.model/1", name: "bound.mdl", kind: "character", base: { file: "base.mdl" }, floor: 0, pose: { aim, ...(bind ? { bind: true } : {}) }, parts: [{ id: "body", kind: "mesh", file: "block.obj", up: "z", size: [4, 8, 20] }] });
+  const own = readSequence(readFileSync(join(folder, "base.mdl")), 0).frames;
+  const same = (mdl) => JSON.stringify(readSequence(mdl, 0).frames.map((f) => f.map((b) => b.map((v) => Math.round(v * 100))))) === JSON.stringify(own.map((f) => f.map((b) => b.map((v) => Math.round(v * 100)))));
+  const bound = buildModelSpec(spec(true), { folder });
+  sure(bound.mdl && same(bound.mdl) && bound.report.facts.some((f) => /^pose\.bind: the body bound in the stance, and the base's own first animation \(idle\) kept/.test(f)), [...bound.report.errors, ...bound.report.facts].join(" | "));
+  sure(!same(buildModelSpec(spec(false), { folder }).mdl), "without bind the first animation stands in the stance");
+  sure(validateModelSpec({ ...spec(true), pose: { bind: true } }).errors.some((e) => /pose\.bind: of a stance/.test(e)), "bind alone refused");
 });
 
 test('pose: { fit: "shape" } fits the base\'s stance to its own body\'s outlines, and wants a mesh or carved one', () => {

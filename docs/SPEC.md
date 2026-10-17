@@ -247,6 +247,10 @@ a part that comes apart in any of them is a fault (`in run2 frame 11: ... thumb_
   degrees out and 25 forward, the elbow bent 15") is written so, number for number: `keys` turn a bone from where
   the base has it, and Gordon's first frame holds a gun forward, so turns read off a description land elsewhere.
   Limbs: `L arm`, `R arm`, `L leg`, `R leg`. After `from`, before `keys`.
+  `"bind": true` beside any of these binds the body in that stance and writes the base's own first animation back:
+  each corner is kept in its bone's own space, so the body then stands as the base stands. A body made in a stance
+  that is not the game's (arms held out, so that they come apart from the trunk) wants it: without it the first
+  animation stands in the stance, and the character idles in the game with its arms held out.
 - `motion`: an animation of the base fitted to a strip of pictures of the original doing it, as the kit's
   `strip` draws one from the side with the floor as a line: `"motion": [{ "seq": "run2", "fit": { "picture":
   "pictures/motion.png", "count": 8, "cols": 4 } }]`. The strip's cycle is matched to the animation's (it may
@@ -282,8 +286,13 @@ on each hand (the carve's report names the thin pieces it lost), a jaw as a part
 - A generated body (`mesh`) whose arms hang against its trunk, or whose hands touch its thighs, is fused there
   where a game's body keeps them apart: its triangles across the two tear in every motion, whatever bone each
   corner takes. The report warns past a few triangles that join limbs meeting 4 or more joints apart on the trunk
-  (`54 triangles join limbs ... most between R Arm1 + Spine2`). Choose a take with its limbs clear of the body
-  (the tool `generate` draws one from its base's stance: `base`), or build the limbs as parts of their own.
+  (`54 triangles join limbs ... most between R Arm1 + Spine2`). Choose a take with its limbs clear of the body,
+  or build the limbs as parts of their own. The tool `generate` makes such a take with `base`: it draws the
+  character over its base's figure with the arms out and the legs a little apart, and the spec builds it in that
+  stance, `"pose": { "aim": <the stance its answer gives>, "bind": true }`. A guard so made ran clean (2.4% of its
+  triangles past three times their length, against 7.4% for one drawn from words alone with its hands on its
+  thighs), and Haiku picked it out of a line-up beside the gman, the scientist and the assassin 1 reading in 4,
+  chance, against 4 in 4 for one built of primitives (research/generated-characters.md).
 - GoldSrc holds 2048 points and 2048 normals a body: a character of many round parts wants few `sides`
   (6 for a limb, 4 or 5 for a finger). The check says when it is over.
 

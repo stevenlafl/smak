@@ -24,7 +24,7 @@ const spec = {
   floor: 0,
   size: { height },
   smooth: 80,
-  pose: { aim: GENERATED_STANCE },
+  pose: { aim: GENERATED_STANCE, bind: true },
   materials: { uniform: { base: "cloth", tone: [0.25, 0.3, 0.4] } },
   parts: [{ id: "body", kind: "mesh", file: `work:gen/${take}.obj`, size, triangles: 700, material: "uniform" }],
   project: [{ picture: `work:gen/${take}_cut.png`, view: "front" }],

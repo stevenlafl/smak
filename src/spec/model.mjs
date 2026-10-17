@@ -747,6 +747,8 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
       errors.push(`pose.from: the name (or number) of the base's animation whose frames the first animation takes ("walk": a character the original shows mid-stride)`);
     if (spec.pose?.frame !== undefined && !(Number.isInteger(spec.pose.frame) && spec.pose.frame >= 0)) errors.push("pose.frame: the frame of pose.from the first animation starts at (by default the one whose box fits size best)");
     if (spec.pose?.frame !== undefined && spec.pose?.from === undefined) errors.push("pose.frame: of pose.from; give from");
+    if (spec.pose?.bind !== undefined && spec.pose.bind !== true && spec.pose.bind !== false) errors.push("pose.bind: true binds the body in the stance and keeps the base's own first animation");
+    if (spec.pose?.bind && !(spec.pose.aim || spec.pose.keys || spec.pose.from !== undefined || spec.pose.fit)) errors.push("pose.bind: of a stance: give aim, keys, from or fit");
     if (spec.pose?.aim !== undefined) {
       const aim = spec.pose.aim;
       if (!aim || typeof aim !== "object" || Array.isArray(aim)) errors.push(`pose.aim: { "L arm": { out, forward, bend }, "R leg": { ... } }: where each limb points, in degrees`);
@@ -1780,7 +1782,7 @@ function buildPosed(spec, options = {}) {
   // views (spec.project's, or pose.fit's own), then built again in that stance; the keys given win over it
   if (!spec?.pose?.fit) return buildOnce(spec, options);
   const given = spec.pose.keys ?? null;
-  const took = { ...(spec.pose.from !== undefined ? { from: spec.pose.from, ...(spec.pose.frame !== undefined ? { frame: spec.pose.frame } : {}) } : {}), ...(spec.pose.aim ? { aim: spec.pose.aim } : {}) };
+  const took = { ...(spec.pose.from !== undefined ? { from: spec.pose.from, ...(spec.pose.frame !== undefined ? { frame: spec.pose.frame } : {}) } : {}), ...(spec.pose.aim ? { aim: spec.pose.aim } : {}), ...(spec.pose.bind ? { bind: true } : {}) };
   const kept = {};
   const first = buildOnce({ ...spec, pose: given || Object.keys(took).length ? { ...took, ...(given ? { keys: given } : {}) } : undefined }, { ...options, keep: kept });
   if (!first.mdl) return first;
@@ -1847,6 +1849,7 @@ function buildOnce(spec, { folder, out, prefabs = {}, games = [], readPicture, r
   // a base model: its skeleton, as it stands in `pose`, is what the parts are put on, and its file (with its
   // animations, blends and all) is what the body is put into
   let skeleton = null;
+  let ownBase = null;
   if (spec.base) {
     try {
       skeleton = skeletonOf(spec.base, folder, games, refuse, out ?? resolve(folder ?? ".", spec.name ?? "model.mdl"));
@@ -1854,6 +1857,8 @@ function buildOnce(spec, { folder, out, prefabs = {}, games = [], readPicture, r
       errors.push(`base: ${error.message}`);
       return { mdl: null, report };
     }
+    // the base as it came, before a stance turned its first animation: what pose.bind writes back
+    ownBase = skeleton.src;
     // the stance it is built in and judged in: the first animation's every frame turned by the pose's keys,
     // about the model's axes as each bone stands there (its number, length and activity kept); the parts are
     // then placed as the base stands in it
@@ -2280,6 +2285,20 @@ function buildOnce(spec, { folder, out, prefabs = {}, games = [], readPicture, r
     } catch (error) {
       errors.push(`putting the body into the base: ${error.message}`);
       return { mdl: null, report };
+    }
+    // bound in the stance, played as the base plays: each corner is kept in its bone's own space, so with the
+    // base's own first animation back the body follows it (a body bound with its arms out stands with them down,
+    // as the game's own people stand; built in the stance alone it idled in the game with its arms held out)
+    if (spec.pose?.bind && ownBase) {
+      try {
+        const count = sequencesOf(ownBase)[0].blends ?? 1;
+        const blends = Array.from({ length: Math.max(1, count) }, (_, b) => readSequence(ownBase, 0, b).frames);
+        mdl = replaceSequence(mdl, 0, blends.length > 1 ? { blends } : { frames: blends[0] });
+        report.facts.push(`pose.bind: the body bound in the stance, and the base's own first animation (${sequencesOf(ownBase)[0].name}) kept: it stands as the base stands`);
+      } catch (error) {
+        errors.push(`pose.bind: ${error.message}`);
+        return { mdl: null, report };
+      }
     }
     // where its feet stand: a player's origin is the middle of its hull (feet at -36), a monster's its feet (0).
     // A monster made on a player's skeleton is lifted, every animation's root moved by the difference

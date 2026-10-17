@@ -168,8 +168,56 @@ which retries until the answer holds a JSON object (`/\{[\s\S]*\}/`). A one-lett
 code every reading runs three times with a minute between, and none is cached (read from the code, not timed). `detect.mjs` here calls
 `runAgent` directly. Worth checking in the harness.
 
-## What a maker could do on its own today
+## What a maker could do on its own, before the follow-up
 
 Through MCP alone: `generate { kind: "shape", prompt, seeds }`, pick the take from the contact sheet, write the
 spec above, build, look. All of it works, and the first frame comes out well. What it cannot do is stop the
 arms tearing or paint the back. The result would pass the line-up and fail a motion judge.
+
+## Follow-up, 2026-10-17: the route made to work (Steven chose it)
+
+Scripts added: `tear.mjs <mdl>` (the share of triangles past three times an edge in the runs and walks, as the
+build measures, and the pairs of bones they join), `rig-plot.mjs <mdl> <png>` (each triangle in its bone's colour
+from the front, the skeleton over it), `colour.mjs <mdl ...>` (mean saturation, luma and its spread over the
+texels a body wears), `guide.mjs` (a base's guide picture as `generate` draws it), `guided-spec.mjs` (the spec a
+maker would write for a guided take), and `../valve-character-colour.mjs` (the same colour numbers over the
+line-up's 13 creatures and people: people 0.11 to 0.33 in saturation, creatures to 0.66).
+
+**What tore.** The rig plot of the old v2 build showed it: the guard's hands hang beside its thighs and its
+forearms lie on its trunk, and the base's arm bones (Gordon's, at Gordon's proportions) do not run down the
+middle of the mesh's arms, so a hand's corners took the thigh's bone. 52 of its 700 triangles tore (7.4%), 65 joined
+bones four or more joints apart across the trunk. Three repairs on that mesh failed and were left out:
+
+| Tried | Torn | What went wrong |
+| --- | --- | --- |
+| Cut triangles across far limbs after rigging, the holes capped side by side | 4.5% | the forearm, two triangles wide at 700, was all across: the arm went with the cut; see-through 0.6% (a fault over 0.2%) |
+| The same cut on the file's 20,000 triangles before reducing | 7.2% | nearest-limb labels at full detail are wrong where the bones miss the limbs: the chest's sides cut; see-through 2.2% |
+| `pose.fit: "shape"` (the base fitted to the mesh's own outlines, front and side) | 6.0% | outlines' overlap 0.67 to 0.737, but turning bones cannot give Gordon's arms the mesh's length |
+
+**What worked: draw the take in the base's stance.** `generate` with `base` draws the base as a grey figure on
+white, arms 30 degrees out and legs 6 apart (`GENERATED_STANCE`), and SD-Turbo draws the take over it image to
+image (strength 0.7). Four seeds of the old prompt: all four stood in that stance with empty hands (against one
+usable take in eight from words alone); two came out seen from behind (the grey figure does not say which way it
+faces). The worker peaked at 19.6 GB. Seed 3 (a helmet, a vest of pouches), built on Gordon in the same stance
+with `bind`, at 700 triangles:
+
+| | v2 (words alone) | guided, seed 3 |
+| --- | --- | --- |
+| Torn in the runs and walks | 7.4% (52) | 2.4% (17) |
+| The run strip | webs from hands to thighs every frame | clean |
+| Warned of: triangles across far limbs | 54 | 27 (the armpits) |
+| Saturation (Gordon 0.32) | 0.43 as projected, pulled to 0.31 | 0.29, nothing to pull |
+| Back | plain material, then carried from the front | carried from the front (the back of the head a blur of the face) |
+| Line-up, 4 Haiku readings | picked 2 of 4 | picked 1 of 4 (chance) |
+
+The kit's part, each through MCP alone: `generate { kind: "shape", prompt, base }`; the spec's `"pose": { "aim":
+<the stance>, "bind": true }` (bind writes the base's own first animation back, so it stands as the base stands
+and not with its arms held out); the projection carrying a character's front round to its back; its pictures
+pulled to its base's palette; the warning of triangles across far limbs. Left: a guide that says which way the
+figure faces (two seeds of four drew its back); the back of the head (carried from the face, a blur); a judged
+brief round of the characters on this route.
+
+## What a maker can do on its own now
+
+`generate { kind: "shape", prompt, base: "player/gordon/gordon.mdl", seeds: 4 }`, pick a take seen from the front
+with clear arms, and build the spec its answer gives (`guided-spec.mjs` writes one). Look at the run strip.
