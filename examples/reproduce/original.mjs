@@ -6,6 +6,7 @@
 //   node examples/reproduce/original.mjs make [--again] [--generators <dir>] [--materials <dir>]   the maker's run: original/made/ (out of git)
 //   node examples/reproduce/original.mjs collect             what the last run made, taken again from its work folder
 //   node examples/reproduce/original.mjs judge [made|decoy]  original/judge/<which>/...json and scores.md
+//   node examples/reproduce/original.mjs rounds [--again] [--most n] [--generators <dir>] [--materials <dir>]   made, judged, revised from the judges' notes until it passes or stalls
 //
 // The made files are the maker's, built over the game's own (the crowbar's and the headcrab's files): kept out
 // of git, as everything that holds the game's bones and animations is.
@@ -13,7 +14,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync, copyFileS
 import { join, basename, dirname } from "node:path";
 import { HERE, GAME, SDHLT, POSE, readModel, boxOf, savePng, besides, kitCommit, keepRound, filesOf } from "./lib.mjs";
 import { runAgent } from "./agents.mjs";
-import { ownOfKind, judgeAgainstBrief, judgeModelAgainstBrief, judgeSpriteAgainstBrief, judgeSoundAgainstBrief, judgeTexturesAgainstBrief, weaponSizeIn } from "./brief.mjs";
+import { ownOfKind, judgeAgainstBrief, judgeModelAgainstBrief, judgeSpriteAgainstBrief, judgeSoundAgainstBrief, judgeTexturesAgainstBrief, weaponSizeIn, notesOf } from "./brief.mjs";
 import { band } from "./scoring.mjs";
 import * as smak from "../../src/index.mjs";
 import { tile, render, strip } from "../../src/render.mjs";
@@ -79,17 +80,34 @@ THE BRIEF
 ${BRIEF}`;
 }
 
-async function make() {
+/**
+ * The words of a revision of the mod: what was made, what the person says of each asset not yet right (from
+ * the judges' lines under 2 and the measures that failed it: notesOf, no scores, no rubric names), what to do.
+ */
+const revisionWords = ({ answer, notes }) => `THIS IS A REVISION. You made this mod before; the work folder is as you left it (its specs, its
+files). What you said then:
+
+${answer.trim()}
+
+The person looked at each asset, in pictures and measures beside Half-Life's own, and says what is not yet right:
+
+${notes.map(({ label, lines }) => `${label}:\n${lines.map((l) => `- ${l}`).join("\n")}`).join("\n\n")}
+
+Change what they say, keep what is right (every asset not named here is right: leave it), build again until each
+build says OK, and put every file where the list above says. Then say what you changed.`;
+
+async function make(revision = null) {
   const out = join(ROOT, "made");
-  if (existsSync(join(ROOT, "run.json")) && !again) return console.log("made before (--again to make it again)");
+  if (existsSync(join(ROOT, "run.json")) && !again && !revision) return console.log("made before (--again to make it again)");
   if (existsSync(join(ROOT, "run.json"))) {
     const n = keepRound(ROOT, { move: ["run.json", "answer.md", "specs", "made", "judge"] });
   }
   const kit = kitCommit();
-  const r = await runAgent({ prompt: makePrompt(), server: { wads: true, generators: GENERATORS, materials: MATERIALS }, hours: 10 });
+  const prompt = revision ? `${makePrompt()}\n\n${revisionWords(revision)}` : makePrompt();
+  const r = await runAgent({ prompt, start: revision?.start ?? null, server: { wads: true, generators: GENERATORS, materials: MATERIALS }, hours: 10 });
   writeFileSync(join(ROOT, "answer.md"), `${r.answer.trim()}\n`);
   const { found } = collect(r.work);
-  writeFileSync(join(ROOT, "run.json"), `${JSON.stringify({ kit, model: r.model, generators: GENERATORS ? "generate" : null, materials: MATERIALS ? "library" : null, seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, ended: r.ended, found, missing: LOOKED_FOR.filter((f) => !found.includes(f)), folder: r.folder }, null, 1)}\n`);
+  writeFileSync(join(ROOT, "run.json"), `${JSON.stringify({ kit, model: r.model, generators: GENERATORS ? "generate" : null, materials: MATERIALS ? "library" : null, seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, ended: r.ended, found, missing: LOOKED_FOR.filter((f) => !found.includes(f)), folder: r.folder, revision: revision ? revision.round : null }, null, 1)}\n`);
   console.log(`made in ${r.seconds} s, ${r.turns} turns: ${found.length} of ${LOOKED_FOR.length} files${r.error ? ` (${r.error})` : ""}`);
 }
 
@@ -229,6 +247,32 @@ async function judgeAll(which) {
   results.push(await judgeAgainstBrief("mod", "the mod as a whole", dir, `${dir}/everything.png (every prop, the crawler, the wrench and a view of each map, side by side)`, { missing, failedChecks, chain, shown }, caps, { brief: BRIEF, what: MOD_ASSET }));
   for (const r of results) writeFileSync(join(out, `${(r.label ?? r.kind).replace(/[^\w.-]+/g, "_").slice(0, 60)}.json`), `${JSON.stringify(r, null, 1)}\n`);
   scores(which, results);
+  return results;
+}
+
+/**
+ * The mod made, judged, and revised from the judges' notes until every asset passes, `most` rounds in all, or two
+ * rounds in a row reach no new best count of passes. The decoy is judged once. rounds.json keeps each round.
+ */
+async function rounds(most) {
+  if (!existsSync(join(ROOT, "run.json")) || again) await make();
+  await judgeAll("decoy");
+  const record = [];
+  for (let round = 1; ; round++) {
+    const results = await judgeAll("made");
+    const assets = results.filter((r) => r.kind !== "mod");
+    const run = JSON.parse(readFileSync(join(ROOT, "run.json"), "utf8"));
+    const byKind = {};
+    for (const r of assets) (byKind[r.kind] ??= [0, 0])[r.passes ? 0 : 1]++;
+    record.push({ round, passes: assets.filter((r) => r.passes).length, of: assets.length, byKind, cost: run.cost, seconds: run.seconds, kit: run.kit });
+    writeFileSync(join(ROOT, "rounds.json"), `${JSON.stringify(record, null, 1)}\n`);
+    console.log(`round ${round}: ${record.at(-1).passes} of ${assets.length} pass`);
+    const bestBefore = Math.max(...record.slice(0, -2).map((r) => r.passes));
+    const stalled = round >= 3 && Math.max(...record.slice(-2).map((r) => r.passes)) <= bestBefore;
+    if (assets.every((r) => r.passes) || round >= most || stalled) return record;
+    const notes = assets.filter((r) => !r.passes).map((r) => ({ label: r.label, lines: notesOf(r) })).filter((n) => n.lines.length);
+    await make({ round: round + 1, notes, answer: readFileSync(join(ROOT, "answer.md"), "utf8"), start: join(run.folder, "work") });
+  }
 }
 
 /** A view from the map's first place to start, or from its middle. */
@@ -335,4 +379,5 @@ else if (step === "judge") {
   const which = words.find((w) => ["made", "decoy"].includes(w)) ?? "made";
   if (which === "decoy" && !existsSync(join(ROOT, "decoy"))) decoy();
   await judgeAll(which);
-} else console.log("node examples/reproduce/original.mjs make [--again] | decoy | judge [made|decoy]");
+} else if (step === "rounds") await rounds(words.includes("--most") ? Number(words[words.indexOf("--most") + 1]) : 5);
+else console.log("node examples/reproduce/original.mjs make [--again] | decoy | judge [made|decoy] | rounds [--again] [--most n]");

@@ -15,7 +15,7 @@ import { HERE, GAME, SIDES, ANGLES, readModel, boxOf, picturesOf, savePng, besid
 import { runAgent, runJudge, failedByMeasure } from "./agents.mjs";
 import { measureModel, lineup } from "./judge.mjs";
 import { itemsOf, settle, lowered, combine, askScores, MODEL_GUIDE } from "./scoring.mjs";
-import { BRIEFS, briefPrompt, ownOfKind, judgeModelAgainstBrief, weaponSizeIn, groupOf } from "./brief.mjs";
+import { BRIEFS, briefPrompt, ownOfKind, judgeModelAgainstBrief, weaponSizeIn, groupOf, notesOf } from "./brief.mjs";
 import { tile, render, strip } from "../../src/render.mjs";
 import { sequences } from "../../src/index.mjs";
 import { contractOf, compareContract, sharedContract } from "../../src/contract.mjs";
@@ -220,20 +220,6 @@ async function reproduce(kind, s, leg, revision = null) {
 }
 
 // ── revisions: the maker comes back to its work with a person's notes ─────────
-
-/**
- * What a person says of a build that is not yet right, from its judgement: each line the judge scored under 2,
- * in the judge's own words with the rubric's names left out, and each measure that failed it, as the measure
- * says it. The maker is never told a score or an item's name: it is to mend the thing, not please the judge.
- */
-function notesOf(j) {
-  const notes = Object.values(j.scores ?? {}).filter((v) => v.score < 2).map((v) => v.reason.replace(/\b[MWCPOSRT]\d\b:?\s*/g, "").trim());
-  const m = j.measured ?? {};
-  if (/told apart/.test(m.lineupTest ?? "")) notes.push("Beside three of the game's own of its kind, at one scale and in one light, people pick it out as the one not made by Valve: it does not yet look like the game's own.");
-  if (typeof m.sizeOff === "number" && m.sizeOff > 0.1) notes.push(`It is ${m.size?.join(" x ")} units where ${JSON.stringify(m.sizeAsked)} was asked: ${Math.round(m.sizeOff * 100)}% off.`);
-  if (m.halfLifeMost && m.triangles > m.halfLifeMost) notes.push(`It has ${m.triangles} triangles, more than any of the game's own of its kind (${m.halfLifeMost}).`);
-  return notes;
-}
 
 /** The words of a revision: what was made, what the person says, what to do. */
 const revisionWords = ({ answer, notes }) => `THIS IS A REVISION. You made this before; the work folder is as you left it (its specs, its files). What you said then:
