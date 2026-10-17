@@ -265,7 +265,7 @@ function halfLifeDetail() {
   if (!valveDetail) {
     const all = smak.maps.readWad(readFileSync(join(GAME, "halflife.wad"))).textures.map(textureDetail).sort((a, b) => a - b);
     const at = (q) => all[Math.floor(q * (all.length - 1))];
-    valveDetail = { least: at(0.05), q1: at(0.25), median: at(0.5), q3: at(0.75), most: at(0.95), band: "T5's band is least to most, Half-Life's own from the 5th to the 95th in 100: fine detail inside it is Valve's own range (a quartile is no bound); under least reads smeared or flat, over most noisy" };
+    valveDetail = { least: at(0.05), q1: at(0.25), median: at(0.5), q3: at(0.75), most: at(0.95), band: "T5's band is least to most, Half-Life's own from the 5th to the 95th in 100: fine detail inside it is Valve's own range (a quartile is no bound); under least reads smeared or flat, over most noisy. A texture the brief asks to be one plain colour is flat in Valve's too (its BLACK and YELLOW are 0): flat is right there, and T5 is 2" };
   }
   return valveDetail;
 }

@@ -403,3 +403,9 @@ walk test, not the game.
   (10.8 to 75 over halflife.wad's 3,116), given to the judge with the numbers. Two briefs asked for blue and black
   with the map showing through, where Valve's are a teal rippled surface and a pale blue-violet speckle with no
   holes: corrected. Results judged before keep their scores.
+- **2026-10-17, later: texture briefs that overstated their originals, and flat plain colours.** With the band set,
+  Valve's own textures passed 16 of 25 against their briefs. Seven briefs asked for what the original barely has
+  or has not (dark and grimy, a notched joint, dirty, dark hazard stripes, damp cracks, fine ripple or speckle
+  where Valve's measure 8 to 10): those words dropped. And BLACK and YELLOW, briefed as plain colours, took T5 1 for
+  having no detail: a texture the brief asks to be one plain colour is flat in Valve's own, and that is told to
+  the judge. Results judged before keep their scores.
