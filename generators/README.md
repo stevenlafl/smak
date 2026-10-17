@@ -8,8 +8,10 @@ Which models, and why: `research/local-sound-generators.md` and `research/local-
 short, Stable Audio 3 small SFX and Woosh-DFlow for sounds, both (level in Steven's blind listening, each better
 at some sounds: a call draws takes from each), ACE-Step 1.5
 XL for music (the 2B is the fast choice), and for shapes Hunyuan3D-2mini (`research/local-3d-generators.md`):
-a picture of the thing, its subject cut out by BiRefNet, made into a mesh; with words alone, SD-Turbo draws
-the picture first.
+a picture of the thing, its subject cut out by BiRefNet, made into a mesh; with words alone a picture is drawn
+first: a character's by Z-Image-Turbo held to its base's pose (`research/character-image-models.md`), else by
+SD-Turbo. Each input keeps its own route: a picture given (a photograph, a render of a model) goes to the shape
+model as it is.
 
 ## Filling the folder
 
@@ -18,7 +20,8 @@ bash generators/install.sh <folder>          the sound models: Woosh Flow and DF
                                              MOSS-SoundEffect v2.0, venvs/moss-rocm; Stable Audio 3 small SFX, venvs/sa3-rocm
                                              (gated: HF_TOKEN in the environment, its terms accepted on Hugging Face)
 bash generators/install-music.sh <folder>    the music models: ACE-Step 1.5 2B and XL, venvs/acestep-rocm (after install.sh)
-bash generators/install-3d.sh <folder3d>     the shape model: Hunyuan3D-2mini, SD-Turbo, BiRefNet, venvs/torch-rocm
+bash generators/install-3d.sh <folder3d>     the shape model: Hunyuan3D-2mini, SD-Turbo, BiRefNet, venvs/torch-rocm; the picture
+                                             model: Z-Image-Turbo (Q8 GGUF), its Fun ControlNet Union 2.1 lite, venvs/zimage-rocm
 cp generators/generators.example.json <folder>/generators.json   (its shape model's root is ../local-3d: change it to <folder3d>)
 ```
 
@@ -36,8 +39,8 @@ take the CUDA wheels instead. About 150 GB in all. On this machine the folders a
 ```
 
 `name` is one `worker.py` knows (`woosh-dflow`, `woosh-flow`, `moss-sfx`, `stable-audio-3-sfx`, `ezaudio`, `acestep`,
-`acestep-xl`, `hunyuan3d-mini`);
-`kind` `sound`, `music` or `shape`; `root` the model's own folder, from this one (the 3D models live apart);
+`acestep-xl`, `hunyuan3d-mini`, `zimage-turbo`);
+`kind` `sound`, `music`, `shape` or `picture` (a picture model: what draws a character from words for a shape); `root` the model's own folder, from this one (the 3D models live apart);
 `python` the venv's interpreter, from its root; `licence` is written into every take's sidecar, and
 a sound spec built from a take under a non-commercial one says so; `default` the kind's model when a call
 names none (marked on several sound or music models, a call draws its seeds from each, the files named after
@@ -58,7 +61,20 @@ leave it room: not beside a game, or another heavy job. A character's take (`gen
 its base's figure in the stance it will be built in, image to image (`GUIDE_STRENGTH` 0.7 of `GUIDE_STEPS` 6 in
 `worker.py`), so its limbs stand clear of its body: from words alone SD-Turbo drew a guard's hands on its thighs,
 and the mesh fused there tore in every run. `only: "picture"` draws the pictures and stops (seconds each, the
-model loaded): look at them first, and make the shape of the one chosen with `picture`.
+model loaded): look at them first, and make the shape of the one chosen with `picture`. SD-Turbo runs in bf16:
+on this card fp16 multiplies at a third of bf16's speed, and SD-Turbo drew a picture in 0.27 s against 0.89 at
+the same quality; Hunyuan3D-2mini stays fp16 (no faster in bf16, and its shape drifted).
+
+With a picture model (`zimage-turbo`, kind `picture`) and a biped base, a character's pictures are Z-Image-Turbo's
+instead, at 1024, held by the Fun ControlNet Union 2.1 lite to an OpenPose picture SMAK draws from the base's
+bones in the stance it is built in (`src/openpose.mjs`), whose colours fix which way the figure faces; the shape
+is then made from each. It loads in about 2.5 minutes and draws a picture in 11 s (its first about 80, setting
+up kernels), holding 11.2 GB of the card: the 8 GB text encoder and the transformer are swapped on the card by
+hand for each new prompt, and the VAE works in tiles. Its process holds the text encoder in RAM besides. On the
+guard brief all four takes faced the viewer with the vest's lettering, helmet, holster and boots, where SD-Turbo's
+were washed grey and one in four from behind; at a control scale of 1.0 (`CONTROL_SCALE`) two in four stood in
+the base's stance and two strode, as a brief that says the character "runs" pulls them. Its root is the 3D folder;
+`HF_HUB_OFFLINE` and `PYTORCH_HIP_ALLOC_CONF=expandable_segments:True` in its `env` (generators.example.json).
 
 ## A library of materials
 

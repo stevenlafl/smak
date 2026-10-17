@@ -269,6 +269,58 @@ reasonable later test; its paint does not fit.
   define it; read before writing SMAK's).
 - Speeds in section 4 are estimates, not measurements.
 
+## Measured after install (2026-10-17)
+
+Installed by `generators/install-3d.sh` into `/media/Data3/Packages/local-3d`: a venv `venvs/zimage-rocm` (torch
+2.9.1+rocm6.4, diffusers 0.41.0, which has the Z-Image ControlNet pipeline in a release, transformers 5.20), and
+in its HF cache `Tongyi-MAI/Z-Image-Turbo` without its fp32 transformer (text encoder 8.05 GB, VAE 0.17 GB),
+`unsloth/Z-Image-Turbo-GGUF` Q8_0 (7.22 GB) and `alibaba-pai/Z-Image-Turbo-Fun-Controlnet-Union-2.1` lite 2602
+(2.02 GB): 17.5 GB in all, not the 13 estimated above (the text encoder was counted short).
+
+Found on the way, not in any card:
+- The lite ControlNet file applies control at layers 0, 10 and 20 with both refiner layers
+  (VideoX-Fun `config/z_image/z_image_control_2.1_lite.yaml`); diffusers 0.41 cannot tell that from the file
+  and takes it for 1.0's layout. The install writes the right config beside the weights.
+- `enable_model_cpu_offload` fails with this ControlNet (it borrows the transformer's embedders, left on the
+  CPU). The 8 GB text encoder and the 9 GB transformer with ControlNet do not fit together: the worker swaps
+  them on the card for each new prompt and keeps each prompt's embedding.
+- The VAE's tiling starts only above its tile size, so a 1024 control picture's encoding asked 4.5 GB at once
+  and ran out: its tile size is set to 512.
+
+```
+| | SD-Turbo (old route) | Z-Image-Turbo + ControlNet lite (new route) |
+| Picture | 512, img2img 0.7 over a grey figure | 1024, held to an OpenPose picture of the base |
+| Load (worker) | with Hunyuan3D, 85 s | 107 to 166 s |
+| A picture | 0.27 s in bf16 (0.89 in fp16, which the worker used before) | 11.3 s (the first about 80: kernel set-up) |
+| Card memory | 4.3 GB | 11.2 GB peak |
+| The guard brief, 4 seeds | washed grey from the guide, no face or lettering, one from behind | all four facing front: blue shirt, blue-violet trousers, helmet and visor, black vest lettered SECURITY, holster, boots |
+| Stance | held by the guide's grey | at control scale 0.8 all four strode ("runs and fights" in the brief); at 1.0 two stood in the stance, two strode |
+```
+
+One take through the whole route (`generate { kind: "shape", base }`, the real models): Z-Image's picture,
+then Hunyuan3D-2mini's mesh of it in 41 s, 378 s in all with both loads; the mesh has the helmet, the vest's
+plates, belt, holster and boots, and its arms and legs stand apart from the trunk.
+
+bf16 for the worker's other models, one fixed seed: SD-Turbo 0.27 s against 0.89 in fp16, a different picture of
+the same quality (bf16 now); Hunyuan3D-2mini 16.8 s against 14.8, 222,396 faces against 226,728, its box 1.18
+wide and 0.71 deep against 0.95 and 0.93: no faster and its shape drifted, so it stays fp16.
+
+**Three inputs, three routes** (Steven: "some of these models may work best with pictures; other models might
+be better at replicating other models", "like real life pictures"), each kept until a test across several
+examples picks:
+
+```
+| Input | Route now | Better candidates (sections 2 and 3) |
+| Words or a brief | Z-Image-Turbo + pose ControlNet draws the picture, Hunyuan3D-2mini shapes it (built) | Qwen-Image-2.1 if Z-Image falls short |
+| Real photographs (a person's photo of a real thing) | the photo to the shape model as it is (built: `picture`); BiRefNet cuts it | photo-trained shape models take it best; Hunyuan3D-Paint 2.0's delight model takes the photo's light out before projection |
+| Renders of an existing game model (reproduction legs: flat-lit, known cameras) | the one picture to the shape model (built) | Hunyuan3D-2mv from front, side and back renders (not on disk: tencent/Hunyuan3D-2mv, the hunyuan3d-dit-v2-mv-turbo folder, a few GB of its 14.8 GB repo) |
+```
+
+Today `generate` tells words from a picture by its arguments (`prompt` alone, or `picture`). Telling a photograph
+from a render would be one more argument, `source: "photo" | "render"`, or inferred from the picture (a render
+is flat-lit on one plain colour with hard edges; the reproduction legs know they give renders). Not built: the
+render route waits on 2mv, which is not installed.
+
 ## Sources (all checked 2026-10-17)
 
 - Hugging Face API file lists and licence tags: https://huggingface.co/api/models/{repo}?blobs=true for every repo named above.

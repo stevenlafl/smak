@@ -299,7 +299,12 @@ on each hand (the carve's report names the thin pieces it lost), a jaw as a part
   picture, no shape), look at each against what was asked part by part, draw again with other words or seeds
   until one has it all, then make the shape of that one, `generate { kind: "shape", picture: "work:<it>", base }`,
   and paint the body with `project` from its cut-out. A body painted one flat colour with boxes on it for what
-  the picture lacked (a run's guard: a box vest, a box helmet, no face) is what a line-up picks out.
+  the picture lacked (a run's guard: a box vest, a box helmet, no face) is what a line-up picks out. Where the
+  server has a picture model (Z-Image-Turbo, generators/README.md), a biped character's pictures are drawn by it
+  at 1024, held to its base's pose: the guard brief's came out facing front with its lettering, helmet, holster
+  and boots in all four takes. Leave out of the prompt what the character does in the game ("runs and fights"):
+  it pulls the figure out of the stance it is built in. A picture you give (a photograph, renders of a model)
+  goes to the shape as it is.
 - GoldSrc holds 2048 points and 2048 normals a body: a character of many round parts wants few `sides`
   (6 for a limb, 4 or 5 for a finger). The check says when it is over.
 

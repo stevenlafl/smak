@@ -201,6 +201,20 @@ function cameraOf(opts, points, wide, high) {
 }
 
 /**
+ * Where a point of the model lands in a picture `render` would draw with the same options (an orbit view with no
+ * perspective): `(p) -> [x, y]` in pixels from the top left, and the bones' matrices of that pose (`pose`). For a
+ * picture drawn over a render, such as the skeleton a pose-guided drawing follows.
+ */
+export function placeIn(src, opts = {}) {
+  if (NAMED_VIEWS[opts.view]) opts = { ...opts, yaw: NAMED_VIEWS[opts.view].yaw + (opts.yaw ?? 0), pitch: NAMED_VIEWS[opts.view].pitch + (opts.pitch ?? 0), view: "orbit" };
+  if (opts.view === "first" || opts.dist > 0) throw new Error("placeIn: an orbit view with no perspective only");
+  const { width = 512, height = 512 } = opts;
+  const { tris, pose } = posed(src, opts);
+  const { right, up, mid, scale } = cameraOf(opts, pointsOf(tris), width, height);
+  return { pose, at: (p) => [width / 2 + dot(sub(p, mid), right) * scale, height / 2 - dot(sub(p, mid), up) * scale] };
+}
+
+/**
  * A polygon ([[x, y, z, ...], ...] in the camera's space) with what is nearer the eye than `near` cut off at
  * that plane.
  */
