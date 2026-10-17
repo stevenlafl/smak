@@ -161,7 +161,7 @@ node bin/smak.mjs play <url> --map <name> [--steps steps.json] -o dir [--mod <pr
 ```
 
 The three that draw take `--width`, `--height`, `--game <folder>` (the mod's folder, then `valve`: where the map's
-`.wad` files are; the map's own folder is always looked in), `--wad <file.wad>`, `--no-light`, `--light steady|all`,
+`.wad` files are; the map's own folder is always looked in, and the mod's over it for a map in `maps/`), `--wad <file.wad>`, `--no-light`, `--light steady|all`,
 `--brightness n` and `--entities all|models|game|none`. `map-plan` also takes `--heights` (each floor's height
 written on it), `--legend` (the entities listed beside it) and `--reach` (the walk test tinted on it). An
 entity that stands is drawn as the box it moves with: `--body <class|targetname>=large` says which box;

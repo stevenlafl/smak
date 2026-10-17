@@ -8,7 +8,7 @@
 //   writing   writeWad
 //   finding   wadsFor texturesFor       (these two look in folders on the disk; nothing else here does)
 import { readdirSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { basename, dirname, join } from "node:path";
 import { readMiptex, writeMiptex, mapTexture, miptexHeader } from "./miptex.mjs";
 
 // ── the format (the engine's wadfile.h) ────────────────────────────────────
@@ -190,6 +190,16 @@ function filesOf(folder) {
     // a folder that is not there holds no files
   }
   return byName;
+}
+
+/**
+ * The folders a map's own file says its .wad files are in: its own folder, and when that is a mod's `maps`
+ * folder, the mod's folder over it, where the game looks (the original mod's maker found its fw.wad at the
+ * mod's root told as missing, 2026-10-17).
+ */
+export function mapOwnFolders(file) {
+  const own = dirname(file);
+  return basename(own).toLowerCase() === "maps" ? [own, dirname(own)] : [own];
 }
 
 /**

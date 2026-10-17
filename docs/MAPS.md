@@ -167,6 +167,7 @@ of `image.mjs` take it as it is.
 | `textureFromWad(wad, name)` | One texture by name, whatever its case, or `undefined`. `wad`: the file's bytes, or what `readWad` gave. |
 | `writeWad(textures)` | A `.wad` file's bytes from `[{ name, image }]` or `[{ name, width, height, pixels, palette }]` (what `mapTexture` takes). A name given twice is refused. |
 | `listedWads(value)` | The file names in a worldspawn's `wad` value, as the engine looks for them: lower case, no path, `.wad` put on, the two decal files left out. |
+| `mapOwnFolders(file)` | The folders a map's own path says to look in for its `.wad` files: its folder, and for a map in a mod's `maps/`, the mod's folder over it, where the game looks. The command line and the MCP server add them after the game's folders. |
 | `wadsFor(bsp, folders)` | `{ found: [{ name, path }], missing: [name] }`: where the map's listed `.wad` files are, in the folders given, in that order (the mod's own, then `valve`). |
 | `texturesFor(bsp, folders, { pixels = false })` | `{ wads, textures: [{ name, wad, path, texture? }], missing: [name], unreadable }`: every texture the map wants from outside, in the first listed file that has it. With `pixels`, each brings its `texture`. |
 

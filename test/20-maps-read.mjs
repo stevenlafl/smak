@@ -690,6 +690,8 @@ test("a map that wants its textures from a .wad says so, and they are found in a
     "wadsFor",
   );
   sure(maps.wadsFor(wanting, [empty]).missing.join() === "tworooms.wad", "a wad that is not there");
+  // a map in a mod's maps/ has its .wad files looked for in the mod's folder over it, as the game does
+  sure(JSON.stringify(maps.mapOwnFolders(join("mod", "maps", "a.bsp"))) === JSON.stringify([join("mod", "maps"), "mod"]) && maps.mapOwnFolders(join("work", "a.bsp")).length === 1, "maps/ and the mod over it");
   const textures = maps.texturesFor(wanting, [empty, FIXTURES], { pixels: true });
   sure(textures.textures.length === 3 && !textures.missing.length, "texturesFor");
   sure(

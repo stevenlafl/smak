@@ -1183,9 +1183,9 @@ function existingFolder(folder) {
 }
 /**
  * Where a map's .wad files are looked for: the folders given with --game (the mod's own, then valve), then
- * the map's own folder.
+ * the map's own folder (and the mod's over it, for a map in maps/).
  */
-const gameFolders = (file, listed) => [...(listed.game ?? []).map(existingFolder), dirname(file)];
+const gameFolders = (file, listed) => [...(listed.game ?? []).map(existingFolder), ...maps.mapOwnFolders(file)];
 /** The textures of the .wad files given with --wad. */
 const wadTextures = (listed) =>
   (listed.wad ?? []).flatMap((wad) => maps.readWad(readFileSync(existing(wad))).textures);
@@ -1944,7 +1944,7 @@ async function mapCompare({ command, file, rest, flags, listed }) {
   if ("cols" in options && !(Number.isInteger(options.cols) && options.cols >= 1))
     fail(`--cols: a whole number from 1, not ${options.cols}`);
   // each map's own folder is looked in for its .wad files, after the game's
-  options.folders = [...new Set([...options.folders, ...files.map((each) => dirname(each))])];
+  options.folders = [...new Set([...options.folders, ...files.flatMap((each) => maps.mapOwnFolders(each))])];
   const picture = maps.compareOf(
     files.map((each, nth) => ({ map: readEither(each), name: names[nth], ...defined({ z: cutOf(nth) }) })),
     options,

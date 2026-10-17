@@ -351,7 +351,7 @@ const KINDS = {
 // ── render, of a map ───────────────────────────────────────────────────────
 /** Where a map's .wad files are looked for: beside it, then in the models folder. */
 // the map's own folder, the models folder, and the game's folders the server was given (its .wad files)
-const mapFolders = (folders, file) => [dirname(file), folders.models, ...(folders.wads ?? [])].filter(Boolean);
+const mapFolders = (folders, file) => [...smak.maps.mapOwnFolders(file), folders.models, ...(folders.wads ?? [])].filter(Boolean);
 
 /** Where a map view is taken from, as a call says it: "x y z", or an entity's number or class. */
 function standOf(map, at) {
