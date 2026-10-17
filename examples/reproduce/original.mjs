@@ -3,7 +3,7 @@
 // its specs or words scores each asset on its kind's table against the brief, with measures against Half-Life's
 // own of its kind, and the mod as a whole on O1 to O4. A plain mod the harness makes itself is the decoy.
 //
-//   node examples/reproduce/original.mjs make [--again]     the maker's run: original/made/ (out of git)
+//   node examples/reproduce/original.mjs make [--again] [--generators <dir>] [--materials <dir>]   the maker's run: original/made/ (out of git)
 //   node examples/reproduce/original.mjs collect             what the last run made, taken again from its work folder
 //   node examples/reproduce/original.mjs judge [made|decoy]  original/judge/<which>/...json and scores.md
 //
@@ -30,6 +30,11 @@ const ASSETS = JSON.parse(readFileSync(join(ROOT, "assets.json"), "utf8"));
 const words = process.argv.slice(2);
 const step = words.shift();
 const again = words.includes("--again");
+// the server as a person runs it: the local generators (sounds, shapes) and the material library of photographs,
+// from --generators and --materials or SMAK_GENERATORS and SMAK_MATERIALS, as the assets' legs take them
+const option = (name, env) => (words.includes(name) ? words.splice(words.indexOf(name), 2)[1] : process.env[env]);
+const GENERATORS = option("--generators", "SMAK_GENERATORS");
+const MATERIALS = option("--materials", "SMAK_MATERIALS");
 /** What the original mod's judge is told each asset is. */
 const MOD_ASSET = "one asset of a small mod made for Half-Life from a written brief";
 const round = (v, k = 1) => Math.round(v * 10 ** k) / 10 ** k;
@@ -67,7 +72,7 @@ info_landmark, each map's level change naming the next map and a landmark of the
 sounds replace the game's own where the brief's sound is one the game already plays (the names above say which).
 
 Check every file, look at every picture you are given, and keep going until each is right. Then say what you
-made.
+made.${GENERATORS ? " For this test the person accepts the licences of the local generators, non-commercial ones included." : ""}
 
 THE BRIEF
 
@@ -81,10 +86,10 @@ async function make() {
     const n = keepRound(ROOT, { move: ["run.json", "answer.md", "specs", "made", "judge"] });
   }
   const kit = kitCommit();
-  const r = await runAgent({ prompt: makePrompt(), server: { wads: true }, hours: 10 });
+  const r = await runAgent({ prompt: makePrompt(), server: { wads: true, generators: GENERATORS, materials: MATERIALS }, hours: 10 });
   writeFileSync(join(ROOT, "answer.md"), `${r.answer.trim()}\n`);
   const { found } = collect(r.work);
-  writeFileSync(join(ROOT, "run.json"), `${JSON.stringify({ kit, model: r.model, seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, ended: r.ended, found, missing: LOOKED_FOR.filter((f) => !found.includes(f)), folder: r.folder }, null, 1)}\n`);
+  writeFileSync(join(ROOT, "run.json"), `${JSON.stringify({ kit, model: r.model, generators: GENERATORS ? "generate" : null, materials: MATERIALS ? "library" : null, seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, ended: r.ended, found, missing: LOOKED_FOR.filter((f) => !found.includes(f)), folder: r.folder }, null, 1)}\n`);
   console.log(`made in ${r.seconds} s, ${r.turns} turns: ${found.length} of ${LOOKED_FOR.length} files${r.error ? ` (${r.error})` : ""}`);
 }
 
