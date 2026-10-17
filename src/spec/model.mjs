@@ -2187,6 +2187,21 @@ function buildOnce(spec, { folder, out, prefabs = {}, games = [], readPicture, r
     report.facts.push(`finish painted over ${texels} texels: ${JSON.stringify({ ...FINISH, ...(kind === "character" ? CHARACTER_FINISH : {}), ...(spec.finish ?? {}) })}`);
   }
 
+  // a generated shape painted by its materials alone: the picture it was made from is the only paint it has (a
+  // face, clothes, markings), and the held round's guard, painted one flat colour with boxes over it, was what
+  // the line-up picked out (2026-10-17)
+  if (!spec.project?.length)
+    for (const part of spec.parts.filter((p) => p.kind === "mesh" && typeof p.file === "string")) {
+      let sidecar = null;
+      try {
+        const read = readFile ?? ((name) => readFileSync(resolve(folder ?? ".", name.replace(/^(work|models):/, ""))));
+        sidecar = JSON.parse(read(part.file.replace(/\.obj$/i, ".json")).toString("utf8"));
+      } catch {
+        // no sidecar: a shape made elsewhere, with no picture of its own
+      }
+      if (sidecar?.picture)
+        warnings.push(`${part.id}: painted by its material alone, where the picture its shape was made from (work:${sidecar.picture}) is the paint it has: its face, its clothes, its markings. Project that picture's cut-out (work:${sidecar.picture.replace(/\.png$/i, "_cut.png")}) with project, the side it shows as its view, and paint over it only what differs`);
+    }
   // the person's pictures projected onto the shape: each texel takes the colour of the views that see it
   let projectedViews = null;
   // how far a character's pictures' colours were kept from their grey (1: as projected)

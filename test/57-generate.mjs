@@ -130,6 +130,8 @@ async function generateCase() {
   sure(JSON.parse(readFileSync(join(folders.work, "gen", "crate_s0.json"), "utf8")).picture === "gen/crate_s0.png", "its sidecar names its picture");
   const model = (await tools.build.call({ spec: { spec: "smak.model/1", name: "crate.mdl", kind: "prop", parts: [{ id: "body", kind: "mesh", file: "work:gen/crate_s0.obj", size: [16, 16, 32], material: "wood" }] } }))[0].text;
   sure(/^OK/.test(model) && /body: the shape of work:gen\/crate_s0\.obj, 12 triangles reduced to 12, fitted to 16 x 16 x 32 \(its own proportions 0\.5 : 0\.5 : 1\)/.test(model) && /body 12 -8 -8 0 to 8 8 32/.test(model), model);
+  // painted by its material alone, the picture it was made from left unused: told, with the cut-out to project
+  sure(/body: painted by its material alone, where the picture its shape was made from \(work:gen\/crate_s0\.png\) is the paint it has.*work:gen\/crate_s0_cut\.png/.test(model), model);
   const squashed = (await tools.build.call({ spec: { spec: "smak.model/1", name: "crate2.mdl", kind: "prop", parts: [{ id: "body", kind: "mesh", file: "work:gen/crate_s0.obj", size: [32, 32, 32] }] } }))[0].text;
   sure(/stretched 100% more one way than another: give size its own proportions \(16 x 16 x 32/.test(squashed), squashed);
   // a character: drawn over its base in the stance it is built in, the guide handed to the worker, the stance kept
