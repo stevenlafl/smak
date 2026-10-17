@@ -290,7 +290,7 @@ the weapon's meshes are replaced (the hands are told by their textures' names: g
 The files keep the game's names, so the game loads them in place of its own with no code (a weapon under a
 new name needs the mod's code). They are written in `work:<name>_weapon/`.
 
-- `like`: the game's weapon, as its files are named: `crowbar`, `357`, `rpg`, `tripmine`.
+- `like`: the game's weapon, as its files are named: `crowbar`, `357`, `rpg`, `tripmine`. Its files are read from the game folders first, then from beside the spec: a copy of a build's own put beside it is never fitted to in the game's place.
 - A gun is best one part, `{ "kind": "kit:firearm", "options": { "preset": "shotgun", ... } }` (`kits/firearmkit.mjs`
   lists every field: receiver, frame, barrel, grip, guard, trigger, magazine, stock, forend, sights, `finish`,
   `wear`): a receiver, a grip, a closed guard and a magazine that read as a gun's, at its real size (`size: "own"`),

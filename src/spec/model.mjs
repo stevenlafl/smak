@@ -2453,9 +2453,11 @@ function weaponViews(spec, meshes, { folder, games, report, hide = [] }) {
   }
   for (const view of views) {
     const fileName = `${view}_${like}.mdl`;
-    const place = [resolve(folder ?? ".", fileName), ...games.map((game) => join(game, "models", fileName))].find((p) => existsSync(p));
+    // the game's own first: a weapon is fitted to the file whose animations the game's code plays, and a copy of
+    // this build's own beside the spec (a maker putting its files where the mod keeps them) is not that (2026-10-17)
+    const place = [...games.map((game) => join(game, "models", fileName)), resolve(folder ?? ".", fileName)].find((p) => existsSync(p));
     if (!place) {
-      report.errors.push(`weapon: ${fileName} is neither beside the spec nor in the game folders given (${games.join(", ") || "none"})`);
+      report.errors.push(`weapon: ${fileName} is neither in the game folders given nor beside the spec (${games.join(", ") || "none"})`);
       continue;
     }
     let mdl = readStudio(place).src;

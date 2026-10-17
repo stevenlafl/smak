@@ -78,6 +78,15 @@ test("a weapon spec names the firearm kit: its stock left out of the first-perso
   sure(weaponTris("p_boomstick.mdl") > weaponTris("v_boomstick.mdl") * 0.5, `in the hands, with it: ${weaponTris("p_boomstick.mdl")}`);
   sure(report.parts["gun.stock"]?.tris === stock && report.parts["gun.receiver"], `the kit's own parts are told: ${Object.keys(report.parts).join(", ")}`);
   sure(/p_boomstick\.mdl[^\n]*laid as drawn/.test(report.facts.join("\n")), `laid as drawn on its own outline: ${report.facts.filter((f) => /laid/.test(f)).join(" | ")}`);
+  // with the game's files in a game folder, a file of that name beside the spec (a copy of a build's own, here
+  // a glove with no gun) is not the one fitted to
+  const game = join(tmp, "firearm-game");
+  mkdirSync(join(game, "models"), { recursive: true });
+  writeFileSync(join(game, "models", "v_boomstick.mdl"), fileOf([glove, gun]));
+  writeFileSync(join(game, "models", "p_boomstick.mdl"), fileOf([gun]));
+  writeFileSync(join(folder, "v_boomstick.mdl"), fileOf([glove]));
+  const fromGame = buildModelSpec(spec, { folder, games: [game] });
+  sure(fromGame.report.ok && fromGame.files.length === 2, `the game's own fitted to: ${[...fromGame.report.errors, ...fromGame.report.faults].join("; ")}`);
 });
 
 test("upright: a piece that knows its up and front keeps them where its outline cannot choose, and only there", () => {
