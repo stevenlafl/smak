@@ -831,8 +831,10 @@ function build(folders, args) {
   }
   if (spec?.spec !== "smak.model/1")
     throw new Error('spec: a model spec ("spec": "smak.model/1"), a map spec ("smak.map/1"), a sound spec ("smak.sound/1"), a music spec ("smak.music/1"), a textures spec ("smak.wad/1"), a sprite spec ("smak.sprite/1") or a video spec ("smak.video/1"); guide { doc: "spec" } says how to write one');
-  const { mdl, report, files = [] } = buildModelSpec(spec, { folder, games: folders.wads ?? [], readPicture: (name) => smak.unpicture(readFileSync(pathOf(folders, name))), readFile: (name) => readFileSync(pathOf(folders, name)), hide: folders.hide ?? [], refuse: folders.refuse ?? [] });
+  const { mdl, report, files = [] } = buildModelSpec(spec, { folder, games: folders.wads ?? [], readPicture: pictureReader(folders, folder), readFile: (name) => readFileSync(pathOf(folders, name)), hide: folders.hide ?? [], refuse: folders.refuse ?? [] });
   const lines = reportLines(report);
+  const paintedModel = paintedOnly(folders, spec);
+  if (paintedModel) lines.splice(1, 0, paintedModel);
   if (mdl) {
     const name = spec.name ?? "model.mdl";
     const base = name.replace(/\.mdl$/i, "");
@@ -967,15 +969,17 @@ function entities(folders, { match, class: one } = {}) {
 }
 
 /**
- * A note for a .wad or map spec whose materials are all painted, on a server with a material library: textures
- * painted from nothing were judged "grainy noise" on 24 of 25, and a maker that never looked at the library did not
- * know it was there. Null when the server has none or a material already takes a photograph.
+ * A note for a .wad, map or model spec whose materials are all painted, on a server with a material library:
+ * textures painted from nothing were judged "grainy noise" on 24 of 25, and a maker that never looked at the library
+ * did not know it was there; the original mod's props, all painted, were told apart from Valve's in the line-up
+ * (clean pale paint where Valve's are photographed). Null when the server has none, a material already takes a
+ * photograph, or the person's pictures are projected onto it.
  */
 function paintedOnly(folders, spec) {
-  if (!folders.materials) return null;
-  const all = [...Object.values(spec.materials ?? {}), ...Object.values(spec.textures && !Array.isArray(spec.textures) ? spec.textures : {}), ...(Array.isArray(spec.textures) ? spec.textures.map((t) => t.material) : [])];
+  if (!folders.materials || spec.project) return null;
+  const all = [...Object.values(spec.materials ?? {}), ...(Array.isArray(spec.parts) ? spec.parts.map((part) => part?.material) : []), ...Object.values(spec.textures && !Array.isArray(spec.textures) ? spec.textures : {}), ...(Array.isArray(spec.textures) ? spec.textures.map((t) => t.material) : [])];
   if (all.some((m) => m && typeof m === "object" && typeof m.picture === "string")) return null;
-  return `note  every material is painted: this server has a library of ${folders.materials.list.length} photographed materials (the tool materials). A wall, a floor, metal, rust or wood made from a real surface reads as Valve's do, where painted grain reads as noise: materials { match: "rusty metal", show: [...] }, then { "base": ..., "picture": "library:<name>", "size": <its width in units> }. These are photographs of real surfaces, free to use (CC0): not a game's textures, which stay out`;
+  return `note  every material is painted: this server has a library of ${folders.materials.list.length} photographed materials (the tool materials). A wall, a floor, a prop's metal, rust, wood or plastic made from a real surface reads as Valve's do, where painted grain reads as noise and plain paint as a toy: materials { match: "rusty metal", show: [...] }, then { "base": ..., "picture": "library:<name>", "size": <its width in units> }. These are photographs of real surfaces, free to use (CC0): not a game's textures, which stay out`;
 }
 
 // ── the tools as a client is told of them ──────────────────────────────────
@@ -1195,7 +1199,7 @@ export function toolsFor(folders, { allowRun = true } = {}) {
   if (folders.materials)
     tools.push({
       name: "materials",
-      description: `A library of ${folders.materials.list.length} photographed materials (CC0 scans: concrete, brick, metal, rust, wood, tile, plaster, ground...), each with its real size: search it by words, see them (show), and give a map's or a .wad's material one as its picture ("library:<name>") so its texture is made from a real surface rather than painted noise.`,
+      description: `A library of ${folders.materials.list.length} photographed materials (CC0 scans: concrete, brick, metal, rust, wood, tile, plaster, ground...), each with its real size: search it by words, see them (show), and give a map's, a .wad's or a model's material one as its picture ("library:<name>") so its texture is made from a real surface rather than painted noise.`,
       inputSchema: object({
         match: { type: "string", description: 'words all found in a material\'s name, title, categories or tags ("rusty metal", "cracked concrete")' },
         category: { type: "string", description: "one of the library's categories" },
