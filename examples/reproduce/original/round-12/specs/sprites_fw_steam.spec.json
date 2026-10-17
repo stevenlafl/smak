@@ -1,0 +1,130 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/fw_steam.spr",
+      "class": "smoke puff",
+      "use": "env_sprite",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 12,
+      "loop": false,
+      "fps": 10,
+      "format": "index alpha",
+      "colour": [
+        0.82,
+        0.84,
+        0.8
+      ],
+      "origin": "centre",
+      "layers": [
+        {
+          "kind": "smoke",
+          "density": 0.8,
+          "spread": 0.5,
+          "colour": [
+            0.82,
+            0.84,
+            0.8
+          ],
+          "rise": 0.4,
+          "env": {
+            "attack": 0.15,
+            "decay": 0.6,
+            "start": 0.1
+          }
+        }
+      ],
+      "finish": {
+        "edge": 4
+      }
+    },
+    {
+      "name": "sprites/fw_glow.spr",
+      "class": "glow",
+      "use": "env_glow",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 1,
+      "loop": false,
+      "origin": "centre",
+      "layers": [
+        {
+          "kind": "glow",
+          "radius": 0.95,
+          "core": 0.12,
+          "colour": [
+            1,
+            0.66,
+            0.26
+          ],
+          "gain": 1
+        }
+      ],
+      "finish": {
+        "edge": 2
+      }
+    },
+    {
+      "name": "sprites/fw_spit.spr",
+      "class": "sparks",
+      "use": "env_sprite",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 8,
+      "loop": false,
+      "fps": 10,
+      "format": "index alpha",
+      "colour": [
+        0.5,
+        0.6,
+        0.32
+      ],
+      "origin": "centre",
+      "layers": [
+        {
+          "kind": "blobs",
+          "count": 9,
+          "radius": 0.32,
+          "spread": 0.6,
+          "core": 0.4,
+          "soft": 0.5,
+          "colour": [
+            0.5,
+            0.6,
+            0.32
+          ],
+          "env": {
+            "attack": 0.1,
+            "decay": 0.7
+          }
+        },
+        {
+          "kind": "sparks",
+          "count": 12,
+          "speed": 0.9,
+          "gravity": 1.2,
+          "trail": 0.2,
+          "colour": [
+            0.55,
+            0.65,
+            0.35
+          ],
+          "env": {
+            "attack": 0.1,
+            "decay": 0.7
+          }
+        }
+      ],
+      "finish": {
+        "edge": 3
+      }
+    }
+  ]
+}

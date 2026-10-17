@@ -11,7 +11,7 @@
      "fw_pumphall"
     ],
     "landmarks": [
-     "fw_land_1"
+     "fw_lm1"
     ],
     "asked": "fw_pumphall"
    },
@@ -21,8 +21,8 @@
      "fw_control"
     ],
     "landmarks": [
-     "fw_land_1",
-     "fw_land_2"
+     "fw_lm1",
+     "fw_lm2"
     ],
     "asked": "fw_control"
    },
@@ -30,7 +30,7 @@
     "map": "fw_control",
     "leadsTo": [],
     "landmarks": [
-     "fw_land_2"
+     "fw_lm2"
     ],
     "asked": null
    }
@@ -39,22 +39,22 @@
    {
     "file": "videos/fw_wrench.mp4",
     "there": true,
-    "bytes": 376802
+    "bytes": 480221
    },
    {
     "file": "videos/fw_crawler.mp4",
     "there": true,
-    "bytes": 256945
+    "bytes": 404004
    },
    {
     "file": "videos/fw_pumphall.mp4",
     "there": true,
-    "bytes": 4132476
+    "bytes": 9830977
    },
    {
     "file": "pictures/fw_props.png",
     "there": true,
-    "bytes": 854633
+    "bytes": 1197320
    }
   ]
  },
@@ -67,25 +67,25 @@
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Every asset the brief lists is accounted for: three maps, the five props (valve wheel, drum, console, pipe junction, caged lamp), the wrench, the crawler, and the videos and pictures. The measurements show nothing missing and no failed SMAK checks. The sheet cannot show the .wad, sprites or sounds, so this rests on the measurements, not on the picture."
+   "reason": "Measurements report no missing assets and no failed SMAK checks. The sheet shows all five props (valve wheel, drum, console, pipe junction, caged lamp), the crawler, the wrench, and the three maps with the fw.wad textures on their walls. Sounds and sprites are not visible on the sheet and are taken from the measurements, which report them complete."
   },
   "O2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The chain is measured: fw_yard leads to fw_pumphall through fw_land_1, and fw_pumphall leads to fw_control through fw_land_1 and fw_land_2. Each change is reached from the start. fw_control has no onward map, which is correct because the valve wheel ends the mod. The named models and sprites in the maps are not measured here."
+   "reason": "The chain measurement shows fw_yard leads to fw_pumphall through fw_lm1, fw_pumphall leads to fw_control through fw_lm2, and fw_control ends the mod at the valve wheel, which the brief asks for. Each change arrives where the last one left, and the walk test reaches each change from the start."
   },
   "O3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The props do not sit in the maps' palette. The drum (top row, second) is bright sky blue with a yellow-black stripe, where the brief asks for rust. The console and pipe junction (top row, third and fourth) are minty pale green, and the crawler is a saturated green. The map views are muted grey-brown concrete, rust and green-grey water, so the props look like a different set. The valve wheel's red and the caged lamp's orange are closer to the brief, and the wrench's brown-red is close to the maps. The overall look is clearly off, not one place."
+   "reason": "The props and the maps mostly share one industrial palette: grey-green console and crawler, rusted drum, rust-brown pipe walls. They break from it in three places. The fw_yard view (top left of the map row) has a flat, bright cartoon-blue sky that suits neither dusk nor the grey-green water-and-concrete palette. The valve wheel is a saturated candy red with clean white highlights, not rusted paint worn to steel as the brief asks. The caged lamp's orange glow is brighter and more saturated than the sodium glow of the maps. The maps are grimer than the props, so the wear does not agree across the sheet."
   },
   "O4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The props sheet and the videos are there (pictures/fw_props.png, and videos/fw_wrench.mp4, fw_crawler.mp4, fw_pumphall.mp4 at non-trivial sizes). Each prop appears in the sheet as itself. The wrench (bottom row, second) is the weakest to read: a brown bar with a red tip and two jaw blocks, less clearly a toothed pipe wrench than the brief asks for, but it is shown."
+   "reason": "The four shown files are present with their sizes: videos/fw_wrench.mp4 (480221 bytes), videos/fw_crawler.mp4 (404004 bytes), videos/fw_pumphall.mp4 (9830977 bytes) and pictures/fw_props.png (1197320 bytes). The sheet shows every prop, the crawler and the wrench as they are."
   }
  },
  "total": 7,

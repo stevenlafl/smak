@@ -1,0 +1,378 @@
+{
+  "spec": "smak.map/1",
+  "name": "fw_control",
+  "wads": [
+    "fw.wad"
+  ],
+  "theme": {
+    "floor": "fwfloor",
+    "wall": "fwwall",
+    "ceiling": "fwwall",
+    "door": "fwdoor",
+    "furniture": "fwrust",
+    "outside": "fwwall",
+    "roof": "fwrust"
+  },
+  "textures": {
+    "fwfloor": {
+      "texture": "FW_WETFLOOR"
+    },
+    "fwwall": {
+      "texture": "FW_CONCRETE"
+    },
+    "fwdoor": {
+      "texture": "FW_DOOR"
+    },
+    "fwrust": {
+      "texture": "FW_RUSTPLATE"
+    },
+    "fwwater": {
+      "texture": "!FW_WATER"
+    }
+  },
+  "rooms": [
+    {
+      "id": "control",
+      "size": [
+        800,
+        960,
+        256
+      ],
+      "surfaces": {
+        "floor": "fwfloor",
+        "walls": "fwwall"
+      }
+    },
+    {
+      "id": "hall_low",
+      "size": [
+        1200,
+        960,
+        384
+      ],
+      "floor": -256,
+      "place": {
+        "west_of": "control"
+      },
+      "surfaces": {
+        "floor": "fwfloor",
+        "walls": "fwwall"
+      },
+      "water": {
+        "depth": 112,
+        "material": "fwwater"
+      }
+    },
+    {
+      "id": "entry",
+      "size": [
+        420,
+        240,
+        256
+      ],
+      "place": {
+        "east_of": "control",
+        "align": "south"
+      },
+      "surfaces": {
+        "floor": "fwfloor",
+        "walls": "fwwall"
+      }
+    },
+    {
+      "id": "valve",
+      "size": [
+        800,
+        960,
+        240
+      ],
+      "place": {
+        "below": "control",
+        "gap": 16
+      },
+      "surfaces": {
+        "floor": "fwfloor",
+        "walls": "fwwall"
+      }
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "hall_low",
+        "control"
+      ],
+      "kind": "window",
+      "along": 0.15
+    },
+    {
+      "between": [
+        "hall_low",
+        "control"
+      ],
+      "kind": "window",
+      "along": 0.38
+    },
+    {
+      "between": [
+        "hall_low",
+        "control"
+      ],
+      "kind": "window",
+      "along": 0.62
+    },
+    {
+      "between": [
+        "hall_low",
+        "control"
+      ],
+      "kind": "window",
+      "along": 0.85
+    },
+    {
+      "between": [
+        "control",
+        "entry"
+      ],
+      "kind": "opening",
+      "along": 0.5
+    },
+    {
+      "between": [
+        "valve",
+        "control"
+      ],
+      "kind": "opening"
+    }
+  ],
+  "prefabs": {
+    "endtrig": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -40,
+              -80,
+              0
+            ],
+            [
+              40,
+              80,
+              96
+            ]
+          ]
+        }
+      ],
+      "entity": {
+        "class": "trigger_endsection",
+        "section": ""
+      }
+    }
+  },
+  "furniture": [
+    {
+      "prefab": "endtrig",
+      "room": "valve",
+      "at": [
+        184,
+        0
+      ]
+    }
+  ],
+  "props": [
+    {
+      "model": "models/fw_console.mdl",
+      "room": "control",
+      "at": [
+        -316,
+        -320
+      ],
+      "facing": "west"
+    },
+    {
+      "model": "models/fw_console.mdl",
+      "room": "control",
+      "at": [
+        -316,
+        -160
+      ],
+      "facing": "west"
+    },
+    {
+      "model": "models/fw_console.mdl",
+      "room": "control",
+      "at": [
+        -316,
+        160
+      ],
+      "facing": "west"
+    },
+    {
+      "model": "models/fw_console.mdl",
+      "room": "control",
+      "at": [
+        -316,
+        320
+      ],
+      "facing": "west"
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "control",
+      "at": [
+        250,
+        -462
+      ],
+      "z": 180,
+      "facing": "north"
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "control",
+      "at": [
+        250,
+        462
+      ],
+      "z": 180,
+      "facing": "south"
+    },
+    {
+      "model": "models/fw_valvewheel.mdl",
+      "room": "valve",
+      "at": [
+        284,
+        0
+      ],
+      "facing": "west"
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "valve",
+      "at": [
+        -300,
+        260
+      ],
+      "solid": true
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "valve",
+      "at": [
+        -270,
+        260
+      ],
+      "solid": true
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "valve",
+      "at": [
+        -300,
+        -280
+      ],
+      "solid": true
+    },
+    {
+      "model": "models/fw_pipejunction.mdl",
+      "room": "valve",
+      "at": [
+        -120,
+        -420
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "entry",
+      "at": "centre"
+    },
+    {
+      "class": "info_landmark",
+      "room": "entry",
+      "at": "centre",
+      "z": 32,
+      "keys": {
+        "targetname": "fw_land_2"
+      }
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "control",
+      "at": [
+        -100,
+        300
+      ],
+      "z": 0
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "valve",
+      "at": [
+        -150,
+        -100
+      ],
+      "z": 0
+    },
+    {
+      "class": "env_glow",
+      "room": "control",
+      "at": [
+        250,
+        -452
+      ],
+      "z": 189,
+      "keys": {
+        "model": "sprites/fw_glow.spr",
+        "rendermode": "5",
+        "renderamt": "255",
+        "rendercolor": "255 170 80",
+        "scale": "1"
+      }
+    },
+    {
+      "class": "env_glow",
+      "room": "control",
+      "at": [
+        250,
+        452
+      ],
+      "z": 189,
+      "keys": {
+        "model": "sprites/fw_glow.spr",
+        "rendermode": "5",
+        "renderamt": "255",
+        "rendercolor": "255 170 80",
+        "scale": "1"
+      }
+    },
+    {
+      "class": "ambient_generic",
+      "room": "hall_low",
+      "at": [
+        -300,
+        0
+      ],
+      "z": 120,
+      "keys": {
+        "message": "ambience/fw_pump.wav",
+        "health": "6",
+        "spawnflags": "8"
+      }
+    },
+    {
+      "class": "ambient_generic",
+      "room": "valve",
+      "at": [
+        -100,
+        200
+      ],
+      "z": 60,
+      "keys": {
+        "message": "ambience/fw_drips.wav",
+        "health": "5",
+        "spawnflags": "8"
+      }
+    }
+  ]
+}

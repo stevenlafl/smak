@@ -3,31 +3,90 @@
  "label": "the crawler (models/headcrab.mdl): a sludge crawler: low, wet, six-legged, the size of a headcrab, grey-green with a pale belly and a ring of teeth",
  "measured": {
   "size": [
-   24.4,
    26.4,
-   18.4
+   27.7,
+   12.2
   ],
   "sizeAsked": null,
   "sizeOff": null,
-  "triangles": 740,
+  "triangles": 448,
   "halfLifeMedianOfItsKind": 308,
   "halfLifeThreeQuartersUnder": 340,
   "halfLifeMost": 655,
   "checkErrors": [],
   "lineup": "the asset is one of A to D in lineup.png beside models/chumtoad.mdl, models/roach.mdl, models/leech.mdl",
-  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked B, D, D, D where the asset was B, B, B, D: passed for one of the game's",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked C, D, D, A where the asset was B, B, B, D: passed for one of the game's",
   "contract": "keeps the headcrab's bones, animations, attachments and bodyparts"
  },
  "caps": {
   "M2": 2,
-  "M8": 1,
+  "M8": 2,
   "M6": 2,
   "C2": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "M8"
- ],
- "total": 0,
- "of": 20
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The side, back and top views show the brief's low, wet-looking dome, about 12 units high, with six legs splayed out to either side. Nothing sticks out or is missing in any of the ten views, and the walk and jump frames keep the same outline."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The brief gives no number, only 'the size of a headcrab', and sizeOff is null. The footprint of 26.4 by 27.7 units is close to a headcrab's, and the height of 12.2 is low, as the brief asks."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief's parts are present: six legs (the top view shows three pairs, and the front-left and front-right views show them on the near side), a ring of teeth around the front mouth (the front and below views show about a dozen teeth round a dark disc), and a pale belly (the side views and the below view show it). Nothing the brief names is missing."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Each region matches the brief's words: grey-green body, pale tan belly, dark red mouth with pale teeth. The wet quality reads faintly, since the skin is matte with faceted shading and little sheen. That is the one thing a close look would want more of, but the colours and materials of the regions are right."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief names no markings beyond the pale belly and the teeth, and both are there and sharp enough at this scale. Adds nothing wrong."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Set by the line-up test, as the rubric directs: the asset passed in all four readings, with judges picking one of the three Valve models as the one not made by Valve (C, D, D, A) when the asset sat in the slots B, B, B, D."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front is the mouth: in the front view the teeth face the viewer, and in the left and right views the mouth is at the front end. The body stands upright on its legs, and in the walk frames the feet sit on the floor line."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's check reports no errors. At 448 triangles it is under the cap of 616 (twice Half-Life's median of 308, which is more than three quarters under 340). The belly and the mouth look closed in every view, and the legs are attached to the body with nothing floating."
+  },
+  "C1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The walk (0 to 34) and the jump (0 to 30) frames keep every leg on the body through the cycle and the leap. Nothing sinks through the floor line or floats, and the legs rotate with the body as a leap should."
+  },
+  "C2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The contract is reported as kept (bones, animations, attachments and bodyparts of the headcrab), and the walk and jump frames play through the game's own headcrab animation set. No contract fault is reported."
+  }
+ },
+ "total": 20,
+ "of": 20,
+ "passes": true
 }

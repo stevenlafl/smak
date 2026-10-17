@@ -1,0 +1,663 @@
+{
+  "spec": "smak.map/1",
+  "name": "fw_pumphall",
+  "wads": [
+    "fw.wad"
+  ],
+  "theme": {
+    "floor": "fwfloor",
+    "wall": "fwwall",
+    "ceiling": "fwwall",
+    "door": "fwdoor",
+    "furniture": "fwrust",
+    "outside": "fwwall",
+    "roof": "fwrust"
+  },
+  "textures": {
+    "fwfloor": {
+      "texture": "FW_WETFLOOR"
+    },
+    "fwwall": {
+      "texture": "FW_CONCRETE"
+    },
+    "fwdoor": {
+      "texture": "FW_DOOR"
+    },
+    "fwrust": {
+      "texture": "FW_RUSTPLATE"
+    },
+    "fwcat": {
+      "texture": "FW_CATWALK"
+    },
+    "fwpipe": {
+      "texture": "FW_PIPEWALL"
+    },
+    "fwsign": {
+      "texture": "FW_SIGN"
+    },
+    "fwwater": {
+      "texture": "!FW_WATER"
+    }
+  },
+  "rooms": [
+    {
+      "id": "hall",
+      "size": [
+        2500,
+        960,
+        384
+      ],
+      "surfaces": {
+        "floor": "fwfloor",
+        "walls": "fwwall"
+      },
+      "water": {
+        "depth": 112,
+        "material": "fwwater"
+      }
+    },
+    {
+      "id": "corridor",
+      "size": [
+        420,
+        240,
+        256
+      ],
+      "floor": 256,
+      "place": {
+        "north_of": "hall",
+        "align": 2080
+      },
+      "surfaces": {
+        "floor": "fwfloor",
+        "walls": "fwwall"
+      }
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "hall",
+        "corridor"
+      ],
+      "kind": "opening",
+      "width": 64,
+      "height": 96,
+      "along": 0.5
+    }
+  ],
+  "ladders": [
+    {
+      "room": "hall",
+      "side": "south",
+      "along": 0.29,
+      "width": 32,
+      "height": 180
+    },
+    {
+      "room": "hall",
+      "side": "north",
+      "along": 0.29,
+      "width": 32,
+      "height": 180
+    }
+  ],
+  "prefabs": {
+    "hall_works": {
+      "pieces": [
+        {
+          "box": [
+            [
+              0,
+              0,
+              160
+            ],
+            [
+              700,
+              240,
+              176
+            ]
+          ],
+          "texture": "fwcat"
+        },
+        {
+          "box": [
+            [
+              764,
+              0,
+              160
+            ],
+            [
+              900,
+              240,
+              176
+            ]
+          ],
+          "texture": "fwcat"
+        },
+        {
+          "box": [
+            [
+              1000,
+              0,
+              160
+            ],
+            [
+              1700,
+              240,
+              176
+            ]
+          ],
+          "texture": "fwcat"
+        },
+        {
+          "box": [
+            [
+              0,
+              720,
+              160
+            ],
+            [
+              700,
+              960,
+              176
+            ]
+          ],
+          "texture": "fwcat"
+        },
+        {
+          "box": [
+            [
+              764,
+              720,
+              160
+            ],
+            [
+              900,
+              960,
+              176
+            ]
+          ],
+          "texture": "fwcat"
+        },
+        {
+          "box": [
+            [
+              1000,
+              720,
+              160
+            ],
+            [
+              1700,
+              960,
+              176
+            ]
+          ],
+          "texture": "fwcat"
+        },
+        {
+          "box": [
+            [
+              900,
+              0,
+              160
+            ],
+            [
+              1000,
+              960,
+              176
+            ]
+          ],
+          "texture": "fwcat"
+        },
+        {
+          "box": [
+            [
+              256,
+              360,
+              0
+            ],
+            [
+              512,
+              600,
+              120
+            ]
+          ],
+          "texture": "fwfloor"
+        },
+        {
+          "wedge": [
+            [
+              0,
+              360,
+              0
+            ],
+            [
+              256,
+              600,
+              120
+            ]
+          ],
+          "high": "+x",
+          "texture": "fwfloor"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              600,
+              480
+            ],
+            "radius": 90,
+            "from": 48,
+            "to": 230,
+            "sides": 12
+          },
+          "texture": "fwpipe"
+        },
+        {
+          "box": [
+            [
+              470,
+              350,
+              0
+            ],
+            [
+              730,
+              610,
+              48
+            ]
+          ],
+          "texture": "fwrust"
+        },
+        {
+          "box": [
+            [
+              530,
+              410,
+              230
+            ],
+            [
+              670,
+              550,
+              300
+            ]
+          ],
+          "texture": "fwrust"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              1250,
+              480
+            ],
+            "radius": 90,
+            "from": 48,
+            "to": 230,
+            "sides": 12
+          },
+          "texture": "fwpipe"
+        },
+        {
+          "box": [
+            [
+              1120,
+              350,
+              0
+            ],
+            [
+              1380,
+              610,
+              48
+            ]
+          ],
+          "texture": "fwrust"
+        },
+        {
+          "box": [
+            [
+              1180,
+              410,
+              230
+            ],
+            [
+              1320,
+              550,
+              300
+            ]
+          ],
+          "texture": "fwrust"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              1900,
+              480
+            ],
+            "radius": 90,
+            "from": 48,
+            "to": 230,
+            "sides": 12
+          },
+          "texture": "fwpipe"
+        },
+        {
+          "box": [
+            [
+              1770,
+              350,
+              0
+            ],
+            [
+              2030,
+              610,
+              48
+            ]
+          ],
+          "texture": "fwrust"
+        },
+        {
+          "box": [
+            [
+              1830,
+              410,
+              230
+            ],
+            [
+              1970,
+              550,
+              300
+            ]
+          ],
+          "texture": "fwrust"
+        },
+        {
+          "box": [
+            [
+              2060,
+              0,
+              150
+            ],
+            [
+              2140,
+              8,
+              190
+            ]
+          ],
+          "texture": "fwsign"
+        }
+      ]
+    },
+    "exit": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -24,
+              -24,
+              0
+            ],
+            [
+              24,
+              24,
+              64
+            ]
+          ]
+        }
+      ],
+      "entity": {
+        "class": "trigger_changelevel",
+        "map": "fw_control",
+        "landmark": "fw_land_2"
+      }
+    }
+  },
+  "furniture": [
+    {
+      "prefab": "hall_works",
+      "room": "hall",
+      "at": [
+        -1250,
+        -480
+      ]
+    },
+    {
+      "prefab": "exit",
+      "room": "corridor",
+      "at": [
+        150,
+        0
+      ]
+    }
+  ],
+  "props": [
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "hall",
+      "at": [
+        -950,
+        -462
+      ],
+      "z": 220,
+      "facing": "north"
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "hall",
+      "at": [
+        -150,
+        -462
+      ],
+      "z": 220,
+      "facing": "north"
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "hall",
+      "at": [
+        950,
+        -462
+      ],
+      "z": 220,
+      "facing": "north"
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "hall",
+      "at": [
+        -650,
+        462
+      ],
+      "z": 220,
+      "facing": "south"
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "hall",
+      "at": [
+        250,
+        462
+      ],
+      "z": 220,
+      "facing": "south"
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "hall",
+      "at": [
+        -866,
+        0
+      ],
+      "z": 130
+    },
+    {
+      "class": "info_landmark",
+      "room": "hall",
+      "at": [
+        -866,
+        0
+      ],
+      "z": 130,
+      "keys": {
+        "targetname": "fw_land_1"
+      }
+    },
+    {
+      "class": "info_landmark",
+      "room": "corridor",
+      "at": [
+        150,
+        0
+      ],
+      "z": 32,
+      "keys": {
+        "targetname": "fw_land_2"
+      }
+    },
+    {
+      "class": "weapon_crowbar",
+      "room": "hall",
+      "at": [
+        -950,
+        -360
+      ],
+      "z": 180
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "hall",
+      "at": [
+        -1100,
+        -180
+      ],
+      "z": 40
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "hall",
+      "at": [
+        250,
+        -180
+      ],
+      "z": 40
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "hall",
+      "at": [
+        900,
+        140
+      ],
+      "z": 40
+    },
+    {
+      "class": "env_glow",
+      "room": "hall",
+      "at": [
+        -950,
+        -452
+      ],
+      "z": 229,
+      "keys": {
+        "model": "sprites/fw_glow.spr",
+        "rendermode": "5",
+        "renderamt": "255",
+        "rendercolor": "255 170 80",
+        "scale": "1"
+      }
+    },
+    {
+      "class": "env_glow",
+      "room": "hall",
+      "at": [
+        -150,
+        -452
+      ],
+      "z": 229,
+      "keys": {
+        "model": "sprites/fw_glow.spr",
+        "rendermode": "5",
+        "renderamt": "255",
+        "rendercolor": "255 170 80",
+        "scale": "1"
+      }
+    },
+    {
+      "class": "env_glow",
+      "room": "hall",
+      "at": [
+        950,
+        -452
+      ],
+      "z": 229,
+      "keys": {
+        "model": "sprites/fw_glow.spr",
+        "rendermode": "5",
+        "renderamt": "255",
+        "rendercolor": "255 170 80",
+        "scale": "1"
+      }
+    },
+    {
+      "class": "env_glow",
+      "room": "hall",
+      "at": [
+        -650,
+        452
+      ],
+      "z": 229,
+      "keys": {
+        "model": "sprites/fw_glow.spr",
+        "rendermode": "5",
+        "renderamt": "255",
+        "rendercolor": "255 170 80",
+        "scale": "1"
+      }
+    },
+    {
+      "class": "env_glow",
+      "room": "hall",
+      "at": [
+        250,
+        452
+      ],
+      "z": 229,
+      "keys": {
+        "model": "sprites/fw_glow.spr",
+        "rendermode": "5",
+        "renderamt": "255",
+        "rendercolor": "255 170 80",
+        "scale": "1"
+      }
+    },
+    {
+      "class": "ambient_generic",
+      "room": "hall",
+      "at": [
+        0,
+        0
+      ],
+      "z": 120,
+      "keys": {
+        "message": "ambience/fw_pump.wav",
+        "health": "6",
+        "spawnflags": "8"
+      }
+    },
+    {
+      "class": "ambient_generic",
+      "room": "hall",
+      "at": [
+        900,
+        140
+      ],
+      "z": 40,
+      "keys": {
+        "message": "ambience/fw_drips.wav",
+        "health": "5",
+        "spawnflags": "8"
+      }
+    }
+  ]
+}

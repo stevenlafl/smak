@@ -1,0 +1,81 @@
+{
+ "kind": "model",
+ "label": "models/fw_drum.mdl: a rusted 55-gallon drum with a hazard stripe",
+ "measured": {
+  "size": [
+   23,
+   23,
+   34
+  ],
+  "sizeAsked": {
+   "high": 34,
+   "across": 23
+  },
+  "sizeOff": 0,
+  "triangles": 12,
+  "halfLifeMedianOfItsKind": 99,
+  "halfLifeThreeQuartersUnder": 156,
+  "halfLifeMost": 422,
+  "checkErrors": [],
+  "lineup": "the asset is one of A to D in lineup.png beside models/snapbug.mdl, models/w_crowbar.mdl, models/w_longjump.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked A, C, B, C where the asset was D, A, C, C: passed for one of the game's"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2,
+  "M6": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief asks for a 55-gallon drum, a cylinder with a round outline from above and below. The asset is a rectangular box. In the TOP and BELOW views (sides.png) the outline is a square, not a circle, and in the four angle views (FRONT-LEFT to BACK-RIGHT) the body is a block with four flat faces and hard vertical edges. The outline differs in shape, not only in paint, so this is a shape fault."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 23 x 23 x 34, against the brief's 34 high and 23 across: 0% off, within 15%. This is only the bounding box; the form inside it is wrong (see M1 and M3)."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Parts the brief asks for, down to the small ones: the round body (a cylinder, the asset has four sides instead); the top and bottom chime rings (none in any view); the two bung plugs on the top (none in TOP or the angle views); the hazard stripe, which is painted and so counts only if its paint is there (none in any view); the rust, which is paint too. Missing: rings, bungs, stripe. The body's wrong form is also a fault."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Each view shows one flat mid-grey with a mottled noise texture, the same on all faces. The brief's painted steel body with rust reads as grey steel only in part; the rust (orange-brown wear) is absent everywhere, and the yellow and black hazard stripe is absent in all ten views. Clearly off, not the same material."
+  },
+  "M5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The surface markings the brief asks for are absent: no hazard stripe in any of the ten views, no rust patches, no panel or chime lines. Only a generic mottled noise, which reads as concrete, not as rusted steel."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Scored 2 as the amendment directs, since the line-up test caps M6 and the measured result was not a double pick (caught once in four readings). Note for the record: the asset is visibly a plain grey box beside the Valve props in lineup.png, and a player who knows a drum would not take it for one. The 2 here is the measure's result, not a visual pass; the decoy-must-fail rule should be read against the other items, which fail it."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The box is upright and stands on its base, as a drum does. But the drum's front is marked by its bung plugs and the stripe's placement, and neither is there, so there is no front to check the orientation against."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "checkErrors is empty; SMAK's check passes. 12 triangles against a median of 99 for Half-Life's own of its kind, well under twice. Nothing open, inside out, or floating: a closed, sound box."
+  }
+ },
+ "total": 8,
+ "of": 16,
+ "passes": false
+}

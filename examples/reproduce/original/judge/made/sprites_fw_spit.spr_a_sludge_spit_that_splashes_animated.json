@@ -6,33 +6,33 @@
    64,
    64
   ],
-  "frames": 8,
+  "frames": 12,
   "type": "parallel",
-  "format": "index alpha",
+  "format": "additive",
   "measures": {
-   "frames": 8,
+   "frames": 12,
    "size": [
     64,
     64
    ],
    "border": {
-    "max": 0.141,
+    "max": 0.035,
     "mean": 0
    },
    "envelope": {
-    "peakAt": 0.14,
-    "first": 0,
+    "peakAt": 0.36,
+    "first": 0.82,
     "last": 0
    },
-   "dark": 0.63,
-   "wrap": 0.65,
-   "jitter": 1.5
+   "dark": 0.66,
+   "wrap": 1.74,
+   "jitter": 1.68
   },
   "class": "explosion",
   "againstClass": [
    {
     "measure": "jitter",
-    "value": 1.5,
+    "value": 1.68,
     "range": [
      1.04,
      1.48
@@ -52,23 +52,23 @@
    },
    {
     "measure": "peakAt",
-    "value": 0.14,
+    "value": 0.36,
     "range": [
      0.22,
      0.71
     ],
-    "ok": false,
-    "words": "peaks too soon"
+    "ok": true,
+    "words": ""
    },
    {
     "measure": "first",
-    "value": 0,
+    "value": 0.82,
     "range": [
      0,
      0.22
     ],
-    "ok": true,
-    "words": ""
+    "ok": false,
+    "words": "starts too bright: an attack in its envelope"
    },
    {
     "measure": "last",
@@ -85,37 +85,37 @@
  "caps": {},
  "scores": {
   "R1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Reads as a sludge splash: a green blob that swells in frames 1 to 4, with small spatter streaks falling off its lower edge in frames 3 to 5, then breaks up and fades. Frame 0 is empty, so the effect starts from nothing. The brief asks for a spit that splashes, animated, and this is that."
+   "score": 1,
+   "reason": "The effect is a burst of soft round blobs fanning out from the centre, with radial streaks in frames 4 to 7. It reads as a smoke or explosion puff more than a sludge spit that splashes: there is no liquid edge, no droplets falling back, and no spit travelling before it splashes. The 'splash' is only partly carried."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Frames are 64 by 64 as the original's are. The effect fills the centre of each frame with a soft edge, and the border measure is 0 on average (max 0.141), so nothing is clipped at the frame edge."
+   "reason": "Frames are 64 by 64 and the effect fills them as a splash should. Border measures 0.035 at most, so nothing is clipped at the edges. Each frame is the same size and the burst is centred."
   },
   "R3": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "The colour is a muted green with a grey-green cast, reading as sludge against the brief's green-grey palette. No frame drifts to another hue, and the colour is steady across the sequence."
+   "score": 1,
+   "reason": "The core glows yellow-lime (frames 2 to 4, near-white centres) and the body is a bright yellow-green. Sludge in the brief is green-grey, and this reads closer to neon yellow-green than to the murky green-grey of the pumping station. Right family, too bright and too saturated."
   },
   "R4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Two measures fail against the explosion class. peakAt is 0.14 (frame 1) against 0.22 to 0.71, so it peaks too soon and the fade is long after the peak. jitter is 1.5 against 1.04 to 1.48, so the blobs flicker from frame to frame (frames 1 and 2 shift position; frames 4 and 5 change shape). The frame count (8) and the first and last frames (dark, 0 and 0) are within the class's measures. The motion is a grow-then-fade, which is the right kind, but the timing and steadiness are off."
+   "reason": "The kind of motion is right: a burst that spreads and fades to dark by frames 10 and 11, with 12 frames and the last frame at 0. Two measures are off against the explosion class. First frame is 0.82 bright where the class takes 0 to 0.22, so it starts as an attack rather than a build. Jitter is 1.68 against 1.04 to 1.48: the blob cluster reshuffles from frame to frame (visible between frames 0 and 1, and 4 and 5), so it flickers. Peak at 0.36 and border are within the class."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The file reads back as written: type parallel, format index alpha, 8 frames at 64 by 64, which are valid for GoldSrc. No slot type was given with the brief, so I could not check parallel against a required type; on the measures given, nothing is wrong."
+   "reason": "The file is named fw_spit, the brief's sprite, with type parallel and format additive, a legal GoldSrc pairing that suits a glow on black. Additive draws the dark background as nothing, which is what the frames rely on. I have no slot type from the brief to compare against, so this rests on the measured header and the name."
   }
  },
- "total": 9,
+ "total": 7,
  "of": 10,
  "passes": false
 }

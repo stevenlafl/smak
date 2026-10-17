@@ -1,0 +1,80 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_hit1.wav: the wrench striking metal",
+ "measured": {
+  "features": {
+   "length": 0.611,
+   "peak": -1,
+   "rms": -11.6,
+   "crest": 10.6,
+   "dc": 0.0006,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.03,
+   "attack": 0.02,
+   "peakAt": 0.02,
+   "t20": 0.369,
+   "t40": 0.464,
+   "centroid": 1176,
+   "rolloff": 1852,
+   "flatness": 0.156,
+   "bands": {
+    "<150": 0.1,
+    "150-600": 28.8,
+    "600-2k": 58.1,
+    "2k-5k": 12.9,
+    ">5k": 0.2
+   },
+   "onsets": 0
+  },
+  "class": "metal hit",
+  "against": {
+   "score": 19,
+   "of": 22,
+   "lines": [
+    "flatness 0.156 (0.16 to 0.28): too pure: more noise",
+    "band 150-600 28.8% (0 to 16.8): over the range",
+    "band 600-2k 58.1% (63.7 to 83.8): under the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The picture shows a strike's envelope: a sharp attack at 0.02 s (left edge of the waveform) and a decay to about 0.6 s. But the spectrogram is a broadband noise mass centred around 200 to 1000 Hz with no ringing partials or metallic bright lines, so from the picture it reads more as a thud than as a wrench on metal. Sound cannot be heard here, so this is a judgement from the picture."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Envelope holds: length 0.611 s, attack 0.02 s with the peak at 0.02 s, t20 0.369 s, as the waveform shows (a sharp onset, then a steady fall). The measure's against-list names no envelope line, so the attack and decay are within the metal hit class's range."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Spectrum is off by measure. Band 150-600 Hz is 28.8% against a range of 0 to 16.8 (over by about 12 points, beyond the 10-point rule). Band 600-2k Hz is 58.1% against 63.7 to 83.8 (under the range). Both show in the spectrogram as a heavy yellow-orange mass at 200 to 1000 Hz with little above 3 kHz (band >5k at 0.2%). Centroid 1176 Hz has no range given here, so it is not judged."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Flatness 0.156 is just under the class range of 0.16 to 0.28, so it is too pure (the measure reads 'more noise'). The onsets measure is 0, though the waveform shows one clear strike at 0.02 s. The spectrogram shows no pitch sweep, which matches the class."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The engine checks report no faults. Clipped is 0, DC is 0.0006 (negligible), and the peak is -1 dB. The name sound/weapons/cbar_hit1.wav is the one the game plays. The sample rate and bit depth are not in the measures shown, but the empty engineFaults list covers them."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

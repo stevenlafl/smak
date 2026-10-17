@@ -4,194 +4,363 @@
   "kind": "prop",
   "size": {
     "width": 32,
-    "height": 52
+    "height": 32
   },
   "materials": {
-    "iron": {
-      "base": "iron",
-      "rust": 0.5
-    },
-    "redpaint": {
+    "red": {
       "base": "paint",
-      "tone": "dark red"
+      "tone": [
+        0.47,
+        0.1,
+        0.07
+      ],
+      "picture": "library:rusty_painted_metal",
+      "size": 40
     },
-    "rimsteel": {
+    "steel": {
       "base": "steel",
+      "tone": [
+        0.46,
+        0.45,
+        0.43
+      ],
       "rust": 0.15
     }
   },
+  "finish": {
+    "wear": 0.8,
+    "grime": 0.5,
+    "light": 0.3
+  },
   "parts": [
     {
-      "id": "foot",
-      "kind": "box",
-      "material": "iron",
-      "size": [
-        18,
-        18,
-        3
+      "id": "rim_upper",
+      "kind": "tube",
+      "material": "red",
+      "sides": 6,
+      "path": [
+        [
+          0,
+          13.52,
+          12.38,
+          2.2
+        ],
+        [
+          0,
+          14,
+          16,
+          2.2
+        ],
+        [
+          0,
+          12.12,
+          23,
+          2.2
+        ],
+        [
+          0,
+          7,
+          28.12,
+          2.2
+        ],
+        [
+          0,
+          0,
+          30,
+          2.2
+        ],
+        [
+          0,
+          -7,
+          28.12,
+          2.2
+        ],
+        [
+          0,
+          -12.12,
+          23,
+          2.2
+        ],
+        [
+          0,
+          -14,
+          16,
+          2.2
+        ],
+        [
+          0,
+          -13.52,
+          12.38,
+          2.2
+        ]
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "width": 2.6,
+          "material": "steel"
+        },
+        {
+          "path": [
+            [
+              0.1,
+              90
+            ],
+            [
+              0.42,
+              90
+            ]
+          ],
+          "width": 1.6,
+          "material": "steel",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.55,
+              90
+            ],
+            [
+              0.9,
+              90
+            ]
+          ],
+          "width": 1.3,
+          "material": "steel",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.2,
+              270
+            ],
+            [
+              0.5,
+              270
+            ]
+          ],
+          "width": 1.2,
+          "material": "steel",
+          "ends": "point"
+        }
       ]
     },
     {
-      "id": "stem",
-      "kind": "cylinder",
-      "material": "iron",
-      "radius": 3,
-      "height": 33,
-      "sides": 10,
-      "attach": {
-        "to": "foot",
-        "toAt": "top"
+      "id": "rim_lower",
+      "kind": "tube",
+      "material": "red",
+      "sides": 6,
+      "path": [
+        [
+          0,
+          -13.52,
+          19.62,
+          2.2
+        ],
+        [
+          0,
+          -14,
+          16,
+          2.2
+        ],
+        [
+          0,
+          -12.12,
+          9,
+          2.2
+        ],
+        [
+          0,
+          -7,
+          3.88,
+          2.2
+        ],
+        [
+          0,
+          0,
+          2,
+          2.2
+        ],
+        [
+          0,
+          7,
+          3.88,
+          2.2
+        ],
+        [
+          0,
+          12.12,
+          9,
+          2.2
+        ],
+        [
+          0,
+          14,
+          16,
+          2.2
+        ],
+        [
+          0,
+          13.52,
+          19.62,
+          2.2
+        ]
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "width": 2.6,
+          "material": "steel"
+        },
+        {
+          "path": [
+            [
+              0.05,
+              90
+            ],
+            [
+              0.35,
+              90
+            ]
+          ],
+          "width": 1.4,
+          "material": "steel",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.6,
+              90
+            ],
+            [
+              0.95,
+              90
+            ]
+          ],
+          "width": 1.6,
+          "material": "steel",
+          "ends": "point"
+        },
+        {
+          "path": [
+            [
+              0.4,
+              270
+            ],
+            [
+              0.7,
+              270
+            ]
+          ],
+          "width": 1.2,
+          "material": "steel",
+          "ends": "point"
+        }
+      ]
+    },
+    {
+      "id": "spoke",
+      "kind": "tube",
+      "material": "red",
+      "sides": 5,
+      "path": [
+        [
+          0,
+          0,
+          19,
+          1.4
+        ],
+        [
+          0,
+          0,
+          28.5,
+          1.2
+        ]
+      ],
+      "repeat": {
+        "count": 4,
+        "axis": "x",
+        "through": [
+          0,
+          0,
+          16
+        ],
+        "start": 45
       }
     },
     {
       "id": "hub",
       "kind": "cylinder",
-      "material": "redpaint",
-      "radius": 4.5,
-      "height": 8,
-      "sides": 10,
+      "material": "red",
+      "radius": 4,
+      "height": 5,
+      "sides": 8,
       "rotate": [
         0,
         90,
         0
       ],
       "at": [
-        -4,
+        -2.5,
         0,
-        36
+        16
       ]
     },
     {
-      "id": "spoke",
-      "kind": "box",
-      "material": "redpaint",
-      "size": [
-        2.4,
-        9,
-        2.4
+      "id": "nut",
+      "kind": "cylinder",
+      "material": "steel",
+      "radius": 2.4,
+      "height": 2,
+      "sides": 6,
+      "rotate": [
+        0,
+        90,
+        0
       ],
       "at": [
+        2.2,
         0,
-        9,
-        34.8
-      ],
-      "repeat": {
-        "count": 4,
-        "around": "hub",
-        "axis": "x"
-      }
+        16
+      ]
     },
     {
-      "id": "rim",
-      "kind": "tube",
-      "material": "rimsteel",
+      "id": "stem",
+      "kind": "cylinder",
+      "material": "steel",
+      "radius": 1.8,
+      "height": 8,
       "sides": 6,
-      "finish": {
-        "wear": 0.9
-      },
-      "path": [
-        [
-          0,
-          14.5,
-          36,
-          1.6
-        ],
-        [
-          0,
-          13.4,
-          41.55,
-          1.6
-        ],
-        [
-          0,
-          10.25,
-          46.25,
-          1.6
-        ],
-        [
-          0,
-          5.55,
-          49.4,
-          1.6
-        ],
-        [
-          0,
-          0,
-          50.5,
-          1.6
-        ],
-        [
-          0,
-          -5.55,
-          49.4,
-          1.6
-        ],
-        [
-          0,
-          -10.25,
-          46.25,
-          1.6
-        ],
-        [
-          0,
-          -13.4,
-          41.55,
-          1.6
-        ],
-        [
-          0,
-          -14.5,
-          36,
-          1.6
-        ],
-        [
-          0,
-          -13.4,
-          30.45,
-          1.6
-        ],
-        [
-          0,
-          -10.25,
-          25.75,
-          1.6
-        ],
-        [
-          0,
-          -5.55,
-          22.6,
-          1.6
-        ],
-        [
-          0,
-          0,
-          21.5,
-          1.6
-        ],
-        [
-          0,
-          5.55,
-          22.6,
-          1.6
-        ],
-        [
-          0,
-          10.25,
-          25.75,
-          1.6
-        ],
-        [
-          0,
-          13.4,
-          30.45,
-          1.6
-        ],
-        [
-          0,
-          14.5,
-          36,
-          1.6
-        ]
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -10,
+        0,
+        16
       ]
     }
   ]

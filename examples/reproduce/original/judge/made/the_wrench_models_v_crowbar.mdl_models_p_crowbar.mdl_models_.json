@@ -3,84 +3,31 @@
  "label": "the wrench (models/v_crowbar.mdl, models/p_crowbar.mdl, models/w_crowbar.mdl): a pipe wrench: red-painted handle worn to bare iron, a heavy toothed jaw",
  "measured": {
   "size": [
-   19,
-   3.3,
-   12.6
+   19.4,
+   2.6,
+   7
   ],
   "sizeAsked": {
    "long": 18
   },
-  "sizeOff": 0.056,
-  "triangles": 68,
+  "sizeOff": 0.077,
+  "triangles": 156,
   "halfLifeMedianOfItsKind": 142,
   "halfLifeThreeQuartersUnder": 187,
   "halfLifeMost": 291,
   "checkErrors": [],
-  "lineup": "the asset is one of A to D in lineup.png beside models/w_shotgun.mdl, models/w_crowbar.mdl, models/w_9mmar.mdl",
-  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, B, C, C where the asset was D, B, D, A: passed for one of the game's"
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_9mmar.mdl, models/w_shotgun.mdl, models/w_357.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, B, D, A where the asset was D, B, D, A: told apart"
  },
  "caps": {
   "M2": 2,
   "M8": 2,
-  "M6": 2
+  "M6": 1
  },
- "scores": {
-  "M1": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "In sides.png the outline reads as a boxy Π or H of rusty blocks with a red bar, not a pipe wrench. The head is two plain slabs joined by a crossbar (TOP and FRONT-LEFT views), with the handle rising from its middle. The handle-and-head proportions are roughly right, but the jaw has no open toothed mouth in any of the six views, so the silhouette only loosely matches the brief's words."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The measured size is 19 x 3.3 x 12.6 against the 18 the brief asks for, 5.6% off, inside the 15% line. The first-person model measures 19.1, also within the band."
-  },
-  "M3": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The brief asks for a red handle and a heavy toothed jaw. The handle is there. The teeth show only as a few small stacked ledges on the left jaw in first-person.png and attack.png; in the side views (LEFT, BACK, FRONT-LEFT) the jaw is a plain block with no visible teeth. Four small diamond pieces in TOP and BELOW are unexplained. One heavy toothed jaw is present but its teeth are not clear at the size the game shows it."
-  },
-  "M4": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "The handle is red and carries grey iron streaks where the paint has worn away, as the brief asks. The jaw is rust brown and grey iron, a plausible material for a wrench. Nothing in the colours contradicts the brief."
-  },
-  "M5": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The wear on the handle reads as diagonal grey streaks through the red, which is the right idea, but in first-person.png and attack.png they look smeared rather than like worn paint edges. The jaw's rust texture is blotchy and soft, and the teeth are not drawn as sharp edges."
-  },
-  "M6": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Capped at 2 by the line-up test: the asset (D) was picked once in four readings, and the judges mostly took it for a Valve prop. Visually it stands apart from the black and grey guns at the line-up's scale, but the test does not show it is a Valve prop."
-  },
-  "M7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The w_ model lies flat at a diagonal in lineup.png with the handle at its top, which is plausible for a dropped tool. The brief gives no front, and in the FRONT view the handle is hidden, so the front cannot be read against the brief."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "SMAK's check reports no errors. At 68 triangles it is well under the median of 142 and the three-quarter line of 187. The jaw and handle look closed in the views. The small diamond pieces in TOP and BELOW look attached to the inner faces of the jaw arms, though that is not certain at this scale."
-  },
-  "W1": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "In first-person.png the wrench sits low and left, large, and its jaw is cut off at the right edge of its panel. The game's crowbar sits upper right, held with its head up and the handle vertical. The asset is not in the original's place and is not held the same way. Through attack.png it stays joined to the hand where both are seen (red handle visible under the jaw in frames 1, 3, 4, 6 and 7), so it is present and moves with the hands, but out of place."
-  }
- },
- "total": 13,
- "of": 18,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M6"
+ ],
+ "total": 0,
+ "of": 18
 }

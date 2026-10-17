@@ -1,0 +1,112 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_walllamp.mdl",
+  "kind": "piece",
+  "materials": {
+    "plate": {
+      "base": "metal",
+      "tone": "grey green",
+      "rust": 0.35
+    },
+    "cage": {
+      "base": "mesh",
+      "cell": 4,
+      "tone": "dark grey"
+    },
+    "lens": {
+      "base": "glass",
+      "tone": [
+        1,
+        0.62,
+        0.22
+      ],
+      "flags": [
+        "fullbright"
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "plate",
+      "kind": "box",
+      "material": "plate",
+      "size": [
+        2,
+        14,
+        18
+      ],
+      "at": [
+        -1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "lens",
+      "kind": "cylinder",
+      "material": "lens",
+      "radius": 4.5,
+      "height": 11,
+      "sides": 10,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        0.5,
+        0,
+        9
+      ],
+      "finish": false
+    },
+    {
+      "id": "cage",
+      "kind": "cylinder",
+      "material": "cage",
+      "radius": 6.5,
+      "height": 12,
+      "sides": 10,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        0,
+        0,
+        9
+      ]
+    },
+    {
+      "id": "hood",
+      "kind": "box",
+      "material": "plate",
+      "size": [
+        10,
+        14,
+        2
+      ],
+      "at": [
+        5,
+        0,
+        15.5
+      ]
+    },
+    {
+      "id": "bracket",
+      "kind": "box",
+      "material": "plate",
+      "size": [
+        2,
+        6,
+        4
+      ],
+      "at": [
+        0.5,
+        0,
+        0
+      ]
+    }
+  ]
+}

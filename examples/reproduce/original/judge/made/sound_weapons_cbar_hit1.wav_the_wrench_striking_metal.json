@@ -3,38 +3,38 @@
  "label": "sound/weapons/cbar_hit1.wav: the wrench striking metal",
  "measured": {
   "features": {
-   "length": 0.611,
-   "peak": -1,
-   "rms": -11.6,
-   "crest": 10.6,
-   "dc": 0.0006,
+   "length": 0.765,
+   "peak": -0.5,
+   "rms": -13.3,
+   "crest": 12.8,
+   "dc": 0.0017,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.03,
-   "attack": 0.02,
-   "peakAt": 0.02,
-   "t20": 0.369,
-   "t40": 0.464,
-   "centroid": 1176,
-   "rolloff": 1852,
-   "flatness": 0.156,
+   "tail": 0.01,
+   "attack": 0.025,
+   "peakAt": 0.025,
+   "t20": 0.559,
+   "t40": 0.673,
+   "centroid": 1548,
+   "rolloff": 1744,
+   "flatness": 0.042,
    "bands": {
-    "<150": 0.1,
-    "150-600": 28.8,
-    "600-2k": 58.1,
-    "2k-5k": 12.9,
-    ">5k": 0.2
+    "<150": 4.9,
+    "150-600": 6.9,
+    "600-2k": 73.3,
+    "2k-5k": 14,
+    ">5k": 0.9
    },
    "onsets": 0
   },
   "class": "metal hit",
   "against": {
-   "score": 19,
+   "score": 18,
    "of": 22,
    "lines": [
-    "flatness 0.156 (0.16 to 0.28): too pure: more noise",
-    "band 150-600 28.8% (0 to 16.8): over the range",
-    "band 600-2k 58.1% (63.7 to 83.8): under the range"
+    "crest 12.8 dB (5.3 to 12.5): too spiky: saturate more, or hold its body longer",
+    "rms -13.3 dBFS (-12.9 to -5.7): under the range",
+    "flatness 0.042 (0.16 to 0.28): too pure: more noise"
    ]
   },
   "engineFaults": []
@@ -44,37 +44,37 @@
  },
  "scores": {
   "S1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The picture shows a strike's envelope: a sharp attack at 0.02 s (left edge of the waveform) and a decay to about 0.6 s. But the spectrogram is a broadband noise mass centred around 200 to 1000 Hz with no ringing partials or metallic bright lines, so from the picture it reads more as a thud than as a wrench on metal. Sound cannot be heard here, so this is a judgement from the picture."
+   "score": 2,
+   "reason": "The picture reads as a metal strike: a sharp attack at 0.025 s, a dense body that holds to about 0.6 s, then a thin tail to 0.77 s. The spectrogram shows sustained ringing bands, which fits a struck metal bar. Class is 'metal hit' with no failed envelope measure."
   },
   "S2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Envelope holds: length 0.611 s, attack 0.02 s with the peak at 0.02 s, t20 0.369 s, as the waveform shows (a sharp onset, then a steady fall). The measure's against-list names no envelope line, so the attack and decay are within the metal hit class's range."
+   "reason": "Length 0.765 s, attack 0.025 s, t20 0.559 s and t40 0.673 s. None of these is listed among the failed measures, so length and decay sit within the metal-hit class range. The crest fault (12.8 dB, too spiky) is a level-shape issue charged under S4 and S5 rather than to the envelope timings."
   },
   "S3": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Spectrum is off by measure. Band 150-600 Hz is 28.8% against a range of 0 to 16.8 (over by about 12 points, beyond the 10-point rule). Band 600-2k Hz is 58.1% against 63.7 to 83.8 (under the range). Both show in the spectrogram as a heavy yellow-orange mass at 200 to 1000 Hz with little above 3 kHz (band >5k at 0.2%). Centroid 1176 Hz has no range given here, so it is not judged."
+   "score": 2,
+   "reason": "Centroid 1548 Hz. Band shares are 4.9% under 150 Hz, 6.9% at 150-600 Hz, 73.3% at 600-2k Hz, 14% at 2k-5k Hz and 0.9% over 5k Hz. Spectrogram energy sits in the 600 Hz to 2 kHz rows, as those shares say. No spectrum measure is listed as failed."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Flatness 0.156 is just under the class range of 0.16 to 0.28, so it is too pure (the measure reads 'more noise'). The onsets measure is 0, though the waveform shows one clear strike at 0.02 s. The spectrogram shows no pitch sweep, which matches the class."
+   "reason": "Flatness 0.042 against the metal-hit range of 0.16 to 0.28: the sound is too pure, which the measure flags. The spectrogram confirms it, with horizontal tonal bands at roughly 1 to 5 kHz from 0.05 s to 0.6 s and little broadband grit in the body. Onsets are 0, so no clicks or grit sit on the attack, which is part of the same shortfall. Clearly off, not missing."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The engine checks report no faults. Clipped is 0, DC is 0.0006 (negligible), and the peak is -1 dB. The name sound/weapons/cbar_hit1.wav is the one the game plays. The sample rate and bit depth are not in the measures shown, but the empty engineFaults list covers them."
+   "reason": "No engine faults are reported. Peak is -0.5 dBFS with no clipping, so there are no clipped samples. DC is 0.0017 (0.17% of full scale), a trace that the engine checks accept. The name cbar_hit1.wav is the game's own. The measure does not give the sample rate or bit depth, but the fault list is empty, so the file passes the engine's checks."
   }
  },
- "total": 7,
+ "total": 9,
  "of": 10,
- "passes": false
+ "passes": true
 }

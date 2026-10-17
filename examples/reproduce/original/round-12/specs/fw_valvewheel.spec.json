@@ -1,0 +1,198 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_valvewheel.mdl",
+  "kind": "prop",
+  "size": {
+    "width": 32,
+    "height": 52
+  },
+  "materials": {
+    "iron": {
+      "base": "iron",
+      "rust": 0.5
+    },
+    "redpaint": {
+      "base": "paint",
+      "tone": "dark red"
+    },
+    "rimsteel": {
+      "base": "steel",
+      "rust": 0.15
+    }
+  },
+  "parts": [
+    {
+      "id": "foot",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        18,
+        18,
+        3
+      ]
+    },
+    {
+      "id": "stem",
+      "kind": "cylinder",
+      "material": "iron",
+      "radius": 3,
+      "height": 33,
+      "sides": 10,
+      "attach": {
+        "to": "foot",
+        "toAt": "top"
+      }
+    },
+    {
+      "id": "hub",
+      "kind": "cylinder",
+      "material": "redpaint",
+      "radius": 4.5,
+      "height": 8,
+      "sides": 10,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -4,
+        0,
+        36
+      ]
+    },
+    {
+      "id": "spoke",
+      "kind": "box",
+      "material": "redpaint",
+      "size": [
+        2.4,
+        9,
+        2.4
+      ],
+      "at": [
+        0,
+        9,
+        34.8
+      ],
+      "repeat": {
+        "count": 4,
+        "around": "hub",
+        "axis": "x"
+      }
+    },
+    {
+      "id": "rim",
+      "kind": "tube",
+      "material": "rimsteel",
+      "sides": 6,
+      "finish": {
+        "wear": 0.9
+      },
+      "path": [
+        [
+          0,
+          14.5,
+          36,
+          1.6
+        ],
+        [
+          0,
+          13.4,
+          41.55,
+          1.6
+        ],
+        [
+          0,
+          10.25,
+          46.25,
+          1.6
+        ],
+        [
+          0,
+          5.55,
+          49.4,
+          1.6
+        ],
+        [
+          0,
+          0,
+          50.5,
+          1.6
+        ],
+        [
+          0,
+          -5.55,
+          49.4,
+          1.6
+        ],
+        [
+          0,
+          -10.25,
+          46.25,
+          1.6
+        ],
+        [
+          0,
+          -13.4,
+          41.55,
+          1.6
+        ],
+        [
+          0,
+          -14.5,
+          36,
+          1.6
+        ],
+        [
+          0,
+          -13.4,
+          30.45,
+          1.6
+        ],
+        [
+          0,
+          -10.25,
+          25.75,
+          1.6
+        ],
+        [
+          0,
+          -5.55,
+          22.6,
+          1.6
+        ],
+        [
+          0,
+          0,
+          21.5,
+          1.6
+        ],
+        [
+          0,
+          5.55,
+          22.6,
+          1.6
+        ],
+        [
+          0,
+          10.25,
+          25.75,
+          1.6
+        ],
+        [
+          0,
+          13.4,
+          30.45,
+          1.6
+        ],
+        [
+          0,
+          14.5,
+          36,
+          1.6
+        ]
+      ]
+    }
+  ]
+}

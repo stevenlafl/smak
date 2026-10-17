@@ -1,431 +1,880 @@
 {
   "spec": "smak.map/1",
   "name": "fw_pumphall",
+  "size": {
+    "length": 2650
+  },
   "wads": [
     "fw.wad"
   ],
   "theme": {
-    "floor": "fwfloor",
-    "wall": "fwwall",
-    "ceiling": "fwwall",
-    "door": "fwdoor",
-    "furniture": "fwrust",
-    "outside": "fwwall",
-    "roof": "fwrust"
+    "floor": "wetfloor",
+    "wall": "concwall",
+    "ceiling": "rustplate",
+    "door": "door"
   },
   "textures": {
-    "fwfloor": {
-      "texture": "FW_WETFLOOR"
+    "concfloor": {
+      "texture": "fw_concfloor"
     },
-    "fwwall": {
-      "texture": "FW_CONCRETE"
+    "concwall": {
+      "texture": "fw_concwall"
     },
-    "fwdoor": {
-      "texture": "FW_DOOR"
+    "wetfloor": {
+      "texture": "fw_concwet"
     },
-    "fwrust": {
-      "texture": "FW_RUSTPLATE"
+    "rustplate": {
+      "texture": "fw_rustplate"
     },
-    "fwcat": {
-      "texture": "FW_CATWALK"
+    "pipewall": {
+      "texture": "fw_pipewall"
     },
-    "fwpipe": {
-      "texture": "FW_PIPEWALL"
+    "steel": {
+      "texture": "fw_steel"
     },
-    "fwsign": {
-      "texture": "FW_SIGN"
+    "hazard": {
+      "texture": "fw_hazard"
     },
-    "fwwater": {
-      "texture": "!FW_WATER"
+    "door": {
+      "texture": "fw_door"
+    },
+    "catwalk": {
+      "texture": "fw_catwalk"
+    },
+    "grate": {
+      "texture": "{fw_grate"
+    },
+    "water": {
+      "texture": "!fw_water"
+    },
+    "pump3": {
+      "texture": "fw_pump3"
     }
   },
   "rooms": [
     {
-      "id": "hall",
+      "id": "pumphouse",
       "size": [
-        2500,
-        960,
-        384
+        384,
+        320,
+        192
       ],
       "surfaces": {
-        "floor": "fwfloor",
-        "walls": "fwwall"
+        "walls": "pipewall",
+        "floor": "concfloor"
       },
-      "water": {
-        "depth": 112,
-        "material": "fwwater"
+      "light": {
+        "count": 2,
+        "brightness": 220,
+        "color": [
+          255,
+          180,
+          100
+        ]
       }
+    },
+    {
+      "id": "hall",
+      "size": [
+        640,
+        2048,
+        384
+      ],
+      "place": {
+        "north_of": "pumphouse"
+      },
+      "surfaces": {
+        "walls": "pipewall"
+      },
+      "light": {
+        "count": 10,
+        "brightness": 280,
+        "color": [
+          255,
+          170,
+          90
+        ]
+      }
+    },
+    {
+      "id": "pool",
+      "size": [
+        640,
+        1504,
+        112
+      ],
+      "place": {
+        "in": "hall",
+        "offset": [
+          0,
+          256
+        ]
+      },
+      "floor": -112,
+      "water": {
+        "depth": 64,
+        "material": "water"
+      },
+      "surfaces": {
+        "walls": "concwall"
+      },
+      "light": "none",
+      "dark": true
     },
     {
       "id": "corridor",
       "size": [
-        420,
-        240,
-        256
+        128,
+        256,
+        128
       ],
-      "floor": 256,
       "place": {
-        "north_of": "hall",
-        "align": 2080
+        "north_of": "hall"
       },
+      "floor": 160,
       "surfaces": {
-        "floor": "fwfloor",
-        "walls": "fwwall"
+        "walls": "concwall"
+      },
+      "light": {
+        "count": 1,
+        "brightness": 180,
+        "color": [
+          255,
+          180,
+          100
+        ]
       }
     }
   ],
   "links": [
     {
       "between": [
+        "pumphouse",
+        "hall"
+      ],
+      "kind": "opening",
+      "width": 128,
+      "height": 128
+    },
+    {
+      "between": [
         "hall",
         "corridor"
       ],
       "kind": "opening",
-      "width": 64,
-      "height": 96,
-      "along": 0.5
+      "width": 96,
+      "height": 112
     }
   ],
   "ladders": [
     {
-      "room": "hall",
-      "side": "south",
-      "along": 0.29,
+      "room": "pool",
+      "side": "west",
+      "along": 0.739,
       "width": 32,
-      "height": 180
+      "height": 128
     },
     {
-      "room": "hall",
-      "side": "north",
-      "along": 0.29,
+      "room": "pool",
+      "side": "east",
+      "along": 0.154,
       "width": 32,
-      "height": 180
+      "height": 128
     }
   ],
   "prefabs": {
-    "hall_works": {
+    "catwalk_w": {
       "pieces": [
         {
           "box": [
             [
-              0,
-              0,
-              160
+              -48,
+              -752,
+              104
             ],
             [
-              700,
-              240,
-              176
+              48,
+              320,
+              112
             ]
           ],
-          "texture": "fwcat"
+          "texture": "catwalk"
         },
         {
           "box": [
             [
-              764,
-              0,
-              160
+              -48,
+              400,
+              104
             ],
             [
-              900,
-              240,
-              176
+              48,
+              752,
+              112
             ]
           ],
-          "texture": "fwcat"
+          "texture": "catwalk"
         },
         {
           "box": [
             [
-              1000,
-              0,
-              160
+              44,
+              -752,
+              112
             ],
             [
-              1700,
-              240,
-              176
+              48,
+              -304,
+              148
             ]
           ],
-          "texture": "fwcat"
+          "texture": "grate"
         },
         {
           "box": [
             [
-              0,
-              720,
-              160
+              44,
+              -208,
+              112
             ],
             [
-              700,
-              960,
-              176
+              48,
+              752,
+              148
             ]
           ],
-          "texture": "fwcat"
+          "texture": "grate"
         },
         {
           "box": [
             [
-              764,
-              720,
-              160
-            ],
-            [
-              900,
-              960,
-              176
-            ]
-          ],
-          "texture": "fwcat"
-        },
-        {
-          "box": [
-            [
-              1000,
-              720,
-              160
-            ],
-            [
-              1700,
-              960,
-              176
-            ]
-          ],
-          "texture": "fwcat"
-        },
-        {
-          "box": [
-            [
-              900,
-              0,
-              160
-            ],
-            [
-              1000,
-              960,
-              176
-            ]
-          ],
-          "texture": "fwcat"
-        },
-        {
-          "box": [
-            [
-              256,
-              360,
+              -4,
+              -604,
               0
             ],
             [
-              512,
-              600,
-              120
+              4,
+              -596,
+              104
             ]
           ],
-          "texture": "fwfloor"
+          "texture": "steel"
         },
         {
-          "wedge": [
+          "box": [
             [
-              0,
-              360,
+              -4,
+              -104,
               0
             ],
             [
-              256,
-              600,
-              120
+              4,
+              -96,
+              104
             ]
           ],
-          "high": "+x",
-          "texture": "fwfloor"
-        },
-        {
-          "cylinder": {
-            "centre": [
-              600,
-              480
-            ],
-            "radius": 90,
-            "from": 48,
-            "to": 230,
-            "sides": 12
-          },
-          "texture": "fwpipe"
+          "texture": "steel"
         },
         {
           "box": [
             [
-              470,
-              350,
+              -4,
+              146,
               0
             ],
             [
-              730,
-              610,
-              48
+              4,
+              154,
+              104
             ]
           ],
-          "texture": "fwrust"
+          "texture": "steel"
         },
         {
           "box": [
             [
-              530,
-              410,
-              230
-            ],
-            [
-              670,
-              550,
-              300
-            ]
-          ],
-          "texture": "fwrust"
-        },
-        {
-          "cylinder": {
-            "centre": [
-              1250,
-              480
-            ],
-            "radius": 90,
-            "from": 48,
-            "to": 230,
-            "sides": 12
-          },
-          "texture": "fwpipe"
-        },
-        {
-          "box": [
-            [
-              1120,
-              350,
+              -4,
+              596,
               0
             ],
             [
-              1380,
-              610,
-              48
+              4,
+              604,
+              104
             ]
           ],
-          "texture": "fwrust"
-        },
-        {
-          "box": [
-            [
-              1180,
-              410,
-              230
-            ],
-            [
-              1320,
-              550,
-              300
-            ]
-          ],
-          "texture": "fwrust"
-        },
-        {
-          "cylinder": {
-            "centre": [
-              1900,
-              480
-            ],
-            "radius": 90,
-            "from": 48,
-            "to": 230,
-            "sides": 12
-          },
-          "texture": "fwpipe"
-        },
-        {
-          "box": [
-            [
-              1770,
-              350,
-              0
-            ],
-            [
-              2030,
-              610,
-              48
-            ]
-          ],
-          "texture": "fwrust"
-        },
-        {
-          "box": [
-            [
-              1830,
-              410,
-              230
-            ],
-            [
-              1970,
-              550,
-              300
-            ]
-          ],
-          "texture": "fwrust"
-        },
-        {
-          "box": [
-            [
-              2060,
-              0,
-              150
-            ],
-            [
-              2140,
-              8,
-              190
-            ]
-          ],
-          "texture": "fwsign"
+          "texture": "steel"
         }
       ]
     },
-    "exit": {
+    "catwalk_e": {
       "pieces": [
         {
           "box": [
             [
-              -24,
-              -24,
+              -48,
+              -752,
+              104
+            ],
+            [
+              48,
+              -560,
+              112
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -48,
+              -480,
+              104
+            ],
+            [
+              48,
+              752,
+              112
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -48,
+              -752,
+              112
+            ],
+            [
+              -44,
+              -304,
+              148
+            ]
+          ],
+          "texture": "grate"
+        },
+        {
+          "box": [
+            [
+              -48,
+              -208,
+              112
+            ],
+            [
+              -44,
+              752,
+              148
+            ]
+          ],
+          "texture": "grate"
+        },
+        {
+          "box": [
+            [
+              -4,
+              -304,
               0
             ],
             [
-              24,
-              24,
+              4,
+              -296,
+              104
+            ]
+          ],
+          "texture": "steel"
+        },
+        {
+          "box": [
+            [
+              -4,
+              96,
+              0
+            ],
+            [
+              4,
+              104,
+              104
+            ]
+          ],
+          "texture": "steel"
+        },
+        {
+          "box": [
+            [
+              -4,
+              396,
+              0
+            ],
+            [
+              4,
+              404,
+              104
+            ]
+          ],
+          "texture": "steel"
+        },
+        {
+          "box": [
+            [
+              -4,
+              646,
+              0
+            ],
+            [
+              4,
+              654,
+              104
+            ]
+          ],
+          "texture": "steel"
+        }
+      ]
+    },
+    "bridge": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -224,
+              -48,
+              104
+            ],
+            [
+              224,
+              48,
+              112
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -224,
+              -48,
+              112
+            ],
+            [
+              224,
+              -44,
+              148
+            ]
+          ],
+          "texture": "grate"
+        },
+        {
+          "box": [
+            [
+              -224,
+              44,
+              112
+            ],
+            [
+              224,
+              48,
+              148
+            ]
+          ],
+          "texture": "grate"
+        }
+      ]
+    },
+    "sumpsteps": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -45,
+              0,
+              0
+            ],
+            [
+              45,
+              168,
+              16
+            ]
+          ],
+          "texture": "concwall"
+        },
+        {
+          "box": [
+            [
+              -45,
+              0,
+              0
+            ],
+            [
+              45,
+              144,
+              32
+            ]
+          ],
+          "texture": "concwall"
+        },
+        {
+          "box": [
+            [
+              -45,
+              0,
+              0
+            ],
+            [
+              45,
+              120,
+              48
+            ]
+          ],
+          "texture": "concwall"
+        },
+        {
+          "box": [
+            [
+              -45,
+              0,
+              0
+            ],
+            [
+              45,
+              96,
               64
             ]
-          ]
+          ],
+          "texture": "concwall"
+        },
+        {
+          "box": [
+            [
+              -45,
+              0,
+              0
+            ],
+            [
+              45,
+              72,
+              80
+            ]
+          ],
+          "texture": "concwall"
+        },
+        {
+          "box": [
+            [
+              -45,
+              0,
+              0
+            ],
+            [
+              45,
+              48,
+              96
+            ]
+          ],
+          "texture": "concwall"
+        },
+        {
+          "box": [
+            [
+              -45,
+              0,
+              0
+            ],
+            [
+              45,
+              24,
+              112
+            ]
+          ],
+          "texture": "hazard"
+        }
+      ]
+    },
+    "pump": {
+      "pieces": [
+        {
+          "cylinder": {
+            "centre": [
+              0,
+              0
+            ],
+            "radius": 72,
+            "from": 0,
+            "to": 128,
+            "sides": 16
+          },
+          "texture": "rustplate"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              0,
+              0
+            ],
+            "radius": 74,
+            "from": 92,
+            "to": 108,
+            "sides": 16
+          },
+          "texture": "hazard"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              0,
+              0
+            ],
+            "radius": 78,
+            "from": 128,
+            "to": 136,
+            "sides": 16
+          },
+          "texture": "steel"
+        },
+        {
+          "box": [
+            [
+              -48,
+              -48,
+              136
+            ],
+            [
+              48,
+              48,
+              224
+            ]
+          ],
+          "texture": "steel"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              0,
+              0
+            ],
+            "radius": 40,
+            "from": 224,
+            "to": 248,
+            "sides": 12
+          },
+          "texture": "rustplate"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              0,
+              0
+            ],
+            "radius": 20,
+            "from": 248,
+            "to": 496,
+            "sides": 10
+          },
+          "texture": "steel"
+        }
+      ]
+    },
+    "pump3": {
+      "pieces": [
+        {
+          "cylinder": {
+            "centre": [
+              0,
+              0
+            ],
+            "radius": 72,
+            "from": 0,
+            "to": 128,
+            "sides": 16
+          },
+          "texture": "rustplate"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              0,
+              0
+            ],
+            "radius": 74,
+            "from": 92,
+            "to": 108,
+            "sides": 16
+          },
+          "texture": "hazard"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              0,
+              0
+            ],
+            "radius": 78,
+            "from": 128,
+            "to": 136,
+            "sides": 16
+          },
+          "texture": "steel"
+        },
+        {
+          "box": [
+            [
+              -48,
+              -48,
+              136
+            ],
+            [
+              48,
+              48,
+              224
+            ]
+          ],
+          "texture": "steel"
+        },
+        {
+          "box": [
+            [
+              48,
+              -32,
+              160
+            ],
+            [
+              50,
+              32,
+              192
+            ]
+          ],
+          "texture": "pump3"
+        },
+        {
+          "box": [
+            [
+              -50,
+              -32,
+              160
+            ],
+            [
+              -48,
+              32,
+              192
+            ]
+          ],
+          "texture": "pump3"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              0,
+              0
+            ],
+            "radius": 40,
+            "from": 224,
+            "to": 248,
+            "sides": 12
+          },
+          "texture": "rustplate"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              0,
+              0
+            ],
+            "radius": 20,
+            "from": 248,
+            "to": 496,
+            "sides": 10
+          },
+          "texture": "steel"
+        }
+      ]
+    },
+    "changelevel": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -56,
+              -48,
+              0
+            ],
+            [
+              56,
+              48,
+              112
+            ]
+          ],
+          "texture": "steel"
         }
       ],
       "entity": {
         "class": "trigger_changelevel",
         "map": "fw_control",
-        "landmark": "fw_land_2"
+        "landmark": "fw_lm2"
       }
     }
   },
   "furniture": [
     {
-      "prefab": "hall_works",
-      "room": "hall",
+      "prefab": "catwalk_w",
+      "room": "pool",
       "at": [
-        -1250,
-        -480
+        -272,
+        0
       ]
     },
     {
-      "prefab": "exit",
+      "prefab": "catwalk_e",
+      "room": "pool",
+      "at": [
+        272,
+        0
+      ]
+    },
+    {
+      "prefab": "bridge",
+      "room": "pool",
+      "at": [
+        0,
+        -256
+      ]
+    },
+    {
+      "prefab": "sumpsteps",
+      "room": "pool",
+      "at": [
+        -165,
+        -752
+      ]
+    },
+    {
+      "prefab": "pump",
+      "room": "pool",
+      "at": [
+        0,
+        -512
+      ]
+    },
+    {
+      "prefab": "pump",
+      "room": "pool",
+      "at": [
+        0,
+        0
+      ]
+    },
+    {
+      "prefab": "pump3",
+      "room": "pool",
+      "at": [
+        0,
+        512
+      ]
+    },
+    {
+      "prefab": "changelevel",
       "room": "corridor",
       "at": [
-        150,
-        0
+        0,
+        64
       ]
     }
   ],
@@ -434,201 +883,300 @@
       "model": "models/fw_walllamp.mdl",
       "room": "hall",
       "at": [
-        -950,
-        -462
+        -305,
+        -700
       ],
-      "z": 220,
-      "facing": "north"
+      "z": 130,
+      "facing": "east"
     },
     {
       "model": "models/fw_walllamp.mdl",
       "room": "hall",
       "at": [
-        -150,
-        -462
+        -305,
+        -230
       ],
-      "z": 220,
-      "facing": "north"
+      "z": 130,
+      "facing": "east"
     },
     {
       "model": "models/fw_walllamp.mdl",
       "room": "hall",
       "at": [
-        950,
-        -462
+        -305,
+        230
       ],
-      "z": 220,
-      "facing": "north"
+      "z": 130,
+      "facing": "east"
     },
     {
       "model": "models/fw_walllamp.mdl",
       "room": "hall",
       "at": [
-        -650,
-        462
+        -305,
+        700
       ],
-      "z": 220,
-      "facing": "south"
+      "z": 130,
+      "facing": "east"
     },
     {
       "model": "models/fw_walllamp.mdl",
+      "room": "hall",
+      "at": [
+        305,
+        -460
+      ],
+      "z": 130,
+      "facing": "west"
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "hall",
+      "at": [
+        305,
+        0
+      ],
+      "z": 130,
+      "facing": "west"
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "hall",
+      "at": [
+        305,
+        460
+      ],
+      "z": 130,
+      "facing": "west"
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "hall",
+      "at": [
+        -250,
+        -960
+      ],
+      "facing": 20,
+      "solid": true
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "hall",
+      "at": [
+        -222,
+        -940
+      ],
+      "facing": 100,
+      "solid": true
+    },
+    {
+      "model": "models/fw_drum.mdl",
       "room": "hall",
       "at": [
         250,
-        462
+        960
       ],
-      "z": 220,
-      "facing": "south"
+      "facing": 60,
+      "solid": true
+    },
+    {
+      "model": "models/fw_pipejunction.mdl",
+      "room": "hall",
+      "at": [
+        240,
+        -930
+      ],
+      "facing": "west",
+      "solid": true
+    },
+    {
+      "model": "models/fw_console.mdl",
+      "room": "pumphouse",
+      "at": [
+        -150,
+        -100
+      ],
+      "facing": "east",
+      "solid": true
     }
   ],
   "entities": [
     {
       "class": "info_player_start",
-      "room": "hall",
+      "room": "pumphouse",
       "at": [
-        -866,
+        0,
         0
       ],
-      "z": 130
+      "facing": "north"
     },
     {
       "class": "info_landmark",
-      "room": "hall",
+      "id": "fw_lm1",
+      "room": "pumphouse",
       "at": [
-        -866,
-        0
+        0,
+        40
       ],
-      "z": 130,
-      "keys": {
-        "targetname": "fw_land_1"
-      }
+      "z": 16
     },
     {
       "class": "info_landmark",
+      "id": "fw_lm2",
       "room": "corridor",
       "at": [
-        150,
+        0,
         0
       ],
-      "z": 32,
-      "keys": {
-        "targetname": "fw_land_2"
-      }
+      "z": 16
     },
     {
       "class": "weapon_crowbar",
-      "room": "hall",
+      "room": "pool",
       "at": [
-        -950,
-        -360
+        -272,
+        500
       ],
-      "z": 180
+      "z": 114
     },
     {
       "class": "monster_headcrab",
-      "room": "hall",
+      "room": "pool",
       "at": [
-        -1100,
-        -180
+        -110,
+        -300
       ],
-      "z": 40
+      "z": 4,
+      "facing": "south"
     },
     {
       "class": "monster_headcrab",
-      "room": "hall",
+      "room": "pool",
       "at": [
-        250,
-        -180
+        130,
+        220
       ],
-      "z": 40
+      "z": 4,
+      "facing": "west"
     },
     {
       "class": "monster_headcrab",
-      "room": "hall",
+      "room": "pool",
       "at": [
-        900,
-        140
+        -90,
+        640
       ],
-      "z": 40
+      "z": 4,
+      "facing": "south"
     },
     {
       "class": "env_glow",
       "room": "hall",
       "at": [
-        -950,
-        -452
+        -298,
+        -700
       ],
-      "z": 229,
+      "z": 137,
       "keys": {
         "model": "sprites/fw_glow.spr",
-        "rendermode": "5",
-        "renderamt": "255",
-        "rendercolor": "255 170 80",
-        "scale": "1"
+        "scale": 1,
+        "rendermode": 3,
+        "renderamt": 120,
+        "rendercolor": "255 170 90"
       }
     },
     {
       "class": "env_glow",
       "room": "hall",
       "at": [
-        -150,
-        -452
+        -298,
+        230
       ],
-      "z": 229,
+      "z": 137,
       "keys": {
         "model": "sprites/fw_glow.spr",
-        "rendermode": "5",
-        "renderamt": "255",
-        "rendercolor": "255 170 80",
-        "scale": "1"
+        "scale": 1,
+        "rendermode": 3,
+        "renderamt": 120,
+        "rendercolor": "255 170 90"
       }
     },
     {
       "class": "env_glow",
       "room": "hall",
       "at": [
-        950,
-        -452
+        298,
+        0
       ],
-      "z": 229,
+      "z": 137,
       "keys": {
         "model": "sprites/fw_glow.spr",
-        "rendermode": "5",
-        "renderamt": "255",
-        "rendercolor": "255 170 80",
-        "scale": "1"
+        "scale": 1,
+        "rendermode": 3,
+        "renderamt": 120,
+        "rendercolor": "255 170 90"
       }
     },
     {
-      "class": "env_glow",
-      "room": "hall",
+      "class": "env_sprite",
+      "room": "pool",
       "at": [
-        -650,
-        452
+        24,
+        -512
       ],
-      "z": 229,
+      "z": 252,
       "keys": {
-        "model": "sprites/fw_glow.spr",
-        "rendermode": "5",
-        "renderamt": "255",
-        "rendercolor": "255 170 80",
-        "scale": "1"
+        "model": "sprites/fw_steam.spr",
+        "framerate": 10,
+        "scale": 1,
+        "rendermode": 5,
+        "renderamt": 110,
+        "spawnflags": 1
       }
     },
     {
-      "class": "env_glow",
-      "room": "hall",
+      "class": "env_sprite",
+      "room": "pool",
       "at": [
-        250,
-        452
+        24,
+        512
       ],
-      "z": 229,
+      "z": 252,
       "keys": {
-        "model": "sprites/fw_glow.spr",
-        "rendermode": "5",
-        "renderamt": "255",
-        "rendercolor": "255 170 80",
-        "scale": "1"
+        "model": "sprites/fw_steam.spr",
+        "framerate": 10,
+        "scale": 1,
+        "rendermode": 5,
+        "renderamt": 110,
+        "spawnflags": 1
+      }
+    },
+    {
+      "class": "ambient_generic",
+      "room": "pool",
+      "at": [
+        0,
+        -512
+      ],
+      "z": 232,
+      "keys": {
+        "message": "ambience/fw_pump.wav",
+        "health": 6,
+        "spawnflags": 4
+      }
+    },
+    {
+      "class": "ambient_generic",
+      "room": "pool",
+      "at": [
+        0,
+        512
+      ],
+      "z": 232,
+      "keys": {
+        "message": "ambience/fw_pump.wav",
+        "health": 6,
+        "spawnflags": 4
       }
     },
     {
@@ -636,27 +1184,27 @@
       "room": "hall",
       "at": [
         0,
-        0
+        -900
       ],
-      "z": 120,
+      "z": 64,
       "keys": {
-        "message": "ambience/fw_pump.wav",
-        "health": "6",
-        "spawnflags": "8"
+        "message": "ambience/fw_drips.wav",
+        "health": 5,
+        "spawnflags": 4
       }
     },
     {
       "class": "ambient_generic",
       "room": "hall",
       "at": [
-        900,
-        140
+        140,
+        880
       ],
-      "z": 40,
+      "z": 64,
       "keys": {
         "message": "ambience/fw_drips.wav",
-        "health": "5",
-        "spawnflags": "8"
+        "health": 5,
+        "spawnflags": 4
       }
     }
   ]

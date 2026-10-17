@@ -4,218 +4,125 @@
     {
       "name": "weapons/cbar_hit1.wav",
       "class": "metal hit",
-      "seed": 3,
       "length": 0.7,
+      "pitch": -28,
       "layers": [
         {
-          "id": "hit",
+          "id": "clang",
           "kind": "sample",
-          "file": "work:gen/wrench_hit_stable-audio-3-sfx_s2.wav",
+          "file": "work:gen/wrench_hit_woosh-dflow_s1.wav",
           "from": "onset",
           "env": {
-            "attack": 0.003,
-            "decay": 0.3
-          },
-          "filter": [
-            {
-              "type": "highpass",
-              "f": 480,
-              "q": 0.7
-            },
-            {
-              "type": "lowpass",
-              "f": 1800,
-              "q": 0.7
-            }
-          ]
+            "attack": 0.001,
+            "hold": 0.05,
+            "decay": 0.62
+          }
         }
       ],
       "finish": {
-        "limit": {
-          "crest": 9,
-          "release": 0.002
+        "room": {
+          "decay": 0.25,
+          "wet": 0.12
         },
-        "peak": -1
+        "saturate": 3,
+        "limit": {
+          "crest": 10
+        },
+        "fit": "bands"
       }
     },
     {
       "name": "weapons/cbar_miss1.wav",
       "class": "swing",
-      "seed": 4,
-      "length": 0.4,
+      "length": 0.36,
       "layers": [
         {
-          "id": "swing",
+          "id": "whoosh",
           "kind": "sample",
-          "file": "work:gen/wrench_swing_woosh-dflow_s1.wav",
-          "from": "onset",
-          "env": {
-            "attack": 0.005,
-            "decay": 0.2
-          },
-          "filter": [
-            {
-              "type": "lowpass",
-              "f": 850,
-              "q": 0.7
-            },
-            {
-              "type": "highpass",
-              "f": 150,
-              "q": 0.7
-            }
-          ]
+          "file": "work:gen/wrench_swing_s0.wav",
+          "from": 0.08
         }
       ],
       "finish": {
-        "limit": {
-          "crest": 12,
-          "release": 0.002
+        "room": {
+          "decay": 0.25,
+          "wet": 0.12
         },
-        "peak": -1
+        "limit": {
+          "crest": 15
+        },
+        "fit": "bands"
       }
     },
     {
       "name": "headcrab/hc_attack1.wav",
-      "class": "flesh hit",
-      "seed": 5,
-      "length": 0.4,
+      "length": 0.85,
       "layers": [
         {
-          "id": "bite",
+          "id": "screech",
           "kind": "sample",
-          "file": "work:gen/crawler_attack_stable-audio-3-sfx_s1.wav",
-          "from": 0.07,
-          "env": {
-            "attack": 0.002,
-            "decay": 0.25
-          },
-          "filter": [
-            {
-              "type": "lowpass",
-              "f": 750,
-              "q": 0.7
-            },
-            {
-              "type": "highpass",
-              "f": 120,
-              "q": 0.7
-            }
-          ]
+          "file": "work:gen/crawler_attack_s0.wav",
+          "from": 0.6
         }
       ],
       "finish": {
-        "room": {
-          "decay": 0.25,
-          "wet": 0.12
-        },
         "limit": {
-          "crest": 10,
-          "release": 0.002
+          "crest": 14
         },
-        "peak": -1
+        "fit": "bands"
       }
     },
     {
       "name": "headcrab/hc_pain1.wav",
-      "class": "flesh hit",
-      "seed": 6,
-      "length": 0.4,
+      "length": 0.8,
       "layers": [
         {
-          "id": "yelp",
+          "id": "squeal",
           "kind": "sample",
-          "file": "work:gen/crawler_pain_stable-audio-3-sfx_s3.wav",
-          "from": 0.02,
-          "env": {
-            "attack": 0.002,
-            "decay": 0.25
-          },
-          "filter": [
-            {
-              "type": "lowpass",
-              "f": 1000,
-              "q": 0.7
-            },
-            {
-              "type": "highpass",
-              "f": 150,
-              "q": 0.7
-            }
-          ]
+          "file": "work:gen/crawler_pain2_s5.wav",
+          "from": "onset"
         }
       ],
       "finish": {
-        "room": {
-          "decay": 0.25,
-          "wet": 0.12
-        },
         "limit": {
-          "crest": 10,
-          "release": 0.002
+          "crest": 14
         },
-        "peak": -1
+        "fit": "bands"
       }
     },
     {
       "name": "ambience/fw_pump.wav",
       "class": "loop machine",
-      "seed": 7,
       "length": 3,
-      "loop": {
-        "crossfade": 0.2
-      },
-      "layers": [
-        {
-          "id": "pump",
-          "kind": "sample",
-          "file": "work:gen/pump_drone_stable-audio-3-sfx_s1.wav",
-          "from": 0,
-          "filter": [
-            {
-              "type": "highpass",
-              "f": 160,
-              "q": 0.7
-            },
-            {
-              "type": "lowpass",
-              "f": 1200,
-              "q": 0.7
-            }
-          ]
-        }
-      ],
-      "finish": {
-        "limit": {
-          "crest": 12,
-          "release": 0.002
-        },
-        "peak": -1
-      }
-    },
-    {
-      "name": "ambience/fw_drips.wav",
-      "class": "loop drips",
-      "seed": 8,
-      "length": 8,
       "loop": {
         "crossfade": 0.3
       },
       "layers": [
         {
-          "id": "drips",
+          "id": "drone",
           "kind": "sample",
-          "file": "work:gen/water_drips8_stable-audio-3-sfx_s0.wav",
-          "from": 0,
+          "file": "work:gen/pump_loop_s0.wav",
+          "from": 0.5,
           "filter": [
             {
               "type": "highpass",
-              "f": 120,
+              "f": 170,
               "q": 0.7
             },
             {
+              "type": "highpass",
+              "f": 170,
+              "q": 0.7
+            },
+            {
+              "type": "peak",
+              "f": 380,
+              "q": 0.8,
+              "gain": 7
+            },
+            {
               "type": "lowpass",
-              "f": 1700,
+              "f": 1300,
               "q": 0.7
             }
           ]
@@ -223,11 +130,59 @@
       ],
       "finish": {
         "limit": {
-          "crest": 14,
-          "release": 0.002
-        },
-        "peak": -1
+          "crest": 12
+        }
       }
+    },
+    {
+      "name": "ambience/fw_drips.wav",
+      "class": "loop drips",
+      "length": 7,
+      "loop": {
+        "crossfade": 0.15
+      },
+      "layers": [
+        {
+          "id": "drips",
+          "kind": "sample",
+          "file": "work:gen/drips_loop_s0.wav",
+          "from": 0,
+          "gain": 30,
+          "filter": [
+            {
+              "type": "lowpass",
+              "f": 1250,
+              "q": 0.7
+            },
+            {
+              "type": "highpass",
+              "f": 300,
+              "q": 0.7
+            }
+          ]
+        },
+        {
+          "id": "drips_more",
+          "kind": "sample",
+          "file": "work:gen/drips_loop_s2.wav",
+          "from": 0.5,
+          "at": 4.4,
+          "length": 2.6,
+          "gain": 26,
+          "filter": [
+            {
+              "type": "lowpass",
+              "f": 1250,
+              "q": 0.7
+            },
+            {
+              "type": "highpass",
+              "f": 300,
+              "q": 0.7
+            }
+          ]
+        }
+      ]
     }
   ]
 }

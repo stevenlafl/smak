@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_pain1.wav: the crawler's pain",
+ "measured": {
+  "features": {
+   "length": 0.3,
+   "peak": -1,
+   "rms": -11,
+   "crest": 10,
+   "dc": 0.0003,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.05,
+   "peakAt": 0.12,
+   "t20": 0.07,
+   "t40": 0.145,
+   "centroid": 1309,
+   "rolloff": 1550,
+   "flatness": 0.035,
+   "bands": {
+    "<150": 0.2,
+    "150-600": 4.8,
+    "600-2k": 86,
+    "2k-5k": 9.1,
+    ">5k": 0
+   },
+   "onsets": 0
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.795,
+    "centroid": 2682,
+    "t20": 0.544,
+    "bands": {
+     "<150": 0.2,
+     "150-600": 0,
+     "600-2k": 15.6,
+     "2k-5k": 83.8,
+     ">5k": 0.3
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Top panel: the made sound is one noise burst, about 0.3 s, that rises fast and fades into a thin tail. The game's own sound (bottom panel) is a train of about 25 separate pulses over 0.8 s, a wet, pulsed cry. The made one reads as a generic hiss or impact, not the same crawler pain. It is clearly off, not wholly wrong: it is a short creature-like burst, but the pulsing that defines the event is missing."
+  },
+  "S2": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Envelope fails the must-have. Length is 0.30 s against the game's 0.795 s, 62% short (the line is within 25%). Decay is also far off: t20 is 0.07 s against 0.544 s, and t40 is 0.145 s with nothing after it. The sound stops where the original keeps sounding."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Spectrum fails the must-have. Centroid is 1309 Hz against 2682 Hz, 51% low (the line is within 20%). Band shares are 600-2k 86% against 15.6%, which is 70 points off, and 2k-5k 9.1% against 83.8%, 75 points off. The made sound's energy sits in the low-mid band, where the original's sits in the upper band. The other bands (<150 Hz, 150-600 Hz, >5k) are close or within 5 points."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Character is clearly off. The original's waveform has a regular train of about 25 onsets (the pulses), while the made sound has none in its measure (onsets 0) and one attack at the start (top panel). Flatness of 0.035 is very tonal, and the original's spectrogram shows a steady, noisy, banded texture. The pulsed, wet character is missing. This item is not a must-have, so the score is 1, not 0."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Fit for the game holds in what is measured. The engine check records no faults (engineFaults empty), no clipping (clipped 0), DC is 0.0003, peak is -1 dBFS, and the name matches sound/headcrab/hc_pain1.wav. The measures do not show the sample rate, bit depth or mono channel count, so the format is taken from the engine check, not from the picture."
+  }
+ },
+ "total": 4,
+ "of": 10,
+ "passes": false
+}

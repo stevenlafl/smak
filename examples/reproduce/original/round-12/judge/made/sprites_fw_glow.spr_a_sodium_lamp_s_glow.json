@@ -1,0 +1,81 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_glow.spr: a sodium lamp's glow",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.75,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "glow",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The frame shows a sodium lamp's glow: a warm orange core that falls off radially into dark, with no sharp edge, which is what the brief's 'a sodium lamp's glow' asks for."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "One 64 x 64 frame with the glow centred and fading to dark before the border (border max 0, mean 0, which fits the class's 0 to 0.005 range). The glow fills the middle of the frame, as a glow sprite does."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged by eye, the core is sodium amber-orange and the falloff stays in that hue. It reads as the sodium lamp the brief describes, with no neon or blue cast."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief asks for a static glow, and the brief does not ask for animation. The frame count (1) and envelope (peak at frame 0, first and last at 1) are consistent with the glow class, whose only given measure is border (0, within 0 to 0.005). No frame-count or loop measure is given for the class, so this is held only to the measures that exist."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The measures give type parallel and format additive, the same name fw_glow.spr, and a 64 x 64 size. Additive blending is what a glow needs. The type and format are measured as written; I have no Half-Life slot to compare them with, since this glow is new."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

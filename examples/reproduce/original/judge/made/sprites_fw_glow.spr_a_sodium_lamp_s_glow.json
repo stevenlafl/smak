@@ -24,7 +24,7 @@
     "first": 1,
     "last": 1
    },
-   "dark": 0.75,
+   "dark": 0.81,
    "wrap": null,
    "jitter": null
   },
@@ -48,31 +48,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The frame shows a sodium lamp's glow: a warm orange core that falls off radially into dark, with no sharp edge, which is what the brief's 'a sodium lamp's glow' asks for."
+   "reason": "A single soft radial glow, bright at the centre and fading to black at the edges. That is what a sodium lamp's glow in a sprite is for, so it is the same effect."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "One 64 x 64 frame with the glow centred and fading to dark before the border (border max 0, mean 0, which fits the class's 0 to 0.005 range). The glow fills the middle of the frame, as a glow sprite does."
+   "reason": "One 64 by 64 frame, as measured. The glow fills most of the frame and falls off smoothly to the border, which the measured border is 0 (ok against the glow class's 0 to 0.005). The dark fraction of 0.81 fits a glow that is mostly black apart from its centre."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Judged by eye, the core is sodium amber-orange and the falloff stays in that hue. It reads as the sodium lamp the brief describes, with no neon or blue cast."
+   "reason": "Judged by eye: the centre is a warm yellow-orange fading to deep orange at the edge. That reads as sodium-orange, the colour the brief asks for, and no blue or neon tint is visible."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The brief asks for a static glow, and the brief does not ask for animation. The frame count (1) and envelope (peak at frame 0, first and last at 1) are consistent with the glow class, whose only given measure is border (0, within 0 to 0.005). No frame-count or loop measure is given for the class, so this is held only to the measures that exist."
+   "reason": "A static glow with one frame, measured with no motion. The only class measure given for it is the border, which is 0 and within the glow class's range. Frame count, envelope and jitter are not held against the class, and nothing in the picture contradicts a steady glow."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The measures give type parallel and format additive, the same name fw_glow.spr, and a 64 x 64 size. Additive blending is what a glow needs. The type and format are measured as written; I have no Half-Life slot to compare them with, since this glow is new."
+   "reason": "Measured as parallel and additive, which is the form a glow sprite is built in, and the additive blend makes the black background contribute nothing in the engine. The file name and read-back are not visible in the picture, so this rests on the measured type and format, with no fault found in them."
   }
  },
  "total": 10,

@@ -6,33 +6,33 @@
    64,
    64
   ],
-  "frames": 12,
+  "frames": 16,
   "type": "parallel",
-  "format": "index alpha",
+  "format": "additive",
   "measures": {
-   "frames": 12,
+   "frames": 16,
    "size": [
     64,
     64
    ],
    "border": {
-    "max": 0.204,
+    "max": 0.253,
     "mean": 0.003
    },
    "envelope": {
-    "peakAt": 0.36,
-    "first": 0.06,
+    "peakAt": 0.2,
+    "first": 0.2,
     "last": 0
    },
-   "dark": 0.77,
-   "wrap": 0.2,
-   "jitter": 1.37
+   "dark": 0.79,
+   "wrap": 0.88,
+   "jitter": 1.48
   },
   "class": "smoke puff",
   "againstClass": [
    {
     "measure": "jitter",
-    "value": 1.37,
+    "value": 1.48,
     "range": [
      0.9,
      1.5
@@ -52,7 +52,7 @@
    },
    {
     "measure": "peakAt",
-    "value": 0.36,
+    "value": 0.2,
     "range": [
      0.2,
      0.6
@@ -62,7 +62,7 @@
    },
    {
     "measure": "first",
-    "value": 0.06,
+    "value": 0.2,
     "range": [
      0,
      0.35
@@ -88,34 +88,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Reads as a steam puff: a pale grey column that starts faint in frame 0, is densest around frames 2 to 5, then thins and fades through frames 8 to 11. That is the effect the brief asks for."
+   "reason": "Reads as a steam or smoke puff: a soft grey plume that builds from a bright base, rises, and thins into faint wisps by frames 12 to 15. It is the effect the brief asks for."
   },
   "R2": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Frames are 64 by 64 as the measures give. The puff fills the height of each frame and stays inside it: border mean 0.003 is within the class range [0, 0.005], and the bottom of frames 2 to 4 comes close to the edge but does not spill. The column is narrow, about a third of the frame width, but the measures do not call that wrong."
+   "score": 1,
+   "reason": "The frames are 64 by 64, the original's size, but the plume is a narrow column about 40 of the 64 units wide in most frames, sitting in the middle-left, and in frames 2 to 7 and 8 to 11 it runs to the top and bottom edges of the frame. Steam filling its frame as the class does is not met, so this is clearly off."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Pale grey-white steam over the flat grey blend background. It reads as steam in Half-Life's muted palette, with no tint or neon, which is what the brief's colour asks for by eye."
+   "reason": "Neutral grey and off-white haze on a near-black ground, with a brighter base in frames 2 to 7. Nothing tinted or neon, and it suits a steam puff in the mod's palette. Judged by eye as the brief asks."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Twelve frames, with the envelope inside the class ranges: peak at 0.36 (range 0.2 to 0.6), first frame 0.06 (0 to 0.35), last frame 0 (0 to 0.1). Jitter is 1.37 (0.9 to 1.5). The puff rises through the cells and thins, and frame 11 ends dark as a one-shot should. Motion is the kind the brief asks for."
+   "reason": "Measured against the smoke puff class: first frame 0.2 (range 0 to 0.35), peak at 0.2 (range 0.2 to 0.6), last frame 0 (range 0 to 0.1), jitter 1.48 (range 0.9 to 1.5), border 0.003 (range 0 to 0.005). All in range. Frames 0 to 1 are small, 2 to 7 grow and brighten, 8 to 15 thin and fade to dark. The count of 16 is the class's own, and the envelope ends dark as the class does."
   },
   "R5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Format index alpha and the name fw_steam.spr fit the game. The type is 'parallel', but the amendment says Valve's steam sprites are 'parallel oriented', and a sprite's type must match the slot it takes the place of. That is clearly off, not confirmed missing, so 1 rather than 0. The brief does not name a slot here, so the match could not be checked against a file."
+   "reason": "The file is parallel and additive, read back at 64 by 64 with the name fw_steam.spr. The brief names no file to replace, so the type cannot be checked against one. But the amendment of 2026-10-16 says the game's steam1 is parallel oriented, and a steam puff built parallel failed R5 by measure there. Under the rubric's strict reading this is a fault until the type is confirmed against the file it stands in for."
   }
  },
- "total": 9,
+ "total": 8,
  "of": 10,
  "passes": false
 }

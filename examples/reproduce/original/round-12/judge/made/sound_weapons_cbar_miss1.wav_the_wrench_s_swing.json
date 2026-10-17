@@ -1,0 +1,81 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_miss1.wav: the wrench's swing",
+ "measured": {
+  "features": {
+   "length": 0.269,
+   "peak": -1,
+   "rms": -11.3,
+   "crest": 10.3,
+   "dc": 0.0005,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.01,
+   "peakAt": 0.085,
+   "t20": 0.085,
+   "t40": 0.125,
+   "centroid": 860,
+   "rolloff": 1314,
+   "flatness": 0.138,
+   "bands": {
+    "<150": 1.6,
+    "150-600": 38.3,
+    "600-2k": 55.6,
+    "2k-5k": 4.4,
+    ">5k": 0.1
+   },
+   "onsets": 0
+  },
+  "class": "swing",
+  "against": {
+   "score": 16,
+   "of": 22,
+   "lines": [
+    "crest 10.3 dB (10.43 to 17.38): too squashed",
+    "rms -11.3 dBFS (-25.8 to -19.8): over the range",
+    "band 150-600 38.3% (55.8 to 75.8): under the range",
+    "band 600-2k 55.6% (15 to 35): over the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture shows a dense, noisy burst in the first 0.1 s (waveform peaks near 0.085 s) that tapers into a thin tail. The title reads 'THE WRENCH'S SWING', and the shape fits a swing or whoosh with no hit in it, so the event is right for the brief."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length 0.269 s, attack 0.01 s, 20% point 0.085 s and 40% point 0.125 s. That is a fast attack with the body gone by about 0.13 s and a short tail, the envelope of a swing. None of the four measured failures is an envelope item, so the decay and length stand. Two of the 22 items fail without being named in the measurements, so this is a judgement from the envelope numbers and the waveform, not a full check against the class."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Spectrum is clearly off the swing class. The 600-2k band holds 55.6% against a range of 15 to 35 (about 20 points over), and the 150-600 band holds 38.3% against 55.8 to 75.8 (about 17 points under). Both are outside the 10-point tolerance. The spectrogram matches: the bright yellow energy sits in the middle of the frequency range, and the lower band is thinner than the class expects. Centroid (860 Hz) has no range given in the measurements, so it is not scored here."
+  },
+  "S4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Onsets 0: no hit or click, which suits a swing. Flatness 0.138 sits in the noisy-whoosh region, and the spectrogram shows no obvious pitch sweep or stepped tone, only a broad noise field that fades. No measurement flags character. I cannot listen, so this rests on the picture and the features alone."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Peak -1 dBFS, clipped 0, DC 0.0005 (negligible), engineFaults empty, and the path sound/weapons/cbar_miss1.wav is the name the game looks for. The features do not state channel count, sample rate or bit depth, so those are taken from the engine checks reporting no fault rather than read from the file."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

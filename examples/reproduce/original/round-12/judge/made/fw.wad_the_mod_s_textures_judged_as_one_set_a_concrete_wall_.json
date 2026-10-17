@@ -1,0 +1,158 @@
+{
+ "kind": "texture",
+ "label": "fw.wad, the mod's textures, judged as one set: a concrete wall, a wet concrete floor, a steel grate with holes, a catwalk floor, a pipe-covered wall, a hazard-striped trim, a rusted steel plate, a control panel with dials, a sodium lamp's face (lit), the water, a sign reading PUMP 3, a door",
+ "measured": {
+  "count": 12,
+  "least": 12,
+  "textures": [
+   {
+    "name": "FW_CONCRETE",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 24.2
+   },
+   {
+    "name": "FW_WETFLOOR",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 21.8
+   },
+   {
+    "name": "{FW_GRATE",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 16.1
+   },
+   {
+    "name": "FW_CATWALK",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 23
+   },
+   {
+    "name": "FW_PIPEWALL",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 18.2
+   },
+   {
+    "name": "FW_HAZARD",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 84.3
+   },
+   {
+    "name": "FW_RUSTPLATE",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 53.3
+   },
+   {
+    "name": "FW_CONTROL",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 20.3
+   },
+   {
+    "name": "~FW_LAMP",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "!FW_WATER",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 2.3
+   },
+   {
+    "name": "FW_SIGN",
+    "size": [
+     128,
+     64
+    ],
+    "detail": 33.5
+   },
+   {
+    "name": "FW_DOOR",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 6.6
+   }
+  ],
+  "halfLifeDetail": {
+   "least": 10.8,
+   "q1": 19.7,
+   "median": 30.1,
+   "q3": 45,
+   "most": 75,
+   "band": "T5's band is least to most, Half-Life's own from the 5th to the 95th in 100: fine detail inside it is Valve's own range (a quartile is no bound); under least reads smeared or flat, over most noisy. A texture the brief asks to be one plain colour is flat in Valve's too (its BLACK and YELLOW are 0): flat is right there, and T5 is 2"
+  }
+ },
+ "caps": {
+  "T6": 2
+ },
+ "scores": {
+  "T1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Most textures read as their material: concrete (FW_CONCRETE, FW_WETFLOOR), grate, catwalk, pipe wall, rust plate, water, door, and sign with legible PUMP 3 lettering. FW_HAZARD does not read as hazard-striped trim: it is a mottled yellow with dark dithered diagonal noise and no clear black-yellow stripes. FW_CONTROL shows two pale rounded blocks and a rectangle outline, not dials, screens or switches. Both fail the test of what the texture is."
+  },
+  "T2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "FW_RUSTPLATE carries bright cyan-blue blotches across a brown rust plate, which is not the colour of rusted steel. The brief's colours are otherwise close: grey concrete, yellow hazard and sign, orange lamp face, dark green-grey water. Map-view colour could not be measured, so this is judged from the flat pictures against the brief."
+  },
+  "T3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "FW_HAZARD has no readable stripe pattern at a wall's scale, so its layout is missing. FW_CONTROL's dials are pale blobs about a third of the tile, not panel-scale dials. The grate (8 holes per 64), concrete seams, catwalk grid and sign are at plausible wall scale, but the set fails on the two textures above."
+  },
+  "T4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Not measured, so judged by eye on the flat pictures: concrete, wet floor, catwalk and pipe wall show no obvious seam or step at the tile edges, and the grate and catwalk grids repeat evenly. No measurement was given to confirm it."
+  },
+  "T5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Fine detail is outside Half-Life's band (10.8 to 75). FW_WATER is at 2.3 and reads smeared and flat; FW_DOOR at 6.6 is smooth; FW_LAMP at 0 is one flat orange, and the brief does not ask for a plain colour there. FW_HAZARD at 84.3 is noisy, with dither in place of paint. FW_CONCRETE, FW_WETFLOOR, FW_CATWALK, FW_PIPEWALL, FW_RUSTPLATE (53.3), FW_CONTROL, FW_SIGN and FW_GRATE sit in the band."
+  },
+  "T6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Names and sizes follow the brief's kinds: {FW_GRATE is a 64x64 texture with holes, !FW_WATER is a liquid, ~FW_LAMP is a lit lamp face at 64x64, FW_SIGN is 128x64 and carries PUMP 3, and the others are 128x128. Nothing that the kind asks for is missing."
+  }
+ },
+ "total": 8,
+ "of": 12,
+ "passes": false
+}

@@ -10,221 +10,355 @@
   },
   "materials": {
     "skin": {
-      "base": "paint",
-      "tone": "grey green"
+      "base": "leather",
+      "tone": [
+        0.27,
+        0.31,
+        0.24
+      ],
+      "picture": "library:brown_leather",
+      "size": 16
     },
     "belly": {
-      "base": "paint",
+      "base": "leather",
       "tone": [
-        0.7,
-        0.68,
-        0.55
+        0.58,
+        0.56,
+        0.47
+      ],
+      "picture": "library:fabric_leather_01",
+      "size": 16
+    },
+    "mouth": {
+      "base": "leather",
+      "tone": [
+        0.22,
+        0.07,
+        0.06
       ]
     },
-    "teeth": {
+    "tooth": {
       "base": "bone",
       "tone": [
-        0.8,
-        0.78,
-        0.68
+        0.66,
+        0.63,
+        0.52
       ]
     }
+  },
+  "finish": {
+    "light": 0.5,
+    "wear": 0.2,
+    "grime": 0.3
   },
   "parts": [
     {
       "id": "body",
       "kind": "blob",
       "material": "skin",
-      "blend": 3,
-      "cells": 64,
+      "blend": 1.4,
+      "triangles": 320,
       "pieces": [
         {
-          "span": [
-            "Bip01 Pelvis",
-            "Bip01 Neck"
+          "at": [
+            -5,
+            0,
+            7.6
           ],
           "radius": [
-            4.5,
-            4.8
-          ]
+            10,
+            6.2,
+            4.3
+          ],
+          "bone": "Bip01 Spine"
         },
         {
-          "at": "Bip01 Spine",
-          "radius": 4.8
-        },
-        {
-          "at": "Bip01 Neck",
-          "radius": 4.2
-        },
-        {
-          "span": [
-            "Bip01 L Leg",
-            "Bip01 L Leg1"
+          "at": [
+            3.5,
+            0,
+            5.8
           ],
           "radius": [
-            1.6,
-            1.2
-          ]
-        },
-        {
-          "span": [
-            "Bip01 L Leg1",
-            "Bip01 L Foot"
+            5,
+            4.8,
+            3.4
           ],
-          "radius": [
-            1.2,
-            0.9
-          ]
-        },
-        {
-          "span": [
-            "Bip01 R Leg",
-            "Bip01 R Leg1"
-          ],
-          "radius": [
-            1.6,
-            1.2
-          ]
-        },
-        {
-          "span": [
-            "Bip01 R Leg1",
-            "Bip01 R Foot"
-          ],
-          "radius": [
-            1.2,
-            0.9
-          ]
-        },
-        {
-          "span": [
-            "Bone04",
-            "Bone05"
-          ],
-          "radius": [
-            1.1,
-            1
-          ]
-        },
-        {
-          "span": [
-            "Bone05",
-            "Bone06"
-          ],
-          "radius": [
-            1,
-            0.8
-          ]
-        },
-        {
-          "span": [
-            "Bone02",
-            "Bone03"
-          ],
-          "radius": [
-            1,
-            1
-          ]
-        },
-        {
-          "span": [
-            "Bone03",
-            "Bone08"
-          ],
-          "radius": [
-            1,
-            0.8
-          ]
+          "bone": "Bip01 Neck"
         },
         {
           "from": [
-            -3,
+            2,
+            -4,
+            5.5
+          ],
+          "to": [
+            5.5,
+            -9.5,
+            5.5
+          ],
+          "radius": [
+            1.3,
+            1
+          ],
+          "bone": "Bone05"
+        },
+        {
+          "from": [
+            5.5,
+            -9.5,
+            5.5
+          ],
+          "to": [
+            10.5,
+            -10.5,
+            0.5
+          ],
+          "radius": [
+            1,
+            0.35
+          ],
+          "bone": "Bone06"
+        },
+        {
+          "from": [
+            2,
+            4,
+            5.5
+          ],
+          "to": [
+            5.5,
+            9.5,
+            5.5
+          ],
+          "radius": [
+            1.3,
+            1
+          ],
+          "bone": "Bone03"
+        },
+        {
+          "from": [
+            5.5,
+            9.5,
+            5.5
+          ],
+          "to": [
+            10.5,
+            10.5,
+            0.5
+          ],
+          "radius": [
+            1,
+            0.35
+          ],
+          "bone": "Bone08"
+        },
+        {
+          "from": [
+            -2,
             5,
             7
           ],
           "to": [
-            -1,
-            12,
+            -1.5,
+            11,
+            6.5
+          ],
+          "radius": [
+            1.3,
             1
           ],
-          "radius": 1.1,
           "bone": "Bip01 Spine"
         },
         {
           "from": [
-            -3,
+            -1.5,
+            11,
+            6.5
+          ],
+          "to": [
+            -0.5,
+            13.5,
+            0.5
+          ],
+          "radius": [
+            1,
+            0.35
+          ],
+          "bone": "Bip01 Spine"
+        },
+        {
+          "from": [
+            -2,
             -5,
             7
           ],
           "to": [
-            -1,
-            -12,
+            -1.5,
+            -11,
+            6.5
+          ],
+          "radius": [
+            1.3,
             1
           ],
-          "radius": 1.1,
           "bone": "Bip01 Spine"
+        },
+        {
+          "from": [
+            -1.5,
+            -11,
+            6.5
+          ],
+          "to": [
+            -0.5,
+            -13.5,
+            0.5
+          ],
+          "radius": [
+            1,
+            0.35
+          ],
+          "bone": "Bip01 Spine"
+        },
+        {
+          "from": [
+            -8,
+            5,
+            9
+          ],
+          "to": [
+            -8.5,
+            10,
+            6.5
+          ],
+          "radius": [
+            1.3,
+            1
+          ],
+          "bone": "Bip01 L Leg"
+        },
+        {
+          "from": [
+            -8.5,
+            10,
+            6.5
+          ],
+          "to": [
+            -11,
+            11.5,
+            0.5
+          ],
+          "radius": [
+            1,
+            0.35
+          ],
+          "bone": "Bip01 L Leg1"
+        },
+        {
+          "from": [
+            -8,
+            -5,
+            9
+          ],
+          "to": [
+            -8.5,
+            -10,
+            6.5
+          ],
+          "radius": [
+            1.3,
+            1
+          ],
+          "bone": "Bip01 R Leg"
+        },
+        {
+          "from": [
+            -8.5,
+            -10,
+            6.5
+          ],
+          "to": [
+            -11,
+            -11.5,
+            0.5
+          ],
+          "radius": [
+            1,
+            0.35
+          ],
+          "bone": "Bip01 R Leg1"
         }
       ]
     },
     {
       "id": "belly",
-      "kind": "blob",
+      "kind": "superquadric",
       "material": "belly",
-      "blend": 2,
-      "cells": 48,
-      "pieces": [
-        {
-          "from": [
-            -5,
-            0,
-            3.5
-          ],
-          "to": [
-            5,
-            0,
-            3.5
-          ],
-          "radius": 2.8
-        }
-      ]
+      "size": [
+        17,
+        9.5,
+        3
+      ],
+      "round": [
+        0.5,
+        0.5
+      ],
+      "sides": 8,
+      "at": [
+        -3.5,
+        0,
+        3.4
+      ],
+      "bone": "Bip01 Spine"
+    },
+    {
+      "id": "mouth",
+      "kind": "cylinder",
+      "material": "mouth",
+      "radius": 2.6,
+      "height": 0.8,
+      "sides": 8,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        7.9,
+        0,
+        5.8
+      ],
+      "bone": "Bip01 Neck"
     },
     {
       "id": "tooth",
-      "kind": "turn",
-      "material": "teeth",
-      "axis": "x",
-      "rings": [
-        [
-          0,
-          1.3
-        ],
-        [
-          3,
-          0
-        ]
+      "kind": "cylinder",
+      "material": "tooth",
+      "radius": 0.45,
+      "top": 0,
+      "height": 1.4,
+      "sides": 3,
+      "rotate": [
+        0,
+        70,
+        0
       ],
-      "caps": [
-        true,
-        true
+      "at": [
+        8.4,
+        0,
+        7.8
       ],
-      "sides": 5,
-      "attach": {
-        "bone": "Bip01 Neck",
-        "at": "centre",
-        "offset": [
-          3.6,
-          3.4,
-          0
-        ]
-      },
+      "bone": "Bip01 Neck",
       "repeat": {
-        "count": 10,
+        "count": 8,
+        "axis": "x",
         "through": [
-          2,
+          8.4,
           0,
-          4
+          5.8
         ],
-        "axis": "x"
+        "start": 0
       }
     }
   ]

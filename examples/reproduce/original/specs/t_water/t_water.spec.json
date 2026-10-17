@@ -1,0 +1,64 @@
+{
+  "spec": "smak.map/1",
+  "name": "t_water",
+  "rooms": [
+    {
+      "id": "r",
+      "size": [
+        384,
+        384,
+        192
+      ]
+    },
+    {
+      "id": "p",
+      "size": [
+        192,
+        384,
+        96
+      ],
+      "place": {
+        "in": "r",
+        "offset": [
+          192,
+          0
+        ]
+      },
+      "floor": -96,
+      "water": {
+        "depth": 64
+      }
+    },
+    {
+      "id": "q",
+      "size": [
+        192,
+        384,
+        96
+      ],
+      "place": {
+        "south_of": "r"
+      },
+      "floor": 0
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "r",
+      "at": [
+        -120,
+        0
+      ]
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "p",
+      "at": [
+        0,
+        0
+      ],
+      "z": 4
+    }
+  ]
+}

@@ -1,112 +1,213 @@
 {
   "spec": "smak.model/1",
   "name": "fw_walllamp.mdl",
-  "kind": "piece",
+  "kind": "prop",
+  "size": {
+    "height": 14,
+    "length": 15
+  },
   "materials": {
-    "plate": {
+    "cast": {
       "base": "metal",
-      "tone": "grey green",
-      "rust": 0.35
-    },
-    "cage": {
-      "base": "mesh",
-      "cell": 4,
-      "tone": "dark grey"
-    },
-    "lens": {
-      "base": "glass",
       "tone": [
-        1,
-        0.62,
+        0.24,
+        0.25,
         0.22
       ],
-      "flags": [
-        "fullbright"
+      "picture": "library:green_metal_rust",
+      "size": 39
+    },
+    "cage": {
+      "base": "steel",
+      "tone": [
+        0.3,
+        0.29,
+        0.26
+      ],
+      "rust": 0.5
+    },
+    "glass": {
+      "base": "neon",
+      "tone": [
+        1,
+        0.58,
+        0.18
       ]
     }
+  },
+  "finish": {
+    "wear": 0.5,
+    "grime": 0.6,
+    "light": 0.3
   },
   "parts": [
     {
       "id": "plate",
       "kind": "box",
-      "material": "plate",
+      "material": "cast",
       "size": [
-        2,
-        14,
-        18
+        1.5,
+        9,
+        14
       ],
       "at": [
-        -1,
+        0.75,
         0,
         0
+      ],
+      "panels": [
+        {
+          "face": "front",
+          "at": [
+            4.5,
+            12
+          ],
+          "size": [
+            1.2,
+            1.2
+          ],
+          "shape": "round",
+          "radius": 0.6,
+          "style": "raised"
+        },
+        {
+          "face": "front",
+          "at": [
+            4.5,
+            2
+          ],
+          "size": [
+            1.2,
+            1.2
+          ],
+          "shape": "round",
+          "radius": 0.6,
+          "style": "raised"
+        }
       ]
     },
     {
-      "id": "lens",
-      "kind": "cylinder",
-      "material": "lens",
-      "radius": 4.5,
-      "height": 11,
-      "sides": 10,
-      "rotate": [
-        0,
-        90,
-        0
+      "id": "housing",
+      "kind": "turn",
+      "axis": "x",
+      "material": "cast",
+      "sides": 8,
+      "caps": [
+        true,
+        true
+      ],
+      "rings": [
+        [
+          0,
+          3.8
+        ],
+        [
+          1.2,
+          4.9
+        ],
+        {
+          "s": 3.6,
+          "r": 4.6,
+          "crease": true
+        }
       ],
       "at": [
-        0.5,
+        1.2,
         0,
-        9
-      ],
-      "finish": false
+        7
+      ]
     },
     {
-      "id": "cage",
-      "kind": "cylinder",
+      "id": "globe",
+      "kind": "turn",
+      "axis": "x",
+      "material": "glass",
+      "sides": 8,
+      "caps": [
+        true,
+        true
+      ],
+      "rings": [
+        [
+          0,
+          4.1
+        ],
+        [
+          6,
+          4.2
+        ],
+        [
+          8.2,
+          3.2
+        ],
+        [
+          9,
+          1.6
+        ]
+      ],
+      "at": [
+        4.6,
+        0,
+        7
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.42,
+              0
+            ],
+            [
+              0.42,
+              360
+            ]
+          ],
+          "width": 0.7,
+          "material": "cage"
+        }
+      ]
+    },
+    {
+      "id": "cage_bar",
+      "kind": "tube",
       "material": "cage",
-      "radius": 6.5,
-      "height": 12,
-      "sides": 10,
-      "rotate": [
-        0,
-        90,
-        0
+      "sides": 3,
+      "path": [
+        [
+          4.4,
+          0,
+          11.9,
+          0.45
+        ],
+        [
+          10.8,
+          0,
+          11.7,
+          0.45
+        ],
+        [
+          14,
+          0,
+          8.6,
+          0.45
+        ],
+        [
+          14,
+          0,
+          6.6,
+          0.45
+        ]
       ],
-      "at": [
-        0,
-        0,
-        9
-      ]
-    },
-    {
-      "id": "hood",
-      "kind": "box",
-      "material": "plate",
-      "size": [
-        10,
-        14,
-        2
-      ],
-      "at": [
-        5,
-        0,
-        15.5
-      ]
-    },
-    {
-      "id": "bracket",
-      "kind": "box",
-      "material": "plate",
-      "size": [
-        2,
-        6,
-        4
-      ],
-      "at": [
-        0.5,
-        0,
-        0
-      ]
+      "repeat": {
+        "count": 4,
+        "axis": "x",
+        "through": [
+          0,
+          0,
+          7
+        ],
+        "start": 45
+      }
     }
   ]
 }

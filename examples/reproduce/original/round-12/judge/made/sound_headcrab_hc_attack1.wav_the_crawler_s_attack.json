@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_attack1.wav: the crawler's attack",
+ "measured": {
+  "features": {
+   "length": 0.3,
+   "peak": -1,
+   "rms": -11,
+   "crest": 10,
+   "dc": -0.0012,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0,
+   "peakAt": 0,
+   "t20": 0.22,
+   "t40": 0.274,
+   "centroid": 909,
+   "rolloff": 1830,
+   "flatness": 0.057,
+   "bands": {
+    "<150": 12.3,
+    "150-600": 35,
+    "600-2k": 46.8,
+    "2k-5k": 5.9,
+    ">5k": 0
+   },
+   "onsets": 0
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.906,
+    "centroid": 921,
+    "t20": 0.394,
+    "bands": {
+     "<150": 0.5,
+     "150-600": 68.1,
+     "600-2k": 18.8,
+     "2k-5k": 10.9,
+     ">5k": 1.6
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The waveform is a 0.3 s noise burst that peaks near 0.1 s and decays, with no onsets (onsets 0) and no bite-like transients. The game's own sound has sharp clicks and hits near its start and at about 0.5 s and 0.7 s, plus a long tail. The made sound reads as a generic rasp or whoosh, so it is there but clearly not the same event."
+  },
+  "S2": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Length is 0.30 s against the original's 0.906 s, a ratio of 0.33 and far outside the 25% bound (picture, top panel; features.length vs against.gameOwn.length). The made sound also has attack 0 and t20 0.22 s against the original's 0.394 s. The must-have fails on length alone, so this is 0 by measure."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The centroid matches (909 Hz against 921 Hz, within 20%), but the band shares are clearly off. 150-600 Hz is 35 against 68.1 (33 points out), 600-2k Hz is 46.8 against 18.8 (28 points out), and the other bands fall within 10 points. Two of five bands fail the 10-point bound, so the spectrum is there but clearly off."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original has discrete hits (onsets) at its start and mid-point and a pitched tail, and the made sound has onsets 0 with a flat noise-like burst and no pitch movement. Flatness is 0.057 and is not compared directly with the original's, so only the missing hits and the noise-only character are clearly wrong."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The engine-fault list is empty, the sound does not clip (peak -1 dBFS, clipped 0), DC is -0.0012 (negligible), and the file name is hc_attack1.wav as the game looks for it. The measurements do not give the sample rate or bit depth, so this score rests on no engine fault being reported."
+  }
+ },
+ "total": 5,
+ "of": 10,
+ "passes": false
+}

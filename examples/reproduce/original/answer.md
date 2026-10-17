@@ -1,56 +1,31 @@
-The Flooded Works mod is built in the work folder: all 26 brief files plus the supporting files the maps need. The one part I could not build as briefed is the lift. The kit can't cut a lift shaft, so the control map's valve room is reached by a 16-step stair. Nothing has been run in the game, so every check below is the kit's own, not a play test.
+I've made the whole mod: all 26 files are at the required names in the work folder. Every map, model, sprite, sound and video builds with no faults, and every model passes the engine check. None of it has been run in the game, so the doors, the level changes, the lift and the ending are checked on geometry only.
 
-**Deviation to decide:** the lift is a stair. Making a real lift needs a shaft cut through the floor, and the kit only builds a stair for stacked rooms. If you want a lift, it needs an editor pass on `fw_control`.
+**Maps** (all three build clean)
 
-**What I made**
+| Map | What's in it | Walk test |
+|---|---|---|
+| `fw_yard` | 1504 × 1504 yard at dusk under its own sky, with a 448-high wall round it. A gatehouse with a swinging door and a window, a closed steel gate by the start, stacked drums and the truck-sized broken pipe section. You leave through the pump house's double doors, which hold the level change and landmark `fw_lm1`. | All 5 places reached |
+| `fw_pumphall` | 2688 long (about 2650 of it is the hall itself). An identical pump house to arrive in, the flooded hall with three pumps (the third carries the "PUMP 3" sign), catwalks on both sides joined by a bridge, ladders and sump steps out of the water. The wrench is on the west catwalk and three crawlers are in the water. A stair leads up to a corridor holding the level change and landmark `fw_lm2`. | All 8 reached |
+| `fw_control` | Four consoles under four glazed windows, looking down on a replica of the hall. A wall button sends a lift down to the valve room. Using the valve wheel shows a message and ends the mod 4 seconds later. Two crawlers. | All 6 reached |
 
-```
-Brief file                      Status
-maps/fw_yard.bsp                built, walk test passes, all entities reached
-maps/fw_pumphall.bsp            built, walk test passes, corridor exit reached
-maps/fw_control.bsp             built, walk test passes (stair, not lift)
-models/fw_valvewheel.mdl        344 triangles, 32 across, red spokes and hub
-models/fw_drum.mdl              272 triangles, rusted, hazard stripe
-models/fw_console.mdl           24 triangles, screens, dials, switch row
-models/fw_pipejunction.mdl      504 triangles, bolted flanges, hazard band
-models/fw_walllamp.mdl          caged, sodium-orange glass, glows
-models/v_crowbar.mdl            pipe wrench, first person (crowbar hands kept)
-models/p_crowbar.mdl            pipe wrench, in another player's hands
-models/w_crowbar.mdl            pipe wrench, lying in the world
-models/headcrab.mdl             sludge crawler on the headcrab's skeleton
-fw.wad                          12 textures, all named in the brief
-sprites/fw_steam.spr            animated, rises and thins
-sprites/fw_glow.spr             sodium glow
-sprites/fw_spit.spr             animated splash
-sound/weapons/cbar_hit1.wav     wrench strike
-sound/weapons/cbar_miss1.wav    wrench swing
-sound/headcrab/hc_attack1.wav   crawler bite
-sound/headcrab/hc_pain1.wav     crawler pain
-sound/ambience/fw_pump.wav      pump loop
-sound/ambience/fw_drips.wav     drip loop
-videos/fw_wrench.mp4            turntable, 8 s
-videos/fw_crawler.mp4           turntable, walk cycle, 8 s
-videos/fw_pumphall.mp4          walk through the hall, 8 s
-pictures/fw_props.png           the five props side by side
-```
+The water is 64 deep, which is swimming depth in Half-Life. The walk test can't follow a player down through water deeper than a player is tall, so I settled on 64 rather than deeper.
 
-Extra files the maps need: `fw_yard.wad`, `fw_pumphall.wad` and `fw_control.wad` (map-only textures), the yard sky under `gfx/env/fw_yard/`, and `models/fw_yard/fw_pipesection.mdl`, the broken truck-sized pipe in the yard.
+**Models**
+- **Props:** valve wheel, drum, console, pipe junction and wall lamp.
+- **Wrench:** replaces the crowbar's first-person, in-hand and world models. The in-hand and world models get their own lighter set of parts, because the automatic reduction smeared the red paint.
+- **Crawler:** built on the headcrab's skeleton and keeps all 21 of its animations. At 448 triangles it is under the headcrab's 478.
 
-**How the chain works**
-- `fw_yard`: starts by the gatehouse, leaves through the pump house's double doors into `fw_pumphall`, via a trigger that names landmark `fw_land_1`. Both maps carry that landmark.
-- `fw_pumphall`: a flooded hall with three pumps, catwalks, a bridge, ladders, the wrench and three crawlers. It leaves by a stair up to a corridor, through a trigger naming `fw_control` and landmark `fw_land_2`.
-- `fw_control`: arrives at the entry, looks down through four windows onto the flooded hall, and has four consoles and the valve room below. The valve wheel's trigger ends the mod.
+**Textures, sprites, sounds, showcase**
+- **`fw.wad`:** 14 textures, with photo-based concrete and steel.
+- **Sprites:** the steam rises and thins, and the glow is sodium orange. The spit's inner motion is slightly under the game's range for sparks.
+- **Sounds:** all six are in range of the game's own sounds of their kind. They come from a non-commercial (CC-BY-NC) generator, which you've accepted.
+- **Showcase:** three videos and the props sheet.
 
-**What I checked**
-- Every map, model, sprite and sound passed its build checks. The builds report no engine errors.
-- Every map's walk test reaches its entities on foot, and the changelevel names and landmarks match across maps.
-- Every picture the builds drew was looked at.
-
-**Known weak spots**
-- The wrench rim is steel, while the spokes and hub are red. The brief asked for red paint worn to steel at the rim.
-- The sound takes are at the edge of the game's ranges. The wrench hit, the swing, the bite and the yelp all have spectral or decay notes in the report. Only listening in the game will settle them.
-- The pump-hall flight is a walk-through at eye height, not a free flight. A camera path kept clipping solids.
-- Map lights are the kit's plain white lamps. The sodium colour comes from the glows and the lamp props only.
-- A few drops of 210 units or more sit at stair edges. I left them unrailed.
-
-**Licences (you accepted these for this test):** the wrench swing uses woosh-dflow, licensed CC-BY-NC 4.0, which is non-commercial. The other takes use stable-audio-3-sfx, under the Stability AI Community Licence: commercial use is free only for an organisation under US$1M annual revenue. The headcrab and the sprites were built from the kit's own models and layers.
+**Things you should know**
+- **Extra files the game needs:** each map also lists its own small .wad (ladder rungs), so `fw_yard.wad`, `fw_pumphall.wad` and `fw_control.wad` must ship beside `fw.wad`. The yard also needs its sky in `gfx/env/fw_yard/` and the pipe model `models/fw_bigpipe.mdl`. All of these are in the work folder.
+- **Over the game's triangle counts:**
+  - The wall lamp is 220 triangles, where the game's most for a prop that size is 194.
+  - The valve wheel (376) and the drum (336) are over what three quarters of the game's props that size use, though under its most.
+- **Crawler legs:** the headcrab has only four legs, so the middle pair is fixed to the body and doesn't step.
+- **Wrench in first person:** the head looks large on screen. At Valve's first-person scale it really is about 8 units tall.
+- **Lift pit:** it's a 256-unit drop when the lift is down. I railed it and left a gap to step onto the platform.

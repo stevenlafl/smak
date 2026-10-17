@@ -3,29 +3,29 @@
  "label": "sound/headcrab/hc_attack1.wav: the crawler's attack",
  "measured": {
   "features": {
-   "length": 0.3,
-   "peak": -1,
-   "rms": -11,
-   "crest": 10,
-   "dc": -0.0012,
+   "length": 0.85,
+   "peak": -0.5,
+   "rms": -18.7,
+   "crest": 18.2,
+   "dc": -0.0001,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.005,
-   "attack": 0,
-   "peakAt": 0,
-   "t20": 0.22,
-   "t40": 0.274,
-   "centroid": 909,
-   "rolloff": 1830,
-   "flatness": 0.057,
+   "tail": 0,
+   "attack": 0.1,
+   "peakAt": 0.15,
+   "t20": 0.688,
+   "t40": 0.698,
+   "centroid": 900,
+   "rolloff": 1787,
+   "flatness": 0.224,
    "bands": {
-    "<150": 12.3,
-    "150-600": 35,
-    "600-2k": 46.8,
-    "2k-5k": 5.9,
-    ">5k": 0
+    "<150": 0.5,
+    "150-600": 67.6,
+    "600-2k": 19.2,
+    "2k-5k": 11,
+    ">5k": 1.6
    },
-   "onsets": 0
+   "onsets": 2
   },
   "class": null,
   "against": {
@@ -52,34 +52,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The waveform is a 0.3 s noise burst that peaks near 0.1 s and decays, with no onsets (onsets 0) and no bite-like transients. The game's own sound has sharp clicks and hits near its start and at about 0.5 s and 0.7 s, plus a long tail. The made sound reads as a generic rasp or whoosh, so it is there but clearly not the same event."
+   "reason": "Picture: one broadband burst at about 0.11 s, a sustained mid-band wash from about 0.05 s to 0.6 s, then sparse clicks to the end. The game's own crawler attack is two hard hits at about 0.09 s and 0.24 s, short spikes after them, and a fast fall. The made sound reads as a noisy swipe, which could be the same kind of event, but its long sustained body is not the game's event shape, so it is clearly off. Judged from the picture only; the sound was not heard."
   },
   "S2": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "Length is 0.30 s against the original's 0.906 s, a ratio of 0.33 and far outside the 25% bound (picture, top panel; features.length vs against.gameOwn.length). The made sound also has attack 0 and t20 0.22 s against the original's 0.394 s. The must-have fails on length alone, so this is 0 by measure."
-  },
-  "S3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The centroid matches (909 Hz against 921 Hz, within 20%), but the band shares are clearly off. 150-600 Hz is 35 against 68.1 (33 points out), 600-2k Hz is 46.8 against 18.8 (28 points out), and the other bands fall within 10 points. Two of five bands fail the 10-point bound, so the spectrum is there but clearly off."
+   "reason": "Length 0.85 s against the game's 0.906 s (6% short) is within 25%. The attack is 0.1 s, but the game's attack is not given, so it cannot be checked. t20 is 0.688 s against the game's 0.394 s, 0.29 s longer, far outside a quarter (0.10 s) or 0.05 s. class is null, so the fallback range applies and caps S2 at 1. The measure already holds this must-have item under 2, so it fails. The picture also shows about 0.05 s of silence before the sound starts, while lead reads 0; the two disagree and should be checked."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid 900 Hz against 921 Hz is 2.3% off, within 20%. Every band is within 0.5 points of the game's: under 150 Hz 0.5 against 0.5, 150-600 Hz 67.6 against 68.1, 600-2k 19.2 against 18.8, 2k-5k 11 against 11, over 5k 1.6 against 1.6, all within 10 points. The spectrogram agrees: energy sits low and bright under about 600 Hz in both. Note: these measures are against the game's own sound, as given. The rubric's brief-leg amendment reads S3 against the class range, which this measurement does not provide."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The original has discrete hits (onsets) at its start and mid-point and a pitched tail, and the made sound has onsets 0 with a flat noise-like burst and no pitch movement. Flatness is 0.057 and is not compared directly with the original's, so only the missing hits and the noise-only character are clearly wrong."
+   "reason": "Not a must-have, but the hits do not line up. The made sound's strongest hits are at about 0.11 s and 0.42 s, against the game's at about 0.09 s and 0.24 s. The made sound has a stronger hit near 0.6 s where the game has a quieter one. Its tail has about seven small clicks between 0.6 s and 0.85 s, more than the game's. Flatness 0.224 has no game figure to compare against. Neither spectrogram shows clear pitch movement, so that part matches. onsets 2 has no game figure to compare against."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The engine-fault list is empty, the sound does not clip (peak -1 dBFS, clipped 0), DC is -0.0012 (negligible), and the file name is hc_attack1.wav as the game looks for it. The measurements do not give the sample rate or bit depth, so this score rests on no engine fault being reported."
+   "reason": "clipped 0, dc -0.0001, peak -0.5, no engine faults (engineFaults is empty), and the name sound/headcrab/hc_attack1.wav matches the game's. Sample rate, bit depth and channel count are not in the measurements, so mono PCM at an engine rate is taken from the empty engineFaults list, which the SMAK checks report. Those three fields should be read from the file before this passes."
   }
  },
- "total": 5,
+ "total": 7,
  "of": 10,
  "passes": false
 }

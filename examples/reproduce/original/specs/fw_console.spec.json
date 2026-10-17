@@ -3,215 +3,507 @@
   "name": "fw_console.mdl",
   "kind": "prop",
   "size": {
-    "height": 38,
-    "width": 28,
-    "length": 42
+    "height": 42,
+    "width": 48
   },
   "materials": {
-    "casing": {
+    "case": {
       "base": "metal",
-      "tone": "grey green",
-      "rust": 0.25
+      "tone": [
+        0.34,
+        0.37,
+        0.33
+      ],
+      "picture": "library:green_metal_rust",
+      "size": 39
+    },
+    "dark": {
+      "base": "metal",
+      "tone": [
+        0.14,
+        0.14,
+        0.13
+      ]
+    },
+    "dial": {
+      "base": "paint",
+      "tone": [
+        0.66,
+        0.64,
+        0.56
+      ]
+    },
+    "needle": {
+      "base": "flat",
+      "tone": [
+        0.08,
+        0.07,
+        0.06
+      ]
     },
     "screen": {
       "base": "flat",
       "tone": [
+        0.08,
         0.2,
-        0.42,
-        0.32
+        0.1
+      ],
+      "flags": [
+        "fullbright"
       ]
     },
-    "brass": {
-      "base": "brass"
+    "red": {
+      "base": "paint",
+      "tone": [
+        0.5,
+        0.12,
+        0.08
+      ]
     },
-    "iron": {
-      "base": "iron",
-      "rust": 0.3
+    "amber": {
+      "base": "paint",
+      "tone": [
+        0.6,
+        0.4,
+        0.1
+      ]
+    },
+    "steel": {
+      "base": "steel",
+      "tone": [
+        0.5,
+        0.5,
+        0.48
+      ]
     }
+  },
+  "finish": {
+    "wear": 0.6,
+    "grime": 0.5,
+    "light": 0.3
   },
   "parts": [
     {
-      "id": "body",
+      "id": "cabinet",
       "kind": "box",
-      "material": "casing",
+      "material": "case",
       "size": [
-        40,
-        26,
-        36
+        24,
+        48,
+        30
       ],
       "panels": [
         {
           "face": "front",
           "at": [
-            6.5,
-            24
-          ],
-          "size": [
-            11,
-            9
-          ],
-          "style": "inset",
-          "edge": 0.6,
-          "material": "iron"
-        },
-        {
-          "face": "front",
-          "at": [
-            19.5,
-            24
-          ],
-          "size": [
-            11,
-            9
-          ],
-          "style": "inset",
-          "edge": 0.6,
-          "material": "iron"
-        },
-        {
-          "face": "front",
-          "at": [
-            6.5,
-            24
-          ],
-          "size": [
-            9.4,
-            7.4
-          ],
-          "style": "flat",
-          "material": "screen"
-        },
-        {
-          "face": "front",
-          "at": [
-            19.5,
-            24
-          ],
-          "size": [
-            9.4,
-            7.4
-          ],
-          "style": "flat",
-          "material": "screen"
-        },
-        {
-          "face": "front",
-          "at": [
-            5,
+            24,
             12
           ],
           "size": [
-            5,
-            5
+            42,
+            16
           ],
-          "shape": "round",
-          "style": "raised",
-          "material": "brass"
+          "style": "inset",
+          "edge": 0.6
         },
         {
           "face": "front",
           "at": [
-            13,
+            24,
+            3
+          ],
+          "size": [
+            30,
+            2
+          ],
+          "style": "inset",
+          "material": "dark"
+        },
+        {
+          "face": "front",
+          "at": [
+            40,
             12
           ],
           "size": [
-            5,
+            2,
+            4
+          ],
+          "style": "raised",
+          "material": "steel"
+        },
+        {
+          "face": "front",
+          "at": [
+            24,
+            24.5
+          ],
+          "size": [
+            44,
             5
           ],
-          "shape": "round",
+          "style": "flat",
+          "material": "dark"
+        },
+        {
+          "face": "front",
+          "at": [
+            6,
+            24.5
+          ],
+          "size": [
+            2,
+            3.4
+          ],
           "style": "raised",
-          "material": "brass"
+          "material": "red"
+        },
+        {
+          "face": "front",
+          "at": [
+            11,
+            24.5
+          ],
+          "size": [
+            2,
+            3.4
+          ],
+          "style": "raised",
+          "material": "steel"
+        },
+        {
+          "face": "front",
+          "at": [
+            16,
+            24.5
+          ],
+          "size": [
+            2,
+            3.4
+          ],
+          "style": "raised",
+          "material": "steel"
         },
         {
           "face": "front",
           "at": [
             21,
-            12
+            24.5
           ],
           "size": [
-            5,
-            5
+            2,
+            3.4
           ],
-          "shape": "round",
           "style": "raised",
-          "material": "brass"
+          "material": "red"
         },
         {
           "face": "front",
           "at": [
-            4,
-            5
+            26,
+            24.5
           ],
           "size": [
-            2.2,
-            3
+            2,
+            3.4
           ],
           "style": "raised",
-          "material": "iron"
+          "material": "steel"
         },
         {
           "face": "front",
           "at": [
-            8.5,
-            5
+            31,
+            24.5
           ],
           "size": [
-            2.2,
-            3
+            2,
+            3.4
           ],
           "style": "raised",
-          "material": "iron"
+          "material": "steel"
         },
         {
           "face": "front",
           "at": [
-            13,
-            5
+            36,
+            24.5
           ],
           "size": [
-            2.2,
-            3
+            2,
+            3.4
           ],
           "style": "raised",
-          "material": "iron"
+          "material": "steel"
         },
         {
           "face": "front",
           "at": [
-            17.5,
-            5
+            41,
+            24.5
           ],
           "size": [
-            2.2,
-            3
+            2,
+            3.4
           ],
           "style": "raised",
-          "material": "iron"
-        },
-        {
-          "face": "front",
-          "at": [
-            22,
-            5
-          ],
-          "size": [
-            2.2,
-            3
-          ],
-          "style": "raised",
-          "material": "iron"
+          "material": "red"
         }
       ]
     },
     {
-      "id": "top",
+      "id": "desk",
       "kind": "box",
-      "material": "iron",
+      "material": "case",
       "size": [
-        42,
-        28,
-        2
+        17,
+        49,
+        2.5
+      ],
+      "rotate": [
+        0,
+        -16,
+        0
+      ],
+      "at": [
+        5,
+        0,
+        28.6
+      ],
+      "panels": [
+        {
+          "face": "top",
+          "at": [
+            8.5,
+            10
+          ],
+          "size": [
+            10,
+            10
+          ],
+          "shape": "ellipse",
+          "style": "raised",
+          "material": "dark"
+        },
+        {
+          "face": "top",
+          "at": [
+            8.5,
+            21.5
+          ],
+          "size": [
+            10,
+            10
+          ],
+          "shape": "ellipse",
+          "style": "raised",
+          "material": "dark"
+        },
+        {
+          "face": "top",
+          "at": [
+            8.5,
+            33
+          ],
+          "size": [
+            10,
+            10
+          ],
+          "shape": "ellipse",
+          "style": "raised",
+          "material": "dark"
+        },
+        {
+          "face": "top",
+          "at": [
+            8.5,
+            10
+          ],
+          "size": [
+            8,
+            8
+          ],
+          "shape": "ellipse",
+          "style": "inset",
+          "edge": 0.3,
+          "material": "dial"
+        },
+        {
+          "face": "top",
+          "at": [
+            8.5,
+            21.5
+          ],
+          "size": [
+            8,
+            8
+          ],
+          "shape": "ellipse",
+          "style": "inset",
+          "edge": 0.3,
+          "material": "dial"
+        },
+        {
+          "face": "top",
+          "at": [
+            8.5,
+            33
+          ],
+          "size": [
+            8,
+            8
+          ],
+          "shape": "ellipse",
+          "style": "inset",
+          "edge": 0.3,
+          "material": "dial"
+        },
+        {
+          "face": "top",
+          "at": [
+            9.5,
+            9
+          ],
+          "size": [
+            3,
+            0.6
+          ],
+          "style": "flat",
+          "material": "needle"
+        },
+        {
+          "face": "top",
+          "at": [
+            8.5,
+            22.5
+          ],
+          "size": [
+            0.6,
+            3
+          ],
+          "style": "flat",
+          "material": "needle"
+        },
+        {
+          "face": "top",
+          "at": [
+            7.5,
+            34
+          ],
+          "size": [
+            3,
+            0.6
+          ],
+          "style": "flat",
+          "material": "needle"
+        },
+        {
+          "face": "top",
+          "at": [
+            5,
+            42
+          ],
+          "size": [
+            3,
+            5
+          ],
+          "style": "raised",
+          "material": "amber"
+        },
+        {
+          "face": "top",
+          "at": [
+            12,
+            42
+          ],
+          "size": [
+            3,
+            5
+          ],
+          "style": "raised",
+          "material": "red"
+        }
       ]
+    },
+    {
+      "id": "riser",
+      "kind": "box",
+      "material": "case",
+      "size": [
+        8,
+        48,
+        13
+      ],
+      "attach": {
+        "to": "cabinet",
+        "toAt": "top",
+        "at": "bottom",
+        "offset": [
+          -8,
+          0,
+          -0.5
+        ]
+      }
+    },
+    {
+      "id": "screen_left",
+      "kind": "box",
+      "material": "screen",
+      "size": [
+        0.6,
+        17,
+        9
+      ],
+      "attach": {
+        "to": "riser",
+        "toAt": "front",
+        "at": "back",
+        "offset": [
+          -0.3,
+          11,
+          1.4
+        ]
+      },
+      "print": {
+        "text": "FLOW 000",
+        "face": "front",
+        "ink": [
+          0.35,
+          0.85,
+          0.45
+        ],
+        "size": 0.3
+      }
+    },
+    {
+      "id": "screen_right",
+      "kind": "box",
+      "material": "screen",
+      "size": [
+        0.6,
+        17,
+        9
+      ],
+      "attach": {
+        "to": "riser",
+        "toAt": "front",
+        "at": "back",
+        "offset": [
+          -0.3,
+          -11,
+          1.4
+        ]
+      },
+      "print": {
+        "text": "LEVEL 87",
+        "face": "front",
+        "ink": [
+          0.35,
+          0.85,
+          0.45
+        ],
+        "size": 0.3
+      }
     }
   ]
 }
