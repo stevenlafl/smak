@@ -120,7 +120,9 @@ export function runNode(args, folders, seconds, signal) {
     const began = Date.now();
     const child = spawn(process.execPath, args, {
       cwd: folders.work,
-      env: { ...process.env, SMAK_WORK: folders.work, SMAK_MODELS: folders.models ?? "" },
+      // the server's compilers (--compilers) for a command's map-compile, as the build has them; a maker given
+      // only the build's found that `command map-compile` could not find VHLT (2026-10-17)
+      env: { ...process.env, SMAK_WORK: folders.work, SMAK_MODELS: folders.models ?? "", ...(folders.compilers ? { VHLT_DIR: folders.compilers } : {}) },
       stdio: ["ignore", "pipe", "pipe"],
       windowsHide: true,
     });

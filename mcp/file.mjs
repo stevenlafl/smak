@@ -1,7 +1,7 @@
 // The tool `file`: a file of the server's folders read back as what it is (words, a picture, a sound), or a text
 // file written into the work folder. What a build, a command or a generator made is so seen and heard by a
 // client with no shell, and a .map, a rules file or a list of steps written for a command to take.
-import { readFileSync, writeFileSync, mkdirSync, statSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, statSync, copyFileSync } from "node:fs";
 import { dirname, extname, basename } from "node:path";
 import * as smak from "../src/index.mjs";
 import { text, image, audio } from "./protocol.mjs";
@@ -19,9 +19,20 @@ const READ_MOST = OUTPUT_MOST * 4;
 
 /**
  * The tool. `name` alone: the file read back, by what it is (words from `from`, READ_MOST characters at a time;
- * a picture; a sound); `text`: written as the file's whole text, in the work folder only.
+ * a picture; a sound); `text`: written as the file's whole text, in the work folder only; `to`: copied to that
+ * place of the work folder, as a mod lays its files out (a model built at the top into models/). A maker with no
+ * way to copy put a model under models/ by retexturing it with its own picture (2026-10-17).
  */
-export function file(folders, { name, text: words, from = 0 }) {
+export function file(folders, { name, text: words, from = 0, to }) {
+  if (typeof to === "string") {
+    if (typeof words === "string") throw new Error("file: text or to, not both");
+    const source = pathOf(folders, name);
+    const path = pathOf(folders, to.startsWith("work:") ? to : `work:${to}`, { write: true });
+    if (source === path) throw new Error(`file: ${name} is already there`);
+    mkdirSync(dirname(path), { recursive: true });
+    copyFileSync(source, path);
+    return [text(`copied: ${name} to ${to.replace(/^work:/, "")} (${statSync(path).size} bytes)`)];
+  }
   if (typeof words === "string") {
     const path = pathOf(folders, name.startsWith("work:") ? name : `work:${name}`, { write: true });
     mkdirSync(dirname(path), { recursive: true });

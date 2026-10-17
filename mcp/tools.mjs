@@ -1170,11 +1170,12 @@ export function toolsFor(folders, { allowRun = true } = {}) {
     },
     {
       name: "file",
-      description: "A file of the folders read back as what it is: words (a .map, .json, .txt, .fgd, .qc ...), a picture (.png, .bmp, .jpg), or a sound to listen to (.wav, .mp3). With text: a text file written into the work folder (a .map to compile, rules or steps for a command).",
+      description: "A file of the folders read back as what it is: words (a .map, .json, .txt, .fgd, .qc ...), a picture (.png, .bmp, .jpg), or a sound to listen to (.wav, .mp3). With text: a text file written into the work folder (a .map to compile, rules or steps for a command). With to: the file copied to that place of the work folder, as the mod lays its files out (models/x.mdl, maps/x.bsp).",
       inputSchema: object(
         {
           name: { type: "string", description: "work:<name> (or a bare name), models:<name>, library:<name>" },
           text: { type: "string", description: "write this as the file's whole text (work folder only)" },
+          to: { type: "string", description: "copy it here in the work folder (models/x.mdl)" },
           from: { type: "number", description: "a long text file read from this character on" },
         },
         ["name"],

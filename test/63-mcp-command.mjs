@@ -52,6 +52,13 @@ await testAsync("command: game:<folder>/<path> names a file in a game folder; ..
   sure(/no game folder "cstrike"; the server's are 0 valve, named as game:<folder> or game:<folder>\/<path under it>/.test(await refused(() => command.call({ name: "info", args: ["game:cstrike/models/x.mdl"] }))), "a wrong folder told by name");
 });
 
+await testAsync("command: the server's compilers are the command line's, as the build's are", "mcp: command", async () => {
+  const folders = { ...openFolders({ work, models }), compilers: join(tmp, "my-compilers") };
+  const run = toolsFor(folders).find((t) => t.name === "run");
+  const answer = await run.call({ script: "console.log(`compilers: ${process.env.VHLT_DIR}`)" });
+  sure(said(answer).includes(`compilers: ${join(tmp, "my-compilers")}`), said(answer));
+});
+
 await testAsync("file: a work file read back as words, a picture or a sound, and a text file written", "mcp: file", async () => {
   const folders = openFolders({ work, models });
   const file = toolsFor(folders).find((t) => t.name === "file");
@@ -65,6 +72,11 @@ await testAsync("file: a work file read back as words, a picture or a sound, and
   sure((await file.call({ name: "crate.png" })).some((p) => p.type === "image"), "a picture as a picture");
   sure(/not words, a picture or a sound/.test((await file.call({ name: "models:crate.mdl" }))[0].text), "a model is told, not dumped");
   sure(/outside the work folder|outside the models and work folders/.test(await refused(() => file.call({ name: "../x.txt", text: "x" }))), "writing outside refused");
+  // copied where a mod keeps it: from the models folder into the work folder's models/
+  const copied = await file.call({ name: "models:crate.mdl", to: "models/fw_crate.mdl" });
+  sure(/copied: models:crate\.mdl to models\/fw_crate\.mdl/.test(copied[0].text) && existsSync(join(work, "models", "fw_crate.mdl")), copied[0].text);
+  sure(/outside the work folder/.test(await refused(() => file.call({ name: "models:crate.mdl", to: "../x.mdl" }))), "a copy outside refused");
+  sure(/text or to, not both/.test(await refused(() => file.call({ name: "x.txt", text: "x", to: "y.txt" }))), "text and to refused together");
 });
 
 await testAsync("page: the viewer kept up on the server's folders, its address given, then closed", "mcp: page", async () => {
