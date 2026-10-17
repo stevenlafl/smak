@@ -18,7 +18,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync, copyFileSync, rmSync, mkdtempSync } from "node:fs";
 import { join, basename, dirname } from "node:path";
 import { tmpdir } from "node:os";
-import { HERE, KIT, GAME, savePng, besides, kitCommit, keepRound, filesOf } from "./lib.mjs";
+import { HERE, KIT, GAME, savePng, besides, kitCommit, keepRound, filesOf, flatOf, scaled, onCanvas } from "./lib.mjs";
 import { runAgent, runJudge, failedByMeasure } from "./agents.mjs";
 import { toolsFor } from "../../mcp/tools.mjs";
 import { openFolders } from "../../mcp/folders.mjs";
@@ -30,6 +30,7 @@ import { measureSprite } from "../../src/sprite/measure.mjs";
 import { toLab } from "../../src/spec/colours.mjs";
 import { writeSpr } from "../../src/sprite/spr.mjs";
 import { itemsOf, parseAnswer, settle, combine, askScores, band } from "./scoring.mjs";
+import { BRIEFS, briefPrompt } from "./brief.mjs";
 
 const { maps, audio: A } = smak;
 const ROOT = join(HERE, "assets");
@@ -52,29 +53,12 @@ const LEGS = ["pictures", "words"];
 // replicate this"; the descriptions read the spectrogram, which no model was trained on): its one leg is a modder's
 // brief, a line of what the sound is for, and the verdict is the person's ear, at least as good as the game's own
 const legsOf = (kind) => (kind === "sounds" ? ["brief"] : LEGS);
-/**
- * What a modder asks for. First by the game's event alone; where Steven heard that the game's sound is not what the
- * event's name suggests (a door that whines, a medkit that beeps), the brief says the sound, as a modder who wants
- * one like it would (2026-10-16).
- */
-const SOUND_BRIEF = {
-  "weapons/cbar_hit1": "the crowbar hitting a metal surface",
-  "weapons/357_shot1": "a .357 revolver firing",
-  "weapons/sbarrel1": "a pump shotgun firing",
-  "player/pl_step1": "a footstep on concrete",
-  "player/pl_metal1": "a light footstep on a thin metal vent, a hollow tinny tap",
-  "doors/doormove1": "a sci-fi sliding door opening: a smooth electronic hum rising in pitch, then a solid thud as it stops",
-  "items/smallmedkit1": "a medkit used: two short electronic beeps, then the hiss of a hypospray",
-  "debris/bustmetal1": "a metal panel or crate breaking apart",
-  "weapons/explode3": "a grenade exploding",
-  "ambience/drips": "a looping cave ambience of water dripping into a pool, echoing",
-};
 
 const SOUND_CLASS = { "weapons/cbar_hit1": "metal hit", "weapons/357_shot1": "gunshot", "weapons/sbarrel1": "gunshot", "player/pl_step1": "step concrete", "player/pl_metal1": "step metal", "weapons/explode3": "explosion", "ambience/drips": "loop drips" };
 const SUBJECTS = {
   sprites: ["glow01", "flare1", "fire", "zerogxplode", "steam1", "xspark1", "laserbeam", "muzzleflash1"].map((id) => ({ id, file: `sprites/${id}.spr` })),
   // a class of src/audio/classes.mjs where the sound is of one, for its envelope's range (S2)
-  sounds: ["weapons/cbar_hit1", "weapons/357_shot1", "weapons/sbarrel1", "player/pl_step1", "player/pl_metal1", "doors/doormove1", "items/smallmedkit1", "debris/bustmetal1", "weapons/explode3", "ambience/drips"].map((n) => ({ id: n.replace("/", "-"), file: `sound/${n}.wav`, name: `${n}.wav`, class: SOUND_CLASS[n], brief: SOUND_BRIEF[n] })),
+  sounds: ["weapons/cbar_hit1", "weapons/357_shot1", "weapons/sbarrel1", "player/pl_step1", "player/pl_metal1", "doors/doormove1", "items/smallmedkit1", "debris/bustmetal1", "weapons/explode3", "ambience/drips"].map((n) => ({ id: n.replace("/", "-"), file: `sound/${n}.wav`, name: `${n}.wav`, class: SOUND_CLASS[n], brief: BRIEFS.sounds[n] })),
   textures: [{ id: "frenzy", file: "maps/frenzy.bsp" }],
 };
 const chosen = (kind) => SUBJECTS[kind].filter((s) => !named.length || named.includes(s.id));
@@ -84,37 +68,6 @@ const png = (picture) => smak.png(picture.width, picture.height, picture.rgba);
 
 // ── what the game has ─────────────────────────────────────────────────────
 
-/** A wad texture as a picture: its palette's colours, a `{` texture's holes shown in a pale grey. */
-function flatOf(t) {
-  const rgba = new Uint8Array(t.width * t.height * 4);
-  const holes = t.name.startsWith("{");
-  for (let i = 0; i < t.width * t.height; i++) {
-    const c = t.pixels[i];
-    const hole = holes && c === 255;
-    rgba.set(hole ? [200, 200, 200, 255] : [t.palette[c * 3], t.palette[c * 3 + 1], t.palette[c * 3 + 2], 255], i * 4);
-  }
-  return { width: t.width, height: t.height, rgba };
-}
-
-/** A picture scaled by whole steps (nearest) to fit a square of `cell`, so that texels stay sharp. */
-function scaled(picture, cell = 256) {
-  const k = Math.max(1, Math.floor(cell / Math.max(picture.width, picture.height)));
-  const width = picture.width * k;
-  const height = picture.height * k;
-  const rgba = new Uint8Array(width * height * 4);
-  for (let y = 0; y < height; y++)
-    for (let x = 0; x < width; x++) rgba.set(picture.rgba.subarray(((((y / k) | 0) * picture.width) + ((x / k) | 0)) * 4, ((((y / k) | 0) * picture.width) + ((x / k) | 0)) * 4 + 4), (y * width + x) * 4);
-  return { width, height, rgba };
-}
-
-/** A picture in the top left of a canvas of a fixed size, so that every cell of a sheet is the same. */
-function onCanvas(picture, width, height) {
-  const rgba = new Uint8Array(width * height * 4);
-  for (let i = 0; i < width * height; i++) rgba.set([24, 26, 30, 255], i * 4);
-  for (let y = 0; y < Math.min(height, picture.height); y++)
-    rgba.set(picture.rgba.subarray(y * picture.width * 4, y * picture.width * 4 + Math.min(width, picture.width) * 4), y * width * 4);
-  return { width, height, rgba };
-}
 
 /** The game's own textures of a map, by name in small letters, from the .wad files its worldspawn names. */
 function gameTextures(bsp) {
@@ -209,7 +162,7 @@ function reproducePrompt(kind, subject, leg, given) {
   if (kind === "sprites")
     return `Make this sprite for the GoldSrc engine with a smak.sprite/1 spec (guide { doc: "spec" }, "A sprite"), named ${subject.file}, as close to the original as you can: what it is, its shape and size in its frames, its colours, its frames and how it moves, its type and format. ${judged} Build until the build says OK.\n\n${given}`;
   if (kind === "sounds" && leg === "brief")
-    return `A modder asks you: "${subject.brief}". It is for their GoldSrc mod, in the place of the game's own ${subject.name}, so the game plays it there with no code. Make it with a smak.sound/1 spec (guide { doc: "spec" }, "A sound"), named ${subject.name}. They will listen to it in the game and decide whether it is at least as good as the game's own. Build until the build says OK, and tell them what you made and how.${ACCEPT ? " For this test the person accepts the licences of the local generators, non-commercial ones included." : ""}`;
+    return briefPrompt({ brief: subject.brief, replaces: `${subject.name}, so the game plays it there with no code`, make: `Make it with a smak.sound/1 spec (guide { doc: "spec" }, "A sound"), named ${subject.name}.`, verdict: "listen to it in the game", accept: ACCEPT });
   if (kind === "sounds")
     return `Make this sound for the GoldSrc engine with a smak.sound/1 spec (guide { doc: "spec" }, "A sound"), named ${subject.name} so the game plays it in the original's place, as close to the original as you can, and at least as good: the same event, length, envelope, spectrum and character. ${judged} Build until the build says OK.${ACCEPT ? " For this test the person accepts the licences of the local generators, non-commercial ones included." : ""}\n\n${given}`;
   return `Make every texture of this map again for the GoldSrc engine, in one smak.wad/1 spec (guide { doc: "spec" }, "Textures for maps") named frenzy_new.wad, each under the original's exact name and size, so the map wears ours in their place, as close to the originals as you can and at least as good: what each is, its colours, its pattern and scale, tiling without a seam, its kind kept (a { texture's holes, a +0 animation's frames, a light's face). The compiled map is models:frenzy.bsp: give the spec preview: { map: "models:frenzy.bsp", each: true } to see the map wearing yours, and each texture on its own place from the very camera and brightness of the pictures given (the game's own textures are not here). ${judged} Build until the build says OK.\n\n${given}`;

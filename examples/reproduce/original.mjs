@@ -13,13 +13,11 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync, copyFileS
 import { join, basename, dirname } from "node:path";
 import { HERE, GAME, SDHLT, POSE, readModel, savePng, besides, kitCommit, keepRound, filesOf } from "./lib.mjs";
 import { runAgent } from "./agents.mjs";
-import { ownOfKind, judgeAgainstBrief, judgeModelAgainstBrief, weaponSizeIn } from "./brief.mjs";
+import { ownOfKind, judgeAgainstBrief, judgeModelAgainstBrief, judgeSpriteAgainstBrief, judgeSoundAgainstBrief, judgeTexturesAgainstBrief, weaponSizeIn } from "./brief.mjs";
 import { band } from "./scoring.mjs";
 import * as smak from "../../src/index.mjs";
 import { tile, render, strip } from "../../src/render.mjs";
 import { contractOf, compareContract } from "../../src/contract.mjs";
-import { measureSprite, againstClass, SPRITE_CLASSES } from "../../src/sprite/measure.mjs";
-import { sheetOf } from "../../src/sprite/draw.mjs";
 import { buildModelSpec } from "../../src/spec/model.mjs";
 import { buildMapSpec } from "../../src/spec/map.mjs";
 import { findCompilers } from "../../src/maps/compile.mjs";
@@ -191,70 +189,14 @@ async function judgeAll(which) {
   // textures: every one flat, its fine detail against Half-Life's
   jobs.push(async () => {
     if (!has(ASSETS.wad.file)) return { kind: "texture", label: ASSETS.wad.file, missing: true, passes: false };
-    const dir = join(out, "textures");
-    mkdirSync(dir, { recursive: true });
     const textures = maps.readWad(readFileSync(join(made, ASSETS.wad.file))).textures;
-    const flat = (t) => {
-      const rgba = new Uint8Array(t.width * t.height * 4);
-      for (let i = 0; i < t.width * t.height; i++) rgba.set([...t.palette.subarray(t.pixels[i] * 3, t.pixels[i] * 3 + 3), 255], i * 4);
-      return { width: t.width, height: t.height, rgba };
-    };
-    const scaled = (p) => {
-      const k = Math.max(1, Math.floor(192 / Math.max(p.width, p.height)));
-      const rgba = new Uint8Array(192 * 192 * 4).fill(30);
-      for (let y = 0; y < Math.min(192, p.height * k); y++) for (let x = 0; x < Math.min(192, p.width * k); x++) rgba.set(p.rgba.subarray((((y / k) | 0) * p.width + ((x / k) | 0)) * 4, (((y / k) | 0) * p.width + ((x / k) | 0)) * 4 + 4), (y * 192 + x) * 4);
-      return { width: 192, height: 192, rgba };
-    };
-    savePng(join(dir, "textures.png"), tile(textures.map((t) => scaled(flat(t))), 6, textures.map((t) => `${t.name} ${t.width}x${t.height}`)));
-    const detail = (t) => {
-      const L = (x, y) => {
-        const c = t.pixels[((y + t.height) % t.height) * t.width + ((x + t.width) % t.width)] * 3;
-        return 0.3 * t.palette[c] + 0.59 * t.palette[c + 1] + 0.11 * t.palette[c + 2];
-      };
-      let d = 0;
-      for (let y = 0; y < t.height; y++) for (let x = 0; x < t.width; x++) d += Math.abs(4 * L(x, y) - L(x - 1, y) - L(x + 1, y) - L(x, y - 1) - L(x, y + 1));
-      return round(d / (t.width * t.height));
-    };
-    const valve = maps.readWad(readFileSync(join(GAME, "halflife.wad"))).textures.map(detail).sort((a, b) => a - b);
-    const quartile = (q) => valve[Math.floor(q * (valve.length - 1))];
-    const measured = { count: textures.length, least: ASSETS.wad.least, textures: textures.map((t) => ({ name: t.name, size: [t.width, t.height], detail: detail(t) })), halfLifeDetail: { q1: quartile(0.25), median: quartile(0.5), q3: quartile(0.75) } };
-    const caps = { T6: textures.length >= ASSETS.wad.least ? 2 : 1 };
-    return judgeAgainstBrief("texture", `${ASSETS.wad.file}, the mod's textures, judged as one set: ${ASSETS.wad.what}`, dir, `${dir}/textures.png (every texture flat, at a whole-number scale)`, measured, caps, { brief: BRIEF, what: MOD_ASSET });
+    return judgeTexturesAgainstBrief(`${ASSETS.wad.file}, the mod's textures, judged as one set: ${ASSETS.wad.what}`, textures, join(out, "textures"), { brief: BRIEF, what: MOD_ASSET, least: ASSETS.wad.least });
   });
-  // sprites
   for (const s of ASSETS.sprites)
-    jobs.push(async () => {
-      if (!has(s.file)) return { kind: "sprite", label: s.file, missing: true, passes: false };
-      const dir = join(out, basename(s.file, ".spr"));
-      mkdirSync(dir, { recursive: true });
-      const spr = maps.readSpr(readFileSync(join(made, s.file)));
-      savePng(join(dir, "frames.png"), sheetOf(spr, { cols: 8, cell: 128 }));
-      const m = measureSprite(spr, { loop: spr.frames.length > 2 });
-      const against = SPRITE_CLASSES[s.class] ? againstClass(m, s.class) : null;
-      return judgeAgainstBrief("sprite", `${s.file}: ${s.what}`, dir, `${dir}/frames.png (its frames as the engine blends them, numbered)`, { size: [spr.width, spr.height], frames: spr.frames.length, type: spr.type, format: spr.format, measures: m, class: s.class, againstClass: against }, {}, { brief: BRIEF, what: MOD_ASSET });
-    });
+    jobs.push(async () => (has(s.file) ? judgeSpriteAgainstBrief(`${s.file}: ${s.what}`, readFileSync(join(made, s.file)), join(out, basename(s.file, ".spr")), { brief: BRIEF, what: MOD_ASSET, class: s.class }) : { kind: "sprite", label: s.file, missing: true, passes: false }));
   // sounds: against their class's range, or the game's own sound they stand in for
   for (const s of ASSETS.sounds)
-    jobs.push(async () => {
-      if (!has(s.file)) return { kind: "sound", label: s.file, missing: true, passes: false };
-      const dir = join(out, basename(s.file, ".wav"));
-      mkdirSync(dir, { recursive: true });
-      const wav = A.readWav(readFileSync(join(made, s.file)));
-      const f = A.features(wav);
-      const loop = Boolean(wav.cue?.length);
-      const shown = [{ name: s.file, x: wav.x, rate: wav.rate, loop: loop ? 0 : undefined }];
-      let against;
-      if (s.class) against = A.scoreAgainst(f, s.class);
-      else {
-        const game = A.readWav(readFileSync(join(GAME, s.like)));
-        shown.push({ name: `the game's own ${s.like}`, x: game.x, rate: game.rate });
-        const g = A.features(game);
-        against = { gameOwn: { length: round(g.length, 3), centroid: Math.round(g.centroid), t20: round(g.t20, 3), bands: g.bands } };
-      }
-      savePng(join(dir, "sound.png"), A.soundPicture(shown, { width: 960 }));
-      const checks = A.checks(wav, { loop });
-      return judgeAgainstBrief("sound", `${s.file}: ${s.what}`, dir, `${dir}/sound.png (its waveform over its spectrogram${s.class ? "" : ", above the game's own sound it stands in for"})`, { features: f, class: s.class ?? null, against, engineFaults: checks.faults }, { S5: checks.faults.length ? 0 : 2 }, { brief: BRIEF, what: MOD_ASSET });
-    });
+    jobs.push(async () => (has(s.file) ? judgeSoundAgainstBrief(`${s.file}: ${s.what}`, readFileSync(join(made, s.file)), join(out, basename(s.file, ".wav")), { brief: BRIEF, what: MOD_ASSET, class: s.class, like: s.like }) : { kind: "sound", label: s.file, missing: true, passes: false }));
   await pool(jobs, 4, results);
 
   // the mod: complete, wired, one place, shown

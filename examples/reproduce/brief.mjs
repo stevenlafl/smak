@@ -1,21 +1,37 @@
 // An asset judged against a written brief, not an original (rubric.md, "Original creation" and its amendment for
 // the brief legs): the original mod's assets and every brief leg's are measured and judged here.
 //
+//   BRIEFS, briefPrompt({ brief, replaces, make, verdict, accept })   -> the requests, and a brief leg's maker prompt
 //   ownOfKind(kind)                                     -> Half-Life's own models of a kind, with their size
 //   judgeAgainstBrief(kind, label, dir, pictures, measured, caps, { brief, what })
 //   judgeModelAgainstBrief(kind, label, src, dir, { brief, what, asked, list, extra, extraPictures, sizeFrom })
+//   judgeSpriteAgainstBrief, judgeSoundAgainstBrief, judgeTexturesAgainstBrief (as one set, or each texture alone)
 //   weaponSizeIn(src)                                   -> a weapon's size in its first-person model, hands left out
 import { readFileSync, readdirSync, existsSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
-import { HERE, GAME, POSE, readModel, boxOf, picturesOf, savePng } from "./lib.mjs";
+import { HERE, GAME, POSE, readModel, boxOf, picturesOf, savePng, flatOf, scaled, onCanvas } from "./lib.mjs";
 import { runJudge, failedByMeasure } from "./agents.mjs";
 import { itemsOf, settle, combine, askScores, dryAnswer, band, MODEL_GUIDE } from "./scoring.mjs";
 import * as smak from "../../src/index.mjs";
 import { tile, render, framing } from "../../src/render.mjs";
 import { HANDS } from "../../src/fit.mjs";
 import { PROP_TRIANGLES } from "../../src/spec/model.mjs";
+import { measureSprite, againstClass, SPRITE_CLASSES } from "../../src/sprite/measure.mjs";
+import { sheetOf } from "../../src/sprite/draw.mjs";
+
+const A = smak.audio;
 
 const RUBRIC = readFileSync(join(HERE, "rubric.md"), "utf8");
+/** Every brief leg's requests, one file for every kind (briefs.json). */
+export const BRIEFS = JSON.parse(readFileSync(join(HERE, "briefs.json"), "utf8"));
+
+/**
+ * A brief leg's maker prompt: the modder's request in their words, what it takes the place of, how this kind is
+ * made (`make`: the spec and the files it is fitted into), and who decides (`verdict`). The same for every kind.
+ */
+export function briefPrompt({ brief, replaces, make, verdict = "look at it in the game beside Half-Life's own", accept = false }) {
+  return `A modder asks you: "${brief}". It is for their GoldSrc mod, in the place of the game's own ${replaces}. ${make} They will ${verdict} and decide whether it is at least as good as the game's own. Build until the build says OK, and tell them what you made and how.${accept ? " For this test the person accepts the licences of the local generators, non-commercial ones included." : ""}`;
+}
 const round = (v, k = 1) => Math.round(v * 10 ** k) / 10 ** k;
 /** The rubric's table each kind of asset is scored on. */
 const TABLE = { model: "model", weapon: "weapon", character: "character", enemy: "contracted", player: "contracted", map: "map", texture: "texture", sound: "sound", sprite: "sprite", mod: "mod" };
@@ -141,4 +157,95 @@ export async function judgeModelAgainstBrief(kind, label, src, dir, { brief, wha
   const measured = { size: size.map((v) => round(v)), sizeAsked: asked ?? null, sizeOff: off, triangles, ...(kind === "model" ? { halfLifeMedianOfThisSize: median, halfLifeThreeQuartersUnder: q3 } : {}), checkErrors: check.errors, lineup: `ours is one of A to D in lineup.png beside ${line.others.join(", ")}: the judge does not know which`, ...extra.measured };
   const caps = { M2: off === null ? 2 : band(off, 0.15, 0.3, true), M8: check.errors.length ? 0 : kind === "model" && triangles > 2 * median && triangles > q3 ? 1 : 2, ...extra.caps };
   return judgeAgainstBrief(kind, label, dir, `${dir}/sides.png (ten views at one scale), ${dir}/lineup.png (four models at one scale: one is the asset, three are Half-Life's own of its size; M6 asks whether a player would take the asset for one of the game's)${extraPictures}`, measured, caps, { brief, what });
+}
+
+/** A sprite judged against its brief: its frames as the engine blends them, its measures against Half-Life's own of its class (R2 to R4). */
+export async function judgeSpriteAgainstBrief(label, bytes, dir, { brief, what, class: kind, caps = {}, measured = {} }) {
+  mkdirSync(dir, { recursive: true });
+  const spr = smak.maps.readSpr(bytes);
+  savePng(join(dir, "frames.png"), sheetOf(spr, { cols: 8, cell: 128 }));
+  const m = measureSprite(spr, { loop: spr.frames.length > 2 });
+  const against = SPRITE_CLASSES[kind] ? againstClass(m, kind) : null;
+  return judgeAgainstBrief("sprite", label, dir, `${dir}/frames.png (its frames as the engine blends them, numbered)`, { size: [spr.width, spr.height], frames: spr.frames.length, type: spr.type, format: spr.format, measures: m, class: kind, againstClass: against, ...measured }, caps, { brief, what });
+}
+
+/** A sound judged against its brief: its picture, its features against its class's range or the game's own sound it stands in for. */
+export async function judgeSoundAgainstBrief(label, bytes, dir, { brief, what, class: kind, like }) {
+  mkdirSync(dir, { recursive: true });
+  const wav = A.readWav(bytes);
+  const f = A.features(wav);
+  const loop = Boolean(wav.cue?.length);
+  const shown = [{ name: label, x: wav.x, rate: wav.rate, loop: loop ? 0 : undefined }];
+  let against;
+  if (kind) against = A.scoreAgainst(f, kind);
+  else {
+    const game = A.readWav(readFileSync(join(GAME, like)));
+    shown.push({ name: `the game's own ${like}`, x: game.x, rate: game.rate });
+    const g = A.features(game);
+    against = { gameOwn: { length: round(g.length, 3), centroid: Math.round(g.centroid), t20: round(g.t20, 3), bands: g.bands } };
+  }
+  savePng(join(dir, "sound.png"), A.soundPicture(shown, { width: 960 }));
+  const checks = A.checks(wav, { loop });
+  return judgeAgainstBrief("sound", label, dir, `${dir}/sound.png (its waveform over its spectrogram${kind ? "" : ", above the game's own sound it stands in for"})`, { features: f, class: kind ?? null, against, engineFaults: checks.faults }, { S5: checks.faults.length ? 0 : 2 }, { brief, what });
+}
+
+/** A texture's fine detail: the mean of its luminance's Laplacian, wrapped (research/asset-reproduction-failures.md, Table 4). */
+export function textureDetail(t) {
+  const L = (x, y) => {
+    const c = t.pixels[((y + t.height) % t.height) * t.width + ((x + t.width) % t.width)] * 3;
+    return 0.3 * t.palette[c] + 0.59 * t.palette[c + 1] + 0.11 * t.palette[c + 2];
+  };
+  let d = 0;
+  for (let y = 0; y < t.height; y++) for (let x = 0; x < t.width; x++) d += Math.abs(4 * L(x, y) - L(x - 1, y) - L(x + 1, y) - L(x, y - 1) - L(x, y + 1));
+  return round(d / (t.width * t.height));
+}
+let valveDetail;
+/** Half-Life's own textures' fine detail (halflife.wad): its quartiles, the band a texture's T5 is held to. */
+function halfLifeDetail() {
+  if (!valveDetail) {
+    const all = smak.maps.readWad(readFileSync(join(GAME, "halflife.wad"))).textures.map(textureDetail).sort((a, b) => a - b);
+    const quartile = (q) => all[Math.floor(q * (all.length - 1))];
+    valveDetail = { q1: quartile(0.25), median: quartile(0.5), q3: quartile(0.75) };
+  }
+  return valveDetail;
+}
+
+/**
+ * Textures judged against their brief, each flat at a whole-number scale with its fine detail against Half-Life's
+ * own. As one set (the original mod's .wad: T6 held by `least`, how many it asks for), or `each`: a texture's own
+ * line of the brief by its name, every one scored and passed alone (T6: its name and size as `sizes` gives them).
+ */
+export async function judgeTexturesAgainstBrief(label, textures, dir, { brief, what, least, each, sizes = {} }) {
+  mkdirSync(dir, { recursive: true });
+  savePng(join(dir, "textures.png"), tile(textures.map((t) => onCanvas(scaled(flatOf(t), 192), 192, 192)), 6, textures.map((t) => `${t.name} ${t.width}x${t.height}`)));
+  const rows = textures.map((t) => ({ name: t.name, size: [t.width, t.height], detail: textureDetail(t) }));
+  const pictures = `${dir}/textures.png (every texture flat, at a whole-number scale)`;
+  if (!each) return judgeAgainstBrief("texture", label, dir, pictures, { count: textures.length, least, textures: rows, halfLifeDetail: halfLifeDetail() }, { T6: textures.length >= least ? 2 : 1 }, { brief, what });
+  // each texture its own asset: one judge reads the set, each row capped by its own T6 and settled alone
+  const { items } = itemsOf("texture");
+  const asked = Object.entries(each).map(([name, line]) => ({ name, line, size: sizes[name] ?? null, made: rows.find((r) => r.name.toLowerCase() === name.toLowerCase()) ?? null }));
+  const prompt = `You are an independent judge of ${what ?? "textures made for Half-Life from a written brief"}. Judge each texture strictly by the rubric below: the "Original creation" section and its amendments, the Textures table read against its own line of the brief, and "Passing" and "Keeping the judge honest". A measured item may score lower than its measurement allows, never higher.
+
+The textures: ${label}.
+
+The pictures: ${pictures}. Look at every picture closely.
+
+The measurements, texture by texture (line: what the brief asks of it; size: the size it must keep; made: the texture made under that name, its size and fine detail, or null when none was):
+${JSON.stringify({ textures: asked, halfLifeDetail: halfLifeDetail() }, null, 1)}
+
+${askScores(items, { each: "texture" })}
+
+THE BRIEF
+${brief}
+
+THE RUBRIC
+${RUBRIC}`;
+  const r = process.env.DRY ? { answer: JSON.stringify(Object.fromEntries(asked.map((a) => [a.name, JSON.parse(dryAnswer(items))]))) } : await runJudge({ read: dir, hours: 1, prompt });
+  const judged = combine([r.answer], "better") ?? {};
+  const results = asked.map((a) => {
+    const caps = { T6: a.made && (!a.size || (a.made.size[0] === a.size[0] && a.made.size[1] === a.size[1])) ? 2 : 0 };
+    return { texture: a.name, measured: a, caps, ...settle("texture", judged[a.name], caps) };
+  });
+  const passed = results.filter((x) => x.passes).length;
+  return { kind: "texture", label, textures: results, passed, of: results.length, passes: passed >= 0.8 * results.length, total: passed, error: Object.keys(judged).length ? undefined : "the judge's answer was not JSON" };
 }

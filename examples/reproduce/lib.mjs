@@ -208,6 +208,35 @@ export function fitness(src) {
   return { triangles, errors: report.errors, warnings: report.warnings.length };
 }
 
+// ── a texture's pictures ──────────────────────────────────────────────────
+
+/** A wad texture as a picture: its palette's colours, a `{` texture's holes shown in a pale grey. */
+export function flatOf(t) {
+  const rgba = smak.rgbaOf(t, t.name.startsWith("{"));
+  for (let i = 3; i < rgba.length; i += 4) if (!rgba[i]) rgba.set([200, 200, 200, 255], i - 3);
+  return { width: t.width, height: t.height, rgba };
+}
+
+/** A picture scaled by whole steps (nearest) to fit a square of `cell`, so that texels stay sharp. */
+export function scaled(picture, cell = 256) {
+  const k = Math.max(1, Math.floor(cell / Math.max(picture.width, picture.height)));
+  const width = picture.width * k;
+  const height = picture.height * k;
+  const rgba = new Uint8Array(width * height * 4);
+  for (let y = 0; y < height; y++)
+    for (let x = 0; x < width; x++) rgba.set(picture.rgba.subarray(((((y / k) | 0) * picture.width) + ((x / k) | 0)) * 4, ((((y / k) | 0) * picture.width) + ((x / k) | 0)) * 4 + 4), (y * width + x) * 4);
+  return { width, height, rgba };
+}
+
+/** A picture in the top left of a canvas of a fixed size, so that every cell of a sheet is the same. */
+export function onCanvas(picture, width, height) {
+  const rgba = new Uint8Array(width * height * 4);
+  for (let i = 0; i < width * height; i++) rgba.set([24, 26, 30, 255], i * 4);
+  for (let y = 0; y < Math.min(height, picture.height); y++)
+    rgba.set(picture.rgba.subarray(y * picture.width * 4, y * picture.width * 4 + Math.min(width, picture.width) * 4), y * width * 4);
+  return { width, height, rgba };
+}
+
 // ── runs and rounds ────────────────────────────────────────────────────────
 
 /** The kit's commit, written into each run's record. */
