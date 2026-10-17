@@ -1,13 +1,65 @@
 {
-  "game": "~/.steam/steam/steamapps/common/Half-Life/valve",
+ "game": "~/.steam/steam/steamapps/common/Half-Life/valve",
+ "models": [
+  {
+   "id": "filecabinet",
+   "file": "models/filecabinet.mdl",
+   "what": "a filing cabinet"
+  },
+  {
+   "id": "battery",
+   "file": "models/w_battery.mdl",
+   "what": "a suit battery pickup"
+  },
+  {
+   "id": "medkit",
+   "file": "models/w_medkit.mdl",
+   "what": "a first aid kit pickup"
+  },
+  {
+   "id": "forklift",
+   "file": "models/forklift.mdl",
+   "what": "a forklift with its driver"
+  },
+  {
+   "id": "headcrab",
+   "file": "models/headcrab.mdl",
+   "what": "a small creature",
+   "lineup": "enemy"
+  }
+ ],
+ "lineupExtras": [
+  "models/w_9mmclip.mdl",
+  "models/w_security.mdl",
+  "models/mbarrel.mdl",
+  "models/w_longjump.mdl",
+  "models/can.mdl"
+ ],
+ "maps": [
+  {
+   "id": "frenzy",
+   "file": "maps/frenzy.bsp",
+   "what": "a deathmatch arena"
+  }
+ ],
+ "legs": {
   "models": [
-    { "id": "filecabinet", "file": "models/filecabinet.mdl", "what": "a filing cabinet" },
-    { "id": "battery", "file": "models/w_battery.mdl", "what": "a suit battery pickup" },
-    { "id": "medkit", "file": "models/w_medkit.mdl", "what": "a first aid kit pickup" },
-    { "id": "forklift", "file": "models/forklift.mdl", "what": "a forklift with its driver" },
-    { "id": "headcrab", "file": "models/headcrab.mdl", "what": "a small creature" }
+   "pictures",
+   "brief"
   ],
-  "lineupExtras": ["models/w_9mmclip.mdl", "models/w_security.mdl", "models/mbarrel.mdl", "models/w_longjump.mdl", "models/can.mdl"],
-  "maps": [{ "id": "frenzy", "file": "maps/frenzy.bsp", "what": "a deathmatch arena" }],
-  "legs": { "models": ["pictures", "words"], "maps": ["pictures", "words", "plans", "heightplan", "bsp", "decompile"] }
+  "maps": [
+   "pictures",
+   "words",
+   "plans",
+   "heightplan",
+   "bsp",
+   "decompile"
+  ]
+ },
+ "retired": {
+  "models": [
+   "words"
+  ],
+  "note": "legs no longer run (rubric.md, 2026-10-16: words became brief); their rounds stay in scores.md"
+ }
 }

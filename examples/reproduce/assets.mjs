@@ -30,7 +30,7 @@ import { measureSprite } from "../../src/sprite/measure.mjs";
 import { toLab } from "../../src/spec/colours.mjs";
 import { writeSpr } from "../../src/sprite/spr.mjs";
 import { itemsOf, parseAnswer, settle, combine, askScores, band } from "./scoring.mjs";
-import { BRIEFS, briefPrompt } from "./brief.mjs";
+import { BRIEFS, briefPrompt, judgeSpriteAgainstBrief, judgeTexturesAgainstBrief } from "./brief.mjs";
 
 const { maps, audio: A } = smak;
 const ROOT = join(HERE, "assets");
@@ -48,10 +48,12 @@ const MATERIALS = words.includes("--materials") ? words.splice(words.indexOf("--
 const KINDS = ["sprites", "sounds", "textures"];
 const kinds = KINDS.filter((k) => !words.some((w) => KINDS.includes(w)) || words.includes(k));
 const named = words.filter((w) => !KINDS.includes(w));
-const LEGS = ["pictures", "words"];
+const LEGS = ["pictures", "brief"];
 // a sound is not copied from a picture or a reading of one (Steven, 2026-10-16: "no one's going to give a sound and say
 // replicate this"; the descriptions read the spectrogram, which no model was trained on): its one leg is a modder's
 // brief, a line of what the sound is for, and the verdict is the person's ear, at least as good as the game's own
+/** A map's textures as list.txt names them, each name and size and its other frames in the game, its pictures left out. */
+const textureList = (input) => readFileSync(join(input, "list.txt"), "utf8").replace(/ \((?:.*; )?(its other frames in the game: [^)]*)\)/g, " ($1)").replace(/ \([^)]*\.png[^)]*\)/g, "");
 const legsOf = (kind) => (kind === "sounds" ? ["brief"] : LEGS);
 
 const SOUND_CLASS = { "weapons/cbar_hit1": "metal hit", "weapons/357_shot1": "gunshot", "weapons/sbarrel1": "gunshot", "player/pl_step1": "step concrete", "player/pl_metal1": "step metal", "weapons/explode3": "explosion", "ambience/drips": "loop drips" };
@@ -157,15 +159,27 @@ const DESCRIBE = {
 };
 const RULES = `Do not name the game, the file's origin, the series or the company. Reply with the description alone, plain text.`;
 
+/** How each kind is made, the same in every leg. */
+const MAKE = {
+  sprites: (subject) => `Make it with a smak.sprite/1 spec (guide { doc: "spec" }, "A sprite"), named ${subject.file}.`,
+  sounds: (subject) => `Make it with a smak.sound/1 spec (guide { doc: "spec" }, "A sound"), named ${subject.name}.`,
+  textures: () => `Make them in one smak.wad/1 spec (guide { doc: "spec" }, "Textures for maps") named frenzy_new.wad, each under its exact name and size, so the map wears them in its own textures' place, each of its kind (a { texture's holes, a +0 animation's frames, a light's face). The compiled map is models:frenzy.bsp: give the spec preview: { map: "models:frenzy.bsp", each: true } to see the map wearing yours (the game's own textures are not here).`,
+};
+
 function reproducePrompt(kind, subject, leg, given) {
+  if (leg === "brief") {
+    if (kind === "sounds") return briefPrompt({ brief: subject.brief, replaces: `${subject.name}, so the game plays it there with no code`, make: MAKE.sounds(subject), verdict: "listen to it in the game", accept: ACCEPT });
+    if (kind === "sprites") return briefPrompt({ brief: BRIEFS.sprites[subject.id].brief, replaces: subject.file, make: MAKE.sprites(subject) });
+    const { brief, each } = BRIEFS.textures;
+    const sizes = textureList(join(folderOf(kind, subject.id), "input"));
+    return `${briefPrompt({ brief, replaces: `textures of ${subject.file}`, make: MAKE.textures() })}\n\nEach texture, its name and size (and its other frames in the game), and what it is to be:\n${sizes.trim().split("\n").map((line) => `${line}: ${each[line.split(" ")[0]] ?? ""}`).join("\n")}`;
+  }
   const judged = "It will be judged side by side with the original, to high standards, by someone who sees only the two drawn and measured.";
   if (kind === "sprites")
-    return `Make this sprite for the GoldSrc engine with a smak.sprite/1 spec (guide { doc: "spec" }, "A sprite"), named ${subject.file}, as close to the original as you can: what it is, its shape and size in its frames, its colours, its frames and how it moves, its type and format. ${judged} Build until the build says OK.\n\n${given}`;
-  if (kind === "sounds" && leg === "brief")
-    return briefPrompt({ brief: subject.brief, replaces: `${subject.name}, so the game plays it there with no code`, make: `Make it with a smak.sound/1 spec (guide { doc: "spec" }, "A sound"), named ${subject.name}.`, verdict: "listen to it in the game", accept: ACCEPT });
+    return `Make this sprite for the GoldSrc engine. ${MAKE.sprites(subject)} Make it as close to the original as you can: what it is, its shape and size in its frames, its colours, its frames and how it moves, its type and format. ${judged} Build until the build says OK.\n\n${given}`;
   if (kind === "sounds")
-    return `Make this sound for the GoldSrc engine with a smak.sound/1 spec (guide { doc: "spec" }, "A sound"), named ${subject.name} so the game plays it in the original's place, as close to the original as you can, and at least as good: the same event, length, envelope, spectrum and character. ${judged} Build until the build says OK.${ACCEPT ? " For this test the person accepts the licences of the local generators, non-commercial ones included." : ""}\n\n${given}`;
-  return `Make every texture of this map again for the GoldSrc engine, in one smak.wad/1 spec (guide { doc: "spec" }, "Textures for maps") named frenzy_new.wad, each under the original's exact name and size, so the map wears ours in their place, as close to the originals as you can and at least as good: what each is, its colours, its pattern and scale, tiling without a seam, its kind kept (a { texture's holes, a +0 animation's frames, a light's face). The compiled map is models:frenzy.bsp: give the spec preview: { map: "models:frenzy.bsp", each: true } to see the map wearing yours, and each texture on its own place from the very camera and brightness of the pictures given (the game's own textures are not here). ${judged} Build until the build says OK.\n\n${given}`;
+    return `Make this sound for the GoldSrc engine. ${MAKE.sounds(subject)} It plays in the original's place: make it as close to the original as you can, and at least as good: the same event, length, envelope, spectrum and character. ${judged} Build until the build says OK.${ACCEPT ? " For this test the person accepts the licences of the local generators, non-commercial ones included." : ""}\n\n${given}`;
+  return `Make every texture of this map again for the GoldSrc engine. ${MAKE.textures()} Make each as close to the original as you can and at least as good: what each is, its colours, its pattern and scale, tiling without a seam, and each texture on its own place from the very camera and brightness of the pictures given. ${judged} Build until the build says OK.\n\n${given}`;
 }
 
 async function describe(kind, subject) {
@@ -190,7 +204,7 @@ async function reproduce(kind, subject, leg) {
   else if (leg === "pictures") {
     for (const f of readdirSync(input)) files[`pictures/${f}`] = join(input, f);
     given = `The original, in pictures: every file of ${input} (also in the server's work folder under pictures/). ${readdirSync(input).filter((f) => f.endsWith(".txt")).map((f) => readFileSync(join(input, f), "utf8")).join("\n")}${kind === "textures" ? `\nEach texture's picture is the map's own view of its place: a texture's lift: { map: "models:${subject.map ?? "frenzy"}.bsp", view: "work:pictures/<its picture>" } takes the texture itself off it (docs/SPEC.md, "Textures for maps"), its light divided out (add views: "work:pictures/views.png", cameras: "work:pictures/views.json" to take what the map's views show of it too); the build says how much of it the view shows and how much is white there. Where list.txt gives a darker view (a lamp, white at the place view's brightness), lift it off that one with brightness: ${DARK_VIEW}. Where it names a texture's other frames in the game (an animation's, a random set's tiles), make each, from the one you lifted (from: its name, with brightness for a lamp's frame switched off). Use it on every texture the build does not warn is white or tinted in its view, however little of it the view shows (its colour and grain come back true from a small part), and paint only those.` : ""}`;
-  } else given = `The original, as someone who has seen it describes it:\n\n${readFileSync(join(base, "words.md"), "utf8")}${kind !== "textures" ? `\nIts facts: ${readFileSync(join(input, "facts.txt"), "utf8")}` : ""}${kind === "textures" ? `\nThe textures, each name and size:\n${readFileSync(join(input, "list.txt"), "utf8").replace(/ \((?:.*; )?(its other frames in the game: [^)]*)\)/g, " ($1)").replace(/ \([^)]*\.png[^)]*\)/g, "")}\nThe colours in these words were read off each texture's place in the map as lit there, from the camera and brightness the preview draws yours from: match them to what the preview says yours reads as in each view, not to the paint.` : ""}`;
+  } else given = `The original, as someone who has seen it describes it:\n\n${readFileSync(join(base, "words.md"), "utf8")}${kind !== "textures" ? `\nIts facts: ${readFileSync(join(input, "facts.txt"), "utf8")}` : ""}${kind === "textures" ? `\nThe textures, each name and size:\n${textureList(input)}\nThe colours in these words were read off each texture's place in the map as lit there, from the camera and brightness the preview draws yours from: match them to what the preview says yours reads as in each view, not to the paint.` : ""}`;
   // the map, for a textures leg: alone in the server's models folder, with no game folder for its textures
   let models = null;
   if (kind === "textures") {
@@ -451,6 +465,39 @@ async function judgeOne(kind, subject, leg, copyFile, { decoy } = {}) {
   return { kind, subject: subject.id, leg: decoy ? `decoy: ${decoy}` : leg, judges: JUDGES, measured: m.measured, caps: m.caps, ...settle(TABLE[kind], itemJudged, m.caps) };
 }
 
+/**
+ * A brief leg's sprite or textures judged against the modder's request (briefs.json), not the original: a sprite's
+ * frames and its measures against Half-Life's own of its class; the textures each against its own line, with
+ * their fine detail against Half-Life's. What keeps it working where it replaces the game's stays measured: a
+ * sprite's type, format and name (R5), a texture's name and size (T6).
+ */
+async function judgeBrief(kind, subject, copyFile, { decoy } = {}) {
+  const dir = join(folderOf(kind, subject.id), "judge", decoy ? `decoy-brief-${decoy}` : "brief");
+  rmSync(dir, { recursive: true, force: true });
+  const original = readFileSync(join(GAME, subject.file));
+  const copy = readFileSync(copyFile);
+  const leg = decoy ? `decoy: brief ${decoy}` : "brief";
+  if (kind === "sprites") {
+    const { brief, class: kindOf } = BRIEFS.sprites[subject.id];
+    const o = maps.readSpr(original);
+    let c = null;
+    try {
+      c = maps.readSpr(copy);
+    } catch {}
+    const ran = !decoy && existsSync(join(folderOf(kind, subject.id), "brief", "run.json")) ? JSON.parse(readFileSync(join(folderOf(kind, subject.id), "brief", "run.json"), "utf8")) : null;
+    const sameName = ran ? ran.built === basename(subject.file) : true;
+    const kept = { type: c?.type ?? null, format: c?.format ?? null, gameType: o.type, gameFormat: o.format, sameName, readsBack: Boolean(c) };
+    const R5 = c && o.type === c.type && o.format === c.format ? (sameName ? 2 : 1) : 0;
+    const r = await judgeSpriteAgainstBrief(`${subject.file}, in the place of the game's own`, copy, dir, { brief, class: kindOf, caps: { R5 }, measured: { kept } });
+    return { kind, subject: subject.id, leg, ...r };
+  }
+  const { brief, each } = BRIEFS.textures;
+  // each texture's name and size as the map has it (list.txt): what T6 holds the replacement to
+  const sizes = Object.fromEntries(textureList(join(folderOf(kind, subject.id), "input")).trim().split("\n").map((line) => line.split(" ")).map(([name, size]) => [name, size.split("x").map(Number)]));
+  const r = await judgeTexturesAgainstBrief(`the textures of ${subject.file}, each in the place of the map's own`, maps.readWad(copy).textures, dir, { brief, each, sizes });
+  return { kind, subject: subject.id, leg, ...r };
+}
+
 /** The decoys: a plain square sprite of the original's size, a hiss of the original's length, flat textures. */
 function decoyOf(kind, subject) {
   const dir = join(folderOf(kind, subject.id), "judge");
@@ -521,10 +568,12 @@ else if (step === "judge") {
           jobs.push(async () => `${kind}/${s.id}:brief: ${checks.faults.length ? `${checks.faults.length} engine faults` : "no engine faults"}; by ear`);
           continue;
         }
-        if (existsSync(built)) jobs.push(() => judgeOne(kind, s, leg, built).then((r) => (writeFileSync(join(folderOf(kind, s.id), leg, "judge.json"), `${JSON.stringify(r, null, 1)}\n`), `${kind}/${s.id}:${leg}: ${r.error ?? `${r.total} of ${r.of}, ${r.passes ? "PASSES" : "fails"}`}`)));
+        if (existsSync(built)) jobs.push(() => (leg === "brief" ? judgeBrief(kind, s, built) : judgeOne(kind, s, leg, built)).then((r) => (writeFileSync(join(folderOf(kind, s.id), leg, "judge.json"), `${JSON.stringify(r, null, 1)}\n`), `${kind}/${s.id}:${leg}: ${r.error ?? `${r.total} of ${r.of}, ${r.passes ? "PASSES" : "fails"}`}`)));
       }
       // a decoy proves a likeness judge cannot be fooled; a sound from a brief has none (its verdict is by ear)
       if (kind !== "sounds") jobs.push(() => judgeOne(kind, s, "decoy", decoyOf(kind, s), { decoy: "plain" }).then((r) => (writeFileSync(join(folderOf(kind, s.id), "judge", "decoy.json"), `${JSON.stringify(r, null, 1)}\n`), `${kind}/${s.id} decoy: ${r.error ?? `${r.total} of ${r.of}, ${r.passes ? "PASSES (the judge is lenient)" : "fails, as it must"}`}`)));
+      // the brief leg's: the same plain decoy held to the brief
+      if (kind !== "sounds" && existsSync(join(folderOf(kind, s.id), "brief"))) jobs.push(() => judgeBrief(kind, s, decoyOf(kind, s), { decoy: "plain" }).then((r) => (writeFileSync(join(folderOf(kind, s.id), "judge", "decoy-brief.json"), `${JSON.stringify(r, null, 1)}\n`), `${kind}/${s.id} brief decoy: ${r.error ?? `${r.total} of ${r.of}, ${r.passes ? "PASSES (the judge is lenient)" : "fails, as it must"}`}`)));
     }
   await pool(jobs, 4);
 } else console.log("node examples/reproduce/assets.mjs inputs|describe|reproduce|rebuild|judge [sprites|sounds|textures] [subject ...] [--again]");

@@ -14,6 +14,7 @@ import { HERE, GAME, SIDES, ANGLES, readModel, boxOf, picturesOf, savePng, besid
 import { runAgent, runJudge, failedByMeasure } from "./agents.mjs";
 import { measureModel, lineup } from "./judge.mjs";
 import { itemsOf, settle, lowered, combine, askScores, MODEL_GUIDE } from "./scoring.mjs";
+import { BRIEFS, briefPrompt, ownOfKind, judgeModelAgainstBrief, weaponSizeIn } from "./brief.mjs";
 import { tile, render, strip } from "../../src/render.mjs";
 import { sequences } from "../../src/index.mjs";
 import { contractOf, compareContract } from "../../src/contract.mjs";
@@ -34,7 +35,7 @@ const TS = join(GAME, "..", "ts");
 const TS_BASE = "player/gordon/gordon.mdl";
 const kinds = KINDS.filter((k) => !words.some((w) => KINDS.includes(w)) || words.includes(k));
 const named = words.filter((w) => !KINDS.includes(w));
-const LEGS = ["pictures", "words"];
+const LEGS = ["pictures", "brief"];
 
 const SUBJECTS = {
   weapons: [
@@ -141,13 +142,24 @@ MOTION, as motion.png shows it: what it does, its stride, how the arms swing, an
 
 At most 650 words.`;
 
-function reproducePrompt(kind, s, given) {
-  const judged = "It will be judged side by side with the original, from the same cameras and at the same scale, to high standards, by someone who sees only the two sets of pictures.";
+/** How each kind is made and fitted into the game, the same in every leg. */
+function makeOf(kind, s) {
   if (kind === "weapons")
-    return `Make this weapon for the GoldSrc engine with a model spec of kind "held" with weapon: { like: "${s.like}" } (guide { doc: "spec" }, "A weapon in place of a game's"): it is fitted into the game's own v_${s.like}.mdl, p_${s.like}.mdl and w_${s.like}.mdl, keeping their hands and animations, and replaces the weapon in them. Make it as close to the original as you can: its shape, size, parts, colours and markings, held the way the original is, in all three views. Name the spec ${s.id}.mdl. ${judged} Build until the build says OK.\n\n${given}`;
+    return `Make it with a model spec of kind "held" with weapon: { like: "${s.like}" } (guide { doc: "spec" }, "A weapon in place of a game's"): it is fitted into the game's own v_${s.like}.mdl, p_${s.like}.mdl and w_${s.like}.mdl, keeping their hands and animations, and replaces the weapon in them. Name the spec ${s.id}.mdl.`;
   if (kind === "players")
-    return `Make this player model for The Specialists, a GoldSrc mod, with a model spec of kind "character" (guide { doc: "spec" }, "A character on a game's skeleton") on the mod's own player, ${s.base}: its skeleton and its 171 animations (every stunt, dive, roll and wall jump), which the mod's code plays by name and by number and whose bones, attachments and bodyparts it uses. Keep all of that as it is, and give the spec contract: { file: "${s.base}" } so the build checks it. Make the body as close to the original as you can: its build and proportions, every part, its colours and markings, standing as the original stands in the first frame of its first animation. Name it ${s.id}.mdl. ${judged} Build until the build says OK.\n\n${given}`;
-  return `Make this character for the GoldSrc engine with a model spec of kind "character" (guide { doc: "spec" }, "A character on a game's skeleton"), on a skeleton of the game's models (player/gordon/gordon.mdl, or another that suits it; its own is not available), keeping that skeleton's animations. It is a monster, which stands with its feet at its origin: give the spec "floor": 0. Make it as close to the original as you can: its build and proportions, every part, its colours and markings, standing as the original stands in the first frame of its first animation. Name it ${s.id}.mdl. ${judged} Build until the build says OK.\n\n${given}`;
+    return `Make it with a model spec of kind "character" (guide { doc: "spec" }, "A character on a game's skeleton") on the mod's own player, ${s.base}: its skeleton and its 171 animations (every stunt, dive, roll and wall jump), which the mod's code plays by name and by number and whose bones, attachments and bodyparts it uses. Keep all of that as it is, and give the spec contract: { file: "${s.base}" } so the build checks it. Name it ${s.id}.mdl.`;
+  return `Make it with a model spec of kind "character" (guide { doc: "spec" }, "A character on a game's skeleton"), on a skeleton of the game's models (player/gordon/gordon.mdl, or another that suits it; its own is not available), keeping that skeleton's animations. It is a monster, which stands with its feet at its origin: give the spec "floor": 0. Name it ${s.id}.mdl.`;
+}
+
+function reproducePrompt(kind, s, leg, given) {
+  if (leg === "brief") return briefPrompt({ brief: BRIEFS[kind][s.id].brief, replaces: kind === "weapons" ? s.files.join(", ") : s.file, make: makeOf(kind, s) });
+  const judged = "It will be judged side by side with the original, from the same cameras and at the same scale, to high standards, by someone who sees only the two sets of pictures.";
+  const aim =
+    kind === "weapons"
+      ? "Make it as close to the original as you can: its shape, size, parts, colours and markings, held the way the original is, in all three views."
+      : "Make the body as close to the original as you can: its build and proportions, every part, its colours and markings, standing as the original stands in the first frame of its first animation.";
+  const what = kind === "weapons" ? "this weapon for the GoldSrc engine" : kind === "players" ? "this player model for The Specialists, a GoldSrc mod" : "this character for the GoldSrc engine";
+  return `Make ${what}. ${makeOf(kind, s)} ${aim} ${judged} Build until the build says OK.\n\n${given}`;
 }
 
 async function describe(kind, s) {
@@ -172,11 +184,11 @@ async function reproduce(kind, s, leg) {
   if (leg === "pictures") {
     for (const f of readdirSync(input)) files[`pictures/${f}`] = join(input, f);
     given = `The original, in pictures: every file of ${input} (also in the server's work folder under pictures/): sides.png (front, left, back, right, top, below, each a 512-dot square of the sheet in that order, three across) and four close angles with no perspective, ${ANGLES.map(([n, yaw, pitch]) => `${n}.png (yaw ${yaw}, pitch ${pitch})`).join(", ")}. ${readFileSync(join(input, "facts.txt"), "utf8")}`;
-  } else given = `The original, as someone who has seen it describes it:\n\n${readFileSync(join(base, "words.md"), "utf8")}`;
+  } else if (leg === "words") given = `The original, as someone who has seen it describes it:\n\n${readFileSync(join(base, "words.md"), "utf8")}`;
   const hidden = kind === "weapons" ? s.files : [s.file];
   const kit = kitCommit();
   // the words leg may be offered the local generators (--generators): a shape made from words, carved by no picture
-  const r = await runAgent({ prompt: reproducePrompt(kind, s, given), read: leg === "pictures" ? input : null, server: { wads: true, games: s.root ? [s.root] : [], hide: hidden, refuse: hidden, ...(GENERATORS && leg === "words" ? { generators: GENERATORS } : {}) }, files, hours: 1.5 });
+  const r = await runAgent({ prompt: reproducePrompt(kind, s, leg, given), read: leg === "pictures" ? input : null, server: { wads: true, games: s.root ? [s.root] : [], hide: hidden, refuse: hidden, ...(GENERATORS && leg === "words" ? { generators: GENERATORS } : {}) }, files, hours: 1.5 });
   mkdirSync(out, { recursive: true });
   writeFileSync(join(out, "answer.md"), `${r.answer.trim()}\n`);
   const { all, newest: newestOf } = filesOf(r.work);
@@ -252,6 +264,46 @@ async function judgeOne(kind, s, leg, built, { decoy } = {}) {
   return { kind, subject: s.id, leg: decoy ? "decoy: box" : leg, measured, caps: capped, lineup: line, ...settle(tableOf(kind, s), judged, capped) };
 }
 
+/**
+ * A brief leg's build judged against its modder's request (briefs.json), not its original: the rubric's
+ * "Original creation" measures and line-up beside Half-Life's own of its kind (never the original itself), with
+ * what keeps it working in the game measured as for the pictures leg: a weapon in the hands (W1), a character in
+ * motion (C1), a player's contract with its base (C2).
+ */
+async function judgeBrief(kind, s, built, { decoy, from = s } = {}) {
+  const dir = join(folderOf(kind, s.id), "judge", decoy ? `decoy-brief-${decoy}` : "brief");
+  rmSync(dir, { recursive: true, force: true });
+  mkdirSync(dir, { recursive: true });
+  const { brief, asked } = BRIEFS[kind][s.id];
+  const label = `${s.id}, in the place of the game's ${kind === "weapons" ? s.files.join(", ") : s.file}`;
+  // `from`: whose files the folder holds (another subject's, for the swap decoy)
+  const copy = readModel(join(built, basename(from.file)));
+  const ownKind = { weapons: "weapon", characters: "character", players: "player" }[kind];
+  const list = ownOfKind(ownKind, rootOf(s)).filter((x) => x.file !== s.file);
+  if (kind === "weapons") {
+    const v = readModel(join(built, basename(from.files[0])));
+    const mine = firstPerson(v);
+    savePng(join(dir, "first-person.png"), besides([mine.still, firstPerson(game(s.files[0])).still]));
+    savePng(join(dir, "attack.png"), mine.attack);
+    savePng(join(dir, "in-hand.png"), render(readModel(join(built, basename(from.files[1]))), { seq: 0, frame: 0, yaw: 35, pitch: 20, width: 384, height: 384 }));
+    const r = await judgeModelAgainstBrief("weapon", label, copy, dir, { brief, asked, list, sizeFrom: weaponSizeIn(v), extraPictures: `, ${dir}/first-person.png (its first-person view left, the game's own of this weapon right, for where it sits in the hands), ${dir}/attack.png (its attack frame by frame) and ${dir}/in-hand.png (the model another player holds); sides.png and lineup.png show the w_ model` });
+    return { kind, subject: s.id, leg: decoy ? `decoy: brief ${decoy}` : "brief", ...r };
+  }
+  const motionOf = (name) => strip(copy, { seq: animation(copy, new RegExp(`^${name}`)), count: 8, cols: 4, view: "side", ground: true, width: 192, height: 192 });
+  savePng(join(dir, "motion.png"), motionOf(s.motion));
+  let extraPictures = `, ${dir}/motion.png (it ${s.motion === "run" ? "running" : "walking"}, frame by frame from the side, the floor a line)`;
+  const extra = { measured: {}, caps: {} };
+  if (s.stunt) {
+    savePng(join(dir, "stunt.png"), motionOf(s.stunt));
+    extraPictures += ` and ${dir}/stunt.png (a forward dive)`;
+    const faults = compareContract(contractOf(game(join("models", s.base), rootOf(s))), contractOf(copy)).faults;
+    extra.measured.contract = faults.length ? faults : "keeps every bone, animation, attachment and bodypart of the base";
+    extra.caps.C2 = faults.length ? 0 : 2;
+  }
+  const r = await judgeModelAgainstBrief(ownKind, label, copy, dir, { brief, asked, list, extra, extraPictures });
+  return { kind, subject: s.id, leg: decoy ? `decoy: brief ${decoy}` : "brief", ...r };
+}
+
 /** A plain box of the original's size, for a character; for a weapon a box in each of its three files' place. */
 function decoyOf(kind, s) {
   const dir = join(folderOf(kind, s.id), "judge", "decoy-built");
@@ -294,9 +346,16 @@ else if (step === "judge") {
       for (const leg of LEGS) {
         const built = join(folderOf(k, s.id), leg, "built");
         if (existsSync(join(built, basename(s.file))))
-          jobs.push(() => judgeOne(k, s, leg, built).then((r) => (writeFileSync(join(folderOf(k, s.id), leg, "judge.json"), `${JSON.stringify(r, null, 1)}\n`), `${k}/${s.id}:${leg}: ${r.error ?? `${r.total} of ${r.of}, ${r.passes ? "PASSES" : "fails"}`}`)));
+          jobs.push(() => (leg === "brief" ? judgeBrief(k, s, built) : judgeOne(k, s, leg, built)).then((r) => (writeFileSync(join(folderOf(k, s.id), leg, "judge.json"), `${JSON.stringify(r, null, 1)}\n`), `${k}/${s.id}:${leg}: ${r.error ?? `${r.total} of ${r.of}, ${r.passes ? "PASSES" : "fails"}`}`)));
       }
       jobs.push(() => judgeOne(k, s, "decoy", decoyOf(k, s), { decoy: true }).then((r) => (writeFileSync(join(folderOf(k, s.id), "judge", "decoy.json"), `${JSON.stringify(r, null, 1)}\n`), `${k}/${s.id} decoy: ${r.error ?? `${r.total} of ${r.of}, ${r.passes ? "PASSES (the judge is lenient)" : "fails, as it must"}`}`)));
     }
+  // the brief leg's decoys: a box of the subject's size, and another subject's brief build held to this brief
+  for (const k of kinds) {
+    const briefed = chosen(k).filter((s) => existsSync(join(folderOf(k, s.id), "brief", "built", basename(s.file))));
+    const said = (k2, s, name) => (r) => (writeFileSync(join(folderOf(k2, s.id), "judge", `decoy-brief-${name}.json`), `${JSON.stringify(r, null, 1)}\n`), `${k2}/${s.id} brief decoy ${name}: ${r.error ?? `${r.total} of ${r.of}, ${r.passes ? "PASSES (the judge is lenient)" : "fails, as it must"}`}`);
+    for (const s of briefed) jobs.push(() => judgeBrief(k, s, decoyOf(k, s), { decoy: "box" }).then(said(k, s, "box")));
+    if (briefed.length >= 2) jobs.push(() => judgeBrief(k, briefed[1], join(folderOf(k, briefed[0].id), "brief", "built"), { decoy: `swap-${briefed[0].id}`, from: briefed[0] }).then(said(k, briefed[1], "swap")));
+  }
   await pool(jobs, 4);
 } else console.log("node examples/reproduce/held.mjs inputs|describe|reproduce|judge [weapons|characters] [subject ...] [--again]");

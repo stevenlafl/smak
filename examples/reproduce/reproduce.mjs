@@ -14,6 +14,7 @@ import { tmpdir } from "node:os";
 import { mkdtempSync } from "node:fs";
 import { HERE, SUBJECTS, GAME, ANGLES, kitCommit, keepRound, filesOf } from "./lib.mjs";
 import { runAgent, MAKER_MODEL } from "./agents.mjs";
+import { BRIEFS, briefPrompt } from "./brief.mjs";
 
 const words = process.argv.slice(2);
 const option = (name, fallback) => {
@@ -27,12 +28,16 @@ const chosen = (id, leg) => !words.length || words.some((w) => w === id || w ===
 const JUDGED = `It will be judged side by side with the original, from the same cameras and at the same scale, to
 high standards, by someone who sees only the two sets of pictures.`;
 
+/** How a model is made, the same in every leg. */
+const MAKE_MODEL = (model) => `Make it as a model for the GoldSrc engine, named ${model.id}.mdl. Use whatever of the kit helps (the spec's materials, finish, print,
+marks, prefabs), and keep within the engine's limits.`;
+
 function modelPrompt(model, leg) {
   const input = join(HERE, model.id, "input");
-  const ask = `Make this object as a model for the GoldSrc engine, as close to the original as you can: its
+  if (leg === "brief") return { prompt: briefPrompt({ brief: BRIEFS.models[model.id].brief, replaces: model.file, make: MAKE_MODEL(model) }) };
+  const ask = `${MAKE_MODEL(model)} Make it as close to the original as you can: its
 outline from every side, its size, every part, the colours and materials, and the markings on its surfaces.
-${JUDGED} Name the file ${model.id}.mdl. Use whatever of the kit helps (the spec's materials, finish, print,
-marks, prefabs), keep within the engine's limits, and build until the build says OK and it matches.`;
+${JUDGED} Build until the build says OK and it matches.`;
   if (leg === "pictures")
     return {
       prompt: `${ask}

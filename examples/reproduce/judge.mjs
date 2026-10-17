@@ -21,6 +21,7 @@ import { maps, unpng } from "../../src/index.mjs";
 import { buildMapSpec } from "../../src/spec/map.mjs";
 import { findCompilers } from "../../src/maps/compile.mjs";
 import { itemsOf, parseAnswer, settle, lowered, combine, askScores, band, PASS_SHARE, MODEL_GUIDE } from "./scoring.mjs";
+import { BRIEFS, ownOfKind, judgeModelAgainstBrief } from "./brief.mjs";
 
 const words = process.argv.slice(2);
 const again = words.includes("--again") && words.splice(words.indexOf("--again"), 1);
@@ -208,6 +209,20 @@ export async function judgeModel(model, leg, copyFile, { decoy } = {}) {
     settled = { ...settleAnswer("model", second.answer, caps, extra), first: { model: JUDGE_MODEL, total: settled.total, passes: settled.passes, scores: settled.scores }, judgedBy: "opus" };
   }
   return { subject: model.id, leg: decoy ? `decoy: ${decoy}` : leg, measured, caps, lineup: line, ...settled };
+}
+
+/**
+ * A model of the brief leg, judged against its modder's request (briefs.json), not its original: the rubric's
+ * "Original creation" measures, its line-up beside Half-Life's own of its kind (never the original itself).
+ */
+async function judgeModelBrief(model, file, { decoy } = {}) {
+  const { brief, asked } = BRIEFS.models[model.id];
+  const kind = model.lineup ?? "model";
+  const dir = join(HERE, model.id, "judge", decoy ? `decoy-brief-${decoy}` : "brief");
+  rmSync(dir, { recursive: true, force: true });
+  const list = ownOfKind(kind).filter((x) => x.file !== model.file);
+  const r = await judgeModelAgainstBrief("model", `${model.id}.mdl, in the place of the game's ${model.file}`, readModel(file), dir, { brief, asked, list });
+  return { subject: model.id, leg: decoy ? `decoy: brief ${decoy}` : "brief", ...r };
 }
 
 /** A plain box the size of the original: the decoy that must fail. */
@@ -423,7 +438,7 @@ async function main() {
   for (const model of SUBJECTS.models)
     for (const leg of SUBJECTS.legs.models) {
       const built = join(HERE, model.id, leg, "built", `${model.id}.mdl`);
-      if (chosen(model.id, leg) && existsSync(built)) jobs.push(() => judgeModel(model, leg, built).then((r) => [join(HERE, model.id, leg, "judge.json"), r]));
+      if (chosen(model.id, leg) && existsSync(built)) jobs.push(() => (leg === "brief" ? judgeModelBrief(model, built) : judgeModel(model, leg, built)).then((r) => [join(HERE, model.id, leg, "judge.json"), r]));
     }
   for (const map of SUBJECTS.maps)
     for (const leg of SUBJECTS.legs.maps) {
@@ -452,6 +467,13 @@ async function main() {
       jobs.push(() => judgeModel(y, "swap", join(HERE, x.id, "pictures", "built", `${x.id}.mdl`), { decoy: `swap-${x.id}` }).then((r) => [join(HERE, y.id, "judge", "decoy-swap.json"), r]));
     }
     for (const map of SUBJECTS.maps) jobs.push(() => judgeMap(map, "room", roomDecoy(map), { decoy: "room" }).then((r) => [join(HERE, map.id, "judge", "decoy-room.json"), r]));
+    // the brief leg's: a box of the brief's size, and another subject's brief build held to this brief
+    const briefed = SUBJECTS.models.filter((m) => existsSync(join(HERE, m.id, "brief", "built", `${m.id}.mdl`)));
+    for (const model of briefed) jobs.push(() => judgeModelBrief(model, boxDecoy(model), { decoy: "box" }).then((r) => [join(HERE, model.id, "judge", "decoy-brief-box.json"), r]));
+    if (briefed.length >= 2) {
+      const [x, y] = briefed;
+      jobs.push(() => judgeModelBrief(y, join(HERE, x.id, "brief", "built", `${x.id}.mdl`), { decoy: `swap-${x.id}` }).then((r) => [join(HERE, y.id, "judge", "decoy-brief-swap.json"), r]));
+    }
   }
 
   const results = [];
@@ -482,7 +504,7 @@ function writeScores() {
   const rows = [];
   for (const kind of ["models", "maps"])
     for (const subject of SUBJECTS[kind])
-      for (const leg of SUBJECTS.legs[kind]) {
+      for (const leg of [...SUBJECTS.legs[kind], ...(SUBJECTS.retired?.[kind] ?? [])]) {
         const dir = join(HERE, subject.id, leg);
         if (!existsSync(dir)) continue;
         const rounds = readdirSync(dir).filter((f) => /^round-\d+$/.test(f)).sort((a, b) => Number(a.slice(6)) - Number(b.slice(6)));
