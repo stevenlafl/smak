@@ -3,29 +3,29 @@
  "label": "sound/headcrab/hc_attack1.wav: the crawler's attack",
  "measured": {
   "features": {
-   "length": 0.718,
+   "length": 0.504,
    "peak": -0.5,
-   "rms": -17.4,
-   "crest": 16.9,
-   "dc": 0,
+   "rms": -9.9,
+   "crest": 9.3,
+   "dc": -0.0007,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.02,
-   "attack": 0.005,
-   "peakAt": 0.02,
-   "t20": 0.205,
-   "t40": 0.429,
-   "centroid": 212,
-   "rolloff": 495,
-   "flatness": 0.001,
+   "tail": 0.01,
+   "attack": 0.035,
+   "peakAt": 0.11,
+   "t20": 0.239,
+   "t40": 0.309,
+   "centroid": 789,
+   "rolloff": 1400,
+   "flatness": 0.009,
    "bands": {
-    "<150": 74.8,
-    "150-600": 24,
-    "600-2k": 1,
-    "2k-5k": 0.2,
-    ">5k": 0
+    "<150": 1,
+    "150-600": 56,
+    "600-2k": 36,
+    "2k-5k": 6.7,
+    ">5k": 0.2
    },
-   "onsets": 1
+   "onsets": 0
   },
   "class": null,
   "against": {
@@ -52,34 +52,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The picture shows a single strike at the start: the waveform's first 0.1 s is a clicky burst, then a long ringing tail, and the spectrogram holds one steady horizontal tone (about 45% up the frame) from 0.1 s to the end. That reads as an impact thud with a held whine. The game's own crawler attack is a run of hits (waveform bursts near 0.05, 0.2-0.25, 0.55, 0.65 s and after) over broadband noise, a bite or scrape sequence. The made sound does not show that event, so it is not clearly the same thing."
+   "reason": "The picture shows a single smeared noise burst that peaks near 0.11 s and decays over about 0.4 s. The game's own sound (the lower panel) is a run of separate impacts: sharp clicks near 0.05 to 0.3 s, and more at about 0.45 s and 0.6 s, then a quiet tail to 0.91 s. The made file reads as a creature's attack in general, but it lacks the discrete strikes that make the game's sound what it is."
   },
   "S2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Length passes: 0.718 s against the game's 0.906 s is 79%, inside 25%. Attack is 0.005 s, immediate, as a strike should be. The decay does not match: t20 is 0.205 s against the game's 0.394 s, about half. The class range for this envelope is not among the measures given, so the judge cannot confirm it is within the class, but it is clearly faster than the game's own sound."
+   "reason": "Measured and clearly off. Length is 0.504 s against the game's 0.906 s, 44% short where the limit is 25%. Decay t20 is 0.239 s against 0.394 s; with no class range given, the original's own decay within a quarter or 0.05 s is 0.296 to 0.493 s, so 0.239 is outside it and caps S2 at 1. Attack of 0.035 s is in the picture as a fast onset, which is right."
   },
   "S3": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "Fails the spectrum measure by a wide margin. Centroid is 212 Hz against the game's 921 Hz, 23% of it, far outside 20%. Band shares miss by more than 10 points in four of five bands: under 150 Hz is 74.8% against 0.5% (74 points), 150-600 Hz is 24% against 68.1% (44 points), 600-2k is 1% against 18.8% (18 points), 2k-5k is 0.2% against 10.9% (11 points). The sound is almost all low-frequency energy and has no upper band. The class range was not given, so this is judged against the game's own sound, as the measures stand."
+   "score": 1,
+   "reason": "Centroid is 789 Hz against 921 Hz, 14% off and inside the 20% limit. Two bands fail the 10-point limit: 150-600 Hz is 56 against 68.1 (12.1 points short), and 600-2k Hz is 36 against 18.8 (17.2 points high). The spectrogram agrees: the made sound puts too much energy in the 600 Hz to 2 kHz range, and the game's is more concentrated below 600 Hz."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Onsets are 1 against the game's several hits (its waveform shows separate bursts at about 0.05, 0.2-0.25, 0.55 and 0.65 s), so the made sound lacks the hit-by-hit character. Its spectrum is nearly pure tone (flatness 0.001) where the game's is noise-like across its bursts. The sustained horizontal band in the spectrogram does not move in pitch. The item is not a must, but it is clearly off."
+   "reason": "Not a must-have, but the onsets are missing: the measured onset count is 0, while the game's sound has several audible hits (visible as clicks in its waveform at about 0.05 to 0.3 s, 0.45 s and 0.6 s). The made spectrogram is steady from start to end with no pitch movement, and the game's shows some. The flatness of 0.009 says the made file is tonal, which the rough, noisy waveform does not suggest. The judge cannot listen, so the tone is taken from the figures alone."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Engine faults are empty, clipped is 0 (peak -0.5 dBFS, so there is headroom), and DC is 0. The file is named sound/headcrab/hc_attack1.wav, the name the game looks for. It is a one-shot, so it needs no loop cue. The sample rate, bit depth and channel count are not among the measurements given, so the judge cannot confirm the format itself; the harness's engine checks found no fault."
+   "reason": "No clipping (0), DC is -0.0007, lead is 0, tail is 0.01, peak is -0.5 dBFS, and engineFaults is empty. The sample rate, bit depth and mono channel are not in the measurements; the engineFaults check is taken as covering them, so this score depends on that check."
   }
  },
- "total": 5,
+ "total": 6,
  "of": 10,
  "passes": false
 }

@@ -3,41 +3,38 @@
  "label": "sound/ambience/fw_drips.wav: water dripping, a loop",
  "measured": {
   "features": {
-   "length": 5.9,
+   "length": 6.4,
    "peak": -0.5,
-   "rms": -16,
-   "crest": 15.5,
+   "rms": -26.6,
+   "crest": 26.1,
    "dc": 0,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
-   "attack": 0.01,
-   "peakAt": 4.001,
-   "t20": 1.821,
-   "t40": 1.881,
-   "centroid": 605,
-   "rolloff": 797,
-   "flatness": 0,
+   "attack": 1.512,
+   "peakAt": 1.956,
+   "t20": 3.971,
+   "t40": 4.21,
+   "centroid": 928,
+   "rolloff": 1723,
+   "flatness": 0.002,
    "bands": {
-    "<150": 2.2,
-    "150-600": 45.2,
-    "600-2k": 52.6,
-    "2k-5k": 0,
+    "<150": 0,
+    "150-600": 40.4,
+    "600-2k": 52.5,
+    "2k-5k": 7,
     ">5k": 0
    },
-   "onsets": 9
+   "onsets": 10
   },
   "class": "loop drips",
   "against": {
-   "score": 13,
+   "score": 17,
    "of": 20,
    "lines": [
-    "crest 15.5 dB (20.17 to 33.63): too squashed",
-    "rms -16 dBFS (-30.3 to -24.3): over the range",
-    "centroid 605 Hz (671 to 1007): too dark: more 600 to 5000 Hz",
-    "flatness 0 (0.05 to 0.15): too pure: more noise",
-    "band 150-600 45.2% (13.2 to 33.2): over the range",
-    "band 600-2k 52.6% (62.3 to 82.3): under the range"
+    "flatness 0.002 (0.05 to 0.15): too pure: more noise",
+    "band 150-600 40.4% (13.2 to 33.2): over the range",
+    "band 600-2k 52.5% (62.3 to 82.3): under the range"
    ]
   },
   "engineFaults": []
@@ -50,31 +47,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The picture shows nine sharp drip onsets (waveform peaks at about 0.6 to 0.7 s spacing, and a matching vertical onset in the spectrogram), each with a short decay, over a steady low floor. That is water dripping as a loop, so the event is right."
+   "reason": "The picture shows discrete drip transients (about ten onsets, from roughly 0.3 s to 5.8 s, each with a short decaying resonance) and no bed of rain, wind or hum. That reads as water dripping, which is what the brief asks for. The picture alone cannot confirm the event, but the form fits."
   },
   "S2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Length 5.9 s, attack 0.01 s, t20 1.82 s and t40 1.88 s, with lead 0 and tail 0 so the loop starts and ends on sound. None of the measured envelope lines is outside the class range, so the envelope holds."
+   "reason": "Length is 6.4 s, and the envelope measures (attack 1.512 s, peak at 1.956 s, t20 3.971 s, t40 4.21 s) are not flagged by the class check. The three lines against the class are flatness and two bands, so the envelope is held to be within the class's range. The class range itself is not given to me, so this rests on the measure not flagging it."
   },
   "S3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Spectrum is clearly off. Band 150-600 Hz holds 45.2% against a class range of 13.2 to 33.2%, which is 12 points over the 10-point tolerance. Band 600-2k Hz holds 52.6% against 62.3 to 82.3%, about 10 points under. Centroid is 605 Hz, below the class range of 671 to 1007 Hz. In the spectrogram the energy sits low and orange across the bottom, and the drips' bright tone lines sit in the low-mid band."
+   "reason": "The spectrum is off the class's range in two bands. 150-600 Hz holds 40.4% (the range is 13.2 to 33.2, so over by 7.2 points), and 600-2k Hz holds 52.5% (the range is 62.3 to 82.3, so under by 9.8 points). The spectrogram matches this: the energy sits in the low-mid warm bands (roughly 150 to 600 Hz) and is thin above 2 kHz. The centroid of 928 Hz is not flagged. The fault is there and clear, not gross."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Character is partly off. Onsets are right (9 measured, matching the nine drips in the waveform), but flatness is 0 against a class range of 0.05 to 0.15, so the tone is too pure and needs more noise. The spectrogram drips read as clean horizontal tone lines over a speckled floor, so the drip tones are too clean against the noise. Pitch movement cannot be judged from the picture."
+   "reason": "The character is too tonal. Flatness is 0.002, against the class's 0.05 to 0.15, which the measure flags as 'too pure: more noise'. The spectrogram shows each drip as a clean, steady-pitched body with almost no broadband splash or noise floor between drops. The onset count (10) and the spacing look right, so the drips are there, but the water's grain is missing."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured checks pass: clipped 0, DC 0, peak -0.5 dBFS, engineFaults empty, and the file name is sound/ambience/fw_drips.wav. The picture cannot confirm the channel count, sample rate, bit depth or whether the loop cue sits where the original's does, since those are not in the measurements. The judge cannot listen, so this is scored on the measures given."
+   "reason": "Engine checks are clean: no clipping, no DC, no engine faults, and the name sound/ambience/fw_drips.wav matches the brief. The file is one channel of what the picture shows. Sample rate and bit depth are not in the features, so I cannot confirm them. The waveform is still decaying at the end, so the loop seam cannot be seen; I cannot confirm a loop cue or a seamless join from the picture."
   }
  },
  "total": 8,

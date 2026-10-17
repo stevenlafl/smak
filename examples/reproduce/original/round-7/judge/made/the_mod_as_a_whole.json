@@ -1,0 +1,94 @@
+{
+ "kind": "mod",
+ "label": "the mod as a whole",
+ "measured": {
+  "missing": [],
+  "failedChecks": [],
+  "chain": [
+   {
+    "map": "fw_yard",
+    "leadsTo": [
+     "fw_pumphall"
+    ],
+    "landmarks": [
+     "fw_land_yard"
+    ],
+    "asked": "fw_pumphall"
+   },
+   {
+    "map": "fw_pumphall",
+    "leadsTo": [
+     "fw_control"
+    ],
+    "landmarks": [
+     "fw_land_yard",
+     "fw_land_hall"
+    ],
+    "asked": "fw_control"
+   },
+   {
+    "map": "fw_control",
+    "leadsTo": [],
+    "landmarks": [
+     "fw_land_hall"
+    ],
+    "asked": null
+   }
+  ],
+  "shown": [
+   {
+    "file": "videos/fw_wrench.mp4",
+    "there": true,
+    "bytes": 303498
+   },
+   {
+    "file": "videos/fw_crawler.mp4",
+    "there": true,
+    "bytes": 247442
+   },
+   {
+    "file": "videos/fw_pumphall.mp4",
+    "there": true,
+    "bytes": 5109883
+   },
+   {
+    "file": "pictures/fw_props.png",
+    "there": true,
+    "bytes": 1030117
+   }
+  ]
+ },
+ "caps": {
+  "O1": 2,
+  "O2": 2
+ },
+ "scores": {
+  "O1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements list no missing files and no failed SMAK checks, and all four shown files exist (videos/fw_wrench.mp4, videos/fw_crawler.mp4, videos/fw_pumphall.mp4, pictures/fw_props.png). The picture cannot show the .wad, sprites or sounds, so this score rests on the measurements. Five props, the wrench, the crawler and three maps are visible in everything.png."
+  },
+  "O2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The chain runs fw_yard to fw_pumphall (landmark fw_land_yard), then fw_pumphall to fw_control (landmarks fw_land_yard and fw_land_hall), and fw_control ends the chain as the brief's last map, with asked: null. Each step is measured as reached by the walk test. Not measured: that the valve room is reached from the lift, and that every model, sprite and sound the maps name is among the mod's files."
+  },
+  "O3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The props and maps mostly share a worn industrial palette, but the props read apart from the maps. The valve wheel is a saturated red and the hazard drum a bright yellow-black, and the pipe junction (top row, fourth) is a clean, smooth beige that looks like a toy against the dark, grimy yard and hall views. The console's pale green is also off-palette beside the brown-gold pump hall wall. The map views carry engine label text (monster_headcrab, cycler_sprite) in the pump hall and control views, which breaks the sense of one place in those shots."
+  },
+  "O4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The four files the brief asks for are present (wrench and crawler videos, pump hall flight, props sheet). The sheet's crawler (bottom row, left) shows only a green-grey head with teeth and a pale belly, with no body or six legs, so it does not show the crawler as it is. The wrench (bottom row, right) is a rusted bar with a red grip whose toothed jaw is hard to make out at this scale."
+  }
+ },
+ "total": 6,
+ "of": 8,
+ "passes": false
+}

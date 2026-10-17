@@ -16,23 +16,23 @@
     64
    ],
    "border": {
-    "max": 0.184,
-    "mean": 0.002
+    "max": 0.122,
+    "mean": 0.001
    },
    "envelope": {
     "peakAt": 0.36,
-    "first": 0,
+    "first": 0.03,
     "last": 0
    },
-   "dark": 0.83,
-   "wrap": 0.38,
-   "jitter": 1.31
+   "dark": 0.84,
+   "wrap": 0.28,
+   "jitter": 1.32
   },
   "class": "smoke puff",
   "againstClass": [
    {
     "measure": "jitter",
-    "value": 1.31,
+    "value": 1.32,
     "range": [
      0.9,
      1.5
@@ -42,7 +42,7 @@
    },
    {
     "measure": "border",
-    "value": 0.002,
+    "value": 0.001,
     "range": [
      0,
      0.005
@@ -62,7 +62,7 @@
    },
    {
     "measure": "first",
-    "value": 0,
+    "value": 0.03,
     "range": [
      0,
      0.35
@@ -88,31 +88,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Reads as a steam or smoke puff: a soft, narrow column that builds from frame 1, thickens to its peak around frames 3 to 5, then thins and fades by frames 9 to 11. That is the effect the brief asks for."
+   "reason": "Reads as steam: a pale grey-white plume that starts faint in frame 0, builds to its strongest in frames 3 to 5, then thins and fades out by frames 10 and 11. The effect is the one the brief asks for, a steam puff that rises and thins."
   },
   "R2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The frames are 64 by 64 and nothing touches the border (border mean 0.002). But the effect is a narrow central wisp, about a fifth of the frame width at its peak (frames 4 and 5), so most of each frame is empty. It does not fill the frame the way a puff sprite normally does."
+   "reason": "The frames are 64 by 64, as measured, but the plume is a narrow vertical column about 15 to 20 px wide down the centre of each tile (every frame). It does not spread to fill the frame as a puff would, so the shape is off in every frame."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Pale grey-white puffs on the blended grey ground, neutral in hue and reading as steam rather than smoke or a glow. Judged by eye, as the brief's colour requires."
+   "reason": "The colour is a neutral pale grey to white against the grey background, close to what a steam sprite blends to. Judged by eye, nothing in the frames contradicts it."
   },
   "R4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The measured envelope holds: peak at 0.36 of the run, first and last frames at 0, which is within the class's ranges. The frame count (12) is consistent with the class. The rise is not clear by eye: the base stays at about the same height through frames 2 to 6 and the column mostly lengthens and fades, so the 'rises' part of the brief is weak. The frame 8 to 10 shift is too small to read as rising."
+   "reason": "The measures pass: 12 frames, the envelope peaks at 0.36 (frame 4), first 0.03, last 0, and jitter 1.32, all within the class ranges. But the motion does not read as rising. The plume stays in roughly the same place across frames 1 to 9, sliding only slightly, so the 'rises' part of the brief is not clearly shown. It thins and fades as asked."
   },
   "R5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Written as type 'parallel', format index alpha, with a readable 64 by 64 frame set and no border clipping. But the steam sprites of Half-Life's class are 'parallel oriented' (the amendment of 2026-10-16 records steam1 failing R5 on exactly this), so the type is clearly off for this slot. Only one of the two checks is met."
+   "reason": "The type is 'parallel', but the brief's slot is steam1, which is 'parallel oriented'. This is the same type fault the amendment of 2026-10-16 records for steam1 and fire, and it fails R5 on type. The name fw_steam.spr is new and the format is index alpha, which is right."
   }
  },
  "total": 7,

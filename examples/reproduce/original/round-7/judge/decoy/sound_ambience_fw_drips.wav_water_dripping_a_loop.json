@@ -1,0 +1,58 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_drips.wav: water dripping, a loop",
+ "measured": {
+  "features": {
+   "length": 0.5,
+   "peak": -10.5,
+   "rms": -15.1,
+   "crest": 4.7,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.005,
+   "peakAt": 0.19,
+   "t20": 0.314,
+   "t40": 0.314,
+   "centroid": 2751,
+   "rolloff": 4673,
+   "flatness": 0.948,
+   "bands": {
+    "<150": 3.4,
+    "150-600": 8.3,
+    "600-2k": 24.6,
+    "2k-5k": 54.8,
+    ">5k": 9
+   },
+   "onsets": 0
+  },
+  "class": "loop drips",
+  "against": {
+   "score": 5,
+   "of": 20,
+   "lines": [
+    "length 0.5 s (5.48 to 9.14): too short",
+    "crest 4.7 dB (20.17 to 33.63): too squashed",
+    "rms -15.1 dBFS (-30.3 to -24.3): over the range",
+    "centroid 2751 Hz (671 to 1007): too bright: less over 2000 Hz",
+    "flatness 0.948 (0.05 to 0.15): too noisy: more tone (modes)",
+    "band 150-600 8.3% (13.2 to 33.2): under the range",
+    "band 600-2k 24.6% (62.3 to 82.3): under the range",
+    "band 2k-5k 54.8% (0 to 12.5): over the range"
+   ]
+  },
+  "engineFaults": [
+   "its last samples are at 0.21 of full scale: it ends in a click; fade its end"
+  ]
+ },
+ "caps": {
+  "S5": 0
+ },
+ "passes": false,
+ "failedByMeasure": [
+  "S5"
+ ],
+ "total": 0,
+ "of": 10
+}

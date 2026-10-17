@@ -3,28 +3,24 @@
  "label": "maps/fw_pumphall.bsp: the flooded hall: water deep enough to swim, three pumps, catwalks both sides joined by a bridge, ladders; the wrench on a catwalk, three crawlers in the water; out by a stair to a corridor",
  "measured": {
   "size": [
-   3392,
-   800
+   3496,
+   948
   ],
   "sizeAsked": {
    "long": 2500
   },
   "checkErrors": [],
-  "notReached": [
-   "undefined undefined"
-  ],
-  "reachWarnings": [
-   "1 of the 10 entities a player goes to are not reached on foot from the places to start: 26 weapon_crowbar at 1100 -288 152: by no way on foot, though open air leads to it: the walked floor comes within 152 of it, at 1096 -288 0, 152 under it"
-  ],
+  "notReached": [],
+  "reachWarnings": [],
   "changelevels": [
    {
     "map": "fw_control",
-    "landmark": "fw_land_hall"
+    "landmark": "fw_lm_2"
    }
   ],
   "landmarks": [
-   "fw_land_yard",
-   "fw_land_hall"
+   "fw_lm_1",
+   "fw_lm_2"
   ],
   "itemsAsked": [
    "weapon_crowbar",
@@ -37,12 +33,11 @@
  },
  "caps": {
   "P2": 1,
-  "P8": 1
+  "P8": 2
  },
  "passes": false,
  "failedByMeasure": [
-  "P2",
-  "P8"
+  "P2"
  ],
  "total": 0,
  "of": 18

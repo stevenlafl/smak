@@ -24,7 +24,7 @@
     "first": 1,
     "last": 1
    },
-   "dark": 0.61,
+   "dark": 0.56,
    "wrap": null,
    "jitter": null
   },
@@ -48,31 +48,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "A single-frame radial glow, brightest at the centre and fading to dark at the edges, is what a lamp's glow is. It matches the brief's 'sodium lamp's glow' and the glow class."
+   "reason": "The frame is a soft radial glow: a bright amber core at the centre fading outward to dark, which is what a sodium lamp's glow looks like. It is the same effect the brief asks for."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The frame is 64 x 64, the same as the measured size, and the glow fills it from centre to edge. The border is pure black (border max 0, inside the class's 0 to 0.005), so no hard edge shows. The brief gives no size, so there is nothing else to check it against."
+   "reason": "One 64x64 frame, with the glow filling it as a round halo. The edges are dark (border measured 0), so nothing is clipped at the frame's edge. The small boxed '0' in the top-left corner is the harness's frame label, not part of the sprite."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "By eye the core is a warm sodium orange, fading outward to dark. It is the lit-lamp colour the brief asks for, with no neon or sci-fi tint. The brief sets no measure, so this is judged by eye only."
+   "reason": "The core is warm sodium orange-amber and the falloff is a darker brown-orange, which matches the brief's sodium-lamp colour and stays within Half-Life's palette. No neon or cool tints appear. Judged by eye, as the rubric asks."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "One frame, which is the glow class's frame count, with the envelope held at a steady first and last frame. The glow class takes a steady, non-animated glow, and the measured border (0) is inside the class's band. Nothing in the frames contradicts the class."
+   "reason": "A single still frame, which the class 'glow' takes (frames 1, border 0, the envelope first and last frame at 1). The glow is steady and needs no motion, so the frame count and envelope match the class measures. The 'dark' figure of 0.56 has no class range given, so it is not scored against anything."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The file is named fw_glow to match the brief's sprite slot. It is recorded as type parallel and format additive, which is how a glow that blends into the scene is written. The only readback is the harness's measures, which show no fault. Nothing was checked beyond those measures."
+   "reason": "The measured type is parallel and the format is additive, which is the right kind for a light glow drawn over the scene. The name is fw_glow and the frame is 64x64, and the file reads back as written."
   }
  },
  "total": 10,

@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_spit.spr: a sludge spit that splashes, animated",
+ "measured": {
+  "size": [
+   48,
+   48
+  ],
+  "frames": 8,
+  "type": "parallel",
+  "format": "index alpha",
+  "measures": {
+   "frames": 8,
+   "size": [
+    48,
+    48
+   ],
+   "border": {
+    "max": 0.039,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0.43,
+    "first": 0,
+    "last": 0
+   },
+   "dark": 0.67,
+   "wrap": 0.64,
+   "jitter": 1.41
+  },
+  "class": "explosion",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.41,
+    "range": [
+     1.04,
+     1.48
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.43,
+    "range": [
+     0.22,
+     0.71
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0,
+    "range": [
+     0,
+     0.22
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.03
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frames show a soft green cloud that swells from frame 1 to a peak at frames 2 to 3 and then thins, which reads as a sludge puff or smoke cloud. The brief asks for a spit that splashes, and no crown or spreading droplets from an impact are clearly drawn. Frames 3 and 4 have some lower spikes and a downward drip, but they are not enough to read as a splash."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The frames are 48 by 48 and the effect sits centred in each, filling roughly half the width at its peak. The measured border is 0.039 at most with a mean of 0, so there is no clipping at the edges and no stray pixels outside the cloud."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The colour is a muted olive-green, close to the grey-green sludge the brief asks for, and it reads as the same tint across frames 1 to 6. It sits well on the grey background and matches the green-grey palette of the water."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Eight frames, as the original's measures allow, and the motion is grow, peak, fade. Against the explosion class, the measured peak at 0.43 (range 0.22 to 0.71), the first frame at 0 (0 to 0.22) and the last frame at 0 (0 to 0.03) all hold. Jitter at 1.41 is within the class's 1.04 to 1.48. Frame 0 is empty and frame 7 is almost empty, so it ends dark, as a one-shot should."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "It is a valid GoldSrc sprite: type parallel, format index alpha, 48 by 48, 8 frames, and the name is fw_spit. The brief does not name the slot's type or format, so I could not compare them with a file it replaces. Index alpha suits a soft green smudge, and the file reads back as written."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

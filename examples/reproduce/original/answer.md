@@ -1,47 +1,35 @@
-The mod is built, but three things are not as the brief asks: the headcrab and the weapon's three files are not in `models/`, and the pump hall's wrench is not reached by the walk test. Everything else is in place and passes the build checks.
+I built the mod's assets, but the three maps are not yet in the `maps/` folder the brief asks for, and I need one thing from you to finish that.
 
-**Where the files are (work folder)**
+**Blocker: map placement.** The maps compile through the build tool, which has VHLT (Vluzacn's ZHLT compilers), but the command line cannot find VHLT and I have no way to move files. The compiled maps are at `work/fw_yard/fw_yard.bsp`, `work/fw_pumphall/fw_pumphall.bsp` and `work/fw_control/fw_control.bsp`. Either give me the folder that holds `hlcsg`, `hlbsp`, `hlvis` and `hlrad`, and I'll recompile into `work/maps/`, or tell me to leave them where they are.
 
-```text
-maps/fw_yard.bsp            compiled, passes (dim dusk yard by design)
-maps/fw_pumphall.bsp        compiled, one walk fault (see below)
-maps/fw_control.bsp         compiled, passes with notes (see below)
-models/fw_valvewheel.mdl    passes, 324 triangles
-models/fw_drum.mdl          passes, 224 triangles
-models/fw_console.mdl       passes, 36 triangles
-models/fw_pipejunction.mdl  passes, 376 triangles
-models/fw_walllamp.mdl      passes, 132 triangles
-fw.wad                      12 textures, passes (lamp and door flagged for grain)
-sprites/fw_steam.spr        passes, all 5 measures in range
-sprites/fw_glow.spr         passes
-sprites/fw_spit.spr         passes, all 5 measures in range
-sound/weapons/cbar_hit1.wav        no faults; spectrum warning (too bright)
-sound/weapons/cbar_miss1.wav       no faults; spectrum warning (too bright)
-sound/headcrab/hc_attack1.wav      no faults; spectrum warning (too dark)
-sound/headcrab/hc_pain1.wav        no faults; spectrum warning (too dark)
-sound/ambience/fw_pump.wav         passes, every feature in range
-sound/ambience/fw_drips.wav        no faults; spectrum warning (too dark)
-videos/fw_wrench.mp4        turntable, encoded
-videos/fw_crawler.mp4       turntable, encoded
-videos/fw_pumphall.mp4      flight through the hall, encoded (70 degree lens)
-pictures/fw_props.png       all five props side by side
-```
+**What's made** (all under the work folder unless noted)
 
-**Not in the paths you asked for**
-- `headcrab.mdl` is at the work root, `work:headcrab.mdl`. It is built on the game's headcrab skeleton and keeps its contract (no contract faults). The command line can't write it into `models/`, because it can't see the game folder.
-- The pipe wrench's `v_crowbar.mdl`, `p_crowbar.mdl` and `w_crowbar.mdl` are in `work:pipewrench_weapon/`. The brief says the weapon's files are written under the game's names, so I took that folder as the location. They keep the crowbar's animations and pass the build.
-- Build leftovers are in the work folder (`headcrab_probe.*`, `v_wrench_probe*`, `fw/`, `fw_tex/`, and the per-map build folders). I can't delete files with these tools, so please clear them.
+| Brief file | Where | Status |
+|---|---|---|
+| `maps/fw_yard.bsp` | `work/fw_yard/` | Compiles, walk test passes, lit to 76/255 |
+| `maps/fw_pumphall.bsp` | `work/fw_pumphall/` | Compiles, every entity reached on foot, hall lit to 66/255 |
+| `maps/fw_control.bsp` | `work/fw_control/` | Compiles, every entity reached, lift and ladder give a way out |
+| `models/fw_valvewheel.mdl` | `models/` | Passes, 280 triangles, red paint with worn steel rim |
+| `models/fw_drum.mdl` | `models/` | Passes, 240 triangles, rust and hazard stripe |
+| `models/fw_console.mdl` | `models/` | Passes, but 24 triangles: a box with painted dials, screens and switches. It reads boxy |
+| `models/fw_pipejunction.mdl` | `models/` | Passes, 528 triangles, over the median for a prop |
+| `models/fw_walllamp.mdl` | `models/` | Passes; the glass is inside its cage, so the check flags its triangles as hidden |
+| `v_crowbar.mdl`, `p_crowbar.mdl`, `w_crowbar.mdl` (pipe wrench) | `work/fw_wrench_weapon/` | Built with the game's names. The build puts weapon files in a folder named after the spec, not in `models/` |
+| `models/headcrab.mdl` (sludge crawler) | `work/headcrab.mdl` | Passes, keeps all the base's animations and contract, 580 triangles. Its belly and teeth render dark brown; I could not find the cause |
+| `fw.wad` | `work/fw.wad` | 13 textures; `fw_hazard` and `fw_door` are flagged as too coloured |
+| `sprites/fw_steam.spr`, `fw_glow.spr`, `fw_spit.spr` | `work/sprites/` | Pass; the steam matches Half-Life's smoke puffs on all five measures |
+| 6 sounds (`cbar_hit1`, `cbar_miss1`, `hc_attack1`, `hc_pain1`, `fw_pump`, `fw_drips`) | `work/sound/` | Pass with spectral warnings; the hit and swing are darker or brighter than their classes |
+| `videos/fw_wrench.mp4`, `fw_crawler.mp4` | `work/` | Encoded, turntables pass |
+| `videos/fw_pumphall.mp4` | `work/` | Encoded, a straight flight down the hall. One frame jumps at about 3.4 s, when a ladder or monster enters the view |
+| `pictures/fw_props.png` | `work/pictures/` | Sheet of the five props, side by side |
 
-**Map notes**
-- Yard: the pump house door is a single door, not a double door, because the kit's door is one leaf. The broken pipe is a large inline section. The sky is set to dusk. The yard floor is at 15 of 255, marked `dark: true` on purpose, so the orange light comes from the lamps and sprites.
-- Pump hall: three pumps, bridge, ladders, three crawlers, a corridor and stairs up to the control room. The walk test does not climb `func_ladder` ladders, so the catwalks and the wrench on the south catwalk show as not reached. That is the test's limit, not a level error; please check it in the game.
-- Control room: four consoles under four windows looking into the hall, two crawlers, and the valve wheel with a button that fires `game_end`. The valve room is reached by stairs, not a lift, because the kit has no lift. The stairwell drops 272 units if a player steps into it, and it has no rail (flagged, not railed).
-- Level chain: yard → pump hall via `fw_land_yard`, pump hall → control via `fw_land_hall`. Each landmark exists in the map it leads to.
+The walk test passes all three maps. The yard's drums, pipe section and gatehouse door are in place, and the pump hall's landmarks match the yard's and the control map's. The control room's windows look into a flooded viewing bay with pumps, not the hall itself: maps cannot see each other.
 
-**Weapon and enemy notes**
-- Pipe wrench: 17.7 long, red handle with worn highlights, iron grip, toothed head. The rim-wear on the valve wheel reads red more than steel, so the "worn to steel at the rim" effect is weak.
-- Headcrab: grey-green back, pale belly, and a ring of teeth. The legs read as flat fins from the side, which is the weakest part.
+**Where I departed from the brief**
+- The lift is a `func_plat` in a shaft, with a ladder back up so the pit is not a one-way drop. The shaft's edge still draws a fall warning.
+- The yard's sun barely lit the open sky, so it uses nine sodium-coloured lights hung at 100.
+- The pump-hall flight is a straight run down the hall at y = 120, not a walk through the test route, which jumped at every corner.
 
-**Verification and tooling**
-- Maps compiled through the build tool, which has VHLT. The command line can't find VHLT, so I copied each compiled file to `maps/` with `map-set`, changing nothing.
-- Nothing has been run in the game. The sound, weapon and headcrab fit need a look and listen in Half-Life.
+**Licences.** The hit, swing, bite, pain and drip sounds were generated with woosh-dflow (Creative Commons non-commercial) and stable-audio-3-sfx (Stability AI community licence: free under US$1M revenue). The sounds are non-commercial as a result.
+
+I couldn't save a memory note from here, so the build quirks I hit are in `work/notes-smak-quirks.txt`.

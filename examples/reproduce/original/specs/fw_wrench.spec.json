@@ -1,20 +1,168 @@
 {
-  "spec": "smak.video/1",
-  "name": "fw_wrench",
-  "size": [
-    960,
-    540
-  ],
-  "fps": 30,
-  "shots": [
+  "spec": "smak.model/1",
+  "name": "fw_wrench.mdl",
+  "kind": "held",
+  "size": {
+    "length": 18
+  },
+  "materials": {
+    "paint": {
+      "base": "paint",
+      "tone": [
+        0.5,
+        0.1,
+        0.08
+      ]
+    },
+    "iron": {
+      "base": "iron",
+      "rust": 0.25
+    },
+    "steel": {
+      "base": "steel"
+    }
+  },
+  "finish": {
+    "light": 0.3,
+    "wear": 0.9,
+    "grime": 0.3,
+    "vary": 0.06
+  },
+  "weapon": {
+    "like": "crowbar",
+    "size": "own",
+    "views": [
+      "v",
+      "p",
+      "w"
+    ]
+  },
+  "parts": [
     {
-      "kind": "turntable",
-      "model": "pipewrench.mdl",
-      "seconds": 8,
-      "pitch": 10,
-      "turns": 1,
-      "zoom": 1.4,
-      "caption": "pipe wrench"
+      "id": "grip",
+      "kind": "cylinder",
+      "material": "iron",
+      "radius": 1.5,
+      "height": 4,
+      "sides": 8,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "shaft",
+      "kind": "cylinder",
+      "material": "paint",
+      "radius": 1.4,
+      "height": 10,
+      "sides": 8,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        4,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "head",
+      "kind": "box",
+      "material": "steel",
+      "size": [
+        4.5,
+        3.6,
+        5
+      ],
+      "at": [
+        16.25,
+        0,
+        -2.5
+      ]
+    },
+    {
+      "id": "jaw",
+      "kind": "box",
+      "material": "steel",
+      "size": [
+        4.5,
+        1.7,
+        4.6
+      ],
+      "at": [
+        16.25,
+        2.05,
+        -2.7
+      ]
+    },
+    {
+      "id": "tooth_a",
+      "kind": "box",
+      "material": "steel",
+      "size": [
+        0.8,
+        1,
+        4
+      ],
+      "at": [
+        14.7,
+        3.4,
+        -2
+      ]
+    },
+    {
+      "id": "tooth_b",
+      "kind": "box",
+      "material": "steel",
+      "size": [
+        0.8,
+        1,
+        4
+      ],
+      "at": [
+        15.8,
+        3.4,
+        -2
+      ]
+    },
+    {
+      "id": "tooth_c",
+      "kind": "box",
+      "material": "steel",
+      "size": [
+        0.8,
+        1,
+        4
+      ],
+      "at": [
+        16.9,
+        3.4,
+        -2
+      ]
+    },
+    {
+      "id": "tooth_d",
+      "kind": "box",
+      "material": "steel",
+      "size": [
+        0.8,
+        1,
+        4
+      ],
+      "at": [
+        18,
+        3.4,
+        -2
+      ]
     }
   ]
 }

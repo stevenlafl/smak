@@ -1,0 +1,81 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_pump.wav: a pump's droning loop",
+ "measured": {
+  "features": {
+   "length": 5.75,
+   "peak": -0.5,
+   "rms": -12,
+   "crest": 11.5,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.718,
+   "peakAt": 0.718,
+   "t20": 5.034,
+   "t40": 5.034,
+   "centroid": 187,
+   "rolloff": 301,
+   "flatness": 0.003,
+   "bands": {
+    "<150": 64.7,
+    "150-600": 31.6,
+    "600-2k": 3.6,
+    "2k-5k": 0.1,
+    ">5k": 0
+   },
+   "onsets": 4
+  },
+  "class": "loop machine",
+  "against": {
+   "score": 13,
+   "of": 20,
+   "lines": [
+    "length 5.75 s (2.03 to 3.39): too long",
+    "centroid 187 Hz (237 to 437): too dark: more 600 to 5000 Hz",
+    "band <150 64.7% (0 to 13.9): over the range",
+    "band 150-600 31.6% (84.2 to 100): under the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture reads as a machine drone: a continuous low-frequency band from the bottom of the spectrogram up to about 150 Hz, with a regular pulse train in the waveform across the full 5.75 s. That fits a pump's droning loop, the event the brief names."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length is 5.75 s against the class range of 2.03 to 3.39 s, about 70% over the top and well outside 25%, so the must fails. The attack (0.718 s to peak) and the decay (t20 5.034 s) sit with the drone, but the 5.75 s length is the clear fault."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The spectrum is wrong. The centroid is 187 Hz against 237 to 437 Hz, and the spectrogram is almost entirely yellow below about 150 Hz with little above 2 kHz. The <150 Hz band holds 64.7% against 0 to 13.9%, and the 150 to 600 Hz band holds 31.6% against 84.2 to 100%. Each band's share is off by about 50 points, far beyond 10."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The tone is steady and tonal (flatness 0.003), with no pitch movement, which suits a drone. But the waveform carries a dense, regular pulse train, and the spectrogram shows four transients (about 1.0, 1.2, 3.0 and 3.2 s) that a plain droning loop would not need. The character is only partly right."
+  },
+  "S5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Clipping (0), DC offset (0), lead and tail (0) and the engine faults list (empty) are all clean, and the name matches sound/ambience/fw_pump.wav. But the measures and pictures do not show the sample rate, bit depth or the loop cue, so the file's fit for the engine is not shown. Read strictly, this is not yet a 2."
+  }
+ },
+ "total": 5,
+ "of": 10,
+ "passes": false
+}

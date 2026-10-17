@@ -1,0 +1,70 @@
+{
+ "kind": "mod",
+ "label": "the mod as a whole",
+ "measured": {
+  "missing": [
+   "videos/fw_wrench.mp4",
+   "videos/fw_crawler.mp4",
+   "videos/fw_pumphall.mp4",
+   "pictures/fw_props.png"
+  ],
+  "failedChecks": [
+   "maps/fw_yard.bsp: the station's yard at dusk, open to the sky, a gatehouse door, drums, a pipe section; start by the gate, out by the pump house's double doors",
+   "maps/fw_pumphall.bsp: the flooded hall: water deep enough to swim, three pumps, catwalks both sides joined by a bridge, ladders; the wrench on a catwalk, three crawlers in the water; out by a stair to a corridor",
+   "maps/fw_control.bsp: the control room over the hall: consoles under windows onto the hall, a lift down to the valve room with the main valve wheel; two crawlers"
+  ],
+  "chain": [
+   {
+    "map": "fw_yard",
+    "leadsTo": [],
+    "landmarks": [],
+    "asked": "fw_pumphall"
+   },
+   {
+    "map": "fw_pumphall",
+    "leadsTo": [],
+    "landmarks": [],
+    "asked": "fw_control"
+   },
+   {
+    "map": "fw_control",
+    "leadsTo": [],
+    "landmarks": [],
+    "asked": null
+   }
+  ],
+  "shown": [
+   {
+    "file": "videos/fw_wrench.mp4",
+    "there": false,
+    "bytes": 0
+   },
+   {
+    "file": "videos/fw_crawler.mp4",
+    "there": false,
+    "bytes": 0
+   },
+   {
+    "file": "videos/fw_pumphall.mp4",
+    "there": false,
+    "bytes": 0
+   },
+   {
+    "file": "pictures/fw_props.png",
+    "there": false,
+    "bytes": 0
+   }
+  ]
+ },
+ "caps": {
+  "O1": 0,
+  "O2": 0
+ },
+ "passes": false,
+ "failedByMeasure": [
+  "O1",
+  "O2"
+ ],
+ "total": 0,
+ "of": 8
+}

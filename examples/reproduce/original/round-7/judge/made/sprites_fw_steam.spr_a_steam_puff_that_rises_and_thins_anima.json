@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_steam.spr: a steam puff that rises and thins, animated",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 12,
+  "type": "parallel",
+  "format": "index alpha",
+  "measures": {
+   "frames": 12,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0.184,
+    "mean": 0.002
+   },
+   "envelope": {
+    "peakAt": 0.36,
+    "first": 0,
+    "last": 0
+   },
+   "dark": 0.83,
+   "wrap": 0.38,
+   "jitter": 1.31
+  },
+  "class": "smoke puff",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.31,
+    "range": [
+     0.9,
+     1.5
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0.002,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.36,
+    "range": [
+     0.2,
+     0.6
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0,
+    "range": [
+     0,
+     0.35
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.1
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Reads as a steam or smoke puff: a soft, narrow column that builds from frame 1, thickens to its peak around frames 3 to 5, then thins and fades by frames 9 to 11. That is the effect the brief asks for."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frames are 64 by 64 and nothing touches the border (border mean 0.002). But the effect is a narrow central wisp, about a fifth of the frame width at its peak (frames 4 and 5), so most of each frame is empty. It does not fill the frame the way a puff sprite normally does."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Pale grey-white puffs on the blended grey ground, neutral in hue and reading as steam rather than smoke or a glow. Judged by eye, as the brief's colour requires."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The measured envelope holds: peak at 0.36 of the run, first and last frames at 0, which is within the class's ranges. The frame count (12) is consistent with the class. The rise is not clear by eye: the base stays at about the same height through frames 2 to 6 and the column mostly lengthens and fades, so the 'rises' part of the brief is weak. The frame 8 to 10 shift is too small to read as rising."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Written as type 'parallel', format index alpha, with a readable 64 by 64 frame set and no border clipping. But the steam sprites of Half-Life's class are 'parallel oriented' (the amendment of 2026-10-16 records steam1 failing R5 on exactly this), so the type is clearly off for this slot. Only one of the two checks is met."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

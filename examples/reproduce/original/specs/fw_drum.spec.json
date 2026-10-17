@@ -3,92 +3,95 @@
   "name": "fw_drum.mdl",
   "kind": "prop",
   "size": {
-    "height": 35,
-    "width": 22.4
+    "height": 36,
+    "width": 23
   },
   "materials": {
     "drum": {
       "base": "metal",
-      "rust": 0.6,
-      "tone": "muted blue grey"
+      "tone": [
+        0.32,
+        0.38,
+        0.42
+      ],
+      "rust": 0.6
     },
     "hazard": {
       "base": "hazard",
       "tone": [
-        0.9,
-        0.72,
-        0.08
+        0.85,
+        0.65,
+        0.1
       ]
-    },
-    "steel": {
-      "base": "steel",
-      "rust": 0.5
     }
   },
   "parts": [
     {
       "id": "body",
-      "kind": "cylinder",
+      "kind": "turn",
       "material": "drum",
-      "radius": 11.2,
-      "height": 35,
       "sides": 12,
+      "rings": [
+        [
+          0,
+          10
+        ],
+        [
+          1.2,
+          11.5
+        ],
+        [
+          34.8,
+          11.5
+        ],
+        [
+          36,
+          10
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
       "marks": [
         {
           "path": [
             [
-              0.45,
+              0.5,
               0
             ],
             [
-              0.45,
+              0.5,
               360
             ]
           ],
-          "width": 4,
-          "material": "hazard"
+          "width": 6,
+          "material": "hazard",
+          "ends": "round"
         }
       ]
     },
     {
       "id": "hoop_low",
       "kind": "band",
-      "material": "steel",
+      "material": "drum",
       "on": {
         "part": "body",
-        "s": 0.1
+        "s": 0.12
       },
-      "width": 1.4,
+      "width": 2,
       "height": 0.5
     },
     {
       "id": "hoop_high",
       "kind": "band",
-      "material": "steel",
+      "material": "drum",
       "on": {
         "part": "body",
-        "s": 0.9
+        "s": 0.88
       },
-      "width": 1.4,
+      "width": 2,
       "height": 0.5
-    },
-    {
-      "id": "bung",
-      "kind": "cylinder",
-      "material": "steel",
-      "radius": 1.8,
-      "height": 1.4,
-      "sides": 8,
-      "attach": {
-        "to": "body",
-        "toAt": "top",
-        "at": "bottom",
-        "offset": [
-          5,
-          0,
-          -0.4
-        ]
-      }
     }
   ]
 }

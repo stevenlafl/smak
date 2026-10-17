@@ -3,21 +3,21 @@
  "label": "models/fw_valvewheel.mdl: a valve wheel, red paint worn to steel at the rim",
  "measured": {
   "size": [
-   14,
-   32.2,
-   32.2
+   13,
+   31.9,
+   31.8
   ],
   "sizeAsked": {
    "across": 32
   },
-  "sizeOff": 0.006,
-  "triangles": 324,
+  "sizeOff": 0.002,
+  "triangles": 280,
   "halfLifeMedianOfItsKind": 99,
   "halfLifeThreeQuartersUnder": 156,
   "halfLifeMost": 422,
   "checkErrors": [],
-  "lineup": "the asset is one of A to D in lineup.png beside models/w_longjump.mdl, models/rip.mdl, models/snapbug.mdl",
-  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked B, D, D, C where the asset was C, A, B, D: passed for one of the game's"
+  "lineup": "the asset is one of A to D in lineup.png beside models/snapbug.mdl, models/w_crowbar.mdl, models/w_longjump.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, B, C, B where the asset was C, A, B, D: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
@@ -29,49 +29,49 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Front, back and side views match the brief's valve wheel: a ring rim about 32 across, three straight spokes meeting a central hub, and a stem through the hub. The outline is the same in every view, with no part sticking out or missing."
+   "reason": "The outline is a valve handwheel: a ring of about twelve facets, four radial spokes meeting at a central hub, and a shaft stub, the same outline in front, back, and both side views. No part is missing or sticks out where the brief gives no other form."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured 32.2 across (height and width) against the brief's 32, within 1%. Depth is 14. Within the 15% band the brief allows."
+   "reason": "Measured 31.9 by 31.8 across the wheel and 13 deep, against 32 across asked: within 0.2%."
   },
   "M3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Parts the brief implies: the rim (a ring of about 18 blocks, all present in the front and back views), three spokes (seen in both front and back), the hub, and the stem (the stub on both sides in the left/right views and the top/below views). Nothing is missing or doubled. The octagonal end cap on the front hub is present."
+   "reason": "Parts the brief implies: rim, four spokes (the front view shows two crossing bars), a hub, and the shaft through the hub, which shows as the grey stub in the left and right views. Each spoke meets the rim at four points, and the rim has the same facet count in every view. Nothing is missing. The rim's facet count is not stated in the brief, so no shape item is charged."
   },
   "M4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Rim is red paint and the hub and stem are grey steel, the colours the brief gives. The rim's worn-to-steel patches are absent, but that is a painted-surface difference, so it is charged to M5 and not here."
+   "reason": "Red paint on the rim and spokes, bare grey steel on the hub and shaft, as the brief asks. The rim shows grey on several outer edge facets, which is the paint worn to steel where the brief places it."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The brief asks for red paint worn to steel at the rim. In every view the rim is uniform red with no bare steel showing, so the wear is missing. The rim's block seams are visible but are not the requested wear."
+   "reason": "The worn steel at the rim is there but reads as thin bright edge streaks on a few facets (front view, upper left and right; back view the same). It does not read as worn-through patches of paint, so the wear the brief names is faint."
   },
   "M6": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Capped at 2 for this asset. The line-up test is measured apart: the judges did not pick the asset as the odd one out, but the test caps M6 at 2 here."
+   "reason": "Held at the cap the line-up sets: in the four readings the judges picked D, B, C, B where the asset was C, A, B, D. None picked the asset, so the test passed for one of the game's."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Upright disc, with the hub at the origin. The stem end shows on the front face, and the wheel stands as a valve wheel on its stem. The brief gives no other facing, so nothing is off."
+   "reason": "Upright in the front view with the wheel face toward the front; in the below and top views it is a flat bar, so it stands on its plane as a wheel on an axis. The hub is at the centre, which is where the origin sits for a valve wheel."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The SMAK check reports no errors. 324 triangles: above twice the median (198) and above the third quartile (156), which triggers the kit's warning, but under the most Valve spends on a prop of this kind and size (422). The rim, spokes, hub and stem read as closed from every view, with no open or inside-out faces."
+   "reason": "Checks pass and the solid is closed in every view that shows it. The 280 triangles are under the 422 most Valve spends on a prop of this size, so the triangle budget is met. Nothing shows open, inside out, or floating."
   }
  },
  "total": 15,

@@ -3,29 +3,29 @@
  "label": "sound/headcrab/hc_pain1.wav: the crawler's pain",
  "measured": {
   "features": {
-   "length": 0.842,
+   "length": 0.479,
    "peak": -0.5,
-   "rms": -15.9,
-   "crest": 15.4,
-   "dc": 0,
+   "rms": -10.8,
+   "crest": 10.3,
+   "dc": 0.0001,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.01,
-   "attack": 0.005,
-   "peakAt": 0.005,
-   "t20": 0.259,
-   "t40": 0.534,
-   "centroid": 286,
-   "rolloff": 603,
-   "flatness": 0,
+   "tail": 0.015,
+   "attack": 0.01,
+   "peakAt": 0.19,
+   "t20": 0.145,
+   "t40": 0.2,
+   "centroid": 2618,
+   "rolloff": 4221,
+   "flatness": 0.078,
    "bands": {
-    "<150": 66.8,
-    "150-600": 9.5,
-    "600-2k": 23.4,
-    "2k-5k": 0.3,
-    ">5k": 0
+    "<150": 0,
+    "150-600": 0,
+    "600-2k": 26.7,
+    "2k-5k": 66.9,
+    ">5k": 6.4
    },
-   "onsets": 1
+   "onsets": 0
   },
   "class": null,
   "against": {
@@ -52,31 +52,31 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Picture and features: the replacement opens with a dense, low-frequency burst (about 67% of energy under 150 Hz, pulses in the first 0.05 s) and then a long, steady tone. The original is a broadband vocal yelp with its energy at 2 to 5 kHz (84%) and repeated onsets across its length. A low thump with a tonal tail could be read as a hit, but it does not sound like a crawler's pain cry."
+   "reason": "The picture shows a single broadband noise burst at the start (about 0 to 0.3 s, top panel, peak at 0.19 s) that fades out. The game's own sound, bottom panel, is a run of about fifteen pulses with a tonal band across the whole 0.8 s, which reads as a creature's cry. The replacement does not show that pulsing, so it is not clearly the same event, though a pain sound of some kind is there."
   },
   "S2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Length is 0.842 s against 0.795 s, within 25%. The decay is not: t20 is 0.259 s against the original's 0.544 s, about half, with the attack at 0.005 s. The class range is not given in the measurements, so the reading is against the original's own decay, and the replacement falls away twice as fast."
+   "reason": "Length is 0.479 s against the game's 0.795 s, 40% shorter and outside the 25% band; that is a failed measure. Decay also differs: t20 is 0.145 s against 0.544 s. The class range for decay is not given, so only the length can be checked here, and it fails."
   },
   "S3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "Measured spectrum is far off. Centroid is 286 Hz against 2682 Hz (about 90% low, against a 20% allowance). Band shares: under 150 Hz 66.8 against 0.2; 2k to 5k 0.3 against 83.8 (over 80 points out, against 10). Only 600 Hz to 2 kHz is within 10 points (23.4 against 15.6)."
-  },
-  "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The original is noisy with many onsets across its length, shown as vertical streaks in its spectrogram. The replacement has one onset at the start, then a tonal tail with no visible pitch movement, and its flatness is 0 (pure tone). The original's flatness is not given, so the tone-or-noise match cannot be confirmed, but the onset count is clearly different (1 against many)."
+   "reason": "Centroid is 2618 Hz against 2682 Hz, 2.4% off and within 20%. Two bands are outside the 10-point limit: 600-2k is 26.7% against 15.6% (11.1 points over), and 2k-5k is 66.9% against 83.8% (16.9 points under). The >5k band is 6.1 points off and within the limit, and the <150 and 150-600 bands match. The measure fails on two bands, so this is clearly off, not wrong throughout."
+  },
+  "S4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The onsets are 0 in the measures, while the picture shows the game's own sound made of about fifteen distinct pulses (hits) and a steady tonal band; the replacement has one smooth, unpulsed burst with no onsets. Its flatness of 0.078 is tonal-looking in the measure but the picture shows broadband noise at the start, so the character (pulsing, tone) does not match. Pitch movement, the game's rising and falling band, is also absent. This is wrong, not just off, on the onset count."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Engine faults list is empty, clipped is 0, dc is 0, peak is -0.5 dBFS, and the name is sound/headcrab/hc_pain1.wav, the same as the game's. The sample rate and bit depth are not in the measurements, so the format is taken as the engine's checks passed it, not as read here."
+   "reason": "No engine faults are recorded, clipped is 0, DC is 0.0001, and peak is -0.5 dBFS, so the file is not clipped and has no DC offset. It is not a loop, so no loop cue applies. The sample rate, bit depth and channel count are not in the measures; the pass rests on the empty engineFaults list, which is the engine check's result. I could not confirm the format from the picture alone."
   }
  },
  "total": 5,

@@ -4,79 +4,57 @@
   "kind": "prop",
   "size": {
     "height": 38,
-    "length": 28,
-    "width": 52
+    "width": 60,
+    "length": 36
   },
   "materials": {
-    "console": {
+    "panel": {
       "base": "metal",
-      "tone": "dull grey green",
-      "rust": 0.25
-    },
-    "hazard": {
-      "base": "hazard",
       "tone": [
-        0.9,
-        0.72,
-        0.08
-      ]
+        0.36,
+        0.4,
+        0.37
+      ],
+      "rust": 0.15
+    },
+    "deck": {
+      "base": "steel"
     },
     "screen": {
       "base": "metal",
       "tone": [
         0.08,
-        0.14,
-        0.12
+        0.16,
+        0.13
       ]
     },
     "brass": {
-      "base": "brass",
-      "rust": 0.2
+      "base": "brass"
     },
-    "red": {
-      "base": "paint",
-      "tone": [
-        0.6,
-        0.1,
-        0.08
-      ]
+    "steel": {
+      "base": "steel"
     }
   },
   "parts": [
     {
-      "id": "plinth",
+      "id": "body",
       "kind": "box",
-      "material": "hazard",
+      "material": "panel",
       "size": [
-        24,
-        52,
-        4
-      ]
-    },
-    {
-      "id": "cabinet",
-      "kind": "box",
-      "material": "console",
-      "size": [
-        26,
-        52,
-        32
+        30,
+        56,
+        34
       ],
-      "attach": {
-        "to": "plinth",
-        "toAt": "top",
-        "at": "bottom",
-        "offset": [
-          -1,
-          0,
-          -0.5
-        ]
-      },
+      "at": [
+        0,
+        0,
+        0
+      ],
       "panels": [
         {
           "face": "front",
           "at": [
-            13,
+            14,
             21
           ],
           "size": [
@@ -89,7 +67,7 @@
         {
           "face": "front",
           "at": [
-            39,
+            42,
             21
           ],
           "size": [
@@ -102,12 +80,12 @@
         {
           "face": "front",
           "at": [
-            10,
-            8
+            8,
+            7
           ],
           "size": [
-            5,
-            5
+            4,
+            4
           ],
           "shape": "round",
           "style": "raised",
@@ -117,11 +95,11 @@
           "face": "front",
           "at": [
             20,
-            8
+            7
           ],
           "size": [
-            5,
-            5
+            4,
+            4
           ],
           "shape": "round",
           "style": "raised",
@@ -130,12 +108,12 @@
         {
           "face": "front",
           "at": [
-            32,
-            8
+            36,
+            7
           ],
           "size": [
-            5,
-            5
+            4,
+            4
           ],
           "shape": "round",
           "style": "raised",
@@ -144,12 +122,12 @@
         {
           "face": "front",
           "at": [
-            42,
-            8
+            48,
+            7
           ],
           "size": [
-            5,
-            5
+            4,
+            4
           ],
           "shape": "round",
           "style": "raised",
@@ -159,96 +137,96 @@
           "face": "front",
           "at": [
             8,
-            3
+            31
           ],
           "size": [
-            3,
+            2.5,
             4
           ],
           "style": "raised",
-          "material": "red"
+          "material": "steel"
         },
         {
           "face": "front",
           "at": [
-            15,
-            3
+            16,
+            31
           ],
           "size": [
-            3,
+            2.5,
             4
           ],
           "style": "raised",
-          "material": "red"
+          "material": "steel"
         },
         {
           "face": "front",
           "at": [
-            22,
-            3
+            24,
+            31
           ],
           "size": [
-            3,
+            2.5,
             4
           ],
           "style": "raised",
-          "material": "red"
+          "material": "steel"
         },
         {
           "face": "front",
           "at": [
-            29,
-            3
+            32,
+            31
           ],
           "size": [
-            3,
+            2.5,
             4
           ],
           "style": "raised",
-          "material": "red"
+          "material": "steel"
         },
         {
           "face": "front",
           "at": [
-            36,
-            3
+            40,
+            31
           ],
           "size": [
-            3,
+            2.5,
             4
           ],
           "style": "raised",
-          "material": "red"
+          "material": "steel"
         },
         {
           "face": "front",
           "at": [
-            43,
-            3
+            48,
+            31
           ],
           "size": [
-            3,
+            2.5,
             4
           ],
           "style": "raised",
-          "material": "red"
+          "material": "steel"
         }
       ]
     },
     {
       "id": "deck",
       "kind": "box",
-      "material": "console",
+      "material": "deck",
       "size": [
-        26,
-        52,
-        3
+        36,
+        60,
+        4
       ],
-      "attach": {
-        "to": "cabinet",
-        "toAt": "top",
-        "at": "bottom"
-      }
+      "at": [
+        0,
+        0,
+        34
+      ]
     }
   ]
 }

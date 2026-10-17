@@ -3,20 +3,20 @@
  "label": "sprites/fw_spit.spr: a sludge spit that splashes, animated",
  "measured": {
   "size": [
-   48,
-   48
+   32,
+   32
   ],
   "frames": 8,
   "type": "parallel",
-  "format": "index alpha",
+  "format": "additive",
   "measures": {
    "frames": 8,
    "size": [
-    48,
-    48
+    32,
+    32
    ],
    "border": {
-    "max": 0.039,
+    "max": 0.065,
     "mean": 0
    },
    "envelope": {
@@ -24,21 +24,21 @@
     "first": 0,
     "last": 0
    },
-   "dark": 0.67,
-   "wrap": 0.64,
-   "jitter": 1.41
+   "dark": 0.97,
+   "wrap": 0.21,
+   "jitter": 1.68
   },
   "class": "explosion",
   "againstClass": [
    {
     "measure": "jitter",
-    "value": 1.41,
+    "value": 1.68,
     "range": [
      1.04,
      1.48
     ],
-    "ok": true,
-    "words": ""
+    "ok": false,
+    "words": "flickers: more coherence from frame to frame"
    },
    {
     "measure": "border",
@@ -85,34 +85,34 @@
  "caps": {},
  "scores": {
   "R1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The frames show a soft green cloud that swells from frame 1 to a peak at frames 2 to 3 and then thins, which reads as a sludge puff or smoke cloud. The brief asks for a spit that splashes, and no crown or spreading droplets from an impact are clearly drawn. Frames 3 and 4 have some lower spikes and a downward drip, but they are not enough to read as a splash."
+   "score": 2,
+   "reason": "Reads as a sludge spit that splashes: frame 2 is a small blob, frames 3 to 5 spread into a splash with drip streaks falling below it, and frames 6 and 7 thin out. The brief's effect is there."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The frames are 48 by 48 and the effect sits centred in each, filling roughly half the width at its peak. The measured border is 0.039 at most with a mean of 0, so there is no clipping at the edges and no stray pixels outside the cloud."
+   "reason": "The frames are 32 by 32 as measured. The effect sits in the lower two-thirds of each frame and stays within about 12 by 12 dots at its largest (frames 3 to 4), which suits a spit. Nothing is cut off at the frame edges (border max 0.065, mean 0)."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The colour is a muted olive-green, close to the grey-green sludge the brief asks for, and it reads as the same tint across frames 1 to 6. It sits well on the grey background and matches the green-grey palette of the water."
+   "reason": "Colour judged by eye: the bright frames (2 to 4) are a pale yellow-green that reads as sludge, and the streaks in frames 4 to 5 are a muted green-grey. It sits within the brief's green-grey palette, with no neon or blue."
   },
   "R4": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Eight frames, as the original's measures allow, and the motion is grow, peak, fade. Against the explosion class, the measured peak at 0.43 (range 0.22 to 0.71), the first frame at 0 (0 to 0.22) and the last frame at 0 (0 to 0.03) all hold. Jitter at 1.41 is within the class's 1.04 to 1.48. Frame 0 is empty and frame 7 is almost empty, so it ends dark, as a one-shot should."
+   "score": 1,
+   "reason": "The jitter measure is 1.68, outside the explosion class range of 1.04 to 1.48 (ok: false, 'flickers'). Visibly, the splash shape changes between frames 4, 5 and 6 (the streaks move around rather than thinning in place), so frame-to-frame coherence is short of the class. Peak at 0.43 (frame 3), first frame empty and last frame dark are all within the class range, and the frame count is 8, so the envelope is right and only the coherence is off."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "It is a valid GoldSrc sprite: type parallel, format index alpha, 48 by 48, 8 frames, and the name is fw_spit. The brief does not name the slot's type or format, so I could not compare them with a file it replaces. Index alpha suits a soft green smudge, and the file reads back as written."
+   "reason": "The measured type is parallel and the format additive, which suits a glow that fades into the dark. Both are as written in the measurements and nothing is reported as failing. I could not read the .spr header itself here, only the harness's measures and the picture, so the read-back is taken from the measures."
   }
  },
  "total": 9,
