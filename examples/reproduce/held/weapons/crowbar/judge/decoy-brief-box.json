@@ -5,14 +5,14 @@
  "label": "crowbar, in the place of the game's models/v_crowbar.mdl, models/p_crowbar.mdl, models/w_crowbar.mdl",
  "measured": {
   "size": [
-   7.8,
-   7.3,
-   26
+   32.4,
+   2.1,
+   11.2
   ],
   "sizeAsked": {
    "long": 26
   },
-  "sizeOff": 0.001,
+  "sizeOff": 0.245,
   "triangles": 12,
   "halfLifeMedianOfItsKind": 142,
   "halfLifeThreeQuartersUnder": 187,
@@ -20,66 +20,13 @@
   "lineup": "ours is one of A to D in lineup.png beside models/w_shotgun.mdl, models/w_9mmar.mdl, models/w_sqknest.mdl: the judge does not know which"
  },
  "caps": {
-  "M2": 2,
+  "M2": 1,
   "M8": 2
  },
- "scores": {
-  "M1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "Every side view (front, left, back, right, top, below, and the four angled views) shows a flat rectangular slab, about 7.8 by 7.3 by 26 units. There is no hooked claw at one end, no bent head, no tapered shaft and no separate grip, so the outline is not a crowbar's."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The brief gives only the length, about 26. The measured length is 26, within 1% of it. The brief gives no width or height to check against."
-  },
-  "M3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The brief asks for a hooked claw at the head, a shaft and a gripped handle, with the tips worn. None is present. The asset is one solid bar with no claw, no hook, no shaft and no grip, so the parts are missing."
-  },
-  "M4": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The brief asks for red paint, worn to bare steel where gripped and at the tips. The asset is uniform grey metal in every view, with no red anywhere and no contrast between a painted region and a worn one."
-  },
-  "M5": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "There is no red paint and no worn patch at the grip. The only detail is a faint lighter bevel along the edges and at the ends, which hints at a worn tip but is not the brief's markings or wear. Clearly off."
-  },
-  "M6": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "In lineup.png the asset is the plain grey slab at D, beside a Half-Life shotgun, a 9mm gun and a squeak-toy nest. A player would not take it for any of the game's models; it reads as a placeholder box."
-  },
-  "M7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The bar stands upright on its origin, as a held melee weapon would in the first-person view. The brief gives no front, and the box has no end or face that marks one, so the facing cannot be checked against the words."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Measured: 12 triangles against a Half-Life median of 142 for its kind, well under twice the median. The check errors are empty, and no face is open, inside out or floating in the views."
-  },
-  "W1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "In first-person.png the asset is a large upright grey slab at left, with no hand holding it. The game's own crowbar at right is gripped at its shaft with its claw forward. The asset is not held where or how the original is, and it has no claw to swing through attack.png."
-  }
- },
- "total": 6,
- "of": 18,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M2"
+ ],
+ "total": 0,
+ "of": 18
 }

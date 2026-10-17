@@ -5,14 +5,14 @@
  "label": "shotgun, in the place of the game's models/v_shotgun.mdl, models/p_shotgun.mdl, models/w_shotgun.mdl",
  "measured": {
   "size": [
-   30.1,
-   8.6,
-   13.2
+   21.6,
+   4.1,
+   31.1
   ],
   "sizeAsked": {
    "long": 30
   },
-  "sizeOff": 0.003,
+  "sizeOff": 0.036,
   "triangles": 12,
   "halfLifeMedianOfItsKind": 138,
   "halfLifeThreeQuartersUnder": 187,
@@ -28,58 +28,58 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The outline is one plain slab, about 30.1 x 8.6 x 13.2, in every side view (front, left, top, front-left). The brief's pump shotgun outline is missing: no receiver, barrel, pump forend, stock or grip, so no part sticks out and none is there. The lineup shows a block."
+   "reason": "The outline is one plain slab, about 21.6 x 4.1 x 31.1, in all ten views of sides.png. There is no receiver, barrel, pump forend, stock, grip or trigger guard, so it does not have a pump-action shotgun's outline in any view (front, left, top or the angles)."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Length is 30.1 against the brief's 30, 0.3% off, well within 15%. Width and height are not given by the brief, so they are not held against it."
+   "reason": "The long axis measures 31.1 against the brief's 30 (sizeOff 0.036, inside 15%). The brief gives no width or height, so only the length is checked."
   },
   "M3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief asks for a receiver, barrel, pump, stock, trigger and guard, magazine tube and sights. The asset has none of these: it is a single closed box (12 triangles), so the pump is missing and so is every small part."
+   "reason": "Parts the brief asks for, none present: barrel, receiver, pump forend, wooden or dark stock, trigger and trigger guard, sights, and the ejection port. sides.png and lineup.png A show one solid block with no parts on it. Missing small parts cap this item at 0 regardless."
   },
   "M4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief asks for black metal with a wooden or dark pump and stock. The whole asset is one uniform mid-grey (sides, top and below in every view), with no black metal region and no wood or dark pump region at all."
+   "reason": "The brief asks for black metal and a wooden or dark pump and stock. The whole block is one flat mid-grey (sides.png, lineup.png A, first-person.png left, in-hand.png). There is no black metal and no wood or dark-pump region."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The brief names no markings, but a shotgun would carry receiver detail, a trigger, a sling point or wood grain. The surface shows only a faint blotchy grey with no panel lines or wear. It adds nothing wrong, but it has none of the weapon's detail."
+   "reason": "The brief names no fine markings, but a pump-action gun implies a grooved forend and a wood grain. The surface is plain, with only faint edge highlights at the corners, and there is no pump, grooving or panel line where the brief implies one."
   },
   "M6": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "In lineup.png (A, the asset, beside Valve's B, C and D) it reads as a grey block, not a weapon. It does not look like the game's shotgun or any of its props, so a player would not take it for one of the game's."
+   "reason": "In lineup.png, A is a grey slab among a rifle (B), a red-and-green creature (C) and a crowbar (D). A player would not take it for a shotgun, and in first-person.png the grey block reads as a block."
   },
   "M7": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The asset lies flat on its back and stands on its origin the same way in every view. The brief names no front, so nothing shows a wrong facing, but it is not a weapon shape with a front to judge."
+   "reason": "It lies on its base with the long axis horizontal in the left and right views, which is roughly how a shotgun lies. It has no front, though: no barrel, muzzle or pump marks which way it faces, so the front cannot be the original's front."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "SMAK's check reports no errors. It has 12 triangles (under the 276 limit, twice the median of 138, and under the third-quartile 187). It is a closed box with no open faces, inside-out faces or floating parts in the views."
+   "reason": "checkErrors is empty and the mesh is closed. It has 12 triangles, well under twice the median of Half-Life's kind (138, so 276), with nothing open, inside out or floating."
   },
   "W1": {
-   "judge": 1,
+   "judge": 0,
    "cap": null,
-   "score": 1,
-   "reason": "In first-person.png the asset is held low on the left, while the game's own shotgun sits on the right, so it does not sit where the original sits. The hand stays on its end through the attack frames (shoot 0/20 to 20/20), so it moves with the hands, but it is not the original's grip or side."
+   "score": 0,
+   "reason": "In first-person.png left, the block sits left of centre and is held by the orange hand at one end. The game's own shotgun on the right sits in the right hand. In attack.png the block shifts across frames 0 to 20 and leaves the frame in several (6/20, 17/20), so it does not stay in the hands as a shotgun would be held."
   }
  },
- "total": 7,
+ "total": 6,
  "of": 18,
  "passes": false
 }

@@ -1,0 +1,165 @@
+{
+  "spec": "smak.model/1",
+  "name": "shotgun.mdl",
+  "kind": "held",
+  "size": {
+    "length": 30
+  },
+  "weapon": {
+    "like": "shotgun",
+    "size": "own",
+    "rig": "nearest"
+  },
+  "finish": {
+    "light": 0.3,
+    "wear": 0.15,
+    "grime": 0.1,
+    "vary": 0.05
+  },
+  "materials": {
+    "blued": {
+      "base": "metal",
+      "tone": "black"
+    },
+    "walnut": {
+      "base": "darkwood",
+      "tone": "very dark brown"
+    },
+    "pump": {
+      "base": "darkwood",
+      "tone": "very dark brown"
+    },
+    "rubber": {
+      "base": "leather",
+      "tone": "black"
+    }
+  },
+  "parts": [
+    {
+      "id": "stock",
+      "kind": "box",
+      "material": "walnut",
+      "size": [
+        9,
+        3.2,
+        4.2
+      ],
+      "at": [
+        4.5,
+        0,
+        4
+      ]
+    },
+    {
+      "id": "butt",
+      "kind": "box",
+      "material": "rubber",
+      "size": [
+        0.6,
+        3.4,
+        4.6
+      ],
+      "at": [
+        0.2,
+        0,
+        3.8
+      ]
+    },
+    {
+      "id": "receiver",
+      "kind": "box",
+      "material": "blued",
+      "size": [
+        10,
+        3.6,
+        5.4
+      ],
+      "at": [
+        14,
+        0,
+        3.6
+      ]
+    },
+    {
+      "id": "grip",
+      "kind": "box",
+      "material": "walnut",
+      "size": [
+        2.6,
+        2.6,
+        4.4
+      ],
+      "at": [
+        12,
+        0,
+        -0.4
+      ]
+    },
+    {
+      "id": "barrel",
+      "kind": "cylinder",
+      "material": "blued",
+      "radius": 1.1,
+      "height": 11,
+      "sides": 8,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        19,
+        0,
+        6.3
+      ]
+    },
+    {
+      "id": "tube",
+      "kind": "cylinder",
+      "material": "blued",
+      "radius": 0.9,
+      "height": 15,
+      "sides": 8,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        14,
+        0,
+        4.4
+      ]
+    },
+    {
+      "id": "forend",
+      "kind": "box",
+      "material": "pump",
+      "size": [
+        6,
+        4.4,
+        3.4
+      ],
+      "at": [
+        23,
+        0,
+        2.4
+      ]
+    },
+    {
+      "id": "bead",
+      "kind": "box",
+      "material": "blued",
+      "size": [
+        1,
+        0.4,
+        0.8
+      ],
+      "at": [
+        28.5,
+        0,
+        7.4
+      ]
+    }
+  ]
+}

@@ -344,3 +344,10 @@ walk test, not the game.
   game's file's type and format, as T6 holds a texture to its name and size; the textures' brief gave those, the
   sprites' did not, and fire and steam1 (both `parallel oriented`) were built `parallel` and failed R5 by measure.
   A sprite's brief now says the type and format of the file it replaces.
+- **2026-10-16, later: a weapon's size read off the model another player holds (research/weapon-size.md).** The
+  amendment of 2026-10-15 held a brief's real length against the first-person model, its hands left out. Measured
+  over Half-Life's seven weapons of known real length, Valve draws the first person 0.47 to 1.88 times the real
+  weapon (median 1.24), the model in another player's hands 0.82 (closest to life, nothing else in it) and the
+  world model 1.81. M2 now reads a weapon's real length off its `p_` model divided by 0.82, and the kit lays a
+  weapon of `size: "own"` (built at its real length) in each file at those medians; before, it put the built
+  length in the world model as it was, half Valve's size. Results judged before keep their scores.

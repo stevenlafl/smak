@@ -3,92 +3,108 @@
   "name": "crowbar.mdl",
   "kind": "held",
   "size": {
-    "length": 26
+    "length": 24
   },
   "weapon": {
     "like": "crowbar",
-    "views": [
-      "v",
-      "p",
-      "w"
-    ],
     "size": "own"
   },
   "materials": {
-    "red_paint": {
+    "red": {
       "base": "paint",
-      "tone": "red"
+      "tone": [
+        0.62,
+        0.08,
+        0.06
+      ]
     },
-    "bare_steel": {
+    "steel": {
       "base": "steel"
     }
   },
+  "finish": {
+    "wear": 0.5,
+    "grime": 0.1
+  },
   "parts": [
+    {
+      "id": "grip",
+      "kind": "cylinder",
+      "material": "steel",
+      "sides": 8,
+      "radius": 0.9,
+      "height": 7.5,
+      "rotate": [
+        0,
+        90,
+        0
+      ]
+    },
     {
       "id": "shaft",
       "kind": "tube",
-      "material": "red_paint",
+      "material": "red",
+      "sides": 8,
       "path": [
         [
+          7,
           0,
           0,
+          0.85
+        ],
+        [
+          18.5,
           0,
-          0.5
+          0,
+          0.7
+        ]
+      ]
+    },
+    {
+      "id": "hook",
+      "kind": "tube",
+      "material": "red",
+      "sides": 8,
+      "path": [
+        [
+          18,
+          0,
+          0,
+          0.7
         ],
         [
           21,
           0,
           0,
-          0.5
-        ]
-      ],
-      "sides": 8
-    },
-    {
-      "id": "grip",
-      "kind": "tube",
-      "material": "bare_steel",
-      "path": [
-        [
-          0,
-          0,
-          0,
-          0.62
+          0.65
         ],
         [
-          10,
+          22.8,
           0,
-          0,
-          0.62
+          1,
+          0.6
         ]
-      ],
-      "sides": 8
+      ]
     },
     {
       "id": "claw",
       "kind": "tube",
-      "material": "bare_steel",
+      "material": "steel",
+      "sides": 8,
       "path": [
         [
-          20,
+          22.5,
           0,
-          0,
-          0.5
+          0.8,
+          0.6
         ],
         [
-          24,
+          23.8,
           0,
-          0,
-          0.5
-        ],
-        [
-          26,
-          0,
-          2.2,
+          2.8,
           0
         ]
-      ],
-      "sides": 8
+      ]
     }
   ]
 }

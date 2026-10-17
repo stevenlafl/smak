@@ -1,0 +1,168 @@
+{
+ "kind": "weapons",
+ "subject": "9mmhandgun",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.886,
+   "left/right": 0.962,
+   "top/below": 0.888
+  },
+  "size": {
+   "original": [
+    14.8,
+    9.5,
+    2.8
+   ],
+   "reproduction": [
+    14.7,
+    9.6,
+    3
+   ],
+   "offShare": [
+    0.007,
+    0.015,
+    0.057
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 5.1,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 4.7,
+     "shared": 0.891
+    },
+    {
+     "view": "left",
+     "deltaE": 6.9,
+     "shared": 0.965
+    },
+    {
+     "view": "back",
+     "deltaE": 5.4,
+     "shared": 0.89
+    },
+    {
+     "view": "right",
+     "deltaE": 5.4,
+     "shared": 0.965
+    },
+    {
+     "view": "top",
+     "deltaE": 5.2,
+     "shared": 0.893
+    },
+    {
+     "view": "below",
+     "deltaE": 5.5,
+     "shared": 0.893
+    },
+    {
+     "view": "front-left",
+     "deltaE": 4.6,
+     "shared": 0.913
+    },
+    {
+     "view": "front-right",
+     "deltaE": 4,
+     "shared": 0.913
+    },
+    {
+     "view": "back-left",
+     "deltaE": 5.2,
+     "shared": 0.922
+    },
+    {
+     "view": "back-right",
+     "deltaE": 4.1,
+     "shared": 0.919
+    }
+   ]
+  },
+  "triangles": {
+   "original": 88,
+   "reproduction": 96
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "D",
+  "right": "D",
+  "letters": {
+   "A": "models/w_357.mdl",
+   "B": "models/w_shotgun.mdl",
+   "C": "models/w_rpg.mdl",
+   "D": "models/w_9mmhandgun.mdl",
+   "E": "models/w_crowbar.mdl",
+   "F": "models/w_crossbow.mdl"
+  },
+  "answer": "D",
+  "ended": "success"
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Measured silhouette overlap is 0.886 to 0.962 in every view, above the 0.80 line, but the outline differs and a part is missing. The original's three serrated ribs on the slide's rear top stick out in the top view (lower left), the below view (upper left) and the first-person view. The reproduction's slide is a plain slab there. In compare-sides the original's left view has a step where the slide meets the frame near the front, which the reproduction's straight top edge lacks. The front view's taper from the narrow slide to the wider grip is a uniform bar in the reproduction."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 14.7 x 9.6 x 3.0 against the original's 14.8 x 9.5 x 2.8, so every dimension is within 10% (the thickness is 7% over)."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original's small parts are the three horizontal serrations on the slide's rear top (top view, lower left; below view, upper left; front-right angle; first-person view near the top of the slide), the front sight block, the thin trigger-guard frame and the grip's taper. The reproduction has no serrations at all, and that is a small part missing, so M3 is at most 1. The front sight block, hammer block, bore, trigger guard and grip are present in the right places."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured colour difference is 5.1 (CIE76) on average, under 15, and every view is between 4.0 and 6.9. Both are the same gunmetal grey with dark grip and slide, and the first-person pictures show the same tones once the grain is set aside."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original's slide grooves, the serrations, the edge highlights on the slide and the panel lines of the frame are missing. The reproduction's texture is coarser and blockier, with the grain and streaks of the slide absent. Both are surface detail, so this is a 1, not a fault in shape."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Beside the original in the first-person and in-hand pictures, the reproduction reads as a plausible grey pistol but a clearly different one: its slide is a flat slab with blocky, noisy texture and no serrations, and its frame looks boxy. A player would see that it is not the original's model."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The muzzle, bore and sight are on the same side in all six views and in the angle views, so the front is the original's front. The pistol stands upright in the top and below views, and the orientation matches. Its origin could not be checked from the pictures, so this is scored on what can be seen."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's check reports no errors. Triangles are 96 against the original's 88, well under twice. The side and angle views show a closed, solid model, with nothing open, inside out or floating."
+  },
+  "W1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "In the first-person view the reproduction sits where the original does, in the same hand, the same way round, grip and slide in the same place. Through the attack frames (2 to 14 of 14) it rises and recoils with the hand and stays in it."
+  }
+ },
+ "total": 14,
+ "of": 18,
+ "passes": false
+}

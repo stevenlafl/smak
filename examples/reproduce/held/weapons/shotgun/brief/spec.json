@@ -10,155 +10,194 @@
     "size": "own",
     "rig": "nearest"
   },
-  "finish": {
-    "light": 0.3,
-    "wear": 0.15,
-    "grime": 0.1,
-    "vary": 0.05
-  },
   "materials": {
-    "blued": {
-      "base": "metal",
-      "tone": "black"
+    "black": {
+      "base": "steel",
+      "tone": [
+        0.14,
+        0.14,
+        0.15
+      ]
     },
-    "walnut": {
+    "wood": {
       "base": "darkwood",
-      "tone": "very dark brown"
-    },
-    "pump": {
-      "base": "darkwood",
-      "tone": "very dark brown"
-    },
-    "rubber": {
-      "base": "leather",
-      "tone": "black"
+      "tone": [
+        0.36,
+        0.22,
+        0.12
+      ]
     }
   },
   "parts": [
     {
       "id": "stock",
-      "kind": "box",
-      "material": "walnut",
-      "size": [
-        9,
-        3.2,
-        4.2
-      ],
-      "at": [
-        4.5,
-        0,
-        4
-      ]
-    },
-    {
-      "id": "butt",
-      "kind": "box",
-      "material": "rubber",
-      "size": [
-        0.6,
-        3.4,
-        4.6
-      ],
-      "at": [
-        0.2,
-        0,
-        3.8
-      ]
-    },
-    {
-      "id": "receiver",
-      "kind": "box",
-      "material": "blued",
+      "kind": "superquadric",
+      "material": "wood",
       "size": [
         10,
-        3.6,
-        5.4
+        2.6,
+        5
+      ],
+      "round": [
+        0.3,
+        0.3
       ],
       "at": [
-        14,
+        5,
         0,
-        3.6
+        2.5
       ]
     },
     {
       "id": "grip",
       "kind": "box",
-      "material": "walnut",
+      "material": "black",
       "size": [
-        2.6,
-        2.6,
-        4.4
+        2.8,
+        2.4,
+        6.5
       ],
       "at": [
-        12,
+        9.4,
         0,
-        -0.4
+        0
+      ]
+    },
+    {
+      "id": "receiver",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        14,
+        3.4,
+        6.4
+      ],
+      "at": [
+        18,
+        0,
+        1.8
+      ],
+      "panels": [
+        {
+          "face": "right",
+          "at": [
+            8,
+            4.2
+          ],
+          "size": [
+            5,
+            2
+          ],
+          "style": "inset"
+        }
       ]
     },
     {
       "id": "barrel",
       "kind": "cylinder",
-      "material": "blued",
-      "radius": 1.1,
-      "height": 11,
-      "sides": 8,
+      "material": "black",
+      "radius": 1.15,
+      "height": 18.5,
+      "sides": 10,
       "rotate": [
         0,
         90,
         0
       ],
       "at": [
-        19,
+        11.5,
         0,
-        6.3
+        8.4
       ]
     },
     {
-      "id": "tube",
+      "id": "magazine",
       "kind": "cylinder",
-      "material": "blued",
-      "radius": 0.9,
-      "height": 15,
-      "sides": 8,
+      "material": "black",
+      "radius": 0.65,
+      "height": 14.5,
+      "sides": 6,
       "rotate": [
         0,
         90,
         0
       ],
       "at": [
-        14,
+        12.5,
         0,
-        4.4
+        6.6
       ]
     },
     {
-      "id": "forend",
-      "kind": "box",
-      "material": "pump",
+      "id": "pump",
+      "kind": "superquadric",
+      "material": "wood",
       "size": [
-        6,
-        4.4,
-        3.4
+        8,
+        3.6,
+        4.2
+      ],
+      "round": [
+        0.3,
+        0.3
       ],
       "at": [
-        23,
+        23.5,
         0,
-        2.4
+        3.2
+      ],
+      "bone": "Bone01"
+    },
+    {
+      "id": "front_sight",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        0.5,
+        0.5,
+        1.1
+      ],
+      "at": [
+        29,
+        0,
+        9.55
       ]
     },
     {
-      "id": "bead",
-      "kind": "box",
-      "material": "blued",
-      "size": [
-        1,
-        0.4,
-        0.8
+      "id": "trigger_guard",
+      "kind": "tube",
+      "material": "black",
+      "sides": 6,
+      "path": [
+        [
+          12.5,
+          0,
+          1.9,
+          0.3
+        ],
+        [
+          12.5,
+          0,
+          0.8,
+          0.3
+        ],
+        [
+          16,
+          0,
+          0.8,
+          0.3
+        ],
+        [
+          16,
+          0,
+          1.9,
+          0.3
+        ]
       ],
       "at": [
-        28.5,
         0,
-        7.4
+        0,
+        0
       ]
     }
   ]

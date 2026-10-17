@@ -14,8 +14,7 @@ import { runJudge, failedByMeasure } from "./agents.mjs";
 import { itemsOf, settle, combine, askScores, dryAnswer, band, MODEL_GUIDE } from "./scoring.mjs";
 import * as smak from "../../src/index.mjs";
 import { tile, render, framing } from "../../src/render.mjs";
-import { HANDS } from "../../src/fit.mjs";
-import { PROP_TRIANGLES } from "../../src/spec/model.mjs";
+import { PROP_TRIANGLES, HELD_SCALE } from "../../src/spec/model.mjs";
 import { measureSprite, againstClass, SPRITE_CLASSES } from "../../src/sprite/measure.mjs";
 import { sheetOf } from "../../src/sprite/draw.mjs";
 
@@ -145,17 +144,13 @@ function sizeOff(asked, size) {
 }
 
 /**
- * A weapon's size as it is drawn in first person, its hands left out: Valve's world models are drawn about twice
- * life size for small things (a Glock 15 units, the .357 28), so a brief's real length is held against the
- * first-person model (Steven, 2026-10-15). Valve's crowbar measures 25.7 there.
+ * A weapon's real length, read off the model another player holds (p_): the file Valve draws nearest life size,
+ * at HELD_SCALE.p of the real weapon (research/weapon-size.md; Steven, 2026-10-16: "can't you measure both").
+ * The first-person model is drawn with the hands and the camera's nearness, and its first frame may hold pieces
+ * apart from it (the .357's reload).
  */
-export function weaponSizeIn(src) {
-  const points = [];
-  smak.dropTriangles(src, (t) => {
-    if (!HANDS.test(t.tex ?? "")) points.push(...t.p);
-    return false;
-  }, POSE);
-  return [0, 1, 2].map((k) => Math.max(...points.map((p) => p[k])) - Math.min(...points.map((p) => p[k])));
+export function weaponSizeIn(p) {
+  return boxOf(p).size.map((v) => v / HELD_SCALE.p);
 }
 
 /** The median and third quartile of the triangles a list of models spends. */

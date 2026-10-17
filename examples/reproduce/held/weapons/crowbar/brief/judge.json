@@ -5,28 +5,81 @@
  "label": "crowbar, in the place of the game's models/v_crowbar.mdl, models/p_crowbar.mdl, models/w_crowbar.mdl",
  "measured": {
   "size": [
+   23.6,
    1.8,
-   3.2,
-   14.3
+   5.1
   ],
   "sizeAsked": {
    "long": 26
   },
-  "sizeOff": 0.449,
-  "triangles": 96,
+  "sizeOff": 0.091,
+  "triangles": 128,
   "halfLifeMedianOfItsKind": 142,
   "halfLifeThreeQuartersUnder": 187,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/w_satchel.mdl, models/w_357.mdl, models/w_grenade.mdl: the judge does not know which"
+  "lineup": "ours is one of A to D in lineup.png beside models/w_shotgun.mdl, models/w_9mmar.mdl, models/w_357.mdl: the judge does not know which"
  },
  "caps": {
-  "M2": 0,
+  "M2": 2,
   "M8": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "M2"
- ],
- "total": 0,
- "of": 18
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Side and top views show a long, round rod with one bend near the tip ending in a sharp point (sides.png, LEFT and TOP). A crowbar's outline has a flattened hooked claw at that end, which is missing. Across the views the rod reads more as a pry bar or spike than a crowbar, so the outline is clearly off, though the overall length and bend are close."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured length is 23.6 against the brief's 26, 9.1% short and inside the 15% band. The measured width (1.8) and height (5.1) are a thin rod's, and nothing in the brief gives them a size to test against."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Parts the brief implies: the shaft, the grip end (bare metal), the tip (bare metal), and the hooked claw at the working end of a crowbar, which is flattened and forked. The shaft and grip end are there, and the tip is grey. The claw is missing: the working end is a single tapered point (FRONT, BACK, FRONT-LEFT), not a claw. The round section and two ring seams are small extras, not required parts. A missing claw caps this at 1."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Red paint on the shaft and bare grey metal on the grip end and the tip, matching the brief's red-painted steel worn to bare metal where gripped and at the tips. The red and grey are distinct and read as paint and steel."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Wear is there: the grip is bare metal with light striations (sides.png LEFT, RIGHT), the tip is silver where it is worn (lineup D, in-hand.png), and the red paint has fine seams. Nothing the brief asks for is missing."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "In the line-up of dark, grimy Half-Life guns, the bright red and grey rod is the odd one out: smooth, flat-coloured and shaped like a pipe, unlike the game's weapons. A player would not take it for one of the game's."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The w_ model lies flat along its length in sides.png LEFT, RIGHT and TOP, with nothing sticking up or sinking through. The brief names no front, so the front cannot be checked against it. Nothing in the pictures is clearly off."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "checkErrors is empty. 128 triangles is under the limit of 284 (twice Half-Life's median of 142 for its kind, which is the larger bound)."
+  },
+  "W1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "In first-person.png the bar sits in about the same place and angle as the game's own crowbar, and the bent end points the same way. But the head is a bent point, not the claw, and the grip is out of frame. In attack.png the bar leaves the view in frames 1, 2, 6 and 7, and frame 3 shows a flat red wedge with a dark shape at its base, so it does not clearly stay in the hands through the swing."
+  }
+ },
+ "total": 14,
+ "of": 18,
+ "passes": false
 }

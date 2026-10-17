@@ -1,0 +1,284 @@
+{
+  "spec": "smak.model/1",
+  "name": "9mmhandgun.mdl",
+  "kind": "held",
+  "weapon": {
+    "like": "9mmhandgun"
+  },
+  "size": {
+    "length": 14.8
+  },
+  "prefabs": {
+    "pistol": {
+      "spec": "smak.model/1",
+      "name": "pistol.mdl",
+      "kind": "piece",
+      "materials": {
+        "slide": {
+          "base": "steel",
+          "seen": [
+            0.42,
+            0.42,
+            0.43
+          ]
+        },
+        "frame": {
+          "base": "metal",
+          "seen": [
+            0.28,
+            0.28,
+            0.29
+          ]
+        }
+      },
+      "parts": [
+        {
+          "id": "slide",
+          "kind": "box",
+          "material": "slide",
+          "size": [
+            14.35,
+            2.8,
+            1.8
+          ],
+          "at": [
+            7.625,
+            0,
+            -1.8
+          ]
+        },
+        {
+          "id": "dustcover",
+          "kind": "box",
+          "material": "slide",
+          "size": [
+            14,
+            2.5,
+            1.1
+          ],
+          "at": [
+            7.8,
+            0,
+            -2.85
+          ]
+        },
+        {
+          "id": "grip",
+          "kind": "box",
+          "material": "frame",
+          "size": [
+            5.1,
+            2.4,
+            7.4
+          ],
+          "rotate": [
+            0,
+            185,
+            0
+          ],
+          "at": [
+            3.3,
+            0,
+            -1.9
+          ]
+        },
+        {
+          "id": "grip_core",
+          "kind": "box",
+          "material": "frame",
+          "texels": 0.25,
+          "size": [
+            4.3,
+            1.8,
+            7
+          ],
+          "rotate": [
+            0,
+            185,
+            0
+          ],
+          "at": [
+            3.3,
+            0,
+            -1.9
+          ]
+        },
+        {
+          "id": "grip_core2",
+          "kind": "box",
+          "material": "frame",
+          "texels": 0.25,
+          "size": [
+            3.9,
+            1.6,
+            6.6
+          ],
+          "rotate": [
+            0,
+            185,
+            0
+          ],
+          "at": [
+            3.3,
+            0,
+            -2
+          ]
+        },
+        {
+          "id": "guard_bar",
+          "kind": "box",
+          "material": "frame",
+          "size": [
+            3.8,
+            1.3,
+            0.6
+          ],
+          "at": [
+            7.1,
+            0,
+            -5.45
+          ]
+        },
+        {
+          "id": "guard_front",
+          "kind": "box",
+          "material": "frame",
+          "size": [
+            0.55,
+            1.3,
+            2.9
+          ],
+          "rotate": [
+            0,
+            12,
+            0
+          ],
+          "at": [
+            8.65,
+            0,
+            -5.45
+          ]
+        },
+        {
+          "id": "trigger",
+          "kind": "box",
+          "material": "slide",
+          "size": [
+            0.4,
+            0.4,
+            2.3
+          ],
+          "rotate": [
+            0,
+            195,
+            0
+          ],
+          "at": [
+            7.1,
+            0,
+            -2.6
+          ]
+        }
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "pistol",
+      "kind": "prefab",
+      "prefab": "pistol",
+      "rotate": [
+        180,
+        0,
+        -90
+      ],
+      "at": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "project": [
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "top",
+      "area": [
+        512,
+        512,
+        1024,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "below",
+      "area": [
+        1024,
+        512,
+        1536,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "front",
+      "area": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "left",
+      "area": [
+        512,
+        0,
+        1024,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "back",
+      "area": [
+        1024,
+        0,
+        1536,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "right",
+      "area": [
+        0,
+        512,
+        512,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/front-left.png",
+      "yaw": 35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/front-right.png",
+      "yaw": -35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-left.png",
+      "yaw": 145,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-right.png",
+      "yaw": 215,
+      "pitch": 20
+    }
+  ]
+}

@@ -287,7 +287,7 @@ async function judgeBrief(kind, s, built, { decoy, from = s } = {}) {
     savePng(join(dir, "first-person.png"), besides([mine.still, firstPerson(game(s.files[0])).still]));
     savePng(join(dir, "attack.png"), mine.attack);
     savePng(join(dir, "in-hand.png"), render(readModel(join(built, basename(from.files[1]))), { seq: 0, frame: 0, yaw: 35, pitch: 20, width: 384, height: 384 }));
-    const r = await judgeModelAgainstBrief("weapon", label, copy, dir, { brief, asked, list, sizeFrom: weaponSizeIn(v), extraPictures: `, ${dir}/first-person.png (its first-person view left, the game's own of this weapon right, for where it sits in the hands), ${dir}/attack.png (its attack frame by frame) and ${dir}/in-hand.png (the model another player holds); sides.png and lineup.png show the w_ model` });
+    const r = await judgeModelAgainstBrief("weapon", label, copy, dir, { brief, asked, list, sizeFrom: weaponSizeIn(readModel(join(built, basename(from.files[1])))), extraPictures: `, ${dir}/first-person.png (its first-person view left, the game's own of this weapon right, for where it sits in the hands), ${dir}/attack.png (its attack frame by frame) and ${dir}/in-hand.png (the model another player holds); sides.png and lineup.png show the w_ model` });
     return { kind, subject: s.id, leg: decoy ? `decoy: brief ${decoy}` : "brief", ...r };
   }
   const motionOf = (name) => strip(copy, { seq: animation(copy, new RegExp(`^${name}`)), count: 8, cols: 4, view: "side", ground: true, width: 192, height: 192 });

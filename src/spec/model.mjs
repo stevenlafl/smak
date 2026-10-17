@@ -2362,11 +2362,12 @@ const WEAPON_VIEWS = { v: { shrink: 1, what: "first person" }, p: { shrink: 2, w
  * Returns [{ name, mdl, view }]; what each became goes in the report.
  */
 /**
- * How long a first-person (v_) weapon is drawn against its world (w_) model: the median of Half-Life's 13
- * weapons that have both (0.29 for the RPG to 0.97 for the MP5; research/held-reproduction-failures.md, Table
- * 3a). Used where the file's own weapon may not be measured (a blind test's hidden original).
+ * How long Valve draws a weapon in each of its files against the real weapon (research/weapon-size.md): the
+ * median of Half-Life's seven of known real length (the Glock, the Python, the MP5, the SPAS-12, the crossbow,
+ * the RPG, a crowbar). In the hands near life size; in the world larger, so that a pickup reads on the floor.
+ * A weapon built at its real length (`size: "own"`) is laid in each file at that file's share.
  */
-const V_TO_W = 0.56;
+export const HELD_SCALE = { v: 1.24, p: 0.82, w: 1.81 };
 
 function weaponViews(spec, meshes, { folder, games, report, hide = [] }) {
   const { like, views = ["v", "p", "w"], size = "old", rig = "carry", turn } = spec.weapon;
@@ -2426,9 +2427,10 @@ function weaponViews(spec, meshes, { folder, games, report, hide = [] }) {
     for (const [j, model] of part.models.entries()) {
       if (!weaponTris(model)) continue;
       try {
-        // a hidden file's weapon lends nothing of its own shape: the piece keeps the size it was built at, and in
-        // first person the size the game's own weapons are drawn at against their world models (V_TO_W)
-        const shown = hidden(fileName) && view === "v" ? { ...inView, tris: inView.tris.map((t) => t.map((c) => ({ ...c, p: c.p.map((v) => v * V_TO_W) }))) } : inView;
+        // at its own size (asked for, or a hidden file's, whose weapon lends nothing of its shape) the piece is the
+        // real weapon, laid in each file at the size Valve draws a weapon there against the real one (HELD_SCALE)
+        const own = hidden(fileName) || size === "own";
+        const shown = own ? { ...inView, tris: inView.tris.map((t) => t.map((c) => ({ ...c, p: c.p.map((v) => v * HELD_SCALE[view]) }))) } : inView;
         const swapped = swapMesh(mdl, { body: j * part.base, bodypart, piece: shown, texture, size: hidden(fileName) ? "own" : size, turn: typeof turn === "object" && turn ? turn[view] : turn, name: fileName });
         mdl = swapped.mdl;
         const r = swapped.report;

@@ -1,35 +1,25 @@
-The pistol model builds **OK**, with every check passed. I haven't run it in the game, since I can't launch Half-Life here. The pictures are the only look I've had at it.
+The build says OK. The pistol is in `work:9mmhandgun_weapon/`, with the three files named as the game's own.
 
 **What I made**
 
-- **Spec:** `9mmhandgun.mdl`, kind `held`, with `weapon: { like: "9mmhandgun" }`. Its spec is at `work:9mmhandgun.spec.json`.
-- **Model:** 116 triangles in eight parts, all built from boxes plus one short barrel cylinder:
-  - Slide: dark grey steel, with an ejection-port panel on each side.
-  - Barrel: steel, out the front of the slide.
-  - Frame: black polymer, under the slide.
-  - Grip: black polymer, with a steel magazine base below it.
-  - Trigger guard: black polymer, a solid block under the frame.
-  - Front and rear sights: steel.
-- **Materials:** the slide and small parts use the steel base, and the polymer parts use a black paint.
-- **Size:** I gave no size, so the default applies and the weapon is stretched to the length of Valve's own.
+A 9mm pistol with a steel slide, barrel and sights, and a black polymer frame and grip, lying along +x with the grip at the rear. Its size is 7.6 units long, about the length of the game's pistol. The model is 108 triangles, and I used a 512 x 256 picture. The spec is `work:9mmhandgun.json`.
 
-**What's in the mod folder**
+| File | Where | What it is |
+| --- | --- | --- |
+| `v_9mmhandgun.mdl` | `work:9mmhandgun_weapon/` | First-person view, with the game's hands and animations kept |
+| `p_9mmhandgun.mdl` | `work:9mmhandgun_weapon/` | The pistol in another player's hands |
+| `w_9mmhandgun.mdl` | `work:9mmhandgun_weapon/` | The pistol lying in the world |
+| `9mmhandgun.mdl` | `work:` | The new pistol built on its own, as a plain model |
 
-Three files are written to `work:9mmhandgun_weapon/`, named as the game names its own:
+To use it, copy the three files in `9mmhandgun_weapon/` into the mod's `models` folder. They keep the game's names, so the game loads them in place of its own with no code. The plain `9mmhandgun.mdl` is not needed for that.
 
-- `v_9mmhandgun.mdl` (first person, with the game's hands and animations)
-- `p_9mmhandgun.mdl` (in another player's hands)
-- `w_9mmhandgun.mdl` (lying in the world)
+**How I made it**
 
-To use them, copy the three into the mod's `models` folder so they replace the game's files of the same names. The game loads them with no code changes. The texture is inside each `.mdl`.
+I wrote the spec with `size: "own"`, so the model is built at the pistol's real length rather than stretched to the game's. The first build passed but warned that the barrel's 48 triangles were over the 24 Valve spends on a piece that small. I changed the barrel to 6 sides, and the rebuild had no warnings.
 
-**Whether it is at least as good**
+**Where it may fall short**
 
-I don't think it is, yet. The fit is right: the hands and animations are the game's, and the proportions read as a pistol from the side and the back. But it is blocky. It has no trigger, hammer or slide serrations, the grip is a plain box, and the paint is flat, so it will look cruder than Valve's detailed model up close.
+- It is simple. The grip is a plain box, and there is no trigger, hammer, ejection port or checkering. The game's first-person model has 523 to 832 triangles with its arms, so the game's own may read as more detailed.
+- I could not put the game's own pistol beside it in this kit. The render tool refuses paths outside the work and models folders, so the comparison is for the modder to make in the game.
 
-If they want it to match, the next step is a more detailed pass: a trigger, a hammer, slide serrations and a grip texture. That will raise the triangle count, which is still well inside Valve's range for a held weapon. I can make that change if you want it.
-
-**Other notes**
-
-- The second build's report said "nothing changed" and "8 parts are where they were", but I had moved the barrel down so it sits on the frame. The report's wording was wrong there; the geometry is what the build reports above.
-- The build also noted that the trigger guard, front sight and rear sight are thin boxes that could be paint instead. I left them as boxes.
+The modder will need to judge whether it is at least as good as the game's pistol.

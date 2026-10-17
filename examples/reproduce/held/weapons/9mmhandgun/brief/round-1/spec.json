@@ -1,0 +1,171 @@
+{
+  "spec": "smak.model/1",
+  "name": "9mmhandgun.mdl",
+  "kind": "held",
+  "weapon": {
+    "like": "9mmhandgun"
+  },
+  "materials": {
+    "slide": {
+      "base": "steel",
+      "tone": "dark grey"
+    },
+    "polymer": {
+      "base": "paint",
+      "tone": "black"
+    }
+  },
+  "parts": [
+    {
+      "id": "frame",
+      "kind": "box",
+      "material": "polymer",
+      "size": [
+        16,
+        3.4,
+        3.2
+      ],
+      "at": [
+        8,
+        0,
+        -3.2
+      ]
+    },
+    {
+      "id": "slide",
+      "kind": "box",
+      "material": "slide",
+      "size": [
+        17,
+        3.6,
+        2.8
+      ],
+      "at": [
+        8.5,
+        0,
+        0
+      ],
+      "panels": [
+        {
+          "face": "left",
+          "at": [
+            9.5,
+            1.5
+          ],
+          "size": [
+            3.5,
+            0.9
+          ],
+          "style": "inset",
+          "material": "polymer"
+        },
+        {
+          "face": "right",
+          "at": [
+            9.5,
+            1.5
+          ],
+          "size": [
+            3.5,
+            0.9
+          ],
+          "style": "inset",
+          "material": "polymer"
+        }
+      ]
+    },
+    {
+      "id": "barrel",
+      "kind": "cylinder",
+      "material": "slide",
+      "radius": 0.9,
+      "height": 8,
+      "sides": 8,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        12,
+        0,
+        0.9
+      ]
+    },
+    {
+      "id": "grip",
+      "kind": "box",
+      "material": "polymer",
+      "size": [
+        6.5,
+        3.2,
+        7
+      ],
+      "at": [
+        6.25,
+        0,
+        -7
+      ]
+    },
+    {
+      "id": "magazine",
+      "kind": "box",
+      "material": "slide",
+      "size": [
+        5.6,
+        2.8,
+        1
+      ],
+      "at": [
+        6.25,
+        0,
+        -8
+      ]
+    },
+    {
+      "id": "guard",
+      "kind": "box",
+      "material": "polymer",
+      "size": [
+        4,
+        0.8,
+        1
+      ],
+      "at": [
+        11,
+        0,
+        -4
+      ]
+    },
+    {
+      "id": "front_sight",
+      "kind": "box",
+      "material": "slide",
+      "size": [
+        0.8,
+        0.8,
+        0.8
+      ],
+      "at": [
+        16,
+        0,
+        2.8
+      ]
+    },
+    {
+      "id": "rear_sight",
+      "kind": "box",
+      "material": "slide",
+      "size": [
+        1.2,
+        3.6,
+        0.6
+      ],
+      "at": [
+        1.5,
+        0,
+        2.8
+      ]
+    }
+  ]
+}

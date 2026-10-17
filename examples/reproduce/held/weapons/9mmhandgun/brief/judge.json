@@ -5,17 +5,17 @@
  "label": "9mmhandgun, in the place of the game's models/v_9mmhandgun.mdl, models/p_9mmhandgun.mdl, models/w_9mmhandgun.mdl",
  "measured": {
   "size": [
-   20.9,
-   5.9,
-   21.4
+   8.4,
+   1.4,
+   7.6
   ],
   "sizeAsked": null,
   "sizeOff": null,
-  "triangles": 116,
+  "triangles": 108,
   "halfLifeMedianOfItsKind": 142,
   "halfLifeThreeQuartersUnder": 187,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/w_satchel.mdl, models/w_grenade.mdl, models/w_357.mdl: the judge does not know which"
+  "lineup": "ours is one of A to D in lineup.png beside models/w_grenade.mdl, models/w_satchel.mdl, models/w_357.mdl: the judge does not know which"
  },
  "caps": {
   "M2": 2,
@@ -26,58 +26,58 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Against the brief's 9mm pistol, the w_ outline in sides.png reads as a slab with a short cylinder at one end (LEFT, BACK, RIGHT). The angled grip is only hinted at by an offset block (TOP, BELOW), and no trigger guard or pistol profile shows. The first-person view (first-person.png, left) reads more like a pistol than the w_ model does."
+   "reason": "Top and below views give a pistol-like L (long grey slide, black arm), but the front, back, left and right views are a thin flat bar about 1.4 thick with no grip hanging below the slide. A standing 9mm pistol's outline is not there in the side views."
   },
   "M2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The brief gives no size, so there is nothing to hold the measured [20.9, 5.9, 21.4] against within 15%. The proportions are doubtful for a sidearm: in FRONT and LEFT the body is about three times as long as it is tall, while the measured height is about equal to the length."
+   "reason": "The brief gives no length (sizeAsked null, sizeOff null), so the harness had no size to hold it to. Nothing confirms the 8.4 x 1.4 x 7.6 units as a pistol's scale, and the flat side views do not show a pistol's height."
   },
   "M3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Parts a 9mm pistol needs: slide, barrel, frame and grip, trigger guard, trigger, magazine, front and rear sights. The asset has a block body, a grey cap block, a black offset block that may be the grip, and a stub at one end. The trigger guard, a clear magazine and the sights are missing, so M3 is capped at 1. The p_ model (in-hand.png) shows no trigger guard either."
+   "reason": "The grey slide and a black frame block are there. The trigger guard, trigger and magazine are not visible in any view, and a small hex fitting on the back view is unexplained. Small parts are missing, so M3 is capped at 1."
   },
   "M4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Black and grey, as the brief asks: dark near-black blocks (grip/slide body in FRONT-LEFT and BACK-LEFT) with lighter grey panels and a grey stub. Reads as polymer and steel. No measured colour difference supplied, so judged by eye."
+   "reason": "Light grey metal on the slide and near-black on the frame match the brief's black and grey polymer and steel. Nothing in the colour or material reads wrong."
   },
   "M5": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The brief asks for no markings. The asset has one dark side slot in RIGHT and FRONT-RIGHT and a light bevel band. It has no slide serrations, grip texture or ejection port, which a 9mm pistol would normally show. M5 is not a must-have item."
+   "score": 2,
+   "reason": "The brief asks for no markings. The fine serrations on the grey slide and the small pieces at the ends add nothing wrong."
   },
   "M6": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "In lineup.png the asset (A) is a dark block with grey caps, and a player would not take it for a 9mm pistol. The first-person view (first-person.png, left) is closer to a pistol, so it is not a plain box, but the w_ model is clearly off next to the .357 (C) and the grenade (D)."
+   "reason": "In the line-up (A) it is a flat grey and black block with no recognisable pistol form, and it sits clearly apart from the grenade, the .357 and the satchel. A player would not take it for one of the game's."
   },
   "M7": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The brief names no front, and the w_ model lies on its side in FRONT and LEFT. Nothing in the views shows which end is the front or that it stands on its origin as a pistol lies, so this cannot be confirmed. The first-person model points up and forward as the game's does."
+   "reason": "The model lies flat, with its thin axis vertical in the front and side views, rather than standing upright as a pistol does. The front is not clearly identifiable."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "SMAK's check passed with no errors. The asset has 116 triangles, under twice Half-Life's median of its kind (142, so 284 is the limit). Nothing visible is open, inside out or clearly floating, though the separate blocks in TOP and BELOW are not fully checkable from pictures."
+   "reason": "checkErrors is empty. At 108 triangles it is well under twice the Half-Life median of 142 (284) and under the three-quarter mark of 187."
   },
   "W1": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "At rest in first-person.png the asset sits where the game's pistol does, roughly on the same screen spot and the same way round, with its grip in the orange hand. In attack.png frame 2/14 the gun swings up and out while the hand stays low, so the grip looks like it lifts clear of the hand. Frames 4 to 14 hold it in place."
+   "reason": "In first-person the gun sits roughly where the game's sits, over the right hand's position. It reads as a block resting on the hand rather than gripped, and in the attack frames 0 and 8 it looks shrunken and shifted. It does not clearly leave the hand, but the way round and the hold are not convincing."
   }
  },
- "total": 11,
+ "total": 12,
  "of": 18,
  "passes": false
 }

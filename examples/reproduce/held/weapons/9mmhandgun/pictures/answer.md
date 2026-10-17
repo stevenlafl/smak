@@ -1,16 +1,16 @@
-The build says OK on the last run (every check passed), and all three files are written. It's the Glock-style pistol: slide, frame under the barrel, raked grip, trigger guard and trigger. It's fitted into the game's v_, p_ and w_ 9mmhandgun files, which keep their own hands, bones and animations.
+The model is built and the build says **OK**, with three warnings I did not clear. It is not yet as close to the original as you asked, mainly because it is too large in first person.
 
-- **Spec:** `work:9mmhandgun.spec.json` (model `work:9mmhandgun.mdl`)
-- **Game files:** `work:9mmhandgun_weapon/v_9mmhandgun.mdl`, `p_9mmhandgun.mdl`, `w_9mmhandgun.mdl`
+**What's there**
+- Spec: `work:9mmhandgun.json`, a `held` model named `9mmhandgun.mdl` with `weapon: { like: "9mmhandgun" }`.
+- Built files: `work:9mmhandgun_weapon/v_9mmhandgun.mdl`, `p_9mmhandgun.mdl` and `w_9mmhandgun.mdl`. They keep the game's hands, bones and animations.
+- Shape: one carved part, built from your six-sided sheet and the four angled pictures, at the 14.8 × 9.5 × 2.8 size. Its colours and markings are projected from the same pictures, so the metal look comes from the originals.
+- Front, left, back, right and top views line up with the reference sheet by eye. The world model (`w_`) and three-quarter views read as the same gun.
 
-**How it matches the original:**
-- **Size:** 14.7 long, 9.5 wide, 2.8 high, against the original's 14.8, 9.5 and 2.8. The parts' sizes come from measuring sides.png (about 26.4 pixels a unit).
-- **Colours and markings:** all ten of your pictures (the six sides and four angles) are laid onto the shape as its texture. That carries over the slide's stripes, the rear serrations, the stippled grip and the black muzzle bore. To make that work, I built the gun in the world model's own pose (muzzle toward -x, grip toward +y) so each picture lines up with its camera.
-- **Views:** the in-hand (p_) view lines up with in-hand.png almost exactly. In first person it sits in the same place in the hand, pointing up and to the left, through the whole shoot animation. The world (w_) views match sides.png and the four angles in pose and outline.
+**What's not right**
+- **First person is about twice the reference size.** The reference gun is roughly half the length it appears in my `v_` render. The fix is to build at the real pistol length (`weapon.size: "own"`), but I could not get a clean shape at that size. At 8 to 11 units the carve came out as a wedge with the slide lost. I reverted to the 14.8 version, which is clean.
+- **Warnings still open:** the side outlines are 0.72 to 0.79 against the pictures (the build wants 0.8 or more). The carve also drops the thin trigger guard and hammer, which I did not rebuild as separate parts.
+- **Triangle count is 88**, from a single carved part. That is well under the weapon budget, but it means no separate slide, barrel or trigger.
 
-**Where it falls short, or has extras:**
-- **Hidden grip boxes:** the fit turned the world model about 6° off from the original no matter how I turned the spec. It follows the shape's overall mass, and putting two boxes inside the grip corrected it. They can't be seen, but they cost 24 triangles, so the gun is 96 triangles against the original world model's 76.
-- **World model texture:** the build always gives the w_ file a 64x64 texture, and setting a larger one in the spec didn't change it. So the lying-in-the-world gun looks blockier than the original, which used several larger textures.
-- **First-person colour:** the first-person gun uses the same pictures, which come from the world model. It comes out a bit lighter grey than the original's darker first-person texture, and looks slightly smaller there.
-- **Grip shape:** the grip is a box tilted 5°, so its bottom edge leans about half a unit where the original's runs straight. It also has no chamfer on the front bottom corner.
-- **A bug in the kit:** setting `"turn": "as drawn"` for the w_ file crashes the fit ("Cannot read properties of undefined (reading 'join')"), and the file is left as the game's own gun. The final spec doesn't use it.
+**Next step if you want it closer:** build the slide, barrel, grip and trigger guard as their own parts placed by eye, with `weapon.size: "own"`. That gives control over the first-person scale, and it is the route I'd take next. I have not done it yet.
+
+I did not run the build's `check` tool separately, and I did not compare the `p_` or `w_` pictures against the reference pixel by pixel.
