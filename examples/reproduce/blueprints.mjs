@@ -9,10 +9,9 @@
 //
 // Each house's folder: input/ (the drawings and photos, out of git), key.json (the answer, never shown to the
 // maker), and spec.json, answer.md, run.json, judge.json, built/ (the map, out of git) from a run.
-import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync, copyFileSync, rmSync, renameSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, copyFileSync, rmSync } from "node:fs";
 import { join, basename } from "node:path";
-import { execFileSync } from "node:child_process";
-import { HERE, GAME, SDHLT, savePng } from "./lib.mjs";
+import { HERE, GAME, SDHLT, savePng, kitCommit, keepRound, filesOf } from "./lib.mjs";
 import { runAgent, runJudge, failedByMeasure } from "./agents.mjs";
 import { floorOf, alignMaps, entitiesOf } from "./judge.mjs";
 import * as smak from "../../src/index.mjs";
@@ -48,13 +47,11 @@ async function make(house) {
   const dir = join(ROOT, house);
   if (existsSync(join(dir, "run.json")) && !again) return `${house}: made before (--again)`;
   if (existsSync(join(dir, "run.json"))) {
-    const n = readdirSync(dir).filter((f) => /^round-\d+$/.test(f)).length + 1;
-    mkdirSync(join(dir, `round-${n}`));
-    for (const f of ["spec.json", "answer.md", "run.json", "judge.json", "built"]) if (existsSync(join(dir, f))) renameSync(join(dir, f), join(dir, `round-${n}`, f));
+    keepRound(dir, { move: ["spec.json", "answer.md", "run.json", "judge.json", "built"] });
   }
   const given = givenOf(house);
   if (!given.length) return `${house}: no inputs (node examples/reproduce/blueprints/fetch.mjs first)`;
-  const kit = execFileSync("git", ["-C", HERE, "rev-parse", "--short", "HEAD"], { encoding: "utf8" }).trim();
+  const kit = kitCommit();
   const r = await runAgent({
     prompt: makePrompt(house, given),
     read: join(dir, "input"),
@@ -63,16 +60,8 @@ async function make(house) {
     hours: 4,
   });
   writeFileSync(join(dir, "answer.md"), `${r.answer.trim()}\n`);
-  const all = [];
-  const look = (d) => {
-    for (const e of readdirSync(d, { withFileTypes: true })) {
-      const p = join(d, e.name);
-      if (e.isDirectory()) look(p);
-      else all.push({ p, name: e.name, at: statSync(p).mtimeMs });
-    }
-  };
-  look(r.work);
-  const newest = (test) => all.filter((f) => test(f.name)).sort((a, b) => b.at - a.at)[0];
+  const { all, newest: newestOf } = filesOf(r.work);
+  const newest = (test) => newestOf((f) => test(f.name));
   const spec = newest((n) => n.endsWith(".spec.json"));
   if (spec) writeFileSync(join(dir, "spec.json"), readFileSync(spec.p));
   const built = join(dir, "built");

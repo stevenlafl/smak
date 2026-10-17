@@ -8,12 +8,11 @@
 // Each run leaves <id>/<leg>/: spec.json (its last spec), answer.md (what it said at the end), run.json
 // (time, turns, cost), and built/ (what it built: the .mdl, or the .bsp, .map and .wad), which is kept out of
 // git with the rest of what is made from the game.
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync, copyFileSync, existsSync, rmSync, renameSync } from "node:fs";
-import { execFileSync } from "node:child_process";
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, copyFileSync, existsSync, rmSync } from "node:fs";
 import { join, basename } from "node:path";
 import { tmpdir } from "node:os";
 import { mkdtempSync } from "node:fs";
-import { HERE, SUBJECTS, GAME, ANGLES } from "./lib.mjs";
+import { HERE, SUBJECTS, GAME, ANGLES, kitCommit, keepRound, filesOf } from "./lib.mjs";
 import { runAgent, MAKER_MODEL } from "./agents.mjs";
 
 const words = process.argv.slice(2);
@@ -150,12 +149,9 @@ async function runJob({ kind, subject, leg }) {
   if (existsSync(join(out, "run.json")) && !again) return `${subject.id}:${leg}: done before (--again to run it again)`;
   // the last round kept: its records and what it built, under round-<n>
   if (existsSync(join(out, "run.json"))) {
-    const n = readdirSync(out).filter((f) => /^round-\d+$/.test(f)).length + 1;
-    const keep = join(out, `round-${n}`);
-    mkdirSync(keep);
-    for (const f of ["spec.json", "answer.md", "run.json", "judge.json", "built"]) if (existsSync(join(out, f))) renameSync(join(out, f), join(keep, f));
+    const n = keepRound(out, { move: ["spec.json", "answer.md", "run.json", "judge.json", "built"] });
   }
-  const kit = execFileSync("git", ["-C", HERE, "rev-parse", "--short", "HEAD"], { encoding: "utf8" }).trim();
+  const kit = kitCommit();
   const job = kind === "model" ? modelPrompt(subject, leg) : mapPrompt(subject, leg);
   // the bsp leg's models folder holds the compiled map alone: a folder of its own, with that one file
   let models = null;
@@ -174,18 +170,10 @@ async function runJob({ kind, subject, leg }) {
   mkdirSync(out, { recursive: true });
   writeFileSync(join(out, "answer.md"), `${r.answer.trim()}\n`);
   // what it built: the newest spec, and the newest model or map with its files
-  const all = [];
-  const look = (dir) => {
-    for (const entry of readdirSync(dir, { withFileTypes: true })) {
-      const path = join(dir, entry.name);
-      if (entry.isDirectory()) look(path);
-      else all.push({ path, name: entry.name, at: statSync(path).mtimeMs });
-    }
-  };
-  look(r.work);
-  const newest = (test) => all.filter((f) => test(f.name)).sort((a, b) => b.at - a.at)[0];
+  const { newest: newestOf } = filesOf(r.work);
+  const newest = (test) => newestOf((f) => test(f.name));
   const spec = newest((n) => n.endsWith(".spec.json"));
-  if (spec) writeFileSync(join(out, "spec.json"), readFileSync(spec.path));
+  if (spec) writeFileSync(join(out, "spec.json"), readFileSync(spec.p));
   const built = join(out, "built");
   rmSync(built, { recursive: true, force: true });
   mkdirSync(built, { recursive: true });
@@ -193,7 +181,7 @@ async function runJob({ kind, subject, leg }) {
   if (kind === "model") {
     const mdl = newest((n) => n.endsWith(".mdl"));
     if (mdl) {
-      copyFileSync(mdl.path, join(built, `${subject.id}.mdl`));
+      copyFileSync(mdl.p, join(built, `${subject.id}.mdl`));
       kept.push(mdl.name);
     }
   } else
@@ -201,7 +189,7 @@ async function runJob({ kind, subject, leg }) {
       // the map under the name asked for first: an agent's probes and test rooms are newer, and are not it
       const file = newest((n) => n === `${subject.id}_copy${ext}`) ?? newest((n) => n.endsWith(ext));
       if (file) {
-        copyFileSync(file.path, join(built, `${subject.id}_copy${ext}`));
+        copyFileSync(file.p, join(built, `${subject.id}_copy${ext}`));
         kept.push(file.name);
       }
     }

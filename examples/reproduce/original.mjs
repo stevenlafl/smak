@@ -9,10 +9,9 @@
 //
 // The made files are the maker's, built over the game's own (the crowbar's and the headcrab's files): kept out
 // of git, as everything that holds the game's bones and animations is.
-import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync, copyFileSync, rmSync, renameSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync, copyFileSync, rmSync } from "node:fs";
 import { join, basename, dirname } from "node:path";
-import { execFileSync } from "node:child_process";
-import { HERE, GAME, SDHLT, POSE, readModel, savePng, besides } from "./lib.mjs";
+import { HERE, GAME, SDHLT, POSE, readModel, savePng, besides, kitCommit, keepRound, filesOf } from "./lib.mjs";
 import { runAgent } from "./agents.mjs";
 import { ownOfKind, judgeAgainstBrief, judgeModelAgainstBrief, weaponSizeIn } from "./brief.mjs";
 import { band } from "./scoring.mjs";
@@ -81,12 +80,9 @@ async function make() {
   const out = join(ROOT, "made");
   if (existsSync(join(ROOT, "run.json")) && !again) return console.log("made before (--again to make it again)");
   if (existsSync(join(ROOT, "run.json"))) {
-    const n = readdirSync(ROOT).filter((f) => /^round-\d+$/.test(f)).length + 1;
-    const keep = join(ROOT, `round-${n}`);
-    mkdirSync(keep);
-    for (const f of ["run.json", "answer.md", "specs", "made", "judge"]) if (existsSync(join(ROOT, f))) renameSync(join(ROOT, f), join(keep, f));
+    const n = keepRound(ROOT, { move: ["run.json", "answer.md", "specs", "made", "judge"] });
   }
-  const kit = execFileSync("git", ["-C", HERE, "rev-parse", "--short", "HEAD"], { encoding: "utf8" }).trim();
+  const kit = kitCommit();
   const r = await runAgent({ prompt: makePrompt(), server: { wads: true }, hours: 10 });
   writeFileSync(join(ROOT, "answer.md"), `${r.answer.trim()}\n`);
   const { found } = collect(r.work);
@@ -100,16 +96,7 @@ async function make() {
 function collect(work) {
   const out = join(ROOT, "made");
   // what it made: each file looked for, the newest of that path (or of that name) in the work folder; and its specs
-  const all = [];
-  const look = (dir) => {
-    for (const e of readdirSync(dir, { withFileTypes: true })) {
-      const p = join(dir, e.name);
-      if (e.isDirectory()) look(p);
-      else all.push({ p, rel: p.slice(work.length + 1), name: e.name, at: statSync(p).mtimeMs });
-    }
-  };
-  look(work);
-  const newest = (test) => all.filter(test).sort((a, b) => b.at - a.at)[0];
+  const { all, newest } = filesOf(work);
   rmSync(out, { recursive: true, force: true });
   mkdirSync(out, { recursive: true });
   const found = [];

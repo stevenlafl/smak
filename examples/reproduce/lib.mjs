@@ -1,7 +1,8 @@
 // What the reproduction harness shares: where things are, a model read with its textures, the cameras both an
 // original and its reproduction are drawn from, and the measurements the rubric names (M1 silhouette overlap,
 // M2 size, M4 colour difference, M8 triangles and check).
-import { readFileSync, existsSync, writeFileSync, mkdirSync } from "node:fs";
+import { readFileSync, existsSync, writeFileSync, mkdirSync, readdirSync, renameSync, copyFileSync, statSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { join, dirname } from "node:path";
 import { homedir } from "node:os";
 import { fileURLToPath } from "node:url";
@@ -205,4 +206,33 @@ export function fitness(src) {
   const triangles = posed(src, POSE).tris.length;
   const report = smak.check(src, "goldsrc");
   return { triangles, errors: report.errors, warnings: report.warnings.length };
+}
+
+// ── runs and rounds ────────────────────────────────────────────────────────
+
+/** The kit's commit, written into each run's record. */
+export const kitCommit = () => execFileSync("git", ["-C", HERE, "rev-parse", "--short", "HEAD"], { encoding: "utf8" }).trim();
+
+/**
+ * The round before a new one kept under <folder>/round-<n>: `move` taken there, `copy` copied (and left where they
+ * are, as a rebuild keeps the maker's own records). Returns n.
+ */
+export function keepRound(folder, { move = [], copy = [] }) {
+  const n = readdirSync(folder).filter((f) => /^round-\d+$/.test(f)).length + 1;
+  const keep = join(folder, `round-${n}`);
+  mkdirSync(keep);
+  for (const f of move) if (existsSync(join(folder, f))) renameSync(join(folder, f), join(keep, f));
+  for (const f of copy) if (existsSync(join(folder, f))) copyFileSync(join(folder, f), join(keep, f));
+  return n;
+}
+
+/** Every file under a folder ({ p, rel, name, at }), and `newest(test)`: the latest written of those `test` takes. */
+export function filesOf(folder) {
+  const all = readdirSync(folder, { recursive: true, withFileTypes: true })
+    .filter((e) => e.isFile())
+    .map((e) => {
+      const p = join(e.parentPath ?? e.path, e.name);
+      return { p, rel: p.slice(folder.length + 1), name: e.name, at: statSync(p).mtimeMs };
+    });
+  return { all, newest: (test) => all.filter(test).sort((a, b) => b.at - a.at)[0] };
 }

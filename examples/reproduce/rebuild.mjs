@@ -5,16 +5,15 @@
 //
 //   node examples/reproduce/rebuild.mjs subject:leg ...        models and maps (a map compiled with SDHLT)
 //   then: node examples/reproduce/judge.mjs subject:leg ... --again
-import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, renameSync, copyFileSync, mkdtempSync, statSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, copyFileSync, mkdtempSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import { execFileSync } from "node:child_process";
-import { HERE, SUBJECTS, GAME, SDHLT, STEAM } from "./lib.mjs";
+import { HERE, SUBJECTS, GAME, SDHLT, STEAM, kitCommit, keepRound, filesOf } from "./lib.mjs";
 import { toolsFor } from "../../mcp/tools.mjs";
 
 const asked = process.argv.slice(2).map((a) => a.split(":"));
 if (!asked.length) throw new Error("rebuild.mjs subject:leg ...: which legs to build again");
-const kit = execFileSync("git", ["-C", HERE, "rev-parse", "--short", "HEAD"], { encoding: "utf8" }).trim();
+const kit = kitCommit();
 
 for (const [id, leg] of asked) {
   const map = SUBJECTS.maps.find((m) => m.id === id);
@@ -38,20 +37,13 @@ for (const [id, leg] of asked) {
   const build = toolsFor({ work }, { allowRun: false }).find((tool) => tool.name === "build");
   const answer = await build.call({ spec: "work:spec.json" });
   const said = answer.filter((piece) => piece.type === "text").map((piece) => piece.text).join("\n");
-  const mdl = readdirSync(work, { recursive: true })
-    .filter((f) => String(f).endsWith(".mdl"))
-    .map((f) => join(work, String(f)))
-    .sort((a, b) => statSync(b).mtimeMs - statSync(a).mtimeMs)[0];
+  const mdl = filesOf(work).newest((f) => f.name.endsWith(".mdl"))?.p;
   if (!mdl) {
     console.log(`${id}:${leg}: the spec did not build: ${said.split("\n").slice(0, 3).join(" | ")}`);
     continue;
   }
   // the round before kept whole; the maker's own records copied into it, and left where they are
-  const n = readdirSync(out).filter((f) => /^round-\d+$/.test(f)).length + 1;
-  const keep = join(out, `round-${n}`);
-  mkdirSync(keep);
-  for (const f of ["judge.json", "built", "rebuilt.json"]) if (existsSync(join(out, f))) renameSync(join(out, f), join(keep, f));
-  for (const f of ["spec.json", "answer.md", "run.json"]) if (existsSync(join(out, f))) copyFileSync(join(out, f), join(keep, f));
+  const n = keepRound(out, { move: ["judge.json", "built", "rebuilt.json"], copy: ["spec.json", "answer.md", "run.json"] });
   mkdirSync(join(out, "built"));
   copyFileSync(mdl, join(out, "built", `${id}.mdl`));
   writeFileSync(join(out, "rebuilt.json"), `${JSON.stringify({ kit, from: `round-${n}`, at: new Date().toISOString(), ok: said.startsWith("OK") }, null, 1)}\n`);
@@ -78,17 +70,13 @@ async function rebuildMap(map, leg) {
   const folders = { work, models: null, wads: [GAME], compilers: existsSync(SDHLT) ? SDHLT : undefined, fgd, hide: [], refuse: [] };
   const build = toolsFor(folders, { allowRun: false }).find((tool) => tool.name === "build");
   const said = (await build.call({ spec: "work:spec.json" })).filter((piece) => piece.type === "text").map((piece) => piece.text).join("\n");
-  const all = readdirSync(work, { recursive: true }).map(String).map((f) => join(work, f));
-  const newest = (ext) => all.filter((f) => f.endsWith(ext)).sort((a, b) => statSync(b).mtimeMs - statSync(a).mtimeMs)[0];
+  const made = filesOf(work);
+  const newest = (ext) => made.newest((f) => f.name.endsWith(ext))?.p;
   if (!newest(".bsp")) {
     console.log(`${map.id}:${leg}: the spec did not compile: ${said.split("\n").slice(0, 3).join(" | ")}`);
     return;
   }
-  const n = readdirSync(out).filter((f) => /^round-\d+$/.test(f)).length + 1;
-  const keep = join(out, `round-${n}`);
-  mkdirSync(keep);
-  for (const f of ["judge.json", "built", "rebuilt.json"]) if (existsSync(join(out, f))) renameSync(join(out, f), join(keep, f));
-  for (const f of ["spec.json", "answer.md", "run.json"]) if (existsSync(join(out, f))) copyFileSync(join(out, f), join(keep, f));
+  const n = keepRound(out, { move: ["judge.json", "built", "rebuilt.json"], copy: ["spec.json", "answer.md", "run.json"] });
   mkdirSync(join(out, "built"));
   for (const ext of [".bsp", ".map", ".wad"]) if (newest(ext)) copyFileSync(newest(ext), join(out, "built", `${map.id}_copy${ext}`));
   writeFileSync(join(out, "rebuilt.json"), `${JSON.stringify({ kit, from: `round-${n}`, at: new Date().toISOString(), ok: said.startsWith("OK"), report: said.split("\n").slice(0, 12) }, null, 1)}\n`);

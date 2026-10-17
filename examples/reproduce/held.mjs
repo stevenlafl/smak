@@ -8,10 +8,9 @@
 //
 // held/<kind>/<id>/: input/ (Valve's pictures, out of git), words.md, <leg>/ (spec.json, answer.md, run.json,
 // judge.json; built/ out of git).
-import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync, copyFileSync, rmSync, renameSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, copyFileSync, rmSync } from "node:fs";
 import { join, basename } from "node:path";
-import { execFileSync } from "node:child_process";
-import { HERE, GAME, SIDES, ANGLES, readModel, boxOf, picturesOf, savePng, besides } from "./lib.mjs";
+import { HERE, GAME, SIDES, ANGLES, readModel, boxOf, picturesOf, savePng, besides, kitCommit, keepRound, filesOf } from "./lib.mjs";
 import { runAgent, runJudge, failedByMeasure } from "./agents.mjs";
 import { measureModel, lineup } from "./judge.mjs";
 import { itemsOf, settle, lowered, combine, askScores, MODEL_GUIDE } from "./scoring.mjs";
@@ -165,10 +164,7 @@ async function reproduce(kind, s, leg) {
   if (existsSync(join(out, "run.json")) && !again) return `${kind}/${s.id}:${leg}: done before`;
   // the last round kept: its records and what it built, under round-<n>
   if (existsSync(join(out, "run.json"))) {
-    const n = readdirSync(out).filter((f) => /^round-\d+$/.test(f)).length + 1;
-    const keep = join(out, `round-${n}`);
-    mkdirSync(keep);
-    for (const f of ["spec.json", "answer.md", "run.json", "judge.json", "built"]) if (existsSync(join(out, f))) renameSync(join(out, f), join(keep, f));
+    const n = keepRound(out, { move: ["spec.json", "answer.md", "run.json", "judge.json", "built"] });
   }
   const input = join(base, "input");
   const files = {};
@@ -178,21 +174,13 @@ async function reproduce(kind, s, leg) {
     given = `The original, in pictures: every file of ${input} (also in the server's work folder under pictures/): sides.png (front, left, back, right, top, below, each a 512-dot square of the sheet in that order, three across) and four close angles with no perspective, ${ANGLES.map(([n, yaw, pitch]) => `${n}.png (yaw ${yaw}, pitch ${pitch})`).join(", ")}. ${readFileSync(join(input, "facts.txt"), "utf8")}`;
   } else given = `The original, as someone who has seen it describes it:\n\n${readFileSync(join(base, "words.md"), "utf8")}`;
   const hidden = kind === "weapons" ? s.files : [s.file];
-  const kit = execFileSync("git", ["-C", HERE, "rev-parse", "--short", "HEAD"], { encoding: "utf8" }).trim();
+  const kit = kitCommit();
   // the words leg may be offered the local generators (--generators): a shape made from words, carved by no picture
   const r = await runAgent({ prompt: reproducePrompt(kind, s, given), read: leg === "pictures" ? input : null, server: { wads: true, games: s.root ? [s.root] : [], hide: hidden, refuse: hidden, ...(GENERATORS && leg === "words" ? { generators: GENERATORS } : {}) }, files, hours: 1.5 });
   mkdirSync(out, { recursive: true });
   writeFileSync(join(out, "answer.md"), `${r.answer.trim()}\n`);
-  const all = [];
-  const look = (dir) => {
-    for (const e of readdirSync(dir, { withFileTypes: true })) {
-      const p = join(dir, e.name);
-      if (e.isDirectory()) look(p);
-      else all.push({ p, name: e.name, at: statSync(p).mtimeMs });
-    }
-  };
-  look(r.work);
-  const newest = (test) => all.filter((f) => test(f.name)).sort((a, b) => b.at - a.at)[0];
+  const { all, newest: newestOf } = filesOf(r.work);
+  const newest = (test) => newestOf((f) => test(f.name));
   const spec = newest((n) => n.endsWith(".spec.json"));
   if (spec) writeFileSync(join(out, "spec.json"), readFileSync(spec.p));
   const built = join(out, "built");

@@ -15,11 +15,10 @@
 //
 // Each subject's folder under assets/<kind>/<id>/: input/ (the pictures: Valve's, kept out of git), words.md,
 // <leg>/ (spec.json, answer.md, run.json, built/ out of git), <leg>/judge.json. assets/scores.md: every result.
-import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync, copyFileSync, rmSync, mkdtempSync, renameSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync, copyFileSync, rmSync, mkdtempSync } from "node:fs";
 import { join, basename, dirname } from "node:path";
 import { tmpdir } from "node:os";
-import { execFileSync } from "node:child_process";
-import { HERE, KIT, GAME, savePng, besides } from "./lib.mjs";
+import { HERE, KIT, GAME, savePng, besides, kitCommit, keepRound, filesOf } from "./lib.mjs";
 import { runAgent, runJudge, failedByMeasure } from "./agents.mjs";
 import { toolsFor } from "../../mcp/tools.mjs";
 import { openFolders } from "../../mcp/folders.mjs";
@@ -229,10 +228,7 @@ async function reproduce(kind, subject, leg) {
   if (existsSync(join(out, "run.json")) && !again) return `${kind}/${subject.id}:${leg}: done before`;
   // the last round kept: its records and what it built, under round-<n>
   if (existsSync(join(out, "run.json"))) {
-    const n = readdirSync(out).filter((f) => /^round-\d+$/.test(f)).length + 1;
-    const keep = join(out, `round-${n}`);
-    mkdirSync(keep);
-    for (const f of ["spec.json", "answer.md", "run.json", "judge.json", "built", "takes"]) if (existsSync(join(out, f))) renameSync(join(out, f), join(keep, f));
+    const n = keepRound(out, { move: ["spec.json", "answer.md", "run.json", "judge.json", "built", "takes"] });
   }
   const input = join(base, "input");
   const files = {};
@@ -248,21 +244,13 @@ async function reproduce(kind, subject, leg) {
     models = mkdtempSync(join(tmpdir(), "smak-assets-map-"));
     copyFileSync(join(GAME, subject.file), join(models, basename(subject.file)));
   }
-  const kit = execFileSync("git", ["-C", HERE, "rev-parse", "--short", "HEAD"], { encoding: "utf8" }).trim();
+  const kit = kitCommit();
   const generators = kind === "sounds" ? GENERATORS : undefined;
   const r = await runAgent({ prompt: reproducePrompt(kind, subject, leg, given), read: leg === "pictures" ? input : null, server: { wads: false, models, generators, materials: kind === "textures" || kind === "sprites" ? MATERIALS : undefined }, files, hours: kind === "textures" ? 2 : 1 });
   mkdirSync(out, { recursive: true });
   writeFileSync(join(out, "answer.md"), `${r.answer.trim()}\n`);
-  const all = [];
-  const look = (dir) => {
-    for (const e of readdirSync(dir, { withFileTypes: true })) {
-      const p = join(dir, e.name);
-      if (e.isDirectory()) look(p);
-      else all.push({ p, name: e.name, at: statSync(p).mtimeMs });
-    }
-  };
-  look(r.work);
-  const newest = (test) => all.filter((f) => test(f.name, f.p)).sort((a, b) => b.at - a.at)[0];
+  const { all, newest: newestOf } = filesOf(r.work);
+  const newest = (test) => newestOf((f) => test(f.name, f.p));
   const spec = newest((n) => n.endsWith(".spec.json"));
   if (spec) writeFileSync(join(out, "spec.json"), readFileSync(spec.p));
   // the generated takes the spec names (work:gen/...), with their sidecars, kept beside it under takes/ (not
@@ -325,17 +313,13 @@ async function rebuild(kind, subject, leg) {
     const said = (await build.call({ spec: "work:spec.json" })).filter((p) => p.type === "text").map((p) => p.text).join("\n");
     const ext = kind === "sprites" ? ".spr" : kind === "sounds" ? ".wav" : ".wad";
     const want = kind === "textures" ? "frenzy_new.wad" : basename(subject.file);
-    const files = readdirSync(work, { recursive: true }).map(String).filter((f) => f.endsWith(ext) && !f.startsWith("gen/")).map((f) => join(work, f));
-    const found = files.find((f) => basename(f) === want) ?? files.sort((a, b) => statSync(b).mtimeMs - statSync(a).mtimeMs)[0];
+    const made = filesOf(work);
+    const found = (made.all.find((f) => f.name === want && !f.rel.startsWith("gen/")) ?? made.newest((f) => f.name.endsWith(ext) && !f.rel.startsWith("gen/")))?.p;
     if (!found) return `${kind}/${subject.id}:${leg}: built nothing: ${said.split("\n").slice(0, 3).join(" | ")}`;
-    const n = readdirSync(out).filter((f) => /^round-\d+$/.test(f)).length + 1;
-    const keep = join(out, `round-${n}`);
-    mkdirSync(keep);
-    for (const f of ["judge.json", "built", "rebuilt.json"]) if (existsSync(join(out, f))) renameSync(join(out, f), join(keep, f));
-    for (const f of ["spec.json", "answer.md", "run.json"]) if (existsSync(join(out, f))) copyFileSync(join(out, f), join(keep, f));
+    const n = keepRound(out, { move: ["judge.json", "built", "rebuilt.json"], copy: ["spec.json", "answer.md", "run.json"] });
     mkdirSync(join(out, "built"), { recursive: true });
     copyFileSync(found, join(out, "built", want));
-    const kit = execFileSync("git", ["-C", HERE, "rev-parse", "--short", "HEAD"], { encoding: "utf8" }).trim();
+    const kit = kitCommit();
     writeFileSync(join(out, "rebuilt.json"), `${JSON.stringify({ kit, from: "spec.json", ok: /^OK/.test(said), report: said.split("\n").slice(0, 12) }, null, 1)}\n`);
     return `${kind}/${subject.id}:${leg}: rebuilt on ${kit}${/^OK/.test(said) ? "" : " (NOT OK)"}`;
   } finally {
