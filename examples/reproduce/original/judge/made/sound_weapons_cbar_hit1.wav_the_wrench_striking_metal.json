@@ -47,31 +47,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The picture shows a dense, broadband burst at the attack (about 0 to 0.03 s) that decays into a long ringing tail. The spectrogram has sustained bright horizontal lines near 1 to 2 kHz, which fits a metal strike. Nothing in the picture suggests a different event such as a door or a pump. Sound is judged from the picture only, since it cannot be listened to here."
+   "reason": "The waveform has one sharp attack at about 0.025 s and a ring decaying over 0.7 s, and the spectrogram shows bright, sustained horizontal partials. That is a metal strike ringing, consistent with a wrench on metal. The sound is more tonal than a clank would be, which is scored under S4, not here."
   },
   "S2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Length is 0.765 s and the attack is 0.025 s, with t20 at 0.559 s and t40 at 0.673 s. The class's 'against' lines flag only crest, rms and flatness, so length, attack and decay are within the metal-hit class's range by measure. The picture agrees: the sound ends at about 0.77 s with a tail that is short and tapering."
+   "reason": "Length 0.765 s, attack 0.025 s, t20 0.559 s and t40 0.673 s. The measure's fault lines (crest, rms, flatness) do not include the envelope, so the decay is within the metal hit class's range."
   },
   "S3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The centroid is 1548 Hz and the band shares are 4.9, 6.9, 73.3, 14 and 0.9 percent. None of these is flagged in the 'against' lines, so they sit within the class's range by measure. The spectrogram matches: energy concentrated at 600 Hz to 2 kHz, with little below 150 Hz or above 5 kHz."
+   "reason": "Centroid 1548 Hz, with 73.3% of energy in 600 Hz to 2 kHz, 14% in 2 to 5 kHz, 6.9% in 150 to 600 Hz, 4.9% under 150 Hz and 0.9% over 5 kHz. The measure flags no spectrum line for this class. Narrow spread and a rolloff at 1744 Hz are as measured; I cannot see the class range itself, so this rests on the measure."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Two character measures are clearly off. Flatness is 0.042 against the class's 0.16 to 0.28, so the sound is too pure and tonal, and the picture's sustained horizontal lines show it. Crest is 12.8 dB against 5.3 to 12.5, so the attack is too spiky. Onsets are 0, so the metal hits' character is not carried by repeated transients. The tone and noise balance is therefore wrong, though the event is recognisable."
+   "reason": "Flatness 0.042 against the class's 0.16 to 0.28: the spectrogram shows clear horizontal tonal bands from about 600 Hz up, so the hit is too pure, with too little noise in the strike. Onsets are 0, so the spectrogram shows one attack and no clack or second hit. Pitch is steady across the bands, with no glide, which is correct for this class."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The engine-fault list is empty, the peak is -0.5 dBFS with no clipping, and the DC offset is 0.0017, which is negligible. The lead is 0 and the tail is 0.01 s. The sample rate and bit depth are not in the features, so the format is not confirmed by measure; the picture gives no sign of a fault."
+   "reason": "Engine faults are empty and clipped is 0. Peak is -0.5 dBFS, so there is headroom. DC is 0.0017 (0.17% of full scale), which is small and within the measure's pass. The picture alone does not show the format, so this rests on the engine checks and the measure, not on the waveform."
   }
  },
  "total": 9,

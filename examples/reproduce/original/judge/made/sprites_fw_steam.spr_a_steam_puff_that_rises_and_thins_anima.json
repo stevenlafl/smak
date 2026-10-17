@@ -88,31 +88,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Reads as a steam or smoke puff: a soft grey column that starts small (frame 0), swells into a wider plume with a bright base (frames 2 to 7), then thins and fades into the dark (frames 12 to 15). That is the effect the brief asks for."
+   "reason": "The frames show a steam column rising from a bright base, widening and thinning, then drifting up and dissolving into the dark. That is the steam puff the brief asks for, animated, not a disc or a flat glow."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The measured size is 64 by 64, the original's. The plume fills the cell's height from base to top in the middle frames, and it is a narrow column rather than a full-width cloud, which is how a steam puff sits in its frame. Nothing is clipped at the cell edges."
+   "reason": "All 16 frames are 64 by 64. The column sits centred and rises through the frame; border mean is 0.003 and max 0.253, inside the class's 0 to 0.005 mean range. Frames 2 to 4 come close to the top edge, a minor point that the measures do not flag."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Neutral grey-white on a near-black ground, which is how an additive steam sprite reads in the engine. Judged by eye, the colour matches the grey steam of Half-Life's own puffs. Nothing warm or tinted is present."
+   "reason": "Grey-white steam on a near-black ground, dim and soft, brighter at the base in frames 2 to 7 and fading to nothing by frame 13. This reads as steam blended additively, the colour the brief implies. No measure is given, so this is judged by eye."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Sixteen frames, within the class measures (peak at 0.2, first frame 0.2, last frame 0, border 0.003, jitter 1.48, all inside the class ranges). It grows and thins, the frames fade to dark at the end as a one-shot should, and the column reads as rising. The frame-to-frame direction is hard to confirm at this size, so this is a close call on the rise, but the measures hold."
+   "reason": "The class's envelope holds: peak at frame 3 (0.2 of 16, within 0.2 to 0.6), first frame 0.2 (within 0 to 0.35), last frame 0 (within 0 to 0.1). Jitter is 1.48 (class 0.9 to 1.5). Motion is a rise and thin, and the one-shot ends dark. The frame count is 16 as measured."
   },
   "R5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Additive format is right and the name is the mod's own. The type is 'parallel', not 'parallel oriented'. The amendment of 2026-10-16 records that Half-Life's steam1 is 'parallel oriented' and that a steam sprite built 'parallel' failed R5 by measure. If this file takes steam1's place the type fails, and I cannot see from the brief which file it replaces, so this is scored 1 rather than 0 pending that answer."
+   "reason": "Name, additive format and 64 by 64 size are as the class expects, and the file reads back. But the type is measured as 'parallel', and the amendment records the game's steam sprite (steam1) as 'parallel oriented'. A steam puff built 'parallel' is off the game's type for its class. The brief gives no type for fw_steam, so this is a fault against the game's steam class, not a contradiction of the brief."
   }
  },
  "total": 9,

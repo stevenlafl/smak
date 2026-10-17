@@ -52,34 +52,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The waveform (top) is one loud noise burst from about 0 to 0.25 s, then a quiet hiss with a few sparse blips near 0.5, 0.65 and 0.75 s. The game's own sound (bottom) is a continuous train of about 40 evenly spaced pulses across the full 0.8 s, a wet, pulsing cry. The made file reads as an impact followed by a fading hiss, not a crawler's pain. Same family, but not clearly the same event."
+   "reason": "The picture shows a loud broadband burst at 0 to 0.27 s that fades into a long quiet tail, with a spike near 0.5 s and another burst near 0.7 s. The original is a steady run of about 20 evenly loud wet pulses across the full 0.8 s. The shape reads as a noise burst with a tail, not clearly a crawler's pain cry. The event is plausible, but the picture does not show the same event as the original."
   },
   "S2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Length is 0.8 s against the game's 0.795 s, within 25%. The decay is late: t20 is 0.678 s against the game's 0.544 s, about 25% longer, and the attack is an abrupt 0.095 s burst at 0.115 s. The measures give no class range for t20, so I cannot confirm it sits within the class's range. Scored 1 for the abrupt, front-loaded envelope."
+   "reason": "Length is 0.80 s against the original's 0.795 s, and the attack of 0.095 s to a peak at 0.115 s is reasonable. The envelope is front-loaded: t20 is 0.678 against the original's 0.544, a gap of about 0.13 s (about 25%), and the picture shows a loud front half with a quiet tail where the original stays even. The class's decay range is not given in the measures, so this is held at 1."
   },
   "S3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Centroid is 2551 Hz against the game's 2682 Hz, a 4.9% difference (limit 20%). Band shares match within 1 point: <150 Hz 0.2 vs 0.2, 150-600 Hz 0 vs 0, 600-2k 16.3 vs 15.6, 2k-5k 83.2 vs 83.8, >5k 0.3 vs 0.3. Both spectrograms are dominated by 2-5 kHz energy."
+   "reason": "Centroid is 2551 against 2682, a difference of about 5%, well inside 20%. Band shares are <150 0.2 vs 0.2, 150-600 0 vs 0, 600-2k 16.3 vs 15.6, 2k-5k 83.2 vs 83.8, >5k 0.3 vs 0.3, all within 10 points. Rolloff and the spectrogram's energy sit in the same range."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Onsets are 1 against the game's many: the game's waveform shows about 40 pulses, and the made file has one onset at the start plus a few weak blips. The pulsed, wet character is missing. Flatness is 0.172, but the game's own flatness is not given, so the noise character cannot be checked. The pitch movement also differs: the game's spectrogram has a steady band of warm colour across the whole length, while the made one is hot only in the first 0.3 s and dark for much of the rest."
+   "reason": "Not a must-have, but the character is clearly off: the made file has 1 onset, while the original's picture shows many discrete pulses (a wet, repeated cry). The flatness of 0.172 is measured only for the made file, so noise-versus-tone cannot be compared with the original. No pitch movement is visible in the made spectrogram, and the original's pulses are not reproduced."
   },
   "S5": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "The file name matches sound/headcrab/hc_pain1.wav. Clipped is 0, DC is -0.0004, and the peak is -0.5 dB, so there is headroom and no clipping. engineFaults is empty. The sample rate, channel count and bit depth are not in the measures, so this rests on the empty fault list; the harness's own checks passed."
+   "score": 1,
+   "reason": "The measures show no clipping (clipped 0), DC -0.0004 (negligible), peak -0.5 dBFS (headroom), and no engine faults, and the name sound/headcrab/hc_pain1.wav is the one the game plays. The sample rate, bit depth and channel count are not in the measures, so the file's format cannot be confirmed from what the judge was given. Held at 1 until those are shown."
   }
  },
- "total": 7,
+ "total": 6,
  "of": 10,
  "passes": false
 }

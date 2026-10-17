@@ -48,31 +48,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "A soft radial glow, a bright core fading outward on the dark ground, which is what a lamp's glow is. Nothing else is drawn in the frame."
+   "reason": "Reads as a sodium lamp's glow: a soft, round, orange-amber radial bloom, brightest at the centre and fading out evenly to the edges, with no shape or hard feature that would make it something else."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "One 64 x 64 frame. The glow fills the frame and fades to zero at the border (border max 0, mean 0), so it neither clips nor leaves a hard edge."
+   "reason": "64 by 64 as measured. The glow fills the frame the way a glow should: the measured border is 0 and the bloom reaches close to the frame's edge without any hard cut-off. The number '1' in the top-left corner is the contact-sheet label, not part of the sprite."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "By eye the core and halo are a warm sodium orange, not white or neon. The brief asks for a sodium lamp's glow, and that is what the frame shows. The frame is seen at a small size, so this is a judgement of hue, not a measured mean."
+   "reason": "By eye the colour is a warm sodium orange (bright amber core fading to dark), matching the brief's sodium lamp. Nothing in it reads as neon or sci-fi blue or green. The faint grey tail around the bloom is the same orange at low value, not a separate colour."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "One frame, with first and last frame equal (envelope peakAt 0). The glow class takes a single steady frame, and the border measure of 0 sits inside the class's range [0, 0.005]. Nothing in the motion is wrong for this class."
+   "reason": "One frame, which is what the glow class takes: the frame count is 1, the envelope is steady (first and last both 1), and the border is 0, so it is within the class's measures. The brief asks for a glow, not an animation. The dark share of 0.81 is what an additive glow on black should show."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Type parallel and format additive are what a glow needs, and the file is named fw_glow. I can only check these against the measures given, since I have only the picture and the numbers. Those show nothing wrong."
+   "reason": "Measured as parallel and additive, with the file name fw_glow matching the brief's sprite slot. Additive is the right format for a light glow, so it blends as the engine intends. I could only see the rendered frames here, not the file's header, so the name and type come from the measurements given."
   }
  },
  "total": 10,

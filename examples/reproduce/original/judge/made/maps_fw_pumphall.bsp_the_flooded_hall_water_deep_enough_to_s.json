@@ -40,58 +40,58 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Plan: a long hall (x 33-252, y 125-830) with catwalk strips down both sides (x 33-65 and x 220-252), a lighter band across the middle at y 555-590 that reads as the bridge, two ladders (FUNC_LADDER 5 and 7), three pump rings at y 310, 480 and 650, a stair at the north end (y 125-210) to a changelevel room, and a start room to the south. Every area and way the brief names is there and joined as it asks."
+   "reason": "The plan shows the brief's layout: a long hall with pumps, catwalks down both sides (x 35-65 and 220-250), a bridge across the middle (y 555-590), two ladders (FUNC_LADDER at y 350 left and y 650 right), the wrench on the left catwalk, and a stair at the north end up to a corridor and the changelevel room. The start room to the south is an extra area the brief does not name, but it joins the hall."
   },
   "P2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The harness measures the whole map at 2704 long against the brief's 2500, within 25%. From the plan's 512-unit scale bar the hall itself runs about 2060 units (y 125-830), 18% under the brief's 2500 but inside the 25% band. Width is about 640 units; the brief gives none."
+   "reason": "The measured size is 688 x 2704 units against the brief's about 2500 long, 8% over and inside the 25% band. The hall itself is roughly 2060 units long by about 640 wide, which is plausible for the room. Neither room's floor overlap can be measured from the picture alone."
   },
   "P3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The plan shows floor heights only as colour, with no numbers. The catwalks read as a level above the water and the stair and ladders connect them, but the views do not show the catwalks raised above the water, and the water depth that should let a player swim is not confirmed by any view."
+   "reason": "The plan labels only a few floor heights (hall top at -112, the stair and corridor at 0, a pump at 24). The catwalk and bridge heights and the water depth are not shown, so the brief's deep water under catwalks cannot be confirmed. The views show a water strip at floor level, but its depth is not readable."
   },
   "P4": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Start (info_player_start 21, south room), the weapon (weapon_crowbar 24, on the left catwalk at about y 312), three monster_headcrab (25, 26, 27) and the changelevel with its landmarks are all present. Crawler 25 sits at about (105,587) on the bridge band, not in the water as the brief asks; 26 and 27 are in the water."
+   "score": 2,
+   "reason": "The start (INFO_PLAYER_START, row 21, south room), the weapon_crowbar (the wrench, left catwalk at about x 50, y 312), three MONSTER_HEADCRAB (110,263), (185,408), (105,588), the changelevel trigger and both landmarks are all there and reached (notReached is empty). The crawler at (105,588) sits on the bridge's lower edge in the plan; it is not clearly wrong, so it is not docked, but it is the one to check."
   },
   "P5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Views show a rusted tan concrete, pipe-covered walls and yellow and black hazard stripes, which suit the brief. The surfaces repeat in a regular tile pattern, and the water and catwalk surfaces are not visible enough to confirm them."
+   "reason": "The views show concrete, rusted steel and hazard-striped trim that fit the brief's palette. The surfaces are generic and the large plain walls (the right of the yaw 180 view) repeat, so the brief's wet floor and grate are not easy to tell apart at a glance."
   },
   "P6": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Plan has 13 LIGHT entities and 3 ENV_GLOW, placed along the walls and around the pumps, which fits the sodium lamps. The views are dim and grey-brown, with no clear sodium-orange glow on the walls, so the bright and dark areas cannot be confirmed as the brief describes them."
+   "reason": "Thirteen LIGHT entities are placed on both sides of the hall and near the pumps. The views are very dark overall and the glows are small, so the sodium-lamp look and the bright and dark areas the brief implies are only partly there."
   },
   "P7": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Three pumps, a bridge, ladders, catwalks and a stair are there in the plan, and hazard-striped pump bases and pipes show in views. The catwalks, bridge and water are not visible from the player's eye in any view, so the features that mark the hall are seen only in the plan."
+   "score": 2,
+   "reason": "Every feature the brief names is in the plan: three pumps with rings, catwalks on both sides, the bridge, two ladders, the stair to the corridor. The views show pipes, hazard stripes and steel trim in place."
   },
   "P8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured: checkErrors is empty, notReached is empty and reachWarnings is empty, so it compiles and every item is reached. Two landmarks (fw_lm1, fw_lm2) are set and the changelevel to fw_control uses fw_lm2 as the brief requires."
+   "reason": "The measurements show checkErrors empty, notReached empty and reachWarnings empty, so the map compiles, does not leak, and the walk test reaches the wrench, all three crawlers and the changelevel. The landmarks (fw_lm1, fw_lm2) and the changelevel to fw_control are present."
   },
   "P9": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Views from inside show brown-rust walls, pipes and hazard-striped discs, but the catwalks, the bridge and the water are not in any view, and the lower parts of three views are solid black. From these views a player could not tell it is the flooded pump hall the brief describes."
+   "reason": "The views read as an industrial hall with pipes and hazard paint, but they are dark, the walls are large and flat, and the yaw 180 view is a bare concrete wall with one column. A player would see a Half-Life-like space, but the surfaces are sparse enough that it does not yet look like a map of the game's own."
   }
  },
- "total": 12,
+ "total": 14,
  "of": 18,
  "passes": false
 }

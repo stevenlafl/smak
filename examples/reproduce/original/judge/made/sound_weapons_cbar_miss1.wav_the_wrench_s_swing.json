@@ -46,31 +46,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The picture shows a broadband noise burst that swells from about 0.05 s, peaks at 0.13 s and fades out by about 0.42 s, with no hit-like onset. That is the envelope of a whoosh, which fits a wrench's swing as the brief asks. The waveform's spiky body is a character matter, scored under S4."
+   "reason": "The picture reads as a swing: no hard onset at the start, a rise from about 0.05 s to a peak at about 0.13 s (waveform x≈295 of 960), then a long fade to about 0.4 s. The energy is a broadband noise burst, which is what a wrench moving through air should sound like. It does not read as a metal strike, which would show a sharp transient and a ring."
   },
   "S2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Length 0.418 s, attack 0.065 s, t20 0.11 s and t40 0.229 s are all in the swing envelope the measure checks. The against-measure flags only crest and rms, not attack or decay. Crest (17.5 against a ceiling of 17.38) sits barely over, which is a shape point, not an attack or decay fault."
+   "reason": "Length 0.418 s, attack 0.065 s and t20 0.11 s are all inside the swing class's range. The measured failures (crest, rms) are not envelope lines, so the envelope holds by measure."
   },
   "S3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The spectrogram's energy sits in the low-mid band, with 64.7% in 150-600 Hz, 25.9% in 600-2k, and a centroid of 768 Hz, which is the spread the picture shows. The against-measure does not flag the spectrum, so each band's share and the centroid pass the class range."
+   "reason": "Centroid 768 Hz is inside the class range, and the band shares (<150 1.1%, 150-600 64.7%, 600-2k 25.9%, 2k-5k 6.7%, >5k 1.6%) are inside it too. The spectrogram matches: the yellow mass sits in roughly 150-600 Hz with a thinner top, and nothing is cut off above 5 kHz. The measures flag no spectral line."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Flatness 0.168 is noise-like, as a whoosh should be, and the one onset is right. But the waveform's dense, spiky body (crest 17.5) reads as repeated grit or hits rather than a smooth air rush, and the spectrogram shows no pitch movement across the swing. The character is partly off."
+   "reason": "The waveform has sharp spikes clustered around the peak (around x≈280-320 in the waveform strip), where a swing's energy should swell smoothly. The measure agrees: crest 17.5 dB is over the class's top of 17.38 and is flagged 'too spiky'. The spectrogram shows no clear pitch sweep, and flatness 0.168 has no class reference here. Onsets (1) are right. The spikes are a clear character fault, though not a large one."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "No engine fault is reported. Clipped 0, DC 0, peak -0.5 dBFS, and the waveform does not clip in the picture. The sample rate and bit depth are not in the features, so the mono-PCM format is taken as passed by the engine check."
+   "reason": "Clipped 0, DC 0, peak -0.5 dBFS (no clipping), and the engine-fault list is empty. The name is sound/weapons/cbar_miss1.wav. The sample rate and bit depth are not among the listed features, so this rests on the empty engine-fault check rather than a direct read of the format."
   }
  },
  "total": 9,

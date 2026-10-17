@@ -7,8 +7,10 @@
    27.7,
    12.2
   ],
-  "sizeAsked": null,
-  "sizeOff": null,
+  "sizeAsked": {
+   "long": 25.9
+  },
+  "sizeOff": 0.068,
   "triangles": 448,
   "halfLifeMedianOfItsKind": 308,
   "halfLifeThreeQuartersUnder": 340,
@@ -29,64 +31,64 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Against the brief's words (low, wet, six-legged, headcrab-sized): the body is a low dome, about 12 units tall against 27 long, and the legs splay evenly from it. Side, back, top and below views all show the same low, flattened outline, and no part sticks out of place."
+   "reason": "Against the brief's words the outline is right: low (height 12.2 units), wide and flat-backed, with six legs splayed from the sides. In sides.png the front, left, back and right views and the top view all show the same low oval body, legs out to the sides, and the mouth at the front. Nothing sticks out or is missing in any view. The silhouette is not measured against an original, so this rests on the views."
   },
   "M2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The brief gives no figure, only 'the size of a headcrab', and sizeAsked is null, so there is no number to hold the 26.4 x 27.7 x 12.2 measure to within 15%. The lineup's three Half-Life models are small (leech, roach, chumtoad), so they are no check on size. Nothing in the pictures is clearly off, but the size is not verified."
+   "score": 2,
+   "reason": "Measured: size [26.4, 27.7, 12.2] against the headcrab's length asked of 25.9, sizeOff 0.068, inside the 15% band."
   },
   "M3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Parts listed from the brief: six legs (top and below views each show three legs per side), a ring of teeth round the front mouth (front view and front-left/front-right views show a red disc with a ring of pale teeth), and a pale belly (the below view and the side views show it under the body). All are present in their places. Nothing from the list is missing."
+   "reason": "The brief names six legs, a ring of teeth and a pale belly; the three Valve models in lineup.png each show legs, and the brief's teeth and belly are not charged by absence. Six legs are present: the top view shows three on each side. The ring of teeth is at the front in the front and front-left/right views, a dark red disc with about ten white teeth around it. The pale belly shows as a strip under the body in the left, back and right views and as a pale shield in the below view. Leg tips are pointed and attached to the body in the top and below views. No named part is missing."
   },
   "M4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The body is grey-green, the belly is pale, and the mouth ring is dark red with pale teeth. Those are the brief's colours and materials, with no region in the wrong colour."
+   "reason": "The brief asks for grey-green with a pale belly. The body is grey-green in every view and the belly is pale in the back, left and below views, as the brief asks. The brief's 'wet' is not strongly shown as a glossy sheen: the surface is matte with faceting and mottling. That is a weak point, but the colours and materials the brief names are right."
   },
   "M5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The brief asks for no markings beyond the teeth and the pale belly, and both are there. The plain faceted skin adds nothing wrong, and the mouth's teeth stay sharp at the sizes shown."
+   "reason": "The brief names no markings or panel lines. The surface has soft mottling and faceting with no stray marks, and the teeth and mouth are readable at the size the game shows. Nothing is added that the brief does not ask for."
   },
   "M6": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Fixed at 2 by the rubric's cap. The line-up was run four times in four orders with the asset at B, B, B and D; the judges picked C, D, D and A, so the asset was taken for one of the game's each time."
+   "reason": "Capped at 2 here, as the rubric says for M6. Measured apart by the line-up test: the four judges each picked a model other than the asset (C, D, D, A where the asset was B, B, B, D), so the asset passed for one of the game's. The line-up in lineup.png itself is not scored by me."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The front is the mouth ring, facing the front view. It stands upright on its legs, and in the run frames its feet sit on the floor line. Nothing is turned or lying on its side."
+   "reason": "The front is the mouth, and it faces forward in the front view and the front-left and front-right views. The creature stands upright on its legs, and in walk.png the legs reach the floor line at every frame, so it stands on its origin."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "448 triangles against a Half-Life median of 308, so the limit is 616 (twice the median; three quarters under 340, so the larger bound applies). checkErrors is empty. The belly plate and mouth look closed in the views, and the legs stay attached in the jump frames and the walk frames."
+   "reason": "checkErrors is empty, so SMAK's GoldSrc check passes. Triangles are 448, under the bound of 616 (twice the median of 308, which is more than the three-quarter figure of 340). Nothing is open or floating in the views: the mouth is a closed disc, the belly is a closed shape in the below view, and the legs meet the body in the top and below views."
   },
   "C1": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Walk frames 0 to 34 and jump frames 0 to 30 are drawn frame by frame from the side. The legs stay joined to the body and move with it, and the mouth ring stays on the front. The body rotates in the jump without any part coming apart, sinking, or floating. (The second sheet is labelled JUMP, so the attack is a leap.)"
+   "reason": "In walk.png (34 frames at the floor line) the legs and body move together with no part coming apart, sinking or floating, and the legs meet the floor. In attack.png (the jump, 30 frames) the body rotates through vertical and back, and the legs and teeth stay on the body through the whole arc."
   },
   "C2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The contract line reads that it keeps the headcrab's bones, animations, attachments and bodyparts, so the game's own headcrab plays it. No compareContract result appears in the measurements, so this rests on the contract line."
+   "reason": "The contract line says the crawler keeps the headcrab's bones, animations, attachments and bodyparts. The measurement reports no fault, so no fault caps C2 here. I have not checked compareContract's output myself: this score rests on the stated contract."
   }
  },
- "total": 19,
+ "total": 20,
  "of": 20,
- "passes": false
+ "passes": true
 }

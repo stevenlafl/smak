@@ -18,8 +18,8 @@
   "halfLifeThreeQuartersUnder": 187,
   "halfLifeMost": 291,
   "checkErrors": [],
-  "lineup": "the asset is one of A to D in lineup.png beside models/w_crowbar.mdl, models/w_9mmar.mdl, models/w_sqknest.mdl",
-  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, D, D, D where the asset was C, B, A, C: passed for one of the game's"
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_9mmar.mdl, models/w_357.mdl, models/w_egon.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked C, D, D, C where the asset was C, B, A, C: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
@@ -31,58 +31,58 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Against the brief's outline (a long pump shotgun with a folding stock whose end hooks over), the asset is a grey box with one sloped wedge end (sides.png, FRONT, LEFT and RIGHT). It has no barrel, pump, trigger or stock, and no hooked end, so its silhouette does not match the brief in any view."
+   "reason": "The outline is a low, flat slab with one sloped end (side and top views, sides.png), a plain block about 21 x 4 x 31 units. A pump-action shotgun's barrel, receiver, pump, grip, trigger and folding stock do not show in any of the ten views. The silhouette does not match the brief's words, so it fails the outline test in all six views."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured long side is 31.4 against the brief's 30, an offset of 0.048, inside the 15% band. The bounding box is 21.1 by 3.9 by 31.4."
+   "reason": "The longest measured side is 31.4 against the brief's 30, 4.7% over and within the 15% band (sizeOff 0.048). Length is the only size the brief gives, so the measure holds. It does not make the shape right, which M1 and M3 cover."
   },
   "M3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief names a pump, a folding stock with a hooked end, a trigger and guard, and a barrel. None is present: sides.png shows one solid block with a wedge at one end, and first-person.png shows no pump or trigger. Parts the brief names are missing, so this is a 0."
+   "reason": "The brief names a pump, a folding stock with a hooked end, a trigger and guard, and a barrel. None of these is present. The asset has only a bevelled slab, and the front, side and attack views show no separate pump, stock, trigger or guard."
   },
   "M4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The brief asks for black metal with a wooden or dark pump. The asset is one flat mid-grey throughout (sides.png, first-person.png). There is no black and no second material, so the colour is there but clearly off."
+   "reason": "The whole asset is one mid-grey surface (sides.png, first-person.png). The brief asks for black metal and a wooden or dark pump, so the colour is clearly off. No separate region of wood or dark pump is there at all."
   },
   "M5": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "The brief names no markings or wear. The asset's faint streak lines in sides.png and attack.png add nothing wrong."
+   "score": 1,
+   "reason": "The only detail is a bevel highlight on the edges and diagonal shading streaks from the triangulation (sides.png, Top and Back-Left). The brief names no markings, but a pump-action shotgun's ribbing, slide and receiver lines are absent, and the streaks read as artefacts, not detail."
   },
   "M6": {
-   "judge": 2,
+   "judge": 0,
    "cap": 2,
-   "score": 2,
-   "reason": "Scored at the line-up cap as the rubric directs. In lineup.png the asset (A) was passed over as the non-Valve model: judges picked the crowbar (D) in all four readings, so the line-up test was passed. My own look disagrees: beside the Valve props, A reads as a grey wedge block, not a shotgun. That is noted here, but the rubric measures M6 apart."
+   "score": 0,
+   "reason": "In lineup.png the asset (A, a grey wedge) is the first thing a player would not take for one of the game's. The line-up measure is consistent with that: the asset was picked as the non-Valve model twice in four readings (positions C and C), so it is caught at least twice and capped at 1. Visually it is a box, so it is scored 0."
   },
   "M7": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The brief gives no front, but a shotgun has an obvious front (muzzle) and stock. The asset's front is an ambiguous slope and its end is a flat block (sides.png FRONT and BACK). It is upright in the views, but nothing shows which way the gun faces, so this is a partial."
+   "reason": "No front is identifiable. The side views show a slab with a sloped end and no muzzle, stock or grip to show which way round it should face. It lies on its origin, as a dropped weapon would, but the facing cannot be checked against a shotgun's."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "SMAK's check passes with no errors (checkErrors is empty). The triangle count is 10, well under twice Half-Life's median for its kind. The views show a closed solid with no open faces, inside-out faces or floating parts."
+   "reason": "checkErrors is empty, the asset has 10 triangles (well under twice the median of 138), and its closed outline shows no open side, inside-out face or floating part in the ten views."
   },
   "W1": {
-   "judge": 1,
+   "judge": 0,
    "cap": null,
-   "score": 1,
-   "reason": "In first-person.png the asset sits left of centre, at the bottom-left hand, where the game's shotgun sits at the right of the picture. It is held at its near end, not along a grip. In attack.png the hand stays under the slab through the frames. The position and grip differ from the original, so this is partial."
+   "score": 0,
+   "reason": "In first-person.png the asset sits in the left half of the view, while the game's shotgun sits in the right half. It is held at its base by the orange hand but is not shaped as a grip, so it is not held the way a shotgun is held. Through attack.png the hand stays at the bottom left and the slab moves away from it, so the attack reads as the weapon swinging out of the hand, not a gun being worked."
   }
  },
- "total": 11,
+ "total": 7,
  "of": 18,
  "passes": false
 }

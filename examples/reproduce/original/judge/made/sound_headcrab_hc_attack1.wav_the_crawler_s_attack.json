@@ -52,31 +52,31 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The picture shows a broadband noise burst with a sustained body from about 0.1 to 0.6 s and sparse clicks after, which reads as a crawler's wet attack in outline. The game's own sound opens with sharp separate hits near 0.05 to 0.2 s and then decays quickly. The made sound lacks that strike-like onset, so it is plausibly the same kind of event but not clearly the same one. Not 2, because the envelope is the wrong shape."
+   "reason": "Same family as the original: a noisy broadband attack with sparse clicks in the tail (0.6 to 0.85 s in the picture). But the waveform is a long sustained rasp from about 0.05 to 0.6 s, where the original is a sharp double hit (about 0.09 s and 0.23 s) that falls away. The features cannot confirm a bite or claw attack by ear, and the limit is stated: the judge cannot listen."
   },
   "S2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Length is 0.85 s against the original's 0.906 s, within 25%. Attack is 0.1 s and the peak sits at 0.15 s, both plausible. Decay fails: t20 is 0.688 s against the original's 0.394 s, a difference of 0.294 s. The class is null, so the rule applies: the original's own decay within a quarter or 0.05 s, which is about 0.10 s here. The difference is outside that, so S2 is capped at 1. The picture agrees: the made sound holds its energy through about 0.6 s where the original's has faded."
+   "reason": "Length is 0.85 s against the original's 0.906 s, within 25%. The decay is clearly off: t20 is 0.688 against the original's 0.394, about 75% longer, so the sound holds its level for roughly 0.3 s more than the original. The class is null, so the original's own decay sets the range, and this is outside it, which caps S2 at 1. The attack is 0.1 and the original's attack is not measured, so it is not scored."
   },
   "S3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Centroid 900 Hz against 921 Hz (about 2%, within 20%). Bands against the original: <150 0.5 vs 0.5; 150-600 67.6 vs 68.1; 600-2k 19.2 vs 18.8; 2k-5k 11 vs 10.9; >5k 1.6 vs 1.6. Every band is within 10 points. The spectrograms agree: the energy sits in the low-mid band in both."
+   "reason": "Centroid 900 Hz against the original's 921 Hz (2% off, inside 20%). Band shares match within 0.5 points each: under 150 Hz 0.5 vs 0.5, 150-600 Hz 67.6 vs 68.1, 600-2k 19.2 vs 18.8, 2-5k 11 vs 10.9, over 5k 1.6 vs 1.6. The spectrogram's bright 150-600 Hz body agrees with the original's."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Not a must-have, and it is off. The original has several distinct hits at its start and clicks in its tail. The made sound has two onsets by measure, with one long noise body and the clicks sparse and late. Flatness is 0.224, which is noise-like and plausible, but the onset pattern and the pitch-free body do not match the original's character."
+   "reason": "Onsets do not line up with the original's. The made sound has two strong hits, at about 0.15 s and 0.46 s (peakAt 0.15). The original's picture shows about four hits, at about 0.09, 0.23, 0.54 and 0.60 s. The made sound's body is a steady noise where the original's falls off in steps. Flatness is 0.224, and the original's flatness is not given, so the noise character cannot be checked against it. No pitch movement is visible in either spectrogram."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The engine checks report no faults (engineFaults is empty). Clipped is 0, DC is -0.0001, peak is -0.5 dBFS, and there is no lead or tail silence problem. There is no loop cue, which the original does not need. The file has the game's name, sound/headcrab/hc_attack1.wav. The features do not state the sample rate or bit depth, so this score rests on the engine check passing, not on a reading of the format itself."
+   "reason": "The harness's engine checks report no faults (engineFaults empty). Peak is -0.5 dBFS, clipped is 0, DC is -0.0001, and the lead and tail are 0. The name sound/headcrab/hc_attack1.wav matches the file the game plays. The rate, bit depth and channel count are not in the measures given to the judge, so this rests on the engine check passing."
   }
  },
  "total": 7,

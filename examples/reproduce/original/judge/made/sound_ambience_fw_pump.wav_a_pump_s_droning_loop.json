@@ -43,31 +43,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The picture shows a sustained, broadband low rumble with its energy in the bottom of the spectrogram (about 86% in 150-600 Hz, per the bands) and no moments of silence, with a slow throb in the waveform. That reads as a pump's drone loop, which is what the brief asks. The judge cannot listen, so this is a judgement from the picture and features only."
+   "reason": "The picture shows one continuous, steady waveform over all 2.7 s with no strike or click pattern, and the spectrogram is a low, sustained band with energy concentrated at the bottom (86.3% in 150-600 Hz, centroid 268 Hz). That reads as a machine's drone, the event the brief asks for. Limit: this judge cannot listen, so this rests on the picture and features only."
   },
   "S2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Length 2.7 s, lead 0 and tail 0 suit a loop, and the waveform holds a steady level from start to end. But the measurements give no class range for the envelope, so the attack (1.053 s, the time of the peak, not a percussive attack) and the decay cannot be checked as within range. Scored 1 as unverified, not as wrong."
+   "reason": "The class range for a loop machine is not among the figures given, so the envelope cannot be checked against it. The measures are odd for a loop: the peak sits at 1.053 s and the level falls 20 dB at 1.651 s, yet the waveform looks level from start to end. A steady drone should have no real attack, so the envelope needs checking against classes.mjs before it passes."
   },
   "S3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The spectrum is low: centroid 268 Hz, rolloff 431 Hz, 86.3% in 150-600 Hz, nothing above 2 kHz, and the spectrogram's yellow sits in the bottom band. That suits a pump's drone. The band shares are not compared against any class or original in the measurements, so the 20% centroid and 10-point band tests cannot be confirmed. Scored 1 as unverified."
+   "reason": "The spectrum is plausible for a pump drone: 86.3% of energy in 150-600 Hz, 6% under 150 Hz, 7.6% in 600 Hz to 2 kHz, and nothing above 2 kHz (centroid 268 Hz, rolloff 431 Hz). No reference shares for the class or the original were given, so the 20% and 10-point checks cannot be scored here. Scored 1 until they are measured against Half-Life's loop machine class."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Six onsets across 2.7 s match the throb visible in the waveform. But flatness reads 0 while the spectrogram looks speckled and noisy, so the stated tone or noise measure contradicts the picture and needs checking. No pitch movement is visible in the spectrogram. Scored 1 for the contradiction."
+   "reason": "Flatness reads 0, which says tonal, yet the spectrogram's bright low band is speckled like noise, so the tone or noise character contradicts itself. The six onsets sit at irregular points in the waveform, so the loop has hits a steady drone would not have, and the brief calls for a drone. Pitch movement cannot be judged from a single steady band. Scored 1 as clearly off until the original's onsets and flatness are compared."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The engine check list is empty, no clipping (peak -0.5), DC 0, and the lead and tail are 0, so the loop starts and ends without silence. The name is sound/ambience/fw_pump.wav. The sample rate, bit depth and loop cue are not in the measurements, so this rests on the empty fault list and the clean levels."
+   "reason": "The engine check reports no faults (engineFaults is empty), no clipping (peak -0.5 dBFS, clipped 0), no DC (dc 0), and the name is sound/ambience/fw_pump.wav as the brief's file. Sample rate, bit depth and a loop cue are not in the measures, so this rests on the engine's own check, which the harness records as a pass."
   }
  },
  "total": 7,
