@@ -1,0 +1,91 @@
+{
+ "kind": "map",
+ "label": "maps/fw_yard.bsp: the station's yard at dusk, open to the sky, a gatehouse door, drums, a pipe section; start by the gate, out by the pump house's double doors",
+ "measured": {
+  "size": [
+   1500,
+   1500
+  ],
+  "sizeAsked": [
+   1500,
+   1500
+  ],
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [
+   {
+    "map": "fw_pumphall",
+    "landmark": "fw_land1"
+   }
+  ],
+  "landmarks": [
+   null
+  ],
+  "itemsAsked": [],
+  "itemsFound": []
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Gatehouse with a door (func_door at plan (233,498)) on the east side of the start (info_player_start at (265,489)) and a pump house (plan (638-868, 149-340)) with a func_door on its south wall are both present, and the yard is open between them. But the brief's drums and pipe section are not areas and do not show in the plan, and the pump house exit is one thin door brush (plan (723-758, 329)), not the double doors the brief asks for. The changelevel trigger sits deep inside the pump house (plan (713-793, 180-210)), so the way out is not the doors' way."
+  },
+  "P2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The map is 1500 by 1500 units (plan perimeter 35-944 px, scale bar 256 units = 161 px), so the yard matches the brief. The gatehouse measures about 237 by 205 units and the pump house about 366 by 304 units by the plan's scale. No walkable-floor overlap measure was supplied, so the room sizes cannot be checked against the brief's areas."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "No section, storeys or floor-height plan was supplied, so the heights cannot be checked. The views show a flat yard with a low gatehouse and a raised high wall, which is consistent with the brief. But the pump house's floor and roof heights and any ramp or step to its doors are not shown, so this is unverified."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The start (info_player_start, plan (265,489), at the gate), the gatehouse door (func_door 1), the pump house doors (func_door 2) and the changelevel trigger (trigger_changelevel 3) are all present, and nothing is unreached. But the landmark measure reads null while the changelevel names fw_land1, so the landmark that the next map arrives at is not confirmed. The brief's drums and pipe section are props, not entities, so they are not counted here."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The walls in views.png (yaw 0, 90, 180) wear a mottled brown-tan texture that reads as rock or dirt, not the concrete, wet floor or yellow hazard paint the brief asks for. The gatehouse door is a green wood-panel door, not an industrial door. A player would notice the wrong material in passing."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan has 20 light entities, and the gatehouse and pump house glow orange-brown, which suggests the sodium feel. The views are dim and show little of that glow on the walls, so the bright and dark areas cannot be read as the brief's sodium lamps. Lamps are present, but their colour and brightness in the views are weak."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The gatehouse, pump house, high yard wall and green gate door are there. The brief's drums with hazard stripes and the broken truck-sized pipe section are not visible in any view or the plan. The teal block in views.png (yaw 180, far right) is not recognisable as a drum."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements report no check errors, no unreached entities and no reach warnings. The changelevel to fw_pumphall is reached from the start, and the map compiled."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From the start at yaw -175, the green double door and the close brown walls look like a GoldSrc yard. But the bare brown walls, the absence of drums, pipe and hazard paint, and the flat sky-to-wall views would not let a player who knows Half-Life's own yards place the map at once. No original's views were supplied to compare against."
+  }
+ },
+ "total": 10,
+ "of": 18,
+ "passes": false
+}

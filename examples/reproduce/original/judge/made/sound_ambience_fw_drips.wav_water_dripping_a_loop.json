@@ -3,38 +3,39 @@
  "label": "sound/ambience/fw_drips.wav: water dripping, a loop",
  "measured": {
   "features": {
-   "length": 5.9,
-   "peak": -0.5,
-   "rms": -27.2,
-   "crest": 26.7,
+   "length": 5.2,
+   "peak": -1,
+   "rms": -22.8,
+   "crest": 21.8,
    "dc": 0,
    "clipped": 0,
    "lead": 0,
-   "tail": 0,
-   "attack": 2.903,
-   "peakAt": 3.302,
-   "t20": 1.936,
-   "t40": 2.559,
-   "centroid": 881,
-   "rolloff": 947,
-   "flatness": 0.003,
+   "tail": 0.2,
+   "attack": 0.1,
+   "peakAt": 0.309,
+   "t20": 4.684,
+   "t40": 4.689,
+   "centroid": 1121,
+   "rolloff": 1529,
+   "flatness": 0.007,
    "bands": {
-    "<150": 0.2,
-    "150-600": 3.8,
-    "600-2k": 95.3,
-    "2k-5k": 0.6,
-    ">5k": 0
+    "<150": 0.1,
+    "150-600": 15.8,
+    "600-2k": 78.3,
+    "2k-5k": 5.6,
+    ">5k": 0.1
    },
-   "onsets": 5
+   "onsets": 7
   },
   "class": "loop drips",
   "against": {
-   "score": 17,
+   "score": 16,
    "of": 20,
    "lines": [
-    "flatness 0.003 (0.05 to 0.15): too pure: more noise",
-    "band 150-600 3.8% (13.2 to 33.2): under the range",
-    "band 600-2k 95.3% (62.3 to 82.3): over the range"
+    "length 5.2 s (5.48 to 9.14): too short",
+    "rms -22.8 dBFS (-30.3 to -24.3): over the range",
+    "centroid 1121 Hz (671 to 1007): too bright: less over 2000 Hz",
+    "flatness 0.007 (0.05 to 0.15): too pure: more noise"
    ]
   },
   "engineFaults": []
@@ -44,37 +45,37 @@
  },
  "scores": {
   "S1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "The picture shows five sharp transients (about 0.4 s, 1.6 s, 3.3 s, 3.9 s and 5.0 s on the waveform) over a steady noise bed. Each onset has a vertical spike in the spectrogram. That reads as water dripping in a loop, which is what the brief asks for."
+   "score": 1,
+   "reason": "Seven onsets (the spikes at about 0.3, 0.8, 1.3, 2.5, 3.5, 4.1 and 4.8 s on the waveform) are there, but they sit on a continuous noise bed that never drops back toward silence. The spectrogram is a dense, even orange wash across the full frame, so it reads as a hiss or wash with clicks, not water dripping into a pool. Judged from the picture and features only, since the sound cannot be heard."
   },
   "S2": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "The length is 5.9 s, and the decay (t20 1.94 s, t40 2.56 s) and attack are not among the three measured failures for the class 'loop drips'. The drips decay cleanly in the waveform with no long tails. The measured envelope holds, so 2."
+   "score": 1,
+   "reason": "Length is 5.2 s against the class range of 5.48 to 9.14 s, about 5% under the bottom and flagged too short. Attack is 0.1 s, which is in the range of a drip. The decay is flat: t20 is 4.684 s, so the level stays within 20 dB for almost the whole loop, where drips should fall away between hits (the waveform's bed does not drop back between spikes). The envelope is wrong on decay."
   },
   "S3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The spectrum is there but clearly off. The 600-2k band holds 95.3% of the energy, above the class range of 62.3 to 82.3 (about 13 points over). The 150-600 band holds 3.8%, under the range of 13.2 to 33.2. The spectrogram is warm and concentrated in the middle of the frequency range, with little low-frequency body. Two of the five bands fail, so this is a 1 and not a 2."
+   "reason": "Centroid is 1121 Hz against the class range of 671 to 1007 Hz, too bright, and the measure asks for less over 2000 Hz. The band shares show 78.3% in 600 to 2k, 15.8% in 150 to 600, and 5.7% above 2k. The spectrogram's brightest energy sits in the middle band, with the low band (dark red at the bottom) weak. Each band's share is not given against a class range, so only the centroid's miss is measured here."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The five onsets match the picture's five drip hits, but the tone is wrong. Flatness is 0.003 against the class range of 0.05 to 0.15 ('too pure: more noise'), so the sound is far more tonal and peaked than the noise-like water it should be. The spectrogram shows no pitch glide, so the character is only partly right."
+   "reason": "Onset count matches (7 measured, about 8 spikes visible), so the hits are right in number. Flatness is 0.007 against the class range of 0.05 to 0.15, about seven times too pure: the energy is concentrated in a narrow band rather than spread as a noise should be. The spectrogram shows vertical streaks in the middle band, not the broad spread of drips. No pitch movement is visible in the picture."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The engine checks report no faults. Peak is -0.5 dBFS, clipped is 0, and DC is 0, so the file does not clip and has no offset. The picture and features do not show the sample rate, bit depth or channel count, so those rest on the engine check. The loop's cue is not visible: the only marker is the peak line at 3.30 s, and the original's cue is not given. This is not a fault in the measures, so it scores 2."
+   "reason": "The harness's engine checks report no faults. Peak is -1 dBFS, clipped is 0, DC is 0, and the file name sound/ambience/fw_drips.wav is the brief's. The loop's join is not measured against an original cue, and sample rate, bit depth and channel count are not in the picture or features, so they rest on the harness's engine check."
   }
  },
- "total": 8,
+ "total": 6,
  "of": 10,
  "passes": false
 }

@@ -1,0 +1,81 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_glow.spr: a sodium lamp's glow",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.56,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "glow",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The sprite is one flat, hard-edged light-grey disc (about 28 of 32 pixels across) with no soft falloff, so it reads as a disc, not a sodium lamp's glow. This matches the brief's decoy ('one disc'), not the effect asked for."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frame is 32 x 32, the measured size. The disc fills most of the frame, but with a hard edge and no radial falloff, so the effect does not fill the frame the way a glow does. Clearly off."
+  },
+  "R3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "By eye the disc is neutral light grey to white. The brief asks for a sodium lamp's glow, which is sodium orange. Nothing in the frame is orange or warm."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "One frame, held to the glow class measures: the measured envelope is first 1, last 1 with a single frame, border 0 (inside the class range 0 to 0.005), and no jitter or wrap. The steady single frame matches the class. Motion is not a strong test for one static frame."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The measured type is parallel and the format is additive, which suits a glow in the engine. The name is the brief's sprite file. The picture does not show the original's type or format, so I cannot confirm the replacement matches what it takes the place of. Not verified."
+  }
+ },
+ "total": 4,
+ "of": 10,
+ "passes": false
+}

@@ -6,33 +6,33 @@
    64,
    64
   ],
-  "frames": 16,
+  "frames": 12,
   "type": "parallel",
   "format": "index alpha",
   "measures": {
-   "frames": 16,
+   "frames": 12,
    "size": [
     64,
     64
    ],
    "border": {
-    "max": 0.196,
-    "mean": 0.003
+    "max": 0.322,
+    "mean": 0.005
    },
    "envelope": {
-    "peakAt": 0.2,
+    "peakAt": 0.27,
     "first": 0,
     "last": 0
    },
-   "dark": 0.78,
-   "wrap": 0.27,
-   "jitter": 1.34
+   "dark": 0.8,
+   "wrap": 0.3,
+   "jitter": 1.35
   },
   "class": "smoke puff",
   "againstClass": [
    {
     "measure": "jitter",
-    "value": 1.34,
+    "value": 1.35,
     "range": [
      0.9,
      1.5
@@ -42,7 +42,7 @@
    },
    {
     "measure": "border",
-    "value": 0.003,
+    "value": 0.005,
     "range": [
      0,
      0.005
@@ -52,7 +52,7 @@
    },
    {
     "measure": "peakAt",
-    "value": 0.2,
+    "value": 0.27,
     "range": [
      0.2,
      0.6
@@ -88,34 +88,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Reads as a steam puff: a soft, grey, feathered column that thins and fades over the frames (frames 1 to 11), with no hard edges or glow. It is the same effect as the brief's steam."
+   "reason": "Reads as a steam puff: a soft, grey-white wisp that rises from the bottom of the frame in frames 1 to 3, lifts through frames 4 to 8 and thins out by frames 9 to 11. It is the effect the brief asks for."
   },
   "R2": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The effect fills only a narrow central column, about a quarter of each 64 x 64 frame's width, and sits in the lower half (its base near y of about 118 in frames 2 to 7 and about 245 in the lower row). It does not fill the frame as a steam puff in Half-Life does, so the frame size is right but the effect's shape and placement are off."
+   "score": 2,
+   "reason": "All twelve frames are 64 x 64 as measured. The wisp is a narrow column in the centre and top of each frame, not a full-frame cloud, but the border is clean (border max 0.322 at the edge, mean 0.005), so nothing is clipped or smeared at the frame edges. Nothing is shown of the class's fill, so this is judged by eye."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Neutral light grey steam, lighter than the grey background, with no tint. Judged by eye it is steam-coloured and matches what the engine blends."
+   "reason": "Light grey-white steam on the engine's mid-grey backing in every frame, with no stray hue. That is the pale, neutral steam colour the brief asks for, judged by eye as the brief's colour."
   },
   "R4": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The measures sit inside the class's ranges: 16 frames, a peak at frame 3 (0.2), first and last frames blank, so it is a one-shot that ends dark. What is clearly off is the rise: the plume's base stays at about the same height in frames 2 to 11 while its top softens, so it reads as swelling and fading in place rather than rising as the brief asks. The thinning and fading are there."
+   "score": 2,
+   "reason": "Twelve frames, with the envelope peaking at about 0.27 (frames 2 to 4) and the sprite empty at both ends (first 0, last 0). The motion is a rise and a thin: the column climbs from the bottom in frames 1 to 3, moves up the frame in frames 4 to 8 and fades in frames 9 to 11. The jitter of 1.35 is within the class's 0.9 to 1.5. The class measures are met, so the frame count, envelope and motion are right for a steam puff."
   },
   "R5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The measures give type 'parallel' and format 'index alpha'. Half-Life's steam1 is 'parallel oriented', per the 2026-10-16 amendment, and this file was built 'parallel', the fault that failed R5 by measure for steam1 and fire. The format is right, and the name fw_steam fits the slot. The type is what is off, so this is a 1 by measure and the sprite needs rebuilding as parallel oriented."
+   "reason": "The sprite is typed 'parallel' with 'index alpha' format. The amendment of 2026-10-16 records that Half-Life's steam1 is 'parallel oriented', so if this sprite takes steam1's place its type is clearly off, and R5 fails by measure. The format and name (fw_steam) are as expected. This assumes the brief's replaced file is steam1, which the brief text I was given does not state; if it were a parallel slot, R5 would be 2."
   }
  },
- "total": 7,
+ "total": 9,
  "of": 10,
  "passes": false
 }

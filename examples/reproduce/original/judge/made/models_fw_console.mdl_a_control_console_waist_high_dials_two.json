@@ -3,21 +3,21 @@
  "label": "models/fw_console.mdl: a control console, waist high, dials, two screens, a row of switches",
  "measured": {
   "size": [
-   41.6,
-   26,
-   42.6
+   44,
+   30,
+   42
   ],
   "sizeAsked": {
    "high": 40
   },
-  "sizeOff": 0.065,
+  "sizeOff": 0.05,
   "triangles": 24,
   "halfLifeMedianOfItsKind": 238,
   "halfLifeThreeQuartersUnder": 291,
   "halfLifeMost": 439,
   "checkErrors": [],
-  "lineup": "the asset is one of A to D in lineup.png beside models/w_egon.mdl, models/floater.mdl, models/sentry.mdl",
-  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked A, C, C, A where the asset was D, B, B, D: passed for one of the game's"
+  "lineup": "the asset is one of A to D in lineup.png beside models/sentry.mdl, models/w_egon.mdl, models/filecabinet.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked C, D, C, A where the asset was D, B, B, D: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
@@ -26,55 +26,55 @@
  },
  "scores": {
   "M1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The body is a clean box about the brief's size, but the top is a separate slab that is tilted in the LEFT and RIGHT views (sticking out past both the front and back edges) and sits off the body with a visible gap, as the BACK view shows. The brief asks for a console with a sloped or flat control face and nothing about a lid, so this outline is wrong at the top."
+   "score": 2,
+   "reason": "Checked against the brief's words (a waist-high control console): the outline is a box about 42 units high with a flat slab top, and it is the same in all six side views and the front-left, front-right, back-left and back-right angles. Nothing sticks out or is missing. The silhouette reads as a cabinet with no sloped control face, but the brief does not ask for one."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured 41.6 x 26 x 42.6 units; the brief asks for waist high, 40, which is 6.5% off on the height, inside the 15% band the brief gets."
+   "reason": "Measured 44 x 30 x 42 against a brief height of 40 (sizeOff 0.05). The height is 5% over and within the 15% band, so the size matches the brief."
   },
   "M3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The two screens (FRONT, two dark green panels) and the row of eight dark slots above the hazard stripe are there. The three pale squares on the front, which are meant as dials, are small square blocks with no round dial face in any view, so the dials read as buttons. The top slab is also a floating part with no purpose in the brief."
+   "reason": "The brief's parts are dials (round), two screens, and a row of switches. The two dark screens are on the front face and the row of six black switch slots is at the bottom of the front. The four amber 'dials' on the front are square, not round, so a round part has the wrong number of sides (4 against a circle), which caps M3 at 1. A small part missing or a round part with the wrong number of sides makes M3 at most 1."
   },
   "M4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Grey-green rusted steel body, dark green screens, and a yellow and black hazard stripe along the base, all in the Half-Life palette the brief asks for. Nothing reads as neon or sci-fi."
+   "reason": "The brief gives no exact colours, only the palette: grey-green painted steel, dark glass-like screens, yellow and black hazard stripe. The front, sides and top use those, and the stripe is yellow and black on the base and top edge. Each region reads as its material."
   },
   "M5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Rust blotches on the body, edge wear on the corners, a hazard stripe along the bottom, and the screens and slot row in their places. The screens are flat and have no lettering, which the brief does not ask for."
+   "reason": "The hazard stripe is at the base (front and right) and along the top right edge. Wear shows at the edges and the concrete cap has speckle. The screens are dark panels with no content and the dials are flat squares, but the brief does not ask for more than these markings, so nothing asked for is missing."
   },
   "M6": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Capped at 2 by the rubric. The line-up test passed: the judges did not pick the asset as the one not made by Valve (A, C, C, A against D, B, B, D)."
+   "reason": "Capped by the line-up test, which was run apart from this judging. The asset was passed for one of the game's in all four readings (asset at D, B, B, D; judges picked C, D, C, A, none of them the asset)."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The front is clear, with the screens, the switch row and the stripe facing it. The body stands upright on a flat base as the BELOW view shows."
+   "reason": "The front, with the two screens, the dials and the switch row, faces the viewer and is upright. The box stands on its base with the hazard stripe at floor level, as a console stands on its origin."
   },
   "M8": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "24 triangles is well under the cap, and the check passes. But the top slab is floating: the BACK and LEFT views show a dark gap between it and the body, and in FRONT-LEFT it touches only at one corner. The brief has no lid, so this is a floating part."
+   "score": 2,
+   "reason": "SMAK's check reports no errors. It has 24 triangles, far under twice the Half-Life median of 238. Every view shows closed faces: the underside (Below) is closed, the back is closed, and the top slab sits on the body. Nothing is open, inside out or floating."
   }
  },
- "total": 13,
+ "total": 15,
  "of": 16,
  "passes": false
 }

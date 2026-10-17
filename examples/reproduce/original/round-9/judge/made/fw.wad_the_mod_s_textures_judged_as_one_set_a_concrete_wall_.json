@@ -1,0 +1,166 @@
+{
+ "kind": "texture",
+ "label": "fw.wad, the mod's textures, judged as one set: a concrete wall, a wet concrete floor, a steel grate with holes, a catwalk floor, a pipe-covered wall, a hazard-striped trim, a rusted steel plate, a control panel with dials, a sodium lamp's face (lit), the water, a sign reading PUMP 3, a door",
+ "measured": {
+  "count": 13,
+  "least": 12,
+  "textures": [
+   {
+    "name": "FW_CONC",
+    "size": [
+     256,
+     256
+    ],
+    "detail": 27.5
+   },
+   {
+    "name": "FW_WETFL",
+    "size": [
+     256,
+     256
+    ],
+    "detail": 13.1
+   },
+   {
+    "name": "{FW_GRATE",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 33.3
+   },
+   {
+    "name": "FW_CATWLK",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 23.4
+   },
+   {
+    "name": "FW_PIPEWL",
+    "size": [
+     256,
+     256
+    ],
+    "detail": 20.2
+   },
+   {
+    "name": "FW_HAZARD",
+    "size": [
+     128,
+     64
+    ],
+    "detail": 156.5
+   },
+   {
+    "name": "FW_RUSTPL",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 17.1
+   },
+   {
+    "name": "FW_CTRLPN",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 16.3
+   },
+   {
+    "name": "FW_LAMP",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 25.1
+   },
+   {
+    "name": "!FW_WATER",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 2.7
+   },
+   {
+    "name": "FW_PUMP3",
+    "size": [
+     128,
+     64
+    ],
+    "detail": 41.2
+   },
+   {
+    "name": "FW_DOOR",
+    "size": [
+     128,
+     256
+    ],
+    "detail": 17.6
+   },
+   {
+    "name": "FW_CEIL",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 21.9
+   }
+  ],
+  "halfLifeDetail": {
+   "least": 10.8,
+   "q1": 19.7,
+   "median": 30.1,
+   "q3": 45,
+   "most": 75,
+   "band": "T5's band is least to most, Half-Life's own from the 5th to the 95th in 100: fine detail inside it is Valve's own range (a quartile is no bound); under least reads smeared or flat, over most noisy. A texture the brief asks to be one plain colour is flat in Valve's too (its BLACK and YELLOW are 0): flat is right there, and T5 is 2"
+  }
+ },
+ "caps": {
+  "T6": 2
+ },
+ "scores": {
+  "T1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Most textures read as their material (FW_CONC, FW_WETFL, FW_CATWLK, FW_PIPEWL, FW_RUSTPL, FW_PUMP3, FW_DOOR, FW_CEIL). Three do not. FW_CTRLPN has panel seams but no dials, switches or screens, so it reads as a plain metal panel. FW_LAMP reads as a barred grille (black slats with cream strips in an orange frame), not a lamp face. FW_GRATE is a regular grid of light squares that reads as tiling rather than steel grate. FW_HAZARD's stripes are too faint to read as hazard stripes."
+  },
+  "T2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Colour not measured on this sheet, so judged by eye. FW_LAMP's face is mostly black with thin cream strips, not a glowing sodium orange. FW_WATER is near-black teal rather than the brief's green-grey. The other textures' colours (grey concrete, green-grey pipe wall, rust brown, yellow PUMP 3, green door) match the brief's palette."
+  },
+  "T3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Panel and seam spacing is plausible for each surface: 4x4 panels on the 128 rust plate, 128 catwalk plates with seams at the middle, pipes spanning the 256 pipe wall, and an 8x8 grate. Original spacing cannot be checked from this sheet, so this is judged by eye."
+  },
+  "T4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Not measured here. The concrete, wet floor, water and pipe wall show no visible step at their edges. The panel seams on the catwalk, rust plate and ceiling sit at regular interior positions, so they should repeat without a visible join."
+  },
+  "T5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "FW_HAZARD measures 156.5, far over the band's top of 75, and looks noisy and grainy, not crisp hatching. FW_WATER measures 2.7, under the band's bottom of 10.8, and reads smeared and nearly flat; the brief does not ask for a plain colour there. The concrete, catwalk, pipe wall, rust plate, control panel, pump sign, door and ceiling are within the band and look sharp and believable."
+  },
+  "T6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Names and sizes are as measured, all multiples of 16: {FW_GRATE (64x64) with holes, !FW_WATER (64x64) as a liquid, FW_PUMP3 (128x64) with the PUMP 3 text, FW_DOOR (128x256), and the rest at their sizes. The lamp's bright strips suggest a lit face, but a lit flag cannot be seen on this sheet. Animation frames are not in this set."
+  }
+ },
+ "total": 9,
+ "of": 12,
+ "passes": false
+}

@@ -2,14 +2,7 @@
  "kind": "mod",
  "label": "the mod as a whole",
  "measured": {
-  "missing": [
-   "models/v_crowbar.mdl",
-   "models/p_crowbar.mdl",
-   "models/w_crowbar.mdl",
-   "models/headcrab.mdl",
-   "videos/fw_wrench.mp4",
-   "videos/fw_crawler.mp4"
-  ],
+  "missing": [],
   "failedChecks": [],
   "chain": [
    {
@@ -18,7 +11,7 @@
      "fw_pumphall"
     ],
     "landmarks": [
-     null
+     "lm_yard_pumphall"
     ],
     "asked": "fw_pumphall"
    },
@@ -28,8 +21,8 @@
      "fw_control"
     ],
     "landmarks": [
-     null,
-     null
+     "lm_yard_pumphall",
+     "lm_pumphall_control"
     ],
     "asked": "fw_control"
    },
@@ -37,7 +30,7 @@
     "map": "fw_control",
     "leadsTo": [],
     "landmarks": [
-     null
+     "lm_pumphall_control"
     ],
     "asked": null
    }
@@ -45,34 +38,57 @@
   "shown": [
    {
     "file": "videos/fw_wrench.mp4",
-    "there": false,
-    "bytes": 0
+    "there": true,
+    "bytes": 218542
    },
    {
     "file": "videos/fw_crawler.mp4",
-    "there": false,
-    "bytes": 0
+    "there": true,
+    "bytes": 179725
    },
    {
     "file": "videos/fw_pumphall.mp4",
     "there": true,
-    "bytes": 4341005
+    "bytes": 7901941
    },
    {
     "file": "pictures/fw_props.png",
     "there": true,
-    "bytes": 996463
+    "bytes": 1081436
    }
   ]
  },
  "caps": {
-  "O1": 0,
+  "O1": 2,
   "O2": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "O1"
- ],
- "total": 0,
- "of": 8
+ "scores": {
+  "O1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements list nothing missing and no failed SMAK checks, and all four shown files (videos/fw_wrench.mp4, videos/fw_crawler.mp4, videos/fw_pumphall.mp4, pictures/fw_props.png) are present with non-zero sizes. The picture shows all five props, the crawler, the wrench and a view of each of the three maps. Textures, sprites and sounds are not visible in the picture, so this rests on the measurements, which report none missing."
+  },
+  "O2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The chain measurement holds: fw_yard leads to fw_pumphall through lm_yard_pumphall, fw_pumphall leads to fw_control through lm_pumphall_control, and fw_control ends the mod as the brief asks. Each change has its landmark and the walk test reaches each level. Model, sprite and sound references by the maps were not in the measurements and are not checked here."
+  },
+  "O3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The map views read as the same grimy, worn Half-Life concrete with sodium-orange lamps, which fits the brief's palette. The props do not match them: the valve wheel's red is bright and clean, the drum is a flat blue-grey with a bright yellow-black stripe, the console is a clean pale-green box, and the crawler is a saturated, glossy green. They look polished beside the weathered map walls, so the assets do not yet read as one place."
+  },
+  "O4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The sheet of props (pictures/fw_props.png, the everything.png shown here) shows each prop, the crawler and the wrench, and the map views, and the three videos the brief asks for are present with sizes. I could not play the videos, so this rests on their presence and on the sheet."
+  }
+ },
+ "total": 7,
+ "of": 8,
+ "passes": false
 }

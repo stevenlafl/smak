@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_attack1.wav: the crawler's attack",
+ "measured": {
+  "features": {
+   "length": 0.318,
+   "peak": -0.5,
+   "rms": -26.3,
+   "crest": 25.8,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.14,
+   "peakAt": 0.145,
+   "t20": 0.01,
+   "t40": 0.09,
+   "centroid": 3012,
+   "rolloff": 3833,
+   "flatness": 0.07,
+   "bands": {
+    "<150": 0,
+    "150-600": 0.9,
+    "600-2k": 11,
+    "2k-5k": 87.2,
+    ">5k": 0.8
+   },
+   "onsets": 1
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.906,
+    "centroid": 921,
+    "t20": 0.394,
+    "bands": {
+     "<150": 0.5,
+     "150-600": 68.1,
+     "600-2k": 18.8,
+     "2k-5k": 10.9,
+     ">5k": 1.6
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The waveform shows one sharp hit at about 0.145 s (peakAt) that decays in about 0.17 s, with a noisy body concentrated at 2k-5k. That reads as a single snap or impact. The game's own hc_attack1 (0.91 s) has several strikes spread through its length, with a low-mid body at 150-600 Hz. The picture does not show the crawler's attack as a multi-hit event, so the same event is not established."
+  },
+  "S2": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Length is 0.318 s against the game's 0.906 s, about 65% short, outside the 25% band. The onset is fast (t20 0.01 s) where the original's is 0.394 s, so the envelope is wrong in both length and attack. The brief's class is null in the measurements, so the class range is not given. The game's own sound is the only reference, and it fails against it by a wide margin."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Centroid is 3012 Hz against 921 Hz, about 3.3 times the original's, far outside 20%. Band shares are off well beyond 10 points: 150-600 Hz is 0.9% against 68.1%, 2k-5k Hz is 87.2% against 10.9%, and 600-2k Hz is 11% against 18.8%. The energy sits in the top mids where the original's sits low. No class range is given, so this is measured against the game's own sound only."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Onsets are 1 against the original's several visible hits, so the cluster of strikes is missing. Flatness is 0.07, which is very tonal and peaky for a wet, noisy attack; the spectrogram shows a steady band rather than the broad noise of the original. No pitch movement is visible. This is not a must-have item, but it is clearly off."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file's measures are clean: clipped 0, DC 0, peak -0.5 dBFS, and the waveform sits on the zero line, so it looks mono. The name sound/headcrab/hc_attack1.wav matches the game's, and it is not a loop, so no loop cue is needed. The sample rate and bit depth are not in the measurements and the picture does not show them, so they are not confirmed here; the score rests on the measured parts."
+  }
+ },
+ "total": 4,
+ "of": 10,
+ "passes": false
+}

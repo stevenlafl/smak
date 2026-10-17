@@ -8,7 +8,7 @@
   ],
   "frames": 8,
   "type": "parallel",
-  "format": "index alpha",
+  "format": "additive",
   "measures": {
    "frames": 8,
    "size": [
@@ -20,19 +20,19 @@
     "mean": 0
    },
    "envelope": {
-    "peakAt": 0.14,
+    "peakAt": 0.29,
     "first": 0,
     "last": 0
    },
-   "dark": 0.68,
-   "wrap": 0.37,
-   "jitter": 1.49
+   "dark": 0.79,
+   "wrap": 0.06,
+   "jitter": 1.62
   },
   "class": "explosion",
   "againstClass": [
    {
     "measure": "jitter",
-    "value": 1.49,
+    "value": 1.62,
     "range": [
      1.04,
      1.48
@@ -52,13 +52,13 @@
    },
    {
     "measure": "peakAt",
-    "value": 0.14,
+    "value": 0.29,
     "range": [
      0.22,
      0.71
     ],
-    "ok": false,
-    "words": "peaks too soon"
+    "ok": true,
+    "words": ""
    },
    {
     "measure": "first",
@@ -85,34 +85,34 @@
  "caps": {},
  "scores": {
   "R1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Frames 1 to 6 show a soft green cluster of overlapping blobs that swells and then thins. It reads as a sludge cloud or puff, not a splash: there are no droplets and no outward crown on impact. Frame 0 is blank, so the splash has no visible start. The effect is there but clearly off from a splash."
+   "score": 2,
+   "reason": "Reads as a splash: a ring of glow spreads outward from frame 1 to frame 4 and throws small spray droplets across the centre. That is the sludge spit splashing, animated, as the brief asks."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Each 64 by 64 frame is filled by the effect across most of its width and height (roughly 75% across in frame 1 and in frame 3). Border measure is 0, so nothing is clipped at the edges. Shape and size match what the brief asks."
+   "reason": "All eight frames are 64 by 64, and the border measures 0, so the edges are clean. The ring fills most of the frame by frames 3 and 4 and stays inside the frame in every frame."
   },
   "R3": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "The colour is a muted, slightly lime-tinged sludge green over the grey backdrop. It fits the brief's green-grey, sludgy water, and the hue stays consistent from frame to frame. Judged by eye, no measure given."
+   "score": 1,
+   "reason": "The glow and droplets are a bright lime, yellow-green (frames 1 to 3 especially). The brief asks for green-grey sludge in Half-Life's muted palette, so this is more saturated and toxic-looking than asked. It is close, but clearly off."
   },
   "R4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Against the class's measures, two of five fail. Peak comes at 0.14 of the run, against the explosion class's 0.22 to 0.71 ('peaks too soon'): the largest, brightest cluster is in frames 1 to 2, then it only fades. Jitter is 1.49 against 1.04 to 1.48 ('flickers'): the blob positions jump between frames 1, 2 and 3 rather than moving coherently. First frame 0 and last frame 0 are within range, and the eight frames fit. Motion is partly right, partly off."
+   "reason": "Measured jitter is 1.62, outside the explosion class range of 1.04 to 1.48, so the motion flickers. The droplets jump to new positions between frames (frame 1 to 2, and again across frames 4 to 6) instead of drifting coherently. The rest holds: the ring grows then fades, the envelope peaks at 0.29 with first and last at 0 (within range), and the one-shot ends dark. The frame count of 8 is not held to a class measure here. Capped at 1 by the failed jitter measure."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The file is sprites/fw_spit.spr, the name the game looks for. It is parallel with index alpha format, which the measurements read back as written. Border, first and last measures show no fault in the file. The sprite's type is read as built, not checked against Valve's spit file, which was not given."
+   "reason": "Additive format with parallel type, 8 frames, under the name fw_spit.spr in sprites/. The brief names no type for this slot, so the type cannot be checked against a file it replaces; the format and name are valid for GoldSrc."
   }
  },
  "total": 8,

@@ -3,41 +3,38 @@
  "label": "sound/weapons/cbar_hit1.wav: the wrench striking metal",
  "measured": {
   "features": {
-   "length": 0.607,
+   "length": 0.7,
    "peak": -0.5,
-   "rms": -15.5,
-   "crest": 15,
-   "dc": 0,
+   "rms": -11.5,
+   "crest": 11,
+   "dc": -0.0007,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.01,
-   "attack": 0.005,
-   "peakAt": 0.005,
-   "t20": 0.21,
-   "t40": 0.409,
-   "centroid": 1049,
-   "rolloff": 1960,
-   "flatness": 0.003,
+   "tail": 0,
+   "attack": 0.05,
+   "peakAt": 0.05,
+   "t20": 0.644,
+   "t40": 0.649,
+   "centroid": 1579,
+   "rolloff": 2153,
+   "flatness": 0.002,
    "bands": {
-    "<150": 0,
-    "150-600": 0.1,
-    "600-2k": 91.6,
-    "2k-5k": 7.9,
-    ">5k": 0.4
+    "<150": 2.1,
+    "150-600": 16.3,
+    "600-2k": 23,
+    "2k-5k": 58.6,
+    ">5k": 0
    },
    "onsets": 0
   },
   "class": "metal hit",
   "against": {
-   "score": 15,
+   "score": 16,
    "of": 22,
    "lines": [
-    "crest 15 dB (5.3 to 12.5): too spiky: saturate more, or hold its body longer",
-    "rms -15.5 dBFS (-12.9 to -5.7): under the range",
-    "t20 0.21 s (0.24 to 0.7): dies too soon: a longer decay",
-    "centroid 1049 Hz (1074 to 1654): too dark: more 600 to 5000 Hz",
-    "flatness 0.003 (0.16 to 0.28): too pure: more noise",
-    "band 600-2k 91.6% (63.7 to 83.8): over the range"
+    "flatness 0.002 (0.16 to 0.28): too pure: more noise",
+    "band 600-2k 23% (63.7 to 83.8): under the range",
+    "band 2k-5k 58.6% (3.7 to 24.6): over the range"
    ]
   },
   "engineFaults": []
@@ -50,34 +47,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "From the picture and features, the event reads as a metal strike: a sharp onset at about 0.005 s, then a ring. But the spectrogram is one sustained horizontal tone with little broadband noise under it, and flatness is 0.003. That looks more like a struck pipe or bell than a wrench's clatter on metal. Judged from the picture and features only; the judge cannot listen."
+   "reason": "The picture shows a dense hit at the start (0 to about 0.05 s, peak at 0.05 s) that decays over 0.7 s, which fits a strike. The spectrogram is a tonal, low-to-mid body in the lower half with nothing above about 5 kHz, and it reads more as a muffled thud than the bright, ringing, rattling strike of a wrench on metal. Clearly off, not wrong in kind."
   },
   "S2": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Length is 0.607 s and attack is 0.005 s, both plausible for the class. The decay fails: t20 is 0.21 s, under the metal hit class range of 0.24 to 0.7 s, so the waveform dies too soon (visible as the tail fading to near-silence by about 0.4 s). Outside the class range, S2 is capped at 1."
+   "score": 2,
+   "reason": "Length 0.7 s, attack 0.05 s and the decay (t20 0.644 s) pass the class range as the measure reports it: none of the three flagged lines is an envelope line. The caveat is that the measure reports 16 of 22 checks but lists only three failing lines, so I cannot confirm the other six, and I score S2 on the lines given."
   },
   "S3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Centroid is 1049 Hz, just under the class range of 1074 to 1654 Hz, so it is too dark. The 600 to 2k band holds 91.6% of the energy against a range of 63.7 to 83.8%, over by 7.8 points. The spectrogram agrees: the energy sits in the lower bands and the bright low-frequency area at the bottom left, with too little above 2 kHz."
+   "reason": "Band shares are 2.1 (<150), 16.3 (150-600), 23.0 (600-2k), 58.6 (2k-5k), 0 (>5k). The 600-2k share is 40 points under its range (63.7 to 83.8) and the 2k-5k share is 34 points over its range (3.7 to 24.6), both far beyond the 10-point tolerance. Nothing above 5 kHz leaves the sound dull and missing the high rattle. The centroid (1579 Hz) is not flagged. Energy sits in the right general region but is badly distributed."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Flatness is 0.003 against 0.16 to 0.28, so the sound is far too pure: the spectrogram is a few stable horizontal lines with no noise texture. Onsets are 0, so there is no clatter of hits. Pitch movement is absent, which is plausible for a hit. The tone is there but the noisy character of a metal strike is missing."
+   "reason": "Flatness is 0.002 against a 0.16 to 0.28 range, flagged as too pure: the spectrogram's horizontal striping shows steady partials where a metal hit should have broadband noise under its ring. Onsets are 0, so no secondary clicks or rattle appear after the strike. No pitch movement is visible, which is right for this event."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The name is sound/weapons/cbar_hit1.wav, as the picture's title shows. Clipped is 0, DC is 0, and the engine-fault list is empty. The sample rate, bit depth and channel count are not in the measurements or the picture, so those are taken from the empty engine-fault list rather than read directly."
+   "reason": "No clipping (0), DC -0.0007, peak -0.5 dBFS, and the harness's engine check reports no faults (engineFaults empty). The sample rate, bit depth and channel count are not in the shown measures, so the format is taken on the engine check's word."
   }
  },
- "total": 6,
+ "total": 7,
  "of": 10,
  "passes": false
 }

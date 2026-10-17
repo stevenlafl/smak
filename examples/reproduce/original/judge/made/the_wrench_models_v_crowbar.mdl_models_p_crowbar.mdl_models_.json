@@ -1,0 +1,86 @@
+{
+ "kind": "weapon",
+ "label": "the wrench (models/v_crowbar.mdl, models/p_crowbar.mdl, models/w_crowbar.mdl): a pipe wrench: red-painted handle worn to bare iron, a heavy toothed jaw",
+ "measured": {
+  "size": [
+   19,
+   3.5,
+   6.4
+  ],
+  "sizeAsked": {
+   "long": 18
+  },
+  "sizeOff": 0.055,
+  "triangles": 108,
+  "halfLifeMedianOfItsKind": 142,
+  "halfLifeThreeQuartersUnder": 187,
+  "halfLifeMost": 291,
+  "checkErrors": [],
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_9mmar.mdl, models/w_357.mdl, models/w_satchel.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked B, D, A, D where the asset was D, B, D, A: passed for one of the game's"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2,
+  "M6": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The outline matches the brief's words: a long handle with a single heavy toothed head at one end. Across sides.png the head is a box about 6.4 units tall against a handle about 3.5 wide, which holds up at the front-left and back-right views. Read as a pipe wrench it is simpler than the real tool, but no view shows a part sticking out or missing that the brief names."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured length 19 against the brief's 18, 5.5% off, within the 15% line. Width 3.5 and height 6.4 are not in the brief, so they are not charged."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Parts asked for: a handle, a heavy toothed jaw, and its teeth. The handle is present in every view. The jaw block carries about four teeth on each exposed face (Below, Top, Front-left), and the serrated plate on top of the block is there. The brief asks for one toothed jaw, and the model has one. No small part the brief names is missing."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The handle is red at its ends and at the band by the jaw, with grey bare iron showing through the middle, which is the brief's 'red-painted handle worn to bare iron' (sides.png, left and right views; first-person.png red shaft). The head is bare grey iron, which is what the brief's 'heavy toothed jaw' is. No region is in a colour the brief does not give."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The wear on the handle is a regular, repeated grey chevron across the middle (left and right views, and the back-left view of the handle). It reads as a stylised stripe pattern rather than scuffs where a hand would wear the paint. The red bands are flat, with no chipping, and the jaw has a fine ridge on top but no wear or marking on its teeth or face. This is paint and detail, so it is charged here, not to M1 or M3."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Scored 2 by the rule that caps M6 for this kind. The line-up test (lineup.png, D) was run four times in four orders, and the judges picked B, D, A and D, never the asset, so it passed as one of the game's."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The head is at the upright end in the first-person view, the same way the crowbar's hook points up in first-person.png, and the handle lies along the length axis in the world views. The brief gives no front, so this is read against the crowbar's upright placement, not against a stated front."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's check reports no errors. 108 triangles is under twice Half-Life's median of 142 (284) and under its most of 291, so it passes the triangle line. No open or inside-out face shows in the ten views: the handle ends are closed faceted caps and the head is closed at the jaw, with the handle joined to the jaw in front-left and below."
+  },
+  "W1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "In first-person.png the wrench sits in the same place as the game's crowbar in the right half of the same image (its head at the top of the frame, the handle running down out of it), held at the same angle. In attack.png the weapon sweeps through the frames (0, 3, 4, 6, 7, 9, 10) with the jaw joined to the handle at each frame where both are seen. Frame 1 is empty, which is the weapon leaving the picture, not its leaving the hands. Caveat: no hands are drawn in these pictures, so the grip itself cannot be checked here."
+  }
+ },
+ "total": 17,
+ "of": 18,
+ "passes": true
+}

@@ -1,0 +1,227 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_valvewheel.mdl",
+  "kind": "prop",
+  "size": {
+    "height": 33,
+    "width": 32
+  },
+  "materials": {
+    "red": {
+      "base": "paint",
+      "tone": [
+        0.6,
+        0.1,
+        0.07
+      ]
+    },
+    "steel": {
+      "base": "steel"
+    },
+    "iron": {
+      "base": "iron",
+      "rust": 0.3
+    }
+  },
+  "parts": [
+    {
+      "id": "flange",
+      "kind": "cylinder",
+      "material": "iron",
+      "radius": 5,
+      "height": 2,
+      "sides": 10,
+      "at": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "bonnet",
+      "kind": "cylinder",
+      "material": "iron",
+      "radius": 3.8,
+      "height": 15,
+      "sides": 10,
+      "attach": {
+        "to": "flange"
+      }
+    },
+    {
+      "id": "stem",
+      "kind": "cylinder",
+      "material": "iron",
+      "radius": 1.6,
+      "height": 6,
+      "sides": 8,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        0,
+        0,
+        17
+      ]
+    },
+    {
+      "id": "hub",
+      "kind": "cylinder",
+      "material": "red",
+      "radius": 3.2,
+      "height": 3,
+      "sides": 10,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        5,
+        0,
+        17
+      ]
+    },
+    {
+      "id": "spoke",
+      "kind": "box",
+      "material": "red",
+      "size": [
+        2.4,
+        27,
+        2.4
+      ],
+      "at": [
+        6,
+        0,
+        15.8
+      ],
+      "repeat": {
+        "count": 3,
+        "through": [
+          6,
+          0,
+          17
+        ],
+        "axis": "x"
+      }
+    },
+    {
+      "id": "rim",
+      "kind": "tube",
+      "material": "steel",
+      "sides": 6,
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "path": [
+        [
+          6,
+          14.5,
+          17,
+          1.5
+        ],
+        [
+          6,
+          13.4,
+          22.55,
+          1.5
+        ],
+        [
+          6,
+          10.25,
+          27.25,
+          1.5
+        ],
+        [
+          6,
+          5.55,
+          30.4,
+          1.5
+        ],
+        [
+          6,
+          0,
+          31.5,
+          1.5
+        ],
+        [
+          6,
+          -5.55,
+          30.4,
+          1.5
+        ],
+        [
+          6,
+          -10.25,
+          27.25,
+          1.5
+        ],
+        [
+          6,
+          -13.4,
+          22.55,
+          1.5
+        ],
+        [
+          6,
+          -14.5,
+          17,
+          1.5
+        ],
+        [
+          6,
+          -13.4,
+          11.45,
+          1.5
+        ],
+        [
+          6,
+          -10.25,
+          6.75,
+          1.5
+        ],
+        [
+          6,
+          -5.55,
+          3.6,
+          1.5
+        ],
+        [
+          6,
+          0,
+          2.5,
+          1.5
+        ],
+        [
+          6,
+          5.55,
+          3.6,
+          1.5
+        ],
+        [
+          6,
+          10.25,
+          6.75,
+          1.5
+        ],
+        [
+          6,
+          13.4,
+          11.45,
+          1.5
+        ],
+        [
+          6,
+          14.5,
+          17,
+          1.5
+        ]
+      ]
+    }
+  ]
+}

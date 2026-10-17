@@ -1,0 +1,292 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_console.mdl",
+  "kind": "prop",
+  "size": {
+    "height": 40,
+    "width": 26
+  },
+  "materials": {
+    "grey": {
+      "base": "metal",
+      "tone": [
+        0.36,
+        0.4,
+        0.38
+      ],
+      "rust": 0.15
+    },
+    "slope": {
+      "base": "metal",
+      "tone": [
+        0.26,
+        0.3,
+        0.28
+      ]
+    },
+    "screen": {
+      "base": "metal",
+      "tone": [
+        0.07,
+        0.16,
+        0.12
+      ]
+    },
+    "dial": {
+      "base": "steel"
+    },
+    "switch": {
+      "base": "paint",
+      "tone": [
+        0.15,
+        0.15,
+        0.14
+      ]
+    },
+    "hazard": {
+      "base": "hazard",
+      "tone": [
+        0.85,
+        0.65,
+        0.05
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "cabinet",
+      "kind": "box",
+      "material": "grey",
+      "size": [
+        40,
+        26,
+        32
+      ],
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "panels": [
+        {
+          "face": "front",
+          "at": [
+            6.5,
+            21
+          ],
+          "size": [
+            9,
+            7
+          ],
+          "style": "inset",
+          "material": "screen"
+        },
+        {
+          "face": "front",
+          "at": [
+            19.5,
+            21
+          ],
+          "size": [
+            9,
+            7
+          ],
+          "style": "inset",
+          "material": "screen"
+        },
+        {
+          "face": "front",
+          "at": [
+            5,
+            12
+          ],
+          "size": [
+            3.6,
+            3.6
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "dial"
+        },
+        {
+          "face": "front",
+          "at": [
+            13,
+            12
+          ],
+          "size": [
+            3.6,
+            3.6
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "dial"
+        },
+        {
+          "face": "front",
+          "at": [
+            21,
+            12
+          ],
+          "size": [
+            3.6,
+            3.6
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "dial"
+        },
+        {
+          "face": "front",
+          "at": [
+            3,
+            5
+          ],
+          "size": [
+            1.4,
+            2.6
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            5.5,
+            5
+          ],
+          "size": [
+            1.4,
+            2.6
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            8,
+            5
+          ],
+          "size": [
+            1.4,
+            2.6
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            10.5,
+            5
+          ],
+          "size": [
+            1.4,
+            2.6
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            13,
+            5
+          ],
+          "size": [
+            1.4,
+            2.6
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            15.5,
+            5
+          ],
+          "size": [
+            1.4,
+            2.6
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            18,
+            5
+          ],
+          "size": [
+            1.4,
+            2.6
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            20.5,
+            5
+          ],
+          "size": [
+            1.4,
+            2.6
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            23,
+            5
+          ],
+          "size": [
+            1.4,
+            2.6
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            13,
+            1.4
+          ],
+          "size": [
+            26,
+            2.2
+          ],
+          "style": "flat",
+          "material": "hazard"
+        }
+      ]
+    },
+    {
+      "id": "desk",
+      "kind": "box",
+      "material": "slope",
+      "size": [
+        40,
+        24,
+        3
+      ],
+      "rotate": [
+        0,
+        12,
+        0
+      ],
+      "at": [
+        1.4,
+        0,
+        35.5
+      ]
+    }
+  ]
+}

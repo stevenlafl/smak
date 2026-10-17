@@ -1,0 +1,81 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_glow.spr: a sodium lamp's glow",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.65,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "glow",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The frame is a soft radial glow, bright at the centre and fading to the edges, which is what a sodium lamp's glow sprite is for. Nothing else is drawn in it."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The frame is 64 by 64 as the brief's effect needs. The glow fills the frame, with its falloff reaching about three-quarters of the way to the edges, and the measured border is 0, so the edges are clean."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "By eye the glow is sodium orange: a warm amber core fading to dark brown-orange, not white or neon, which matches the brief's sodium-orange palette. The measured colour comparison is not given, so this rests on the picture alone."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "It is one frame, with first and last at the same level (1 and 1) and the peak at frame 0. The class's measured border (0, within 0 to 0.005) holds. A single steady frame is what the glow class takes, so the motion measures agree with Half-Life's own glows."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The measures give type parallel and format additive, which suit a glow drawn over the scene. The size is 64 by 64 and the name is fw_glow.spr, a sprite for this mod. The measures show no failed check, but the SMAK check result itself is not in the material I was given, so this rests on the measurements."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

@@ -1,0 +1,128 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_drum.mdl",
+  "kind": "prop",
+  "size": {
+    "height": 36
+  },
+  "materials": {
+    "drum": {
+      "base": "metal",
+      "tone": [
+        0.36,
+        0.42,
+        0.46
+      ],
+      "rust": 0.55
+    },
+    "hazard": {
+      "base": "hazard",
+      "tone": [
+        0.85,
+        0.65,
+        0.05
+      ]
+    },
+    "steel": {
+      "base": "steel",
+      "rust": 0.25
+    }
+  },
+  "parts": [
+    {
+      "id": "body",
+      "kind": "turn",
+      "material": "drum",
+      "sides": 16,
+      "rings": [
+        [
+          0,
+          10.6
+        ],
+        [
+          3,
+          11.3
+        ],
+        [
+          18,
+          11.5
+        ],
+        [
+          33,
+          11.3
+        ],
+        [
+          36,
+          10.6
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.62,
+              0
+            ],
+            [
+              0.62,
+              360
+            ]
+          ],
+          "width": 6,
+          "material": "hazard",
+          "ends": "round"
+        }
+      ]
+    },
+    {
+      "id": "hoop_low",
+      "kind": "band",
+      "material": "steel",
+      "on": {
+        "part": "body",
+        "s": 0.08
+      },
+      "width": 2,
+      "height": 0.6
+    },
+    {
+      "id": "hoop_high",
+      "kind": "band",
+      "material": "steel",
+      "on": {
+        "part": "body",
+        "s": 0.92
+      },
+      "width": 2,
+      "height": 0.6
+    },
+    {
+      "id": "bung_a",
+      "kind": "boss",
+      "material": "steel",
+      "on": {
+        "part": "body",
+        "s": 0.95,
+        "angle": 0
+      },
+      "radius": 1.5,
+      "height": 1
+    },
+    {
+      "id": "bung_b",
+      "kind": "boss",
+      "material": "steel",
+      "on": {
+        "part": "body",
+        "s": 0.95,
+        "angle": 180
+      },
+      "radius": 1.5,
+      "height": 1
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_steam.spr: a steam puff that rises and thins, animated",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.56,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "smoke puff",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0,
+    "range": [
+     0.2,
+     0.6
+    ],
+    "ok": false,
+    "words": "peaks too soon"
+   },
+   {
+    "measure": "first",
+    "value": 1,
+    "range": [
+     0,
+     0.35
+    ],
+    "ok": false,
+    "words": "starts too bright: an attack in its envelope"
+   },
+   {
+    "measure": "last",
+    "value": 1,
+    "range": [
+     0,
+     0.1
+    ],
+    "ok": false,
+    "words": "does not end dark: a decay in its envelope"
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The single frame is a flat, hard-edged pale disc with no wisps, no soft falloff and no sense of smoke or steam. It is the disc shape of a plain placeholder, not a steam puff. The measures agree: the envelope shows no thinning or rising, and the class's measures for a smoke puff (peak at 0.2 to 0.6, dark at the end) are not met."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frame is 32 by 32, the right size, and the disc fills most of it, roughly from the edges in to a central blob. But the fill is a uniform circle that does not thin toward its edge the way a steam puff's does, so it is clearly off in shape."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The colour is a flat, light neutral grey-white on a dark ground. That reads as steam in a loose sense, but there is no tonal range (no brighter core, no dimmer rim), so the colour is only roughly right by eye."
+  },
+  "R4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The sprite has one frame, but a steam puff that rises and thins needs an animation. The measures show first 1, last 1 and peak at frame 0: the sprite starts at full brightness and does not end dark, so the envelope has no decay and the motion is absent. The class's measures call for a peak around 0.2 to 0.6 and a dark last frame, and both fail."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The name fw_steam and the additive format are right and the file reads back. The type is parallel, but the amendment for steam1 gives its original type as parallel oriented, so the type does not match the slot it takes. That fault is clear from the measure."
+  }
+ },
+ "total": 3,
+ "of": 10,
+ "passes": false
+}

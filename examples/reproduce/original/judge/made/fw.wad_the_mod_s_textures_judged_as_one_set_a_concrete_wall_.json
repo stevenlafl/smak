@@ -2,24 +2,24 @@
  "kind": "texture",
  "label": "fw.wad, the mod's textures, judged as one set: a concrete wall, a wet concrete floor, a steel grate with holes, a catwalk floor, a pipe-covered wall, a hazard-striped trim, a rusted steel plate, a control panel with dials, a sodium lamp's face (lit), the water, a sign reading PUMP 3, a door",
  "measured": {
-  "count": 13,
+  "count": 14,
   "least": 12,
   "textures": [
    {
-    "name": "FW_CONC",
+    "name": "FW_CONCRETE",
     "size": [
      256,
      256
     ],
-    "detail": 27.5
+    "detail": 28.1
    },
    {
-    "name": "FW_WETFL",
+    "name": "FW_WETFLOOR",
     "size": [
      256,
      256
     ],
-    "detail": 13.1
+    "detail": 9.1
    },
    {
     "name": "{FW_GRATE",
@@ -27,71 +27,71 @@
      64,
      64
     ],
-    "detail": 33.3
+    "detail": 42
    },
    {
-    "name": "FW_CATWLK",
+    "name": "FW_CATWALK",
     "size": [
      128,
      128
     ],
-    "detail": 23.4
+    "detail": 21.4
    },
    {
-    "name": "FW_PIPEWL",
+    "name": "FW_PIPEWALL",
     "size": [
      256,
      256
     ],
-    "detail": 20.2
+    "detail": 18.7
    },
    {
     "name": "FW_HAZARD",
     "size": [
      128,
-     64
+     128
     ],
-    "detail": 156.5
+    "detail": 153.9
    },
    {
-    "name": "FW_RUSTPL",
+    "name": "FW_RUSTPLATE",
+    "size": [
+     256,
+     256
+    ],
+    "detail": 20.7
+   },
+   {
+    "name": "FW_CONTROL",
+    "size": [
+     256,
+     256
+    ],
+    "detail": 25.9
+   },
+   {
+    "name": "FW_SODIUM",
     "size": [
      128,
      128
     ],
-    "detail": 17.1
-   },
-   {
-    "name": "FW_CTRLPN",
-    "size": [
-     128,
-     128
-    ],
-    "detail": 16.3
-   },
-   {
-    "name": "FW_LAMP",
-    "size": [
-     128,
-     128
-    ],
-    "detail": 25.1
+    "detail": 5.4
    },
    {
     "name": "!FW_WATER",
     "size": [
-     64,
-     64
+     128,
+     128
     ],
-    "detail": 2.7
+    "detail": 3.2
    },
    {
     "name": "FW_PUMP3",
     "size": [
-     128,
-     64
+     256,
+     128
     ],
-    "detail": 41.2
+    "detail": 38.6
    },
    {
     "name": "FW_DOOR",
@@ -99,15 +99,23 @@
      128,
      256
     ],
-    "detail": 17.6
+    "detail": 14.9
    },
    {
-    "name": "FW_CEIL",
+    "name": "FW_TILE",
     "size": [
      128,
      128
     ],
-    "detail": 21.9
+    "detail": 26.3
+   },
+   {
+    "name": "FW_YARD",
+    "size": [
+     256,
+     256
+    ],
+    "detail": 9.5
    }
   ],
   "halfLifeDetail": {
@@ -127,40 +135,40 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Most textures read as their material (FW_CONC, FW_WETFL, FW_CATWLK, FW_PIPEWL, FW_RUSTPL, FW_PUMP3, FW_DOOR, FW_CEIL). Three do not. FW_CTRLPN has panel seams but no dials, switches or screens, so it reads as a plain metal panel. FW_LAMP reads as a barred grille (black slats with cream strips in an orange frame), not a lamp face. FW_GRATE is a regular grid of light squares that reads as tiling rather than steel grate. FW_HAZARD's stripes are too faint to read as hazard stripes."
+   "reason": "Most of the twelve-plus set is what the brief asks, but three fail it. The pipe-covered wall (FW_PIPEWALL) has one horizontal pipe and a short vertical strip at its right edge, not a wall covered in pipes. The control panel (FW_CONTROL) has glowing orange squares for dials, cut off at its right edge, and no visible screens or switches. The sign (FW_PUMP3) reads 'PUMP' with no '3'."
   },
   "T2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged by eye, since no map-view colour measure was given: concrete grey, wet floor and water green-grey, the hazard yellow and black, the rust plate blue-grey with orange rust, the sodium face orange, the pump sign yellow, the door green. These match the brief's words. The map-view check was not run here, so this rests on the flat sheet."
+  },
+  "T3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Colour not measured on this sheet, so judged by eye. FW_LAMP's face is mostly black with thin cream strips, not a glowing sodium orange. FW_WATER is near-black teal rather than the brief's green-grey. The other textures' colours (grey concrete, green-grey pipe wall, rust brown, yellow PUMP 3, green door) match the brief's palette."
-  },
-  "T3": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Panel and seam spacing is plausible for each surface: 4x4 panels on the 128 rust plate, 128 catwalk plates with seams at the middle, pipes spanning the 256 pipe wall, and an 8x8 grate. Original spacing cannot be checked from this sheet, so this is judged by eye."
+   "reason": "The pipe wall's layout does not match the brief's pipe-covered wall: one pipe band where the brief asks for many pipes across the surface. The control panel's dial rows are placed so the right-hand dial is cut at the tile edge, so it does not line up as a panel. The other tiles, the rust plate's 4x4 plates and the tile floor's grid, are at plausible wall scale."
   },
   "T4": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Not measured here. The concrete, wet floor, water and pipe wall show no visible step at their edges. The panel seams on the catwalk, rust plate and ceiling sit at regular interior positions, so they should repeat without a visible join."
+   "score": 1,
+   "reason": "Not a must item. The control panel's cut dial at the right edge (x about 370 to 383 on the sheet) will meet the next repeat of the tile's left edge as a visible seam. The pipe wall's right-edge brown strip also reads as a seam. The concrete, grate and tile repeat cleanly."
   },
   "T5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "FW_HAZARD measures 156.5, far over the band's top of 75, and looks noisy and grainy, not crisp hatching. FW_WATER measures 2.7, under the band's bottom of 10.8, and reads smeared and nearly flat; the brief does not ask for a plain colour there. The concrete, catwalk, pipe wall, rust plate, control panel, pump sign, door and ceiling are within the band and look sharp and believable."
+   "reason": "FW_HAZARD measures 153.9 fine detail against Half-Life's band of 10.8 to 75: it is noisy, a dense diagonal hatch that reads as static at this size. FW_SODIUM (5.4), FW_WATER (3.2) and FW_WETFLOOR (9.1) are below the band and read flat or smeared, and the sodium and water are not briefed as plain colours. FW_YARD (9.5) is also under. Concrete (28.1), grate (42), rust plate (20.7), control (25.9), tile (26.3) and the door (14.9) sit within the band and look sharp."
   },
   "T6": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Names and sizes are as measured, all multiples of 16: {FW_GRATE (64x64) with holes, !FW_WATER (64x64) as a liquid, FW_PUMP3 (128x64) with the PUMP 3 text, FW_DOOR (128x256), and the rest at their sizes. The lamp's bright strips suggest a lit face, but a lit flag cannot be seen on this sheet. Animation frames are not in this set."
+   "score": 1,
+   "reason": "Names and sizes all match the measured list, and '{FW_GRATE' and '!FW_WATER' carry their prefixes. The sodium face is lit, and the water is a liquid-looking surface. But FW_PUMP3's name means a sign reading 'PUMP 3', and the sign reads only 'PUMP'. The grate's holes are dark gaps on the flat sheet, so whether they are transparent holes cannot be confirmed from the picture."
   }
  },
- "total": 9,
+ "total": 7,
  "of": 12,
  "passes": false
 }

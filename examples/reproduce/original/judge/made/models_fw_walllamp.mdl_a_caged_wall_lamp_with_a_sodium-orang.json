@@ -3,29 +3,76 @@
  "label": "models/fw_walllamp.mdl: a caged wall lamp with a sodium-orange glass",
  "measured": {
   "size": [
-   19,
    14,
-   20
+   16,
+   26
   ],
   "sizeAsked": null,
   "sizeOff": null,
-  "triangles": 268,
-  "halfLifeMedianOfItsKind": 56,
-  "halfLifeThreeQuartersUnder": 116,
-  "halfLifeMost": 194,
+  "triangles": 48,
+  "halfLifeMedianOfItsKind": 99,
+  "halfLifeThreeQuartersUnder": 156,
+  "halfLifeMost": 422,
   "checkErrors": [],
-  "lineup": "the asset is one of A to D in lineup.png beside models/w_shotbox.mdl, models/w_satchel.mdl, models/w_357.mdl",
-  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked B, A, D, C where the asset was A, B, D, C: passed for one of the game's"
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_357.mdl, models/w_rpgammo.mdl, models/w_chainammo.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked B, D, D, C where the asset was A, B, D, C: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
-  "M8": 1,
+  "M8": 2,
   "M6": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "M8"
- ],
- "total": 0,
- "of": 16
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Against the brief's words (a caged wall lamp): the front, side and back views show a flat wall plate at the back, a housing box projecting from it, and a wire cage around the glass on the front and sides. The outline reads as that lamp in every view, and nothing sticks out or is missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The brief names no size for the lamp, so there is no size to measure against (sizeAsked null). The 14 x 16 x 26 units read plausibly beside Half-Life's own props at the line-up's scale, so nothing is charged."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Parts the brief names or implies, listed down to the small ones: the cage (front bars, side bars, and the grid visible from above and below), the sodium-orange glass inside it, the housing box, the wall plate and its rim, and the top hood. All are there in the right places. No bolts, brackets or rivets appear, but the brief does not ask for any, so none is charged."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The glass is the sodium orange the brief asks for, seen through the cage in the front and top views. The cage is dark steel, and the plate and housing are grey-green painted metal, which fits the palette the brief describes. No region is in the wrong material."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The plate has faint mottled stains and a worn rim, and the housing has a bevelled edge, which suits the worn industrial look the brief asks for. The brief does not ask for lettering or panel lines, so their absence is not charged."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Capped at 2 by the measured line-up test. Judges were asked four times which of the four was not made by Valve, with the asset shown at A, B, D and C in turn. They picked B, D, D and C, so the asset was caught in two readings of four. That is short of the three catches that would lower the score, so the asset passed for one of the game's."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front view shows the cage facing the viewer, with the plate behind, so the wall-mounted side is the back. It is upright in the front and side views. Its origin cannot be checked from the pictures, so this is judged from the views alone."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The SMAK check reports no errors. At 48 triangles it is far below the Half-Life prop median of 99 and below the third-quartile figure of 156, so it is well inside the limit. The parts touch: the cage meets the housing, and the housing meets the plate in the side views. The cage's open grid is what a player sees, not an opening in the model, so nothing is charged."
+  }
+ },
+ "total": 16,
+ "of": 16,
+ "passes": true
 }

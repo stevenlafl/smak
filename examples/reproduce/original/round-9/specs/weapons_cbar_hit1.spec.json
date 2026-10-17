@@ -1,0 +1,48 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/cbar_hit1.wav",
+  "class": "metal hit",
+  "seed": 3,
+  "length": 0.6,
+  "layers": [
+    {
+      "id": "take",
+      "kind": "sample",
+      "file": "work:gen/cbar_hit_woosh-dflow_s1.wav",
+      "from": "onset",
+      "length": 0.6,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2600
+        }
+      ],
+      "gain": 0
+    },
+    {
+      "id": "ring",
+      "kind": "modes",
+      "f": 760,
+      "ratios": "bar",
+      "decay": 0.6,
+      "damping": 1.2,
+      "gain": -14
+    },
+    {
+      "id": "clank",
+      "kind": "modes",
+      "f": 1640,
+      "ratios": "bell",
+      "decay": 0.25,
+      "damping": 1.5,
+      "gain": -18
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "room": {
+      "decay": 0.3,
+      "wet": 0.15
+    }
+  }
+}

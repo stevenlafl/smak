@@ -1,0 +1,56 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_hit1.wav: the wrench striking metal",
+ "measured": {
+  "features": {
+   "length": 0.5,
+   "peak": -10.5,
+   "rms": -15.3,
+   "crest": 4.8,
+   "dc": -0.0015,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0.045,
+   "t20": 0.459,
+   "t40": 0.459,
+   "centroid": 2755,
+   "rolloff": 4651,
+   "flatness": 0.943,
+   "bands": {
+    "<150": 2,
+    "150-600": 8.3,
+    "600-2k": 26.1,
+    "2k-5k": 54.8,
+    ">5k": 8.8
+   },
+   "onsets": 0
+  },
+  "class": "metal hit",
+  "against": {
+   "score": 12,
+   "of": 22,
+   "lines": [
+    "crest 4.8 dB (5.3 to 12.5): too squashed",
+    "rms -15.3 dBFS (-12.9 to -5.7): under the range",
+    "centroid 2755 Hz (1074 to 1654): too bright: less over 2000 Hz",
+    "flatness 0.943 (0.16 to 0.28): too noisy: more tone (modes)",
+    "band 600-2k 26.1% (63.7 to 83.8): under the range",
+    "band 2k-5k 54.8% (3.7 to 24.6): over the range"
+   ]
+  },
+  "engineFaults": [
+   "its last samples are at 0.17 of full scale: it ends in a click; fade its end"
+  ]
+ },
+ "caps": {
+  "S5": 0
+ },
+ "passes": false,
+ "failedByMeasure": [
+  "S5"
+ ],
+ "total": 0,
+ "of": 10
+}

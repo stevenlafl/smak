@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_spit.spr: a sludge spit that splashes, animated",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 8,
+  "type": "parallel",
+  "format": "index alpha",
+  "measures": {
+   "frames": 8,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0.14,
+    "first": 0,
+    "last": 0
+   },
+   "dark": 0.68,
+   "wrap": 0.37,
+   "jitter": 1.49
+  },
+  "class": "explosion",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.49,
+    "range": [
+     1.04,
+     1.48
+    ],
+    "ok": false,
+    "words": "flickers: more coherence from frame to frame"
+   },
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.14,
+    "range": [
+     0.22,
+     0.71
+    ],
+    "ok": false,
+    "words": "peaks too soon"
+   },
+   {
+    "measure": "first",
+    "value": 0,
+    "range": [
+     0,
+     0.22
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.03
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Frames 1 to 6 show a soft green cluster of overlapping blobs that swells and then thins. It reads as a sludge cloud or puff, not a splash: there are no droplets and no outward crown on impact. Frame 0 is blank, so the splash has no visible start. The effect is there but clearly off from a splash."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Each 64 by 64 frame is filled by the effect across most of its width and height (roughly 75% across in frame 1 and in frame 3). Border measure is 0, so nothing is clipped at the edges. Shape and size match what the brief asks."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The colour is a muted, slightly lime-tinged sludge green over the grey backdrop. It fits the brief's green-grey, sludgy water, and the hue stays consistent from frame to frame. Judged by eye, no measure given."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Against the class's measures, two of five fail. Peak comes at 0.14 of the run, against the explosion class's 0.22 to 0.71 ('peaks too soon'): the largest, brightest cluster is in frames 1 to 2, then it only fades. Jitter is 1.49 against 1.04 to 1.48 ('flickers'): the blob positions jump between frames 1, 2 and 3 rather than moving coherently. First frame 0 and last frame 0 are within range, and the eight frames fit. Motion is partly right, partly off."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The file is sprites/fw_spit.spr, the name the game looks for. It is parallel with index alpha format, which the measurements read back as written. Border, first and last measures show no fault in the file. The sprite's type is read as built, not checked against Valve's spit file, which was not given."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

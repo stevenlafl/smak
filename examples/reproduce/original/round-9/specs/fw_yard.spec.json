@@ -1,0 +1,433 @@
+{
+  "spec": "smak.map/1",
+  "name": "fw_yard",
+  "size": {
+    "length": 1500,
+    "width": 1500
+  },
+  "wads": [
+    "fw.wad"
+  ],
+  "textures": {
+    "wetfloor": {
+      "texture": "FW_WETFL"
+    },
+    "conc": {
+      "texture": "FW_CONC"
+    },
+    "ceil": {
+      "texture": "FW_CEIL"
+    },
+    "door": {
+      "texture": "FW_DOOR"
+    },
+    "rust": {
+      "texture": "FW_RUSTPL"
+    }
+  },
+  "theme": {
+    "floor": "wetfloor",
+    "wall": "conc",
+    "ceiling": "ceil",
+    "door": "door",
+    "furniture": "conc",
+    "outside": "conc",
+    "roof": "rust"
+  },
+  "sun": {
+    "pitch": 10,
+    "yaw": 230,
+    "brightness": 120,
+    "color": [
+      1,
+      0.62,
+      0.34
+    ]
+  },
+  "sky": {
+    "zenith": [
+      0.1,
+      0.12,
+      0.2
+    ],
+    "horizon": [
+      0.75,
+      0.45,
+      0.25
+    ],
+    "ground": [
+      0.2,
+      0.18,
+      0.16
+    ]
+  },
+  "models": {
+    "pipesection": {
+      "spec": "smak.model/1",
+      "name": "pipesection.mdl",
+      "kind": "prop",
+      "materials": {
+        "steel": {
+          "base": "metal",
+          "tone": [
+            0.36,
+            0.38,
+            0.38
+          ],
+          "rust": 0.6
+        },
+        "conc": {
+          "base": "stone",
+          "tone": [
+            0.5,
+            0.5,
+            0.48
+          ]
+        }
+      },
+      "parts": [
+        {
+          "id": "pipe",
+          "kind": "cylinder",
+          "material": "steel",
+          "radius": 60,
+          "height": 240,
+          "sides": 12,
+          "rotate": [
+            0,
+            90,
+            0
+          ],
+          "at": [
+            -120,
+            0,
+            60
+          ]
+        },
+        {
+          "id": "flange_a",
+          "kind": "cylinder",
+          "material": "steel",
+          "radius": 66,
+          "height": 10,
+          "sides": 12,
+          "rotate": [
+            0,
+            90,
+            0
+          ],
+          "at": [
+            -130,
+            0,
+            60
+          ]
+        },
+        {
+          "id": "flange_b",
+          "kind": "cylinder",
+          "material": "steel",
+          "radius": 66,
+          "height": 10,
+          "sides": 12,
+          "rotate": [
+            0,
+            90,
+            0
+          ],
+          "at": [
+            120,
+            0,
+            60
+          ]
+        },
+        {
+          "id": "cradle_a",
+          "kind": "box",
+          "material": "conc",
+          "size": [
+            60,
+            140,
+            50
+          ],
+          "at": [
+            -60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "cradle_b",
+          "kind": "box",
+          "material": "conc",
+          "size": [
+            60,
+            140,
+            50
+          ],
+          "at": [
+            60,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "rooms": [
+    {
+      "id": "yard",
+      "size": [
+        1468,
+        1468,
+        260
+      ],
+      "sky": true,
+      "light": {
+        "count": 8,
+        "brightness": 250,
+        "color": [
+          255,
+          170,
+          90
+        ]
+      }
+    },
+    {
+      "id": "gatehouse",
+      "size": [
+        192,
+        160,
+        128
+      ],
+      "place": {
+        "in": "yard",
+        "offset": [
+          120,
+          640
+        ],
+        "stand": true
+      },
+      "building": {
+        "walls": "outside",
+        "roof": {
+          "material": "rust",
+          "pitch": 25,
+          "overhang": 8
+        }
+      }
+    },
+    {
+      "id": "pumphouse",
+      "size": [
+        320,
+        256,
+        160
+      ],
+      "place": {
+        "in": "yard",
+        "offset": [
+          1000,
+          1000
+        ],
+        "stand": true
+      },
+      "building": {
+        "walls": "outside",
+        "roof": {
+          "material": "rust",
+          "pitch": 20,
+          "overhang": 10
+        }
+      }
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "gatehouse",
+        "yard"
+      ],
+      "kind": "door",
+      "side": "east"
+    },
+    {
+      "between": [
+        "pumphouse",
+        "yard"
+      ],
+      "kind": "door",
+      "side": "south",
+      "width": 96
+    }
+  ],
+  "furniture": [
+    {
+      "prefab": "exit",
+      "room": "pumphouse",
+      "at": [
+        0,
+        80
+      ]
+    }
+  ],
+  "prefabs": {
+    "exit": {
+      "entity": {
+        "class": "trigger_changelevel",
+        "map": "fw_pumphall",
+        "landmark": "fw_land1"
+      },
+      "pieces": [
+        {
+          "box": [
+            [
+              -64,
+              -24,
+              0
+            ],
+            [
+              64,
+              24,
+              96
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "props": [
+    {
+      "model": "models/fw_yard/pipesection.mdl",
+      "room": "yard",
+      "at": [
+        330,
+        -150
+      ]
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "yard",
+      "at": [
+        -320,
+        -380
+      ],
+      "solid": true
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "yard",
+      "at": [
+        -320,
+        -380
+      ],
+      "z": 36,
+      "solid": true
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "yard",
+      "at": [
+        -270,
+        -380
+      ],
+      "solid": true
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "yard",
+      "at": [
+        -295,
+        -330
+      ],
+      "solid": true
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "yard",
+      "at": [
+        -540,
+        300
+      ],
+      "solid": true
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "yard",
+      "at": [
+        -500,
+        300
+      ],
+      "solid": true
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "yard",
+      "at": "against north",
+      "z": 150,
+      "facing": "south"
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "yard",
+      "at": "against east",
+      "z": 150,
+      "facing": "west"
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "yard",
+      "at": "against south",
+      "z": 150,
+      "facing": "north"
+    },
+    {
+      "model": "models/fw_console.mdl",
+      "room": "gatehouse",
+      "at": "against west",
+      "facing": "east",
+      "solid": true
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "yard",
+      "at": [
+        -360,
+        0
+      ],
+      "facing": "gatehouse"
+    },
+    {
+      "class": "info_landmark",
+      "room": "pumphouse",
+      "at": [
+        0,
+        60
+      ],
+      "targetname": "fw_land1"
+    },
+    {
+      "class": "ambient_generic",
+      "room": "pumphouse",
+      "at": [
+        0,
+        -60
+      ],
+      "message": "ambience/fw_pump.wav",
+      "health": 6,
+      "spawnflags": 16
+    },
+    {
+      "class": "ambient_generic",
+      "room": "pumphouse",
+      "at": [
+        -100,
+        60
+      ],
+      "message": "ambience/fw_drips.wav",
+      "health": 5,
+      "spawnflags": 16
+    }
+  ]
+}

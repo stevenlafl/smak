@@ -1,0 +1,114 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/fw_steam.spr",
+      "class": "smoke puff",
+      "use": "env_sprite",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 16,
+      "fps": 10,
+      "origin": "centre",
+      "type": "parallel",
+      "format": "index alpha",
+      "colour": [
+        0.78,
+        0.8,
+        0.78
+      ],
+      "layers": [
+        {
+          "kind": "smoke",
+          "density": 0.9,
+          "spread": 0.5,
+          "colour": [
+            0.8,
+            0.82,
+            0.8
+          ],
+          "rise": 0.6,
+          "env": {
+            "attack": 0.15,
+            "decay": 0.85
+          }
+        }
+      ],
+      "finish": {
+        "edge": 4
+      }
+    },
+    {
+      "name": "sprites/fw_glow.spr",
+      "class": "glow",
+      "use": "env_glow",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 1,
+      "origin": "centre",
+      "type": "parallel",
+      "format": "additive",
+      "layers": [
+        {
+          "kind": "glow",
+          "radius": 0.95,
+          "core": 0.18,
+          "colour": [
+            1,
+            0.6,
+            0.2
+          ],
+          "gain": 0.9
+        }
+      ],
+      "finish": {
+        "edge": 2
+      }
+    },
+    {
+      "name": "sprites/fw_spit.spr",
+      "class": "sparks",
+      "use": "env_sprite",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 8,
+      "fps": 10,
+      "origin": "centre",
+      "type": "parallel",
+      "format": "index alpha",
+      "colour": [
+        0.55,
+        0.66,
+        0.38
+      ],
+      "layers": [
+        {
+          "kind": "blobs",
+          "count": 14,
+          "radius": 0.22,
+          "spread": 0.7,
+          "core": 0.4,
+          "soft": 0.3,
+          "colour": [
+            0.55,
+            0.66,
+            0.38
+          ],
+          "env": {
+            "attack": 0.1,
+            "decay": 0.9
+          }
+        }
+      ],
+      "finish": {
+        "edge": 3
+      }
+    }
+  ]
+}

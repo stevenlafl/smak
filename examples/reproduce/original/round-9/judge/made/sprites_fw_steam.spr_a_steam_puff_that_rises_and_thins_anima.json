@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_steam.spr: a steam puff that rises and thins, animated",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 16,
+  "type": "parallel",
+  "format": "index alpha",
+  "measures": {
+   "frames": 16,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0.196,
+    "mean": 0.003
+   },
+   "envelope": {
+    "peakAt": 0.2,
+    "first": 0,
+    "last": 0
+   },
+   "dark": 0.78,
+   "wrap": 0.27,
+   "jitter": 1.34
+  },
+  "class": "smoke puff",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.34,
+    "range": [
+     0.9,
+     1.5
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0.003,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.2,
+    "range": [
+     0.2,
+     0.6
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0,
+    "range": [
+     0,
+     0.35
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.1
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Reads as a steam puff: a soft, grey, feathered column that thins and fades over the frames (frames 1 to 11), with no hard edges or glow. It is the same effect as the brief's steam."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The effect fills only a narrow central column, about a quarter of each 64 x 64 frame's width, and sits in the lower half (its base near y of about 118 in frames 2 to 7 and about 245 in the lower row). It does not fill the frame as a steam puff in Half-Life does, so the frame size is right but the effect's shape and placement are off."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Neutral light grey steam, lighter than the grey background, with no tint. Judged by eye it is steam-coloured and matches what the engine blends."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The measures sit inside the class's ranges: 16 frames, a peak at frame 3 (0.2), first and last frames blank, so it is a one-shot that ends dark. What is clearly off is the rise: the plume's base stays at about the same height in frames 2 to 11 while its top softens, so it reads as swelling and fading in place rather than rising as the brief asks. The thinning and fading are there."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The measures give type 'parallel' and format 'index alpha'. Half-Life's steam1 is 'parallel oriented', per the 2026-10-16 amendment, and this file was built 'parallel', the fault that failed R5 by measure for steam1 and fire. The format is right, and the name fw_steam fits the slot. The type is what is off, so this is a 1 by measure and the sprite needs rebuilding as parallel oriented."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

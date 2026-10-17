@@ -3,25 +3,37 @@
   "name": "fw_walllamp.mdl",
   "kind": "piece",
   "materials": {
+    "plate": {
+      "base": "metal",
+      "tone": [
+        0.3,
+        0.32,
+        0.3
+      ],
+      "rust": 0.3
+    },
     "housing": {
       "base": "metal",
       "tone": [
         0.42,
-        0.4,
-        0.36
+        0.42,
+        0.38
       ],
-      "rust": 0.3
+      "rust": 0.25
     },
     "cage": {
-      "base": "iron",
-      "rust": 0.4
+      "base": "mesh",
+      "cell": 2
     },
-    "glass": {
-      "base": "glass",
+    "lamp": {
+      "base": "flat",
       "tone": [
-        0.95,
-        0.6,
-        0.2
+        1,
+        0.62,
+        0.18
+      ],
+      "flags": [
+        "fullbright"
       ]
     }
   },
@@ -29,113 +41,57 @@
     {
       "id": "plate",
       "kind": "box",
-      "material": "housing",
       "size": [
         2,
-        14,
-        20
+        16,
+        26
       ],
-      "at": [
-        -1,
-        0,
-        -10
-      ]
+      "material": "plate"
     },
     {
       "id": "housing",
-      "kind": "cylinder",
-      "material": "housing",
-      "radius": 4.5,
-      "height": 8,
-      "sides": 12,
-      "rotate": [
-        0,
-        90,
-        0
+      "kind": "box",
+      "size": [
+        8,
+        12,
+        10
       ],
       "at": [
+        5,
         0,
-        0,
-        0
-      ]
+        8
+      ],
+      "material": "housing"
     },
     {
       "id": "glass",
-      "kind": "cylinder",
-      "material": "glass",
-      "radius": 3.6,
-      "height": 8.2,
-      "sides": 12,
-      "rotate": [
-        0,
-        90,
-        0
-      ],
-      "at": [
-        8,
-        0,
-        0
-      ]
-    },
-    {
-      "id": "ring_a",
-      "kind": "cylinder",
-      "material": "cage",
-      "radius": 4.8,
-      "height": 0.8,
-      "sides": 8,
-      "rotate": [
-        0,
-        90,
-        0
-      ],
-      "at": [
-        8,
-        0,
-        0
-      ]
-    },
-    {
-      "id": "ring_b",
-      "kind": "cylinder",
-      "material": "cage",
-      "radius": 4.8,
-      "height": 0.8,
-      "sides": 8,
-      "rotate": [
-        0,
-        90,
-        0
-      ],
-      "at": [
-        16.2,
-        0,
-        0
-      ]
-    },
-    {
-      "id": "bar",
       "kind": "box",
-      "material": "cage",
       "size": [
-        7.4,
-        0.8,
-        0.8
+        2,
+        9,
+        7
       ],
       "at": [
-        12.5,
+        9,
         0,
-        4.2
+        10
       ],
-      "repeat": {
-        "count": 8,
-        "through": [
-          12.5,
-          0,
-          0
-        ],
-        "axis": "x"
-      }
+      "material": "lamp"
+    },
+    {
+      "id": "cage",
+      "kind": "box",
+      "size": [
+        4,
+        14,
+        14
+      ],
+      "at": [
+        11,
+        0,
+        6
+      ],
+      "material": "cage"
     }
   ]
 }

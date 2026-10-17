@@ -1,0 +1,141 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_walllamp.mdl",
+  "kind": "piece",
+  "materials": {
+    "housing": {
+      "base": "metal",
+      "tone": [
+        0.42,
+        0.4,
+        0.36
+      ],
+      "rust": 0.3
+    },
+    "cage": {
+      "base": "iron",
+      "rust": 0.4
+    },
+    "glass": {
+      "base": "glass",
+      "tone": [
+        0.95,
+        0.6,
+        0.2
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "plate",
+      "kind": "box",
+      "material": "housing",
+      "size": [
+        2,
+        14,
+        20
+      ],
+      "at": [
+        -1,
+        0,
+        -10
+      ]
+    },
+    {
+      "id": "housing",
+      "kind": "cylinder",
+      "material": "housing",
+      "radius": 4.5,
+      "height": 8,
+      "sides": 12,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "glass",
+      "kind": "cylinder",
+      "material": "glass",
+      "radius": 3.6,
+      "height": 8.2,
+      "sides": 12,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        8,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "ring_a",
+      "kind": "cylinder",
+      "material": "cage",
+      "radius": 4.8,
+      "height": 0.8,
+      "sides": 8,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        8,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "ring_b",
+      "kind": "cylinder",
+      "material": "cage",
+      "radius": 4.8,
+      "height": 0.8,
+      "sides": 8,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        16.2,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "bar",
+      "kind": "box",
+      "material": "cage",
+      "size": [
+        7.4,
+        0.8,
+        0.8
+      ],
+      "at": [
+        12.5,
+        0,
+        4.2
+      ],
+      "repeat": {
+        "count": 8,
+        "through": [
+          12.5,
+          0,
+          0
+        ],
+        "axis": "x"
+      }
+    }
+  ]
+}

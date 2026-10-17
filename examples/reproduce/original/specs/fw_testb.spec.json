@@ -1,0 +1,136 @@
+{
+  "spec": "smak.wad/1",
+  "name": "fw_testb.wad",
+  "materials": {
+    "lamp": {
+      "base": "flat",
+      "tone": [
+        1,
+        0.62,
+        0.2
+      ],
+      "flags": [
+        "fullbright"
+      ]
+    },
+    "water": {
+      "base": "water",
+      "tone": [
+        0.25,
+        0.35,
+        0.3
+      ]
+    },
+    "sign": {
+      "base": "metal",
+      "tone": [
+        0.82,
+        0.68,
+        0.12
+      ]
+    },
+    "door": {
+      "base": "door",
+      "tone": [
+        0.3,
+        0.36,
+        0.3
+      ]
+    },
+    "tile": {
+      "base": "tile",
+      "tone": [
+        0.5,
+        0.52,
+        0.5
+      ]
+    },
+    "yard": {
+      "base": "asphalt",
+      "picture": "library:asphalt_02",
+      "size": 118
+    }
+  },
+  "textures": [
+    {
+      "name": "FW_SODIUM",
+      "size": [
+        128,
+        128
+      ],
+      "material": "lamp",
+      "relief": [
+        {
+          "kind": "bars",
+          "at": [
+            64,
+            64
+          ],
+          "size": [
+            120,
+            120
+          ],
+          "count": 4,
+          "width": 6,
+          "axis": "x"
+        }
+      ]
+    },
+    {
+      "name": "!FW_WATER",
+      "size": [
+        128,
+        128
+      ],
+      "material": "water"
+    },
+    {
+      "name": "FW_PUMP3",
+      "size": [
+        256,
+        128
+      ],
+      "material": "sign",
+      "print": {
+        "text": "PUMP 3",
+        "size": 0.5,
+        "ink": [
+          0.05,
+          0.05,
+          0.05
+        ]
+      }
+    },
+    {
+      "name": "FW_DOOR",
+      "size": [
+        128,
+        256
+      ],
+      "material": "door"
+    },
+    {
+      "name": "FW_TILE",
+      "size": [
+        128,
+        128
+      ],
+      "material": "tile",
+      "grime": 0.4
+    },
+    {
+      "name": "FW_YARD",
+      "size": [
+        256,
+        256
+      ],
+      "material": "yard",
+      "grime": 0.5,
+      "wear": {
+        "stains": 0.6,
+        "cracks": 0.5,
+        "speckle": 0.6
+      }
+    }
+  ]
+}

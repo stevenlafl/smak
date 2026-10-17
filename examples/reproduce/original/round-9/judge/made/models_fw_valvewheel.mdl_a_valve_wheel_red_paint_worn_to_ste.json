@@ -1,0 +1,80 @@
+{
+ "kind": "model",
+ "label": "models/fw_valvewheel.mdl: a valve wheel, red paint worn to steel at the rim",
+ "measured": {
+  "size": [
+   13,
+   32,
+   33
+  ],
+  "sizeAsked": {
+   "across": 32
+  },
+  "sizeOff": 0.001,
+  "triangles": 392,
+  "halfLifeMedianOfItsKind": 99,
+  "halfLifeThreeQuartersUnder": 156,
+  "halfLifeMost": 422,
+  "checkErrors": [],
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_longjump.mdl, models/rip.mdl, models/uplant1.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, D, A, C where the asset was C, A, B, D: passed for one of the game's"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2,
+  "M6": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The wheel's outline matches the brief's words: a round rim with six spokes from a hub, 32 across. A rusted post on a flat base is added behind and below it (front, left, back, right and below views). The brief asks for a wheel alone, and the post sticks out of the wheel's outline in the left, right and back views and in the below view."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 32 across against the 32 the brief gives (sizeOff 0.001). Height 33 and depth 13 come with the post, so they are not checked against the brief."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The parts a valve wheel needs are all there: a rim (a ring of about 14 sides, grey steel), six red spokes running from rim to hub, and a red hub at the centre. Small rim joints show as silver nubs at the right and back-left edges of the rim. The rusted post is not a part the brief names, so it is charged under M1, not here."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief's red paint is on the spokes and hub, and the rim is bare grey steel, which is what worn-to-steel means here. Colours are the same hues across views, with no stray colour on any region."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The wear the brief asks for is there: the rim reads as bare steel with a sheen, and the spokes stay red and meet it at the rim. Rust mottling on the post and speckle on the spokes sit at a sharpness close to the other textures."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Capped at 2 by the line-up test: over four readings, each in its own order, judges never picked the asset as the one not made by Valve (picked D, D, A, C where the asset was at C, A, B, D)."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The wheel's face is the front, upright, with spokes and hub facing the viewer. The post's flat base sits on the origin and the object stands on it."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's check reports no errors. At 392 triangles it is under the 422 that Half-Life's most-spending prop of this size uses, and under twice the median of 99. The rim, spokes and column all read closed in the views, and the base plate's underside is a closed disc in the below view. Nothing visible is open, inside out or floating."
+  }
+ },
+ "total": 15,
+ "of": 16,
+ "passes": false
+}

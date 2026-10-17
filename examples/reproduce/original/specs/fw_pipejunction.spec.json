@@ -4,278 +4,137 @@
   "kind": "prop",
   "materials": {
     "pipe": {
-      "base": "steel",
-      "rust": 0.35
-    },
-    "flange": {
-      "base": "iron",
-      "rust": 0.5
-    },
-    "paint": {
-      "base": "paint",
-      "tone": [
-        0.82,
-        0.66,
-        0.1
-      ]
-    },
-    "bolt": {
       "base": "iron",
       "rust": 0.4
+    },
+    "flange": {
+      "base": "steel",
+      "rust": 0.3
     }
   },
   "parts": [
     {
-      "id": "pipe_h",
-      "kind": "cylinder",
-      "material": "pipe",
-      "radius": 4,
-      "height": 30,
-      "sides": 10,
-      "rotate": [
-        0,
-        90,
-        0
-      ],
-      "at": [
-        -30,
-        0,
-        6
-      ]
-    },
-    {
-      "id": "pipe_v",
-      "kind": "cylinder",
-      "material": "pipe",
-      "radius": 4,
-      "height": 28,
-      "sides": 10,
-      "at": [
-        0,
-        0,
-        6
-      ],
-      "marks": [
-        {
-          "path": [
-            [
-              0.8,
-              0
-            ],
-            [
-              0.8,
-              360
-            ]
-          ],
-          "width": 2,
-          "material": "paint"
-        }
-      ]
-    },
-    {
       "id": "elbow",
       "kind": "sphere",
-      "material": "pipe",
       "radius": 4.6,
-      "sides": 10,
+      "sides": 6,
       "at": [
         0,
         0,
-        1.4
-      ]
+        7.4
+      ],
+      "material": "pipe"
     },
     {
-      "id": "flange_end",
+      "id": "pipeX",
       "kind": "cylinder",
-      "material": "flange",
-      "radius": 6,
-      "height": 2.4,
-      "sides": 10,
+      "radius": 4,
+      "height": 27,
+      "sides": 6,
       "rotate": [
         0,
         90,
         0
       ],
       "at": [
-        -32.4,
+        -1,
         0,
-        6
-      ]
+        12
+      ],
+      "material": "pipe"
     },
     {
-      "id": "flange_mid",
+      "id": "flangeX",
       "kind": "cylinder",
-      "material": "flange",
       "radius": 6,
-      "height": 2.4,
-      "sides": 10,
+      "height": 2,
+      "sides": 8,
       "rotate": [
         0,
         90,
         0
       ],
       "at": [
-        -2.4,
+        25,
         0,
-        6
-      ]
+        12
+      ],
+      "material": "flange"
     },
     {
-      "id": "flange_top",
+      "id": "boltX",
       "kind": "cylinder",
+      "radius": 0.9,
+      "height": 1.5,
+      "sides": 4,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        27,
+        0,
+        17
+      ],
       "material": "flange",
-      "radius": 6,
-      "height": 2.4,
-      "sides": 10,
+      "repeat": {
+        "count": 4,
+        "axis": "x",
+        "through": [
+          0,
+          0,
+          12
+        ]
+      }
+    },
+    {
+      "id": "pipeZ",
+      "kind": "cylinder",
+      "radius": 4,
+      "height": 26,
+      "sides": 6,
       "at": [
         0,
         0,
-        33.6
-      ]
+        11
+      ],
+      "material": "pipe"
     },
     {
-      "id": "be0",
-      "kind": "boss",
-      "material": "bolt",
-      "on": {
-        "part": "flange_end",
-        "s": 0.5,
-        "angle": 0
-      },
-      "radius": 0.8,
-      "height": 0.9
+      "id": "flangeZ",
+      "kind": "cylinder",
+      "radius": 6,
+      "height": 2,
+      "sides": 8,
+      "at": [
+        0,
+        0,
+        36
+      ],
+      "material": "flange"
     },
     {
-      "id": "be1",
-      "kind": "boss",
-      "material": "bolt",
-      "on": {
-        "part": "flange_end",
-        "s": 0.5,
-        "angle": 60
-      },
-      "radius": 0.8,
-      "height": 0.9
-    },
-    {
-      "id": "be2",
-      "kind": "boss",
-      "material": "bolt",
-      "on": {
-        "part": "flange_end",
-        "s": 0.5,
-        "angle": 120
-      },
-      "radius": 0.8,
-      "height": 0.9
-    },
-    {
-      "id": "be3",
-      "kind": "boss",
-      "material": "bolt",
-      "on": {
-        "part": "flange_end",
-        "s": 0.5,
-        "angle": 180
-      },
-      "radius": 0.8,
-      "height": 0.9
-    },
-    {
-      "id": "be4",
-      "kind": "boss",
-      "material": "bolt",
-      "on": {
-        "part": "flange_end",
-        "s": 0.5,
-        "angle": 240
-      },
-      "radius": 0.8,
-      "height": 0.9
-    },
-    {
-      "id": "be5",
-      "kind": "boss",
-      "material": "bolt",
-      "on": {
-        "part": "flange_end",
-        "s": 0.5,
-        "angle": 300
-      },
-      "radius": 0.8,
-      "height": 0.9
-    },
-    {
-      "id": "bt0",
-      "kind": "boss",
-      "material": "bolt",
-      "on": {
-        "part": "flange_top",
-        "s": 0.5,
-        "angle": 0
-      },
-      "radius": 0.8,
-      "height": 0.9
-    },
-    {
-      "id": "bt1",
-      "kind": "boss",
-      "material": "bolt",
-      "on": {
-        "part": "flange_top",
-        "s": 0.5,
-        "angle": 60
-      },
-      "radius": 0.8,
-      "height": 0.9
-    },
-    {
-      "id": "bt2",
-      "kind": "boss",
-      "material": "bolt",
-      "on": {
-        "part": "flange_top",
-        "s": 0.5,
-        "angle": 120
-      },
-      "radius": 0.8,
-      "height": 0.9
-    },
-    {
-      "id": "bt3",
-      "kind": "boss",
-      "material": "bolt",
-      "on": {
-        "part": "flange_top",
-        "s": 0.5,
-        "angle": 180
-      },
-      "radius": 0.8,
-      "height": 0.9
-    },
-    {
-      "id": "bt4",
-      "kind": "boss",
-      "material": "bolt",
-      "on": {
-        "part": "flange_top",
-        "s": 0.5,
-        "angle": 240
-      },
-      "radius": 0.8,
-      "height": 0.9
-    },
-    {
-      "id": "bt5",
-      "kind": "boss",
-      "material": "bolt",
-      "on": {
-        "part": "flange_top",
-        "s": 0.5,
-        "angle": 300
-      },
-      "radius": 0.8,
-      "height": 0.9
+      "id": "boltZ",
+      "kind": "cylinder",
+      "radius": 0.9,
+      "height": 1.5,
+      "sides": 4,
+      "at": [
+        5,
+        0,
+        38
+      ],
+      "material": "flange",
+      "repeat": {
+        "count": 4,
+        "axis": "z",
+        "through": [
+          0,
+          0,
+          38
+        ]
+      }
     }
   ]
 }

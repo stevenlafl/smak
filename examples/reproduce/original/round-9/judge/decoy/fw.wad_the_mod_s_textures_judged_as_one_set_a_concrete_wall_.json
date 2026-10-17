@@ -1,0 +1,158 @@
+{
+ "kind": "texture",
+ "label": "fw.wad, the mod's textures, judged as one set: a concrete wall, a wet concrete floor, a steel grate with holes, a catwalk floor, a pipe-covered wall, a hazard-striped trim, a rusted steel plate, a control panel with dials, a sodium lamp's face (lit), the water, a sign reading PUMP 3, a door",
+ "measured": {
+  "count": 12,
+  "least": 12,
+  "textures": [
+   {
+    "name": "fw_plain0",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain1",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain2",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain3",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain4",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain5",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain6",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain7",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain8",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain9",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain10",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain11",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   }
+  ],
+  "halfLifeDetail": {
+   "least": 10.8,
+   "q1": 19.7,
+   "median": 30.1,
+   "q3": 45,
+   "most": 75,
+   "band": "T5's band is least to most, Half-Life's own from the 5th to the 95th in 100: fine detail inside it is Valve's own range (a quartile is no bound); under least reads smeared or flat, over most noisy. A texture the brief asks to be one plain colour is flat in Valve's too (its BLACK and YELLOW are 0): flat is right there, and T5 is 2"
+  }
+ },
+ "caps": {
+  "T6": 2
+ },
+ "scores": {
+  "T1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Every one of the twelve tiles (fw_plain0 to fw_plain11, all 64x64) is the same flat mid-grey with only its label printed on it. None reads as a concrete wall, wet concrete floor, steel grate, catwalk floor, pipe wall, hazard trim, rusted plate, control panel, lit sodium lamp face, water, a PUMP 3 sign or a door. The names are placeholders, not the brief's materials."
+  },
+  "T2": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "All twelve share one grey. The brief asks for distinct colours: green-grey water, yellow hazard paint, rust on the plate, a sodium-orange lamp face. Grey matches none of them, and the twelve do not differ from each other at all."
+  },
+  "T3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "No panels, seams, bricks, tiles, grate holes, stripes, pipes or sign lettering appear on any tile. The brief's layout and scale cannot be checked because there is no layout to check."
+  },
+  "T4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "No seam can show where a flat tile repeats, so the step across the edges is zero, which is no larger than inside the tile. This is met trivially and rescues nothing, since the pattern-less tiles fail T1 to T3, T5 and T6."
+  },
+  "T5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Measured fine detail is 0 on every tile, far below Half-Life's own band (least 10.8, from the 5th percentile). Flat reads as wrong for every texture the brief asks to carry a pattern, such as concrete, grate, hazard trim, panel and water. None is as sharp, detailed or believable as Valve's."
+  },
+  "T6": {
+   "judge": 0,
+   "cap": 2,
+   "score": 0,
+   "reason": "Names are fw_plain0 to fw_plain11, not the brief's twelve materials. Kinds are missing: no `{` texture with holes (the grate), no `+0`..`+9` animation (the water or lamp), no `!` liquid (the water), no lit lamp face, no PUMP 3 sign and no door. The 64x64 size is the only thing recorded, and it does not carry the kinds the names would mean."
+  }
+ },
+ "total": 2,
+ "of": 12,
+ "passes": false
+}
