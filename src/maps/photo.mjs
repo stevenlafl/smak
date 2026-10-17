@@ -112,8 +112,14 @@ export function locateShot(map, picture, guess = {}, options = {}) {
           notes.push(`features: ${answer.error}${answer.matches ? ` (${answer.matches} matched)` : ""}`);
           break;
         }
-        // few inliers in a room of one repeating texture is a camera one tile's width off: not trusted
+        // few inliers in a room of one repeating texture is a camera one tile's width off: not trusted. From a guess
+        // far off, the edges' own fit is a nearer camera to match from, once (c1a0's sixth shot: 22 inliers from
+        // the guess, 44 from nearer)
         if (answer.inliers < PNP_LEAST) {
+          if (round === 0 && !best) {
+            camera = fitCamera(geometry, picture, { from: camera.from, yaw: camera.yaw, pitch: camera.pitch, fov, rounds: options.rounds ?? 40 }).camera;
+            continue;
+          }
           notes.push(`features: ${answer.inliers} matches agree on a camera, under ${PNP_LEAST}: a repeating texture puts a camera a tile off, so the edges decide`);
           break;
         }
