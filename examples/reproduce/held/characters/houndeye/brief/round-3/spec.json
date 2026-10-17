@@ -1,0 +1,295 @@
+{
+  "spec": "smak.model/1",
+  "name": "houndeye.mdl",
+  "kind": "character",
+  "base": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "floor": 0,
+  "size": {
+    "height": 45,
+    "length": 49
+  },
+  "pose": {
+    "aim": {
+      "L leg": {
+        "forward": 52,
+        "bend": 104
+      },
+      "R leg": {
+        "forward": 52,
+        "bend": 104
+      }
+    }
+  },
+  "materials": {
+    "hide": {
+      "base": "leather",
+      "tone": [
+        0.8,
+        0.72,
+        0.36
+      ]
+    },
+    "stripe": {
+      "base": "leather",
+      "tone": [
+        0.25,
+        0.18,
+        0.08
+      ]
+    },
+    "eye": {
+      "base": "paint",
+      "tone": [
+        0.9,
+        0.85,
+        0.45
+      ]
+    },
+    "pupil": {
+      "base": "paint",
+      "tone": [
+        0.1,
+        0.08,
+        0.05
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "body",
+      "kind": "turn",
+      "axis": "x",
+      "sides": 12,
+      "material": "hide",
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "at": "centre"
+      },
+      "rings": [
+        [
+          0,
+          [
+            0.5,
+            0.5
+          ]
+        ],
+        [
+          4,
+          [
+            8,
+            7
+          ]
+        ],
+        [
+          12,
+          [
+            12,
+            10
+          ]
+        ],
+        [
+          24,
+          [
+            12,
+            10
+          ]
+        ],
+        [
+          32,
+          [
+            9,
+            8
+          ]
+        ],
+        [
+          36,
+          [
+            0.5,
+            0.5
+          ]
+        ]
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.15,
+              0
+            ],
+            [
+              0.15,
+              360
+            ]
+          ],
+          "width": 1.4,
+          "material": "stripe"
+        },
+        {
+          "path": [
+            [
+              0.35,
+              0
+            ],
+            [
+              0.35,
+              360
+            ]
+          ],
+          "width": 1.4,
+          "material": "stripe"
+        },
+        {
+          "path": [
+            [
+              0.55,
+              0
+            ],
+            [
+              0.55,
+              360
+            ]
+          ],
+          "width": 1.4,
+          "material": "stripe"
+        },
+        {
+          "path": [
+            [
+              0.75,
+              0
+            ],
+            [
+              0.75,
+              360
+            ]
+          ],
+          "width": 1.4,
+          "material": "stripe"
+        }
+      ]
+    },
+    {
+      "id": "head",
+      "kind": "sphere",
+      "sides": 8,
+      "material": "hide",
+      "radius": 6.5,
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "centre",
+        "offset": [
+          20,
+          0,
+          -12
+        ]
+      }
+    },
+    {
+      "id": "eye",
+      "kind": "sphere",
+      "sides": 8,
+      "material": "eye",
+      "radius": 6,
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "centre",
+        "offset": [
+          26,
+          0,
+          -12
+        ]
+      }
+    },
+    {
+      "id": "pupil",
+      "kind": "sphere",
+      "sides": 6,
+      "material": "pupil",
+      "radius": 2.5,
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "centre",
+        "offset": [
+          32,
+          0,
+          -12
+        ]
+      }
+    },
+    {
+      "id": "thigh",
+      "kind": "cylinder",
+      "sides": 6,
+      "material": "hide",
+      "radius": 3.5,
+      "height": 1,
+      "span": {
+        "bones": [
+          "Bip01 L Leg",
+          "Bip01 L Leg1"
+        ],
+        "over": 1.5
+      },
+      "mirror": "y"
+    },
+    {
+      "id": "knee",
+      "kind": "sphere",
+      "sides": 6,
+      "material": "hide",
+      "radius": 3.5,
+      "attach": {
+        "bone": "Bip01 L Leg1",
+        "at": "centre"
+      },
+      "mirror": "y"
+    },
+    {
+      "id": "shin",
+      "kind": "cylinder",
+      "sides": 6,
+      "material": "hide",
+      "radius": 2.5,
+      "height": 1,
+      "span": {
+        "bones": [
+          "Bip01 L Leg1",
+          "Bip01 L Foot"
+        ],
+        "over": 1.5
+      },
+      "mirror": "y"
+    },
+    {
+      "id": "foot",
+      "kind": "sphere",
+      "sides": 6,
+      "material": "hide",
+      "radius": 3,
+      "attach": {
+        "bone": "Bip01 L Foot",
+        "at": "centre"
+      },
+      "mirror": "y"
+    },
+    {
+      "id": "middle_leg",
+      "kind": "cylinder",
+      "sides": 6,
+      "material": "hide",
+      "radius": 2,
+      "height": 20,
+      "attach": {
+        "bone": "Bip01 Spine",
+        "at": "top",
+        "offset": [
+          4,
+          0,
+          -4
+        ]
+      }
+    }
+  ]
+}

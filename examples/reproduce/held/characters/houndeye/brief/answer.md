@@ -1,29 +1,37 @@
-The model is built and the build says **OK**. My view is that it is probably not yet at least as good as Half-Life's own houndeye. It reads as a creature, but the skeleton and motion are not its own.
+The build says **OK: built, and every check passed**. It still reports two warnings, listed below.
 
-**What I made**
+**What I changed**
 
-- `work:houndeye.mdl`: the built model, 45.2 units tall and 52.4 long (the request was 45 by 49; the build accepts this as within 10%).
-- `work:houndeye.json`: the spec it was built from, so the model can be rebuilt or changed.
-- `work:houndeye-sheet.png` and `work:houndeye_run.gif`: the six-side picture and the run cycle.
+- **Hide:** I replaced the zebra stripe picture with a softer dappled picture, `work:gen/hide_soft_s0.png` (seed 0 of four takes from the local shape generator). The tone is now a paler yellow-tan, and the picture is scaled up from 24 to 60, so the spots are body-sized instead of grain.
+- **Body:** a squat dome, lower and wider, with the head built into its front blob. The old separate head part is gone, because it floated when the creature bent in a jump.
+- **Eye:** it now sits on the front-top of the head, set in the body's blob, with the pupil in front of it.
+- **Legs:** the three legs are unchanged in count. The front leg is now part of the body blob, so it stays attached in the crouch.
 
-**How it is built**
+```
+                 before            now
+height           48.1              47.1  (spec 45)
+length           50.2              47.8  (spec 49)
+triangles        496               496
+legs             3                 3
+eye placement    beside body       on the head's front
+hide             zebra stripes     dappled spots
+```
 
-- **Skeleton:** `player/gordon/gordon.mdl`. The houndeye's own skeleton is excluded, and the other monster skeletons I checked were too large (the alien grunt's eyes sit at 75 units) or too small (the headcrab's hips sit at about 12). Gordon's 42 bones and 77 animations are kept, and `floor: 0` stands the feet on the origin.
-- **Stance:** both rear legs are aimed with `pose.aim` (thigh 52 degrees forward, knee bent 104 degrees). That lowers the hips to about 22 units, so the body reads as squat.
-- **Body:** a barrel of 36 units along x, flattened to an oval, on the spine. Four dark rings are painted on as stripes.
-- **Head and eye:** a head sphere on the head bone, a pale yellow eye of radius 6 on its front, and a dark pupil in the eye.
-- **Legs:** two legs mirrored left and right, each a thigh, knee, shin and foot. These follow Gordon's own walk and run.
-- **Third leg:** a single straight leg hung from the spine. It does not move in the animations.
-- **Budget:** 540 triangles. The base's own body is 362, and the fault line is over twice that.
-- **Materials:** hide and stripes in the `leather` base, eye and pupil in the `paint` base.
+**What the build still reports**
 
-**Where it falls short**
+- A warning that 13% of the triangles stretch past three times their length in the run (`run2`). It is on the front and hind leg joints.
+- A warning that 8 triangles join the two thighs. They are where the legs meet at the hips.
 
-- The motion is Gordon's upright human walk and run, on a squat frame. The houndeye's low, dog-like run is not there.
-- The sonic blast and the charge have no animation or effect in this model. A model cannot carry the attack; that needs the mod's code.
-- The third leg is static, and the crouch makes the legs look folded rather than digitigrade.
-- The eye reads at the front and the stripes read on the side, but there is no dappling. Painting the spots would need a picture of the hide, which I did not have.
-- The check passes with "fit for goldsrc", but it reports 1080 triangles against the build's 540, and names a Gordon head submodel (`DM_Gordon_Head1`) that this model should not contain. I did not trace the cause. It may be a leftover from the base file and may be harmless, but it should be checked before shipping.
-- I could not put it in the game beside Half-Life's own, because the render tool cannot read the game folder. The comparison is yours to make.
+Both are warnings, not faults, and the build says OK. I did not fix them, because the legs' thickness was already at the edge of what built clean.
 
-**Recommendation:** if the mod can get the houndeye's own skeleton (the original `houndeye.mdl`, or a copy of its bones), building on that would fix the posture and give it its own run. Re-run the build with `base` pointing at that file and the body parts should carry over with few changes.
+**What I could not do**
+
+- I could not put it beside the game's own houndeye. The original brief said its own model is not available, so the comparison with the game's own has not been run. The line-up result from the person is the only evidence on the new look.
+- The hide now reads as leopard spots, not stripes. The brief asked for striped and dappled. The stripe picture read as zebra, so I traded the stripes for spots. If the person wants stripes back, I need a new picture with broad, low-contrast stripes.
+- The attack is still not fixed. That is the open choice from last time: a side-view charge strip for the `motion` key, or a hand-keyed edit. The sequence `shoot_1` still moves only the arms and spine.
+
+**Files**
+
+- The spec is `work:houndeye.spec.json`; the model is `work:houndeye.mdl`; the new sheet is `work:houndeye-sheet.png`.
+- The new hide is `work:gen/hide_soft_s0.png`. The spec no longer uses `hide_stripe_s1.png`.
+- I did not delete the old files in the work folder (the stripe takes, `hide_s0`/`s1`, the older `houndeye_*` takes, `houndeye-sheet-rev.png` and `shoot_1.json`). I have no delete tool here; say which to remove.

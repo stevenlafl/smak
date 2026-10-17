@@ -5,31 +5,84 @@
  "label": "barney, in the place of the game's models/barney.mdl",
  "measured": {
   "size": [
-   27.8,
-   24.5,
-   75.6
+   28.4,
+   23.9,
+   76
   ],
   "sizeAsked": {
    "high": 75
   },
-  "sizeOff": 0.007,
-  "triangles": 704,
+  "sizeOff": 0.013,
+  "triangles": 698,
   "halfLifeMedianOfItsKind": 504,
   "halfLifeThreeQuartersUnder": 731,
   "halfLifeMost": 1640,
   "checkErrors": [],
   "lineup": "the asset is one of A to D in lineup.png beside models/hassassin.mdl, models/scientist.mdl, models/gman.mdl",
-  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked A, C, C, B where the asset was A, C, C, B: told apart"
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked A, D, C, D where the asset was A, C, C, B: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
   "M8": 2,
-  "M6": 1
+  "M6": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "M6"
- ],
- "total": 0,
- "of": 18
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Outline reads as the brief's man: a helmet on a head, a boxy vest over the torso, arms hanging at the sides, straight legs and boots. Front, left, back and right views match each other in height and bulk. The white flaps behind the trousers and boots add a little to the silhouette in the side views, but they are charged to M4 and M8, not to the outline."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 28.4 x 23.9 x 76 units against the 75 the brief asks for, 1.3% off, well within 15%."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Every part the brief names is there: a helmet with a dark visor band across the front (sides.png front and left), the black vest with SECURITY on the back (back view), a pistol holster on the left hip (front and front-right views), a belt with buckle, blue shirt, blue-violet trousers, boots and hands. The visor is thin but reads as a part. Nothing the brief names is missing."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Blue shirt, black vest, blue-violet trousers, grey-black boots, tan skin and silver buckle match the brief's colours and the look of Valve's own security guard in lineup.png (D). Nothing reads as a different material."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The markings are all there in their places: SECURITY lettering on the front and back of the vest, the emblem on top of the helmet, the visor band, the belt buckle. The lettering is small but readable at the size the game shows it, and the cloth folds are suggested."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Capped by the line-up test: with the asset at A, C, C and B, the four judges picked A, D, C and D. Two of the four readings caught the asset, under the three that would fail it, so it passes the test. Beside Valve's own (lineup.png) it is the same kind of figure and read as one of the game's."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Faces the front, upright, standing on both feet on its origin in the front, side and back views. The vest's SECURITY lettering is on the back as the brief says."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The check reports no errors. 698 triangles is under the third quartile of 731 and under twice the median of 504 (1,008). The underside is open and shows loose shards (sides.png, below view), but a player never sees it, which is Valve's practice."
+  },
+  "C1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Across the run (motion.png, 0 to 22) and the two-handed shoot (attack.png, 0 to 7), the arms, legs, boots and holster stay on the body and swing and bend with it. Nothing comes apart or floats in the frames. The pale strip on the trouser rear moves with the leg, so it does not change this."
+  }
+ },
+ "total": 18,
+ "of": 18,
+ "passes": true
 }

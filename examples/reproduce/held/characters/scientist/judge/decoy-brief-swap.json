@@ -5,31 +5,84 @@
  "label": "scientist, in the place of the game's models/scientist.mdl",
  "measured": {
   "size": [
-   27.8,
-   24.5,
-   75.6
+   28.4,
+   23.9,
+   76
   ],
   "sizeAsked": {
    "high": 68
   },
-  "sizeOff": 0.111,
-  "triangles": 704,
+  "sizeOff": 0.117,
+  "triangles": 698,
   "halfLifeMedianOfItsKind": 504,
   "halfLifeThreeQuartersUnder": 731,
   "halfLifeMost": 1640,
   "checkErrors": [],
   "lineup": "the asset is one of A to D in lineup.png beside models/barney.mdl, models/hassassin.mdl, models/gman.mdl",
-  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, B, D, C where the asset was D, B, C, C: told apart"
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked C, C, D, D where the asset was D, B, C, C: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
   "M8": 2,
-  "M6": 1
+  "M6": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "M6"
- ],
- "total": 0,
- "of": 18
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief asks for an older man in a long white lab coat, with balding grey hair. The asset is a helmeted, vest-wearing guard. The coat's long hem and the balding head are missing from the outline (front, left and back views), and a helmet sits where the hair should be. The upright adult-man outline does match."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 28.4 x 23.9 x 76 against the brief's about 68 tall: height is 11.7% over, within the 15% band the brief sets. Width and depth are in proportion."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Parts the brief names: white lab coat, blue shirt, red tie, light trousers, glasses, balding grey hair. The lab coat is absent (a black SECURITY vest sits over the shirt in every view). No red tie appears in any view. The helmet covers the hair, so there is no balding or grey hair. Glasses are at most a dark shape in the front view. A missing coat and tie fail the part list."
+  },
+  "M4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The shirt is the right blue. The coat's white is absent, the tie's red is absent, and the trousers are dark purple where the brief asks for light trousers. The helmet and vest are colours the brief does not name. Two named regions are wrong and one is missing."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief names no lettering. The asset carries SECURITY lettering on the vest, a sleeve patch and a radio pouch, none of which fit a scientist. The glasses are not clearly visible in the front or front-left views, so the detail the brief names is not clearly there."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured on the line-up, which is the cap for M6 here. The asset was picked as the non-Valve model in none of four readings (judges picked C, C, D, D where the asset was D, B, C, C), so it passed as one of the game's. Its look is a plausible Valve security guard beside the game's models."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Upright, facing front in the front view, and standing on its feet in the front, back and below views. The brief gives no facing, so nothing is charged."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The SMAK check has no errors. 698 triangles is under the 1008 limit (twice the median of 504, which is above the 731 three-quarter mark). No open surface is visible from any view. The underside view shows only the sole area, which a player does not see."
+  },
+  "C1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "In the 22-frame run and the 8-frame attack, the arms, legs, vest and helmet move together and stay on the body. The pale trouser slabs move with the legs, so nothing comes apart, sinks or floats."
+  }
+ },
+ "total": 12,
+ "of": 18,
+ "passes": false
 }

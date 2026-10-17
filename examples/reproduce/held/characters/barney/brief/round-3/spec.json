@@ -1,0 +1,209 @@
+{
+  "spec": "smak.model/1",
+  "name": "barney.mdl",
+  "kind": "character",
+  "base": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "floor": 0,
+  "size": {
+    "height": 75
+  },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "smooth": 80,
+  "materials": {
+    "uniform": {
+      "base": "cloth",
+      "tone": [
+        0.36,
+        0.42,
+        0.66
+      ]
+    },
+    "helmet": {
+      "base": "metal",
+      "tone": [
+        0.7,
+        0.78,
+        0.86
+      ]
+    },
+    "visor": {
+      "base": "glass",
+      "tone": [
+        0.08,
+        0.1,
+        0.12
+      ]
+    },
+    "vest": {
+      "base": "cloth",
+      "tone": [
+        0.05,
+        0.05,
+        0.06
+      ]
+    },
+    "leather": {
+      "base": "leather",
+      "tone": [
+        0.12,
+        0.1,
+        0.09
+      ]
+    }
+  },
+  "pose": {
+    "aim": {
+      "L arm": {
+        "out": 40,
+        "forward": 0,
+        "bend": 10
+      },
+      "R arm": {
+        "out": 40,
+        "forward": 0,
+        "bend": 10
+      },
+      "L leg": {
+        "out": 6,
+        "forward": 0
+      },
+      "R leg": {
+        "out": 6,
+        "forward": 0
+      }
+    },
+    "bind": true
+  },
+  "parts": [
+    {
+      "id": "guard",
+      "kind": "mesh",
+      "file": "work:gen/guard2_s1.obj",
+      "size": [
+        16,
+        46,
+        75
+      ],
+      "triangles": 480,
+      "material": "uniform"
+    },
+    {
+      "id": "vest",
+      "kind": "superquadric",
+      "size": [
+        16.5,
+        21.5,
+        15
+      ],
+      "round": [
+        0.25,
+        0.5
+      ],
+      "sides": 12,
+      "material": "vest",
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "at": "bottom",
+        "offset": [
+          0,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "id": "label",
+      "kind": "box",
+      "size": [
+        0.5,
+        14,
+        4
+      ],
+      "paint": true,
+      "material": "vest",
+      "print": {
+        "text": "SECURITY",
+        "face": "back",
+        "ink": [
+          0.95,
+          0.8,
+          0.1
+        ],
+        "size": 0.6
+      },
+      "attach": {
+        "to": "vest",
+        "toAt": "back",
+        "at": "front"
+      }
+    },
+    {
+      "id": "helmet",
+      "kind": "superquadric",
+      "size": [
+        13,
+        12,
+        10
+      ],
+      "round": [
+        0.4,
+        0.5
+      ],
+      "sides": 10,
+      "material": "helmet",
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "bottom",
+        "offset": [
+          0,
+          0,
+          -1
+        ]
+      }
+    },
+    {
+      "id": "visor",
+      "kind": "box",
+      "size": [
+        2,
+        9,
+        3
+      ],
+      "material": "visor",
+      "attach": {
+        "to": "helmet",
+        "toAt": "front",
+        "at": "front",
+        "offset": [
+          1,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "holster",
+      "kind": "box",
+      "size": [
+        4,
+        3,
+        9
+      ],
+      "material": "leather",
+      "attach": {
+        "bone": "Bip01 Pelvis",
+        "at": "centre",
+        "offset": [
+          0,
+          -9,
+          8
+        ]
+      }
+    }
+  ]
+}

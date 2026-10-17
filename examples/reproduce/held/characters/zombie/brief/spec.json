@@ -9,56 +9,46 @@
   "size": {
     "height": 68
   },
-  "budget": 720,
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "layout": "regions",
   "materials": {
     "claw": {
       "base": "bone",
-      "tone": "yellow grey"
+      "tone": [
+        0.35,
+        0.22,
+        0.18
+      ]
+    },
+    "parasite": {
+      "base": "flat",
+      "tone": [
+        0.7,
+        0.6,
+        0.48
+      ]
+    },
+    "flesh": {
+      "base": "flat",
+      "tone": [
+        0.42,
+        0.1,
+        0.09
+      ]
     }
   },
-  "project": [
-    {
-      "picture": "work:gen/zombie_hunch_s3_cut.png",
-      "view": "front",
-      "palette": "own"
-    }
-  ],
   "pose": {
-    "keys": {
-      "Bip01 Spine": {
-        "turn": {
-          "y": -10
-        }
-      },
-      "Bip01 Spine1": {
-        "turn": {
-          "y": -12
-        }
-      },
-      "Bip01 Spine2": {
-        "turn": {
-          "y": -12
-        }
-      },
-      "Bip01 Spine3": {
-        "turn": {
-          "y": -10
-        }
-      },
-      "Bip01 Neck": {
-        "turn": {
-          "y": -10
-        }
-      }
-    },
     "aim": {
       "L arm": {
-        "out": 38,
+        "out": 30,
         "forward": 0,
         "bend": 5
       },
       "R arm": {
-        "out": 38,
+        "out": 30,
         "forward": 0,
         "bend": 5
       },
@@ -71,49 +61,142 @@
         "forward": 0
       }
     },
+    "keys": {
+      "Bip01 Spine2": {
+        "turn": {
+          "y": 8
+        }
+      },
+      "Bip01 Spine3": {
+        "turn": {
+          "y": 11
+        }
+      },
+      "Bip01 Neck": {
+        "turn": {
+          "y": 8
+        }
+      }
+    },
     "bind": true
   },
+  "project": [
+    {
+      "picture": "work:gen/zombie_body_s0_cut.png",
+      "view": "front",
+      "parts": [
+        "body"
+      ]
+    }
+  ],
   "parts": [
     {
       "id": "body",
       "kind": "mesh",
-      "file": "work:gen/zombie_hunch_s3.obj",
+      "file": "work:gen/zombie_body_s0.obj",
       "size": [
-        13,
-        45,
+        21,
+        46,
         68
       ],
-      "triangles": 560
+      "up": "y",
+      "triangles": 340
     },
     {
-      "id": "claw_l",
+      "id": "claws_left",
       "kind": "fingers",
       "hand": "Bip01 L Hand",
+      "material": "claw",
       "count": 4,
-      "length": 7,
+      "length": 15,
       "radius": [
-        0.9,
-        0.3
+        1.1,
+        0.2
       ],
       "spread": 40,
-      "curl": 45,
-      "sides": 3,
-      "material": "claw"
+      "curl": 30,
+      "sides": 4
     },
     {
-      "id": "claw_r",
+      "id": "claws_right",
       "kind": "fingers",
       "hand": "Bip01 R Hand",
+      "material": "claw",
       "count": 4,
-      "length": 7,
+      "length": 15,
       "radius": [
-        0.9,
-        0.3
+        1.1,
+        0.2
       ],
       "spread": 40,
-      "curl": 45,
-      "sides": 3,
-      "material": "claw"
+      "curl": 30,
+      "sides": 4
+    },
+    {
+      "id": "parasite",
+      "kind": "blob",
+      "material": "parasite",
+      "blend": 3,
+      "triangles": 150,
+      "pieces": [
+        {
+          "at": "Bip01 Head",
+          "offset": [
+            1,
+            0,
+            -2
+          ],
+          "radius": [
+            9,
+            8,
+            7
+          ]
+        },
+        {
+          "at": "Bip01 Neck",
+          "offset": [
+            -1,
+            0,
+            0
+          ],
+          "radius": 5
+        },
+        {
+          "at": "Bip01 Spine3",
+          "offset": [
+            -4,
+            0,
+            6
+          ],
+          "radius": [
+            7,
+            8,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chest_wound",
+      "kind": "blob",
+      "material": "flesh",
+      "blend": 2,
+      "triangles": 40,
+      "pieces": [
+        {
+          "at": "Bip01 Spine2",
+          "offset": [
+            7,
+            0,
+            3
+          ],
+          "radius": [
+            3,
+            6,
+            5
+          ]
+        }
+      ]
     }
   ]
 }

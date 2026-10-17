@@ -1,0 +1,64 @@
+{
+  "spec": "smak.model/1",
+  "name": "barney.mdl",
+  "kind": "character",
+  "base": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "floor": 0,
+  "size": {
+    "height": 75
+  },
+  "pose": {
+    "aim": {
+      "L arm": {
+        "out": 30,
+        "forward": 0,
+        "bend": 5
+      },
+      "R arm": {
+        "out": 30,
+        "forward": 0,
+        "bend": 5
+      },
+      "L leg": {
+        "out": 6,
+        "forward": 0
+      },
+      "R leg": {
+        "out": 6,
+        "forward": 0
+      }
+    },
+    "bind": true
+  },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "layout": "regions",
+  "smooth": 80,
+  "project": [
+    {
+      "picture": "work:gen/guard_shape_s0_cut.png",
+      "view": "front"
+    },
+    {
+      "picture": "work:gen/guard_back_s2.png",
+      "view": "back"
+    }
+  ],
+  "parts": [
+    {
+      "id": "guard",
+      "kind": "mesh",
+      "file": "work:gen/guard_shape_s0.obj",
+      "size": [
+        18,
+        42,
+        75
+      ],
+      "triangles": 650
+    }
+  ]
+}

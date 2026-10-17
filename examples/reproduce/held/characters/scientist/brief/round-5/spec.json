@@ -1,0 +1,277 @@
+{
+  "spec": "smak.model/1",
+  "name": "scientist.mdl",
+  "kind": "character",
+  "base": {
+    "file": "barney.mdl"
+  },
+  "floor": 0,
+  "size": {
+    "height": 68
+  },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "materials": {
+    "coat": {
+      "base": "cloth",
+      "tone": "white"
+    },
+    "trousers": {
+      "base": "cloth",
+      "tone": "light khaki"
+    },
+    "shoe": {
+      "base": "leather",
+      "tone": "black"
+    }
+  },
+  "parts": [
+    {
+      "id": "torso",
+      "kind": "blob",
+      "material": "coat",
+      "blend": 3,
+      "pieces": [
+        {
+          "at": [
+            -7,
+            2,
+            33
+          ],
+          "radius": [
+            7.5,
+            11,
+            14
+          ]
+        },
+        {
+          "at": "Bip01 Spine1",
+          "radius": [
+            7,
+            11,
+            8
+          ]
+        },
+        {
+          "at": "Bip01 Spine2",
+          "radius": [
+            7.5,
+            11.5,
+            8
+          ]
+        },
+        {
+          "at": "Bip01 Spine3",
+          "radius": [
+            7,
+            11.5,
+            7
+          ]
+        },
+        {
+          "at": "Bip01 Neck",
+          "radius": [
+            5.5,
+            5.5,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "id": "head",
+      "kind": "superquadric",
+      "material": "coat",
+      "texels": 3,
+      "sides": 12,
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "centre",
+        "offset": [
+          0,
+          0,
+          -3
+        ]
+      },
+      "size": [
+        12,
+        12,
+        14
+      ],
+      "round": [
+        0.4,
+        0.5
+      ]
+    },
+    {
+      "id": "arm_left",
+      "kind": "blob",
+      "material": "coat",
+      "blend": 2,
+      "pieces": [
+        {
+          "span": [
+            "Bip01 L Arm",
+            "Bip01 L Arm1"
+          ],
+          "radius": 4.2
+        },
+        {
+          "span": [
+            "Bip01 L Arm1",
+            "Bip01 L Arm2"
+          ],
+          "radius": 3.5
+        },
+        {
+          "span": [
+            "Bip01 L Arm2",
+            "Bip01 L Hand"
+          ],
+          "radius": 2.8
+        }
+      ]
+    },
+    {
+      "id": "arm_right",
+      "kind": "blob",
+      "material": "coat",
+      "blend": 2,
+      "pieces": [
+        {
+          "span": [
+            "Bip01 R Arm",
+            "Bip01 R Arm1"
+          ],
+          "radius": 4.2
+        },
+        {
+          "span": [
+            "Bip01 R Arm1",
+            "Bip01 R Arm2"
+          ],
+          "radius": 3.5
+        },
+        {
+          "span": [
+            "Bip01 R Arm2",
+            "Bip01 R Hand"
+          ],
+          "radius": 2.8
+        }
+      ]
+    },
+    {
+      "id": "leg_left",
+      "kind": "blob",
+      "material": "trousers",
+      "blend": 2,
+      "pieces": [
+        {
+          "span": [
+            "Bip01 L Leg",
+            "Bip01 L Leg1"
+          ],
+          "radius": [
+            5.5,
+            4.2
+          ]
+        },
+        {
+          "span": [
+            "Bip01 L Leg1",
+            "Bip01 L Foot"
+          ],
+          "radius": [
+            4.2,
+            3.4
+          ]
+        }
+      ]
+    },
+    {
+      "id": "leg_right",
+      "kind": "blob",
+      "material": "trousers",
+      "blend": 2,
+      "pieces": [
+        {
+          "span": [
+            "Bip01 R Leg",
+            "Bip01 R Leg1"
+          ],
+          "radius": [
+            5.5,
+            4.2
+          ]
+        },
+        {
+          "span": [
+            "Bip01 R Leg1",
+            "Bip01 R Foot"
+          ],
+          "radius": [
+            4.2,
+            3.4
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shoe_left",
+      "kind": "superquadric",
+      "material": "shoe",
+      "sides": 10,
+      "attach": {
+        "bone": "Bip01 L Foot",
+        "at": "centre",
+        "offset": [
+          0,
+          0,
+          -3
+        ]
+      },
+      "size": [
+        12,
+        6,
+        6
+      ],
+      "round": [
+        0.3,
+        0.3
+      ]
+    },
+    {
+      "id": "shoe_right",
+      "kind": "superquadric",
+      "material": "shoe",
+      "sides": 10,
+      "attach": {
+        "bone": "Bip01 R Foot",
+        "at": "centre",
+        "offset": [
+          0,
+          0,
+          -3
+        ]
+      },
+      "size": [
+        12,
+        6,
+        6
+      ],
+      "round": [
+        0.3,
+        0.3
+      ]
+    }
+  ],
+  "project": [
+    {
+      "picture": "work:gen/scientist_shape_s0_cut.png",
+      "view": "front"
+    }
+  ]
+}
