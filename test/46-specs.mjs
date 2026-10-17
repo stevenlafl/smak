@@ -7,7 +7,7 @@ import { join } from "node:path";
 import { tmpdir } from "node:os";
 import * as smak from "../src/index.mjs";
 import { buildModelSpec, validateModelSpec } from "../src/spec/model.mjs";
-import { buildMapSpec, layoutOf, withIncludes } from "../src/spec/map.mjs";
+import { buildMapSpec, layoutOf, withIncludes, validateMapSpec } from "../src/spec/map.mjs";
 import { materialOf, surfacePicture, MATERIALS, UNWORN } from "../src/spec/paint.mjs";
 import { lookOf, lookFaults, ALLOWED } from "../src/spec/look.mjs";
 import { changesOf } from "../src/spec/changes.mjs";
@@ -531,6 +531,15 @@ test("a flat colour is its tone alone, as the game's own BLACK and YELLOW are, a
     refused = error.message;
   }
   sure(/a flat colour is its tone alone/.test(refused), refused);
+});
+
+test("a map's plan is held to the size its spec asks, as a model's is", () => {
+  const sized = (size) => buildMapSpec({ spec: "smak.map/1", name: `sized${String(size).replace(/\D/g, "")}`, size, rooms: [{ id: "a", size: [256, 256, 128] }], entities: [{ class: "info_player_start", room: "a", at: "centre" }] }, { out: join(folder, "sized"), compilers: { found: false, message: "" } }).report;
+  const right = sized([288, 288]), near = sized(340), far = sized({ length: 1000 });
+  sure(right.facts.some((f) => /^size: its plan is 288 by 288/.test(f)) && !right.faults.some((f) => /^size/.test(f)), right.faults.join(" | "));
+  sure(near.warnings.some((w) => /^size: .* off by 15%/.test(w)) && !near.faults.some((f) => /^size/.test(f)), near.warnings.join(" | "));
+  sure(far.faults.some((f) => /^size: its plan is 288 by 288, where the spec asks 1000: off by 71%/.test(f)), far.faults.join(" | "));
+  sure(validateMapSpec({ spec: "smak.map/1", name: "x", size: "big", rooms: [] }).errors.some((e) => /^size:/.test(e)), "a size that is no number is refused");
 });
 
 test("a map's pictures look as Valve's walls do: grain, patches, colour and brightness within nine in ten of theirs", () => {

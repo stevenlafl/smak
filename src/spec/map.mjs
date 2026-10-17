@@ -35,7 +35,11 @@ import { buildSoundSpec } from "./sound.mjs";
 import { TRACKS } from "./music.mjs";
 
 export const MAP_SPEC = "smak.map/1";
-const TOP = ["spec", "name", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "replace", "sounds", "fgd", "wads", "compile", "detail", "note", "ladders", "fidelity", "music", "floorplan"];
+/** A map's plan off the size the spec asks by more than these shares is warned of, and a fault (as a model's is). */
+const MAP_SIZE_WARN = 0.1;
+const MAP_SIZE_ERROR = 0.25;
+
+const TOP = ["spec", "name", "size", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "replace", "sounds", "fgd", "wads", "compile", "detail", "note", "ladders", "fidelity", "music", "floorplan"];
 /** A ladder's depth off its wall, and its width unless told: Valve's frenzy's are 32 wide. */
 const LADDER = { depth: 6, width: 32 };
 const ROOM = ["id", "size", "at", "place", "floor", "sky", "surfaces", "light", "water", "test", "building", "dark", "note"];
@@ -344,6 +348,11 @@ export function validateMapSpec(spec) {
       if (e?.height !== undefined && typeof e.height !== "number") errors.push(`entities[${i}].height: a height the plan gives it: it stands on the highest floor at or under it`);
   }
   if (spec.spec !== MAP_SPEC) errors.push(`spec: "${MAP_SPEC}" says what this is; it has ${JSON.stringify(spec.spec)}`);
+  if (spec.size !== undefined) {
+    const z = spec.size, ok = (v) => typeof v === "number" && v > 0;
+    if (!(ok(z) || (Array.isArray(z) && z.length === 2 && z.every(ok)) || (z && typeof z === "object" && !Array.isArray(z) && ok(z.length) && (z.width === undefined || ok(z.width)))))
+      errors.push("size: what the person asked the map to measure across its plan: its longest side (2500), both sides ([1500, 1500]) or { length, width }");
+  }
   for (const key of Object.keys(spec)) if (!TOP.includes(key)) warnings.push(`${key}: not a field of a map spec, left out`);
   if (spec.sky !== undefined && typeof spec.sky !== "string") {
     if (!spec.sky || typeof spec.sky !== "object" || Array.isArray(spec.sky)) errors.push("sky: the name of a sky of the game's (desert), or the words of one to make ({ zenith, horizon, clouds, sun, hills ... })");
@@ -1827,6 +1836,19 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   files.map = mapFile;
   report.facts.push(`${rooms.size} rooms, ${holes.length} ways through, ${brushes.length} brushes, ${entities.length} entities`);
   for (const room of rooms.values()) report.rooms[room.id] = { min: room.min, max: room.max };
+  // the size the person asked for (its plan's longest side, and its shortest), held as a model's is: the rooms and
+  // the rock round them, as the compiled map's world measures
+  if (spec.size !== undefined && rooms.size) {
+    const all = [...rooms.values()];
+    const extent = [0, 1].map((k) => Math.max(...all.map((r) => r.max[k])) - Math.min(...all.map((r) => r.min[k])) + 2 * (spec.wall ?? 16)).sort((a, b) => b - a);
+    const asked = typeof spec.size === "number" ? [spec.size] : Array.isArray(spec.size) ? [...spec.size].sort((a, b) => b - a) : [spec.size.length, spec.size.width].filter((v) => v !== undefined);
+    const said = asked.map((v, i) => ({ v, m: extent[i], off: Math.abs(extent[i] / v - 1) }));
+    const worst = said.reduce((a, b) => (b.off > a.off ? b : a));
+    const line = `its plan is ${extent.map(Math.round).join(" by ")}, where the spec asks ${asked.join(" by ")}`;
+    if (worst.off > MAP_SIZE_ERROR) report.faults.push(`size: ${line}: off by ${Math.round(worst.off * 100)}%. Make the rooms smaller or fewer, or larger`);
+    else if (worst.off > MAP_SIZE_WARN) warnings.push(`size: ${line}: off by ${Math.round(worst.off * 100)}%`);
+    else report.facts.push(`size: ${line}`);
+  }
 
   // ── checked before any compile: the plan, and the walk ──
   const textures = [...[...used.keys()].map(nameOfKey), ...gameTextures.keys()];

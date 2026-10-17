@@ -869,6 +869,7 @@ command line: `smak video spec.json -o folder [--preview] [--models folder]`.
 | Field | |
 | --- | --- |
 | `name` | The map's name: what is typed in the console (`map two_rooms`) |
+| `size` | What the person asked the map to measure across its plan: its longest side (`2500`), both sides (`[1500, 1500]`) or `{ length, width }`. Its rooms and the rock round them off by more than 10% is warned of, more than 25% is a fault, as a model's size is |
 | `theme` | `{ floor, wall, ceiling, door, furniture }`: materials for every room's rock, its doors and furniture. Made into a .wad of the map's own, or taken from a game's .wad (below) |
 | `textures` | More named materials, for furniture, prefabs and rooms' surfaces: `{ "counter": { "base": "darkwood" } }` |
 | `wall` | Rock between rooms (16). Rooms placed side by side have exactly this between them |
@@ -1180,6 +1181,7 @@ and pass the picture as `reference`: it is then drawn beside the plan of the res
 - `ERROR links[n]: ... not side by side`: the two rooms of a link do not share a wall.
 - `fact <word>: picked ... / a GAP ...`: where each game texture came from.
 - `CHANGED since the last build ...`: what this build changed from the one before of the same name.
+- `FAULT size: its plan is ... where the spec asks ...`: the rooms reach further (or less far) than the size asked.
 - `ROOMS`: every room's box and the light on its floor.
 
 The pictures: the plan of the result (every entity marked with its number and class; beside the person's
