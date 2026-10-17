@@ -291,7 +291,9 @@ new name needs the mod's code). They are written in `work:<name>_weapon/`.
 - `size`: `"old"` (unless told) stretches it to the old one's length; `"own"`: build it at the **real weapon's
   length** (a crowbar about 24, a pistol about 7), and it is laid in each file at the size Valve draws a weapon
   there against the real one: first person 1.24 times, in another player's hands 0.82, lying in the world 1.81
-  (a pickup is drawn large, to read on the floor), its grip where the old grip was.
+  (a pickup is drawn large, to read on the floor), its grip where the old grip was. In another player's hands
+  and in the world the build lays a lighter mesh, as Valve's are: 0.59 of the first person's triangles and 254
+  at most, the shape and picture kept (the report says how many).
 - `rig`: `"carry"` (unless told) hangs it all on the bone that carried the old one; `"nearest"` gives each
   corner the bone of the old one's nearest corner, so that a part over a slide or a drum moves with it.
 - A part may be in some of the files only: `"views": ["p", "w"]` leaves it out of first person (a stock behind

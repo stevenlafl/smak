@@ -2368,6 +2368,13 @@ const WEAPON_VIEWS = { v: { shrink: 1, what: "first person" }, p: { shrink: 2, w
  * A weapon built at its real length (`size: "own"`) is laid in each file at that file's share.
  */
 export const HELD_SCALE = { v: 1.24, p: 0.82, w: 1.81 };
+/**
+ * Valve's weapons have one lighter mesh in the hands of another (p_) and in the world (w_), the same in both, at
+ * a median of 0.59 of the first person's triangles and never over 254 (research/weapon-size.md): a weapon seen
+ * across a room, or as a speck on the floor, needs no first person's detail.
+ */
+export const HELD_LIGHTER = 0.59;
+export const HELD_LIGHT_MOST = 254;
 
 function weaponViews(spec, meshes, { folder, games, report, hide = [] }) {
   const { like, views = ["v", "p", "w"], size = "old", rig = "carry", turn } = spec.weapon;
@@ -2430,7 +2437,12 @@ function weaponViews(spec, meshes, { folder, games, report, hide = [] }) {
         // at its own size (asked for, or a hidden file's, whose weapon lends nothing of its shape) the piece is the
         // real weapon, laid in each file at the size Valve draws a weapon there against the real one (HELD_SCALE)
         const own = hidden(fileName) || size === "own";
-        const shown = own ? { ...inView, tris: inView.tris.map((t) => t.map((c) => ({ ...c, p: c.p.map((v) => v * HELD_SCALE[view]) }))) } : inView;
+        const scaled = own ? { ...inView, tris: inView.tris.map((t) => t.map((c) => ({ ...c, p: c.p.map((v) => v * HELD_SCALE[view]) }))) } : inView;
+        // in the hands of another and in the world, the lighter mesh Valve gives a weapon there
+        // against the first person's triangles (the whole piece), not this file's: a part shown in v_ only leaves p_ lighter already
+        const light = view === "v" ? scaled.tris.length : Math.min(scaled.tris.length, Math.round(piece.tris.length * HELD_LIGHTER), HELD_LIGHT_MOST);
+        const shown = light < scaled.tris.length ? { ...scaled, tris: reduce(scaled.tris, { target: light }).tris } : scaled;
+        if (shown !== scaled && j === 0) report.facts.push(`${fileName}: ${scaled.tris.length} triangles made ${shown.tris.length}, the lighter mesh Valve gives a weapon there (${HELD_LIGHTER} of the first person's, ${HELD_LIGHT_MOST} at most)`);
         const swapped = swapMesh(mdl, { body: j * part.base, bodypart, piece: shown, texture, size: hidden(fileName) ? "own" : size, turn: typeof turn === "object" && turn ? turn[view] : turn, name: fileName });
         mdl = swapped.mdl;
         const r = swapped.report;
