@@ -104,7 +104,7 @@ turned by `rotate`, then moved to its place. **Build things upright**: a post, a
 | `boss` | `on: { part, s, angle }`, `radius`, `height` | a round stud (a rivet, a knob, a gem) on a turned part; `angle` in degrees round it: for a part along `z`, 0 faces +x and 90 +y; along `x`, 0 faces +y and 90 +z (up); along `y`, 0 faces +z and 90 +x |
 | `ridge` | `on: { part, path: [[s, angle], ...] }`, `width`, `height` | a raised line along a turned part (a stripe, a seam) |
 | `studs` | `on: { part, path }`, `count`, `radius`, `height` | a row of studs along that path |
-| `kit:sword`, `kit:axe`, `kit:blunt`, `kit:bow` | `options`: the kit's own (its header in `kits/`; a blade's `half` as `{ "taper": [base, tip] }`) | lying along +x, grip at the origin |
+| `kit:sword`, `kit:axe`, `kit:blunt`, `kit:bow`, `kit:firearm` | `options`: the kit's own (its header in `kits/`; a blade's `half` as `{ "taper": [base, tip] }`; a firearm's `preset`, `pistol`, `shotgun`, `smg` or `rifle`, and any part over it) | lying along +x, grip at the origin |
 | `prefab` | `prefab` (a name of `prefabs`), `spec` (one given here) or `file` (a .json beside this spec: another case's model, reused), `scale` | the prefab as it was built |
 
 **Symmetric things are built symmetric.** A chair, a person, a car, a crate, most things made are the same on
@@ -291,6 +291,12 @@ The files keep the game's names, so the game loads them in place of its own with
 new name needs the mod's code). They are written in `work:<name>_weapon/`.
 
 - `like`: the game's weapon, as its files are named: `crowbar`, `357`, `rpg`, `tripmine`.
+- A gun is best one part, `{ "kind": "kit:firearm", "options": { "preset": "shotgun", ... } }` (`kits/firearmkit.mjs`
+  lists every field: receiver, frame, barrel, grip, guard, trigger, magazine, stock, forend, sights, `finish`,
+  `wear`): a receiver, a grip, a closed guard and a magazine that read as a gun's, at its real size (`size: "own"`),
+  180 to 300 triangles (Valve's own first-person guns are 276 to 363 without the hands). Its stock is left out of the first-person file as
+  Valve's are (`stock: { "firstPerson": true }` keeps it), and it is laid the right way up and round in each file
+  where its outline alone cannot tell. The report names its parts (`gun.receiver`, `gun.stock`).
 - `views`: `["v", "p", "w"]` unless told.
 - `size`: `"old"` (unless told) stretches it to the old one's length; `"own"`: build it at the **real weapon's
   length** (a crowbar about 24, a pistol about 7), and it is laid in each file at the size Valve draws a weapon

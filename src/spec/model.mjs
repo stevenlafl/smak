@@ -38,6 +38,7 @@ import { sword, taper } from "../../kits/swordkit.mjs";
 import { axe } from "../../kits/axekit.mjs";
 import { blunt } from "../../kits/bluntkit.mjs";
 import { bow } from "../../kits/bowkit.mjs";
+import { firearm } from "../../kits/firearmkit.mjs";
 import { lookOf, modelLookOf, VALVE_MODELS } from "./look.mjs";
 import { materialOf, flagsOf, zonePainter, colourAt, HOLE_RGB, photoMaterial } from "./paint.mjs";
 import { paintFinish, FINISH } from "./finish.mjs";
@@ -97,6 +98,7 @@ const KINDS = {
   "kit:axe": ["options"],
   "kit:blunt": ["options"],
   "kit:bow": ["options"],
+  "kit:firearm": ["options"],
   prefab: ["prefab", "spec", "file", "scale"],
 };
 /** The fields every part takes. */
@@ -1354,7 +1356,7 @@ function buildPart(part, M, S, zone, px, material, hostSurface, capZones = []) {
 function kitPiece(part) {
   const options = structuredClone(part.options);
   if (part.kind === "kit:sword" && options.blade?.half?.taper) options.blade.half = taper(...options.blade.half.taper);
-  const make = { "kit:sword": sword, "kit:axe": axe, "kit:blunt": blunt, "kit:bow": bow }[part.kind];
+  const make = { "kit:sword": sword, "kit:axe": axe, "kit:blunt": blunt, "kit:bow": bow, "kit:firearm": firearm }[part.kind];
   return make({ seed: 1, ...options });
 }
 
@@ -1432,7 +1434,11 @@ function piecesOf(given, context) {
   for (const part of spec.parts) {
     if (part.kind.startsWith("kit:")) {
       const piece = kitPiece(part);
-      meshes.push({ tris: piece.tris, image: shrink(piece.image, KIT_SHRINK), flags: 0, name: part.id, partOf: piece.tris.map(() => part.id) });
+      // a kit that tells its own parts (the firearm's receiver, stock...) has each triangle named `id.part`, and
+      // the views it leaves a part out of (a stock behind the camera) go with them
+      const subOf = (piece.parts ?? []).flatMap((sub) => new Array(sub.triangles).fill(sub.name));
+      const partOf = piece.tris.map((_, i) => (subOf[i] ? `${part.id}.${subOf[i]}` : part.id));
+      meshes.push({ tris: piece.tris, image: shrink(piece.image, KIT_SHRINK), flags: 0, name: part.id, partOf, kitViews: { [part.id]: piece.views ?? {} }, asDrawn: piece.asDrawn === true });
       built.set(part.id, { made: { ends: [[0, 0, 0], [Math.max(...piece.tris.flat().map((c) => c.p[0])), 0, 0]] }, mesh: meshes.length - 1, range: [0, piece.tris.length] });
     } else if (part.kind === "prefab") {
       const inner = part.spec ?? prefabs[part.prefab] ?? JSON.parse(readFileSync(resolve(context.folder ?? ".", part.file), "utf8"));
@@ -2409,7 +2415,10 @@ export const HELD_LIGHTER = 0.59;
 export const HELD_LIGHT_MOST = 254;
 
 function weaponViews(spec, meshes, { folder, games, report, hide = [] }) {
-  const { like, views = ["v", "p", "w"], size = "old", rig = "carry", turn } = spec.weapon;
+  const { like, views = ["v", "p", "w"], size = "old", rig = "carry" } = spec.weapon;
+  // a kit that knows its own up and front (the firearm's) is fitted upright unless told: by its outline alone a
+  // shotgun's fit turned it end for end in another player's hands and in the world (2026-10-17)
+  const turn = spec.weapon.turn ?? (meshes[0]?.asDrawn ? "upright" : undefined);
   if (meshes.length !== 1) {
     report.errors.push(`weapon: a weapon wears one picture, and this one has ${meshes.length} (${meshes.map((m) => m.name).join(", ")}): a glowing or see-through material gets a picture of its own; leave such parts out of a weapon`);
     return [];
@@ -2422,7 +2431,10 @@ function weaponViews(spec, meshes, { folder, games, report, hide = [] }) {
   const piece = {
     tris: meshes[0].tris.map((t, i) => t.map((c) => ({ p: c.p, uv: c.uv, group: c.group, smooth: c.smooth, part: partNumber(meshes[0].partOf[i]) }))),
     // the views each triangle's part is in: a stock left out of first person, a sight only there
-    views: meshes[0].tris.map((_, i) => spec.parts.find((part) => part.id === String(meshes[0].partOf[i]).split(".")[0])?.views ?? null),
+    views: meshes[0].tris.map((_, i) => {
+      const [id, sub] = String(meshes[0].partOf[i]).split(".");
+      return spec.parts.find((part) => part.id === id)?.views ?? meshes[0].kitViews?.[id]?.[sub] ?? null;
+    }),
     rig: rig === "nearest" ? "nearest" : undefined,
     bones: named,
   };

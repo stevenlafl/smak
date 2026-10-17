@@ -80,6 +80,7 @@ const areas = [
   "62-reproduce-scoring", // the reproduction harness's scoring: the rubric's tables, caps, the pass rule, judges combined
   "63-mcp-command", // the MCP tool command: the command line's commands on the server's folders, names outside refused, no code under --no-run
   "64-outline-parts", // what of each part a player sees: a costly part that changes no outline warned of, as Valve paints such things
+  "65-firearm-kit", // the firearm kit's presets whole at real sizes, a stock kept out of first person, a gun laid upright where its outline cannot choose
 ];
 
 // one after another: each file runs its cases as it is loaded, and the servers' cases wait for their answers

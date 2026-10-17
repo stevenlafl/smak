@@ -290,7 +290,7 @@ texture, bone, pose })`.
 | `texture` | The piece's texture. |
 | `place` | `"fit"`: laid over the old piece's outline. `"bone"`: its points are already in the carrying bone's space. |
 | `size` | `"old"`: stretched to the old length. `"own"`: keeps its drawn size, its low-x end held where the old one's was. |
-| `turn` | With `"fit"`: the one of the four turns to take (`"as drawn"`, `"x"`, `"y"`, `"z"`) where the outline cannot choose (a box); the best outline unless told. |
+| `turn` | With `"fit"`: the one of the four turns to take (`"as drawn"`, `"x"`, `"y"`, `"z"`) where the outline cannot choose (a box); the best outline unless told. `"upright"`: the best outline, but of turns within 5% of it, the one that keeps the piece's front and top where laying it as drawn puts them (a gun: the firearm kit's pieces are laid so unless told). |
 
 `report`: `{ model, bone, bones, was, now, verts, scale, turn, left, boxOff, textures }`.
 

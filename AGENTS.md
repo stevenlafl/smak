@@ -914,10 +914,11 @@ part: it is what lets a painted picture follow the shape when you change it ("Ch
 painted"). A shape's triangles are plain data: move them all with
 `tris.map((t) => t.map((c) => ({ ...c, p: move(c.p) })))`.
 
-`kits/` holds four finished builders made this way, each a function from a description to `{ tris, image }`:
-`sword` (any blade: knives, katanas, machetes), `axe`, `blunt` (bats, clubs, hammers, batons) and `bow`. Their
-headers document every option. For anything else (a firearm, a grenade, a tool), write the piece from `shape`
-and `sheet` directly, a part at a time, checking each in a picture; the kits are the worked examples to read.
+`kits/` holds five finished builders made this way, each a function from a description to `{ tris, image }`:
+`sword` (any blade: knives, katanas, machetes), `axe`, `blunt` (bats, clubs, hammers, batons), `bow` and
+`firearm` (pistols, shotguns, submachine guns, rifles: a preset and any part over it). Their headers document
+every option. For anything else (a grenade, a tool), write the piece from `shape` and `sheet` directly, a part at
+a time, checking each in a picture; the kits are the worked examples to read.
 
 Budget: a first-person weapon of 300 to 1500 triangles with one 512x256 or 512x512 texture is typical for
 GoldSrc; a world model a third of that with a 128 or 256 texture.
