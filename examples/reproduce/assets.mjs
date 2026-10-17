@@ -47,8 +47,10 @@ const ACCEPT = words.includes("--accept-licences") && words.splice(words.indexOf
 const MATERIALS = words.includes("--materials") ? words.splice(words.indexOf("--materials"), 2)[1] : process.env.SMAK_MATERIALS;
 const KINDS = ["sprites", "sounds", "textures"];
 const kinds = KINDS.filter((k) => !words.some((w) => KINDS.includes(w)) || words.includes(k));
+// --leg <name>: only that leg is made (the others are left as they are)
+const ONLY_LEG = words.includes("--leg") ? words.splice(words.indexOf("--leg"), 2)[1] : null;
 const named = words.filter((w) => !KINDS.includes(w));
-const LEGS = ["pictures", "brief"];
+const LEGS = ["pictures", "brief"].filter((leg) => !ONLY_LEG || leg === ONLY_LEG);
 // a sound is not copied from a picture or a reading of one (Steven, 2026-10-16: "no one's going to give a sound and say
 // replicate this"; the descriptions read the spectrogram, which no model was trained on): its one leg is a modder's
 // brief, a line of what the sound is for, and the verdict is the person's ear, at least as good as the game's own

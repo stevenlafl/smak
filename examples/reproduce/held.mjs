@@ -34,8 +34,10 @@ const KINDS = ["weapons", "characters", "players"];
 const TS = join(GAME, "..", "ts");
 const TS_BASE = "player/gordon/gordon.mdl";
 const kinds = KINDS.filter((k) => !words.some((w) => KINDS.includes(w)) || words.includes(k));
+// --leg <name>: only that leg is made (the others are left as they are)
+const ONLY_LEG = words.includes("--leg") ? words.splice(words.indexOf("--leg"), 2)[1] : null;
 const named = words.filter((w) => !KINDS.includes(w));
-const LEGS = ["pictures", "brief"];
+const LEGS = ["pictures", "brief"].filter((leg) => !ONLY_LEG || leg === ONLY_LEG);
 
 const SUBJECTS = {
   weapons: [

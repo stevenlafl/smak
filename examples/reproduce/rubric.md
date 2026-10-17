@@ -372,3 +372,13 @@ walk test, not the game.
   has not (four drawers, a tie, dark trousers, a yellow forklift, steam that rises, a warm glow): a brief for a
   replacement may leave things out, but must not contradict what it replaces. Those were corrected by dropping
   the contradicted words, not by copying the original's.
+- **2026-10-16, later: the line-up test in a fresh order each reading; a sprite's colour by eye.** The judges of
+  the M6 line-up leaned to its last place: an asset at A drew "D, D, D", and the three Valve originals the test
+  caught all stood at D. Each of its three readings now shows the four in an order of its own. A brief leg's R3 is
+  the brief's colour judged by eye (no measure is given), and R4 is held to the measures of Half-Life's own of
+  its class, not to a rule of thumb about one-shots (Valve's own muzzle flash is two bright frames).
+- **2026-10-16, later: the control's own bar, and two readings of M8 and W1.** Some judging noise stays: a Valve
+  original now and then takes a single 1. A round's brief scores are trusted when Valve's own pass at least 80% of
+  the controls, the goal's own share; under that, the judging is tuned before any score is read. M8's "nothing
+  open" is what a player can see (Valve's own leave unseen undersides open), and in W1 a swing that carries the
+  weapon out of the picture is not its leaving the hands (Valve's own crowbar does).
