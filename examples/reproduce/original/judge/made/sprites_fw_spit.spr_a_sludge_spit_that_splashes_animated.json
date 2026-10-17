@@ -85,37 +85,37 @@
  "caps": {},
  "scores": {
   "R1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Reads as a splash: a ring of glow spreads outward from frame 1 to frame 4 and throws small spray droplets across the centre. That is the sludge spit splashing, animated, as the brief asks."
+   "score": 1,
+   "reason": "Reads as a glowing green ring spreading outward with scattered flecks, so it suggests a splash. But the spit itself (a glob or projectile) is never shown, and the flecks scatter like sparks rather than liquid. In frames 2 to 4 the ring looks more like a shockwave than sludge hitting a surface."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "All eight frames are 64 by 64, and the border measures 0, so the edges are clean. The ring fills most of the frame by frames 3 and 4 and stays inside the frame in every frame."
+   "reason": "The 64 by 64 frames hold the effect, which fills about three quarters of each frame by frame 3 without touching the edge (border measured 0). The size is right for a sprite of this kind."
   },
   "R3": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The glow and droplets are a bright lime, yellow-green (frames 1 to 3 especially). The brief asks for green-grey sludge in Half-Life's muted palette, so this is more saturated and toxic-looking than asked. It is close, but clearly off."
+   "score": 2,
+   "reason": "Colour is a yellow-green halo with lime flecks, darkening to olive, on the black additive background. It reads as sludge and sits within the palette of green-grey water. Judged by eye, the brightest flecks are a little lime, but acceptable."
   },
   "R4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Measured jitter is 1.62, outside the explosion class range of 1.04 to 1.48, so the motion flickers. The droplets jump to new positions between frames (frame 1 to 2, and again across frames 4 to 6) instead of drifting coherently. The rest holds: the ring grows then fades, the envelope peaks at 0.29 with first and last at 0 (within range), and the one-shot ends dark. The frame count of 8 is not held to a class measure here. Capped at 1 by the failed jitter measure."
+   "reason": "The envelope is right: it builds to a peak at about 0.29, starts dark in frame 0 and ends dark in frame 7, and the measures for first, last, peakAt and border all hold against the explosion class. But jitter is 1.62 against the class's 1.04 to 1.48. The flecks jump to new places between frames (frame 2's cluster at upper centre, frame 3 scattered across the middle, frame 4 spread down-right), so the motion flickers. The ring's expansion is coherent; the flecks are not."
   },
   "R5": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Additive format with parallel type, 8 frames, under the name fw_spit.spr in sprites/. The brief names no type for this slot, so the type cannot be checked against a file it replaces; the format and name are valid for GoldSrc."
+   "score": 1,
+   "reason": "The header reports additive format and parallel type, which suits a glow, and the 8 frames and name are as written. But the brief gives no slot to check the type and format against, and the measures include no read-back check of the file against the game's sprite of that name. So fit for the game cannot be confirmed from what was given."
   }
  },
- "total": 8,
+ "total": 7,
  "of": 10,
  "passes": false
 }

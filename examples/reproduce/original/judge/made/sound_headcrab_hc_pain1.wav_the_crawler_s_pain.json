@@ -17,7 +17,7 @@
    "t40": 0.409,
    "centroid": 2062,
    "rolloff": 3122,
-   "flatness": 0.013,
+   "flatness": 0.22,
    "bands": {
     "<150": 0,
     "150-600": 0.4,
@@ -52,34 +52,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The made sound is one dense noise burst that swells in the first 0.1 s and decays by about 0.6 s (waveform, top panel). The game's sound is a string of about 15 discrete pulses over 0.8 s (bottom waveform). The made one reads as a breath or whoosh, not a pained creature's cry. It is in the same family of vocal-like sound but is clearly a different event."
+   "reason": "From the picture, the sound is a single noisy burst that swells in the first ~0.1 s and fades out by about 0.6 s (waveform, top panel). The original is a run of wet, repeated pulses over 0.8 s, which reads as a creature's pain cry. The replacement reads as a generic impact or whoosh, not a crawler's pain. Judged from the picture only; the sound cannot be heard here."
   },
   "S2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Length is 0.599 s against the original's 0.795 s, 24.6% short, which is just inside the 25% limit. The decay is much faster: t20 is 0.319 s against 0.544 s, 41% shorter (features, top panel). The attack is 0.035 s and the peak is at 0.115 s. The class range for t20 is not given to me, so I can only say the decay sits well off the original's, which caps S2 at 1."
+   "reason": "Length passes: 0.599 s against the original's 0.795 s is 25% short, just inside the 25% band. Decay fails: t20 is 0.319 s against the original's 0.544 s, about 41% short and outside both the quarter and the 0.05 s allowance, so S2 is capped at 1. Attack (0.035 s) has no original figure to compare against."
   },
   "S3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Measured failures on every spectral check. Centroid is 2062 against 2682, 23% low and outside the 20% limit. The 600-2k band holds 61.4% against the original's 15.6%, 45.8 points too high. The 2k-5k band holds 38% against 83.8%, 45.8 points too low. The spectrogram shows the made sound's energy sitting in the mid band (orange-yellow, top) where the original's is high and bright (bottom)."
+   "reason": "Spectrum is measured well outside the bands. Centroid is 2062 Hz against 2682 Hz, 23% low (limit 20%). The 600 Hz to 2 kHz share is 61.4 against 15.6 (46 points over the 10-point limit), and the 2 to 5 kHz share is 38 against 83.8 (46 points under). The spectrogram shows the energy sitting in the mid band, where the original's sits in the upper-mid band."
   },
   "S4": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "Onsets are 0, while the original is a sequence of about 15 pulses, which is its defining character. The waveform shows one continuous burst with no pulses, so the pulsed, wet quality is missing. Flatness is 0.013, which is very tonal, and the spectrogram shows a broad noisy smear, so the tone-or-noise character also does not match the original. S4 is not a must-have, but the missing onsets are clearly wrong."
+   "score": 1,
+   "reason": "Onsets are 0 in the measures, while the original's picture shows about 30 distinct pulses across its length, the hits that make a pain cry. The replacement has none. Flatness (0.22) falls inside the game's 0.05 to 0.28 range, so the tone-or-noise character is right. The spectrogram shows no clear pitch movement in either file. The onsets miss is clearly off, which is why this is 1 and not 2."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The file name matches sound/headcrab/hc_pain1.wav. The measures show no clipping, peak at -0.5 dB, DC of -0.0007 (effectively zero), and engineFaults is empty. The sample rate and bit depth are not in the measures I was given, so this rests on the engine's checks passing and the other fields being clean. Not a loop, so no loop cue applies."
+   "reason": "The engine checks pass: engineFaults is empty, clipped is 0, and DC is -0.0007, which is negligible. The name is sound/headcrab/hc_pain1.wav, matching the game's. The measures do not state the sample rate or bit depth, so the format is taken on the engine's pass rather than read directly."
   }
  },
- "total": 4,
+ "total": 5,
  "of": 10,
  "passes": false
 }

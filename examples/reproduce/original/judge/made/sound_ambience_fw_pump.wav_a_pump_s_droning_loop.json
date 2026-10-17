@@ -17,7 +17,7 @@
    "t40": 2.13,
    "centroid": 248,
    "rolloff": 474,
-   "flatness": 0.011,
+   "flatness": 0.015,
    "bands": {
     "<150": 60.7,
     "150-600": 32.8,
@@ -47,34 +47,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The picture shows a continuous low, broadband rumble across the full 4.4 s with no silence or tail, which fits a machine drone in general. But the waveform has regular spikes (about six onsets, around 1.0, 1.5, 2.2 and 3.1 s) and the spectrogram is a grainy rush rather than a steady hum, so it reads as a roaring noise with knocks, not clearly a pump's droning loop. Ear is needed to settle it, and the judge cannot listen."
+   "reason": "The waveform (top strip) is a steady, dense, noise-like wash across the full 4.4 s with no pulse or rhythm, and the spectrogram's energy sits in the bottom low-frequency rows, which reads as a drone. That fits a pump's drone, but nothing in the picture confirms the pump itself, and the six spikes in the waveform could be clicks or hits that a drone should not have. Heard, it would need to be checked."
   },
   "S2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The length is 4.4 s against a class range of 2.03 to 3.39 s, about 30% over the top of the range, which the measure already flags as too long. The attack (0.878) and decay (t20 and t40 both 2.13 s, peak at 2.27 s) are not flagged against a range, but the length fault alone makes this clearly off."
+   "reason": "Length is 4.4 s against the class range of 2.03 to 3.39 s, about 30% past the top and outside the 25% allowance, so it is clearly too long. Attack (0.878 s) is not flagged by the measure. The waveform shows full-level noise from the first frame, which does not sit well with a slow 0.878 s attack, so that figure is worth checking."
   },
   "S3": {
-   "judge": 1,
+   "judge": 0,
    "cap": null,
-   "score": 1,
-   "reason": "The spectrum is wrong in the bands. Below 150 Hz holds 60.7% of the energy against a range of 0 to 13.9%, and 150 to 600 Hz holds 32.8% against 84.2 to 100%. The spectrogram matches this: a bright yellow band at the bottom of the picture, the low-frequency mass, and little above it. The centroid of 248 Hz is low for a drone of this class. Each band is off by far more than 10 points, so the sound is there but its spectrum is clearly off."
+   "score": 0,
+   "reason": "The spectrum is wrong for the class. Below 150 Hz holds 60.7% against a range of 0 to 13.9%, far over. 150 to 600 Hz holds 32.8% against 84.2 to 100%, far under. The spectrogram shows the bright yellow mass in the bottom rows, the low-frequency band, so the sound is bass-heavy where the class is not. The centroid of 248 Hz and the rolloff of 474 Hz follow from that."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The character does not match a steady drone. Six onsets in 4.4 s show as spikes in the waveform, the spectrogram shows no pitch line or pitch movement, and the flatness of 0.011 says tonal while the spectrogram looks like broadband grain. These contradict each other, and the picture does not show a steady, even hum. The reasons are visible in the pictures, so this is a clear fault, though not a must."
+   "reason": "Flatness is 0.015, so the sound is very tonal and below the game's noisy sounds (0.05 to 0.28). The spectrogram shows a stable pitch with no visible movement across the length, which is right for a drone. The six onsets are not shown to be a pump's character, so the hits and clicks do not match a pump's pulse. Only the flatness and onset count are measured here."
   },
   "S5": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "The measures show a file the engine can play: no engine faults, peak at -1 dBFS, clipped 0, DC 0, no lead or tail silence, and the name sound/ambience/fw_pump.wav is the brief's. The sample rate, bit depth and loop cue are not in the measurements, so this score rests on the engine checks and the clean levels, not on a read-back of the format."
+   "score": 1,
+   "reason": "No engine faults are recorded, the peak is -1 dBFS with no clipping, DC is 0, and there is no lead or tail silence, so the level and structure are fine. But the sample rate, bit depth and loop cue are not in the measures given, so the file cannot be confirmed as the engine's format or as a loop at the original's cue. Those checks are needed before it passes."
   }
  },
- "total": 6,
+ "total": 4,
  "of": 10,
  "passes": false
 }

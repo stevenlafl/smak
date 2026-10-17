@@ -48,31 +48,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The picture is a single soft radial glow, a bright core fading smoothly to dark at the edges, which is what a lamp's glow sprite does. It is the same effect the brief asks for, and nothing else is drawn in it."
+   "reason": "The single frame is a radial glow: a bright core at the centre fading smoothly to the edges. That is the effect a sodium lamp's glow should be, and it reads as a glow, not a flame, smoke or disc."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The frame is 64 by 64, the measured size. The glow fills the frame as a round disc and the border is measured at 0 (the class's range is 0 to 0.005), so the glow neither clips at the edges nor leaves a hard rim. The '1' in the top-left corner is the harness's frame number, not part of the sprite."
+   "reason": "64 x 64 as measured. The glow fills the frame and falls off to dark before the edges (border max and mean 0, within the class range of 0 to 0.005), so nothing is clipped at the frame edge."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "By eye the core is warm amber to orange, fading to a deeper orange at the edges, which reads as sodium-lamp light and sits within Half-Life's warm palette. No neon or cold tint is visible. The picture is small, so fine colour banding cannot be ruled out at this size, but nothing wrong shows."
+   "reason": "Amber to sodium orange, brightest at the core and cooling outward, which matches a sodium lamp's light and the brief's sodium-orange glass. No blue or neon cast. Judged by eye, as the brief leg requires."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "One frame, static (envelope first 1, peak at 0, last 1, dark 0.56). The glow class's measures take a static, single-frame glow, and this matches them. Its border is 0, inside the class's range. Nothing in the class measures calls for a fade or an animation here, so there is nothing to fail."
+   "reason": "A glow in the class takes one frame and no motion. The envelope is flat (peak at frame 0, first and last at 1), and the only class measure given, border, is 0 and passes. The 'dark' figure of 0.56 is the background that additive blending leaves unlit, so it adds nothing."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The type is parallel and the format is additive, which is how Half-Life's own glow sprites are built, and the file is named fw_glow.spr as the brief's sprite is. The measures read back as written: size 64 by 64, one frame. Nothing in the record suggests a format fault."
+   "reason": "Measured as a parallel sprite in additive format, 1 frame, 64 x 64, saved as sprites/fw_glow.spr, which is the name the mod's fw_ prefix and the brief's sprite slot call for. A glow is conventionally parallel additive, so the type and format fit. The brief text as given does not name the slot's type, so this is judged on the convention rather than checked against a stated type."
   }
  },
  "total": 10,

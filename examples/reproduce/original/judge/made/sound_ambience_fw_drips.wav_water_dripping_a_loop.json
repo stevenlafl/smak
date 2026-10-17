@@ -17,7 +17,7 @@
    "t40": 4.689,
    "centroid": 1121,
    "rolloff": 1529,
-   "flatness": 0.007,
+   "flatness": 0.146,
    "bands": {
     "<150": 0.1,
     "150-600": 15.8,
@@ -35,7 +35,7 @@
     "length 5.2 s (5.48 to 9.14): too short",
     "rms -22.8 dBFS (-30.3 to -24.3): over the range",
     "centroid 1121 Hz (671 to 1007): too bright: less over 2000 Hz",
-    "flatness 0.007 (0.05 to 0.15): too pure: more noise"
+    "flatness 0.146 (0.05 to 0.15): too noisy: more tone (modes)"
    ]
   },
   "engineFaults": []
@@ -48,34 +48,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Seven onsets (the spikes at about 0.3, 0.8, 1.3, 2.5, 3.5, 4.1 and 4.8 s on the waveform) are there, but they sit on a continuous noise bed that never drops back toward silence. The spectrogram is a dense, even orange wash across the full frame, so it reads as a hiss or wash with clicks, not water dripping into a pool. Judged from the picture and features only, since the sound cannot be heard."
+   "reason": "The waveform is a continuous broadband bed that never drops to quiet between events, with seven sharp onsets spread across it (at about 0.3 s, 0.9 s, 1.7 s, 2.8 s, 3.7 s, 4.5 s and 4.9 s in the picture). The spectrogram shows a dense orange noise field from about 600 Hz to 2 kHz with no visible pitched drop shapes at the onsets. It reads as a wash of noise with clicks rather than separate water drips. The measures give the class 'loop drips' and flag the event as off, so the drips are only partly there."
   },
   "S2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Length is 5.2 s against the class range of 5.48 to 9.14 s, about 5% under the bottom and flagged too short. Attack is 0.1 s, which is in the range of a drip. The decay is flat: t20 is 4.684 s, so the level stays within 20 dB for almost the whole loop, where drips should fall away between hits (the waveform's bed does not drop back between spikes). The envelope is wrong on decay."
+   "reason": "Length is 5.2 s, flagged against the class range of 5.48 to 9.14 s as too short. The attack of 0.1 s and the t20 of 4.68 s are not flagged, and the level is steady from start to end. The envelope fault is in length, and the level holds with no decay between drips."
   },
   "S3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Centroid is 1121 Hz against the class range of 671 to 1007 Hz, too bright, and the measure asks for less over 2000 Hz. The band shares show 78.3% in 600 to 2k, 15.8% in 150 to 600, and 5.7% above 2k. The spectrogram's brightest energy sits in the middle band, with the low band (dark red at the bottom) weak. Each band's share is not given against a class range, so only the centroid's miss is measured here."
+   "reason": "Centroid is 1121 Hz, flagged as too bright against the class range of 671 to 1007 Hz, and the measure says less energy is wanted over 2 kHz. The bands read 78.3% in 600 Hz to 2 kHz, 15.8% in 150 to 600 Hz, 5.6% in 2 to 5 kHz and 0.1% in each of the outer bands. The spectrogram matches: the bright mass sits in the mid band and the top band is thin. The class's band shares are not given, so only the centroid can be checked against them."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Onset count matches (7 measured, about 8 spikes visible), so the hits are right in number. Flatness is 0.007 against the class range of 0.05 to 0.15, about seven times too pure: the energy is concentrated in a narrow band rather than spread as a noise should be. The spectrogram shows vertical streaks in the middle band, not the broad spread of drips. No pitch movement is visible in the picture."
+   "reason": "Seven onsets are present and visible as vertical lines in the picture, which matches the drip count. Flatness is 0.146, at the top edge of the class's 0.05 to 0.15 and flagged as too noisy, with the measure asking for more tone (modes). The spectrogram shows no pitch sweep at any onset, so the drip's pitch movement is missing and the character reads as noise."
   },
   "S5": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "The harness's engine checks report no faults. Peak is -1 dBFS, clipped is 0, DC is 0, and the file name sound/ambience/fw_drips.wav is the brief's. The loop's join is not measured against an original cue, and sample rate, bit depth and channel count are not in the picture or features, so they rest on the harness's engine check."
+   "score": 1,
+   "reason": "Engine faults are empty, peak is -1 dBFS, and clipping and DC are both 0, so the levels are safe. The name is sound/ambience/fw_drips.wav and the picture is labelled 'A LOOP'. But the measures and picture do not give the sample rate, bit depth or channel count, and no loop cue point is marked where the waveform ends at 5.2 s. The fit cannot be confirmed from what I was given."
   }
  },
- "total": 6,
+ "total": 5,
  "of": 10,
  "passes": false
 }

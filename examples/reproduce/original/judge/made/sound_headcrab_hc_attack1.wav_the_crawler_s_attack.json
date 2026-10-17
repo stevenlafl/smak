@@ -17,7 +17,7 @@
    "t40": 0.574,
    "centroid": 789,
    "rolloff": 1270,
-   "flatness": 0.006,
+   "flatness": 0.15,
    "bands": {
     "<150": 4.5,
     "150-600": 46.3,
@@ -49,37 +49,37 @@
  },
  "scores": {
   "S1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Picture: the made sound is one front-loaded broadband burst from 0 to about 0.3 s, then sparse ticks to 0.62 s. The game's own file is a sequence of hits (strikes near 0.05, 0.1 to 0.3, 0.45 and 0.6 s) with a longer tail. It reads as a crawler's lunge or bite, but it is one strike where the original has several, so the event is only loosely the same."
+   "score": 2,
+   "reason": "The picture shows the same kind of event as the game's: a dense broadband burst at the onset (0 to about 0.3 s), then sparse clicks in the tail. The original has the same shape, a hard attack followed by hits. Listening is outside the judge's reach, so this rests on the picture and features alone."
   },
   "S2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Length is 0.624 s against the game's own 0.906 s, 31% short. That is outside the 25% band, and the picture shows the cause: the trailing tail that the original keeps from 0.6 to 0.9 s is cut. Attack (0.01 s) and peak timing match. t20 is 0.534 s against 0.394 s. The class range this kind is judged on was not supplied, so this rests on the game's own sound as the nearest reference."
+   "reason": "Length is 0.624 s against the original's 0.906 s, 31% short, outside the 25% must-have. Decay t20 is 0.534 s against 0.394 s, a 0.14 s gap. The class is null, so the fallback applies (the original's decay within a quarter, about 0.10 s, or 0.05 s), and it fails that too. Attack matches at 0.01 s. Clearly off, so 1."
   },
   "S3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Centroid 789 Hz against 921 Hz is 14% off, inside 20%. Two bands fail the 10-point test against the game's own: 150-600 Hz is 46.3% against 68.1% (22 points short), and 600-2k Hz is 43.5% against 18.8% (25 points over). The picture agrees: the made sound is mid-heavy with broadband energy through 600-2k Hz where the original is low-mid. The class range was not supplied, so this is measured against the game's own."
+   "reason": "Centroid is 789 Hz against 921 Hz, a 14% gap, within 20%. The bands fail two must-have shares: 150-600 is 46.3% against 68.1% (21.8 points short) and 600-2k is 43.5% against 18.8% (24.7 points over). Those are far outside 10 points. The spectrogram agrees: the replacement's energy sits in the low-mid to mid range where the original's sits lower. Clearly off, so 1."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Measured onsets are 1 against several hits in the game's own sound. The picture shows the made sound's clicks at 0.35 to 0.6 s as faint and scattered, not as hits. Flatness is 0.006, very tonal for a sound the spectrogram shows as broadband noise, so the noise character does not match. No pitch movement is visible in either spectrogram."
+   "reason": "Measured onsets are 1 against the original's several hits (its waveform shows large clicks near 0.27 s, 0.5 s and 0.56 s). The replacement's tail clicks are small, so the hit pattern is not carried over. Both are noise-like with no visible pitch movement, which matches. Not a must-have, but the onset character is clearly different."
   },
   "S5": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The name is right (sound/headcrab/hc_attack1.wav in the picture label). No clipping (0), peak -0.5 dBFS, and DC -0.0029 are all fine. But the measurements carry no sample rate, bit depth or channel count, and the picture does not show them, so mono PCM at 11025, 22050 or 44100 Hz at 8 or 16 bits is not verified. The fit cannot be confirmed from what was supplied."
+   "score": 2,
+   "reason": "The measurements show no clipping, peak -0.5 dB, DC -0.0029 (about 0.3% of full scale, small), no loop cue needed, the same name sound/headcrab/hc_attack1.wav, and an empty engineFaults list. The sample rate and bit depth are not among the features given, so the empty fault list is taken as the engine's checks passing. The top band (>5k) at 0.1% is consistent with an 11025 Hz file, but that is not measured."
   }
  },
- "total": 5,
+ "total": 7,
  "of": 10,
  "passes": false
 }

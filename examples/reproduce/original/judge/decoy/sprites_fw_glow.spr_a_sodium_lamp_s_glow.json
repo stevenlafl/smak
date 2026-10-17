@@ -48,34 +48,34 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The sprite is one flat, hard-edged light-grey disc (about 28 of 32 pixels across) with no soft falloff, so it reads as a disc, not a sodium lamp's glow. This matches the brief's decoy ('one disc'), not the effect asked for."
+   "reason": "The brief asks for a sodium lamp's glow, which is a soft light falling off from a bright centre. The picture (frame 1) is one flat, hard-edged disc of uniform grey-white with a sharp rim and no falloff. It reads as a plain disc, not a glow."
   },
   "R2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The frame is 32 x 32, the measured size. The disc fills most of the frame, but with a hard edge and no radial falloff, so the effect does not fill the frame the way a glow does. Clearly off."
+   "reason": "The frame is the sprite's 32 x 32 size, and the disc fills about 24 px of it with dark corners. The effect does not fill the frame as a glow does: the edge is a hard circle rather than a light that spreads out to the frame's edge."
   },
   "R3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "By eye the disc is neutral light grey to white. The brief asks for a sodium lamp's glow, which is sodium orange. Nothing in the frame is orange or warm."
+   "reason": "The brief asks for sodium orange. The disc is a neutral, near-white grey (about the same as a light grey on near-black). No orange is present in the frame, so the colour is wrong for the brief."
   },
   "R4": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "One frame, held to the glow class measures: the measured envelope is first 1, last 1 with a single frame, border 0 (inside the class range 0 to 0.005), and no jitter or wrap. The steady single frame matches the class. Motion is not a strong test for one static frame."
+   "score": 1,
+   "reason": "A single still frame, with border 0 (within the glow class's 0 to 0.005 range, so that held measure passes). The frame count and envelope (first and last frame both 1, peak at frame 0) are a plausible static glow. But the dark value (0.56) is not given against the glow class, so the rest of the motion check cannot be confirmed, and the flat disc has no motion or shape change to judge."
   },
   "R5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The measured type is parallel and the format is additive, which suits a glow in the engine. The name is the brief's sprite file. The picture does not show the original's type or format, so I cannot confirm the replacement matches what it takes the place of. Not verified."
+   "reason": "Name fw_glow.spr is as the brief asks, with type parallel and format additive, which is a plausible format for a glow. But the brief does not name the slot's type, and the file's type and format cannot be checked against the game's file for this slot from the measurements shown, so it is only partly confirmed."
   }
  },
- "total": 4,
+ "total": 3,
  "of": 10,
  "passes": false
 }

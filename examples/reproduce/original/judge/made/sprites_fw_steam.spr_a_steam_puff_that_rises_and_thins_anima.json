@@ -88,34 +88,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Reads as a steam puff: a soft, grey-white wisp that rises from the bottom of the frame in frames 1 to 3, lifts through frames 4 to 8 and thins out by frames 9 to 11. It is the effect the brief asks for."
+   "reason": "Reads as a steam puff: a pale wisp that starts as a dense column at the bottom of the frame (frames 1 to 4), stretches upward and thins into faint traces (frames 8 to 10), which is the rising and thinning the brief asks for."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "All twelve frames are 64 x 64 as measured. The wisp is a narrow column in the centre and top of each frame, not a full-frame cloud, but the border is clean (border max 0.322 at the edge, mean 0.005), so nothing is clipped or smeared at the frame edges. Nothing is shown of the class's fill, so this is judged by eye."
+   "reason": "Frames are 64 x 64, the size the measures give. The plume fills a narrow central column, not the whole frame, which is the usual shape for a steam sprite. Its densest part sits on the bottom edge in frames 1 to 4, but that is where the puff starts rising, so I do not count it as a fault."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Light grey-white steam on the engine's mid-grey backing in every frame, with no stray hue. That is the pale, neutral steam colour the brief asks for, judged by eye as the brief's colour."
+   "reason": "By eye, the puff is a pale grey-white against the mid-grey field, the colour of steam rather than smoke or fire. No measure was given for colour and none was needed; nothing in the frames reads as off-colour."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Twelve frames, with the envelope peaking at about 0.27 (frames 2 to 4) and the sprite empty at both ends (first 0, last 0). The motion is a rise and a thin: the column climbs from the bottom in frames 1 to 3, moves up the frame in frames 4 to 8 and fades in frames 9 to 11. The jitter of 1.35 is within the class's 0.9 to 1.5. The class measures are met, so the frame count, envelope and motion are right for a steam puff."
+   "reason": "Measures sit inside the smoke-puff class: jitter 1.35 (range 0.9 to 1.5), border 0.005 (0 to 0.005), peak at 0.27 (0.2 to 0.6), first frame 0 and last frame 0 (both dark, within the class limits). Visually it builds in frames 1 to 4, rises and drifts while thinning, and fades out by frames 10 and 11. The 12 frames match the brief's animated puff."
   },
   "R5": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The sprite is typed 'parallel' with 'index alpha' format. The amendment of 2026-10-16 records that Half-Life's steam1 is 'parallel oriented', so if this sprite takes steam1's place its type is clearly off, and R5 fails by measure. The format and name (fw_steam) are as expected. This assumes the brief's replaced file is steam1, which the brief text I was given does not state; if it were a parallel slot, R5 would be 2."
+   "score": 2,
+   "reason": "Named fw_steam.spr, as the game's file would be. The format is index alpha, which the parallel type takes. The type is parallel, not parallel oriented. This brief does not name a file it replaces, so there is nothing for the type to be held to; if this is meant to replace steam1, which is parallel oriented, the type would need changing. Noted, not scored down, because the brief here gives no type."
   }
  },
- "total": 9,
+ "total": 10,
  "of": 10,
- "passes": false
+ "passes": true
 }

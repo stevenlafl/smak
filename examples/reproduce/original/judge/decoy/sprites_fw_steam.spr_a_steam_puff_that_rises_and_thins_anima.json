@@ -78,31 +78,31 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The single frame is a flat, hard-edged pale disc with no wisps, no soft falloff and no sense of smoke or steam. It is the disc shape of a plain placeholder, not a steam puff. The measures agree: the envelope shows no thinning or rising, and the class's measures for a smoke puff (peak at 0.2 to 0.6, dark at the end) are not met."
+   "reason": "The frame is one flat, hard-edged light-grey disc (the whole 32x32 frame, centre to edge). It is not a steam puff: no billowing or soft cloud edge, no rising or thinning. The image is the decoy's plain disc, so the effect the brief asks for is missing."
   },
   "R2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The frame is 32 by 32, the right size, and the disc fills most of it, roughly from the edges in to a central blob. But the fill is a uniform circle that does not thin toward its edge the way a steam puff's does, so it is clearly off in shape."
+   "reason": "The frame is 32x32 as the measurements say, and the disc fills most of it with a border of 0. But the outline is a hard circle with no wisps or lobes, so it does not fill the frame the way a steam puff does. Clearly off."
   },
   "R3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The colour is a flat, light neutral grey-white on a dark ground. That reads as steam in a loose sense, but there is no tonal range (no brighter core, no dimmer rim), so the colour is only roughly right by eye."
+   "reason": "A near-white grey reads plausibly as steam on the dark background, so the hue is roughly right by eye. It is one flat value across the whole disc, with no tonal variation or thinning, so it does not read as the blended colour of a puff. Clearly off."
   },
   "R4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The sprite has one frame, but a steam puff that rises and thins needs an animation. The measures show first 1, last 1 and peak at frame 0: the sprite starts at full brightness and does not end dark, so the envelope has no decay and the motion is absent. The class's measures call for a peak around 0.2 to 0.6 and a dark last frame, and both fail."
+   "reason": "Fails the class measures. The sprite has 1 frame, so it is not animated, and the brief asks for a rising, thinning puff. The envelope starts and ends at full brightness (first 1, last 1, peak at frame 0) against the smoke puff class's first 0 to 0.35, last 0 to 0.1 and peak 0.2 to 0.6. Nothing rises or thins."
   },
   "R5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The name fw_steam and the additive format are right and the file reads back. The type is parallel, but the amendment for steam1 gives its original type as parallel oriented, so the type does not match the slot it takes. That fault is clear from the measure."
+   "reason": "Additive format and the file name fw_steam.spr read back as written. But the type is 'parallel' where the amendment of 2026-10-16 says the game's steam1 is 'parallel oriented'. Clearly off on type, so it is not a clean pass."
   }
  },
  "total": 3,
