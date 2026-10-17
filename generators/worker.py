@@ -320,9 +320,23 @@ def load_zimage(root, model):
     return gen
 
 
+def load_segment(root, model):
+    # a named subject found and cut (generators/segment.py: OWLv2, Grounding DINO, YOLO-World, held to the words by
+    # CLIP, then SAM 2); its models load on the first request. -I leaves this folder off the path: put it on
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import segment
+
+    def gen(r):
+        said = segment.handle(r)
+        if not said.pop("ok"):
+            raise RuntimeError(said["error"])
+        return said
+    return gen
+
+
 LOADERS = {"woosh-dflow": load_woosh, "woosh-flow": load_woosh, "ezaudio": load_ezaudio, "moss-sfx": load_moss,
            "stable-audio-3-sfx": load_sa3, "acestep": load_acestep, "acestep-xl": load_acestep,
-           "hunyuan3d-mini": load_hunyuan, "zimage-turbo": load_zimage}
+           "hunyuan3d-mini": load_hunyuan, "zimage-turbo": load_zimage, "segment": load_segment}
 
 
 def main():
