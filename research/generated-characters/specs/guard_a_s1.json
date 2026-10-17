@@ -1,0 +1,19 @@
+{
+  "spec": "smak.model/1",
+  "name": "barney_gen.mdl",
+  "kind": "character",
+  "base": { "file": "player/gordon/gordon.mdl" },
+  "floor": 0,
+  "size": { "height": 75 },
+  "smooth": 80,
+  "pose": { "fit": true },
+  "materials": {
+    "uniform": { "base": "cloth", "tone": [0.2, 0.33, 0.6] }
+  },
+  "parts": [
+    { "id": "body", "kind": "mesh", "file": "work:gen/guard_a_s1.obj", "size": [17.6, 31.5, 75], "triangles": 700, "material": "uniform" }
+  ],
+  "project": [
+    { "picture": "work:gen/guard_a_s1_cut.png", "view": "front" }
+  ]
+}

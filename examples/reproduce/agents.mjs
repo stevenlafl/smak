@@ -91,8 +91,9 @@ export async function runAgent({ prompt, read = null, server = null, files = {},
 }
 
 /**
- * A judge: runAgent until its answer holds a JSON object, three tries at most, a minute apart. A judge whose
- * session ended with nothing said (round 3 lost nine judgements so) is asked again, not scored as a fault.
+ * A judge: runAgent until its answer holds a JSON object (or matches `accept`, for a judge asked for something
+ * else: the line-up's one letter), three tries at most, a minute apart. A judge whose session ended with nothing
+ * said (round 3 lost nine judgements so) is asked again, not scored as a fault.
  */
 /**
  * The model the judges run on: Haiku unless SMAK_JUDGE_MODEL says otherwise (Steven, 2026-10-14: judging on Opus
@@ -143,7 +144,7 @@ export async function runJudge(options) {
   let last;
   for (let attempt = 1; attempt <= 3; attempt++) {
     last = await runAgent({ model: JUDGE_MODEL, ...options });
-    if (/\{[\s\S]*\}/.test(last.answer ?? "")) {
+    if ((options.accept ?? /\{[\s\S]*\}/).test(last.answer ?? "")) {
       mkdirSync(JUDGED, { recursive: true });
       writeFileSync(kept, JSON.stringify({ answer: last.answer, ended: last.ended, model: options.model ?? JUDGE_MODEL }));
       return { ...last, attempts: attempt };

@@ -119,7 +119,7 @@ async function detect(dir, line, name) {
     savePng(join(alone, "lineup.png"), tile(order.map((o) => o.shot), 4, order.map((_, i) => "ABCD"[i])));
     return { alone, letter: "ABCD"[order.findIndex((o) => o.i === line.ours)] };
   });
-  const answers = await Promise.all(readings.map(({ alone }, draw) => runJudge({ read: alone, hours: 0.25, draw, prompt: `${alone}/lineup.png shows four models, A to D, drawn by one camera at one scale. Three were made by Valve's artists for Half-Life; one was not. Which one was not? Look closely at all four. Reply with the one letter alone.` })));
+  const answers = await Promise.all(readings.map(({ alone }, draw) => runJudge({ read: alone, hours: 0.25, draw, accept: /\b[A-D]\b/, prompt: `${alone}/lineup.png shows four models, A to D, drawn by one camera at one scale. Three were made by Valve's artists for Half-Life; one was not. Which one was not? Look closely at all four. Reply with the one letter alone.` })));
   const picks = answers.map((r) => ((r.answer ?? "").match(/\b([A-D])\b/) ?? [])[1] ?? null);
   const letters = readings.map((r) => r.letter);
   return { letters, picks, caught: picks.filter((p, i) => p === letters[i]).length >= DETECT_CAUGHT };
