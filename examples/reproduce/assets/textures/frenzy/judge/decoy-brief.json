@@ -8,7 +8,7 @@
    "texture": "c3a1_w3a",
    "measured": {
     "name": "c3a1_w3a",
-    "line": "a rough, grimy dark concrete wall, cracked and blotchy",
+    "line": "a rough concrete wall, cracked",
     "size": [
      256,
      208
@@ -27,43 +27,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Flat mid-grey tile (about 256x208). Nothing reads as a rough, grimy, cracked, blotchy concrete wall; the material is absent."
+     "score": 1,
+     "reason": "Flat mid grey reads as a wall, but the rough surface and the cracks are not shown."
     },
     "T2": {
-     "judge": 0,
+     "judge": 2,
      "cap": null,
-     "score": 0,
-     "reason": "The brief asks for dark concrete. The flat grey is clearly lighter than dark, so the colour is off by more than the 15 delta E allowance."
+     "score": 2,
+     "reason": "Neutral mid grey is close to a concrete grey by eye; no colour measure was given."
     },
     "T3": {
-     "judge": 0,
+     "judge": 2,
      "cap": null,
-     "score": 0,
-     "reason": "No panels, cracks or blotches anywhere on the tile. The size (256x208) is right, but the pattern that would line up with the map's walls is missing."
+     "score": 2,
+     "reason": "The brief asks for no seams or panels, and the swatch is the labelled 256x208."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "Flat colour has no seam where it repeats, so the step across the edges is zero."
+     "reason": "Flat, so no seam where it repeats."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Measured fine detail is 0, under Valve's band (least 10.8). The surface reads flat, with none of the original's grime or crack detail."
+     "reason": "Flat with no grain or cracks; detail 0 is under Valve's band (least 10.8), so it reads flat and smeared."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name c3a1_w3a and size 256x208 match exactly. It has no kind marker ({, +, !) that would need keeping."
+     "reason": "Name and size as the brief; a concrete wall kind."
     }
    },
-   "total": 4,
+   "total": 9,
    "of": 12,
    "passes": false
   },
@@ -90,43 +90,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Flat grey tile (256x160). It is not a dark blue-grey concrete wall with a seam."
+     "score": 1,
+     "reason": "Reads as a grey wall, but the long seam is missing and the colour is not dark blue-grey."
     },
     "T2": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Neutral grey with no blue cast, and lighter than the dark blue-grey the brief asks for."
+     "score": 1,
+     "reason": "A neutral mid grey, lighter and without the blue of 'dark blue-grey'."
     },
     "T3": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "The long seam across the wall is missing. The tile is one unbroken colour, so it cannot line up with the original's seam."
+     "reason": "The one long seam across the wall is absent."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Measured fine detail is 0, under Valve's band. The surface reads flat."
+     "reason": "No texture at all; detail 0 is under Valve's band."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name c3a1_w2 and size 256x160 match exactly. No kind marker to keep."
+     "reason": "Name and size as the brief."
     }
    },
-   "total": 4,
+   "total": 6,
    "of": 12,
    "passes": false
   },
@@ -134,7 +134,7 @@
    "texture": "c3a1b_w3",
    "measured": {
     "name": "c3a1b_w3",
-    "line": "a cool grey concrete wall panel with drip stains and a notched expansion joint down its sides",
+    "line": "a cool grey concrete wall panel with drip stains",
     "size": [
      128,
      160
@@ -153,43 +153,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 0,
-     "cap": null,
-     "score": 0,
-     "reason": "Flat grey tile (128x160). No concrete panel, no drip stains and no notched expansion joint down its sides."
-    },
-    "T2": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "A neutral grey, roughly a plausible mid-tone for cool grey concrete. The cool tint is missing, but the difference cannot be measured from the picture alone."
+     "reason": "Grey concrete reads as a wall, but there are no panel divisions and no drip stains."
+    },
+    "T2": {
+     "judge": 2,
+     "cap": null,
+     "score": 2,
+     "reason": "Grey matches a cool concrete grey by eye."
     },
     "T3": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "The notched expansion joints down the sides are absent. The tile has no seams to line up with the original's walls."
+     "score": 1,
+     "reason": "A wall panel with no panel lines, so the panel spacing is absent."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Measured fine detail is 0, under Valve's band. Flat, with no drip stains or grain."
+     "reason": "Flat, with no drip stains or grain."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name c3a1b_w3 and size 128x160 match exactly. No kind marker to keep."
+     "reason": "Name and size as the brief."
     }
    },
-   "total": 5,
+   "total": 8,
    "of": 12,
    "passes": false
   },
@@ -216,43 +216,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 0,
-     "cap": null,
-     "score": 0,
-     "reason": "Flat grey tile (128x160). The main corridor wall's concrete bands and recessed window strip are absent."
-    },
-    "T2": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "Neutral grey, a plausible concrete tone. The band colours cannot be checked from a flat tile."
+     "reason": "Reads as a grey wall, but there are no bands and no recessed window strip."
+    },
+    "T2": {
+     "judge": 2,
+     "cap": null,
+     "score": 2,
+     "reason": "Grey concrete by eye."
     },
     "T3": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "The horizontal concrete bands and the recessed window strip across the tile are missing. Nothing lines up with the corridor's layout."
+     "reason": "The concrete bands and the recessed window strip across the wall are missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Measured fine detail is 0, under Valve's band. The bands and window strip read as nothing at all."
+     "reason": "Flat, no grain or edge shading; detail 0 is under Valve's band."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name c3a1b_w1 and size 128x160 match exactly. No kind marker to keep."
+     "reason": "Name and size as the brief."
     }
    },
-   "total": 5,
+   "total": 7,
    "of": 12,
    "passes": false
   },
@@ -279,43 +279,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 0,
-     "cap": null,
-     "score": 0,
-     "reason": "Flat grey tile (128x128). It does not read as a floor of square concrete tiles; no tile grid is shown."
-    },
-    "T2": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "Neutral grey, a plausible concrete tone, unverified for the tile's colour."
+     "reason": "A grey floor, but with no square tiles or joints it is not the tiled floor asked for."
+    },
+    "T2": {
+     "judge": 2,
+     "cap": null,
+     "score": 2,
+     "reason": "Grey concrete by eye."
     },
     "T3": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "The square tile grid is absent. The spacing of tiles on the floor cannot line up with the original."
+     "reason": "The tile joints at the original's spacing are missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Measured fine detail is 0, under Valve's band. The tile edges and surface grain are absent."
+     "reason": "Flat, no tile edges or grain; detail 0 is under Valve's band."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name tnnl_flr7 and size 128x128 match exactly. No kind marker to keep."
+     "reason": "Name and size as the brief."
     }
    },
-   "total": 5,
+   "total": 7,
    "of": 12,
    "passes": false
   },
@@ -342,43 +342,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 0,
+     "judge": 2,
      "cap": null,
-     "score": 0,
-     "reason": "Flat grey tile (96x96). A plain pale concrete filler should read as pale concrete; this is a mid-grey flat colour, which is not pale."
+     "score": 2,
+     "reason": "A plain pale concrete surface, as asked."
     },
     "T2": {
-     "judge": 0,
+     "judge": 2,
      "cap": null,
-     "score": 0,
-     "reason": "Mid-grey where the brief asks for a pale surface. The gap in lightness is too large for the 15 delta E allowance."
+     "score": 2,
+     "reason": "Pale grey by eye."
     },
     "T3": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "The brief asks for no pattern, and none is shown. Nothing is wrong with the layout for a plain filler."
+     "score": 2,
+     "reason": "Plain, with no pattern asked for."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "Flat with no fine detail, which is what a plain filler asks for, but still under Valve's band (measured 0). Clearly off the original's surface grain."
+     "reason": "Flat and plain, under Valve's band with no grain; it is not one plain colour, so it is not exempt."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name c3a1b_w7 and size 96x96 match exactly. No kind marker to keep."
+     "reason": "Name and size as the brief."
     }
    },
-   "total": 6,
+   "total": 11,
    "of": 12,
    "passes": false
   },
@@ -405,43 +405,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Flat grey tile (128x128). It is not a dirty, warm-toned tiled floor; no tile grid is shown."
+     "score": 1,
+     "reason": "A grey floor with no tiles and no dirt."
     },
     "T2": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Neutral grey with no warm tint, and not dirtier than the brief asks. The colour is off."
+     "score": 1,
+     "reason": "The brief asks dirtier and warmer; the swatch is a neutral grey, not warm."
     },
     "T3": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "The square tile grid is missing. The original's tile spacing cannot line up."
+     "reason": "The tile layout is missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Measured fine detail is 0, under Valve's band. Flat, with no dirt or tile grain."
+     "reason": "Flat, no dirt or tile detail; detail 0 is under Valve's band."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name tnnl_flr7c and size 128x128 match exactly. No kind marker to keep."
+     "reason": "Name and size as the brief."
     }
    },
-   "total": 4,
+   "total": 6,
    "of": 12,
    "passes": false
   },
@@ -471,40 +471,40 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Flat grey tile (192x128). It does not show dark industrial metal grating or beams."
+     "reason": "Flat grey, with no grating, no beams and no openings."
     },
     "T2": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Mid-grey where the brief asks for dark industrial metal. The gap in lightness is too large for the allowance."
+     "score": 1,
+     "reason": "Dark industrial metal asked; the swatch is a lighter mid grey."
     },
     "T3": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "The grating and beams are absent. Nothing lines up with the original's openings."
+     "reason": "Grating spacing and beams are missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Measured fine detail is 0, under Valve's band. The grating's openings and metal detail are missing."
+     "reason": "Flat, no metal detail; detail 0 is under Valve's band."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name silo2_wetdr and size 192x128 match exactly. No kind marker to keep."
+     "reason": "Name and size as the brief."
     }
    },
-   "total": 4,
+   "total": 5,
    "of": 12,
    "passes": false
   },
@@ -531,43 +531,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 0,
-     "cap": null,
-     "score": 0,
-     "reason": "Flat grey tile (128x160). The corridor wall's band with its window split in two is absent."
-    },
-    "T2": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "Neutral grey, a plausible concrete tone; unverified for the band colour."
+     "reason": "Grey wall, but the window split is absent."
+    },
+    "T2": {
+     "judge": 2,
+     "cap": null,
+     "score": 2,
+     "reason": "Grey concrete by eye."
     },
     "T3": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "The window split in two and the bands are missing. The tile has no layout to match the corridor wall."
+     "reason": "The window split in two is missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Measured fine detail is 0, under Valve's band. Flat, with no window or band detail."
+     "reason": "Flat, no grain or edges; detail 0 is under Valve's band."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name c3a1b_w1a and size 128x160 match exactly. No kind marker to keep."
+     "reason": "Name and size as the brief."
     }
    },
-   "total": 5,
+   "total": 7,
    "of": 12,
    "passes": false
   },
@@ -597,40 +597,40 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Flat grey tile (64x128). It does not read as a run of metal pipe."
+     "reason": "The flat grey strip shows no pipe form."
     },
     "T2": {
+     "judge": 2,
+     "cap": null,
+     "score": 2,
+     "reason": "Grey reads as metal; the brief sets no colour."
+    },
+    "T3": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "Neutral grey, a plausible metal tone; unverified against the pipe's colour."
-    },
-    "T3": {
-     "judge": 0,
-     "cap": null,
-     "score": 0,
-     "reason": "The pipe's tiling along its length is absent. The tile has no repeat pattern to line up with the original."
+     "reason": "Tiling along the length cannot be seen in a flat swatch."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Measured fine detail is 0, under Valve's band. The pipe's shading and detail are gone."
+     "reason": "Flat, with no metal shading; detail 0 is under Valve's band."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name -0genpipe1 and size 64x128 match exactly. No kind marker to keep."
+     "reason": "Name and size as the brief."
     }
    },
-   "total": 5,
+   "total": 7,
    "of": 12,
    "passes": false
   },
@@ -660,40 +660,40 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Flat grey tile (128x64). It is not a yellow painted machine housing; no louvred vents are shown."
+     "reason": "No yellow machine housing and no louvred vents."
     },
     "T2": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Grey where the brief asks for yellow paint. The hue is wrong, far outside the allowance."
+     "score": 1,
+     "reason": "Yellow asked; the swatch is neutral grey."
     },
     "T3": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "The louvred vents are absent. Nothing lines up with the housing's layout."
+     "reason": "The louvred vents are missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Measured fine detail is 0, under Valve's band. No vent or paint detail."
+     "reason": "Flat, no paint or vent detail; detail 0 is under Valve's band."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name c3a2b_reac2c and size 128x64 match exactly. No kind marker to keep."
+     "reason": "Name and size as the brief."
     }
    },
-   "total": 4,
+   "total": 5,
    "of": 12,
    "passes": false
   },
@@ -720,43 +720,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 0,
-     "cap": null,
-     "score": 0,
-     "reason": "Flat grey tile (128x160). It does not show a wall with a barred window onto machinery."
-    },
-    "T2": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "Neutral grey, a plausible wall tone; unverified."
+     "reason": "Grey wall, but no barred window looking onto machinery."
+    },
+    "T2": {
+     "judge": 2,
+     "cap": null,
+     "score": 2,
+     "reason": "Grey concrete by eye."
     },
     "T3": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "The barred window is absent. Nothing lines up with the original's opening."
+     "reason": "The barred window is missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Measured fine detail is 0, under Valve's band. No bars, no view through the window."
+     "reason": "Flat, no grain or bars; detail 0 is under Valve's band."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name c3a1b_w2 and size 128x160 match exactly. No kind marker to keep."
+     "reason": "Name and size as the brief."
     }
    },
-   "total": 5,
+   "total": 7,
    "of": 12,
    "passes": false
   },
@@ -764,7 +764,7 @@
    "texture": "c3a2_bth1",
    "measured": {
     "name": "c3a2_bth1",
-    "line": "a narrow strip of dirty ochre painted metal",
+    "line": "a narrow strip of ochre painted metal",
     "size": [
      192,
      32
@@ -783,43 +783,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Flat grey tile (192x32). It is not a narrow strip of dirty ochre painted metal."
+     "score": 1,
+     "reason": "A grey strip, with no painted metal look."
     },
     "T2": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Mid-grey where the brief asks for dirty ochre. The hue is wrong, far outside the allowance."
+     "score": 1,
+     "reason": "Ochre asked; the swatch is grey."
     },
     "T3": {
-     "judge": 0,
+     "judge": 2,
      "cap": null,
-     "score": 0,
-     "reason": "The strip has no painted-metal detail or wear; nothing lines up with the original's trim."
+     "score": 2,
+     "reason": "A narrow strip with no pattern asked for."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Measured fine detail is 0, under Valve's band. Flat, with no paint wear."
+     "reason": "Flat, with no metal sheen or wear; detail 0 is under Valve's band."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name c3a2_bth1 and size 192x32 match exactly. No kind marker to keep."
+     "reason": "Name and size as the brief."
     }
    },
-   "total": 4,
+   "total": 8,
    "of": 12,
    "passes": false
   },
@@ -846,43 +846,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 0,
-     "cap": null,
-     "score": 0,
-     "reason": "Flat grey tile (32x32), not black. The name's material is plain black; a grey tile is not that."
-    },
-    "T2": {
-     "judge": 0,
-     "cap": null,
-     "score": 0,
-     "reason": "Mid-grey where the brief asks for plain black. The colour is far outside the allowance."
-    },
-    "T3": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "The brief asks for plain, with no pattern, and none is shown; nothing is out of place in the layout."
+     "reason": "A plain flat panel, but the colour is wrong for plain black."
+    },
+    "T2": {
+     "judge": 1,
+     "cap": null,
+     "score": 1,
+     "reason": "Plain black asked; the swatch is mid grey."
+    },
+    "T3": {
+     "judge": 2,
+     "cap": null,
+     "score": 2,
+     "reason": "Plain, with no pattern asked for."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "Flat is what plain black asks for, but the measured fine detail (0) is under Valve's band, and the surface reads as grey rather than black."
+     "score": 2,
+     "reason": "Flat is right for a plain black; the colour fault is charged to T2."
     },
     "T6": {
-     "judge": 0,
+     "judge": 1,
      "cap": 2,
-     "score": 0,
-     "reason": "Name black and size 32x32 match, but what the name means is not kept: the tile is grey, not black."
+     "score": 1,
+     "reason": "The name means black; the swatch is grey."
     }
    },
-   "total": 4,
+   "total": 9,
    "of": 12,
    "passes": false
   },
@@ -909,43 +909,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "Flat grey tile (128x128). It could pass as a plain concrete floor in passing, though it is only a flat fill."
+     "score": 2,
+     "reason": "Flat grey reads as a plain concrete floor."
     },
     "T2": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "Neutral grey, a plausible concrete floor tone; unverified."
+     "score": 2,
+     "reason": "Concrete grey by eye."
     },
     "T3": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "The brief asks for a plain floor with no pattern, and none is shown. Nothing is out of place in the layout."
+     "score": 2,
+     "reason": "Plain, with no pattern asked for."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "Flat, which suits a plain floor, but the measured detail (0) is under Valve's band. Clearly flatter than the original's concrete grain."
+     "reason": "Flat, under Valve's band with no grain."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name crete2_flr01 and size 128x128 match exactly. No kind marker to keep."
+     "reason": "Name and size as the brief."
     }
    },
-   "total": 8,
+   "total": 11,
    "of": 12,
    "passes": false
   },
@@ -975,40 +975,40 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Flat grey tile (64x80). A 1950s ceiling light panel that glows is not shown."
+     "reason": "A flat grey square with no glowing panel or light face."
     },
     "T2": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Mid-grey with no glow. The lit panel should be bright; the colour is far off."
+     "score": 1,
+     "reason": "A glowing panel is asked for; the swatch is unlit grey."
     },
     "T3": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "The panel's frame and diffuser pattern are absent. Nothing lines up with the original's light face."
+     "score": 1,
+     "reason": "The 1950s panel grid is missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Measured fine detail is 0, under Valve's band. The panel's face is flat."
+     "reason": "Flat, with no glow and no panel detail."
     },
     "T6": {
-     "judge": 0,
+     "judge": 1,
      "cap": 2,
-     "score": 0,
-     "reason": "Name and size match, but the kind is lost: the light's face is not lit (no glow), so a '+0' lit light reads as an unlit grey tile."
+     "score": 1,
+     "reason": "The name says it glows; it does not."
     }
    },
-   "total": 2,
+   "total": 5,
    "of": 12,
    "passes": false
   },
@@ -1016,7 +1016,7 @@
    "texture": "tnnl_brd1",
    "measured": {
     "name": "tnnl_brd1",
-    "line": "a worn yellow and dark hazard-stripe trim strip",
+    "line": "a worn yellow trim strip with diagonal stripes",
     "size": [
      16,
      128
@@ -1035,43 +1035,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Flat grey tile (16x128). It does not show a worn yellow and dark hazard-stripe trim."
+     "score": 1,
+     "reason": "A grey trim strip, not worn yellow trim."
     },
     "T2": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Grey where the brief asks for yellow and dark hazard stripes. The colour is wrong."
+     "score": 1,
+     "reason": "Yellow asked; the swatch is grey."
     },
     "T3": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "The hazard stripes are absent. Nothing lines up with the original's trim."
+     "reason": "The diagonal stripes are missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Measured fine detail is 0, under Valve's band. No stripe or wear detail."
+     "reason": "Flat, with no wear or stripes; detail 0 is under Valve's band."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name tnnl_brd1 and size 16x128 match exactly. No kind marker to keep."
+     "reason": "Name and size as the brief."
     }
    },
-   "total": 4,
+   "total": 6,
    "of": 12,
    "passes": false
   },
@@ -1098,43 +1098,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 0,
-     "cap": null,
-     "score": 0,
-     "reason": "Flat grey tile (128x16). The edge of a concrete step (nosing, lip) is not shown."
-    },
-    "T2": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "Neutral grey, a plausible concrete tone; unverified."
+     "reason": "A grey concrete strip, but no step edge or nosing."
+    },
+    "T2": {
+     "judge": 2,
+     "cap": null,
+     "score": 2,
+     "reason": "Concrete grey by eye."
     },
     "T3": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "The step's edge and nosing line are absent. Nothing lines up with the original's step."
+     "score": 1,
+     "reason": "The nosing line at the step edge is missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Measured fine detail is 0, under Valve's band. The edge shows no concrete texture."
+     "reason": "Flat, with no edge detail; detail 0 is under Valve's band."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name crete4_stp01 and size 128x16 match exactly. No kind marker to keep."
+     "reason": "Name and size as the brief."
     }
    },
-   "total": 5,
+   "total": 8,
    "of": 12,
    "passes": false
   },
@@ -1164,40 +1164,40 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Flat grey tile (16x64). A small 1950s wall light, switched off, is not shown."
+     "reason": "A flat grey strip with no wall light on it."
     },
     "T2": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Mid-grey where the switched-off light should read dark. The colour is far off."
+     "score": 1,
+     "reason": "The switched-off face colour is not shown; the swatch is the same grey as the lit frame."
     },
     "T3": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "The light's housing and grille are absent. Nothing lines up with the original's fitting."
+     "score": 1,
+     "reason": "The fittings and lens lines a wall light has are missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Measured fine detail is 0, under Valve's band. Flat, with no housing detail."
+     "reason": "Flat, with no lens or fitting detail; detail 0 is under Valve's band."
     },
     "T6": {
-     "judge": 1,
+     "judge": 2,
      "cap": 2,
-     "score": 1,
-     "reason": "Name and size match, and it is an animation frame. The off state is not shown: this grey is identical to the lit frame's, so the off/lit pair is lost."
+     "score": 2,
+     "reason": "Name, size and the unlit frame's role kept."
     }
    },
-   "total": 3,
+   "total": 6,
    "of": 12,
    "passes": false
   },
@@ -1227,40 +1227,40 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Flat grey tile (16x64). A small 1950s wall light, lit, is not shown."
+     "reason": "A lit wall light shows no lit face; it is a flat grey strip."
     },
     "T2": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Mid-grey where a lit light should be bright. The colour is far off."
+     "score": 1,
+     "reason": "A lit light should glow; the swatch is unlit grey."
     },
     "T3": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "The light's housing and grille are absent. Nothing lines up with the original's fitting."
+     "score": 1,
+     "reason": "The fittings and lens lines are missing."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Measured fine detail is 0, under Valve's band. Flat, with no housing or glow detail."
+     "reason": "Flat, with no lens or glow detail; detail 0 is under Valve's band."
     },
     "T6": {
-     "judge": 0,
+     "judge": 1,
      "cap": 2,
-     "score": 0,
-     "reason": "Name and size match, but the lit frame does not glow: it is identical to the off frame, so the light's face is not lit."
+     "score": 1,
+     "reason": "The lit frame is identical to the unlit one, so it is not lit."
     }
    },
-   "total": 2,
+   "total": 5,
    "of": 12,
    "passes": false
   },
@@ -1290,40 +1290,40 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Flat grey tile (16x16). It is not a small glowing square light."
+     "reason": "A grey square with no glow."
     },
     "T2": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Mid-grey with no glow. A glowing light should be bright; the colour is far off."
+     "score": 1,
+     "reason": "A glowing light is asked for; the swatch is unlit grey."
     },
     "T3": {
-     "judge": 0,
+     "judge": 2,
      "cap": null,
-     "score": 0,
-     "reason": "The square light face's frame and diffuser are absent."
+     "score": 2,
+     "reason": "A plain square with no pattern asked for."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Measured fine detail is 0, under Valve's band. Flat."
+     "reason": "Flat, with no glow; detail 0 is under Valve's band."
     },
     "T6": {
-     "judge": 0,
+     "judge": 1,
      "cap": 2,
-     "score": 0,
-     "reason": "Name and size match, but the glowing face is not lit: it reads as a plain grey square, so the light's kind is lost."
+     "score": 1,
+     "reason": "The name says glowing square light; it does not glow."
     }
    },
-   "total": 2,
+   "total": 6,
    "of": 12,
    "passes": false
   },
@@ -1331,7 +1331,7 @@
    "texture": "c3a2a_tnk1b",
    "measured": {
     "name": "c3a2a_tnk1b",
-    "line": "liquid seen in a tank: teal blue, finely rippled",
+    "line": "liquid seen in a tank: teal blue",
     "size": [
      64,
      64
@@ -1353,40 +1353,40 @@
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Flat grey tile (64x64). It is not liquid seen in a tank, with no teal water."
+     "reason": "Flat grey shows no liquid in a tank."
     },
     "T2": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Grey where the brief asks for teal blue. The hue is wrong, far outside the allowance."
+     "score": 1,
+     "reason": "Teal blue asked; the swatch is grey."
     },
     "T3": {
-     "judge": 0,
+     "judge": 2,
      "cap": null,
-     "score": 0,
-     "reason": "No fine ripple pattern is shown, so nothing matches the original's rippled surface."
+     "score": 2,
+     "reason": "No pattern asked for."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
      "judge": 0,
      "cap": null,
      "score": 0,
-     "reason": "Measured fine detail is 0, under Valve's band. The rippled surface is absent, so it reads flat."
+     "reason": "Valve's teal is rippled; flat grey has no ripple."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name c3a2a_tnk1b and size 64x64 match exactly. No liquid marker (!) is needed, since the name carries none."
+     "reason": "Name and size as the brief."
     }
    },
-   "total": 4,
+   "total": 7,
    "of": 12,
    "passes": false
   },
@@ -1394,7 +1394,7 @@
    "texture": "c2a4x_glu",
    "measured": {
     "name": "c2a4x_glu",
-    "line": "a pale blue-violet surface, finely speckled",
+    "line": "a pale blue-violet surface",
     "size": [
      64,
      64
@@ -1413,43 +1413,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Flat grey tile (64x64). It is not a pale blue-violet speckled surface."
+     "score": 1,
+     "reason": "A grey surface, not a pale blue-violet one, with no speckle."
     },
     "T2": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Mid-grey where the brief asks for pale blue-violet. The hue is wrong, far outside the allowance."
+     "score": 1,
+     "reason": "Pale blue-violet asked; the swatch is grey."
     },
     "T3": {
-     "judge": 0,
+     "judge": 2,
      "cap": null,
-     "score": 0,
-     "reason": "The fine speckling is absent, so nothing matches the original's surface."
+     "score": 2,
+     "reason": "Plain surface with no pattern asked for."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Measured fine detail is 0, under Valve's band. The speckle is absent; the surface reads flat."
+     "score": 1,
+     "reason": "Flat; Valve's speckle sits under its band, so flat is close but still reads plain."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name c2a4x_glu and size 64x64 match exactly. No kind marker to keep."
+     "reason": "Name and size as the brief."
     }
    },
-   "total": 4,
+   "total": 9,
    "of": 12,
    "passes": false
   },
@@ -1457,7 +1457,7 @@
    "texture": "babtech_ceil01",
    "measured": {
     "name": "babtech_ceil01",
-    "line": "an old, damp, cracked concrete ceiling",
+    "line": "an old concrete ceiling",
     "size": [
      64,
      64
@@ -1476,43 +1476,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 0,
-     "cap": null,
-     "score": 0,
-     "reason": "Flat grey tile (64x64). It does not read as an old, damp, cracked concrete ceiling; no cracks or damp marks."
-    },
-    "T2": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "Neutral grey, a plausible concrete ceiling tone; the damp staining cannot be checked."
+     "reason": "Flat grey reads as a ceiling, but there is no old concrete wear."
+    },
+    "T2": {
+     "judge": 2,
+     "cap": null,
+     "score": 2,
+     "reason": "Concrete grey by eye."
     },
     "T3": {
-     "judge": 0,
+     "judge": 2,
      "cap": null,
-     "score": 0,
-     "reason": "The cracks and damp patches are absent. Nothing matches the original's ceiling pattern."
+     "score": 2,
+     "reason": "No pattern asked for."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
-     "judge": 0,
+     "judge": 1,
      "cap": null,
-     "score": 0,
-     "reason": "Measured fine detail is 0, under Valve's band. Flat, with no crack or damp detail."
+     "score": 1,
+     "reason": "Flat, with no wear or grain."
     },
     "T6": {
      "judge": 2,
      "cap": 2,
      "score": 2,
-     "reason": "Name babtech_ceil01 and size 64x64 match exactly. No kind marker to keep."
+     "reason": "Name and size as the brief."
     }
    },
-   "total": 5,
+   "total": 10,
    "of": 12,
    "passes": false
   },
@@ -1539,43 +1539,43 @@
    },
    "scores": {
     "T1": {
-     "judge": 0,
-     "cap": null,
-     "score": 0,
-     "reason": "Flat grey tile (16x16), not yellow. The name's material is plain yellow; a grey tile is not that."
-    },
-    "T2": {
-     "judge": 0,
-     "cap": null,
-     "score": 0,
-     "reason": "Mid-grey where the brief asks for plain yellow. The hue is wrong, far outside the allowance."
-    },
-    "T3": {
      "judge": 1,
      "cap": null,
      "score": 1,
-     "reason": "The brief asks for plain, with no pattern, and none is shown; nothing is out of place in the layout."
+     "reason": "A plain flat panel, but the colour is wrong for plain yellow."
+    },
+    "T2": {
+     "judge": 1,
+     "cap": null,
+     "score": 1,
+     "reason": "Plain yellow asked; the swatch is mid grey."
+    },
+    "T3": {
+     "judge": 2,
+     "cap": null,
+     "score": 2,
+     "reason": "Plain, with no pattern asked for."
     },
     "T4": {
      "judge": 2,
      "cap": null,
      "score": 2,
-     "reason": "No seam where it repeats: the step across the edges is zero."
+     "reason": "Flat, no seam at a repeat."
     },
     "T5": {
-     "judge": 1,
+     "judge": 2,
      "cap": null,
-     "score": 1,
-     "reason": "Flat is what plain yellow asks for, but the measured fine detail (0) is under Valve's band, and the surface reads as grey rather than yellow."
+     "score": 2,
+     "reason": "Flat is right for a plain yellow; the colour fault is charged to T2."
     },
     "T6": {
-     "judge": 0,
+     "judge": 1,
      "cap": 2,
-     "score": 0,
-     "reason": "Name yellow and size 16x16 match, but what the name means is not kept: the tile is grey, not yellow."
+     "score": 1,
+     "reason": "The name means yellow; the swatch is grey."
     }
    },
-   "total": 4,
+   "total": 9,
    "of": 12,
    "passes": false
   }
