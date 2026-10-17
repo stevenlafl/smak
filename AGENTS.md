@@ -972,7 +972,7 @@ node bin/smak.mjs map-view gatecity.bsp -o v.png --from -191,-802,-433 --yaw 90
   plan for each storey side by side; `map-section --from x,y --to x,y` cuts the map upright along a line: the
   picture for a cellar under a terrace, a stair, a ceiling's height, a thing sunk in the floor.
 - **`map-reach` walks the map** from its places to start, as the box of a standing player: steps of 18, any
-  drop, doors open, ladders climbed, a slope too steep to stand on (over 45.6 degrees) slid down and never
+  drop, doors open, ladders climbed and lifts ridden, a slope too steep to stand on (over 45.6 degrees) slid down and never
   walked up. It lists the entities that are not reached, each with what it would take (a jump, a crouch, an
   opening that is not there), those that stand in something solid, every opening with its width and height,
   and the **one-way places**: floor a player gets into and finds no way out of, by a step, a jump or a

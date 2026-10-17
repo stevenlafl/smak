@@ -297,7 +297,7 @@ async function judgeHouse(house, file, { decoy = false } = {}) {
     doors: { key: sure.length, matched: doorsMatched, entities: doorModels.length },
     windows: { key: (key.windows ?? []).length, matched: windowsMatched },
     checkErrors: check.errors,
-    notReached: reach.unreached.map((e) => `${e.classname} ${e.number}`),
+    notReached: reach.entities.filter((e) => reach.unreached.includes(e.number)).map((e) => `${e.classname} ${e.number}`),
     keyNotes: key.notes ?? [],
   };
   const doorShare = sure.length ? doorsMatched / sure.length : 1;

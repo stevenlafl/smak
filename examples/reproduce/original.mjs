@@ -112,8 +112,12 @@ function collect(work) {
   }
   // every .wad it made beside them: a map names its own, and the textures are found by those names
   for (const f of all.filter((x) => x.name.endsWith(".wad") && !found.includes(x.name))) copyFileSync(f.p, join(out, f.name));
-  mkdirSync(join(ROOT, "specs"), { recursive: true });
-  for (const f of all.filter((x) => x.name.endsWith(".spec.json"))) copyFileSync(f.p, join(ROOT, "specs", f.name));
+  rmSync(join(ROOT, "specs"), { recursive: true, force: true });
+  // by their path in the work folder: a map's spec and a video's may share a name
+  for (const f of all.filter((x) => x.name.endsWith(".spec.json"))) {
+    mkdirSync(dirname(join(ROOT, "specs", f.rel)), { recursive: true });
+    copyFileSync(f.p, join(ROOT, "specs", f.rel));
+  }
   return { found };
 }
 
@@ -178,7 +182,7 @@ async function judgeAll(which) {
         sizeAsked: m.size ?? (m.long ? { long: m.long } : null),
         checkErrors: check.errors,
         lit: maps.lightReport ? undefined : undefined,
-        notReached: reach.unreached.map((e) => `${e.classname} ${e.number}`),
+        notReached: reach.entities.filter((e) => reach.unreached.includes(e.number)).map((e) => `${e.classname} ${e.number}`),
         reachWarnings: reach.warnings.slice(0, 8),
         changelevels: ents.filter((e) => e.classname === "trigger_changelevel").map((e) => ({ map: e.map, landmark: e.landmark })),
         landmarks: ents.filter((e) => e.classname === "info_landmark").map((e) => e.targetname),
