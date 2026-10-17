@@ -13,7 +13,7 @@
 //   model's own `root` (another folder: the 3D models live apart from the audio ones). The worker
 // (generators/worker.py) keeps one model in memory; asking for another stops it first, since the card holds one.
 import { spawn } from "node:child_process";
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { readWav, resample } from "../src/audio/wav.mjs";
@@ -316,6 +316,7 @@ function guideOf(folders, base, file) {
     src = replaceTexture(src, i, { ...own, palette: new Uint8Array(768).fill(170) }, { quiet: true });
   });
   const drawn = render(src, { seq: 0, frame: 0, view: "front", width: 512, height: 512, background: [255, 255, 255] });
+  mkdirSync(dirname(file), { recursive: true });
   writeFileSync(file, png(drawn.width, drawn.height, drawn.rgba));
   return file;
 }

@@ -140,10 +140,10 @@ async function generateCase() {
     sequences: [{ name: "idle", fps: 10, frames: [[[0, 0, 40, 0, 0, 0], ...["L", "R"].flatMap((s, k) => { const y = k ? -1 : 1; return [[0, 8 * y, 14, 0, 0, 0], [0, 0, -11, 0, 0, 0], [0, 0, -10, 0, 0, 0], [0, 4 * y, -2, 0, 0, 0], [0, 0, -18, 0, 0, 0], [0, 0, -18, 0, 0, 0]]; })]] }],
   });
   writeFileSync(join(folders.work, "biped.mdl"), biped);
-  const guided = await tools.generate.call({ kind: "shape", prompt: "a security guard", base: "biped.mdl", seeds: 1, name: "guard" });
-  sure(/Drawn in biped\.mdl's stance \(work:gen\/guard_guide\.png\): build it on that base in the same one, "base": \{ "file": "biped\.mdl" \}, "pose": \{ "aim": \{"L arm":\{"out":30/.test(guided[0].text), guided[0].text);
-  sure(existsSync(join(folders.work, "gen", "guard_guide.png")) && readFileSync(join(folder, "guides.txt"), "utf8").includes("guard_guide.png"), "the guide drawn and handed to the worker");
-  sure(JSON.parse(readFileSync(join(folders.work, "gen", "guard_s0.json"), "utf8")).stance?.["L arm"]?.out === 30, "its sidecar keeps the stance");
+  const guided = await tools.generate.call({ kind: "shape", prompt: "a security guard", base: "biped.mdl", seeds: 1, name: "people/guard" });
+  sure(/Drawn in biped\.mdl's stance \(work:people\/guard_guide\.png\): build it on that base in the same one, "base": \{ "file": "biped\.mdl" \}, "pose": \{ "aim": \{"L arm":\{"out":30/.test(guided[0].text), guided[0].text);
+  sure(existsSync(join(folders.work, "people", "guard_guide.png")) && readFileSync(join(folder, "guides.txt"), "utf8").includes("guard_guide.png"), "the guide drawn and handed to the worker");
+  sure(JSON.parse(readFileSync(join(folders.work, "people", "guard_s0.json"), "utf8")).stance?.["L arm"]?.out === 30, "its sidecar keeps the stance");
   let both = "";
   try {
     await tools.generate.call({ kind: "shape", picture: "work:gen/crate_s0.png", base: "biped.mdl", seeds: 1 });
