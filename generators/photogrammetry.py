@@ -75,15 +75,29 @@ def lightglue_pairs(picture, render):
     import torch
     from lightglue import LightGlue, DISK
     from lightglue.utils import rbd
-    dev = "cuda" if torch.cuda.is_available() else "cpu"
     if "disk" not in _learned:
-        _learned["disk"] = DISK(max_num_keypoints=2048).eval().to(dev)
-        _learned["glue"] = LightGlue(features="disk").eval().to(dev)
-    tensor = lambda g: torch.from_numpy(cv2.cvtColor(g, cv2.COLOR_GRAY2RGB)).permute(2, 0, 1).float().div(255).to(dev)
-    with torch.no_grad():
-        f0 = _learned["disk"].extract(tensor(picture))
-        f1 = _learned["disk"].extract(tensor(render))
-        out = _learned["glue"]({"image0": f0, "image1": f1})
+        _learned["disk"] = DISK(max_num_keypoints=2048).eval()
+        _learned["glue"] = LightGlue(features="disk").eval()
+
+    def run(dev):
+        _learned["disk"].to(dev)
+        _learned["glue"].to(dev)
+        tensor = lambda g: torch.from_numpy(cv2.cvtColor(g, cv2.COLOR_GRAY2RGB)).permute(2, 0, 1).float().div(255).to(dev)
+        with torch.no_grad():
+            f0 = _learned["disk"].extract(tensor(picture))
+            f1 = _learned["disk"].extract(tensor(render))
+            return f0, f1, _learned["glue"]({"image0": f0, "image1": f1})
+
+    # on the card when it has room; a card another job holds (a generator's worker, VGGT) put LightGlue's attention
+    # out of memory (5.9 GB asked) and every such shot fell to the edges: on the CPU then, slower but the same
+    f0 = f1 = out = None
+    if torch.cuda.is_available():
+        try:
+            f0, f1, out = run("cuda")
+        except torch.OutOfMemoryError:
+            torch.cuda.empty_cache()
+    if out is None:
+        f0, f1, out = run("cpu")
     f0, f1, out = rbd(f0), rbd(f1), rbd(out)
     m = out["matches"]
     k0 = f0["keypoints"][m[:, 0]].cpu().numpy()

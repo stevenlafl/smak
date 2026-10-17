@@ -51,7 +51,12 @@ function structures(shots, cams) {
   const out = {};
   for (const method of ["sfm", "vggt"]) {
     const t = Date.now();
-    const s = structureOf(shots, { method });
+    let s;
+    try {
+      s = structureOf(shots, { method });
+    } catch (error) {
+      s = { ok: false, error: error.message.slice(0, 200) };
+    }
     if (!s.ok) {
       out[method] = { error: s.error, ms: Date.now() - t };
       continue;
@@ -77,18 +82,23 @@ for (const name of names.length ? names : ["c1a0", "c2a5"]) {
     writeFileSync(join(out, `${name}-shot${n}.png`), png(shot.width, shot.height, shot.rgba));
     return shot;
   });
-  const result = { near: locateAll(bsp, shots, cams, near, options), far: locateAll(bsp, shots, cams, far, options), vggtStart: vggtStart(bsp, shots, cams, options) };
-  // six overlapping shots of one room, about the second camera
+  // PARTS (comma list): locate, vggtstart, structure, room; all unless told
+  const parts = (process.env.PARTS ?? "locate,vggtstart,structure,room").split(",");
+  const result = {};
+  if (parts.includes("locate")) Object.assign(result, { near: locateAll(bsp, shots, cams, near, options), far: locateAll(bsp, shots, cams, far, options) });
+  // six overlapping shots of one room, about the second camera: VGGT's start wants shots that overlap (from the
+  // six spread views of viewsOf, its frame meant nothing: guesses 1000 units off)
   const base = cams[1];
-  const around = [[0, 0, 0], [40, 0, -10], [-40, 0, 10], [0, 40, 15], [0, -40, -15], [30, 30, 5]].map(([dx, dy, dyaw]) => ({ from: [base.from[0] + dx, base.from[1] + dy, base.from[2]], yaw: base.yaw + dyaw, pitch: base.pitch ?? 0 }));
-  const roomShots = around.map((c) => maps.drawMap(bsp, { ...c, fov: 90, width: 640, height: 480, folders: [valve], entities: "none", labels: false }));
-  result.structure = structures(roomShots, around);
+  const around = [[0, 0, 0], [40, 0, -10], [-40, 0, 10], [0, 40, 15], [0, -40, -15], [30, 30, 5]].map(([dx, dy, dyaw]) => ({ from: [base.from[0] + dx, base.from[1] + dy, base.from[2]], yaw: base.yaw + dyaw, pitch: base.pitch ?? 0, fov: 90 }));
+  const roomShots = around.map((c) => maps.drawMap(bsp, { ...c, width: 640, height: 480, folders: [valve], entities: "none", labels: false }));
+  if (parts.includes("vggtstart")) result.vggtStart = vggtStart(bsp, roomShots, around, options);
+  if (parts.includes("structure")) result.structure = structures(roomShots, around);
   summary[name] = result;
   console.log(`${name}: ${JSON.stringify(result)}`);
 }
 
 // the kit's room in one repeating texture, compiled, a wall 32 off: repeated texture and four shots of one wall
-if (compilers) {
+if (compilers && (process.env.PARTS ?? "room").split(",").includes("room")) {
   const wad = join(valve, "halflife.wad");
   const textures = maps.readWad(readFileSync(wad)).textures;
   const room = (north) => ({
@@ -119,7 +129,7 @@ if (compilers) {
 // the table for research/map-overlay.md
 for (const [name, r] of Object.entries(summary)) {
   console.log(`\n${name}`);
-  for (const g of ["near", "far"]) for (const m of ["sift", "lightglue"]) console.log(`  ${g.padEnd(4)} ${m.padEnd(9)} within 2 units ${within2(r[g][m])}; offs ${r[g][m].map((x) => x.off).join(", ")}; inliers ${r[g][m].map((x) => x.inliers).join(", ")}`);
+  for (const g of ["near", "far"]) for (const m of ["sift", "lightglue"]) if (r[g]) console.log(`  ${g.padEnd(4)} ${m.padEnd(9)} within 2 units ${within2(r[g][m])}; offs ${r[g][m].map((x) => x.off).join(", ")}; inliers ${r[g][m].map((x) => x.inliers).join(", ")}`);
   if (r.vggtStart?.rows) console.log(`  vggt start + lightglue PnP: within 2 units ${within2(r.vggtStart.rows)}; guesses off ${r.vggtStart.rows.map((x) => x.guessOff).join(", ")}; found off ${r.vggtStart.rows.map((x) => x.off).join(", ")}; VGGT ${r.vggtStart.seconds} s, peak ${r.vggtStart.peak} GB`);
   else if (r.vggtStart) console.log(`  vggt start: ${r.vggtStart.error}`);
   for (const [m, s] of Object.entries(r.structure ?? {})) console.log(`  ${m}: ${JSON.stringify(s)}`);

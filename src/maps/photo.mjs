@@ -49,13 +49,18 @@ export const MATCHERS = ["sift", "lightglue"];
 function runPhotogrammetry(python, step, job, folder) {
   const path = join(folder, `${step}.json`);
   writeFileSync(path, JSON.stringify(job));
-  const run = spawnSync(python, [RUNNER, step, path], { encoding: "utf8", maxBuffer: 1 << 26 });
+  // the card's memory in segments that grow: LightGlue and VGGT share it with whatever else is on it
+  const env = { ...process.env, PYTORCH_HIP_ALLOC_CONF: process.env.PYTORCH_HIP_ALLOC_CONF ?? "expandable_segments:True" };
+  const run = spawnSync(python, [RUNNER, step, path], { encoding: "utf8", maxBuffer: 1 << 26, env });
   if (run.error) throw new Error(`photogrammetry: ${python} could not be run (${run.error.message}): make the venv with generators/install-photogrammetry.sh`);
   const line = run.stdout.trim().split("\n").at(-1);
   try {
     return JSON.parse(line);
   } catch {
-    throw new Error(`photogrammetry ${step}: no answer (${(run.stderr || run.stdout).trim().split("\n").slice(-3).join(" | ")})`);
+    // a process that died without answering (pycolmap has, now and then, on the same pictures that answered the
+    // next time): how it ended, then its last words
+    const ended = run.signal ? `killed by ${run.signal}` : `exit code ${run.status}`;
+    throw new Error(`photogrammetry ${step}: no answer, ${ended} (${(run.stderr || run.stdout).trim().split("\n").slice(-3).join(" | ")})`);
   }
 }
 
