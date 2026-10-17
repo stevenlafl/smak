@@ -1,0 +1,111 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_spit.spr: a sludge spit that splashes, animated",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.56,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "explosion",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0,
+    "range": [
+     0.22,
+     0.71
+    ],
+    "ok": false,
+    "words": "peaks too soon"
+   },
+   {
+    "measure": "first",
+    "value": 1,
+    "range": [
+     0,
+     0.22
+    ],
+    "ok": false,
+    "words": "starts too bright: an attack in its envelope"
+   },
+   {
+    "measure": "last",
+    "value": 1,
+    "range": [
+     0,
+     0.03
+    ],
+    "ok": false,
+    "words": "does not end dark: a decay in its envelope"
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The picture is one flat light-grey disc on a dark ground. It is not a sludge spit or a splash: no drops, no spread, no wet edge or splash crown. The brief's effect is not there."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frame is 32 by 32 as the measurements say, and the disc fills most of it, so size and fill are roughly right. The shape is a smooth circle with no splash outline, so it is clearly off for a splashing spit."
+  },
+  "R3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The colour is pale grey-white, close to neutral. The brief asks for a green-grey sludge, and by eye it does not read as sludge."
+  },
+  "R4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Frames is 1, and the brief asks for an animated splash. The measures also fail against the explosion class: the peak is at frame 0 (class 0.22 to 0.71), the first frame is bright (1, class 0 to 0.22), and the last frame does not end dark (1, class 0 to 0.03). Nothing moves, splashes or fades."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The file is named fw_spit.spr, type parallel, format additive, and reads back. Whether parallel is the type of the slot it replaces cannot be checked from what is given, so this is only partly shown."
+  }
+ },
+ "total": 2,
+ "of": 10,
+ "passes": false
+}

@@ -3,8 +3,8 @@
  "label": "maps/fw_control.bsp: the control room over the hall: consoles under windows onto the hall, a lift down to the valve room with the main valve wheel; two crawlers",
  "measured": {
   "size": [
-   1280,
-   824
+   1344,
+   592
   ],
   "sizeAsked": null,
   "checkErrors": [],
@@ -12,7 +12,7 @@
   "reachWarnings": [],
   "changelevels": [],
   "landmarks": [
-   "fw_lm_2"
+   null
   ],
   "itemsAsked": [
    "monster_headcrab"
@@ -30,58 +30,58 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Three areas exist (the large upper-left room, the lower room with three cylinders, and the small right-hand control block), but the joins are wrong. The brief puts the control room above the hall with windows onto it. In the plan the control block (x 787-983, y 110-305) sits beside the hall, not over it, and only a short passage at x 775-787 joins them. The lift (func_plat 5) is inside the control block and has no route to the lower room, which the brief calls the valve room."
+   "reason": "The plan shows a start room at far left (info_player_start 15, info_landmark 16), a large room with two monster_headcrab (17, 18), a stair up to a right-hand room with a func_plat lift (6) and trigger_teleports (7), and a lower room (x 187-650, y 255-440) with only lights. The brief's control room with consoles under windows onto the hall is not identifiable: there are no console or window entities and nothing marks the room as a control room. The valve room with the main valve wheel is not identifiable: the lower room carries no wheel entity, and the lift's lower stop is not shown as joining it. The areas are present but the arrangement the brief describes is not."
   },
   "P2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The brief gives no sizes for this map, so the judge cannot check each area within 25%. The control block is about 255 units square, and it is placed beside the hall, not above it, so its place is off the brief's layout."
+   "reason": "The brief gives no sizes for fw_control, so the areas cannot be checked against it. The rooms in the plan are plain rectangles (about 470 x 190 units for the big room at top left, about 325 x 230 for the control room), with no measured overlap for the judge to confirm. The valve room's size and place cannot be read from the plan, since it has no entities or walls that mark it."
   },
   "P3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The brief's control room is above the hall. The plan shows it at the same plane beside the hall, with no overlap, and the views give no section. Only the lift (func_plat 5) implies a vertical change. The lower room's floor labels (-34, -200) do not show a storey that matches the brief's lift run down to the valve room."
+   "reason": "The plan gives floor-height labels ('2 -96' over the right room, '2 -160' near the hall's walls), but the storeys do not read as the brief's control room above the hall. The stair from the big room to the right room is drawn, and one func_plat lift sits in the right room at (663-730, 62-127). Where the lift goes down to, and so the valve room's level, cannot be seen. The views show one flat concrete floor, with no drop, ledge or ramp."
   },
   "P4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The player start (16), two monster_headcrab (19, 20, matching the two crawlers asked), the lift (func_plat 5) and the landmark (fw_lm_2) are there. The main valve wheel is missing from the entity list, and the GAME_END (18) that should close the mod at it sits in the control block instead. The lift does not reach the lower room, so it is not joined to the valve room the brief names."
+   "reason": "Present: the start (info_player_start 15), two monster_headcrab (matching the brief's two crawlers, 17 and 18, placed in the big room rather than shown under the control room's windows), and one func_plat lift (6). Missing: the main valve wheel that ends the mod (no entity of any kind marks it), and the consoles and windows the brief places in the control room. The 2 headcrabs match the measurement (2 of 2 asked, found), but the valve wheel is absent."
   },
   "P5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The walls are grey tile with orange squares and the floor is grey tile. The brief asks for concrete, a steel grate, a control panel with dials and rusted steel. The views show no concrete, grate or dial panel, so the surfaces do not read as the brief's materials."
+   "reason": "The views show grey-tan concrete-like walls and a grey wet-looking floor, which is close to the brief's concrete and wet floor. The wall texture has a repeated brick-like pattern with visible seams, and there is no hazard striping, grate or panel visible anywhere in the views. The surfaces are plausible but generic."
   },
   "P6": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Eight light entities (21-28) are placed, with two in the lower room (24, 25). The views show small ceiling lights, but the brief's sodium lamps with buzzing light are not clearly shown, and the bright and dark areas do not match the brief's control room."
+   "reason": "Light entities are placed (20 to 29 in the plan), spread along the rooms' middles. The views show flat, even grey lighting with no visible sodium-orange glow or lamp pool, so the bright and dark areas the lamps should make are not seen. The lamps' colour and brightness cannot be confirmed from these pictures."
   },
   "P7": {
-   "judge": 1,
+   "judge": 0,
    "cap": null,
-   "score": 1,
-   "reason": "A console-like box with two dark screens appears in the yaw -90 view. The brief's row of windows onto the hall is absent: the yaw 90 wall has only dark recesses, and nothing looks down on the hall. The valve wheel, the grates and the lift's shaft are not visible."
+   "score": 0,
+   "reason": "None of the brief's features that make this room distinctive is there: no consoles, no row of windows onto the hall (the views show only plain walls, with at most a small dark recess near the top of view 2 and view 4), no valve wheel and no caged lamp. The stair in the plan is the only notable feature."
   },
   "P8": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "The measurements are clean: checkErrors and notReached are empty, reachWarnings is empty, the landmark is present and no changelevel is needed since this is the last map. The only item asked is the headcrab, and both are reached. The valve room's reach is not measured, so this item is passed on the measure alone."
+   "score": 1,
+   "reason": "The measurements are clean: no check errors, no unreached items, no reach warnings, and no changelevels (fw_control is the last map, so none is needed). But the valve wheel is not in the map, so the walk test cannot prove the way to the end of the mod. The landmark measure reads null: the only info_landmark (16) sits in the start room at far left, and no landmark is matched to the arrival from fw_pumphall. The map cannot be shown to work through its end."
   },
   "P9": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "From inside, the views (room 276, yaws 0 to -90) show a tiled corridor with orange squares, dark recesses and a red placeholder box. This is in Half-Life's industrial spirit, but a player would not recognise a control room with windows over a hall, a lift down to a valve wheel, or the brief's console and wheel."
+   "reason": "The views from inside (room -20 -272 -64 at four yaws, and the start at yaw 0) show a generic corridor of grey concrete with a flat floor and no control room features. The start view's red monster_headcrab sits in a dark doorway. A player who knows the brief's control room (consoles, a window row over the hall, a lift, a valve wheel) would not recognise it from these views. It reads as a plain Half-Life-style space, not this room."
   }
  },
- "total": 10,
+ "total": 8,
  "of": 18,
  "passes": false
 }

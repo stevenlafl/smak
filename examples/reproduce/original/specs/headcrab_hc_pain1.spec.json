@@ -1,0 +1,38 @@
+{
+  "spec": "smak.sound/1",
+  "name": "headcrab/hc_pain1.wav",
+  "class": "flesh hit",
+  "seed": 22,
+  "length": 0.6,
+  "layers": [
+    {
+      "id": "take",
+      "kind": "sample",
+      "file": "work:gen/hc_pain_woosh-dflow_s1.wav",
+      "from": "onset",
+      "length": 0.6,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2800
+        },
+        {
+          "type": "highpass",
+          "f": 250
+        }
+      ],
+      "env": {
+        "attack": 0.01,
+        "hold": 0.2,
+        "decay": 0.3
+      }
+    }
+  ],
+  "finish": {
+    "saturate": 1.2,
+    "room": {
+      "decay": 0.25,
+      "wet": 0.12
+    }
+  }
+}

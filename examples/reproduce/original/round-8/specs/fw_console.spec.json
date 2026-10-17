@@ -1,0 +1,232 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_console.mdl",
+  "kind": "prop",
+  "size": {
+    "height": 38,
+    "width": 60,
+    "length": 36
+  },
+  "materials": {
+    "panel": {
+      "base": "metal",
+      "tone": [
+        0.36,
+        0.4,
+        0.37
+      ],
+      "rust": 0.15
+    },
+    "deck": {
+      "base": "steel"
+    },
+    "screen": {
+      "base": "metal",
+      "tone": [
+        0.08,
+        0.16,
+        0.13
+      ]
+    },
+    "brass": {
+      "base": "brass"
+    },
+    "steel": {
+      "base": "steel"
+    }
+  },
+  "parts": [
+    {
+      "id": "body",
+      "kind": "box",
+      "material": "panel",
+      "size": [
+        30,
+        56,
+        34
+      ],
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "panels": [
+        {
+          "face": "front",
+          "at": [
+            14,
+            21
+          ],
+          "size": [
+            18,
+            12
+          ],
+          "style": "inset",
+          "material": "screen"
+        },
+        {
+          "face": "front",
+          "at": [
+            42,
+            21
+          ],
+          "size": [
+            18,
+            12
+          ],
+          "style": "inset",
+          "material": "screen"
+        },
+        {
+          "face": "front",
+          "at": [
+            8,
+            7
+          ],
+          "size": [
+            4,
+            4
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "brass"
+        },
+        {
+          "face": "front",
+          "at": [
+            20,
+            7
+          ],
+          "size": [
+            4,
+            4
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "brass"
+        },
+        {
+          "face": "front",
+          "at": [
+            36,
+            7
+          ],
+          "size": [
+            4,
+            4
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "brass"
+        },
+        {
+          "face": "front",
+          "at": [
+            48,
+            7
+          ],
+          "size": [
+            4,
+            4
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "brass"
+        },
+        {
+          "face": "front",
+          "at": [
+            8,
+            31
+          ],
+          "size": [
+            2.5,
+            4
+          ],
+          "style": "raised",
+          "material": "steel"
+        },
+        {
+          "face": "front",
+          "at": [
+            16,
+            31
+          ],
+          "size": [
+            2.5,
+            4
+          ],
+          "style": "raised",
+          "material": "steel"
+        },
+        {
+          "face": "front",
+          "at": [
+            24,
+            31
+          ],
+          "size": [
+            2.5,
+            4
+          ],
+          "style": "raised",
+          "material": "steel"
+        },
+        {
+          "face": "front",
+          "at": [
+            32,
+            31
+          ],
+          "size": [
+            2.5,
+            4
+          ],
+          "style": "raised",
+          "material": "steel"
+        },
+        {
+          "face": "front",
+          "at": [
+            40,
+            31
+          ],
+          "size": [
+            2.5,
+            4
+          ],
+          "style": "raised",
+          "material": "steel"
+        },
+        {
+          "face": "front",
+          "at": [
+            48,
+            31
+          ],
+          "size": [
+            2.5,
+            4
+          ],
+          "style": "raised",
+          "material": "steel"
+        }
+      ]
+    },
+    {
+      "id": "deck",
+      "kind": "box",
+      "material": "deck",
+      "size": [
+        36,
+        60,
+        4
+      ],
+      "at": [
+        0,
+        0,
+        34
+      ]
+    }
+  ]
+}

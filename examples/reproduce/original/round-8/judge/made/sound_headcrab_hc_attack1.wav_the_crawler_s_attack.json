@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_attack1.wav: the crawler's attack",
+ "measured": {
+  "features": {
+   "length": 0.504,
+   "peak": -0.5,
+   "rms": -9.9,
+   "crest": 9.3,
+   "dc": -0.0007,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.035,
+   "peakAt": 0.11,
+   "t20": 0.239,
+   "t40": 0.309,
+   "centroid": 789,
+   "rolloff": 1400,
+   "flatness": 0.009,
+   "bands": {
+    "<150": 1,
+    "150-600": 56,
+    "600-2k": 36,
+    "2k-5k": 6.7,
+    ">5k": 0.2
+   },
+   "onsets": 0
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.906,
+    "centroid": 921,
+    "t20": 0.394,
+    "bands": {
+     "<150": 0.5,
+     "150-600": 68.1,
+     "600-2k": 18.8,
+     "2k-5k": 10.9,
+     ">5k": 1.6
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The picture shows a single smeared noise burst that peaks near 0.11 s and decays over about 0.4 s. The game's own sound (the lower panel) is a run of separate impacts: sharp clicks near 0.05 to 0.3 s, and more at about 0.45 s and 0.6 s, then a quiet tail to 0.91 s. The made file reads as a creature's attack in general, but it lacks the discrete strikes that make the game's sound what it is."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Measured and clearly off. Length is 0.504 s against the game's 0.906 s, 44% short where the limit is 25%. Decay t20 is 0.239 s against 0.394 s; with no class range given, the original's own decay within a quarter or 0.05 s is 0.296 to 0.493 s, so 0.239 is outside it and caps S2 at 1. Attack of 0.035 s is in the picture as a fast onset, which is right."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Centroid is 789 Hz against 921 Hz, 14% off and inside the 20% limit. Two bands fail the 10-point limit: 150-600 Hz is 56 against 68.1 (12.1 points short), and 600-2k Hz is 36 against 18.8 (17.2 points high). The spectrogram agrees: the made sound puts too much energy in the 600 Hz to 2 kHz range, and the game's is more concentrated below 600 Hz."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Not a must-have, but the onsets are missing: the measured onset count is 0, while the game's sound has several audible hits (visible as clicks in its waveform at about 0.05 to 0.3 s, 0.45 s and 0.6 s). The made spectrogram is steady from start to end with no pitch movement, and the game's shows some. The flatness of 0.009 says the made file is tonal, which the rough, noisy waveform does not suggest. The judge cannot listen, so the tone is taken from the figures alone."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "No clipping (0), DC is -0.0007, lead is 0, tail is 0.01, peak is -0.5 dBFS, and engineFaults is empty. The sample rate, bit depth and mono channel are not in the measurements; the engineFaults check is taken as covering them, so this score depends on that check."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

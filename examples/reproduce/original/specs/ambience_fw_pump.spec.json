@@ -1,0 +1,98 @@
+{
+  "spec": "smak.sound/1",
+  "name": "ambience/fw_pump.wav",
+  "class": "loop drone",
+  "seed": 7,
+  "length": 4,
+  "loop": {
+    "crossfade": 0.25
+  },
+  "layers": [
+    {
+      "id": "hum",
+      "kind": "tone",
+      "f": 50,
+      "wave": "sine",
+      "at": 0,
+      "length": 4,
+      "env": {
+        "attack": 0.05,
+        "hold": 3.85,
+        "decay": 0.1
+      },
+      "gain": -10
+    },
+    {
+      "id": "hum2",
+      "kind": "tone",
+      "f": 100,
+      "wave": "triangle",
+      "at": 0,
+      "length": 4,
+      "env": {
+        "attack": 0.05,
+        "hold": 3.85,
+        "decay": 0.1
+      },
+      "gain": -14
+    },
+    {
+      "id": "buzz",
+      "kind": "tone",
+      "f": 150,
+      "wave": "saw",
+      "at": 0,
+      "length": 4,
+      "env": {
+        "attack": 0.05,
+        "hold": 3.85,
+        "decay": 0.1
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2200
+        }
+      ],
+      "gain": -16
+    },
+    {
+      "id": "rumble",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0,
+      "length": 4,
+      "env": {
+        "attack": 0.05,
+        "hold": 3.85,
+        "decay": 0.1
+      },
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 500,
+          "q": 0.8
+        }
+      ],
+      "gain": -22
+    },
+    {
+      "id": "clacks",
+      "kind": "particles",
+      "every": 2,
+      "jitter": 0,
+      "band": [
+        1200,
+        2500
+      ],
+      "grain": 0.02,
+      "gain": -8
+    }
+  ],
+  "finish": {
+    "room": {
+      "decay": 0.2,
+      "wet": 0.1
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "spec": "smak.sound/1",
+  "name": "headcrab/hc_attack1.wav",
+  "class": "flesh hit",
+  "seed": 21,
+  "length": 0.45,
+  "layers": [
+    {
+      "id": "take",
+      "kind": "sample",
+      "file": "work:gen/hc_attack_woosh-dflow_s1.wav",
+      "from": "onset",
+      "length": 0.45,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2600
+        },
+        {
+          "type": "highpass",
+          "f": 180
+        }
+      ],
+      "env": {
+        "attack": 0.005,
+        "hold": 0.12,
+        "decay": 0.25
+      }
+    }
+  ],
+  "finish": {
+    "saturate": 1.5,
+    "room": {
+      "decay": 0.25,
+      "wet": 0.12
+    }
+  }
+}

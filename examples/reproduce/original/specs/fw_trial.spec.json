@@ -1,0 +1,53 @@
+{
+  "spec": "smak.map/1",
+  "name": "fw_trial",
+  "theme": {
+    "floor": "stone",
+    "wall": "plaster",
+    "ceiling": "planks"
+  },
+  "rooms": [
+    {
+      "id": "hall",
+      "size": [
+        320,
+        256,
+        160
+      ]
+    },
+    {
+      "id": "study",
+      "size": [
+        256,
+        256,
+        128
+      ],
+      "place": {
+        "east_of": "hall"
+      },
+      "floor": 16
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "hall",
+        "study"
+      ],
+      "kind": "door"
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "hall",
+      "at": "against west",
+      "facing": "study"
+    },
+    {
+      "class": "light",
+      "room": "study",
+      "at": "centre"
+    }
+  ]
+}

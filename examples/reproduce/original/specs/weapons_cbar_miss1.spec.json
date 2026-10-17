@@ -1,0 +1,36 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/cbar_miss1.wav",
+  "class": "swing",
+  "seed": 5,
+  "length": 0.35,
+  "layers": [
+    {
+      "id": "take",
+      "kind": "sample",
+      "file": "work:gen/cbar_swing_woosh-dflow_s1.wav",
+      "from": 0,
+      "length": 0.35,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 300
+        },
+        {
+          "type": "lowpass",
+          "f": 3800
+        }
+      ],
+      "env": {
+        "shape": "bell",
+        "decay": 0.2
+      }
+    }
+  ],
+  "finish": {
+    "room": {
+      "decay": 0.2,
+      "wet": 0.1
+    }
+  }
+}

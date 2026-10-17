@@ -1,0 +1,97 @@
+{
+  "spec": "smak.sound/1",
+  "sounds": [
+    {
+      "name": "ambience/fw_drips.wav",
+      "class": "loop drips",
+      "seed": 7,
+      "loop": {
+        "crossfade": 0.5
+      },
+      "layers": [
+        {
+          "id": "drips_a",
+          "kind": "sample",
+          "file": "work:gen/fw_drips_stable-audio-3-sfx_s0.wav",
+          "from": 0,
+          "length": 6,
+          "gain": 5,
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 700
+            },
+            {
+              "type": "lowpass",
+              "f": 2000,
+              "q": 0.7
+            }
+          ]
+        },
+        {
+          "id": "drips_b",
+          "kind": "sample",
+          "file": "work:gen/fw_drips_stable-audio-3-sfx_s1.wav",
+          "from": 0,
+          "length": 6,
+          "gain": 5,
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 700
+            },
+            {
+              "type": "lowpass",
+              "f": 2000,
+              "q": 0.7
+            }
+          ]
+        },
+        {
+          "id": "drips_c",
+          "kind": "sample",
+          "file": "work:gen/fw_drips_stable-audio-3-sfx_s2.wav",
+          "from": 0,
+          "length": 6,
+          "gain": 5,
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 700
+            },
+            {
+              "type": "lowpass",
+              "f": 2000,
+              "q": 0.7
+            }
+          ]
+        },
+        {
+          "id": "drips_d",
+          "kind": "sample",
+          "file": "work:gen/fw_drips_stable-audio-3-sfx_s3.wav",
+          "from": 0,
+          "length": 6,
+          "gain": 5,
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 700
+            },
+            {
+              "type": "lowpass",
+              "f": 2000,
+              "q": 0.7
+            }
+          ]
+        }
+      ],
+      "finish": {
+        "room": {
+          "decay": 0.9,
+          "wet": 0.4
+        }
+      }
+    }
+  ]
+}

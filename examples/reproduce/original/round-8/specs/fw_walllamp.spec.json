@@ -1,0 +1,99 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_walllamp.mdl",
+  "kind": "prop",
+  "size": {
+    "height": 24,
+    "length": 20,
+    "width": 16
+  },
+  "materials": {
+    "plate": {
+      "base": "steel"
+    },
+    "cage": {
+      "base": "mesh",
+      "cell": 2
+    },
+    "glass": {
+      "base": "glass",
+      "tone": [
+        1,
+        0.62,
+        0.22
+      ],
+      "flags": [
+        "fullbright"
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "plate",
+      "kind": "box",
+      "material": "plate",
+      "size": [
+        3,
+        16,
+        22
+      ],
+      "at": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "arm",
+      "kind": "box",
+      "material": "plate",
+      "size": [
+        8,
+        3,
+        3
+      ],
+      "at": [
+        1.5,
+        0,
+        15
+      ]
+    },
+    {
+      "id": "cage",
+      "kind": "cylinder",
+      "material": "cage",
+      "radius": 7.5,
+      "height": 14,
+      "sides": 8,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        4,
+        0,
+        11
+      ]
+    },
+    {
+      "id": "glass",
+      "kind": "cylinder",
+      "material": "glass",
+      "radius": 5.5,
+      "height": 12,
+      "sides": 8,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        5,
+        0,
+        11
+      ],
+      "finish": false
+    }
+  ]
+}

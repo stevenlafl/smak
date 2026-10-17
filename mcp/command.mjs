@@ -3,10 +3,11 @@
 // program that has them: nothing is written twice.
 //
 // Files are named as the other tools name them: `work:<name>` (a bare name is the work folder's), `models:<name>`,
-// `library:<name>`, and `game:<folder>` for one of the game folders the server was given (--wads). What a command
+// `library:<name>`, and `game:<folder>` (or `game:<folder>/<path>`, a file in it) for one of the game folders the server was given (--wads). What a command
 // writes (-o, --pictures) goes to the work folder only. A name outside the folders is refused before anything runs.
 // Under --no-run, an argument that would load code (a .mjs or .js file, a `layers` expression) is refused.
 import { join, basename } from "node:path";
+import { existsSync } from "node:fs";
 import { pathOf, filesUnder } from "./folders.mjs";
 import { runNode, endedAnswer, TIMEOUT_SECONDS, TIMEOUT_MOST_SECONDS, SHOWN_MOST } from "./run.mjs";
 import { KIT } from "./guide.mjs";
@@ -21,12 +22,20 @@ const NOT_HERE = { mcp: "this is the server", view: "a page that stays up: not a
 /** What loads code, refused under --no-run: a module given as a file, a `layers` expression. */
 const CODE = /\.(mjs|cjs|js)$/i;
 
-/** A game folder the server was given, by its name or its number in the list. */
+/**
+ * A game folder the server was given, by its name or its number in the list, or a path under one
+ * (`game:valve/models/headcrab.mdl`): a maker that named a file so was told there were no game folders.
+ */
 function gameFolder(folders, which) {
   const games = folders.wads ?? [];
-  const found = games.find((game) => basename(game) === which) ?? games[Number(which)];
-  if (!found) throw new Error(`game:${which}: the server's game folders are ${games.map((game, i) => `${i} ${basename(game)}`).join(", ") || "none (--wads)"}`);
-  return found;
+  const [head, ...rest] = which.split("/");
+  const found = games.find((game) => basename(game) === head) ?? (/^\d+$/.test(head) ? games[Number(head)] : undefined);
+  if (!found) throw new Error(`game:${which}: no game folder ${JSON.stringify(head)}; the server's are ${games.map((game, i) => `${i} ${basename(game)}`).join(", ") || "none (--wads)"}, named as game:<folder> or game:<folder>/<path under it>`);
+  if (!rest.length) return found;
+  if (rest.some((part) => part === ".." || part === "")) throw new Error(`game:${which}: a path under the folder, without ..`);
+  const path = join(found, ...rest);
+  if (!existsSync(path)) throw new Error(`game:${which}: not there (${rest.join("/")} under ${basename(found)})`);
+  return path;
 }
 
 /** One word of the command's, with the names in it resolved to the server's folders; `out`: it is written to. */

@@ -1,0 +1,487 @@
+{
+  "spec": "smak.map/1",
+  "name": "fw_control",
+  "wads": [
+    "fw.wad"
+  ],
+  "textures": {
+    "fw_concrete": {
+      "texture": "fw_concrete"
+    },
+    "fw_wetfloor": {
+      "texture": "fw_wetfloor"
+    },
+    "fw_door": {
+      "texture": "fw_door"
+    },
+    "fw_hazard": {
+      "texture": "fw_hazard"
+    },
+    "fw_pipes": {
+      "texture": "fw_pipes"
+    },
+    "fw_catwalk": {
+      "texture": "fw_catwalk"
+    },
+    "fw_rust": {
+      "texture": "fw_rust"
+    },
+    "fw_panel": {
+      "texture": "fw_panel"
+    },
+    "fw_tile": {
+      "texture": "fw_tile"
+    },
+    "water": {
+      "texture": "!fw_water"
+    }
+  },
+  "theme": {
+    "floor": "fw_tile",
+    "wall": "fw_panel",
+    "ceiling": "fw_concrete",
+    "door": "fw_door"
+  },
+  "rooms": [
+    {
+      "id": "control",
+      "size": [
+        960,
+        448,
+        256
+      ],
+      "light": "none"
+    },
+    {
+      "id": "viewroom",
+      "size": [
+        960,
+        320,
+        320
+      ],
+      "place": {
+        "south_of": "control"
+      },
+      "floor": -200,
+      "water": {
+        "depth": 128,
+        "material": "water"
+      },
+      "surfaces": {
+        "walls": "fw_pipes"
+      },
+      "light": "none"
+    },
+    {
+      "id": "shaft",
+      "size": [
+        256,
+        256,
+        256
+      ],
+      "place": {
+        "east_of": "control"
+      },
+      "surfaces": {
+        "walls": "fw_pipes"
+      },
+      "light": "none"
+    },
+    {
+      "id": "valve",
+      "size": [
+        160,
+        160,
+        240
+      ],
+      "place": {
+        "in": "shaft",
+        "offset": [
+          48,
+          48
+        ]
+      },
+      "floor": -240,
+      "surfaces": {
+        "floor": "fw_wetfloor",
+        "walls": "fw_pipes"
+      },
+      "light": "none"
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "control",
+        "viewroom"
+      ],
+      "kind": "window",
+      "along": 0.15,
+      "glass": true
+    },
+    {
+      "between": [
+        "control",
+        "viewroom"
+      ],
+      "kind": "window",
+      "along": 0.35,
+      "glass": true
+    },
+    {
+      "between": [
+        "control",
+        "viewroom"
+      ],
+      "kind": "window",
+      "along": 0.55,
+      "glass": true
+    },
+    {
+      "between": [
+        "control",
+        "viewroom"
+      ],
+      "kind": "window",
+      "along": 0.75,
+      "glass": true
+    },
+    {
+      "between": [
+        "control",
+        "shaft"
+      ],
+      "kind": "opening",
+      "width": 96,
+      "height": 128
+    }
+  ],
+  "ladders": [
+    {
+      "room": "valve",
+      "side": "north",
+      "along": 0.5,
+      "width": 32,
+      "height": 240
+    }
+  ],
+  "prefabs": {
+    "lift": {
+      "entity": {
+        "class": "func_plat",
+        "height": 240,
+        "speed": 100
+      },
+      "pieces": [
+        {
+          "box": [
+            [
+              -48,
+              -48,
+              0
+            ],
+            [
+              48,
+              48,
+              16
+            ]
+          ],
+          "texture": "fw_catwalk"
+        }
+      ]
+    },
+    "wheeltrig": {
+      "entity": {
+        "class": "trigger_once",
+        "target": "fw_end"
+      },
+      "pieces": [
+        {
+          "box": [
+            [
+              52,
+              -40,
+              0
+            ],
+            [
+              76,
+              40,
+              96
+            ]
+          ],
+          "texture": "fw_hazard"
+        }
+      ]
+    },
+    "pump": {
+      "pieces": [
+        {
+          "cylinder": {
+            "centre": [
+              0,
+              0
+            ],
+            "radius": 44,
+            "from": 0,
+            "to": 150,
+            "sides": 12
+          },
+          "texture": "fw_rust"
+        },
+        {
+          "box": [
+            [
+              -30,
+              -30,
+              150
+            ],
+            [
+              30,
+              30,
+              166
+            ]
+          ],
+          "texture": "fw_rust"
+        }
+      ]
+    }
+  },
+  "furniture": [
+    {
+      "prefab": "lift",
+      "room": "shaft",
+      "at": [
+        0,
+        0
+      ]
+    },
+    {
+      "prefab": "wheeltrig",
+      "room": "valve",
+      "at": [
+        0,
+        0
+      ]
+    },
+    {
+      "prefab": "pump",
+      "room": "viewroom",
+      "at": [
+        -300,
+        0
+      ]
+    },
+    {
+      "prefab": "pump",
+      "room": "viewroom",
+      "at": [
+        0,
+        0
+      ]
+    },
+    {
+      "prefab": "pump",
+      "room": "viewroom",
+      "at": [
+        300,
+        0
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "control",
+      "at": [
+        -380,
+        0
+      ],
+      "facing": "shaft"
+    },
+    {
+      "class": "info_landmark",
+      "id": "fw_lm_2",
+      "room": "control",
+      "at": [
+        -380,
+        0
+      ]
+    },
+    {
+      "class": "game_end",
+      "id": "fw_end",
+      "room": "valve",
+      "at": [
+        0,
+        0
+      ]
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "control",
+      "at": [
+        -160,
+        60
+      ],
+      "z": 0
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "control",
+      "at": [
+        180,
+        -40
+      ],
+      "z": 0
+    },
+    {
+      "class": "light",
+      "room": "control",
+      "at": [
+        -300,
+        0
+      ],
+      "z": 120,
+      "_light": "255 180 110 400"
+    },
+    {
+      "class": "light",
+      "room": "control",
+      "at": [
+        0,
+        0
+      ],
+      "z": 120,
+      "_light": "255 180 110 400"
+    },
+    {
+      "class": "light",
+      "room": "control",
+      "at": [
+        300,
+        0
+      ],
+      "z": 120,
+      "_light": "255 180 110 400"
+    },
+    {
+      "class": "light",
+      "room": "viewroom",
+      "at": [
+        -300,
+        100
+      ],
+      "z": 60,
+      "_light": "255 180 110 400"
+    },
+    {
+      "class": "light",
+      "room": "viewroom",
+      "at": [
+        300,
+        100
+      ],
+      "z": 60,
+      "_light": "255 180 110 400"
+    },
+    {
+      "class": "light",
+      "room": "shaft",
+      "at": [
+        80,
+        80
+      ],
+      "z": 120,
+      "_light": "255 180 110 400"
+    },
+    {
+      "class": "light",
+      "room": "valve",
+      "at": [
+        -50,
+        0
+      ],
+      "z": 120,
+      "_light": "255 180 110 400"
+    },
+    {
+      "class": "light",
+      "room": "valve",
+      "at": [
+        50,
+        0
+      ],
+      "z": 120,
+      "_light": "255 180 110 400"
+    }
+  ],
+  "props": [
+    {
+      "model": "models/fw_console.mdl",
+      "room": "control",
+      "at": [
+        -300,
+        -170
+      ],
+      "facing": "north",
+      "solid": true
+    },
+    {
+      "model": "models/fw_console.mdl",
+      "room": "control",
+      "at": [
+        0,
+        -170
+      ],
+      "facing": "north",
+      "solid": true
+    },
+    {
+      "model": "models/fw_console.mdl",
+      "room": "control",
+      "at": [
+        300,
+        -170
+      ],
+      "facing": "north",
+      "solid": true
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "control",
+      "at": "against north",
+      "facing": "south",
+      "z": 150
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "valve",
+      "at": [
+        -50,
+        0
+      ],
+      "facing": "east",
+      "z": 150
+    },
+    {
+      "model": "models/fw_valvewheel.mdl",
+      "room": "valve",
+      "at": [
+        60,
+        0
+      ],
+      "facing": "west",
+      "z": 100
+    },
+    {
+      "model": "models/fw_pipejunction.mdl",
+      "room": "valve",
+      "at": [
+        -60,
+        60
+      ],
+      "facing": "east",
+      "solid": true
+    }
+  ]
+}

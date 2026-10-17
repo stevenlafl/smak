@@ -40,6 +40,18 @@ await testAsync("command: the command line's commands on the server's folders, i
   sure(/runs no code/.test(await refused(() => noRun.call({ name: "layers", args: ["models:crate.mdl", "dark=lum<0.1", "--texture", "x"] }))), "a layers expression refused under --no-run");
 });
 
+await testAsync("command: game:<folder>/<path> names a file in a game folder; .. and a wrong folder are told", "mcp: command game", async () => {
+  const game = join(tmp, "command-game", "valve");
+  mkdirSync(join(game, "models"), { recursive: true });
+  writeFileSync(join(game, "models", "crate.mdl"), mdl);
+  const folders = { ...openFolders({ work, models }), wads: [game] };
+  const command = toolsFor(folders).find((t) => t.name === "command");
+  const info = await command.call({ name: "info", args: ["game:valve/models/crate.mdl", "--json"] });
+  sure(!info.isError && /"name": "crate.mdl"/.test(said(info)), said(info));
+  sure(/without \.\./.test(await refused(() => command.call({ name: "info", args: ["game:valve/../x.mdl"] }))), ".. refused");
+  sure(/no game folder "cstrike"; the server's are 0 valve, named as game:<folder> or game:<folder>\/<path under it>/.test(await refused(() => command.call({ name: "info", args: ["game:cstrike/models/x.mdl"] }))), "a wrong folder told by name");
+});
+
 await testAsync("file: a work file read back as words, a picture or a sound, and a text file written", "mcp: file", async () => {
   const folders = openFolders({ work, models });
   const file = toolsFor(folders).find((t) => t.name === "file");

@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_spit.spr: a sludge spit that splashes, animated",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 8,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 8,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0.065,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0.43,
+    "first": 0,
+    "last": 0
+   },
+   "dark": 0.97,
+   "wrap": 0.21,
+   "jitter": 1.68
+  },
+  "class": "explosion",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.68,
+    "range": [
+     1.04,
+     1.48
+    ],
+    "ok": false,
+    "words": "flickers: more coherence from frame to frame"
+   },
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.43,
+    "range": [
+     0.22,
+     0.71
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0,
+    "range": [
+     0,
+     0.22
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.03
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Reads as a sludge spit that splashes: frame 2 is a small blob, frames 3 to 5 spread into a splash with drip streaks falling below it, and frames 6 and 7 thin out. The brief's effect is there."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The frames are 32 by 32 as measured. The effect sits in the lower two-thirds of each frame and stays within about 12 by 12 dots at its largest (frames 3 to 4), which suits a spit. Nothing is cut off at the frame edges (border max 0.065, mean 0)."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Colour judged by eye: the bright frames (2 to 4) are a pale yellow-green that reads as sludge, and the streaks in frames 4 to 5 are a muted green-grey. It sits within the brief's green-grey palette, with no neon or blue."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The jitter measure is 1.68, outside the explosion class range of 1.04 to 1.48 (ok: false, 'flickers'). Visibly, the splash shape changes between frames 4, 5 and 6 (the streaks move around rather than thinning in place), so frame-to-frame coherence is short of the class. Peak at 0.43 (frame 3), first frame empty and last frame dark are all within the class range, and the frame count is 8, so the envelope is right and only the coherence is off."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The measured type is parallel and the format additive, which suits a glow that fades into the dark. Both are as written in the measurements and nothing is reported as failing. I could not read the .spr header itself here, only the harness's measures and the picture, so the read-back is taken from the measures."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

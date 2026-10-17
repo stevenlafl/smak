@@ -1,0 +1,166 @@
+{
+ "kind": "texture",
+ "label": "fw.wad, the mod's textures, judged as one set: a concrete wall, a wet concrete floor, a steel grate with holes, a catwalk floor, a pipe-covered wall, a hazard-striped trim, a rusted steel plate, a control panel with dials, a sodium lamp's face (lit), the water, a sign reading PUMP 3, a door",
+ "measured": {
+  "count": 13,
+  "least": 12,
+  "textures": [
+   {
+    "name": "fw_concrete",
+    "size": [
+     256,
+     256
+    ],
+    "detail": 22.7
+   },
+   {
+    "name": "fw_wetfloor",
+    "size": [
+     256,
+     256
+    ],
+    "detail": 18.1
+   },
+   {
+    "name": "{fw_grate",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 56.3
+   },
+   {
+    "name": "fw_catwalk",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 22.2
+   },
+   {
+    "name": "fw_pipes",
+    "size": [
+     256,
+     256
+    ],
+    "detail": 23.2
+   },
+   {
+    "name": "fw_hazard",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 96.6
+   },
+   {
+    "name": "fw_rust",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 20.6
+   },
+   {
+    "name": "fw_panel",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 19.7
+   },
+   {
+    "name": "~fw_lamp",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 21
+   },
+   {
+    "name": "!fw_water",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 3.1
+   },
+   {
+    "name": "fw_pump3",
+    "size": [
+     128,
+     64
+    ],
+    "detail": 45.2
+   },
+   {
+    "name": "fw_door",
+    "size": [
+     128,
+     256
+    ],
+    "detail": 6.6
+   },
+   {
+    "name": "fw_tile",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 28.3
+   }
+  ],
+  "halfLifeDetail": {
+   "least": 10.8,
+   "q1": 19.7,
+   "median": 30.1,
+   "q3": 45,
+   "most": 75,
+   "band": "T5's band is least to most, Half-Life's own from the 5th to the 95th in 100: fine detail inside it is Valve's own range (a quartile is no bound); under least reads smeared or flat, over most noisy. A texture the brief asks to be one plain colour is flat in Valve's too (its BLACK and YELLOW are 0): flat is right there, and T5 is 2"
+  }
+ },
+ "caps": {
+  "T6": 2
+ },
+ "scores": {
+  "T1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Most textures read as their material: fw_concrete (grey mottled), fw_wetfloor (grey-green), fw_hazard (yellow and black diagonal stripes), fw_pump3 (yellow with black 'PUMP 3' lettering), fw_door (green panelled door), fw_tile and fw_catwalk (grey plates). Three fall short. fw_pipes shows one horizontal pipe with rivets, not a pipe-covered wall. fw_panel is a dark screen with two orange discs and no switches or row of dials, so it reads only weakly as a control panel. fw_rust is tan and brown, reading more like wood panelling than rusted steel."
+  },
+  "T2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Colours match the brief's palette: grey concrete, grey-green wet floor, yellow hazard and pump sign, sodium orange lamp, green-grey water, dark green door and a steel grate in light grey. Nothing reads as neon or sci-fi. The colour check against the brief's words passes for each texture."
+  },
+  "T3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Panel and seam scale look plausible for a game wall: fw_tile and fw_catwalk have a grid of about 4 by 4 plates per 128 units, fw_pipes a rivet pattern on 256, fw_grate a regular 64-pixel bar-and-hole pattern, fw_door two raised panels per leaf. Nothing is out of proportion to a wall of Half-Life's."
+  },
+  "T4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "No seam is visible at the edges of fw_concrete, fw_wetfloor, fw_water, fw_rust, fw_tile, fw_catwalk or fw_hazard in the flat view. The repeat steps are no larger than the texture's own variation. fw_pipes and fw_door show their panel lines as part of the design, not as repeat seams."
+  },
+  "T5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Two textures sit below Half-Life's band, which runs from 10.8 to 75 of fine detail. fw_water measures 3.1 and reads smeared and flat, showing only faint vertical streaks. fw_door measures 6.6 and its wood grain is soft. fw_hazard measures 96.6, above the band, and is noisy at the pixel level. fw_grate is bright and flat-looking next to Valve's grates. The rest sit inside the band (fw_concrete 22.7, fw_pipes 23.2, fw_panel 19.7) and look believable."
+  },
+  "T6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Names and sizes follow the brief: fw_concrete 256, fw_wetfloor 256, {fw_grate 64, fw_catwalk 128, fw_pipes 256, fw_hazard 64, fw_rust 128, fw_panel 128, ~fw_lamp 128, !fw_water 128, fw_pump3 128x64, fw_door 128x256, fw_tile 128. The '{' grate shows dark gaps where the holes are. The '!' water is a liquid texture. The lamp face is lit, bright at its centre with an orange frame. There are no animation frames to check."
+  }
+ },
+ "total": 10,
+ "of": 12,
+ "passes": false
+}

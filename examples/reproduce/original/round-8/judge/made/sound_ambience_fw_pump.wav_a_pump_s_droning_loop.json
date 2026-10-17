@@ -1,0 +1,76 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_pump.wav: a pump's droning loop",
+ "measured": {
+  "features": {
+   "length": 2.5,
+   "peak": -0.5,
+   "rms": -12.3,
+   "crest": 11.8,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 1.502,
+   "peakAt": 2.489,
+   "t20": 0.015,
+   "t40": 0.015,
+   "centroid": 241,
+   "rolloff": 323,
+   "flatness": 0,
+   "bands": {
+    "<150": 8.5,
+    "150-600": 88.3,
+    "600-2k": 3.1,
+    "2k-5k": 0,
+    ">5k": 0
+   },
+   "onsets": 3
+  },
+  "class": "loop machine",
+  "against": {
+   "score": 20,
+   "of": 20,
+   "lines": []
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture shows a steady, low-weighted broadband drone with no event shape: energy sits in the lower part of the spectrogram at a constant level across the 2.5 s, which is what a pump's droning loop should look like. Judged from the picture and features only; the judge cannot listen."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length 2.5 s. Attack (t20) 0.015 s, and the envelope passes the class's range with no failing line (against 20 of 20). Note the envelope climbs toward the end: attack 1.502 s and peak at 2.489 s, so the loudest point sits at the loop seam. That is worth checking by ear, but it is not a measured fault."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid 241 Hz, rolloff 323 Hz. Bands: under 150 Hz 8.5%, 150-600 Hz 88.3%, 600-2k 3.1%, above 2k 0%. The spectrogram agrees: energy is concentrated in the lower part and nothing sits high. Within the class range by measure (against 20 of 20)."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Flatness reads 0 (tonal), but the spectrogram looks broadband and noise-like with no horizontal pitch line, so tone versus noise is unclear from the measures. Three onsets (waveform spikes, most visible toward the right edge) sit in what should be a steady drone. Not a must item, but the character is not clearly a pump's."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Name sound/ambience/fw_pump.wav is the path the game looks for. Clipped 0, DC 0, peak -0.5 dB, no lead or tail silence, engineFaults empty. Sample rate and bit depth are not in the measures; the empty fault list is the only evidence they are engine-valid. A loop cue is not reported, so whether the original has one is not checked."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

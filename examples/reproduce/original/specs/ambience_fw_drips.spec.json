@@ -1,97 +1,118 @@
 {
   "spec": "smak.sound/1",
-  "sounds": [
+  "name": "ambience/fw_drips.wav",
+  "class": "loop drips",
+  "seed": 11,
+  "length": 6,
+  "loop": {
+    "crossfade": 0.3
+  },
+  "layers": [
     {
-      "name": "ambience/fw_drips.wav",
-      "class": "loop drips",
-      "seed": 7,
-      "loop": {
-        "crossfade": 0.5
+      "id": "d1",
+      "kind": "tone",
+      "f": 900,
+      "wave": "sine",
+      "sweep": {
+        "to": 400,
+        "time": 0.2
       },
-      "layers": [
+      "at": 0.4,
+      "length": 0.25,
+      "env": {
+        "decay": 0.1
+      },
+      "gain": -4
+    },
+    {
+      "id": "d2",
+      "kind": "tone",
+      "f": 850,
+      "wave": "sine",
+      "sweep": {
+        "to": 380,
+        "time": 0.2
+      },
+      "at": 2.1,
+      "length": 0.25,
+      "env": {
+        "decay": 0.1
+      },
+      "gain": -6
+    },
+    {
+      "id": "d3",
+      "kind": "tone",
+      "f": 950,
+      "wave": "sine",
+      "sweep": {
+        "to": 420,
+        "time": 0.2
+      },
+      "at": 3.3,
+      "length": 0.25,
+      "env": {
+        "decay": 0.1
+      },
+      "gain": -2
+    },
+    {
+      "id": "d4",
+      "kind": "tone",
+      "f": 880,
+      "wave": "sine",
+      "sweep": {
+        "to": 390,
+        "time": 0.2
+      },
+      "at": 4,
+      "length": 0.25,
+      "env": {
+        "decay": 0.1
+      },
+      "gain": -7
+    },
+    {
+      "id": "d5",
+      "kind": "tone",
+      "f": 920,
+      "wave": "sine",
+      "sweep": {
+        "to": 410,
+        "time": 0.2
+      },
+      "at": 5.2,
+      "length": 0.25,
+      "env": {
+        "decay": 0.1
+      },
+      "gain": -5
+    },
+    {
+      "id": "bed",
+      "kind": "noise",
+      "color": "pink",
+      "at": 0,
+      "length": 6,
+      "env": {
+        "attack": 0.05,
+        "hold": 5.8,
+        "decay": 0.1
+      },
+      "filter": [
         {
-          "id": "drips_a",
-          "kind": "sample",
-          "file": "work:gen/fw_drips_stable-audio-3-sfx_s0.wav",
-          "from": 0,
-          "length": 6,
-          "gain": 5,
-          "filter": [
-            {
-              "type": "highpass",
-              "f": 700
-            },
-            {
-              "type": "lowpass",
-              "f": 2000,
-              "q": 0.7
-            }
-          ]
-        },
-        {
-          "id": "drips_b",
-          "kind": "sample",
-          "file": "work:gen/fw_drips_stable-audio-3-sfx_s1.wav",
-          "from": 0,
-          "length": 6,
-          "gain": 5,
-          "filter": [
-            {
-              "type": "highpass",
-              "f": 700
-            },
-            {
-              "type": "lowpass",
-              "f": 2000,
-              "q": 0.7
-            }
-          ]
-        },
-        {
-          "id": "drips_c",
-          "kind": "sample",
-          "file": "work:gen/fw_drips_stable-audio-3-sfx_s2.wav",
-          "from": 0,
-          "length": 6,
-          "gain": 5,
-          "filter": [
-            {
-              "type": "highpass",
-              "f": 700
-            },
-            {
-              "type": "lowpass",
-              "f": 2000,
-              "q": 0.7
-            }
-          ]
-        },
-        {
-          "id": "drips_d",
-          "kind": "sample",
-          "file": "work:gen/fw_drips_stable-audio-3-sfx_s3.wav",
-          "from": 0,
-          "length": 6,
-          "gain": 5,
-          "filter": [
-            {
-              "type": "highpass",
-              "f": 700
-            },
-            {
-              "type": "lowpass",
-              "f": 2000,
-              "q": 0.7
-            }
-          ]
+          "type": "bandpass",
+          "f": 700,
+          "q": 0.7
         }
       ],
-      "finish": {
-        "room": {
-          "decay": 0.9,
-          "wet": 0.4
-        }
-      }
+      "gain": -22
     }
-  ]
+  ],
+  "finish": {
+    "room": {
+      "decay": 0.2,
+      "wet": 0.1
+    }
+  }
 }

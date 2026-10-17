@@ -1,0 +1,87 @@
+{
+ "kind": "map",
+ "label": "maps/fw_control.bsp: the control room over the hall: consoles under windows onto the hall, a lift down to the valve room with the main valve wheel; two crawlers",
+ "measured": {
+  "size": [
+   1280,
+   824
+  ],
+  "sizeAsked": null,
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [],
+  "landmarks": [
+   "fw_lm_2"
+  ],
+  "itemsAsked": [
+   "monster_headcrab"
+  ],
+  "itemsFound": [
+   "monster_headcrab: 2"
+  ]
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Three areas exist (the large upper-left room, the lower room with three cylinders, and the small right-hand control block), but the joins are wrong. The brief puts the control room above the hall with windows onto it. In the plan the control block (x 787-983, y 110-305) sits beside the hall, not over it, and only a short passage at x 775-787 joins them. The lift (func_plat 5) is inside the control block and has no route to the lower room, which the brief calls the valve room."
+  },
+  "P2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The brief gives no sizes for this map, so the judge cannot check each area within 25%. The control block is about 255 units square, and it is placed beside the hall, not above it, so its place is off the brief's layout."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief's control room is above the hall. The plan shows it at the same plane beside the hall, with no overlap, and the views give no section. Only the lift (func_plat 5) implies a vertical change. The lower room's floor labels (-34, -200) do not show a storey that matches the brief's lift run down to the valve room."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The player start (16), two monster_headcrab (19, 20, matching the two crawlers asked), the lift (func_plat 5) and the landmark (fw_lm_2) are there. The main valve wheel is missing from the entity list, and the GAME_END (18) that should close the mod at it sits in the control block instead. The lift does not reach the lower room, so it is not joined to the valve room the brief names."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The walls are grey tile with orange squares and the floor is grey tile. The brief asks for concrete, a steel grate, a control panel with dials and rusted steel. The views show no concrete, grate or dial panel, so the surfaces do not read as the brief's materials."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Eight light entities (21-28) are placed, with two in the lower room (24, 25). The views show small ceiling lights, but the brief's sodium lamps with buzzing light are not clearly shown, and the bright and dark areas do not match the brief's control room."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "A console-like box with two dark screens appears in the yaw -90 view. The brief's row of windows onto the hall is absent: the yaw 90 wall has only dark recesses, and nothing looks down on the hall. The valve wheel, the grates and the lift's shaft are not visible."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements are clean: checkErrors and notReached are empty, reachWarnings is empty, the landmark is present and no changelevel is needed since this is the last map. The only item asked is the headcrab, and both are reached. The valve room's reach is not measured, so this item is passed on the measure alone."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From inside, the views (room 276, yaws 0 to -90) show a tiled corridor with orange squares, dark recesses and a red placeholder box. This is in Half-Life's industrial spirit, but a player would not recognise a control room with windows over a hall, a lift down to a valve wheel, or the brief's console and wheel."
+  }
+ },
+ "total": 10,
+ "of": 18,
+ "passes": false
+}

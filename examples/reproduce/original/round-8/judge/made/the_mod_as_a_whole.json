@@ -1,0 +1,94 @@
+{
+ "kind": "mod",
+ "label": "the mod as a whole",
+ "measured": {
+  "missing": [],
+  "failedChecks": [],
+  "chain": [
+   {
+    "map": "fw_yard",
+    "leadsTo": [
+     "fw_pumphall"
+    ],
+    "landmarks": [
+     "fw_lm_1"
+    ],
+    "asked": "fw_pumphall"
+   },
+   {
+    "map": "fw_pumphall",
+    "leadsTo": [
+     "fw_control"
+    ],
+    "landmarks": [
+     "fw_lm_1",
+     "fw_lm_2"
+    ],
+    "asked": "fw_control"
+   },
+   {
+    "map": "fw_control",
+    "leadsTo": [],
+    "landmarks": [
+     "fw_lm_2"
+    ],
+    "asked": null
+   }
+  ],
+  "shown": [
+   {
+    "file": "videos/fw_wrench.mp4",
+    "there": true,
+    "bytes": 197835
+   },
+   {
+    "file": "videos/fw_crawler.mp4",
+    "there": true,
+    "bytes": 179849
+   },
+   {
+    "file": "videos/fw_pumphall.mp4",
+    "there": true,
+    "bytes": 2597943
+   },
+   {
+    "file": "pictures/fw_props.png",
+    "there": true,
+    "bytes": 1017211
+   }
+  ]
+ },
+ "caps": {
+  "O1": 2,
+  "O2": 2
+ },
+ "scores": {
+  "O1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Every brief item is accounted for: the measurements list nothing missing and no failed SMAK checks. In the sheet, all five props (valve wheel, drum with hazard stripe, console, pipe junction, caged sodium lamp), the wrench and the crawler are present. The textures, sprites and sounds are not visible in the picture, so they rest on the measurement alone."
+  },
+  "O2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The chain measure reaches fw_yard to fw_pumphall (landmark fw_lm_1), then fw_pumphall to fw_control (landmark fw_lm_2), and fw_control ends the mod. Each change arrives where the last left. Nothing is reported missing. The check that every model, sprite and sound a map names is among the mod's files is not in the measurements, so this is scored on the walk test alone."
+  },
+  "O3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The props read as one family (grey-green steel, rust red, hazard yellow, sodium orange), and the map walls share a grey concrete look. But the props are bright and clean (the valve wheel's red is saturated, the lamp's glow is vivid), while the maps are dim and worn as the brief asks. The crawler's dark camo blotches on a green body do not match the rest of the sheet's materials. Judged from one sheet, the wear does not agree across props and maps."
+  },
+  "O4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief's videos (fw_wrench.mp4, fw_crawler.mp4, fw_pumphall.mp4) and the sheet of props (pictures/fw_props.png) are all present with non-trivial sizes. The sheet shows every prop, and the wrench and crawler are shown in the sheet too."
+  }
+ },
+ "total": 7,
+ "of": 8,
+ "passes": false
+}

@@ -1,0 +1,274 @@
+{
+  "spec": "smak.sound/1",
+  "sounds": [
+    {
+      "name": "weapons/cbar_hit1.wav",
+      "class": "metal hit",
+      "seed": 3,
+      "layers": [
+        {
+          "id": "click",
+          "kind": "noise",
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 2000
+            }
+          ],
+          "env": {
+            "decay": 0.012
+          },
+          "gain": 6
+        },
+        {
+          "id": "ring",
+          "kind": "modes",
+          "f": 900,
+          "ratios": "bar",
+          "decay": 0.6,
+          "damping": 1.2
+        }
+      ],
+      "finish": {
+        "saturate": 1.5,
+        "room": {
+          "decay": 0.35,
+          "wet": 0.15
+        },
+        "limit": {
+          "crest": 9,
+          "release": 0.002
+        }
+      }
+    },
+    {
+      "name": "weapons/cbar_miss1.wav",
+      "class": "swing",
+      "seed": 5,
+      "length": 0.4,
+      "layers": [
+        {
+          "id": "whoosh",
+          "kind": "noise",
+          "color": "pink",
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 120
+            },
+            {
+              "type": "lowpass",
+              "f": 1600,
+              "q": 0.7
+            }
+          ],
+          "env": {
+            "shape": "bell",
+            "decay": 0.3
+          }
+        }
+      ],
+      "finish": {
+        "limit": {
+          "crest": 9,
+          "release": 0.002
+        }
+      }
+    },
+    {
+      "name": "headcrab/hc_attack1.wav",
+      "class": "flesh hit",
+      "layers": [
+        {
+          "id": "bite",
+          "kind": "sample",
+          "file": "work:gen/fw_bite_stable-audio-3-sfx_s1.wav",
+          "from": "onset",
+          "length": 0.4,
+          "env": {
+            "attack": 0.002,
+            "decay": 0.25
+          },
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 150
+            },
+            {
+              "type": "lowpass",
+              "f": 1600,
+              "q": 0.7
+            }
+          ]
+        }
+      ],
+      "finish": {
+        "room": {
+          "decay": 0.25,
+          "wet": 0.12
+        },
+        "limit": {
+          "crest": 9,
+          "release": 0.002
+        }
+      }
+    },
+    {
+      "name": "headcrab/hc_pain1.wav",
+      "class": "flesh hit",
+      "layers": [
+        {
+          "id": "pain",
+          "kind": "sample",
+          "file": "work:gen/fw_pain_stable-audio-3-sfx_s2.wav",
+          "from": "onset",
+          "length": 0.45,
+          "env": {
+            "attack": 0.002,
+            "decay": 0.4
+          },
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 1500
+            }
+          ]
+        }
+      ],
+      "finish": {
+        "room": {
+          "decay": 0.25,
+          "wet": 0.12
+        },
+        "limit": {
+          "crest": 12,
+          "release": 0.002
+        }
+      }
+    },
+    {
+      "name": "ambience/fw_pump.wav",
+      "class": "loop machine",
+      "loop": {
+        "crossfade": 0.5
+      },
+      "layers": [
+        {
+          "id": "pump",
+          "kind": "sample",
+          "file": "work:gen/fw_pump_stable-audio-3-sfx_s1.wav",
+          "from": 0,
+          "length": 3,
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 180
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ambience/fw_drips.wav",
+      "class": "loop drips",
+      "loop": {
+        "crossfade": 0.5
+      },
+      "layers": [
+        {
+          "id": "drips_a",
+          "kind": "sample",
+          "file": "work:gen/fw_drips_stable-audio-3-sfx_s0.wav",
+          "from": 0,
+          "length": 6,
+          "gain": 5,
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 700
+            },
+            {
+              "type": "lowpass",
+              "f": 2000,
+              "q": 0.7
+            }
+          ]
+        },
+        {
+          "id": "drips_b",
+          "kind": "sample",
+          "file": "work:gen/fw_drips_stable-audio-3-sfx_s1.wav",
+          "from": 0,
+          "length": 6,
+          "gain": 5,
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 700
+            },
+            {
+              "type": "lowpass",
+              "f": 2000,
+              "q": 0.7
+            }
+          ]
+        },
+        {
+          "id": "drips_c",
+          "kind": "sample",
+          "file": "work:gen/fw_drips_stable-audio-3-sfx_s2.wav",
+          "from": 0,
+          "length": 6,
+          "gain": 5,
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 700
+            },
+            {
+              "type": "lowpass",
+              "f": 2000,
+              "q": 0.7
+            }
+          ]
+        },
+        {
+          "id": "drips_d",
+          "kind": "sample",
+          "file": "work:gen/fw_drips_stable-audio-3-sfx_s3.wav",
+          "from": 0,
+          "length": 6,
+          "gain": 5,
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 700
+            },
+            {
+              "type": "lowpass",
+              "f": 2000,
+              "q": 0.7
+            }
+          ]
+        },
+        {
+          "id": "bed",
+          "kind": "noise",
+          "color": "pink",
+          "gain": -22,
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 400
+            },
+            {
+              "type": "lowpass",
+              "f": 1800,
+              "q": 0.7
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

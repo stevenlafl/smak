@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_steam.spr: a steam puff that rises and thins, animated",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 12,
+  "type": "parallel",
+  "format": "index alpha",
+  "measures": {
+   "frames": 12,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0.122,
+    "mean": 0.001
+   },
+   "envelope": {
+    "peakAt": 0.36,
+    "first": 0.03,
+    "last": 0
+   },
+   "dark": 0.84,
+   "wrap": 0.28,
+   "jitter": 1.32
+  },
+  "class": "smoke puff",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.32,
+    "range": [
+     0.9,
+     1.5
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0.001,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.36,
+    "range": [
+     0.2,
+     0.6
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0.03,
+    "range": [
+     0,
+     0.35
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.1
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Reads as steam: a pale grey-white plume that starts faint in frame 0, builds to its strongest in frames 3 to 5, then thins and fades out by frames 10 and 11. The effect is the one the brief asks for, a steam puff that rises and thins."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frames are 64 by 64, as measured, but the plume is a narrow vertical column about 15 to 20 px wide down the centre of each tile (every frame). It does not spread to fill the frame as a puff would, so the shape is off in every frame."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The colour is a neutral pale grey to white against the grey background, close to what a steam sprite blends to. Judged by eye, nothing in the frames contradicts it."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The measures pass: 12 frames, the envelope peaks at 0.36 (frame 4), first 0.03, last 0, and jitter 1.32, all within the class ranges. But the motion does not read as rising. The plume stays in roughly the same place across frames 1 to 9, sliding only slightly, so the 'rises' part of the brief is not clearly shown. It thins and fades as asked."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The type is 'parallel', but the brief's slot is steam1, which is 'parallel oriented'. This is the same type fault the amendment of 2026-10-16 records for steam1 and fire, and it fails R5 on type. The name fw_steam.spr is new and the format is index alpha, which is right."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

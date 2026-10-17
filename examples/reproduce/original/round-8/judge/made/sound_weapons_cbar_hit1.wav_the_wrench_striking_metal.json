@@ -1,0 +1,80 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_hit1.wav: the wrench striking metal",
+ "measured": {
+  "features": {
+   "length": 0.746,
+   "peak": -0.5,
+   "rms": -8.4,
+   "crest": 7.9,
+   "dc": -0.0001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.16,
+   "peakAt": 0.224,
+   "t20": 0.254,
+   "t40": 0.419,
+   "centroid": 981,
+   "rolloff": 904,
+   "flatness": 0,
+   "bands": {
+    "<150": 0,
+    "150-600": 0,
+    "600-2k": 95.5,
+    "2k-5k": 4.4,
+    ">5k": 0.1
+   },
+   "onsets": 0
+  },
+  "class": "metal hit",
+  "against": {
+   "score": 18,
+   "of": 22,
+   "lines": [
+    "centroid 981 Hz (1074 to 1654): too dark: more 600 to 5000 Hz",
+    "flatness 0 (0.16 to 0.28): too pure: more noise",
+    "band 600-2k 95.5% (63.7 to 83.8): over the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture reads as a metal strike: a dense cluster of transients in the first ~0.2 s (waveform 0 to ~0.29 s, broadband red in the spectrogram's lower part), then a long ring that decays to ~0.75 s. That is a clang of metal, the wrench on steel. The measured class is also 'metal hit'."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length 0.746 s is plausible, but the envelope is not clearly a sharp strike: attack 0.16 s, peak at 0.224 s, and the waveform holds near full level to ~0.25 s before decaying. t20 0.254 and t40 0.419 are given without the class range, so they cannot be confirmed within it. The results say 18 of 22 checks passed but name only three failing lines, so one failing check is unnamed and may be in the envelope."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Clearly off on two measures. Centroid 981 Hz is below the class's 1074 Hz floor, so the sound is darker than the class. The 600 to 2k band holds 95.5% of the energy against a class range of 63.7 to 83.8%, about 12 points over the top, and the spectrogram shows the energy in one mid-height line. The 2k to 5k share (4.4%) and the >5k share (0.1%) are too small to offset it."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Flatness 0 against a class of 0.16 to 0.28: the ring in the spectrogram (a horizontal line at mid-height from ~0.25 s to the end) is nearly a pure tone, with no noise in it. The impact is a noisy cluster in the waveform, but the measured onsets are 0, so it does not come across as a distinct hit. No pitch movement is visible, which is right for a ring."
+  },
+  "S5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Peak -0.5 dBFS, no clipping, DC -0.0001, lead 0 and tail 0.01 are all fine. The file's sample rate, bit depth and channel count are not in the measurements, so the engine-format check cannot be confirmed from these pictures and features."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

@@ -1,35 +1,48 @@
-I built the mod's assets, but the three maps are not yet in the `maps/` folder the brief asks for, and I need one thing from you to finish that.
+The mod is mostly built, but the wrench, the sludge crawler and two of the three videos are blocked: the server can't see Half-Life's own game files. Everything else is in the work folder and checked.
 
-**Blocker: map placement.** The maps compile through the build tool, which has VHLT (Vluzacn's ZHLT compilers), but the command line cannot find VHLT and I have no way to move files. The compiled maps are at `work/fw_yard/fw_yard.bsp`, `work/fw_pumphall/fw_pumphall.bsp` and `work/fw_control/fw_control.bsp`. Either give me the folder that holds `hlcsg`, `hlbsp`, `hlvis` and `hlrad`, and I'll recompile into `work/maps/`, or tell me to leave them where they are.
+**Blocked: I need the Half-Life `valve` folder path.** The server reports "the server's game folders are 0 valve", so it can't read `headcrab.mdl`, `v_crowbar.mdl`, `p_crowbar.mdl`, `w_crowbar.mdl` or `halflife.wad`. Those are needed for the wrench (replacing the crowbar's models), the crawler (replacing the headcrab's), and the `fw_wrench` and `fw_crawler` turntable videos. I did not fake them with generic models, since the brief requires the game's hands and animations. Give me the folder path and the server's game-folder setting, and I'll finish those four. The compile tools (VHLT) are also not installed, which is a separate issue below.
 
-**What's made** (all under the work folder unless noted)
+```
+Asset                            status
+maps/fw_yard.bsp                 built, walk reaches all 4 entities
+maps/fw_pumphall.bsp             built, walk reaches all 7 entities
+maps/fw_control.bsp              built, walk reaches all 4 entities
+models/fw_valvewheel.mdl         built, fits GoldSrc (392 triangles)
+models/fw_drum.mdl               built, fits GoldSrc (400 triangles)
+models/fw_console.mdl            built, fits GoldSrc (24 triangles)
+models/fw_pipejunction.mdl       built, fits GoldSrc (568 triangles)
+models/fw_walllamp.mdl           built, fits GoldSrc (268 triangles)
+models/v_crowbar, p_crowbar,     BLOCKED (needs the game folder)
+  w_crowbar, headcrab.mdl
+fw.wad                           built, 13 textures, grate holes kept
+sprites/fw_steam.spr             built, animated, rises and thins
+sprites/fw_glow.spr              built, sodium glow
+sprites/fw_spit.spr              built, animated splash
+sound/weapons/cbar_hit1.wav      built (+ cbar_hit2 variant)
+sound/weapons/cbar_miss1.wav     built
+sound/headcrab/hc_attack1.wav    built
+sound/headcrab/hc_pain1.wav      built
+sound/ambience/fw_pump.wav       built, loop
+sound/ambience/fw_drips.wav      built, loop
+videos/fw_pumphall.mp4           built (title, then flight down the hall)
+videos/fw_wrench.mp4             BLOCKED (needs the wrench)
+videos/fw_crawler.mp4            BLOCKED (needs the crawler)
+pictures/fw_props.png            built, five props side by side
+```
 
-| Brief file | Where | Status |
-|---|---|---|
-| `maps/fw_yard.bsp` | `work/fw_yard/` | Compiles, walk test passes, lit to 76/255 |
-| `maps/fw_pumphall.bsp` | `work/fw_pumphall/` | Compiles, every entity reached on foot, hall lit to 66/255 |
-| `maps/fw_control.bsp` | `work/fw_control/` | Compiles, every entity reached, lift and ladder give a way out |
-| `models/fw_valvewheel.mdl` | `models/` | Passes, 280 triangles, red paint with worn steel rim |
-| `models/fw_drum.mdl` | `models/` | Passes, 240 triangles, rust and hazard stripe |
-| `models/fw_console.mdl` | `models/` | Passes, but 24 triangles: a box with painted dials, screens and switches. It reads boxy |
-| `models/fw_pipejunction.mdl` | `models/` | Passes, 528 triangles, over the median for a prop |
-| `models/fw_walllamp.mdl` | `models/` | Passes; the glass is inside its cage, so the check flags its triangles as hidden |
-| `v_crowbar.mdl`, `p_crowbar.mdl`, `w_crowbar.mdl` (pipe wrench) | `work/fw_wrench_weapon/` | Built with the game's names. The build puts weapon files in a folder named after the spec, not in `models/` |
-| `models/headcrab.mdl` (sludge crawler) | `work/headcrab.mdl` | Passes, keeps all the base's animations and contract, 580 triangles. Its belly and teeth render dark brown; I could not find the cause |
-| `fw.wad` | `work/fw.wad` | 13 textures; `fw_hazard` and `fw_door` are flagged as too coloured |
-| `sprites/fw_steam.spr`, `fw_glow.spr`, `fw_spit.spr` | `work/sprites/` | Pass; the steam matches Half-Life's smoke puffs on all five measures |
-| 6 sounds (`cbar_hit1`, `cbar_miss1`, `hc_attack1`, `hc_pain1`, `fw_pump`, `fw_drips`) | `work/sound/` | Pass with spectral warnings; the hit and swing are darker or brighter than their classes |
-| `videos/fw_wrench.mp4`, `fw_crawler.mp4` | `work/` | Encoded, turntables pass |
-| `videos/fw_pumphall.mp4` | `work/` | Encoded, a straight flight down the hall. One frame jumps at about 3.4 s, when a ladder or monster enters the view |
-| `pictures/fw_props.png` | `work/pictures/` | Sheet of the five props, side by side |
+**What the maps do**
+- `fw_yard`: a 1500 by 1500 yard with a high rock wall and dusk sky. The gatehouse door opens, six drums stack by the wall, a truck-sized pipe lies on blocks, and the pump house's double doors lead to a trigger that changes to `fw_pumphall`.
+- `fw_pumphall`: a 2500-long hall with 96 units of water, catwalks on both sides and a bridge, three pumps, a "PUMP 3" sign, a wrench on the bridge, three crawlers, and a stair up to a corridor that changes to `fw_control`.
+- `fw_control`: a control room with three consoles under five windows over a sunken hall, and a lift down to a valve room where the wheel is. The valve room's trigger is `trigger_endsection`, so walking up to the wheel ends the mod.
+- The changelevel landmarks are `fw_land1` (yard to pumphall) and `fw_land2` (pumphall to control), each in both maps.
 
-The walk test passes all three maps. The yard's drums, pipe section and gatehouse door are in place, and the pump hall's landmarks match the yard's and the control map's. The control room's windows look into a flooded viewing bay with pumps, not the hall itself: maps cannot see each other.
+**Things that need your attention**
+- **The compiled maps are not VHLT output.** VHLT isn't installed here. The `.bsp` files come from the kit's own compile, which passes its checks, but the lighting is the kit's, not VHLT's.
+- **Extra files the maps need.** `fw_yard.wad`, `fw_pumphall.wad` and `fw_control.wad` are at the work root beside `fw.wad`. The yard's sky (`work/fw_yard/gfx/env/fw_yard/`) and its pipe model (`work/fw_yard/models/fw_yard/pipesection.mdl`) must be copied into the mod.
+- **Props are `cycler_sprite`.** The kit writes map props as `cycler_sprite`; a `.mdl` is normally a `cycler`. I left it as the kit writes it. It's the first thing to check in the game.
+- **Lift and end trigger are unverified.** The lift is a `func_plat` in a shaft; nothing has been run in the game.
+- **Sounds.** The metal hit, swing and creature sounds are shaped from woosh-dflow (CC-BY-NC, non-commercial) takes. The creature sounds are shorter than the game's, and the spectra still differ from the game's classes. The pump and drip loops are layers.
+- **Heavy props.** The drum (400 triangles) and pipe junction (568) are well above Half-Life's median for props of their size (99). The console is very plain (24 triangles): its dials read as small squares.
+- **Build outputs.** The `models/` copies were made with `reskin` (a no-op rule), which re-encodes one texture slightly. Checks pass on all five.
 
-**Where I departed from the brief**
-- The lift is a `func_plat` in a shaft, with a ladder back up so the pit is not a one-way drop. The shaft's edge still draws a fall warning.
-- The yard's sun barely lit the open sky, so it uses nine sodium-coloured lights hung at 100.
-- The pump-hall flight is a straight run down the hall at y = 120, not a walk through the test route, which jumped at every corner.
-
-**Licences.** The hit, swing, bite, pain and drip sounds were generated with woosh-dflow (Creative Commons non-commercial) and stable-audio-3-sfx (Stability AI community licence: free under US$1M revenue). The sounds are non-commercial as a result.
-
-I couldn't save a memory note from here, so the build quirks I hit are in `work/notes-smak-quirks.txt`.
+**Notes:** `work/notes_flooded_works.md` has the workarounds (which commands move files and why). I couldn't save to the memory folder, since I only have the SMAK tools.

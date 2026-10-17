@@ -1,0 +1,552 @@
+{
+  "spec": "smak.map/1",
+  "name": "fw_pumphall",
+  "wads": [
+    "fw.wad"
+  ],
+  "textures": {
+    "fw_concrete": {
+      "texture": "fw_concrete"
+    },
+    "fw_wetfloor": {
+      "texture": "fw_wetfloor"
+    },
+    "fw_door": {
+      "texture": "fw_door"
+    },
+    "fw_hazard": {
+      "texture": "fw_hazard"
+    },
+    "fw_pipes": {
+      "texture": "fw_pipes"
+    },
+    "fw_catwalk": {
+      "texture": "fw_catwalk"
+    },
+    "fw_rust": {
+      "texture": "fw_rust"
+    },
+    "water": {
+      "texture": "!fw_water"
+    }
+  },
+  "theme": {
+    "floor": "fw_wetfloor",
+    "wall": "fw_concrete",
+    "ceiling": "fw_concrete",
+    "door": "fw_door"
+  },
+  "rooms": [
+    {
+      "id": "hall",
+      "size": [
+        2600,
+        900,
+        320
+      ],
+      "water": {
+        "depth": 128,
+        "material": "water"
+      },
+      "surfaces": {
+        "walls": "fw_pipes"
+      },
+      "light": "none"
+    },
+    {
+      "id": "landing",
+      "size": [
+        192,
+        256,
+        192
+      ],
+      "place": {
+        "west_of": "hall"
+      }
+    },
+    {
+      "id": "corridor",
+      "size": [
+        640,
+        384,
+        320
+      ],
+      "place": {
+        "east_of": "hall"
+      },
+      "floor": 176
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "landing",
+        "hall"
+      ],
+      "kind": "opening",
+      "width": 96,
+      "height": 128
+    },
+    {
+      "between": [
+        "hall",
+        "corridor"
+      ],
+      "kind": "opening",
+      "width": 96,
+      "height": 128
+    }
+  ],
+  "ladders": [
+    {
+      "room": "hall",
+      "side": "north",
+      "along": 0.3,
+      "width": 32,
+      "height": 184
+    },
+    {
+      "room": "hall",
+      "side": "south",
+      "along": 0.7,
+      "width": 32,
+      "height": 184
+    }
+  ],
+  "prefabs": {
+    "catwalk": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -1050,
+              -48,
+              168
+            ],
+            [
+              1050,
+              48,
+              176
+            ]
+          ],
+          "texture": "fw_catwalk"
+        }
+      ]
+    },
+    "bridge": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -48,
+              -380,
+              168
+            ],
+            [
+              48,
+              380,
+              176
+            ]
+          ],
+          "texture": "fw_catwalk"
+        }
+      ]
+    },
+    "pump": {
+      "pieces": [
+        {
+          "cylinder": {
+            "centre": [
+              0,
+              0
+            ],
+            "radius": 44,
+            "from": 0,
+            "to": 150,
+            "sides": 12
+          },
+          "texture": "fw_rust"
+        },
+        {
+          "box": [
+            [
+              -30,
+              -30,
+              150
+            ],
+            [
+              30,
+              30,
+              166
+            ]
+          ],
+          "texture": "fw_rust"
+        }
+      ]
+    },
+    "exit": {
+      "entity": {
+        "class": "trigger_changelevel",
+        "map": "fw_control",
+        "landmark": "fw_lm_2"
+      },
+      "pieces": [
+        {
+          "box": [
+            [
+              -32,
+              -64,
+              0
+            ],
+            [
+              32,
+              64,
+              96
+            ]
+          ],
+          "texture": "fw_hazard"
+        }
+      ]
+    }
+  },
+  "furniture": [
+    {
+      "prefab": "catwalk",
+      "room": "hall",
+      "at": [
+        -250,
+        360
+      ]
+    },
+    {
+      "prefab": "catwalk",
+      "room": "hall",
+      "at": [
+        -250,
+        -360
+      ]
+    },
+    {
+      "prefab": "bridge",
+      "room": "hall",
+      "at": [
+        0,
+        0
+      ]
+    },
+    {
+      "prefab": "pump",
+      "room": "hall",
+      "at": [
+        -900,
+        0
+      ]
+    },
+    {
+      "prefab": "pump",
+      "room": "hall",
+      "at": [
+        0,
+        0
+      ]
+    },
+    {
+      "prefab": "pump",
+      "room": "hall",
+      "at": [
+        900,
+        0
+      ]
+    },
+    {
+      "prefab": "exit",
+      "room": "corridor",
+      "at": [
+        250,
+        0
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "landing",
+      "at": [
+        0,
+        0
+      ],
+      "facing": "hall"
+    },
+    {
+      "class": "info_landmark",
+      "id": "fw_lm_1",
+      "room": "landing",
+      "at": [
+        -40,
+        0
+      ]
+    },
+    {
+      "class": "info_landmark",
+      "id": "fw_lm_2",
+      "room": "corridor",
+      "at": [
+        200,
+        0
+      ]
+    },
+    {
+      "class": "weapon_crowbar",
+      "room": "hall",
+      "at": [
+        -1000,
+        360
+      ],
+      "z": 190
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "hall",
+      "at": [
+        -600,
+        -150
+      ],
+      "z": 0
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "hall",
+      "at": [
+        400,
+        200
+      ],
+      "z": 0
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "hall",
+      "at": [
+        700,
+        -250
+      ],
+      "z": 0
+    },
+    {
+      "class": "light",
+      "room": "hall",
+      "at": [
+        -900,
+        -250
+      ],
+      "z": 200,
+      "_light": "255 180 110 400"
+    },
+    {
+      "class": "light",
+      "room": "hall",
+      "at": [
+        -300,
+        -250
+      ],
+      "z": 200,
+      "_light": "255 180 110 400"
+    },
+    {
+      "class": "light",
+      "room": "hall",
+      "at": [
+        300,
+        -250
+      ],
+      "z": 200,
+      "_light": "255 180 110 400"
+    },
+    {
+      "class": "light",
+      "room": "hall",
+      "at": [
+        900,
+        -250
+      ],
+      "z": 200,
+      "_light": "255 180 110 400"
+    },
+    {
+      "class": "light",
+      "room": "hall",
+      "at": [
+        -900,
+        250
+      ],
+      "z": 200,
+      "_light": "255 180 110 400"
+    },
+    {
+      "class": "light",
+      "room": "hall",
+      "at": [
+        -300,
+        250
+      ],
+      "z": 200,
+      "_light": "255 180 110 400"
+    },
+    {
+      "class": "light",
+      "room": "hall",
+      "at": [
+        300,
+        250
+      ],
+      "z": 200,
+      "_light": "255 180 110 400"
+    },
+    {
+      "class": "light",
+      "room": "hall",
+      "at": [
+        900,
+        250
+      ],
+      "z": 200,
+      "_light": "255 180 110 400"
+    }
+  ],
+  "sounds": [
+    {
+      "spec": {
+        "spec": "smak.sound/1",
+        "name": "fw_pump.wav",
+        "class": "loop machine",
+        "loop": {
+          "crossfade": 0.5
+        },
+        "layers": [
+          {
+            "id": "pump",
+            "kind": "sample",
+            "file": "work/gen/fw_pump_stable-audio-3-sfx_s1.wav",
+            "from": 0,
+            "length": 3,
+            "filter": [
+              {
+                "type": "highpass",
+                "f": 180
+              }
+            ]
+          }
+        ]
+      },
+      "room": "hall",
+      "at": [
+        0,
+        -300
+      ],
+      "z": 100,
+      "volume": 6,
+      "radius": "large"
+    },
+    {
+      "spec": {
+        "spec": "smak.sound/1",
+        "name": "fw_drips.wav",
+        "class": "loop drips",
+        "loop": {
+          "crossfade": 0.5
+        },
+        "layers": [
+          {
+            "id": "drips_a",
+            "kind": "sample",
+            "file": "work/gen/fw_drips_stable-audio-3-sfx_s0.wav",
+            "from": 0,
+            "length": 6,
+            "gain": 5,
+            "filter": [
+              {
+                "type": "highpass",
+                "f": 700
+              },
+              {
+                "type": "lowpass",
+                "f": 2000,
+                "q": 0.7
+              }
+            ]
+          },
+          {
+            "id": "drips_b",
+            "kind": "sample",
+            "file": "work/gen/fw_drips_stable-audio-3-sfx_s1.wav",
+            "from": 0,
+            "length": 6,
+            "gain": 5,
+            "filter": [
+              {
+                "type": "highpass",
+                "f": 700
+              },
+              {
+                "type": "lowpass",
+                "f": 2000,
+                "q": 0.7
+              }
+            ]
+          },
+          {
+            "id": "drips_c",
+            "kind": "sample",
+            "file": "work/gen/fw_drips_stable-audio-3-sfx_s2.wav",
+            "from": 0,
+            "length": 6,
+            "gain": 5,
+            "filter": [
+              {
+                "type": "highpass",
+                "f": 700
+              },
+              {
+                "type": "lowpass",
+                "f": 2000,
+                "q": 0.7
+              }
+            ]
+          },
+          {
+            "id": "drips_d",
+            "kind": "sample",
+            "file": "work/gen/fw_drips_stable-audio-3-sfx_s3.wav",
+            "from": 0,
+            "length": 6,
+            "gain": 5,
+            "filter": [
+              {
+                "type": "highpass",
+                "f": 700
+              },
+              {
+                "type": "lowpass",
+                "f": 2000,
+                "q": 0.7
+              }
+            ]
+          }
+        ],
+        "finish": {
+          "room": {
+            "decay": 0.9,
+            "wet": 0.4
+          }
+        }
+      },
+      "room": "hall",
+      "at": [
+        -600,
+        300
+      ],
+      "z": 60,
+      "volume": 4,
+      "radius": "medium"
+    }
+  ]
+}

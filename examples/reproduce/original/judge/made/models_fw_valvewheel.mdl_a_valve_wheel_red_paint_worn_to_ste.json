@@ -4,20 +4,20 @@
  "measured": {
   "size": [
    13,
-   31.9,
-   31.8
+   32,
+   33
   ],
   "sizeAsked": {
    "across": 32
   },
-  "sizeOff": 0.002,
-  "triangles": 280,
+  "sizeOff": 0.001,
+  "triangles": 392,
   "halfLifeMedianOfItsKind": 99,
   "halfLifeThreeQuartersUnder": 156,
   "halfLifeMost": 422,
   "checkErrors": [],
-  "lineup": "the asset is one of A to D in lineup.png beside models/snapbug.mdl, models/w_crowbar.mdl, models/w_longjump.mdl",
-  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, B, C, B where the asset was C, A, B, D: passed for one of the game's"
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_longjump.mdl, models/rip.mdl, models/uplant1.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, D, A, C where the asset was C, A, B, D: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
@@ -26,55 +26,55 @@
  },
  "scores": {
   "M1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "The outline is a valve handwheel: a ring of about twelve facets, four radial spokes meeting at a central hub, and a shaft stub, the same outline in front, back, and both side views. No part is missing or sticks out where the brief gives no other form."
+   "score": 1,
+   "reason": "The wheel's outline matches the brief's words: a round rim with six spokes from a hub, 32 across. A rusted post on a flat base is added behind and below it (front, left, back, right and below views). The brief asks for a wheel alone, and the post sticks out of the wheel's outline in the left, right and back views and in the below view."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured 31.9 by 31.8 across the wheel and 13 deep, against 32 across asked: within 0.2%."
+   "reason": "Measured 32 across against the 32 the brief gives (sizeOff 0.001). Height 33 and depth 13 come with the post, so they are not checked against the brief."
   },
   "M3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Parts the brief implies: rim, four spokes (the front view shows two crossing bars), a hub, and the shaft through the hub, which shows as the grey stub in the left and right views. Each spoke meets the rim at four points, and the rim has the same facet count in every view. Nothing is missing. The rim's facet count is not stated in the brief, so no shape item is charged."
+   "reason": "The parts a valve wheel needs are all there: a rim (a ring of about 14 sides, grey steel), six red spokes running from rim to hub, and a red hub at the centre. Small rim joints show as silver nubs at the right and back-left edges of the rim. The rusted post is not a part the brief names, so it is charged under M1, not here."
   },
   "M4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Red paint on the rim and spokes, bare grey steel on the hub and shaft, as the brief asks. The rim shows grey on several outer edge facets, which is the paint worn to steel where the brief places it."
+   "reason": "The brief's red paint is on the spokes and hub, and the rim is bare grey steel, which is what worn-to-steel means here. Colours are the same hues across views, with no stray colour on any region."
   },
   "M5": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The worn steel at the rim is there but reads as thin bright edge streaks on a few facets (front view, upper left and right; back view the same). It does not read as worn-through patches of paint, so the wear the brief names is faint."
+   "score": 2,
+   "reason": "The wear the brief asks for is there: the rim reads as bare steel with a sheen, and the spokes stay red and meet it at the rim. Rust mottling on the post and speckle on the spokes sit at a sharpness close to the other textures."
   },
   "M6": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Held at the cap the line-up sets: in the four readings the judges picked D, B, C, B where the asset was C, A, B, D. None picked the asset, so the test passed for one of the game's."
+   "reason": "Capped at 2 by the line-up test: over four readings, each in its own order, judges never picked the asset as the one not made by Valve (picked D, D, A, C where the asset was at C, A, B, D)."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Upright in the front view with the wheel face toward the front; in the below and top views it is a flat bar, so it stands on its plane as a wheel on an axis. The hub is at the centre, which is where the origin sits for a valve wheel."
+   "reason": "The wheel's face is the front, upright, with spokes and hub facing the viewer. The post's flat base sits on the origin and the object stands on it."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Checks pass and the solid is closed in every view that shows it. The 280 triangles are under the 422 most Valve spends on a prop of this size, so the triangle budget is met. Nothing shows open, inside out, or floating."
+   "reason": "SMAK's check reports no errors. At 392 triangles it is under the 422 that Half-Life's most-spending prop of this size uses, and under twice the median of 99. The rim, spokes and column all read closed in the views, and the base plate's underside is a closed disc in the below view. Nothing visible is open, inside out or floating."
   }
  },
  "total": 15,
  "of": 16,
- "passes": true
+ "passes": false
 }

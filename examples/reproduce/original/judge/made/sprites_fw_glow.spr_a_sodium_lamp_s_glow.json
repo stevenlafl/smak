@@ -24,7 +24,7 @@
     "first": 1,
     "last": 1
    },
-   "dark": 0.56,
+   "dark": 0.65,
    "wrap": null,
    "jitter": null
   },
@@ -48,31 +48,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The frame is a soft radial glow: a bright amber core at the centre fading outward to dark, which is what a sodium lamp's glow looks like. It is the same effect the brief asks for."
+   "reason": "The frame is a soft radial glow, bright at the centre and fading to the edges, which is what a sodium lamp's glow sprite is for. Nothing else is drawn in it."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "One 64x64 frame, with the glow filling it as a round halo. The edges are dark (border measured 0), so nothing is clipped at the frame's edge. The small boxed '0' in the top-left corner is the harness's frame label, not part of the sprite."
+   "reason": "The frame is 64 by 64 as the brief's effect needs. The glow fills the frame, with its falloff reaching about three-quarters of the way to the edges, and the measured border is 0, so the edges are clean."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The core is warm sodium orange-amber and the falloff is a darker brown-orange, which matches the brief's sodium-lamp colour and stays within Half-Life's palette. No neon or cool tints appear. Judged by eye, as the rubric asks."
+   "reason": "By eye the glow is sodium orange: a warm amber core fading to dark brown-orange, not white or neon, which matches the brief's sodium-orange palette. The measured colour comparison is not given, so this rests on the picture alone."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "A single still frame, which the class 'glow' takes (frames 1, border 0, the envelope first and last frame at 1). The glow is steady and needs no motion, so the frame count and envelope match the class measures. The 'dark' figure of 0.56 has no class range given, so it is not scored against anything."
+   "reason": "It is one frame, with first and last at the same level (1 and 1) and the peak at frame 0. The class's measured border (0, within 0 to 0.005) holds. A single steady frame is what the glow class takes, so the motion measures agree with Half-Life's own glows."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The measured type is parallel and the format is additive, which is the right kind for a light glow drawn over the scene. The name is fw_glow and the frame is 64x64, and the file reads back as written."
+   "reason": "The measures give type parallel and format additive, which suit a glow drawn over the scene. The size is 64 by 64 and the name is fw_glow.spr, a sprite for this mod. The measures show no failed check, but the SMAK check result itself is not in the material I was given, so this rests on the measurements."
   }
  },
  "total": 10,

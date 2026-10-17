@@ -1156,7 +1156,7 @@ export function toolsFor(folders, { allowRun = true } = {}) {
     },
     {
       name: "command",
-      description: `Any command of the command line (bin/smak.mjs), run as it runs there, with every flag it has: what the other tools do not offer (retexture, sequence-add, reskin, islands, layers, pieces, contract, map-set, map-reach --jump, map-heights, map-light, map-measure, map-compare, map-compile, wad-make, import, item ...). \`guide { topic: "The command line" }\` lists them. Name files as work:<name> (a bare name is the work folder's), models:<name>, library:<name>, and game:<folder> for a game folder of the server's; what it writes goes to the work folder. Returns what it printed, the files it wrote, and up to ${SHOWN_MOST} of the pictures it wrote.`,
+      description: `Any command of the command line (bin/smak.mjs), run as it runs there, with every flag it has: what the other tools do not offer (retexture, sequence-add, reskin, islands, layers, pieces, contract, map-set, map-reach --jump, map-heights, map-light, map-measure, map-compare, map-compile, wad-make, import, item ...). \`guide { topic: "The command line" }\` lists them. Name files as work:<name> (a bare name is the work folder's), models:<name>, library:<name>, and game:<folder> (or game:<folder>/<path>, a file in it) for a game folder of the server's; what it writes goes to the work folder. Returns what it printed, the files it wrote, and up to ${SHOWN_MOST} of the pictures it wrote.`,
       inputSchema: object(
         {
           name: { type: "string", description: "the command: info, check, map-plan, retexture ..." },

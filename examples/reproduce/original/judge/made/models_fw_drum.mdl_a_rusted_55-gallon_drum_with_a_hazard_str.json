@@ -3,8 +3,8 @@
  "label": "models/fw_drum.mdl: a rusted 55-gallon drum with a hazard stripe",
  "measured": {
   "size": [
-   24,
-   24,
+   23.9,
+   23.8,
    36
   ],
   "sizeAsked": {
@@ -12,13 +12,13 @@
    "across": 23
   },
   "sizeOff": 0.059,
-  "triangles": 240,
+  "triangles": 400,
   "halfLifeMedianOfItsKind": 99,
   "halfLifeThreeQuartersUnder": 156,
   "halfLifeMost": 422,
   "checkErrors": [],
   "lineup": "the asset is one of A to D in lineup.png beside models/w_longjump.mdl, models/rip.mdl, models/uplant1.mdl",
-  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked B, C, B, A where the asset was D, A, C, C: passed for one of the game's"
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked C, D, B, D where the asset was D, A, C, C: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
@@ -30,52 +30,52 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The outline is a closed cylinder with a lid, a top chime, a bottom chime and a flat base in all ten views (sides.png). Nothing sticks out or is missing, and the shape fits a 55-gallon drum as the brief describes it."
+   "reason": "All six sides and the top and bottom views show a plain upright cylinder with a top chime, a bottom chime and a bung, which is the 55-gallon drum the brief asks for. Each view has the same outline, with no part sticking out or missing. The bung is visible on the top rim in the front, left, back and right views."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured 24 x 24 x 36 against the brief's 23 across and 34 high: 4% and 6% off, within the 15% band. The measure reads 0.059 off."
+   "reason": "Measured 23.9 x 23.8 x 36 against the brief's 23 across and 34 high, a 5.9% difference, inside the 15% band for a prop given by the brief."
   },
   "M3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Parts the brief implies: body, lid, top chime ring, bottom chime ring, base, and the hazard band. All are present in the front and side views (the rings at about 70 and 308 px, the stripe at mid-height). The round body is faceted at about 12 sides in the top and bottom views; the brief sets no side count, so this is not charged. No bung is modelled; the brief does not ask for one."
+   "reason": "Parts the brief asks for, checked down to the small ones: the drum body, top chime, bottom chime, the bung on the top (a small raised cap visible in the side views), and the hazard stripe around the middle (painted, and it reads clearly). All are present in their places. A drum has no claws, teeth, tabs or handles to count."
   },
   "M4": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The body is a uniform blue-grey painted steel with only faint mottling. The brief asks for a rusted drum, and no rust colour (orange or brown patches, flaking at the seams) shows on the body, lid or rings. The hazard yellow and black are correct."
+   "score": 2,
+   "reason": "The body is painted blue-grey steel, the chimes are lighter bare metal, the hazard stripe is yellow and black, and the top shows brown rust blotches. Each region reads as the material the brief describes. The rust's strength is a surface matter and is charged to M5."
   },
   "M5": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The hazard stripe is sharp and in its place. The rust and wear the brief asks for are not there: no pitting, scrapes or rust streaks on the body, the chimes or the lid, only soft mottling. A rusted drum reads as a clean painted one."
+   "score": 2,
+   "reason": "The diagonal yellow and black hazard stripe is sharp and sits at mid-height on every side. The rim highlights show the wear the brief calls for. The rust spots are faint, but that is charged to M4, not here."
   },
   "M6": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Capped at 2 by the line-up test. In the four readings of lineup.png the judges did not pick the asset (at D, A, C and C, they picked B, C, B and A), so it passed for one of the game's."
+   "reason": "Capped at 2 by the line-up test. The asset was never picked as the one not made by Valve: the judges chose C, D, B and D, against the asset's positions of D, A, C and C. Its line-up count is zero of four."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Stands upright on its flat base in every view, with the lid at the top. The brief sets no front, and the stripe sits at mid-height on the body."
+   "reason": "The drum stands upright on its base, the bung is on top, and the hazard stripe is at the middle of the body on every side, as a drum stands. The brief fixes no front, and nothing in the views suggests the origin is off."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "SMAK's check is clean (no errors). Triangles are 240, under the 422 that Half-Life's most-built props of this kind and size spend, so it passes. It is over the third quartile (156), which is a warning, not a fail. The top, bottom and sides are closed in every view."
+   "reason": "The SMAK check reports no errors. The top and bottom are closed discs and no side is open or inside out. At 400 triangles it is about four times the median of 99 for its kind, but under the most Valve spends on a prop of its size (422), so it passes the amended band. It is above the third quartile (156), which the rubric treats as a warning only."
   }
  },
- "total": 14,
+ "total": 16,
  "of": 16,
- "passes": false
+ "passes": true
 }
