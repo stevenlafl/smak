@@ -311,7 +311,8 @@ new name needs the mod's code). They are written in `work:<name>_weapon/`.
 - `like`: the game's weapon, as its files are named: `crowbar`, `357`, `rpg`, `tripmine`. Its files are read from the game folders first, then from beside the spec: a copy of a build's own put beside it is never fitted to in the game's place.
 - A gun is best one part, `{ "kind": "kit:firearm", "options": { "preset": "shotgun", ... } }` (`kits/firearmkit.mjs`
   lists every field: receiver, frame, barrel, grip, guard, trigger, magazine, stock, forend, sights, `finish`,
-  `wear`): a receiver, a grip, a closed guard and a magazine that read as a gun's, at its real size (`size: "own"`),
+  `wear`, and `length`: the whole gun made that long in proportion, for a brief's "about 10 long", its real gun's
+  size without it; an option it has not is refused): a receiver, a grip, a closed guard and a magazine that read as a gun's, at its real size (`size: "own"`),
   180 to 300 triangles (Valve's own first-person guns are 276 to 363 without the hands). Its stock is left out of the first-person file as
   Valve's are (`stock: { "firstPerson": true }` keeps it), and it is laid the right way up and round in each file
   where its outline alone cannot tell. The report names its parts (`gun.receiver`, `gun.stock`).
