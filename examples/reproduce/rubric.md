@@ -432,3 +432,12 @@ walk test, not the game.
   names and Valve's own does not show plainly. M3 of a brief leg now lists the parts the brief names, and those
   every one of the game's own of its kind in the line-up shows; another part's absence is not charged. M3 of a
   leg held to its original is unchanged. Results judged before keep their scores.
+- **2026-10-17, later: a line-up keeps to its kind, and a creature asked "the size of a headcrab" is held to
+  the headcrab's.** From Gemini Argon's consult (research/consult/argon-2026-10-17.md), checked against the data.
+  The line-up took the three of the game's own nearest in size from one pool: the houndeye stood among the gman,
+  the scientist and the assassin, and the 9mm beside a grenade, a satchel and the .357, each picked out for its
+  kind whoever made it. The game's own are now in kinds (people, creatures, guns, thrown, melee): a line-up takes
+  its own kind first, nearest in size, and the rest only when its kind has too few (the crowbar, the one melee
+  weapon, still fills from guns). And the original mod's crawler, its brief "the size of a headcrab", scored 19
+  of 20 and failed M2 alone: with no number asked the judge would not give it 2. The size asked is now the
+  game's headcrab's own length. Results judged before keep their scores.

@@ -11,7 +11,7 @@
 // of git, as everything that holds the game's bones and animations is.
 import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync, copyFileSync, rmSync } from "node:fs";
 import { join, basename, dirname } from "node:path";
-import { HERE, GAME, SDHLT, POSE, readModel, savePng, besides, kitCommit, keepRound, filesOf } from "./lib.mjs";
+import { HERE, GAME, SDHLT, POSE, readModel, boxOf, savePng, besides, kitCommit, keepRound, filesOf } from "./lib.mjs";
 import { runAgent } from "./agents.mjs";
 import { ownOfKind, judgeAgainstBrief, judgeModelAgainstBrief, judgeSpriteAgainstBrief, judgeSoundAgainstBrief, judgeTexturesAgainstBrief, weaponSizeIn } from "./brief.mjs";
 import { band } from "./scoring.mjs";
@@ -146,7 +146,7 @@ async function judgeAll(which) {
     savePng(join(dir, "attack.png"), strip(v, { seq: attack, count: 8, cols: 4, view: "first", width: 240, height: 180 }));
     savePng(join(dir, "in-hand.png"), render(readModel(join(made, WEAPON_FILES[1])), { seq: 0, frame: 0, yaw: 35, pitch: 20, width: 384, height: 384 }));
     const weapons = ownOfKind("weapon");
-    return judgeModelAgainstBrief("weapon", `the wrench (${WEAPON_FILES.join(", ")}): ${ASSETS.weapon.what}`, readModel(join(made, WEAPON_FILES[2])), dir, { asked: { long: ASSETS.weapon.long }, sizeFrom: weaponSizeIn(readModel(join(made, WEAPON_FILES[1]))), brief: BRIEF, what: MOD_ASSET, list: weapons, beside: ["models/w_crowbar.mdl"], extraPictures: `, ${dir}/first-person.png (this mod's first-person view left, the game's crowbar right, for where it sits), ${dir}/attack.png (its attack frame by frame) and ${dir}/in-hand.png (the model another player holds); sides.png and lineup.png show the w_ model` });
+    return judgeModelAgainstBrief("weapon", `the wrench (${WEAPON_FILES.join(", ")}): ${ASSETS.weapon.what}`, readModel(join(made, WEAPON_FILES[2])), dir, { asked: { long: ASSETS.weapon.long }, sizeFrom: weaponSizeIn(readModel(join(made, WEAPON_FILES[1]))), brief: BRIEF, what: MOD_ASSET, list: weapons, beside: ["models/w_crowbar.mdl"], group: "melee", extraPictures: `, ${dir}/first-person.png (this mod's first-person view left, the game's crowbar right, for where it sits), ${dir}/attack.png (its attack frame by frame) and ${dir}/in-hand.png (the model another player holds); sides.png and lineup.png show the w_ model` });
   });
   // the enemy: its contract with the game's headcrab, and its motion
   jobs.push(async () => {
@@ -157,7 +157,7 @@ async function judgeAll(which) {
     const faults = compareContract(contractOf(readModel(join(GAME, ASSETS.enemy.like))), contractOf(src)).faults;
     for (const [name, pattern] of [["run", /run|walk/i], ["attack", /attack|jump/i]]) savePng(join(dir, `${name}.png`), strip(src, { seq: sequencesIndex(src, pattern), count: 8, cols: 4, view: "side", ground: true, width: 192, height: 192 }));
     const creatures = ownOfKind("enemy");
-    return judgeModelAgainstBrief("enemy", `the crawler (${ASSETS.enemy.file}): ${ASSETS.enemy.what}`, src, dir, { brief: BRIEF, what: MOD_ASSET, list: creatures.filter((c) => c.file !== ASSETS.enemy.like), extra: { measured: { contract: faults.length ? faults : "keeps the headcrab's bones, animations, attachments and bodyparts" }, caps: { C2: faults.length ? 0 : 2 } }, extraPictures: `, ${dir}/run.png and ${dir}/attack.png (its run and its attack, frame by frame from the side, the floor a line)` });
+    return judgeModelAgainstBrief("enemy", `the crawler (${ASSETS.enemy.file}): ${ASSETS.enemy.what}`, src, dir, { brief: BRIEF, what: MOD_ASSET, group: "creature", asked: { long: round(Math.max(...boxOf(readModel(join(GAME, ASSETS.enemy.like))).size)) }, list: creatures.filter((c) => c.file !== ASSETS.enemy.like), extra: { measured: { contract: faults.length ? faults : "keeps the headcrab's bones, animations, attachments and bodyparts" }, caps: { C2: faults.length ? 0 : 2 } }, extraPictures: `, ${dir}/run.png and ${dir}/attack.png (its run and its attack, frame by frame from the side, the floor a line)` });
   });
   // maps
   for (const m of ASSETS.maps)

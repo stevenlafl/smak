@@ -15,7 +15,7 @@ import { HERE, GAME, SIDES, ANGLES, readModel, boxOf, picturesOf, savePng, besid
 import { runAgent, runJudge, failedByMeasure } from "./agents.mjs";
 import { measureModel, lineup } from "./judge.mjs";
 import { itemsOf, settle, lowered, combine, askScores, MODEL_GUIDE } from "./scoring.mjs";
-import { BRIEFS, briefPrompt, ownOfKind, judgeModelAgainstBrief, weaponSizeIn } from "./brief.mjs";
+import { BRIEFS, briefPrompt, ownOfKind, judgeModelAgainstBrief, weaponSizeIn, groupOf } from "./brief.mjs";
 import { tile, render, strip } from "../../src/render.mjs";
 import { sequences } from "../../src/index.mjs";
 import { contractOf, compareContract, sharedContract } from "../../src/contract.mjs";
@@ -362,7 +362,7 @@ async function judgeBrief(kind, s, built, { decoy, from = s, control } = {}) {
     savePng(join(dir, "first-person.png"), besides([mine.still, firstPerson(game(s.files[0])).still]));
     savePng(join(dir, "attack.png"), mine.attack);
     savePng(join(dir, "in-hand.png"), render(readModel(join(built, basename(from.files[1]))), { seq: 0, frame: 0, yaw: 35, pitch: 20, width: 384, height: 384 }));
-    const r = await judgeModelAgainstBrief("weapon", label, copy, dir, { brief, asked, list, replaces: game(s.file, rootOf(s)), sizeFrom: weaponSizeIn(readModel(join(built, basename(from.files[1])))), extraPictures: `, ${dir}/first-person.png (its first-person view left, the game's own of this weapon right, for where it sits in the hands), ${dir}/attack.png (its attack frame by frame) and ${dir}/in-hand.png (the model another player holds); sides.png and lineup.png show the w_ model` });
+    const r = await judgeModelAgainstBrief("weapon", label, copy, dir, { brief, asked, list, replaces: game(s.file, rootOf(s)), group: groupOf(s.file), sizeFrom: weaponSizeIn(readModel(join(built, basename(from.files[1])))), extraPictures: `, ${dir}/first-person.png (its first-person view left, the game's own of this weapon right, for where it sits in the hands), ${dir}/attack.png (its attack frame by frame) and ${dir}/in-hand.png (the model another player holds); sides.png and lineup.png show the w_ model` });
     return { kind, subject: s.id, leg: control ? "control: Valve's own against the brief" : decoy ? `decoy: brief ${decoy}` : "brief", ...r };
   }
   const motionOf = (name) => strip(copy, { seq: animation(copy, new RegExp(`^${name}`)), count: 8, cols: 4, view: "side", ground: true, width: 192, height: 192 });
@@ -382,7 +382,7 @@ async function judgeBrief(kind, s, built, { decoy, from = s, control } = {}) {
     extra.measured.contract = faults.length ? faults : "keeps the contract the mod's stock players share: their animations at their numbers, their shared bones, attachments and bodyparts";
     extra.caps.C2 = faults.length ? 0 : 2;
   }
-  const r = await judgeModelAgainstBrief(ownKind, label, copy, dir, { brief, asked, list, extra, extraPictures, replaces: game(s.file, rootOf(s)) });
+  const r = await judgeModelAgainstBrief(ownKind, label, copy, dir, { brief, asked, list, extra, extraPictures, replaces: game(s.file, rootOf(s)), group: groupOf(s.file) });
   return { kind, subject: s.id, leg: control ? "control: Valve's own against the brief" : decoy ? `decoy: brief ${decoy}` : "brief", ...r };
 }
 

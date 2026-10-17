@@ -43,6 +43,24 @@ const PEOPLE = ["barney", "scientist", "gman", "hgrunt", "zombie", "islave", "ha
 /** Half-Life's weapons, by their world models: an ammunition box or a pickup is not one of them. */
 const WEAPONS = ["crowbar", "9mmhandgun", "357", "9mmar", "shotgun", "crossbow", "rpg", "gauss", "egon", "hgun", "grenade", "satchel", "sqknest"];
 /**
+ * The kind a model is of, among the game's own: a line-up sets an asset beside its own kind first (a creature
+ * among creatures, a gun among guns), and fills from the rest only when the kind has too few. By size alone the
+ * houndeye stood among three men and the 9mm beside a grenade and a satchel: picked out for its kind, whoever
+ * made it (2026-10-17, Gemini Argon's consult and the 9mm's revision rounds).
+ */
+const GROUPS = {
+  person: PEOPLE,
+  creature: CREATURES,
+  gun: ["9mmhandgun", "357", "9mmar", "shotgun", "crossbow", "rpg", "gauss", "egon", "hgun"],
+  thrown: ["grenade", "satchel", "sqknest"],
+  melee: ["crowbar"],
+};
+/** A model's kind among the game's own, from its file (`models/w_shotgun.mdl`, `barney.mdl`), or null. */
+export function groupOf(file) {
+  const name = basename(String(file)).replace(/\.mdl$/i, "").replace(/^[vpw]_/i, "");
+  return Object.entries(GROUPS).find(([, names]) => names.includes(name))?.[0] ?? null;
+}
+/**
  * Models that are not a thing standing in the world, by name (the game's models carry no kind): pieces flung off a
  * break, templates and tests, spent shells, sprite holders, projectiles in flight, a body's bones, effects, aircraft.
  */
@@ -84,11 +102,13 @@ export function ownOfKind(kind, root = GAME, files) {
  * files of `list` that are always among the three, the game's own of the very kind (a wrench in the crowbar's
  * place stands beside the crowbar, not among three guns, where any tool is the odd one out).
  */
-function lineupOf(ours, list, dir, name, beside = []) {
+function lineupOf(ours, list, dir, name, beside = [], group = null) {
   const { size } = boxOf(ours);
   const d = Math.hypot(...size);
   const kept = list.filter((x) => beside.includes(x.file));
-  const near = [...kept, ...list.filter((x) => x.src !== ours && !beside.includes(x.file)).sort((a, b) => Math.abs(a.diagonal - d) - Math.abs(b.diagonal - d))].slice(0, 3);
+  // its own kind first, nearest in size; then the rest, nearest in size
+  const other = (x) => (group && groupOf(x.file) !== group ? 1 : 0);
+  const near = [...kept, ...list.filter((x) => x.src !== ours && !beside.includes(x.file)).sort((a, b) => other(a) - other(b) || Math.abs(a.diagonal - d) - Math.abs(b.diagonal - d))].slice(0, 3);
   const all = [{ src: ours, ours: true }, ...near];
   let seed = [...name].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 11);
   const order = all.map((x) => ({ x, k: (seed = (seed * 1103515245 + 12345) >>> 0) })).sort((a, b) => a.k - b.k).map((o) => o.x);
@@ -198,12 +218,12 @@ function spentBy(list) {
  * measured. `byKind`: a model that is no prop (a creature built as a model) is held to the triangles of `list`.
  * `replaces`: the game's own model it takes the place of, whose triangles count among Valve's most.
  */
-export async function judgeModelAgainstBrief(kind, label, src, dir, { brief, what, asked, list, extra = {}, extraPictures = "", sizeFrom, byKind = false, replaces, beside = [] }) {
+export async function judgeModelAgainstBrief(kind, label, src, dir, { brief, what, asked, list, extra = {}, extraPictures = "", sizeFrom, byKind = false, replaces, beside = [], group = null }) {
   mkdirSync(dir, { recursive: true });
   const pictures = picturesOf(src, { size: 384 });
   savePng(join(dir, "sides.png"), tile(pictures.map((p) => p.picture), 5, pictures.map((p) => p.name)));
   const size = sizeFrom ?? boxOf(src).size;
-  const line = lineupOf(src, list, dir, label, beside);
+  const line = lineupOf(src, list, dir, label, beside, group);
   const told = await detect(dir, line, label);
   const triangles = trianglesOf(src);
   // what Half-Life's own of its kind spend: a prop by its size (PROP_TRIANGLES, measured over the game's props); any
