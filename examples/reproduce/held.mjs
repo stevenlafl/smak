@@ -365,7 +365,8 @@ async function pool(jobs, atOnce = 4) {
 
 if (step === "inputs") for (const kind of kinds) for (const s of chosen(kind)) console.log(`${kind}/${s.id}: ${inputs(kind, s)}`);
 else if (step === "describe") await pool(kinds.flatMap((k) => chosen(k).filter((s) => again || !existsSync(join(folderOf(k, s.id), "words.md"))).map((s) => () => describe(k, s))), 6);
-else if (step === "reproduce") await pool(kinds.flatMap((k) => chosen(k).flatMap((s) => LEGS.map((leg) => () => reproduce(k, s, leg)))), 4);
+// with the generators, one maker at a time: each server keeps a worker of its own, a shape's near 20 GB
+else if (step === "reproduce") await pool(kinds.flatMap((k) => chosen(k).flatMap((s) => LEGS.map((leg) => () => reproduce(k, s, leg)))), GENERATORS ? 1 : 4);
 else if (step === "judge") {
   const jobs = [];
   for (const k of kinds)
