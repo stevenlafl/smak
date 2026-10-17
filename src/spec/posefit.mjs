@@ -121,6 +121,21 @@ export function fitPose(src, views, { swings = SWINGS } = {}) {
   return { keys, before, after, tried };
 }
 
+/**
+ * The stance of `src` that best fits a shape of its own, `tris` ([[p, p, p]] in model space: a generated body),
+ * by its outlines from the front and the side (`yaws`). Its outline from the side settles the forward and back
+ * swings that a front picture alone guesses (a guard's fit to its one picture swung a leg back it could not see,
+ * research/generated-characters.md), and its bones are laid in the shape's limbs before each corner takes one.
+ */
+export function fitPoseToShape(src, tris, { yaws = [0, 90], swings = SWINGS } = {}) {
+  const targets = yaws.map((yaw) => {
+    const axes = viewAxes(yaw, 0);
+    return { ...outlineOf(tris, axes), axes };
+  });
+  const { keys, before, after, tried } = fitFrame(src, targets, { swings, seq: 0, frame: 0 });
+  return { keys, before, after, tried };
+}
+
 /** The swings of `swings` this skeleton has, by its own bones' names. */
 function usableSwings(src, swings) {
   const names = bonesOf(src).map((b) => b.name);

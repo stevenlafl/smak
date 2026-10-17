@@ -10,7 +10,7 @@
 // The checks that follow every build: the engine's (`check`), the shape's (`shapeSoundness`: holes, faces
 // turned inwards, parts floating apart) and the pictures' (`seeThrough`).
 import { boneIn, otherSideOf } from "../biped.mjs";
-import { fitPose, fitMotion } from "./posefit.mjs";
+import { fitPose, fitPoseToShape, fitMotion } from "./posefit.mjs";
 import { carve, masksFromPicture, sheetViews } from "./carve.mjs";
 import { readObj, objMeshes } from "../obj.mjs";
 import { reduce } from "../qem.mjs";
@@ -26,7 +26,7 @@ import { indexed, shrink, masked } from "../image.mjs";
 import { check } from "../check.mjs";
 import { readStudio } from "../studio-file.mjs";
 import { outlineShares, OUTLINE_CELLS_MOST, GAME_CELLS_A_UNIT, UNSEEN_TRIS_MOST } from "./outline-parts.mjs";
-import { readMdl, bones as bonesOf, sequences as sequencesOf, addMesh, replaceMesh, inverse34, apply34, mul34, readSequence, replaceSequence, events as eventsOf, setEvents } from "../mdl.mjs";
+import { readMdl, bones as bonesOf, sequences as sequencesOf, addMesh, replaceMesh, inverse34, apply34, mul34, readSequence, replaceSequence, events as eventsOf, setEvents, textureOf } from "../mdl.mjs";
 import { buildSoundSpec } from "./sound.mjs";
 import * as A from "../animate.mjs";
 import { posed, render } from "../render.mjs";
@@ -579,6 +579,81 @@ const TORN = 2;
 
 /** A triangle stretched past this many times an edge's length in some pose of motion is torn. */
 const TORN_IN_MOTION = 3;
+
+/** A character's pictures more saturated than this share over its base's own are pulled to the base's. */
+const PALETTE_OVER = 1.1;
+/**
+ * The mean saturation (HSV, 0 to 1) of every texel of some pictures: textures as a model holds them (`pixels`,
+ * `palette`) or images with an `rgbOf(i)`.
+ */
+function paletteOf(pictures) {
+  let n = 0;
+  let sat = 0;
+  for (const p of pictures)
+    for (let i = 0; i < p.width * p.height; i++) {
+      const [r, g, b] = p.rgbOf ? p.rgbOf(i) : [p.palette[p.pixels[i] * 3], p.palette[p.pixels[i] * 3 + 1], p.palette[p.pixels[i] * 3 + 2]];
+      const mx = Math.max(r, g, b);
+      sat += mx ? (mx - Math.min(r, g, b)) / mx : 0;
+      n++;
+    }
+  return { saturation: n ? sat / n : 0 };
+}
+/** A picture with each colour kept `share` of the way from its grey, its lightness kept (rgb or rgba). */
+function grayed(picture, share) {
+  const stride = picture.rgba ? 4 : 3;
+  const from = picture.rgba ?? picture.rgb;
+  const to = Uint8Array.from(from);
+  for (let i = 0; i < picture.width * picture.height; i++) {
+    const [r, g, b] = [from[i * stride], from[i * stride + 1], from[i * stride + 2]];
+    const l = 0.3 * r + 0.59 * g + 0.11 * b;
+    for (const [k, c] of [r, g, b].entries()) to[i * stride + k] = Math.max(0, Math.min(255, Math.round(l + (c - l) * share)));
+  }
+  return picture.rgba ? { ...picture, rgba: to } : { ...picture, rgb: to };
+}
+/** The textures the base's own body wears, as it stands. */
+function baseTextures(skeleton) {
+  const names = new Set();
+  try {
+    for (const t of posed(skeleton.src, { ...skeleton.pose, body: skeleton.bodies?.[0] ?? 0 }).tris) if (t.tex?.name) names.add(t.tex.name);
+  } catch {
+    return [];
+  }
+  return [...names].map((name) => textureOf(skeleton.src, name));
+}
+
+/** Joints apart, meeting on the trunk, from which a triangle across two bones tears in any motion (a hand and a thigh). */
+const FAR_APART = 4;
+/** Past this many such triangles, the build warns: they tear whatever share of the body they are. */
+const FAR_APART_MOST = 4;
+/** (a, b) => the joints between two bones (by name) along a skeleton's tree, where they meet on its trunk; 0 within one limb. */
+function jointsApart(skeleton) {
+  const list = bonesOf(skeleton.src);
+  const number = new Map(list.map((b, i) => [b.name, i]));
+  const depth = list.map((_, i) => {
+    let d = 0;
+    for (let k = list[i].parent; k >= 0; k = list[k].parent) d++;
+    return d;
+  });
+  // the trunk: a bone with two children or more each carrying a limb of four bones or more (the spine over the arms
+  // and the head, the pelvis over the legs). A hand over its fingers is no trunk: its own surface is never cut
+  const size = list.map(() => 1);
+  for (let i = list.length - 1; i >= 0; i--) if (list[i].parent >= 0) size[list[i].parent] += size[i];
+  const limbs = list.map(() => 0);
+  list.forEach((bone, i) => bone.parent >= 0 && size[i] >= 4 && limbs[bone.parent]++);
+  const trunk = list.map((_, i) => limbs[i] >= 2);
+  for (let i = list.length - 1; i >= 0; i--) if (trunk[i] && list[i].parent >= 0) trunk[list[i].parent] = true;
+  return (a, b) => {
+    let [x, y, n] = [number.get(a) ?? -1, number.get(b) ?? -1, 0];
+    if (x < 0 || y < 0) return 0;
+    while (x !== y) {
+      if (depth[x] >= depth[y]) x = list[x].parent;
+      else y = list[y].parent;
+      n++;
+    }
+    // x is where the two meet: within one limb they bend together and are not counted apart
+    return trunk[x] ? n : 0;
+  };
+}
 /** Past this share of a body's triangles torn so, the build warns. */
 const TORN_SHARE = 0.08;
 
@@ -653,6 +728,7 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
   };
   finishErrors(spec.finish, "finish");
   if (spec.budget !== undefined && !(Number.isInteger(spec.budget) && spec.budget > 0)) errors.push("budget: the most triangles the model may have, a whole number");
+  if (spec.palette !== undefined && spec.palette !== "own") errors.push('palette: "own" keeps a character\'s projected pictures\' colour as they are (unless told, they are pulled to the base\'s palette)');
   if (spec.fidelity !== undefined && !FIDELITY.includes(spec.fidelity)) errors.push(`fidelity: ${FIDELITY.map((f) => `"${f}"`).join(" or ")}`);
   if (spec.floor !== undefined && !(typeof spec.floor === "number" && Number.isFinite(spec.floor))) errors.push("floor: where its feet stand, 0 for a monster (its origin at its feet) or -36 for a player (its origin the middle of its hull)");
   if (spec.motion !== undefined) {
@@ -663,9 +739,10 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
   if (spec.pose !== undefined) {
     const keys = spec.pose?.keys;
     if (!spec.base) errors.push("pose: a character's, on a base model's skeleton: give the spec a base");
-    if (spec.pose?.fit !== undefined && spec.pose.fit !== true && !Array.isArray(spec.pose.fit))
-      errors.push("pose.fit: true (fitted to the outlines of the spec's project pictures) or a list of views as project takes them");
-    if (spec.pose?.fit && !Array.isArray(spec.pose.fit) && !spec.project?.length) errors.push("pose.fit: true fits to the project pictures, and the spec has none: give fit a list of views");
+    if (spec.pose?.fit !== undefined && spec.pose.fit !== true && spec.pose.fit !== "shape" && !Array.isArray(spec.pose.fit))
+      errors.push('pose.fit: true (fitted to the outlines of the spec\'s project pictures), a list of views as project takes them, or "shape" (to its own generated or carved body, from the front and the side)');
+    if (spec.pose?.fit === true && !spec.project?.length) errors.push("pose.fit: true fits to the project pictures, and the spec has none: give fit a list of views");
+    if (spec.pose?.fit === "shape" && !(spec.parts ?? []).some((part) => part?.kind === "mesh" || part?.kind === "carved")) errors.push('pose.fit: "shape" fits the base to a mesh or carved body, and the spec has none');
     if (spec.pose?.from !== undefined && !(typeof spec.pose.from === "string" || Number.isInteger(spec.pose.from)))
       errors.push(`pose.from: the name (or number) of the base's animation whose frames the first animation takes ("walk": a character the original shows mid-stride)`);
     if (spec.pose?.frame !== undefined && !(Number.isInteger(spec.pose.frame) && spec.pose.frame >= 0)) errors.push("pose.frame: the frame of pose.from the first animation starts at (by default the one whose box fits size best)");
@@ -1704,8 +1781,25 @@ function buildPosed(spec, options = {}) {
   if (!spec?.pose?.fit) return buildOnce(spec, options);
   const given = spec.pose.keys ?? null;
   const took = { ...(spec.pose.from !== undefined ? { from: spec.pose.from, ...(spec.pose.frame !== undefined ? { frame: spec.pose.frame } : {}) } : {}), ...(spec.pose.aim ? { aim: spec.pose.aim } : {}) };
-  const first = buildOnce({ ...spec, pose: given || Object.keys(took).length ? { ...took, ...(given ? { keys: given } : {}) } : undefined }, options);
+  const kept = {};
+  const first = buildOnce({ ...spec, pose: given || Object.keys(took).length ? { ...took, ...(given ? { keys: given } : {}) } : undefined }, { ...options, keep: kept });
   if (!first.mdl) return first;
+  // to its own body: the base's stance (after from and aim) fitted to the outlines the body built from it has as
+  // it stands, from the front and the side, so that the base's bones lie in its limbs before each corner takes one
+  if (spec.pose.fit === "shape") {
+    let fit;
+    try {
+      fit = fitPoseToShape(kept.stance, posed(first.mdl, { seq: 0, frame: 0 }).tris.map((t) => t.c.map((c) => c.p)));
+    } catch (error) {
+      first.report.errors.push(`pose.fit: ${error.message}`);
+      first.report.ok = false;
+      return first;
+    }
+    const keys = { ...fit.keys, ...(given ?? {}) };
+    const second = buildOnce({ ...spec, pose: { ...took, keys } }, options);
+    second.report.facts.push(`pose fitted to its own body from the front and the side (the base's outlines' overlap ${fit.before} as it stood, ${fit.after} fitted, ${fit.tried} stances tried): "pose": { "keys": ${JSON.stringify(keys)} }`);
+    return second;
+  }
   const read = options.readPicture ?? ((name) => unpicture(readFileSync(resolve(options.folder ?? ".", name.replace(/^(work|models):/, "")))));
   const asked = Array.isArray(spec.pose.fit) ? spec.pose.fit : spec.project ?? [];
   let fit;
@@ -1726,7 +1820,7 @@ function buildPosed(spec, options = {}) {
   return second;
 }
 
-function buildOnce(spec, { folder, out, prefabs = {}, games = [], readPicture, readFile, hide = [], refuse = [] } = {}) {
+function buildOnce(spec, { folder, out, prefabs = {}, games = [], readPicture, readFile, hide = [], refuse = [], keep = null } = {}) {
   const { errors, warnings } = validateModelSpec(spec, { prefabs });
   const report = { ok: false, errors, faults: [], warnings, notes: [], facts: [], parts: {} };
   if (errors.length) return { mdl: null, report };
@@ -1782,6 +1876,8 @@ function buildOnce(spec, { folder, out, prefabs = {}, games = [], readPicture, r
         return { mdl: null, report };
       }
     }
+    // the stance before the keys, for a fit that finds them (buildPosed)
+    if (keep) keep.stance = skeleton.src;
     if (spec.pose?.keys) {
       try {
         skeleton = posedSkeleton(skeleton, spec.pose.keys);
@@ -2082,6 +2178,8 @@ function buildOnce(spec, { folder, out, prefabs = {}, games = [], readPicture, r
 
   // the person's pictures projected onto the shape: each texel takes the colour of the views that see it
   let projectedViews = null;
+  // how far a character's pictures' colours were kept from their grey (1: as projected)
+  let pulled = 1;
   if (spec.project?.length) {
     const read = readPicture ?? ((name) => unpicture(readFileSync(resolve(folder ?? ".", name.replace(/^(work|models):/, "")))));
     try {
@@ -2090,7 +2188,9 @@ function buildOnce(spec, { folder, out, prefabs = {}, games = [], readPicture, r
         return { picture: read(view.picture), yaw, pitch, area: view.area, rect: view.rect, parts: view.parts };
       });
       projectedViews = views;
-      const { texels, views: seen } = paintProjections(meshes, views);
+      // a character's back and sides, which a picture of its front does not see, carry the front's colours round
+      const { texels, carried, views: seen } = paintProjections(meshes, views, { carry: kind === "character" });
+      if (carried) report.facts.push(`${carried} texels no picture sees (its back, its sides) carried the colour the front shows at the same height and side`);
       report.facts.push(`pictures projected over ${texels} texels: ${seen.map((v, i) => `${spec.project[i].picture} (${spec.project[i].view ?? `yaw ${spec.project[i].yaw ?? 0} pitch ${spec.project[i].pitch ?? 0}`}) ${v ? `outline at ${v.rect.join(" ")} in it, ${v.seen} texels seen` : "NO OUTLINE FOUND in it: give rect"}`).join("; ")}`);
       seen.forEach((v, i) => !v && warnings.push(`project[${i}]: the thing's outline was not found in ${spec.project[i].picture}: give its area or rect`));
       // the shape's own outline against each picture's, as a judge measures it: what to mend before painting more
@@ -2109,6 +2209,37 @@ function buildOnce(spec, { folder, out, prefabs = {}, games = [], readPicture, r
     } catch (error) {
       errors.push(`project: ${error.message}`);
       return { mdl: null, report };
+    }
+    // a character's pictures pulled to its base's palette: a photograph's colour is far stronger than the game's
+    // own people's (the generated guard 0.43 in saturation, Gordon 0.32, Barney 0.24: research/valve-character-
+    // colour.mjs), and the judges picked it out of the line-up for it. Each texel moved toward its own grey, its
+    // lightness kept, until the pictures' mean saturation is the base body's own; `palette: "own"` keeps them
+    if (kind === "character" && skeleton && spec.palette !== "own") {
+      const theirs = paletteOf(baseTextures(skeleton)).saturation;
+      const images = meshes.map((mesh) => mesh.image);
+      const ours = paletteOf(images.map((image) => ({ ...image, rgbOf: (i) => [image.rgb[i * 3], image.rgb[i * 3 + 1], image.rgb[i * 3 + 2]] }))).saturation;
+      if (theirs > 0 && ours > theirs * PALETTE_OVER) {
+        const was = images.map((image) => Uint8Array.from(image.rgb));
+        const toward = (f) =>
+          images.forEach((image, n) => {
+            for (let i = 0; i < image.width * image.height; i++) {
+              const [r, g, b] = [was[n][i * 3], was[n][i * 3 + 1], was[n][i * 3 + 2]];
+              const l = 0.3 * r + 0.59 * g + 0.11 * b;
+              for (const [k, c] of [r, g, b].entries()) image.rgb[i * 3 + k] = Math.max(0, Math.min(255, Math.round(l + (c - l) * f)));
+            }
+          });
+        let [lo, hi] = [0, 1];
+        for (let step = 0; step < 12; step++) {
+          const f = (lo + hi) / 2;
+          toward(f);
+          const now = paletteOf(images.map((image) => ({ ...image, rgbOf: (i) => [image.rgb[i * 3], image.rgb[i * 3 + 1], image.rgb[i * 3 + 2]] }))).saturation;
+          if (now > theirs) hi = f;
+          else lo = f;
+        }
+        toward(lo);
+        pulled = lo;
+        report.facts.push(`its pictures pulled to its base's palette: saturation ${Math.round(ours * 100) / 100} as projected, ${Math.round(theirs * 100) / 100} as the base's own body has it, each colour kept ${Math.round(lo * 100)}% of the way from its grey (palette: "own" keeps them)`);
+      }
     }
   }
 
@@ -2203,6 +2334,20 @@ function buildOnce(spec, { folder, out, prefabs = {}, games = [], readPicture, r
         );
       }
       const boneNames = bonesOf(mdl).map((b) => b.name.replace(/^Bip0\d /, ""));
+      // a triangle joining limbs that meet on the trunk far apart (a hand to a thigh, a forearm to the trunk) tears
+      // in any motion, at any share: the generated guard's 65 such tore its run at 7.4%, under TORN_SHARE
+      // (research/generated-characters.md, finding 2)
+      const apart = jointsApart({ src: mdl });
+      const full = bonesOf(mdl).map((b) => b.name);
+      const far = still.filter((t) => Math.max(...t.c.flatMap((c) => t.c.map((d) => apart(full[c.bone], full[d.bone])))) >= FAR_APART);
+      if (far.length > FAR_APART_MOST) {
+        const pairs = new Map();
+        for (const t of far) {
+          const key = [...new Set(t.c.map((c) => boneNames[c.bone]))].sort().join(" + ");
+          pairs.set(key, (pairs.get(key) ?? 0) + 1);
+        }
+        warnings.push(`${far.length} triangles join limbs that meet ${FAR_APART} or more joints apart on the trunk, which tear in any motion: most between ${[...pairs].sort((a, b) => b[1] - a[1]).slice(0, 4).map(([k, n]) => `${k} (${n})`).join(", ")}. A body whose arms or hands are fused to its trunk or thighs does so: a shape with its limbs apart (a generated one drawn from its base's stance: generate's base), or the limbs as parts of their own`);
+      }
       const torn = still.map((t, i) => [t, i]).filter(([, i]) => worst[i] > TORN_IN_MOTION);
       if (torn.length > TORN_SHARE * still.length) {
         const pairs = new Map();
@@ -2250,7 +2395,8 @@ function buildOnce(spec, { folder, out, prefabs = {}, games = [], readPicture, r
   report.facts.push(`the pictures see through it at ${(seen.share * 100).toFixed(2)}% of its dots`);
   // the painted model from each picture's camera, set against the picture: where its look parts from them
   if (projectedViews) {
-    const fits = viewFit((yaw, pitch) => render(mdl, { seq: 0, yaw, pitch, width: 384, height: 384 }), projectedViews);
+    // against the pictures pulled as its texture was: the pull is the game's palette, not a part out of place
+    const fits = viewFit((yaw, pitch) => render(mdl, { seq: 0, yaw, pitch, width: 384, height: 384 }), pulled < 1 ? projectedViews.map((view) => ({ ...view, picture: grayed(view.picture, pulled) })) : projectedViews);
     const named = (i) => spec.project[i].view ?? `yaw ${spec.project[i].yaw ?? 0} pitch ${spec.project[i].pitch ?? 0}`;
     report.facts.push(`its look against each picture's, drawn from that picture's camera (mean colour difference, CIE76, of cells both cover; the worst cell and where): ${fits.map((f, i) => (f ? `${named(i)} ${f.meanDeltaE}, worst ${f.worst.deltaE} at its ${f.worst.where}` : `${named(i)} -`)).join("; ")}`);
     const off = fits.map((f, i) => [f, i]).filter(([f]) => f && (f.meanDeltaE > LOOK_MEAN || f.worst.deltaE > LOOK_WORST));
@@ -2661,6 +2807,26 @@ function skeletonFrom(skeleton, { from, frame }, size = {}) {
 
 /** The limbs pose.aim knows, by their end bone as a Biped names it (any language): the two bones over it are the limb. */
 const LIMBS = { "L arm": "Bip01 L Hand", "R arm": "Bip01 R Hand", "L leg": "Bip01 L Foot", "R leg": "Bip01 R Foot" };
+
+/**
+ * The stance a character is drawn in for the shape generator, and built in after: arms out from the body and
+ * legs a little apart, so that the generated body has its limbs clear of its trunk (a guard drawn from words
+ * alone stood with its hands on its thighs, fused there, and tore in every run: research/generated-characters.md).
+ */
+export const GENERATED_STANCE = {
+  "L arm": { out: 30, forward: 0, bend: 5 },
+  "R arm": { out: 30, forward: 0, bend: 5 },
+  "L leg": { out: 6, forward: 0 },
+  "R leg": { out: 6, forward: 0 },
+};
+
+/**
+ * A base model (by its file, looked for as a spec's `base` is) with its first animation in a stance (`aim`, as a
+ * spec's pose.aim): its bytes, to draw. The tool generate draws a character's guide picture so.
+ */
+export function aimedBase(file, { folder = ".", games = [], refuse = [], aim = GENERATED_STANCE } = {}) {
+  return aimedSkeleton(skeletonOf({ file }, folder, games, refuse), aim).src;
+}
 
 /**
  * The skeleton with its first animation's limbs pointed where a description says, whatever the base's own stance:

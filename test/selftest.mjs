@@ -80,6 +80,7 @@ const areas = [
   "62-reproduce-scoring", // the reproduction harness's scoring: the rubric's tables, caps, the pass rule, judges combined
   "63-mcp-command", // the MCP tool command: the command line's commands on the server's folders, names outside refused, no code under --no-run
   "64-outline-parts", // what of each part a player sees: a costly part that changes no outline warned of, as Valve paints such things
+  "65-generated-character", // a generated body on a base: limbs fused across the trunk warned of, its back carried, its pictures pulled to the base's palette, its stance fitted to its own outlines
 ];
 
 // one after another: each file runs its cases as it is loaded, and the servers' cases wait for their answers
