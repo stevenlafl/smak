@@ -101,6 +101,9 @@ export function measureSprite(spr, { loop = false } = {}) {
  * only to a dark border, which all but two of the game's 74 animated sprites keep. A beam is drawn along its
  * length and across its width, so its edge is lit: the game's sixteen (laserbeam, lgtning, plasma, smoke, xenobeam,
  * xbeam1-5, zbeam1-6) have a border of 0.009 to 0.261, are 16 or 32 by 64, and hold steady (first and last 0.92 to 1).
+ * A muzzle flash's frames are flashes each of its own: the engine shows one frame, picked at random, for one frame
+ * of play (R_MuzzleFlash; Xash3D's engine/client/cl_tent.c). The game's four (muzzleflash, 1 to 3) are every frame
+ * bright (first and last 0.94 to 1), with a dark border.
  */
 export const SPRITE_CLASSES = {
   explosion: { jitter: [1.04, 1.48], border: [0, 0.005], peakAt: [0.22, 0.71], first: [0, 0.22], last: [0, 0.03] },
@@ -110,6 +113,7 @@ export const SPRITE_CLASSES = {
   "smoke puff": { jitter: [0.9, 1.5], border: [0, 0.005], peakAt: [0.2, 0.6], first: [0, 0.35], last: [0, 0.1] },
   glow: { border: [0, 0.005] },
   flare: { border: [0, 0.005] },
+  "muzzle flash": { border: [0, 0.005], first: [0.9, 1], last: [0.9, 1] },
   ring: { border: [0, 0.005], last: [0, 0.1] },
   beam: { border: [0, 0.27], first: [0.9, 1], last: [0.9, 1] },
 };

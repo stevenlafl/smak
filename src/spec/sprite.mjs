@@ -336,7 +336,9 @@ export function buildSpriteSpec(spec, { readPicture = (path) => unpicture(readFi
     const held = s.class ? againstClass(m, s.class) : null;
     if (held) {
       const off = held.filter((r) => !r.ok);
-      report.facts.push(`${s.name} against Half-Life's ${s.class}: ${held.length - off.length} of ${held.length} in range${off.length ? `; ${off.map((r) => `${r.measure} ${r.value} (${r.range.join(" to ")}): ${r.words}`).join("; ")}` : ""}`);
+      report.facts.push(`${s.name} against Half-Life's ${s.class}: ${held.length - off.length} of ${held.length} in range`);
+      // a warning, not a fact: makers stop at OK, and a judge holds the sprite to its class's measures
+      if (off.length) report.warnings.push(`${s.name}: off Half-Life's ${s.class}: ${off.map((r) => `${r.measure} ${r.value} (${r.range.join(" to ")}): ${r.words}`).join("; ")}. Bring it into range and build again`);
     }
     const mode = format === "index alpha" ? "4 (Solid)" : format === "alpha test" ? "0 (Normal)" : use === "env_glow" ? "3 (Glow)" : "5 (Additive)";
     report.notes.push(`${s.name}: placed as ${use === "env_glow" ? "an env_glow" : use === "env_sprite" ? "an env_sprite" : `a ${use}`}, render mode ${mode}${s.fps ? `, framerate ${s.fps}` : ""}`);

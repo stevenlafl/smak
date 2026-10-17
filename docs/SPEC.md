@@ -762,7 +762,7 @@ measured against Half-Life's own of its kind, and drawn as a sheet of its frames
 | --- | --- |
 | `name` | Its path under the mod, `sprites/...spr`. A sprite the game loads by name keeps that name to replace it |
 | `use` | `env_sprite` (unless told), `env_glow`, `tempent` (a muzzle flash, an explosion), `beam`, `hud`. A beam may be lit to its ends (it tiles along its length); anything else keeps its border dark |
-| `class` | What it is held against: `explosion`, `fire loop`, `smoke loop`, `smoke puff`, `sparks`, `glow`, `flare`, `ring`, `beam` |
+| `class` | What it is held against: `explosion`, `fire loop`, `smoke loop`, `smoke puff`, `sparks`, `glow`, `flare`, `muzzle flash` (each frame a flash of its own, all bright: the engine shows one, at random, for one frame), `ring`, `beam` |
 | `size` | `[w, h]`, multiples of 8, 256 at most to be drawn as made (512 at most) |
 | `frames`, `loop`, `fps` | A loop of `frames` is written with its first frame again at the end, as the engine wraps; an `env_sprite` changes frame at most 10 times a second |
 | `type`, `format` | `parallel` (unless told: faces the camera), `upright`, `facing upright`, `oriented`, `parallel oriented`; `additive` (unless told: black is clear), `index alpha` (coverage, tinted by `colour`), `alpha test` (holes), `normal` |

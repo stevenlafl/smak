@@ -390,3 +390,9 @@ walk test, not the game.
   empty, and the judge gave Valve's laserbeam a 1 for it); its class is now the game's sixteen beams (border 0 to
   0.27, steady from first frame to last). And the guard's brief asked for a stocky man, which Valve's barney is not:
   dropped. Results judged before keep their scores.
+- **2026-10-16, later: a muzzle flash is a class of its own.** muzzleflash1 was briefed as a `flare` and its brief
+  said "a short bright burst ... two frames"; its maker faded the second frame to dark, and R4 docked it. The engine
+  shows a muzzle flash's frames one at a time, at random, each for one frame (R_MuzzleFlash, as Xash3D implements
+  it), and the game's four are bright in every frame. The class `muzzle flash` holds that (border dark, first and
+  last frame 0.9 or more of the peak), and the brief now says each frame is a flash of its own. A sprite's
+  measures outside its class are now warned of in the build, not only told as a fact.
