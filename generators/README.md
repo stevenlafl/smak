@@ -22,6 +22,8 @@ bash generators/install.sh <folder>          the sound models: Woosh Flow and DF
 bash generators/install-music.sh <folder>    the music models: ACE-Step 1.5 2B and XL, venvs/acestep-rocm (after install.sh)
 bash generators/install-3d.sh <folder3d>     the shape model: Hunyuan3D-2mini, SD-Turbo, BiRefNet, venvs/torch-rocm; the picture
                                              model: Z-Image-Turbo (Q8 GGUF), its Fun ControlNet Union 2.1 lite, venvs/zimage-rocm
+bash generators/install-segment.sh <folder3d>  the subject cutter: OWLv2, Grounding DINO, YOLO-World with CLIP, SAM 2.1 small,
+                                             venvs/segment-rocm
 cp generators/generators.example.json <folder>/generators.json   (its shape model's root is ../local-3d: change it to <folder3d>)
 ```
 
@@ -39,9 +41,10 @@ take the CUDA wheels instead. About 150 GB in all. On this machine the folders a
 ```
 
 `name` is one `worker.py` knows (`woosh-dflow`, `woosh-flow`, `moss-sfx`, `stable-audio-3-sfx`, `ezaudio`, `acestep`,
-`acestep-xl`, `hunyuan3d-mini`, `zimage-turbo`, `hunyuan3d-paint`);
-`kind` `sound`, `music`, `shape`, `picture` (a picture model: what draws a character from words for a shape) or
-`paint` (what paints a character's sides from its front picture); `root` the model's own folder, from this one (the 3D models live apart);
+`acestep-xl`, `hunyuan3d-mini`, `zimage-turbo`, `hunyuan3d-paint`, `segment`);
+`kind` `sound`, `music`, `shape`, `picture` (a picture model: what draws a character from words for a shape),
+`paint` (what paints a character's sides from its front picture) or `segment` (what cuts a named subject out of a
+picture); `root` the model's own folder, from this one (the 3D models live apart);
 `python` the venv's interpreter, from its root; `licence` is written into every take's sidecar, and
 a sound spec built from a take under a non-commercial one says so; `default` the kind's model when a call
 names none (marked on several sound or music models, a call draws its seeds from each, the files named after
@@ -92,6 +95,28 @@ each take and let go (4.3 GB), so the two never share the card. On the guard: ma
 six views at 512 in 63 s, about 55 s of that loading. Its unet's weights are read from the snapshot's
 `.safetensors` (the repo asks for a `.bin`), its image-prompt adapter's keys left out. By hand: `python
 generators/paint.py <mesh.obj> <picture_cut.png> <out dir>`.
+
+## Cutting a named subject out of a picture
+
+A shape's picture is cut by BiRefNet, which takes whatever stands out most, and the kit's projection by the
+colour of the picture's border: both fail on a cluttered photograph (the chair, not the table). The segment model
+(`segment`, kind `segment`, `generators/segment.py` through `worker.py`) finds the subject by its words with three
+open-vocabulary detectors, OWLv2 (Apache-2.0), Grounding DINO base (Apache-2.0) and YOLO-World v2 x (AGPL-3.0),
+holds each one's best box to the words with CLIP ViT-B/32 (MIT) unless all three agree, and cuts the winner with SAM
+2.1 small (Apache-2.0). `generate { kind: "segment", picture, subject }` writes `_mask.png`, `_cut.png` (the
+background clear) and `_white.png` (the subject alone on white, cropped) under `work:gen/`, with each detector's box
+and score; `point: [x, y]` cuts from a click instead; `generate { kind: "shape", picture, subject }` cuts first and
+makes the shape of the white picture. `src/segment.mjs` (`segmentOf`, `every: true` for all of a kind) is the same
+outside the server, for the photogrammetry's masks of people, monsters and HUD.
+
+Measured (`research/segment/compare.mjs`; the game's own models laid over a cluttered photograph, the true mask
+known; mean IoU over six subjects): OWLv2 0.53, Grounding DINO 0.64, YOLO-World 0.63, the vote 0.84, BiRefNet 0.33,
+the colour logic 0.02. Where a detector finds the right thing SAM 2's cut scores 0.91 to 0.98: every miss is the
+wrong box, and each detector misses different subjects (OWLv2 and YOLO-World both took a chair for "a security
+guard"; the vote still takes a crop of the scientist's coat over the scientist). A request takes about 6 s with the
+three detectors loaded; the first, loading them, a minute. Its venv reads as 15.4 GB, 13.8 of it torch and 0.9
+triton, but uv hardlinks those from its cache into every venv of the folder with the same wheel: on disk it adds
+about 0.46 GB. Its models are about 3.8 GB.
 
 ## A library of materials
 

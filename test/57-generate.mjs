@@ -39,6 +39,16 @@ process.stdin.on("data", (chunk) => {
   while ((at = buffer.indexOf("\\n")) >= 0) {
     const r = JSON.parse(buffer.slice(0, at));
     buffer = buffer.slice(at + 1);
+    if (model === "cutter") {
+      // a segment model: the subject asked for, its mask, cut-out and white picture (the seen picture each)
+      fs.appendFileSync(${JSON.stringify(join(folder, "cuts.txt"))}, (r.subject ?? "point " + r.point) + " " + r.detector + "\\n");
+      if ((r.subject ?? "").includes("unicorn")) { say({ id: r.id, ok: false, error: "no a unicorn found by owlv2, gdino, yoloworld" }); continue; }
+      fs.mkdirSync(require("node:path").dirname(r.out), { recursive: true });
+      for (const end of ["_mask.png", "_cut.png", "_white.png"]) fs.copyFileSync(${JSON.stringify(join(folder, "seen.png"))}, r.out + end);
+      say({ id: r.id, ok: true, box: [1, 2, 10, 12], score: 0.5, detector: "vote (gdino, CLIP 0.3)", boxes: [{ detector: "gdino", box: [1, 2, 10, 12], score: 0.5, clip: 0.3 }, { detector: "owlv2", box: [20, 2, 30, 12], score: 0.2, clip: 0.1 }], mask: r.out + "_mask.png", cut: r.out + "_cut.png", white: r.out + "_white.png", covered: 0.12, took: 0.01 });
+      continue;
+    }
+    if (r.picture && r.out.endsWith(".obj")) fs.appendFileSync(${JSON.stringify(join(folder, "shaped.txt"))}, r.picture + "\\n");
     if ((r.prompt ?? "").includes("fail")) { say({ id: r.id, ok: false, error: "RuntimeError: asked to" }); continue; }
     if (model === "sider") {
       // a paint model: six views of the mesh "painted" from its front picture, into its folder
@@ -277,6 +287,44 @@ await testAsync("generate: a character from words with a picture model is drawn 
       wrongSides = error.message;
     }
     sure(/sides: false leaves a character's sides unpainted/.test(wrongSides), wrongSides);
+  } finally {
+    stopWorkers();
+  }
+});
+
+await testAsync("generate: a subject cut out of a picture by words, alone and before a shape is made of it", "generate", async () => {
+  const cutting = join(tmp, "generators-cutting");
+  mkdirSync(cutting, { recursive: true });
+  writeFileSync(join(cutting, "generators.json"), JSON.stringify({ models: [{ name: "former", kind: "shape", root: folder, python: "venv/python", licence: "non-commercial", default: true }, { name: "cutter", kind: "segment", root: folder, python: "venv/python", licence: "Apache-2.0 and AGPL-3.0" }] }));
+  try {
+    const folders = openFolders({ work: join(tmp, "gen-cutting") });
+    folders.generators = openGenerators(cutting);
+    const generate = toolsFor(folders).find((t) => t.name === "generate");
+    mkdirSync(join(folders.work, "refs"), { recursive: true });
+    writeFileSync(join(folders.work, "refs", "shop.png"), readFileSync(join(folder, "seen.png")));
+    // the cut alone: its files, the box and score, each detector's own, and a picture of it beside the picture
+    const cut = await generate.call({ kind: "segment", picture: "work:refs/shop.png", subject: "the metal cage" });
+    sure(/"the metal cage" cut from work:refs\/shop\.png by vote \(gdino, CLIP 0\.3\): box 1, 2, 10, 12, score 0\.5, 12% of the picture/.test(cut[0].text) && /each detector's own: gdino 1,2,10,12 \(0\.5, CLIP 0\.3\); owlv2/.test(cut[0].text) && cut[1]?.type === "image", cut[0].text);
+    sure(["_mask.png", "_cut.png", "_white.png"].every((end) => existsSync(join(folders.work, "gen", `shop_the_metal_cage${end}`))) && /work:gen\/shop_the_metal_cage_white\.png \(the subject alone on white, cropped\)/.test(cut[0].text), cut[0].text);
+    sure(readFileSync(join(folder, "cuts.txt"), "utf8").includes("the metal cage vote"), "the vote by default");
+    // a shape of a subject in a cluttered picture: cut first, the shape made of the white picture
+    const shaped = await generate.call({ kind: "shape", picture: "work:refs/shop.png", subject: "a chair", seeds: 1, name: "chair" });
+    sure(/1 of 1 shapes of the picture work:refs\/shop\.png/.test(shaped[0].text) && readFileSync(join(folder, "shaped.txt"), "utf8").trim().split("\n").at(-1).endsWith("shop_a_chair_white.png"), shaped[0].text);
+    // one not found is said, and a subject with no picture refused
+    let lost = "";
+    try {
+      await generate.call({ kind: "segment", picture: "work:refs/shop.png", subject: "a unicorn" });
+    } catch (error) {
+      lost = error.message;
+    }
+    sure(/subject: no a unicorn found by owlv2, gdino, yoloworld/.test(lost), lost);
+    let bare = "";
+    try {
+      await generate.call({ kind: "shape", prompt: "a chair", subject: "a chair" });
+    } catch (error) {
+      bare = error.message;
+    }
+    sure(/subject: the thing to cut out of the picture in words \("the chair"\), with picture/.test(bare), bare);
   } finally {
     stopWorkers();
   }
