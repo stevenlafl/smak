@@ -255,7 +255,8 @@ console.log(view.facts.notes, view.facts.missing, view.facts.brightness);
 | --- | --- |
 | `drawMap(bsp, { from, to | yaw, pitch, fov, width, height, light, brightness, textures, folders, entities, labels, bodies, models, modelScale, sprites, sky })` |\| yaw, pitch, fov, width, height, light, brightness, textures, folders, entities, labels, bodies, models, sky })` | A view from a point inside the map, 640 x 480: textured, lit by the map's own lightmaps, `{` textures with their holes where the game gives them, liquids of the world letting the bottom show, brush entities where their `origin` puts them, and what stands (a start, a monster, an NPC) as the box it moves with, at its true size. With `folders`: the sky as its own picture and each sprite as its first frame; with `models` too, each named model with its textures. Without `from`: from the first place to start, at eye height, the way it faces. |
 | `planOf(bsp, { z, slice, scale, width, height, area, entities, labels, legend, heights, reach, only, ... })` | The map from straight above, `+y` up the picture and `+x` to its right: floors (their texture's mean colour under the map's light), walls as lines, every point entity a dot in the colour of its kind (with the outline of its box, when it stands), every brush entity outlined, a scale bar and a north arrow. With `z`: a cut at that height, what is solid there filled in one colour (a storey's floor plan, doorways open). `heights`: each floor's height written on it. `legend`: the entities listed beside it. `reach`: the walk test tinted on it. |
-| `viewsOf(bsp, { count, at, width, height, cols, ... })` | Several views in one picture, each named in its corner: from the places to start, and from the middle of the largest rooms looking four ways. An overview in one call. Places to start that stand together (each within 256 units of another: a row of them for many players, one for each map a player arrives from) are one group and get ONE view, from the first, named `1 ms_player_spawn +5`, with the others' boxes left out of it (`facts.starts`). A view that is nearly one colour (nine tenths of it, and not for want of light) is left out and the next largest room shown in its place (`facts.dropped`, and a note); with no room left, it stays and is said. `at`: views of your own, drawn as asked. |
+| `viewsOf(bsp, { count, at, aim, landmark, width, height, cols, ... })` | Several views in one picture, each named in its corner: from the places to start, and from the middle of the largest rooms looking four ways. An overview in one call. `aim`: views aimed at what the map has come next (`aimedStands`), and the rooms' level views the most open first, one facing a wall within 256 only when no other is left; `landmark` (an entity's number, targetname or class) is among them. Places to start that stand together (each within 256 units of another: a row of them for many players, one for each map a player arrives from) are one group and get ONE view, from the first, named `1 ms_player_spawn +5`, with the others' boxes left out of it (`facts.starts`). A view that is nearly one colour (nine tenths of it, and not for want of light) is left out and the next largest room shown in its place (`facts.dropped`, and a note); with no room left, it stays and is said. `at`: views of your own, drawn as asked. |
+| `aimedStands(bsp, { landmark })` | Places to look from at what a map has, each `{ from, to, name }`: the landmark asked for, its largest water, its largest brush entity that stands, its largest cluster of lamps (faces wearing a lamp's texture, `lampsOf`), its largest cluster of monsters and items, and a room on each storey but the lowest. Each from a player's eye over a floor 192 to 512 away with a clear line to it. The views a judge and a maker see of a map (the original mod's judging, the MCP's map `views`, a map spec's `features` picture) are aimed so: a judged pump hall had its water, catwalks and bridge in none of its level views |
 | `texturePlaces(bsp)`, `placeView(bsp, place, { textures, folders, brightness })` | Each texture of the world at its largest face lit in every colour (else its largest lit, else its largest), with a camera square in front of it that stays inside the room: `{ name, width, height, from, yaw, pitch, area, lit, light: [r, g, b], across, up, turned, wall }`. `light` is the face's mean steady light as a view at `PLACE_BRIGHTNESS` (4.5) lays it on a texel; `across` the texels a view spans; `turned` the picture's top against up (a wall) or north. `placeView` draws one: what the reproduction test's judge, and the wad spec's `preview.each`, look at |
 | `matchTextures(picture, rect, textures, { count })` | The textures of a .wad (`readWad(...).textures`) most like a patch `[x, y, w, h]` of a picture, by their colours with the brightness divided out: `[{ name, width, height, distance }]`, nearest first. Candidates to look at, not a verdict (`src/maps/match.mjs` gives what it finds and what it cannot) |
 | `faceTextureAxes(bsp, face)` | `{ s, t }`: how a face lays its texture, each `[x, y, z, offset]` |
@@ -386,6 +387,52 @@ behind, and the sky, side for side and the right way up. Different: the game smo
 near, the kit shows its pixels; the game lights a model by its own rules (the trunks and the barrel are a
 little lighter there, the leaves a little brighter); a monster whose model is its script's is a box here;
 the player's own body and the game's panels are not there. A sprite was not looked at beside the game.
+
+## A map's dressing (`src/maps/dressing.mjs`)
+
+How a map is dressed, in numbers, beside Valve's own: the facts a maker revising a map is told, measured
+(research/level-dressing.md: checks by rule agree with people where a picture judge does near chance). `smak
+map-dressing <bsp> [--source <map>] [--against <bsp>]` prints it; a map spec's build report carries its lines.
+
+| Function | Gives |
+| --- | --- |
+| `dressingOf(bsp, { source, views, against })` | `{ measures, counts, rows, facts, warnings }`: each measure beside `VALVE_DRESSING`, a line each (`dressing: tall walls of one texture only: 100% (Valve's: 44% to 93%, median 68%)`), and a warning, with which way to go, for one outside Valve's band. `source`: the map's brush source, for its brushes' roles; `views`: pictures of it, for their complexity |
+| `measureDressing(bsp, { source, views })` | The measures alone |
+| `dressingOfSource(map)` | The brush roles of a source: shares of its world (and `func_detail`) brushes that are panels, strips, lamps, angled |
+| `brushRole({ min, max, faces })` | One brush's role as Valve's c1a0 sources are read: `lit` (a lamp's texture, its long side 128 or less), `strip` (two thin sides of 16 and 24 or less, its long side three times the middle), `panel` (its thinnest 16 or less, the next 32 or more), else `block`; `angled` when it has other than six faces |
+| `lampsOf(bsp)`, `isLampTexture(name)` | Whether a texture is a lamp: the game's texture lights, a `~` name, a lamp's word, and every texture a map's `info_texlights` names (a map spec's glowing fixtures) |
+| `pictureComplexity(picture)` | `{ edges, compression }`: the share of pixels whose brightness steps over 24 to a neighbour, and its PNG's bytes over its raw size (Machado et al. 2015: such measures follow people's ratings of complexity) |
+| `VALVE_DRESSING` | Valve's own: each measure's 5th, 25th, 50th, 75th and 95th in 100 over the campaign's 96 maps, the roles over the SDK's c1a0 and c1a0d sources (widened a quarter each way, two being few). `research/valve-dressing.mjs` measures it again |
+
+The measures, of the world's faces (tool, sky and liquid faces left out):
+
+```
+Measure            What it is                                                       Valve's 5th to 95th (median)
+scaleOne           faces at texture scale 1                                         26% to 97% (79%)
+shifted            faces shifted off the world's texture grid                       28% to 98% (71%)
+bandedWalls        tall walls (128 or more, faces grouped by plane) with a texture   1% to 41% (13%)
+                   join up them: two textures meeting on the one plane
+oneTextureWalls    tall walls of one texture only                                    44% to 93% (68%)
+joinHeight         median height of a join over its wall's foot                      56 to 527 (160)
+lampFaces          lamp faces a light entity (light, light_spot)                      0 to 101 (5)
+nonAxial           world face area off the axes                                       7% to 60% (22%)
+detail             world planes a 256 x 256 of floor (up-facing face area)             2.3 to 23 (10.7)
+darkFloor          floor area whose steady light is under 24 of 255                   5% to 60% (18%)
+contrast           the floor light's brightest tenth over its darkest                  2.8 to 94 (8.2)
+panels, strips,    the brush roles, of source                                        about 39%, 15%, 15%, 6%
+litBrushes, angled
+edges              of views' pixels on an edge (six views aimed, 320 x 240)           1.6% to 15% (4.9%)
+compression        a view's PNG bytes over its raw size                               0.20 to 0.47 (0.34)
+```
+
+What it is worth: each measure is of the faces as the compiler left them, Valve's measured the same way from
+their compiled maps; a band at the 5th to 95th says where most of Valve's own lie, not what is good. A frame's
+bands (`frame`, docs/SPEC.md) stand 2 off the wall as brushes of their own, so they add detail and not a join
+on the wall's plane: `bandedWalls` stays at 0 for them, as Valve's banded walls are not. The original mod's
+maps measure outside Valve's band on banding, one-texture walls, the share off the axes, the dark floor and the
+light's contrast; Valve's c1a0 only on the share off the axes, being among its boxiest. The views' edges and
+compression put the mod's three maps inside Valve's band (0.04 to 0.13, 0.28 to 0.40): photographic textures
+are busy enough, and these two tell little apart here.
 
 ## The walk test (`src/maps/reach.mjs`, `src/maps/space.mjs`)
 

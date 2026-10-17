@@ -38,6 +38,8 @@ import {
   faceLightmap,
   visibleFrom,
   embeddedTexture,
+  modelFaces,
+  faceTexture,
 } from "./bsp.mjs";
 import { textureKind, HOLE } from "./miptex.mjs";
 import { texturesFor } from "./wad.mjs";
@@ -49,6 +51,7 @@ import { figuresOf } from "./figures.mjs";
 import { withMod } from "./mod.mjs";
 import { spritesOf, boardOf } from "./sprites.mjs";
 import { skyOf, skyColour } from "./sky.mjs";
+import { lampsOf } from "./dressing.mjs";
 
 // ── constants ───────────────────────────────────────────────────────────────
 /** A view's size and how wide it looks, in degrees across, unless told. */
@@ -1575,6 +1578,137 @@ function largestRooms(bsp, count) {
   return chosen;
 }
 
+// ── views aimed at what a map has ───────────────────────────────────────────
+/** How far, at the least, a view's way must be open before it: one closer faces a wall. */
+const VIEW_OPEN_LEAST = 256;
+/** The distances a camera aimed at a feature is tried at, nearest the first that suits. */
+const AIM_DISTANCES = [320, 256, 416, 192, 512];
+
+/** How far a line from `from` along `way` (a unit vector) goes before something solid (at most `most`). */
+function openAhead(bsp, from, way, most = 1024) {
+  for (let d = 8; d <= most; d += 8) {
+    const c = contentsAt(bsp, from.map((v, k) => v + way[k] * d));
+    if (c === CONTENTS.SOLID || c === CONTENTS.SKY) return d;
+  }
+  return most;
+}
+
+/** Whether nothing solid stands on the line between two points (liquid is no wall). */
+function clearBetween(bsp, a, b) {
+  const length = Math.hypot(...sub(b, a));
+  for (let d = 8; d < length - 8; d += 8) {
+    const c = contentsAt(bsp, a.map((v, k) => v + ((b[k] - v) * d) / length));
+    if (c === CONTENTS.SOLID || c === CONTENTS.SKY) return false;
+  }
+  return true;
+}
+
+/**
+ * A place to look at `target` from: a player's eye over a floor, `AIM_DISTANCES` away about it, in open air,
+ * the line to the target clear. Null when none suits.
+ */
+function standFor(bsp, target, name) {
+  for (const distance of AIM_DISTANCES)
+    for (let k = 0; k < 16; k++) {
+      const a = (k * Math.PI) / 8;
+      const over = [target[0] + Math.cos(a) * distance, target[1] + Math.sin(a) * distance, target[2] + 64];
+      if (contentsAt(bsp, over) === CONTENTS.SOLID) continue;
+      const floor = floorUnder(bsp, over);
+      if (floor === null || over[2] - floor > 512) continue;
+      const eye = [over[0], over[1], floor + EYE_OVER_FLOOR];
+      if (contentsAt(bsp, eye) !== CONTENTS.EMPTY || !clearBetween(bsp, eye, target)) continue;
+      return { from: eye.map(Math.round), to: target.map(Math.round), name };
+    }
+  return null;
+}
+
+/**
+ * What a map has to be seen, each a point to aim a view at: the landmark asked for (an entity's number,
+ * targetname or classname), its largest water, its largest brush entity that stands (no trigger, ladder or
+ * clip), its largest cluster of lamps (faces wearing a lamp's texture), its largest cluster of monsters and
+ * items, and a room on each storey but the first. Argon's consult (2026-10-17) found the pump hall's catwalks,
+ * bridge and water in no judged view: the views were the starts' and the largest room's, four ways level.
+ */
+function featureTargets(bsp, { landmark } = {}) {
+  const targets = [];
+  const ents = bsp.entities.map((pairs, number) => ({ number, keys: Object.fromEntries(pairs) }));
+  const centreOf = (e) => {
+    const model = e.keys.model?.startsWith("*") ? bsp.models[Number(e.keys.model.slice(1))] : null;
+    const origin = (e.keys.origin ?? "0 0 0").split(/\s+/).map(Number);
+    return model ? model.mins.map((v, k) => (v + model.maxs[k]) / 2 + origin[k]) : origin;
+  };
+  if (landmark !== undefined) {
+    const e = ents.find((x) => x.number === Number(landmark) || x.keys.targetname === landmark || x.keys.classname === landmark);
+    if (e) targets.push({ at: centreOf(e), name: `landmark ${e.keys.targetname ?? e.keys.classname}` });
+  }
+  // the largest water, its top
+  let water = null;
+  for (let leaf = 1; leaf < bsp.leaves.length; leaf++) {
+    const { contents, mins, maxs } = bsp.leaves[leaf];
+    if (![CONTENTS.WATER, CONTENTS.SLIME, CONTENTS.LAVA].includes(contents)) continue;
+    const size = (maxs[0] - mins[0]) * (maxs[1] - mins[1]);
+    if (!water || size > water.size) water = { size, at: [(mins[0] + maxs[0]) / 2, (mins[1] + maxs[1]) / 2, maxs[2]] };
+  }
+  if (water) targets.push({ at: water.at, name: "water" });
+  // the largest brush entity that stands in the world
+  const standing = ents.filter((e) => e.keys.model?.startsWith("*") && !/^(trigger_|func_ladder|func_clip|func_monsterclip|func_illusionary|env_|info_)/.test(e.keys.classname ?? ""));
+  const volume = (e) => {
+    const m = bsp.models[Number(e.keys.model.slice(1))];
+    return m ? (m.maxs[0] - m.mins[0]) * (m.maxs[1] - m.mins[1]) * (m.maxs[2] - m.mins[2]) : 0;
+  };
+  const big = standing.sort((a, b) => volume(b) - volume(a))[0];
+  if (big && volume(big) > 64 * 64 * 64) targets.push({ at: centreOf(big), name: `${big.keys.classname} ${big.number}` });
+  // clusters on a grid of 256: the cell holding most
+  const cluster = (points) => {
+    const cells = new Map();
+    for (const p of points) {
+      const key = `${Math.floor(p[0] / 256)},${Math.floor(p[1] / 256)},${Math.floor(p[2] / 256)}`;
+      (cells.get(key) ?? cells.set(key, []).get(key)).push(p);
+    }
+    const most = [...cells.values()].sort((a, b) => b.length - a.length)[0];
+    return most && most.length >= 2 ? [0, 1, 2].map((k) => most.reduce((s, p) => s + p[k], 0) / most.length) : null;
+  };
+  const lamps = [];
+  const isLamp = lampsOf(bsp);
+  for (let m = 0; m < bsp.models.length; m++)
+    for (const face of modelFaces(bsp, m))
+      if (isLamp(faceTexture(bsp, face)?.name ?? "")) {
+        const polygon = facePolygon(bsp, face);
+        lamps.push([0, 1, 2].map((k) => polygon.reduce((s, p) => s + p[k], 0) / polygon.length));
+      }
+  const lit = cluster(lamps);
+  if (lit) targets.push({ at: lit, name: "lamps" });
+  const things = ents.filter((e) => /^(monster_|weapon_|item_|ammo_)/.test(e.keys.classname ?? "") && e.keys.origin).map((e) => e.keys.origin.split(/\s+/).map(Number));
+  const met = cluster(things);
+  if (met) targets.push({ at: met, name: "monsters and items" });
+  // a room on each storey but the lowest
+  let cuts = [];
+  try {
+    cuts = storeyCuts(bsp);
+  } catch {
+    // a map the walk cannot read keeps its other targets
+  }
+  if (cuts.length > 1) {
+    const rooms = largestRooms(bsp, 24);
+    for (const cut of cuts.slice(0, -1)) {
+      const room = rooms.find((r) => r.at[2] - EYE_OVER_FLOOR >= cut.floors[0] - 1 && r.at[2] - EYE_OVER_FLOOR <= cut.floors[1] + 1);
+      if (room) targets.push({ at: room.at, name: `storey at z ${Math.round(cut.z)}` });
+    }
+  }
+  return targets;
+}
+
+/** The views aimed at a map's features (`featureTargets`), each from where it is seen: [{ from, to, name }]. */
+export function aimedStands(bsp, options = {}) {
+  const stands = [];
+  for (const target of featureTargets(bsp, options)) {
+    if (stands.some((s) => Math.hypot(...sub(s.to, target.at)) < 192)) continue;
+    const stand = standFor(bsp, target.at, target.name);
+    if (stand) stands.push(stand);
+  }
+  return stands;
+}
+
 // ── several views in one picture ────────────────────────────────────────────
 /**
  * The places to start gathered: each group is the starts that stand within `STARTS_TOGETHER` units of
@@ -1681,12 +1815,24 @@ export function viewsOf(bsp, options = {}) {
       own.push(
         `${groups.length - most} more places to start (or groups of them) have no view: \`count\` gives them half its cells at the most`,
       );
+    // aimed (`aim`): the features' views next, then the rooms' level views, the most open first (a view facing a
+    // wall within VIEW_OPEN_LEAST only when no other is left)
+    const aimed = options.aim ? aimedStands(bsp, { landmark: options.landmark }).slice(0, Math.max(0, count - fromStarts.length)) : [];
     const wanted = Math.max(1, Math.floor((count - fromStarts.length) / FOUR_WAYS.length));
-    const rooms = largestRooms(bsp, wanted + ROOMS_SPARE);
-    const waysOf = (room) =>
-      FOUR_WAYS.map((yaw) => ({ from: room.at, yaw, pitch: 0, name: `room ${pointText(room.at)}` }));
-    stands = [...fromStarts, ...rooms.slice(0, wanted).flatMap(waysOf)].slice(0, Math.max(count, 1));
-    spare = rooms.slice(wanted).flatMap(waysOf);
+    const rooms = largestRooms(bsp, options.aim ? count + ROOMS_SPARE : wanted + ROOMS_SPARE);
+    const waysOf = (room) => FOUR_WAYS.map((yaw) => ({ from: room.at, yaw, pitch: 0, name: `room ${pointText(room.at)}` }));
+    const radians = (deg) => (deg * Math.PI) / 180;
+    const openOf = (stand) => openAhead(bsp, stand.from, [Math.cos(radians(stand.yaw)), Math.sin(radians(stand.yaw)), 0], VIEW_OPEN_LEAST);
+    if (options.aim) {
+      const all = rooms.flatMap(waysOf).map((stand) => ({ stand, open: openOf(stand) }));
+      const ways = [...all.filter((w) => w.open >= VIEW_OPEN_LEAST), ...all.filter((w) => w.open < VIEW_OPEN_LEAST).sort((x, y) => y.open - x.open)].map((w) => w.stand);
+      const room = Math.max(0, count - fromStarts.length - aimed.length);
+      stands = [...fromStarts, ...aimed, ...ways.slice(0, room)].slice(0, Math.max(count, 1));
+      spare = ways.slice(room);
+    } else {
+      stands = [...fromStarts, ...rooms.slice(0, wanted).flatMap(waysOf)].slice(0, Math.max(count, 1));
+      spare = rooms.slice(wanted).flatMap(waysOf);
+    }
   }
   if (!stands.length) throw new Error("viewsOf: the map has no place to start and no open room: give `at`");
   const draw = (stand) => drawMap(bsp, { ...options, ...stand, to: stand.to, width, height });

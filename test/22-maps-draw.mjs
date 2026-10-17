@@ -793,7 +793,8 @@ await testAsync("the MCP server lists, describes, checks and draws maps", "mcp: 
     wordsOf(view),
   );
   const views = await server.tool("render", { model: "tworooms.bsp", kind: "views", size: 800 });
-  sure(picturesOf(views)[0].width === 800 && /room 272 224 64 yaw 0/.test(wordsOf(views)), wordsOf(views));
+  // aimed (the MCP's views are): the hall's views the most open first, its view facing a wall later or not at all
+  sure(picturesOf(views)[0].width === 800 && /room 272 224 64 yaw -90/.test(wordsOf(views)), wordsOf(views));
   const ofSource = await server.tool("render", { model: "tworooms.map", kind: "view", at: "96 96 64" });
   sure(
     /source, not compiled/.test(wordsOf(ofSource)) && picturesOf(ofSource).length === 1,

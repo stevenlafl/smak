@@ -115,6 +115,8 @@ const VALUE_FLAGS = [
   "fps",
   "frames",
   "source",
+  "against",
+  "landmark",
 ];
 // the flags of the map commands that may be given more than once: each time adds to a list
 const LISTED_FLAGS = [
@@ -1627,6 +1629,8 @@ async function mapViews({ command, file, flags, listed }) {
     ...figureOptions(flags, listed),
     ...defined({ mod: await profileOf(flags, listed) }),
     ...defined({ count: numberOf(flags, "count"), cols: numberOf(flags, "cols") }),
+    ...(flags.aim ? { aim: true } : {}),
+    ...defined({ landmark: typeof flags.landmark === "string" ? flags.landmark : undefined }),
   };
   for (const name of ["count", "cols"])
     if (name in options && !(Number.isInteger(options[name]) && options[name] >= 1))
@@ -1635,6 +1639,27 @@ async function mapViews({ command, file, flags, listed }) {
   savePicture(to, picture, `${picture.facts.views.length} views; light: ${picture.facts.light}`);
   for (const view of picture.facts.views)
     console.log(`      ${view.name}, from ${placeText(view.from)}: ${view.faces} faces`);
+}
+
+/**
+ * A map's dressing beside Valve's own (src/maps/dressing.mjs): a compiled map's walls, textures, lamps and floor
+ * light; its source's brush roles (a .map, or `--source` beside a .bsp); `--against` another compiled map, its
+ * numbers beside. `--json`: the rows.
+ */
+async function mapDressing({ file, flags }) {
+  if (isSource(file)) {
+    const roles = maps.dressingOfSource(maps.readMap(readFileSync(existing(file), "utf8")));
+    for (const [key, v] of Object.entries(roles)) console.log(`${key}: ${v === null ? "not measured" : key === "brushes" ? v : `${Math.round(v * 100)}%`}`);
+    console.log("the face measures (walls, textures, lamps, light) are of a compiled map: compile it, and give the .bsp");
+    return;
+  }
+  const source = typeof flags.source === "string" ? maps.readMap(readFileSync(existing(flags.source), "utf8")) : null;
+  const mine = maps.dressingOf(readCompiled(file).bsp, { source });
+  const theirs = typeof flags.against === "string" ? maps.dressingOf(readCompiled(flags.against).bsp) : null;
+  if (flags.json) return console.log(JSON.stringify({ rows: mine.rows, against: theirs?.rows ?? null }, null, 1));
+  for (const line of mine.facts) console.log(line);
+  for (const line of mine.warnings) console.log(`WARNING ${line}`);
+  if (theirs) for (const row of theirs.rows) console.log(`  ${flags.against}: ${row.key} ${row.value}`);
 }
 
 // ── the walk test, the section, the storeys, the openings ──────────────────
@@ -2410,7 +2435,10 @@ const COMMANDS = {
   "map-views": {
     run: mapViews,
     own: true,
-    help: `  map-views <bsp> -o out.png [--count 8] [--cols 4]   several views in one picture: from the places to start and the largest rooms
+    help: `  map-views <bsp> -o out.png [--count 8] [--cols 4] [--aim] [--landmark <n|name|class>]
+                                            several views in one picture: from the places to start and the largest rooms;
+                                            --aim: also aimed at what the map has (its water, its largest standing piece, its lamps,
+                                            its crowd, each storey, the landmark), and no level view that faces a wall
                                             (places to start that stand together get one view between them; a view that is nearly
                                             one colour is left out for the next largest room, and that is said)
         (the three take --width --height --game <folder> --wad <file.wad> --no-light --light steady|all --brightness 1.55 --entities all|models|game|none (game: only what is drawn by its model or sprite, no boxes);
@@ -2421,6 +2449,16 @@ const COMMANDS = {
          --mod <profile.mjs|.json|goldsrc> (with --game, --scripts <folder>): the mod's folders, the box each of its classes moves with and,
          with --models, the model the mod gives an entity that names none, a monster's from its script; map-section, map-storeys
          and map-openings take it too)`,
+  },
+  "map-dressing": {
+    run: mapDressing,
+    own: true,
+    help: `  map-dressing <bsp|map> [--source <map>] [--against <bsp>] [--json]
+                                            its dressing beside Valve's own campaign, measured: tall walls banded and where,
+                                            texture scale and shift, lamp faces a light, faces off the axes, detail a floor's
+                                            256 x 256, the floor's dark share and contrast; of source, its brushes' roles (panels,
+                                            strips, lamps, angled). A measure outside Valve's 5th to 95th in 100 is a WARNING,
+                                            with which way to go`,
   },
   "map-sweep": {
     run: async ({ file, flags }) => {

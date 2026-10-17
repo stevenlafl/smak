@@ -1234,9 +1234,15 @@ and pass the picture as `reference`: it is then drawn beside the plan of the res
 - `CHANGED since the last build ...`: what this build changed from the one before of the same name.
 - `FAULT size: its plan is ... where the spec asks ...`: the rooms reach further (or less far) than the size asked.
 - `ROOMS`: every room's box and the light on its floor.
+- `fact dressing: ...` (after the compile): the map's dressing beside Valve's own campaign, measured, a line a
+  measure (`dressing: tall walls of one texture only: 100% (Valve's: 44% to 93%, median 68%)`), and a `WARN` for
+  one outside Valve's 5th to 95th in 100, with which way to go: band tall walls, light by lamps built into the
+  walls and ceilings, keep dark spots, break the boxes, more detail. Measures, not a judge's opinion: read them
+  when revising (docs/MAPS.md, "A map's dressing"; `smak map-dressing <bsp>` measures any map).
 
 The pictures: the plan of the result (every entity marked with its number and class; beside the person's
 drawing when one is given); a view of every room from high in its south-west corner, looking down across
-it, lit by the map's own light; the same three times as bright when the map is dark; a section through
+it, lit by the map's own light; views aimed at what the map has (`features`: its water, its largest standing
+piece, its lamps, its crowd, each storey); the same three times as bright when the map is dark; a section through
 every staircase; a view at a man's height towards each room's props; and every model the map builds, one
 by one and named, close enough to judge.

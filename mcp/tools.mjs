@@ -406,7 +406,9 @@ const MAP_KINDS = {
   views: (map, source, args, size) => {
     if (source) throw new Error("views: of a compiled map (.bsp); of source, kind view and plan");
     const side = Math.floor(size / MAP_VIEWS_COLUMNS);
+    // aimed at what the map has (its water, its lamps, each storey), as the judges see a map
     return maps.viewsOf(map, {
+      aim: true,
       ...args.options,
       count: args.count,
       width: side,
