@@ -6,15 +6,16 @@
     "length": 32
   },
   "weapon": {
-    "like": "crowbar"
+    "like": "crowbar",
+    "size": "own"
   },
   "materials": {
-    "red": {
+    "red_paint": {
       "base": "paint",
       "tone": [
-        0.6,
-        0.07,
-        0.05
+        0.62,
+        0.1,
+        0.09
       ]
     },
     "steel": {
@@ -23,102 +24,66 @@
   },
   "parts": [
     {
-      "id": "bar",
-      "kind": "tube",
-      "material": "red",
-      "path": [
-        [
-          0,
-          0,
-          0,
-          0.9
-        ],
-        [
-          12,
-          0,
-          0,
-          0.9
-        ],
-        [
-          25,
-          0,
-          0,
-          0.9
-        ],
-        [
-          28.5,
-          0,
-          0,
-          0.9
-        ],
-        [
-          31,
-          0,
-          1,
-          0.8
-        ],
-        [
-          31.6,
-          0,
-          2.6,
-          0.75
-        ],
-        [
-          30.4,
-          0,
-          4.2,
-          0.5
-        ]
+      "id": "shaft",
+      "kind": "cylinder",
+      "radius": 0.9,
+      "height": 27,
+      "sides": 8,
+      "rotate": [
+        0,
+        90,
+        0
       ],
-      "sides": 8
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "material": "red_paint"
     },
     {
-      "id": "grip_end",
+      "id": "hook",
       "kind": "tube",
-      "material": "steel",
-      "paint": true,
       "path": [
         [
+          27,
           0,
           0,
-          0,
-          0.95
+          0.9
         ],
         [
-          1.6,
+          29.5,
           0,
           0,
-          0.95
-        ]
-      ],
-      "sides": 8
-    },
-    {
-      "id": "claw_end",
-      "kind": "tube",
-      "material": "steel",
-      "paint": true,
-      "path": [
-        [
-          31,
-          0,
-          1,
           0.85
         ],
         [
-          31.6,
+          31.2,
           0,
-          2.6,
+          1,
           0.8
         ],
         [
-          30.4,
+          32,
           0,
-          4.2,
+          2.6,
+          0.7
+        ],
+        [
+          31.8,
+          0,
+          4,
           0.55
+        ],
+        [
+          30.9,
+          0,
+          4.8,
+          0
         ]
       ],
-      "sides": 8
+      "sides": 8,
+      "material": "steel"
     }
   ]
 }

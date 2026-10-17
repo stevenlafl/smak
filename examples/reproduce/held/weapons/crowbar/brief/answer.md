@@ -1,20 +1,27 @@
-The crowbar builds **OK**. The files are in `work:crowbar_weapon/`:
+The build says **OK**, with every check passing. The spec is `crowbar.mdl`, a `held` model that takes the place of the game's crowbar in its three files.
 
-- `v_crowbar.mdl` (first person, with the game's hands and animations)
-- `p_crowbar.mdl` (in another player's hands)
-- `w_crowbar.mdl` (lying in the world)
+**What I made**
 
-To use them, copy the three into the mod's `models` folder. They keep the game's names, so the game loads them in place of its own with no code changes. The full model is `work:crowbar.mdl`, its spec is `work:crowbar.spec.json`, and the picture sheet is `work:crowbar-sheet.png`.
+- **Shaft:** a red-painted round steel bar, 27 units long, 1.8 across, with its grip at the low end.
+- **Hook:** a curved steel tip, 80 triangles, that stays bare metal. It is the worn tip the brief asks for.
+- **Length:** 32.7 units overall, measured along x, including the hook. The build raised no size warning.
+- **Triangles:** 112 in all. That is about 66 in the other-player and world files, which is the lighter mesh Valve uses there.
+- **Finish:** the paint gets the default light, wear and grime. Its edges rub toward bright metal.
 
-**What it is**
-- A bar 32.3 units long (the spec's 32), 1.8 wide, lying along +x with the grip at the low end, as the weapon spec requires.
-- The shaft and hooked claw are one red-painted tube, 112 triangles, with a grime and wear finish from the build's default.
-- Both tips are bare steel: a steel band over the grip end (about 1.6 units) and another over the claw's hooked end. They are painted onto the red bar rather than built as separate pieces, so they add no triangles.
+**Files** (in `work:crowbar_weapon/`, using the game's names)
 
-**How it was made**
-- Spec: `kind: "held"`, `weapon: { like: "crowbar" }`, the name `crowbar.mdl`, and two materials: `red` (base `paint`, tone 0.6, 0.07, 0.05) and `steel` (base `steel`).
-- The first attempts failed with a fault on the joins between separate tubes. Putting the whole bar in one tube and painting the steel tips on fixed it.
+- `v_crowbar.mdl`: first person, with the game's hands and animations.
+- `p_crowbar.mdl`: in another player's hands.
+- `w_crowbar.mdl`: lying in the world.
 
-**Things to check in the game**
-- The guide gives Valve's crowbar as about 24 units long. Mine is 32, as you asked, so it is about a third longer. I did not measure the game's crowbar myself, so that figure is from the guide.
-- The build's pictures show the bar in each file. I could not run the game here, so the side-by-side judgement is theirs.
+The spec is `work:crowbar.spec.json`, and the sheet of views is `work:crowbar-sheet.png`.
+
+**How to use it**
+
+Copy the three `v_`, `p_` and `w_` files into `<mod>/models/`. The game loads them in place of its own with no code changes.
+
+**What I did not check**
+
+- I did not run the game. The pictures show the first-person attack frames and the held and world views, but how it feels to swing is for the modder to judge.
+- The game's own crowbar may not be 24 units long in the way I assumed, so I left the 32 as asked.
+- The shaft is a plain round bar with a single red paint. It has no flat edges or grip detail.

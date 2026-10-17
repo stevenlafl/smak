@@ -1,24 +1,38 @@
-The shotgun model builds **OK**. The spec is named `shotgun.mdl` and the game's files are replaced in place.
+The shotgun is built and the build says **OK**, with every check passed.
 
 **What I made**
 
-- A pump shotgun, about 30.6 units long (you asked for about 30), 1.7 wide, 6.1 high, 224 triangles. Valve's own first-person guns run 276 to 363 triangles without hands, so it is in the same range.
-- Black metal receiver, barrel, magazine tube, trigger and guard, with bright metal showing on the edges.
-- Wood stock and a wood pump (forend) under the barrel.
-- The gun is built by smak's firearm kit with the shotgun preset, then fitted into the game's own `v_shotgun.mdl`, `p_shotgun.mdl` and `w_shotgun.mdl`. The hands, bones, animations and events are Valve's.
+A held weapon spec, `shotgun.mdl`, made from SMAK's built-in shotgun part (`kit:firearm`, preset `shotgun`) and set to 30 units long. It has about 224 triangles in eight pieces. Half-Life's own first-person shotgun is about 276 to 363 triangles, so this is lighter than the game's own.
 
-**How I got there**
+| Part | Triangles | What it is |
+| --- | --- | --- |
+| receiver | 28 | black metal action body |
+| barrel | 32 | black metal barrel |
+| magazine | 32 | tube under the barrel |
+| forend (the pump) | 32 | wood |
+| stock | 24 | wood (not in the first-person file, as in Valve's) |
+| guard, trigger, front sight | 76 | small metal parts |
 
-1. The first build was 41.6 long, which the check flagged as 39% over 30. I shortened the stock to 9, the barrel and magazine tube to 13, and the pump to 9.6 long.
-2. The second build was OK, but the pump sat 0.3 units short of the receiver, so I moved it forward to overlap the receiver. The third build is the one that passed.
-3. One note is left: the trigger sits 0.31 units from the trigger guard. It is inside the guard as a real trigger would be, and the build does not fault it, so I left it.
+**How it was made**
 
-**Where the files are**
+1. I read the spec guide's section on weapons in place of a game's, and checked Half-Life's own `v_shotgun.mdl` for its bones and animations.
+2. I wrote the spec to `work:shotgun.json`: `kind: "held"`, `weapon: { like: "shotgun", views: ["v","p","w"], size: "own", rig: "carry" }`, with one `kit:firearm` part (`preset: "shotgun"`, `length: 30`).
+3. I built it. The build said OK on the first try, so I changed nothing after that.
 
-- The game-ready files are in `work:shotgun_weapon/`: `v_shotgun.mdl`, `p_shotgun.mdl`, `w_shotgun.mdl`. To try them, copy them into the mod's `models` folder, which replaces the game's copies there.
-- The spec is `work:shotgun.spec.json`, and the contact sheet is `work:shotgun-sheet.png`.
+**Files**
 
-**What I did not check**
+The game-named files are in `work:shotgun_weapon/`:
 
-- I have not run the game. The pictures from the build show the first-person, other-player and world views, and they look right, but the in-game judgement is theirs.
-- The pump does not move on its own. The forend is part of the static gun, and I did not give it a bone to slide on. The game's own animations still drive the hands and the gun as a whole. If the modder wants the pump to slide back and forth between shots, that needs a `bone` on the forend and an animation for it, and I can add that next.
+- `v_shotgun.mdl`: first person, with Valve's hands and animations
+- `p_shotgun.mdl`: the gun in another player's hands
+- `w_shotgun.mdl`: the gun lying in the world
+
+To use them, copy the three files into the mod's `models/` folder. They replace the game's files of the same names, with no code changes. The first-person reference sheet, the spec and a preview sheet are also in the work folder (`shotgun.spec.json`, `shotgun-sheet.png`).
+
+**Choices I made that they may want to change**
+
+- **Pump:** Valve's `v_shotgun.mdl` has no separate bone for the pump. Its pump animation moves the whole gun with the arm, so this one does the same. The forend does not slide on its own.
+- **Colours:** the receiver and barrel are black metal and the forend and stock are a brown wood. I did not make the wood darker. If they want a darker pump, that is a material change.
+- **Length:** 30 units, to match "about 30 long".
+
+**Not checked:** I have not run this in the game. The pictures are the build's own renders, so the mod author should compare the first-person view beside Valve's in-game.
