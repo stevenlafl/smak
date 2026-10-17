@@ -441,3 +441,8 @@ walk test, not the game.
   weapon, still fills from guns). And the original mod's crawler, its brief "the size of a headcrab", scored 19
   of 20 and failed M2 alone: with no number asked the judge would not give it 2. The size asked is now the
   game's headcrab's own length. Results judged before keep their scores.
+- **2026-10-17, later: a liquid's fine detail is held to Valve's own liquids.** From Gemini Argon's consult,
+  measured: Half-Life's seven liquid textures measure 0 to 20.1 of fine detail (its three silo waters 0, its blue
+  and green water about 8), five of them under the walls' least of 10.8, since the engine warps a `!` texture as
+  it draws it. The original mod's water (2.8) took T5 1 against the walls' band. A liquid is now held to the
+  liquids' range. Results judged before keep their scores.

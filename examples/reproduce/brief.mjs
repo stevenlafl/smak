@@ -306,9 +306,13 @@ let valveDetail;
  */
 function halfLifeDetail() {
   if (!valveDetail) {
-    const all = smak.maps.readWad(readFileSync(join(GAME, "halflife.wad"))).textures.map(textureDetail).sort((a, b) => a - b);
+    const textures = smak.maps.readWad(readFileSync(join(GAME, "halflife.wad"))).textures;
+    const all = textures.map(textureDetail).sort((a, b) => a - b);
     const at = (q) => all[Math.floor(q * (all.length - 1))];
-    valveDetail = { least: at(0.05), q1: at(0.25), median: at(0.5), q3: at(0.75), most: at(0.95), band: "T5's band is least to most, Half-Life's own from the 5th to the 95th in 100: fine detail inside it is Valve's own range (a quartile is no bound); under least reads smeared or flat, over most noisy. A texture the brief asks to be one plain colour is flat in Valve's too (its BLACK and YELLOW are 0): flat is right there, and T5 is 2" };
+    // a liquid (a name beginning !) is warped by the engine as it is drawn, and Valve's own are smooth: its seven
+    // measure 0 to 20.1, five under the walls' least (2026-10-17, Gemini Argon's consult, checked)
+    const liquids = textures.filter((t) => t.name.startsWith("!")).map(textureDetail);
+    valveDetail = { least: at(0.05), q1: at(0.25), median: at(0.5), q3: at(0.75), most: at(0.95), liquids: [Math.min(...liquids), Math.max(...liquids)], band: `T5's band is least to most, Half-Life's own from the 5th to the 95th in 100: fine detail inside it is Valve's own range (a quartile is no bound); under least reads smeared or flat, over most noisy. A texture the brief asks to be one plain colour is flat in Valve's too (its BLACK and YELLOW are 0): flat is right there, and T5 is 2. A liquid (its name begins !) is held to Valve's own liquids instead, ${Math.min(...liquids)} to ${Math.max(...liquids)}: the engine warps it as it draws it, and its water is smooth` };
   }
   return valveDetail;
 }
