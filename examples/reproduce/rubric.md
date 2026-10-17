@@ -396,3 +396,10 @@ walk test, not the game.
   it), and the game's four are bright in every frame. The class `muzzle flash` holds that (border dark, first and
   last frame 0.9 or more of the peak), and the brief now says each frame is a flash of its own. A sprite's
   measures outside its class are now warned of in the build, not only told as a fact.
+- **2026-10-17: a texture's fine-detail band, and two briefs that contradicted their originals.** The textures'
+  control (Valve's own against the briefs) passed 13 of 25: eleven took T5 1 for fine detail "below Valve's band
+  (its lower quartile 19.7)". "Within Valve's band" never said what the band was, and the judge took the quartiles,
+  under which a quarter of Valve's own fall. T5's band is now Half-Life's own from the 5th to the 95th in 100
+  (10.8 to 75 over halflife.wad's 3,116), given to the judge with the numbers. Two briefs asked for blue and black
+  with the map showing through, where Valve's are a teal rippled surface and a pale blue-violet speckle with no
+  holes: corrected. Results judged before keep their scores.

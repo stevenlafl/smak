@@ -1,0 +1,697 @@
+{
+  "spec": "smak.wad/1",
+  "name": "frenzy_new.wad",
+  "materials": {
+    "grime_concrete": {
+      "base": "stone",
+      "tone": "dark grey",
+      "picture": "library:concrete_layers_02",
+      "size": 79
+    },
+    "blue_concrete": {
+      "base": "stone",
+      "tone": "dark blue grey",
+      "picture": "library:concrete_floor_worn_001",
+      "size": 118
+    },
+    "cool_concrete": {
+      "base": "plaster",
+      "tone": "cool grey"
+    },
+    "band_concrete": {
+      "base": "plaster",
+      "tone": [
+        0.44,
+        0.44,
+        0.44
+      ]
+    },
+    "floor_tile": {
+      "base": "tile",
+      "tone": "grey",
+      "cell": 32
+    },
+    "floor_tile_dirty": {
+      "base": "tile",
+      "tone": "dirty warm grey",
+      "cell": 32
+    },
+    "pale_concrete": {
+      "base": "plaster",
+      "tone": [
+        0.56,
+        0.55,
+        0.53
+      ]
+    },
+    "concrete_floor": {
+      "base": "stone",
+      "tone": "grey",
+      "picture": "library:concrete_floor_02",
+      "size": 79
+    },
+    "ceiling_concrete": {
+      "base": "stone",
+      "tone": "dark grey",
+      "picture": "library:concrete_floor_worn_02",
+      "size": 79
+    },
+    "grate_metal": {
+      "base": "metal",
+      "tone": "dark grey",
+      "rust": 0.3
+    },
+    "pipe_metal": {
+      "base": "metal",
+      "tone": "dark grey",
+      "rust": 0.1
+    },
+    "yellow_paint": {
+      "base": "paint",
+      "tone": "yellow ochre"
+    },
+    "ochre_metal": {
+      "base": "metal",
+      "tone": [
+        0.42,
+        0.37,
+        0.3
+      ],
+      "rust": 0.2
+    },
+    "blue_panel": {
+      "base": "metal",
+      "tone": [
+        0.12,
+        0.22,
+        0.5
+      ]
+    },
+    "lamp_housing": {
+      "base": "plaster",
+      "tone": [
+        0.5,
+        0.5,
+        0.47
+      ]
+    },
+    "wall_light": {
+      "base": "metal",
+      "tone": "dark grey"
+    },
+    "hazard": {
+      "base": "hazard",
+      "tone": "yellow"
+    },
+    "black_paint": {
+      "base": "paint",
+      "tone": "black"
+    },
+    "yellow_plain": {
+      "base": "paint",
+      "tone": "yellow"
+    }
+  },
+  "textures": [
+    {
+      "name": "c3a1_w3a",
+      "size": [
+        256,
+        208
+      ],
+      "material": "grime_concrete",
+      "grime": 0.7,
+      "wear": {
+        "stains": 0.7,
+        "streaks": 0.4,
+        "cracks": 0.6,
+        "speckle": 0.8
+      }
+    },
+    {
+      "name": "c3a1_w2",
+      "size": [
+        256,
+        160
+      ],
+      "material": "blue_concrete",
+      "grime": 0.3,
+      "wear": {
+        "stains": 0.3,
+        "cracks": 0.2
+      },
+      "relief": [
+        {
+          "kind": "seam",
+          "from": [
+            0,
+            80
+          ],
+          "to": [
+            256,
+            80
+          ],
+          "width": 3
+        }
+      ]
+    },
+    {
+      "name": "c3a1b_w3",
+      "size": [
+        128,
+        160
+      ],
+      "material": "cool_concrete",
+      "grime": 0.5,
+      "wear": {
+        "stains": 0.8,
+        "streaks": 0.6
+      },
+      "relief": [
+        {
+          "kind": "seam",
+          "from": [
+            8,
+            0
+          ],
+          "to": [
+            8,
+            160
+          ],
+          "width": 3,
+          "notched": true
+        },
+        {
+          "kind": "seam",
+          "from": [
+            120,
+            0
+          ],
+          "to": [
+            120,
+            160
+          ],
+          "width": 3,
+          "notched": true
+        }
+      ]
+    },
+    {
+      "name": "c3a1b_w1",
+      "size": [
+        128,
+        160
+      ],
+      "material": "band_concrete",
+      "grime": 0.4,
+      "panels": [
+        {
+          "at": [
+            64,
+            140
+          ],
+          "size": [
+            128,
+            32
+          ],
+          "style": "raised"
+        },
+        {
+          "at": [
+            64,
+            72
+          ],
+          "size": [
+            112,
+            32
+          ],
+          "style": "recessed"
+        }
+      ]
+    },
+    {
+      "name": "tnnl_flr7",
+      "size": [
+        128,
+        128
+      ],
+      "material": "floor_tile",
+      "grime": 0.2,
+      "wear": {
+        "speckle": 0.5
+      }
+    },
+    {
+      "name": "c3a1b_w7",
+      "size": [
+        96,
+        96
+      ],
+      "material": "pale_concrete",
+      "wear": {
+        "speckle": 0.6,
+        "stains": 0.3
+      }
+    },
+    {
+      "name": "tnnl_flr7c",
+      "size": [
+        128,
+        128
+      ],
+      "material": "floor_tile_dirty",
+      "grime": 0.6,
+      "wear": {
+        "stains": 0.6,
+        "speckle": 0.6
+      }
+    },
+    {
+      "name": "silo2_wetdr",
+      "size": [
+        192,
+        128
+      ],
+      "material": "grate_metal",
+      "grime": 0.4,
+      "relief": [
+        {
+          "kind": "bars",
+          "at": [
+            16,
+            16
+          ],
+          "size": [
+            160,
+            96
+          ],
+          "count": 6,
+          "width": 5,
+          "axis": "x"
+        },
+        {
+          "kind": "seam",
+          "from": [
+            0,
+            120
+          ],
+          "to": [
+            192,
+            120
+          ],
+          "width": 6
+        }
+      ]
+    },
+    {
+      "name": "c3a1b_w1a",
+      "size": [
+        128,
+        160
+      ],
+      "material": "band_concrete",
+      "grime": 0.4,
+      "panels": [
+        {
+          "at": [
+            64,
+            140
+          ],
+          "size": [
+            128,
+            32
+          ],
+          "style": "raised"
+        },
+        {
+          "at": [
+            30,
+            72
+          ],
+          "size": [
+            52,
+            32
+          ],
+          "style": "recessed"
+        },
+        {
+          "at": [
+            98,
+            72
+          ],
+          "size": [
+            52,
+            32
+          ],
+          "style": "recessed"
+        }
+      ]
+    },
+    {
+      "name": "-0genpipe1",
+      "size": [
+        64,
+        128
+      ],
+      "material": "pipe_metal",
+      "relief": [
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              20,
+              0
+            ],
+            [
+              20,
+              128
+            ]
+          ],
+          "radius": 6
+        }
+      ]
+    },
+    {
+      "name": "-1genpipe1",
+      "size": [
+        64,
+        128
+      ],
+      "from": {
+        "texture": "-0genpipe1",
+        "flip": "x"
+      }
+    },
+    {
+      "name": "-2genpipe1",
+      "size": [
+        64,
+        128
+      ],
+      "from": {
+        "texture": "-0genpipe1",
+        "shift": [
+          32,
+          0
+        ]
+      }
+    },
+    {
+      "name": "c3a2b_reac2c",
+      "size": [
+        128,
+        64
+      ],
+      "material": "yellow_paint",
+      "grime": 0.3,
+      "relief": [
+        {
+          "kind": "louvre",
+          "at": [
+            64,
+            32
+          ],
+          "size": [
+            96,
+            40
+          ],
+          "count": 6
+        }
+      ]
+    },
+    {
+      "name": "c3a1b_w2",
+      "size": [
+        128,
+        160
+      ],
+      "material": "band_concrete",
+      "grime": 0.4,
+      "relief": [
+        {
+          "kind": "bars",
+          "at": [
+            64,
+            80
+          ],
+          "size": [
+            72,
+            56
+          ],
+          "count": 4,
+          "width": 4,
+          "axis": "x"
+        }
+      ]
+    },
+    {
+      "name": "c3a2_bth1",
+      "size": [
+        192,
+        32
+      ],
+      "material": "ochre_metal",
+      "grime": 0.3,
+      "relief": [
+        {
+          "kind": "rivets",
+          "from": [
+            8,
+            16
+          ],
+          "to": [
+            184,
+            16
+          ],
+          "count": 12,
+          "radius": 2
+        }
+      ]
+    },
+    {
+      "name": "black",
+      "size": [
+        32,
+        32
+      ],
+      "material": "black_paint"
+    },
+    {
+      "name": "crete2_flr01",
+      "size": [
+        128,
+        128
+      ],
+      "material": "concrete_floor",
+      "grime": 0.4,
+      "wear": {
+        "stains": 0.4,
+        "speckle": 0.6
+      }
+    },
+    {
+      "name": "+0~fifts_lght01",
+      "size": [
+        64,
+        80
+      ],
+      "material": "lamp_housing",
+      "wear": {
+        "speckle": 0.5,
+        "stains": 0.3
+      },
+      "relief": [
+        {
+          "kind": "lamp",
+          "at": [
+            6,
+            6
+          ],
+          "size": [
+            52,
+            68
+          ],
+          "colour": [
+            1,
+            0.95,
+            0.8
+          ]
+        }
+      ]
+    },
+    {
+      "name": "+a~fifts_lght01",
+      "size": [
+        64,
+        80
+      ],
+      "from": {
+        "texture": "+0~fifts_lght01",
+        "brightness": 0.4
+      }
+    },
+    {
+      "name": "+0~fifties_lgt2",
+      "size": [
+        16,
+        64
+      ],
+      "material": "wall_light",
+      "relief": [
+        {
+          "kind": "lamp",
+          "at": [
+            3,
+            6
+          ],
+          "size": [
+            10,
+            52
+          ],
+          "colour": [
+            1,
+            0.95,
+            0.8
+          ]
+        }
+      ]
+    },
+    {
+      "name": "+a~fifties_lgt2",
+      "size": [
+        16,
+        64
+      ],
+      "from": {
+        "texture": "+0~fifties_lgt2",
+        "brightness": 0.4
+      }
+    },
+    {
+      "name": "+0~generic86",
+      "size": [
+        16,
+        16
+      ],
+      "material": "lamp_housing",
+      "wear": {
+        "speckle": 0.5
+      },
+      "relief": [
+        {
+          "kind": "lamp",
+          "at": [
+            2,
+            2
+          ],
+          "size": [
+            12,
+            12
+          ],
+          "colour": [
+            1,
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "name": "+a~generic86",
+      "size": [
+        16,
+        16
+      ],
+      "from": {
+        "texture": "+0~generic86",
+        "brightness": 0.5
+      }
+    },
+    {
+      "name": "c3a2a_tnk1b",
+      "size": [
+        64,
+        64
+      ],
+      "material": "blue_panel",
+      "panels": [
+        {
+          "at": [
+            32,
+            32
+          ],
+          "size": [
+            48,
+            24
+          ],
+          "style": "raised"
+        }
+      ]
+    },
+    {
+      "name": "c2a4x_glu",
+      "size": [
+        64,
+        64
+      ],
+      "material": "blue_panel",
+      "panels": [
+        {
+          "at": [
+            32,
+            32
+          ],
+          "size": [
+            44,
+            44
+          ],
+          "style": "raised",
+          "edge": 2
+        }
+      ]
+    },
+    {
+      "name": "babtech_ceil01",
+      "size": [
+        64,
+        64
+      ],
+      "material": "ceiling_concrete",
+      "grime": 0.3,
+      "wear": {
+        "stains": 0.6,
+        "cracks": 0.8
+      }
+    },
+    {
+      "name": "yellow",
+      "size": [
+        16,
+        16
+      ],
+      "material": "yellow_plain"
+    },
+    {
+      "name": "tnnl_brd1",
+      "size": [
+        16,
+        128
+      ],
+      "material": "hazard",
+      "grime": 0.3
+    },
+    {
+      "name": "crete4_stp01",
+      "size": [
+        128,
+        16
+      ],
+      "material": "concrete_floor",
+      "grime": 0.5
+    }
+  ],
+  "preview": {
+    "map": "models:frenzy.bsp",
+    "each": true
+  }
+}

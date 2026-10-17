@@ -257,12 +257,15 @@ export function textureDetail(t) {
   return round(d / (t.width * t.height));
 }
 let valveDetail;
-/** Half-Life's own textures' fine detail (halflife.wad): its quartiles, the band a texture's T5 is held to. */
+/**
+ * Half-Life's own textures' fine detail (halflife.wad), and the band a texture's T5 is held to: from the 5th to the
+ * 95th of 100. The quartiles were read as the band, and a quarter of Valve's own fell under it (rubric, 2026-10-17).
+ */
 function halfLifeDetail() {
   if (!valveDetail) {
     const all = smak.maps.readWad(readFileSync(join(GAME, "halflife.wad"))).textures.map(textureDetail).sort((a, b) => a - b);
-    const quartile = (q) => all[Math.floor(q * (all.length - 1))];
-    valveDetail = { q1: quartile(0.25), median: quartile(0.5), q3: quartile(0.75) };
+    const at = (q) => all[Math.floor(q * (all.length - 1))];
+    valveDetail = { least: at(0.05), q1: at(0.25), median: at(0.5), q3: at(0.75), most: at(0.95), band: "T5's band is least to most, Half-Life's own from the 5th to the 95th in 100: fine detail inside it is Valve's own range (a quartile is no bound); under least reads smeared or flat, over most noisy" };
   }
   return valveDetail;
 }
