@@ -8,12 +8,8 @@
   ],
   "sizeAsked": null,
   "checkErrors": [],
-  "notReached": [
-   "undefined undefined"
-  ],
-  "reachWarnings": [
-   "1 of the 4 entities a player goes to are not reached on foot from the places to start: 2 trigger_endsection at 246 -152 -208: only by a jump (up to 45 units; a step is 18): a jump of 36 out and 240 down, from 216 -112 16 to 248 -128 -224"
-  ],
+  "notReached": [],
+  "reachWarnings": [],
   "changelevels": [],
   "landmarks": [
    "lm_pumphall_control"
@@ -27,12 +23,65 @@
  },
  "caps": {
   "P2": 2,
-  "P8": 1
+  "P8": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "P8"
- ],
- "total": 0,
- "of": 18
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The start room (left, plan 35-313 x 146-312), the control room (323-947 x 36-423) and the valve room below (290-983 x 435-823) are joined by a short passage and a func_plat lift. But the valve room holds three decagonal columns (plan 380-893 x 580-677) where the main valve wheel should be, and the control room has no row of windows onto a hall. The way out is missing."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The brief gives no sizes for the control room or the valve room, so the 25% test cannot be run against it. The rooms are in proportion (control about 900 x 560 units, valve room about 1000 x 560), and nothing is clearly off."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The control floor is 0 and the valve floor is -256 ('2 -256' on the plan), with the lift at '2 -16' over the func_plat brush (726-837 x 271-382). The plan does not show the lift's mouth opening into the valve room (the wall at y 423-435 has four unexplained gaps), and no view from inside shows the lift, the shaft or the drop, so the lift path cannot be confirmed."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Present and reached: info_player_start (entity 8), two monster_headcrab (entities 10 and 11, matching the two asked for), func_plat (entity 1) and the landmark lm_pumphall_control. Missing: the main valve wheel and the trigger that ends the mod. The valve room has no wheel entity, and the plan's only trigger is a trigger_eachsection on the lift (magenta box 789-821 x 313-369)."
+  },
+  "P5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The walls read as concrete panels and the floor as square tiles, with dark seams and yellow lamp faces. Nothing looks like a wrong material at a passing look, though the steel, hazard paint and pipe walls the brief lists are absent."
+  },
+  "P6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Lamps are in rows (plan labels 10-21 along the control room's top, 14-16 and 31 to 36 elsewhere) and glow yellow-orange in the views, as sodium lamps should. The control room is dimmer than the start room, which fits a worn station."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Consoles are present as cycler_sprite models along the control room's bottom wall (entities 3 to 6), visible in the yaw -90 view. The brief's windows onto the hall, the valve wheel and the hazard trim are absent, and the valve room's three columns are not in the brief."
+  },
+  "P8": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The walk test reports no check errors, no unreached items and no reach warnings, so it compiles and both crawlers and the lift are reached. But the way out (the valve wheel that ends the mod) is not in the map, so the walk test cannot reach it."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The inside views (yaw 0, 90, 180, -90) show plain tiled walls with yellow lamps and an empty room. Only the two consoles at yaw -90 and a red crawler model are distinctive. Nothing shows the windows, the lift or the valve wheel, so a player would not recognise this as the control room the brief describes."
+  }
+ },
+ "total": 12,
+ "of": 18,
+ "passes": false
 }
