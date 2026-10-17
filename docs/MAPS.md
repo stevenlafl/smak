@@ -388,6 +388,44 @@ near, the kit shows its pixels; the game lights a model by its own rules (the tr
 little lighter there, the leaves a little brighter); a monster whose model is its script's is a box here;
 the player's own body and the game's panels are not there. A sprite was not looked at beside the game.
 
+## A map against pictures of it (`src/maps/overlay.mjs`, `src/maps/photo.mjs`)
+
+Pictures of a place (screenshots, renders, photographs) and the map that is to be it, shot by shot: find the
+camera of a shot against the map as built, see where the map and the picture part, move the wall that is off, and
+take the next shot. As the models' pictures are fitted by their outline (`project`, `pose.fit`), a room seen from
+inside is fitted by its edges, and above all by photogrammetry's own parts: features matched, PnP, structure from
+motion. `smak map-overlay`, `map-shots` and `map-sfm` do it from the command line (and through the MCP tool
+`command`).
+
+| Function | Gives |
+| --- | --- |
+| `overlayOf(map, picture, camera, { width, height, offsets })` | The map's edges (creases, depth steps; texture joins in blue) drawn over the picture from `camera` (`{ from, yaw, pitch, fov }`, fov 90 unless told), green within 2 pixels of the picture's own long straight edges and red further: `{ width, height, rgba, score, toPicture, fromPicture, faces }`. `score` in pixels (lower is better). `faces`: each face whose edges the view shows, how far it would move along its normal (`move`, units) to lie on the picture's edges, the largest first. A reading of edges: on a picture of flat colours it is sharp, on a textured one the texture's own lines pull it |
+| `fitCamera(map, picture, { from, yaw, pitch, fov, fitFov })` | The camera that best lays the map's edges on the picture's, searched from a guess (or, with none, from places over the map's floor at eye height): `{ camera, score }` |
+| `geometryOf(map)`, `rasterOf(geometry, camera, width, height)`, `cameraOf(...)` | The faces a view draws (`plane` keys coplanar faces alike), which face each pixel shows and the point of the map there (`point(i)`), and drawMap's own camera |
+| `locateShot(map, picture, guess, { python, folders, textures, light })` | A shot's camera against the map as built: the map rendered at the guess, the picture's SIFT features matched to the render's (each render pixel's point known), the camera by PnP with RANSAC, rendered and matched again; each camera found without one plane, where it differs, judged on its own render (a wall built off draws RANSAC's camera with it when most features lie on it). Kept as PnP gives it when 30 or more matches agree; else the edges' fit. `{ camera, by: "pnp" \| "edges", inliers, planes, notes }`: `planes`, each plane's shift along its normal for its features to agree (`featureShifts`) |
+| `shotsAgainst(map, shots, options)` | Every shot (`[{ picture, guess }]`) located, and over them all each plane most of the shots that see it say is off, with its median move: what a maker changes, then calls again. Each shot's `overlay` is the picture to look at |
+| `structureOf(pictures, { python, fov, eye })` | The pictures alone, by structure from motion and bundle adjustment (pycolmap): cameras and points, stood up by the cameras' up (a game's camera has no roll) and scaled by the eye's height (64) over the lowest large level plane; the level and upright planes RANSAC finds in the points |
+| `liftFromShots(bsp, name, shots)` | A texture read off shots whose cameras are fitted, as `liftTexture` reads one off views of known cameras |
+
+The photogrammetry runs in a venv of its own (`generators/install-photogrammetry.sh`: OpenCV and pycolmap, CPU,
+about 350 MB, no weights): its python is `python`, or `SMAK_PHOTOGRAMMETRY`. Without it, cameras are fitted by
+the edges alone, and that is said.
+
+**Measured** (research/map-overlay.md; Valve's maps read only, views drawn by `drawMap` at known cameras standing
+for screenshots, each located from a guess 48 units and 12 degrees off): on c1a0 the features put all six shots
+within 2.7 units (the edges alone, none within 2); on c2a5, a canyon, three of six exact and three left to the
+edges, 78 to 145 off. On a room of the kit's compiled with Valve's textures, a north wall built 32 units off was
+told as -32 on every shot, the camera exact; the room as built, no plane off. Structure from motion placed six
+overlapping shots of a c1a0 room at the eye's height (63.9 to 64.1) with their spacing 13.7% off.
+
+**Where it fails**, measured: a room of one repeating texture puts PnP's camera a tile off (12 and 18 matches
+agreeing, 63 and 71 units off: not trusted under 30); walls without features (flat-lit, plain) say nothing of
+where they are; a wall whose texture is laid from its brush's edge slides its texture with it, so a wall moved
+along the way the shots look is the true room seen from further off (no picture tells them apart); structure
+from motion wants several overlapping shots with floor in them (four shots of one wall gave no floor to scale
+by). The learned matchers and reconstructors (VGGT, MASt3R, LightGlue) would help with few views and repeated
+textures; none is installed.
+
 ## A map's dressing (`src/maps/dressing.mjs`)
 
 How a map is dressed, in numbers, beside Valve's own: the facts a maker revising a map is told, measured

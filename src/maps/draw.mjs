@@ -395,7 +395,7 @@ const shadeOf = (normal) => AMBIENT + DIRECT * Math.max(0, dot(normal, LAMP));
  * The camera of a view: where it stands, its three axes in the world, and the pixels a unit takes at one
  * unit from the eye. `yaw` turns anticlockwise from +x, seen from above; `pitch` over 0 looks up.
  */
-function cameraOf({ from, to, yaw = 0, pitch = 0, fov = VIEW_FOV }, width, height) {
+export function cameraOf({ from, to, yaw = 0, pitch = 0, fov = VIEW_FOV }, width, height) {
   if (!vectorFrom(from)) throw new Error(`from: where the eye is, [x, y, z], not ${JSON.stringify(from)}`);
   if (!(fov > 1 && fov < 179)) throw new Error(`fov: degrees across, between 1 and 179, not ${fov}`);
   let forward = [

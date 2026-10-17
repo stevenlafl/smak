@@ -1662,6 +1662,80 @@ async function mapDressing({ file, flags }) {
   if (theirs) for (const row of theirs.rows) console.log(`  ${flags.against}: ${row.key} ${row.value}`);
 }
 
+// ── a map against pictures of it: the overlay, shot by shot, and structure from motion ───
+/** The camera the flags give: --from x,y,z --yaw --pitch --fov; null without --from. */
+function cameraFlags(flags) {
+  const from = numbersOf(flags, "from", 3, "three numbers x,y,z");
+  if (!from) return null;
+  return { from, yaw: numberOf(flags, "yaw") ?? 0, pitch: numberOf(flags, "pitch") ?? 0, fov: numberOf(flags, "fov") ?? 90 };
+}
+/** What a map is drawn with to be matched to pictures: its game folders, a .wad's textures, its light. */
+const matchOptions = (file, flags, listed) => ({ folders: gameFolders(file, listed), ...(listed.wad?.length ? { textures: wadTextures(listed) } : {}), ...(flags.light === false ? { light: false } : {}), python: typeof flags.python === "string" ? flags.python : undefined });
+/** A plane told off, as a line prints it. */
+const planeLine = (p) => `${p.axis} ${p.texture}: ${p.move > 0 ? "+" : ""}${p.move} units along its normal (${p.matches ?? p.shots} ${p.matches ? "features" : "shots"})`;
+
+/**
+ * map-overlay: the map's edges drawn over a picture from a camera (green where they lie on the picture's own,
+ * red where not), its score and the faces the edges say are off. --locate: the camera found first from that guess
+ * (by features against a render of the map where the photogrammetry venv is given, else by the edges).
+ */
+async function mapOverlay({ file, rest, flags, listed }) {
+  const { overlayOf } = await import("../src/maps/overlay.mjs");
+  const { locateShot } = await import("../src/maps/photo.mjs");
+  const [pictureFile] = rest;
+  if (!pictureFile) fail("map-overlay <map|bsp> <picture> --from x,y,z --yaw n [--pitch n] [--fov 90] [--locate] -o out.png");
+  const map = readEither(file);
+  const picture = smak.unpicture(readFileSync(existing(pictureFile)));
+  let camera = cameraFlags(flags);
+  if (!camera && !flags.locate) fail("map-overlay: the camera (--from x,y,z --yaw n), or --locate to find one");
+  if (flags.locate) {
+    const located = locateShot(map, picture, camera ?? {}, matchOptions(file, flags, listed));
+    camera = located.camera;
+    console.log(`camera ${placeText(camera.from)} yaw ${camera.yaw} pitch ${camera.pitch} fov ${camera.fov}: by ${located.by}${located.inliers ? `, ${located.inliers} features agree` : ""}`);
+    for (const p of located.planes.filter((p) => p.move !== 0)) console.log(`OFF   ${planeLine(p)}`);
+    for (const note of located.notes) console.log(`      ${note}`);
+  }
+  const width = numberOf(flags, "width") ?? Math.min(640, picture.width);
+  const o = overlayOf(map, picture, camera, { width, height: Math.round((width * picture.height) / picture.width) });
+  console.log(`edges: ${o.score} pixels apart (the map's from the picture's ${o.toPicture}, the picture's from the map's ${o.fromPicture})`);
+  for (const f of o.faces.slice(0, 8)) if (f.move !== 0) console.log(`      edges say ${f.axis} ${f.texture}: ${f.move > 0 ? "+" : ""}${f.move} units (${f.seen} edge pixels, ${f.better} pixels nearer)`);
+  if (flags.o) save(flags.o, smak.png(o.width, o.height, o.rgba)), console.log(`${flags.o}  ${o.width}x${o.height}  the map's edges over the picture`);
+}
+
+/**
+ * map-shots: every picture against the map as built, shot by shot: each one's camera (from --from/--yaw as a
+ * guess for all, or found), and over all of them each plane the pictures say is off, by how much. -o: a folder
+ * of each shot's overlay.
+ */
+async function mapShots({ file, rest, flags, listed }) {
+  const { shotsAgainst } = await import("../src/maps/photo.mjs");
+  if (!rest.length) fail("map-shots <map|bsp> <picture> [picture ...] [--from x,y,z --yaw n] [-o dir]");
+  const map = readEither(file);
+  const guess = cameraFlags(flags) ?? {};
+  const shots = rest.map((f) => ({ picture: smak.unpicture(readFileSync(existing(f))), guess }));
+  const r = shotsAgainst(map, shots, matchOptions(file, flags, listed));
+  r.shots.forEach((s, n) => {
+    console.log(`${rest[n]}: camera ${placeText(s.camera.from)} yaw ${s.camera.yaw} pitch ${s.camera.pitch}, by ${s.by}${s.inliers ? ` (${s.inliers} features)` : ""}, edges ${s.edgeScore} pixels apart`);
+    for (const p of s.planes.filter((p) => p.move !== 0)) console.log(`      ${planeLine(p)}`);
+    for (const note of s.notes) console.log(`      ${note}`);
+    if (flags.o) save(join(flags.o, `shot${n}.png`), smak.png(s.overlay.width, s.overlay.height, s.overlay.rgba));
+  });
+  if (!r.planes.length) console.log("no plane is off: the pictures agree with the map as built");
+  for (const p of r.planes) console.log(`OFF   ${planeLine(p)} of ${p.seen} that see it`);
+}
+
+/** map-sfm: cameras and planes from the pictures alone, by structure from motion (the photogrammetry venv). */
+async function mapSfm({ file, rest, flags }) {
+  const { structureOf } = await import("../src/maps/photo.mjs");
+  const files = [file, ...rest];
+  const r = structureOf(files, { fov: numberOf(flags, "fov") ?? 90, eye: numberOf(flags, "eye") ?? 64, python: typeof flags.python === "string" ? flags.python : undefined });
+  if (!r.ok) fail(`map-sfm: ${r.error}`);
+  if (flags.json) return console.log(JSON.stringify(r, null, 1));
+  console.log(`${r.registered} of ${r.of} pictures placed, ${r.points} points (stood up by the cameras' up, scaled by an eye ${numberOf(flags, "eye") ?? 64} over the floor)`);
+  for (const c of r.cameras) console.log(`  ${files[c.picture]}: ${placeText(c.from)} yaw ${c.yaw} pitch ${c.pitch}`);
+  for (const p of r.planes) console.log(`  plane ${p.axis} = ${p.at}: ${p.inliers} points, over ${p.extent.map((e) => `${e[0]} to ${e[1]}`).join(" and ")}`);
+}
+
 // ── the walk test, the section, the storeys, the openings ──────────────────
 /** An opening's size as a line prints it. */
 const openingSize = (wide, high) => `${wide} wide, ${high === null ? "open above" : `${high} high`}`;
@@ -2459,6 +2533,32 @@ const COMMANDS = {
                                             256 x 256, the floor's dark share and contrast; of source, its brushes' roles (panels,
                                             strips, lamps, angled). A measure outside Valve's 5th to 95th in 100 is a WARNING,
                                             with which way to go`,
+  },
+  "map-overlay": {
+    run: mapOverlay,
+    own: true,
+    help: `  map-overlay <map|bsp> <picture> --from x,y,z --yaw n [--pitch n] [--fov 90] [--locate] -o out.png
+                                            the map's edges over a picture of it from that camera, green where they meet the
+                                            picture's own and red where not, how far apart, and the faces the edges say are
+                                            off; --locate finds the camera first from that guess (by the picture's features against
+                                            a render of the map, with --python <photogrammetry venv's python> or
+                                            SMAK_PHOTOGRAMMETRY; else by the edges). --game, --wad, --no-light as map-view`,
+  },
+  "map-shots": {
+    run: mapShots,
+    own: true,
+    help: `  map-shots <map|bsp> <picture> [picture ...] [--from x,y,z --yaw n] [-o dir]
+                                            every picture against the map as built, shot by shot: each one's camera, and over
+                                            them all each plane the pictures say is off and by how much (OFF lines): build
+                                            against them, and call it again. -o: each shot's overlay`,
+  },
+  "map-sfm": {
+    run: mapSfm,
+    own: true,
+    help: `  map-sfm <picture> <picture> [...] [--fov 90] [--eye 64] [--json]
+                                            cameras and planes from the pictures alone, by structure from motion and bundle
+                                            adjustment (pycolmap): stood up by the cameras' up, scaled by the eye's height over
+                                            the floor; the level and upright planes found in its points (the photogrammetry venv)`,
   },
   "map-sweep": {
     run: async ({ file, flags }) => {
