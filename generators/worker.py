@@ -179,6 +179,12 @@ def load_acestep(root, model):
     return gen
 
 
+# A guided drawing (a character over its base's figure): how far from the guide it may go, and its steps
+# (SD-Turbo denoises strength x steps of them: 0.7 of 6 is 4, its usual count)
+GUIDE_STRENGTH = 0.7
+GUIDE_STEPS = 6
+
+
 def load_hunyuan(root, model):
     import torch
     import trimesh, fast_simplification
@@ -192,11 +198,21 @@ def load_hunyuan(root, model):
     session = new_session("birefnet-general")
     words = {}
 
-    def picture_of(prompt, seed):
+    def picture_of(prompt, seed, guide=None):
         # a prompt with no picture: SD-Turbo draws the thing alone, whole, on white (local-3d's sd_turbo_images.py)
         if "pipe" not in words:
             from diffusers import AutoPipelineForText2Image
             words["pipe"] = AutoPipelineForText2Image.from_pretrained("stabilityai/sd-turbo", torch_dtype=torch.float16, variant="fp16").to("cuda")
+        if guide:
+            # a character: drawn over its base's figure in the stance it will be built in (image to image), so its
+            # limbs stand clear of its body where the words alone drew its hands on its thighs; the same weights
+            if "guided" not in words:
+                from diffusers import AutoPipelineForImage2Image
+                words["guided"] = AutoPipelineForImage2Image.from_pipe(words["pipe"])
+            style = ", full body, front view, standing, arms held out from the body, empty hands, plain white background, studio lighting, 3d render"
+            start = Image.open(guide).convert("RGB").resize((512, 512))
+            return words["guided"](prompt + style, image=start, strength=GUIDE_STRENGTH, num_inference_steps=GUIDE_STEPS,
+                                   guidance_scale=0.0, generator=torch.manual_seed(seed)).images[0]
         style = ", single object, whole object in view, centered, three-quarter view, plain white background, studio lighting, 3d render"
         return words["pipe"](prompt + style, num_inference_steps=4, guidance_scale=0.0, width=512, height=512,
                              generator=torch.manual_seed(seed)).images[0]
@@ -207,7 +223,7 @@ def load_hunyuan(root, model):
         if r.get("picture"):
             image = Image.open(r["picture"]).convert("RGB")
         else:
-            image = picture_of(r["prompt"], r["seed"])
+            image = picture_of(r["prompt"], r["seed"], r.get("guide"))
             image.save(out.with_suffix(".png"))
         cut = remove(image, session=session, bgcolor=[255, 255, 255, 0])
         cut.save(out.with_name(out.stem + "_cut.png"))

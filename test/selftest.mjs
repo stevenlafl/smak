@@ -81,6 +81,7 @@ const areas = [
   "63-mcp-command", // the MCP tool command: the command line's commands on the server's folders, names outside refused, no code under --no-run
   "64-outline-parts", // what of each part a player sees: a costly part that changes no outline warned of, as Valve paints such things
   "65-firearm-kit", // the firearm kit's presets whole at real sizes, a stock kept out of first person, a gun laid upright where its outline cannot choose
+  "66-generated-character", // a generated body on a base: limbs fused across the trunk warned of, its back carried, its pictures pulled to the base's palette, its stance fitted to its own outlines
 ];
 
 // one after another: each file runs its cases as it is loaded, and the servers' cases wait for their answers

@@ -76,6 +76,7 @@ pictures of the result, from a barrel to a city of four shops and a sewer; read 
 | `smooth` | The angle (degrees) under which faces are shaded as one surface: 40 unless told; a round part (turn, cylinder, sphere, tube of 5 sides or more) is shaded round across its own sides unless told, so 8 sides read round. A part may have its own. A tube of 4 meets itself at 90 degrees and is shaded flat, each face with normals of its own: a rib cost 104 normals for 44 points. Over its faces' angle (100 for 4 sides) it is shaded round with a normal a point: the engine holds 2048 normals a body |
 | `contract` | `{ file }`: a model whose contract with a mod's code this one must keep: every bone, every animation at the same number with its activity, its attachments on the same bones, its bodyparts with as many bodies. A model built for a mod on another's skeleton (a player of The Specialists, whose code plays its dives and rolls by name) is checked against it; what it breaks is a FAULT. `smak contract <mdl> [--against ref.mdl]` shows one |
 | `budget` | The most triangles the model may have: over it is a FAULT. Without one, a prop over 576 is warned of. The report lists the heaviest parts and the thin boxes that could be painted |
+| `palette` | `"own"`: a character's projected pictures keep their colour. Unless told, they are pulled to its base's palette (below, "Pictures projected onto it") |
 | `fidelity` | `"game"` (unless told): held to Half-Life's own of its kind and size, warned past them. `"high"`: a person's own model made to look its best: the larger picture (512 x 512) unless `texture` says, and its triangles against Half-Life's told as a fact, not warned. Use it only when the person asks for detail over the game's budget; a `budget` still binds |
 
 ### Axes, and which way is up
@@ -230,7 +231,10 @@ a part that comes apart in any of them is a fault (`in run2 frame 11: ... thumb_
   outlines of the spec's `project` pictures (or `fit`'s own list of views, as `project` takes them), and
   built again in it. Only forward and back swings of the hips, knees, spine and arms, and the upper arms a
   little out, are tried. The report gives the outlines' overlap before and after and the keys it chose, to
-  keep or change; `keys` given beside `fit` win over it.
+  keep or change; `keys` given beside `fit` win over it. `"pose": { "fit": "shape" }` fits the base to the
+  spec's own `mesh` or `carved` body instead, by its outlines from the front and the side, which the body has in
+  3D: a picture of the front alone guesses the forward and back swings, the body's side settles them, and the
+  base's bones are laid in its limbs before each corner takes one.
   `"pose": { "from": "walk" }` makes the first animation one of the base's own (its frames, rate, looping and
   travel), starting at `frame`, or, with none given, at the frame whose box of the base's body comes nearest the
   spec's `size`: an original whose first animation is a walk stands mid-stride in it (Half-Life's scientist is
@@ -243,6 +247,10 @@ a part that comes apart in any of them is a fault (`in run2 frame 11: ... thumb_
   degrees out and 25 forward, the elbow bent 15") is written so, number for number: `keys` turn a bone from where
   the base has it, and Gordon's first frame holds a gun forward, so turns read off a description land elsewhere.
   Limbs: `L arm`, `R arm`, `L leg`, `R leg`. After `from`, before `keys`.
+  `"bind": true` beside any of these binds the body in that stance and writes the base's own first animation back:
+  each corner is kept in its bone's own space, so the body then stands as the base stands. A body made in a stance
+  that is not the game's (arms held out, so that they come apart from the trunk) wants it: without it the first
+  animation stands in the stance, and the character idles in the game with its arms held out.
 - `motion`: an animation of the base fitted to a strip of pictures of the original doing it, as the kit's
   `strip` draws one from the side with the floor as a line: `"motion": [{ "seq": "run2", "fit": { "picture":
   "pictures/motion.png", "count": 8, "cols": 4 } }]`. The strip's cycle is matched to the animation's (it may
@@ -275,6 +283,16 @@ a part that comes apart in any of them is a fault (`in run2 frame 11: ... thumb_
 on each hand (the carve's report names the thin pieces it lost), a jaw as a part of its own. With `project`, a
   character whose outline shares under 0.7 with a picture's is a FAULT: its texture follows its shape, and on a
   shape that far off no projection comes near.
+- A generated body (`mesh`) whose arms hang against its trunk, or whose hands touch its thighs, is fused there
+  where a game's body keeps them apart: its triangles across the two tear in every motion, whatever bone each
+  corner takes. The report warns past a few triangles that join limbs meeting 4 or more joints apart on the trunk
+  (`54 triangles join limbs ... most between R Arm1 + Spine2`). Choose a take with its limbs clear of the body,
+  or build the limbs as parts of their own. The tool `generate` makes such a take with `base`: it draws the
+  character over its base's figure with the arms out and the legs a little apart, and the spec builds it in that
+  stance, `"pose": { "aim": <the stance its answer gives>, "bind": true }`. A guard so made ran clean (2.4% of its
+  triangles past three times their length, against 7.4% for one drawn from words alone with its hands on its
+  thighs), and Haiku picked it out of a line-up beside the gman, the scientist and the assassin 1 reading in 4,
+  chance, against 4 in 4 for one built of primitives (research/generated-characters.md).
 - GoldSrc holds 2048 points and 2048 normals a body: a character of many round parts wants few `sides`
   (6 for a limb, 4 or 5 for a finger). The check says when it is over.
 
@@ -466,7 +484,12 @@ Each texel takes the colour of the pictures that see it, weighted by how squarel
 the model hides it from that view. Only the ground joined to the picture's border is ground: a dark patch of
 the ground's colour inside the outline is the thing's, and a texel whose dot is ground still takes the dot's
 colour when no other picture sees it, so the thing's own blotches and specks come as the picture has them. A
-texel no picture sees keeps its material. Only the views that see a texel nearly as squarely as the best one
+texel no picture sees keeps its material; on a character it carries the colour the first picture shows at the
+same height and side, softened over a few units, so the back of a shirt is the shirt (from one picture of its
+front, a generated guard's back was its plain material). And a character's pictures are pulled to its base's
+palette: a photograph's colour is far stronger than the game's own people's (a generated guard 0.43 in mean
+saturation, Gordon 0.32, Barney 0.24), so each texel is moved toward its own grey, its lightness kept, until the
+pictures' mean saturation is the base body's own; the report says by how much, and `"palette": "own"` keeps them. Only the views that see a texel nearly as squarely as the best one
 blend in it, so a detail is not ghosted by two views that place it a little apart. Each picture's own light is
 fitted to the way the surfaces face in it and divided out (a face seen head-on keeps its brightness), so the
 game's light is not laid over a second shading; the finish is not painted over what the pictures cover. The shape decides how well it fits: the outline in

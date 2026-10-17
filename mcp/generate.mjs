@@ -13,7 +13,7 @@
 //   model's own `root` (another folder: the 3D models live apart from the audio ones). The worker
 // (generators/worker.py) keeps one model in memory; asking for another stops it first, since the card holds one.
 import { spawn } from "node:child_process";
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { readWav, resample } from "../src/audio/wav.mjs";
@@ -23,6 +23,8 @@ import { soundPicture } from "../src/audio/draw.mjs";
 import { png, unpicture } from "../src/image.mjs";
 import { readObj, objModel } from "../src/obj.mjs";
 import { render, tile } from "../src/render.mjs";
+import { aimedBase, GENERATED_STANCE } from "../src/spec/model.mjs";
+import { readMdl, textureOf, replaceTexture } from "../src/mdl.mjs";
 import { text, image } from "./protocol.mjs";
 import { pathOf } from "./folders.mjs";
 
@@ -245,8 +247,9 @@ function seedsOf(args, unless = 4) {
  * the picture it was made from and a sidecar. Drawn from the three-quarter side, each beside its picture.
  */
 async function generateShapes(folders, generators, model, args) {
-  const { prompt, picture } = args;
+  const { prompt, picture, base } = args;
   if (!(typeof prompt === "string" && prompt.trim()) && typeof picture !== "string") throw new Error("prompt: the thing in words (\"a wooden kitchen chair\"), or picture: a picture of it in the folders");
+  if (base !== undefined && (typeof base !== "string" || picture)) throw new Error("base: a character's base model (player/gordon/gordon.mdl), whose stance the picture is drawn in from the prompt; not with picture");
   const seeds = seedsOf(args, picture ? 1 : 2);
   const given = picture ? pathOf(folders, picture) : null;
   const words = prompt?.trim() || picture;
@@ -256,16 +259,18 @@ async function generateShapes(folders, generators, model, args) {
   const { worker, load } = await workerFor(generators, model);
   const loaded = worker.told ? null : load;
   worker.told = true;
+  // a character: its base drawn in GENERATED_STANCE as a plain grey figure on white, the picture drawn over it
+  const guide = base ? guideOf(folders, base, pathOf(folders, `${stem}_guide.png`, { write: true })) : null;
   const takes = [];
   for (const seed of seeds) {
     const out = pathOf(folders, `${stem}_s${seed}.obj`, { write: true });
-    const said = await ask(worker, { prompt: prompt ?? "", picture: given, seed, out, steps: args.steps });
+    const said = await ask(worker, { prompt: prompt ?? "", picture: given, guide, seed, out, steps: args.steps });
     if (!said.ok) {
       takes.push({ seed, error: said.error });
       continue;
     }
     const from = given ? relative(folders.work, given) : said.picture ? relative(folders.work, said.picture) : null;
-    writeFileSync(out.replace(/\.obj$/, ".json"), `${JSON.stringify({ model: model.name, kind: "shape", prompt, picture: from, seed, faces: said.faces, licence: model.licence ?? "not given", took: said.took, made: new Date().toISOString() }, null, 1)}\n`);
+    writeFileSync(out.replace(/\.obj$/, ".json"), `${JSON.stringify({ model: model.name, kind: "shape", prompt, picture: from, ...(base ? { base, stance: GENERATED_STANCE } : {}), seed, faces: said.faces, licence: model.licence ?? "not given", took: said.took, made: new Date().toISOString() }, null, 1)}\n`);
     // drawn as it would stand: Y up, at a player's scale for the picture only
     const { mdl } = objModel(readObj(readFileSync(out, "utf8")), { up: "y", ground: true, centre: true, scale: 24, quiet: true });
     const view = render(mdl, { yaw: 30, pitch: 15, width: 320, height: 320 });
@@ -283,6 +288,7 @@ async function generateShapes(folders, generators, model, args) {
         : `work:${t.file}: ${t.said.faces} triangles, ${size(t.said.box).join(" x ")} in the file's units (x, y up, z), from ${t.from ? `work:${t.from}` : "the picture"}, made in ${t.said.took} s`,
     ),
     `Each .obj has a sidecar .json and the picture it was made from (its subject cut out beside it as _cut.png). Pick the one whose shape is right and put it in a model spec as a part { "kind": "mesh", "file": "work:<the .obj>", "size": [x, y, z], "triangles": n } (guide { doc: "spec" }), painted by its material, or by project from its cut-out ("picture": "work:<name>_s<seed>_cut.png", the side the picture shows as its view; the raw picture's background hides its outline). The shape is the generator's guess where the picture does not show it (the back, below): look at every side.`,
+    ...(base ? [`Drawn in ${base}'s stance (work:${stem}_guide.png): build it on that base in the same one, "base": { "file": "${base}" }, "pose": { "aim": ${JSON.stringify(GENERATED_STANCE)}, "bind": true }, so its limbs lie on its bones and it stands as the base stands. Reject a take whose arms touch its body or that holds anything: fused there, it tears in every motion.`] : []),
   ];
   const answer = [text(lines.join("\n"))];
   if (made.length) {
@@ -296,6 +302,23 @@ async function generateShapes(folders, generators, model, args) {
     answer.push(image(png(sheet.width, sheet.height, sheet.rgba)));
   }
   return answer;
+}
+
+/**
+ * A character's guide: its base (found as a model spec's base is: beside the work folder, then in the game
+ * folders) in GENERATED_STANCE from the front, every texture one plain grey so that only its shape and light
+ * lead the drawing, on white, written to `file`. Returns the file.
+ */
+function guideOf(folders, base, file) {
+  let src = aimedBase(base, { folder: folders.work, games: folders.wads ?? [], refuse: [...(folders.refuse ?? []), ...(folders.hide ?? [])] });
+  readMdl(src).textures.forEach((t, i) => {
+    const own = textureOf(src, i);
+    src = replaceTexture(src, i, { ...own, palette: new Uint8Array(768).fill(170) }, { quiet: true });
+  });
+  const drawn = render(src, { seq: 0, frame: 0, view: "front", width: 512, height: 512, background: [255, 255, 255] });
+  mkdirSync(dirname(file), { recursive: true });
+  writeFileSync(file, png(drawn.width, drawn.height, drawn.rgba));
+  return file;
 }
 
 /** A picture brought to `side` x `side`, whole, on grey: for a sheet of equal cells. */

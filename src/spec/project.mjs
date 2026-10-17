@@ -4,7 +4,7 @@
 // the pictures that see it, weighted by how squarely each does, where nothing of the model hides it from that
 // view. A texel no picture sees keeps its material's paint.
 //
-//   paintProjections(meshes, views, { only })    meshes as model.mjs builds them (corners { p, uv } in model
+//   paintProjections(meshes, views, { carry })    meshes as model.mjs builds them (corners { p, uv } in model
 //                                               space, partOf, image { width, height, rgb }, flags)
 //
 // A view: { picture: { width, height, rgb | rgba }, yaw, pitch (degrees, as `render` takes them: yaw 0 looks
@@ -237,11 +237,17 @@ function bleed({ width, height, rgb }, covered, painted) {
   }
 }
 
+/** How far (units, across and up in the first view) a texel no view sees reaches for the colour it is carried. */
+const CARRY_REACH = 2.5;
+
 /**
- * Paints the views into the meshes' pictures, in place. Returns { texels (painted), views: [{ rect, seen }] }:
- * each view's outline box in its picture and how many texels it gave colour to.
+ * Paints the views into the meshes' pictures, in place. Returns { texels (painted), views: [{ rect, seen }], carried }:
+ * each view's outline box in its picture and how many texels it gave colour to. With `carry`, a texel no view
+ * sees (a character's back, from one picture of its front) takes the colour of what the first view shows at the
+ * same place across and up, softened over CARRY_REACH units: the shirt's back is the shirt, not the material
+ * (the generated guard's back was its plain material, research/generated-characters.md); `carried` counts them.
  */
-export function paintProjections(meshes, views) {
+export function paintProjections(meshes, views, { carry = false } = {}) {
   const all = meshes.flatMap((mesh) => mesh.tris.map((t) => t.map((c) => c.p)));
   const prepared = views.map((view) => {
     const { picture } = view;
@@ -352,6 +358,9 @@ export function paintProjections(meshes, views) {
     });
   };
   let texels = 0;
+  // with carry: the painted texels' places and colours, and the unseen ones' places, to be filled after
+  const paintedAt = [];
+  const unseen = [];
   for (const mesh of meshes) {
     const { width, height, rgb } = mesh.image;
     // which texels a triangle covers, and which took a picture's colour: the colour is spread past the cuts after
@@ -367,7 +376,8 @@ export function paintProjections(meshes, views) {
       const area2 = (B[0] - A[0]) * (C[1] - A[1]) - (C[0] - A[0]) * (B[1] - A[1]);
       if (Math.abs(area2) < 1e-9) return;
       const takers = prepared.filter((v) => v && (!v.parts || v.parts.has(part)) && dot(n, v.back) > LEAST_FACING);
-      if (!takers.length) return;
+      // a face no view looks at is passed over, unless its texels are to be carried a colour (its back)
+      if (!takers.length && !carry) return;
       const x0 = Math.max(0, Math.floor(Math.min(A[0], B[0], C[0])));
       const x1 = Math.min(width - 1, Math.ceil(Math.max(A[0], B[0], C[0])));
       const y0 = Math.max(0, Math.floor(Math.min(A[1], B[1], C[1])));
@@ -410,16 +420,61 @@ export function paintProjections(meshes, views) {
             }
             if (weight) break;
           }
-          if (!weight) continue;
+          if (!weight) {
+            if (carry && !painted[y * width + x]) unseen.push({ mesh, at: y * width + x, q });
+            continue;
+          }
           const i = (y * width + x) * 3;
           for (let k = 0; k < 3; k++) rgb[i + k] = Math.round(sum[k] / weight);
           painted[y * width + x] = 1;
+          if (carry) paintedAt.push({ q, c: [rgb[i], rgb[i + 1], rgb[i + 2]] });
           texels++;
         }
     });
-    bleed(mesh.image, covered, painted);
+    mesh.covered = covered;
+    mesh.painted = painted;
   }
-  return { texels, views: prepared.map((v) => (v ? { rect: v.rect, seen: v.seen } : null)) };
+  let carried = 0;
+  const first = prepared.find(Boolean);
+  if (carry && first && unseen.length && paintedAt.length) {
+    // a grid over the first view's plane (across and up), each cell the painted texels in it
+    const { right, up } = viewAxes(first.view.yaw, first.view.pitch);
+    const cell = CARRY_REACH;
+    const grid = new Map();
+    const keyOf = (a, h) => `${Math.floor(a / cell)},${Math.floor(h / cell)}`;
+    for (const s of paintedAt) {
+      const k = keyOf(dot(s.q, right), dot(s.q, up));
+      if (!grid.has(k)) grid.set(k, []);
+      grid.get(k).push(s);
+    }
+    for (const { mesh, at, q } of unseen) {
+      const [a, h] = [dot(q, right), dot(q, up)];
+      const [ca, ch] = [Math.floor(a / cell), Math.floor(h / cell)];
+      const sum = [0, 0, 0];
+      let weight = 0;
+      // the nearest ring of cells that has any, so a gap in the front (an arm's shadow) reaches further
+      for (let r = 1; r <= 4 && !weight; r++)
+        for (let i = ca - r; i <= ca + r; i++)
+          for (let j = ch - r; j <= ch + r; j++)
+            for (const s of grid.get(`${i},${j}`) ?? []) {
+              const d = Math.hypot(dot(s.q, right) - a, dot(s.q, up) - h);
+              if (d > r * cell) continue;
+              const w = 1 / (0.25 + d);
+              for (let k = 0; k < 3; k++) sum[k] += s.c[k] * w;
+              weight += w;
+            }
+      if (!weight) continue;
+      for (let k = 0; k < 3; k++) mesh.image.rgb[at * 3 + k] = Math.round(sum[k] / weight);
+      mesh.painted[at] = 1;
+      carried++;
+    }
+  }
+  for (const mesh of meshes) {
+    bleed(mesh.image, mesh.covered, mesh.painted);
+    delete mesh.covered;
+    delete mesh.painted;
+  }
+  return { texels, carried, views: prepared.map((v) => (v ? { rect: v.rect, seen: v.seen } : null)) };
 }
 
 /** sRGB (0 to 255) to CIE Lab, for colour differences a person would call so. */
