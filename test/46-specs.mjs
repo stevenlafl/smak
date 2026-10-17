@@ -188,6 +188,10 @@ test("a spec that takes a game model's place under its name reads the game's as 
   const { report } = buildModelSpec(spec, { folder: work, games: [game] });
   const said = report.facts.find((f) => /the base's own body is \d+ triangles/.test(f)) ?? report.facts.join(" | ");
   sure(said.includes(`is ${own(bodyOf(6))} triangles`) && own(bodyOf(6)) !== own(bodyOf(20)), `the game's, not the last build's: ${said}`);
+  // its triangles against Half-Life's creatures and people of its size: a fact, and over the most a warning
+  sure(report.facts.some((f) => /Half-Life's creatures and people of this size \(\d+ units corner to corner\) have 58 triangles at the median/.test(f)), report.facts.join(" | "));
+  const heavy = buildModelSpec({ ...spec, parts: Array.from({ length: 45 }, (_, i) => ({ id: `p${i}`, kind: "box", size: [0.5, 0.5, 0.5], at: [i % 9, Math.floor(i / 9), 2], bone: "root" })) }, { folder: work, games: [game] }).report;
+  sure(heavy.warnings.some((w) => /^5\d\d triangles: Half-Life's creatures and people of this size .* 478 at the most: more than any of them/.test(w)), heavy.warnings.join(" | "));
 });
 
 test("a character spec: a place on a part laid along a limb is where the part went (the cowboy's shirt)", () => {

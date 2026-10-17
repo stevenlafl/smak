@@ -187,9 +187,11 @@ player holds): 8 for a radius of 6, 6 for a pipe seen only lengthways, more only
 
 A crate there is 26 triangles, its planks and bands painted on; a can, 28; a person (Barney, a scientist) about 750,
 the zombie 844, a small creature (the houndeye) 308. A character over twice its base's own body is a FAULT: choose a
-base near its size, and paint what a spine or a fin does not change in the outline. A
-prop's report gives the median and third quartile of Half-Life's props of its size, and warns past twice the
-median: a copy is judged against twice its original's count. A filing cabinet there is 14 triangles, its
+base near its size, and paint what a spine or a fin does not change in the outline. A character's report gives
+the median, third quartile and most of Half-Life's creatures and people of its size, and warns past the most: a
+judge holds a creature to the most of the game's own (the headcrab's size: 478). A
+prop's report gives the median and third quartile of Half-Life's props of its size, and warns past the third
+quartile: a copy is judged against twice its original's count. A filing cabinet there is 14 triangles, its
 drawers, handles and rails all painted on a box.
 Build to that: the shape in triangles, the detail in the picture.
 

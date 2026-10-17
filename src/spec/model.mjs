@@ -132,6 +132,18 @@ export const PROP_TRIANGLES = [
   { under: Infinity, median: 176, q3: 296, most: 404 },
 ];
 /**
+ * Half-Life's creatures and people (the line-up's pool) by the length of their box's diagonal: the triangles of
+ * their first body at the median, the third quartile and the most. Measured on the game's 13 by
+ * research/valve-character-triangles.mjs (2026-10-17); numbers only. A judge holds a creature to the most of
+ * the game's own of its kind: the original mod's crawler (740) passed the line-up and failed on that alone.
+ */
+export const CHARACTER_TRIANGLES = [
+  { under: 48, median: 58, q3: 340, most: 478 },
+  { under: 96, median: 740, q3: 785, most: 1640 },
+  { under: Infinity, median: 655, q3: 655, most: 731 },
+];
+
+/**
  * A mesh part's triangles: its .obj read and stood up (`up`, `turn`), its loose crumbs dropped, reduced to
  * `triangles` (unless told, three quarters of Half-Life's props of its size have under that), then stretched to
  * `size`, centred on x and y and standing on z 0, as a carved part is. What was done is told in the report.
@@ -2034,6 +2046,14 @@ function buildOnce(spec, { folder, out, prefabs = {}, games = [], readPicture, r
       // triangles on a 308-triangle monster. A small stand-in base's (a test's leg of 24) is only warned of
       (own >= CHARACTER_REAL ? report.faults : warnings).push(`${triangles} triangles, over twice the ${own} of the base's own body: the most in ${heaviest}. Paint what lies on the surface (eyes, buttons, seams, pockets) and give round parts fewer sides`);
     else if (own) report.facts.push(`the base's own body is ${own} triangles`);
+  }
+  // what Half-Life's own creatures and people of this size spend: a judge holds one to the most of them
+  if (kind === "character" && !spec.budget) {
+    const diagonal = Math.hypot(...[0, 1, 2].map((k) => box.mx[k] - box.mn[k]));
+    const band = CHARACTER_TRIANGLES.find((b) => diagonal < b.under);
+    const line = `Half-Life's creatures and people of this size (${Math.round(diagonal)} units corner to corner) have ${band.median} triangles at the median, three quarters under ${band.q3}, ${band.most} at the most`;
+    if (triangles > band.most && !high) warnings.push(`${triangles} triangles: ${line}: more than any of them. Paint what lies on the surface, give round parts fewer sides, and build only what stands out of the outline`);
+    else report.facts.push(line);
   }
   // what Half-Life's own props of this size spend: a judge holds a copy to twice its original's triangles, and an
   // original of this size most often has the median
