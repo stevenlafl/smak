@@ -351,3 +351,24 @@ walk test, not the game.
   world model 1.81. M2 now reads a weapon's real length off its `p_` model divided by 0.82, and the kit lays a
   weapon of `size: "own"` (built at its real length) in each file at those medians; before, it put the built
   length in the world model as it was, half Valve's size. Results judged before keep their scores.
+- **2026-10-16, later: the brief judge calibrated on Valve's own (Steven's go-ahead).** Valve's own props, judged
+  against the briefs that describe them, failed: the filing cabinet on M3 (its handles and labels are painted, and
+  the judge took paint for parts missing), the battery and the forklift on M8 by measure, the headcrab on M3, M5 and
+  M6. M8's size bands had been measured over models of three bones or fewer, nearly all gibs (a small prop's median
+  was 20; it is 84), and the line "over twice the median and the third quartile" failed 23 of Valve's 65 props.
+  From here: the bands are measured again over the props' pool (research/valve-prop-triangles.mjs); M8 fails a
+  model only past the most Valve spends on its kind and size, so none of Valve's own does (the kit's own warning
+  goes at the third quartile); a part a brief asks for counts as there when it is painted and reads at the size the
+  game shows it, as Valve paints handles, a tie and folds; and each round judges Valve's own against the same
+  briefs beside the decoys, the **control**: it must pass, as every decoy must fail, or that round's judging is
+  miscalibrated. Results judged before keep their scores.
+- **2026-10-16, later: M6 measured as a line-up test, and briefs that do not contradict the original.** Asked yes
+  or no whether a player would take an asset for one of the game's, the judge marked Valve's own down on 9 of 19
+  (the filing cabinet's "flat, blotchy texture", the crowbar "flat-shaded beside the guns"): it finds the odd one
+  out of any four. M6 of a brief leg (and of the original mod's models) is now that test, measured: the line-up of
+  four, three of them Valve's own, shown alone to a fresh judge three times, "which one was not made by Valve?";
+  picked twice or more, M6 is at most 1. A Valve original is picked about a quarter of the time and passes about
+  84 rounds of 100; the main judge no longer scores M6. And the control showed briefs asking for what Valve's own
+  has not (four drawers, a tie, dark trousers, a yellow forklift, steam that rises, a warm glow): a brief for a
+  replacement may leave things out, but must not contradict what it replaces. Those were corrected by dropping
+  the contradicted words, not by copying the original's.

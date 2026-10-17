@@ -475,12 +475,13 @@ async function judgeOne(kind, subject, leg, copyFile, { decoy } = {}) {
  * their fine detail against Half-Life's. What keeps it working where it replaces the game's stays measured: a
  * sprite's type, format and name (R5), a texture's name and size (T6).
  */
-async function judgeBrief(kind, subject, copyFile, { decoy } = {}) {
-  const dir = join(folderOf(kind, subject.id), "judge", decoy ? `decoy-brief-${decoy}` : "brief");
+async function judgeBrief(kind, subject, copyFile, { decoy, control } = {}) {
+  const dir = join(folderOf(kind, subject.id), "judge", control ? "control-brief" : decoy ? `decoy-brief-${decoy}` : "brief");
   rmSync(dir, { recursive: true, force: true });
   const original = readFileSync(join(GAME, subject.file));
-  const copy = readFileSync(copyFile);
-  const leg = decoy ? `decoy: brief ${decoy}` : "brief";
+  // the control is Valve's own: the sprite itself, or the map's textures read from the game's .wad files (in memory)
+  const copy = control ? original : readFileSync(copyFile);
+  const leg = control ? "control: Valve's own against the brief" : decoy ? `decoy: brief ${decoy}` : "brief";
   if (kind === "sprites") {
     const { brief, class: kindOf } = BRIEFS.sprites[subject.id];
     const o = maps.readSpr(original);
@@ -498,7 +499,8 @@ async function judgeBrief(kind, subject, copyFile, { decoy } = {}) {
   const { brief, each } = BRIEFS.textures;
   // each texture's name and size as the map has it (list.txt): what T6 holds the replacement to
   const sizes = Object.fromEntries(textureList(join(folderOf(kind, subject.id), "input")).trim().split("\n").map((line) => line.split(" ")).map(([name, size]) => [name, size.split("x").map(Number)]));
-  const r = await judgeTexturesAgainstBrief(`the textures of ${subject.file}, each in the place of the map's own`, maps.readWad(copy).textures, dir, { brief, each, sizes });
+  const textures = control ? maps.texturesFor(maps.readBsp(original), [GAME], { pixels: true }).textures.map((t) => t.texture) : maps.readWad(copy).textures;
+  const r = await judgeTexturesAgainstBrief(`the textures of ${subject.file}, each in the place of the map's own`, textures, dir, { brief, each, sizes });
   return { kind, subject: subject.id, leg, ...r };
 }
 
@@ -578,6 +580,8 @@ else if (step === "judge") {
       if (kind !== "sounds") jobs.push(() => judgeOne(kind, s, "decoy", decoyOf(kind, s), { decoy: "plain" }).then((r) => (writeFileSync(join(folderOf(kind, s.id), "judge", "decoy.json"), `${JSON.stringify(r, null, 1)}\n`), `${kind}/${s.id} decoy: ${r.error ?? `${r.total} of ${r.of}, ${r.passes ? "PASSES (the judge is lenient)" : "fails, as it must"}`}`)));
       // the brief leg's: the same plain decoy held to the brief
       if (kind !== "sounds" && existsSync(join(folderOf(kind, s.id), "brief"))) jobs.push(() => judgeBrief(kind, s, decoyOf(kind, s), { decoy: "plain" }).then((r) => (writeFileSync(join(folderOf(kind, s.id), "judge", "decoy-brief.json"), `${JSON.stringify(r, null, 1)}\n`), `${kind}/${s.id} brief decoy: ${r.error ?? `${r.total} of ${r.of}, ${r.passes ? "PASSES (the judge is lenient)" : "fails, as it must"}`}`)));
+      // the control: Valve's own against the same brief, which must pass, or the judge is miscalibrated
+      if (kind !== "sounds" && existsSync(join(folderOf(kind, s.id), "brief"))) jobs.push(() => judgeBrief(kind, s, null, { control: true }).then((r) => (writeFileSync(join(folderOf(kind, s.id), "judge", "control-brief.json"), `${JSON.stringify(r, null, 1)}\n`), `${kind}/${s.id} brief control (Valve's own): ${r.error ?? `${r.total} of ${r.of}, ${r.passes ? "passes, as it must" : "FAILS: the judge is miscalibrated"}`}`)));
     }
   await pool(jobs, 4);
 } else console.log("node examples/reproduce/assets.mjs inputs|describe|reproduce|rebuild|judge [sprites|sounds|textures] [subject ...] [--again]");

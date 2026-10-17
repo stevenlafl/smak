@@ -83,7 +83,9 @@ ${each ? `{ "<${each} name>": ${one}, ... }` : one}`;
  */
 export const MODEL_GUIDE = (against = "the original") => `For M3, first list ${against === "the original" ? "the original's parts down to the small ones, as the close angles show them" : "the parts the brief asks for down to the small ones"}: claws, teeth, rivets, handles, tabs, the number of sides or facets of a round part. Then find each in the ${against === "the original" ? "reproduction" : "asset"}. A small part missing, or a round part with a different number of sides, makes M3 at most 1.
 
-Tell paint from shape. A difference only in the painted picture (stripes in another place, softer detail, a smear, wear) is M4 or M5, not M1 or M3; a shape that is really different (a part missing, too big, the wrong form) is M1 or M3. Before you charge a shape item, check in the side and angle views that the outline itself differs, not just the paint on it.`;
+Tell paint from shape. A difference only in the painted picture (stripes in another place, softer detail, a smear, wear) is M4 or M5, not M1 or M3; a shape that is really different (a part missing, too big, the wrong form) is M1 or M3. Before you charge a shape item, check in the side and angle views that the outline itself differs, not just the paint on it.${against === "the original" ? "" : `
+
+A part may be painted. Valve paints what lies on a surface (a filing cabinet's handles and labels, a tie, buttons, pockets, the folds of cloth) and models only what changes the outline. A part the brief asks for counts as there when it is painted and reads clearly at the size the game shows it; it is missing only when neither its shape nor its paint is there.`}`;
 
 /**
  * Several judges' answers as one. "better": each item the higher score, with its reason (a model is read twice and

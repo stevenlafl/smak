@@ -9,7 +9,7 @@
 // held/<kind>/<id>/: input/ (Valve's pictures, out of git), words.md, <leg>/ (spec.json, answer.md, run.json,
 // judge.json; built/ out of git).
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, copyFileSync, rmSync } from "node:fs";
-import { join, basename } from "node:path";
+import { join, basename, dirname } from "node:path";
 import { HERE, GAME, SIDES, ANGLES, readModel, boxOf, picturesOf, savePng, besides, notTheOriginal, kitCommit, keepRound, filesOf } from "./lib.mjs";
 import { runAgent, runJudge, failedByMeasure } from "./agents.mjs";
 import { measureModel, lineup } from "./judge.mjs";
@@ -17,7 +17,7 @@ import { itemsOf, settle, lowered, combine, askScores, MODEL_GUIDE } from "./sco
 import { BRIEFS, briefPrompt, ownOfKind, judgeModelAgainstBrief, weaponSizeIn } from "./brief.mjs";
 import { tile, render, strip } from "../../src/render.mjs";
 import { sequences } from "../../src/index.mjs";
-import { contractOf, compareContract } from "../../src/contract.mjs";
+import { contractOf, compareContract, sharedContract } from "../../src/contract.mjs";
 import { buildModelSpec } from "../../src/spec/model.mjs";
 
 const ROOT = join(HERE, "held");
@@ -69,6 +69,8 @@ function animation(src, pattern) {
   return at >= 0 ? at : 0;
 }
 const ATTACK = /attack1$|^attack|shoot$|^shoot|fire/i;
+/** A model's attack, as a character's C1 asks it drawn beside its run (rubric.md), or -1 when it has none (a scientist flees). */
+const attackOf = (src) => sequences(src).findIndex((q) => ATTACK.test(q.name));
 
 /** The first-person view of a v_ model: its first frame, and its attack as a strip. */
 function firstPerson(src) {
@@ -212,6 +214,13 @@ async function reproduce(kind, s, leg) {
 
 // ── the judge ─────────────────────────────────────────────────────────────
 
+/**
+ * What a mod's code relies on of a player: the contract its stock players share (their base, the subjects and the
+ * line-up's), not every bone of the base: The Specialists' seven share their 171 animations and one bone name, half
+ * of them naming their bones in Italian (rubric.md, 2026-10-16).
+ */
+const stockContract = (s) => sharedContract([join("models", s.base), ...SUBJECTS.players.map((x) => x.file), ...LINEUP_EXTRAS.players].filter((f, i, all) => all.indexOf(f) === i && existsSync(join(rootOf(s), f))).map((f) => contractOf(game(f, rootOf(s)))));
+
 /** The rubric's table a held subject is scored on: a weapon's, a character's, or a player's with its contract. */
 const tableOf = (kind, s) => (kind === "weapons" ? "weapon" : s.stunt ? "contracted" : "character");
 
@@ -240,12 +249,19 @@ async function judgeOne(kind, s, leg, built, { decoy } = {}) {
     const motionOf = (src, name = s.motion) => strip(src, { seq: animation(src, new RegExp(`^${name}`)), count: 8, cols: 4, view: "side", ground: true, width: 192, height: 192 });
     savePng(join(dir, "motion.png"), tile([motionOf(original), motionOf(copy)], 1, [`ORIGINAL ${s.motion}`, `REPRODUCTION ${s.motion}`]));
     extra = `${dir}/motion.png (the ORIGINAL ${s.motion === "run" ? "running" : "walking"} above, the REPRODUCTION below, frame by frame from the side).`;
+    // C1 asks a run and an attack: the attack too, where both have one
+    const strikes = [original, copy].map(attackOf);
+    if (strikes.every((at) => at >= 0)) {
+      const attackStrip = (src, at) => strip(src, { seq: at, count: 8, cols: 4, view: "side", ground: true, width: 192, height: 192 });
+      savePng(join(dir, "attack.png"), tile([attackStrip(original, strikes[0]), attackStrip(copy, strikes[1])], 1, ["ORIGINAL attack", "REPRODUCTION attack"]));
+      extra += ` ${dir}/attack.png (an attack, the ORIGINAL above).`;
+    }
     if (s.stunt) {
       savePng(join(dir, "stunt.png"), tile([motionOf(original, s.stunt), motionOf(copy, s.stunt)], 1, ["ORIGINAL forward dive", "REPRODUCTION forward dive"]));
       extra += ` ${dir}/stunt.png (a forward dive, the ORIGINAL above).`;
       // the contract the mod's code relies on: the base's, measured
-      const faults = compareContract(contractOf(game(join("models", s.base), rootOf(s))), contractOf(copy)).faults;
-      measured.contract = faults.length ? faults : "keeps every bone, animation, attachment and bodypart of the base";
+      const faults = compareContract(stockContract(s), contractOf(copy)).faults;
+      measured.contract = faults.length ? faults : "keeps the contract the mod's stock players share: their animations at their numbers, their shared bones, attachments and bodyparts";
       caps.C2 = faults.length ? 0 : 2;
     }
   }
@@ -270,8 +286,8 @@ async function judgeOne(kind, s, leg, built, { decoy } = {}) {
  * what keeps it working in the game measured as for the pictures leg: a weapon in the hands (W1), a character in
  * motion (C1), a player's contract with its base (C2).
  */
-async function judgeBrief(kind, s, built, { decoy, from = s } = {}) {
-  const dir = join(folderOf(kind, s.id), "judge", decoy ? `decoy-brief-${decoy}` : "brief");
+async function judgeBrief(kind, s, built, { decoy, from = s, control } = {}) {
+  const dir = join(folderOf(kind, s.id), "judge", control ? "control-brief" : decoy ? `decoy-brief-${decoy}` : "brief");
   rmSync(dir, { recursive: true, force: true });
   mkdirSync(dir, { recursive: true });
   const { brief, asked } = BRIEFS[kind][s.id];
@@ -287,22 +303,28 @@ async function judgeBrief(kind, s, built, { decoy, from = s } = {}) {
     savePng(join(dir, "first-person.png"), besides([mine.still, firstPerson(game(s.files[0])).still]));
     savePng(join(dir, "attack.png"), mine.attack);
     savePng(join(dir, "in-hand.png"), render(readModel(join(built, basename(from.files[1]))), { seq: 0, frame: 0, yaw: 35, pitch: 20, width: 384, height: 384 }));
-    const r = await judgeModelAgainstBrief("weapon", label, copy, dir, { brief, asked, list, sizeFrom: weaponSizeIn(readModel(join(built, basename(from.files[1])))), extraPictures: `, ${dir}/first-person.png (its first-person view left, the game's own of this weapon right, for where it sits in the hands), ${dir}/attack.png (its attack frame by frame) and ${dir}/in-hand.png (the model another player holds); sides.png and lineup.png show the w_ model` });
-    return { kind, subject: s.id, leg: decoy ? `decoy: brief ${decoy}` : "brief", ...r };
+    const r = await judgeModelAgainstBrief("weapon", label, copy, dir, { brief, asked, list, replaces: game(s.file, rootOf(s)), sizeFrom: weaponSizeIn(readModel(join(built, basename(from.files[1])))), extraPictures: `, ${dir}/first-person.png (its first-person view left, the game's own of this weapon right, for where it sits in the hands), ${dir}/attack.png (its attack frame by frame) and ${dir}/in-hand.png (the model another player holds); sides.png and lineup.png show the w_ model` });
+    return { kind, subject: s.id, leg: control ? "control: Valve's own against the brief" : decoy ? `decoy: brief ${decoy}` : "brief", ...r };
   }
   const motionOf = (name) => strip(copy, { seq: animation(copy, new RegExp(`^${name}`)), count: 8, cols: 4, view: "side", ground: true, width: 192, height: 192 });
   savePng(join(dir, "motion.png"), motionOf(s.motion));
   let extraPictures = `, ${dir}/motion.png (it ${s.motion === "run" ? "running" : "walking"}, frame by frame from the side, the floor a line)`;
+  // C1 asks a run and an attack: the attack too, where it has one
+  const strike = attackOf(copy);
+  if (strike >= 0) {
+    savePng(join(dir, "attack.png"), strip(copy, { seq: strike, count: 8, cols: 4, view: "side", ground: true, width: 192, height: 192 }));
+    extraPictures += `, ${dir}/attack.png (an attack, frame by frame from the side)`;
+  }
   const extra = { measured: {}, caps: {} };
   if (s.stunt) {
     savePng(join(dir, "stunt.png"), motionOf(s.stunt));
     extraPictures += ` and ${dir}/stunt.png (a forward dive)`;
-    const faults = compareContract(contractOf(game(join("models", s.base), rootOf(s))), contractOf(copy)).faults;
-    extra.measured.contract = faults.length ? faults : "keeps every bone, animation, attachment and bodypart of the base";
+    const faults = compareContract(stockContract(s), contractOf(copy)).faults;
+    extra.measured.contract = faults.length ? faults : "keeps the contract the mod's stock players share: their animations at their numbers, their shared bones, attachments and bodyparts";
     extra.caps.C2 = faults.length ? 0 : 2;
   }
-  const r = await judgeModelAgainstBrief(ownKind, label, copy, dir, { brief, asked, list, extra, extraPictures });
-  return { kind, subject: s.id, leg: decoy ? `decoy: brief ${decoy}` : "brief", ...r };
+  const r = await judgeModelAgainstBrief(ownKind, label, copy, dir, { brief, asked, list, extra, extraPictures, replaces: game(s.file, rootOf(s)) });
+  return { kind, subject: s.id, leg: control ? "control: Valve's own against the brief" : decoy ? `decoy: brief ${decoy}` : "brief", ...r };
 }
 
 /** A plain box of the original's size, for a character; for a weapon a box in each of its three files' place. */
@@ -358,6 +380,11 @@ else if (step === "judge") {
     const said = (k2, s, name) => (r) => (writeFileSync(join(folderOf(k2, s.id), "judge", `decoy-brief-${name}.json`), `${JSON.stringify(r, null, 1)}\n`), `${k2}/${s.id} brief decoy ${name}: ${r.error ?? `${r.total} of ${r.of}, ${r.passes ? "PASSES (the judge is lenient)" : "fails, as it must"}`}`);
     for (const s of briefed) jobs.push(() => judgeBrief(k, s, decoyOf(k, s), { decoy: "box" }).then(said(k, s, "box")));
     if (briefed.length >= 2) jobs.push(() => judgeBrief(k, briefed[1], join(folderOf(k, briefed[0].id), "brief", "built"), { decoy: `swap-${briefed[0].id}`, from: briefed[0] }).then(said(k, briefed[1], "swap")));
+    // the control: Valve's own (the mod's, for a player) against the same brief, which must pass, or the judge is miscalibrated
+    for (const s of briefed)
+      jobs.push(() =>
+        judgeBrief(k, s, dirname(join(rootOf(s), s.file)), { control: true }).then((r) => (writeFileSync(join(folderOf(k, s.id), "judge", "control-brief.json"), `${JSON.stringify(r, null, 1)}\n`), `${k}/${s.id} brief control (Valve's own): ${r.error ?? `${r.total} of ${r.of}, ${r.passes ? "passes, as it must" : "FAILS: the judge is miscalibrated"}`}`)),
+      );
   }
   await pool(jobs, 4);
 } else console.log("node examples/reproduce/held.mjs inputs|describe|reproduce|judge [weapons|characters] [subject ...] [--again]");

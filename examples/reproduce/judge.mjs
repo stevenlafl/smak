@@ -215,14 +215,14 @@ export async function judgeModel(model, leg, copyFile, { decoy } = {}) {
  * A model of the brief leg, judged against its modder's request (briefs.json), not its original: the rubric's
  * "Original creation" measures, its line-up beside Half-Life's own of its kind (never the original itself).
  */
-async function judgeModelBrief(model, file, { decoy } = {}) {
+async function judgeModelBrief(model, file, { decoy, control } = {}) {
   const { brief, asked } = BRIEFS.models[model.id];
   const kind = model.lineup ?? "model";
-  const dir = join(HERE, model.id, "judge", decoy ? `decoy-brief-${decoy}` : "brief");
+  const dir = join(HERE, model.id, "judge", control ? "control-brief" : decoy ? `decoy-brief-${decoy}` : "brief");
   rmSync(dir, { recursive: true, force: true });
   const list = ownOfKind(kind).filter((x) => x.file !== model.file);
-  const r = await judgeModelAgainstBrief("model", `${model.id}.mdl, in the place of the game's ${model.file}`, readModel(file), dir, { brief, asked, list, byKind: Boolean(model.lineup) });
-  return { subject: model.id, leg: decoy ? `decoy: brief ${decoy}` : "brief", ...r };
+  const r = await judgeModelAgainstBrief("model", `${model.id}.mdl, in the place of the game's ${model.file}`, readModel(file), dir, { brief, asked, list, byKind: Boolean(model.lineup), replaces: readModel(join(GAME, model.file)) });
+  return { subject: model.id, leg: control ? "control: Valve's own against the brief" : decoy ? `decoy: brief ${decoy}` : "brief", ...r };
 }
 
 /** A plain box the size of the original: the decoy that must fail. */
@@ -470,6 +470,8 @@ async function main() {
     // the brief leg's: a box of the brief's size, and another subject's brief build held to this brief
     const briefed = SUBJECTS.models.filter((m) => existsSync(join(HERE, m.id, "brief", "built", `${m.id}.mdl`)));
     for (const model of briefed) jobs.push(() => judgeModelBrief(model, boxDecoy(model), { decoy: "box" }).then((r) => [join(HERE, model.id, "judge", "decoy-brief-box.json"), r]));
+    // the control: Valve's own, judged against the same brief, must pass, or the judge is miscalibrated
+    for (const model of briefed) jobs.push(() => judgeModelBrief(model, join(GAME, model.file), { control: true }).then((r) => [join(HERE, model.id, "judge", "control-brief.json"), r]));
     if (briefed.length >= 2) {
       const [x, y] = briefed;
       jobs.push(() => judgeModelBrief(y, join(HERE, x.id, "brief", "built", `${x.id}.mdl`), { decoy: `swap-${x.id}` }).then((r) => [join(HERE, y.id, "judge", "decoy-brief-swap.json"), r]));

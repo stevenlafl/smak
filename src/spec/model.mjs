@@ -119,16 +119,17 @@ const KIT_SHRINK = 2;
 /** Three quarters of Half-Life's props, plants, creatures and people have fewer triangles than this (docs/SPEC.md). */
 const PROP_BUDGET = 576;
 /**
- * Half-Life's props (models of three bones or fewer, not v_ or p_) by the length of their box's diagonal, in
- * units: the triangles of their first body at the median and the third quartile. Measured on the game's 74 such
- * models (2026-10-14); numbers only.
+ * Half-Life's props (what stands in the world, pickups too; no creature, no person, no gibs) by the length of their
+ * box's diagonal, in units: the triangles of their first body at the median, the third quartile and the most.
+ * Measured on the game's 65 such models by research/valve-prop-triangles.mjs (2026-10-16); numbers only. (The
+ * table before was measured over models of three bones or fewer, nearly all gibs: a small prop's median was 20.)
  */
 export const PROP_TRIANGLES = [
-  { under: 16, median: 20, q3: 32 },
-  { under: 32, median: 51, q3: 88 },
-  { under: 64, median: 62, q3: 156 },
-  { under: 128, median: 105, q3: 238 },
-  { under: Infinity, median: 288, q3: 288 },
+  { under: 16, median: 84, q3: 144, most: 164 },
+  { under: 32, median: 56, q3: 116, most: 194 },
+  { under: 64, median: 99, q3: 156, most: 422 },
+  { under: 128, median: 238, q3: 291, most: 439 },
+  { under: Infinity, median: 176, q3: 296, most: 404 },
 ];
 /**
  * A mesh part's triangles: its .obj read and stood up (`up`, `turn`), its loose crumbs dropped, reduced to
@@ -2028,8 +2029,8 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
   if (kind === "prop") {
     const diagonal = Math.hypot(...[0, 1, 2].map((k) => box.mx[k] - box.mn[k]));
     const band = PROP_TRIANGLES.find((b) => diagonal < b.under);
-    const line = `Half-Life's props of this size (${Math.round(diagonal)} units corner to corner) have ${band.median} triangles at the median, three quarters under ${band.q3}`;
-    if (!spec.budget && triangles > 2 * band.median && !high) warnings.push(`${triangles} triangles: ${line}. Paint what lies on a surface (drawers, labels, seams), and build only what stands out of the outline`);
+    const line = `Half-Life's props of this size (${Math.round(diagonal)} units corner to corner) have ${band.median} triangles at the median, three quarters under ${band.q3}, ${band.most} at the most`;
+    if (!spec.budget && triangles > band.q3 && !high) warnings.push(`${triangles} triangles: ${line}${triangles > band.most ? ": more than any of them" : ""}. Paint what lies on a surface (drawers, labels, seams), and build only what stands out of the outline`);
     else if (high) report.facts.push(`${triangles} triangles (fidelity high): ${line}`);
     else report.facts.push(line);
   }

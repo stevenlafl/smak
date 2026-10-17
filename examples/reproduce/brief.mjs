@@ -7,7 +7,7 @@
 //   judgeModelAgainstBrief(kind, label, src, dir, { brief, what, asked, list, extra, extraPictures, sizeFrom })
 //   judgeSpriteAgainstBrief, judgeSoundAgainstBrief, judgeTexturesAgainstBrief (as one set, or each texture alone)
 //   weaponSizeIn(src)                                   -> a weapon's size in its first-person model, hands left out
-import { readFileSync, existsSync, mkdirSync } from "node:fs";
+import { readFileSync, existsSync, mkdirSync, copyFileSync } from "node:fs";
 import { join, basename } from "node:path";
 import { HERE, GAME, POSE, readModel, boxOf, picturesOf, savePng, flatOf, scaled, onCanvas } from "./lib.mjs";
 import { runJudge, failedByMeasure } from "./agents.mjs";
@@ -96,6 +96,28 @@ function lineupOf(ours, list, dir, name) {
   return { letter: "ABCD"[order.findIndex((o) => o.ours)], others: near.map((x) => x.file) };
 }
 
+/** How many times the line-up is put to a fresh judge, and how many of those picks of ours make M6 a 1. */
+const DETECT_READINGS = 3;
+const DETECT_CAUGHT = 2;
+
+/**
+ * M6 as a test a player would sit: the line-up of four, three of them Valve's own, put to a fresh judge
+ * DETECT_READINGS times, "which one was not made by Valve?". Picked DETECT_CAUGHT times or more, it is told apart
+ * (M6 at most 1); else it passes for one of the game's. A Valve original is picked about a quarter of the time,
+ * and passes about 84 rounds of 100 (rubric.md, 2026-10-16). Returns { letter, picks, caught }.
+ */
+async function detect(dir, letter) {
+  if (process.env.DRY) return { letter, picks: [], caught: false };
+  // a folder of the line-up alone: the asset's own pictures beside it would tell which one it is
+  const alone = join(dir, "detect");
+  mkdirSync(alone, { recursive: true });
+  copyFileSync(join(dir, "lineup.png"), join(alone, "lineup.png"));
+  const ask = `${alone}/lineup.png shows four models, A to D, drawn by one camera at one scale. Three were made by Valve's artists for Half-Life; one was not. Which one was not? Look closely at all four. Reply with the one letter alone.`;
+  const answers = await Promise.all(Array.from({ length: DETECT_READINGS }, (_, draw) => runJudge({ read: alone, hours: 0.25, prompt: ask, draw })));
+  const picks = answers.map((r) => ((r.answer ?? "").match(/\b([A-D])\b/) ?? [])[1] ?? null);
+  return { letter, picks, caught: picks.filter((p) => p === letter).length >= DETECT_CAUGHT };
+}
+
 // ── judging ────────────────────────────────────────────────────────────────
 
 /**
@@ -117,7 +139,7 @@ The pictures: ${pictures}. Look at every picture closely.
 
 The measurements:
 ${JSON.stringify(measured, null, 1)}
-${model ? `\n${MODEL_GUIDE("what the brief asks")}\n` : ""}
+${model ? `\n${MODEL_GUIDE("what the brief asks")}\n\nM6 is measured apart, by the line-up put to other judges (which of the four was not made by Valve), and that caps it: score M6 2 here.\n` : ""}
 ${askScores(items)}
 
 THE BRIEF
@@ -153,31 +175,38 @@ export function weaponSizeIn(p) {
   return boxOf(p).size.map((v) => v / HELD_SCALE.p);
 }
 
-/** The median and third quartile of the triangles a list of models spends. */
+/** The median, third quartile and most of the triangles a list of models spends. */
 function spentBy(list) {
   const all = list.map((x) => trianglesOf(x.src)).sort((a, b) => a - b);
-  return { median: all[Math.floor((all.length - 1) / 2)], q3: all[Math.floor(0.75 * (all.length - 1))] };
+  return { median: all[Math.floor((all.length - 1) / 2)], q3: all[Math.floor(0.75 * (all.length - 1))], most: all.at(-1) };
 }
 
 /**
  * A model judged against its brief: its sides, a line-up beside Half-Life's own of its kind, its size and triangles
  * measured. `byKind`: a model that is no prop (a creature built as a model) is held to the triangles of `list`.
+ * `replaces`: the game's own model it takes the place of, whose triangles count among Valve's most.
  */
-export async function judgeModelAgainstBrief(kind, label, src, dir, { brief, what, asked, list, extra = {}, extraPictures = "", sizeFrom, byKind = false }) {
+export async function judgeModelAgainstBrief(kind, label, src, dir, { brief, what, asked, list, extra = {}, extraPictures = "", sizeFrom, byKind = false, replaces }) {
   mkdirSync(dir, { recursive: true });
   const pictures = picturesOf(src, { size: 384 });
   savePng(join(dir, "sides.png"), tile(pictures.map((p) => p.picture), 5, pictures.map((p) => p.name)));
   const size = sizeFrom ?? boxOf(src).size;
   const line = lineupOf(src, list, dir, label);
+  const told = await detect(dir, line.letter);
   const triangles = trianglesOf(src);
   // what Half-Life's own of its kind spend: a prop by its size (PROP_TRIANGLES, measured over the game's props); any
   // other kind (a weapon, a creature, a person) by the models it is lined up from
-  const { median, q3 } = kind === "model" && !byKind ? PROP_TRIANGLES.find((b) => Math.hypot(...size) < b.under) : spentBy(list);
+  const spent = kind === "model" && !byKind ? PROP_TRIANGLES.find((b) => Math.hypot(...size) < b.under) : spentBy(list);
+  const { median, q3 } = spent;
+  // the game's own in the place it takes (`replaces`) is Valve's of its kind too: what it spends is never too much
+  const most = Math.max(spent.most, replaces ? trianglesOf(replaces) : 0);
   const off = sizeOff(asked, size);
   const check = smak.check(src);
-  const measured = { size: size.map((v) => round(v)), sizeAsked: asked ?? null, sizeOff: off, triangles, halfLifeMedianOfItsKind: median, halfLifeThreeQuartersUnder: q3, checkErrors: check.errors, lineup: `ours is one of A to D in lineup.png beside ${line.others.join(", ")}: the judge does not know which`, ...extra.measured };
-  const caps = { M2: off === null ? 2 : band(off, 0.15, 0.3, true), M8: check.errors.length ? 0 : triangles > 2 * median && triangles > q3 ? 1 : 2, ...extra.caps };
-  return judgeAgainstBrief(kind, label, dir, `${dir}/sides.png (ten views at one scale), ${dir}/lineup.png (four models at one scale: one is the asset, three are Half-Life's own of its size; M6 asks whether a player would take the asset for one of the game's)${extraPictures}`, measured, caps, { brief, what });
+  const measured = { size: size.map((v) => round(v)), sizeAsked: asked ?? null, sizeOff: off, triangles, halfLifeMedianOfItsKind: median, halfLifeThreeQuartersUnder: q3, halfLifeMost: most, checkErrors: check.errors, lineup: `the asset is one of A to D in lineup.png beside ${line.others.join(", ")}`, lineupTest: `asked ${DETECT_READINGS} times which of the four was not made by Valve, judges picked ${told.picks.join(", ") || "none"}; the asset is ${told.letter}: ${told.caught ? "told apart" : "passed for one of the game's"}`, ...extra.measured };
+  const caps = { M2: off === null ? 2 : band(off, 0.15, 0.3, true), // over the most Valve spends on its kind and size: none of Valve's own is (rubric.md, 2026-10-16 amendment)
+    M8: check.errors.length ? 0 : triangles > most ? 1 : 2,
+    M6: told.caught ? 1 : 2, ...extra.caps };
+  return judgeAgainstBrief(kind, label, dir, `${dir}/sides.png (ten views at one scale), ${dir}/lineup.png (four models at one scale: one is the asset, three are Half-Life's own of its size; M6 is measured on it apart)${extraPictures}`, measured, caps, { brief, what });
 }
 
 /** A sprite judged against its brief: its frames as the engine blends them, its measures against Half-Life's own of its class (R2 to R4). */

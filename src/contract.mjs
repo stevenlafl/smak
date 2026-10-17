@@ -8,6 +8,7 @@
 //   contractOf(mdl) -> { bones, sequences: [{ name, activity }], attachments: [{ bone }], bodyparts: [{ name, bodies }],
 //                       hitgroups, controllers: [{ bone }] }
 //   compareContract(reference, made) -> { faults, notes }: what of the reference the model lacks or moved
+//   sharedContract(contracts) -> the contract every one of a mod's stock models keeps: what its code can rely on
 import { readMdl, bones as bonesOf, sequences, attachments, hitboxes } from "./mdl.mjs";
 
 export function contractOf(mdl) {
@@ -72,4 +73,33 @@ export function compareContract(reference, made) {
   const diff = [...groups(reference)].filter((g) => !groups(made).has(g));
   if (diff.length) notes.push(`${diff.length} of the reference's hit groups differ: ${diff.slice(0, 6).join(", ")}`);
   return { faults, notes };
+}
+
+/**
+ * What every one of several models keeps of a contract: the mod's code works with each of its stock models, so this
+ * is what it relies on (The Specialists' own players lack 12 and 33 of the bones its gordon.mdl has). The bones all
+ * have; each animation at the number all have it, with the activity all give it; attachments and controllers up to
+ * the first number where they differ (code asks for them by number); the bodyparts all have, at the fewest bodies;
+ * the hit groups all have.
+ */
+export function sharedContract(contracts) {
+  const [first, ...rest] = contracts;
+  if (!first) throw new Error("sharedContract: no contracts");
+  const inAll = (test) => rest.every(test);
+  const prefix = (list, key) => {
+    const out = [];
+    for (const [i, item] of list.entries()) {
+      if (!inAll((c) => c[key][i] && c[key][i].bone === item.bone)) break;
+      out.push(item);
+    }
+    return out;
+  };
+  return {
+    bones: first.bones.filter((b) => inAll((c) => c.bones.includes(b))),
+    sequences: first.sequences.filter((s, i) => inAll((c) => c.sequences[i]?.name.toLowerCase() === s.name.toLowerCase() && c.sequences[i].activity === s.activity)),
+    attachments: prefix(first.attachments, "attachments"),
+    bodyparts: first.bodyparts.filter((b) => inAll((c) => c.bodyparts.some((x) => x.name === b.name))).map((b) => ({ ...b, bodies: Math.min(b.bodies, ...rest.map((c) => c.bodyparts.find((x) => x.name === b.name).bodies)) })),
+    hitgroups: first.hitgroups.filter((h) => inAll((c) => c.hitgroups.includes(h))),
+    controllers: prefix(first.controllers, "controllers"),
+  };
 }
