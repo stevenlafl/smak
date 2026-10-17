@@ -436,6 +436,37 @@ test("a map spec's ladder is built as Valve's are: a func_ladder to climb, and s
   sure(Math.max(...ys) === 128 && Math.min(...ys) === 122, `the rungs from ${Math.min(...ys)} to ${Math.max(...ys)}, the wall at 128`);
 });
 
+test("a map spec's frame: bands, ribs, beams, cut corners and a frame round each way, lamps in fixtures, all detail", () => {
+  const spec = (frame) => ({ spec: "smak.map/1", name: "framed", ...(frame === undefined ? {} : { frame }), rooms: [{ id: "hall", size: [768, 512, 256] }, { id: "side", size: [256, 96, 128], place: { east_of: "hall" } }], links: [{ between: ["hall", "side"], kind: "door" }], entities: [{ class: "info_player_start", room: "hall", at: [-200, 0] }, { class: "item_battery", room: "side", at: [80, 0] }] });
+  const build = (frame, name) => buildMapSpec({ ...spec(frame), name }, { out: join(folder, name), compilers: { found: false, message: "" } });
+  const plain = build(undefined, "frame_off");
+  const framed = build(true, "frame_on");
+  sure(!plain.report.facts.some((f) => /^frame:/.test(f)), "the default build is unframed");
+  const said = framed.report.facts.find((f) => /^frame: \d+ brushes/.test(f)) ?? framed.report.facts.join(" | ");
+  sure(/bands/.test(said) && /ribs/.test(said) && /beams/.test(said) && /4 corners/.test(said) && /frames/.test(said), said);
+  sure(framed.report.facts.some((f) => /^frame: \d+ lamps in fixtures that glow/.test(f)) && framed.report.facts.some((f) => /texture lights: .*FIXTURE/.test(f)), framed.report.facts.join(" | "));
+  // the corridor (96 across) keeps its width: no ribs, beams or cut corners in it; and the way is still walked
+  const map = smak.maps.readMap(readFileSync(framed.files.map, "utf8"));
+  const detail = map.entities.filter((e) => e.classname === "func_detail");
+  sure(detail.length && detail.every((e) => e.zhlt_detaillevel === "1"), "every func_detail says its level");
+  const reach = smak.maps.reachOf(map);
+  sure(reach.entities.find((e) => e.classname === "item_battery")?.reached, reach.warnings.join(" | "));
+  // a cut corner is a slant: brushes off the axes, which a box room has none of
+  const slanted = detail.flatMap((e) => e.brushes).filter((b) => smak.maps.shapeOf(b).corners.length === 6);
+  sure(slanted.length === 4, `four triangular corners: ${slanted.length}`);
+  // a room's own frame: false over the map's
+  const off = buildMapSpec({ ...spec(true), name: "frame_room", rooms: [{ id: "hall", size: [768, 512, 256], frame: false }, { id: "side", size: [256, 96, 128], place: { east_of: "hall" } }] }, { out: join(folder, "frame_room"), compilers: { found: false, message: "" } });
+  sure(/in 1 rooms/.test(off.report.facts.find((f) => /^frame: \d+ brushes/.test(f)) ?? ""), off.report.facts.filter((f) => /^frame/.test(f)).join(" | "));
+  sure(buildMapSpec({ ...spec({ ribs: "many" }), name: "frame_bad" }, { out: join(folder, "frame_bad"), compilers: { found: false, message: "" } }).report.errors.some((e) => /frame\.ribs: a number of units/.test(e)), "a wrong frame word refused");
+});
+
+test("a func_detail written by the kit says its detail level: SDHLT takes one without it as world", () => {
+  const piece = smak.maps.brushEntity("func_detail", [smak.maps.box([0, 0, 0], [16, 16, 16], "X")]);
+  sure(piece.zhlt_detaillevel === "1", JSON.stringify(Object.keys(piece)));
+  sure(smak.maps.brushEntity("func_detail", [smak.maps.box([0, 0, 0], [16, 16, 16], "X")], { zhlt_detaillevel: 2 }).zhlt_detaillevel === "2", "a level given is kept");
+  sure(smak.maps.brushEntity("func_wall", [smak.maps.box([0, 0, 0], [16, 16, 16], "X")]).zhlt_detaillevel === undefined, "only a func_detail");
+});
+
 test("a material's tone of null is its base's own colour, as left out (the winter tree of case 28)", () => {
   sure(JSON.stringify(materialOf({ base: "grass", tone: null }).tone) === JSON.stringify(materialOf({ base: "grass" }).tone), "null as left out");
 });

@@ -1090,6 +1090,10 @@ export function brushEntity(classname, brushes, keys = {}) {
   const list = Array.isArray(brushes) ? brushes.flat() : [brushes];
   if (!list.length || !list.every((brush) => brush?.faces))
     throw new Error(`${classname}: a brush entity needs a brush at least`);
+  // a func_detail says its level: SDHLT takes one without the key as world, which cuts the map's leaves (a framed
+  // pump hall's 448 leaves became 629, its portals 1802 became 2432, hlvis 43 seconds became 262). The FGD's
+  // default of 1 is only what an editor writes for it
+  if (classname === "func_detail" && keys.zhlt_detaillevel === undefined) keys = { zhlt_detaillevel: 1, ...keys };
   return entity(classname, keys, list);
 }
 

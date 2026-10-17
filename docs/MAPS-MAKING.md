@@ -160,7 +160,7 @@ where it says so. Spread lists into the map: `brushes: [...carve(...), box(...)]
 | | |
 | --- | --- |
 | `pointEntity(classname, origin, keys)` | A thing with a place: `pointEntity("monster_zombie", [100, 40, 0], { angles: [0, 90, 0] })` |
-| `brushEntity(classname, brushes, keys)` | A thing made of brushes: `func_wall`, `func_door`, `func_illusionary`, `trigger_once`... It seals nothing |
+| `brushEntity(classname, brushes, keys)` | A thing made of brushes: `func_wall`, `func_door`, `func_illusionary`, `trigger_once`... It seals nothing. A `func_detail` is given `zhlt_detaillevel 1` unless its keys say: SDHLT takes one without it as world, which cuts the map's leaves and slows `hlvis` many times |
 | `originBrush(centre, size)` | The small ORIGIN brush a turning entity needs among its brushes, at its hinge |
 | `playerStart(floorPoint, yaw)` | `info_player_start`, written 36 above the floor point given. A third argument names a mod's own start: a mod may want its own classes and more than one (Master Sword: an `ms_player_begin` and an `ms_player_spawn`, which `checkPlan` and `reachOf` count as starts without being asked). `smak map-entities` on one of the mod's maps shows what it uses |
 | `light(origin, { color, brightness })` | A light that shines every way. About 200 lights a room |
