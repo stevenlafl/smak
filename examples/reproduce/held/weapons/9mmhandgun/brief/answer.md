@@ -1,13 +1,18 @@
-The spec is built and the build says **OK**, with every check passed. It is named `9mmhandgun.mdl` and was made from the game's own weapon files, so the hands and animations are Valve's.
+The model is built and the build says OK. Its three game-named files are in `work:9mmhandgun_weapon/`: `v_9mmhandgun.mdl`, `p_9mmhandgun.mdl` and `w_9mmhandgun.mdl`. The stand-alone `work:9mmhandgun.mdl` is the same pistol as one held model, for looking at.
 
 **What I made**
 
-- **Spec:** `work:9mmhandgun.json`. It is a `held` model with `weapon: { like: "9mmhandgun", size: "own" }`, and one part, a `kit:firearm` with `preset: "pistol"` and `length: 10`. That gives a 10-unit-long pistol with a receiver, frame, grip, guard, trigger, magazine, barrel and sights.
-- **Files for the mod:** `work:9mmhandgun_weapon/v_9mmhandgun.mdl` (first person, with the hands), `p_9mmhandgun.mdl` (in another player's hands) and `w_9mmhandgun.mdl` (lying in the world). They keep the game's file names, so the mod's `models/` folder takes the place of the game's own. Leave Half-Life's own folder untouched and copy these three files into the mod's `models/` folder.
-- **Size:** the pistol is 10 long, 1.5 wide and 6.9 high. It is 192 triangles, which is in the range the kit gives for a pistol. The `p_` and `w_` files use 112 triangles each, the lighter mesh Valve uses for those views.
+- A held pistol built from the game's own weapon files. Each file keeps the game's hands, bones, animations, events and attachments. Only the pistol meshes are replaced.
+- Size: 10 units long, 1.5 wide, 7.3 high. The first-person file sits at Valve's first-person scale, and the other two at Valve's lighter world and other-player scale.
+- Triangles: 192 for the pistol, 112 in the lighter `p_` and `w_` files. Valve's first-person weapon is in the same range.
+- Parts: a steel slide and barrel, a polymer grip, frame, trigger guard and magazine base, and front and rear sights. A black polymer finish on the frame and grip, grey steel on the slide and barrel.
+- The finish has a little wear and grime, so the slide shows some bright edges and light brown spots. I lowered it once to make the pistol look cleaner. It still has those spots, and they could read as rust. Tell me if they should go, and I can drop them further.
 
-**Things to know before they judge it**
+**How to use it in the game**
 
-- **Colour is not what the brief asked for.** The build paints the gun a dark blue-black with grey highlights. I tried setting separate black and grey tones on the frame, grip, receiver and barrel, but the build did not change at all, so the options were not applied. I left them out of the spec. A true black and grey split would need a different route, which I have not found.
-- **Five joints show small gaps.** The build notes that the receiver, trigger, guard, grip and barrel nearly touch without meeting, each open by about a third of a unit. It is a note, not a fault, but it is visible when the model is viewed close.
-- **I checked the pictures, not the game.** The build's pictures show the first-person view with the gun in the hand, the other-player view and the world view. I have not run it in the game, so the "at least as good as Half-Life's own" call is theirs to make there.
+Copy the three files into the mod's `models/` folder, next to nothing else. The game loads them in place of its own `v_`, `p_` and `w_` 9mm files, with no code change.
+
+**What the build did not show**
+
+- The build flagged five pairs of parts that nearly touch and leave a gap of 0.3 to 0.56 units, for example the receiver and trigger. The build calls that a note, not a fault, but at close range the joints may show a sliver of light.
+- I have not run the game here. The pictures and checks are from the build. The modder should look at the first-person view and the world pickup in the game beside Half-Life's own to judge whether it is at least as good.

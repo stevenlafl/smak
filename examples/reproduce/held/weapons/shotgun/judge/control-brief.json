@@ -28,61 +28,61 @@
  },
  "scores": {
   "M1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The brief asks for a pump-action combat shotgun, a long gun with a straight stock. In the TOP and BELOW views (sides.png) the outline is an L: the barrel runs down and the stock turns about 90 degrees sideways at its end, about 17 units across. FRONT-LEFT and FRONT-RIGHT show the same elbow. The RIGHT view is straight, so the bend is in the top plane and is in the outline, not paint. The silhouette reads as a bent gun, not a shotgun."
+   "score": 2,
+   "reason": "Against the brief's words the outline is right: one long shape with a barrel, a tube under it, a receiver, a ribbed pump in the middle, and a stock whose end curls over. The hook shows in front-left, front-right and below, and no part sticks out or is missing in the six sides. The stock's folding joint is not clear enough to read here (see M3), but the silhouette itself is not wrong."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The brief gives one size, about 30 long. The asset's long axis is 28.2, 6% short, well within 15%. Its 17.1 width comes from the stock bend and is not a size the brief asks for."
+   "reason": "Length is 28.2 against the 30 asked, 6% short, within the 15% band. The width (17.1) and height (3.8) are not in the brief, so they are not scored against it."
   },
   "M3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Parts the brief implies: barrel, receiver, pump (forend), stock, trigger. The barrel, receiver and ribbed pump are there (the pump shows clearly in first-person.png). The stock is a hooked, bent piece in the top and below views, not the straight stock a pump shotgun has, so it is the wrong shape. A trigger is not distinguishable in any view. A part the brief names is wrong in shape, so M3 is at most 1."
+   "reason": "Small parts checked against the brief's list. Present and readable: the barrel, a tube magazine under it (two parallel tubes in front-right), the pump with its ribs (first-person, left), the receiver with an ejection port (first-person), a front bead at the muzzle (top view, first-person), and the hooked stock end (below, front-left, front-right). Not readable at this scale: the folding stock's hinge, which the brief asks for; the pump's round sides cannot be counted; and the trigger and guard, which do not show in the grip-free views. A missing small part caps this at 1."
   },
   "M4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The brief asks for black metal with a wooden or dark pump and stock. The asset's metal is dark grey-black with lighter highlights, and its pump and stock are dark. The brief allows a dark pump and stock, so the colours and materials agree with it. No ΔE measure is given for a brief leg, so this is by eye."
+   "reason": "Black metal throughout, with the pump dark grey, as the brief allows for a dark pump. Highlights on the barrel and receiver are metal sheen, not a different material. No region reads as a wrong colour."
   },
   "M5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The brief names no markings, lettering or stripes. The asset has ribbed grooves on the receiver and pump and no added marks; nothing it adds is wrong against the brief."
+   "reason": "The brief asks for no markings. The pump ribs, the ejection port and the receiver panel lines are there and add nothing wrong. Shading is low-resolution and blocky, but nothing the brief names is smeared or missing."
   },
   "M6": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The line-up test (lineup.png, four readings) caught the asset once in four askings: the judges picked D, A, A, A where the asset stood at C, B, A, C. That is under the two-catch line, so the line-up does not cap it. The M6 score is capped at 2 for this leg as the judge's instructions state."
+   "reason": "Capped at 2 by the line-up rule: the asset was picked as the one not made by Valve in only 1 of 4 readings (picked at chance). Note for the record: in first-person.png the asset (left) and the game's own (right) look alike to the eye in outline, pump and placement, so a player might take it for the original. Steven should look at that before this is called original."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The muzzle points forward (small tip at the left end of the right view) and the stock is at the back. In the side views it lies flat on its side as a world weapon does. Its origin could not be checked beyond that, and no fault shows."
+   "reason": "In the world views the weapon lies flat on its side with its long axis along the ground, as a world weapon should, with the muzzle at one end and the stock hook at the other. In first-person it is upright with the muzzle up and forward. Nothing is upside down or floating in the sides."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The checks report no errors. The asset has 174 triangles, under the bar for its kind: the Half-Life median is 138, and the bar is the larger of twice the median (276) and the three-quarter mark (187). Nothing open is visible in the views; the muzzle ring in FRONT is a bore the game also shows."
+   "reason": "checkErrors is empty. 174 triangles is under twice the median of Half-Life's shotguns (2 x 138 = 276) and under the third quartile (187), so within the band. Nothing visibly open except the bore at the muzzle (normal for a barrel the player sees) and a lit hollow at the stock's end seen from behind, which reads as the hook's inside and not a hole in a face the game shows. No floating part in the views."
   },
   "W1": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "In first-person.png the asset sits in the orange glove where the game's own shotgun sits (right of the picture), held the same way, the same way round, with the muzzle up-left. In attack.png the gun stays on the glove through the SHOOT frames (0/20 to 20/20) and traces the recoil arc with the hand. The frames are cropped at the bottom so the contact is seen only in part. Note: the two first-person pictures look almost identical, so the asset's v_ model may be close to Valve's own shotgun design; that is not scored here."
+   "reason": "In first-person.png the asset sits where the game's own sits: same height and angle at the lower right of the frame, same way round (muzzle up and forward), with the orange glove holding the grip at the same place as in the game's frame. In attack.png the weapon moves with the hand through its shots (frames 0/20 to 20/20): the hand stays under the grip in every frame, and the weapon leaves the picture at the bottom in some frames, which is not it leaving the hands."
   }
  },
- "total": 16,
+ "total": 17,
  "of": 18,
  "passes": false
 }

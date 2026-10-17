@@ -2,12 +2,22 @@
   "spec": "smak.model/1",
   "name": "9mmhandgun.mdl",
   "kind": "held",
-  "weapon": {
-    "like": "9mmhandgun",
-    "size": "own"
-  },
   "size": {
     "length": 10
+  },
+  "finish": {
+    "grime": 0.1,
+    "wear": 0.2
+  },
+  "weapon": {
+    "like": "9mmhandgun",
+    "size": "own",
+    "views": [
+      "v",
+      "p",
+      "w"
+    ],
+    "rig": "carry"
   },
   "parts": [
     {
@@ -15,7 +25,26 @@
       "kind": "kit:firearm",
       "options": {
         "preset": "pistol",
-        "length": 10
+        "length": 10,
+        "finish": "polymer",
+        "wear": 0.2,
+        "receiver": {
+          "material": "steel"
+        },
+        "barrel": {
+          "material": "steel"
+        },
+        "trigger": {
+          "material": "steel"
+        },
+        "sights": {
+          "front": {
+            "height": 0.5
+          },
+          "rear": {
+            "height": 0.5
+          }
+        }
       }
     }
   ]
