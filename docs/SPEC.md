@@ -625,8 +625,8 @@ add a crack, a `limit` at the crest wanted, and change what the picture cannot s
 a picture inverted to sound is a traced copy of the recording it was drawn from.
 
 What the report says of a sound: each file's rate, length, peak, RMS and crest; its attack, T20 and T40
-(seconds to -20 and -40 dB), centroid (Hz: bright or dark), flatness (0 a pure tone, 1 white noise),
-onsets, and its power in five bands; then, with a `class`, how many of its features are in the range of
+(seconds to -20 and -40 dB), centroid (Hz: bright or dark), flatness (0 a pure tone, 1 white noise, taken
+under 5512 Hz so that a file at 22050 reads as one at 11025), onsets, and its power in five bands; then, with a `class`, how many of its features are in the range of
 the game's own of that kind, and each one off in words with which way to go (`centroid 881 Hz (1074 to
 1654): too dark: more 600 to 5000 Hz`); with a `picture`, the numbers read off it beside its own: length,
 centroid and the band most off (each with how far off), T20 against its class's range (or the picture's own
@@ -634,8 +634,8 @@ within a quarter), crest (the picture's is read off its outline, within 3 dB), f
 (`further from its picture than a copy should be`) while its centroid is more than 15% off, a band more than 7 points,
 its length more than 10%, its T20 out of range, or its flatness 1.6 times the picture's or under its share: a copy is
 judged at 20% and 10 points, and a picture's reading may be a few off. Flatness is how much of it is noise (0 a pure
-tone, 1 white noise); copies made of `modes` and takes came out two to twenty times more tonal than their
-originals, which a judge hears as a ring where the original has a crash or a scrape. Build until it is gone, not only until `OK`. `FAULT`s are what the engine would do wrong: clipping, an offset,
+tone, 1 white noise); a sound too tonal for its picture is heard as a ring where the original has a crash or a
+scrape. Build until it is gone, not only until `OK`. `FAULT`s are what the engine would do wrong: clipping, an offset,
 silence before it starts (it plays late), an end that clicks, a loop with no cue or a seam that jumps, and a loop
 silent more than 60% of the time (the game's own are at most about half silent: a drip loop is many drips). The
 picture is each file's waveform over its spectrogram (log frequency, 50 Hz at the bottom), the game's own

@@ -16,7 +16,7 @@ import { unpng } from "../image.mjs";
 import { label } from "../render.mjs";
 import { PICTURE, levelOf } from "./draw.mjs";
 import { RATES } from "./wav.mjs";
-import { BANDS } from "./measure.mjs";
+import { BANDS, FLAT_TOP } from "./measure.mjs";
 import { curveAt } from "./spectral.mjs";
 
 const { wave: WAVE, spectrogram: SPEC, gap: GAP, lowest: LOWEST, frame: SIZE, depth: DEPTH } = PICTURE;
@@ -221,11 +221,18 @@ export function pictureMeasures(picture, options = {}) {
     weighted += binHz[k] * bins[k];
   }
   total ||= 1e-20;
-  // flatness as the judge's `features` takes it (the whole sound's spectrum, geometric over arithmetic mean), on
-  // the picture's bins: within a tenth of the samples' own on nine of the ten sounds of the reproduction test
+  // flatness as the judge's `features` takes it (the whole sound's spectrum under FLAT_TOP, geometric over
+  // arithmetic mean), on the picture's bins
   let logs = 0;
-  for (let k = 1; k < BINS; k++) logs += Math.log(bins[k] + 1e-20);
-  const flatness = Math.exp(logs / (BINS - 1)) / (total / (BINS - 1));
+  let under = 0;
+  let counted = 0;
+  for (let k = 1; k < BINS; k++) {
+    if (binHz[k] >= FLAT_TOP) continue;
+    logs += Math.log(bins[k] + 1e-20);
+    under += bins[k];
+    counted++;
+  }
+  const flatness = under ? Math.exp(logs / counted) / (under / counted) : 0;
   const bands = Object.fromEntries(
     BANDS.map(([name, lo, hi]) => {
       let e = 0;

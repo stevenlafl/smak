@@ -40,6 +40,10 @@ test("a sound's features: a tone, white noise and a dying ping measure what they
   const random = A.seeded(9);
   const noise = A.features({ x: signal(0.5, () => random() * 2 - 1), rate: RATE });
   sure(noise.flatness > 0.5 && noise.centroid > 4000, `white noise is flat and bright: ${noise.flatness} ${noise.centroid}`);
+  // the same noise at the game's 11025 and at 22050 is as flat: an empty top half of a faster file counts for nothing
+  const slow = signal(0.25, () => random() * 2 - 1);
+  const [at11, at22] = [A.features({ x: slow, rate: 11025 }).flatness, A.features({ x: A.resample(slow, 11025, 22050), rate: 22050 }).flatness];
+  sure(Math.abs(at11 - at22) < 0.1 * at11, `as flat at either rate: ${at11} at 11025, ${at22} at 22050`);
   // falls 60 dB in 0.3 s: 20 dB in 0.1 s, 40 in 0.2
   const ping = A.features({ x: signal(0.6, (t) => Math.sin(2 * Math.PI * 800 * t) * Math.exp((-6.9078 * t) / 0.3)), rate: RATE });
   sure(Math.abs(ping.t20 - 0.1) < 0.012 && Math.abs(ping.t40 - 0.2) < 0.015 && ping.attack < 0.01, `a ping that dies in 0.3 s: T20 ${ping.t20} T40 ${ping.t40}`);

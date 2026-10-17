@@ -61,6 +61,13 @@ export function spectrum(x, rate, size = 1024) {
   return { frames, size, hop, rate };
 }
 
+/**
+ * Flatness is taken under this many Hz, the top of a sound at 11025 a second, the game's lowest rate: over the
+ * whole spectrum a sound at 22050 with nothing over 5 kHz read 0.002 where the same at 11025 read 0.022, and the
+ * game's own cbar_miss1 (22050) 0.078 where at 11025 it reads 0.146.
+ */
+export const FLAT_TOP = 5512.5;
+
 /** The bands a sound's power is told in, in Hz. */
 export const BANDS = [["<150", 0, 150], ["150-600", 150, 600], ["600-2k", 600, 2000], ["2k-5k", 2000, 5000], [">5k", 5000, Infinity]];
 
@@ -108,13 +115,18 @@ export function features({ x, rate }) {
   let total = 0;
   let weighted = 0;
   let logs = 0;
+  let under = 0;
+  let counted = 0;
   for (let k = 1; k < bins.length; k++) {
     total += bins[k];
     weighted += hz(k) * bins[k];
+    if (hz(k) >= FLAT_TOP) continue;
     logs += Math.log(bins[k] + 1e-20);
+    under += bins[k];
+    counted++;
   }
   total ||= 1e-20;
-  const flatness = Math.exp(logs / (bins.length - 1)) / (total / (bins.length - 1));
+  const flatness = under ? Math.exp(logs / counted) / (under / counted) : 0;
   let rolloff = 0;
   for (let k = 1, acc = 0; k < bins.length; k++) {
     acc += bins[k];

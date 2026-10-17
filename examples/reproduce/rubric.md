@@ -409,3 +409,9 @@ walk test, not the game.
   where Valve's measure 8 to 10): those words dropped. And BLACK and YELLOW, briefed as plain colours, took T5 1 for
   having no detail: a texture the brief asks to be one plain colour is flat in Valve's own, and that is told to
   the judge. Results judged before keep their scores.
+- **2026-10-17, later: flatness taken under 5512 Hz.** Every sound of the original mod read too tonal for S4
+  (flatness 0.002 to 0.013 against the game's 0.05 to 0.28), the noisy ones too. Flatness was taken over the whole
+  spectrum, and a file at 22050 with nothing over 5 kHz has an empty top half that pulls the mean of the logs down:
+  the same noise read 0.948 at 11025 and 0 at 22050, and the game's own cbar_miss1 (22050) 0.078 where at 11025 it
+  reads 0.146. It is now taken under 5512 Hz, the top of the game's slowest rate, and the classes' rows measured
+  again. Results judged before keep their scores.
