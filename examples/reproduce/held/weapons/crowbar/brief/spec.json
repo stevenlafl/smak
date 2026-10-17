@@ -3,140 +3,122 @@
   "name": "crowbar.mdl",
   "kind": "held",
   "size": {
-    "length": 20
+    "length": 32
   },
   "weapon": {
     "like": "crowbar",
-    "size": "own"
+    "animations": [
+      {
+        "replace": "idle1",
+        "from": "idle1",
+        "frames": 36,
+        "fps": 13,
+        "keys": [
+          {
+            "at": 0,
+            "aim": [
+              0.4,
+              0.25
+            ]
+          },
+          {
+            "at": 35,
+            "aim": [
+              0.4,
+              0.25
+            ]
+          }
+        ]
+      }
+    ]
   },
   "materials": {
-    "red": {
+    "red_paint": {
       "base": "paint",
       "tone": [
         0.62,
-        0.1,
-        0.08
+        0.08,
+        0.06
       ]
     },
-    "steel": {
+    "bare_steel": {
       "base": "steel"
-    },
-    "wrap": {
-      "base": "flat",
-      "tone": [
-        0.07,
-        0.07,
-        0.07
-      ]
     }
-  },
-  "finish": {
-    "wear": 0.6,
-    "grime": 0.2
   },
   "parts": [
     {
-      "id": "shaft",
-      "kind": "turn",
-      "axis": "x",
-      "material": "red",
-      "sides": 8,
-      "rings": [
-        [
-          1.25,
-          0.75
-        ],
-        [
-          18.4,
-          0.75
-        ]
-      ],
-      "caps": [
-        true,
-        true
-      ]
-    },
-    {
-      "id": "grip",
-      "kind": "turn",
-      "axis": "x",
-      "material": "steel",
-      "sides": 8,
-      "rings": [
-        [
-          0,
-          1
-        ],
-        [
-          0.375,
-          0.75
-        ],
-        [
-          1.5,
-          0.75
-        ]
-      ],
-      "caps": [
-        true,
-        true
-      ]
-    },
-    {
-      "id": "wrap",
-      "kind": "turn",
-      "axis": "x",
-      "material": "wrap",
-      "sides": 6,
-      "rings": [
-        [
-          1.5,
-          1.1
-        ],
-        [
-          4,
-          1.1
-        ]
-      ],
-      "caps": [
-        true,
-        true
-      ]
-    },
-    {
-      "id": "claw",
+      "id": "bar",
       "kind": "tube",
-      "material": "steel",
+      "material": "red_paint",
       "sides": 8,
       "path": [
         [
-          18.1,
           0,
           0,
-          0.8
+          0,
+          0.65
         ],
         [
-          19.1,
+          2.5,
           0,
-          0.2,
-          0.8
+          0,
+          0.65
         ],
         [
-          19.6,
+          3.2,
           0,
-          1.2,
+          0,
           0.6
         ],
         [
-          19.75,
+          21,
           0,
-          2.4,
-          0.4
+          0,
+          0.6
         ],
         [
-          19.3,
+          24.5,
           0,
-          3.3,
-          0
+          0,
+          0.6
+        ],
+        [
+          27.4,
+          0,
+          0,
+          0.55
+        ]
+      ]
+    },
+    {
+      "id": "head_tip",
+      "kind": "tube",
+      "material": "bare_steel",
+      "sides": 8,
+      "path": [
+        [
+          27.6,
+          0,
+          0,
+          0.55
+        ],
+        [
+          29.5,
+          0,
+          0.3,
+          0.55
+        ],
+        [
+          31,
+          0,
+          1.4,
+          0.5
+        ],
+        [
+          31.4,
+          0,
+          3,
+          0.45
         ]
       ]
     }

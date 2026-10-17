@@ -5,32 +5,84 @@
  "label": "crowbar, in the place of the game's models/v_crowbar.mdl, models/p_crowbar.mdl, models/w_crowbar.mdl",
  "measured": {
   "size": [
-   20.1,
-   2.2,
-   5.3
+   31.6,
+   1.3,
+   5.7
   ],
   "sizeAsked": {
    "long": 32
   },
-  "sizeOff": 0.371,
-  "triangles": 98,
+  "sizeOff": 0.012,
+  "triangles": 94,
   "halfLifeMedianOfItsKind": 142,
   "halfLifeThreeQuartersUnder": 187,
   "halfLifeMost": 291,
   "checkErrors": [],
-  "lineup": "the asset is one of A to D in lineup.png beside models/w_9mmar.mdl, models/w_shotgun.mdl, models/w_357.mdl",
-  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, B, C, B where the asset was D, B, C, B: told apart"
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_sqknest.mdl, models/w_egon.mdl, models/w_shotgun.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked A, B, A, B where the asset was D, B, C, B: passed for one of the game's"
  },
  "caps": {
-  "M2": 0,
+  "M2": 2,
   "M8": 2,
-  "M6": 1
+  "M6": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "M2",
-  "M6"
- ],
- "total": 0,
- "of": 18
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Across all ten views the outline is a long, straight rod with one hook at one end, which is what the brief describes. In the front, back and top views the hook sits where a crowbar's claw would, and the rod has no part sticking out or missing that the brief does not ask for."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured length is 31.6 against the 32 the brief asks for, 1.2% off, well within 15%. Width 1.3 and height 5.7 come from the thin shaft and the hook's bend and are not constrained by the brief."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief names a steel crowbar with a hook and bare-metal tips. The hook is present at one end in the left, top and below views, and its grey bare-metal tip reads clearly in the side and attack views. The far end's missing bare-metal wear is a paint fault, charged to M5, not a missing part."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The shaft is red paint and the hook is grey bare metal, as the brief asks. Both regions read as one colour each in the sides and in-hand views, with no stray colour on either."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The wear to bare metal is there at the head's tip, with a light sheen where the paint stops (in-hand.png, attack.png). The shaft is plainly lit, with no grain or smear to fault."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "In the line-up the asset (D) was never picked as the one not made by Valve across four readings, where judges chose A and B. Its scale and red-and-grey finish sit beside the game's own weapons without standing out, so the cap of 2 applies."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The rod lies level in the left and right views and stands upright in the front view. The hook bends the same way on each of its views, so the front reads consistently. Nothing in the brief asks for a different facing."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Triangle count is 94, under twice the Half-Life median of 142. The check reports no errors. The shaft and hook look closed in the below and front-left views, so nothing open or inside out is visible."
+  },
+  "W1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "In first-person.png the asset sits where the game's own crowbar does: the hook is at the upper left, the shaft runs down and to the right, and the bend faces the same way. Through the attack frames the hook and shaft stay in the same relation to the grip (black grip end at the bottom of frame 3). Frames 1 and 2 show the weapon out of the picture, which is not the weapon leaving the hands."
+  }
+ },
+ "total": 18,
+ "of": 18,
+ "passes": true
 }
