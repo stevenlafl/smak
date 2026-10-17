@@ -314,3 +314,18 @@ walk test, not the game.
   door's brief had said "like an alarm", which steered it to a plain tone ("something you could generate with a
   simple trick and no model"); it now says "a smooth electronic hum rising in pitch, then a solid thud as it
   stops".
+- **2026-10-16, models, sprites and textures from a brief (Steven's decision, before any was built).** As for
+  sounds: a description read off pictures loses what a likeness needs (characters' stances above all: their
+  words legs failed M1 and M2 by measure, 0 of 18), and no modder describes a Valve asset and asks for it back.
+  The words leg becomes a **brief** leg: the maker is given a modder's request (what the asset is, what it is for,
+  how it looks, a size a modder would know, the file it takes the place of; nothing read off the original's
+  pictures) and, as before, only the SMAK MCP server. It is judged as the original creation's assets are: its
+  kind's table read against **what the brief asks**, with the measures of "Original creation" in place of the
+  original's (M1 against the brief's words, M2 within 15% of the size it gives, M6 in a line-up beside three of
+  Half-Life's own of its kind nearest in size, never the original itself, M8 against Half-Life's own of its kind
+  and size; T2, T3 and T5 against the brief and Valve's band; R2 to R4 against Half-Life's own sprites of its
+  class). What keeps the asset working in the game stays measured as before: W1 (in the hands), C1 (in motion),
+  C2 (a player's contract), T6 (a texture's name, size and kind), R5 (a sprite's type, format and name). The
+  pictures legs are unchanged and stay likeness copies. Decoys: a plain box (or one flat colour, or one disc) of
+  the brief's size, and another subject's brief build judged against this brief: both must fail. The words legs'
+  results stand as they were judged.

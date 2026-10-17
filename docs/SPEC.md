@@ -579,10 +579,8 @@ numbers, no frequencies, nothing only seen. Name the source of what is heard, no
 a door pushed by hand, "a sliding door driven by an electric motor, a rising whine" is the machine. A take carries
 the room it imagines, which a game's own sounds mostly lack: say "dry" or "close-miked".
 
-**The person's own words.** When the person gives the words to generate from and asks that they be used, send them
-as they are. Otherwise you may write them as a caption, and then tell the person the exact prompt you sent and what
-you changed ("you asked for 'the crowbar hitting a wall'; I sent 'a steel crowbar striking a concrete wall, one sharp
-crack, close-miked, dry'"), so they can ask for theirs instead.
+**The person's own words** go to `generate` as its `prompt` field says, for every kind it makes: as they are when the
+person asks, otherwise rewritten and told to them.
 
 Give its `length`, its `class`, and 4 to 8 seeds; another seed is another take, another wording another set. Choose
 the take that is what was asked for and is clean (the measures flag clipping, a slow attack, a ringing tail of noise),
