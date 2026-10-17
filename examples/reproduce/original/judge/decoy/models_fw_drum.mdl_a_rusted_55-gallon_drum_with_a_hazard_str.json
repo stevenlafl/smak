@@ -27,55 +27,55 @@
  },
  "scores": {
   "M1": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "The brief asks for a 55-gallon drum, a cylinder with a round outline from above and below. The asset is a rectangular box. In the TOP and BELOW views (sides.png) the outline is a square, not a circle, and in the four angle views (FRONT-LEFT to BACK-RIGHT) the body is a block with four flat faces and hard vertical edges. The outline differs in shape, not only in paint, so this is a shape fault."
+   "score": 1,
+   "reason": "Upright, 23 by 23 by 34, so the overall envelope fits a drum. But the outline is a box, not a cylinder: the top and below views are a square (front, left, back, right and top views), where a 55-gallon drum is round, and the three-quarter views show flat sides and sharp vertical edges. The round form the brief asks for is clearly off."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured 23 x 23 x 34, against the brief's 34 high and 23 across: 0% off, within 15%. This is only the bounding box; the form inside it is wrong (see M1 and M3)."
+   "reason": "Measured size is 23 x 23 x 34 units, against the brief's 34 high and 23 across: zero offset, well within 15%."
   },
   "M3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Parts the brief asks for, down to the small ones: the round body (a cylinder, the asset has four sides instead); the top and bottom chime rings (none in any view); the two bung plugs on the top (none in TOP or the angle views); the hazard stripe, which is painted and so counts only if its paint is there (none in any view); the rust, which is paint too. Missing: rings, bungs, stripe. The body's wrong form is also a fault."
+   "reason": "The brief's parts are a round body, two rolled chime hoops (top and bottom), a lid rim and a bung. The asset has six flat faces and none of the hoops, lid rim or bung, so the round-part and small-part items fail. Its one hazard stripe is painted, not modelled, and is also absent (see M4)."
   },
   "M4": {
-   "judge": 1,
+   "judge": 0,
    "cap": null,
-   "score": 1,
-   "reason": "Each view shows one flat mid-grey with a mottled noise texture, the same on all faces. The brief's painted steel body with rust reads as grey steel only in part; the rust (orange-brown wear) is absent everywhere, and the yellow and black hazard stripe is absent in all ten views. Clearly off, not the same material."
+   "score": 0,
+   "reason": "Every face is one uniform flat grey (FRONT, LEFT, TOP). Nothing reads as rust-brown or worn steel, and there is no hazard stripe at all. The brief's stripe region is missing, so the colour and material items are not met."
   },
   "M5": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The surface markings the brief asks for are absent: no hazard stripe in any of the ten views, no rust patches, no panel or chime lines. Only a generic mottled noise, which reads as concrete, not as rusted steel."
+   "reason": "No hazard stripe, no rust, no chime lines or lid seam. The only surface is a faint mottled grey grain. None of the brief's markings or wear are there."
   },
   "M6": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Scored 2 as the amendment directs, since the line-up test caps M6 and the measured result was not a double pick (caught once in four readings). Note for the record: the asset is visibly a plain grey box beside the Valve props in lineup.png, and a player who knows a drum would not take it for one. The 2 here is the measure's result, not a visual pass; the decoy-must-fail rule should be read against the other items, which fail it."
+   "reason": "Scored 2 as the rubric requires: M6 is measured apart by the line-up test (picks A, C, B, C; none picked the asset). For the record, the asset at B visibly reads as a grey box beside the three Valve props, which is a real fault the test does not measure."
   },
   "M7": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The box is upright and stands on its base, as a drum does. But the drum's front is marked by its bung plugs and the stripe's placement, and neither is there, so there is no front to check the orientation against."
+   "score": 2,
+   "reason": "Upright: 34 high on a 23 x 23 footprint, standing on its base in the side views. A box has no front to get wrong, so nothing in the facing is off."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "checkErrors is empty; SMAK's check passes. 12 triangles against a median of 99 for Half-Life's own of its kind, well under twice. Nothing open, inside out, or floating: a closed, sound box."
+   "reason": "Measured: SMAK checks pass with no errors, 12 triangles (far under twice the Valve median for a prop of this size). Every visible face is closed, with no inside-out or floating geometry in any of the ten views."
   }
  },
- "total": 8,
+ "total": 9,
  "of": 16,
  "passes": false
 }

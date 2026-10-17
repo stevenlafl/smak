@@ -78,31 +78,31 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The frames show one flat, filled pale-grey disc with a hard edge. Nothing splashes: there is no spread, droplets, crown or break-up, so the brief's 'sludge spit that splashes' is not what this sprite is."
+   "reason": "The picture is one soft, round, uniform grey disc with no splash: no spreading crown, droplets, or sludge texture. The brief asks for a sludge spit that splashes. Nothing in the frame reads as a splash or as sludge."
   },
   "R2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The frame is 32 x 32, which matches the brief's size for a sprite of this kind, and the disc fills the frame. The shape is a plain circle, not a splash, so the outline is clearly off."
+   "reason": "The frame is 32 x 32 as measured, and the disc fills most of it, roughly 75% of the width. But the outline is a plain circle, not a splash's spread, so the shape is wrong even though the size is right."
   },
   "R3": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "The colour is a neutral pale grey-white on black. The brief asks for sludge: green-grey, murky and dirty. Nothing in the frame carries a green or sludge tint."
+   "score": 1,
+   "reason": "The colour is a neutral light grey-white on a near-black ground. The brief asks for sludge, which is green-grey. The colour is clearly off, though not wholly absent."
   },
   "R4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The sprite has one frame, where the brief asks for an animated splash. The measures fail on every envelope item: the peak is at frame 0 against the class's 0.22 to 0.71, the first frame is 1 against 0 to 0.22, and the last frame is 1 against 0 to 0.03, so it neither ends dark nor builds to a peak. There is no motion to judge."
+   "reason": "The sprite has one frame, and the brief asks for an animated splash. The measures show a flat envelope: first 1, last 1, peak at 0. Against the explosion class's measures (peak at 0.22 to 0.71, first at 0.22 or less, last at 0.03 or less), it starts too bright, peaks too soon, and does not end dark. There is no motion."
   },
   "R5": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "The file is named fw_spit, is a 32 x 32 parallel sprite in additive format, and reads back with those values. Nothing in the measured type, format or name is wrong for a new effect sprite. This score is for the file's fit only and does not lift the asset, which fails on R1, R3 and R4."
+   "score": 1,
+   "reason": "The file is parallel and additive, and the sprite's measures are sane. Nothing in the measures or the picture checks it against the slot it replaces: the name and the type and format of the original's file are not given, so the match cannot be verified. The judgment is only partial."
   }
  },
  "total": 3,

@@ -119,40 +119,40 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Every tile in textures.png is the same flat mid-grey (labelled fw_plain0 to fw_plain11, 64x64). None reads as a concrete wall, wet concrete floor, steel grate, catwalk floor, pipe wall, hazard trim, rusted plate, control panel, sodium lamp face, water, PUMP 3 sign or door. A player could not name any of them."
+   "reason": "All twelve textures (fw_plain0 to fw_plain11) are the same flat mid-grey 64x64 square. None is a concrete wall, wet concrete floor, steel grate, catwalk floor, pipe-covered wall, hazard-striped trim, rusted plate, control panel with dials, lit sodium lamp face, water, a 'PUMP 3' sign, or a door, so no texture is what the brief names."
   },
   "T2": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "The brief asks for varied colours: concrete grey, green-grey water, yellow hazard paint, a sodium-orange lit face, red-worn valve paint. All twelve tiles share one neutral grey, so the water, hazard stripe and lamp face are wrong in colour. No tile carries the yellow, orange or green-grey the brief names."
+   "score": 1,
+   "reason": "Every square is one grey (about 128). That could pass as the concrete, but the brief's yellow hazard paint, sodium-orange lamp face and green-grey water have no matching colour anywhere in the set, so the colours the brief asks for are missing."
   },
   "T3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "No tile has panels, seams, bricks, tiles, rivets or grate holes at any spacing. The concrete wall, floor, grate and pipe wall have no pattern at all, so they cannot line up with a wall of the game's."
+   "reason": "No panels, seams, bricks, tiles, stripes, holes or dial layout appear on any of the twelve squares. The pattern the brief asks for, at a wall's scale, is absent in all of them."
   },
   "T4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The tiles are uniform, so there is no step across their edges and no seam where they repeat. This is trivially true because there is no pattern, not because the tiling was designed. Not a must-have item."
+   "reason": "Each square is uniform, so there is no seam where it repeats and the step across its edges is zero. The tiling item is met, though only trivially, because there is no pattern to tile."
   },
   "T5": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Every tile measures detail 0, below the band's least of 10.8, so each reads as smeared or flat. The brief asks for a concrete wall, a grate with holes and a lit lamp face, none of which may be a plain colour. The original textures are far sharper and more detailed, so nothing here is at least as good."
+   "reason": "Each texture is flat, with a detail measure of 0 against Half-Life's band of 10.8 to 75. That is below the least, so it reads as smeared or flat, not as the detailed concrete, steel and paint of Valve's textures beside it."
   },
   "T6": {
    "judge": 0,
    "cap": 2,
    "score": 0,
-   "reason": "The kind of each named texture is missing. There are no holes for a `{` grate, no liquid for a `!` water surface, no lit face for the sodium lamp, no frames for a `+` animation, and no lettering for PUMP 3. Only the 64x64 size is kept, and that alone does not keep the kind."
+   "reason": "The kind each name promises is absent: no '{' texture with holes, no '+0' to '+9' animation frames, no '!' liquid, no lit lamp face, no sign lettering, no door. The names are generic 'fw_plain' numbers, not the brief's kinds, so the set does not keep what each texture is meant to be."
   }
  },
- "total": 2,
+ "total": 3,
  "of": 12,
  "passes": false
 }

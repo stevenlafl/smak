@@ -135,37 +135,37 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Thirteen of the fourteen read as what the brief names: fw_concwall and fw_concfloor as concrete, fw_grate as a grate, fw_pipewall with its pipes and elbow, fw_hazard as hazard paint, fw_rustplate as rust, fw_ctrlpanel with dials and switches, fw_lamp as a caged lit sodium face, fw_pump3 legibly reading PUMP 3, fw_door as a panelled door, fw_steel as a bolted plate. fw_water is a flat dark green surface with faint streaks and no ripple or sheen, so it reads as a green panel more than water. fw_concwet is a darker speckle with little sign of wetness, so it only just reads as a wet floor."
+   "reason": "Most textures read as what the brief names: fw_concwall, fw_grate, fw_pipewall, fw_hazard, fw_rustplate, fw_lamp (lit orange), fw_pump3 (legible PUMP 3), fw_door, fw_steel and fw_concfloor. fw_concwet does not read as wet: it is the same dull grey as a dry concrete floor, with no darkening, sheen or pooling. The water (!fw_water) is a dark green board of faint vertical streaks; it reads as a green surface more than as water."
   },
   "T2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Most colours sit in the brief's palette: grey concrete, orange rust, yellow hazard and PUMP 3 sign, orange sodium lamp, green-grey door and water. fw_catwalk is visibly mauve-purple with green patches across all four plates, which breaks the grey-green industrial palette the brief sets. The water is dark green, close to the brief's green-grey."
+   "reason": "Most colours follow the brief: yellow for the hazard stripe and the PUMP 3 sign, orange for the rust plate and the lamp, green-grey for the water and the door. fw_catwalk has a mauve-to-pink cast over its grey-green panels, which is off the brief's industrial palette and does not read as steel. No original is given, so the measured colour distance cannot be checked here."
   },
   "T3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Seams, plates and bolts sit at believable scale on their faces: fw_concwall's horizontal and vertical seams, fw_catwalk's 2x2 plate grid, fw_steel's bolted panel lines, fw_door's panels and window, fw_pipewall's horizontal runs, fw_grate's 8-pixel cells, fw_hazard's stripe pitch. Sizes are as the brief and the map would expect. Judged by eye at the picture's scale, not measured."
+   "reason": "Panel seams and features sit at believable scale for their sizes: the concrete wall's seams at roughly half its height, the steel and catwalk panels with their bolts, the pipe wall's pipes and elbow, the hazard stripes, the door's window, handle and panel line. Nothing is stretched or lost at its size."
   },
   "T4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "No repeat seam is visible at the edges of the tiles by eye: the walls, floors and plates carry their pattern to every edge without a bright or dark strip. The step across the edges was not measured, so this is by eye only, and the water's vertical streaks are the thing to check first if the step measure is run."
+   "reason": "In the flat view no texture shows a clear seam at its edges. fw_concwall has a lighter vertical band near its right edge, which could be an edge artifact, but it is not a visible step. No tiling measure is given, so this rests on the eye."
   },
   "T5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "fw_water measures 2.8 detail, below the Half-Life band's floor of 10.8, and it reads flat and smeared in the picture: a plain dark green with barely any fine detail. Every other texture is inside the band (fw_concwall 23.7, fw_concwet 12.9, fw_grate 35.7, fw_catwalk 18.3, fw_pipewall 27, fw_hazard 24.6, fw_rustplate 36.5, fw_ctrlpanel 25.5, fw_lamp 44.1, fw_pump3 36.3, fw_door 18, fw_steel 20.5, fw_concfloor 27.4). The water is not a plain colour the brief asks for, so flat is wrong here."
+   "reason": "!fw_water has a detail measure of 2.8, under Half-Life's least of 10.8. In the picture it is smeared and nearly flat: faint vertical streaks on a dark green field. The other textures sit inside the band (concwet 12.9 is at its low end and reads soft; the rest 18 to 44) and are sharp and believable, so the fault is the water."
   },
   "T6": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Every name and size matches the brief's list: 128x128 for fw_concwall, fw_concwet, fw_pipewall, fw_rustplate, fw_concfloor; 64x64 for fw_grate, fw_catwalk, fw_water, fw_steel; 128x32 fw_hazard; 128x64 fw_ctrlpanel; 32x64 fw_lamp; 64x32 fw_pump3; 64x128 fw_door. The '{' grate has holes where the original would, the '!' water is a liquid, and the '~' lamp shows a lit sodium face. No animation was asked for."
+   "reason": "Names and sizes match the brief's set: fw_concwall, fw_concwet, {fw_grate (holes present, dark gaps), fw_catwalk, fw_pipewall, fw_hazard 128x32, fw_rustplate, fw_ctrlpanel 128x64 (dials and switches), ~fw_lamp 32x64 (lit face), !fw_water (liquid), fw_pump3 64x32 (the text), fw_door 64x128, fw_steel, fw_concfloor. Each kind is kept."
   }
  },
  "total": 9,

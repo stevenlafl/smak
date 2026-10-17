@@ -27,52 +27,52 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The outline matches the brief's words. A vertical pipe rises from a flanged elbow, the elbow turns through 90 degrees (left and right views), and a horizontal pipe runs off it to a flange plate at the joint. No part is missing or sticks out in any of the ten views."
+   "reason": "The outline matches the brief's words in all ten views: a vertical pipe rising from a flanged elbow, with a second pipe running off the elbow at a flanged joint. The elbow is a clear bend, and the two pipes meet at it as the brief asks. No part sticks out or is missing."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The brief gives no size for the pipe junction, so there is no size to be within 15% of. The measured 49.5 x 18.1 x 56 units is a plausible scale beside Half-Life's own props, and nothing in the views reads as out of scale."
+   "reason": "The brief gives no size for the pipe junction, so there is no figure to measure against (sizeAsked null, sizeOff null). The 49.5 x 18.1 x 56 build is a plausible pipe-junction size and nothing in the brief is contradicted."
   },
   "M3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Parts the brief names, checked down to the small ones: (1) vertical pipe, present; (2) horizontal pipe, present; (3) flanged elbow, present with a flange at its top and at the joint plate to the horizontal pipe; (4) bolts round the flanges, present as small light squares (front, top, back-left views). The brief sets no count of bolts or sides, so no side count applies. The extra foot bracket on the horizontal pipe's far end is not asked for and adds nothing wrong."
+   "reason": "Parts the brief implies, checked down to the small ones: two pipes (vertical and horizontal), the flanged elbow, flange rings at the top joint, the elbow joint and the horizontal joint, bolts on the flange rims (visible in TOP, BACK and FRONT-LEFT), and the two base plates. All are present and in place. The pipe ends look coarsely faceted (octagonal in TOP and FRONT-LEFT), but the brief sets no side count, so this is not charged."
   },
   "M4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Against the brief's rusted steel: blue-grey pipes with orange-brown rust streaks and brown-rust flanges. Each region has one consistent material, and nothing reads as a wrong colour for the place."
+   "reason": "Rust-brown flanges and elbow over blue-grey, rust-mottled pipes read as rusted steel, as the brief's worn metal asks. The colours are consistent across all views."
   },
   "M5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Rust streaking on the pipes, flange seams and bolt heads are all there and sharp enough at the lineup scale. The brief asks for no specific markings on this prop, so nothing is missing."
+   "reason": "The rust mottling, the flange rims and the bolt tabs are in their places, and the wear is at a sharpness that suits the prop. Nothing is added that is wrong."
   },
   "M6": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Capped at 2 by the rule for this prop. In the line-up the asset was never picked as the non-Valve model (0 of 4 readings; the judges picked B and D, which are Valve's). Beside the three of Half-Life's own, it reads as a game prop."
+   "reason": "Capped at 2 by the rule. In the line-up the judges picked B, B, D, D, and never the asset (C, A, A, C), so it passed as one of the game's."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The brief sets no facing. The vertical pipe stands upright and the elbow and the horizontal pipe's foot bracket rest at the bottom of the model, so it stands on its base."
+   "reason": "Upright, with the vertical pipe pointing up and the foot plate under it. It stands on its foot plate as the line-up shows, with the front flange facing the viewer."
   },
   "M8": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "SMAK's check passes with no errors (checkErrors empty). 412 triangles is under Half-Life's most for a prop of this kind and size (439), so it is inside the bound. The top and the horizontal pipe's end read as closed. The elbow's bore shows as a dark hollow from the FRONT view, which is what an open pipe end looks like, not a hole in the model, so it is not charged."
+   "score": 1,
+   "reason": "SMAK's check reports no errors and 412 triangles is under the 476 allowed (twice the median of 238, which is more than the third quartile of 291). But the elbow's mouth in the front and below views shows a dark hollow with no visible inner wall, while the back view shows a closed face. That reads as an open or inverted surface a player can see, so this is held at 1."
   }
  },
- "total": 16,
+ "total": 15,
  "of": 16,
- "passes": true
+ "passes": false
 }

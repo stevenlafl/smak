@@ -52,31 +52,31 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Picture: one broadband burst at about 0.11 s, a sustained mid-band wash from about 0.05 s to 0.6 s, then sparse clicks to the end. The game's own crawler attack is two hard hits at about 0.09 s and 0.24 s, short spikes after them, and a fast fall. The made sound reads as a noisy swipe, which could be the same kind of event, but its long sustained body is not the game's event shape, so it is clearly off. Judged from the picture only; the sound was not heard."
+   "reason": "The picture shows a broadband noise burst with a sustained body from about 0.1 to 0.6 s and sparse clicks after, which reads as a crawler's wet attack in outline. The game's own sound opens with sharp separate hits near 0.05 to 0.2 s and then decays quickly. The made sound lacks that strike-like onset, so it is plausibly the same kind of event but not clearly the same one. Not 2, because the envelope is the wrong shape."
   },
   "S2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Length 0.85 s against the game's 0.906 s (6% short) is within 25%. The attack is 0.1 s, but the game's attack is not given, so it cannot be checked. t20 is 0.688 s against the game's 0.394 s, 0.29 s longer, far outside a quarter (0.10 s) or 0.05 s. class is null, so the fallback range applies and caps S2 at 1. The measure already holds this must-have item under 2, so it fails. The picture also shows about 0.05 s of silence before the sound starts, while lead reads 0; the two disagree and should be checked."
+   "reason": "Length is 0.85 s against the original's 0.906 s, within 25%. Attack is 0.1 s and the peak sits at 0.15 s, both plausible. Decay fails: t20 is 0.688 s against the original's 0.394 s, a difference of 0.294 s. The class is null, so the rule applies: the original's own decay within a quarter or 0.05 s, which is about 0.10 s here. The difference is outside that, so S2 is capped at 1. The picture agrees: the made sound holds its energy through about 0.6 s where the original's has faded."
   },
   "S3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Centroid 900 Hz against 921 Hz is 2.3% off, within 20%. Every band is within 0.5 points of the game's: under 150 Hz 0.5 against 0.5, 150-600 Hz 67.6 against 68.1, 600-2k 19.2 against 18.8, 2k-5k 11 against 11, over 5k 1.6 against 1.6, all within 10 points. The spectrogram agrees: energy sits low and bright under about 600 Hz in both. Note: these measures are against the game's own sound, as given. The rubric's brief-leg amendment reads S3 against the class range, which this measurement does not provide."
+   "reason": "Centroid 900 Hz against 921 Hz (about 2%, within 20%). Bands against the original: <150 0.5 vs 0.5; 150-600 67.6 vs 68.1; 600-2k 19.2 vs 18.8; 2k-5k 11 vs 10.9; >5k 1.6 vs 1.6. Every band is within 10 points. The spectrograms agree: the energy sits in the low-mid band in both."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Not a must-have, but the hits do not line up. The made sound's strongest hits are at about 0.11 s and 0.42 s, against the game's at about 0.09 s and 0.24 s. The made sound has a stronger hit near 0.6 s where the game has a quieter one. Its tail has about seven small clicks between 0.6 s and 0.85 s, more than the game's. Flatness 0.224 has no game figure to compare against. Neither spectrogram shows clear pitch movement, so that part matches. onsets 2 has no game figure to compare against."
+   "reason": "Not a must-have, and it is off. The original has several distinct hits at its start and clicks in its tail. The made sound has two onsets by measure, with one long noise body and the clicks sparse and late. Flatness is 0.224, which is noise-like and plausible, but the onset pattern and the pitch-free body do not match the original's character."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "clipped 0, dc -0.0001, peak -0.5, no engine faults (engineFaults is empty), and the name sound/headcrab/hc_attack1.wav matches the game's. Sample rate, bit depth and channel count are not in the measurements, so mono PCM at an engine rate is taken from the empty engineFaults list, which the SMAK checks report. Those three fields should be read from the file before this passes."
+   "reason": "The engine checks report no faults (engineFaults is empty). Clipped is 0, DC is -0.0001, peak is -0.5 dBFS, and there is no lead or tail silence problem. There is no loop cue, which the original does not need. The file has the game's name, sound/headcrab/hc_attack1.wav. The features do not state the sample rate or bit depth, so this score rests on the engine check passing, not on a reading of the format itself."
   }
  },
  "total": 7,

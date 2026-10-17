@@ -78,31 +78,31 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The frame is one flat, hard-edged light-grey disc (the whole 32x32 frame, centre to edge). It is not a steam puff: no billowing or soft cloud edge, no rising or thinning. The image is the decoy's plain disc, so the effect the brief asks for is missing."
+   "reason": "The brief asks for a steam puff that rises and thins. The single frame in frames.png is a flat, light grey disc with a hard edge, with no wisps, no soft billowing and no sense of smoke or steam. It does not read as the effect asked for."
   },
   "R2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The frame is 32x32 as the measurements say, and the disc fills most of it with a border of 0. But the outline is a hard circle with no wisps or lobes, so it does not fill the frame the way a steam puff does. Clearly off."
+   "reason": "The measured size of 32 x 32 is right, and the disc fills about 80% of the frame as a puff would. But the frame is one uniform round shape rather than a puff that grows or breaks up, and the brief's animation is missing."
   },
   "R3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "A near-white grey reads plausibly as steam on the dark background, so the hue is roughly right by eye. It is one flat value across the whole disc, with no tonal variation or thinning, so it does not read as the blended colour of a puff. Clearly off."
+   "reason": "The colour is a neutral light grey on the blend background. That is a plausible steam tone, but it is one flat tone with no variation in brightness or density, so it does not look like steam lit in the game's palette."
   },
   "R4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Fails the class measures. The sprite has 1 frame, so it is not animated, and the brief asks for a rising, thinning puff. The envelope starts and ends at full brightness (first 1, last 1, peak at frame 0) against the smoke puff class's first 0 to 0.35, last 0 to 0.1 and peak 0.2 to 0.6. Nothing rises or thins."
+   "reason": "There is one frame, where the brief asks for an animation that rises and thins. The measures fail against the smoke puff class: the peak is at 0 (class 0.2 to 0.6), the first frame is 1 (class 0 to 0.35, so it starts too bright) and the last frame is 1 (class 0 to 0.1, so it does not end dark). Nothing rises or thins."
   },
   "R5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Additive format and the file name fw_steam.spr read back as written. But the type is 'parallel' where the amendment of 2026-10-16 says the game's steam1 is 'parallel oriented'. Clearly off on type, so it is not a clean pass."
+   "reason": "The file is named fw_steam, at 32 x 32, with additive format, and reads back as one frame. But its type is parallel, and the steam slot in the game is parallel oriented (per the amendment of 2026-10-16), so the type is likely wrong for this slot. The measures do not check the type, so this is scored 1, not 2."
   }
  },
  "total": 3,

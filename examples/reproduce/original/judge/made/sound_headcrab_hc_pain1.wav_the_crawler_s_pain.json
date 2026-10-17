@@ -52,31 +52,31 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged from the picture and features only; this judge cannot listen. The game's own sound (lower panel) is a chittering run of about 50 evenly spaced pulses across the full 0.8 s. The replacement (upper panel) is one loud noise burst from 0 to about 0.25 s, then a quiet tail with a few sparse hits at about 0.45 s and 0.6 to 0.75 s. Both are a noisy pain-like sound, but the rapid pulsing that makes the crawler's pain read as a crawler's is missing, so it is clearly a different event shape."
+   "reason": "The waveform (top) is one loud noise burst from about 0 to 0.25 s, then a quiet hiss with a few sparse blips near 0.5, 0.65 and 0.75 s. The game's own sound (bottom) is a continuous train of about 40 evenly spaced pulses across the full 0.8 s, a wet, pulsing cry. The made file reads as an impact followed by a fading hiss, not a crawler's pain. Same family, but not clearly the same event."
   },
   "S2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Length is right: 0.80 s against the game's 0.795 s, well within 25%. Decay is off: t20 is 0.678 s against the game's 0.544 s, about 25% longer, and the picture shows the energy front-loaded in the first 0.25 s with a long low tail, where the game's is spread evenly. Attack is 0.095 s to peak at 0.115 s; the game's attack is not measured here, so it cannot be checked against the class range. Scored 1 because the decay sits at the edge of the 25% allowance and the shape differs."
+   "reason": "Length is 0.8 s against the game's 0.795 s, within 25%. The decay is late: t20 is 0.678 s against the game's 0.544 s, about 25% longer, and the attack is an abrupt 0.095 s burst at 0.115 s. The measures give no class range for t20, so I cannot confirm it sits within the class's range. Scored 1 for the abrupt, front-loaded envelope."
   },
   "S3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Measured: centroid 2551 Hz against the game's 2682 Hz, a 4.9% difference, within 20%. Band shares: under 150 Hz 0.2 (game 0.2), 150 to 600 Hz 0 (0), 600 to 2k 16.3 (15.6), 2k to 5k 83.2 (83.8), over 5k 0.3 (0.3). Every band is within 10 points. The spectrogram's warm low-mid body matches the game's."
+   "reason": "Centroid is 2551 Hz against the game's 2682 Hz, a 4.9% difference (limit 20%). Band shares match within 1 point: <150 Hz 0.2 vs 0.2, 150-600 Hz 0 vs 0, 600-2k 16.3 vs 15.6, 2k-5k 83.2 vs 83.8, >5k 0.3 vs 0.3. Both spectrograms are dominated by 2-5 kHz energy."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Onsets are clearly off: 1 onset measured in the replacement against the game's many pulses (visible as about 50 vertical bursts across the lower waveform). The replacement's hits are a single attack and two or three isolated spikes. Flatness is 0.172, and no game flatness is given, so the noise-or-tone character cannot be checked beyond the picture. No pitch movement is visible in either spectrogram's band shape, so it is not scored against a fault there."
+   "reason": "Onsets are 1 against the game's many: the game's waveform shows about 40 pulses, and the made file has one onset at the start plus a few weak blips. The pulsed, wet character is missing. Flatness is 0.172, but the game's own flatness is not given, so the noise character cannot be checked. The pitch movement also differs: the game's spectrogram has a steady band of warm colour across the whole length, while the made one is hot only in the first 0.3 s and dark for much of the rest."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The engine's checks report no faults (engineFaults empty). No clipping (peak -0.5 dBFS, clipped 0). DC is -0.0004, effectively zero. No lead or tail padding (0 and 0). Length 0.80 s. The file sits at sound/headcrab/hc_pain1.wav, the game's own name. The sample rate and bit depth are not in the measurements, so they rest on the engine check. This is a loop-free one-shot, so no loop cue applies."
+   "reason": "The file name matches sound/headcrab/hc_pain1.wav. Clipped is 0, DC is -0.0004, and the peak is -0.5 dB, so there is headroom and no clipping. engineFaults is empty. The sample rate, channel count and bit depth are not in the measures, so this rests on the empty fault list; the harness's own checks passed."
   }
  },
  "total": 7,

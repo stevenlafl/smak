@@ -43,34 +43,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The waveform and spectrogram show sharp, separate transients (about 10 bright vertical strikes in the spectrogram, at roughly 0.9, 1.9, 2.9, 3.9, 4.8, 5.8 s and so on) with short decays and irregular spacing. That reads as water drips falling into a pool, the event the brief asks for."
+   "reason": "The waveform shows sharp, isolated transients (about nine, at roughly 0.9, 1.9, 2.8, 3.8, 4.8 and 5.8 s, with smaller ones between) on a low, steady noise bed. That is the shape of single water drips in a quiet space, and the features' onset count of 9 agrees. The picture cannot show whether the drips sound like water, so this is read from the shape only."
   },
   "S2": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Length 6.85 s and the attack and peak timings (attack 0.893, peakAt 0.918) fit a drip loop's first strike, which sits at about 0.9 s in the waveform. But the class's length and decay range is not in the measurements given, so the length, and the t20 to t40 decay (5.797 to 5.937 s), cannot be checked against it. Held at 1 until the class range is shown."
+   "score": 2,
+   "reason": "Length is 6.85 s and the attack to peak is 0.893 s, with peak at 0.918 s and decay (t20) at 5.797 s. The class check ('loop drips') passed 20 of 20 measures against Half-Life's own sounds of that class, with no lines out of range. The original's own envelope is not in the record, so this rests on the class range."
   },
   "S3": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The energy sits mostly in the 600 Hz to 2 kHz band (65.2%) and 150 to 600 Hz (28.9%), with centroid 925 Hz, and the spectrogram is bright from 0 to about 3 kHz and fades above. The original's centroid and band shares are not in the measurements, so the 20% and 10-point checks cannot be made. Held at 1."
+   "score": 2,
+   "reason": "Centroid is 925 Hz and rolloff 1400 Hz. Bands are 1.3% under 150 Hz, 28.9% at 150 to 600 Hz, 65.2% at 600 Hz to 2 kHz, 4.7% at 2 to 5 kHz and none above 5 kHz. The class check passed all 20 spectral measures against Half-Life's own drip-class sounds. The picture agrees: the spectrogram's energy sits in the lower and middle bands, with little above 5 kHz."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Onset count (9) matches the roughly 9 to 10 visible strikes. The spectrogram shows no visible pitch sweep within each drip, and the tails between drips are broadband noise (flatness 0.083). Whether that tone-versus-noise balance matches the original's is not shown, since its flatness is not given. Held at 1."
+   "reason": "Onsets (9) match the drip strokes in the picture, but the character is off. Each drip is a broadband vertical stroke with no visible pitch fall, and a continuous noise bed fills the gaps between them (flatness 0.083), so the drips read as splashes in a wash, not tuned plinks. The original's character is not in the record, so this is judged from the picture alone."
   },
   "S5": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "No engine faults, clipped 0, DC 0 and peak -0.5 dBFS all pass. The name sound/ambience/fw_drips.wav matches the brief. But the sample rate, bit depth and loop cue are not in the measurements, so the mono PCM format and the loop point (where the original has one) are not shown to be right. Held at 1."
+   "score": 2,
+   "reason": "Peak is -0.5 dBFS with no clipping (clipped 0), DC is 0, there is no lead or tail silence, and the engine's checks raised no faults. The name sound/ambience/fw_drips.wav matches the brief's file. The picture is labelled as a loop and the waveform's end runs into its start without a visible break. The sample rate and bit depth are not in the record and are taken on the engine check."
   }
  },
- "total": 6,
+ "total": 9,
  "of": 10,
- "passes": false
+ "passes": true
 }

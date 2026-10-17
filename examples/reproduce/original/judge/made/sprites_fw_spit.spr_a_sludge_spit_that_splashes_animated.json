@@ -88,31 +88,31 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The effect is a burst of soft round blobs fanning out from the centre, with radial streaks in frames 4 to 7. It reads as a smoke or explosion puff more than a sludge spit that splashes: there is no liquid edge, no droplets falling back, and no spit travelling before it splashes. The 'splash' is only partly carried."
+   "reason": "Frames 0 to 11 read as a radial burst: a bright cluster of blobs that spreads, with spiky rays in frames 4 to 7 (the rays are clearest in 4 to 7). That is closer to an explosion or puff than to a sludge spit splashing. There are no droplets leaving the centre or falling back, and the streaks and cluster give the shape of a fireball, not a splash."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Frames are 64 by 64 and the effect fills them as a splash should. Border measures 0.035 at most, so nothing is clipped at the edges. Each frame is the same size and the burst is centred."
+   "reason": "Each frame is 64 x 64, as the brief's sprite size needs. The effect fills the central 60 to 70% of each cell, and the border is clean (border max 0.035, mean 0), so nothing is cut off at the edges."
   },
   "R3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The core glows yellow-lime (frames 2 to 4, near-white centres) and the body is a bright yellow-green. Sludge in the brief is green-grey, and this reads closer to neon yellow-green than to the murky green-grey of the pumping station. Right family, too bright and too saturated."
+   "reason": "The colour is a saturated lime-yellow that goes near white-yellow at the centre of frames 1 to 4. The brief's sludge is grey-green and muted, so this reads brighter and more yellow than sludge would. The green-yellow hue is in the right family, which keeps it from a 0."
   },
   "R4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The kind of motion is right: a burst that spreads and fades to dark by frames 10 and 11, with 12 frames and the last frame at 0. Two measures are off against the explosion class. First frame is 0.82 bright where the class takes 0 to 0.22, so it starts as an attack rather than a build. Jitter is 1.68 against 1.04 to 1.48: the blob cluster reshuffles from frame to frame (visible between frames 0 and 1, and 4 and 5), so it flickers. Peak at 0.36 and border are within the class."
+   "reason": "The frame count (12) and the end (last 0, dark at frame 11) match the class, and the peak at 0.36 is inside the class range of 0.22 to 0.71. But the first frame is 0.82 bright, outside the class's 0 to 0.22, so the sprite starts too bright and has an attack it should not have. Jitter is 1.68, above the class's 1.04 to 1.48: the blob layout changes from frame to frame (compare 0 to 1 and 6 to 7), so it flickers instead of moving coherently."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The file is named fw_spit, the brief's sprite, with type parallel and format additive, a legal GoldSrc pairing that suits a glow on black. Additive draws the dark background as nothing, which is what the frames rely on. I have no slot type from the brief to compare against, so this rests on the measured header and the name."
+   "reason": "The file is fw_spit.spr, as the sprite is named. It is additive and parallel, with 12 frames at 64 x 64, and no measure shows a fault in its type or format. I could not check the type and format of the file it replaces, so that comparison is not in this judgement."
   }
  },
  "total": 7,

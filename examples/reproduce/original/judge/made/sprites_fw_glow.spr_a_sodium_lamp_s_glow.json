@@ -48,31 +48,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "A single soft radial glow, bright at the centre and fading to black at the edges. That is what a sodium lamp's glow in a sprite is for, so it is the same effect."
+   "reason": "A soft radial glow, a bright core fading outward on the dark ground, which is what a lamp's glow is. Nothing else is drawn in the frame."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "One 64 by 64 frame, as measured. The glow fills most of the frame and falls off smoothly to the border, which the measured border is 0 (ok against the glow class's 0 to 0.005). The dark fraction of 0.81 fits a glow that is mostly black apart from its centre."
+   "reason": "One 64 x 64 frame. The glow fills the frame and fades to zero at the border (border max 0, mean 0), so it neither clips nor leaves a hard edge."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Judged by eye: the centre is a warm yellow-orange fading to deep orange at the edge. That reads as sodium-orange, the colour the brief asks for, and no blue or neon tint is visible."
+   "reason": "By eye the core and halo are a warm sodium orange, not white or neon. The brief asks for a sodium lamp's glow, and that is what the frame shows. The frame is seen at a small size, so this is a judgement of hue, not a measured mean."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "A static glow with one frame, measured with no motion. The only class measure given for it is the border, which is 0 and within the glow class's range. Frame count, envelope and jitter are not held against the class, and nothing in the picture contradicts a steady glow."
+   "reason": "One frame, with first and last frame equal (envelope peakAt 0). The glow class takes a single steady frame, and the border measure of 0 sits inside the class's range [0, 0.005]. Nothing in the motion is wrong for this class."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Measured as parallel and additive, which is the form a glow sprite is built in, and the additive blend makes the black background contribute nothing in the engine. The file name and read-back are not visible in the picture, so this rests on the measured type and format, with no fault found in them."
+   "reason": "Type parallel and format additive are what a glow needs, and the file is named fw_glow. I can only check these against the measures given, since I have only the picture and the numbers. Those show nothing wrong."
   }
  },
  "total": 10,

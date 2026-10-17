@@ -45,37 +45,37 @@
  "caps": {},
  "scores": {
   "R1": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "The brief asks for a sodium lamp's glow, which is a soft light falling off from a bright centre. The picture (frame 1) is one flat, hard-edged disc of uniform grey-white with a sharp rim and no falloff. It reads as a plain disc, not a glow."
+   "score": 1,
+   "reason": "The picture is one flat, light grey disc with a hard edge and no falloff, filling about three quarters of the 32 by 32 frame, with dark corners. That reads as a plain disc, not a sodium lamp's glow, which should be brightest at its centre and fade out toward its edge. It is there but clearly off."
   },
   "R2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The frame is the sprite's 32 x 32 size, and the disc fills about 24 px of it with dark corners. The effect does not fill the frame as a glow does: the edge is a hard circle rather than a light that spreads out to the frame's edge."
+   "reason": "The frame is 32 by 32 and the disc sits centred with dark corners, so the frame is not filled as a glow's would be. The brief gives no size for the glow, so the measured size and dark fraction (0.56) are the only shape evidence, and the uniform disc is clearly off a glow's shape."
   },
   "R3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief asks for sodium orange. The disc is a neutral, near-white grey (about the same as a light grey on near-black). No orange is present in the frame, so the colour is wrong for the brief."
+   "reason": "The disc is a neutral light grey, close to white, across the whole frame. The brief asks for a sodium lamp's glow, which is sodium orange. Added to the dark background, it does not read as sodium orange at all. The colour is wrong."
   },
   "R4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "A single still frame, with border 0 (within the glow class's 0 to 0.005 range, so that held measure passes). The frame count and envelope (first and last frame both 1, peak at frame 0) are a plausible static glow. But the dark value (0.56) is not given against the glow class, so the rest of the motion check cannot be confirmed, and the flat disc has no motion or shape change to judge."
+   "reason": "The sprite is one frame, first and last at full brightness (envelope peak at frame 0), so it has no motion, fade or loop. The class check given is only the border (0, within 0 to 0.005), which passes. Frame count and envelope are not given against the glow class, so they cannot be confirmed; the steady single frame is consistent with a glow but is not shown to match Half-Life's glow sprites."
   },
   "R5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Name fw_glow.spr is as the brief asks, with type parallel and format additive, which is a plausible format for a glow. But the brief does not name the slot's type, and the file's type and format cannot be checked against the game's file for this slot from the measurements shown, so it is only partly confirmed."
+   "reason": "The file is parallel and additive at 32 by 32 with one frame, which is a valid GoldSrc sprite format. The name fw_glow.spr is as the brief asks, but the original's type and format for a glow are not in the measures, so it cannot be confirmed that they match Half-Life's glow sprite."
   }
  },
- "total": 3,
+ "total": 4,
  "of": 10,
  "passes": false
 }

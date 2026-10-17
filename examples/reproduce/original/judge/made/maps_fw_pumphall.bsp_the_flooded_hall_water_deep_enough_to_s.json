@@ -40,58 +40,58 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The plan has the areas the brief names, joined as it says: a start room at the bottom (info_player_start, marked 21), the hall with catwalks down both sides (func_walls at x 35-65 and 220-250), a bridge across the middle (func_wall 3 at y 572), two ladders (FUNC_LADDER 5 and 7) between water and catwalk, a stair at the top to a corridor, and a trigger_changelevel (4) beyond it."
+   "reason": "Plan: a long hall (x 33-252, y 125-830) with catwalk strips down both sides (x 33-65 and x 220-252), a lighter band across the middle at y 555-590 that reads as the bridge, two ladders (FUNC_LADDER 5 and 7), three pump rings at y 310, 480 and 650, a stair at the north end (y 125-210) to a changelevel room, and a start room to the south. Every area and way the brief names is there and joined as it asks."
   },
   "P2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured size is 688 by 2704 units against the 2500 asked, 8% over and within the 25% band. The hall is about 640 units wide on the plan, and the brief gives no width to compare with."
+   "reason": "The harness measures the whole map at 2704 long against the brief's 2500, within 25%. From the plan's 512-unit scale bar the hall itself runs about 2060 units (y 125-830), 18% under the brief's 2500 but inside the 25% band. Width is about 640 units; the brief gives none."
   },
   "P3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "No section is given and the plan labels only two floor heights (-112 at the hall's top edge, 0 at the stair). The water's depth, the catwalks' height above it and the ladders' reach cannot be read from the pictures, so the swim depth and the level differences the brief asks for are unverified."
+   "reason": "The plan shows floor heights only as colour, with no numbers. The catwalks read as a level above the water and the stair and ladders connect them, but the views do not show the catwalks raised above the water, and the water depth that should let a player swim is not confirmed by any view."
   },
   "P4": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Every named entity is there: info_player_start (21), weapon_crowbar (24, on the left catwalk), and three monster_headcrab (25, 26, 27) in the water. The measurement lists no unreached items and no warnings. Crawler 25 sits near the bridge's lower edge, which the plan leaves close to the line between the bridge and the water."
+   "score": 1,
+   "reason": "Start (info_player_start 21, south room), the weapon (weapon_crowbar 24, on the left catwalk at about y 312), three monster_headcrab (25, 26, 27) and the changelevel with its landmarks are all present. Crawler 25 sits at about (105,587) on the bridge band, not in the water as the brief asks; 26 and 27 are in the water."
   },
   "P5": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "The views show brown concrete walls, pipe runs, a grate-like floor, and hazard-striped pump bases and trim, all in Half-Life's worn palette."
+   "score": 1,
+   "reason": "Views show a rusted tan concrete, pipe-covered walls and yellow and black hazard stripes, which suit the brief. The surfaces repeat in a regular tile pattern, and the water and catwalk surfaces are not visible enough to confirm them."
   },
   "P6": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Thirteen light entities sit along both catwalks and the room, with ENV_GLOW markers beside some. The views show warm orange lamplight and dark areas between the pools of light, which matches the sodium-lamp look."
+   "score": 1,
+   "reason": "Plan has 13 LIGHT entities and 3 ENV_GLOW, placed along the walls and around the pumps, which fits the sodium lamps. The views are dim and grey-brown, with no clear sodium-orange glow on the walls, so the bright and dark areas cannot be confirmed as the brief describes them."
   },
   "P7": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "The distinctive features the brief names are present and in place: three pump housings in the water, catwalks on both sides, a bridge, two ladders, a stair to the corridor, pipe runs, and hazard-striped trim visible in the views."
+   "score": 1,
+   "reason": "Three pumps, a bridge, ladders, catwalks and a stair are there in the plan, and hazard-striped pump bases and pipes show in views. The catwalks, bridge and water are not visible from the player's eye in any view, so the features that mark the hall are seen only in the plan."
   },
   "P8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measurement reports no check errors and no unreached items, and the changelevel to fw_control is reached on foot with both landmarks present. No leak check is among the measures, so this rests on the reported checks."
+   "reason": "Measured: checkErrors is empty, notReached is empty and reachWarnings is empty, so it compiles and every item is reached. Two landmarks (fw_lm1, fw_lm2) are set and the changelevel to fw_control uses fw_lm2 as the brief requires."
   },
   "P9": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "From inside, the start view reads as a grimy industrial hall. But the yaw 0 and yaw 180 views are large, plain walls and a dark ceiling with little to recognise, and the water appears as a flat dark plane with no visible depth. A player who knew a Half-Life map would not place this hall at once."
+   "reason": "Views from inside show brown-rust walls, pipes and hazard-striped discs, but the catwalks, the bridge and the water are not in any view, and the lower parts of three views are solid black. From these views a player could not tell it is the flooded pump hall the brief describes."
   }
  },
- "total": 16,
+ "total": 12,
  "of": 18,
  "passes": false
 }

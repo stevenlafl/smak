@@ -30,58 +30,58 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The lift (5 FUNC_PLAT) and a wheel-side room (left, with 17 CYCLER_SPRITE, buttons 6 and 8, game_text 25) are there, so a lift down to a valve room is plausible. But the brief's control room is not shown: no consoles under a row of windows over the hall. The four FUNC_BREAKABLE on the middle room's east edge (1 to 4) are not a window row, and the views show no windows. The lift's link to the valve room is only inferred from floor heights."
+   "reason": "The start room (21 info_player_start, south), the hall-like middle room with four func_breakable panes on its east wall, and the big east room with two round pits are joined as the brief's areas are, but the valve room with the main valve wheel is not on the plan at all. The lift (5 func_plat 'fw_lift') leads from the middle-left area and ends nowhere the brief describes, so the arrangement is only partly the brief's."
   },
   "P2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The brief gives no sizes for this map, so there is no measured overlap. The plan's areas (middle room about 640 by 380 units, right room about 512 by 1024, left room about 256 by 256) are not checked against any stated size, and the walkable-floor measure was not run. Floor is shown in the plan, but nothing confirms the control room's footprint as the brief describes it."
+   "reason": "The brief gives no size for this map, so the judge measures against the plan's own scale bar (256 units is about 155 px). The east room is roughly 510 by 1000 units and the middle room roughly 640 units wide, which is plausible. The valve room is missing, though, so the areas the brief names are incomplete and no walkable-floor overlap was given to confirm them."
   },
   "P3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The plan has a real level change: the lift (5 FUNC_PLAT) runs from about floor -0 in the middle room to about -256 in the left valve room. The right room's ceiling at -208 and -320 is shown, but there are no stairs, ramps or ledges, and the control room is not shown above a hall, so the storeys do not match the brief's layout."
+   "reason": "Floor heights are labelled (-320 and -208 in the east room, -256 and -8 in the left and middle areas, -104 in the pits, -72 on the lift). But the brief's level arrangement, a control room above the hall with a lift down to a lower valve room, is not shown: no room sits clearly below the hall for the valve room, and the lift at 5 func_plat (-8 label) has no lower floor it reaches. Storeys and ramps are not shown."
   },
   "P4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Two monster_headcrab (23 in the middle room, 24 in the left room) and one info_player_start (21) are present and match the brief's count. The lift is present. But there is no door entity, and the valve wheel is not an entity: the 17 CYCLER_SPRITE is a sprite, and the func_buttons (6, 8) are the only candidates. No measure matched the wheel's place."
+   "reason": "Present and matched: the start (21 info_player_start in the south room), the two crawlers (23 monster_headcrab in the middle room, 24 monster_headcrab in the left room), the lift (5 func_plat 'fw_lift'), and the lamps. Missing: the main valve wheel that ends the mod, which the brief names among the things that matter and which is not in the entity list. No measure of the 64-unit match was given for this map."
   },
   "P5": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The pipe-covered wall with hazard-orange trim and the tan concrete floor read as the brief's textures. But the pipe wall tiles visibly in a regular grid, and in the 'YAW 180' view the wall is a smeared, low-detail blur at the right edge, which a player would notice."
+   "score": 2,
+   "reason": "The views show the brief's textures: a pipe-covered wall with orange hazard-striped trim (view 'yaw 0' and 'yaw -90'), a concrete floor in the corridor, and green-grey water in the pool view ('yaw 90'). Nothing reads as a wrong or smeared surface at the size shown."
   },
   "P6": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Many LIGHT entities are placed (31 to 45), and the corridor view has a lit ceiling. But no sodium lamp glow or caged lamp is visible in the views, and the 'YAW 180' view is a dim, muddy brown with no clear bright or dark structure."
+   "score": 2,
+   "reason": "The plan has a row of yellow light entities in the rooms, and the views have the warm, low sodium-style light of the brief, with the brighter lamp around the start corridor and darker corners in the pool view. Not a must item, and nothing is added that is wrong."
   },
   "P7": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Pipes, hazard trim and a pool with a pillar are visible (YAW 90). The brief's consoles under windows are absent from every view and from the entity list, and the valve wheel is not visible in any picture. The circle in the plan at left is not seen from inside."
+   "reason": "The pipe-covered walls, hazard trim and water pool are there, and the func_breakable panes stand where windows onto the hall would be. But the distinctive features the brief names are not in the views: no control consoles with dials and screens, no windows visible from inside, and no valve wheel. The lift is on the plan but not in any view."
   },
   "P8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The harness reports no check errors, no unreached places, no reach warnings, and the landmark fw_lm2 is present. Compile and walk-test measures are clean. The walk test does not cover the valve wheel, which is not an item, so the mod's ending is unmeasured."
+   "reason": "Measured: checkErrors is empty (it compiles and passes the checks), notReached is empty (the walk test reaches every item and entity the map names), and the landmark fw_lm2 is present. The map is the last of the three and has no changelevel, which the brief does not ask for. Leaks are not reported separately, so this rests on checkErrors being empty."
   },
   "P9": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "From the start (21, YAW 90) the corridor reads as Half-Life-like, with rust, pipes and hazard trim. But all five views come from one spot (ROOM 629 86 -8), and they show repeated wall panels, no consoles, no windows and no valve wheel. A player who knew the brief's control room would not recognise these views."
+   "reason": "The views read as Half-Life's industrial palette (pipes, hazard trim, water), so the map looks like a pumping station. But a player who knew the brief's control room would not recognise it: there are no consoles under windows, no view of the hall through glass, and no valve wheel. The yaw 180 view is a blurred wall, and the views at the start show a plain corridor."
   }
  },
- "total": 10,
+ "total": 12,
  "of": 18,
  "passes": false
 }
