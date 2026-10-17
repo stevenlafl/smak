@@ -717,6 +717,16 @@ test("a flight of stairs has a railing on each open side: a post and a handrail 
   sure(steps > 0 && rails.includes(2 * 2 * steps), `${steps} steps, func_detail of ${rails.join(", ")} pieces`);
 });
 
+test("a lamp over a flight of stairs clears a head on its treads: a climb of 256 is walked", () => {
+  // the original mod's maker: "stairs over 376 units failed the walk test even with headroom fixed". The room's
+  // lamps hung 192 over its floor, and a stair down the room's middle climbed into one halfway up
+  const spec = { spec: "smak.map/1", name: "climb", rooms: [{ id: "low", size: [544, 256, 384] }, { id: "high", size: [256, 256, 128], place: { east_of: "low" }, floor: 256 }], links: [{ between: ["low", "high"], kind: "opening" }], entities: [{ class: "info_player_start", room: "low", at: "corner sw" }, { class: "item_battery", room: "high", at: "centre" }] };
+  const { files, report } = buildMapSpec(spec, { out: join(folder, "climb"), compilers: { found: false, message: "" } });
+  sure(report.facts.some((f) => /stairs of 16 steps in low up to the way at 256/.test(f)), report.facts.filter((f) => /links/.test(f)).join("; "));
+  const reach = smak.maps.reachOf(smak.maps.readMap(readFileSync(files.map, "utf8")));
+  sure(reach.entities.find((e) => e.classname === "item_battery").reached, reach.warnings.join(" | "));
+});
+
 test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ files, the gloved hands kept", () => {
   // a stand-in for a game's files: a first-person model of a glove and a stick, and a world one of the stick
   const meshOn = (build, name) => {

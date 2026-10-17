@@ -881,6 +881,8 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     }
   };
   const ways = [];
+  /** each flight of stairs in plan, with the floor at its top: a lamp hung over it clears a head on its treads */
+  const flights = [];
   const brushes = [];
   /** where to cut the map upright to see each staircase: { name, from, to } in plan */
   const cuts = [];
@@ -931,6 +933,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         holes.push({ min: [sx, sy, lower.max[2]], max: [sx + run, sy + width, upper.min[2]] });
         brushes.push(...stairBrushes([sx, sy, lower.min[2]], [sx + run, sy + width, upper.min[2]], "+x", textureOf("floor"), { steps: count, top: false, tread: TREAD }));
         railings([sx, sy, lower.min[2]], [sx + run, sy + width, upper.min[2]], 0, 1, count, lower);
+        flights.push({ min: [sx, sy], max: [sx + run, sy + width], top: upper.min[2] });
         report.facts.push(`links[${i}]: stairs of ${count} steps from ${lower.id} up to ${upper.id}, along x from ${sx} to ${sx + run}`);
         cuts.push({ name: `${lower.id} up to ${upper.id}`, from: [lower.min[0] - 8, sy + width / 2], to: [lower.max[0] + 8, sy + width / 2] });
       } else errors.push(`links[${i}]: stairs from ${lower.id} to ${upper.id} need ${run + 32} x ${width} of floor both rooms share; they share ${x1 - x0} x ${y1 - y0}`);
@@ -1011,6 +1014,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       else {
         brushes.push(...stairBrushes(min, max, high, textureOf("floor"), { steps: count, top: false, tread: TREAD }));
         railings(min, max, axis, toward, count, ground);
+        flights.push({ min: [min[0], min[1]], max: [max[0], max[1]], top: floorHigh });
         // the stairs and the floor at their foot are kept clear as a doorway's floor is, from the lower floor up
         // to a player's head at the top (Kaupo's blocks by its stairs, Steven's play-test)
         const foot = { link: i, kind: "stairs", z0: floorLow, high: floorHigh - floorLow + PLAYER.high, along, least, min: [min[0], min[1]], max: [max[0], max[1]], in: [] };
@@ -1745,8 +1749,12 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     for (let i = 0; i < count; i++) {
       const cx = room.min[0] + (size[0] * ((i % across) + 0.5)) / across;
       const cy = room.min[1] + (size[1] * (Math.floor(i / across) + 0.5)) / down;
-      // hung under the ceiling, but no higher than LAMP_HIGHEST over the floor: in a tall room it lights the floor
-      const lampZ = Math.min(room.max[2] - LAMP_UNDER, room.min[2] + LAMP_HIGHEST);
+      // hung under the ceiling, but no higher than LAMP_HIGHEST over the floor: in a tall room it lights the floor.
+      // Over a flight of stairs its shade clears a head on the top tread, or it is at the ceiling with none: hung by
+      // the room's floor, a lamp halfway up a stair of 256 shut the way (the original mod's maker, 2026-10-17)
+      const over = flights.filter((f) => cx + 6 > f.min[0] && cx - 6 < f.max[0] && cy + 6 > f.min[1] && cy - 6 < f.max[1] && f.top > room.min[2]);
+      const clear = Math.max(room.min[2] + LAMP_HIGHEST, ...over.map((f) => f.top + PLAYER.high - 4));
+      const lampZ = Math.min(room.max[2] - LAMP_UNDER, clear);
       entities.push(light([Math.round(cx), Math.round(cy), lampZ], { brightness: options.brightness ?? LAMP_BRIGHTNESS, color: options.color ?? [255, 240, 220] }));
       hang(room, [Math.round(cx), Math.round(cy), lampZ]);
     }

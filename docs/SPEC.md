@@ -942,7 +942,8 @@ light and every entity are still the map's to give.
   material than the theme's (a lining 8 thick inside the rock). A wall's picture stands on its room's floor, as
   a mapper lines it up: a texture's bands and panels sit at the same height over the floor in every room.
 - `water: 32` or `{ depth, material }`: water over its floor, swum in or waded; a `!` texture.
-- `light`: `"auto"` (one lamp for each 256 x 256 of floor, hung no higher than 192 over it; unless told),
+- `light`: `"auto"` (one lamp for each 256 x 256 of floor, hung no higher than 192 over it, and over a flight of
+  stairs clear of a head on its top tread or at the ceiling; unless told),
   `"none"`, or `{ count, brightness, color }`. A floor lit under 24 of 255 after the compile is a fault, unless
   the room says `dark: true` (meant so: a cellar, a dim corridor, a copy of a map that is dark there).
 - `test: true`: a room only for trying a module alone (a stretch of street before a shop), left out when
