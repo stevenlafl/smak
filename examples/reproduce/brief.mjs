@@ -97,14 +97,15 @@ function lineupOf(ours, list, dir, name) {
 }
 
 /** How many times the line-up is put to a fresh judge, and how many of those picks of ours make M6 a 1. */
-const DETECT_READINGS = 3;
-const DETECT_CAUGHT = 2;
+const DETECT_READINGS = 4;
+const DETECT_CAUGHT = 3;
 
 /**
  * M6 as a test a player would sit: the line-up of four, three of them Valve's own, put to a fresh judge
  * DETECT_READINGS times, "which one was not made by Valve?". Picked DETECT_CAUGHT times or more, it is told apart
  * (M6 at most 1); else it passes for one of the game's. A Valve original is picked about a quarter of the time,
- * and passes about 84 rounds of 100 (rubric.md, 2026-10-16). Returns { letter, picks, caught }.
+ * so by chance it is caught about 5 rounds of 100 (two of three caught 16, and the controls lost two in fourteen
+ * to it: rubric.md, 2026-10-16). Returns { letter, picks, caught }.
  */
 async function detect(dir, line, name) {
   if (process.env.DRY) return { letters: [], picks: [], caught: false };

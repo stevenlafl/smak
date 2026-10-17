@@ -98,7 +98,9 @@ export function measureSprite(spr, { loop = false } = {}) {
  * What Half-Life's own sprites of each kind measure (research/sprite-generation.md, 6.2; numbers only).
  * Explosions, loops and sparks are the ranges of ten, ten and four files; a smoke puff's rests on one
  * (steam1: jitter 1.11, peak at 0.40, first and last 0.04 and 0.03), widened; glows, flares and rings are held
- * only to a dark border, which all but two of the game's 74 animated sprites keep.
+ * only to a dark border, which all but two of the game's 74 animated sprites keep. A beam is drawn along its
+ * length and across its width, so its edge is lit: the game's sixteen (laserbeam, lgtning, plasma, smoke, xenobeam,
+ * xbeam1-5, zbeam1-6) have a border of 0.009 to 0.261, are 16 or 32 by 64, and hold steady (first and last 0.92 to 1).
  */
 export const SPRITE_CLASSES = {
   explosion: { jitter: [1.04, 1.48], border: [0, 0.005], peakAt: [0.22, 0.71], first: [0, 0.22], last: [0, 0.03] },
@@ -109,7 +111,7 @@ export const SPRITE_CLASSES = {
   glow: { border: [0, 0.005] },
   flare: { border: [0, 0.005] },
   ring: { border: [0, 0.005], last: [0, 0.1] },
-  beam: {},
+  beam: { border: [0, 0.27], first: [0.9, 1], last: [0.9, 1] },
 };
 
 /** The measures held against a kind: [{ measure, value, range, ok }] and words for each one out. */

@@ -382,3 +382,11 @@ walk test, not the game.
   the controls, the goal's own share; under that, the judging is tuned before any score is read. M8's "nothing
   open" is what a player can see (Valve's own leave unseen undersides open), and in W1 a swing that carries the
   weapon out of the picture is not its leaving the hands (Valve's own crowbar does).
+- **2026-10-16, later: four readings of the line-up, and the beam's class measured.** In the calibrated round
+  Valve's own passed 17 of 22 controls. The line-up test caught Valve's crowbar (the one tool among guns) and had
+  caught the medkit and the zombie in earlier rounds: picked at chance (a quarter), "twice in three" catches an
+  original 16 rounds of 100, about two of fourteen model controls each round. The test now takes four readings
+  and is caught at three, about 5 rounds of 100 at chance. A beam sprite was held to no measure (its class was
+  empty, and the judge gave Valve's laserbeam a 1 for it); its class is now the game's sixteen beams (border 0 to
+  0.27, steady from first frame to last). And the guard's brief asked for a stocky man, which Valve's barney is not:
+  dropped. Results judged before keep their scores.
