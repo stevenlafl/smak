@@ -936,6 +936,7 @@ command line: `smak video spec.json -o folder [--preview] [--models folder]`.
 | `compile` | How the compilers run: `{ quality: "draft" \| "normal" \| "final", threads, light: { bounce, ao, extra, softShadows }, hulls: { large: false, crouch: false }, clipEconomy: true }`. Every program gets all the machine's threads unless told |
 | `detail` | `false` keeps furniture in the world; unless told, furniture is `func_detail` (below) |
 | `fidelity` | `"game"` (unless told) or `"high"`: a map made to look its best, when the person asks for it. High adds trim (a baseboard along every wall under a roof, a casing round every door and opening, a sill and frame at every window, in the theme's `trim`, darkwood unless told: drawn, not solid, so a narrow room keeps its room), a lamp for each 192 x 192 of floor where `"auto"` gives one for each 256 x 256, and puts furniture of boxes named for a piece the kit has a model of (`toilet`, `tub`, `fridge`) in as that model, moved back inside its room if the model is larger than the boxes. The report says what it added |
+| `frame` | `true`, or numbers over the defaults: each room framed as Valve frames its own. A band at the foot of every wall (`dado`, 48 high) and one under the ceiling (`cornice`, 24), each its own brush `proud` (2) off the wall, so a tall wall is not one texture tiled up it; ribs (`rib` [16 wide, 8 deep]) every `ribs` (224) along a long wall, beams (`beam` [16, 16]) every `beams` (192) across a wide ceiling over every way's head, the corners cut at 45 degrees (`chamfer`, 24 along each wall), and a frame (`jamb`, 8 wide) round every way through. A room under 128 across (a corridor) keeps its width: no ribs, beams or cut corners. `fixtures` (true) puts each lamp in a fixture that glows, a texture light as Valve lights its rooms: a panel on the ceiling for a lamp under it, a glowing shade for one hung lower; `fill` (0) a weak light that brightness low over every floor. Its textures are the spec's `dado`, `cornice` and `frame` words when it gives them, else its `trim` when it names one, else dark steel plate; `fixture` the glass of the fixtures. A room's own `frame` (`false`, or numbers) is over the map's. All of it is `func_detail`, so it seals nothing and cuts no portal; the walk test still runs through every way. The report counts what it made. Valve's `c1a0`, from its own source, is 942 brushes with a quarter of its world brushes cut off the axes; a spec's box rooms are a handful of boxes |
 | `music` | `[{ track, when }]`: the game's CD tracks, 2 to 27 (a music spec with that `track` makes the file): `when` `"start"` (unless told: a `trigger_auto` firing a `target_cdaudio` as the map begins) or `{ enter: "<room>" }` (a `trigger_cdaudio` over the room's floor, the first time a player walks in); `{ stop: true, when }` stops it. They play for the first player only, and each once: a multiplayer mod plays music its own way |
 | `sounds` | `[{ spec, room, at, z, volume, radius }]`: sounds made with the map (`spec`: a sound spec, or `{ file }`) and played where they are put by an `ambient_generic`: `volume` 1 to 10, `radius` `everywhere`, `small`, `medium` or `large`; looped when the sound loops (a hum, a fire), once otherwise. The files go under `sound/<map name>/` beside the map, and its `ambient_generic` names them there: copy that folder into `<mod>/sound/` |
 
@@ -994,6 +995,7 @@ light and every entity are still the map's to give.
   the room says `dark: true` (meant so: a cellar, a dim corridor, a copy of a map that is dark there).
 - `test: true`: a room only for trying a module alone (a stretch of street before a shop), left out when
   the module is included.
+- `frame`: `false`, or numbers over the map's `frame` (above), for this room alone.
 
 ### Buildings that stand in the open
 
@@ -1100,7 +1102,9 @@ own `lights_main`) is kept. `furniture: [{ prefab: "table", room:
 `{ "base": "mesh", "cell": 6, "weave": "diamond" }`) or a game's `{` texture is a `func_wall` in render mode
 4 unless told, the only way the game draws its holes; its texture is named with `{` (`{SM_CHAIN_LINK`).
 Unless told, other furniture is a `func_detail`: it cuts no portals, so a
-furnished map is seen through by `hlvis` in hundredths of a second where it took minutes; it still stops a
+furnished map is seen through by `hlvis` in hundredths of a second where it took minutes (every `func_detail` the
+kit writes says `zhlt_detaillevel 1`: SDHLT takes one without it as world, and the original mod's pump hall so cut
+1802 portals and took 54 seconds to compile where it takes 4); it still stops a
 player, and it seals nothing (it never has to: the rooms' rock does). `as: "world"` keeps a piece in the
 world. The report carries the compilers' own chart of the engine's limits (`allocblock 3 of 64`,
 `worldleaves`, `worldfaces`, `clipnodes`), and warns from three quarters of any.
