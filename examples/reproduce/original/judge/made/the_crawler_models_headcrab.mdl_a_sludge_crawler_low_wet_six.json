@@ -1,0 +1,92 @@
+{
+ "kind": "enemy",
+ "label": "the crawler (models/headcrab.mdl): a sludge crawler: low, wet, six-legged, the size of a headcrab, grey-green with a pale belly and a ring of teeth",
+ "measured": {
+  "size": [
+   25,
+   16.4,
+   18.6
+  ],
+  "sizeAsked": null,
+  "sizeOff": null,
+  "triangles": 84,
+  "halfLifeMedianOfItsKind": 308,
+  "halfLifeThreeQuartersUnder": 340,
+  "halfLifeMost": 655,
+  "checkErrors": [],
+  "lineup": "the asset is one of A to D in lineup.png beside models/chumtoad.mdl, models/roach.mdl, models/leech.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked B, D, D, D where the asset was B, B, B, D: passed for one of the game's",
+  "contract": "keeps the headcrab's bones, animations, attachments and bodyparts"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2,
+  "M6": 2,
+  "C2": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The outline is a low pale hump under a tall green hood of flat wedges (side and back views). It reads as a hood or cape, not a low, six-legged crawler. The six legs the brief asks for do not read as an outline in any view: the green flaps at the sides in the front and below views could be legs, but they are flat fins. The brief's words are not met in the outline."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 25 x 16.4 x 18.6. The harness gives no size offset (sizeAsked and sizeOff are null) and the brief names only the headcrab's size. In lineup.png it sits at headcrab scale beside the three Valve models, so nothing here fails it."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief's small parts: six legs, a ring of teeth, a pale belly. The ring of teeth is missing: only two small yellow tooth tips show at the front (front and front-left views), not a ring around the mouth. Six legs do not read: the green flaps in the front, left and below views are flat fins, and no six distinct legs can be counted. A small part missing caps M3 at 1."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Green body with a pale grey-white belly and a matte finish, as the brief's grey-green with a pale belly asks. The green runs a little bright, but that is within what one would call grey-green, and the region colours agree across views."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The surface is flat-shaded facets with no wet sheen or skin detail (all views). The teeth are the only marking, and they are only two yellow tips at the front (front view). The belly has no detail. The brief asks for a wet look and a ring of teeth, neither of which shows."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured apart, by the line-up test (four readings, asset at B, B, B, D): the judges caught the asset twice and passed it twice. Capped at 2 by the rubric for this kind."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The front (teeth end) is toward the front in the front and front-left views, and the pale belly is underneath (below view). Upright is less clear: the body sits low, but the hood rises high above it, so the crawler does not read as settled low on its origin."
+  },
+  "M8": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Triangles 84, well under twice Half-Life's median of 308, and SMAK's checkErrors is empty. A player can see faces that read dark and unlit in the back, back-left and back-right views (black triangles beside the body and at the back fin), which suggests open or inside-out geometry. It is not clear that these are a fault rather than shading, so the item is held at 1."
+  },
+  "C1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "In the run and jump frames (run.png, attack.png) nothing visibly comes apart or sinks, and the green hood stays on the body through the jump. But the legs cannot be seen, so there is no check that they move with the body the way the original's do. The whole form moves as one rigid piece, so the motion is not shown to be right."
+  },
+  "C2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The contract field, from the rubric's contract check, says the asset keeps the headcrab's bones, animations, attachments and bodyparts. Measured, that holds."
+  }
+ },
+ "total": 14,
+ "of": 20,
+ "passes": false
+}

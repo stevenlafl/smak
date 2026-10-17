@@ -1,0 +1,84 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_hit1.wav: the wrench striking metal",
+ "measured": {
+  "features": {
+   "length": 0.942,
+   "peak": -0.5,
+   "rms": -19.3,
+   "crest": 18.8,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0,
+   "peakAt": 0,
+   "t20": 0.364,
+   "t40": 0.698,
+   "centroid": 2419,
+   "rolloff": 2024,
+   "flatness": 0.002,
+   "bands": {
+    "<150": 0.8,
+    "150-600": 1.2,
+    "600-2k": 23.6,
+    "2k-5k": 64.6,
+    ">5k": 9.7
+   },
+   "onsets": 0
+  },
+  "class": "metal hit",
+  "against": {
+   "score": 11,
+   "of": 22,
+   "lines": [
+    "length 0.942 s (0.37 to 0.86): too long",
+    "crest 18.8 dB (5.3 to 12.5): too spiky: saturate more, or hold its body longer",
+    "rms -19.3 dBFS (-12.9 to -5.7): under the range",
+    "centroid 2419 Hz (1074 to 1654): too bright: less over 2000 Hz",
+    "flatness 0.002 (0.16 to 0.28): too pure: more noise",
+    "band 600-2k 23.6% (63.7 to 83.8): under the range",
+    "band 2k-5k 64.6% (3.7 to 24.6): over the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The picture shows a sharp broadband onset at the left edge, a dark-red and yellow blob below 1 kHz that dies within about 0.1 s, and then a long, steady horizontal tone near 3 to 4 kHz that runs almost to the end at 0.94 s. A wrench striking metal should be a clatter that rings out, not a single held whine, so the event is only partly right. Cannot listen, so this is judged from the picture."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length 0.942 s is above the class range of 0.37 to 0.86 s, which the measure flags as too long. The attack and decay (t20 0.364 s, t40 0.698 s) are not flagged and look within range, so only the length is off."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Measured fails on every spectral item. Centroid is 2419 Hz against 1074 to 1654 Hz. The 600 Hz to 2 kHz band holds 23.6% against 63.7 to 83.8%. The 2 to 5 kHz band holds 64.6% against 3.7 to 24.6%. The picture shows the energy piled into that 2 to 5 kHz horizontal band, which matches the measure."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Flatness is 0.002 against 0.16 to 0.28, so the sound is far too pure. The spectrogram confirms it: the body of the sound is one narrow tone line, with no noisy broadband clatter. Onsets are 0 against a metal hit's expected clicks. There is a single transient at the start, so the hit is partly present."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Peak is -0.5 dBFS, clipped is 0, DC is 0, and the lead is 0. The engine-fault list is empty. The name is sound/weapons/cbar_hit1.wav, which is the file the game looks for. The sample rate and bit depth are not in the measurements, so this rests on the empty fault list and the clean measures, and no loop cue is needed."
+  }
+ },
+ "total": 5,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_pain1.wav: the crawler's pain",
+ "measured": {
+  "features": {
+   "length": 0.842,
+   "peak": -0.5,
+   "rms": -15.9,
+   "crest": 15.4,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.005,
+   "peakAt": 0.005,
+   "t20": 0.259,
+   "t40": 0.534,
+   "centroid": 286,
+   "rolloff": 603,
+   "flatness": 0,
+   "bands": {
+    "<150": 66.8,
+    "150-600": 9.5,
+    "600-2k": 23.4,
+    "2k-5k": 0.3,
+    ">5k": 0
+   },
+   "onsets": 1
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.795,
+    "centroid": 2682,
+    "t20": 0.544,
+    "bands": {
+     "<150": 0.2,
+     "150-600": 0,
+     "600-2k": 15.6,
+     "2k-5k": 83.8,
+     ">5k": 0.3
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Picture and features: the replacement opens with a dense, low-frequency burst (about 67% of energy under 150 Hz, pulses in the first 0.05 s) and then a long, steady tone. The original is a broadband vocal yelp with its energy at 2 to 5 kHz (84%) and repeated onsets across its length. A low thump with a tonal tail could be read as a hit, but it does not sound like a crawler's pain cry."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length is 0.842 s against 0.795 s, within 25%. The decay is not: t20 is 0.259 s against the original's 0.544 s, about half, with the attack at 0.005 s. The class range is not given in the measurements, so the reading is against the original's own decay, and the replacement falls away twice as fast."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Measured spectrum is far off. Centroid is 286 Hz against 2682 Hz (about 90% low, against a 20% allowance). Band shares: under 150 Hz 66.8 against 0.2; 2k to 5k 0.3 against 83.8 (over 80 points out, against 10). Only 600 Hz to 2 kHz is within 10 points (23.4 against 15.6)."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original is noisy with many onsets across its length, shown as vertical streaks in its spectrogram. The replacement has one onset at the start, then a tonal tail with no visible pitch movement, and its flatness is 0 (pure tone). The original's flatness is not given, so the tone-or-noise match cannot be confirmed, but the onset count is clearly different (1 against many)."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Engine faults list is empty, clipped is 0, dc is 0, peak is -0.5 dBFS, and the name is sound/headcrab/hc_pain1.wav, the same as the game's. The sample rate and bit depth are not in the measurements, so the format is taken as the engine's checks passed it, not as read here."
+  }
+ },
+ "total": 5,
+ "of": 10,
+ "passes": false
+}

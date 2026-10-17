@@ -1,0 +1,527 @@
+{
+  "spec": "smak.map/1",
+  "name": "fw_pumphall",
+  "wads": [
+    "fw.wad"
+  ],
+  "textures": {
+    "wetfloor": {
+      "texture": "FW_WETFLOOR"
+    },
+    "pipewall": {
+      "texture": "FW_PIPEWALL"
+    },
+    "rust": {
+      "texture": "FW_RUSTPLATE"
+    },
+    "catwalk": {
+      "texture": "FW_CATWALK"
+    },
+    "pool": {
+      "texture": "!FW_WATER"
+    },
+    "grate": {
+      "texture": "{FW_GRATE"
+    },
+    "control": {
+      "texture": "FW_CONTROL"
+    },
+    "doorfw": {
+      "texture": "FW_DOOR"
+    }
+  },
+  "theme": {
+    "floor": "wetfloor",
+    "wall": "pipewall",
+    "ceiling": "rust",
+    "door": "doorfw",
+    "furniture": "control"
+  },
+  "models": {
+    "pump": {
+      "spec": "smak.model/1",
+      "name": "pump.mdl",
+      "kind": "prop",
+      "size": {
+        "height": 252,
+        "length": 300,
+        "width": 200
+      },
+      "materials": {
+        "pumpbody": {
+          "base": "paint",
+          "tone": [
+            0.2,
+            0.35,
+            0.25
+          ]
+        },
+        "steel": {
+          "base": "steel",
+          "rust": 0.5
+        },
+        "hazard": {
+          "base": "hazard",
+          "tone": [
+            0.9,
+            0.72,
+            0.08
+          ]
+        }
+      },
+      "parts": [
+        {
+          "id": "base",
+          "kind": "cylinder",
+          "material": "steel",
+          "radius": 100,
+          "height": 12,
+          "sides": 12
+        },
+        {
+          "id": "body",
+          "kind": "cylinder",
+          "material": "pumpbody",
+          "radius": 80,
+          "height": 180,
+          "sides": 12,
+          "at": [
+            0,
+            0,
+            12
+          ]
+        },
+        {
+          "id": "stripe",
+          "kind": "band",
+          "material": "hazard",
+          "on": {
+            "part": "body",
+            "s": 0.3
+          },
+          "width": 4,
+          "height": 0.5
+        },
+        {
+          "id": "motor",
+          "kind": "box",
+          "material": "steel",
+          "size": [
+            110,
+            110,
+            60
+          ],
+          "at": [
+            0,
+            0,
+            192
+          ]
+        },
+        {
+          "id": "outlet",
+          "kind": "cylinder",
+          "material": "steel",
+          "radius": 24,
+          "height": 120,
+          "sides": 8,
+          "rotate": [
+            0,
+            90,
+            0
+          ],
+          "at": [
+            80,
+            0,
+            90
+          ]
+        }
+      ]
+    }
+  },
+  "rooms": [
+    {
+      "id": "entry",
+      "size": [
+        256,
+        768,
+        320
+      ],
+      "light": {
+        "count": 4,
+        "brightness": 300,
+        "color": [
+          1,
+          0.62,
+          0.25
+        ]
+      }
+    },
+    {
+      "id": "hall",
+      "size": [
+        2560,
+        768,
+        320
+      ],
+      "place": {
+        "east_of": "entry"
+      },
+      "water": {
+        "depth": 96,
+        "material": "pool"
+      },
+      "light": {
+        "count": 14,
+        "brightness": 230,
+        "color": [
+          1,
+          0.62,
+          0.25
+        ]
+      }
+    },
+    {
+      "id": "catwalk_s",
+      "size": [
+        2250,
+        128,
+        200
+      ],
+      "floor": 150,
+      "place": {
+        "in": "hall",
+        "offset": [
+          0,
+          32
+        ],
+        "stand": false
+      },
+      "surfaces": {
+        "floor": "catwalk"
+      }
+    },
+    {
+      "id": "catwalk_n",
+      "size": [
+        2560,
+        128,
+        200
+      ],
+      "floor": 150,
+      "place": {
+        "in": "hall",
+        "offset": [
+          0,
+          608
+        ],
+        "stand": false
+      },
+      "surfaces": {
+        "floor": "catwalk"
+      }
+    },
+    {
+      "id": "bridge",
+      "size": [
+        192,
+        480,
+        200
+      ],
+      "floor": 150,
+      "place": {
+        "in": "hall",
+        "offset": [
+          944,
+          160
+        ],
+        "stand": false
+      },
+      "surfaces": {
+        "floor": "catwalk"
+      }
+    },
+    {
+      "id": "corridor",
+      "size": [
+        512,
+        256,
+        256
+      ],
+      "floor": 128,
+      "place": {
+        "east_of": "hall",
+        "align": "south"
+      },
+      "light": {
+        "count": 4,
+        "brightness": 300,
+        "color": [
+          1,
+          0.62,
+          0.25
+        ]
+      }
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "entry",
+        "hall"
+      ],
+      "kind": "opening",
+      "width": 96,
+      "height": 160,
+      "along": 0.5
+    },
+    {
+      "between": [
+        "hall",
+        "corridor"
+      ],
+      "kind": "opening",
+      "width": 96,
+      "height": 128,
+      "along": 0.2
+    }
+  ],
+  "ladders": [
+    {
+      "room": "hall",
+      "side": "south",
+      "along": 0.2,
+      "width": 32,
+      "height": 150
+    },
+    {
+      "room": "hall",
+      "side": "south",
+      "along": 0.8,
+      "width": 32,
+      "height": 150
+    },
+    {
+      "room": "hall",
+      "side": "north",
+      "along": 0.2,
+      "width": 32,
+      "height": 150
+    },
+    {
+      "room": "hall",
+      "side": "north",
+      "along": 0.8,
+      "width": 32,
+      "height": 150
+    }
+  ],
+  "furniture": [
+    {
+      "prefab": "exit",
+      "room": "corridor",
+      "at": [
+        150,
+        0
+      ],
+      "entity": {
+        "class": "trigger_changelevel",
+        "map": "fw_control",
+        "landmark": "fw_land_hall"
+      }
+    }
+  ],
+  "prefabs": {
+    "exit": {
+      "pieces": [
+        {
+          "box": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              64,
+              64,
+              96
+            ]
+          ],
+          "texture": "control"
+        }
+      ]
+    }
+  },
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "entry",
+      "at": [
+        -80,
+        0
+      ],
+      "facing": "east"
+    },
+    {
+      "class": "info_landmark",
+      "room": "entry",
+      "at": [
+        -60,
+        0
+      ],
+      "keys": {
+        "targetname": "fw_land_yard"
+      }
+    },
+    {
+      "class": "info_landmark",
+      "room": "corridor",
+      "at": [
+        110,
+        0
+      ],
+      "keys": {
+        "targetname": "fw_land_hall"
+      }
+    },
+    {
+      "class": "light",
+      "room": "entry",
+      "at": [
+        0,
+        -200
+      ],
+      "z": 160,
+      "keys": {
+        "_light": "255 160 64 300"
+      }
+    },
+    {
+      "class": "light",
+      "room": "entry",
+      "at": [
+        0,
+        200
+      ],
+      "z": 160,
+      "keys": {
+        "_light": "255 160 64 300"
+      }
+    },
+    {
+      "class": "light",
+      "room": "corridor",
+      "at": [
+        -120,
+        0
+      ],
+      "z": 60,
+      "keys": {
+        "_light": "255 160 64 300"
+      }
+    },
+    {
+      "class": "light",
+      "room": "corridor",
+      "at": [
+        120,
+        0
+      ],
+      "z": 60,
+      "keys": {
+        "_light": "255 160 64 300"
+      }
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "hall",
+      "at": [
+        -936,
+        -134
+      ]
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "hall",
+      "at": [
+        64,
+        136
+      ]
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "hall",
+      "at": [
+        764,
+        -84
+      ]
+    },
+    {
+      "class": "weapon_crowbar",
+      "room": "hall",
+      "at": [
+        -324,
+        -288
+      ],
+      "z": 152
+    }
+  ],
+  "props": [
+    {
+      "model": "pump",
+      "room": "hall",
+      "at": [
+        -836,
+        0
+      ],
+      "solid": true
+    },
+    {
+      "model": "pump",
+      "room": "hall",
+      "at": [
+        364,
+        0
+      ],
+      "solid": true
+    },
+    {
+      "model": "pump",
+      "room": "hall",
+      "at": [
+        964,
+        0
+      ],
+      "solid": true
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "hall",
+      "at": [
+        -1100,
+        360
+      ],
+      "z": 200,
+      "facing": "north"
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "hall",
+      "at": [
+        300,
+        360
+      ],
+      "z": 200,
+      "facing": "north"
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "hall",
+      "at": [
+        -600,
+        360
+      ],
+      "z": 200,
+      "facing": "north"
+    }
+  ]
+}

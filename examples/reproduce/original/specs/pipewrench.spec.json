@@ -1,0 +1,136 @@
+{
+  "spec": "smak.model/1",
+  "name": "pipewrench.mdl",
+  "kind": "held",
+  "weapon": {
+    "like": "crowbar",
+    "views": [
+      "v",
+      "p",
+      "w"
+    ],
+    "size": "own",
+    "rig": "carry"
+  },
+  "size": {
+    "length": 18
+  },
+  "materials": {
+    "redpaint": {
+      "base": "paint",
+      "tone": [
+        0.6,
+        0.1,
+        0.07
+      ]
+    },
+    "iron": {
+      "base": "iron",
+      "rust": 0.3
+    }
+  },
+  "parts": [
+    {
+      "id": "grip",
+      "kind": "cylinder",
+      "material": "iron",
+      "radius": 1.6,
+      "height": 3,
+      "sides": 10,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "handle",
+      "kind": "cylinder",
+      "material": "redpaint",
+      "radius": 1.5,
+      "height": 10,
+      "sides": 10,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        3,
+        0,
+        0
+      ],
+      "finish": {
+        "light": 0.3,
+        "wear": 0.9,
+        "grime": 0.4,
+        "vary": 0.1
+      }
+    },
+    {
+      "id": "head",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        4.5,
+        4.6,
+        9
+      ],
+      "at": [
+        14.25,
+        0,
+        -4.5
+      ]
+    },
+    {
+      "id": "tooth_low",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        1.2,
+        3.2,
+        2.2
+      ],
+      "at": [
+        17.1,
+        0,
+        -4.6
+      ]
+    },
+    {
+      "id": "tooth_mid",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        1.2,
+        3.2,
+        2.2
+      ],
+      "at": [
+        17.1,
+        0,
+        -1.1
+      ]
+    },
+    {
+      "id": "tooth_high",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        1.2,
+        3.2,
+        2.2
+      ],
+      "at": [
+        17.1,
+        0,
+        2.4
+      ]
+    }
+  ]
+}

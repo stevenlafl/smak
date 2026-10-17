@@ -1,0 +1,81 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_glow.spr: a sodium lamp's glow",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.61,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "glow",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "A single-frame radial glow, brightest at the centre and fading to dark at the edges, is what a lamp's glow is. It matches the brief's 'sodium lamp's glow' and the glow class."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The frame is 64 x 64, the same as the measured size, and the glow fills it from centre to edge. The border is pure black (border max 0, inside the class's 0 to 0.005), so no hard edge shows. The brief gives no size, so there is nothing else to check it against."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "By eye the core is a warm sodium orange, fading outward to dark. It is the lit-lamp colour the brief asks for, with no neon or sci-fi tint. The brief sets no measure, so this is judged by eye only."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "One frame, which is the glow class's frame count, with the envelope held at a steady first and last frame. The glow class takes a steady, non-animated glow, and the measured border (0) is inside the class's band. Nothing in the frames contradicts the class."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The file is named fw_glow to match the brief's sprite slot. It is recorded as type parallel and format additive, which is how a glow that blends into the scene is written. The only readback is the harness's measures, which show no fault. Nothing was checked beyond those measures."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

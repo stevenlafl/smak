@@ -1,0 +1,130 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_pipejunction.mdl",
+  "kind": "prop",
+  "size": {
+    "height": 48,
+    "length": 42,
+    "width": 16
+  },
+  "materials": {
+    "pipe": {
+      "base": "metal",
+      "rust": 0.45,
+      "tone": "dull yellow ochre"
+    },
+    "flange": {
+      "base": "iron",
+      "rust": 0.5
+    },
+    "bolt": {
+      "base": "steel",
+      "rust": 0.3
+    }
+  },
+  "parts": [
+    {
+      "id": "pipe_up",
+      "kind": "cylinder",
+      "material": "pipe",
+      "radius": 5,
+      "height": 40,
+      "sides": 10
+    },
+    {
+      "id": "elbow",
+      "kind": "sphere",
+      "material": "pipe",
+      "radius": 5.5,
+      "sides": 10,
+      "at": [
+        0,
+        0,
+        40
+      ]
+    },
+    {
+      "id": "pipe_out",
+      "kind": "cylinder",
+      "material": "pipe",
+      "radius": 5,
+      "height": 36,
+      "sides": 10,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        0,
+        0,
+        40
+      ]
+    },
+    {
+      "id": "flange_base",
+      "kind": "cylinder",
+      "material": "flange",
+      "radius": 8,
+      "height": 3,
+      "sides": 12
+    },
+    {
+      "id": "flange_up",
+      "kind": "cylinder",
+      "material": "flange",
+      "radius": 8,
+      "height": 2.5,
+      "sides": 12,
+      "at": [
+        0,
+        0,
+        34.5
+      ]
+    },
+    {
+      "id": "flange_out",
+      "kind": "cylinder",
+      "material": "flange",
+      "radius": 8,
+      "height": 2.5,
+      "sides": 12,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        30,
+        0,
+        40
+      ]
+    },
+    {
+      "id": "bolt_base",
+      "kind": "box",
+      "material": "bolt",
+      "size": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "attach": {
+        "to": "flange_base",
+        "toAt": "top",
+        "at": "bottom",
+        "offset": [
+          6.4,
+          0,
+          -0.5
+        ]
+      },
+      "repeat": {
+        "count": 6,
+        "around": "flange_base",
+        "axis": "z",
+        "start": 30
+      }
+    }
+  ]
+}

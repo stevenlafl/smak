@@ -1,0 +1,32 @@
+{
+  "spec": "smak.model/1",
+  "name": "headcrab_probe.mdl",
+  "kind": "character",
+  "base": {
+    "file": "headcrab.mdl"
+  },
+  "contract": {
+    "file": "headcrab.mdl"
+  },
+  "materials": {
+    "skin": {
+      "base": "leather"
+    }
+  },
+  "parts": [
+    {
+      "id": "body",
+      "kind": "box",
+      "material": "skin",
+      "size": [
+        6,
+        6,
+        4
+      ],
+      "attach": {
+        "bone": "Bip01 Spine",
+        "at": "centre"
+      }
+    }
+  ]
+}

@@ -1,0 +1,316 @@
+{
+  "spec": "smak.sound/1",
+  "sounds": [
+    {
+      "name": "ambience/fw_pump.wav",
+      "class": "loop drone",
+      "loop": true,
+      "length": 6,
+      "seed": 9,
+      "layers": [
+        {
+          "id": "hum",
+          "kind": "tone",
+          "f": 100,
+          "wave": "saw",
+          "env": {
+            "attack": 0.05,
+            "hold": 5.8,
+            "decay": 0.15
+          },
+          "filter": [
+            {
+              "type": "lowpass",
+              "f": 800
+            }
+          ],
+          "gain": -16
+        },
+        {
+          "id": "drone",
+          "kind": "particles",
+          "rate": 150,
+          "band": [
+            150,
+            500
+          ],
+          "grain": 0.01,
+          "env": {
+            "attack": 0.05,
+            "hold": 5.8,
+            "decay": 0.15
+          },
+          "gain": -14
+        },
+        {
+          "id": "clack1",
+          "kind": "noise",
+          "color": "white",
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 1200
+            }
+          ],
+          "env": {
+            "decay": 0.01
+          },
+          "at": 1,
+          "gain": -16
+        },
+        {
+          "id": "clack2",
+          "kind": "noise",
+          "color": "white",
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 1200
+            }
+          ],
+          "env": {
+            "decay": 0.01
+          },
+          "at": 1.2,
+          "gain": -18
+        },
+        {
+          "id": "clack3",
+          "kind": "noise",
+          "color": "white",
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 1200
+            }
+          ],
+          "env": {
+            "decay": 0.01
+          },
+          "at": 3,
+          "gain": -16
+        },
+        {
+          "id": "clack4",
+          "kind": "noise",
+          "color": "white",
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 1200
+            }
+          ],
+          "env": {
+            "decay": 0.01
+          },
+          "at": 3.2,
+          "gain": -18
+        }
+      ]
+    },
+    {
+      "name": "ambience/fw_drips.wav",
+      "class": "loop drips",
+      "loop": true,
+      "length": 6,
+      "seed": 10,
+      "layers": [
+        {
+          "id": "drip1",
+          "kind": "tone",
+          "f": 900,
+          "wave": "sine",
+          "sweep": {
+            "to": 450,
+            "time": 0.06
+          },
+          "env": {
+            "decay": 0.3
+          },
+          "filter": [
+            {
+              "type": "lowpass",
+              "f": 1800
+            }
+          ],
+          "at": 0.3,
+          "gain": -12
+        },
+        {
+          "id": "drip2",
+          "kind": "tone",
+          "f": 1000,
+          "wave": "sine",
+          "sweep": {
+            "to": 500,
+            "time": 0.06
+          },
+          "env": {
+            "decay": 0.3
+          },
+          "filter": [
+            {
+              "type": "lowpass",
+              "f": 1800
+            }
+          ],
+          "at": 0.9,
+          "gain": -13
+        },
+        {
+          "id": "drip3",
+          "kind": "tone",
+          "f": 800,
+          "wave": "sine",
+          "sweep": {
+            "to": 400,
+            "time": 0.06
+          },
+          "env": {
+            "decay": 0.3
+          },
+          "filter": [
+            {
+              "type": "lowpass",
+              "f": 1800
+            }
+          ],
+          "at": 1.4,
+          "gain": -12
+        },
+        {
+          "id": "drip4",
+          "kind": "tone",
+          "f": 950,
+          "wave": "sine",
+          "sweep": {
+            "to": 480,
+            "time": 0.06
+          },
+          "env": {
+            "decay": 0.3
+          },
+          "filter": [
+            {
+              "type": "lowpass",
+              "f": 1800
+            }
+          ],
+          "at": 2.1,
+          "gain": -13
+        },
+        {
+          "id": "drip5",
+          "kind": "tone",
+          "f": 850,
+          "wave": "sine",
+          "sweep": {
+            "to": 420,
+            "time": 0.06
+          },
+          "env": {
+            "decay": 0.3
+          },
+          "filter": [
+            {
+              "type": "lowpass",
+              "f": 1800
+            }
+          ],
+          "at": 2.7,
+          "gain": -12
+        },
+        {
+          "id": "drip6",
+          "kind": "tone",
+          "f": 1050,
+          "wave": "sine",
+          "sweep": {
+            "to": 520,
+            "time": 0.06
+          },
+          "env": {
+            "decay": 0.3
+          },
+          "filter": [
+            {
+              "type": "lowpass",
+              "f": 1800
+            }
+          ],
+          "at": 3.4,
+          "gain": -13
+        },
+        {
+          "id": "drip7",
+          "kind": "tone",
+          "f": 780,
+          "wave": "sine",
+          "sweep": {
+            "to": 390,
+            "time": 0.06
+          },
+          "env": {
+            "decay": 0.3
+          },
+          "filter": [
+            {
+              "type": "lowpass",
+              "f": 1800
+            }
+          ],
+          "at": 4,
+          "gain": -12
+        },
+        {
+          "id": "drip8",
+          "kind": "tone",
+          "f": 920,
+          "wave": "sine",
+          "sweep": {
+            "to": 460,
+            "time": 0.06
+          },
+          "env": {
+            "decay": 0.3
+          },
+          "filter": [
+            {
+              "type": "lowpass",
+              "f": 1800
+            }
+          ],
+          "at": 4.6,
+          "gain": -13
+        },
+        {
+          "id": "drip9",
+          "kind": "tone",
+          "f": 880,
+          "wave": "sine",
+          "sweep": {
+            "to": 440,
+            "time": 0.06
+          },
+          "env": {
+            "decay": 0.3
+          },
+          "filter": [
+            {
+              "type": "lowpass",
+              "f": 1800
+            }
+          ],
+          "at": 5.2,
+          "gain": -12
+        }
+      ],
+      "finish": {
+        "room": {
+          "decay": 0.15,
+          "wet": 0.1
+        }
+      }
+    }
+  ]
+}
