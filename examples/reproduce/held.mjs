@@ -4,7 +4,8 @@
 // refused (--refuse). The judge scores M1 to M8 and W1 (in the hands) or C1 (in motion), with a line-up of
 // the originals of its kind and a plain decoy that must fail.
 //
-//   node examples/reproduce/held.mjs inputs|describe|reproduce|judge [weapons|characters] [subject ...] [--again] [--form]
+//   node examples/reproduce/held.mjs inputs|describe|reproduce|judge|rounds [weapons|characters] [subject ...] [--again] [--form] [--most n]
+// rounds: a brief leg made, judged and revised from the judge's notes until it passes or stops gaining (--most, 5)
 //
 // held/<kind>/<id>/: input/ (Valve's pictures, out of git), words.md, <leg>/ (spec.json, answer.md, run.json,
 // judge.json; built/ out of git).
@@ -37,6 +38,8 @@ const TS_BASE = "player/gordon/gordon.mdl";
 const kinds = KINDS.filter((k) => !words.some((w) => KINDS.includes(w)) || words.includes(k));
 // --leg <name>: only that leg is made (the others are left as they are)
 const ONLY_LEG = words.includes("--leg") ? words.splice(words.indexOf("--leg"), 2)[1] : null;
+// --most <n>: the rounds of revision at most (rounds)
+const MOST = words.includes("--most") ? Number(words.splice(words.indexOf("--most"), 2)[1]) : 5;
 const named = words.filter((w) => !KINDS.includes(w));
 const LEGS = ["pictures", "brief"].filter((leg) => !ONLY_LEG || leg === ONLY_LEG);
 
@@ -175,10 +178,10 @@ async function describe(kind, s) {
   return `${kind}/${s.id}: ${r.answer.split(/\s+/).length} words`;
 }
 
-async function reproduce(kind, s, leg) {
+async function reproduce(kind, s, leg, revision = null) {
   const base = folderOf(kind, s.id);
   const out = join(base, leg);
-  if (existsSync(join(out, "run.json")) && !again) return `${kind}/${s.id}:${leg}: done before`;
+  if (existsSync(join(out, "run.json")) && !again && !revision) return `${kind}/${s.id}:${leg}: done before`;
   // the last round kept: its records and what it built, under round-<n>
   if (existsSync(join(out, "run.json"))) {
     const n = keepRound(out, { move: ["spec.json", "answer.md", "run.json", "judge.json", "built"] });
@@ -193,7 +196,8 @@ async function reproduce(kind, s, leg) {
   const hidden = kind === "weapons" ? s.files : [s.file];
   const kit = kitCommit();
   // the words and brief legs may be offered the local generators (--generators): a shape made from words, carved by no picture
-  const r = await runAgent({ prompt: reproducePrompt(kind, s, leg, given), read: leg === "pictures" ? input : null, server: { wads: true, games: s.root ? [s.root] : [], hide: hidden, refuse: hidden, ...(GENERATORS && leg !== "pictures" ? { generators: GENERATORS } : {}) }, files, hours: 1.5 });
+  const prompt = revision ? `${reproducePrompt(kind, s, leg, given)}\n\n${revisionWords(revision)}` : reproducePrompt(kind, s, leg, given);
+  const r = await runAgent({ prompt, start: revision?.start ?? null, read: leg === "pictures" ? input : null, server: { wads: true, games: s.root ? [s.root] : [], hide: hidden, refuse: hidden, ...(GENERATORS && leg !== "pictures" ? { generators: GENERATORS } : {}) }, files, hours: 1.5 });
   mkdirSync(out, { recursive: true });
   writeFileSync(join(out, "answer.md"), `${r.answer.trim()}\n`);
   const { all, newest: newestOf } = filesOf(r.work);
@@ -211,8 +215,58 @@ async function reproduce(kind, s, leg) {
       kept.push(want);
     }
   }
-  writeFileSync(join(out, "run.json"), `${JSON.stringify({ kit, model: r.model, generators: GENERATORS && leg !== "pictures" ? "generate" : null, seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, built: kept }, null, 1)}\n`);
+  writeFileSync(join(out, "run.json"), `${JSON.stringify({ kit, model: r.model, generators: GENERATORS && leg !== "pictures" ? "generate" : null, seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, built: kept, folder: r.folder, revision: revision ? revision.round : null }, null, 1)}\n`);
   return `${kind}/${s.id}:${leg}: ${r.seconds} s, built ${kept.join(", ") || "nothing"}`;
+}
+
+// ── revisions: the maker comes back to its work with a person's notes ─────────
+
+/**
+ * What a person says of a build that is not yet right, from its judgement: each line the judge scored under 2,
+ * in the judge's own words with the rubric's names left out, and each measure that failed it, as the measure
+ * says it. The maker is never told a score or an item's name: it is to mend the thing, not please the judge.
+ */
+function notesOf(j) {
+  const notes = Object.values(j.scores ?? {}).filter((v) => v.score < 2).map((v) => v.reason.replace(/\b[MWCPOSRT]\d\b:?\s*/g, "").trim());
+  const m = j.measured ?? {};
+  if (/told apart/.test(m.lineupTest ?? "")) notes.push("Beside three of the game's own of its kind, at one scale and in one light, people pick it out as the one not made by Valve: it does not yet look like the game's own.");
+  if (typeof m.sizeOff === "number" && m.sizeOff > 0.1) notes.push(`It is ${m.size?.join(" x ")} units where ${JSON.stringify(m.sizeAsked)} was asked: ${Math.round(m.sizeOff * 100)}% off.`);
+  if (m.halfLifeMost && m.triangles > m.halfLifeMost) notes.push(`It has ${m.triangles} triangles, more than any of the game's own of its kind (${m.halfLifeMost}).`);
+  return notes;
+}
+
+/** The words of a revision: what was made, what the person says, what to do. */
+const revisionWords = ({ answer, notes }) => `THIS IS A REVISION. You made this before; the work folder is as you left it (its specs, its files). What you said then:
+
+${answer.trim()}
+
+The person looked at it, in pictures from every side, in the hands, in motion and beside the game's own, and says:
+
+${notes.map((n) => `- ${n}`).join("\n")}
+
+Change what they say, keep what is right, and build again until the build says OK. Then say what you changed.`;
+
+/**
+ * A subject's brief leg made, then judged and revised until it passes, `most` rounds in all, or two rounds in a
+ * row gain nothing: how many rounds a build takes to come right. rounds.json says each round's total.
+ */
+async function rounds(kind, s, most) {
+  const out = join(folderOf(kind, s.id), "brief");
+  if (!existsSync(join(out, "run.json")) || again) console.log(await reproduce(kind, s, "brief"));
+  const record = [];
+  for (let round = 1; ; round++) {
+    const j = await judgeBrief(kind, s, join(out, "built"));
+    writeFileSync(join(out, "judge.json"), `${JSON.stringify(j, null, 1)}\n`);
+    const run = JSON.parse(readFileSync(join(out, "run.json"), "utf8"));
+    record.push({ round, total: j.total ?? 0, of: j.of, passes: Boolean(j.passes), failedByMeasure: j.failedByMeasure ?? null, cost: run.cost, seconds: run.seconds });
+    writeFileSync(join(out, "rounds.json"), `${JSON.stringify(record, null, 1)}\n`);
+    console.log(`${kind}/${s.id} round ${round}: ${j.error ?? `${j.total} of ${j.of}, ${j.passes ? "PASSES" : "fails"}`}`);
+    const gained = (k) => record.length > k && record.at(-1).total > record.at(-1 - k).total;
+    if (j.passes || round >= most || (round >= 3 && !gained(1) && !gained(2))) return record;
+    const notes = notesOf(j);
+    const answer = readFileSync(join(out, "answer.md"), "utf8");
+    console.log(await reproduce(kind, s, "brief", { round: round + 1, notes, answer, start: join(run.folder, "work") }));
+  }
 }
 
 // ── the judge ─────────────────────────────────────────────────────────────
@@ -367,7 +421,10 @@ if (step === "inputs") for (const kind of kinds) for (const s of chosen(kind)) c
 else if (step === "describe") await pool(kinds.flatMap((k) => chosen(k).filter((s) => again || !existsSync(join(folderOf(k, s.id), "words.md"))).map((s) => () => describe(k, s))), 6);
 // with the generators, one maker at a time: each server keeps a worker of its own, a shape's near 20 GB
 else if (step === "reproduce") await pool(kinds.flatMap((k) => chosen(k).flatMap((s) => LEGS.map((leg) => () => reproduce(k, s, leg)))), GENERATORS ? 1 : 4);
-else if (step === "judge") {
+// a brief leg revised until it passes: node held.mjs rounds weapons crowbar [--most 5]
+else if (step === "rounds") {
+  for (const k of kinds) for (const s of chosen(k)) await rounds(k, s, MOST);
+} else if (step === "judge") {
   const jobs = [];
   for (const k of kinds)
     for (const s of chosen(k)) {
@@ -391,4 +448,4 @@ else if (step === "judge") {
       );
   }
   await pool(jobs, 4);
-} else console.log("node examples/reproduce/held.mjs inputs|describe|reproduce|judge [weapons|characters] [subject ...] [--again]");
+} else console.log("node examples/reproduce/held.mjs inputs|describe|reproduce|judge|rounds [weapons|characters] [subject ...] [--again] [--most n]");

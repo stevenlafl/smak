@@ -2,7 +2,7 @@
 // SMAK MCP server, with or without the game's .wad folder; reading one folder of pictures), and nothing of
 // this kit's folders, Valve's files or this session. Used by describe.mjs, reproduce.mjs and judge.mjs.
 import { spawn } from "node:child_process";
-import { mkdtempSync, mkdirSync, writeFileSync, existsSync, copyFileSync, readFileSync, readdirSync } from "node:fs";
+import { mkdtempSync, mkdirSync, writeFileSync, existsSync, copyFileSync, readFileSync, readdirSync, cpSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { join, dirname } from "node:path";
 import { tmpdir } from "node:os";
@@ -16,10 +16,12 @@ import { KIT, GAME, SDHLT, STEAM } from "./lib.mjs";
 // An agent given the MCP server is a maker, and runs on the makers' model unless told: every leg's script gets
 // SMAK_MAKER_MODEL without passing it (the blueprint leg once ran on Opus when Haiku was asked). Judges and
 // describers have no server and name their own.
-export async function runAgent({ prompt, read = null, server = null, files = {}, hours = 1, model = server ? MAKER_MODEL ?? undefined : undefined }) {
+export async function runAgent({ prompt, read = null, server = null, files = {}, hours = 1, model = server ? MAKER_MODEL ?? undefined : undefined, start = null }) {
   const folder = mkdtempSync(join(tmpdir(), "smak-repro-"));
   const work = join(folder, "work");
   mkdirSync(work);
+  // a revision: the maker comes back to the work folder it left, as a person comes back to a project
+  if (start) cpSync(start, work, { recursive: true });
   for (const [to, from] of Object.entries(files)) {
     mkdirSync(dirname(join(work, to)), { recursive: true });
     copyFileSync(from, join(work, to));
