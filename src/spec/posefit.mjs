@@ -57,22 +57,32 @@ function targetOf(view) {
   return { width, cells, axes: viewAxes(view.yaw, view.pitch) };
 }
 
-/** The model's outline in a view, its triangles posed: a grid CELLS high at its own proportions. */
-function outlineOf(tris, axes) {
+/**
+ * Triangles' outline in a view: a grid of cells, 1 where a triangle covers a cell's middle. Unless `frame` is
+ * given, CELLS high at the triangles' own proportions; `frame: { a0, h1, k, width, height }` lays them on a grid
+ * of one's own (k cells a unit, a0 and h1 its left and top in the view's units), so that several sets share it.
+ */
+export function outlineOf(tris, axes, frame) {
   const { right, up } = axes;
   const dot = (p, a) => p[0] * a[0] + p[1] * a[1] + p[2] * a[2];
   const pts = tris.map((t) => t.map((p) => [dot(p, right), dot(p, up)]));
-  let [a0, a1, h0, h1] = [Infinity, -Infinity, Infinity, -Infinity];
-  for (const t of pts) for (const [a, h] of t) [a0, a1, h0, h1] = [Math.min(a0, a), Math.max(a1, a), Math.min(h0, h), Math.max(h1, h)];
-  const k = CELLS / (h1 - h0 || 1);
-  const width = Math.max(1, Math.round((a1 - a0) * k));
-  const cells = new Uint8Array(width * CELLS);
+  let a0, h1, k, width, height;
+  if (frame) ({ a0, h1, k, width, height } = frame);
+  else {
+    let [a1, h0] = [-Infinity, Infinity];
+    [a0, h1] = [Infinity, -Infinity];
+    for (const t of pts) for (const [a, h] of t) [a0, a1, h0, h1] = [Math.min(a0, a), Math.max(a1, a), Math.min(h0, h), Math.max(h1, h)];
+    k = CELLS / (h1 - h0 || 1);
+    width = Math.max(1, Math.round((a1 - a0) * k));
+    height = CELLS;
+  }
+  const cells = new Uint8Array(width * height);
   for (const t of pts) {
     const q = t.map(([a, h]) => [(a - a0) * k, (h1 - h) * k]);
     const [A0, B, C] = q;
     const area2 = (B[0] - A0[0]) * (C[1] - A0[1]) - (C[0] - A0[0]) * (B[1] - A0[1]);
     if (Math.abs(area2) < 1e-9) continue;
-    for (let y = Math.max(0, Math.floor(Math.min(A0[1], B[1], C[1]))); y <= Math.min(CELLS - 1, Math.ceil(Math.max(A0[1], B[1], C[1]))); y++)
+    for (let y = Math.max(0, Math.floor(Math.min(A0[1], B[1], C[1]))); y <= Math.min(height - 1, Math.ceil(Math.max(A0[1], B[1], C[1]))); y++)
       for (let x = Math.max(0, Math.floor(Math.min(A0[0], B[0], C[0]))); x <= Math.min(width - 1, Math.ceil(Math.max(A0[0], B[0], C[0]))); x++) {
         const w1 = ((x + 0.5 - A0[0]) * (C[1] - A0[1]) - (C[0] - A0[0]) * (y + 0.5 - A0[1])) / area2;
         const w2 = ((B[0] - A0[0]) * (y + 0.5 - A0[1]) - (x + 0.5 - A0[0]) * (B[1] - A0[1])) / area2;

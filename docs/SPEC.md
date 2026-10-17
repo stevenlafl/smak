@@ -491,6 +491,12 @@ the front, not a corner), and a part the pictures show stands where they show it
   on several bones is pulled apart in the base's runs and walks, between the bones it names. A garment carved or
   blended into one surface with the limbs under it (a coat, a robe, a skirt) tears so: carve the garment alone
   (`clip` at its hem) and build the limbs under it as parts of their own, as the game's own characters are made.
+- `WARN ... no outline from any side changes with it`: a part that, seen from every side at the size the game shows
+  it (2 cells a unit), adds next to nothing to the outline, and costs more than 24 triangles. Valve keeps such a
+  piece only as a few flat triangles (a lens in front of the face, teeth, a sole: 24 at most) and paints the rest:
+  a tie, a belt, buttons, the folds of cloth (`research/paint-or-geometry.md`). Paint it on the part it lies on
+  (`print`, `marks`, the material's detail), give it `paint: true`, or make it a few flat triangles. A part buried
+  in another (a hand inside its sleeve) is said so too.
 - `FAULT height ... where the spec asks`: the size is not what was asked.
 - `fact from the lowest part up`: each part's height from and to. A roof under a floor is a stack built
   upside down.

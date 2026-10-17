@@ -25,6 +25,7 @@ import { HANDS } from "../fit.mjs";
 import { indexed, shrink, masked } from "../image.mjs";
 import { check } from "../check.mjs";
 import { readStudio } from "../studio-file.mjs";
+import { outlineShares, OUTLINE_CELLS_MOST, GAME_CELLS_A_UNIT, UNSEEN_TRIS_MOST } from "./outline-parts.mjs";
 import { readMdl, bones as bonesOf, sequences as sequencesOf, addMesh, replaceMesh, inverse34, apply34, mul34, readSequence, replaceSequence, events as eventsOf, setEvents } from "../mdl.mjs";
 import { buildSoundSpec } from "./sound.mjs";
 import * as A from "../animate.mjs";
@@ -1982,6 +1983,13 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
     if (off > SIZE_ERROR) report.faults.push(`${said}: off by ${Math.round(off * 100)}%`);
     else if (off > SIZE_WARN) warnings.push(`${said}: off by ${Math.round(off * 100)}%`);
   }
+
+  // what a player sees of each part: one that changes no outline from any side, at the size the game shows it,
+  // Valve keeps only as a few flat triangles, and paints the rest (research/paint-or-geometry.md)
+  const shares = outlineShares(meshes.flatMap((mesh) => mesh.tris.map((t, i) => ({ p: t.map((c) => c.p), part: String(mesh.partOf?.[i] ?? "").split(".")[0] }))));
+  const unseen = Object.entries(shares).filter(([part, share]) => part && share.most <= OUTLINE_CELLS_MOST && share.tris > UNSEEN_TRIS_MOST);
+  if (unseen.length)
+    warnings.push(`${unseen.map(([part, share]) => `${part} (${share.tris} triangles${share.most ? "" : ", buried in another part: nothing of it shows"})`).join(", ")}: no outline from any side changes with ${unseen.length > 1 ? "them" : "it"} at the size the game shows it (${OUTLINE_CELLS_MOST} cells or fewer at ${GAME_CELLS_A_UNIT} a unit), and Valve spends at most ${UNSEEN_TRIS_MOST} triangles on such a piece: paint it on the part it lies on (print, marks, the material's detail), or make it a few flat triangles, as Valve paints a tie, a belt, buttons and the folds of cloth`);
 
   // the shape's soundness, part by part, before it is written
   // a carved hull may come apart where its outlines do (a creature's claws): its pieces are what was seen

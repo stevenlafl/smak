@@ -58,12 +58,22 @@ function namesOf(name) {
   return out;
 }
 
-/** The name among `names` that is the bone `name` stands for, in whichever language; null when none is. */
+/** A Biped bone's name with its root's number left out: "Bip02 L Leg" and "Bip01 L Leg" are one bone. */
+const rootless = (name) => name.toLowerCase().replace(/^bip\d+(\s|$)/, "bip$1");
+
+/**
+ * The name among `names` that is the bone `name` stands for, in whichever language and under whichever Biped root
+ * (Valve's scientist is rooted at Bip02); null when none is.
+ */
 export function boneIn(name, names) {
   if (typeof name !== "string") return null;
   const list = [...names];
   for (const each of namesOf(name)) {
     const found = list.find((n) => n === each) ?? list.find((n) => n.toLowerCase() === each.toLowerCase());
+    if (found) return found;
+  }
+  for (const each of namesOf(name)) {
+    const found = list.find((n) => rootless(n) === rootless(each));
     if (found) return found;
   }
   return null;
