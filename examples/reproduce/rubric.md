@@ -415,3 +415,9 @@ walk test, not the game.
   the same noise read 0.948 at 11025 and 0 at 22050, and the game's own cbar_miss1 (22050) 0.078 where at 11025 it
   reads 0.146. It is now taken under 5512 Hz, the top of the game's slowest rate, and the classes' rows measured
   again. Results judged before keep their scores.
+- **2026-10-17, later: the wrench stands beside the crowbar.** The original mod's wrench takes the crowbar's place,
+  and its line-up took the three of the game's weapons nearest its size: the MP5, the shotgun and the .357. Any
+  tool among three guns is the odd one out (the line-up caught Valve's own crowbar so on 2026-10-16), and every
+  wrench of every round was "told apart" by all four readings. A line-up may now keep the game's own of the very
+  kind among its three (`beside`): the wrench's keeps the crowbar, and two weapons nearest its size. Results
+  judged before keep their scores.

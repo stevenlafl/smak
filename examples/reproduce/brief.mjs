@@ -79,11 +79,16 @@ export function ownOfKind(kind, root = GAME, files) {
   throw new Error(`ownOfKind: no models of kind ${kind}`);
 }
 
-/** The three of `list` nearest in size, drawn at one scale with ours, in a shuffled line-up; where ours is. */
-function lineupOf(ours, list, dir, name) {
+/**
+ * The three of `list` nearest in size, drawn at one scale with ours, in a shuffled line-up; where ours is. `beside`:
+ * files of `list` that are always among the three, the game's own of the very kind (a wrench in the crowbar's
+ * place stands beside the crowbar, not among three guns, where any tool is the odd one out).
+ */
+function lineupOf(ours, list, dir, name, beside = []) {
   const { size } = boxOf(ours);
   const d = Math.hypot(...size);
-  const near = list.filter((x) => x.src !== ours).sort((a, b) => Math.abs(a.diagonal - d) - Math.abs(b.diagonal - d)).slice(0, 3);
+  const kept = list.filter((x) => beside.includes(x.file));
+  const near = [...kept, ...list.filter((x) => x.src !== ours && !beside.includes(x.file)).sort((a, b) => Math.abs(a.diagonal - d) - Math.abs(b.diagonal - d))].slice(0, 3);
   const all = [{ src: ours, ours: true }, ...near];
   let seed = [...name].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 11);
   const order = all.map((x) => ({ x, k: (seed = (seed * 1103515245 + 12345) >>> 0) })).sort((a, b) => a.k - b.k).map((o) => o.x);
@@ -193,12 +198,12 @@ function spentBy(list) {
  * measured. `byKind`: a model that is no prop (a creature built as a model) is held to the triangles of `list`.
  * `replaces`: the game's own model it takes the place of, whose triangles count among Valve's most.
  */
-export async function judgeModelAgainstBrief(kind, label, src, dir, { brief, what, asked, list, extra = {}, extraPictures = "", sizeFrom, byKind = false, replaces }) {
+export async function judgeModelAgainstBrief(kind, label, src, dir, { brief, what, asked, list, extra = {}, extraPictures = "", sizeFrom, byKind = false, replaces, beside = [] }) {
   mkdirSync(dir, { recursive: true });
   const pictures = picturesOf(src, { size: 384 });
   savePng(join(dir, "sides.png"), tile(pictures.map((p) => p.picture), 5, pictures.map((p) => p.name)));
   const size = sizeFrom ?? boxOf(src).size;
-  const line = lineupOf(src, list, dir, label);
+  const line = lineupOf(src, list, dir, label, beside);
   const told = await detect(dir, line, label);
   const triangles = trianglesOf(src);
   // what Half-Life's own of its kind spend: a prop by its size (PROP_TRIANGLES, measured over the game's props); any
