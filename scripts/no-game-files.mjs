@@ -11,6 +11,9 @@
 //   2. a game texture taken out as a picture: a tracked PNG or BMP whose pixels (as RGB) are a texture's of a
 //      game .wad, a texture inside a game .mdl, or (at the same size) any of those cut to 256 colours
 //   3. a game sound copied as samples: a tracked .wav whose samples, read as numbers, are a game sound's
+//   4. a judge's picture: any picture under a reproduction test's judge folder, kept round or not. Its line-ups
+//      and sound pictures draw the game's own models and sounds beside the made ones, which no pixel match
+//      finds (955 of them came in through kept rounds' folders, 2026-10-17)
 // It prints what it found and exits 1 on any match. Nothing is written. The game's folders are only read.
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
@@ -102,6 +105,7 @@ const found = [];
 for (const { name: shown, ext: extOf, read, path } of tracked) {
   if (path && (!existsSync(path) || !statSync(path).isFile())) continue;
   const name = shown;
+  if (/^examples\/reproduce\/.*\/judge\/.*\.(png|bmp|jpe?g|gif)\b/i.test(extOf)) found.push(`${name}: a judge's picture, drawn beside the game's own`);
   const bytes = read();
   const same = bytesOf.get(sha(bytes));
   if (same) found.push(`${name}: the same bytes as ${same}`);
