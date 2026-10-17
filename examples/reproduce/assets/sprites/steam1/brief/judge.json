@@ -18,23 +18,23 @@
     64
    ],
    "border": {
-    "max": 0.255,
-    "mean": 0.004
+    "max": 0,
+    "mean": 0
    },
    "envelope": {
     "peakAt": 0.33,
-    "first": 0.09,
+    "first": 0.07,
     "last": 0
    },
-   "dark": 0.75,
-   "wrap": 0.45,
-   "jitter": 1.11
+   "dark": 0.83,
+   "wrap": 0.41,
+   "jitter": 1
   },
   "class": "smoke puff",
   "againstClass": [
    {
     "measure": "jitter",
-    "value": 1.11,
+    "value": 1,
     "range": [
      0.9,
      1.5
@@ -44,7 +44,7 @@
    },
    {
     "measure": "border",
-    "value": 0.004,
+    "value": 0,
     "range": [
      0,
      0.005
@@ -64,7 +64,7 @@
    },
    {
     "measure": "first",
-    "value": 0.09,
+    "value": 0.07,
     "range": [
      0,
      0.35
@@ -100,34 +100,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Reads as a steam or smoke puff: a lumpy cloud that swells from a small dot in frame 0 to a full cloud by frames 3 to 7, then breaks up and thins in frames 11 to 14. That is the effect the brief asks for."
+   "reason": "Reads as a steam puff: a soft, lumpy white-grey cloud that swells from frame 0 to a peak around frames 4 to 5, then thins and breaks into fragments by frames 11 to 14. That is the swell-and-thin-as-it-fades the brief asks for. It is a smoke puff in the class's sense, with no glow or flame."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Frames are the 64 x 64 size the measurements give. The puff sits centred with a grey margin on every side and fills about a third of the frame at its peak (frames 3 to 5), which is a plausible fill for a puff sprite."
+   "reason": "The frames are square at 64 by 64. At peak (frames 4 to 6) the cloud fills most of the frame, and it is smaller at frame 0 and wider than tall at frame 9. The effect fills its frames as a puff of this kind does, with no part cut off at the edges."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Colours match the brief: near-white at the peak (frames 3 to 5), greying through frames 6 to 10, and a dim grey-white in the last frames. The background is the harness's grey backdrop, not part of the sprite. The measured mean colour is not given, so this is judged by eye."
+   "reason": "Judged by eye, the colours are the brief's: frame 0 is a mid grey, the peak frames 4 and 5 are near-white, and the tail frames 7 to 10 are light grey shading into darker grey in the body. The blend against the backdrop shows the same white-and-grey range the brief describes."
   },
   "R4": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The frame count (16) and the envelope (peak at about 0.33, first 0.09, last 0) fit a puff class, and it does fade to dark by frame 15. But the brief asks for steam that rises as it thins. The puff drifts up only about 20 px over frames 0 to 5, then stays in place and drops back slightly by frame 7, so the rising is weak and visibly off."
+   "score": 2,
+   "reason": "Measured: 16 frames, which the measures take as the class's count. The envelope peaks at 0.33 (inside 0.2 to 0.6) and the first frame is at 0.07 (inside 0 to 0.35). The last frame is empty (last 0, inside 0 to 0.1), so the one-shot ends dark. Border is 0 and jitter is 1, both inside their ranges. The motion is a grow, a peak and a fade, as the brief asks."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type is parallel oriented and format is index alpha, matching the game's steam1 file as the measurements report. Same name, and it reads back as written."
+   "reason": "Type 'parallel oriented' and format 'index alpha' match the game's own file (gameType and gameFormat agree). The name is the same (sameName true), and the file reads back as written (readsBack true)."
   }
  },
- "total": 9,
+ "total": 10,
  "of": 10,
- "passes": false
+ "passes": true
 }

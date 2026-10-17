@@ -5,79 +5,31 @@
  "label": "9mmhandgun, in the place of the game's models/v_9mmhandgun.mdl, models/p_9mmhandgun.mdl, models/w_9mmhandgun.mdl",
  "measured": {
   "size": [
-   12.2,
-   2,
-   11.8
+   11.9,
+   1.9,
+   11.1
   ],
-  "sizeAsked": null,
-  "sizeOff": null,
-  "triangles": 12,
+  "sizeAsked": {
+   "long": 10
+  },
+  "sizeOff": 0.19,
+  "triangles": 6,
   "halfLifeMedianOfItsKind": 142,
   "halfLifeThreeQuartersUnder": 187,
+  "halfLifeMost": 291,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/w_grenade.mdl, models/w_satchel.mdl, models/w_357.mdl: the judge does not know which"
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_grenade.mdl, models/w_satchel.mdl, models/w_357.mdl",
+  "lineupTest": "asked 3 times, each in another order, which of the four was not made by Valve: judges picked B, A, D where the asset was B, D, A: passed for one of the game's"
  },
  "caps": {
-  "M2": 2,
-  "M8": 2
+  "M2": 1,
+  "M8": 2,
+  "M6": 2
  },
- "scores": {
-  "M1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The outline is a flat slab in every view (front, left, right, back, top, below, the four angles). It is a rectangle about 6:1 in plan-to-thickness, with no grip, no barrel, no slide and no trigger guard sticking out. The brief's 9mm pistol has a silhouette none of these views show."
-  },
-  "M2": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "The brief gives no size (sizeAsked null), so nothing can be measured against it. Against a pistol's real proportions the slab is clearly off: it is about as wide as it is long and only 2 units thick, where a pistol is roughly twice as long as it is wide."
-  },
-  "M3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The brief asks for a pistol's parts: slide, barrel, grip, trigger, trigger guard, magazine and sights (hammer and safety as small parts). The asset has one part, a single closed box with a bevelled rim. Every part is missing."
-  },
-  "M4": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The whole surface is one flat mid grey, which reads as the brief's steel. The brief's black polymer region (the grip and frame) is absent, so one of the two named materials is missing from the surface."
-  },
-  "M5": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The brief names no markings, but a pistol's form carries slide serrations, grip texture and a trigger detail. The surface is a plain grey with a faint blotch pattern and none of these, so it is clearly off for the weapon the brief describes."
-  },
-  "M6": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "In the line-up (lineup.png) it is A, the flat grey slab, beside a grenade, a revolver and a satchel. Nobody would take a flat grey plate for a game model, and it is the only one of the four that reads as a block of nothing. The judge would not pick it for a 9mm pistol."
-  },
-  "M7": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The brief's pistol has a front (muzzle end), a grip and an upright orientation. The box has no discernible front: all four sides are the same plain bevelled rim, and in first-person it is held like a block, not as a gun's front-up grip."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "SMAK's check reports no errors. At 12 triangles it is far under twice the median triangles of Half-Life's weapons, and a closed box shows no open, inside-out or floating faces in any view."
-  },
-  "W1": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "In first-person.png the box sits in the right hand's fingers at the same general spot as the game's pistol, the same way round, and it stays in the hand through the attack frames. It is a plate held at its base, though, not gripped as a pistol is; the hand does not wrap a grip, and the box stands well above the hand where a pistol would sit lower."
-  }
- },
- "total": 6,
- "of": 18,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M2"
+ ],
+ "total": 0,
+ "of": 18
 }

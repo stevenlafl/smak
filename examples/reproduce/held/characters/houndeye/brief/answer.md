@@ -1,26 +1,22 @@
-The model is built and the build says OK: `work:houndeye.mdl` (516 KB, with a spec file beside it, `houndeye.spec.json`). Put it in the mod's `models/` folder under the name `houndeye.mdl`. Because it replaces the game's file of that name, the mod's code needs no change to load it.
+The model is built and the build says OK: `work:houndeye.mdl` (707 KB), with the spec at `work:houndeye.spec.json`. It is a character on Gordon's skeleton (`player/gordon/gordon.mdl`), with `floor: 0`, and its animations are Gordon's, unchanged.
 
-**What I made**
+**What it is**
 
-- **Skeleton:** the game's `bullsquid.mdl`, kept as a character on its skeleton with `floor: 0`, so the feet stand at the origin. I chose it over Gordon's because the bullsquid's leg joints are about the right height for a squat 45-unit creature. Gordon is a biped and would not read as a monster of this shape. The headcrab's skeleton was about half the scale. Every one of the bullsquid's animations is kept with its number and length. Six of them live in separate files, which the kit cannot edit, and they are kept as they are.
-- **Body:** a yellowish hide (a leather material tinted pale yellow) on a rigid, rounded body that hangs on the spine. Dark stripes run along the back and sides, with a few dapples. These are painted marks, not geometry.
-- **Head and eye:** a blob head on the neck, with one large dark red eye on the front, built as a sphere.
-- **Legs:** three thin legs. Two are at the rear, one on each side, and one is at the front on the left.
-- **Size:** 53 long, 45 wide, 46.5 tall. The brief asked for 49 long and 45 tall.
+- **Body:** one soft yellow body, built as a blob (one smooth surface) from a long torso, a rump, a head and the legs. It is in the yellow leather material with a dull yellow tone.
+- **Legs:** three thin legs. Two are on Gordon's left and right legs, and the third hangs from the middle rear of the body. The skeleton has only two legs, so the third is a shape on the body that follows the pelvis and spine; it does not have bones of its own.
+- **Eye:** one large dark red sphere, 10 units across, on the front of the head.
+- **Size:** 50.5 long, 47 tall (the feet are at -1 to 46), against 49 and 45 asked for. Both are within the 10% the check allows, so no warning.
+- **Triangles:** 644. Half-Life's own houndeye is about 308, and the check's fault line for a character is 724 (twice Gordon's 362). It is under the line, but heavier than the game's own.
 
-**What the check said**
+**What is missing**
 
-- Length is 53.1 against the 49 asked for, which is 8% over. That is within the 10% the kit allows without a warning. I could not get it closer. The bullsquid's rear feet sit far back, at 26 units behind the origin, so the body could not come forward without the legs floating.
-- Height is 46.5 against 45, also inside the tolerance.
-- No faults, no open edges, and no floating parts across the run and walk frames.
+- **Stripes and dapple:** not done. I tried a hazard material (the yellow and black warning-tape pattern) and then a wide-stripe version. Both looked like tape or a zebra, so I went back to plain yellow leather. The only mottling is the leather's own grain. A real striped hide would need a photograph of hide as the material (the spec's `picture` field), and I have none.
+- **Arms:** not built. Gordon's arms still animate, but nothing shows them.
+- **Charge and sonic blast:** the model has no such animation. It keeps Gordon's 77 animations, such as run2 and walk2handed, so the mod's code must play those by number or activity, not Half-Life's houndeye sequences. This matters most when the file replaces `houndeye.mdl` in the game.
 
-**Where it will differ from the game**
+**Checks**
 
-- **The third leg is a stilt.** The bullsquid's rear feet are joints that are far apart, so each rear leg is a span from the hip to the knee, with a straight post from the knee down to the floor. The front leg uses the same arrangement, from a limb joint down. The posts do not bend, so in motion the feet will look like they slide. The post is attached to the knee and moves with it.
-- **No sonic blast.** The model has no blast animation of its own. Its attack has to come from the mod's code, using an animation the bullsquid already has, or a new one.
-- **Pictures are plain stand-ins.** The kit draws the model with a flat lighting picture. I could not run the game, so how it looks beside Half-Life's own, and whether it moves convincingly, has to be judged in the game.
+- The build's only warning is about colour: the texture is more saturated and paler than Valve's models. That follows from asking for yellow.
+- I could not run it in the game. The pictures and the animation strips show a plausible, low, squat body with a big front eye, and the feet stay on the floor through the run and walk frames. That is all I can verify here.
 
-**Things you may want to check**
-
-- The file `work:probe_bullsquid.mdl` is a scratch build from my first test. Ignore it or delete it.
-- If the mod's hull or speed is tied to the game's houndeye, those values belong to the mod's code and are not set by this file.
+Whether it is at least as good as Half-Life's own is for the modder to judge in the game. My honest read: the silhouette is close and the size is right, but the hide is plain and flatter than the game's, so it is likely not better on looks. Stripes would take a hide photograph, and the modder's code would need to map its animations onto Gordon's.

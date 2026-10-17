@@ -90,31 +90,31 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Not an explosion. The frame (frames.png, the only frame, labelled 0 in its top-left corner) is a uniform light grey field with no fire, burst, billow or glow anywhere in it. The brief asks for a ball of fire that bursts and burns away, and nothing of that is drawn."
+   "reason": "The brief asks for an explosion: a fireball that bursts, billows into lobes and burns away. The single frame in frames.png is a flat light grey field with a small dark box holding a '0' label. No fireball, burst, lobes or burn-out is drawn."
   },
   "R2": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The frame is 64 x 64, which matches the stated size, but the effect that should fill it is missing. The whole frame is flat grey at the edges and centre, so nothing fills it as an explosion would. The measured border mean of 0.784 confirms the frame is a light, empty field."
+   "reason": "Nothing fills the 64 x 64 frame as an effect would. The whole frame is one even light grey, so there is no shape to judge against a fireball's size or edge, and the measured border (0.784, light at the edge) confirms the frame is lit everywhere."
   },
   "R3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "No fire colours are present: the frame is one neutral light grey. With additive blending that adds a bright grey wash to whatever is behind it, not the yellow-white core fading to orange and dark red an explosion needs. The brief's colours are absent."
+   "reason": "An additive explosion should read as fire: bright yellow, orange and red that fade toward dark. The frame is a neutral pale grey with no warm hue and no bright core, so the colour the brief asks for is absent."
   },
   "R4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Motion is absent. This is one frame, where the brief asks for a burst, a billow and a burn-away. The measured envelope fails every check: peak at 0 (the rubric wants 0.22 to 0.71), first frame at 1 (an attack, not a decay), last frame at 1 (it does not end dark). The measure is not just short here; it shows the wrong envelope."
+   "reason": "It is one frame, so there is no burst, growth, billowing or burn-out. Against the explosion class, the measured envelope fails every check: peak at 0 (class 0.22 to 0.71), first 1 (class 0 to 0.22, an attack in its envelope), last 1 (class 0 to 0.03, it does not end dark). The frame is still at full brightness."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Fit for the game holds on the measurements. Type is parallel and format is additive, matching the game's own (gameType and gameFormat both parallel and additive), the name is the same (sameName true), and the file reads back as written (readsBack true). Nothing in the picture contradicts this."
+   "reason": "The file is type parallel and format additive, which matches the game's own type and format (gameType and gameFormat), keeps the name zerogxplode.spr, and reads back as written (sameName and readsBack true). The fit with the game is right, even though the content is not."
   }
  },
  "total": 2,

@@ -1,0 +1,118 @@
+{
+  "spec": "smak.model/1",
+  "name": "medkit.mdl",
+  "kind": "prop",
+  "size": {
+    "length": 35,
+    "width": 26,
+    "height": 7
+  },
+  "materials": {
+    "case": {
+      "base": "paint",
+      "tone": [
+        0.6,
+        0.6,
+        0.58
+      ]
+    },
+    "red": {
+      "base": "paint",
+      "tone": [
+        0.62,
+        0.08,
+        0.07
+      ]
+    },
+    "strap": {
+      "base": "paint",
+      "tone": "dark grey"
+    }
+  },
+  "finish": {
+    "light": 0.3,
+    "wear": 0.7,
+    "grime": 0.5,
+    "vary": 0.08
+  },
+  "parts": [
+    {
+      "id": "case",
+      "kind": "box",
+      "material": "case",
+      "size": [
+        35,
+        26,
+        5.5
+      ],
+      "panels": [
+        {
+          "face": "top",
+          "at": [
+            17.5,
+            13
+          ],
+          "size": [
+            12,
+            3.2
+          ],
+          "shape": "rect",
+          "style": "flat",
+          "material": "red"
+        },
+        {
+          "face": "top",
+          "at": [
+            17.5,
+            13
+          ],
+          "size": [
+            3.2,
+            12
+          ],
+          "shape": "rect",
+          "style": "flat",
+          "material": "red"
+        }
+      ]
+    },
+    {
+      "id": "handle",
+      "kind": "tube",
+      "material": "strap",
+      "path": [
+        [
+          -9,
+          10,
+          4.5,
+          0.9
+        ],
+        [
+          -9,
+          10,
+          6.1,
+          0.9
+        ],
+        [
+          0,
+          10,
+          6.1,
+          0.9
+        ],
+        [
+          9,
+          10,
+          6.1,
+          0.9
+        ],
+        [
+          9,
+          10,
+          4.5,
+          0.9
+        ]
+      ],
+      "sides": 6
+    }
+  ]
+}

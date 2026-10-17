@@ -16,70 +16,20 @@
   "triangles": 12,
   "halfLifeMedianOfItsKind": 504,
   "halfLifeThreeQuartersUnder": 731,
+  "halfLifeMost": 1640,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/hassassin.mdl, models/scientist.mdl, models/gman.mdl: the judge does not know which"
+  "lineup": "the asset is one of A to D in lineup.png beside models/hassassin.mdl, models/scientist.mdl, models/gman.mdl",
+  "lineupTest": "asked 3 times, each in another order, which of the four was not made by Valve: judges picked A, C, C where the asset was A, C, C: told apart"
  },
  "caps": {
   "M2": 2,
-  "M8": 2
+  "M8": 2,
+  "M6": 1
  },
- "scores": {
-  "M1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The outline is one rectangular box in all ten views (sides.png: FRONT, LEFT, BACK, RIGHT are the same rectangle; FRONT-LEFT and the other angles show a plain slab). The brief asks for a stocky man with head, arms, legs, a helmet and a vest, and none of that outline is present."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The brief gives only a height, about 75. The measured height is 75.3, which is within 0.4%. The brief gives no length or width, so those cannot be checked. The 22.8 by 30.2 footprint is not a figure the brief asks for."
-  },
-  "M3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "Parts the brief asks for, all missing: head, two arms, two legs, a helmet, a bulletproof vest, a dark tie, a pistol holster on the belt, and the belt itself. The asset is one solid 12-triangle block with no sub-parts."
-  },
-  "M4": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The brief asks for a blue uniform shirt, a dark tie, grey trousers, a helmet and a vest, each a region of its own. The whole block is one uniform mid-grey stone-like texture (sides.png). The blue shirt, the dark tie and the black holster are absent."
-  },
-  "M5": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The brief names no surface markings. The asset's grey noise texture is there in every side, with no panel lines, seams, buttons, badge or tie detail a uniform would carry. That is a plain surface, clearly off for a uniformed guard, but nothing wrong is painted on it."
-  },
-  "M6": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "In lineup.png the asset (slot D) is the only plain block among four figures. A player would know at once it is not a Half-Life character. The judge could pick it out, so the line-up does not hide it."
-  },
-  "M7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The block stands upright on its base (sides.png, FRONT and FRONT-LEFT; motion.png shows it on the floor line). It has no face or front, so the brief's front (a man facing forward) cannot be found. Stands correctly, front not present."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "checkErrors is empty. The asset has 12 triangles, far below the limit of twice the median (about 1,008). The below view shows a closed box with no gaps, and nothing floats."
-  },
-  "C1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The brief asks for a man who runs and fights beside the player. motion.png labels the sequence 'IDLE 0/0' and shows one static block on the floor line in every frame. Nothing runs, and there is no body to move, so no part stays on a body through a run."
-  }
- },
- "total": 6,
- "of": 18,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M6"
+ ],
+ "total": 0,
+ "of": 18
 }

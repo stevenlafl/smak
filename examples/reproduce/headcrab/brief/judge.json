@@ -6,7 +6,7 @@
  "measured": {
   "size": [
    25.5,
-   21.6,
+   16.8,
    13
   ],
   "sizeAsked": {
@@ -14,67 +14,70 @@
    "high": 13
   },
   "sizeOff": 0.019,
-  "triangles": 288,
+  "triangles": 228,
   "halfLifeMedianOfItsKind": 308,
   "halfLifeThreeQuartersUnder": 340,
+  "halfLifeMost": 655,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/chumtoad.mdl, models/roach.mdl, models/leech.mdl: the judge does not know which"
+  "lineup": "the asset is one of A to D in lineup.png beside models/chumtoad.mdl, models/roach.mdl, models/leech.mdl",
+  "lineupTest": "asked 3 times, each in another order, which of the four was not made by Valve: judges picked D, A, C where the asset was C, C, C: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
-  "M8": 2
+  "M8": 2,
+  "M6": 2
  },
  "scores": {
   "M1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The overall outline fits the brief's low, splayed, four-legged crawler with a mouth beneath (FRONT, LEFT, FRONT-LEFT). It is short of the brief in two places: the legs read as thin, stiff spikes (LEFT, RIGHT) rather than legs, and the sharp front claws are absent from the outline (FRONT, FRONT-LEFT, FRONT-RIGHT show no claw tips at the front)."
+   "score": 2,
+   "reason": "Matches the brief's outline: a high domed cream shell (sides.png FRONT, LEFT, RIGHT) over four legs that reach out and down to the floor line (LEFT, FRONT-LEFT, BACK-RIGHT). The head sits forward under the shell, and nothing sticks out or is missing in any view."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured 25.5 long against the asked 26 (2% off) and 13 high against 13 (exact). Both are within 15%."
+   "reason": "Measured size 25.5 long and 13 high against the brief's 26 and 13, within 2% and 0%. Width is 16.8, which the brief does not give."
   },
   "M3": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Listed parts: fleshy body (present, one dome), four clawed legs (present as four tapering spikes, but with no distinct claws on their ends, as FRONT-LEFT and BACK-RIGHT show), a beak-like mouth underneath (present, the yellow-green cone visible in BELOW and TOP at the front), and sharp front claws (absent as a separate part; the front legs are the same spikes as the rear ones). A missing small part caps M3 at 1."
+   "score": 2,
+   "reason": "Brief parts checked: four legs (two pairs visible in LEFT, BACK, and TOP); the cream shell over the legs; two sharp red front claws, red-tipped front legs in FRONT, TOP and BELOW; a beak-like cone under the head in FRONT and BELOW. The claws are painted tips but read clearly at view size, so they count as there. The dome's facet count is not specified in the brief."
   },
   "M4": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The body is the tan the brief asks for, and the beak is a sensible yellow-green. But the surface is a matte, faceted, grainy texture that reads as wood, sand or cardboard (TOP, BELOW, FRONT), not fleshy skin. The brief's material is not conveyed on the body or legs."
+   "score": 2,
+   "reason": "Shell is a sand-tan that reads close to cream, slightly darker and more khaki than the brief's word. Head and legs are pale grey-white and the claws are clearly red. Nothing is clearly off from the brief's colours."
   },
   "M5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The brief asks for no markings, lettering or panel lines. The faint radial grain on the dome and legs adds nothing wrong, so this is scored 2 as a plain surface."
+   "reason": "The brief asks for no markings. The shell carries a faint streaked grain and the head and legs are plain. Nothing wrong is added on top of that."
   },
   "M6": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "In lineup.png the tan dome with four spikes and a yellow beak (B, which matches the sides views) is clearly unlike the three Half-Life items beside it. It is plausible as a crude Valve creature at a glance, but it is pale, flat-shaded and clean where the others are dark, grimy and organic, so a player would not take it for one of the game's."
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Capped at 2 by the rubric. The line-up test (asset at C in the test's runs; lineup.png places the asset at B) gave picks D, A, C: one correct identification and two Valve originals taken for the odd one. Read on the test alone, this is a pass in two of three runs, which is the rubric's cap case."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Upright in every side view, standing on its four legs. The beak and the yellow cone sit at the front, underneath (BELOW, FRONT-LEFT), which gives a clear front."
+   "reason": "Upright and standing on its legs as the brief describes. The front is the side with the forward head, beak and red claws (FRONT, LEFT). The body sits above the legs, which touch the floor line in the side views."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "SMAK's check returned no errors. 288 triangles is under the Half-Life median of 308 and well under the limit of 616 (twice the median, which is more than three quarters' 340). No open, inside-out or floating parts are visible in the sides or lineup views."
+   "reason": "checkErrors is empty. Triangles are 228, under twice the Half-Life median of 308 (616) and under the third quartile of 340. In every view the shell, head, beak and legs read as closed solids, with no open or floating part visible."
   }
  },
- "total": 12,
+ "total": 16,
  "of": 16,
- "passes": false
+ "passes": true
 }

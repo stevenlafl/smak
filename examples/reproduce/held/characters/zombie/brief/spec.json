@@ -9,10 +9,6 @@
   "size": {
     "height": 68
   },
-  "texture": {
-    "width": 256,
-    "height": 256
-  },
   "materials": {
     "coat": {
       "base": "cloth",
@@ -24,68 +20,76 @@
     },
     "skin": {
       "base": "paint",
-      "tone": [
-        0.42,
-        0.5,
-        0.36
-      ]
-    },
-    "parasite": {
-      "base": "paint",
-      "tone": [
-        0.5,
-        0.36,
-        0.22
-      ]
-    },
-    "claw": {
-      "base": "bone",
-      "tone": [
-        0.55,
-        0.5,
-        0.42
-      ]
+      "tone": "grey green"
     },
     "blood": {
       "base": "paint",
-      "tone": [
-        0.3,
-        0.03,
-        0.02
-      ]
+      "tone": "dark red"
+    },
+    "parasite": {
+      "base": "paint",
+      "tone": "dull yellow brown"
     }
   },
   "pose": {
+    "from": "walk",
+    "aim": {
+      "L arm": {
+        "out": 12,
+        "forward": 40,
+        "bend": 25
+      },
+      "R arm": {
+        "out": 10,
+        "forward": 45,
+        "bend": 30
+      }
+    },
     "keys": {
       "Bip01 Spine": {
         "turn": {
-          "y": -12
+          "y": 18
         }
       },
       "Bip01 Spine1": {
         "turn": {
-          "y": -12
+          "y": 18
+        }
+      },
+      "Bip01 Spine2": {
+        "turn": {
+          "y": 12
         }
       },
       "Bip01 Neck": {
         "turn": {
-          "y": -8
+          "y": 10
         }
       }
     }
   },
   "parts": [
     {
-      "id": "coat",
+      "id": "torso",
       "kind": "blob",
       "material": "coat",
-      "symmetric": true,
-      "triangles": 160,
+      "blend": 3,
+      "triangles": 110,
       "pieces": [
         {
           "span": [
             "Bip01 Pelvis",
             "Bip01 Spine"
+          ],
+          "radius": [
+            7.5,
+            8
+          ]
+        },
+        {
+          "span": [
+            "Bip01 Spine",
+            "Bip01 Spine2"
           ],
           "radius": [
             8,
@@ -94,13 +98,31 @@
         },
         {
           "span": [
-            "Bip01 Spine",
+            "Bip01 Spine2",
             "Bip01 Neck"
           ],
           "radius": [
             8.5,
-            7
+            5.5
           ]
+        },
+        {
+          "at": "Bip01 Spine3",
+          "radius": 8.5
+        }
+      ]
+    },
+    {
+      "id": "sleeves",
+      "kind": "blob",
+      "material": "coat",
+      "blend": 2.5,
+      "symmetric": true,
+      "triangles": 80,
+      "pieces": [
+        {
+          "at": "Bip01 L Arm",
+          "radius": 4.5
         },
         {
           "span": [
@@ -119,51 +141,38 @@
           ],
           "radius": [
             4,
-            3.5
+            3.2
           ]
         }
       ]
     },
     {
-      "id": "tail_front",
-      "kind": "leaf",
+      "id": "coat_tails",
+      "kind": "blob",
       "material": "coat",
-      "width": 4,
-      "height": 10,
-      "bend": 1,
-      "attach": {
-        "bone": "Bip01 Pelvis",
-        "at": "top",
-        "offset": [
-          4,
-          0,
-          -4
-        ]
-      }
-    },
-    {
-      "id": "tail_back",
-      "kind": "leaf",
-      "material": "coat",
-      "width": 4,
-      "height": 9,
-      "bend": 1,
-      "attach": {
-        "bone": "Bip01 Pelvis",
-        "at": "top",
-        "offset": [
-          -7,
-          0,
-          -4
-        ]
-      }
+      "blend": 2,
+      "symmetric": true,
+      "triangles": 50,
+      "pieces": [
+        {
+          "span": [
+            "Bip01 Pelvis",
+            "Bip01 L Leg1"
+          ],
+          "radius": [
+            7.5,
+            6
+          ]
+        }
+      ]
     },
     {
       "id": "legs",
       "kind": "blob",
       "material": "trousers",
+      "blend": 2,
       "symmetric": true,
-      "triangles": 90,
+      "triangles": 80,
       "pieces": [
         {
           "span": [
@@ -171,8 +180,8 @@
             "Bip01 L Leg1"
           ],
           "radius": [
-            5,
-            3.8
+            4.8,
+            4
           ]
         },
         {
@@ -181,35 +190,24 @@
             "Bip01 L Foot"
           ],
           "radius": [
-            3.8,
+            4,
             3
           ]
+        },
+        {
+          "at": "Bip01 L Foot",
+          "radius": 3.2
         }
       ]
     },
     {
-      "id": "flesh",
+      "id": "hands",
       "kind": "blob",
       "material": "skin",
+      "blend": 1.5,
       "symmetric": true,
-      "triangles": 80,
+      "triangles": 50,
       "pieces": [
-        {
-          "at": "Bip01 Head",
-          "radius": 5,
-          "offset": [
-            0.5,
-            0,
-            -0.5
-          ]
-        },
-        {
-          "span": [
-            "Bip01 Neck",
-            "Bip01 Head"
-          ],
-          "radius": 3.2
-        },
         {
           "span": [
             "Bip01 L Arm2",
@@ -217,104 +215,151 @@
           ],
           "radius": [
             2.6,
-            2
+            2.2
           ]
+        },
+        {
+          "at": "Bip01 L Hand",
+          "radius": 2.6
         }
       ]
     },
     {
-      "id": "parasite",
-      "kind": "blob",
+      "id": "head",
+      "kind": "sphere",
+      "radius": 6,
+      "sides": 8,
+      "material": "skin",
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "centre",
+        "offset": [
+          2,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "parasite_body",
+      "kind": "superquadric",
+      "size": [
+        13,
+        11,
+        9
+      ],
+      "round": [
+        1,
+        1
+      ],
+      "sides": 8,
       "material": "parasite",
-      "triangles": 110,
-      "pieces": [
-        {
-          "at": "Bip01 Head",
-          "radius": 6,
-          "offset": [
-            -0.5,
-            0,
-            0.5
-          ]
-        },
-        {
-          "span": [
-            "Bip01 Head",
-            "Bip01 Neck"
-          ],
-          "radius": [
-            3.5,
-            2.5
-          ]
-        },
-        {
-          "at": "Bip01 Head",
-          "radius": 2.8,
-          "offset": [
-            -4,
-            4.5,
-            -1
-          ]
-        },
-        {
-          "at": "Bip01 Head",
-          "radius": 2.8,
-          "offset": [
-            -4,
-            -4.5,
-            -1
-          ]
-        }
-      ]
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "bottom",
+        "offset": [
+          0,
+          0,
+          2
+        ]
+      }
     },
     {
-      "id": "claws_l",
+      "id": "claws_L",
       "kind": "fingers",
-      "material": "claw",
       "hand": "Bip01 L Hand",
-      "count": 4,
-      "length": 6,
+      "count": 3,
+      "length": 9,
       "radius": [
-        1,
-        0.4
+        1.1,
+        0.35
       ],
-      "spread": 35,
-      "curl": 45,
+      "spread": 40,
+      "curl": 40,
       "palm": 1.5,
-      "sides": 4
+      "sides": 3,
+      "material": "skin"
     },
     {
-      "id": "claws_r",
+      "id": "claws_R",
       "kind": "fingers",
-      "material": "claw",
       "hand": "Bip01 R Hand",
-      "count": 4,
-      "length": 6,
+      "count": 3,
+      "length": 9,
       "radius": [
-        1,
-        0.4
+        1.1,
+        0.35
       ],
-      "spread": 35,
-      "curl": 45,
+      "spread": 40,
+      "curl": 40,
       "palm": 1.5,
-      "sides": 4
+      "sides": 3,
+      "material": "skin"
     },
     {
       "id": "blood_chest",
-      "kind": "box",
-      "size": [
-        1,
-        6,
-        8
-      ],
+      "kind": "sphere",
+      "radius": 4.5,
+      "sides": 8,
       "material": "blood",
       "paint": true,
       "attach": {
         "bone": "Bip01 Spine2",
         "at": "centre",
         "offset": [
-          9,
-          -3,
+          7,
+          0,
+          -2
+        ]
+      }
+    },
+    {
+      "id": "blood_chest_2",
+      "kind": "sphere",
+      "radius": 3,
+      "sides": 8,
+      "material": "blood",
+      "paint": true,
+      "attach": {
+        "bone": "Bip01 Spine1",
+        "at": "centre",
+        "offset": [
+          6,
+          -4,
+          1
+        ]
+      }
+    },
+    {
+      "id": "blood_hem",
+      "kind": "sphere",
+      "radius": 4,
+      "sides": 8,
+      "material": "blood",
+      "paint": true,
+      "attach": {
+        "bone": "Bip01 L Leg",
+        "at": "centre",
+        "offset": [
+          4,
+          2,
+          -3
+        ]
+      }
+    },
+    {
+      "id": "blood_sleeve",
+      "kind": "sphere",
+      "radius": 3,
+      "sides": 8,
+      "material": "blood",
+      "paint": true,
+      "attach": {
+        "bone": "Bip01 R Arm1",
+        "at": "centre",
+        "offset": [
+          3,
+          0,
           0
         ]
       }

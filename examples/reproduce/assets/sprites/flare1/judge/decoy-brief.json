@@ -60,34 +60,34 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief asks for a hot white centre with soft streaks. In frames.png the frame is a near-uniform light grey field with no bright centre and no streaks radiating from it. The only dark mark is a small boxed numeral at the top-left, which is the harness's frame label, not the sprite. The effect is missing."
+   "reason": "What it is: the brief asks for a lens flare, a hot white centre in a soft round halo. The frame (frames.png, the only frame, numbered 0 in its top-left corner) is a flat light grey field with no centre, no falloff and no round halo. It does not read as a glow at all."
   },
   "R2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The frame is 64 x 64 as the original's measures give. But the measured border is 0.784 (mean 0.784, against a pass range of 0 to 0.005), so light covers the whole edge instead of falling off to dark. The effect fills the frame as a plain lit square, not as a flare, which is clearly off."
+   "reason": "Shape and size: the frame is 64 x 64, as the measurements give. But the effect does not fill it as a soft round halo. The whole frame is the same bright grey out to the edges, and the measured border is 0.784 (mean 0.784, against a class range of 0 to 0.005), so light sits at the edge and nothing fades out toward it. Clearly off."
   },
   "R3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The frames are a light grey-white, which is not clearly wrong for a flare's additive blend. But with no hot centre visible and no streaks, the picture cannot show the brief's colour distribution, and no original's mean colour is given to compare against. Unverified rather than correct."
+   "reason": "Colour, judged by eye: the frame is one uniform light grey with no hot white centre. The brief's centre-to-halo colour structure is missing, so the colour is there but clearly not the one asked for. No measure is given for this item."
   },
   "R4": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "There is one frame, with peak at frame 0 and first and last both at 1, which is consistent with a static flare. The brief gives no motion, and no original frame count is supplied in the measures, so the motion cannot be checked against Valve's flare1. Not verified."
+   "score": 2,
+   "reason": "Motion, held to the class measures: one frame, envelope peak at frame 0 with first and last both 1, and no againstClass fault on frames, envelope or dark (dark 0). Those measures fit a flare class, which is static. The only class failure is border, which is scored under R2, not here."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured as parallel and additive, matching the game's own type and format (gameType parallel, gameFormat additive). The name is the same (sameName true) and the file reads back as written (readsBack true)."
+   "reason": "Fit for the game: type parallel and format additive, matching gameType parallel and gameFormat additive (sameName true, readsBack true). The file is the original's type and format, under the same name, and reads back as written."
   }
  },
- "total": 5,
+ "total": 6,
  "of": 10,
  "passes": false
 }

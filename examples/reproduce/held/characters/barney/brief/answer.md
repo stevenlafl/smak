@@ -1,22 +1,29 @@
-The model is built. The build says **OK**, and `check` for GoldSrc says "fit for goldsrc". It is `work/barney.mdl`, with its spec beside it as `work/barney.spec.json`.
+The guard model is built and passes: the last build says OK, and the GoldSrc check says "fit for goldsrc". It is `barney.mdl` in the work folder, with its spec beside it as `barney.spec.json`.
 
 **What I made**
 
-- **Skeleton and animations:** Gordon's (`player/gordon/gordon.mdl`), with all 77 of its animations kept, including the run, walk, idle and death ones. `floor: 0` is set, so the feet stand on the origin.
-- **Size:** 76.7 units tall, 26 long and 30 wide, against the 75 asked for.
-- **Body:** a stocky torso and arms in a muted blue shirt, grey trousers, bare tan forearms and hands, and a plain tan head.
-- **Uniform:** a dark tie, a charcoal bulletproof vest over the shirt, a rounded dark-grey helmet, black boots and a black leather belt.
-- **Holster:** a black leather holster on the right hip with the grip showing. There is no pistol model in it.
-- **Triangles:** 658 per body, against 362 for Gordon's own body, so it stays under the limit of twice that.
+- **Skeleton:** Gordon's (`player/gordon/gordon.mdl`), with all 77 of his animations kept, including run, walk, the two-handed shot, and death. The model is set to `"floor": 0`, so its feet stand at the origin.
+- **Size:** 73.6 units tall, against the 75 asked for (within 2%).
+- **Uniform:** a stocky blue shirt and sleeves (`cloth`, tone 0.2, 0.35, 0.6), and blue-violet trousers (tone 0.34, 0.3, 0.58).
+- **Vest:** a black box, with "SECURITY" in yellow on the back.
+- **Helmet:** a dark navy helmet with a smoked glass visor on its front.
+- **Belt and holster:** a leather belt, a leather holster on the right hip, and a dark grip sticking up from it.
+- **Boots:** black leather, mirrored for both feet.
+- **Skin:** the jaw and neck show under the helmet, and the hands are skin-coloured.
 
 **How**
 
-The soft parts (shirt, trousers, arms, head) are blobs placed on Gordon's bones, so they bend with the animations. The vest, helmet and boots are rounded boxes attached to bones. The tie, holster and belt are small boxes and a tube. Each body was checked in the run, walk and crouch poses, and the parts stayed together.
+I wrote a character spec on Gordon's skeleton. The shirt, trousers, skin and arms are soft blobs that follow the bones, so they bend with the animations. The vest, helmet, visor, boots, belt and holster are squared parts hung on the bones they belong to. The budget is set by the base body's 362 triangles (the limit is twice that). The model uses 694, and the check counts 1388 across the whole file.
 
-To use it, copy it over the mod's `models/barney.mdl` after backing up the original. It has the name the game already loads, so no code change is needed for the file itself.
+**Iterations**
 
-**What is still open**
+- The first build failed on triangles (1454) and on the boots sinking below the floor. I cut the sides of the boots and helmet and lowered the boots.
+- The skin added nothing to the outline, because the shirt collar and the chest blob hid the head. I shortened the chest so the jaw shows.
+- A patch of shirt poked through the vest. I deepened the vest so the shirt sits inside it.
 
-1. **Animation activities.** The stock Barney code plays its animations by activity number (`ACT_IDLE`, `ACT_WALK` and so on). I did not set any activities on Gordon's animations. If the mod's code plays them by name, this is fine. If it uses activities, the model will not walk or run properly until the mapping is set. Can you send the mod's Barney code, or tell me which way it plays them?
-2. **Side-by-side with Half-Life's barney.** I could not draw the game's own barney here. The kit only reads the models folder, and the Half-Life file is outside it. So I have no picture of the two together. The mod owner will need to compare them in the game.
-3. **Is it at least as good?** My honest read is no, not yet. The colours are flat painted stand-ins with no photographs behind them. The face is a blank tan shape with no eyes, mouth or badge. The helmet reads as a block, and the holster has no pistol in it. It is a working first pass, not a finished match for Barney. To improve it, I'd need reference photos of the uniform cloth and the face. I'd also need to know whether they want a badge and a visible pistol.
+**What I could not check**
+
+- I cannot run the game here, so I have not seen the model beside Half-Life's own Barney. The pictures and the checks say it stands, runs and bends correctly, but whether it is at least as good as Barney is for the mod's team to judge in the game.
+- The visor is hard to see from the front; the helmet reads as a dark cap. The pistol is only a holster and a grip, with no barrel.
+- The face is mostly under the helmet and visor, so the character reads more as a visored guard than a face.
+- The mod's code may expect Barney's own animation numbers. The original `barney.mdl` is not on this machine, so I could not run the contract check against it. The model keeps Gordon's animation list, and the game's code plays animations by activity, which should line up, but this is unverified.

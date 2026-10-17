@@ -75,31 +75,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are a five-pointed star flare with a bright core, the same muzzle-flash effect across the two frames."
+   "reason": "Both are a muzzle-flash star: a bright core with five soft rays. The original's frames in original.png and the reproduction's in reproduction.png show the same effect, with the same ray count and placement."
   },
   "R2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are 64 x 64 and the star fills the frame the same way; the original's rays are a little thinner and sharper (its border max is 0.02, the reproduction's 0), which is a sharpness difference and not a shape or size fault."
+   "reason": "Both are 64x64 frames (measured) and the star fills them the same way. Border max is 0.02 in the original and 0 in the reproduction, so neither spills past the frame. The rays in reproduction.png look a little softer and wider than the original's sharper rays, but the outline and extent match."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Mean colour difference is 0.7 (well inside 15), and the dark measure (0.76 vs 0.74) agrees. Visually the reproduction's core is a touch whiter and its halo more diffuse, but the frames read as the same warm-white-to-orange blend."
+   "reason": "Measured mean colour difference is 0.7 CIE76 delta E, far under the 15 line. Both are warm orange-yellow cores fading to orange rays on black, and dark fraction is 0.76 vs 0.74."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Two frames in both. Envelope peaks at frame 1 in both, first 0.95 vs 0.96 and last 1 vs 1, so the brightening and the one-shot ending are the same. The dark measure is 0.76 vs 0.74. Nothing wrong in the motion."
+   "reason": "Both have 2 frames (matches the original). Envelope peaks at frame 1 in both, first-frame level 0.95 vs 0.96, last-frame level 1 in both, so it grows from frame 0 to frame 1 as the original does. The one-shot ends at the same brightness as the original (measured)."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type parallel, format additive, 64 x 64, same name (sameName true), and it reads back (readsBack true). Fit for the game as measured."
+   "reason": "Both are the additive format and the sprite's name matches (measured: format additive, sameName true, readsBack true). Nothing in the pictures suggests a fault in the file."
   }
  },
  "total": 10,

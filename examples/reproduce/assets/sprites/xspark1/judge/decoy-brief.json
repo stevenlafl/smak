@@ -30,17 +30,37 @@
    "wrap": null,
    "jitter": null
   },
-  "class": "sparks",
+  "class": "fire loop",
   "againstClass": [
    {
     "measure": "border",
     "value": 0.784,
     "range": [
      0,
-     0.005
+     0.028
     ],
     "ok": false,
     "words": "light at the edge: fade more (finish.edge) or shrink the effect"
+   },
+   {
+    "measure": "first",
+    "value": 1,
+    "range": [
+     0.57,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 1,
+    "range": [
+     0.57,
+     1
+    ],
+    "ok": true,
+    "words": ""
    }
   ],
   "kept": {
@@ -60,34 +80,34 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The frame shows no sparks: a flat light-grey field with a small dark-outlined box and the numeral 0 in its top-left corner, which is the frame label and not part of the effect. Nothing reads as a burst of hot sparks flying out and dying, so the effect the brief asks for is missing."
+   "reason": "The brief asks for a soft blue-white glow of an electric spark. The one frame in frames.png is a flat light-grey field with no glow, no spark and no falloff from a centre; the only mark is a small dark-bordered box with a '0' at the top-left, which is a frame label, not part of the effect."
   },
   "R2": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "The 32x32 frame holds no effect that fills it as a spark burst would. The whole frame is one uniform grey field with a small box at the top-left, so the shape and extent of a spark burst are absent."
+   "score": 1,
+   "reason": "The frame is 32 x 32 as measured, but the effect does not fill it as a glow would. The light covers the whole frame edge to edge (border mean 0.784 against the class's 0 to 0.028), so the picture is a plate, not a light that fades out at the edges."
   },
   "R3": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "The frame is a flat, light neutral grey with no bright or hot colours (no white-hot cores, yellow or orange tints). Its border measure of 0.784 is a light edge, where the class needs about 0. The colours do not read as hot sparks."
+   "score": 1,
+   "reason": "Judged by eye, the frame is pale grey with a faint cool tint, not the soft blue-white of a light's core. No brighter centre or blue-white core is visible, so the colour the brief asks for is not clearly there."
   },
   "R4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The sheet has one frame, and the envelope is first 1, peak at frame 0 and last 1, so nothing grows, flies, fades or dies out. A spark burst needs several frames that end dark, and this is a static field that never darkens."
+   "reason": "Two measured class checks fail. The edge is lit at 0.784 where Half-Life's fire loops are at 0 to 0.028, which the measures put at fault. And the sprite has one frame, so it cannot flicker as the brief asks; the first and last values (1 and 1) show the loop closes but say nothing about motion. The frame count is not in the class measures, so it is judged here only against the brief."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measures hold: type parallel and format additive match the game's own sprite, the name is xspark1 (sameName true), and the file reads back as written (readsBack true). The file itself is well-formed, though the content fails the other items."
+   "reason": "The file is parallel and additive, matching the game's own type and format for this slot (gameType parallel, gameFormat additive). The name is the same (sameName true) and it reads back as written (readsBack true)."
   }
  },
- "total": 2,
+ "total": 4,
  "of": 10,
  "passes": false
 }

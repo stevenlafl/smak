@@ -5,28 +5,84 @@
  "label": "shotgun, in the place of the game's models/v_shotgun.mdl, models/p_shotgun.mdl, models/w_shotgun.mdl",
  "measured": {
   "size": [
-   15.9,
-   3.6,
-   29.6
+   15.2,
+   2.7,
+   28.8
   ],
   "sizeAsked": {
    "long": 30
   },
-  "sizeOff": 0.014,
-  "triangles": 596,
+  "sizeOff": 0.04,
+  "triangles": 204,
   "halfLifeMedianOfItsKind": 138,
   "halfLifeThreeQuartersUnder": 187,
+  "halfLifeMost": 291,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/w_sqknest.mdl, models/w_egon.mdl, models/w_crowbar.mdl: the judge does not know which"
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_sqknest.mdl, models/w_egon.mdl, models/w_crowbar.mdl",
+  "lineupTest": "asked 3 times, each in another order, which of the four was not made by Valve: judges picked D, D, B where the asset was C, B, A: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
-  "M8": 1
+  "M8": 2,
+  "M6": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "M8"
- ],
- "total": 0,
- "of": 18
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "In sides.png the LEFT and RIGHT views read as a flat, near-uniform bar. No pistol grip drops below the receiver and the stock does not angle down as a pump shotgun's does. The only protrusion is a box that sticks out sideways from the receiver in TOP and BELOW, not down. The outline is clearly off from a pump shotgun's."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured long axis 28.8 against the brief's about 30 (sizeOff 0.04), well within 15%. Width 2.7 and height 15.2 are not asked for by the brief."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Parts the brief implies, listed down to the small ones: barrel and muzzle, wooden pump on the barrel, receiver, stock, butt plate, trigger guard, trigger, pistol grip, ejection port. Present: barrel (thin dark tube, muzzle visible in FRONT-LEFT and BACK-LEFT), wood pump, receiver, wood stock. Missing from the outline: the pistol grip, and a trigger guard below the receiver (none in LEFT, RIGHT or BELOW). The single side box in TOP and BELOW sits beside the receiver, not where a grip or guard goes. A missing small part caps M3 at 1."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Dark slate metal on the receiver and barrel and warm wood on the pump and stock, as the brief asks (black metal, wooden or dark pump and stock). Each region has one plain material with no odd colour."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The receiver is a blotchy rust-brown speckle over dark metal, with no panel lines, ejection-port edge or ribbing; in first-person.png the metal reads smeared. Wood grain shows on the pump in attack.png and first-person.png. The brief asks for no markings, so the faults are only in the receiver's painted detail."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Line-up test measured: beside models/w_sqknest, w_egon and w_crowbar, three judges picked D, D and B where the asset was at C, B and A, so none picked it. The asset passed as one of the game's. Visually in lineup.png it is a plain dark block, less detailed than Valve's, but the measure allows 2 and the rubric caps M6 at 2 here."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "In in-hand.png the model stands almost upright, wood end at the top and the grip and receiver below, rather than lying along the line a held shotgun takes. No hand shows in that picture to check the placement against. The long axis in sides.png is horizontal with the muzzle at the left, so the front may be right, but the upright check is only partly met."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK checks pass with no errors. Triangles 204 against twice the median 138 (276) and the most Valve spends on its kind (291), so within the band. No opening, inside-out or floating part shows in sides.png; the muzzle and receiver read as closed to a player."
+  },
+  "W1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "In first-person.png the asset is a large dark block, its lower-left held by the orange hand well below the grip, while the game's own shotgun is held under the pump at lower right, long axis forward. The asset's long axis runs up-and-away rather than forward, and the wood end sits at the top. Through attack.png (20 frames) the weapon stays over the hand and does not leave it, so the movement is right; the seating and the way round are not."
+  }
+ },
+ "total": 13,
+ "of": 18,
+ "passes": false
 }

@@ -1,17 +1,26 @@
-The sprite builds **OK**, and the file is at `work:sprites/flare1.spr` (the spec is `work:flare1.json`). Drop it in the mod's `sprites/` folder in place of `flare1.spr`.
+I made the flare as a `sprites/flare1.spr` and the build says **OK**, with every check passing. I could not put it in the game beside Half-Life's own, so the in-game judgement is still theirs to make.
 
-**What it is:** a 128×128, single-frame, additive sprite (black is clear), placed as an `env_sprite` (render mode 5, additive). It has two layers:
+**What I made**
 
-- **Glow:** a small, hot white core, radius 0.2 of the frame, with a smooth falloff.
-- **Flare:** a white core plus four soft, tapered, blurred streaks at 0°, 90°, 45° and 135°. The horizontal and vertical streaks are the longest. Each has a faint haze. There are 48 thin rays round the core, of seeded lengths.
-- **Edge:** the border is faded over 12 pixels so the square frame does not show.
+The spec is at `work:flare1.json` and the sprite is at `work:sprites/flare1.spr`, with a sheet and an animated preview beside it.
 
-**How I got there:** the first builds failed on the frame's square edge showing (a power falloff in the glow spread light into the corners, so I switched to the smooth falloff), and on streaks reaching the border. Each fix made the centre dimmer, so I raised the gains until the core read white again.
+- **Type and format:** `parallel` and `additive`, the same as the game's `flare1.spr`. Black is clear, so only the light shows.
+- **Size and frames:** 64 by 64 pixels, one frame, placed as an `env_sprite` with render mode 5 (Additive).
+- **Layers:** two white glow layers with a power falloff, which gives a soft round halo that reaches the frame's edges.
+  - A wide halo (radius 0.95, core 0.25, gain 0.7).
+  - A small, bright hot centre (radius 0.5, core 0.07, gain 1.0).
 
-**What to check:**
-- **I could not put it beside Half-Life's own `flare1.spr`.** No game folder is connected to this machine, so the report's comparison against the game's flare has no reference data. Your modder needs to compare them in the game, which is the real test.
-- **The report's "brightest" figure reads low (0.063, on a 0 to 1 scale)**, yet the picture's centre looks near white. I could not reconcile the two, so trust the in-game look over that number.
-- The border is at 0.006 against a target of 0.005. This is a note, not a fault, and the build passed.
-- The picture is only 128 pixels, so I could not judge fine detail at a large size. Shrinking or enlarging the sprite in the game will show whether the streaks hold up.
+**How it checks out**
 
-To change the look, edit the layer gains and streak lengths in `work:flare1.json` and build again.
+- The build reports 94 colours with almost no loss from quantising.
+- Its border is fully dark, so there is no hard edge.
+- Against Half-Life's flare class, the one measure it checks is in range (1 of 1).
+
+**What I could not do**
+
+- There is no game folder on this server, so I could not compare it with the game's own `flare1.spr` in the game or on a sheet. The "in range" result is the build's class check, not a side-by-side look.
+- The viewer's larger render of the sprite failed with an offset error, so the only picture I saw is the 128-pixel sheet. It shows a white middle fading into a soft grey-white halo, which matches the request.
+
+**What to tell the modder**
+
+To try it, copy `sprites/flare1.spr` into their mod's `sprites/` folder. It replaces the game's file of the same name, so they should keep a copy of the original. If they want to compare, the halo's size or the hot centre's size are the two values in the spec to change, and the build can be run again.

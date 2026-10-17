@@ -14,67 +14,70 @@
    "across": 29
   },
   "sizeOff": 0,
-  "triangles": 12,
-  "halfLifeMedianOfItsKind": 105,
-  "halfLifeThreeQuartersUnder": 238,
+  "triangles": 60,
+  "halfLifeMedianOfItsKind": 238,
+  "halfLifeThreeQuartersUnder": 291,
+  "halfLifeMost": 439,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/w_gauss.mdl, models/w_oxygen.mdl, models/w_suit.mdl: the judge does not know which"
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_gauss.mdl, models/w_oxygen.mdl, models/w_suit.mdl",
+  "lineupTest": "asked 3 times, each in another order, which of the four was not made by Valve: judges picked D, D, D where the asset was C, A, D: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
-  "M8": 2
+  "M8": 2,
+  "M6": 2
  },
  "scores": {
   "M1": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Every view (front, left, back, right, top, below, and the four angles) shows a plain upright rectangular box, 62 tall, which is the outline a filing cabinet has. No part sticks out or is missing in any view. The handles are flat paint, so they add nothing to the outline, and nothing in the outline is wrong against the brief's words."
+   "reason": "The silhouette is the brief's tall, plain filing cabinet in all ten views. The front, left, back and right outlines are one upright box, and the front-left and front-right views show the drawer stack in the right place. Nothing sticks out or is missing."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured size is 29 x 23 x 62 against the brief's 29 deep, 23 wide and 62 tall. Each dimension is within 15% of the brief's figure (sizeOff 0)."
+   "reason": "Measured size is 29 deep, 23 wide and 62 high, against the 62 high, 29 deep and 23 wide the brief asks for. Each dimension is within 0%."
   },
   "M3": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The brief asks for four drawers, handles and label slots. The four drawers are there in the front and front-angle views (front, front-left, front-right), and the cabinet has four drawer rows. The handles and label slots are only painted: the front view shows dark slots and light bars on flat drawer faces. The asset has 12 triangles, a plain box, so no handle or label slot is a real protruding or recessed shape. Handles are small parts, so a missing handle shape caps M3 at 1."
+   "score": 2,
+   "reason": "The brief asks for three drawers with handles. There are three drawer fronts, one above the other, each with a dark handle bar (front view, front-left and front-right). The top drawer has a small orange label or lock. The handles are painted rather than modelled, but they read clearly at the size shown. Nothing the brief names is missing."
   },
   "M4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The whole cabinet is one even grey with a faint grain that reads as painted steel. The top face is a lighter brushed grey, and the edges are lighter, which fits a grey steel cabinet. Nothing contradicts the brief's colour or material."
+   "reason": "The body is a grey steel with mottled tone and light edge trim, which is the brief's grey steel. The dark handles and the orange label are in their places. No region is in the wrong colour or material."
   },
   "M5": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The brief asks for a bit of wear. The only wear is a bright bevel along the box edges (front, left, back and right views) and a generic grain; there are no scuffs, dents or chips on the drawers. The drawer lines and label slots are faint and soft at the size shown. Surface detail is not a must-have, but the wear the brief asks for is only weakly there."
+   "score": 2,
+   "reason": "The grime the brief asks for is light: darker mottling on the sides and a faint dirty tone on the drawer fronts. The drawer seams and the frame edges are there and sharp enough. The top shows fine brushed streaks. The grime is subtle rather than heavy, but it is present, so I do not mark it down."
   },
   "M6": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "In the line-up (D, beside A, B and C) the asset reads as a clean, light grey cabinet with flat painted detail. Half-Life's own props in the line-up are darker, grimier and more detailed. A player would likely see it as a prop of the game's kind, but the lighter, cleaner, flatter surface sets it apart from them."
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The prescribed score for this item. In the line-up test the asset was not picked as the non-Valve model in two of three orders. At C and at A, judges picked D, a Valve original, and passed the asset over. It was picked only when it stood at D."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The front view shows the drawer face, and the cabinet stands upright in the front, side and angle views. The bottom view is a flat face, so it stands on its base as an upright cabinet should. Nothing is upside down or turned."
+   "reason": "The drawer fronts face the front view, the cabinet stands upright, and it sits on a flat base in the side and front-left views. The brief does not fix a facing, and nothing in the pictures suggests it stands off its origin."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "SMAK's check returns no errors. The model is 12 triangles, well under the cap of 238 (the larger of twice the median of 105, and the three-quarter mark of 238). The top, bottom and four sides are closed faces in every view, with nothing open, inside out or floating."
+   "reason": "SMAK's checks report no errors, and the model has 60 triangles, far below the median of 238 for Half-Life's own props of its kind. The underside is open in the below view, but it faces the floor and a player never sees it, which is the accepted practice. Nothing visible is open, inside out or floating."
   }
  },
- "total": 13,
+ "total": 16,
  "of": 16,
- "passes": false
+ "passes": true
 }

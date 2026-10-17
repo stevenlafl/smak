@@ -5,46 +5,25 @@
       "name": "sprites/glow01.spr",
       "class": "glow",
       "use": "env_glow",
+      "type": "parallel",
+      "format": "additive",
       "size": [
         64,
         64
       ],
       "frames": 1,
-      "type": "parallel",
-      "format": "additive",
       "origin": "centre",
       "layers": [
         {
           "kind": "glow",
           "radius": 1,
-          "core": 0.25,
-          "gain": 1,
-          "ramp": [
-            [
-              0,
-              [
-                0,
-                0,
-                0
-              ]
-            ],
-            [
-              0.6,
-              [
-                1,
-                0.73,
-                0.43
-              ]
-            ],
-            [
-              1,
-              [
-                1,
-                1,
-                1
-              ]
-            ]
-          ]
+          "colour": [
+            1,
+            1,
+            1
+          ],
+          "falloff": "smooth",
+          "gain": 1
         }
       ]
     }

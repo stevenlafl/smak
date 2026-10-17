@@ -1,0 +1,93 @@
+{
+ "kind": "sprite",
+ "subject": "flare1",
+ "leg": "control: Valve's own against the brief",
+ "label": "sprites/flare1.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.39,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "flare",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ],
+  "kept": {
+   "type": "parallel",
+   "format": "additive",
+   "gameType": "parallel",
+   "gameFormat": "additive",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The single frame reads as a lens flare for a bright light: a hot white centre (about the middle third of the frame) that falls off through a soft, round, radial halo with faint streaks at the edges. That is the effect the brief asks for."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "One 64 x 64 frame. The halo fills the frame and fades to black at the edges (border max and mean both 0), so the effect fills its frame as a flare does. Nothing is clipped at the edges."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The centre is white and the halo is a soft, slightly mauve-pink tint, which reads as the glow of a bright light. The brief names only a white centre and a soft halo, so the tint is not a fault. The picture is small, so this is judged at a glance rather than at a close look."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Measured: 1 frame, envelope first 1 and last 1, no wrap or jitter. A flare is a static effect, and the class check (border, range 0 to 0.005) passes at 0. The measures given do not include the class's frame count, so that part is taken as matching but not measured."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type 'parallel' and format 'additive' match the game's own values (gameType and gameFormat), the name is the same (sameName true), and the file reads back as written (readsBack true)."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

@@ -1,22 +1,28 @@
-The forklift is built and the build says **OK**. It is in the work folder as `forklift.mdl`, with its spec at `forklift.spec.json` and a six-view sheet at `forklift-sheet.png`.
+The forklift is built and the build says OK. It is `forklift.mdl`, written to the work folder as `forklift.mdl` (166,876 bytes), with its spec alongside as `forklift.json`.
 
-**What's in it**
+**What it is**
 
-- **Size:** 187 long, 60 wide, 113 high, as asked, standing on z 0.
-- **Body:** yellow painted chassis and hood, a rear counterweight in yellow and black hazard stripes, and an overhead guard on four posts with a roof.
-- **Mast and forks:** two steel uprights up to the full 113, three crossbars, and a carriage with two forks. The carriage sits at about 36 units, so the forks are raised a little off the floor.
-- **Wheels:** two larger drive wheels at the front and two small steer wheels at the back.
-- **Driver:** a seated figure built from simple shapes (blue torso and trousers, a head, arms on a steering wheel, a steering column). The seat and backrest are cloth blue.
-- **Triangles:** 516 in all, under the 576 point where the kit starts warning and near Half-Life's own median of 288 for props this size.
+| Measure | Asked for | Built |
+|---|---|---|
+| Length (front to back, forks included) | 187 | 187 (x -91 to 96) |
+| Width | 60 | 60 (y ±30, the wheels) |
+| Height (overhead guard) | 113 | 113 |
 
-**How I built it**
+- **Body:** a yellow chassis with a rear counterweight, a floor plate, and an operator's cage with posts and an overhead guard.
+- **Mast and forks:** two steel uprights, a top beam, a carriage plate, two forks, and two lift cylinders.
+- **Wheels:** two large drive wheels at the front and two smaller steer wheels at the rear.
+- **Driver:** seated in an orange hi-vis vest, navy trousers, a white hard hat, with arms on a black steering wheel. The driver is built from simple parts, not a rigged character.
+- **Texture:** one 512 by 256 picture shared by all the parts, using the kit's paint, steel, asphalt, cloth, leather and plaster materials.
 
-I wrote a plain JSON spec (`smak.model/1`, kind `prop`) with one box, cylinder, sphere or tube per part, placed by its position. The first build failed on one fault: the mast crossbars' ends sat exactly on the uprights' outer faces, which the kit reads as shared edges. I shortened the bars and cut the wheel and arm sides to bring the count down. The second build passed every check, and `check` for GoldSrc says "fit for goldsrc".
+**How**
 
-**What to check before you swap it in**
+I wrote the spec as a set of boxes, cylinders, tubes and superquadrics placed on the chassis, then built it. The first build passed every fault check. Its warnings were about triangles and colour, so I cut the detail that the outline doesn't show (the counterweight, steering ring and limbs have fewer sides), muted the yellow and orange a little, and removed a closing point that made the steering ring fault. The final build is OK, and `check` for GoldSrc says "fit for goldsrc". The largest sub-model draws 2520 corners, which is over the vertex count, but the check counts shared vertices, which stay under GoldSrc's limit of 2048.
 
-- **Replacing the game's file:** the file replaces `models/forklift.mdl`, so the game loads it without any new precache. Back up the original first.
-- **Animations:** this model has one pose and no animations, and the mast is fixed in its raised position. If the game's code plays animations on the original forklift by number, the swap will break those. I could not check the original, because it isn't in this kit. Tell me if the code plays any, and I can add them.
-- **Colour:** the kit warns that the yellow is more saturated than Valve's textures (38% strongly coloured against under 30% for Valve's). I kept the yellow because you asked for it, but it is the most likely place it reads differently from the game's own.
-- **The driver:** it is blocky primitives, not a detailed figure. It reads as a seated person from the side, but it won't match a Half-Life character.
-- **Not tested in the game:** the kit's pictures are not the game's engine, so I can't say whether it is as good as Half-Life's forklift. Your in-game comparison is the real test.
+**What the modder should weigh**
+
+- **Triangles:** the model has 840. The kit's count for Half-Life's props of this size is a median of 176, with 404 the most of any. The wheels (192) and the driver (about 200) take most of it. This is above the game's own, which may matter in the side-by-side comparison. If they want it nearer the game's count, the wheels are the next thing to cut, and I can do that.
+- **Colour:** the yellow paint is still at the edge of the kit's colour range (30%, against Valve's under 30%). Forklift yellow is saturated by nature, so I left it.
+- **Not checked:** I could not compare it with Half-Life's own look, because the kit has no game files here. The pictures are the kit's stand-in lighting, not the game's. The check that matters is the in-game look and how it sits beside the game's models, which only they can see. The model has a single resting pose, so the wheels and mast do not move in game.
+- **Installing:** it replaces the game's `models/forklift.mdl`, so it needs no code change to load. Keep the original file in the mod folder until they have compared it in game.
+
+Pictures: `forklift-sheet.png` (six sides), `forklift-cab.png` (a three-quarter close view of the cab and driver).

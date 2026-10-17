@@ -1,0 +1,150 @@
+{
+  "spec": "smak.model/1",
+  "name": "9mmhandgun.mdl",
+  "kind": "held",
+  "size": {
+    "length": 7.6
+  },
+  "texture": {
+    "width": 512,
+    "height": 256
+  },
+  "weapon": {
+    "like": "9mmhandgun",
+    "size": "own"
+  },
+  "materials": {
+    "steel": {
+      "base": "steel"
+    },
+    "polymer": {
+      "base": "paint",
+      "tone": "black"
+    }
+  },
+  "parts": [
+    {
+      "id": "slide",
+      "kind": "box",
+      "material": "steel",
+      "size": [
+        7.2,
+        1.3,
+        1.3
+      ],
+      "at": [
+        3.6,
+        0,
+        0.2
+      ]
+    },
+    {
+      "id": "barrel",
+      "kind": "cylinder",
+      "material": "steel",
+      "radius": 0.45,
+      "height": 7,
+      "sides": 6,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        0.6,
+        0,
+        0.85
+      ]
+    },
+    {
+      "id": "front_sight",
+      "kind": "box",
+      "material": "steel",
+      "size": [
+        0.4,
+        0.3,
+        0.35
+      ],
+      "at": [
+        6.8,
+        0,
+        1.5
+      ]
+    },
+    {
+      "id": "rear_sight",
+      "kind": "box",
+      "material": "steel",
+      "size": [
+        0.7,
+        1.2,
+        0.3
+      ],
+      "at": [
+        0.9,
+        0,
+        1.5
+      ]
+    },
+    {
+      "id": "frame",
+      "kind": "box",
+      "material": "polymer",
+      "size": [
+        6.6,
+        1.3,
+        1.3
+      ],
+      "at": [
+        3.3,
+        0,
+        -0.6
+      ]
+    },
+    {
+      "id": "grip",
+      "kind": "box",
+      "material": "polymer",
+      "size": [
+        2.2,
+        1.3,
+        4
+      ],
+      "at": [
+        1.6,
+        0,
+        -4.6
+      ]
+    },
+    {
+      "id": "base_plate",
+      "kind": "box",
+      "material": "steel",
+      "size": [
+        2.4,
+        1.4,
+        0.35
+      ],
+      "at": [
+        1.6,
+        0,
+        -4.95
+      ]
+    },
+    {
+      "id": "trigger_guard",
+      "kind": "box",
+      "material": "polymer",
+      "size": [
+        2.6,
+        1,
+        0.6
+      ],
+      "at": [
+        3.4,
+        0,
+        -1.2
+      ]
+    }
+  ]
+}

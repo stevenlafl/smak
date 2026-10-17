@@ -15,66 +15,22 @@
   },
   "sizeOff": 0.017,
   "triangles": 12,
-  "halfLifeMedianOfThisSize": 62,
-  "halfLifeThreeQuartersUnder": 156,
+  "halfLifeMedianOfItsKind": 308,
+  "halfLifeThreeQuartersUnder": 340,
+  "halfLifeMost": 655,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/chumtoad.mdl, models/roach.mdl, models/leech.mdl: the judge does not know which"
+  "lineup": "the asset is one of A to D in lineup.png beside models/chumtoad.mdl, models/roach.mdl, models/leech.mdl",
+  "lineupTest": "asked 3 times, each in another order, which of the four was not made by Valve: judges picked D, C, C where the asset was C, C, C: told apart"
  },
  "caps": {
   "M2": 2,
-  "M8": 2
+  "M8": 2,
+  "M6": 1
  },
- "scores": {
-  "M1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The brief asks for a low body on four clawed legs with a beak-like mouth underneath and sharp front claws. The asset is a plain rectangular box (12 triangles). In the front, side and top views and the four angled views there are no legs, no head, no mouth and no claws, so the outline is not the brief's."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The brief gives a length of 26 and a height of 13. The measured 25.9 long and 13.2 high are within 1% and 2% of those. The brief gives no width, so the 19.2 width cannot be checked against it."
-  },
-  "M3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "Parts the brief asks for, from the large down: four legs, their claws (four feet with claws), sharp front claws, a beak-like mouth underneath, a fleshy body. The asset has only one part, a cuboid body. The legs, claws and mouth are all missing, so M3 is 0."
-  },
-  "M4": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The brief asks for a fleshy tan body. The asset's body is a uniform grey with a mottled, stone-like look in both the sides and the angled views. The colour is clearly off (grey, not tan) and the material reads as concrete, not skin. There is no mouth region to check."
-  },
-  "M5": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The brief names no specific markings, so the body needs only to add nothing wrong. The mottled grey grain on every face reads as stone or concrete, not the soft, fleshy surface the brief describes. A blotchy texture is added where a skin surface is wanted."
-  },
-  "M6": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "In the line-up, the asset (B) is a grey box beside three Half-Life creatures, a dark-red creature (A), a leech (C) and a roach (D). A player would not take it for any of them, and the asset is plainly a box with none of a headcrab's shape."
-  },
-  "M7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The brief asks for a front with a beak-like mouth underneath and claws in front. The asset has no identifiable front: all four sides are the same blank face. It sits upright on a flat base, but there is no front to judge the facing by."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "SMAK's check reports no errors. The asset has 12 triangles, far under twice the Half-Life median of 62 for a prop this size (124). Nothing is shown open or floating, and the box is closed, so the model is valid for GoldSrc."
-  }
- },
- "total": 7,
- "of": 16,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M6"
+ ],
+ "total": 0,
+ "of": 16
 }

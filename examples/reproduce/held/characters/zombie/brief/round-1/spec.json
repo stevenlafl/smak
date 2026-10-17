@@ -1,0 +1,323 @@
+{
+  "spec": "smak.model/1",
+  "name": "zombie.mdl",
+  "kind": "character",
+  "base": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "floor": 0,
+  "size": {
+    "height": 68
+  },
+  "texture": {
+    "width": 256,
+    "height": 256
+  },
+  "materials": {
+    "coat": {
+      "base": "cloth",
+      "tone": "dirty white"
+    },
+    "trousers": {
+      "base": "cloth",
+      "tone": "dark grey"
+    },
+    "skin": {
+      "base": "paint",
+      "tone": [
+        0.42,
+        0.5,
+        0.36
+      ]
+    },
+    "parasite": {
+      "base": "paint",
+      "tone": [
+        0.5,
+        0.36,
+        0.22
+      ]
+    },
+    "claw": {
+      "base": "bone",
+      "tone": [
+        0.55,
+        0.5,
+        0.42
+      ]
+    },
+    "blood": {
+      "base": "paint",
+      "tone": [
+        0.3,
+        0.03,
+        0.02
+      ]
+    }
+  },
+  "pose": {
+    "keys": {
+      "Bip01 Spine": {
+        "turn": {
+          "y": -12
+        }
+      },
+      "Bip01 Spine1": {
+        "turn": {
+          "y": -12
+        }
+      },
+      "Bip01 Neck": {
+        "turn": {
+          "y": -8
+        }
+      }
+    }
+  },
+  "parts": [
+    {
+      "id": "coat",
+      "kind": "blob",
+      "material": "coat",
+      "symmetric": true,
+      "triangles": 160,
+      "pieces": [
+        {
+          "span": [
+            "Bip01 Pelvis",
+            "Bip01 Spine"
+          ],
+          "radius": [
+            8,
+            8.5
+          ]
+        },
+        {
+          "span": [
+            "Bip01 Spine",
+            "Bip01 Neck"
+          ],
+          "radius": [
+            8.5,
+            7
+          ]
+        },
+        {
+          "span": [
+            "Bip01 L Arm",
+            "Bip01 L Arm1"
+          ],
+          "radius": [
+            4.5,
+            4
+          ]
+        },
+        {
+          "span": [
+            "Bip01 L Arm1",
+            "Bip01 L Arm2"
+          ],
+          "radius": [
+            4,
+            3.5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tail_front",
+      "kind": "leaf",
+      "material": "coat",
+      "width": 4,
+      "height": 10,
+      "bend": 1,
+      "attach": {
+        "bone": "Bip01 Pelvis",
+        "at": "top",
+        "offset": [
+          4,
+          0,
+          -4
+        ]
+      }
+    },
+    {
+      "id": "tail_back",
+      "kind": "leaf",
+      "material": "coat",
+      "width": 4,
+      "height": 9,
+      "bend": 1,
+      "attach": {
+        "bone": "Bip01 Pelvis",
+        "at": "top",
+        "offset": [
+          -7,
+          0,
+          -4
+        ]
+      }
+    },
+    {
+      "id": "legs",
+      "kind": "blob",
+      "material": "trousers",
+      "symmetric": true,
+      "triangles": 90,
+      "pieces": [
+        {
+          "span": [
+            "Bip01 L Leg",
+            "Bip01 L Leg1"
+          ],
+          "radius": [
+            5,
+            3.8
+          ]
+        },
+        {
+          "span": [
+            "Bip01 L Leg1",
+            "Bip01 L Foot"
+          ],
+          "radius": [
+            3.8,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "id": "flesh",
+      "kind": "blob",
+      "material": "skin",
+      "symmetric": true,
+      "triangles": 80,
+      "pieces": [
+        {
+          "at": "Bip01 Head",
+          "radius": 5,
+          "offset": [
+            0.5,
+            0,
+            -0.5
+          ]
+        },
+        {
+          "span": [
+            "Bip01 Neck",
+            "Bip01 Head"
+          ],
+          "radius": 3.2
+        },
+        {
+          "span": [
+            "Bip01 L Arm2",
+            "Bip01 L Hand"
+          ],
+          "radius": [
+            2.6,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "id": "parasite",
+      "kind": "blob",
+      "material": "parasite",
+      "triangles": 110,
+      "pieces": [
+        {
+          "at": "Bip01 Head",
+          "radius": 6,
+          "offset": [
+            -0.5,
+            0,
+            0.5
+          ]
+        },
+        {
+          "span": [
+            "Bip01 Head",
+            "Bip01 Neck"
+          ],
+          "radius": [
+            3.5,
+            2.5
+          ]
+        },
+        {
+          "at": "Bip01 Head",
+          "radius": 2.8,
+          "offset": [
+            -4,
+            4.5,
+            -1
+          ]
+        },
+        {
+          "at": "Bip01 Head",
+          "radius": 2.8,
+          "offset": [
+            -4,
+            -4.5,
+            -1
+          ]
+        }
+      ]
+    },
+    {
+      "id": "claws_l",
+      "kind": "fingers",
+      "material": "claw",
+      "hand": "Bip01 L Hand",
+      "count": 4,
+      "length": 6,
+      "radius": [
+        1,
+        0.4
+      ],
+      "spread": 35,
+      "curl": 45,
+      "palm": 1.5,
+      "sides": 4
+    },
+    {
+      "id": "claws_r",
+      "kind": "fingers",
+      "material": "claw",
+      "hand": "Bip01 R Hand",
+      "count": 4,
+      "length": 6,
+      "radius": [
+        1,
+        0.4
+      ],
+      "spread": 35,
+      "curl": 45,
+      "palm": 1.5,
+      "sides": 4
+    },
+    {
+      "id": "blood_chest",
+      "kind": "box",
+      "size": [
+        1,
+        6,
+        8
+      ],
+      "material": "blood",
+      "paint": true,
+      "attach": {
+        "bone": "Bip01 Spine2",
+        "at": "centre",
+        "offset": [
+          9,
+          -3,
+          0
+        ]
+      }
+    }
+  ]
+}

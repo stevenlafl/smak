@@ -1,0 +1,148 @@
+{
+  "spec": "smak.model/1",
+  "name": "shotgun.mdl",
+  "kind": "held",
+  "weapon": {
+    "like": "shotgun",
+    "size": "own",
+    "turn": "as drawn"
+  },
+  "size": {
+    "length": 40.8,
+    "width": 13.4,
+    "height": 5.2
+  },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "smooth": 80,
+  "materials": {
+    "gun": {
+      "base": "iron",
+      "tone": [
+        0.16,
+        0.18,
+        0.18
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "gun",
+      "kind": "carved",
+      "material": "gun",
+      "size": [
+        40.8,
+        13.4,
+        5.2
+      ],
+      "cells": 240,
+      "sheet": "work:pictures/sides.png",
+      "pictures": [
+        {
+          "picture": "work:pictures/front-left.png",
+          "yaw": 35,
+          "pitch": 20
+        },
+        {
+          "picture": "work:pictures/front-right.png",
+          "yaw": -35,
+          "pitch": 20
+        },
+        {
+          "picture": "work:pictures/back-left.png",
+          "yaw": 145,
+          "pitch": 20
+        },
+        {
+          "picture": "work:pictures/back-right.png",
+          "yaw": 215,
+          "pitch": 20
+        }
+      ]
+    }
+  ],
+  "project": [
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "front",
+      "area": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "left",
+      "area": [
+        512,
+        0,
+        1024,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "back",
+      "area": [
+        1024,
+        0,
+        1536,
+        512
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "right",
+      "area": [
+        0,
+        512,
+        512,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "top",
+      "area": [
+        512,
+        512,
+        1024,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/sides.png",
+      "view": "below",
+      "area": [
+        1024,
+        512,
+        1536,
+        1024
+      ]
+    },
+    {
+      "picture": "work:pictures/front-left.png",
+      "yaw": 35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/front-right.png",
+      "yaw": -35,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-left.png",
+      "yaw": 145,
+      "pitch": 20
+    },
+    {
+      "picture": "work:pictures/back-right.png",
+      "yaw": 215,
+      "pitch": 20
+    }
+  ]
+}

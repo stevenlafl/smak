@@ -75,34 +75,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both sheets show a flame effect: tongues rising from a base, bright at the core and fading to dark at the edges, in all 15 frames. Same effect."
+   "reason": "Both sheets show a looping fire: upward flame tongues that are brightest at the base and fade toward the tips. The same effect, so R1 holds."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Frame size matches exactly (32 x 96). Fill is a little short: in the reproduction sheet (e.g. frames 0, 4, 8, 12) the flame tips sit lower and the top band of each frame is darker than in the original, where the flames reach the top edge. The border measure (mean 0.026 vs 0.028) is close, so the gap is in the flame's height and tip, not in the edges."
+   "reason": "The frames are the original's 32 x 96 and the flame fills the cell's width. Vertically it does not fill it as the original does: in the reproduction (top row, frames 0 to 7, and bottom row) the tongues start lower and the upper third of each cell is dark, where the original's flames reach near the top. The tongues are also softer and less separated."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean colour difference is 0.6 (CIE76), far under the line of 15. The reproduction's cores are a little duller and browner in the picture, but the measure already holds the colour within tolerance."
+   "reason": "The measured mean colour difference is 0.6, well inside 15. By eye the orange-to-yellow palette matches, with the reproduction a little dimmer and redder at the tips. The measure governs, so this is a 2."
   },
   "R4": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Both have 15 frames, so the count is the same. The jitter (1.55 vs 1.51) and dark share (0.47 vs 0.42) are close, and the same flicker-and-rise motion shows in both sheets. The loop closes: first and last envelope values are both 0.92 in the reproduction, while the original's are 0.90 and 0.84. The envelope peak is later in the reproduction (0.14 vs 0.07), a timing difference, not a failure of the motion's kind."
+   "score": 1,
+   "reason": "The frame count matches (15). The envelope does not: the original peaks at 0.07 of the sequence, the reproduction at 0.14, so its brightness rises and falls on a different schedule. The loop's wrap is 1.28 against the original's 1.13, so the last frame to the first closes less smoothly. Jitter (1.55 against 1.51) and dark (0.47 against 0.42) are close. The loop is the fault, not the motion's kind."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type (parallel oriented) and format (additive) match the original, the name matches, and the file reads back as written."
+   "reason": "Type 'parallel oriented' and format 'additive' match the original, the name is the same, and the sprite reads back at 15 frames of 32 x 96."
   }
  },
- "total": 9,
+ "total": 8,
  "of": 10,
  "passes": false
 }

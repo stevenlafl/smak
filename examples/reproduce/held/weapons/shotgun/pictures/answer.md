@@ -1,21 +1,21 @@
-The shotgun builds OK. The build reports two warnings I did not clear, and I could not check the first-person view against the reference exactly, so read the notes below before judging it.
+The shotgun builds and the build says OK, but I have not got the first-person view to match the reference yet.
 
-**Where the files are**
-- `work:shotgun.json`: the spec, named `shotgun.mdl`.
-- `work:shotgun.mdl`: the world model.
-- `work:shotgun_weapon/v_shotgun.mdl`, `p_shotgun.mdl` and `w_shotgun.mdl`: the first-person, other-player and lying-in-the-world files. They keep the game's names, so they replace the stock ones when copied into a mod's `models` folder. I have not copied them into the game folder.
+**What's in place**
 
-**What the model is**
-- One carved body (156 triangles, 40.8 long, 13.4 wide, 5.2 high) built from the six-sided sheet and the four angle pictures, then painted from the same pictures.
-- Held as `weapon: { like: "shotgun" }`, with `size: "own"` and `turn: "as drawn"`.
-- I changed `turn` from the default. With the default, the gun in first person pointed up and to the right, and the attack frames did not match the reference. With "as drawn" the gun's position and size in the attack frames match the reference closely.
-- The muzzle is at the high-x end and the grip at the low-x end, as the spec asks.
+- `work:shotgun.mdl`, with the three game files in `work:shotgun_weapon/`: `v_shotgun.mdl` (first person), `p_shotgun.mdl` (another player's hands) and `w_shotgun.mdl` (lying in the world). They take the place of the game's own files when installed in a mod's `models` folder.
+- The spec is `work:shotgun.json`. It is one carved part of 480 triangles, shaped from the six-view `sides.png`. Its colour comes from the six views and the four angle pictures, on a dark steel base.
+- The world model's silhouettes match the reference at the same scale. My front-left render at yaw 35, pitch 20 looks like the reference picture: the hook at the lower left, the barrel running up to the right. In the six sheet views, each outline fits its own picture at 0.98 or better.
 
-**Warnings left in the build**
-- The outline overlap against the four side views of the sheet is 0.65 to 0.77, against the build's 0.8 line. Each side view is carved to 0.96 or better against its own picture, and the angle views are at 0.86 to 0.93, so the gap seems to come from the sheet's views themselves. I did not find the cause.
-- The thin gap between the two barrels near the muzzle is still lost at the carve's resolution.
-- The colour difference is 2 to 4 on average, worst at the lower middle of the right side.
+**What is still wrong**
 
-**What I could not do**
-- I could not read the examples folder (permission was denied), so I worked from the guide and the pictures.
-- The comparison with the reference is by eye. In first person, the gun is about the right size and pose, but it is less bulky than the reference and has a more prominent sight post at the top of the muzzle.
+- **First-person scale.** In the build's comparison, the reference first-person gun is small and sits low on the right. Mine fills the right half of the frame and comes close to the eye. I could not compare against Valve's own `v_shotgun.mdl`, because the render tool cannot read the game folder from here.
+- **The `size: "own"` option did nothing.** I tried it on a copy with its own model name. The output was identical to the default, so I left the default in place. That is the lever I would try next, but it needs a different way to set it.
+- **The build's outline warning stays.** It reports the outline against the sheet pictures at 0.64 to 0.78 in the front, left, back and right views, under its 0.8 line. Those views look the same as the reference to my eye, so I think the metric is strict on thin parts. I could not confirm that, so it is still open.
+- **Stray files.** `work:shotgun-own-test.json`, `work:shotgun-own.mdl` and `work:shotgun-own_weapon/` came from the `own` test. I could not delete them with the tools I have, so please remove them.
+
+**Decisions I made**
+
+- I kept the default weapon size, which stretches the model to the game's shotgun length, and kept the default hand placement.
+- Cells were set to 128 and triangles to 480 so the thin barrel keeps its shape. The default gave 156 triangles and a coarser outline.
+
+Next step: if you can give me Valve's `v_shotgun.mdl` as a file in the work or models folder, I can render it beside mine at the same camera and fix the first-person scale.

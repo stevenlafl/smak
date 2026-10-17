@@ -1,0 +1,133 @@
+{
+ "kind": "sprite",
+ "subject": "fire",
+ "leg": "brief",
+ "label": "sprites/fire.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   64,
+   128
+  ],
+  "frames": 17,
+  "type": "parallel oriented",
+  "format": "additive",
+  "measures": {
+   "frames": 17,
+   "size": [
+    64,
+    128
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0.63,
+    "first": 0.86,
+    "last": 0.86
+   },
+   "dark": 0.81,
+   "wrap": 0.9,
+   "jitter": 1.67
+  },
+  "class": "fire loop",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.67,
+    "range": [
+     1.33,
+     1.79
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "wrap",
+    "value": 0.9,
+    "range": [
+     0,
+     2.48
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.028
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0.86,
+    "range": [
+     0.57,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0.86,
+    "range": [
+     0.57,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ],
+  "kept": {
+   "type": "parallel oriented",
+   "format": "additive",
+   "gameType": "parallel oriented",
+   "gameFormat": "additive",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Every frame shows a flame: bright tongues of fire rising from a base, with a soft glow. Frames 0-2 and 9-15 show clear upward tongues, and frames 3-6 thin out into flickering licks. That is the effect the brief asks for, a looping flame."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The flame sits in the lower part of each 64x128 frame (roughly rows 75-120 of each cell, about 35-40% of the height), with the top of the frame empty. The brief gives no size and the picture shows no original to compare the fill against, so this is judged by eye: the effect does not fill the frame the way a flame sprite usually does, and the measured size is only the frame's, not the fill."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Orange flame bodies with yellow-white cores, dark background, as the brief asks ('orange and yellow tongues of fire'). The colours are right throughout, including the dimmer frames 5-6, which stay orange."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "17 frames, a loop that closes: frame 16 returns to the shape and brightness of frame 0, and the wrap measure (0.9) and jitter (1.67) sit inside the fire loop class's ranges. Motion is a flicker: the flame grows and shrinks, dimming to a low at frames 5-6 (envelope peak at 0.63 of the loop), which is what the class takes."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured as parallel oriented and additive, the same as the game's file; the name is the same and it reads back as written. Nothing in the measures or the picture contradicts this."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

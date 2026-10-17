@@ -6,81 +6,37 @@
       "class": "flare",
       "use": "env_sprite",
       "size": [
-        128,
-        128
+        64,
+        64
       ],
       "frames": 1,
       "type": "parallel",
       "format": "additive",
-      "finish": {
-        "edge": 12
-      },
+      "origin": "centre",
       "layers": [
         {
           "kind": "glow",
-          "radius": 0.2,
-          "core": 0.05,
+          "radius": 0.95,
+          "core": 0.25,
           "colour": [
             1,
             1,
             1
           ],
-          "gain": 2
+          "falloff": "power",
+          "gain": 0.7
         },
         {
-          "kind": "flare",
+          "kind": "glow",
+          "radius": 0.5,
           "core": 0.07,
           "colour": [
             1,
             1,
             1
           ],
-          "gain": 2.5,
-          "streaks": [
-            {
-              "angle": 0,
-              "length": 0.5,
-              "width": 0.03,
-              "gain": 1.2,
-              "taper": 0.5,
-              "blur": 0.6,
-              "haze": 0.2
-            },
-            {
-              "angle": 90,
-              "length": 0.4,
-              "width": 0.025,
-              "gain": 1,
-              "taper": 0.5,
-              "blur": 0.6,
-              "haze": 0.2
-            },
-            {
-              "angle": 45,
-              "length": 0.3,
-              "width": 0.02,
-              "gain": 0.6,
-              "taper": 0.4,
-              "blur": 0.5,
-              "haze": 0.2
-            },
-            {
-              "angle": 135,
-              "length": 0.3,
-              "width": 0.02,
-              "gain": 0.6,
-              "taper": 0.4,
-              "blur": 0.5,
-              "haze": 0.2
-            }
-          ],
-          "rays": {
-            "count": 48,
-            "length": 0.5,
-            "jitter": 0.5,
-            "width": 0.012,
-            "gain": 0.4
-          }
+          "falloff": "power",
+          "gain": 1
         }
       ]
     }

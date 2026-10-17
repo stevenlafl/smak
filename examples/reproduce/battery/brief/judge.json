@@ -5,76 +5,79 @@
  "label": "battery.mdl, in the place of the game's models/w_battery.mdl",
  "measured": {
   "size": [
-   10,
-   10,
+   7.4,
+   10.4,
    18
   ],
   "sizeAsked": {
    "high": 18,
    "across": 10
   },
-  "sizeOff": 0,
-  "triangles": 92,
-  "halfLifeMedianOfItsKind": 51,
-  "halfLifeThreeQuartersUnder": 88,
+  "sizeOff": 0.04,
+  "triangles": 36,
+  "halfLifeMedianOfItsKind": 56,
+  "halfLifeThreeQuartersUnder": 116,
+  "halfLifeMost": 194,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/scigun.mdl, models/w_squeak.mdl, models/w_adrenaline.mdl: the judge does not know which"
+  "lineup": "the asset is one of A to D in lineup.png beside models/scigun.mdl, models/w_squeak.mdl, models/w_adrenaline.mdl",
+  "lineupTest": "asked 3 times, each in another order, which of the four was not made by Valve: judges picked C, D, A where the asset was A, B, D: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
-  "M8": 2
+  "M8": 2,
+  "M6": 2
  },
  "scores": {
   "M1": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Matches the brief's words: a chunky upright cylinder with a carry handle standing on top, a cap block under it, and a narrower base. The outline is the same in front, side and back views, with no part missing or sticking out in a wrong way."
+   "reason": "Against the brief's words, the outline is right in every view: a chunky box body, a narrower block rising from its top as the stubby handle, and a base band the full width of the body. Nothing sticks out or is missing in the front, left, back, right, or the diagonal views."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured 10 x 10 x 18 against the asked 18 high and 10 across, sizeOff 0."
+   "reason": "Height is 18.0 against the brief's 18, and width is 10.4 against the brief's 10 (4% off). The depth of 7.4 is not in the brief. Both measured sizes are within 10%."
   },
   "M3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Parts the brief asks for are all present: the body (energy cell), the handle (two posts, a crossbar, and a centre post on the front view), the cyan glow band, the hazard-striped band, a cap block under the handle, and a base plate. Nothing small is missing. The brief sets no side count for the body, so none is checked."
+   "reason": "The brief's parts are all there: the chunky body; two glowing green panels, a thin upper one and a larger lower one, on the front face only, which is what the brief's 'panels' asks for; the hazard-stripe band around the base, present on all four sides; and the stubby handle block on top. The brief names no claws, teeth, rivets, or round parts, so there is no side count to check. The handle is a block, not a loop, but it reads clearly as a stubby handle at the game's size."
   },
   "M4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Dark painted metal body, a cyan glow band that reads as lit, yellow and black hazard paint, and dark handle and base. Each region reads as the material the brief implies (industrial metal, glowing energy) with no odd colour."
+   "reason": "Body is dark grey metal, as the brief's grey metal asks; the green panels are bright green glows; the stripes are yellow and black on the base. The handle carries rust-brown patches, which the brief does not mention; that is painted wear, so it belongs to M5 and does not change any region's colour in the brief's terms."
   },
   "M5": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The hazard stripes break at the seam on the front view (near the middle of the band) and do not run through cleanly at the front-left corner. The cyan glow band is soft-edged where a crisper glow would read better. Surface detail is otherwise sparse, but the brief does not ask for more."
-  },
-  "M6": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "In the line-up (C) it sits comfortably beside the scigun, squeak and adrenaline models: the same dark, grimy metal, a chunky cell form and a plain handle. At that scale it reads as a Half-Life item. It is less grimy than the scigun, but not enough to tell apart in passing."
+   "reason": "The brief's markings are there and sharp: the two green panels with their glow gradient, the diagonal hazard stripes on the base, and the bevelled edges of the body. The top view shows the stripe band around the rim. Nothing the brief asks for is smeared or missing."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Capped at 2 by the rubric. In the line-up test (asset at A, B, and D over three orders), the judges picked C, D, and A, so they never picked the asset as the one not made by Valve. It passed for one of the game's three times in three."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Stands upright on its base on the floor, with the handle on top. The brief says it lies on the floor, which a pickup does, and its origin sits at the base as a floor item should."
+   "reason": "The front, with the green panels and the handle on top, faces the front view as the brief describes. The model stands upright on its flat base band, with its origin at the floor. I read the brief's 'lying on the floor' as resting on the floor, as Valve's battery does, not lying on its side."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "checkErrors is empty. 92 triangles is under the 102 limit, which is twice the median of 51 for Half-Life's props (larger than the third-quartile 88). In the views the handle, cap, body and base read as joined with nothing visibly floating or open."
+   "reason": "The SMAK check reports no errors. At 36 triangles it is well under the Half-Life median of 56 (and under twice it), and under the third quartile of 116. The underside view shows a closed base and the sides are closed. Nothing is open, inside out, or floating."
   }
  },
- "total": 15,
+ "total": 16,
  "of": 16,
  "passes": true
 }

@@ -5,81 +5,31 @@
  "label": "scientist, in the place of the game's models/scientist.mdl",
  "measured": {
   "size": [
-   11.8,
-   28.8,
-   68.2
+   18.8,
+   29.2,
+   69.7
   ],
   "sizeAsked": {
    "high": 68
   },
-  "sizeOff": 0.002,
-  "triangles": 432,
+  "sizeOff": 0.026,
+  "triangles": 708,
   "halfLifeMedianOfItsKind": 504,
   "halfLifeThreeQuartersUnder": 731,
+  "halfLifeMost": 1640,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/houndeye.mdl, models/gman.mdl, models/hassassin.mdl: the judge does not know which"
+  "lineup": "the asset is one of A to D in lineup.png beside models/gman.mdl, models/hassassin.mdl, models/houndeye.mdl",
+  "lineupTest": "asked 3 times, each in another order, which of the four was not made by Valve: judges picked D, D, C where the asset was D, B, C: told apart"
  },
  "caps": {
   "M2": 2,
-  "M8": 2
+  "M8": 2,
+  "M6": 1
  },
- "scores": {
-  "M1": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The brief's words (older man, lab coat, tie, trousers, glasses, grey hair, about 68 tall) read as a man in a coat, but the outline is off in the side and back views (LEFT, RIGHT, BACK): a grey box sits on top of and behind the head, and the shoulder blocks stick out past the coat in the top view. Those are outline faults, not paint."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Measured height is 68.2 against the brief's 68 (within 0.3%). Length 11.8 and width 28.8 are not given by the brief and are not charged."
-  },
-  "M3": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Every part the brief names is there: lab coat, light blue shirt collar, red tie, square breast pocket, dark trousers, dark glasses, brown shoes, skin hands, and a grey mass for hair. Nothing is missing. The grey hair is a flat box above and behind the head (FRONT, LEFT, BACK), not hair, and the shoulder pieces are cylinders, so the shape of those parts is wrong."
-  },
-  "M4": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Colours follow the brief: white coat, red tie, pink skin, dark grey trousers, brown shoes. Materials read as cloth for the coat and skin for the face and hands."
-  },
-  "M5": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The coat carries a blotchy grey mottling across the whole coat in every view (FRONT, BACK, FRONT-LEFT), which reads as a smear or noise rather than cloth weave or lab-coat seams. The brief asks for no markings, so the detail is judged only as it looks; it looks wrong."
-  },
-  "M6": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Beside Half-Life's own humans in lineup.png (B, C), the asset is visibly blockier and lower in detail: flat box shapes, a grey box head, and no facial features beyond the glasses. A player would not take it for one of the game's, though it is recognisably a scientist-style NPC."
-  },
-  "M7": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "The front is the front: tie, pocket and glasses face the FRONT view. It stands upright, and the feet sit on the floor line in LEFT and RIGHT, with the origin at the floor."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The SMAK check reports no errors. Triangles are 432, under twice the Half-Life median of 504 (1008) and under the third quartile of 731. The silhouette shows nothing open or floating."
-  },
-  "C1": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "In motion the body stays together and the legs and arms swing from their joints. In the small frames the shoulder blocks look to lift off the coat in frames 3/22 and 19/22, and the torso does not lean into the run. Resolution is too low to be sure, so this is charged as a fault to check."
-  }
- },
- "total": 13,
- "of": 18,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M6"
+ ],
+ "total": 0,
+ "of": 18
 }

@@ -1,0 +1,82 @@
+{
+ "kind": "sprite",
+ "subject": "laserbeam",
+ "leg": "brief",
+ "label": "sprites/laserbeam.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   64,
+   32
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    64,
+    32
+   ],
+   "border": {
+    "max": 0.978,
+    "mean": 0.099
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.71,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "beam",
+  "againstClass": [],
+  "kept": {
+   "type": "parallel",
+   "format": "additive",
+   "gameType": "parallel",
+   "gameFormat": "additive",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The frame is a single vertical beam running the full height of the sprite: a bright pale core with blue falloff on both sides. That is a beam, as the brief asks, and nothing else is drawn."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The frame is the 64 x 32 size the measurements give. The beam runs off the top and bottom (border max 0.978) and fills the frame's height, and its glow falls to dark before the sides, so the shape fills the frame as a beam's should. Half-Life's class sizes were not supplied, so this rests on the picture."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The core is pale blue-white and the glow shades to saturated blue at the edges, as the brief describes. Judged by eye, the colour is right."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "One frame with the envelope first = last = 1 and peak at frame 0, so there is no motion to get wrong. But againstClass is empty: no Half-Life beam sprite was measured, so the single frame and its envelope could not be checked against the class. Scored 1 as unverified, not as wrong."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type parallel and format additive match the game's own (gameType parallel, gameFormat additive). The name is the same (sameName true) and the file reads back as written (readsBack true)."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

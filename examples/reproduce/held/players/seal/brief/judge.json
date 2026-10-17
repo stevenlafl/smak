@@ -5,89 +5,33 @@
  "label": "seal, in the place of the game's models/player/seal/seal.mdl",
  "measured": {
   "size": [
-   28.3,
-   26.8,
-   73.3
+   31.1,
+   35,
+   76.4
   ],
   "sizeAsked": {
    "high": 70
   },
-  "sizeOff": 0.046,
-  "triangles": 836,
-  "halfLifeMedianOfItsKind": 2550,
-  "halfLifeThreeQuartersUnder": 3341,
+  "sizeOff": 0.091,
+  "triangles": 712,
+  "halfLifeMedianOfItsKind": 1509,
+  "halfLifeThreeQuartersUnder": 1733,
+  "halfLifeMost": 2617,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/player/dmc1ns/dmc1ns.mdl, models/player/V_NVA2/V_NVA2.mdl, models/player/Renatus/Renatus.mdl: the judge does not know which",
-  "contract": "keeps every bone, animation, attachment and bodypart of the base"
+  "lineup": "the asset is one of A to D in lineup.png beside models/player/gordon/gordon.mdl, models/player/terrorist/terrorist.mdl, models/player/agent/agent.mdl",
+  "lineupTest": "asked 3 times, each in another order, which of the four was not made by Valve: judges picked C, D, A where the asset was C, D, A: told apart",
+  "contract": "keeps the contract the mod's stock players share: their animations at their numbers, their shared bones, attachments and bodyparts"
  },
  "caps": {
   "M2": 2,
   "M8": 2,
+  "M6": 1,
   "C2": 2
  },
- "scores": {
-  "M1": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Stands upright in the front and back views with a figure-like outline, and the outline fits the brief's words for an operator in fatigues and a vest. It is off in the side views: the head is a large featureless black sphere that reads as a helmet, the arms are fused into the torso and vest, and the left and right views show a hunched, forward-leaning stance with no clear arm silhouette."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Height is 73.3 units against the brief's 70, 4.7% over, within the 15% band. The brief gives no width or depth, so only height is checked. Measured size is 28.3 x 26.8 x 73.3."
-  },
-  "M3": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Parts the brief asks for, checked down to the small ones: balaclava or cap (the head is a plain black sphere with no face or cap shape, front view); tactical vest (present, a boxy slab across chest and back); pouches (two chest pouches in the front view, one belt pouch centre front, two small pouches on the forearms in front-left); gloves (black blobs at the wrists, front and front-left views, barely separable from the sleeves); boots (two black boots, all views); fatigues (present). Nothing is missing outright, but the gloves and hands are not clearly separable from the arms, and the head is a sphere rather than a balaclava. Charged to shape, capped at 1."
-  },
-  "M4": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The fatigues are a dark olive, close to the brief's dark camouflage. The vest is a yellow-olive noticeably brighter than the fatigues (front, back and top views), which reads as khaki rather than dark. Boots and head are near black, which suits a balaclava and boots. The brief names no vest colour, so the vest's brightness is a fault against the brief's dark look rather than a named colour."
-  },
-  "M5": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The brief asks for dark camouflage. The fatigues are a plain olive with only faint mottling, and no camouflage pattern can be seen in any view. Pouch and vest panel lines are minimal and soft. This is paint, not shape, so it is charged here, not to M1 or M3."
-  },
-  "M6": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "In the line-up it is D, the crudest of the four: a featureless black head, a blocky vest, and flat olive fatigues against three detailed models. A player would not take it for one of Half-Life's own, which have faces, shading and finer detail. It reads as a plain stand-in rather than a likeness."
-  },
-  "M7": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "The front is the front: chest pouches and the belt face the front view, and the figure is upright in the front and back views. It stands on its feet on the floor and nothing floats."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The SMAK check reports no errors. Triangles are 836, far under twice the median of Half-Life's own of its kind (2550). Nothing is shown open, inside out or floating in any view."
-  },
-  "C1": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "In the run (frames 0 to 30) and the forward dive (frames 0 to 35) every part stays on the body and moves with it: the arms, legs, boots and vest stay attached through the stride and the dive. Nothing comes apart, sinks or floats in the frames shown. The brief names no original motion to compare against, so this is judged on attachment alone."
-  },
-  "C2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The measured contract reports the mod's player keeps every bone, animation, attachment and bodypart of the base (Valve's gordon). Its own check is the only evidence here, since the pictures do not show bones."
-  }
- },
- "total": 15,
- "of": 20,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M6"
+ ],
+ "total": 0,
+ "of": 20
 }

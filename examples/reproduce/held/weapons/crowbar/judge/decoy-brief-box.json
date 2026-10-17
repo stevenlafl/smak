@@ -5,28 +5,84 @@
  "label": "crowbar, in the place of the game's models/v_crowbar.mdl, models/p_crowbar.mdl, models/w_crowbar.mdl",
  "measured": {
   "size": [
-   32.4,
-   2.1,
-   11.2
+   32.3,
+   2,
+   11.7
   ],
   "sizeAsked": {
-   "long": 26
+   "long": 32
   },
-  "sizeOff": 0.245,
-  "triangles": 12,
+  "sizeOff": 0.01,
+  "triangles": 6,
   "halfLifeMedianOfItsKind": 142,
   "halfLifeThreeQuartersUnder": 187,
+  "halfLifeMost": 291,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/w_shotgun.mdl, models/w_9mmar.mdl, models/w_sqknest.mdl: the judge does not know which"
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_shotgun.mdl, models/w_9mmar.mdl, models/w_sqknest.mdl",
+  "lineupTest": "asked 3 times, each in another order, which of the four was not made by Valve: judges picked C, C, D where the asset was D, B, C: passed for one of the game's"
  },
  "caps": {
-  "M2": 1,
-  "M8": 2
+  "M2": 2,
+  "M8": 2,
+  "M6": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "M2"
- ],
- "total": 0,
- "of": 18
+ "scores": {
+  "M1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief's outline is a crowbar: a straight shaft with a hooked claw at one end. In sides.png the asset is a flat plate, tapering to a point in the LEFT, RIGHT and FRONT views and with no hook in any view. Its outline is a flat sliver, not a crowbar's."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured length is 32.3 against the brief's 32, within 1%. The brief gives no width or height, so only the length is held to it."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief asks for a hooked claw, a round steel shaft and a grip end. The asset has none of these: no claw in any view (sides.png, first-person.png, in-hand.png), and the 6-triangle slab is one plate with no separate parts. The claw is missing, so M3 is at most 1 and I score it 0 because the shape itself is wrong."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief asks for red paint over steel, worn to bare metal at the tips. The asset is grey throughout (sides.png, first-person.png), with no red anywhere. The grey is clearly off from the brief's red."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief's wear to bare metal at the tips is barely there: only faint lighter edges at the ends in sides.png (TOP, BELOW) and no worn pattern. Stripes, paint wear and the red finish the brief implies are absent."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured by the line-up test, as the rubric directs: the asset was picked 0 of 3 times as the non-Valve model (the judges chose C, C, D where it was at D, B, C), so it passes. Capped at 2 here."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "A crowbar's front is its claw end, and the asset has no claw to read as a front. In the FRONT and BACK views it is a thin diamond, and it lies on its origin as a flat plate rather than as a held weapon."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's checks return no errors. It has 6 triangles, far below any bound for a weapon. The views show a closed solid: no open face, no inside out and no floating part a player can see."
+  },
+  "W1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "In first-person.png the game's crowbar sits at the upper right, held as a hooked bar, while the asset floats at the upper left with no hand around it. In attack.png the slab leaves the picture in frames 1, 4 and 7 to 9, and no grip is visible to show it is held."
+  }
+ },
+ "total": 9,
+ "of": 18,
+ "passes": false
 }

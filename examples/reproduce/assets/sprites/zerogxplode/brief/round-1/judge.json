@@ -1,0 +1,133 @@
+{
+ "kind": "sprite",
+ "subject": "zerogxplode",
+ "leg": "brief",
+ "label": "sprites/zerogxplode.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   128,
+   128
+  ],
+  "frames": 15,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 15,
+   "size": [
+    128,
+    128
+   ],
+   "border": {
+    "max": 0.022,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0.43,
+    "first": 0.04,
+    "last": 0
+   },
+   "dark": 0.69,
+   "wrap": 0.17,
+   "jitter": 1.17
+  },
+  "class": "explosion",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.17,
+    "range": [
+     1.04,
+     1.48
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.43,
+    "range": [
+     0.22,
+     0.71
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0.04,
+    "range": [
+     0,
+     0.22
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.03
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ],
+  "kept": {
+   "type": "parallel",
+   "format": "additive",
+   "gameType": "parallel",
+   "gameFormat": "additive",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The sheet reads as an explosion: a small bright core in frame 0, a bursting fireball from frame 2 to 7, lobed billows in frames 8 to 10, and a dark, smoky burn-out in frames 11 to 13. This is the brief's fireball that bursts, billows into lobes and burns to nothing."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "All frames are 128 by 128. The fireball fills most of the frame from frame 4 to frame 9 and sits near the centre. Frames 0 and 1 are small on purpose, as the growth of a burst. Nothing is clipped at the frame edges (border max 0.022, mean 0)."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged by eye on the blended frames: a white-hot core in frames 1 to 5, then orange and amber lobes with darker brown-orange edges in frames 6 to 10, cooling to a dim grey-brown smoke in frames 11 to 12. This is a plausible fireball palette for an additive explosion, with no stray colour."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Fifteen frames, against the explosion class's measures: the envelope peaks at 0.43 (about frame 6 of 14), first 0.04 and last 0, so it starts faint, peaks mid-way and ends dark. Frame 14 is fully empty and frame 13 is nearly so, which is the one-shot ending dark. Jitter 1.17 is inside the class range 1.04 to 1.48. Every againstClass measure passes."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: type parallel and format additive, matching the game's file (gameType parallel, gameFormat additive). The name is the same (sameName true) and the file reads back as written (readsBack true)."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

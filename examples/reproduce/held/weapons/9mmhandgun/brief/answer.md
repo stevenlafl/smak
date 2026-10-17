@@ -1,25 +1,21 @@
-The build says OK. The pistol is in `work:9mmhandgun_weapon/`, with the three files named as the game's own.
+The model builds OK. It is a first-person, third-person and world version of a 9mm pistol that replaces the game's three weapon files.
 
-**What I made**
+**What's in it**
+- Dark grey steel slide and barrel, with a dark grey polymer frame and trigger guard, and a black polymer grip. A front and rear sight sit on the slide. A small magazine base shows at the bottom of the grip.
+- Built 10 units long along the barrel, with the grip at the back end, as the weapon section asks. The model is 132 triangles, and the barrel is at 24, which is Valve's limit for a piece that small.
+- The three weapon files keep Valve's hands, bones, animations and events. Only the weapon's meshes change.
+- The build checked the model against each of the game's three files, and it found no faults.
 
-A 9mm pistol with a steel slide, barrel and sights, and a black polymer frame and grip, lying along +x with the grip at the rear. Its size is 7.6 units long, about the length of the game's pistol. The model is 108 triangles, and I used a 512 x 256 picture. The spec is `work:9mmhandgun.json`.
+**Files to put in the mod** (copy the folder's three files into `<mod>/models/`, and they replace the game's):
+- `work:9mmhandgun_weapon/v_9mmhandgun.mdl`: first person, with the hands
+- `work:9mmhandgun_weapon/p_9mmhandgun.mdl`: in another player's hands
+- `work:9mmhandgun_weapon/w_9mmhandgun.mdl`: lying in the world
 
-| File | Where | What it is |
-| --- | --- | --- |
-| `v_9mmhandgun.mdl` | `work:9mmhandgun_weapon/` | First-person view, with the game's hands and animations kept |
-| `p_9mmhandgun.mdl` | `work:9mmhandgun_weapon/` | The pistol in another player's hands |
-| `w_9mmhandgun.mdl` | `work:9mmhandgun_weapon/` | The pistol lying in the world |
-| `9mmhandgun.mdl` | `work:` | The new pistol built on its own, as a plain model |
+`work:9mmhandgun.mdl` is the stand-alone model, for a viewer. The spec that makes all of it is `work:9mmhandgun.json`, so it can be rebuilt.
 
-To use it, copy the three files in `9mmhandgun_weapon/` into the mod's `models` folder. They keep the game's names, so the game loads them in place of its own with no code. The plain `9mmhandgun.mdl` is not needed for that.
+**Choices I made**
+- Size: I used the weapon's default, which stretches the pistol to the game's own length, so it sits at the same size as Half-Life's in game. If they want it at its own 10-unit length, the size needs changing to `"own"`.
+- Sounds: none are given, so the game's own sounds play.
+- Build fixes: I changed the grip, trigger, sights and guard post so the parts meet, and the last rebuild dropped the one fault it reported.
 
-**How I made it**
-
-I wrote the spec with `size: "own"`, so the model is built at the pistol's real length rather than stretched to the game's. The first build passed but warned that the barrel's 48 triangles were over the 24 Valve spends on a piece that small. I changed the barrel to 6 sides, and the rebuild had no warnings.
-
-**Where it may fall short**
-
-- It is simple. The grip is a plain box, and there is no trigger, hammer, ejection port or checkering. The game's first-person model has 523 to 832 triangles with its arms, so the game's own may read as more detailed.
-- I could not put the game's own pistol beside it in this kit. The render tool refuses paths outside the work and models folders, so the comparison is for the modder to make in the game.
-
-The modder will need to judge whether it is at least as good as the game's pistol.
+I haven't run it in the game, so whether it is at least as good as Half-Life's is for the modder to judge there. It's a simple box-built pistol, with a flat-coloured look rather than the game's detail.

@@ -1,14 +1,19 @@
-I made the sprite and the build says OK. It is at `work:sprites/zerogxplode.spr`, with a contact sheet (`zerogxplode-sheet.png`) and an animated preview (`zerogxplode-animated.png`) beside it. The spec is `work:sprites/zerogxplode.json`.
+The sprite builds OK: `work:sprites/zerogxplode.spr`, next to a contact sheet (`-sheet.png`) and an animated preview (`-animated.png`). The spec is `work:zerogxplode.json`.
 
-**What it is:** a 128 by 128 sprite of 15 frames at 30 frames a second, played once and not looped. It is additive, so black is clear and only the light shows. It is placed as a temporary entity, which is how the game draws explosions, with render mode 5 (Additive).
+**What it is**
+- Name `sprites/zerogxplode.spr`, so it replaces the game's file by name.
+- Type parallel, format additive (black is clear, only light is drawn), as the original's are.
+- Used as a temporary entity (`tempent`, the kind the game uses for explosions), render mode 5 (additive), 15 frames at 15 per second, one shot that does not loop.
+- 128 by 128 pixels, with a fade at the edges so no square shows.
 
-**How it is made:** the spec has three layers, summed:
-- **Fire ball** (`explosion` layer, blast colours): a bright core that swells and cools from white to cream to tan to brown, the colours of the game's own explosion.
-- **Billowing cloud** (`billow` layer): 24 lit spheres spread out from the centre, growing, rising a little, drifting, and breaking into wisps as they age. This is the part that bursts out and billows.
-- **Glow** (`glow` layer): a soft halo that fades with the fire.
+**How it is made** (two layers, summed)
+- `explosion`: a hot fireball in the first frames, coloured by the game's own explosion ramp (`blast`: white, cream, tan, brown), that starts from a small flash and grows a little.
+- `billow`: 18 lit spheres in a disc about half the frame wide. They swell out from the centre, rise and drift a little, and are coloured by the same ramp. As they age they break into wisps (`dissolve`), so the fireball bursts, puffs out into lobes, and burns away to nothing by about frame 14.
 
-The envelopes bring it up fast and then let it decay, so it peaks around frame 3 to 5 and is nearly dark by frame 13. Frame 14 is empty, so it burns away to nothing.
+**Build results**
+- First try: the lobes were too far out and the light ran to the frame's edge. That was a FAULT; fixed by pulling the lobes in and adding the edge fade.
+- Final build: OK, and every check passed. Its colours and envelope fall within the range of Half-Life's explosions (5 of 5 checks in range).
 
-**What the build checked:** the file is 256 colours, the border is dark (no light at the edges, so no hard box in game), and its loop-free start and end are clean. The build's comparison said 5 of 5 measures were in range against Half-Life's explosion class.
-
-**One caveat:** this server has no Half-Life game folder, so I could not load the game's own `zerogxplode.spr` and compare it frame by frame. The "5 of 5" is against the stored figures for Half-Life's explosion class, not against that file. The frame count and speed are my choices, not copied from the original, so the modder should check them against the game's file. The sprite replaces the game's by name, so they can drop `sprites/zerogxplode.spr` into their mod's sprites folder and compare the two side by side in game. If it reads too pale or too short, the spec's `gain` and `decay` values are the first things to change.
+**What I could not do**
+- I did not compare it against the game's own `zerogxplode.spr`. This server has no game folder set up, so the original was not readable. The "in range" checks compare against the typical Half-Life explosion, not this exact sprite. I also guessed the original's frame count and size (15 frames, 128 by 128), so those may differ.
+- The build cannot tell whether it looks good. The modder has to judge that in the game, beside the original. If it is too big, too bright or too short, the spec's `size`, the billow's `spread` and `growth`, and the layer `gain`s are the knobs to turn.

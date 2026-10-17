@@ -1,0 +1,133 @@
+{
+ "kind": "sprite",
+ "subject": "steam1",
+ "leg": "control: Valve's own against the brief",
+ "label": "sprites/steam1.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   32,
+   48
+  ],
+  "frames": 16,
+  "type": "parallel oriented",
+  "format": "index alpha",
+  "measures": {
+   "frames": 16,
+   "size": [
+    32,
+    48
+   ],
+   "border": {
+    "max": 0.341,
+    "mean": 0.002
+   },
+   "envelope": {
+    "peakAt": 0.4,
+    "first": 0.04,
+    "last": 0.03
+   },
+   "dark": 0.64,
+   "wrap": 0.5,
+   "jitter": 1.1
+  },
+  "class": "smoke puff",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.1,
+    "range": [
+     0.9,
+     1.5
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0.002,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.4,
+    "range": [
+     0.2,
+     0.6
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0.04,
+    "range": [
+     0,
+     0.35
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0.03,
+    "range": [
+     0,
+     0.1
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ],
+  "kept": {
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "gameType": "parallel oriented",
+   "gameFormat": "index alpha",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Reads as a puff of steam or smoke: a white cloud that swells from a speck (frame 0) to a dense head (frames 2 to 7), then breaks into a grey, thinning column with a tail below (frames 8 to 15). That matches the brief's white-and-grey steam that swells and thins as it fades."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "All 16 frames are 32 by 48 and the puff fills the cell as a steam cloud should, with the body sitting in the middle and a trailing tail below. The only edge contact is in frames 7 and 8, where the puff touches the top right and the left edge; the measured border (mean 0.002) confirms this is minor and within the class's range."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Colour is what the brief asks, judged by eye: near-white at the peak (frames 2 to 6), light grey through the middle (frames 8 to 10), and dark grey wisps at the end (frames 13 to 15). Nothing is tinted or saturated, so it reads as steam."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The measures sit inside the smoke-puff class's ranges: peak at 0.4 of the run (range 0.2 to 0.6), first frame 0.04 and last 0.03 (each within its band), 16 frames. The picture shows the swell-then-thin motion the brief asks for, and the last frames fade toward dark, as a one-shot that ends dim should."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The sprite is parallel oriented with index alpha, matching the game's own steam1 type and format, keeps the same name, and reads back as written. Measured against the class's type and format, nothing differs."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

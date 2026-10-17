@@ -1,17 +1,24 @@
-The first-aid kit model is built and the build says **OK**. The check for GoldSrc also reports "fit for goldsrc". Files are in the work folder: `medkit.mdl`, `medkit.spec.json` (the spec it was built from) and `medkit-sheet.png` (six views).
+I built `medkit.mdl`, and the build says OK. It is at `work:medkit.mdl`, with its spec at `work:medkit.json`.
 
-**What it is**
-- **Size:** 35 long (x), 26 wide (y), 7 high (z), lying flat with its bottom on the floor.
-- **Case:** one box, 35 × 26 × 5.5, in a light grey-white (tone about 0.6, the used-grey range Half-Life's own walls use).
-- **Red cross:** two flat red panels on the top, centred.
-- **Carry handle:** a dark grey strap, 0.9 radius, arching along the length on the back half of the top, 1.8 above the lid. It is at y = +10, which sets the handle to one side. Say if you want it centred, and the cross moved to match.
-- **Wear:** the finish rubs the edges lighter, adds grime near the floor and varies each part slightly. It reads as used but not heavily scuffed. I can push the wear up if the scuffs need to be more obvious.
-- **Triangles:** 72 in all (case 12, handle 60). That is above the median for Half-Life's world pickups (28) and under their three-quarter mark (104), so it is within the range the kit uses for this kind of item.
+**What it is:** a white case lying flat on the floor, 35 long, 26 wide and 7 high (about 7.4 with the strap). The case has a red cross on the top, "FIRST AID" in red on the front end, and a dark cloth carry strap lying along the top, off centre.
 
-**How it was made**
-I wrote a spec with the sizes, the three materials, the finish and the two parts, then built it with the kit. The first build passed every check, so I did not change it. The report lists no faults, and the case's and handle's places are as intended.
+**How it was made:**
+- The case is one box, with the cross as two flat red panels on its top and the lettering as a print on its front face.
+- The strap is a thin box on top of the case.
+- The materials are paint for the case and the cross, and cloth for the strap. Paint tones were kept within the range of the game's own walls, so the white is a used grey and does not look like a toy.
+- The default finish adds light, edge wear, grime near the floor and slight variation between parts.
 
-**What I could not check**
-- **No side-by-side comparison.** There is no game models folder here, so I could not load Half-Life's `w_medkit.mdl` to compare. The kit's pictures are not the game's engine lighting, so judging it beside the original needs the mod's own game run.
-- **Name and install.** To replace the game's pickup with no code change, the file must be named `w_medkit.mdl` in the mod's `models/` folder. If it keeps the name `medkit.mdl`, the mod's code has to name it at map start, or the engine will not load it.
-- **Size.** It is built to the 35 × 26 × 7 the modder gave. If the game's own pickup is much smaller, the modder should compare sizes in the game.
+**Checks:**
+- The build reports 24 triangles. Half-Life's pickups lying in the world have 28 at the median and 104 at the third quartile, so this is at or under the game's own weight. I set a budget of 104, and it passes.
+- The GoldSrc check says "fit for goldsrc".
+- I checked the six-sided picture and the three-quarter view. The lettering reads and the cross is centred.
+
+**What I could not do:**
+- I could not open the game's own `w_medkit.mdl` here. The models folder holds no game files, so I could not put the two side by side in the build or measure the game's model directly. The triangle comparison above uses the guide's figures for Half-Life's pickups.
+- I could not see it in the game. That comparison is for you to make.
+
+**To use it in place of the game's pickup:** it has to be installed under the game's file name, `w_medkit.mdl`, in the mod's `models` folder. A file that replaces one the game already loads needs no code. Under the name `medkit.mdl` it would be a new model that the mod's code must name at map start.
+
+**Choices I made that you may want to change:**
+- The carry strap is a flat strap lying on top, not a loop handle. A loop would need more triangles, and it would still be a few more than the case itself.
+- The cross is on the top and the lettering is on the front end. Moving either is a small spec change and a rebuild.

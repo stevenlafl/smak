@@ -8,11 +8,11 @@
    64,
    64
   ],
-  "frames": 4,
+  "frames": 2,
   "type": "parallel",
   "format": "additive",
   "measures": {
-   "frames": 4,
+   "frames": 2,
    "size": [
     64,
     64
@@ -22,13 +22,13 @@
     "mean": 0
    },
    "envelope": {
-    "peakAt": 0.33,
-    "first": 0.84,
+    "peakAt": 0,
+    "first": 1,
     "last": 0
    },
-   "dark": 0.88,
-   "wrap": 0.98,
-   "jitter": 2
+   "dark": 0.85,
+   "wrap": null,
+   "jitter": null
   },
   "class": "flare",
   "againstClass": [
@@ -60,34 +60,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The three lit frames (0 to 2) show a star-shaped burst: a bright white-yellow core with eight thin rays, which reads as a gun's muzzle flash and matches the brief's 'short bright burst of fire in a star shape'. It is not a disc or a box, so it does not match the decoy."
+   "reason": "Frame 0 shows a four-pointed star burst with a soft glow around a bright white core, which is the muzzle flash the brief asks for. Nothing in the picture is a different effect."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The sheet is 64 x 64 per frame. The rays spread across most of each cell (roughly x 18 to 108 of 128 in frame 0), so the effect fills its frames without touching the edges. The measured border is 0, so nothing is clipped at the frame edge."
+   "reason": "Frames are 64 x 64 per the measures. In frame 0 the star's arms reach close to the frame's edges (about x 12 to 118 of 128 at the sheet's scale), and the glow fills the frame as a flash should. Frame 1 is empty, but that is R4's fault, not the frame's shape or size."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The core is near white and the rays are warm yellow-orange, the colour a flash takes when it is blended additively. Nothing in the frames contradicts the warm, hot look the brief describes. The mean colour cannot be checked against an original here, so this rests on the picture and the measures, which give no colour fault."
+   "reason": "The core is near-white, shading to warm orange at the arm tips and glow, on a black additive background. That reads as a bright gun flash by eye. No colour fault is visible at this size."
   },
   "R4": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Frame 0 is brightest with the widest rays, frame 1 is a bright core with the rays slightly shorter, frame 2 is smaller and dimmer, and frame 3 is entirely dark. That is a one-shot: it grows, then fades, and ends dark. The measures agree: peak at 0.33, first 0.84, last 0, border 0. Four frames matches the sprite's frame count in the measures; the brief sets no frame count, so there is no contrary figure."
+   "score": 1,
+   "reason": "Two frames as the class takes it, and the envelope peaks at frame 0 (first 1, peak at 0). But frame 1 is fully dark (last 0, dark 0.85), so the flash is one bright frame followed by nothing. Half-Life's own muzzle flash is two bright frames, so the ending is clearly off for the class. Frame 1 needs its own bright, smaller flash."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured as type parallel and format additive, and the game's own type and format are also parallel and additive (gameType and gameFormat match). The name is the same (sameName true) and the file reads back as written (readsBack true)."
+   "reason": "Type parallel and format additive match the game's own (gameType and gameFormat both match), the name is the same (sameName true), and the file reads back (readsBack true)."
   }
  },
- "total": 10,
+ "total": 9,
  "of": 10,
- "passes": true
+ "passes": false
 }

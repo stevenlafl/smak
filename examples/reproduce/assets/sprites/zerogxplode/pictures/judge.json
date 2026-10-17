@@ -75,34 +75,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are the same effect: a fireball that swells, cools to ember and throws off sparks. The reproduction has the blob, the spark scatter and the fade in the same places, so it reads as the same explosion."
+   "reason": "Both are the same effect: a small spark at frame 0, a bright blob that swells through frames 1 to 5, then a yellow-orange cloud that sinks and dims over frames 8 to 14, with flying sparks at the edges. The reproduction's frames 2 to 4 have the same expanding fireball with its outer sparks, so the effect reads as the original's."
   },
   "R2": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Both are 64 x 64 (measured). In both the effect fills the upper-middle of each frame, with the lobed cloud reaching about the same width and height in the peak frames (2 to 4 original, 3 to 4 reproduction)."
+   "score": 1,
+   "reason": "Both frames are 64 x 64 and the blob fills the frame in the same place. The measured envelope is smaller early and peaks sooner: first 0.04 against the original's 0.08, peak at 0.29 against 0.36. In the reproduction's frame 0 the spark is a small grey smudge, while the original's is a hot white spot. Its frames 1 and 2 are also smaller than the original's, so the blob is not built up as the original's is."
   },
   "R3": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Clearly off in the early frames: original frames 0 to 2 are white-yellow with a warm orange rim, while reproduction frames 0 to 2 are flat grey (frame 2 has a grey body, not white). Mid frames 3 to 5 are white with dark brown mottling where the original is smooth white-yellow. Late frames 8 to 10 are a more saturated gold than the original's yellow-orange-brown. The measured envelope is also lower at both ends (first 0.04 vs 0.08, peak 0.29 vs 0.36), so the colours do not match as the engine blends them."
+   "reason": "The early frames are wrong: the reproduction's frames 0 to 2 are flat grey (frame 2 has a grey cloud with white highlights), where the original's are white-hot with yellow. Frames 3 and 4 are close to the original's white. Its later frames 8 to 9 are a more saturated gold and frames 11 to 13 an olive-brown, where the original is orange-brown with dark red edges. The measured mean colour difference of 10.6 is within the line of 15, but the grey start is clearly off to the eye."
   },
   "R4": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Both have 15 frames (measured). Both grow to a peak and then fade, and both end dark (last 0 vs 0.03, with the original's frame 14 an ember and the reproduction's frame 14 fully dark). The peak falls about one frame earlier in the reproduction (0.29 vs 0.36), which is within the 25% frame tolerance, so the kind of motion and the one-shot ending match."
+   "score": 1,
+   "reason": "Frame count matches at 15, and both grow, peak around frames 4 to 5 and fade. The reproduction peaks about a frame earlier (0.29 against 0.36) and fades faster: its frame 13 is a faint brown smear and frame 14 is empty, while the original still glows faintly at frame 14 (last 0.03 against 0). Its jitter is higher (1.6 against 1.25), so the frame-to-frame texture churns more than the original's. The wrap measure differs widely (0.23 against 0.81); I cannot tell from the pictures what that measure means for a one-shot, so I have not charged it separately."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured: format additive on both, same name (sameName true), and it reads back as written (readsBack true). Size 64 x 64 on both."
+   "reason": "The type and format match the original: parallel and additive. The name is the same (sameName true), and it reads back as written (readsBack true). Background is black and additive, so it blends as the original does."
   }
  },
- "total": 9,
+ "total": 7,
  "of": 10,
  "passes": false
 }

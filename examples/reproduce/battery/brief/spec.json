@@ -4,150 +4,94 @@
   "kind": "prop",
   "size": {
     "height": 18,
-    "length": 10,
     "width": 10
   },
   "materials": {
     "casing": {
       "base": "metal",
       "tone": "dark grey",
-      "rust": 0.1
+      "rust": 0.05
     },
-    "dark": {
-      "base": "metal",
-      "tone": "black"
-    },
-    "warn": {
+    "stripe": {
       "base": "hazard",
       "tone": "yellow"
     },
     "glow": {
       "base": "neon",
-      "tone": [
-        0.2,
-        0.9,
-        1
-      ]
+      "tone": "green"
+    },
+    "grip": {
+      "base": "iron",
+      "tone": "dark grey"
     }
   },
   "parts": [
     {
-      "id": "foot",
+      "id": "cell",
       "kind": "box",
-      "material": "dark",
-      "size": [
-        6,
-        6,
-        1
-      ]
-    },
-    {
-      "id": "shell",
-      "kind": "cylinder",
       "material": "casing",
-      "radius": 5,
-      "height": 12,
-      "sides": 8,
-      "attach": {
-        "to": "foot"
-      },
-      "marks": [
+      "size": [
+        7,
+        10,
+        14
+      ],
+      "panels": [
         {
-          "path": [
-            [
-              0.12,
-              0
-            ],
-            [
-              0.12,
-              360
-            ]
+          "face": "front",
+          "at": [
+            5,
+            8.5
           ],
-          "width": 1.2,
-          "material": "warn",
-          "ends": "round"
+          "size": [
+            6,
+            3.5
+          ],
+          "style": "raised",
+          "material": "glow"
         },
         {
-          "path": [
-            [
-              0.6,
-              0
-            ],
-            [
-              0.6,
-              360
-            ]
+          "face": "front",
+          "at": [
+            5,
+            12.5
           ],
-          "width": 1,
+          "size": [
+            6,
+            1.5
+          ],
+          "style": "raised",
           "material": "glow"
         }
       ]
     },
     {
-      "id": "cap",
+      "id": "foot",
       "kind": "box",
-      "material": "dark",
+      "material": "stripe",
       "size": [
-        6,
-        6,
-        1.5
+        7.4,
+        10.4,
+        3
       ],
       "attach": {
-        "to": "shell"
+        "to": "cell",
+        "toAt": "bottom",
+        "at": "bottom"
       }
     },
     {
-      "id": "post_l",
+      "id": "handle",
       "kind": "box",
-      "material": "dark",
+      "material": "grip",
       "size": [
-        1.2,
-        1.4,
-        2
+        3,
+        5,
+        4
       ],
       "attach": {
-        "to": "cap",
-        "offset": [
-          2.5,
-          0,
-          0
-        ]
-      }
-    },
-    {
-      "id": "post_r",
-      "kind": "box",
-      "material": "dark",
-      "size": [
-        1.2,
-        1.4,
-        2
-      ],
-      "attach": {
-        "to": "cap",
-        "offset": [
-          -2.5,
-          0,
-          0
-        ]
-      }
-    },
-    {
-      "id": "bar",
-      "kind": "box",
-      "material": "dark",
-      "size": [
-        7.5,
-        1.4,
-        1.5
-      ],
-      "attach": {
-        "to": "post_l",
-        "offset": [
-          -2.5,
-          0,
-          0
-        ]
+        "to": "cell",
+        "toAt": "top",
+        "at": "bottom"
       }
     }
   ]

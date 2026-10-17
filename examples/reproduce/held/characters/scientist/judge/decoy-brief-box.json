@@ -16,70 +16,20 @@
   "triangles": 12,
   "halfLifeMedianOfItsKind": 504,
   "halfLifeThreeQuartersUnder": 731,
+  "halfLifeMost": 1640,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/gman.mdl, models/hassassin.mdl, models/houndeye.mdl: the judge does not know which"
+  "lineup": "the asset is one of A to D in lineup.png beside models/gman.mdl, models/hassassin.mdl, models/houndeye.mdl",
+  "lineupTest": "asked 3 times, each in another order, which of the four was not made by Valve: judges picked D, B, C where the asset was D, B, C: told apart"
  },
  "caps": {
   "M2": 2,
-  "M8": 2
+  "M8": 2,
+  "M6": 1
  },
- "scores": {
-  "M1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The outline is a plain rectangular box in every view (FRONT, LEFT, BACK, RIGHT, and the diagonal FRONT-LEFT, FRONT-RIGHT, BACK-LEFT, BACK-RIGHT in sides.png). The brief asks for an older man: head, shoulders, arms, legs, a coat that opens at the front, and a tie. None of these show in any view, so there is no person's silhouette."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The measured height is 68, which matches the brief's 'about 68 tall' exactly (sizeOff 0). The brief gives no width or depth, so the 33.3 x 21.7 footprint cannot be checked against it. Only the height the brief asks for is met."
-  },
-  "M3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The brief asks for a head, glasses, hair or a bald head, a shirt and tie, a white lab coat, dark trousers, arms and legs, and the small parts (the glasses, the tie, the coat's collar and buttons). The asset is one solid block with none of these in any view (sides.png, lineup.png B). It is missing every part the brief names."
-  },
-  "M4": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The brief asks for a white lab coat, a shirt, a tie, dark trousers, skin and glass. The asset is one uniform grey, stone-like material over the whole block (sides.png, every view), with no region of any of those colours or materials."
-  },
-  "M5": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The detail the brief names is a coat's lapels and pockets, a tie, glasses and a face. The block has only a speckled grey noise pattern on every face (sides.png), and none of the named markings or features are there."
-  },
-  "M6": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "In lineup.png the asset (A) is a grey block beside a black-suited woman (B), a houndeye (C) and a suited man with a briefcase (D). A player would not take the block for any Half-Life character, and the judge would pick out the scientist-like man (D) before it."
-  },
-  "M7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The block stands upright on the floor line in motion.png, so it stands on its base as an upright figure should. A box has no front, so the front cannot be the scientist's front; the front is not set."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "checkErrors is empty and 12 triangles is far under the limit (twice Half-Life's median of 504 is 1008). The box looks closed, with no open faces or floating parts in the views. This item measures only fit for the game, so it passes even though the asset is not a scientist."
-  },
-  "C1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "motion.png is labelled IDLE 0/0 and shows one static frame of the block with nothing moving. The brief asks the scientist to walk, run from danger and follow the player, and none of that motion is shown or possible for a single rigid box."
-  }
- },
- "total": 5,
- "of": 18,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M6"
+ ],
+ "total": 0,
+ "of": 18
 }

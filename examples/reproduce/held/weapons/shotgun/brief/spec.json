@@ -7,60 +7,55 @@
   },
   "weapon": {
     "like": "shotgun",
-    "size": "own",
-    "rig": "nearest"
+    "size": "own"
   },
   "materials": {
     "black": {
-      "base": "steel",
+      "base": "iron",
       "tone": [
-        0.14,
-        0.14,
-        0.15
+        0.1,
+        0.1,
+        0.11
       ]
     },
     "wood": {
-      "base": "darkwood",
+      "base": "wood",
       "tone": [
-        0.36,
-        0.22,
-        0.12
+        0.3,
+        0.16,
+        0.08
       ]
     }
   },
   "parts": [
     {
       "id": "stock",
-      "kind": "superquadric",
+      "kind": "box",
       "material": "wood",
       "size": [
-        10,
-        2.6,
-        5
-      ],
-      "round": [
-        0.3,
-        0.3
+        9,
+        2.2,
+        4
       ],
       "at": [
-        5,
+        4.5,
         0,
-        2.5
+        2.2
       ]
     },
     {
-      "id": "grip",
+      "id": "butt",
       "kind": "box",
       "material": "black",
       "size": [
-        2.8,
-        2.4,
-        6.5
+        0.8,
+        2.3,
+        4.2
       ],
       "at": [
-        9.4,
+        0.4,
         0,
-        0
+        2
       ]
     },
     {
@@ -68,74 +63,81 @@
       "kind": "box",
       "material": "black",
       "size": [
-        14,
-        3.4,
-        6.4
+        9,
+        2.6,
+        4.6
       ],
       "at": [
-        18,
+        13.5,
         0,
         1.8
-      ],
-      "panels": [
-        {
-          "face": "right",
-          "at": [
-            8,
-            4.2
-          ],
-          "size": [
-            5,
-            2
-          ],
-          "style": "inset"
-        }
       ]
+    },
+    {
+      "id": "grip",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        2.6,
+        2,
+        4
+      ],
+      "attach": {
+        "to": "receiver",
+        "toAt": "bottom",
+        "at": "top",
+        "offset": [
+          -2,
+          0,
+          0
+        ]
+      }
     },
     {
       "id": "barrel",
       "kind": "cylinder",
       "material": "black",
-      "radius": 1.15,
-      "height": 18.5,
-      "sides": 10,
+      "radius": 0.9,
+      "height": 12,
+      "sides": 8,
       "rotate": [
         0,
         90,
         0
       ],
       "at": [
-        11.5,
+        18,
         0,
-        8.4
+        5
       ]
     },
     {
-      "id": "magazine",
+      "id": "tube",
       "kind": "cylinder",
       "material": "black",
-      "radius": 0.65,
-      "height": 14.5,
-      "sides": 6,
+      "radius": 0.6,
+      "height": 10.5,
+      "sides": 8,
       "rotate": [
         0,
         90,
         0
       ],
       "at": [
-        12.5,
+        17.5,
         0,
-        6.6
+        3.3
       ]
     },
     {
       "id": "pump",
       "kind": "superquadric",
       "material": "wood",
+      "bone": "Bone01",
       "size": [
-        8,
-        3.6,
-        4.2
+        7,
+        2.5,
+        2.4
       ],
       "round": [
         0.3,
@@ -144,60 +146,22 @@
       "at": [
         23.5,
         0,
-        3.2
-      ],
-      "bone": "Bone01"
+        2
+      ]
     },
     {
-      "id": "front_sight",
+      "id": "sight",
       "kind": "box",
       "material": "black",
       "size": [
-        0.5,
-        0.5,
-        1.1
+        0.8,
+        0.4,
+        0.9
       ],
       "at": [
         29,
         0,
-        9.55
-      ]
-    },
-    {
-      "id": "trigger_guard",
-      "kind": "tube",
-      "material": "black",
-      "sides": 6,
-      "path": [
-        [
-          12.5,
-          0,
-          1.9,
-          0.3
-        ],
-        [
-          12.5,
-          0,
-          0.8,
-          0.3
-        ],
-        [
-          16,
-          0,
-          0.8,
-          0.3
-        ],
-        [
-          16,
-          0,
-          1.9,
-          0.3
-        ]
-      ],
-      "at": [
-        0,
-        0,
-        0
+        5.8
       ]
     }
   ]

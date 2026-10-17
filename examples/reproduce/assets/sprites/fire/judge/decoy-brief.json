@@ -80,34 +80,34 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief asks for a looping flame of orange and yellow tongues licking upwards. The frame shows no flame: a pale grey field with one small white rectangle outlined in black near the top-left. It reads as a plain box, not fire, so the effect is missing."
+   "reason": "The brief asks for a looping flame of tongues licking upward. The frame shows no flame: a light field with one dark-outlined rectangle near the top, no tongues, no upward licking. The picture is too small to resolve fine detail, but nothing in it reads as fire."
   },
   "R2": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The measured size is 32 x 96, the right shape for a tall flame. But the picture does not fill it with tongues of fire. Its border is light (mean 0.784, against a range of 0 to 0.028), so the light sits at the edge and the centre is empty. The effect does not fill the frame as a flame should."
+   "reason": "The size matches the original (32 x 96), but the effect does not fill the frame as a flame does. The measured border is 0.784 where the class allows 0 to 0.028, so bright light runs to the frame edges, the fault the measure names. The lit area is a block, not tongues rising from a base."
   },
   "R3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief asks for orange and yellow. The frame is grey and near-white with a black outline, and no orange or yellow shows in the picture. The measured border is bright (0.784), which the rubric's band for this class (0 to 0.028) does not allow."
+   "reason": "The brief asks for orange and yellow. The frame reads as grey, white and black, with no orange or yellow anywhere. The colour is wrong for the brief, judged by eye."
   },
   "R4": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "The measurement gives 1 frame. A looping fire needs several frames that move and close the loop. Its envelope is flat at 1 on the first and last frame, with no motion or loop to judge, so it does not show the motion of a fire loop."
+   "score": 1,
+   "reason": "It is one frame, with first and last both at 1, which sits within the class's envelope range (0.57 to 1), so the envelope is not the fault. The frame count of 1 is not one a fire loop takes, and nothing in the frame moves, so no loop closes on any motion. Only the envelope is measured against the class; the count and the motion are not, so this is held to 1 on the picture alone."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type 'parallel oriented' and format 'additive' match the game's file (gameType and gameFormat agree). The name is the same (sameName true), and the file reads back as written (readsBack true). This is the one item the measures fully support."
+   "reason": "The type (parallel oriented) and format (additive) match the game's own file, the name is sprites/fire.spr, and the file reads back as written (sameName and readsBack are true). The fit for the game is correct."
   }
  },
- "total": 2,
+ "total": 3,
  "of": 10,
  "passes": false
 }

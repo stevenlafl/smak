@@ -1,29 +1,16 @@
-The crowbar builds OK. It is a red-painted steel crowbar about 24 units long, fitted over Half-Life's own `v_crowbar.mdl`, `p_crowbar.mdl` and `w_crowbar.mdl`. The spec is `work:crowbar.json`.
-
-The three files for the mod are in `work:crowbar_weapon/`:
-
-```
-v_crowbar.mdl   first person, with the game's hands and animations
-p_crowbar.mdl   in another player's hands
-w_crowbar.mdl   lying in the world (pickup)
-```
-
-To use them, copy the three files into the mod's `models` folder, where they replace the game's files of the same names.
+The crowbar is built and the build says **OK**. It is a `held` spec named `crowbar.mdl`, with `weapon: { like: "crowbar" }` and a length of 32.
 
 **What it is**
+- One continuous round steel bar, about 31.4 long (the build's measure of the 32 you asked for), 1.1 across. It runs from the grip end along the length, then bends up into a hook at the far end.
+- Painted deep red over the whole bar.
+- Worn to bare metal at both ends: the grip end and the hook tip are painted steel, which the paint and wear pass lighten, so they read as bare metal.
 
-- **Shape:** a straight bar with a bent claw at the far end, and a blunt butt at the grip end.
-- **Paint:** red paint on the shaft and the hook, with a steel ferrule-style grip section and a steel claw tip.
-- **Wear:** a wear and grime finish over everything, so the paint chips and the metal reads as worn.
-- **Size:** built at the real crowbar length, 23.8 units, and laid into each file at the size Valve draws a weapon there. Its grip sits where the old grip was.
-- **Triangles:** 128. That is above the typical Valve pickup in the world file (three quarters of Valve's pickups have under 104), so it is heavier than most pickups but well within the first-person and held-weapon norms. The build gave no warning about it.
+**How it was made**
+- Spec: `work:crowbar.spec.json`. Built with the kit's `held` kind and `weapon: { like: "crowbar" }`, so the build fits it into the game's own files.
+- Output: `work:crowbar_weapon/v_crowbar.mdl`, `p_crowbar.mdl` and `w_crowbar.mdl`. They keep the game's names, so to test in the game, copy them into the mod's `models` folder and they replace Half-Life's.
+- The first versions faulted. Joining separate closed pieces end to end gave faces counted twice, so I made the bar one continuous tube and painted the steel ends on instead of building them as separate parts.
 
-**How I made it**
-
-I wrote a `held` spec with `weapon: { like: "crowbar", size: "own" }`. The build fits the new weapon into the game's three files, keeping their hands, bones, animations and events, and replacing only the weapon's meshes.
-
-The first two builds failed with the same fault: two faces were given twice where parts met. Each part's closed end was a flat cap sitting on the next part's cap. The fix was to let each joint overlap by a little, so the caps sit inside the neighbouring part instead of on it. The final build passed every check.
-
-**What I did not check**
-
-I only looked at the build's own pictures: the six sides, the three files, and the first attack frames. I have not opened the mod in the game, so the in-game judgment of whether it is at least as good as Half-Life's is yours to make. The build does not include sounds, so the game's own crowbar sounds still play. Say if you want the sounds replaced too.
+**What to check in the game**
+- The hook is round and thin. Half-Life's own crowbar head is flatter and wider, so it may look weaker in the hand. This is the first thing to compare.
+- The first-person picture looks right in the attack frames, but I have not run it in the game.
+- Triangle count is 96 in the first-person file. The game's own is about 600 at the high end, so this is light.

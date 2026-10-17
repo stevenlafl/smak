@@ -1,0 +1,71 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/xspark1.spr",
+      "class": "sparks",
+      "use": "tempent",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 8,
+      "fps": 20,
+      "layers": [
+        {
+          "kind": "glow",
+          "radius": 0.08,
+          "core": 0.04,
+          "gain": 0.25,
+          "colour": [
+            1,
+            0.925,
+            0.745
+          ],
+          "env": {
+            "attack": 0.06,
+            "decay": 0.9,
+            "start": 0.8
+          }
+        },
+        {
+          "kind": "blobs",
+          "count": 9,
+          "radius": 0.06,
+          "spread": 0.25,
+          "core": 0.5,
+          "soft": 0.3,
+          "gain": 1,
+          "colour": [
+            1,
+            0.9,
+            0.6
+          ],
+          "env": {
+            "attack": 0.03,
+            "decay": 0.8,
+            "start": 0.9
+          }
+        },
+        {
+          "kind": "sparks",
+          "count": 22,
+          "speed": 1.4,
+          "gravity": 1.2,
+          "trail": 1,
+          "gain": 2.4,
+          "colour": [
+            1,
+            0.839,
+            0.471
+          ],
+          "env": {
+            "attack": 0.03,
+            "decay": 0.8,
+            "start": 0.9
+          }
+        }
+      ]
+    }
+  ]
+}

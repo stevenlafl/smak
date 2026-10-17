@@ -1,0 +1,88 @@
+{
+ "kind": "weapon",
+ "subject": "9mmhandgun",
+ "leg": "control: Valve's own against the brief",
+ "label": "9mmhandgun, in the place of the game's models/v_9mmhandgun.mdl, models/p_9mmhandgun.mdl, models/w_9mmhandgun.mdl",
+ "measured": {
+  "size": [
+   9.5,
+   1.9,
+   9.7
+  ],
+  "sizeAsked": {
+   "long": 10
+  },
+  "sizeOff": 0.028,
+  "triangles": 88,
+  "halfLifeMedianOfItsKind": 142,
+  "halfLifeThreeQuartersUnder": 187,
+  "halfLifeMost": 291,
+  "checkErrors": [],
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_grenade.mdl, models/w_satchel.mdl, models/w_357.mdl",
+  "lineupTest": "asked 3 times, each in another order, which of the four was not made by Valve: judges picked A, A, D where the asset was B, D, A: passed for one of the game's"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2,
+  "M6": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Against the brief's words (a 9mm semi-automatic pistol lying on its side), the six views read as a pistol: a long slide with rear serrations (top and below views), a frame, a wedge-shaped grip extending sideways when lying on its side (top, below and front-left views), and a trigger guard loop below the grip (below view). No part sticks out or is missing in the views. The grip is a fairly flat, squared block, but it reads as a grip."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The brief asks for about 10 units long. The measured length is 9.5 by 9.7 with sizeOff 0.028, well within 15%. The brief gives no width or height. Note for the harness: the side and top views put the grip's sideways extent at about 6 units (about 190 px against 290 px for the slide, at the same scale), not the 9.7 in the measured size. This does not change M2, since only the length is asked, but the measurement's third figure should be checked."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief asks for a pistol's parts, which I took to be slide, barrel, frame, grip and trigger guard, with a trigger inside the guard. All are there: the slide with rear serrations (top view, first-person view), a round muzzle bore (back view, a circle), the trigger guard (top and below views), a grip block (front-left view) and a trigger in the guard (below view). The brief names no sights or magazine, so their small size does not cap M3. The round muzzle is a circle in the back view."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief asks for black and grey polymer and steel. The slide reads as dark steel with silver highlights (sides and first-person views), and the grip as grey, slightly noisy polymer. Overall colour is black and grey, the same region as the brief describes. Nothing is in the wrong colour."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief asks for no markings, so this is judged on how the surface reads. The slide and grip wear heavy vertical streak bands (sides, top and first-person views, and most clearly in the in-hand view), blocky and smeared, not like machined steel or moulded polymer. The streaks run the length of the slide and grip, so they read as a texture fault, not as a design. This is paint, not shape, and it is clearly off at the size the game shows it."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured by the line-up test: the asset was in positions B, D and A across three readings, and judges picked A, A and D. None picked the asset, so it passed for one of the game's, as the measurement gives. Capped at 2 by the rubric."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief asks for the pistol lying on its side on the floor. In the front and left views the thin axis (about 1.9 units) is vertical, so it lies on its side. The front view shows the muzzle bore and the grip is on the floor side. It sits on its origin in a way that fits a pistol lying on its side."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measure is 88 triangles against a median of 142 and a third quartile of 187 for Half-Life's kind, so it is well under twice either. SMAK's check reports no errors. The views show no open faces, inside-out faces or floating parts, and the solid is closed from below (below view). The muzzle is a dark recess, not a hole into a missing wall."
+  },
+  "W1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "In the first-person view the pistol sits above a black-gloved, orange-cuffed right hand, the grip in the fist and the muzzle pointing up-left, which is how a sidearm is held. Across all 14 attack frames the gun stays at the same place relative to the hand (frame 0 and frame 2 have it at about the same offset) and turns with the hand, with no frame where it parts from the hand. The hand is cut off at the bottom of the frames, so the grip itself is partly out of view. Caution: at this scale the left (asset) and right (game's own) first-person halves look almost identical; if they are pixel-identical, the asset is the game's model and needs checking, though I could not confirm that by measurement."
+  }
+ },
+ "total": 17,
+ "of": 18,
+ "passes": true
+}

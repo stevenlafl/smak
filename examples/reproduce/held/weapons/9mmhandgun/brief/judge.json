@@ -5,79 +5,84 @@
  "label": "9mmhandgun, in the place of the game's models/v_9mmhandgun.mdl, models/p_9mmhandgun.mdl, models/w_9mmhandgun.mdl",
  "measured": {
   "size": [
-   8.4,
+   7.8,
    1.4,
-   7.6
+   9.6
   ],
-  "sizeAsked": null,
-  "sizeOff": null,
-  "triangles": 108,
+  "sizeAsked": {
+   "long": 10
+  },
+  "sizeOff": 0.035,
+  "triangles": 78,
   "halfLifeMedianOfItsKind": 142,
   "halfLifeThreeQuartersUnder": 187,
+  "halfLifeMost": 291,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/w_grenade.mdl, models/w_satchel.mdl, models/w_357.mdl: the judge does not know which"
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_grenade.mdl, models/w_satchel.mdl, models/w_357.mdl",
+  "lineupTest": "asked 3 times, each in another order, which of the four was not made by Valve: judges picked A, D, D where the asset was B, D, A: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
-  "M8": 2
+  "M8": 2,
+  "M6": 2
  },
  "scores": {
   "M1": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Top and below views give a pistol-like L (long grey slide, black arm), but the front, back, left and right views are a thin flat bar about 1.4 thick with no grip hanging below the slide. A standing 9mm pistol's outline is not there in the side views."
+   "reason": "Top view reads as a pistol: a long slide with a grip block set across one end. Side and front views (sides.png, LEFT/RIGHT/FRONT) show a plain slab with a block at one end. The outline has no trigger guard hook, no slide taper or rear-to-grip step, so it reads as a blunt pistol-like box rather than a 9mm's silhouette."
   },
   "M2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The brief gives no length (sizeAsked null, sizeOff null), so the harness had no size to hold it to. Nothing confirms the 8.4 x 1.4 x 7.6 units as a pistol's scale, and the flat side views do not show a pistol's height."
+   "score": 2,
+   "reason": "Measured length 9.6 against the brief's about 10 (4% short), and the other extents (7.8 and 1.4) sit within 15% of a 9mm's proportions. Within the 15% band for the size the brief gives."
   },
   "M3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The grey slide and a black frame block are there. The trigger guard, trigger and magazine are not visible in any view, and a small hex fitting on the back view is unexplained. Small parts are missing, so M3 is capped at 1."
+   "reason": "The brief's parts are a slide, barrel, grip, trigger guard, trigger, magazine and sights. The slide and grip are there. No trigger guard loop is visible under the grip in FRONT-LEFT or BELOW. No separate magazine or trigger shows. Only small nubs at the rear and front (BACK-RIGHT, BACK-LEFT, BELOW) could be sights or a hammer. Small parts missing, so at most 1."
   },
   "M4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Light grey metal on the slide and near-black on the frame match the brief's black and grey polymer and steel. Nothing in the colour or material reads wrong."
+   "reason": "Brief asks black and grey: the slide and body read as grey steel and the grip block reads black, matching the brief's black and grey polymer and steel in every view and in the first-person picture."
   },
   "M5": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "The brief asks for no markings. The fine serrations on the grey slide and the small pieces at the ends add nothing wrong."
+   "score": 1,
+   "reason": "The brief asks for no markings, but the grey slide carries blotchy streaks in the side and top views, and the black grip shows a noisy grid pattern rather than moulded grip texture or slide serrations. Adds something wrong at small scale."
   },
   "M6": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "In the line-up (A) it is a flat grey and black block with no recognisable pistol form, and it sits clearly apart from the grenade, the .357 and the satchel. A player would not take it for one of the game's."
-  },
-  "M7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The model lies flat, with its thin axis vertical in the front and side views, rather than standing upright as a pistol does. The front is not clearly identifiable."
-  },
-  "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "checkErrors is empty. At 108 triangles it is well under twice the Half-Life median of 142 (284) and under the three-quarter mark of 187."
+   "reason": "Set by the brief's measurement, not the judge's: the line-up test caught the asset once in three readings (judges picked A, D, D where it was B, D, A), so it passed for one of the game's on two of three. Capped at 2 as instructed."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The asset lies flat on its side (thin 1.4 axis vertical in LEFT and RIGHT), as the brief asks for a pistol lying on its side on the floor. Front is at the slide end, which reads as the front of a pistol."
+  },
+  "M8": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "SMAK checks pass with no errors, and 78 triangles is well under the bands (median 142). The grip's underside in BELOW shows a flat black recess that reads as open, and the grip renders black in several views, which may mean open or inside-out faces. Not clearly confirmed, so the pictures alone give 1 rather than 2."
   },
   "W1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "In first-person the gun sits roughly where the game's sits, over the right hand's position. It reads as a block resting on the hand rather than gripped, and in the attack frames 0 and 8 it looks shrunken and shifted. It does not clearly leave the hand, but the way round and the hold are not convincing."
+   "score": 2,
+   "reason": "In first-person.png the asset sits where the game's pistol sits (grip in the orange hand, barrel up, same handedness). Through attack.png's frames the slide and grip stay with the hand; no frame shows it leaving the hand where both are seen."
   }
  },
- "total": 12,
+ "total": 14,
  "of": 18,
  "passes": false
 }

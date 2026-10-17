@@ -1,32 +1,29 @@
-The model builds OK, with one warning that the guide says to leave alone. The output is `scientist.mdl` in the work folder (about 908 KB), with its spec beside it at `scientist.spec.json` and a six-view sheet at `scientist-sheet.png`.
+The model is built and the build says **OK**: every check passed, and the GoldSrc check says "fit for goldsrc".
 
-**What it is**
+**Files (in the work folder)**
+- `scientist.mdl`: the model, 950 KB. Its texture is embedded, so no separate texture file is needed.
+- `scientist.spec.json`: the spec it was built from. Rebuilding from it reproduces the model.
+- `scientist-sheet.png` and `scientist-quarter.png`: pictures of it.
 
-- **Skeleton:** `player/gordon/gordon.mdl`. Its 42 bones and all 77 animations are kept, including walk (13), run (12) and run2 (3). The spec sets `floor: 0`, so the feet stand on the origin.
-- **Height:** 68.2 units, against the 68 asked for.
-- **Triangles:** 432, against the 362 of Gordon's body. Half-Life's own scientist is about 750 by the kit's count, so this is lighter.
-- **Look:**
-  - White lab coat with one chest pocket, falling to the thighs with coat tails.
-  - Pale blue collar and a dark red tie.
-  - Dark grey trousers and dark brown shoes.
-  - Skin head with grey hair at the sides and back, bald on top.
-  - Dark frame glasses.
-  - Arms hang at the sides.
-- **How:** I wrote the spec as a set of parts, each hung on a bone of Gordon's skeleton, with the arms and legs posed to stand relaxed. The spec is the file to edit.
+**How it was made**
+- It is a character on the skeleton of `player/gordon/gordon.mdl`, with `floor: 0` so the feet stand at the origin. All 77 of Gordon's animations are kept, including walk, run, crouch, jump and death, so it walks, runs and follows the way Gordon's body does.
+- The arms are set to hang at the sides; Gordon's own first frame holds a gun forward.
+- The body is 708 triangles. Half-Life's scientist is about 750 by the kit's count, so the polygon budget is similar.
+- It is 69.7 units tall against the 68 asked for (about 2.5% over), because Gordon's head sits that high on his skeleton.
 
-**Checks**
+**What it looks like**
+- Older man with a white lab coat over a blue shirt and a red tie, painted on the coat's front, plus a pocket with a blue pen.
+- Light tan trousers and dark brown leather shoes.
+- Glasses: two lenses, a bridge and two temple arms.
+- Grey hair round the back and sides, with the crown bald.
 
-- The build says OK, and every part is attached (none floats).
-- The only warning is that the white coat is brighter than most of Half-Life's textures (33% near-white against the 23% limit). The guide says a lab coat is white by what it is, so I left it.
-- The lowest point is at 0.04 units, so the feet sit on the floor.
+**Where it may fall short of Half-Life's own**
+- The face is plain pale skin. It has no painted eyes, nose or mouth, where Half-Life's has a textured face.
+- The coat is a single white shape with no lapels or open front, so it reads more like a white jacket than a lab coat.
+- The shape and proportions read as an older man at the distance a player sees him. I can't render the game here, so whether it is at least as good is your call in the game beside the original.
 
-**Where it falls short**
+**Things to check in the game**
+- The model carries Gordon's animation list. If the mod's scientist code asks for an activity Gordon's list lacks, that animation won't play.
+- It has one head variant. If the code picks a head by body number, it gets this one.
 
-- I could not compare it with the game's own scientist, because that file is not on this machine. Whether it is at least as good is for the modder to judge in game. The kit can't judge likeness.
-- By eye, the head, hair and glasses are blocky, and the glasses read as dark bars. The arms and legs are simple tubes.
-
-**To check in the mod**
-
-- Install it as `models/scientist.mdl`, replacing the game's file. Replacing a model the game already loads needs no change to the mod's code. Put it in the mod's own folder, not over the original game files.
-- The file keeps Gordon's internal name in its header. The game uses the file path, so this should not matter.
-- The scientist's AI may play animations by activity (idle, walk, run, flee). Gordon's animations are player animations, and I did not confirm that their activity numbers match what the scientist code expects. If the scientist stands still or does the wrong animation, that is the first place to look.
+To try it, back up the mod's `models/scientist.mdl`, then copy the new file over it.

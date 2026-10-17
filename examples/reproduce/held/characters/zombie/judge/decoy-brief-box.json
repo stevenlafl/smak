@@ -16,70 +16,20 @@
   "triangles": 12,
   "halfLifeMedianOfItsKind": 504,
   "halfLifeThreeQuartersUnder": 731,
+  "halfLifeMost": 1640,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/hgrunt.mdl, models/barney.mdl, models/islave.mdl: the judge does not know which"
+  "lineup": "the asset is one of A to D in lineup.png beside models/hgrunt.mdl, models/barney.mdl, models/islave.mdl",
+  "lineupTest": "asked 3 times, each in another order, which of the four was not made by Valve: judges picked B, D, C where the asset was B, D, D: told apart"
  },
  "caps": {
   "M2": 2,
-  "M8": 2
+  "M8": 2,
+  "M6": 1
  },
- "scores": {
-  "M1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The outline is a plain rectangular box in all ten views (front, side, back, top, below, and the four angles). The brief asks for a hunched, shambling figure with a parasite head and long arms, and none of that outline is present in any view."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Measured size is 38.5 x 53.8 x 68.4 units against the brief's height of about 68 (sizeOff 0.006). The brief gives no length or width, so only the height can be checked, and it is within 15%."
-  },
-  "M3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The parts the brief asks for are all missing: the lab coat (torn, bloodied), the parasite body over the head, the long clawed hands, the hunch and the head. The asset is one solid block with no components. The brief's small parts (claws, teeth, fingers) are also absent, so M3 is capped at 1 in any case."
-  },
-  "M4": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "One uniform grey noise texture covers every face. The brief asks for a white lab coat, bloodied and torn, skin, and a parasite body. None of those regions or materials appears."
-  },
-  "M5": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "No tears, blood, stains, seams or markings are present on the coat or body. The only detail is a generic noise texture with bright edge highlights on the box corners, which is not the brief's wear."
-  },
-  "M6": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "In lineup.png (A) the asset is a grey box beside three Half-Life characters (B, C, D). A player would not take it for any of the game's models, and the judge would pick out the box as not a creature at once."
-  },
-  "M7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The box stands upright on its base in the motion frame and the side views, so the placing is right. It has no front, since a box has no face, and the brief's front (a head, a face, a hunched forward posture) is absent, so the facing cannot be right."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "SMAK's check reports no errors. It has 12 triangles, well under twice Half-Life's median of 504 for its kind (1008). The box is closed, with nothing open, inside out or floating."
-  },
-  "C1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "motion.png holds one still frame labelled IDLE 0/0. There is no walk, shamble, slash or attack, and no hunched posture. The brief's motion is absent, so no frame-by-frame check of parts moving with the body can be passed."
-  }
- },
- "total": 5,
- "of": 18,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M6"
+ ],
+ "total": 0,
+ "of": 18
 }

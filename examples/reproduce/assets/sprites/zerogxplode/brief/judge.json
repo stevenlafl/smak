@@ -18,23 +18,23 @@
     128
    ],
    "border": {
-    "max": 0.022,
+    "max": 0.114,
     "mean": 0
    },
    "envelope": {
-    "peakAt": 0.43,
-    "first": 0.04,
-    "last": 0
+    "peakAt": 0.5,
+    "first": 0.03,
+    "last": 0.02
    },
-   "dark": 0.69,
-   "wrap": 0.17,
-   "jitter": 1.17
+   "dark": 0.73,
+   "wrap": 0.38,
+   "jitter": 1.3
   },
   "class": "explosion",
   "againstClass": [
    {
     "measure": "jitter",
-    "value": 1.17,
+    "value": 1.3,
     "range": [
      1.04,
      1.48
@@ -54,7 +54,7 @@
    },
    {
     "measure": "peakAt",
-    "value": 0.43,
+    "value": 0.5,
     "range": [
      0.22,
      0.71
@@ -64,7 +64,7 @@
    },
    {
     "measure": "first",
-    "value": 0.04,
+    "value": 0.03,
     "range": [
      0,
      0.22
@@ -74,7 +74,7 @@
    },
    {
     "measure": "last",
-    "value": 0,
+    "value": 0.02,
     "range": [
      0,
      0.03
@@ -100,31 +100,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Reads as the brief's explosion: a small grey-white point at frame 0, a bright white core that swells through frames 1 to 4, a billowing orange and yellow ball in frames 5 to 8, then browning and breaking up in frames 9 to 12 and gone by frame 13. It is a fireball that bursts, billows and burns away."
+   "reason": "Reads as an explosion throughout: a small dot at frame 0, a bright core at frames 1-3, lobed billowing at frames 4-10, then fragmenting embers at frames 11-14. This is the fireball that bursts, billows into lobes and burns away that the brief asks for."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "All 15 frames are 128 by 128 and the effect fills them as an explosion should. The largest frames (7 and 8) reach near the frame edges without clipping. The measured border is 0.022 max and 0 mean, so nothing bleeds into the frame edges."
+   "reason": "Frames are 128x128 as the size given. The effect fills roughly the central two-thirds of each cell and grows from the small dot in frame 0 to its widest in frames 6-9, which is a plausible fill for an explosion. No original is shown to compare the fill against, so this is judged against the brief."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The palette runs white-hot core, then yellow and orange body, then dark brown smoke in frames 9 to 12, with a grey residue in frame 12. That is the fire-to-ash progression the engine blends for an explosion. No colour measure is given in the measurements, so this is judged by eye only."
+   "reason": "White-hot core (frames 2-3), yellow-orange body (frames 5-9), and dark brown smoke with orange embers (frames 11-13) read as a fireball burning out. The grey-blue halo around frames 2-4 is a cooler tint than a fireball usually shows, but it reads as smoke and does not spoil the effect."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The measured envelope fits the class: first frame 0.04 (within 0 to 0.22), peak at 0.43 (within 0.22 to 0.71), last frame 0 (within 0 to 0.03). Jitter is 1.17, within 1.04 to 1.48. Frame count is 15. Motion is a single grow-then-fade one-shot that ends dark. The wrap of 0.17 and dark of 0.69 have no class range in the measurements, so they cannot be checked against the class here."
+   "reason": "15 frames. Measured envelope peak at 0.5 (within 0.22-0.71), first 0.03 (within 0 to 0.22), last 0.02 (within 0 to 0.03), jitter 1.3 (within 1.04-1.48), border 0 (within 0 to 0.005): all within the explosion class's measures. Motion is grow, burst, billow, then fade to dark, and the one-shot ends nearly dark in frame 14. Faint fragments remain in frame 14, but the measures allow that."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type parallel and format additive match the game's own kept values (gameType and gameFormat both parallel and additive). The name is the same (sameName true) and the file reads back as written (readsBack true)."
+   "reason": "Measured type parallel and format additive, matching the game's own file. Name is the same and it reads back as written. Dark background in the sheet is consistent with additive blending, where black adds nothing."
   }
  },
  "total": 10,

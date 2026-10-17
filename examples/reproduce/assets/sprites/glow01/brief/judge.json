@@ -26,7 +26,7 @@
     "first": 1,
     "last": 1
    },
-   "dark": 0.45,
+   "dark": 0.55,
    "wrap": null,
    "jitter": null
   },
@@ -60,31 +60,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "A soft round glow centred in the frame, the same effect the brief asks for: a bright core fading outward over the whole disc. Nothing else is drawn in it. The small '0' in the top-left corner is the harness's frame number, not part of the sprite."
+   "reason": "The frame shows one soft round glow: a bright centre fading outward through grey into the black background. It is the effect the brief asks for, a glow over lights."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The measured size is 64 x 64 and the glow fills the frame, fading to dark at the edges, with border max and mean both 0. The brief gives no size of its own, so this is checked against the measured size and the picture only."
+   "reason": "The single frame is square, and the glow fills it as a round disc. The brightness falls off to the dark background before the frame edge, so the outer border is empty (measured border 0). The shape fits a 64 x 64 glow sprite."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "White-hot core, moving through yellow and warm orange to a dim amber rim and then black, which matches the brief's 'white to warm'. Colour within 15 of Valve's glow cannot be measured here because only the replacement's measures are given, so this is judged from the picture."
+   "reason": "Judged by eye: the core is near-white and the falloff is neutral grey, with no tint. That matches the white the brief asks for. The dark surround adds nothing under additive blending."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "A single still frame (frames 1, envelope first and last both 1, peak at frame 0). The brief asks for no motion, and a still glow is the expected form of this class. The class's frame count is not among the measures given, so this rests on that reading."
+   "reason": "One frame, parallel type, with the envelope held at first 1, last 1, peak at 0. Half-Life's own glow sprites of this class also take one frame and no loop, so the measures match the class. The brief asks for no motion."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type 'parallel' and format 'additive' match the game's values (gameType and gameFormat), the name is the same (sameName true), and the file reads back as written (readsBack true). The border measure, the one class check given, is 0 and inside its range [0, 0.005]."
+   "reason": "The file is parallel and additive, the type and format the brief says it replaces. The name is the same (glow01), and it reads back as written (readsBack true, sameName true)."
   }
  },
  "total": 10,

@@ -8,46 +8,76 @@
    32,
    32
   ],
-  "frames": 8,
+  "frames": 9,
   "type": "parallel",
   "format": "additive",
   "measures": {
-   "frames": 8,
+   "frames": 9,
    "size": [
     32,
     32
    ],
    "border": {
-    "max": 0.24,
-    "mean": 0.003
+    "max": 0,
+    "mean": 0
    },
    "envelope": {
-    "peakAt": 0.14,
-    "first": 0.91,
-    "last": 0
+    "peakAt": 0.38,
+    "first": 0.85,
+    "last": 0.85
    },
-   "dark": 0.47,
-   "wrap": 2.88,
-   "jitter": 1.28
+   "dark": 0.64,
+   "wrap": 0.98,
+   "jitter": 1.93
   },
-  "class": "sparks",
+  "class": "fire loop",
   "againstClass": [
    {
     "measure": "jitter",
-    "value": 1.28,
+    "value": 1.93,
     "range": [
-     1.72,
-     2
+     1.33,
+     1.79
     ],
     "ok": false,
-    "words": "too smooth: little inner motion"
+    "words": "flickers: more coherence from frame to frame"
+   },
+   {
+    "measure": "wrap",
+    "value": 0.98,
+    "range": [
+     0,
+     2.48
+    ],
+    "ok": true,
+    "words": ""
    },
    {
     "measure": "border",
-    "value": 0.003,
+    "value": 0,
     "range": [
      0,
-     0.005
+     0.028
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0.85,
+    "range": [
+     0.57,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0.85,
+    "range": [
+     0.57,
+     1
     ],
     "ok": true,
     "words": ""
@@ -70,31 +100,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Reads as a burst of hot sparks: a bright core in frames 0 to 1 and radiating streaks in frames 2 to 5 that fly out from the centre and die away by frames 6 to 7, matching the brief's 'bright hot sparks flying out and dying'."
+   "reason": "All nine frames show a soft blue-white glow with a white core and a blue halo, which is what the brief asks for. It reads as the light of a spark rather than a flame or smoke. The lumps in frames 1, 2, 5 and 6 add flicker without changing the effect."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Frames are 32 x 32 as measured. The glow fills most of each frame, the streaks reach the edges in frames 3 to 5, and the border measure (max 0.24, mean 0.003) shows no clipping or hard edge."
+   "reason": "Frames are 32 x 32, small as the brief says. The glow is centred in each frame and fills roughly the middle two-thirds, with dark margins on all sides, as an additive glow should."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The colour is hot yellow-white in the core (frames 1 to 3), warming to yellow-orange in the streaks and dimming to a dark ember by frame 7. That fits 'bright hot sparks'. There is no colour measure against a class, so this is judged by eye."
+   "reason": "The colour is blue-white by eye: a near-white core in every frame, a blue halo, on a near-black background. This matches the brief's colour."
   },
   "R4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Growth and fade are right: the burst expands from frame 0 to frame 3, and the last frame (7) is dark (measured last = 0), so it is a one-shot that ends dark. But the measured jitter is 1.28, below the sparks class range of 1.72 to 2 ('too smooth: little inner motion'). In frames 4 to 6 the same radial streaks are redrawn and faded, and the core barely changes. Capped at 1 by the measure."
+   "reason": "The frame count (9) and the loop close are right: frame 8 is close to frame 0, and the envelope's first and last values (0.85) match. The measured jitter of 1.93 is above the class range of 1.33 to 1.79, so frame-to-frame change is too large. In frames 1, 2, 5 and 6 the glow throws lumps to different sides (bottom in frame 1, left and right in frame 2, bottom-left in frame 5, left in frame 6), so the flicker reads as the shape shifting rather than a coherent flicker in place. The measure caps this item."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type parallel and format additive, matching the game's type and format (gameType and gameFormat agree). The name is kept (sameName) and the file reads back as written (readsBack true)."
+   "reason": "The type (parallel) and format (additive) match the game's own file, which is also parallel and additive. The name matches, and the file reads back as written."
   }
  },
  "total": 9,

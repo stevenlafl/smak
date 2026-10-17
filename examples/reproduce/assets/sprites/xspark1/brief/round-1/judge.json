@@ -1,0 +1,133 @@
+{
+ "kind": "sprite",
+ "subject": "xspark1",
+ "leg": "brief",
+ "label": "sprites/xspark1.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 8,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 8,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0.24,
+    "mean": 0.003
+   },
+   "envelope": {
+    "peakAt": 0.14,
+    "first": 0.91,
+    "last": 0
+   },
+   "dark": 0.47,
+   "wrap": 2.88,
+   "jitter": 1.28
+  },
+  "class": "fire loop",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.28,
+    "range": [
+     1.33,
+     1.79
+    ],
+    "ok": false,
+    "words": "too smooth: little inner motion"
+   },
+   {
+    "measure": "wrap",
+    "value": 2.88,
+    "range": [
+     0,
+     2.48
+    ],
+    "ok": false,
+    "words": "jumps at the wrap: make the motion periodic"
+   },
+   {
+    "measure": "border",
+    "value": 0.003,
+    "range": [
+     0,
+     0.028
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0.91,
+    "range": [
+     0.57,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0.57,
+     1
+    ],
+    "ok": false,
+    "words": "ends too dark for a loop"
+   }
+  ],
+  "kept": {
+   "type": "parallel",
+   "format": "additive",
+   "gameType": "parallel",
+   "gameFormat": "additive",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "It reads as an electric spark: a bright core with radiating streaks in frames 2 to 5. But the brief asks for a glow that flickers in place, and here the streaks throw outward and the whole burst grows and fades (frames 2 to 7), so it reads more as a one-shot burst than a flicker."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "32 x 32 frames, as measured. The halo fills the frame and fades to the edge (border mean 0.003, max 0.24), so the effect fills its frames the way a glow sprite should."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief asks for blue-white. Every frame is warm cream-yellow (frames 0 to 4 especially, the halo is tan-yellow), with only the core near white. The colour is there but clearly off."
+  },
+  "R4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Fails the measures for its class. Wrap is 2.88 against 0 to 2.48, so frame 7 (near black) jumps back to frame 0 (bright): the loop does not close. Last frame is 0 against 0.57 to 1, so it ends dark. Jitter is 1.28 against 1.33 to 1.79, so there is too little inner motion. Frame 0 to 7 is an expanding and fading burst, not a flicker in place."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type parallel and format additive match the game's file (gameType and gameFormat both parallel and additive). The name is the same and it reads back as written."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

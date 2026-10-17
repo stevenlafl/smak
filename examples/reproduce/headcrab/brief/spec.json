@@ -3,131 +3,175 @@
   "name": "headcrab.mdl",
   "kind": "prop",
   "size": {
+    "height": 13,
     "length": 26,
-    "height": 13
+    "width": 16
   },
   "materials": {
+    "shell": {
+      "base": "bone",
+      "tone": [
+        0.9,
+        0.84,
+        0.68
+      ]
+    },
     "flesh": {
       "base": "leather",
-      "tone": "tan"
+      "tone": "pale cream"
     },
     "claw": {
       "base": "bone",
-      "tone": "yellowish"
+      "tone": "dark red"
     }
   },
   "parts": [
     {
-      "id": "body",
+      "id": "shell",
+      "kind": "superquadric",
+      "material": "shell",
+      "size": [
+        17,
+        13,
+        10
+      ],
+      "round": [
+        1,
+        1
+      ],
+      "sides": 8,
+      "at": [
+        -2,
+        0,
+        3
+      ]
+    },
+    {
+      "id": "head",
       "kind": "superquadric",
       "material": "flesh",
       "size": [
-        16,
-        13,
-        9
+        7,
+        10,
+        5
       ],
       "round": [
-        0.7,
+        0.8,
         0.8
       ],
-      "sides": 12,
+      "sides": 6,
       "at": [
+        7,
         0,
-        0,
-        4
+        2.5
+      ]
+    },
+    {
+      "id": "beak",
+      "kind": "tube",
+      "material": "shell",
+      "sides": 4,
+      "path": [
+        [
+          9,
+          0,
+          2.2,
+          1.9
+        ],
+        [
+          12.5,
+          0,
+          2,
+          1.2
+        ],
+        [
+          15,
+          0,
+          2,
+          0
+        ]
       ]
     },
     {
       "id": "leg_front",
       "kind": "tube",
       "material": "flesh",
-      "sides": 6,
-      "mirror": "y",
+      "sides": 4,
       "path": [
         [
+          1,
           4,
-          5,
-          7,
-          1.3
+          5.5,
+          1.1
         ],
         [
           8,
-          8,
+          5.5,
           3.5,
-          1
+          0.9
         ],
         [
           11,
-          10,
-          0.8,
+          7,
+          0.6,
           0.6
-        ],
-        [
-          13,
-          10.8,
-          0,
-          0
         ]
-      ]
+      ],
+      "mirror": "y"
     },
     {
       "id": "leg_back",
       "kind": "tube",
       "material": "flesh",
-      "sides": 6,
-      "mirror": "y",
+      "sides": 4,
       "path": [
         [
-          -4,
-          5,
-          7,
-          1.3
+          -6,
+          4.5,
+          6,
+          1.1
         ],
         [
           -8,
+          7,
+          3,
+          0.9
+        ],
+        [
+          -9,
           8,
-          3.5,
-          1
-        ],
-        [
-          -10.5,
-          9.5,
-          0.8,
+          0.6,
           0.6
-        ],
-        [
-          -12.5,
-          10,
-          0,
-          0
         ]
-      ]
+      ],
+      "mirror": "y"
     },
     {
-      "id": "beak",
+      "id": "claw_front",
       "kind": "tube",
       "material": "claw",
-      "sides": 6,
+      "sides": 4,
       "path": [
         [
-          5,
-          0,
-          5.5,
-          2.6
+          11,
+          7,
+          0.9,
+          0.7
         ],
         [
-          9,
-          0,
-          3.8,
-          1.8
+          13.5,
+          7.3,
+          0.4,
+          0.4
         ],
         [
-          12,
-          0,
-          3.2,
+          15,
+          7.5,
+          0.3,
           0
         ]
-      ]
+      ],
+      "mirror": "y"
     }
   ]
 }

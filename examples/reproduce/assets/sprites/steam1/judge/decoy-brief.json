@@ -90,34 +90,34 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The frame shows no steam puff. It is a flat grey field with one small white and dark rectangle near the top-left corner. The brief's soft white-and-grey cloud rising and thinning is not there, and the measured class 'smoke puff' is not visible in the picture. The folder name says decoy-brief-plain, which fits this failing result."
+   "reason": "The single frame shows a flat grey field with a small dark box with a white edge near the top left (about the top sixth of the frame). It has no soft white or grey steam cloud, so it does not read as a puff of steam from a pipe."
   },
   "R2": {
-   "judge": 1,
+   "judge": 0,
    "cap": null,
-   "score": 1,
-   "reason": "The measured size is 32 x 48, which matches the frame. But the effect does not fill the frame as a puff does. The only drawn element is a small box in the top-left corner, with the rest flat grey."
+   "score": 0,
+   "reason": "The frame is 32 x 48 as the brief's size allows, but the effect does not fill it. The only shape is a small rectangle at the top, with the rest flat grey. A puff would spread across the frame."
   },
   "R3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The brief asks for white and grey. The frame is a uniform grey with one small white-looking box, and there is no white-to-grey gradient of a cloud. No colour measure was given, so this is judged by eye only, and it is not a puff's colour distribution."
+   "reason": "The background is a mid grey, which the brief names, but there is no white in any billowing form. The only white is the thin border of the small dark box. The colours are close to right but the white-and-grey steam is missing, so this is clearly off."
   },
   "R4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "It is a single frame (frames: 1), so it cannot rise or thin. The envelope measures fail as the harness reports: peakAt 0 (range 0.2 to 0.6), first 1 (needs 0 to 0.35, so it starts bright), and last 1 (needs 0 to 0.1, so it does not end dark). A one-shot that fades should end dark."
+   "reason": "One frame only, so there is no swelling or thinning, which the brief asks for. The measures fail the smoke puff class: the peak is at 0 (class 0.2 to 0.6), the first frame is 1 (class 0 to 0.35, an attack, so it starts bright), and the last is 1 (class 0 to 0.1, so it does not end dark). The envelope is wrong on every count."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The type 'parallel oriented' and format 'index alpha' match the game's file (gameType and gameFormat), the name is sameName: true, and the file reads back: readsBack: true. Nothing in the measures fails this item."
+   "reason": "Measured and matching: type is parallel oriented and format index alpha, the same as the game's file (gameType and gameFormat). The name is the same (sameName) and the file reads back (readsBack). Nothing in the pictures contradicts this."
   }
  },
- "total": 4,
+ "total": 3,
  "of": 10,
  "passes": false
 }

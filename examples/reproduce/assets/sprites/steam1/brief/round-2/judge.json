@@ -1,0 +1,133 @@
+{
+ "kind": "sprite",
+ "subject": "steam1",
+ "leg": "brief",
+ "label": "sprites/steam1.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 16,
+  "type": "parallel oriented",
+  "format": "index alpha",
+  "measures": {
+   "frames": 16,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0.255,
+    "mean": 0.004
+   },
+   "envelope": {
+    "peakAt": 0.33,
+    "first": 0.09,
+    "last": 0
+   },
+   "dark": 0.75,
+   "wrap": 0.45,
+   "jitter": 1.11
+  },
+  "class": "smoke puff",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.11,
+    "range": [
+     0.9,
+     1.5
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0.004,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.33,
+    "range": [
+     0.2,
+     0.6
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0.09,
+    "range": [
+     0,
+     0.35
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.1
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ],
+  "kept": {
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "gameType": "parallel oriented",
+   "gameFormat": "index alpha",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Reads as a steam puff: a lumpy white-grey cloud that swells from a small blob in frame 0 to full size by frames 3 to 7, then breaks up and fades. The brief's effect is there in every frame."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "All 16 frames are 64 x 64, matching the class. The puff fills roughly the centre 40 to 50 percent of each frame and the border is clean (measured border mean 0.004, inside the 0 to 0.005 range). There is a faint grey vertical streak below the puff in most frames (around the lower centre), which is minor and may be a rising trail."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "By eye the puff is white with grey shading over a mid-grey background, which is the brief's white and grey. Frame 3 is noticeably brighter than its neighbours, a small brightness jump that does not break the colour."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Measured against the smoke puff class: 16 frames, peak at 0.33 (inside 0.2 to 0.6), first frame 0.09 (inside 0 to 0.35), last frame 0 (inside 0 to 0.1), jitter 1.11 (inside 0.9 to 1.5). The motion is the brief's: it swells through frames 0 to 5, thins through 8 to 11 and breaks into fragments by 12 to 14, ending dark. The loop measure (wrap 0.45) has no class range, so it is not scored against the class."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type parallel oriented and format index alpha match the original's file (gameType and gameFormat), the name is the same (steam1), and it reads back as written, per the measurements."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

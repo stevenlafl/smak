@@ -49,34 +49,34 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Not a beam. The frame shows a small dark-outlined rectangle at the top-left corner (about 6 by 10 pixels), with a plain pale interior and no hot core running the length of the frame and no soft glow to either side. The brief asks for both."
+   "reason": "The frame shows a small dark-outlined rectangle with a pale interior, not a beam. No grey-blue glow runs out to both edges of the frame, so the effect the brief asks for (a bright pale core with a glow to both sides) is not there."
   },
   "R2": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "The effect fills only the top-left corner of the 32 by 64 frame. Everything else is flat grey background. A beam should run the frame's length, and this does not."
+   "score": 1,
+   "reason": "The frame is 32 x 64 as the measures give, but the drawn shape is a small block in the upper-left area of the frame. It does not fill the frame across its width as a beam's glow would. The brief gives no size to check against."
   },
   "R3": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "No hot core colour and no glow gradient. The picture is grey background, a near-black border and a flat pale interior, with no brightness falling off toward the sides. The measured border mean of 0.784 is flat grey, not a glow."
+   "score": 1,
+   "reason": "By eye, the frame is a pale-to-white interior inside a dark outline on a light grey field. I can't see a grey-blue glow or a graded falloff to the edges, so the colours do not match the brief's pale core with grey-blue glow. The picture is very small (32 x 64), so this reading is limited."
   },
   "R4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "One frame, and the measured envelope is flat (peak at frame 0, first and last both 1). That is a steady beam, so the loop closes trivially, but the frame count and motion cannot be checked against the original here. The picture gives no sign of a beam's shimmer or flicker, so the item is short."
+   "reason": "The sprite is a single frame, with peak, first and last all at frame 0, and no beam motion is visible. The measures give no comparison class (againstClass is empty), so the class's frame count and envelope cannot be checked. I can't confirm this against Half-Life's own laser beam sprites from the measures given."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type parallel and format additive match the game's (gameType and gameFormat), the name is the same (sameName true), and the file reads back as written (readsBack true)."
+   "reason": "The measures show type parallel and format additive, matching the game's file (gameType parallel, gameFormat additive). The name is the same (sameName true) and the file reads back as written (readsBack true)."
   }
  },
- "total": 3,
+ "total": 5,
  "of": 10,
  "passes": false
 }

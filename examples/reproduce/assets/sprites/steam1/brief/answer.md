@@ -1,12 +1,18 @@
-The sprite is built and the build says OK: `work:sprites/steam1.spr`, with a contact sheet (`-sheet.png`) and an animated preview (`-animated.png`) beside it. I could not compare it against Half-Life's own `steam1.spr`, so the decision on whether it is at least as good is still open.
+The build says OK. I made a replacement `sprites/steam1.spr` from a spec, and it's ready for the modder to compare in game.
 
-**What I made** (spec at `work:steam1.json`)
-- **Name and placement:** `sprites/steam1.spr`, kept as `parallel oriented` with `index alpha`, as you asked. The build places it as an `env_sprite`, framerate 10.
-- **Size and length:** 64×64 pixels, 16 frames, centred, one shot that starts small and ends fully dark (no loop).
-- **Look:** a lumpy cloud (`billow`) that grows, rises, and breaks into wisps as it ages, under a thin `smoke` layer. Its colours run from dark grey at the rim through mid grey to near-white at the middle.
-- **Motion:** it rises through the frames and thins out after about frame 10, with no jump at the start or end.
-- **Measured by the build:** the colours and the way it starts and ends are in range for the built-in smoke puff class (5 of 5 checks). The brightest frame is around frame 3, a white flash in the middle of the cloud, which may read a little brighter than "grey" for a leak.
+**What I made**
 
-**What I could not check**
-- **Half-Life's own sprite:** this kit has no game folder set up here, and the models folder is empty. So the build compared the sprite only against its built-in idea of a smoke puff, not against the file in the game. To compare it properly, give me a picture of the original's frames (a contact sheet) or point me at a game folder, and I'll add it as the reference and rebuild until the comparison is clean.
-- **In the game:** I cannot run the game here. The modder has to look at it beside the original, and the render mode the build chose (Solid) is what the tool recommends for this sprite, not something I tested in the engine.
+- **File:** `work:sprites/steam1.spr`, with `-sheet.png` and `-animated.png` beside it.
+- **Spec:** saved as `work:steam1.json`, so the build can be redone.
+- **Settings:** parallel oriented, index alpha, as they asked. Class `smoke puff`, used as an `env_sprite`, 64 x 64 pixels, 16 frames, one-shot (no loop), 10 frames per second, centred origin.
+- **Look:** one soft lumpy cloud built from 24 spheres (a `billow` layer). It starts small and grey, swells to a near-white middle around frames 4 to 5, then thins and breaks into wisps by frames 13 to 15. The colour runs from near-white at its hot middle to mid-grey at its rim.
+
+**What the build reported**
+
+- The build reports the sprite as 5 of 5 in range against Half-Life's smoke puff class. Jitter is 1.01 (in its 0.9 to 1.5 range), and the peak is at 0.33 (in its 0.2 to 0.6 range).
+- It is placed as an `env_sprite` in render mode 4 (Solid), at framerate 10.
+
+**What I could not do**
+
+- **No direct comparison with the game's `steam1.spr`.** There is no game folder on this machine, so I could not give the build the original as a `reference`. The "5 of 5 in range" figures compare against the smoke puff class in general, not against that file.
+- **Not seen in the game.** I checked the sheet and the animated picture here, not in Half-Life. The modder's eye is the real test. If the puff looks too blown-out at its peak or too wispy at the end, the `ramp` stops and the `dissolve` and `growth` values are the knobs to change.

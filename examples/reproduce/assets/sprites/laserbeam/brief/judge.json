@@ -5,7 +5,7 @@
  "label": "sprites/laserbeam.spr, in the place of the game's own",
  "measured": {
   "size": [
-   64,
+   32,
    32
   ],
   "frames": 1,
@@ -14,19 +14,19 @@
   "measures": {
    "frames": 1,
    "size": [
-    64,
+    32,
     32
    ],
    "border": {
-    "max": 0.978,
-    "mean": 0.099
+    "max": 0.884,
+    "mean": 0.262
    },
    "envelope": {
     "peakAt": 0,
     "first": 1,
     "last": 1
    },
-   "dark": 0.71,
+   "dark": 0,
    "wrap": null,
    "jitter": null
   },
@@ -49,31 +49,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The frame reads as a laser beam: a narrow vertical strip running the full height of the frame, a white-hot core down the middle (x about 55 to 70 of the 128-px picture) and a blue glow falling off to each side. The brief's core-plus-glow description is met. The picture is small, so fine glow falloff can only be judged coarsely."
+   "reason": "The picture reads as a laser beam: a long vertical pale core down the frame's full height, with a grey-blue glow around it. The effect is the one the brief names."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The 64x32 frame is filled as a beam fills it: the strip runs edge to edge top to bottom (border max 0.978) and the rest is dark (dark 0.71), with no stray marks beyond the harness's frame-number box at top left. The measures give no class comparison (againstClass is empty), so the size itself is not checked against Half-Life's own beams."
+   "reason": "The one 32 x 32 frame (shown enlarged, with the harness's frame label in the top-left corner) is filled top to bottom by the beam, and the glow reaches both sides. The core sits a little left of centre, which is acceptable for a tiling beam texture."
   },
   "R3": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Colours match the brief: a near-white core at the centre, blue falling to darker blue at the sides, on black, which additive blending suits. Nothing was measured against an original's mean colour, so this is judged by eye."
-  },
-  "R4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The sprite is a single frame (frames 1, first and last 1, peak at 0), which suits a steady beam. But no class comparison was made, so the frame count of Half-Life's own beam sprites is unknown and the frame count cannot be shown to be within 25% of it."
+   "reason": "The pale core is right, but the glow does not stay grey-blue out to both edges. Both outer edges fall to a dark navy, which is darker than the brief's grey-blue glow running out to the edges. The border mean of 0.262 supports this. The colour is judged by eye, so this is a visual call and not a measured fault."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "A single frame, the same as a beam's one frame. The brief asks for no motion. againstClass is empty, so there is no class measure to check the frame count or envelope against, and nothing in the measures shows a fault. Peak, first and last are all frame 0 and show no fade or loop problem."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The type (parallel) and format (additive) match the original's (gameType parallel, gameFormat additive). The name is the same (sameName true) and the file reads back as written (readsBack true)."
+   "reason": "Type parallel and format additive match the game's own file (gameType and gameFormat). The name is the same (sameName true) and the file reads back as written (readsBack true). It passes SMAK's fit checks for GoldSrc, as the measures report."
   }
  },
  "total": 9,

@@ -1,27 +1,35 @@
-The shotgun model is built and the build says OK, with no warnings and no faults. It replaces the game's shotgun in all three of its files.
+The shotgun model is built and the build says **OK**. It is a plain blocky pump shotgun, 30 units long, with black metal and a dark wood stock and forend. I could not confirm in the viewer that the forend slides back far enough during the pump, so that needs a look in the game.
 
-**What I made**
+**Files** (in the work folder, `work:shotgun_weapon/`):
+- `v_shotgun.mdl`: first person, with the hands
+- `p_shotgun.mdl`: the weapon in another player's hands
+- `w_shotgun.mdl`: the weapon lying on the floor
 
-A pump-action combat shotgun: black steel receiver, barrel, magazine tube, pistol grip and front sight, with a darkwood stock and a darkwood pump (forend) under the barrel. It is 30 units long, the grip at the back and the muzzle at the front. It has 596 triangles, and the game's own first-person shotgun is about 600 as well, so it is in the same weight class.
+To install, copy the three files into the mod's `models/` folder under the same names. They replace the game's own `v_`, `p_` and `w_` shotgun files, so the mod needs no code. The spec is `work:shotgun.spec.json`, which rebuilds them.
 
-**How I made it**
+**What I made:**
 
-I wrote a spec and built it as a `held` model with `weapon: { like: "shotgun", size: "own", rig: "nearest" }`. The build fits the new weapon into the game's `v_shotgun.mdl`, `p_shotgun.mdl` and `w_shotgun.mdl`. Their hands, bones, animations and events stay as Valve made them. Only the weapon's meshes change.
+| Part | Material | Notes |
+| --- | --- | --- |
+| Stock | Dark wood | Box, the back of the gun |
+| Butt plate | Black metal | Thin box at the back end |
+| Receiver | Black metal | Main body, where the hand sits |
+| Pistol grip | Black metal | Hangs under the receiver |
+| Barrel | Black metal | 12 units long, 1.8 across |
+| Magazine tube | Black metal | Under the barrel |
+| Pump (forend) | Dark wood | Rounded block; attached to the game's `Bone01`, the bone its pump animation moves |
+| Front sight | Black metal | Small box on top of the barrel |
 
-- The pump is tied to the game's `Bone01`, which the first-person file uses. The game's own `pump` animation moves it, so the forend is meant to slide back and forth between shots.
-- I changed the magazine tube to 6 sides and the pump's height so it meets the barrel. That cleared the build's only warning and note.
+**How it was made:** a `held` model with `weapon: { like: "shotgun", size: "own" }`, so the length is the 30 you asked for. The build fitted it over Half-Life's own shotgun files, keeping their hands, bones, animations and events. The three files come out at 348 triangles, with the first-person mesh at about 0.59 of that for the other two views.
 
-**Files** (in the work folder)
+**Choices I made that you can redirect:**
+- Length: 30 units, as the modder asked, rather than the game's own shotgun length.
+- The pump is on Valve's pump bone so it moves with the pump animation. The rest of the gun stays on the hand bone that carried the old one.
+- The game's own shot, pump and reload sounds still play, since the names are unchanged. I did not make new sounds.
 
-- `work:shotgun_weapon/v_shotgun.mdl`, `p_shotgun.mdl`, `w_shotgun.mdl`: the three files, under the game's own names.
-- `work:shotgun.mdl`: the single model, for the viewer.
-- `work:shotgun.spec.json`: the spec, so the build can be redone.
-- `work:shotgun-sheet.png`: the picture sheet.
-
-**To install:** copy the three `_shotgun_weapon` files into the mod's `models` folder under the same names as the game's. The game then loads them in place of its own. No code changes are needed.
-
-**What I did not check**
-
-- I could not compare it with the game's shotgun in the game engine, so "at least as good as the game's own" is for the modder to judge in game.
-- I did not confirm that the forend slides separately from the rest of the gun. The pump strip shows the whole weapon moving, and at that size I cannot tell whether the forend moves on its own. This is the first thing to look at in game.
-- The shotgun's sounds, including the pump click, are the game's own. The shell ejection is also the game's.
+**What I checked, and what I did not:**
+- The build passed all checks, including the shape, the size and the fit to the game's files.
+- I rendered the first-person view, the pump animation at two frames, and the shot sequence. The gun reads as a shotgun in each.
+- I could not put it beside Half-Life's own shotgun in a picture. The tools can't read the game's model files from the models folder, so the comparison has to be done in the game.
+- Its shape is simpler than Valve's: flat boxes and a cylinder, not a sculpted model. The modder should judge whether it is "at least as good" in game, but I expect the game's own to look more finished up close.
+- Two thin pieces (the butt plate and the front sight) were flagged as possible paint rather than solid shapes. That is only a note, not a failure.

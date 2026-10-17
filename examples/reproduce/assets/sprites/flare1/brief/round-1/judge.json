@@ -1,0 +1,93 @@
+{
+ "kind": "sprite",
+ "subject": "flare1",
+ "leg": "brief",
+ "label": "sprites/flare1.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   128,
+   128
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    128,
+    128
+   ],
+   "border": {
+    "max": 0.063,
+    "mean": 0.006
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.12,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "flare",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0.006,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": false,
+    "words": "light at the edge: fade more (finish.edge) or shrink the effect"
+   }
+  ],
+  "kept": {
+   "type": "parallel",
+   "format": "additive",
+   "gameType": "parallel",
+   "gameFormat": "additive",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The frame shows a hot white disc at the centre with soft streaks radiating out in a cross and diagonals, fading toward the edges. That is the lens flare the brief asks for."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The effect fills the 128 x 128 frame as the class's flares do, but the edges are measured too light: border mean 0.006 against the class range of 0 to 0.005, with a max of 0.063. The streaks run into the edge and need to fade more, as the measure's words say. The miss is small but it is a must-have item and the measure holds it under 2."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The centre is white and the streaks are soft white-grey, as the brief asks, with no tint in the additive blend. The colour is right by eye."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "One frame, which matches the flare class's measure (frames 1). A static flare has no motion to miss, and the dark value of 0.12 is within what the class takes."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file is parallel and additive, the same type and format as the game's flare sprite, under the same name. It reads back as written (sameName and readsBack are both true)."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

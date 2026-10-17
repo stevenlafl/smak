@@ -4,9 +4,9 @@
  "leg": "pictures",
  "measured": {
   "silhouetteOverlap": {
-   "front/back": 0.983,
-   "left/right": 0.964,
-   "top/below": 0.962
+   "front/back": 0.974,
+   "left/right": 0.948,
+   "top/below": 0.958
   },
   "size": {
    "original": [
@@ -15,74 +15,74 @@
     68
    ],
    "reproduction": [
-    32.8,
-    21.6,
+    33.2,
+    21.5,
     68
    ],
    "offShare": [
-    0.013,
-    0.006,
-    0.001
+    0.001,
+    0.011,
+    0
    ]
   },
   "colour": {
-   "meanDeltaE": 8,
+   "meanDeltaE": 9.4,
    "byView": [
     {
      "view": "front",
-     "deltaE": 9.3,
-     "shared": 0.98
-    },
-    {
-     "view": "left",
-     "deltaE": 5.4,
-     "shared": 0.966
-    },
-    {
-     "view": "back",
-     "deltaE": 7.6,
-     "shared": 0.983
-    },
-    {
-     "view": "right",
-     "deltaE": 8.1,
-     "shared": 0.965
-    },
-    {
-     "view": "top",
-     "deltaE": 5.8,
-     "shared": 0.965
-    },
-    {
-     "view": "below",
-     "deltaE": 16.3,
-     "shared": 0.965
-    },
-    {
-     "view": "front-left",
-     "deltaE": 8.2,
-     "shared": 0.97
-    },
-    {
-     "view": "front-right",
-     "deltaE": 6.6,
+     "deltaE": 11.7,
      "shared": 0.971
     },
     {
+     "view": "left",
+     "deltaE": 6.7,
+     "shared": 0.951
+    },
+    {
+     "view": "back",
+     "deltaE": 7.7,
+     "shared": 0.975
+    },
+    {
+     "view": "right",
+     "deltaE": 9.9,
+     "shared": 0.95
+    },
+    {
+     "view": "top",
+     "deltaE": 6.2,
+     "shared": 0.96
+    },
+    {
+     "view": "below",
+     "deltaE": 19.7,
+     "shared": 0.96
+    },
+    {
+     "view": "front-left",
+     "deltaE": 9.6,
+     "shared": 0.966
+    },
+    {
+     "view": "front-right",
+     "deltaE": 8.7,
+     "shared": 0.961
+    },
+    {
      "view": "back-left",
-     "deltaE": 5.3,
-     "shared": 0.972
+     "deltaE": 6.1,
+     "shared": 0.958
     },
     {
      "view": "back-right",
-     "deltaE": 7.1,
-     "shared": 0.973
+     "deltaE": 7.7,
+     "shared": 0.968
     }
    ]
   },
   "triangles": {
    "original": 740,
-   "reproduction": 700
+   "reproduction": 362
   },
   "checkErrors": []
  },
@@ -113,55 +113,55 @@
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "All six views (front, back, left, right, top, below) match the original's outline. The measured silhouette overlap is 0.962 to 0.983, well above 0.80. No limb or coat tail sticks out or is missing in the still views."
+   "reason": "Measured silhouette overlap is 0.974 (front/back), 0.948 (left/right) and 0.958 (top/below), all above 0.80. In the side and angle views the coat, arms, legs and shoes sit where the original's do. The coat hem is ragged in the back and right views, but no part sticks out beyond the original's outline."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured size is 32.8 x 21.6 x 68 against the original's 33.3 x 21.7 x 68, within 1.5% on each axis."
+   "reason": "Measured size is 33.2 x 21.5 x 68 against the original's 33.3 x 21.7 x 68, all within 1.1%."
   },
   "M3": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Original parts, from the close angles: bald crown, grey hair at the sides and back of the head, ears, round wire-rimmed glasses, collar, blue shirt, tie, belt, white lab coat with open front and lapels, coat hem with a rear split, cuffed sleeves, fists, white trousers, brown shoes with soles. All are present in the reproduction in the same places and shapes, and the close angles show no missing or misplaced small part. The tie's colour is an M4 fault, not a shape fault."
+   "score": 1,
+   "reason": "Visible parts match: glasses, grey hair at the back of the head, blue shirt, striped tie, belt, hands and brown shoes. The coat hem is the problem. In the back view and the right view the hem is torn into jagged, broken panels, where the original's is one smooth hem with a clean front split. The trousers also show extra panel seams at the back. At this resolution I cannot confirm whether any small part (lapel, button, pocket) is missing, so I cap at 1."
   },
   "M4": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The measured mean colour difference is 8, under 15, so the coat and trousers are close. The tie is wrong: the original's is red and striped on the blue shirt, while the reproduction's reads mostly blue-grey with a thin red streak (front and front-left views). Its shirt and coat tone also run a little grey in places."
+   "score": 2,
+   "reason": "Measured mean colour difference inside the shared outline is 9.4 (CIE76), under the 15 line. Per view: front 11.7, left 6.7, back 7.7, right 9.9, top 6.2, below 19.7 (the below view has the original's dark open underside, which the measure is weighted against). Coat, shirt, tie, skin and shoes read as the same colours in the pictures."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The original's coat and trousers are smooth paint with soft wear. The reproduction has vertical streaks and smudges on the trousers and coat front (front, right and front-right views), so its surface is smeared and noisy where the original is clean. The markings are not in the wrong place, but the sharpness is not similar."
+   "reason": "The original's fabric folds and creases on the coat and at the knees of the trousers are missing or replaced by faceted, flatter shading. The reproduction also shows dark speckle along the coat in the side views, which the original does not have. Sharpness is softer than the original's."
   },
   "M6": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "At game size the silhouette, size and pose read as the same scientist, but the wrong tie colour, the streaked coat and trousers, and the coat flaps coming apart in the run mean a player could tell it from the original."
+   "reason": "At game size the reproduction reads as the same scientist: same head, glasses, outfit and proportions. The jagged coat hem and the coat panels coming apart in the run frames (motion.png, frames 6/22, 9/22, 13/22, 19/22) would make a player look twice. It is not a convincing copy of the original."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Upright, facing the same way as the original's front, with both shoes on the same ground line as the original in the front and side views."
+   "reason": "Front faces the front, upright. Both shoes stand on the same floor line as the original in the front and side views."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "checkErrors is empty. The triangle count is 700 against the original's 740, within the 2x limit. The below view shows no open or floating surface beyond what the original's own below view shows."
+   "reason": "The harness reports no check errors. Triangles are 362 against the original's 740, under twice the original's. The static views show no open or inside-out faces. The detached coat panels in the run frames are a motion fault and are charged to C1."
   },
   "C1": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "In the run (motion.png, reproduction row), the lab coat's tail and hem flaps come apart from the legs and hang or drift below and beside them (frames 6/22, 9/22, 13/22, 16/22). In those frames the coat flap is visibly separate from the body, while the original's run keeps every part on the body."
+   "reason": "Across the run, the reproduction's coat panels come apart from the body. In frame 6/22 a coat panel sits flat and separate beside the legs. In frame 9/22 the coat trails off horizontally, detached. In frames 13/22 and 19/22 the panels float away from the hips. The original's coat stays on the body through its run."
   }
  },
  "total": 13,

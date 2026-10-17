@@ -5,97 +5,71 @@
   "base": {
     "file": "player/gordon/gordon.mdl"
   },
-  "size": {
-    "height": 70
-  },
-  "texture": {
-    "width": 512,
-    "height": 512
-  },
   "contract": {
     "file": "player/gordon/gordon.mdl"
   },
+  "size": {
+    "height": 70
+  },
   "materials": {
     "fatigue": {
-      "base": "dirt",
-      "tone": [
-        0.12,
-        0.14,
-        0.09
-      ]
+      "base": "cloth",
+      "tone": "muted olive"
     },
     "vest": {
       "base": "cloth",
-      "tone": "near black olive"
-    },
-    "pouch": {
-      "base": "cloth",
-      "tone": "near black olive"
+      "tone": "dark olive"
     },
     "boot": {
       "base": "leather",
       "tone": "black"
     },
     "glove": {
-      "base": "leather",
-      "tone": "black"
+      "base": "cloth",
+      "tone": "near black"
     },
-    "hood": {
+    "mask": {
       "base": "cloth",
       "tone": "black"
     }
   },
+  "finish": {
+    "wear": 0.15,
+    "grime": 0.3
+  },
   "parts": [
     {
-      "id": "suit",
+      "id": "jacket",
       "kind": "blob",
       "material": "fatigue",
-      "triangles": 500,
+      "symmetric": true,
       "blend": 3,
+      "triangles": 160,
       "pieces": [
         {
-          "at": "Bip01 Bacino",
-          "radius": 8
-        },
-        {
           "span": [
-            "Bip01 Bacino",
-            "Bip01 Dorso1"
+            "Bip01 Spine",
+            "Bip01 Spine2"
           ],
           "radius": [
-            8,
-            8.5
+            11,
+            12
           ]
         },
         {
           "span": [
-            "Bip01 Dorso1",
-            "Bip01 Collo"
+            "Bip01 Spine2",
+            "Bip01 Neck"
           ],
           "radius": [
-            9,
-            7
+            12,
+            6
           ]
         },
         {
           "span": [
-            "Bip01 Collo",
-            "Bip01 Testa"
-          ],
-          "radius": 3.5
-        },
-        {
-          "at": "Bip01 SX Clavicola",
-          "radius": 4.5
-        },
-        {
-          "at": "Bip01 DX Clavicola",
-          "radius": 4.5
-        },
-        {
-          "span": [
-            "Bip01 SX Braccio superiore",
-            "Bip01 SX Avambraccio"
+            "Bip01 L UpperArm",
+            "Bip01 L Forearm"
           ],
           "radius": [
             4.5,
@@ -104,257 +78,218 @@
         },
         {
           "span": [
-            "Bip01 DX Braccio superiore",
-            "Bip01 DX Avambraccio"
-          ],
-          "radius": [
-            4.5,
-            3.6
-          ]
-        },
-        {
-          "span": [
-            "Bip01 SX Avambraccio",
-            "Bip01 SX Mano"
+            "Bip01 L Forearm",
+            "Bip01 L Hand"
           ],
           "radius": [
             3.6,
-            2.8
-          ]
-        },
-        {
-          "span": [
-            "Bip01 DX Avambraccio",
-            "Bip01 DX Mano"
-          ],
-          "radius": [
-            3.6,
-            2.8
-          ]
-        },
-        {
-          "span": [
-            "Bip01 SX Coscia",
-            "Bip01 SX Polpaccio"
-          ],
-          "radius": [
-            5.5,
-            4
-          ]
-        },
-        {
-          "span": [
-            "Bip01 DX Coscia",
-            "Bip01 DX Polpaccio"
-          ],
-          "radius": [
-            5.5,
-            4
-          ]
-        },
-        {
-          "span": [
-            "Bip01 SX Polpaccio",
-            "Bip01 SX Piede"
-          ],
-          "radius": [
-            4,
-            3
-          ]
-        },
-        {
-          "span": [
-            "Bip01 DX Polpaccio",
-            "Bip01 DX Piede"
-          ],
-          "radius": [
-            4,
             3
           ]
         }
       ]
     },
     {
-      "id": "vest",
+      "id": "trousers",
+      "kind": "blob",
+      "material": "fatigue",
+      "symmetric": true,
+      "blend": 3,
+      "triangles": 120,
+      "pieces": [
+        {
+          "at": "Bip01 Pelvis",
+          "radius": 12
+        },
+        {
+          "span": [
+            "Bip01 L Thigh",
+            "Bip01 L Calf"
+          ],
+          "radius": [
+            7,
+            5.5
+          ]
+        },
+        {
+          "span": [
+            "Bip01 L Calf",
+            "Bip01 L Foot"
+          ],
+          "radius": [
+            5.5,
+            6.5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gloves",
+      "kind": "blob",
+      "material": "glove",
+      "symmetric": true,
+      "blend": 1,
+      "triangles": 40,
+      "pieces": [
+        {
+          "at": "Bip01 L Hand",
+          "radius": 4.2
+        },
+        {
+          "span": [
+            "Bip01 L Forearm",
+            "Bip01 L Hand"
+          ],
+          "radius": [
+            3.9,
+            3.9
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vest_front",
       "kind": "superquadric",
       "material": "vest",
       "size": [
-        18,
-        24,
-        24
+        6,
+        22,
+        22
       ],
       "round": [
-        0.3,
+        0.2,
+        0.3
+      ],
+      "sides": 6,
+      "attach": {
+        "bone": "Bip01 Spine2",
+        "at": "centre",
+        "offset": [
+          12,
+          0,
+          -2
+        ]
+      }
+    },
+    {
+      "id": "vest_back",
+      "kind": "superquadric",
+      "material": "vest",
+      "size": [
+        6,
+        22,
+        20
+      ],
+      "round": [
+        0.2,
+        0.3
+      ],
+      "sides": 6,
+      "attach": {
+        "bone": "Bip01 Spine2",
+        "at": "centre",
+        "offset": [
+          -12,
+          0,
+          -2
+        ]
+      }
+    },
+    {
+      "id": "pouch_chest",
+      "kind": "superquadric",
+      "material": "vest",
+      "size": [
+        4,
+        6,
+        6
+      ],
+      "round": [
+        0.2,
+        0.3
+      ],
+      "sides": 6,
+      "mirror": "y",
+      "attach": {
+        "bone": "Bip01 Spine2",
+        "at": "centre",
+        "offset": [
+          14,
+          6,
+          4
+        ]
+      }
+    },
+    {
+      "id": "pouch_belt",
+      "kind": "superquadric",
+      "material": "vest",
+      "size": [
+        4,
+        6,
+        6
+      ],
+      "round": [
+        0.2,
+        0.3
+      ],
+      "sides": 6,
+      "mirror": "y",
+      "attach": {
+        "bone": "Bip01 Spine2",
+        "at": "centre",
+        "offset": [
+          14,
+          6,
+          -6
+        ]
+      }
+    },
+    {
+      "id": "boot",
+      "kind": "superquadric",
+      "material": "boot",
+      "size": [
+        13,
+        24,
+        22
+      ],
+      "round": [
+        0.2,
         0.3
       ],
       "sides": 8,
+      "mirror": "y",
       "attach": {
-        "bone": "Bip01 Dorso2",
+        "bone": "Bip01 L Calf",
         "at": "centre",
         "offset": [
-          3,
+          4,
           0,
-          0
+          -12
         ]
       }
     },
     {
-      "id": "pouch_l",
-      "kind": "box",
-      "material": "pouch",
-      "size": [
-        3,
-        6,
-        6
-      ],
-      "attach": {
-        "to": "vest",
-        "toAt": "front",
-        "at": "back",
-        "offset": [
-          0,
-          6,
-          -4
-        ]
-      }
-    },
-    {
-      "id": "pouch_r",
-      "kind": "box",
-      "material": "pouch",
-      "size": [
-        3,
-        6,
-        6
-      ],
-      "attach": {
-        "to": "vest",
-        "toAt": "front",
-        "at": "back",
-        "offset": [
-          0,
-          -6,
-          -4
-        ]
-      }
-    },
-    {
-      "id": "hood",
+      "id": "mask",
       "kind": "superquadric",
-      "material": "hood",
+      "material": "mask",
       "size": [
-        15,
         13,
+        12,
         16
       ],
       "round": [
-        1,
-        1
-      ],
-      "sides": 12,
-      "attach": {
-        "bone": "Bip01 Testa",
-        "at": "centre",
-        "offset": [
-          2,
-          0,
-          3
-        ]
-      }
-    },
-    {
-      "id": "boot_l",
-      "kind": "superquadric",
-      "material": "boot",
-      "size": [
-        14,
-        7,
-        9
-      ],
-      "round": [
         0.3,
-        0.3
+        0.4
       ],
-      "sides": 6,
+      "sides": 10,
       "attach": {
-        "bone": "Bip01 SX Piede",
+        "bone": "Bip01 Head",
         "at": "centre",
         "offset": [
-          2,
           0,
-          0
-        ]
-      }
-    },
-    {
-      "id": "boot_r",
-      "kind": "superquadric",
-      "material": "boot",
-      "size": [
-        14,
-        7,
-        9
-      ],
-      "round": [
-        0.3,
-        0.3
-      ],
-      "sides": 6,
-      "attach": {
-        "bone": "Bip01 DX Piede",
-        "at": "centre",
-        "offset": [
-          2,
           0,
-          0
-        ]
-      }
-    },
-    {
-      "id": "glove_l",
-      "kind": "superquadric",
-      "material": "glove",
-      "size": [
-        5,
-        3,
-        6
-      ],
-      "round": [
-        0.3,
-        0.3
-      ],
-      "sides": 6,
-      "attach": {
-        "bone": "Bip01 SX Mano",
-        "at": "centre",
-        "offset": [
-          2,
-          0,
-          0
-        ]
-      }
-    },
-    {
-      "id": "glove_r",
-      "kind": "superquadric",
-      "material": "glove",
-      "size": [
-        5,
-        3,
-        6
-      ],
-      "round": [
-        0.3,
-        0.3
-      ],
-      "sides": 6,
-      "attach": {
-        "bone": "Bip01 DX Mano",
-        "at": "centre",
-        "offset": [
-          2,
-          0,
-          0
+          4
         ]
       }
     }

@@ -1,0 +1,133 @@
+{
+ "kind": "sprite",
+ "subject": "fire",
+ "leg": "control: Valve's own against the brief",
+ "label": "sprites/fire.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   32,
+   96
+  ],
+  "frames": 15,
+  "type": "parallel oriented",
+  "format": "additive",
+  "measures": {
+   "frames": 15,
+   "size": [
+    32,
+    96
+   ],
+   "border": {
+    "max": 0.275,
+    "mean": 0.028
+   },
+   "envelope": {
+    "peakAt": 0.07,
+    "first": 0.9,
+    "last": 0.84
+   },
+   "dark": 0.42,
+   "wrap": 1.13,
+   "jitter": 1.51
+  },
+  "class": "fire loop",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.51,
+    "range": [
+     1.33,
+     1.79
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "wrap",
+    "value": 1.13,
+    "range": [
+     0,
+     2.48
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0.028,
+    "range": [
+     0,
+     0.028
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0.9,
+    "range": [
+     0.57,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0.84,
+    "range": [
+     0.57,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ],
+  "kept": {
+   "type": "parallel oriented",
+   "format": "additive",
+   "gameType": "parallel oriented",
+   "gameFormat": "additive",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "All 15 frames (numbered 0 to 14 in two rows) show flame tongues licking upward from a base on a dark ground, which is what the brief asks for. Nothing in the sheet reads as smoke, a glow or a beam."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Each frame is tall and narrow, matching the 32 x 96 size. The flame fills the frame from base to tip, with the dark border clean (border mean 0.028), and nothing is cropped at the edges in frames 0 to 14."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Orange tongues with brighter yellow cores, as the brief asks. The colour is consistent across all 15 frames, and the sheet shows no green, blue or grey cast."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "15 frames, which matches the measured count. The measures are inside the fire loop class: jitter 1.51 (range 1.33 to 1.79), wrap 1.13 (range 0 to 2.48), first and last envelope 0.90 and 0.84 (range 0.57 to 1). The still sheet cannot show motion itself, so this rests on those measures and on frame-to-frame variation that looks like flicker rather than a drift. Limit: the picture is small, so the closing of the loop is judged from the measures, not by eye."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type 'parallel oriented' and format 'additive' match the game's own fire.spr (kept.gameType and kept.gameFormat agree). The name is the same, and the file reads back as written (sameName and readsBack are true)."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

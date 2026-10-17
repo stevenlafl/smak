@@ -15,66 +15,22 @@
   },
   "sizeOff": 0.008,
   "triangles": 12,
-  "halfLifeMedianOfThisSize": 105,
-  "halfLifeThreeQuartersUnder": 238,
+  "halfLifeMedianOfItsKind": 238,
+  "halfLifeThreeQuartersUnder": 291,
+  "halfLifeMost": 439,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/hvr.mdl, models/big_rock.mdl, models/testsphere.mdl: the judge does not know which"
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_gauss.mdl, models/w_oxygen.mdl, models/w_suit.mdl",
+  "lineupTest": "asked 3 times, each in another order, which of the four was not made by Valve: judges picked C, D, D where the asset was C, A, D: told apart"
  },
  "caps": {
   "M2": 2,
-  "M8": 2
+  "M8": 2,
+  "M6": 1
  },
- "scores": {
-  "M1": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The outline is a tall rectangle in front, back, left and right, which fits the brief's envelope of a cabinet, but it is only a block. The four drawer fronts, the handles and the label slots are not in the outline, so the view-by-view silhouette does not show the cabinet's form. Front-left, front-right, back-left and back-right all show a plain box with a flat top and no drawer seams."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Measured size is 28.8 wide, 22.6 deep and 62.4 high against the brief's 29, 23 and 62, all within 15% (sizeOff 0.008)."
-  },
-  "M3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "Parts the brief asks for, listed: four drawers, four drawer handles, label slots on the drawer fronts, drawer seams, and feet or a plinth if any. The asset has none of these. Its 12 triangles form one closed box with no drawers, no handles and no label slots, so M3 is capped at 0 and this item fails."
-  },
-  "M4": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "The body is a mid grey with a mottled metal look across all faces and the top, which matches the brief's grey steel. Colour and material are consistent across the regions, with no region in the wrong colour."
-  },
-  "M5": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "There is mottled grain and some light edge wear on the corners, which gives a little of the 'a bit worn' look. The drawer seams, panel lines and label slots that a worn filing cabinet would show are absent, so surface detail is only partly there (the wear is the paint, the missing seams are M3)."
-  },
-  "M6": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "In the line-up (panel D is the box), it reads as a plain grey block of the right size, not a filing cabinet. A player would not take it for one of the game's cabinets, though a grey crate-like prop could pass in a quick glance. Clearly off the brief's subject."
-  },
-  "M7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "It stands upright on its base, with the origin at the bottom as a cabinet would. The brief does not state a front, and the box has no drawer face to show one, so the front cannot be checked against the brief."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "SMAK's checks report no errors. It has 12 triangles, far under twice the median of 105 for Half-Life props of this size. The box is closed, with no open faces, inside-out faces or floating parts."
-  }
- },
- "total": 10,
- "of": 16,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M6"
+ ],
+ "total": 0,
+ "of": 16
 }

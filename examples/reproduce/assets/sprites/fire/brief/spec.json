@@ -19,9 +19,9 @@
         {
           "kind": "fire",
           "ramp": "fire",
-          "width": 0.55,
+          "width": 0.6,
           "rise": 1.1,
-          "turbulence": 0.8,
+          "turbulence": 0.9,
           "height": 1,
           "taper": 0.45,
           "tongues": 1
@@ -30,17 +30,21 @@
           "kind": "glow",
           "at": [
             0,
-            -0.6
+            -0.7
           ],
-          "radius": 0.5,
-          "gain": 0.25,
+          "radius": 0.45,
+          "core": 0.12,
           "colour": [
             1,
-            0.549,
-            0.157
-          ]
+            0.55,
+            0.16
+          ],
+          "gain": 0.3
         }
-      ]
+      ],
+      "finish": {
+        "edge": 2
+      }
     }
   ]
 }

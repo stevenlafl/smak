@@ -3,67 +3,79 @@
   "sprites": [
     {
       "name": "sprites/xspark1.spr",
-      "class": "sparks",
-      "use": "tempent",
+      "class": "glow",
+      "use": "env_sprite",
+      "type": "parallel",
+      "format": "additive",
       "size": [
         32,
         32
       ],
       "frames": 8,
-      "fps": 20,
+      "loop": true,
+      "fps": 10,
+      "origin": "centre",
+      "finish": {
+        "edge": 2
+      },
       "layers": [
         {
           "kind": "glow",
-          "radius": 0.08,
-          "core": 0.04,
-          "gain": 0.25,
+          "radius": 0.55,
+          "core": 0.18,
           "colour": [
-            1,
-            0.925,
-            0.745
+            0.667,
+            0.784,
+            1
           ],
-          "env": {
-            "attack": 0.06,
-            "decay": 0.9,
-            "start": 0.8
-          }
+          "gain": 0.7,
+          "at": [
+            0,
+            0
+          ]
         },
         {
           "kind": "blobs",
-          "count": 9,
-          "radius": 0.06,
-          "spread": 0.25,
-          "core": 0.5,
-          "soft": 0.3,
-          "gain": 1,
-          "colour": [
-            1,
-            0.9,
-            0.6
-          ],
-          "env": {
-            "attack": 0.03,
-            "decay": 0.8,
-            "start": 0.9
-          }
-        },
-        {
-          "kind": "sparks",
-          "count": 22,
-          "speed": 1.4,
-          "gravity": 1.2,
-          "trail": 1,
-          "gain": 2.4,
-          "colour": [
-            1,
-            0.839,
-            0.471
-          ],
-          "env": {
-            "attack": 0.03,
-            "decay": 0.8,
-            "start": 0.9
-          }
+          "count": 5,
+          "radius": 0.3,
+          "spread": 0.45,
+          "core": 0.4,
+          "soft": 0.5,
+          "gain": 0.6,
+          "ramp": [
+            [
+              0,
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            [
+              0.35,
+              [
+                0.157,
+                0.235,
+                0.627
+              ]
+            ],
+            [
+              0.7,
+              [
+                0.588,
+                0.725,
+                1
+              ]
+            ],
+            [
+              1,
+              [
+                0.961,
+                0.98,
+                1
+              ]
+            ]
+          ]
         }
       ]
     }

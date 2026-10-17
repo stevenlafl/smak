@@ -1,0 +1,170 @@
+{
+ "kind": "characters",
+ "subject": "scientist",
+ "leg": "pictures",
+ "measured": {
+  "silhouetteOverlap": {
+   "front/back": 0.983,
+   "left/right": 0.964,
+   "top/below": 0.962
+  },
+  "size": {
+   "original": [
+    33.3,
+    21.7,
+    68
+   ],
+   "reproduction": [
+    32.8,
+    21.6,
+    68
+   ],
+   "offShare": [
+    0.013,
+    0.006,
+    0.001
+   ]
+  },
+  "colour": {
+   "meanDeltaE": 8,
+   "byView": [
+    {
+     "view": "front",
+     "deltaE": 9.3,
+     "shared": 0.98
+    },
+    {
+     "view": "left",
+     "deltaE": 5.4,
+     "shared": 0.966
+    },
+    {
+     "view": "back",
+     "deltaE": 7.6,
+     "shared": 0.983
+    },
+    {
+     "view": "right",
+     "deltaE": 8.1,
+     "shared": 0.965
+    },
+    {
+     "view": "top",
+     "deltaE": 5.8,
+     "shared": 0.965
+    },
+    {
+     "view": "below",
+     "deltaE": 16.3,
+     "shared": 0.965
+    },
+    {
+     "view": "front-left",
+     "deltaE": 8.2,
+     "shared": 0.97
+    },
+    {
+     "view": "front-right",
+     "deltaE": 6.6,
+     "shared": 0.971
+    },
+    {
+     "view": "back-left",
+     "deltaE": 5.3,
+     "shared": 0.972
+    },
+    {
+     "view": "back-right",
+     "deltaE": 7.1,
+     "shared": 0.973
+    }
+   ]
+  },
+  "triangles": {
+   "original": 740,
+   "reproduction": 700
+  },
+  "checkErrors": []
+ },
+ "caps": {
+  "M1": 2,
+  "M2": 2,
+  "M4": 2,
+  "M8": 2
+ },
+ "lineup": {
+  "picked": "F",
+  "right": "F",
+  "letters": {
+   "A": "models/barney.mdl",
+   "B": "models/zombie.mdl",
+   "C": "models/islave.mdl",
+   "D": "models/bullsquid.mdl",
+   "E": "models/houndeye.mdl",
+   "F": "models/scientist.mdl",
+   "G": "models/hgrunt.mdl",
+   "H": "models/gman.mdl"
+  },
+  "answer": "F",
+  "ended": "success"
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "All six views (front, back, left, right, top, below) match the original's outline. The measured silhouette overlap is 0.962 to 0.983, well above 0.80. No limb or coat tail sticks out or is missing in the still views."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 32.8 x 21.6 x 68 against the original's 33.3 x 21.7 x 68, within 1.5% on each axis."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Original parts, from the close angles: bald crown, grey hair at the sides and back of the head, ears, round wire-rimmed glasses, collar, blue shirt, tie, belt, white lab coat with open front and lapels, coat hem with a rear split, cuffed sleeves, fists, white trousers, brown shoes with soles. All are present in the reproduction in the same places and shapes, and the close angles show no missing or misplaced small part. The tie's colour is an M4 fault, not a shape fault."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measured mean colour difference is 8, under 15, so the coat and trousers are close. The tie is wrong: the original's is red and striped on the blue shirt, while the reproduction's reads mostly blue-grey with a thin red streak (front and front-left views). Its shirt and coat tone also run a little grey in places."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The original's coat and trousers are smooth paint with soft wear. The reproduction has vertical streaks and smudges on the trousers and coat front (front, right and front-right views), so its surface is smeared and noisy where the original is clean. The markings are not in the wrong place, but the sharpness is not similar."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "At game size the silhouette, size and pose read as the same scientist, but the wrong tie colour, the streaked coat and trousers, and the coat flaps coming apart in the run mean a player could tell it from the original."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Upright, facing the same way as the original's front, with both shoes on the same ground line as the original in the front and side views."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "checkErrors is empty. The triangle count is 700 against the original's 740, within the 2x limit. The below view shows no open or floating surface beyond what the original's own below view shows."
+  },
+  "C1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "In the run (motion.png, reproduction row), the lab coat's tail and hem flaps come apart from the legs and hang or drift below and beside them (frames 6/22, 9/22, 13/22, 16/22). In those frames the coat flap is visibly separate from the body, while the original's run keeps every part on the body."
+  }
+ },
+ "total": 13,
+ "of": 18,
+ "passes": false
+}

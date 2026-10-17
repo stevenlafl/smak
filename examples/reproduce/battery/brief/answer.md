@@ -1,13 +1,15 @@
-The model is built and passes the build and the GoldSrc check. It is at `work:battery.mdl` (in the work folder), with its spec at `battery.spec.json` and a six-side picture at `battery-sheet.png`.
+The model is built and passes the build and the GoldSrc check: **OK, fit for GoldSrc**. It is `work:battery.mdl` (68,592 bytes), with its spec at `work:battery.json`.
 
-**What it is:** a chunky energy cell standing on a square foot. A dark steel casing has a yellow and black hazard band near the bottom and a glowing cyan neon ring around the middle. A flat cap sits on top with a carry handle built from two posts and a bar. It is 18 units tall, 10 across in x, and 10 across in y. Its lowest point is at z 0, so it sits on the floor like the game's pickups.
+**What it is**
+- A grey metal cell, 14 units tall and 7 deep, with 10 across. A stubby dark handle sits on top. The total height is 18 and it stands on the floor at z 0.
+- A yellow and black hazard band runs across the bottom 3 units.
+- Two green glowing panels are raised on the front face: one large, one thin.
+- 36 triangles in all. The game's pickups typically have 28 at the median and 104 at three quarters, so this is in range. It uses one texture at the spec's default size, and it has one bone and no animations, as a pickup needs.
 
-**How it was made:** one spec, built in a single pass. Parts are a foot, a cylinder body (8 sides, so it reads as 10 across in both directions), a cap, two handle posts and the bar, with the hazard and neon rings painted on the body instead of built, so they add no triangles. The model has 92 triangles, which is inside three quarters of Half-Life's world pickups (104), though above their median (28). The check found no faults and fits GoldSrc's limits.
+**How I made it**
+I wrote it as a spec, a plain JSON description of the parts, and built it. The cell is a box with the panels set on its front face. The hazard foot and the handle are boxes attached to the cell's bottom and top. The glow is a neon material and the casing is metal. The build fitted a finish of light, wear and grime over the surfaces, so the edges read as used.
 
-**What I could not verify:**
-- **Not compared with the game's own `w_battery.mdl`.** No game models or FGD were available here, so the "at least as good" call is for you to make in game. The kit's counts are my only comparison.
-- **Lighting and glow are unverified in game.** The kit's pictures use a plain stand-in light, and I haven't run anything in the engine. The neon ring should show bright in game, but only a test will confirm it.
-
-**Choices you may want to change:**
-- I read "lying on the floor" as the pickup sitting upright on the floor, because "18 tall" only works that way. If you wanted it on its side, tell me and I'll rebuild it lying along x.
-- The model is named `battery.mdl`, a new file name. A new name must be loaded when the map starts: your code has to precache `models/battery.mdl` and point the battery entity at it. If you would rather it replace the game's pickup with no code change, rename it to `w_battery.mdl` and it takes the game's file's place.
+**Things to know before you compare it in the game**
+- **It is not yet in the game.** I can't run the game here, so I have not seen it beside Half-Life's own. I also could not measure the game's `w_battery.mdl` against it, since its files aren't in this kit and I can't copy them. The triangle count and the height and width are the only numbers I can compare.
+- **The file name needs the mod's code.** The engine only loads a model under a new file name if the map start names it. The game's HEV battery pickup is hard-wired to `models/w_battery.mdl`. To use `battery.mdl` you need to change that model path in the mod's code and precache the new file at map start. If you would rather not touch the code, the file can replace `w_battery.mdl` directly, and the game would load it with no code change.
+- **The handle is a little rusty.** The iron base adds rust by default. It reads as age, but if you want a cleaner handle, set `rust` to 0 on the `grip` material in the spec and rebuild.

@@ -1,26 +1,26 @@
-I made `filecabinet.mdl` and the build says OK. The check passed for GoldSrc, with 12 triangles and one texture of 256 x 256. I did not put it beside Half-Life's own cabinet, because the game's `filecabinet.mdl` is not in the models folder here, and the kit cannot run the game. So whether it is at least as good is for the modder to judge in the game.
+The cabinet is built and the build says **OK**. The file is `work:filecabinet.mdl`, and it passes the GoldSrc check ("fit for goldsrc").
 
 **What it is**
 
-- **Size:** 62 tall, 29 deep (front to back) and 23 wide, standing on z 0 so it sits where the old one did.
-- **Shape:** one box. The drawers, handles and label slots are painted on its front face, the same way the game's own cabinet is built (it has about 14 triangles, per the kit's notes).
-- **Front:** four drawers, each with a recessed face, a small label holder above, and a raised dark pull.
-- **Material:** steel with a muted grey tone and a little rust. The label holders are a slightly lighter grey steel. The pulls are dark iron.
-- **Wear:** the finish adds light from above, rubbed edges, grime near the floor and slight variation between faces, so it reads as used.
+- **Size:** 29 deep (front to back, pulls included), 23 wide, 62 tall. It stands on z 0, so it sits where the old one did.
+- **Body:** a grey steel carcass on a dark plinth at the base.
+- **Drawers:** three drawer fronts on the front face, each with a recessed seam and a raised plate.
+- **Pulls:** three dark steel bars that stand off the face.
+- **Lock:** a small brass disc above the top pull.
+- **Finish:** grey steel with a grime level of 0.6, light wear on the edges, and a little variation between parts, so it reads as used rather than new.
 
-**How I made it**
+**How it was made**
 
-I wrote a spec and built it through the kit. The first build had the label holders close to white, which is brighter than the walls and floors of Half-Life, so I changed them to a plain grey and rebuilt. The second build passed with no warnings.
+I wrote it as a JSON spec (`work:filecabinet.json`) and built it with SMAK. The carcass and plinth are boxes. The drawers and lock are painted panels on the front face, since they lie on the surface. The pulls are built boxes, because they stand off it by more than a unit. Each pull is attached to the front face, so its height matches its drawer. I shortened the carcass and pulls once so the whole cabinet, pulls included, is 29 deep rather than 30.7.
 
-**Files, in the work folder**
+**Checks**
 
-- `filecabinet.mdl`: the model.
-- `filecabinet.spec.json`: the spec it was built from.
-- `filecabinet-sheet.png`: the six-side picture.
+- Build: OK, no faults. 60 triangles, one 256 by 256 texture.
+- GoldSrc check: fit, with 180 corners in the heaviest submodel.
+- Close-up views of the front, back and underside look right.
 
-**To install:** copy `filecabinet.mdl` over the mod's `models/filecabinet.mdl`. It replaces the game's file under the same name, so the mod's code does not need to name it at map start.
+**What I could not do**
 
-**What I could not check**
-
-- How it looks in the game's lighting. The kit's pictures are a plain stand-in for the engine's light.
-- The label holders and pulls are painted, not built, so they show clearly close up and only as shading from across a room.
+- **Compare it with Half-Life's own.** The kit has no game files here, so I could not put the two side by side. The game's cabinet is probably more detailed: the kit's figures put a typical prop of this size at a median of 238 triangles, against our 60. Our model is well inside the engine's limits, but if the modder wants more detail, the drawers could get a rolled edge or a second texture.
+- **See it in the game.** The kit's pictures are a stand-in for lighting. Judge the grime and the steel tone in-game.
+- **Load it.** This file has the game's own name, so it replaces `models/filecabinet.mdl` in the mod with no code change. Copy it over the game's file in the mod's `models` folder. Keep a copy of the original.

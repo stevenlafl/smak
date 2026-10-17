@@ -5,81 +5,84 @@
  "label": "shotgun, in the place of the game's models/v_shotgun.mdl, models/p_shotgun.mdl, models/w_shotgun.mdl",
  "measured": {
   "size": [
-   21.6,
-   4.1,
-   31.1
+   22.3,
+   3.8,
+   30.6
   ],
   "sizeAsked": {
    "long": 30
   },
-  "sizeOff": 0.036,
-  "triangles": 12,
+  "sizeOff": 0.02,
+  "triangles": 6,
   "halfLifeMedianOfItsKind": 138,
   "halfLifeThreeQuartersUnder": 187,
+  "halfLifeMost": 291,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/w_crowbar.mdl, models/w_9mmar.mdl, models/w_sqknest.mdl: the judge does not know which"
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_crowbar.mdl, models/w_9mmar.mdl, models/w_sqknest.mdl",
+  "lineupTest": "asked 3 times, each in another order, which of the four was not made by Valve: judges picked A, D, D where the asset was C, B, A: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
-  "M8": 2
+  "M8": 2,
+  "M6": 2
  },
  "scores": {
   "M1": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The outline is one plain slab, about 21.6 x 4.1 x 31.1, in all ten views of sides.png. There is no receiver, barrel, pump forend, stock, grip or trigger guard, so it does not have a pump-action shotgun's outline in any view (front, left, top or the angles)."
+   "reason": "The brief asks for a pump shotgun's outline: a stock, a barrel, a receiver and a pump. In sides.png the asset is one flat, tapering wedge. In the left and right views it runs to a sharp point and in the top view it is a plain rectangle. None of the gun's outline is there in any of the ten views."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The long axis measures 31.1 against the brief's 30 (sizeOff 0.036, inside 15%). The brief gives no width or height, so only the length is checked."
+   "reason": "The brief gives only a length of about 30. The measured long side is 30.6, within 2% of 30. The width (3.8) and height (22.3) are not sizes the brief gives, so they are not scored against it."
   },
   "M3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Parts the brief asks for, none present: barrel, receiver, pump forend, wooden or dark stock, trigger and trigger guard, sights, and the ejection port. sides.png and lineup.png A show one solid block with no parts on it. Missing small parts cap this item at 0 regardless."
+   "reason": "The brief's parts are a barrel, a magazine tube, a pump, a trigger and guard, a stock and sights. The asset has none of them. It is one closed wedge of 6 triangles, with no barrel, pump, stock, trigger or sights in sides.png, lineup.png or first-person.png. Nothing is painted on it to stand for them either."
   },
   "M4": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "The brief asks for black metal and a wooden or dark pump and stock. The whole block is one flat mid-grey (sides.png, lineup.png A, first-person.png left, in-hand.png). There is no black metal and no wood or dark-pump region."
+   "score": 1,
+   "reason": "The brief asks for black metal with a wooden or dark pump and stock. The asset is one uniform mid-grey in every view, with no black metal and no wood or dark pump region. The grey is clearly off the brief's colours."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The brief names no fine markings, but a pump-action gun implies a grooved forend and a wood grain. The surface is plain, with only faint edge highlights at the corners, and there is no pump, grooving or panel line where the brief implies one."
+   "reason": "The brief names no markings, but a pump shotgun's machined surfaces (receiver lines, pump grooves, a trigger guard edge, a stock's grain) are absent. The only detail is a light bevel along the wedge's edges in sides.png. It is a smooth grey slab with no gun detail."
   },
   "M6": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "In lineup.png, A is a grey slab among a rifle (B), a red-and-green creature (C) and a crowbar (D). A player would not take it for a shotgun, and in first-person.png the grey block reads as a block."
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Scored at the line-up's cap as the rule says. The line-up measure passed: the judges picked the asset 0 of 3 times, choosing A, D, D where the asset was C, B, A. In lineup.png, though, the asset is a flat grey wedge beside a real gun, and the judge's pick of A and D shows only how the test is worded, not that the asset reads as a Valve gun."
   },
   "M7": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "It lies on its base with the long axis horizontal in the left and right views, which is roughly how a shotgun lies. It has no front, though: no barrel, muzzle or pump marks which way it faces, so the front cannot be the original's front."
+   "reason": "The brief gives no front, but a shotgun has one: the muzzle forward, upright, with the stock behind. In sides.png the asset lies as a sloped slab with no front that can be read, in the front and back views as a diamond and in the top view as a flat plank. It cannot be told upright or facing forward."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "checkErrors is empty and the mesh is closed. It has 12 triangles, well under twice the median of Half-Life's kind (138, so 276), with nothing open, inside out or floating."
+   "reason": "The SMAK check is clean (checkErrors is empty). It has 6 triangles, far below twice any Half-Life prop's median. In the below and side views every face is solid, with nothing open or inside out."
   },
   "W1": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "In first-person.png left, the block sits left of centre and is held by the orange hand at one end. The game's own shotgun on the right sits in the right hand. In attack.png the block shifts across frames 0 to 20 and leaves the frame in several (6/20, 17/20), so it does not stay in the hands as a shotgun would be held."
+   "score": 1,
+   "reason": "In first-person.png the asset is a large plain grey bar at the centre-left, with a hand at its lower left edge. The game's shotgun sits in the right hand at the grip, and the asset does not sit where it does. The hand does not wrap the bar as a grip. In attack.png the bar slides in and out of frame beside the hand through 20 frames, so it is not held the way the original is."
   }
  },
- "total": 6,
+ "total": 10,
  "of": 18,
  "passes": false
 }

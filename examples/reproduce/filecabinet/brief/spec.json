@@ -10,200 +10,209 @@
   "materials": {
     "steel": {
       "base": "steel",
-      "tone": "muted grey",
-      "rust": 0.08
+      "tone": "grey"
     },
-    "handle": {
-      "base": "iron",
+    "foot": {
+      "base": "steel",
       "tone": "dark grey"
     },
-    "label": {
+    "pull": {
       "base": "steel",
-      "tone": "grey"
+      "tone": "dark grey"
+    },
+    "brass": {
+      "base": "brass"
     }
+  },
+  "finish": {
+    "light": 0.3,
+    "wear": 0.5,
+    "grime": 0.6,
+    "vary": 0.08
   },
   "parts": [
     {
-      "id": "body",
+      "id": "plinth",
       "kind": "box",
-      "material": "steel",
       "size": [
-        29,
-        23,
-        62
+        25.6,
+        21,
+        1.6
       ],
+      "material": "foot",
+      "at": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "carcass",
+      "kind": "box",
+      "size": [
+        27.6,
+        23,
+        60.4
+      ],
+      "material": "steel",
+      "attach": {
+        "to": "plinth"
+      },
       "panels": [
         {
           "face": "front",
           "at": [
             11.5,
-            8.5
+            10.6
           ],
           "size": [
-            21,
-            14
+            22.2,
+            19.2
           ],
           "style": "inset",
-          "edge": 0.4
-        },
-        {
-          "face": "front",
-          "at": [
-            11.5,
-            8.5
-          ],
-          "size": [
-            7,
-            2.2
-          ],
-          "style": "inset",
-          "material": "label",
-          "edge": 0.2
-        },
-        {
-          "face": "front",
-          "at": [
-            11.5,
-            8
-          ],
-          "size": [
-            8,
-            1.2
-          ],
-          "style": "raised",
-          "material": "handle",
           "edge": 0.3
         },
         {
           "face": "front",
           "at": [
             11.5,
-            23.5
+            10.6
           ],
           "size": [
             21,
-            14
+            18.4
           ],
-          "style": "inset",
+          "style": "raised",
           "edge": 0.4
         },
         {
           "face": "front",
           "at": [
             11.5,
-            27.5
+            30.2
           ],
           "size": [
-            7,
-            2.2
+            22.2,
+            19.2
           ],
           "style": "inset",
-          "material": "label",
-          "edge": 0.2
-        },
-        {
-          "face": "front",
-          "at": [
-            11.5,
-            23
-          ],
-          "size": [
-            8,
-            1.2
-          ],
-          "style": "raised",
-          "material": "handle",
           "edge": 0.3
         },
         {
           "face": "front",
           "at": [
             11.5,
-            38.5
+            30.2
           ],
           "size": [
             21,
-            14
+            18.4
           ],
-          "style": "inset",
+          "style": "raised",
           "edge": 0.4
         },
         {
           "face": "front",
           "at": [
             11.5,
-            42.5
+            49.8
           ],
           "size": [
-            7,
-            2.2
+            22.2,
+            19.2
           ],
           "style": "inset",
-          "material": "label",
-          "edge": 0.2
-        },
-        {
-          "face": "front",
-          "at": [
-            11.5,
-            38
-          ],
-          "size": [
-            8,
-            1.2
-          ],
-          "style": "raised",
-          "material": "handle",
           "edge": 0.3
         },
         {
           "face": "front",
           "at": [
             11.5,
-            53.5
+            49.8
           ],
           "size": [
             21,
-            14
+            18.4
           ],
-          "style": "inset",
+          "style": "raised",
           "edge": 0.4
         },
         {
           "face": "front",
           "at": [
             11.5,
-            57.5
+            54.8
           ],
           "size": [
-            7,
-            2.2
+            2.4,
+            2.4
           ],
-          "style": "inset",
-          "material": "label",
-          "edge": 0.2
-        },
-        {
-          "face": "front",
-          "at": [
-            11.5,
-            53
-          ],
-          "size": [
-            8,
-            1.2
-          ],
+          "shape": "round",
           "style": "raised",
-          "material": "handle",
-          "edge": 0.3
+          "edge": 0.3,
+          "material": "brass"
         }
       ]
+    },
+    {
+      "id": "pull_low",
+      "kind": "box",
+      "size": [
+        1.6,
+        9,
+        1.6
+      ],
+      "material": "pull",
+      "attach": {
+        "to": "carcass",
+        "toAt": "front",
+        "at": "centre",
+        "offset": [
+          0.6,
+          0,
+          -19.6
+        ]
+      }
+    },
+    {
+      "id": "pull_mid",
+      "kind": "box",
+      "size": [
+        1.6,
+        9,
+        1.6
+      ],
+      "material": "pull",
+      "attach": {
+        "to": "carcass",
+        "toAt": "front",
+        "at": "centre",
+        "offset": [
+          0.6,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "pull_high",
+      "kind": "box",
+      "size": [
+        1.6,
+        9,
+        1.6
+      ],
+      "material": "pull",
+      "attach": {
+        "to": "carcass",
+        "toAt": "front",
+        "at": "centre",
+        "offset": [
+          0.6,
+          0,
+          19.6
+        ]
+      }
     }
-  ],
-  "finish": {
-    "light": 0.3,
-    "wear": 0.7,
-    "grime": 0.5,
-    "vary": 0.08
-  }
+  ]
 }

@@ -1,0 +1,362 @@
+{
+  "spec": "smak.model/1",
+  "name": "seal.mdl",
+  "kind": "character",
+  "base": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "size": {
+    "height": 70
+  },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "contract": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "materials": {
+    "fatigue": {
+      "base": "dirt",
+      "tone": [
+        0.12,
+        0.14,
+        0.09
+      ]
+    },
+    "vest": {
+      "base": "cloth",
+      "tone": "near black olive"
+    },
+    "pouch": {
+      "base": "cloth",
+      "tone": "near black olive"
+    },
+    "boot": {
+      "base": "leather",
+      "tone": "black"
+    },
+    "glove": {
+      "base": "leather",
+      "tone": "black"
+    },
+    "hood": {
+      "base": "cloth",
+      "tone": "black"
+    }
+  },
+  "parts": [
+    {
+      "id": "suit",
+      "kind": "blob",
+      "material": "fatigue",
+      "triangles": 500,
+      "blend": 3,
+      "pieces": [
+        {
+          "at": "Bip01 Bacino",
+          "radius": 8
+        },
+        {
+          "span": [
+            "Bip01 Bacino",
+            "Bip01 Dorso1"
+          ],
+          "radius": [
+            8,
+            8.5
+          ]
+        },
+        {
+          "span": [
+            "Bip01 Dorso1",
+            "Bip01 Collo"
+          ],
+          "radius": [
+            9,
+            7
+          ]
+        },
+        {
+          "span": [
+            "Bip01 Collo",
+            "Bip01 Testa"
+          ],
+          "radius": 3.5
+        },
+        {
+          "at": "Bip01 SX Clavicola",
+          "radius": 4.5
+        },
+        {
+          "at": "Bip01 DX Clavicola",
+          "radius": 4.5
+        },
+        {
+          "span": [
+            "Bip01 SX Braccio superiore",
+            "Bip01 SX Avambraccio"
+          ],
+          "radius": [
+            4.5,
+            3.6
+          ]
+        },
+        {
+          "span": [
+            "Bip01 DX Braccio superiore",
+            "Bip01 DX Avambraccio"
+          ],
+          "radius": [
+            4.5,
+            3.6
+          ]
+        },
+        {
+          "span": [
+            "Bip01 SX Avambraccio",
+            "Bip01 SX Mano"
+          ],
+          "radius": [
+            3.6,
+            2.8
+          ]
+        },
+        {
+          "span": [
+            "Bip01 DX Avambraccio",
+            "Bip01 DX Mano"
+          ],
+          "radius": [
+            3.6,
+            2.8
+          ]
+        },
+        {
+          "span": [
+            "Bip01 SX Coscia",
+            "Bip01 SX Polpaccio"
+          ],
+          "radius": [
+            5.5,
+            4
+          ]
+        },
+        {
+          "span": [
+            "Bip01 DX Coscia",
+            "Bip01 DX Polpaccio"
+          ],
+          "radius": [
+            5.5,
+            4
+          ]
+        },
+        {
+          "span": [
+            "Bip01 SX Polpaccio",
+            "Bip01 SX Piede"
+          ],
+          "radius": [
+            4,
+            3
+          ]
+        },
+        {
+          "span": [
+            "Bip01 DX Polpaccio",
+            "Bip01 DX Piede"
+          ],
+          "radius": [
+            4,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vest",
+      "kind": "superquadric",
+      "material": "vest",
+      "size": [
+        18,
+        24,
+        24
+      ],
+      "round": [
+        0.3,
+        0.3
+      ],
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 Dorso2",
+        "at": "centre",
+        "offset": [
+          3,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "pouch_l",
+      "kind": "box",
+      "material": "pouch",
+      "size": [
+        3,
+        6,
+        6
+      ],
+      "attach": {
+        "to": "vest",
+        "toAt": "front",
+        "at": "back",
+        "offset": [
+          0,
+          6,
+          -4
+        ]
+      }
+    },
+    {
+      "id": "pouch_r",
+      "kind": "box",
+      "material": "pouch",
+      "size": [
+        3,
+        6,
+        6
+      ],
+      "attach": {
+        "to": "vest",
+        "toAt": "front",
+        "at": "back",
+        "offset": [
+          0,
+          -6,
+          -4
+        ]
+      }
+    },
+    {
+      "id": "hood",
+      "kind": "superquadric",
+      "material": "hood",
+      "size": [
+        15,
+        13,
+        16
+      ],
+      "round": [
+        1,
+        1
+      ],
+      "sides": 12,
+      "attach": {
+        "bone": "Bip01 Testa",
+        "at": "centre",
+        "offset": [
+          2,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "id": "boot_l",
+      "kind": "superquadric",
+      "material": "boot",
+      "size": [
+        14,
+        7,
+        9
+      ],
+      "round": [
+        0.3,
+        0.3
+      ],
+      "sides": 6,
+      "attach": {
+        "bone": "Bip01 SX Piede",
+        "at": "centre",
+        "offset": [
+          2,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "boot_r",
+      "kind": "superquadric",
+      "material": "boot",
+      "size": [
+        14,
+        7,
+        9
+      ],
+      "round": [
+        0.3,
+        0.3
+      ],
+      "sides": 6,
+      "attach": {
+        "bone": "Bip01 DX Piede",
+        "at": "centre",
+        "offset": [
+          2,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "glove_l",
+      "kind": "superquadric",
+      "material": "glove",
+      "size": [
+        5,
+        3,
+        6
+      ],
+      "round": [
+        0.3,
+        0.3
+      ],
+      "sides": 6,
+      "attach": {
+        "bone": "Bip01 SX Mano",
+        "at": "centre",
+        "offset": [
+          2,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "glove_r",
+      "kind": "superquadric",
+      "material": "glove",
+      "size": [
+        5,
+        3,
+        6
+      ],
+      "round": [
+        0.3,
+        0.3
+      ],
+      "sides": 6,
+      "attach": {
+        "bone": "Bip01 DX Mano",
+        "at": "centre",
+        "offset": [
+          2,
+          0,
+          0
+        ]
+      }
+    }
+  ]
+}

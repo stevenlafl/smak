@@ -1,0 +1,204 @@
+{
+  "spec": "smak.model/1",
+  "name": "shotgun.mdl",
+  "kind": "held",
+  "size": {
+    "length": 30
+  },
+  "weapon": {
+    "like": "shotgun",
+    "size": "own",
+    "rig": "nearest"
+  },
+  "materials": {
+    "black": {
+      "base": "steel",
+      "tone": [
+        0.14,
+        0.14,
+        0.15
+      ]
+    },
+    "wood": {
+      "base": "darkwood",
+      "tone": [
+        0.36,
+        0.22,
+        0.12
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "stock",
+      "kind": "superquadric",
+      "material": "wood",
+      "size": [
+        10,
+        2.6,
+        5
+      ],
+      "round": [
+        0.3,
+        0.3
+      ],
+      "at": [
+        5,
+        0,
+        2.5
+      ]
+    },
+    {
+      "id": "grip",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        2.8,
+        2.4,
+        6.5
+      ],
+      "at": [
+        9.4,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "receiver",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        14,
+        3.4,
+        6.4
+      ],
+      "at": [
+        18,
+        0,
+        1.8
+      ],
+      "panels": [
+        {
+          "face": "right",
+          "at": [
+            8,
+            4.2
+          ],
+          "size": [
+            5,
+            2
+          ],
+          "style": "inset"
+        }
+      ]
+    },
+    {
+      "id": "barrel",
+      "kind": "cylinder",
+      "material": "black",
+      "radius": 1.15,
+      "height": 18.5,
+      "sides": 10,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        11.5,
+        0,
+        8.4
+      ]
+    },
+    {
+      "id": "magazine",
+      "kind": "cylinder",
+      "material": "black",
+      "radius": 0.65,
+      "height": 14.5,
+      "sides": 6,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        12.5,
+        0,
+        6.6
+      ]
+    },
+    {
+      "id": "pump",
+      "kind": "superquadric",
+      "material": "wood",
+      "size": [
+        8,
+        3.6,
+        4.2
+      ],
+      "round": [
+        0.3,
+        0.3
+      ],
+      "at": [
+        23.5,
+        0,
+        3.2
+      ],
+      "bone": "Bone01"
+    },
+    {
+      "id": "front_sight",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        0.5,
+        0.5,
+        1.1
+      ],
+      "at": [
+        29,
+        0,
+        9.55
+      ]
+    },
+    {
+      "id": "trigger_guard",
+      "kind": "tube",
+      "material": "black",
+      "sides": 6,
+      "path": [
+        [
+          12.5,
+          0,
+          1.9,
+          0.3
+        ],
+        [
+          12.5,
+          0,
+          0.8,
+          0.3
+        ],
+        [
+          16,
+          0,
+          0.8,
+          0.3
+        ],
+        [
+          16,
+          0,
+          1.9,
+          0.3
+        ]
+      ],
+      "at": [
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

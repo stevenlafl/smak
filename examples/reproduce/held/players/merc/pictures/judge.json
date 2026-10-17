@@ -85,7 +85,7 @@
    "reproduction": 1296
   },
   "checkErrors": [],
-  "contract": "keeps every bone, animation, attachment and bodypart of the base"
+  "contract": "keeps the contract the mod's stock players share: their animations at their numbers, their shared bones, attachments and bodyparts"
  },
  "caps": {
   "M1": 2,
@@ -114,64 +114,64 @@
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Measured overlap passes (0.82 to 0.84 in all six views), but the outline differs at the legs. In the left, right and front-left/right views the reproduction's boots are square blocks with flat soles that stick out past the trouser legs, where the original's boots taper. The back view shows a bulkier right shoulder lump that the original lacks."
+   "reason": "Measured overlap is 0.82 to 0.84 in every view, so the outlines pass the 0.80 line. The side views still differ at the feet: in left/right (the reproduction's boots in those views) the boots are squared-off blocks with flat bottoms, where the original's taper to a point. The below view shows a square notch at the upper right that the original lacks. Those outline differences are real, not paint, so M1 is 1."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured size is within 10% on every axis: width 25.3 against 23.7 (6.9%), depth 22.2 against 22.0, height 69.2 against 69.4. Visually the proportions agree."
+   "reason": "Measured size: length 25.3 vs 23.7 (6.9% off), width 22.2 vs 22.0 (0.8%), height 69.2 vs 69.4 (0.4%). All within 10%."
   },
   "M3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Parts list for the original: balaclava, black short-sleeve top, vest with yellow lettering front and back, a row of gold studs across the chest pouch, belt, fingerless gloves, forearm tattoos, cargo trousers, knee pouches with straps, laced boots. Found in the reproduction: mask, vest, lettering, gloves, belt, trousers, knee pouches. Not matched: the chest stud row is faint and not clearly a row of separate studs in the front-right view, and the boots are blocky with box soles instead of the original's tapered, laced shape. Small parts missing or wrong, so at most 1."
+   "reason": "The original's boots have laces and eyelets on the front and sides (visible in the front and front-left views), and the reproduction's boots read as plain dark shapes without them. The boot shape itself is wrong: blocks with flat soles in the left and right views, not the original's tapered boots. The row of gold studs on the chest (front view) is faint in the reproduction. Small parts missing and a wrong boot form cap M3 at 1. Vest, mask, gloves, pants pockets and knee pads are present."
   },
   "M4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured colour difference inside the shared outline is 2.3 to 3.7 CIE76 in every view, mean 3.1, well under 15. Black vest and top, grey-white camo trousers, black boots, skin and tattoos all read as the original's colours and materials."
+   "reason": "Measured colour difference is 3.1 mean delta E, with 2.3 to 3.7 in every view and shared outline 0.79 to 0.84. Black vest, black mask and boots, grey-white camo trousers and skin with tattoos match the original's regions in all views."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Lettering on the back and front of the vest is present but softer than the original's. The chest studs are fainter and the forearm tattoos blur at the front view's size. The camo wear and boot scuffing are close."
+   "reason": "The SIX lettering on the back and the forearm tattoos are present, but softer and less sharp than the original's (visible at the back and front-right views). The camo on the trousers has less contrast and less wear, and the chest studs are blurred. Not a must-have item."
   },
   "M6": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Side by side at game size the reproduction reads as the same character, but the blocky boot soles, the splayed legs in the left and right views, and the bulkier shoulder would let a player tell them apart. The dive also runs a different length (35 frames against 22), so it does not look like the original in motion."
+   "reason": "Side by side at game size it reads as the same character, but a player comparing the two would notice the blockier boots and the squared-off feet in the side views (left and right), and the softer markings. Judged on the side-by-side only, not the line-up."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Front faces the front view's direction, stands upright, and the feet sit at the same ground level as the original's (heights 69.2 against 69.4). The origin and placement agree."
+   "reason": "The front is the original's front, the figure stands upright with both feet on the ground in the front and back views, and it stands on its origin as the original does."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "SMAK's checks report no errors. Triangles are 1296 against the original's 873, a ratio of 1.48, under the 2x limit. No open, inverted or floating geometry is visible at this resolution, though the blocky soles are a shape fault under M1 and M3."
+   "reason": "The SMAK check reports no errors. Triangles are 1296 against the original's 873 (1.48 times, under 2 times). No open, inside-out or floating parts are visible in any view."
   },
   "C1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "In the run, the limbs stay attached and the arm swing matches the original closely. The forward dive does not move as the original's does: the reproduction starts upright with an arm out, where the original starts crouched, and it runs 35 frames against the original's 22. In the dive's later frames the legs splay and the boots look detached at the soles."
+   "score": 2,
+   "reason": "Run (30 frames), attack (20 frames) and forward dive (35 frames) all play with the parts on the body. The arms, legs and boots move with the torso in each frame, and nothing comes apart, sinks or floats."
   },
   "C2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measurements give the contract as keeping every bone, animation, attachment and bodypart of the base, with checkErrors empty. The pictures cannot check bones or attachments themselves, so this rests on the measurement's statement, which I have taken as the compareContract result."
+   "reason": "The contract is reported as kept, and checkErrors is empty. The run, attack and dive all play at their numbers, which indicates the bones and animations are in place. I cannot confirm bone-by-bone attachments from the pictures, so this rests on the reported contract and the playback."
   }
  },
- "total": 15,
+ "total": 16,
  "of": 20,
  "passes": false
 }

@@ -1,0 +1,383 @@
+{
+  "spec": "smak.model/1",
+  "name": "merc.mdl",
+  "kind": "character",
+  "base": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "contract": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "floor": -36,
+  "size": {
+    "height": 69
+  },
+  "materials": {
+    "jacket": {
+      "base": "leather",
+      "tone": "dark olive"
+    },
+    "trousers": {
+      "base": "cloth",
+      "tone": "dark khaki"
+    },
+    "boots": {
+      "base": "leather",
+      "tone": "dark brown"
+    },
+    "skin": {
+      "base": "cloth",
+      "tone": [
+        0.74,
+        0.58,
+        0.46
+      ]
+    },
+    "stubble": {
+      "base": "cloth",
+      "tone": "dark brown"
+    },
+    "hair": {
+      "base": "cloth",
+      "tone": "dark brown"
+    },
+    "lens": {
+      "base": "glass",
+      "tone": [
+        0.04,
+        0.04,
+        0.05
+      ]
+    },
+    "gear": {
+      "base": "leather",
+      "tone": "black"
+    }
+  },
+  "parts": [
+    {
+      "id": "jacket_body",
+      "kind": "blob",
+      "material": "jacket",
+      "triangles": 120,
+      "pieces": [
+        {
+          "span": [
+            "Bip01 Bacino",
+            "Bip01 Dorso1"
+          ],
+          "radius": 7
+        },
+        {
+          "span": [
+            "Bip01 Dorso1",
+            "Bip01 Dorso3"
+          ],
+          "radius": 6
+        },
+        {
+          "span": [
+            "Bip01 Dorso1",
+            "Bip01 Dorso3"
+          ],
+          "radius": 5.5,
+          "offset": [
+            0,
+            2.5,
+            0
+          ]
+        },
+        {
+          "span": [
+            "Bip01 Dorso1",
+            "Bip01 Dorso3"
+          ],
+          "radius": 5.5,
+          "offset": [
+            0,
+            -2.5,
+            0
+          ]
+        },
+        {
+          "at": "Bip01 Dorso3",
+          "radius": 6
+        },
+        {
+          "at": "Bip01 SX Clavicola",
+          "radius": 4.8
+        }
+      ],
+      "symmetric": true
+    },
+    {
+      "id": "sleeves",
+      "kind": "blob",
+      "material": "jacket",
+      "triangles": 120,
+      "pieces": [
+        {
+          "at": "Bip01 SX Braccio superiore",
+          "radius": 4.6
+        },
+        {
+          "span": [
+            "Bip01 SX Braccio superiore",
+            "Bip01 SX Avambraccio"
+          ],
+          "radius": 4.2
+        },
+        {
+          "span": [
+            "Bip01 SX Avambraccio",
+            "Bip01 SX Mano"
+          ],
+          "radius": 3.4
+        }
+      ],
+      "symmetric": true
+    },
+    {
+      "id": "hands",
+      "kind": "blob",
+      "material": "skin",
+      "triangles": 60,
+      "pieces": [
+        {
+          "at": "Bip01 SX Mano",
+          "radius": 2.6
+        },
+        {
+          "span": [
+            "Bip01 SX Mano",
+            "Bip01 Dito mano SX1"
+          ],
+          "radius": [
+            2.2,
+            1.4
+          ]
+        }
+      ],
+      "symmetric": true
+    },
+    {
+      "id": "neck",
+      "kind": "blob",
+      "material": "skin",
+      "triangles": 40,
+      "pieces": [
+        {
+          "span": [
+            "Bip01 Collo",
+            "Bip01 Testa"
+          ],
+          "radius": 3.4
+        }
+      ]
+    },
+    {
+      "id": "head",
+      "kind": "superquadric",
+      "material": "skin",
+      "size": [
+        9,
+        7.5,
+        10
+      ],
+      "round": [
+        0.5,
+        0.6
+      ],
+      "sides": 8,
+      "texels": 2,
+      "attach": {
+        "bone": "Bip01 Testa",
+        "at": "centre",
+        "offset": [
+          0,
+          0,
+          2.5
+        ]
+      }
+    },
+    {
+      "id": "stubble",
+      "kind": "box",
+      "material": "stubble",
+      "size": [
+        0.4,
+        6.5,
+        2.6
+      ],
+      "paint": true,
+      "attach": {
+        "to": "head",
+        "toAt": "front",
+        "at": "centre",
+        "offset": [
+          0.2,
+          0,
+          -3
+        ]
+      }
+    },
+    {
+      "id": "hair",
+      "kind": "box",
+      "material": "hair",
+      "size": [
+        6,
+        6,
+        0.5
+      ],
+      "paint": true,
+      "attach": {
+        "to": "head",
+        "toAt": "top",
+        "at": "centre"
+      }
+    },
+    {
+      "id": "lenses",
+      "kind": "box",
+      "material": "lens",
+      "size": [
+        0.6,
+        6.4,
+        1.8
+      ],
+      "finish": false,
+      "attach": {
+        "to": "head",
+        "toAt": "front",
+        "at": "centre",
+        "offset": [
+          0,
+          0,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "trousers",
+      "kind": "blob",
+      "material": "trousers",
+      "triangles": 120,
+      "pieces": [
+        {
+          "at": "Bip01 Bacino",
+          "radius": 6.5
+        },
+        {
+          "span": [
+            "Bip01 SX Coscia",
+            "Bip01 SX Polpaccio"
+          ],
+          "radius": 5
+        },
+        {
+          "span": [
+            "Bip01 SX Polpaccio",
+            "Bip01 SX Piede"
+          ],
+          "radius": 4
+        }
+      ],
+      "symmetric": true
+    },
+    {
+      "id": "cargo_pocket",
+      "kind": "box",
+      "material": "trousers",
+      "size": [
+        0.6,
+        4.5,
+        5.5
+      ],
+      "paint": true,
+      "attach": {
+        "bone": "Bip01 SX Coscia",
+        "at": "centre",
+        "offset": [
+          0,
+          5,
+          -6
+        ]
+      },
+      "mirror": "y"
+    },
+    {
+      "id": "boot_l",
+      "kind": "superquadric",
+      "material": "boots",
+      "size": [
+        13,
+        7,
+        10
+      ],
+      "round": [
+        0.3,
+        0.4
+      ],
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 SX Piede",
+        "at": "bottom",
+        "offset": [
+          3,
+          0,
+          -4
+        ]
+      }
+    },
+    {
+      "id": "boot_r",
+      "kind": "superquadric",
+      "material": "boots",
+      "size": [
+        13,
+        7,
+        10
+      ],
+      "round": [
+        0.3,
+        0.4
+      ],
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 DX Piede",
+        "at": "bottom",
+        "offset": [
+          3,
+          0,
+          -4
+        ]
+      }
+    },
+    {
+      "id": "pouch_l",
+      "kind": "superquadric",
+      "material": "gear",
+      "size": [
+        3.6,
+        3,
+        4.2
+      ],
+      "round": [
+        0.2,
+        0.2
+      ],
+      "sides": 8,
+      "attach": {
+        "bone": "Bip01 Dorso",
+        "at": "centre",
+        "offset": [
+          0,
+          8,
+          0
+        ]
+      },
+      "mirror": "y"
+    }
+  ]
+}

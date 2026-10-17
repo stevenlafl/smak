@@ -3,108 +3,118 @@
   "name": "crowbar.mdl",
   "kind": "held",
   "size": {
-    "length": 24
+    "length": 32
   },
   "weapon": {
-    "like": "crowbar",
-    "size": "own"
+    "like": "crowbar"
   },
   "materials": {
     "red": {
       "base": "paint",
-      "tone": [
-        0.62,
-        0.08,
-        0.06
-      ]
+      "tone": "deep red"
     },
     "steel": {
       "base": "steel"
     }
   },
-  "finish": {
-    "wear": 0.5,
-    "grime": 0.1
-  },
   "parts": [
     {
-      "id": "grip",
-      "kind": "cylinder",
-      "material": "steel",
-      "sides": 8,
-      "radius": 0.9,
-      "height": 7.5,
-      "rotate": [
-        0,
-        90,
-        0
-      ]
-    },
-    {
-      "id": "shaft",
+      "id": "bar",
       "kind": "tube",
       "material": "red",
-      "sides": 8,
       "path": [
         [
-          7,
           0,
           0,
-          0.85
+          0,
+          0.55
         ],
         [
-          18.5,
+          24.5,
           0,
           0,
-          0.7
+          0.55
+        ],
+        [
+          27,
+          0,
+          0,
+          0.55
+        ],
+        [
+          29,
+          0,
+          0.9,
+          0.5
+        ],
+        [
+          30.8,
+          0,
+          2.6,
+          0.45
+        ],
+        [
+          31,
+          0,
+          4.8,
+          0.4
         ]
-      ]
+      ],
+      "sides": 8
     },
     {
-      "id": "hook",
+      "id": "grip_worn",
       "kind": "tube",
-      "material": "red",
-      "sides": 8,
+      "material": "steel",
+      "paint": true,
       "path": [
         [
-          18,
           0,
           0,
-          0.7
+          0,
+          0.6
         ],
         [
-          21,
+          2.5,
           0,
           0,
-          0.65
+          0.6
+        ]
+      ],
+      "sides": 8
+    },
+    {
+      "id": "hook_worn",
+      "kind": "tube",
+      "material": "steel",
+      "paint": true,
+      "path": [
+        [
+          27.5,
+          0,
+          0,
+          0.6
         ],
         [
-          22.8,
+          29.2,
           0,
           1,
-          0.6
-        ]
-      ]
-    },
-    {
-      "id": "claw",
-      "kind": "tube",
-      "material": "steel",
-      "sides": 8,
-      "path": [
-        [
-          22.5,
-          0,
-          0.8,
-          0.6
+          0.56
         ],
         [
-          23.8,
+          30.9,
           0,
           2.8,
-          0
+          0.5
+        ],
+        [
+          31.2,
+          0,
+          4.8,
+          0.45
         ]
-      ]
+      ],
+      "sides": 8
     }
   ]
 }

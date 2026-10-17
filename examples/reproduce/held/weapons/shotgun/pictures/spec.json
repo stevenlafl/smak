@@ -1,66 +1,35 @@
 {
   "spec": "smak.model/1",
-  "name": "shotgun.mdl",
+  "name": "shotgun-own.mdl",
   "kind": "held",
   "weapon": {
     "like": "shotgun",
-    "size": "own",
-    "turn": "as drawn"
+    "size": "own"
   },
   "size": {
     "length": 40.8,
     "width": 13.4,
     "height": 5.2
   },
-  "texture": {
-    "width": 512,
-    "height": 512
-  },
-  "smooth": 80,
   "materials": {
-    "gun": {
-      "base": "iron",
-      "tone": [
-        0.16,
-        0.18,
-        0.18
-      ]
+    "gunmetal": {
+      "base": "steel",
+      "tone": "dark grey"
     }
   },
   "parts": [
     {
       "id": "gun",
       "kind": "carved",
-      "material": "gun",
+      "material": "gunmetal",
       "size": [
         40.8,
         13.4,
         5.2
       ],
-      "cells": 240,
       "sheet": "work:pictures/sides.png",
-      "pictures": [
-        {
-          "picture": "work:pictures/front-left.png",
-          "yaw": 35,
-          "pitch": 20
-        },
-        {
-          "picture": "work:pictures/front-right.png",
-          "yaw": -35,
-          "pitch": 20
-        },
-        {
-          "picture": "work:pictures/back-left.png",
-          "yaw": 145,
-          "pitch": 20
-        },
-        {
-          "picture": "work:pictures/back-right.png",
-          "yaw": 215,
-          "pitch": 20
-        }
-      ]
+      "cells": 128,
+      "triangles": 480
     }
   ],
   "project": [

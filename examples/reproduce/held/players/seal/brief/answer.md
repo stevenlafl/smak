@@ -1,29 +1,32 @@
-The model is built and the build says **OK**. It is at `work:seal.mdl`, with its spec beside it at `work:seal.spec.json`.
+The model is built and the build says **OK: built, and every check passed**. It is `work:seal.mdl`, made from the spec in `work:seal.json`.
 
 **What it is**
 
-- A character on the mod's own `player/gordon/gordon.mdl` skeleton. The build keeps its 34 bones, all 171 animations in their order, its 4 attachments and its single body, and the contract check passes.
-- Built to about 70 units tall (the report measures 73.3 high, within the 10% tolerance).
-- 836 triangles, against 817 for the base body. That is well under the limit of twice the base.
-- Parts:
-  - **Fatigues:** one smooth body covering the torso, arms and legs, in a dark olive "dirt" material.
-  - **Vest:** a dark near-black olive vest over the chest, with two chest pouches.
-  - **Balaclava:** a black hood on the head bone.
-  - **Boots:** black leather, one per foot.
-  - **Gloves:** black leather mitts on the hands, without separate fingers.
-- Its `contract` is `{ file: "player/gordon/gordon.mdl" }`.
+A character on the skeleton of `player/gordon/gordon.mdl`, named `seal.mdl`. It keeps the base's 34 bones and all 171 animations, and the contract with the mod's code is kept: bones, animations in order, attachments and bodyparts. The spec has `contract: { file: "player/gordon/gordon.mdl" }`, so the build checks it.
 
-**How I made it**
+| Part | Material | How it is built |
+| --- | --- | --- |
+| Fatigue jacket and sleeves | muted olive cloth | soft blob over the torso and arms |
+| Fatigue trousers | muted olive cloth | soft blob over the hips and legs |
+| Dark vest, front and back | dark olive cloth | two squared plates on the chest |
+| Vest pouches (two per side) | dark olive cloth | small squared boxes on the vest |
+| Boots | black leather | squared blocks on the calves, reaching the feet |
+| Gloves | near-black cloth | soft blobs on the hands |
+| Balaclava | black cloth | squared shape over the head |
 
-I wrote a spec of kind `character` on the base, placed the parts on the base's bones, and built and checked it through the tool. The first attempt failed on triangles (16-sided superquadrics), so I cut the sides and rebuilt. The rest of the iterations were about placing the vest and tones.
+It is 712 triangles against the base's 817, and the report puts it at 76.4 units tall, about 6 over the 70 asked for. That is within the 10% the build allows.
 
-**Where it falls short of the request**
+**How I got there**
 
-- **Camouflage:** there is no real camo pattern. The fatigues are a dark, mottled olive. I tried painting darker and tan blotches onto the suit, but they barely painted (151 texels) and read as stray rings, so I took them out.
-- **Balaclava:** it is a solid black hood with no eye or mouth openings.
-- **Texture:** the build warns that the fatigue texture has too little grain next to Half-Life's own models (0.037 against 0.147). It is a warning, not a fault.
-- **Stance:** the body follows the base's first frame, which leans forward more than a standing man. In the side-by-side render with Gordon, the seal looks more hunched.
+The first builds failed on four things, and I fixed each one:
+- The body had too many normals for the engine (2,352 against 2,048), so I capped the soft parts' triangle counts and cut the sides of the squared parts.
+- The pouches and boots were far too heavy, so I reduced them.
+- The boots and one pouch came apart in some frames, so I moved their anchors to the calf and chest bones.
+- The vest sat inside the jacket, so I moved it out so it shows.
 
-**Side by side with Gordon:** I rendered the base and the seal next to each other (`work:seal-vs-gordon.png`). The base is in its trench coat and the seal in its fatigues, at a similar height. My own read is that it is a credible low-poly stand-in, but the black hood and the lean make it look less finished than Half-Life's own. Whether it is "at least as good" is for your modder to judge in the game, and the lean and the camo are the two things most worth checking.
+**What to check in the game**
 
-**To use it:** copy `work:seal.mdl` to the mod's `models/player/seal/seal.mdl`. The mod's code plays the animations by name and number, which this build keeps.
+- The build checked the walk, run, crouch and jump holds. I did not see every stunt, dive, roll and wall jump in a render, so please run those in-game.
+- I did not compare it side by side with Half-Life's own seal model. Judging whether it is "at least as good" is yours to make.
+- The look is plain: a flat olive suit, black balaclava and boots, with no face, no fingers and few small details. The vest pouches are small.
+- The base the build read is the copy in the Half-Life `ts` folder (`ts/models/player/gordon/gordon.mdl`), not a copy from the mod's own folder. It has the 171 animations you described, but if the mod has its own `gordon.mdl` with a different skeleton, the spec's base should point at that file and the model should be rebuilt.
